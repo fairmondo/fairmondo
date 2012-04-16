@@ -1,0 +1,11 @@
+<%= semantic_form_for @auction do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs do %>
+    <%= f.input :title,   :hint => "Enter the auction's title" %>
+    <%= f.input :content, :hint => "Enter the auction's content" %>
+     <%= f.input :imagePath, :hint => "Enter the auction's imagePath" %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button :button_html => {:class => "primary"} %>
+  <% end %>
+<% end %>
