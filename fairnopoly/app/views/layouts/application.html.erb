@@ -56,19 +56,13 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span10">
+        	 <% flash.each do |type, msg| -%>
+        	 <div class="row-fluid">
+        		<a class="close" data-dismiss="alert">×</a>
+        		<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" > <%= msg %></p>
+        	</div>
+        	<%end%>
         	
-        	<%  if flash[:notice]%>
-        	<div class="row-fluid">
-        		 <a class="close" data-dismiss="alert">×</a>
-        		<p class="alert alert-success"><%= notice %></p>
-        	</div>
-        	<%end%>
-        	<%  if flash[:alert]%>
-        	<div class="row-fluid">
-        		 <a class="close" data-dismiss="alert">×</a>
-       			<p class="alert alert-error"><%= alert %></p>
-        	</div>
-        	<%end%>
         	
           <div class="hero-unit">
             	<%= yield %>
