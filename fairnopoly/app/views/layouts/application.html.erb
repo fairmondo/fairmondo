@@ -19,7 +19,11 @@
           </a>
           <a class="brand" href="#">fairnopoly.de</a>
           <div class="nav-collapse">
-             <%= tabs %>     
+             <%= tabs %>  
+             
+            <form class="navbar-search pull-left" action="search">
+            <input type="text" class="search-query span4" placeholder="Search">
+          	</form>   
                     
              <p align="right"><%= render 'devise/menu/login_items' %> &nbsp;
              <%= render 'devise/menu/registration_items' %> 
