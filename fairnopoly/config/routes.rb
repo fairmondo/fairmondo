@@ -6,6 +6,8 @@ Fairnopoly::Application.routes.draw do
   get "welcome/index"
 
   match 'dashboard' => 'dashboard#index'
+  
+  match 'search' => 'search#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
