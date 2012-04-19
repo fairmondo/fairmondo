@@ -17,12 +17,19 @@
           </a>
           <a class="brand" href="#">fairnopoly.de</a>
           <div class="nav-collapse">
-             <%= tabs %>
-            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+             <%= tabs %>            
+             <p align="right"><%= render 'devise/menu/login_items' %> &nbsp;
+             <%= render 'devise/menu/registration_items' %> </p>
+             	<p class="navbar-text pull-right"> Logged in as <a><%= render 'devise/menu/currentUser_items' %></a></p>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
+	
+	<div >
+	<p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+	</div>
 
     <div class="container-fluid">
       <div class="row-fluid">
@@ -30,9 +37,10 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+
+              <li class="active"><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
               <li><a href="#">Link</a></li>
               <li class="nav-header">Sidebar</li>
               <li><a href="#">Link</a></li>
