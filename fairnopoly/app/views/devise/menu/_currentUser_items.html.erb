@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+
+  <a href="#"><%= link_to( current_user.email , edit_user_registration_path) %></a>
+
+<% end %>
