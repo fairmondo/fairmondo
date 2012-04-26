@@ -21,13 +21,16 @@
           <div class="nav-collapse">
              <%= tabs %>  
              
-            <form class="navbar-search pull-left" action="search">
-            <input type="text" class="search-query span4" placeholder="Search">
+            <form class="navbar-search pull-left" action="/search" method="post">
+            <input type="text" name="search" class="search-query span4" placeholder="Search">
           	</form>   
                     
-             <p align="right"><%= render 'devise/menu/login_items' %> &nbsp;
+             <p align="right"> 
+             <%if signed_in? %> Logged in as <a><%= render 'devise/menu/currentUser_items' %></a> <br/><%end%>
+            
+             <%= render 'devise/menu/login_items' %> &nbsp;
              <%= render 'devise/menu/registration_items' %> 
-             	 Logged in as <a><%= render 'devise/menu/currentUser_items' %></a></p>
+             </p>
              	
           </div><!--/.nav-collapse -->
         </div>
