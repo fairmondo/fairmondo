@@ -1,1 +1,30 @@
-<h1>Dashboard comming soon!</h1>
+<h1>Dashboard</h1>
+
+<hr>
+<h2> Friends </h2>
+
+<hr>
+<h2> Auctions </h2>
+
+	<h3>Buying</h3>
+	
+	<h3>Selling</h3>
+	<table class="table table-bordered">
+		  <tr>
+		    <th>Title</th>
+		    <th>Content</th>
+		    <th>Imagepath</th>   
+		  </tr>
+	
+		<% @auctions.each do |auction| %>
+		  <tr>
+		    <td><%= auction.title %></td>
+		    <td><%= auction.content %></td>
+		    <td><%= auction.imagePath %></td>
+		  </tr>
+		<% end %>
+	</table>
+
+<hr>
+<h2> Timeline </h2>
+
