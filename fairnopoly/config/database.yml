@@ -19,6 +19,7 @@ test:
 production:
   adapter: jdbcmysql
   encoding: utf8
+  host: localhost
   database: fairnopoly
   username: fairnopoly
   password: quosmysql7
