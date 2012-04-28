@@ -1,1 +1,6 @@
 config/database.yml
+.project
+db/*
+log/*
+tmp/*
+

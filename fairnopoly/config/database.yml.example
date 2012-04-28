@@ -22,4 +22,4 @@ production:
   host: localhost
   database: fairnopoly
   username: fairnopoly
-  password: quosmysql7
+  password: 
