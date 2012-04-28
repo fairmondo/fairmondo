@@ -6,6 +6,9 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
+gem 'activerecord-jdbc-adapter', '0.9.7' 
+gem 'activerecord-jdbcmysql-adapter', '0.9.7' 
+gem 'jdbc-mysql', :require => false 
 
 gem 'json'
 gem 'formtastic', " ~> 2.1.1"
