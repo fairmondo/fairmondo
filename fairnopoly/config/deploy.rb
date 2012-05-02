@@ -1,4 +1,4 @@
-#require 'bundler/capistrano'
+require 'bundler/capistrano'
 require 'torquebox-capistrano-support'
 require "rvm/capistrano"
 
