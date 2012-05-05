@@ -1,13 +1,21 @@
 Fairnopoly::Application.routes.draw do
+  resources :userevents
+
+  resources :events
+
   devise_for :users
 
-  resources :auctions
+  resources :auctions do
+    #recources :userevents
+  end
 
   get "welcome/index"
 
   match 'dashboard' => 'dashboard#index'
   
   match 'search' => 'search#search'
+  
+  match 'event' => 'userevents#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

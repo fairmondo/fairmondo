@@ -1,3 +1,99 @@
-<h1>Dashboard comming soon!</h1>
-<h2>Actions<h2>
-	<%= link_to 'New Auction', new_auction_path %>
+<h1>Dashboard</h1>
+<div class="tabbable">
+	<!-- Only required for left/right tabs -->
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab1" data-toggle="tab">Friends</a>
+		</li>
+		<li>
+			<a href="#tab2" data-toggle="tab">Auctions</a>
+		</li>
+		<li>
+			<a href="#tab3" data-toggle="tab">Timeline</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		
+		<div class="tab-pane active" id="tab1">
+			
+				<h2> Friends </h2>
+				
+				
+		</div>
+		
+		<div class="tab-pane" id="tab2">
+			<h2> Auctions </h2> <hr />
+			<h3>Buying</h3> <hr />
+			<h3>Selling</h3>
+			<table class="table table-bordered">
+				<tr>
+					<th>Title</th>
+					<th>Content</th>
+					<th>Imagepath</th>
+				</tr>
+				<% @auctions.each do |auction| %>
+				<tr>
+					<td><%= auction.title %></td>
+					<td><%= auction.content %></td>
+					<td><%= auction.imagePath %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+		
+		<div class="tab-pane" id="tab3">
+			
+			<h2> Timeline </h2>
+			
+			<table width="100%">
+				<tr valign="top">
+				<td width="90%" height="100%">
+					<div align="middle" >
+					<!--TODO: create TimeLine Data:
+						Registration, Auctions, Friends, 
+						 -->
+					<table class="table table-bordered">
+						<tr name="now" id ="now" ><td>Logged in since: <%=current_user.current_sign_in_at%></td></tr>
+						<tr><td>Since your Registration you logged in <%=current_user.sign_in_count%> times.</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						<tr><td>...</td></tr>
+						
+						
+						<tr name="registrated" id ="registrated"><td>Registration: </td></tr>
+						<tr><td>Date: <%=current_user.created_at%></td></tr>
+						<tr><td>E-Mail: <%=current_user.email%></td></tr>
+						
+					</table>
+					</div>
+				</td>
+				
+				<td width="10%">
+						<div align="right">
+							<ul class="nav nav-tabs nav-stacked">
+								
+								<li class="active">
+									<a href="#now">Now</a>
+								</li>
+								<li>
+									<a href="#">...</a>
+								</li>
+								<!--TODO: list all the Timeline Stuff! -->
+								<li>
+									<a href="#registrated"><%=current_user.created_at.strftime("%B %Y")%></a>
+								</li>
+								
+							</ul>
+						</div>
+				</td>
+				
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+>>>>>>> bb669ec69eac20cd846eb68e5ce2f17c086bf506
