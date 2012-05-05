@@ -5,8 +5,11 @@ gem 'rails', '3.2.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
 gem 'jruby-openssl'
+gem 'activerecord-jdbc-adapter', '1.2.2' 
+gem 'activerecord-jdbcmysql-adapter', '1.2.2' 
+gem 'jdbc-mysql', :require => false 
+
 gem 'json'
 gem 'formtastic', " ~> 2.1.1"
 gem 'formtastic-bootstrap'

@@ -17,5 +17,9 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: jdbcsqlite3
-  database: db/production.sqlite3
+  adapter: jdbcmysql
+  encoding: utf8
+  host: localhost
+  database: fairnopoly
+  username: fairnopoly
+  password: 
