@@ -59,8 +59,8 @@ Tabulous.setup do |config|
       #-------------------------------------------------------------------------------------------------------#
       [    :welcome_tab     ,    'Welcome'       ,    root_path             ,    true        ,    true        ],
       [    :auctions_tab    ,    'Auctions'      ,    auctions_path         ,    true        ,    true        ],
-      [    :dashboard_tab   ,    'Dashboard'     ,    dashboard_path       ,    true        ,    true        ],
-     
+      [    :dashboard_tab   ,    'Dashboard'     ,    dashboard_path       ,     signed_in?        ,    true        ],
+      
       #-------------------------------------------------------------------------------------------------------#
       #    TAB NAME         |    DISPLAY TEXT    |    PATH                  |    VISIBLE?    |    ENABLED?    #
       #-------------------------------------------------------------------------------------------------------#

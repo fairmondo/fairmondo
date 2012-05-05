@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   
+  before_filter :authenticate_user!
   # GET /auctions
   # GET /auctions.json
   def index

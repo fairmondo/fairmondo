@@ -11,7 +11,7 @@
  *= require_self
  *= require_tree .
 */
-
+*= require formtastic-bootstrap
 
 /* LOGIn Style*/
 

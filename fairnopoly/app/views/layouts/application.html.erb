@@ -21,13 +21,16 @@
           <div class="nav-collapse">
              <%= tabs %>  
              
-            <form class="navbar-search pull-left" action="search">
-            <input type="text" class="search-query span4" placeholder="Search">
+            <form class="navbar-search pull-left" action="/search" method="post">
+            <input type="text" name="search" class="search-query span4" placeholder="Search">
           	</form>   
                     
-             <p align="right"><%= render 'devise/menu/login_items' %> &nbsp;
+             <p align="right"> 
+             <%if signed_in? %> Logged in as <a><%= render 'devise/menu/currentUser_items' %></a> <br/><%end%>
+            
+             <%= render 'devise/menu/login_items' %> &nbsp;
              <%= render 'devise/menu/registration_items' %> 
-             	 Logged in as <a><%= render 'devise/menu/currentUser_items' %></a></p>
+             </p>
              	
           </div><!--/.nav-collapse -->
         </div>
@@ -61,19 +64,13 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span10">
+        	 <% flash.each do |type, msg| -%>
+        	 <div class="row-fluid">
+        		<a class="close" data-dismiss="alert">×</a>
+        		<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" > <%= msg %></p>
+        	</div>
+        	<%end%>
         	
-        	<%  if flash[:notice]%>
-        	<div class="row-fluid">
-        		 <a class="close" data-dismiss="alert">×</a>
-        		<p class="alert alert-success"><%= notice %></p>
-        	</div>
-        	<%end%>
-        	<%  if flash[:alert]%>
-        	<div class="row-fluid">
-        		 <a class="close" data-dismiss="alert">×</a>
-       			<p class="alert alert-error"><%= alert %></p>
-        	</div>
-        	<%end%>
         	
           <div class="hero-unit">
             	<%= yield %>
