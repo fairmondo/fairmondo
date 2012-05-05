@@ -1,4 +1,5 @@
 class AuctionsController < ApplicationController
+
   # GET /auctions
   # GET /auctions.json
   def index
