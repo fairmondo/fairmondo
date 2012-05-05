@@ -1,5 +1,50 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+# Common Texts
+  common:
+    brand: "fairnopoly.de"
+    actions:
+      back: "Back"
+      show: "Show"
+      edit: "Edit"
+    text:
+      hello: "Hello"
+      email: "E-Mail"
+      password: "Password"
+      login: "Sign In"
+      search: "Search"
+# Formtastic     
+  formtastic: 
+# Login 
+    actions:
+      login: "Login"
+# User Model/Controller
+  user:
+    remember: "Remember me"
+    hints:
+      email: "Enter your email address"
+    confirmation:
+      resend: "Resend confirmation instructions"
+      text: "You can confirm your account email through the link below:"
+      link: "Confirm my account"
+    reset:
+      text: "Someone has requested a link to change your password, and you can do this through the link below."
+      link: "Change my password"
+      ignoremail: "If you didn't request this, please ignore this email."
+      info: "Your password won't change until you access the link above and create a new one."
+      request: "Send me reset password instructions"
+      title: "Forgot your password?"
+    unlock:
+      info: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
+      linktext: "Click the link below to unlock your account:"
+      link: "Unlock my account"
+# Auction Model/Controller
+  auction:
+    notices:
+      create: "Auction was successfully created."
+      update: "Auction was successfully updated."
+    hints:
+      title:  "Enter the auction's title"
+      content: "Enter a description for your auction"
+    titles:
+      new: "New Auction"  
+      edit: "Editing auction"  

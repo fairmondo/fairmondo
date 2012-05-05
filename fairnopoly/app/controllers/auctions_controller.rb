@@ -44,7 +44,7 @@ class AuctionsController < ApplicationController
 
     respond_to do |format|
       if @auction.save
-        format.html { redirect_to @auction, :notice => 'Auction was successfully created.' }
+        format.html { redirect_to @auction, :notice => (I18n.t 'auctions.notices.create') }
         format.json { render :json => @auction, :status => :created, :location => @auction }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class AuctionsController < ApplicationController
 
     respond_to do |format|
       if @auction.update_attributes(params[:auction])
-        format.html { redirect_to @auction, :notice => 'Auction was successfully updated.' }
+        format.html { redirect_to @auction, :notice => (I18n.t 'auctions.notices.update') }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

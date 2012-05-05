@@ -1,20 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Title:</b>
-  <%= @auction.title %>
-</p>
-
-<p>
-  <b>Content:</b>
+	
+  <h1><%= @auction.title %></h1>
+  <%= link_to image_tag(@auction.imagePath), @auction %>
+  <br/>
   <%= @auction.content %>
 </p>
 
-<p>
-  <b>Imagepath:</b>
-  <%= @auction.imagePath %>
-</p>
-
-
-<%= link_to 'Edit', edit_auction_path(@auction) %> |
-<%= link_to 'Back', auctions_path %>
+<%= link_to t('common.actions.edit'), edit_auction_path(@auction) %> |
+<%= link_to t('common.actions.back'), auctions_path %>

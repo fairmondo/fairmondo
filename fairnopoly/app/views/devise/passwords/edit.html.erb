@@ -1,11 +1,11 @@
-<h2>Forgot your password?</h2>
+<h2><%=t('user.reset.title') %></h2>
 <%= semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= f.semantic_errors %>
   <%= f.inputs do %>
-    <%= f.input :email, :hint =>"Enter your email address" %>
+    <%= f.input :email, :hint => t('user.hints.email') %>
   <% end %>
   <%= f.buttons do %>
-    <%= f.commit_button :button_html => {:class => "primary", :value => "Send me reset password instructions"} %>
+    <%= f.commit_button :button_html => {:class => "primary", :value => t('user.reset.requests')} %>
   <% end %>
 <% end %>
 

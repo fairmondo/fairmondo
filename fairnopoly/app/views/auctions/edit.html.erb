@@ -1,6 +1,6 @@
-<h1>Editing auction</h1>
+<h1><%= t('auction.titles.edit') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @auction %> |
-<%= link_to 'Back', auctions_path %>
+<%= link_to t('common.actions.show'), @auction %> |
+<%= link_to t('common.actions.back'), auctions_path %>
