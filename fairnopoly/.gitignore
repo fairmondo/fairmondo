@@ -2,5 +2,6 @@ config/database.yml
 .project
 db/*.sqlite3
 log/*
-tmp/*
-
+tmp
+db/schema.rb
+db/seeds.rb
