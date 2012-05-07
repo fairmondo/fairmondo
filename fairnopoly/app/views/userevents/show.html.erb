@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @userevent.title %>
+</p>
+
+<p>
+  <b>Kategory:</b>
+  <%= @userevent.kategory %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @userevent.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_userevent_path(@userevent) %> |
+<%= link_to 'Back', userevents_path %>
