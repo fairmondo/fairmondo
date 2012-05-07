@@ -25,6 +25,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
+    user_signed_in?
     @auction = Auction.new
     respond_to do |format|
       format.html # new.html.erb
@@ -34,12 +35,14 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1/edit
   def edit
+    user_signed_in?
     @auction = Auction.find(params[:id])
   end
 
   # POST /auctions
   # POST /auctions.json
   def create
+    user_signed_in?
     @auction = Auction.new(params[:auction])
     @auction.seller= current_user
     respond_to do |format|
@@ -56,6 +59,7 @@ class AuctionsController < ApplicationController
   # PUT /auctions/1
   # PUT /auctions/1.json
   def update
+    user_signed_in?
     @auction = Auction.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +76,7 @@ class AuctionsController < ApplicationController
   # DELETE /auctions/1
   # DELETE /auctions/1.json
   def destroy
+    user_signed_in?
     @auction = Auction.find(params[:id])
     @auction.destroy
 

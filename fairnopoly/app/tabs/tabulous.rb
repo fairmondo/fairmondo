@@ -57,9 +57,13 @@ Tabulous.setup do |config|
       #-------------------------------------------------------------------------------------------------------#
       #    TAB NAME         |    DISPLAY TEXT    |    PATH                  |    VISIBLE?    |    ENABLED?    #
       #-------------------------------------------------------------------------------------------------------#
-      [    :welcome_tab     ,    'Welcome'       ,    root_path             ,    true        ,    true        ],
-      [    :auctions_tab    ,    'Auctions'      ,    auctions_path         ,    true        ,    true        ],
-      [    :dashboard_tab   ,    'Dashboard'     ,    dashboard_path       ,     signed_in?        ,    true        ],
+     
+      [    :dashboard_tab   ,    glyphicons_inv("icon-home") + ' Home'              ,    dashboard_path       ,     signed_in?        ,    true        ],
+      [    :buy_tab         ,    glyphicons_inv("icon-shopping-cart") + ' Buy'      ,    auctions_path         ,    true        ,    true        ],
+      [    :sell_tab        ,    glyphicons_inv("icon-random") + ' Sell'           ,    new_auction_path         ,    true        ,    true        ],
+      [    :auctions_tab    ,    glyphicons_inv("icon-user") + ' Service'      ,    dashboard_path         ,    true        ,    true        ],
+      
+     
       
       #-------------------------------------------------------------------------------------------------------#
       #    TAB NAME         |    DISPLAY TEXT    |    PATH                  |    VISIBLE?    |    ENABLED?    #
@@ -86,8 +90,8 @@ Tabulous.setup do |config|
       #-------------------------------------------------------------#
       #    CONTROLLER    |    ACTION          |    TAB              #
       #-------------------------------------------------------------#
-      [    :auctions     ,    :all_actions    ,    :auctions_tab    ],
-      [    :welcome      ,    :all_actions    ,    :welcome_tab     ],
+      [    :auctions     ,    :new    ,            :sell_tab    ],
+      [    :auctions     ,    :index    ,          :buy_tab    ],
       [    :dashboard    ,    :all_actions    ,    :dashboard_tab     ],
       #-------------------------------------------------------------#
       #    CONTROLLER    |    ACTION          |    TAB              #

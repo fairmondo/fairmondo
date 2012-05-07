@@ -48,86 +48,30 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span2">
-					<div class="well sidebar-nav">
-						<ul class="nav nav-list">
-							<li class="nav-header">
-								Sidebar
-							</li>
-							<li class="active">
-								<a href="#"></a>
-							</li>
-							<li>
-								<a href="#"></a>
-							</li>
-							<li>
-								<a href="#"></a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li class="nav-header">
-								Sidebar
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li class="nav-header">
-								Sidebar
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-							<li>
-								<a href="#">Link</a>
-							</li>
-						</ul>
-					</div><!--/.well -->
-				</div><!--/span-->
-				<div class="span10">
-					<% flash.each do |type, msg| -%>
+			<div class="hero-unit">
+						This is a Global Information Hero
+			</div>
+			
+			<% flash.each do |type, msg| -%>
 					<div class="row-fluid">
 						<a class="close" data-dismiss="alert">×</a>
 						<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" >
 							<%= msg %>
 						</p>
 					</div>
-					<%end%>
-					<% if defined? hero %>
-					<div class="hero-unit">
-						This is a Global Information Hero
-					</div>
-					<%end%>
-					<div class="row-fluid">
-						<%= yield %>
-					</div><!--/row-->
-				</div><!--/span-->
-			</div><!--/row-->
+			<%end%>
+			
+			<div class="row-fluid">
+			<%= yield %>
+					
 			<hr>
 			<footer>
 				<p>
 					&copy; Company 2012
 				</p>
 			</footer>
-		</div><!--/.fluid-container-->
+			</div><!--/row-->
+			
+		</div><!--/.container-->
 	</body>
 </html>
