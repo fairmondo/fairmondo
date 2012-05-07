@@ -1,16 +1,23 @@
 <table class="table table-striped table-bordered table-condensed">
-<% @auctions.each do |auction| %>
-  <tr>
-  	<td>
-  	<div class="thumbnail">
-     	<%= link_to image_tag(auction.imagePath), auction %>
-    </div>
-    </td>
-    <td><%= link_to auction.title, auction %></td>
-    <td><%= link_to t('common.action.edit'), edit_auction_path(auction) %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th colspan="2">Auction</th>
+			<th>User</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @auctions.each do |auction| %>
+		<tr>
+			<td>
+			<div class="thumbnail">
+				<%= link_to image_tag(auction.imagePath), auction %>
+			</div></td>
+			<td><%= link_to auction.title, auction %></td>
+			<td><%= auction.seller.email %></td>
+			<td><i class="icon-edit"></i> <%= link_to t('common.action.edit'), edit_auction_path(auction) %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
-<%= link_to 'New Auction', new_auction_path %>
-
-
+<%= link_to 'New Auction', new_auction_path %> 

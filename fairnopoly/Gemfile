@@ -12,20 +12,21 @@ gem 'jdbc-mysql', :require => false
 
 gem 'json'
 gem 'formtastic', " ~> 2.1.1"
-gem 'formtastic-bootstrap'
+gem 'less'
+gem 'less-rails-bootstrap'
+gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
 gem 'tabulous'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'jdbc-sqlite3'
   gem 'activerecord-jdbcsqlite3-adapter'
-  gem 'bootstrap-sass'
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyrhino'
+  gem 'therubyrhino' , '~> 1.73.3'
 
   gem 'uglifier', '>= 1.0.3'
 end

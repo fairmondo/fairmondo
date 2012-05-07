@@ -10,11 +10,12 @@
  *
 require_self
  *= require_tree .
+ 
+
  *= require formtastic-bootstrap
+ *= require twitter/bootstrap
 */
 /* LOGIn Style*/
-
-
 
 ul.hmenu {
   list-style: none;	
@@ -25,3 +26,16 @@ ul.hmenu {
 ul.hmenu li {
   display: inline;  
 }
+
+/*
+ * Bootstrap Changes
+ */
+
+body {
+  padding-top: 60px;
+}
+
+.navbar-form label { 
+    display: inline; 
+    color: #999; 
+} 

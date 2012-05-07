@@ -26,7 +26,6 @@ class AuctionsController < ApplicationController
   # GET /auctions/new.json
   def new
     @auction = Auction.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @auction }
@@ -42,10 +41,10 @@ class AuctionsController < ApplicationController
   # POST /auctions.json
   def create
     @auction = Auction.new(params[:auction])
-
+    @auction.seller= current_user
     respond_to do |format|
       if @auction.save
-        format.html { redirect_to @auction, :notice => (I18n.t 'auctions.notices.create') }
+        format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
         format.json { render :json => @auction, :status => :created, :location => @auction }
       else
         format.html { render :action => "new" }
@@ -61,7 +60,7 @@ class AuctionsController < ApplicationController
 
     respond_to do |format|
       if @auction.update_attributes(params[:auction])
-        format.html { redirect_to @auction, :notice => (I18n.t 'auctions.notices.update') }
+        format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
