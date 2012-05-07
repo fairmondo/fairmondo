@@ -1,6 +1,6 @@
 config/database.yml
 .project
-db/*
+db/*.sqlite3
 log/*
 tmp/*
 
