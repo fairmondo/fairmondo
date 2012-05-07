@@ -1,4 +1,7 @@
 <%= semantic_form_for @auction, :html => { :class => "form-horizontal"}  do |f|  %>
+
+  <%= render 'categories_form' %>
+  
   <%= f.semantic_errors %>
   <%= f.inputs do %>
     <%= f.input :title,   :hint => t('auction.hints.title') %>

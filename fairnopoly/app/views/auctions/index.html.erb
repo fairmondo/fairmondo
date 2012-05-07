@@ -3,6 +3,9 @@
 		<tr>
 			<th colspan="2">Auction</th>
 			<th>User</th>
+			<th>Category</th>
+			<th>Alt-Cat1</th>
+			<th>Alt-Cat2</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -15,6 +18,9 @@
 			</div></td>
 			<td><%= link_to auction.title, auction %></td>
 			<td><%= auction.seller.email %></td>
+			<td><%= auction.category.name %></td>
+			<td><%= auction.alt_category_1.name rescue nil%></td>
+			<td><%= auction.alt_category_2.name rescue nil%></td>
 			<td><i class="icon-edit"></i> <%= link_to t('common.action.edit'), edit_auction_path(auction) %></td>
 		</tr>
 		<% end %>

@@ -60,7 +60,7 @@ Tabulous.setup do |config|
      
       [    :dashboard_tab   ,    glyphicons_inv("icon-home") + ' Home'              ,    dashboard_path       ,     signed_in?        ,    true        ],
       [    :buy_tab         ,    glyphicons_inv("icon-shopping-cart") + ' Buy'      ,    auctions_path         ,    true        ,    true        ],
-      [    :sell_tab        ,    glyphicons_inv("icon-random") + ' Sell'           ,    new_auction_path         ,    true        ,    true        ],
+      [    :sell_tab        ,    glyphicons_inv("icon-briefcase") + ' Sell'           ,    new_auction_path         ,    true        ,    true        ],
       [    :auctions_tab    ,    glyphicons_inv("icon-user") + ' Service'      ,    dashboard_path         ,    true        ,    true        ],
       
      

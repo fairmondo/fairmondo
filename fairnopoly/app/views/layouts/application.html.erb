@@ -48,9 +48,9 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<div class="hero-unit">
-						This is a Global Information Hero
-			</div>
+			
+			
+			<%=render 'hero/'+ params[:controller] + '/' + params[:action] rescue nil%>
 			
 			<% flash.each do |type, msg| -%>
 					<div class="row-fluid">

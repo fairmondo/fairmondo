@@ -1,4 +1,6 @@
 Fairnopoly::Application.routes.draw do
+  resources :categories
+
   resources :userevents
 
   resources :events

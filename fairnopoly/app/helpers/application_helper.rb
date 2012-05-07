@@ -17,11 +17,11 @@ module ApplicationHelper
   
   # Glyph Icons Helpers 
   def glyphicons(name)
-    "<i class=\"" + name + "\"></i>"
+    "<i class=\"" + name + "\"></i>".html_safe
   end
   
   def glyphicons_inv(name)
-    "<i class=\"" + name + " icon-white\"></i>"
+    "<i class=\"" + name + " icon-white\"></i>".html_safe
   end
   
   ### Others ###
