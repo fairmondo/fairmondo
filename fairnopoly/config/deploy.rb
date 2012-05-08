@@ -4,7 +4,7 @@ require "rvm/capistrano"
 
 ssh_options[:forward_agent] = true
 default_environment['JRUBY_HOME'] = "/home/fairnopoly/.rvm/rubies/jruby-1.6.7/"
-#default_environment['RAILS_ENV'] = "production"
+default_environment['RAILS_ENV'] = "production"
 
 # SCM
 set :application,       "fairnopoly"
@@ -31,7 +31,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 set :deploy_to,         "/home/fairnopoly/deployment"
 set :torquebox_home,    "/home/fairnopoly/torquebox"
 set :jboss_init_script, "/etc/init.d/fairnopoly"
-set :app_environment,   "RAILS_ENV: production"
+#set :app_environment,   "RAILS_ENV: production"
 set :app_context,       "/"
 
 ssh_options[:forward_agent] = false

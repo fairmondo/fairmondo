@@ -46,3 +46,29 @@ body {
     display: inline; 
     color: #999; 
 } 
+
+.hero-unit {
+	padding: 10px;
+}
+
+.category-button {  
+	background-color: transparent; 
+	border: 0; 
+	padding: 0;
+	width: 90%; 
+	height: 100%;
+	text-align:left;
+}
+
+/*
+ *  Categories
+ * 
+ */
+
+td.selected {
+	background-color: #DFF0D8;
+}
+
+td.category {
+	padding: 4px;
+}
