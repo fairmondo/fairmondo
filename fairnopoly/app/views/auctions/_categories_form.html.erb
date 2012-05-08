@@ -1,3 +1,4 @@
+<% cache :action_suffix => 'categories_forms' do %>
 <%if @selected_category%>
 <%= hidden_field_tag :selected_category, @selected_category.id %>
 <%end%>
@@ -17,11 +18,10 @@
 							<td <% if category==@active_category %> class="selected category" <%else%> class="category"<%end%>> 
 								<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
 									<%= category.name %>
-									<% if category==@active_category && !@subcategories.empty?%>
-										<%= raw glyphicons('icon-chevron-right') %>
-										
-									<%end%>
 								</button>
+								<% if category==@active_category && !@subcategories.empty?%>
+									<%= raw glyphicons('icon-chevron-right') %>
+								<%end%>
 							</td>
 						</tr>
 					<%end%>
@@ -45,8 +45,10 @@
 							<td <% if category==@active_subcategory %> class="selected category" <%else%> class="category"<%end%>> 
 								<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
 									<%= category.name %>
-									<% if category==@active_subcategory && !@subsubcategories.empty?%><%= raw glyphicons('icon-chevron-right') %><%end%>
 								</button>
+								<% if category==@active_subcategory && !@subsubcategories.empty?%>
+									<%= raw glyphicons('icon-chevron-right') %>
+								<%end%>
 							</td>
 						</tr>
 					<%end%>
@@ -81,3 +83,4 @@
 				<%end%>
 			</div>
 </div>
+<%end%>
