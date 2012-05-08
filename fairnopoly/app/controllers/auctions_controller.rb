@@ -49,6 +49,7 @@ class AuctionsController < ApplicationController
       if @auction.save
         format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
         format.json { render :json => @auction, :status => :created, :location => @auction }
+        
       else
         format.html { render :action => "new" }
         format.json { render :json => @auction.errors, :status => :unprocessable_entity }

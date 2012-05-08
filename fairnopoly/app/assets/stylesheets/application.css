@@ -17,6 +17,13 @@ require_self
 */
 /* LOGIn Style*/
 
+ #fixiert {
+    position: fixed;
+  }
+  #Inhalt {
+    margin-left: 22em; padding: 0 1em;
+  }
+
 ul.hmenu {
   list-style: none;	
   margin: 0 0 2em;
