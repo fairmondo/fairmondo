@@ -1,82 +1,41 @@
 <%if @selected_category%>
 <%= hidden_field_tag :selected_category, @selected_category.id %>
 <%end%>
-
+<%if @no_category_error%>
+<div class="alert alert-error">
+	Please select a product category
+</div>
+<%end%>
 <div class="row-fluid">
 	<div class="span2">
 		<%if @categories%>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Produktbereich:</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @categories.each do |category|%>
-						<tr>
-							<td <% if category==@active_category %> class="selected category" <%else%> class="category"<%end%>> 
-								<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
-									<%= category.name %>
-								</button>
-								<% if category==@active_category && !@subcategories.empty?%>
-									<%= raw glyphicons('icon-chevron-right') %>
-								<%end%>
-							</td>
-						</tr>
-					<%end%>
-				</tbody>
-			</table>
+			<%= render :partial => 'categories_table' ,
+			 :locals => { :title => "Categories" ,
+			 :categories => @categories ,
+			 :active => @active_category ,
+			 :show_child => (@subcategories && !@subcategories.empty?) }%>
 		<%else%>
 		No Categories in System!
 		<%end%>
 	</div>
 	<div class="span2">
 		<%if @subcategories && !@subcategories.empty?%>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Kategorie</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @subcategories.each do |category|%>
-						<tr>
-							<td <% if category==@active_subcategory %> class="selected category" <%else%> class="category"<%end%>> 
-								<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
-									<%= category.name %>
-								</button>
-								<% if category==@active_subcategory && !@subsubcategories.empty?%>
-									<%= raw glyphicons('icon-chevron-right') %>
-								<%end%>
-							</td>
-						</tr>
-					<%end%>
-				</tbody>
-			</table>
+			<%= render :partial => 'categories_table' ,
+			 :locals => { :title => "Subcategories" ,
+			 :categories => @subcategories ,
+			 :active => @active_subcategory ,
+			 :show_child => (@subsubcategories && !@subsubcategories.empty?) }%>
 		<%else%>
 		&nbsp;
 		<%end%>
 	</div>
 	<div class="span2">
 		<%if @subsubcategories && !@subsubcategories.empty?%>
-				<table class="table table-bordered">
-					<thead>
-					<tr>
-						<th>Unterkategorie</th>
-					</tr>
-					</thead>
-					<tbody>
-						<% @subsubcategories.each do |category|%>
-							<tr>
-								<td <% if category==@active_subsubcategory %> class="selected category" <%else%> class="category"<%end%>> 
-								<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
-									<%= category.name %>
-								</button>
-							</td>
-							</tr>
-						<%end%>
-					</tbody>
-				</table>
+				<%= render :partial => 'categories_table' ,
+			 :locals => { :title => "Subsubcategories" ,
+			 :categories => @subsubcategories ,
+			 :active => @active_subsubcategory ,
+			 :show_child => false }%>
 				<%else%>
 				&nbsp;
 				<%end%>

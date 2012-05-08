@@ -1,13 +1,14 @@
-<%= semantic_form_for @auction, :html => { :class => "form-horizontal"}  do |f|  %>
-
-  <%= render 'categories_form' %>
-  
-  <%= f.semantic_errors %>
-  <%= f.inputs do %>
-    <%= f.input :title,   :hint => t('auction.hints.title') %>
-    <%= f.input :content, :hint => t('auction.hints.content') %>
-    
-  <% end %>
+<%= semantic_form_for @auction  do |f|  %>
+  <h3> Select a category for your Product </h3>
+  <div class="well"><%= render 'categories_form' %></div>
+  <h3> Select product details </h3>
+   <div class="well">
+	  <%= f.semantic_errors %>
+	  <%= f.inputs do %>
+	    <%= f.input :title,   :hint => t('auction.hints.title') %>
+	    <%= f.input :content, :hint => t('auction.hints.content') %>
+	   <% end %>
+   </div>
   <%= f.buttons do %>
     <%= f.commit_button :button_html => {:class => "primary"} %>
   <% end %>

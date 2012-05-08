@@ -47,10 +47,19 @@ body {
 .category-button {  
 	background-color: transparent; 
 	border: 0; 
-	padding: 0;
-	width: 90%; 
+	padding: 3px;
+	width: 100%; 
 	height: 100%;
 	text-align:left;
+	
+}
+
+label.control-label {
+	font-weight:bold;
+}
+
+span.help-block {
+	font-style:italic;
 }
 
 /*
@@ -59,9 +68,10 @@ body {
  */
 
 td.selected {
-	background-color: #DFF0D8;
+	background-color: #DFF0D8 !important;
 }
 
 td.category {
-	padding: 4px;
+	background-color: #FFFFFF;
+	padding: 0px;
 }

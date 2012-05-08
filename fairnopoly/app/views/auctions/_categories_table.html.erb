@@ -1,0 +1,23 @@
+<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th><%= title %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% categories.each do |category|%>
+				<tr>
+					<td <% if category==active %> class="selected category" <%else%> class="category"<%end%>> 
+						<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
+							<%= raw glyphicons('icon-tags') %>
+							<%= category.name %>
+							<% if category==active && show_child%>
+							<span style="float: right;"><%= raw glyphicons('icon-chevron-right') %></span>
+							<%end%>
+						</button>
+						
+					</td>
+				</tr>
+			<%end%>
+		</tbody>
+</table>

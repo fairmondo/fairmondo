@@ -1,4 +1,7 @@
 class AuctionsController < ApplicationController
+  
+  before_filter :authenticate_user!, :except => [:show, :index,:new, :create] 
+  
   # GET /auctions
   # GET /auctions.json
   def index
@@ -24,8 +27,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    user_signed_in?
-    @categories = Category.find(:all, :conditions => "level=0", :order => "name")
+    setup_categories nil
     @auction = Auction.new
     respond_to do |format|
       format.html # new.html.erb
@@ -35,14 +37,14 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1/edit
   def edit
-    user_signed_in?
     @auction = Auction.find(params[:id])
+    setup_categories @auction.category.id
   end
 
   # POST /auctions
   # POST /auctions.json
   def create
-    user_signed_in?
+    
     params.each do |key, value|
       if (key.to_s.start_with? 'category')
       @category_str=key.to_s
@@ -51,78 +53,73 @@ class AuctionsController < ApplicationController
     if defined? @category_str # Category changes found
       @category_id = @category_str.slice(8..-1).to_i
 
-      # Handle Changing Categories
-
-      @categories = Category.find(:all, :conditions => "level=0", :order => "name")
-      @selected_category = Category.find @category_id
-
-      @active_category = case @selected_category.level
-      when 0 then @selected_category
-      when 1 then @selected_category.parent
-      when 2 then @selected_category.parent.parent
-      end
-
-      @active_subcategory = case @selected_category.level
-      when 0 then nil
-      when 1 then @selected_category
-      when 2 then @selected_category.parent
-      end
-
-      @active_subsubcategory = case @selected_category.level
-      when 0 then nil
-      when 1 then nil
-      when 2 then @selected_category
-      end
-
-      @subcategories = Category.find(:all, :conditions =>  [ "parent_id = ?", @active_category.id], :order => "name")
-      if @active_subcategory
-        @subsubcategories = Category.find(:all, :conditions =>  [ "parent_id = ?",  @active_subcategory], :order => "name")
-      end
+      setup_categories @category_id
 
       @auction = Auction.new(params[:auction])
       
       render :action => 'new'
       
     else
-      
-      # Handle Commits
-   
       @auction = Auction.new(params[:auction])
-      @auction.category=Category.find params[:selected_category].to_i
-     
-      case @auction.category.level 
-      when 0 then nil
-      when 1 then @auction.alt_category_1 = @auction.category.parent
-      when 2 then 
-        @auction.alt_category_1 = @auction.category.parent
-        @auction.alt_category_2 = @auction.category.parent.parent
-      end
-      @auction.seller= current_user
-      respond_to do |format|
-        if @auction.save
-          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-          format.json { render :json => @auction, :status => :created, :location => @auction }
+      if !user_signed_in?
+        hash = { "auction" => params[:auction] , "selected_category" => params[:selected_category]}
+         
+        deny_access_to_save_object YAML::dump(hash) , "/continue_creating_auction" 
+      else
+       
+        if get_stored_object
+          hash = YAML::load(get_stored_object)
+          @auction = Auction.new(hash["auction"])
+           # Set the Categories from the ID
+          set_category hash["selected_category"].to_i
+          clear_stored_object
         else
-          format.html { render :action => "new" }
-          format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+          @auction = Auction.new(params[:auction])
+          # Set the Categories from the ID
+          set_category
         end
-      end
+
+        respond_to do |format|
+          if @auction.save
+            format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+            format.json { render :json => @auction, :status => :created, :location => @auction }
+          else
+            setup_categories @auction.category
+            format.html { render :action => "new" }
+            format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+          end
+        end
+       end
     end
   end
 
   # PUT /auctions/1
   # PUT /auctions/1.json
   def update
-    user_signed_in?
     @auction = Auction.find(params[:id])
+   
+     params.each do |key, value|
+      if (key.to_s.start_with? 'category')
+      @category_str=key.to_s
+      end
+    end
+    if defined? @category_str # Category changes found
+      @category_id = @category_str.slice(8..-1).to_i
 
-    respond_to do |format|
-      if @auction.update_attributes(params[:auction])
-        format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+      setup_categories @category_id
+
+      render :action => 'edit'
+    else
+      set_category
+      respond_to do |format|
+        if @auction.update_attributes(params[:auction])
+          format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
+          format.json { head :no_content }
+        else
+          setup_categories @auction.category
+          format.html { render :action => "edit" }
+          format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
@@ -139,4 +136,61 @@ class AuctionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def setup_categories category_id
+    # Handle Changing Categories
+      if !category_id 
+        @categories = Category.find(:all, :conditions => "level=0", :order => "name")
+      else
+        @categories = Category.find(:all, :conditions => "level=0", :order => "name")
+        @selected_category = Category.find category_id
+  
+        @active_category = case @selected_category.level
+        when 0 then @selected_category
+        when 1 then @selected_category.parent
+        when 2 then @selected_category.parent.parent
+        end
+  
+        @active_subcategory = case @selected_category.level
+        when 0 then nil
+        when 1 then @selected_category
+        when 2 then @selected_category.parent
+        end
+  
+        @active_subsubcategory = case @selected_category.level
+        when 0 then nil
+        when 1 then nil
+        when 2 then @selected_category
+        end
+  
+        @subcategories = Category.find(:all, :conditions =>  [ "parent_id = ?", @active_category.id], :order => "name")
+        if @active_subcategory
+          @subsubcategories = Category.find(:all, :conditions =>  [ "parent_id = ?",  @active_subcategory], :order => "name")
+        end
+      end
+  end
+  
+  def set_category(category_id = nil)
+    
+    if params.has_key? :selected_category
+      category_id = params[:selected_category].to_i
+    end
+    if category_id && category_id!=0
+        @auction.category=Category.find category_id
+       
+        case @auction.category.level 
+        when 0 then nil
+        when 1 then @auction.alt_category_1 = @auction.category.parent
+        when 2 then 
+          @auction.alt_category_1 = @auction.category.parent
+          @auction.alt_category_2 = @auction.category.parent.parent
+        end
+        @auction.seller= current_user
+     else
+       @no_category_error=true
+     end
+ 
+  end
+  
 end

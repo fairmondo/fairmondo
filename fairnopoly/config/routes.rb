@@ -12,7 +12,7 @@ Fairnopoly::Application.routes.draw do
   end
 
   get "welcome/index"
-
+  match "continue_creating_auction" => 'auctions#create'
   match 'dashboard' => 'dashboard#index'
   
   match 'search' => 'search#search'
