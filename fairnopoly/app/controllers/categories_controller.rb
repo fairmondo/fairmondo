@@ -41,7 +41,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(params[:category])
-    expire_fragment(:controller => 'auctions', :action => 'new', :action_suffix => 'categories_forms')
+   
 
     respond_to do |format|
       if @category.save
