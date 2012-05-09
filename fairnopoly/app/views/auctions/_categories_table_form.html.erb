@@ -7,13 +7,9 @@
 		<tbody>
 			<% categories.each do |category|%>
 				<tr>
-					<td <% if category==active %> class="selected category" <%else%> class="category"<%end%>> 
+					<td <% if category.id==@category_id  %> class="selected category" <%else%> class="category"<%end%>> 
 						<button type="submit" name="<%= raw 'category'+(category.id).to_s %>" class="category-button">
-							<%= raw glyphicons('icon-tags') %>
-							<%= category.name %>
-							<% if category==active && show_child%>
-							<span style="float: right;"><%= raw glyphicons('icon-chevron-right') %></span>
-							<%end%>
+							<%=category_button_text category.name , category==active && show_child %>
 						</button>
 						
 					</td>

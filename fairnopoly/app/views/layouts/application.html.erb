@@ -5,20 +5,21 @@
    <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 	<body>
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
 					<a class="brand" href="#"><%=t('common.brand')%></a>
-					<div class="nav-collapse">
-						<%= tabs %>
+					
+					<%= tabs %>
 
 						<%= form_tag("/search", :class => "navbar-search pull-left" ) do %>
 							<%= text_field_tag(:q,value = nil, options = {:class => "search-query span2", :placeholder => t('common.text.search')}) %>
 						<% end %>
-							<div class="pull-right">
+						
+						<div class="pull-right">
 								<%= render 'devise/menu/registration_items' %> 
 								
 								<%if signed_in? %>
@@ -39,38 +40,36 @@
 									<%end -%>
 		
 								<%end%>
-							</div>
+							</div>	 <!-- .pull-right -->
 							
-							
-						
-					</div><!--/.nav-collapse -->
-				</div>
-			</div>
-		</div>
+				</div>  <!-- .container -->
+			</div> <!-- .inner -->
+		</div> <!-- .navbar -->
 		<div class="container-fluid">
 			
-			
-			<%=render 'hero/'+ params[:controller] + '/' + params[:action] rescue nil%>
-			
-			<% flash.each do |type, msg| -%>
-					<div class="row-fluid">
-						<a class="close" data-dismiss="alert">×</a>
-						<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" >
-							<%= msg %>
-						</p>
-					</div>
-			<%end%>
-			
-			<div class="row-fluid">
-			<%= yield %>
-					
-			<hr>
-			<footer>
-				<p>
-					&copy; Company 2012
-				</p>
-			</footer>
-			</div><!--/row-->
+				<% begin %>
+					<%=render 'hero/'+ params[:controller] + '/' + params[:action] %>
+					<%rescue MissingTemplate %>
+				<%end%>
+				<% flash.each do |type, msg| -%>
+						<div class="row-fluid">
+							<a class="close" data-dismiss="alert">×</a>
+							<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" >
+								<%= msg %>
+							</p>
+						</div>
+				<%end%>
+				
+				<div class="row-fluid">
+				<%= yield %>
+						
+				<hr>
+				<footer>
+					<p>
+						&copy; Company 2012
+					</p>
+				</footer>
+				</div><!--/row-->
 			
 		</div><!--/.container-->
 	</body>

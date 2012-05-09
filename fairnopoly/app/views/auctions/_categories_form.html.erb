@@ -9,7 +9,7 @@
 <div class="row-fluid">
 	<div class="span2">
 		<%if @categories%>
-			<%= render :partial => 'categories_table' ,
+			<%= render :partial => 'categories_table_form' ,
 			 :locals => { :title => "Categories" ,
 			 :categories => @categories ,
 			 :active => @active_category ,
@@ -20,7 +20,7 @@
 	</div>
 	<div class="span2">
 		<%if @subcategories && !@subcategories.empty?%>
-			<%= render :partial => 'categories_table' ,
+			<%= render :partial => 'categories_table_form' ,
 			 :locals => { :title => "Subcategories" ,
 			 :categories => @subcategories ,
 			 :active => @active_subcategory ,
@@ -31,7 +31,7 @@
 	</div>
 	<div class="span2">
 		<%if @subsubcategories && !@subsubcategories.empty?%>
-				<%= render :partial => 'categories_table' ,
+				<%= render :partial => 'categories_table_form' ,
 			 :locals => { :title => "Subsubcategories" ,
 			 :categories => @subsubcategories ,
 			 :active => @active_subsubcategory ,

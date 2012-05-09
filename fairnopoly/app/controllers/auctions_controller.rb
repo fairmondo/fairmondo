@@ -1,12 +1,17 @@
 class AuctionsController < ApplicationController
   
+  # Create is safed by denail!
   before_filter :authenticate_user!, :except => [:show, :index,:new, :create] 
   
   # GET /auctions
   # GET /auctions.json
   def index
-    @auctions = Auction.all
-
+    if params["selected_category_id"]
+      @auctions = Auction.find :all, :conditions => "category_id = '#{params["selected_category_id"]}' OR alt_category_id_1 = '#{params["selected_category_id"]}' OR alt_category_id_2 = '#{params["selected_category_id"]}'"
+    else
+      @auctions = Auction.find :all
+    end
+    setup_categories params["selected_category_id"]
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @auctions }
@@ -27,7 +32,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    setup_categories nil
+    setup_categories 
     @auction = Auction.new
     respond_to do |format|
       format.html # new.html.erb
@@ -78,7 +83,7 @@ class AuctionsController < ApplicationController
           # Set the Categories from the ID
           set_category
         end
-
+        @auction.seller= current_user
         respond_to do |format|
           if @auction.save
             format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
@@ -138,7 +143,7 @@ class AuctionsController < ApplicationController
   end
   
   
-  def setup_categories category_id
+  def setup_categories category_id=nil
     # Handle Changing Categories
       if !category_id 
         @categories = Category.find(:all, :conditions => "level=0", :order => "name")
@@ -186,7 +191,7 @@ class AuctionsController < ApplicationController
           @auction.alt_category_1 = @auction.category.parent
           @auction.alt_category_2 = @auction.category.parent.parent
         end
-        @auction.seller= current_user
+       
      else
        @no_category_error=true
      end

@@ -1,0 +1,17 @@
+<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th><%= title %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% categories.each do |category|%>
+				<tr>
+					<td <% if category==active %> class="selected category" <%else%> class="category"<%end%>> 
+						<% html = "<div class=\"category-button\">" + (category_button_text category.name , category==active && show_child,true) + "&nbsp;</div>" %>
+						<%=link_to html.html_safe, auctions_path(params.merge({"selected_category_id" => category.id})), :class=> "no_decoration" %>						
+					</td>
+				</tr>
+			<%end%>
+		</tbody>
+</table>

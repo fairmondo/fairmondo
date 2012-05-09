@@ -8,12 +8,11 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
-require_self
+ *= require_self
  *= require_tree .
- 
-
  *= require formtastic-bootstrap
- *= require twitter/bootstrap
+ *= require bootstrap-responsive
+ * 
 */
 /* LOGIn Style*/
 
@@ -34,26 +33,56 @@ ul.hmenu li {
 body {
   padding-top: 60px;
 }
-
+	/*
+	 * Labels in the Navbar (Rememberme)
+	 */
 .navbar-form label { 
     display: inline; 
     color: #999; 
 } 
-
+	/*
+	 * Hero Unit Padding
+	 */
 .hero-unit {
-	padding: 10px;
+	padding: 10px !important;
 }
 
+	/*
+	 * Categorie View
+	 */
 .category-button {  
-	background-color: transparent; 
-	border: 0; 
-	padding: 3px;
-	width: 100%; 
-	height: 100%;
-	text-align:left;
+	background-color: transparent !important; 
+	border: 0 !important; 
+	padding: 3px !important;
+	width: 100% !important; 
+	height: 100% !important;
+	text-align:left !important;
+	color: #005580;
 	
 }
+div.category-button {
+	margin-right:20px;
+}
+	
+a.no_decoration:hover   {
+  		
+  	text-decoration:  none !important;
+}
+  
+td.selected {
+	background-color: #DFF0D8 !important;
+}
 
+td.category {
+	color: #005580;
+	background-color: #FFFFFF;
+	padding: 0px !important;
+}
+	
+/*
+ *  Formtastic Bootstrap
+ */  	
+  	
 label.control-label {
 	font-weight:bold;
 }
@@ -62,16 +91,3 @@ span.help-block {
 	font-style:italic;
 }
 
-/*
- *  Categories
- * 
- */
-
-td.selected {
-	background-color: #DFF0D8 !important;
-}
-
-td.category {
-	background-color: #FFFFFF;
-	padding: 0px;
-}

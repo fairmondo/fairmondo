@@ -5,3 +5,4 @@ log/*
 tmp
 db/schema.rb
 db/seeds.rb
+Gemfile.lock

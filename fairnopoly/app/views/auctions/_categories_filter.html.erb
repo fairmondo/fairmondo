@@ -1,0 +1,38 @@
+	<div class="row-fluid">
+		<div class="span2">
+			<%if @categories%>
+			<%= render :partial => 'categories_table_filter' ,
+			:locals => { :title => "Categories" ,
+			:categories => @categories ,
+			:active => @active_category ,
+			:show_child => (@subcategories && !@subcategories.empty?) }%>
+			<%else%>
+			No Categories in System!
+			<%end%>
+		</div>
+		<div class="span2">
+			<%if @subcategories && !@subcategories.empty?%>
+			<%= render :partial => 'categories_table_filter' ,
+			:locals => { :title => "Subcategories" ,
+			:categories => @subcategories ,
+			:active => @active_subcategory ,
+			:show_child => (@subsubcategories && !@subsubcategories.empty?) }%>
+			<%else%>
+			&nbsp;
+			<%end%>
+		</div>
+		<div class="span2">
+			<%if @subsubcategories && !@subsubcategories.empty?%>
+			<%= render :partial => 'categories_table_filter' ,
+			:locals => { :title => "Subsubcategories" ,
+			:categories => @subsubcategories ,
+			:active => @active_subsubcategory ,
+			:show_child => false }%>
+			<%else%>
+			&nbsp;
+			<%end%>
+		</div>
+	</div>
+	<% new_param = Hash.new(params)%>
+	<% new_param.delete "selected_category_id"%>
+ <%= link_to "Remove category filter" , auctions_path(new_param) %>
