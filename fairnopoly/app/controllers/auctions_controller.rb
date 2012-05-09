@@ -49,7 +49,7 @@ class AuctionsController < ApplicationController
   # POST /auctions
   # POST /auctions.json
   def create
-    
+
     params.each do |key, value|
       if (key.to_s.start_with? 'category')
       @category_str=key.to_s
@@ -83,6 +83,7 @@ class AuctionsController < ApplicationController
           # Set the Categories from the ID
           set_category
         end
+
         @auction.seller= current_user
         respond_to do |format|
           if @auction.save
@@ -95,6 +96,7 @@ class AuctionsController < ApplicationController
           end
         end
        end
+
     end
   end
 
