@@ -4,18 +4,7 @@
 		<ul class="nav nav-tabs nav-stacked">
 			<!--Build Timeline Links-->
 			<% 
-				count = 0
-				links = Array.new
-				@userevents.each do |userevent|
-					if count == 0 then	
-						links[count] = userevent.created_at
-						count += 1
-					elsif links[count-1].strftime("%B") != userevent.created_at.strftime("%B") then
-							links[count] = userevent.created_at
-							count += 1
-					end
-			 	end
-				links.each do |link|%>
+				@links.each do |link|%>
 					<li>
 						<a href="#<%= link %>"><%= link.strftime("%B %Y")%></a>
 					</li>
@@ -47,7 +36,7 @@
 			<% end %>
 			
 		</table>
-		
+			
 		<%= will_paginate @userevents%>
 		
 	</div>		

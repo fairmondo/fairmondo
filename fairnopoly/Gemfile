@@ -34,6 +34,7 @@ end
 gem 'jquery-rails'
 gem 'devise'
 
+gem 'bootstrap-will_paginate'
 gem 'will_paginate', '~> 3.0'
 
 # To use ActiveModel has_secure_password
