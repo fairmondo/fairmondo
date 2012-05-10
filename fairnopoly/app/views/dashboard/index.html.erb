@@ -1,5 +1,4 @@
 <h1>Dashboard</h1>
-
 				
 	<div id ="fixiert">
 		<ul class="nav nav-tabs nav-stacked">
@@ -29,9 +28,10 @@
 		<h2> Timeline </h2>
 		<!--TODO: create TimeLine Data:
 			Registration, Auctions, Friends, -->
+			
 		<table class="table table-bordered">
 
-			<% @userevents.each do |userevent| %>
+			<%@userevents.each do |userevent| %>
 			  <tr id ="<%= userevent.created_at %>">
 			  	<td>
 			  	<!-- Insert new eventtypes here -->	
@@ -47,6 +47,9 @@
 			<% end %>
 			
 		</table>
+		
+		<%= will_paginate @userevents%>
+		
 	</div>		
 
 
