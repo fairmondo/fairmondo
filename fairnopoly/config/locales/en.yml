@@ -48,3 +48,8 @@ en:
     titles:
       new: "New Auction"  
       edit: "Editing auction"  
+# Dashboard
+  dashboard:
+    auction:
+      create: "Auction was created"
+      update: "Auction was updated"
