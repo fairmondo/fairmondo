@@ -1,79 +1,44 @@
 <h1>Dashboard</h1>
-
 				
 	<div id ="fixiert">
 		<ul class="nav nav-tabs nav-stacked">
-			
-			<li class="active">
-				<a href="#now">Now</a>
-			</li>
-			<li>
-				<a href="#">...</a>
-			</li>
-			<!--TODO: list all the Timeline Stuff! -->
-			<li>
-				<a href="#registrated"><%=current_user.created_at.strftime("%B %Y")%></a>
-			</li>
-			
+			<!--Build Timeline Links-->
+			<% 
+				@links.each do |link|%>
+					<li>
+						<a href="#<%= link %>"><%= link.strftime("%B %Y")%></a>
+					</li>
+				<%end%>
 		</ul>
 	</div>
 
 	<div id="Inhalt">
-		<!-- Only required for left/right tabs
-		<ul class="nav nav-pills">
-	
-			<li>
-				<a href="#tab2" data-toggle="tab">Auctions</a>
-			</li>
-			<li>
-				<a href="#tab3" data-toggle="tab">Timeline</a>
-			</li>
-		</ul> -->
-	
-		<!--<div id="tab2">
-			<h2> Auctions </h2> <hr />
-			<h3>Buying</h3> <hr />
-			<h3>Selling</h3>
-			<table class="table table-bordered">
-				<tr>
-					<th>Title</th>
-					<th>Content</th>
-					<th>Imagepath</th>
-				</tr>
-				<% @auctions.each do |auction| %>
-				<tr>
-					<td><%= auction.title %></td>
-					<td><%= auction.content %></td>
-					<td><%= auction.imagePath %></td>
-				</tr>
-				<% end %>
-			</table>
-		</div>
-	
-		<div id="tab3">-->
 		
 		<h2> Timeline </h2>
 		<!--TODO: create TimeLine Data:
 			Registration, Auctions, Friends, -->
+			
 		<table class="table table-bordered">
 
-			
-			
-			<tr name="now" id ="now" ><td>Logged in since: <%=current_user.current_sign_in_at%></td></tr>
-			<tr><td>Since your Registration you logged in <%=current_user.sign_in_count%> times.</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
-			<tr><td>...</td></tr>
+			<%@userevents.each do |userevent| %>
+			  <tr id ="<%= userevent.created_at %>">
+			  	<td>
+			  	<!-- Insert new eventtypes here -->	
+			  	<% case userevent.event_type %>
+				  	<% when UsereventType::AUCTION_CREATE %>
+				  		<%= userevent.created_at.strftime("%d.%m.%Y - %H:%M")%> <%= link_to t('dashboard.auction.create'), userevent.appended_object %>
+				  	<% when UsereventType::AUCTION_UPDATE %>
+				  	 	<%= userevent.created_at.strftime("%d.%m.%Y - %H:%M")%> <%= link_to t('dashboard.auction.update'),userevent.appended_object %>
 
-			<tr name="registrated" id ="registrated"><td>Registration: </td></tr>
-			<tr><td>Date: <%=current_user.created_at%></td></tr>
-			<tr><td>E-Mail: <%=current_user.email%></td></tr>
+					<% end %>
+			  	</td>
+			  </tr>
+			<% end %>
 			
 		</table>
+			
+		<%= will_paginate @userevents%>
+		
 	</div>		
 
 

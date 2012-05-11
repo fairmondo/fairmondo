@@ -87,8 +87,14 @@ class AuctionsController < ApplicationController
         @auction.seller= current_user
         respond_to do |format|
           if @auction.save
-            format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+            
+            userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction)
+            userevent.save
+            
+            format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }            
             format.json { render :json => @auction, :status => :created, :location => @auction }
+            
+            
           else
             setup_categories @auction.category
             format.html { render :action => "new" }
@@ -120,6 +126,10 @@ class AuctionsController < ApplicationController
       set_category
       respond_to do |format|
         if @auction.update_attributes(params[:auction])
+          
+          userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
+          userevent.save
+          
           format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
           format.json { head :no_content }
         else
