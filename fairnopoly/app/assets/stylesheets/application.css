@@ -40,19 +40,25 @@ ul.hmenu li {
 body {
   padding-top: 60px;
 }
+
+.navbar img {
+	float:left;
+	margin-right: 20px;
+}
 	/*
 	 * Labels in the Navbar (Rememberme)
 	 */
 .navbar-form label { 
     display: inline; 
-    color: #999; 
+    color: #FFF;
+    padding-bottom : 5px;
+	padding-top : 0px !important;
 } 
-	/*
-	 * Hero Unit Padding
-	 */
-.hero-unit {
-	padding: 10px !important;
+
+.navbar-form .input-small {
+	margin-top:0px !important;
 }
+
 
 	/*
 	 * Categorie View
@@ -64,7 +70,7 @@ body {
 	width: 100% !important; 
 	height: 100% !important;
 	text-align:left !important;
-	color: #005580;
+	color: #048adc;
 	
 }
 div.category-button {

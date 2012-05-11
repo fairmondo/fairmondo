@@ -11,8 +11,8 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="brand" href="#"><%=t('common.brand')%></a>
 					
+					<%= image_tag("fairnopoly.gif") %>
 					<%= tabs %>
 
 						<%= form_tag("/search", :class => "navbar-search pull-left" ) do %>
@@ -36,7 +36,7 @@
 											<input type="checkbox" name="_spring_security_remember_me" id="remember_me" checked="checked"/>
 											 <%=t('user.remember') %></label> &nbsp;
 										<% end -%>
-										<%= f.submit t('common.text.login'), :class => "btn btn-inverse"  %>
+										<%= f.submit t('common.text.login'), :class => "btn"  %>
 									<%end -%>
 		
 								<%end%>
