@@ -7,10 +7,9 @@ class AuctionsController < ApplicationController
   # GET /auctions.json
   def index
     if params["selected_category_id"]
-      @auctions = Auction.find :all, :conditions => "category_id = '#{params["selected_category_id"]}' OR alt_category_id_1 = '#{params["selected_category_id"]}' OR alt_category_id_2 = '#{params["selected_category_id"]}'"
-    else
-      @auctions = Auction.find :all
+      category_condition = "category_id = '#{params["selected_category_id"]}' OR alt_category_id_1 = '#{params["selected_category_id"]}' OR alt_category_id_2 = '#{params["selected_category_id"]}'"      
     end
+    @auctions = Auction.paginate :page => params[:page], :per_page=>10, :conditions => category_condition
     setup_categories params["selected_category_id"]
     respond_to do |format|
       format.html # index.html.erb

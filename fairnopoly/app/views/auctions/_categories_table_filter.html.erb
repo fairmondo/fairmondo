@@ -7,9 +7,10 @@
 		<tbody>
 			<% categories.each do |category|%>
 				<tr>
-					<td <% if category==active %> class="selected category" <%else%> class="category"<%end%>> 
+					<td <% if category.id==params["selected_category_id"].to_i %> class="selected category" <%else%> class="category"<%end%>> 
 						<% html = "<div class=\"category-button\">" + (category_button_text category.name , category==active && show_child,true) + "&nbsp;</div>" %>
-						<%=link_to html.html_safe, auctions_path(params.merge({"selected_category_id" => category.id})), :class=> "no_decoration" %>						
+						
+						<%=link_to html.html_safe, auctions_path(params_replace("page","selected_category_id" , category.id)), :class=> "no_decoration" %>						
 					</td>
 				</tr>
 			<%end%>

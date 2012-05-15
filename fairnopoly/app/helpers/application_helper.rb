@@ -25,5 +25,24 @@ module ApplicationHelper
   end
   
   ### Others ###
+  
+  def params_without key
+    new_param = Hash.new(params)
+    new_param.delete key
+    new_param
+  end
+  
+  def params_with key, value
+    new_param = Hash.new(params)
+    new_param[key] = value
+    new_param
+  end
+  
+  def params_replace(old, new, value)
+     new_param = Hash.new(params)
+     new_param[new] = value
+     new_param.delete old
+     new_param
+  end
    
 end

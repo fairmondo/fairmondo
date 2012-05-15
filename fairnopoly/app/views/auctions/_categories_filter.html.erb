@@ -34,7 +34,6 @@
 		</div>
 	</div>
 	<% if params["selected_category_id"]%>
-		<% new_param = Hash.new(params)%>
-		<% new_param.delete "selected_category_id"%>
-		<%= link_to (raw glyphicons("icon-trash")) + " Remove category filter" , auctions_path(new_param) , :class => "btn"%>
+		
+		<%= link_to (raw glyphicons("icon-trash")) + " Remove category filter" , auctions_path(params_without "selected_category_id") , :class => "btn"%>
  	<%end%>
