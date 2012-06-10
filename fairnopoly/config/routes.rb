@@ -1,6 +1,6 @@
 Fairnopoly::Application.routes.draw do
   resources :categories
-
+  resources :images
   resources :userevents
 
   resources :events
@@ -10,9 +10,9 @@ Fairnopoly::Application.routes.draw do
   resources :auctions do
     #recources :userevents
   end
-
+  
   get "welcome/index"
-  match "continue_creating_auction" => 'auctions#create'
+  match "continue_creating_auction" => 'auctions#finalize'
   match 'dashboard' => 'dashboard#index'
   
   match 'search' => 'search#search'

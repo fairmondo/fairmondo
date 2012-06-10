@@ -1,4 +1,5 @@
 config/database.yml
+public/system
 .project
 db/*.sqlite3
 log/*

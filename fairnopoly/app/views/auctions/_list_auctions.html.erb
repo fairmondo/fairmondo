@@ -1,31 +1,40 @@
 
-<table class="table table-striped table-bordered table-condensed">
-	<thead>
-		<tr>
-			<th colspan="2">Auction</th>
-			<th>User</th>
-			<th>Category</th>
-			<th>Alt-Cat1</th>
-			<th>Alt-Cat2</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @auctions.each do |auction| %>
-		<tr>
-			<td>
-			<div class="thumbnail">
-				<%= link_to image_tag(auction.imagePath), auction %>
-			</div></td>
-			<td><%= link_to auction.title, auction %></td>
-			<td><%= auction.seller.email %></td>
-			<td><%= auction.category.name %></td>
-			<td><%= auction.alt_category_1.name rescue nil%></td>
-			<td><%= auction.alt_category_2.name rescue nil%></td>
-			<td><i class="icon-edit"></i> <%= link_to t('common.action.edit'), edit_auction_path(auction) %></td>
-		</tr>
-		<% end %>
-	</tbody>
 	
-</table>
+		<ul class="thumbnails">
+		<% @auctions.each do |auction| %>
+			
+		        <li class="span3">
+		          <div class="thumbnail" style="position: relative;">
+		            <% if auction.title_image%>
+						<%= link_to image_tag(auction.title_image.image.url(:thumb), :size=> "260x180"), auction %>
+					<%else%>
+						<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), auction %>
+					<%end%>
+		            <div class="caption">
+		              <h5><%= link_to auction.title, auction %></h5>
+		               
+		            </div>
+		            <% case auction.condition
+		          	when "new"
+		            		bclass="badge-info"
+		            when "old"
+		            		bclass="badge-inverse"
+		            when "fair"
+		            		bclass="badge-success"
+		            	end
+		            %>
+		         
+		           
+		            <span class="badge <%= bclass %> in-image"><%= auction.condition_text %></span>
+		         </div>
+		         
+		        </li>
+		      
+		<%end%>
+		</ul>
+
+	
+	
+		
+	
 <%= will_paginate @auctions %>

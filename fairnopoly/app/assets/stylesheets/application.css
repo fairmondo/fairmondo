@@ -104,3 +104,16 @@ span.help-block {
 	font-style:italic;
 }
 
+div.radio {
+	padding-left: 0px;
+}
+
+/*
+ *  Auctions list
+ */
+span.in-image {
+	position: absolute;top: 160px; right: 20px;
+}
+	
+	
+}

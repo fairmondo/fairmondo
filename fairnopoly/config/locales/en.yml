@@ -1,4 +1,11 @@
 en:
+# Enum Definitions
+  enumerize:
+    auction:
+      condition:
+        new: "New"
+        old: "Used"
+        fair: "Fairtrade"
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -39,12 +46,17 @@ en:
       link: "Unlock my account"
 # Auction Model/Controller
   auction:
+    list:
+      header: "Results"
     notices:
       create: "Auction was successfully created."
       update: "Auction was successfully updated."
+      image: "Image was successfully uploaded."
     hints:
       title:  "Enter the auction's title"
       content: "Enter a description for your auction"
+      condition: "Enter the auctions type"
+      image: "Upload an image"
     titles:
       new: "New Auction"  
       edit: "Editing auction"  
@@ -53,3 +65,4 @@ en:
     auction:
       create: "Auction was created"
       update: "Auction was updated"
+

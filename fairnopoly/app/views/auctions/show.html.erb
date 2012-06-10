@@ -1,10 +1,40 @@
-<p>
-	
-  <h1><%= @auction.title %></h1>
-  <%= link_to image_tag(@auction.imagePath), @auction %>
-  <br/>
-  <%= @auction.content %>
-</p>
-
-<%= link_to t('common.actions.edit'), edit_auction_path(@auction) %> |
-<%= link_to t('common.actions.back'), auctions_path %>
+<div class="row">
+	<div class="span3">
+		<ul class="thumbnails">
+			<% if @title_image%>
+			<li class="span4">
+				<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
+			</li>
+			<%else%>
+			<li class="span4">
+				<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
+			</li>
+			<%end%>
+		</ul>
+		<ul class="thumbnails">
+			<% @auction.images.each do |image| %>
+			<%if (image != @title_image)%>
+			<li class="span1">
+				<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45") , auction_path(@auction, :image => image.id) ,:class => "thumbnail"%>
+			</li>
+			<%end%>
+			<%end%>
+		</ul>
+		<% if @image%>
+		<div class = "well">
+			<h4><%= t('auction.hints.image')%></h4>
+			<%= form_for @image, :html => { :multipart => true }  do |f| %>
+			<%= f.file_field :image %>
+			<%= f.hidden_field :auction_id%>
+			<%= f.submit %>
+			<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="span5">
+		<h1><%= @auction.title %></h1>
+		<%= @auction.content %>
+	</div>
+	<div class="span3">
+		<%= link_to t('common.actions.edit'), edit_auction_path(@auction) %>
+	</div>
