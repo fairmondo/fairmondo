@@ -33,7 +33,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/1.json
   def show
     @auction = Auction.find(params[:id])
-    if @auction.seller = current_user
+    if @auction.seller == current_user
       @image = Image.new
       @image.auction = @auction
     end

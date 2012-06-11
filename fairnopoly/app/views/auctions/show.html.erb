@@ -20,7 +20,7 @@
 			<%end%>
 			<%end%>
 		</ul>
-		<% if @auction.seller == current_user && @image %>
+		<% if @auction.seller == current_user  %>
 		<div class = "well">
 			<h4><%= t('auction.image.title')%></h4>
 			<%= form_for @image, :html => { :multipart => true }  do |f| %>
