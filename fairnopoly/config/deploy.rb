@@ -19,7 +19,7 @@ set :use_sudo,          false
 set :deploy_via, :remote_cache
 set :normalize_asset_timestamps, false
 set :jruby_home,        '/home/fairnopoly/.rvm/rubies/jruby-1.6.7/'
-set :jruby_opts, "--1.9"
+set :app_ruby_version, '1.9'
 
 #RVM 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))

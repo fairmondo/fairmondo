@@ -6,17 +6,16 @@ class AuctionsController < ApplicationController
   # GET /auctions.json
   def index
       conditions = ["user_id IS NOT NULL"]
+      if params["condition"]
+        conditions[0] += " AND condition LIKE ?"
+        conditions.push params["condition"]
+      end
       if params["selected_category_id"]
         conditions[0] += " AND (category_id = ? OR alt_category_id_1 = ? OR alt_category_id_2 = ?)"
         conditions.push params["selected_category_id"]
         conditions.push params["selected_category_id"]
         conditions.push params["selected_category_id"]
       end
-      if params["condition"]
-        conditions[0] += " AND condition = ?"
-        conditions.push params["condition"]
-      end
-      
       if params["q"] && !params["q"].blank?
          @auctions = Auction.with_query(params["q"]).paginate( :page => params[:page], :per_page=>10, :conditions => conditions)
       else
