@@ -5,12 +5,24 @@ class AuctionsController < ApplicationController
   # GET /auctions
   # GET /auctions.json
   def index
-    if params["selected_category_id"]
-      conditions = ["user_id IS NOT NULL AND category_id = ? OR alt_category_id_1 = ? OR alt_category_id_2 = ?",params["selected_category_id"],params["selected_category_id"],params["selected_category_id"]]
-    else
       conditions = ["user_id IS NOT NULL"]
-    end
-    @auctions = Auction.paginate :page => params[:page], :per_page=>10, :conditions => conditions
+      if params["selected_category_id"]
+        conditions[0] += " AND (category_id = ? OR alt_category_id_1 = ? OR alt_category_id_2 = ?)"
+        conditions.push params["selected_category_id"]
+        conditions.push params["selected_category_id"]
+        conditions.push params["selected_category_id"]
+      end
+      if params["condition"]
+        conditions[0] += " AND condition = ?"
+        conditions.push params["condition"]
+      end
+      
+      if params["q"] && !params["q"].blank?
+         @auctions = Auction.with_query(params["q"]).paginate( :page => params[:page], :per_page=>10, :conditions => conditions)
+      else
+         @auctions = Auction.paginate :page => params[:page], :per_page=>10, :conditions => conditions
+      end
+   
     setup_categories params["selected_category_id"]
     respond_to do |format|
       format.html # index.html.erb

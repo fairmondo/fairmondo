@@ -1,4 +1,5 @@
 class Auction < ActiveRecord::Base
+  acts_as_indexed :fields => [:title, :content]
    include Enumerize
    enumerize :condition, :in => [:new ,:fair , :old ]
   #Relations
@@ -21,4 +22,5 @@ class Auction < ActiveRecord::Base
        return images[0]
      end
    end
+   
 end

@@ -1,6 +1,8 @@
 #require 'bundler/capistrano'
+require 'openssl'
 require 'torquebox-capistrano-support'
 require "rvm/capistrano"
+require "bundler/capistrano"
 
 ssh_options[:forward_agent] = true
 default_environment['JRUBY_HOME'] = "/home/fairnopoly/.rvm/rubies/jruby-1.6.7/"
@@ -18,6 +20,7 @@ set :use_sudo,          false
 set :deploy_via, :remote_cache
 set :normalize_asset_timestamps, false
 set :jruby_home,        '/home/fairnopoly/.rvm/rubies/jruby-1.6.7/'
+set :jruby_opts, "--1.9"
 
 #RVM 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))

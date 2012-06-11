@@ -5,7 +5,7 @@ gem 'rails', '3.2.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'jruby-openssl'
+gem "jruby-openssl", :platforms => :jruby
 gem 'activerecord-jdbc-adapter', '1.2.2' 
 gem 'activerecord-jdbcmysql-adapter', '1.2.2' 
 gem 'jdbc-mysql', :require => false 
@@ -18,6 +18,7 @@ gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootst
 gem 'tabulous'
 gem "paperclip", "~> 3.0"
 gem 'enumerize'
+gem 'acts_as_indexed'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -48,7 +49,7 @@ gem 'will_paginate', '~> 3.0'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug'

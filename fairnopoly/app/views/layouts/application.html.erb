@@ -13,25 +13,25 @@
 				<div class="container">
 					<%=link_to  image_tag("fairnopoly.gif") ,"/"%>
 					<%= tabs %>
+					<ul class="nav pull-right">
+						<% if user_signed_in? %>
+		             		<li><%= link_to( (raw glyphicons_inv("icon-user")) + " " + current_user.email , dashboard_path ) %></li>
+		             		<li><%= link_to('Logout', destroy_user_session_path ) %></li>
+		            	<% else %>
+ 					 		<li><%= link_to('Register', new_user_registration_path )  %></li>
+						<% end %>
+		          	</ul>
 					<div class="pull-right">
-						<%= render 'devise/menu/registration_items' %>
-
-						<%if signed_in? %>
-
-						<%= render 'devise/menu/currentUser_items' %>&nbsp
-						<%= render 'devise/menu/login_items' %>
-
-						<%else%>
-						<%=form_for :user , :url => session_path(:user) , :html => { :class =>"navbar-form pull-right" } do  |f|%>
-
-						<%= f.text_field :email, :class => "input-small", :placeholder => t('common.text.email')%>
-						<%= f.password_field :password, :class => "input-small", :placeholder => t('common.text.password')%>
-						<% if Devise.mappings[:user].rememberable? -%> <label for="remember_me" class="checkbox inline" >
-							<input type="checkbox" name="_spring_security_remember_me" id="remember_me" checked="checked"/>
-							<%= t('user.remember') %></label> &nbsp;
-						<% end -%>
-						<%= f.submit t('common.text.login'), :class => "btn"  %>
-						<%end -%>
+						<% if !user_signed_in? %>
+							<%=form_for :user , :url => session_path(:user) , :html => { :class =>"navbar-form pull-right" } do  |f|%>
+								<%= f.text_field :email, :class => "input-small", :placeholder => t('common.text.email')%>
+								<%= f.password_field :password, :class => "input-small", :placeholder => t('common.text.password')%>
+								<% if Devise.mappings[:user].rememberable? -%> <label for="remember_me" class="checkbox inline" >
+									<input type="checkbox" name="_spring_security_remember_me" id="remember_me" checked="checked"/>
+									<%= t('user.remember') %></label> &nbsp;
+								<% end -%>
+								<%= f.submit t('common.text.login'), :class => "btn"  %>
+							<%end %>
 
 						<%end%>
 					</div>

@@ -5,6 +5,7 @@ class ImagesController < ApplicationController
       flash[:notice] = I18n.t('auction.notices.image')
       redirect_to(@image.auction)
     else
+      flash[:error] = @image.errors.full_messages[0]
       redirect_to(@image.auction)
     end
   end

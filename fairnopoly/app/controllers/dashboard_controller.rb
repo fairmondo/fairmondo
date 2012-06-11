@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   # GET /dashboard.json
   def index
      
-    @userevents = Userevent.where(:user_id => current_user.id).paginate(:page => params[:page],:per_page => 5).order('created_at DESC') #find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")    
+    @userevents = Userevent.where(:user_id => current_user.id).paginate(:page => params[:page],:per_page => 10).order('created_at DESC') #find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")    
     @userevents2 = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")
       
     count = 0

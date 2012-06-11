@@ -58,10 +58,10 @@ Tabulous.setup do |config|
       #    TAB NAME         |    DISPLAY TEXT    |    PATH                  |    VISIBLE?    |    ENABLED?    #
       #-------------------------------------------------------------------------------------------------------#
      
-      [    :dashboard_tab   ,    glyphicons_inv("icon-home") + ' Home'              ,    dashboard_path       ,     signed_in?        ,    true        ],
+     
       [    :buy_tab         ,    glyphicons_inv("icon-shopping-cart") + ' Buy'      ,    auctions_path         ,    true        ,    true        ],
       [    :sell_tab        ,    glyphicons_inv("icon-briefcase") + ' Sell'           ,    new_auction_path         ,    true        ,    true        ],
-      [    :auctions_tab    ,    glyphicons_inv("icon-user") + ' Service'      ,    dashboard_path         ,    true        ,    true        ],
+      [    :auctions_tab    ,    glyphicons_inv("icon-user") + ' Service'      ,    dashboard_path         ,    false        ,    false        ],
       
      
       
@@ -92,7 +92,6 @@ Tabulous.setup do |config|
       #-------------------------------------------------------------#
       [    :auctions     ,    :new    ,            :sell_tab    ],
       [    :auctions     ,    :index    ,          :buy_tab    ],
-      [    :dashboard    ,    :all_actions    ,    :dashboard_tab     ],
       #-------------------------------------------------------------#
       #    CONTROLLER    |    ACTION          |    TAB              #
       #-------------------------------------------------------------#

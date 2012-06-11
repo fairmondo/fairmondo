@@ -2,11 +2,11 @@
 	<div class="span3">
 		<ul class="thumbnails">
 			<% if @title_image%>
-			<li class="span4">
+			<li class="span3">
 				<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
 			</li>
 			<%else%>
-			<li class="span4">
+			<li class="span3">
 				<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
 			</li>
 			<%end%>
@@ -20,22 +20,37 @@
 			<%end%>
 			<%end%>
 		</ul>
-		<% if @image%>
+		<% if @image != nil%>
 		<div class = "well">
-			<h4><%= t('auction.hints.image')%></h4>
+			<h4><%= t('auction.image.title')%></h4>
 			<%= form_for @image, :html => { :multipart => true }  do |f| %>
 			<%= f.file_field :image %>
 			<%= f.hidden_field :auction_id%>
-			<%= f.submit %>
+				<%= button_tag(:type => :submit) do %>
+			 		<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
+			 	<% end %>
 			<% end %>
 			
 		</div>
 		<% end %>
 	</div>
-	<div class="span5">
-		<h1><%= @auction.title %></h1>
-		<%= @auction.content %>
+	<div class="span6">
+		<div>
+		
+		</div>
+		<div class="well">
+			<%= condition_label @auction%>
+		</div>
+		<div class="well">
+			<h4>Versandkonditionen</h4>
+		</div>
+		<div class="well">
+			<%= @auction.content%>
+		</div>
+		
 	</div>
 	<div class="span3">
+		<div class="well">
 		<%= link_to t('common.actions.edit'), edit_auction_path(@auction) %>
+		</div>
 	</div>

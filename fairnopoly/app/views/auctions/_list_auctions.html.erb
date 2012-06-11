@@ -14,18 +14,7 @@
 		              <h5><%= link_to auction.title, auction %></h5>
 		               
 		            </div>
-		            <% case auction.condition
-		          	when "new"
-		            		bclass="badge-info"
-		            when "old"
-		            		bclass="badge-inverse"
-		            when "fair"
-		            		bclass="badge-success"
-		            	end
-		            %>
-		         
-		           
-		            <span class="badge <%= bclass %> in-image"><%= auction.condition_text %></span>
+		            <%= condition_label auction, "in-image" %>
 		         </div>
 		         
 		        </li>
