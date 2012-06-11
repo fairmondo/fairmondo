@@ -1,2 +1,14 @@
- <div class="well"><%= link_to (raw glyphicons("icon-chevron-left")) +" "+ t('common.actions.back'), auctions_path , :class => "btn"%>
-  </div>
+
+ 	<div class="row">
+ 		
+	 	<div class="span3">
+			<%= link_to (raw glyphicons("icon-chevron-left")) +" "+ t('common.actions.back'), auctions_path , :class => "btn"%>
+	  	</div>
+	  	<div class="span6">
+	  		<h1><%= @auction.title %> </h1>
+	  	</div>
+  		<div class="span3" align="right">
+	  		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , @auction, :class => "btn"%>
+	  	</div>
+  	</div>
+ <hr noshade class="spacer"/>

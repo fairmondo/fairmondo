@@ -1,3 +1,58 @@
 <div class="well">
-		<%= render '/auctions/categories_filter' %>
-</div> <!--/.hero-->
+	<div class="row">
+		<div class="span12">
+			<div class="row">
+				<div class="span6">
+					<div class="row">
+						<div class="span6">
+							<p>
+							<h4>Search for:</h4>
+							</p>
+							<form class="form-search">
+  								<input type="text" class="input-medium search-query" name="q" value="<%=params["q"]%>">
+  								<button type="submit" class="btn"><%= t("commons.text.search")%></button>
+  								<% params_without("page").each do |key, value| %>
+  									<%if key!="q"%>
+  										<input type="hidden" value="<%=value%>" name="<%=key%>"/>
+  									<%end%>
+  								<% end %>
+							</form>
+
+						</div>
+					</div>
+					<p>
+							<h4>Select category:</h4>
+					</p>
+					<%= render '/auctions/categories_filter' %>
+				</div>
+				<div class="span6">
+					
+						<p>
+							<h4>Filter by:</h4>
+						</p>
+						<p>
+						<% Auction.condition.values.each do |condition| %>
+							<% bclass=""%>
+							
+							<% if !params["condition"] || params["condition"]==condition %>
+								<% bclass = condition_badge_class condition %>
+							<%end%>
+							<% html = "<span class=\"badge " + bclass +"\">"  + " "+ t('enumerize.auction.condition.'+condition) +"</span>" %>
+							<% if params["condition"]%>
+									<%= html.html_safe %>
+								
+							<%else %>
+								<%=link_to html.html_safe, auctions_path(params_replace("page","condition" , condition)) %>
+							<%end%>
+						<%end%>
+						</p>
+						<p>
+							<% if params["condition"]%>
+								<%= link_to (raw glyphicons("icon-trash")) + " Remove condition filter" , auctions_path(params_without_reset_page("condition")), :class => "btn btn-mini"%>
+							<%end%>
+						</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
