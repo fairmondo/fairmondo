@@ -1,9 +1,11 @@
 Fairnopoly::Application.routes.draw do
+  get "invitation/index"
+
   resources :categories
   resources :images
   resources :userevents
-
   resources :events
+  resources :invitations
 
   devise_for :users
 
@@ -18,6 +20,8 @@ Fairnopoly::Application.routes.draw do
   match 'search' => 'search#search'
   
   match 'event' => 'userevents#index'
+  
+  match 'invitation' => 'invitations#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,8 +1,42 @@
 <div class="row">
 	
-		
+	<div class="well span2">
+<ul class="nav nav-list">
+			<li>
+				<%= image_tag("http://placehold.it/260x180" ,:size=> "160x120", :class => "thumbnail") %>
+			</li>
+			<li class="nav-header">
+				Profile
+			</li>
+			<li>
+				<%= link_to('Edit', edit_user_registration_path ) %>
+			</li>
+			<li class="divider"></li>
+			<li class="nav-header">
+				Connections
+			</li>
+			<li>
+				<%= link_to('Send Invitation', new_invitation_path ) %>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Surname</th>
+					</tr>
+					<% @invitations.each do |invitation| %>
+					<tr>
+						<td><%= invitation.name %></td>
+						<td><%= invitation.surname %></td>
+					</tr>
+					<% end %>
+				</table>
+			</li>
+		</ul>
+	</div>
 	
-	<div class="span1">
+	<div class="span2">
 		&nbsp;
 		<span class="fixed-element">
 		<ul class="nav nav-tabs nav-stacked">
@@ -16,7 +50,7 @@
 		</ul>
 		</span>
 	</div>
-	<div class="span11">
+	<div class="span7">
 		<ol id="timeline">
 				<%@userevents.each do |userevent| %>
 				  <li > 
@@ -28,6 +62,8 @@
 					  		<%= link_to t('dashboard.auction.create'), userevent.appended_object %>
 					  	<% when UsereventType::AUCTION_UPDATE %>
 					  	 	 <%= link_to t('dashboard.auction.update'),userevent.appended_object %>
+					  	<% when UsereventType::INVITATION_SEND%>
+					  	 	 <%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
 						<% end %>
 					<% end %>
 					</p>

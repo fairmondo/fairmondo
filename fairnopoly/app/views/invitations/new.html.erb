@@ -1,0 +1,50 @@
+<div class="row">
+	
+	<div class="well span12">
+		<a href="/dashboard" class="btn"><i class="icon-chevron-left"></i> Back</a>	
+		<hr />	
+		<h1><%= t('invitation.titles.new')%></h1>
+		</br> <h3><%= t('invitation.intro')%></h3>
+		</br>
+	</div>
+
+	<div class="span5">
+		
+			<%= render 'form' %>
+	</div>
+	
+	<div class="span5">
+
+			<table class="table table-bordered">
+				<tr>
+					<td>
+						<strong><%=t('invitation.notices.header.important')%></strong> <br/>
+						<%=t('invitation.notices.important')%>
+					</td>
+				</tr>
+			</table>
+			
+			<br/>
+			
+			<table class="table table-bordered">
+				<tr>
+					<td>
+						<strong><%=t('invitation.notices.header.data')%></strong><br/>
+						<%=t('invitation.notices.data')%>
+					</td>
+				</tr>
+			</table>
+				
+			<br/>
+				
+			<table class="table table-bordered">
+				<tr>
+					<td>
+						<strong><%=t('invitation.notices.header.problems')%></strong><br/>
+						<%=t('invitation.notices.problems')%>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+</div>

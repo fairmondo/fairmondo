@@ -73,4 +73,61 @@ en:
     auction:
       create: "Auction was created"
       update: "Auction was updated"
-
+    invitation:
+      send: "Invitation was sent"
+# Invitation Model/Controller
+  invitation:
+    notices:
+      create: "Einladung wurde versendet"
+      header:
+        important: "Wichtig:"
+        data: "Was passiert mit diesen Daten?"
+        problems: "Was passiert, wenn Probleme mit
+                  einer Person auftreten, die ich
+                  eingeladen habe?"  
+      important: "Lade nur Personen ein,
+                von denen Du sicher
+                bist, dass sie fair mit
+                anderen umgehen"
+      data:       "Diese Punkte fragen wir nur ab um
+                Sicherzustellen, dass Du die Person
+                Wirklich gut genug kennst. Sie muss
+                Deine Angaben bei der Anmeldung
+                Bestätigen.
+                Die Daten werden in Euren beiden
+                Profilen gespeichert und sind für
+                niemanden anderes einsehbar."
+      problems:   "Falls Probleme (z.B. Betrugsvorwürfe)
+                mit einer Person auftreten, die Du
+                eingeladen hast, werden wir Dich
+                Evtl. um Stellungnahme bitten.
+                Falls sich solche Fälle häufen, kann das
+                zu Deinem Ausschluss von der Plattform
+                Führen.
+                In Fällen von nachweislichem
+                systematischen Betrug erstatten wir
+                ausnahmslos Strafanzeige."
+    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Trustcommunity einladen.
+            Für jede eingeladene Person erhältst Du 20 FAIR Founding Points"
+    titles:
+      new: "Lade vertrauenswerte Personen ein"
+    hints:
+      name:   "Enter the name of the person you want to invite"
+      surname:   "Enter the surname of the person you want to invite"
+      email:   "Enter the email of the person you want to invite"
+    relation:
+      info:   "Bitte lade nur Personen ein, auf die eine der Optionen zutrifft:"
+      friend:   "Ich bin mit der oben genannten Person gut befreundet."
+      colleague:  "Die oben genannte Person ist eine enge Arbeitskollegin/ein enger Arbeitskollege von mir"
+      relative:   "Ich bin mit der oben genannten Person verwandt"
+    actions:
+      send: "Einladung abschicken"
+      show_all: "zeige alle"
+    conformation:
+      trusted1: "Ich vertraue darauf, dass die oben genannte Person eine
+                verantwortliche Person ist, die mit anderen Nutzern
+                dieser Plattform fair umgeht und keinen Betrug
+                betreiben wird."
+      trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
+                dieses Formular nur Menschen einladen wird, denen
+                sie/er ebenso in genannter Weise vertraut."

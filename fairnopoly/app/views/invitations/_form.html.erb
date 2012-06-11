@@ -1,0 +1,28 @@
+<%= semantic_form_for @invitation ,  do |f|  %>
+  
+   <div class="well">
+
+	  <%= f.semantic_errors %>
+
+	  <%= f.inputs do %>
+
+	    <%= f.input :name%>
+	    <%= f.input :surname %>
+	    <%= f.input :email %>
+	   		
+	    	<%= f.input :relation, :as => :radio, :collection => [t('invitation.relation.friend'), 
+	    		t('invitation.relation.colleague'), t('invitation.relation.relative')]%>
+
+			<hr/>
+	    	<%= f.input :trusted_1, :label => t('invitation.conformation.trusted1') %>
+	    	<%= f.input :trusted_2, :label => t('invitation.conformation.trusted2') %>
+
+	   
+	   <% end %>
+
+   </div>
+  <%= f.buttons do %>
+    <%= f.commit_button t('invitation.actions.send') %>
+  <% end %>
+  
+<% end %>

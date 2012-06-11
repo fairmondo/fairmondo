@@ -1,4 +1,11 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<div class="well">
+		<a href="/dashboard" class="btn"><i class="icon-chevron-left"></i> Back</a>	
+		<hr />	
+		<h1>Edit <%= resource_name.to_s.humanize %></h1>
+</div>
+
+<div class="well">
 <%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= f.semantic_errors %>
   <%= f.inputs do %>
@@ -7,6 +14,7 @@
     <%= f.input :password_confirmation, :hint => "Confirm new password" %>
     <%= f.input :current_password, :hint => "Enter current password (we need your current password to confirm your changes)" %>
   <% end %>
+  </div>
   <%= f.buttons do %>
     <%= f.commit_button :button_html => {:class => "primary"} %>
   <% end %>
@@ -15,5 +23,3 @@
  
 <p class="well">Unhappy? 
 	<%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
- 
-<%= link_to "Back", :back %>

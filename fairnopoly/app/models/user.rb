@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   has_many :auctions
   has_many :userevents
   has_many :bids
+  has_many :invitations
 end

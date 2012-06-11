@@ -1,0 +1,33 @@
+
+<table class="table table-bordered">
+	<tr>
+		<td>
+		<p>
+			<b>Name:</b>
+			<%= @invitation.name %>
+		</p></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+			<b>Surname:</b>
+			<%= @invitation.surname %>
+		</p></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+			<b>Email:</b>
+			<%= @invitation.email %>
+		</p></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+			<b>Relation:</b>
+			<%= @invitation.relation %>
+		</p></td>
+	</tr>
+</table>
+
+<%= link_to 'back', dashboard_path %>
