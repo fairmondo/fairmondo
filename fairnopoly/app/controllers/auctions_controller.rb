@@ -7,7 +7,7 @@ class AuctionsController < ApplicationController
   def index
       conditions = ["user_id IS NOT NULL"]
       if params["condition"]
-        conditions[0] += " AND 'condition' LIKE ? "
+        conditions[0] += " AND `condition` LIKE ? "
         conditions.push params["condition"]
       end
       if params["selected_category_id"]
