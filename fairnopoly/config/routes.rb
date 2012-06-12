@@ -1,4 +1,5 @@
 Fairnopoly::Application.routes.draw do
+
   get "invitation/index"
 
   resources :categories

@@ -1,4 +1,8 @@
 class Auction < ActiveRecord::Base
+  
+  before_validation :sanitize_content, :on => :create
+
+  
   acts_as_indexed :fields => [:title, :content]
    include Enumerize
    enumerize :condition, :in => [:new ,:fair , :old ]
@@ -22,5 +26,16 @@ class Auction < ActiveRecord::Base
        return images[0]
      end
    end
+   
+   private
+    def sanitize_content
+      self.content = sanitize_tiny_mce(self.content)
+    end
+    def sanitize_tiny_mce(field)
+      ActionController::Base.helpers.sanitize(field,
+        :tags => %w(a b i strong em p param h1 h2 h3 h4 h5 h6 br hr ul li img),
+        :attributes => %w(href name src type value width height data) );
+    end
+  
    
 end

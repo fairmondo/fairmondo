@@ -6,10 +6,10 @@
 	  <%= f.semantic_errors %>
 	  <%= f.inputs do %>
 	    <%= f.input :title,   :hint => t('auction.hints.title') %>
-	    <%= f.input :content, :hint => t('auction.hints.content') %>
-	    <%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
-	   
-	   <% end %>
+	   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
+	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
+	   		<%= tinymce %>
+	  <% end %>
    </div>
   <%= f.buttons do %>
     <%= f.commit_button :button_html => {:class => "primary"} %>
