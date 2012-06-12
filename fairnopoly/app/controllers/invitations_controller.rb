@@ -54,7 +54,7 @@ class InvitationsController < ApplicationController
         respond_created
     else
       respond_to do |format|
-        format.html { render :action => "list" }
+        format.html { render :action => "new" }
         format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
       end
     end

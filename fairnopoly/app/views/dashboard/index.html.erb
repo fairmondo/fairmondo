@@ -1,78 +1,49 @@
 <div class="row">
-	
-	<div class="well span2">
-<ul class="nav nav-list">
-			<li>
-				<%= image_tag("http://placehold.it/260x180" ,:size=> "160x120", :class => "thumbnail") %>
-			</li>
-			<li class="nav-header">
-				Profile
-			</li>
-			<li>
-				<%= link_to('Edit', edit_user_registration_path ) %>
-			</li>
-			<li class="divider"></li>
-			<li class="nav-header">
-				Connections
-			</li>
-			<li>
-				<%= link_to('Send Invitation', new_invitation_path ) %>
-			</li>
-			<li class="divider"></li>
-			<li>
-				<table class="table table-bordered">
-					<tr>
-						<th>Name</th>
-						<th>Surname</th>
-					</tr>
-					<% @invitations.each do |invitation| %>
-					<tr>
-						<td><%= invitation.name %></td>
-						<td><%= invitation.surname %></td>
-					</tr>
-					<% end %>
-				</table>
-			</li>
-		</ul>
+	<div class="span3">
+		<div class="well">
+			<ul class="nav nav-list">
+				<li>
+					<%= image_tag("http://placehold.it/260x180" ,:size=> "160x120", :class => "thumbnail") %>
+				</li>
+				<li class="nav-header">
+					Profile
+				</li>
+				<li>
+					<%= link_to('Edit', edit_user_registration_path ) %>
+				</li>
+				<li class="divider"></li>
+				<li class="nav-header">
+					Connections
+				</li>
+				<li>
+					<%= link_to('Send Invitation', new_invitation_path ) %>
+				</li>
+			</ul>
+		</div>
 	</div>
-	
-	<div class="span2">
-		&nbsp;
-		<span class="fixed-element">
-		<ul class="nav nav-tabs nav-stacked">
-			<!--Build Timeline Links-->
-			<% 
-				@links.each do |link|%>
-					<li>
-						<a href="#<%= link %>"><%= link.strftime("%B %Y")%></a>
-					</li>
-				<%end%>
-		</ul>
-		</span>
-	</div>
-	<div class="span7">
+	<div class="span9">
 		<ol id="timeline">
-				<%@userevents.each do |userevent| %>
-				  <li > 
-				   <div class="time"><%= userevent.created_at.strftime("%d.%m.%Y - %H:%M")%></div> 
-				    <span class="corner"></span>
-				    <p>
+			<%@userevents.each do |userevent| %>
+			<li >
+				<div class="time">
+					<%= userevent.created_at.strftime("%d.%m.%Y - %H:%M")%>
+				</div>
+				<span class="corner"></span>
+				<p>
 					<% case userevent.event_type %>
-					  	<% when UsereventType::AUCTION_CREATE %>
-					  		<%= link_to t('dashboard.auction.create'), userevent.appended_object %>
-					  	<% when UsereventType::AUCTION_UPDATE %>
-					  	 	 <%= link_to t('dashboard.auction.update'),userevent.appended_object %>
-					  	<% when UsereventType::INVITATION_SEND%>
-					  	 	 <%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
-						<% end %>
+					<% when UsereventType::AUCTION_CREATE %>
+					<%= link_to t('dashboard.auction.create'), userevent.appended_object %>
+					<% when UsereventType::AUCTION_UPDATE %>
+					<%= link_to t('dashboard.auction.update'),userevent.appended_object %>
+					<% when UsereventType::INVITATION_SEND%>
+					<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
 					<% end %>
-					</p>
-				  </li>
-			</ol>
-			
-		<div class="offset3"><%= will_paginate @userevents%></div>
-		
-	</div>		
+					<% end %>
+				</p>
+			</li>
+		</ol>
+		<div class="offset1">
+			<%= will_paginate @userevents%>
+		</div>
+	</div>
 </div>
-
-

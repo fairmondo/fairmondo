@@ -107,19 +107,15 @@ en:
                 In Fällen von nachweislichem
                 systematischen Betrug erstatten wir
                 ausnahmslos Strafanzeige."
-    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Trustcommunity einladen.
-            Für jede eingeladene Person erhältst Du 20 FAIR Founding Points"
+    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Trustcommunity einladen."
+    intro2: "Für jede eingeladene Person erhältst Du 20 FAIR Founding Points."
     titles:
-      new: "Lade vertrauenswerte Personen ein"
-    hints:
-      name:   "Enter the name of the person you want to invite"
-      surname:   "Enter the surname of the person you want to invite"
-      email:   "Enter the email of the person you want to invite"
+      new: "Lade vertrauenswerte Personen ein."
     relation:
       info:   "Bitte lade nur Personen ein, auf die eine der Optionen zutrifft:"
       friend:   "Ich bin mit der oben genannten Person gut befreundet."
-      colleague:  "Die oben genannte Person ist eine enge Arbeitskollegin/ein enger Arbeitskollege von mir"
-      relative:   "Ich bin mit der oben genannten Person verwandt"
+      colleague:  "Die oben genannte Person ist eine enge Arbeitskollegin/ein enger Arbeitskollege von mir."
+      relative:   "Ich bin mit der oben genannten Person verwandt."
     actions:
       send: "Einladung abschicken"
       show_all: "zeige alle"

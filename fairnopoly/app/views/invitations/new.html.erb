@@ -1,50 +1,41 @@
 <div class="row">
-	
-	<div class="well span12">
-		<a href="/dashboard" class="btn"><i class="icon-chevron-left"></i> Back</a>	
-		<hr />	
-		<h1><%= t('invitation.titles.new')%></h1>
-		</br> <h3><%= t('invitation.intro')%></h3>
-		</br>
+	<div class="span12">
+		<div class="well ">
+			<a href="/dashboard" class="btn"><i class="icon-chevron-left"></i> Back</a>	
+			<hr />	
+			<h1><%= t('invitation.titles.new')%></h1><br/>
+		    <h3><%= t('invitation.intro')%></h3>
+		    <h3><%= t('invitation.intro2')%></h3>
+		</div>
 	</div>
 
-	<div class="span5">
+	<div class="offset1 span5">
 		
 			<%= render 'form' %>
 	</div>
 	
 	<div class="span5">
-
-			<table class="table table-bordered">
-				<tr>
-					<td>
-						<strong><%=t('invitation.notices.header.important')%></strong> <br/>
-						<%=t('invitation.notices.important')%>
-					</td>
-				</tr>
-			</table>
 			
-			<br/>
+			<div class="span5">
+				<div class="alert alert alert-info">
+						<strong><i class="icon-info-sign"></i> <%=t('invitation.notices.header.important')%></strong> <br/>
+						<p><%=t('invitation.notices.important')%></p>
+				</div>
+			</div>	
 			
-			<table class="table table-bordered">
-				<tr>
-					<td>
-						<strong><%=t('invitation.notices.header.data')%></strong><br/>
-						<%=t('invitation.notices.data')%>
-					</td>
-				</tr>
-			</table>
+			<div class="span5">
+				<div class="well">
+						<strong><i class="icon-question-sign"></i> <%=t('invitation.notices.header.data')%></strong><br/>
+						<p><%=t('invitation.notices.data')%></p>
+				</div>
+			</div>
 				
-			<br/>
-				
-			<table class="table table-bordered">
-				<tr>
-					<td>
-						<strong><%=t('invitation.notices.header.problems')%></strong><br/>
-						<%=t('invitation.notices.problems')%>
-					</td>
-				</tr>
-			</table>
+			<div class="span5">
+				<div class="well">
+						<strong><i class="icon-question-sign"></i> <%=t('invitation.notices.header.problems')%></strong><br/>
+						<p><%=t('invitation.notices.problems')%></p>
+				</div>
+			</div>
 			
 		</div>
 </div>
