@@ -60,16 +60,21 @@ body {
 .category-button {  
 	background-color: transparent !important; 
 	border: 0 !important; 
-	padding: 3px !important;
 	width: 100% !important; 
 	height: 100% !important;
+	margin: 2px !important;
 	text-align:left !important;
 	color: #048adc;
 	
 }
+
 div.category-button {
 	margin-right:20px;
+	padding: 2px !important
+	
 }
+
+
 	
 a.no_decoration:hover   {
   		

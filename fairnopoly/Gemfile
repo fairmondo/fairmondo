@@ -19,6 +19,8 @@ gem 'tabulous'
 gem "paperclip", "~> 3.0"
 gem 'enumerize'
 gem 'acts_as_indexed'
+gem 'rails3-jquery-autocomplete'
+
 
 gem 'tinymce-rails'
 # Gems used only for assets and not required

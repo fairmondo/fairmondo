@@ -1,5 +1,5 @@
 class AuctionsController < ApplicationController
-
+  autocomplete :auction, :title, :full => true
   # Create is safed by denail!
   before_filter :authenticate_user!, :except => [:show, :index,:new, :create]
   # GET /auctions
@@ -17,9 +17,9 @@ class AuctionsController < ApplicationController
         conditions.push params["selected_category_id"]
       end
       if params["q"] && !params["q"].blank?
-         @auctions = Auction.with_query(params["q"]).paginate( :page => params[:page], :per_page=>10, :conditions => conditions)
+         @auctions = Auction.with_query(params["q"]).paginate( :page => params[:page], :per_page=>12, :conditions => conditions)
       else
-         @auctions = Auction.paginate :page => params[:page], :per_page=>10, :conditions => conditions
+         @auctions = Auction.paginate :page => params[:page], :per_page=>12, :conditions => conditions
       end
    
     setup_categories params["selected_category_id"]

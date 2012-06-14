@@ -12,8 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap
 //= require tinymce
 //= require tinymce-jquery
+//= require autocomplete-rails
 //= require_tree .
+
 

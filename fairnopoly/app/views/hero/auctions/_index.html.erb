@@ -9,7 +9,7 @@
 							<h4>Search for:</h4>
 							</p>
 							<form class="form-search">
-  								<input type="text" class="input-medium search-query" name="q" value="<%=params["q"]%>">
+  								<input type="text" class="search-query" name="q" data-autocomplete="<%= autocomplete_auction_title_auctions_path %>" value="<%=params["q"]%>">
   								<button type="submit" class="btn"><%= t("commons.text.search")%></button>
   								<% params_without("page").each do |key, value| %>
   									<%if key!="q"%>
@@ -17,7 +17,6 @@
   									<%end%>
   								<% end %>
 							</form>
-
 						</div>
 					</div>
 					<p>

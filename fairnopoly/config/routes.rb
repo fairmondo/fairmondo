@@ -12,13 +12,12 @@ Fairnopoly::Application.routes.draw do
 
   resources :auctions do
     #recources :userevents
+    get :autocomplete_auction_title, :on => :collection
   end
   
   get "welcome/index"
   match "continue_creating_auction" => 'auctions#finalize'
   match 'dashboard' => 'dashboard#index'
-  
-  match 'search' => 'search#search'
   
   match 'event' => 'userevents#index'
   

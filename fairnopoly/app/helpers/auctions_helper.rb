@@ -16,9 +16,9 @@ module AuctionsHelper
   end
 
   # Conditions
-  def condition_label auction, extraclass =""
+  def condition_label auction, extraclass = ""
     bclass=condition_badge_class(auction.condition)
-    raw "<span class=\"badge " + bclass + " " +extraclass +"\">" + auction.condition_text + "</span>"
+    raw "<span class=\"badge " + bclass + " " + extraclass +"\">" + auction.condition_text + "</span>"
   end
 
   def condition_badge_class condition
