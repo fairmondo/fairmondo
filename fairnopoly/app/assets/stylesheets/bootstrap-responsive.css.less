@@ -22,16 +22,14 @@
 
 // Colorize  
  
- 
-@navbarBackgroundHighlight :#19609E ;
-@navbarBackground : #048adc;
+@mainColor :#19609E ;
+@lighterMainColor : #2486dc;
+@navbarBackgroundHighlight :@mainColor;
+@navbarBackground :@lighterMainColor;
 @navbarLinkColor : @white;
 @navbarSearchBackground : @white;
 @navbarLinkBackgroundHover: @navbarBackgroundHighlight;
 @navbarText:  @white;
 @navbarSearchPlaceholderColor : @grayDark ;
-@linkColor : @navbarBackground;
+@linkColor : @lighterMainColor;
 
-th { color: @black;
-      #gradient > .vertical(  #ddd,#f5f5f5 );
-}

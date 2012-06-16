@@ -1,28 +1,51 @@
 source 'https://rubygems.org'
 
+#Rails
 gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem "jruby-openssl", :platforms => :jruby
-gem 'activerecord-jdbc-adapter', '1.2.2' 
-gem 'activerecord-jdbcmysql-adapter', '1.2.2' 
-gem 'jdbc-mysql', :require => false 
+#Jruby Deps
 
-gem 'json'
+gem "jruby-openssl", :platforms => :jruby
+gem 'activerecord-jdbc-adapter', '1.2.2' , :platforms => :jruby
+gem 'activerecord-jdbcmysql-adapter', '1.2.2' , :platforms => :jruby
+gem 'jdbc-mysql', :require => false , :platforms => :jruby
+
+# Forms & Upload
+gem "paperclip", "~> 3.0"
 gem 'formtastic', " ~> 2.1.1"
+
+# CSS 
 gem 'less'
 gem 'less-rails-bootstrap'
 gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
-gem 'tabulous'
-gem "paperclip", "~> 3.0"
-gem 'enumerize'
-gem 'acts_as_indexed'
+gem 'bootstrap-will_paginate'
+
+# JS
 gem 'rails3-jquery-autocomplete'
-
-
 gem 'tinymce-rails'
+gem 'jquery-rails'
+
+# Tool Libs
+
+gem 'json'
+gem 'tabulous'
+gem 'enumerize'
+gem 'will_paginate', '~> 3.0'
+
+# Indexing /Searching
+
+gem 'acts_as_indexed'
+
+# Controller Gems 
+gem 'devise' 
+
+# Deploy with Capistrano
+gem 'capistrano'
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -36,11 +59,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'devise'
-
-gem 'bootstrap-will_paginate'
-gem 'will_paginate', '~> 3.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -50,9 +68,6 @@ gem 'will_paginate', '~> 3.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
-
-# Deploy with Capistrano
-gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug'
