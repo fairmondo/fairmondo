@@ -45,6 +45,8 @@ gem 'devise'
 # Deploy with Capistrano
 gem 'capistrano'
 
+# Deal with Money 
+gem 'money-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

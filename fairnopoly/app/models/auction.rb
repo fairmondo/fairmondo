@@ -6,6 +6,9 @@ class Auction < ActiveRecord::Base
   acts_as_indexed :fields => [:title, :content]
    include Enumerize
    enumerize :condition, :in => [:new ,:fair , :old ]
+   enumerize :price_currency, :in => [:EUR]
+   
+   monetize :price_cents
   #Relations
    has_many :userevents
    has_many :bids
@@ -17,7 +20,7 @@ class Auction < ActiveRecord::Base
    belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
    belongs_to :category
    
-   validates_presence_of :title , :content, :category, :condition
+   validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency
    
    def title_image 
      if images.empty?
@@ -27,6 +30,7 @@ class Auction < ActiveRecord::Base
      end
    end
    
+  
    private
     def sanitize_content
       self.content = sanitize_tiny_mce(self.content)

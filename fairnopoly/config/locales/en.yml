@@ -50,6 +50,8 @@ en:
       link: "Unlock my account"
 # Auction Model/Controller
   auction:
+    lables:
+      price: "Price"
     list:
       header: "Results"
     notices:
@@ -60,6 +62,7 @@ en:
       title:  "Enter the auction's title"
       content: "Enter a description for your auction"
       condition: "Enter the auctions type"
+      price: "Enter the auction's price"
     image:
       title: "Upload an image"
       upload: "Upload"

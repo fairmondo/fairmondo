@@ -12,7 +12,7 @@
 					<%end%>
 		            <div class="caption">
 		              <h5><%= link_to auction.title, auction %></h5>
-		               
+		              <h5><%= humanized_money_with_symbol auction.price %></h5>
 		            </div>
 		            <%= condition_label auction, "in-image" %>
 		         </div>
