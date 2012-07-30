@@ -1,4 +1,5 @@
 config/database.yml
+config/environments/development.rb
 public/system
 .project
 db/*.sqlite3
