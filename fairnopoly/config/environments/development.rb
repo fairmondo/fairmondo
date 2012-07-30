@@ -36,6 +36,15 @@ Fairnopoly::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
- 
+  # Mailer config
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.1und1.de",
+    :port                 => 587,
+    :domain               => '1und1.de',
+    :user_name            => 'tobi@schmidies.de',
+    :password             => '0701sar',
+    :authentication       => 'login',
+    :enable_starttls_auto => true  }
     
 end

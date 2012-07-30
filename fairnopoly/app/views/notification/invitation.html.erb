@@ -4,16 +4,21 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Hello <%= @name %></h1>
-    <p>
-      	you have been invited to FAIRNOPOLY from <%= @user %>.
+
+  	<!-- ><img alt="Banner" src="http://www.fairnopoly.com/online-marktplatz/wp-content/uploads/2012/05/fn-header-200-de-t2.gif" width="100%"/>-->
+  	
+    <h2>Hello <%= @name %>,</h2>
+    <p>	
+      	you have been invited to FAIRNOPOLY from <b><%= @user %></b>.
 		To join FAIRNOPOLY follow this link: <br/>
     </p>
     <p>
-    	<%= @url %> 
+    	<a href="<%=@url%>"><%=@url%></a>
     </p>
     <p>
-		greetings
+    	<br/>
+    	<hr/>
+		Greetings
 		The Fairnopoly Team
 	</p>
   </body>

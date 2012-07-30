@@ -8,10 +8,10 @@ class Notification < ActionMailer::Base
   #   en.notification.invitation.subject
   #
   def invitation(user, name, email)
-    
+    key = SecureRandom.hex(24)
     @user = user
     @name = name
-    @url  = "http://127.0.0.1:8080/users/sign_up"
+    @url  = "http://127.0.0.1:8080/users/sign_up/" + key
 
     mail(:to => email, :subject => "Testmail")
     
