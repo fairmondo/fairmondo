@@ -73,6 +73,11 @@ en:
       profile: "View seller"
 # Dashboard
   dashboard:
+    menu:
+      edit: "Edit"
+      timeline: "Timeline"
+      connection: "Connections"
+      trade: "trade"
     auction:
       create: "Auction was created"
       update: "Auction was updated"

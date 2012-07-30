@@ -1,8 +1,5 @@
 <%= semantic_form_for @invitation ,  do |f|  %>
-  
-  <div class="span6">
-	   <div class="well">
-	
+
 		  <%= f.semantic_errors %>
 	
 		  <%= f.inputs do %>
@@ -20,12 +17,9 @@
 	
 		   
 		   <% end %>
-	
-	   </div>
-   </div>
-   <div class="span12">
+
 	  <%= f.buttons do %>
 	    <%= f.commit_button t('invitation.actions.send') %>
 	  <% end %>
-  </div>
+
 <% end %>
