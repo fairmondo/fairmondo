@@ -5,7 +5,9 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitations = Invitation.all
+    
+    #@invitations = Invitation.where(:user => current_user)
+    @invitations = Invitation.find(:all,:conditions => [ "user_id = ?", current_user.id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,12 +18,19 @@ class InvitationsController < ApplicationController
   # GET /invitations/1
   # GET /invitations/1.json
   def show
-    @invitation = Invitation.find(params[:id])
+    @invitation = Invitation.find(params[:id],:conditions => [ "user_id = ?", current_user.id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @invitation }
+    if !@invitation.nil?
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @invitation }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
+      end
     end
+    
   end
 
   # GET /invitations/new
@@ -36,9 +45,9 @@ class InvitationsController < ApplicationController
   end
 
   # GET /invitations/1/edit
-  def edit
-    @invitation = Invitation.find(params[:id])
-  end
+  #def edit
+  #  @invitation = Invitation.find(params[:id])
+  #end
 
   # POST /invitations
   # POST /invitations.json
@@ -46,10 +55,10 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(params[:invitation])
 
     if user_signed_in?
-      @invitation.user = current_user
+      @invitation.sender = current_user
     end
 
-    # Check if we can save the auction
+    # Check if we can save the invitation
     if @invitation.save
         respond_created
     else
@@ -62,19 +71,20 @@ class InvitationsController < ApplicationController
 
   # PUT /invitations/1
   # PUT /invitations/1.json
-  def update
-    @invitation = Invitation.find(params[:id])
+  #def update
+  #  @invitation = Invitation.find(params[:id])
 
-    respond_to do |format|
-      if @invitation.update_attributes(params[:invitation])
-        format.html { redirect_to @invitation, :notice => 'Invitation was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+  #  respond_to do |format|
+  #    if @invitation.update_attributes(params[:invitation])
+  #      format.html { redirect_to @invitation, :notice => 'Invitation was successfully updated.' }
+  #      format.json { head :no_content }
+  #    else
+  #      format.html { render :action => "edit" }
+  #      format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
+  #    end
+  #  end
+  #end
+
 
   # DELETE /invitations/1
   # DELETE /invitations/1.json

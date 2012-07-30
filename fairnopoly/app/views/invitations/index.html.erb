@@ -10,6 +10,7 @@
 
 <% @invitations.each do |invitation| %>
   <tr>
+  	<td><%= link_to 'Show', invitation_path(invitation) %></td>
     <td><%= invitation.name %></td>
     <td><%= invitation.surname %></td>
     <td><%= invitation.email %></td>
