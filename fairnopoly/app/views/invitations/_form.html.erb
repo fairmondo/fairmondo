@@ -10,8 +10,8 @@
 	    <%= f.input :surname %>
 	    <%= f.input :email %>
 	   		
-	    	<%= f.input :relation, :as => :radio, :collection => [t('invitation.relation.friend'), 
-	    		t('invitation.relation.colleague'), t('invitation.relation.relative')]%>
+	    	<%= f.input :relation, :as => :radio, :collection => [[t('invitation.relation.relative'),UserRelation::RELATIVE], 
+	    		[t('invitation.relation.friend'),UserRelation::FRIEND], [t('invitation.relation.colleague'),UserRelation::COLLEAGUE]]%>
 
 			<hr/>
 	    	<%= f.input :trusted_1, :label => t('invitation.conformation.trusted1') %>
