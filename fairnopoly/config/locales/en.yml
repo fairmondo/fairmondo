@@ -82,6 +82,7 @@ en:
   invitation:
     notices:
       create: "Einladung wurde versendet"
+      not_available: "Einladung nicht verfügbar"
       header:
         important: "Wichtig:"
         data: "Was passiert mit diesen Daten?"

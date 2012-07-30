@@ -20,15 +20,14 @@ class InvitationsController < ApplicationController
   def show
     @invitation = Invitation.find(params[:id],:conditions => [ "user_id = ?", current_user.id])
 
-    if !@invitation.nil?
+    if @invitation == nil
+        flash[:error] = t('invitation.notices.not_available')
+        #redirect_to :controller => 'logins', :action => 'login'
+    else
       respond_to do |format|
         format.html # show.html.erb
         format.json { render :json => @invitation }
-      end
-    else
-      respond_to do |format|
-        format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
-      end
+      end 
     end
     
   end
@@ -60,6 +59,7 @@ class InvitationsController < ApplicationController
 
     # Check if we can save the invitation
     if @invitation.save
+        Notification.invitation(current_user.email,@invitation.name,@invitation.email).deliver
         respond_created
     else
       respond_to do |format|
