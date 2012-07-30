@@ -37,6 +37,14 @@ Fairnopoly::Application.configure do
   config.assets.debug = true
   
   # Mailer config
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "",
+    :port                 => 587,
+    :domain               => '',
+    :user_name            => '',
+    :password             => '',
+    :authentication       => 'login',
+    :enable_starttls_auto => true  }
     
 end
