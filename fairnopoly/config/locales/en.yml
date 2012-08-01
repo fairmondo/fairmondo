@@ -73,11 +73,16 @@ en:
       profile: "View seller"
 # Dashboard
   dashboard:
+    actions:
+      edit_account: "Edit Account"
     menu:
-      edit: "Edit"
+      profile: "Profile"
+      edit: "Edit Profile"
       timeline: "Timeline"
-      connection: "Connections"
-      trade: "trade"
+      friends: "Friends"
+      community: "Community"
+      trade: "Trade"
+      settings: "Settings"
     auction:
       create: "Auction was created"
       update: "Auction was updated"
@@ -86,8 +91,14 @@ en:
 # Invitation Model/Controller
   invitation:
     notices:
+      confirmation: "The invitation has been confirmed. An Account has been created with the following data. 
+                      The password will be sent by e-mail. 
+                      You can change the account settings after you logged-in!"  
       create: "Einladung wurde versendet"
       not_available: "Einladung nicht verfügbar"
+      activation_error: "Activation failed."
+      activation_error_exist: "Activation failed. Invitation already confirmed!"
+      activation_error_wrong: "Activation failed. Wrong Activation key!"
       header:
         important: "Wichtig:"
         data: "Was passiert mit diesen Daten?"

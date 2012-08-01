@@ -7,7 +7,10 @@ class DashboardController < ApplicationController
      
     @invitations = Invitation.all
 
-     
+  end
+  
+  def timeline
+    
     @userevents = Userevent.where(:user_id => current_user.id).paginate(:page => params[:page],:per_page => 10).order('created_at DESC') #find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")    
     @userevents2 = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")
       
@@ -27,6 +30,7 @@ class DashboardController < ApplicationController
         format.html # index.html.erb
         format.json { render :json => @userevents }
       end
+    
   end
   
 end

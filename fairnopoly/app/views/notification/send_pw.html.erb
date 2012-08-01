@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
@@ -9,11 +8,12 @@
   	
     <h2>Hello <%= @name %>,</h2>
     <p>	
-      	you have been invited to FAIRNOPOLY from <b><%= @user.email %></b>.
-		To join FAIRNOPOLY follow this link: <br/>
+      	your account has been created succesfully!
+		Your password is: <br/>
     </p>
+    <p><%= @pw %></p>
     <p>
-    	<a href="<%=@url%>"><%=@url%></a>
+    	Please change this password after you logged-in.
     </p>
     <p>
     	<br/>

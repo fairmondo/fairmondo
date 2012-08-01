@@ -7,12 +7,21 @@ class Notification < ActionMailer::Base
   #
   #   en.notification.invitation.subject
   #
-  def invitation(user, name, email)
+  def invitation(id, user, name, email, activation_key)
+    
     key = SecureRandom.hex(24)
     @user = user
     @name = name
-    @url  = "http://127.0.0.1:8080/users/sign_up/" + key
+    @url  = "http://127.0.0.1:8080/confirm_invitation?id=" + id.to_s + "&key=" + activation_key
 
+    mail(:to => email, :subject => "Testmail")
+    
+  end
+  
+  def send_pw(name, email, pw)
+    @name = name
+    @pw = pw
+    
     mail(:to => email, :subject => "Testmail")
     
   end

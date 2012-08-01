@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:confirm]
   
   # GET /invitations
   # GET /invitations.json
@@ -14,6 +14,32 @@ class InvitationsController < ApplicationController
       format.json { render :json => @invitations }
     end
   end
+  
+  def confirm
+    @invitation = Invitation.find(params[:id])
+    
+    if @invitation.activation_key != params[:key]
+      flash[:error] = t('invitation.notices.activation_error_wrong')
+      redirect_to root_path
+    elsif @invitation.activated == true
+      flash[:error] = t('invitation.notices.activation_error_exist')
+      redirect_to root_path
+    else
+       @invitation.activated = true
+       @pw = SecureRandom.hex(8)
+       
+       @user = User.new(:email => @invitation.email, :password => @pw, :password_confirmation => @pw)
+       @user.save
+       
+       Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
+
+       if !@invitation.save
+         flash[:error] = t('invitation.notices.activation_error')
+       end
+    end
+    
+  end
+
 
   # GET /invitations/1
   # GET /invitations/1.json
@@ -57,9 +83,13 @@ class InvitationsController < ApplicationController
       @invitation.sender = current_user
     end
 
+    # generate the activation key and save it in the invitation
+    @invitation.activation_key = SecureRandom.hex(24)
+    @invitation.activated = false
+
     # Check if we can save the invitation
     if @invitation.save
-        Notification.invitation(current_user.email,@invitation.name,@invitation.email).deliver
+        Notification.invitation(@invitation.id, current_user, @invitation.name, @invitation.email, @invitation.activation_key).deliver
         respond_created
     else
       respond_to do |format|

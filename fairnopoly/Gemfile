@@ -25,7 +25,7 @@ gem "paperclip", "~> 3.0"
 gem 'formtastic', " ~> 2.1.1"
 
 # CSS 
-gem 'less'
+gem 'less';
 gem 'less-rails-bootstrap'
 gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
 gem 'bootstrap-will_paginate'
@@ -43,7 +43,6 @@ gem 'enumerize'
 gem 'will_paginate', '~> 3.0'
 
 # Indexing /Searching
-
 gem 'acts_as_indexed'
 
 # Controller Gems 
@@ -69,6 +68,12 @@ group :assets do
   gem 'therubyrhino' , '~> 1.73.3'
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+# for generating *.war file
+group :development do
+  gem 'warbler'
+
 end
 
 # To use ActiveModel has_secure_password

@@ -17,7 +17,19 @@ Fairnopoly::Application.routes.draw do
   
   get "welcome/index"
   match "continue_creating_auction" => 'auctions#finalize'
+  
+  # the dashboard routes
   match 'dashboard' => 'dashboard#index'
+  # the dashboard routes
+  match 'timeline_dashboard' => 'dashboard#timeline'
+  match 'friends_dashboard' => 'dashboard#friends'
+  match 'community_dashboard' => 'dashboard#community'
+  match 'edit_profile_dashboard' => 'dashboard#edit_profile'
+  match 'setting_dashboard' => 'dashboard#setting'
+  match 'trade_dashboard' => 'dashboard#trade'
+  
+  #confirmation invitation
+  match 'confirm_invitation' => 'invitations#confirm'
   
   match 'event' => 'userevents#index'
   
