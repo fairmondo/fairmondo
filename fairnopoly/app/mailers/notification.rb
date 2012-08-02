@@ -26,4 +26,14 @@ class Notification < ActionMailer::Base
     
   end
   
+  def send_ffp_confirmed(ffp)
+    @ffp = ffp
+     mail(:to => @ffp.email, :subject => "Testmail")
+  end
+  
+  def send_ffp_created(ffp)
+    @ffp = ffp
+    mail(:to => @ffp.email, :subject => "Testmail")
+  end
+  
 end

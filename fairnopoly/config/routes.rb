@@ -1,5 +1,7 @@
 Fairnopoly::Application.routes.draw do
 
+  resources :ffps
+
   get "invitation/index"
 
   resources :categories
@@ -7,7 +9,7 @@ Fairnopoly::Application.routes.draw do
   resources :userevents
   resources :events
   resources :invitations
-
+  resources :ffps
   devise_for :users
 
   resources :auctions do

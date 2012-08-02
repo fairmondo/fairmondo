@@ -1,0 +1,22 @@
+
+<div class="well">
+	<%= semantic_form_for @ffp do |f| %>
+	
+	<%= f.semantic_errors %>
+	
+	  <%= f.inputs do %>
+	    <%= f.input :price, :required => true, :hint => t('ffp.formular.hints.price') ,:label => t('ffp.formular.price') %>
+	    <%= f.input :name, :required => true, :hint => t('ffp.formular.hints.name') ,:label => t('ffp.formular.name'), :input_html => { :value => current_user.name } %>
+	    <%= f.input :surname, :required => true, :hint => t('ffp.formular.hints.surname') ,:label => t('ffp.formular.surname'), :input_html => { :value => current_user.surname }  %>
+	    <%= f.input :email, :required => true, :hint => t('ffp.formular.hints.email') ,:label => t('ffp.formular.email'), :input_html => { :value => current_user.email } %>
+	  <% end %>
+		
+</div>
+<h3> <%= t('ffp.credit') %>: <%=current_user.email%></h3>
+
+<%= f.actions do %>
+    <%= f.action :submit, :as => :input,:label => t('ffp.formular.buy')%>
+    <p><%= t('ffp.formular.hints.submit')%> </p>
+  <% end %>
+  
+<% end %>

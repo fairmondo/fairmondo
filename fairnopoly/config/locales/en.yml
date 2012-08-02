@@ -88,6 +88,29 @@ en:
       update: "Auction was updated"
     invitation:
       send: "Invitation was sent"
+# FFP Model/Controller
+  ffp:
+    to_much: "You cannot buy more than 10000 FFP"
+    title:
+      activate: "Confirm this Transaction"
+    buy: "Buy Fair Founding Points"
+    credit: "The Fair Founding Points will be booked to this account"
+    success: "The Fair Founding Points have been successfully created"
+    success_next: "You got an e-mail with the bank account. The FFP will be booked to your account when the transaction is completed."
+    formular:
+      activate: "Confirm"
+      price: "Price"
+      name: "Name"
+      surname: "Surname"
+      email: "E-Mail"
+      buy: "Buy"
+      hints:
+        activate: "Confirm this FFP Transaction"
+        price: "Price in Euro between 10 and 500. 10 Euro are 200 FFP."
+        name: "Your name"
+        surname: "Your surname"
+        email:  "Your e-mail adress, where the confirmation is sent"
+        submit: "If you submit the form, you get an e-mail confirmation with the bank account, where you can transfer the money."
 # Invitation Model/Controller
   invitation:
     notices:
@@ -97,6 +120,7 @@ en:
       create: "Einladung wurde versendet"
       not_available: "Einladung nicht verfügbar"
       activation_error: "Activation failed."
+      user_exist: "Invited Person already registered to Fairnopoly!"
       activation_error_exist: "Activation failed. Invitation already confirmed!"
       activation_error_wrong: "Activation failed. Wrong Activation key!"
       header:

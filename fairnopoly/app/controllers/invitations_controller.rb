@@ -79,22 +79,27 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(params[:invitation])
 
-    if user_signed_in?
-      @invitation.sender = current_user
-    end
-
-    # generate the activation key and save it in the invitation
-    @invitation.activation_key = SecureRandom.hex(24)
-    @invitation.activated = false
-
-    # Check if we can save the invitation
-    if @invitation.save
-        Notification.invitation(@invitation.id, current_user, @invitation.name, @invitation.email, @invitation.activation_key).deliver
-        respond_created
+    #if the invited person already is registered to fairnopoly
+    if User.find(:first,:conditions => [ "email = ?", @invitation.email]) != nil
+      flash[:error] = t('invitation.notices.user_exist')
     else
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
+      if user_signed_in?
+        @invitation.sender = current_user
+      end
+  
+      # generate the activation key and save it in the invitation
+      @invitation.activation_key = SecureRandom.hex(24)
+      @invitation.activated = false
+  
+      # Check if we can save the invitation
+      if @invitation.save
+          Notification.invitation(@invitation.id, current_user, @invitation.name, @invitation.email, @invitation.activation_key).deliver
+          respond_created
+      else
+        respond_to do |format|
+          format.html { render :action => "new" }
+          format.json { render :json => @invitation.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

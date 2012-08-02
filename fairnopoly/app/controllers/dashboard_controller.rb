@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   # GET /dashboard
   # GET /dashboard.json
   def index
-     
+    @ffps = @ffp_amount = current_user.ffps.sum(:price)
     @invitations = Invitation.all
 
   end

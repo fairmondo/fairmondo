@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: 1
+  name: MyString
+  surname: MyString
+  email: MyString
+
+two:
+  price: 1
+  name: MyString
+  surname: MyString
+  email: MyString
