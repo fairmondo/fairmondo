@@ -50,6 +50,31 @@ describe AuctionsController do
           response.should render_template :new
         end
       end
+
+      describe "GET 'restricted'" do
+
+        it "should reject request for :update" do
+          get :update
+          response.should_not be_success
+        end
+
+        it "should reject request for :edit" do
+          get :edit
+          response.should_not be_success
+        end
+
+        it "should reject request for :finalize" do
+          get :finalize
+          response.should_not be_success
+        end
+
+        it "should reject request for :destroy" do
+          get :destroy
+          response.should_not be_success
+        end
+
+      end
+
   end
 
 end
