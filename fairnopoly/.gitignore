@@ -2,6 +2,7 @@ config/database.yml
 config/environments/development.rb
 public/system
 .project
+.autotest
 db/*.sqlite3
 log/*
 tmp
