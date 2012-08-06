@@ -20,7 +20,7 @@ platforms :ruby do
   gem 'therubyracer'
 end
 
-# Forms & Upload
+# Forms & Upload 
 gem "paperclip", "~> 3.0"
 gem 'formtastic', " ~> 2.1.1"
 
