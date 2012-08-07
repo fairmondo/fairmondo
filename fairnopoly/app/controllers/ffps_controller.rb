@@ -1,8 +1,7 @@
 class FfpsController < ApplicationController
   
-  #TODO: make the destroy and edit actions only accessible for admins!!
    before_filter :authenticate_user!
-   before_filter :admin_user,         :only => :destroy
+   before_filter :admin_user,         :only => [:edit, :destroy]
   
   
   # GET /ffps

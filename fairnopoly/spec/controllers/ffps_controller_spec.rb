@@ -75,6 +75,46 @@ describe FfpsController do
       end
     end
   end
+  
+  describe "GET 'edit'" do
+
+    describe "for non-signed-in users" do 
+
+      it "should deny access" do
+        get :edit
+        response.should redirect_to('/users/sign_in')
+      end
+    end
+
+    describe "for signed-in users" do
+
+      before :each do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+      end
+
+      it "should deny access" do
+        get :edit
+        response.should redirect_to(root_path)
+      end
+    end
+
+    describe "for admin users" do
+
+      before :each do
+        admin = FactoryGirl.create(:user, :admin => true) 
+        sign_in admin
+        @ffp  = FactoryGirl.create(:ffp)
+      end
+
+      it "should edit a ffp" do
+        lambda do
+          get :edit, :id => @ffp
+        end.should_not change(Ffp, :count)
+      end
+    end
+
+  end
 
   describe "POST 'create'" do
 
@@ -161,14 +201,14 @@ describe FfpsController do
         response.should redirect_to('/users/sign_in')
       end
 
-      it "should not delete ffp" do
+      it "should not delete a ffp" do
         lambda do
           delete :destroy
         end.should_not change(Ffp, :count)
       end
     end
 
-      describe "for signed-in users" do # fails
+      describe "for signed-in users" do
 
       before :each do
         @user = FactoryGirl.create(:user)
@@ -176,7 +216,7 @@ describe FfpsController do
         sign_in @user
       end
 
-      it "should create a ffp" do
+      it "should not delete a ffp" do
         lambda do
           delete :destroy, :id => @ffp
         end.should_not change(Ffp, :count)
@@ -191,7 +231,7 @@ describe FfpsController do
         @ffp  = FactoryGirl.create(:ffp)
       end
 
-      it "should create a ffp" do
+      it "should delete a ffp" do
         lambda do
           delete :destroy, :id => @ffp
         end.should change(Ffp, :count).by(-1)
