@@ -168,7 +168,7 @@ describe FfpsController do
       end
     end
 
-    describe "for signed-in users" do
+      describe "for signed-in users" do # fails
 
       before :each do
         @user = FactoryGirl.create(:user)
@@ -179,9 +179,23 @@ describe FfpsController do
       it "should create a ffp" do
         lambda do
           delete :destroy, :id => @ffp
-        end.should change(Ffp, :count).by(-1)
+        end.should_not change(Ffp, :count)
+      end
+    end
+
+    describe "for admin users" do
+
+      before :each do
+        admin = FactoryGirl.create(:user, :admin => true) 
+        sign_in admin
+        @ffp  = FactoryGirl.create(:ffp)
       end
 
+      it "should create a ffp" do
+        lambda do
+          delete :destroy, :id => @ffp
+        end.should change(Ffp, :count).by(-1)
+      end
     end
   end
 
