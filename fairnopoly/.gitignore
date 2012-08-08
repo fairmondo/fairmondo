@@ -2,6 +2,8 @@ config/database.yml
 config/environments/development.rb
 public/system
 .project
+.autotest
+.rspec
 db/*.sqlite3
 log/*
 tmp
