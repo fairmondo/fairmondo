@@ -1,14 +1,73 @@
 class DashboardController < ApplicationController
   
-  before_filter :authenticate_user!
-  # GET /dashboard
-  # GET /dashboard.json
-  def index
-    @ffps = @ffp_amount = current_user.ffps.sum(:price)
-    @invitations = Invitation.all
+   before_filter :authenticate_user!
+   
+   def index
+    
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+    @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+    @ffps = @user.ffps.sum(:price)
+    #@invitations = Invitation.all
 
   end
   
+  #def show
+  #   @user = User.find(params[:id])
+  #   @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+  #   @ffps = @user.ffps.sum(:price)
+  #  respond_to do |format|
+  #    format.html # show.html.erb
+  #    format.json { render :json => @user }
+  #  end
+  #end
+
+  def create
+    super
+  end
+
+  def new
+    super
+  end
+
+    # GET /ffps/1/edit
+  def edit
+    @ffp = User.find(params[:id])
+  end
+  
+   def update
+    @user = User.find(params[:id])
+
+      respond_to do |format|
+        if @user.update_attributes(params[:user])
+       
+        format.html { redirect_to dashboard_path, :notice => 'User was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def friends
+   
+     if params["q"] && !params["q"].blank?
+         @users = User.with_query(params["q"]).paginate( :page => params[:page], :per_page=>12)
+      else
+         @users = User.paginate :page => params[:page], :per_page=>12
+      end
+   
+  end
+    
+  def trade
+    
+  end
+    
   def timeline
     
     @userevents = Userevent.where(:user_id => current_user.id).paginate(:page => params[:page],:per_page => 10).order('created_at DESC') #find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC")    
@@ -32,5 +91,12 @@ class DashboardController < ApplicationController
       end
     
   end
+  
+  def community
+    @invited_people = User.where(:invitor_id => current_user.id)
+    @invitor = current_user.invitor
+  end  
+  
+  
   
 end

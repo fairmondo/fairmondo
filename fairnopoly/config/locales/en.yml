@@ -22,6 +22,7 @@ en:
       password: "Password"
       login: "Sign In"
       search: "Search"
+      auctions: "Auctions"
       
 # Formtastic     
   formtastic: 
@@ -73,8 +74,13 @@ en:
       profile: "View seller"
 # Dashboard
   dashboard:
+    headers:
+      you: "You"
+      invitor: "Invitor"
+      invited_people: "Invited People"
     actions:
       edit_account: "Edit Account"
+      send_invitation: "Send Invitation"
     menu:
       profile: "Profile"
       edit: "Edit Profile"

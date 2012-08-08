@@ -28,14 +28,16 @@ class InvitationsController < ApplicationController
        @invitation.activated = true
        @pw = SecureRandom.hex(8)
        
-       @user = User.new(:email => @invitation.email, :password => @pw, :password_confirmation => @pw)
-       @user.save
+       @user = User.new(:email => @invitation.email, :password => @pw, :password_confirmation => @pw, :name => @invitation.name, :surname => @invitation.surname, :invitor => @invitation.sender)
+                
+       if !@user.save || !@invitation.save
+          flash[:error] = t('invitation.notices.activation_error')
+       else
        
-       Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
-
-       if !@invitation.save
-         flash[:error] = t('invitation.notices.activation_error')
-       end
+        Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
+      end
+       
+       
     end
     
   end

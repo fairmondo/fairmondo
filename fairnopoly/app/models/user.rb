@@ -4,13 +4,21 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+ acts_as_indexed :fields => [:name, :surname]
+ 
+  belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :invitor
   
   has_many :auctions
   has_many :userevents
   has_many :bids
   has_many :invitations
   has_many :ffps
+  
+  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180!" , :mini => "130x90!"} 
+  validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_size :image, :in => 0..5.megabytes 
   
 end

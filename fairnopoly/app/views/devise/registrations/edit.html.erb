@@ -1,6 +1,10 @@
 
 <div class="well">
-		<a href="/dashboard" class="btn"><i class="icon-chevron-left"></i> Back</a>	
+		
+				<div class="span3">
+			<%= link_to (raw glyphicons("icon-chevron-left")) +" "+ t('common.actions.back'), :back , :class => "btn"%>
+	  	</div>
+		
 		<hr />	
 		<h1>Edit <%= resource_name.to_s.humanize %></h1>
 </div>
@@ -12,10 +16,16 @@
   	<%= f.input :name, :required => true%>
   	<%= f.input :surname, :required => true%>
     <%= f.input :email, :hint => "Enter your email address", :required => true %>
+   
+    <%= f.input :image, :hint => "Choose a picture", :lable => "Picture" %>
+   
     <%= f.input :password, :hint => "Enter new password (leave blank if you don't want to change it)" %>
     <%= f.input :password_confirmation, :hint => "Confirm new password" %>
     <%= f.input :current_password, :hint => "Enter current password (we need your current password to confirm your changes)",:required => true %>
+    
   <% end %>
+  
+  
   </div>
   <%= f.buttons do %>
     <%= f.commit_button :button_html => {:class => "primary"} %>

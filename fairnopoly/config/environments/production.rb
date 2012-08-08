@@ -50,7 +50,7 @@ Fairnopoly::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'localhost:8080' }
   # Enable threaded mode
   # config.threadsafe!
 
@@ -65,4 +65,16 @@ Fairnopoly::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
+  
+   # Mail config
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "",
+    :port                 => 587,
+    :domain               => '',
+    :user_name            => '',
+    :password             => '',
+    :authentication       => 'login',
+    :enable_starttls_auto => true  }
+  
 end

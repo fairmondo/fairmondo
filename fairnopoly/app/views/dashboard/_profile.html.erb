@@ -1,0 +1,64 @@
+
+<div class="well">
+	
+	<div class="row">
+		
+		<div class="span3">
+			
+			<ul class="thumbnails">
+				<% if @image%>
+					<li class="span3">
+						<%= image_tag(@image.url(:thumb), :size=> "260x180" , :class => "thumbnail") %>
+					</li>
+				<%else%>
+					<li class="span3">
+						<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
+					</li>
+				<%end%>
+			</ul>
+		</div>
+		
+		<div class="span2">
+			<table>
+				<tr>
+					<td>
+						<strong><%= @user.name %></strong>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong><%= @user.surname %></strong>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong><%= @user.email %></strong>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>FFPs: <%= @ffps %></strong>
+					</td>
+				</tr>
+
+    		</table>
+		</div>
+		
+		<div class="span6">
+			<h2><%= t('common.tect.auctions') %>:</h2>
+			<table class="table table-bordered">
+				<th>What</th>
+				<th>Price</th>
+				<th>Condition</th>
+				
+				<% @user.auctions.each do |auction| %>
+					<tr>
+						<td><%= link_to auction.title, auction %></td>
+		              	<td><%= humanized_money_with_symbol auction.price %></td>
+		            	<td><%= auction.condition %></td>
+					</tr>
+				<%end%>
+			</table>
+		</div>
+	</div>
+</div>

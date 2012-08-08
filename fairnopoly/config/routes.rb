@@ -1,6 +1,5 @@
 Fairnopoly::Application.routes.draw do
 
-  resources :ffps
 
   get "invitation/index"
 
@@ -10,7 +9,14 @@ Fairnopoly::Application.routes.draw do
   resources :events
   resources :invitations
   resources :ffps
-  devise_for :users
+  #recources :user
+    
+ # resources :users do 
+ #      get :autocomplete_user_name, :on => :collection
+ # end
+  
+  devise_for :user
+
 
   resources :auctions do
     #recources :userevents
@@ -20,9 +26,9 @@ Fairnopoly::Application.routes.draw do
   get "welcome/index"
   match "continue_creating_auction" => 'auctions#finalize'
   
-  # the dashboard routes
+  #the user routes
   match 'dashboard' => 'dashboard#index'
-  # the dashboard routes
+  # the user routes
   match 'timeline_dashboard' => 'dashboard#timeline'
   match 'friends_dashboard' => 'dashboard#friends'
   match 'community_dashboard' => 'dashboard#community'
