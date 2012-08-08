@@ -8,7 +8,7 @@
 	  		<h1><%= @auction.title %> </h1>
 	  	</div>
   		<div class="span3" align="right">
-	  		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , @auction, :class => "btn"%>
+	  		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , dashboard_path(:id => @auction.seller.id), :class => "btn"%>
 	  	</div>
   	</div>
  <hr noshade class="spacer"/>
