@@ -1,5 +1,8 @@
 FactoryGirl.define do
   factory :image do
     auction
+    image_file_name       "image"
+    image_content_type    "image/png"
+    image_file_size       { Random.new.rand(0..100) }
   end
 end

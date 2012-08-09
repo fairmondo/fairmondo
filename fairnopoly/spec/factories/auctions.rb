@@ -1,6 +1,7 @@
 require 'faker'
 FactoryGirl.define do
   factory :auction do
+    seller
     category
     title     { Faker::Lorem.sentence( rand 1..3 ).chomp '.' }
     content   { Faker::Lorem.paragraph( rand 1..7 ) }

@@ -121,7 +121,7 @@ describe AuctionsController do
 
       it "should deny access" do
         get :edit
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -134,7 +134,8 @@ describe AuctionsController do
       end
 
       it "should be successful" do
-        get :show, id: @auction
+        auction = FactoryGirl.create(:auction)
+        get :show, :id => auction
         response.should be_success
       end
     end
@@ -195,7 +196,7 @@ describe AuctionsController do
 
       it "should deny access" do
         put :update
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -220,7 +221,7 @@ describe AuctionsController do
 
       it "should deny access" do
         delete :destroy
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
 
       it "should not delete an auction" do
