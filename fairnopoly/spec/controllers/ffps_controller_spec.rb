@@ -9,7 +9,7 @@ describe FfpsController do
       
       it "should deny access" do
         get :index
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
     
@@ -20,7 +20,7 @@ describe FfpsController do
         sign_in @user
       end
       
-      it "it should be successful" do
+      it "should be successful" do
         get :index
         response.should be_success
       end      
@@ -33,7 +33,7 @@ describe FfpsController do
       
       it "should deny access" do
         get :show
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
     
@@ -45,7 +45,7 @@ describe FfpsController do
         sign_in @user
       end
       
-      it "it should be successful" do
+      it "should be successful" do
         get :show, id: @ffp
         response.should be_success
       end      
@@ -58,7 +58,7 @@ describe FfpsController do
 
       it "should deny access" do
         get :new
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -69,7 +69,7 @@ describe FfpsController do
         sign_in @user
       end
 
-      it "it should be successful" do
+      it "should be successful" do
         get :new
         response.should be_success
       end
@@ -82,7 +82,7 @@ describe FfpsController do
 
       it "should deny access" do
         get :edit
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -126,7 +126,7 @@ describe FfpsController do
 
         it "should deny access" do
           get :create
-          response.should redirect_to('/users/sign_in')
+          response.should redirect_to(new_user_session_path)
         end
 
         it "should not create a ffp" do
@@ -173,7 +173,7 @@ describe FfpsController do
 
       it "should deny access" do
         put :update
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
     end
 
@@ -185,7 +185,7 @@ describe FfpsController do
         sign_in @user
       end
 
-      it "it should be successful" do
+      it "should be successful" do
         put :update, id: @ffp
         response.should redirect_to(ffps_path)
       end
@@ -198,7 +198,7 @@ describe FfpsController do
 
       it "should deny access" do
         delete :destroy
-        response.should redirect_to('/users/sign_in')
+        response.should redirect_to(new_user_session_path)
       end
 
       it "should not delete a ffp" do
