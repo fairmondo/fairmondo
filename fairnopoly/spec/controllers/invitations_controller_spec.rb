@@ -32,33 +32,33 @@ describe InvitationsController do
       end
     end
   end
-=begin 
+
   describe "GET 'show" do
-    
-    describe "for non-signed-in users" do 
-      
+
+    describe "for non-signed-in users" do
+
       it "should deny access" do
         get :show
         response.should redirect_to(new_user_session_path)
       end
     end
-   
+
     describe "for signed-in users" do
 
       before :each do
         @invitation = FactoryGirl.create(:invitation)
-        @invitation.sender = FactoryGirl.create(:user)
         sign_in @invitation.sender
       end
 
       it "should show the correct invitation" do
-        get :show, id: @invitation
+        get :show, :id => @invitation
         resultInvitation = controller.instance_variable_get(:@invitation)
         resultInvitation.sender.should eq @invitation.sender  
+        response.should render_template(@invitation)
       end
     end  
   end
-=end
+
   describe "GET 'new'" do
 
     describe "for non-signed-in users" do 
@@ -107,8 +107,7 @@ describe InvitationsController do
 
       before :each do
         @invitation = FactoryGirl.create(:invitation)
-        @user = FactoryGirl.create(:user)
-        sign_in @user
+        sign_in @invitation.sender
       end
 
       it "should create an invitation" do
@@ -119,38 +118,14 @@ describe InvitationsController do
       end
 
       it "should create an invitation with the correct sender" do
+        @user = @invitation.sender
         post :create, id: @invitation
-        resultInvitation = controller.instance_variable_get(:@invitation)
-        resultInvitation.sender.should eq @user
+        @invitation.reload
+        @invitation.sender.should eq @user
       end
     end
   end
-=begin
-  describe "PUT 'update'" do
 
-    describe "for non-signed-in users" do 
-
-      it "should deny access" do
-        put :update
-        response.should redirect_to(new_user_session_path)
-      end
-    end
-
-    describe "for signed-in users" do
-
-      before :each do
-        @user = FactoryGirl.create(:user)
-        @ffp  = FactoryGirl.create(:ffp)
-        sign_in @user
-      end
-
-      it "should be successful" do
-        put :update, id: @ffp
-        response.should redirect_to(ffps_path)
-      end
-    end
-  end
-=end
   describe "DELETE 'destroy'" do
 
     describe "for non-signed-in users" do
@@ -187,4 +162,40 @@ describe InvitationsController do
       end
     end
   end
+
+  describe "confirm" do
+
+      before :each do
+        @invitation = FactoryGirl.create(:invitation)
+      end
+
+      it "should be successful" do
+        get :confirm, id: @invitation
+        response.should be_success
+      end
+
+      it "should redirect if it's not the correct key" do
+        wrong_invitation = FactoryGirl.create(:wrong_invitation)
+        get :confirm, id: wrong_invitation
+        response.should redirect_to(root_path)
+      end
+
+      it "should redirect if already activated" do
+        activated_invitation = FactoryGirl.create(:activated_invitation)
+        get :confirm, id: activated_invitation
+        response.should redirect_to(root_path)
+      end
+
+      it "should mark the invitation as activated" do
+        get :confirm, id: @invitation
+        @invitation.reload
+        @invitation.activated.should eq true
+      end
+
+      it "should create a new user" do
+        lambda do
+          get :confirm, id: @invitation
+        end.should change(User, :count).by(1)
+      end
+    end
 end
