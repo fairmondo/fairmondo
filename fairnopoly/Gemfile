@@ -83,6 +83,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'faker'
+  gem 'ZenTest'
+  gem 'autotest-growl'
+  gem 'autotest-fsevent'
+  gem 'simplecov'
 end
 
 # To use ActiveModel has_secure_password
