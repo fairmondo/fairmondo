@@ -19,5 +19,7 @@
 
 50.times do
   FactoryGirl.create(:auction, :category_id => Category.all.sample.id)
-  FactoryGirl.create(:ffp)
+  FactoryGirl.create(:bid, :user_id => User.all.sample.id, :auction => Auction.all.sample)
+  FactoryGirl.create(:ffp, :user_id => User.all.sample.id)
+  FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
 end
