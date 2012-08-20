@@ -5,3 +5,19 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
+
+  User.create(:email => "user@user.com", :password => "password", :password_confirmation => "password")
+
+  Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
+  Category.create(:name => "Elektronik", :desc => "", :level => 0, :parent_id => 0)
+  Category.create(:name => "Haus & Garten", :desc => "", :level => 0, :parent_id => 0)
+  Category.create(:name => "Freizeit & Hobby", :desc => "", :level => 0, :parent_id => 0)
+  Category.create(:name => "Computer", :desc => "", :level => 1, :parent_id => 2)
+  Category.create(:name => "Audio & HiFi ", :desc => "", :level => 1, :parent_id => 2)
+  Category.create(:name => "Hardware", :desc => "", :level => 2, :parent_id => 5)
+  Category.create(:name => "Software", :desc => "", :level => 2, :parent_id => 5)
+
+50.times do
+  FactoryGirl.create(:auction, :category_id => Category.all.sample.id)
+  FactoryGirl.create(:ffp)
+end
