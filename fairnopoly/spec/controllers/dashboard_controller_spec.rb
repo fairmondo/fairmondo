@@ -29,9 +29,14 @@ describe DashboardController do
       end
 
       it "should be successful" do
+        get :index, :id => @user
+        response.should be_success
+      end
+
+      it "should be successful" do
         get :index
         response.should be_success
-      end      
+      end
     end  
   end
 
