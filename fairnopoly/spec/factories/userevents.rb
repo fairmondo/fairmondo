@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :userevent do
     user
-    userevent_type
+    event_type { [1, 2, 3].sample }
   end
 end
