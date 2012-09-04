@@ -20,11 +20,11 @@ platforms :ruby do
   gem 'therubyracer'
 end
 
-# Forms & Upload 
+# Forms & Upload
 gem "paperclip", "~> 3.0"
 gem 'formtastic', " ~> 2.1.1"
 
-# CSS 
+# CSS
 gem 'less';
 gem 'less-rails-bootstrap'
 gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
@@ -45,13 +45,13 @@ gem 'will_paginate', '~> 3.0'
 # Indexing /Searching
 gem 'acts_as_indexed'
 
-# Controller Gems 
-gem 'devise' 
+# Controller Gems
+gem 'devise'
 
 # Deploy with Capistrano
 gem 'capistrano'
 
-# Deal with Money 
+# Deal with Money
 gem 'money-rails'
 
 # Gems used only for assets and not required
@@ -82,6 +82,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem 'capybara'
   gem 'faker'
   gem 'ZenTest'
   gem 'autotest-growl'
