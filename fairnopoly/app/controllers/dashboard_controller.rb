@@ -97,6 +97,13 @@ class DashboardController < ApplicationController
     @invitor = current_user.invitor
   end  
   
-  
+  def admin
+    @user = current_user
+    #calculate the ffp amount over all ffps
+    @ffp_amount = Ffp.sum(:price)
+    # calculate the persentage from 50000
+    @persent = (@ffp_amount.to_f/50000.0)*100.0
+    @ffps = Ffp.paginate :page => params[:page], :per_page=>36
+  end
   
 end

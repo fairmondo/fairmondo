@@ -78,7 +78,12 @@ describe 'Dashboard' do
 
     it 'Admin link shows the Admin page' do
       click_link 'Admin'
-      page.should have_selector('h2', :content =>  'Admin')
+      page.should have_selector('h2', :content => 'Admin')
+    end
+
+    it 'Admin link shows the Admin page' do
+      click_link 'Admin'
+      page.should_not have_content('delete')
     end
   end
 end

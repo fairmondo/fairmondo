@@ -1,0 +1,12 @@
+<ul class="list">
+	<% @ffps.each do |ffp| %>
+	<li class="span3">
+		<h5>Amount: <%= ffp.price %></h5>
+		<h5> <%= ffp.email %></h5>
+		<h5>Activated: <%= ffp.activated %></h5>
+		<%= link_to "delete", ffp, :method => :delete, :confirm => "You sure?" %>
+	</li>
+	<%end%>
+</ul>
+
+<%= will_paginate @ffps %>

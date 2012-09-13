@@ -28,7 +28,7 @@
 				</li>
 				<% if current_user.admin? %>
 				<li>
-					<a><%= link_to t('dashboard.menu.admin'), setting_dashboard_path %></a>
+					<a><%= link_to t('dashboard.menu.admin'), admin_dashboard_path %></a>
 				</li>
 				<% end %>
 			</ul>

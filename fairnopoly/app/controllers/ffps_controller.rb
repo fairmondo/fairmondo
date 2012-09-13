@@ -100,7 +100,7 @@ class FfpsController < ApplicationController
     @ffp.destroy
 
     respond_to do |format|
-      format.html { redirect_to ffps_url }
+      format.html { redirect_to admin_dashboard_path }
       format.json { head :no_content }
     end
   end

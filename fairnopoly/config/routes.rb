@@ -34,6 +34,7 @@ Fairnopoly::Application.routes.draw do
   match 'edit_profile_dashboard' => 'dashboard#edit_profile'
   match 'setting_dashboard' => 'dashboard#setting'
   match 'trade_dashboard' => 'dashboard#trade'
+  match 'admin_dashboard' => 'dashboard#admin'
 
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'
