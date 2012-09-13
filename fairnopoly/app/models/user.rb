@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :invitor
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :invitor, :admin
   
   has_many :auctions
   has_many :userevents

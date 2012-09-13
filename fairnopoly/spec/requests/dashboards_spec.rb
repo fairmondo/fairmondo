@@ -58,5 +58,27 @@ describe 'Dashboard' do
       click_link 'Settings'
       page.should have_selector('h2', :content =>  'Settings')
     end
+
+    it 'Admin link only shown for admin user' do
+      page.should_not have_content('Admin')
+    end
+  end
+
+  describe "for admin users" do
+
+    before :each do
+      @user = FactoryGirl.create(:user, :admin => true)
+      login_as @user
+      visit dashboard_path
+    end
+
+    it 'Admin link only shown for admin user' do
+      page.should have_content('Admin')
+    end
+
+    it 'Admin link shows the Admin page' do
+      click_link 'Admin'
+      page.should have_selector('h2', :content =>  'Admin')
+    end
   end
 end

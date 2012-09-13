@@ -1,4 +1,3 @@
-
 <div class="well">
 	<div class="row">
 		<div class="span10">
@@ -23,7 +22,15 @@
 				</li>
 				<li>
 					<a><%= link_to t('dashboard.menu.settings'), setting_dashboard_path %></a>
+					<% if current_user.admin? %>
+					<span class="divider">/</span>
+					<% end %>
 				</li>
+				<% if current_user.admin? %>
+				<li>
+					<a><%= link_to t('dashboard.menu.admin'), setting_dashboard_path %></a>
+				</li>
+				<% end %>
 			</ul>
 		</div>
 	</div>
