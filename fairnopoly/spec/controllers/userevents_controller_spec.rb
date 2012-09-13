@@ -40,8 +40,8 @@ describe UsereventsController do
   describe "GET 'new" do
 
     before :each do
-        @userevent = FactoryGirl.create(:userevent)
-      end
+      @userevent = FactoryGirl.create(:userevent)
+    end
 
     it "should be successful" do
       get :new
@@ -57,7 +57,8 @@ describe UsereventsController do
   describe "POST 'create" do
 
     before :each do
-      @userevent = Factory.attributes_for(:userevent)    
+      @auction = FactoryGirl.create(:auction)
+      @userevent_attr = Factory.attributes_for(:userevent, :user_id => @auction.seller, :appended_object_id => @auction)
     end
 
     it "should be successful" do
@@ -67,12 +68,18 @@ describe UsereventsController do
 
     it "should render the correct view" do
       post :create, :userevent => @userevent
-      response.should render_template(@userevent)
+      response.should be_success
+    end
+
+    it "should not create an userevent" do
+      lambda do
+        post :create, :userevent => @userevent
+      end.should_not change(Userevent, :count)
     end
 
     it "should create an userevent" do
       lambda do
-        post :create, :userevent => @userevent
+        post :create, :userevent => @userevent_attr
       end.should change(Userevent, :count).by(1)
     end
   end

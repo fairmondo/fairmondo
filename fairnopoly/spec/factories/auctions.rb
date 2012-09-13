@@ -1,6 +1,7 @@
 require 'faker'
+
 FactoryGirl.define do
-  factory :auction do
+  factory :auction, aliases: [:appended_object] do
     seller
     category
     title     { Faker::Lorem.sentence( rand 1..3 ).chomp '.' }

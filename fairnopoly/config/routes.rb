@@ -1,6 +1,5 @@
 Fairnopoly::Application.routes.draw do
 
-
   get "invitation/index"
 
   resources :categories
@@ -10,22 +9,22 @@ Fairnopoly::Application.routes.draw do
   resources :invitations
   resources :ffps
   #recources :user
-    
- # resources :users do 
- #      get :autocomplete_user_name, :on => :collection
- # end
-  
+
+# FIXME Not working!
+  resources :users do
+    get :autocomplete_user_name, :on => :collection
+  end
+
   devise_for :user
 
-
   resources :auctions do
-    #recources :userevents
+  #recources :userevents
     get :autocomplete_auction_title, :on => :collection
   end
-  
+
   get "welcome/index"
   match "continue_creating_auction" => 'auctions#finalize'
-  
+
   #the user routes
   match 'dashboard' => 'dashboard#index'
   # the user routes
@@ -35,12 +34,12 @@ Fairnopoly::Application.routes.draw do
   match 'edit_profile_dashboard' => 'dashboard#edit_profile'
   match 'setting_dashboard' => 'dashboard#setting'
   match 'trade_dashboard' => 'dashboard#trade'
-  
+
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'
-  
+
   match 'event' => 'userevents#index'
-  
+
   match 'invitation' => 'invitations#new'
 
   # The priority is based upon order of creation:
@@ -93,12 +92,12 @@ Fairnopoly::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'welcome#index'
-  
-  #root :to => 'dashboard#index'
 
-  # See how all your routes lay out with "rake routes"
+#root :to => 'dashboard#index'
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+# See how all your routes lay out with "rake routes"
+
+# This is a legacy wild controller route that's not recommended for RESTful applications.
+# Note: This route will make all actions in every controller accessible via GET requests.
+# match ':controller(/:action(/:id))(.:format)'
 end
