@@ -1,12 +1,32 @@
-<ul class="list">
-	<% @ffps.each do |ffp| %>
-	<li class="span3">
-		<h5>Amount: <%= ffp.price %></h5>
-		<h5> <%= ffp.email %></h5>
-		<h5>Activated: <%= ffp.activated %></h5>
-		<%= link_to "delete", ffp, :method => :delete, :confirm => "You sure?" %>
-	</li>
-	<%end%>
-</ul>
+<div class="well">
+<h2>Listing ffps</h2>
 
+<table class="table table-bordered">
+	<tr>
+		<th><%= t('ffp.formular.name')%></th>
+		<th><%= t('ffp.formular.surname')%></th>
+		<th><%= t('ffp.formular.email')%></th>
+		<th><%= t('ffp.formular.price')%></th>
+		<th><%= t('ffp.formular.activate')%></th>
+		<th></th>
+		<th></th>
+		<!--<th></th>-->
+	</tr>
+
+	<% @ffps.each do |ffp| %>
+	<tr>
+		<td><%= ffp.name %></td>
+		<td><%= ffp.surname %></td>
+		<td><%= ffp.email %></td>
+		<td><%= ffp.price %> € </td>
+		<td><%= ffp.activated%></td>
+
+		<!-- <td><%= link_to 'Show', ffp %></td>-->
+		<td><%= link_to 'Confirm', edit_ffp_path(ffp) %></td>
+		<td><%= link_to 'Destroy', ffp, :confirm => 'Are you sure?', :method => :delete %></td>
+
+	</tr>
+	<% end %>
+</table>
 <%= will_paginate @ffps %>
+</div>

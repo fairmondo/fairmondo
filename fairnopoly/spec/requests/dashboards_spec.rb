@@ -68,6 +68,7 @@ describe 'Dashboard' do
 
     before :each do
       @user = FactoryGirl.create(:user, :admin => true)
+      @ffp = FactoryGirl.create(:ffp)
       login_as @user
       visit dashboard_path
     end
@@ -81,9 +82,14 @@ describe 'Dashboard' do
       page.should have_selector('h2', :content => 'Admin')
     end
 
-    it 'Admin link shows the Admin page' do
+    it 'Admin page has link for deleting ffp' do
       click_link 'Admin'
-      page.should_not have_content('delete')
+      page.should have_content('Destroy')
+    end
+
+     it 'Admin page has link for confirming ffp' do
+      click_link 'Admin'
+      page.should have_content('Confirm')
     end
   end
 end

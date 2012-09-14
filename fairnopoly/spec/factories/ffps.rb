@@ -9,6 +9,6 @@ FactoryGirl.define do
     created_at  { Time.now }
     updated_at  { Time.now }
     user_id     :user
-    activated   { "true" }
+    activated   { ["true", "false"].sample }
   end
 end

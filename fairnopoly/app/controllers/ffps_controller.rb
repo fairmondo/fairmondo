@@ -1,9 +1,7 @@
 class FfpsController < ApplicationController
-  
-   before_filter :authenticate_user!
-   before_filter :admin_user,         :only => [:edit, :destroy]
-  
-  
+
+  before_filter :authenticate_user!
+  before_filter :admin_user,         :only => [:edit, :destroy]
   # GET /ffps
   # GET /ffps.json
   def index
@@ -28,7 +26,7 @@ class FfpsController < ApplicationController
 
   # GET /ffps/new
   # GET /ffps/new.json
-  def new    
+  def new
     @ffp = Ffp.new
 
     respond_to do |format|
@@ -47,28 +45,28 @@ class FfpsController < ApplicationController
   def create
 
     @ffp = Ffp.new(params[:ffp])
- 
+
     #check how much FFPS the user already has
     ffp_old = current_user.ffps.sum(:price)
     if ffp_old+@ffp.price > 500
-        flash[:error] = t('ffp.to_much')
-        redirect_to root_path
+      flash[:error] = t('ffp.to_much')
+      redirect_to root_path
     else
       @ffp.activated = false
       @ffp.user_id = current_user.id
-  
+
       respond_to do |format|
         if @ffp.save
-          
+
           Notification.send_ffp_created(@ffp).deliver
-          
+
           format.html { redirect_to @ffp, :notice => 'Ffp was successfully created.' }
           format.json { render :json => @ffp, :status => :created, :location => @ffp }
         else
           format.html { render :action => "new" }
           format.json { render :json => @ffp.errors, :status => :unprocessable_entity }
         end
-      end    
+      end
     end
   end
 
@@ -79,12 +77,12 @@ class FfpsController < ApplicationController
 
     respond_to do |format|
       if @ffp.update_attributes(params[:ffp])
-        
-        if @ffp.activated ==true      
+
+        if @ffp.activated ==true
           Notification.send_ffp_confirmed(@ffp).deliver
         end
-        
-        format.html { redirect_to ffps_path, :notice => 'Ffp was successfully confirmed.' }
+
+        format.html { redirect_to admin_dashboard_path, :notice => 'Ffp was successfully confirmed.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -108,6 +106,6 @@ class FfpsController < ApplicationController
   private
 
   def admin_user
-      redirect_to(root_path) unless current_user.admin?
-    end
+    redirect_to(root_path) unless current_user.admin?
+  end
 end

@@ -103,7 +103,7 @@ class DashboardController < ApplicationController
     @ffp_amount = Ffp.sum(:price)
     # calculate the persentage from 50000
     @persent = (@ffp_amount.to_f/50000.0)*100.0
-    @ffps = Ffp.paginate :page => params[:page], :per_page=>36
+    @ffps = Ffp.paginate :page => params[:page], :per_page=>24
   end
   
 end

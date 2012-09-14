@@ -187,7 +187,7 @@ describe FfpsController do
 
       it "should be successful" do
         put :update, id: @ffp
-        response.should redirect_to(ffps_path)
+        response.should redirect_to(admin_dashboard_path)
       end
     end
   end
