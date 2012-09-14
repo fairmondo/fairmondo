@@ -87,9 +87,11 @@ describe 'Dashboard' do
       page.should have_content('Destroy')
     end
 
-     it 'Admin page has link for confirming ffp' do
+    it 'Admin page has link for confirming ffp' do
       click_link 'Admin'
-      page.should have_content('Confirm')
+      if !@ffp.activated?
+        page.should have_content('Confirm')
+      end
     end
   end
 end
