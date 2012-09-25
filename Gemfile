@@ -8,10 +8,12 @@ gem 'rails', '3.2.2'
 
 # Jruby Deps
 platforms :jruby do
-  gem "jruby-openssl"
+#  gem "jruby-openssl"
   gem 'activerecord-jdbc-adapter', '1.2.2'
-  gem 'activerecord-jdbcmysql-adapter', '1.2.2'
-  gem 'jdbc-mysql', :require => false
+ # gem 'activerecord-jdbcmysql-adapter', '1.2.2'
+  gem 'activerecord-jdbcpostgresql-adapter'
+ # gem 'jdbc-mysql', :require => false
+  gem 'jdbc-postgres'
 end
 
 # Ruby Deps
