@@ -79,7 +79,7 @@ end
 # for generating *.war file
 group :development do
   gem "warbler", "~> 1.3.2"
-  gem "jruby-rack", "~> 1.1.3"
+  gem "jruby-rack", "~> 1.1.10"
 
 end
 
