@@ -54,6 +54,9 @@ gem 'capistrano'
 # Deal with Money
 gem 'money-rails'
 
+# State Machines in Rails
+gem 'state_machine'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

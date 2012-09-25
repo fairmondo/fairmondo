@@ -11,9 +11,8 @@ class Auction < ActiveRecord::Base
    monetize :price_cents
   #Relations
    has_many :userevents
-   has_many :bids
    has_many :images
-   has_one :max_bid ,:class_name => 'Bid'
+  
    belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
    belongs_to :category
    belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
