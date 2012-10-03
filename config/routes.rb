@@ -25,6 +25,9 @@ Fairnopoly::Application.routes.draw do
   #the user routes
   match 'dashboard' => 'dashboard#index'
   match 'dashboard/search_users' => 'dashboard#search_users'
+  match 'dashboard/admin' => 'dashboard#admin'
+  match 'dashboard/follow_user' => 'dashboard#follow_user'
+  match 'dashboard/list_followers' => 'dashboard#list_followers'
   #match 'autocomplete_user_name' => 'dashboard#autocomplete_user_name'
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'

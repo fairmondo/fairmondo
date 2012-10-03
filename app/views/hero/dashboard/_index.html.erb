@@ -8,10 +8,23 @@
 			<%end%>
 			<ul class="nav nav-tabs nav-stacked">
 				<li class="active"><a href="#"> <i class=" icon-user"></i> <%=@user.name%> <%= @user.surname %></a></li>
+				<%if @ffps %>
+				<li class="active"><a href="#"> <abbr title="Fair Founding Points"><b>FFPs:</b></abbr> <%= @ffps %></a></li>
+				<%end%>
+				<li> 
+			 		<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
+					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %>
+				</li>
+				
 				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>
 				 <%if @user==current_user%>
 					<li><%= link_to body.html_safe, edit_user_registration_path%></li>
 				 <%end%>
+				 <% if current_user.admin? %>
+				<li>
+					<%= link_to t('dashboard.menu.admin'), "dashboard/admin" %>
+				</li>
+				<% end %>
 			</ul>
 			
 			
@@ -26,6 +39,9 @@
 					
 		
 			</form>
+			<%if @user!=current_user %>
+			 <%= render :partial => 'follow_user' , :locals => { :user => @user }%>
+			<%end%>
 		</div>
 		<div class="span5">
 			 <%if @user==current_user%>

@@ -43,10 +43,6 @@
 		</div>
 		<!-- .navbar -->
 		<div class="container">
-			<% begin %>
-			<%= render 'hero/'+ params[:controller] + '/' + params[:action] %>
-			<%rescue MissingTemplate %>
-			<%end%>
 			<% flash.each do |type, msg| -%>
 			<div class="row">
 				<div class="span12">
@@ -57,6 +53,11 @@
 				</div>
 			</div>
 			<%end%>
+			<% begin %>
+			<%= render 'hero/'+ params[:controller] + '/' + params[:action] %>
+			<%rescue MissingTemplate %>
+			<%end%>
+			
 			<div class="row">
 				<div class="span12">
 					<%= yield %>

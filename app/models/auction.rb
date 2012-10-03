@@ -4,6 +4,8 @@ class Auction < ActiveRecord::Base
 
   
   acts_as_indexed :fields => [:title, :content]
+  acts_as_followable
+  
    include Enumerize
    enumerize :condition, :in => [:new ,:fair , :old ]
    enumerize :price_currency, :in => [:EUR]

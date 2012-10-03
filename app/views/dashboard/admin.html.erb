@@ -1,14 +1,14 @@
-<%= render 'menu'%>
 
-<div class="well">
-	<div class="row">
-		<div class="span12">
-			<h2>Admin</h2>
-			Welcome <%= @user.name%>
-			<ul>
-				<strong><i class="icon-info-sign"></i> <%= @ffp_amount%> Euro have been raised! That is <%= @persent%>% of the aimed 50000Euro.</strong>
-			</ul>
-		</div>
-		<%= render 'list_ffp'%>
+
+
+<div class="row">
+	<div class="span12">
+		<h2>Admin</h2>
+		Welcome <%= @user.name%>
+		<ul>
+			<strong><i class="icon-info-sign"></i> <%= @ffp_amount%> Euro have been raised! That is <%= @persent%>% of the aimed 50000Euro.</strong>
+		</ul>
 	</div>
+	<%= render 'list_ffp'%>
 </div>
+

@@ -1,0 +1,14 @@
+<% unless user == current_user %>
+	<% if current_user.following?(user) %>
+		<p><i class="icon-ok"></i> <%= t('user.follow.following') %></p>
+	<%else%>
+	<%=form_tag({:action => "follow_user" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+						<input type="hidden" name="id" value="<%=user.id%>">
+						<button type="submit" class="btn"><i class="icon-eye-open"></i>
+							<%= t("commons.text.follow")%>
+						</button>
+						<%end%>
+			
+	</form>
+	<%end%>
+<%end%>

@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
- acts_as_indexed :fields => [:name, :surname, :email]
+  acts_as_indexed :fields => [:name, :surname, :email]
+  acts_as_followable
+  acts_as_follower
  
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 

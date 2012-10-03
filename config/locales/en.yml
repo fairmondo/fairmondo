@@ -23,6 +23,8 @@ en:
       login: "Sign In"
       search: "Search"
       auctions: "Auctions"
+      follow: "Follow"
+     
       
 # Formtastic     
   formtastic: 
@@ -49,6 +51,10 @@ en:
       info: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
       linktext: "Click the link below to unlock your account:"
       link: "Unlock my account"
+    follow:
+      following: "You follow this user!"
+      followers: "Followers"
+      
 # Auction Model/Controller
   auction:
     form: 

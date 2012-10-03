@@ -10,8 +10,8 @@
 					<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), dashboard_path(:id => user.id) %>
 				<%end%>
 			    <div class="caption">
-			      <h5><%= user.name %></h5>
-			      <h5><%= user.surname %></h5>
+			      <h5><%= user.name %> <%= user.surname %></h5>
+			      <%= render :partial => 'follow_user' , :locals => { :user => user }%>
 			    </div>
 			 </div>
 			 
