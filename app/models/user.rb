@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
- acts_as_indexed :fields => [:name, :surname]
+ acts_as_indexed :fields => [:name, :surname, :email]
  
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
@@ -17,8 +17,13 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :ffps
   
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180!" , :mini => "130x90!"} 
+  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"} 
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes 
+  def fullname
+    fullname = "#{self.name} #{self.surname}" 
+  end
+  
+  
   
 end

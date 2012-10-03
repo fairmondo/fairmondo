@@ -1,2 +1,66 @@
-
 	
+	<div class="row">
+		<div class="span3" style="text-align:center;">
+			<% if @image%>
+					<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
+			<%else%>
+					<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class => "thumbnail") %>
+			<%end%>
+			<ul class="nav nav-tabs nav-stacked">
+				<li class="active"><a href="#"> <i class=" icon-user"></i> <%=@user.name%> <%= @user.surname %></a></li>
+				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>
+				 <%if @user==current_user%>
+					<li><%= link_to body.html_safe, edit_user_registration_path%></li>
+				 <%end%>
+			</ul>
+			
+			
+		</div>
+		<div class="span4">
+			<h3><%=t('dashboard.search_users.head') %></h3>
+			<form class="form-inline" action="dashboard/search_users">
+					<input type="text" class="search-query span2" name="q"  value="<%= params["q"]%>">
+					<button type="submit" class="btn"><i class=" icon-user"></i>
+						<%= t("commons.text.search")%>
+					</button>
+					
+		
+			</form>
+		</div>
+		<div class="span5">
+			 <%if @user==current_user%>
+				<%day=0%>
+				<%@userevents.each do |userevent| %>
+					
+					    	<%if userevent.created_at.day != day%>
+					    		<p class="clear-margin">
+							    	<small><%= userevent.created_at.strftime("%d.%m.%Y")%>
+							    	<% day=userevent.created_at.day %></small>
+						    	</p>
+					    	<%end%>
+					    	
+					 
+							<div class="userevent">
+									<% case userevent.event_type %>
+										<% when UsereventType::AUCTION_CREATE %>
+										<i class="icon-plus icon-white"></i> <%= link_to userevent.appended_object.title, userevent.appended_object %>  
+										 <i><%=t('dashboard.auction.create')%></i>
+									<% when UsereventType::AUCTION_UPDATE %>
+										<i class="icon-list-alt icon-white"></i>
+										<%= link_to userevent.appended_object.title,userevent.appended_object %> 
+										<i><%= t('dashboard.auction.update') %></i>
+									<% when UsereventType::INVITATION_SEND%>
+										<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
+									<% end %>
+									
+							</div>
+							
+						
+					
+				<%end%>	
+			<%end%>
+			
+			
+		</div>	
+	</div>
+

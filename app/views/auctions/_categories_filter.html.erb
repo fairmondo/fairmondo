@@ -2,7 +2,7 @@
 	<div class="span2">
 		<%if @categories%>
 		<%= render :partial => 'categories_table_filter' ,
-		:locals => { :title => "Categories" ,
+		:locals => { :title =>  t("auction.categories.level1"),
 		:categories => @categories ,
 		:active => @active_category ,
 		:show_child => (@subcategories && !@subcategories.empty?) }%>
@@ -13,7 +13,7 @@
 	<div class="span2">
 		<%if @subcategories && !@subcategories.empty?%>
 		<%= render :partial => 'categories_table_filter' ,
-		:locals => { :title => "Subcategories" ,
+		:locals => { :title =>   t("auction.categories.level2"),
 		:categories => @subcategories ,
 		:active => @active_subcategory ,
 		:show_child => (@subsubcategories && !@subsubcategories.empty?) }%>
@@ -24,7 +24,7 @@
 	<div class="span2">
 		<%if @subsubcategories && !@subsubcategories.empty?%>
 		<%= render :partial => 'categories_table_filter' ,
-		:locals => { :title => "Subsubcategories" ,
+		:locals => { :title =>  t("auction.categories.level3") ,
 		:categories => @subsubcategories ,
 		:active => @active_subsubcategory ,
 		:show_child => false }%>
@@ -37,7 +37,7 @@
 	<div class="span6">
 		<% if params["selected_category_id"]%>
 
-		<%= link_to (raw glyphicons("icon-trash")) + " Remove category filter" , auctions_path(params_without_reset_page "selected_category_id") , :class => "btn btn-mini"%>
+		<%= link_to (raw glyphicons("icon-trash")) + " " + t("auction.categories.remove-filter") , auctions_path(params_without_reset_page "selected_category_id") , :class => "btn btn-mini"%>
 		<%end%>
 	</div>
 </div>

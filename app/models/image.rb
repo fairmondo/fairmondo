@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :auction
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180!" , :mini => "130x90!"} 
+  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"} 
   validates_presence_of :auction
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']

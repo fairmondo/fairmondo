@@ -51,6 +51,10 @@ en:
       link: "Unlock my account"
 # Auction Model/Controller
   auction:
+    form: 
+      head: "This is the form you have to fill for creating an auction."
+      category: "Select a category for your Product"
+      details: Select product details
     lables:
       price: "Price"
     list:
@@ -72,6 +76,12 @@ en:
       edit: "Editing auction"  
     actions:
       profile: "View seller"
+    categories:
+      level1: "Categories"
+      level2: "Subcategories"
+      level3: "Subsubcategories"
+      remove-filter:  "Remove category filter"
+      error: "Please select a product category"
 # Dashboard
   dashboard:
     headers:
@@ -94,6 +104,8 @@ en:
       update: "Auction was updated"
     invitation:
       send: "Invitation was sent"
+    search_users:
+      head: "Search for users:"
 # FFP Model/Controller
   ffp:
     to_much: "You cannot buy more than 10000 FFP"

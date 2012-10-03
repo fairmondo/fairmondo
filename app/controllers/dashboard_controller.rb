@@ -1,14 +1,18 @@
 class DashboardController < ApplicationController
   
    before_filter :authenticate_user!
-   
+   #autocomplete :user, :name, :full => true ,:display_value => :fullname , :extra_data => [:surname] , :scopes => [:search_by_name]
    def index
-    
+   
     if params[:id]
       @user = User.find(params[:id])
     else
       @user = current_user
     end
+    if @user==current_user 
+      @userevents = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC", :limit => 10)
+    end
+    
     @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
     @ffps = @user.ffps.sum(:price)
     #@invitations = Invitation.all
@@ -54,7 +58,7 @@ class DashboardController < ApplicationController
   end
 
 
-  def friends
+  def search_users
    
      if params["q"] && !params["q"].blank?
          @users = User.with_query(params["q"]).paginate( :page => params[:page], :per_page=>12)

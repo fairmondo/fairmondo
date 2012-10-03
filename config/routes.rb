@@ -10,11 +10,8 @@ Fairnopoly::Application.routes.draw do
   resources :ffps
   #recources :user
 
-# FIXME Not working!
-  resources :users do
-    get :autocomplete_user_name, :on => :collection
-  end
 
+  
   devise_for :user
 
   resources :auctions do
@@ -27,15 +24,8 @@ Fairnopoly::Application.routes.draw do
 
   #the user routes
   match 'dashboard' => 'dashboard#index'
-  # the user routes
-  match 'timeline_dashboard' => 'dashboard#timeline'
-  match 'friends_dashboard' => 'dashboard#friends'
-  match 'community_dashboard' => 'dashboard#community'
-  match 'edit_profile_dashboard' => 'dashboard#edit_profile'
-  match 'setting_dashboard' => 'dashboard#setting'
-  match 'trade_dashboard' => 'dashboard#trade'
-  match 'admin_dashboard' => 'dashboard#admin'
-
+  match 'dashboard/search_users' => 'dashboard#search_users'
+  #match 'autocomplete_user_name' => 'dashboard#autocomplete_user_name'
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'
 
