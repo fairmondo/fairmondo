@@ -88,6 +88,12 @@ en:
       level3: "Subsubcategories"
       remove-filter:  "Remove category filter"
       error: "Please select a product category"
+# Transaction System
+  transaction:
+    bid:
+      smaller-than-prev: "Your bid is less or equal than a previous bid. Please bid aggain with a higher value!"
+      smaller-than-init:  "Your bid is less than the initial price. Please bid aggain with a higher value!"
+      success: "You are now the highest bidder!"
 # Dashboard
   dashboard:
     headers:

@@ -99,10 +99,11 @@ class AuctionsController < ApplicationController
       @auction.seller = current_user
     end
     
-  
+   
     
     # Check if we can save the auction
     if @auction.save
+      @auction.transaction.save! # Should not be a problem!
       # If the User isnt singned in save auction number in the session
       if !user_signed_in?
         deny_access_to_save_object @auction.id , "/continue_creating_auction"
@@ -145,18 +146,6 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # DELETE /auctions/1
-  # DELETE /auctions/1.json
-  def destroy
-    user_signed_in?
-    @auction = Auction.find(params[:id])
-    @auction.destroy
-
-    respond_to do |format|
-      format.html { redirect_to auctions_url }
-      format.json { head :no_content }
-    end
-  end
 
   def selected_category?
      params.each do |key, value|
@@ -235,5 +224,6 @@ class AuctionsController < ApplicationController
         format.json { render :json => @auction, :status => :created, :location => @auction }
       end
   end
+  
 
 end

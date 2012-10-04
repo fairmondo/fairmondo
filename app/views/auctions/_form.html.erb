@@ -9,7 +9,7 @@
 	   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
 	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
 	   		<%= tinymce %>
-   		
+	   	<%= f.input :transaction , :as=> :radio, :collection => {"Auction" => "auction", "Fixed-Price" => "fixed" , "Preview" => "preview"}%>
    		<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) }, 
    			:label =>t('auction.lables.price'), :required => true %>
    		<%= f.input :price_currency, :include_blank => false %>

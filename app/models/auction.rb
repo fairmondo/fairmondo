@@ -1,8 +1,19 @@
 class Auction < ActiveRecord::Base
   
   before_validation :sanitize_content, :on => :create
-
+  validate :transaction_type
   
+  def transaction_type 
+    case transaction
+    when 'auction'
+       self.transaction = AuctionTransaction.new
+       self.transaction.auction = self
+    else
+      errors.add(:transaction, "You must select a type for your transaction!")
+    end
+  end
+  
+  attr_accessor :transaction
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
   
