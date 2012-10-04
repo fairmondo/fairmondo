@@ -13,7 +13,7 @@ class Auction < ActiveRecord::Base
     end
   end
   
-  attr_accessor :transaction
+  attr_accessor :transaction , :expire_date , :expire_time_hours , :expire_time_minutes
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
   

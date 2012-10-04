@@ -5,4 +5,3 @@
 //= require tinymce-jquery
 //= require bootstrap
 //= require autocomplete-rails
-

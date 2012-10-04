@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,12 +25,13 @@ end
 
 # Forms & Upload
 gem "paperclip", "~> 3.0"
-gem 'formtastic', " ~> 2.1.1"
+gem 'formtastic', " ~> 2.2.1"
+
 
 # CSS
 gem 'less';
 gem 'less-rails-bootstrap'
-gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
+gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
 
 # JS

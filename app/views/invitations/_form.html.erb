@@ -18,8 +18,8 @@
 		   
 		   <% end %>
 
-	  <%= f.buttons do %>
-	    <%= f.commit_button t('invitation.actions.send') %>
+	  <%= f.actions do %>
+	    <%= f.action :submit , t('invitation.actions.send') %>
 	  <% end %>
 
 <% end %>

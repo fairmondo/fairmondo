@@ -10,6 +10,7 @@
 	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
 	   		<%= tinymce %>
 	   	<%= f.input :transaction , :as=> :radio, :collection => {"Auction" => "auction", "Fixed-Price" => "fixed" , "Preview" => "preview"}%>
+   		<%= f.input :expire, :as => :string , :input_html => { :class => 'ui-datetime-picker' } %>
    		<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) }, 
    			:label =>t('auction.lables.price'), :required => true %>
    		<%= f.input :price_currency, :include_blank => false %>
@@ -17,7 +18,7 @@
    		
 	  <% end %>
    </div>
-  <%= f.buttons do %>
-    <%= f.commit_button :button_html => {:class => "primary"} %>
+  <%= f.actions do %>
+    <%= f.action :submit , :button_html => {:class => "primary"} %>
   <% end %>
 <% end %>
