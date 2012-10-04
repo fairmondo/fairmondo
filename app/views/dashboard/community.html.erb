@@ -1,5 +1,4 @@
 
-<%= render 'menu'%>
 
 <div class="well">
 	<div class="row">
@@ -33,38 +32,22 @@
 		</div>
 		
 		<div class="span12">
-			<h2><%=t('adashboard.headers.you')%></h2>
+			<div class="centerdiv">
+				<h2><%=t('adashboard.headers.you')%></h2>
+				<% if @image%>
+						<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
+				<%else%>
+						<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class => "thumbnail") %>
+				<%end%>
+			</div>
 		</div>
 		
 		<div class="span12">
-			
 			<div class="span3">
 				<h2><%=t('dashboard.headers.invited_people')%></h2>
-			</div>
-			<div class="span7">
-				<ul class="thumbnails">
-					<% @invited_people.each do |person| %>
-	
-						<li class="span2">
-						  <div class="thumbnail" style="position: relative;">
-							<% if person.image.url !=  "/images/original/missing.png"%>
-								<%= link_to image_tag(person.image.url(:thumb), :size=> "160x120"), dashboard_path(:id => person.id) %>
-							<%else%>
-								<%= link_to image_tag("http://placehold.it/160x120" ,:size=> "160x120"), dashboard_path(:id => person.id) %>
-							<%end%>
-						    <div class="caption">
-						      <h5><%= person.name %></h5>
-						      <h5><%= person.surname %></h5>
-						    </div>
-						 </div>
-						 
-						</li>
-	
-					<%end%>
-				</ul>
-			</div>
+			</div>		
+			<%= render 'list_user'%>
 		</div>
-		
 		
 	</div>
 </div>

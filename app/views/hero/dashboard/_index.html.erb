@@ -11,15 +11,14 @@
 				<%if @ffps %>
 				<li class="active"><a href="#"> <abbr title="Fair Founding Points"><b>FFPs:</b></abbr> <%= @ffps %></a></li>
 				<%end%>
-				<li> 
-			 		<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
-					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %>
-				</li>
 				
 				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>
 				 <%if @user==current_user%>
 					<li><%= link_to body.html_safe, edit_user_registration_path%></li>
 				 <%end%>
+				 <li>
+					<%= link_to t('dashboard.menu.community'), "dashboard/community" %>
+				</li>
 				 <% if current_user.admin? %>
 				<li>
 					<%= link_to t('dashboard.menu.admin'), "dashboard/admin" %>
@@ -30,6 +29,19 @@
 			
 		</div>
 		<div class="span4">
+			<div class="btn-group">
+			    <abbr class="btn" title="<%= t('user.follow.followers_info')%>"><b>
+			    	<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
+					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %></b>
+				</abbr>
+				
+				<abbr class="btn" title="<%= t('user.follow.following_info')%>"><b>
+			    	<% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
+					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } %></b>
+				</abbr>	
+		    </div>
+		</div>
+		<!--<div class="span4">
 			<h3><%=t('dashboard.search_users.head') %></h3>
 			<form class="form-inline" action="dashboard/search_users">
 					<input type="text" class="search-query span2" name="q"  value="<%= params["q"]%>">
@@ -42,7 +54,7 @@
 			<%if @user!=current_user %>
 			 <%= render :partial => 'follow_user' , :locals => { :user => @user }%>
 			<%end%>
-		</div>
+		</div>-->
 		<div class="span5">
 			 <%if @user==current_user%>
 				<%day=0%>

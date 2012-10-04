@@ -183,3 +183,10 @@ time,.time{
 .fixed-element {
     position: fixed;
  }
+ 
+ /*
+  * Community
+  */
+ div.centerdiv{
+ 	 align:center;
+ }

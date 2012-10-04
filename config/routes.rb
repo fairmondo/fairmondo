@@ -28,6 +28,8 @@ Fairnopoly::Application.routes.draw do
   match 'dashboard/admin' => 'dashboard#admin'
   match 'dashboard/follow_user' => 'dashboard#follow_user'
   match 'dashboard/list_followers' => 'dashboard#list_followers'
+  match 'dashboard/list_following' => 'dashboard#list_following'
+  match 'dashboard/community' => 'dashboard#community'
   #match 'autocomplete_user_name' => 'dashboard#autocomplete_user_name'
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'

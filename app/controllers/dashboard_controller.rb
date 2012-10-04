@@ -48,10 +48,28 @@ class DashboardController < ApplicationController
     end
     @users = @user.user_followers
   end
+  
+  def list_following
+      if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+      @users = @user.all_following
+  end
 
   def community
-    @invited_people = User.where(:invitor_id => current_user.id)
+    #@invited_people = User.where(:invitor_id => current_user.id)
     @invitor = current_user.invitor
+    @users = User.where(:invitor_id => current_user.id)
+    
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+    @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+
   end  
   
   def admin
