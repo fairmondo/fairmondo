@@ -12,6 +12,9 @@
 			    <div class="caption">
 			      <h5><%= user.name %> <%= user.surname %></h5>
 			      <%= render :partial => 'follow_user' , :locals => { :user => user }%>
+			      
+			      <%= link_to t('common.actions.invite'), new_invitation_path(:user_id => user.id), :class=>"btn"  %>
+			      
 			    </div>
 			 </div>
 			 

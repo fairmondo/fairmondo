@@ -1,0 +1,8 @@
+
+<!--<h3><%=t('dashboard.search_users.head') %></h3>-->
+<form class="form-inline" action="search_users">
+		<input type="text" class="search-query span2" name="q"  value="<%= params["q"]%>">
+		<button type="submit" class="btn btn-large"><i class=" icon-user"></i>
+			<%= t("commons.text.search")%>
+		</button>
+</form>
