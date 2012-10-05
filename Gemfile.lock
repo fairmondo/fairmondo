@@ -24,9 +24,9 @@ GEM
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
     activerecord-jdbc-adapter (1.2.2)
-    activerecord-jdbcpostgresql-adapter (1.2.2)
+    activerecord-jdbcmysql-adapter (1.2.2)
       activerecord-jdbc-adapter (~> 1.2.2)
-      jdbc-postgres (>= 9.0, < 9.2)
+      jdbc-mysql (~> 5.1.0)
     activerecord-jdbcsqlite3-adapter (1.2.2)
       activerecord-jdbc-adapter (~> 1.2.2)
       jdbc-sqlite3 (~> 3.7.2)
@@ -102,7 +102,7 @@ GEM
     highline (1.6.11)
     hike (1.2.1)
     i18n (0.6.1)
-    jdbc-postgres (9.1.901)
+    jdbc-mysql (5.1.13)
     jdbc-sqlite3 (3.7.2)
     journey (1.0.4)
     jquery-rails (2.0.1)
@@ -253,7 +253,7 @@ PLATFORMS
 DEPENDENCIES
   ZenTest
   activerecord-jdbc-adapter (= 1.2.2)
-  activerecord-jdbcpostgresql-adapter
+  activerecord-jdbcmysql-adapter (= 1.2.2)
   activerecord-jdbcsqlite3-adapter
   acts_as_follower
   acts_as_indexed
@@ -269,7 +269,7 @@ DEPENDENCIES
   faker
   formtastic (~> 2.2.1)
   formtastic-bootstrap
-  jdbc-postgres
+  jdbc-mysql
   jdbc-sqlite3
   jquery-rails
   jruby-openssl
