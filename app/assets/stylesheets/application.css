@@ -159,10 +159,5 @@ p.clear-margin {
 .fixed-element {
     position: fixed;
  }
+
  
- /*
-  * Community
-  */
- div.centerdiv {
- 	 text-align: center;
- }

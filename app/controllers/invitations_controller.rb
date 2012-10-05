@@ -25,6 +25,7 @@ class InvitationsController < ApplicationController
       flash[:error] = t('invitation.notices.activation_error_exist')
       redirect_to root_path
     else
+
        @invitation.activated = true
        @pw = SecureRandom.hex(8)
        
@@ -33,11 +34,8 @@ class InvitationsController < ApplicationController
        if !@user.save || !@invitation.save
           flash[:error] = t('invitation.notices.activation_error')
        else
-       
         Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
-      end
-       
-       
+       end
     end
     
   end
@@ -64,7 +62,11 @@ class InvitationsController < ApplicationController
   # GET /invitations/new.json
   def new
     @invitation = Invitation.new
-
+    
+    if(params[:user_id])
+      @user= User.find(params[:user_id])
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @invitation }

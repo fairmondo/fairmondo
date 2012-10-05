@@ -1,53 +1,71 @@
 
+<div class="span12">
 
-<div class="well">
-	<div class="row">
+</div>
 
-		<div class="span12">
-			<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
-		</div>
-		
-		<div class="span12">
-			
+<div class="row">
+	<div class="span3">
+		<% if @invitor%>
 			<div class="span3">
-				<h2><%=t('dashboard.headers.invitor')%></h2>
-			</div>
-			
-			<% if @invitor%>
-				<div class="span2">
-					<div class="thumbnail" style="position: relative;">
-						<% if @invitor.image.url !=  "/images/original/missing.png"%>
-								<%= link_to image_tag(@invitor.image.url(:thumb), :size=> "160x120"), dashboard_path(:id => @invitor.id) %>
-						<%else%>
-								<%= link_to image_tag("http://placehold.it/160x120" ,:size=> "160x120"), dashboard_path(:id => @invitor.id) %>
-						<%end%>
-						<div class="caption">
-						      <h5><%= @invitor.name %></h5>
-						      <h5><%= @invitor.surname %></h5>
-						</div>
+				<h3><%=t('dashboard.headers.invitor')%>:</h3>
+				<div class="thumbnail" style="position: relative;">
+					<% if @invitor.image%>
+							<%= link_to image_tag(@invitor.image.url(:thumb), :style=> "width:260; height:auto;"), dashboard_path(:id => @invitor.id) %>
+					<%else%>
+							<%= link_to image_tag("http://placehold.it/160x120" ,:style=> "width:260; height:auto;"), dashboard_path(:id => @invitor.id) %>
+					<%end%>
+					<div class="caption">
+					      <h5><%= @invitor.name %> <%= @invitor.surname %></h5>
 					</div>
 				</div>
-			<%end%>
-			
+			</div>
+			<div class="span3">
+				<%= image_tag("vertical.png")%>
+			</div>
+		<%else%>
+		<div class="span3">
+			<h2> <i class="icon-certificate"></i> <Gruender><%=t('user.founder')%></h2>
 		</div>
+		<%end%>
+
+		<div class="span3">
+			<h3><%=t('dashboard.headers.you')%>:</h3>
+			<div class="thumbnail" style="position: relative;">
+					<% if @image%>
+							<%=link_to image_tag(@image.url(:thumb), :style=> "width:260; height:auto;"),dashboard_path(:id => @user.id)  %>
+					<%else%>
+							<%=link_to image_tag("http://placehold.it/260x180" , :style=> "width:260; height:auto;"),dashboard_path(:id => @user.id) %>
+					<%end%>
+				<div class="caption">
+			      <h5><%= @user.name %> <%= @user.surname %></h5>
+			    </div>
+		    </div>
+	    </div>
+	</div>
+	
+	<div class="span8">
 		
-		<div class="span12">
-			<div class="centerdiv">
-				<h2><%=t('adashboard.headers.you')%></h2>
-				<% if @image%>
-						<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
-				<%else%>
-						<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class => "thumbnail") %>
-				<%end%>
+		<div class="span8">
+			<div class="span3">
+				<p><strong><%=t('dashboard.community.new_invitation')%>:</strong></p>
+				<div class="well">
+					<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
+				</div>
+			</div>
+			<div class="span4">
+				<p><strong><%=t('dashboard.community.existing_invitation')%>:</strong></p>
+				<div class="well">
+					<%= render 'user_search' %>
+				</div>
 			</div>
 		</div>
 		
-		<div class="span12">
-			<div class="span3">
-				<h2><%=t('dashboard.headers.invited_people')%></h2>
-			</div>		
-			<%= render 'list_user'%>
-		</div>
-		
+		<% if @users.length > 0 %>		
+			<div class="span8">
+				<h3><%=t('dashboard.headers.invited_people')%>:</h3>
+				<%= render 'list_user'%>
+			</div>
+		<%end%>
 	</div>
+	
 </div>
