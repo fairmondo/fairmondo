@@ -10,7 +10,6 @@ default_environment['RAILS_ENV'] = "production"
 # SCM
 set :application,       "fairnopoly"
 set :repository,        "https://git.gitorious.org/fairnopoly/fairnopoly.git"
-set :deploy_subdir,     "fairnopoly"
 set :branch,            "master"
 set :user,              "fairnopoly"
 set :scm,               :git
