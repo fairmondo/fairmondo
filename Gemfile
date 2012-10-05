@@ -64,6 +64,9 @@ gem 'state_machine'
 #Follow Users and Auctions 
 gem "acts_as_follower"
 
+# Should be only in development but else migration fails
+gem 'factory_girl_rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -90,7 +93,6 @@ end
 # Testing using RSpec
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'faker'
