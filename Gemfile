@@ -66,6 +66,7 @@ gem "acts_as_follower"
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'
+gem 'faker'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -95,7 +96,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'faker'
   gem 'ZenTest'
   gem 'autotest-growl'
   gem 'autotest-fsevent'
