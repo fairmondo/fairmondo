@@ -55,6 +55,8 @@ class AuctionsController < ApplicationController
     clear_stored_object
     setup_categories
     @auction = Auction.new
+    @auction.expire = 14.days.from_now
+    @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @auction }

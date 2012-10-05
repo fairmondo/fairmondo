@@ -2,6 +2,19 @@ class Auction < ActiveRecord::Base
   
   before_validation :sanitize_content, :on => :create
   validate :transaction_type
+  validate :validate_expire
+  
+   def validate_expire
+    if self.expire < 1.hours.from_now
+      self.errors.add(:expire, "Expire time must be at least one hour in the future.") 
+      return false
+    end
+    if self.expire > 1.years.from_now
+      self.errors.add(:expire, "Expire time must less than one year from now.") 
+      return false
+    end
+    
+  end
   
   def transaction_type 
     case transaction
@@ -13,7 +26,7 @@ class Auction < ActiveRecord::Base
     end
   end
   
-  attr_accessor :transaction , :expire_date , :expire_time_hours , :expire_time_minutes
+  attr_accessor :transaction 
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
   

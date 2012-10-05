@@ -2,17 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all
-  # Customize the Devise after_sign_in_path_for() for redirecct to previous page after login
+  # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for(resource_or_scope)
     if get_stored_location
       store_location = get_stored_location
       clear_stored_location
-      (store_location.nil?) ? "/" : store_location.to_s
+      (store_location.nil?) ?  dashboard_path : store_location.to_s
     else
-    super
+       dashboard_path
     end
   end
-
+  
   # commented out since it should not be necessary -> "after_sign_in_path_for" does the same
 =begin
   def after_sign_up_path_for(resource_or_scope)

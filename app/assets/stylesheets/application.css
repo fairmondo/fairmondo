@@ -106,6 +106,10 @@ div.radio {
 	padding-left: 0px;
 }
 
+span.help-inline {
+	margin-left: 150px;
+}
+
 /*
  *  Auctions list
  */
@@ -151,34 +155,6 @@ p.clear-margin {
 }
 
 
-/* Facebook Style Timeline
- * 
- */
-
-time,.time{
-    font-size: 10px; color:gray; border-bottom: 1px solid #E7EBF2; min-width:350px; height:20px; padding-bottom: 5px;
-}
-#timeline{
-    width:800px; list-style-type: none; background: url(timeline.png) top center repeat-y; margin: 0 auto; padding:20px; margin-bottom:10px;
-}
-
-#timeline li{
-    width:375px; -moz-border-radius:2px; border-radius:2px; -webkit-border-radius:2px; border:1px solid #c3ccdf; padding:5px;background-color:#FFF;
-}
-
-#timeline li:nth-of-type(odd){
-    clear: both;float:right;
-}
-
-#timeline li:nth-of-type(odd), #timeline li:nth-of-type(even){
-    margin:-10px 0 20px 0;
-}
-#timeline li:nth-of-type(even) .corner{
-	position:absolute; display:block; margin-left:380px;width:20px;	height:15px;background:url(timeline-right.png);
-}
-#timeline li:nth-of-type(odd) .corner{
-	position:absolute;display:block;margin-left:-25px;width:20px;height:15px;background:url(timeline-left.png);
-}
 
 .fixed-element {
     position: fixed;
@@ -187,6 +163,6 @@ time,.time{
  /*
   * Community
   */
- div.centerdiv{
- 	 align:center;
+ div.centerdiv {
+ 	 text-align: center;
  }
