@@ -1,5 +1,7 @@
 Fairnopoly::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+
   get "invitation/index"
 
   resources :categories
@@ -25,6 +27,7 @@ Fairnopoly::Application.routes.draw do
   #the user routes
   match 'dashboard' => 'dashboard#index'
   match 'dashboard/search_users' => 'dashboard#search_users'
+  match 'search_users' => 'dashboard#search_users'
   match 'dashboard/admin' => 'dashboard#admin'
   match 'dashboard/follow_user' => 'dashboard#follow_user'
   match 'dashboard/list_followers' => 'dashboard#list_followers'

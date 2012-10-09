@@ -2,17 +2,7 @@
 	<div class="row">	    
 		<div class="span3" style="text-align:center;">
 			
-			<div class="btn-group">
-			    <abbr class="btn" title="<%= t('user.follow.followers_info')%>"><b>
-			    	<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
-					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %></b>
-				</abbr>
-				
-				<abbr class="btn" title="<%= t('user.follow.following_info')%>"><b>
-			    	<% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
-					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } %></b>
-				</abbr>	
-		    </div>
+			
 			
 			<% if @image%>
 					<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
@@ -34,7 +24,7 @@
 				</li>
 				 <% if current_user.admin? %>
 				<li>
-					<%= link_to t('dashboard.menu.admin'), "dashboard/admin" %>
+					<%= link_to t('dashboard.menu.admin'), "admin" %>
 				</li>
 				<% end %>
 			</ul>
@@ -45,7 +35,17 @@
 		    <div>
 		    	<%= render 'user_search' %>
 		    </div>
-		    
+		    <div class="btn-group">
+			    <abbr class="btn" title="<%= t('user.follow.followers_info')%>"><b>
+			    	<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
+					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %></b>
+				</abbr>
+				
+				<abbr class="btn" title="<%= t('user.follow.following_info')%>"><b>
+			    	<% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
+					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } %></b>
+				</abbr>	
+		    </div>
 		</div>
 		
 		<div class="span5">
