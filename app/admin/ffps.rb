@@ -1,12 +1,32 @@
-ActiveAdmin.register Ffp , :as => "Fair Founding Points" do
-  index do
+ActiveAdmin.register Ffp do
+  filter :price
+   menu :label => 'Fair Founding Points'
+  index :title => 'Fair Founding Points' do
     column :donator do |donator|
         link_to donator.email, admin_user_path(donator)
     end
-    column "Donation Amount" , :price do |price|
-      humanized_money_with_symbol price
+    column "Donation Amount" , :price do |ffp|
+      humanized_money_with_symbol ffp.price
     end
-    column "Confirmed", :activated
+    
+    column "Payment" do |ffp|
+      if ffp.activated?
+        "Confirmed"
+      else
+        link_to "Confirm", confirm_admin_ffp_path(ffp)
+      end 
+    end
     default_actions
+    
   end
+  
+   member_action :confirm do
+    # your normal action code
+    ffp = Ffp.find(params[:id])
+    ffp.activated = true
+    ffp.save
+    redirect_to(:back)
+  end
+  
+  
 end

@@ -46,6 +46,7 @@ gem 'tabulous'
 gem 'enumerize'
 gem 'will_paginate', '~> 3.0'
 
+
 # Indexing /Searching
 gem 'acts_as_indexed'
 

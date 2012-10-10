@@ -43,7 +43,7 @@ class Auction < ActiveRecord::Base
    belongs_to :category
    belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
    belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
-   belongs_to :category
+   
    
    validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency
    
