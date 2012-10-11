@@ -60,7 +60,7 @@ class FfpsController < ApplicationController
 
           Notification.send_ffp_created(@ffp).deliver
 
-          format.html { redirect_to @ffp, :notice => 'Ffp was successfully created.' }
+          format.html { redirect_to @ffp }
           format.json { render :json => @ffp, :status => :created, :location => @ffp }
         else
           format.html { render :action => "new" }

@@ -12,7 +12,11 @@
 	</div>
 	<div class="span6">
 		<div class="well">
-			<%= render 'form' %>
+			<%if !@user%>
+				<%= render 'form' %>
+			<%else%>
+				<%= render 'form_registered' %>
+			<%end%>
 		</div>
 	</div>
 	<div class="span6">

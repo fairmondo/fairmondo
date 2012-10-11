@@ -16,26 +16,36 @@ class InvitationsController < ApplicationController
   end
   
   def confirm
-    @invitation = Invitation.find(params[:id])
-    
-    if @invitation.activation_key != params[:key]
+   
+   if(params[:id])
+      @invitation = Invitation.find(params[:id])
+   else
+      flash[:error] = t('invitation.notices.activation_error_wrong')
+      redirect_to root_path
+   end
+ 
+   if @invitation.activation_key != params[:key]
       flash[:error] = t('invitation.notices.activation_error_wrong')
       redirect_to root_path
     elsif @invitation.activated == true
       flash[:error] = t('invitation.notices.activation_error_exist')
       redirect_to root_path
     else
-
-       @invitation.activated = true
-       @pw = SecureRandom.hex(8)
+    
+    session[:invitor_id] = @invitation.sender.id
+    #session[:key] = params[:key]
+    redirect_to "/user/sign_up"
+    
+       #@invitation.activated = true
+       #@pw = SecureRandom.hex(8)
        
-       @user = User.new(:email => @invitation.email, :password => @pw, :password_confirmation => @pw, :name => @invitation.name, :surname => @invitation.surname, :invitor => @invitation.sender)
+       #@user = User.new(:email => @invitation.email, :password => @pw, :password_confirmation => @pw, :name => @invitation.name, :surname => @invitation.surname, :invitor => @invitation.sender)
                 
-       if !@user.save || !@invitation.save
-          flash[:error] = t('invitation.notices.activation_error')
-       else
-        Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
-       end
+       #if !@user.save || !@invitation.save
+       #   flash[:error] = t('invitation.notices.activation_error')
+       #else
+       # Notification.send_pw(@invitation.name, @invitation.email, @pw).deliver
+       #end
     end
     
   end
@@ -65,6 +75,9 @@ class InvitationsController < ApplicationController
     
     if(params[:user_id])
       @user= User.find(params[:user_id])
+      if @user != nil
+        @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+      end    
     end
     
     respond_to do |format|
@@ -84,8 +97,15 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(params[:invitation])
 
     #if the invited person already is registered to fairnopoly
-    if User.find(:first,:conditions => [ "email = ?", @invitation.email]) != nil
-      flash[:error] = t('invitation.notices.user_exist')
+    registerd_user = User.find(:first,:conditions => [ "email = ?", @invitation.email])
+    if registerd_user != nil
+      #flash[:error] = t('invitation.notices.user_exist')
+      #TODO: check how we want to do it
+      registerd_user.trustcommunity = true
+      registerd_user.invitor = current_user
+      registerd_user.save
+      redirect_to community_path(:id => current_user.id)
+      
     else
       if user_signed_in?
         @invitation.sender = current_user

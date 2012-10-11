@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
     end
     if @user==current_user 
       @userevents = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC", :limit => 10)
-      @ffps = @user.ffps.sum(:price)
+      @ffps = @user.ffps.sum(:price,:conditions => ["activated = ?",true])
     end
     @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)
     @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
@@ -59,16 +59,25 @@ class DashboardController < ApplicationController
   end
 
   def community
-    #@invited_people = User.where(:invitor_id => current_user.id)
-    @invitor = current_user.invitor
-    @users = User.where(:invitor_id => current_user.id)
     
     if params[:id]
+      
       @user = User.find(params[:id])
+      
+      @invitor = @user.invitor
+      @users = User.where(:invitor_id => @user.id)
+      @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+      if @invitor
+        @invitor_image = @invitor.image unless @invitor.image.url ==  "/images/original/missing.png"
+      else
+        @invitor_image = nil
+      end
     else
-      @user = current_user
+      
+      redirect_to dashboard_path
+    
     end
-    @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+    #@invited_people = User.where(:invitor_id => current_user.id)
 
   end  
   

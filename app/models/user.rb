@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :invitor, :admin, :trustcommunity
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :admin, :trustcommunity, :invitor_id
   
   has_many :auctions
   has_many :userevents
@@ -25,7 +25,5 @@ class User < ActiveRecord::Base
   def fullname
     fullname = "#{self.name} #{self.surname}" 
   end
-  
-  
-  
+    
 end

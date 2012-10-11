@@ -18,10 +18,14 @@
 				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>
 				 <%if @user==current_user%>
 					<li><%= link_to body.html_safe, edit_user_registration_path%></li>
+					
+					<%if @user.trustcommunity == true %>
+					 <li>
+						<%= link_to t('dashboard.menu.community'), community_path(:id =>@user.id) %>
+					</li>
+					<%end%>
+					
 				 <%end%>
-				 <li>
-					<%= link_to t('dashboard.menu.community'), "dashboard/community" %>
-				</li>
 				 <% if current_user.admin? %>
 				<li>
 					<%= link_to t('dashboard.menu.admin'), "admin" %>
