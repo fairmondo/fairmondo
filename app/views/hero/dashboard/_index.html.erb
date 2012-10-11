@@ -36,15 +36,13 @@
 		    	<%= render 'user_search' %>
 		    </div>
 		    <div class="btn-group">
-			    <abbr class="btn" title="<%= t('user.follow.followers_info')%>"><b>
-			    	<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
-					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id } %></b>
-				</abbr>
-				
-				<abbr class="btn" title="<%= t('user.follow.following_info')%>"><b>
-			    	<% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
-					<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } %></b>
-				</abbr>	
+			     <% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
+			 	 <%= link_to html, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id },
+			 	  { :title => t('user.follow.followers_info') , :class => "btn"} %>
+			
+				 <% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
+				 <%= link_to html, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
+				  { :title => 	t('user.follow.following_info') , :class => "btn"} %>
 		    </div>
 		</div>
 		

@@ -1,17 +1,6 @@
 class FfpsController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :admin_user,         :only => [:edit, :destroy]
-  # GET /ffps
-  # GET /ffps.json
-  def index
-    @ffps = Ffp.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @ffps }
-    end
-  end
 
   # GET /ffps/1
   # GET /ffps/1.json
@@ -33,11 +22,6 @@ class FfpsController < ApplicationController
       format.html # new.html.erb
       format.json { render :json => @ffp }
     end
-  end
-
-  # GET /ffps/1/edit
-  def edit
-    @ffp = Ffp.find(params[:id])
   end
 
   # POST /ffps
@@ -68,44 +52,5 @@ class FfpsController < ApplicationController
         end
       end
     end
-  end
-
-  # PUT /ffps/1
-  # PUT /ffps/1.json
-  def update
-    @ffp = Ffp.find(params[:id])
-
-    respond_to do |format|
-      if @ffp.update_attributes(params[:ffp])
-
-        if @ffp.activated ==true
-          Notification.send_ffp_confirmed(@ffp).deliver
-        end
-
-        format.html { redirect_to admin_dashboard_path, :notice => 'Ffp was successfully confirmed.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @ffp.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /ffps/1
-  # DELETE /ffps/1.json
-  def destroy
-    @ffp = Ffp.find(params[:id])
-    @ffp.destroy
-
-    respond_to do |format|
-      format.html { redirect_to admin_dashboard_path }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  def admin_user
-    redirect_to(root_path) unless current_user.admin?
   end
 end

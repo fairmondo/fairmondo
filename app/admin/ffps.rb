@@ -24,8 +24,10 @@ ActiveAdmin.register Ffp do
     # your normal action code
     ffp = Ffp.find(params[:id])
     ffp.activated = true
-    ffp.save
-    redirect_to(:back)
+    
+    Notification.send_ffp_confirmed(@ffp).deliver
+    redirect_to :back,  :notice => 'Payment confirmed.'
+   
   end
   
   

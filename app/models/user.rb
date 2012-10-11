@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
     fullname = "#{self.name} #{self.surname}" 
   end
   
-  
+  def display_name
+    fullname  
+  end
   
 end

@@ -56,6 +56,10 @@
 			<% begin %>
 			<%= render 'hero/'+ params[:controller] + '/' + params[:action] %>
 			<%rescue MissingTemplate %>
+				<% begin %>
+				<%= render 'hero/'+ params[:controller] + '/default' %>
+				<%rescue MissingTemplate %>
+				<%end%>
 			<%end%>
 			
 			<div class="row">
