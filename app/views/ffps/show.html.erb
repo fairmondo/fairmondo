@@ -6,7 +6,22 @@
 		<h2><%=t('ffp.success')%></h2>
 		<strong><%=t('ffp.success_next')%></strong>
 	</div>
-		<%= render 'show' %>
+ <table class="table table-bordered">
+			<tr>
+				<td>
+			<p>
+				<b>Fair Founding Points:</b>
+				<%= @ffp.price*20 %> FFP
+			</p></td>
+		</tr>
+			<tr>
+				<td>
+				<p>
+					<b>Price:</b>
+					<%= @ffp.price %> Euro
+				</p></td>
+			</tr>
+		</table>
 
 	<div class="well">
 		<%= link_to 'HOME', root_path %>

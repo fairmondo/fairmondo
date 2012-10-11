@@ -44,23 +44,17 @@ class DashboardController < ApplicationController
 
   def community
 
-    if params[:id]
-      
-      @user = User.find(params[:id])
-      
+      get_user
       @invitor = @user.invitor
       @users = User.where(:invitor_id => @user.id)
-      @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
+    
       if @invitor
         @invitor_image = @invitor.image unless @invitor.image.url ==  "/images/original/missing.png"
       else
         @invitor_image = nil
       end
-    else
-      
-      redirect_to dashboard_path
+   
     
-    end
     #@invited_people = User.where(:invitor_id => current_user.id)
 
   end
