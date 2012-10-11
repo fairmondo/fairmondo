@@ -13,13 +13,13 @@ ActiveAdmin.register_page "Dashboard" do
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do
-    #   column do
-    #     panel "Recent Posts" do
+    #  column do
+    #    panel "Unconfirmed Fair Founding Points" do
     #       ul do
-    #         Post.recent(5).map do |post|
-    #           li link_to(post.title, admin_post_path(post))
+    #         Ffp.where("activated = ?", false).map do |ffp|
+    #            li link_to(ffp.donator.email, admin_ffp_path(ffp))
     #         end
-    #       end
+    #      end
     #     end
     #   end
 

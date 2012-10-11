@@ -107,13 +107,9 @@ en:
       edit_account: "Edit Account"
       send_invitation: "Send Invitation"
     menu:
-      profile: "Profile"
       edit: "Edit Profile"
-      timeline: "Timeline"
-      friends: "Friends"
-      community: "Community"
-      trade: "Trade"
-      settings: "Settings"
+      community: "TrustCommunity"
+ 
     auction:
       create: "Auction was created"
       update: "Auction was updated"

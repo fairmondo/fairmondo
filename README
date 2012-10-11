@@ -1,3 +1,20 @@
-Test9
+Main fairnopoly repository
 
+Installation Linux:
 
+Install Java openjdk (6 or 7)
+Install RVM 
+bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bashrc
+source ~/.bashrc 
+rvm -v should work now! If not further reading: 
+https://rvm.beginrescueend.com/rvm/install/#explained
+Ubuntu 11.10 http://www.ruby-auf-schienen.de/buch/rails3-install-ubuntu.html
+Install Jruby with
+rvm install jruby
+echo "export JRUBY_OPTS=\"--1.9\"" >> ~/.bashrc
+rvm --default jruby
+ruby -v should print out jruby version
+Install rails gem with
+gem install rails
+bundle install (on fairnopoly directory)
