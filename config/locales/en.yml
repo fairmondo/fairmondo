@@ -17,6 +17,7 @@ en:
       show: "Show"
       edit: "Edit"
       invite: "Invite"
+      trust: "Trust"
     text:
       hello: "Hello"
       email: "E-Mail"
@@ -27,6 +28,7 @@ en:
       follow: "Follow"
       yes: "Yes"
       no: "No"
+      community: "TrustCommunity"
       
 # Formtastic     
   formtastic: 

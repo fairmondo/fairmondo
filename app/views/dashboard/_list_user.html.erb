@@ -11,10 +11,18 @@
 				<%end%>
 			    <div class="caption">
 			      <h5><%= user.name %> <%= user.surname %></h5>
-			      <%= render :partial => 'follow_user' , :locals => { :user => user }%>
+			      <% if user != current_user%>
+				      
+				      <%= render :partial => 'follow_user' , :locals => { :user => user }%>
+				      
+				      <% if !user.trustcommunity %>
+				      	<%= link_to t('common.actions.invite'), new_invitation_path(:user_id => user.id), :class=>"btn"  %>
+				      <%end%>
 			      
-			      <%= link_to t('common.actions.invite'), new_invitation_path(:user_id => user.id), :class=>"btn"  %>
-			      
+			      <% end %>
+			      <% if user.trustcommunity%>
+			      	*<%=t('common.text.community')%>
+			      <%end%>
 			    </div>
 			 </div>
 			 
