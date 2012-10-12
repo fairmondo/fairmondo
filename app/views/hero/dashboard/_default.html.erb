@@ -64,7 +64,7 @@
 						    	</p>
 					    	<%end%>
 					    	
-					 
+					 		<%if userevent.appended_object  %>
 							<div class="userevent">
 									<% case userevent.event_type %>
 										<% when UsereventType::AUCTION_CREATE %>
@@ -85,9 +85,8 @@
 									<% end %>
 									
 							</div>
-							
+							<%end%>
 						
-					
 				<%end%>	
 			<%end%>
 			
