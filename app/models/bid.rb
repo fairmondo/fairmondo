@@ -4,7 +4,7 @@ class Bid < ActiveRecord::Base
   monetize :price_cents
   
   before_save :check_better
-  validates_presence_of :user,:transaction,:price_cents
+  validates_presence_of :user, :transaction, :price_cents
   
   def check_better
     if self.transaction.max_bid

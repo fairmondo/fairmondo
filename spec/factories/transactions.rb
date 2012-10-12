@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :transaction do
     max_bid 1
     type ""
+    auction { Auction.all.sample }
   end
 end

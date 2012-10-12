@@ -6,6 +6,11 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
+# skip the devise mailer callback
+[User, Auction, Ffp].each do |model|
+  model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
+end
+
   User.create(:name => "Example", :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password", :admin => true)
 
   Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
@@ -18,8 +23,10 @@
   Category.create(:name => "Software", :desc => "", :level => 2, :parent_id => 5)
 
 50.times do
+  FactoryGirl.create(:transaction)
   FactoryGirl.create(:auction, :category_id => Category.all.sample.id)
-  FactoryGirl.create(:bid, :user_id => User.all.sample.id, :auction => Auction.all.sample)
+  # TODO it's unclear how the validation check_better should work according to the seed of transaction (max_bid 1)
+  #FactoryGirl.create(:bid, :user => User.all.sample, :transaction => Transaction.all.sample)
   FactoryGirl.create(:ffp, :user_id => User.all.sample.id)
   FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
 end
