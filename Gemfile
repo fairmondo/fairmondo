@@ -21,6 +21,8 @@ end
 platforms :ruby do
   gem 'sqlite3'
   gem 'therubyracer'
+  # To use debugger
+  # gem 'debugger', :group => :development
 end
 
 # Forms & Upload
@@ -117,5 +119,3 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# To use debugger
-# gem 'ruby-debug'
