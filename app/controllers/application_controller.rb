@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for(resource_or_scope)
+    
     if get_stored_location
       store_location = get_stored_location
       clear_stored_location

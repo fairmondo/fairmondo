@@ -32,7 +32,11 @@ class InvitationsController < ApplicationController
       redirect_to root_path
     else
     
+    session[:invited_email] = @invitation.email
     session[:invitor_id] = @invitation.sender.id
+    session[:invitor_name] = @invitation.sender.name
+    session[:invitor_surname] = @invitation.sender.surname
+    
     #session[:key] = params[:key]
     redirect_to "/user/sign_up"
     

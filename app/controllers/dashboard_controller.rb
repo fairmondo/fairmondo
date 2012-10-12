@@ -64,6 +64,7 @@ class DashboardController < ApplicationController
   def follow_user
     @user = User.find params["id"]
     current_user.follow(@user)
+    Userevent.new(:user => current_user, :event_type => UsereventType::USER_FOLLOW, :appended_object => @user).save
 
     respond_to do |format|
       format.html { redirect_to dashboard_path(:id => @user.id) , :notice => (I18n.t 'user.follow.following') }

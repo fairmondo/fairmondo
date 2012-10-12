@@ -25,12 +25,14 @@
 					</li>
 					<%end%>
 					
+					<% if current_user.admin? %>
+					<li>
+						<%= link_to t('dashboard.menu.admin'), "admin" %>
+					</li>
+					<% end %>
+					
 				 <%end%>
-				 <% if current_user.admin? %>
-				<li>
-					<%= link_to t('dashboard.menu.admin'), "admin" %>
-				</li>
-				<% end %>
+				 
 			</ul>
 			
 			
@@ -66,14 +68,20 @@
 							<div class="userevent">
 									<% case userevent.event_type %>
 										<% when UsereventType::AUCTION_CREATE %>
-										<i class="icon-plus icon-white"></i> <%= link_to userevent.appended_object.title, userevent.appended_object %>  
-										 <i><%=t('dashboard.auction.create')%></i>
-									<% when UsereventType::AUCTION_UPDATE %>
-										<i class="icon-list-alt icon-white"></i>
-										<%= link_to userevent.appended_object.title,userevent.appended_object %> 
-										<i><%= t('dashboard.auction.update') %></i>
-									<% when UsereventType::INVITATION_SEND%>
-										<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
+											<i class="icon-plus icon-white"></i> <%= link_to userevent.appended_object.title, userevent.appended_object %>  
+											 <i><%=t('dashboard.auction.create')%></i>
+										<% when UsereventType::AUCTION_UPDATE %>
+											<i class="icon-list-alt icon-white"></i>
+											<%= link_to userevent.appended_object.title,userevent.appended_object %> 
+											<i><%= t('dashboard.auction.update') %></i>
+										<% when UsereventType::INVITATION_SEND%>
+											<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
+										<% when UsereventType::FFP_BUY%>
+											<%= link_to t('dashboard.userevent.ffp_buy')+": "+userevent.appended_object.price.to_s + 
+												"Euro, "+ t('dashboard.userevent.confirmed')+ (userevent.appended_object.activated ? ": Yes" : ": No"),
+												userevent.appended_object %>
+										<% when UsereventType::USER_FOLLOW%>
+											<%= link_to t('dashboard.userevent.user_follow')+": "+userevent.appended_object.email.to_s,dashboard_path(:id => userevent.appended_object.id) %>
 									<% end %>
 									
 							</div>

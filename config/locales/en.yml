@@ -25,7 +25,8 @@ en:
       search: "Search"
       auctions: "Auctions"
       follow: "Follow"
-     
+      yes: "Yes"
+      no: "No"
       
 # Formtastic     
   formtastic: 
@@ -120,6 +121,12 @@ en:
     community:
       new_invitation: "Invite a new Person to the community"
       existing_invitation: "Invite a registrated person to the community"
+    userevent:
+      ffp_buy: "FFP bought"
+      user_follow: "User followed"
+      confirmed: "Confirmed"
+      no: "No"
+      yes: "Yes"
 # FFP Model/Controller
   ffp:
     to_much: "You cannot buy more than 10000 FFP"
@@ -145,6 +152,7 @@ en:
         submit: "If you submit the form, you get an e-mail confirmation with the bank account, where you can transfer the money."
 # Invitation Model/Controller
   invitation:
+    invitated: "You have been invitated from"
     notices:
       confirmation: "The invitation has been confirmed. An Account has been created with the following data. 
                       The password will be sent by e-mail. 

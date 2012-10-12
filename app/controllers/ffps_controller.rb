@@ -36,13 +36,21 @@ class FfpsController < ApplicationController
       flash[:error] = t('ffp.to_much')
       redirect_to root_path
     else
+      @ffp.name = current_user.name
+      @ffp.surname = current_user.surname
+      @ffp.email = current_user.email
       @ffp.activated = false
       @ffp.user_id = current_user.id
 
       respond_to do |format|
         if @ffp.save
-
+          
+          @ffp.code = SecureRandom.hex(2).to_s + @ffp.id.to_s
+          @ffp.save
+          
           Notification.send_ffp_created(@ffp).deliver
+          Userevent.new(:user => current_user, :event_type => UsereventType::FFP_BUY, :appended_object => @ffp).save
+      
 
           format.html { redirect_to @ffp }
           format.json { render :json => @ffp, :status => :created, :location => @ffp }
