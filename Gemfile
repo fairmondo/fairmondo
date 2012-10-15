@@ -11,10 +11,10 @@ platforms :jruby do
   gem "jruby-openssl"
   gem 'trinidad'
   gem 'activerecord-jdbc-adapter', '1.2.2'
-  gem 'activerecord-jdbcmysql-adapter', '1.2.2'
-  #gem 'activerecord-jdbcpostgresql-adapter'
-  gem 'jdbc-mysql', :require => false
-  #gem 'jdbc-postgres'
+  #gem 'activerecord-jdbcmysql-adapter', '1.2.2'
+  gem 'activerecord-jdbcpostgresql-adapter'
+  #gem 'jdbc-mysql', :require => false
+  gem 'jdbc-postgres'
 end
 
 # Ruby Deps
