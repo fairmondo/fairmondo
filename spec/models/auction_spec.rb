@@ -9,7 +9,6 @@ describe Auction do
   let(:auction) { FactoryGirl::create(:auction)}
   
   # it {should have_many :userevents}
-  it {should have_many :bids}
   it {should have_many :images}
   
   it {should have_one :max_bid}
