@@ -9,7 +9,7 @@
 		<title>Fairnopoly</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
-		<%= stylesheet_link_tag 'responsive' %>
+		<%= stylesheet_link_tag 'application' %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
 		
@@ -24,7 +24,7 @@
 				<div class="row">
 					<div class="span4">
 						<h1 id="title">
-							<a href="">
+							<a href="/">
 								<span>Fairnopoly</span>
 							</a>
 						</h1>
@@ -43,7 +43,7 @@
 								</a>
 							</li>
 							<li id="login">
-								<%= link_to "Login" , new_user_path %>
+								<%= link_to "Login" , new_user_session_path %>
 							</li>
 						</ul>
 					</div>

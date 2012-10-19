@@ -2,9 +2,7 @@ ActiveAdmin.register User do
   index do
     column :id
     column :email
-    column "Name" do |user|
-      user.name + " " + user.surname
-    end
+    column :fullname
     column "Trustcommiunity" do |user|
       if user.trustcommunity? && user.invitor != nil
         "Member"
