@@ -12,7 +12,7 @@
 			<ul class="nav nav-tabs nav-stacked">
 				<li class="active"><a href="#"> <i class=" icon-user"></i> <%=@user.name%> <%= @user.surname %></a></li>
 				<%if @ffps %>
-				<li class="active"><a href="#"> <abbr title="Fair Founding Points"><b>FFPs:</b></abbr> <%= @ffps %></a></li>
+				<li class="active"><a href="#"> <abbr title="<%=t('ffp.explain')%>"><b><%=t('common.text.ffp')%>:</b></abbr> <%= @ffps %></a></li>
 				<%end%>
 				
 				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>

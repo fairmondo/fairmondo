@@ -32,30 +32,31 @@
 					<div class="8">
 						<ul id="main-nav">
 							<li id="buy">
-								<%= link_to "Einkaufen" , auctions_path %>
+								<%= link_to t('common.text.buy'), auctions_path %>
 							</li>
 							<li id="sell">
-								<%= link_to "Verkaufen" , new_auction_path %>
+								<%= link_to t('common.text.sell'), new_auction_path %>
 							</li>
 							<li id="service">
 								<a href="">
-									Service
+									<%= t('common.text.service')%>
 								</a>
 							</li>
+
 							<% if user_signed_in? %>
 								<li id="login">
-									<%= link_to('Logout', destroy_user_session_path ) %>
+									<%= link_to(t('common.actions.logout'), destroy_user_session_path ) %>
 								</li>
 								<li id="login">
-									<%= link_to "Profil" , dashboard_path  %>
+									<%= link_to t('common.text.profile'), dashboard_path  %>
 								</li>
 								
 							<% else %>
 								<li id="login">
-									<%= link_to "Login" , new_user_session_path %>
+									<%= link_to t('common.actions.login') , new_user_session_path %>
 								</li>
 							<% end %>
-							
+
 						</ul>
 					</div>
 				</div> <!-- row -->
@@ -67,8 +68,8 @@
 					<div class="row">
 						<div class="span6 offset6">
 							<form class="form-search pullright">
-								<input type="search" class="search-query" placeholder="Suche nach fairen Produkten">
-								<button type="submit" class="btn">Suche</button>
+								<input type="search" class="search-query" placeholder="<%=t('welcome.search_fair')%>">
+								<button type="submit" class="btn"><%=t('common.actions.search')%></button>
 							</form>
 						</div>
 					</div>
@@ -112,30 +113,30 @@
 					<div class="span4">
 						<h3>
 							<a href="">
-								Impressum
+								<%=t('footer.legal_details')%>
 							</a>
 						</h3>
 					</div>
 					<div class="span4">
 						<h3>
 							<a href="">
-								Über Uns
+								<%=t('footer.about_us')%>
 							</a>
 						</h3>
 						<ul>
 							<li>
 								<a href="">
-									Philosophie
+									<%=t('footer.philosophy')%>
 								</a>
 							</li>
 							<li>
 								<a href="">
-									Team
+									<%=t('footer.team')%>
 								</a>
 							</li>
 							<li>
 								<a href="">
-									Kontakt
+									<%=t('footer.contact')%>
 								</a>
 							</li>
 							<% if current_user.admin? %>
@@ -147,13 +148,13 @@
 					</div>
 					<div class="span4">
 						<h3>
-							FAQ &amp; Hilfe
+							<%=t('footer.faq')%> &amp; <%=t('footer.help')%>
 						</h3>
 					</div>
 				</div> <!-- row -->
 			</div> <!-- container -->
 			<div id="sub-footer">
-				&copy; fairnopoly 2012
+				&copy; Fairnopoly 2012
 			</div>
 		</footer>
 
