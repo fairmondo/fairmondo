@@ -9,7 +9,7 @@
 	   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
 	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
 	   		<%= tinymce %>
-	   	<%= f.input :transaction , :as=> :radio, :collection => {"Auction" => "auction", "Fixed-Price" => "fixed" , "Preview" => "preview"}%>
+	   	<%= f.input :transaction , :as=> :radio, :collection => [["Auction" , "auction" , {:disabled => true}], ["Fixed-Price" ,"fixed", {:disabled => true}], ["Preview" ,"preview", {:checked => "checked" }]]%>
 	   
    		<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
    		<div class="input optional control-group" >

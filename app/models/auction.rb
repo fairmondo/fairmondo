@@ -21,6 +21,9 @@ class Auction < ActiveRecord::Base
     when 'auction'
        self.transaction = AuctionTransaction.new
        self.transaction.auction = self
+    when 'preview'
+       self.transaction = PreviewTransaction.new
+       self.transaction.auction = self
     else
       errors.add(:transaction, "You must select a type for your transaction!")
     end
