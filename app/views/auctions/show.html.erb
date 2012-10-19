@@ -37,8 +37,11 @@
 	<div class="span9">
 		
 		<div class="well">
-			<%= humanized_money_with_symbol @auction.price %>
-			<%= condition_label @auction%>
+			<dl>
+				<dt><%= t 'auction.labels.price'%> </dt><dd><%= humanized_money_with_symbol @auction.price %></dd>
+				<dt><%= t 'auction.labels.type'%></dt><dd><%= condition_label @auction%></dd>
+				<dt><%= t 'auction.labels.expiration_date'%></dt><dd><%= @auction.expire%></dd>
+			</dl>
 		</div>
 		<div class="well">
 			<%= raw @auction.content%>
