@@ -139,6 +139,8 @@ en:
       content: "Enter a description for your auction"
       condition: "Enter the auctions type"
       price: "Enter the auction's price"
+      date: "Date (Day/Month/Year)"
+      time: "Time (Hours/Minutes)"
     image:
       title: "Upload an image"
       upload: "Upload"
