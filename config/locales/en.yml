@@ -129,6 +129,8 @@ en:
     lables:
       price: "Price"
       shipping_condition: "Shipping condition"
+      expiration_date: "Expiration date"
+      type: "Type"
     list:
       header: "Results"
     notices:
