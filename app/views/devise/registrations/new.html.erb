@@ -1,4 +1,4 @@
-<h2>Sign up</h2>
+<h2><%=t('devise.title.sign_up')%></h2>
 
  <%if session[:invitor_name] && session[:invitor_surname] %>
  	
@@ -21,11 +21,11 @@
   	<%if session[:invited_email] %>
     	<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>
     <%else%>
-    	<%= f.input :email, :hint => "Enter your email address", :required => true %>
+    	<%= f.input :email, :hint => t('devise.edit_profile.email'), :required => true %>
     <%end%>
     
-    <%= f.input :password, :hint => "Enter password" %>
-    <%= f.input :password_confirmation, :hint => "Confirm password", :required => true %>
+    <%= f.input :password, :hint => t('devise.new_profile.password') %>
+    <%= f.input :password_confirmation, :hint => t('devise.new_profile.password_confirmation'), :required => true %>
    
     <%if session[:invitor_id] %>
     	<%= f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }%>

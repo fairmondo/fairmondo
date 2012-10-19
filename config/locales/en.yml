@@ -8,7 +8,7 @@ en:
         fair: "Fairtrade"
   welcome:
     greetings: "Welcome to Fairnopoly"
-      
+    search_fair: "Search for fair products"
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -18,7 +18,15 @@ en:
       edit: "Edit"
       invite: "Invite"
       trust: "Trust"
+      logout: "Logout"
+      login: "Login"
+      register: "Register"
+      edit_profile: "Edit Profile"
+      search: "Search"
     text:
+      buy: "Buy"
+      sell: "Sell"
+      service: "Service"
       hello: "Hello"
       email: "E-Mail"
       password: "Password"
@@ -29,7 +37,46 @@ en:
       yes: "Yes"
       no: "No"
       community: "TrustCommunity"
-      
+      unhappy: "Unhappy"
+      ffp: "FFP"
+      name: "Name"
+      surname: "Surname"
+      relation: "Relation"
+# Footer
+  footer:
+    legal_details: "Legal details"
+    about_us: "About us"
+    philosophy: "Philosophy"
+    team: "Team"
+    contact: "Contact"
+    faq: "FAQ"
+    help: "Help"
+# Devise
+  devise:
+    links:
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+      forgot_password: "Forgot your password?"
+      confirmation_instruction: "Didn't receive confirmation instructions?"
+      unlock_instruction: "Didn't receive unlock instructions?"
+      sign_in_with: "Sign in with #{provider.to_s.titleize}"
+    actions:
+      unlock: "Resend unlock instructions"
+    title:
+      cancle: "Cancel my account"
+      sign_up: "Sign up"
+    new_profile:
+      password: "Enter password"
+      password_confirmation: "Confirm password"
+    edit_profile:
+      email: "Enter your email address"
+      image: "Choose a picture"
+      picture: "Picture"
+      password: "Enter new password (leave blank if you don't want to change it)"
+      password_confirmation: "Confirm new password"
+      current_password: "Enter current password (we need your current password to confirm your changes)"
+      cancel_account: "Cancel my account"
+      cancel_account_confirm: "Are you sure?"
 # Formtastic     
   formtastic: 
 # Login 
@@ -63,12 +110,24 @@ en:
     founder: "Founder"
 # Auction Model/Controller
   auction:
+    hero:
+      search: "Search for"
+      filter: "Filter by"
+      category: "Select category"
+      remove_filter: " Remove condition filter"
     form: 
       head: "This is the form you have to fill for creating an auction."
       category: "Select a category for your Product"
-      details: Select product details
+      details: "Select product details"
+      expire_date: "Date (Day/Month/Year)"
+      expire_time: "Time (Hours/Minutes)"
+      transaction:
+        auction: "Auction"
+        fixed_price: "Fixed-Price"
+        preview: "Preview"
     lables:
       price: "Price"
+      shipping_condition: "Shipping condition"
     list:
       header: "Results"
     notices:
@@ -131,6 +190,7 @@ en:
       yes: "Yes"
 # FFP Model/Controller
   ffp:
+    explain: "Fair Founding Points"
     to_much: "You cannot buy more than 10000 FFP"
     title:
       activate: "Confirm this Transaction"
@@ -154,6 +214,8 @@ en:
         submit: "If you submit the form, you get an e-mail confirmation with the bank account, where you can transfer the money."
 # Invitation Model/Controller
   invitation:
+    title:
+      confirm: "Invitation Confirmation"
     invitated: "You have been invitated from"
     notices:
       confirmation: "The invitation has been confirmed. An Account has been created with the following data. 

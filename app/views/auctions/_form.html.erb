@@ -9,14 +9,14 @@
 	   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
 	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
 	   		<%= tinymce %>
-	   	<%= f.input :transaction , :as=> :radio, :collection => {"Auction" => "auction", "Fixed-Price" => "fixed" , "Preview" => "preview"}%>
+	   	<%= f.input :transaction , :as=> :radio, :collection => {t('auction.form.transaction.auction') => "auction", t('auction.form.transaction.fixed_price') => "fixed" , t('auction.form.transaction.preview') => "preview"}%>
 	   
    		<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
    		<div class="input optional control-group" >
 	   		<div class="controls controls-row">
-		   		<span class="span1" ><small>Date (Day/Month/Year)</small></span>
+		   		<span class="span1" ><small><%=t('auction.form.expire_date')%></small></span>
 		   		<span class="span3" >&nbsp;</span>
-		   		<span class="span1" ><small>Time (Hours/Minutes)</small></span>
+		   		<span class="span1" ><small><%=t('auction.form.expire_time')%></small></span>
 	   		</div>
 		</div>
    		<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) }, 
