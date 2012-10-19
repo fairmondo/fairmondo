@@ -34,28 +34,15 @@
 		</div>
 		<% end %>
 	</div>
-	<div class="span6">
-		<div>
+	<div class="span9">
 		
-		</div>
 		<div class="well">
 			<%= humanized_money_with_symbol @auction.price %>
-		</div>
-		<div class="well">
 			<%= condition_label @auction%>
-		</div>
-		<div class="well">
-			<h4>Versandkonditionen (Platzhalter)</h4>
 		</div>
 		<div class="well">
 			<%= raw @auction.content%>
 		</div>
 		
 	</div>
-	<div class="span3">
-		<% if @auction.seller == current_user  %>
-			<div class="well">
-			<%= link_to t('common.actions.edit'), edit_auction_path(@auction) %>
-			</div>
-		<% end %>
-	</div>
+	

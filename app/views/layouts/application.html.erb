@@ -42,9 +42,20 @@
 									Service
 								</a>
 							</li>
-							<li id="login">
-								<%= link_to "Login" , new_user_session_path %>
-							</li>
+							<% if user_signed_in? %>
+								<li id="login">
+									<%= link_to('Logout', destroy_user_session_path ) %>
+								</li>
+								<li id="login">
+									<%= link_to "Profil" , dashboard_path  %>
+								</li>
+								
+							<% else %>
+								<li id="login">
+									<%= link_to "Login" , new_user_session_path %>
+								</li>
+							<% end %>
+							
 						</ul>
 					</div>
 				</div> <!-- row -->
@@ -127,6 +138,11 @@
 									Kontakt
 								</a>
 							</li>
+							<% if current_user.admin? %>
+								<li>
+									<%= link_to t('dashboard.menu.admin'), "/admin" %>
+								</li>
+							<% end %>
 						</ul>
 					</div>
 					<div class="span4">
