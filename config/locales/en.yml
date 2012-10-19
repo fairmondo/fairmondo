@@ -42,6 +42,7 @@ en:
       name: "Name"
       surname: "Surname"
       relation: "Relation"
+      profile: "Profile"
 # Footer
   footer:
     legal_details: "Legal details"

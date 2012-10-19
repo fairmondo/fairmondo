@@ -42,9 +42,21 @@
 									<%= t('common.text.service')%>
 								</a>
 							</li>
-							<li id="login">
-								<%= link_to t('common.actions.login') , new_user_session_path %>
-							</li>
+
+							<% if user_signed_in? %>
+								<li id="login">
+									<%= link_to(t('common.actions.logout'), destroy_user_session_path ) %>
+								</li>
+								<li id="login">
+									<%= link_to t('common.text.profile'), dashboard_path  %>
+								</li>
+								
+							<% else %>
+								<li id="login">
+									<%= link_to t('common.actions.login') , new_user_session_path %>
+								</li>
+							<% end %>
+
 						</ul>
 					</div>
 				</div> <!-- row -->
@@ -127,6 +139,11 @@
 									<%=t('footer.contact')%>
 								</a>
 							</li>
+							<% if current_user.admin? %>
+								<li>
+									<%= link_to t('dashboard.menu.admin'), "/admin" %>
+								</li>
+							<% end %>
 						</ul>
 					</div>
 					<div class="span4">
