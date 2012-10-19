@@ -32,8 +32,8 @@ gem 'formtastic', " ~> 2.2.1"
 
 # CSS
 gem 'less';
-gem 'less-rails-bootstrap'
-gem 'formtastic-bootstrap'
+#gem 'less-rails-bootstrap'
+#gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
 
 # JS
@@ -44,7 +44,6 @@ gem 'jquery-rails'
 # Tool Libs
 
 gem 'json'
-gem 'tabulous'
 gem 'enumerize'
 gem 'will_paginate', '~> 3.0'
 
