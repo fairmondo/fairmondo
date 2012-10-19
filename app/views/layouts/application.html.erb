@@ -139,7 +139,7 @@
 									<%=t('footer.contact')%>
 								</a>
 							</li>
-							<% if current_user.admin? %>
+							<% if current_user && current_user.admin? %>
 								<li>
 									<%= link_to t('dashboard.menu.admin'), "/admin" %>
 								</li>
