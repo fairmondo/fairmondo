@@ -15,49 +15,13 @@
  * 
 */
 
-	/*
-	 * Categorie View
-	 */
-.category-button {  
-	background-color: transparent !important; 
-	border: 0 !important; 
-	width: 100% !important; 
-	height: 100% !important;
-	margin: 2px !important;
-	text-align:left !important;
-	color: #048adc;
-	
-}
 
-div.category-button {
-	margin-right:20px;
-	padding: 2px !important
-	
-}
-
-
-	
-a.no_decoration:hover   {
-  		
-  	text-decoration:  none !important;
-}
-  
-td.selected {
-	background-color: #DFF0D8 !important;
-}
-
-td.category {
-	color: #005580;
-	background-color: #FFFFFF;
-	padding: 0px !important;
-}
-	
 
 /*
  *  Auctions list
  */
 span.in-image {
-	position: absolute;top: 160px; left: 20px;
+	position: absolute;top: 10px; left: 10px;
 }
 	
 
