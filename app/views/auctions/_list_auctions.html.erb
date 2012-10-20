@@ -1,29 +1,19 @@
-
-	
-		<ul class="thumbnails">
-		<% @auctions.each do |auction| %>
-			
-		        <li class="span3">
-		          <div class="thumbnail" style="position: relative;">
-		            <% if auction.title_image%>
-						<%= link_to image_tag(auction.title_image.image.url(:thumb), :size=> "260x180"), auction %>
-					<%else%>
-						<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), auction %>
-					<%end%>
-		            <div class="caption">
-		              <h5><%= link_to auction.title, auction %></h5>
-		              <h5><%= humanized_money_with_symbol auction.price %></h5>
-		            </div>
-		            <%= condition_label auction, "in-image" %>
-		         </div>
-		         
-		        </li>
-		      
-		<%end%>
-		</ul>
-
-	
-	
-		
-	
+<ul class="thumbnails">
+	<% @auctions.each do |auction| %>
+	<li class="span3">
+		<div class="thumbnail" style="position: relative;">
+			<% if auction.title_image%>
+			<%= link_to image_tag(auction.title_image.image.url(:thumb), :size=> "260x180"), auction %>
+			<%else%>
+			<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), auction %>
+			<%end%>
+			<div class="caption">
+				<h5><%= link_to auction.title, auction %></h5>
+				<h5><%= humanized_money_with_symbol auction.price %></h5>
+			</div>
+			<%= condition_label auction, "in-image" %>
+		</div>
+	</li>
+	<%end%>
+</ul>
 <%= will_paginate @auctions %>

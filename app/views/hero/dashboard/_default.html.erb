@@ -1,92 +1,84 @@
-	
-	<div class="row">	    
+<div class="container">
+	<div class="row">
 		<div class="span3" style="text-align:center;">
-			
-			
-			
 			<% if @image%>
-					<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
+			<%= image_tag(@image.url(:thumb), :style=> "width:260; height:auto;" , :class => "thumbnail") %>
 			<%else%>
-					<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class => "thumbnail") %>
+			<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class => "thumbnail") %>
 			<%end%>
 			<ul class="nav nav-tabs nav-stacked">
-				<li class="active"><a href="#"> <i class=" icon-user"></i> <%=@user.name%> <%= @user.surname %></a></li>
+				<li class="active">
+					<a href="#"> <i class=" icon-user"></i> <%= @user.name%> <%= @user.surname %></a>
+				</li>
 				<%if @ffps %>
-				<li class="active"><a href="#"> <abbr title="<%=t('ffp.explain')%>"><b><%=t('common.text.ffp')%>:</b></abbr> <%= @ffps %></a></li>
+				<li class="active">
+					<a href="#"> <abbr title="<%= t('ffp.explain')%>"><b><%= t('common.text.ffp')%>:</b></abbr> <%= @ffps %></a>
+				</li>
 				<%end%>
-				
+
 				<% body= glyphicons("icon-cog") +" "+ t('dashboard.actions.edit_account') %>
-				 <%if @user==current_user%>
-					<li><%= link_to body.html_safe, edit_user_registration_path%></li>
-					
-					<%if @user.trustcommunity == true %>
-					 <li>
-						<%= link_to t('dashboard.menu.community'), community_path(:id =>@user.id) %>
-					</li>
-					<%end%>
-					
-					
-					
-				 <%end%>
-				 
+				<%if @user==current_user%>
+				<li>
+					<%= link_to body.html_safe, edit_user_registration_path%>
+				</li>
+				<%if @user.trustcommunity == true %>
+				<li>
+					<%= link_to t('dashboard.menu.community'), community_path(:id =>@user.id) %>
+				</li>
+				<%end%>
+
+				<%end%>
 			</ul>
-			
-			
 		</div>
 		<div class="span4">
-		    <div>
-		    	<%= render 'user_search' %>
-		    </div>
-		    <div class="btn-group">
-			     <% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
-			 	 <%= link_to html, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id },
-			 	  { :title => t('user.follow.followers_info') , :class => "btn"} %>
-			
-				 <% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
-				 <%= link_to html, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
-				  { :title => 	t('user.follow.following_info') , :class => "btn"} %>
-		    </div>
+			<div>
+				<%= render 'user_search' %>
+			</div>
+			<div class="btn-group">
+				<% html= t("user.follow.followers")+": " + @user.followers_count.to_s+ ""%>
+				<%= link_to html, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id },
+				{ :title => t('user.follow.followers_info') , :class => "btn"} %>
+
+				<% html= t("user.follow.following")+": " + @user.follow_count.to_s+ ""%>
+				<%= link_to html, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
+				{ :title => 	t('user.follow.following_info') , :class => "btn"} %>
+			</div>
 		</div>
-		
 		<div class="span5">
-			 <%if @user==current_user%>
-				<%day=0%>
-				<%@userevents.each do |userevent| %>
-					
-					    	<%if userevent.created_at.day != day%>
-					    		<p class="clear-margin">
-							    	<small><%= userevent.created_at.strftime("%d.%m.%Y")%>
-							    	<% day=userevent.created_at.day %></small>
-						    	</p>
-					    	<%end%>
-					    	
-					 		<%if userevent.appended_object  %>
-							<div class="userevent">
-									<% case userevent.event_type %>
-										<% when UsereventType::AUCTION_CREATE %>
-											<i class="icon-plus icon-white"></i> <%= link_to userevent.appended_object.title, userevent.appended_object %>  
-											 <i><%=t('dashboard.auction.create')%></i>
-										<% when UsereventType::AUCTION_UPDATE %>
-											<i class="icon-list-alt icon-white"></i>
-											<%= link_to userevent.appended_object.title,userevent.appended_object %> 
-											<i><%= t('dashboard.auction.update') %></i>
-										<% when UsereventType::INVITATION_SEND%>
-											<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
-										<% when UsereventType::FFP_BUY%>
-											<%= link_to t('dashboard.userevent.ffp_buy')+": "+userevent.appended_object.price.to_s + 
-												"Euro, "+ t('dashboard.userevent.confirmed')+ (userevent.appended_object.activated ? ": Yes" : ": No"),
-												userevent.appended_object %>
-										<% when UsereventType::USER_FOLLOW%>
-											<%= link_to t('dashboard.userevent.user_follow')+": "+userevent.appended_object.email.to_s,dashboard_path(:id => userevent.appended_object.id) %>
-									<% end %>
-									
-							</div>
-							<%end%>
-						
-				<%end%>	
+			<%if @user==current_user%>
+			<% day=0%>
+			<%@userevents.each do |userevent| %>
+
+			<%if userevent.created_at.day != day%>
+			<p class="clear-margin">
+				<small><%= userevent.created_at.strftime("%d.%m.%Y")%>
+					<% day=userevent.created_at.day %></small>
+			</p>
 			<%end%>
-			
-			
-		</div>	
+
+			<%if userevent.appended_object  %>
+			<div class="userevent">
+				<% case userevent.event_type %>
+				<% when UsereventType::AUCTION_CREATE %> 
+					<i class="icon-plus icon-white"></i> 
+					<%= link_to userevent.appended_object.title, userevent.appended_object %> 
+					<i><%= t('dashboard.auction.create')%></i>
+				<% when UsereventType::AUCTION_UPDATE %> <i class="icon-list-alt icon-white"></i>
+				<%= link_to userevent.appended_object.title,userevent.appended_object %> <i><%= t('dashboard.auction.update') %></i>
+				<% when UsereventType::INVITATION_SEND%>
+				<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
+				<% when UsereventType::FFP_BUY%>
+				<%= link_to t('dashboard.userevent.ffp_buy')+": "+userevent.appended_object.price.to_s +
+				"Euro, "+ t('dashboard.userevent.confirmed')+ (userevent.appended_object.activated ? ": Yes" : ": No"),
+				userevent.appended_object %>
+				<% when UsereventType::USER_FOLLOW%>
+				<%= link_to t('dashboard.userevent.user_follow')+": "+userevent.appended_object.email.to_s,dashboard_path(:id => userevent.appended_object.id) %>
+				<% end %>
+			</div>
+			<%end%>
+
+			<%end%>
+			<%end%>
+		</div>
 	</div>
-<hr>
+</div>

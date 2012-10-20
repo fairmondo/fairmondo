@@ -24,7 +24,7 @@
 		<div class = "well">
 			<h4><%= t('auction.image.title')%></h4>
 			<%= form_for @image, :html => { :multipart => true }  do |f| %>
-			<%= f.file_field :image %>
+			<input id="image_image" name="image[image]" type="file" size="1">
 			<%= f.hidden_field :auction_id%>
 				<%= button_tag(:type => :submit) do %>
 			 		<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
@@ -48,4 +48,4 @@
 		</div>
 		
 	</div>
-	
+</div>
