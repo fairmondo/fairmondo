@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
       @user = current_user
     end
     if @user==current_user
-      @userevents = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC", :limit => 10)
+      @userevents = Userevent.find(:all,:conditions => [ "user_id = ?", current_user.id], :order =>"created_at DESC", :limit => 5)
       @ffps = @user.ffps.sum(:price,:conditions => ["activated = ?",true])
     end
     @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
