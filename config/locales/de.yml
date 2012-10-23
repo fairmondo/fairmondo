@@ -1,0 +1,306 @@
+de:
+# Enum Definitions
+  enumerize:
+    auction:
+      condition:
+        new: "Neu"
+        old: "Gebraucht"
+        fair: "Fairtrade"
+  welcome:
+    greetings: "Willkommen beiFairnopoly"
+    search_fair: "Suche nach fairen Produkten"
+# Common Texts
+  common:
+    brand: "fairnopoly.de"
+    actions:
+      back: "Zurück"
+      show: "Anzeigen"
+      edit: "Bearbeiten"
+      invite: "Einladen"
+      trust: "Vertrauen"
+      logout: "Logout"
+      login: "Login"
+      register: "Registrierung"
+      edit_profile: "Profil bearbeiten"
+      search: "Suche"
+    text:
+      buy: "Einkaufen"
+      sell: "Verkaufen"
+      service: "Dienstleistungen"
+      hello: "Hallo"
+      email: "Email"
+      password: "Passwort"
+      login: "Login"
+      search: "Suche"
+      auctions: "Auktionen"
+      follow: "Follow"
+      yes: "Ja"
+      no: "Nein"
+      community: "Vertrautengemeinschaft"
+      unhappy: "Unglücklich?"
+      ffp: "FFP"
+      name: "Name"
+      surname: "Nachname"
+      relation: "Beziehung"
+      profile: "Profil"
+# Footer
+  footer:
+    legal_details: "Impressum"
+    about_us: "Über Uns"
+    philosophy: "Philosophie"
+    team: "Team"
+    contact: "Kontakt"
+    faq: "FAQ"
+    help: "Hilfe"
+# Devise
+  devise:
+    links:
+      sign_in: "Login"
+      sign_up: "Registrieren"
+      forgot_password: "Passwort vergessen?"
+      confirmation_instruction: "Keine Bestätigungsanweisung erhalten?"
+      unlock_instruction: "Keine Anweisungen zur Freischaltung erhalten?"
+      sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
+    actions:
+      unlock: "E-mail Anweisungen zur Freischaltung erneut senden"
+    title:
+      cancle: "Benutzerkonto löschen"
+      sign_up: "Bei fairnopoly mitmachen"
+    new_profile:
+      password: "Passwort eingeben"
+      password_confirmation: "Passwort bestätigen"
+    edit_profile:
+      email: "Bitte Email-Adresse angeben"
+      image: "Bitte Bild auswählen"
+      picture: "Bild"
+      password: "Geben Sie ein neues Passwort an (Freilassen, falls kein neues Passwort angelegt werden soll)"
+      password_confirmation: "Neues Passwort bestätigen"
+      current_password: "Bisheriges Passwort angeben (wir benötigen Ihr bisheriges Passwort um die Änderungen zu bestätigen)"
+      cancel_account: "Benutzerkonto löschen"
+      cancel_account_confirm: "Sind Sie sicher?"
+# Formtastic     
+  formtastic: 
+# Login 
+    labels:
+        auction:
+          title: "Produktbezeichnung"
+          condition: "Produktzustand"
+          content: "Produktbeschreibung"
+          transaction: "Angebotsart" 
+          expire: "Ablaufdatum"
+          price: "Preis"
+          price_currency: "Währung"
+          
+    actions:
+      create: "%{model} erstellen"
+      update: "Änderungen speichern"
+      login: "Login"
+# User Model/Controller
+  user:
+    remember: "Eingeloggt bleiben"
+    hints:
+      email: "Geben Sie Ihre Email-Adresse an"
+    confirmation:
+      resend: "Bestätigungsanweisungen erneut schicken"
+      text: "Sie können Ihre Anmeldung durch Klicken auf den folgenden Link bestätigen:"
+      link: "Mein Benutzerkonto betstätigen"
+    reset:
+      text: "Jemand hat einen Link zum Ändern Ihres Passworts angefordert. Um Ihr Passwort zu ändern, klicken Sie auf den folgenden Link."
+      link: "Passwort hier ändern"
+      ignoremail: "Falls Sie diese Email nicht angefordert haben, bitte einfach ignorieren."
+      info: "Ihr Passwort ändert sich erst, wenn Sie den oben angegebenen Link benutzen, um ein neues Passwort anzulegen."
+      request: "Bitte senden Sie mir Anweisungen zu, um mein Passwort zurückzusetzen"
+      title: "Passwort vergessen?"
+    unlock:
+      info: "Ihr Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
+      linktext: "Klicken Sie auf unten stehenden Link, um Ihr Benutzerkonto freizuschalten:"
+      link: "Benutzerkonto freischalten"
+    follow:
+      following: "Following"
+      followers: "Followers"
+      followers_info: "Benutzer, die mir folgen"
+      following_info: "Produkte und Benutzer, denen ich folge"  
+    founder: "Gründer"
+# Auction Model/Controller
+  auction:
+    hero:
+      search: "Suche nach"
+      filter: "Filter nach"
+      category: "Kategorie wählen"
+      remove_filter: "Zustands-Filter entfernen"
+    form: 
+      head: "Um eine Auktion zu erstellen, müssen Sie dieses Formular ausfüllen."
+      category: "Wählen Sie eine Kategorie für Ihr Produkt"
+      details: "Beschreiben Sie ihr Produkt"
+      expire_date: "Datum (Tag/Monat/Jahr)"
+      expire_time: "Zeit (Stunden/Minuten)"
+      transaction:
+        auction: "Auktion"
+        fixed_price: "Festpreis"
+        preview: "Vorschau"
+    lables:
+      price: "Preis"
+      shipping_condition: "Versand-Zustand"
+      expiration_date: "Ablaufdatum"
+      type: "Angebotsart"
+      submit: "Angebot einstellen"
+    list:
+      header: "Ergebnisse"
+    notices:
+      create: "Auktion wurde erfolgreich erstellt."
+      update: "Auktion wurde erfolgreich aktualisiert."
+      image: "Bild wurde erfolgreich hochgeladen."
+    hints:
+      title:  "Geben Sie eine Bezeichnung Ihres Produktes ein."
+      content: "Geben Sie eine Beschreibung für die Auktion ein"
+      condition: "Bestimmen Sie eine Auktionsart"
+      price: "Geben Sie einen Preis für die Auktion an"
+      date: "Datum (Tag/Monat/Jahr)"
+      time: "Zeit (Stunden/Minuten)"
+    image:
+      title: "Laden Sie ein Bild hoch"
+      upload: "Hochladen"
+    titles:
+      new: "Neue Auktion"  
+      edit: "Auktion editieren"  
+    actions:
+      profile: "Verkäufer ansehen"
+    categories:
+      level1: "Kategorien"
+      level2: "Unterkategorien"
+      level3: "2. Unterkategorien"
+      remove-filter:  "Kategorie-Filter entfernen"
+      error: "Bitte wählen Sie eine Kategorie für Ihr Produkt aus"
+# Transaction System
+  transaction:
+    bid:
+      smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+      smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+      success: "Sie sind jetzt Höchstbietender!"
+# Dashboard
+  dashboard:
+    headers:
+      you: "Du"
+      invitor: "Einladender"
+      invited_people: "Eingeladene Benutzer"
+    actions:
+      edit_account: "Benutzerkonto bearbeiten"
+      send_invitation: "Einladung schicken"
+    menu:
+      edit: "Profil bearbeiten"
+      community: "TrustCommunity"
+ 
+    auction:
+      create: "Auktion wurde erstellt"
+      update: "Auktion wurde aktualisiert"
+    invitation:
+      send: "Einladung wurde verschickt"
+    search_users:
+      head: "Suche nach Benutzern"
+    community:
+      new_invitation: "Lade jemanden in die Community ein"
+      existing_invitation: "Lade eine registrierten Benutzer in die Community ein"
+    userevent:
+      ffp_buy: "FFP gekauft"
+      user_follow: "Benutzer gefolgt"
+      confirmed: "Bestätigt"
+      no: "Nein"
+      yes: "Ja"
+# FFP Model/Controller
+  ffp:
+    explain: "Fair Founding Points"
+    to_much: "Sie können nicht mehr als 10000 FFPs kaufen"
+    title:
+      activate: "Kaufabwicklung bestätigen"
+    buy: "Kaufe Fair Founding Points"
+    credit: "Die Fair Founding Points werden auf dieses Benutzerkonto gebucht"
+    success: "Die Fair Founding Points wurden erfolgreich erstellt"
+    success_next: "Sie haben eine Email mit der Kontoverbindung erhalten. Die FFPs werden Ihrem Benutzerkonto nach erfolgreich gebuchter Transaktion gutgeschrieben."
+    formular:
+      activate: "Betsätigen"
+      price: "Preis"
+      name: "Name"
+      surname: "Nachname"
+      email: "Email"
+      buy: "Kaufen"
+      hints:
+        activate: "Bestätigen Sie die FFP-Transaktion"
+        price: "Preis in Euro zwischen 10 und 500. 10 Euro sind 200 FFP."
+        name: "Ihr Name"
+        surname: "Ihr Nachname"
+        email:  "Ihre Email-Adresse, an die die Bestätigung geschickt wird"
+        submit: "Wenn Sie das Formular abschicken, erhalten SIe eine Email-Bestätigung mit der Kontoverbindung, an die Sie das Geld überweisen müssen."
+# Invitation Model/Controller
+  invitation:
+    title:
+      confirm: "Einladungsbestätigung"
+    invitated: "Sie wurden eingeladen von"
+    notices:
+      confirmation: "Die Einladung wurde bestätigt. Ein Konto mit den folgenden Daten wurde erstellt. 
+                      Das Passwort wird Ihnen per Email zugestellt.
+                      Sie die Kontoeinstellungen nach Ihrem Login verändern!"  
+      create: "Einladung wurde versendet"
+      not_available: "Einladung nicht verfügbar"
+      activation_error: "Aktivierung fehlgeschlagen."
+      user_exist: "Der eingeladene Benutzer existiert bereits auf Fairnopoly!"
+      activation_error_exist: "Aktivierung fehlgeschlagen. Einladung wurde bereits bestätigt!"
+      activation_error_wrong: "Aktivierung fehlgeschlagen. Falscher Aktivierungsschlüssel!"
+      header:
+        important: "Wichtig:"
+        data: "Was passiert mit diesen Daten?"
+        problems: "Was passiert, wenn Probleme mit
+                  einer Person auftreten, die ich
+                  eingeladen habe?"  
+      important: "Lade nur Personen ein,
+                von denen Du sicher
+                bist, dass sie fair mit
+                anderen umgehen"
+      data:       "Diese Punkte fragen wir nur ab um
+                Sicherzustellen, dass Du die Person
+                Wirklich gut genug kennst. Sie muss
+                Deine Angaben bei der Anmeldung
+                Bestätigen.
+                Die Daten werden in Euren beiden
+                Profilen gespeichert und sind für
+                niemanden anderes einsehbar."
+      problems:   "Falls Probleme (z.B. Betrugsvorwürfe)
+                mit einer Person auftreten, die Du
+                eingeladen hast, werden wir Dich
+                Evtl. um Stellungnahme bitten.
+                Falls sich solche Fälle häufen, kann das
+                zu Deinem Ausschluss von der Plattform
+                Führen.
+                In Fällen von nachweislichem
+                systematischen Betrug erstatten wir
+                ausnahmslos Strafanzeige."
+    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Trustcommunity einladen."
+    intro2: "Für jede eingeladene Person erhältst Du 20 FAIR Founding Points."
+    titles:
+      new: "Lade vertrauenswerte Personen ein."
+    relation:
+      info:   "Bitte lade nur Personen ein, auf die eine der Optionen zutrifft:"
+      friend:   "Ich bin mit der oben genannten Person gut befreundet."
+      colleague:  "Die oben genannte Person ist eine enge Arbeitskollegin/ein enger Arbeitskollege von mir."
+      relative:   "Ich bin mit der oben genannten Person verwandt."
+    actions:
+      send: "Einladung abschicken"
+      show_all: "zeige alle"
+    conformation:
+      trusted1: "Ich vertraue darauf, dass die oben genannte Person eine
+                verantwortliche Person ist, die mit anderen Nutzern
+                dieser Plattform fair umgeht und keinen Betrug
+                betreiben wird."
+      trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
+                dieses Formular nur Menschen einladen wird, denen
+                sie/er ebenso in genannter Weise vertraut."
+                
+
+# Gems & Plugins
+  will_paginate:
+    next_label:
+      "Weiter"
+    previous_label:
+      "Zurück"
+
+          
+  

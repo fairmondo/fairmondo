@@ -131,6 +131,7 @@ en:
       shipping_condition: "Shipping condition"
       expiration_date: "Expiration date"
       type: "Type"
+      submit: "Create Auction"
     list:
       header: "Results"
     notices:
@@ -183,7 +184,7 @@ en:
     invitation:
       send: "Invitation was sent"
     search_users:
-      head: "Search for users:"
+      head: "Search for users"
     community:
       new_invitation: "Invite a new Person to the community"
       existing_invitation: "Invite a registrated person to the community"
