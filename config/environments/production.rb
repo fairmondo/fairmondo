@@ -67,14 +67,7 @@ Fairnopoly::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin"
   
    # Mail config
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address              => "",
-    :port                 => 587,
-    :domain               => '',
-    :user_name            => '',
-    :password             => '',
-    :authentication       => 'login',
-    :enable_starttls_auto => true  }
+  config.action_mailer.delivery_method = :sendmail  
+  config.action_mailer.sendmail_settings = {:arguments => "-i"}
   
 end
