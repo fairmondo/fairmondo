@@ -1,3 +1,4 @@
+ <div class="well">
 <h2><%= t('user.confirmation.resend') %></h2>
 <%= semantic_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= f.semantic_errors %>
@@ -9,3 +10,4 @@
   <% end %>
 <% end %>
 <%= render "links" %>
+</div>

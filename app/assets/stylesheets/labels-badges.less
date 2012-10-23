@@ -54,6 +54,9 @@ a {
   // Inverse (black)
   &-inverse           { background-color: @grayDark; }
   &-inverse[href]     { background-color: darken(@grayDark, 10%); }
+   // Inverse (black)
+  &-white          { background-color: @wellBackground;  box-shadow: 0 0 2px #B2B2B2; color: @linkColor;}
+  &-white[href]     { background-color: darken(@wellBackground, 10%); }
 }
 
 // Quick fix for labels/badges in buttons

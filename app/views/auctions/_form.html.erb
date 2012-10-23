@@ -1,3 +1,4 @@
+<%= tinymce_assets %>
 <%= semantic_form_for @auction , :html => { :class => "form-horizontal"}  do |f|  %>
   <h3><% t("auction.form.category") %></h3>
   <div class="well"><%= render 'categories_form' %></div>
@@ -30,6 +31,6 @@
 	  <% end %>
    </div>
   <%= f.actions do %>
-    <%= f.action :submit , :button_html => {:class => "primary"} %>
+    <%= f.action :submit , :button_html => {:class => "primary"} , :label => t("auction.lables.submit")%>
   <% end %>
 <% end %>
