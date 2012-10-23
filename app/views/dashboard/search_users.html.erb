@@ -3,26 +3,6 @@
 
 	<div class="row">
 		<div class="span12">
-			
-			
-			<h2><%= t('dashboard.search_users.head')%></h2>
-		
-			<div>
-				
-				<form class="form-search">
-					<input type="text" class="search-query" name="q"  value="<%= params["q"]%>">
-					<button type="submit" class="btn">
-						<%= t("commons.text.search")%>
-					</button>
-					<% params_without("page").each do |key, value| %>
-						<%if key!="q"%>
-							<input type="hidden" value="<%=value%>" name="<%=key%>"/>
-						<%end%>
-					<% end %>
-		
-				</form>
-			</div>
-	
 			<%= render 'list_user'%>
 		</div>
 	</div>
