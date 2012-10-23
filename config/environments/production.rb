@@ -50,7 +50,7 @@ Fairnopoly::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'localhost:8080' }
+  config.action_mailer.default_url_options = { :host => 'beta.fairnopoly.de' }
   # Enable threaded mode
   # config.threadsafe!
 
