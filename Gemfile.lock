@@ -1,3 +1,12 @@
+PATH
+  remote: gems/tinycms
+  specs:
+    tinycms (0.0.1)
+      friendly_id
+      jquery-rails
+      rails (~> 3.2.6)
+      tinymce-rails
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -116,6 +125,7 @@ GEM
     formtastic-bootstrap (2.0.0)
       formtastic (~> 2.2)
       formtastic-bootstrap
+    friendly_id (4.0.8)
     has_scope (0.5.1)
     highline (1.6.11)
     hike (1.2.1)
@@ -326,6 +336,7 @@ DEPENDENCIES
   state_machine
   therubyracer
   therubyrhino
+  tinycms!
   tinymce-rails
   tinymce-rails-langs
   trinidad

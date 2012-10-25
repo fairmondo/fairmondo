@@ -6,6 +6,8 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'tinycms', :path => "gems/tinycms"
+
 # Jruby Deps
 platforms :jruby do
   gem "jruby-openssl"
