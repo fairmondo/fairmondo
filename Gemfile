@@ -15,6 +15,8 @@ platforms :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
   #gem 'jdbc-mysql', :require => false
   gem 'jdbc-postgres'
+  #EngineYard
+  gem "ey_config"
 end
 
 # Ruby Deps
