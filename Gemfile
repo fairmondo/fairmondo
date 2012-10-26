@@ -81,6 +81,9 @@ gem 'activeadmin'
 gem 'sass-rails'
 gem "meta_search", '>= 1.1.0.pre'
 
+# CMS Gem
+gem 'tinycms', :path => "gems/tinycms"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -98,11 +101,11 @@ group :assets do
 end
 
 # for generating *.war file
-group :development do
-  gem "warbler", "~> 1.3.2"
-  gem "jruby-rack", "~> 1.1.10"
+#group :development do
+ # gem "warbler", "~> 1.3.2"
+ # gem "jruby-rack", "~> 1.1.10"
 
-end
+#end
 
 # Testing using RSpec
 group :development, :test do
