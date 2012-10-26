@@ -3,7 +3,7 @@ require_dependency "tinycms/application_controller"
 module Tinycms
   class ContentsController < ApplicationController
       
-    before_filter :authenticate_tinycms_user, :except => [:show]
+    before_filter :authenticate_tinycms_user, :except => [:show, :not_found]
     
     def index
       @contents = Content.all
@@ -39,8 +39,7 @@ module Tinycms
         @content = Content.where(:key => params[:id]).first
         redirect_to @content
       else
-        @content = Content.new(:key => params[:id])
-        render 'edit'
+        redirect_to [:edit , @content]
       end
     end
   
