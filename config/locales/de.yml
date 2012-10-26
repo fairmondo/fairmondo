@@ -293,7 +293,6 @@ de:
       trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
                 dieses Formular nur Menschen einladen wird, denen
                 sie/er ebenso in genannter Weise vertraut."
-                
 
 # Gems & Plugins
   will_paginate:
@@ -302,5 +301,8 @@ de:
     previous_label:
       "Zurück"
 
-          
+  helpers:
+    label:
+      content:
+        key: Name für die Url
   

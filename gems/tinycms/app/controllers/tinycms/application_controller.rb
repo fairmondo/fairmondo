@@ -1,5 +1,5 @@
 class Tinycms::ApplicationController < ApplicationController
-  
+  include Tinycms::ApplicationHelper
   private
   unless method_defined? :authenticate_tinycms_user
     if method_defined? :authenticate_user!

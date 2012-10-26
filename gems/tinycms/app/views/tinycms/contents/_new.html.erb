@@ -17,7 +17,8 @@
   	<% if params[:id] %>
   	<%= f.hidden_field :key, :value => params[:id] %>
   	<% else %>
-  	<%= f.text_field :key %>
+  	  <%= f.label(:key)%>
+  	  <%= f.text_field :key %>
   	<% end %>
   	
   	<%= tinycms_field(f, :body) %>

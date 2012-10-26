@@ -34,13 +34,18 @@ module Tinycms
       end
     end
   
+    def not_found
+      @content = Content.new(:key => params[:id])
+      render 'edit'
+    end
+  
     def update
       @content = Content.find(params[:id])
   
       respond_to do |format|
         if @content.update_attributes(params[:content])
           format.html { 
-            redirect_to(session.delete(:return_to) || @content, 
+            redirect_to(return_to_path(@content), 
               notice: 'Content was successfully updated.') 
             }
         else
