@@ -23,7 +23,7 @@ module Tinycms
     end
   
     def create
-      @content = Content.new(params[:content], :key => params[:key])
+      @content = Content.new(params[:content])
   
       respond_to do |format|
         if @content.save
@@ -35,8 +35,13 @@ module Tinycms
     end
   
     def not_found
-      @content = Content.new(:key => params[:id])
-      render 'edit'
+      if Content.exists?(:key => params[:id])
+        @content = Content.where(:key => params[:id]).first
+        redirect_to @content
+      else
+        @content = Content.new(:key => params[:id])
+        render 'edit'
+      end
     end
   
     def update
