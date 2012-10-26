@@ -44,8 +44,8 @@ module Tinycms
   
       respond_to do |format|
         if @content.update_attributes(params[:content])
-          format.html { 
-            redirect_to(return_to_path(@content), 
+          format.html {
+            redirect_to(return_to_path(@content, :clear => true), 
               notice: 'Content was successfully updated.') 
             }
         else

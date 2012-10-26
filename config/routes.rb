@@ -1,9 +1,6 @@
 Fairnopoly::Application.routes.draw do
+  
   mount Tinycms::Engine => "/cms"
-end
-
-[Tinycms::Engine, Fairnopoly::Application].each do |app| 
-  app.routes.draw do
 
   ActiveAdmin.routes(self)
 
@@ -107,8 +104,4 @@ end
 # Note: This route will make all actions in every controller accessible via GET requests.
 # match ':controller(/:action(/:id))(.:format)'
   match "/*id" => 'tinycms/contents#not_found'
-end
-end
-
-Fairnopoly::Application.routes.draw do
 end
