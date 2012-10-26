@@ -12,7 +12,7 @@ Fairnopoly::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
@@ -69,7 +69,7 @@ Fairnopoly::Application.configure do
   # Mail config
   ActionMailer::Base.delivery_method = :sendmail
         ActionMailer::Base.sendmail_settings = {
-          :location => "ssmtp",
+          :location => "/usr/sbin/ssmtp",
           :arguments => "-i"
         }
 
