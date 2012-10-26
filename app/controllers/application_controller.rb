@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def tinycms_admin?
+    current_user && current_user.admin? 
+  end
+  helper_method :tinycms_admin?
+  
   # commented out since it should not be necessary -> "after_sign_in_path_for" does the same
 =begin
   def after_sign_up_path_for(resource_or_scope)

@@ -12,6 +12,6 @@ module Tinycms
         include Helper
       end
     end
-    
+        
   end
 end

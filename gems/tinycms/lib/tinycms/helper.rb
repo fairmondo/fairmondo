@@ -1,6 +1,6 @@
 module Tinycms
   module Helper
-    
+        
     def tinycms_field(form, field_name, options={})
       config = Tinycms.tinymce_configuration.merge(options)
       config.options[:editor_selector] ||= "tinycms" 
@@ -14,9 +14,6 @@ module Tinycms
       render "tinycms/contents/embed", :content => Content.find_or_create_by_key(key.to_s.parameterize)
     end
     
-    def tinycms_admin?
-      true
-    end
         
   end
 end

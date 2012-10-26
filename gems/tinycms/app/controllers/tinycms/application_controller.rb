@@ -13,6 +13,13 @@ class Tinycms::ApplicationController < ApplicationController
     end
   end
   
+  unless method_defined? :tinymce_admin?
+    def tinycms_admin?
+      true
+    end
+  end
+  helper_method :tinycms_admin?
+  
 =begin
 
   unless method_defined? :tinycms_user
