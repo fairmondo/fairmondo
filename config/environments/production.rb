@@ -66,9 +66,6 @@ Fairnopoly::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
 
-  # Mail config
-  config.action_mailer.delivery_method = :sendmail  
-  config.action_mailer.sendmail_settings = {:arguments => ""}
-  config.action_mailer.raise_delivery_errors = true
+  
 
 end
