@@ -1,7 +1,7 @@
 Fairnopoly::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+# Settings specified here will take precedence over those in config/application.rb
 
-  # Code is not reloaded between requests
+# Code is not reloaded between requests
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
@@ -65,16 +65,16 @@ Fairnopoly::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
-  
-   # Mail config
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address              => "",
-    :port                 => 587,
-    :domain               => '',
-    :user_name            => '',
-    :password             => '',
-    :authentication       => 'login',
-    :enable_starttls_auto => true  }
-  
+
+  # Mail config
+  config.action_mailer.delivery_method = :sendmail
+
+  config.action_mailer.sendmail_settings = {
+    :location => '/usr/bin/sendmail',
+    :arguments => '-i -t'
+  }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
 end
