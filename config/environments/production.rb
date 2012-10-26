@@ -71,7 +71,7 @@ Fairnopoly::Application.configure do
 
   config.action_mailer.sendmail_settings = {
     :location => '/usr/bin/sendmail',
-    :arguments => '-i -t'
+    :arguments => '-t'
   }
 
   config.action_mailer.perform_deliveries = true
