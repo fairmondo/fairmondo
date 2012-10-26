@@ -1,0 +1,7 @@
+<h1>Welcome</h1>
+
+<% [:left, :center, :right].each do |section| %>
+<h2>Here is CMS content <%= section.to_s.capitalize %></h2>
+<%= tinycms_content section %>
+
+<% end %>

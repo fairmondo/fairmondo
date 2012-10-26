@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<%= @content.body && @content.body.html_safe %>
+<% if tinycms_admin? %>
+<%= link_to "Edit", tinycms.edit_content_url(@content) %>  
+<% end %>
+
+<%= link_to 'Overview', contents_path %>
