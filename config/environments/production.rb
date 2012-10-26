@@ -67,11 +67,7 @@ Fairnopoly::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin"
 
   # Mail config
-  ActionMailer::Base.delivery_method = :sendmail
-        ActionMailer::Base.sendmail_settings = {
-          :location => "/usr/sbin/ssmtp",
-          :arguments => "-i"
-        }
-
+  config.action_mailer.delivery_method = :sendmail  
+  config.action_mailer.sendmail_settings = {:arguments => "-i"}
 
 end
