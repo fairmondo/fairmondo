@@ -39,7 +39,12 @@ module Tinycms
         @content = Content.where(:key => params[:id]).first
         redirect_to @content
       else
-        redirect_to [:edit , @content]
+        if tinycms_admin?
+          @content = Content.new
+          render action: "new" 
+        else
+          redirect_to "/404"
+        end
       end
     end
   
