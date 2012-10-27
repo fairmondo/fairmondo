@@ -7,10 +7,10 @@
 
   	<!-- ><img alt="Banner" src="http://www.fairnopoly.com/online-marktplatz/wp-content/uploads/2012/05/fn-header-200-de-t2.gif" width="100%"/>-->
   	
-    <h2>Hello <%= @name %>,</h2>
+    <h2>Hallo <%= @name %>,</h2>
     <p>	
-      	you have been invited to FAIRNOPOLY from <b><%= @user.email %></b>.
-		To join FAIRNOPOLY follow this link: <br/>
+    	du wurdest von <b><%= @user.name %></b> <b><%= @user.surname %></b> auf <b>Fairnopoly</b> eingeladen.
+      	Um die Einladung zu bestätigen und bei Fairnopoly mitzumachen, öffne den folgenden Link:<br/>
     </p>
     <p>
     	<a href="<%=@url%>"><%=@url%></a>
@@ -18,8 +18,8 @@
     <p>
     	<br/>
     	<hr/>
-		Greetings
-		The Fairnopoly Team
+		Viele Grüße
+		Das Fairnopoly Team
 	</p>
   </body>
 </html>

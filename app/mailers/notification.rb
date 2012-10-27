@@ -12,9 +12,9 @@ class Notification < ActionMailer::Base
     key = SecureRandom.hex(24)
     @user = user
     @name = name
-    @url  = "http://127.0.0.1:8080/confirm_invitation?id=" + id.to_s + "&key=" + activation_key
+    @url  = "http://beta.fairnopoly.de/confirm_invitation?id=" + id.to_s + "&key=" + activation_key
 
-    mail(:to => email, :subject => "Testmail")
+    mail(:to => email, :subject => ("Einladung auf Fairnopoly von "+@user.name+" "+@user.surname) )
     
   end
   
