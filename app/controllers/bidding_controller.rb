@@ -1,4 +1,5 @@
 class BiddingController < ApplicationController
+  before_filter :authenticate_user!
   def bid 
     begin
     if params[:id]
@@ -16,6 +17,5 @@ class BiddingController < ApplicationController
     rescue 
       redirect_to auction_transaction.auction , :notice => (I18n.t 'transaction.bid.failure' + bid.errors.first ) 
     end
-  end
-  
+  end 
 end
