@@ -66,6 +66,7 @@ de:
     title:
       cancle: "Benutzerkonto löschen"
       sign_up: "Bei fairnopoly mitmachen"
+      login: "Login"
     new_profile:
       password: "Passwort eingeben"
       password_confirmation: "Passwort bestätigen"

@@ -2,6 +2,7 @@ class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true
   # Create is safed by denail!
   before_filter :authenticate_user!, :except => [:show, :index,:new, :create, :autocomplete_auction_title]
+ 
   # GET /auctions
   # GET /auctions.json
   def index

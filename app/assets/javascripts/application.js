@@ -5,3 +5,13 @@
 //= require tinymce-jquery
 //= require bootstrap
 //= require autocomplete-rails
+
+$(document).ready(function(){
+	// popover
+    $("#login-popover")
+      .popover()
+      .click(function(e) {
+        e.preventDefault()
+      })
+      
+});

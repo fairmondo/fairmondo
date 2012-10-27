@@ -45,7 +45,7 @@
 							</li>
 							<% else %>
 							<li id="login">
-								<%= link_to t('common.actions.login') , new_user_session_path %>
+								<%= link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" ,"data-content" =>   @login, "data-title" => t('devise.title.login') %>
 							</li>
 							<% end %>
 						</ul>

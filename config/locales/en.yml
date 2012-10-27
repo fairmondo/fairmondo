@@ -66,6 +66,7 @@ en:
     title:
       cancle: "Cancel my account"
       sign_up: "Sign up"
+      login: "Login"
     new_profile:
       password: "Enter password"
       password_confirmation: "Confirm password"
