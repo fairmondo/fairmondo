@@ -10,7 +10,7 @@
 		</div>
 		<div class="span2">
 			
-				 <b><%= @user.name%> <%= @user.surname %></b></br>
+				 <b><%= @user.name%></b></br>
 				<p>
 					<% html= "<i class=\"icon-heart\"></i> " + @user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id ,   },
 					{ :title => t('user.follow.followers_info') , :class => ("btn " + (params[:action]=="list_followers" ? "btn-primary" : ""))} %>
@@ -30,7 +30,7 @@
 		<%if @user!=current_user && current_user%>
 				<div class="span2">
 					
-						<%= current_user.name%> <%= current_user.surname %></a>
+						<a><%= current_user.name%> </a>
 						<div class="btn-group">
 							<% html= "<i class=\"icon-heart\"></i> " + current_user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => current_user.id ,   },
 							{ :title => t('user.follow.followers_info') , :class => "btn"} %>

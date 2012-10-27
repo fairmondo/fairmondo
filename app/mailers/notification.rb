@@ -14,7 +14,7 @@ class Notification < ActionMailer::Base
     @name = name
     @url  = "http://beta.fairnopoly.de/confirm_invitation?id=" + id.to_s + "&key=" + activation_key
 
-    mail(:to => email, :subject => ("Einladung auf Fairnopoly von "+@user.name+" "+@user.surname) )
+    mail(:to => email, :subject => ("Einladung auf Fairnopoly von "+@user.name) )
     
   end
   

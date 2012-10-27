@@ -11,7 +11,7 @@
 							<%= link_to image_tag("http://placehold.it/260x180" ,:style=> "width:260; height:auto;"), dashboard_path(:id => @invitor.id) %>
 					<%end%>
 					<div class="caption">
-					      <h5><%= @invitor.name %> <%= @invitor.surname %></h5>
+					      <h5><%= @invitor.name %></h5>
 					</div>
 				</div>
 			</div>
@@ -45,21 +45,22 @@
 	</div>
 	
 	<div class="span8">
-		
-		<div class="span8">
-			
-			<div class="span3">	
-				<p><strong><%=t('dashboard.community.new_invitation')%>:</strong></p>
-				<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
+		<%if @user == current_user %>
+			<div class="span8">
+				
+				<div class="span3">	
+					<p><strong><%=t('dashboard.community.new_invitation')%>:</strong></p>
+					<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
+				</div>
+				
+				
+				<div class="span4">
+					<p><strong><%=t('dashboard.community.existing_invitation')%>:</strong></p>
+					<%= render 'user_search' %>
+				</div>
+				
 			</div>
-			
-			
-			<div class="span4">
-				<p><strong><%=t('dashboard.community.existing_invitation')%>:</strong></p>
-				<%= render 'user_search' %>
-			</div>
-			
-		</div>
+		<%end%>
 		<% if @users.length > 0 %>		
 			<div class="span8">
 				<h3><%=t('dashboard.headers.invited_people')%>:</h3>

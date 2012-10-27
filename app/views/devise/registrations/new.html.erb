@@ -1,13 +1,12 @@
  <div class="well">
 <h2><%=t('devise.title.sign_up')%></h2>
 
- <%if session[:invitor_name] && session[:invitor_surname] %>
+ <%if session[:invitor_name]%>
  	
  	<div class="well">
  		<strong>
 	 		<%=t('invitation.invitated')%>
 	 		<%=session[:invitor_name]%> 
-	 		<%=session[:invitor_surname]%>
  		</strong>
  	</div>
  <%end%>
@@ -16,8 +15,7 @@
 
   <%= f.semantic_errors %>
   <%= f.inputs do %>
-  	<%= f.input :name, :required => true%>
-  	<%= f.input :surname, :required => true%>
+  	<%= f.input :nickname, :required => true%>
   	
   	<%if session[:invited_email] %>
     	<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>

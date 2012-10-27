@@ -8,14 +8,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  acts_as_indexed :fields => [:name, :surname, :email]
+  acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
   acts_as_followable
   acts_as_follower
  
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname, :forename, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned
   
   has_many :auctions
   has_many :userevents
@@ -26,12 +26,17 @@ class User < ActiveRecord::Base
   has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"} 
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes 
+  
   def fullname
-    fullname = "#{self.name} #{self.surname}" 
+    fullname = "#{self.forename} #{self.surname}" 
   end
   
   def display_name
     fullname  
+  end
+  
+  def name
+    name = "#{self.nickname}"
   end
   
   def set_default

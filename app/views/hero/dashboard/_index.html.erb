@@ -8,7 +8,7 @@
 			<%= image_tag("http://placehold.it/260x180" , :class => "img-polaroid ") %>
 			<%end%></a>
 			<div class="well">
-				 <span ><b></b><%= @user.name%> <%= @user.surname %></b></br>
+				 <span ><b></b><%= @user.name%></b></br>
 				<%if @ffps %> <abbr title="<%= t('ffp.explain')%>"><b><%= t('common.text.ffp')%>:</b></abbr> <%= @ffps %></a></br>
 
 				<%end%>
@@ -87,7 +87,7 @@
 					<%end%> </a>
 				
 			<div class="well">
-				 <%= current_user.name%> <%= current_user.surname %></a>
+				 <%= current_user.name%></a>
 				<div class="btn-group">
 					<% html= "<i class=\"icon-heart\"></i> " + current_user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => current_user.id ,   },
 					{ :title => t('user.follow.followers_info') , :class => "btn"} %>

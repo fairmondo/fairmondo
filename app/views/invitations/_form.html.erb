@@ -6,11 +6,9 @@
 	
 			<% if @user %>
 			    <%= f.input :name,:input_html => { :value => @user.name,:readonly => true }%>
-			    <%= f.input :surname,:input_html => { :value => @user.surname,:readonly => true } %>
 			    <%= f.input :email,:input_html => { :value => @user.email,:readonly => true } %>
 		    <%else%>
 		    	<%= f.input :name%>
-			    <%= f.input :surname%>
 			    <%= f.input :email%>
 		   	<%end%>
 		    	<%= f.input :relation, :as => :radio, :collection => [[t('invitation.relation.relative'),UserRelation::RELATIVE], 
