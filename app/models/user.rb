@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  
+  #set defaults before saving
+  before_save :set_default
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,7 +15,7 @@ class User < ActiveRecord::Base
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :admin, :trustcommunity, :invitor_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned
   
   has_many :auctions
   has_many :userevents
@@ -28,6 +32,12 @@ class User < ActiveRecord::Base
   
   def display_name
     fullname  
+  end
+  
+  def set_default
+    if !self.admin && self.banned != false
+     self.banned = true
+    end
   end
 
 end

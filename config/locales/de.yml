@@ -97,6 +97,7 @@ de:
       login: "Login"
 # User Model/Controller
   user:
+    banned: "Das Benutzerkonto muss zuerst von einem Administrator freigeschalten werden!"
     remember: "Eingeloggt bleiben"
     hints:
       email: "Geben Sie Ihre Email-Adresse an"

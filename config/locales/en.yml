@@ -85,6 +85,7 @@ en:
       login: "Login"
 # User Model/Controller
   user:
+    banned: "The account must be activated by an administrator first"
     remember: "Remember me"
     hints:
       email: "Enter your email address"

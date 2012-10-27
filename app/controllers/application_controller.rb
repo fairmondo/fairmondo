@@ -5,12 +5,18 @@ class ApplicationController < ActionController::Base
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for(resource_or_scope)
     
-    if get_stored_location
-      store_location = get_stored_location
-      clear_stored_location
-      (store_location.nil?) ?  dashboard_path : store_location.to_s
+    if resource_or_scope.is_a?(User) && resource_or_scope.banned?
+      sign_out resource_or_scope
+      flash[:warning] = t('devise.failure.unauthenticated')
+      new_user_session_path
     else
-       dashboard_path
+      if get_stored_location
+        store_location = get_stored_location
+        clear_stored_location
+        (store_location.nil?) ?  dashboard_path : store_location.to_s
+      else
+         dashboard_path
+      end
     end
   end
   
