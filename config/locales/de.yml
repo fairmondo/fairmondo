@@ -190,7 +190,7 @@ de:
       send_invitation: "Einladung schicken"
     menu:
       edit: "Profil bearbeiten"
-      community: "TrustCommunity"
+      community: "Vertrauensgemeinschaft"
  
     auction:
       create: "Auktion wurde erstellt"
@@ -200,8 +200,8 @@ de:
     search_users:
       head: "Suche nach Benutzern"
     community:
-      new_invitation: "Lade jemanden in die Community ein"
-      existing_invitation: "Lade eine registrierten Benutzer in die Community ein"
+      new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
+      existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
     userevent:
       ffp_buy: "FFP gekauft"
       user_follow: "Benutzer gefolgt"
@@ -275,7 +275,7 @@ de:
                 In Fällen von nachweislichem
                 systematischen Betrug erstatten wir
                 ausnahmslos Strafanzeige."
-    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Trustcommunity einladen."
+    intro:  "Hier kannst Du vertrauenswerte Personen in die Fairnopoly Vertrauensgemeinschaft einladen."
     intro2: "Für jede eingeladene Person erhältst Du 20 FAIR Founding Points."
     titles:
       new: "Lade vertrauenswerte Personen ein."

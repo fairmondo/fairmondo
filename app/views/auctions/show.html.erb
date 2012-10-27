@@ -40,7 +40,7 @@
 			<dl>
 				<dt><%= t 'auction.labels.price'%> </dt><dd><%= humanized_money_with_symbol @auction.price %></dd>
 				<dt><%= t 'auction.labels.type'%></dt><dd><%= condition_label @auction%></dd>
-				<dt><%= t 'auction.labels.expiration_date'%></dt><dd><%= @auction.expire%></dd>
+				<dt><%= t 'auction.labels.expiration_date'%></dt><dd><%= @auction.expire.strftime("%d.%m.%Y %H:%M") %></dd>
 			</dl>
 		</div>
 		<div class="well">
