@@ -17,6 +17,9 @@
   <%= f.inputs do %>
   	<%= f.input :nickname, :required => true%>
   	
+  	<%= f.input :forename, :required => true%>
+  	<%= f.input :surname, :required => true%>
+  	
   	<%if session[:invited_email] %>
     	<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>
     <%else%>

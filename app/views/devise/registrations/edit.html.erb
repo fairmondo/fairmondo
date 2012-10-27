@@ -14,6 +14,10 @@
   <%= f.semantic_errors %>
   <%= f.inputs do %>
   	<%= f.input :nickname, :required => true%>
+  	
+  	<%= f.input :forename, :required => true%>
+  	<%= f.input :surname, :required => true%>
+  	
     <%= f.input :email, :hint => t('devise.edit_profile.email'), :required => true %>
    
     <%= f.input :image, :hint => t('devise.edit_profile.image'), :lable => t('devise.edit_profile.picture') %>
