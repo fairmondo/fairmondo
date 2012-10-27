@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   def set_default
     if !self.admin && self.banned != false
-     self.banned = true
+     self.banned = false
     end
   end
 
