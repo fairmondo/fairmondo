@@ -65,3 +65,26 @@ p.clear-margin {
 .fixed-element {
     position: fixed;
  }
+ 
+ /*
+ *  Formtastic Bootstrap
+ */  	
+  	
+label.control-label {
+	font-weight:bold;
+}
+
+span.help-block {
+	font-style:italic;
+}
+
+div.radio {
+	padding-left: 0px;
+}
+
+span.help-inline {
+	margin-left: 150px;
+}
+
+
+	
