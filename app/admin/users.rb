@@ -3,16 +3,24 @@ ActiveAdmin.register User do
     column :id
     column :email
     column :fullname
+    
     column "Trustcommiunity" do |user|
       if user.trustcommunity? && user.invitor != nil
-        %(Yes #{link_to "(remove from Trustcommunity)", outOfTrust_admin_user_path(user)}).html_safe
+        %(Yes #{link_to "(Remove from Trustcommunity)", outOfTrust_admin_user_path(user)}).html_safe
       elsif user.trustcommunity? && user.invitor == nil
         "Yes - Founder"
       else
         %(No #{link_to "(Join as Founder)", trustcommunity_admin_user_path(user)}).html_safe
       end 
     end
-    column :admin
+    
+    column :admin do |user|
+      if user.admin
+        %(Yes #{link_to "(Remove as admin)", remAdmin_admin_user_path(user)}).html_safe
+      else
+        %(No #{link_to "(Join as admin)", joinAdmin_admin_user_path(user)}).html_safe
+      end
+    end
     
     column "Activated" do |user|
       if user.banned?
@@ -23,6 +31,22 @@ ActiveAdmin.register User do
     end
     
     default_actions
+  end
+  
+  member_action :remAdmin do
+    # your normal action code
+    user = User.find(params[:id])
+    user.admin = false
+    user.save
+    redirect_to(:back)
+  end
+  
+  member_action :joinAdmin do
+    # your normal action code
+    user = User.find(params[:id])
+    user.admin = true
+    user.save
+    redirect_to(:back)
   end
   
    member_action :trustcommunity do
