@@ -33,9 +33,9 @@
 							<li id="sell">
 								<%= link_to t('common.text.sell'), new_auction_path %>
 							</li>
-							<li id="service">
+							<!--<li id="service">
 								<a href=""> <%= t('common.text.service')%> </a>
-							</li>
+							</li>-->
 							<% if user_signed_in? %>
 							<li id="login">
 								<%= link_to(t('common.actions.logout'), destroy_user_session_path ) %>
@@ -45,7 +45,11 @@
 							</li>
 							<% else %>
 							<li id="login">
-								<%= link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" ,"data-content" =>   @login, "data-title" => t('devise.title.login') %>
+								<% if devise_controller? %>
+										<%= link_to t('common.actions.login') , new_user_session_path %>
+								<%else%>
+									<%= link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" ,"data-content" =>   @login, "data-title" => t('devise.title.login') %>
+								<%end%>
 							</li>
 							<% end %>
 						</ul>
