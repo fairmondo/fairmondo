@@ -1,13 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
- before_filter :build_login
+  
   
   def build_login 
-    @login = render_to_string(:partial => "devise/login_popover" , :layout => false ) unless devise_controller?
+    @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
   end
   
-
   helper :all
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for(resource_or_scope)

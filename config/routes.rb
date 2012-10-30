@@ -12,10 +12,7 @@ Fairnopoly::Application.routes.draw do
   resources :events
   resources :invitations
   resources :ffps
-  #recources :user
-
-  
-  
+    
   devise_for :user
 
   resources :auctions do
