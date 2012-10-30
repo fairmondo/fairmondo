@@ -30,17 +30,11 @@ class ApplicationController < ActionController::Base
   helper_method :tinycms_admin?
   
   # commented out since it should not be necessary -> "after_sign_in_path_for" does the same
-=begin
-  def after_sign_up_path_for(resource_or_scope)
-    if get_stored_location
-      store_location = get_stored_location
-      clear_stored_location
-      (store_location.nil?) ? "/" : store_location.to_s
-    else
-    super
-    end
-  end
-=end
+
+  #def after_sign_up_path_for(resource_or_scope)
+  #  "/"
+  #end
+
 
   # Useful Set of Methods for Storing Objects for session initiation
   def deny_access_to_save_object serialized_object, path = request.path
