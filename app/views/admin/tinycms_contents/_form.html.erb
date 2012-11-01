@@ -1,0 +1,29 @@
+<%= tinymce_assets %>
+
+<% url = @tinycms_content.new_record? ? { :action => "create" } : admin_tinycms_content_path(@tinycms_content) %>
+<%= form_for [:admin, @tinycms_content], :url => url do |f| %>
+  <fieldset class="inputs">
+  	<ol>
+    <% if @tinycms_content.new_record? %>
+      <li class="string input optional stringish" id="tinycms_content_key_input">
+	    <%= f.label :key, "URL um die Seite zu erreichen"%>
+  	    <%= f.text_field :key%>
+      </li>
+    <% end %>
+      <li class="string input optional stringish" id="tinycms_content_body_input">
+  	    <%= f.label :body, "Inhalt"%>
+        <%= tinycms_field(f, :body) %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="actions">
+    <ol>
+  	  <li class="action input_action " id="tinycms_content_submit_action">
+        <%= f.submit %>
+      </li>
+      <li class="cancel">
+  	  	<a href="/admin/tinycms_contents">Abbrechen</a>
+  	  </li>
+  	</ol>
+  </fieldset>
+<% end %>

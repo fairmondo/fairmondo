@@ -295,7 +295,7 @@ de:
       trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
                 dieses Formular nur Menschen einladen wird, denen
                 sie/er ebenso in genannter Weise vertraut."
-
+                
 # Gems & Plugins
   will_paginate:
     next_label:
@@ -535,4 +535,10 @@ de:
   activerecord:
     errors:
       <<: *errors
+  tinycms:
+    content:
+      new: "Inhalte verwalten"
+      not_exists: "Die Seite '/%{url}' existiert noch nicht"
+      may_be_created: "Hier können Sie sie erstellen"
+      
   
