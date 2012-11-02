@@ -60,6 +60,11 @@ class ApplicationController < ActionController::Base
     session[:return_to]
   end
 
-
+  before_filter :load_faqs
+  private 
+  
+  def load_faqs
+    @faqs = Faq.scoped
+  end
 
 end

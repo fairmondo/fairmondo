@@ -114,6 +114,9 @@
 					</div>
 					<div class="span4">
 						<h3> <%= t('footer.faq')%> &amp; <%= t('footer.help')%> </h3>
+						<div class='faqs' id="faqs-accordion">
+							<%= render :partial => "faqs/faq", :collection => @faqs %>
+						</div>
 					</div>
 				</div>
 				<!-- row -->
