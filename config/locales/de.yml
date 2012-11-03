@@ -202,6 +202,7 @@ de:
     community:
       new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
       existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
+      no_invited: "Du hast noch Niemand in die Vertrauensgemeinschaft eingeladen"
     userevent:
       ffp_buy: "FFP gekauft"
       user_follow: "Benutzer gefolgt"

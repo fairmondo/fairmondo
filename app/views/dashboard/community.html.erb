@@ -23,23 +23,25 @@
 		</div>
 		<%end%>
 	</div>
+	
 	<div class="span8">
 		<h3><%=t('dashboard.headers.invited_people')%>:</h3>
 			
 			<%if @user == current_user %>
-				<div class="span8">
-					
+				
 					<div class="span3">	
-						<p><strong><%=t('dashboard.community.new_invitation')%>:</strong></p>
-						<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
+						<div class="well">	
+							<p><strong><%=t('dashboard.community.new_invitation')%>:</strong></p>
+							<a class="btn btn-large" href='<%= url_for new_invitation_path %>'><Link><%=t('dashboard.actions.send_invitation')%></a>
+						</div>
 					</div>
-					
 					
 					<div class="span4">
-						<p><strong><%=t('dashboard.community.existing_invitation')%>:</strong></p>
-						<%= render 'user_search' %>
+						<div class="well">	
+							<p><strong><%=t('dashboard.community.existing_invitation')%>:</strong></p>
+							<%= render 'user_search' %>
+						</div>
 					</div>
-				</div>
 			<%end%>
 		
 		<% if @users.length > 0 %>		
@@ -47,6 +49,12 @@
 				
 				<%= render 'list_user'%>
 			</div>
+		<%else%>
+			<div class="span8">
+				
+				<%= t('dashboard.community.no_invited') %>
+			</div>
 		<%end%>
 	</div>
+	
 </div>

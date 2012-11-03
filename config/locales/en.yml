@@ -190,6 +190,7 @@ en:
     community:
       new_invitation: "Invite a new Person to the community"
       existing_invitation: "Invite a registrated person to the community"
+      no_invited: "You didn' t invite anyone to the Trust Community"
     userevent:
       ffp_buy: "FFP bought"
       user_follow: "User followed"
