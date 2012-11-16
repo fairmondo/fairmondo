@@ -328,6 +328,7 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   money-rails
   paperclip (~> 3.0)
+  pg
   rails (= 3.2.8)
   rails3-jquery-autocomplete
   rspec-rails
