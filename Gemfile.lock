@@ -51,8 +51,6 @@ GEM
     activerecord-jdbcsqlite3-adapter (1.2.2)
       activerecord-jdbc-adapter (~> 1.2.2)
       jdbc-sqlite3 (~> 3.7.2)
-    activerecord-postgresql-adapter (0.0.1)
-      pg
     activeresource (3.2.8)
       activemodel (= 3.2.8)
       activesupport (= 3.2.8)
@@ -306,7 +304,6 @@ DEPENDENCIES
   activerecord-jdbc-adapter (= 1.2.2)
   activerecord-jdbcpostgresql-adapter
   activerecord-jdbcsqlite3-adapter
-  activerecord-postgresql-adapter
   acts_as_follower
   acts_as_indexed
   autotest-fsevent
@@ -332,6 +329,7 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   money-rails
   paperclip (~> 3.0)
+  pg
   rails (= 3.2.8)
   rails3-jquery-autocomplete
   rspec-rails
