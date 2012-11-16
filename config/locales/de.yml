@@ -202,6 +202,7 @@ de:
     community:
       new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
       existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
+      no_invited: "Du hast noch Niemand in die Vertrauensgemeinschaft eingeladen"
     userevent:
       ffp_buy: "FFP gekauft"
       user_follow: "Benutzer gefolgt"
@@ -295,7 +296,7 @@ de:
       trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
                 dieses Formular nur Menschen einladen wird, denen
                 sie/er ebenso in genannter Weise vertraut."
-
+                
 # Gems & Plugins
   will_paginate:
     next_label:
@@ -535,4 +536,10 @@ de:
   activerecord:
     errors:
       <<: *errors
+  tinycms:
+    content:
+      new: "Inhalte verwalten"
+      not_exists: "Die Seite '/%{url}' existiert noch nicht"
+      may_be_created: "Hier können Sie sie erstellen"
+      
   

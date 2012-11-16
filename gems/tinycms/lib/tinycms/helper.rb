@@ -9,7 +9,7 @@ module Tinycms
       r << javascript_tag { "tinyMCE.init(#{config.options_for_tinymce.to_json});".html_safe }
       r.html_safe
     end
-    
+        
     def tinycms_content(key)
       render "tinycms/contents/embed", :content => Content.find_or_create_by_key(key.to_s.parameterize)
     end

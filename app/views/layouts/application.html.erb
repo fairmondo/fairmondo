@@ -45,10 +45,10 @@
 							</li>
 							<% else %>
 							<li id="login">
-								<% if devise_controller? %>
-										<%= link_to t('common.actions.login') , new_user_session_path %>
-								<%else%>
+								<% if @login %>
 									<%= link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" ,"data-content" =>   @login, "data-title" => t('devise.title.login') %>
+								<%else%>						
+									<%= link_to t('common.actions.login') , new_user_session_path %>
 								<%end%>
 							</li>
 							<% end %>
@@ -94,16 +94,16 @@
 						<h3><a href="/leagel_details"> <%= t('footer.legal_details')%> </a></h3>
 					</div>
 					<div class="span4">
-						<h3><a href="about_us"> <%= t('footer.about_us')%> </a></h3>
+						<h3><a href="/about_us"> <%= t('footer.about_us')%> </a></h3>
 						<ul>
 							<li>
-								<a href="philosophy"> <%= t('footer.philosophy')%> </a>
+								<a href="/philosophy"> <%= t('footer.philosophy')%> </a>
 							</li>
 							<li>
-								<a href="team"> <%= t('footer.team')%> </a>
+								<a href="/team"> <%= t('footer.team')%> </a>
 							</li>
 							<li>
-								<a href="contact"> <%= t('footer.contact')%> </a>
+								<a href="/contact"> <%= t('footer.contact')%> </a>
 							</li>
 							<% if current_user && current_user.admin? %>
 							<li>
@@ -114,6 +114,9 @@
 					</div>
 					<div class="span4">
 						<h3> <%= t('footer.faq')%> &amp; <%= t('footer.help')%> </h3>
+						<div class='faqs' id="faqs-accordion">
+							<%= render :partial => "faqs/faq", :collection => @faqs %>
+						</div>
 					</div>
 				</div>
 				<!-- row -->

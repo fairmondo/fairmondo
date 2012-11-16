@@ -12,10 +12,7 @@ Fairnopoly::Application.routes.draw do
   resources :events
   resources :invitations
   resources :ffps
-  #recources :user
-
-  
-  
+    
   devise_for :user
 
   resources :auctions do
@@ -94,8 +91,6 @@ Fairnopoly::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'welcome#index'
 
-  
-
 #root :to => 'dashboard#index'
 
 # See how all your routes lay out with "rake routes"
@@ -103,5 +98,9 @@ Fairnopoly::Application.routes.draw do
 # This is a legacy wild controller route that's not recommended for RESTful applications.
 # Note: This route will make all actions in every controller accessible via GET requests.
 # match ':controller(/:action(/:id))(.:format)'
-  match "/*id" => 'tinycms/contents#not_found'
+  scope :constraints => lambda {|request|
+    request.params[:id] && !["assets","system","admin","public"].any?{|url| request.params[:id].match(/^#{url}/)}
+  } do
+    match "/*id" => 'tinycms/contents#show'
+  end
 end

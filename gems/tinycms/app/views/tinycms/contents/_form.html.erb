@@ -1,9 +1,9 @@
 <%= tinymce_assets %>
 
-  <% if @content.new_record? %>
-    <h1> Diese Seite /<%= @content.key %> existiert noch nicht </h1>
+  <% if @content.new_record? && @content.key %>
+    <h1><%= I18n.t('tinycms.content.not_exists', :url => @content.key ) %></h1>
     <div>
-    	Hier können Sie sie erstellen
+    	<%= I18n.t('tinycms.content.may_be_created') %>
     </div>
   <% end %>
 <%= form_for(@content) do |f| %>
@@ -19,7 +19,11 @@
       </ul>
     </div>
   <% end %>
-	<%= f.hidden_field :key%>
+  <% if @content.new_record? && @content.key %>
+	<%= f.hidden_field :key %>
+  <% else %>
+    <%= f.text_field :key %>
+  <% end %>
   <div class="fields">
   
   <%= tinycms_field(f, :body) %>

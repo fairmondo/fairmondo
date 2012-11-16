@@ -10,7 +10,16 @@ module Tinycms
     end
   
     def show
-      @content = Content.find(params[:id])
+      if tinycms_admin?
+        begin
+          @content = Content.find(params[:id])
+        rescue ActiveRecord::RecordNotFound => e
+          @content = Content.new(:key => params[:id])
+          render action: "new" 
+        end
+      else
+        @content = Content.find(params[:id])
+      end
     end
   
     def new
@@ -30,20 +39,6 @@ module Tinycms
           format.html { redirect_to @content, notice: 'Content was successfully created.' }
         else
           format.html { render action: "new" }
-        end
-      end
-    end
-  
-    def not_found
-      if Content.exists?(:key => params[:id])
-        @content = Content.where(:key => params[:id]).first
-        redirect_to @content
-      else
-        if tinycms_admin?
-          @content = Content.new
-          render action: "new" 
-        else
-          redirect_to "/404"
         end
       end
     end

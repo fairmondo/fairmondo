@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   
   #set defaults before saving
-  before_save :set_default
+  #before_save :set_default
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -39,10 +39,10 @@ class User < ActiveRecord::Base
     name = "#{self.nickname}"
   end
   
-  def set_default
-    if !self.admin && self.banned != false
-     self.banned = false
-    end
-  end
+  #def set_default
+    #if !self.admin && self.banned != false
+    # self.banned = true
+    #end
+  #end
 
 end
