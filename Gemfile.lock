@@ -51,6 +51,8 @@ GEM
     activerecord-jdbcsqlite3-adapter (1.2.2)
       activerecord-jdbc-adapter (~> 1.2.2)
       jdbc-sqlite3 (~> 3.7.2)
+    activerecord-postgresql-adapter (0.0.1)
+      pg
     activeresource (3.2.8)
       activemodel (= 3.2.8)
       activesupport (= 3.2.8)
@@ -197,6 +199,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    pg (0.14.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -329,7 +332,6 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   money-rails
   paperclip (~> 3.0)
-  pg
   rails (= 3.2.8)
   rails3-jquery-autocomplete
   rspec-rails
