@@ -25,8 +25,8 @@ end
 platforms :ruby do
   gem 'sqlite3'
   gem 'therubyracer'
-  gem 'pg' # PostGres
-  # To use debugger
+  gem 'activerecord-postgresql-adapter'
+# To use debugger
    gem 'debugger', :group => :development
 end
 
