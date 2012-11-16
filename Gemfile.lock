@@ -303,6 +303,7 @@ DEPENDENCIES
   activerecord-jdbc-adapter (= 1.2.2)
   activerecord-jdbcpostgresql-adapter
   activerecord-jdbcsqlite3-adapter
+  activerecord-postgresql-adapter
   acts_as_follower
   acts_as_indexed
   autotest-fsevent
