@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="span6">
-		
-			<div class="well">	
-			   <%= tinycms_content "start-left" %>
-			</div>
-		
+
+		<div class="well">
+			<%= tinycms_content "start-left" %>
+		</div>
 	</div>
+
 	<div class="span6">
 		<div class="well">
 			<%= tinycms_content "start-video" %>
@@ -14,7 +14,18 @@
 			<%= tinycms_content "start-right" %>
 		</div>
 	</div>
-	
+</div>
+
+<div class="well">
+	<h3>Auctions created:</h3>
+	<div class="row">
+		<div class="span6">
+			<div class="progress progress-success" style="height:50px ;margin-bottom:5px">
+				<div class="bar" style="height:100%;width: <%= @percentage%>%"></div>
+			</div>
+			<strong><i class="icon-info-sign"></i> <%= @auctions%> Auctions have been created! That is <%= @percentage%>% of the aimed 10.000 Auctions.</strong>
+		</div>
+	</div>
 </div>
 <!-- row -->
 <div class="row">
