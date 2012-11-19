@@ -28,6 +28,7 @@ class AuctionsController < ApplicationController
     setup_categories params["selected_category_id"]
     respond_to do |format|
       format.html # index.html.erb
+      format.csv { render text: @auctions.to_csv }
       format.json { render :json => @auctions }
     end
   end
