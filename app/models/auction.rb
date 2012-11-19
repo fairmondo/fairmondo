@@ -47,6 +47,8 @@ class Auction < ActiveRecord::Base
   belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
 
   validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency
+  validates_numericality_of :price,
+    :only_integer => true
 
   def title_image
     if images.empty?
