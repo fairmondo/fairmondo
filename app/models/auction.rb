@@ -1,7 +1,9 @@
 class Auction < ActiveRecord::Base
 
   before_validation :sanitize_content, :on => :create
+
   validate :transaction_type
+
   validate :validate_expire
   def validate_expire
     if self.expire < 1.hours.from_now
@@ -15,6 +17,7 @@ class Auction < ActiveRecord::Base
 
   end
 
+  #TODO transaction_type makes factory create invalid auctions. Why?
   def transaction_type
     case transaction
     when 'auction'
@@ -46,9 +49,9 @@ class Auction < ActiveRecord::Base
   belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
   belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
 
-  validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency
+  validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency, :expire
   validates_numericality_of :price,
-    :only_integer => true
+    :greater_than_or_equal_to => 0
 
   def title_image
     if images.empty?
