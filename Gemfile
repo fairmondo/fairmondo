@@ -115,7 +115,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'ZenTest'
-  gem 'autotest-growl'
   gem 'autotest-fsevent'
   gem 'simplecov'
 end

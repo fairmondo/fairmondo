@@ -8,7 +8,7 @@ describe 'Dashboard' do
 
     it "should show a sign in button" do
       visit dashboard_path
-      page.should have_content("Sign in")
+      page.should have_content("Login")
     end
   end
 
@@ -21,27 +21,17 @@ describe 'Dashboard' do
     end
 
     it 'should show the dashboard' do
-      page.should have_content(@user.email)
+      page.should have_content("FFP")
     end
 
-    it 'Profile link shows dashboard_path' do
-      click_link 'Profile'
-      page.should have_content(@user.email)
+    it 'Buy link shows the Buy page' do
+      click_link 'Buy'
+      page.should have_content("New")
     end
 
-    it 'Edit Profile link shows Edit Profile page' do
-      click_link 'Edit Profile'
-      page.should have_selector('h2', :content =>  'Edit Profile')
-    end
-
-    it 'Timeline link shows the Timeline page' do
-      click_link 'Timeline'
-      page.should have_selector('ol', :content =>  'timeline')
-    end
-
-    it 'Friends link shows the Friends page' do
-      click_link 'Friends'
-      page.should have_selector('h2', :content =>  'Friends')
+    it 'Sell link shows the Sell page' do
+      click_link 'Sell'
+      page.should have_content("Title")
     end
 
     it 'Community link shows the Community page' do
@@ -49,14 +39,9 @@ describe 'Dashboard' do
       page.should have_selector('h2', :content =>  'Invitor')
     end
 
-    it 'Trade link shows the Trade page' do
-      click_link 'Trade'
-      page.should have_selector('h2', :content =>  'My Offers')
-    end
-
-    it 'Settings link shows the Settings page' do
-      click_link 'Settings'
-      page.should have_selector('h2', :content =>  'Settings')
+    it 'Profile link shows the profile page' do
+      click_link 'Profile'
+      page.should have_content("FFP")
     end
 
     it 'Admin link only shown for admin user' do
@@ -80,18 +65,6 @@ describe 'Dashboard' do
     it 'Admin link shows the Admin page' do
       click_link 'Admin'
       page.should have_selector('h2', :content => 'Admin')
-    end
-
-    it 'Admin page has link for deleting ffp' do
-      click_link 'Admin'
-      page.should have_content('Destroy')
-    end
-
-    it 'Admin page has link for confirming ffp' do
-      click_link 'Admin'
-      if !@ffp.activated?
-        page.should have_content('Confirm')
-      end
     end
   end
 end

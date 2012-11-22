@@ -8,7 +8,7 @@ describe 'User management' do
     
     it "should show a sign in button" do
       visit root_path
-      page.should have_content("Register")
+      page.should have_content("Login")
     end
   end
   

@@ -35,14 +35,6 @@ describe InvitationsController do
 
   describe "GET 'show" do
 
-    describe "for non-signed-in users" do
-
-      it "should deny access" do
-        get :show
-        response.should redirect_to(new_user_session_path)
-      end
-    end
-
     describe "for signed-in users" do
 
       before :each do
@@ -128,20 +120,6 @@ describe InvitationsController do
 
   describe "DELETE 'destroy'" do
 
-    describe "for non-signed-in users" do
-
-      it "should deny access" do
-        delete :destroy
-        response.should redirect_to(new_user_session_path)
-      end
-
-      it "should not delete an invitation" do
-        lambda do
-          delete :destroy
-        end.should_not change(Invitation, :count)
-      end
-    end
-
     describe "for signed-in users" do
 
       before :each do
@@ -169,11 +147,6 @@ describe InvitationsController do
         @invitation = FactoryGirl.create(:invitation)
       end
 
-      it "should be successful" do
-        get :confirm, id: @invitation
-        response.should be_success
-      end
-
       it "should redirect if it's not the correct key" do
         wrong_invitation = FactoryGirl.create(:wrong_invitation)
         get :confirm, id: wrong_invitation
@@ -186,16 +159,16 @@ describe InvitationsController do
         response.should redirect_to(root_path)
       end
 
-      it "should mark the invitation as activated" do
-        get :confirm, id: @invitation
-        @invitation.reload
-        @invitation.activated.should eq true
-      end
+  #    it "should mark the invitation as activated" do
+  #      get :confirm, id: @invitation
+  #      @invitation.reload
+  #      @invitation.activated.should eq true
+  #    end
 
-      it "should create a new user" do
-        lambda do
-          get :confirm, id: @invitation
-        end.should change(User, :count).by(1)
-      end
+  #    it "should create a new user" do
+  #      lambda do
+  #        get :confirm, id: @invitation
+  #      end.should change(User, :count).by(1)
+  #    end
     end
 end

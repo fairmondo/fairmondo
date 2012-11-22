@@ -65,7 +65,6 @@ GEM
     arel (3.0.2)
     autotest-fsevent (0.2.8)
       sys-uname
-    autotest-growl (0.2.16)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     bootstrap-will_paginate (0.0.7)
@@ -307,7 +306,6 @@ DEPENDENCIES
   acts_as_follower
   acts_as_indexed
   autotest-fsevent
-  autotest-growl
   bootstrap-will_paginate
   capistrano
   capybara
