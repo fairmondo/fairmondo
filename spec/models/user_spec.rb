@@ -15,7 +15,7 @@ describe User do
   it {should have_many :bids}
   it {should have_many :invitations}
 
-  it "return correct fullname" do
+  it "returns correct fullname" do
     user = FactoryGirl.create(:user)
     user.fullname.should == "#{user.name} #{user.surname}"
   end

@@ -13,4 +13,15 @@ describe Invitation do
   it {should validate_presence_of :relation}
   it {should validate_presence_of :trusted_1}
   it {should validate_presence_of :trusted_2}
+
+  it "!validates the sender" do
+    @invitation = FactoryGirl.create(:invitation)
+    @invitation.validate_sender.should eq false
+  end
+
+  it "validates the sender" do
+    @invitation = FactoryGirl.create(:invitation)
+    @invitation.sender.trustcommunity = true
+    @invitation.validate_sender.should eq true
+  end
 end

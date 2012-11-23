@@ -6,7 +6,4 @@ describe Bid do
     FactoryGirl.create(:bid).should be_valid
   end
 
-#  it {should have_one :auction}
-#  it {should have_one :user}
-
 end
