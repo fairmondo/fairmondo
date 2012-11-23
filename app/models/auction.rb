@@ -14,7 +14,7 @@ class Auction < ActiveRecord::Base
       self.errors.add(:expire, "Expire time must less than one year from now.")
     return false
     end
-
+    return true
   end
 
   #TODO transaction_type makes factory create invalid auctions. Why?

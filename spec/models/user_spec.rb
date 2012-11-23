@@ -17,12 +17,17 @@ describe User do
 
   it "returns correct fullname" do
     user = FactoryGirl.create(:user)
-    user.fullname.should == "#{user.name} #{user.surname}"
+    user.fullname.should eq "#{user.forename} #{user.surname}"
   end
 
   it "returns correct display_name" do
     user = FactoryGirl.create(:user)
-    user.display_name.should == user.fullname
+    user.display_name.should eq user.fullname
+  end
+
+  it "returns correct name" do
+    user = FactoryGirl.create(:user)
+    user.name.should eq user.nickname
   end
 
 end
