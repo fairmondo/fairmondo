@@ -4,37 +4,37 @@ include Warden::Test::Helpers
 
 describe 'Auction management' do
 =begin
-  describe "for non-signed-in users" do
+describe "for non-signed-in users" do
 
-    before :each do
-      @user = FactoryGirl.create(:user)
-      login_as @user
-    end
+before :each do
+@user = FactoryGirl.create(:user)
+login_as @user
+end
 
-    it 'creates an auction after login' do
-      FactoryGirl.create(:category)
+it 'creates an auction after login' do
+FactoryGirl.create(:category)
 
-     click_on 'Logout'
+click_on 'Logout'
 
-      visit new_auction_path
-      page.should have_content("New Auction")
-      click_button Category.all.sample.name
-      fill_in 'Title', with: 'Auction title'
-      choose 'New'
-      fill_in 'Content', with: 'Auction content'
-      fill_in 'Price', with: 10
-      lambda do
-        click_button "Create Auction"
-      end.should_not change(Auction, :count)
+visit new_auction_path
+page.should have_content("New Auction")
+click_button Category.all.sample.name
+fill_in 'Title', with: 'Auction title'
+choose 'New'
+fill_in 'Content', with: 'Auction content'
+fill_in 'Price', with: 10
+lambda do
+click_button "Create Auction"
+end.should_not change(Auction, :count)
 
-      page.should have_content("You need to sign in or sign up before continuing.")
+page.should have_content("You need to sign in or sign up before continuing.")
 
-      fill_in 'Email', with: @user.email
-      fill_in 'Password', with: @user.password
-      click_button 'Sign In'
-      page.should have_content("Auction was successfully created")
-    end
-  end
+fill_in 'Email', with: @user.email
+fill_in 'Password', with: @user.password
+click_button 'Sign In'
+page.should have_content("Auction was successfully created")
+end
+end
 =end
   describe "for signed-in users" do
     before :each do
@@ -71,5 +71,12 @@ describe 'Auction management' do
       click_button 'Computer'
       page.should have_content("Hardware")
     end
+
+    it "returns a csv file containing the auctions" do
+      FactoryGirl.create(:category)
+      @auction = FactoryGirl.create(:auction)
+      visit "/auctions.to_csv"
+    end
+
   end
 end

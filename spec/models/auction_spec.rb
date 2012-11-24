@@ -28,4 +28,9 @@ describe Auction do
     auction.validate_expire.should eq false
   end
 
+  it "returns the title image" do
+    auction = FactoryGirl.create(:auction)
+    image = FactoryGirl.create(:image, :auction => auction)
+    auction.title_image
+  end
 end
