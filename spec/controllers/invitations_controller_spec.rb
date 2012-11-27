@@ -5,7 +5,7 @@ describe InvitationsController do
 
   describe "GET 'index" do
 
-    describe "for non-signed-in users" do 
+    describe "for non-signed-in users" do
 
       it "should deny access" do
         get :index
@@ -39,21 +39,27 @@ describe InvitationsController do
 
       before :each do
         @invitation = FactoryGirl.create(:invitation)
+        @anotherInvitation = FactoryGirl.create(:invitation)
         sign_in @invitation.sender
       end
 
       it "should show the correct invitation" do
         get :show, :id => @invitation
         resultInvitation = controller.instance_variable_get(:@invitation)
-        resultInvitation.sender.should eq @invitation.sender  
+        resultInvitation.sender.should eq @invitation.sender
         response.should render_template(@invitation)
       end
-    end  
+
+      it "redirects for show of the wrong invitation" do
+        get :show, :id => @invitation
+        response.should have_content("#")
+      end
+    end
   end
 
   describe "GET 'new'" do
 
-    describe "for non-signed-in users" do 
+    describe "for non-signed-in users" do
 
       it "should deny access" do
         get :new
@@ -77,22 +83,22 @@ describe InvitationsController do
 
   describe "POST 'create'" do
 
-    describe "for non-signed-in users" do 
+    describe "for non-signed-in users" do
 
       before :each do
         @invitation = FactoryGirl.create(:invitation)
       end
 
-        it "should deny access" do
-          get :create
-          response.should redirect_to(new_user_session_path)
-        end
+      it "should deny access" do
+        get :create
+        response.should redirect_to(new_user_session_path)
+      end
 
-        it "should not create an invitation" do
-          lambda do
-            post :create, id: @invitation
-          end.should_not change(Invitation, :count)
-        end
+      it "should not create an invitation" do
+        lambda do
+          post :create, id: @invitation
+        end.should_not change(Invitation, :count)
+      end
     end
 
     describe "for signed-in users" do
@@ -143,32 +149,30 @@ describe InvitationsController do
 
   describe "confirm" do
 
-      before :each do
-        @invitation = FactoryGirl.create(:invitation)
-      end
-
-      it "should redirect if it's not the correct key" do
-        wrong_invitation = FactoryGirl.create(:wrong_invitation)
-        get :confirm, id: wrong_invitation
-        response.should redirect_to(root_path)
-      end
-
-      it "should redirect if already activated" do
-        activated_invitation = FactoryGirl.create(:activated_invitation)
-        get :confirm, id: activated_invitation
-        response.should redirect_to(root_path)
-      end
-
-  #    it "should mark the invitation as activated" do
-  #      get :confirm, id: @invitation
-  #      @invitation.reload
-  #      @invitation.activated.should eq true
-  #    end
-
-  #    it "should create a new user" do
-  #      lambda do
-  #        get :confirm, id: @invitation
-  #      end.should change(User, :count).by(1)
-  #    end
+    before :each do
+      @invitation = FactoryGirl.create(:invitation)
     end
+
+    it "should redirect if it's not the correct key" do
+      wrong_invitation = FactoryGirl.create(:wrong_invitation)
+      get :confirm, id: wrong_invitation
+      response.should redirect_to(root_path)
+    end
+
+    it "should redirect if already activated" do
+      activated_invitation = FactoryGirl.create(:activated_invitation)
+      get :confirm, id: activated_invitation
+      response.should redirect_to(root_path)
+    end
+
+    it "should redirect if no invitation given" do
+      get :confirm
+      response.should redirect_to(root_path)
+    end
+
+    it "forwards to the sign up page" do
+      get :confirm, id: @invitation
+      response.should redirect_to("/user/sign_up")
+    end
+  end
 end
