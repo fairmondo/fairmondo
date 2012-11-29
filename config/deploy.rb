@@ -41,17 +41,14 @@ namespace :deploy do
   desc "Additional Symlinks"
   task :additional_symlink, :roles => :app do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
   end
 
   desc "Addtional Rake Tasks"
   task :additional_rake, :roles => :app, :only => {:primary => true} do
 
   end
-  ###### Mailer Config #####
-  desc "Link actionmailer.yml from shared" 
-  task :link_actionmailer_yml, :roles=>:app do
-    run "rm -f #{current_path}/config/actionmailer.yml && ln -s #{shared_path}/config/actionmailer.yml #{current_path}/config/actionmailer.yml"
-  end
+
 end
   
 ##### After and Before Tasks #####
@@ -60,5 +57,5 @@ after "deploy", "deploy:additional_rake"
 after "deploy:restart", "deploy:cleanup"
 
 
-after "deploy:finalize_update", "deploy:link_actionmailer_yml"
+
 
