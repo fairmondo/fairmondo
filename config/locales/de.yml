@@ -73,6 +73,7 @@ de:
       privacy: "Datenschutzbestimmungen akzeptiert"
       legal: "Allgemeine Geschäftsbedingungen akzeptiert"
       create: "Benutzer erstellen"
+      legal_entity: "Juristische Person?"
     edit_profile:
       nickname: "Spitzname"
       forename: "Vorname"
@@ -145,7 +146,7 @@ de:
       transaction:
         auction: "Auktion"
         fixed_price: "Festpreis"
-        preview: "Vorschau"
+        preview: "Vorschau - wird bei Launch freigeschaltet"
     lables:
       price: "Preis"
       shipping_condition: "Versand-Zustand"

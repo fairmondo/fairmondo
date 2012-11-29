@@ -26,6 +26,8 @@
 	<%= f.input :password, :label => t('devise.new_profile.password') %>
 	<%= f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true %>
 
+	<%= f.input :legal_entity, :label => t('devise.new_profile.legal_entity') %>
+
 	<%if session[:invitor_id] %>
 	<%= f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }%>
 	<%= f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }%>
