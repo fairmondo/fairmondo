@@ -66,8 +66,6 @@ Fairnopoly::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
 
-  ActionMailer::Base.sendmail_settings = {
-          :arguments => "-i"
-        }
+  ActionMailer::Base.smtp_settings = File.expand_path(File.join(RAILS_ROOT, 'config', 'actionmailer.yml'))
 
 end
