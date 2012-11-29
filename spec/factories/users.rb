@@ -8,5 +8,7 @@ FactoryGirl.define do
     nickname    { Faker::Internet.user_name }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
+    privacy     true
+    legal       true
   end
 end

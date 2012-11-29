@@ -1,44 +1,46 @@
- <div class="well">
-<h2><%=t('devise.title.sign_up')%></h2>
+<div class="well">
+	<h2><%= t('devise.title.sign_up')%></h2>
 
- <%if session[:invitor_name]%>
- 	
- 	<div class="well">
- 		<strong>
-	 		<%=t('invitation.invitated')%>
-	 		<%=session[:invitor_name]%> 
- 		</strong>
- 	</div>
- <%end%>
+	<%if session[:invitor_name]%>
 
-<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+	<div class="well">
+		<strong> <%= t('invitation.invitated')%>
+		<%= session[:invitor_name]%> </strong>
+	</div>
+	<%end%>
 
-  <%= f.semantic_errors %>
-  <%= f.inputs do %>
-  	<%= f.input :nickname, :required => true%>
-  	
-  	<%= f.input :forename, :required => true%>
-  	<%= f.input :surname, :required => true%>
-  	
-  	<%if session[:invited_email] %>
-    	<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>
-    <%else%>
-    	<%= f.input :email, :hint => t('devise.edit_profile.email'), :required => true %>
-    <%end%>
-    
-    <%= f.input :password, :hint => t('devise.new_profile.password') %>
-    <%= f.input :password_confirmation, :hint => t('devise.new_profile.password_confirmation'), :required => true %>
-   
-    <%if session[:invitor_id] %>
-    	<%= f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }%>
-  		<%= f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }%>
-  	<%end%>
-  <% end %>
-  
-  <%= f.actions do %>
-    <%= f.action :submit, :button_html => {:class => "primary"} %>
-  <% end %>
-<% end %>
+	<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
-<%= render "links" %>
+	<%= f.semantic_errors %>
+	<%= f.inputs do %>
+	<%= f.input :nickname, :required => true, :label => t('devise.edit_profile.nickname')%>
+	<%= f.input :forename, :required => true, :label => t('devise.edit_profile.forename')%>
+	<%= f.input :surname, :required => true, :label => t('devise.edit_profile.surname')%>
+
+	<%if session[:invited_email] %>
+	<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>
+	<%else%>
+	<%= f.input :email, :hint => t('devise.edit_profile.email'), :required => true %>
+	<%end%>
+
+	<%= f.input :password, :label => t('devise.new_profile.password') %>
+	<%= f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true %>
+
+	<%if session[:invitor_id] %>
+	<%= f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }%>
+	<%= f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }%>
+	<%end%>
+	<% end %>
+
+	<%= f.input :privacy, :required => true, :label => t('devise.new_profile.privacy') %>
+	<%= f.input :legal, :required => true, :label => t('devise.new_profile.legal') %>
+
+	<%= link_to "Datenschutzbestimmungen und AGBs", "/DatenschutzAGB"%>
+	<br />
+	<%= f.actions do %>
+	<%= f.action :submit, :button_html => {:class => "primary"}, :label => t('devise.new_profile.create') %>
+	<% end %>
+	<% end %>
+
+	<%= render "links" %>
 </div>

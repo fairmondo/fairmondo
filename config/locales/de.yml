@@ -70,7 +70,13 @@ de:
     new_profile:
       password: "Passwort eingeben"
       password_confirmation: "Passwort bestätigen"
+      privacy: "Datenschutzbestimmungen akzeptiert"
+      legal: "Allgemeine Geschäftsbedingungen akzeptiert"
+      create: "Benutzer erstellen"
     edit_profile:
+      nickname: "Spitzname"
+      forename: "Vorname"
+      surname:  "Nachname"
       email: "Bitte Email-Adresse angeben"
       image: "Bitte Bild auswählen"
       picture: "Bild"
