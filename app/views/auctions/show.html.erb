@@ -4,12 +4,21 @@
 			<% if @title_image%>
 			<li class="span3">
 				<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
+				<%if @auction.seller ==current_user%>
+				<% html= glyphicons("icon-cog")%>
+				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+				<%end%>
 			</li>
 			<%else%>
 			<li class="span3">
 				<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
+				<%if @auction.seller ==current_user%>
+				<% html= glyphicons("icon-cog")%>
+				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+				<%end%>
 			</li>
 			<%end%>
+
 		</ul>
 		<ul class="thumbnails">
 			<% @auction.images.each do |image| %>
@@ -26,26 +35,41 @@
 			<%= form_for @image, :html => { :multipart => true }  do |f| %>
 			<input id="image_image" name="image[image]" type="file" size="1">
 			<%= f.hidden_field :auction_id%>
-				<%= button_tag(:type => :submit) do %>
-			 		<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
-			 	<% end %>
+			<%= button_tag(:type => :submit) do %>
+			<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
 			<% end %>
-			
+			<% end %>
+
 		</div>
 		<% end %>
 	</div>
 	<div class="span9">
-		
+
 		<div class="well">
 			<dl>
-				<dt><%= t 'auction.labels.price'%> </dt><dd><%= humanized_money_with_symbol @auction.price %></dd>
-				<dt><%= t 'auction.labels.type'%></dt><dd><%= condition_label @auction%></dd>
-				<dt><%= t 'auction.labels.expiration_date'%></dt><dd><%= @auction.expire.strftime("%d.%m.%Y %H:%M") %></dd>
+				<dt>
+					<%= t 'auction.labels.price'%>
+				</dt>
+				<dd>
+					<%= humanized_money_with_symbol @auction.price %>
+				</dd>
+				<dt>
+					<%= t 'auction.labels.type'%>
+				</dt>
+				<dd>
+					<%= condition_label @auction%>
+				</dd>
+				<dt>
+					<%= t 'auction.labels.expiration_date'%>
+				</dt>
+				<dd>
+					<%= @auction.expire.strftime("%d.%m.%Y %H:%M") %>
+				</dd>
 			</dl>
 		</div>
 		<div class="well">
 			<%= raw @auction.content%>
 		</div>
-		
+
 	</div>
 </div>
