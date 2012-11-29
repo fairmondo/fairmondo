@@ -1,5 +1,9 @@
 Fairnopoly::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+# Settings specified here will take precedence over those in config/application.rb
+
+  # English should be the default test language
+  config.i18n.default_locale = :en
+  I18n.locale = config.i18n.locale = config.i18n.default_locale
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
