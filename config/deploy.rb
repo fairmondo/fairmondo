@@ -47,6 +47,11 @@ namespace :deploy do
   task :additional_rake, :roles => :app, :only => {:primary => true} do
 
   end
+  ###### Mailer Config #####
+  desc "Link actionmailer.yml from shared" 
+  task :link_actionmailer_yml, :roles=>:app do
+    run "rm -f #{current_path}/config/actionmailer.yml && ln -s #{shared_path}/config/actionmailer.yml #{current_path}/config/actionmailer.yml"
+  end
 end
   
 ##### After and Before Tasks #####
@@ -54,13 +59,6 @@ before "deploy:assets:precompile", "deploy:additional_symlink"
 after "deploy", "deploy:additional_rake"
 after "deploy:restart", "deploy:cleanup"
 
-
-
-###### Mailer Config #####
-desc "Link actionmailer.yml from shared" 
-task :link_actionmailer_yml, :roles=>:app do
-  run "rm -f #{current_path}/config/actionmailer.yml && ln -s #{shared_path}/config/actionmailer.yml #{current_path}/config/actionmailer.yml"
-end
 
 after "deploy:finalize_update", "deploy:link_actionmailer_yml"
 
