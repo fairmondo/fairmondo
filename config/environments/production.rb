@@ -68,4 +68,5 @@ Fairnopoly::Application.configure do
 
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml'))))
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] = false
+  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
 end
