@@ -16,28 +16,32 @@
 	</div>
 </div>
 
-<div class="well">
-	<h3>Auctions created:</h3>
-	<div class="row">
-		<div class="span6">
-			<div class="progress progress-success" style="height:50px ;margin-bottom:5px">
-				<div class="bar" style="height:100%;width: <%= @percentage%>%"></div>
-			</div>
-			<strong><i class="icon-info-sign"></i> <%= @auctions%> Auctions have been created! That is <%= @percentage%>% of the aimed 10.000 Auctions.</strong>
-		</div>
-	</div>
-</div>
 <!-- row -->
 <div class="row">
-	<div class="span12">
+	<div class="span6">
 		<div class="well">
-			<h2> Fair founding Points <small>Kauf dir deinen eigenen Online Marktplatz</small></h2>
+			<h2> Fair founding Points</h2>
+			Kauf dir deinen eigenen Online Marktplatz
 			<div class="row">
-				<div class="progress span10">
+				<div class="progress span4">
 					<div class="bar" style="width: 60%;"></div>
 				</div>
 				<div class="span1">
 					<a class="btn btn-mini" href=""> Mach mit </a>
+				</div>
+			</div>
+		</div>
+		<!-- well -->
+	</div>
+
+	<div class="span6">
+		<div class="well">
+			<h2> Auktionen erstellt </h2>
+		<i class="icon-info-sign"></i> <%= @auctions%> Auktionen erstellt!
+				Das sind <%= @percentage%>% von 10.000 Auktionen.
+			<div class="row">
+				<div class="progress progress-success span4">
+					<div class="bar" style="height:100%;width: <%= @percentage%>%"></div>
 				</div>
 			</div>
 		</div>
