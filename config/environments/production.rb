@@ -70,6 +70,5 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] = false
   ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
   
-  config.i18n.default_locale = :de
   
 end
