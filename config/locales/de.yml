@@ -130,6 +130,9 @@ de:
       followers_info: "Benutzer, die mir folgen"
       following_info: "Produkte und Benutzer, denen ich folge"  
     founder: "Gründer"
+    legal:
+      legal_entity: "Firmenprofil"
+      private: "Privatprofil"
 # Auction Model/Controller
   auction:
     hero:
