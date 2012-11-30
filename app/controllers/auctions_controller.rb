@@ -4,6 +4,12 @@ class AuctionsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index,:new, :create, :autocomplete_auction_title]
  
   before_filter :build_login
+
+  def report
+    @auction = Auction.find(params[:id])
+    AuctionMailer.report_auction(@auction).deliver
+    redirect_to @auction
+  end
  
   # GET /auctions
   # GET /auctions.json

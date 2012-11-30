@@ -177,6 +177,7 @@ de:
       edit: "Auktion editieren"  
     actions:
       profile: "Verkäufer ansehen"
+      report: "Auktion Melden"
     categories:
       level1: "Kategorien"
       level2: "Unterkategorien"

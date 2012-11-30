@@ -7,6 +7,7 @@
 				<%if @auction.seller ==current_user%>
 				<% html= glyphicons("icon-cog")%>
 				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+
 				<%end%>
 			</li>
 			<%else%>
@@ -15,6 +16,9 @@
 				<%if @auction.seller ==current_user%>
 				<% html= glyphicons("icon-cog")%>
 				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+				<%else%>
+				<% html= glyphicons("icon-warning-sign")%>
+				<%= link_to html.html_safe, report_auction_path , :class => "btn" , :title => t('auction.actions.report')%>
 				<%end%>
 			</li>
 			<%end%>
