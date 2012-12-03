@@ -11,7 +11,10 @@
   model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
 end
 
-user = User.create( :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password", :admin => true)
+admin = User.create( :surname => "Admin", :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :admin => true)
+admin.confirm!
+
+user = User.create( :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password")
 user.confirm!
 
 Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
@@ -24,10 +27,8 @@ Category.create(:name => "Hardware", :desc => "", :level => 2, :parent_id => 5)
 Category.create(:name => "Software", :desc => "", :level => 2, :parent_id => 5)
 
 50.times do
-#  FactoryGirl.create(:transaction)
   FactoryGirl.create(:auction, :category_id => Category.all.sample.id)
-#  # TODO it's unclear how the validation check_better should work according to the seed of transaction (max_bid 1)
-#  #FactoryGirl.create(:bid, :user => User.all.sample, :transaction => Transaction.all.sample)
-#  FactoryGirl.create(:ffp, :user_id => User.all.sample.id)
-#  FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
+  FactoryGirl.create(:ffp, :user_id => User.all.sample.id)
+  FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
+  FactoryGirl.create(:follow, :followable_id => User.all.sample.id, :followable_type => "User", :follower_id => User.all.sample.id, :follower_type => "User")
 end

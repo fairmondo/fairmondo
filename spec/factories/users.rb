@@ -10,5 +10,6 @@ FactoryGirl.define do
     forename    { Faker::Name.first_name }
     privacy     true
     legal       true
+    legal_entity { [true, false].sample }
   end
 end
