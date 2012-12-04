@@ -11,8 +11,8 @@
   model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
 end
 
-user = User.create( :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password", :admin => true)
-user.confirm!
+user = User.new( :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password", :admin => true, :legal => true, :privacy => true)
+user.save!
 
 Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
 Category.create(:name => "Elektronik", :desc => "", :level => 0, :parent_id => 0)

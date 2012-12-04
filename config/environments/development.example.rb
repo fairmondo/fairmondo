@@ -47,4 +47,16 @@ Fairnopoly::Application.configure do
     :authentication       => 'login',
     :enable_starttls_auto => true  }
     
+  # You can deactivate the mailer, too:
+  
+  # Don't care if the mailer can't send
+  # config.action_mailer.raise_delivery_errors = false
+  
+  # Deactivate it
+  # config.action_mailer.perform_deliveries = false
+  
+  # or set it to :test, so you can check the mailer queue (e.g. in the debugger) 
+  # without actually sending anything 
+  # config.action_mailer.delivery_method = :test
+  
 end

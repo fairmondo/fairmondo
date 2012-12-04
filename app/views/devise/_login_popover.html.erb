@@ -1,8 +1,8 @@
 <%= semantic_form_for(resource, :as => resource_name, :input_html => { :class => 'form-inline' } , :url => session_path(resource_name)) do |f| %>
   <%= f.semantic_errors %>
   <%= f.inputs do %>
-    <%= f.input :email,  :input_html => { :class=> "input-medium" }  %>
-    <%= f.input :password,  :input_html => { :class=> "input-medium" } %>
+    <%= f.input :email %>
+    <%= f.input :password %>
   		<% if devise_mapping.rememberable? -%>
 	     	<%= f.input :remember_me, :as => :boolean , :label => false%> 
 	  	<% end -%>
