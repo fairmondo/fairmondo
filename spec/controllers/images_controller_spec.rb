@@ -7,7 +7,7 @@ describe ImagesController do
 
     before :each do
       @auction = FactoryGirl.create(:auction)
-      @image_attr = Factory.attributes_for(:image, :auction_id => @auction.id)
+      @image_attr = FactoryGirl.attributes_for(:image, :auction_id => @auction.id)
       sign_in @auction.seller
     end
 
