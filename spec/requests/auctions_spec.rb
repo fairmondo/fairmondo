@@ -3,39 +3,39 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Auction management' do
-=begin
-describe "for non-signed-in users" do
 
-before :each do
-@user = FactoryGirl.create(:user)
-login_as @user
-end
+  describe "for non-signed-in users" do
 
-it 'creates an auction after login' do
-FactoryGirl.create(:category)
+    before :each do
+      @user = FactoryGirl.create(:user)
+      login_as @user
+    end
 
-click_on 'Logout'
+    it 'creates an auction after login' do
+      visit root_path
+      FactoryGirl.create(:category)
 
-visit new_auction_path
-page.should have_content("New Auction")
-click_button Category.all.sample.name
-fill_in 'Title', with: 'Auction title'
-choose 'New'
-fill_in 'Content', with: 'Auction content'
-fill_in 'Price', with: 10
-lambda do
-click_button "Create Auction"
-end.should_not change(Auction, :count)
+      click_on 'Logout'
 
-page.should have_content("You need to sign in or sign up before continuing.")
+      visit new_auction_path
+      page.should have_content("New Auction")
+      click_button Category.all.sample.name
+      fill_in 'Title', with: 'Auction title'
+      choose 'New'
+      fill_in 'Content', with: 'Auction content'
+      fill_in 'Price', with: 10
 
-fill_in 'Email', with: @user.email
-fill_in 'Password', with: @user.password
-click_button 'Sign In'
-page.should have_content("Auction was successfully created")
-end
-end
-=end
+      click_button "Create Auction"
+
+      page.should have_content("You need to sign in or sign up before continuing.")
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Login'
+      page.should have_content("Auction was successfully created")
+    end
+  end
+
   describe "for signed-in users" do
     before :each do
       @user = FactoryGirl.create(:user)

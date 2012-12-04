@@ -70,6 +70,9 @@ en:
     new_profile:
       password: "Enter password"
       password_confirmation: "Confirm password"
+      create: "Create user"
+      privacy: "accept data privacy agreement"
+      legal: "accept TOS agreement"
     edit_profile:
       email: "Enter your email address"
       image: "Choose a picture"

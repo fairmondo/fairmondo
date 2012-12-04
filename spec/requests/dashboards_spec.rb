@@ -36,7 +36,7 @@ describe 'Dashboard' do
 
     it 'Community link shows the Community page' do
       click_link 'Community'
-      page.should have_selector('h2', :content =>  'Invitor')
+      page.should have_selector('h3', :content =>  'Invited People:')
     end
 
     it 'Profile link shows the profile page' do
