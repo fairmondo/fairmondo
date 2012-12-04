@@ -1,12 +1,23 @@
+# Configuration files
 config/database.yml
 config/environments/development.rb
 public/system
+
+# Project files
 .project
+.settings
+
+# Autotest configuration file
 .autotest
-.rspec
-db/*.sqlite3
-log/*
-tmp
-db/schema.rb
+
+# Ignore all logfiles and tempfiles
+/log/*.log
+/tmp
 Gemfile.lock
+
+# Ignore default SQLite database
+db/*.sqlite3
+db/schema.rb
+
+# Ignore codecoverage report
 coverage
