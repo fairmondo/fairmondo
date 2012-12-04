@@ -18,6 +18,9 @@ Fairnopoly::Application.routes.draw do
   resources :auctions do
   #recources :userevents
     get :autocomplete_auction_title, :on => :collection
+    member do
+      get 'report'
+    end
   end
 
   get "welcome/index"

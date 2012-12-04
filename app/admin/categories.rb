@@ -6,6 +6,6 @@ ActiveAdmin.register Category do
         f.input :level , :as => :select,  :collection => {"1"=> 0,"2"=>1,"3"=>2}
         f.input :parent_id, :as => :select, :collection => Category.all
       end
-      f.buttons
+      f.actions
     end
 end

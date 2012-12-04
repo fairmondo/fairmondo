@@ -26,8 +26,8 @@
 						<% html= glyphicons("icon-cog")%>
 						<%= link_to html.html_safe, edit_user_registration_path , :class => "btn" , :title => t('dashboard.actions.edit_account')%>
 						<%end%>
-
-						<%if @user.legal_entity%> <i class="icon-info-sign"></i> <i><%= t('user.legal.legal_entity')%></i> <%else%> <i class="icon-info-sign"></i> <i><%= t('user.legal.private')%></i> <%end%>
+						<br>
+						<%if @user.legal_entity%> <i class="icon-briefcase"></i> <i><%= t('user.legal.legal_entity')%></i> <%else%> <i class="icon-user"></i> <i><%= t('user.legal.private')%></i> <%end%>
 					</p>
 			</div>
 		</div>

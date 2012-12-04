@@ -152,6 +152,11 @@ class AuctionsController < ApplicationController
     end
   end
 
+  def report
+    @auction = Auction.find(params[:id])
+    AuctionMailer.report_auction(@auction).deliver
+    redirect_to @auction, :notice => (I18n.t 'auction.actions.reported')
+  end
 
   def selected_category?
      params.each do |key, value|
@@ -230,6 +235,4 @@ class AuctionsController < ApplicationController
         format.json { render :json => @auction, :status => :created, :location => @auction }
       end
   end
-  
-
 end
