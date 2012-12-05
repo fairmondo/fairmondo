@@ -10,6 +10,7 @@ FactoryGirl.define do
     privacy     true
     legal       true
     legal_entity { [true, false].sample }
+    about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
 
     confirmed_at  Time.now
 

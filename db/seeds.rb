@@ -11,11 +11,8 @@
   model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
 end
 
-admin = User.create( :surname => "Admin", :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :admin => true)
-admin.confirm!
-
-user = User.create( :surname => "User", :email => "user@user.com", :password => "password", :password_confirmation => "password")
-user.confirm!
+admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :password_confirmation => "password")
+user = FactoryGirl.create(:user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
 
 Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
 Category.create(:name => "Elektronik", :desc => "", :level => 0, :parent_id => 0)

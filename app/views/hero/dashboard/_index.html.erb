@@ -31,7 +31,15 @@
 					</p>
 			</div>
 		</div>
+
 		<div class="span6">
+			<dd>
+				<%if !@user.about_me.empty?%>
+				<div class="well">
+					<%= raw @user.about_me%>
+				</div>
+				<%end%>
+			</dd>
 			<div class="chat">
 				<%if @user==current_user%>
 				<% day=0%>
@@ -103,5 +111,7 @@
 			<%end%>
 		</div>
 		<%end%>
+
 	</div>
+
 </div>
