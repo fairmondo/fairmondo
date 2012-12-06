@@ -49,7 +49,7 @@ class Auction < ActiveRecord::Base
   belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
   belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
 
-  validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency, :expire
+  validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency, :expire, :payment
   validates_numericality_of :price,
     :greater_than_or_equal_to => 0
 
@@ -60,15 +60,6 @@ class Auction < ActiveRecord::Base
       return images[0]
     end
   end
-
-#  def self.to_csv
-#    CSV.generate do |csv|
-#      csv << column_names
-#      all.each do |auction|
-#        csv << auction.attributes.values_at(*column_names)
-#      end
-#    end
-#  end
 
   private
 

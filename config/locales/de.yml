@@ -98,6 +98,7 @@ de:
           expire: "Ablaufdatum"
           price: "Preis"
           price_currency: "Währung"
+          payment: "Zahlungsart"
           
     actions:
       create: "%{model} erstellen"
@@ -150,6 +151,9 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
+      payment:
+        cash: "Barzahlung"
+        paypal: "Paypal"
     lables:
       price: "Preis"
       shipping_condition: "Versand-Zustand"

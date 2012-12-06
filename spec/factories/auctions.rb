@@ -11,5 +11,6 @@ FactoryGirl.define do
     condition { ["new", "fair", "old"].sample }
     price_cents { Random.new.rand(1..500000) }
     price_currency "EUR"
+    payment   { ["cash", "paypal"].sample }
   end
 end

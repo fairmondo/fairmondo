@@ -1,36 +1,37 @@
 <%= tinymce_assets %>
 <%= semantic_form_for @auction , :html => { :class => "form-horizontal"}  do |f|  %>
-  <h3><% t("auction.form.category") %></h3>
-  <div class="well"><%= render 'categories_form' %></div>
-  <h3> <% t("auction.form.details") %> </h3>
-   <div class="well">
-	  <%= f.semantic_errors %>
-	  <%= f.inputs do %>
-	    <%= f.input :title,   :hint => t('auction.hints.title') %>
-	   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
-	   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
-	   		<%= tinymce %>
+<h3><% t("auction.form.category") %></h3>
+<div class="well">
+	<%= render 'categories_form' %>
+</div>
+<h3> <% t("auction.form.details") %> </h3>
+<div class="well">
+	<%= f.semantic_errors %>
+	<%= f.inputs do %>
+	<%= f.input :title,   :hint => t('auction.hints.title') %>
+	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
+	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
+	<%= tinymce %>
 
-	   	<%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
+	<%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
 
-	   
-   		<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
-   		<div class="input optional control-group" >
-	   		<div class="controls controls-row">
+	<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
+	<div class="input optional control-group" >
+		<div class="controls controls-row">
 
-		   		<span class="span1" ><small><%= t('auction.hints.date') %></small></span>
-		   		<span class="span3" >&nbsp;</span>
-		   		<span class="span1" ><small><%= t('auction.hints.time') %></small></span>
-	   		</div>
+			<span class="span1" ><small><%= t('auction.hints.date') %></small></span>
+			<span class="span3" >&nbsp;</span>
+			<span class="span1" ><small><%= t('auction.hints.time') %></small></span>
 		</div>
-   		<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) }, 
-   			:label =>t('auction.lables.price'), :required => true %>
-   		<%= f.input :price_currency, :include_blank => false %>
-   		
-   		
-	  <% end %>
-   </div>
-  <%= f.actions do %>
-    <%= f.action :submit , :button_html => {:class => "primary"} , :label => t("auction.lables.submit")%>
-  <% end %>
+	</div>
+	<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) },
+	:label =>t('auction.lables.price'), :required => true %>
+	<%= f.input :price_currency, :include_blank => false %>
+
+	<%= f.input :payment, :as => :select, :collection => [[t('auction.form.payment.cash'),'cash'], [t('auction.form.payment.paypal'),'paypal']], :include_blank => false, :required => true %>
+	<% end %>
+</div>
+<%= f.actions do %>
+<%= f.action :submit , :button_html => {:class => "primary"} , :label => t("auction.lables.submit")%>
+<% end %>
 <% end %>
