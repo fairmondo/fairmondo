@@ -165,6 +165,20 @@ describe AuctionsController do
       end
   end
 
+  describe "report" do
+
+    before :each do
+        @user = FactoryGirl.create(:user)
+        @auction = FactoryGirl.create(:auction)
+        sign_in @user
+      end
+
+      it "reports an auction" do
+        get :report, :id => @auction
+        response.should redirect_to @auction
+      end
+    end
+
   describe "finalize" do
 
     describe "for non-signed-in users" do

@@ -67,16 +67,9 @@ describe 'Auction management' do
       Category.create(:name => "Software", :desc => "", :level => 2, :parent_id => 5)
 
       visit new_auction_path
-      click_button 'Elektronik'
-      click_button 'Computer'
+      click_on 'Elektronik'
+      click_on 'Computer'
       page.should have_content("Hardware")
     end
-
-    it "returns a csv file containing the auctions" do
-      FactoryGirl.create(:category)
-      @auction = FactoryGirl.create(:auction)
-      visit "/auctions.to_csv"
-    end
-
   end
 end
