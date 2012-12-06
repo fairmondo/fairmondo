@@ -131,7 +131,7 @@ en:
         auction: "Auction"
         fixed_price: "Fixed-Price"
         preview: "Preview"
-    lables:
+    labels:
       price: "Price"
       shipping_condition: "Shipping condition"
       expiration_date: "Expiration date"
@@ -158,6 +158,8 @@ en:
       edit: "Editing auction"  
     actions:
       profile: "View seller"
+      report: "Report auction"
+      reported: "Auction successfully reported. The team will take care of it."
     categories:
       level1: "Categories"
       level2: "Subcategories"
