@@ -1,5 +1,5 @@
 # Configuration files
-config/database.yml
+# config/database.yml -> needed for travis-ci
 config/environments/development.rb
 public/system
 
