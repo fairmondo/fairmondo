@@ -54,7 +54,7 @@
 		<div class="well">
 			<dl>
 				<dt>
-					<%= t 'auction.labels.price'%>
+					<%= t('auction.labels.price')%>
 				</dt>
 				<dd>
 					<%= humanized_money_with_symbol @auction.price %>
@@ -70,6 +70,16 @@
 				</dt>
 				<dd>
 					<%= @auction.expire.strftime("%d.%m.%Y %H:%M") %>
+				</dd>
+				<dt>
+					<%= t('formtastic.labels.auction.payment')%>
+				</dt>
+				<dd>
+					<% if @auction.payment == "cash"  %>
+					<%= t('auction.form.payment.cash') %>
+					<% elsif @auction.payment == "paypal"  %>
+					<%= t('auction.form.payment.paypal') %>
+					<% end %>
 				</dd>
 			</dl>
 		</div>

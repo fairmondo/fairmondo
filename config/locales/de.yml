@@ -154,7 +154,7 @@ de:
       payment:
         cash: "Barzahlung"
         paypal: "Paypal"
-    lables:
+    labels:
       price: "Preis"
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
