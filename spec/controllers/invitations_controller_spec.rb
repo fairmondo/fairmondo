@@ -78,6 +78,11 @@ describe InvitationsController do
         get :new
         response.should be_success
       end
+
+      it "should be successful" do
+        get :new, :user_id => @user.id
+        response.should be_success
+      end
     end
   end
 
@@ -116,10 +121,23 @@ describe InvitationsController do
       end
 
       it "should create an invitation with the correct sender" do
+
         @user = @invitation.sender
         post :create, id: @invitation
         @invitation.reload
         @invitation.sender.should eq @user
+      end
+
+      it "should invite an already existing user" do
+        @user = FactoryGirl.create(:user)
+        @invitation_attr = FactoryGirl.attributes_for(:invitation, :email => @user.email)
+        post :create, :invitation => @invitation_attr
+        response.should redirect_to community_path(:id => @invitation.sender)
+      end
+
+      it "should create an invitation and sends it." do
+        @invitation_attr = FactoryGirl.attributes_for(:invitation)
+        post :create, :invitation => @invitation_attr
       end
     end
   end
