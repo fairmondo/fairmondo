@@ -13,7 +13,7 @@ public/system
 # Ignore all logfiles and tempfiles
 /log/*.log
 /tmp
-Gemfile.lock
+# Gemfile.lock -> ER error without it
 
 # Ignore default SQLite database
 db/*.sqlite3
