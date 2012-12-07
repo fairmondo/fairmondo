@@ -20,7 +20,7 @@ set :keep_releases, 10
 
 ##### Repository Settings #####
 set :scm,        :git
-set :repository, "git://gitorious.org/fairnopoly/fairnopoly.git"
+set :repository, "git://github.com/fairnopoly/fairnopoly.git"
 
 ##### Additional Settings #####
 #set :deploy_via, :remote_cache
