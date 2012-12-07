@@ -28,7 +28,7 @@ platforms :ruby do
 #  gem 'activerecord-postgresql-adapter'
   gem 'pg', :group => :production
 # To use debugger
-  gem 'debugger', :group => [:development, :test]
+#  gem 'debugger', :group => [:development, :test]
 end
 
 # Forms & Upload
