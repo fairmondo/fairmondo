@@ -4,6 +4,8 @@ Fairnopoly is a free market place in the hand of the users.
 
 Read more about it at: http://www.fairnopoly.de/
 
+The development currently is in beta state.
+
 == Getting started
 
 The Fairnopoly source is developed towards ruby-1.9.2 but should work with ruby-1.9.3 without problems.
@@ -19,6 +21,16 @@ To run fairnopoly locally in development mode, apart from installing ruby and ra
     rake db:create db:migrate db:seed
 
 * start rails and have fun
+
+=== Testing
+
+To run the tests, prepare the testing database
+  
+  rake db:test:prepare
+  
+And run the tests
+
+  rspec
 
 === Installation on Linux with JRuby:
 
@@ -53,4 +65,5 @@ Regarding the source, there are two ways to contribute.
 2. Want to know more and join feature development?
    * Have a visit to our redmine repositoy at: http://78.47.60.75:8080/projects/fairnopoly
      Most features are developed in German language but feel free to contact us anyway and we will answer in English.
-   * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only) to know more about the concept development.
+   * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only, registration required) to know more about the concept development.
+

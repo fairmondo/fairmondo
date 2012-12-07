@@ -8,8 +8,9 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 
-group :development do
-  gem "debugger"
+group :development, :test do
+  # To use the debugger
+  # gem "debugger"
 end
 
 # Declare any dependencies that are still in development here instead of in
@@ -17,5 +18,3 @@ end
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use debugger
-# gem 'debugger'

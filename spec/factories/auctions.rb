@@ -6,10 +6,10 @@ FactoryGirl.define do
     category
     title     { Faker::Lorem.sentence( rand(3)+1 ).chomp '.' }
     content   { Faker::Lorem.paragraph( rand(7)+1 ) }
-    expire    { (rand(1..10) + 2).hours.from_now }
+    expire    { (rand(10) + 2).hours.from_now }
     transaction "auction"
     condition { ["new", "fair", "old"].sample }
-    price_cents { Random.new.rand(1..500000) }
+    price_cents { Random.new.rand(500000)+1 }
     price_currency "EUR"
     payment   { ["cash", "paypal"].sample }
   end
