@@ -34,7 +34,7 @@
 								<%= link_to t('common.text.sell'), new_auction_path %>
 							</li>
 							<!--<li id="service">
-								<a href=""> <%= t('common.text.service')%> </a>
+							<a href=""> <%= t('common.text.service')%> </a>
 							</li>-->
 							<% if user_signed_in? %>
 							<li id="login">
@@ -42,16 +42,21 @@
 							</li>
 							<li id="login">
 								<%= link_to t('common.text.profile'), dashboard_path  %>
-							</li><li id="community">
+							</li>
+							<% if current_user.trustcommunity == true %>
+							<li id="community">
 								<%= link_to t('common.text.community'), community_path  %>
 							</li>
+							<%end%>
 							<% else %>
 							<li id="login">
 								<% if @login %>
-								    <div id="user-login-form" class="popover-hidden"><%= @login.html_safe %></div>
-									<%= link_to t('common.actions.login') , "#" , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login') %>
-								<%else%>						
-									<%= link_to t('common.actions.login') , new_user_session_path %>
+								<div id="user-login-form" class="popover-hidden">
+									<%= @login.html_safe %>
+								</div>
+								<%= link_to t('common.actions.login') , "#" , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login') %>
+								<%else%>
+								<%= link_to t('common.actions.login') , new_user_session_path %>
 								<%end%>
 							</li>
 							<% end %>

@@ -40,9 +40,9 @@ describe 'User management' do
       page.should have_content("Profile")
     end
 
-    it 'should show the link to community' do
+    it 'should not show the link to community' do
       visit dashboard_path
-      page.should have_content("TrustCommunity")
+      page.should_not have_content("TrustCommunity")
     end
   end
 
