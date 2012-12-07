@@ -27,8 +27,10 @@ platforms :ruby do
   gem 'therubyracer'
 #  gem 'activerecord-postgresql-adapter'
   gem 'pg', :group => :production
-# To use debugger
-#  gem 'debugger', :group => [:development, :test]
+  # exclude Debugger from CI
+  unless ENV["CI"]
+    gem 'debugger', :group => [:development, :test]
+  end
 end
 
 # Forms & Upload
