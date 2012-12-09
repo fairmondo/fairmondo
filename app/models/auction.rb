@@ -5,6 +5,18 @@ class Auction < ActiveRecord::Base
   validate :transaction_type
 
   validate :validate_expire
+  
+  def validate_expire
+    if self.expire < 1.hours.from_now
+      self.errors.add(:expire, "Expire time must be at least one hour in the future.")
+    return false
+    end
+    if self.expire > 1.years.from_now
+      self.errors.add(:expire, "Expire time must less than one year from now.")
+    return false
+    end
+    return true
+  end
 
   #TODO transaction_type makes factory create invalid auctions. Why?
   def transaction_type
@@ -83,17 +95,5 @@ class Auction < ActiveRecord::Base
     :tags => %w(a b i strong em p param h1 h2 h3 h4 h5 h6 br hr ul li img),
     :attributes => %w(href name src type value width height data) );
   end
-  
-  def validate_expire
-    if self.expire < 1.hours.from_now
-      self.errors.add(:expire, "Expire time must be at least one hour in the future.")
-    return false
-    end
-    if self.expire > 1.years.from_now
-      self.errors.add(:expire, "Expire time must less than one year from now.")
-    return false
-    end
-    return true
-  end  
 
 end
