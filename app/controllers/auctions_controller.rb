@@ -1,3 +1,6 @@
+# refs https://github.com/dougal/acts_as_indexed/issues/23
+require "will_paginate_search"
+
 class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true
   # Create is safed by denail!
@@ -7,24 +10,20 @@ class AuctionsController < ApplicationController
  
   # GET /auctions
   # GET /auctions.json
+  # GET /auctions.csv
   def index
-      conditions = ["user_id IS NOT NULL"]
-      if params["condition"]
-        conditions[0] += " AND condition LIKE ? "
-        conditions.push params["condition"]
-      end
-      if params["selected_category_id"]
-        conditions[0] += " AND (category_id = ? OR alt_category_id_1 = ? OR alt_category_id_2 = ?) "
-        conditions.push params["selected_category_id"]
-        conditions.push params["selected_category_id"]
-        conditions.push params["selected_category_id"]
-      end
-      if params["q"] && !params["q"].blank?
-         @auctions = Auction.with_query(params["q"]).paginate( :page => params[:page], :per_page=>12, :conditions => conditions)
-      else
-         @auctions = Auction.paginate :page => params[:page], :per_page=>12, :conditions => conditions
-      end
-   
+    scope = Auction.with_user_id
+    scope = scope.with_category(params["selected_category_id"])
+    if params["q"] && !params["q"].blank?
+      # refs #108 
+      query = params["q"].gsub(/\b(\w+)\b/) { |w| "^"+w}
+      search_params = {:per_page => 12} 
+      search_params[:page] = params[:page] || 1
+      @auctions = scope.paginate_search(query, search_params)
+    else
+      @auctions = scope.paginate :page => params[:page], :per_page=>12
+    end
+ 
     setup_categories params["selected_category_id"]
     respond_to do |format|
       format.html # index.html.erb
