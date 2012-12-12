@@ -34,7 +34,7 @@
 
 		<div class="span6">
 			<dd>
-				<%if !@user.about_me.empty?%>
+				<%if @user.about_me && !@user.about_me.empty?%>
 				<div class="well">
 					<%= raw @user.about_me%>
 				</div>
