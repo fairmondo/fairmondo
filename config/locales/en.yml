@@ -34,6 +34,7 @@ en:
       search: "Search"
       auctions: "Auctions"
       follow: "Follow"
+      stop_follow: "Unfollow."
       yes: "Yes"
       no: "No"
       community: "TrustCommunity"
@@ -54,6 +55,8 @@ en:
     help: "Help"
 # Devise
   devise:
+    captcha:
+      error: "There was an error with the recaptcha code below. Please re-enter the code." 
     links:
       sign_in: "Sign in"
       sign_up: "Sign up"
@@ -110,6 +113,7 @@ en:
       link: "Unlock my account"
     follow:
       following: "Following"
+      stop_following: "Stop following"
       followers: "Followers"
       followers_info: "People who follow me"
       following_info: "Things and People I follow"  

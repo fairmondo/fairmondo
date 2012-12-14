@@ -34,6 +34,7 @@ de:
       search: "Suche"
       auctions: "Auktionen"
       follow: "Follow"
+      stop_follow: "Unfollow"
       yes: "Ja"
       no: "Nein"
       community: "Vertrautengemeinschaft"
@@ -54,6 +55,8 @@ de:
     help: "Hilfe"
 # Devise
   devise:
+    captcha:
+      error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben." 
     links:
       sign_in: "Login"
       sign_up: "Registrieren"
@@ -127,6 +130,7 @@ de:
       link: "Benutzerkonto freischalten"
     follow:
       following: "Following"
+      stop_following: "Following gestoppt"
       followers: "Followers"
       followers_info: "Benutzer, die mir folgen"
       following_info: "Produkte und Benutzer, denen ich folge"  

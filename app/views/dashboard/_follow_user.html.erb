@@ -1,14 +1,23 @@
 <% unless user == current_user %>
+	
 	<% if current_user.following?(user) %>
 		<p><i class="icon-ok"></i> <%= t('user.follow.following') %></p>
+		
+		<%=form_tag({:action => "stop_follow_user" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+			<input type="hidden" name="id" value="<%=user.id%>">
+			<button type="submit" class="btn"><i class="icon-remove"></i>
+				<%= t("common.text.stop_follow")%>
+			</button>
+		<%end%>		
+
 	<%else%>
-	<%=form_tag({:action => "follow_user" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
-						<input type="hidden" name="id" value="<%=user.id%>">
-						<button type="submit" class="btn"><i class="icon-eye-open"></i>
-							<%= t("commons.text.follow")%>
-						</button>
-						<%end%>
-			
-	</form>
+		<%=form_tag({:action => "follow_user" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+			<input type="hidden" name="id" value="<%=user.id%>">
+			<button type="submit" class="btn"><i class="icon-eye-open"></i>
+				<%= t("common.text.follow")%>
+			</button>
+		<%end%>	
+		
 	<%end%>
+	
 <%end%>
