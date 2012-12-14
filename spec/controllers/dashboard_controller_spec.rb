@@ -146,12 +146,12 @@ describe DashboardController do
     end
   end
 
-  describe "follow_user" do
+  describe "follow" do
 
     describe "for non-signed-in users" do
 
       it "should deny access" do
-        get :follow_user
+        get :follow
         response.should redirect_to(new_user_session_path)
       end
     end
@@ -164,7 +164,31 @@ describe DashboardController do
       end
 
       it "should be successful" do
-        get :follow_user, :id => @user
+        get :follow, :id => @user
+        response.should have_content("#")
+      end
+    end
+  end
+  
+  describe "stop_follow" do
+
+    describe "for non-signed-in users" do
+
+      it "should deny access" do
+        get :stop_follow
+        response.should redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "for signed-in users" do
+
+      before :each do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+      end
+
+      it "should be successful" do
+        get :stop_follow, :id => @user
         response.should have_content("#")
       end
     end
