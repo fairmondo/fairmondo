@@ -44,7 +44,8 @@ class DashboardController < ApplicationController
 
   def list_following
     get_user
-    @users = @user.all_following
+    @users = @user.following_by_type('User')
+    @auctions = @user.following_by_type('Auction').paginate(:page => params[:page] , :per_page=>12)
   end
 
   def community
@@ -66,7 +67,7 @@ class DashboardController < ApplicationController
 
   # Interact with user model
 
-  def follow_user
+  def follow
     @user = User.find params["id"]
     current_user.follow(@user)
     Userevent.new(:user => current_user, :event_type => UsereventType::USER_FOLLOW, :appended_object => @user).save
@@ -77,7 +78,7 @@ class DashboardController < ApplicationController
     end
   end
   
-  def stop_follow_user
+  def stop_follow
     
     @user = User.find params["id"]
     current_user.stop_following(@user) # Deletes that record in the Follow table

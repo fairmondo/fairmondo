@@ -13,7 +13,7 @@
 			      <h5><%= user.name %></h5>
 			      <% if user != current_user%>
 				      
-				      <%= render :partial => 'follow_user' , :locals => { :user => user }%>
+				      <%= render :partial => 'shared/follow' , :locals => { :object => user }%>
 				      
 				      <% if !user.trustcommunity %>
 				      	<%= link_to t('common.actions.invite'), new_invitation_path(:user_id => user.id), :class=>"btn"  %>

@@ -7,5 +7,6 @@ class UsereventType
   INVITATION_SEND = 3
   FFP_BUY = 4
   USER_FOLLOW = 5
+  PRODUCT_FOLLOW = 6
   
 end

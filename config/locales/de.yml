@@ -226,6 +226,7 @@ de:
     userevent:
       ffp_buy: "FFP gekauft"
       user_follow: "Benutzer gefolgt"
+      product_follow: "Produkt gefolgt"
       confirmed: "Bestätigt"
       no: "Nein"
       yes: "Ja"

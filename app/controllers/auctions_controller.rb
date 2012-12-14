@@ -225,6 +225,29 @@ class AuctionsController < ApplicationController
     end
 
   end
+  
+   def follow
+    @product = Auction.find params["id"]
+    current_user.follow(@product)
+    Userevent.new(:user => current_user, :event_type => UsereventType::PRODUCT_FOLLOW, :appended_object => @product).save
+
+    respond_to do |format|
+      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.following') }
+      format.json { head :no_content }
+    end
+  end
+  
+  def stop_follow
+    
+    @product = Auction.find params["id"]
+    current_user.stop_following(@product) # Deletes that record in the Follow table
+    
+    respond_to do |format|
+      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.stop_following') }
+      format.json { head :no_content }
+    end
+
+  end
 
   def respond_created
      #Throwing User Events

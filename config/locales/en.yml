@@ -203,6 +203,7 @@ en:
     userevent:
       ffp_buy: "FFP bought"
       user_follow: "User followed"
+      product_follow: "Product followed"
       confirmed: "Confirmed"
       no: "No"
       yes: "Yes"

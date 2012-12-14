@@ -26,7 +26,7 @@
 						<% html= glyphicons("icon-cog")%>
 						<%= link_to html.html_safe, edit_user_registration_path , :class => "btn" , :title => t('dashboard.actions.edit_account')%>
 						<%else%>
-							<%= render :partial => 'follow_user' , :locals => { :user => @user }%>
+							<%= render :partial => 'shared/follow' , :locals => { :object => @user }%>
 						<%end%>
 						<br>
 						<%if @user.legal_entity%> <i class="icon-briefcase"></i> <i><%= t('user.legal.legal_entity')%></i> <%else%> <i class="icon-user"></i> <i><%= t('user.legal.private')%></i> <%end%>
@@ -58,19 +58,21 @@
 				<div class="bubble me">
 					<% case userevent.event_type %>
 					<% when UsereventType::AUCTION_CREATE %>
-					<i class="icon-plus "></i>
-					<%= link_to userevent.appended_object.title, userevent.appended_object %> <i><%= t('dashboard.auction.create')%></i>
+						<i class="icon-plus "></i>
+						<%= link_to userevent.appended_object.title, userevent.appended_object %> <i><%= t('dashboard.auction.create')%></i>
 					<% when UsereventType::AUCTION_UPDATE %>
-					<i class="icon-list-alt"></i>
-					<%= link_to userevent.appended_object.title,userevent.appended_object %> <i><%= t('dashboard.auction.update') %></i>
+						<i class="icon-list-alt"></i>
+						<%= link_to userevent.appended_object.title,userevent.appended_object %> <i><%= t('dashboard.auction.update') %></i>
 					<% when UsereventType::INVITATION_SEND%>
-					<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
+						<%= link_to t('dashboard.invitation.send'),userevent.appended_object %>
 					<% when UsereventType::FFP_BUY%>
-					<%= link_to t('dashboard.userevent.ffp_buy')+": "+userevent.appended_object.price.to_s +
-					"Euro, "+ t('dashboard.userevent.confirmed')+ (userevent.appended_object.activated ? ": Yes" : ": No"),
-					userevent.appended_object %>
+						<%= link_to t('dashboard.userevent.ffp_buy')+": "+userevent.appended_object.price.to_s +
+						"Euro, "+ t('dashboard.userevent.confirmed')+ (userevent.appended_object.activated ? ": Yes" : ": No"),
+						userevent.appended_object %>
 					<% when UsereventType::USER_FOLLOW%>
-					<%= link_to t('dashboard.userevent.user_follow')+": "+userevent.appended_object.email.to_s,dashboard_path(:id => userevent.appended_object.id) %>
+						<%= link_to t('dashboard.userevent.user_follow')+": "+userevent.appended_object.email.to_s,dashboard_path(:id => userevent.appended_object.id) %>
+					<% when UsereventType::PRODUCT_FOLLOW%>
+						<%= link_to t('dashboard.userevent.product_follow')+": "+userevent.appended_object.title.to_s,auction_path(:id => userevent.appended_object.id) %>
 					<% end %>
 				</div>
 				<%end%>

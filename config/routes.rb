@@ -20,6 +20,11 @@ Fairnopoly::Application.routes.draw do
     get :autocomplete_auction_title, :on => :collection
     member do
       get 'report'
+      post 'follow'
+      post 'stop_follow'
+    end
+    collection do
+
     end
   end
 
@@ -31,8 +36,9 @@ Fairnopoly::Application.routes.draw do
   match 'dashboard/search_users' => 'dashboard#search_users'
   match 'search_users' => 'dashboard#search_users'
   match 'dashboard/admin' => 'dashboard#admin'
-  match 'dashboard/follow_user' => 'dashboard#follow_user'
-  match 'dashboard/stop_follow_user' => 'dashboard#stop_follow_user'
+  
+  match 'dashboard/follow' => 'dashboard#follow'
+  match 'dashboard/stop_follow' => 'dashboard#stop_follow'
   
   match 'dashboard/list_followers' => 'dashboard#list_followers'
   match 'dashboard/list_following' => 'dashboard#list_following'

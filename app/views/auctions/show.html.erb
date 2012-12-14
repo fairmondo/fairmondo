@@ -1,30 +1,21 @@
 <div class="row">
 	<div class="span3">
 		<ul class="thumbnails">
-			<% if @title_image%>
 			<li class="span3">
-				<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
-				<%if @auction.seller ==current_user%>
-				<% html= glyphicons("icon-cog")%>
-				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+				<% if @title_image%>
+					<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
 				<%else%>
-				<% html= glyphicons("icon-warning-sign")%>
-				<%= link_to html.html_safe, report_auction_path , :class => "btn" , :title => t('auction.actions.report')%>
+					<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
+				<%end%>
+				<%if @auction.seller ==current_user%>
+					<% html= glyphicons("icon-cog")%>
+					<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+				<%else%>
+					<% html= glyphicons("icon-warning-sign")%>
+					<%= link_to html.html_safe, report_auction_path , :class => "btn" , :title => t('auction.actions.report')%>
+					<%= render :partial => 'shared/follow' , :locals => { :object => @auction }%>
 				<%end%>
 			</li>
-			<%else%>
-			<li class="span3">
-				<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
-				<%if @auction.seller ==current_user%>
-				<% html= glyphicons("icon-cog")%>
-				<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
-				<%else%>
-				<% html= glyphicons("icon-warning-sign")%>
-				<%= link_to html.html_safe, report_auction_path , :class => "btn" , :title => t('auction.actions.report')%>
-				<%end%>
-			</li>
-			<%end%>
-
 		</ul>
 		<ul class="thumbnails">
 			<% @auction.images.each do |image| %>
