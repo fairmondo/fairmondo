@@ -1,4 +1,4 @@
-class File
+class TailFile < File
 
     def tail(n)
       buffer = 1024
@@ -26,7 +26,7 @@ module ActiveAdmin::ViewHelper
 
   def get_production_log
     begin
-      f = File.open(File.join(Rails.root,"log","production.log")) 
+      f = TailFile.open(File.join(Rails.root,"log","production.log")) 
       data = f.tail(100)
       log = data.join("\n")
     rescue
