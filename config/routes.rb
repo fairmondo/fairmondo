@@ -32,6 +32,8 @@ Fairnopoly::Application.routes.draw do
   match 'search_users' => 'dashboard#search_users'
   match 'dashboard/admin' => 'dashboard#admin'
   match 'dashboard/follow_user' => 'dashboard#follow_user'
+  match 'dashboard/stop_follow_user' => 'dashboard#stop_follow_user'
+  
   match 'dashboard/list_followers' => 'dashboard#list_followers'
   match 'dashboard/list_following' => 'dashboard#list_following'
   match 'community' => 'dashboard#community'

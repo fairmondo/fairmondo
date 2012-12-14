@@ -76,5 +76,17 @@ class DashboardController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def stop_follow_user
+    
+    @user = User.find params["id"]
+    current_user.stop_following(@user) # Deletes that record in the Follow table
+    
+    respond_to do |format|
+      format.html { redirect_to dashboard_path(:id => @user.id) , :notice => (I18n.t 'user.follow.stop_following') }
+      format.json { head :no_content }
+    end
+
+  end
 
 end
