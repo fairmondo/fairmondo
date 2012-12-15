@@ -108,6 +108,11 @@ class AuctionsController < ApplicationController
     
     # Check if we can save the auction
     if @auction.save
+      
+      if !@auction.category_proposal.empty?
+        AuctionMailer.category_proposal(@auction.category_proposal).deliver
+      end
+      
       @auction.transaction.save! # Should not be a problem!
       # If the User isnt singned in save auction number in the session
       if !user_signed_in?
@@ -156,6 +161,7 @@ class AuctionsController < ApplicationController
     AuctionMailer.report_auction(@auction).deliver
     redirect_to @auction, :notice => (I18n.t 'auction.actions.reported')
   end
+
 
   def selected_category?
      params.each do |key, value|

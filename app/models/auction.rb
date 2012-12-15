@@ -32,7 +32,7 @@ class Auction < ActiveRecord::Base
     end
   end
 
-  attr_accessor :transaction
+  attr_accessor :transaction, :category_proposal
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
 

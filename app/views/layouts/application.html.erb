@@ -51,12 +51,12 @@
 							<% else %>
 							<li id="login">
 								<% if @login %>
-								<div id="user-login-form" class="popover-hidden">
-									<%= @login.html_safe %>
-								</div>
-								<%= link_to t('common.actions.login') , "#" , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login') %>
+									<div id="user-login-form" class="popover-hidden">
+										<%= @login.html_safe %>
+									</div>
+									<%= link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login') %>
 								<%else%>
-								<%= link_to t('common.actions.login') , new_user_session_path %>
+									<%= link_to t('common.actions.login') , new_user_session_path %>
 								<%end%>
 							</li>
 							<% end %>

@@ -3,6 +3,8 @@
 <h3><% t("auction.form.category") %></h3>
 <div class="well">
 	<%= render 'categories_form' %>
+	<%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
+	
 </div>
 <h3> <% t("auction.form.details") %> </h3>
 <div class="well">

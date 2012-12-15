@@ -165,6 +165,9 @@ en:
       report: "Report auction"
       reported: "Auction successfully reported. The team will take care of it."
     categories:
+      proposal:
+        question: "Do you miss a category?"
+        hint: 'Propose a category for the next time.'  
       level1: "Categories"
       level2: "Subcategories"
       level3: "Subsubcategories"
