@@ -13,7 +13,8 @@ Fairnopoly::Application.routes.draw do
   resources :invitations
   resources :ffps
     
-  devise_for :user
+  #devise_for :user
+  devise_for :user, controllers: { registrations: 'registrations' }
 
   resources :auctions do
   #recources :userevents

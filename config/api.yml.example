@@ -1,0 +1,3 @@
+recaptcha:
+ public: my_public_key
+ private: my_private_key

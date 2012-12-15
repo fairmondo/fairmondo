@@ -64,7 +64,7 @@ gem 'acts_as_indexed'
 # Controller Gems
 gem 'devise'
 #Captcha Gem
-#gem "recaptcha", :require => "recaptcha/rails"
+gem "recaptcha", :require => "recaptcha/rails"
 
 # Deploy with Capistrano
 gem 'capistrano'

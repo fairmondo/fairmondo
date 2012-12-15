@@ -21,3 +21,6 @@ db/schema.rb
 
 # Ignore codecoverage report
 coverage
+
+#api keys
+config/api.yml

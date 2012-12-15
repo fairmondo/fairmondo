@@ -40,7 +40,12 @@
 	<%= link_to "Datenschutzbestimmungen und AGBs", "/DatenschutzAGB"%>
 	<br />
 	<%= f.actions do %>
-	<%= f.action :submit, :button_html => {:class => "primary"}, :label => t('devise.new_profile.create') %>
+	
+		<%= recaptcha_tags :display => {:theme => 'clean'} %>
+		<br/>
+			
+		<%= f.action :submit, :button_html => {:class => "primary"}, :label => t('devise.new_profile.create') %>
+
 	<% end %>
 	<% end %>
 
