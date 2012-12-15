@@ -190,7 +190,7 @@ de:
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
-        hint: 'Dann schlage eine Kategorie für das nächste mal vor.'  
+        hint: 'Dann schlage eine Kategorie für das nächste Mal vor.'  
       level1: "Kategorien"
       level2: "Unterkategorien"
       level3: "2. Unterkategorien"
