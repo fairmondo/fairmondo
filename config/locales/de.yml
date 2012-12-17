@@ -132,11 +132,13 @@ de:
       linktext: "Klicken Sie auf unten stehenden Link, um Ihr Benutzerkonto freizuschalten:"
       link: "Benutzerkonto freischalten"
     follow:
-      following: "Following"
+      following: "Folgen"
       stop_following: "Following gestoppt"
       followers: "Followers"
       followers_info: "Benutzer, die mir folgen"
-      following_info: "Produkte und Benutzer, denen ich folge"  
+      following_info: "Produkte und Benutzer, denen ich folge"
+      followers_info_others: "Diese Benutzer folgen "
+      following_info_others: " folgt diesen Produkten und Benutzern"
     founder: "Gründer"
     legal:
       legal_entity: "Firmenprofil"

@@ -14,10 +14,10 @@
 					<%end%>
 					<p>
 						<% html= "<i class=\"icon-heart\"></i> " + @user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id ,   },
-						{ :title => t('user.follow.followers_info') , :class => "btn"} %>
+						{ :title => t('user.follow.followers_info_others') + @user.name , :class => "btn"} %>
 
 						<% html= "<i class=\"icon-eye-open\"></i> " + @user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
-						{ :title => t('user.follow.following_info') , :class => "btn"} %>
+						{ :title => @user.name + t('user.follow.following_info_others'), :class => "btn"} %>
 						<%if @user.trustcommunity?%>
 						<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>@user.id) , {:class => "btn" , :title => t('dashboard.menu.community')}%>
 						<%end%>
