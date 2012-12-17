@@ -47,6 +47,9 @@ de:
 # Footer
   footer:
     legal_details: "Impressum"
+    agb: "AGB"
+    privacy: "Datenschutz"
+    imprint: "Impressum"
     about_us: "Über Uns"
     philosophy: "Philosophie"
     team: "Team"
