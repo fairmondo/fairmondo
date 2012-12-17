@@ -40,9 +40,10 @@ namespace :deploy do
 
   desc "Additional Symlinks"
   task :additional_symlink, :roles => :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
-    run "ln -nfs #{shared_path}/config/api.yml #{release_path}/config/api.yml"
+    run "ln -nfs #{shared_path}/data/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
+    run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
+    run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
   end
 
   desc "Addtional Rake Tasks"
