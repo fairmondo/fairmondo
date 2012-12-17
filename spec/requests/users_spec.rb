@@ -12,7 +12,9 @@ describe 'User management' do
     end
 
     it "registers a new user" do
-      visit new_user_registration_path
+      Recaptcha.with_configuration(:public_key => '12345') do
+        visit new_user_registration_path
+      end
       expect {
         fill_in 'Nickname', with: 'nickname'
         fill_in 'Forename', with: 'forename'
