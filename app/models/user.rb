@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  after_create :addFfp
+
   acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
   acts_as_followable
   acts_as_follower
@@ -39,6 +41,12 @@ class User < ActiveRecord::Base
 
   def name
     name = "#{self.nickname}"
+  end
+
+  def addFfp
+    if self.legal_entity == false
+      Ffp.create(:price => 100, :user_id => self.id, :activated => true)
+    end
   end
 
 #def set_default
