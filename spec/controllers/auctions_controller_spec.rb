@@ -5,6 +5,24 @@ describe AuctionsController do
 
   describe "GET 'index" do
     
+    describe "search" do
+      
+      before :each do
+        @auction  = FactoryGirl.create(:auction, :title => "muscheln")
+      end
+      
+      it "should find the auction with title 'muscheln' when searching for muscheln" do
+        get :index, :q => "muscheln"
+        controller.instance_variable_get(:@auctions).should == [@auction]
+      end
+      
+      it "should find the auction with title 'muscheln' when searching for muschel" do
+        get :index, :q => "muschel"
+        controller.instance_variable_get(:@auctions).should == [@auction]
+      end
+    
+    end
+    
     describe "for non-signed-in users" do
 
       it "should be successful" do
