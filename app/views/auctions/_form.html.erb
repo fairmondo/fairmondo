@@ -1,39 +1,65 @@
 <%= tinymce_assets %>
-<%= semantic_form_for @auction , :html => { :class => "form-horizontal"}  do |f|  %>
-<h3><% t("auction.form.category") %></h3>
-<div class="well">
-	<%= render 'categories_form' %>
-	<%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
-	
-</div>
-<h3> <% t("auction.form.details") %> </h3>
-<div class="well">
-	<%= f.semantic_errors %>
-	<%= f.inputs do %>
-	<%= f.input :title,   :hint => t('auction.hints.title') %>
-	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
-	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
-	<%= tinymce %>
-
-	<%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
-
-	<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
-	<div class="input optional control-group" >
-		<div class="controls controls-row">
-
-			<span class="span1" ><small><%= t('auction.hints.date') %></small></span>
-			<span class="span3" >&nbsp;</span>
-			<span class="span1" ><small><%= t('auction.hints.time') %></small></span>
-		</div>
-	</div>
-	<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) },
-	:label =>t('auction.lables.price'), :required => true %>
-	<%= f.input :price_currency, :include_blank => false %>
-
-	<%= f.input :payment, :as => :select, :collection => [[t('auction.form.payment.cash'),'cash'], [t('auction.form.payment.paypal'),'paypal']], :include_blank => false, :required => true %>
-	<% end %>
-</div>
-<%= f.actions do %>
-<%= f.action :submit , :button_html => {:class => "primary"} , :label => t("auction.labels.submit")%>
-<% end %>
+<%= semantic_form_for @auction , :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
+  <div class="well">
+    <%= f.semantic_errors %>
+  	<%= f.inputs do %>
+  		<%= f.input :title, :hint => t('auction.hints.title') %>
+  	<% end %>
+  	
+  	<%= f.inputs :name => t('auction.form.fieldsets.categories') do %>
+      <%= Formtastic::Util.html_safe render('categories_form') %>
+      <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
+  	<% end %>
+  	
+  	<%= f.inputs :name => t('auction.form.fieldsets.commendation'), :hint => t('auction.form.fieldsets.commendation_title_hint') do %>
+  	  <%= f.input :fair, :hint => t('auction.hints.fair')%>
+  	  <%= f.inputs :id => 'fair-input-fields' do %>
+  	    <%= f.input :fair_kind, :as => :radio %>
+  	    <%= f.input :approved_seal %>
+  	  <% end %>
+  	  
+  	  <%= f.input :ecologic %>
+      <%= f.inputs :id => 'ecologic-input-fields' do %>
+        <%= f.input :ecologic_seal %>
+      <% end %>
+      <%= f.input :small_and_precious, :hint => t('auction.hints.small_and_precious') %>
+      <%= f.inputs :id => 'small_and_precious-input-fields' do %>
+        <%= f.input :small_and_precious_edition %>
+        <%= f.input :small_and_precious_reason %>
+        <%= f.input :small_and_precious_handmade, :as => :radio %>
+      <% end %>
+    <% end %>
+    
+    <%= f.inputs :name => t('auction.form.fieldsets.article') do %>
+    	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
+    	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
+    	<%= tinymce %>
+    <% end %>
+  </div>
+  
+  <div class="well">
+  	
+  	<%= f.inputs do %>
+  
+  	<%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
+  
+  	<%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
+  	<div class="input optional control-group" >
+  		<div class="controls controls-row">
+  
+  			<span class="span1" ><small><%= t('auction.hints.date') %></small></span>
+  			<span class="span3" >&nbsp;</span>
+  			<span class="span1" ><small><%= t('auction.hints.time') %></small></span>
+  		</div>
+  	</div>
+  	<%= f.input :price , :hint => t('auction.hints.price'), :input_html => {value: number_with_precision(f.object.price, precision: 2) },
+  	:label =>t('auction.lables.price'), :required => true %>
+  	<%= f.input :price_currency, :include_blank => false %>
+  
+  	<%= f.input :payment, :as => :select, :collection => [[t('auction.form.payment.cash'),'cash'], [t('auction.form.payment.paypal'),'paypal']], :include_blank => false, :required => true %>
+  	<% end %>
+  </div>
+  <%= f.actions do %>
+    <%= f.action :submit , :button_html => {:class => "primary"} , :label => t("auction.labels.submit")%>
+  <% end %>
 <% end %>

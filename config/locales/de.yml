@@ -6,6 +6,16 @@ de:
         new: "Neu"
         old: "Gebraucht"
         fair: "Fairtrade"
+      fair_kind:
+        approved_seal: Produzent mit Siegel oder anerkannt
+        fair_trust: Fair Trust
+        social_producer: Sozialer Produzent
+      approved_seal:
+        trans_fair: TransFair Siegel
+        weltladen: Weltladen Handelspartner 
+        wtfo: WFTO
+      ecologic_seal:
+        german_bio: Bio
   welcome:
     greetings: "Willkommen beiFairnopoly"
     search_fair: "Suche nach fairen Produkten"
@@ -94,7 +104,8 @@ de:
       cancel_account_confirm: "Sind Sie sicher?"
 # Formtastic     
   formtastic: 
-# Login 
+    :yes: Ja
+    :no: Nein
     labels:
         auction:
           title: "Produktbezeichnung"
@@ -106,9 +117,21 @@ de:
           price_currency: "Währung"
           payment: "Zahlungsart"
           
+          fair: Fair
+          fair_kind: "Bitte wähle aus der Liste aus:"
+          
+          ecologic: Öko
+          ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
+            
+          small_and_precious: Klein&Edel
+          small_and_precious_edition: Wie hoch ist die Auflage?
+          small_and_precious_reason: Warum ist Dein Artikel edel?
+          small_and_precious_handmade: Ist der Artikel handgearbeitet?
+          
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
+# Login 
       login: "Login"
 # User Model/Controller
   user:
@@ -143,6 +166,9 @@ de:
     legal:
       legal_entity: "Firmenprofil"
       private: "Privatprofil"
+  form:
+    select_from_list: Bitte wähle aus der Liste aus
+    fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
 # Auction Model/Controller
   auction:
     hero:
@@ -150,7 +176,7 @@ de:
       filter: "Filter nach"
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
-    form: 
+    form:
       head: "Um eine Auktion zu erstellen, müssen Sie dieses Formular ausfüllen."
       category: "Wählen Sie eine Kategorie für Ihr Produkt"
       details: "Beschreiben Sie ihr Produkt"
@@ -163,6 +189,12 @@ de:
       payment:
         cash: "Barzahlung"
         paypal: "Paypal"
+      fieldsets:
+        categories: Kategorien
+        commendation: Auszeichnung Deines Artiekels - Fair, Öko, Klein&Edel
+        commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedinglichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
+        article: Dein Artikel
+        
     labels:
       price: "Preis"
       shipping_condition: "Versand-Zustand"
@@ -182,12 +214,14 @@ de:
       price: "Geben Sie einen Preis für die Auktion an"
       date: "Datum (Tag/Monat/Jahr)"
       time: "Zeit (Stunden/Minuten)"
+      fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
+      small_and_precious: Diese Auszeichung muss von Käufern bestätigt werden.
     image:
       title: "Laden Sie ein Bild hoch"
       upload: "Hochladen"
     titles:
-      new: "Neue Auktion"  
-      edit: "Auktion editieren"  
+      new: "Artikel einstellen"  
+      edit: "Artikel editieren"  
     actions:
       profile: "Verkäufer ansehen"
       report: "Auktion Melden"

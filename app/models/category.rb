@@ -1,8 +1,4 @@
 class Category < ActiveRecord::Base
   has_many :auctions
-  def parent
-    Category.find self.parent_id
-  rescue 
-    nil
-  end
+  belongs_to :parent, :class_name => "Category"
 end

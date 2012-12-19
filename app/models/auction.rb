@@ -1,10 +1,32 @@
 class Auction < ActiveRecord::Base
+  include Enumerize
 
   before_validation :sanitize_content, :on => :create
 
   validate :transaction_type
 
   validate :validate_expire
+  
+  ##### commendation
+  ## fair
+  
+  validates_presence_of :fair_kind, :if => :fair?
+  enumerize :fair_kind, :in => [:approved_seal, :fair_trust, :social_producer]
+  
+  validates_presence_of :approved_seal, :if => lambda {|obj| obj.fair_kind == "approved_seal"}
+  enumerize :approved_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
+  
+  # TODO add other questionaries
+  
+  ## ecologic
+  
+  validates_presence_of :ecologic_seal, :if => :ecologic?
+  enumerize :ecologic_seal, :in => [:german_bio]
+  
+  ## small_and_precious
+  validates_presence_of :small_and_precious_edition, :if => :small_and_precious?
+  validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
+  validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
   
   def validate_expire
     if self.expire < 1.hours.from_now
@@ -36,7 +58,6 @@ class Auction < ActiveRecord::Base
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
 
-  include Enumerize
   enumerize :condition, :in => [:new ,:fair , :old ]
   enumerize :price_currency, :in => [:EUR]
 

@@ -74,8 +74,17 @@ label.control-label {
 	font-weight:bold;
 }
 
+.controls {
+	input {
+		float: left;
+	}
+}
+
 span.help-block {
+	font-size: 14px;
 	font-style:italic;
+	float: right;
+	font-weight: normal; 
 }
 
 div.radio {
