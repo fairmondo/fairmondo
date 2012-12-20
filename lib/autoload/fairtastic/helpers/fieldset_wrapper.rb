@@ -7,7 +7,11 @@ module Fairtastic
       def field_set_and_list_wrapping(*args, &block) #:nodoc:
         contents = args.last.is_a?(::Hash) ? '' : args.pop.flatten
         html_options = args.extract_options!
-        html_options[:class] = "well"
+        if html_options[:class]
+          html_options[:class] << " well"
+        else
+          html_options[:class] = "well"
+        end
 
         if block_given?
           contents = if template.respond_to?(:is_haml?) && template.is_haml?
@@ -28,15 +32,6 @@ module Fairtastic
         fieldset = Formtastic::Util.html_safe(legend) + fieldset  
 
         fieldset
-      end
-      
-      def bootstrap_well(contents)
-        wrap_it = @already_in_an_inputs_block ? true : false
-        if wrap_it
-          template.content_tag(:div, contents, :class => "well")
-        else
-          contents
-        end
       end
       
       def field_set_legend(html_options)

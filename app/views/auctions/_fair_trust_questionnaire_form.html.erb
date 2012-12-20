@@ -1,5 +1,7 @@
 <%= auction_form.semantic_fields_for :fair_trust_questionnaire do |f| %>
-<ol>
+<h5><%= t('formtastic.labels.questionnaire.hint').html_safe %></h5>
+<div class='help-block'><%= t('auction.hints.fair_trust_questionnaire') %></div>
+<ol class='questionnaire'>
   <%= f.input_with_explanation :support, :as => :radio%>
   
   <%= f.input_with_explanation :transparency, :as => :radio%>

@@ -5,7 +5,15 @@
 class PlainRadioInput < FormtasticBootstrap::Inputs::RadioInput
 
   def to_html
+    if options[:prepend_label]
+      control_label_html
+      l = template.content_tag(:div, control_label_html, :class => "question")
+    else
+      l = "".html_safe
+    end
+    
     control_group_wrapping do
+      l << 
       controls_wrapping do
         collection.map { |choice|
           choice_html(choice)

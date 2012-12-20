@@ -138,6 +138,9 @@ de:
     :yes: Ja
     :no: Nein
     labels:
+      questionnaire:
+        explanation: Erläuterung
+        hint: "Hinweise für Händler beim Ausfüllen:"
       auction:
         title: "Produktbezeichnung"
         condition: "Produktzustand"
@@ -159,7 +162,29 @@ de:
         small_and_precious_edition: Wie hoch ist die Auflage?
         small_and_precious_reason: Warum ist Dein Artikel edel?
         small_and_precious_handmade: Ist der Artikel handgearbeitet?
-          
+        fair_trust_questionnaire:
+          new:
+            support: >
+              Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
+            transparency: >
+              Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
+            collaboration: >
+              Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)        
+            minimum_wage: >
+              Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
+            child_labor: >
+              Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?              
+            sexual_equality: >
+              a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
+            labor_conditions: >
+              Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
+            producer_advancement: >
+              Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
+            awareness_raising: >
+              Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+            environment_protection: >
+              Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+      
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
@@ -201,8 +226,10 @@ de:
   form:
     select_from_list: Bitte wähle aus der Liste aus
     fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
+    
 # Auction Model/Controller
   auction:
+    
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -248,6 +275,8 @@ de:
       time: "Zeit (Stunden/Minuten)"
       fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
       small_and_precious: Diese Auszeichung muss von Käufern bestätigt werden.
+      fair_trust_questionnaire: >
+        Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
     image:
       title: "Laden Sie ein Bild hoch"
       upload: "Hochladen"
