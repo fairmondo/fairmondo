@@ -1,51 +1,51 @@
 <%= tinymce_assets %>
 <%= semantic_form_for @auction , :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
-  <div class="well">
-    <%= f.semantic_errors %>
-  	<%= f.inputs do %>
-  		<%= f.input :title, :hint => t('auction.hints.title') %>
-  	<% end %>
-  	
-  	<%= f.inputs :name => t('auction.form.fieldsets.categories') do %>
-      <%= render('categories_form') %>
-      <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
-  	<% end %>
-  	
-  	<%= f.inputs :name => t('auction.form.fieldsets.commendation'), :hint => t('auction.form.fieldsets.commendation_title_hint') do %>
-  	  <%= f.input :fair, :as => :plain_check_box, :hint => t('auction.hints.fair')%>
-  	  <%= f.inputs :id => 'fair-input-fields' do %>
-  	  
-  	    <%= f.input :fair_kind, :as => :plain_radio %>
-  	    
-  	    <%= f.inputs :id => 'approved_seal-section', :class => "fair_kind" do %>
-  	      <%= f.input :approved_seal %>
-  	    <% end %>
-  	    
-  	    <%= f.inputs :id => 'fair_trust-section', :class => "fair_kind" do %>
-  	      <%= render('fair_trust_questionnaire_form', :auction_form => f) %>
-        <% end %>
-  	    
-  	  <% end %>
-  	  
-  	  <%= f.input :ecologic, :as => :plain_check_box %>
-      <%= f.inputs :id => 'ecologic-input-fields' do %>
-        <%= f.input :ecologic_seal %>
+
+  <%= f.semantic_errors %>
+	<%= f.inputs do %>
+		<%= f.input :title, :hint => t('auction.hints.title') %>
+	<% end %>
+	
+	<%= f.inputs :name => t('auction.form.fieldsets.categories') do %>
+    <%= render('categories_form') %>
+    <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
+	<% end %>
+
+	<%= f.inputs :name => t('auction.form.fieldsets.commendation'), :hint => t('auction.form.fieldsets.commendation_title_hint') do %>
+	  <%= f.input :fair, :as => :plain_check_box, :hint => t('auction.hints.fair')%>
+	  <%= f.inputs :id => 'fair-input-fields' do %>
+	  
+	    <%= f.input :fair_kind, :as => :plain_radio %>
+	    
+	    <%= f.inputs :id => 'approved_seal-section', :class => "fair_kind" do %>
+	      <%= f.input :approved_seal %>
+	    <% end %>
+	    
+	    <%= f.inputs :id => 'fair_trust-section', :class => "fair_kind" do %>
+	      <%= render('fair_trust_questionnaire_form', :auction_form => f) %>
       <% end %>
-      
-      <%= f.input :small_and_precious, :as => :plain_check_box, :hint => t('auction.hints.small_and_precious') %>
-      <%= f.inputs :id => 'small_and_precious-input-fields' do %>
-        <%= f.input :small_and_precious_edition %>
-        <%= f.input :small_and_precious_reason %>
-        <%= f.input :small_and_precious_handmade, :as => :radio %>
-      <% end %>
+	    
+	  <% end %>
+	  
+	  <%= f.input :ecologic, :as => :plain_check_box %>
+    <%= f.inputs :id => 'ecologic-input-fields' do %>
+      <%= f.input :ecologic_seal %>
     <% end %>
     
-    <%= f.inputs :name => t('auction.form.fieldsets.article') do %>
-    	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
-    	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
-    	<%= tinymce %>
+    <%= f.input :small_and_precious, :as => :plain_check_box, :hint => t('auction.hints.small_and_precious') %>
+    <%= f.inputs :id => 'small_and_precious-input-fields' do %>
+      <%= f.input :small_and_precious_edition %>
+      <%= f.input :small_and_precious_reason %>
+      <%= f.input :small_and_precious_handmade, :as => :radio %>
     <% end %>
-  </div>
+  <% end %>
+  
+  <%= f.inputs :name => t('auction.form.fieldsets.article') do %>
+  	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :radio%>
+  	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
+  	<%= tinymce %>
+  <% end %>
+
   
   <div class="well">
   	

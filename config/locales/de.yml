@@ -140,7 +140,6 @@ de:
     labels:
       questionnaire:
         explanation: Erläuterung
-        hint: "Hinweise für Händler beim Ausfüllen:"
       auction:
         title: "Produktbezeichnung"
         condition: "Produktzustand"
@@ -274,7 +273,7 @@ de:
       date: "Datum (Tag/Monat/Jahr)"
       time: "Zeit (Stunden/Minuten)"
       fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
-      small_and_precious: Diese Auszeichung muss von Käufern bestätigt werden.
+      small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
       fair_trust_questionnaire: >
         Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
     image:

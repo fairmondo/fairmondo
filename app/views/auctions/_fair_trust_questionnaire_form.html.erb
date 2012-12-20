@@ -1,25 +1,24 @@
 <%= auction_form.semantic_fields_for :fair_trust_questionnaire do |f| %>
-<h5><%= t('formtastic.labels.questionnaire.hint').html_safe %></h5>
 <div class='help-block'><%= t('auction.hints.fair_trust_questionnaire') %></div>
 <ol class='questionnaire'>
-  <%= f.input_with_explanation :support, :as => :radio%>
+  <%= f.input_with_explanation :support %>
   
-  <%= f.input_with_explanation :transparency, :as => :radio%>
+  <%= f.input_with_explanation :transparency %>
   
-  <%= f.input_with_explanation :collaboration, :as => :radio%>
+  <%= f.input_with_explanation :collaboration %>
   
-  <%= f.input_with_explanation :minimum_wage, :as => :radio%>
+  <%= f.input_with_explanation :minimum_wage %>
   
-  <%= f.input_with_explanation :child_labor, :as => :radio%>
+  <%= f.input_with_explanation :child_labor %>
   
-  <%= f.input_with_explanation :sexual_equality, :as => :radio%>
+  <%= f.input_with_explanation :sexual_equality %>
   
-  <%= f.input_with_explanation :labor_conditions, :as => :radio%>
+  <%= f.input_with_explanation :labor_conditions %>
   
-  <%= f.input_with_explanation :producer_advancement, :as => :radio%>
+  <%= f.input_with_explanation :producer_advancement %>
   
-  <%= f.input_with_explanation :awareness_raising, :as => :radio%>
+  <%= f.input_with_explanation :awareness_raising %>
   
-  <%= f.input_with_explanation :environment_protection, :as => :radio%>
+  <%= f.input_with_explanation :environment_protection %>
 </ol>
 <% end %>
