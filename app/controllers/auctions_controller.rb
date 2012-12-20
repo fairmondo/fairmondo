@@ -60,6 +60,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @auction.expire = 14.days.from_now
     @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
+    @auction.build_fair_trust_questionnaire
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @auction }

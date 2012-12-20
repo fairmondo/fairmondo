@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require styles
+ *= require custom_inputs
  *= require formtastic-bootstrap
  * 
 */

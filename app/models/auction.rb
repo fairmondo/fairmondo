@@ -16,12 +16,22 @@ class Auction < ActiveRecord::Base
   validates_presence_of :approved_seal, :if => lambda {|obj| obj.fair_kind == "approved_seal"}
   enumerize :approved_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
   
+  has_one :fair_trust_questionnaire, :dependent => :destroy
+  accepts_nested_attributes_for :fair_trust_questionnaire
+  validates_associated :fair_trust_questionnaire, :if => lambda {|obj| obj.fair_kind == "fair_trust"}
+  
+  before_validation :remove_fair_trust_questionnaire_unless_required
+  
+  def remove_fair_trust_questionnaire_unless_required
+    self.fair_trust_questionnaire = nil unless self.fair_kind == "fair_trust"
+  end
+  
   # TODO add other questionaries
   
   ## ecologic
   
   validates_presence_of :ecologic_seal, :if => :ecologic?
-  enumerize :ecologic_seal, :in => [:german_bio]
+  enumerize :ecologic_seal, :in => [:bio_siegel, :eg_bio_siegel, :ecovin, :naturland, :gaea_e_v_oekologischer_landbau, :biokreis, :bioland, :biopark, :demeter, :europaeisches_umweltzeichen, :gots, :textiles_vertrauen_nach_oeko_tex_standard_100plus, :ivn_zertifiziert_naturtextil, :ivn_zertifiziert_naturtextil_best, :rainforest_alliance, :der_blaue_engel, :deutsches_gueteband_wein, :ecogarantie, :fsc_pure_papier, :fsc_pure_holz, :greenline, :gut, :kork_logo, :kompostierbar_compostable, :kontrollierte_natur_kosmetik_bdih, :natrue_natural_cosmetics_with_organic_portion, :natrue_organic_cosmetics, :natureplus, :oeko_control, :tco_certified, :utz_certified, :tuev_eco_kreis]
   
   ## small_and_precious
   validates_presence_of :small_and_precious_edition, :if => :small_and_precious?

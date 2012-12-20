@@ -15,7 +15,38 @@ de:
         weltladen: Weltladen Handelspartner 
         wtfo: WFTO
       ecologic_seal:
-        german_bio: Bio
+        bio_siegel: Bio-Siegel
+        eg_bio_siegel: EG-Bio-Siegel
+        ecovin: Ecovin
+        naturland: Naturland
+        gaea_e_v_oekologischer_landbau: Gäa e.V. Ökologischer Landbau
+        biokreis: Biokreis
+        bioland: Bioland
+        biopark: Biopark
+        demeter: Demeter
+        europaeisches_umweltzeichen: Europäisches Umweltzeichen
+        gots: GOTS
+        textiles_vertrauen_nach_oeko_tex_standard_100plus: Textiles Vertrauen nach Öko-Tex-Standard 100plus
+        ivn_zertifiziert_naturtextil: IVN zertifiziert Naturtextil
+        ivn_zertifiziert_naturtextil_best: IVN zertifiziert Naturtextil Best
+        rainforest_alliance: Rainforest Alliance
+        der_blaue_engel: der Blaue Engel
+        deutsches_gueteband_wein: Deutsches Güteband Wein
+        ecogarantie: Ecogarantie
+        fsc_pure_papier: FSC Pure - Papier
+        fsc_pure_holz: FSC Pure - Holz
+        greenline: Greenline
+        gut: GUT
+        kork_logo: Kork Logo
+        kompostierbar_compostable: Kompostierbar/ Compostable
+        kontrollierte_natur_kosmetik_bdih: kontrollierte Natur-Kosmetik BDIH
+        natrue_natural_cosmetics_with_organic_portion: NATRUE Natural Cosmetics With Organic Portion
+        natrue_organic_cosmetics: NATRUE Organic Cosmetics
+        natureplus: Natureplus
+        oeko_control: ÖkoControl
+        tco_certified: TCO certified
+        utz_certified: UTZ certified
+        tuev_eco_kreis: TÜV ECO-Kreis
   welcome:
     greetings: "Willkommen beiFairnopoly"
     search_fair: "Suche nach fairen Produkten"
@@ -107,26 +138,27 @@ de:
     :yes: Ja
     :no: Nein
     labels:
-        auction:
-          title: "Produktbezeichnung"
-          condition: "Produktzustand"
-          content: "Produktbeschreibung"
-          transaction: "Angebotsart" 
-          expire: "Ablaufdatum"
-          price: "Preis"
-          price_currency: "Währung"
-          payment: "Zahlungsart"
+      auction:
+        title: "Produktbezeichnung"
+        condition: "Produktzustand"
+        content: "Produktbeschreibung"
+        transaction: "Angebotsart" 
+        expire: "Ablaufdatum"
+        price: "Preis"
+        price_currency: "Währung"
+        payment: "Zahlungsart"
+        
+        fair: Fair
+        fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>.):"
+        approved_seal: "Bitte wähle aus der Liste aus:" 
+        
+        ecologic: Öko
+        ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
           
-          fair: Fair
-          fair_kind: "Bitte wähle aus der Liste aus:"
-          
-          ecologic: Öko
-          ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
-            
-          small_and_precious: Klein&Edel
-          small_and_precious_edition: Wie hoch ist die Auflage?
-          small_and_precious_reason: Warum ist Dein Artikel edel?
-          small_and_precious_handmade: Ist der Artikel handgearbeitet?
+        small_and_precious: Klein&Edel
+        small_and_precious_edition: Wie hoch ist die Auflage?
+        small_and_precious_reason: Warum ist Dein Artikel edel?
+        small_and_precious_handmade: Ist der Artikel handgearbeitet?
           
     actions:
       create: "%{model} erstellen"

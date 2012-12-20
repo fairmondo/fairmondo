@@ -1,0 +1,23 @@
+<%= auction_form.semantic_fields_for :fair_trust_questionnaire do |f| %>
+<ol>
+  <%= f.input_with_explanation :support, :as => :radio%>
+  
+  <%= f.input_with_explanation :transparency, :as => :radio%>
+  
+  <%= f.input_with_explanation :collaboration, :as => :radio%>
+  
+  <%= f.input_with_explanation :minimum_wage, :as => :radio%>
+  
+  <%= f.input_with_explanation :child_labor, :as => :radio%>
+  
+  <%= f.input_with_explanation :sexual_equality, :as => :radio%>
+  
+  <%= f.input_with_explanation :labor_conditions, :as => :radio%>
+  
+  <%= f.input_with_explanation :producer_advancement, :as => :radio%>
+  
+  <%= f.input_with_explanation :awareness_raising, :as => :radio%>
+  
+  <%= f.input_with_explanation :environment_protection, :as => :radio%>
+</ol>
+<% end %>
