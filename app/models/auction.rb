@@ -11,10 +11,10 @@ class Auction < ActiveRecord::Base
   ## fair
   
   validates_presence_of :fair_kind, :if => :fair?
-  enumerize :fair_kind, :in => [:approved_seal, :fair_trust, :social_producer]
+  enumerize :fair_kind, :in => [:fair_seal, :fair_trust, :social_producer]
   
-  validates_presence_of :approved_seal, :if => lambda {|obj| obj.fair_kind == "approved_seal"}
-  enumerize :approved_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
+  validates_presence_of :fair_seal, :if => lambda {|obj| obj.fair_kind == "fair_seal"}
+  enumerize :fair_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
   
   has_one :fair_trust_questionnaire, :dependent => :destroy
   accepts_nested_attributes_for :fair_trust_questionnaire
