@@ -1,0 +1,15 @@
+<%= auction_form.semantic_errors :social_producer_questionnaire %>
+
+<h5><%= t('form.fill_in_questionnaire') %></h5>
+<%= auction_form.semantic_fields_for :social_producer_questionnaire do |f| %>
+<div class='help-block'><%= t('auction.hints.social_producer_questionnaire') %></div>
+<ul class='questionnaire'>
+  <%= f.input_with_purpose :nonprofit_association %>
+  
+  <%= f.input_with_purpose :social_businesses_muhammad_yunus %>
+  
+  <%= f.input_with_purpose :social_entrepreneur %>
+</ul>
+<h4><%= t('formtastic.labels.questionnaire.explanations') %></h4>
+<%= tinycms_content "auction-social_producer_questionnaire-explanation" %>
+<% end %>

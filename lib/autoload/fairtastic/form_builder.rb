@@ -7,31 +7,34 @@ module Fairtastic
   class FormBuilder < FormtasticBootstrap::FormBuilder
      
      include Fairtastic::Helpers::FieldsetWrapper
-=begin
-     def inputs(*args)
-       hint = args.last.is_a?(Hash) && args.last[:hint] 
-       if hint
-         l = hint_html
-       else
-         l = "".html_safe
-       end
-       l << super
+     
+     def input_with_purpose(*args)
+       template.content_tag(:li,
+         input(*extended_radio_args(*args)) << input(*pupose_args(*args)),
+         :class => "questionnaire-entry"
+       )
      end
-=end
      
      def input_with_explanation(*args)
        template.content_tag(:li,
-         input(*explanation_radio_args(*args)) << input(*explanation_args(*args)),
+         input(*extended_radio_args(*args)) << input(*explanation_args(*args)),
          :class => "questionnaire-entry"
        )
      end
      
      private 
      
-     def explanation_radio_args(*args)
+     def extended_radio_args(*args)
        options = args.extract_options!
        options[:prepend_label] = true
        options[:as] ||= :plain_radio
+       args << options
+     end
+     
+     def pupose_args(*args)
+       options = args.extract_options!
+       options[:as] = options[:purpose_as] || :plain_check_boxes
+       args[0] = (args[0].to_s << "_purposes").to_sym
        args << options
      end
      

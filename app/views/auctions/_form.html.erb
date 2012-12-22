@@ -1,6 +1,5 @@
 <%= tinymce_assets %>
 <%= semantic_form_for @auction , :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
-
   <%= f.semantic_errors %>
 	<%= f.inputs do %>
 		<%= f.input :title, :hint => t('auction.hints.title') %>
@@ -23,6 +22,10 @@
 	    
 	    <%= f.inputs :id => 'fair_trust-section', :class => "fair_kind" do %>
 	      <%= render('fair_trust_questionnaire_form', :auction_form => f) %>
+      <% end %>
+      
+      <%= f.inputs :id => 'social_producer-section', :class => "fair_kind" do %>
+        <%= render('social_producer_questionnaire_form', :auction_form => f) %>
       <% end %>
 	    
 	  <% end %>

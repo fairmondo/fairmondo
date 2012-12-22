@@ -1,5 +1,5 @@
 class Auction < ActiveRecord::Base
-  include Enumerize
+  extend Enumerize
 
   before_validation :sanitize_content, :on => :create
 
@@ -11,11 +11,18 @@ class Auction < ActiveRecord::Base
   ## fair
   
   validates_presence_of :fair_kind, :if => :fair?
+  
+  before_validation :delete_fair_kind_unless_fair
+  def delete_fair_kind_unless_fair
+    self.fair_kind = nil unless fair?
+  end
+  
   enumerize :fair_kind, :in => [:fair_seal, :fair_trust, :social_producer]
   
   validates_presence_of :fair_seal, :if => lambda {|obj| obj.fair_kind == "fair_seal"}
   enumerize :fair_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
   
+  ### fair trust questionnaire
   has_one :fair_trust_questionnaire, :dependent => :destroy
   accepts_nested_attributes_for :fair_trust_questionnaire
   validates_associated :fair_trust_questionnaire, :if => lambda {|obj| obj.fair_kind == "fair_trust"}
@@ -26,7 +33,16 @@ class Auction < ActiveRecord::Base
     self.fair_trust_questionnaire = nil unless self.fair_kind == "fair_trust"
   end
   
-  # TODO add other questionaries
+  ### social producer questionnaire
+  has_one :social_producer_questionnaire, :dependent => :destroy
+  accepts_nested_attributes_for :social_producer_questionnaire
+  validates_associated :social_producer_questionnaire, :if => lambda {|obj| obj.fair_kind == "social_producer"}
+  
+  before_validation :remove_social_producer_questionnaire_unless_required
+  
+  def remove_social_producer_questionnaire_unless_required
+    self.social_producer_questionnaire = nil unless self.fair_kind == "social_producer"
+  end
   
   ## ecologic
   

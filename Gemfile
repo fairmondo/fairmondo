@@ -54,7 +54,7 @@ gem 'jquery-rails'
 # Tool Libs
 
 gem 'json'
-gem 'enumerize'
+gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
 
 

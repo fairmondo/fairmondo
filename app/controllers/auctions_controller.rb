@@ -60,7 +60,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.new
     @auction.expire = 14.days.from_now
     @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
-    @auction.build_fair_trust_questionnaire
+    build_questionnaires
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @auction }
@@ -91,7 +91,6 @@ class AuctionsController < ApplicationController
   # POST /auctions
   # POST /auctions.json
   def create
-
     if selected_category? # Category changes found
       @auction = Auction.new(params[:auction])
       render :action => 'new'
@@ -104,9 +103,7 @@ class AuctionsController < ApplicationController
     if user_signed_in?
       @auction.seller = current_user
     end
-    
    
-    
     # Check if we can save the auction
     if @auction.save
       
@@ -125,6 +122,7 @@ class AuctionsController < ApplicationController
     else
       respond_to do |format|
         setup_categories @auction.category
+        build_questionnaires
         format.html { render :action => "new" }
         format.json { render :json => @auction.errors, :status => :unprocessable_entity }
       end
@@ -150,6 +148,7 @@ class AuctionsController < ApplicationController
           format.json { head :no_content }
         else
           setup_categories @auction.category
+          build_questionnaires
           format.html { render :action => "edit" }
           format.json { render :json => @auction.errors, :status => :unprocessable_entity }
         end
@@ -263,5 +262,11 @@ class AuctionsController < ApplicationController
         format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
         format.json { render :json => @auction, :status => :created, :location => @auction }
       end
+  end
+  
+  private 
+  def build_questionnaires
+    @auction.build_fair_trust_questionnaire unless @auction.fair_trust_questionnaire
+    @auction.build_social_producer_questionnaire unless @auction.social_producer_questionnaire
   end
 end
