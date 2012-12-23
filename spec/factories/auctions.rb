@@ -10,7 +10,8 @@ FactoryGirl.define do
     transaction "auction"
     condition { ["new", "fair", "old"].sample }
     price_cents { Random.new.rand(500000)+1 }
-    price_currency "EUR"
-    payment   { ["cash", "paypal"].sample }
+    quantity  { (rand(10) + 1) }
+    transport { r = []; 2.times{r << [:pickup, :insured, :uninsured].sample}; r.uniq }    
+    payment   { r = []; 3.times{r << [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice].sample}; r.uniq }
   end
 end

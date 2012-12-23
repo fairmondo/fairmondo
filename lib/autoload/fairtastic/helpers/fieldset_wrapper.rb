@@ -26,19 +26,17 @@ module Fairtastic
 
         legend = field_set_legend(html_options)
         fieldset = template.content_tag(:fieldset,
-          Formtastic::Util.html_safe(contents), 
+          contents, 
           html_options.except(:builder, :parent, :name)
         )
-        fieldset = Formtastic::Util.html_safe(legend) + fieldset  
-
-        fieldset
+        Formtastic::Util.html_safe(legend) << fieldset
       end
       
       def field_set_legend(html_options)
         legend = (html_options[:name] || '').to_s
         legend %= parent_child_index(html_options[:parent]) if html_options[:parent]
         if html_options[:hint]
-          legend += template.content_tag(:span, Formtastic::Util.html_safe(html_options[:hint]), :class => 'help-block')
+          legend << template.content_tag(:span, Formtastic::Util.html_safe(html_options[:hint]), :class => 'help-block')
         end
         legend = template.content_tag(:h4, template.content_tag(:span, Formtastic::Util.html_safe(legend))) unless legend.blank?
         legend

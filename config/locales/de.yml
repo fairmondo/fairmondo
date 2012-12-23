@@ -2,6 +2,19 @@ de:
 # Enum Definitions
   enumerize:
     auction:
+      color:
+        white: weiß
+        black: schwarz
+        yellow: gelb
+        orange: orange
+        red: rot
+        green: grün
+        blue: blau
+        turquoise: türkis
+        brown: braun
+        violet: violett
+        grey: grau
+        multicolored: bunt
       condition:
         new: "Neu"
         old: "Gebraucht"
@@ -47,6 +60,16 @@ de:
         tco_certified: TCO certified
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
+      transport:
+        pickup: Selbstabholung
+        insured: Versichert
+        uninsured: Unversichert
+      payment:
+        bank_transfer: Überweisung
+        cash: Barbezahlung bei Abholung
+        paypal: PayPal
+        cach_on_delivery: Nachname
+        invoice: Rechnung
       
     social_producer_questionnaire:
       nonprofit_association_purposes:
@@ -75,7 +98,8 @@ de:
         small_social_groups: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
         generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
         potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
-        social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?  
+        social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+     
   welcome:
     greetings: "Willkommen beiFairnopoly"
     search_fair: "Suche nach fairen Produkten"
@@ -174,13 +198,6 @@ de:
         explanations: Erläuterungen
       auction:
         title: "Produktbezeichnung"
-        condition: "Produktzustand"
-        content: "Produktbeschreibung"
-        transaction: "Angebotsart" 
-        expire: "Ablaufdatum"
-        price: "Preis"
-        price_currency: "Währung"
-        payment: "Zahlungsart"
         
         fair: Fair
         fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
@@ -221,7 +238,22 @@ de:
           nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
           social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus 
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
-      
+        
+        condition: "Produktzustand"
+        content: "Produktbeschreibung"
+        color: Farbe
+        size: Größe
+        quantity: Anzahl
+        price: "Preis"
+        price_currency: "Währung"
+        
+        transport: "Versandoptionen und Kosten für Versand und Verpackung"
+        transport_details: "Weitere Angaben:"
+        payment: "Zahlungsart"
+        payment_details: "Weitere Angaben:"
+        
+        transaction: "Angebotsart" 
+        expire: "Ablaufdatum"
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
@@ -282,14 +314,12 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
-      payment:
-        cash: "Barzahlung"
-        paypal: "Paypal"
       fieldsets:
         categories: Kategorien
         commendation: Auszeichnung Deines Artiekels - Fair, Öko, Klein&Edel
         commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedinglichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
         article: Dein Artikel
+        transport_and_payment_options: Versand und Bezahlung
         
     labels:
       price: "Preis"
@@ -305,17 +335,26 @@ de:
       image: "Bild wurde erfolgreich hochgeladen."
     hints:
       title:  "Geben Sie eine Bezeichnung Ihres Produktes ein."
-      content: "Geben Sie eine Beschreibung für die Auktion ein"
-      condition: "Bestimmen Sie eine Auktionsart"
-      price: "Geben Sie einen Preis für die Auktion an"
-      date: "Datum (Tag/Monat/Jahr)"
-      time: "Zeit (Stunden/Minuten)"
+      
       fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
       small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
       fair_trust_questionnaire: >
         Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
       social_producer_questionnaire: >
         Hier könnt ihr Eure Produkte in die Kategorie "Sozial" einordnen.
+        
+      content: "Geben Sie eine Beschreibung für die Auktion ein"
+      condition: "Trage den Zustand Deines Artikels ein"
+      quantity: Trage hier die Menge ein
+      price: trage hier den Preid pro Artikel ein
+      
+      transport: >
+        Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+      payment: >
+        Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+      
+      date: "Datum (Tag/Monat/Jahr)"
+      time: "Zeit (Stunden/Minuten)"
     image:
       title: "Laden Sie ein Bild hoch"
       upload: "Hochladen"

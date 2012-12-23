@@ -4,8 +4,14 @@ class Auction < ActiveRecord::Base
   before_validation :sanitize_content, :on => :create
 
   validate :transaction_type
-
+  
+  validates_presence_of :expire
   validate :validate_expire
+  
+  after_initialize do
+    self.quantity = 1
+    self.price = 1
+  end
   
   ##### commendation
   ## fair
@@ -54,7 +60,10 @@ class Auction < ActiveRecord::Base
   validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
   validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
   
+  # other    
+  
   def validate_expire
+    return false unless self.expire
     if self.expire < 1.hours.from_now
       self.errors.add(:expire, "Expire time must be at least one hour in the future.")
     return false
@@ -85,9 +94,23 @@ class Auction < ActiveRecord::Base
   acts_as_followable
 
   enumerize :condition, :in => [:new ,:fair , :old ]
+  enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
+  validates_length_of :size, :maximum => 4
+  validates_numericality_of :quantity, :greater_than_or_equal_to => 1
+    
+  # Note: currency is deprecated for the moment.
   enumerize :price_currency, :in => [:EUR]
 
   monetize :price_cents
+  
+  serialize :transport, Array
+  enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
+  validates_presence_of :transport
+  
+  serialize :payment, Array
+  enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
+  validates_presence_of :payment
+  
   #Relations
   has_many :userevents
   has_many :images
@@ -97,7 +120,7 @@ class Auction < ActiveRecord::Base
   belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
   belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
 
-  validates_presence_of :title , :content, :category, :condition, :price_cents , :price_currency, :expire, :payment
+  validates_presence_of :title , :content, :category, :condition, :price_cents
   validates_numericality_of :price,
     :greater_than_or_equal_to => 0
 

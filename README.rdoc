@@ -31,6 +31,10 @@ To run the tests, prepare the testing database
 And run the tests
 
   rspec
+  
+If you update your branch from before, you may have to migrate the test database:
+
+  RAILS_ENV=test rake db:migrate
 
 === Installation on Linux with JRuby:
 
