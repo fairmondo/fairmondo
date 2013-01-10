@@ -177,7 +177,7 @@ class AuctionsController < ApplicationController
      return false
   end
 
-  def setup_categories category_id=nil
+  def setup_categories(category_id = nil)
     # Handle Changing Categories
     if !category_id
       @categories = Category.find(:all, :conditions => "level=0", :order => "name")
@@ -205,7 +205,7 @@ class AuctionsController < ApplicationController
 
       @subcategories = Category.find(:all, :conditions =>  [ "parent_id = ?", @active_category.id], :order => "name")
       if @active_subcategory
-        @subsubcategories = Category.find(:all, :conditions =>  [ "parent_id = ?",  @active_subcategory], :order => "name")
+        @subsubcategories = Category.find(:all, :conditions =>  [ "parent_id = ?",  @active_subcategory.id], :order => "name")
       end
     end
   end

@@ -10,7 +10,7 @@ describe Category do
 
   it "should have the correct parent_id" do
     @category = FactoryGirl.create(:category)
-    @anotherCategory = FactoryGirl.create(:category, :parent_id => @category)
+    @anotherCategory = FactoryGirl.create(:category, :parent => @category)
     @anotherCategory.parent.should eq @category
   end
 

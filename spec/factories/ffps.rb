@@ -5,7 +5,7 @@ FactoryGirl.define do
     price       { Random.new.rand(10..500) }
     created_at  { Time.now }
     updated_at  { Time.now }
-    user_id     { User.all.sample }
+    user_id     { User.all.sample && User.all.sample.id }
     activated   { ["true", "false"].sample }
   end
 end
