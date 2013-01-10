@@ -316,7 +316,7 @@ de:
         preview: "Vorschau - wird bei Launch freigeschaltet"
       fieldsets:
         categories: Kategorien
-        commendation: Auszeichnung Deines Artiekels - Fair, Öko, Klein&Edel
+        commendation: Auszeichnung Deines Artikels - Fair, Öko, Klein&Edel
         commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedinglichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
         article: Dein Artikel
         transport_and_payment_options: Versand und Bezahlung

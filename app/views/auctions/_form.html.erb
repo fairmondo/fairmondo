@@ -11,31 +11,31 @@
 	<% end %>
 
 	<%= f.inputs :name => t('auction.form.fieldsets.commendation'), :hint => t('auction.form.fieldsets.commendation_title_hint') do %>
-	  <%= f.input :fair, :as => :plain_check_box, :hint => t('auction.hints.fair')%>
+	  <%= f.input :fair, :as => :plain_check_box, :hint => t('auction.hints.fair'), :js_toggle => true %>
 	  <%= f.inputs :id => 'fair-input-fields' do %>
 	  
-	    <%= f.input :fair_kind, :as => :plain_radio %>
+	    <%= f.input :fair_kind, :as => :plain_radio, :js_toggle => true %>
 	    
-	    <%= f.inputs :id => 'fair_seal-section', :class => "fair_kind" do %>
+	    <%= f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do %>
 	      <%= f.input :fair_seal %>
 	    <% end %>
 	    
-	    <%= f.inputs :id => 'fair_trust-section', :class => "fair_kind" do %>
+	    <%= f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do %>
 	      <%= render('fair_trust_questionnaire_form', :auction_form => f) %>
       <% end %>
       
-      <%= f.inputs :id => 'social_producer-section', :class => "fair_kind" do %>
+      <%= f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do %>
         <%= render('social_producer_questionnaire_form', :auction_form => f) %>
       <% end %>
 	    
 	  <% end %>
 	  
-	  <%= f.input :ecologic, :as => :plain_check_box %>
+	  <%= f.input :ecologic, :as => :plain_check_box, :js_toggle => true %>
     <%= f.inputs :id => 'ecologic-input-fields' do %>
       <%= f.input :ecologic_seal %>
     <% end %>
     
-    <%= f.input :small_and_precious, :as => :plain_check_box, :hint => t('auction.hints.small_and_precious') %>
+    <%= f.input :small_and_precious, :as => :plain_check_box, :hint => t('auction.hints.small_and_precious'), :js_toggle => true %>
     <%= f.inputs :id => 'small_and_precious-input-fields' do %>
       <%= f.input :small_and_precious_edition %>
       <%= f.input :small_and_precious_reason %>
