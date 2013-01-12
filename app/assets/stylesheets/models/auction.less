@@ -1,3 +1,6 @@
+@import "variables.less";
+@import "mixins.less";
+
 .formtastic.auction {
   textarea {
     width: 100%;
@@ -7,4 +10,13 @@
   #auction_content {
     height: 400px;
   }
+  
+  .friendly_percent-user-inputs {
+    .makeRow();
+    .control-group {
+      .makeColumn(2);
+      width: 45%;
+    }
+  }
+  
 }

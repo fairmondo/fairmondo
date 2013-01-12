@@ -70,6 +70,8 @@ de:
         paypal: PayPal
         cach_on_delivery: Nachname
         invoice: Rechnung
+      friendly_percent_organisation:
+        transparency_international: Transparency International
       
     social_producer_questionnaire:
       nonprofit_association_purposes:
@@ -252,6 +254,15 @@ de:
         payment: "Zahlungsart"
         payment_details: "Weitere Angaben:"
         
+        friendly_percent: "Spendenanteil - das freundliche Prozent"
+        friendly_percent_organisation: Organisation
+        friendly_percent_calculated: "Das entspricht:"
+        
+        corruption_percent_result: "Dein Beitrag zur Korruptionsbekämpfung pro verkauftem Artikel (1%):"
+        friendly_percent_result: "Das freundliche Prozent:"
+        fees: "Gebühr bei Verkauf:"
+        fees_and_donations: "Gesamt bei Verkauf:" 
+        
         transaction: "Angebotsart" 
         expire: "Ablaufdatum"
     actions:
@@ -320,6 +331,8 @@ de:
         commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedinglichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
         article: Dein Artikel
         transport_and_payment_options: Versand und Bezahlung
+        friendly_percent: Das freundliche Prozent
+        fees_and_donations: Deine Gebühren und Spenden
         
     labels:
       price: "Preis"
@@ -352,6 +365,13 @@ de:
         Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
       payment: >
         Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+        
+      friendly_percent: >
+        Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
+        
+      fees_and_donations: >
+        Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+      fees: "Die Gebührentabelle findest Du <hier>."
       
       date: "Datum (Tag/Monat/Jahr)"
       time: "Zeit (Stunden/Minuten)"

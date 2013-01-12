@@ -7,7 +7,7 @@ class AuctionsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index,:new, :create, :autocomplete_auction_title]
  
   before_filter :build_login
- 
+   
   # GET /auctions
   # GET /auctions.json
   # GET /auctions.csv

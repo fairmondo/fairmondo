@@ -11,6 +11,7 @@ class Auction < ActiveRecord::Base
   after_initialize do
     self.quantity = 1
     self.price = 1
+    self.friendly_percent = 0.0
   end
   
   ##### commendation
@@ -60,7 +61,49 @@ class Auction < ActiveRecord::Base
   validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
   validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
   
-  # other    
+  ## friendly percent
+  
+  validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 50.0
+  enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
+  validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
+    
+  def friendly_percent_calculated
+    if self.friendly_percent
+      self.price * (self.friendly_percent / 100.0)
+    else
+      Money.new(0)
+    end
+  end
+  
+  ## fees and donations
+  
+  def corruption_percent
+    1.0
+  end
+  
+  def corruption_percent_result
+    price * (corruption_percent / 100.0)
+  end
+  
+  alias_method :friendly_percent_result, :friendly_percent_calculated
+  
+  def fee_percentage
+    if fair? || ecologic?
+      2.5
+    else
+      5.0
+    end
+  end
+  
+  def fees
+    price * (fee_percentage / 100.0)
+  end
+  
+  def fees_and_donations
+    friendly_percent_result + corruption_percent_result + fees
+  end
+  
+  # other
   
   def validate_expire
     return false unless self.expire

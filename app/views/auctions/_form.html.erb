@@ -1,5 +1,5 @@
 <%= tinymce_assets %>
-<%= semantic_form_for @auction , :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
+<%= semantic_form_for @auction , :html => { :class => "form-vertical"}, :builder => Fairtastic::FormBuilder do |f|  %>
   <%= f.semantic_errors %>
 	<%= f.inputs do %>
 		<%= f.input :title, :hint => t('auction.hints.title') %>
@@ -63,6 +63,21 @@
       <%= f.input :payment, :as => :check_boxes %>
       <%= f.input :payment_details%>
     <% end %>
+  <% end %>
+  
+  <%= f.inputs :name => t('auction.form.fieldsets.friendly_percent'), :hint => t('auction.hints.friendly_percent') do %>
+    <div class='friendly_percent-user-inputs'>
+      <%= f.input :friendly_percent %>
+      <%= f.input :friendly_percent_organisation, :as => :select %>
+    </div>
+    <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
+  <% end %>
+  
+  <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :hint => t('auction.hints.fees_and_donations').html_safe do %>
+    <%= f.input :corruption_percent_result, :input_html => {:disabled => true} %>
+    <%= f.input :friendly_percent_result, :input_html => {:disabled => true} %>
+    <%= f.input :fees, :input_html => {:disabled => true}, :hint => t('auction.hints.fees').html_safe %>
+    <%= f.input :fees_and_donations, :input_html => {:disabled => true} %>
   <% end %>
 
   <%= f.inputs do %>
