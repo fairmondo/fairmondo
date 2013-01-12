@@ -63,7 +63,7 @@ class Auction < ActiveRecord::Base
   
   ## friendly percent
   
-  validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 99.0
+  validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 99.0, :only_integer => true
   enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
   validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
     

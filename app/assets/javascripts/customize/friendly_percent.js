@@ -1,5 +1,5 @@
 
-// refs #137
+// refs #152
 
 $(document).ready(function(){
 	var price_input = $("input#auction_price")
@@ -16,7 +16,7 @@ $(document).ready(function(){
 			    friendly_percent_caluclated_inputs.val(friendly_percent_caluclated.toFixed(2).toString().replace(".",",") + " Euro");
 			  }
 			  else {
-			    friendly_percent_caluclated_inputs.val("0 Euro");
+			    friendly_percent_caluclated_inputs.val("0,00 Euro");
 			  }
 			  friendly_percent_caluclated_inputs.trigger('change')
 			}
