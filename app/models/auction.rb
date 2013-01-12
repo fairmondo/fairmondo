@@ -11,7 +11,7 @@ class Auction < ActiveRecord::Base
   after_initialize do
     self.quantity = 1
     self.price = 1
-    self.friendly_percent = 0.0
+    self.friendly_percent = 0
   end
   
   ##### commendation

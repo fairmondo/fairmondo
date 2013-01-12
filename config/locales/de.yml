@@ -333,6 +333,7 @@ de:
         transport_and_payment_options: Versand und Bezahlung
         friendly_percent: Das freundliche Prozent
         fees_and_donations: Deine Gebühren und Spenden
+        double_check: Alle Angaben überprüft?
         
     labels:
       price: "Preis"
@@ -375,6 +376,9 @@ de:
       
       date: "Datum (Tag/Monat/Jahr)"
       time: "Zeit (Stunden/Minuten)"
+      
+      double_check: >
+        Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
     image:
       title: "Laden Sie ein Bild hoch"
       upload: "Hochladen"
