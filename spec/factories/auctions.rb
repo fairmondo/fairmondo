@@ -8,7 +8,7 @@ FactoryGirl.define do
     content   { Faker::Lorem.paragraph( rand(7)+1 ) }
     expire    { (rand(10) + 2).hours.from_now }
     transaction "auction"
-    condition { ["new", "fair", "old"].sample }
+    condition { ["new", "old"].sample }
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
     transport { r = []; 2.times{r << [:pickup, :insured, :uninsured].sample}; r.uniq }    

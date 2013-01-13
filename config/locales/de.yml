@@ -18,7 +18,6 @@ de:
       condition:
         new: "Neu"
         old: "Gebraucht"
-        fair: "Fairtrade"
       fair_kind:
         fair_seal: Produzent mit Siegel oder anerkannt
         fair_trust: Fair Trust

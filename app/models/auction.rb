@@ -16,9 +16,9 @@ class Auction < ActiveRecord::Base
   validate :validate_expire
   
   after_initialize do
-    self.quantity = 1
-    self.price = 1
-    self.friendly_percent = 0
+    self.quantity ||= 1
+    self.price ||= 1
+    self.friendly_percent ||= 0
   end
   
   ##### commendation
@@ -84,12 +84,12 @@ class Auction < ActiveRecord::Base
   
   ## fees and donations
   
-  def corruption_percent
-    1.0
+  def corruption_percentage
+    0.01
   end
   
   def corruption_percent_result
-    price * (corruption_percent / 100.0)
+    price * corruption_percentage
   end
   
   alias_method :friendly_percent_result, :friendly_percent_calculated
@@ -105,12 +105,11 @@ class Auction < ActiveRecord::Base
   def fees
     unless @fees
       r = price * fee_percentage
-      if r < AUCTION_FEES[:min]
-        r = AUCTION_FEES[:min]
-      elsif r > AUCTION_FEES[:max]
-        r = AUCTION_FEES[:max]
-      end
-      @fees = Money.new(r)
+      min = Money.new(AUCTION_FEES[:min]*100)
+      r = min if r < min
+      max = Money.new(AUCTION_FEES[:max]*100)
+      r = max if r > max
+      @fees = r
     end
     @fees
   end
@@ -152,7 +151,7 @@ class Auction < ActiveRecord::Base
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
 
-  enumerize :condition, :in => [:new ,:fair , :old ]
+  enumerize :condition, :in => [:new, :old]
   enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
   validates_length_of :size, :maximum => 4
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1
