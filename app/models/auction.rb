@@ -1,5 +1,12 @@
 class Auction < ActiveRecord::Base
   extend Enumerize
+  
+  AUCTION_FEES = {
+    :min => 0.1,
+    :max => 30.0,
+    :fair => 0.03,
+    :default => 0.06
+  }
 
   before_validation :sanitize_content, :on => :create
 
@@ -89,14 +96,23 @@ class Auction < ActiveRecord::Base
   
   def fee_percentage
     if fair? || ecologic?
-      2.5
+      AUCTION_FEES[:fair]
     else
-      5.0
+      AUCTION_FEES[:default]
     end
   end
   
   def fees
-    price * (fee_percentage / 100.0)
+    unless @fees
+      r = price * fee_percentage
+      if r < AUCTION_FEES[:min]
+        r = AUCTION_FEES[:min]
+      elsif r > AUCTION_FEES[:max]
+        r = AUCTION_FEES[:max]
+      end
+      @fees = Money.new(r)
+    end
+    @fees
   end
   
   def fees_and_donations

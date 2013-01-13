@@ -4,11 +4,26 @@
 function feeAccordingToCommendation() {
 	ecologic = $("input#auction_ecologic").is(":checked");
 	fair = $("input#auction_fair").is(":checked");
-	if (ecologic || fair) {
-		return 0.025
-	} else {
-		return 0.05
+	price_input = $("input#auction_price");
+	if(price_input.val()) {
+	  price = parseFloat(price_input.val().replace(",","."));
+	  if(price) {
+		  var fee;
+		  if (ecologic || fair) {
+			fee = <%= Auction::AUCTION_FEES[:fair] %>
+		  } else {
+			fee = <%= Auction::AUCTION_FEES[:default] %>
+		  }
+		  r = price*fee
+		  if(r < <%= Auction::AUCTION_FEES[:min] %>) {
+	        r = <%= Auction::AUCTION_FEES[:min] %>
+	      } else if(r > <%= Auction::AUCTION_FEES[:max] %>) {
+	        r = <%= Auction::AUCTION_FEES[:max] %>
+	      }
+		  return r
+		}
 	}
+	return 0.0
 }
 
 $(document).ready(function(){
@@ -26,10 +41,10 @@ $(document).ready(function(){
 	for (var i=0;i<all_inputs.length;i++) {
 		all_inputs[i]
 			.change(function () {
+				sum = 0.0
 				if(price_input.val()) {
 				  price = parseFloat(price_input.val().replace(",","."));
 				  if(price) {
-				  	sum = 0.0
 				  	for (var j=0;j<calculated_inputs.length;j++) {
 				  		if(calculated_inputs[j].val()) {
 				  			calculated_value = parseFloat(calculated_inputs[j].val().replace(",",".").replace(" Euro",""));
@@ -38,34 +53,30 @@ $(document).ready(function(){
 				  			} 
 				  		}
 				  	}
-				  	fees_and_donations_input.val(sum.toFixed(2).toString().replace(".",",") + " Euro")
 				  }
 				}
+			  	fees_and_donations_input.val(sum.toFixed(2).toString().replace(".",",") + " Euro")
 			});
 	}
 	
 	price_input
 		.change(function () {
+			corruption_calculated = 0.0
 			if(price_input.val()) {
 			  price = parseFloat(price_input.val().replace(",","."));
 			  if(price) {
-			  	corruption_caluclated = (price*(0.01))
-			  	corruption_input.val(corruption_caluclated.toFixed(2).toString().replace(".",",") + " Euro")
-			  	corruption_input.trigger('change')
+			  	corruption_calculated = (price*(0.01))
 			  }
 			}
+			corruption_input.val(corruption_calculated.toFixed(2).toString().replace(".",",") + " Euro")
+		  	corruption_input.trigger('change')
 		});
 		
 	$("input#auction_price,input#auction_ecologic,input#auction_fair")
 		.change(function () {
-			if(price_input.val()) {
-			  price = parseFloat(price_input.val().replace(",","."));
-			  if(price) {
-			  	fees_caluclated = (price*(feeAccordingToCommendation()))
-			  	fees_input.val(fees_caluclated.toFixed(2).toString().replace(".",",") + " Euro")
-			  	fees_input.trigger('change')
-			  }
-			}
+			fees_calculated = feeAccordingToCommendation();
+		  	fees_input.val(fees_calculated.toFixed(2).toString().replace(".",",") + " Euro");
+		  	fees_input.trigger('change');
 		});
 	
 	price_input.trigger('change');
