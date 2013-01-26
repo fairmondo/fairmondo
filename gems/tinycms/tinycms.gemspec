@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.6"
   s.add_dependency 'jquery-rails'
   s.add_dependency "tinymce-rails"
-  s.add_dependency "friendly_id"
+  s.add_dependency "friendly_id", "~> 4.0.9"
 
   # Testing
   s.add_development_dependency "rspec-rails"

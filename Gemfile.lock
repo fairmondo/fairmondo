@@ -2,7 +2,7 @@ PATH
   remote: gems/tinycms
   specs:
     tinycms (0.0.1)
-      friendly_id
+      friendly_id (~> 4.0.9)
       jquery-rails
       rails (~> 3.2.6)
       tinymce-rails
@@ -132,7 +132,7 @@ GEM
     formtastic-bootstrap (2.0.0)
       formtastic (~> 2.2)
       formtastic-bootstrap
-    friendly_id (4.0.8)
+    friendly_id (4.0.9)
     has_scope (0.5.1)
     highline (1.6.11)
     hike (1.2.1)
