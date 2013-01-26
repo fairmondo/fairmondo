@@ -28,30 +28,27 @@ class ApplicationController < ActionController::Base
   end
   helper_method :tinycms_admin?
 
-  # commented out since it should not be necessary -> "after_sign_in_path_for" does the same
-
-  #def after_sign_up_path_for(resource_or_scope)
-  #  "/"
-  #end
-
+# commented because currently not used see #156
+=begin 1
   # Useful Set of Methods for Storing Objects for session initiation
   def deny_access_to_save_object serialized_object, path = request.path
     flash[:warning] = t('devise.failure.unauthenticated')
     session[:return_to] = path
-    session[:stored_object] = serialized_object
+    session[:stored_object_id] = serialized_object
     redirect_to new_user_session_path
   end
 
-  def clear_stored_location
-    session[:return_to] = nil
-  end
-
   def clear_stored_object
-    session[:stored_object] = nil
+    session[:stored_object_id] = nil
   end
 
   def get_stored_object
-    session[:stored_object]
+    session[:stored_object_id]
+  end
+=end
+  
+  def clear_stored_location
+    session[:return_to] = nil
   end
 
   def get_stored_location

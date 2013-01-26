@@ -30,9 +30,11 @@
 							<li id="buy">
 								<%= link_to t('common.text.buy'), auctions_path %>
 							</li>
+							<% if user_signed_in? %>
 							<li id="sell">
 								<%= link_to t('common.text.sell'), new_auction_path %>
 							</li>
+							<%end%>
 							<!--<li id="service">
 							<a href=""> <%= t('common.text.service')%> </a>
 							</li>-->

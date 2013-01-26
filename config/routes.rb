@@ -30,7 +30,6 @@ Fairnopoly::Application.routes.draw do
   end
 
   get "welcome/index"
-  match "continue_creating_auction" => 'auctions#finalize'
 
   #the user routes
   match 'dashboard' => 'dashboard#index'

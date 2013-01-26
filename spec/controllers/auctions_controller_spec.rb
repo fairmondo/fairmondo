@@ -125,15 +125,11 @@ describe AuctionsController do
 
     describe "for non-signed-in users" do
 
-      it "should be successful" do
+      it "should require login" do
         get :new
-        response.should be_success
+        response.should redirect_to(new_user_session_path)
       end
-
-      it "should render the :new view" do
-        get :new
-        response.should render_template :new
-      end
+      
     end
 
     describe "for signed-in users" do
@@ -186,36 +182,16 @@ describe AuctionsController do
   describe "report" do
 
     before :each do
-        @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl.create(:auction)
-        sign_in @user
-      end
-
-      it "reports an auction" do
-        get :report, :id => @auction
-        response.should redirect_to @auction
-      end
+      @user = FactoryGirl.create(:user)
+      @auction = FactoryGirl.create(:auction)
+      sign_in @user
     end
 
-  describe "finalize" do
-
-    describe "for non-signed-in users" do
-
-      it "should deny access" do
-        get :finalize
-        response.should redirect_to(new_user_session_path)
-      end
+    it "reports an auction" do
+      get :report, :id => @auction
+      response.should redirect_to @auction
     end
-
-    describe "for signed-in users" do
-
-      it "should finalize the prepared auction" do
-        @auction = FactoryGirl.create(:auction)
-        sign_in @auction.seller
-        controller.finalize
-        response.should be_success
-      end
-    end
+    
   end
 
   describe "POST 'create'" do

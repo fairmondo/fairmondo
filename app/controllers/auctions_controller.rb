@@ -4,7 +4,7 @@ require "will_paginate_search"
 class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true
   # Create is safed by denail!
-  before_filter :authenticate_user!, :except => [:show, :index,:new, :create, :autocomplete_auction_title]
+  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete_auction_title]
  
   before_filter :build_login
    
@@ -54,8 +54,6 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    # We want a new object so we dont need the old one anymore
-    clear_stored_object
     setup_categories
     @auction = Auction.new
     @auction.expire = 14.days.from_now
@@ -73,21 +71,6 @@ class AuctionsController < ApplicationController
     setup_categories @auction.category.id
   end
 
-  def finalize
-    if user_signed_in? && get_stored_object
-      @auction = Auction.find(get_stored_object)
-      @auction.seller = current_user
-      #We dont need the validation since we want to update the seller
-      if(@auction.save :validate => false) 
-        #Remove any stored object
-        clear_stored_object
-        respond_created
-      end
-      
-    end
-     
-  end
-
   # POST /auctions
   # POST /auctions.json
   def create
@@ -99,10 +82,7 @@ class AuctionsController < ApplicationController
     
     @auction = Auction.new(params[:auction])
     set_category
-  
-    if user_signed_in?
-      @auction.seller = current_user
-    end
+    @auction.seller = current_user
    
     # Check if we can save the auction
     if @auction.save
@@ -112,12 +92,7 @@ class AuctionsController < ApplicationController
       end
       
       @auction.transaction.save! # Should not be a problem!
-      # If the User isnt singned in save auction number in the session
-      if !user_signed_in?
-        deny_access_to_save_object @auction.id , "/continue_creating_auction"
-      else
-        respond_created
-      end
+      respond_created
 
     else
       respond_to do |format|
@@ -211,7 +186,6 @@ class AuctionsController < ApplicationController
   end
 
   def set_category(category_id = nil)
-
     if params.has_key? :selected_category
       category_id = params[:selected_category].to_i
     end
@@ -229,10 +203,9 @@ class AuctionsController < ApplicationController
     else
     @no_category_error=true
     end
-
   end
   
-   def follow
+  def follow
     @product = Auction.find params["id"]
     current_user.follow(@product)
     Userevent.new(:user => current_user, :event_type => UsereventType::PRODUCT_FOLLOW, :appended_object => @product).save
@@ -244,7 +217,6 @@ class AuctionsController < ApplicationController
   end
   
   def stop_follow
-    
     @product = Auction.find params["id"]
     current_user.stop_following(@product) # Deletes that record in the Follow table
     
@@ -252,9 +224,10 @@ class AuctionsController < ApplicationController
       format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.stop_following') }
       format.json { head :no_content }
     end
-
   end
 
+  private
+   
   def respond_created
      #Throwing User Events
       Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
@@ -264,7 +237,6 @@ class AuctionsController < ApplicationController
       end
   end
   
-  private 
   def build_questionnaires
     @auction.build_fair_trust_questionnaire unless @auction.fair_trust_questionnaire
     @auction.build_social_producer_questionnaire unless @auction.social_producer_questionnaire

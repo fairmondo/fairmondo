@@ -40,7 +40,6 @@ module Fairtastic
      
      def explanation_args(*args)
        options = args.extract_options!
-       debugger if args[0] == :transport_options
        options[:as] = options[:explanation_as] || :text
        options[:label] = I18n.t('formtastic.labels.questionnaire.explanation')
        args[0] = (args[0].to_s << "_explanation").to_sym

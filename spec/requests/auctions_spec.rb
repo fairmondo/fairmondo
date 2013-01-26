@@ -4,38 +4,6 @@ include Warden::Test::Helpers
 
 describe 'Auction management' do
 
-  describe "for non-signed-in users" do
-
-    before :each do
-      @user = FactoryGirl.create(:user)
-      login_as @user
-    end
-
-    it 'creates an auction after login' do
-      visit root_path
-      FactoryGirl.create(:category)
-
-      click_on 'Logout'
-
-      visit new_auction_path
-      page.should have_content("New Auction")
-      click_button Category.all.sample.name
-      fill_in 'Title', with: 'Auction title'
-      choose 'New'
-      fill_in 'Content', with: 'Auction content'
-      fill_in 'Price', with: 10
-
-      click_button "Create Auction"
-
-      page.should have_content("You need to sign in or sign up before continuing.")
-
-      fill_in 'Email', with: @user.email
-      fill_in 'Password', with: @user.password
-      click_button 'Login'
-      page.should have_content("Auction was successfully created")
-    end
-  end
-
   describe "for signed-in users" do
     before :each do
       @user = FactoryGirl.create(:user)
