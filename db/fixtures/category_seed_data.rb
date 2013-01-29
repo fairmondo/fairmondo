@@ -1,13 +1,13 @@
 module CategorySeedData
   def setup_categories
-    Category.create(:name => "Fahrzeuge", :desc => "")
-    electronic = Category.create(:name => "Elektronik", :desc => "")
-    Category.create(:name => "Haus & Garten", :desc => "")
-    Category.create(:name => "Freizeit & Hobby", :desc => "")
-    computer = Category.create(:name => "Computer", :desc => "", :parent => electronic)
-    Category.create(:name => "Audio & HiFi ", :desc => "", :parent => electronic)
-    Category.create(:name => "Hardware", :desc => "", :parent => computer)
-    Category.create(:name => "Software", :desc => "", :parent => computer)
+    Category.find_or_create_by_name("Fahrzeuge")
+    electronic = Category.find_or_create_by_name("Elektronik")
+    Category.find_or_create_by_name("Haus & Garten")
+    Category.find_or_create_by_name("Freizeit & Hobby")
+    computer = Category.find_or_create_by_name("Computer", :parent => electronic)
+    Category.find_or_create_by_name("Audio & HiFi ", :parent => electronic)
+    Category.find_or_create_by_name("Hardware", :parent => computer)
+    Category.find_or_create_by_name("Software", :parent => computer)
     Category.rebuild!
   end
 end
