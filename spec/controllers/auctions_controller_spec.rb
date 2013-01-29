@@ -204,7 +204,7 @@ describe AuctionsController do
 
     before :each do
       @user = FactoryGirl.create(:user)
-      @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:root_category)])
+      @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:category)])
     end
 
     describe "for non-signed-in users" do
@@ -237,7 +237,7 @@ describe AuctionsController do
       before :each do
         @user = FactoryGirl.create(:user)
         @auction = FactoryGirl::create(:auction, :seller => @user)
-        @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:root_category)])
+        @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:category)])
         sign_in @user
       end
 

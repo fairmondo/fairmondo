@@ -3,7 +3,7 @@ require 'faker'
 FactoryGirl.define do
   factory :auction, aliases: [:appended_object] do
     seller
-    categories_with_parents {|c| [c.association(:root_category)] }
+    categories_with_parents {|c| [c.association(:category)] }
     title     { Faker::Lorem.sentence(rand(3)+1).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     expire    { (rand(10) + 2).hours.from_now }

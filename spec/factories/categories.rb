@@ -3,10 +3,10 @@ require 'faker'
 FactoryGirl.define do
   factory :category do
     name { Faker::Lorem.words( rand(3)+2 ) * " " }
-    parent { (Category.all + [nil]).sample}
+    parent nil
     
-    factory :root_category do
-      parent nil
+    factory :child_category do
+      parent { Category.all.sample || Factory.create(:category)}
     end
     
   end
