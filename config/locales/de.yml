@@ -199,6 +199,8 @@ de:
         explanations: Erläuterungen
       auction:
         title: "Produktbezeichnung"
+        categories: Kategorien
+        categories_with_parents: Kategorien
         
         fair: Fair
         fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
@@ -326,6 +328,7 @@ de:
         preview: "Vorschau - wird bei Launch freigeschaltet"
       fieldsets:
         categories: Kategorien
+        categories_with_parents: Kategorien
         commendation: Auszeichnung Deines Artikels - Fair, Öko, Klein&Edel
         commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
         article: Dein Artikel
@@ -348,6 +351,8 @@ de:
       image: "Bild wurde erfolgreich hochgeladen."
     hints:
       title:  "Geben Sie eine Bezeichnung Ihres Produktes ein."
+      
+      categories: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
       
       fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
       small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
@@ -391,12 +396,8 @@ de:
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
-        hint: 'Dann schlage eine Kategorie für das nächste Mal vor.'  
-      level1: "Kategorien"
-      level2: "Unterkategorien"
-      level3: "2. Unterkategorien"
+        hint: 'Dann schlage eine Kategorie für das nächste Mal vor.'
       remove-filter:  "Kategorie-Filter entfernen"
-      error: "Bitte wählen Sie eine Kategorie für Ihr Produkt aus"
 # Transaction System
   transaction:
     bid:
@@ -675,6 +676,11 @@ de:
       too_long: ist zu lang (nicht mehr als %{count} Zeichen)
       too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
       wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
+      at_least_one_entry: mindestens eine Option muss ausgewählt sein 
+      minimum_entries: mindestens %{count} Optionen müssen ausgewählt werden
+      maximum_entries: maximal %{count} Optionen können ausgewählt werden
+      minimum_categories: "Bitte wählen Sie mindestens eine Kategorie für Ihr Produkt aus"
+      maximum_categories: "Bitte wählen Sie nicht mehr als 2 Kategorien für Ihr Produkt"
     template:
       body: ! 'Bitte überprüfen Sie die folgenden Felder:'
       header:

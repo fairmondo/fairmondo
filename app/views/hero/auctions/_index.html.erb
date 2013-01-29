@@ -1,58 +1,18 @@
 <div class="container">
 	<div class="row">
 		<div class="span12">
-			<div class="row">
-				<div class="span6">
-					<div class="row">
-						<div class="span6">
-							<p>
-								<h4><%= t('auction.hero.search')%>:</h4>
-							</p>
-							<form class="form-search">
-								<input type="text" class="search-query" name="q" data-autocomplete="<%= autocomplete_auction_title_auctions_path %>" value="<%= params["q"]%>">
-								<button type="submit" class="btn">
-									<%= t("common.text.search")%>
-								</button>
-								<% params_without("page").each do |key, value| %>
-								<%if key!="q"%>
-								<input type="hidden" value="<%= value%>" name="<%= key%>"/>
-								<%end%>
-								<% end %>
-							</form>
-						</div>
-					</div>
-					<p>
-						<h4><%= t('auction.hero.category')%>:</h4>
-					</p>
-					<%= render '/auctions/categories_filter' %>
+			<p>
+				<h4><%= t('auction.hero.search')%>:</h4>
+			</p>
+			<%= semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|  %>
+			  <div class='query-and-condition-inputs'>
+				  <%= f.input :title, :label => ""%>
+				  <%= f.input :condition,:as => :plain_radio, :prepend_label => true, :collection => Auction.condition.options + [["egal", ""]]%>
 				</div>
-				<div class="span6">
+			  <%= f.input :categories_with_parents, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
+        <%= f.action :submit , :button_html => {:class => "btn"}, :label => t("common.actions.search")%>
+			<% end %>
 
-					<p>
-						<h4><%= t('auction.hero.filter')%>:</h4>
-					</p>
-					<p>
-						<% Auction.condition.values.each do |condition| %>
-						<% bclass=""%>
-
-						<% if !params["condition"] || params["condition"]==condition %>
-						<% bclass = condition_badge_class condition %>
-						<%end%>
-						<% html = "<span class=\"badge " + bclass +"\">"  + " "+ t('enumerize.auction.condition.'+condition) +"</span>" %> <% if params["condition"]%>
-							<%= html.html_safe %>
-
-							<%else %>
-							<%= link_to html.html_safe, auctions_path(params_replace("page","condition" , condition)) %>
-							<%end%>
-							<%end%>
-					</p>
-					<p>
-						<% if params["condition"]%>
-						<%= link_to (raw glyphicons("icon-trash")) + t('auction.hero.remove_filter') , auctions_path(params_without_reset_page("condition")), :class => "btn btn-mini"%>
-						<%end%>
-					</p>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

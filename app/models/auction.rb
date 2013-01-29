@@ -169,18 +169,46 @@ class Auction < ActiveRecord::Base
   enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
   validates_presence_of :payment
   
-  #Relations
+  # Relations
   has_many :userevents
   has_many :images
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
   validates_presence_of :user_id
   
-  belongs_to :category
-  belongs_to :alt_category_1 , :class_name => 'Category' , :foreign_key => :alt_category_id_1
-  belongs_to :alt_category_2 , :class_name => 'Category' , :foreign_key => :alt_category_id_2
-
-  validates_presence_of :title , :content, :category, :condition, :price_cents
+  # categories refs #154 
+  has_many :auctions_categories, :dependent => :destroy
+  has_many :categories, :through => :auctions_categories
+  accepts_nested_attributes_for :auctions_categories
+  validates :categories, :size => {
+    :in => 1..2, :messages => {
+      :minimum_entries => I18n.t('errors.messages.minimum_categories'),
+      :maximum_entries => I18n.t('errors.messages.maximum_categories')
+    },
+    :add_errors_to => [:categories, :categories_with_parents]
+  }
+  before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
+    
+  def categories_with_parents
+    (categories + categories.map(&:ancestors)).flatten.uniq    
+  end
+  
+  def categories_with_parents=(cs)
+    if cs.first.is_a?(String)
+      cs = cs.select(&:present?).map(&:to_i)
+      cs = Category.where("'categories'.'id' IN (?)",cs)
+    else
+      cs = cs.dup
+    end
+    # remove entries which parent is not included in the subtree
+    # e.g. you selected Hardware but unselected Computer then
+    cs = cs.reject{|c| (c.parent && ! cs.include?(c.parent)) }
+    # remove all parents
+    self.categories = self.class.remove_category_parents(cs)  
+  end
+  # end categories
+  
+  validates_presence_of :title , :content, :condition, :price_cents
   validates_numericality_of :price,
     :greater_than_or_equal_to => 0
 
@@ -203,16 +231,21 @@ class Auction < ActiveRecord::Base
   } 
   
   # returns all auctions without category
-  scope :with_category, lambda {|category = nil|
-    return Auction.scoped unless category.present?
-    auctions = users = Arel::Table.new(:auctions)
-    where(
-      auctions[:category_id].eq(category).or(
-      auctions[:alt_category_id_1].eq(category)).or(
-      auctions[:alt_category_id_2].eq(category))
-    )
+  scope :with_category, lambda {|category_id = nil|
+    return Auction.scoped unless category_id.present?
+    
+    joins(:auctions_categories).where("'auctions_categories'.'category_id' = ?", category_id)
   }
   
+  # for convenience, this method does exclude all ancesors from the passed collection
+  # because searching for Hardware you don't want to get all results from Computer
+  scope :with_categories, lambda {|category_ids = []|
+    category_ids = category_ids.select(&:present?).map(&:to_i)
+    return Auction.scoped unless category_ids.present?
+    categories = Category.where("id IN (?)",category_ids)
+    categories = self.remove_category_parents(categories)
+    joins(:auctions_categories).where("'auctions_categories'.'category_id' IN (?)", categories.map(&:id))
+  }
 
   private
 
@@ -224,6 +257,15 @@ class Auction < ActiveRecord::Base
     ActionController::Base.helpers.sanitize(field,
     :tags => %w(a b i strong em p param h1 h2 h3 h4 h5 h6 br hr ul li img),
     :attributes => %w(href name src type value width height data) );
+  end
+  
+  def ensure_no_redundant_categories
+    self.categories = self.class.remove_category_parents(self.categories) if self.categories
+    true
+  end
+  
+  def self.remove_category_parents(categories)
+    categories.reject{|c| categories.any? {|other| other.is_descendant_of?(c) } }
   end
 
 end

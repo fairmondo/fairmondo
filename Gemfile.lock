@@ -65,6 +65,8 @@ GEM
     arel (3.0.2)
     autotest-fsevent (0.2.8)
       sys-uname
+    awesome_nested_set (2.1.5)
+      activerecord (>= 3.0.0)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     bootstrap-will_paginate (0.0.7)
@@ -154,6 +156,12 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.1.2)
+      addressable (~> 2.3)
+    launchy (2.1.2-java)
+      addressable (~> 2.3)
+      ffi (~> 1.1.1)
+      spoon (~> 0.0.1)
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.3)
@@ -260,6 +268,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
+    spoon (0.0.1)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -308,6 +317,7 @@ DEPENDENCIES
   acts_as_follower
   acts_as_indexed
   autotest-fsevent
+  awesome_nested_set
   bootstrap-will_paginate
   capistrano
   capybara
@@ -325,6 +335,7 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl
   json
+  launchy
   less-rails
   meta_search (>= 1.1.0.pre)
   money-rails

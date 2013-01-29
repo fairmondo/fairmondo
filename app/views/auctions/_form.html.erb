@@ -5,8 +5,8 @@
 		<%= f.input :title, :hint => t('auction.hints.title') %>
 	<% end %>
 	
-	<%= f.inputs :name => t('auction.form.fieldsets.categories') do %>
-    <%= render('categories_form') %>
+	<%= f.inputs :name => t('auction.form.fieldsets.categories'), :hint => t('auction.hints.categories') do %>
+    <%= f.input :categories_with_parents, :as => :check_box_tree, :collection => @categories %>
     <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
 	<% end %>
 

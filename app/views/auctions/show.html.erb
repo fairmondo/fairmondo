@@ -66,11 +66,7 @@
 					<%= t('formtastic.labels.auction.payment')%>
 				</dt>
 				<dd>
-					<% if @auction.payment == "cash"  %>
-					<%= t('auction.form.payment.cash') %>
-					<% elsif @auction.payment == "paypal"  %>
-					<%= t('auction.form.payment.paypal') %>
-					<% end %>
+					<%= @auction.payment.map(&:text) * ", " %>
 				</dd>
 			</dl>
 		</div>

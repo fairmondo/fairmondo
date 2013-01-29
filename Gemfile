@@ -75,8 +75,11 @@ gem 'money-rails'
 # State Machines in Rails
 gem 'state_machine'
 
-#Follow Users and Auctions 
+# Follow Users and Auctions 
 gem "acts_as_follower"
+
+# tree structure for categories
+gem 'awesome_nested_set'
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'
@@ -116,6 +119,7 @@ end
 # Testing using RSpec
 group :development, :test do
   gem 'rspec-rails'
+  gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'ZenTest'

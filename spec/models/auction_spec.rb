@@ -7,9 +7,7 @@ describe Auction do
   it {should have_many :images}
 
   it {should belong_to :seller}
-  it {should belong_to :category}
-  it {should belong_to :alt_category_1}
-  it {should belong_to :alt_category_2}
+  it {should have_many :categories}
 
   it "validates expire" do
     auction = FactoryGirl.create(:auction)

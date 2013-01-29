@@ -3,6 +3,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Auction management' do
+  include CategorySeedData
 
   describe "for signed-in users" do
     before :each do
@@ -11,32 +12,31 @@ describe 'Auction management' do
     end
 
     it 'creates an auction' do
-      FactoryGirl.create(:category)
+      FactoryGirl.create(:category, :parent => nil)
       visit new_auction_path
       page.should have_content("New Auction")
       lambda do
-        click_button Category.all.sample.name
         fill_in 'Title', with: 'Auction title'
-        choose 'New'
+        check Category.root.name
+        within("#auction_condition_input") do
+          choose 'New' 
+        end
         fill_in 'Content', with: 'Auction content'
-        fill_in 'Price', with: 10
+        check "auction_transport_pickup"
+        check "auction_payment_cash"
         click_button "Create Auction"
       end.should change(Auction, :count).by(1)
     end
 
     it 'creates categories' do
-      Category.create(:name => "Fahrzeuge", :desc => "", :level => 0, :parent_id => 0)
-      Category.create(:name => "Elektronik", :desc => "", :level => 0, :parent_id => 0)
-      Category.create(:name => "Haus & Garten", :desc => "", :level => 0, :parent_id => 0)
-      Category.create(:name => "Freizeit & Hobby", :desc => "", :level => 0, :parent_id => 0)
-      Category.create(:name => "Computer", :desc => "", :level => 1, :parent_id => 2)
-      Category.create(:name => "Audio & HiFi ", :desc => "", :level => 1, :parent_id => 2)
-      Category.create(:name => "Hardware", :desc => "", :level => 2, :parent_id => 5)
-      Category.create(:name => "Software", :desc => "", :level => 2, :parent_id => 5)
+      setup_categories
 
       visit new_auction_path
-      click_on 'Elektronik'
-      click_on 'Computer'
+      # TODO find out how to test rails asset pipeline visible styles
+      # page.should have_content("Hardware", visible: false)
+      
+      check "auction_categories_with_parents_#{Category.find_by_name!('Elektronik').id}"
+      check "auction_categories_with_parents_#{Category.find_by_name!('Computer').id}"
       page.should have_content("Hardware")
     end
   end

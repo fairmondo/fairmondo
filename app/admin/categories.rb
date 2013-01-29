@@ -3,8 +3,7 @@ ActiveAdmin.register Category do
       f.inputs "Category" do
         f.input :name
         f.input :desc, :label => "Optional Description"
-        f.input :level , :as => :select,  :collection => {"1"=> 0,"2"=>1,"3"=>2}
-        f.input :parent_id, :as => :select, :collection => Category.all
+        f.input :parent_id, :as => :select, :collection => Category.all, :include_blank => true
       end
       f.actions
     end

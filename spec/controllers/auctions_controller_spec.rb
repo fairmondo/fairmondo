@@ -12,12 +12,12 @@ describe AuctionsController do
       end
       
       it "should find the auction with title 'muscheln' when searching for muscheln" do
-        get :index, :q => "muscheln"
+        get :index, :auction => {:title => "muscheln" }
         controller.instance_variable_get(:@auctions).should == [@auction]
       end
       
       it "should find the auction with title 'muscheln' when searching for muschel" do
-        get :index, :q => "muschel"
+        get :index, :auction => {:title => "muschel" }
         controller.instance_variable_get(:@auctions).should == [@auction]
       end
     
@@ -65,7 +65,7 @@ describe AuctionsController do
       end
 
       it "should be successful" do
-        get :index, :q => "true"
+        get :index, :auction => {:title => "true" }
         response.should be_success
       end
     end
@@ -150,33 +150,39 @@ describe AuctionsController do
 
     describe "for non-signed-in users" do
 
-  #    it "should deny access" do
-  #      get :edit
-  #      response.should redirect_to(new_user_session_path)
-  #    end
-  #  end
+      it "should deny access" do
+        @auction = FactoryGirl.create(:auction)
+        get :edit, :id => @auction.id
+        response.should redirect_to(new_user_session_path)
+      end
+      
+    end
 
     describe "for signed-in users" do
-
+      
       before :each do
         @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl.create(:auction)
         sign_in @user
       end
+      
+      context 'his auctions' do
+        before :each do
+          @auction = FactoryGirl.create(:auction, :seller => @user)
+        end
 
-        it "should be successful" do
-          auction = FactoryGirl.create(:auction)
-          get :edit, :id => auction
+        it "should be successful for the seller" do
+          get :edit, :id => @auction.id
           response.should be_success
         end
-        end
-
-      it "should be editable" do
-        @auction = FactoryGirl.create(:auction)
-        sign_in @auction.seller
-        get :edit, :id => @auction
-        response.should be_success
       end
+      
+      it "should not be able to edit other users auctions" do
+        @auction = FactoryGirl.create(:auction)
+        expect{
+          get :edit, :id => @auction
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 
   describe "report" do
@@ -196,23 +202,29 @@ describe AuctionsController do
 
   describe "POST 'create'" do
 
-    describe "for non-signed-in users" do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @auction_attrs = (FactoryGirl::attributes_for(:auction))
+    end
 
+    describe "for non-signed-in users" do
+      it "should not create an auction" do
+        lambda do
+          post :create, :auction => @auction_attrs
+        end.should_not change(Auction, :count)
       end
     end
 
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create(:user)
-        @auction_attrs = (FactoryGirl::attributes_for(:auction))
         sign_in @user
       end
 
-    it "should not create an auction" do
+      it "should create an auction" do
         lambda do
           post :create, :auction => @auction_attrs
-        end.should change(Auction, :count).by(0)
+        end.should change(Auction, :count).by(1)
       end
     end
   end
@@ -224,27 +236,26 @@ describe AuctionsController do
 
       before :each do
         @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl::create(:auction)
+        @auction = FactoryGirl::create(:auction, :seller => @user)
+        @auction_attrs = FactoryGirl::attributes_for(:auction)
         sign_in @user
       end
 
-     it "should not update the auction" do
-        put :update, id: @auction
+      it "should not update the auction" do
+        put :update, id: @auction.id
         response.should render_template :edit
-     end
+      end
 
-     it "should update the auction with new information" do
-        @auction_attrs = FactoryGirl::attributes_for(:auction)
-        put :update, :id => @auction, :auction => @auction_attrs
+      it "should update the auction with new information" do
+        put :update, :id => @auction.id, :auction => @auction_attrs
         response.should redirect_to @auction
-     end
+      end
 
-     it "changes the auctions informations" do
-       @auction_attrs = FactoryGirl::attributes_for(:auction)
-       put :update, :id => @auction, :auction => @auction_attrs
-       response.should redirect_to @auction
-       controller.instance_variable_get(:@auction).title.should eq @auction_attrs[:title]
-     end
+      it "changes the auctions informations" do
+        put :update, :id => @auction.id, :auction => @auction_attrs
+        response.should redirect_to @auction
+        controller.instance_variable_get(:@auction).title.should eq @auction_attrs[:title]
+      end
     end
   end
 end

@@ -5,7 +5,6 @@ en:
       condition:
         new: "New"
         old: "Used"
-        fair: "Fairtrade"
   welcome:
     greetings: "Welcome to Fairnopoly"
     search_fair: "Search for fair products"
@@ -167,10 +166,7 @@ en:
     categories:
       proposal:
         question: "Do you miss a category?"
-        hint: 'Propose a category for the next time.'  
-      level1: "Categories"
-      level2: "Subcategories"
-      level3: "Subsubcategories"
+        hint: 'Propose a category for the next time.'
       remove-filter:  "Remove category filter"
       error: "Please select a product category"
 # Transaction System

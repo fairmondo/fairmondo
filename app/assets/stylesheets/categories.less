@@ -12,6 +12,97 @@
   
 }
 
+.check_box_tree {
+  
+  ul {
+  
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    
+    ul, li {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      list-style-type: none;
+    }
+  
+    input {
+      position: absolute;
+    }
+  
+    input + label + ul {
+      margin: 0 0 0 22px;
+    }
+      
+    input[type='checkbox'] ~ ul {
+      display: none;
+    }
+  
+    label, label::before {
+      cursor: pointer;
+      padding-left: 0px;
+      margin-left: -10px; 
+    }
+    
+    i {
+      padding-right: 5px;
+    }
+      
+    input:disabled + label {
+      cursor: default;
+      opacity: .6;
+    }
+  
+    input:checked:not(:disabled) ~ ul {
+      display: block;
+    }
+  
+    label, label::before {
+      display: inline-block;
+      height: 16px;
+      line-height: 16px;
+      vertical-align: middle;
+    }
+  
+    label {
+      background-position: 18px 0;
+    }
+  
+    label::before {
+      content: "";
+      width: 16px;
+      margin: 0 22px 0 0;
+      vertical-align: middle;
+      background-position: 0 -32px;
+    }
+  
+  
+  
+    /* webkit adjacent element selector bugfix */
+    @media screen and (-webkit-min-device-pixel-ratio:0)
+    {
+      .css-treeview 
+      {
+        -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+      }
+      
+      @-webkit-keyframes webkit-adjacent-element-selector-bugfix 
+      {
+        from 
+        { 
+          padding: 0;
+        } 
+        to 
+        { 
+          padding: 0;
+        }
+      }
+    }
+  }
+
+}
+
 div.category-button {
   margin-right:20px;
   padding: 2px !important

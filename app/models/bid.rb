@@ -1,21 +1,19 @@
 class Bid < ActiveRecord::Base
-  has_one :transaction
-  has_one :user
+  belongs_to :auction
+  belongs_to :user 
   monetize :price_cents
 
-  before_save :check_better
-  validates_presence_of :user, :transaction, :price_cents
+  # TODO 
+  # before_save :check_better
+  validates_presence_of :user_id, :auction_id, :price_cents
   def check_better
-    if self.transaction.max_bid
-      unless self.price_cents > self.transaction.max_bid
-      #TODO undefined method `add_to_base' for #<ActiveModel::Errors:0x007fdbcfea8ff0>
-      #errors.add_to_base I18n.t("transaction.bid.smaller-than-prev")
-      return false
+    if self.auction.transaction.max_bid
+      unless self.price_cents > self.auction_transaction.max_bid
+        errors[:price_cents] << I18n.t("transaction.bid.smaller-than-prev")
       end
     else
-      unless self.price_cents >= self.transaction.auction.price_cents
-      #TODO undefined method `add_to_base' for #<ActiveModel::Errors:0x007fdbcfea8ff0>
-      #errors.add_to_base I18n.t("transaction.bid.smaller-than-init")
+      unless self.price_cents >= self.auction_transaction.auction.price_cents
+        errors[:price_cents] <<  I18n.t("transaction.bid.smaller-than-init")
       end
     end
 
