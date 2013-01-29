@@ -89,6 +89,10 @@ en:
 # Login 
     actions:
       login: "Login"
+    labels:
+      auction:
+        categories: Categories
+        categories_with_parents: Categories
 # User Model/Controller
   user:
     banned: "The account must be activated by an administrator first"
@@ -293,3 +297,17 @@ en:
       trusted2: "Ich traue der oben genannten Person zu, dass sie/er über
                 dieses Formular nur Menschen einladen wird, denen
                 sie/er ebenso in genannter Weise vertraut."
+# Errors
+  errors: &errors
+    messages:
+      at_least_one_entry: at least one option has to be selected 
+      minimum_entries: at least %{count} options need to be selected
+      maximum_entries: not more than %{count} options can be selected 
+      minimum_categories: at least one option has to be selected
+      maximum_categories: not more than 2 options can be selected
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors      

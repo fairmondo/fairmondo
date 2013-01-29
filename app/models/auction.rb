@@ -193,13 +193,15 @@ class Auction < ActiveRecord::Base
     (categories + categories.map(&:ancestors)).flatten.uniq    
   end
   
-  def categories_with_parents=(cs)
-    if cs.first.is_a?(String)
+  def categories_with_parents=(csorig)
+    cs = csorig
+    if cs.first.is_a?(String) || cs.first.is_a?(Integer) 
       cs = cs.select(&:present?).map(&:to_i)
       cs = Category.where("'categories'.'id' IN (?)",cs)
     else
       cs = cs.dup
     end
+    debugger if cs.include?(nil)
     # remove entries which parent is not included in the subtree
     # e.g. you selected Hardware but unselected Computer then
     cs = cs.reject{|c| (c.parent && ! cs.include?(c.parent)) }
