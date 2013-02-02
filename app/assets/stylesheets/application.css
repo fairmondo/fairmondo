@@ -13,6 +13,7 @@
  *= require custom_inputs
  *= require formtastic-bootstrap
  *= require_tree ./models
+ *= require_tree ./inputs
  * 
 */
 

@@ -1,5 +1,7 @@
 Fairnopoly::Application.routes.draw do
   
+  resources :auction_templates, :except => [:show]
+
   mount Tinycms::Engine => "/cms"
 
   ActiveAdmin.routes(self)

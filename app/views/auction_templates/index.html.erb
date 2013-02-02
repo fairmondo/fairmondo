@@ -1,0 +1,21 @@
+<h1>Listing auction_templates</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @auction_templates.each do |auction_template| %>
+  <tr>
+    <td><%= auction_template.name %></td>
+    <td><%= link_to 'Edit', edit_auction_template_path(auction_template) %></td>
+    <td><%= link_to 'Destroy', auction_template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Auction template', new_auction_template_path %>

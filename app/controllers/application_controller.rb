@@ -61,5 +61,9 @@ class ApplicationController < ActionController::Base
   def load_faqs
     @faqs = Faq.scoped
   end
+  
+  def setup_categories
+    @categories = Category.roots
+  end
 
 end

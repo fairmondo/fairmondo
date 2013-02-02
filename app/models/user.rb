@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :bids
   has_many :invitations
   has_many :ffps
+  has_many :auction_templates
 
   has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']

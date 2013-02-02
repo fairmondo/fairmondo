@@ -8,7 +8,9 @@ class AuctionsController < ApplicationController
  
   before_filter :build_login
   
-  before_filter :setup_categories, :only => [:index, :new, :edit]
+  before_filter :setup_template_select, :only => [:new]
+  
+  before_filter :setup_categories, :only => [:index]
    
   # GET /auctions
   # GET /auctions.json
@@ -66,10 +68,21 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    @auction = Auction.new
+    if template_id = params[:template_select] && params[:template_select][:auction_template]
+      if template_id.present?
+        @applied_template = AuctionTemplate.find(template_id)
+        @auction = Auction.new(@applied_template.deep_auction_attributes)
+        flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
+      else
+        flash.now[:error] = t('template_select.errors.auction_template_missing')
+        @auction = Auction.new
+      end
+    else
+      @auction = Auction.new
+    end
     @auction.expire = 14.days.from_now
     @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
-    build_questionnaires
+    setup_form_requirements
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @auction }
@@ -79,7 +92,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/1/edit
   def edit
     @auction = Auction.with_user_id(current_user.id).find(params[:id])
-    build_questionnaires
+    setup_form_requirements
     respond_to do |format|
       format.html 
       format.json { render :json => @auction }
@@ -92,9 +105,9 @@ class AuctionsController < ApplicationController
     @auction = Auction.new(params[:auction])
     
     @auction.seller = current_user
-   
+    
     # Check if we can save the auction
-    if @auction.save
+    if @auction.save && build_and_save_template(@auction)
       
       if @auction.category_proposal.present?
         AuctionMailer.category_proposal(@auction.category_proposal).deliver
@@ -105,8 +118,7 @@ class AuctionsController < ApplicationController
 
     else
       respond_to do |format|
-        setup_categories
-        build_questionnaires
+        setup_form_requirements
         format.html { render :action => "new" }
         format.json { render :json => @auction.errors, :status => :unprocessable_entity }
       end
@@ -119,7 +131,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.with_user_id(current_user.id).find(params[:id])
 
     respond_to do |format|
-      if @auction.update_attributes(params[:auction])
+      if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
 
         userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
         userevent.save
@@ -127,8 +139,7 @@ class AuctionsController < ApplicationController
         format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
         format.json { head :no_content }
       else
-        setup_categories
-        build_questionnaires
+        setup_form_requirements
         format.html { render :action => "edit" }
         format.json { render :json => @auction.errors, :status => :unprocessable_entity }
       end
@@ -139,10 +150,6 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
     AuctionMailer.report_auction(@auction).deliver
     redirect_to @auction, :notice => (I18n.t 'auction.actions.reported')
-  end
-
-  def setup_categories
-    @categories = Category.roots
   end
   
   def follow
@@ -167,14 +174,25 @@ class AuctionsController < ApplicationController
   end
 
   private
-     
+  
+  
   def respond_created
-     #Throwing User Events
-      Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
-      respond_to do |format|
-        format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-        format.json { render :json => @auction, :status => :created, :location => @auction }
-      end
+    #Throwing User Events
+    Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
+    respond_to do |format|
+      format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+      format.json { render :json => @auction, :status => :created, :location => @auction }
+    end
+  end
+  
+  def setup_template_select
+    @auction_templates = AuctionTemplate.where(:user_id => current_user.id)
+  end
+  
+  def setup_form_requirements
+    setup_categories
+    build_questionnaires
+    build_template
   end
   
   def build_questionnaires
@@ -182,15 +200,29 @@ class AuctionsController < ApplicationController
     @auction.build_social_producer_questionnaire unless @auction.social_producer_questionnaire
   end
   
-  def update_category_ids
-    if params[:add_category_id]
-      @auction.category_ids << params[:add_category_id].to_i
-    elsif params[:remove_category_id]
-      @auction.category_ids.delete(params[:remove_category_id].to_i)
-    else
-      false
+  def build_template
+    unless @auction_template
+      if params[:auction_template]
+        @auction_template = AuctionTemplate.new(params[:auction_template])
+      else
+        @auction_template = AuctionTemplate.new
+      end
     end
   end
-    
-    
+  
+  def build_and_save_template(auction)
+    if template_attributes = params[:auction_template]
+      if template_attributes[:save_as_template] && template_attributes[:name].present? 
+        template_attributes[:auction_attributes] = params[:auction]
+        @auction_template = AuctionTemplate.new(template_attributes)
+        @auction_template.user = auction.seller
+        @auction_template.save
+      else
+        true
+      end
+    else
+      true
+    end
+  end
+  
 end

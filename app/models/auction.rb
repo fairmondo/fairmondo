@@ -7,6 +7,9 @@ class Auction < ActiveRecord::Base
     :fair => 0.03,
     :default => 0.06
   }
+  
+  # refs #128
+  default_scope where(:auction_template_id => nil)
 
   before_validation :sanitize_content, :on => :create
 
@@ -117,7 +120,7 @@ class Auction < ActiveRecord::Base
   def fees_and_donations
     friendly_percent_result + corruption_percent_result + fees
   end
-  
+    
   # other
   
   def validate_expire
@@ -133,8 +136,8 @@ class Auction < ActiveRecord::Base
     return true
   end
 
-  #TODO transaction_type makes factory create invalid auctions. Why?
   def transaction_type
+    return if transaction.is_a?(Transaction) # already initialized
     case transaction
     when 'auction'
       self.transaction = AuctionTransaction.new
@@ -143,7 +146,7 @@ class Auction < ActiveRecord::Base
       self.transaction = PreviewTransaction.new
       self.transaction.auction = self
     else
-    errors.add(:transaction, "You must select a type for your transaction!")
+      errors.add(:transaction, "You must select a type for your transaction!")
     end
   end
 
@@ -163,23 +166,22 @@ class Auction < ActiveRecord::Base
   
   serialize :transport, Array
   enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
-  validates_presence_of :transport
+  validates :transport, :size => 1..-1
   
   serialize :payment, Array
   enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
-  validates_presence_of :payment
+  validates :payment, :size => 1..-1
   
   # Relations
   has_many :userevents
   has_many :images
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
-  validates_presence_of :user_id
+  validates_presence_of :user_id, :unless => :template?
   
   # categories refs #154 
   has_many :auctions_categories, :dependent => :destroy
   has_many :categories, :through => :auctions_categories
-  accepts_nested_attributes_for :auctions_categories
   validates :categories, :size => {
     :in => 1..2, :messages => {
       :minimum_entries => I18n.t('errors.messages.minimum_categories'),
@@ -201,16 +203,20 @@ class Auction < ActiveRecord::Base
     else
       cs = cs.dup
     end
-    debugger if cs.include?(nil)
     # remove entries which parent is not included in the subtree
-    # e.g. you selected Hardware but unselected Computer then
+    # e.g. you selected Hardware but unselected Computer afterwards
     cs = cs.reject{|c| (c.parent && ! cs.include?(c.parent)) }
     # remove all parents
     self.categories = self.class.remove_category_parents(cs)  
   end
   # end categories
   
-  validates_presence_of :title , :content, :condition, :price_cents
+  # see #128
+  belongs_to :auction_template
+  
+  validates_presence_of :title , :content, :unless => :template? # refs #128 
+  validates_presence_of :condition, :price_cents
+
   validates_numericality_of :price,
     :greater_than_or_equal_to => 0
 
@@ -268,6 +274,14 @@ class Auction < ActiveRecord::Base
   
   def self.remove_category_parents(categories)
     categories.reject{|c| categories.any? {|other| other.is_descendant_of?(c) } }
+  end
+
+  # see #128
+  def template?
+    # Note: 
+    # * if not yet saved, there cannot be a auction_template_id
+    # * the inverse reference is set in auction_template model before validation 
+    auction_template_id != nil || auction_template != nil 
   end
 
 end

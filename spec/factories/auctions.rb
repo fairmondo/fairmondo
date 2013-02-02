@@ -13,5 +13,10 @@ FactoryGirl.define do
     quantity  { (rand(10) + 1) }
     transport { Auction.transport.values.sample(rand(3)+1) }    
     payment   { Auction.payment.values.sample(rand(5)+1) }
+    
+    factory :template_auction do
+      
+    end
+    
   end
 end

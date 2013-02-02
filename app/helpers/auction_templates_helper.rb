@@ -1,0 +1,2 @@
+module AuctionTemplatesHelper
+end

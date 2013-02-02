@@ -266,9 +266,17 @@ de:
         
         transaction: "Angebotsart" 
         expire: "Ablaufdatum"
+      auction_template:
+        save_as_template: "Eingaben als Vorlage speichern"
+        name: Vorlagenname
+      template_select:
+        auction_template: Vorlage
+        
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
+      template_select:
+        submit: "Vorlage übernehmen"
 # Login 
       login: "Login"
 # User Model/Controller
@@ -308,6 +316,13 @@ de:
     select_from_list: Bitte wähle aus der Liste aus
     fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
     
+  template_select:
+    notices:
+      applied: "Die Vorlage %{name} wurde erfolgreich übernommen"
+    prompts:
+      auction_templates: "Bitte wählen Sie eine Vorlage"
+    errors:
+      auction_template_missing: "Bitte wählen Sie eine Vorlage" 
 # Auction Model/Controller
   auction:
     
