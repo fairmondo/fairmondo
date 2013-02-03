@@ -1,6 +1,6 @@
 class UpdateCategoriesAndAuctionsForAwesomeNestedSet < ActiveRecord::Migration
   def up
-    Auction.all.each do |auction|
+    Auction.unscoped.all.each do |auction|
       AuctionsCategory.create(:auction_id => auction.id, :category_id => auction.category_id)
     end
     
@@ -27,7 +27,7 @@ class UpdateCategoriesAndAuctionsForAwesomeNestedSet < ActiveRecord::Migration
     add_column :auctions, :alt_category_id_2, :integer
     
     AuctionsCategory.all.each do |auctions_category|
-      Auction.find(auctions_category.auction_id).update_attribute(:category_id, auctions_category.category_id)
+      Auction.unscoped.find(auctions_category.auction_id).update_attribute(:category_id, auctions_category.category_id)
     end    
     Category.update_all("parent_id = 0","parent_id IS NULL")
   end
