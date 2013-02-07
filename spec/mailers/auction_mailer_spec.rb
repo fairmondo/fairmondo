@@ -6,7 +6,7 @@ describe AuctionMailer do
 
     before :each do
       @auction = FactoryGirl.create(:auction)
-      @mail = AuctionMailer.report_auction(@auction)
+      @mail = AuctionMailer.report_auction(@auction,"text")
     end
 
     it "renders the subject" do
