@@ -118,6 +118,7 @@ de:
       register: "Registrierung"
       edit_profile: "Profil bearbeiten"
       search: "Suche"
+      report: "Melden"
     text:
       buy: "Einkaufen"
       sell: "Verkaufen"
@@ -408,6 +409,7 @@ de:
       profile: "Verkäufer ansehen"
       report: "Auktion Melden"
       reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
+      reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"

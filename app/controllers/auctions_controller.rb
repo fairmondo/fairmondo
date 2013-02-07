@@ -147,9 +147,14 @@ class AuctionsController < ApplicationController
   end
 
   def report
+    @text = params[:report]
     @auction = Auction.find(params[:id])
-    AuctionMailer.report_auction(@auction).deliver
-    redirect_to @auction, :notice => (I18n.t 'auction.actions.reported')
+    if @text != ""
+      AuctionMailer.report_auction(@auction,@text).deliver
+      redirect_to @auction, :notice => (I18n.t 'auction.actions.reported')
+    else
+      redirect_to @auction, :notice => (I18n.t 'auction.actions.reported-error')
+    end
   end
   
   def follow

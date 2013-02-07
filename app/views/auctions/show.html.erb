@@ -12,7 +12,18 @@
 					<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
 				<%else%>
 					<% html= glyphicons("icon-warning-sign")%>
-					<%= link_to html.html_safe, report_auction_path , :class => "btn" , :title => t('auction.actions.report')%>
+
+					
+					<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
+						<%= f.text_field "melden", :name=>"report", :value => params["report"], :class => "small_size" %>
+						
+						<button class="btn">
+							<i  class="icon-warning-sign"></i>
+							<%= t('common.actions.report') %> 
+						</button>	
+						
+					<% end %>
+					
 					<%= render :partial => 'shared/follow' , :locals => { :object => @auction }%>
 				<%end%>
 			</li>

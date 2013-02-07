@@ -38,6 +38,13 @@ hr.spacer {
 }
 
 /*
+ * Small input 
+ */
+input.small_size {
+	width: 150px;
+}
+
+/*
  * Userevents
  */
 
@@ -77,11 +84,6 @@ label.control-label {
 	font-weight:bold;
 }
 
-.controls {
-	input {
-		float: left;
-	}
-}
 
 span.help-block {
 	font-size: 14px;
