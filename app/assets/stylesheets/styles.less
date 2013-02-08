@@ -5,6 +5,7 @@
 
 body {
   background: #d2c7b8 url(back1.png);
+  min-width:340px;
 }
 
 header {
@@ -204,3 +205,45 @@ div.row-well {
 
 } 
 
+
+/*
+ *  Auction -Show
+ * 
+ */
+.title-image-wrapper{
+  position: relative;
+}
+.title_image {
+  width:100%;
+   
+   border: 1px solid darken(@wellBackground, 17%);
+  margin-bottom: 20px;
+}
+
+.thumbnail_image {
+  border: 1px solid darken(@wellBackground, 17%);
+}
+
+@media (max-width: 767px) {
+  .thumbnail_image_span{
+    float: left !important; // Explicity set the float since we don't require .span* classes
+    margin-bottom: @baseLineHeight !important;
+    margin-left: @gridGutterWidth !important;
+     width: @gridColumnWidth ;
+  }
+  
+  ul.thumbnails > li.thumbnail_image_span:nth-child(4n+1) {
+   margin-left: 0px !important;
+   clear:left;
+  }
+  
+  .title_image {
+     max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
+  }
+}
+
+.control-auction-middle {
+  width:100%;
+   border-radius: 0; 
+   padding: 4px 0px;
+}

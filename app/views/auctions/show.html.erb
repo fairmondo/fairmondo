@@ -1,13 +1,67 @@
 <div class="row">
+	<div class="span9 ">
+		<div class="well">
+			<h1><%= @auction.title %> </h1>
+			<div class="row">
+				<div class="span4">
+					<div class="title-image-wrapper">
+					<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"http://placehold.it/360x260" , :class=> "title_image"), "#" %>
+					<%= condition_label @auction, "in-image" %>	
+					
+						<ul class="thumbnails">
+							<% @auction.images.each do |image| %>
+						<%if (image != @title_image)%>
+						<li class="span1 thumbnail_image_span">
+							<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
+						</li>
+						<%end%>
+						<%end%>
+						</ul>
+					</div>
+				</div>
+				<div class="span2"> 	
+					<p><b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b></p>
+					<% if @auction.size && @auction.size != ""%>		
+					<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
+					<% end %>	
+					
+					<p><a class="btn btn-primary  control-auction-middle">	<%= t('common.actions.buy')%></a></p>	
+						
+				</div>
+				<div class="span2"> 	
+				 Platzhalter
+				</div>
+			</div>
+			<div class="row">
+				<div class="span9">
+					
+					<%= raw @auction.content%>
+					<p><%= t('auction.labels.expiration_date')%>
+						<%=  @auction.expire.strftime("%d.%m.%Y %H:%M") %>
+					</p>
+					<p><%= t('formtastic.labels.auction.payment')%> <%=  @auction.payment.map(&:text) * ", " %></p>
+					<% if @auction.seller == current_user  %>
+						<div class = "well">
+							<h4><%= t('auction.image.title')%></h4>
+							<%= form_for @image, :html => { :multipart => true }  do |f| %>
+							<input id="image_image" name="image[image]" type="file" size="1">
+							<%= f.hidden_field :auction_id%>
+							<%= button_tag(:type => :submit) do %>
+							<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
+							<% end %>
+							<% end %>
+				
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		
+	</div>
 	<div class="span3">
-		<ul class="thumbnails">
-			<li class="span3">
-				<% if @title_image%>
-					<%= link_to image_tag(@title_image.image.url(:thumb), :size=> "260x180" , :class => "thumbnail"), "#" %>
-				<%else%>
-					<%= image_tag("http://placehold.it/260x180" ,:size=> "260x180", :class => "thumbnail") %>
-				<%end%>
-				<%if @auction.seller ==current_user%>
+		<div class="well">
+		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , dashboard_path(:id => @auction.seller.id), :class => "btn"%>
+		<%if @auction.seller ==current_user%>
 					<% html= glyphicons("icon-cog")%>
 					<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
 				<%else%>
@@ -25,65 +79,9 @@
 					<% end %>
 					
 					<%= render :partial => 'shared/follow' , :locals => { :object => @auction }%>
-				<%end%>
-			</li>
-		</ul>
-		<ul class="thumbnails">
-			<% @auction.images.each do |image| %>
-			<%if (image != @title_image)%>
-			<li class="span1">
-				<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45") , auction_path(@auction, :image => image.id) ,:class => "thumbnail"%>
-			</li>
-			<%end%>
-			<%end%>
-		</ul>
-		<% if @auction.seller == current_user  %>
-		<div class = "well">
-			<h4><%= t('auction.image.title')%></h4>
-			<%= form_for @image, :html => { :multipart => true }  do |f| %>
-			<input id="image_image" name="image[image]" type="file" size="1">
-			<%= f.hidden_field :auction_id%>
-			<%= button_tag(:type => :submit) do %>
-			<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
-			<% end %>
-			<% end %>
-
-		</div>
-		<% end %>
-	</div>
-	<div class="span9">
-
-		<div class="well">
-			<dl>
-				<dt>
-					<%= t('auction.labels.price')%>
-				</dt>
-				<dd>
-					<%= humanized_money_with_symbol @auction.price %>
-				</dd>
-				<dt>
-					<%= t 'auction.labels.type'%>
-				</dt>
-				<dd>
-					<%= condition_label @auction%>
-				</dd>
-				<dt>
-					<%= t 'auction.labels.expiration_date'%>
-				</dt>
-				<dd>
-					<%= @auction.expire.strftime("%d.%m.%Y %H:%M") %>
-				</dd>
-				<dt>
-					<%= t('formtastic.labels.auction.payment')%>
-				</dt>
-				<dd>
-					<%= @auction.payment.map(&:text) * ", " %>
-				</dd>
-			</dl>
-		</div>
-		<div class="well">
-			<%= raw @auction.content%>
-		</div>
-
+				<%end%>		
+		</div>	
 	</div>
 </div>
+
+
