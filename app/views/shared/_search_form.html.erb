@@ -1,0 +1,11 @@
+<form class="form-search" action="auctions">
+					<div id="wrapper_search_box">
+						<div  id="search_box">
+						<input type="search" id="search_input" placeholder="<%= t('welcome.search_fair')%>" name="q" data-autocomplete="<%= autocomplete_auction_title_auctions_path %>" >
+						</div>
+					</div>
+					<div  id="search_button">
+					<%=image_submit_tag("search.png", :alt => t('common.actions.search')) %>
+					</div>
+				
+</form>
