@@ -119,6 +119,7 @@ de:
       edit_profile: "Profil bearbeiten"
       search: "Suche"
       report: "Melden"
+      take_part: "Mitmachen"
     text:
       buy: "Einkaufen"
       sell: "Verkaufen"
@@ -140,6 +141,7 @@ de:
       surname: "Nachname"
       relation: "Beziehung"
       profile: "Profil"
+      inserted: "Auktionen wurden bereits eingestellt"
 # Footer
   footer:
     legal_details: "Impressum"

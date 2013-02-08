@@ -1,50 +1,39 @@
 <div class="row">
-	<div class="span6">
-
-		<div class="well">
-			<%= tinycms_content "start-left" %>
-		</div>
-	</div>
-
-	<div class="span6">
-		<div class="well">
-			<%= tinycms_content "start-video" %>
-		</div>
-		<div class="well">
-			<%= tinycms_content "start-right" %>
-		</div>
+	<div class="span12" id="youtube">
+		<%= tinycms_content "start-video" %>
 	</div>
 </div>
-
-<!-- row -->
 <div class="row">
-	<div class="span6">
+	<div class="span6 ">
 		<div class="well">
-			<h2> Fair founding Points</h2>
-			Kauf dir deinen eigenen Online Marktplatz
-			<div class="row">
-				<div class="progress span4">
-					<div class="bar" style="width: 60%;"></div>
-				</div>
-				<div class="span1">
-					<a class="btn btn-mini" href=""> Mach mit </a>
-				</div>
-			</div>
+			<%= tinycms_content "buy-ffps" %>
 		</div>
-		<!-- well -->
 	</div>
-
+	<div class="span6">
+		<%= tinycms_content "progress-ffps" %>
+	</div>
+</div><!-- row -->
+<div class="row">
+	
 	<div class="span6">
 		<div class="well">
-			<h2> Auktionen erstellt </h2>
-		<i class="icon-info-sign"></i> <%= @auctions%> Auktionen erstellt!
-				Das sind <%= @percentage%>% von 10.000 Auktionen.
-			<div class="row">
-				<div class="progress progress-success span5">
-					<div class="bar" style="height:100%;width: <%= @percentage%>%"></div>
-				</div>
-			</div>
+			<%= link_to t('common.actions.take_part'), new_registration_path(resource_name), :class => "btn btn-success btn-large pull-right" %>
+			<%= tinycms_content "please-register" %>
+			
+				
 		</div>
-		<!-- well -->
+	</div>	
+	
+			
+	
+	<div class="span6">
+		<div class="progress progress-success progress-landing">
+				<div class="bar" style="height:100%;width: <%= @percentage%>%"></div>
+		</div>
+		<p>
+			<%= link_to t('common.actions.take_part'), new_registration_path(resource_name), :class => "pull-right" %>
+			<%= @auctions%> <%= t("common.text.inserted")%>
+			
+		</p>
 	</div>
 </div>

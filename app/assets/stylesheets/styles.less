@@ -9,40 +9,41 @@ body {
 
 header {
   padding: 20px 0;
-  border-bottom: 1px dashed #666;
   h1#title a {
       display: block;
-      width: 200px;
-      height: 40px;
-      margin-top: 38px;
-      background-image: url(sprites.png);
-      background-color: #fff;
+      width: 279px;
+      height: 74px;
+      background-image: url(logo.png);
+      background-color: transparent;
       .border-radius(3px);
       &:hover {
-        background-color: transparent;
+        opacity: 0.7
       }
       span {
         display: none;
       }
   }
   ul#main-nav {
+    margin: 0px;
     li {
       float:left;
       list-style: none;
       position: relative;
+      min-width:80px;
       z-index: 200;
         &:hover:before {
           position: absolute;
-          top: 21px;
-          left: 17px;
+          top: 11px;
+          left: 50%;
+          margin-left: -23px;
           z-index: 1;
           content: "";
           .border-radius(50px);
           background: white;
           display: block;
           //position: absolute;
-          width: 48px;
-          height: 48px;
+          width: 46px;
+          height: 46px;
         }
       a {
         position: relative;
@@ -50,26 +51,21 @@ header {
         font-weight: bold;
         display: block;
         text-align: center;
-        width: 80px;
-        height: 72px;
-        margin-right: 20px;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 65px; 
         //border: 1px solid red;
-        background-image: url(sprites.png);
+        background-repeat:no-repeat;
+        background-position: center 10px;
         z-index: 200;
         &:hover {
           text-decoration: none;
         }
       }
-      &#buy a {   background-position: -233px 22px}
-      &#sell a {    background-position: -434px 22px}
-      &#service a { background-position: -336px 22px}
-      &#login a {   background-position: -534px 22px}
-      &#community a {   background-position: -534px 22px}
-
-      // &#buy a:hover {    background-position: -233px 22px}
-      // &#sell a:hover {   background-position: -434px 22px}
-      // &#service a:hover {  background-position: -336px 22px}
-      // &#login a:hover {    background-position: -534px 22px}
+      &#buy a {   background-image: url(buy.png);}
+      &#sell a {   background-image: url(sell.png);}
+      &#login a {   background-image: url(login.png);}
+ 
 
       &#login {
         float: right;
@@ -99,21 +95,49 @@ header {
 }
 
 #main {
-  border-top: 6px solid @white;
+  background-color: #f3ecea;
   border-bottom: 6px solid @white;
-  background-image: url(back2.png);
+  padding-top: 20px;
 }
 
 #hero {
-  padding: 10px 0;
+  padding: 15px 0;
   background-color: #f3ecea;
   background-image: none;
-  border-bottom: 1px dashed #999;
+  
   margin-bottom: 10px;
 }
 
+#search_box {
+  float:left;
+  width: 100%;
+  margin-right:-35px;
+}
+
+#wrapper_search_box {
+  margin-right:35px;
+}
+#search_input {
+  width: 100%;
+  text-align:right;
+  border-radius: 0; 
+  height:32px;
+  padding: 0px;
+  border: 0px;
+}
+
+#search_button {
+  margin-top:2px;
+  float:right;
+  width: 26px;
+  
+}
+
 footer {
-  border-top: 1px dashed #666;
+  text-align: center;
+  h3 {
+    font-weight: normal;
+  }
   ul {
     list-style: none;
     margin: 0px;
@@ -133,6 +157,37 @@ footer {
   }
 }
 
+div.progress-landing {
+  height: 80px;
+  
+ 
+}
+
+div.row-well {
+  background-color: @wellBackground;
+  border: 1px solid darken(@wellBackground, 17%);
+  //.border-radius(4px);
+  .box-shadow(0 1px 2px rgba(0,0,0,.1));
+  margin-left:0px !important;
+}
+
+/*
+ *  Rules 4 header compression
+ * 
+ */
+@media (max-width: 480px) { 
+ 
+  ul#main-nav {
+     li {
+       min-width:60px !important;
+       a{
+           padding-right: 5px !important;
+           padding-left: 5px !important;
+       }
+     }
+
+  }
+}
 
 @media (max-width: 767px) {
   #hero {
@@ -148,3 +203,4 @@ footer {
   }
 
 } 
+
