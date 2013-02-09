@@ -2,6 +2,7 @@
 	<% @auctions.each do |auction| %>
 	<li class="span3">
 		<div class="thumbnail" style="position: relative;">
+			<%= condition_label auction, "in-image" %>
 			<% if auction.title_image%>
 			<%= link_to image_tag(auction.title_image.image.url(:thumb), :size=> "260x180"), auction %>
 			<%else%>
@@ -11,7 +12,7 @@
 				<h5><%= link_to truncate(auction.title, :length => 25), auction %></h5>
 				<h5><%= humanized_money_with_symbol auction.price %></h5>
 			</div>
-			<%= condition_label auction, "in-image" %>
+			
 		</div>
 	</li>
 	<%end%>

@@ -1,13 +1,8 @@
 
 <div class="container">
 		<div class="row">
-			<div class="span6 offset6">
-				<form class="form-search pullright" action="auctions">
-					<input type="search" class="search-query" placeholder="<%= t('welcome.search_fair')%>" name="q" data-autocomplete="<%= autocomplete_auction_title_auctions_path %>" >
-					<button type="submit" class="btn">
-						<%= t('common.actions.search')%>
-					</button>
-				</form>
+			<div class="span12">
+				<%= render "/shared/search_form"%>
 			</div>
 		</div>
 </div>

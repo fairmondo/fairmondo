@@ -22,19 +22,19 @@
 		<header>
 			<div class="container">
 				<div class="row">
-					<div class="span4">
-						<h1 id="title"><a href="/"> <span>Fairnopoly</span> </a></h1>
+					<div class="span5">
+						<h1 id="title" class="hidden-phone"><a href="/"> <span>Fairnopoly</span> </a></h1>
 					</div>
-					<div class="8">
+					<div class="span7">
 						<ul id="main-nav">
 							<li id="buy">
 								<%= link_to t('common.text.buy'), auctions_path %>
 							</li>
-							<% if user_signed_in? %>
+							
 							<li id="sell">
 								<%= link_to t('common.text.sell'), new_auction_path %>
 							</li>
-							<%end%>
+							
 							<!--<li id="service">
 							<a href=""> <%= t('common.text.service')%> </a>
 							</li>-->
@@ -69,8 +69,7 @@
 			</div>
 			<!-- container -->
 		</header>
-		<div id="main" role="main">
-			<div id="hero">
+		<div id="hero">
 				<div class="container">
 					<% flash.each do |type, msg| -%>
 					<div class="row">
@@ -91,7 +90,9 @@
 				<%rescue MissingTemplate %>
 				<%end%>
 				<%end%>
-			</div><!-- .hero -->
+		</div><!-- .hero -->
+		<div id="main" role="main">
+			
 			<div class="container">
 				<%= yield %>
 			</div><!-- .container -->
@@ -101,7 +102,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="span4">
-						<h3><%= t('footer.legal_details')%></h3>
+						<h3><%= t('footer.legal_details').upcase %></h3>
 						<ul>
 							<li>
 								<a href="/agb"> <%= t('footer.agb')%> </a>
@@ -116,7 +117,7 @@
 						</ul>
 					</div>
 					<div class="span4">
-						<h3> <%= t('footer.about_us')%> </h3>
+						<h3> <%= t('footer.about_us').upcase %> </h3>
 						<ul>
 							<li>
 								<a href="/philosophy"> <%= t('footer.philosophy')%> </a>
@@ -135,7 +136,7 @@
 						</ul>
 					</div>
 					<div class="span4">
-						<h3> <%= t('footer.faq')%> &amp; <%= t('footer.help')%> </h3>
+						<h3> <%= t('footer.faq').upcase %> &amp; <%= t('footer.help')%> </h3>
 						<div class='faqs' id="faqs-accordion">
 							<%= render :partial => "faqs/faq", :collection => @faqs %>
 						</div>

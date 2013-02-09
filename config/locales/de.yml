@@ -118,6 +118,9 @@ de:
       register: "Registrierung"
       edit_profile: "Profil bearbeiten"
       search: "Suche"
+      report: "Melden"
+      take_part: "Mitmachen"
+      buy: "Kaufen"
     text:
       buy: "Einkaufen"
       sell: "Verkaufen"
@@ -139,6 +142,7 @@ de:
       surname: "Nachname"
       relation: "Beziehung"
       profile: "Profil"
+      inserted: "Auktionen wurden bereits eingestellt"
 # Footer
   footer:
     legal_details: "Impressum"
@@ -408,6 +412,7 @@ de:
       profile: "Verkäufer ansehen"
       report: "Auktion Melden"
       reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
+      reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"

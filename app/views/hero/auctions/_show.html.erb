@@ -1,14 +1,9 @@
 <div class="container">
  	<div class="row">
  		
-	 	<div class="span3">
-			<%= link_to (raw glyphicons("icon-chevron-left")) +" "+ t('common.actions.back'), :back , :class => "btn"%>
+	 	<div class="span12">
+			<%= render "/shared/search_form"%>
 	  	</div>
-	  	<div class="span6">
-	  		<h1><%= @auction.title %> </h1>
-	  	</div>
-  		<div class="span3" align="right">
-	  		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , dashboard_path(:id => @auction.seller.id), :class => "btn"%>
-	  	</div>
+	  
   	</div>
  </div>
