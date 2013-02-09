@@ -67,7 +67,7 @@ div.userevent a {
 }
 
 p.clear-margin {
-	margin-bottom: 0px
+	margin-bottom: 0px;
 }
 
 
@@ -83,7 +83,6 @@ p.clear-margin {
 label.control-label {
 	font-weight:bold;
 }
-
 
 span.help-block {
 	font-size: 14px;

@@ -56,6 +56,20 @@ module ApplicationHelper
      new_param
   end
    
- 
+  def hero
+    hero = "<div id=\"hero\">"
+    begin 
+       hero += render :partial => '/hero/'+ params[:controller] + '/' + params[:action] 
+       hero << "</div>"   
+        rescue ActionView::MissingTemplate
+          begin
+            hero += render :partial => '/hero/'+ params[:controller] + '/default' 
+            hero << "</div>"   
+          rescue ActionView::MissingTemplate 
+            hero = ""
+          end
+     end
+      return hero 
+  end
    
 end
