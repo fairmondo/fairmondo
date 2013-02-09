@@ -14,8 +14,12 @@ FactoryGirl.define do
     transport { Auction.transport.values.sample(rand(3)+1) }    
     payment   { Auction.payment.values.sample(rand(5)+1) }
     
-    factory :template_auction do
-      
+    factory :second_hand_auction do
+      condition "old"
+    end
+    
+    factory :no_second_hand_auction do
+      condition "new"
     end
     
   end

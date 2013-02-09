@@ -24,7 +24,7 @@ class AuctionsController < ApplicationController
         scope = scope.where(:condition => params[:auction][:condition])
       end
       if params[:auction][:categories_with_parents].present?  
-        scope = scope.with_categories(params[:auction][:categories_with_parents])
+        scope = scope.with_category_or_descendant_ids(params[:auction][:categories_with_parents])
       end
       if params[:auction][:title].present?  
         query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
@@ -33,11 +33,10 @@ class AuctionsController < ApplicationController
         # we cannot use the relevance search, see TODO
         # @auctions = scope.paginate_search(query, search_params)
         scope = scope.with_query(query) 
-      end      
-      @auctions = scope.paginate :page => params[:page], :per_page=>12
-    else
-      @auctions = scope.paginate :page => params[:page], :per_page=>12
+      end
     end
+    
+    @auctions = scope.paginate :page => params[:page], :per_page=>12
  
     respond_to do |format|
       format.html # index.html.erb
