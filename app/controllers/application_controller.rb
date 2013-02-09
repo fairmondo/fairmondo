@@ -56,6 +56,8 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :load_faqs
+  
+  
   private
 
   def load_faqs
@@ -65,5 +67,8 @@ class ApplicationController < ActionController::Base
   def setup_categories
     @categories = Category.roots
   end
+  
+  
+  
 
 end

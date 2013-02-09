@@ -39,7 +39,7 @@
 							<a href=""> <%= t('common.text.service')%> </a>
 							</li>-->
 							<% if user_signed_in? %>
-							<li id="login">
+							<li id="logout">
 								<%= link_to(t('common.actions.logout'), destroy_user_session_path ) %>
 							</li>
 							<li id="login">
@@ -69,8 +69,7 @@
 			</div>
 			<!-- container -->
 		</header>
-		<div id="hero">
-				<div class="container">
+		<div class="container">
 					<% flash.each do |type, msg| -%>
 					<div class="row">
 						<div class="span12">
@@ -81,16 +80,12 @@
 						</div>
 					</div>
 					<%end%>
-				</div><!-- .container -->
-				<% begin %>
-				<%= render 'hero/'+ params[:controller] + '/' + params[:action] %>
-				<%rescue MissingTemplate %>
-				<% begin %>
-				<%= render 'hero/'+ params[:controller] + '/default' %>
-				<%rescue MissingTemplate %>
-				<%end%>
-				<%end%>
-		</div><!-- .hero -->
+		</div><!-- .container -->
+		
+				
+		<%= raw hero%>
+	
+		
 		<div id="main" role="main">
 			
 			<div class="container">

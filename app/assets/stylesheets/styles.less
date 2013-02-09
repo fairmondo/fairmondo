@@ -66,9 +66,9 @@ header {
       &#buy a {   background-image: url(buy.png);}
       &#sell a {   background-image: url(sell.png);}
       &#login a {   background-image: url(login.png);}
- 
-
-      &#login {
+      &#service a {   background-image: url(service.png);}
+      &#logout a {   background-image: url(logout.png);}
+      &#login, &#logout {
         float: right;
         a {margin-right: 0;}
       }
@@ -106,7 +106,7 @@ header {
   background-color: #f3ecea;
   background-image: none;
   
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #search_box {
@@ -246,4 +246,20 @@ div.row-well {
   width:100%;
    border-radius: 0; 
    padding: 4px 0px;
+}
+
+/*
+ *  Fix TinyMCE Mobile
+ */
+@media (min-width: 1200px) {
+  table.mceToolbar {
+   
+    display: inline-table; 
+  }
+}
+
+@media (max-width: 767px) {
+ #auction_content_input div.controls {
+   margin-left:0px;
+ }
 }
