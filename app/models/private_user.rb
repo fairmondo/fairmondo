@@ -1,0 +1,3 @@
+class PrivateUser < User
+  
+end

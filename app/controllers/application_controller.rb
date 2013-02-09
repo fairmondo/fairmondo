@@ -56,6 +56,8 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :load_faqs
+  
+  
   private
 
   def load_faqs
