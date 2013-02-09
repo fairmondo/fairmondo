@@ -60,7 +60,7 @@ div.userevent a {
 }
 
 p.clear-margin {
-	margin-bottom: 0px
+	margin-bottom: 0px;
 }
 
 
@@ -77,10 +77,8 @@ label.control-label {
 	font-weight:bold;
 }
 
-.controls {
-	input {
-		float: left;
-	}
+.controls input {
+	float: left;
 }
 
 span.help-block {

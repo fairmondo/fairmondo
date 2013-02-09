@@ -238,21 +238,40 @@ class Auction < ActiveRecord::Base
     end
   } 
   
-  # returns all auctions without category
-  scope :with_category, lambda {|category_id = nil|
+  # returns all auctions with category_id == nil
+  scope :with_exact_category_id, lambda {|category_id = nil|
     return Auction.scoped unless category_id.present?
     
     joins(:auctions_categories).where("'auctions_categories'.'category_id' = ?", category_id)
   }
   
-  # for convenience, this method does exclude all ancesors from the passed collection
-  # because searching for Hardware you don't want to get all results from Computer
-  scope :with_categories, lambda {|category_ids = []|
+  scope :with_exact_category_ids, lambda {|category_ids = []|
     category_ids = category_ids.select(&:present?).map(&:to_i)
     return Auction.scoped unless category_ids.present?
     categories = Category.where("id IN (?)",category_ids)
-    categories = self.remove_category_parents(categories)
     joins(:auctions_categories).where("'auctions_categories'.'category_id' IN (?)", categories.map(&:id))
+  }
+  
+  # for convenience, these methods remove all redundant ancesors from the passed collection
+  # e.g. selecting Computer and Hardware, we don't want all auctions under Computer but 
+  # only the subset of Hardware 
+  scope :with_category_or_descendant_ids, lambda {|category_ids = []|
+    category_ids = category_ids.select(&:present?).map(&:to_i)
+    return Auction.scoped unless category_ids.present?
+    with_categories_or_descendants(Category.where("id IN (?)",category_ids))
+  }
+  
+  scope :with_categories_or_descendants, lambda {|categories = []|
+    return Auction.scoped unless categories.present?
+    categories = self.remove_category_parents(categories)
+    # restults to ("categories"."lft" >= 1 AND "categories"."lft" < 2)
+    # see https://github.com/collectiveidea/awesome_nested_set and nested sets in general
+    constraints = categories.map{|c| c.self_and_descendants.arel.constraints.first }
+    constraint = constraints.pop
+    constraints.each do |clause|
+      constraint = constraint.or(clause)
+    end
+    joins(:categories).where(constraint)
   }
 
   private
@@ -273,6 +292,7 @@ class Auction < ActiveRecord::Base
   end
   
   def self.remove_category_parents(categories)
+    # does not hit the database
     categories.reject{|c| categories.any? {|other| other.is_descendant_of?(c) } }
   end
 
