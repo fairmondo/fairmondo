@@ -65,5 +65,5 @@ class ApplicationController < ActionController::Base
   def setup_categories
     @categories = Category.roots
   end
-
+  
 end

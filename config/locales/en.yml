@@ -73,9 +73,12 @@ en:
     new_profile:
       password: "Enter password"
       password_confirmation: "Confirm password"
-      create: "Create user"
+      create: "Register"
       privacy: "accept data privacy agreement"
       legal: "accept TOS agreement"
+      legal_entity: "I am a commercial seller or a legal entity"
+      private_user: "I am a private Person"
+      status: "legal status"
     edit_profile:
       email: "Enter your email address"
       image: "Choose a picture"
