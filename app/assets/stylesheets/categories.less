@@ -18,48 +18,60 @@
     margin-left: 0px;
   }
   
-  ul {
+  li {
+    font-size: 18px;
+  }
   
+  label {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+  
+  li > span {
+    border-bottom: 1px solid;
+    border-bottom-color: #666666;
+    background-color: #FFFFFF;
+  }
+  
+  ul {
+      
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     
     ul, li {
       padding: 0;
-      margin: 0;
+      margin: 20;
       list-style: none;
       list-style-type: none;
     }
   
     input {
-      position: absolute;
+      display: none
     }
-  
-    input + label + ul {
-      margin: 0 0 0 22px;
-    }
-      
-    input[type='checkbox'] ~ ul {
+        
+    input[type='checkbox'] ~ ul,i {
       display: none;
     }
-  
+      
     label, label::before {
       cursor: pointer;
       padding-left: 0px;
-      margin-left: -10px; 
+      color: #666666;
+      margin-left: -8px;
+      margin-right: 5px;
     }
     
     i {
-      padding-right: 5px;
-    }
-      
-    input:disabled + label {
-      cursor: default;
-      opacity: .6;
+      margin-left: 5px;
     }
   
-    input:checked:not(:disabled) ~ ul {
+    input:checked ~ ul {
       display: block;
+    }
+    
+    input:checked ~ i {
+      display: inline-block;
     }
   
     label, label::before {
@@ -68,21 +80,13 @@
       line-height: 16px;
       vertical-align: middle;
     }
-  
-    label {
-      background-position: 18px 0;
-    }
-  
+    
     label::before {
       content: "";
       width: 16px;
-      margin: 0 22px 0 0;
       vertical-align: middle;
-      background-position: 0 -32px;
     }
-  
-  
-  
+    
     /* webkit adjacent element selector bugfix */
     @media screen and (-webkit-min-device-pixel-ratio:0)
     {

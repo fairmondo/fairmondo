@@ -30,17 +30,24 @@ class CheckBoxTreeInput < FormtasticBootstrap::Inputs::CheckBoxesInput
     template.content_tag(:ul, template.capture(&block).html_safe)
   end
   
+  # the li-element is for the tree
+  # the span element wrapps the content (e.g. for borders)
   def tree_item_wrapping(&block)
     template.content_tag(:li,
+      template.content_tag(:span,
       template.capture(&block)
+      )
     ).html_safe
   end
   
 
   def choice_html(choice)
-    (hidden_fields? ? check_box_with_hidden_input(choice) : check_box_without_hidden_input(choice)).html_safe <<
-    
-    template.content_tag(:label, template.content_tag(:i, "", :class => 'icon-tags') << choice_label(choice), label_html_options.merge(choice_label_html_options(choice)))
+    # To add the icon again, uncomment
+    #template.content_tag(:label, template.content_tag(:i, "", :class => 'icon-tags') << choice_label(choice), 
+    template.content_tag(:label, choice_label(choice),
+        label_html_options.merge(choice_label_html_options(choice))) <<
+      (hidden_fields? ? check_box_with_hidden_input(choice) : check_box_without_hidden_input(choice)).html_safe <<
+      template.content_tag(:i, "", :class => 'icon-ok')
   end
   
   private
