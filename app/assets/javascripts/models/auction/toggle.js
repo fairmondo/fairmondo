@@ -18,4 +18,5 @@ $(document).ready(function(){
 			  $("input[name='" + box.attr("name") + "']:not([data-select-toggle=" + area_id + "])").trigger('change');
 			}
 		}).trigger('change')
+	
 });

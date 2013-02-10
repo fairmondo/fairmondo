@@ -110,7 +110,7 @@ en:
     labels:
       auction:
         categories: Categories
-        categories_with_parents: Categories
+        categories_and_ancestors: Categories
 # User Model/Controller
   user:
     banned: "The account must be activated by an administrator first"

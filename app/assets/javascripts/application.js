@@ -5,4 +5,6 @@
 //= require tinymce-jquery
 //= require bootstrap
 //= require autocomplete-rails
+//= require_tree ./inputs
+//= require_tree ./models
 //= require_tree ./customize

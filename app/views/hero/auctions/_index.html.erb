@@ -9,7 +9,7 @@
 				  <%= f.input :title, :label => ""%>
 				  <%= f.input :condition,:as => :plain_radio, :prepend_label => true, :collection => Auction.condition.options + [["egal", ""]]%>
 				</div>
-			  <%= f.input :categories_with_parents, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
+			  <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
         <%= f.action :submit , :button_html => {:class => "btn"}, :label => t("common.actions.search")%>
 			<% end %>
 

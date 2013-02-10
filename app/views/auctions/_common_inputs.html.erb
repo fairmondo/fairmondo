@@ -3,7 +3,7 @@
   <% end %>
   
   <%= f.inputs :name => t('auction.form.fieldsets.categories'), :hint => t('auction.hints.categories') do %>
-    <%= f.input :categories_with_parents, :as => :check_box_tree, :collection => @categories %>
+    <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories %>
     <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
   <% end %>
 

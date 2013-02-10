@@ -23,10 +23,10 @@ class AuctionsController < ApplicationController
       if params[:auction][:condition].present?  
         scope = scope.where(:condition => params[:auction][:condition])
       end
-      if params[:auction][:categories_with_parents].present?  
-        scope = scope.with_category_or_descendant_ids(params[:auction][:categories_with_parents])
+      if @search_cache.categories.present?
+        scope = scope.with_categories_or_descendants(@search_cache.categories)
       end
-      if params[:auction][:title].present?  
+      if params[:auction][:title].present?
         query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
         search_params = {:per_page => 12} 
         search_params[:page] = params[:page] || 1
@@ -179,7 +179,6 @@ class AuctionsController < ApplicationController
   end
 
   private
-  
   
   def respond_created
     #Throwing User Events

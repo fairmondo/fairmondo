@@ -11,7 +11,7 @@ describe AuctionsController do
       before :each do
         setup_categories
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
-        @auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln", :categories_with_parents => @vehicle_category.self_and_ancestors.map(&:id) )
+        @auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) )
       end
       
       it "should find the auction with title 'muscheln' when searching for muscheln" do
@@ -27,52 +27,62 @@ describe AuctionsController do
       context "when filtering by categories" do
         before :each do
           @hardware_category = Category.find_by_name!("Hardware")
-          @hardware_auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln 2", :categories_with_parents => @hardware_category.self_and_ancestors.map(&:id))
+          @hardware_auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln 2", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
         end
         
         it "should find the auction in category 'Hardware' when filtering for 'Hardware'" do
           @electronic_category = Category.find_by_name!("Elektronik")
-          get :index, :auction => {:categories_with_parents => [@hardware_category.id]}
+          get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == [@hardware_auction]
         end
         
         it "should find the auction in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
           @electronic_category = Category.find_by_name!("Elektronik")
-          get :index, :auction => {:categories_with_parents => [@electronic_category.id]}
+          get :index, :auction => {:categories_and_ancestors => @electronic_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == [@hardware_auction]
         end
         
         it "should not find the auction in category 'Hardware' when filtering for 'Software'" do
           @software_category = Category.find_by_name!("Software")
-          get :index, :auction => {:categories_with_parents => @software_category.self_and_ancestors.map(&:id)}
+          get :index, :auction => {:categories_and_ancestors => @software_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == []
+        end
+        
+        context "#categories_with_ancestors" do
+          context "when passing a category_id without its ancestors" do
+            it "should remove the orphan descendants from the passed subtree" do
+              @audio_category = Category.find_by_name!("Audio & HiFi")
+              get :index, :auction => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
+              controller.instance_variable_get(:@auctions).should == []
+            end
+          end
         end
         
         context "and searching for 'muscheln'" do 
           
           it "should find all auctions with title 'muscheln' with an empty categories filter" do
-            get :index, :auction => {:categories_with_parents => [], :title => "muscheln"}
+            get :index, :auction => {:categories_and_ancestors => [], :title => "muscheln"}
             controller.instance_variable_get(:@auctions).should == [@auction, @hardware_auction]
           end
           
           it "should chain both filters" do
-            get :index, :auction => {:categories_with_parents => [@hardware_category.id], :title => "muscheln"}
+            get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln"}
             controller.instance_variable_get(:@auctions).should == [@hardware_auction]
           end
           
           context "and filtering for condition" do
             
             before :each do
-              @no_second_hand_auction = FactoryGirl.create(:no_second_hand_auction, :title => "muscheln 3", :categories_with_parents => @hardware_category.self_and_ancestors.map(&:id)) 
+              @no_second_hand_auction = FactoryGirl.create(:no_second_hand_auction, :title => "muscheln 3", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id)) 
             end
             
             it "should find all auctions with title 'muscheln' with empty condition and category filter" do
-              get :index, :auction => {:categories_with_parents => [], :title => "muscheln"}
+              get :index, :auction => {:categories_and_ancestors => [], :title => "muscheln"}
               controller.instance_variable_get(:@auctions).should == [@auction, @hardware_auction, @no_second_hand_auction]
             end
             
             it "should chain all filters" do
-              get :index, :auction => {:categories_with_parents => [@hardware_category.id], :title => "muscheln", :condition => "old"}
+              get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln", :condition => "old"}
               controller.instance_variable_get(:@auctions).should == [@hardware_auction]
             end
             
@@ -265,7 +275,7 @@ describe AuctionsController do
 
     before :each do
       @user = FactoryGirl.create(:user)
-      @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:category)])
+      @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
     end
 
     describe "for non-signed-in users" do
@@ -298,7 +308,7 @@ describe AuctionsController do
       before :each do
         @user = FactoryGirl.create(:user)
         @auction = FactoryGirl::create(:auction, :seller => @user)
-        @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_with_parents => [FactoryGirl.create(:category)])
+        @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
         sign_in @user
       end
 

@@ -35,8 +35,8 @@ describe 'Auction management' do
       # TODO find out how to test rails asset pipeline visible styles
       # page.should have_content("Hardware", visible: false)
       
-      check "auction_categories_with_parents_#{Category.find_by_name!('Elektronik').id}"
-      check "auction_categories_with_parents_#{Category.find_by_name!('Computer').id}"
+      check "auction_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
+      check "auction_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
       page.should have_content("Hardware")
     end
   end

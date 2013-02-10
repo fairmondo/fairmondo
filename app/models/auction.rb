@@ -195,29 +195,25 @@ class Auction < ActiveRecord::Base
       :minimum_entries => I18n.t('errors.messages.minimum_categories'),
       :maximum_entries => I18n.t('errors.messages.maximum_categories')
     },
-    :add_errors_to => [:categories, :categories_with_parents]
+    :add_errors_to => [:categories, :categories_and_ancestors]
   }
   before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
-    
-  def categories_with_parents
-    (categories + categories.map(&:ancestors)).flatten.uniq    
+  
+  def categories_and_ancestors
+    @categories_and_ancestors ||= (categories && categories.map(&:self_and_ancestors).flatten.uniq) || []    
   end
   
-  def categories_with_parents=(csorig)
-    cs = csorig
-    if cs.first.is_a?(String) || cs.first.is_a?(Integer) 
-      cs = cs.select(&:present?).map(&:to_i)
-      cs = Category.where("'categories'.'id' IN (?)",cs)
-    else
-      cs = cs.dup
+  def categories_and_ancestors=(categories)
+    if categories.first.is_a?(String) || categories.first.is_a?(Integer) 
+      categories = categories.select(&:present?).map(&:to_i)
+      categories = Category.where("'categories'.'id' IN (?)", categories)
     end
     # remove entries which parent is not included in the subtree
     # e.g. you selected Hardware but unselected Computer afterwards
-    cs = cs.reject{|c| (c.parent && ! cs.include?(c.parent)) }
+    @categories_and_ancestors = categories.select{|c| c.include_all_ancestors?(categories) }
     # remove all parents
-    self.categories = self.class.remove_category_parents(cs)  
+    self.categories = self.class.remove_category_parents(@categories_and_ancestors)  
   end
-  # end categories
   
   # see #128
   belongs_to :auction_template
@@ -249,15 +245,13 @@ class Auction < ActiveRecord::Base
   # returns all auctions with category_id == nil
   scope :with_exact_category_id, lambda {|category_id = nil|
     return Auction.scoped unless category_id.present?
-    
     joins(:auctions_categories).where("'auctions_categories'.'category_id' = ?", category_id)
   }
   
   scope :with_exact_category_ids, lambda {|category_ids = []|
     category_ids = category_ids.select(&:present?).map(&:to_i)
     return Auction.scoped unless category_ids.present?
-    categories = Category.where("id IN (?)",category_ids)
-    joins(:auctions_categories).where("'auctions_categories'.'category_id' IN (?)", categories.map(&:id))
+    joins(:auctions_categories).where("'auctions_categories'.'category_id' IN (?)", category_ids)
   }
   
   # for convenience, these methods remove all redundant ancesors from the passed collection
