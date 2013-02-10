@@ -1,6 +1,5 @@
-
 // refs #109 and #154
-
+// class "icon-minus" for categories with checked sub-categories
 $(document).ready(function(){
 	$(".check_box_tree input[type=checkbox]")
 		.change(function (e) {
