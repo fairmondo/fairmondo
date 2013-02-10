@@ -1,0 +1,75 @@
+
+<%= render 'navbar'%>
+
+<div class="well span6">
+	<%if @user.legal_entity%>
+		<div>
+			<%= t('devise.edit_profile.name_title')%>: 
+			<%= @user.title %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.forename')%>: 
+			<%= @user.forename %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.surname')%>: 
+			<%= @user.surname %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.mail')%>: 
+			<%= @user.email %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.country')%>: 
+			<%= @user.country %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.street')%>: 
+			<%= @user.street %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.city')%>: 
+			<%= @user.city %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.zip')%>: 
+			<%= @user.zip %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.phone')%>: 
+			<%= @user.phone %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.mobile')%>: 
+			<%= @user.mobile %>
+		</div>
+		<div>
+			<%= t('devise.edit_profile.fax')%>: 
+			<%= @user.fax %>
+		</div>
+	<%end%>
+	
+	<br />
+	<div>
+		<strong><%= t('devise.edit_profile.about_me')%>:</strong>
+		<%= raw @user.about_me %>
+	</div>
+	
+	<%if @user.legal_entity%>
+		<br />
+		<div>
+			<strong><%= t('devise.edit_profile.terms')%>:</strong>
+			<%= raw @user.terms %>
+		</div>
+		<br />
+		<div>
+			<strong><%= t('devise.edit_profile.cancellation')%>:</strong>
+			<%= raw @user.cancellation %>
+		</div>
+		<br />
+		<div>
+			<strong><%= t('devise.edit_profile.about')%>:</strong>
+			<%= raw @user.about %>
+		</div>
+	<%end%>
+</div>

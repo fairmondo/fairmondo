@@ -21,6 +21,13 @@ class DashboardController < ApplicationController
 
   end
 
+  def profile
+    get_user
+    if @user.legal_entity
+      @user = @user.becomes(LegalEntity)
+    end
+  end
+
   def index
     get_user
     @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)

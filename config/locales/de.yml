@@ -464,7 +464,8 @@ de:
       invitor: "Einladender"
       invited_people: "Eingeladene Benutzer"
     actions:
-      edit_account: "Benutzerkonto bearbeiten"
+      edit_account: "Profil bearbeiten"
+      show_account: "Profil"
       send_invitation: "Einladung schicken"
     menu:
       edit: "Profil bearbeiten"

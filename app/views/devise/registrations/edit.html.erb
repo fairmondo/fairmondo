@@ -1,39 +1,43 @@
 
+<div class="row">
+<%= render '/dashboard/navbar'%>
+<div class="span9">
 <h1><%= t('devise.edit_profile.title')%> </h1>
 
 <%if current_user%>
 
+		<%= semantic_form_for(resource.becomes(current_user.legal_entity ? LegalEntity : PrivateUser), :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
-	<%= semantic_form_for(resource.becomes(PrivateUser), :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-		<%= f.semantic_errors %>
-		<%= f.inputs do %>
-			<div class="row">
-				<div class="form-with-border-and-bg span6">
-					<p>
-						<%= t('devise.new_profile.status')%>: 
-						<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-					</p>
-					<p>
-						<strong><%= current_user.legal_entity ? t('devise.edit_profile.legal_entity') : t('devise.edit_profile.private_user') %></strong> 
-					</p>
-					<p>
-						<%= t('devise.edit_profile.nickname')%>:
-						<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-					</p>
-					<p> <strong><%= current_user.nickname%></strong> </p>
+			<%= f.semantic_errors %>
+			<%= f.inputs do %>
+				<div class="row">
+					<div class="form-with-border-and-bg span6">
+						<p>
+							<%= t('devise.new_profile.status')%>: 
+							<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
+						</p>
+						<p>
+							<strong><%= current_user.legal_entity ? t('devise.edit_profile.legal_entity') : t('devise.edit_profile.private_user') %></strong> 
+						</p>
+						<p>
+							<%= t('devise.edit_profile.nickname')%>:
+							<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
+						</p>
+						<p> <strong><%= current_user.nickname%></strong> </p>
+					</div>
 				</div>
-			</div>
-			<%= render :partial =>'edit_private',  :locals => {:f => f} %>
-				
-			<%if current_user && current_user.legal_entity%>
-				<%= render :partial =>'edit_legal', :locals => {:f => f} %>
-			<%end%>
-
-		<% end %>
-
-
-		<%= f.actions do %>
-			<%= f.action :submit, :button_html => {:class => "btn btn-primary"} %>
-		<% end %>
-	<% end %>
+				<%= render :partial =>'edit_private',  :locals => {:f => f} %>
+					
+				<%if current_user && current_user.legal_entity%>
+					<%= render :partial =>'edit_legal', :locals => {:f => f} %>
+				<%end%>
+	
+			<% end %>
+	
+			<%= f.actions do %>
+				<%= f.action :submit, :button_html => {:class => "btn btn-primary"} %>
+			<% end %>
+		<%end%>
 <%end%>
+</div>
+</div>

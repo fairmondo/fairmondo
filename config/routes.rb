@@ -35,6 +35,7 @@ Fairnopoly::Application.routes.draw do
 
   #the user routes
   match 'dashboard' => 'dashboard#index'
+  match 'dashboard/profile' => 'dashboard#profile'
   match 'dashboard/search_users' => 'dashboard#search_users'
   match 'search_users' => 'dashboard#search_users'
   match 'dashboard/admin' => 'dashboard#admin'
