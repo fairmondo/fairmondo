@@ -30,7 +30,8 @@ class AuctionsController < ApplicationController
         query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
         search_params = {:per_page => 12} 
         search_params[:page] = params[:page] || 1
-        # we cannot use the relevance search, see TODO
+        # we cannot use the relevance search as its pagination does not takes
+        # the scopes from before (category, condition) in count
         # @auctions = scope.paginate_search(query, search_params)
         scope = scope.with_query(query) 
       end

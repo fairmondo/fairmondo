@@ -24,7 +24,7 @@ describe 'User management' do
         fill_in 'Confirm new password', with: 'password'#
         check 'accept data privacy agreement'
         check 'accept TOS agreement'
-        click_button 'Create user'
+        click_button 'Register'
         User.find_by_email('email@example.com').confirm!
       }.to change(User, :count).by(1)
     end
