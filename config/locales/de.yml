@@ -121,6 +121,9 @@ de:
       report: "Melden"
       take_part: "Mitmachen"
       buy: "Kaufen"
+    title:
+      man: "Herr"
+      woman: "Frau"
     text:
       buy: "Einkaufen"
       sell: "Verkaufen"
@@ -157,6 +160,8 @@ de:
     help: "Hilfe"
 # Devise
   devise:
+    countries:
+      germany: "Deutschland"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben." 
     links:
@@ -182,18 +187,43 @@ de:
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
     edit_profile:
+      title: "Perönliche Daten"
+      contact_person: "Ansprechpartner"
       nickname: "Nutzername"
       nickname_hint: "Dein perönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
+      legal_entity: "Juristische Person"
+      private_user: "Privatperson"
+      name_title: "Anrede"
       forename: "Vorname"
       surname:  "Nachname"
+      mail: "E-Mail"
+      password: "Passort"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
-      image: "Bitte Bild auswählen"
+      image: "Wähle dein Bild aus"
       picture: "Bild"
-      password: "Geben Sie ein neues Passwort an (Freilassen, falls kein neues Passwort angelegt werden soll)"
+      password_hint: "Geben Sie ein neues Passwort an (Freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Neues Passwort bestätigen"
       current_password: "Bisheriges Passwort angeben (wir benötigen Ihr bisheriges Passwort um die Änderungen zu bestätigen)"
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Sind Sie sicher?"
+      address: "Anschrift und Kontaktdaten"
+      country: "Land"
+      street: "Straße und Hausnummer"
+      city: "Stadt"
+      zip: "PLZ"
+      phone: "Telefonnummer (Festnetz)"
+      mobile: "Telefonnummer (Mobil)"
+      fax: "Fax"
+      about_me: "Über mich"
+      about_me_hint: "Hier kannst du dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
+      terms: "AGB"
+      cancellation: "Widerrufsbelehrung und Rücknahme"
+      about: "Impressum und Kontakt"
+      terms_hint: "Trage hier deine AGB ein."
+      cancellation_hint: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
+      about_hint: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
+      public: "Öffentlich"
+      private: "Privat"
 # Formtastic     
   formtastic: 
     :yes: Ja

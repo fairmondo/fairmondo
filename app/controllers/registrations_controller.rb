@@ -28,6 +28,16 @@
         render :new
       end
     end
+    
+  def edit
+    if current_user
+      @image = current_user.image unless current_user.image.url ==  "/images/original/missing.png"
+      super
+    else
+      render :new
+    end
+
+  end
   
   def update
     

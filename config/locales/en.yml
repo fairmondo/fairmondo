@@ -23,6 +23,9 @@ en:
       edit_profile: "Edit Profile"
       search: "Search"
       report: "Report"
+    title:
+      man: "Mr."
+      woman: "Ms."
     text:
       buy: "Buy"
       sell: "Sell"
@@ -80,14 +83,25 @@ en:
       private_user: "I am a private Person"
       status: "legal status"
     edit_profile:
+      title: "Personal data"
+      name_title: "Title"
       email: "Enter your email address"
       image: "Choose a picture"
       picture: "Picture"
-      password: "Enter new password (leave blank if you don't want to change it)"
+      password_hint: "Enter new password (leave blank if you don't want to change it)"
       password_confirmation: "Confirm new password"
       current_password: "Enter current password (we need your current password to confirm your changes)"
       cancel_account: "Cancel my account"
       cancel_account_confirm: "Are you sure?"
+      address: "Address"
+      country: "Country"
+      street: "Street"
+      city: "City"
+      zip: "Zip"
+      phone: "Phone number"
+      mobile: "Mobile number"
+      fax: "Fax"
+      about_me: "About me"
 # Formtastic     
   formtastic: 
 # Login 
