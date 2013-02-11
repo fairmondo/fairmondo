@@ -1,8 +1,8 @@
 <% if @auction_templates.present? %>
-  <div class='well'>
-    <%= semantic_form_for(:template_select, :url => new_auction_path, :html => { :method => :get, :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder) do |f| %>
+  <%= semantic_form_for(:template_select, :url => new_auction_path, :html => { :method => :get, :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder) do |f| %>
+    <%= f.input_step :apply do %>
       <%= f.input :auction_template, :collection => @auction_templates, :prompt => t('template_select.prompts.auction_templates') %>
       <%= f.action :submit, :button_html => {:class => "primary"} %>
     <% end %>
-  </div>
+  <% end %>
 <% end %>

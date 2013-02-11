@@ -3,7 +3,7 @@ class CheckBoxTreeInput < FormtasticBootstrap::Inputs::CheckBoxesInput
   def to_html
     if options[:prepend_label]
       control_label_html
-      l = template.content_tag(:div, control_label_html, :class => "question")
+      l = template.content_tag(:div, control_label_html)
     else
       l = "".html_safe
     end
@@ -39,11 +39,8 @@ class CheckBoxTreeInput < FormtasticBootstrap::Inputs::CheckBoxesInput
       )
     ).html_safe
   end
-  
 
-  def choice_html(choice)
-    # To add the icon again, uncomment
-    #template.content_tag(:label, template.content_tag(:i, "", :class => 'icon-tags') << choice_label(choice), 
+  def choice_html(choice) 
     template.content_tag(:label, choice_label(choice),
         label_html_options.merge(choice_label_html_options(choice))) <<
       (hidden_fields? ? check_box_with_hidden_input(choice) : check_box_without_hidden_input(choice)).html_safe <<

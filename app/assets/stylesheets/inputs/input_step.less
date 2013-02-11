@@ -1,0 +1,43 @@
+// refs #109 and #154
+
+.input-step {
+  
+  .step-legend {
+    border: 1px solid #C8C8C8;
+    font-family: Helvetica;
+    
+    h3 {
+      line-height: 100% !important;
+    }
+    
+
+    
+    i {
+      margin-right: 10px;
+    }
+    
+  }
+
+}
+
+.input-step:not(:target) {
+  .step-legend {
+    background-color: #DDDDDD;
+    a:link, a:visited, a:hover, a:active {
+      color: #666666; 
+    }
+  }
+  
+  fieldset {
+    display: none;
+  }
+}
+
+.input-step:target {
+  .step-legend {
+    a:link, a:visited, a:hover, a:active {
+      color: #FFFFFF; 
+    }
+    background-color: #0088CC;
+  }
+}

@@ -45,7 +45,6 @@ class SizeValidator < ActiveModel::EachValidator
   end
   
   def error_message_for_maximum_entries
-    debugger
     (options[:messages] && options[:messages][:maximum_entries]) || I18n.t('errors.messages.maximum_entries', :count => range.last)
   end
   

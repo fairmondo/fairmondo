@@ -1,13 +1,11 @@
-	 <%= f.inputs do %>
+	
+	<%= f.input_step :title_and_categories, :default_step => true do %>
     <%= f.input :title, :hint => t('auction.hints.title') %>
-  <% end %>
-  
-  <%= f.inputs :name => t('auction.form.fieldsets.categories'), :hint => t('auction.hints.categories') do %>
-    <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories %>
+    <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
     <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :hint => t('auction.categories.proposal.hint') %>
   <% end %>
 
-  <%= f.inputs :name => t('auction.form.fieldsets.commendation'), :hint => t('auction.form.fieldsets.commendation_title_hint') do %>
+  <%= f.input_step :commendation do %>
     <%= f.input :fair, :as => :plain_check_box, :hint => t('auction.hints.fair'), :js_toggle => true %>
     <%= f.inputs :id => 'fair-input-fields' do %>
     
@@ -40,7 +38,7 @@
     <% end %>
   <% end %>
   
-  <%= f.inputs :name => t('auction.form.fieldsets.article') do %>
+  <%= f.input_step :article do %>
   	<%= f.input :condition, :hint => t('auction.hints.condition') ,:as => :plain_radio, :prepend_label => true%>
   	<%= f.input :content, :as => :text ,:hint =>t('auction.hints.content'), :input_html => {:class => "tinymce"}%>
   	<%= f.input :color %>
@@ -50,7 +48,20 @@
   	<%= tinymce %>
   <% end %>
   
-  <%= f.inputs :name => t('auction.form.fieldsets.transport_and_payment_options') do %>
+  <%= f.input_step :auction do %>
+    <%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
+    <%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
+    <div class="input optional control-group" >
+      <div class="controls controls-row">
+  
+        <span class="span1" ><small><%= t('auction.hints.date') %></small></span>
+        <span class="span3" >&nbsp;</span>
+        <span class="span1" ><small><%= t('auction.hints.time') %></small></span>
+      </div>
+    </div>
+  <% end %>
+  
+  <%= f.input_step :transport_and_payment do %>
     <%= f.inputs :hint => t('auction.hints.transport') do %>
       <%= f.input :transport, :as => :check_boxes %>
       <%= f.input :transport_details %>
@@ -62,7 +73,7 @@
     <% end %>
   <% end %>
   
-  <%= f.inputs :name => t('auction.form.fieldsets.friendly_percent'), :hint => t('auction.hints.friendly_percent') do %>
+  <%= f.input_step :friendly_percent do %>
     <div class='friendly_percent-user-inputs'>
       <%= f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)} %>
       <%= f.input :friendly_percent_organisation, :as => :select %>
@@ -70,22 +81,4 @@
     <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
   <% end %>
   
-  <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :hint => t('auction.hints.fees_and_donations').html_safe do %>
-    <%= f.input :corruption_percent_result, :input_html => {:disabled => true} %>
-    <%= f.input :friendly_percent_result, :input_html => {:disabled => true} %>
-    <%= f.input :fees, :input_html => {:disabled => true}, :hint => t('auction.hints.fees').html_safe %>
-    <%= f.input :fees_and_donations, :input_html => {:disabled => true} %>
-  <% end %>
-
-  <%= f.inputs do %>
-  	<%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
-    <%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
-    <div class="input optional control-group" >
-      <div class="controls controls-row">
   
-        <span class="span1" ><small><%= t('auction.hints.date') %></small></span>
-        <span class="span3" >&nbsp;</span>
-        <span class="span1" ><small><%= t('auction.hints.time') %></small></span>
-      </div>
-    </div>
-	<% end %>

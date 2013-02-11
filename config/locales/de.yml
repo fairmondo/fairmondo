@@ -308,7 +308,20 @@ de:
         name: Vorlagenname
       template_select:
         auction_template: Vorlage
-        
+    input_steps:
+      auction:
+        prefix: "%{count}. Schritt:"
+        title_and_categories: "Produktbezeichnung und Kategorie"
+        commendation: "Auszeichnung deines Artikels (optional)"
+        article: "Dein Artikel"
+        auction: "Das Angebot"
+        transport_and_payment: "Versand und Bezahlung"
+        legal_issues: "Rechtliches"
+        friendly_percent: "Das freundliche Prozent"
+        double_check: "Artikel einstellen"
+      template_select:
+        prefix: ""
+        apply: Deine Vorlagen
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
@@ -378,6 +391,8 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
+
+      
       fieldsets:
         categories: Kategorien
         categories_and_ancestors: Kategorien
