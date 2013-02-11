@@ -294,7 +294,10 @@ class Auction < ActiveRecord::Base
   end
   
   def self.remove_category_parents(categories)
-    # does not hit the database
+    #Fix Migration Error
+    categories.reject{|c| c==nil}
+    
+    # does not hit the database 
     categories.reject{|c| categories.any? {|other| other.is_descendant_of?(c) } }
   end
 
