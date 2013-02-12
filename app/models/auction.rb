@@ -206,7 +206,7 @@ class Auction < ActiveRecord::Base
   def categories_and_ancestors=(categories)
     if categories.first.is_a?(String) || categories.first.is_a?(Integer) 
       categories = categories.select(&:present?).map(&:to_i)
-      categories = Category.where("'categories'.'id' IN (?)", categories)
+      categories = Category.where(:id => categories)
     end
     # remove entries which parent is not included in the subtree
     # e.g. you selected Hardware but unselected Computer afterwards
@@ -245,13 +245,13 @@ class Auction < ActiveRecord::Base
   # returns all auctions with category_id == nil
   scope :with_exact_category_id, lambda {|category_id = nil|
     return Auction.scoped unless category_id.present?
-    joins(:auctions_categories).where("'auctions_categories'.'category_id' = ?", category_id)
+    joins(:auctions_categories).where(:auctions_categories => {:category_id => category_id})
   }
   
   scope :with_exact_category_ids, lambda {|category_ids = []|
     category_ids = category_ids.select(&:present?).map(&:to_i)
-    return Auction.scoped unless category_ids.present?
-    joins(:auctions_categories).where("'auctions_categories'.'category_id' IN (?)", category_ids)
+    # passing and array, rails uses 'IN'-operator instead of '=' 
+    with_exact_category_id(category_ids)
   }
   
   # for convenience, these methods remove all redundant ancesors from the passed collection
@@ -260,7 +260,7 @@ class Auction < ActiveRecord::Base
   scope :with_category_or_descendant_ids, lambda {|category_ids = []|
     category_ids = category_ids.select(&:present?).map(&:to_i)
     return Auction.scoped unless category_ids.present?
-    with_categories_or_descendants(Category.where("id IN (?)",category_ids))
+    with_categories_or_descendants(Category.where(:id => category_ids))
   }
   
   scope :with_categories_or_descendants, lambda {|categories = []|

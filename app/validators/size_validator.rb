@@ -26,7 +26,7 @@ class SizeValidator < ActiveModel::EachValidator
     else
       raise ArgumentError, "SizeValidator does not yet implement other argument types than Range"  
     end
-  end  
+  end
   private
   
   def add_error(record, attribute, msg)
