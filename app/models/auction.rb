@@ -293,9 +293,9 @@ class Auction < ActiveRecord::Base
     true
   end
   
-  def self.remove_category_parents(categories)
-    # does not hit the database
-    categories.reject{|c| categories.any? {|other| other.is_descendant_of?(c) } }
+  def self.remove_category_parents(categories)    
+    # does not hit the database 
+    categories.reject{|c| categories.any? {|other| c!=nil && other.is_descendant_of?(c) } }
   end
 
   # see #128
