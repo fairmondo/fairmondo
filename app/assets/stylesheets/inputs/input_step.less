@@ -3,32 +3,41 @@
 .input-step {
   
   .step-legend {
+    
     border: 1px solid #C8C8C8;
     font-family: Helvetica;
     
     h3 {
       line-height: 100% !important;
+      margin-left: 35px;
     }
     
-
+    a {
+      text-decoration: none;
+    }
     
     i {
       margin-right: 10px;
     }
-    
+    -webkit-transition:all 1.4s ease-in-out;
+    -moz-transition:all 1.4s ease-in-out;
+    -o-transition:all 1.4s ease-in-out;
+    transition:all 1.4s ease-in-out; 
   }
-
+  
 }
 
 .input-step:not(:target) {
   .step-legend {
-    background-color: #DDDDDD;
+    background: #DDDDDD url("input-step-closed.png") no-repeat left center;
+    
     a:link, a:visited, a:hover, a:active {
-      color: #666666; 
-    }
+      color: #666666;
+    }    
   }
   
   fieldset {
+    opacity: 0;
     display: none;
   }
 }
@@ -38,6 +47,6 @@
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF; 
     }
-    background-color: #0088CC;
+    background: #0088CC url("input-step-open.png") no-repeat left center;
   }
 }

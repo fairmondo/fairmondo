@@ -52,7 +52,6 @@ module Fairtastic
        template.content_tag(:div,
          template.content_tag(:a,
            template.content_tag(:h3,
-             template.content_tag(:i, "", :class => "icon-play icon-white") <<
              prefix + I18n.t("formtastic.input_steps.#{object_name}.#{step_key}")
            ), :href => "##{step_key}_step"
          ), :class => "step-legend"
