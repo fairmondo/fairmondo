@@ -25,7 +25,7 @@
 					<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
 					<% end %>	
 					
-					<p><a class="btn btn-primary  control-auction-middle">	<%= t('common.actions.buy')%></a></p>	
+					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
 						
 				</div>
 				<div class="span2"> 	
@@ -69,7 +69,7 @@
 
 					
 					<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
-						<%= f.text_field "melden", :name=>"report", :value => params["report"], :class => "small_size" %>
+						<%= f.text_field "melden", :name=>"report", :value => params["report"] %>
 						
 						<button class="btn">
 							<i  class="icon-warning-sign"></i>

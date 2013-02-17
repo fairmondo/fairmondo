@@ -48,7 +48,7 @@
 				<%@userevents.each do |userevent| %>
 
 				<%if userevent.created_at.day != day%>
-				<p class="clear-margin">
+				<p class="chat-date">
 					<small><%= userevent.created_at.strftime("%d.%m.%Y")%>
 						<% day=userevent.created_at.day %></small>
 				</p>

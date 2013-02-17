@@ -4,7 +4,7 @@
 	<%= tinycms_content "register_info" %>
 
 	<%if session[:invitor_name]%>
-		<div class="form-with-border-and-bg">
+		<div class="element-in-box">
 			<strong> <%= t('invitation.invitated')%>
 			<%= session[:invitor_name]%> </strong>
 		</div>
@@ -16,11 +16,11 @@
 		
 		<%= f.inputs do %>
 			
-			<div class="form-with-border-and-bg">
+			<div class="element-in-box">
 				<%= f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('devise.new_profile.private_user'),false], [t('devise.new_profile.legal_entity'),true]], :label => t('devise.new_profile.status')%>
 			</div>
 			
-			<div class="form-with-border-and-bg">
+			<div class="element-in-box">
 				<%= f.input :nickname, :required => true, :label => t('devise.edit_profile.nickname'), :hint => t('devise.edit_profile.nickname_hint')%>
 				<%= f.input :forename, :required => true, :label => t('devise.edit_profile.forename')%>
 				<%= f.input :surname, :required => true, :label => t('devise.edit_profile.surname')%>
@@ -32,12 +32,12 @@
 				<%end%>
 			</div>
 			
-			<div class="form-with-border-and-bg">
+			<div class="element-in-box">
 				<%= f.input :password, :label => t('devise.new_profile.password') %>
 				<%= f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true %>
 			</div>
 			
-			<div class="form-with-border-and-bg">
+			<div class="element-in-box">
 				<%= recaptcha_tags :display => {:theme => 'clean'} %>
 			</div>
 
