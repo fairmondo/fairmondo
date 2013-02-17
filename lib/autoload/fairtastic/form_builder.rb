@@ -24,7 +24,7 @@ module Fairtastic
      
      # TODO find out how to customize inputs-method (pluralversion), move steps to its own class 
      def input_step(step_key, options = {}, &block)
-       css = "input-step"
+       css = "box"
        css << " default-step" if options[:default_step]
        
        template.content_tag(:div,
@@ -54,7 +54,7 @@ module Fairtastic
            template.content_tag(:h3,
              prefix + I18n.t("formtastic.input_steps.#{object_name}.#{step_key}")
            ), :href => "##{step_key}_step"
-         ), :class => "step-legend"
+         ), :class => "box-legend"
          
        )
      end 

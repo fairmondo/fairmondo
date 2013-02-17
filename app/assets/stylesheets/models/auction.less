@@ -85,17 +85,7 @@ span.in-image {
   
   
 @media (max-width: 767px) {
-  .thumbnail_image_span{
-    float: left !important; // Explicity set the float since we don't require .span* classes
-    margin-bottom: @baseLineHeight !important;
-    margin-left: @gridGutterWidth !important;
-     width: @gridColumnWidth ;
-  }
   
-  ul.thumbnails > li.thumbnail_image_span:nth-child(4n+1) {
-   margin-left: 0px !important;
-   clear:left;
-  }
   
   .title_image {
      max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
