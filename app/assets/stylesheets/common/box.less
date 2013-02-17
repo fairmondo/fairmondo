@@ -1,8 +1,14 @@
 // refs #109 and #154
+/*
+ *  Fairnopoly Step-Based Boxes
+ * 
+ */
 
-.input-step {
+
+
+.box {
   
-  .step-legend {
+  .box-legend {
     
     border: 1px solid #C8C8C8;
     font-family: Helvetica;
@@ -27,26 +33,33 @@
   
 }
 
-.input-step:not(:target) {
-  .step-legend {
-    background: #DDDDDD url("input-step-closed.png") no-repeat left center;
+.box:not(:target) {
+  .box-legend {
+    background: #DDDDDD url("box/box-closed.png") no-repeat left center;
     
     a:link, a:visited, a:hover, a:active {
       color: #666666;
     }    
   }
   
-  fieldset {
-    opacity: 0;
-    display: none;
+  
+  .box-content {
+     opacity: 0;
+     display: none;
   }
 }
 
-.input-step:target {
-  .step-legend {
+.box:target {
+  .box-legend {
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF; 
     }
-    background: #0088CC url("input-step-open.png") no-repeat left center;
+    background: #0088CC url("box/box-open.png") no-repeat left center;
+  }
+}
+
+.box {
+  .box-legend-inside-well {
+    border: 1px solid @wellBackground;
   }
 }

@@ -8,9 +8,9 @@ module Fairtastic
         contents = args.last.is_a?(::Hash) ? '' : args.pop.flatten
         html_options = args.extract_options!
         if html_options[:class]
-          html_options[:class] << " well"
+          html_options[:class] << " box-content well"
         else
-          html_options[:class] = "well"
+          html_options[:class] = "box-content well"
         end
 
         if block_given?
