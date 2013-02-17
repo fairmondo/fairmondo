@@ -1,5 +1,8 @@
-@import "variables.less";
-@import "mixins.less";
+
+
+/*
+ *  NEW
+ */
 
 .formtastic.auction {
   textarea {
@@ -29,6 +32,10 @@
   
 }
 
+/*
+ * SEARCH
+ */
+
 .search-form {
   
   abbr[title='required'] {
@@ -43,3 +50,55 @@
       }
   }
 }
+
+
+/* 
+ * SHOW
+ */
+
+/*
+ *  Display Span Labels inside the auction image
+ */
+span.in-image {
+  position: absolute;top: 10px; left: 10px;
+}
+  
+  
+/*
+ * Display the auctions thumbnail image correctly
+ * with responsive
+ */  
+  
+.title-image-wrapper{
+  position: relative;
+}
+.title_image {
+  width:100%;
+   
+   border: 1px solid darken(@wellBackground, 17%);
+  margin-bottom: 20px;
+}
+
+.thumbnail_image {
+  border: 1px solid darken(@wellBackground, 17%);
+}  
+  
+  
+@media (max-width: 767px) {
+  .thumbnail_image_span{
+    float: left !important; // Explicity set the float since we don't require .span* classes
+    margin-bottom: @baseLineHeight !important;
+    margin-left: @gridGutterWidth !important;
+     width: @gridColumnWidth ;
+  }
+  
+  ul.thumbnails > li.thumbnail_image_span:nth-child(4n+1) {
+   margin-left: 0px !important;
+   clear:left;
+  }
+  
+  .title_image {
+     max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
+  }
+}  
+  

@@ -8,10 +8,8 @@ Fairnopoly::Application.routes.draw do
 
   get "invitation/index"
 
-  resources :categories
+  
   resources :images
-  resources :userevents
-  resources :events
   resources :invitations
   resources :ffps
     
@@ -50,7 +48,6 @@ Fairnopoly::Application.routes.draw do
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'
 
-  match 'event' => 'userevents#index'
   match 'invitation' => 'invitations#new'
 
 

@@ -1,7 +1,7 @@
 
 
 		<div class="row">
-			<div class="form-with-border-and-bg span6">
+			<div class="element-in-box span6">
 				<p>
 					<%= t('devise.edit_profile.picture')%>: 
 					<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-with-border-and-bg span6">
+			<div class="element-in-box span6">
 				
 				<%if current_user.legal_entity%>
 				<p>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-with-border-and-bg span6">
+			<div class="element-in-box span6">
 				<p><strong><%= t('devise.edit_profile.address')%></strong></p>
 				
 				<%= t('devise.edit_profile.country')%>: 
@@ -78,7 +78,7 @@
 				<%= f.input :fax, :label=> false %>
 			</div>
 		</div>
-		<div class="form-with-border-and-bg">
+		<div class="element-in-box">
 			<strong><%= t('devise.edit_profile.about_me')%>:</strong>
 			<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
 			<%= f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
