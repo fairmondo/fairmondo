@@ -3,9 +3,109 @@
  * -----------------
  */
 
-@import "bootstrap/bootstrap.less";
-@import "bootstrap/responsive.less";
+/*!
+ * Bootstrap v2.1.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+// CSS Reset
+@import "bootstrap/reset.less";
+
+// Core variables and mixins
+@import "bootstrap/variables.less"; // Modify this for custom colors, font-sizes, etc
 @import "bootstrap/mixins.less";
+
+// Grid system and page structure
+@import "bootstrap/scaffolding.less";
+@import "bootstrap/grid.less";
+@import "bootstrap/layouts.less";
+
+// Base CSS
+@import "bootstrap/type.less";
+@import "bootstrap/code.less";
+@import "bootstrap/forms.less";
+@import "bootstrap/tables.less";
+
+// Components: common
+@import "bootstrap/sprites.less";
+@import "bootstrap/dropdowns.less";
+@import "bootstrap/wells.less";
+@import "bootstrap/component-animations.less";
+@import "bootstrap/close.less";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons.less";
+@import "bootstrap/button-groups.less";
+@import "bootstrap/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "bootstrap/navs.less";
+//@import "bootstrap/navbar.less";
+@import "bootstrap/breadcrumbs.less";
+@import "bootstrap/pagination.less";
+@import "bootstrap/pager.less";
+
+// Components: Popovers
+@import "bootstrap/modals.less";
+@import "bootstrap/tooltip.less";
+@import "bootstrap/popovers.less";
+
+// Components: Misc
+@import "bootstrap/thumbnails.less";
+@import "bootstrap/labels-badges.less";
+@import "bootstrap/progress-bars.less";
+@import "bootstrap/accordion.less";
+//@import "bootstrap/carousel.less";
+//@import "bootstrap/hero-unit.less";
+
+// Utility classes
+@import "bootstrap/utilities.less"; // Has to be last to override when necessary
+
+// Jquery UI 4 Autocompletion
+@import "bootstrap/jquery-ui-bootstrap.less";
+
+/*!
+ * Bootstrap Responsive v2.1.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+
+// RESPONSIVE CLASSES
+// ------------------
+
+@import "bootstrap/responsive-utilities.less";
+
+
+// MEDIA QUERIES
+// ------------------
+
+// Large desktops
+@import "bootstrap/responsive-1200px-min.less";
+
+// Tablets to regular desktops
+@import "bootstrap/responsive-768px-979px.less";
+
+// Phones to portrait tablets and narrow desktops
+@import "bootstrap/responsive-767px-max.less";
+
+
+// RESPONSIVE NAVBAR
+// ------------------
+
+// From 979px and below, show a button to toggle navbar contents
+//@import "bootstrap/responsive-navbar.less";
+
+
 
 /* 
  * Imports - Common
@@ -30,7 +130,7 @@
 @import "inputs/plain_check_boxes.less";
 @import "inputs/plain_radio_buttons.less";
 @import "inputs/responsive_tinymce.less";
-
+@import "inputs/input_tooltip.less";
 
 /*
  *  Models
