@@ -1,46 +1,46 @@
 <div class="row">
 	<div class="span9 ">
 		<div class="well-column">
-			<div class="padding-box">
-				<h1><%= @auction.title %> </h1>
-			</div>
+			
+			<h1><%= @auction.title %> </h1>
+			
 			<div class="row-fluid">
 				<div class="span4 ">
-					<div class="padding-box">
+					
 						<div class="title-image-wrapper">
 						<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"http://placehold.it/360x260" , :class=> "title_image"), "#" %>
 						<%= condition_label @auction, "in-image" %>	
 						
-							<ul class="thumbnails">
+							<ul class="thumbnails auction-thumbnails">
 								<% @auction.images.each do |image| %>
 							<%if (image != @title_image)%>
-							<li class="span3 thumbnail_image_span">
+							<li class="span3">
 								<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
 							</li>
 							<%end%>
 							<%end%>
 							</ul>
 						</div>
-					</div>
+					
 				</div>
 				<div class="span4 "> 
-					<div class="padding-box">	
+					
 					<p><b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b></p>
 					<% if @auction.size && @auction.size != ""%>		
 					<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
 					<% end %>	
 					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-					</div>	
+						
 				</div>
 				<div class="span4 "> 
-					<div class="padding-box">		
+							
 				 		Platzhalter
-				 	</div>
+				 	
 				</div>
 			</div>
-			<div class="row">
-				<div class="span9">
+			<div class="row-fluid">
+				<div class="span12">
 					<div class="box" id="content">
 						
 						<div class="box-legend box-legend-without-border">
