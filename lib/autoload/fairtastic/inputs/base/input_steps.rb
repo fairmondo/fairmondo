@@ -52,7 +52,7 @@ module Fairtastic
           template.content_tag(:h3,
           prefix << I18n.t("formtastic.input_steps.#{object_name}.#{step_key}")
           ), :href => "##{step_key}_step"
-          ) << tooltip.html_safe, :class => "step-legend"
+          ) << tooltip.html_safe << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
         end
 
