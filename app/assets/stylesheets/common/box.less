@@ -16,19 +16,43 @@
     h3 {
       line-height: 100% !important;
       margin-left: 35px;
+      display: inline-block;
     }
     
     a {
       text-decoration: none;
     }
     
-    i {
-      margin-right: 10px;
+    a.input-tooltip {
+      margin-top: 7px;
+      span{
+        left: 90%;
+      }
+       
+      span:before, span:after{
+        left: 90%;
+      }
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
-    -webkit-transition:all 1.4s ease-in-out;
-    -moz-transition:all 1.4s ease-in-out;
-    -o-transition:all 1.4s ease-in-out;
-    transition:all 1.4s ease-in-out; 
+    
+    a.input-tooltip:hover {
+      span{
+        top: 50px;
+      }
+    }
+    
+    -webkit-transition:all 1.0s ease-in-out;
+    -moz-transition:all 1.0s ease-in-out;
+    -o-transition:all 1.0s ease-in-out;
+    transition:all 1.0s ease-in-out;
+    
+    a:link, a:visited, a:hover, a:active {
+      color: #FFFFFF; 
+    }
+    background: #0088CC url("input-step-open.png") no-repeat left center;
   }
   
 }
@@ -39,7 +63,7 @@
     
     a:link, a:visited, a:hover, a:active {
       color: #666666;
-    }    
+    }
   }
   
   
@@ -63,3 +87,4 @@
     border: 1px solid @wellBackground;
   }
 }
+

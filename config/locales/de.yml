@@ -313,11 +313,14 @@ de:
         prefix: "%{count}. Schritt:"
         title_and_categories: "Produktbezeichnung und Kategorie"
         commendation: "Auszeichnung deines Artikels (optional)"
+        commendation_hint: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         article: "Dein Artikel"
         auction: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Das freundliche Prozent"
+        friendly_percent_hint: >
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
         double_check: "Artikel einstellen"
       template_select:
         prefix: ""
@@ -397,7 +400,6 @@ de:
         categories: Kategorien
         categories_and_ancestors: Kategorien
         commendation: Auszeichnung Deines Artikels - Fair, Öko, Klein&Edel
-        commendation_title_hint: Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen.
         article: Dein Artikel
         transport_and_payment_options: Versand und Bezahlung
         friendly_percent: Das freundliche Prozent
@@ -409,7 +411,7 @@ de:
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
-      submit: "Angebot einstellen"
+      submit: "Angebot einstellen. Beachten Sie, dass hiermit bei Vertragsabschluss Gebühren entstehen."
     list:
       header: "Ergebnisse"
     notices:
@@ -418,8 +420,8 @@ de:
       image: "Bild wurde erfolgreich hochgeladen."
     hints:
       title:  "Geben Sie eine Bezeichnung Ihres Produktes ein."
-      
-      categories: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
+      categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
+      category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
       
       fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
       small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
@@ -428,19 +430,16 @@ de:
       social_producer_questionnaire: >
         Hier könnt ihr Eure Produkte in die Kategorie "Sozial" einordnen.
         
-      content: "Geben Sie eine Beschreibung für die Auktion ein"
       condition: "Trage den Zustand Deines Artikels ein"
+      content: "Geben Sie eine Beschreibung für die Auktion ein"
       quantity: Trage hier die Menge ein
-      price: trage hier den Preid pro Artikel ein
+      price: Trage hier den Preis pro Artikel ein
       
       transport: >
         Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
       payment: >
         Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-        
-      friendly_percent: >
-        Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
-        
+      
       fees_and_donations: >
         Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
       fees: "Die Gebührentabelle findest Du <hier>."
@@ -464,7 +463,6 @@ de:
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
-        hint: 'Dann schlage eine Kategorie für das nächste Mal vor.'
       remove-filter:  "Kategorie-Filter entfernen"
 # Transaction System
   transaction:
