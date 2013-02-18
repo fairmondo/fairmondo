@@ -3,14 +3,16 @@ module Fairtastic
     module FieldsetWrapper
 
       include FormtasticBootstrap::Helpers::FieldsetWrapper
+      include Fairtastic::Inputs::Base::Tooltips
 
       def field_set_and_list_wrapping(*args, &block) #:nodoc:
         contents = args.last.is_a?(::Hash) ? '' : args.pop.flatten
         html_options = args.extract_options!
+
         if html_options[:class]
-          html_options[:class] << " box-content well"
+          html_options[:class] << " box-content"
         else
-          html_options[:class] = "box-content well"
+          html_options[:class] = "box-content"
         end
 
         if block_given?
@@ -38,6 +40,7 @@ module Fairtastic
         if html_options[:hint]
           legend << template.content_tag(:span, Formtastic::Util.html_safe(html_options[:hint]), :class => 'help-block')
         end
+        legend << tooltip_html(html_options[:tooltip])
         legend = template.content_tag(:h4, template.content_tag(:span, Formtastic::Util.html_safe(legend))) unless legend.blank?
         legend
       end

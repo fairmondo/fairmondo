@@ -16,16 +16,12 @@ function scrollToNextStep(prev_step, next_step, height) {
 	    if (prev_step.length) {
 	    	if(prev_step.position().top < next_step.position().top) {
 	    		scroll_to = prev_step.position().top + height;
-	    		console.log("forward step" + prev_step.position().top + "+" + height + "   <   " + next_step.position().top + " " + scroll_to)
 	    	} else {
 		    	scroll_to = next_step.position().top;
-	    		console.log("back step" + prev_step.position().top + "   >   " + next_step.position().top + " " + scroll_to)
 	    	}
 	    } else {
-	    	console.log("default")
 	    	scroll_to = window.pageYOffset + height;
 	    } 
-	    
 	    
 	 	window.setTimeout(function() {
 		    y = window.pageYOffset;
@@ -37,7 +33,7 @@ function scrollToNextStep(prev_step, next_step, height) {
     }
 }
 
-/*
+/* tryout to calculate next position by iterating
 $(document).ready(function(){
 	steps = $('.step-legend a[href^=#]')
 	if(steps.length) {
@@ -57,13 +53,17 @@ $(document).ready(function(){
 });
 */
 
-$(document).ready(function(){
-	$('.step-legend a[href^=#]').on("click",function(e){
-	    e.preventDefault();
-	    prev_step = $(window.location.hash);
-	    next_step = $(this.hash);
-	    next_step = next_step.length && next_step || $('[name='+this.hash.slice(1)+']');
-	    height = $(this).closest(".step-legend").height();
-	    scrollToNextStep(prev_step, next_step, height);
+if (!$.support.leadingWhitespace) {
+	// your IE 7/8 code here
+} else {
+	$(document).ready(function(){
+		$('.step-legend a[href^=#]').on("click",function(e){
+		    e.preventDefault();
+		    prev_step = $(window.location.hash);
+		    next_step = $(this.hash);
+		    next_step = next_step.length && next_step || $('[name='+this.hash.slice(1)+']');
+		    height = $(this).closest(".step-legend").height();
+		    scrollToNextStep(prev_step, next_step, height);
+		});
 	});
-});
+}
