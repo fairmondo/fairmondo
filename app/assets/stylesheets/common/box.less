@@ -54,7 +54,14 @@
     }
     background: @fairnopolyBlue url("input-step-open.png") no-repeat left center;
   }
-  
+ 
+  .box-content {
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+  }
+    
 }
 
 .box:not(:target) {
@@ -66,10 +73,18 @@
     }
   }
   
-  
   .box-content {
-     opacity: 0;
-     display: none;
+     //display: none;
+    display: block;
+    line-height:0;
+    height: 0;
+    overflow: hidden !important;
+    opacity: 0;
+    position: absolute;
+    z-index: -2;
+    zoom: 1; // IE fix
+    min-height: 0px !important;
+    padding: 0px !important;
   }
 }
 
