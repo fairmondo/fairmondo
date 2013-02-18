@@ -12,11 +12,13 @@ class Auction < ActiveRecord::Base
   default_scope where(:auction_template_id => nil)
 
   before_validation :sanitize_content, :on => :create
+  before_validation :set_transaction_type_in_pioneer_version, :on => :create
+  before_validation :set_expire_in_pioneer_version, :on => :create
 
   validate :transaction_type
   
   validates_presence_of :expire
-  validate :validate_expire
+  #validate :validate_expire
   
   after_initialize :initialize_values
   
@@ -280,6 +282,15 @@ class Auction < ActiveRecord::Base
 
   def sanitize_content
     self.content = sanitize_tiny_mce(self.content)
+  end
+  
+  def set_transaction_type_in_pioneer_version
+    @transaction = "preview"
+  end
+  
+  def set_expire_in_pioneer_version
+    # unfortunaltey, DateTime.new(Float::INFINITY) raises an exception ;)
+    self.expire = 5.years.from_now
   end
 
   def sanitize_tiny_mce(field)

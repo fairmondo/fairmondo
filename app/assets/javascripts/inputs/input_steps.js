@@ -35,7 +35,7 @@ function scrollToNextStep(prev_step, next_step, height) {
 
 /* tryout to calculate next position by iterating
 $(document).ready(function(){
-	steps = $('.step-legend a[href^=#]')
+	steps = $('.box-legend a[href^=#]')
 	if(steps.length) {
 		var first_step_y = steps.first().position().top  
 		steps.each(function(i) {
@@ -57,12 +57,12 @@ if (!$.support.leadingWhitespace) {
 	// your IE 7/8 code here
 } else {
 	$(document).ready(function(){
-		$('.step-legend a[href^=#]').on("click",function(e){
+		$('.box-legend a[href^=#]').on("click",function(e){
 		    e.preventDefault();
 		    prev_step = $(window.location.hash);
 		    next_step = $(this.hash);
 		    next_step = next_step.length && next_step || $('[name='+this.hash.slice(1)+']');
-		    height = $(this).closest(".step-legend").height();
+		    height = $(this).closest(".box-legend").height();
 		    scrollToNextStep(prev_step, next_step, height);
 		});
 	});

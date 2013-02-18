@@ -39,12 +39,14 @@
   }
 }
 
-.btn-green {
-  padding: 5px;
-  background: @buttonBackgroundGreen;
-  color: #FFFFFF;
-  white-space:normal;
-  line-height: 100%;
+.box-content {
+  input[type='submit'] {
+    padding: 5px;
+    background: @buttonBackgroundGreen;
+    color: #FFFFFF;
+    white-space:normal;
+    line-height: 100%;
+  }
 }
 
 #double_check_step {
@@ -104,7 +106,7 @@ span.in-image {
 .title_image {
   width:100%;
    
-   border: 1px solid darken(@wellBackground, 17%);
+  border: 1px solid darken(@wellBackground, 17%);
   margin-bottom: 20px;
 }
 
@@ -115,13 +117,13 @@ span.in-image {
   
 @media (max-width: 767px) {
   .title_image {
-     max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
+    max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
   }
   ul.auction-thumbnails li {
-     float: left !important; // Explicity set the float since we don't require .span* classes
-     margin-bottom: @baseLineHeight !important;
-     margin-right: @gridGutterWidth !important;
-     width: @gridColumnWidth !important; 
+    float: left !important; // Explicity set the float since we don't require .span* classes
+    margin-bottom: @baseLineHeight !important;
+    margin-right: @gridGutterWidth !important;
+    width: @gridColumnWidth !important; 
   }
 }
 

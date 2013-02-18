@@ -14,8 +14,15 @@ include CategorySeedData
   model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
 end
 
-admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :trustcommunity => true)
-user = FactoryGirl.create(:user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+admin = User.find_by_email("admin@admin.com")
+unless admin
+  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :trustcommunity => true)
+end
+
+user = User.find_by_email("user@user.com")
+unless user
+  user = FactoryGirl.create(:user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+end
 
 setup_categories
 
