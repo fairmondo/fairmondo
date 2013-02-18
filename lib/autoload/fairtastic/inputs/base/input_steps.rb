@@ -4,14 +4,15 @@ module Fairtastic
       module InputSteps
         
         def input_step(step_key, options = {}, &block)
-          css = "input-step"
+          css = "box"
           css << " default-step" if options[:default_step]
 
           if options[:class]
-            options[:class] << " #{step_key}-step-inputs well" unless options[:class].include?("well")
+            options[:class] << " #{step_key}-step-inputs"
           else
-            options[:class] = "#{step_key}-step-inputs well"
+            options[:class] = "#{step_key}-step-inputs"
           end
+          options[:class] << " well" unless options[:class].include?("well")
 
           template.content_tag(:div,
           step_heading_html(step_key, options) <<
