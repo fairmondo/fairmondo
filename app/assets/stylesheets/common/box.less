@@ -7,7 +7,7 @@
 
 
 .box {
-  
+  margin-bottom: 25px;
   .box-legend {
     
     border: 1px solid #C8C8C8;
@@ -16,7 +16,7 @@
     h3 {
       line-height: 100% !important;
       margin-left: 35px;
-      display: inline-block;
+      display: block;
     }
     
     a {
@@ -52,14 +52,14 @@
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF; 
     }
-    background: #0088CC url("input-step-open.png") no-repeat left center;
+    background: @fairnopolyBlue url("input-step-open.png") no-repeat left center;
   }
   
 }
 
 .box:not(:target) {
   .box-legend {
-    background: #DDDDDD url("box/box-closed.png") no-repeat left center;
+    background: @inactiveElement url("box/box-closed.png") no-repeat left center;
     
     a:link, a:visited, a:hover, a:active {
       color: #666666;
@@ -78,7 +78,7 @@
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF; 
     }
-    background: #0088CC url("box/box-open.png") no-repeat left center;
+    background: @fairnopolyBlue url("box/box-open.png") no-repeat left center;
   }
 }
 

@@ -12,7 +12,7 @@ module Fairtastic
           else
             options[:class] = "#{step_key}-step-inputs"
           end
-          options[:class] << " well" unless options[:class].include?("well")
+          options[:class] << " white-well" unless options[:class].include?("white-well")
 
           template.content_tag(:div,
           step_heading_html(step_key, options) <<
@@ -48,11 +48,12 @@ module Fairtastic
           tooltip = input_step_help_html(step_key, options)
 
           template.content_tag(:div,
+          tooltip.html_safe <<
           template.content_tag(:a,
           template.content_tag(:h3,
           prefix << I18n.t("formtastic.input_steps.#{object_name}.#{step_key}")
           ), :href => "##{step_key}_step"
-          ) << tooltip.html_safe << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
+          )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
         end
 
