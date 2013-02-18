@@ -27,7 +27,7 @@ function scrollToNextStep(prev_step, next_step, height) {
 		    y = window.pageYOffset;
 	        window.location.hash = "#" + next_step.attr("id");
 		    window.scrollTo(0,y);
-	    },1)
+	    },2)
 	    
         $('html,body').animate({scrollTop:scroll_to},'slow');
     }
