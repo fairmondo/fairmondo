@@ -30,6 +30,37 @@
   
 }
 
+.apply-step-inputs {
+  .makeRow();
+  margin-left: 0px;
+  .control-group {
+    .makeColumn(2);
+    width: 45%;
+  }
+}
+
+.btn-green {
+  padding: 5px;
+  background: @buttonBackgroundGreen;
+  color: #FFFFFF;
+  white-space:normal;
+  line-height: 100%;
+}
+
+#double_check_step {
+  .form-actions {
+    padding-left: 20px;
+    text-align: center;    
+    input {
+      padding: 15px;
+      font-size: 26px;
+      margin: auto;
+    }
+  }
+}
+
+
+
 /*
  * SEARCH
  */
@@ -88,30 +119,4 @@ span.in-image {
   }
 }
 
-.apply-step-inputs {
-  .makeRow();
-  margin-left: 0px;
-  .control-group {
-    .makeColumn(2);
-    width: 45%;
-  }
-}
-
-input[type='submit'] {
-  padding: 5px;
-  background: #458B74;
-  color: #FFFFFF;
-}
-
-#double_check_step {
-  .form-actions {
-    padding-left: 20px;
-    text-align: center;    
-    input {
-      padding: 15px;
-      font-size: 26px;
-      margin: auto;
-    }
-  }
-}
 
