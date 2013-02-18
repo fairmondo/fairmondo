@@ -48,18 +48,6 @@
   	<%= tinymce %>
   <% end %>
   
-  <%= f.input_step :auction do %>
-    <%= f.input :transaction , :as=> :radio, :collection => [[t('auction.form.transaction.auction') , "auction" , {:disabled => true}], [t('auction.form.transaction.fixed_price') ,"fixed", {:disabled => true}], [t('auction.form.transaction.preview') ,"preview", {:checked => "checked" }]]%>
-    <%= f.input :expire , :as => :datetime_select, :order => [ :day, :month, :year ] , :include_blank => false %>
-    <div class="input optional control-group" >
-      <div class="controls controls-row">
-        <span class="span1" ><small><%= t('auction.hints.date') %></small></span>
-        <span class="span3" >&nbsp;</span>
-        <span class="span1" ><small><%= t('auction.hints.time') %></small></span>
-      </div>
-    </div>
-  <% end %>
-  
   <%= f.input_step :transport_and_payment do %>
     <%= f.inputs :hint => t('auction.hints.transport') do %>
       <%= f.input :transport, :as => :check_boxes, :required => true %>
