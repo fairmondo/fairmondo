@@ -24,6 +24,8 @@ To run fairnopoly locally in development mode, apart from installing ruby and ra
 
 === Testing
 
+{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly]
+
 To run the tests, prepare the testing database
   
   rake db:test:prepare
