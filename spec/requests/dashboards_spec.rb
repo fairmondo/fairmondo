@@ -57,7 +57,7 @@ describe 'Dashboard' do
     end
 
     it 'Community link is visible for invited users' do
-      page.should have_content('Community')
+      page.should_not have_content('Community')
     end
 
   end
