@@ -27,6 +27,10 @@
 
 #dashboard-hero{
    position: relative;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
 }
 
 #dashboard-events {
@@ -56,6 +60,10 @@
       &#dashboard-collection a {   background-image: url(small.png);}
     }
   }
+  #hero-unfold {
+     opacity: 0;
+    
+  }
 }
 
 
@@ -77,3 +85,35 @@
 }
 
 
+.closed-container-hero:not(:target) {
+  #dashboard-events, .middle-margin{
+    height: 0px;
+    opacity: 0;
+    display:none;
+    margin:0px;
+  }
+  #profile-img {
+    max-width:100px; 
+    border: 0px;
+    margin-bottom: 0px;
+  }
+  
+  #dashboard-middle #hero-unfold {
+     opacity: 1;
+      
+  }
+  
+  #dashboard-middle ul.nav {
+    position: absolute;
+    bottom: 0px;
+    left: 120px;
+   
+  }
+  @media (max-width: 767px) {
+    #dashboard-middle ul.nav {
+      position: static;
+      
+    }
+  }
+  
+}
