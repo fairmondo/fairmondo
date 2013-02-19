@@ -9,11 +9,6 @@ describe Auction do
   it {should belong_to :seller}
   it {should have_many :categories}
 
-  it "validates expire" do
-    auction = FactoryGirl.create(:auction)
-    auction.validate_expire.should eq true
-  end
-
   it "validates expire with a short time" do
     auction = FactoryGirl.create(:auction)
     auction.expire = 0.5.hours.from_now
