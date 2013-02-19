@@ -472,6 +472,7 @@ de:
       success: "Sie sind jetzt Höchstbietender!"
 # Dashboard
   dashboard:
+    no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
       invitor: "Einladender"
@@ -483,7 +484,6 @@ de:
     menu:
       edit: "Profil bearbeiten"
       community: "Vertrauensgemeinschaft"
- 
     auction:
       create: "Auktion wurde erstellt"
       update: "Auktion wurde aktualisiert"

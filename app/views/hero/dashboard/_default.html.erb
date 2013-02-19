@@ -1,58 +1,52 @@
 <div class="container">
 	<div class="row">
-		
 		<div class="span1" >
-			<a href="<%= dashboard_path(:id => @user.id) %>"> <% if @image%>
-			<%= image_tag(@image.url(:thumb), :class => "img-polaroid ") %>
+			<a href="<%= dashboard_path(:id => @user.id) %>"> 
+			<% if @image%>
+				<%= image_tag(@image.url(:thumb), :class => "img-polaroid ") %>
 			<%else%>
-			<%= image_tag("http://placehold.it/260x180" , :class => "img-polaroid ") %>
+				<%= image_tag("http://placehold.it/260x180" , :class => "img-polaroid ") %>
 			<%end%></a>
 		</div>
 		<div class="span2">
-			
-				 <b><%= @user.name%></b></br>
-				<p>
-					<% html= "<i class=\"icon-heart\"></i> " + @user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id ,   },
-					{ :title => t('user.follow.followers_info') , :class => ("btn " + (params[:action]=="list_followers" ? "btn-primary" : ""))} %>
+			<b><%= @user.name%></b></br>
+			<p>
+				<% html= "<i class=\"icon-heart\"></i> " + @user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id ,   },
+				{ :title => t('user.follow.followers_info') , :class => ("btn " + (params[:action]=="list_followers" ? "btn-primary" : ""))} %>
 
-					<% html= "<i class=\"icon-eye-open\"></i> " + @user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
-					{ :title => t('user.follow.following_info') , :class => ("btn "+ (params[:action]=="list_following" ? "btn-primary" : ""))} %>
-					<%if @user.trustcommunity?%>
-					<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>@user.id) , {:class => ("btn "+ (params[:action]=="community" ? "btn-primary" : "") ), :title => t('dashboard.menu.community')}%>
-					<%end%>
-				</p>
-			
+				<% html= "<i class=\"icon-eye-open\"></i> " + @user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
+				{ :title => t('user.follow.following_info') , :class => ("btn "+ (params[:action]=="list_following" ? "btn-primary" : ""))} %>
+				<%if @user.trustcommunity?%>
+				<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>@user.id) , {:class => ("btn "+ (params[:action]=="community" ? "btn-primary" : "") ), :title => t('dashboard.menu.community')}%>
+				<%end%>
+			</p>
 		</div>
-		
 		<div class="span6">
 			<%= render "user_search"%>
 		</div>
 		<%if @user!=current_user && current_user%>
-				<div class="span2">
-					
-						<a><%= current_user.name%> </a>
-						<div class="btn-group">
-							<% html= "<i class=\"icon-heart\"></i> " + current_user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => current_user.id ,   },
-							{ :title => t('user.follow.followers_info') , :class => "btn"} %>
-		
-							<% html= "<i class=\"icon-eye-open\"></i> " + current_user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => current_user.id } ,
-							{ :title => t('user.follow.following_info') , :class => "btn"} %>
-		
-							<%if current_user.trustcommunity == true %>
-							<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>current_user.id) , {:class => "btn" , :title => t('dashboard.menu.community')}%>
-							<%end%>
-						</div>
-					
+			<div class="span2">
+				<a><%= current_user.name%> </a>
+				<div class="btn-group">
+					<% html= "<i class=\"icon-heart\"></i> " + current_user.followers_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => current_user.id ,   },
+					{ :title => t('user.follow.followers_info') , :class => "btn"} %>
+	
+					<% html= "<i class=\"icon-eye-open\"></i> " + current_user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => current_user.id } ,
+					{ :title => t('user.follow.following_info') , :class => "btn"} %>
+	
+					<%if current_user.trustcommunity == true %>
+						<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>current_user.id) , {:class => "btn" , :title => t('dashboard.menu.community')}%>
+					<%end%>
 				</div>
-				<div class="span1" style="text-align:center;">
-								<a href="/dashboard"> 
-									<% if current_user.image?%>
-								<%= image_tag(current_user.image.url(:thumb), :style=> "width:260; height:auto;" , :class =>  "img-polaroid") %>
-								<%else%>
-								<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class =>  "img-polaroid") %>
-								<%end%> </a>
-				</div>	
+			</div>
+			<div class="span1" style="text-align:center;">
+				<a href="/dashboard"> 
+				<% if current_user.image?%>
+					<%= image_tag(current_user.image.url(:thumb), :style=> "width:260; height:auto;" , :class =>  "img-polaroid") %>
+				<%else%>
+					<%= image_tag("http://placehold.it/260x180" , :width=> 260 , :class =>  "img-polaroid") %>
+				<%end%> </a>
+			</div>
 		<%end%>
-		
 	</div>
 </div>

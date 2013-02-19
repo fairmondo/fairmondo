@@ -1,0 +1,25 @@
+
+<div class="well white-well clear-padding">
+	<div class="middle-margin">
+		<% if (user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?) %>
+			<span id="big-name"><%= user.forename%> <%= user.surname%></span><br />
+			<span id="small-name"><%= user.name%></span>
+		<%else%>
+			<span id="big-name"><%= user.name%></span>
+		<%end%>
+	</div>
+	<div class="border-box small-margin-side">
+		<a href="<%= dashboard_path(:id => user.id) %>"> 
+			<%= image_tag(user.image.url(:thumb)) %>
+		</a>
+	</div>
+	<div class="middle-margin">
+		<%if user.legal_entity%> 
+			<i class="icon-briefcase"></i> 
+			<i><%= t('user.legal.legal_entity')%></i> 
+		<%else%> 
+			<i class="icon-user"></i>
+			<i><%= t('user.legal.private')%></i> 
+		<%end%>
+	</div>
+</div>

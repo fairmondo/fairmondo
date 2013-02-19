@@ -15,10 +15,14 @@
 // Make links block level
 .nav > li > a {
   display: block;
+  background-color: @inactiveElement;
+  color: @inactiveElementText;
+  border: 1px solid #C8C8C8;
 }
 .nav > li > a:hover {
   text-decoration: none;
-  background-color: @grayLighter;
+  background-color: @fairnopolyBlue;
+  color: @white;
 }
 
 // Redeclare pull classes because of specifity
