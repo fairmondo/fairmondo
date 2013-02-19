@@ -463,10 +463,19 @@ de:
       success: "Sie sind jetzt Höchstbietender!"
 # Dashboard
   dashboard:
+    no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
       invitor: "Einladender"
       invited_people: "Eingeladene Benutzer"
+      offers: "Angebotene Artikel"
+      sold: "Verkaufte Artikel"
+      templates: "Meine Artikelvorlagen"
+    text:
+      no_offers: "Keine Angebote eingestellt"
+      no_sold: "Keine verkauften Artikel vorhanden"
+      soon_sold: "Bald kannst du hier deine verkauften Artikel betrachten"
+      no_templates: "Keine Templates vorhanden"
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"
@@ -474,7 +483,6 @@ de:
     menu:
       edit: "Profil bearbeiten"
       community: "Vertrauensgemeinschaft"
- 
     auction:
       create: "Auktion wurde erstellt"
       update: "Auktion wurde aktualisiert"

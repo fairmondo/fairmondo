@@ -17,8 +17,6 @@ class DashboardController < ApplicationController
       @limit_userevents += 10
       @ffps = @user.ffps.sum(:price,:conditions => ["activated = ?",true])
     end
-    @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
-
   end
 
   def profile
@@ -95,6 +93,15 @@ class DashboardController < ApplicationController
       format.json { head :no_content }
     end
 
+  end
+  
+  def sales
+    get_user
+    
+    @offers = @user.auctions.where("expire > ?", Time.now)
+    @sold = @user.auctions.where("expire < ?", Time.now)
+    @templates = @user.auction_templates
+    
   end
 
 end
