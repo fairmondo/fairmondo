@@ -4,34 +4,68 @@
  * 
  */
 
-/*
- * the title name: Forename Surname
- * if there is no Forename Surname, the Nickname will be the Title name
- */
-#big-name{
-  font-size: 18px;
-  font-weight: bold;
+#profile-img {
+  /*
+   * the title name: Forename Surname
+   * if there is no Forename Surname, the Nickname will be the Title name
+   */
+  .big-name{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /*
+   * The second title name
+   * if there is a title name it will be the nickname/shopname
+   */
+  .small-name{
+    font-size: 16px;
+    font-weight: normal;
+  }
+
 }
 
-/*
- * The second title name
- * if there is a title name it will be the nickname/shopname
- */
-#small-name{
-  font-size: 16px;
-  font-weight: normal;
+#dashboard-hero{
+   position: relative;
 }
 
-/*
- * Button for the products buying
- */
-#buy a {   
-  background-image: url(buy.png);
- }
-/*
- * Button for the products selling
- */
-#sell a {   
-  background-image: url(sell.png);
+#dashboard-events {
+ 
+  height:100%;
+  min-height: 100%; 
+  ul {
+    position:absolute;
+    bottom:0px;
+    
+    li {
+      margin-right:10px;
+      a {
+      
+        padding-left: 31px;
+        padding-right: 8px;
+        background-repeat:no-repeat;
+        background-position: 3px center;
+      }
+      &#dashboard-buy a {   background-image: url(small.png);}
+      &#dashboard-sell a {   background-image: url(small.png);}
+      &#dashboard-profile a {   background-image: url(small.png);}
+      &#dashboard-collection a {   background-image: url(small.png);}
+    }
+  }
 }
+
+
+
+@media (max-width: 767px) {
+  #profile-img {
+    max-width:190px; 
+  }
+  
+  #dashboard-events {
+    ul {
+      position:static;
+    }
+  }
+}
+
 

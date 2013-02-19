@@ -1,32 +1,44 @@
-<div class="container">
+<div class="container" id="dashboard-hero">
 	
 	<div class="row-fluid">
 		<div class="span3">
 			<%=render :partial=>'/shared/profile_img', :locals=>{:user => @user} %>	
 		</div>
 		
-		<div class="span9">
-			<%if @user.about_me && !@user.about_me.empty?%>
-				<div class="well">
-					<%= raw @user.about_me%>
-				</div>
-			<%end%>
+		<div class="span9" id="dashboard-events">
+			
+				<%if @user.about_me && !@user.about_me.empty?%>
+					<div class="well white-well">
+						<%= raw @user.about_me%>
+					</div>
+				<%else%>
+					<div class="empty-well">
+						<% if @user==current_user%>
+							
+							<a href="<%=url_for edit_user_registration_path %>" class="pull-right"> 
+								Beschreibung hinzufügen
+							</a>
+						<%end%>
+						<h4>Noch keine Beschreibung hinzugefügt.</h4>
+						
+					</div>
+				<%end%>
 			
 			<ul class="nav nav-pills">
-		    	<li>
+		    	<li id="dashboard-sell">
 		    		<a href="<%=url_for dashboard_path %>">
 	       				<strong> Verkäufe </strong>
 	    			</a>
 
 	    		</li>
-	    		<li>
+	    		<li id="dashboard-collection">
 		    		<a href="<%=url_for dashboard_path %>">
 	       				<strong> Sammlungen </strong>
 	    			</a>
 
 	    		</li>
-	    		<li>
-	    			<a href="<%=url_for dashboard_path %>">
+	    		<li id="dashboard-profile">
+	    			<a href="<%=url_for edit_user_registration_path %>">
 	       				<strong> Profil bearbeiten  </strong>
 	    			</a>
 	    		</li>
