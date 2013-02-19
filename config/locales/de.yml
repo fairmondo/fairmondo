@@ -483,6 +483,7 @@ de:
     text:
       no_offers: "Keine Angebote eingestellt"
       no_sold: "Keine verkauften Artikel vorhanden"
+      soon_sold: "Bald kannst du hier deine verkauften Artikel betrachten"
       no_templates: "Keine Templates vorhanden"
     actions:
       edit_account: "Profil bearbeiten"

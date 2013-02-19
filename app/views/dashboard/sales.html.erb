@@ -28,13 +28,9 @@
 			</div>
 			<div class="box-content padding-box">
 				<div class="middle-margin-top">
-					<% if !@sold || @sold.empty? %> 
 					<div class="well">
-						<strong><%= t('dashboard.text.no_sold')%></strong>
+						<strong><%= t('dashboard.text.soon_sold')%></strong>
 					</div>
-					<%else%>
-						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @sold, :paginate => false } %>
-					<%end%>
 				</div>
 			</div>
 		</div>
@@ -46,7 +42,15 @@
 				</a>
 			</div>
 			<div class="box-content padding-box">
-				<p> templates</p>
+				<% if !@templates || @templates.empty? %> 
+						<div class="well">
+							<strong><%= t('dashboard.text.no_templates')%></strong>
+						</div>
+					<%else%>
+						<% @templates.each do |template| %>
+							<%=template.name%>
+						<%end%>
+				<%end%>
 			</div>
 		</div>
 		

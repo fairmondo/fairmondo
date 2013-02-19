@@ -6,12 +6,7 @@
 					<%= t('devise.edit_profile.picture')%>: 
 					<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
 				</p>
-				<% if @image%>
-					<%= image_tag(@image.url(:thumb), :class => "img-polaroid ") %>
-				<%else%>
-					<%= image_tag("http://placehold.it/260x180" , :class => "img-polaroid ") %>
-				<%end%>
-	
+				<%= image_tag(current_user.image.url(:thumb), :class => "img-polaroid ") %>
 				<%= f.input :image,  :label => false%>
 			</div>
 		</div>

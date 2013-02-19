@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   has_many :ffps
   has_many :auction_templates
 
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}, :default_url => "missing.gif"
+  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}, :default_url => "missing.gif" , :url => "/system/users/:attachment/:id_partition/:style/:filename", :path => "public/system/users/:attachment/:id_partition/:style/:filename"
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
   def fullname
