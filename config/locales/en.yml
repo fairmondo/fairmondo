@@ -11,6 +11,7 @@ en:
 # Common Texts
   common:
     brand: "fairnopoly.de"
+    fairnopoly: "Fairnopoly"
     actions:
       back: "Back"
       show: "Show"
@@ -55,7 +56,9 @@ en:
     team: "Team"
     contact: "Contact"
     faq: "FAQ"
+    forum: "Forum"
     help: "Help"
+    blog: "Blog"
 # Devise
   devise:
     captcha:
