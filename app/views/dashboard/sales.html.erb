@@ -1,0 +1,54 @@
+<div class="row-fluid">
+	<div class="span12">
+		
+		<div class="box" id="offers">
+			<div class="box-legend box-legend-without-border">
+				<a href="#offers">
+				<h3><%= t('dashboard.headers.offers')%></h3>
+				</a>
+			</div>
+			<div class="box-content padding-box">
+				<div class="middle-margin-top">
+					<% if !@offers || @offers.empty? %> 
+						<div class="well">
+							<strong><%= t('dashboard.text.no_offers')%></strong>
+						</div>
+					<%else%>
+						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :paginate => false} %>
+					<%end%>
+				</div>
+			</div>
+		</div>
+		
+		<div class="box" id="sold">
+			<div class="box-legend box-legend-without-border">
+				<a href="#sold">
+				<h3><%=  t('dashboard.headers.sold')%></h3>
+				</a>
+			</div>
+			<div class="box-content padding-box">
+				<div class="middle-margin-top">
+					<% if !@sold || @sold.empty? %> 
+					<div class="well">
+						<strong><%= t('dashboard.text.no_sold')%></strong>
+					</div>
+					<%else%>
+						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @sold, :paginate => false } %>
+					<%end%>
+				</div>
+			</div>
+		</div>
+		
+		<div class="box" id="templates">
+			<div class="box-legend box-legend-without-border">
+				<a href="#templates">
+				<h3><%=  t('dashboard.headers.templates')%></h3>
+				</a>
+			</div>
+			<div class="box-content padding-box">
+				<p> templates</p>
+			</div>
+		</div>
+		
+	</div>
+</div>

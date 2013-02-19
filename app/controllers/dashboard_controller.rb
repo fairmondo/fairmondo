@@ -94,5 +94,14 @@ class DashboardController < ApplicationController
     end
 
   end
+  
+  def sales
+    get_user
+    
+    @offers = @user.auctions.where("expire > ?", Time.now)
+    @sold = @user.auctions.where("expire < ?", Time.now)
+    
+    
+  end
 
 end

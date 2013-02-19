@@ -2,11 +2,8 @@
 	<div class="row">
 		<div class="span1" >
 			<a href="<%= dashboard_path(:id => @user.id) %>"> 
-			<% if @image%>
-				<%= image_tag(@image.url(:thumb), :class => "img-polaroid ") %>
-			<%else%>
-				<%= image_tag("http://placehold.it/260x180" , :class => "img-polaroid ") %>
-			<%end%></a>
+			<%= image_tag(@user.image.url(:thumb), :class => "img-polaroid ") %>
+			</a>
 		</div>
 		<div class="span2">
 			<b><%= @user.name%></b></br>
