@@ -1,5 +1,2 @@
-<div class="row-fluid">
-	<div class="span12">
-	 	<%= render 'auctions/list_auctions'%> 
-	</div>
-</div>
+
+<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :paginate => true } %>
