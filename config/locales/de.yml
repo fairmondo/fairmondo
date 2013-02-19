@@ -385,6 +385,8 @@ de:
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
     form:
+      missing_terms: "Bevor du eine Auktion erstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
+      edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
       head: "Um eine Auktion zu erstellen, müssen Sie dieses Formular ausfüllen."
       category: "Wählen Sie eine Kategorie für Ihr Produkt"
       details: "Beschreiben Sie ihr Produkt"

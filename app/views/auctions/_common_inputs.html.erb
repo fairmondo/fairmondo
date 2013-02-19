@@ -45,6 +45,7 @@
   	<%= f.input :size %>
   	<%= f.input :quantity, :tooltip => true %>
   	<%= f.input :price, :tooltip => true, :input_html => {value: number_with_precision(f.object.price, precision: 2) }, :required => true %>
+
   	<%= tinymce %>
   <% end %>
   
