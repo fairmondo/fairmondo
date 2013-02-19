@@ -107,6 +107,7 @@ de:
 # Common Texts
   common:
     brand: "fairnopoly.de"
+    fairnopoly: "Fairnopoly"
     actions:
       back: "Zurück"
       show: "Anzeigen"
@@ -148,7 +149,7 @@ de:
       inserted: "Auktionen wurden bereits eingestellt"
 # Footer
   footer:
-    legal_details: "Impressum"
+    legal_details: "Rechtliches"
     agb: "AGB"
     privacy: "Datenschutz"
     imprint: "Impressum"
@@ -157,7 +158,9 @@ de:
     team: "Team"
     contact: "Kontakt"
     faq: "FAQ"
+    forum: "Forum"
     help: "Hilfe"
+    blog: "Blog"
 # Devise
   devise:
     countries:
@@ -402,7 +405,7 @@ de:
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
-      submit: "Angebot einstellen. Beachten Sie, dass hiermit bei Vertragsabschluss Gebühren entstehen."
+      submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
     list:
       header: "Ergebnisse"
     notices:
