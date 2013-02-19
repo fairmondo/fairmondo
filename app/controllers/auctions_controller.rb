@@ -68,6 +68,8 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
+
+    
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
         @applied_template = AuctionTemplate.find(template_id)

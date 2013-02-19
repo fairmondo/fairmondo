@@ -1,0 +1,119 @@
+/*
+ * 
+ * Special CSS Code for the dashboard page
+ * 
+ */
+
+#profile-img {
+  /*
+   * the title name: Forename Surname
+   * if there is no Forename Surname, the Nickname will be the Title name
+   */
+  .big-name{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /*
+   * The second title name
+   * if there is a title name it will be the nickname/shopname
+   */
+  .small-name{
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+}
+
+#dashboard-hero{
+   position: relative;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+}
+
+#dashboard-events {
+  margin-bottom: 60px;
+}
+
+#dashboard-middle {
+ 
+  height:100%;
+  min-height: 100%; 
+  ul {
+    position:absolute;
+    bottom:0px;
+    
+    li {
+      margin-right:10px;
+      a {
+      
+        padding-left: 31px;
+        padding-right: 8px;
+        background-repeat:no-repeat;
+        background-position: 3px center;
+      }
+      &#dashboard-buy a {   background-image: url(small.png);}
+      &#dashboard-sell a {   background-image: url(small.png);}
+      &#dashboard-profile a {   background-image: url(small.png);}
+      &#dashboard-collection a {   background-image: url(small.png);}
+    }
+  }
+  #hero-unfold {
+     opacity: 0;
+    
+  }
+}
+
+
+
+@media (max-width: 767px) {
+  #profile-img {
+    max-width:190px; 
+  }
+  
+  #dashboard-events {
+    margin-bottom: 0px;
+  }
+  
+  #dashboard-middle {
+    ul {
+      position:static;
+    }
+  }
+}
+
+
+.closed-container-hero:not(:target) {
+  #dashboard-events, .middle-margin{
+    height: 0px;
+    opacity: 0;
+    display:none;
+    margin:0px;
+  }
+  #profile-img {
+    max-width:100px; 
+    border: 0px;
+    margin-bottom: 0px;
+  }
+  
+  #dashboard-middle #hero-unfold {
+     opacity: 1;
+      
+  }
+  
+  #dashboard-middle ul.nav {
+    position: absolute;
+    bottom: 0px;
+    left: 120px;
+   
+  }
+  @media (max-width: 767px) {
+    #dashboard-middle ul.nav {
+      position: static;
+      
+    }
+  }
+  
+}

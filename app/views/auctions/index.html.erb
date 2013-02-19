@@ -1,1 +1,1 @@
-<%= render 'list_auctions'%>
+<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :paginate => true } %>
