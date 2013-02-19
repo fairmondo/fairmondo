@@ -5,8 +5,8 @@
 			<%=render :partial=>'/shared/profile_img', :locals=>{:user => @user} %>	
 		</div>
 		
-		<div class="span9" id="dashboard-events">
-			
+		<div class="span9" id="dashboard-middle">
+			<div id="dashboard-events">
 				<%if @user.about_me && !@user.about_me.empty?%>
 					<div class="well white-well">
 						<%= raw @user.about_me%>
@@ -23,7 +23,7 @@
 						
 					</div>
 				<%end%>
-			
+			</div>
 			<ul class="nav nav-pills">
 		    	<li id="dashboard-sell">
 		    		<a href="<%=url_for :controller => "dashboard", :action => "sales", :anchor => "offers" %>">
