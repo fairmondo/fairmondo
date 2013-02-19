@@ -68,7 +68,12 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-
+    if current_user.legal_entity && !(@legal_entity_correct = check_legal_entity)
+      @error_text =  t('auction.form.missing_terms')
+      @missing_terms=( (!current_user.terms||current_user.terms.empty?) ? t('devise.edit_profile.terms') : "" ) +
+      ( (!current_user.cancellation||current_user.cancellation.empty?) ? (", "+t('devise.edit_profile.cancellation')) : "" ) +
+      ( (!current_user.about||current_user.about.empty?) ? (", "+t('devise.edit_profile.about')) : "" ) 
+    end
     
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
@@ -229,6 +234,15 @@ class AuctionsController < ApplicationController
     else
       true
     end
+  end
+  
+  def check_legal_entity
+      if( !current_user.terms || current_user.terms.empty? ||
+          !current_user.cancellation || current_user.cancellation.empty?  ||
+          !current_user.about || current_user.about.empty?)
+        return false
+      end
+      return true
   end
   
 end

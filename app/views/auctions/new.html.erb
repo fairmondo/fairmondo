@@ -1,2 +1,13 @@
 
+<!-- check if a legal entity has written all the terms-->
+<%if current_user.legal_entity && !@check_legal_entity %>
+	<div class="well" id="center-div">
+		<p><%= @error_text %></p>
+		<p><strong><%= @missing_terms %></strong></p>
+		<a href="<%=url_for edit_user_registration_path(:anchor=>"terms")%>" class="btn btn-primary" id="missing_terms" > 
+			<%= t('auction.form.edit_terms') %>
+		</a>
+	</div>
+<%end%>
+
 <%= render 'form' %>
