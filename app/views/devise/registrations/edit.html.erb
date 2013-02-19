@@ -1,12 +1,14 @@
 
+
+
 <div class="row">
-<%= render '/dashboard/navbar'%>
-<div class="span9">
-<h1><%= t('devise.edit_profile.title')%> </h1>
+
+<div class="span12">
+
 
 <%if current_user%>
 
-		<%= semantic_form_for(resource.becomes(current_user.legal_entity ? LegalEntity : PrivateUser), :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		<%= semantic_form_for(@user, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
 			<%= f.semantic_errors %>
 			<%= f.inputs do %>

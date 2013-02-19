@@ -1,11 +1,11 @@
 
-<div class="well white-well clear-padding">
+<div class="well white-well clear-padding" id="profile-img">
 	<div class="middle-margin">
 		<% if (user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?) %>
-			<span id="big-name"><%= user.forename%> <%= user.surname%></span><br />
-			<span id="small-name"><%= user.name%></span>
+			<span class="big-name"><%= user.forename%> <%= user.surname%></span><br />
+			<span class="small-name"><%= user.name%></span>
 		<%else%>
-			<span id="big-name"><%= user.name%></span>
+			<span class="big-name"><%= user.name%></span>
 		<%end%>
 	</div>
 	<div class="border-box small-margin-side">

@@ -15,9 +15,7 @@
 // Make links block level
 .nav > li > a {
   display: block;
-  background-color: @inactiveElement;
-  color: @inactiveElementText;
-  border: 1px solid #C8C8C8;
+  color: @black;
 }
 .nav > li > a:hover {
   text-decoration: none;
@@ -139,11 +137,12 @@
 
 // Links rendered as pills
 .nav-pills > li > a {
+  .border-radius(20px);
   padding-top: 8px;
   padding-bottom: 8px;
   margin-top: 2px;
   margin-bottom: 2px;
-  .border-radius(5px);
+  
 }
 
 // Active state

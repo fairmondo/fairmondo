@@ -31,7 +31,10 @@
     
   def edit
     if current_user
-      @image = current_user.image unless current_user.image.url ==  "/images/original/missing.png"
+     
+      
+      @user = current_user.becomes(current_user.legal_entity ? LegalEntity : PrivateUser)
+      
       super
     else
       render :new
@@ -46,8 +49,11 @@
       params[:user].delete("password")
       params[:user].delete("password_confirmation")
     end
-
+ 
     @user = User.find(current_user.id)
+    
+    @user = @user.becomes(@user.legal_entity ? LegalEntity : PrivateUser)
+
     if @user.update_attributes(params[:user])
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case his password changed
