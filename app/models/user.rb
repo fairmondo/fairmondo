@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname, :forename, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned, :privacy, :legal, :legal_entity, :about_me, :title, :country, :street, :city, :zip, :phone, :mobile, :fax
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname, :forename, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned, :privacy, :legal, :legal_entity, :about_me, :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :terms, :cancellation, :about
 
   validates :privacy, :inclusion => {:in => [true]}
   validates :legal, :inclusion => {:in => [true]}
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   has_many :ffps
   has_many :auction_templates
 
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}
+  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}, :default_url => "missing.gif"
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
   def fullname

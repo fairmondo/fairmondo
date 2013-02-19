@@ -17,8 +17,6 @@ class DashboardController < ApplicationController
       @limit_userevents += 10
       @ffps = @user.ffps.sum(:price,:conditions => ["activated = ?",true])
     end
-    @image = @user.image unless @user.image.url ==  "/images/original/missing.png"
-
   end
 
   def profile
