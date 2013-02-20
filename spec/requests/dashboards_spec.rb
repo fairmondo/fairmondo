@@ -21,7 +21,7 @@ describe 'Dashboard' do
     end
 
     it 'should show the dashboard' do
-      page.should have_content("FFP")
+      page.should have_content("Profil bearbeiten")
     end
 
     it 'Buy link shows the Buy page' do
@@ -40,7 +40,7 @@ describe 'Dashboard' do
 
     it 'Profile link shows the profile page' do
       click_link 'Profile'
-      page.should have_content("FFP")
+      page.should have_content("Sammlungen")
     end
 
     it 'Admin link only shown for admin user' do
