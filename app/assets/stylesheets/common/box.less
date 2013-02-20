@@ -73,18 +73,15 @@
     }
   }
   
+  // alternative to display: none - fixes chrome rendering issues for #165
   .box-content {
-    display: none;
-    //display: block;
-    //line-height:0;
-    // height: 0;
-    //overflow: hidden !important;
-    //opacity: 0;
-    //position: absolute;
-    //z-index: -2;
-    //zoom: 1; // IE fix
-    //min-height: 0px !important;
-    //padding: 0px !important;
+    position: absolute;
+    top: -3000;
+    transition-property: opacity, top;
+    transition-duration: 1s, 0s;
+    transition-delay: 0s, 1s;
+    z-index: -2; // presumably due to the delay, there may be half second when you cannot klick the content beyond 
+    opacity: 0;
   }
 }
 
@@ -94,6 +91,11 @@
       color: #FFFFFF; 
     }
     background: @fairnopolyBlue url("box/box-open.png") no-repeat left center;
+  }
+  .box-content {
+    transition-property: opacity, top;
+    transition-duration: 1s, 0s;
+    transition-delay: 0s, 1s;
   }
 }
 
