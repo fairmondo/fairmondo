@@ -24,8 +24,8 @@ de:
         social_producer: Sozialer Produzent
       fair_seal:
         trans_fair: TransFair Siegel
-        weltladen: Weltladen Handelspartner 
-        wtfo: WFTO
+        weltladen: Weltladen-Handelspartner 
+        wtfo: WFTO-Mitglied
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel
@@ -86,7 +86,7 @@ de:
         consumer_protection: Förderung von Verbraucherberatung und Verbraucherschutz
         convicts_and_ex_convicts: Förderung der Fürsorge für Strafgefangene und ehemalige Strafgefangene
         sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
-        democratic_political_system: allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind      
+        democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind      
       social_businesses_muhammad_yunus_purposes:
         social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
         dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
@@ -102,8 +102,8 @@ de:
         social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
      
   welcome:
-    greetings: "Willkommen beiFairnopoly"
-    search_fair: "Suche nach fairen Produkten"
+    greetings: "Willkommen bei Fairnopoly"
+    search_fair: "Artikelsuche "
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -151,7 +151,7 @@ de:
   footer:
     legal_details: "Rechtliches"
     agb: "AGB"
-    privacy: "Datenschutz"
+    privacy: "Datenschutzerklärung"
     imprint: "Impressum"
     about_us: "Über Uns"
     philosophy: "Philosophie"
@@ -175,7 +175,7 @@ de:
       unlock_instruction: "Keine Anweisungen zur Freischaltung erhalten?"
       sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
     actions:
-      unlock: "E-mail Anweisungen zur Freischaltung erneut senden"
+      unlock: "E-mail-Anweisungen zur Freischaltung erneut senden"
     title:
       cancle: "Benutzerkonto löschen"
       sign_up: "Registrierung"
@@ -183,32 +183,32 @@ de:
     new_profile:
       password: "Passwort eingeben"
       password_confirmation: "Passwort bestätigen"
-      privacy: "Datenschutzbestimmungen akzeptiert"
-      legal: "Allgemeine Geschäftsbedingungen akzeptiert"
+      privacy: "Datenschutzerklärung akzeptiert"
+      legal: "Allgemeine Geschäftsbedingungen (AGB) und akzeptiert"
       create: "Registrieren"
-      legal_entity: "Ich bin gewerbliche(r) Verkäufer*in oder juristische Person"
+      legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
     edit_profile:
-      title: "Perönliche Daten"
-      contact_person: "Ansprechpartner"
+      title: "Persönliche Daten"
+      contact_person: "Ansprechpartner*in"
       nickname: "Nutzername"
-      nickname_hint: "Dein perönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
+      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
       legal_entity: "Juristische Person"
       private_user: "Privatperson"
       name_title: "Anrede"
       forename: "Vorname"
       surname:  "Nachname"
       mail: "E-Mail"
-      password: "Passort"
+      password: "Passwort"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
-      image: "Wähle dein Bild aus"
+      image: "Wähle Dein Bild aus"
       picture: "Bild"
-      password_hint: "Geben Sie ein neues Passwort an (Freilassen, falls kein neues Passwort angelegt werden soll)"
+      password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Neues Passwort bestätigen"
-      current_password: "Bisheriges Passwort angeben (wir benötigen Ihr bisheriges Passwort um die Änderungen zu bestätigen)"
+      current_password: "Bisheriges Passwort angeben (wir benötigen Dein bisheriges Passwort um die Änderungen zu bestätigen)"
       cancel_account: "Benutzerkonto löschen"
-      cancel_account_confirm: "Sind Sie sicher?"
+      cancel_account_confirm: "Bist Du sicher?"
       address: "Anschrift und Kontaktdaten"
       country: "Land"
       street: "Straße und Hausnummer"
@@ -218,11 +218,11 @@ de:
       mobile: "Telefonnummer (Mobil)"
       fax: "Fax"
       about_me: "Über mich"
-      about_me_hint: "Hier kannst du dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
+      about_me_hint: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
-      terms_hint: "Trage hier deine AGB ein."
+      terms_hint: "Trage hier Deine AGB ein."
       cancellation_hint: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
       about_hint: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
       public: "Öffentlich"
@@ -238,7 +238,7 @@ de:
         explanation: Erläuterung
         explanations: Erläuterungen
       auction:
-        title: "Produktbezeichnung"
+        title: "Artikelbezeichnung"
         categories: Kategorien
         categories_and_ancestors: Kategorien
         
@@ -282,8 +282,8 @@ de:
           social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus 
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         
-        condition: "Produktzustand"
-        content: "Produktbeschreibung"
+        condition: "Artikelzustand"
+        content: "Artikelbeschreibung"
         color: Farbe
         size: Größe
         quantity: Anzahl
@@ -314,8 +314,8 @@ de:
     input_steps:
       auction:
         prefix: "%{count}. Schritt:"
-        title_and_categories: "Produktbezeichnung und Kategorien"
-        commendation: "Auszeichnung deines Artikels (optional)"
+        title_and_categories: "Artikelbezeichnung und Kategorien"
+        commendation: "Auszeichnung Deines Artikels (optional)"
         commendation_hint: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         article: "Dein Artikel"
         auction: "Das Angebot"
@@ -340,30 +340,30 @@ de:
     banned: "Das Benutzerkonto muss zuerst von einem Administrator freigeschalten werden!"
     remember: "Eingeloggt bleiben"
     hints:
-      email: "Geben Sie Ihre Email-Adresse an"
+      email: "Gib bitte Deine Email-Adresse an"
     confirmation:
       resend: "Bestätigungsanweisungen erneut schicken"
-      text: "Sie können Ihre Anmeldung durch Klicken auf den folgenden Link bestätigen:"
-      link: "Mein Benutzerkonto betstätigen"
+      text: "Du kannst Deine Anmeldung durch Klicken auf den folgenden Link bestätigen:"
+      link: "Mein Benutzerkonto bestätigen"
     reset:
-      text: "Jemand hat einen Link zum Ändern Ihres Passworts angefordert. Um Ihr Passwort zu ändern, klicken Sie auf den folgenden Link."
+      text: "Jemand hat einen Link zum Ändern Deines Passworts angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
       link: "Passwort hier ändern"
-      ignoremail: "Falls Sie diese Email nicht angefordert haben, bitte einfach ignorieren."
-      info: "Ihr Passwort ändert sich erst, wenn Sie den oben angegebenen Link benutzen, um ein neues Passwort anzulegen."
-      request: "Bitte senden Sie mir Anweisungen zu, um mein Passwort zurückzusetzen"
+      ignoremail: "Falls Du diese Email nicht angefordert hast, bitte einfach ignorieren."
+      info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzen, um ein neues Passwort anzulegen."
+      request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
     unlock:
-      info: "Ihr Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
-      linktext: "Klicken Sie auf unten stehenden Link, um Ihr Benutzerkonto freizuschalten:"
+      info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
+      linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
       link: "Benutzerkonto freischalten"
     follow:
       following: "Folgen"
       stop_following: "Following gestoppt"
       followers: "Followers"
       followers_info: "Benutzer, die mir folgen"
-      following_info: "Produkte und Benutzer, denen ich folge"
+      following_info: "Artikel und Benutzer, denen ich folge"
       followers_info_others: "Diese Benutzer folgen "
-      following_info_others: " folgt diesen Produkten und Benutzern"
+      following_info_others: " folgt diesen Artikeln und Benutzern"
     founder: "Gründer"
     legal:
       legal_entity: "Firmenprofil"
@@ -376,9 +376,9 @@ de:
     notices:
       applied: "Die Vorlage %{name} wurde erfolgreich übernommen"
     prompts:
-      auction_templates: "Bitte wählen Sie eine Vorlage"
+      auction_templates: "Bitte wähle  eine Vorlage"
     errors:
-      auction_template_missing: "Bitte wählen Sie eine Vorlage" 
+      auction_template_missing: "Bitte wähle eine Vorlage" 
 # Auction Model/Controller
   auction:
     
@@ -388,11 +388,11 @@ de:
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
     form:
-      missing_terms: "Bevor du eine Auktion erstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
+      missing_terms: "Bevor Du eine Auktion erstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
-      head: "Um eine Auktion zu erstellen, müssen Sie dieses Formular ausfüllen."
-      category: "Wählen Sie eine Kategorie für Ihr Produkt"
-      details: "Beschreiben Sie ihr Produkt"
+      head: "Um eine Auktion zu erstellen, mußt Du dieses Formular ausfüllen."
+      category: "Wähle eine Kategorie für Deinen Artikel"
+      details: "Beschreibe Deinen Artikel"
       expire_date: "Datum (Tag/Monat/Jahr)"
       expire_time: "Zeit (Stunden/Minuten)"
       transaction:
@@ -415,7 +415,7 @@ de:
       update: "Auktion wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
     hints:
-      title:  "Geben Sie eine Bezeichnung Ihres Produktes ein."
+      title:  "Gebe eine Bezeichnung Deines Artikels ein."
       categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
       category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
       
@@ -424,7 +424,7 @@ de:
       fair_trust_questionnaire: >
         Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
       social_producer_questionnaire: >
-        Hier könnt ihr Eure Produkte in die Kategorie "Sozial" einordnen.
+        Hier könnt ihr Eure Artikel in die Kategorie "Sozial" einordnen.
         
       condition: "Trage den Zustand Deines Artikels ein"
       content: "Geben Sie eine Beschreibung für die Auktion ein"
@@ -446,13 +446,13 @@ de:
       double_check: >
         Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
     image:
-      title: "Laden Sie ein Bild hoch"
+      title: "Lade ein Bild hoch"
       upload: "Hochladen"
     titles:
       new: "Artikel einstellen"  
       edit: "Artikel editieren"  
     actions:
-      profile: "Verkäufer ansehen"
+      profile: "Verkäufer*in ansehen"
       report: "Auktion Melden"
       reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
@@ -502,7 +502,7 @@ de:
     userevent:
       ffp_buy: "FFP gekauft"
       user_follow: "Benutzer gefolgt"
-      product_follow: "Produkt gefolgt"
+      product_follow: "Artikel gefolgt"
       confirmed: "Bestätigt"
       no: "Nein"
       yes: "Ja"
@@ -750,10 +750,10 @@ de:
       at_least_one_entry: mindestens eine Option muss ausgewählt sein 
       minimum_entries: mindestens %{count} Optionen müssen ausgewählt werden
       maximum_entries: maximal %{count} Optionen können ausgewählt werden
-      minimum_categories: "Bitte wählen Sie mindestens eine Kategorie für Ihr Produkt aus"
-      maximum_categories: "Bitte wählen Sie nicht mehr als %{count} Kategorien für Ihr Produkt"
+      minimum_categories: "Bitte wählen Sie mindestens eine Kategorie für Ihr Artikel aus"
+      maximum_categories: "Bitte wählen Sie nicht mehr als %{count} Kategorien für Ihr Artikel"
     template:
-      body: ! 'Bitte überprüfen Sie die folgenden Felder:'
+      body: ! 'Bitte überprüfe folgende Felder:'
       header:
         one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
         other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
@@ -847,6 +847,6 @@ de:
     content:
       new: "Inhalte verwalten"
       not_exists: "Die Seite '/%{url}' existiert noch nicht"
-      may_be_created: "Hier können Sie sie erstellen"
+      may_be_created: "Hier kannst Du sie erstellen"
       
   
