@@ -68,12 +68,19 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    if current_user.legal_entity && !(@legal_entity_correct = check_legal_entity)
-      @error_text =  t('auction.form.missing_terms')
-      @missing_terms=( (!current_user.terms||current_user.terms.empty?) ? t('devise.edit_profile.terms') : "" ) +
-      ( (!current_user.cancellation||current_user.cancellation.empty?) ? (", "+t('devise.edit_profile.cancellation')) : "" ) +
-      ( (!current_user.about||current_user.about.empty?) ? (", "+t('devise.edit_profile.about')) : "" ) 
-    end
+    
+    #@legal_entity_ok = true
+    #if current_user.legal_entity
+    #  @legal_entity = current_user.becomes(LegalEntity)
+    #  if !@legal_entity.legal_entity_terms_ok
+    #      @legal_entity_ok = false
+    #      @error_text =  t('auction.form.missing_terms')
+    #      @missing = Array.new(1,Hash.new)
+    #      @missing[0]['term'] = ( (!current_user.terms||current_user.terms.empty?) ? (t('devise.edit_profile.terms')) : "" )
+    #     @missing[0]['cancellation'] = ( (!current_user.cancellation||current_user.cancellation.empty?) ? (t('devise.edit_profile.cancellation')) : "" )
+    #      @missing[0]['about'] = ( (!current_user.about||current_user.about.empty?) ? (t('devise.edit_profile.about')) : "" ) 
+    #   end
+    #end
     
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
@@ -235,14 +242,5 @@ class AuctionsController < ApplicationController
       true
     end
   end
-  
-  def check_legal_entity
-      if( !current_user.terms || current_user.terms.empty? ||
-          !current_user.cancellation || current_user.cancellation.empty?  ||
-          !current_user.about || current_user.about.empty?)
-        return false
-      end
-      return true
-  end
-  
+
 end

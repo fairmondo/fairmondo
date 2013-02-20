@@ -107,6 +107,7 @@ de:
 # Common Texts
   common:
     brand: "fairnopoly.de"
+    fairnopoly: "Fairnopoly"
     actions:
       back: "Zurück"
       show: "Anzeigen"
@@ -148,7 +149,7 @@ de:
       inserted: "Auktionen wurden bereits eingestellt"
 # Footer
   footer:
-    legal_details: "Impressum"
+    legal_details: "Rechtliches"
     agb: "AGB"
     privacy: "Datenschutz"
     imprint: "Impressum"
@@ -157,7 +158,9 @@ de:
     team: "Team"
     contact: "Kontakt"
     faq: "FAQ"
+    forum: "Forum"
     help: "Hilfe"
+    blog: "Blog"
 # Devise
   devise:
     countries:
@@ -311,14 +314,14 @@ de:
     input_steps:
       auction:
         prefix: "%{count}. Schritt:"
-        title_and_categories: "Produktbezeichnung und Kategorie"
+        title_and_categories: "Produktbezeichnung und Kategorien"
         commendation: "Auszeichnung deines Artikels (optional)"
         commendation_hint: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         article: "Dein Artikel"
         auction: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
-        friendly_percent: "Das freundliche Prozent"
+        friendly_percent: "Das freundliche Prozent (optional)"
         friendly_percent_hint: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
         double_check: "Artikel einstellen"
@@ -396,24 +399,15 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
-
       
       fieldsets:
-        categories: Kategorien
-        categories_and_ancestors: Kategorien
-        commendation: Auszeichnung Deines Artikels - Fair, Öko, Klein&Edel
-        article: Dein Artikel
-        transport_and_payment_options: Versand und Bezahlung
-        friendly_percent: Das freundliche Prozent
         fees_and_donations: Deine Gebühren und Spenden
-        double_check: Alle Angaben überprüft?
-        
     labels:
       price: "Preis"
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
-      submit: "Angebot einstellen. Beachten Sie, dass hiermit bei Vertragsabschluss Gebühren entstehen."
+      submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
     list:
       header: "Ergebnisse"
     notices:
@@ -757,7 +751,7 @@ de:
       minimum_entries: mindestens %{count} Optionen müssen ausgewählt werden
       maximum_entries: maximal %{count} Optionen können ausgewählt werden
       minimum_categories: "Bitte wählen Sie mindestens eine Kategorie für Ihr Produkt aus"
-      maximum_categories: "Bitte wählen Sie nicht mehr als 2 Kategorien für Ihr Produkt"
+      maximum_categories: "Bitte wählen Sie nicht mehr als %{count} Kategorien für Ihr Produkt"
     template:
       body: ! 'Bitte überprüfen Sie die folgenden Felder:'
       header:

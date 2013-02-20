@@ -1,53 +1,75 @@
+
+
 /*
- *  NEW
+ * NEW
  */
 
-.formtastic.auction {
-  textarea {
-    width: 100%;
+#auction_form_container { 
+  
+  textarea:not(#auction_content) {
+    width: 100% !important;
     height: 150px;
   }
   
-  #auction_content {
-    height: 400px;
+  // TODO configure tinymce for other size
+  // maybe than it works error free:
+  //#auction_content_tbl {
+  //    height: 300px !important;
+  //}
+  
+  .box-content {
+    input[type='submit'] {
+      padding: 5px;
+      background: @buttonBackgroundGreen;
+      color: #FFFFFF;
+      white-space:normal;
+      line-height: 100%;
+    }
   }
   
-  .friendly_percent-user-inputs, .auction_template-user-inputs {
+  // TODO 
+  // * make this a api-class, e.g. 'fieldset2' or 'horizontal-fieldset' or mixin 
+  // * decide whether to use fieldsets or divs (apply-step-inputs is a fieldset)
+  // * if responsivity counts, consider to remove negative margin from bootstrap, adopt styles  
+  
+  .friendly_percent-user-inputs, .auction_template-user-inputs, .apply-step-inputs {
     .makeRow();
     .control-group {
       .makeColumn(2);
       width: 45%;
+      .controls {
+        display: inline-block;
+        margin-left: 0px;
+      }
+      
+      .control-label {
+        margin-right: 20px;
+      }
+      
+      // fix for bootstrap default
+      .radio input[type="radio"],
+      .checkbox input[type="checkbox"] {
+        margin-left: 0px;
+      }
     }
   }
   
-  .auction_template-user-inputs {
-    .makeRow();
-      .control-group {
-        .makeColumn(2);
-        width: 25%;
-      }
+  .apply-step-inputs {
+    margin-left: 0px;
   }
   
 }
 
-.apply-step-inputs {
-  .makeRow();
-  margin-left: 0px;
-  .control-group {
-    .makeColumn(2);
-    width: 45%;
+
+// fix for formtastic_bootstrap's label-control layout that 
+// is not properly responsive to resizing  
+#template_select_auction_template_input {
+  .controls {
+    display: inline-block !important;
+    margin-left: 10px !important;
   }
 }
 
-.box-content {
-  input[type='submit'] {
-    padding: 5px;
-    background: @buttonBackgroundGreen;
-    color: #FFFFFF;
-    white-space:normal;
-    line-height: 100%;
-  }
-}
 
 #double_check_step {
   .form-actions {
@@ -67,6 +89,11 @@
     margin: auto;
     background: @buttonBackgroundGreen;
     color: #FFFFFF;
+}
+
+#auction_fees_and_donations_input {
+  padding-top: 20px;
+  border-top: 2px solid #666666;
 }
 
 #center-div {
