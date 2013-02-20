@@ -402,6 +402,7 @@ de:
       
       fieldsets:
         fees_and_donations: Deine Gebühren und Spenden
+        double_check: Alle Angaben überprüft?
     labels:
       price: "Preis"
       shipping_condition: "Versand-Zustand"
