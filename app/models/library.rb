@@ -7,6 +7,6 @@ class Library < ActiveRecord::Base
   belongs_to :user, :dependent => :destroy
   has_many :library_elements
   
-  attr_accessible :name, :public, :user_id
+  attr_accessible :name, :public, :user_id, :user
   
 end
