@@ -1,5 +1,5 @@
 class AuctionMailer < ActionMailer::Base
-  default from: "info@fairnopoly.de"
+  default from: "kundenservice@fairnopoly.de"
   
   def report_auction(auction,text)
     mail(:to => "melden@fairnopoly.de", :subject => "Auction reported with ID: " + auction.id.to_s, :body => text)
