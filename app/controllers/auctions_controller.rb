@@ -1,6 +1,7 @@
 # refs https://github.com/dougal/acts_as_indexed/issues/23
 require "will_paginate_search"
 
+
 class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true
   # Create is safed by denail!
@@ -56,7 +57,7 @@ class AuctionsController < ApplicationController
       @title_image = @auction.images[0]
     end
      @thumbnails = @auction.images
-     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image.id #Reject the selected image from 
+     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
     
     respond_to do |format|
       format.html # show.html.erb
@@ -110,6 +111,7 @@ class AuctionsController < ApplicationController
   # POST /auctions
   # POST /auctions.json
   def create
+
     @auction = Auction.new(params[:auction])
     
     @auction.seller = current_user
@@ -137,23 +139,28 @@ class AuctionsController < ApplicationController
   # PUT /auctions/1
   # PUT /auctions/1.json
   def update
+    
     @auction = Auction.with_user_id(current_user.id).find(params[:id])
 
-    respond_to do |format|
+  
       if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
 
         userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
         userevent.save
-
-        format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
-        format.json { head :no_content }
+        respond_to do |format|
+          format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
+          format.json { head :no_content }
+        end
       else
+        
         save_images
         setup_form_requirements
-        format.html { render :action => "edit" }
-        format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+        respond_to do |format|
+          format.html { render :action => "edit" }
+          format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+        end
       end
-    end
+    
   end
 
   def report
@@ -260,9 +267,11 @@ class AuctionsController < ApplicationController
   
   def save_images
     #At least try to save the images -> not persisted in browser 
+    if @auction 
         @auction.images.each do |image|
           image.save
         end
+    end
   end
   
 

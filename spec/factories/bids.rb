@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :bid  do
-    auction
+    auction_transaction
     user
     price_cents { rand(10000) }
   end

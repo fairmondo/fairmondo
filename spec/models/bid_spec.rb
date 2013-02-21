@@ -7,7 +7,7 @@ describe Bid do
   end
 
   it {should validate_presence_of :user_id}
-  it {should validate_presence_of :auction_id}
+  it {should validate_presence_of :auction_transaction_id}
   it {should validate_presence_of :price_cents}
 
 =begin
