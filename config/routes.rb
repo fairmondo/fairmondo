@@ -23,6 +23,7 @@ Fairnopoly::Application.routes.draw do
       get 'report'
       post 'follow'
       post 'stop_follow'
+      post 'collect'
     end
     collection do
 
@@ -44,8 +45,15 @@ Fairnopoly::Application.routes.draw do
   match 'dashboard/list_followers' => 'dashboard#list_followers'
   match 'dashboard/list_following' => 'dashboard#list_following'
   match 'community' => 'dashboard#community'
-  match 'dashboard/sales' => 'dashboard#sales'
   
+  get 'dashboard/sales' 
+  get 'dashboard/collection'
+  post 'dashboard/add_to_library'
+  post 'dashboard/new_library'
+  get 'dashboard/delete_library_element'
+  get 'dashboard/set_library_public' 
+  get 'dashboard/set_library_private' 
+   
   #match 'autocomplete_user_name' => 'dashboard#autocomplete_user_name'
   #confirmation invitation
   match 'confirm_invitation' => 'invitations#confirm'
