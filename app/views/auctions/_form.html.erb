@@ -5,7 +5,7 @@
   
   <%= semantic_form_for @auction, :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
     <%= f.semantic_errors %>
-    
+
     <%= render :partial => "common_inputs", :locals => {:f => f} %>
     
     <%= f.input_step :double_check, :prefix => false do %>

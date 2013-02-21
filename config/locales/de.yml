@@ -122,6 +122,7 @@ de:
       report: "Melden"
       take_part: "Mitmachen"
       buy: "Kaufen"
+      collect: "Sammeln"
     title:
       man: "Herr"
       woman: "Frau"
@@ -415,6 +416,7 @@ de:
       create: "Auktion wurde erfolgreich erstellt."
       update: "Auktion wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
+      collect: "Produkt wurde in die Standard-Sammlung übernommen."
     hints:
       title:  "Gebe eine Bezeichnung Deines Artikels ein."
       categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
@@ -457,6 +459,7 @@ de:
       report: "Auktion Melden"
       reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
+      to-collection: "In Sammlung verschieben"
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
@@ -467,6 +470,20 @@ de:
       smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
       smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
       success: "Sie sind jetzt Höchstbietender!"
+# Collection
+  collection:
+    no_products: "Es sind momentan keine Produkte in dieser Sammlung"
+    standard: "Standard Sammlung"
+    new: "neue Sammlung"
+    new_title: "Neue Sammlung erstellen"
+    privacy: "Sichtbarkeit dieser Sammlung:"
+    public: "Jeder kann diese Sammlung sehen"
+    private: "Nur für dich sichtbar"
+    action:
+      public: "öffentlich machen"
+      private: "privat machen"
+    element:
+      delete: "Aus Sammlungen löschen"
 # Dashboard
   dashboard:
     no_img: "Noch+kein+Bild"

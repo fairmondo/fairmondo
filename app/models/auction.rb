@@ -188,6 +188,7 @@ class Auction < ActiveRecord::Base
   # Relations
   has_many :userevents
   has_many :images
+  #  has_many :libraries
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
   validates_presence_of :user_id, :unless => :template?
