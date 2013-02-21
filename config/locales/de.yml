@@ -108,6 +108,10 @@ de:
   common:
     brand: "fairnopoly.de"
     fairnopoly: "Fairnopoly"
+    fn_footer_greeting: "Dein Fairnopoly-Team"
+    fn_legal_footer: "-- Diese Nachricht wurde von Fairnopoly,  https://beta.fairnopoly.de/, gesendet. 
+                      Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab, 
+                      Erkelenzdamm 59-61, Portal 1, 3. Stock, 10999 Berlin"
     actions:
       back: "Zurück"
       show: "Anzeigen"
@@ -344,19 +348,26 @@ de:
       email: "Gib bitte Deine Email-Adresse an"
     confirmation:
       resend: "Bestätigungsanweisungen erneut schicken"
-      text: "Du kannst Deine Anmeldung durch Klicken auf den folgenden Link bestätigen:"
-      link: "Mein Benutzerkonto bestätigen"
+      text: "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
+             Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
+             Bitte beachte: Derzeit befinden wir uns noch in der Testphase. Dies ist eine reine Testversion, 
+             wir übernehmen keinerlei Haftung oder Verantwortung für eingestellte Daten. Nach Ablauf des Tests am 01.03. werden alle Daten 
+             ohne Vorwarnung gelöscht. Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
+             Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
+      link: "Meine Registrierung bestätigen."
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
     reset:
-      text: "Jemand hat einen Link zum Ändern Deines Passworts angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
+      text: "Jemand hat einen Link zum Ändern Deines Passworts auf Fairnopoly angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
       link: "Passwort hier ändern"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, bitte einfach ignorieren."
-      info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzen, um ein neues Passwort anzulegen."
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
+      info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
       request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
     unlock:
       info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
       linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
       link: "Benutzerkonto freischalten"
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
     follow:
       following: "Folgen"
       stop_following: "Following gestoppt"
