@@ -2,8 +2,7 @@ class CheckBoxTreeInput < FormtasticBootstrap::Inputs::CheckBoxesInput
  
   def to_html
     if options[:prepend_label]
-      control_label_html
-      l = template.content_tag(:div, control_label_html)
+      l = template.content_tag(:div, control_label_html, :class => "tree-label")
     else
       l = "".html_safe
     end

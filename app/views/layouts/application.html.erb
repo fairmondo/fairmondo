@@ -14,6 +14,19 @@
 		<%= stylesheet_link_tag 'application' %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
+		
+		<!-- Google Analytics -->	
+		<script type="text/javascript">
+  			var _gaq = _gaq || [];
+  			_gaq.push(['_setAccount', 'UA-37465097-1']);
+  			_gaq.push(['_trackPageview']);
+
+  			(function() {
+    			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  			})();
+		</script>
 	</head>
 	<body>
 		<!--[if lt IE 8]>
@@ -97,7 +110,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="span4">
-						<h3><%= t('footer.legal_details').upcase %></h3>
+						<h3><%= t('footer.legal_details')%></h3>
 						<ul>
 							<li>
 								<a href="/agb"> <%= t('footer.agb')%> </a>
@@ -112,8 +125,11 @@
 						</ul>
 					</div>
 					<div class="span4">
-						<h3> <%= t('footer.about_us').upcase %> </h3>
+						<h3> <%= t('common.fairnopoly') %> </h3>
 						<ul>
+							<li>
+								<a href="/about_us"> <%= t('footer.about_us')%> </a>
+							</li>
 							<li>
 								<a href="/philosophy"> <%= t('footer.philosophy')%> </a>
 							</li>
@@ -121,7 +137,7 @@
 								<a href='http://info.fairnopoly.de/team/'> <%= t('footer.team')%> </a>
 							</li>
 							<li>
-								<a href="/contact"> <%= t('footer.contact')%> </a>
+								<a href='http://info.fairnopoly.de'> <%= t('footer.blog')%> </a>
 							</li>
 							<% if current_user && current_user.admin? %>
 							<li>
@@ -131,16 +147,19 @@
 						</ul>
 					</div>
 					<div class="span4">
-						<h3> <%= t('footer.faq').upcase %> &amp; <%= t('footer.help')%> </h3>
+						<h3> <%= t('footer.help')%> </h3>
 						<div class='faqs' id="faqs-accordion">
 							<%= render :partial => "faqs/faq", :collection => @faqs %>
 						</div>
 						<ul>
 							<li>
-								<a href='http://info.fairnopoly.de/forum/'> <%= "Forum"%> </a>
+								<a href='/faq'> <%= t('footer.faq')%> </a>
 							</li>
 							<li>
-								<a href='http://info.fairnopoly.de'> <%= "Blog"%> </a>
+								<a href='http://info.fairnopoly.de/forum/'> <%= t('footer.forum')%> </a>
+							</li>
+							<li>
+								<a href="/contact"> <%= t('footer.contact')%> </a>
 							</li>
 						</ul>
 					</div>
@@ -149,7 +168,7 @@
 			</div>
 			<!-- container -->
 			<div id="sub-footer">
-				&copy; Fairnopoly 2012 <%= I18n.locale %>
+				&copy; Fairnopoly 2013 <%= I18n.locale %>
 			</div>
 		</footer>
 	</body>

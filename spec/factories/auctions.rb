@@ -11,8 +11,10 @@ FactoryGirl.define do
     condition { ["new", "old"].sample }
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
-    transport { Auction.transport.values.sample(rand(3)+1) }    
+    transport { Auction.transport.values.sample(rand(3)+1) }
+    transport_details "transport_details"    
     payment   { Auction.payment.values.sample(rand(5)+1) }
+    payment_details "payment_details"
     
     factory :second_hand_auction do
       condition "old"

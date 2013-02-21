@@ -155,6 +155,7 @@ class Auction < ActiveRecord::Base
   enumerize :condition, :in => [:new, :old]
   enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
   validates_length_of :size, :maximum => 4
+  validates_presence_of :quantity
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1
     
   # Note: currency is deprecated for the moment.
@@ -165,10 +166,12 @@ class Auction < ActiveRecord::Base
   serialize :transport, Array
   enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
   validates :transport, :size => 1..-1
+  validates_presence_of :transport_details
   
   serialize :payment, Array
   enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
   validates :payment, :size => 1..-1
+  validates_presence_of :payment_details
   
   # Relations
   has_many :userevents
@@ -191,10 +194,7 @@ class Auction < ActiveRecord::Base
   has_many :auctions_categories, :dependent => :destroy
   has_many :categories, :through => :auctions_categories
   validates :categories, :size => {
-    :in => 1..2, :messages => {
-      :minimum_entries => I18n.t('errors.messages.minimum_categories'),
-      :maximum_entries => I18n.t('errors.messages.maximum_categories')
-    },
+    :in => 1..2,
     :add_errors_to => [:categories, :categories_and_ancestors]
   }
   before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies

@@ -1,25 +1,41 @@
+<<<<<<< HEAD
 <%= tinymce_assets %>
 
 <%= render :partial => "auction_template_select" %>
 
 <%= semantic_form_for @auction, :html => { :class => "form-horizontal", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|  %>
   <%= f.semantic_errors %>
+=======
+<div id='auction_form_container'>
+  <%= tinymce_assets %>
+>>>>>>> 137944bccf1ca6e028cba6c266570cdb99ee8fc6
   
-  <%= render :partial => "common_inputs", :locals => {:f => f} %>
+  <%= render :partial => "auction_template_select" %>
   
-  <%= f.input_step :double_check, :prefix => false do %>
-  
-    <%= render :partial => "auction_template_create_inputs" %>
+  <%= semantic_form_for @auction, :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
+    <%= f.semantic_errors %>
     
-    <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :tooltip => t('auction.hints.fees_and_donations').html_safe do %>
-      <%= f.input :corruption_percent_result, :input_html => {:disabled => true} %>
-      <%= f.input :friendly_percent_result, :input_html => {:disabled => true} %>
-      <%= f.input :fees, :input_html => {:disabled => true}, :tooltip => true %>
-      <%= f.input :fees_and_donations, :input_html => {:disabled => true} %>
+    <%= render :partial => "common_inputs", :locals => {:f => f} %>
+    
+    <%= f.input_step :double_check, :prefix => false do %>
+    
+      <%= render :partial => "auction_template_create_inputs" %>
+      
+      <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :tooltip => t('auction.hints.fees_and_donations').html_safe do %>
+        <%= f.input :corruption_percent_result, :input_html => {:disabled => true} %>
+        <%= f.input :friendly_percent_result, :input_html => {:disabled => true} %>
+        <%= f.input :fees, :input_html => {:disabled => true}, :tooltip => true %>
+        <%= f.input :fees_and_donations, :input_html => {:disabled => true} %>
+      <% end %>
+      <%= f.actions :name => t('auction.form.fieldsets.double_check'),  :tooltip => t('auction.hints.double_check').html_safe do %>
+        <%= f.action :submit, :label => t("auction.labels.submit")%>
+      <% end %>
     <% end %>
-    <%= f.actions :name => t('auction.form.fieldsets.double_check'),  :tooltip => t('auction.hints.double_check').html_safe do %>
-      <%= f.action :submit, :label => t("auction.labels.submit")%>
-    <% end %>
+  	
   <% end %>
+<<<<<<< HEAD
 	
 <% end %>
+=======
+</div>
+>>>>>>> 137944bccf1ca6e028cba6c266570cdb99ee8fc6
