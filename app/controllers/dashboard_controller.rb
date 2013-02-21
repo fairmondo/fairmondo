@@ -53,6 +53,72 @@ class DashboardController < ApplicationController
     @auctions = @user.following_by_type('Auction').paginate(:page => params[:page] , :per_page=>12)
   end
 
+  def collection
+    get_user
+    @libraries = @user.libraries
+  end
+  
+  def new_library
+    name = t('collection.standard')
+    if params[:library_name]
+     name = params[:library_name]
+    end
+    if !Library.exists? current_user.libraries.where(:name => name).first
+      Library.create(:name => name,:public => false, :user_id => current_user.id)
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+t('collection.standard').delete(' ')}
+      format.json { head :no_content }
+    end
+  end
+  
+  def set_library_public
+    if params[:id]
+      Library.update(params["id"], :public => true)
+      @library = Library.find(params[:id])
+      respond_to do |format|
+        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def set_library_private
+    if params[:id]
+      Library.update(params["id"], :public => false)
+      @library = Library.find(params[:id])
+      respond_to do |format|
+        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def add_to_library
+    name = t('collection.standard')
+    if params[:id] && params[:library_id]
+      name = params[:library_name]
+      @library = Library.find(params[:library_id])
+      LibraryElement.update(params["id"], :library_id => params[:library_id])
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+      format.json { head :no_content }
+    end
+  end
+  
+  def delete_library_element
+    library_element = LibraryElement.find(params[:id])
+    library =library_element.library
+    if params[:id]
+      LibraryElement.delete(params[:id])
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+library.name.delete(' ')}
+      format.json { head :no_content }
+    end
+  end
+
   def community
 
       get_user

@@ -35,7 +35,7 @@
 		    		</li>
 	    		<%end%>
 	    		<li id="dashboard-collection">
-		    		<a href="<%=url_for dashboard_path %>">
+		    		<a href="<%=url_for :controller => "dashboard", :action => "collection", :id => params[:id], :anchor => "collection_"+t('collection.standard').delete(' ') %>">
 	       				<strong> Sammlungen </strong>
 	    			</a>
 

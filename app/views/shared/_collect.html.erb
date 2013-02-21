@@ -1,0 +1,10 @@
+<% unless (!current_user) || object == current_user %>
+
+		<%=form_tag({:action => "collect" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+			<input type="hidden" name="id" value="<%=object.id%>">
+			<button type="submit" class="btn btn-fill btn-white">		
+				<%= t('common.actions.collect')%>
+			</button>
+		<%end%>		
+
+<%end%>

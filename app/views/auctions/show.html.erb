@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="span9">
-		<div class="well-column">
+		<div class="white-well">
 			
-			<h1><%= @auction.title %> </h1>
+			<h2><%= @auction.title %> </h2>
 			
 			<div class="row-fluid">
-				<div class="span4 ">
+				<div class="span6 ">
 					
 						<div class="title-image-wrapper">
 						<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"http://placehold.it/360x260" , :class=> "title_image"), "#" %>
@@ -22,7 +22,7 @@
 						</div>
 					
 				</div>
-				<div class="span4 "> 
+				<div class="span3 "> 
 					
 					<p><b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b></p>
 					<% if @auction.size && @auction.size != ""%>		
@@ -30,12 +30,13 @@
 					<% end %>	
 					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-						
+					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>
+					
 				</div>
-				<div class="span4 "> 
+				<div class="span3 dark-gray-well break-word"> 
 							
-				 		Platzhalter
-				 	
+				 		<strong><%= tinycms_content "auction-side-bar" %></strong>
+		
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -69,35 +70,75 @@
 		
 	</div>
 	<div class="span3">
+		<%= link_to t('auction.actions.profile') , dashboard_path(:id => @auction.seller.id), :class => "btn btn-fill"%>
 		<%=render :partial=>'/shared/profile_img', :locals=>{:user => @auction.seller} %>	
-		<div class="well">
-		<%= link_to (raw t('auction.actions.profile') +" "+ glyphicons("icon-chevron-right")) , dashboard_path(:id => @auction.seller.id), :class => "btn"%>
-		<%if @auction.seller ==current_user%>
-					<% html= glyphicons("icon-cog")%>
-					<%= link_to html.html_safe, edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
-				<%else%>
-					<% html= glyphicons("icon-warning-sign")%>
 
+
+		<div class="well">
+			
+			<%if @auction.seller ==current_user%>
+				<% html= glyphicons("icon-cog")%>
+				<%= link_to html.html_safe+" "+t('auction.actions.edit'), edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
+			<%else%>
+				<% html= glyphicons("icon-warning-sign")%>
+	
+				<h3><%=t('auction.actions.report')%></h3>
+				<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
+					<%= f.text_field "melden", :name=>"report", :value => params["report"] %>
 					
-					<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
-						<%= f.text_field "melden", :name=>"report", :value => params["report"] %>
-						
-						<button class="btn">
-							<i  class="icon-warning-sign"></i>
-							<%= t('common.actions.report') %> 
-						</button>	
-						
-					<% end %>
+					<button class="btn">
+						<i  class="icon-warning-sign"></i>
+						<%= t('common.actions.report') %> 
+					</button>	
 					
-					<%= render :partial => 'shared/follow' , :locals => { :object => @auction }%>
-				<%end%>		
+				<% end %>
+			<%end%>		
 		</div>	
+		
+		<div class="box" id="other_products">
+			<div class="box-legend box-legend-without-border">
+				<a href="#other_products"> 
+					<h6><%=t('auction.titles.other-products')%> (<%= @seller_products.count%>)</h6>
+				</a>
+			</div>
+			<div class="box-content padding-box">
+				<div class="middle-margin-top">
+					<ul class="unstyled">
+						<% @seller_products.each do |product| %>
+							<li><%= link_to product.title, product %></li>
+						<%end%>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="box" id="collection">
+			<div class="box-legend box-legend-without-border">
+				<a href="#collection"> 
+					<h6><%=t('auction.titles.collections')%> (<%= @collections.count%>)</h6>
+				</a>
+			</div>
+			<div class="box-content padding-box">
+				<div class="middle-margin-top">
+					<ul class="unstyled">
+						<% @collections.each do |lib| %>
+							<li><%= link_to (lib.name+" ("+lib.user.nickname+")"), :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.name.to_s.delete(' ') %></li>
+						<%end%>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
 	</div>
+	
+	
 </div>
+
 
 <p><%= t('auction.labels.expiration_date')%>
 						<%=  @auction.expire.strftime("%d.%m.%Y %H:%M") %>
 					</p>
-			<%= @auction.transaction.is_a?(PreviewTransaction) %>
+			
 					
 
