@@ -50,6 +50,8 @@ class AuctionsController < ApplicationController
   # GET /auctions/1.json
   def show
     @auction = Auction.find(params[:id])
+    @collections = @auction.libraries.where(:public=>true)
+    @seller_products = @auction.seller.auctions.where('id != ? AND expire > ?',@auction.id, Time.now)
     if @auction.seller == current_user
       @image = Image.new
       @image.auction = @auction
