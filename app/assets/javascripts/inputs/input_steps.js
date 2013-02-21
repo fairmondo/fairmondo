@@ -13,9 +13,10 @@ $(document).ready(function(){
 function scrollToNextStep(prev_step, next_step, height) {
      
     if(next_step.length && prev_step != next_step){
-	    if (prev_step.length) {
+    	
+	    if (prev_step.length) {	    	
 	    	if(prev_step.position().top < next_step.position().top) {
-	    		scroll_to = prev_step.position().top + height;
+	    		scroll_to = next_step.position().top - prev_step.height() + 40
 	    	} else {
 		    	scroll_to = next_step.position().top;
 	    	}
@@ -26,10 +27,20 @@ function scrollToNextStep(prev_step, next_step, height) {
 	 	window.setTimeout(function() {
 		    y = window.pageYOffset;
 	        window.location.hash = "#" + next_step.attr("id");
-		    window.scrollTo(0,y);
+		    window.scrollTo(0,y);		    
 	    },2)
 	    
         $('html,body').animate({scrollTop:scroll_to},'slow');
+        
+        // fix for chrome rendering issues, see #165
+        // the background is not completely white (1 less rgb), else
+        // it does not trigger chrome to redraw
+        // 
+        // Note: apparently not required after swichting to position+negative top solution, see box.less 
+        //if (window.chrome) {
+		//    box_to_show = next_step.find(".box-content");
+		//    box_to_show.css("background-image","url('/assets/back-white.png')");
+	    //}
     }
 }
 

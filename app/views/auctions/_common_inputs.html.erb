@@ -1,7 +1,7 @@
 	
 	<%= f.input_step :title_and_categories, :default_step => true do %>
     <%= f.input :title, :tooltip => true, :required => true %>
-    <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
+    <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true, :required => true %>
     <%= f.input :category_proposal,:label => t('auction.categories.proposal.question'), :tooltip => true %>
   <% end %>
 
@@ -45,6 +45,7 @@
   	<%= f.input :size %>
   	<%= f.input :quantity, :tooltip => true %>
   	<%= f.input :price, :tooltip => true, :input_html => {value: number_with_precision(f.object.price, precision: 2) }, :required => true %>
+
   	<%= tinymce %>
   <% end %>
   

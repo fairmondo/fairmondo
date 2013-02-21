@@ -67,7 +67,6 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-
     
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
@@ -248,6 +247,7 @@ class AuctionsController < ApplicationController
       true
     end
   end
+
   
   def setup_image_uploads 
      (5-@auction.images.size).times { @auction.images.build }
@@ -265,4 +265,5 @@ class AuctionsController < ApplicationController
         end
   end
   
+
 end
