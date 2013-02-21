@@ -1,0 +1,22 @@
+
+
+<% if current_user == @user%>
+	<!-- Add a new library -->
+	<div class="well">
+		<h3><%=t('collection.new_title')%></h3>
+		<%=form_tag({:action => "new_library" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+				<input name="library_name">
+				<button type="submit" class="btn btn-primary">
+					<%= t('collection.new')%>
+				</button>
+		<%end%>
+	</div>
+	
+	
+	<%= render 'list_library_priv' %>
+	
+<%else%>
+
+	<%= render 'list_library_pub' %>
+	
+<%end%>
