@@ -31,7 +31,8 @@
 					<% end %>	
 					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-						
+					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>
+					
 				</div>
 				<div class="span4 "> 
 							
@@ -89,8 +90,6 @@
 						</button>	
 						
 					<% end %>
-					
-					<%= render :partial => 'shared/follow' , :locals => { :object => @auction }%>
 				<%end%>		
 		</div>	
 	</div>
