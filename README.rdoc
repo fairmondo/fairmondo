@@ -19,6 +19,8 @@ To run fairnopoly locally in development mode, apart from installing ruby and ra
 * you may like to adopt the config/database.yml according to your wishes
 * migrate and seed
     rake db:create db:migrate db:seed
+    
+* to use the recaptcha you have to add your keys in the api.yml. You can get the keys at https://www.google.com/recaptcha/admin/list
 
 * start rails and have fun
 
