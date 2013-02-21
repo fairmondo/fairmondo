@@ -1,0 +1,51 @@
+<!-- With no library name -->
+<% @libraries.each do |lib| %>
+<div class="box" id="<%= ("collection_"+lib.name.to_s.delete(' '))%>">
+	<div class="box-legend box-legend-without-border">
+		<a href="<%= ("#collection_"+lib.name.to_s.delete(' '))%>"> 
+			<h3><%= lib.name%></h3> 
+		</a>
+	</div>
+	<div class="box-content padding-box">
+		<div class="middle-margin-top">
+			<div class="well">
+				<%= t('collection.privacy')%> 
+				<% if lib.public %>
+					<strong><%= t('collection.public') %></strong>
+					(<%= link_to t('collection.action.private'), :controller => "dashboard", :action => "set_library_private", :id=>lib.id %>)
+				<%else%>
+					<strong><%= t('collection.private') %>	</strong>
+					(<%= link_to t('collection.action.public'), :controller => "dashboard", :action => "set_library_public", :id=>lib.id %>)
+				<%end%>
+			</div>
+			<% if lib.library_elements.empty? %>
+				<div class="well">
+					<%= t('collection.no_products')%>
+				</div>
+			<%else%>
+				<ul class="thumbnails">
+					<% lib.library_elements.each do |library_element| %>
+					<li class="span3">
+						<%= render :partial => '/shared/add_to_library' , :locals => {:library_element => library_element,:libraries => @libraries }%>
+						<div class="thumbnail" style="position: relative;">
+							<%= condition_label library_element.auction, "in-image" %>
+							<% if library_element.auction.title_image%>
+								<%= link_to image_tag(library_element.auction.title_image.image.url(:thumb), :size=> "260x180"), library_element.auction %>
+							<%else%>
+								<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), library_element.auction %>
+							<%end%>
+							<div class="caption">
+								<h5><%= link_to truncate(library_element.auction.title, :length => 25), library_element.auction %></h5>
+								<h5><%= humanized_money_with_symbol library_element.auction.price %></h5>
+							</div>
+						</div>
+						<%= link_to t('collection.element.delete'), {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"btn btn-fill" %>		
+					</li>
+					<%end%>
+				</ul>
+			<%end%>
+		</div>
+	</div>
+</div>
+<%end%>
+

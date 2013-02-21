@@ -1,0 +1,20 @@
+<div class="btn-group">
+	<a class="btn dropdown-toggle btn-fill" data-toggle="dropdown"> 
+		<%= t('auction.actions.to-collection')%> <span class="caret"></span> 
+	</a>
+	<ul class="dropdown-menu" data-no-collapse="true">
+		<% unless (!current_user)%>
+			<% libraries.each do |library| %>
+				<%=form_tag({:action => "add_to_library" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
+				<li>
+					<input type="hidden" name="id" value="<%= library_element.id%>">
+					<input type="hidden" name="library_id" value="<%= library.id%>">
+					<button type="submit" class="btn btn-fill">
+						<%= library.name %>
+					</button>
+				</li>
+				<%end%>
+			<%end%>
+		<%end%>
+	</ul>
+</div>
