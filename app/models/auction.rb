@@ -12,10 +12,10 @@ class Auction < ActiveRecord::Base
   default_scope where(:auction_template_id => nil)
 
   before_validation :sanitize_content, :on => :create
-  before_validation :set_transaction_type_in_pioneer_version, :on => :create
   before_validation :set_expire_in_pioneer_version, :on => :create
+ 
+  validates_presence_of :transaction
 
-  validate :transaction_type
   
   validates_presence_of :expire
   #validate :validate_expire
@@ -146,21 +146,9 @@ class Auction < ActiveRecord::Base
     return true
   end
 
-  def transaction_type
-    return if transaction.is_a?(Transaction) # already initialized
-    case transaction
-    when 'auction'
-      self.transaction = AuctionTransaction.new
-      self.transaction.auction = self
-    when 'preview'
-      self.transaction = PreviewTransaction.new
-      self.transaction.auction = self
-    else
-      errors.add(:transaction, "You must select a type for your transaction!")
-    end
-  end
+  
 
-  attr_accessor :transaction, :category_proposal
+  attr_accessor :category_proposal
   acts_as_indexed :fields => [:title, :content]
   acts_as_followable
 
@@ -184,7 +172,17 @@ class Auction < ActiveRecord::Base
   
   # Relations
   has_many :userevents
-  has_many :images
+  
+  # ---- IMAGES ------
+  
+  has_many :images , :dependent => :destroy
+  accepts_nested_attributes_for :images, :allow_destroy => true
+ 
+  
+  # ---- END IMAGES ------
+  
+  belongs_to :transaction
+  accepts_nested_attributes_for :transaction
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
   validates_presence_of :user_id, :unless => :template?
@@ -285,7 +283,7 @@ class Auction < ActiveRecord::Base
   end
   
   def set_transaction_type_in_pioneer_version
-    @transaction = "preview"
+    self.transaction.type  = "PreviewTransaction"
   end
   
   def set_expire_in_pioneer_version

@@ -50,15 +50,14 @@ class AuctionsController < ApplicationController
   # GET /auctions/1.json
   def show
     @auction = Auction.find(params[:id])
-    if @auction.seller == current_user
-      @image = Image.new
-      @image.auction = @auction
-    end
     if params[:image]
       @title_image = Image.find(params[:image])
     else
-      @title_image = @auction.title_image
+      @title_image = @auction.images[0]
     end
+     @thumbnails = @auction.images
+     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image.id #Reject the selected image from 
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @auction }
@@ -74,6 +73,14 @@ class AuctionsController < ApplicationController
       if template_id.present?
         @applied_template = AuctionTemplate.find(template_id)
         @auction = Auction.new(@applied_template.deep_auction_attributes)
+        # Make copies of the images
+        
+        @applied_template.auction.images.each do |image|
+          copyimage = Image.new
+          copyimage.image = image.image
+          @auction.images << copyimage
+        end
+        save_images
         flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
       else
         flash.now[:error] = t('template_select.errors.auction_template_missing')
@@ -115,10 +122,11 @@ class AuctionsController < ApplicationController
         AuctionMailer.category_proposal(@auction.category_proposal).deliver
       end
       
-      @auction.transaction.save! # Should not be a problem!
+      
       respond_created
 
     else
+      save_images
       respond_to do |format|
         setup_form_requirements
         format.html { render :action => "new" }
@@ -141,6 +149,7 @@ class AuctionsController < ApplicationController
         format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
         format.json { head :no_content }
       else
+        save_images
         setup_form_requirements
         format.html { render :action => "edit" }
         format.json { render :json => @auction.errors, :status => :unprocessable_entity }
@@ -196,9 +205,11 @@ class AuctionsController < ApplicationController
   end
   
   def setup_form_requirements
+    setup_transaction
     setup_categories
     build_questionnaires
     build_template
+    setup_image_uploads
   end
   
   def build_questionnaires
@@ -221,6 +232,13 @@ class AuctionsController < ApplicationController
       if template_attributes[:save_as_template] && template_attributes[:name].present? 
         template_attributes[:auction_attributes] = params[:auction]
         @auction_template = AuctionTemplate.new(template_attributes)
+        @auction_template.auction.images.clear
+        auction.images.each do |image|
+          copyimage = Image.new
+          copyimage.image = image.image
+           @auction_template.auction.images << copyimage
+           copyimage.save
+        end
         @auction_template.user = auction.seller
         @auction_template.save
       else
@@ -229,6 +247,22 @@ class AuctionsController < ApplicationController
     else
       true
     end
+  end
+  
+  def setup_image_uploads 
+     (5-@auction.images.size).times { @auction.images.build }
+     
+  end
+  
+  def setup_transaction
+    @auction.build_transaction
+  end
+  
+  def save_images
+    #At least try to save the images -> not persisted in browser 
+        @auction.images.each do |image|
+          image.save
+        end
   end
   
 end
