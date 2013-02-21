@@ -238,7 +238,8 @@ de:
         title: "Produktbezeichnung"
         categories: Kategorien
         categories_and_ancestors: Kategorien
-        
+        image: "Titelbild"
+        other_image: "Anderes Titelbild hochladen"
         fair: Fair
         fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
         fair_seal: "Bitte wähle aus der Liste aus:" 
@@ -308,6 +309,9 @@ de:
         name: Vorlagenname
       template_select:
         auction_template: Vorlage
+      image:
+        image: Bild
+        _destroy: Löschen
     input_steps:
       auction:
         prefix: "%{count}. Schritt:"
@@ -322,6 +326,7 @@ de:
         friendly_percent_hint: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
         double_check: "Artikel einstellen"
+        upload_images: "Bilder hochladen"
       template_select:
         prefix: ""
         apply: Deine Vorlagen

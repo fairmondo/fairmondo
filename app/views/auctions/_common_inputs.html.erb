@@ -68,4 +68,32 @@
     <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
   <% end %>
   
+  <%= f.input_step :upload_images do%>
+  	 <% first=true%>
+  	 <%= f.semantic_fields_for :images do |image| %>
+  	 	
+	  	 	<% if image.object.new_record? %>
+	  	 		<%if first%>
+	  	 			<%= image.input :image , :label => t("formtastic.labels.auction.image")%>
+	  	 		<%else%>
+	  	 			<%= image.input :image%>
+	  	 		<%end%>
+	        <% else %>
+	        	<%= link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) ) %>
+	        	<%if first%>
+	        		
+	        		<%= image.input :image, :label => t("formtastic.labels.auction.other_image")%>
+	        	<%else%>
+	            	<%= image.input :_destroy, :as => :boolean , :label => false%>
+	            <%end%>
+	        <%end%>
+	    
+        <% first=false%>
+  	 <%end %>
+  
+  <%end%>
+  
+  <%= f.semantic_fields_for :transaction do |transaction|%>
+  		<%= transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }%>
+  <%end%>
   

@@ -12,12 +12,11 @@
 						<%= condition_label @auction, "in-image" %>	
 						
 							<ul class="thumbnails auction-thumbnails">
-								<% @auction.images.each do |image| %>
-							<%if (image != @title_image)%>
-							<li class="span3">
-								<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
-							</li>
-							<%end%>
+								<% @thumbnails.each do |image| %>
+									<li class="span3">
+										<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
+									</li>
+								
 							<%end%>
 							</ul>
 						</div>
@@ -99,17 +98,5 @@
 <p><%= t('auction.labels.expiration_date')%>
 						<%=  @auction.expire.strftime("%d.%m.%Y %H:%M") %>
 					</p>
+			<%= @auction.transaction.is_a?(PreviewTransaction) %>
 					
-					<% if @auction.seller == current_user  %>
-						<div class = "well">
-							<h4><%= t('auction.image.title')%></h4>
-							<%= form_for @image, :html => { :multipart => true }  do |f| %>
-							<input id="image_image" name="image[image]" type="file" size="1">
-							<%= f.hidden_field :auction_id%>
-							<%= button_tag(:type => :submit) do %>
-							<%= raw glyphicons("icon-plus")%> <%= t('auction.image.upload')%>
-							<% end %>
-							<% end %>
-				
-						</div>
-					<% end %>

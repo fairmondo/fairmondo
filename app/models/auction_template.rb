@@ -1,5 +1,5 @@
 class AuctionTemplate < ActiveRecord::Base
-  attr_accessible :auction_attributes, :save_as_template, :name
+  attr_accessible :auction_attributes, :save_as_template, :name, :auction
   
   validates :name, :uniqueness => {:scope => :user_id}
   validates :name, :presence => true
@@ -25,15 +25,23 @@ class AuctionTemplate < ActiveRecord::Base
     nested_keys.each do |key|
       relation = auction.send(key)
       if relation.present?
-        # Commented. Currenty, auction does not have has_many relations that accept nested attributes 
-        #if relation.is_a?(Array) || relation.is_a?(ActiveRecord::Relation)
-        #  auction_attributes["#{key}_attributes"] = []
-        #  relation.each do |record|
-        #    auction_attributes["#{key}_attributes"] << record.attributes.except(*non_assignable_values)
-        #  end
-        #else
+        
+        if relation.is_a?(Array) || relation.is_a?(ActiveRecord::Relation)
+          if key == :images
+            #ommit since we have to copy the images for new
+          else
+          # Commented. Currenty, auction does not have has_many relations that accept nested attributes besides images! Images are c 
+          #  auction_attributes["#{key}_attributes"] = []
+          #  relation.each do |record|
+          #    auction_attributes["#{key}_attributes"] << record.attributes.except(*non_assignable_values)
+          #  end
+          
+            # omit since we 
+          end
+        else
+      
           auction_attributes["#{key}_attributes"] = relation.attributes.except(*non_assignable_values)
-        #end
+        end
       end
     end
     auction_attributes["category_ids"] = auction.category_ids

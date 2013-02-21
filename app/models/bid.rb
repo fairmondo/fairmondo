@@ -1,11 +1,11 @@
 class Bid < ActiveRecord::Base
-  belongs_to :auction
+  belongs_to :auction_transaction
   belongs_to :user 
   monetize :price_cents
 
   # TODO 
   # before_save :check_better
-  validates_presence_of :user_id, :auction_id, :price_cents
+  validates_presence_of :user_id, :auction_transaction_id, :price_cents
   def check_better
     if self.auction.transaction.max_bid
       unless self.price_cents > self.auction_transaction.max_bid

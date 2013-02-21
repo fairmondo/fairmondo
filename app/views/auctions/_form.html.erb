@@ -2,7 +2,7 @@
 
 <%= render :partial => "auction_template_select" %>
 
-<%= semantic_form_for @auction, :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|  %>
+<%= semantic_form_for @auction, :html => { :class => "form-horizontal", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|  %>
   <%= f.semantic_errors %>
   
   <%= render :partial => "common_inputs", :locals => {:f => f} %>
