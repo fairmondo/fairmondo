@@ -176,10 +176,11 @@ describe AuctionsController do
       end
 
       it "should create an image for the auction" do
+       
         @auction = FactoryGirl.create(:auction)
         sign_in @auction.seller
         get :show, id: @auction
-        @image = controller.instance_variable_get(:@image)
+        @image = controller.instance_variable_get(:@title_image)
         @image.auction.should eq @auction
       end
 
@@ -276,6 +277,7 @@ describe AuctionsController do
     before :each do
       @user = FactoryGirl.create(:user)
       @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
+      @auction_attrs[:transaction_attributes]= FactoryGirl.attributes_for(:transaction)
     end
 
     describe "for non-signed-in users" do
@@ -309,12 +311,8 @@ describe AuctionsController do
         @user = FactoryGirl.create(:user)
         @auction = FactoryGirl::create(:auction, :seller => @user)
         @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
+        @auction_attrs[:transaction_attributes]= FactoryGirl.attributes_for(:transaction)
         sign_in @user
-      end
-
-      it "should not update the auction" do
-        put :update, id: @auction.id
-        response.should render_template :edit
       end
 
       it "should update the auction with new information" do
