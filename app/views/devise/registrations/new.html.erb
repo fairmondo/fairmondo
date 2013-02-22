@@ -22,9 +22,7 @@
 			
 			<div class="element-in-box">
 				<%= f.input :nickname, :required => true, :label => t('devise.edit_profile.nickname'), :hint => t('devise.edit_profile.nickname_hint')%>
-				<%= f.input :forename, :required => true, :label => t('devise.edit_profile.forename')%>
-				<%= f.input :surname, :required => true, :label => t('devise.edit_profile.surname')%>
-			
+
 				<%if session[:invited_email] %>
 					<%= f.input :email, :input_html => { :value => session[:invited_email] ,:readonly => true }%>
 				<%else%>
@@ -47,16 +45,18 @@
 			<%end%>
 
 		<% end %>
-		
-		<%= f.input :privacy, :required => true, :label => t('devise.new_profile.privacy') %>
-		<%= f.input :legal, :required => true, :label => t('devise.new_profile.legal') %>
+		<div class="element-in-box">
+			<%= f.input :privacy, :required => true, :label => t('devise.new_profile.privacy') %>
+			<%= f.input :legal, :required => true, :label => t('devise.new_profile.legal') %>
 	
-		<%= link_to "Datenschutzbestimmungen und AGBs", "/DatenschutzAGB"%>
-		<br />
-	
-		<%= f.actions do %>	
-			<%= f.action :submit, :button_html => {:class => "btn btn-primary"}, :label => t('devise.new_profile.create') %>
-		<% end %>
+			<%= link_to "Datenschutzbestimmungen und AGBs", "/DatenschutzAGB"%>
+			
+					
+			<%= f.actions do %>	
+				<%= f.action :submit, :button_html => {:class => "btn btn-primary btn-large"}, :label => t('devise.new_profile.create') %>
+			<% end %>
+			
+		</div>
 	<% end %>
 
 	
