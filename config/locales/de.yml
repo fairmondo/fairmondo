@@ -152,6 +152,7 @@ de:
       relation: "Beziehung"
       profile: "Profil"
       inserted: "Auktionen wurden bereits eingestellt"
+      from: "von"
 # Footer
   footer:
     legal_details: "Rechtliches"
@@ -433,6 +434,8 @@ de:
       update: "Auktion wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
       collect: "Produkt wurde in die Standard-Sammlung übernommen."
+      collect_error: "Das Produkt ist schon in deiner Sammlung."
+      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
     hints:
       title:  "Gebe eine Bezeichnung Deines Artikels ein."
       categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
@@ -475,7 +478,7 @@ de:
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
-      report: "Auktion Melden"
+      report: "Artikel melden"
       reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
       to-collection: "In Sammlung verschieben"

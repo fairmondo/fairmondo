@@ -52,8 +52,8 @@ class AuctionsController < ApplicationController
   def show
     @auction = Auction.find(params[:id])
 
-    @collections = @auction.libraries.where(:public=>true)
-    @seller_products = @auction.seller.auctions.where('id != ? AND expire > ?',@auction.id, Time.now)
+    @collections = @auction.libraries.where(:public=>true).paginate(:page => params[:page], :per_page=>10)
+    @seller_products = @auction.seller.auctions.where('id != ? AND expire > ?',@auction.id, Time.now).paginate(:page => params[:page], :per_page=>18)
 
     if params[:image]
       @title_image = Image.find(params[:image])
@@ -214,15 +214,22 @@ class AuctionsController < ApplicationController
 
   def collect
     
-   @standard_library = current_user.getStandardLibrary
-    
+    @standard_library = current_user.getStandardLibrary
     @product = Auction.find params["id"]
-    LibraryElement.create(:auction_id => @product.id, :library_id => @standard_library.id)
-    
-    respond_to do |format|
-      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'auction.notices.collect') }
-      format.json { head :no_content }
+    lib_element= LibraryElement.new(:auction_id => @product.id, :library_id => @standard_library.id)
+    if lib_element.save
+      respond_to do |format|
+        format.html { redirect_to auction_path(:id => @product.id) , :notice => I18n.t('auction.notices.collect') }
+        format.json { head :no_content }
+      end
+    else
+      # if the lib_element is already in the library
+      respond_to do |format|
+        format.html { redirect_to auction_path(:id => @product.id) , :flash => { :error => I18n.t('auction.notices.collect_error')}}
+        format.json { head :no_content }
+      end
     end
+
   end
 
   private
