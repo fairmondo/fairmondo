@@ -15,6 +15,19 @@ module ApplicationHelper
     end
   end
   
+  def main_notice_mapper(type)
+    case type
+    when :alert
+      "error"
+    when :error
+      "error"
+    when :notice
+      "info"
+    else
+    "info"
+    end
+  end
+  
   # Glyph Icons Helpers 
   def glyphicons(name)
     "<i class=\"" + name + "\"></i>".html_safe
