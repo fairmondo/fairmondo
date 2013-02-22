@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span9">
-		<div class="white-well">
+		<div class="well">
 			
 			<%if @auction.seller ==current_user%>
 				<% html= glyphicons("icon-cog")%>
@@ -10,44 +10,34 @@
 			<h2><%= @auction.title %> </h2>
 			<div class="clearfix"></div>
 			<div class="row-fluid">
-				<div class="span6 ">
-					
-						<div class="title-image-wrapper">
-						<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"http://placehold.it/360x260" , :class=> "title_image"), "#" %>
-						<%= condition_label @auction, "in-image" %>	
-						
-							<ul class="thumbnails auction-thumbnails">
-								<% @thumbnails.each do |image| %>
-									<li class="span3">
-										<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
-									</li>
-								
+				<div class="span6 ">		
+					<div class="title-image-wrapper">
+					<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"http://placehold.it/360x260" , :class=> "title_image"), "#" %>
+					<%= condition_label @auction, "in-image" %>	
+						<ul class="thumbnails auction-thumbnails">
+							<% @thumbnails.each do |image| %>
+								<li class="span3">
+									<%= link_to image_tag(image.image.url(:mini) ,:size=> "65x45", :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
+								</li>		
 							<%end%>
-							</ul>
-						</div>
-					
+						</ul>
+					</div>
 				</div>
-				<div class="span3 "> 
-					
+				<div class="span3 "> 	
 					<p><b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b></p>
 					<% if @auction.size && @auction.size != ""%>		
-					<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
+						<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
 					<% end %>	
-					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>
-					
+					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>	
 				</div>
 				<div class="span3 dark-gray-well break-word"> 
-							
-				 		<strong><%= tinycms_content "auction-side-bar" %></strong>
-		
+				 	<strong><%= tinycms_content "auction-side-bar" %></strong>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="box" id="content">
-						
 						<div class="box-legend box-legend-without-border">
 							<a href="#content">
 							<h3><%= t('formtastic.labels.auction.content')%></h3>
@@ -57,8 +47,7 @@
 							<%= raw @auction.content%>
 						</div>
 					</div>
-					<div class="box" id="payment">
-						
+					<div class="box" id="payment">		
 						<div class="box-legend box-legend-without-border">
 							<a href="#payment">
 							<h3><%=  t('formtastic.labels.auction.payment')%></h3>
@@ -68,79 +57,81 @@
 							<p> <%=  @auction.payment.map(&:text) * ", " %></p>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
+
+		<%if @auction.seller != current_user%>
 		
+			<div class="box" id="report">		
+				<div class="box-legend box-legend-without-border">
+					<a href="#report">
+					<h3><%=t('auction.actions.report')%></h3>
+					</a>
+				</div>
+				<div class="box-content padding-box">
+					<div class="element-in-box">
+						<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
+							<%=t('auction.notices.report')%>
+							<%= f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"] %>
+							<br />
+							<button class="btn btn-primary">
+								<%= t('common.actions.report') %> 
+							</button>	
+						<% end %>
+					</div>
+				</div>
+			</div>
+		<%end%>		
+	
 	</div>
 	<div class="span3">
 		
 		<%=render :partial=>'/shared/profile_img', :locals=>{:user => @auction.seller} %>	
-
-
-		<div class="well">
-			
-			<%if !@auction.seller ==current_user%>
-				<% html= glyphicons("icon-warning-sign")%>
-	
-				<h3><%=t('auction.actions.report')%></h3>
-				<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
-					<%= f.text_field "melden", :name=>"report", :value => params["report"] %>
-					
-					<button class="btn">
-						<i  class="icon-warning-sign"></i>
-						<%= t('common.actions.report') %> 
-					</button>	
-					
-				<% end %>
-			<%end%>		
-		</div>	
-		
 		<div class="box" id="other_products">
-			<div class="box-legend box-legend-without-border">
+			<div class="box-legend">
 				<a href="#other_products"> 
 					<h6><%=t('auction.titles.other-products')%> (<%= @seller_products.count%>)</h6>
 				</a>
 			</div>
-			<div class="box-content padding-box">
+			<div class="box-content">
 				<div class="middle-margin-top">
-					<ul class="unstyled">
-						<% @seller_products.each do |product| %>
-							<li><%= link_to product.title, product %></li>
-						<%end%>
-					</ul>
+					<div class="row-fluid">
+						<%= render :partial=>'/shared/list_auctions_small', :locals=>{ :auctions=> @seller_products, :paginate => true, :list_class=>"span4", :anchor=> "other_products"} %>
+					</div>
 				</div>
 			</div>
 		</div>
-		
 		<div class="box" id="collection">
-			<div class="box-legend box-legend-without-border">
+			<div class="box-legend">
 				<a href="#collection"> 
 					<h6><%=t('auction.titles.collections')%> (<%= @collections.count%>)</h6>
 				</a>
 			</div>
-			<div class="box-content padding-box">
-				<div class="middle-margin-top">
-					<ul class="unstyled">
-						<% @collections.each do |lib| %>
-							<li><%= link_to (lib.name+" ("+lib.user.nickname+")"), :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.name.to_s.delete(' ') %></li>
-						<%end%>
-					</ul>
-				</div>
+			<div class="box-content">
+				<% @collections.each do |lib| %>
+				<div class="well-column-small-padding">
+						<div class="row-fluid">
+							<div class="span8">
+								<%= link_to lib.name, :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.name.to_s.delete(' ') %>
+								<p><%= t('common.text.from') + " " + lib.user.nickname%></p>
+							</div>
+							<div class="span4">
+								<%= link_to image_tag(lib.user.image.url(:thumb)), dashboard_path(:id => lib.user.id) %>
+							</div>
+						</div>
+						</div>
+				<%end%>			
+				<%= will_paginate @collections,:params => {:anchor => "collection" } %>		 
 			</div>
 		</div>
 		
-		
 	</div>
-	
-	
 </div>
 
-
 <p><%= t('auction.labels.expiration_date')%>
-						<%=  @auction.expire.strftime("%d.%m.%Y %H:%M") %>
-					</p>
+	<%=  @auction.expire.strftime("%d.%m.%Y %H:%M") %>
+</p>
 			
 					
 
