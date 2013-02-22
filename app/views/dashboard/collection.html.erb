@@ -1,6 +1,6 @@
 
 
-<% if current_user == @user%>
+<% if current_user.id == @user.id%>
 	<!-- Add a new library -->
 	<div class="well">
 		<h3><%=t('collection.new_title')%></h3>
