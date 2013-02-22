@@ -1,5 +1,5 @@
  <div class="well">
-<h2><%=t('devise.title.login')%></h2>
+
 <%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%= f.semantic_errors %>
   <%= f.inputs do %>
@@ -10,9 +10,11 @@
 	  	<% end -%>
   <% end %>
   <%= f.actions do %>
-    <%= f.action :submit, :button_html => {:class => "btn btn-primary"} , :label => :login%>
+    <%= f.action :submit, :button_html => {:class => "btn btn-primary btn-large"} , :label => :login%>
   <% end %>
 <% end %>
 
 <%= render "links" %>
 </div>
+<%= params[:controller]%>
+<%= params[:action]%>

@@ -32,7 +32,30 @@
 		<!--[if lt IE 8]>
 		<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
 		<![endif]-->
+		<%if !flash.empty? %>
+				<% flash.each do |type, msg| -%>
+						<%if !msg.empty?%>
+							
+							<div class="alert-main-<%= main_notice_mapper(type)%>" id="alert-main">
+								<a class="close" data-dismiss="alert" id="alert-close-main">×</a>
+								<div class="container">
+									<div class="row">
+										<div class="span12">
+											<p>
+												<%= msg %>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+						
+						<%end%>
+					<%end%>
+			
+		<%end%>
 		<header>
+			
 			<div class="container">
 				<div class="row">
 					<div class="span5">
@@ -82,18 +105,7 @@
 			</div>
 			<!-- container -->
 		</header>
-		<div class="container">
-					<% flash.each do |type, msg| -%>
-					<div class="row">
-						<div class="span12">
-							<a class="close" data-dismiss="alert">×</a>
-							<p class="alert alert-<%= bootstrap_notice_mapper(type)%>" >
-								<%= msg %>
-							</p>
-						</div>
-					</div>
-					<%end%>
-		</div><!-- .container -->
+		
 		
 				
 		<%= raw hero%>

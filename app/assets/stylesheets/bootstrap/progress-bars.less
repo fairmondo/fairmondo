@@ -63,7 +63,7 @@
   font-size: 12px;
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-  #gradient > .vertical(#149bdf, #0480be);
+  #gradient > .vertical(@fairnopolyBlue, darken(@fairnopolyBlue, 5%));
   .box-shadow(inset 0 -1px 0 rgba(0,0,0,.15));
   .box-sizing(border-box);
   .transition(width .6s ease);
@@ -94,7 +94,7 @@
 
 // Danger (red)
 .progress-danger .bar, .progress .bar-danger {
-  #gradient > .vertical(#ee5f5b, #c43c35);
+  #gradient > .vertical(@fairnopolyRed, darken(@fairnopolyRed, 5%));
 }
 .progress-danger.progress-striped .bar, .progress-striped .bar-danger {
   #gradient > .striped(#ee5f5b);
@@ -102,7 +102,7 @@
 
 // Success (green)
 .progress-success .bar, .progress .bar-success {
-  #gradient > .vertical(#62c462, #57a957);
+  #gradient > .vertical(@fairnopolyGreen, darken(@fairnopolyGreen, 5%));
 }
 .progress-success.progress-striped .bar, .progress-striped .bar-success {
   #gradient > .striped(#62c462);
