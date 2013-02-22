@@ -188,7 +188,7 @@ class Auction < ActiveRecord::Base
   accepts_nested_attributes_for :transaction
 
  
-  has_many :library_elements, :dependent => :destroy
+  has_many :library_elements
   has_many :libraries, :through => :library_elements
 
 

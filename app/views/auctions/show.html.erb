@@ -2,8 +2,13 @@
 	<div class="span9">
 		<div class="white-well">
 			
-			<h2><%= @auction.title %> </h2>
+			<%if @auction.seller ==current_user%>
+				<% html= glyphicons("icon-cog")%>
+				<%= link_to html.html_safe, edit_auction_path , :class => "pull-right" , :title => t('auction.titles.edit')%>
+			<%end%>
 			
+			<h2><%= @auction.title %> </h2>
+			<div class="clearfix"></div>
 			<div class="row-fluid">
 				<div class="span6 ">
 					
@@ -70,16 +75,13 @@
 		
 	</div>
 	<div class="span3">
-		<%= link_to t('auction.actions.profile') , dashboard_path(:id => @auction.seller.id), :class => "btn btn-fill"%>
+		
 		<%=render :partial=>'/shared/profile_img', :locals=>{:user => @auction.seller} %>	
 
 
 		<div class="well">
 			
-			<%if @auction.seller ==current_user%>
-				<% html= glyphicons("icon-cog")%>
-				<%= link_to html.html_safe+" "+t('auction.actions.edit'), edit_auction_path , :class => "btn" , :title => t('auction.titles.edit')%>
-			<%else%>
+			<%if !@auction.seller ==current_user%>
 				<% html= glyphicons("icon-warning-sign")%>
 	
 				<h3><%=t('auction.actions.report')%></h3>
