@@ -10,6 +10,9 @@ public/system
 # Autotest configuration file
 .autotest
 
+#Respec 
+.respec_failures
+
 # Ignore all logfiles and tempfiles
 /log/*.log
 /tmp
