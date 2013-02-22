@@ -1,20 +1,14 @@
 <ul class="thumbnails">
 	<% auctions.each do |auction| %>
 	<li class="<%=list_class%>">
-		<div class="thumbnail" style="position: relative;">
+		<div class="well-column-no-padding">
 			<%= condition_label auction, "in-image" %>
 			
 			<% if auction.title_image%>
 				<%= link_to image_tag(auction.title_image.image.url(:thumb)), auction %>
 			<%else%>
-				<%= link_to image_tag("http://placehold.it/260x180" ), auction %>
+				<%= link_to image_tag("http://placehold.it/104x72" ), auction %>
 			<%end%>
-			
-			<div class="caption">
-				<h5><%= link_to truncate(auction.title, :length => 25), auction %></h5>
-				<h5><%= humanized_money_with_symbol auction.price %></h5>
-			</div>
-			
 		</div>
 	</li>
 	<%end%>

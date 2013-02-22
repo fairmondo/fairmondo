@@ -12,7 +12,7 @@
 							<strong><%= t('dashboard.text.no_offers')%></strong>
 						</div>
 					<%else%>
-						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :paginate => false} %>
+						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :paginate => false, :list_class=>"span3"} %>
 					<%end%>
 				</div>
 			</div>
