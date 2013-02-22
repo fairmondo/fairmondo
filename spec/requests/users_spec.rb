@@ -17,8 +17,6 @@ describe 'User management' do
       end
       expect {
         fill_in 'Nickname', with: 'nickname'
-        fill_in 'Forename', with: 'forename'
-        fill_in 'Surname' , with: 'surname'
         fill_in 'Email', with:    'email@example.com'
         fill_in 'Enter password', with: 'password'
         fill_in 'Confirm new password', with: 'password'#
