@@ -1,32 +1,14 @@
  class RegistrationsController < Devise::RegistrationsController
     
     def create
+      
+      
       if verify_recaptcha
-        
-        # until now we dont have differnezes between LegalEntity and PrivateUser 
-        # so we can call the normal createUser method!
-        
-          #if params[:user][:legal_entity]
-          #   @user = LegalEntity.new(params[:user])
-          #else
-          #  @user = PrivateUser.new(params[:user])
-          #end
-          
-          #if @user.save
-          #  flash[:notice] = I18n.t('devise.confirmations.send_instructions')
-          #  redirect_to root_path
-          #else
-          #  render :new
-          #end
-        
-        super
+        params[:user]["recaptcha"] = true
       else
-        build_resource
-        clean_up_passwords(resource)
-        flash.now[:alert] = t('devise.captcha.error')      
         flash.delete :recaptcha_error
-        render :new
       end
+      super
     end
     
   def edit
