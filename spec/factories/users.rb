@@ -7,9 +7,9 @@ FactoryGirl.define do
     nickname    { Faker::Internet.user_name }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
-    privacy     true
-    legal       true
-    agecheck    true
+    privacy     "1"
+    legal       "1"
+    agecheck    "1"
     legal_entity { [true, false].sample }
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
 
