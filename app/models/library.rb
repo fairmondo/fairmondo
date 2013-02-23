@@ -9,4 +9,6 @@ class Library < ActiveRecord::Base
   
   attr_accessible :name, :public, :user_id, :user
   
+  scope :public, where(:public=>true)
+  
 end
