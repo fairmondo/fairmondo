@@ -8,7 +8,7 @@
 		</div>
 	<%end%>
 
-	<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+	<%= semantic_form_for(resource, :html => { :class => "form-horizontal"}, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
 		<%= f.semantic_errors %>
 		
@@ -34,7 +34,15 @@
 			</div>
 			
 			<div class="element-in-box">
-				<%= recaptcha_tags :display => {:theme => 'clean'} %>
+				<% recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)%>
+				<div class="control-group <%= "error" if recaptcha_error%>">
+					<div class="controls">
+						<%= recaptcha_tags :display => {:theme => 'clean'} %>
+						<%if recaptcha_error%>
+							<span class="help-inline"><%= t('devise.captcha.error') %></span>
+						<%end%>
+					</div>
+				</div>
 			</div>
 
 			<%if session[:invitor_id] %>
@@ -60,6 +68,4 @@
 			
 		</div>
 	<% end %>
-
-	
 
