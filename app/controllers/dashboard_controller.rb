@@ -27,9 +27,11 @@ class DashboardController < ApplicationController
   end
 
   def index
-    get_user
+    get_user    
     @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)
-
+    if @user == current_user
+      get_sales
+    end
   end
 
   def search_users
@@ -171,11 +173,19 @@ class DashboardController < ApplicationController
   
   def sales
     get_user
+    get_sales
     
-    @offers = @user.auctions.where("expire > ?", Time.now)
-    @sold = @user.auctions.where("expire < ?", Time.now)
-    @templates = @user.auction_templates
-    
+  end
+  
+  def get_sales
+        
+    @offers = @user.auctions
+    @sold = @user.auctions
+    @auction_templates = @user.auction_templates
+  end
+
+  def edit_profile
+    @user = current_user
   end
 
 end
