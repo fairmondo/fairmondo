@@ -46,6 +46,7 @@ Fairnopoly::Application.routes.draw do
   match 'dashboard/list_following' => 'dashboard#list_following'
   match 'community' => 'dashboard#community'
   
+  get 'dashboard/edit_profile'
   get 'dashboard/sales' 
   get 'dashboard/collection'
   post 'dashboard/add_to_library'

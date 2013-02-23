@@ -18,11 +18,14 @@ class User < ActiveRecord::Base
   belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname, :forename, :surname, :image, :admin, :trustcommunity, :invitor_id, :banned, :privacy, :legal,:agecheck, :legal_entity, :about_me, :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :terms, :cancellation, :about
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname, :forename, :surname, :image, :admin,:privacy, :legal, :agecheck, :trustcommunity, :invitor_id, :banned, :legal_entity, :about_me, :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :terms, :cancellation, :about
+  attr_accessor :privacy, :legal, :agecheck
+  
+  validates :privacy, :inclusion => {:in => ["1"]}, :on => :create
+  validates :legal, :inclusion => {:in => ["1"]}, :on => :create
+  validates :agecheck, :inclusion => {:in => ["1"]}, :on => :create
 
-  validates :privacy, :inclusion => {:in => [true]}
-  validates :legal, :inclusion => {:in => [true]}
-  validates :agecheck, :inclusion => {:in => [true]}
+  validates_presence_of :nickname
 
   #Relations
   has_many :auctions
