@@ -52,8 +52,8 @@ class AuctionsController < ApplicationController
   def show
     @auction = Auction.find(params[:id])
 
-    @collections = @auction.libraries.where(:public=>true).paginate(:page => params[:page], :per_page=>10)
-    @seller_products = @auction.seller.auctions.where('id != ? AND expire > ?',@auction.id, Time.now).paginate(:page => params[:page], :per_page=>18)
+    @collections = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
+    @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
 
     if params[:image]
       @title_image = Image.find(params[:image])

@@ -1,8 +1,8 @@
 <!-- With no library name -->
 <% @libraries.each do |lib| %>
-<div class="box" id="<%= ("collection_"+lib.name.to_s.delete(' '))%>">
+<div class="box <%= "default-step" if @libraries.first == lib %>" id="<%= ("collection_"+lib.id.to_s)%>">
 	<div class="box-legend box-legend-without-border">
-		<a href="<%= ("#collection_"+lib.name.to_s.delete(' '))%>"> 
+		<a href="<%= ("#collection_"+lib.id.to_s)%>"> 
 			<h3><%= lib.name%></h3> 
 		</a>
 	</div>
