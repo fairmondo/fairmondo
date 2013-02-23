@@ -194,8 +194,8 @@ de:
       legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
-      legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
-      privacy: "Datenschutzerklärung"
+      legal_link: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
+      privacy_link: "Datenschutzerklärung"
     edit_profile:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"

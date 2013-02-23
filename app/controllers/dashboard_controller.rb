@@ -174,7 +174,7 @@ class DashboardController < ApplicationController
     
     @offers = @user.auctions.where("expire > ?", Time.now)
     @sold = @user.auctions.where("expire < ?", Time.now)
-    @templates = @user.auction_templates
+    @auction_templates = @user.auction_templates
     
   end
 

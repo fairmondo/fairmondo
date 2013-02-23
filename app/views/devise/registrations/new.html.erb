@@ -45,13 +45,13 @@
 		<% end %>
 		<div class="element-in-box">
 			
-			<%= f.input :agecheck, :required => true, :label => false, :hint =>"test" %>
+			<%= f.input :agecheck, :required => true, :label => false%>
 			<%= f.input :legal, :required => true, :label => false %>
 			<%= f.input :privacy, :required => true, :label => false %>
 					
 				
-			<%= link_to t('devise.new_profile.legal'), "/agb"%> </br>
-			<%= link_to t('devise.new_profile.privacy'), "/privacy"%>
+			<%= link_to t('devise.new_profile.legal_link'), "/agb"%> </br>
+			<%= link_to t('devise.new_profile.privacy_link'), "/privacy"%>
 			
 					
 			<%= f.actions do %>	
