@@ -190,15 +190,12 @@ de:
     new_profile:
       password: "Passwort eingeben"
       password_confirmation: "Passwort bestätigen"
-      accept: "Ich akzeptiere die "
-      privacy: "Datenschutzerklärung"
-      legal: "Allgemeinen Geschäftsbedingungen"
-      pionier_legal: "die Zusatzklausel für die Pionierphase"
-      age: "Ich bin mindestens 18 Jahre alt."
       create: "Registrieren"
       legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
+      legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
+      privacy: "Datenschutzerklärung"
     edit_profile:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
@@ -247,6 +244,10 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
+      user:
+        agecheck: "Ich bin mindestens 18 Jahre alt."
+        legal: "Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
+        privacy: "Ich akzeptiere die Datenschutzerklärung"
       auction:
         title: "Artikelbezeichnung"
         categories: Kategorien
