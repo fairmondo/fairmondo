@@ -107,6 +107,10 @@ en:
       about_me: "About me"
 # Formtastic     
   formtastic: 
+    user:
+      agecheck: "I am at least 18 years old."
+      privacy: "accept data privacy agreement"
+      legal: "accept TOS agreement"
 # Login 
     actions:
       login: "Login"
