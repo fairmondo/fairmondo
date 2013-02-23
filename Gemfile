@@ -36,6 +36,8 @@ gem "paperclip", "~> 3.0"
 gem 'formtastic'
 gem "formtastic-bootstrap"
 
+# link inside a translation
+#gem 'it'
 
 # CSS
 gem 'less-rails';
