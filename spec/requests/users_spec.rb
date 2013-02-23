@@ -19,9 +19,10 @@ describe 'User management' do
         fill_in 'Nickname', with: 'nickname'
         fill_in 'Email', with:    'email@example.com'
         fill_in 'Enter password', with: 'password'
-        fill_in 'Confirm new password', with: 'password'#
-        check 'accept data privacy agreement'
-        check 'accept TOS agreement'
+        fill_in 'Confirm new password', with: 'password'
+        check 'user_legal'
+        check 'user_privacy'
+        check 'user_agecheck'
         click_button 'Register'
         User.find_by_email('email@example.com').confirm!
       }.to change(User, :count).by(1)

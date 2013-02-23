@@ -1,7 +1,7 @@
 
 <div class="well white-well clear-padding" id="profile-img">
 	<div class="middle-margin">
-		<% if (user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?) %>
+		<% if user.legal_entity && ((user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?)) %>
 			<span class="big-name"><%= user.forename%> <%= user.surname%></span><br />
 			<span class="small-name"><%= user.name%></span>
 		<%else%>

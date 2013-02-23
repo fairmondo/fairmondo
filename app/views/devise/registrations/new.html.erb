@@ -45,9 +45,9 @@
 		<% end %>
 		<div class="element-in-box">
 			
-			<%= f.input :agecheck, :required => true, :label => false%>
-			<%= f.input :legal, :required => true, :label => false %>
-			<%= f.input :privacy, :required => true, :label => false %>
+			<%= f.input :agecheck, :as => :boolean, :required => true, :label => false%>
+			<%= f.input :legal, :as => :boolean,:required => true, :label => false %>
+			<%= f.input :privacy, :as => :boolean,:required => true, :label => false %>
 					
 				
 			<%= link_to t('devise.new_profile.legal_link'), "/agb"%> </br>
