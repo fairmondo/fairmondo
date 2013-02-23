@@ -34,7 +34,7 @@
 		<![endif]-->
 		<%if !flash.empty? %>
 				<% flash.each do |type, msg| -%>
-						<%if !msg.empty?%>
+						<%if msg && !msg.empty?%>
 							
 							<div class="alert-main-<%= main_notice_mapper(type)%>" id="alert-main">
 								<a class="close" data-dismiss="alert" id="alert-close-main">×</a>

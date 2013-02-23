@@ -7,7 +7,7 @@ Devise.setup do |config|
   config.mailer_sender = "kundenservice@fairnopoly.com"
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "DeviseMailer"
 
   # Automatically apply schema changes in tableless databases
   config.apply_schema = false

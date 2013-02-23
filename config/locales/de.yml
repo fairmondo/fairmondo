@@ -153,6 +153,7 @@ de:
       profile: "Profil"
       inserted: "Auktionen wurden bereits eingestellt"
       from: "von"
+      and: " und "
 # Footer
   footer:
     legal_details: "Rechtliches"
@@ -189,12 +190,12 @@ de:
     new_profile:
       password: "Passwort eingeben"
       password_confirmation: "Passwort bestätigen"
-      privacy: "Datenschutzerklärung akzeptiert"
-      legal: "Allgemeine Geschäftsbedingungen (AGB) und akzeptiert"
       create: "Registrieren"
       legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
+      legal_link: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
+      privacy_link: "Datenschutzerklärung"
     edit_profile:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
@@ -243,6 +244,10 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
+      user:
+        agecheck: "Ich bin mindestens 18 Jahre alt."
+        legal: "Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
+        privacy: "Ich akzeptiere die Datenschutzerklärung"
       auction:
         title: "Artikelbezeichnung"
         categories: Kategorien

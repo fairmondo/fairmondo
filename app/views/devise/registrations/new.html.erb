@@ -44,10 +44,14 @@
 
 		<% end %>
 		<div class="element-in-box">
-			<%= f.input :privacy, :required => true, :label => t('devise.new_profile.privacy') %>
-			<%= f.input :legal, :required => true, :label => t('devise.new_profile.legal') %>
-	
-			<%= link_to "Datenschutzbestimmungen und AGBs", "/DatenschutzAGB"%>
+			
+			<%= f.input :agecheck, :as => :boolean, :required => true, :label => false%>
+			<%= f.input :legal, :as => :boolean,:required => true, :label => false %>
+			<%= f.input :privacy, :as => :boolean,:required => true, :label => false %>
+					
+				
+			<%= link_to t('devise.new_profile.legal_link'), "/agb"%> </br>
+			<%= link_to t('devise.new_profile.privacy_link'), "/privacy"%>
 			
 					
 			<%= f.actions do %>	

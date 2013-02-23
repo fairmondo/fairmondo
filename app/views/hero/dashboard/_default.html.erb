@@ -42,7 +42,7 @@
 	    		</li>
 	    		<%if @user.id==current_user.id%>
 		    		<li id="dashboard-profile">
-		    			<a href="<%=url_for edit_user_registration_path %>">
+		    			<a href="<%=url_for :controller => "dashboard", :action => "edit_profile" %>">
 		       				<strong> Profil bearbeiten  </strong>
 		    			</a>
 		    		</li>

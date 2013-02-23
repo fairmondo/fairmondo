@@ -30,20 +30,16 @@
     end
     
   def edit
-    if current_user
-     
-      
-      @user = current_user.becomes(current_user.legal_entity ? LegalEntity : PrivateUser)
-      
+    if current_user  
+      @user = current_user.becomes(current_user.legal_entity ? LegalEntity : PrivateUser)   
       super
     else
       render :new
     end
-
   end
   
   def update
-    
+
     # required for settings form to submit when password is left blank
     if params[:user][:password].blank?
       params[:user].delete("password")
@@ -51,7 +47,6 @@
     end
  
     @user = User.find(current_user.id)
-    
     @user = @user.becomes(@user.legal_entity ? LegalEntity : PrivateUser)
 
     if @user.update_attributes(params[:user])
