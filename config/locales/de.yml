@@ -475,7 +475,7 @@ de:
       create: "Artikel wurde erfolgreich eingestellt."
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      collect: "Produkt wurde in die Standard-Sammlung übernommen."
+      collect: "Produkt wurde in die Standardsammlung übernommen."
       collect_error: "Das Produkt ist schon in deiner Sammlung."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
     image:
@@ -485,7 +485,7 @@ de:
       new: "Artikel einstellen"  
       edit: "Artikel editieren"  
       other-products: "Alle Artikel dieses Verkäufers"
-      collections: "Sammlungen, die diesen Artikel enthalten"
+      collections: "Öffentliche Sammlungen, die diesen Artikel enthalten"
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
@@ -512,12 +512,12 @@ de:
 # Collection
   collection:
     no_products: "Es sind momentan keine Produkte in dieser Sammlung"
-    standard: "Standard Sammlung"
-    new: "neue Sammlung"
+    standard: "Standardsammlung"
+    new: "Neue Sammlung"
     new_title: "Neue Sammlung erstellen"
     privacy: "Sichtbarkeit dieser Sammlung:"
     public: "Jeder kann diese Sammlung sehen"
-    private: "Nur für dich sichtbar"
+    private: "Nur für Dich sichtbar"
     action:
       public: "öffentlich machen"
       private: "privat machen"
