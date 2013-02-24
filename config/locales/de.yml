@@ -154,6 +154,8 @@ de:
       inserted: "Auktionen wurden bereits eingestellt"
       from: "von"
       and: " und "
+      i_accept_the: "Ich akzeptiere die "
+      
 # Footer
   footer:
     legal_details: "Rechtliches"
@@ -188,14 +190,12 @@ de:
       sign_up: "Registrierung"
       login: "Login"
     new_profile:
-      password: "Passwort eingeben"
-      password_confirmation: "Passwort bestätigen"
+      
       create: "Registrieren"
       legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
       status: "Rechtlicher Status"
-      legal_link: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
-      privacy_link: "Datenschutzerklärung"
+     
     edit_profile:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
@@ -238,7 +238,7 @@ de:
   formtastic: 
     :yes: Ja
     :no: Nein
-
+    required: Pflicht
   
     labels:
       questionnaire:
@@ -246,8 +246,10 @@ de:
         explanations: Erläuterungen
       user:
         agecheck: "Ich bin mindestens 18 Jahre alt."
-        legal: "Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase"
-        privacy: "Ich akzeptiere die Datenschutzerklärung"
+        legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+        privacy: "Datenschutzerklärung."
+        password: "Passwort"
+        remember_me: "Eingeloggt bleiben"
       auction:
         title: "Artikelbezeichnung"
         categories: Kategorien
@@ -356,7 +358,8 @@ de:
     banned: "Das Benutzerkonto muss zuerst von einem Administrator freigeschalten werden!"
     remember: "Eingeloggt bleiben"
     hints:
-      email: "Gib bitte Deine Email-Adresse an"
+      email: "An diese Adresse verschicken wir die Anmeldebestätigung."
+      nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
     confirmation:
       resend: "Bestätigungsanweisungen erneut schicken"
       text: "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
