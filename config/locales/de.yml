@@ -103,7 +103,7 @@ de:
      
   welcome:
     greetings: "Willkommen bei Fairnopoly"
-    search_fair: "Artikelsuche "
+    search_fair: "Artikelsuche"
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -200,7 +200,7 @@ de:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
       nickname: "Nutzername"
-      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
+      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
       legal_entity: "Juristische Person"
       private_user: "Privatperson"
       name_title: "Anrede"
@@ -414,9 +414,9 @@ de:
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
     form:
-      missing_terms: "Bevor Du eine Auktion erstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
+      missing_terms: "Bevor Du einen Artikel einstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
-      head: "Um eine Auktion zu erstellen, mußt Du dieses Formular ausfüllen."
+      head: "Um einen Artikel einzustellen, mußt Du dieses Formular ausfüllen."
       category: "Wähle eine Kategorie für Deinen Artikel"
       details: "Beschreibe Deinen Artikel"
       expire_date: "Datum (Tag/Monat/Jahr)"
@@ -438,8 +438,8 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      create: "Auktion wurde erfolgreich erstellt."
-      update: "Auktion wurde erfolgreich aktualisiert."
+      create: "Artikel wurde erfolgreich eingestellt."
+      update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
       collect: "Produkt wurde in die Standard-Sammlung übernommen."
       collect_error: "Das Produkt ist schon in deiner Sammlung."
@@ -481,14 +481,14 @@ de:
     titles:
       new: "Artikel einstellen"  
       edit: "Artikel editieren"  
-      other-products: "Andere Artikel dieses Verkäufers"
+      other-products: "Alle Artikel dieses Verkäufers"
       collections: "Sammlungen, die diesen Artikel enthalten"
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
       report: "Artikel melden"
-      reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
-      reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
+      reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
+      reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
       to-collection: "In Sammlung verschieben"
     categories:
       proposal:
@@ -527,7 +527,7 @@ de:
     text:
       no_offers: "Keine Angebote eingestellt"
       no_sold: "Keine verkauften Artikel vorhanden"
-      soon_sold: "Bald kannst du hier deine verkauften Artikel betrachten"
+      soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
       no_templates: "Keine Templates vorhanden"
     actions:
       edit_account: "Profil bearbeiten"
