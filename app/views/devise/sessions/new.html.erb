@@ -3,8 +3,8 @@
 <%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%= f.semantic_errors %>
   <%= f.inputs do %>
-    <%= f.input :email, :hint => t('devise.edit_profile.email') %>
-    <%= f.input :password, :hint => t('devise.new_profile.password') %>
+    <%= f.input :email %>
+    <%= f.input :password %>
   		<% if devise_mapping.rememberable? -%>
 	     	<%= f.input :remember_me, :as => :boolean , :label => false%> 
 	  	<% end -%>
