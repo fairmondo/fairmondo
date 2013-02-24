@@ -31,12 +31,11 @@ module Fairtastic
 
         def input_step_help_html(step_key, options = {})
           if options[:tooltip] == true
-            tooltip_html(localized_string("#{step_key}_hint", object, "input_steps"))
+            r = tooltip_html(localized_string("#{step_key}_hint", object, "input_steps"))
           elsif options[:tooltip].is_a?(String)
-            tooltip_html(options[:tooltip])
-          else
-            ""
+            r = tooltip_html(options[:tooltip])
           end
+          r || ""
         end
 
         def step_heading_html(step_key, options = {})
@@ -51,7 +50,7 @@ module Fairtastic
           tooltip.html_safe <<
           template.content_tag(:a,
           template.content_tag(:h3,
-          prefix << localized_string(step_key, object, "input_steps")
+          prefix << (localized_string(step_key, object, "input_steps") || "")
           ), :href => "##{step_key}_step"
           )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
