@@ -1,18 +1,10 @@
 <div class="container">
-	<div class="row">
-		<div class="span12">
-			<p>
-				<h4><%= t('auction.hero.search')%>:</h4>
-			</p>
-			<%= semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|  %>
-			  <div class='query-and-condition-inputs'>
-				  <%= f.input :title, :label => false %>
-				  <%= f.input :condition,:as => :plain_radio, :prepend_label => true, :collection => Auction.condition.options + [["egal", ""]]%>
-				</div>
-			  <%= f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true %>
-        <%= f.action :submit , :button_html => {:class => "btn"}, :label => t("common.actions.search")%>
-			<% end %>
-
+		<div class="row">
+			<div class="span12">
+				<%= semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|  %>
+					<%= render :partial => "/shared/search_form" %>
+					<%= render :partial => "/shared/search_form_filter" %>
+				<%end%>
+			</div>
 		</div>
-	</div>
 </div>
