@@ -34,12 +34,26 @@
 				<%= t('devise.edit_profile.mail')%>: 
 				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
 				<%= f.input :email, :required => true, :label=> false %>
+
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="element-in-box span6">
+				
+				<p>
+					<strong><%= t('devise.edit_profile.password')%></strong>
+				</p>
 				
 				<%= t('devise.edit_profile.password')%>: 
 				<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
-				<%= f.input :password, :hint => t('devise.edit_profile.password_hint'), :label=> false %>
+				<%= f.input :password,  :label=> false %>
+				
+				<%= t('devise.edit_profile.password_confirmation')%>: 
+				<%= f.input :password_confirmation, :label=> false  %>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="element-in-box span6">
 				<p><strong><%= t('devise.edit_profile.address')%></strong></p>

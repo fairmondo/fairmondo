@@ -84,5 +84,4 @@ module ApplicationHelper
      end
       return hero 
   end
-   
 end
