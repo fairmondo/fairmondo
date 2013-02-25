@@ -12,7 +12,6 @@ class CheckBoxTreeInput < FormtasticBootstrap::Inputs::CheckBoxesInput
     end
   end
   
-  
   def collection
     # Return if we have a plain string
     return raw_collection if raw_collection.instance_of?(String) || raw_collection.instance_of?(ActiveSupport::SafeBuffer)
