@@ -34,7 +34,6 @@ Fairnopoly::Application.routes.draw do
 
   #the user routes
   match 'dashboard' => 'dashboard#index'
-  match 'dashboard/profile' => 'dashboard#profile'
   match 'dashboard/search_users' => 'dashboard#search_users'
   match 'search_users' => 'dashboard#search_users'
   match 'dashboard/admin' => 'dashboard#admin'
@@ -46,6 +45,7 @@ Fairnopoly::Application.routes.draw do
   match 'dashboard/list_following' => 'dashboard#list_following'
   match 'community' => 'dashboard#community'
   
+  get 'dashboard/profile'
   get 'dashboard/edit_profile'
   get 'dashboard/sales' 
   get 'dashboard/collection'

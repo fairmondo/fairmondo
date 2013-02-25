@@ -40,13 +40,18 @@
 	    			</a>
 
 	    		</li>
-	    		<%if @user.id==current_user.id%>
 		    		<li id="dashboard-profile">
-		    			<a href="<%=url_for :controller => "dashboard", :action => "edit_profile" %>">
-		       				<strong> Profil bearbeiten  </strong>
-		    			</a>
+		    			<%if @user.id==current_user.id%>
+			    			<a href="<%=url_for :controller => "dashboard", :action => "edit_profile" %>">
+			       				<strong> Profil bearbeiten  </strong>
+			    			</a>
+			    		<%elsif @user.legal_entity%>
+			    			<a href="<%=url_for :controller => "dashboard", :action => "profile" , :id => params[:id]%>">
+			       				<strong> Profil  </strong>
+			    			</a>
+			    		<%end%>
 		    		</li>
-		    	<%end%>
+		    	
 			</ul>	
 			<div id="hero-unfold"><a href="#dashboard-hero" class="pull-right"><%= raw glyphicons("icon-chevron-up")%></a></div>	
 		</div>	
