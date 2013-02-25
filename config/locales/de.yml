@@ -309,7 +309,8 @@ de:
         
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
-        payment: "Zahlungsart"
+        payment: "Versand und Bezahlung"
+        honor: "Auszeichnung des Artikels"
         payment_details: "Weitere Angaben:"
         
         friendly_percent: "Spendenanteil - das freundliche Prozent"
@@ -444,7 +445,10 @@ de:
       auction_template_missing: "Bitte wähle eine Vorlage" 
 # Auction Model/Controller
   auction:
-    
+    show:
+      friendly_percent: "Das freundliche Prozent"
+      will_be: " werden an "
+      contributed: " gespendet."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -467,6 +471,7 @@ de:
         fees_and_donations: Deine Gebühren und Spenden
         double_check: Alle Angaben überprüft?
     labels:
+      payment: "Zahlungsart"
       price: "Preis"
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
