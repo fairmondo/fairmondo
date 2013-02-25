@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
 
+
+
   before_filter :authenticate_user!
   #autocomplete :user, :name, :full => true ,:display_value => :fullname , :extra_data => [:surname] , :scopes => [:search_by_name]
   def get_user
@@ -23,6 +25,8 @@ class DashboardController < ApplicationController
     get_user
     if @user.legal_entity
       @user = @user.becomes(LegalEntity)
+    else
+      @user = @user.becomes(PrivateUser)
     end
   end
 

@@ -8,6 +8,7 @@
 
 .box {
   margin-bottom: 25px;
+  
   .box-legend {
     
     border: 1px solid #C8C8C8;
@@ -110,3 +111,21 @@
   }
 }
 
+// Error Ledgends
+
+.error-box:not(:target) { 
+    .box-legend {
+      
+      a:link, a:visited, a:hover, a:active {
+        color: @fairnopolyRed !important;
+      }
+    }
+  }
+  
+  
+.error-box:target { 
+    .box-legend {
+       background-color: @fairnopolyRed;
+     
+    }
+  }

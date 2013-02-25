@@ -21,9 +21,21 @@ class AuctionsController < ApplicationController
     scope = Auction.with_user_id
     
     if params[:auction]
+      # condition
       if params[:auction][:condition].present?  
         scope = scope.where(:condition => params[:auction][:condition])
       end
+      # fair filters
+      if @search_cache.fair
+        scope = scope.where(:fair => true)
+      end
+      if @search_cache.ecologic
+        scope = scope.where(:ecologic => true)
+      end
+      if @search_cache.small_and_precious
+        scope = scope.where(:small_and_precious => true)
+      end
+      # categories
       if @search_cache.categories.present?
         scope = scope.with_categories_or_descendants(@search_cache.categories)
       end
@@ -53,7 +65,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
 
     @collections = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
-    @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
+    @seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
 
     if params[:image]
       @title_image = Image.find(params[:image])
@@ -85,6 +97,20 @@ class AuctionsController < ApplicationController
     #      @missing[0]['about'] = ( (!current_user.about||current_user.about.empty?) ? (t('devise.edit_profile.about')) : "" ) 
     #   end
     #end
+    
+
+    if current_user.legal_entity
+      legal_entity = current_user.becomes(LegalEntity)
+      if !legal_entity.legal_entity_terms_ok
+         error_text =  t('auction.form.missing_terms')+ "<br>" +
+         ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
+         ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
+         ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
+         flash[:error] =  error_text.html_safe
+         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         return
+       end
+    end
     
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
