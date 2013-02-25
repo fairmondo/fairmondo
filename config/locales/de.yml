@@ -453,6 +453,7 @@ de:
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
+      error: "Du musst alle Pflichtfelder in deinem Profil angeben, bevor du einen Artikel einstellen kannst."
     hero:
       search: "Suche nach"
       filter: "Filter nach"

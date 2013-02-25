@@ -84,29 +84,29 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   # GET /auctions/new.json
   def new
-    
-    #@legal_entity_ok = true
-    #if current_user.legal_entity
-    #  @legal_entity = current_user.becomes(LegalEntity)
-    #  if !@legal_entity.legal_entity_terms_ok
-    #      @legal_entity_ok = false
-    #     @error_text =  t('auction.form.missing_terms')
-    #      @missing = Array.new(1,Hash.new)
-    #      @missing[0]['term'] = ( (!current_user.terms||current_user.terms.empty?) ? (t('devise.edit_profile.terms')) : "" )
-    #      @missing[0]['cancellation'] = ( (!current_user.cancellation||current_user.cancellation.empty?) ? (t('devise.edit_profile.cancellation')) : "" )
-    #      @missing[0]['about'] = ( (!current_user.about||current_user.about.empty?) ? (t('devise.edit_profile.about')) : "" ) 
-    #   end
-    #end
-    
 
     if current_user.legal_entity
       legal_entity = current_user.becomes(LegalEntity)
-      if !legal_entity.legal_entity_terms_ok
-         error_text =  t('auction.form.missing_terms')+ "<br>" +
-         ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
-         ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
-         ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
-         flash[:error] =  error_text.html_safe
+      #if !legal_entity.legal_entity_terms_ok
+      #   error_text =  t('auction.form.missing_terms')+ "<br>" +
+      #   ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
+      #   ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
+      #   ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
+      #   flash[:error] =  error_text.html_safe
+      #   redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+      #   return
+      # end
+      if !legal_entity.valid?
+         #flash[:error] = private_user.errors
+         flash[:error] = t('auction.show.error')
+         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         return
+       end
+     else
+       private_user = current_user.becomes(PrivateUser)
+       if !private_user.valid?
+         #flash[:error] = private_user.errors
+         flash[:error] = t('auction.show.error')
          redirect_to url_for :controller => "dashboard", :action => "edit_profile"
          return
        end
