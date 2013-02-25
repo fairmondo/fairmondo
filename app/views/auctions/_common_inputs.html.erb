@@ -49,27 +49,7 @@
   	<%= tinymce %>
   <% end %>
   
-  <%= f.input_step :transport_and_payment do %>
-    <%= f.inputs :hint => t('auction.hints.transport') do %>
-      <%= f.input :transport, :as => :check_boxes, :required => true %>
-      <%= f.input :transport_details %>
-    <% end %>
-    
-    <%= f.inputs :hint => t('auction.hints.payment') do %>
-      <%= f.input :payment, :as => :check_boxes, :required => true %>
-      <%= f.input :payment_details%>
-    <% end %>
-  <% end %>
-  
-  <%= f.input_step :friendly_percent, :tooltip => true do %>
-    <div class='friendly_percent-user-inputs'>
-      <%= f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)} %>
-      <%= f.input :friendly_percent_organisation, :as => :select %>
-    </div>
-    <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
-  <% end %>
-  
-  <%= f.input_step :upload_images do%>
+   <%= f.input_step :upload_images do%>
   	 <% first=true%>
   	 <%= f.semantic_fields_for :images do |image| %>
   	 	
@@ -93,6 +73,28 @@
   	 <%end %>
   
   <%end%>
+  
+  <%= f.input_step :transport_and_payment do %>
+    <%= f.inputs :hint => t('auction.hints.transport') do %>
+      <%= f.input :transport, :as => :check_boxes, :required => true %>
+      <%= f.input :transport_details %>
+    <% end %>
+    
+    <%= f.inputs :hint => t('auction.hints.payment') do %>
+      <%= f.input :payment, :as => :check_boxes, :required => true %>
+      <%= f.input :payment_details%>
+    <% end %>
+  <% end %>
+  
+  <%= f.input_step :friendly_percent, :tooltip => true do %>
+    <div class='friendly_percent-user-inputs'>
+      <%= f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)} %>
+      <%= f.input :friendly_percent_organisation, :as => :select %>
+    </div>
+    <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
+  <% end %>
+  
+ 
   
   <%= f.semantic_fields_for :transaction do |transaction|%>
   		<%= transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }%>
