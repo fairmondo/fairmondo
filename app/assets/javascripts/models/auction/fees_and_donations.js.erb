@@ -2,14 +2,13 @@
 // refs #152
 
 function feeAccordingToCommendation() {
-	ecologic = $("input#auction_ecologic").is(":checked");
 	fair = $("input#auction_fair").is(":checked");
 	price_input = $("input#auction_price");
 	if(price_input.val()) {
 	  price = parseFloat(price_input.val().replace(",","."));
 	  if(price) {
 		  var fee;
-		  if (ecologic || fair) {
+		  if (fair) {
 			fee = <%= Auction::AUCTION_FEES[:fair] %>
 		  } else {
 			fee = <%= Auction::AUCTION_FEES[:default] %>
@@ -72,11 +71,11 @@ $(document).ready(function(){
 		  	corruption_input.trigger('change')
 		});
 		
-	$("input#auction_price,input#auction_ecologic,input#auction_fair")
+	$("input#auction_price,input#auction_fair")
 		.change(function () {
 			fees_calculated = feeAccordingToCommendation();
-		  	fees_input.val(fees_calculated.toFixed(2).toString().replace(".",",") + " Euro");
-		  	fees_input.trigger('change');
+		  fees_input.val(fees_calculated.toFixed(2).toString().replace(".",",") + " Euro");
+		  fees_input.trigger('change');
 		});
 	
 	price_input.trigger('change');

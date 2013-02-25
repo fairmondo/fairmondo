@@ -20,7 +20,7 @@
         <%= f.input :fees, :input_html => {:disabled => true}, :tooltip => true %>
         <%= f.input :fees_and_donations, :input_html => {:disabled => true} %>
       <% end %>
-      <%= f.actions :name => t('auction.form.fieldsets.double_check'),  :tooltip => t('auction.hints.double_check').html_safe do %>
+      <%= f.actions :name => t('auction.form.fieldsets.double_check'),  :tooltip => t('formtastic.tooltips.auction.double_check').html_safe do %>
         <%= f.action :submit, :label => t("auction.labels.submit")%>
       <% end %>
     <% end %>
