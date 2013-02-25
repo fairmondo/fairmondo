@@ -1,83 +1,89 @@
+<div class="element-in-box">
+	<p>
+		<strong><%= t('devise.edit_profile.picture')%></strong>
+		<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
+	</p>
+	<%= image_tag(current_user.image.url(:thumb), :class => "img-polaroid ") %>
+	<%= f.input :image,  :label => false%>
+</div>
 
+<div class="element-in-box">
+	<%if current_user.legal_entity%>
+	<p>
+		<strong><%= t('devise.edit_profile.contact_person')%></strong>
+	</p>
+	<%end%>
 
-		<div class="row">
-			<div class="element-in-box span6">
-				<p>
-					<%= t('devise.edit_profile.picture')%>: 
-					<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-				</p>
-				<%= image_tag(current_user.image.url(:thumb), :class => "img-polaroid ") %>
-				<%= f.input :image,  :label => false%>
-			</div>
-		</div>
-		<div class="row">
-			<div class="element-in-box span6">
-				
-				<%if current_user.legal_entity%>
-				<p>
-					<strong><%= t('devise.edit_profile.contact_person')%></strong>
-				</p>
-				<%end%>
-				
-				<%= t('devise.edit_profile.name_title')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :title,:label=> false,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')] %>
-				
-				<%= t('devise.edit_profile.forename')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :forename, :label=> false%>
-				
-				<%= t('devise.edit_profile.surname')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :surname, :label=> false%>
-			
-				<%= t('devise.edit_profile.mail')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :email, :required => true, :label=> false %>
-				
-				<%= t('devise.edit_profile.password')%>: 
-				<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
-				<%= f.input :password, :hint => t('devise.edit_profile.password_hint'), :label=> false %>
-			</div>
-		</div>
-		<div class="row">
-			<div class="element-in-box span6">
-				<p><strong><%= t('devise.edit_profile.address')%></strong></p>
-				
-				<%= t('devise.edit_profile.country')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :country,:label=> false,:as => :select, :collection => [t('devise.countries.germany')] %>
-				
-				<%= t('devise.edit_profile.street')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :street, :label=> false%>
-				
-				<%= t('devise.edit_profile.city')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :city, :label=> false%>
-			
-				<%= t('devise.edit_profile.zip')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :zip, :required => true, :label=> false %>
-				
-				<%= t('devise.edit_profile.phone')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :phone, :label=> false %>
-				
-				<%= t('devise.edit_profile.mobile')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :mobile, :label=> false %>
-				
-				<%= t('devise.edit_profile.fax')%>: 
-				<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-				<%= f.input :fax, :label=> false %>
-			</div>
-		</div>
-		<div class="element-in-box">
-			<strong><%= t('devise.edit_profile.about_me')%>:</strong>
-			<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-			<%= f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
-			<%= tinymce %>
-			<p><%= t('devise.edit_profile.about_me_hint')%></p>
-		</div>
+	<%= t('devise.edit_profile.name_title')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :title,:label=> false,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')] %>
+
+	<%= t('devise.edit_profile.forename')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :forename, :label=> false%>
+
+	<%= t('devise.edit_profile.surname')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :surname, :label=> false%>
+
+	<%= t('devise.edit_profile.mail')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :email, :required => true, :label=> false %>
+</div>
+
+<div class="element-in-box">
+
+	<p>
+		<strong><%= t('devise.edit_profile.password')%></strong>
+	</p>
+	<%= t('devise.edit_profile.password')%>:
+	<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
+	<%= f.input :password,  :label=> false %>
+
+	<%= t('devise.edit_profile.password_confirmation')%>:
+	<%= f.input :password_confirmation, :label=> false  %>
+</div>
+
+<div class="element-in-box">
+	<p>
+		<strong><%= t('devise.edit_profile.address')%></strong>
+	</p>
+
+	<%= t('devise.edit_profile.country')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :country,:label=> false,:as => :select, :collection => [t('devise.countries.germany')] %>
+
+	<%= t('devise.edit_profile.street')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :street, :label=> false%>
+
+	<%= t('devise.edit_profile.city')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :city, :label=> false%>
+
+	<%= t('devise.edit_profile.zip')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :zip, :required => true, :label=> false %>
+
+	<%= t('devise.edit_profile.phone')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :phone, :label=> false %>
+
+	<%= t('devise.edit_profile.mobile')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :mobile, :label=> false %>
+
+	<%= t('devise.edit_profile.fax')%>:
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :fax, :label=> false %>
+</div>
+<div class="element-in-box">
+	<strong><%= t('devise.edit_profile.about_me')%>:</strong>
+	<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
+	<%= f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
+	<%= tinymce %>
+	<p>
+		<%= t('devise.edit_profile.about_me_hint')%>
+	</p>
+</div>
 

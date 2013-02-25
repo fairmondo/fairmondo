@@ -1,3 +1,4 @@
 class PrivateUser < User
-  
+
+
 end

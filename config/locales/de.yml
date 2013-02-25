@@ -157,6 +157,8 @@ de:
       from: "von"
       and: " und "
       i_accept_the: "Ich akzeptiere die "
+      no_search_result: "Keine Suchergebnisse"
+      no_search_result_text: "Deine Suche ergab leider keine Treffer."
       
 # Footer
   footer:
@@ -209,13 +211,14 @@ de:
       forename: "Vorname"
       surname:  "Nachname"
       mail: "E-Mail"
-      password: "Passwort"
+      password: "Neues Passwort"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
       image: "Wähle Dein Bild aus"
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Neues Passwort bestätigen"
-      current_password: "Bisheriges Passwort angeben (wir benötigen Dein bisheriges Passwort um die Änderungen zu bestätigen)"
+      current_password: "Passwort"
+      current_password_hint: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
       address: "Anschrift und Kontaktdaten"
@@ -308,7 +311,8 @@ de:
         
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
-        payment: "Zahlungsart"
+        payment: "Versand und Bezahlung"
+        honor: "Auszeichnung des Artikels"
         payment_details: "Weitere Angaben:"
         
         friendly_percent: "Spendenanteil - das freundliche Prozent"
@@ -349,6 +353,8 @@ de:
         prefix: ""
         apply: Deine Vorlagen
     tooltips:
+      user:
+        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
@@ -441,14 +447,17 @@ de:
       auction_template_missing: "Bitte wähle eine Vorlage" 
 # Auction Model/Controller
   auction:
-    
+    show:
+      friendly_percent: "Das freundliche Prozent"
+      will_be: " werden an "
+      contributed: " gespendet."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
     form:
-      missing_terms: "Bevor Du einen Artikel einstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
+      missing_terms: "Bevor Du einen Artikel einstellen kannst, muss Folgendes im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
       head: "Um einen Artikel einzustellen, mußt Du dieses Formular ausfüllen."
       category: "Wähle eine Kategorie für Deinen Artikel"
@@ -464,6 +473,7 @@ de:
         fees_and_donations: Deine Gebühren und Spenden
         double_check: Alle Angaben überprüft?
     labels:
+      payment: "Zahlungsart"
       price: "Preis"
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
@@ -512,6 +522,7 @@ de:
 # Collection
   collection:
     no_products: "Es sind momentan keine Produkte in dieser Sammlung"
+    no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
     standard: "Standardsammlung"
     new: "Neue Sammlung"
     new_title: "Neue Sammlung erstellen"
