@@ -16,7 +16,6 @@ class Auction < ActiveRecord::Base
  
   validates_presence_of :transaction
 
-  
   validates_presence_of :expire
   #validate :validate_expire
   
@@ -146,10 +145,12 @@ class Auction < ActiveRecord::Base
     return true
   end
 
-  
-
   attr_accessor :category_proposal
+  
   acts_as_indexed :fields => [:title, :content]
+  skip_callback :update, :before, :update_index, :if => :template?
+  skip_callback :create, :after, :add_to_index, :if => :template?
+  
   acts_as_followable
 
   enumerize :condition, :in => [:new, :old]
