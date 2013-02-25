@@ -21,9 +21,21 @@ class AuctionsController < ApplicationController
     scope = Auction.with_user_id
     
     if params[:auction]
+      # condition
       if params[:auction][:condition].present?  
         scope = scope.where(:condition => params[:auction][:condition])
       end
+      # fair filters
+      if @search_cache.fair
+        scope = scope.where(:fair => true)
+      end
+      if @search_cache.ecologic
+        scope = scope.where(:ecologic => true)
+      end
+      if @search_cache.small_and_precious
+        scope = scope.where(:small_and_precious => true)
+      end
+      # categories
       if @search_cache.categories.present?
         scope = scope.with_categories_or_descendants(@search_cache.categories)
       end

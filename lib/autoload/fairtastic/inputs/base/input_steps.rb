@@ -1,3 +1,5 @@
+
+
 module Fairtastic
   module Inputs
     module Base
@@ -6,19 +8,29 @@ module Fairtastic
         def input_step(step_key, options = {}, &block)
           css = "box"
           css << " default-step" if options[:default_step]
-
+          
           if options[:class]
             options[:class] << " #{step_key}-step-inputs"
           else
             options[:class] = "#{step_key}-step-inputs"
           end
           options[:class] << " white-well" unless options[:class].include?("white-well")
-
+          
+          #evaluate the block before setting css class for errors
+          block_content = inputs(options.except(:tooltip), &block)
+      
+          #if we detect an error at an input we set the error class of input step
+          #after setting reset the block error
+          if @input_step_with_errors
+            css << " error-box"
+            @input_step_with_errors = false
+          end
+          
           template.content_tag(:div,
-          step_heading_html(step_key, options) <<
-          inputs(options.except(:tooltip), &block),
+          step_heading_html(step_key, options) << block_content,
           :class => css, :id => "#{step_key}_step"
           )
+          
         end
 
         private
