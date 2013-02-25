@@ -26,17 +26,16 @@ module Fairtastic
         def next_prefix
           @prefix_count ||= 0
           @prefix_count += 1
-          I18n.t("formtastic.input_steps.#{object_name}.prefix", :count => @prefix_count)
+          localized_string("prefix", object, "input_steps", :count => @prefix_count) || ""
         end
 
         def input_step_help_html(step_key, options = {})
           if options[:tooltip] == true
-            tooltip_html(I18n.t("formtastic.input_steps.#{object_name}.#{step_key}_hint"))
+            r = tooltip_html(localized_string("#{step_key}_hint", object, "input_steps"))
           elsif options[:tooltip].is_a?(String)
-            tooltip_html(options[:tooltip])
-          else
-            ""
+            r = tooltip_html(options[:tooltip])
           end
+          r || ""
         end
 
         def step_heading_html(step_key, options = {})
@@ -51,7 +50,7 @@ module Fairtastic
           tooltip.html_safe <<
           template.content_tag(:a,
           template.content_tag(:h3,
-          prefix << I18n.t("formtastic.input_steps.#{object_name}.#{step_key}")
+          prefix << (localized_string(step_key, object, "input_steps") || "")
           ), :href => "##{step_key}_step"
           )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )

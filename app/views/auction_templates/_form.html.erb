@@ -1,6 +1,6 @@
 <%= semantic_form_for @auction_template, :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f| %>
 
-  <%= f.inputs do %>
+  <%= f.inputs :class => "well" do %>
     <%= f.input :name %>
   <% end %>
   
