@@ -24,7 +24,7 @@
 
  
     @user = User.find(current_user.id)
-    #@user = @user.becomes(@user.legal_entity ? LegalEntity : PrivateUser)
+    @user = @user.becomes(@user.legal_entity ? LegalEntity : PrivateUser)
 
      successfully_updated = if needs_password?(@user, params)
        

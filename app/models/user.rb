@@ -29,6 +29,15 @@ class User < ActiveRecord::Base
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
   
+  # validates
+  validates_presence_of :forename , :on => :update
+  validates_presence_of :surname , :on => :update
+  validates_presence_of :title , :on => :update
+  validates_presence_of :country , :on => :update
+  validates_presence_of :street , :on => :update
+  validates_presence_of :city , :on => :update
+  validates_presence_of :zip , :on => :update
+  
   validates_presence_of :recaptcha, :on => :create
 
   validates_presence_of :nickname
