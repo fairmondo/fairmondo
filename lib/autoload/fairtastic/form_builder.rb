@@ -6,6 +6,7 @@ module Fairtastic
   class FormBuilder < FormtasticBootstrap::FormBuilder
 
     include Fairtastic::Helpers::FieldsetWrapper
+    include Fairtastic::Helpers::InputHelper
     include Fairtastic::Inputs::Base::InputSteps
     
     def input_with_purpose(*args)
