@@ -207,13 +207,14 @@ de:
       forename: "Vorname"
       surname:  "Nachname"
       mail: "E-Mail"
-      password: "Passwort"
+      password: "Neues Passwort"
+      current_password : "Bisheriges Password"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
       image: "Wähle Dein Bild aus"
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Neues Passwort bestätigen"
-      current_password: "Bisheriges Passwort angeben (wir benötigen Dein bisheriges Passwort um die Änderungen zu bestätigen)"
+      current_password: "Bisheriges Passwort (Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst)"
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
       address: "Anschrift und Kontaktdaten"
@@ -245,11 +246,16 @@ de:
         explanation: Erläuterung
         explanations: Erläuterungen
       user:
-        agecheck: "Ich bin mindestens 18 Jahre alt."
-        legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
-        privacy: "Datenschutzerklärung."
-        password: "Passwort"
-        remember_me: "Eingeloggt bleiben"
+        new:
+          agecheck: "Ich bin mindestens 18 Jahre alt."
+          legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+          privacy: "Datenschutzerklärung."
+          password: "Passwort"
+          remember_me: "Eingeloggt bleiben"
+        edit:
+          password: "Neues Passwort"
+          current_password: "Bisheriges Passwort"
+          password_confirmation: "Neues Passwort bestätigen"
       auction:
         title: "Artikelbezeichnung"
         categories: Kategorien
@@ -503,6 +509,7 @@ de:
 # Collection
   collection:
     no_products: "Es sind momentan keine Produkte in dieser Sammlung"
+    no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
     standard: "Standard Sammlung"
     new: "neue Sammlung"
     new_title: "Neue Sammlung erstellen"

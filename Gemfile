@@ -57,7 +57,6 @@ gem 'json'
 gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
 
-
 # Indexing /Searching
 gem 'acts_as_indexed'
 

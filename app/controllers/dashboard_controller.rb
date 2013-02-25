@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
 
+
+
   before_filter :authenticate_user!
   #autocomplete :user, :name, :full => true ,:display_value => :fullname , :extra_data => [:surname] , :scopes => [:search_by_name]
   def get_user
