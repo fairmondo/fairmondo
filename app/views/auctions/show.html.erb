@@ -101,37 +101,38 @@
 					</div>
 					
 					<!--Only legal sellers-->
-					<div class="box" id="terms">		
-						<div class="box-legend box-legend-without-border">
-							<a href="#terms">
-							<h3><%=  t('devise.edit_profile.terms')%></h3>
-							</a>
+					<%if @auction.seller.legal_entity %>
+						<div class="box" id="terms">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#terms">
+								<h3><%=  t('devise.edit_profile.terms')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%= raw @auction.seller.terms %>
+							</div>
 						</div>
-						<div class="box-content  padding-clap-box">
-							<%= raw @auction.seller.terms %>
+						<div class="box" id="cancellation">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#cancellation">
+								<h3><%=  t('devise.edit_profile.cancellation')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%=  raw @auction.seller.cancellation  %>
+							</div>
 						</div>
-					</div>
-					<div class="box" id="cancellation">		
-						<div class="box-legend box-legend-without-border">
-							<a href="#cancellation">
-							<h3><%=  t('devise.edit_profile.cancellation')%></h3>
-							</a>
+						<div class="box" id="about">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#about">
+								<h3><%=  t('devise.edit_profile.about')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%=   raw @auction.seller.about  %>
+							</div>
 						</div>
-						<div class="box-content  padding-clap-box">
-							<%=  raw @auction.seller.cancellation  %>
-						</div>
-					</div>
-					<div class="box" id="about">		
-						<div class="box-legend box-legend-without-border">
-							<a href="#about">
-							<h3><%=  t('devise.edit_profile.about')%></h3>
-							</a>
-						</div>
-						<div class="box-content  padding-clap-box">
-							<%=   raw @auction.seller.about  %>
-						</div>
-					</div>
-					
+					<%end%>
 					
 				</div>
 			</div>

@@ -78,6 +78,14 @@ class User < ActiveRecord::Base
     end
     self.libraries.where(:name => I18n.t('collection.standard')).first
   end
+  
+  def legal_entity_terms_ok
+      if( self.valid?)
+        return true
+      else
+        return false
+      end
+  end
 
 
 #def set_default
