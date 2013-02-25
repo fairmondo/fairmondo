@@ -12,7 +12,16 @@ FactoryGirl.define do
     agecheck    "1"
     recaptcha true
     legal_entity { [true, false].sample }
+    
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
+    terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
+    cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
+    about    { Faker::Lorem.paragraph( rand(7)+1 ) }
+    title { Faker::Name.prefix}
+    country {Faker::Address.country}
+    street {Faker::Address.street_address}
+    city {Faker::Address.city}
+    zip {Faker::Address.postcode}
 
     confirmed_at  Time.now
 
