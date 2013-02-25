@@ -1,6 +1,8 @@
 class AuctionTemplatesController < InheritedResources::Base
   
   before_filter :authenticate_user!
+  before_filter :build_resource, :only => [:new]
+  before_filter :build_auction, :only => [:new]
   before_filter :setup_categories, :only => [:new, :edit]
   before_filter :build_questionnaires, :only => [:new, :edit]
   
@@ -23,6 +25,10 @@ class AuctionTemplatesController < InheritedResources::Base
   end
   
   private 
+  
+  def build_auction
+    resource.build_auction unless resource.auction 
+  end
   
   def build_questionnaires
     resource.auction.build_fair_trust_questionnaire unless resource.auction.fair_trust_questionnaire
