@@ -108,7 +108,7 @@ class Auction < ActiveRecord::Base
   alias_method :friendly_percent_result, :friendly_percent_calculated
   
   def fee_percentage
-    if fair? || ecologic?
+    if fair?
       AUCTION_FEES[:fair]
     else
       AUCTION_FEES[:default]
