@@ -450,6 +450,8 @@ de:
     show:
       friendly_percent: "Das freundliche Prozent"
       will_be: " werden an "
+      agree: "Ja"
+      non_agree: "Nein"
       contributed: " gespendet."
     hero:
       search: "Suche nach"
