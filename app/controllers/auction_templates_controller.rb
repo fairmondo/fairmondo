@@ -5,15 +5,27 @@ class AuctionTemplatesController < InheritedResources::Base
   before_filter :build_auction, :only => [:new, :edit, :create, :update]
   before_filter :setup_categories, :only => [:new, :edit, :create, :update]
   before_filter :build_questionnaires, :only => [:new, :edit, :create, :update]
-  before_filter :build_transaction, :only => [:create]
+  before_filter :build_transaction, :only => [:create, :update]
   
   actions :all, :except => [:show]
   
   def begin_of_association_chain
     current_user
   end
+  
+  def update_resource(object, options)
+    Auction.skip_callback(:update, :before, :update_index) 
+    super
+    Auction.set_callback(:update, :before, :update_index)
+  end
+  
+  def create_resource(object)
+    Auction.skip_callback(:create, :after, :add_to_index) 
+    super
+    Auction.set_callback(:create, :after, :add_to_index)
+  end
     
-  private 
+  private
   
   def build_auction
     @auction ||= resource.auction || resource.build_auction 
