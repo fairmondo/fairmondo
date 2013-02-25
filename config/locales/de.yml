@@ -103,7 +103,7 @@ de:
      
   welcome:
     greetings: "Willkommen bei Fairnopoly"
-    search_fair: "Artikelsuche "
+    search_fair: "Artikelsuche"
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -116,6 +116,8 @@ de:
       back: "Zurück"
       show: "Anzeigen"
       edit: "Bearbeiten"
+      destroy: "Löschen"
+      confirm: "Bist du sicher?"
       invite: "Einladen"
       trust: "Vertrauen"
       logout: "Logout"
@@ -200,7 +202,7 @@ de:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
       nickname: "Nutzername"
-      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
+      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
       legal_entity: "Juristische Person"
       private_user: "Privatperson"
       name_title: "Anrede"
@@ -208,13 +210,13 @@ de:
       surname:  "Nachname"
       mail: "E-Mail"
       password: "Neues Passwort"
-      current_password : "Bisheriges Password"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
       image: "Wähle Dein Bild aus"
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Neues Passwort bestätigen"
-      current_password: "Bisheriges Passwort (Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst)"
+      current_password: "Passwort"
+      current_password_hint: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
       address: "Anschrift und Kontaktdaten"
@@ -246,16 +248,11 @@ de:
         explanation: Erläuterung
         explanations: Erläuterungen
       user:
-        new:
-          agecheck: "Ich bin mindestens 18 Jahre alt."
-          legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
-          privacy: "Datenschutzerklärung."
-          password: "Passwort"
-          remember_me: "Eingeloggt bleiben"
-        edit:
-          password: "Neues Passwort"
-          current_password: "Bisheriges Passwort"
-          password_confirmation: "Neues Passwort bestätigen"
+        agecheck: "Ich bin mindestens 18 Jahre alt."
+        legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+        privacy: "Datenschutzerklärung."
+        password: "Passwort"
+        remember_me: "Eingeloggt bleiben"
       auction:
         title: "Artikelbezeichnung"
         categories: Kategorien
@@ -352,6 +349,40 @@ de:
       template_select:
         prefix: ""
         apply: Deine Vorlagen
+    tooltips:
+      user:
+        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
+      auction:
+        title:  "Gebe eine Bezeichnung Deines Artikels ein."
+        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
+        category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
+        
+        fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
+        small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
+        fair_trust_questionnaire: >
+          Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        social_producer_questionnaire: >
+          Hier könnt ihr Eure Artikel in die Kategorie "Sozial" einordnen.
+          
+        condition: "Trage den Zustand Deines Artikels ein"
+        content: "Geben Sie eine Beschreibung für die Auktion ein"
+        quantity: Trage hier die Menge ein
+        price: Trage hier den Preis pro Artikel ein
+        
+        transport: >
+          Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+        payment: >
+          Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+        
+        fees_and_donations: >
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+        fees: "Die Gebührentabelle findest Du <hier>."
+        
+        date: "Datum (Tag/Monat/Jahr)"
+        time: "Zeit (Stunden/Minuten)"
+        
+        double_check: >
+          Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
@@ -420,9 +451,9 @@ de:
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
     form:
-      missing_terms: "Bevor Du eine Auktion erstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
+      missing_terms: "Bevor Du einen Artikel einstellen kannst, müssen folgende Punkte im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
-      head: "Um eine Auktion zu erstellen, mußt Du dieses Formular ausfüllen."
+      head: "Um einen Artikel einzustellen, mußt Du dieses Formular ausfüllen."
       category: "Wähle eine Kategorie für Deinen Artikel"
       details: "Beschreibe Deinen Artikel"
       expire_date: "Datum (Tag/Monat/Jahr)"
@@ -444,62 +475,37 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      create: "Auktion wurde erfolgreich erstellt."
-      update: "Auktion wurde erfolgreich aktualisiert."
+      create: "Artikel wurde erfolgreich eingestellt."
+      update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      collect: "Produkt wurde in die Standard-Sammlung übernommen."
+      collect: "Produkt wurde in die Standardsammlung übernommen."
       collect_error: "Das Produkt ist schon in deiner Sammlung."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
-    hints:
-      title:  "Gebe eine Bezeichnung Deines Artikels ein."
-      categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
-      category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
-      
-      fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
-      small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
-      fair_trust_questionnaire: >
-        Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
-      social_producer_questionnaire: >
-        Hier könnt ihr Eure Artikel in die Kategorie "Sozial" einordnen.
-        
-      condition: "Trage den Zustand Deines Artikels ein"
-      content: "Geben Sie eine Beschreibung für die Auktion ein"
-      quantity: Trage hier die Menge ein
-      price: Trage hier den Preis pro Artikel ein
-      
-      transport: >
-        Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-      payment: >
-        Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-      
-      fees_and_donations: >
-        Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
-      fees: "Die Gebührentabelle findest Du <hier>."
-      
-      date: "Datum (Tag/Monat/Jahr)"
-      time: "Zeit (Stunden/Minuten)"
-      
-      double_check: >
-        Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
     image:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"
     titles:
       new: "Artikel einstellen"  
       edit: "Artikel editieren"  
-      other-products: "Andere Artikel dieses Verkäufers"
-      collections: "Sammlungen, die diesen Artikel enthalten"
+      other-products: "Alle Artikel dieses Verkäufers"
+      collections: "Öffentliche Sammlungen, die diesen Artikel enthalten"
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
       report: "Artikel melden"
-      reported: "Auktion erfolgreich gemeldet. Das Team kümmert sich darum."
-      reported-error: "Du musst einen Text schreiben um eine Auktion zu melden."
+      reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
+      reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
       to-collection: "In Sammlung verschieben"
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
       remove-filter:  "Kategorie-Filter entfernen"
+  auction_templates:
+    titles:
+      index: Deine Vorlagen
+      new: Vorlage erstellen
+      edit: Vorlage bearbeiten
+      destroy: Vorlage löschen
 # Transaction System
   transaction:
     bid:
@@ -510,12 +516,12 @@ de:
   collection:
     no_products: "Es sind momentan keine Produkte in dieser Sammlung"
     no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
-    standard: "Standard Sammlung"
-    new: "neue Sammlung"
+    standard: "Standardsammlung"
+    new: "Neue Sammlung"
     new_title: "Neue Sammlung erstellen"
     privacy: "Sichtbarkeit dieser Sammlung:"
     public: "Jeder kann diese Sammlung sehen"
-    private: "Nur für dich sichtbar"
+    private: "Nur für Dich sichtbar"
     action:
       public: "öffentlich machen"
       private: "privat machen"
@@ -534,7 +540,7 @@ de:
     text:
       no_offers: "Keine Angebote eingestellt"
       no_sold: "Keine verkauften Artikel vorhanden"
-      soon_sold: "Bald kannst du hier deine verkauften Artikel betrachten"
+      soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
       no_templates: "Keine Templates vorhanden"
     actions:
       edit_account: "Profil bearbeiten"
