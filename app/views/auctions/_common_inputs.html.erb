@@ -73,14 +73,15 @@
   	 <%end %>
   
   <%end%>
+  <% debugger %>
   
   <%= f.input_step :transport_and_payment do %>
-    <%= f.inputs :hint => t('auction.hints.transport') do %>
+    <%= f.inputs :tooltip => t('formtastic.tooltips.auction.transport') do %>
       <%= f.input :transport, :as => :check_boxes, :required => true %>
       <%= f.input :transport_details %>
     <% end %>
     
-    <%= f.inputs :hint => t('auction.hints.payment') do %>
+    <%= f.inputs :tooltip => t('formtastic.tooltips.auction.payment') do %>
       <%= f.input :payment, :as => :check_boxes, :required => true %>
       <%= f.input :payment_details%>
     <% end %>
@@ -94,9 +95,7 @@
     <%= f.input :friendly_percent_calculated, :input_html => {:disabled => true} %>
   <% end %>
   
- 
-  
   <%= f.semantic_fields_for :transaction do |transaction|%>
-  		<%= transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }%>
+    <%= transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }%>
   <%end%>
   
