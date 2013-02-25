@@ -12,20 +12,8 @@ class AuctionTemplatesController < InheritedResources::Base
   def begin_of_association_chain
     current_user
   end
-  
-  def update_resource(object, options)
-    Auction.skip_callback(:update, :before, :update_index) 
-    super
-    Auction.set_callback(:update, :before, :update_index)
-  end
-  
-  def create_resource(object)
-    Auction.skip_callback(:create, :after, :add_to_index) 
-    super
-    Auction.set_callback(:create, :after, :add_to_index)
-  end
     
-  private
+  private 
   
   def build_auction
     @auction ||= resource.auction || resource.build_auction 
