@@ -4,7 +4,18 @@
 span.in-image {
   position: absolute;top: 10px; left: 10px;
 }
+
+div.in-image-alt {
+  position: absolute;bottom: 8px; left: 8px;
+  span {
+    margin:2px;
+  }
+}
   
+div.in-image-container {
+  min-height:60px;
+  position: relative;
+}
 
 /*
  * Display the auctions thumbnail image correctly
@@ -12,13 +23,12 @@ span.in-image {
  */  
   
 .title-image-wrapper{
-  position: relative;
+  margin-bottom: 20px;
 }
 .title_image {
   width:100%;
-   
   border: 1px solid darken(@wellBackground, 17%);
-  margin-bottom: 20px;
+
 }
 
 .thumbnail_image {

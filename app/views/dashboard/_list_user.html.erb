@@ -4,11 +4,8 @@
 					        
 			<li class="span3">
 			  <div class="thumbnail" style="position: relative;">
-				<% if user.image.url !=  "/images/original/missing.png"%>
-					<%= link_to image_tag(user.image.url(:thumb), :size=> "260x180"), dashboard_path(:id => user.id) %>
-				<%else%>
-					<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), dashboard_path(:id => user.id) %>
-				<%end%>
+				<%= link_to image_tag(user.image.url(:thumb), :size=> "260x180"), dashboard_path(:id => user.id) %>
+				
 			    <div class="caption">
 			      <h5><%= user.name %></h5>
 			      <% if user != current_user%>
