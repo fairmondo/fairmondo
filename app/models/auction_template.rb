@@ -18,7 +18,7 @@ class AuctionTemplate < ActiveRecord::Base
   def auction
     Auction.unscoped{super}
   end
-  
+    
   def deep_auction_attributes
     auction_attributes = auction.attributes
     nested_keys = auction.nested_attributes_options.keys
