@@ -138,7 +138,7 @@ class DashboardController < ApplicationController
       get_user
       @invitor = @user.invitor
       @users = User.where(:invitor_id => @user.id)
-      @invitor_image = @invitor.image 
+      @invitor_image = @invitor.image unless @invitor == nil 
      
    
     

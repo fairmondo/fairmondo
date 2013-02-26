@@ -14,7 +14,7 @@
     
       <%= render :partial => "auction_template_create_inputs" %>
       
-      <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :tooltip => t('auction.hints.fees_and_donations').html_safe do %>
+      <%= f.inputs :name => t('auction.form.fieldsets.fees_and_donations'), :tooltip => t('formtastic.tooltips.auction.fees_and_donations').html_safe do %>
         <%= f.input :corruption_percent_result, :input_html => {:disabled => true} %>
         <%= f.input :friendly_percent_result, :input_html => {:disabled => true} %>
         <%= f.input :fees, :input_html => {:disabled => true}, :tooltip => true %>
