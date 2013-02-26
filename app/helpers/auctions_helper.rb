@@ -20,18 +20,27 @@ module AuctionsHelper
     bclass=condition_badge_class(auction.condition)
     raw "<span class=\"badge " + bclass + " " + extraclass +"\">" + auction.condition_text + "</span>"
   end
+  
+  def features_label auction, extraclass = ""
+     html = "<div class=\"" +extraclass+"\">"
+     html +="<span class=\"label label-info\">" + t("formtastic.labels.auction.fair")+ "</span>" if auction.fair
+     html +="<span class=\"label label-success\">" + t("formtastic.labels.auction.ecologic")+ "</span>" if auction.ecologic
+     html +="<span class=\"label label-important\">" + t("formtastic.labels.auction.small_and_precious")+ "</span>" if auction.small_and_precious
+     html += "</div>"
+     html.html_safe
+  end
 
   def condition_badge_class condition
     case condition
     when "new"
-      bclass="badge-info"
+      bclass="badge-white"
     when "old"
       bclass="badge-inverse"
-    when "fair"
-      bclass="badge-success"
     end
     bclass
   end
+  
+  
   
    def resource_name
     :user

@@ -138,12 +138,8 @@ class DashboardController < ApplicationController
       get_user
       @invitor = @user.invitor
       @users = User.where(:invitor_id => @user.id)
-    
-      if @invitor
-        @invitor_image = @invitor.image unless @invitor.image.url ==  "/images/original/missing.png"
-      else
-        @invitor_image = nil
-      end
+      @invitor_image = @invitor.image 
+     
    
     
     #@invited_people = User.where(:invitor_id => current_user.id)
