@@ -62,6 +62,7 @@ class DashboardController < ApplicationController
   def collection
     get_user
     @libraries = @user.libraries
+    
   end
   
   def new_library
@@ -71,9 +72,19 @@ class DashboardController < ApplicationController
     end
     if !Library.exists? current_user.libraries.where(:name => name).first
       Library.create(:name => name,:public => false, :user_id => current_user.id)
+    else
+      flash[:error] = t('collection.exist')
     end
     respond_to do |format|
-      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+t('collection.standard').delete(' ')}
+      @library = Library.find_by_name(name)
+      if @library
+        id = @library.id.to_s
+      else
+        flash[:error] = t('collection.error')  
+        id = ""
+      end
+      
+      format.html { redirect_to url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+id}
       format.json { head :no_content }
     end
   end
@@ -82,8 +93,9 @@ class DashboardController < ApplicationController
     if params[:id]
       Library.update(params["id"], :public => true)
       @library = Library.find(params[:id])
+      id = @library ? @library.id.to_s : ""
       respond_to do |format|
-        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+id}
         format.json { head :no_content }
       end
     end
@@ -93,8 +105,9 @@ class DashboardController < ApplicationController
     if params[:id]
       Library.update(params["id"], :public => false)
       @library = Library.find(params[:id])
+      id = @library ? @library.id.to_s : ""
       respond_to do |format|
-        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+id}
         format.json { head :no_content }
       end
     end
@@ -108,13 +121,14 @@ class DashboardController < ApplicationController
       @library_element = LibraryElement.find(params[:id])
       if @library_element.update_attributes( :library_id => params[:library_id])
         respond_to do |format|
-          format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library.name.delete(' ')}
+          format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library_element.library_id.to_s}
           format.json { head :no_content }
         end
       else
         # if the lib_element is already in the library
+        flash[:error] = t('collection.already_in_collection')
         respond_to do |format|
-          format.html { redirect_to (url_for :controller => "dashboard", :action => "collection"),:flash => { :error => I18n.t('auction.notices.collect_error')}}
+          format.html { redirect_to (url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+@library_element.library_id.to_s),:flash => { :error => I18n.t('auction.notices.collect_error')}}
           format.json { head :no_content }
         end
       end
@@ -128,7 +142,7 @@ class DashboardController < ApplicationController
       LibraryElement.delete(params[:id])
     end
     respond_to do |format|
-      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+library.name.delete(' ')}
+      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+library.id.to_s}
       format.json { head :no_content }
     end
   end

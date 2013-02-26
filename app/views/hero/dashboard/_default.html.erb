@@ -9,9 +9,22 @@
 		<div class="span9" id="dashboard-middle">
 			<div id="dashboard-events">
 				<%if @user.about_me && !@user.about_me.empty?%>
-					<div class="well white-well">
-						<%= raw @user.about_me%>
+					<div class="well clear-margin-bottom about <%= "small-about" unless params[:full_about]%>">
+						
+						<%= raw @user.about_me %>
 					</div>
+					
+						<%if params[:full_about]%>
+						<a href="<%=url_for dashboard_path(:id => @user.id) %>" class="pull-right"> 
+							<i class=" icon-chevron-up"></i> weniger anzeigen
+						</a>
+						<%else%>
+							<a href="<%=url_for dashboard_path(:id => @user.id, :full_about => "true") %>" class="pull-right"> 
+								<i class=" icon-chevron-down"></i> mehr anzeigen
+							</a>
+						<%end%>
+						
+					
 				<%else%>
 					<div class="empty-well">
 						<% if @user==current_user%>
