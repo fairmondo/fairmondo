@@ -1,4 +1,4 @@
-class UserRelation < ActiveRecord::Base
+class UserRelation 
 
   RELATIVE = "relative"
   FRIEND = "friend"
