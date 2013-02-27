@@ -191,7 +191,7 @@
 				<div class="well-column-small-padding">
 						<div class="row-fluid">
 							<div class="span8">
-								<%= link_to lib.name, :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.name.to_s.delete(' ') %>
+								<%= link_to lib.name, :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.id.to_s %>
 								<p><%= t('common.text.from') + " " + lib.user.nickname%></p>
 							</div>
 							<div class="span4">
