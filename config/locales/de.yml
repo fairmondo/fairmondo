@@ -524,6 +524,10 @@ de:
       success: "Sie sind jetzt Höchstbietender!"
 # Collection
   collection:
+    exist: "Eine Sammlung mit diesem Namen existiert bereits."
+    error: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
+    not_exists: "Diese Sammlung existiert nicht"
+    already_in_collection: "Dieser Artikel ist bereits in der Sammlung."
     no_products: "Es sind momentan keine Produkte in dieser Sammlung"
     no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
     standard: "Standardsammlung"

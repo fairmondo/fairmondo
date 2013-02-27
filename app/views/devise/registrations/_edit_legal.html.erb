@@ -1,22 +1,15 @@
 
 <div class="element-in-box" id="terms">
-	<strong><%= t('devise.edit_profile.terms')%>:</strong>
+	
+	<h3><%= t('formtastic.input_steps.auction.legal_issues')%></h3>
+	
 	<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-	<%= f.input :terms, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
-	<p><%= t('devise.edit_profile.terms_hint')%></p>
-</div>
-
-<div class="element-in-box">
-	<strong><%= t('devise.edit_profile.cancellation')%>:</strong>
+	<%= f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.terms'), :hint => t('devise.edit_profile.terms_hint')%>
+	<br />
 	<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-	<%= f.input :cancellation, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
-	<p><%= t('devise.edit_profile.cancellation_hint')%></p>
-</div>
-
-<div class="element-in-box">
-	<strong><%= t('devise.edit_profile.about')%>:</strong>
+	<%= f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.cancellation'),:hint =>t('devise.edit_profile.cancellation_hint') %>
+	<br />
 	<span class="pull-right"><%= t('devise.edit_profile.public')%></span>
-	<%= f.input :about, :as => :text, :input_html => {:class => "tinymce"}, :label=> false %>
+	<%= f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.about'),:hint =>t('devise.edit_profile.about_hint') %>
 
-	<p><%= t('devise.edit_profile.about_hint')%></p>
 </div>
