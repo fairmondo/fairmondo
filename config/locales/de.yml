@@ -417,6 +417,9 @@ de:
       info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
       request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
+      new: "Neues Passwort"
+      new_confirm: "Neues Passwort bestätigen"
+      new_submit: "Passwort zurücksetzen"
     unlock:
       info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
       linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"

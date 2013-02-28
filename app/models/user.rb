@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   validates_presence_of :zip , :on => :update
   
   validates_presence_of :recaptcha, :on => :create
+  validates_presence_of :legal_entity , :on => :create
 
   validates_presence_of :nickname
 
