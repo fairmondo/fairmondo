@@ -153,7 +153,7 @@ de:
       surname: "Nachname"
       relation: "Beziehung"
       profile: "Profil"
-      inserted: "Auktionen wurden bereits eingestellt"
+      inserted: "Artikel wurden bereits eingestellt"
       from: "von"
       and: " und "
       i_accept_the: "Ich akzeptiere die "
@@ -188,7 +188,7 @@ de:
       unlock_instruction: "Keine Anweisungen zur Freischaltung erhalten?"
       sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
     actions:
-      unlock: "E-mail-Anweisungen zur Freischaltung erneut senden"
+      unlock: "Email-Anweisungen zur Freischaltung erneut senden"
     title:
       cancle: "Benutzerkonto löschen"
       sign_up: "Registrierung"
@@ -210,15 +210,15 @@ de:
       name_title: "Anrede"
       forename: "Vorname"
       surname:  "Nachname"
-      mail: "E-Mail"
+      mail: "Email"
       password: "Neues Passwort"
       email: "An diese Adresse verschicken wir die Anmeldebestätigung."
       image: "Wähle Dein Bild aus"
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
-      password_confirmation: "Neues Passwort bestätigen"
+      password_confirmation: "Passwort bestätigen"
       current_password: "Passwort"
-      current_password_hint: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
+      current_password_hint: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Emailadresse oder Dein Passwort ändern willst."
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
       address: "Anschrift und Kontaktdaten"
@@ -354,7 +354,7 @@ de:
         apply: Deine Vorlagen
     tooltips:
       user:
-        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du deine E-Mail oder dein Passwort ändern willst"
+        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du Deine Emailadresse oder Dein Passwort ändern willst."
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
@@ -365,10 +365,10 @@ de:
         fair_trust_questionnaire: >
           Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
         social_producer_questionnaire: >
-          Hier könnt ihr Eure Artikel in die Kategorie "Sozial" einordnen.
+          Hier könnt Ihr Eure Artikel in die Kategorie "Sozial" einordnen.
           
         condition: "Trage den Zustand Deines Artikels ein"
-        content: "Geben Sie eine Beschreibung für die Auktion ein"
+        content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
         quantity: Trage hier die Menge ein
         price: Trage hier den Preis pro Artikel ein
         
@@ -418,8 +418,8 @@ de:
       request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
       new: "Neues Passwort"
-      new_confirm: "Neues Passwort bestätigen"
-      new_submit: "Passwort zurücksetzen"
+      new_confirm: "Passwort bestätigen"
+      new_submit: "Neues Passwort speichern"
     unlock:
       info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
       linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
@@ -456,7 +456,7 @@ de:
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
-      error: "Du musst alle Pflichtfelder in deinem Profil angeben, bevor du einen Artikel einstellen kannst."
+      error: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -828,8 +828,8 @@ de:
       at_least_one_entry: mindestens eine Option muss ausgewählt sein 
       minimum_entries: mindestens %{count} Optionen müssen ausgewählt werden
       maximum_entries: maximal %{count} Optionen können ausgewählt werden
-      minimum_categories: "Bitte wählen Sie mindestens eine Kategorie für Ihr Artikel aus"
-      maximum_categories: "Bitte wählen Sie nicht mehr als %{count} Kategorien für Ihr Artikel"
+      minimum_categories: "Bitte wähle mindestens eine Kategorie für Deinen Artikel aus"
+      maximum_categories: "Bitte wähle nicht mehr als %{count} Kategorien für Deinen Artikel"
     template:
       body: ! 'Bitte überprüfe folgende Felder:'
       header:
