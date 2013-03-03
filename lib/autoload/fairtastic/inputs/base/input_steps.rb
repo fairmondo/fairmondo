@@ -41,22 +41,13 @@ module Fairtastic
           localized_string("prefix", object, "input_steps", :count => @prefix_count) || ""
         end
 
-        def input_step_help_html(step_key, options = {})
-          if options[:tooltip] == true
-            r = tooltip_html(localized_string("#{step_key}_hint", object, "input_steps"))
-          elsif options[:tooltip].is_a?(String)
-            r = tooltip_html(options[:tooltip])
-          end
-          r || ""
-        end
-
         def step_heading_html(step_key, options = {})
           prefix = ""
           unless options[:prefix] == false
             prefix = next_prefix
             prefix << " "
           end
-          tooltip = input_step_help_html(step_key, options)
+          tooltip = optional_tooltip_html(step_key, options)
 
           template.content_tag(:div,
           tooltip.html_safe <<
