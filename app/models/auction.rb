@@ -260,6 +260,20 @@ class Auction < ActiveRecord::Base
     with_exact_category_id(category_ids)
   }
   
+  scope :with_commendation, lambda { |*commendations|
+    return scoped unless commendations.present?
+    auction_table = self.arel_table
+    arel_condition = nil
+    commendations.each do |commendation|
+      if arel_condition
+        arel_condition = arel_condition.or(auction_table[commendation].eq(true))
+      else
+        arel_condition = auction_table[commendation].eq(true)
+      end
+    end
+    where(arel_condition)
+  }
+  
   # for convenience, these methods remove all redundant ancesors from the passed collection
   # e.g. selecting Computer and Hardware, we don't want all auctions under Computer but 
   # only the subset of Hardware 
