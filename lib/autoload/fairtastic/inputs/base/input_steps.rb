@@ -47,7 +47,7 @@ module Fairtastic
             prefix = next_prefix
             prefix << " "
           end
-          tooltip = optional_tooltip_html(step_key, options)
+          tooltip = optional_tooltip_html("#{step_key}_input_step", options)
 
           template.content_tag(:div,
           tooltip.html_safe <<
