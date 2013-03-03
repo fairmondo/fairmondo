@@ -1,8 +1,6 @@
 <%= auction_form.semantic_errors :fair_trust_questionnaire %>
 
-<h5><%= t('form.fill_in_questionnaire') %></h5>
-<%= auction_form.semantic_fields_for :fair_trust_questionnaire do |f| %>
-<div class='help-block'><%= t('auction.hints.fair_trust_questionnaire') %></div>
+<%= auction_form.nested_inputs_for :fair_trust_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f| %>
 <ol class='questionnaire'>
   <%= f.input_with_explanation :support %>
   

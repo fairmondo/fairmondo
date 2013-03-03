@@ -62,6 +62,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/1
   # GET /auctions/1.json
   def show
+    @search_cache = Auction.new(params[:auction])
     @auction = Auction.find(params[:id])
 
     @collections = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
