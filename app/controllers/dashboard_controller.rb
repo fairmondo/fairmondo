@@ -119,16 +119,17 @@ class DashboardController < ApplicationController
       name = params[:library_name]
       @library = Library.find(params[:library_id])
       @library_element = LibraryElement.find(params[:id])
+      old_lib = @library_element.library
       if @library_element.update_attributes( :library_id => params[:library_id])
         respond_to do |format|
-          format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+@library_element.library_id.to_s}
+          format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+old_lib.id.to_s}
           format.json { head :no_content }
         end
       else
         # if the lib_element is already in the library
         flash[:error] = t('collection.already_in_collection')
         respond_to do |format|
-          format.html { redirect_to (url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+@library_element.library_id.to_s),:flash => { :error => I18n.t('auction.notices.collect_error')}}
+          format.html { redirect_to (url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+old_lib.id.to_s),:flash => { :error => I18n.t('auction.notices.collect_error')}}
           format.json { head :no_content }
         end
       end

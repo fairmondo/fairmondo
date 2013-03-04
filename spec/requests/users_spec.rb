@@ -18,7 +18,7 @@ describe 'User management' do
       expect {
         fill_in 'Nickname', with: 'nickname'
         fill_in 'Email', with:    'email@example.com'
-        fill_in 'Enter password', with: 'password'
+        fill_in 'Password', with: 'password'
         fill_in 'Confirm new password', with: 'password'
         choose 'user_legal_entity_true'
         check 'user_legal'
