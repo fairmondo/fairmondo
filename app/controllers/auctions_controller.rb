@@ -237,10 +237,13 @@ class AuctionsController < ApplicationController
     
     @standard_library = current_user.getStandardLibrary
     @product = Auction.find params["id"]
-    lib_element= LibraryElement.new(:auction_id => @product.id, :library_id => @standard_library.id)
+    lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @standard_library.id)
     if lib_element.save
       respond_to do |format|
-        format.html { redirect_to auction_path(:id => @product.id) , :notice => I18n.t('auction.notices.collect') }
+        text = I18n.t('auction.notices.collect').html_safe +
+        (view_context.link_to @standard_library.name, :controller => "dashboard", :action=>"collection", :anchor => "collection_" + @standard_library.id.to_s) + 
+        I18n.t('auction.notices.assumed')
+        format.html { redirect_to auction_path(:id => @product.id) , :notice => text}
         format.json { head :no_content }
       end
     else

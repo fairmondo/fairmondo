@@ -33,7 +33,7 @@
 		<h3><%= t('devise.edit_profile.password')%></h3>
 	</p>
 	<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
-	<%= f.input :password,  :label=> t('devise.edit_profile.password') %>
+	<%= f.input :password,  :label=> t('devise.edit_profile.password'), :input_html => { :autocomplete => "off" } %>
 	<%= f.input :password_confirmation, :label=> t('devise.edit_profile.password_confirmation')  %>
 </div>
 
