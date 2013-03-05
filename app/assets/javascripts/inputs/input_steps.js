@@ -2,46 +2,57 @@
 // class "icon-minus" for categories with checked sub-categories
 $(document).ready(function(){
 	default_inputs = $(".box.default-step")
-	if(default_inputs.size() > 0) {
+	erroneous_inputs = $(".box.error-box")
+	
+	if(default_inputs.size() > 0 && erroneous_inputs.size() == 0) {
 	  if(window.location.hash === "") {
 	  	default_input = default_inputs.first()
-	    window.location.hash = default_input.attr('id')
+	    window.location.replace("#"+default_input.attr('id'))
 	  }
+	}
+	
+	if(erroneous_inputs.size() > 0) {
+	  window.location.replace("#"+erroneous_inputs.first().attr('id'))
 	}
 });
 
 function scrollToNextStep(prev_step, next_step, height) {
      
-    if(next_step.length && prev_step != next_step){
-    	
-	    if (prev_step.length) {	    	
-	    	if(prev_step.position().top < next_step.position().top) {
-	    		scroll_to = next_step.position().top - prev_step.height() + 40
-	    	} else {
-		    	scroll_to = next_step.position().top;
-	    	}
-	    } else {
-	    	scroll_to = window.pageYOffset + height;
-	    } 
-	    
-	 	window.setTimeout(function() {
-		    y = window.pageYOffset;
-	        window.location.hash = "#" + next_step.attr("id");
-		    window.scrollTo(0,y);		    
-	    },2)
-	    
-        $('html,body').animate({scrollTop:scroll_to},'slow');
-        
-        // fix for chrome rendering issues, see #165
-        // the background is not completely white (1 less rgb), else
-        // it does not trigger chrome to redraw
-        // 
-        // Note: apparently not required after swichting to position+negative top solution, see box.less 
-        //if (window.chrome) {
-		//    box_to_show = next_step.find(".box-content");
-		//    box_to_show.css("background-image","url('/assets/back-white.png')");
-	    //}
+  if(next_step.length && prev_step != next_step){
+  	
+    if (prev_step.length) {	    	
+    	if(prev_step.position().top < next_step.position().top) {
+    		scroll_to = next_step.position().top - prev_step.height() + 40
+    	} else {
+	    	scroll_to = next_step.position().top;
+    	}
+    } else {
+    	scroll_to = window.pageYOffset + height;
     }
+    	    
+    if (prev_step.hasClass("error-box")) {
+      prev_step.removeClass("error-box")
+      prev_step.addClass("error-box-visited")
+    }
+    
+ 	  window.setTimeout(function() {
+	    y = window.pageYOffset;
+      window.location.replace("#" + next_step.attr("id"));
+	    window.scrollTo(0,y);
+    },2)
+    
+    $('html,body').animate({scrollTop:scroll_to},'slow');
+    
+    // fix for chrome rendering issues, see #165
+    // the background is not completely white (1 less rgb), else
+    // it does not trigger chrome to redraw
+    // 
+    // Note: apparently not required after swichting to position+negative top solution, see box.less 
+    // if (window.chrome) {
+	  //   box_to_show = next_step.find(".box-content");
+	  //   box_to_show.css("background-image","url('/assets/back-white.png')");
+    // }
+  }
 }
 
 /* tryout to calculate next position by iterating
