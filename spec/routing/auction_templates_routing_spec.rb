@@ -3,10 +3,6 @@ require "spec_helper"
 describe AuctionTemplatesController do
   describe "routing" do
 
-    it "routes to #index" do
-      get("/auction_templates").should route_to("auction_templates#index")
-    end
-
     it "routes to #new" do
       get("/auction_templates/new").should route_to("auction_templates#new")
     end

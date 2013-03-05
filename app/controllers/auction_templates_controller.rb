@@ -16,6 +16,10 @@ class AuctionTemplatesController < InheritedResources::Base
   def collection
     @auction_templates ||= end_of_association_chain.paginate(:page => params[:page])
   end
+    
+  def collection_url
+    dashboard_path
+  end
   
   private 
   
