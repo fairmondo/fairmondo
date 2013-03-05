@@ -2,30 +2,39 @@
 <%if @auction.fair %>
 	<%case @auction.fair_kind%>
 		<%when "social_producer" %>
-			<h3><%=t('enumerize.auction.fair_kind.social_producer')%></h3>
-			<div class="border-box middle-padding">
-				<% for attribute in @auction.social_producer_questionnaire.attributes.keys %>
-					<% value = @auction.social_producer_questionnaire.attributes[attribute] %>
-					<%if !attribute.to_s.downcase.include? "id"%>	
-						<% if attribute.to_s.downcase.include? "purposes" %>	
-							<div class="border-box middle-padding">
-							    <ul class="unstyled">
-									<% value.each do |purpose|%>
-										<li class="middle-padding-left">
-											<p><%= t('enumerize.social_producer_questionnaire.'+attribute.to_s+ '.' + purpose) %></p>
-											<p><strong><%=t('auction.show.agree')%></strong></p>
-										</li>
-									<%end%>
-								</ul>
-							</div>
-						<%else%>					
-					  		<h5><%= t('formtastic.labels.auction.social_producer_questionnaire.' + attribute.to_s) %></h5>
-					  		<p> <strong> <%= value ? t('auction.show.agree') : t('auction.show.non_agree') %> </strong> </p>
-						<%end%>
-				  	<%end%>
-				<% end %>
-			</div>
-			<%when "fair_trust" %>
+		
+			<%if @auction.social_producer_questionnaire %>
+				
+				<h3><%=t('enumerize.auction.fair_kind.social_producer')%></h3>
+				<div class="border-box middle-padding">	
+					<% for attribute in @auction.social_producer_questionnaire.attributes.keys %>
+						<% value = @auction.social_producer_questionnaire.attributes[attribute] %>
+						<%if !attribute.to_s.downcase.include? "id"%>	
+							<% if attribute.to_s.downcase.include? "purposes" %>	
+								<div class="border-box middle-padding">
+								    <ul class="unstyled">
+										<% value.each do |purpose|%>
+											<li class="middle-padding-left">
+												<p><%= t('enumerize.social_producer_questionnaire.'+attribute.to_s+ '.' + purpose) %></p>
+												<p><strong><%=t('auction.show.agree')%></strong></p>
+											</li>
+										<%end%>
+									</ul>
+								</div>
+							<%else%>					
+						  		<h5><%= t('formtastic.labels.auction.social_producer_questionnaire.' + attribute.to_s) %></h5>
+						  		<p> <strong> <%= value ? t('auction.show.agree') : t('auction.show.non_agree') %> </strong> </p>
+							<%end%>
+					  	<%end%>
+					<% end %>
+				</div>
+				
+			<%end%>
+			
+		<%when "fair_trust" %>
+			
+			<% if @auction.fair_trust_questionnaire %>
+		
 				<h3><%=t('enumerize.auction.fair_kind.fair_trust')%></h3>
 				<div class="border-box middle-padding">
 					<% for attribute in @auction.fair_trust_questionnaire.attributes.keys %>
@@ -40,12 +49,16 @@
 					  	<%end%>
 					<% end %>
 				</div>
-			<%when "fair_seal" %>
-				<h3><%=t('enumerize.auction.fair_kind.fair_seal')%></h3>
-				<div class="border-box middle-padding">
-					<p><strong><%=t('enumerize.auction.fair_seal.' + @auction.fair_seal) %></strong></p>
-				</div>
-		<%end%>
+			<%end%>
+				
+		<%when "fair_seal" %>
+		
+			<h3><%=t('enumerize.auction.fair_kind.fair_seal')%></h3>
+			<div class="border-box middle-padding">
+				<p><strong><%=t('enumerize.auction.fair_seal.' + @auction.fair_seal) %></strong></p>
+			</div>
+			
+	<%end%>
 <%end%>
 
 <%if @auction.ecologic %>

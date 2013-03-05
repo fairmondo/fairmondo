@@ -91,16 +91,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="box" id="honor">		
-						<div class="box-legend box-legend-without-border">
-							<a href="#honor">
-							<h3><%=  t('formtastic.labels.auction.honor')%></h3>
-							</a>
+					<% if @auction.fair || @auction.ecologic || @auction.small_and_precious %>
+						<div class="box" id="honor">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#honor">
+								<h3><%=  t('formtastic.labels.auction.honor')%></h3>
+								</a>
+							</div>
+							<div class="box-content padding-clap-box">
+								<%=render 'show_commendation'%>
+							</div>
 						</div>
-						<div class="box-content padding-clap-box">
-							<%=render 'show_commendation'%>
-						</div>
-					</div>
+					<% end %>
 					
 					<!--Only legal sellers-->
 					<%if @auction.seller.legal_entity %>
