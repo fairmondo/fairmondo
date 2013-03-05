@@ -157,7 +157,7 @@ class Auction < ActiveRecord::Base
   enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
   validates_length_of :size, :maximum => 4
   validates_presence_of :quantity
-  validates_numericality_of :quantity, :greater_than_or_equal_to => 1
+  validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     
   # Note: currency is deprecated for the moment.
   enumerize :price_currency, :in => [:EUR]
