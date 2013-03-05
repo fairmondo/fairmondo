@@ -3,7 +3,7 @@ class Auction < ActiveRecord::Base
   
   AUCTION_FEES = {
     :min => 0.1,
-    :max => 30.0,
+    :max => 35.0,
     :fair => 0.03,
     :default => 0.06
   }
