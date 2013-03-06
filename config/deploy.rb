@@ -52,6 +52,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
     run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
     run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
+    run "ln -nfs #{shared_path}/data/solr/data #{release_path}/solr/data"
   end
 
   desc "Addtional Rake Tasks"
@@ -60,6 +61,25 @@ namespace :deploy do
   end
 
 end
+
+namespace :solr do  
+  desc "start solr"
+  task :start, :roles => :app, :except => { :no_release => true } do 
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start"
+  end
+  desc "stop solr"
+  task :stop, :roles => :app, :except => { :no_release => true } do 
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop"
+  end
+  desc "reindex the whole database"
+  task :reindex, :roles => :app do
+    stop
+    run "rm -rf #{shared_path}/solr/data"
+    start
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:reindex"
+  end
+end   
+ 
   
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"
