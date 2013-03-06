@@ -2,11 +2,11 @@
 <% if current_user.id == @user.id%>
 	<!-- Add a new library -->
 	<div class="well">
-		<h3><%=t('collection.new_title')%></h3>
+		<h3><%=t('library.new_title')%></h3>
 		<%=form_tag({:action => "new_library" ,:method => "post"} ,{:class =>  "form-inline" }) do %>
 				<input name="library_name">
 				<button type="submit" class="btn btn-primary">
-					<%= t('collection.new')%>
+					<%= t('library.new')%>
 				</button>
 		<%end%>
 	</div>

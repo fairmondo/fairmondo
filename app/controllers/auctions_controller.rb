@@ -58,7 +58,7 @@ class AuctionsController < ApplicationController
     @search_cache = Auction.new(params[:auction])
     @auction = Auction.find(params[:id])
 
-    @collections = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
+    @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
     #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
     @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
 
@@ -234,19 +234,14 @@ class AuctionsController < ApplicationController
   end
 
   def add_to_library
-    #@standard_library = current_user.getStandardLibrary
-    if !params["library_id"]
-      @library = current_user.getStandardLibrary
-    else
-      @library = Library.find params["library_id"]
-    end
-    
+    @library = Library.find params["library_id"]
+
     @product = Auction.find params["id"]
     lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @library.id)
     if lib_element.save
       respond_to do |format|
         text = I18n.t('auction.notices.collect').html_safe +
-        (view_context.link_to @library.name, :controller => "dashboard", :action=>"collection", :anchor => "collection_" + @library.id.to_s) + 
+        (view_context.link_to @library.name, :controller => "dashboard", :action=>"libraries", :anchor => "library_" + @library.id.to_s) + 
         I18n.t('auction.notices.assumed')
         format.html { redirect_to auction_path(:id => @product.id) , :notice => text}
         format.json { head :no_content }
