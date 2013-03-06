@@ -116,6 +116,21 @@
   
 }
 
+/*
+ * In_image design fix
+ */
+span.in-image-collection {
+  position: absolute;top: 30px; left: 10px;
+}
+div.in-image-alt-collection {
+  position: absolute;bottom: 8px; left: 8px;
+  span {
+    margin:2px;
+  }
+}
+div.in-image-container-collection {
+  position: relative;
+}
 
 /*
  * Sales *Fix for including template from forms
@@ -124,4 +139,20 @@ form.template_select {
  .apply-step-inputs {
     margin-left: 0px;
   }
+}
+
+/*
+ *  boarder for collection actions
+ */
+.boarder-no-bottom{
+   border-bottom: 0px;
+   border-top: 1px solid darken(@wellBackground, 30%);
+   border-right: 1px solid darken(@wellBackground, 30%);
+   border-left: 1px solid darken(@wellBackground, 30%);
+}
+.boarder-no-top{
+   border-top: 0px;
+   border-bottom: 1px solid darken(@wellBackground, 30%);
+   border-right: 1px solid darken(@wellBackground, 30%);
+   border-left: 1px solid darken(@wellBackground, 30%);
 }
