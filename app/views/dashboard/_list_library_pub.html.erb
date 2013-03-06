@@ -1,13 +1,13 @@
 <!-- With no library name -->
 <%if @libraries.public.count == 0 %>
 	<div class="well">
-		<%= t('collection.no_library')%>
+		<%= t('library.no_library')%>
 	</div>
 <%else%>
 	<% @libraries.public.each do |lib| %>
-		<div class="box <%= "default-step" if @libraries.first == lib %>" id="<%= ("collection_"+lib.id.to_s)%>">
+		<div class="box <%= "default-step" if @libraries.first == lib %>" id="<%= ("library_"+lib.id.to_s)%>">
 			<div class="box-legend box-legend-without-border">
-				<a href="<%= ("#collection_"+lib.id.to_s)%>"> 
+				<a href="<%= ("#library_"+lib.id.to_s)%>"> 
 					<h3><%= lib.name%></h3> 
 				</a>
 			</div>
@@ -15,7 +15,7 @@
 				<div class="middle-margin-top">
 					<% if lib.library_elements.empty? %>
 						<div class="well">
-							<%= t('collection.no_products')%>
+							<%= t('library.no_products')%>
 						</div>
 					<%else%>
 						<ul class="thumbnails">

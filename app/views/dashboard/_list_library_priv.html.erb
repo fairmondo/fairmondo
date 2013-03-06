@@ -1,26 +1,26 @@
 <!-- With no library name -->
 <% @libraries.each do |lib| %>
-<div class="box <%= "default-step" if @libraries.first == lib %>" id="<%= ("collection_"+lib.id.to_s)%>">
+<div class="box" id="<%= ("library_"+lib.id.to_s)%>">
 	<div class="box-legend box-legend-without-border">
-		<a href="<%= ("#collection_"+lib.id.to_s)%>"> 
+		<a href="<%= ("#library_"+lib.id.to_s)%>"> 
 			<h3><%= lib.name%></h3> 
 		</a>
 	</div>
 	<div class="box-content padding-box">
 		<div class="middle-margin-top">
 			<div class="well">
-				<%= t('collection.privacy')%> 
+				<%= t('library.privacy')%> 
 				<% if lib.public %>
-					<strong><%= t('collection.public') %></strong>
-					(<%= link_to t('collection.action.private'), :controller => "dashboard", :action => "set_library_private", :id=>lib.id %>)
+					<strong><%= t('library.public') %></strong>
+					(<%= link_to t('library.action.private'), :controller => "dashboard", :action => "set_library_private", :id=>lib.id %>)
 				<%else%>
-					<strong><%= t('collection.private') %>	</strong>
-					(<%= link_to t('collection.action.public'), :controller => "dashboard", :action => "set_library_public", :id=>lib.id %>)
+					<strong><%= t('library.private') %>	</strong>
+					(<%= link_to t('library.action.public'), :controller => "dashboard", :action => "set_library_public", :id=>lib.id %>)
 				<%end%>
 			</div>
 			<% if lib.library_elements.empty? %>
 				<div class="well">
-					<%= t('collection.no_products')%>
+					<%= t('library.no_products')%>
 				</div>
 			<%else%>
 				<ul class="thumbnails">
@@ -28,14 +28,14 @@
 					<li class="span3">
 						<div class="thumbnail white" style="position: relative;">
 
-							<div class="in-image-container-collection">
+							<div class="in-image-container-library">
 															
 								<% html = glyphicons("icon-remove")%>
 								<%= link_to html.html_safe, {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"pull-right" %>
 							
 								<%= link_to image_tag(library_element.auction.title_image ? library_element.auction.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.auction %>
-								<%= features_label library_element.auction, "in-image-alt-collection"%>
-								<%= condition_label library_element.auction, "in-image-collection" %>
+								<%= features_label library_element.auction, "in-image-alt-library"%>
+								<%= condition_label library_element.auction, "in-image-library" %>
 							</div>
 	
 							<div class="caption">
@@ -43,7 +43,7 @@
 								<h5><%= humanized_money_with_symbol library_element.auction.price %></h5>
 							</div>
 						</div>
-						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label=> t('auction.actions.to-collection'),:element => library_element,:libraries => @libraries }%>
+						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label=> t('auction.actions.to-library'),:element => library_element,:libraries => @libraries }%>
 								
 					</li>
 					<%end%>

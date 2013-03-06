@@ -65,7 +65,7 @@
 				<div class="span12">
 					
 					<!--All Sellers-->
-					<div class="box default-step" id="content">
+					<div class="box" id="content">
 						<div class="box-legend box-legend-without-border">
 							<a href="#content">
 							<h3><%= t('formtastic.labels.auction.content')%></h3>
@@ -186,18 +186,18 @@
 				
 			</div>
 		</div>
-		<div class="box" id="collection">
+		<div class="box" id="library">
 			<div class="box-legend">
-				<a href="#collection"> 
-					<h6><%=t('auction.titles.collections')%> (<%= @collections.count%>)</h6>
+				<a href="#library"> 
+					<h6><%=t('auction.titles.libraries')%> (<%= @libraries.count%>)</h6>
 				</a>
 			</div>
 			<div class="box-content">
-				<% @collections.each do |lib| %>
+				<% @libraries.each do |lib| %>
 				<div class="well-column-small-padding">
 						<div class="row-fluid">
 							<div class="span8">
-								<%= link_to lib.name, :controller => "dashboard", :action=>"collection", :id=>lib.user.id, :anchor => "collection_"+lib.id.to_s %>
+								<%= link_to lib.name, :controller => "dashboard", :action=>"libraries", :id=>lib.user.id, :anchor => "library_"+lib.id.to_s %>
 								<p><%= t('common.text.from') + " " + lib.user.nickname%></p>
 							</div>
 							<div class="span4">
@@ -206,7 +206,7 @@
 						</div>
 						</div>
 				<%end%>			
-				<%= will_paginate @collections,:params => {:anchor => "collection" } %>		 
+				<%= will_paginate @libraries,:params => {:anchor => "library" } %>		 
 			</div>
 		</div>
 		
