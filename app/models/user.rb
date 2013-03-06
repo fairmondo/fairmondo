@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   after_create :addFfp
   after_create :getStandardLibrary
 
-  acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
   acts_as_followable
   acts_as_follower
 
