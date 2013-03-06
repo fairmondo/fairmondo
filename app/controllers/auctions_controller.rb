@@ -233,15 +233,20 @@ class AuctionsController < ApplicationController
     end
   end
 
-  def collect
+  def add_to_library
+    #@standard_library = current_user.getStandardLibrary
+    if !params["library_id"]
+      @library = current_user.getStandardLibrary
+    else
+      @library = Library.find params["library_id"]
+    end
     
-    @standard_library = current_user.getStandardLibrary
     @product = Auction.find params["id"]
-    lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @standard_library.id)
+    lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @library.id)
     if lib_element.save
       respond_to do |format|
         text = I18n.t('auction.notices.collect').html_safe +
-        (view_context.link_to @standard_library.name, :controller => "dashboard", :action=>"collection", :anchor => "collection_" + @standard_library.id.to_s) + 
+        (view_context.link_to @library.name, :controller => "dashboard", :action=>"collection", :anchor => "collection_" + @library.id.to_s) + 
         I18n.t('auction.notices.assumed')
         format.html { redirect_to auction_path(:id => @product.id) , :notice => text}
         format.json { head :no_content }
@@ -253,7 +258,6 @@ class AuctionsController < ApplicationController
         format.json { head :no_content }
       end
     end
-
   end
 
   private

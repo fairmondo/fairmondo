@@ -51,7 +51,11 @@
 					<%end%>
 					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>	
+
+					<% unless (!current_user) %>
+						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
+					<%end%>	
+					
 				</div>
 				<div class="span3 dark-gray-well break-word"> 
 				 	<strong><%= tinycms_content "auction-side-bar" %></strong>

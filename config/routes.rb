@@ -24,6 +24,7 @@ Fairnopoly::Application.routes.draw do
       post 'follow'
       post 'stop_follow'
       post 'collect'
+      post 'add_to_library'
     end
     collection do
 
