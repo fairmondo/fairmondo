@@ -6,12 +6,13 @@ describe AuctionsController do
 
   describe "GET 'index" do
     
-    describe "search" do
+    describe "search" , :search => true do
       
       before :each do
         setup_categories
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
         @auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) )
+         Sunspot.commit
       end
       
       it "should find the auction with title 'muscheln' when searching for muscheln" do
@@ -28,6 +29,7 @@ describe AuctionsController do
         before :each do
           @hardware_category = Category.find_by_name!("Hardware")
           @hardware_auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln 2", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
+           Sunspot.commit
         end
         
         it "should find the auction in category 'Hardware' when filtering for 'Hardware'" do
@@ -74,6 +76,7 @@ describe AuctionsController do
             
             before :each do
               @no_second_hand_auction = FactoryGirl.create(:no_second_hand_auction, :title => "muscheln 3", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id)) 
+               Sunspot.commit
             end
             
             it "should find all auctions with title 'muscheln' with empty condition and category filter" do

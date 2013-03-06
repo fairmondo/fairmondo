@@ -58,7 +58,9 @@ gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
 
 # Indexing /Searching
-gem 'acts_as_indexed'
+gem 'sunspot_rails'
+gem 'progress_bar'
+
 
 # Controller Gems
 gem 'devise'
@@ -124,6 +126,10 @@ group :development, :test do
   gem 'ZenTest'
   gem 'autotest-fsevent'
   gem 'simplecov'
+  
+  #solr gem
+  gem 'sunspot_solr'
+  gem "sunspot_test"
 end
 
 # To use ActiveModel has_secure_password
