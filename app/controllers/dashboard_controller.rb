@@ -59,32 +59,32 @@ class DashboardController < ApplicationController
     @auctions = @user.following_by_type('Auction').paginate(:page => params[:page] , :per_page=>12)
   end
 
-  def collection
+  def libraries
     get_user
     @libraries = @user.libraries
     
   end
   
   def new_library
-    name = t('collection.standard')
+    name = t('library.default')
     if params[:library_name]
      name = params[:library_name]
     end
     if !Library.exists? current_user.libraries.where(:name => name).first
       Library.create(:name => name,:public => false, :user_id => current_user.id)
     else
-      flash[:error] = t('collection.exist')
+      flash[:error] = t('library.exist')
     end
     respond_to do |format|
       @library = Library.find_by_name(name)
       if @library
         id = @library.id.to_s
       else
-        flash[:error] = t('collection.error')  
+        flash[:error] = t('library.error')  
         id = ""
       end
       
-      format.html { redirect_to url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+id}
+      format.html { redirect_to url_for :controller => "dashboard", :action => "libraries" ,:anchor => "library_"+id}
       format.json { head :no_content }
     end
   end
@@ -95,7 +95,7 @@ class DashboardController < ApplicationController
       @library = Library.find(params[:id])
       id = @library ? @library.id.to_s : ""
       respond_to do |format|
-        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+id}
+        format.html { redirect_to url_for :controller => "dashboard", :action => "libraries", :anchor => "library_"+id}
         format.json { head :no_content }
       end
     end
@@ -107,29 +107,29 @@ class DashboardController < ApplicationController
       @library = Library.find(params[:id])
       id = @library ? @library.id.to_s : ""
       respond_to do |format|
-        format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+id}
+        format.html { redirect_to url_for :controller => "dashboard", :action => "libraries", :anchor => "library_"+id}
         format.json { head :no_content }
       end
     end
   end
   
   def add_to_library
-    name = t('collection.standard')
+  
     if params[:id] && params[:library_id]
-      name = params[:library_name]
+      
       @library = Library.find(params[:library_id])
       @library_element = LibraryElement.find(params[:id])
       old_lib = @library_element.library
       if @library_element.update_attributes( :library_id => params[:library_id])
         respond_to do |format|
-          format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+old_lib.id.to_s}
+          format.html { redirect_to url_for :controller => "dashboard", :action => "libraries", :anchor => "library_"+old_lib.id.to_s}
           format.json { head :no_content }
         end
       else
         # if the lib_element is already in the library
-        flash[:error] = t('collection.already_in_collection')
+        flash[:error] = t('library.already_in_library')
         respond_to do |format|
-          format.html { redirect_to (url_for :controller => "dashboard", :action => "collection" ,:anchor => "collection_"+old_lib.id.to_s),:flash => { :error => I18n.t('auction.notices.collect_error')}}
+          format.html { redirect_to url_for(:controller => "dashboard", :action => "libraries" ,:anchor => ("library_"+old_lib.id.to_s)),:flash => { :error => I18n.t('auction.notices.collect_error')}}
           format.json { head :no_content }
         end
       end
@@ -143,7 +143,7 @@ class DashboardController < ApplicationController
       LibraryElement.delete(params[:id])
     end
     respond_to do |format|
-      format.html { redirect_to url_for :controller => "dashboard", :action => "collection", :anchor => "collection_"+library.id.to_s}
+      format.html { redirect_to url_for :controller => "dashboard", :action => "libraries", :anchor => "library_"+library.id.to_s}
       format.json { head :no_content }
     end
   end
