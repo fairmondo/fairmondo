@@ -1,0 +1,12 @@
+
+<table class='auction_templates_list'>
+  <tr>
+    <th><%= t('formtastic.labels.auction_template.name')%></th>
+    <th><%= t('formtastic.labels.auction.title')%></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+  <%= render :partial => "auction_templates/table_entry", :collection => @auction_templates, :as => :auction_template %>
+</table>

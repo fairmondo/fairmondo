@@ -51,7 +51,11 @@
 					<%end%>
 					
 					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
-					<%= render :partial => 'shared/collect' , :locals => { :object => @auction }%>	
+
+					<% unless (!current_user) %>
+						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
+					<%end%>	
+					
 				</div>
 				<div class="span3 dark-gray-well break-word"> 
 				 	<strong><%= tinycms_content "auction-side-bar" %></strong>
@@ -61,7 +65,7 @@
 				<div class="span12">
 					
 					<!--All Sellers-->
-					<div class="box" id="content">
+					<div class="box default-step" id="content">
 						<div class="box-legend box-legend-without-border">
 							<a href="#content">
 							<h3><%= t('formtastic.labels.auction.content')%></h3>
@@ -91,16 +95,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="box" id="honor">		
-						<div class="box-legend box-legend-without-border">
-							<a href="#honor">
-							<h3><%=  t('formtastic.labels.auction.honor')%></h3>
-							</a>
+					<% if @auction.fair || @auction.ecologic || @auction.small_and_precious %>
+						<div class="box" id="honor">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#honor">
+								<h3><%=  t('formtastic.labels.auction.honor')%></h3>
+								</a>
+							</div>
+							<div class="box-content padding-clap-box">
+								<%=render 'show_commendation'%>
+							</div>
 						</div>
-						<div class="box-content padding-clap-box">
-							<%=render 'show_commendation'%>
-						</div>
-					</div>
+					<% end %>
 					
 					<!--Only legal sellers-->
 					<%if @auction.seller.legal_entity %>

@@ -9,7 +9,6 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   
   validates_presence_of :minimum_wage    
   validates_presence_of :minimum_wage_explanation
-  validates_presence_of :child_labor
   validates_presence_of :child_labor_explanation, :if => :child_labor?
   
   validates_presence_of :sexual_equality 

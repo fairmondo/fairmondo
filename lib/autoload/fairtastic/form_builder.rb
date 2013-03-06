@@ -22,6 +22,18 @@ module Fairtastic
       :class => "questionnaire-entry"
       )
     end
+         
+    def nested_inputs_for(association_name, options = {}, &block)
+      title = options[:name]
+      title = localized_string(association_name, object, nil) if title == true
+      title ||= ""
+      
+      tooltip = optional_tooltip_html(association_name, options)
+      tooltip = template.content_tag(:span, tooltip) if tooltip.present?
+      
+      title = template.content_tag(:h4, (title << tooltip).html_safe, :class => "questionnaire-entry")
+      title.html_safe << semantic_fields_for(association_name, options, &block)
+    end
 
     private
 

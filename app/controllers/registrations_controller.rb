@@ -22,13 +22,22 @@
   
   def update
 
- 
-    @user = User.find(current_user.id)
-    @user = @user.becomes(@user.legal_entity ? LegalEntity : PrivateUser)
+    @user_ = User.find(current_user.id)
+    @user = @user_.becomes(@user_.legal_entity ? LegalEntity : PrivateUser)
 
      successfully_updated = if needs_password?(@user, params)
        
-        @user.update_with_password(params[:user])
+       # Workaround
+       # the LegalEntity.update_with_password does not work ??
+       # see: https://github.com/plataformatec/devise/blob/master/lib/devise/models/database_authenticatable.rb
+       # http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
+       # http://stackoverflow.com/questions/14492180/validation-error-on-update-attributes-of-a-subclass-sti
+       
+        if @user_.update_with_password(params[:user])
+          @user.update_without_password(params[:user])
+        else
+          false
+        end
         
      else
         # remove the virtual current_password attribute update_without_password

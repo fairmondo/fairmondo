@@ -302,6 +302,13 @@ describe AuctionsController do
           post :create, :auction => @auction_attrs
         end.should change(Auction, :count).by(1)
       end
+      
+      it "should not raise an error for very high quantity values" do
+        post :create, :auction => @auction_attrs.merge(:quantity => "100000000000000000000000")
+        response.should render_template :new
+        response.response_code.should == 200
+      end
+      
     end
   end
 
