@@ -43,7 +43,7 @@
 								<h5><%= humanized_money_with_symbol library_element.auction.price %></h5>
 							</div>
 						</div>
-						<%= render :partial => '/shared/add_to_library' , :locals => {:library_element => library_element,:libraries => @libraries }%>
+						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label=> t('auction.actions.to-collection'),:element => library_element,:libraries => @libraries }%>
 								
 					</li>
 					<%end%>

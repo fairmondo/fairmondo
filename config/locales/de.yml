@@ -496,7 +496,7 @@ de:
       create: "Artikel wurde erfolgreich eingestellt."
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      collect: "Produkt wurde in die "
+      collect: "Artikel wurde in "
       assumed: " übernommen"
       collect_error: "Das Produkt ist schon in deiner Sammlung."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
