@@ -26,20 +26,25 @@
 				<ul class="thumbnails">
 					<% lib.library_elements.each do |library_element| %>
 					<li class="span3">
-						<%= render :partial => '/shared/add_to_library' , :locals => {:library_element => library_element,:libraries => @libraries }%>
-						<div class="thumbnail" style="position: relative;">
-							<%= condition_label library_element.auction, "in-image" %>
-							<% if library_element.auction.title_image%>
-								<%= link_to image_tag(library_element.auction.title_image.image.url(:thumb), :size=> "260x180"), library_element.auction %>
-							<%else%>
-								<%= link_to image_tag("http://placehold.it/260x180" ,:size=> "260x180"), library_element.auction %>
-							<%end%>
+						<div class="thumbnail white" style="position: relative;">
+
+							<div class="in-image-container-collection">
+															
+								<% html = glyphicons("icon-remove")%>
+								<%= link_to html.html_safe, {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"pull-right" %>
+							
+								<%= link_to image_tag(library_element.auction.title_image ? library_element.auction.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.auction %>
+								<%= features_label library_element.auction, "in-image-alt-collection"%>
+								<%= condition_label library_element.auction, "in-image-collection" %>
+							</div>
+	
 							<div class="caption">
 								<h5><%= link_to truncate(library_element.auction.title, :length => 25), library_element.auction %></h5>
 								<h5><%= humanized_money_with_symbol library_element.auction.price %></h5>
 							</div>
 						</div>
-						<%= link_to t('collection.element.delete'), {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"btn btn-fill" %>		
+						<%= render :partial => '/shared/add_to_library' , :locals => {:library_element => library_element,:libraries => @libraries }%>
+								
 					</li>
 					<%end%>
 				</ul>
