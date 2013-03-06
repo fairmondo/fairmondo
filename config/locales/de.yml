@@ -392,12 +392,14 @@ de:
       update: "Änderungen speichern"
       template_select:
         submit: "Vorlage übernehmen"
+      # Login 
+      login: "Login"
+      
 # boxes 
   boxes:
     dashboard:
       my_auction_templates: Meine Vorlagen
-# Login 
-      login: "Login"
+
 # User Model/Controller
   user:
     banned: "Das Benutzerkonto muss zuerst von einem Administrator freigeschalten werden!"
