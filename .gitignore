@@ -15,6 +15,7 @@ public/system
 
 # Ignore all logfiles and tempfiles
 /log/*.log
+/log/*.log.lck
 /tmp
 # Gemfile.lock -> ER error without it
 
@@ -27,3 +28,7 @@ coverage
 
 #api keys
 config/api.yml
+
+#Solr Development
+solr/data/**/*
+solr/pids/**/*
