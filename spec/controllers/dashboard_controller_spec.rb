@@ -42,6 +42,19 @@ describe DashboardController do
         get :index, :id => @user
         response.should be_success
       end
+      
+      context "my auction templates" do 
+        before :each do
+          @auction_template = FactoryGirl.create(:auction_template, :user => @user)
+        end
+    
+        it "assigns all auction_templates as @auction_templates" do
+          get :index, {}
+          assigns(:auction_templates).should eq([@auction_template])
+        end
+      end
+      
+      
     end
   end
 

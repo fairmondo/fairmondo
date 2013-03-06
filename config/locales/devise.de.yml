@@ -23,27 +23,27 @@ de:
       signed_in: 'Erfolgreich angemeldet.'
       signed_out: 'Erfolgreich abgemeldet.'
     passwords:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
+      send_instructions: 'Du erhältst in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
       updated_not_active: 'Dein Passwort wurde geändert.'
-      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst."
+      send_paranoid_instructions: "Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst."
     confirmations:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst.'
-      send_paranoid_instructions: 'Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
+      send_instructions: 'Du erhältst in wenigen Minuten eine Email, mit der Du Deine Registrierung bestätigen kannst.'
+      send_paranoid_instructions: 'Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
       confirmed: 'Wir begrüßen Dich herzlich bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen! Bevor Du auf dem Marktplatz handeln kannst, benötigen wir weitere persönliche Daten von Dir wie Deine Adresse. 
       Diese kannst Du in Deinem Profil eintragen.'
     registrations:
       signed_up: 'Du hast Dich erfolgreich registriert.'
-      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit einer Anleitung, wie Du Deinen Account freischalten kannst.'
+      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine Email mit einer Anleitung, wie Du Deinen Account freischalten kannst.'
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
       signed_up_but_locked: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account gesperrt ist.'
       updated: 'Deine Daten wurden aktualisiert.'
-      update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue E-Mail-Adresse bestätigen. Du erhältst in wenigen Minuten eine E-Mail, mit der Du die Änderung Deiner E-Mail-Adresse abschließen kannst."
+      update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue Emailadresse bestätigen. Du erhältst in wenigen Minuten eine Email, mit der Du die Änderung Deiner Emailadresse abschließen kannst."
       destroyed: 'Dein Account wurde gelöscht.'
     unlocks:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst.'
+      send_instructions: 'Du erhältst in wenigen Minuten eine Email mit der Anleitung, wie Du Deinen Account entsperren kannst.'
       unlocked: 'Dein Account wurde entsperrt. Du bist jetzt angemeldet.'
-      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst."
+      send_paranoid_instructions: "Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit der Anleitung, wie Du Deinen Account entsperren kannst."
     omniauth_callbacks:
       success: 'Du hast Dich erfolgreich mit Deinem %{kind}-Account angemeldet.'
       failure: 'Du konntest nicht mit Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'

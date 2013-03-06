@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
   
+  validates_inclusion_of :legal_entity, :in => [true, false]
+  
   # validates
   validates_presence_of :forename , :on => :update
   validates_presence_of :surname , :on => :update

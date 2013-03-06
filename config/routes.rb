@@ -1,6 +1,6 @@
 Fairnopoly::Application.routes.draw do
   
-  resources :auction_templates, :except => [:show]
+  resources :auction_templates, :except => [:show, :index]
 
   mount Tinycms::Engine => "/cms"
 
@@ -24,6 +24,7 @@ Fairnopoly::Application.routes.draw do
       post 'follow'
       post 'stop_follow'
       post 'collect'
+      post 'add_to_library'
     end
     collection do
 

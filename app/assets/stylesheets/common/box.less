@@ -44,10 +44,8 @@
       padding-bottom: 15px;
     }
     
-    a.input-tooltip:hover {
-      span{
-        top: 50px;
-      }
+    a.input-tooltip:hover span, a.input-tooltip.open-tooltip span{
+      top: 50px !important;
     }
     
     -webkit-transition:all 1.0s ease-in-out;
@@ -78,6 +76,9 @@
       color: #666666;
     }
   }
+}
+
+.box:not(:target):not(.error-box) {
   
   // alternative to display: none - fixes chrome rendering issues for #165
   .box-content {
@@ -113,19 +114,17 @@
 
 // Error Ledgends
 
-.error-box:not(:target) { 
-    .box-legend {
-      
-      a:link, a:visited, a:hover, a:active {
-        color: @fairnopolyRed !important;
-      }
+.error-box:not(:target), .error-box-visited:not(:target){ 
+  .box-legend {
+    
+    a:link, a:visited, a:hover, a:active {
+      color: @fairnopolyRed !important;
     }
   }
-  
-  
-.error-box:target { 
-    .box-legend {
-       background-color: @fairnopolyRed;
-     
-    }
+}
+
+.error-box:target, .error-box-visited:target { 
+  .box-legend {
+     background-color: @fairnopolyRed;
   }
+}

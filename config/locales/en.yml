@@ -112,6 +112,7 @@ en:
         agecheck: "I am at least 18 years old."
         privacy: "accept data privacy agreement"
         legal: "accept TOS agreement"
+        password: "Password"
 # Login 
     actions:
       login: "Login"

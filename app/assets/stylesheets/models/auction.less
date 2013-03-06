@@ -10,64 +10,19 @@
     width: 100% !important;
     height: 150px;
   }
-  
- 
-  
-  .box-content {
-    input[type='submit'] {
-      padding: 5px;
-      background: @fairnopolyGreen;
-      color: #FFFFFF;
-      white-space:normal;
-      line-height: 100%;
-    }
-  }
-  
-  // TODO 
-  // * make this a api-class, e.g. 'fieldset2' or 'horizontal-fieldset' or mixin 
-  // * decide whether to use fieldsets or divs (apply-step-inputs is a fieldset)
-  // * if responsivity counts, consider to remove negative margin from bootstrap, adopt styles  
-  
-  .friendly_percent-user-inputs, .auction_template-user-inputs, .apply-step-inputs {
-    .makeRow();
-    .control-group {
-      .makeColumn(2);
-      width: 45%;
-      .controls {
-        display: inline-block;
-        margin-left: 0px;
-      }
-      
-      .control-label {
-        margin-right: 20px;
-      }
-      
-      // fix for bootstrap default
-      .radio input[type="radio"],
-      .checkbox input[type="checkbox"] {
-        margin-left: 0px;
-      }
-    }
-  }
-  
-  .apply-step-inputs {
-    margin-left: 0px;
-  }
-  
 }
 
-
-// fix for formtastic_bootstrap's label-control layout that 
-// is not properly responsive to resizing  
-#template_select_auction_template_input {
-  .controls {
-    display: inline-block !important;
-    margin-left: 10px !important;
+#auction_form_container .box-content, .apply-step-inputs, #new_auction_template {
+  input[type='submit'] {
+    padding: 5px;
+    background: @fairnopolyGreen;
+    color: #FFFFFF;
+    white-space:normal;
+    line-height: 100%;
   }
 }
 
-
-#double_check_step {
+#double_check_step, #new_auction_template {
   .form-actions {
     padding-left: 20px;
     text-align: center;    
@@ -76,6 +31,42 @@
       font-size: 26px;
       margin: auto;
     }
+  }
+}
+
+// TODO 
+// * make this a api-class, e.g. 'fieldset2' or 'horizontal-fieldset' or mixin 
+// * decide whether to use fieldsets or divs (apply-step-inputs is a fieldset)
+// * if responsivity counts, consider to remove negative margin from bootstrap, adopt styles  
+
+.friendly_percent-user-inputs, .auction_template-user-inputs, .template_select-user-inputs {
+  .makeRow();
+  .control-group {
+    .makeColumn(2);
+    width: 45%;
+    .controls {
+      display: inline-block;
+      margin-left: 0px;
+    }
+    
+    .control-label {
+      margin-right: 20px;
+    }
+    
+    // fix for bootstrap default
+    .radio input[type="radio"],
+    .checkbox input[type="checkbox"] {
+      margin-left: 0px;
+    }
+  }
+}
+
+// fix for formtastic_bootstrap's label-control layout that 
+// is not properly responsive to resizing  
+#template_select_auction_template_input {
+  .controls {
+    display: inline-block !important;
+    margin-left: 10px !important;
   }
 }
 

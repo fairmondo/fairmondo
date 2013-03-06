@@ -3,7 +3,7 @@ class Auction < ActiveRecord::Base
   
   AUCTION_FEES = {
     :min => 0.1,
-    :max => 30.0,
+    :max => 35.0,
     :fair => 0.03,
     :default => 0.06
   }
@@ -164,7 +164,7 @@ class Auction < ActiveRecord::Base
   enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
   validates_length_of :size, :maximum => 4
   validates_presence_of :quantity
-  validates_numericality_of :quantity, :greater_than_or_equal_to => 1
+  validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     
   # Note: currency is deprecated for the moment.
   enumerize :price_currency, :in => [:EUR]
@@ -265,6 +265,20 @@ class Auction < ActiveRecord::Base
     category_ids = category_ids.select(&:present?).map(&:to_i)
     # passing and array, rails uses 'IN'-operator instead of '=' 
     with_exact_category_id(category_ids)
+  }
+  
+  scope :with_commendation, lambda { |*commendations|
+    return scoped unless commendations.present?
+    auction_table = self.arel_table
+    arel_condition = nil
+    commendations.each do |commendation|
+      if arel_condition
+        arel_condition = arel_condition.or(auction_table[commendation].eq(true))
+      else
+        arel_condition = auction_table[commendation].eq(true)
+      end
+    end
+    where(arel_condition)
   }
   
   # for convenience, these methods remove all redundant ancesors from the passed collection

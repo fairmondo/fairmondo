@@ -1,9 +1,11 @@
 <div class="container">
- 	<div class="row">
- 		
-	 	<div class="span12">
-			<%= render "/shared/search_form"%>
-	  	</div>
-	  
-  	</div>
- </div>
+  <div class="row">
+
+    <div class="span12">
+      <%= semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|  %>
+        <%= render "/shared/search_form"%>
+      <% end %>
+    </div>
+
+  </div>
+</div>
