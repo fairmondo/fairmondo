@@ -67,8 +67,8 @@ Fairnopoly::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin"
 
   ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings  = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))))
-
- 
+  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml'))))
+  # Convert keys to Symbols
+  ActionMailer::Base.smtp_settings.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
   
 end
