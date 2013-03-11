@@ -16,6 +16,7 @@ de:
       unconfirmed: 'Du musst Deinen Account bestätigen, bevor Du fortfahren kannst.'
       locked: 'Dein Account ist gesperrt.'
       invalid: 'Ungültige Anmeldedaten.'
+      not_found_in_database:  'Ungültige Anmeldedaten.'
       invalid_token: 'Der Anmelde-Token ist ungültig.'
       timeout: 'Deine Sitzung ist abgelaufen, bitte melde Dich erneut an.'
       inactive: 'Dein Account ist nicht aktiv.'
