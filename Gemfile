@@ -121,7 +121,7 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'ZenTest'
+  gem "ZenTest", "~> 4.9.0"
   gem 'autotest-fsevent'
   gem 'simplecov'
 end
