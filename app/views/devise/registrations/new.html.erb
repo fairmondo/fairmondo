@@ -53,8 +53,8 @@
 		<% end %>
 		<div class="element-in-box">
 			
-			<% legal_link = link_to t('formtastic.labels.user.legal'), "/agb"%> 
-			<% privacy_link = link_to t('formtastic.labels.user.privacy'), "/privacy"%>
+			<% legal_link = link_to t('formtastic.labels.user.legal'), "/agb", :target => "_blank"%> 
+			<% privacy_link = link_to t('formtastic.labels.user.privacy'), "/privacy", :target => "_blank"%>
 			
 			<%= f.input :agecheck,  :as => :plain_check_box, :required => true%>
 			<%= f.input :legal,  :as => :plain_check_box,:required => true , :label => t("common.text.i_accept_the").html_safe + legal_link%>

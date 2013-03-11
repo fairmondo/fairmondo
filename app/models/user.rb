@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   after_create :addFfp
-  after_create :getStandardLibrary
+  after_create :create_default_library
 
+  acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
   acts_as_followable
   acts_as_follower
 
@@ -72,13 +73,7 @@ class User < ActiveRecord::Base
       Ffp.create(:price => 100, :user_id => self.id, :activated => true)
     end
   end
-  
-  def getStandardLibrary
-    if !Library.exists? self.libraries.where(:name => I18n.t('collection.standard')).first
-      Library.create(:name => I18n.t('collection.standard'),:public => false, :user_id => self.id)
-    end
-    self.libraries.where(:name => I18n.t('collection.standard')).first
-  end
+    
   
   def legal_entity_terms_ok
       if( self.valid?)
@@ -88,11 +83,19 @@ class User < ActiveRecord::Base
       end
   end
 
-
 #def set_default
 #if !self.admin && self.banned != false
 # self.banned = true
 #end
 #end
+
+  private 
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)
+    end
+  end
+
+
 
 end

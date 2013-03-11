@@ -5,7 +5,7 @@ Fairnopoly::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -50,7 +50,7 @@ Fairnopoly::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'beta.fairnopoly.de' }
+  config.action_mailer.default_url_options = { :host => 'development.fairnopoly.de' }
   # Enable threaded mode
   # config.threadsafe!
 
@@ -66,7 +66,9 @@ Fairnopoly::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
 
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
-
+  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml'))))
+  ActionMailer::Base.smtp_settings[:openssl_verify_mode] = false
+  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
+  
+  
 end

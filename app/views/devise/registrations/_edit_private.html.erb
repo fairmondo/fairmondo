@@ -23,18 +23,24 @@
 	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
 	<%= f.input :surname,:required => true, :label=> t('devise.edit_profile.surname')%>
 
-	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
-	<%= f.input :email, :required => true, :label=> t('devise.edit_profile.mail') %>
 </div>
 
 <div class="element-in-box">
 
 	<p>
-		<h3><%= t('devise.edit_profile.password')%></h3>
+		<h3><%= t('devise.edit_profile.login_data')%></h3>
 	</p>
+	
+	<span class="pull-right"><%= current_user.legal_entity ? t('devise.edit_profile.public') : t('devise.edit_profile.private')%></span>
+	<%= f.input :email, :required => true, :label=> t('devise.edit_profile.mail') %>
+	
 	<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
 	<%= f.input :password,  :label=> t('devise.edit_profile.password'), :input_html => { :autocomplete => "off" } %>
+	<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
 	<%= f.input :password_confirmation, :label=> t('devise.edit_profile.password_confirmation')  %>
+	<span class="pull-right"><%= t('devise.edit_profile.private')%></span>
+	<%= f.input :current_password, :label=>t('devise.edit_profile.current_password'), :hint => t('devise.edit_profile.current_password_hint')%>
+				
 </div>
 
 <div class="element-in-box">
