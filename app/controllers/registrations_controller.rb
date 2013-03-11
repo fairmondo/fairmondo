@@ -32,8 +32,11 @@
        # see: https://github.com/plataformatec/devise/blob/master/lib/devise/models/database_authenticatable.rb
        # http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
        # http://stackoverflow.com/questions/14492180/validation-error-on-update-attributes-of-a-subclass-sti
-       
+        params_email = params[:user][:email]
         if @user_.update_with_password(params[:user])
+
+          # for workaround, else email is send 2 times
+          params[:user].delete("email")
           @user.update_without_password(params[:user])
         else
           false
@@ -50,7 +53,14 @@
      end
 
     if successfully_updated
-      set_flash_message :notice, :updated
+      
+      #show message for reconfirmable if email was changed
+      if @user.email != params_email
+        set_flash_message :notice, :changed_email
+      else
+        set_flash_message :notice, :updated
+      end
+      
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
       redirect_to dashboard_path(@user)

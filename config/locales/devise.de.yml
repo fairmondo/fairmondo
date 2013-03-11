@@ -33,6 +33,7 @@ de:
       confirmed: 'Wir begrüßen Dich herzlich bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen! Bevor Du auf dem Marktplatz handeln kannst, benötigen wir weitere persönliche Daten von Dir wie Deine Adresse. 
       Diese kannst Du in Deinem Profil eintragen.'
     registrations:
+      changed_email: "Du erhältst in Kürze eine Email um deine Email Adressänderung zu betstätigen. Deine Änderung wird erst nach deiner Bestätigung wirksam."
       signed_up: 'Du hast Dich erfolgreich registriert.'
       signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine Email mit einer Anleitung, wie Du Deinen Account freischalten kannst.'
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
