@@ -1,4 +1,15 @@
 <div class="row">
+
+	<div class="span12">
+		<% @auction.categories.each do |leaf| %>
+			<ul class="breadcrumb">
+				<% get_category_tree(@auction,leaf).each do |category| %>
+					<li><a href="<%= auctions_path%>"><%= category.name%></a> <span class="divider">/</span></li>
+				<%end%>
+		    </ul>
+	    <% end %>
+	</div>
+	
 	<div class="span9">
 		<div class="well">
 			
