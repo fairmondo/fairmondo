@@ -54,4 +54,20 @@ module AuctionsHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
   
+  def get_category_tree auction, leaf_category
+    tree = []
+    cat = leaf_category
+    tree.unshift(cat)
+    
+    while parent_cat = parent_category(cat)
+      tree.unshift(parent_cat)
+      cat = parent_cat
+    end
+    return tree
+  end
+  
+  def parent_category cat
+    Category.where(:id => cat.parent_id).first
+  end
+  
 end
