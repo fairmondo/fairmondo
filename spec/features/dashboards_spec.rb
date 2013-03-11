@@ -77,7 +77,7 @@ describe 'Dashboard' do
 
     it 'Admin link shows the Admin page' do
       click_link 'Admin'
-      page.should have_selector('h2', :content => 'Admin')
+      page.should have_selector('#active_admin_content')
     end
   end
 end
