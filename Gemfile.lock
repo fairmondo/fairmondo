@@ -10,7 +10,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.8.2)
+    ZenTest (4.9.0)
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
       mail (~> 2.4.4)
@@ -309,7 +309,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ZenTest
+  ZenTest (~> 4.9.0)
   activeadmin
   activerecord-jdbc-adapter (= 1.2.2)
   activerecord-jdbcpostgresql-adapter
