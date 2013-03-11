@@ -49,7 +49,7 @@ Fairnopoly::Application.routes.draw do
   get 'dashboard/profile'
   get 'dashboard/edit_profile'
   get 'dashboard/sales' 
-  get 'dashboard/collection'
+  get 'dashboard/libraries'
   post 'dashboard/add_to_library'
   post 'dashboard/new_library'
   get 'dashboard/delete_library_element'

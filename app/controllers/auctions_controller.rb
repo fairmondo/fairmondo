@@ -1,3 +1,6 @@
+# refs https://github.com/dougal/acts_as_indexed/issues/23
+require "will_paginate_search"
+
 
 class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true
@@ -15,22 +18,33 @@ class AuctionsController < ApplicationController
   # GET /auctions.csv
   def index
     @search_cache = Auction.new(params[:auction])
-
-    query = @search_cache
-    search = Sunspot.search(Auction) do
-      fulltext query.title
-      paginate :page => params[:page], :per_page=>12
-      with :fair, true if query.fair
-      with :ecologic, true if query.ecologic
-      with :small_and_precious, true if query.small_and_precious
-      with :condition, query.condition if query.condition
-      with :category_ids, Auction.search_categories(query.categories) if query.categories.present?
-
-    end
-    @auctions = search.results
-  
+    scope = Auction.with_user_id
     
-   
+    if params[:auction]
+      # condition
+      if params[:auction][:condition].present?  
+        scope = scope.where(:condition => params[:auction][:condition])
+      end
+      # fair filters
+      commendations = [:fair, :ecologic, :small_and_precious].select {|c| @search_cache.send(c) }
+      scope = scope.with_commendation(*commendations) if commendations.present?
+      # categories
+      if @search_cache.categories.present?
+        scope = scope.with_categories_or_descendants(@search_cache.categories)
+      end
+      if params[:auction][:title].present?
+        query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
+        search_params = {:per_page => 12} 
+        search_params[:page] = params[:page] || 1
+        # we cannot use the relevance search as its pagination does not takes
+        # the scopes from before (category, condition) in count
+        # @auctions = scope.paginate_search(query, search_params)
+        scope = scope.with_query(query) 
+      end
+    end
+    
+    @auctions = scope.paginate :page => params[:page], :per_page=>12
+ 
     respond_to do |format|
       format.html # index.html.erb
       format.csv { render text: @auctions.to_csv }
@@ -44,7 +58,7 @@ class AuctionsController < ApplicationController
     @search_cache = Auction.new(params[:auction])
     @auction = Auction.find(params[:id])
 
-    @collections = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
+    @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
     #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
     @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
 
@@ -220,19 +234,14 @@ class AuctionsController < ApplicationController
   end
 
   def add_to_library
-    #@standard_library = current_user.getStandardLibrary
-    if !params["library_id"]
-      @library = current_user.getStandardLibrary
-    else
-      @library = Library.find params["library_id"]
-    end
-    
+    @library = Library.find params["library_id"]
+
     @product = Auction.find params["id"]
     lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @library.id)
     if lib_element.save
       respond_to do |format|
         text = I18n.t('auction.notices.collect').html_safe +
-        (view_context.link_to @library.name, :controller => "dashboard", :action=>"collection", :anchor => "collection_" + @library.id.to_s) + 
+        (view_context.link_to @library.name, :controller => "dashboard", :action=>"libraries", :anchor => "library_" + @library.id.to_s) + 
         I18n.t('auction.notices.assumed')
         format.html { redirect_to auction_path(:id => @product.id) , :notice => text}
         format.json { head :no_content }
