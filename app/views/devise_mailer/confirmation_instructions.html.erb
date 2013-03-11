@@ -1,8 +1,11 @@
+
 <p><%= t('common.text.hello')%> <%= @resource.email %>!</p>
 
-<p><%= t('user.confirmation.text')%></p>
+<p><%= t('user.confirmation.email.text')%></p>
 
-<p><%= link_to t('user.confirmation.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to t('user.confirmation.email.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p><%= t('user.confirmation.email.info') %></p>
 
 <p><%= t('user.confirmation.ignoremail')%></p>
 
