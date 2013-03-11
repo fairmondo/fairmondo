@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -44,6 +44,7 @@ gem 'less-rails';
 #gem 'less-rails-bootstrap'
 #gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
+gem 'selectivizr-rails'
 
 # JS
 gem 'rails3-jquery-autocomplete'
@@ -53,7 +54,7 @@ gem 'jquery-rails'
 
 # Tool Libs
 
-gem 'json'
+gem 'json' 
 gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
 
