@@ -8,8 +8,6 @@ class DeviseMailer < Devise::Mailer
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
     attachments['Testphasenregelung_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Testphasenregelung_Fairnopoly_FINAL.pdf'))
     
-    devise_mail(record, :confirmation_instructions)
-    
   end
 
 end
