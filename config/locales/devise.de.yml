@@ -50,6 +50,8 @@ de:
       success: 'Du hast Dich erfolgreich mit Deinem %{kind}-Account angemeldet.'
       failure: 'Du konntest nicht mit Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
     mailer:
+      welcome_mail:
+        subject: 'Fairnopoly - Anleitung zur Bestätigung Deines Accounts'
       confirmation_instructions:
         subject: 'Fairnopoly - Anleitung zur Bestätigung Deines Accounts'
       reset_password_instructions:
