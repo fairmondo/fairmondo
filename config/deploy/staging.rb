@@ -15,6 +15,11 @@ namespace :solr do
   task :stop, :roles => :app, :except => { :no_release => true } do 
     run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop"
   end
+  desc "restart solr"
+  task :restart, :roles => :app, :except => { :no_release => true } do 
+    stop
+    start
+  end
   desc "reindex the whole database"
   task :reindex, :roles => :app do
     stop
@@ -24,3 +29,8 @@ namespace :solr do
   end
 end   
  
+#Sunspot Hooks
+after "deploy:stop",    "solr:stop"
+after "deploy:start",   "solr:start"
+after "deploy:restart", "solr:restart"
+

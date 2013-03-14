@@ -18,6 +18,15 @@ class Auction < ActiveRecord::Base
     integer :category_ids, :references => Category, :multiple => true
   end
   
+  # Indexing via Delayed Job Daemon
+  handle_asynchronously :solr_index, queue: 'indexing', priority: 50
+  handle_asynchronously :solr_index!, queue: 'indexing', priority: 50
+
+  def remove_from_index_with_delayed
+    Delayed::Job.enqueue RemoveIndexJob.new(record_class: self.class.to_s, attributes: self.attributes), queue: 'indexing', priority: 50
+  end
+  alias_method_chain :remove_from_index, :delayed
+  
   # refs #128
   default_scope where(:auction_template_id => nil)
 

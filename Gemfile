@@ -62,6 +62,11 @@ gem 'will_paginate', '~> 3.0'
 gem 'sunspot_rails'
 gem 'progress_bar'
 
+# Delayed_Jobs & Daemons
+gem "daemons"
+gem 'delayed_job_active_record'
+
+
 # Controller Gems
 gem 'devise'
 #Captcha Gem
