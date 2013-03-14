@@ -40,12 +40,7 @@ class DashboardController < ApplicationController
 
   def search_users
     get_user
-    if params["q"] && !params["q"].blank?
-      @users = User.with_query(params["q"]).paginate( :page => params[:page], :per_page=>12)
-    else
-      @users = User.paginate :page => params[:page], :per_page=>12
-    end
-
+    @users = User.paginate :page => params[:page], :per_page=>12
   end
 
   def list_followers
