@@ -28,12 +28,18 @@ class AuctionsController < ApplicationController
 
     end
     @auctions = search.results
- 
+  # Sunspot Failure
     respond_to do |format|
       format.html # index.html.erb
       format.csv { render text: @auctions.to_csv }
       format.json { render :json => @auctions }
     end
+  rescue Errno::ECONNREFUSED 
+    redirect_to :action=>'sunspot_failure'
+  end
+
+  def sunspot_failure
+    @auctions = Auction.paginate :page => params[:page], :per_page=>12
   end
 
   # GET /auctions/1

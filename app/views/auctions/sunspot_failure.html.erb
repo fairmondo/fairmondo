@@ -1,0 +1,8 @@
+<%if @auctions.empty?%>
+	<div class="well">
+		<h3><%= t("common.text.no_search_result")%></h3>
+		<%= t("common.text.no_search_result_text")%>
+	</div>
+<%else%>
+	<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :paginate => true, :list_class=>"span3"} %>
+<%end%>

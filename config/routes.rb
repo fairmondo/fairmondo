@@ -27,7 +27,7 @@ Fairnopoly::Application.routes.draw do
       post 'add_to_library'
     end
     collection do
-
+      get 'sunspot_failure'
     end
   end
 
