@@ -76,24 +76,7 @@ namespace :deploy do
 
 end
 
-namespace :solr do  
-  desc "start solr"
-  task :start, :roles => :app, :except => { :no_release => true } do 
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start"
-  end
-  desc "stop solr"
-  task :stop, :roles => :app, :except => { :no_release => true } do 
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop"
-  end
-  desc "reindex the whole database"
-  task :reindex, :roles => :app do
-    stop
-    run "rm -rf #{shared_path}/solr/data"
-    start
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:reindex"
-  end
-end   
- 
+
   
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"

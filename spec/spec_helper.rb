@@ -13,6 +13,8 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require Rails.root.join('db/fixtures/category_seed_data.rb')
 
+require 'sunspot_test/rspec' # for starting the solr engine
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
