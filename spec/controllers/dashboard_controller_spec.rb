@@ -104,10 +104,7 @@ describe DashboardController do
         response.should be_success
       end
 
-      it "should be successful" do
-        get :search_users, :q => @user
-        response.should be_success
-      end
+     
     end
   end
 

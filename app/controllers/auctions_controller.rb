@@ -1,6 +1,3 @@
-# refs https://github.com/dougal/acts_as_indexed/issues/23
-require "will_paginate_search"
-
 
 class AuctionsController < ApplicationController
   autocomplete :auction, :title, :full => true

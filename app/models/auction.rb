@@ -8,6 +8,16 @@ class Auction < ActiveRecord::Base
     :default => 0.06
   }
   
+  searchable :unless => :template? do
+    text :title, :boost => 5.0
+    text :content
+    boolean :fair
+    boolean :ecologic
+    boolean :small_and_precious
+    string :condition
+    integer :category_ids, :references => Category, :multiple => true
+  end
+  
   # refs #128
   default_scope where(:auction_template_id => nil)
 
@@ -147,9 +157,7 @@ class Auction < ActiveRecord::Base
 
   attr_accessor :category_proposal
   
-  acts_as_indexed :fields => [:title, :content]
-  skip_callback :update, :before, :update_index, :if => :template?
-  skip_callback :create, :after, :add_to_index, :if => :template?
+ 
   
   acts_as_followable
 
@@ -333,6 +341,19 @@ class Auction < ActiveRecord::Base
     # * if not yet saved, there cannot be a auction_template_id
     # * the inverse reference is set in auction_template model before validation 
     auction_template_id != nil || auction_template != nil 
+  end
+
+  # For Solr searching we need category ids 
+  def self.search_categories(categories)
+    ids = []
+    categories = self.remove_category_parents(categories)
+    
+    categories.each do |category|
+     category.self_and_descendants.each do |fullcategories|
+        ids << fullcategories.id
+      end
+    end
+    ids
   end
 
 end
