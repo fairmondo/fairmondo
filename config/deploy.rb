@@ -1,6 +1,7 @@
 ##### Requirement's #####
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
+require "delayed/recipes"  # Delayed Jobs
 
 #### Use the asset-pipeline
 load 'deploy/assets'
@@ -84,5 +85,8 @@ after "deploy", "deploy:additional_rake"
 after "deploy:restart", "deploy:cleanup"
 after 'deploy:update_code', 'deploy:needs_migrations'
 
-
+# Delayed Jobs Hooks
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 
