@@ -9,7 +9,7 @@ class Auction < ActiveRecord::Base
   }
   
   searchable :unless => :template? do
-    text :title, :boost => 5.0
+    text :title, :boost => 5.0, :stored => true
     text :content
     boolean :fair
     boolean :ecologic
