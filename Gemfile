@@ -47,7 +47,6 @@ gem 'bootstrap-will_paginate'
 gem 'selectivizr-rails'
 
 # JS
-gem 'rails3-jquery-autocomplete'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'

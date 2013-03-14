@@ -1,6 +1,23 @@
 
 class AuctionsController < ApplicationController
-  autocomplete :auction, :title, :full => true
+  
+  def autocomplete
+    search = Sunspot.search(Auction) do
+      fulltext params[:keywords] do
+        fields(:title)
+      end
+    end
+    @titles = []
+    search.hits.each do |hit| 
+      title = hit.stored(:title).first
+      @titles.push(title)
+    end
+    render :json => @titles 
+  rescue Errno::ECONNREFUSED 
+    render :json => [] 
+  end
+  
+  
   # Create is safed by denail!
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete_auction_title]
  

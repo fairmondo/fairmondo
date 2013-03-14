@@ -18,7 +18,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :auctions do
   #recources :userevents
-    get :autocomplete_auction_title, :on => :collection
+
     member do
       get 'report'
       post 'follow'
@@ -28,6 +28,7 @@ Fairnopoly::Application.routes.draw do
     end
     collection do
       get 'sunspot_failure'
+      get 'autocomplete'
     end
   end
 
