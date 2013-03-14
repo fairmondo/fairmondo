@@ -18,32 +18,19 @@ class AuctionsController < ApplicationController
   # GET /auctions.csv
   def index
     @search_cache = Auction.new(params[:auction])
-    scope = Auction.with_user_id
-    
-    if params[:auction]
-      # condition
-      if params[:auction][:condition].present?  
-        scope = scope.where(:condition => params[:auction][:condition])
-      end
-      # fair filters
-      commendations = [:fair, :ecologic, :small_and_precious].select {|c| @search_cache.send(c) }
-      scope = scope.with_commendation(*commendations) if commendations.present?
-      # categories
-      if @search_cache.categories.present?
-        scope = scope.with_categories_or_descendants(@search_cache.categories)
-      end
-      if params[:auction][:title].present?
-        query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
-        search_params = {:per_page => 12} 
-        search_params[:page] = params[:page] || 1
-        # we cannot use the relevance search as its pagination does not takes
-        # the scopes from before (category, condition) in count
-        # @auctions = scope.paginate_search(query, search_params)
-        scope = scope.with_query(query) 
-      end
+
+    query = @search_cache
+    search = Sunspot.search(Auction) do
+      fulltext query.title
+      paginate :page => params[:page], :per_page=>12
+      with :fair, true if query.fair
+      with :ecologic, true if query.ecologic
+      with :small_and_precious, true if query.small_and_precious
+      with :condition, query.condition if query.condition
+      with :category_ids, Auction.search_categories(query.categories) if query.categories.present?
+
     end
-    
-    @auctions = scope.paginate :page => params[:page], :per_page=>12
+    @auctions = search.results
  
     respond_to do |format|
       format.html # index.html.erb
