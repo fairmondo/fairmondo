@@ -70,4 +70,8 @@ module AuctionsHelper
     Category.where(:id => cat.parent_id).first
   end
   
+  def category_shift level
+    html = raw "padding-left:"+(level*10).to_s+"px;"
+  end
+  
 end
