@@ -30,6 +30,7 @@
 			
 			<div class="element-in-box">
 				<%= f.input :password, :label => t('formtastic.labels.user.password') %>
+				<%= render :partial => "/devise/password_complexity"%>
 				<%= f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true %>
 			</div>
 			
