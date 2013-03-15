@@ -6,6 +6,7 @@
 //= require bootstrap
 //= require autocomplete-rails
 //= require selectivizr
+//= require jquery.complexify
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize
