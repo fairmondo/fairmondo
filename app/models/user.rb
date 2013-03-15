@@ -38,11 +38,12 @@ class User < ActiveRecord::Base
   validates_presence_of :country , :on => :update
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
-  validates_presence_of :zip , :on => :update
   
   validates_presence_of :recaptcha, :on => :create
 
   validates_presence_of :nickname
+  
+  validates :zip, :presence => true, :on => :update, :zip => true
 
   #Relations
   has_many :auctions
