@@ -1,11 +1,13 @@
 
+
+
 // refs #152
 
 function feeAccordingToCommendation() {
 	fair = $("input#auction_fair").is(":checked");
 	price_input = $("input#auction_price");
 	if(price_input.val()) {
-	  price = parseFloat(price_input.val().replace(",","."));
+	  price = convertInputFormatToFloat(price_input.val());
 	  if(price) {
 		  var fee;
 		  if (fair) {
@@ -42,11 +44,11 @@ $(document).ready(function(){
 			.change(function () {
 				sum = 0.0
 				if(price_input.val()) {
-				  price = parseFloat(price_input.val().replace(",","."));
+				  price = convertInputFormatToFloat(price_input.val());
 				  if(price) {
 				  	for (var j=0;j<calculated_inputs.length;j++) {
 				  		if(calculated_inputs[j].val()) {
-				  			calculated_value = parseFloat(calculated_inputs[j].val().replace(",",".").replace(" Euro",""));
+				  			calculated_value = convertCalculatedInputFormatToFloat(calculated_inputs[j].val());
 				  			if(calculated_value) {
 				  				sum += calculated_value 
 				  			} 
@@ -54,7 +56,7 @@ $(document).ready(function(){
 				  	}
 				  }
 				}
-			  	fees_and_donations_input.val(sum.toFixed(2).toString().replace(".",",") + " Euro")
+			  	fees_and_donations_input.val(convertFloatToCalculatedInputFormat(sum))
 			});
 	}
 	
@@ -62,19 +64,19 @@ $(document).ready(function(){
 		.change(function () {
 			corruption_calculated = 0.0
 			if(price_input.val()) {
-			  price = parseFloat(price_input.val().replace(",","."));
+			  price = convertInputFormatToFloat(price_input.val());
 			  if(price) {
 			  	corruption_calculated = (price*(0.01))
 			  }
 			}
-			corruption_input.val(corruption_calculated.toFixed(2).toString().replace(".",",") + " Euro")
+			corruption_input.val(convertFloatToCalculatedInputFormat(corruption_calculated))
 		  	corruption_input.trigger('change')
 		});
 		
 	$("input#auction_price,input#auction_fair")
 		.change(function () {
 			fees_calculated = feeAccordingToCommendation();
-		  fees_input.val(fees_calculated.toFixed(2).toString().replace(".",",") + " Euro");
+		  fees_input.val(convertFloatToCalculatedInputFormat(fees_calculated));
 		  fees_input.trigger('change');
 		});
 	
