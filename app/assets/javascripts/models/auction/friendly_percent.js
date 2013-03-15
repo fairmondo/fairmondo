@@ -10,13 +10,13 @@ $(document).ready(function(){
 		.change(function () {
 			friendly_percent_calculated = 0.0
 			if(price_input.val() && friendly_percent_input.val()) {
-			  price = parseFloat(price_input.val().replace(",","."));
-			  percent = parseFloat(friendly_percent_input.val().replace(",","."));
+			  price = convertInputFormatToFloat(price_input.val());
+			  percent = convertInputFormatToFloat(friendly_percent_input.val());
 			  if (price && percent) { 
 			  	friendly_percent_calculated = (price*(percent/100))
 			  }
 			}
-			friendly_percent_calculated_inputs.val(friendly_percent_calculated.toFixed(2).toString().replace(".",",") + " Euro");
+			friendly_percent_calculated_inputs.val(convertFloatToCalculatedInputFormat(friendly_percent_calculated));
 			friendly_percent_calculated_inputs.trigger('change')
 		}).trigger('change')
 });
