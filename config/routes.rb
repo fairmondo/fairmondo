@@ -122,7 +122,7 @@ Fairnopoly::Application.routes.draw do
 # Note: This route will make all actions in every controller accessible via GET requests.
 # match ':controller(/:action(/:id))(.:format)'
   scope :constraints => lambda {|request|
-    request.params[:id] && !["assets","system","admin","public"].any?{|url| request.params[:id].match(/^#{url}/)}
+    request.params[:id] && !["assets","system","admin","public","favicon.ico"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
     match "/*id" => 'tinycms/contents#show'
   end
