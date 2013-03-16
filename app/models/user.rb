@@ -31,14 +31,7 @@ class User < ActiveRecord::Base
   
   validates_inclusion_of :legal_entity, :in => [true, false]
   
-  # validates
-  validates_presence_of :forename , :on => :update
-  validates_presence_of :surname , :on => :update
-  validates_presence_of :title , :on => :update
-  validates_presence_of :country , :on => :update
-  validates_presence_of :street , :on => :update
-  validates_presence_of :city , :on => :update
-  validates_presence_of :zip , :on => :update
+
   
   validates_presence_of :recaptcha, :on => :create
 
