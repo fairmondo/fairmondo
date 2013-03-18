@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="span9">
+		<%= render "auction_contents"%>
+	</div>
+	<div class="span3">
+		<%= semantic_form_for @auction, :html => { :class => "form-horizontal", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|  %>
+		
+		<%end%>
+	</div>
+</div>
