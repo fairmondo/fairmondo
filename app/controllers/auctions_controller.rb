@@ -62,19 +62,14 @@ class AuctionsController < ApplicationController
     #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
     @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
 
-    if params[:image]
-      @title_image = Image.find(params[:image])
-    else
-      @title_image = @auction.images[0]
-    end
-     @thumbnails = @auction.images
-     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
+    set_title_image_and_thumbnails
     
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @auction }
     end
   end
+
 
   # GET /auctions/new
   # GET /auctions/new.json
@@ -201,6 +196,27 @@ class AuctionsController < ApplicationController
     
   end
 
+  def preview
+    @auction = Auction.find(params[:id])
+    if @auction.active 
+       redirect_to :show
+    else
+      set_title_image_and_thumbnails
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @auction }
+      end
+    end
+  end
+
+  def activate
+    @auction = Auction.find(params[:id])
+    respond_to do |format|
+      format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+      format.json { render :json => @auction, :status => :created, :location => @auction }
+    end
+  end
+
   def report
     @text = params[:report]
     @auction = Auction.find(params[:id])
@@ -261,7 +277,7 @@ class AuctionsController < ApplicationController
     #Throwing User Events
     Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
     respond_to do |format|
-      format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+      format.html { redirect_to preview_auction_path(@auction) }
       format.json { render :json => @auction, :status => :created, :location => @auction }
     end
   end
@@ -315,6 +331,15 @@ class AuctionsController < ApplicationController
     end
   end
 
+  def set_title_image_and_thumbnails
+    if params[:image]
+      @title_image = Image.find(params[:image])
+    else
+      @title_image = @auction.images[0]
+    end
+     @thumbnails = @auction.images
+     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
+  end
   
   def setup_image_uploads 
      (5-@auction.images.size).times { @auction.images.build }
