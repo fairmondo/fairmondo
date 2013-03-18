@@ -1,182 +1,178 @@
-<div class="well">
-
-	<%if @auction.seller == current_user%>
-	<% html= glyphicons("icon-cog")%>
-	<%= link_to html.html_safe, edit_auction_path , :class => "pull-right" , :title => t('auction.titles.edit')%>
-	<%end%>
-
-	<h2><%= @auction.title %> </h2>
-
-	<% @auction.categories.each do |leaf| %>
-	<ul class="breadcrumb">
-		<% category_tree = get_category_tree(@auction,leaf) %>
-		<% category_tree.each do |category| %>
-		<li>
-			<a href="<%= auctions_path%>"><%= category.name%></a> <% unless category_tree.last == category %><span class="divider">/</span><%end%>
-		</li>
-		<%end%>
-	</ul>
-	<% end %>
-
-	<div class="clearfix"></div>
-	<div class="row-fluid">
-		<div class="span6 ">
-			<div class="in-image-container title-image-wrapper">
-				<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"missing.png" , :class=> "title_image"), "#" %>
-				<%= features_label @auction, "in-image-alt"%>
-				<%= condition_label @auction, "in-image" %>
-			</div>
-			<ul class="thumbnails auction-thumbnails">
-				<% @thumbnails.each do |image| %>
-				<li class="span3">
-					<%= link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
-				</li>
-				<%end%>
-			</ul>
-
-		</div>
-		<div class="span3 ">
-			<p>
-				<b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b>
-			</p>
-
-			<% if @auction.size && @auction.size != ""%>
-			<p>
-				<span class="pull-right"><%= @auction.size %></span><%= t('formtastic.labels.auction.size')%>
-			</p>
-			<% end %>
-
-			<% if @auction.quantity && @auction.quantity != ""%>
-			<p>
-				<span class="pull-right"><%= @auction.quantity %></span><%= t('formtastic.labels.auction.quantity')%>
-			</p>
-			<% end %>
-
-			<% if @auction.color && @auction.color != ""%>
-			<p>
-				<span class="pull-right"><%= t('enumerize.auction.color.' + @auction.color) %></span><%= t('formtastic.labels.auction.color')%>
-			</p>
-			<% end %>
-
-			<% if @auction.friendly_percent && @auction.friendly_percent > 0%>
-			<p>
-				<b><%= t('auction.show.friendly_percent')%></b>
-				<br />
-				<strong><%= @auction.friendly_percent.to_s + "%"%></strong>
-				<%= t('auction.show.will_be')%>
-				<a><%= t('enumerize.auction.friendly_percent_organisation.'+@auction.friendly_percent_organisation)%></a>
-				<%= t('auction.show.contributed')  %>
-			</p>
+			
+			<%if @auction.seller == current_user%>
+				<% html= glyphicons("icon-cog")%>
+				<%= link_to html.html_safe, edit_auction_path , :class => "pull-right" , :title => t('auction.titles.edit')%>
 			<%end%>
-
-			<p>
-				<a class="btn btn-primary btn-fill"> <%= t('common.actions.buy')%></a>
-			</p>
-
-			<% unless (!current_user) %>
-			<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
-			<%end%>
-
-		</div>
-		<div class="span3 dark-gray-well break-word">
-			<strong><%= tinycms_content "auction-side-bar" %></strong>
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span12">
-
-			<!--All Sellers-->
-			<div class="box" id="content">
-				<div class="box-legend box-legend-without-border">
-					<a href="#content"> <h3><%= t('formtastic.labels.auction.content')%></h3> </a>
-				</div>
-				<div class="box-content padding-clap-box">
-					<%= raw @auction.content%>
-				</div>
-			</div>
-			<div class="box" id="payment">
-				<div class="box-legend box-legend-without-border">
-					<a href="#payment"> <h3><%= t('formtastic.labels.auction.payment')%></h3> </a>
-				</div>
-				<div class="box-content padding-clap-box">
-					<strong><%= t('auction.labels.payment')%>:</strong>
-					<p>
-						<%= @auction.payment.map(&:text) * ", " %>
-					</p>
-					<div class="border-box middle-padding">
-						<%= raw @auction.payment_details %>
+			
+			<h2><%= @auction.title %> </h2>
+			
+			<% @auction.categories.each do |leaf| %>
+				<ul class="breadcrumb">
+					<% category_tree = get_category_tree(@auction,leaf) %>
+					<% category_tree.each do |category| %>
+						<li><a href="<%= auctions_path%>"><%= category.name%></a> <% unless category_tree.last == category %><span class="divider">/</span><%end%> </li>
+					<%end%>
+			    </ul>
+		    <% end %>
+		    
+			<div class="clearfix"></div>
+			<div class="row-fluid">
+				<div class="span6 ">		
+					<div class="in-image-container title-image-wrapper">
+						<%= link_to image_tag(@title_image?@title_image.image.url(:thumb):"missing.png" , :class=> "title_image"), "#" %>
+						<%= features_label @auction, "in-image-alt"%>
+						<%= condition_label @auction, "in-image" %>
 					</div>
-					<br />
-					<strong><%= t('formtastic.labels.auction.transport')%>:</strong>
-					<p>
-						<%= @auction.transport.map(&:text) * ", " %>
-					</p>
-					<div class="border-box middle-padding">
-						<%= raw @auction.transport_details %>
+						<ul class="thumbnails auction-thumbnails">
+							<% @thumbnails.each do |image| %>
+								<li class="span3">
+									<%= link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )%>
+								</li>		
+							<%end%>
+						</ul>
+					
+				</div>
+				<div class="span3 "> 	
+					<p><b><span class="pull-right"><%= humanized_money_with_symbol @auction.price %></span><%= t('formtastic.labels.auction.price')%></b></p>
+					
+					<% if @auction.size && @auction.size != ""%>		
+						<p><span class="pull-right"><%=  @auction.size %></span><%= t('formtastic.labels.auction.size')%></p>
+					<% end %>
+					
+					<% if @auction.quantity && @auction.quantity != ""%>		
+						<p><span class="pull-right"><%=  @auction.quantity %></span><%= t('formtastic.labels.auction.quantity')%></p>
+					<% end %>
+					
+					<% if @auction.color && @auction.color != ""%>		
+						<p><span class="pull-right"><%= t('enumerize.auction.color.' + @auction.color) %></span><%= t('formtastic.labels.auction.color')%></p>
+					<% end %>	
+					
+					<% if @auction.friendly_percent && @auction.friendly_percent > 0%>	
+						<p>
+							<b><%= t('auction.show.friendly_percent')%></b><br />
+							<strong><%= @auction.friendly_percent.to_s + "%"%></strong> 
+							<%=t('auction.show.will_be')%>
+							<a><%=t('enumerize.auction.friendly_percent_organisation.'+@auction.friendly_percent_organisation)%></a>
+							<%= t('auction.show.contributed')  %>
+						</p>
+					<%end%>
+					
+					<p><a class="btn btn-primary btn-fill">	<%= t('common.actions.buy')%></a></p>	
+
+					<% unless (!current_user) %>
+						<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
+					<%end%>	
+					
+				</div>
+				<div class="span3 dark-gray-well break-word"> 
+				 	<strong><%= tinycms_content "auction-side-bar" %></strong>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					
+					<!--All Sellers-->
+					<div class="box" id="content">
+						<div class="box-legend box-legend-without-border">
+							<a href="#content">
+							<h3><%= t('formtastic.labels.auction.content')%></h3>
+							</a>
+						</div>
+						<div class="box-content padding-clap-box">
+							<%= raw @auction.content%>
+						</div>
+					</div>
+					<div class="box" id="payment">		
+						<div class="box-legend box-legend-without-border">
+							<a href="#payment">
+							<h3><%=  t('formtastic.labels.auction.payment')%></h3>
+							</a>
+						</div>
+						<div class="box-content padding-clap-box">
+							<strong><%=  t('auction.labels.payment')%>:</strong>
+							<p> <%=  @auction.payment.map(&:text) * ", " %></p>
+							<div class="border-box middle-padding"> 
+								<%= raw @auction.payment_details %>
+							</div>
+							<br />
+							<strong><%=  t('formtastic.labels.auction.transport')%>:</strong>
+							<p> <%=  @auction.transport.map(&:text) * ", " %></p>
+							<div class="border-box middle-padding"> 
+								<%= raw @auction.transport_details %>
+							</div>
+						</div>
+					</div>
+					<% if @auction.fair || @auction.ecologic || @auction.small_and_precious %>
+						<div class="box" id="honor">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#honor">
+								<h3><%=  t('formtastic.labels.auction.honor')%></h3>
+								</a>
+							</div>
+							<div class="box-content padding-clap-box">
+								<%=render 'show_commendation'%>
+							</div>
+						</div>
+					<% end %>
+					
+					<!--Only legal sellers-->
+					<%if @auction.seller.legal_entity %>
+						<div class="box" id="terms">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#terms">
+								<h3><%=  t('devise.edit_profile.terms')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%= raw @auction.seller.terms %>
+							</div>
+						</div>
+						<div class="box" id="cancellation">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#cancellation">
+								<h3><%=  t('devise.edit_profile.cancellation')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%=  raw @auction.seller.cancellation  %>
+							</div>
+						</div>
+						<div class="box" id="about">		
+							<div class="box-legend box-legend-without-border">
+								<a href="#about">
+								<h3><%=  t('devise.edit_profile.about')%></h3>
+								</a>
+							</div>
+							<div class="box-content  padding-clap-box">
+								<%=   raw @auction.seller.about  %>
+							</div>
+						</div>
+					<%end%>
+					
+				</div>
+			</div>
+		</div>
+
+		<%if @auction.seller != current_user%>
+		
+			<div class="box" id="report">		
+				<div class="box-legend box-legend-without-border">
+					<a href="#report">
+					<h3><%=t('auction.actions.report')%></h3>
+					</a>
+				</div>
+				<div class="box-content padding-box">
+					<div class="element-in-box">
+						<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
+							<%=t('auction.notices.report')%>
+							<%= f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"] %>
+							<br />
+							<button class="btn btn-primary">
+								<%= t('auction.actions.report') %> 
+							</button>	
+						<% end %>
 					</div>
 				</div>
 			</div>
-			<% if @auction.fair || @auction.ecologic || @auction.small_and_precious %>
-			<div class="box" id="honor">
-				<div class="box-legend box-legend-without-border">
-					<a href="#honor"> <h3><%= t('formtastic.labels.auction.honor')%></h3> </a>
-				</div>
-				<div class="box-content padding-clap-box">
-					<%= render 'show_commendation'%>
-				</div>
-			</div>
-			<% end %>
-
-			<!--Only legal sellers-->
-			<%if @auction.seller.legal_entity %>
-			<div class="box" id="terms">
-				<div class="box-legend box-legend-without-border">
-					<a href="#terms"> <h3><%= t('devise.edit_profile.terms')%></h3> </a>
-				</div>
-				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.terms %>
-				</div>
-			</div>
-			<div class="box" id="cancellation">
-				<div class="box-legend box-legend-without-border">
-					<a href="#cancellation"> <h3><%= t('devise.edit_profile.cancellation')%></h3> </a>
-				</div>
-				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.cancellation  %>
-				</div>
-			</div>
-			<div class="box" id="about">
-				<div class="box-legend box-legend-without-border">
-					<a href="#about"> <h3><%= t('devise.edit_profile.about')%></h3> </a>
-				</div>
-				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.about  %>
-				</div>
-			</div>
-			<%end%>
-
-		</div>
-	</div>
-</div>
-
-<%if @auction.seller != current_user%>
-
-<div class="box" id="report">
-	<div class="box-legend box-legend-without-border">
-		<a href="#report"> <h3><%= t('auction.actions.report')%></h3> </a>
-	</div>
-	<div class="box-content padding-box">
-		<div class="element-in-box">
-			<%= form_for :report, :url => report_auction_path, :method => :get do |f| %>
-			<%= t('auction.notices.report')%>
-			<%= f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"] %>
-			<br />
-			<button class="btn btn-primary">
-				<%= t('auction.actions.report') %>
-			</button>
-			<% end %>
-		</div>
-	</div>
-</div>
-<%end%>
-
+		<%end%>		
+	
