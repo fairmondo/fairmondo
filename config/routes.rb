@@ -20,6 +20,7 @@ Fairnopoly::Application.routes.draw do
   #recources :userevents
     get :autocomplete_auction_title, :on => :collection
     member do
+      get 'preview'
       get 'report'
       post 'follow'
       post 'stop_follow'

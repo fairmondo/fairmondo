@@ -513,6 +513,7 @@ de:
     titles:
       new: "Artikel einstellen"  
       edit: "Artikel editieren"  
+      preview: "Artikelvorschau"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
     actions:
