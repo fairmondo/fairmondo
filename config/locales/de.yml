@@ -240,6 +240,8 @@ de:
       about_hint: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
       public: "Öffentlich"
       private: "Privat"
+      error_zip_length: "muss %{count}-stellig sein"
+      error_zip_format: "muss aus Zahlen bestehen"
 # Formtastic     
   formtastic: 
     :yes: Ja
