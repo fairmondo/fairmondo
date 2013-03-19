@@ -1,0 +1,7 @@
+de:
+  # Gems & Plugins
+  will_paginate:
+    next_label:
+      "Weiter"
+    previous_label:
+      "Zurück"

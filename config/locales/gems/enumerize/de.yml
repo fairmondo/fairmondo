@@ -1,0 +1,103 @@
+de:
+# Enum Definitions
+  enumerize:
+    auction:
+      color:
+        white: weiß
+        black: schwarz
+        yellow: gelb
+        orange: orange
+        red: rot
+        green: grün
+        blue: blau
+        turquoise: türkis
+        brown: braun
+        violet: violett
+        grey: grau
+        multicolored: bunt
+      condition:
+        new: "Neu"
+        old: "Gebraucht"
+      fair_kind:
+        fair_seal: Produzent mit Siegel oder anerkannt
+        fair_trust: Fair Trust
+        social_producer: Sozialer Produzent
+      fair_seal:
+        trans_fair: TransFair Siegel
+        weltladen: Weltladen-Handelspartner 
+        wtfo: WFTO-Mitglied
+      ecologic_seal:
+        bio_siegel: Bio-Siegel
+        eg_bio_siegel: EG-Bio-Siegel
+        ecovin: Ecovin
+        naturland: Naturland
+        gaea_e_v_oekologischer_landbau: Gäa e.V. Ökologischer Landbau
+        biokreis: Biokreis
+        bioland: Bioland
+        biopark: Biopark
+        demeter: Demeter
+        europaeisches_umweltzeichen: Europäisches Umweltzeichen
+        gots: GOTS
+        textiles_vertrauen_nach_oeko_tex_standard_100plus: Textiles Vertrauen nach Öko-Tex-Standard 100plus
+        ivn_zertifiziert_naturtextil: IVN zertifiziert Naturtextil
+        ivn_zertifiziert_naturtextil_best: IVN zertifiziert Naturtextil Best
+        rainforest_alliance: Rainforest Alliance
+        der_blaue_engel: der Blaue Engel
+        deutsches_gueteband_wein: Deutsches Güteband Wein
+        ecogarantie: Ecogarantie
+        fsc_pure_papier: FSC Pure - Papier
+        fsc_pure_holz: FSC Pure - Holz
+        greenline: Greenline
+        gut: GUT
+        kork_logo: Kork Logo
+        kompostierbar_compostable: Kompostierbar/ Compostable
+        kontrollierte_natur_kosmetik_bdih: kontrollierte Natur-Kosmetik BDIH
+        natrue_natural_cosmetics_with_organic_portion: NATRUE Natural Cosmetics With Organic Portion
+        natrue_organic_cosmetics: NATRUE Organic Cosmetics
+        natureplus: Natureplus
+        oeko_control: ÖkoControl
+        tco_certified: TCO certified
+        utz_certified: UTZ certified
+        tuev_eco_kreis: TÜV ECO-Kreis
+      transport:
+        pickup: Selbstabholung
+        insured: Versichert
+        uninsured: Unversichert
+      payment:
+        bank_transfer: Überweisung
+        cash: Barbezahlung bei Abholung
+        paypal: PayPal
+        cach_on_delivery: Nachname
+        invoice: Rechnung
+      friendly_percent_organisation:
+        transparency_international: Transparency International
+      
+    social_producer_questionnaire:
+      nonprofit_association_purposes:
+        youth_and_elderly: Förderung der Jugend- und Altenhilfe
+        art_and_culture: Förderung von Kunst und Kultur
+        national_and_vocational_training: Förderung der Erziehung, Volks- und Berufsbildung
+        natural_protection: Förderung des Naturschutzes und der Landschaftspflege im Sinne des Bundesnaturschutzgesetzes und der Naturschutzgesetze der Länder, des Umweltschutzes, des Küstenschutzes und des Hochwasserschutzes      
+        charity: Förderung des Wohlfahrtswesens, insbesondere der Zwecke der amtlich anerkannten Verbände der freien Wohlfahrtspflege, ihrer Unterverbände und ihrer angeschlossenen Einrichtungen und Anstalten      
+        persecuted_minorities_and_victims_of_persecution: Förderung der Hilfe für politisch, rassisch oder religiös Verfolgte, für Flüchtlinge, Vertriebene,  Aussiedler, Spätaussiedler, Kriegsopfer, Kriegshinterbliebene, Kriegsbeschädigte und Kriegsgefangene, Zivilbeschädigte und Behinderte sowie Hilfe für Opfer von Straftaten; Förderung des Andenkens an Verfolgte, Kriegs- und Katastrophenopfer; Förderung des Suchdienstes für Vermisste      
+        international_tolerance: Förderung internationaler Gesinnung, der Toleranz auf allen Gebieten der Kultur und des Völkerverständigungsgedankens
+        animal_protection: Förderung des Tierschutzes
+        development_cooperation: Förderung der Entwicklungszusammenarbeit
+        consumer_protection: Förderung von Verbraucherberatung und Verbraucherschutz
+        convicts_and_ex_convicts: Förderung der Fürsorge für Strafgefangene und ehemalige Strafgefangene
+        sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
+        democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind      
+      social_businesses_muhammad_yunus_purposes:
+        social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
+        dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
+        reinvestment: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
+        natural_protection: Arbeitet das Unternehmen umweltbewusst ?
+        conditions_of_work: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
+      social_entrepreneur_purposes:
+        social_proplem: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+        big_social_groups: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
+        small_social_groups: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
+        generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
+        potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
+        social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+     
