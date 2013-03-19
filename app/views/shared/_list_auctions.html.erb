@@ -21,10 +21,4 @@
 	</li>
 	<%end%>
 </ul>
-<%if paginate %>
-	<% if defined? anchor%>
-		<%= will_paginate auctions,:params => {:anchor => anchor } %>
-	<%else%>
-		<%= will_paginate auctions %>
-	<%end%>
-<%end%>
+
