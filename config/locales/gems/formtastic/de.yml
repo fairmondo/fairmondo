@@ -78,12 +78,7 @@ de:
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
-        
-        corruption_percent_result: "Dein Beitrag zur Korruptionsbekämpfung pro verkauftem Artikel (1%):"
-        friendly_percent_result: "Das freundliche Prozent:"
-        fees: "Gebühr bei Verkauf:"
-        fees_and_donations: "Gesamt bei Verkauf:" 
-        
+
         transaction: "Angebotsart" 
         expire: "Ablaufdatum"
       auction_template:
@@ -138,15 +133,12 @@ de:
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
         
-        fees_and_donations: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
-        fees: "Die Gebührentabelle findest Du <hier>."
+       
         
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
         
-        double_check: >
-          Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
+        
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
@@ -154,3 +146,4 @@ de:
         submit: "Vorlage übernehmen"
       # Login 
       login: "Login"
+      

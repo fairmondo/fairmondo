@@ -12,6 +12,7 @@ de:
                       Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab, 
                       Erkelenzdamm 59-61, Portal 1, 3. Stock, 10999 Berlin"
     actions:
+      continue: "Weiter"
       back: "Zurück"
       show: "Anzeigen"
       edit: "Bearbeiten"

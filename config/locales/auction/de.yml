@@ -7,7 +7,7 @@ de:
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
-      error: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
+      
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -25,10 +25,8 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
-      
-      fieldsets:
-        fees_and_donations: Deine Gebühren und Spenden
-        double_check: Alle Angaben überprüft?
+  
+        
     labels:
       payment: "Zahlungsart"
       price: "Preis"
@@ -36,6 +34,8 @@ de:
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
       submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
+      continue_to_preview: "Weiter zur Artikelvorschau"
+      deactivate: "Vom Marktplatz nehmen"
     list:
       header: "Ergebnisse"
     notices:
@@ -46,6 +46,10 @@ de:
       assumed: " übernommen"
       collect_error: "Das Produkt ist schon in deiner Sammlung."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
+      incomplete_profile: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
+      inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
+      locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
+      deactivated: "Artikel wurde erfolgreich vom Marktplatz genommen!"
     image:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"
@@ -54,6 +58,7 @@ de:
       edit: "Artikel editieren"  
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
+      preview: "Dein Artikel"
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
@@ -65,6 +70,21 @@ de:
       proposal:
         question: "Du vermisst eine Kategorie?"
       remove-filter:  "Kategorie-Filter entfernen"
+    preview:
+      fees_and_donations:
+        title: Deine Gebühren und Spenden
+        corruption_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
+        friendly_percent: "Das freundliche Prozent:"
+        fee: "Gebühr bei Verkauf:"
+        total: "Gesamt bei Verkauf:" 
+      double_check:
+        title: Alle Angaben überprüft?
+      tooltips: 
+        fees_and_donations: >
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+        fees: "Die Gebührentabelle findest Du <hier>."
+        double_check: >
+          Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
   auction_templates:
     titles:
       index: Deine Vorlagen

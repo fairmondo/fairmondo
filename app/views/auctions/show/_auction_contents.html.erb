@@ -1,8 +1,15 @@
 <div class="well">
 
-	<%if @auction.seller == current_user%>
-	<% html= glyphicons("icon-cog")%>
-	<%= link_to html.html_safe, edit_auction_path , :class => "pull-right" , :title => t('auction.titles.edit')%>
+	<%if current_user && @auction.seller.id == current_user.id%>
+	 <span class="pull-right">
+		
+		<%= link_to t('auction.titles.edit') , edit_auction_path , :class => "btn"  %>
+		<%if @auction.active %>
+			<%= link_to t('auction.labels.deactivate') , deactivate_auction_path, :class => "btn " %>
+		<%end%>
+	</span>
+		
+	
 	<%end%>
 
 	<h2><%= @auction.title %> </h2>
@@ -83,14 +90,15 @@
 				<%= t('auction.show.contributed')  %>
 			</p>
 			<%end%>
+			<% if @auction.active && current_user && current_user.id != @auction.seller.id%>
+				<p>
+					<a class="btn btn-primary btn-fill"> <%= t('common.actions.buy')%></a>
+				</p>
 
-			<p>
-				<a class="btn btn-primary btn-fill"> <%= t('common.actions.buy')%></a>
-			</p>
-
-			<% unless (!current_user) %>
-			<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
-			<%end%>
+				<% if user_signed_in? %>
+					<%= render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }%>
+				<%end%>
+			<% end %>
 
 		</div>
 		<div class="span3 dark-gray-well break-word">
@@ -174,7 +182,7 @@
 	</div>
 </div>
 
-<%if @auction.seller != current_user%>
+<%if current_user && @auction.seller.id != current_user.id%>
 
 <div class="box" id="report">
 	<div class="box-legend box-legend-without-border">

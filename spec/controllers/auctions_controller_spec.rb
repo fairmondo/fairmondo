@@ -239,7 +239,7 @@ describe AuctionsController do
       
       context 'his auctions' do
         before :each do
-          @auction = FactoryGirl.create(:auction, :seller => @user)
+          @auction = FactoryGirl.create(:editable_auction, :seller => @user)
         end
 
         it "should be successful for the seller" do
@@ -249,7 +249,7 @@ describe AuctionsController do
       end
       
       it "should not be able to edit other users auctions" do
-        @auction = FactoryGirl.create(:auction)
+        @auction = FactoryGirl.create(:editable_auction)
         expect{
           get :edit, :id => @auction
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -297,7 +297,7 @@ describe AuctionsController do
       it "should create an auction" do
         lambda do
           post :create, :auction => @auction_attrs
-        end.should change(Auction, :count).by(1)
+        end.should change(Auction.unscoped, :count).by(1)
       end
       
       it "should not raise an error for very high quantity values" do
