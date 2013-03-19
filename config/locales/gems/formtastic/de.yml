@@ -1,0 +1,156 @@
+de:
+  # Formtastic     
+  formtastic: 
+    :yes: Ja
+    :no: Nein
+    required: Pflicht
+  
+    labels:
+      questionnaire:
+        explanation: Erläuterung
+        explanations: Erläuterungen
+      user:
+        agecheck: "Ich bin mindestens 18 Jahre alt."
+        legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+        privacy: "Datenschutzerklärung."
+        password: "Passwort"
+        remember_me: "Eingeloggt bleiben"
+      auction:
+        title: "Artikelbezeichnung"
+        categories: Kategorien
+        categories_and_ancestors: Kategorien
+        image: "Titelbild"
+        other_image: "Anderes Titelbild hochladen"
+        fair: Fair
+        fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
+        fair_seal: "Bitte wähle aus der Liste aus:" 
+        
+        ecologic: Öko
+        ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
+        
+        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'" 
+        social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
+          
+        small_and_precious: Klein&Edel
+        small_and_precious_edition: Wie hoch ist die Auflage?
+        small_and_precious_reason: Warum ist Dein Artikel edel?
+        small_and_precious_handmade: Ist der Artikel handgearbeitet?
+        fair_trust_questionnaire:
+          support: >
+            Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
+          transparency: >
+            Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
+          collaboration: >
+            Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)        
+          minimum_wage: >
+            Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
+          child_labor: >
+            Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?              
+          sexual_equality: >
+            a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
+          labor_conditions: >
+            Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
+          producer_advancement: >
+            Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
+          awareness_raising: >
+            Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+          environment_protection: >
+            Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+        social_producer_questionnaire:
+          nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
+          social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus 
+          social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+        
+        condition: "Artikelzustand"
+        content: "Artikelbeschreibung"
+        color: Farbe
+        size: Größe
+        quantity: Anzahl
+        price: "Preis"
+        price_currency: "Währung"
+        
+        transport: "Versandoptionen und Kosten für Versand und Verpackung"
+        transport_details: "Weitere Angaben:"
+        payment: "Versand und Bezahlung"
+        honor: "Auszeichnung des Artikels"
+        payment_details: "Weitere Angaben:"
+        
+        friendly_percent: "Spendenanteil - das freundliche Prozent"
+        friendly_percent_organisation: Organisation
+        friendly_percent_calculated: "Das entspricht:"
+        
+        corruption_percent_result: "Dein Beitrag zur Korruptionsbekämpfung pro verkauftem Artikel (1%):"
+        friendly_percent_result: "Das freundliche Prozent:"
+        fees: "Gebühr bei Verkauf:"
+        fees_and_donations: "Gesamt bei Verkauf:" 
+        
+        transaction: "Angebotsart" 
+        expire: "Ablaufdatum"
+      auction_template:
+        save_as_template: "Eingaben als Vorlage speichern"
+        name: Vorlagenname
+      template_select:
+        auction_template: Vorlage
+      image:
+        image: Bild
+        _destroy: Löschen
+    input_steps:
+      auction:
+        prefix: "%{count}. Schritt:"
+        title_and_categories: "Artikelbezeichnung und Kategorien"
+        commendation: "Auszeichnung Deines Artikels (optional)"
+        article: "Dein Artikel"
+        auction: "Das Angebot"
+        transport_and_payment: "Versand und Bezahlung"
+        legal_issues: "Rechtliches"
+        friendly_percent: "Das freundliche Prozent (optional)"
+        double_check: "Artikel einstellen"
+        upload_images: "Bilder hochladen"
+      template_select:
+        prefix: ""
+        apply: Deine Vorlagen
+    tooltips:
+      user:
+        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du Deine Emailadresse oder Dein Passwort ändern willst."
+      auction:
+        title:  "Gebe eine Bezeichnung Deines Artikels ein."
+        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
+        category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
+        
+        fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
+        small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
+        fair_trust_questionnaire: >
+          Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        social_producer_questionnaire: >
+          Hier könnt Ihr Eure Artikel in die Kategorie "Sozial" einordnen.
+          
+        condition: "Trage den Zustand Deines Artikels ein"
+        content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
+        quantity: Trage hier die Menge ein
+        price: Trage hier den Preis pro Artikel ein
+        
+        transport: >
+          Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+        payment: >
+          Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+          
+        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        friendly_percent_input_step: >
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
+        
+        fees_and_donations: >
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+        fees: "Die Gebührentabelle findest Du <hier>."
+        
+        date: "Datum (Tag/Monat/Jahr)"
+        time: "Zeit (Stunden/Minuten)"
+        
+        double_check: >
+          Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.
+    actions:
+      create: "%{model} erstellen"
+      update: "Änderungen speichern"
+      template_select:
+        submit: "Vorlage übernehmen"
+      # Login 
+      login: "Login"
