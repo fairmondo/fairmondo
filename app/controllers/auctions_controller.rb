@@ -136,8 +136,7 @@ class AuctionsController < ApplicationController
     else
       @auction = Auction.new
     end
-    @auction.expire = 14.days.from_now
-    @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
+   
     setup_form_requirements
     respond_to do |format|
       format.html # new.html.erb
