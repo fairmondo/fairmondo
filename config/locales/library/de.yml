@@ -1,0 +1,20 @@
+de:
+# Libraries
+  library:
+    exist: "Eine Sammlung mit diesem Namen existiert bereits."
+    error: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
+    not_exists: "Diese Sammlung existiert nicht"
+    already_in_library: "Dieser Artikel ist bereits in der Sammlung."
+    no_products: "Es sind momentan keine Produkte in dieser Sammlung"
+    no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
+    default: "Standardsammlung"
+    new: "Neue Sammlung"
+    new_title: "Neue Sammlung erstellen"
+    privacy: "Sichtbarkeit dieser Sammlung:"
+    public: "Jeder kann diese Sammlung sehen"
+    private: "Nur für Dich sichtbar"
+    action:
+      public: "öffentlich machen"
+      private: "privat machen"
+    element:
+      delete: "Aus Sammlungen löschen"

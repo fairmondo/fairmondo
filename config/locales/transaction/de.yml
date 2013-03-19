@@ -1,0 +1,7 @@
+de:
+# Transaction System
+  transaction:
+    bid:
+      smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+      smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+      success: "Sie sind jetzt Höchstbietender!"
