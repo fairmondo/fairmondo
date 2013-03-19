@@ -239,7 +239,12 @@ describe AuctionsController do
       
       context 'his auctions' do
         before :each do
-          @auction = FactoryGirl.create(:editable_auction, :seller => @user)
+          @auction = FactoryGirl.create(:auction, :seller => @user)
+          
+          #cant use editable_auction factory due to defaultscope 
+          @auction.active = false
+          @auction.locked = false
+          @auction.save
         end
 
         it "should be successful for the seller" do
@@ -249,7 +254,11 @@ describe AuctionsController do
       end
       
       it "should not be able to edit other users auctions" do
-        @auction = FactoryGirl.create(:editable_auction)
+        @auction = FactoryGirl.create(:auction)
+        #cant use editable_auction factory due to defaultscope 
+          @auction.active = false
+          @auction.locked = false
+          @auction.save
         expect{
           get :edit, :id => @auction
         }.to raise_error(ActiveRecord::RecordNotFound)
