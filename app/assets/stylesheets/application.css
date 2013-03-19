@@ -6,6 +6,7 @@
  *= require_self
  *= require styles
  *= require formtastic-bootstrap
+ *= require font-awesome
  * 
 */
 
