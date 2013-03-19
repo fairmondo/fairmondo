@@ -1,0 +1,76 @@
+de:
+  # Auction Model/Controller
+  auction:
+    show:
+      friendly_percent: "Das freundliche Prozent"
+      will_be: " werden an "
+      agree: "Ja"
+      non_agree: "Nein"
+      contributed: " gespendet."
+      error: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
+    hero:
+      search: "Suche nach"
+      filter: "Filter nach"
+      category: "Kategorie wählen"
+      remove_filter: "Zustands-Filter entfernen"
+    form:
+      missing_terms: "Bevor Du einen Artikel einstellen kannst, muss Folgendes im Profil angegeben werden:"
+      edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
+      head: "Um einen Artikel einzustellen, mußt Du dieses Formular ausfüllen."
+      category: "Wähle eine Kategorie für Deinen Artikel"
+      details: "Beschreibe Deinen Artikel"
+      expire_date: "Datum (Tag/Monat/Jahr)"
+      expire_time: "Zeit (Stunden/Minuten)"
+      transaction:
+        auction: "Auktion"
+        fixed_price: "Festpreis"
+        preview: "Vorschau - wird bei Launch freigeschaltet"
+      
+      fieldsets:
+        fees_and_donations: Deine Gebühren und Spenden
+        double_check: Alle Angaben überprüft?
+    labels:
+      payment: "Zahlungsart"
+      price: "Preis"
+      shipping_condition: "Versand-Zustand"
+      expiration_date: "Ablaufdatum"
+      type: "Angebotsart"
+      submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
+    list:
+      header: "Ergebnisse"
+    notices:
+      create: "Artikel wurde erfolgreich eingestellt."
+      update: "Artikel wurde erfolgreich aktualisiert."
+      image: "Bild wurde erfolgreich hochgeladen."
+      collect: "Artikel wurde in "
+      assumed: " übernommen"
+      collect_error: "Das Produkt ist schon in deiner Sammlung."
+      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
+    image:
+      title: "Lade ein Bild hoch"
+      upload: "Hochladen"
+    titles:
+      new: "Artikel einstellen"  
+      edit: "Artikel editieren"  
+      other-products: "Alle Artikel dieses Verkäufers"
+      libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
+    actions:
+      edit: "Artikel bearbeiten"
+      profile: "Verkäufer*in ansehen"
+      report: "Artikel melden"
+      reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
+      reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
+      to-library: "In Sammlung verschieben"
+    categories:
+      proposal:
+        question: "Du vermisst eine Kategorie?"
+      remove-filter:  "Kategorie-Filter entfernen"
+  auction_templates:
+    titles:
+      index: Deine Vorlagen
+      new: Vorlage erstellen
+      edit: Vorlage bearbeiten
+      destroy: Vorlage löschen
+    actions:
+      index: "zur Vorlagenübersicht"
+      new: "Neue Vorlage erstellen"
