@@ -6,7 +6,6 @@ FactoryGirl.define do
     categories_and_ancestors {|c| [c.association(:category)] }
     title     { Faker::Lorem.sentence(rand(3)+1).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
-    expire    { (rand(10) + 2).hours.from_now }
     condition { ["new", "old"].sample }
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }

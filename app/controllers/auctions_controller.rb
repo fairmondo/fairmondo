@@ -42,7 +42,7 @@ class AuctionsController < ApplicationController
       with :ecologic, true if query.ecologic
       with :small_and_precious, true if query.small_and_precious
       with :condition, query.condition if query.condition
-      with :category_ids, Auction.search_categories(query.categories) if query.categories.present?
+      with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
       with :active, true 
     end
     @auctions = search.results
@@ -144,8 +144,7 @@ class AuctionsController < ApplicationController
     else
       @auction = Auction.new
     end
-    @auction.expire = 14.days.from_now
-    @auction.expire = @auction.expire.change(:hour => 17, :minute => 0)
+   
     setup_form_requirements
     respond_to do |format|
       format.html # new.html.erb
