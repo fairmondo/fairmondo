@@ -45,6 +45,7 @@ gem 'less-rails';
 #gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
 gem 'selectivizr-rails'
+gem "font-awesome-rails"
 
 # JS
 gem 'tinymce-rails'
