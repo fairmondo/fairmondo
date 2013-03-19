@@ -1,38 +1,26 @@
-
-		<div class="box" id="offers">
-			<div class="box-legend box-legend-without-border">
-				<a href="#offers">
-				<h3><%= t('dashboard.headers.offers')+" ("+ @offers.count.to_s + ")" %> </h3>
-				</a>
-			</div>
-			<div class="box-content padding-box">
-				<div class="middle-margin-top">
-					<% if !@offers || @offers.empty? %> 
-						<div class="well">
-							<strong><%= t('dashboard.text.no_offers')%></strong>
-						</div>
-					<%else%>
-						<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :paginate => false, :list_class=>"span3"} %>
-					<%end%>
-				</div>
-			</div>
-		</div>
+	<%= render_box "offers", :content_class => "padding-box" do %>	
 		
-		<div class="box" id="sold">
-			<div class="box-legend box-legend-without-border">
-				<a href="#sold">
-				<h3><%=  t('dashboard.headers.sold')%></h3>
-				</a>
+		<% if !@offers || @offers.empty? %> 
+			<div class="well">
+				<strong><%= t('dashboard.text.no_offers')%></strong>
 			</div>
-			<div class="box-content padding-box">
-				<div class="middle-margin-top">
-					<div class="well">
-						<strong><%= t('dashboard.text.soon_sold')%></strong>
-					</div>
-				</div>
-			</div>
-		</div>
+		<%else%>
+			<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :list_class=>"span3"} %>
+			<%= will_paginate @offers, :params => {:anchor => "offers" } , :param_name => "offers_page" %>
+		<%end%>
+	<%end%>			
 		
+	<% if !@inactive.empty? %> 
+		<%= render_box "inactive",:content_class => "padding-box" do %>	
+				<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @inactive, :list_class=>"span3"} %>
+				<%= will_paginate @inactive, :params => {:anchor => "inactive" } , :param_name => "inactive_page" %>
+		<%end%>
+	<%end%>
+	
+	<%= render_box "sold" do %>	
+		<strong><%= t('dashboard.text.soon_sold')%></strong>
+	<%end%>
+				
     <%= render_box "my_auction_templates" do %>
       <div class='private-links'>
         <ul class='nav nav-pills'>

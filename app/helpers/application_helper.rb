@@ -84,4 +84,11 @@ module ApplicationHelper
      end
       return hero 
   end
+  
+  def render_tooltip tooltip
+    tip = "<a class=\"input-tooltip\"><span>"
+    tip += tooltip
+    tip += "</span></a>"
+    tip.html_safe
+  end
 end

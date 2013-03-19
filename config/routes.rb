@@ -20,6 +20,8 @@ Fairnopoly::Application.routes.draw do
   #recources :userevents
 
     member do
+      get 'activate'
+      get 'deactivate'
       get 'report'
       post 'follow'
       post 'stop_follow'

@@ -1,7 +1,8 @@
 
-<% if current_user == @user %>
+<% if current_user.id == @user.id %>
 	<%=render 'sales'%>
 <%else%>
-	<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :paginate => true, :list_class=>"span3"} %>
+	<%= render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :list_class=>"span3"} %>
+	<%= will_paginate @auctions %>
 <%end%>
 
