@@ -86,7 +86,17 @@ class Auction < ActiveRecord::Base
   enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
   validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
     
-  def friendly_percent_calculated
+    
+  ## -------------- Calculate Fees And Donations ---------------
+  
+  # Fees and donations
+  monetize :calculated_corruption_cents
+  monetize :calculated_friendly_cents
+  monetize :calculated_fee_cents
+  
+private  
+    
+  def friendly_percent_result
     if self.friendly_percent
       self.price * (self.friendly_percent / 100.0)
     else
@@ -104,7 +114,6 @@ class Auction < ActiveRecord::Base
     price * corruption_percentage
   end
   
-  alias_method :friendly_percent_result, :friendly_percent_calculated
   
   def fee_percentage
     if fair?
@@ -114,21 +123,27 @@ class Auction < ActiveRecord::Base
     end
   end
   
-  def fees
-    unless @fees
-      r = price * fee_percentage
-      min = Money.new(AUCTION_FEES[:min]*100)
-      r = min if r < min
-      max = Money.new(AUCTION_FEES[:max]*100)
-      r = max if r > max
-      @fees = r
-    end
-    @fees
+  def fee_result
+    r = price * fee_percentage
+    min = Money.new(AUCTION_FEES[:min]*100)
+    r = min if r < min
+    max = Money.new(AUCTION_FEES[:max]*100)
+    r = max if r > max
   end
+
+public
   
   def fees_and_donations
-    friendly_percent_result + corruption_percent_result + fees
+    self.calculated_corruption + self.calculated_friendly + self.calculated_fee
   end
+    
+  def calculate_fees_and_donations
+    self.calculated_corruption  = self.corruption_percent_result
+    self.calculated_friendly = self.friendly_percent_result
+    self.calculated_fee =  self.fee_result
+  end  
+    
+  # --------------------------------  
     
   # other
   
@@ -158,12 +173,9 @@ class Auction < ActiveRecord::Base
   validates_length_of :size, :maximum => 4
   validates_presence_of :quantity
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-    
-  # Note: currency is deprecated for the moment.
-  enumerize :price_currency, :in => [:EUR]
 
   monetize :price_cents
-  
+    
   serialize :transport, Array
   enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
   validates :transport, :size => 1..-1

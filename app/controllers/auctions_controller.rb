@@ -198,9 +198,10 @@ class AuctionsController < ApplicationController
 
   def preview
     @auction = Auction.find(params[:id])
-    if @auction.active 
+    if @auction.active || (current_user != @auction.seller) # false preview
        redirect_to :show
     else
+      @auction.calculate_fees_and_donations
       set_title_image_and_thumbnails
       respond_to do |format|
         format.html # show.html.erb
@@ -210,10 +211,18 @@ class AuctionsController < ApplicationController
   end
 
   def activate
-    @auction = Auction.find(params[:id])
-    respond_to do |format|
-      format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-      format.json { render :json => @auction, :status => :created, :location => @auction }
+    if @auction.active || (current_user != @auction.seller) # false activate
+       redirect_to :show
+    else
+      @auction = Auction.find(params[:id])
+      @auction.calculate_fees_and_donations
+      @auction.locked = true # Lock The Auction
+      @auction.active = true # Activate to be searchable
+      @auction.save
+      respond_to do |format|
+        format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+        format.json { render :json => @auction, :status => :created, :location => @auction }
+      end
     end
   end
 
