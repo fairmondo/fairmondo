@@ -5,18 +5,24 @@
 
 .breadcrumb {
   padding: 8px 15px;
-  margin: 0 0 @baseLineHeight;
+  margin: 0 0 10px;
   list-style: none;
-  background-color: #f5f5f5;
+  background-color: @fairnopolyGrey;
   .border-radius(4px);
   li {
     display: inline-block;
     .ie7-inline-block();
-    text-shadow: 0 1px 0 @white;
+    a {
+      color: @black;
+    }
+    a:hover {
+      text-decoration:none;
+      color: @linkColorHover;
+    }
   }
   .divider {
     padding: 0 5px;
-    color: #ccc;
+    color: #999;
   }
   .active {
     color: @grayLight;

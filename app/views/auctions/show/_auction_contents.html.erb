@@ -14,21 +14,22 @@
 
 	<h2><%= @auction.title %> </h2>
 
-	<ul class="breadcrumb">
+	
 		<% @auction.categories.each do |leaf| %>
-
+			<ul class="breadcrumb">
 			<% category_tree = get_category_tree(@auction,leaf) %>
 			<% count = 1 %>
 	
 			<% category_tree.each do |category| %>
 	
-				<li style="<%= category_shift count-1 %>">
-					<a href="<%= auctions_path(:auction => {:categories_and_ancestors  => [category.id] })%>"><% unless category_tree.first == category %><span class="divider">-</span><%end%><%= category.name%></a>
+				<li>
+					<a href="<%= auctions_path(:auction => {:categories_and_ancestors  => [category.id] })%>"><i class="icon-tag"></i> <%= category.name%></a><% unless category_tree.last == category %><span class="divider"><i class="icon-angle-right icon-large"></i></span><%end%>
 				</li>
 				<% count = count + 1 %>
 			<%end%>
+			</ul>
 		<% end %>
-	</ul>
+	
 
 	<div class="clearfix"></div>
 	<div class="row-fluid">
