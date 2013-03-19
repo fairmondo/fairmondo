@@ -14,6 +14,7 @@ class Auction < ActiveRecord::Base
     boolean :fair
     boolean :ecologic
     boolean :small_and_precious
+    boolean :active
     string :condition
     integer :category_ids, :references => Category, :multiple => true
   end
@@ -29,6 +30,9 @@ class Auction < ActiveRecord::Base
   
   # refs #128
   default_scope where(:auction_template_id => nil)
+  
+  # Dont search for inactive auctions
+  default_scope where(:active => true)
 
   before_validation :sanitize_content, :on => :create
   before_validation :set_expire_in_pioneer_version, :on => :create
@@ -45,7 +49,8 @@ class Auction < ActiveRecord::Base
     self.quantity ||= 1
     self.price ||= 1
     self.friendly_percent ||= 0
-    
+    self.active = false if self.new_record?
+    self.locked = false if self.new_record?
     # Auto-Completion raises MissingAttributeError: 
     # http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     rescue ActiveModel::MissingAttributeError
@@ -105,7 +110,17 @@ class Auction < ActiveRecord::Base
   enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
   validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
     
-  def friendly_percent_calculated
+    
+  ## -------------- Calculate Fees And Donations ---------------
+  
+  # Fees and donations
+  monetize :calculated_corruption_cents
+  monetize :calculated_friendly_cents
+  monetize :calculated_fee_cents
+  
+private  
+    
+  def friendly_percent_result
     if self.friendly_percent
       self.price * (self.friendly_percent / 100.0)
     else
@@ -120,10 +135,9 @@ class Auction < ActiveRecord::Base
   end
   
   def corruption_percent_result
-    price * corruption_percentage
+    self.price * corruption_percentage
   end
   
-  alias_method :friendly_percent_result, :friendly_percent_calculated
   
   def fee_percentage
     if fair?
@@ -133,21 +147,32 @@ class Auction < ActiveRecord::Base
     end
   end
   
-  def fees
-    unless @fees
-      r = price * fee_percentage
-      min = Money.new(AUCTION_FEES[:min]*100)
-      r = min if r < min
-      max = Money.new(AUCTION_FEES[:max]*100)
-      r = max if r > max
-      @fees = r
-    end
-    @fees
+  def fee_result
+    r = self.price * fee_percentage
+    min = Money.new(AUCTION_FEES[:min]*100)
+    r = min if r < min
+    max = Money.new(AUCTION_FEES[:max]*100)
+    r = max if r > max
+    r
+  end
+
+public
+  
+  def friendly_percent_calculated
+    friendly_percent_result
   end
   
-  def fees_and_donations
-    friendly_percent_result + corruption_percent_result + fees
+  def calculated_fees_and_donations
+    self.calculated_corruption + self.calculated_friendly + self.calculated_fee
   end
+    
+  def calculate_fees_and_donations
+    self.calculated_corruption  = corruption_percent_result
+    self.calculated_friendly = friendly_percent_result
+    self.calculated_fee = fee_result
+  end  
+    
+  # --------------------------------  
     
   # other
   
@@ -165,8 +190,7 @@ class Auction < ActiveRecord::Base
   end
 
   attr_accessor :category_proposal
-  
- 
+    
   
   acts_as_followable
 
@@ -175,12 +199,9 @@ class Auction < ActiveRecord::Base
   validates_length_of :size, :maximum => 4
   validates_presence_of :quantity
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-    
-  # Note: currency is deprecated for the moment.
-  enumerize :price_currency, :in => [:EUR]
 
   monetize :price_cents
-  
+    
   serialize :transport, Array
   enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
   validates :transport, :size => 1..-1

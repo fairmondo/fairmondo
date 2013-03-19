@@ -1,19 +1,18 @@
-de:
-# boxes 
-  boxes:
-    dashboard:
-      my_auction_templates: Meine Vorlagen
+de: 
+   
       
 # Dashboard
   dashboard:
+    boxes:
+      my_auction_templates: Meine Vorlagen
+      offers: "Eingestellte Artikel"
+      inactive: "Nicht eingestellte Artikel"
+      sold: "Verkaufte Artikel"
     no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
       invitor: "Einladender"
       invited_people: "Eingeladene Benutzer"
-      offers: "Angebotene Artikel"
-      sold: "Verkaufte Artikel"
-      templates: "Meine Artikelvorlagen"
     text:
       no_offers: "Keine Angebote eingestellt"
       no_sold: "Keine verkauften Artikel vorhanden"

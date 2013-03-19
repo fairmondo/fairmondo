@@ -33,7 +33,7 @@ class DashboardController < ApplicationController
   def index
     get_user    
     @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)
-    if @user == current_user
+    if @user.id == current_user.id
       get_sales
     end
   end
@@ -189,8 +189,8 @@ class DashboardController < ApplicationController
   
   def get_sales
         
-    @offers = @user.auctions
-    @sold = @user.auctions
+    @offers = @user.auctions.paginate :page => params[:offers_page] , :per_page => 12
+    @inactive = @user.auctions.where(:active => false).paginate :page => params[:inactive_page] , :per_page => 12
     @auction_templates = @user.auction_templates
   end
 

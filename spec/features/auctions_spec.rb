@@ -26,8 +26,8 @@ describe 'Auction management' do
         fill_in 'Transport details', with: 'transport_details'
         check "auction_payment_cash"
         fill_in 'Payment details', with: 'payment_details'
-        click_button "Create Auction"
-      end.should change(Auction, :count).by(1)
+        find(".form-actions").find("input").click
+      end.should change(Auction.unscoped, :count).by(1)
     end
 
     it 'creates categories' do
