@@ -8,6 +8,7 @@ FactoryGirl.define do
     end
     
     factory :auction_transaction, :class => 'AuctionTransaction' do
+       expire    { (rand(10) + 2).hours.from_now }
     end
   end
   
