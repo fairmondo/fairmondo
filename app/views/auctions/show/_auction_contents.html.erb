@@ -22,19 +22,9 @@
 	
 			<% category_tree.each do |category| %>
 	
-				<%= semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get'}, :builder => Fairtastic::FormBuilder do |f|  %>
-				<div class="hide" >
-					<%= f.input :categories_and_ancestors,:as => :check_boxes, :collection => category_tree.take(count),:input_html => { :checked => true } %>
-				</div>
-		
-				<button id="category_link_button">
-					<li style="<%= category_shift count-1 %>">
-						<a><% unless category_tree.first == category %><span class="divider">-</span><%end%><%= category.name%></a>
-					</li>
-				</button>
-		
-				<%end%>
-		
+				<li style="<%= category_shift count-1 %>">
+					<a href="<%= auctions_path(:auction => {:categories_and_ancestors  => [category.id] })%>"><% unless category_tree.first == category %><span class="divider">-</span><%end%><%= category.name%></a>
+				</li>
 				<% count = count + 1 %>
 			<%end%>
 		<% end %>
