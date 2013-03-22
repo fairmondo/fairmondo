@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
 
+  # lib dependency
+  include SanitizeTinyMce
+  
+  
+
   #set defaults before saving
   #before_save :set_default
 
@@ -10,6 +15,7 @@ class User < ActiveRecord::Base
 
   after_create :addFfp
   after_create :create_default_library
+ 
 
   acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
   acts_as_followable
@@ -46,6 +52,9 @@ class User < ActiveRecord::Base
   validates_presence_of :nickname
   
   validates :zip, :presence => true, :on => :update, :zip => true
+  
+  
+
 
   #Relations
   has_many :auctions

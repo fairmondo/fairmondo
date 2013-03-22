@@ -1,6 +1,6 @@
 class PrivateUser < User
 
-    
+    before_validation :sanitize, :on => :create 
 
     #
     # We cannot validate on user directly else resend password bzw. reset passwort does not work 
@@ -18,6 +18,10 @@ class PrivateUser < User
     # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
     def self.model_name
       User.model_name
+    end
+
+    def sanitize
+      self.about_me = sanitize_tiny_mce(self.about_me)
     end
 
 end
