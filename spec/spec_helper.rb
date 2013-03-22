@@ -17,6 +17,10 @@ require Rails.root.join('db/fixtures/category_seed_data.rb')
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+#Secret Token 4 testing:
+Fairnopoly::Application.config.secret_token = '599e6eed15b557a8d7fdee1672761277a174a6a7e3e8987876d9e6ac685d68005b285b14371e3b29c395e1d64f820fe05eb981496901c2d73b4a1b6c868fd771'
+
+
 RSpec.configure do |config|
 # ## Mock Framework
 #

@@ -2,6 +2,7 @@
 # config/database.yml -> needed for travis-ci
 config/environments/development.rb
 public/system
+config/initializers/secret_token.rb
 
 # Project files
 .project
