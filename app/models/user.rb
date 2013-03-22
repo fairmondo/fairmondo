@@ -25,10 +25,13 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-      :nickname, :forename, :surname, :image, :admin,:privacy, :legal, :agecheck, 
+      :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck, 
       :trustcommunity, :invitor_id, :banned, :legal_entity, :about_me, 
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax, 
       :terms, :cancellation, :about,  :recaptcha
+  
+  attr_protected :admin
+      
   attr_accessor :recaptcha
   
   
