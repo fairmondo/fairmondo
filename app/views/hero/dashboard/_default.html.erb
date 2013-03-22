@@ -16,11 +16,11 @@
 					</div>
 					
 						<%if params[:full_about]%>
-						<a href="<%=url_for dashboard_path(:id => @user.id) %>" class="pull-right"> 
+						<a href="<%=dashboard_path(:id => @user.id) %>" class="pull-right"> 
 							<i class=" icon-chevron-up"></i> weniger anzeigen
 						</a>
 						<%else%>
-							<a href="<%=url_for dashboard_path(:id => @user.id, :full_about => "true") %>" class="pull-right"> 
+							<a href="<%=dashboard_path(:id => @user.id, :full_about => "true") %>" class="pull-right"> 
 								<i class=" icon-chevron-down"></i> mehr anzeigen
 							</a>
 						<%end%>
@@ -30,7 +30,7 @@
 					<div class="empty-well">
 						<% if @user==current_user%>
 							
-							<a href="<%=url_for edit_user_registration_path %>" class="pull-right"> 
+							<a href="<%=edit_user_registration_path %>" class="pull-right"> 
 								Beschreibung hinzufügen
 							</a>
 						<%end%>
@@ -42,25 +42,25 @@
 			<ul class="nav nav-pills">
 				<%if @user.id==current_user.id%>
 			    	<li id="dashboard-sell">
-			    		<a href="<%=url_for :controller => "dashboard", :action => "sales", :anchor => "offers" %>">
+			    		<a href="<%=url_for (:controller => "dashboard", :action => "sales", :anchor => "offers") %>">
 		       				<strong> Verkäufe </strong>
 		    			</a>
 	
 		    		</li>
 	    		<%end%>
 	    		<li id="dashboard-library">
-		    		<a href="<%=url_for :controller => "dashboard", :action => "libraries", :id => params[:id] %>">
+		    		<a href="<%=url_for (:controller => "dashboard", :action => "libraries", :id => params[:id]) %>">
 	       				<strong> Sammlungen </strong>
 	    			</a>
 
 	    		</li>
 		    		<li id="dashboard-profile">
 		    			<%if @user.id==current_user.id%>
-			    			<a href="<%=url_for :controller => "dashboard", :action => "edit_profile" %>">
+			    			<a href="<%=url_for (:controller => "dashboard", :action => "edit_profile") %>">
 			       				<strong> Profil bearbeiten  </strong>
 			    			</a>
 			    		<%elsif @user.legal_entity%>
-			    			<a href="<%=url_for :controller => "dashboard", :action => "profile" , :id => params[:id]%>">
+			    			<a href="<%=url_for (:controller => "dashboard", :action => "profile" , :id => params[:id])%>">
 			       				<strong> Profil  </strong>
 			    			</a>
 			    		<%end%>
@@ -71,25 +71,5 @@
 		</div>	
 		
 	</div>
-	
-	<!-- <p>
-		<% html= "<i class=\"icon-heart\"></i> " + @user.followers_count.to_s%> 
-		<%= link_to html.html_safe, { :controller => "dashboard", :action => "list_followers" ,:id => @user.id ,   },
-		{ :title => t('user.follow.followers_info_others') + @user.name , :class => "btn"} %>
-
-		<% html= "<i class=\"icon-eye-open\"></i> " + @user.follow_count.to_s%> <%= link_to html.html_safe, { :controller => "dashboard", :action => "list_following" ,:id => @user.id } ,
-		{ :title => @user.name + t('user.follow.following_info_others'), :class => "btn"} %>
-		<%if @user.trustcommunity?%>
-		<% html= "<i class=\"icon-user\"></i> " %> <%= link_to html.html_safe , community_path(:id =>@user.id) , {:class => "btn" , :title => t('dashboard.menu.community')}%>
-		<%end%>
-
-		<%if @user==current_user%>
-		<% html= glyphicons("icon-cog")%>
-		<%= link_to html.html_safe, edit_user_registration_path , :class => "btn" , :title => t('dashboard.actions.edit_account')%>
-		<%else%>
-			<%= render :partial => 'shared/follow' , :locals => { :object => @user }%>
-		<%end%>
-		<br>
-	</p> -->
 
 </div>
