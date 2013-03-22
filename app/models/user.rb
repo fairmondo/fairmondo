@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
       :terms, :cancellation, :about,  :recaptcha
   attr_accessor :recaptcha
   
+  
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
