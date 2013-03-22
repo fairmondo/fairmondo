@@ -3,6 +3,7 @@ module Auction::Categories
 
   included do
     
+    attr_accessible :categories_and_ancestors,:category_proposal
      attr_accessor :category_proposal
     
     # categories refs #154

@@ -52,6 +52,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/data/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
     run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
+    run "ln -nfs #{shared_path}/data/config/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
     run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
     run "ln -nfs #{shared_path}/data/solr/data #{release_path}/solr/data"
   end

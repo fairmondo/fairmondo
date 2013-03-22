@@ -11,7 +11,8 @@
 				<%if @user.about_me && !@user.about_me.empty?%>
 					<div class="well clear-margin-bottom about <%= "small-about" unless params[:full_about]%>">
 						
-						<%= raw @user.about_me %>
+						<%= @user.about_me.html_safe %>
+						<div class="clearfix"></div>
 					</div>
 					
 						<%if params[:full_about]%>

@@ -1,5 +1,7 @@
 class Invitation < ActiveRecord::Base
   
+  attr_accessible :surname , :name, :email, :relation, :trusted_1 , :trusted_2
+  
   validate :validate_sender
   
   def validate_sender

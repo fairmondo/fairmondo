@@ -2,6 +2,7 @@
 # config/database.yml -> needed for travis-ci
 config/environments/development.rb
 public/system
+config/initializers/secret_token.rb
 
 # Project files
 .project
@@ -21,6 +22,7 @@ public/system
 
 # Ignore default SQLite database
 db/*.sqlite3
+db/*.sqlite3-journal
 db/schema.rb
 
 # Ignore codecoverage report
