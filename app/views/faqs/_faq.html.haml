@@ -1,0 +1,5 @@
+.accordion-group
+  %h5.question
+    %a.question-toggle{"data-parent" => "#faqs-accordion", "data-toggle" => "collapse", :href => "#faq#{faq_counter}"}= faq.question
+  .answer.collapse{:id => "faq#{faq_counter}"}
+    = faq.answer

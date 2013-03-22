@@ -1,0 +1,16 @@
+- unless (!current_user) || object == current_user
+  - if current_user.following?(object)
+    %p
+      %i.icon-ok
+      = t('user.follow.following')
+    = form_tag({:action => "stop_follow" ,:method => "post"} ,{:class =>  "form-inline" }) do
+      %input{:name => "id", :type => "hidden", :value => object.id}/
+      %button.btn{:type => "submit"}
+        %i.icon-remove
+        = t("common.text.stop_follow")
+  - else
+    = form_tag({:action => "follow" ,:method => "post"} ,{:class =>  "form-inline" }) do
+      %input{:name => "id", :type => "hidden", :value => object.id}/
+      %button.btn{:type => "submit"}
+        %i.icon-eye-open
+        = t("common.text.follow")
