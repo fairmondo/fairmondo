@@ -1,0 +1,8 @@
+%p
+  Auction reported with ID #{@auction.id} :
+%p= @text
+%p auction link:
+%p
+  = polymorphic_url(@auction)
+%p admin link:
+%p= polymorphic_url([:admin, @auction])

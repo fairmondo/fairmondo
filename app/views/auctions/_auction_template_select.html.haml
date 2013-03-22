@@ -1,0 +1,9 @@
+- if @auction_templates.present?
+  = semantic_form_for(:template_select, :url => new_auction_path, :html => { :method => :get, :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder) do |f|
+    = f.input_step :apply do
+      - if block_given?
+        = yield
+      .template_select-user-inputs
+        = f.input :auction_template, :collection => @auction_templates, :prompt => t('template_select.prompts.auction_templates')
+        .control-group
+          = f.action :submit, :button_html => {:class => "primary"}

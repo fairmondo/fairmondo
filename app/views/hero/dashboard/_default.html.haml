@@ -1,0 +1,41 @@
+#dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "index"}"}
+  .row-fluid
+    .span3
+      = render :partial=>'/shared/profile_img', :locals=>{:user => @user}
+    #dashboard-middle.span9
+      #dashboard-events
+        - if @user.about_me && !@user.about_me.empty?
+          %div{:class => "well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+            = @user.about_me.html_safe
+            .clearfix
+          - if params[:full_about]
+            %a.pull-right{:href => dashboard_path(:id => @user.id)}
+              %i.icon-chevron-up
+              weniger anzeigen
+          - else
+            %a.pull-right{:href => dashboard_path(:id => @user.id, :full_about => "true")}
+              %i.icon-chevron-down
+              mehr anzeigen
+        - else
+          .empty-well
+            - if @user==current_user
+              %a.pull-right{:href => edit_user_registration_path}
+                Beschreibung hinzufügen
+            %h4 Noch keine Beschreibung hinzugefügt.
+      %ul.nav.nav-pills
+        - if @user.id==current_user.id
+          %li#dashboard-sell
+            %a{:href => url_for(:controller => "dashboard", :action => "sales", :anchor => "offers")}
+              %strong Verkäufe
+        %li#dashboard-library
+          %a{:href => url_for(:controller => "dashboard", :action => "libraries", :id => params[:id])}
+            %strong Sammlungen
+        %li#dashboard-profile
+          - if @user.id==current_user.id
+            %a{:href => url_for(:controller => "dashboard", :action => "edit_profile")}
+              %strong Profil bearbeiten
+          - elsif @user.legal_entity
+            %a{:href => url_for(:controller => "dashboard", :action => "profile" , :id => params[:id])}
+              %strong Profil
+      #hero-unfold
+        %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

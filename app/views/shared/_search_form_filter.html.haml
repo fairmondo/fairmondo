@@ -1,0 +1,9 @@
+= semantic_fields_for @search_cache do |f|
+  #search-box-filter.row-fluid
+    .span6
+      = f.input :condition,:as => :radio, :prepend_label => true, :collection => Auction.condition.options + [["Egal", ""]] , :required => false
+    .span6
+      = f.input :fair, :as => :plain_check_box
+      = f.input :ecologic , :as => :plain_check_box
+      = f.input :small_and_precious , :as => :plain_check_box
+  = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :prepend_label => true

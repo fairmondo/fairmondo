@@ -1,0 +1,7 @@
+%div
+  = form_tag({:action => "add_to_library" ,:method => "post"} ,{:class =>  "form-inline" }) do
+    = hidden_field_tag 'id', element.id
+    - unless (!current_user)
+      = select_tag "library_id", options_from_collection_for_select(libraries, "id", "name"), :class=>"btn-fill boarder-no-bottom"
+    %button.btn.btn-fill.btn-white.boarder-no-top{:type => "submit"}
+      = button_label
