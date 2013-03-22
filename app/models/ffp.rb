@@ -1,5 +1,7 @@
 class Ffp < ActiveRecord::Base
   
+  attr_accessible :price, :user_id, :activated
+  
   #has_one :user
   belongs_to :donator ,:class_name => 'User', :foreign_key => 'user_id'
   #belongs_to :relation ,:class_name => 'UserRelation', :foreign_key => 'user_relation'

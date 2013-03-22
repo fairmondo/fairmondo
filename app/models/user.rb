@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
 
+  # lib dependency
+  include SanitizeTinyMce
+  
+  
+
   #set defaults before saving
   #before_save :set_default
 
@@ -10,6 +15,7 @@ class User < ActiveRecord::Base
 
   after_create :addFfp
   after_create :create_default_library
+ 
 
   
   acts_as_followable
@@ -19,11 +25,15 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-      :nickname, :forename, :surname, :image, :admin,:privacy, :legal, :agecheck, 
+      :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck, 
       :trustcommunity, :invitor_id, :banned, :legal_entity, :about_me, 
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax, 
       :terms, :cancellation, :about,  :recaptcha
+  
+  attr_protected :admin
+      
   attr_accessor :recaptcha
+  
   
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
@@ -45,6 +55,9 @@ class User < ActiveRecord::Base
   validates_presence_of :nickname
   
   validates :zip, :presence => true, :on => :update, :zip => true
+  
+  
+
 
   #Relations
   has_many :auctions

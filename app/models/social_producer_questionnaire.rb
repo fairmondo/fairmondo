@@ -1,6 +1,8 @@
 class SocialProducerQuestionnaire < ActiveRecord::Base
   extend Enumerize
   
+  attr_accessible :nonprofit_association, :nonprofit_association_purposes, :social_businesses_muhammad_yunus,  :social_businesses_muhammad_yunus_purposes, :social_entrepreneur, :social_entrepreneur_purposes
+  
   belongs_to :auction
   
   def initialize(*args)

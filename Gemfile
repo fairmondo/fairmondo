@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -131,14 +131,17 @@ group :development, :test do
   gem "ZenTest", "~> 4.9.0"
   gem 'autotest-fsevent'
   gem 'simplecov'
+
    #solr gem
   gem 'sunspot_solr'
   gem "sunspot_test"
+  gem "brakeman" # security test: execute with 'brakeman'
 end
 
 # Adding Staging-server Embedded Solr
 group :staging do
   gem 'sunspot_solr'
+
 end
 
 # To use ActiveModel has_secure_password

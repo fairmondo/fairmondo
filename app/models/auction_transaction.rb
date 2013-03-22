@@ -1,4 +1,8 @@
 class AuctionTransaction < Transaction
+   
+   attr_protected :max_bid 
+   attr_readonly :expire 
+   
    has_one :max_bid ,:class_name => 'Bid'
    has_many :bids
       

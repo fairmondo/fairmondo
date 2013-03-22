@@ -105,7 +105,7 @@
 					<a href="#content"> <h3><%= t('formtastic.labels.auction.content')%></h3> </a>
 				</div>
 				<div class="box-content padding-clap-box">
-					<%= raw @auction.content%>
+					<%= @auction.content.html_safe%>
 				</div>
 			</div>
 			<div class="box" id="payment">
@@ -118,7 +118,7 @@
 						<%= @auction.payment.map(&:text) * ", " %>
 					</p>
 					<div class="border-box middle-padding">
-						<%= raw @auction.payment_details %>
+						<%= simple_format(@auction.payment_details).html_safe %>
 					</div>
 					<br />
 					<strong><%= t('formtastic.labels.auction.transport')%>:</strong>
@@ -126,7 +126,7 @@
 						<%= @auction.transport.map(&:text) * ", " %>
 					</p>
 					<div class="border-box middle-padding">
-						<%= raw @auction.transport_details %>
+						<%= simple_format(@auction.transport_details).html_safe %>
 					</div>
 				</div>
 			</div>
@@ -148,7 +148,7 @@
 					<a href="#terms"> <h3><%= t('devise.edit_profile.terms')%></h3> </a>
 				</div>
 				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.terms %>
+					<%= @auction.seller.terms.html_safe %>
 				</div>
 			</div>
 			<div class="box" id="cancellation">
@@ -156,7 +156,7 @@
 					<a href="#cancellation"> <h3><%= t('devise.edit_profile.cancellation')%></h3> </a>
 				</div>
 				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.cancellation  %>
+					<%= @auction.seller.cancellation.html_safe  %>
 				</div>
 			</div>
 			<div class="box" id="about">
@@ -164,7 +164,7 @@
 					<a href="#about"> <h3><%= t('devise.edit_profile.about')%></h3> </a>
 				</div>
 				<div class="box-content  padding-clap-box">
-					<%= raw @auction.seller.about  %>
+					<%= @auction.seller.about.html_safe  %>
 				</div>
 			</div>
 			<%end%>
