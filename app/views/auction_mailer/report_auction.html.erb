@@ -1,0 +1,10 @@
+
+<p>Auction reported with ID <%= @auction.id %> :</p>
+
+<p><%= @text %></p>
+
+<p>auction link:</p>
+<p><%= polymorphic_url(@auction) %> </p>
+
+<p>admin link:</p>
+<p><%= polymorphic_url([:admin, @auction]) %></p>
