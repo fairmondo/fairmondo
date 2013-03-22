@@ -1,0 +1,5 @@
+%h1 Welcome
+- [:left, :center, :right].each do |section|
+  %h2
+    Here is CMS content #{section.to_s.capitalize}
+  = tinycms_content section

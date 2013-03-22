@@ -54,6 +54,7 @@ gem 'jquery-rails'
 
 # Tool Libs
 
+gem 'haml'
 gem 'json' 
 gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
@@ -124,6 +125,8 @@ end
 
 # Testing using RSpec
 group :development, :test do
+  gem "erb2haml"
+  gem "html2haml"
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
