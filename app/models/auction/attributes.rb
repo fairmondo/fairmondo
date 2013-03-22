@@ -3,6 +3,15 @@ module Auction::Attributes
   
   included do
     
+    #common fields
+    attr_accessible :title, :content, :condition  , :transport, :payment ,:payment_details , :transport_details, :color , :quantity , :size
+    
+    # market place state
+    attr_protected :locked, :active
+    
+    #money_rails
+    attr_accessible :price_cents , :currency, :price
+    
     validates_presence_of :title , :content, :unless => :template? # refs #128 
     validates_presence_of :condition, :price_cents
     

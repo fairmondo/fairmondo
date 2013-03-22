@@ -1,4 +1,7 @@
 class Category < ActiveRecord::Base
+  
+  attr_accessible :name, :parent, :desc, :parent_id
+  
   has_many :auctions_categories
   has_many :auctions, :through => :auctions_categories
   

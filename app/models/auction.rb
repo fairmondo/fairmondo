@@ -3,6 +3,8 @@ class Auction < ActiveRecord::Base
   
   include Categories, Commendation, FeesAndDonations, Images, Initial, Sanitize, Attributes, Search
 
+  attr_accessible :transaction_attributes
+
   # refs #128
   default_scope where(:auction_template_id => nil)
   
