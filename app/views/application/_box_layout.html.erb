@@ -7,11 +7,13 @@
         </span>
       </a>
     <% end %>
-    <a href="#<%= box_name %>"> 
-      <h3>
-        <%= box_title %>
+   
+      <h3> 
+      	<a href="#<%= box_name %>"> 
+        	<%= box_title %>
+        </a>
       </h3> 
-    </a>
+    
   </div>
   <div class="box-content <%= box_content_class %>">
     <%= yield %>
