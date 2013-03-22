@@ -63,32 +63,34 @@ class AuctionsController < ApplicationController
   # GET /auctions/1
   # GET /auctions/1.json
   def show
-    @search_cache = Auction.new(params[:auction])
-    @auction = Auction.unscoped.find(params[:id])
-
-    if @auction.active 
-      @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
-      #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
-      @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
-    else 
-      if current_user && current_user.id == @auction.seller.id
-        @auction.calculate_fees_and_donations
-      else
-         flash[:error] = t('auction.notices.inactive')
-         begin
-            redirect_to :back
-         rescue ActionController::RedirectBackError 
-            redirect_to auctions_path
-         end
-         return
+    Auction.unscoped do
+      @search_cache = Auction.new(params[:auction])
+      @auction = Auction.find(params[:id])
+  
+      if @auction.active 
+        @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
+        #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
+        @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
+      else 
+        if current_user && current_user.id == @auction.seller.id
+          @auction.calculate_fees_and_donations
+        else
+           flash[:error] = t('auction.notices.inactive')
+           begin
+              redirect_to :back
+           rescue ActionController::RedirectBackError 
+              redirect_to auctions_path
+           end
+           return
+        end
       end
-    end
-
-    set_title_image_and_thumbnails
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @auction }
+  
+      set_title_image_and_thumbnails
+      
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @auction }
+      end
     end
   end
 
@@ -154,18 +156,20 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1/edit
   def edit
-    @auction = Auction.unscoped.with_user_id(current_user.id).find(params[:id])
-    if @auction.locked
-      #Todo: Give oportunity to create new article based on this article
-      flash[:error] = t('auction.notices.locked')
-      redirect_to @auction
-      return
-    end
-    
-    setup_form_requirements
-    respond_to do |format|
-      format.html 
-      format.json { render :json => @auction }
+    Auction.unscoped do
+      @auction = Auction.with_user_id(current_user.id).find(params[:id])
+      if @auction.locked
+        #Todo: Give oportunity to create new article based on this article
+        flash[:error] = t('auction.notices.locked')
+        redirect_to @auction
+        return
+      end
+      
+      setup_form_requirements
+      respond_to do |format|
+        format.html 
+        format.json { render :json => @auction }
+      end
     end
   end
 
@@ -200,59 +204,63 @@ class AuctionsController < ApplicationController
   # PUT /auctions/1
   # PUT /auctions/1.json
   def update
-    
-    @auction = Auction.unscoped.with_user_id(current_user.id).find(params[:id])
-
+    Auction.unscoped do
+      @auction = Auction.with_user_id(current_user.id).find(params[:id])
   
-      if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
-
-        userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
-        userevent.save
-        respond_to do |format|
-          format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
-          format.json { head :no_content }
-        end
-      else
-        
-        save_images
-        setup_form_requirements
-        respond_to do |format|
-          format.html { render :action => "edit" }
-          format.json { render :json => @auction.errors, :status => :unprocessable_entity }
-        end
-      end
     
+        if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
+  
+          userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
+          userevent.save
+          respond_to do |format|
+            format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
+            format.json { head :no_content }
+          end
+        else
+          
+          save_images
+          setup_form_requirements
+          respond_to do |format|
+            format.html { render :action => "edit" }
+            format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+          end
+        end
+    end
   end
 
   def activate
-    @auction = Auction.unscoped.with_user_id(current_user.id).find(params[:id])
-    if @auction.active || (current_user.id != @auction.seller.id) # false activate
-       redirect_to @auction
-    else
-      @auction.calculate_fees_and_donations
-      @auction.locked = true # Lock The Auction
-      @auction.active = true # Activate to be searchable
-      @auction.save
-      respond_to do |format|
-        format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-        format.json { render :json => @auction, :status => :created, :location => @auction }
+    Auction.unscoped do
+      @auction = Auction.unscoped.find(params[:id])
+      if @auction.active || (current_user.id != @auction.seller.id) # false activate
+         redirect_to @auction
+      else
+        @auction.calculate_fees_and_donations
+        @auction.locked = true # Lock The Auction
+        @auction.active = true # Activate to be searchable
+        @auction.save
+        respond_to do |format|
+          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+          format.json { render :json => @auction, :status => :created, :location => @auction }
+        end
       end
     end
   end
   
   def deactivate
-    @auction = Auction.unscoped.with_user_id(current_user.id).find(params[:id])
-    
-    #REMEMBER: AuctionTransaction may not be removed if running
-    
-    if current_user.id != @auction.seller.id # false activate
-       redirect_to @auction
-    else
-      @auction.active = false 
-      @auction.save
-      respond_to do |format|
-        format.html { redirect_to @auction, :notice => I18n.t('auction.notices.deactivated') }
-        format.json { render :json => @auction, :status => :created, :location => @auction }
+    Auction.unscoped do
+      @auction = Auction.with_user_id(current_user.id).find(params[:id])
+      
+      #REMEMBER: AuctionTransaction may not be removed if running
+      
+      if current_user.id != @auction.seller.id # false activate
+         redirect_to @auction
+      else
+        @auction.active = false 
+        @auction.save
+        respond_to do |format|
+          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.deactivated') }
+          format.json { render :json => @auction, :status => :created, :location => @auction }
+        end
       end
     end
   end
