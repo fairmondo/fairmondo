@@ -2,6 +2,7 @@ module Auction::Search
   extend ActiveSupport::Concern
   
   included do
+        
     searchable :unless => :template? do
       text :title, :boost => 5.0, :stored => true
       text :content
