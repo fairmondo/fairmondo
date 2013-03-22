@@ -1,5 +1,7 @@
 class PrivateUser < User
 
+    
+
     #
     # We cannot validate on user directly else resend password bzw. reset passwort does not work 
     # if the user object doesnt validate and the user cannot reset his password!

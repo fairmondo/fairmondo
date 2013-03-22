@@ -10,10 +10,7 @@ FactoryGirl.define do
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
     
-    # Locked & Activated
-    locked true
-    active true
-   
+
     transport { Auction.transport.values.sample(rand(3)+1) }
     transport_details "transport_details"    
     payment   { Auction.payment.values.sample(rand(5)+1) }
@@ -21,7 +18,10 @@ FactoryGirl.define do
     after(:build) do |auction|
       auction.images << FactoryGirl.build(:image,:auction => auction)
       auction.transaction ||= FactoryGirl.build(:preview_transaction,:auction => auction)
+      auction.locked = true
+      auction.active = true
     end
+    
     factory :second_hand_auction do
       condition "old"
     end
@@ -31,12 +31,16 @@ FactoryGirl.define do
     end
     
     factory :inactive_auction do 
-      active false
+       after(:build) do |auction|
+         auction.active = false
+       end
     end
     
     factory :editable_auction do
-      active false
-      locked false
+      after(:build) do |auction|
+         auction.active = false
+         auction.locked = false
+      end
     end
     
     
