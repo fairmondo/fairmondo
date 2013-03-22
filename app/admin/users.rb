@@ -35,7 +35,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.admin = false
-    user.save
+    user.save(:validate => false)
     redirect_to(:back)
   end
 
@@ -43,7 +43,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.admin = true
-    user.save
+    user.save(:validate => false)
     redirect_to(:back)
   end
 
@@ -51,7 +51,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.trustcommunity = true
-    user.save
+     user.save(:validate => false)
     redirect_to(:back)
   end
 
@@ -59,7 +59,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.trustcommunity = false
-    user.save
+     user.save(:validate => false)
     redirect_to(:back)
   end
 
@@ -67,7 +67,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.banned = false
-    user.save
+     user.save(:validate => false)
     redirect_to(:back)
   end
 
@@ -75,7 +75,7 @@ ActiveAdmin.register User do
   # your normal action code
     user = User.find(params[:id])
     user.banned = true
-    user.save
+     user.save(:validate => false)
     redirect_to(:back)
   end
 
