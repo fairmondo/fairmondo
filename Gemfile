@@ -126,6 +126,7 @@ group :development, :test do
   gem "ZenTest", "~> 4.9.0"
   gem 'autotest-fsevent'
   gem 'simplecov'
+  gem "brakeman" # security test: execute with 'brakeman'
 end
 
 # To use ActiveModel has_secure_password
