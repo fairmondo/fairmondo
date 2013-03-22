@@ -1,0 +1,6 @@
+= semantic_fields_for @search_cache || Auction.new do |f|
+  #wrapper_search_box
+    #search_box
+      = f.input :title, :label => false, :input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_auction_title_auctions_path }
+  #search_button
+    = image_submit_tag("search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))

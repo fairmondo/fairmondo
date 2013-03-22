@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    / ><img alt="Banner" src="http://www.fairnopoly.com/online-marktplatz/wp-content/uploads/2012/05/fn-header-200-de-t2.gif" width="100%"/>
+    %h2
+      Hallo #{@name},
+    %p
+      du wurdest von
+      %b= @user.name
+      auf
+      %b Fairnopoly
+      in die Vertrauensgemeinschaft eingeladen.
+      Um die Einladung zu bestätigen und bei Fairnopoly mitzumachen, öffne den folgenden Link:
+      %br/
+    %p
+      %a{:href => @url}= @url
+    %p
+      %br/
+    %hr/
+    Viele Grüße
+    Das Fairnopoly Team
