@@ -1,7 +1,9 @@
 class Auction < ActiveRecord::Base
   extend Enumerize
   
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Sanitize, Attributes, Search
+ 
+  #auction module concerns
+  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
 
   attr_accessible :transaction_attributes
 
@@ -39,6 +41,8 @@ class Auction < ActiveRecord::Base
       where(:user_id => user_id)
     end
   } 
+
+ 
 
 
   # see #128
