@@ -9,6 +9,9 @@ module Auction::FeesAndDonations
   }
 
   included do
+    
+    attr_accessible :calculated_corruption_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
+    
     # Fees and donations
     monetize :calculated_corruption_cents
     monetize :calculated_friendly_cents
