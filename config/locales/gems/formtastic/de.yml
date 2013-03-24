@@ -106,7 +106,10 @@ de:
         apply: Deine Vorlagen
     tooltips:
       user:
-        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du Deine Emailadresse oder Dein Passwort ändern willst."
+        new:
+          email: "An diese Adresse verschicken wir die Anmeldebestätigung."
+          nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
+          password: "Bitte achte auf deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
