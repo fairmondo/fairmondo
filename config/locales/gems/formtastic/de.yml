@@ -62,7 +62,7 @@ de:
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         
         condition: "Artikelzustand"
-        content: "Artikelbeschreibung"
+
         color: Farbe
         size: Größe
         quantity: Anzahl
@@ -71,8 +71,7 @@ de:
         
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
-        payment: "Versand und Bezahlung"
-        honor: "Auszeichnung des Artikels"
+
         payment_details: "Weitere Angaben:"
         
         friendly_percent: "Spendenanteil - das freundliche Prozent"

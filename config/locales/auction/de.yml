@@ -1,6 +1,18 @@
 de:
   # Auction Model/Controller
+  
+  auctions:
+    boxes:
+      content: "Artikelbeschreibung"
+      payment: "Versand und Bezahlung"
+      honor: "Auszeichnung des Artikels"
+      terms: "AGB"
+      cancellation: "Widerrufsbelehrung und Rücknahme"
+      about: "Impressum und Kontakt"
+      report: "Artikel melden"
+
   auction:
+    
     show:
       friendly_percent: "Das freundliche Prozent"
       will_be: " werden an "
