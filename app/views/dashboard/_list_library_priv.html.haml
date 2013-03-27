@@ -3,7 +3,7 @@
   .box{:id => ("library_"+lib.id.to_s)}
     .box-legend.box-legend-without-border
       %a{:href => ("#library_"+lib.id.to_s)}
-      %h3= lib.name
+        %h3= lib.name
     .box-content.padding-box
       .middle-margin-top
         .well
@@ -21,15 +21,16 @@
         - else
           %ul.thumbnails
             - lib.library_elements.each do |library_element|
-              %li.span3
-                .thumbnail.white{:style => "position: relative;"}
-                  .in-image-container-library
-                    - html = glyphicons("icon-remove")
-                    = link_to html.html_safe, {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"pull-right"
-                    = link_to image_tag(library_element.auction.title_image ? library_element.auction.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.auction
-                    = features_label library_element.auction, "in-image-alt-library"
-                    = condition_label library_element.auction, "in-image-library"
-                  .caption
-                    %h5= link_to truncate(library_element.auction.title, :length => 25), library_element.auction
-                    %h5= humanized_money_with_symbol library_element.auction.price
-                = render :partial => '/shared/add_to_library' , :locals => {:button_label=> t('auction.actions.to-library'),:element => library_element,:libraries => @libraries }
+              - if library_element.auction
+                %li.span3
+                  .thumbnail.white{:style => "position: relative;"}
+                    .in-image-container-library
+                      - html = glyphicons("icon-remove")
+                      = link_to html.html_safe, {:controller => "dashboard", :action => "delete_library_element", :id=>library_element.id},:class=>"pull-right"
+                      = link_to image_tag(library_element.auction.title_image ? library_element.auction.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.auction
+                      = features_label library_element.auction, "in-image-alt-library"
+                      = condition_label library_element.auction, "in-image-library"
+                    .caption
+                      %h5= link_to truncate(library_element.auction.title, :length => 25), library_element.auction
+                      %h5= humanized_money_with_symbol library_element.auction.price
+                  = render :partial => '/shared/add_to_library' , :locals => {:button_label=> t('auction.actions.to-library'),:element => library_element,:libraries => @libraries }
