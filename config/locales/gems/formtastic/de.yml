@@ -65,7 +65,7 @@ de:
 
         color: Farbe
         size: Größe
-        quantity: Anzahl
+        quantity: "Anzahl (verfügbar)"
         price: "Preis"
         price_currency: "Währung"
         
@@ -90,7 +90,7 @@ de:
         _destroy: Löschen
     input_steps:
       auction:
-        prefix: "%{count}. Schritt:"
+        prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Auszeichnung Deines Artikels (optional)"
         article: "Dein Artikel"
