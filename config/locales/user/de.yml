@@ -41,7 +41,7 @@ de:
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Passwort bestätigen"
-      current_password: "Passwort"
+      current_password: "Bisheriges Passwort"
       current_password_hint: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
