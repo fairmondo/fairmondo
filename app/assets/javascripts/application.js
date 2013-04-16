@@ -9,3 +9,4 @@
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize
+//= require_tree ./visual
