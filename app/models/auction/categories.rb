@@ -80,5 +80,19 @@ module Auction::Categories
   end
   private :ensure_no_redundant_categories
 
+  # For Solr searching we need category ids 
+  def self.search_categories(categories)
+    ids = []
+    categories = Auction::Categories.remove_category_parents(categories)
+    
+    categories.each do |category|
+     category.self_and_descendants.each do |fullcategories|
+        ids << fullcategories.id
+      end
+    end
+    ids
+  end
+
+ 
 
 end

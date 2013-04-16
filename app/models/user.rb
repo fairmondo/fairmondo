@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   after_create :create_default_library
  
 
-  acts_as_indexed :fields => [:nickname,:forename,:surname, :email]
+  
   acts_as_followable
   acts_as_follower
 

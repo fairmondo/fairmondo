@@ -1,6 +1,7 @@
 ##### Requirement's #####
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
+require "delayed/recipes"  # Delayed Jobs
 
 #### Use the asset-pipeline
 load 'deploy/assets'
@@ -53,6 +54,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
     run "ln -nfs #{shared_path}/data/config/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
     run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
+    run "ln -nfs #{shared_path}/data/solr/data #{release_path}/solr/data"
   end
 
   desc "Addtional Rake Tasks"
@@ -75,6 +77,8 @@ namespace :deploy do
   end
 
 end
+
+
   
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"
@@ -82,5 +86,8 @@ after "deploy", "deploy:additional_rake"
 after "deploy:restart", "deploy:cleanup"
 after 'deploy:update_code', 'deploy:needs_migrations'
 
-
+# Delayed Jobs Hooks
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 

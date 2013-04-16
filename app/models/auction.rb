@@ -7,6 +7,7 @@ class Auction < ActiveRecord::Base
 
   attr_accessible :transaction_attributes
 
+
   # refs #128
   default_scope where(:auction_template_id => nil)
   
@@ -52,5 +53,7 @@ class Auction < ActiveRecord::Base
     # * the inverse reference is set in auction_template model before validation 
     auction_template_id != nil || auction_template != nil 
   end
+
+  
 
 end
