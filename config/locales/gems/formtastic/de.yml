@@ -17,6 +17,7 @@ de:
         remember_me: "Eingeloggt bleiben"
       auction:
         title: "Artikelbezeichnung"
+        content: "Beschreibung"
         categories: Kategorien
         categories_and_ancestors: Kategorien
         image: "Titelbild"
@@ -62,7 +63,7 @@ de:
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         
         condition: "Artikelzustand"
-
+        condition_extra: "Zustandsbeschreibung"
         color: Farbe
         size: Größe
         quantity: "Anzahl (verfügbar)"

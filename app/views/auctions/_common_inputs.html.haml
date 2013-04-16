@@ -21,7 +21,9 @@
     = f.input :small_and_precious_reason
     = f.input :small_and_precious_handmade, :as => :radio
 = f.input_step :article do
-  = f.input :condition, :tooltip => true,:as => :plain_radio, :prepend_label => true
+  = f.input :condition, :tooltip => true,:as => :plain_radio, :prepend_label => true, :js_toggle => true
+  = f.inputs :id => 'old-input-fields', :class => "condition" do
+    = f.input :condition_extra, :required => true
   = f.input :content, :as => :text, :tooltip => true, :required => true, :input_html => {:class => "tinymce"}
   = f.input :color
   = f.input :size
