@@ -1,6 +1,18 @@
 de:
   # Auction Model/Controller
+  
+  auctions:
+    boxes:
+      content: "Artikelbeschreibung"
+      payment: "Versand und Bezahlung"
+      honor: "Auszeichnung des Artikels"
+      terms: "AGB"
+      cancellation: "Widerrufsbelehrung und Rücknahme"
+      about: "Impressum und Kontakt"
+      report: "Artikel melden"
+
   auction:
+    
     show:
       friendly_percent: "Das freundliche Prozent"
       will_be: " werden an "
@@ -40,7 +52,7 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      create: "Artikel wurde erfolgreich eingestellt."
+      create: 'Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a id="WebLinkDescLink" href="http://de.surveymonkey.com/s/TJ69GDD">an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!'
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
       collect: "Artikel wurde in "

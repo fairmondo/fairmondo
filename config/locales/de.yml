@@ -2,7 +2,7 @@ de:
 
   welcome:
     greetings: "Willkommen bei Fairnopoly"
-    search_fair: "Artikelsuche"
+    search_fair: "Artikel suchen"
 # Common Texts
   common:
     brand: "fairnopoly.de"
@@ -17,7 +17,7 @@ de:
       show: "Anzeigen"
       edit: "Bearbeiten"
       destroy: "Löschen"
-      confirm: "Bist du sicher?"
+      confirm: "Bist Du sicher?"
       invite: "Einladen"
       trust: "Vertrauen"
       logout: "Logout"

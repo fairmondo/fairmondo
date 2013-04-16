@@ -32,9 +32,9 @@ de:
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
           
         small_and_precious: Klein&Edel
-        small_and_precious_edition: Wie hoch ist die Auflage?
-        small_and_precious_reason: Warum ist Dein Artikel edel?
-        small_and_precious_handmade: Ist der Artikel handgearbeitet?
+        small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
+        small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
+        small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
         fair_trust_questionnaire:
           support: >
             Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
@@ -62,17 +62,16 @@ de:
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         
         condition: "Artikelzustand"
-        content: "Artikelbeschreibung"
+
         color: Farbe
         size: Größe
-        quantity: Anzahl
+        quantity: "Anzahl (verfügbar)"
         price: "Preis"
         price_currency: "Währung"
         
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
-        payment: "Versand und Bezahlung"
-        honor: "Auszeichnung des Artikels"
+
         payment_details: "Weitere Angaben:"
         
         friendly_percent: "Spendenanteil - das freundliche Prozent"
@@ -91,7 +90,7 @@ de:
         _destroy: Löschen
     input_steps:
       auction:
-        prefix: "%{count}. Schritt:"
+        prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Auszeichnung Deines Artikels (optional)"
         article: "Dein Artikel"
@@ -106,7 +105,10 @@ de:
         apply: Deine Vorlagen
     tooltips:
       user:
-        current_password: "Du musst dein bisheriges Passwort nur angeben, wenn du Deine Emailadresse oder Dein Passwort ändern willst."
+        new:
+          email: "An diese Adresse verschicken wir die Anmeldebestätigung."
+          nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
+          password: "Bitte achte auf deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
