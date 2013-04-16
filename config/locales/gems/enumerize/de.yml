@@ -64,10 +64,10 @@ de:
         insured: Versichert
         uninsured: Unversichert
       payment:
-        bank_transfer: Überweisung
-        cash: Barbezahlung bei Abholung
+        bank_transfer: Überweisung (Vorkasse)
+        cash: Barzahlung bei Abholung
         paypal: PayPal
-        cach_on_delivery: Nachname
+        cach_on_delivery: Nachnahme
         invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International
