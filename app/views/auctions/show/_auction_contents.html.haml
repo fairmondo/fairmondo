@@ -67,7 +67,7 @@
     .span12
     
       / All Sellers
-      = render_box "content" do
+      = render_box_open "content" do 
         = @auction.content.html_safe
         
       = render_box "payment" do
