@@ -7,7 +7,7 @@ class Library < ActiveRecord::Base
   validates :user_id, :presence => true
   
   belongs_to :user
-  has_many :library_elements
+  has_many :library_elements, :dependent => :destroy
   
   attr_accessible :name, :public, :user_id, :user
   

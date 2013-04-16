@@ -60,13 +60,13 @@ class User < ActiveRecord::Base
 
 
   #Relations
-  has_many :auctions
-  has_many :userevents
-  has_many :bids
-  has_many :invitations
-  has_many :ffps
-  has_many :auction_templates
-  has_many :libraries
+  has_many :auctions, :dependent => :destroy
+  has_many :userevents, :dependent => :destroy
+  has_many :bids, :dependent => :destroy
+  has_many :invitations, :dependent => :destroy
+  has_many :ffps, :dependent => :destroy
+  has_many :auction_templates, :dependent => :destroy
+  has_many :libraries, :dependent => :destroy
 
   has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}, :default_url => "missing.png" , :url => "/system/users/:attachment/:id_partition/:style/:filename", :path => "public/system/users/:attachment/:id_partition/:style/:filename"
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
