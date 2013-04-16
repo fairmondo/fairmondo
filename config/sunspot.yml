@@ -1,6 +1,6 @@
 production:
   solr:
-    hostname: localhost
+    hostname: 78.109.61.237
     port: 8983
     log_level: WARNING
     # read_timeout: 2
