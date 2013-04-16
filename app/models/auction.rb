@@ -20,10 +20,10 @@ class Auction < ActiveRecord::Base
   has_many :userevents
 
   validates_presence_of :transaction
-  belongs_to :transaction
+  belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
-  has_many :library_elements
+  has_many :library_elements, :dependent => :destroy
   has_many :libraries, :through => :library_elements
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
