@@ -18,7 +18,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :auctions do
   #recources :userevents
-    get :autocomplete_auction_title, :on => :collection
+
     member do
       get 'activate'
       get 'deactivate'
@@ -29,7 +29,8 @@ Fairnopoly::Application.routes.draw do
       post 'add_to_library'
     end
     collection do
-
+      get 'sunspot_failure'
+      get 'autocomplete'
     end
   end
 

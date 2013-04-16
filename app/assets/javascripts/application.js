@@ -4,7 +4,6 @@
 //= require tinymce
 //= require tinymce-jquery
 //= require bootstrap
-//= require autocomplete-rails
 //= require selectivizr
 //= require jquery.complexify
 //= require_tree ./inputs

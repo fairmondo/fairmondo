@@ -48,7 +48,6 @@ gem 'selectivizr-rails'
 gem "font-awesome-rails"
 
 # JS
-gem 'rails3-jquery-autocomplete'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
@@ -61,7 +60,13 @@ gem 'enumerize', '~> 0.5.1'
 gem 'will_paginate', '~> 3.0'
 
 # Indexing /Searching
-gem 'acts_as_indexed'
+gem 'sunspot_rails'
+gem 'progress_bar'
+
+# Delayed_Jobs & Daemons
+gem "daemons"
+gem 'delayed_job_active_record'
+
 
 # Controller Gems
 gem 'devise'
@@ -129,7 +134,17 @@ group :development, :test do
   gem "ZenTest", "~> 4.9.0"
   gem 'autotest-fsevent'
   gem 'simplecov'
+
+   #solr gem
+  gem 'sunspot_solr'
+  gem "sunspot_test"
   gem "brakeman" # security test: execute with 'brakeman'
+end
+
+# Adding Staging-server Embedded Solr
+group :staging do
+  gem 'sunspot_solr'
+
 end
 
 # To use ActiveModel has_secure_password
