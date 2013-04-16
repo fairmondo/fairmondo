@@ -170,6 +170,7 @@ GEM
     highline (1.6.15)
     hike (1.2.1)
     hpricot (0.8.6)
+    hpricot (0.8.6-java)
     html2haml (1.0.1)
       erubis (~> 2.7.0)
       haml (>= 4.0.0.rc.1)

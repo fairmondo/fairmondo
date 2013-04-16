@@ -65,70 +65,46 @@
       %strong= tinycms_content "auction-side-bar"
   .row-fluid
     .span12
+    
       / All Sellers
-      #content.box
-        .box-legend.box-legend-without-border
-          %a{:href => "#content"}
-          %h3= t('formtastic.labels.auction.content')
-        .box-content.padding-clap-box
-          = @auction.content.html_safe
-      #payment.box
-        .box-legend.box-legend-without-border
-          %a{:href => "#payment"}
-          %h3= t('formtastic.labels.auction.payment')
-        .box-content.padding-clap-box
-          %strong
-            = t('auction.labels.payment')
-            \:
-          %p
-            = @auction.payment.map(&:text) * ", "
-          .border-box.middle-padding
-            = simple_format(@auction.payment_details).html_safe
-          %br/
-          %strong
-            = t('formtastic.labels.auction.transport')
-            \:
-          %p
-            = @auction.transport.map(&:text) * ", "
-          .border-box.middle-padding
-            = simple_format(@auction.transport_details).html_safe
+      = render_box "content" do
+        = @auction.content.html_safe
+        
+      = render_box "payment" do
+        %strong
+          = t('auction.labels.payment')
+          \:
+        %p
+          = @auction.payment.map(&:text) * ", "
+        .border-box.middle-padding
+          = simple_format(@auction.payment_details).html_safe
+        %br/
+        %strong
+          = t('formtastic.labels.auction.transport')
+          \:
+        %p
+          = @auction.transport.map(&:text) * ", "
+        .border-box.middle-padding
+          = simple_format(@auction.transport_details).html_safe
+          
       - if @auction.fair || @auction.ecologic || @auction.small_and_precious
-        #honor.box
-          .box-legend.box-legend-without-border
-            %a{:href => "#honor"}
-            %h3= t('formtastic.labels.auction.honor')
-          .box-content.padding-clap-box
-            = render 'show_commendation'
+        = render_box "honor" do
+          = render 'show_commendation'
       / Only legal sellers
       - if @auction.seller.legal_entity
-        #terms.box
-          .box-legend.box-legend-without-border
-            %a{:href => "#terms"}
-            %h3= t('devise.edit_profile.terms')
-          .box-content.padding-clap-box
-            = @auction.seller.terms.html_safe
-        #cancellation.box
-          .box-legend.box-legend-without-border
-            %a{:href => "#cancellation"}
-            %h3= t('devise.edit_profile.cancellation')
-          .box-content.padding-clap-box
-            = @auction.seller.cancellation.html_safe
-        #about.box
-          .box-legend.box-legend-without-border
-            %a{:href => "#about"}
-            %h3= t('devise.edit_profile.about')
-          .box-content.padding-clap-box
-            = @auction.seller.about.html_safe
+        = render_box "terms" do
+          = @auction.seller.terms.html_safe
+        = render_box "cancellation" do
+          = @auction.seller.cancellation.html_safe
+        = render_box "about" do
+          = @auction.seller.about.html_safe
+            
 - if current_user && @auction.seller.id != current_user.id
-  #report.box
-    .box-legend.box-legend-without-border
-      %a{:href => "#report"}
-      %h3= t('auction.actions.report')
-    .box-content.padding-box
-      .element-in-box
-        = form_for :report, :url => report_auction_path, :method => :get do |f|
-          = t('auction.notices.report')
-          = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
-          %br/
-          %button.btn.btn-primary
-            = t('auction.actions.report')
+  = render_box "report" do
+    .element-in-box
+      = form_for :report, :url => report_auction_path, :method => :get do |f|
+        = t('auction.notices.report')
+        = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
+        %br/
+        %button.btn.btn-primary
+          = t('auction.actions.report')
