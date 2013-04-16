@@ -32,6 +32,7 @@
   = tinymce
 = f.input_step :upload_images do
   - first=true
+  - (5-@auction.images.size).times { @auction.images.build }
   = f.semantic_fields_for :images do |image|
     - if image.object.new_record?
       - if first

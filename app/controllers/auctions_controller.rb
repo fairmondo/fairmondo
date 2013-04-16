@@ -129,9 +129,9 @@ class AuctionsController < ApplicationController
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
         @applied_template = AuctionTemplate.find(template_id)
-        @auction = Auction.new(@applied_template.deep_auction_attributes)
+        @auction = Auction.new(@applied_template.deep_auction_attributes, :without_protection => true)
         # Make copies of the images
-        
+        @auction.images = []
         @applied_template.auction.images.each do |image|
           copyimage = Image.new
           copyimage.image = image.image
@@ -339,7 +339,6 @@ class AuctionsController < ApplicationController
     setup_categories
     build_questionnaires
     build_template
-    setup_image_uploads
   end
   
   def build_questionnaires
@@ -387,11 +386,6 @@ class AuctionsController < ApplicationController
     end
      @thumbnails = @auction.images
      @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
-  end
-  
-  def setup_image_uploads 
-     (5-@auction.images.size).times { @auction.images.build }
-     
   end
   
   def setup_transaction

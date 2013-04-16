@@ -53,7 +53,7 @@ module Fairtastic
           tooltip.html_safe <<
           template.content_tag(:a,
           template.content_tag(:h3,
-          prefix << (localized_string(step_key, object, "input_steps") || "")
+          "" << prefix << (localized_string(step_key, object, "input_steps") || "")
           ), :href => "##{step_key}_step"
           )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
