@@ -20,7 +20,7 @@ class AuctionsController < ApplicationController
   
   
   # Create is safed by denail!
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete_auction_title]
+  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
  
   before_filter :build_login
   
