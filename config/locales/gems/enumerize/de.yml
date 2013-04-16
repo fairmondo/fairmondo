@@ -18,6 +18,13 @@ de:
       condition:
         new: "Neu"
         old: "Gebraucht"
+      condition_extra:
+        as_good_as_new: "Neuwertig"
+        as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
+        used_very_good: "Gebraucht / sehr gut"
+        used_good: "Gebraucht / gut"
+        used_satisfying: "Gebraucht / zufriedenstellend"
+        broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Produzent mit Siegel oder anerkannt
         fair_trust: Fair Trust
