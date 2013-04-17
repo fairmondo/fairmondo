@@ -44,31 +44,31 @@
     %header
       .container
         .row
-          .span5
+          .left-nav
             %h1#title.hidden-phone
               %a{:href => "/"}
                 %span Fairnopoly
-          .span7
+          .right-nav
             %ul#main-nav
               %li#buy
                 = link_to t('common.text.buy'), auctions_path
               %li#sell
                 = link_to t('common.text.sell'), new_auction_path
               /
-                <li id="service">
-                <a href=""> <haml:loud> t('common.text.service')</haml:loud> </a>
-                </li>
+                %li#service
+                  %a 
+                    t('common.text.service')
               - if user_signed_in?
                 %li#logout
                   = link_to(t('common.actions.logout'), destroy_user_session_path )
                 %li#login
                   = link_to t('common.text.profile'), dashboard_path
                 /
-                  <haml:silent> if current_user.trustcommunity == true </haml:silent><haml:block>
-                  <li id="community">
-                  <haml:loud> link_to t('common.text.community'), community_path  </haml:loud>
-                  </li>
-                  </haml:block>
+                  - if current_user.trustcommunity == true 
+                    %li#community
+                      = link_to(t('common.text.community'), community_path )
+                 
+                  
               - else
                 %li#login
                   - if @login
