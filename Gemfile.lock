@@ -205,6 +205,7 @@ GEM
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
     mime-types (1.22)
+    modernizr-rails (2.6.2.1)
     money (5.1.1)
       i18n (~> 0.6.0)
     money-rails (0.8.0)
@@ -389,6 +390,7 @@ DEPENDENCIES
   launchy
   less-rails
   meta_search (>= 1.1.0.pre)
+  modernizr-rails
   money-rails
   paperclip (>= 3.0)
   pg

@@ -30,6 +30,7 @@
         - @thumbnails.each do |image|
           %li.span3
             = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )
+    
     .span3
       %p
         %b
@@ -63,6 +64,10 @@
           = render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }
     .span3.dark-gray-well.break-word
       %strong= tinycms_content "auction-side-bar"
+  .row-fluid
+    .span12
+      #socialshareprivacy
+        .clearfix
   .row-fluid
     .span12
     
