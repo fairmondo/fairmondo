@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '3.2.13'
+gem 'rails', '>= 3.2.13'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,13 +11,12 @@ gem 'rails', '3.2.13'
 platforms :jruby do
   gem "jruby-openssl"
   gem 'trinidad'
-  gem 'activerecord-jdbc-adapter', '1.2.2'
+  gem 'activerecord-jdbc-adapter', '>= 1.2.9'
   #gem 'activerecord-jdbcmysql-adapter', '1.2.2'
   gem 'activerecord-jdbcpostgresql-adapter'
   #gem 'jdbc-mysql', :require => false
   gem 'jdbc-postgres'
-  #EngineYard
-  gem "ey_config"
+
 end
 
 # Ruby Deps
@@ -32,7 +32,7 @@ platforms :ruby do
 end
 
 # Forms & Upload
-gem "paperclip", "~> 3.0"
+gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "formtastic-bootstrap"
 
@@ -56,8 +56,8 @@ gem 'jquery-rails'
 
 gem 'haml'
 gem 'json' 
-gem 'enumerize', '~> 0.5.1'
-gem 'will_paginate', '~> 3.0'
+gem 'enumerize', '>= 0.5.1'
+gem 'will_paginate', '>= 3.0'
 
 # Indexing /Searching
 gem 'sunspot_rails'
@@ -108,7 +108,7 @@ group :assets do
     gem 'activerecord-jdbcsqlite3-adapter'
   end
 
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino' 
@@ -131,7 +131,7 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem "ZenTest", "~> 4.9.0"
+  gem "ZenTest"
   gem 'autotest-fsevent'
   gem 'simplecov'
 
