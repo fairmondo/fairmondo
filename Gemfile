@@ -44,7 +44,7 @@ gem 'less-rails';
 #gem 'less-rails-bootstrap'
 #gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
-gem 'selectivizr-rails'
+
 gem "font-awesome-rails"
 
 # JS
@@ -112,9 +112,11 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino' 
-
+  gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
+  gem 'modernizr-rails'
 end
+
 
 # for generating *.war file
 #group :development do
