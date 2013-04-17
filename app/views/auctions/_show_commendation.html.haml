@@ -50,6 +50,10 @@
 - if @auction.small_and_precious
   %h3= t('formtastic.labels.auction.small_and_precious')
   .border-box.middle-padding
+    %p= t('formtastic.labels.auction.small_and_precious_eu_small_enterprise')
+    %p
+      %strong
+        = @auction.small_and_precious_eu_small_enterprise ? t('auction.show.agree') : t('auction.show.non_agree')
     %p= t('formtastic.labels.auction.small_and_precious_edition')
     %p
       %strong
