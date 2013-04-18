@@ -13,10 +13,16 @@ Spork.prefork do
   
   ENV["RAILS_ENV"] ||= 'test'
   
-  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
-
-  # Prevent main application to eager_load in the prefork block (do not load files in autoload_paths)
-  Spork.trap_method(Rails::Application, :eager_load!)
+  begin
+    # if we are on spork we need to do this
+    
+    Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+  
+    # Prevent main application to eager_load in the prefork block (do not load files in autoload_paths)
+    Spork.trap_method(Rails::Application, :eager_load!)
+  rescue
+    # spork not up
+  end
   
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -35,7 +41,7 @@ Spork.prefork do
   #Secret Token 4 testing:
   Fairnopoly::Application.config.secret_token = '599e6eed15b557a8d7fdee1672761277a174a6a7e3e8987876d9e6ac685d68005b285b14371e3b29c395e1d64f820fe05eb981496901c2d73b4a1b6c868fd771'
   
-  require 'perftools'
+  
   
   RSpec.configure do |config|
     # ## Mock Framework
@@ -46,14 +52,7 @@ Spork.prefork do
     # config.mock_with :flexmock
     # config.mock_with :rr
   
-    #if performance really sucks look up the rspec profile: pprof.rb --text  /tmp/rspec_profile
-    #config.before :suite do
-    #  PerfTools::CpuProfiler.start("/tmp/rspec_profile")
-    #end
-    
-    #config.after :suite do
-    # PerfTools::CpuProfiler.stop
-    #end
+   
  
     
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
