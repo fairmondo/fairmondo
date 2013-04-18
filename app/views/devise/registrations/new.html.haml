@@ -5,29 +5,26 @@
       = session[:invitor_name]
 = semantic_form_for(resource, :html => { :class => "form-horizontal"}, :as => resource_name, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
-  = f.inputs do
-    .element-in-box
-      = f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('devise.new_profile.private_user'),false], [t('devise.new_profile.legal_entity'),true]], :label => t('devise.new_profile.status')
-    .element-in-box
-      = f.input :nickname,  :tooltip => true,:required => true, :label => t('devise.edit_profile.nickname')
-      - if session[:invited_email]
-        = f.input :email,  :tooltip => true, :input_html => { :value => session[:invited_email] ,:readonly => true }
-      - else
-        = f.input :email,  :tooltip => true, :required => true
-    .element-in-box
-      = f.input :password,:tooltip => true, :label => t('formtastic.labels.user.password')
-      = render :partial => "/devise/password_complexity"
-      = f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true
-    .element-in-box
-      - recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
-      #recaptcha-view{:class => "control-group #{"error" if recaptcha_error}"}
-        = recaptcha_tags :display => {:theme => 'clean'}
-        - if recaptcha_error
-          %span.help-inline= t('devise.captcha.error')
+  = f.input_step :title_and_categories, :default_step => true do
+    = f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('devise.new_profile.private_user'),false], [t('devise.new_profile.legal_entity'),true]], :label => t('devise.new_profile.status')
+    = f.input :nickname,  :tooltip => true,:required => true, :label => t('devise.edit_profile.nickname')
+    - if session[:invited_email]
+      = f.input :email,  :tooltip => true, :input_html => { :value => session[:invited_email] ,:readonly => true }
+    - else
+      = f.input :email,  :tooltip => true, :required => true
+    = f.input :password,:tooltip => true, :label => t('formtastic.labels.user.password')
+    = render :partial => "/devise/password_complexity"
+    = f.input :password_confirmation, :label => t('devise.edit_profile.password_confirmation'), :required => true
+    
+    - recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
+    #recaptcha-view{:class => "control-group #{"error" if recaptcha_error}"}
+      = recaptcha_tags :display => {:theme => 'clean'}
+      - if recaptcha_error
+        %span.help-inline= t('devise.captcha.error')
     - if session[:invitor_id]
       = f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }
       = f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }
-  .element-in-box
+ 
     - legal_link = link_to t('formtastic.labels.user.legal'), "/agb", :target => "_blank"
     - privacy_link = link_to t('formtastic.labels.user.privacy'), "/privacy", :target => "_blank"
     = f.input :agecheck,  :as => :plain_check_box, :required => true

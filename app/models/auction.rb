@@ -17,7 +17,7 @@ class Auction < ActiveRecord::Base
   acts_as_followable
 
   # Relations
-  has_many :userevents
+  
 
   validates_presence_of :transaction
   belongs_to :transaction, :dependent => :destroy

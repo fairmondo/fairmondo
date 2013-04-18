@@ -209,9 +209,6 @@ class AuctionsController < ApplicationController
   
     
         if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
-  
-          userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
-          userevent.save
           respond_to do |format|
             format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
             format.json { head :no_content }
@@ -279,8 +276,7 @@ class AuctionsController < ApplicationController
   def follow
     @product = Auction.find params["id"]
     current_user.follow(@product)
-    Userevent.new(:user => current_user, :event_type => UsereventType::PRODUCT_FOLLOW, :appended_object => @product).save
-
+   
     respond_to do |format|
       format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.following') }
       format.json { head :no_content }
@@ -322,8 +318,6 @@ class AuctionsController < ApplicationController
   private
   
   def respond_created
-    #Throwing User Events
-    Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
     respond_to do |format|
       format.html { redirect_to auction_path(@auction) }
       format.json { render :json => @auction, :status => :created, :location => @auction }
