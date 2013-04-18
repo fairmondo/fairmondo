@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  after_create :addFfp
+
   after_create :create_default_library
  
 
@@ -61,10 +61,9 @@ class User < ActiveRecord::Base
 
   #Relations
   has_many :auctions, :dependent => :destroy
-  has_many :userevents, :dependent => :destroy
   has_many :bids, :dependent => :destroy
   has_many :invitations, :dependent => :destroy
-  has_many :ffps, :dependent => :destroy
+
   has_many :auction_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
@@ -83,12 +82,6 @@ class User < ActiveRecord::Base
     name = "#{self.nickname}"
   end
 
-  def addFfp
-    if self.legal_entity == false
-      Ffp.create(:price => 100, :user_id => self.id, :activated => true)
-    end
-  end
-    
   
   def legal_entity_terms_ok
       if( self.valid?)

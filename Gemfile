@@ -140,7 +140,16 @@ group :development, :test do
    #solr gem
   gem 'sunspot_solr'
   gem "sunspot_test"
+  
+  #security
   gem "brakeman" # security test: execute with 'brakeman'
+  
+  #test performance
+  gem 'spork'
+  
+  #performance tools
+  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+  
 end
 
 # Adding Staging-server Embedded Solr

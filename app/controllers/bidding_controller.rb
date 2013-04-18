@@ -1,4 +1,7 @@
 class BiddingController < ApplicationController
+  
+  # under construction - no routes for this
+  
   before_filter :authenticate_user!
   def bid 
     begin

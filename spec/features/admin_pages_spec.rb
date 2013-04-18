@@ -57,28 +57,6 @@ describe 'ActiveAdminPages' do
       }.to change(Category, :count).by(1)
     end
 
-    it 'should show the ffp page' do
-      @ffp = FactoryGirl.create(:ffp)
-      click_on 'Fair Founding Points'
-      expect {
-        find("#ffp_#{@ffp.id}").click_on 'Delete'
-      }.to change(Ffp, :count).by(-1)
-    end
-
-    it 'should show the ffp page with confirmed ffps' do
-      @ffp = FactoryGirl.create(:ffp, :activated => true)
-      click_on 'Fair Founding Points'
-      page.should have_content('Confirmed')
-    end
-
-    it 'should confirm a ffp' do
-      @ffp = FactoryGirl.create(:ffp, :activated => false)
-      click_on 'Fair Founding Points'
-      expect {
-        click_on 'Confirm'
-      }.to change(Ffp, :count).by(0)
-      page.should have_content('Payment confirmed.')
-    end
 
     it 'should show the faq page' do
       @faq = FactoryGirl.create(:faq)
