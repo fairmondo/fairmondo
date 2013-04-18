@@ -147,8 +147,8 @@ group :development, :test do
   #test performance
   gem 'spork'
   
-  #performance tools
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+  #performance tools - doesn't work with travis, uncomment after use
+  #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   
 end
 
