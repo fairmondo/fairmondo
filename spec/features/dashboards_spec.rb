@@ -47,8 +47,15 @@ describe 'Dashboard' do
       page.should_not have_content('Admin')
     end
 
-    it 'show a link to the private messaging system' do
-      page.should have_content("Nachricht schreiben")
+    describe "connection to private messaging" do
+      it 'should show a link to the private messaging system' do
+        page.should have_content("Nachricht schreiben")
+      end
+
+      it 'should link to the private messaging system' do
+        click_link 'Nachricht schreiben'
+        page.should have_content("Neue Nachricht")
+      end
     end
   end
 

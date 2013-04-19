@@ -1,0 +1,21 @@
+%h1
+  Meine Nachrichten
+
+%p
+  Inbox:
+  - if @inbox.empty?
+    Keine Nachrichten vorhanden.
+  - else
+    %ul
+      - @inbox.each do |msg|
+        %li
+          = link_to msg.title, message_path(msg.id)
+%p
+  Outbox:
+  - if @outbox.empty?
+    Keine Nachrichten vorhanden.
+  - else
+    %ul
+      - @outbox.each do |msg|
+        %li
+          = link_to msg.title, message_path(msg.id)
