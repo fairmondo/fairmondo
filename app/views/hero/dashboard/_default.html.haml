@@ -37,5 +37,8 @@
           - elsif @user.legal_entity
             %a{:href => url_for(:controller => "dashboard", :action => "profile" , :id => params[:id])}
               %strong Profil
+        %li#dashboard-message
+          %a{:href => url_for(:controller => "dashboard", :action => "profile", :id => params[:id])}
+            %strong Nachricht schreiben
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

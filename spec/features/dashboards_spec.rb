@@ -46,6 +46,10 @@ describe 'Dashboard' do
     it 'Admin link only shown for admin user' do
       page.should_not have_content('Admin')
     end
+
+    it 'show a link to the private messaging system' do
+      page.should have_content("Nachricht schreiben")
+    end
   end
 
   describe "for signed-in TC users" do
