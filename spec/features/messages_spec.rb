@@ -47,14 +47,14 @@ describe 'Private Messages' do
             page.should have_content 'alle Felder ausfuellen'
           end
 
-          it 'should occur when the title is missing' do
+          it 'should occur when the content is missing' do
             fill_in 'Titel:', with: 'Foobar'
             click_on 'Senden'
 
             page.should have_content 'alle Felder ausfuellen'
           end
 
-          it 'should occur when the content is missing' do
+          it 'should occur when the title is missing' do
             fill_in 'Inhalt:', with: 'Foobar'
             click_on 'Senden'
 
