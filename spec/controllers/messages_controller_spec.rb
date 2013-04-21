@@ -37,7 +37,7 @@ describe MessagesController do
       @sender = FactoryGirl.create :user
       @recipient = FactoryGirl.create :user
 
-      @message = FactoryGirl.create :message, sender_id: @sender.id, recipient_id: @recipient.id
+      @message = FactoryGirl.create :message, message_sender: @sender, message_recipient: @recipient
     end
 
     describe "for signed-out users" do

@@ -1,15 +1,11 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :message do
-    title "MyString"
-    content "MyText"
-    sender_id User.all.sample && User.all.sample.id
-    recipient_id User.all.sample && User.all.sample.id
+  	message_sender
+  	message_recipient
 
-    # after(:build) do |msg|
-    #   msg.sender_id = sender.id
-    #   msg.recipient_id = recipient.id
-    # end
+    title { Faker::Lorem.sentence(rand(3)+1).chomp '.' }
+    content { Faker::Lorem.paragraph(rand(7)+1) }
   end
 end
