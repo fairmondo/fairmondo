@@ -48,13 +48,29 @@ describe 'Dashboard' do
     end
 
     describe "connection to private messaging" do
-      it 'should show a link to the private messaging system' do
-        page.should have_content("Nachricht schreiben")
+      describe "when dashboard belongs to different user" do
+        before(:each) do
+          visit dashboard_path(id: FactoryGirl.create(:user).id)
+        end
+        it 'should show a link to the private messaging system' do
+          page.should have_content("Nachricht schreiben")
+        end
+
+        it 'should link to the private messaging system' do
+          click_link 'Nachricht schreiben'
+          page.should have_content("Neue Nachricht")
+        end
       end
 
-      it 'should link to the private messaging system' do
-        click_link 'Nachricht schreiben'
-        page.should have_content("Neue Nachricht")
+      describe "when dashboard belongs to logged in user" do
+        it "should should show a link to the user's inbox" do
+          page.should have_content 'Postfach'
+        end
+
+        it 'should link to the private messaging system' do
+          click_link 'Postfach'
+          page.should have_content("Meine Nachrichten")
+        end
       end
     end
   end

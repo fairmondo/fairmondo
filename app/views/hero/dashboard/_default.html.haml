@@ -38,7 +38,11 @@
             %a{:href => url_for(:controller => "dashboard", :action => "profile" , :id => params[:id])}
               %strong Profil
         %li#dashboard-message
-          %a{:href => url_for(:controller => "messages", :action => "new", :id => params[:id])}
-            %strong Nachricht schreiben
+          - if @user.id==current_user.id
+            %a{:href => url_for(:controller => "messages", :action => "index")}
+              %strong Postfach
+          - else
+            %a{:href => url_for(:controller => "messages", :action => "new", :id => params[:id])}
+              %strong Nachricht schreiben
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

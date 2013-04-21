@@ -16,6 +16,11 @@ class MessagesController < ApplicationController
   end
 
   def new
+    if current_user.id == params[:id].to_i
+      flash[:error] = 'Sie koennen keine Nachricht an sich selbst schreiben.'
+      redirect_to dashboard_path
+    end
+
     @recipient = User.find params[:id]
     @message = Message.new recipient_id: params[:id]
   end
