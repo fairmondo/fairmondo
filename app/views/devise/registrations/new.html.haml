@@ -5,7 +5,7 @@
       = session[:invitor_name]
 = semantic_form_for(resource, :html => { :class => "form-horizontal"}, :as => resource_name, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
-  = f.input_step :sign_up, :default_step => true do
+  .element-in-box
     = f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('devise.new_profile.private_user'),false], [t('devise.new_profile.legal_entity'),true]], :label => t('devise.new_profile.status')
     = f.input :nickname,  :tooltip => true,:required => true, :label => t('devise.edit_profile.nickname')
     - if session[:invited_email]
@@ -24,7 +24,7 @@
     - if session[:invitor_id]
       = f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }
       = f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }
- 
+  .element-in-box
     - legal_link = link_to t('formtastic.labels.user.legal'), "/agb", :target => "_blank"
     - privacy_link = link_to t('formtastic.labels.user.privacy'), "/privacy", :target => "_blank"
     = f.input :agecheck,  :as => :plain_check_box, :required => true
