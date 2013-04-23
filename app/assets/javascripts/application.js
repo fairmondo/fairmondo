@@ -7,6 +7,7 @@
 //= require selectivizr
 //= require modernizr
 //= require jquery.complexify
+//= require jquery.hashchange
 //= require jquery.socialshareprivacy
 //= require_tree ./inputs
 //= require_tree ./models
