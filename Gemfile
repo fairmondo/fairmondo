@@ -51,6 +51,7 @@ gem "font-awesome-rails"
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
+#gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
 
 # Tool Libs
 

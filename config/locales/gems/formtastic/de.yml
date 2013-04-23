@@ -117,7 +117,7 @@ de:
         category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
         
         fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
-        fair_seal: "Die Liste der anerkannten Weltladen-Lieferanten ist unter http://www.weltladen.de/#anerkannte-weltladen-lieferanten zu finden."
+        fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
         fair_trust_questionnaire: >
           Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
@@ -136,7 +136,7 @@ de:
           
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         friendly_percent_input_step: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
         
        
         
