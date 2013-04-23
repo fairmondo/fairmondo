@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
   end
-
-  before_filter :load_faqs
  
   helper :all
   helper_method :tinycms_admin?
@@ -27,10 +25,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def load_faqs
-    @faqs = Faq.scoped
-  end
-  
   def setup_categories
     @categories = Category.roots
   end

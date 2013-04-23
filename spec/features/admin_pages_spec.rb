@@ -57,13 +57,6 @@ describe 'ActiveAdminPages' do
       }.to change(Category, :count).by(1)
     end
 
-
-    it 'should show the faq page' do
-      @faq = FactoryGirl.create(:faq)
-      click_on 'Faqs'
-      page.should have_content('View')
-    end
-
     it 'should show the users page' do
       @user = FactoryGirl.create(:user)
       click_on 'Users'
