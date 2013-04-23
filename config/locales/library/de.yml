@@ -16,5 +16,10 @@ de:
     action:
       public: "öffentlich machen"
       private: "privat machen"
+      delete: "Sammlung löschen"
+      rename: "Sammlung umbenennen"
     element:
       delete: "Aus Sammlungen löschen"
+    title:
+      rename: "Umbenennen:"
+      delete: "Löschen:"

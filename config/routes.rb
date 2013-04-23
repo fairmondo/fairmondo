@@ -34,6 +34,8 @@ Fairnopoly::Application.routes.draw do
   post 'dashboard/add_to_library'
   post 'dashboard/new_library'
   get 'dashboard/delete_library_element'
+  get 'dashboard/delete_library'
+  post 'dashboard/rename_library'
   get 'dashboard/set_library_public' 
   get 'dashboard/set_library_private' 
    
