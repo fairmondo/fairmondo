@@ -4,7 +4,7 @@ module Auction::Attributes
   included do
     
     #common fields
-    attr_accessible :title, :content, :condition  ,:condition_extra, :transport, :payment ,:payment_details , :transport_details, :color , :quantity , :size
+    attr_accessible :title, :content, :condition  ,:condition_extra, :transport, :payment ,:payment_details , :transport_details , :quantity 
     
     # market place state
     attr_protected :locked, :active
@@ -34,11 +34,7 @@ module Auction::Attributes
     enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
     validates :payment, :size => 1..-1
     validates_presence_of :payment_details
-    
-   
-    
-    enumerize :color, :in => [:white, :black, :yellow, :orange, :red, :green, :blue, :turquoise, :brown, :violet, :grey, :multicolored]   
-    validates_length_of :size, :maximum => 4
+
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     
