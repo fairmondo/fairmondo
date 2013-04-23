@@ -145,7 +145,7 @@ group :development, :test do
   gem "brakeman" # security test: execute with 'brakeman'
   
   #test performance
-  gem 'spork'
+  gem 'spork-rails'
   
   
   

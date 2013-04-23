@@ -79,7 +79,13 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
+  ActiveSupport::Dependencies.clear
+  ActiveRecord::Base.instantiate_observers
+  FactoryGirl.reload
 
+  Dir[File.join(File.dirname(__FILE__), '..', 'app', 'helpers', '*.rb')].each do |file|
+    require file
+  end
 end
 
 
