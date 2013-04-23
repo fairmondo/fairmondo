@@ -65,8 +65,6 @@ de:
         
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
-        color: Farbe
-        size: Größe
         quantity: "Anzahl (verfügbar)"
         price: "Preis"
         price_currency: "Währung"
@@ -91,6 +89,8 @@ de:
         image: Bild
         _destroy: Löschen
     input_steps:
+      user:
+        sign_up: "Angaben zur Registrierung"
       auction:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"

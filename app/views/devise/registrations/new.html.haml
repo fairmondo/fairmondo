@@ -5,7 +5,7 @@
       = session[:invitor_name]
 = semantic_form_for(resource, :html => { :class => "form-horizontal"}, :as => resource_name, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
-  = f.input_step :title_and_categories, :default_step => true do
+  = f.input_step :sign_up, :default_step => true do
     = f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('devise.new_profile.private_user'),false], [t('devise.new_profile.legal_entity'),true]], :label => t('devise.new_profile.status')
     = f.input :nickname,  :tooltip => true,:required => true, :label => t('devise.edit_profile.nickname')
     - if session[:invited_email]
