@@ -36,18 +36,10 @@
         %b
           %span.pull-right= humanized_money_with_symbol @auction.price
           = t('formtastic.labels.auction.price')
-      - if @auction.size && @auction.size != ""
-        %p
-          %span.pull-right= @auction.size
-          = t('formtastic.labels.auction.size')
       - if @auction.quantity && @auction.quantity != ""
         %p
           %span.pull-right= @auction.quantity
           = t('formtastic.labels.auction.quantity')
-      - if @auction.color && @auction.color != ""
-        %p
-          %span.pull-right= t('enumerize.auction.color.' + @auction.color)
-          = t('formtastic.labels.auction.color')
       - if @auction.friendly_percent && @auction.friendly_percent > 0
         %p
           %b= t('auction.show.friendly_percent')
