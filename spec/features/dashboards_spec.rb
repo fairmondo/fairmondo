@@ -34,9 +34,9 @@ describe 'Dashboard' do
       page.should have_content("Title")
     end
 
-    it 'Community link is invisible for not invited users' do
-      page.should_not have_content('Community')
-    end
+ #   it 'Community link is invisible for not invited users' do
+ #     page.should_not have_content('Community')
+ #   end
 
     it 'Profile link shows the profile page' do
       click_link 'Profile'
@@ -48,25 +48,24 @@ describe 'Dashboard' do
     end
   end
 
-  describe "for signed-in TC users" do
-
-    before :each do
-      @user = FactoryGirl.create(:user, :trustcommunity => true)
-      login_as @user
-      visit dashboard_path
-    end
-
-    it 'Community link is visible for invited users' do
-      page.should_not have_content('Community')
-    end
-
-  end
+#  describe "for signed-in TC users" do
+#
+#    before :each do
+#      @user = FactoryGirl.create(:user, :trustcommunity => true)
+#      login_as @user
+#      visit dashboard_path
+#    end
+#
+#    it 'Community link is visible for invited users' do
+#      page.should_not have_content('Community')
+#    end
+#
+#  end
 
   describe "for admin users" do
 
     before :each do
       @user = FactoryGirl.create(:user, :admin => true)
-      @ffp = FactoryGirl.create(:ffp)
       login_as @user
       visit dashboard_path
     end

@@ -29,7 +29,6 @@ de:
       title: "Persönliche Daten"
       contact_person: "Ansprechpartner*in"
       nickname: "Nutzername"
-      nickname_hint: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
       legal_entity: "Juristische Person"
       private_user: "Privatperson"
       name_title: "Anrede"
@@ -38,12 +37,11 @@ de:
       mail: "Email"
       login_data: "Deine Login-Daten"
       password: "Passwort ändern (optional)"
-      email: "An diese Adresse verschicken wir die Anmeldebestätigung."
       image: "Wähle Dein Bild aus"
       picture: "Bild"
       password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
       password_confirmation: "Passwort bestätigen"
-      current_password: "Passwort"
+      current_password: "Bisheriges Passwort"
       current_password_hint: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
       cancel_account: "Benutzerkonto löschen"
       cancel_account_confirm: "Bist Du sicher?"
@@ -79,9 +77,7 @@ de:
       resend: "Bestätigungsanweisungen erneut schicken"
       text: "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
              Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
-             Bitte beachte: Derzeit befinden wir uns noch in der Testphase. Dies ist eine reine Testversion, 
-             wir übernehmen keinerlei Haftung oder Verantwortung für eingestellte Daten. Nach Ablauf des Tests am 01.03. werden alle Daten 
-             ohne Vorwarnung gelöscht. Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
+             Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
              Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
       link: "Meine Registrierung bestätigen."
       ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."

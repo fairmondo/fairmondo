@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Title:
+  = @userevent.user.email
+%p
+  %b Kategory:
+  = @userevent.event_type
+%p
+  %b Content:
+  = @userevent.appended_object
+= link_to 'Edit', edit_userevent_path(@userevent)
+|
+\#{link_to 'Back', userevents_path}

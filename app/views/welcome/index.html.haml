@@ -1,0 +1,26 @@
+.row
+  .span12
+    = tinycms_content "test_phase_greeting"
+.row
+  .span12
+    #youtube
+      = tinycms_content "start-video"
+.row
+  .span6
+    .well
+      = tinycms_content "buy-ffps"
+  .span6
+    = tinycms_content "progress-ffps"
+/ row
+.row
+  .span6
+    .well
+      = link_to t('devise.links.sign_up'), new_registration_path(resource_name), :class => "btn btn-success btn-large pull-right"
+      = tinycms_content "please-register"
+  .span6
+    .progress.progress-success.progress-landing
+      .bar{:style => "height:100%;width: #{@percentage}%"}
+    %p
+      = link_to t('common.actions.take_part'), new_registration_path(resource_name), :class => "pull-right"
+      = @auctions
+      = t("common.text.inserted")

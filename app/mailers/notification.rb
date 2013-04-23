@@ -17,22 +17,4 @@ class Notification < ActionMailer::Base
 
   end
 
-  def send_pw(name, email, pw)
-    @name = name
-    @pw = pw
-
-    mail(:to => email, :subject => "Testmail")
-
-  end
-
-  def send_ffp_confirmed(ffp)
-    @ffp = ffp
-    mail(:to => User.find_by_id(@ffp.user_id).email, :subject => "Testmail")
-  end
-
-  def send_ffp_created(ffp)
-    @ffp = ffp
-    mail(:to => User.find_by_id(@ffp.user_id).email, :subject => "Testmail")
-  end
-
 end

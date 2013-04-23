@@ -1,0 +1,11 @@
+- if current_user.id == @user.id
+  / Add a new library
+  .well
+    %h3= t('library.new_title')
+    = form_tag({:action => "new_library" ,:method => "post"} ,{:class =>  "form-inline" }) do
+      %input{:name => "library_name"}/
+      %button.btn.btn-primary{:type => "submit"}
+        = t('library.new')
+  = render 'list_library_priv'
+- else
+  = render 'list_library_pub'

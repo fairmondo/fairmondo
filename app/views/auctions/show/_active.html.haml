@@ -1,0 +1,27 @@
+.span3
+  = render :partial=>'/shared/profile_img', :locals=>{:user => @auction.seller}
+  #other_products.box
+    .box-legend
+      %a{:href => "#other_products"}
+        %h6
+          = t('auction.titles.other-products')
+          (#{@seller_products.count})
+    .box-content
+      = render :partial=>'/shared/list_auctions_small', :locals=>{ :auctions=> @seller_products, :paginate => true, :list_class=>"span4", :anchor=> "other_products"}
+  #library.box
+    .box-legend
+      %a{:href => "#library"}
+        %h6
+          = t('auction.titles.libraries')
+          (#{@libraries.count})
+    .box-content
+      - @libraries.each do |lib|
+        .well-column-small-padding
+          .row-fluid
+            .span8
+              = link_to lib.name, :controller => "dashboard", :action=>"libraries", :id=>lib.user_id, :anchor => "library_"+lib.id.to_s
+              %p
+                = t('common.text.from') + " " + lib.user.nickname
+            .span4
+              = link_to image_tag(lib.user.image.url(:thumb)), dashboard_path(:id => lib.user.id)
+      = will_paginate @libraries,:params => {:anchor => "library" }

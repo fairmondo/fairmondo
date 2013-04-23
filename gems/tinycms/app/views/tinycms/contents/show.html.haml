@@ -1,0 +1,6 @@
+.row
+  .well
+    = @content.body && @content.body.html_safe
+    - if tinycms_admin?
+      = link_to "Edit", tinycms.edit_content_url(@content)
+      = link_to 'Overview', contents_path
