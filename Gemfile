@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '3.2.13'
+gem 'rails', '>= 3.2.13'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,13 +11,12 @@ gem 'rails', '3.2.13'
 platforms :jruby do
   gem "jruby-openssl"
   gem 'trinidad'
-  gem 'activerecord-jdbc-adapter', '1.2.2'
+  gem 'activerecord-jdbc-adapter', '>= 1.2.9'
   #gem 'activerecord-jdbcmysql-adapter', '1.2.2'
   gem 'activerecord-jdbcpostgresql-adapter'
   #gem 'jdbc-mysql', :require => false
   gem 'jdbc-postgres'
-  #EngineYard
-  gem "ey_config"
+
 end
 
 # Ruby Deps
@@ -32,7 +32,7 @@ platforms :ruby do
 end
 
 # Forms & Upload
-gem "paperclip", "~> 3.0"
+gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "formtastic-bootstrap"
 
@@ -44,23 +44,29 @@ gem 'less-rails';
 #gem 'less-rails-bootstrap'
 #gem 'formtastic-bootstrap'
 gem 'bootstrap-will_paginate'
-gem 'selectivizr-rails'
+
 gem "font-awesome-rails"
 
 # JS
-gem 'rails3-jquery-autocomplete'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 
 # Tool Libs
 
+gem 'haml'
 gem 'json' 
-gem 'enumerize', '~> 0.5.1'
-gem 'will_paginate', '~> 3.0'
+gem 'enumerize', '>= 0.5.1'
+gem 'will_paginate', '>= 3.0'
 
 # Indexing /Searching
-gem 'acts_as_indexed'
+gem 'sunspot_rails'
+gem 'progress_bar'
+
+# Delayed_Jobs & Daemons
+gem "daemons"
+gem 'delayed_job_active_record'
+
 
 # Controller Gems
 gem 'devise'
@@ -102,13 +108,15 @@ group :assets do
     gem 'activerecord-jdbcsqlite3-adapter'
   end
 
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino' 
-
+  gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
+  gem 'modernizr-rails'
 end
+
 
 # for generating *.war file
 #group :development do
@@ -119,14 +127,34 @@ end
 
 # Testing using RSpec
 group :development, :test do
+  gem "erb2haml"
+  gem "html2haml"
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem "ZenTest", "~> 4.9.0"
+  gem "ZenTest"
   gem 'autotest-fsevent'
   gem 'simplecov'
+
+   #solr gem
+  gem 'sunspot_solr'
+  gem "sunspot_test"
+  
+  #security
   gem "brakeman" # security test: execute with 'brakeman'
+  
+  #test performance
+  gem 'spork'
+  
+  
+  
+end
+
+# Adding Staging-server Embedded Solr
+group :staging do
+  gem 'sunspot_solr'
+
 end
 
 # To use ActiveModel has_secure_password

@@ -3,7 +3,7 @@ module Auction::Commendation
 
   included do
     
-    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal , :small_and_precious, :small_and_precious_edition , :small_and_precious_reason, :small_and_precious_handmade
+    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal , :small_and_precious, :small_and_precious_edition , :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
     attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
     
     scope :with_commendation, lambda { |*commendations|
@@ -53,9 +53,12 @@ module Auction::Commendation
     enumerize :ecologic_seal, :in => [:bio_siegel, :eg_bio_siegel, :ecovin, :naturland, :gaea_e_v_oekologischer_landbau, :biokreis, :bioland, :biopark, :demeter, :europaeisches_umweltzeichen, :gots, :textiles_vertrauen_nach_oeko_tex_standard_100plus, :ivn_zertifiziert_naturtextil, :ivn_zertifiziert_naturtextil_best, :rainforest_alliance, :der_blaue_engel, :deutsches_gueteband_wein, :ecogarantie, :fsc_pure_papier, :fsc_pure_holz, :greenline, :gut, :kork_logo, :kompostierbar_compostable, :kontrollierte_natur_kosmetik_bdih, :natrue_natural_cosmetics_with_organic_portion, :natrue_organic_cosmetics, :natureplus, :oeko_control, :tco_certified, :utz_certified, :tuev_eco_kreis]
     
     ## small_and_precious
+    
+    validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?
     validates_presence_of :small_and_precious_edition, :if => :small_and_precious?
     validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
+    validates_length_of :small_and_precious_reason, :minimum => 200, :if => :small_and_precious?
   end
   
   private

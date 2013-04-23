@@ -7,6 +7,7 @@ class Auction < ActiveRecord::Base
 
   attr_accessible :transaction_attributes
 
+
   # refs #128
   default_scope where(:auction_template_id => nil)
   
@@ -16,13 +17,13 @@ class Auction < ActiveRecord::Base
   acts_as_followable
 
   # Relations
-  has_many :userevents
+  
 
   validates_presence_of :transaction
-  belongs_to :transaction
+  belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
-  has_many :library_elements
+  has_many :library_elements, :dependent => :destroy
   has_many :libraries, :through => :library_elements
 
   belongs_to :seller ,:class_name => 'User', :foreign_key => 'user_id'
@@ -52,5 +53,7 @@ class Auction < ActiveRecord::Base
     # * the inverse reference is set in auction_template model before validation 
     auction_template_id != nil || auction_template != nil 
   end
+
+  
 
 end

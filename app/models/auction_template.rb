@@ -36,7 +36,7 @@ class AuctionTemplate < ActiveRecord::Base
           #    auction_attributes["#{key}_attributes"] << record.attributes.except(*non_assignable_values)
           #  end
           
-            # omit since we 
+          
           end
         else
       

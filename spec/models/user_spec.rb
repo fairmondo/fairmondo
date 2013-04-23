@@ -11,7 +11,6 @@ describe User do
   it {should validate_presence_of :email}
 
   it {should have_many :auctions}
-  it {should have_many :userevents}
   it {should have_many :bids}
   it {should have_many :invitations}
 
@@ -30,10 +29,6 @@ describe User do
     user.name.should eq user.nickname
   end
 
-  it "adds 100 ffp for registering a non legal entity user" do
-    user = FactoryGirl.create(:user, :legal_entity => false)
-    Ffp.find_by_user_id(user.id).price.should eq 100
-    Ffp.find_by_user_id(user.id).activated.should eq true
-  end
+ 
 
 end

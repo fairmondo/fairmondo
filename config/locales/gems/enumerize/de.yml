@@ -18,6 +18,13 @@ de:
       condition:
         new: "Neu"
         old: "Gebraucht"
+      condition_extra:
+        as_good_as_new: "Neuwertig"
+        as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
+        used_very_good: "Gebraucht / sehr gut"
+        used_good: "Gebraucht / gut"
+        used_satisfying: "Gebraucht / zufriedenstellend"
+        broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Produzent mit Siegel oder anerkannt
         fair_trust: Fair Trust
@@ -64,10 +71,10 @@ de:
         insured: Versichert
         uninsured: Unversichert
       payment:
-        bank_transfer: Überweisung
-        cash: Barbezahlung bei Abholung
+        bank_transfer: Überweisung (Vorkasse)
+        cash: Barzahlung bei Abholung
         paypal: PayPal
-        cach_on_delivery: Nachname
+        cach_on_delivery: Nachnahme
         invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International

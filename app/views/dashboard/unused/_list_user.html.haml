@@ -1,0 +1,13 @@
+%ul.thumbnails
+  - @users.each do |user|
+    %li.span3
+      .thumbnail{:style => "position: relative;"}
+        = link_to image_tag(user.image.url(:thumb), :size=> "260x180"), dashboard_path(:id => user.id)
+        .caption
+          %h5= user.name
+          - if user != current_user
+            = render :partial => 'shared/follow' , :locals => { :object => user }
+            - if !user.trustcommunity
+              = link_to t('common.actions.invite'), new_invitation_path(:user_id => user.id), :class=>"btn"
+          - if user.trustcommunity
+            = t('common.text.community')

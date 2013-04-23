@@ -1,11 +1,26 @@
-# refs https://github.com/dougal/acts_as_indexed/issues/23
-require "will_paginate_search"
-
 
 class AuctionsController < ApplicationController
-  autocomplete :auction, :title, :full => true
+  
+  def autocomplete
+    search = Sunspot.search(Auction) do
+      fulltext params[:keywords] do
+        fields(:title)
+      end
+      with :active, true 
+    end
+    @titles = []
+    search.hits.each do |hit| 
+      title = hit.stored(:title).first
+      @titles.push(title)
+    end
+    render :json => @titles 
+  rescue Errno::ECONNREFUSED 
+    render :json => [] 
+  end
+  
+  
   # Create is safed by denail!
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete_auction_title]
+  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
  
   before_filter :build_login
   
@@ -18,38 +33,31 @@ class AuctionsController < ApplicationController
   # GET /auctions.csv
   def index
     @search_cache = Auction.new(params[:auction])
-    scope = Auction.with_user_id
-    
-    if params[:auction]
-      # condition
-      if params[:auction][:condition].present?  
-        scope = scope.where(:condition => params[:auction][:condition])
-      end
-      # fair filters
-      commendations = [:fair, :ecologic, :small_and_precious].select {|c| @search_cache.send(c) }
-      scope = scope.with_commendation(*commendations) if commendations.present?
-      # categories
-      if @search_cache.categories.present?
-        scope = scope.with_categories_or_descendants(@search_cache.categories)
-      end
-      if params[:auction][:title].present?
-        query = params[:auction][:title].gsub(/\b(\w+)\b/) { |w| "^"+w}
-        search_params = {:per_page => 12} 
-        search_params[:page] = params[:page] || 1
-        # we cannot use the relevance search as its pagination does not takes
-        # the scopes from before (category, condition) in count
-        # @auctions = scope.paginate_search(query, search_params)
-        scope = scope.with_query(query) 
-      end
+
+    query = @search_cache
+    search = Sunspot.search(Auction) do
+      fulltext query.title
+      paginate :page => params[:page], :per_page=>12
+      with :fair, true if query.fair
+      with :ecologic, true if query.ecologic
+      with :small_and_precious, true if query.small_and_precious
+      with :condition, query.condition if query.condition
+      with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
+      with :active, true 
     end
-    
-    @auctions = scope.paginate :page => params[:page], :per_page=>12
- 
+    @auctions = search.results
+  # Sunspot Failure
     respond_to do |format|
       format.html # index.html.erb
       format.csv { render text: @auctions.to_csv }
       format.json { render :json => @auctions }
     end
+  rescue Errno::ECONNREFUSED 
+    redirect_to :action=>'sunspot_failure'
+  end
+
+  def sunspot_failure
+    @auctions = Auction.paginate :page => params[:page], :per_page=>12
   end
 
   # GET /auctions/1
@@ -121,9 +129,9 @@ class AuctionsController < ApplicationController
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
         @applied_template = AuctionTemplate.find(template_id)
-        @auction = Auction.new(@applied_template.deep_auction_attributes)
+        @auction = Auction.new(@applied_template.deep_auction_attributes, :without_protection => true)
         # Make copies of the images
-        
+        @auction.images = []
         @applied_template.auction.images.each do |image|
           copyimage = Image.new
           copyimage.image = image.image
@@ -201,9 +209,6 @@ class AuctionsController < ApplicationController
   
     
         if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
-  
-          userevent = Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_UPDATE, :appended_object => @auction)
-          userevent.save
           respond_to do |format|
             format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
             format.json { head :no_content }
@@ -271,8 +276,7 @@ class AuctionsController < ApplicationController
   def follow
     @product = Auction.find params["id"]
     current_user.follow(@product)
-    Userevent.new(:user => current_user, :event_type => UsereventType::PRODUCT_FOLLOW, :appended_object => @product).save
-
+   
     respond_to do |format|
       format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.following') }
       format.json { head :no_content }
@@ -314,8 +318,6 @@ class AuctionsController < ApplicationController
   private
   
   def respond_created
-    #Throwing User Events
-    Userevent.new(:user => current_user, :event_type => UsereventType::AUCTION_CREATE, :appended_object => @auction).save
     respond_to do |format|
       format.html { redirect_to auction_path(@auction) }
       format.json { render :json => @auction, :status => :created, :location => @auction }
@@ -331,7 +333,6 @@ class AuctionsController < ApplicationController
     setup_categories
     build_questionnaires
     build_template
-    setup_image_uploads
   end
   
   def build_questionnaires
@@ -379,11 +380,6 @@ class AuctionsController < ApplicationController
     end
      @thumbnails = @auction.images
      @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
-  end
-  
-  def setup_image_uploads 
-     (5-@auction.images.size).times { @auction.images.build }
-     
   end
   
   def setup_transaction

@@ -5,7 +5,7 @@ module Auction::Images
     # ---- IMAGES ------
     attr_accessible :images_attributes
     
-    has_many :images , :dependent => :destroy
+    has_many :images 
     accepts_nested_attributes_for :images, :allow_destroy => true
  
     def title_image

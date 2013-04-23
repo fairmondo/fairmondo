@@ -1,5 +1,7 @@
 class InvitationsController < ApplicationController
 
+  # Routes & controller tests commented out for the moment because it is not used in this version
+
   before_filter :authenticate_user!, :except => [:confirm]
   # GET /invitations
   # GET /invitations.json
@@ -160,7 +162,6 @@ class InvitationsController < ApplicationController
 
   def respond_created
     #Throwing User Events
-    Userevent.new(:user => current_user, :event_type => UsereventType::INVITATION_SEND, :appended_object => @invitation).save
     respond_to do |format|
       format.html { redirect_to @invitation, :notice => I18n.t('invitation.notices.create') }
       format.json { render :json => @invitation, :status => :created, :location => @invitation }

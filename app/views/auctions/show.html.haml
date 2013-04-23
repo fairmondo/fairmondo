@@ -1,0 +1,7 @@
+.row
+  .span9
+    = render :partial => "/auctions/show/auction_contents"
+  - if @auction.active
+    = render :partial => "/auctions/show/active"
+  - else
+    = render :partial => "/auctions/show/inactive"

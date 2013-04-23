@@ -4,9 +4,11 @@
 //= require tinymce
 //= require tinymce-jquery
 //= require bootstrap
-//= require autocomplete-rails
 //= require selectivizr
+//= require modernizr
 //= require jquery.complexify
+//= require jquery.socialshareprivacy
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize
+//= require_tree ./visual

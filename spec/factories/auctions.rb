@@ -7,6 +7,7 @@ FactoryGirl.define do
     title     { Faker::Lorem.sentence(rand(3)+1).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
+    condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
     
@@ -24,6 +25,7 @@ FactoryGirl.define do
     
     factory :second_hand_auction do
       condition "old"
+      condition_extra "as_good_as_new"
     end
     
     factory :no_second_hand_auction do
