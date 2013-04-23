@@ -6,6 +6,7 @@ module Fairtastic
         def tooltip_html(tooltip_content = options[:tooltip])
           
           if tooltip_content 
+      
             tooltip_content = localized_string(method, nil, "tooltips") || "" if options[:tooltip] == true
             
             template.content_tag(:a,

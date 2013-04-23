@@ -107,10 +107,11 @@ de:
         apply: Deine Vorlagen
     tooltips:
       user:
-        new:
-          email: "An diese Adresse verschicken wir die Anmeldebestätigung."
+        new: &new_user
+          email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
-          password: "Bitte achte auf deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+          password: "Bitte achte auf Deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+        create: *new_user
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
