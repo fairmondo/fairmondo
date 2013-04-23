@@ -105,6 +105,36 @@ class DashboardController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+    
+  def delete_library
+    if params[:id]
+      library = Library.find(params[:id])
+      if library.user == current_user  
+        Library.delete(params[:id])
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for :controller => "dashboard", :action => "libraries"}
+      format.json { head :no_content }
+    end
+  end
+  
+  def rename_library
+    if params[:library_name] && params[:id]
+      library = Library.find(params[:id])
+      if library.user == current_user  
+        if !library.update_attributes( :name => params[:library_name])
+        #TODO: some error message
+        end
+      end
+    end
+       
+    respond_to do |format|
+      format.html { redirect_to url_for(:controller => "dashboard", :action => "libraries", :anchor => "library_"+library.id.to_s)}
+      format.json { head :no_content }
+    end
+  end
 
   def sales
     get_user

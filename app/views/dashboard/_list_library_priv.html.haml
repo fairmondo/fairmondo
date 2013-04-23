@@ -7,14 +7,25 @@
     .box-content.padding-box
       .middle-margin-top
         .well
-          = t('library.privacy')
-          - if lib.public
-            %strong= t('library.public')
-            (#{link_to t('library.action.private'), :controller => "dashboard", :action => "set_library_private", :id=>lib.id})
-          - else
-            %strong
-              = t('library.private')
-            (#{link_to t('library.action.public'), :controller => "dashboard", :action => "set_library_public", :id=>lib.id})
+          %p
+            =t('library.privacy')
+            - if lib.public
+              %strong= t('library.public')
+              (#{link_to t('library.action.private'), :controller => "dashboard", :action => "set_library_private", :id=>lib.id})
+            - else
+              %strong= t('library.private')
+              (#{link_to t('library.action.public'), :controller => "dashboard", :action => "set_library_public", :id=>lib.id})
+          
+          %strong=t('library.title.rename')
+          = form_tag({:action => "rename_library" ,:method => "post"} ,{:class =>  "form-inline" }) do
+            %input{:name => "library_name", :value => lib.name}
+            %button
+              = t('library.action.rename')
+            %input.hidden{:name => "id", :value =>lib.id}
+          
+          %strong=t('library.title.delete')
+          %p= link_to t('library.action.delete'), {:controller => "dashboard", :action => "delete_library", :id=>lib.id}
+        
         - if lib.library_elements.empty?
           .well
             = t('library.no_products')
