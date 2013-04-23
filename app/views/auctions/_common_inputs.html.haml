@@ -9,7 +9,7 @@
       = f.input :fair_kind, :as => :plain_radio, :js_toggle => true
       .subform-part
         = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
-          = f.input :fair_seal
+          = f.input :fair_seal, :tooltip => true
         = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
           = render(:partial => 'auctions/fair_trust_questionnaire_form', :locals => {:auction_form => f})
         = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do
