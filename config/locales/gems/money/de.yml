@@ -1,0 +1,4 @@
+de:
+  errors:
+    messages:
+      invalid_currency: "Muss eine Währungsangabe sein (zum Beispiel: '100', '5%{decimal}24', oder '123%{thousands}456%{decimal}78')"
