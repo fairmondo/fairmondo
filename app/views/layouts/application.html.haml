@@ -13,7 +13,7 @@
     %meta{:content => "width=device-width", :name => "viewport"}/
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
-      <haml:loud> stylesheet_link_tag &amp;quot;font-awesome-ie7.min.css&amp;quot;, media: &amp;quot;all&amp;quot; </haml:loud>
+      = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
     = javascript_include_tag "application"
     
     = csrf_meta_tags
@@ -41,7 +41,7 @@
               .row
                 .span12
                   %p
-                    = msg
+                    = msg.html_safe
     %header
       .container
         .row
@@ -67,7 +67,7 @@
                 /
                   - if current_user.trustcommunity == true 
                     %li#community
-                      = link_to(t('common.text.community'), community_path )
+                      t('common.text.community')
                  
                   
               - else
@@ -123,8 +123,6 @@
           .span4
             %h3
               = t('footer.help')
-            #faqs-accordion.faqs
-              = render :partial => "faqs/faq", :collection => @faqs
             %ul
               %li
                 %a{:href => "/faq"}
