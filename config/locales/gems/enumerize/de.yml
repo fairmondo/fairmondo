@@ -2,19 +2,6 @@ de:
 # Enum Definitions
   enumerize:
     auction:
-      color:
-        white: weiß
-        black: schwarz
-        yellow: gelb
-        orange: orange
-        red: rot
-        green: grün
-        blue: blau
-        turquoise: türkis
-        brown: braun
-        violet: violett
-        grey: grau
-        multicolored: bunt
       condition:
         new: "Neu"
         old: "Gebraucht"
@@ -31,7 +18,7 @@ de:
         social_producer: Sozialer Produzent
       fair_seal:
         trans_fair: TransFair Siegel
-        weltladen: Weltladen-Handelspartner 
+        weltladen: Anerkannter Weltladen-Lieferant
         wtfo: WFTO-Mitglied
       ecologic_seal:
         bio_siegel: Bio-Siegel

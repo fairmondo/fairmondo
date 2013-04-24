@@ -19,7 +19,7 @@ de:
       sign_up: "Registrierung"
       login: "Login"
     new_profile:
-      
+      complexify: Passwortstärke
       create: "Registrieren"
       legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
       private_user: "Ich bin Privatperson"
