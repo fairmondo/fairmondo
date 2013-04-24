@@ -64,7 +64,7 @@ de:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal
-        cach_on_delivery: Nachnahme
+        cash_on_delivery: Nachnahme
         invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International

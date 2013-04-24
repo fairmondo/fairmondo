@@ -90,6 +90,7 @@ de:
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
 
+        payment: "Bezahlart"
         payment_details: "Weitere Angaben:"
         
         friendly_percent: "Spendenanteil - das freundliche Prozent"
