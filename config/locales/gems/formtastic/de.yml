@@ -4,17 +4,34 @@ de:
     :yes: Ja
     :no: Nein
     required: Pflicht
-  
     labels:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
       user:
-        agecheck: "Ich bin mindestens 18 Jahre alt."
-        legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
-        privacy: "Datenschutzerklärung."
+        legal_entity: Rechtlicher Status
+        nickname: Nutzername
+        email: E-mail Adresse
+        image: Profilbild
         password: "Passwort"
+        password_confirmation: "Passwort bestätigen"
+        agecheck: "Ich bin mindestens 18 Jahre alt."
         remember_me: "Eingeloggt bleiben"
+        current_password: "Bisheriges Passwort"
+        title: "Anrede"
+        forename: "Vorname"
+        surname:  "Nachname"
+        country: "Land"
+        street: "Straße und Hausnummer"
+        city: "Stadt"
+        zip: "PLZ"
+        phone: "Telefonnummer (Festnetz)"
+        mobile: "Telefonnummer (Mobil)"
+        fax: "Fax"
+        about_me: "Über mich"
+        terms: "AGB"
+        cancellation: "Widerrufsbelehrung und Rücknahme"
+        about: "Impressum und Kontakt"
       auction:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -90,7 +107,10 @@ de:
         _destroy: Löschen
     input_steps:
       user:
-        
+        account: Benutzerkonto
+        contact: Kontaktinformationen
+        profile: Profil
+        terms: Rechtliches
       auction:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
@@ -105,6 +125,12 @@ de:
       template_select:
         prefix: ""
         apply: Deine Vorlagen
+    hints:
+      user:
+        edit: &edit_user
+          current_password: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
+          password: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
+        update: *edit_user
     tooltips:
       user:
         new: &new_user
@@ -112,6 +138,12 @@ de:
           nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
           password: "Bitte achte auf Deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
         create: *new_user
+        edit: &edit_user
+          terms: "Trage hier Deine AGB ein."
+          cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
+          about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
+        update: *edit_user
+        profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
@@ -152,4 +184,5 @@ de:
         submit: "Vorlage übernehmen"
       # Login 
       login: "Login"
+      sign_up: "Registrieren"
       
