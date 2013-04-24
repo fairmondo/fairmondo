@@ -59,6 +59,8 @@ module Auction::Commendation
     validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
     validates_length_of :small_and_precious_reason, :minimum => 200, :if => :small_and_precious?
+    validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?
+    
   end
   
   private
