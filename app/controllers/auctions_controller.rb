@@ -101,15 +101,7 @@ class AuctionsController < ApplicationController
 
     if current_user.legal_entity
       legal_entity = current_user.becomes(LegalEntity)
-      #if !legal_entity.legal_entity_terms_ok
-      #   error_text =  t('auction.form.missing_terms')+ "<br>" +
-      #   ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
-      #   ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
-      #   ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
-      #   flash[:error] =  error_text.html_safe
-      #   redirect_to url_for :controller => "dashboard", :action => "edit_profile"
-      #   return
-      # end
+      
       if !legal_entity.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
@@ -273,25 +265,7 @@ class AuctionsController < ApplicationController
     end
   end
   
-  def follow
-    @product = Auction.find params["id"]
-    current_user.follow(@product)
-   
-    respond_to do |format|
-      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.following') }
-      format.json { head :no_content }
-    end
-  end
-  
-  def stop_follow
-    @product = Auction.find params["id"]
-    current_user.stop_following(@product) # Deletes that record in the Follow table
-    
-    respond_to do |format|
-      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.stop_following') }
-      format.json { head :no_content }
-    end
-  end
+
 
   def add_to_library
     @library = Library.find params["library_id"]

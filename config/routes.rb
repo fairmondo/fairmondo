@@ -28,7 +28,6 @@ Fairnopoly::Application.routes.draw do
  
   match 'dashboard' => 'dashboard#index'
   get 'dashboard/profile'
-  get 'dashboard/edit_profile'
   get 'dashboard/sales' 
   get 'dashboard/libraries'
   post 'dashboard/add_to_library'

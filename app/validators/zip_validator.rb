@@ -5,10 +5,10 @@ class ZipValidator < ActiveModel::EachValidator
       when "Deutschland"
         length=5
         if value.length != length
-          record.errors[attribute] << I18n.t('devise.edit_profile.error_zip_length', :count => length)
+          record.errors[attribute] << I18n.t('errors.messages.zip_length', :count => length)
         end
         unless only_numbers?(value)
-          record.errors[attribute] << I18n.t('devise.edit_profile.error_zip_format')
+          record.errors[attribute] << I18n.t('errors.messages.zip_format')
         end
     end
   end

@@ -45,6 +45,7 @@ de:
         
         ecologic: Öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
+        upcycling_reason: Bitte erläutere, warum Dein Artikel unter Upcycling fällt.
         
         fair_trust_questionnaire: "Fragebogen für 'Fair Trust'" 
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
@@ -151,6 +152,7 @@ de:
         
         fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
         fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
+        upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
         small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
         fair_trust_questionnaire: >
           Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.

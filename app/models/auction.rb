@@ -14,8 +14,6 @@ class Auction < ActiveRecord::Base
   # Dont search for inactive auctions
   default_scope where(:active => true)
 
-  acts_as_followable
-
   # Relations
   
 

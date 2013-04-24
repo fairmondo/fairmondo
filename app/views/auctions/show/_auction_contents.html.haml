@@ -85,7 +85,7 @@
           = simple_format(@auction.transport_details).html_safe
           
       - if @auction.fair || @auction.ecologic || @auction.small_and_precious
-        = render_box "honor" do
+        = render_box "commendation" do
           = render 'show_commendation'
       / Only legal sellers
       - if @auction.seller.legal_entity

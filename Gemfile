@@ -84,7 +84,7 @@ gem 'money-rails'
 gem 'state_machine'
 
 # Follow Users and Auctions 
-gem "acts_as_follower"
+#gem "acts_as_follower" #not used for the moment
 
 # tree structure for categories
 gem 'awesome_nested_set'
