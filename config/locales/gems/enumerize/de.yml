@@ -20,6 +20,9 @@ de:
         trans_fair: TransFair Siegel
         weltladen: Anerkannter Weltladen-Lieferant
         wtfo: WFTO-Mitglied
+      ecologic_kind:
+        ecologic_seal: "Artikel trägt ein Öko-Siegel"
+        upcycling: "Artikel fällt unter Upcycling"
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel

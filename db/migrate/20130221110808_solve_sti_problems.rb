@@ -2,6 +2,7 @@ class SolveStiProblems < ActiveRecord::Migration
   class Transaction < ActiveRecord::Base
   end
   class Auction < ActiveRecord::Base
+    attr_accessible :transaction_id
   end
   def up
     add_column :auctions, :transaction_id, :integer
