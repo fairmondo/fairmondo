@@ -1,11 +1,11 @@
-.box{:id => box_name}
+.box{:id => box_name, :onclick => "changeBox(this)"}
   %div{:class => "box-legend #{box_legend_class}"}
     - if tooltip_text
       %a.input-tooltip
         %span
           = tooltip_text
     %h3
-      %a{:href => "##{box_name}"}
+      %a{:id => "link#{box_name}", :href => "##{box_name}"}
         = box_title
   %div{:class => "box-content #{box_content_class}"}
     = yield
