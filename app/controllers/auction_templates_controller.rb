@@ -5,8 +5,8 @@ class AuctionTemplatesController < InheritedResources::Base
   before_filter :build_auction, :only => [:new, :edit, :create, :update]
   before_filter :setup_categories, :only => [:new, :edit, :create, :update]
   before_filter :build_questionnaires, :only => [:new, :edit, :create, :update]
-  before_filter :build_transaction, :only => [:create, :update]
-  
+  before_filter :build_transaction, :only => [:create]
+  before_filter :save_images, :only => [:create, :update]
   actions :all, :except => [:show]
   
   def begin_of_association_chain
@@ -25,14 +25,30 @@ class AuctionTemplatesController < InheritedResources::Base
   
   def build_auction
     @auction ||= resource.auction || resource.build_auction 
+     
   end
-  
+ 
   def build_questionnaires
     @fair_trust_questionnaire ||= @auction.fair_trust_questionnaire || @auction.build_fair_trust_questionnaire
     @social_producer_questionnaire ||= @auction.social_producer_questionnaire || @auction.build_social_producer_questionnaire
   end
   
   def build_transaction
-    @auction.transaction ||= PreviewTransaction.new
+    @auction.build_transaction
   end
+  
+  def save_images
+    #At least try to save the images -> not persisted in browser 
+    if @auction 
+       
+        @auction.images.each do |image|
+          if image.image
+            image.save
+          else
+            @auction.images.remove image
+          end
+        end
+    end
+  end
+  
 end

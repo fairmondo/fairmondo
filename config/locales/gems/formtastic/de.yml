@@ -17,6 +17,7 @@ de:
         remember_me: "Eingeloggt bleiben"
       auction:
         title: "Artikelbezeichnung"
+        content: "Beschreibung"
         categories: Kategorien
         categories_and_ancestors: Kategorien
         image: "Titelbild"
@@ -32,6 +33,7 @@ de:
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
           
         small_and_precious: Klein&Edel
+        small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
         small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
@@ -62,9 +64,7 @@ de:
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         
         condition: "Artikelzustand"
-
-        color: Farbe
-        size: Größe
+        condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
         price: "Preis"
         price_currency: "Währung"
@@ -89,6 +89,8 @@ de:
         image: Bild
         _destroy: Löschen
     input_steps:
+      user:
+        
       auction:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
@@ -105,16 +107,18 @@ de:
         apply: Deine Vorlagen
     tooltips:
       user:
-        new:
-          email: "An diese Adresse verschicken wir die Anmeldebestätigung."
+        new: &new_user
+          email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
-          password: "Bitte achte auf deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+          password: "Bitte achte auf Deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+        create: *new_user
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
         category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
         
         fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
+        fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
         fair_trust_questionnaire: >
           Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
@@ -133,7 +137,7 @@ de:
           
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         friendly_percent_input_step: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <hier>.
+          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
         
        
         

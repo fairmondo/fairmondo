@@ -1,9 +1,7 @@
-.box{:id => box_name, :onclick => "changeBox(this)"}
+%div{:class => "#{box_layout}", :id => box_name, :onclick => "changeBox(this)"}
   %div{:class => "box-legend #{box_legend_class}"}
     - if tooltip_text
-      %a.input-tooltip
-        %span
-          = tooltip_text
+      render_tooltip tooltip_text 
     %h3
       %a{:id => "link#{box_name}", :href => "##{box_name}"}
         = box_title

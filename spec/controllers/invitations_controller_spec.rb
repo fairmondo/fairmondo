@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+=begin
 describe InvitationsController do
   render_views
 
@@ -194,3 +194,4 @@ describe InvitationsController do
     end
   end
 end
+=end

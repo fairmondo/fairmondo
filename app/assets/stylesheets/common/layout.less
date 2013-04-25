@@ -10,6 +10,10 @@ body {
 
 header {
   padding: 20px 0;
+  .left-nav { 
+      float:left;
+      margin-right:20px;
+      }
   h1#title a {
       display: block;
       width: 279px;
@@ -49,7 +53,7 @@ header {
       a {
         position: relative;
         color: black;
-        font-weight: bold;
+        
         display: block;
         text-align: center;
         padding-right: 10px;
@@ -61,6 +65,7 @@ header {
         z-index: 200;
         &:hover {
           text-decoration: none;
+     
         }
       }
       &#buy a {   background-image: asset-url('buy.png');}

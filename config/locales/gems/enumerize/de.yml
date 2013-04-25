@@ -2,29 +2,23 @@ de:
 # Enum Definitions
   enumerize:
     auction:
-      color:
-        white: weiß
-        black: schwarz
-        yellow: gelb
-        orange: orange
-        red: rot
-        green: grün
-        blue: blau
-        turquoise: türkis
-        brown: braun
-        violet: violett
-        grey: grau
-        multicolored: bunt
       condition:
         new: "Neu"
         old: "Gebraucht"
+      condition_extra:
+        as_good_as_new: "Neuwertig"
+        as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
+        used_very_good: "Gebraucht / sehr gut"
+        used_good: "Gebraucht / gut"
+        used_satisfying: "Gebraucht / zufriedenstellend"
+        broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Produzent mit Siegel oder anerkannt
         fair_trust: Fair Trust
         social_producer: Sozialer Produzent
       fair_seal:
         trans_fair: TransFair Siegel
-        weltladen: Weltladen-Handelspartner 
+        weltladen: Anerkannter Weltladen-Lieferant
         wtfo: WFTO-Mitglied
       ecologic_seal:
         bio_siegel: Bio-Siegel
