@@ -1,3 +1,8 @@
+// Small script to collapse a box.
+// It counts the clicks on the link inside a box and when
+// it is clicked twice, the hash from the end of the url is
+// removed and therefore the :target from the box.
+
 var clicks = 0;
 var name = "";
 function changeBox(object) {
