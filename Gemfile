@@ -64,6 +64,9 @@ gem 'will_paginate', '>= 3.0'
 gem 'sunspot_rails'
 gem 'progress_bar'
 
+# Friendly_id for beautiful links
+gem "friendly_id", ">= 4.0.9"
+
 # Delayed_Jobs & Daemons
 gem "daemons"
 gem 'delayed_job_active_record'
