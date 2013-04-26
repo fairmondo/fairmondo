@@ -17,7 +17,12 @@
   = f.input :ecologic, :as => :plain_check_box, :js_toggle => true
   = f.inputs :id => 'ecologic-input-fields' do
     .subform-part
-      = f.input :ecologic_seal
+      = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
+      .subform-part
+        = f.inputs :id => 'ecologic_seal-input-fields', :class => "ecologic_kind" do
+          = f.input :ecologic_seal, :required => true
+        = f.inputs :id => 'upcycling-input-fields', :class => "ecologic_kind" do
+          = f.input :upcycling_reason, :required => true , :tooltip => true
   = f.input :small_and_precious, :as => :plain_check_box, :tooltip => true, :js_toggle => true
   = f.inputs :id => 'small_and_precious-input-fields' do
     .subform-part

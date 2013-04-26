@@ -8,7 +8,7 @@
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %title Fairnopoly
+    %title= (yield(:title).blank?)? "Fairnopoly" : yield(:title)
     %meta{:content => "", :name => "description"}/
     %meta{:content => "width=device-width", :name => "viewport"}/
     = stylesheet_link_tag 'application'
@@ -75,7 +75,7 @@
                   - if @login
                     #user-login-form.popover-hidden
                       = @login.html_safe
-                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login')
+                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
                   - else
                     = link_to t('common.actions.login') , new_user_session_path
         / row

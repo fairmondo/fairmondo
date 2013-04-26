@@ -9,6 +9,7 @@ class EnsureDefaultLibraries < ActiveRecord::Migration
   end
   class Library < ActiveRecord::Base
     belongs_to :user
+    attr_accessible :name
   end
   def up
     User.reset_column_information

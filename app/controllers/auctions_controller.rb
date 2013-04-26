@@ -101,15 +101,7 @@ class AuctionsController < ApplicationController
 
     if current_user.legal_entity
       legal_entity = current_user.becomes(LegalEntity)
-      #if !legal_entity.legal_entity_terms_ok
-      #   error_text =  t('auction.form.missing_terms')+ "<br>" +
-      #   ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
-      #   ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
-      #   ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
-      #   flash[:error] =  error_text.html_safe
-      #   redirect_to url_for :controller => "dashboard", :action => "edit_profile"
-      #   return
-      # end
+      
       if !legal_entity.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
@@ -273,6 +265,7 @@ class AuctionsController < ApplicationController
     end
   end
   
+
 
   private
   

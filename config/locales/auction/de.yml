@@ -5,7 +5,7 @@ de:
     boxes:
       content: "Artikelbeschreibung"
       payment: "Versand und Bezahlung"
-      honor: "Auszeichnung des Artikels"
+      commendation: "Auszeichnung des Artikels"
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
@@ -19,7 +19,7 @@ de:
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
-      
+      title_addition: " bei Fairnopoly"
     hero:
       search: "Suche nach"
       filter: "Filter nach"

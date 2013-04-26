@@ -3,7 +3,7 @@ module Auction::Commendation
 
   included do
     
-    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal , :small_and_precious, :small_and_precious_edition , :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
+    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_edition , :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
     attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
     
     scope :with_commendation, lambda { |*commendations|
@@ -49,8 +49,13 @@ module Auction::Commendation
   
     ## ecologic
     
-    validates_presence_of :ecologic_seal, :if => :ecologic?
+    validates_presence_of :ecologic_kind, :if => :ecologic?
+    validates_presence_of :ecologic_seal, :if => lambda {|obj| obj.ecologic_kind == "ecologic_seal"}
+    validates_presence_of :upcycling_reason, :if => lambda {|obj| obj.ecologic_kind == "upcycling"}
+    validates_length_of :upcycling_reason, :minimum => 200, :if => lambda {|obj| obj.ecologic_kind == "upcycling"}
+     
     enumerize :ecologic_seal, :in => [:bio_siegel, :eg_bio_siegel, :ecovin, :naturland, :gaea_e_v_oekologischer_landbau, :biokreis, :bioland, :biopark, :demeter, :europaeisches_umweltzeichen, :gots, :textiles_vertrauen_nach_oeko_tex_standard_100plus, :ivn_zertifiziert_naturtextil, :ivn_zertifiziert_naturtextil_best, :rainforest_alliance, :der_blaue_engel, :deutsches_gueteband_wein, :ecogarantie, :fsc_pure_papier, :fsc_pure_holz, :greenline, :gut, :kork_logo, :kompostierbar_compostable, :kontrollierte_natur_kosmetik_bdih, :natrue_natural_cosmetics_with_organic_portion, :natrue_organic_cosmetics, :natureplus, :oeko_control, :tco_certified, :utz_certified, :tuev_eco_kreis]
+    enumerize :ecologic_kind, :in => [:ecologic_seal , :upcycling]
     
     ## small_and_precious
     

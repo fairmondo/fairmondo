@@ -20,6 +20,9 @@ de:
         trans_fair: TransFair Siegel
         weltladen: Anerkannter Weltladen-Lieferant
         wtfo: WFTO-Mitglied
+      ecologic_kind:
+        ecologic_seal: "Artikel trägt ein Öko-Siegel"
+        upcycling: "Artikel fällt unter Upcycling"
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel
@@ -61,7 +64,7 @@ de:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal
-        cach_on_delivery: Nachnahme
+        cash_on_delivery: Nachnahme
         invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International

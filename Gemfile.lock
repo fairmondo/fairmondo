@@ -57,7 +57,6 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts_as_follower (0.1.1)
     addressable (2.3.4)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
@@ -367,7 +366,6 @@ DEPENDENCIES
   activerecord-jdbc-adapter (>= 1.2.9)
   activerecord-jdbcpostgresql-adapter
   activerecord-jdbcsqlite3-adapter
-  acts_as_follower
   autotest-fsevent
   awesome_nested_set
   bootstrap-will_paginate
@@ -386,6 +384,7 @@ DEPENDENCIES
   font-awesome-rails
   formtastic
   formtastic-bootstrap
+  friendly_id (>= 4.0.9)
   haml
   html2haml
   inherited_resources
