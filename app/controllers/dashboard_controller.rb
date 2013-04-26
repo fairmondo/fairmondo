@@ -106,11 +106,25 @@ class DashboardController < ApplicationController
     end
   end
   
+ def delete_library_flash
+    if params[:id]
+      library = Library.find(params[:id])
+      if library && library.user == current_user
+        respond_to do |format|
+          format.html { redirect_to url_for(:controller => "dashboard", :action => "libraries") ,
+            :flash => { :notice => t('library.flash.delete_confirm', :name => library.name) +" "+ 
+              (view_context.link_to t('library.action.delete'), :controller => "dashboard", :action => "delete_library", :id => params[:id] )}
+            }
+          format.json { head :no_content }
+        end
+      end
+    end
+ end
     
   def delete_library
     if params[:id]
       library = Library.find(params[:id])
-      if library.user == current_user  
+      if library && library.user == current_user  
         Library.delete(params[:id])
       end
     end
@@ -123,7 +137,7 @@ class DashboardController < ApplicationController
   def rename_library
     if params[:library_name] && params[:id]
       library = Library.find(params[:id])
-      if library.user == current_user  
+      if library && library.user == current_user  
         if !library.update_attributes( :name => params[:library_name])
         #TODO: some error message
         end
