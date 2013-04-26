@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
+  
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
   end
@@ -22,6 +24,13 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
  
+  protected
+ 
+  def render_dashboard_hero
+
+    @dashboard_hero = true
+    
+  end
 
   private
 

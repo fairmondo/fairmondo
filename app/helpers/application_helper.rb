@@ -72,7 +72,13 @@ module ApplicationHelper
   def hero
     hero = "<div id=\"hero\">"
     begin 
-       hero += render :partial => '/hero/'+ params[:controller] + '/' + params[:action] 
+       
+       if @dashboard_hero == true
+         hero += render :partial => '/hero/dashboard/default'
+       else
+         hero += render :partial => '/hero/'+ params[:controller] + '/' + params[:action] 
+       end
+       
        hero << "</div>"   
         rescue ActionView::MissingTemplate
           begin
@@ -82,7 +88,7 @@ module ApplicationHelper
             hero = ""
           end
      end
-      return hero 
+      return hero.html_safe
   end
   
   def render_tooltip tooltip

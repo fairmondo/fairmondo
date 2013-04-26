@@ -33,3 +33,18 @@ div.radio {
     margin-left: 0px;
   }
 }
+
+/*
+ * No Inline Form Support Fix
+ * 
+ */
+
+.form-inline {
+    div.controls, div.control-group:not(.hidden), fieldset{
+      display : inline;
+ 
+    }
+    label , div.control-group{
+      margin-right: 20px;
+    }
+}
