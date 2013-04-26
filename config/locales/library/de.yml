@@ -13,6 +13,8 @@ de:
     privacy: "Sichtbarkeit dieser Sammlung:"
     public: "Jeder kann diese Sammlung sehen"
     private: "Nur für Dich sichtbar"
+    flash:
+      delete_confirm: "Soll die Sammlung %{name} wirklich gelöscht werden?"
     action:
       public: "öffentlich machen"
       private: "privat machen"

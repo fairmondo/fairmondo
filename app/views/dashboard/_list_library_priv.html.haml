@@ -24,7 +24,7 @@
             %input.hidden{:name => "id", :value =>lib.id}
           
           %strong=t('library.title.delete')
-          %p= link_to t('library.action.delete'), {:controller => "dashboard", :action => "delete_library", :id=>lib.id}
+          %p= link_to t('library.action.delete'), {:controller => "dashboard", :action => "delete_library_flash", :id=>lib.id}
         
         - if lib.library_elements.empty?
           .well
