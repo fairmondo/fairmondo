@@ -9,7 +9,7 @@
     - else
       %span.big-name= user.name
   .border-box.small-margin-side
-    %a{:href => dashboard_path(:id => user.id)}
+    %a{:href => dashboard_path(user)}
       = image_tag(user.image.url(:thumb))
   .middle-margin
     - if user.legal_entity

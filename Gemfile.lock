@@ -382,6 +382,7 @@ DEPENDENCIES
   font-awesome-rails
   formtastic
   formtastic-bootstrap
+  friendly_id (>= 4.0.9)
   haml
   html2haml
   jdbc-postgres

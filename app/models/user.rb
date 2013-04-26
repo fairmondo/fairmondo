@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
 
   # lib dependency
   include SanitizeTinyMce
+  
+  # Friendly_id for beautiful links
+  extend FriendlyId
+  friendly_id :nickname, :use => :slugged
+  validates_presence_of :slug
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
