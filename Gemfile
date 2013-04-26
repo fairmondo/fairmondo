@@ -66,6 +66,9 @@ gem "pundit" # authorization
 gem 'sunspot_rails'
 gem 'progress_bar'
 
+# Friendly_id for beautiful links
+gem "friendly_id", ">= 4.0.9"
+
 # Delayed_Jobs & Daemons
 gem "daemons"
 gem 'delayed_job_active_record'
@@ -86,7 +89,7 @@ gem 'money-rails'
 gem 'state_machine'
 
 # Follow Users and Auctions 
-gem "acts_as_follower"
+#gem "acts_as_follower" #not used for the moment
 
 # tree structure for categories
 gem 'awesome_nested_set'

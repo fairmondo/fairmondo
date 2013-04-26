@@ -1,20 +1,21 @@
 class Auction < ActiveRecord::Base
   extend Enumerize
   
+  # Friendly_id for beautiful links
+  extend FriendlyId
+  friendly_id :title, :use => :slugged
+  validates_presence_of :slug
  
   #auction module concerns
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
 
   attr_accessible :transaction_attributes
 
-
   # refs #128
   default_scope where(:auction_template_id => nil)
   
   # Dont search for inactive auctions
   default_scope where(:active => true)
-
-  acts_as_followable
 
   # Relations
   

@@ -6,6 +6,7 @@ de:
       length: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
       presence: "Eine Sammlung benötigt einen Namen."
     new: "Neue Sammlung"
+<<<<<<< HEAD
     default: "Standardsammlung"
   library_element:
     error:
@@ -14,3 +15,21 @@ de:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
     
    
+=======
+    new_title: "Neue Sammlung erstellen"
+    privacy: "Sichtbarkeit dieser Sammlung:"
+    public: "Jeder kann diese Sammlung sehen"
+    private: "Nur für Dich sichtbar"
+    flash:
+      delete_confirm: "Soll die Sammlung %{name} wirklich gelöscht werden?"
+    action:
+      public: "öffentlich machen"
+      private: "privat machen"
+      delete: "Sammlung löschen"
+      rename: "Sammlung umbenennen"
+    element:
+      delete: "Aus Sammlungen löschen"
+    title:
+      rename: "Umbenennen:"
+      delete: "Löschen:"
+>>>>>>> c26cd7ae00eeb5d479d2396a73668233a69a8e7b
