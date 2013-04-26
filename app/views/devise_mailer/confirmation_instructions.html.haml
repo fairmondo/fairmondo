@@ -2,9 +2,9 @@
   = t('common.text.hello')
   = @resource.email
   \!
-%p= t('user.confirmation.email.text')
-%p= link_to t('user.confirmation.email.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
-%p= t('user.confirmation.email.info')
-%p= t('user.confirmation.ignoremail')
+%p= t('devise.confirmation.email.text')
+%p= link_to t('devise.confirmation.email.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+%p= t('devise.confirmation.email.info')
+%p= t('devise.confirmation.ignoremail')
 %p= t('common.fn_footer_greeting')
 %p= t('common.fn_legal_footer')

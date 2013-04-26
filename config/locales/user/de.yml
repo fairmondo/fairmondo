@@ -1,114 +1,32 @@
 de:
-# Devise
-  devise:
-    countries:
-      germany: "Deutschland"
+  users:
+    legal_status:
+      new:
+        legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
+        private_user: "Ich bin Privatperson"
+      edit:
+        legal_entity: "Juristische Person"
+        private_user: "Privatperson"
+      show:
+        legal_entity: "Firmenprofil"
+        private_user: "Privatprofil"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben." 
-    links:
-      sign_in: "Login"
-      sign_up: "Registrieren"
-      forgot_password: "Passwort vergessen?"
-      confirmation_instruction: "Keine Bestätigungsanweisung erhalten?"
-      unlock_instruction: "Keine Anweisungen zur Freischaltung erhalten?"
-      sign_in_with: "Mit anderem Account anmelden #{provider.to_s.titleize}"
-    actions:
-      unlock: "Email-Anweisungen zur Freischaltung erneut senden"
-    title:
-      cancle: "Benutzerkonto löschen"
-      sign_up: "Registrierung"
-      login: "Login"
-    new_profile:
-      
-      create: "Registrieren"
-      legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
-      private_user: "Ich bin Privatperson"
-      status: "Rechtlicher Status"
-     
-    edit_profile:
-      title: "Persönliche Daten"
-      contact_person: "Ansprechpartner*in"
-      nickname: "Nutzername"
-      legal_entity: "Juristische Person"
-      private_user: "Privatperson"
-      name_title: "Anrede"
-      forename: "Vorname"
-      surname:  "Nachname"
-      mail: "Email"
-      login_data: "Deine Login-Daten"
-      password: "Passwort ändern (optional)"
-      image: "Wähle Dein Bild aus"
-      picture: "Bild"
-      password_hint: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
-      password_confirmation: "Passwort bestätigen"
-      current_password: "Bisheriges Passwort"
-      current_password_hint: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
-      cancel_account: "Benutzerkonto löschen"
-      cancel_account_confirm: "Bist Du sicher?"
-      address: "Anschrift und Kontaktdaten"
-      country: "Land"
-      street: "Straße und Hausnummer"
-      city: "Stadt"
-      zip: "PLZ"
-      phone: "Telefonnummer (Festnetz)"
-      mobile: "Telefonnummer (Mobil)"
-      fax: "Fax"
-      about_me: "Über mich"
-      about_me_hint: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
-      terms: "AGB"
-      cancellation: "Widerrufsbelehrung und Rücknahme"
-      about: "Impressum und Kontakt"
-      terms_hint: "Trage hier Deine AGB ein."
-      cancellation_hint: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
-      about_hint: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
+    legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+    privacy: "Datenschutzerklärung."
+    complexify: Passwortstärke
+    visibility:
       public: "Öffentlich"
       private: "Privat"
-      error_zip_length: "muss %{count}-stellig sein"
-      error_zip_format: "muss aus Zahlen bestehen"
-      
-# User Model/Controller
-  user:
-    banned: "Das Benutzerkonto muss zuerst von einem Administrator freigeschalten werden!"
-    remember: "Eingeloggt bleiben"
-    hints:
-      email: "An diese Adresse verschicken wir die Anmeldebestätigung."
-      nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name deines Shops."
-    confirmation:
-      resend: "Bestätigungsanweisungen erneut schicken"
-      text: "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
-             Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
-             Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
-             Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
-      link: "Meine Registrierung bestätigen."
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
-      email:
-        text: "Jemand hat einen Link zum Ändern Deiner Email Adresse auf Fairnopoly angefordert. Um Deine Email Adresse zu ändern, klicke auf den folgenden Link:"
-        link: "Email Adresse hier ändern"
-        info: "Deine Email Adresse ändert sich erst, wenn Du den oben angegebenen Link benutzt, um eine neue Email Adresse anzulegen."
-    reset:
-      text: "Jemand hat einen Link zum Ändern Deines Passworts auf Fairnopoly angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
-      link: "Passwort hier ändern"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
-      info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
-      request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
-      title: "Passwort vergessen?"
-      new: "Neues Passwort"
-      new_confirm: "Passwort bestätigen"
-      new_submit: "Neues Passwort speichern"
-    unlock:
-      info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
-      linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
-      link: "Benutzerkonto freischalten"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
-    follow:
-      following: "Folgen"
-      stop_following: "Following gestoppt"
-      followers: "Followers"
-      followers_info: "Benutzer, die mir folgen"
-      following_info: "Artikel und Benutzer, denen ich folge"
-      followers_info_others: "Diese Benutzer folgen "
-      following_info_others: " folgt diesen Artikeln und Benutzern"
+    login:
+      title: "Deine Login-Daten"
+    change_password: "Passwort ändern (optional)"
+    form_titles:
+      contact_person: "Ansprechpartner*in"
+      address: "Anschrift und Kontaktdaten"
+    countries:
+      germany: "Deutschland"
     founder: "Gründer"
-    legal:
-      legal_entity: "Firmenprofil"
-      private: "Privatprofil"
+
+
+

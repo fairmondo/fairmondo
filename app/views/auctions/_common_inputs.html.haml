@@ -9,7 +9,7 @@
       = f.input :fair_kind, :as => :plain_radio, :js_toggle => true
       .subform-part
         = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
-          = f.input :fair_seal, :tooltip => true
+          = f.input :fair_seal, :tooltip => true, :required => true
         = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
           = render(:partial => 'auctions/fair_trust_questionnaire_form', :locals => {:auction_form => f})
         = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do
@@ -17,14 +17,19 @@
   = f.input :ecologic, :as => :plain_check_box, :js_toggle => true
   = f.inputs :id => 'ecologic-input-fields' do
     .subform-part
-      = f.input :ecologic_seal
+      = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
+      .subform-part
+        = f.inputs :id => 'ecologic_seal-input-fields', :class => "ecologic_kind" do
+          = f.input :ecologic_seal, :required => true
+        = f.inputs :id => 'upcycling-input-fields', :class => "ecologic_kind" do
+          = f.input :upcycling_reason, :required => true , :tooltip => true
   = f.input :small_and_precious, :as => :plain_check_box, :tooltip => true, :js_toggle => true
   = f.inputs :id => 'small_and_precious-input-fields' do
     .subform-part
-      = f.input :small_and_precious_eu_small_enterprise, :as => :radio, :tooltip => true
-      = f.input :small_and_precious_edition, :tooltip => true
-      = f.input :small_and_precious_reason, :tooltip => true
-      = f.input :small_and_precious_handmade, :as => :radio, :tooltip => true
+      = f.input :small_and_precious_eu_small_enterprise, :as => :radio, :tooltip => true, :required => true
+      = f.input :small_and_precious_edition, :tooltip => true, :required => true
+      = f.input :small_and_precious_reason, :tooltip => true, :required => true
+      = f.input :small_and_precious_handmade, :as => :radio, :tooltip => true, :required => true
 = f.input_step :article do
   = f.input :condition, :tooltip => true,:as => :plain_radio, :prepend_label => true, :js_toggle => true
   = f.inputs :id => 'old-input-fields', :class => "condition" do

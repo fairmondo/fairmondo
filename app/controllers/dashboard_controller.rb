@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
     if @user.legal_entity
       @user = @user.becomes(LegalEntity)
     else
-      @user = @user.becomes(PrivateUser)
+      redirect_to dashboard_path
     end
   end
 
@@ -155,10 +155,6 @@ class DashboardController < ApplicationController
     get_sales
   end
   
-
-  def edit_profile
-    @user = current_user
-  end
   
   private
   def get_sales
@@ -186,43 +182,12 @@ class DashboardController < ApplicationController
 
   # Interact with user model
 
-  #def follow
-  #  @user = User.find params["id"]
-  #  current_user.follow(@user)
-
-  #  respond_to do |format|
-  #    format.html { redirect_to dashboard_path(:id => @user.id) , :notice => (I18n.t 'user.follow.following') }
-  #    format.json { head :no_content }
-  #  end
-  #end
-  
-  #def stop_follow
-  #  
-  #  @user = User.find params["id"]
-  #  current_user.stop_following(@user) # Deletes that record in the Follow table
-  #  
-  #  respond_to do |format|
-  #    format.html { redirect_to dashboard_path(:id => @user.id) , :notice => (I18n.t 'user.follow.stop_following') }
-  #    format.json { head :no_content }
-  #  end
-  #
-  #end
-  
    # def search_users
    #   get_user
    #   @users = User.paginate :page => params[:page], :per_page=>12
    # end
   
-   # def list_followers
-   #   get_user
-   #   @users = @user.user_followers
-   # end
-  
-   #def list_following
-   #  get_user
-   #  @users = @user.following_by_type('User')
-   #  @auctions = @user.following_by_type('Auction').paginate(:page => params[:page] , :per_page=>12)
-   #end
+ 
   
 
 end

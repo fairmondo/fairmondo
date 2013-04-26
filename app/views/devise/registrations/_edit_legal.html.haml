@@ -1,10 +1,10 @@
-#terms.element-in-box
-  %h3= t('formtastic.input_steps.auction.legal_issues')
-  %span.pull-right= t('devise.edit_profile.public')
-  = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.terms'), :hint => t('devise.edit_profile.terms_hint')
-  %br/
-  %span.pull-right= t('devise.edit_profile.public')
-  = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.cancellation'),:hint =>t('devise.edit_profile.cancellation_hint')
-  %br/
-  %span.pull-right= t('devise.edit_profile.public')
-  = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :label=> t('devise.edit_profile.about'),:hint =>t('devise.edit_profile.about_hint')
+= f.input_step :terms do
+  = f.inputs do
+    %span.pull-right= t('users.privacy.public')
+    = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+  = f.inputs do
+    %span.pull-right= t('users.privacy.public')
+    = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+  = f.inputs do
+    %span.pull-right= t('users.privacy.public')
+    = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true

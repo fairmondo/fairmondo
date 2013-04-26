@@ -32,7 +32,7 @@
             %strong Sammlungen
         %li#dashboard-profile
           - if @user.id==current_user.id
-            %a{:href => url_for(:controller => "dashboard", :action => "edit_profile")}
+            %a{:href => url_for(:controller => "registrations", :action => "edit")}
               %strong Profil bearbeiten
           - elsif @user.legal_entity
             %a{:href => url_for(:controller => "dashboard", :action => "profile" , :id => params[:id])}
