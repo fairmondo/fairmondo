@@ -239,6 +239,8 @@ GEM
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    pundit (0.2.0)
+      rails (~> 3.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -386,6 +388,7 @@ DEPENDENCIES
   formtastic-bootstrap
   haml
   html2haml
+  inherited_resources
   jdbc-postgres
   jdbc-sqlite3
   jquery-rails
@@ -399,6 +402,7 @@ DEPENDENCIES
   paperclip (>= 3.0)
   pg
   progress_bar
+  pundit
   rails (>= 3.2.13)
   recaptcha
   rspec-rails

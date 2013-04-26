@@ -9,33 +9,33 @@
             = @user.about_me.html_safe
             .clearfix
           - if params[:full_about]
-            %a.pull-right{:href => dashboard_path(:id => @user.id)}
+            %a.pull-right{:href => user_path(:id => @user.id)}
               %i.icon-chevron-up
               weniger anzeigen
           - else
-            %a.pull-right{:href => dashboard_path(:id => @user.id, :full_about => "true")}
+            %a.pull-right{:href => user_path(:id => @user.id, :full_about => "true")}
               %i.icon-chevron-down
               mehr anzeigen
         - else
           .empty-well
-            - if @user==current_user
+            - if @user.id==current_user.id
               %a.pull-right{:href => edit_user_registration_path}
                 Beschreibung hinzufügen
             %h4 Noch keine Beschreibung hinzugefügt.
       %ul.nav.nav-pills
         - if @user.id==current_user.id
           %li#dashboard-sell
-            %a{:href => url_for(:controller => "dashboard", :action => "sales", :anchor => "offers")}
+            %a{:href => sales_user_path(current_user)}
               %strong Verkäufe
         %li#dashboard-library
-          %a{:href => url_for(:controller => "dashboard", :action => "libraries", :id => params[:id])}
+          %a{:href => user_libraries_path(current_user)}
             %strong Sammlungen
         %li#dashboard-profile
           - if @user.id==current_user.id
-            %a{:href => url_for(:controller => "dashboard", :action => "edit_profile")}
+            %a{:href =>  edit_user_registration_path}
               %strong Profil bearbeiten
           - elsif @user.legal_entity
-            %a{:href => url_for(:controller => "dashboard", :action => "profile" , :id => params[:id])}
+            %a{:href => profile_user_path}
               %strong Profil
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

@@ -1,25 +1,16 @@
 de:
 # Libraries
   library:
-    exist: "Eine Sammlung mit diesem Namen existiert bereits."
-    error: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
-    not_exists: "Diese Sammlung existiert nicht"
-    already_in_library: "Dieser Artikel ist bereits in der Sammlung."
-    no_products: "Es sind momentan keine Produkte in dieser Sammlung"
-    no_library: "Dieser Nutzer hat noch keine Sammlung erstellt."
-    default: "Standardsammlung"
+    error:
+      uniqueness: "Eine Sammlung mit diesem Namen existiert bereits."
+      length: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
+      presence: "Eine Sammlung benötigt einen Namen."
     new: "Neue Sammlung"
-    new_title: "Neue Sammlung erstellen"
-    privacy: "Sichtbarkeit dieser Sammlung:"
-    public: "Jeder kann diese Sammlung sehen"
-    private: "Nur für Dich sichtbar"
-    action:
-      public: "öffentlich machen"
-      private: "privat machen"
-      delete: "Sammlung löschen"
-      rename: "Sammlung umbenennen"
-    element:
-      delete: "Aus Sammlungen löschen"
-    title:
-      rename: "Umbenennen:"
-      delete: "Löschen:"
+    default: "Standardsammlung"
+  library_element:
+    error:
+      uniqueness: "Der Artikel ist schon in deiner Sammlung."
+    notice:
+      success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
+    
+   

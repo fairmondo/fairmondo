@@ -88,6 +88,9 @@ de:
       image:
         image: Bild
         _destroy: Löschen
+      library: 
+        name: Name
+        public: Öffentlich
     input_steps:
       user:
         
@@ -152,4 +155,5 @@ de:
         submit: "Vorlage übernehmen"
       # Login 
       login: "Login"
+      
       

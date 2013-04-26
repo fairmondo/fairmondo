@@ -4,9 +4,9 @@
     - if @user
       .thumbnail{:style => "position: relative;"}
         - if @image
-          = link_to image_tag(@image.url(:thumb), :style=> "width:260; height:auto;"),dashboard_path(:id => @user.id)
+          = link_to image_tag(@image.url(:thumb), :style=> "width:260; height:auto;"),user_path(:id => @user.id)
         - else
-          = link_to image_tag("http://placehold.it/260x180" , :style=> "width:260; height:auto;"),dashboard_path(:id => @user.id)
+          = link_to image_tag("http://placehold.it/260x180" , :style=> "width:260; height:auto;"),user_path(:id => @user.id)
         .caption
           %h5= @user.name
       = f.input :name,:as => :hidden,:input_html => { :value => @user.name,:readonly => true }

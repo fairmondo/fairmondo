@@ -63,7 +63,7 @@
                 %li#logout
                   = link_to(t('common.actions.logout'), destroy_user_session_path )
                 %li#login
-                  = link_to t('common.text.profile'), dashboard_path
+                  = link_to t('common.text.profile'), user_path(current_user)
                 /
                   - if current_user.trustcommunity == true 
                     %li#community
@@ -80,7 +80,7 @@
                     = link_to t('common.actions.login') , new_user_session_path
         / row
       / container
-    = raw hero
+    = hero
     #main{:role => "main"}
       .container
         = yield
