@@ -54,7 +54,7 @@ describe DashboardController do
     end
   end
   
-  describe "GET 'library" do
+  describe "library-functionality" do
 
     describe "for non-signed-in users" do
 
@@ -66,6 +66,12 @@ describe DashboardController do
         get :index
         response.should redirect_to(new_user_session_path)
       end
+      
+      it "should deny access" do
+         post :new_library, :library_name => "test-lib"
+        response.should redirect_to(new_user_session_path)
+      end
+      
     end
 
     describe "for signed-in users" do
@@ -85,6 +91,27 @@ describe DashboardController do
         get :libraries
         controller.instance_variable_get(:@libraries).should == [@library]
       end
+      
+      it "should add a new library" do
+        lambda do
+          post :new_library, :library_name => "test-lib" 
+        end.should change(Library, :count).by(1)
+      end
+      
+      it "sould set library public" do
+       
+        get :set_library_public , :id => @library.id
+        @library.reload
+        @library.public.should == true
+      end
+      
+      it "sould set library private" do
+        @library.public=true
+        get :set_library_private , :id => @library.id
+        @library.reload
+        @library.public.should == false
+      end
+      
     end
   end
 

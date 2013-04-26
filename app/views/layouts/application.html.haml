@@ -75,7 +75,7 @@
                   - if @login
                     #user-login-form.popover-hidden
                       = @login.html_safe
-                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login')
+                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
                   - else
                     = link_to t('common.actions.login') , new_user_session_path
         / row

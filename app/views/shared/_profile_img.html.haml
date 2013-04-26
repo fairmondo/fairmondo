@@ -14,7 +14,7 @@
   .middle-margin
     - if user.legal_entity
       %i.icon-briefcase
-      %i= t('user.legal.legal_entity')
+      %i= t('users.legal_status.show.legal_entity')
     - else
       %i.icon-user
-      %i= t('user.legal.private')
+      %i= t('users.legal_status.show.private_user')
