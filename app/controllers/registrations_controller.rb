@@ -1,4 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+  
+   before_filter :authenticate_user!, :except => [:create,:new]
+  
   def create
     if verify_recaptcha
       params[:user]["recaptcha"] = true
