@@ -28,5 +28,10 @@ FactoryGirl.define do
     factory :admin_user do
       admin       true
     end
+    
+    factory :german_user do
+      country "Deutschland"
+      zip "78123"
+    end
   end
 end

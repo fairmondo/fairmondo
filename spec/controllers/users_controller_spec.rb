@@ -7,6 +7,10 @@ describe UsersController do
 
     describe "for non-signed-in users" do
 
+      before :each do
+        @user = FactoryGirl.create(:user)
+      end
+
       it "should be a guest" do
         controller.should_not be_signed_in
       end
@@ -15,12 +19,15 @@ describe UsersController do
         get :show
         response.should redirect_to(new_user_session_path)
       end
+      
+      
     end
 
     describe "for signed-in users" do
 
       before :each do
         @user = FactoryGirl.create(:user)
+      
         sign_in @user
       end
 
@@ -38,18 +45,6 @@ describe UsersController do
         response.should be_success
       end
 
-      
-      context "my auction templates" do 
-        before :each do
-          @auction_template = FactoryGirl.create(:auction_template, :user => @user)
-        end
-    
-        it "assigns all auction_templates as @auction_templates" do
-          get :show, {}
-          assigns(:auction_templates).should eq([@auction_template])
-        end
-      end
-      
       
     end
   end
