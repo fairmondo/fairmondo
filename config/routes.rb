@@ -22,7 +22,7 @@ Fairnopoly::Application.routes.draw do
 
   #the user routes
  
-  resources :users, :only => [:show,:edit] do
+  resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]  
     resources :library_elements, :except => [:new, :edit]
     member do

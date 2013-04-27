@@ -336,12 +336,12 @@ describe AuctionsController do
 
       it "should update the auction with new information" do
         put :update, :id => @auction.id, :auction => @auction_attrs
-        response.should redirect_to @auction
+        response.should redirect_to @auction.reload
       end
 
       it "changes the auctions informations" do
         put :update, :id => @auction.id, :auction => @auction_attrs
-        response.should redirect_to @auction
+        response.should redirect_to @auction.reload
         controller.instance_variable_get(:@auction).title.should eq @auction_attrs[:title]
       end
     end

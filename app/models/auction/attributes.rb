@@ -40,8 +40,5 @@ module Auction::Attributes
     
   end
   
-  private 
-  def condition_old?
-    condition.old?
-  end
+  
 end
