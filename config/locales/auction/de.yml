@@ -77,7 +77,6 @@ de:
       report: "Artikel melden"
       reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
-      to-library: "In Sammlung verschieben"
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"

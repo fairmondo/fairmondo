@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
       sign_out resource_or_scope
       "/banned"
     else
-      stored_location_for(resource_or_scope) || dashboard_path
+      stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
 
@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
  
   protected
  
-  def render_dashboard_hero
+  def render_users_hero
 
-    @dashboard_hero = true
+    @users_hero = true
     
   end
 

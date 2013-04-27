@@ -2,7 +2,7 @@ class LibrariesController < InheritedResources::Base
   respond_to :html
   actions :index, :create, :update, :destroy
 
-  before_filter :render_dashboard_hero
+  before_filter :render_users_hero
   before_filter :get_user
 
   before_filter :authenticate_user!
@@ -16,7 +16,7 @@ class LibrariesController < InheritedResources::Base
     @library.user_id = params[:user_id]
     authorize @library
     create! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library_"+@library.id.to_s) }
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
       failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
     end
   end
@@ -24,7 +24,10 @@ class LibrariesController < InheritedResources::Base
   def update
     @library = Library.find(params[:id])
     authorize @library
-    update! { user_libraries_path(@user, :anchor => "library_"+@library.id.to_s)}
+    update! do |success,failure|
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+    end
   end
 
   def destroy
@@ -44,7 +47,7 @@ class LibrariesController < InheritedResources::Base
   end
 
   def get_user
-    @user = User.find params[:user_id]
+    @user = User.find(params[:user_id])
   end
 
 end

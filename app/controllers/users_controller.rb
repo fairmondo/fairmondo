@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :render_dashboard_hero
 
   def profile
     get_user
@@ -17,6 +16,8 @@ class UsersController < ApplicationController
     @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)
     if @user.id == current_user.id
       get_sales
+      render :sales
+      return
     end
   end
 

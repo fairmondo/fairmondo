@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DashboardController do
+describe UsersController do
   render_views
 
   describe "GET 'index" do

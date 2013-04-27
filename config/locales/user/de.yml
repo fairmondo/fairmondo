@@ -27,6 +27,38 @@ de:
     countries:
       germany: "Deutschland"
     founder: "Gründer"
-
+    boxes:
+      my_auction_templates: Meine Vorlagen
+      offers: "Eingestellte Artikel"
+      inactive: "Nicht eingestellte Artikel"
+      sold: "Verkaufte Artikel"
+    no_img: "Noch+kein+Bild"
+    headers:
+      you: "Du"
+      invitor: "Einladender"
+      invited_people: "Eingeladene Benutzer"
+    text:
+      no_offers: "Keine Angebote eingestellt"
+      no_sold: "Keine verkauften Artikel vorhanden"
+      soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
+      no_templates: "Keine Templates vorhanden"
+    actions:
+      edit_account: "Profil bearbeiten"
+      show_account: "Profil"
+      send_invitation: "Einladung schicken"
+    menu:
+      edit: "Profil bearbeiten"
+      community: "Vertrauensgemeinschaft"
+    auction:
+      create: "Auktion wurde erstellt"
+      update: "Auktion wurde aktualisiert"
+    invitation:
+      send: "Einladung wurde verschickt"
+    search_users:
+      head: "Suche nach Benutzern"
+    community:
+      new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
+      existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
+      no_invited: "Du hast noch Niemand in die Vertrauensgemeinschaft eingeladen"
 
 

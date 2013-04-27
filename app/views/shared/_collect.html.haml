@@ -1,5 +1,0 @@
-- unless (!current_user) || object == current_user
-  = form_tag({:action => "collect" ,:method => "post"} ,{:class =>  "form-inline" }) do
-    %input{:name => "id", :type => "hidden", :value => object.id}/
-    %button.btn.btn-fill.btn-white{:type => "submit"}
-      = t('common.actions.collect')

@@ -38,12 +38,12 @@ describe 'User management' do
     end
 
     it 'should show the dashboard' do
-      visit dashboard_path
+      visit users_path
       page.should have_content("Profile")
     end
 
     it 'should not show the link to community' do
-      visit dashboard_path
+      visit users_path
       page.should_not have_content("TrustCommunity")
     end
   end

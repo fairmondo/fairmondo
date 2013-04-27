@@ -73,8 +73,8 @@ module ApplicationHelper
     hero = "<div id=\"hero\">"
     begin 
        
-       if @dashboard_hero == true
-         hero += render :partial => '/hero/dashboard/default'
+       if @users_hero == true
+         hero += render :partial => '/hero/users/default'
        else
          hero += render :partial => '/hero/'+ params[:controller] + '/' + params[:action] 
        end
