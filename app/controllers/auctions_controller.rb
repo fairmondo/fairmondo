@@ -105,7 +105,7 @@ class AuctionsController < ApplicationController
       if !legal_entity.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         redirect_to edit_user_registration_path
          return
        end
      else
@@ -113,7 +113,7 @@ class AuctionsController < ApplicationController
        if !private_user.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         redirect_to edit_user_registration_path
          return
        end
     end

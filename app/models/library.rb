@@ -1,6 +1,6 @@
 class Library < ActiveRecord::Base
   
-  attr_accessible :name, :public, :user
+  attr_accessible :name, :public, :user, :user_id
   
   # Validations
   

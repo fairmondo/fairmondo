@@ -18,7 +18,7 @@ class AuctionTemplatesController < InheritedResources::Base
   end
     
   def collection_url
-    dashboard_path
+    user_path(current_user)
   end
   
   private 

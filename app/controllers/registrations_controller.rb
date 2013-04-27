@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
-      redirect_to dashboard_path(@user)
+      redirect_to user_path(@user)
     else
       render :edit
     end

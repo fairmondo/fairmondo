@@ -28,14 +28,14 @@
             %a{:href => sales_user_path(current_user)}
               %strong Verkäufe
         %li#dashboard-library
-          %a{:href => user_libraries_path(current_user)}
+          %a{:href => user_libraries_path(@user)}
             %strong Sammlungen
         %li#dashboard-profile
           - if @user.id==current_user.id
             %a{:href =>  edit_user_registration_path}
               %strong Profil bearbeiten
           - elsif @user.legal_entity
-            %a{:href => profile_user_path}
+            %a{:href => profile_user_path(@user)}
               %strong Profil
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

@@ -7,6 +7,11 @@ de:
       presence: "Eine Sammlung benötigt einen Namen."
     new: "Neue Sammlung"
     default: "Standardsammlung"
+    no_products: "Diese Sammlung enthält im Moment keine Artikel."
+    create: "Sammlung anlegen"
+    visibility:
+      public: Öffentliche Sammlung
+      private: Private Sammlung
   library_element:
     error:
       uniqueness: "Der Artikel ist schon in deiner Sammlung."

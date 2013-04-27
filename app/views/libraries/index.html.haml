@@ -1,0 +1,57 @@
+- if policy(@library).create?
+  .well
+    %h3= t('library.new')
+    = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-inline"}) do |f|
+      = f.input :name
+      = f.actions do
+        = f.submit t('library.create')
+- collection.each do |library|
+  = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do 
+    - if policy(library).update? || policy(library).destroy? 
+      .well
+        - if library.public? 
+          %i.icon-globe.icon-large
+          = t 'library.visibility.public'
+        - else
+          %i.icon-user.icon-large
+          = t 'library.visibility.private'
+        .pull-right
+          - if policy(library).update?
+            %a.btn.btn-primary.library_settings_show
+              %i.icon-cogs
+              = t('common.actions.edit')
+          - if policy(library).destroy?
+            %a.btn{:href => user_library_path(@user.id, library.id.to_s) , "data-method" => "delete"}
+              %i.icon-trash
+              = t('common.actions.destroy')
+        - if policy(library).update?
+          = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "form-inline library_settings"}) do |f|
+            = f.input :name
+            = f.input :public, :label => false
+            = f.actions do
+              = f.action :submit, :label => :update
+      
+    - if library.library_elements.empty?
+      .well
+        = t('library.no_products')
+    - else
+      %ul.thumbnails
+        - library.library_elements.each do |library_element|
+          %li.span3
+            .thumbnail.white{:style => "position: relative;"}
+              .in-image-container-library
+                - if policy(library_element).destroy?
+                  - html = glyphicons("icon-remove")
+                  = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
+                = link_to image_tag(library_element.auction.title_image ? library_element.auction.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.auction
+                = features_label library_element.auction, "in-image-alt-library"
+                = condition_label library_element.auction, "in-image-library"
+              .caption
+                %h5= link_to truncate(library_element.auction.title, :length => 25), library_element.auction
+                %h5= humanized_money_with_symbol library_element.auction.price
+                - if policy(library_element).update?
+                  = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
+                    = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+                    = f.submit t('common.actions.move'), :class => "btn btn-fill btn-white"
+    
+    

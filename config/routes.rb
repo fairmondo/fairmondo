@@ -28,7 +28,10 @@ Fairnopoly::Application.routes.draw do
     member do
       get 'sales'
       get 'profile'
-     
+      
+    end
+    collection do
+      get 'index' => 'users#show'
     end
   end
    
@@ -38,7 +41,7 @@ Fairnopoly::Application.routes.draw do
   
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|
-    request.params[:id] && !["assets","system","admin","public","favicon.ico"].any?{|url| request.params[:id].match(/^#{url}/)}
+    request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
     match "/*id" => 'tinycms/contents#show'
   end
