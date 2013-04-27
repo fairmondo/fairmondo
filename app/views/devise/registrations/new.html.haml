@@ -6,7 +6,7 @@
 = semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
   .element-in-box
-    = f.input :legal_entity,:as => :radio,:required => true, :collection => [[t('users.legal_status.new.private_user'),false], [t('users.legal_status.new.legal_entity'),true]]
+    = f.input :type,:as => :radio,:required => true, :collection => [[t('users.legal_status.new.private_user'),"PrivateUser"], [t('users.legal_status.new.legal_entity'),"LegalEntity"]]
     = f.input :nickname,  :tooltip => true,:required => true
     - if session[:invited_email]
       = f.input :email,  :tooltip => true, :input_html => { :value => session[:invited_email] ,:readonly => true }

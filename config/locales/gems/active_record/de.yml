@@ -242,6 +242,57 @@ de:
     # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias? 
     # I don't receive a warning and the following won't work in active_record namespace (Micha)  
     models:
-      auction_template: Vorlage
+      auction_template: 
+        one: Vorlage
+        other: Vorlagen
+      user: 
+        one: Benutzer
+        other: Benutzer
+      auction: 
+        one: Artikel
+        other: Artikel
+      auction_transaction: 
+        one: Transaktionsobjekt (Auktion)
+        other:  Transaktionsobjekte (Auktion)
+      auctions_category: 
+        one: Artikel zu Kategoriezuordnung
+        other: Artikel zu Kategoriezuordnungen
+      bid: 
+        one: "Gebot"
+        other: "Gebote"
+      category: 
+        one: "Kategorie"
+        other: "Kategorien"
+      fair_trust_questionnaire: 
+        one: "Fair Trust Fragebogen"
+        other: "Fair Trust Fragebögen"
+      image: 
+        one: "Bild"
+        other: "Bilder"
+      invitation: 
+        one: "Trust-Community Einladung"
+        other: "Trust-Community Einladungen"
+      legal_entity: 
+        one: "Firmenprofil"
+        other: "Firmenprofile"
+      library_element: 
+        one: Sammlungselement
+        other: Sammlungselemente
+      library: 
+        one: Sammlung
+        other: Sammlungen
+      preview_transaction:
+        one: Transaktionsobjekt (Vorschau)
+        other: Transaktionsobjekte (Vorschau)
+      private_user: 
+        one: Privatprofil
+        other: Privatprofile
+      social_producer_questionnaire: 
+        one: "Sozialer Produzent Fragebogen"
+        other: "Sozialer Produzent Fragebögen"
+      transaction: 
+        one: Transaktionsobjekt
+        other: Transaktionsobjekte
+      
     errors:
       <<: *errors

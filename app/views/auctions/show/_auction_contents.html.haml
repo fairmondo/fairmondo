@@ -91,7 +91,7 @@
         = render_box "commendation" do
           = render 'show_commendation'
       / Only legal sellers
-      - if @auction.seller.legal_entity
+      - if @auction.seller.is_a?(LegalEntity)
         = render_box "terms" do
           = @auction.seller.terms.html_safe
         = render_box "cancellation" do

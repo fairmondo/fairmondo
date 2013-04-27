@@ -1,0 +1,131 @@
+# German rails_admin translation
+ 
+de:
+  admin:
+    home:
+      name: "Home"
+    pagination:
+      previous: "&laquo; Vor"
+      next: "Zurück &raquo;"
+      truncate: "…"
+    misc:
+      filter_date_format: "dd.mm.yy" # a combination of 'dd', 'mm' and 'yy' with any delimiter. No other interpolation will be done!
+      search: "Suche"
+      filter: "Filter"
+      refresh: "Aktualisieren"
+      show_all: "Alles anzeigen"
+      add_filter: "Filter hinzufügen"
+      bulk_menu_title: "Ausgewählte Elemente"
+      remove: "Entfernen"
+      add_new: "Neu anlegen"
+      chosen: "%{name} auswählen"
+      chose_all: "Alle auswählen"
+      clear_all: "Alle löschen"
+      up: "Hoch"
+      down: "Runter"
+      navigation: "Navigation"
+      log_out: "Abmelden"
+      ago: "her"
+    flash:
+      successful: "%{name} wurde erfolgreich %{action}"
+      error: "%{name} wurde nicht %{action}"
+      noaction: "Keine Aktion ausgewählt"
+      model_not_found: "Model '%{model}' wurde nicht gefunden"
+      object_not_found: "%{model} mit Id '%{id}' wurde nicht gefunden"
+    table_headers:
+      model_name: "Modellname"
+      last_used: "zuletzt benutzt"
+      records: "Datensatz"
+      username: "Nutzer"
+      changes: "Änderungen"
+      created_at: "Datum/uhrzeit"
+      item: "Element"
+      message: "Meldung"
+    actions:
+      dashboard:
+        title: "Administration"
+        menu: "Übersicht"
+        breadcrumb: "Übersicht"
+      index:
+        title: "%{model_label_plural}"
+        menu: "Liste"
+        breadcrumb: "%{model_label_plural}"
+      show:
+        title: "Details für %{model_label} '%{object_label}'"
+        menu: "Anzeigen"
+        breadcrumb: "%{object_label}"
+      show_in_app:
+        menu: "Anzeigen in App"
+      new:
+        title: "Hinzufügen %{model_label}"
+        menu: "Neu hinzufügen"
+        breadcrumb: "Hinzufügen"
+        link: "%{model_label} hinzufügen"
+        done: "hinzugefügt"
+      edit:
+        title: "%{model_label} '%{object_label}' bearbeiten"
+        menu: "Bearbeiten"
+        breadcrumb: "Bearbeiten"
+        link: "%{model_label} bearbeiten"
+        done: "aktualisiert"
+      delete:
+        title: "%{model_label} '%{object_label}' löschen"
+        menu: "Löschen"
+        breadcrumb: "Löschen"
+        link: "'%{object_label}' löschen"
+        done: "gelöscht"
+      bulk_delete:
+        title: "Löschen %{model_label_plural}"
+        menu: "Mehrere löschen"
+        breadcrumb: "Mehrere löschen"
+        bulk_link: "Löschen der ausgewählten %{model_label_plural}"
+      export:
+        title: "%{model_label_plural} exportieren"
+        menu: "Exportieren"
+        breadcrumb: "Exportieren"
+        link: "Export gefundener %{model_label_plural}"
+        bulk_link: "Export ausgewählter %{model_label_plural}"
+        done: "exportiert"
+      history_index:
+        title: "Historie von %{model_label_plural}"
+        menu: "Historie"
+        breadcrumb: "Historie"
+      history_show:
+        title: "Historie von %{model_label} '%{object_label}'"
+        menu: "Historie"
+        breadcrumb: "Historie"
+    form:
+      cancel: "Abbrechen"
+      basic_info: "Grundlegende Informationen"
+      required: "Erforderlich"
+      optional: "Optional"
+      one_char: "Zeichen"
+      char_length_up_to: "Länge bis zu"
+      char_length_of: "Länge von"
+      save: "Speichern"
+      save_and_add_another: "Speichern und einen weiteren hinzufügen"
+      save_and_edit: "Speichern und bearbeiten"
+      all_of_the_following_related_items_will_be_deleted: "? Alle der folgenden, zugehörigen Positionen werden gelöscht:"
+      are_you_sure_you_want_to_delete_the_object: "Wollen Sie %{model_name} wirklich löschen"
+      confirmation: "Ja, ich bin sicher"
+      bulk_delete: "Die folgenden Objekte werden gelöscht:"
+      new_model: "%{name} (neu)"
+    export:
+      confirmation: "Exportiere nach %{name}"
+      select: "Wählen Sie zu exportierende Spalten aus"
+      fields_from: "Spalten von %{name}"
+      fields_from_associated: "Zugehörige Spalten von %{name}"
+      display: "%{name}: %{type}"
+      options_for: "Optionen für %{name}"
+      empty_value_for_associated_objects: "<leer>"
+      click_to_reverse_selection: 'Anklicken um die Auswahl umzukehren'
+      csv:
+        header_for_root_methods: "%{name}" # 'model' ist verfügbar
+        header_for_association_methods: "%{name} [%{association}]"
+        encoding_to: "Zielkodierung"
+        encoding_to_help: "Kodierung der Ausgabe wählen. Unverändert lassen, um die aktuelle Kodierung beizubehalten: %{name}"
+        skip_header: "Kein Header"
+        skip_header_help: "Auf Attributbeschreibung im Header verzichten"
+        default_col_sep: ","
+        col_sep: "Spalten-Separator"
+        col_sep_help: "Trennzeichen für Spaltenwerte festlegen. Unverändert lassen für Standardwert ('%{value}')" # value is default_col_sep

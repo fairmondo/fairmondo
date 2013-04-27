@@ -99,24 +99,13 @@ class AuctionsController < ApplicationController
   # GET /auctions/new.json
   def new
 
-    if current_user.legal_entity
-      legal_entity = current_user.becomes(LegalEntity)
-      
-      if !legal_entity.valid?
-         #flash[:error] = private_user.errors
+    if !current_user.valid?
+       
          flash[:error] = t('auction.notices.incomplete_profile')
          redirect_to edit_user_registration_path
          return
-       end
-     else
-       private_user = current_user.becomes(PrivateUser)
-       if !private_user.valid?
-         #flash[:error] = private_user.errors
-         flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to edit_user_registration_path
-         return
-       end
     end
+     
     
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?

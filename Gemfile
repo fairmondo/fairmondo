@@ -58,7 +58,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'json' 
 gem 'enumerize', '>= 0.5.1'
-gem 'will_paginate', '>= 3.0'
+gem 'will_paginate'
 gem 'inherited_resources'
 gem "pundit" # authorization
 
@@ -98,10 +98,8 @@ gem 'awesome_nested_set'
 gem 'factory_girl_rails'
 gem 'faker'
 
-#Active Admin
-gem 'activeadmin'
-gem 'sass-rails'
-gem "meta_search", '>= 1.1.0.pre'
+#Rails Adminrails
+gem 'rails_admin'
 
 # CMS Gem
 gem 'tinycms', :path => "gems/tinycms"

@@ -34,7 +34,7 @@
           - if @user.id==current_user.id
             %a{:href =>  edit_user_registration_path}
               %strong Profil bearbeiten
-          - elsif @user.legal_entity
+          - elsif @user.is_a?(LegalEntity)
             %a{:href => profile_user_path(@user)}
               %strong Profil
       #hero-unfold
