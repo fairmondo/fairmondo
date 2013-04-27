@@ -5,4 +5,4 @@
 %p
   = polymorphic_url(@auction)
 %p admin link:
-%p= polymorphic_url([:admin, @auction])
+%p= rails_admin.show_path(:model_name => "auctions", :id => @auction.id)

@@ -4,11 +4,6 @@ class UsersController < ApplicationController
 
   def profile
     get_user
-    if @user.legal_entity
-      @user = @user.becomes(LegalEntity)
-    else
-      @user = @user.becomes(PrivateUser)
-    end
   end
 
   def show

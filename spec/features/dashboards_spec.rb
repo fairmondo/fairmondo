@@ -76,7 +76,7 @@ describe 'Dashboard' do
 
     it 'Admin link shows the Admin page' do
       click_link 'Admin'
-      page.should have_selector('#active_admin_content')
+       page.should have_content('Dashboard')
     end
   end
 end

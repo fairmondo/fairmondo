@@ -9,7 +9,7 @@
             = t('formtastic.labels.user.legal_entity') + ":"
             
           %span.pull-right= t('users.visibility.public')
-          = current_user.legal_entity ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
+          = current_user.is_a?(LegalEntity) ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
         %p
           %strong
             = t('formtastic.labels.user.nickname') + ":"
@@ -23,7 +23,7 @@
         = f.input :image,  :label => false
         %h3= t('users.login.title')
         = f.inputs do
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :email
           %span.pull-right= t('users.visibility.private')
           = f.input :password,  :label=> t('users.change_password'), :input_html => { :autocomplete => "off" }
@@ -34,37 +34,37 @@
           = f.input :current_password
       = f.input_step :contact do
         = f.inputs do
-          - if current_user.legal_entity
+          - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :title,:required => true,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')]
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :forename,:required => true
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :surname,:required => true  
           
           %h3= t('users.form_titles.address')
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
           
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :city,:required => true
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :zip, :required => true
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :phone
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :mobile
-          %span.pull-right= current_user.legal_entity ? t('users.visibility.public') : t('users.visibility.private')
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :fax
       = f.input_step :profile, :tooltip => true do
         = f.inputs do
           %span.pull-right= t('users.visibility.public')
           = f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}
           = tinymce
-      - if current_user.legal_entity
+      - if current_user.is_a?(LegalEntity)
         = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
       .element-in-box
         = f.action :submit, :button_html => {:class => "btn btn-primary btn-large"}
