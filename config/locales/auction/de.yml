@@ -5,7 +5,7 @@ de:
     boxes:
       content: "Artikelbeschreibung"
       payment: "Versand und Bezahlung"
-      honor: "Auszeichnung des Artikels"
+      commendation: "Auszeichnung des Artikels"
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
@@ -19,7 +19,7 @@ de:
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
-      
+      title_addition: " bei Fairnopoly"
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -55,9 +55,6 @@ de:
       create: 'Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a id="WebLinkDescLink" href="http://de.surveymonkey.com/s/TJ69GDD">an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!'
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      collect: "Artikel wurde in "
-      assumed: " übernommen"
-      collect_error: "Das Produkt ist schon in deiner Sammlung."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
       incomplete_profile: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
       inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
@@ -80,7 +77,6 @@ de:
       report: "Artikel melden"
       reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
-      to-library: "In Sammlung verschieben"
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"

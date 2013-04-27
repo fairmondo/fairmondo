@@ -1,0 +1,50 @@
+.well
+  %h2= @user.nickname
+  %h3= @user.title + " " + @user.forename + " " + @user.surname
+  %p
+    = t('formtastic.labels.user.street')
+    \:
+    %strong= @user.street
+  %p
+    = t('formtastic.labels.user.city')
+    \:
+    %strong= @user.zip + " " + @user.city
+  %p
+    = t('formtastic.labels.user.country')
+    \:
+    %strong= @user.country
+  %p
+    = t('formtastic.labels.user.mail')
+    \:
+    %strong
+      %a{:href => "mailto:#{@user.email}"}= @user.email
+  %p
+    = t('formtastic.labels.user.fax')
+    \:
+    %strong= @user.fax
+  %p
+    = t('formtastic.labels.user.phone')
+    \:
+    %strong= @user.phone
+  %p
+    = t('formtastic.labels.user.mobile')
+    \:
+    %strong= @user.mobile
+.well
+  %p
+    %strong
+      = t('formtastic.labels.user.terms')
+      \:
+  = raw @user.terms
+.well
+  %p
+    %strong
+      = t('formtastic.labels.user.cancellation')
+      \:
+  = raw @user.cancellation
+.well
+  %p
+    %strong
+      = t('formtastic.labels.user.about')
+      \:
+  = raw @user.about

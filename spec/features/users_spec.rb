@@ -18,13 +18,13 @@ describe 'User management' do
       expect {
         fill_in 'Nickname', with: 'nickname'
         fill_in 'Email', with:    'email@example.com'
-        fill_in 'Password', with: 'password'
-        fill_in 'Confirm new password', with: 'password'
+        fill_in 'user_password', with: 'password'
+        fill_in 'user_password_confirmation', with: 'password'
         choose 'user_legal_entity_true'
         check 'user_legal'
         check 'user_privacy'
         check 'user_agecheck'
-        click_button 'Register'
+        click_button 'sign_up'
         User.find_by_email('email@example.com').confirm!
       }.to change(User, :count).by(1)
     end
@@ -38,12 +38,12 @@ describe 'User management' do
     end
 
     it 'should show the dashboard' do
-      visit dashboard_path
+      visit users_path
       page.should have_content("Profile")
     end
 
     it 'should not show the link to community' do
-      visit dashboard_path
+      visit users_path
       page.should_not have_content("TrustCommunity")
     end
   end

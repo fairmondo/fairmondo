@@ -82,11 +82,16 @@
   
   // alternative to display: none - fixes chrome rendering issues for #165
   .box-content {
-    position: absolute;
+    position: fixed;
     top: -3000;
     transition-property: opacity, top;
+    -moz-transition-property: opacity, top;
+    -o-transition-property: opacity, top;
+    -webkit-transition-property: opacity, top;
     transition-duration: 1s, 0s;
+    -webkit-transition-duration: 1s, 0s;
     transition-delay: 0s, 1s;
+    -webkit-transition-delay: 0s, 1s;
     z-index: -2; // presumably due to the delay, there may be half second when you cannot klick the content beyond 
     opacity: 0;
   }
@@ -101,8 +106,11 @@
   }
   .box-content {
     transition-property: opacity, top;
+     -webkit-transition-property: opacity, top;
     transition-duration: 1s, 0s;
+     -webkit-transition-duration: 1s, 0s;
     transition-delay: 0s, 1s;
+     -webkit-transition-delay: 0s, 1s;
   }
 }
 

@@ -53,7 +53,10 @@
           %a.btn.btn-primary.btn-fill
             = t('common.actions.buy')
         - if user_signed_in?
-          = render :partial => '/shared/add_to_library' , :locals => {:button_label => t('common.actions.collect'),:element => @auction,:libraries => current_user.libraries }
+          = semantic_form_for(@auction.library_elements.build,:html => {:class =>  "form-inline" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+            = f.input :auction_id, :as => :hidden
+            = f.submit t('common.actions.collect'), :class => "btn btn-fill btn-white"
     .span3.dark-gray-well.break-word
       %strong= tinycms_content "auction-side-bar"
   .row-fluid
@@ -85,7 +88,7 @@
           = simple_format(@auction.transport_details).html_safe
           
       - if @auction.fair || @auction.ecologic || @auction.small_and_precious
-        = render_box "honor" do
+        = render_box "commendation" do
           = render 'show_commendation'
       / Only legal sellers
       - if @auction.seller.legal_entity

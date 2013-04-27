@@ -15,13 +15,13 @@
           = t('auction.titles.libraries')
           (#{@libraries.count})
     .box-content
-      - @libraries.each do |lib|
+      - @libraries.each do |library|
         .well-column-small-padding
           .row-fluid
             .span8
-              = link_to lib.name, :controller => "dashboard", :action=>"libraries", :id=>lib.user_id, :anchor => "library_"+lib.id.to_s
+              = link_to library.name, user_libraries_path(:user_id => library.user), :anchor => "library"+library.id.to_s
               %p
-                = t('common.text.from') + " " + lib.user.nickname
+                = t('common.text.from') + " " + library.user.nickname
             .span4
-              = link_to image_tag(lib.user.image.url(:thumb)), dashboard_path(:id => lib.user.id)
+              = link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
       = will_paginate @libraries,:params => {:anchor => "library" }

@@ -66,7 +66,7 @@ class AuctionsController < ApplicationController
     Auction.unscoped do
       @search_cache = Auction.new(params[:auction])
       @auction = Auction.find(params[:id])
-  
+    
       if @auction.active 
         @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
         #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
@@ -101,19 +101,11 @@ class AuctionsController < ApplicationController
 
     if current_user.legal_entity
       legal_entity = current_user.becomes(LegalEntity)
-      #if !legal_entity.legal_entity_terms_ok
-      #   error_text =  t('auction.form.missing_terms')+ "<br>" +
-      #   ((!current_user.terms||current_user.terms.empty?) ? ("<strong>" + t('devise.edit_profile.terms') + "</strong><br>") : "")  +
-      #   ((!current_user.cancellation||current_user.cancellation.empty?) ? ("<strong>" +  t('devise.edit_profile.cancellation')+ "</strong><br>" ) : "") +
-      #   ((!current_user.about||current_user.about.empty?) ? ( "<strong>" + t('devise.edit_profile.about') + "</strong>") : "")
-      #   flash[:error] =  error_text.html_safe
-      #   redirect_to url_for :controller => "dashboard", :action => "edit_profile"
-      #   return
-      # end
+      
       if !legal_entity.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         redirect_to edit_user_registration_path
          return
        end
      else
@@ -121,7 +113,7 @@ class AuctionsController < ApplicationController
        if !private_user.valid?
          #flash[:error] = private_user.errors
          flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to url_for :controller => "dashboard", :action => "edit_profile"
+         redirect_to edit_user_registration_path
          return
        end
     end
@@ -273,47 +265,7 @@ class AuctionsController < ApplicationController
     end
   end
   
-  def follow
-    @product = Auction.find params["id"]
-    current_user.follow(@product)
-   
-    respond_to do |format|
-      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.following') }
-      format.json { head :no_content }
-    end
-  end
-  
-  def stop_follow
-    @product = Auction.find params["id"]
-    current_user.stop_following(@product) # Deletes that record in the Follow table
-    
-    respond_to do |format|
-      format.html { redirect_to auction_path(:id => @product.id) , :notice => (I18n.t 'user.follow.stop_following') }
-      format.json { head :no_content }
-    end
-  end
 
-  def add_to_library
-    @library = Library.find params["library_id"]
-
-    @product = Auction.find params["id"]
-    lib_element = LibraryElement.new(:auction_id => @product.id, :library_id => @library.id)
-    if lib_element.save
-      respond_to do |format|
-        text = I18n.t('auction.notices.collect').html_safe +
-        (view_context.link_to @library.name, :controller => "dashboard", :action=>"libraries", :anchor => "library_" + @library.id.to_s) + 
-        I18n.t('auction.notices.assumed')
-        format.html { redirect_to auction_path(:id => @product.id) , :notice => text}
-        format.json { head :no_content }
-      end
-    else
-      # if the lib_element is already in the library
-      respond_to do |format|
-        format.html { redirect_to auction_path(:id => @product.id) , :flash => { :error => I18n.t('auction.notices.collect_error')}}
-        format.json { head :no_content }
-      end
-    end
-  end
 
   private
   

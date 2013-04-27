@@ -8,7 +8,7 @@
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %title Fairnopoly
+    %title= (yield(:title).blank?)? "Fairnopoly" : yield(:title)
     %meta{:content => "", :name => "description"}/
     %meta{:content => "width=device-width", :name => "viewport"}/
     = stylesheet_link_tag 'application'
@@ -63,7 +63,7 @@
                 %li#logout
                   = link_to(t('common.actions.logout'), destroy_user_session_path )
                 %li#login
-                  = link_to t('common.text.profile'), dashboard_path
+                  = link_to t('common.text.profile'), user_path(current_user)
                 /
                   - if current_user.trustcommunity == true 
                     %li#community
@@ -75,12 +75,12 @@
                   - if @login
                     #user-login-form.popover-hidden
                       = @login.html_safe
-                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('devise.title.login')
+                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
                   - else
                     = link_to t('common.actions.login') , new_user_session_path
         / row
       / container
-    = raw hero
+    = hero
     #main{:role => "main"}
       .container
         = yield
@@ -119,7 +119,7 @@
                   = t('footer.blog')
               - if current_user && current_user.admin?
                 %li
-                  = link_to t('dashboard.menu.admin'), "/admin"
+                  = link_to t('users.menu.admin'), "/admin"
           .span4
             %h3
               = t('footer.help')

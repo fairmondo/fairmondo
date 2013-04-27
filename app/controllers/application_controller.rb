@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
+  
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
   end
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
       sign_out resource_or_scope
       "/banned"
     else
-      stored_location_for(resource_or_scope) || dashboard_path
+      stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
 
@@ -22,6 +24,13 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
  
+  protected
+ 
+  def render_users_hero
+
+    @users_hero = true
+    
+  end
 
   private
 
