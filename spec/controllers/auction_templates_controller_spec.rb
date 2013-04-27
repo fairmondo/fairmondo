@@ -132,7 +132,7 @@ describe AuctionTemplatesController do
 
     it "redirects to the auction_templates list" do
       delete :destroy, {:id => @auction_template.to_param}
-      response.should redirect_to(users_url)
+      response.should redirect_to(user_url(@user))
     end
   end
 
