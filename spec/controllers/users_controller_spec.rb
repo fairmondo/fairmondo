@@ -12,7 +12,7 @@ describe UsersController do
       end
 
       it "should deny access" do
-        get :index
+        get :show
         response.should redirect_to(new_user_session_path)
       end
     end
@@ -29,12 +29,12 @@ describe UsersController do
       end
 
       it "should be successful" do
-        get :index, :id => @user
+        get :show, :id => @user
         response.should be_success
       end
 
       it "should be successful" do
-        get :index
+        get :show
         response.should be_success
       end
 
@@ -45,7 +45,7 @@ describe UsersController do
         end
     
         it "assigns all auction_templates as @auction_templates" do
-          get :index, {}
+          get :show, {}
           assigns(:auction_templates).should eq([@auction_template])
         end
       end
@@ -54,67 +54,7 @@ describe UsersController do
     end
   end
   
-  describe "library-functionality" do
-
-    describe "for non-signed-in users" do
-
-      it "should be a guest" do
-        controller.should_not be_signed_in
-      end
-
-      it "should deny access" do
-        get :index
-        response.should redirect_to(new_user_session_path)
-      end
-      
-      it "should deny access" do
-         post :new_library, :library_name => "test-lib"
-        response.should redirect_to(new_user_session_path)
-      end
-      
-    end
-
-    describe "for signed-in users" do
-      before :each do
-        @library = FactoryGirl.create(:library_with_elements)
-        @user = @library.user
-        
-        sign_in @user
-      end
-      
-      it "should be successful" do
-        get :libraries
-        response.should be_success
-      end
-      
-      it "should return the library" do
-        get :libraries
-        controller.instance_variable_get(:@libraries).should == [@library]
-      end
-      
-      it "should add a new library" do
-        lambda do
-          post :new_library, :library_name => "test-lib" 
-        end.should change(Library, :count).by(1)
-      end
-      
-      it "sould set library public" do
-       
-        get :set_library_public , :id => @library.id
-        @library.reload
-        @library.public.should == true
-      end
-      
-      it "sould set library private" do
-        @library.public=true
-        get :set_library_private , :id => @library.id
-        @library.reload
-        @library.public.should == false
-      end
-      
-    end
-  end
-
+  
 #  describe "community" do
 #
 #    describe "for non-signed-in users" do
