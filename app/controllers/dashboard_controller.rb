@@ -40,7 +40,7 @@ class DashboardController < ApplicationController
       if @library
         id = @library.id.to_s
       else
-        flash[:error] = t('library.error')  
+        flash[:error] = t('library.error')
         id = ""
       end
       

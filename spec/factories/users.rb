@@ -1,7 +1,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender, :follower, :followable] do
+  factory :user, aliases: [:seller, :buyer, :sender, :follower, :followable, :message_recipient, :message_sender] do
     email       { Faker::Internet.email }
     password    'password'
     nickname    { Faker::Internet.user_name }

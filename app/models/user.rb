@@ -67,6 +67,9 @@ class User < ActiveRecord::Base
   has_many :auction_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
+  has_many :messages_sent, class_name: 'Message', inverse_of: :message_sender, foreign_key: 'sender_id'
+  has_many :messages_received, class_name: 'Message', inverse_of: :message_recipient, foreign_key: 'recipient_id'
+
   has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}, :default_url => "missing.png" , :url => "/system/users/:attachment/:id_partition/:style/:filename", :path => "public/system/users/:attachment/:id_partition/:style/:filename"
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes

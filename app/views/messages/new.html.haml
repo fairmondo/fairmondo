@@ -1,0 +1,14 @@
+%h1
+  Neue Nachricht an
+  = @recipient.fullname
+
+%p
+  = form_for @message, url: { action: 'create' } do |f|
+    = f.hidden_field :recipient_id
+    %fieldset
+      = f.label :title, 'Titel:'
+      = f.text_field :title
+      = f.label :content, 'Inhalt:'
+      = f.text_area :content
+    = f.submit 'Senden'
+

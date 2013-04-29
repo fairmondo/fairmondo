@@ -1,0 +1,20 @@
+/ link_to doesn't work yet because of incorrect dashboard routing
+
+- if @message.message_sender.id == current_user.id
+  %h1
+    Gesendete Nachricht
+  %p
+    An:
+    = link_to @message.message_recipient.fullname, dashboard_path(@message.message_recipient.id)
+- else
+  %h1
+    Empfangene Nachricht
+  %p
+    Von:
+    = link_to @message.message_sender.fullname, dashboard_path(@message.message_sender.id)
+
+%p
+  %b
+    = @message.title
+%p
+  = @message.content

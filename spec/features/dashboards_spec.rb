@@ -46,6 +46,33 @@ describe 'Dashboard' do
     it 'Admin link only shown for admin user' do
       page.should_not have_content('Admin')
     end
+
+    describe "connection to private messaging" do
+      describe "when dashboard belongs to different user" do
+        before(:each) do
+          visit dashboard_path(id: FactoryGirl.create(:user).id)
+        end
+        it 'should show a link to the private messaging system' do
+          page.should have_content("Nachricht schreiben")
+        end
+
+        it 'should link to the private messaging system' do
+          click_link 'Nachricht schreiben'
+          page.should have_content("Neue Nachricht")
+        end
+      end
+
+      describe "when dashboard belongs to logged in user" do
+        it "should should show a link to the user's inbox" do
+          page.should have_content 'Postfach'
+        end
+
+        it 'should link to the private messaging system' do
+          click_link 'Postfach'
+          page.should have_content("Meine Nachrichten")
+        end
+      end
+    end
   end
 
 #  describe "for signed-in TC users" do

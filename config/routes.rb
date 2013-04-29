@@ -1,5 +1,5 @@
 Fairnopoly::Application.routes.draw do
-  
+
   resources :auction_templates, :except => [:show, :index]
 
   mount Tinycms::Engine => "/cms"
@@ -21,6 +21,8 @@ Fairnopoly::Application.routes.draw do
       get 'autocomplete'
     end
   end
+
+  resources :messages
 
   get "welcome/index"
 
