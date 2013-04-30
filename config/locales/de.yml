@@ -80,4 +80,6 @@ de:
       not_exists: "Die Seite '/%{url}' existiert noch nicht"
       may_be_created: "Hier kannst Du sie erstellen"
       
-  
+  meta_tags:
+    description: "Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen"
+    keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"
