@@ -35,6 +35,7 @@ FactoryGirl.define do
     factory :inactive_auction do 
        after(:build) do |auction|
          auction.active = false
+         auction.locked = false
        end
     end
     
