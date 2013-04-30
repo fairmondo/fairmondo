@@ -21,7 +21,7 @@
               %i.icon-cogs
               = t('common.actions.edit')
           - if policy(library).destroy?
-            %a.btn{:href => user_library_path(@user.id, library.id.to_s) , "data-method" => "delete"}
+            %a.btn{:href => user_library_path(@user.id, library.id.to_s, :confirm => "true") , "data-method" => "delete"}
               %i.icon-trash
               = t('common.actions.destroy')
         - if policy(library).update?
