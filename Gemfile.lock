@@ -32,13 +32,6 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-jdbc-adapter (1.2.9)
-    activerecord-jdbcpostgresql-adapter (1.2.9)
-      activerecord-jdbc-adapter (~> 1.2.9)
-      jdbc-postgres (>= 9.1, < 9.3)
-    activerecord-jdbcsqlite3-adapter (1.2.9)
-      activerecord-jdbc-adapter (~> 1.2.9)
-      jdbc-sqlite3 (~> 3.7.2)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
       activesupport (= 3.2.13)
@@ -52,12 +45,10 @@ GEM
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     bcrypt-ruby (3.0.1)
-    bcrypt-ruby (3.0.1-java)
     bootstrap-sass (2.3.1.1)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
-    bouncy-castle-java (1.5.0147)
     brakeman (1.9.5)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -130,7 +121,6 @@ GEM
     fastercsv (1.5.5)
     fattr (2.2.1)
     ffi (1.8.1)
-    ffi (1.8.1-java)
     font-awesome-rails (3.0.2.0)
       railties (>= 3.1)
     font-awesome-sass-rails (3.0.2.2)
@@ -147,7 +137,6 @@ GEM
     highline (1.6.18)
     hike (1.2.2)
     hpricot (0.8.6)
-    hpricot (0.8.6-java)
     html2haml (1.0.1)
       erubis (~> 2.7.0)
       haml (>= 4.0.0.rc.1)
@@ -157,8 +146,6 @@ GEM
     inherited_resources (1.4.0)
       has_scope (~> 0.5.0)
       responders (~> 0.9)
-    jdbc-postgres (9.2.1002.1)
-    jdbc-sqlite3 (3.7.2.1)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -166,11 +153,7 @@ GEM
     jquery-ui-rails (3.0.1)
       jquery-rails
       railties (>= 3.1.0)
-    jruby-openssl (0.8.8)
-      bouncy-castle-java (>= 1.5.0147)
-    jruby-rack (1.1.13.2)
     json (1.7.7)
-    json (1.7.7-java)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -204,7 +187,6 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.5.9)
-    nokogiri (1.5.9-java)
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
@@ -344,10 +326,6 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    trinidad (1.4.4)
-      jruby-rack (>= 1.1.10)
-      trinidad_jars (>= 1.1.0)
-    trinidad_jars (1.2.3)
     tzinfo (0.3.37)
     uglifier (2.0.1)
       execjs (>= 0.3.0)
@@ -359,7 +337,6 @@ GEM
       nokogiri (~> 1.3)
 
 PLATFORMS
-  java
   ruby
 
 DEPENDENCIES
