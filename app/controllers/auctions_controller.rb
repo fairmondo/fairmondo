@@ -208,17 +208,24 @@ class AuctionsController < ApplicationController
 
   def activate
     Auction.unscoped do
-      @auction = Auction.unscoped.find(params[:id])
+      @auction = Auction.with_user_id(current_user.id).find(params[:id])
       if @auction.active || (current_user.id != @auction.seller.id) # false activate
          redirect_to @auction
       else
         @auction.calculate_fees_and_donations
         @auction.locked = true # Lock The Auction
         @auction.active = true # Activate to be searchable
-        @auction.save
-        respond_to do |format|
-          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-          format.json { render :json => @auction, :status => :created, :location => @auction }
+        if(@auction.save) 
+          respond_to do |format|
+            format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+            format.json { render :json => @auction, :status => :created, :location => @auction }
+          end
+        else
+          setup_form_requirements
+          respond_to do |format|
+            format.html {render :action => :edit}
+            format.json { render :json => @auction }
+          end
         end
       end
     end

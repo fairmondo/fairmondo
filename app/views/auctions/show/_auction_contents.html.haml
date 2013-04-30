@@ -12,7 +12,7 @@
       - count = 1
       - category_tree.each do |category|
         %li
-          %a{:href => auctions_path(:auction => {:categories_and_ancestors  => [category.id] })}
+          %a{:href => auctions_path(:auction => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
             %i.icon-tag
             = category.name
           - unless category_tree.last == category
