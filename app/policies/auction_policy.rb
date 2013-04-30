@@ -21,6 +21,7 @@ class AuctionPolicy < Struct.new(:user, :auction)
     end
     
     def update?
+
       own? && !auction.locked
     end
     

@@ -55,7 +55,7 @@ describe AuctionTemplatesController do
 
       it "redirects to the collection" do
         post :create, {:auction_template => valid_attributes}
-        response.should redirect_to(user_url(@user))
+        response.should redirect_to(user_url(@user, :anchor => "my_auction_templates"))
       end
     end
 
@@ -98,7 +98,7 @@ describe AuctionTemplatesController do
 
       it "redirects to the collection" do
         put :update, {:id => @auction_template.to_param, :auction_template => valid_update_attributes}
-        response.should redirect_to(user_url(@user))
+        response.should redirect_to(user_url(@user, :anchor => "my_auction_templates"))
       end
     end
 
@@ -132,7 +132,7 @@ describe AuctionTemplatesController do
 
     it "redirects to the auction_templates list" do
       delete :destroy, {:id => @auction_template.to_param}
-      response.should redirect_to(user_url(@user))
+      response.should redirect_to(user_url(@user, :anchor => "my_auction_templates"))
     end
   end
 
