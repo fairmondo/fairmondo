@@ -1,6 +1,7 @@
 class LibrariesController < InheritedResources::Base
   respond_to :html
   actions :index, :create, :update, :destroy
+  custom_actions :resource => :destroy_confirm
 
   before_filter :render_users_hero
   before_filter :get_user
@@ -33,7 +34,13 @@ class LibrariesController < InheritedResources::Base
   def destroy
     @library = Library.find(params[:id])
     authorize @library
-    destroy! { user_libraries_path(@user)}
+    if !params[:confirm]
+        destroy! { user_libraries_path(@user)}
+    else
+        redirect_to url_for(:controller => "libraries", :action => "index") ,
+          :flash => { :notice => t('library.delete_confirm', :name => @library.name) +" "+
+              (view_context.link_to t('library.delete'),user_library_path(@user.id, @library.id.to_s),"data-method" => "delete")}
+    end
   end
 
   protected
