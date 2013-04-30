@@ -1,6 +1,0 @@
-- if @auctions.empty?
-  .well
-    %h3= t("common.text.no_search_result")
-    = t("common.text.no_search_result_text")
-- else
-  = render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :paginate => true, :list_class=>"span3"}

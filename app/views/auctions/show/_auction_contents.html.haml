@@ -1,8 +1,9 @@
 .well
   - if current_user && @auction.seller.id == current_user.id
     %span.pull-right
-      = link_to t('auction.titles.edit') , edit_auction_path , :class => "btn"
-      - if @auction.active
+      - if policy(@auction).edit?
+        = link_to t('auction.titles.edit') , edit_auction_path , :class => "btn"
+      - if policy(@auction).deactivate?
         = link_to t('auction.labels.deactivate') , deactivate_auction_path, :class => "btn "
   %h2
     = @auction.title
@@ -99,7 +100,7 @@
         = render_box "about" do
           = @auction.seller.about.html_safe
             
-- if current_user && @auction.seller.id != current_user.id
+- if policy(@auction).report?
   = render_box "report" do
     .element-in-box
       = form_for :report, :url => report_auction_path, :method => :get do |f|

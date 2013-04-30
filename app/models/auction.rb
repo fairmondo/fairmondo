@@ -14,8 +14,6 @@ class Auction < ActiveRecord::Base
   # refs #128
   default_scope where(:auction_template_id => nil)
   
-  # Dont search for inactive auctions
-  default_scope where(:active => true)
 
   # Relations
   
