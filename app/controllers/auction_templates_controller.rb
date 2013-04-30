@@ -2,12 +2,19 @@ class AuctionTemplatesController < InheritedResources::Base
   
   before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
-  before_filter :build_auction, :only => [:new, :edit, :create, :update]
-  before_filter :setup_categories, :only => [:new, :edit, :create, :update]
-  before_filter :build_questionnaires, :only => [:new, :edit, :create, :update]
+  before_filter :build_auction
+  before_filter :setup_categories, :except => [:destroy]
+  before_filter :build_questionnaires, :except => [:destroy]
   before_filter :build_transaction, :only => [:create]
   before_filter :save_images, :only => [:create, :update]
-  actions :all, :except => [:show]
+  actions :all, :except => [:show,:index]
+  
+  def build_resource
+    super
+    authorize @auction_template
+    @auction_template
+  end
+  
   
   def begin_of_association_chain
     current_user
@@ -17,15 +24,26 @@ class AuctionTemplatesController < InheritedResources::Base
     @auction_templates ||= end_of_association_chain.paginate(:page => params[:page])
   end
     
-  def collection_url
-    user_path(current_user)
+  def update
+    update! {collection_url}
+  end
+  
+  def create
+    create! {collection_url}
+  end
+  
+  def destroy
+    destroy! {collection_url}
   end
   
   private 
   
+  def collection_url
+    user_path(current_user, :anchor => "my_auction_templates")
+  end
+  
   def build_auction
     @auction ||= resource.auction || resource.build_auction 
-     
   end
  
   def build_questionnaires

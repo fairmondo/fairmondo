@@ -73,16 +73,16 @@ module ApplicationHelper
     hero = "<div id=\"hero\">"
     begin 
        
-       if @users_hero == true
-         hero += render :partial => '/hero/users/default'
+       if @rendered_hero
+         hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
        else
-         hero += render :partial => '/hero/'+ params[:controller] + '/' + params[:action] 
+         hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
        end
        
        hero << "</div>"   
         rescue ActionView::MissingTemplate
           begin
-            hero += render :partial => '/hero/'+ params[:controller] + '/default' 
+            hero += render :partial => "/hero/#{params[:controller]}/default"
             hero << "</div>"   
           rescue ActionView::MissingTemplate 
             hero = ""

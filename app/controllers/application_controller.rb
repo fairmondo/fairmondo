@@ -27,9 +27,13 @@ class ApplicationController < ActionController::Base
   protected
  
   def render_users_hero
-
-    @users_hero = true
-    
+    render_hero :controller => "users"  
+  end
+  
+  def render_hero options
+    options[:action] ||= "default"
+    options[:controller] ||= params[:controller]
+    @rendered_hero = options
   end
 
   private

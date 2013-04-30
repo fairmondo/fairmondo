@@ -3,13 +3,12 @@ module Auction::Search
   
   included do
         
-    searchable :unless => :template? do
+    searchable :unless => :template?, :if => :active do
       text :title, :boost => 5.0, :stored => true
       text :content
       boolean :fair
       boolean :ecologic
       boolean :small_and_precious
-      boolean :active
       string :condition
       integer :category_ids, :references => Category, :multiple => true
     end
@@ -20,6 +19,7 @@ module Auction::Search
   
    
     alias_method_chain :remove_from_index, :delayed
+    alias :solr_remove_from_index :remove_from_index
 
   end
   
