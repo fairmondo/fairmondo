@@ -9,6 +9,8 @@ de:
     default: "Standardsammlung"
     no_products: "Diese Sammlung enthält im Moment keine Artikel."
     create: "Sammlung anlegen"
+    delete_confirm: "Soll die Sammlung %{name} wirklich gelöscht werden?"
+    delete: "löschen"
     visibility:
       public: Öffentliche Sammlung
       private: Private Sammlung

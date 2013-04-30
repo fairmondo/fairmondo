@@ -1,4 +1,7 @@
-- content_for :title, @auction.title+t('auction.show.title_addition')
+- title @auction.title
+- meta_description @auction.title
+- meta_keywords @auction.categories_and_ancestors.collect{ |c| c.name }.join(",")
+
 .row
   .span9
     = render :partial => "/auctions/show/auction_contents"
