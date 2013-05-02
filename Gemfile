@@ -100,6 +100,7 @@ gem 'faker'
 
 #Rails Adminrails
 gem 'rails_admin'
+gem "bootstrap-sass", "2.3.1.0" # http://stackoverflow.com/questions/16323273/could-not-find-bootstrap-sass-2-3-1-1-in-any-of-the-sources-on-heroku-push
 
 # CMS Gem
 gem 'tinycms', :path => "gems/tinycms"
