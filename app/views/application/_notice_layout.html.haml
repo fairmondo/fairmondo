@@ -1,0 +1,6 @@
+#alert-main{:class => "alert-main-#{main_notice_mapper(type)} #{hide}"}
+  %a#alert-close-main.close{"data-dismiss" => "alert"} ×
+  .container
+    .row
+      .span12
+        = yield
