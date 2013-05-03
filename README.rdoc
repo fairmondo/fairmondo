@@ -7,10 +7,24 @@ Read more about it at: http://www.fairnopoly.de/
 The development currently is in beta state.
 
 
-== Getting started
+== Getting started (automated)
 
 The Fairnopoly source is developed in ruby-1.9.3
-To run fairnopoly locally in development mode, install ruby and rails. Then open up a console and:
+To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and:
+
+* Set up a local git repository
+    git clone git@github.com:fairnopoly/fairnopoly.git
+    cd fairnopoly/
+
+* Run the Fairnopoly setup script
+    ruby setup.rb
+
+One line to copy and paste into a console:
+    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && ruby setup.rb
+
+== Getting started (manually)
+
+If the automated script doesn't work for you, try going through these steps one by one:
 
 * Set up a local git repository
     git clone git@github.com:fairnopoly/fairnopoly.git
