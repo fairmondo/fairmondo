@@ -5,51 +5,51 @@ describe AuctionsController do
   include CategorySeedData
 
   describe "GET 'index" do
-    
+
     describe "search", :search => true do
-      
+
       before :each do
         setup_categories
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
         @auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) )
         Sunspot.commit
       end
-      
+
       it "should find the auction with title 'muscheln' when searching for muscheln" do
         get :index, :auction => {:title => "muscheln" }
         controller.instance_variable_get(:@auctions).should == [@auction]
       end
-      
+
       it "should find the auction with title 'muscheln' when searching for muschel" do
         get :index, :auction => {:title => "muschel" }
         controller.instance_variable_get(:@auctions).should == [@auction]
       end
-      
+
       context "when filtering by categories" do
         before :each do
           @hardware_category = Category.find_by_name!("Hardware")
           @hardware_auction  = FactoryGirl.create(:second_hand_auction, :title => "muscheln 2", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
           Sunspot.commit
         end
-        
+
         it "should find the auction in category 'Hardware' when filtering for 'Hardware'" do
           @electronic_category = Category.find_by_name!("Elektronik")
           get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == [@hardware_auction]
         end
-        
+
         it "should find the auction in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
           @electronic_category = Category.find_by_name!("Elektronik")
           get :index, :auction => {:categories_and_ancestors => @electronic_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == [@hardware_auction]
         end
-        
+
         it "should not find the auction in category 'Hardware' when filtering for 'Software'" do
           @software_category = Category.find_by_name!("Software")
           get :index, :auction => {:categories_and_ancestors => @software_category.self_and_ancestors.map(&:id)}
           controller.instance_variable_get(:@auctions).should == []
         end
-        
+
         context "#categories_with_ancestors" do
           context "when passing a category_id without its ancestors" do
             it "should remove the orphan descendants from the passed subtree" do
@@ -59,44 +59,44 @@ describe AuctionsController do
             end
           end
         end
-        
-        context "and searching for 'muscheln'" do 
-          
+
+        context "and searching for 'muscheln'" do
+
           it "should find all auctions with title 'muscheln' with an empty categories filter" do
             get :index, :auction => {:categories_and_ancestors => [], :title => "muscheln"}
             controller.instance_variable_get(:@auctions).should == [@auction, @hardware_auction]
           end
-          
+
           it "should chain both filters" do
             get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln"}
             controller.instance_variable_get(:@auctions).should == [@hardware_auction]
           end
-          
+
           context "and filtering for condition" do
-            
+
             before :each do
               @no_second_hand_auction = FactoryGirl.create(:no_second_hand_auction, :title => "muscheln 3", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
-              Sunspot.commit 
+              Sunspot.commit
             end
-            
+
             it "should find all auctions with title 'muscheln' with empty condition and category filter" do
               get :index, :auction => {:categories_and_ancestors => [], :title => "muscheln"}
               controller.instance_variable_get(:@auctions).should == [@auction, @hardware_auction, @no_second_hand_auction]
             end
-            
+
             it "should chain all filters" do
               get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln", :condition => "old"}
               controller.instance_variable_get(:@auctions).should == [@hardware_auction]
             end
-            
+
           end
-          
+
         end
-        
+
       end
-    
+
     end
-    
+
     describe "for non-signed-in users" do
 
       it "should be successful" do
@@ -109,7 +109,7 @@ describe AuctionsController do
         response.should render_template :index
       end
     end
-    
+
     describe "for signed-in users" do
 
       before :each do
@@ -151,7 +151,7 @@ describe AuctionsController do
       @user = FactoryGirl.create(:user)
       @auction  = FactoryGirl.create(:auction)
     end
-    
+
     describe "for non-signed-in users" do
 
       it "should be successful" do
@@ -179,7 +179,7 @@ describe AuctionsController do
       end
 
       it "should create an image for the auction" do
-       
+
         @auction = FactoryGirl.create(:auction)
         sign_in @auction.seller
         get :show, id: @auction
@@ -204,7 +204,7 @@ describe AuctionsController do
         get :new
         response.should redirect_to(new_user_session_path)
       end
-      
+
     end
 
     describe "for signed-in users" do
@@ -230,21 +230,21 @@ describe AuctionsController do
         get :edit, :id => @auction.id
         response.should redirect_to(new_user_session_path)
       end
-      
+
     end
 
     describe "for signed-in users" do
-      
+
       before :each do
         @user = FactoryGirl.create(:user)
         sign_in @user
       end
-      
+
       context 'his auctions' do
         before :each do
           @auction = FactoryGirl.create(:auction, :seller => @user)
-          
-          #cant use editable_auction factory due to defaultscope 
+
+          #cant use editable_auction factory due to defaultscope
           @auction.active = false
           @auction.locked = false
           @auction.save
@@ -255,10 +255,10 @@ describe AuctionsController do
           response.should be_success
         end
       end
-      
+
       it "should not be able to edit other users auctions" do
         @auction = FactoryGirl.create(:editable_auction)
-       
+
         expect{
           get :edit, :id => @auction
         }.to raise_error(Pundit::NotAuthorizedError)
@@ -278,7 +278,7 @@ describe AuctionsController do
       get :report, :id => @auction
       response.should redirect_to @auction
     end
-    
+
   end
 
   describe "POST 'create'" do
@@ -308,13 +308,13 @@ describe AuctionsController do
           post :create, :auction => @auction_attrs
         end.should change(Auction.unscoped, :count).by(1)
       end
-      
+
       it "should not raise an error for very high quantity values" do
         post :create, :auction => @auction_attrs.merge(:quantity => "100000000000000000000000")
         response.should render_template :new
         response.response_code.should == 200
       end
-      
+
     end
   end
 

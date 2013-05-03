@@ -14,4 +14,10 @@ describe Auction do
     image = FactoryGirl.create(:image, :auction => auction)
     auction.title_image
   end
+
+  describe "Auction::FeesAndDonations" do
+    it "should return the friendly_percent_calculated" do
+      auction.friendly_percent_calculated.should
+    end
+  end
 end
