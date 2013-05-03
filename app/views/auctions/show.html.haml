@@ -1,5 +1,5 @@
-- title @auction.title
-- meta_description @auction.title
+- title truncate_and_sanitize_without_linebreaks @auction.title, 70
+- meta_description truncate_and_sanitize_without_linebreaks @auction.content, 160
 - meta_keywords @auction.categories_and_ancestors.collect{ |c| c.name }.join(",")
 
 .row

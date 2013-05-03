@@ -13,7 +13,7 @@ module Auction::Attributes
     attr_accessible :price_cents , :currency, :price
     
     validates_presence_of :title , :content, :unless => :template? # refs #128 
-    
+    validates_length_of :title, :maximum => 65, :minimum => 6
     
     validates_presence_of :condition, :price_cents
     validates_presence_of :condition_extra , :if => :old?
