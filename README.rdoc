@@ -5,22 +5,22 @@ Fairnopoly is a free market place in the hand of the users.
 Read more about it at: http://www.fairnopoly.de/
 
 The development currently is in beta state.
+The Fairnopoly source is developed in ruby-1.9.3
 
 
 == Getting started (automated)
 
-The Fairnopoly source is developed in ruby-1.9.3
-To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and:
-
-* Set up a local git repository
-    git clone git@github.com:fairnopoly/fairnopoly.git
-    cd fairnopoly/
-
-* Run the Fairnopoly setup script
-    ruby setup.rb
-
-One line to copy and paste into a console:
+Note: the automated process won't work in windows.
+To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and paste in the following line:
     git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && ruby setup.rb
+
+What this does:
+* Sets up a local git repository
+    git clone git@github.com:fairnopoly/fairnopoly.git
+* Switches to the fairnopoly root path
+    cd fairnopoly/
+* Runs the Fairnopoly setup script
+    ruby setup.rb
 
 == Getting started (manually)
 
@@ -71,7 +71,7 @@ If you update your branch from before, you may have to migrate the test database
   RAILS_ENV=test rake db:migrate
 
 
-=== Installing Ruby and Rails
+=== Installing Ruby and Ruby on Rails
 
 If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
 
@@ -117,6 +117,6 @@ Regarding the source, there are two ways to contribute.
 2. Want to know more and join feature development?
    * Have a visit to our redmine repositoy at: http://78.47.60.75:8080/projects/fairnopoly
      Most features are developed in German language but feel free to contact us anyway and we will answer in English.
-   * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only, registration required) to know more about the concept development.
+   * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only, registration required)  to know more about the concept development.
 
 
