@@ -1,32 +1,5 @@
 module ApplicationHelper
-  #### Bootstrap Helpers ####
-  
-  # Map Flash to Bootstrap CSS
-  def bootstrap_notice_mapper(type)
-    case type
-    when :alert
-      "warning"
-    when :error
-      "error"
-    when :notice
-      "success"
-    else
-    "info"
-    end
-  end
-  
-  def main_notice_mapper(type)
-    case type
-    when :alert
-      "error"
-    when :error
-      "error"
-    when :notice
-      "info"
-    else
-    "info"
-    end
-  end
+ 
   
   # Glyph Icons Helpers 
   def glyphicons(name)
@@ -97,7 +70,7 @@ module ApplicationHelper
     tip += "</span></a>"
     tip.html_safe
   end
-  
+ 
   def title(title = nil)
     if title.present?
       content_for :title, title
