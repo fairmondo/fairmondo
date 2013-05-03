@@ -81,10 +81,11 @@
           = simple_format(@auction.payment_details).html_safe
         %br/
         %strong
-          = t('formtastic.labels.auction.transport')
+          = t('formtastic.labels.auction.default_transport')
           \:
         %p
-          = @auction.transport.map(&:text) * ", "
+          = @auction.default_transport.text
+        
         .border-box.middle-padding
           = simple_format(@auction.transport_details).html_safe
           

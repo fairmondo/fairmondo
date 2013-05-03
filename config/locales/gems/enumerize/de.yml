@@ -56,7 +56,7 @@ de:
         tco_certified: TCO certified
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
-      transport:
+      default_transport:
         pickup: Selbstabholung
         insured: Versichert
         uninsured: Unversichert

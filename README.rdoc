@@ -1,71 +1,115 @@
 = Welcome to Fairnopoly repository
 
-Fairnopoly is a free market place in the hand of the users. 
+Fairnopoly is a free market place in the hand of the users.
 
 Read more about it at: http://www.fairnopoly.de/
 
 The development currently is in beta state.
 
-== Getting started
 
-The Fairnopoly source is developed towards ruby-1.9.2 but should work with ruby-1.9.3 without problems.
-To run fairnopoly locally in development mode, apart from installing ruby and rails and bundling:
+== Getting started (automated)
 
-* you have to
+The Fairnopoly source is developed in ruby-1.9.3
+To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and:
+
+* Set up a local git repository
+    git clone git@github.com:fairnopoly/fairnopoly.git
+    cd fairnopoly/
+
+* Run the Fairnopoly setup script
+    ruby setup.rb
+
+One line to copy and paste into a console:
+    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && ruby setup.rb
+
+== Getting started (manually)
+
+If the automated script doesn't work for you, try going through these steps one by one:
+
+* Set up a local git repository
+    git clone git@github.com:fairnopoly/fairnopoly.git
+    cd fairnopoly/
+
+* Install required gems (preface with rvmsudo if you are using rvm)
+    bundle install
+
+* set up local files and change the setup data if you want
     cp config/environments/development.example.rb config/environments/development.rb
-    
+    cp config/initializers/secret_token.example config/initializers/secret_token.rb
+
+* migrate and seed
+    rake db:create && rake db:migrate && rake db:seed && rake db:test:prepare
+
 * if you would like to test the mailer, please open the copied file and update it according to your testing mail server
 
 * you may like to adopt the config/database.yml according to your wishes
-* migrate and seed
-    rake db:create db:migrate db:seed
-    
+
 * to use the recaptcha you have to add your keys in the api.yml. You can get the keys at https://www.google.com/recaptcha/admin/list
 
 * start rails and have fun
+    rails s
+
 
 === Testing
 
 {<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly]
 
-To run the tests, prepare the testing database
-  
+To run the tests: if you haven't already, prepare the testing database
+
   rake db:test:prepare
-  
-And run the tests
+
+Then run the tests
 
   rspec
-  
+
+Run an automated test tab with
+
+  autotest
+
 If you update your branch from before, you may have to migrate the test database:
 
   RAILS_ENV=test rake db:migrate
 
-=== Installation on Linux with JRuby:
 
-If you are using JRuby, you will nee the following steps 
+=== Installing Ruby and Rails
 
-1. Install Java openjdk (6 or 7)
-2. Install RVM
-     bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-     echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bashrc
-     source ~/.bashrc 
-   rvm -v should work now! If not, please read: 
-     https://rvm.beginrescueend.com/rvm/install/#explained
-     Ubuntu 11.10 http://www.ruby-auf-schienen.de/buch/rails3-install-ubuntu.html  
-4. Install Jruby with
-     rvm install jruby
-     echo "export JRUBY_OPTS=\"--1.9\"" >> ~/.bashrc
-     rvm --default jruby
-     ruby -v should print out jruby version
-5. Install rails gem with
-     gem install rails
-     bundle install (on fairnopoly directory)
-  
+If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
+
+
+== Workflow
+
+If you want to help out with programming new features or fixing bugs, please consider the following guidelines:
+
+* If you do no have direct access to our github repository, you can fork it, make changes on your forked repo, and then submit a pull request
+
+* If you have access to our repository, please create a new git branch before making changes when coding a larger feature
+    git branch [featurename]
+
+* We use TDD (Test Driven Development), so when making any changes at all:
+    - write test -> test suite red
+    - code just enough to get test suite green
+    - refactor if need be
+
+* When finished with a task:
+    git add [corresponding files OR simply . for everything]
+    git commit -m "[description]"
+    git push
+
+* If you created a new branch for a larger feature, you need to merge the changes after you are finished:
+    git checkout master
+    git merge [featurename] master
+    [you might need to resolve merge conflicts]
+    git commit
+    git push
+
+Hint: When a vim window opened after you typed "git commit" without a commit message, you can save the default message by simply typing ":wq" and pressing enter.
+
+
 == Contributing
 
-Share the idea, take part at http://www.fairnopoly.de/ and make the world a better place! 
+Share the idea, take part at http://www.fairnopoly.de/ and make the world a better place!
 
-Regarding the source, there are two ways to contribute. 
+Regarding the source, there are two ways to contribute.
 
 1. Report a bug?
    Just use the github issue tracker.
