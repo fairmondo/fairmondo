@@ -12,7 +12,8 @@ FactoryGirl.define do
     quantity  { (rand(10) + 1) }
     
 
-    transport { Auction.transport.values.sample(rand(3)+1) }
+    default_transport "pickup"
+    transport_pickup true
     transport_details "transport_details"    
     payment   { Auction.payment.values.sample(rand(5)+1) }
     payment_details "payment_details"
