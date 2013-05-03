@@ -8,19 +8,19 @@ $(document).ready(function(){
 			area_id = box.attr("data-select-toggle");
 			$("#" + area_id).toggle(box.is(":checked"));
 		}).trigger('change')
-	
+
 	if (!$.support.leadingWhitespace) { // IE 7 / 8 version
 		$("input[data-select-toggle][type=radio]")
 			.change(function (e) {
 				box = $(this);
 				area_id = box.attr("data-select-toggle");
 				boxes_for_other_areas = $("input[data-select-toggle][type=radio]")
-				
+
 				boxes_for_other_areas.each(function(i) {
 					other_box = $(this);
 					if (! other_box.attr("checked")) {
 						other_area_id = other_box.attr("data-select-toggle");
-						$("#" + other_area_id).toggle(false);						
+						$("#" + other_area_id).toggle(false);
 					}
 				});
 				if (box.attr("checked")) {
@@ -38,5 +38,5 @@ $(document).ready(function(){
 				}
 			}).trigger('change')
 	}
-	
+
 });

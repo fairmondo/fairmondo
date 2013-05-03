@@ -4,7 +4,7 @@ module BoxHelper
   def render_box(box_name, options = {}, &block)
     main_layout =  (options[:openbox] ? "box-open" : "box" )
     render layout: "box_layout",
-    
+
       locals: {
         box_name: box_name,
         box_title: options[:title] || t(box_name, :scope => "#{controller_name}.boxes"),
@@ -14,13 +14,13 @@ module BoxHelper
         box_layout: main_layout
       }, &block
   end
-  
+
   def render_box_open(box_name, options = {}, &block)
     options[:openbox] = true
     render_box box_name,options, &block
-    
+
   end
-  
-  
-  
+
+
+
 end

@@ -1,10 +1,10 @@
 class LegalEntity < User
-  
-   before_validation :sanitize, :on => :create 
-  
+
+   before_validation :sanitize, :on => :create
+
   attr_accessible :terms, :cancellation, :about
   #
-  # We cannot validate on user directly else resend password bzw. reset passwort does not work 
+  # We cannot validate on user directly else resend password bzw. reset passwort does not work
   # if the user object doesnt validate and the user cannot reset his password!
   #
   # validates user
@@ -19,12 +19,12 @@ class LegalEntity < User
   validates_presence_of :terms , :on => :update
   validates_presence_of :cancellation , :on => :update
   validates_presence_of :about , :on => :update
-  
+
     # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
     def self.model_name
       User.model_name
     end
-  
+
   def legal_entity_terms_ok
       if( self.terms && !self.terms.empty? &&
           self.cancellation && !self.cancellation.empty? &&
@@ -34,12 +34,12 @@ class LegalEntity < User
         return false
       end
   end
-  
+
    def sanitize
       self.about = sanitize_tiny_mce(self.about)
       self.cancellation = sanitize_tiny_mce(self.cancellation)
       self.terms = sanitize_tiny_mce(self.terms)
       self.about_me = sanitize_tiny_mce(self.about_me)
     end
-  
+
 end

@@ -1,7 +1,7 @@
 %div{:class => "#{box_layout}", :id => box_name}
   %div{:class => "box-legend #{box_legend_class}"}
     - if tooltip_text
-      render_tooltip tooltip_text 
+      render_tooltip tooltip_text
     %h3
       %a{:href => "##{box_name}"}
         = box_title

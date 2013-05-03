@@ -1,6 +1,6 @@
 de:
-  # Formtastic     
-  formtastic: 
+  # Formtastic
+  formtastic:
     :yes: Ja
     :no: Nein
     required: Pflicht
@@ -41,15 +41,15 @@ de:
         other_image: "Anderes Titelbild hochladen"
         fair: Fair
         fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
-        fair_seal: "Bitte wähle aus der Liste aus:" 
-        
+        fair_seal: "Bitte wähle aus der Liste aus:"
+
         ecologic: Öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: Bitte erläutere, warum Dein Artikel unter Upcycling fällt.
-        
-        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'" 
+
+        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
-          
+
         small_and_precious: Klein&Edel
         small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
@@ -61,11 +61,11 @@ de:
           transparency: >
             Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
           collaboration: >
-            Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)        
+            Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
           minimum_wage: >
             Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
           child_labor: >
-            Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?              
+            Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
           sexual_equality: >
             a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
           labor_conditions: >
@@ -78,26 +78,26 @@ de:
             Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
         social_producer_questionnaire:
           nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
-          social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus 
+          social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus
           social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
-        
+
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
         price: "Preis"
         price_currency: "Währung"
-        
+
         transport: "Versandoptionen und Kosten für Versand und Verpackung"
         transport_details: "Weitere Angaben:"
 
         payment: "Bezahlart"
         payment_details: "Weitere Angaben:"
-        
+
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
 
-        transaction: "Angebotsart" 
+        transaction: "Angebotsart"
         expire: "Ablaufdatum"
       auction_template:
         save_as_template: "Eingaben als Vorlage speichern"
@@ -107,7 +107,7 @@ de:
       image:
         image: Bild
         _destroy: Löschen
-      library: 
+      library:
         name: Name
         public: Öffentlich
     input_steps:
@@ -151,9 +151,9 @@ de:
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
       auction:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
-        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird 
+        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird
         category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
-        
+
         fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
         fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
@@ -162,34 +162,34 @@ de:
           Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
         social_producer_questionnaire: >
           Hier könnt Ihr Eure Artikel in die Kategorie "Sozial" einordnen.
-          
+
         condition: "Trage den Zustand Deines Artikels ein"
         content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
         quantity: Trage hier die Menge ein
         price: Trage hier den Preis pro Artikel ein
-        
+
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         payment: >
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-          
+
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
-        
-       
-        
+
+
+
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
-        
-        
+
+
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
       template_select:
         submit: "Vorlage übernehmen"
-      # Login 
+      # Login
       login: "Login"
       sign_up: "Registrieren"
-      
-      
+
+

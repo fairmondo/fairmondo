@@ -10,7 +10,7 @@ require_relative 'fixtures/category_seed_data.rb'
 include CategorySeedData
 
 # skip the devise mailer callback
-[User, Auction, Ffp].each do |model|
+[User, Auction].each do |model|
   model.skip_callback(:create, :after, :send_on_create_confirmation_instructions)
 end
 
@@ -28,7 +28,6 @@ setup_categories
 
 50.times do
   FactoryGirl.create(:auction)
-  FactoryGirl.create(:ffp, :user_id => User.all.sample.id)
   FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
   FactoryGirl.create(:follow, :followable_id => User.all.sample.id, :followable_type => "User", :follower_id => User.all.sample.id, :follower_type => "User")
 end

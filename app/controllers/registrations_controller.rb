@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
-  
-   before_filter :authenticate_user!, :except => [:create,:new]
-  
+
+  before_filter :authenticate_user!, :except => [:create,:new]
+
   def create
     if verify_recaptcha
       params[:user]["recaptcha"] = true
@@ -11,12 +11,11 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  
 
   def update
     @user_ = User.find(current_user.id)
     params_email = params[:user][:email]
-    
+
     successfully_updated = if needs_password?(@user, params)
       # Workaround
       # the LegalEntity.update_with_password does not work ??

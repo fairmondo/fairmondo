@@ -1,6 +1,6 @@
 de:
   # Auction Model/Controller
-  
+
   auctions:
     boxes:
       content: "Artikelbeschreibung"
@@ -12,7 +12,7 @@ de:
       report: "Artikel melden"
 
   auction:
-    
+
     show:
       friendly_percent: "Das freundliche Prozent"
       will_be: " werden an "
@@ -38,8 +38,8 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
-  
-        
+
+
     labels:
       payment: "Zahlungsart"
       price: "Preis"
@@ -64,8 +64,8 @@ de:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"
     titles:
-      new: "Artikel einstellen"  
-      edit: "Artikel editieren"  
+      new: "Artikel einstellen"
+      edit: "Artikel editieren"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
       sunspot_failure: "Suche nicht verfügbar"
@@ -87,10 +87,10 @@ de:
         corruption_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
         fee: "Gebühr bei Verkauf:"
-        total: "Gesamt bei Verkauf:" 
+        total: "Gesamt bei Verkauf:"
       double_check:
         title: Alle Angaben überprüft?
-      tooltips: 
+      tooltips:
         fees_and_donations: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
         fees: "Die Gebührentabelle findest Du <hier>."

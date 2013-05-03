@@ -15,7 +15,7 @@
     = f.input :password,:tooltip => true
     = render :partial => "/devise/password_complexity"
     = f.input :password_confirmation, :required => true
-    
+
     - recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
     #recaptcha-view{:class => "control-group #{"error" if recaptcha_error}"}
       = recaptcha_tags :display => {:theme => 'clean'}
@@ -31,4 +31,4 @@
     = f.input :legal,  :as => :plain_check_box,:required => true , :label => t("common.text.i_accept_the").html_safe + legal_link
     = f.input :privacy, :as => :plain_check_box,:required => true , :label => t("common.text.i_accept_the").html_safe + privacy_link
     = f.actions do
-      = f.action :submit, :button_html => {:class => "btn btn-primary btn-large", :id => "sign_up"}, :label => :sign_up 
+      = f.action :submit, :button_html => {:class => "btn btn-primary btn-large", :id => "sign_up"}, :label => :sign_up

@@ -19,5 +19,4 @@ de:
       uniqueness: "Der Artikel ist schon in deiner Sammlung."
     notice:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
-    
-   
+
