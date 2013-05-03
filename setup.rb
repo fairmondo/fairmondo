@@ -3,7 +3,7 @@ puts "Welcome to the Fairnopoly setup."
 puts "\n\n* This script requires you to already have the rails gem installed."
 puts "* Make sure you are in the fairnopoly root directory."
 puts "* Please do not run this script more than once."
-puts "\nPress enter to coninue (or type \"abort\" to exit)."
+puts "\nPress enter to continue (or type \"abort\" to exit)."
 
 unless gets.chomp === "abort"
 	puts "\n\nOK. Here we go:"
@@ -30,7 +30,7 @@ unless gets.chomp === "abort"
   %x( rake db:test:prepare )
 
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
-  puts "Press enter to coninue (or type \"abort\" to skip the reCAPTCHA setup)."
+  puts "Press enter to continue (or type \"abort\" to skip the reCAPTCHA setup)."
   unless gets.chomp === "abort"
     puts "\n\nOK. Please go to https://www.google.com/recaptcha/admin/list and \"Add a New Site\". Ensure that you enable all domains."
     puts "After clicking on \"Create Key\" you should get a public and a private key."
