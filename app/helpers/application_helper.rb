@@ -122,5 +122,10 @@ module ApplicationHelper
     end
   end
   
+  def truncate_and_sanitize_without_linebreaks(text = "", length = 70, omission ='', separator = ' ')
+      truncate(sanitize( text ,:tags => %w(),:attributes => %w() ),
+        :length => length, :separator =>separator, :omission=>omission ).gsub("\n", ' ')
+  end
+  
   
 end
