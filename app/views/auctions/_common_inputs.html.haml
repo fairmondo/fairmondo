@@ -56,7 +56,18 @@
     - first=false
 = f.input_step :transport_and_payment do
   = f.inputs :tooltip => t('formtastic.tooltips.auction.transport') do
-    = f.input :transport, :as => :check_boxes, :required => true
+    = f.input :transport_pickup, :as => :plain_check_box
+    = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
+    = f.inputs :id => 'transport_insured-input-fields', :class => "transport_insured" do
+      .subform-part
+        = f.input :transport_insured_provider, :required => true, :input_html => {:placeholder => t('auction.transport.placeholders.insured_provider') }
+        = f.input :transport_insured_price, :required => true
+    = f.input :transport_uninsured, :as => :plain_check_box, :js_toggle => true
+    = f.inputs :id => 'transport_uninsured-input-fields', :class => "transport_uninsured" do
+      .subform-part
+        = f.input :transport_uninsured_provider, :required => true, :input_html => {:placeholder => t('auction.transport.placeholders.uninsured_provider') }
+        = f.input :transport_uninsured_price, :required => true
+    = f.input :default_transport, :as => :select, :required => true
     = f.input :transport_details
   = f.inputs :tooltip => t('formtastic.tooltips.auction.payment') do
     = f.input :payment, :as => :check_boxes, :required => true
