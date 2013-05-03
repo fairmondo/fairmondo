@@ -84,10 +84,18 @@ de:
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
-        price: "Preis"
+        price: "Preis in €"
         price_currency: "Währung"
         
-        transport: "Versandoptionen und Kosten für Versand und Verpackung"
+        transport_pickup: Selbstabholung
+        transport_insured: Versichert
+        transport_insured_provider: Versandart
+        transport_insured_price: Versandkosten (€)
+        transport_uninsured: Unversichert
+        transport_uninsured_provider: Versandart
+        transport_uninsured_price: Versandkosten (€)
+        
+        default_transport: "Standardversand"
         transport_details: "Weitere Angaben:"
 
         payment: "Bezahlart"
