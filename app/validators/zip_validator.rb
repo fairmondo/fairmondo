@@ -12,9 +12,9 @@ class ZipValidator < ActiveModel::EachValidator
         end
     end
   end
-  
+
   private
-  
+
   def only_numbers?(value)
     if value.match(/^\d*$/)
       true
@@ -22,5 +22,5 @@ class ZipValidator < ActiveModel::EachValidator
       false
     end
   end
-  
+
 end

@@ -5,9 +5,9 @@ class LibraryElement < ActiveRecord::Base
   # Validations
 
   validates :library_id, :uniqueness => {:scope => :auction_id , :message => I18n.t('library_element.error.uniqueness') }
-  
+
   validates :library_id , :presence => true
-  
+
   # Relations
 
   belongs_to :auction

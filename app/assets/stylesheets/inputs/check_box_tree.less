@@ -1,7 +1,7 @@
 // refs #109 and #154
 
 .check_box_tree {
-  
+
   .tree-label {
     label {
       width: 100% !important;
@@ -11,47 +11,47 @@
     }
     display: block;
   }
-  
+
   ul {
-    
+
     .controls {
       margin-left: 0px;
     }
-    
+
     li {
       font-size: 18px;
     }
-    
+
     label {
       font-size: 16px;
       margin-top: 4px;
     }
-    
+
     li > span {
       border-bottom: 1px solid;
       border-bottom-color: #666666;
       background-color: #FFFFFF;
     }
-      
+
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    
+
     ul, li {
       padding: 0;
       margin: 20;
       list-style: none;
       list-style-type: none;
     }
-  
+
     input {
       display: none
     }
-        
+
     input[type='checkbox'] ~ ul,i {
       display: none;
     }
-      
+
     label, label::before {
       cursor: pointer;
       padding-left: 0px;
@@ -59,48 +59,48 @@
       margin-left: -8px;
       margin-right: 5px;
     }
-    
+
     i {
       margin-left: 5px;
     }
-  
+
     input:checked ~ ul {
       display: block;
     }
-    
+
     input:checked ~ i {
       display: inline-block;
     }
-  
+
     label, label::before {
       display: inline-block;
       height: 16px;
       line-height: 16px;
       vertical-align: middle;
     }
-    
+
     label::before {
       content: "";
       width: 16px;
       vertical-align: middle;
     }
-    
+
     /* webkit adjacent element selector bugfix */
     @media screen and (-webkit-min-device-pixel-ratio:0)
     {
-      .css-treeview 
+      .css-treeview
       {
         -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
       }
-      
-      @-webkit-keyframes webkit-adjacent-element-selector-bugfix 
+
+      @-webkit-keyframes webkit-adjacent-element-selector-bugfix
       {
-        from 
-        { 
+        from
+        {
           padding: 0;
-        } 
-        to 
-        { 
+        }
+        to
+        {
           padding: 0;
         }
       }
