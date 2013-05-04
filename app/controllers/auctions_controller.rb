@@ -242,19 +242,22 @@ class AuctionsController < InheritedResources::Base
   end
 
   def get_alternative query
-    s = search(query)
-    alternatives = s.results
-    
-    if alternatives
-      if alternatives.first != @auction
-        return alternatives.first
-      else
-        if alternatives[1]
-          return alternatives[1]
+    begin
+      s = search(query)
+      alternatives = s.results
+      
+      if alternatives
+        if alternatives.first != @auction
+          return alternatives.first
+        else
+          if alternatives[1]
+            return alternatives[1]
+          end
         end
       end
+    rescue Errno::ECONNREFUSED
+      
     end
-    
     nil
   end
 
