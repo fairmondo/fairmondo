@@ -1,5 +1,9 @@
 Fairnopoly::Application.routes.draw do
   
+  
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resources :auction_templates, :except => [:show, :index]
 
   mount Tinycms::Engine => "/cms"
@@ -22,7 +26,7 @@ Fairnopoly::Application.routes.draw do
 
   #the user routes
  
-  resources :users, :only => [:show,:edit] do
+  resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]  
     resources :library_elements, :except => [:new, :edit]
     member do
@@ -35,8 +39,7 @@ Fairnopoly::Application.routes.draw do
     end
   end
    
-  root :to => 'welcome#index'
-  ActiveAdmin.routes(self) # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
+  root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   
   # TinyCMS Routes Catchup

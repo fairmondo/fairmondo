@@ -45,8 +45,8 @@ de:
       auctions: "Auktionen"
       follow: "Follow"
       stop_follow: "Unfollow"
-      yes: "Ja"
-      no: "Nein"
+      confirm_yes: "Ja"
+      confirm_no: "Nein"
       community: "Vertrautengemeinschaft"
       unhappy: "Unglücklich?"
       name: "Name"
@@ -80,4 +80,6 @@ de:
       not_exists: "Die Seite '/%{url}' existiert noch nicht"
       may_be_created: "Hier kannst Du sie erstellen"
       
-  
+  meta_tags:
+    description: "Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen"
+    keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"

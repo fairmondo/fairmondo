@@ -1,8 +1,9 @@
 .well
   - if current_user && @auction.seller.id == current_user.id
     %span.pull-right
-      = link_to t('auction.titles.edit') , edit_auction_path , :class => "btn"
-      - if @auction.active
+      - if policy(@auction).edit?
+        = link_to t('auction.titles.edit') , edit_auction_path , :class => "btn"
+      - if policy(@auction).deactivate?
         = link_to t('auction.labels.deactivate') , deactivate_auction_path, :class => "btn "
   %h2
     = @auction.title
@@ -12,7 +13,7 @@
       - count = 1
       - category_tree.each do |category|
         %li
-          %a{:href => auctions_path(:auction => {:categories_and_ancestors  => [category.id] })}
+          %a{:href => auctions_path(:auction => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
             %i.icon-tag
             = category.name
           - unless category_tree.last == category
@@ -58,7 +59,12 @@
             = f.input :auction_id, :as => :hidden
             = f.submit t('common.actions.collect'), :class => "btn btn-fill btn-white"
     .span3.dark-gray-well.break-word
-      %strong= tinycms_content "auction-side-bar"
+      %h3= t('auction.show.alternative')
+      - if @alternative.present?
+        = render :partial=>'/shared/show_auction', :locals=>{ :auction=> @alternative}
+      - else
+        = t('auction.show.no_alternative')
+      -#%strong= tinycms_content "auction-side-bar"
   .row-fluid
     .span12
       #socialshareprivacy
@@ -80,10 +86,11 @@
           = simple_format(@auction.payment_details).html_safe
         %br/
         %strong
-          = t('formtastic.labels.auction.transport')
+          = t('formtastic.labels.auction.default_transport')
           \:
         %p
-          = @auction.transport.map(&:text) * ", "
+          = @auction.default_transport.text
+        
         .border-box.middle-padding
           = simple_format(@auction.transport_details).html_safe
           
@@ -91,7 +98,7 @@
         = render_box "commendation" do
           = render 'show_commendation'
       / Only legal sellers
-      - if @auction.seller.legal_entity
+      - if @auction.seller.is_a?(LegalEntity)
         = render_box "terms" do
           = @auction.seller.terms.html_safe
         = render_box "cancellation" do
@@ -99,7 +106,7 @@
         = render_box "about" do
           = @auction.seller.about.html_safe
             
-- if current_user && @auction.seller.id != current_user.id
+- if policy(@auction).report?
   = render_box "report" do
     .element-in-box
       = form_for :report, :url => report_auction_path, :method => :get do |f|

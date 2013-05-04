@@ -257,14 +257,11 @@ describe AuctionsController do
       end
       
       it "should not be able to edit other users auctions" do
-        @auction = FactoryGirl.create(:auction)
-        #cant use editable_auction factory due to defaultscope 
-          @auction.active = false
-          @auction.locked = false
-          @auction.save
+        @auction = FactoryGirl.create(:editable_auction)
+       
         expect{
           get :edit, :id => @auction
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
   end
@@ -328,20 +325,21 @@ describe AuctionsController do
 
       before :each do
         @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl::create(:auction, :seller => @user)
+        @auction = FactoryGirl::create(:inactive_auction, :seller => @user)
         @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
+        @auction_attrs.delete(:seller)
         @auction_attrs[:transaction_attributes]= FactoryGirl.attributes_for(:transaction)
         sign_in @user
       end
 
       it "should update the auction with new information" do
         put :update, :id => @auction.id, :auction => @auction_attrs
-        response.should redirect_to @auction
+        response.should redirect_to @auction.reload
       end
 
       it "changes the auctions informations" do
         put :update, :id => @auction.id, :auction => @auction_attrs
-        response.should redirect_to @auction
+        response.should redirect_to @auction.reload
         controller.instance_variable_get(:@auction).title.should eq @auction_attrs[:title]
       end
     end

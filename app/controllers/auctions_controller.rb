@@ -1,123 +1,93 @@
+class AuctionsController < InheritedResources::Base
 
-class AuctionsController < ApplicationController
+  respond_to :html
+
+  # Create is safed by denail!
+  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
+
+  before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index, :sunspot_failure]
+
+  before_filter :setup_template_select, :only => [:new]
+
+  before_filter :setup_categories, :only => [:index]
+
+  actions :all, :except => [ :create, :destroy ] # inherited methods
   
+  #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Auction) do
       fulltext params[:keywords] do
         fields(:title)
       end
-      with :active, true 
+      with :active, true
     end
     @titles = []
-    search.hits.each do |hit| 
+    search.hits.each do |hit|
       title = hit.stored(:title).first
       @titles.push(title)
     end
-    render :json => @titles 
-  rescue Errno::ECONNREFUSED 
-    render :json => [] 
-  end
-  
-  
-  # Create is safed by denail!
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
- 
-  before_filter :build_login
-  
-  before_filter :setup_template_select, :only => [:new]
-  
-  before_filter :setup_categories, :only => [:index]
-   
-  # GET /auctions
-  # GET /auctions.json
-  # GET /auctions.csv
+    render :json => @titles
+  rescue Errno::ECONNREFUSED
+    render :json => []
+    end
+
   def index
     @search_cache = Auction.new(params[:auction])
-
-    query = @search_cache
-    search = Sunspot.search(Auction) do
-      fulltext query.title
-      paginate :page => params[:page], :per_page=>12
-      with :fair, true if query.fair
-      with :ecologic, true if query.ecologic
-      with :small_and_precious, true if query.small_and_precious
-      with :condition, query.condition if query.condition
-      with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
-      with :active, true 
+    ######## Solr
+    begin
+    s = search(@search_cache)
+    @auctions = s.results
+    ########
+    rescue Errno::ECONNREFUSED
+     @auctions = policy_scope(Auction).paginate :page => params[:page], :per_page=>12
+     render_hero :action => "sunspot_failure"
     end
-    @auctions = search.results
-  # Sunspot Failure
-    respond_to do |format|
-      format.html # index.html.erb
-      format.csv { render text: @auctions.to_csv }
-      format.json { render :json => @auctions }
-    end
-  rescue Errno::ECONNREFUSED 
-    redirect_to :action=>'sunspot_failure'
+    
+    index!
   end
 
-  def sunspot_failure
-    @auctions = Auction.paginate :page => params[:page], :per_page=>12
-  end
 
-  # GET /auctions/1
-  # GET /auctions/1.json
   def show
-    Auction.unscoped do
-      @search_cache = Auction.new(params[:auction])
-      @auction = Auction.find(params[:id])
-    
-      if @auction.active 
-        @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
-        #@seller_products = @auction.seller.auctions.where('id != ?',@auction.id).paginate(:page => params[:page], :per_page=>18)
-        @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
-      else 
-        if current_user && current_user.id == @auction.seller.id
-          @auction.calculate_fees_and_donations
-        else
-           flash[:error] = t('auction.notices.inactive')
-           begin
-              redirect_to :back
-           rescue ActionController::RedirectBackError 
-              redirect_to auctions_path
-           end
-           return
-        end
-      end
-  
-      set_title_image_and_thumbnails
-      
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render :json => @auction }
+    @auction = Auction.find(params[:id])
+    authorize @auction
+    if @auction.active
+      setup_recommendations
+    else
+      if policy(@auction).activate?
+      @auction.calculate_fees_and_donations
       end
     end
+    set_title_image_and_thumbnails
+    
+    # find fair alternative
+    query = Auction.new(params[:auction])
+    
+    query.fair = true
+    @alternative = get_alternative query
+    if !@alternative
+      query.fair = false
+      query.ecologic = true
+      @alternative = get_alternative query
+      if !@alternative
+        query.ecologic = false
+        query.condition = :old
+        @alternative = get_alternative query
+      end
+    end
+    
+    show!
   end
 
+  
 
-  # GET /auctions/new
-  # GET /auctions/new.json
+
   def new
-
-    if current_user.legal_entity
-      legal_entity = current_user.becomes(LegalEntity)
-      
-      if !legal_entity.valid?
-         #flash[:error] = private_user.errors
-         flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to edit_user_registration_path
-         return
-       end
-     else
-       private_user = current_user.becomes(PrivateUser)
-       if !private_user.valid?
-         #flash[:error] = private_user.errors
-         flash[:error] = t('auction.notices.incomplete_profile')
-         redirect_to edit_user_registration_path
-         return
-       end
+    if !current_user.valid?
+      flash[:error] = t('auction.notices.incomplete_profile')
+      redirect_to edit_user_registration_path
+    return
     end
-    
+    ############### From Template ################
     if template_id = params[:template_select] && params[:template_select][:auction_template]
       if template_id.present?
         @applied_template = AuctionTemplate.find(template_id)
@@ -136,52 +106,44 @@ class AuctionsController < ApplicationController
         @auction = Auction.new
       end
     else
+    #############################################
       @auction = Auction.new
     end
-   
+
+    authorize @auction
     setup_form_requirements
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @auction }
-    end
+    new!
+
   end
 
-  # GET /auctions/1/edit
   def edit
-    Auction.unscoped do
-      @auction = Auction.with_user_id(current_user.id).find(params[:id])
-      if @auction.locked
-        #Todo: Give oportunity to create new article based on this article
-        flash[:error] = t('auction.notices.locked')
-        redirect_to @auction
-        return
-      end
-      
-      setup_form_requirements
-      respond_to do |format|
-        format.html 
-        format.json { render :json => @auction }
-      end
-    end
+
+    @auction = Auction.find(params[:id])
+    authorize @auction
+    setup_form_requirements
+    edit!
   end
 
-  # POST /auctions
-  # POST /auctions.json
-  def create
+  def create # Still needs Refactoring
 
     @auction = Auction.new(params[:auction])
-    
+
     @auction.seller = current_user
-    
+
+    authorize @auction
+
     # Check if we can save the auction
+ 
     if @auction.save && build_and_save_template(@auction)
-      
+
       if @auction.category_proposal.present?
         AuctionMailer.category_proposal(@auction.category_proposal).deliver
       end
-      
-      
-      respond_created
+
+      respond_to do |format|
+        format.html { redirect_to auction_path(@auction) }
+        format.json { render :json => @auction, :status => :created, :location => @auction }
+      end
 
     else
       save_images
@@ -193,65 +155,60 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # PUT /auctions/1
-  # PUT /auctions/1.json
-  def update
-    Auction.unscoped do
-      @auction = Auction.with_user_id(current_user.id).find(params[:id])
-  
+  def update # Still needs Refactoring
     
-        if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
-          respond_to do |format|
-            format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
-            format.json { head :no_content }
-          end
-        else
-          
-          save_images
-          setup_form_requirements
-          respond_to do |format|
-            format.html { render :action => "edit" }
-            format.json { render :json => @auction.errors, :status => :unprocessable_entity }
-          end
-        end
-    end
+     @auction = Auction.find(params[:id])
+     authorize @auction
+     if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
+       respond_to do |format|
+          format.html { redirect_to @auction, :notice => (I18n.t 'auction.notices.update') }
+          format.json { head :no_content }
+       end
+     else
+       save_images
+       setup_form_requirements
+       respond_to do |format|
+         format.html { render :action => "edit" }
+         format.json { render :json => @auction.errors, :status => :unprocessable_entity }
+       end
+     end
+    
   end
-
+  
   def activate
-    Auction.unscoped do
-      @auction = Auction.unscoped.find(params[:id])
-      if @auction.active || (current_user.id != @auction.seller.id) # false activate
-         redirect_to @auction
-      else
-        @auction.calculate_fees_and_donations
-        @auction.locked = true # Lock The Auction
-        @auction.active = true # Activate to be searchable
-        @auction.save
-        respond_to do |format|
-          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-          format.json { render :json => @auction, :status => :created, :location => @auction }
-        end
+    
+      @auction = Auction.find(params[:id])
+      authorize @auction
+      @auction.calculate_fees_and_donations
+      @auction.locked = true # Lock The Auction
+      @auction.active = true # Activate to be searchable
+      @auction.save
+      
+      update! do |success, failure|
+        success.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
+        failure.html { 
+                      setup_form_requirements
+                      render :action => :edit 
+                     }
       end
-    end
+     
+    
   end
   
   def deactivate
-    Auction.unscoped do
-      @auction = Auction.with_user_id(current_user.id).find(params[:id])
+      @auction = Auction.find(params[:id])
+      authorize @auction
+      @auction.active = false # Activate to be searchable
+      @auction.save
       
-      #REMEMBER: AuctionTransaction may not be removed if running
-      
-      if current_user.id != @auction.seller.id # false activate
-         redirect_to @auction
-      else
-        @auction.active = false 
-        @auction.save
-        respond_to do |format|
-          format.html { redirect_to @auction, :notice => I18n.t('auction.notices.deactivated') }
-          format.json { render :json => @auction, :status => :created, :location => @auction }
-        end
+      update! do |success, failure|
+        success.html {  redirect_to @auction, :notice => I18n.t('auction.notices.deactivated') }
+        failure.html { 
+                      #should not happen!
+                      setup_form_requirements
+                      render :action => :edit 
+                     }
       end
-    end
   end
 
   def report
@@ -265,33 +222,78 @@ class AuctionsController < ApplicationController
     end
   end
   
-
+  
+  ##### Private Helpers
+  
 
   private
-  
-  def respond_created
-    respond_to do |format|
-      format.html { redirect_to auction_path(@auction) }
-      format.json { render :json => @auction, :status => :created, :location => @auction }
+
+  def search(query)
+    search = Sunspot.search(Auction) do
+      fulltext query.title
+      paginate :page => params[:page], :per_page=>12
+      with :fair, true if query.fair
+      with :ecologic, true if query.ecologic
+      with :small_and_precious, true if query.small_and_precious
+      with :condition, query.condition if query.condition
+      with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
     end
+    search
   end
-  
+
+  def get_alternative query
+    s = search(query)
+    alternatives = s.results
+    
+    if alternatives
+      if alternatives.first != @auction
+        return alternatives.first
+      else
+        if alternatives[1]
+          return alternatives[1]
+        end
+      end
+    end
+    
+    nil
+  end
+
   def setup_template_select
     @auction_templates = AuctionTemplate.where(:user_id => current_user.id)
   end
-  
+
+  def setup_recommendations
+    @libraries = @auction.libraries.public.paginate(:page => params[:page], :per_page=>10)
+    @seller_products = @auction.seller.auctions.paginate(:page => params[:page], :per_page=>18)
+  end
+
+  def set_title_image_and_thumbnails
+    if params[:image]
+      @title_image = Image.find(params[:image])
+    else
+      @title_image = @auction.images[0]
+    end
+    @thumbnails = @auction.images
+    @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from
+  end
+
+  ################## Form #####################
   def setup_form_requirements
     setup_transaction
     setup_categories
     build_questionnaires
     build_template
   end
-  
+
+  def setup_transaction
+    @auction.build_transaction
+  end
+
   def build_questionnaires
     @auction.build_fair_trust_questionnaire unless @auction.fair_trust_questionnaire
     @auction.build_social_producer_questionnaire unless @auction.social_producer_questionnaire
   end
-  
+
   def build_template
     unless @auction_template
       if params[:auction_template]
@@ -301,51 +303,49 @@ class AuctionsController < ApplicationController
       end
     end
   end
-  
+
+
+  ########## build Template #################
   def build_and_save_template(auction)
     if template_attributes = params[:auction_template]
-      if template_attributes[:save_as_template] && template_attributes[:name].present? 
+      if template_attributes[:save_as_template] && template_attributes[:name].present?
         template_attributes[:auction_attributes] = params[:auction]
         @auction_template = AuctionTemplate.new(template_attributes)
         @auction_template.auction.images.clear
         auction.images.each do |image|
           copyimage = Image.new
           copyimage.image = image.image
-           @auction_template.auction.images << copyimage
-           copyimage.save
+          @auction_template.auction.images << copyimage
+          copyimage.save
         end
-        @auction_template.user = auction.seller
-        @auction_template.save
+
+      @auction_template.user = auction.seller
+      @auction_template.save
       else
-        true
+      true
       end
     else
-      true
+    true
     end
   end
 
-  def set_title_image_and_thumbnails
-    if params[:image]
-      @title_image = Image.find(params[:image])
-    else
-      @title_image = @auction.images[0]
-    end
-     @thumbnails = @auction.images
-     @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from 
-  end
-  
-  def setup_transaction
-    @auction.build_transaction
-  end
-  
+  ############ Save Images ################
+
   def save_images
-    #At least try to save the images -> not persisted in browser 
-    if @auction 
-        @auction.images.each do |image|
-          image.save
-        end
+    #At least try to save the images -> not persisted in browser
+    if @auction
+      @auction.images.each do |image|
+        image.save
+      end
     end
   end
-  
+
+  ################## Inherited Resources 
+  protected
+
+  def collection
+    @libraries ||= policy_scope(Auction)
+  end
 
 end
+

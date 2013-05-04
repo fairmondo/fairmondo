@@ -20,7 +20,7 @@ describe 'User management' do
         fill_in 'Email', with:    'email@example.com'
         fill_in 'user_password', with: 'password'
         fill_in 'user_password_confirmation', with: 'password'
-        choose 'user_legal_entity_true'
+        choose 'user_type_legalentity'
         check 'user_legal'
         check 'user_privacy'
         check 'user_agecheck'

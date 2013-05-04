@@ -4,7 +4,15 @@ module Auction::Attributes
   included do
     
     #common fields
-    attr_accessible :title, :content, :condition  ,:condition_extra, :transport, :payment ,:payment_details , :transport_details , :quantity 
+    attr_accessible :title, :content, :condition  ,:condition_extra, :payment ,:payment_details  , :quantity 
+    
+    #transport
+    attr_accessible :default_transport, :transport_pickup, 
+                    :transport_insured, :transport_insured_price_cents,
+                    :transport_insured_price, :transport_insured_provider, 
+                    :transport_uninsured, :transport_uninsured_price_cents,
+                    :transport_uninsured_price, :transport_uninsured_provider,
+                    :transport_details
     
     # market place state
     attr_protected :locked, :active
@@ -13,7 +21,7 @@ module Auction::Attributes
     attr_accessible :price_cents , :currency, :price
     
     validates_presence_of :title , :content, :unless => :template? # refs #128 
-    
+    validates_length_of :title, :minimum => 6, :maximum => 65
     
     validates_presence_of :condition, :price_cents
     validates_presence_of :condition_extra , :if => :old?
@@ -25,13 +33,20 @@ module Auction::Attributes
     
     monetize :price_cents
     
-    serialize :transport, Array
-    enumerize :transport, :in => [:pickup, :insured, :uninsured], :multiple => true 
-    validates :transport, :size => 1..-1
-    validates_presence_of :transport_details
+   
+    enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
+   
+    validates_presence_of :default_transport
+    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
+    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+  
+    monetize :transport_uninsured_price_cents
+    monetize :transport_insured_price_cents
+    
+    validate :default_transport_selected
     
     serialize :payment, Array
-    enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cach_on_delivery, :invoice], :multiple => true
+    enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
     validates :payment, :size => 1..-1
     validates_presence_of :payment_details
 
@@ -40,8 +55,12 @@ module Auction::Attributes
     
   end
   
-  private 
-  def condition_old?
-    condition.old?
+  def default_transport_selected
+    if self.default_transport
+      unless self.send("transport_#{self.default_transport}")
+        errors.add(:default_transport, t("errors.messages.invalid_default_transport"))
+      end
+    end
   end
+  
 end

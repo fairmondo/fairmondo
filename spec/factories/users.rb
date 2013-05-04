@@ -11,7 +11,7 @@ FactoryGirl.define do
     legal       "1"
     agecheck    "1"
     recaptcha true
-    legal_entity { [true, false].sample }
+    type { ["PrivateUser", "LegalEntity"].sample }
     
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -27,6 +27,11 @@ FactoryGirl.define do
 
     factory :admin_user do
       admin       true
+    end
+    
+    factory :german_user do
+      country "Deutschland"
+      zip "78123"
     end
   end
 end

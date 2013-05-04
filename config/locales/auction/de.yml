@@ -12,14 +12,19 @@ de:
       report: "Artikel melden"
 
   auction:
-    
+    transport:
+      placeholders:
+        insured_provider: "z.B. DHL Paket"
+        uninsured_provider: "z.B. DHL Päckchen"
     show:
       friendly_percent: "Das freundliche Prozent"
       will_be: " werden an "
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
-      title_addition: " bei Fairnopoly"
+      title_addition: " zu kaufen bei Fairnopoly"
+      alternative: "Faire Alternative"
+      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
     hero:
       search: "Suche nach"
       filter: "Filter nach"

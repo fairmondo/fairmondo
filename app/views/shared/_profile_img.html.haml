@@ -1,6 +1,6 @@
 #profile-img.well.white-well.clear-padding
   .middle-margin
-    - if user.legal_entity && ((user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?))
+    - if user.is_a?(LegalEntity) && ((user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?))
       %span.big-name
         = user.forename
         = user.surname
@@ -12,7 +12,7 @@
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))
   .middle-margin
-    - if user.legal_entity
+    - if user.is_a?(LegalEntity)
       %i.icon-briefcase
       %i= t('users.legal_status.show.legal_entity')
     - else

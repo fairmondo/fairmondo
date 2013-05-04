@@ -1,4 +1,4 @@
-#dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "index"}"}
+#dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "show"}"}
   .row-fluid
     .span3
       = render :partial=>'/shared/profile_img', :locals=>{:user => @user}
@@ -34,7 +34,7 @@
           - if @user.id==current_user.id
             %a{:href =>  edit_user_registration_path}
               %strong Profil bearbeiten
-          - elsif @user.legal_entity
+          - elsif @user.is_a?(LegalEntity)
             %a{:href => profile_user_path(@user)}
               %strong Profil
       #hero-unfold

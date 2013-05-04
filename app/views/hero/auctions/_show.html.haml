@@ -2,7 +2,7 @@
   .row
     .span12
       - if @auction.active
-        = semantic_form_for @search_cache, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
+        = semantic_form_for Auction.new, :url => auctions_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
           = render "/shared/search_form"
       - else
         %h1= t('auction.titles.preview')

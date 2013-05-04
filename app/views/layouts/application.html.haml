@@ -6,11 +6,14 @@
 %html.no-js
   / <![endif]
   %head
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %title= (yield(:title).blank?)? "Fairnopoly" : yield(:title)
-    %meta{:content => "", :name => "description"}/
-    %meta{:content => "width=device-width", :name => "viewport"}/
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    
+    %title= title
+    %meta{ name: 'keywords', content: meta_keywords }
+    %meta{ name: 'description', content: meta_description }
+    
+    %meta{:content => "width=device-width", :name => "viewport"}
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
@@ -32,16 +35,15 @@
   %body
     /[if lt IE 8]
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    - if !flash.empty?
-      - flash.each do |type, msg|
-        - if msg && !msg.empty?
-          #alert-main{:class => "alert-main-#{main_notice_mapper(type)}"}
-            %a#alert-close-main.close{"data-dismiss" => "alert"} ×
-            .container
-              .row
-                .span12
-                  %p
-                    = msg.html_safe
+    #notice
+      - if !flash.empty?
+        - flash.each do |type, msg|
+          - if msg && !msg.empty?
+            = render_notice :type => type do
+              %p
+                = msg.html_safe
+      = render_data_confirm
+        
     %header
       .container
         .row

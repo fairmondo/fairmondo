@@ -1,4 +1,4 @@
-= semantic_form_for(resource, :as => resource_name, :input_html => { :class => 'form-inline' } , :url => session_path(resource_name)) do |f|
+= semantic_form_for(User.new, :input_html => { :class => 'form-inline' } , :url => session_path(resource_name)) do |f|
   = f.semantic_errors
   = f.inputs do
     = f.input :email

@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :auction, aliases: [:appended_object] do
     seller
     categories_and_ancestors {|c| [c.association(:category)] }
-    title     { Faker::Lorem.sentence(rand(3)+1).chomp '.' }
+    title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
@@ -12,7 +12,8 @@ FactoryGirl.define do
     quantity  { (rand(10) + 1) }
     
 
-    transport { Auction.transport.values.sample(rand(3)+1) }
+    default_transport "pickup"
+    transport_pickup true
     transport_details "transport_details"    
     payment   { Auction.payment.values.sample(rand(5)+1) }
     payment_details "payment_details"
@@ -35,6 +36,7 @@ FactoryGirl.define do
     factory :inactive_auction do 
        after(:build) do |auction|
          auction.active = false
+         auction.locked = false
        end
     end
     

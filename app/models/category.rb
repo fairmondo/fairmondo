@@ -5,6 +5,8 @@ class Category < ActiveRecord::Base
   has_many :auctions_categories
   has_many :auctions, :through => :auctions_categories
   
+  belongs_to :parent , :class_name => 'Category'
+  
   # Doesn't work with our category tree
   #validates :name, :uniqueness => true
   
@@ -21,6 +23,15 @@ class Category < ActiveRecord::Base
     else
       false
     end
+  end
+  
+  def self_and_ancestors_ids
+   
+    self_and_ancestors = [ self.id ]
+    self.ancestors.each do |ancestor|
+      self_and_ancestors << ancestor.id
+    end
+    self_and_ancestors
   end
   
 end

@@ -13,11 +13,11 @@ class LibrariesController < InheritedResources::Base
 
   def create
     @library = Library.new(params[:library])
-    @library.user_id = params[:user_id]
+    @library.user = User.find(params[:user_id])
     authorize @library
     create! do |success,failure|
       success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+      failure.html { redirect_to user_ libraries_path(@user), :alert => @library.errors.full_messages.first }
     end
   end
 

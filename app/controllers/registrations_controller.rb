@@ -1,4 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+  
+   before_filter :authenticate_user!, :except => [:create,:new]
+  
   def create
     if verify_recaptcha
       params[:user]["recaptcha"] = true
@@ -8,18 +11,10 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  def edit
-    if current_user
-      @user = current_user.becomes(current_user.legal_entity ? LegalEntity : PrivateUser)
-    super
-    else
-      render :new
-    end
-  end
+  
 
   def update
     @user_ = User.find(current_user.id)
-    @user = @user_.becomes(@user_.legal_entity ? LegalEntity : PrivateUser)
     params_email = params[:user][:email]
     
     successfully_updated = if needs_password?(@user, params)

@@ -1,3 +1,5 @@
+
+
 class User < ActiveRecord::Base
 
   # lib dependency
@@ -18,13 +20,23 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
       :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck, 
-      :trustcommunity, :invitor_id, :banned, :legal_entity, :about_me, 
+      :trustcommunity, :invitor_id, :banned, :about_me, 
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax, 
       :terms, :cancellation, :about,  :recaptcha
+  
+  def self.attributes_protected_by_default
+    # default is ["id","type"]
+    ["id"]
+  end
+  
+  attr_accessible :type 
+  
   
   attr_protected :admin
       
   attr_accessor :recaptcha
+  
+  
   
   #Relations
   has_many :auctions, :dependent => :destroy
@@ -41,7 +53,7 @@ class User < ActiveRecord::Base
   
   # validations
   
-  validates_inclusion_of :legal_entity, :in => [true, false]
+  validates_inclusion_of :type, :in => ["PrivateUser","LegalEntity" ]
   
   validates_presence_of :forename , :on => :update
   validates_presence_of :surname , :on => :update

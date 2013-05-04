@@ -30,6 +30,8 @@ class LibraryElementsController < InheritedResources::Base
     
   end
   
+  protected
+  
   def get_user
     @user = User.find params[:user_id]
   end

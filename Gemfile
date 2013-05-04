@@ -34,7 +34,7 @@ end
 # Forms & Upload
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
-gem "formtastic-bootstrap"
+gem "formtastic-bootstrap", "2.0.0"
 
 # link inside a translation
 #gem 'it'
@@ -58,7 +58,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'json' 
 gem 'enumerize', '>= 0.5.1'
-gem 'will_paginate', '>= 3.0'
+gem 'will_paginate'
 gem 'inherited_resources'
 gem "pundit" # authorization
 
@@ -98,10 +98,9 @@ gem 'awesome_nested_set'
 gem 'factory_girl_rails'
 gem 'faker'
 
-#Active Admin
-gem 'activeadmin'
-gem 'sass-rails'
-gem "meta_search", '>= 1.1.0.pre'
+#Rails Adminrails
+gem 'rails_admin'
+gem "bootstrap-sass", "2.3.1.0" # http://stackoverflow.com/questions/16323273/could-not-find-bootstrap-sass-2-3-1-1-in-any-of-the-sources-on-heroku-push
 
 # CMS Gem
 gem 'tinycms', :path => "gems/tinycms"
