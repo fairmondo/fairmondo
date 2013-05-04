@@ -33,21 +33,11 @@ class AuctionsController < InheritedResources::Base
 
   def index
     @search_cache = Auction.new(params[:auction])
-
     ######## Solr
     begin
-      query = @search_cache
-      search = Sunspot.search(Auction) do
-        fulltext query.title
-        paginate :page => params[:page], :per_page=>12
-        with :fair, true if query.fair
-        with :ecologic, true if query.ecologic
-        with :small_and_precious, true if query.small_and_precious
-        with :condition, query.condition if query.condition
-        with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
-      end
-      @auctions = search.results
-      ########
+    s = search(@search_cache)
+    @auctions = s.results
+    ########
     rescue Errno::ECONNREFUSED
      @auctions = policy_scope(Auction).paginate :page => params[:page], :per_page=>12
      render_hero :action => "sunspot_failure"
@@ -56,7 +46,6 @@ class AuctionsController < InheritedResources::Base
     index!
   end
 
- 
 
   def show
     @auction = Auction.find(params[:id])
@@ -69,8 +58,28 @@ class AuctionsController < InheritedResources::Base
       end
     end
     set_title_image_and_thumbnails
+    
+    # find fair alternative
+    query = Auction.new(params[:auction])
+    
+    query.fair = true
+    @alternative = get_alternative query
+    if !@alternative
+      query.fair = false
+      query.ecologic = true
+      @alternative = get_alternative query
+      if !@alternative
+        query.ecologic = false
+        query.condition = :old
+        @alternative = get_alternative query
+      end
+    end
+    
     show!
   end
+
+  
+
 
   def new
     if !current_user.valid?
@@ -218,6 +227,36 @@ class AuctionsController < InheritedResources::Base
   
 
   private
+
+  def search(query)
+    search = Sunspot.search(Auction) do
+      fulltext query.title
+      paginate :page => params[:page], :per_page=>12
+      with :fair, true if query.fair
+      with :ecologic, true if query.ecologic
+      with :small_and_precious, true if query.small_and_precious
+      with :condition, query.condition if query.condition
+      with :category_ids, Auction::Categories.search_categories(query.categories) if query.categories.present?
+    end
+    search
+  end
+
+  def get_alternative query
+    s = search(query)
+    alternatives = s.results
+    
+    if alternatives
+      if alternatives.first != @auction
+        return alternatives.first
+      else
+        if alternatives[1]
+          return alternatives[1]
+        end
+      end
+    end
+    
+    nil
+  end
 
   def setup_template_select
     @auction_templates = AuctionTemplate.where(:user_id => current_user.id)
