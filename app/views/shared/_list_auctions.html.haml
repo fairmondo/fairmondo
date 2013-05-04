@@ -1,14 +1,4 @@
 %ul.thumbnails
   - auctions.each do |auction|
     %li{:class => list_class}
-      .thumbnail.white
-        .in-image-container
-          - if auction.title_image
-            = link_to image_tag(auction.title_image.image.url(:thumb)), auction
-          - else
-            = link_to image_tag("missing.png" ), auction
-          = features_label auction, "in-image-alt"
-          = condition_label auction, "in-image"
-        .caption
-          %h5= link_to truncate(auction.title, :length => 25), auction
-          %h5= humanized_money_with_symbol auction.price
+      = render :partial=>'/shared/show_auction', :locals=>{ :auction=> auction}
