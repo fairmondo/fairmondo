@@ -8,7 +8,13 @@ The development currently is in beta state.
 The Fairnopoly source is developed in ruby-1.9.3
 
 
-== Getting started (automated)
+== Getting started
+
+=== Installing Ruby and Ruby on Rails
+
+If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
+
+=== Fairnopoly Project Setup (automated)
 
 Note: the automated process won't work in windows.
 To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and paste in the following line:
@@ -22,7 +28,7 @@ What this does:
 * Runs the Fairnopoly setup script
     ruby setup.rb
 
-== Getting started (manually)
+=== Fairnopoly Project Setup (manually)
 
 If the automated script doesn't work for you, try going through these steps one by one:
 
@@ -71,12 +77,7 @@ If you update your branch from before, you may have to migrate the test database
   RAILS_ENV=test rake db:migrate
 
 
-=== Installing Ruby and Ruby on Rails
-
-If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
-
-
-== Workflow
+=== Workflow
 
 If you want to help out with programming new features or fixing bugs, please consider the following guidelines:
 
