@@ -34,7 +34,7 @@ end
 # Forms & Upload
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
-gem "formtastic-bootstrap"
+gem "formtastic-bootstrap", "2.0.0"
 
 # link inside a translation
 #gem 'it'

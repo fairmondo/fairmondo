@@ -23,6 +23,7 @@ describe 'Auction management' do
         end
         fill_in 'Content', with: 'Auction content'
         check "auction_transport_pickup"
+        select "Pickup" , from: 'Default transport'
         fill_in 'Transport details', with: 'transport_details'
         check "auction_payment_cash"
         fill_in 'Payment details', with: 'payment_details'

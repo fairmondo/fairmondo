@@ -29,5 +29,4 @@ setup_categories
 50.times do
   FactoryGirl.create(:auction)
   FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
-  FactoryGirl.create(:follow, :followable_id => User.all.sample.id, :followable_type => "User", :follower_id => User.all.sample.id, :follower_type => "User")
 end
