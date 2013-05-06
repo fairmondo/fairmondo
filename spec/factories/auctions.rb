@@ -46,5 +46,15 @@ FactoryGirl.define do
       end
     end
 
+    trait :category8 do
+      after(:build) do |auction|
+        auction.categories << Category.find(8)
+      end
+    end
+    trait :category9 do
+      after(:build) do |auction|
+        auction.categories << Category.find(9)
+      end
+    end
   end
 end
