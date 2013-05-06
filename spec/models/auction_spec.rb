@@ -69,4 +69,40 @@ describe Auction do
       expect { auction.default_transport_selected }.to raise_error
     end
   end
+
+  context "Auction::Commendation" do
+    describe "with_commendation scope" do
+      it "should be unscoped without commendations" do
+        Auction.with_commendation.should == Auction.scoped
+      end
+      it "should return the correct scope with given commendations" do
+        auction_without_commendations = FactoryGirl.create(:auction)
+        auction_fair = FactoryGirl.create(:auction, fair: true, fair_kind: :fair_trust)
+        auction_ecologic = FactoryGirl.create(:auction, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
+        auction_fair_ecologic = FactoryGirl.create(:auction, fair: true, fair_kind: :fair_trust, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
+
+        results = Auction.with_commendation :fair, :ecologic
+        results.should include(auction_fair_ecologic, auction_fair, auction_ecologic)
+        results.should_not include(auction_without_commendations)
+      end
+    end
+  end
+
+  context "Auction::Categories" do
+    describe "with_exact_category_id scope" do
+      it "should be unscoped without category_id" do
+        Auction.with_exact_category_id.should == Auction.scoped
+      end
+      it "should return all auctions of a given category" do
+        pending
+        auction1_cat1 = FactoryGirl.create :auction, :category8
+        auction2_cat1 = FactoryGirl.create :auction, :category8
+        auction1_cat2 = FactoryGirl.create :auction, :category9
+
+        results = Auction.with_exact_category_id 8
+        results.should include auction1_cat1, auction2_cat1
+        results.should_not include auction1_cat2
+      end
+    end
+  end
 end

@@ -33,5 +33,8 @@ FactoryGirl.define do
       country "Deutschland"
       zip "78123"
     end
+
+    factory :private_user, class: 'PrivateUser' do
+    end
   end
 end

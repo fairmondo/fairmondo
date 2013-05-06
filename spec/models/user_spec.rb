@@ -3,9 +3,10 @@ require 'spec_helper'
 describe User do
 
   let(:user) { FactoryGirl::create(:user)}
+  subject { user }
 
   it "has a valid Factory" do
-    user.should be_valid
+    should be_valid
   end
 
   it {should validate_presence_of :email}
