@@ -59,10 +59,10 @@ class AuctionsController < InheritedResources::Base
       end
     end
     set_title_image_and_thumbnails
-    
+
     # find fair alternative
     query = Auction.new(params[:auction])
-    
+
     query.fair = true
     @alternative = get_alternative query
     if !@alternative
@@ -75,11 +75,11 @@ class AuctionsController < InheritedResources::Base
         @alternative = get_alternative query
       end
     end
-    
+
     show!
   end
 
-  
+
 
 
   def new
@@ -246,7 +246,7 @@ class AuctionsController < InheritedResources::Base
     begin
       s = search(query)
       alternatives = s.results
-      
+
       if alternatives
         if alternatives.first != @auction
           return alternatives.first
@@ -257,7 +257,7 @@ class AuctionsController < InheritedResources::Base
         end
       end
     rescue Errno::ECONNREFUSED
-      
+
     end
     nil
   end

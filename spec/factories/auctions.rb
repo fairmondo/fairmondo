@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     default_transport "pickup"
     transport_pickup true
-    transport_details "transport_details"    
+    transport_details "transport_details"
     payment   { Auction.payment.values.sample(rand(5)+1) }
     payment_details "payment_details"
     after(:build) do |auction|
