@@ -45,11 +45,7 @@ module Auction::FeesAndDonations
 private
 
   def friendly_percent_result
-    if self.friendly_percent
-      self.price * (self.friendly_percent / 100.0)
-    else
-      Money.new(0)
-    end
+    self.price * (self.friendly_percent / 100.0)
   end
 
   ## fees and donations
