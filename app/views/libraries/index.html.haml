@@ -7,10 +7,10 @@
         = f.submit t('library.create')
 - @libraries.each do |library|
   - unless library.new_record?
-    = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do 
-      - if policy(library).update? || policy(library).destroy? 
+    = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do
+      - if policy(library).update? || policy(library).destroy?
         .well
-          - if library.public? 
+          - if library.public?
             %i.icon-globe.icon-large
             = t 'library.visibility.public'
           - else
@@ -31,7 +31,7 @@
               = f.input :public, :label => false
               = f.actions do
                 = f.action :submit, :label => :update
-        
+
       - if library.library_elements.empty?
         .well
           = t('library.no_products')
@@ -54,5 +54,5 @@
                     = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
                       = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
                       = f.submit t('common.actions.move'), :class => "btn btn-fill btn-white"
-      
-      
+
+
