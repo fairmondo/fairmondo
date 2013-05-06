@@ -1,34 +1,7 @@
 module ApplicationHelper
-  #### Bootstrap Helpers ####
-
-  # Map Flash to Bootstrap CSS
-  def bootstrap_notice_mapper(type)
-    case type
-    when :alert
-      "warning"
-    when :error
-      "error"
-    when :notice
-      "success"
-    else
-    "info"
-    end
-  end
-
-  def main_notice_mapper(type)
-    case type
-    when :alert
-      "error"
-    when :error
-      "error"
-    when :notice
-      "info"
-    else
-    "info"
-    end
-  end
-
-  # Glyph Icons Helpers
+ 
+  
+  # Glyph Icons Helpers 
   def glyphicons(name)
     "<i class=\"" + name + "\"></i>".html_safe
   end
@@ -97,7 +70,7 @@ module ApplicationHelper
     tip += "</span></a>"
     tip.html_safe
   end
-
+ 
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -121,6 +94,11 @@ module ApplicationHelper
       content_for?(:meta_description) ? content_for(:meta_description) : t('meta_tags.description')
     end
   end
-
-
+  
+  def truncate_and_sanitize_without_linebreaks(text = "", length = 70, omission ='', separator = ' ')
+      truncate(sanitize( text ,:tags => %w(),:attributes => %w() ),
+        :length => length, :separator =>separator, :omission=>omission ).gsub("\n", ' ')
+  end
+  
+  
 end

@@ -119,4 +119,3 @@ Regarding the source, there are two ways to contribute.
      Most features are developed in German language but feel free to contact us anyway and we will answer in English.
    * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only, registration required)  to know more about the concept development.
 
-
