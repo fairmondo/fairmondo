@@ -9,7 +9,7 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
-      report: "Artikel melden"
+      report: "Dein Feedback zu dem Artikel"
 
   auction:
     transport:
@@ -79,7 +79,7 @@ de:
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
-      report: "Artikel melden"
+      report: "Feedback senden"
       reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
       reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
     categories:
