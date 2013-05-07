@@ -10,6 +10,9 @@ FactoryGirl.define do
     condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
+    
+    basic_price_cents { Random.new.rand(500000)+1 }
+    basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
     default_transport "pickup"
     transport_pickup true

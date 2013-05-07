@@ -1,0 +1,7 @@
+- if auction.seller.is_a?(LegalEntity) && auction.basic_price_amount.present?
+  %p
+    %span.pull-right= humanized_money_with_symbol auction.basic_price
+    = t('formtastic.labels.auction.basic_price') 
+  %p  
+    %span.pull-right= t('enumerize.auction.basic_price_amount.'+auction.basic_price_amount)
+    = t('formtastic.labels.auction.basic_price_amount')
