@@ -49,15 +49,23 @@ FactoryGirl.define do
       end
     end
 
-    trait :category8 do
+    trait :category1 do
       after(:build) do |auction|
-        auction.categories << Category.find(8)
+        auction.categories = [Category.find(1)]
       end
     end
-    trait :category9 do
+    trait :category2 do
       after(:build) do |auction|
-        auction.categories << Category.find(9)
+        auction.categories = [Category.find(2)]
       end
+    end
+    trait :category3 do
+      after(:build) do |auction|
+        auction.categories = [Category.find(3)]
+      end
+    end
+    trait :with_child_category do
+      categories_and_ancestors {|c| [c.association(:category), c.association(:child_category)] }
     end
   end
 end
