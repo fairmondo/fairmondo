@@ -141,6 +141,7 @@ group :development, :test do
   gem "ZenTest"
   gem 'autotest-fsevent'
   gem 'simplecov'
+  gem "rails-erd"
 
    #solr gem
   gem 'sunspot_solr'

@@ -61,21 +61,23 @@ class AuctionsController < InheritedResources::Base
     set_title_image_and_thumbnails
 
     # find fair alternative
-    query = Auction.new(params[:auction])
-
-    query.fair = true
-    @alternative = get_alternative query
-    if !@alternative
-      query.fair = false
-      query.ecologic = true
+    @alternative = nil
+    if !@auction.fair
+      query = Auction.new(params[:auction])
+      query.fair = true
       @alternative = get_alternative query
       if !@alternative
-        query.ecologic = false
-        query.condition = :old
+        query.fair = false
+        query.ecologic = true
         @alternative = get_alternative query
+        if !@alternative
+          query.ecologic = false
+          query.condition = :old
+          @alternative = get_alternative query
+        end
       end
     end
-
+    
     show!
   end
 
