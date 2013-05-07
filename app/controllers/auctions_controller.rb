@@ -12,7 +12,7 @@ class AuctionsController < InheritedResources::Base
   before_filter :setup_categories, :only => [:index]
 
   actions :all, :except => [ :create, :destroy ] # inherited methods
-  
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Auction) do
@@ -42,9 +42,10 @@ class AuctionsController < InheritedResources::Base
      @auctions = policy_scope(Auction).paginate :page => params[:page], :per_page=>12
      render_hero :action => "sunspot_failure"
     end
-    
+
     index!
   end
+
 
 
   def show
@@ -58,10 +59,10 @@ class AuctionsController < InheritedResources::Base
       end
     end
     set_title_image_and_thumbnails
-    
+
     # find fair alternative
     query = Auction.new(params[:auction])
-    
+
     query.fair = true
     @alternative = get_alternative query
     if !@alternative
@@ -74,11 +75,11 @@ class AuctionsController < InheritedResources::Base
         @alternative = get_alternative query
       end
     end
-    
+
     show!
   end
 
-  
+
 
 
   def new
@@ -133,7 +134,7 @@ class AuctionsController < InheritedResources::Base
     authorize @auction
 
     # Check if we can save the auction
- 
+
     if @auction.save && build_and_save_template(@auction)
 
       if @auction.category_proposal.present?
@@ -156,7 +157,7 @@ class AuctionsController < InheritedResources::Base
   end
 
   def update # Still needs Refactoring
-    
+
      @auction = Auction.find(params[:id])
      authorize @auction
      if @auction.update_attributes(params[:auction]) && build_and_save_template(@auction)
@@ -172,41 +173,41 @@ class AuctionsController < InheritedResources::Base
          format.json { render :json => @auction.errors, :status => :unprocessable_entity }
        end
      end
-    
+
   end
-  
+
   def activate
-    
+
       @auction = Auction.find(params[:id])
       authorize @auction
       @auction.calculate_fees_and_donations
       @auction.locked = true # Lock The Auction
       @auction.active = true # Activate to be searchable
       @auction.save
-      
+
       update! do |success, failure|
         success.html { redirect_to @auction, :notice => I18n.t('auction.notices.create') }
-        failure.html { 
+        failure.html {
                       setup_form_requirements
-                      render :action => :edit 
+                      render :action => :edit
                      }
       end
-     
-    
+
+
   end
-  
+
   def deactivate
       @auction = Auction.find(params[:id])
       authorize @auction
       @auction.active = false # Activate to be searchable
       @auction.save
-      
+
       update! do |success, failure|
         success.html {  redirect_to @auction, :notice => I18n.t('auction.notices.deactivated') }
-        failure.html { 
+        failure.html {
                       #should not happen!
                       setup_form_requirements
-                      render :action => :edit 
+                      render :action => :edit
                      }
       end
   end
@@ -221,10 +222,10 @@ class AuctionsController < InheritedResources::Base
       redirect_to @auction, :notice => (I18n.t 'auction.actions.reported-error')
     end
   end
-  
-  
+
+
   ##### Private Helpers
-  
+
 
   private
 
@@ -245,7 +246,7 @@ class AuctionsController < InheritedResources::Base
     begin
       s = search(query)
       alternatives = s.results
-      
+
       if alternatives
         if alternatives.first != @auction
           return alternatives.first
@@ -256,7 +257,7 @@ class AuctionsController < InheritedResources::Base
         end
       end
     rescue Errno::ECONNREFUSED
-      
+
     end
     nil
   end
@@ -343,7 +344,7 @@ class AuctionsController < InheritedResources::Base
     end
   end
 
-  ################## Inherited Resources 
+  ################## Inherited Resources
   protected
 
   def collection

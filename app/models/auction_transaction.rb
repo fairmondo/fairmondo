@@ -1,16 +1,16 @@
 class AuctionTransaction < Transaction
-   
-   attr_protected :max_bid 
-   attr_readonly :expire 
-   
+
+   attr_protected :max_bid
+   attr_readonly :expire
+
    has_one :max_bid ,:class_name => 'Bid'
    has_many :bids
-      
+
    validates_presence_of :expire
-   #validate :validate_expire  
-   
+   #validate :validate_expire
+
    # other
-  
+
   def validate_expire
     return false unless self.expire
     if self.expire < 1.hours.from_now
@@ -22,6 +22,6 @@ class AuctionTransaction < Transaction
     return false
     end
     return true
-  end 
-      
+  end
+
 end

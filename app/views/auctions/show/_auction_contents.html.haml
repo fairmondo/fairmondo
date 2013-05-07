@@ -31,7 +31,7 @@
         - @thumbnails.each do |image|
           %li.span3
             = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )
-    
+
     .span3
       %p
         %b
@@ -71,11 +71,11 @@
         .clearfix
   .row-fluid
     .span12
-    
+
       / All Sellers
-      = render_box_open "content" do 
+      = render_box_open "content" do
         = @auction.content.html_safe
-        
+
       = render_box "payment" do
         %strong
           = t('auction.labels.payment')
@@ -90,10 +90,10 @@
           \:
         %p
           = @auction.default_transport.text
-        
+
         .border-box.middle-padding
           = simple_format(@auction.transport_details).html_safe
-          
+
       - if @auction.fair || @auction.ecologic || @auction.small_and_precious
         = render_box "commendation" do
           = render 'show_commendation'
@@ -105,7 +105,7 @@
           = @auction.seller.cancellation.html_safe
         = render_box "about" do
           = @auction.seller.about.html_safe
-            
+
 - if policy(@auction).report?
   = render_box "report" do
     .element-in-box

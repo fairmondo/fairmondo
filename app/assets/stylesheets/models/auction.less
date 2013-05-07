@@ -4,8 +4,8 @@
  * NEW
  */
 
-#auction_form_container { 
-  
+#auction_form_container {
+
   textarea:not(#auction_content) {
     width: 90% !important;
     height: 150px;
@@ -25,7 +25,7 @@
 #double_check_step, #new_auction_template {
   .form-actions {
     padding-left: 20px;
-    text-align: center;    
+    text-align: center;
     input {
       padding: 15px;
       font-size: 26px;
@@ -34,10 +34,10 @@
   }
 }
 
-// TODO 
-// * make this a api-class, e.g. 'fieldset2' or 'horizontal-fieldset' or mixin 
+// TODO
+// * make this a api-class, e.g. 'fieldset2' or 'horizontal-fieldset' or mixin
 // * decide whether to use fieldsets or divs (apply-step-inputs is a fieldset)
-// * if responsivity counts, consider to remove negative margin from bootstrap, adopt styles  
+// * if responsivity counts, consider to remove negative margin from bootstrap, adopt styles
 
 .friendly_percent-user-inputs, .auction_template-user-inputs, .template_select-user-inputs {
   .makeRow();
@@ -48,11 +48,11 @@
       display: inline-block;
       margin-left: 0px;
     }
-    
+
     .control-label {
       margin-right: 20px;
     }
-    
+
     // fix for bootstrap default
     .radio input[type="radio"],
     .checkbox input[type="checkbox"] {
@@ -61,8 +61,8 @@
   }
 }
 
-// fix for formtastic_bootstrap's label-control layout that 
-// is not properly responsive to resizing  
+// fix for formtastic_bootstrap's label-control layout that
+// is not properly responsive to resizing
 #template_select_auction_template_input {
   .controls {
     display: inline-block !important;
@@ -70,7 +70,7 @@
   }
 }
 
-#missing_terms { 
+#missing_terms {
     padding: 15px;
     font-size: 26px;
     margin: auto;

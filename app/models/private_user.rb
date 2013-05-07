@@ -1,9 +1,9 @@
 class PrivateUser < User
 
-    before_validation :sanitize, :on => :create 
+    before_validation :sanitize, :on => :create
 
     #
-    # We cannot validate on user directly else resend password bzw. reset passwort does not work 
+    # We cannot validate on user directly else resend password bzw. reset passwort does not work
     # if the user object doesnt validate and the user cannot reset his password!
     #
     # validates user

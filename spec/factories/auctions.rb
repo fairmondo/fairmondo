@@ -10,11 +10,10 @@ FactoryGirl.define do
     condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
-    
 
     default_transport "pickup"
     transport_pickup true
-    transport_details "transport_details"    
+    transport_details "transport_details"
     payment   { Auction.payment.values.sample(rand(5)+1) }
     payment_details "payment_details"
     after(:build) do |auction|
@@ -23,30 +22,39 @@ FactoryGirl.define do
       auction.locked = true
       auction.active = true
     end
-    
+
     factory :second_hand_auction do
       condition "old"
       condition_extra "as_good_as_new"
     end
-    
+
     factory :no_second_hand_auction do
       condition "new"
     end
-    
-    factory :inactive_auction do 
+
+    factory :inactive_auction do
        after(:build) do |auction|
          auction.active = false
          auction.locked = false
        end
     end
-    
+
     factory :editable_auction do
       after(:build) do |auction|
          auction.active = false
          auction.locked = false
       end
     end
-    
-    
+
+    trait :category8 do
+      after(:build) do |auction|
+        auction.categories << Category.find(8)
+      end
+    end
+    trait :category9 do
+      after(:build) do |auction|
+        auction.categories << Category.find(9)
+      end
+    end
   end
 end

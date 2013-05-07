@@ -19,15 +19,15 @@ describe UsersController do
         get :show
         response.should redirect_to(new_user_session_path)
       end
-      
-      
+
+
     end
 
     describe "for signed-in users" do
 
       before :each do
         @user = FactoryGirl.create(:user)
-      
+
         sign_in @user
       end
 
@@ -45,11 +45,11 @@ describe UsersController do
         response.should be_success
       end
 
-      
+
     end
   end
-  
-  
+
+
 #  describe "community" do
 #
 #    describe "for non-signed-in users" do
@@ -96,7 +96,7 @@ describe UsersController do
 #        response.should be_success
 #      end
 #
-#     
+#
 #    end
 #  end
 
@@ -172,7 +172,7 @@ describe UsersController do
 #      end
 #    end
 #  end
-  
+
 #  describe "stop_follow" do
 #
 #    describe "for non-signed-in users" do

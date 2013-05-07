@@ -1,5 +1,5 @@
 de:
-         
+
   active_record:
     error:
       header_message: ["Konnte das {{object_name}} Objekt nicht speichern: 1 Fehler.", "Konnte das {{object_name}} Objekt nicht speichern: {{count}} Fehler."]
@@ -35,7 +35,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -61,7 +61,7 @@ de:
       long: ! '%e. %B %Y'
       short: ! '%e. %b'
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
@@ -145,7 +145,7 @@ de:
       too_long: ist zu lang (nicht mehr als %{count} Zeichen)
       too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
       wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
-      at_least_one_entry: mindestens eine Option muss ausgewählt sein 
+      at_least_one_entry: mindestens eine Option muss ausgewählt sein
       minimum_entries: mindestens %{count} Optionen müssen ausgewählt werden
       maximum_entries: maximal %{count} Optionen können ausgewählt werden
       minimum_categories: "Bitte wähle mindestens eine Kategorie für Deinen Artikel aus"
@@ -165,12 +165,12 @@ de:
     label:
       content:
         key: Name für die Url
-# Note: I have to use the rails locale as enumerize hooks in formtastic and 
-# does not allow to define a label for this multiple assignment as we'd usually do 
+# Note: I have to use the rails locale as enumerize hooks in formtastic and
+# does not allow to define a label for this multiple assignment as we'd usually do
       auction:
-        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'" 
+        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
-        
+
   number:
     currency:
       format:
@@ -239,60 +239,60 @@ de:
     errors:
       <<: *errors
   activerecord:
-    # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias? 
-    # I don't receive a warning and the following won't work in active_record namespace (Micha)  
+    # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias?
+    # I don't receive a warning and the following won't work in active_record namespace (Micha)
     models:
-      auction_template: 
+      auction_template:
         one: Vorlage
         other: Vorlagen
-      user: 
+      user:
         one: Benutzer
         other: Benutzer
-      auction: 
+      auction:
         one: Artikel
         other: Artikel
-      auction_transaction: 
+      auction_transaction:
         one: Transaktionsobjekt (Auktion)
         other:  Transaktionsobjekte (Auktion)
-      auctions_category: 
+      auctions_category:
         one: Artikel zu Kategoriezuordnung
         other: Artikel zu Kategoriezuordnungen
-      bid: 
+      bid:
         one: "Gebot"
         other: "Gebote"
-      category: 
+      category:
         one: "Kategorie"
         other: "Kategorien"
-      fair_trust_questionnaire: 
+      fair_trust_questionnaire:
         one: "Fair Trust Fragebogen"
         other: "Fair Trust Fragebögen"
-      image: 
+      image:
         one: "Bild"
         other: "Bilder"
-      invitation: 
+      invitation:
         one: "Trust-Community Einladung"
         other: "Trust-Community Einladungen"
-      legal_entity: 
+      legal_entity:
         one: "Firmenprofil"
         other: "Firmenprofile"
-      library_element: 
+      library_element:
         one: Sammlungselement
         other: Sammlungselemente
-      library: 
+      library:
         one: Sammlung
         other: Sammlungen
       preview_transaction:
         one: Transaktionsobjekt (Vorschau)
         other: Transaktionsobjekte (Vorschau)
-      private_user: 
+      private_user:
         one: Privatprofil
         other: Privatprofile
-      social_producer_questionnaire: 
+      social_producer_questionnaire:
         one: "Sozialer Produzent Fragebogen"
         other: "Sozialer Produzent Fragebögen"
-      transaction: 
+      transaction:
         one: Transaktionsobjekt
         other: Transaktionsobjekte
-      
+
     errors:
       <<: *errors

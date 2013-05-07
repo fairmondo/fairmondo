@@ -17,7 +17,7 @@
 
 	/*
 	 * helper functions
-	 */ 
+	 */
 
     // abbreviate at last blank before length and add "\u2026" (horizontal ellipsis)
     function abbreviateText(text, length) {
@@ -37,7 +37,7 @@
         var metaContent = $('meta[name="' + name + '"]').attr('content');
         return metaContent || '';
     }
-    
+
     // create tweet text from content of <meta name="DC.title"> and <meta name="DC.creator">
     // fallback to content of <title> tag
     function getTweetText() {
@@ -68,7 +68,7 @@
         return uri;
     }
 
-    
+
 
     // extend jquery with our plugin function
     $.fn.socialSharePrivacy = function (settings) {
@@ -85,16 +85,16 @@
                     'referrer_track'    : '',
                     'language'          : 'de_DE',
                     'action'            : 'recommend'
-                }, 
+                },
                 'twitter' : {
-                    'status'            : 'on', 
+                    'status'            : 'on',
                     'dummy_img'         : '<%= asset_path 'socialshareprivacy/images/dummy_twitter.png' %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash;.',
                     'txt_twitter_off'   : 'nicht mit Twitter verbunden',
                     'txt_twitter_on'    : 'mit Twitter verbunden',
                     'perma_option'      : 'on',
                     'display_name'      : 'Twitter',
-                    'referrer_track'    : '', 
+                    'referrer_track'    : '',
                     'tweet_text'        : getTweetText,
                     'language'          : 'en'
                 },
@@ -131,7 +131,7 @@
         var twitter_on  = (options.services.twitter.status  === 'on');
         var gplus_on    = (options.services.gplus.status    === 'on');
 		var pinterest_on    = (options.services.pinterest.status    === 'on');
-		
+
         // check if at least one service is "on"
         if (!facebook_on && !twitter_on && !gplus_on &&!pinterest_on) {
             return;
@@ -222,7 +222,7 @@
             if (gplus_on) {
                 // fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
                 var gplus_uri = uri + options.services.gplus.referrer_track;
-                
+
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
                 var gplus_dummy_btn = '<i class="icon-google-plus-sign icon-large" id="gplusone-dummy"></i>';
@@ -243,24 +243,24 @@
                     }
                 });
             }
-            
+
             //
             // Pinterest
             //
             if (pinterest_on) {
                 // fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
                 var pinterest_uri = uri + options.services.pinterest.referrer_track;
-                
+
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var pinterest_code = '<div class="pintrest"><a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>';
                 var pinterest_dummy_btn = '<i class="icon-pinterest-sign icon-large" id="pintrest-dummy"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
 				pinterest_script.src='http://assets.pinterest.com/js/pinit.js';
-				pinterest_script.async = true;	
-				 
-			
-			
+				pinterest_script.async = true;
+
+
+
                 context.append('<li class="pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterest dummy_btn">' + pinterest_dummy_btn + '</div></li>');
 
                 var $container_pinterest = $('li.pinterest', context);
@@ -271,14 +271,14 @@
                         $container_pinterest.find('span.switch').addClass('on').removeClass('off').html(options.services.pinterest.txt_pinterest_on);
                         $container_pinterest.find('#pintrest-dummy').replaceWith(pinterest_code);
                        document.getElementsByTagName('head')[0].appendChild(pinterest_script);
-                    } 
+                    }
                 });
             }
-            
+
 			//
             // Der Info/Settings-Bereich wird eingebunden
             //
-           
+
             // Info-Overlays mit leichter Verzoegerung einblenden
             $('.help_info:not(.info_off)', context).on('mouseenter', function () {
                 var $info_wrapper = $(this);
@@ -292,8 +292,8 @@
                     $(this).removeClass('display');
                 }
             });
-            
-            
+
+
         }); // this.each(function ()
     };      // $.fn.socialSharePrivacy = function (settings) {
 }(jQuery));

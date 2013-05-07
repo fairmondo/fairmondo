@@ -1,9 +1,9 @@
-# We cannot namespace them properly as formtastic's lookup chain would not find them  
+# We cannot namespace them properly as formtastic's lookup chain would not find them
 # see  lib/formtastic/helpers/input_helper.rb
 #module Fairtastic
 #  module Inputs
 class PlainCheckBoxesInput < FormtasticBootstrap::Inputs::CheckBoxesInput
- 
+
   def to_html
     if options[:prepend_label]
       control_label_html
@@ -11,7 +11,7 @@ class PlainCheckBoxesInput < FormtasticBootstrap::Inputs::CheckBoxesInput
     else
       l = "".html_safe
     end
-    
+
     control_group_wrapping do
       l <<
       hidden_field_for_all <<
@@ -22,5 +22,5 @@ class PlainCheckBoxesInput < FormtasticBootstrap::Inputs::CheckBoxesInput
       end
     end
   end
-  
+
 end

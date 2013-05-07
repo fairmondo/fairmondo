@@ -11,7 +11,7 @@ div.in-image-alt {
     margin:2px;
   }
 }
-  
+
 div.in-image-container {
   min-height:60px;
   position: relative;
@@ -20,8 +20,8 @@ div.in-image-container {
 /*
  * Display the auctions thumbnail image correctly
  * with responsive
- */  
-  
+ */
+
 .title-image-wrapper{
   margin-bottom: 20px;
 }
@@ -33,17 +33,17 @@ div.in-image-container {
 
 .thumbnail_image {
   border: 1px solid darken(@wellBackground, 17%);
-}  
+}
 
 /*
  *  Help the thumbnails with the breaking stuff
- */  
-@media (min-width: 768px) {  
+ */
+@media (min-width: 768px) {
   ul.auction-thumbnails li.span3:nth-child(4n + 1) {
     margin-left : 0px;
     clear:left;
   }
-  
+
   .auction-thumbnail-list div.span4:nth-child(3n + 1){
     margin-left : 0px;
     clear:left;
@@ -52,7 +52,7 @@ div.in-image-container {
 
 .auction-thumbnail-pagination .pagination{
   margin:0px;
-  
+
   ul > li > a {
     padding: 0 10px;
     line-height: 25px;
@@ -61,12 +61,12 @@ div.in-image-container {
     float: right;
   }
 }
-  
-  
+
+
 /*
  *  Lower width Browsers
- * 
- */  
+ *
+ */
 @media (max-width: 767px) {
   .title_image {
     max-width:  (@gridColumnWidth *4 + @gridGutterWidth * 3) !important;
@@ -76,12 +76,12 @@ div.in-image-container {
     float: left !important; // Explicity set the float since we don't require .span* classes
     margin-bottom: @baseLineHeight !important;
     margin-right: @gridGutterWidth !important;
-    width: @gridColumnWidth !important; 
+    width: @gridColumnWidth !important;
   }
   .auction-thumbnail-list div {
     float: left !important;
-    
-    width: @gridColumnWidth !important; 
+
+    width: @gridColumnWidth !important;
   }
 }
 
