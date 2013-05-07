@@ -60,7 +60,7 @@ de:
         pickup: Selbstabholung
         insured: Versichert
         uninsured: Unversichert
-      payment:
+      default_payment:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal

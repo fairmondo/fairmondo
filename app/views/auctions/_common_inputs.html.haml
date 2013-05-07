@@ -69,9 +69,37 @@
         = f.input :transport_uninsured_price, :required => true
     = f.input :default_transport, :as => :select, :required => true
     = f.input :transport_details
+  
   = f.inputs :tooltip => t('formtastic.tooltips.auction.payment') do
-    = f.input :payment, :as => :check_boxes, :required => true
+    = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
+    = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
+      .subform-part
+        = f.semantic_fields_for :seller do |user|
+          = user.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
+          = user.input :bank_code, :required => true, :label => t('formtastic.labels.user.bank_code')
+          = user.input :bank_name, :required => true, :label => t('formtastic.labels.user.bank_name')
+          = user.input :bank_account_number, :required => true, :label => t('formtastic.labels.user.bank_account_number')
+          
+
+    = f.input :payment_cash, :as => :plain_check_box
+    
+    = f.input :payment_paypal, :as => :plain_check_box, :js_toggle => true
+    = f.inputs :id => 'payment_paypal-input-fields', :class => "payment_paypal" do
+      .subform-part
+        = f.semantic_fields_for :seller do |user|
+          = user.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
+      
+    = f.input :payment_cash_on_delivery, :as => :plain_check_box, :js_toggle => true
+    = f.inputs :id => 'payment_cash_on_delivery-input-fields', :class => "payment_cash_on_delivery" do
+      .subform-part
+        = f.input :payment_cash_on_delivery_price, :required => true
+    
+    = f.input :payment_invoice, :as => :plain_check_box
+      
+  
+    = f.input :default_payment, :as => :select, :required => true
     = f.input :payment_details
+    
 = f.input_step :friendly_percent, :tooltip => true do
   .friendly_percent-user-inputs
     = f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}

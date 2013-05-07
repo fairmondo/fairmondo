@@ -4,7 +4,7 @@ module Auction::Attributes
   included do
     
     #common fields
-    attr_accessible :title, :content, :condition  ,:condition_extra, :payment ,:payment_details  , :quantity 
+    attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
     
     #transport
     attr_accessible :default_transport, :transport_pickup, 
@@ -13,7 +13,15 @@ module Auction::Attributes
                     :transport_uninsured, :transport_uninsured_price_cents,
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
-    
+    #payment
+    attr_accessible :default_payment ,:payment_details , 
+                    :payment_bank_transfer,
+                    :payment_cash, 
+                    :payment_paypal,
+                    :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents, 
+                    :payment_invoice,
+                    :seller_attributes
+           
     # market place state
     attr_protected :locked, :active
     
@@ -33,6 +41,7 @@ module Auction::Attributes
     
     monetize :price_cents
     
+    # =========== Transport =============
    
     enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
    
@@ -40,27 +49,63 @@ module Auction::Attributes
     validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
     validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
   
-    monetize :transport_uninsured_price_cents
-    monetize :transport_insured_price_cents
+    monetize :transport_uninsured_price_cents, :allow_nil => true
+    monetize :transport_insured_price_cents, :allow_nil => true
     
     validate :default_transport_selected
     
-    serialize :payment, Array
-    enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
-    validates :payment, :size => 1..-1
-    validates_presence_of :payment_details
+    # ================ Payment ====================
+   
+    enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    
+    validates_presence_of :default_payment
+    
+    validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
+    
+    accepts_nested_attributes_for :seller , :update_only => true, :reject_if => :invalid_seller_attributes
+    
+    before_validation :set_sellers_nested_validations
+    
+    monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     
+    validate :default_payment_selected
+    
+  end
+  
+ 
+  
+  def set_sellers_nested_validations
+    seller.bank_account_validation = true if payment_bank_transfer
+    seller.paypal_validation = true if payment_paypal
   end
   
   def default_transport_selected
     if self.default_transport
       unless self.send("transport_#{self.default_transport}")
-        errors.add(:default_transport, t("errors.messages.invalid_default_transport"))
+        errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
       end
     end
+  end
+  
+  def default_payment_selected
+    if self.default_payment
+      unless self.send("payment_#{self.default_payment}")
+        errors.add(:default_payment, I18n.t("errors.messages.invalid_default_payment"))
+      end
+    end
+  end
+  
+  #evaluates if only allowed attributes are used
+  def invalid_seller_attributes(attributes)
+    attributes.reject! { |k,v| valid_seller_attributes.include?(k)} != nil
+  end
+  
+  # The allowed attributes for updating user/seller in auction form
+  def valid_seller_attributes
+    [:bank_code, :account_number, :paypal_account]
   end
   
 end
