@@ -4,5 +4,5 @@
       $(e.target).parent().parent().find('.library_settings').show()
       $(e.target).hide()
 
-      
-     
+
+

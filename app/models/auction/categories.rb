@@ -2,10 +2,10 @@ module Auction::Categories
   extend ActiveSupport::Concern
 
   included do
-    
+
     attr_accessible :categories_and_ancestors,:category_proposal
      attr_accessor :category_proposal
-    
+
     # categories refs #154
     has_many :auctions_categories, :dependent => :destroy
     has_many :categories, :through => :auctions_categories
@@ -20,22 +20,22 @@ module Auction::Categories
       return Auction.scoped unless category_id.present?
       joins(:auctions_categories).where(:auctions_categories => {:category_id => category_id})
     }
-  
+
     scope :with_exact_category_ids, lambda {|category_ids = []|
       category_ids = category_ids.select(&:present?).map(&:to_i)
-      # passing and array, rails uses 'IN'-operator instead of '=' 
+      # passing and array, rails uses 'IN'-operator instead of '='
       with_exact_category_id(category_ids)
     }
-  
+
     # for convenience, these methods remove all redundant ancesors from the passed collection
-    # e.g. selecting Computer and Hardware, we don't want all auctions under Computer but 
-    # only the subset of Hardware 
+    # e.g. selecting Computer and Hardware, we don't want all auctions under Computer but
+    # only the subset of Hardware
     scope :with_category_or_descendant_ids, lambda {|category_ids = []|
       category_ids = category_ids.select(&:present?).map(&:to_i)
       return Auction.scoped unless category_ids.present?
       with_categories_or_descendants(Category.where(:id => category_ids))
     }
-    
+
     scope :with_categories_or_descendants, lambda {|categories = []|
       return Auction.scoped unless categories.present?
       categories = Auction::Categories.remove_category_parents(categories)
@@ -67,24 +67,24 @@ module Auction::Categories
     # remove all parents
     self.categories = Auction::Categories.remove_category_parents(@categories_and_ancestors)
   end
-  
-  def self.remove_category_parents(categories)    
-    # does not hit the database 
+
+  def self.remove_category_parents(categories)
+    # does not hit the database
     categories.reject{|c| categories.any? {|other| c!=nil && other.is_descendant_of?(c) } }
   end
-  
-  
+
+
   def ensure_no_redundant_categories
     self.categories = Auction::Categories.remove_category_parents(self.categories) if self.categories
     true
   end
   private :ensure_no_redundant_categories
 
-  # For Solr searching we need category ids 
+  # For Solr searching we need category ids
   def self.search_categories(categories)
     ids = []
     categories = Auction::Categories.remove_category_parents(categories)
-    
+
     categories.each do |category|
      category.self_and_descendants.each do |fullcategories|
         ids << fullcategories.id
@@ -93,6 +93,6 @@ module Auction::Categories
     ids
   end
 
- 
+
 
 end

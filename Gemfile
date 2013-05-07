@@ -56,7 +56,7 @@ gem 'jquery-rails'
 # Tool Libs
 
 gem 'haml'
-gem 'json' 
+gem 'json'
 gem 'enumerize', '>= 0.5.1'
 gem 'will_paginate'
 gem 'inherited_resources'
@@ -88,7 +88,7 @@ gem 'money-rails'
 # State Machines in Rails
 gem 'state_machine'
 
-# Follow Users and Auctions 
+# Follow Users and Auctions
 #gem "acts_as_follower" #not used for the moment
 
 # tree structure for categories
@@ -116,7 +116,7 @@ group :assets do
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyrhino' 
+  gem 'therubyrhino'
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
@@ -146,15 +146,15 @@ group :development, :test do
    #solr gem
   gem 'sunspot_solr'
   gem "sunspot_test"
-  
+
   #security
   gem "brakeman" # security test: execute with 'brakeman'
-  
+
   #test performance
   gem 'spork-rails'
-  
-  
-  
+
+
+
 end
 
 # Adding Staging-server Embedded Solr

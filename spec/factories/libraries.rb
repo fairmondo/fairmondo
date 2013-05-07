@@ -9,7 +9,7 @@ FactoryGirl.define do
         ignore do
           element_count 5
         end
-       
+
        after(:create) do |library, evaluator|
         FactoryGirl.create_list(:library_element, evaluator.element_count, library: library)
       end

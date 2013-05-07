@@ -1,24 +1,24 @@
 module ApplicationHelper
- 
-  
-  # Glyph Icons Helpers 
+
+
+  # Glyph Icons Helpers
   def glyphicons(name)
     "<i class=\"" + name + "\"></i>".html_safe
   end
-  
+
   def glyphicons_inv(name)
     "<i class=\"" + name + " icon-white\"></i>".html_safe
   end
-  
+
   ### Others ###
-  
+
   def params_without key
     new_param = Hash.new
     new_param.merge!(params)
     new_param.delete key
     new_param
   end
-  
+
    def params_without_reset_page key
     new_param = Hash.new
     new_param.merge!(params)
@@ -26,14 +26,14 @@ module ApplicationHelper
     new_param.delete "page"
     new_param
   end
-  
+
   def params_with key, value
     new_param = Hash.new
     new_param.merge!(params)
     new_param[key] = value
     new_param
   end
-  
+
   def params_replace(old, new, value)
      new_param = Hash.new
      new_param.merge!(params)
@@ -41,36 +41,36 @@ module ApplicationHelper
      new_param.delete old
      new_param
   end
-   
+
   def hero
     hero = "<div id=\"hero\">"
-    begin 
-       
+    begin
+
        if @rendered_hero
          hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
        else
          hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
        end
-       
-       hero << "</div>"   
+
+       hero << "</div>"
         rescue ActionView::MissingTemplate
           begin
             hero += render :partial => "/hero/#{params[:controller]}/default"
-            hero << "</div>"   
-          rescue ActionView::MissingTemplate 
+            hero << "</div>"
+          rescue ActionView::MissingTemplate
             hero = ""
           end
      end
       return hero.html_safe
   end
-  
+
   def render_tooltip tooltip
     tip = "<a class=\"input-tooltip\"><span>"
     tip += tooltip
     tip += "</span></a>"
     tip.html_safe
   end
- 
+
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -78,7 +78,7 @@ module ApplicationHelper
       content_for?(:title) ? content_for(:title) + t('auction.show.title_addition') : t('common.fairnopoly')
     end
   end
-  
+
   def meta_keywords(tags = nil)
     if tags.present?
       content_for :meta_keywords, tags
@@ -94,11 +94,11 @@ module ApplicationHelper
       content_for?(:meta_description) ? content_for(:meta_description) : t('meta_tags.description')
     end
   end
-  
+
   def truncate_and_sanitize_without_linebreaks(text = "", length = 70, omission ='', separator = ' ')
       truncate(sanitize( text ,:tags => %w(),:attributes => %w() ),
         :length => length, :separator =>separator, :omission=>omission ).gsub("\n", ' ')
   end
-  
-  
+
+
 end

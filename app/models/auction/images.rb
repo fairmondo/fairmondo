@@ -4,10 +4,10 @@ module Auction::Images
   included do
     # ---- IMAGES ------
     attr_accessible :images_attributes
-    
-    has_many :images 
+
+    has_many :images
     accepts_nested_attributes_for :images, :allow_destroy => true
- 
+
     def title_image
       if images.empty?
         return nil

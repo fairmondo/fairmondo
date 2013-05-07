@@ -8,17 +8,17 @@
   %head
     %meta{:charset => "utf-8"}
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
-    
+
     %title= title
     %meta{ name: 'keywords', content: meta_keywords }
     %meta{ name: 'description', content: meta_description }
-    
+
     %meta{:content => "width=device-width", :name => "viewport"}
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
     = javascript_include_tag "application"
-    
+
     = csrf_meta_tags
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
     / Google Analytics
@@ -26,7 +26,7 @@
       var _gaq = _gaq || [];
         			_gaq.push(['_setAccount', 'UA-37465097-1']);
         			_gaq.push(['_trackPageview']);
-      
+
         			(function() {
           			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
           			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -59,7 +59,7 @@
                 = link_to t('common.text.sell'), new_auction_path
               /
                 %li#service
-                  %a 
+                  %a
                     t('common.text.service')
               - if user_signed_in?
                 %li#logout
@@ -67,11 +67,11 @@
                 %li#login
                   = link_to t('common.text.profile'), user_path(current_user)
                 /
-                  - if current_user.trustcommunity == true 
+                  - if current_user.trustcommunity == true
                     %li#community
                       t('common.text.community')
-                 
-                  
+
+
               - else
                 %li#login
                   - if @login

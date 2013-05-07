@@ -5,24 +5,30 @@ Fairnopoly is a free market place in the hand of the users.
 Read more about it at: http://www.fairnopoly.de/
 
 The development currently is in beta state.
-
-
-== Getting started (automated)
-
 The Fairnopoly source is developed in ruby-1.9.3
-To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and:
 
-* Set up a local git repository
-    git clone git@github.com:fairnopoly/fairnopoly.git
-    cd fairnopoly/
 
-* Run the Fairnopoly setup script
-    ruby setup.rb
+== Getting started
 
-One line to copy and paste into a console:
+=== Installing Ruby and Ruby on Rails
+
+If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
+
+=== Fairnopoly Project Setup (automated)
+
+Note: the automated process won't work in windows.
+To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and paste in the following line:
     git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && ruby setup.rb
 
-== Getting started (manually)
+What this does:
+* Sets up a local git repository
+    git clone git@github.com:fairnopoly/fairnopoly.git
+* Switches to the fairnopoly root path
+    cd fairnopoly/
+* Runs the Fairnopoly setup script
+    ruby setup.rb
+
+=== Fairnopoly Project Setup (manually)
 
 If the automated script doesn't work for you, try going through these steps one by one:
 
@@ -71,12 +77,7 @@ If you update your branch from before, you may have to migrate the test database
   RAILS_ENV=test rake db:migrate
 
 
-=== Installing Ruby and Rails
-
-If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
-
-
-== Workflow
+=== Workflow
 
 If you want to help out with programming new features or fixing bugs, please consider the following guidelines:
 
@@ -112,10 +113,9 @@ Share the idea, take part at http://www.fairnopoly.de/ and make the world a bett
 Regarding the source, there are two ways to contribute.
 
 1. Report a bug?
-   Just use the github issue tracker.
+   * Just use the github issue tracker.
 
-2. Want to know more and join feature development?
-   * Have a visit to our redmine repositoy at: http://78.47.60.75:8080/projects/fairnopoly
-     Most features are developed in German language but feel free to contact us anyway and we will answer in English.
-   * Or visit https://basecamp.com/1863892/projects/549634-plattformentwicklung (German only, registration required) to know more about the concept development.
+2. Want to help out and join feature development?
+   * Send us an email at {email@fairnopoly.de}[mailto:email@fairnopoly.de] and work with us to make the world a better place
+   * or make a github account and click on the button called "Fork" in the upper right corner of {our repository}[https://github.com/fairnopoly/fairnopoly]. Then code a few cool features, commit and push your changes, and submit a "Pull Request" so we can implement your work.
 
