@@ -6,5 +6,4 @@ describe Image do
   end
 
   it {should belong_to :auction}
-  
 end
