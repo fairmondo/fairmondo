@@ -62,7 +62,7 @@ class AuctionsController < InheritedResources::Base
 
     # find fair alternative
     @alternative = nil
-    if !@auction.fair
+    if !@auction.fair && params[:auction]
       query = Auction.new(params[:auction])
       query.fair = true
       @alternative = get_alternative query
