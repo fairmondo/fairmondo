@@ -33,17 +33,11 @@ class User < ActiveRecord::Base
 
   attr_accessible :type
   attr_protected :admin
-<<<<<<< HEAD
-  attr_accessor :recaptcha
 
-
-=======
       
   attr_accessor :recaptcha, :bank_account_validation , :paypal_validation
   
   
-  
->>>>>>> release
   #Relations
   has_many :auctions, :dependent => :destroy
   has_many :bids, :dependent => :destroy
@@ -82,16 +76,11 @@ class User < ActiveRecord::Base
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
-<<<<<<< HEAD
 
-
-
-=======
   
   validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
-  
->>>>>>> release
+
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
