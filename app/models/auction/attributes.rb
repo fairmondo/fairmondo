@@ -68,7 +68,7 @@ module Auction::Attributes
     
     validate :default_transport_selected
     
-<<<<<<< HEAD
+
     # ================ Payment ====================
    
     enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
@@ -82,14 +82,7 @@ module Auction::Attributes
     before_validation :set_sellers_nested_validations
     
     monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
-=======
-    
-    
-    serialize :payment, Array
-    enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
-    validates :payment, :size => 1..-1
-    validates_presence_of :payment_details
->>>>>>> a0aa1f611d609a7a67f44c0bd316081bd3c4a9ea
+
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
