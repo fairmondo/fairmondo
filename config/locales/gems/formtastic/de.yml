@@ -8,7 +8,7 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
-      user:
+      user: 
         legal_entity: Rechtlicher Status
         nickname: Nutzername
         email: E-mail Adresse
@@ -32,6 +32,12 @@ de:
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
         about: "Impressum und Kontakt"
+        bank_code: Bankleitzahl
+        bank_name: Name der Bank
+        bank_account_number: Kontonummer
+        bank_account_owner: Kontoinhaber
+        paypal_account: Paypal-Konto
+     
       auction:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -98,7 +104,14 @@ de:
         default_transport: "Standardversand"
         transport_details: "Weitere Angaben:"
 
-        payment: "Bezahlart"
+        payment_bank_transfer: Überweisung (Vorkasse)
+        payment_cash: Barzahlung bei Abholung
+        payment_paypal: PayPal
+        payment_cash_on_delivery: Nachnahme
+        payment_cash_on_delivery_price: Nachnahmezuschlag (€)
+        payment_invoice: Rechnung
+
+        default_payment: "Standardbezahlmethode"
         payment_details: "Weitere Angaben:"
         
         basic_price: "Grundpreis (€)"

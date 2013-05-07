@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :auction, aliases: [:appended_object] do
-    seller
+    seller 
     categories_and_ancestors {|c| [c.association(:category)] }
     title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
@@ -16,8 +16,11 @@ FactoryGirl.define do
 
     default_transport "pickup"
     transport_pickup true
-    transport_details "transport_details"
-    payment   { Auction.payment.values.sample(rand(5)+1) }
+
+    transport_details "transport_details"    
+    default_payment "cash" 
+    payment_cash true
+
     payment_details "payment_details"
     after(:build) do |auction|
       auction.images << FactoryGirl.build(:image,:auction => auction)

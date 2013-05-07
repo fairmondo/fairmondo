@@ -69,7 +69,7 @@ de:
         meter: 1 Meter
         squaremeter: 1 Quadratmeter
         portion: 1 Portion
-      payment:
+      default_payment:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal
