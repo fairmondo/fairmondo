@@ -34,3 +34,6 @@ config/api.yml
 #Solr Development
 solr/data/**/*
 solr/pids/**/*
+
+#ER-Diagram
+erd.pdf
