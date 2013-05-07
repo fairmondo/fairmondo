@@ -5,25 +5,13 @@ class Auction < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, :use => :slugged
   validates_presence_of :slug
-<<<<<<< HEAD
 
-  #auction module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
-
-  attr_accessible :transaction_attributes
-
-=======
- 
->>>>>>> release
   # refs #128
   default_scope where(:auction_template_id => nil)
 
 
   # Relations
-<<<<<<< HEAD
 
-=======
->>>>>>> release
 
   validates_presence_of :transaction
   belongs_to :transaction, :dependent => :destroy
@@ -37,17 +25,11 @@ class Auction < ActiveRecord::Base
 
   # see #128
   belongs_to :auction_template
-<<<<<<< HEAD
-
-
-  # without parameter or 'true' returns all auctions with a user_id, else only
-=======
   
    #auction module concerns
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
   
   # without parameter or 'true' returns all auctions with a user_id, else only 
->>>>>>> release
   # the auctions with the specified user_id
   scope :with_user_id, lambda{|user_id = true|
     if user_id == true
@@ -68,13 +50,11 @@ class Auction < ActiveRecord::Base
     auction_template_id != nil || auction_template != nil
   end
 
-<<<<<<< HEAD
 
-=======
   def seller_attributes=(seller_attrs)    
     self.seller = User.find(seller_attrs.delete(:id))
     self.seller.attributes = seller_attrs
   end
->>>>>>> release
+
 
 end
