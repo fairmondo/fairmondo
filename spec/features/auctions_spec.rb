@@ -7,7 +7,7 @@ describe 'Auction management' do
 
   describe "for signed-in users" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:private_user)
       login_as @user
     end
 
