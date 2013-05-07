@@ -66,7 +66,8 @@ describe Auction do
     it "should throw an error if default_transport_selected isn't able to call the transport function" do
       auction.default_transport.should be_true
       auction.stub(:send).and_return(false)
-      expect { auction.default_transport_selected }.to raise_error
+      auction.default_transport_selected 
+      auction.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
     end
   end
 
