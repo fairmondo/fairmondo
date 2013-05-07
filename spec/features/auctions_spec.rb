@@ -19,7 +19,7 @@ describe 'Auction management' do
         fill_in 'Title', with: 'Auction title'
         check Category.root.name
         within("#auction_condition_input") do
-          choose 'New' 
+          choose 'New'
         end
         if @user.is_a?(LegalEntity)
           fill_in 'auction_basic_price', with: 99.99
@@ -41,7 +41,7 @@ describe 'Auction management' do
       visit new_auction_path
       # TODO find out how to test rails asset pipeline visible styles
       # page.should have_content("Hardware", visible: false)
-      
+
       check "auction_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
       check "auction_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
       page.should have_content("Hardware")
