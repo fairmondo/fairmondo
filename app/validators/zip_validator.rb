@@ -4,7 +4,7 @@ class ZipValidator < ActiveModel::EachValidator
     case record.country
       when "Deutschland"
         length=5
-        if value.length != length
+        if value.to_s.length != length
           record.errors[attribute] << I18n.t('errors.messages.zip_length', :count => length)
         end
         unless only_numbers?(value)
@@ -16,11 +16,7 @@ class ZipValidator < ActiveModel::EachValidator
   private
 
   def only_numbers?(value)
-    if value.match(/^\d*$/)
-      true
-    else
-      false
-    end
+    value.to_s.match(/^\d*$/)
   end
 
 end
