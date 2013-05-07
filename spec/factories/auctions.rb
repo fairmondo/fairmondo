@@ -11,6 +11,8 @@ FactoryGirl.define do
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
     
+    basic_price_cents { Random.new.rand(500000)+1 }
+    basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
     default_transport "pickup"
     transport_pickup true

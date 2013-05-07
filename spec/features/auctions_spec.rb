@@ -21,6 +21,10 @@ describe 'Auction management' do
         within("#auction_condition_input") do
           choose 'New' 
         end
+        if @user.is_a?(LegalEntity)
+          fill_in 'auction_basic_price', with: 99.99
+          select "kilogram" , from: 'auction_basic_price_amount'
+        end
         fill_in 'Content', with: 'Auction content'
         check "auction_transport_pickup"
         select "Pickup" , from: 'Default transport'
