@@ -6,9 +6,7 @@ FactoryGirl.define do
     parent nil
 
     factory :child_category do
-      parent { Category.all.sample || Factory.create(:category)}
+      parent { Category.all.sample || Factory.create(:category) }
     end
-
   end
-
 end
