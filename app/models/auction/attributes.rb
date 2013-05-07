@@ -54,13 +54,7 @@ module Auction::Attributes
     monetize :transport_insured_price_cents
 
     validate :default_transport_selected
-<<<<<<< HEAD
 
-=======
-    
-    
-    
->>>>>>> release
     serialize :payment, Array
     enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
     validates :payment, :size => 1..-1
@@ -70,15 +64,12 @@ module Auction::Attributes
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
 
   end
-<<<<<<< HEAD
 
-=======
   
   def is_LegalEntity
     self.seller.is_a?(LegalEntity)
   end
-  
->>>>>>> release
+
   def default_transport_selected
     if self.default_transport
       unless self.send("transport_#{self.default_transport}")
