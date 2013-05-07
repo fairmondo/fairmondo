@@ -14,6 +14,16 @@ module Auction::Attributes
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
     
+    # basic price
+    attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
+    
+    enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
+    
+    validates_presence_of :basic_price, :if => :is_LegalEntity
+    validates_presence_of :basic_price_amount, :if => :is_LegalEntity
+    
+    monetize :basic_price_cents
+    
     # market place state
     attr_protected :locked, :active
     
@@ -45,6 +55,8 @@ module Auction::Attributes
     
     validate :default_transport_selected
     
+    
+    
     serialize :payment, Array
     enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
     validates :payment, :size => 1..-1
@@ -53,6 +65,10 @@ module Auction::Attributes
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     
+  end
+  
+  def is_LegalEntity
+    self.seller.is_a?(LegalEntity)
   end
   
   def default_transport_selected
