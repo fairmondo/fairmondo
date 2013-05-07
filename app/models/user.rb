@@ -16,11 +16,14 @@ class User < ActiveRecord::Base
   after_create :create_default_library
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-      :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
-      :trustcommunity, :invitor_id, :banned, :about_me,
-      :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-      :terms, :cancellation, :about,  :recaptcha
+
+  attr_accessible :email, :password, :password_confirmation, :remember_me, 
+      :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck, 
+      :trustcommunity, :invitor_id, :banned, :about_me, 
+      :title, :country, :street, :city, :zip, :phone, :mobile, :fax, 
+      :terms, :cancellation, :about,  :recaptcha, :bank_code , 
+      :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+  
 
   def self.attributes_protected_by_default
     # default is ["id","type"]
@@ -30,9 +33,17 @@ class User < ActiveRecord::Base
 
   attr_accessible :type
   attr_protected :admin
+<<<<<<< HEAD
   attr_accessor :recaptcha
 
 
+=======
+      
+  attr_accessor :recaptcha, :bank_account_validation , :paypal_validation
+  
+  
+  
+>>>>>>> release
   #Relations
   has_many :auctions, :dependent => :destroy
   has_many :bids, :dependent => :destroy
@@ -71,9 +82,16 @@ class User < ActiveRecord::Base
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
+<<<<<<< HEAD
 
 
 
+=======
+  
+  validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
+  validates :paypal_account , :presence => true , :if => :paypal_validation
+  
+>>>>>>> release
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end

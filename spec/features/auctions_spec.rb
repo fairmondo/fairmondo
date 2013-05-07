@@ -7,7 +7,7 @@ describe 'Auction management' do
 
   describe "for signed-in users" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:private_user)
       login_as @user
     end
 
@@ -30,6 +30,7 @@ describe 'Auction management' do
         select "Pickup" , from: 'Default transport'
         fill_in 'Transport details', with: 'transport_details'
         check "auction_payment_cash"
+        select "Cash" , from: 'Default payment'
         fill_in 'Payment details', with: 'payment_details'
         find(".form-actions").find("input").click
       end.should change(Auction.unscoped, :count).by(1)

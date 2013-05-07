@@ -82,10 +82,10 @@
 
       = render_box "payment" do
         %strong
-          = t('auction.labels.payment')
+          = t('formtastic.labels.auction.default_payment')
           \:
         %p
-          = @auction.payment.map(&:text) * ", "
+          = @auction.default_payment.text
         .border-box.middle-padding
           = simple_format(@auction.payment_details).html_safe
         %br/

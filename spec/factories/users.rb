@@ -1,7 +1,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender, :follower, :followable] do
+  factory :user, aliases: [:seller,:buyer, :sender] do
     email       { Faker::Internet.email }
     password    'password'
     nickname    { Faker::Internet.user_name }
@@ -34,9 +34,11 @@ FactoryGirl.define do
       zip "78123"
     end
 
+
     factory :private_user, class: 'PrivateUser' do
     end
     factory :legal_entity, class: 'LegalEntity' do
     end
+
   end
 end
