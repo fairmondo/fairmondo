@@ -114,6 +114,9 @@ de:
         default_payment: "Standardbezahlmethode"
         payment_details: "Weitere Angaben:"
         
+        basic_price: "Grundpreis (€)"
+        basic_price_amount: "Mengeneinheit"
+        
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
@@ -188,6 +191,9 @@ de:
         content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
         quantity: Trage hier die Menge ein
         price: Trage hier den Preis pro Artikel ein
+        
+        basic_price: Trage hier den Grundpreis pro Artikel ein.
+        basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.
         
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.

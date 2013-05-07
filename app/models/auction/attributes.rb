@@ -13,6 +13,7 @@ module Auction::Attributes
                     :transport_uninsured, :transport_uninsured_price_cents,
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
+
     #payment
     attr_accessible :default_payment ,:payment_details , 
                     :payment_bank_transfer,
@@ -22,6 +23,19 @@ module Auction::Attributes
                     :payment_invoice,
                     :seller_attributes
            
+
+    
+    # basic price
+    attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
+    
+    enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
+    
+    validates_presence_of :basic_price, :if => :is_LegalEntity
+    validates_presence_of :basic_price_amount, :if => :is_LegalEntity
+    
+    monetize :basic_price_cents, :allow_nil => true
+    
+
     # market place state
     attr_protected :locked, :active
     
@@ -54,6 +68,7 @@ module Auction::Attributes
     
     validate :default_transport_selected
     
+<<<<<<< HEAD
     # ================ Payment ====================
    
     enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
@@ -67,6 +82,14 @@ module Auction::Attributes
     before_validation :set_sellers_nested_validations
     
     monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
+=======
+    
+    
+    serialize :payment, Array
+    enumerize :payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice], :multiple => true
+    validates :payment, :size => 1..-1
+    validates_presence_of :payment_details
+>>>>>>> a0aa1f611d609a7a67f44c0bd316081bd3c4a9ea
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
@@ -80,6 +103,10 @@ module Auction::Attributes
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal
+  end
+  
+  def is_LegalEntity
+    self.seller.is_a?(LegalEntity)
   end
   
   def default_transport_selected
