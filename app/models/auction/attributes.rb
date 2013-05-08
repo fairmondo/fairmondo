@@ -132,7 +132,7 @@ module Auction::Attributes
   
   # The allowed attributes for updating user/seller in auction form
   def valid_seller_attributes
-    [:bank_code, :account_number, :paypal_account]
+    [:bank_code, :bank_account_number, :bank_account_owner ,:paypal_account, :bank_name, ]
   end
 
 end

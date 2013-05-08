@@ -7,7 +7,7 @@ describe 'Auction management' do
 
   describe "for signed-in users" do
     before :each do
-      @user = FactoryGirl.create(:private_user)
+      @user = FactoryGirl.create(:user)
       login_as @user
     end
 
@@ -23,7 +23,7 @@ describe 'Auction management' do
         end
         if @user.is_a?(LegalEntity)
           fill_in 'auction_basic_price', with: 99.99
-          select "kilogram" , from: 'auction_basic_price_amount'
+          select "Kilogram" , from: 'Basic price amount'
         end
         fill_in 'Content', with: 'Auction content'
         check "auction_transport_pickup"
@@ -33,6 +33,7 @@ describe 'Auction management' do
         select "Cash" , from: 'Default payment'
         fill_in 'Payment details', with: 'payment_details'
         find(".form-actions").find("input").click
+        save_and_open_page
       end.should change(Auction.unscoped, :count).by(1)
     end
 
