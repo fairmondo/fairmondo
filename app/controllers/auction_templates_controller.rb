@@ -20,9 +20,9 @@ class AuctionTemplatesController < InheritedResources::Base
     current_user
   end
 
-  def collection
-    @auction_templates ||= end_of_association_chain.paginate(:page => params[:page])
-  end
+  # def collection
+  #   @auction_templates ||= end_of_association_chain.paginate(:page => params[:page])
+  # end
 
   def update
     update! {collection_url}
