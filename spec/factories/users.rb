@@ -1,7 +1,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller,:buyer, :sender] do
+  factory :user, aliases: [:seller,:buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
     nickname    { Faker::Internet.user_name }
@@ -11,7 +11,7 @@ FactoryGirl.define do
     legal       "1"
     agecheck    "1"
     recaptcha true
-    type { ["PrivateUser", "LegalEntity"].sample }
+    
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -36,9 +36,14 @@ FactoryGirl.define do
 
 
     factory :private_user, class: 'PrivateUser' do
+     
     end
     factory :legal_entity, class: 'LegalEntity' do
+     
     end
 
   end
+  
+
+  
 end

@@ -78,14 +78,4 @@ describe User do
     user.name.should eq user.nickname
   end
 
-  describe "method: legal_entity_terms_ok" do
-    it "returns true when valid" do
-      user.legal_entity_terms_ok.should be_true
-    end
-
-    it "returns false when invalid" do
-      user.nickname = nil # make user invalid
-      user.legal_entity_terms_ok.should be_false
-    end
-  end
 end

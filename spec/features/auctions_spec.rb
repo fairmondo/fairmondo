@@ -8,7 +8,7 @@ describe 'Auction management' do
   describe "for signed-in users" do
     before :each do
       @user = FactoryGirl.create(:user)
-      login_as @user
+      login_as @user, scope: :user
     end
 
     it 'creates an auction' do
@@ -21,8 +21,10 @@ describe 'Auction management' do
         within("#auction_condition_input") do
           choose 'New'
         end
+       
         if @user.is_a?(LegalEntity)
-          fill_in 'auction_basic_price', with: 99.99
+        
+          fill_in 'Basic price', with: 99.99
           select "Kilogram" , from: 'Basic price amount'
         end
         fill_in 'Content', with: 'Auction content'
@@ -32,7 +34,9 @@ describe 'Auction management' do
         check "auction_payment_cash"
         select "Cash" , from: 'Default payment'
         fill_in 'Payment details', with: 'payment_details'
-        find(".form-actions").find("input").click
+        
+        find(".double_check-step-inputs").find(".form-actions").find("input").click
+       
       end.should change(Auction.unscoped, :count).by(1)
     end
 
