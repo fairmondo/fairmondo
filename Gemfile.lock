@@ -175,7 +175,7 @@ GEM
     modernizr-rails (2.6.2.1)
     money (5.1.1)
       i18n (~> 0.6.0)
-    money-rails (0.8.0)
+    money-rails (0.8.1)
       activesupport (>= 3.0)
       money (~> 5.1.0)
       railties (>= 3.0)
