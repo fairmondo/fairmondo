@@ -33,7 +33,6 @@ describe 'Auction management' do
         select "Cash" , from: 'Default payment'
         fill_in 'Payment details', with: 'payment_details'
         find(".form-actions").find("input").click
-        save_and_open_page
       end.should change(Auction.unscoped, :count).by(1)
     end
 
