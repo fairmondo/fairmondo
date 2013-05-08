@@ -90,6 +90,21 @@ describe Auction do
   end
 
   describe "Auction::Categories" do
+    describe "size_validator" do
+      it "should validate size of categories" do
+        auction_0cat = FactoryGirl.build :auction
+        auction_0cat.categories = []
+        auction_1cat = FactoryGirl.build :auction
+        auction_2cat = FactoryGirl.build :auction, :with_child_category
+        auction_3cat = FactoryGirl.build :auction, :with_3_categories
+
+        auction_0cat.should_not be_valid
+        auction_1cat.should be_valid
+        auction_2cat.should be_valid
+        auction_3cat.should_not be_valid
+      end
+    end
+
     describe "with_exact_category_id scope" do
       it "should be unscoped without category_id" do
         Auction.with_exact_category_id.should == Auction.scoped

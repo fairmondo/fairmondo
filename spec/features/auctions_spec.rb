@@ -34,6 +34,7 @@ describe 'Auction management' do
         check "auction_payment_cash"
         select "Cash" , from: 'Default payment'
         fill_in 'Payment details', with: 'payment_details'
+
         
         find(".double_check-step-inputs").find(".form-actions").find("input").click
        

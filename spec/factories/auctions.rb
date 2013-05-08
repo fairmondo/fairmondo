@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :auction, aliases: [:appended_object] do
-    seller 
+    seller
     categories_and_ancestors {|c| [c.association(:category)] }
     title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
@@ -10,15 +10,15 @@ FactoryGirl.define do
     condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     quantity  { (rand(10) + 1) }
-    
+
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
     default_transport "pickup"
     transport_pickup true
 
-    transport_details "transport_details"    
-    default_payment "cash" 
+    transport_details "transport_details"
+    default_payment "cash"
     payment_cash true
 
     payment_details "payment_details"
@@ -69,6 +69,9 @@ FactoryGirl.define do
     end
     trait :with_child_category do
       categories_and_ancestors {|c| [c.association(:category), c.association(:child_category)] }
+    end
+    trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
+      categories_and_ancestors {|c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
   end
 end
