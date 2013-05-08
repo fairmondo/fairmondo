@@ -8,9 +8,9 @@ class SizeValidator < ActiveModel::EachValidator
       value = value.select(&:present?)
     end
 
-    if options[:filter]
-      value = options[:filter].call(value)
-    end
+    # if options[:filter]
+    #   value = options[:filter].call(value)
+    # end
 
     if value.size < range.first
       msg_key = range.first == 1 ? :at_least_one : :minimum
