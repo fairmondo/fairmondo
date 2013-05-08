@@ -53,8 +53,16 @@ class Auction < ActiveRecord::Base
 
   def seller_attributes=(seller_attrs)    
     self.seller = User.find(seller_attrs.delete(:id))
+    rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
+    if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array
+      raise SecurityError
+    end
     self.seller.attributes = seller_attrs
   end
 
+   # The allowed attributes for updating user/seller in auction form
+  def valid_seller_attributes
+    ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
+  end
 
 end
