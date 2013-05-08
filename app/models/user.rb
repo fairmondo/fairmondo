@@ -93,13 +93,7 @@ class User < ActiveRecord::Base
     name = "#{self.nickname}"
   end
 
-  def legal_entity_terms_ok
-    if( self.valid?)
-      return true
-    else
-      return false
-    end
-  end
+  
 
   private
   def create_default_library

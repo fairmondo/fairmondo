@@ -314,7 +314,7 @@ describe AuctionsController do
         response.should render_template :new
         response.response_code.should == 200
       end
-
+      
     end
   end
 

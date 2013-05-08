@@ -25,11 +25,6 @@ class LegalEntity < User
     User.model_name
   end
 
-  def legal_entity_terms_ok
-    ( self.terms && !self.terms.empty? &&
-      self.cancellation && !self.cancellation.empty? &&
-      self.about && !self.about.empty? )
-  end
 
   def sanitize
     self.about = sanitize_tiny_mce(self.about)
