@@ -81,7 +81,7 @@ module Auction::Attributes
     
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
     
-    accepts_nested_attributes_for :seller , :update_only => true, :reject_if => :invalid_seller_attributes
+    accepts_nested_attributes_for :seller , :update_only => true
     
     before_validation :set_sellers_nested_validations
     
@@ -125,14 +125,6 @@ module Auction::Attributes
   end
 
   
-  #evaluates if only allowed attributes are used
-  def invalid_seller_attributes(attributes)
-    attributes.reject! { |k,v| valid_seller_attributes.include?(k)} != nil
-  end
-  
-  # The allowed attributes for updating user/seller in auction form
-  def valid_seller_attributes
-    [:bank_code, :bank_account_number, :bank_account_owner ,:paypal_account, :bank_name, ]
-  end
+ 
 
 end

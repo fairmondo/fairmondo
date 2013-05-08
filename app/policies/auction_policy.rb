@@ -13,7 +13,7 @@ class AuctionPolicy < Struct.new(:user, :auction)
     end
 
     def create?
-      user.valid? #cant harm to check that
+      true
     end
 
     def edit?
