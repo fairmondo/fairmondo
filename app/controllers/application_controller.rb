@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery
-  
+
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
   end
- 
+
   helper :all
   helper_method :tinycms_admin?
 
@@ -23,13 +23,13 @@ class ApplicationController < ActionController::Base
   def tinycms_admin?
     current_user && current_user.admin?
   end
- 
+
   protected
- 
+
   def render_users_hero
-    render_hero :controller => "users"  
+    render_hero :controller => "users"
   end
-  
+
   def render_hero options
     options[:action] ||= "default"
     options[:controller] ||= params[:controller]

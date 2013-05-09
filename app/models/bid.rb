@@ -1,13 +1,13 @@
 class Bid < ActiveRecord::Base
-  
+
   attr_accessible :price_cents
   attr_protected :user, :auction_transaction
-  
+
   belongs_to :auction_transaction
-  belongs_to :user 
+  belongs_to :user
   monetize :price_cents
 
-  # TODO 
+  # TODO
   # before_save :check_better
   validates_presence_of :user_id, :auction_transaction_id, :price_cents
   def check_better

@@ -13,45 +13,44 @@ class AuctionPolicy < Struct.new(:user, :auction)
     end
 
     def create?
-      user.valid? #cant harm to check that
+      true
     end
-    
+
     def edit?
       update?
     end
-    
-    def update?
 
+    def update?
       own? && !auction.locked
     end
-    
+
     def destroy?
       false
     end
-    
+
     def activate?
       user && own? && !auction.active
     end
-    
+
     def deactivate?
        user && own? && auction.active
     end
-    
+
     def report?
       user && !own?
     end
-    
-    private 
+
+    private
     def own?
       user.id == auction.seller.id
     end
-    
+
     class Scope < Struct.new(:user, :scope)
       def resolve
           scope.where(:active => true)
       end
     end
-    
+
 
 end
 

@@ -1,4 +1,4 @@
 class PreviewTransaction < Transaction
-  
-      
+
+
 end

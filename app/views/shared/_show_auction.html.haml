@@ -10,3 +10,4 @@
   .caption
     %h5= link_to truncate(auction.title, :length => 25), auction_path(auction,:auction => params[:auction])
     %h5= humanized_money_with_symbol auction.price
+    = render :partial=>'/shared/show_auction_basic_price', :locals=>{ :auction=> auction}

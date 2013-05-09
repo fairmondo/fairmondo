@@ -3,17 +3,17 @@
     = semantic_form_for(@user,  :html => { :class => "form-horizontal"},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
       = f.semantic_errors
       = f.input_step :account, :default_step => true do
-        
+
         %p
           %strong
             = t('formtastic.labels.user.legal_entity') + ":"
-            
+
           %span.pull-right= t('users.visibility.public')
           = current_user.is_a?(LegalEntity) ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
         %p
           %strong
             = t('formtastic.labels.user.nickname') + ":"
-            
+
           %span.pull-right= t('users.visibility.public')
           = current_user.nickname
         %p
@@ -41,12 +41,12 @@
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :forename,:required => true
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
-          = f.input :surname,:required => true  
-          
+          = f.input :surname,:required => true
+
           %h3= t('users.form_titles.address')
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
-          
+
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')

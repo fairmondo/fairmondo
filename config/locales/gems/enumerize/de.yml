@@ -60,7 +60,16 @@ de:
         pickup: Selbstabholung
         insured: Versichert
         uninsured: Unversichert
-      payment:
+      basic_price_amount:
+        kilogram: 1 Kilogramm
+        gram: 100 Gramm
+        liter: 1 Liter
+        milliliter: 100 Milliliter
+        cubicmeter: 1 Kubikmeter
+        meter: 1 Meter
+        squaremeter: 1 Quadratmeter
+        portion: 1 Portion
+      default_payment:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal

@@ -16,6 +16,7 @@ Fairnopoly::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :file
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -35,7 +36,7 @@ Fairnopoly::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
   # Mailer example config
 =begin
   config.action_mailer.delivery_method = :smtp
@@ -47,16 +48,16 @@ Fairnopoly::Application.configure do
     :password             => '',
     :authentication       => 'login',
     :enable_starttls_auto => true  }
-    
+
   # Don't care if the mailer can't send
   # config.action_mailer.raise_delivery_errors = false
 =end
-  
+
   # Deactivate the mailer
   config.action_mailer.perform_deliveries = false
-  
-  # or set it to :test, so you can check the mailer queue (e.g. in the debugger) 
-  # without actually sending anything 
+
+  # or set it to :test, so you can check the mailer queue (e.g. in the debugger)
+  # without actually sending anything
   # config.action_mailer.delivery_method = :test
-  
+
 end

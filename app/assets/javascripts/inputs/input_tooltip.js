@@ -7,7 +7,7 @@ $(document).ready(function(){
 	    // Alerts every time the hash changes!
 	   $("a.input-tooltip").popover('hide');
   	});
-  	
+
 	$('html').click(function(e) {
     	$("a.input-tooltip").popover('hide');
 	});

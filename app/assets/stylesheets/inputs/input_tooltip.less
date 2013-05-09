@@ -1,18 +1,18 @@
 // refs #109 and #154
 a.input-tooltip {
   float: right;
-  
+
   background: asset-url("inputs/help-icon-inactive.png") no-repeat right center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
+
   display: block;
   margin: 0 2px;
   outline: none;
   position: relative;
-  
+
   span{
     width: 500px;
     height: auto;
@@ -20,7 +20,7 @@ a.input-tooltip {
     padding: 10px;
     left: 91%;
     margin-left: -485px;
-    font-weight: 400; 
+    font-weight: 400;
     font-style: italic;
     font-size: 14px;
     color: #618D9B;
@@ -41,7 +41,7 @@ a.input-tooltip {
     -ms-filter: "alpha(opacity=0)";
     display: block;
   }
-  
+
   span:before, span:after{
     content: '';
     position: absolute;
@@ -54,13 +54,13 @@ a.input-tooltip {
     border-right: 10px solid transparent;
     border-bottom: 10px solid rgba(0,0,0,0.1);
   }
-  
+
   span:after{
     bottom: -14px;
     margin-left: -10px;
     border-bottom: 10px solid #fff;
   }
- 
+
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 10px;
@@ -82,14 +82,14 @@ a.input-tooltip:hover:not(.closed-tooltip) span:not(:hover), a.input-tooltip.ope
   display: block;
   z-index: 1;
   opacity: 1;
-  top: 35px; 
+  top: 35px;
   -ms-filter: "alpha(opacity=100)";
 }
 
 
 /*
  * Media 4 Responsive Tooltips
- * 
+ *
  */
 @media (max-width: 600px) {
   a.input-tooltip {

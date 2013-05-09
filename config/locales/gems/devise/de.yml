@@ -31,7 +31,7 @@ de:
     confirmations:
       send_instructions: 'Du erhältst in wenigen Minuten eine Email, mit der Du Deine Registrierung bestätigen kannst.'
       send_paranoid_instructions: 'Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
-      confirmed: 'Wir begrüßen Dich herzlich bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen! Bevor Du auf dem Marktplatz handeln kannst, benötigen wir weitere persönliche Daten von Dir wie Deine Adresse. 
+      confirmed: 'Wir begrüßen Dich herzlich bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen! Bevor Du auf dem Marktplatz handeln kannst, benötigen wir weitere persönliche Daten von Dir wie Deine Adresse.
       Diese kannst Du unter Profil bearbeiten eintragen.'
     registrations:
       changed_email: "Du erhältst in Kürze eine Email um deine Email Adressänderung zu betstätigen. Deine Änderung wird erst nach deiner Bestätigung wirksam."

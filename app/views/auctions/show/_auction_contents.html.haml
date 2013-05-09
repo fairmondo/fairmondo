@@ -31,7 +31,7 @@
         - @thumbnails.each do |image|
           %li.span3
             = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , auction_path(@auction, :image => image.id )
-    
+
     .span3
       %p
         %b
@@ -49,6 +49,7 @@
           = t('auction.show.will_be')
           %a= t('enumerize.auction.friendly_percent_organisation.'+@auction.friendly_percent_organisation)
           = t('auction.show.contributed')
+      = render :partial=>'/shared/show_auction_basic_price', :locals=>{ :auction=> @auction}
       - if @auction.active && current_user && current_user.id != @auction.seller.id
         %p
           %a.btn.btn-primary.btn-fill
@@ -58,30 +59,33 @@
             = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
             = f.input :auction_id, :as => :hidden
             = f.submit t('common.actions.collect'), :class => "btn btn-fill btn-white"
-    .span3.dark-gray-well.break-word
-      %h3= t('auction.show.alternative')
-      - if @alternative.present?
+    
+    - if @alternative.present?
+      .span3.dark-gray-well.break-word
+        %h3= t('auction.show.alternative')
         = render :partial=>'/shared/show_auction', :locals=>{ :auction=> @alternative}
-      - else
+    - else
+      .span3.dark-gray-well.break-word
+        %h3= t('auction.show.alternative')
         = t('auction.show.no_alternative')
-      -#%strong= tinycms_content "auction-side-bar"
+    -#%strong= tinycms_content "auction-side-bar"
   .row-fluid
     .span12
       #socialshareprivacy
         .clearfix
   .row-fluid
     .span12
-    
+
       / All Sellers
-      = render_box_open "content" do 
+      = render_box_open "content" do
         = @auction.content.html_safe
-        
+
       = render_box "payment" do
         %strong
-          = t('auction.labels.payment')
+          = t('formtastic.labels.auction.default_payment')
           \:
         %p
-          = @auction.payment.map(&:text) * ", "
+          = @auction.default_payment.text
         .border-box.middle-padding
           = simple_format(@auction.payment_details).html_safe
         %br/
@@ -90,10 +94,10 @@
           \:
         %p
           = @auction.default_transport.text
-        
+
         .border-box.middle-padding
           = simple_format(@auction.transport_details).html_safe
-          
+
       - if @auction.fair || @auction.ecologic || @auction.small_and_precious
         = render_box "commendation" do
           = render 'show_commendation'
@@ -105,7 +109,7 @@
           = @auction.seller.cancellation.html_safe
         = render_box "about" do
           = @auction.seller.about.html_safe
-            
+
 - if policy(@auction).report?
   = render_box "report" do
     .element-in-box

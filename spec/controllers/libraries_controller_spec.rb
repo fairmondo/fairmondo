@@ -26,8 +26,7 @@ describe LibrariesController do
     describe "for signed-in users" do
 
       before :each do
-
-        @library= FactoryGirl.create(:library)
+        @library = FactoryGirl.create(:library)
 
         sign_in @library.user
       end

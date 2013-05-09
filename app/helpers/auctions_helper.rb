@@ -20,7 +20,7 @@ module AuctionsHelper
     bclass=condition_badge_class(auction.condition)
     raw "<span class=\"badge " + bclass + " " + extraclass +"\">" + auction.condition_text + "</span>"
   end
-  
+
   def features_label auction, extraclass = ""
      html = "<div class=\"" +extraclass+"\">"
      html +="<span class=\"label label-info\">" + t("formtastic.labels.auction.fair")+ "</span>" if auction.fair
@@ -39,39 +39,39 @@ module AuctionsHelper
     end
     bclass
   end
-  
-  
-  
+
+
+
    def resource_name
     :user
   end
- 
+
   def resource
     @resource ||= User.new
   end
- 
+
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
-  
+
   def get_category_tree auction, leaf_category
     tree = []
     cat = leaf_category
     tree.unshift(cat)
-    
+
     while parent_cat = parent_category(cat)
       tree.unshift(parent_cat)
       cat = parent_cat
     end
     return tree
   end
-  
+
   def parent_category cat
     Category.where(:id => cat.parent_id).first
   end
-  
+
   def category_shift level
     html = raw "padding-left:"+(level*10).to_s+"px;"
   end
-  
+
 end

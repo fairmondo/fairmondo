@@ -1,6 +1,6 @@
 de:
   # Auction Model/Controller
-  
+
   auctions:
     boxes:
       content: "Artikelbeschreibung"
@@ -9,7 +9,7 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
-      report: "Artikel melden"
+      report: "Dein Feedback zu dem Artikel"
 
   auction:
     transport:
@@ -43,8 +43,8 @@ de:
         auction: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
-  
-        
+
+
     labels:
       payment: "Zahlungsart"
       price: "Preis"
@@ -69,8 +69,8 @@ de:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"
     titles:
-      new: "Artikel einstellen"  
-      edit: "Artikel editieren"  
+      new: "Artikel einstellen"
+      edit: "Artikel editieren"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
       sunspot_failure: "Suche nicht verfügbar"
@@ -79,9 +79,9 @@ de:
     actions:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
-      report: "Artikel melden"
-      reported: "Artikel erfolgreich gemeldet. Das Team kümmert sich darum."
-      reported-error: "Du musst einen Text schreiben um einen Artikel zu melden."
+      report: "Feedback senden"
+      reported: "Das Feedback wurde erfolgreich gesendet."
+      reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
     categories:
       proposal:
         question: "Du vermisst eine Kategorie?"
@@ -92,10 +92,10 @@ de:
         corruption_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
         fee: "Gebühr bei Verkauf:"
-        total: "Gesamt bei Verkauf:" 
+        total: "Gesamt bei Verkauf:"
       double_check:
         title: Alle Angaben überprüft?
-      tooltips: 
+      tooltips:
         fees_and_donations: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
         fees: "Die Gebührentabelle findest Du <hier>."

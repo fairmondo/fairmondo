@@ -36,8 +36,6 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "formtastic-bootstrap", "2.0.0"
 
-# link inside a translation
-#gem 'it'
 
 # CSS
 gem 'less-rails';
@@ -56,11 +54,10 @@ gem 'jquery-rails'
 # Tool Libs
 
 gem 'haml'
-gem 'json' 
+gem 'json'
 gem 'enumerize', '>= 0.5.1'
 gem 'will_paginate'
-gem 'inherited_resources'
-gem "pundit" # authorization
+
 
 # Indexing /Searching
 gem 'sunspot_rails'
@@ -75,7 +72,10 @@ gem 'delayed_job_active_record'
 
 
 # Controller Gems
-gem 'devise'
+gem 'devise' # authentication
+gem 'inherited_resources' # dry controllers
+gem "pundit" # authorization
+
 #Captcha Gem
 gem "recaptcha", :require => "recaptcha/rails"
 
@@ -88,7 +88,7 @@ gem 'money-rails'
 # State Machines in Rails
 gem 'state_machine'
 
-# Follow Users and Auctions 
+# Follow Users and Auctions
 #gem "acts_as_follower" #not used for the moment
 
 # tree structure for categories
@@ -116,7 +116,7 @@ group :assets do
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyrhino' 
+  gem 'therubyrhino'
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
@@ -132,28 +132,37 @@ end
 
 # Testing using RSpec
 group :development, :test do
+  # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
+  
+  # Main Test Tools
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem "ZenTest"
+  
+  #Autotest on MAC
   gem 'autotest-fsevent'
+  
+  # Code Coverage
   gem 'simplecov'
+  
+  #er diagramm generation
+  gem "rails-erd"
 
    #solr gem
   gem 'sunspot_solr'
   gem "sunspot_test"
-  
+
   #security
   gem "brakeman" # security test: execute with 'brakeman'
-  
+
   #test performance
   gem 'spork-rails'
-  
-  
-  
+
+
 end
 
 # Adding Staging-server Embedded Solr
@@ -164,10 +173,4 @@ end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 

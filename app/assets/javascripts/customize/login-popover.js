@@ -1,7 +1,7 @@
 
 // refs #114
-// To fix this, the element has to be on the page when it is loaded and not in a 
-// data-content attribute. 
+// To fix this, the element has to be on the page when it is loaded and not in a
+// data-content attribute.
 // But there is no way to make bootstrap actually move elements, thus
 // we have to do it our own.
 
@@ -12,7 +12,7 @@ var popover_just_added = true;
 $(document).ready(function(){
 	// popover
     $("#login-popover")
-      .popover({  
+      .popover({
       	html: true,
         content: function(e) {
         	parent = document.getElementById('user-login-form');
@@ -28,5 +28,5 @@ $(document).ready(function(){
     	popover_just_added = false;
         e.preventDefault()
       })
-      
+
 });
