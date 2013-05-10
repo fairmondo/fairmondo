@@ -59,11 +59,13 @@ class AuctionTemplatesController < InheritedResources::Base
     #At least try to save the images -> not persisted in browser
     if @auction
       @auction.images.each do |image|
-        if image.image
+        ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
+        ## If the image removal is ever needed, comment it back in. AuctionsController doesn't use it either. -KK
+        # if image.image
           image.save
-        else
-          @auction.images.remove image
-        end
+        # else
+        #   @auction.images.remove image
+        # end
       end
     end
   end

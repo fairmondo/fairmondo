@@ -49,7 +49,7 @@ describe AuctionTemplatesController do
 
       it "assigns a newly created auction_template as @auction_template" do
         post :create, {:auction_template => valid_attributes}
-        assigns(:auction_template).should be_a(AuctionTemplate)
+        assigns(:auction_template).should be_an AuctionTemplate
         assigns(:auction_template).should be_persisted
       end
 
