@@ -15,7 +15,7 @@ module Auction::Categories
     }
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
 
-     # returns all auctions with category_id == nil
+    # returns all auctions with category_id == nil
     scope :with_exact_category_id, lambda {|category_id = nil|
       return Auction.scoped unless category_id.present?
       joins(:auctions_categories).where(:auctions_categories => {:category_id => category_id})

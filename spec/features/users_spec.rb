@@ -16,9 +16,9 @@ describe 'User management' do
         visit new_user_registration_path
       end
       expect {
-        fill_in 'Nickname', with: 'nickname'
-        fill_in 'Email', with:    'email@example.com'
-        fill_in 'user_password', with: 'password'
+        fill_in 'user_nickname',              with: 'nickname'
+        fill_in 'user_email',                 with: 'email@example.com'
+        fill_in 'user_password',              with: 'password'
         fill_in 'user_password_confirmation', with: 'password'
         choose 'user_type_legalentity'
         check 'user_legal'
@@ -39,7 +39,7 @@ describe 'User management' do
 
     it 'should show the dashboard' do
       visit users_path
-      page.should have_content("Profile")
+      page.should have_content I18n.t("common.text.profile")
     end
 
     it 'should not show the link to community' do

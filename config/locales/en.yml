@@ -62,7 +62,7 @@ en:
 # Devise
   devise:
     captcha:
-      error: "There was an error with the recaptcha code below. Please re-enter the code." 
+      error: "There was an error with the recaptcha code below. Please re-enter the code."
     links:
       sign_in: "Sign in"
       sign_up: "Sign up"
@@ -105,15 +105,15 @@ en:
       mobile: "Mobile number"
       fax: "Fax"
       about_me: "About me"
-# Formtastic     
-  formtastic: 
+# Formtastic
+  formtastic:
     labels:
       user:
         agecheck: "I am at least 18 years old."
         privacy: "accept data privacy agreement"
         legal: "accept TOS agreement"
         password: "Password"
-# Login 
+# Login
     actions:
       login: "Login"
     labels:
@@ -146,7 +146,7 @@ en:
       stop_following: "Stop following"
       followers: "Followers"
       followers_info: "People who follow me"
-      following_info: "Things and People I follow"  
+      following_info: "Things and People I follow"
     founder: "Founder"
 # Auction Model/Controller
   auction:
@@ -155,7 +155,7 @@ en:
       filter: "Filter by"
       category: "Select category"
       remove_filter: " Remove condition filter"
-    form: 
+    form:
       head: "This is the form you have to fill for creating an auction."
       category: "Select a category for your Product"
       details: "Select product details"
@@ -188,8 +188,8 @@ en:
       title: "Upload an image"
       upload: "Upload"
     titles:
-      new: "New Auction"  
-      edit: "Editing auction"  
+      new: "New Auction"
+      edit: "Editing auction"
     actions:
       profile: "View seller"
       report: "Report auction"
@@ -219,7 +219,7 @@ en:
     menu:
       edit: "Edit Profile"
       community: "TrustCommunity"
- 
+
     auction:
       create: "Auction was created"
       update: "Auction was updated"
@@ -268,9 +268,9 @@ en:
       confirm: "Invitation Confirmation"
     invitated: "You have been invitated from"
     notices:
-      confirmation: "The invitation has been confirmed. An Account has been created with the following data. 
-                      The password will be sent by e-mail. 
-                      You can change the account settings after you logged-in!"  
+      confirmation: "The invitation has been confirmed. An Account has been created with the following data.
+                      The password will be sent by e-mail.
+                      You can change the account settings after you logged-in!"
       create: "Einladung wurde versendet"
       not_available: "Einladung nicht verfügbar"
       activation_error: "Activation failed."
@@ -282,7 +282,7 @@ en:
         data: "Was passiert mit diesen Daten?"
         problems: "Was passiert, wenn Probleme mit
                   einer Person auftreten, die ich
-                  eingeladen habe?"  
+                  eingeladen habe?"
       important: "Lade nur Personen ein,
                 von denen Du sicher
                 bist, dass sie fair mit
@@ -328,9 +328,9 @@ en:
 # Errors
   errors: &errors
     messages:
-      at_least_one_entry: at least one option has to be selected 
+      at_least_one_entry: at least one option has to be selected
       minimum_entries: at least %{count} options need to be selected
-      maximum_entries: not more than %{count} options can be selected 
+      maximum_entries: not more than %{count} options can be selected
       minimum_categories: at least one option has to be selected
       maximum_categories: not more than 2 options can be selected
   activemodel:
@@ -338,4 +338,4 @@ en:
       <<: *errors
   activerecord:
     errors:
-      <<: *errors      
+      <<: *errors

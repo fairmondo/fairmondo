@@ -52,7 +52,13 @@ Spork.prefork do
     # config.mock_with :flexmock
     # config.mock_with :rr
 
-
+    # Add the "visual" tag to a test that uses save_and_open_page.
+    # This will give you the corresponding css and js
+    if config.inclusion_filter[:visual]
+      config.before (scope = :suite) do
+        %x[bundle exec rake assets:precompile]
+      end
+    end
 
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
