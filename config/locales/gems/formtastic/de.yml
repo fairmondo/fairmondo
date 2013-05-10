@@ -8,7 +8,7 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
-      user: 
+      user:
         legal_entity: Rechtlicher Status
         nickname: Nutzername
         email: E-mail Adresse
@@ -37,7 +37,7 @@ de:
         bank_account_number: Kontonummer
         bank_account_owner: Kontoinhaber
         paypal_account: Paypal-Konto
-     
+
       auction:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -51,12 +51,12 @@ de:
 
         ecologic: Öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
-        upcycling_reason: Bitte erläutere, warum Dein Artikel unter Upcycling fällt.
+        upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
 
         fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
-        small_and_precious: Klein&Edel
+        small_and_precious: "Klein &amp; Edel"
         small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
@@ -92,7 +92,7 @@ de:
         quantity: "Anzahl (verfügbar)"
         price: "Preis in €"
         price_currency: "Währung"
-        
+
         transport_pickup: Selbstabholung
         transport_insured: Versichert
         transport_insured_provider: Versandart
@@ -100,7 +100,7 @@ de:
         transport_uninsured: Unversichert
         transport_uninsured_provider: Versandart
         transport_uninsured_price: Versandkosten (€)
-        
+
         default_transport: "Standardversand"
         transport_details: "Weitere Angaben:"
 
@@ -113,10 +113,10 @@ de:
 
         default_payment: "Standardbezahlmethode"
         payment_details: "Weitere Angaben:"
-        
+
         basic_price: "Grundpreis (€)"
         basic_price_amount: "Mengeneinheit"
-        
+
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"

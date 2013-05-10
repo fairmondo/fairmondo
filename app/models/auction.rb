@@ -25,11 +25,11 @@ class Auction < ActiveRecord::Base
 
   # see #128
   belongs_to :auction_template
-  
+
    #auction module concerns
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
-  
-  # without parameter or 'true' returns all auctions with a user_id, else only 
+
+  # without parameter or 'true' returns all auctions with a user_id, else only
   # the auctions with the specified user_id
   scope :with_user_id, lambda{|user_id = true|
     if user_id == true
@@ -51,7 +51,7 @@ class Auction < ActiveRecord::Base
   end
 
 
-  def seller_attributes=(seller_attrs)    
+  def seller_attributes=(seller_attrs)
     self.seller = User.find(seller_attrs.delete(:id))
     rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
     if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array

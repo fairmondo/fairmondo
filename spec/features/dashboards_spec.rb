@@ -25,13 +25,13 @@ describe 'Dashboard' do
     end
 
     it 'Buy link shows the Buy page' do
-      click_link 'Buy'
-      page.should have_content("New")
+      click_link I18n.t('common.text.buy')
+      page.should have_content I18n.t('enumerize.auction.condition.new')
     end
 
     it 'Sell link shows the Sell page' do
-      click_link 'Sell'
-      page.should have_content("Title")
+      click_link I18n.t('common.text.sell')
+      page.should have_content I18n.t('formtastic.labels.auction.title')
     end
 
  #   it 'Community link is invisible for not invited users' do
@@ -39,7 +39,7 @@ describe 'Dashboard' do
  #   end
 
     it 'Profile link shows the profile page' do
-      click_link 'Profile'
+      click_link I18n.t('common.text.profile')
       page.should have_content("Sammlungen")
     end
 
@@ -76,7 +76,7 @@ describe 'Dashboard' do
 
     it 'Admin link shows the Admin page' do
       click_link 'Admin'
-       page.should have_content('Dashboard')
+      page.should have_content I18n.t('admin.actions.dashboard.title')
     end
   end
 end

@@ -77,22 +77,22 @@ de:
         invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International
-      
+
     social_producer_questionnaire:
       nonprofit_association_purposes:
         youth_and_elderly: Förderung der Jugend- und Altenhilfe
         art_and_culture: Förderung von Kunst und Kultur
         national_and_vocational_training: Förderung der Erziehung, Volks- und Berufsbildung
-        natural_protection: Förderung des Naturschutzes und der Landschaftspflege im Sinne des Bundesnaturschutzgesetzes und der Naturschutzgesetze der Länder, des Umweltschutzes, des Küstenschutzes und des Hochwasserschutzes      
-        charity: Förderung des Wohlfahrtswesens, insbesondere der Zwecke der amtlich anerkannten Verbände der freien Wohlfahrtspflege, ihrer Unterverbände und ihrer angeschlossenen Einrichtungen und Anstalten      
-        persecuted_minorities_and_victims_of_persecution: Förderung der Hilfe für politisch, rassisch oder religiös Verfolgte, für Flüchtlinge, Vertriebene,  Aussiedler, Spätaussiedler, Kriegsopfer, Kriegshinterbliebene, Kriegsbeschädigte und Kriegsgefangene, Zivilbeschädigte und Behinderte sowie Hilfe für Opfer von Straftaten; Förderung des Andenkens an Verfolgte, Kriegs- und Katastrophenopfer; Förderung des Suchdienstes für Vermisste      
+        natural_protection: Förderung des Naturschutzes und der Landschaftspflege im Sinne des Bundesnaturschutzgesetzes und der Naturschutzgesetze der Länder, des Umweltschutzes, des Küstenschutzes und des Hochwasserschutzes
+        charity: Förderung des Wohlfahrtswesens, insbesondere der Zwecke der amtlich anerkannten Verbände der freien Wohlfahrtspflege, ihrer Unterverbände und ihrer angeschlossenen Einrichtungen und Anstalten
+        persecuted_minorities_and_victims_of_persecution: Förderung der Hilfe für politisch, rassisch oder religiös Verfolgte, für Flüchtlinge, Vertriebene,  Aussiedler, Spätaussiedler, Kriegsopfer, Kriegshinterbliebene, Kriegsbeschädigte und Kriegsgefangene, Zivilbeschädigte und Behinderte sowie Hilfe für Opfer von Straftaten; Förderung des Andenkens an Verfolgte, Kriegs- und Katastrophenopfer; Förderung des Suchdienstes für Vermisste
         international_tolerance: Förderung internationaler Gesinnung, der Toleranz auf allen Gebieten der Kultur und des Völkerverständigungsgedankens
         animal_protection: Förderung des Tierschutzes
         development_cooperation: Förderung der Entwicklungszusammenarbeit
         consumer_protection: Förderung von Verbraucherberatung und Verbraucherschutz
         convicts_and_ex_convicts: Förderung der Fürsorge für Strafgefangene und ehemalige Strafgefangene
         sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
-        democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind      
+        democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind
       social_businesses_muhammad_yunus_purposes:
         social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
         dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
@@ -106,4 +106,3 @@ de:
         generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
         potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
         social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
-     

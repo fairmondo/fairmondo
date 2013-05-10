@@ -58,14 +58,13 @@ class AuctionTemplatesController < InheritedResources::Base
   def save_images
     #At least try to save the images -> not persisted in browser
     if @auction
-
-        @auction.images.each do |image|
-          if image.image
-            image.save
-          else
-            @auction.images.remove image
-          end
+      @auction.images.each do |image|
+        if image.image
+          image.save
+        else
+          @auction.images.remove image
         end
+      end
     end
   end
 

@@ -179,7 +179,6 @@ describe AuctionsController do
       end
 
       it "should create an image for the auction" do
-
         @auction = FactoryGirl.create(:auction)
         sign_in @auction.seller
         get :show, id: @auction
@@ -314,9 +313,15 @@ describe AuctionsController do
         response.should render_template :new
         response.response_code.should == 200
       end
-      
+
+      it "should remove invalid images" do
+        lambda do
+          post :create, :auction => @auction_attrs.merge(images_attributes: [])
+        end.should change(Auction.unscoped, :count).by 1
+      end
+
     end
-    
+
     describe "nesting user forms" do
 
       before :each do
@@ -326,12 +331,12 @@ describe AuctionsController do
         @auction_attrs[:payment_bank_transfer] = true
 
       end
-      
+
       it "should update the users bank info" do
         lambda do
           post :create, :auction => @auction_attrs
         end.should change(Auction.unscoped, :count).by(1)
-        
+
         @user.reload
         @user.bank_code.should eq @auction_attrs[:seller_attributes][:bank_code]
       end
@@ -341,22 +346,22 @@ describe AuctionsController do
          begin
           @auction_attrs[:seller_attributes][:nickname] = Faker::Internet.user_name
         end while @auction_attrs[:seller_attributes][:nickname] == @user.nickname
-        
+
         lambda do
           post :create, :auction => @auction_attrs
-          
+
         end.should raise_error(SecurityError)
-     
+
         @user.reload
         @user.nickname.should_not eq @auction_attrs[:seller_attributes][:nickname]
-        
+
       end
 
-     
-      
+
+
     end
-    
-    
+
+
   end
 
 

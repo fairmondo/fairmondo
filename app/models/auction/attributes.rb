@@ -17,23 +17,23 @@ module Auction::Attributes
 
 
     #payment
-    attr_accessible :default_payment ,:payment_details , 
+    attr_accessible :default_payment ,:payment_details ,
                     :payment_bank_transfer,
-                    :payment_cash, 
+                    :payment_cash,
                     :payment_paypal,
-                    :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents, 
+                    :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
                     :payment_invoice,
                     :seller_attributes
-           
+
 
     # basic price
     attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
-    
+
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
-    
+
     validates_presence_of :basic_price, :if => :is_LegalEntity
     validates_presence_of :basic_price_amount, :if => :is_LegalEntity
-    
+
 
     monetize :basic_price_cents, :allow_nil => true
 
@@ -56,9 +56,9 @@ module Auction::Attributes
 
     monetize :price_cents
 
-    
+
     # =========== Transport =============
-   
+
 
     enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
 
@@ -66,44 +66,44 @@ module Auction::Attributes
     validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
     validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
 
-  
+
     monetize :transport_uninsured_price_cents, :allow_nil => true
     monetize :transport_insured_price_cents, :allow_nil => true
-    
+
     validate :default_transport_selected
-    
+
 
     # ================ Payment ====================
-   
+
     enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
-    
+
     validates_presence_of :default_payment
-    
+
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
-    
+
     accepts_nested_attributes_for :seller , :update_only => true
-    
+
     before_validation :set_sellers_nested_validations
-    
+
     monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
 
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-    
+
     validate :default_payment_selected
-    
+
   end
-  
- 
-  
+
+
+
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal
 
   end
 
-  
+
   def is_LegalEntity
     self.seller.is_a?(LegalEntity)
   end
@@ -115,7 +115,7 @@ module Auction::Attributes
       end
     end
   end
-  
+
   def default_payment_selected
     if self.default_payment
       unless self.send("payment_#{self.default_payment}")
@@ -124,7 +124,7 @@ module Auction::Attributes
     end
   end
 
-  
- 
+
+
 
 end

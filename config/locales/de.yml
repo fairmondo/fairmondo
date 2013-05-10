@@ -8,8 +8,8 @@ de:
     brand: "fairnopoly.de"
     fairnopoly: "Fairnopoly"
     fn_footer_greeting: "Dein Fairnopoly-Team"
-    fn_legal_footer: "-- Diese Nachricht wurde von Fairnopoly,  https://beta.fairnopoly.de/, gesendet. 
-                      Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab, 
+    fn_legal_footer: "-- Diese Nachricht wurde von Fairnopoly,  https://beta.fairnopoly.de/, gesendet.
+                      Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab,
                       Erkelenzdamm 59-61, Portal 1, 3. Stock, 10999 Berlin"
     actions:
       continue: "Weiter"
@@ -59,19 +59,19 @@ de:
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
-      
+
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
     fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
-    
+
   template_select:
     notices:
       applied: "Die Vorlage %{name} wurde erfolgreich übernommen"
     prompts:
       auction_templates: "Bitte wähle eine Vorlage"
     errors:
-      auction_template_missing: "Bitte wähle eine Vorlage" 
+      auction_template_missing: "Bitte wähle eine Vorlage"
 
 
   tinycms:
@@ -79,7 +79,7 @@ de:
       new: "Inhalte verwalten"
       not_exists: "Die Seite '/%{url}' existiert noch nicht"
       may_be_created: "Hier kannst Du sie erstellen"
-      
+
   meta_tags:
     description: "Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen"
     keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"

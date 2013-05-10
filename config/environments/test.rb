@@ -1,10 +1,6 @@
 Fairnopoly::Application.configure do
 # Settings specified here will take precedence over those in config/application.rb
 
-  # English should be the default test language
-  config.i18n.default_locale = :en
-  I18n.locale = config.i18n.locale = config.i18n.default_locale
-
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
@@ -39,4 +35,12 @@ Fairnopoly::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # German should be the default test language
+  config.i18n.default_locale = :de
+  I18n.locale = config.i18n.locale = config.i18n.default_locale
+
+  # Assets for save_and_open_page
+  config.assets.prefix = "assets_test"    # place test assets in public/assets_test directory
+  config.action_controller.asset_host = "file://#{::Rails.root}/public"
 end

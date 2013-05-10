@@ -77,7 +77,7 @@ class AuctionsController < InheritedResources::Base
         end
       end
     end
-    
+
     show!
   end
 
@@ -129,7 +129,6 @@ class AuctionsController < InheritedResources::Base
 
   def create # Still needs Refactoring
     @auction = current_user.auctions.build(params[:auction])
-    
 
     authorize @auction
 

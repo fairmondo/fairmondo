@@ -11,7 +11,7 @@ config/initializers/secret_token.rb
 # Autotest configuration file
 .autotest
 
-#Respec 
+#Respec
 .respec_failures
 
 # Ignore all logfiles and tempfiles
@@ -37,3 +37,7 @@ solr/pids/**/*
 
 #ER-Diagram
 erd.pdf
+
+# Precompiled assets
+public/assets/**/*
+public/assets_test/**/*

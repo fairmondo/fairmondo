@@ -29,7 +29,7 @@ describe 'ActiveAdminPages' do
     end
 
     it 'gets redirected to Admin Dashboard' do
-      page.should have_content('Dashboard')
+      page.should have_content('Administration')
     end
 
   end
