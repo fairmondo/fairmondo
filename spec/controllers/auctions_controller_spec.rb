@@ -314,12 +314,6 @@ describe AuctionsController do
         response.response_code.should == 200
       end
 
-      it "should remove invalid images" do
-        lambda do
-          post :create, :auction => @auction_attrs.merge(images_attributes: [])
-        end.should change(Auction.unscoped, :count).by 1
-      end
-
     end
 
     describe "nesting user forms" do
