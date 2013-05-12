@@ -5,7 +5,7 @@
     #dashboard-middle.span9
       #dashboard-events
         - if @user.about_me && !@user.about_me.empty?
-          %div{:class => "well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+          %div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
             = @user.about_me.html_safe
             .clearfix
           - if params[:full_about]

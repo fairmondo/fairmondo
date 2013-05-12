@@ -1,6 +1,6 @@
 = render_box "offers", :content_class => "padding-box" do
   - if !@offers || @offers.empty?
-    .well
+    .fairnopoly-well
       %strong= t('users.text.no_offers')
   - else
     = render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @offers, :list_class=>"span3"}

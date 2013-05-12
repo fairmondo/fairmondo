@@ -6,10 +6,6 @@ module ApplicationHelper
     "<i class=\"" + name + "\"></i>".html_safe
   end
 
-  def glyphicons_inv(name)
-    "<i class=\"" + name + " icon-white\"></i>".html_safe
-  end
-
   ### Others ###
 
   def params_without key
