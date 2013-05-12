@@ -55,6 +55,19 @@ If the automated script doesn't work for you, try going through these steps one 
 * start rails and have fun
     rails s
 
+=== Known Issues
+* If you have some error like 
+   ...
+   rake aborted!
+   Could not find pg-0.15.1 in any of the sources
+   ...
+
+  Install the Postgres Library:
+
+   sudo apt-get install libpq-dev
+
+  Run Bundler
+   bundle install
 
 === Testing
 
