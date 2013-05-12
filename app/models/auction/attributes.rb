@@ -41,8 +41,8 @@ module Auction::Attributes
     attr_protected :locked, :active
 
     #money_rails
-    attr_accessible :price_cents , :currency, :price
-
+    attr_accessible :price_cents , :currency, :price, :vat # vat = value added tax. #235
+    
     validates_presence_of :title , :content, :unless => :template? # refs #128
     validates_length_of :title, :minimum => 6, :maximum => 65
 
