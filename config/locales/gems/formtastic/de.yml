@@ -90,8 +90,11 @@ de:
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
-        price: "Preis in €"
+        price: "Verkaufspreis in €"
         price_currency: "Währung"
+        
+        vat: "Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von"
+        vat2: "Inkl. Mehrwertsteuer" 
         
         transport_pickup: Selbstabholung
         transport_insured: Versichert
@@ -194,6 +197,8 @@ de:
 
         basic_price: Trage hier den Grundpreis pro Artikel ein.
         basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.
+        
+        vat: Gebe hier die im Preis enthaltene Mehrwertsteuer an. # refs #235
 
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
