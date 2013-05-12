@@ -28,7 +28,7 @@ module Fairtastic
           
           template.content_tag(:div,
           step_heading_html(step_key, options) << block_content,
-          :class => css, :id => "#{step_key}_step"
+          :class => css, :id => "#{step_key}_step", :onclick => "changeBox(this)"
           )
           
         end
@@ -54,7 +54,7 @@ module Fairtastic
           template.content_tag(:a,
           template.content_tag(:h3,
           "" << prefix << (localized_string(step_key, object, "input_steps") || "")
-          ), :href => "##{step_key}_step"
+          ), :id => "link#{step_key}_step", :href => "##{step_key}_step"
           )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
         end

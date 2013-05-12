@@ -1,0 +1,4 @@
+- if auction.seller.is_a?(LegalEntity) && auction.seller.country == "Deutschland"
+  %p
+    %span.pull-right= auction.vat + "%"
+    = t('formtastic.labels.auction.vat2') 

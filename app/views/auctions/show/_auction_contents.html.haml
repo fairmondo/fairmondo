@@ -37,6 +37,10 @@
         %b
           %span.pull-right= humanized_money_with_symbol @auction.price
           = t('formtastic.labels.auction.price')
+      - if @auction.seller.is_a?(LegalEntity) && @auction.seller.country == "Deutschland"
+        %p
+          %span.pull-right= @auction.vat + "%"
+          = t('formtastic.labels.auction.vat2')
       - if @auction.quantity && @auction.quantity != ""
         %p
           %span.pull-right= @auction.quantity
