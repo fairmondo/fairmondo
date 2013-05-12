@@ -38,9 +38,8 @@ gem "formtastic-bootstrap", "2.0.0"
 
 
 # CSS
-gem 'less-rails';
-#gem 'less-rails-bootstrap'
-#gem 'formtastic-bootstrap'
+gem 'sass-rails', '~> 3.2'
+gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'bootstrap-will_paginate'
 
 gem "font-awesome-rails"
@@ -100,7 +99,6 @@ gem 'faker'
 
 #Rails Adminrails
 gem 'rails_admin'
-gem "bootstrap-sass", "2.3.1.0" # http://stackoverflow.com/questions/16323273/could-not-find-bootstrap-sass-2-3-1-1-in-any-of-the-sources-on-heroku-push
 
 # CMS Gem
 gem 'tinycms', :path => "gems/tinycms"

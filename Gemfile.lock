@@ -86,7 +86,6 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     columnize (0.3.6)
-    commonjs (0.2.6)
     daemons (1.1.9)
     debugger (1.5.0)
       columnize (>= 0.3.1)
@@ -161,11 +160,6 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.3.0)
       addressable (~> 2.3)
-    less (2.3.2)
-      commonjs (~> 0.2.6)
-    less-rails (2.3.3)
-      actionpack (>= 3.1)
-      less (~> 2.3.1)
     libv8 (3.11.8.17)
     mail (2.5.3)
       i18n (>= 0.4.0)
@@ -279,7 +273,7 @@ GEM
     ruby_parser (3.1.3)
       sexp_processor (~> 4.1)
     safe_yaml (0.9.1)
-    sass (3.2.8)
+    sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -354,7 +348,7 @@ DEPENDENCIES
   activerecord-jdbcsqlite3-adapter
   autotest-fsevent
   awesome_nested_set
-  bootstrap-sass (= 2.3.1.0)
+  bootstrap-sass (~> 2.3.1.0)
   bootstrap-will_paginate
   brakeman
   capistrano
@@ -381,7 +375,6 @@ DEPENDENCIES
   jruby-openssl
   json
   launchy
-  less-rails
   modernizr-rails
   money-rails
   paperclip (>= 3.0)
@@ -393,6 +386,7 @@ DEPENDENCIES
   rails_admin
   recaptcha
   rspec-rails
+  sass-rails (~> 3.2)
   selectivizr-rails
   shoulda-matchers
   simplecov
