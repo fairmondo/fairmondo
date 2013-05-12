@@ -1,4 +1,4 @@
-.well
+.fairnopoly-well
   %h2= @user.nickname
   %h3= @user.title + " " + @user.forename + " " + @user.surname
   %p
@@ -30,19 +30,19 @@
     = t('formtastic.labels.user.mobile')
     \:
     %strong= @user.mobile
-.well
+.fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.terms')
       \:
   = raw @user.terms
-.well
+.fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.cancellation')
       \:
   = raw @user.cancellation
-.well
+.fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.about')

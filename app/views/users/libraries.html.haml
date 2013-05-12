@@ -1,6 +1,6 @@
 - if current_user.id == @user.id
   / Add a new library
-  .well
+  .fairnopoly-well
     %h3= t('library.new_title')
     = form_tag({:action => "new_library" ,:method => "post"} ,{:class =>  "form-inline" }) do
       %input{:name => "library_name"}/

@@ -1,5 +1,3 @@
-@import "common/colors.less";
-
 //
 // Variables
 // --------------------------------------------------
@@ -40,13 +38,13 @@
 
 // Links
 // -------------------------
-@linkColor:             @fairnopolyBlue;
+@linkColor:             #08c;
 @linkColorHover:        darken(@linkColor, 15%);
 
 
 // Typography
 // -------------------------
-@sansFontFamily:        "Trebuchet MS", Tahoma, Arial, sans-serif;
+@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 @serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
@@ -73,22 +71,22 @@
 @btnBorder:                         #bbb;
 
 @btnPrimaryBackground:              @linkColor;
-@btnPrimaryBackgroundHighlight:     darken(@btnPrimaryBackground, 5%);
+@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
 
 @btnInfoBackground:                 #5bc0de;
 @btnInfoBackgroundHighlight:        #2f96b4;
 
-@btnSuccessBackground:              @fairnopolyGreen;
-@btnSuccessBackgroundHighlight:     darken(@fairnopolyGreen, 5%);
+@btnSuccessBackground:              #62c462;
+@btnSuccessBackgroundHighlight:     #51a351;
 
 @btnWarningBackground:              lighten(@orange, 15%);
 @btnWarningBackgroundHighlight:     @orange;
 
-@btnDangerBackground:               @fairnopolyRed;
-@btnDangerBackgroundHighlight:      darken(@fairnopolyRed, 5%);
+@btnDangerBackground:               #ee5f5b;
+@btnDangerBackgroundHighlight:      #bd362f;
 
-@btnInverseBackground:              @fairnopolyDarkBrown;
-@btnInverseBackgroundHighlight:     darken(@fairnopolyDarkBrown, 5%);
+@btnInverseBackground:              #444;
+@btnInverseBackgroundHighlight:     @grayDarker;
 
 
 // Forms
@@ -132,8 +130,8 @@
 
 // Sprite icons path
 // -------------------------
-@iconSpritePath:          "glyphicons-halflings.png";
-@iconWhiteSpritePath:     "glyphicons-halflings-white.png";
+@iconSpritePath:          "../img/glyphicons-halflings.png";
+@iconWhiteSpritePath:     "../img/glyphicons-halflings-white.png";
 
 
 // Input placeholder text color
@@ -153,7 +151,7 @@
 
 // Wells
 // -------------------------
-@wellBackground:                  #f3f3f3;
+@wellBackground:                  #f5f5f5;
 
 
 // Navbar

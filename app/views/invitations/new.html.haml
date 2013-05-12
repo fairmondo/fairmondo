@@ -1,6 +1,6 @@
 .row
   .span12
-    .well
+    .fairnopoly-well
       .span3
         = link_to (raw glyphicons("icon-chevron-left")) +" "+ t('common.actions.back'), :back , :class => "btn"
       %h1= t('invitation.titles.new')
@@ -8,7 +8,7 @@
       %h3= t('invitation.intro')
       %h3= t('invitation.intro2')
   .span6
-    .well
+    .fairnopoly-well
       - if !@user
         = render 'form'
       - else
@@ -21,14 +21,14 @@
       %br/
       %p
         = t('invitation.notices.important')
-    .well
+    .fairnopoly-well
       %strong
         %i.icon-question-sign
         = t('invitation.notices.header.data')
       %br/
       %p
         = t('invitation.notices.data')
-    .well
+    .fairnopoly-well
       %strong
         %i.icon-question-sign
         = t('invitation.notices.header.problems')

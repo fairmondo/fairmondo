@@ -1,5 +1,5 @@
 - if policy(@library).create?
-  .well
+  .fairnopoly-well
     %h3= t('library.new')
     = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-inline"}) do |f|
       = f.input :name
@@ -9,7 +9,7 @@
   - unless library.new_record?
     = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do
       - if policy(library).update? || policy(library).destroy?
-        .well
+        .fairnopoly-well
           - if library.public?
             %i.icon-globe.icon-large
             = t 'library.visibility.public'
@@ -33,7 +33,7 @@
                 = f.action :submit, :label => :update
 
       - if library.library_elements.empty?
-        .well
+        .fairnopoly-well
           = t('library.no_products')
       - else
         %ul.thumbnails

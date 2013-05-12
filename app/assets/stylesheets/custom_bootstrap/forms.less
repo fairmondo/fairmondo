@@ -8,7 +8,7 @@
 
 // Make all forms have space below them
 form {
-  margin: 0 0 0;
+  margin: 0 0 @baseLineHeight;
 }
 
 fieldset {
@@ -126,7 +126,7 @@ input[type="color"],
     border-color: rgba(82,168,236,.8);
     outline: 0;
     outline: thin dotted \9; /* IE6-9 */
-    .box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0,0,0,.1));
+    .box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6));
   }
 }
 
@@ -374,11 +374,11 @@ select:focus:required:invalid {
 // ------------
 
 .form-actions {
-  //padding: (@baseLineHeight - 1) 20px @baseLineHeight;
+  padding: (@baseLineHeight - 1) 20px @baseLineHeight;
   margin-top: @baseLineHeight;
   margin-bottom: @baseLineHeight;
-  //background-color: @formActionsBackground;
-  //border-top: 1px solid #e5e5e5;
+  background-color: @formActionsBackground;
+  border-top: 1px solid #e5e5e5;
   .clearfix(); // Adding clearfix to allow for .pull-right button containers
 }
 
