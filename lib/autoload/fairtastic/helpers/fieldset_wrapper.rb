@@ -41,7 +41,7 @@ module Fairtastic
           legend << template.content_tag(:span, Formtastic::Util.html_safe(html_options[:hint]), :class => 'help-block')
         end
         legend << tooltip_html(html_options[:tooltip])
-        legend = template.content_tag(:h4, template.content_tag(:span, Formtastic::Util.html_safe(legend))) unless legend.blank?
+        legend = template.content_tag(:div, template.content_tag(:span, Formtastic::Util.html_safe(legend))) unless legend.blank?
         legend
       end
 

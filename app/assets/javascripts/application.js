@@ -1,11 +1,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require modernizr
+//= require selectivizr
 //= require tinymce
 //= require tinymce-jquery
 //= require bootstrap
-//= require selectivizr
-//= require modernizr
 //= require jquery.complexify
 //= require jquery.hashchange
 //= require jquery.socialshareprivacy
