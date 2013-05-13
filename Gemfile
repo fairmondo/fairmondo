@@ -34,8 +34,7 @@ end
 # Forms & Upload
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
-gem 'formtastic-bootstrap'
-
+gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
 # CSS
 gem 'sass-rails', '~> 3.2'
@@ -56,14 +55,15 @@ gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
 gem 'will_paginate'
-
+gem 'money-rails' # Deal with Money
+gem 'state_machine' # State Machines in Rails
+gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
+gem 'awesome_nested_set' # tree structure for categories
+#gem "acts_as_follower" # Follow Users and Auctions not used for the moment
 
 # Indexing /Searching
 gem 'sunspot_rails'
 gem 'progress_bar'
-
-# Friendly_id for beautiful links
-gem "friendly_id", ">= 4.0.9"
 
 # Delayed_Jobs & Daemons
 gem "daemons"
@@ -75,23 +75,11 @@ gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
 gem "pundit" # authorization
 
-#Captcha Gem
-gem "recaptcha", :require => "recaptcha/rails"
+
 
 # Deploy with Capistrano
 gem 'capistrano'
 
-# Deal with Money
-gem 'money-rails'
-
-# State Machines in Rails
-gem 'state_machine'
-
-# Follow Users and Auctions
-#gem "acts_as_follower" #not used for the moment
-
-# tree structure for categories
-gem 'awesome_nested_set'
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'
@@ -100,7 +88,7 @@ gem 'faker'
 #Rails Adminrails
 gem 'rails_admin'
 
-# CMS Gem
+# Integrated gems
 gem 'tinycms', :path => "gems/tinycms"
 
 # Gems used only for assets and not required

@@ -128,9 +128,6 @@ GEM
       sass-rails (>= 3.1.1)
     formtastic (2.2.1)
       actionpack (>= 3.0)
-    formtastic-bootstrap (2.0.0)
-      formtastic (~> 2.2)
-      formtastic-bootstrap
     formtastic-plus-bootstrap (1.1.7)
       bootstrap-sass (~> 2.3)
       formtastic (~> 2.2)
@@ -369,7 +366,6 @@ DEPENDENCIES
   faker
   font-awesome-rails
   formtastic
-  formtastic-bootstrap
   formtastic-plus-bootstrap
   friendly_id (>= 4.0.9)
   haml

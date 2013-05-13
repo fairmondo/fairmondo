@@ -9,9 +9,9 @@
  * Bootstrap Imports
  * -----------------
  */
-
-@import "bootstrap-without-forms";
 @import "gems/bootstrap_variables";
+@import "bootstrap-without-forms";
+
 @import "formtastic-plus-bootstrap";
 
 /*
@@ -24,12 +24,18 @@
    Bootstrap Addons
  */
 
-// Jquery UI 4 Autocompletion
-@import "gems/jquery-ui-bootstrap";
+
+@import "gems/jquery-ui-bootstrap"; // Jquery UI 4 Autocompletion
 @import "font-awesome";
 @import "bootstrap-responsive";
 @import "formtastic-plus-bootstrap/responsive";
 
+/*
+ * Fixes & Addons for formtastic
+ */
+
+@import "gems/formtastic_fixes";
+@import "gems/formtastic_layouts";
 
 /* 
  * Imports - Common
@@ -46,12 +52,11 @@
 @import "common/responsive-thumbnails";
 
 /* 
+ * Inputs
  * ------------------
  */
 
 
-
-@import "inputs/formtastic_fixes";
 @import "inputs/check_box_tree";
 @import "inputs/plain_check_boxes";
 @import "inputs/plain_radio_buttons";

@@ -52,13 +52,14 @@
       = render :partial=>'/shared/show_auction_basic_price', :locals=>{ :auction=> @auction}
       - if @auction.active && current_user && current_user.id != @auction.seller.id
         %p
-          %a.btn.btn-primary.btn-fill
+          %a.btn.btn-primary.btn-fill.hide
             = t('common.actions.buy')
         - if user_signed_in?
-          = semantic_form_for(@auction.library_elements.build,:html => {:class =>  "form-inline" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-            = f.input :auction_id, :as => :hidden
-            = f.submit t('common.actions.collect'), :class => "btn btn-fill btn-white"
+          = semantic_form_for(@auction.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+            = f.inputs do
+              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+              = f.input :auction_id, :as => :hidden
+            = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-white"
     
     - if @alternative.present?
       .span3.dark-gray-well.break-word

@@ -8,7 +8,7 @@
       %span.small-name= user.name
     - else
       %span.big-name= user.name
-  .border-box.small-margin-side
+  .border-box
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))
   .middle-margin
