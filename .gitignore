@@ -39,5 +39,5 @@ solr/pids/**/*
 erd.pdf
 
 # Precompiled assets
-public/assets/**/*
-public/assets_test/**/*
+public/assets/*
+public/assets_test/*
