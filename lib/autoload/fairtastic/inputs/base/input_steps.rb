@@ -60,7 +60,7 @@ module Fairtastic
           tooltip_text = options[:tooltip]
           tooltip_text = localized_string(method, nil, "tooltips") if options[:tooltip] == true
           if tooltip_text
-            template.content_tag(:a, "",:class => "input-tooltip", "data-content" => tooltip_text)
+            template.content_tag(:a, "",:class => "input-tooltip","data-html" => "true", "data-content" => tooltip_text)
           else
             ""
           end
