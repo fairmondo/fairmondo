@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
 
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for(resource_or_scope)
-
     if resource_or_scope.is_a?(User) && resource_or_scope.banned?
       sign_out resource_or_scope
+      flash.discard
       "/banned"
     else
       stored_location_for(resource_or_scope) || user_path(resource_or_scope)
