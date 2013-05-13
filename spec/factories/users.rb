@@ -11,7 +11,7 @@ FactoryGirl.define do
     legal       "1"
     agecheck    "1"
     recaptcha true
-    
+
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -34,17 +34,12 @@ FactoryGirl.define do
       zip "78123"
     end
 
-
     factory :private_user, class: 'PrivateUser' do
-     
     end
     factory :legal_entity, class: 'LegalEntity' do
-     
     end
-    
-
   end
-  
+
   #Only for attribute generation
   factory :nested_seller_update, class: PrivateUser do
     bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
@@ -54,5 +49,4 @@ FactoryGirl.define do
     #paypal_account Faker::Internet.email
   end
 
-  
 end
