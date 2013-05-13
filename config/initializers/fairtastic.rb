@@ -3,7 +3,7 @@ module Formtastic
     module Base
       module Html
         def tooltip
-          template.content_tag(:a, "",:class => "input-tooltip", "data-content" => tooltip_text.html_safe) if tooltip?
+          template.content_tag(:a, "",:class => "input-tooltip","data-html" => "true", "data-content" => tooltip_text.html_safe) if tooltip?
         end
 
         def tooltip?
