@@ -4,8 +4,7 @@ include Warden::Test::Helpers
 
 describe 'User management' do
 
-  describe "for non-signed-in users" do
-
+  context "for signed-out users" do
     it "should show a login button" do
       visit root_path
       page.should have_content("Login")
@@ -30,21 +29,22 @@ describe 'User management' do
     end
   end
 
-  describe "for signed-in users" do
-
+  context "for signed-in users" do
     before :each do
       @user = FactoryGirl.create(:user)
       login_as @user
     end
 
-    it 'should show the dashboard' do
-      visit users_path
-      page.should have_content I18n.t("common.text.profile")
-    end
+    describe "user show page" do
+      it 'should show the dashboard' do
+        visit users_path
+        page.should have_content I18n.t("common.text.profile")
+      end
 
-    it 'should not show the link to community' do
-      visit users_path
-      page.should_not have_content("TrustCommunity")
+      it 'should not show the link to community' do
+        visit users_path
+        page.should_not have_content("TrustCommunity")
+      end
     end
   end
 
