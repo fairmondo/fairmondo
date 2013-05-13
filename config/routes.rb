@@ -29,8 +29,7 @@ Fairnopoly::Application.routes.draw do
     resources :library_elements, :except => [:new, :edit]
     member do
       get 'sales'
-      get 'profile', as: :profile
-
+      get 'profile'
     end
     collection do
       get 'index' => 'users#show'

@@ -35,6 +35,21 @@ describe 'User management' do
       login_as @user
     end
 
+    describe "user profile page" do
+      it "should open" do
+        visit profile_user_path(@user)
+        page.status_code.should == 200
+      end
+    end
+
+    describe "sales page" do
+      it "should open" do
+        visit sales_user_path(@user)
+        page.status_code.should ==200
+      end
+    end
+
+  
     describe "user show page" do
       it 'should show the dashboard' do
         visit users_path
