@@ -131,6 +131,11 @@ GEM
     formtastic-bootstrap (2.0.0)
       formtastic (~> 2.2)
       formtastic-bootstrap
+    formtastic-plus-bootstrap (1.1.7)
+      bootstrap-sass (~> 2.3)
+      formtastic (~> 2.2)
+      railties (>= 3.1.0)
+      sass-rails
     friendly_id (4.0.9)
     haml (4.0.2)
       tilt
@@ -364,7 +369,8 @@ DEPENDENCIES
   faker
   font-awesome-rails
   formtastic
-  formtastic-bootstrap (= 2.0.0)
+  formtastic-bootstrap
+  formtastic-plus-bootstrap
   friendly_id (>= 4.0.9)
   haml
   html2haml

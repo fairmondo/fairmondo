@@ -1,18 +1,27 @@
-# I did not find a way to extend the bootstrap_wrapping by subclassing
-# because due to the heavy use of autoload we had to subclass all formtastic classes
-# like formtastic_bootstrap does.
-# TODO make this a ActiveRecord::Concern hook
-module FormtasticBootstrap
+module Formtastic
   module Inputs
+    module Base
+      module Html
+        def tooltip
+          template.content_tag(:a, "",:class => "input-tooltip", "data-content" => tooltip_text.html_safe) if tooltip?
+        end
 
-    Base.send(:include, Fairtastic::Inputs::Base::Tooltips)
+        def tooltip?
+          tooltip_text.present? && !tooltip_text.kind_of?(Hash)
+        end
 
-    Base.module_eval do
-
-      def controls_wrapping(&block)
-        template.content_tag(:div, (template.capture(&block) << tooltip_html).html_safe, controls_wrapper_html_options)
+        def tooltip_text
+          localized_string(method, options[:tooltip], :tooltip)
+        end
       end
-
+      module Wrapping
+        def input_wrapping(&block)
+          template.content_tag(:li,
+          [template.capture(&block), tooltip, error_html, hint_html].join("\n").html_safe,
+          wrapper_html_options
+          )
+        end
+      end
     end
   end
 end

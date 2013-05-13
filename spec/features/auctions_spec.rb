@@ -26,7 +26,7 @@ describe 'Auction management' do
           fill_in I18n.t('formtastic.labels.auction.title'), with: 'Auction title'
           check Category.root.name
           within("#auction_condition_input") do
-            choose I18n.t('enumerize.auction.condition.new')
+            choose "auction_condition_new"
           end
 
           if @user.is_a? LegalEntity
@@ -41,7 +41,7 @@ describe 'Auction management' do
           select I18n.t("enumerize.auction.default_payment.cash") , from: I18n.t('formtastic.labels.auction.default_payment')
           fill_in 'auction_payment_details', with: 'payment_details'
 
-          find(".double_check-step-inputs").find(".form-actions").find("input").click
+          find(".double_check-step-inputs").find(".action").find("input").click
         end.should change(Auction.unscoped, :count).by 1
       end
     end

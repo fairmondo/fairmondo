@@ -34,14 +34,14 @@ end
 # Forms & Upload
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
-gem "formtastic-bootstrap", "2.0.0"
+gem 'formtastic-bootstrap'
 
 
 # CSS
 gem 'sass-rails', '~> 3.2'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'bootstrap-will_paginate'
-
+gem "formtastic-plus-bootstrap"
 gem "font-awesome-rails"
 
 # JS

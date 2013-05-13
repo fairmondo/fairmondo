@@ -14,7 +14,7 @@ module Fairtastic
           else
             options[:class] = "#{step_key}-step-inputs"
           end
-          options[:class] << " white-well" unless options[:class].include?("white-well")
+          
           
           #evaluate the block before setting css class for errors
           block_content = inputs(options.except(:tooltip), &block)
@@ -27,7 +27,7 @@ module Fairtastic
           end
           
           template.content_tag(:div,
-          step_heading_html(step_key, options) << block_content,
+          step_heading_html(step_key, options) << template.content_tag(:div,block_content, :class => "white-well box-content" ),
           :class => css, :id => "#{step_key}_step"
           )
           
@@ -58,6 +58,16 @@ module Fairtastic
           )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
           )
         end
+        
+        def optional_tooltip_html(method, options = {})
+          tooltip_text = options[:tooltip]
+          tooltip_text = localized_string(method, nil, "tooltips") if options[:tooltip] == true
+          if tooltip_text
+            template.content_tag(:a, "",:class => "input-tooltip", "data-content" => tooltip_text) 
+          else
+            ""
+          end
+        end        
 
       end
     end

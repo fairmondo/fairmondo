@@ -1,9 +1,10 @@
-= semantic_form_for(User.new, :input_html => { :class => 'form-inline' } , :url => session_path(resource_name)) do |f|
+= semantic_form_for(User.new, :html => { :class => 'form-vertical form-fit' } , :url => session_path(resource_name)) do |f|
   = f.semantic_errors
   = f.inputs do
     = f.input :email
     = f.input :password
     - if devise_mapping.rememberable?
       = f.input :remember_me, :as => :boolean , :label => false
-  = f.action :submit, :button_html => {:class => "btn btn-primary"} , :label => :login
+  = f.actions do
+    = f.action :submit, :button_html => {:class => "btn btn-primary"} , :label => :login
   = render :partial => "/devise/links" , :locals => { :resource_name => :user , :devise_mapping => Devise.mappings[:user]}

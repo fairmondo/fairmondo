@@ -53,27 +53,27 @@
                 %span Fairnopoly
           .right-nav
             %ul#main-nav
-              %li#buy
+              %li#buy.main-nav-item 
                 = link_to t('common.text.buy'), auctions_path
-              %li#sell
+              %li#sell.main-nav-item 
                 = link_to t('common.text.sell'), new_auction_path
               /
-                %li#service
+                %li#service.main-nav-item 
                   %a
                     t('common.text.service')
               - if user_signed_in?
-                %li#logout
+                %li#logout.main-nav-item 
                   = link_to(t('common.actions.logout'), destroy_user_session_path )
-                %li#login
-                  = link_to t('common.text.profile'), user_path(current_user)
+                %li#login.main-nav-item 
+                  = link_to t('common.text.profile'), user_path(current_user) 
                 /
                   - if current_user.trustcommunity == true
-                    %li#community
+                    %li#community.main-nav-item 
                       t('common.text.community')
 
 
               - else
-                %li#login
+                %li#login.main-nav-item 
                   - if @login
                     #user-login-form.popover-hidden
                       = @login.html_safe

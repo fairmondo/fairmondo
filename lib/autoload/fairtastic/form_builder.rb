@@ -3,22 +3,44 @@
 # also see initializers/fairtastic.rb
 
 module Fairtastic
-  class FormBuilder < FormtasticBootstrap::FormBuilder
-
-    include Fairtastic::Helpers::FieldsetWrapper
+  class FormBuilder < Formtastic::FormBuilder
+    #include Fairtastic::Helpers::FieldsetWrapper
     include Fairtastic::Helpers::InputHelper
     include Fairtastic::Inputs::Base::InputSteps
     
+    def inputs(*args, &block)
+      super(*extended_fieldset_args(*args),&block)
+    end
+    
     def input_with_purpose(*args)
-      template.content_tag(:li,
-      input(*extended_radio_args(*args)) << input(*pupose_args(*args)),
+       template.content_tag(:li,
+      template.content_tag(:fieldset, 
+      template.content_tag(:ol,
+      input(*extended_radio_args(*args)) << input(*pupose_args(*args))),:class => "inputs"),
       :class => "questionnaire-entry"
       )
+      
+      
+    end
+    
+    def semantic_errors(*args)   
+      args.inject([]) do |array, method|
+          errors = Array(@object.errors[method.to_sym]).to_sentence
+          @input_step_with_errors ||=errors.present?
+      end
+      super
+      
     end
 
     def input_with_explanation(*args)
+     
+        
+    
       template.content_tag(:li,
-      input(*extended_radio_args(*args)) << input(*explanation_args(*args)),
+      template.content_tag(:fieldset, 
+      template.content_tag(:ol,
+       input(*extended_radio_args(*args)) <<
+         input(*explanation_args(*args))),:class => "inputs"),
       :class => "questionnaire-entry"
       )
     end
@@ -39,8 +61,18 @@ module Fairtastic
 
     def extended_radio_args(*args)
       options = args.extract_options!
-      options[:prepend_label] = true
       options[:as] ||= :plain_radio
+      options[:label] = true
+      args << options
+    end
+    
+    def extended_fieldset_args(*args)
+      options = args.extract_options!
+      if options[:class] 
+        options[:class] << " inputs"
+      else
+         options[:class] = "inputs"
+      end
       args << options
     end
 
