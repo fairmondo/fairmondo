@@ -65,9 +65,16 @@ describe Auction do
   describe "Auction::Attributes" do
     it "should throw an error if default_transport_selected isn't able to call the transport function" do
       auction.default_transport.should be_true
-      auction.stub(:send).and_return(false)
-      auction.default_transport_selected 
+      auction.stub(:send).and_return false
+      auction.default_transport_selected
       auction.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
+    end
+
+    it "should throw an error if default_payment_selected isn't able to call the payment function" do
+      auction.default_payment.should be_true
+      auction.stub(:send).and_return false
+      auction.default_payment_selected
+      auction.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
     end
   end
 
