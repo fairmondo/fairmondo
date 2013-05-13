@@ -1,6 +1,11 @@
 /*
  * Use the search box in hero
  */
+#search_inputs {
+  padding-top: 0px;
+  margin: 0px;
+  margin-left: -30px;
+}
 
 #search_box {
   float:left;
@@ -32,8 +37,5 @@
 }
 
 #search-box-filter {
-  padding-top:50px;
-  #auction_condition_input {
-    margin-left: 15px;
-  }
+  padding-top : 20px;
 }

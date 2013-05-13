@@ -48,16 +48,31 @@
     li {
       margin-right:10px;
       a {
-
-        padding-left: 31px;
-        padding-right: 8px;
-        background-repeat:no-repeat;
-        background-position: 3px center;
+        background-color: $white;
       }
-      &#dashboard-buy a {   background-image: url('small.png');}
-      &#dashboard-sell a {   background-image: url('small.png');}
-      &#dashboard-profile a {   background-image: url('small.png');}
-      &#dashboard-library a {   background-image: url('small.png');}
+      &#dashboard-buy a:before {   
+          font-family: FontAwesome;
+          content: '\f07a\00a0';  
+          color: $fairnopolyGreen;
+          }
+      &#dashboard-sell a:before {   
+          font-family: FontAwesome;
+          content: '\f02b\00a0'; 
+          color: $fairnopolyRed; 
+          }
+      &#dashboard-profile a:before {   
+          font-family: FontAwesome;
+          content: '\f007\00a0'; 
+          color: $fairnopolyBlue; 
+          }
+      &#dashboard-profile a:hover:before {
+        color: $white;
+      }
+      &#dashboard-library a:before {   
+          font-family: FontAwesome;
+          content: '\f005\00a0';  
+          color: $yellow;
+          }
     }
   }
   #hero-unfold {
@@ -103,8 +118,8 @@
 
   #dashboard-middle ul.nav {
     position: absolute;
-    bottom: 0px;
-    left: 120px;
+    bottom: 30px;
+    left: 180px;
 
   }
   @media (max-width: 767px) {

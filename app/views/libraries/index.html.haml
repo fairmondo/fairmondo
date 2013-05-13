@@ -1,10 +1,11 @@
 - if policy(@library).create?
   .fairnopoly-well
     %h3= t('library.new')
-    = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-inline"}) do |f|
-      = f.input :name
+    = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-vertical"}) do |f|
+      = f.inputs do 
+        = f.input :name
       = f.actions do
-        = f.submit t('library.create')
+        = f.action :submit , :value => t('library.create')
 - @libraries.each do |library|
   - unless library.new_record?
     = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do
@@ -26,9 +27,10 @@
                 %i.icon-trash
                 = t('common.actions.destroy')
           - if policy(library).update?
-            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "form-inline library_settings"}) do |f|
-              = f.input :name
-              = f.input :public, :label => false
+            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "form-vertical library_settings"}) do |f|
+              = f.inputs do
+                = f.input :name
+                = f.input :public, :label => false
               = f.actions do
                 = f.action :submit, :label => :update
 

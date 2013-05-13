@@ -1,7 +1,9 @@
-= semantic_form_for @auction_template, :html => { :class => "form-horizontal"}, :builder => Fairtastic::FormBuilder do |f|
-  = f.inputs :class => "fairnopoly-well" do
-    = f.input :name
+= semantic_form_for @auction_template, :html => { :class => "form-vertical"}, :builder => Fairtastic::FormBuilder do |f|
+  .fairnopoly-well 
+    = f.inputs do
+      = f.input :name
   = f.semantic_fields_for :auction do |auction_form|
     = render :partial => "/auctions/common_inputs", :locals => {:f => auction_form}
-  = f.actions :class => "fairnopoly-well form-actions" do
-    = f.action :submit, :as => :input
+  .fairnopoly-well
+    = f.actions do
+      = f.action :submit, :as => :input

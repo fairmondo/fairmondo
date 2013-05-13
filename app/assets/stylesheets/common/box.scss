@@ -16,12 +16,12 @@
 
     h3 {
       line-height: 100% !important;
-      margin-left: 35px;
+      margin-left: 15px;
       display: block;
     }
     h6 {
       line-height: 100% !important;
-      margin-left: 35px;
+      margin-left: 15px;
       display: block;
     }
 
@@ -56,7 +56,12 @@
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF;
     }
-    background: $fairnopolyBlue url("input-step-open.png") no-repeat left center;
+    background-color: $fairnopolyBlue;
+    h6:before,h3:before {
+      font-family: FontAwesome;
+      content: '\f078\00a0\00a0';
+      color: #FFFFFF;
+    }
   }
 
   .box-content {
@@ -70,12 +75,19 @@
 
 .box:not(:target) {
   .box-legend {
-    background: $inactiveElement url("box/box-closed.png") no-repeat left center;
+    background-color: $inactiveElement;
 
     a:link, a:visited, a:hover, a:active {
       color: #666666;
     }
+    
+    h6:before,h3:before {
+    font-family: FontAwesome;
+    content: '\f054\00a0\00a0';
+    color: inherit;
   }
+  }
+  
 }
 
 .box:not(:target):not(.error-box) {
@@ -102,7 +114,12 @@
     a:link, a:visited, a:hover, a:active {
       color: #FFFFFF;
     }
-    background: $fairnopolyBlue url("box/box-open.png") no-repeat left center;
+    background-color: $fairnopolyBlue;
+    h6:before,h3:before {
+      font-family: FontAwesome;
+      content: '\f078\00a0\00a0';
+      color: #FFFFFF;
+    }
   }
   .box-content {
     transition-property: opacity, top;

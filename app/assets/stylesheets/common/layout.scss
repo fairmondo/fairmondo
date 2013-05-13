@@ -171,3 +171,18 @@ li#login
     display: none;
   }
 
+/*
+ * Let Popovers in main nav be bigger and come from top right
+ */
+
+.main-nav-item .popover-content {
+  min-width:200px;
+}
+
+.main-nav-item .popover{
+  left: -160px !important;
+  .arrow {
+    left: 85% !important;
+  }
+}
+
