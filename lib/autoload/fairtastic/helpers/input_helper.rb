@@ -2,7 +2,7 @@ module Fairtastic
   module Helpers
     module InputHelper
       
-      include FormtasticBootstrap::Helpers::InputHelper
+      include Formtastic::Helpers::InputHelper
       
       def input(method, options = {})
 

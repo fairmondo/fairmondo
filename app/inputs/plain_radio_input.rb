@@ -2,24 +2,10 @@
 # see  lib/formtastic/helpers/input_helper.rb
 #module Fairtastic
 #  module Inputs
-class PlainRadioInput < FormtasticBootstrap::Inputs::RadioInput
+class PlainRadioInput < Formtastic::Inputs::RadioInput
 
   def to_html
-    if options[:prepend_label]
-      control_label_html
-      l = template.content_tag(:div, control_label_html, :class => "question")
-    else
-      l = "".html_safe
-    end
-
-    control_group_wrapping do
-      l <<
-      controls_wrapping do
-        collection.map { |choice|
-          choice_html(choice)
-        }.join("\n").html_safe << hint_html
-      end
-    end
+   super
   end
 
   def choice_html(choice)
@@ -30,17 +16,21 @@ class PlainRadioInput < FormtasticBootstrap::Inputs::RadioInput
     end
     builder.radio_button(input_name, choice_value(choice), opts.merge(choice_html_options(choice)).merge(:required => false)) <<
       template.content_tag(:label,
-        choice_label(choice),
-        label_html_options.merge(choice_label_html_options(choice))
+        choice_label(choice)
+        
       )
   end
 
+  def wrapper_classes_raw
+    super << " radio"
+  end
 
-#  def wrapper_html_options
-#    super.tap do |options|
-#      options[:class] = options[:class].gsub("radio_buttons", "plain_radio_buttons")
-#    end
-#  end
-
+  def render_label?
+    if options[:label] 
+      true
+    else
+      false  
+    end
+  end
 
 end

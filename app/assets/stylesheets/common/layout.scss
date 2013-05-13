@@ -30,7 +30,7 @@ header {
   }
   ul#main-nav {
     margin: 0px;
-    li {
+    li.main-nav-item {
       float:left;
       list-style: none;
       position: relative;
@@ -50,7 +50,9 @@ header {
           width: 48px;
           height: 48px;
         }
-      a {
+      }
+      
+     li.main-nav-item > a {
         position: relative;
         color: black;
 
@@ -68,17 +70,17 @@ header {
 
         }
       }
-      &#buy a {   background-image: url('buy.png');}
-      &#sell a {   background-image: url('sell.png');}
-      &#login a {   background-image: url('login.png');}
-      &#service a {   background-image: url('service.png');}
-      &#logout a {   background-image: url('logout.png');}
-      &#login, &#logout {
+      li.main-nav-item#buy > a {   background-image: url('buy.png');}
+      li.main-nav-item#sell > a {   background-image: url('sell.png');}
+      li.main-nav-item#login > a {   background-image: url('login.png');}
+      li.main-nav-item#service > a {   background-image: url('service.png');}
+      li.main-nav-item#logout > a {   background-image: url('logout.png');}
+      li.main-nav-item#login, li.main-nav-item#logout {
         float: right;
         a {margin-right: 0;}
       }
-    }
   }
+  
 }
 
 
@@ -163,4 +165,9 @@ footer {
 
 }
 
+li#login
+
+  .popover-hidden {
+    display: none;
+  }
 

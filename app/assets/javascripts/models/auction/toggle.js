@@ -6,7 +6,7 @@ $(document).ready(function(){
 		.change(function () {
 			box = $(this);
 			area_id = box.attr("data-select-toggle");
-			$("#" + area_id).toggle(box.is(":checked"));
+			$("#" + area_id).parent().toggle(box.is(":checked"));
 		}).trigger('change')
 
 	if (!$.support.leadingWhitespace) { // IE 7 / 8 version
@@ -20,11 +20,11 @@ $(document).ready(function(){
 					other_box = $(this);
 					if (! other_box.attr("checked")) {
 						other_area_id = other_box.attr("data-select-toggle");
-						$("#" + other_area_id).toggle(false);
+						$("#" + other_area_id).parent().toggle(false);
 					}
 				});
 				if (box.attr("checked")) {
-					$("#" + area_id).toggle(true);
+					$("#" + area_id).parent().toggle(true);
 				}
 			}).trigger('change');
 	} else {
@@ -32,7 +32,7 @@ $(document).ready(function(){
 			.change(function (e) {
 				box = $(this);
 				area_id = box.attr("data-select-toggle");
-				$("#" + area_id).toggle(box.is(":checked"));
+				$("#" + area_id).parent().toggle(box.is(":checked"));
 				if(e.isTrigger == undefined) {
 				  $("input[name='" + box.attr("name") + "']:not([data-select-toggle=" + area_id + "])").trigger('change');
 				}

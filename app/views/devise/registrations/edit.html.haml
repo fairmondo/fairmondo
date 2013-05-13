@@ -1,6 +1,6 @@
 .row
   .span12
-    = semantic_form_for(@user,  :html => { :class => "form-horizontal"},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
+    = semantic_form_for(@user,  :html => { :class => "form-vertical"},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
       = f.semantic_errors
       = f.input_step :account, :default_step => true do
 
@@ -20,7 +20,8 @@
           %strong= t('formtastic.labels.user.image') + ":"
           %span.pull-right= t('users.visibility.public')
         = image_tag(current_user.image.url(:thumb), :class => "img-polaroid ")
-        = f.input :image,  :label => false
+        = f.inputs do
+          = f.input :image,  :label => false
         %h3= t('users.login.title')
         = f.inputs do
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
@@ -66,5 +67,6 @@
           = tinymce
       - if current_user.is_a?(LegalEntity)
         = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
-      .element-in-box
-        = f.action :submit, :button_html => {:class => "btn btn-primary btn-large"}
+      .fairnopoly-well
+        = f.actions do
+          = f.action :submit, :button_html => {:class => "btn btn-primary btn-large"}

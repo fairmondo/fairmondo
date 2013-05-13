@@ -3,7 +3,7 @@
     = f.input_step :apply do
       - if block_given?
         = yield
-      .template_select-user-inputs
+      = f.inputs do
         = f.input :auction_template, :collection => @auction_templates, :prompt => t('template_select.prompts.auction_templates')
         .control-group
           = f.action :submit, :button_html => {:class => "primary"}

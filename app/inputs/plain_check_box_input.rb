@@ -2,15 +2,10 @@
 # see  lib/formtastic/helpers/input_helper.rb
 #module Fairtastic
 #  module Inputs
-class PlainCheckBoxInput < FormtasticBootstrap::Inputs::BooleanInput
+class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
 
   def to_html
-    control_group_wrapping do
-      hidden_field_html <<
-      controls_wrapping do
-        label_with_nested_checkbox << hint_html
-      end
-    end
+    super
   end
 
   def label_with_nested_checkbox
@@ -31,5 +26,11 @@ class PlainCheckBoxInput < FormtasticBootstrap::Inputs::BooleanInput
     end
     template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, opts)
   end
+  
+  def wrapper_classes_raw
+    super << " boolean"
+  end
+  
+  
 
 end

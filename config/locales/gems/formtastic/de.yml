@@ -46,7 +46,6 @@ de:
         image: "Titelbild"
         other_image: "Anderes Titelbild hochladen"
         fair: Fair
-        fair_kind: "Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt (mehr Infos <hier>):"
         fair_seal: "Bitte wähle aus der Liste aus:"
 
         ecologic: Öko

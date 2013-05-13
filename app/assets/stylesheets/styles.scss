@@ -10,27 +10,31 @@
  * -----------------
  */
 
-@import "bootstrap";
-@import "bootstrap-responsive";
+@import "bootstrap-without-forms";
 @import "gems/bootstrap_variables";
+@import "formtastic-plus-bootstrap";
 
 /*
-   Bootstrap Addons & Fixes
+   Bootstrap Customized
  */
 
 @import "gems/bootstrap_fixes";
 
+/*
+   Bootstrap Addons
+ */
+
 // Jquery UI 4 Autocompletion
 @import "gems/jquery-ui-bootstrap";
-
+@import "font-awesome";
+@import "bootstrap-responsive";
+@import "formtastic-plus-bootstrap/responsive";
 
 
 /* 
  * Imports - Common
  * --------------
  */
-
-
 
 @import "common/layout";
 @import "common/search-box-hero";
