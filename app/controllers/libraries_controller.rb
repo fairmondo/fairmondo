@@ -16,7 +16,7 @@ class LibrariesController < InheritedResources::Base
     authorize build_resource
     create! do |success,failure|
       success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
-      failure.html { redirect_to user_ libraries_path(@user), :alert => @library.errors.full_messages.first }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
     end
   end
 
