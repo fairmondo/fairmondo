@@ -35,12 +35,12 @@ class AuctionsController < InheritedResources::Base
     @search_cache = Auction.new(params[:auction])
     ######## Solr
     begin
-    s = search(@search_cache)
-    @auctions = s.results
+      s = search(@search_cache)
+      @auctions = s.results
     ########
     rescue Errno::ECONNREFUSED
-     @auctions = policy_scope(Auction).paginate :page => params[:page], :per_page=>12
-     render_hero :action => "sunspot_failure"
+      @auctions = policy_scope(Auction).paginate :page => params[:page], :per_page=>12
+      render_hero :action => "sunspot_failure"
     end
 
     index!
