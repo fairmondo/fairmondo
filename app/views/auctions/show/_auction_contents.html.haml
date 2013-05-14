@@ -49,7 +49,7 @@
           = t('auction.show.will_be')
           %a= t('enumerize.auction.friendly_percent_organisation.'+@auction.friendly_percent_organisation)
           = t('auction.show.contributed')
-      = render :partial=>'/shared/show_auction_basic_price', :locals=>{ :auction=> @auction}
+      = render :partial=>'auctions/show/basic_price', :locals=>{ :auction=> @auction}
       - if @auction.active && current_user && current_user.id != @auction.seller.id
         %p
           %a.btn.btn-primary.btn-fill.hide
