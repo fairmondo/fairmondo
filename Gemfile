@@ -7,23 +7,11 @@ gem 'rails', '>= 3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# Jruby Deps
-platforms :jruby do
-  gem "jruby-openssl"
-  gem 'trinidad'
-  gem 'activerecord-jdbc-adapter', '>= 1.2.9'
-  #gem 'activerecord-jdbcmysql-adapter', '1.2.2'
-  gem 'activerecord-jdbcpostgresql-adapter'
-  #gem 'jdbc-mysql', :require => false
-  gem 'jdbc-postgres'
-
-end
-
 # Ruby Deps
 platforms :ruby do
   gem 'sqlite3'
+  # gem 'activerecord-postgresql-adapter'
   gem 'therubyracer'
-#  gem 'activerecord-postgresql-adapter'
   gem 'pg', :group => :production
   # exclude Debugger from CI
   unless ENV["CI"]
@@ -94,11 +82,6 @@ gem 'tinycms', :path => "gems/tinycms"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  platforms :jruby do
-    gem 'jdbc-sqlite3'
-    gem 'activerecord-jdbcsqlite3-adapter'
-  end
-
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -121,20 +104,20 @@ group :development, :test do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-  
+
   # Main Test Tools
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem "ZenTest"
-  
+
   #Autotest on MAC
   gem 'autotest-fsevent'
-  
+
   # Code Coverage
   gem 'simplecov'
-  
+
   #er diagramm generation
   gem "rails-erd"
 
@@ -154,7 +137,6 @@ end
 # Adding Staging-server Embedded Solr
 group :staging do
   gem 'sunspot_solr'
-
 end
 
 # To use ActiveModel has_secure_password

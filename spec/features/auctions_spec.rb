@@ -44,18 +44,41 @@ describe 'Auction management' do
           find(".double_check-step-inputs").find(".action").find("input").click
         end.should change(Auction.unscoped, :count).by 1
       end
+
+      it 'shows sub-categories' do
+        setup_categories
+
+        visit new_auction_path
+        hardware_id = Category.find_by_name!('Hardware').id
+
+        page.should have_selector("label[for$='auction_categories_and_ancestors_#{hardware_id}']", visible: false)
+        check "auction_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
+        check "auction_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
+        page.should have_selector("label[for$='auction_categories_and_ancestors_#{hardware_id}']", visible: true)
+      end
     end
 
-    it 'creates categories' do
-      setup_categories
+    describe "auction search", search: true do
+      before do
+        auction = FactoryGirl.create :auction, title: 'chunky bacon'
+        Sunspot.commit
+        visit root_path
+      end
 
-      visit new_auction_path
-      # TODO find out how to test rails asset pipeline visible styles
-      # page.should have_content("Hardware", visible: false)
+      context "when submitting" do
+        before { fill_in 'search_input', with: 'chunky bacon' }
 
-      check "auction_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
-      check "auction_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
-      page.should have_content("Hardware")
+        it "should show the page with search results" do
+          click_button 'Suche'
+          page.should have_link 'chunky bacon'
+        end
+
+        it "should rescue an Errno::ECONNREFUSED" do
+          Sunspot.stub(:search).and_raise(Errno::ECONNREFUSED)
+          click_button 'Suche'
+          page.should have_content I18n.t 'auction.titles.sunspot_failure'
+        end
+      end
     end
   end
 end
