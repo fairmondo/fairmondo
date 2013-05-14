@@ -4,10 +4,9 @@ describe AuctionsController do
   render_views
   include CategorySeedData
 
-  describe "GET 'index" do
+  describe "GET 'index'" do
 
     describe "search", :search => true do
-
       before :each do
         setup_categories
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
@@ -75,17 +74,17 @@ describe AuctionsController do
           context "and filtering for condition" do
 
             before :each do
-              @no_second_hand_auction = FactoryGirl.create(:no_second_hand_auction, :title => "muscheln 3", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
+              @no_second_hand_auction = FactoryGirl.create :no_second_hand_auction, title: "muscheln 3", categories_and_ancestors: @hardware_category.self_and_ancestors.map(&:id)
               Sunspot.commit
             end
 
             it "should find all auctions with title 'muscheln' with empty condition and category filter" do
-              get :index, :auction => {:categories_and_ancestors => [], :title => "muscheln"}
+              get :index, auction: {categories_and_ancestors: [], title: "muscheln"}
               controller.instance_variable_get(:@auctions).should == [@auction, @hardware_auction, @no_second_hand_auction]
             end
 
             it "should chain all filters" do
-              get :index, :auction => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln", :condition => "old"}
+              get :index, auction: {categories_and_ancestors: @hardware_category.self_and_ancestors.map(&:id), title: "muscheln", condition: "old"}
               controller.instance_variable_get(:@auctions).should == [@hardware_auction]
             end
 
@@ -97,8 +96,7 @@ describe AuctionsController do
 
     end
 
-    describe "for non-signed-in users" do
-
+    describe "for signed-out users" do
       it "should be successful" do
         get :index
         response.should be_successful
@@ -111,10 +109,9 @@ describe AuctionsController do
     end
 
     describe "for signed-in users" do
-
       before :each do
-        @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl.create(:auction)
+        @user = FactoryGirl.create :user
+        @auction = FactoryGirl.create :auction
         sign_in @user
       end
 
@@ -129,17 +126,17 @@ describe AuctionsController do
       end
 
       it "should be successful" do
-        get :index, :condition => "true"
+        get :index, condition: "true"
         response.should be_success
       end
 
       it "should be successful" do
-        get :index, :selected_category_id => Category.all.sample.id
+        get :index, selected_category_id: Category.all.sample.id
         response.should be_success
       end
 
       it "should be successful" do
-        get :index, :auction => {:title => "true" }
+        get :index, auction: {:title => "true" }
         response.should be_success
       end
     end
@@ -148,8 +145,8 @@ describe AuctionsController do
   describe "GET 'show" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
-      @auction  = FactoryGirl.create(:auction)
+      @user = FactoryGirl.create :user
+      @auction  = FactoryGirl.create :auction
     end
 
     describe "for non-signed-in users" do
@@ -179,18 +176,18 @@ describe AuctionsController do
       end
 
       it "should create an image for the auction" do
-        @auction = FactoryGirl.create(:auction)
+        @auction = FactoryGirl.create :auction
         sign_in @auction.seller
         get :show, id: @auction
-        @image = controller.instance_variable_get(:@title_image)
+        @image = controller.instance_variable_get :@title_image
         @image.auction.should eq @auction
       end
 
       it "should assign a title image" do
-        @image = FactoryGirl.create(:image)
+        @image = FactoryGirl.create :image
         sign_in @image.auction.seller
-        get :show, id: @image.auction, :image => @image
-        @image.should eq controller.instance_variable_get(:@title_image)
+        get :show, id: @image.auction, image: @image
+        @image.should eq controller.instance_variable_get :@title_image
       end
     end
   end
@@ -209,7 +206,7 @@ describe AuctionsController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create :user
         sign_in @user
       end
 
@@ -225,9 +222,9 @@ describe AuctionsController do
     describe "for non-signed-in users" do
 
       it "should deny access" do
-        @auction = FactoryGirl.create(:auction)
-        get :edit, :id => @auction.id
-        response.should redirect_to(new_user_session_path)
+        @auction = FactoryGirl.create :auction
+        get :edit, id: @auction.id
+        response.should redirect_to new_user_session_path
       end
 
     end
@@ -235,13 +232,13 @@ describe AuctionsController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create :user
         sign_in @user
       end
 
       context 'his auctions' do
         before :each do
-          @auction = FactoryGirl.create(:auction, :seller => @user)
+          @auction = FactoryGirl.create :auction, seller: @user
 
           #cant use editable_auction factory due to defaultscope
           @auction.active = false
@@ -250,17 +247,17 @@ describe AuctionsController do
         end
 
         it "should be successful for the seller" do
-          get :edit, :id => @auction.id
+          get :edit, id: @auction.id
           response.should be_success
         end
       end
 
       it "should not be able to edit other users auctions" do
-        @auction = FactoryGirl.create(:editable_auction)
+        @auction = FactoryGirl.create :editable_auction
 
-        expect{
+        expect do
           get :edit, :id => @auction
-        }.to raise_error(Pundit::NotAuthorizedError)
+        end.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -268,13 +265,13 @@ describe AuctionsController do
   describe "report" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
-      @auction = FactoryGirl.create(:auction)
+      @user = FactoryGirl.create :user
+      @auction = FactoryGirl.create :auction
       sign_in @user
     end
 
     it "reports an auction" do
-      get :report, :id => @auction
+      get :report, id: @auction
       response.should redirect_to @auction
     end
 
@@ -284,14 +281,14 @@ describe AuctionsController do
 
     before :each do
       @user = FactoryGirl.create(:user)
-      @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
-      @auction_attrs[:transaction_attributes]= FactoryGirl.attributes_for(:transaction)
+      @auction_attrs = FactoryGirl.attributes_for :auction, categories_and_ancestors: [FactoryGirl.create(:category)]
+      @auction_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
     end
 
     describe "for non-signed-in users" do
       it "should not create an auction" do
         lambda do
-          post :create, :auction => @auction_attrs
+          post :create, auction: @auction_attrs
         end.should_not change(Auction, :count)
       end
     end
@@ -304,12 +301,12 @@ describe AuctionsController do
 
       it "should create an auction" do
         lambda do
-          post :create, :auction => @auction_attrs
-        end.should change(Auction.unscoped, :count).by(1)
+          post :create, auction: @auction_attrs
+        end.should change(Auction.unscoped, :count).by 1
       end
 
       it "should not raise an error for very high quantity values" do
-        post :create, :auction => @auction_attrs.merge(:quantity => "100000000000000000000000")
+        post :create, :auction => @auction_attrs.merge(quantity: "100000000000000000000000")
         response.should render_template :new
         response.response_code.should == 200
       end
@@ -320,7 +317,7 @@ describe AuctionsController do
 
       before :each do
         sign_in @user
-        @auction_attrs[:seller_attributes] = FactoryGirl::attributes_for(:nested_seller_update)
+        @auction_attrs[:seller_attributes] = FactoryGirl.attributes_for :nested_seller_update
         @auction_attrs[:seller_attributes][:id] = @user.id
         @auction_attrs[:payment_bank_transfer] = true
 
@@ -329,7 +326,7 @@ describe AuctionsController do
       it "should update the users bank info" do
         lambda do
           post :create, :auction => @auction_attrs
-        end.should change(Auction.unscoped, :count).by(1)
+        end.should change(Auction.unscoped, :count).by 1
 
         @user.reload
         @user.bank_code.should eq @auction_attrs[:seller_attributes][:bank_code]
@@ -343,19 +340,13 @@ describe AuctionsController do
 
         lambda do
           post :create, :auction => @auction_attrs
-
         end.should raise_error(SecurityError)
 
         @user.reload
         @user.nickname.should_not eq @auction_attrs[:seller_attributes][:nickname]
 
       end
-
-
-
     end
-
-
   end
 
 
@@ -364,24 +355,36 @@ describe AuctionsController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create(:user)
-        @auction = FactoryGirl::create(:inactive_auction, :seller => @user)
-        @auction_attrs = FactoryGirl::attributes_for(:auction, :categories_and_ancestors => [FactoryGirl.create(:category)])
-        @auction_attrs.delete(:seller)
-        @auction_attrs[:transaction_attributes]= FactoryGirl.attributes_for(:transaction)
+        @user = FactoryGirl.create :user
+        @auction = FactoryGirl.create :inactive_auction, seller: @user
+        @auction_attrs = FactoryGirl.attributes_for :auction, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @auction_attrs.delete :seller
+        @auction_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
         sign_in @user
       end
 
       it "should update the auction with new information" do
-        put :update, :id => @auction.id, :auction => @auction_attrs
+        put :update, id: @auction.id, auction: @auction_attrs
         response.should redirect_to @auction.reload
       end
 
       it "changes the auctions informations" do
-        put :update, :id => @auction.id, :auction => @auction_attrs
+        put :update, id: @auction.id, auction: @auction_attrs
         response.should redirect_to @auction.reload
         controller.instance_variable_get(:@auction).title.should eq @auction_attrs[:title]
       end
+    end
+  end
+
+  describe "GET 'autocomplete'", search: true do
+    before do
+      @auction = FactoryGirl.create :auction, title: 'chunky bacon'
+      Sunspot.commit
+    end
+    it "should be successful" do
+      pending
+      get :autocomplete, keywords: 'chunky'
+      response.status.should be 200
     end
   end
 end

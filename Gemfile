@@ -10,8 +10,8 @@ gem 'rails', '>= 3.2.13'
 # Ruby Deps
 platforms :ruby do
   gem 'sqlite3'
+  # gem 'activerecord-postgresql-adapter'
   gem 'therubyracer'
-#  gem 'activerecord-postgresql-adapter'
   gem 'pg', :group => :production
   # exclude Debugger from CI
   unless ENV["CI"]
@@ -104,20 +104,20 @@ group :development, :test do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-  
+
   # Main Test Tools
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem "ZenTest"
-  
+
   #Autotest on MAC
   gem 'autotest-fsevent'
-  
+
   # Code Coverage
   gem 'simplecov'
-  
+
   #er diagramm generation
   gem "rails-erd"
 
@@ -137,7 +137,6 @@ end
 # Adding Staging-server Embedded Solr
 group :staging do
   gem 'sunspot_solr'
-
 end
 
 # To use ActiveModel has_secure_password
