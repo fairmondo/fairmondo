@@ -345,9 +345,6 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
-  activerecord-jdbc-adapter (>= 1.2.9)
-  activerecord-jdbcpostgresql-adapter
-  activerecord-jdbcsqlite3-adapter
   autotest-fsevent
   awesome_nested_set
   bootstrap-sass (~> 2.3.1.0)
@@ -371,10 +368,7 @@ DEPENDENCIES
   haml
   html2haml
   inherited_resources
-  jdbc-postgres
-  jdbc-sqlite3
   jquery-rails
-  jruby-openssl
   json
   launchy
   modernizr-rails
@@ -403,6 +397,5 @@ DEPENDENCIES
   tinycms!
   tinymce-rails
   tinymce-rails-langs
-  trinidad
   uglifier (>= 1.0.3)
   will_paginate

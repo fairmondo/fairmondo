@@ -7,18 +7,6 @@ gem 'rails', '>= 3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# Jruby Deps
-platforms :jruby do
-  gem "jruby-openssl"
-  gem 'trinidad'
-  gem 'activerecord-jdbc-adapter', '>= 1.2.9'
-  #gem 'activerecord-jdbcmysql-adapter', '1.2.2'
-  gem 'activerecord-jdbcpostgresql-adapter'
-  #gem 'jdbc-mysql', :require => false
-  gem 'jdbc-postgres'
-
-end
-
 # Ruby Deps
 platforms :ruby do
   gem 'sqlite3'
@@ -94,11 +82,6 @@ gem 'tinycms', :path => "gems/tinycms"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  platforms :jruby do
-    gem 'jdbc-sqlite3'
-    gem 'activerecord-jdbcsqlite3-adapter'
-  end
-
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
