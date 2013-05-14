@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
 
   #Relations
   has_many :auctions, :dependent => :destroy
-  has_many :bids, :dependent => :destroy
-  has_many :invitations, :dependent => :destroy
+  # has_many :bids, :dependent => :destroy
+  # has_many :invitations, :dependent => :destroy
 
   has_many :auction_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
                             :url => "/system/users/:attachment/:id_partition/:style/:filename",
                             :path => "public/system/users/:attachment/:id_partition/:style/:filename"
 
-  belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
 
   # validations
