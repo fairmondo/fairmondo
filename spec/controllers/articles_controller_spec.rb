@@ -351,9 +351,7 @@ describe ArticlesController do
 
 
   describe "PUT 'update'" do
-
     describe "for signed-in users" do
-
       before :each do
         @user = FactoryGirl.create :user
         @article = FactoryGirl.create :inactive_article, seller: @user
@@ -382,7 +380,6 @@ describe ArticlesController do
       Sunspot.commit
     end
     it "should be successful" do
-      pending
       get :autocomplete, keywords: 'chunky'
       response.status.should be 200
     end
