@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :transaction, :class => 'Transaction' do
-    auction
+    article
     type "PreviewTransaction"
     factory :preview_transaction, :class => 'PreviewTransaction' do
     end

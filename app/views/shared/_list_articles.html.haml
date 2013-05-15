@@ -1,0 +1,4 @@
+%ul.thumbnails
+  - articles.each do |article|
+    %li{:class => list_class}
+      = render :partial=>'/shared/show_article', :locals=>{ :article=> article}

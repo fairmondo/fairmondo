@@ -1,6 +1,0 @@
-%tr
-  %td= auction_template.name
-  %td= auction_template.auction.title
-  %td= link_to t('formtastic.actions.template_select.submit'), new_auction_path(:template_select => {:auction_template => auction_template.id} )
-  %td= link_to t('common.actions.edit'), edit_auction_template_path(auction_template)
-  %td= link_to t('common.actions.destroy'), auction_template, method: :delete, data: { confirm: t('common.actions.confirm') }

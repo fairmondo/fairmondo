@@ -1,8 +1,0 @@
-= auction_form.semantic_errors :social_producer_questionnaire
-= auction_form.nested_inputs_for :social_producer_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
-  %ul.questionnaire
-    = f.input_with :purpose, :nonprofit_association
-    = f.input_with :purpose, :social_businesses_muhammad_yunus
-    = f.input_with :purpose, :social_entrepreneur
-  %h4= t('formtastic.labels.questionnaire.explanations')
-  = tinycms_content "auction-social_producer_questionnaire-explanation"

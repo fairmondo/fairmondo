@@ -2,13 +2,13 @@ Fairnopoly::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  resources :auction_templates, :except => [:show, :index]
+  resources :article_templates, :except => [:show, :index]
 
   mount Tinycms::Engine => "/cms"
 
   devise_for :user, controllers: { registrations: 'registrations' }
 
-  resources :auctions do
+  resources :articles do
     member do
       get 'activate'
       get 'deactivate'

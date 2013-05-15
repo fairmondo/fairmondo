@@ -1,7 +1,0 @@
-- if @auctions.empty?
-  .fairnopoly-well
-    %h3= t("common.text.no_search_result")
-    = t("common.text.no_search_result_text")
-- else
-  = render :partial=>'/shared/list_auctions', :locals=>{ :auctions=> @auctions, :list_class=>"span3"}
-  = will_paginate @auctions

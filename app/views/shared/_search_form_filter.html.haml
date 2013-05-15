@@ -7,7 +7,7 @@
     .span6
       .fairnopoly-well
         = f.inputs do
-          = f.input :condition,:as => :plain_radio, :label=> true, :collection => Auction.condition.options + [["Egal", ""]] , :required => false, :tooltip => false
+          = f.input :condition,:as => :plain_radio, :label=> true, :collection => Article.condition.options + [["Egal", ""]] , :required => false, :tooltip => false
           = f.input :fair, :as => :boolean, :tooltip => false
           = f.input :ecologic , :as => :boolean, :tooltip => false
           = f.input :small_and_precious , :as => :boolean, :tooltip => false

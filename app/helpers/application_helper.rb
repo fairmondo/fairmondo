@@ -71,7 +71,7 @@ module ApplicationHelper
     if title.present?
       content_for :title, title
     else
-      content_for?(:title) ? content_for(:title) + t('auction.show.title_addition') : t('common.fairnopoly')
+      content_for?(:title) ? content_for(:title) + t('article.show.title_addition') : t('common.fairnopoly')
     end
   end
 

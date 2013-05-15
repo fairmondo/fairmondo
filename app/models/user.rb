@@ -39,11 +39,11 @@ class User < ActiveRecord::Base
 
 
   #Relations
-  has_many :auctions, :dependent => :destroy
+  has_many :articles, :dependent => :destroy
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
-  has_many :auction_templates, :dependent => :destroy
+  has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
   has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"},
