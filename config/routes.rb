@@ -38,8 +38,6 @@ Fairnopoly::Application.routes.draw do
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
-  get 'banned' => 'welcome#index' # TODO: write an actual page for this
-
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
