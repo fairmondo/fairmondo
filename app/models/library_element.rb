@@ -1,16 +1,16 @@
 class LibraryElement < ActiveRecord::Base
 
-  attr_accessible :auction, :library, :library_id, :auction_id
+  attr_accessible :article, :library, :library_id, :article_id
 
   # Validations
 
-  validates :library_id, :uniqueness => {:scope => :auction_id , :message => I18n.t('library_element.error.uniqueness') }
+  validates :library_id, :uniqueness => {:scope => :article_id , :message => I18n.t('library_element.error.uniqueness') }
 
   validates :library_id , :presence => true
 
   # Relations
 
-  belongs_to :auction
+  belongs_to :article
   belongs_to :library
 
 end

@@ -1,0 +1,10 @@
+#article_form_container
+  = tinymce_assets
+  = render :partial => "article_template_select"
+  = semantic_form_for @article, :html => {:class => "form-vertical", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|
+    = f.semantic_errors
+    = render :partial => "common_inputs", :locals => {:f => f}
+    = f.input_step :double_check, :prefix => false do
+      = render :partial => "article_template_create_inputs"
+      = f.actions do
+        = f.action :submit , :label => t("article.labels.continue_to_preview")

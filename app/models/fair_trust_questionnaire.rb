@@ -11,7 +11,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
    :awareness_raising, :awareness_raising_explanation,
    :environment_protection,:environment_protection_explanation
 
-  belongs_to :auction
+  belongs_to :article
 
   validates_presence_of :support
   validates_presence_of :support_explanation

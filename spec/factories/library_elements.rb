@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :library_element do
-    auction
+    article
     library
   end
 end

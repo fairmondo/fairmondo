@@ -69,11 +69,12 @@
  * ----------------
  */
 
-/* Auction */
+/* Article */
 
-@import "models/auction";
-@import "models/auction_thumbnail";
-@import "models/auction_template";
+
+@import "models/article";
+@import "models/article_thumbnail"; 
+@import "models/article_template";  
 @import "models/questionnaire";
 @import "models/user";
 

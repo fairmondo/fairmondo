@@ -1,7 +1,7 @@
 en:
 # Enum Definitions
   enumerize:
-    auction:
+    article:
       condition:
         new: "New"
         old: "Used"
@@ -36,7 +36,7 @@ en:
       password: "Password"
       login: "Sign In"
       search: "Search"
-      auctions: "Auctions"
+      articles: "Articles"
       follow: "Follow"
       stop_follow: "Unfollow."
       yes: "Yes"
@@ -117,7 +117,7 @@ en:
     actions:
       login: "Login"
     labels:
-      auction:
+      article:
         categories: Categories
         categories_and_ancestors: Categories
 # User Model/Controller
@@ -148,21 +148,21 @@ en:
       followers_info: "People who follow me"
       following_info: "Things and People I follow"
     founder: "Founder"
-# Auction Model/Controller
-  auction:
+# Article Model/Controller
+  article:
     hero:
       search: "Search for"
       filter: "Filter by"
       category: "Select category"
       remove_filter: " Remove condition filter"
     form:
-      head: "This is the form you have to fill for creating an auction."
+      head: "This is the form you have to fill for creating an article."
       category: "Select a category for your Product"
       details: "Select product details"
       expire_date: "Date (Day/Month/Year)"
       expire_time: "Time (Hours/Minutes)"
       transaction:
-        auction: "Auction"
+        article: "Article"
         fixed_price: "Fixed-Price"
         preview: "Preview"
     labels:
@@ -170,31 +170,31 @@ en:
       shipping_condition: "Shipping condition"
       expiration_date: "Expiration date"
       type: "Type"
-      submit: "Create Auction"
+      submit: "Create Article"
     list:
       header: "Results"
     notices:
-      create: "Auction was successfully created."
-      update: "Auction was successfully updated."
+      create: "Article was successfully created."
+      update: "Article was successfully updated."
       image: "Image was successfully uploaded."
     hints:
-      title:  "Enter the auction's title"
-      content: "Enter a description for your auction"
-      condition: "Enter the auctions type"
-      price: "Enter the auction's price"
+      title:  "Enter the article's title"
+      content: "Enter a description for your article"
+      condition: "Enter the articles type"
+      price: "Enter the article's price"
       date: "Date (Day/Month/Year)"
       time: "Time (Hours/Minutes)"
     image:
       title: "Upload an image"
       upload: "Upload"
     titles:
-      new: "New Auction"
-      edit: "Editing auction"
+      new: "New Article"
+      edit: "Editing article"
     actions:
       profile: "View seller"
-      report: "Report auction"
-      reported: "Auction successfully reported. The team will take care of it."
-      reported-error: "You have to write a text in order to report a auction."
+      report: "Report article"
+      reported: "Article successfully reported. The team will take care of it."
+      reported-error: "You have to write a text in order to report a article."
     categories:
       proposal:
         question: "Do you miss a category?"
@@ -220,9 +220,9 @@ en:
       edit: "Edit Profile"
       community: "TrustCommunity"
 
-    auction:
-      create: "Auction was created"
-      update: "Auction was updated"
+    article:
+      create: "Article was created"
+      update: "Article was updated"
     invitation:
       send: "Invitation was sent"
     search_users:

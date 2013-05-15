@@ -1,0 +1,13 @@
+= article_form.semantic_errors :fair_trust_questionnaire
+= article_form.nested_inputs_for :fair_trust_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
+  %ol.questionnaire
+    = f.input_with :explanation, :support
+    = f.input_with :explanation, :transparency
+    = f.input_with :explanation, :collaboration
+    = f.input_with :explanation, :minimum_wage
+    = f.input_with :explanation, :child_labor
+    = f.input_with :explanation, :sexual_equality
+    = f.input_with :explanation, :labor_conditions
+    = f.input_with :explanation, :producer_advancement
+    = f.input_with :explanation, :awareness_raising
+    = f.input_with :explanation, :environment_protection

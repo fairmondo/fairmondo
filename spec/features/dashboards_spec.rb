@@ -26,12 +26,12 @@ describe 'Dashboard' do
 
     it 'Buy link shows the Buy page' do
       click_link I18n.t('common.text.buy')
-      page.should have_content I18n.t('enumerize.auction.condition.new')
+      page.should have_content I18n.t('enumerize.article.condition.new')
     end
 
     it 'Sell link shows the Sell page' do
       click_link I18n.t('common.text.sell')
-      page.should have_content I18n.t('formtastic.labels.auction.title')
+      page.should have_content I18n.t('formtastic.labels.article.title')
     end
 
  #   it 'Community link is invisible for not invited users' do

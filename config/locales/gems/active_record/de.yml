@@ -167,7 +167,7 @@ de:
         key: Name für die Url
 # Note: I have to use the rails locale as enumerize hooks in formtastic and
 # does not allow to define a label for this multiple assignment as we'd usually do
-      auction:
+      article:
         fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
@@ -242,19 +242,19 @@ de:
     # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias?
     # I don't receive a warning and the following won't work in active_record namespace (Micha)
     models:
-      auction_template:
+      article_template:
         one: Vorlage
         other: Vorlagen
       user:
         one: Benutzer
         other: Benutzer
-      auction:
+      article:
         one: Artikel
         other: Artikel
       auction_transaction:
         one: Transaktionsobjekt (Auktion)
         other:  Transaktionsobjekte (Auktion)
-      auctions_category:
+      articles_category:
         one: Artikel zu Kategoriezuordnung
         other: Artikel zu Kategoriezuordnungen
       bid:
