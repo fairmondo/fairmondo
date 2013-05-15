@@ -79,6 +79,7 @@ group :assets do
   gem "font-awesome-rails"
   gem 'compass-rails'
 
+
   # JS
   gem 'tinymce-rails'
   gem 'tinymce-rails-langs'
