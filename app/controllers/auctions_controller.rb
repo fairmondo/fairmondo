@@ -19,7 +19,6 @@ class AuctionsController < InheritedResources::Base
       fulltext params[:keywords] do
         fields(:title)
       end
-      with :active, true
     end
     @titles = []
     search.hits.each do |hit|

@@ -28,5 +28,4 @@ setup_categories
 
 50.times do
   FactoryGirl.create(:auction)
-  # FactoryGirl.create(:invitation, :user_id => User.all.sample.id)
 end
