@@ -70,7 +70,7 @@ gem 'tinycms', :path => "gems/tinycms"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  
+
    # CSS
   gem 'sass-rails', '~> 3.2'
   gem 'bootstrap-sass', '~> 2.3.1.0'
@@ -78,7 +78,7 @@ group :assets do
   gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
   gem 'compass-rails'
-  
+
   # JS
   gem 'tinymce-rails'
   gem 'tinymce-rails-langs'
