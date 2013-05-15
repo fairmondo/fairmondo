@@ -61,6 +61,7 @@ If the automated script doesn't work for you, try going through these steps one 
 
 === Known Issues
 * Could not find pg-0.15.1 in any of the sources
+
   If you have an error like
    ...
    rake aborted!
@@ -75,7 +76,8 @@ If the automated script doesn't work for you, try going through these steps one 
    bundle install
 
 * (Mac) Invalid gemspec [...ZenTest-4.9.1.gemspec]
-  If bundler constantly complains about invalid gemspec in ZenTest, do a
+
+  If bundler constantly complains about an invalid ZenTest gemspec, run the following:
 
    gem uninstall ZenTest
    rm [path to the ZenTest-4.9.1.gemspec it gave you in the error message]
@@ -113,10 +115,7 @@ If you want to help out with programming new features or fixing bugs, please con
 * If you have access to our repository, please create a new git branch before making changes when coding a larger feature
     git branch [featurename]
 
-* We use TDD (Test Driven Development), so when making any changes at all:
-    - write test -> test suite red
-    - code just enough to get test suite green
-    - refactor if need be
+* We use BDD (Behavior Driven Development). Please read our [wiki page on the subject](https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD)
 
 * When finished with a task:
     git add [corresponding files OR simply . for everything]
@@ -137,8 +136,8 @@ Hint: When a vim window opened after you typed "git commit" without a commit mes
 
 To avoid having the search not available in your local environment, run
 
-    rake sunspot:solr:start
     script/delayed_job start
+    rake sunspot:solr:start
 
 For more information visit our wiki.
 
