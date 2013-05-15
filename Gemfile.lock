@@ -74,6 +74,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     choice (0.1.6)
+    chunky_png (1.2.8)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -86,6 +87,12 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     columnize (0.3.6)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     daemons (1.1.9)
     debugger (1.5.0)
       columnize (>= 0.3.1)
@@ -134,6 +141,7 @@ GEM
       railties (>= 3.1.0)
       sass-rails
     friendly_id (4.0.9)
+    fssm (0.2.10)
     haml (4.0.2)
       tilt
     has_scope (0.5.1)
@@ -353,6 +361,7 @@ DEPENDENCIES
   capistrano
   capybara
   coffee-rails
+  compass-rails
   daemons
   debugger
   delayed_job_active_record
