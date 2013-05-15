@@ -1,4 +1,4 @@
-= Welcome to Fairnopoly repository
+= Welcome to the Fairnopoly repository
 
 Fairnopoly is a free market place in the hand of the users.
 
@@ -14,18 +14,22 @@ The Fairnopoly source is developed in ruby-1.9.3
 
 If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
 
+Make sure you install ruby 1.9.3 and not 2.0.0.
+
 === Fairnopoly Project Setup (automated)
 
 Note: the automated process won't work in windows.
 To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and paste in the following line:
-    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && ruby setup.rb
+    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout release && ruby setup.rb
 
 What this does:
-* Sets up a local git repository
+* It sets up a local git repository,
     git clone git@github.com:fairnopoly/fairnopoly.git
-* Switches to the fairnopoly root path
+* switches to the fairnopoly root path,
     cd fairnopoly/
-* Runs the Fairnopoly setup script
+* switches the git branch to "release" (which is the branch we currently use for the beta version)
+    git checkout release
+* runs the Fairnopoly setup script
     ruby setup.rb
 
 === Fairnopoly Project Setup (manually)
@@ -56,7 +60,8 @@ If the automated script doesn't work for you, try going through these steps one 
     rails s
 
 === Known Issues
-* If you have some error like 
+* Could not find pg-0.15.1 in any of the sources
+  If you have an error like
    ...
    rake aborted!
    Could not find pg-0.15.1 in any of the sources
@@ -68,6 +73,15 @@ If the automated script doesn't work for you, try going through these steps one 
 
   Run Bundler
    bundle install
+
+* (Mac) Invalid gemspec [...ZenTest-4.9.1.gemspec]
+  If bundler constantly complains about invalid gemspec in ZenTest, do a
+
+   gem uninstall ZenTest
+   rm [path to the ZenTest-4.9.1.gemspec it gave you in the error message]
+   gem update --system
+   bundle
+
 
 === Testing
 
@@ -118,6 +132,15 @@ If you want to help out with programming new features or fixing bugs, please con
 
 Hint: When a vim window opened after you typed "git commit" without a commit message, you can save the default message by simply typing ":wq" and pressing enter.
 
+
+=== Run Solr Server
+
+To avoid having the search not available in your local environment, run
+
+    rake sunspot:solr:start
+    script/delayed_job start
+
+For more information visit our wiki.
 
 == Contributing
 
