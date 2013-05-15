@@ -31,7 +31,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-   config.included_models = ['Auction', 'AuctionTemplate', 'AuctionTransaction', 'AuctionsCategory', 'Bid', 'Category', 'FairTrustQuestionnaire', 'Image', 'Invitation', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Tinycms::Content', 'Transaction', 'User']
+   config.included_models = ['Article', 'ArticleTemplate', 'AuctionTransaction', 'ArticlesCategory', 'Bid', 'Category', 'FairTrustQuestionnaire', 'Image', 'Invitation', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Tinycms::Content', 'Transaction', 'User']
 
   # Include specific models (exclude the others):
   #  config.included_models = [  'Bid', 'Category',  'Image', 'Invitation',  'Library' , 'Tinycms::Content', 'Transaction', 'User']
@@ -56,21 +56,21 @@ RailsAdmin.config do |config|
 
 
 
-  ###  Auction  ###
+  ###  Article  ###
 
-  # config.model 'Auction' do
+  # config.model 'Article' do
 
-  #   # You can copy this to a 'rails_admin do ... end' block inside your auction.rb model definition
+  #   # You can copy this to a 'rails_admin do ... end' block inside your article.rb model definition
 
   #   # Found associations:
 
   #     configure :seller, :belongs_to_association
-  #     configure :auction_template, :belongs_to_association
+  #     configure :article_template, :belongs_to_association
   #     configure :transaction, :belongs_to_association
   #     configure :images, :has_many_association
   #     configure :fair_trust_questionnaire, :has_one_association
   #     configure :social_producer_questionnaire, :has_one_association
-  #     configure :auctions_categories, :has_many_association
+  #     configure :articles_categories, :has_many_association
   #     configure :categories, :has_many_association
   #     configure :library_elements, :has_many_association
   #     configure :libraries, :has_many_association
@@ -102,7 +102,7 @@ RailsAdmin.config do |config|
   #     configure :payment_details, :text
   #     configure :friendly_percent, :integer
   #     configure :friendly_percent_organisation, :text
-  #     configure :auction_template_id, :integer         # Hidden
+  #     configure :article_template_id, :integer         # Hidden
   #     configure :transaction_id, :integer         # Hidden
   #     configure :active, :boolean
   #     configure :locked, :boolean
@@ -141,16 +141,16 @@ RailsAdmin.config do |config|
   # end
 
 
-  ###  AuctionTemplate  ###
+  ###  ArticleTemplate  ###
 
-  # config.model 'AuctionTemplate' do
+  # config.model 'ArticleTemplate' do
 
-  #   # You can copy this to a 'rails_admin do ... end' block inside your auction_template.rb model definition
+  #   # You can copy this to a 'rails_admin do ... end' block inside your article_template.rb model definition
 
   #   # Found associations:
 
   #     configure :user, :belongs_to_association
-  #     configure :auction, :has_one_association
+  #     configure :article, :has_one_association
 
   #   # Found columns:
 
@@ -194,7 +194,7 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :has_one_association
+  #     configure :article, :has_one_association
   #     configure :bids, :has_many_association
 
   #   # Found columns:
@@ -232,22 +232,22 @@ RailsAdmin.config do |config|
   end
 
 
-  ###  AuctionsCategory  ###
+  ###  ArticlesCategory  ###
 
-   config.model 'AuctionsCategory' do
+   config.model 'ArticlesCategory' do
        visible false
-  #   # You can copy this to a 'rails_admin do ... end' block inside your auctions_category.rb model definition
+  #   # You can copy this to a 'rails_admin do ... end' block inside your articles_category.rb model definition
 
   #   # Found associations:
 
   #     configure :category, :belongs_to_association
-  #     configure :auction, :belongs_to_association
+  #     configure :article, :belongs_to_association
 
   #   # Found columns:
 
   #     configure :id, :integer
   #     configure :category_id, :integer         # Hidden
-  #     configure :auction_id, :integer         # Hidden
+  #     configure :article_id, :integer         # Hidden
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime
 
@@ -333,8 +333,8 @@ RailsAdmin.config do |config|
   #   # Found associations:
 
   #     configure :parent, :belongs_to_association
-  #     configure :auctions_categories, :has_many_association
-  #     configure :auctions, :has_many_association
+  #     configure :articles_categories, :has_many_association
+  #     configure :articles, :has_many_association
   #     configure :children, :has_many_association
 
   #   # Found columns:
@@ -383,12 +383,12 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :belongs_to_association
+  #     configure :article, :belongs_to_association
 
   #   # Found columns:
 
   #     configure :id, :integer
-  #     configure :auction_id, :integer         # Hidden
+  #     configure :article_id, :integer         # Hidden
   #     configure :support, :boolean
   #     configure :support_explanation, :text
   #     configure :transparency, :boolean
@@ -444,7 +444,7 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :belongs_to_association
+  #     configure :article, :belongs_to_association
 
   #   # Found columns:
 
@@ -456,7 +456,7 @@ RailsAdmin.config do |config|
   #     configure :image, :paperclip
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime
-  #     configure :auction_id, :integer         # Hidden
+  #     configure :article_id, :integer         # Hidden
 
   #   # Cross-section configuration:
 
@@ -544,10 +544,10 @@ RailsAdmin.config do |config|
   #   # Found associations:
 
   #     configure :invitor, :belongs_to_association
-  #     configure :auctions, :has_many_association
+  #     configure :articles, :has_many_association
   #     configure :bids, :has_many_association
   #     configure :invitations, :has_many_association
-  #     configure :auction_templates, :has_many_association
+  #     configure :article_templates, :has_many_association
   #     configure :libraries, :has_many_association
 
   #   # Found columns:
@@ -677,13 +677,13 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :belongs_to_association
+  #     configure :article, :belongs_to_association
   #     configure :library, :belongs_to_association
 
   #   # Found columns:
 
   #     configure :id, :integer
-  #     configure :auction_id, :integer         # Hidden
+  #     configure :article_id, :integer         # Hidden
   #     configure :library_id, :integer         # Hidden
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime
@@ -722,7 +722,7 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :has_one_association
+  #     configure :article, :has_one_association
 
   #   # Found columns:
 
@@ -768,10 +768,10 @@ RailsAdmin.config do |config|
   #   # Found associations:
 
   #     configure :invitor, :belongs_to_association
-  #     configure :auctions, :has_many_association
+  #     configure :articles, :has_many_association
   #     configure :bids, :has_many_association
   #     configure :invitations, :has_many_association
-  #     configure :auction_templates, :has_many_association
+  #     configure :article_templates, :has_many_association
   #     configure :libraries, :has_many_association
 
   #   # Found columns:
@@ -855,12 +855,12 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :belongs_to_association
+  #     configure :article, :belongs_to_association
 
   #   # Found columns:
 
   #     configure :id, :integer
-  #     configure :auction_id, :integer         # Hidden
+  #     configure :article_id, :integer         # Hidden
   #     configure :nonprofit_association, :boolean
   #     configure :nonprofit_association_purposes, :serialized
   #     configure :social_businesses_muhammad_yunus, :boolean
@@ -946,7 +946,7 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :auction, :has_one_association
+  #     configure :article, :has_one_association
 
   #   # Found columns:
 
@@ -991,10 +991,10 @@ RailsAdmin.config do |config|
   #   # Found associations:
 
   #     configure :invitor, :belongs_to_association
-  #     configure :auctions, :has_many_association
+  #     configure :articles, :has_many_association
   #     configure :bids, :has_many_association
   #     configure :invitations, :has_many_association
-  #     configure :auction_templates, :has_many_association
+  #     configure :article_templates, :has_many_association
   #     configure :libraries, :has_many_association
 
   #   # Found columns:

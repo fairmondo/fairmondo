@@ -42,7 +42,7 @@ de:
       password: "Passwort"
       login: "Login"
       search: "Suche"
-      auctions: "Auktionen"
+      articles: "Auktionen"
       follow: "Follow"
       stop_follow: "Unfollow"
       confirm_yes: "Ja"
@@ -69,9 +69,9 @@ de:
     notices:
       applied: "Die Vorlage %{name} wurde erfolgreich übernommen"
     prompts:
-      auction_templates: "Bitte wähle eine Vorlage"
+      article_templates: "Bitte wähle eine Vorlage"
     errors:
-      auction_template_missing: "Bitte wähle eine Vorlage"
+      article_template_missing: "Bitte wähle eine Vorlage"
 
 
   tinycms:

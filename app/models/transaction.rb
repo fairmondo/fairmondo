@@ -1,4 +1,4 @@
 class Transaction < ActiveRecord::Base
-  has_one :auction
+  has_one :article
   attr_accessible :type
 end

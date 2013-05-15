@@ -38,7 +38,7 @@ de:
         bank_account_owner: Kontoinhaber
         paypal_account: Paypal-Konto
 
-      auction:
+      article:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
         categories: Kategorien
@@ -122,11 +122,11 @@ de:
 
         transaction: "Angebotsart"
         expire: "Ablaufdatum"
-      auction_template:
+      article_template:
         save_as_template: "Eingaben als Vorlage speichern"
         name: Vorlagenname
       template_select:
-        auction_template: Vorlage
+        article_template: Vorlage
       image:
         image: Bild
         _destroy: Löschen
@@ -139,12 +139,12 @@ de:
         contact: Kontaktinformationen
         profile: Profil
         terms: Rechtliches
-      auction:
+      article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Auszeichnung Deines Artikels (optional)"
         article: "Dein Artikel"
-        auction: "Das Angebot"
+        article: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Das freundliche Prozent (optional)"
@@ -172,7 +172,7 @@ de:
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
-      auction:
+      article:
         title:  "Gebe eine Bezeichnung Deines Artikels ein."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird
         category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'

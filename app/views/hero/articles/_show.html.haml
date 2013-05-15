@@ -1,0 +1,8 @@
+.container
+  .row
+    .span12
+      - if @article.active
+        = semantic_form_for Article.new, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
+          = render "/shared/search_form"
+      - else
+        %h1= t('article.titles.preview')

@@ -47,7 +47,7 @@ gem 'money-rails' # Deal with Money
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
-#gem "acts_as_follower" # Follow Users and Auctions not used for the moment
+#gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
 gem 'sunspot_rails'

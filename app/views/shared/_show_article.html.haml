@@ -1,0 +1,13 @@
+
+.thumbnail.white
+  .in-image-container
+    - if article.title_image
+      = link_to image_tag(article.title_image.image.url(:thumb)), article_path(article,:article => params[:article])
+    - else
+      = link_to image_tag("missing.png" ), article_path(article,:article => params[:article])
+    = features_label article, "in-image-alt"
+    = condition_label article, "in-image"
+  .caption
+    %h5= link_to truncate(article.title, :length => 25), article_path(article,:article => params[:article])
+    %h5= humanized_money_with_symbol article.price
+    = render :partial=>'/articles/show/basic_price', :locals=>{ :article=> article}

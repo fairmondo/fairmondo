@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     get_user
-    @auctions = @user.auctions.paginate(:page => params[:page] , :per_page=>12)
+    @articles = @user.articles.paginate(:page => params[:page] , :per_page=>12)
     if @user.id == current_user.id
       get_sales
       render :sales
@@ -28,9 +28,9 @@ class UsersController < ApplicationController
 
   private
   def get_sales
-    @offers = @user.auctions.paginate :page => params[:offers_page] , :per_page => 12
-    @inactive = @user.auctions.where(:active => false).paginate :page => params[:inactive_page] , :per_page => 12
-    @auction_templates = @user.auction_templates
+    @offers = @user.articles.paginate :page => params[:offers_page] , :per_page => 12
+    @inactive = @user.articles.where(:active => false).paginate :page => params[:inactive_page] , :per_page => 12
+    @article_templates = @user.article_templates
   end
 
   def get_user
