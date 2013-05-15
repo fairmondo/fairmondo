@@ -105,6 +105,8 @@ If you update your branch from before, you may have to migrate the test database
 
   RAILS_ENV=test rake db:migrate
 
+{Click here}[https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD] for more information.
+
 
 === Workflow
 
@@ -115,7 +117,7 @@ If you want to help out with programming new features or fixing bugs, please con
 * If you have access to our repository, please create a new git branch before making changes when coding a larger feature
     git branch [featurename]
 
-* We use BDD (Behavior Driven Development). Please read our [wiki page on the subject](https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD)
+* We use BDD (Behavior Driven Development). Please read our {wiki page on the subject}[https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD]
 
 * When finished with a task:
     git add [corresponding files OR simply . for everything]
