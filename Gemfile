@@ -24,18 +24,6 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
-# CSS
-gem 'sass-rails', '~> 3.2'
-gem 'bootstrap-sass', '~> 2.3.1.0'
-gem 'bootstrap-will_paginate'
-gem "formtastic-plus-bootstrap"
-gem "font-awesome-rails"
-
-# JS
-gem 'tinymce-rails'
-gem 'tinymce-rails-langs'
-gem 'jquery-rails'
-#gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
 
 # Tool Libs
 
@@ -82,9 +70,21 @@ gem 'tinycms', :path => "gems/tinycms"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  
+   # CSS
+  gem 'sass-rails', '~> 3.2'
+  gem 'bootstrap-sass', '~> 2.3.1.0'
+  gem 'bootstrap-will_paginate'
+  gem "formtastic-plus-bootstrap"
+  gem "font-awesome-rails"
+  gem 'compass-rails'
+  
+  # JS
+  gem 'tinymce-rails'
+  gem 'tinymce-rails-langs'
+  gem 'jquery-rails'
+  #gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
   gem 'coffee-rails'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino'
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
