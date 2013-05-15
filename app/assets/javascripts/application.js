@@ -9,6 +9,7 @@
 //= require jquery.complexify
 //= require jquery.hashchange
 //= require jquery.socialshareprivacy
+//= require flat-ui
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize

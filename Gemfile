@@ -78,6 +78,7 @@ group :assets do
   gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
   gem 'compass-rails'
+  gem 'flatui-rails'
 
   # JS
   gem 'tinymce-rails'
