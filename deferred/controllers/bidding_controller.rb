@@ -15,10 +15,10 @@ class BiddingController < ApplicationController
         transaction.save
 
       end
-      redirect_to auction_transaction.auction , :notice => (I18n.t 'transaction.bid.success')
+      redirect_to auction_transaction.article , :notice => (I18n.t 'transaction.bid.success')
     end
     rescue
-      redirect_to auction_transaction.auction , :notice => (I18n.t 'transaction.bid.failure' + bid.errors.first )
+      redirect_to auction_transaction.article , :notice => (I18n.t 'transaction.bid.failure' + bid.errors.first )
     end
   end
 end

@@ -1,8 +1,0 @@
-%p
-  Auction reported with ID #{@auction.id} :
-%p= @text
-%p auction link:
-%p
-  = polymorphic_url(@auction)
-%p admin link:
-%p= rails_admin.show_path(:model_name => "auctions", :id => @auction.id)

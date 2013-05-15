@@ -1,7 +1,7 @@
 de:
 # Enum Definitions
   enumerize:
-    auction:
+    article:
       condition:
         new: "Neu"
         old: "Gebraucht"

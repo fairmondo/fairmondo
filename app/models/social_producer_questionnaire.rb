@@ -3,7 +3,7 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
 
   attr_accessible :nonprofit_association, :nonprofit_association_purposes, :social_businesses_muhammad_yunus,  :social_businesses_muhammad_yunus_purposes, :social_entrepreneur, :social_entrepreneur_purposes
 
-  belongs_to :auction
+  belongs_to :article
 
   def initialize(*args)
     if args.present?

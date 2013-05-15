@@ -1,5 +1,14 @@
 class UpdateCategoriesAndAuctionsForAwesomeNestedSet < ActiveRecord::Migration
+  class Auction < ActiveRecord::Base
+    
+  end
+  class AuctionsCategory < ActiveRecord::Base
+    
+  end
+  
   def up
+    Auction.reset_column_information
+    AuctionsCategory.reset_column_information
     Auction.unscoped.all.each do |auction|
       AuctionsCategory.create(:auction_id => auction.id, :category_id => auction.category_id)
     end
@@ -18,6 +27,8 @@ class UpdateCategoriesAndAuctionsForAwesomeNestedSet < ActiveRecord::Migration
   end
 
   def down
+    Auction.reset_column_information
+    AuctionsCategory.reset_column_information
     remove_column :categories, :lft
     remove_column :categories, :rgt
     remove_column :categories, :depth

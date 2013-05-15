@@ -13,12 +13,12 @@ class Bid < ActiveRecord::Base
 
   ### Comment back in when this is used and testable
   # def check_better
-  #   if self.auction.transaction.max_bid
+  #   if self.article.transaction.max_bid
   #     unless self.price_cents > self.auction_transaction.max_bid
   #       errors[:price_cents] << I18n.t("transaction.bid.smaller-than-prev")
   #     end
   #   else
-  #     unless self.price_cents >= self.auction_transaction.auction.price_cents
+  #     unless self.price_cents >= self.auction_transaction.article.price_cents
   #       errors[:price_cents] <<  I18n.t("transaction.bid.smaller-than-init")
   #     end
   #   end

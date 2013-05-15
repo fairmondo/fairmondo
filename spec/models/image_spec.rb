@@ -5,5 +5,5 @@ describe Image do
     FactoryGirl.create(:image).should be_valid
   end
 
-  it {should belong_to :auction}
+  it {should belong_to :article}
 end

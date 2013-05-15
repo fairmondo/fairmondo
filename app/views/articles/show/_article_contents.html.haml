@@ -1,0 +1,122 @@
+.fairnopoly-well
+  - if current_user && @article.seller.id == current_user.id
+    %span.pull-right
+      - if policy(@article).edit?
+        = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
+      - if policy(@article).deactivate?
+        = link_to t('article.labels.deactivate') , deactivate_article_path, :class => "btn "
+  %h2
+    = @article.title
+  - @article.categories.each do |leaf|
+    %ul.breadcrumb
+      - category_tree = get_category_tree(@article,leaf)
+      - count = 1
+      - category_tree.each do |category|
+        %li
+          %a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
+            %i.icon-tag
+            = category.name
+          - unless category_tree.last == category
+            %span.divider
+              %i.icon-angle-right.icon-large
+        - count = count + 1
+  .clearfix
+  .row-fluid
+    .span6
+      .in-image-container.title-image-wrapper
+        = link_to image_tag(@title_image?@title_image.image.url(:thumb):"missing.png" , :class=> "title_image"), "#"
+        = features_label @article, "in-image-alt"
+        = condition_label @article, "in-image"
+      %ul.thumbnails.article-thumbnails
+        - @thumbnails.each do |image|
+          %li.span3
+            = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(@article, :image => image.id )
+
+    .span3
+      %p
+        %b
+          %span.pull-right= humanized_money_with_symbol @article.price
+          = t('formtastic.labels.article.price')
+      - if @article.quantity && @article.quantity != ""
+        %p
+          %span.pull-right= @article.quantity
+          = t('formtastic.labels.article.quantity')
+      - if @article.friendly_percent && @article.friendly_percent > 0
+        %p
+          %b= t('article.show.friendly_percent')
+          %br/
+          %strong= @article.friendly_percent.to_s + "%"
+          = t('article.show.will_be')
+          %a= t('enumerize.article.friendly_percent_organisation.'+@article.friendly_percent_organisation)
+          = t('article.show.contributed')
+      = render :partial=>'articles/show/basic_price', :locals=>{ :article=> @article}
+      - if @article.active && current_user && current_user.id != @article.seller.id
+        %p
+          %a.btn.btn-primary.btn-fill.hide
+            = t('common.actions.buy')
+        - if user_signed_in?
+          = semantic_form_for(@article.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+            = f.inputs do
+              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+              = f.input :article_id, :as => :hidden
+            = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-white"
+    
+    - if @alternative.present?
+      .span3.dark-gray-well.break-word
+        %h3= t('article.show.alternative')
+        = render :partial=>'/shared/show_article', :locals=>{ :article=> @alternative}
+    - else
+      .span3.dark-gray-well.break-word
+        %h3= t('article.show.alternative')
+        = t('article.show.no_alternative')
+    -#%strong= tinycms_content "article-side-bar"
+  .row-fluid
+    .span12
+      #socialshareprivacy
+        .clearfix
+  .row-fluid
+    .span12
+
+      / All Sellers
+      = render_box_open "content" do
+        = @article.content.html_safe
+
+      = render_box "payment" do
+        %strong
+          = t('formtastic.labels.article.default_payment')
+          \:
+        %p
+          = @article.default_payment.text
+        .border-box.middle-padding
+          = simple_format(@article.payment_details).html_safe
+        %br/
+        %strong
+          = t('formtastic.labels.article.default_transport')
+          \:
+        %p
+          = @article.default_transport.text
+
+        .border-box.middle-padding
+          = simple_format(@article.transport_details).html_safe
+
+      - if @article.fair || @article.ecologic || @article.small_and_precious
+        = render_box "commendation" do
+          = render 'show_commendation'
+      / Only legal sellers
+      - if @article.seller.is_a?(LegalEntity)
+        = render_box "terms" do
+          = @article.seller.terms.html_safe
+        = render_box "cancellation" do
+          = @article.seller.cancellation.html_safe
+        = render_box "about" do
+          = @article.seller.about.html_safe
+
+- if policy(@article).report?
+  = render_box "report" do
+    .element-in-box
+      = form_for :report, :url => report_article_path, :method => :get do |f|
+        = t('article.notices.report')
+        = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
+        %br/
+        %button.btn.btn-primary
+          = t('article.actions.report')
