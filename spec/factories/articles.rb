@@ -73,5 +73,11 @@ FactoryGirl.define do
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
       categories_and_ancestors {|c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
+
+    trait :without_image do
+      after(:build) do |article|
+        article.images = []
+      end
+    end
   end
 end
