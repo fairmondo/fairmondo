@@ -2,7 +2,7 @@
   .fairnopoly-well
     %h3= t('library.new')
     = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-vertical"}) do |f|
-      = f.inputs do 
+      = f.inputs do
         = f.input :name
       = f.actions do
         = f.action :submit , :value => t('library.create')

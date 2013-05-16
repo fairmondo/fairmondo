@@ -1,55 +1,55 @@
 class ArticlePolicy < Struct.new(:user, :article)
 
-    def index?
-      true
-    end
+  def index?
+    true
+  end
 
-    def show?
-      article.active || (user && own?)
-    end
+  def show?
+    article.active || (user && own?)
+  end
 
-    def new?
-      create?
-    end
+  def new?
+    create?
+  end
 
-    def create?
-      true
-    end
+  def create?
+    true
+  end
 
-    def edit?
-      update?
-    end
+  def edit?
+    update?
+  end
 
-    def update?
-      own? && !article.locked
-    end
+  def update?
+    own? && !article.locked
+  end
 
-    def destroy?
-      false
-    end
+  def destroy?
+    false
+  end
 
-    def activate?
-      user && own? && !article.active
-    end
+  def activate?
+    user && own? && !article.active
+  end
 
-    def deactivate?
-       user && own? && article.active
-    end
+  def deactivate?
+     user && own? && article.active
+  end
 
-    def report?
-      user && !own?
-    end
+  def report?
+    user && !own?
+  end
 
-    private
-    def own?
-      user.id == article.seller.id
-    end
+  private
+  def own?
+    user.id == article.seller.id
+  end
 
-    class Scope < Struct.new(:user, :scope)
-      def resolve
-          scope.where(:active => true)
-      end
+  class Scope < Struct.new(:user, :scope)
+    def resolve
+        scope.where(:active => true)
     end
+  end
 
 
 end

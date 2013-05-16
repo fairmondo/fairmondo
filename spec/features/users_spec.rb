@@ -45,7 +45,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      expect { click_button 'Login' }.to raise_error # raises Tinycms error because "banned" is a page
 
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
