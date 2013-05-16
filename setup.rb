@@ -6,10 +6,33 @@ puts "* Please do not run this script more than once."
 puts "\nPress enter to continue (or type \"abort\" to exit)."
 
 unless gets.chomp === "abort"
-	puts "\n\nOK. Here we go:"
+  puts "\n\nOK. Here we go:"
+
+  puts "First we have to make sure you have postgres installed correctly..."
+  puts "(This may take a while.)"
+  puts %x( gem install pg )
+  unless $?.exitstatus == 0
+    puts "\n\nIt doesn't look like that worked."
+    puts "\nPlease make sure you have postgres installed."
+    puts "\nOn linux try:"
+    puts "sudo apt-get install libpq-dev"
+    puts "On mac try installing homebrew and do:"
+    puts "brew install postgres"
+    puts "On windows try getting a different OS. (Seriously though, this script doesn't support windows. Do steps outlined in the README manually.)"
+    puts "\nAfter you did that, ensure 'gem install pg' runs without errors and run this script again with 'ruby setup.rb'."
+    exit
+  end
 
   puts "Installing gems..."
-  %x( bundle install )
+  puts "(This may take a while.)"
+  puts %x( bundle install )
+  unless $?.exitstatus == 0
+    puts "\n\n---------------------------------"
+    puts "\n\nIt doesn't look like that worked."
+    puts "\nThis script will abort now. Please make sure running 'bundle install' succeeds."
+    puts "Then run this script again with 'ruby setup.rb'"
+    exit
+  end
 
   puts "Copying development environment..."
   %x( cp config/environments/development.example.rb config/environments/development.rb )

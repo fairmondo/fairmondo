@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   accepts_nested_attributes_for :transaction
 
   has_many :library_elements, :dependent => :destroy
-  has_many :libraries, :through => :library_elements
+  has_many :libraries, through: :library_elements
 
   belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
   validates_presence_of :user_id, :unless => :template?
