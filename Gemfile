@@ -131,8 +131,12 @@ group :development, :test do
 
   #test performance
   gem 'spork-rails'
+end
 
-
+group :development do
+  # Better error messages
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Adding Staging-server Embedded Solr
