@@ -25,7 +25,7 @@ describe 'User management' do
         check 'user_agecheck'
         click_button 'sign_up'
         User.find_by_email('email@example.com').confirm!
-      end.to change(User, :count).by(1)
+      end.to change(User, :count).by 1
     end
 
     it "should sign in a valid user" do
