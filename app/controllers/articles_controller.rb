@@ -9,7 +9,7 @@ class ArticlesController < InheritedResources::Base
 
   before_filter :setup_template_select, :only => [:new]
 
-  before_filter :setup_categories, :only => [:index]
+  before_filter :setup_categories, :build_search_cache, :only => [:index]
 
   actions :all, :except => [ :create, :destroy ] # inherited methods
 
@@ -30,22 +30,6 @@ class ArticlesController < InheritedResources::Base
     render :json => []
     end
 
-  def index
-    @search_cache = Article.new(params[:article])
-    ######## Solr
-    begin
-      s = search(@search_cache)
-      @articles = s.results
-    ########
-    rescue Errno::ECONNREFUSED
-      @articles = policy_scope(Article).paginate :page => params[:page], :per_page=>12
-      render_hero :action => "sunspot_failure"
-    end
-
-    index!
-  end
-
-
 
   def show
     @article = Article.find(params[:id])
@@ -60,23 +44,8 @@ class ArticlesController < InheritedResources::Base
     set_title_image_and_thumbnails
 
     # find fair alternative
-    @alternative = nil
-    if !@article.fair && params[:article]
-      query = Article.new(params[:article])
-      query.fair = true
-      @alternative = get_alternative query
-      if !@alternative
-        query.fair = false
-        query.ecologic = true
-        @alternative = get_alternative query
-        if !@alternative
-          query.ecologic = false
-          query.condition = :old
-          @alternative = get_alternative query
-        end
-      end
-    end
-
+    @alternative = find_fair_alternative_to @article 
+    
     show!
   end
 
@@ -226,40 +195,48 @@ class ArticlesController < InheritedResources::Base
 
 
   private
-
-  def search(query)
-    search = Sunspot.search(Article) do
-      fulltext query.title
-      paginate :page => params[:page], :per_page=>12
-      with :fair, true if query.fair
-      with :ecologic, true if query.ecologic
-      with :small_and_precious, true if query.small_and_precious
-      with :condition, query.condition if query.condition
-      with :category_ids, Article::Categories.search_categories(query.categories) if query.categories.present?
-    end
-    search
+  
+  def build_search_cache
+     @search_cache = Article.new(params[:article])
   end
 
-  def get_alternative query
-    begin
-      s = search(query)
-      alternatives = s.results
-
-      if alternatives
-        if alternatives.first != @article
-          return alternatives.first
-        else
-          if alternatives[1]
-            return alternatives[1]
-          end
-        end
+  def search_for query
+    ######## Solr
+      search = Article.search do
+        fulltext query.title
+        paginate :page => params[:page], :per_page=>12
+        with :fair, true if query.fair
+        with :ecologic, true if query.ecologic
+        with :small_and_precious, true if query.small_and_precious
+        with :condition, query.condition if query.condition
+        with :category_ids, Article::Categories.search_categories(query.categories) if query.categories.present?
       end
-    rescue Errno::ECONNREFUSED
-
-    end
-    nil
+      return search.results
+    ########
+  rescue Errno::ECONNREFUSED
+      render_hero :action => "sunspot_failure"
+      return policy_scope(Article).paginate :page => params[:page], :per_page=>12
   end
 
+  def find_fair_alternative_to article
+    search = Article.search do
+      fulltext article.title do
+        boost(3.0) { with(:fair, true) }
+        boost(2.0) { with(:ecologic, true) }
+        boost(1.0) { with(:condition, :old) }
+      end
+      any_of do
+        with :fair,true
+        with :ecologic,true
+        with :condition, :old
+      end
+    end
+    return search.results.first 
+  rescue Errno::ECONNREFUSED  
+   return nil
+  end
+
+ 
   def setup_template_select
     @article_templates = ArticleTemplate.where(:user_id => current_user.id)
   end
@@ -307,29 +284,7 @@ class ArticlesController < InheritedResources::Base
   end
 
 
-  ########## build Template #################
-  def build_and_save_template(article)
-    if template_attributes = params[:article_template]
-      if template_attributes[:save_as_template] && template_attributes[:name].present?
-        template_attributes[:article_attributes] = params[:article]
-        @article_template = ArticleTemplate.new(template_attributes)
-        @article_template.article.images.clear
-        article.images.each do |image|
-          copyimage = Image.new
-          copyimage.image = image.image
-          @article_template.article.images << copyimage
-          copyimage.save
-        end
-
-      @article_template.user = article.seller
-      @article_template.save
-      else
-      true
-      end
-    else
-    true
-    end
-  end
+  
 
   ############ Save Images ################
 
@@ -346,7 +301,7 @@ class ArticlesController < InheritedResources::Base
   protected
 
   def collection
-    @libraries ||= policy_scope(Article)
+    @articles ||= search_for @search_cache
   end
 
 end

@@ -51,13 +51,18 @@ class Article < ActiveRecord::Base
   end
 
 
+  # We have to do this in the article class because we want to 
+  # override the dynamic Rails method to get rid of the RecordNotFound 
+  # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
   def seller_attributes=(seller_attrs)
-    self.seller = User.find(seller_attrs.delete(:id))
-    rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
-    if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array
-      raise SecurityError
+    if seller_attrs.has_key?(:id)
+      self.seller = User.find(seller_attrs.delete(:id))
+      rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
+      if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array
+        raise SecurityError
+      end
+      self.seller.attributes = seller_attrs
     end
-    self.seller.attributes = seller_attrs
   end
 
    # The allowed attributes for updating user/seller in article form
