@@ -73,5 +73,24 @@ module ArticlesHelper
   def category_shift level
     html = raw "padding-left:"+(level*10).to_s+"px;"
   end
+  
+  def find_fair_alternative_to article
+    debugger
+    search = Article.search do
+      fulltext article.title do
+        boost(3.0) { with(:fair, true) }
+        boost(2.0) { with(:ecologic, true) }
+        boost(1.0) { with(:condition, :old) }
+      end
+      any_of do
+        with :fair,true
+        with :ecologic,true
+        with :condition, :old
+      end
+    end
+    return search.results.first 
+  rescue Errno::ECONNREFUSED  
+   return nil
+  end
 
 end
