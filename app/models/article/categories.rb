@@ -3,6 +3,8 @@ module Article::Categories
 
   included do
 
+
+    after_save :send_category_proposal
     attr_accessible :categories_and_ancestors,:category_proposal
      attr_accessor :category_proposal
 
@@ -93,6 +95,10 @@ module Article::Categories
     ids
   end
 
-
+  def send_category_proposal
+     if self.category_proposal.present?
+        ArticleMailer.category_proposal(self.category_proposal).deliver
+     end
+  end
 
 end

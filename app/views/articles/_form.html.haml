@@ -5,6 +5,7 @@
     = f.semantic_errors
     = render :partial => "common_inputs", :locals => {:f => f}
     = f.input_step :double_check, :prefix => false do
-      = render :partial => "article_template_create_inputs"
+      = render :partial => "article_template_create_inputs", :locals => {:f => f}
       = f.actions do
         = f.action :submit , :label => t("article.labels.continue_to_preview")
+= @article.errors.to_json
