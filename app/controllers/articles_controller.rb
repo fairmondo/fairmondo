@@ -10,8 +10,12 @@ class ArticlesController < InheritedResources::Base
   before_filter :setup_template_select, :only => [:new]
 
   before_filter :setup_categories, :build_search_cache, :only => [:index]
+  
+  before_filter :setup_form_requirements, :only => [:new,:edit,:update,:create]
+  
+  before_filter :save_images, :only => [:update,:create]
 
-  actions :all, :except => [ :create, :destroy ] # inherited methods
+  actions :all, :except => [ :destroy ] # inherited methods
 
   #Sunspot Autocomplete
   def autocomplete
@@ -88,39 +92,13 @@ class ArticlesController < InheritedResources::Base
   end
 
   def edit
-
-    @article = Article.find(params[:id])
-    authorize @article
-    setup_form_requirements
+    authorize build_resource
     edit!
   end
 
-  def create # Still needs Refactoring
-    @article = current_user.articles.build(params[:article])
-
-    authorize @article
-
-    # Check if we can save the article
-
-    if @article.save && build_and_save_template(@article)
-
-      if @article.category_proposal.present?
-        ArticleMailer.category_proposal(@article.category_proposal).deliver
-      end
-
-      respond_to do |format|
-        format.html { redirect_to article_path(@article) }
-        format.json { render :json => @article, :status => :created, :location => @article }
-      end
-
-    else
-      save_images
-      respond_to do |format|
-        setup_form_requirements
-        format.html { render :action => "new" }
-        format.json { render :json => @article.errors, :status => :unprocessable_entity }
-      end
-    end
+  def create 
+    authorize build_resource
+    create!
   end
 
   def update # Still needs Refactoring
@@ -258,6 +236,7 @@ class ArticlesController < InheritedResources::Base
 
   ################## Form #####################
   def setup_form_requirements
+    resource ||= build_resource
     setup_transaction
     setup_categories
     build_questionnaires
@@ -265,22 +244,16 @@ class ArticlesController < InheritedResources::Base
   end
 
   def setup_transaction
-    @article.build_transaction
+    resource.build_transaction
   end
 
   def build_questionnaires
-    @article.build_fair_trust_questionnaire unless @article.fair_trust_questionnaire
-    @article.build_social_producer_questionnaire unless @article.social_producer_questionnaire
+    resource.build_fair_trust_questionnaire unless resource.fair_trust_questionnaire
+    resource.build_social_producer_questionnaire unless resource.social_producer_questionnaire
   end
 
   def build_template
-    unless @article_template
-      if params[:article_template]
-        @article_template = ArticleTemplate.new(params[:article_template])
-      else
-        @article_template = ArticleTemplate.new
-      end
-    end
+    resource.build_article_template unless resource.article_template
   end
 
 
@@ -290,11 +263,9 @@ class ArticlesController < InheritedResources::Base
 
   def save_images
     #At least try to save the images -> not persisted in browser
-    if @article
-      @article.images.each do |image|
+    resource.images.each do |image|
         image.save
-      end
-    end
+     end
   end
 
   ################## Inherited Resources

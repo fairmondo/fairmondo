@@ -6,8 +6,6 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug
 
-  # refs #128
-  default_scope where(:article_template_id => nil)
 
 
   # Relations
@@ -23,11 +21,11 @@ class Article < ActiveRecord::Base
   belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
   validates_presence_of :user_id, :unless => :template?
 
-  # see #128
   belongs_to :article_template
 
    #article module concerns
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
+  include Template
 
   # without parameter or 'true' returns all articles with a user_id, else only
   # the articles with the specified user_id
@@ -42,13 +40,7 @@ class Article < ActiveRecord::Base
 
 
 
-  # see #128
-  def template?
-    # Note:
-    # * if not yet saved, there cannot be a article_template_id
-    # * the inverse reference is set in article_template model before validation
-    article_template_id != nil || article_template != nil
-  end
+  
 
 
   # We have to do this in the article class because we want to 

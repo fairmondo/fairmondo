@@ -4,15 +4,12 @@ class ArticleTemplate < ActiveRecord::Base
   validates :name, :uniqueness => {:scope => :user_id}
   validates :name, :presence => true
   validates :user_id, :presence => true
+  validates :article, :presence => true
 
   attr_accessor :save_as_template
 
   belongs_to :user
   has_one :article, :dependent => :destroy
-
-  validate :articles_article_template
-
-  accepts_nested_attributes_for :article
 
   # refs #128 avoid default scope
   def article
@@ -20,7 +17,7 @@ class ArticleTemplate < ActiveRecord::Base
   end
 
   def deep_article_attributes
-    article_attributes = article.attributes
+    article_attributes = self.article.attributes
     nested_keys = article.nested_attributes_options.keys
     nested_keys.each do |key|
       relation = article.send(key)
@@ -45,23 +42,15 @@ class ArticleTemplate < ActiveRecord::Base
       end
     end
     article_attributes["category_ids"] = article.category_ids
-    article_attributes
+    article_attributes.except(*non_assignable_values)
   end
 
   private
 
   def non_assignable_values
-    ["id","created_at","updated_at","article_id"]
+    ["id","created_at","updated_at","article_id","locked","active", "transaction_id", "slug", "category_ids"]
   end
 
-  def articles_article_template
-    # see https://github.com/rails/rails/issues/586:
-    # work in progress - :before_add does not yet exist for has_one
-    if article
-      article.article_template ||= self
-    else
-      errors[:article] << I18n.t('active_record.error_messages.empty')
-    end
-  end
+ 
 
 end
