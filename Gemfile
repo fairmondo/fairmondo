@@ -114,7 +114,7 @@ group :development, :test do
   gem "ZenTest"
 
   #Autotest on MAC
-  gem 'autotest-fsevent'
+  gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
 
   # Code Coverage
   gem 'simplecov'
@@ -131,8 +131,12 @@ group :development, :test do
 
   #test performance
   gem 'spork-rails'
+end
 
-
+group :development do
+  # Better error messages
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Adding Staging-server Embedded Solr
