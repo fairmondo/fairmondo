@@ -9,8 +9,7 @@ module Article::Categories
      attr_accessor :category_proposal
 
     # categories refs #154
-    has_many :articles_categories, :dependent => :destroy
-    has_many :categories, :through => :articles_categories
+    has_and_belongs_to_many :categories
     validates :categories, :size => {
       :in => 1..2,
       :add_errors_to => [:categories, :categories_and_ancestors]

@@ -1,12 +1,11 @@
 class ArticleTemplate < ActiveRecord::Base
-  attr_accessible :article_attributes, :save_as_template, :name, :article
+  
+  attr_accessible :article_attributes, :name, :article,:save_as_template
+  attr_accessor :save_as_template
 
   validates :name, :uniqueness => {:scope => :user_id}
-  validates :name, :presence => true
+  validates :name, :presence => true 
   validates :user_id, :presence => true
-  validates :article, :presence => true
-
-  attr_accessor :save_as_template
 
   belongs_to :user
   has_one :article, :dependent => :destroy
@@ -17,7 +16,7 @@ class ArticleTemplate < ActiveRecord::Base
   end
 
   def deep_article_attributes
-    article_attributes = self.article.attributes
+    article_attributes = article.attributes
     nested_keys = article.nested_attributes_options.keys
     nested_keys.each do |key|
       relation = article.send(key)
@@ -42,15 +41,15 @@ class ArticleTemplate < ActiveRecord::Base
       end
     end
     article_attributes["category_ids"] = article.category_ids
-    article_attributes.except(*non_assignable_values)
+    article_attributes
   end
 
   private
 
   def non_assignable_values
-    ["id","created_at","updated_at","article_id","locked","active", "transaction_id", "slug", "category_ids"]
+    ["id","created_at","updated_at","article_id"]
   end
 
- 
+  
 
 end

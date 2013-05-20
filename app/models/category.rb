@@ -2,8 +2,7 @@ class Category < ActiveRecord::Base
 
   attr_accessible :name, :parent, :desc, :parent_id
 
-  has_many :articles_categories
-  has_many :articles, :through => :articles_categories
+  has_and_belongs_to_many :articles
 
   belongs_to :parent , :class_name => 'Category'
 
