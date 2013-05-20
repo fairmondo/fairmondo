@@ -38,8 +38,7 @@ module Article::Template
     cloned_article = self.amoeba_dup
     cloned_article.article_template_id = self.article_template_id
     self.article_template_id = nil
-    cloned_article.save
-
+    cloned_article.save #&& cloned_article.images.each { |image| image.save}   
   end
   
  

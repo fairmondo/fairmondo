@@ -5,7 +5,7 @@ include Warden::Test::Helpers
 describe 'Article management' do
   include CategorySeedData
 
-  describe "for signed-in users" do
+  context "for signed-in users" do
     before :each do
       @user = FactoryGirl.create(:user)
       login_as @user, scope: :user
@@ -74,10 +74,19 @@ describe 'Article management' do
         end
 
         it "should rescue an Errno::ECONNREFUSED" do
-          Sunspot.stub(:search).and_raise(Errno::ECONNREFUSED)
+          Article.stub(:search).and_raise(Errno::ECONNREFUSED)
           click_button 'Suche'
           page.should have_content I18n.t 'article.titles.sunspot_failure'
         end
+      end
+    end
+  end
+
+  context "for signed-out users" do
+    describe "the article index" do
+      it "should be accessible" do
+        visit articles_path
+        page.status_code.should be 200
       end
     end
   end

@@ -1,17 +1,23 @@
 class ArticlesController < InheritedResources::Base
 
+  # Inherited Resources
+
   respond_to :html
+  
+  actions :all, :except => [ :destroy ] # inherited methods
 
-  # Create is safed by denail!
+  # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
-
+ 
+  # Layout Requirements
+  before_filter :build_search_cache, :only => [:index]
+  
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index, :sunspot_failure]
 
-  before_filter :setup_categories, :except => [:destory,:show]
-  
-  before_filter :build_search_cache, :only => [:index]
+  # Builds
 
-  actions :all, :except => [ :destroy ] # inherited methods
+  before_filter :setup_categories, :except => [:destory,:show]
+
 
   #Sunspot Autocomplete
   def autocomplete
@@ -55,7 +61,7 @@ class ArticlesController < InheritedResources::Base
   def new
     
     if !current_user.valid?
-      flash[:error] = t('article.notices.incomplete_profile')
+      flash[:error] = t('article.notices.incomplete_profile') 
       redirect_to edit_user_registration_path
       return
     end
@@ -63,38 +69,31 @@ class ArticlesController < InheritedResources::Base
     if template_id = params[:template_select] && params[:template_select][:article_template]
       if template_id.present?
         @applied_template = ArticleTemplate.find(template_id)
-        @article = Article.new(@applied_template.deep_article_attributes, :without_protection => true)
-        # Make copies of the images
-        @article.images = []
-        @applied_template.article.images.each do |image|
-          copyimage = Image.new
-          copyimage.image = image.image
-          @article.images << copyimage
-        end
-        save_images
+        @article = @applied_template.article.amoeba_dup
         flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
       else
         flash.now[:error] = t('template_select.errors.article_template_missing')
       end
     end
-    resource_with_dependencies
-    @article.seller = current_user
-    authorize @article
+    build_resource
+    authorize resource_with_dependencies
     new!
 
   end
 
   def edit
-    authorize build_resource
+    authorize resource_with_dependencies
     edit!
   end
 
   def create 
+    
     authorize build_resource
+  
     create! do |success, failure|
         success.html { redirect_to resource }
-        failure.html { resource_with_dependencies
-                       save_images
+        failure.html { save_images
+                       resource_with_dependencies
                        render :new }
      end
   end
@@ -221,7 +220,6 @@ class ArticlesController < InheritedResources::Base
 
   ################## Form #####################
   def resource_with_dependencies
-    resource ||= build_resource    
     build_questionnaires
     build_template
     build_transaction
@@ -258,6 +256,10 @@ class ArticlesController < InheritedResources::Base
 
   def collection
     @articles ||= search_for @search_cache
+  end
+  
+  def begin_of_association_chain
+    current_user
   end
 
 end

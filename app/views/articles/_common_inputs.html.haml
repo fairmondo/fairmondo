@@ -43,7 +43,7 @@
   = tinymce
 = f.input_step :upload_images do
   - first=true
-  - (5-@article.images.size).times { @article.images.build }
+  - (5-f.object.images.size).times { f.object.images.build }
   = f.semantic_fields_for :images do |image|
     = f.inputs do
       - if image.object.new_record?
