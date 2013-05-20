@@ -75,7 +75,6 @@ module ArticlesHelper
   end
   
   def find_fair_alternative_to article
-    debugger
     search = Article.search do
       fulltext article.title do
         boost(3.0) { with(:fair, true) }

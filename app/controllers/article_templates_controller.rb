@@ -23,6 +23,12 @@ class ArticleTemplatesController < InheritedResources::Base
   # def collection
   #   @article_templates ||= end_of_association_chain.paginate(:page => params[:page])
   # end
+  
+  def edit  
+    debugger
+    edit!
+    
+  end
 
   def update
     update! {collection_url}

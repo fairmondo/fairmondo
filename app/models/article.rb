@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
   # Relations
 
 
-  validates_presence_of :transaction
+  validates_presence_of :transaction , :unless => :template?
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
@@ -39,10 +39,6 @@ class Article < ActiveRecord::Base
 
 
 
-
-  
-
-
   # We have to do this in the article class because we want to 
   # override the dynamic Rails method to get rid of the RecordNotFound 
   # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
@@ -61,5 +57,15 @@ class Article < ActiveRecord::Base
   def valid_seller_attributes
     ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
   end
+  
+  amoeba do
+      enable
+      include_field :fair_trust_questionnaire
+      include_field :social_producer_questionnaire
+      include_field :categories
+      include_field :images
+      
+    end
+  
 
 end

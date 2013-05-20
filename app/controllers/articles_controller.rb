@@ -7,13 +7,9 @@ class ArticlesController < InheritedResources::Base
 
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index, :sunspot_failure]
 
-  before_filter :setup_template_select, :only => [:new]
-
-  before_filter :setup_categories, :build_search_cache, :only => [:index]
+  before_filter :setup_categories, :except => [:destory,:show]
   
-  before_filter :setup_form_requirements, :only => [:new,:edit,:update,:create]
-  
-  before_filter :save_images, :only => [:update,:create]
+  before_filter :build_search_cache, :only => [:index]
 
   actions :all, :except => [ :destroy ] # inherited methods
 
@@ -57,10 +53,11 @@ class ArticlesController < InheritedResources::Base
 
 
   def new
+    
     if !current_user.valid?
       flash[:error] = t('article.notices.incomplete_profile')
       redirect_to edit_user_registration_path
-    return
+      return
     end
     ############### From Template ################
     if template_id = params[:template_select] && params[:template_select][:article_template]
@@ -78,15 +75,11 @@ class ArticlesController < InheritedResources::Base
         flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
       else
         flash.now[:error] = t('template_select.errors.article_template_missing')
-        @article = Article.new
       end
-    else
-    #############################################
-      @article = Article.new
     end
+    resource_with_dependencies
     @article.seller = current_user
     authorize @article
-    setup_form_requirements
     new!
 
   end
@@ -98,25 +91,21 @@ class ArticlesController < InheritedResources::Base
 
   def create 
     authorize build_resource
-    create!
+    create! do |success, failure|
+        success.html { redirect_to resource }
+        failure.html { resource_with_dependencies
+                       save_images
+                       render :new }
+     end
   end
 
   def update # Still needs Refactoring
-
-     @article = Article.find(params[:id])
-     authorize @article
-     if @article.update_attributes(params[:article]) && build_and_save_template(@article)
-       respond_to do |format|
-          format.html { redirect_to @article, :notice => (I18n.t 'article.notices.update') }
-          format.json { head :no_content }
-       end
-     else
-       save_images
-       setup_form_requirements
-       respond_to do |format|
-         format.html { render :action => "edit" }
-         format.json { render :json => @article.errors, :status => :unprocessable_entity }
-       end
+     authorize resource
+     update! do |success, failure|
+        success.html { redirect_to @article }
+        failure.html { resource_with_dependencies
+                       save_images
+                       render :edit }
      end
 
   end
@@ -214,10 +203,6 @@ class ArticlesController < InheritedResources::Base
    return nil
   end
 
- 
-  def setup_template_select
-    @article_templates = ArticleTemplate.where(:user_id => current_user.id)
-  end
 
   def setup_recommendations
     @libraries = @article.libraries.public.paginate(:page => params[:page], :per_page=>10)
@@ -235,16 +220,16 @@ class ArticlesController < InheritedResources::Base
   end
 
   ################## Form #####################
-  def setup_form_requirements
-    resource ||= build_resource
-    setup_transaction
-    setup_categories
+  def resource_with_dependencies
+    resource ||= build_resource    
     build_questionnaires
     build_template
+    build_transaction
+    resource
   end
 
-  def setup_transaction
-    resource.build_transaction
+  def build_transaction
+    resource.build_transaction unless resource.transaction
   end
 
   def build_questionnaires
