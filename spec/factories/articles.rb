@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     payment_details "payment_details"
     after(:build) do |article|
-      article.images << FactoryGirl.build(:image,:article => article)
+      article.images << FactoryGirl.build(:image)
       article.transaction ||= FactoryGirl.build(:preview_transaction,:article => article)
       article.locked = true
       article.active = true

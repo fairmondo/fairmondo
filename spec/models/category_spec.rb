@@ -8,7 +8,7 @@ describe Category do
     category.should be_valid
   end
 
-  it {should have_many :articles}
+  it {should have_and_belong_to_many :articles}
 
   it "should have the correct parent_id" do
     @anotherCategory = FactoryGirl.create(:category, :parent => category)

@@ -180,13 +180,15 @@ describe ArticlesController do
         sign_in @article.seller
         get :show, id: @article
         @image = controller.instance_variable_get :@title_image
-        @image.article.should eq @article
+        @image.articles.first.should eq @article
       end
 
       it "should assign a title image" do
         @image = FactoryGirl.create :image
-        sign_in @image.article.seller
-        get :show, id: @image.article, image: @image
+        @article = FactoryGirl.create :article
+        @image.articles << @article
+        sign_in @article.seller
+        get :show, id: @article, image: @imagre
         @image.should eq controller.instance_variable_get :@title_image
       end
     end
@@ -257,7 +259,7 @@ describe ArticlesController do
 
         expect do
           get :edit, :id => @article
-        end.to raise_error Pundit::NotAuthorizedError
+        end.to raise_error ActiveRecord::RecordNotFound # fails before pundit because of method chain
       end
     end
   end

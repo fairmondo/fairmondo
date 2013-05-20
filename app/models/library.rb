@@ -14,8 +14,9 @@ class Library < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :library_elements, :dependent => :destroy
+  has_many :library_elements, dependent: :destroy
+  has_many :articles, through: :library_elements
 
- scope :public, where(public: true)
+  scope :public, where(public: true)
 
 end

@@ -17,7 +17,7 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
     builder.radio_button(input_name, choice_value(choice), opts.merge(choice_html_options(choice)).merge(:required => false)) <<
       template.content_tag(:label,
         choice_label(choice)
-        
+
       )
   end
 
@@ -26,10 +26,10 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
   end
 
   def render_label?
-    if options[:label] 
+    if options[:label]
       true
     else
-      false  
+      false
     end
   end
 

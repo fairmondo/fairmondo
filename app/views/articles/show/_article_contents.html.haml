@@ -9,7 +9,7 @@
     = @article.title
   - @article.categories.each do |leaf|
     %ul.breadcrumb
-      - category_tree = get_category_tree(@article,leaf)
+      - category_tree = get_category_tree leaf
       - count = 1
       - category_tree.each do |category|
         %li

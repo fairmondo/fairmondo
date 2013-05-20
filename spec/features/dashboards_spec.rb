@@ -4,7 +4,7 @@ include Warden::Test::Helpers
 
 describe 'Dashboard' do
 
-  describe "for non-signed-in users" do
+  context "for non-signed-in users" do
 
     it "should show a sign in button" do
       visit users_path
@@ -12,10 +12,10 @@ describe 'Dashboard' do
     end
   end
 
-  describe "for signed-in users" do
+  context "for signed-in users" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create :user
       login_as @user
       visit users_path
     end

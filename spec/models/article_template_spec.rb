@@ -21,26 +21,6 @@ describe ArticleTemplate do
       article_template = FactoryGirl.build(:article_template)
     end
 
-    it "should return an article template" do
-      article_template.send("articles_article_template").should eq article_template
-    end
-
-    it "should throw an error when no article is present" do
-      article_template.article = nil
-      article_template.should_not be_valid
-    end
   end
 
-
-  describe "deep_article_attributes method" do
-    it "should return a hash with attributes of the underlying article" do
-      result = article_template.deep_article_attributes
-      result.class.should eq Hash
-      result['id'].should eq article_template.article.id
-    end
-  end
-
-  describe "non_assignable_values method" do
-    its(:non_assignable_values) { should eq ["id", "created_at", "updated_at", "article_id"] }
-  end
 end

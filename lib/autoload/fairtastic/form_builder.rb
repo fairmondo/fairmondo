@@ -17,7 +17,7 @@ module Fairtastic
       input_args = case specification
         when :purpose then purpose_args(*args)
         when :explanation then explanation_args(*args)
-        else raise ArgumentError, "input_with called with an unfamiliar argument"
+        #else raise ArgumentError, "input_with called with an unfamiliar argument"
       end
 
       template.content_tag(

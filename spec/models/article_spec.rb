@@ -5,13 +5,14 @@ describe Article do
   let(:article) { FactoryGirl::create(:article) }
   subject { article }
 
-  it {should have_many :images}
+  it {should have_and_belong_to_many :images}
 
   it {should belong_to :seller}
-  it {should have_many :categories}
+  it {should have_and_belong_to_many :categories}
 
   it "should return the title image" do
-    image = FactoryGirl.create(:image, :article => article)
+    image = FactoryGirl.create(:image)
+    article.images << image
     article.title_image
   end
 
@@ -112,43 +113,7 @@ describe Article do
       end
     end
 
-    describe "with_exact_category_id scope" do
-      it "should be unscoped without category_id" do
-        Article.with_exact_category_id.should == Article.scoped
-      end
-      it "should return all articles of a given category" do
-        article1_cat1 = FactoryGirl.create :article, :category1
-        article2_cat1 = FactoryGirl.create :article, :category1
-        article1_cat2 = FactoryGirl.create :article, :category2
 
-        results = Article.with_exact_category_id 1
-        results.should include article1_cat1, article2_cat1
-        results.should_not include article1_cat2
-      end
-    end
-
-    describe "with_exact_category_ids scope" do
-      it "should return all articles of multiple given categories" do
-        article_cat1 = FactoryGirl.create :article, :category1
-        article_cat2 = FactoryGirl.create :article, :category2
-        article_cat3 = FactoryGirl.create :article, :category3
-
-        results = Article.with_exact_category_ids [1, 2]
-        results.should include article_cat1, article_cat2
-        results.should_not include article_cat3
-      end
-    end
-
-    describe "with_category_or_descendant_ids" do
-      it "should do something" do
-        article_cat1 = FactoryGirl.create :article, :category1
-        article_cat2 = FactoryGirl.create :article, :category2
-        article_childcat = FactoryGirl.create :article, :with_child_category
-
-        results = Article.with_category_or_descendant_ids [1, article_childcat.categories[0].id]
-        results.should include article_cat1, article_childcat
-        results.should_not include article_cat2
-      end
-    end
+    
   end
 end

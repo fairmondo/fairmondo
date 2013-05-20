@@ -54,9 +54,9 @@ module ArticlesHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def get_category_tree article, leaf_category
+  def get_category_tree category
     tree = []
-    cat = leaf_category
+    cat = category
     tree.unshift(cat)
 
     while parent_cat = parent_category(cat)
