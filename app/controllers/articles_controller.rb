@@ -132,7 +132,7 @@ class ArticlesController < InheritedResources::Base
   def deactivate
       @article = Article.find(params[:id])
       authorize @article
-      @article.active = false # Activate to be searchable
+      @article.active = false # Deactivate - not searchable
       @article.save
 
       update! do |success, failure|
