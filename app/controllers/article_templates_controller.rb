@@ -2,13 +2,12 @@ class ArticleTemplatesController < InheritedResources::Base
 
   before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
-  before_filter :setup_categories, :except => [:destroy]
   before_filter :build_article, :only => [:new,:create]
   before_filter :build_questionnaires, :except => [:destroy]
   before_filter :build_transaction, :only => [:create]
   actions :all, :except => [:show,:index]
 
-  
+
 
   def begin_of_association_chain
     current_user
@@ -17,22 +16,22 @@ class ArticleTemplatesController < InheritedResources::Base
   # def collection
   #   @article_templates ||= end_of_association_chain.paginate(:page => params[:page])
   # end
-  
+
 
   def update
     authorize resource
-    update!  do |success, failure| 
+    update!  do |success, failure|
        success.html { redirect_to collection_url}
-       failure.html { save_images 
+       failure.html { save_images
                       render :edit}
     end
   end
 
   def create
     authorize build_resource
-    create! do |success, failure| 
+    create! do |success, failure|
        success.html { redirect_to collection_url}
-       failure.html { save_images 
+       failure.html { save_images
                       render :new}
     end
   end
@@ -64,8 +63,8 @@ class ArticleTemplatesController < InheritedResources::Base
   end
 
   def build_questionnaires
-    resource.article.build_fair_trust_questionnaire unless resource.article.fair_trust_questionnaire 
-    resource.article.build_social_producer_questionnaire unless resource.article.social_producer_questionnaire 
+    resource.article.build_fair_trust_questionnaire unless resource.article.fair_trust_questionnaire
+    resource.article.build_social_producer_questionnaire unless resource.article.social_producer_questionnaire
   end
 
   def build_transaction

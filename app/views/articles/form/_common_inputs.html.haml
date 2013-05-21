@@ -1,7 +1,7 @@
 = f.input_step :title_and_categories, :default_step => true do
   = f.inputs do
     = f.input :title, :tooltip => true, :required => true
-    = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :tooltip => true, :required => true
+    = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => Category.roots, :tooltip => true, :required => true
     = f.input :category_proposal,:label => t('article.categories.proposal.question'), :tooltip => true
 = f.input_step :commendation, :tooltip => true do
   = f.inputs do
