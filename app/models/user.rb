@@ -85,9 +85,6 @@ class User < ActiveRecord::Base
     fullname = "#{self.forename} #{self.surname}"
   end
 
-  def display_name
-    fullname
-  end
 
   def name
     name = "#{self.nickname}"

@@ -4,5 +4,5 @@ class MoveExpireTimeToTransactions < ActiveRecord::Migration
     add_column :transactions, :expire, :datetime
   end
 
- 
+
 end

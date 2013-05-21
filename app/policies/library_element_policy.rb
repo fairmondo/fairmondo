@@ -14,7 +14,7 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
 
   private
   def own?
-    user.id == library_element.library.user_id
+    user.id == library_element.library_user_id
   end
 
 end

@@ -1,5 +1,5 @@
 class AddUpcyclingToAuctions < ActiveRecord::Migration
-  
+
   class Auction < ActiveRecord::Base
     attr_accessible :ecologic_kind
   end

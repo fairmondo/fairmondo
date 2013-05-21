@@ -3,7 +3,7 @@
   .check_box_tree_contents {
     margin-left: -20px;
   }
-  
+
   .choices {
     margin-left: 30px !important;
   }
@@ -14,40 +14,40 @@
      width: 100% !important;
      text-align: left !important;
      display: inline!important;
-    
+
    }
    .choices label:before {
       font-family: FontAwesome;
       content: '\f055\00a0\00a0';
-      
+
    }
-   
-   
+
+
    input[type='checkbox'] ~ fieldset.choices {
      display: none;
    }
-   
+
     input:checked ~ fieldset.choices {
      display: block;
-     
+
    }
-   
+
    input:checked ~ label:after {
       font-family: FontAwesome;
       content: '\00a0\00a0\f00c';
-     
+
    }
    input:checked ~ label:before {
       font-family: FontAwesome;
       content: '\f056\00a0\00a0';
-      
+
    }
-   
+
    .leaf-item label:before {
      content: '\f02B\00a0\00a0' !important;
    }
-    
-  
+
+
    -moz-user-select: none;
    -webkit-user-select: none;
    user-select: none;
@@ -138,7 +138,7 @@
      vertical-align: middle;
    }
 
-   
+
  } */
 
 

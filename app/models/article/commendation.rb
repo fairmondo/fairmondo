@@ -6,20 +6,6 @@ module Article::Commendation
     attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_edition , :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
     attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
 
-    scope :with_commendation, lambda { |*commendations|
-      return scoped unless commendations.present?
-      article_table = self.arel_table
-      arel_condition = nil
-      commendations.each do |commendation|
-        if arel_condition
-          arel_condition = arel_condition.or(article_table[commendation].eq(true))
-        else
-          arel_condition = article_table[commendation].eq(true)
-        end
-      end
-      where(arel_condition)
-    }
-
 
     ##### commendation
     ## fair
@@ -66,6 +52,10 @@ module Article::Commendation
     validates_length_of :small_and_precious_reason, :minimum => 200, :if => :small_and_precious?
     validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?
 
+  end
+
+  def has_commendation?
+     self.fair || self.ecologic || self.small_and_precious
   end
 
   private

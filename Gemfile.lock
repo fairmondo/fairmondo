@@ -46,6 +46,7 @@ GEM
       sys-uname
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
+    awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
@@ -88,6 +89,8 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
+    code_analyzer (0.3.1)
+      sexp_processor
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -96,6 +99,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    colored (1.2)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -259,6 +263,14 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
+    rails_best_practices (1.13.5)
+      activesupport
+      awesome_print
+      code_analyzer
+      colored
+      erubis
+      i18n
+      ruby-progressbar
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -288,6 +300,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.9)
+    ruby-progressbar (1.0.2)
     ruby2ruby (2.0.3)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -405,6 +418,7 @@ DEPENDENCIES
   rails (>= 3.2.13)
   rails-erd
   rails_admin
+  rails_best_practices
   recaptcha
   rspec-rails
   sass-rails (~> 3.2)

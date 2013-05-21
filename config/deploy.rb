@@ -61,7 +61,7 @@ namespace :deploy do
   task :additional_rake, :roles => :app, :only => {:primary => true} do
 
   end
-  
+
   desc 'Prompts if new migrations are available and runs them if you want to'
   task :needs_migrations, :roles => :db, :only => {:primary => true} do
     migrations_changed = if previous_release.nil?
@@ -79,7 +79,7 @@ namespace :deploy do
 end
 
 
-  
+
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"
 after "deploy", "deploy:additional_rake"

@@ -1,9 +1,9 @@
 #article_form_container
   = tinymce_assets
-  = render :partial => "article_template_select"
-  = semantic_form_for @article, :html => {:class => "form-vertical", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|
+  = render :partial => "articles/form/article_template_select"
+  = semantic_form_for resource, :html => {:class => "form-vertical", :multipart => true}, :builder => Fairtastic::FormBuilder do |f|
     = f.semantic_errors
-    = render :partial => "common_inputs", :locals => {:f => f}
+    = render :partial => "articles/form/common_inputs", :locals => {:f => f}
     = f.input_step :double_check, :prefix => false do
       = f.inputs do
         = f.semantic_fields_for :article_template do |template_form|

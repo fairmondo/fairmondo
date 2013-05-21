@@ -16,26 +16,7 @@ describe Article do
     article.title_image
   end
 
-  describe "with_user_id scope" do
-    before do
-      @article_with_id = FactoryGirl.create(:article)
-      @article_without_id = FactoryGirl.create(:article).user_id = nil
-    end
 
-    it "should return all articles with a user_id when called with 'true'" do
-      results = Article.with_user_id(true)
-      results.should include(@article_with_id)
-      results.should_not include(@article_without_id)
-    end
-
-    it "should return all articles with a specific user_id when called with an integer" do
-      article_with_correct_id = FactoryGirl.create(:article)
-      results = Article.with_user_id(article_with_correct_id.user_id)
-      results.should include(article_with_correct_id)
-      results.should_not include(@article_with_id)
-      results.should_not include(@article_without_id)
-    end
-  end
 
   describe "Article::Initial" do
     it "should rescue MissingAttributeErrors" do
@@ -45,12 +26,15 @@ describe Article do
   end
 
   describe "Article::FeesAndDonations" do
-    describe "friendly_percent_calculated" do
-      it "should call friendly_percent_result" do
-        article.should_receive :friendly_percent_result
-        article.friendly_percent_calculated
-      end
-    end
+
+    #at the moment we do not have friendly percentece any more
+    #describe "friendly_percent_calculated" do
+      #it "should call friendly_percent_result" do
+        #article.should_receive :friendly_percent_result
+        #article.friendly_percent_calculated
+      #end
+    #end
+
     describe "fee_percentage" do
       it "should return the fair percentage when article.fair" do
         article.fair = true
@@ -80,21 +64,7 @@ describe Article do
   end
 
   describe "Article::Commendation" do
-    describe "with_commendation scope" do
-      it "should be unscoped without commendations" do
-        Article.with_commendation.should == Article.scoped
-      end
-      it "should return the correct scope with given commendations" do
-        article_without_commendations = FactoryGirl.create(:article)
-        article_fair = FactoryGirl.create(:article, fair: true, fair_kind: :fair_trust)
-        article_ecologic = FactoryGirl.create(:article, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
-        article_fair_ecologic = FactoryGirl.create(:article, fair: true, fair_kind: :fair_trust, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
 
-        results = Article.with_commendation :fair, :ecologic
-        results.should include(article_fair_ecologic, article_fair, article_ecologic)
-        results.should_not include(article_without_commendations)
-      end
-    end
   end
 
   describe "Article::Categories" do
@@ -114,6 +84,6 @@ describe Article do
     end
 
 
-    
+
   end
 end

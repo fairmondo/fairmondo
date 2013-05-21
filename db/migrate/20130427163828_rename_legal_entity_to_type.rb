@@ -1,9 +1,9 @@
 class RenameLegalEntityToType < ActiveRecord::Migration
-  
+
   class User < ActiveRecord::Base
-    
+
   end
-  
+
   def up
     add_column :users , :type , :string
     User.reset_column_information

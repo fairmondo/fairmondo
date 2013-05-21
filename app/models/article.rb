@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug
 
-
+  delegate :terms, :cancellation, :about, :to => :seller, :prefix => true
 
   # Relations
 
@@ -27,21 +27,12 @@ class Article < ActiveRecord::Base
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
   include Template
 
-  # without parameter or 'true' returns all articles with a user_id, else only
-  # the articles with the specified user_id
-  scope :with_user_id, lambda{|user_id = true|
-    if user_id == true
-      where(Article.arel_table[:user_id].not_eq(nil))
-    else
-      where(:user_id => user_id)
-    end
-  }
 
   def images_attributes=(attributes)
     self.images.clear
     attributes.each_key do |key|
       if attributes[key].has_key? :id
-        self.images << Image.find(attributes[key][:id])
+        self.images << Image.find(attributes[key][:id]) unless attributes[key].has_key?(:_destroy)
       else
         self.images << Image.new(attributes[key])
       end
@@ -49,8 +40,8 @@ class Article < ActiveRecord::Base
   end
 
 
-  # We have to do this in the article class because we want to 
-  # override the dynamic Rails method to get rid of the RecordNotFound 
+  # We have to do this in the article class because we want to
+  # override the dynamic Rails method to get rid of the RecordNotFound
   # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
   def seller_attributes=(seller_attrs)
     if seller_attrs.has_key?(:id)
@@ -67,7 +58,7 @@ class Article < ActiveRecord::Base
   def valid_seller_attributes
     ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
   end
-  
+
   amoeba do
       enable
       include_field :fair_trust_questionnaire
@@ -84,6 +75,6 @@ class Article < ActiveRecord::Base
         end
       })
     end
-  
+
 
 end

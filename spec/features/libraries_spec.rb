@@ -70,7 +70,7 @@ describe 'Library' do
           within "#library#{@lib.id}" do
             click_link I18n.t('common.actions.destroy')
           end
-        end.to change(Library, :count).by -1
+        end.to change(Library, :count).by(-1)
 
         page.should_not have_content 'foobar'
       end
