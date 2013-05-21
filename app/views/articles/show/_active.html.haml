@@ -19,7 +19,7 @@
         .well-column-small-padding
           .row-fluid
             .span8
-              = link_to library.name, user_libraries_path(:user_id => library.user), :anchor => "library"+library.id.to_s
+              = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
               %p
                 = t('common.text.from') + " " + library.user.nickname
             .span4
