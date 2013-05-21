@@ -127,7 +127,7 @@ class ArticlesController < InheritedResources::Base
 
   def deactivate
       authorize resource
-      resource.active = false # Activate to be searchable
+      resource.active = false # Deactivate - not searchable
       update! do |success, failure|
         success.html {  redirect_to resource, :notice => I18n.t('article.notices.deactivated') }
         failure.html {
