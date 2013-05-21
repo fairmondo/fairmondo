@@ -41,14 +41,16 @@
         %p
           %span.pull-right= @article.quantity
           = t('formtastic.labels.article.quantity')
-      - if @article.friendly_percent && @article.friendly_percent > 0
-        %p
-          %b= t('article.show.friendly_percent')
-          %br/
-          %strong= @article.friendly_percent.to_s + "%"
-          = t('article.show.will_be')
-          %a= t('enumerize.article.friendly_percent_organisation.'+@article.friendly_percent_organisation)
-          = t('article.show.contributed')
+
+        -# if @article.friendly_percent && @article.friendly_percent > 0
+          -#%p
+            -#%b= t('article.show.friendly_percent')
+            -#%br/
+            -#%strong= @article.friendly_percent.to_s + "%"
+            -#= t('article.show.will_be')
+            -#%a= t('enumerize.article.friendly_percent_organisation.'+@article.friendly_percent_organisation)
+            -#= t('article.show.contributed')
+
       = render :partial=>'articles/show/basic_price', :locals=>{ :article=> @article}
       - if @article.active && current_user && current_user.id != @article.seller.id
         %p
@@ -60,7 +62,7 @@
               = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
               = f.input :article_id, :as => :hidden
             = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-white"
-    
+
     - if @alternative.present?
       .span3.dark-gray-well.break-word
         %h3= t('article.show.alternative')
