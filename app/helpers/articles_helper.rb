@@ -1,20 +1,4 @@
 module ArticlesHelper
-  def category_button_text name , children , pad = false
-    html= raw glyphicons('icon-tags')
-    html+= " "
-    html+= name
-    if children
-      html+= raw "<span style=\" float: right; "
-      if pad
-        html+=raw "padding-right:10px"
-      end
-      html+=raw "\">"
-      html+= raw glyphicons('icon-chevron-right')
-      html+= raw "</span>"
-    end
-    html
-  end
-
   # Conditions
   def condition_label article, extraclass = ""
     bclass=condition_badge_class(article.condition)
@@ -22,12 +6,12 @@ module ArticlesHelper
   end
 
   def features_label article, extraclass = ""
-     html = "<div class=\"" +extraclass+"\">"
-     html +="<span class=\"label label-info\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
-     html +="<span class=\"label label-success\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
-     html +="<span class=\"label label-important\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
-     html += "</div>"
-     html.html_safe
+    html = "<div class=\"" +extraclass+"\">"
+    html +="<span class=\"label label-info\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
+    html +="<span class=\"label label-success\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
+    html +="<span class=\"label label-important\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
+    html += "</div>"
+    html.html_safe
   end
 
   def condition_badge_class condition
@@ -40,9 +24,7 @@ module ArticlesHelper
     bclass
   end
 
-
-
-   def resource_name
+  def resource_name
     :user
   end
 
@@ -70,10 +52,20 @@ module ArticlesHelper
     Category.where(:id => cat.parent_id).first
   end
 
-  def category_shift level
-    html = raw "padding-left:"+(level*10).to_s+"px;"
+  def title_image
+    if params[:image]
+      resource.images.find(params[:image])
+    else
+      resource.images[0]
+    end
   end
-  
+
+  def thumbnails title_image
+    thumbnails = resource.images
+    thumbnails.reject!{|image| image.id == title_image.id}  #Reject the selected image from thumbs
+    thumbnails
+  end
+
   def find_fair_alternative_to article
     search = Article.search do
       fulltext article.title do
@@ -87,9 +79,18 @@ module ArticlesHelper
         with :condition, :old
       end
     end
-    return search.results.first 
-  rescue Errno::ECONNREFUSED  
+    return search.results.first
+  rescue Errno::ECONNREFUSED
    return nil
   end
+
+  def libraries
+    resource.libraries.public.paginate(:page => params[:page], :per_page=>10)
+  end
+
+  def seller_articles
+    resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
+  end
+
 
 end

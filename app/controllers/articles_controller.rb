@@ -3,21 +3,15 @@ class ArticlesController < InheritedResources::Base
   # Inherited Resources
 
   respond_to :html
-  
+
   actions :all, :except => [ :destroy ] # inherited methods
 
   # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
- 
+
   # Layout Requirements
-  before_filter :build_search_cache, :only => [:index]
-  
+
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index, :sunspot_failure]
-
-  # Builds
-
-  before_filter :setup_categories, :except => [:destory,:show]
-
 
   #Sunspot Autocomplete
   def autocomplete
@@ -38,30 +32,20 @@ class ArticlesController < InheritedResources::Base
 
 
   def show
-    @article = Article.find(params[:id])
-    authorize @article
-    if @article.active
-      setup_recommendations
-    else
-      if policy(@article).activate?
-      @article.calculate_fees_and_donations
-      end
-    end
-    set_title_image_and_thumbnails
+    @article = Article.find params[:id]
+    authorize resource
 
-    # find fair alternative
-    @alternative = find_fair_alternative_to @article 
-    
+    if !resource.active && policy(resource).activate?
+      resource.calculate_fees_and_donations
+    end
+
     show!
   end
 
-
-
-
   def new
-    
+
     if !current_user.valid?
-      flash[:error] = t('article.notices.incomplete_profile') 
+      flash[:error] = t('article.notices.incomplete_profile')
       redirect_to edit_user_registration_path
       return
     end
@@ -86,10 +70,10 @@ class ArticlesController < InheritedResources::Base
     edit!
   end
 
-  def create 
-    
+  def create
+
     authorize build_resource
-  
+
     create! do |success, failure|
         success.html { redirect_to resource }
         failure.html { save_images
@@ -118,7 +102,7 @@ class ArticlesController < InheritedResources::Base
         success.html { redirect_to resource, :notice => I18n.t('article.notices.create') }
         failure.html {
                       resource_with_dependencies
-                      render :action => :edit
+                      render :edit
                      }
       end
 
@@ -133,7 +117,7 @@ class ArticlesController < InheritedResources::Base
         failure.html {
                       #should not happen!
                       resource_with_dependencies
-                      render :action => :edit
+                      render :edit
                      }
       end
   end
@@ -154,10 +138,7 @@ class ArticlesController < InheritedResources::Base
 
 
   private
-  
-  def build_search_cache
-     @search_cache = Article.new(params[:article])
-  end
+
 
   def search_for query
     ######## Solr
@@ -177,39 +158,6 @@ class ArticlesController < InheritedResources::Base
       return policy_scope(Article).paginate :page => params[:page], :per_page=>12
   end
 
-  def find_fair_alternative_to article
-    search = Article.search do
-      fulltext article.title do
-        boost(3.0) { with(:fair, true) }
-        boost(2.0) { with(:ecologic, true) }
-        boost(1.0) { with(:condition, :old) }
-      end
-      any_of do
-        with :fair,true
-        with :ecologic,true
-        with :condition, :old
-      end
-    end
-    return search.results.first 
-  rescue Errno::ECONNREFUSED  
-   return nil
-  end
-
-
-  def setup_recommendations
-    @libraries = @article.libraries.public.paginate(:page => params[:page], :per_page=>10)
-    @seller_products = @article.seller.articles.paginate(:page => params[:page], :per_page=>18)
-  end
-
-  def set_title_image_and_thumbnails
-    if params[:image]
-      @title_image = Image.find(params[:image])
-    else
-      @title_image = @article.images[0]
-    end
-    @thumbnails = @article.images
-    @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from thumbs
-  end
 
   ################## Form #####################
   def resource_with_dependencies
@@ -233,7 +181,7 @@ class ArticlesController < InheritedResources::Base
   end
 
 
-  
+
 
   ############ Save Images ################
 
@@ -248,9 +196,9 @@ class ArticlesController < InheritedResources::Base
   protected
 
   def collection
-    @articles ||= search_for @search_cache
+    @articles ||= search_for Article.new(params[:article])
   end
-  
+
   def begin_of_association_chain
     current_user
   end

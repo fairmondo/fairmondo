@@ -175,22 +175,8 @@ describe ArticlesController do
         response.should render_template :show
       end
 
-      it "should create an image for the article" do
-        @article = FactoryGirl.create :article
-        sign_in @article.seller
-        get :show, id: @article
-        @image = controller.instance_variable_get :@title_image
-        @image.articles.first.should eq @article
-      end
 
-      it "should assign a title image" do
-        @image = FactoryGirl.create :image
-        @article = FactoryGirl.create :article
-        @image.articles << @article
-        sign_in @article.seller
-        get :show, id: @article, image: @imagre
-        @image.should eq controller.instance_variable_get :@title_image
-      end
+
     end
   end
 

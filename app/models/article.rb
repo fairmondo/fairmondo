@@ -27,21 +27,12 @@ class Article < ActiveRecord::Base
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
   include Template
 
-  # without parameter or 'true' returns all articles with a user_id, else only
-  # the articles with the specified user_id
-  scope :with_user_id, lambda{|user_id = true|
-    if user_id == true
-      where(Article.arel_table[:user_id].not_eq(nil))
-    else
-      where(:user_id => user_id)
-    end
-  }
 
   def images_attributes=(attributes)
     self.images.clear
     attributes.each_key do |key|
       if attributes[key].has_key? :id
-        self.images << Image.find(attributes[key][:id])
+        self.images << Image.find(attributes[key][:id]) unless attributes[key].has_key?(:_destroy)
       else
         self.images << Image.new(attributes[key])
       end

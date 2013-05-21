@@ -4,8 +4,8 @@
 
 .row
   .span9
-    = render :partial => "/articles/show/article_contents"
+    = render "/articles/show/article_contents", :article => resource
   - if @article.active
-    = render :partial => "/articles/show/active"
+    = render "/articles/show/active", :article => resource
   - else
-    = render :partial => "/articles/show/inactive"
+    = render "/articles/show/inactive", :article => resource
