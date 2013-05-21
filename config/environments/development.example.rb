@@ -60,4 +60,19 @@ Fairnopoly::Application.configure do
   # without actually sending anything
   # config.action_mailer.delivery_method = :test
 
+  # bullet - n+1 detection
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.console = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+    # Bullet.growl = true
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
+    # Bullet.airbrake = true
+  end
+
 end

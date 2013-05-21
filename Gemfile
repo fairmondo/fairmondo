@@ -119,6 +119,8 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
+  # Mutation Coverage
+  # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
   #er diagramm generation
   gem "rails-erd"
@@ -138,6 +140,9 @@ group :development do
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  # Notify about n+1 queries
+  gem 'bullet'
 end
 
 # Adding Staging-server Embedded Solr
