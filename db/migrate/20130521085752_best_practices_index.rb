@@ -1,6 +1,6 @@
 class BestPracticesIndex < ActiveRecord::Migration
   def change
-     add_index :articles, :article_template_id
+     add_index :articles, :article_template_id unless index_exists? :articles, :article_template_id
      add_index :article_templates, :user_id
      add_index :articles, :user_id
      add_index :articles, :transaction_id
