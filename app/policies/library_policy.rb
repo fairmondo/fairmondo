@@ -17,13 +17,13 @@ class LibraryPolicy < Struct.new(:user, :library)
     user.id == library.user_id
   end
 
-  class Scope < Struct.new(:current_user,:user, :scope)
+  class Scope < Struct.new(:current_user, :user, :scope)
     def resolve
-        if current_user.id == user.id
-          scope
-        else
-          scope.public
-        end
+      if current_user.id == user.id
+        scope
+      else
+        scope.public
+      end
     end
   end
 

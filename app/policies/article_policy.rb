@@ -13,7 +13,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def create?
-    true
+    true # Devise already ensured this user is logged in.
   end
 
   def edit?
