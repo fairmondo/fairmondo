@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug
 
-
+  delegate :terms, :cancellation, :about, :to => :seller, :prefix => true
 
   # Relations
 
@@ -49,8 +49,8 @@ class Article < ActiveRecord::Base
   end
 
 
-  # We have to do this in the article class because we want to 
-  # override the dynamic Rails method to get rid of the RecordNotFound 
+  # We have to do this in the article class because we want to
+  # override the dynamic Rails method to get rid of the RecordNotFound
   # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
   def seller_attributes=(seller_attrs)
     if seller_attrs.has_key?(:id)
@@ -67,7 +67,7 @@ class Article < ActiveRecord::Base
   def valid_seller_attributes
     ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
   end
-  
+
   amoeba do
       enable
       include_field :fair_trust_questionnaire
@@ -84,6 +84,6 @@ class Article < ActiveRecord::Base
         end
       })
     end
-  
+
 
 end

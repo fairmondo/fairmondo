@@ -11,9 +11,9 @@
       = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
         = f.input :fair_seal, :tooltip => true, :required => true
       = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
-        = render(:partial => 'articles/fair_trust_questionnaire_form', :locals => {:article_form => f})
+        = render(:partial => 'articles/form/fair_trust_questionnaire_form', :locals => {:article_form => f})
       = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do
-        = render(:partial => 'articles/social_producer_questionnaire_form', :locals => {:article_form => f})
+        = render(:partial => 'articles/form/social_producer_questionnaire_form', :locals => {:article_form => f})
     = f.input :ecologic, :as => :plain_check_box, :js_toggle => true
     = f.inputs :id => 'ecologic-input-fields' do
       = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
@@ -106,5 +106,6 @@
   -# f.inputs do
     -# f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}
     -# f.input :friendly_percent_organisation, :as => :select
+
 = f.semantic_fields_for :transaction do |transaction|
   = transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }

@@ -103,15 +103,15 @@
 
       - if @article.fair || @article.ecologic || @article.small_and_precious
         = render_box "commendation" do
-          = render 'show_commendation'
+          = render 'show/commendation'
       / Only legal sellers
       - if @article.seller.is_a?(LegalEntity)
         = render_box "terms" do
-          = @article.seller.terms.html_safe
+          = @article.seller_terms.html_safe
         = render_box "cancellation" do
-          = @article.seller.cancellation.html_safe
+          = @article.seller_cancellation.html_safe
         = render_box "about" do
-          = @article.seller.about.html_safe
+          = @article.seller_about.html_safe
 
 - if policy(@article).report?
   = render_box "report" do
