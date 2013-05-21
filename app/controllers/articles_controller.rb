@@ -110,18 +110,14 @@ class ArticlesController < InheritedResources::Base
   end
 
   def activate
-
-      @article = Article.find(params[:id])
-      authorize @article
-      @article.calculate_fees_and_donations
-      @article.locked = true # Lock The Article
-      @article.active = true # Activate to be searchable
-      @article.save
-
+      authorize resource
+      resource.calculate_fees_and_donations
+      resource.locked = true # Lock The Article
+      resource.active = true # Activate to be searchable
       update! do |success, failure|
-        success.html { redirect_to @article, :notice => I18n.t('article.notices.create') }
+        success.html { redirect_to resource, :notice => I18n.t('article.notices.create') }
         failure.html {
-                      setup_form_requirements
+                      resource_with_dependencies
                       render :action => :edit
                      }
       end
@@ -130,16 +126,13 @@ class ArticlesController < InheritedResources::Base
   end
 
   def deactivate
-      @article = Article.find(params[:id])
-      authorize @article
-      @article.active = false # Activate to be searchable
-      @article.save
-
+      authorize resource
+      resource.active = false # Activate to be searchable
       update! do |success, failure|
-        success.html {  redirect_to @article, :notice => I18n.t('article.notices.deactivated') }
+        success.html {  redirect_to resource, :notice => I18n.t('article.notices.deactivated') }
         failure.html {
                       #should not happen!
-                      setup_form_requirements
+                      resource_with_dependencies
                       render :action => :edit
                      }
       end
@@ -215,7 +208,7 @@ class ArticlesController < InheritedResources::Base
       @title_image = @article.images[0]
     end
     @thumbnails = @article.images
-    @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from
+    @thumbnails.reject!{|image| image.id == @title_image.id} if @title_image #Reject the selected image from thumbs
   end
 
   ################## Form #####################
