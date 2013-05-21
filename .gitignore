@@ -28,6 +28,8 @@ db/schema.rb
 # Ignore codecoverage report
 coverage
 
+#Rails Best Practice
+rails_best_practices_output.html
 #api keys
 config/api.yml
 
