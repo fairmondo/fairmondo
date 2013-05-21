@@ -7,54 +7,74 @@ describe 'Article management' do
 
   context "for signed-in users" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create :user
       login_as @user, scope: :user
     end
 
     describe "article creation" do
-      before do
-        FactoryGirl.create(:category, :parent => nil)
-        visit new_article_path
+
+      context "with an invalid user" do
+        before { @user.forename = nil }
+
+        it "should redirect with an error" do
+          visit new_article_path
+          current_path.should eq edit_user_registration_path
+          page.should have_content I18n.t 'article.notices.incomplete_profile'
+        end
       end
 
-      it "should have the correct title" do
-        page.should have_content(I18n.t("article.titles.new"))
-      end
+      context "with a valid user" do
+        before do
+          FactoryGirl.create :category, parent: nil
+          visit new_article_path
+        end
 
-      it 'creates an article' do
-        lambda do
-          fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-          check Category.root.name
-          within("#article_condition_input") do
-            choose "article_condition_new"
-          end
+        it "should have the correct title" do
+          page.should have_content(I18n.t("article.titles.new"))
+        end
 
-          if @user.is_a? LegalEntity
-            fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
-            select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
-          end
-          fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
-          check "article_transport_pickup"
-          select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
-          fill_in 'article_transport_details', with: 'transport_details'
-          check "article_payment_cash"
-          select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
-          fill_in 'article_payment_details', with: 'payment_details'
+        it 'creates an article' do
+          lambda do
+            fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
+            check Category.root.name
+            within("#article_condition_input") do
+              choose "article_condition_new"
+            end
 
-          find(".double_check-step-inputs").find(".action").find("input").click
-        end.should change(Article.unscoped, :count).by 1
-      end
+            if @user.is_a? LegalEntity
+              fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
+              select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
+            end
+            fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
+            check "article_transport_pickup"
+            select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
+            fill_in 'article_transport_details', with: 'transport_details'
+            check "article_payment_cash"
+            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
+            fill_in 'article_payment_details', with: 'payment_details'
 
-      it 'shows sub-categories' do
-        setup_categories
+            find(".double_check-step-inputs").find(".action").find("input").click
+          end.should change(Article.unscoped, :count).by 1
+        end
 
-        visit new_article_path
-        hardware_id = Category.find_by_name!('Hardware').id
+        it "should create an article from a template" do
+          base_article = FactoryGirl.create :article, :without_image
+          template = FactoryGirl.create :article_template, article: base_article, user: @user
+          visit new_article_path template_select: { article_template: template.id }
+          page.should have_content I18n.t('template_select.notices.applied', name: template.name)
+        end
 
-        page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: false)
-        check "article_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
-        check "article_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
-        page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: true)
+        it 'shows sub-categories' do
+          setup_categories
+
+          visit new_article_path
+          hardware_id = Category.find_by_name!('Hardware').id
+
+          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: false)
+          check "article_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
+          check "article_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
+          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: true)
+        end
       end
     end
 
@@ -80,6 +100,52 @@ describe 'Article management' do
         end
       end
     end
+
+    describe "article update" do
+      before do
+        @article = FactoryGirl.create :inactive_article, seller: @user
+        visit edit_article_path @article
+      end
+
+      it "should succeed and redirect" do
+        fill_in 'article_title', with: 'foobar'
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.title.should eq 'foobar'
+        current_path.should eq article_path @article
+      end
+
+      it "should fail given invalid data but still try to save images" do
+        ArticlesController.any_instance.should_receive(:save_images).and_call_original
+        Image.any_instance.should_receive :save
+        old_title = @article.title
+
+        fill_in 'article_title', with: ''
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.title.should eq old_title
+      end
+    end
+
+    describe "article reporting" do
+      before do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+      end
+
+      it "should succeed" do
+        fill_in 'report', with: 'foobar'
+        click_button I18n.t 'article.actions.report'
+
+        page.should have_content I18n.t 'article.actions.reported'
+      end
+
+      it "should fail with an empty report text" do
+        click_button I18n.t 'article.actions.report'
+
+        page.should have_content I18n.t 'article.actions.reported-error'
+      end
+    end
   end
 
   context "for signed-out users" do
@@ -87,6 +153,33 @@ describe 'Article management' do
       it "should be accessible" do
         visit articles_path
         page.status_code.should be 200
+      end
+    end
+
+    describe "the article view" do
+      before do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+      end
+
+      it "should be accessible" do
+        visit article_path @article
+        page.status_code.should be 200
+      end
+
+      it "should rescue ECONNREFUSED errors" do
+        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
+        visit article_path @article
+        page.should have_content I18n.t 'article.show.no_alternative'
+      end
+
+      it "should have a different title image with an additional param" do
+        new_img = FactoryGirl.create :image
+        @article.images << new_img
+        @article.save
+
+        Image.should_receive(:find).with(new_img.id.to_s)
+        visit article_path @article, image: new_img
       end
     end
   end

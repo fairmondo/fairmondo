@@ -322,7 +322,6 @@ describe ArticlesController do
         @article_attrs[:seller_attributes] = FactoryGirl.attributes_for :nested_seller_update
         @article_attrs[:seller_attributes][:id] = @user.id
         @article_attrs[:payment_bank_transfer] = true
-
       end
 
       it "should update the users bank info" do
@@ -381,9 +380,64 @@ describe ArticlesController do
       @article = FactoryGirl.create :article, title: 'chunky bacon'
       Sunspot.commit
     end
+
     it "should be successful" do
       get :autocomplete, keywords: 'chunky'
       response.status.should be 200
+      response.body.should eq ["chunky bacon"].to_json
+    end
+
+    it "should rescue an ECONNREFUSED error" do
+      Sunspot.stub(:search).and_raise(Errno::ECONNREFUSED)
+      get :autocomplete, keywords: 'chunky'
+      response.status.should be 200
+      response.body.should eq [].to_json
+    end
+  end
+
+  describe "GET 'activate'" do
+    before do
+      @user = FactoryGirl.create :user
+      sign_in @user
+      @article = FactoryGirl.create :inactive_article, seller: @user
+    end
+
+    it "should work" do
+      get :activate, id: @article.id
+      response.should redirect_to @article
+      flash[:notice].should eq I18n.t 'article.notices.create'
+    end
+
+    it "should not work with an invalid article" do
+      @article.title = nil
+      @article.save validate: false
+      ## we now have an invalid record
+      get :activate, id: @article.id
+      response.should_not redirect_to @article
+      response.should render_template "edit"
+    end
+  end
+
+  describe "GET 'deactivate'" do
+    before do
+      @user = FactoryGirl.create :user
+      sign_in @user
+      @article = FactoryGirl.create :article, seller: @user
+    end
+
+    it "should work" do
+      get :deactivate, id: @article.id
+      response.should redirect_to @article
+      flash[:notice].should eq I18n.t 'article.notices.deactivated'
+    end
+
+    it "should not work with an invalid article" do
+      @article.title = nil
+      @article.save validate: false
+      ## we now have an invalid record
+      get :deactivate, id: @article.id
+      response.should_not redirect_to @article
+      response.should render_template "edit"
     end
   end
 end
