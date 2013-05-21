@@ -63,10 +63,7 @@ class ApplicationController < ActionController::Base
     @rendered_hero = options
   end
 
-  private
 
-  def setup_categories
-    @categories = Category.roots
-  end
+
 
 end

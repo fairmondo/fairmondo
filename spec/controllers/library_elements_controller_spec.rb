@@ -64,25 +64,25 @@ describe LibraryElementsController do
       it "shouldnt be possible to delete another users elements" do
 
         @user.id.should_not eq @different_user.id #by design
-        
+
         expect {
           delete :destroy,:user_id => @different_user, :id => @different_library_element
         }.to raise_error(Pundit::NotAuthorizedError)
       end
-      
+
       it "shouldnt be possible to edit another users elements" do
 
         @user.id.should_not eq @different_user.id #by design
-        
+
         expect {
           put :update ,:user_id => @different_user, :id => @different_library_element
         }.to raise_error(Pundit::NotAuthorizedError)
       end
-      
+
       it "shouldnt be possible to add elements to another users libraries" do
 
         @user.id.should_not eq @different_user.id #by design
-        
+
         expect {
           post :create ,:user_id => @different_user, :library_element => {:library_id => @different_library_element.library }
         }.to raise_error(Pundit::NotAuthorizedError)

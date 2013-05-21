@@ -103,9 +103,6 @@ end
 
 # Testing using RSpec
 group :development, :test do
-  # HAML Conversion tools
-  gem "erb2haml"
-  gem "html2haml"
 
   # Main Test Tools
   gem 'rspec-rails'
@@ -129,9 +126,6 @@ group :development, :test do
   gem 'sunspot_solr'
   gem "sunspot_test"
 
-  #security
-  gem "brakeman" # security test: execute with 'brakeman'
-
   #test performance
   gem 'spork-rails'
 end
@@ -140,6 +134,14 @@ group :development do
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem "rails_best_practices"
+  #security
+  gem "brakeman" # security test: execute with 'brakeman'
+
+   # HAML Conversion tools
+  gem "erb2haml"
+  gem "html2haml"
+
 
   # Notify about n+1 queries
   gem 'bullet'

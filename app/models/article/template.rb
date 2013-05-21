@@ -12,8 +12,6 @@ module Article::Template
 
     before_validation :set_user_on_article_template , :if => :save_as_template?
 
-
-
   end
 
   def save_as_template?
@@ -40,8 +38,5 @@ module Article::Template
     self.article_template_id = nil
     cloned_article.save #&& cloned_article.images.each { |image| image.save}
   end
-
-
-
 
 end

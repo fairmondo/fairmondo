@@ -2,14 +2,14 @@ class ChangeCardinalityOfImages < ActiveRecord::Migration
   class Image < ActiveRecord::Base
 
     attr_accessible :image
-  
+
     has_and_belongs_to_many :articles
   end
-  
+
   class Article  < ActiveRecord::Base
-    
+
   end
-  
+
   def up
     create_table :articles_images, :id => false do |t|
         t.references :image
@@ -30,7 +30,7 @@ class ChangeCardinalityOfImages < ActiveRecord::Migration
     Image.reset_column_information
     Images.all.each do |image|
       image.article_id = image.articles.first.id
-    end 
+    end
     drop_table :articles_images
   end
 end
