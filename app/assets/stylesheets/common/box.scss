@@ -80,14 +80,14 @@
     a:link, a:visited, a:hover, a:active {
       color: #666666;
     }
-    
+
     h6:before,h3:before {
     font-family: FontAwesome;
     content: '\f054\00a0\00a0';
     color: inherit;
   }
   }
-  
+
 }
 
 .box:not(:target):not(.error-box) {

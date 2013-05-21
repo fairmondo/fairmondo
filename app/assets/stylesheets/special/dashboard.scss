@@ -50,27 +50,27 @@
       a {
         background-color: $white;
       }
-      &#dashboard-buy a:before {   
+      &#dashboard-buy a:before {
           font-family: FontAwesome;
-          content: '\f07a\00a0';  
+          content: '\f07a\00a0';
           color: $fairnopolyGreen;
           }
-      &#dashboard-sell a:before {   
+      &#dashboard-sell a:before {
           font-family: FontAwesome;
-          content: '\f02b\00a0'; 
-          color: $fairnopolyRed; 
+          content: '\f02b\00a0';
+          color: $fairnopolyRed;
           }
-      &#dashboard-profile a:before {   
+      &#dashboard-profile a:before {
           font-family: FontAwesome;
-          content: '\f007\00a0'; 
-          color: $fairnopolyBlue; 
+          content: '\f007\00a0';
+          color: $fairnopolyBlue;
           }
       &#dashboard-profile a:hover:before {
         color: $white;
       }
-      &#dashboard-library a:before {   
+      &#dashboard-library a:before {
           font-family: FontAwesome;
-          content: '\f005\00a0';  
+          content: '\f005\00a0';
           color: $yellow;
           }
     }

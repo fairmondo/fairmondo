@@ -8,11 +8,11 @@ module Tinycms
     def valid_attributes
       {}
     end
-  
+
     def valid_session
       {}
     end
-  
+
     describe "GET index" do
       it "assigns all contents as @contents" do
         content = Content.create! valid_attributes
@@ -20,7 +20,7 @@ module Tinycms
         assigns(:contents).should eq([content])
       end
     end
-  
+
     describe "GET show" do
       it "assigns the requested content as @content" do
         content = Content.create! valid_attributes
@@ -28,14 +28,14 @@ module Tinycms
         assigns(:content).should eq(content)
       end
     end
-  
+
     describe "GET new" do
       it "assigns a new content as @content" do
         get :new, {}, valid_session
         assigns(:content).should be_a_new(Content)
       end
     end
-  
+
     describe "GET edit" do
       it "assigns the requested content as @content" do
         content = Content.create! valid_attributes
@@ -43,7 +43,7 @@ module Tinycms
         assigns(:content).should eq(content)
       end
     end
-  
+
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Content" do
@@ -51,19 +51,19 @@ module Tinycms
             post :create, {:content => valid_attributes}, valid_session
           }.to change(Content, :count).by(1)
         end
-  
+
         it "assigns a newly created content as @content" do
           post :create, {:content => valid_attributes}, valid_session
           assigns(:content).should be_a(Content)
           assigns(:content).should be_persisted
         end
-  
+
         it "redirects to the created content" do
           post :create, {:content => valid_attributes}, valid_session
           response.should redirect_to(Content.last)
         end
       end
-  
+
       describe "with invalid params" do
         it "assigns a newly created but unsaved content as @content" do
           # Trigger the behavior that occurs when invalid params are submitted
@@ -71,7 +71,7 @@ module Tinycms
           post :create, {:content => {}}, valid_session
           assigns(:content).should be_a_new(Content)
         end
-  
+
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
           Content.any_instance.stub(:save).and_return(false)
@@ -80,7 +80,7 @@ module Tinycms
         end
       end
     end
-  
+
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested content" do
@@ -92,20 +92,20 @@ module Tinycms
           Content.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
           put :update, {:id => content.to_param, :content => {'these' => 'params'}}, valid_session
         end
-  
+
         it "assigns the requested content as @content" do
           content = Content.create! valid_attributes
           put :update, {:id => content.to_param, :content => valid_attributes}, valid_session
           assigns(:content).should eq(content)
         end
-  
+
         it "redirects to the content" do
           content = Content.create! valid_attributes
           put :update, {:id => content.to_param, :content => valid_attributes}, valid_session
           response.should redirect_to(content)
         end
       end
-  
+
       describe "with invalid params" do
         it "assigns the content as @content" do
           content = Content.create! valid_attributes
@@ -114,7 +114,7 @@ module Tinycms
           put :update, {:id => content.to_param, :content => {}}, valid_session
           assigns(:content).should eq(content)
         end
-  
+
         it "re-renders the 'edit' template" do
           content = Content.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
@@ -124,7 +124,7 @@ module Tinycms
         end
       end
     end
-  
+
     describe "DELETE destroy" do
       it "destroys the requested content" do
         content = Content.create! valid_attributes
@@ -132,13 +132,13 @@ module Tinycms
           delete :destroy, {:id => content.to_param}, valid_session
         }.to change(Content, :count).by(-1)
       end
-  
+
       it "redirects to the contents list" do
         content = Content.create! valid_attributes
         delete :destroy, {:id => content.to_param}, valid_session
         response.should redirect_to(contents_url)
       end
     end
-  
+
   end
 end
