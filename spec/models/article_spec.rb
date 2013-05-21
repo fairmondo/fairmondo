@@ -45,12 +45,15 @@ describe Article do
   end
 
   describe "Article::FeesAndDonations" do
-    describe "friendly_percent_calculated" do
-      it "should call friendly_percent_result" do
-        article.should_receive :friendly_percent_result
-        article.friendly_percent_calculated
-      end
-    end
+
+    #at the moment we do not have friendly percentece any more
+    #describe "friendly_percent_calculated" do
+      #it "should call friendly_percent_result" do
+        #article.should_receive :friendly_percent_result
+        #article.friendly_percent_calculated
+      #end
+    #end
+
     describe "fee_percentage" do
       it "should return the fair percentage when article.fair" do
         article.fair = true
@@ -114,6 +117,6 @@ describe Article do
     end
 
 
-    
+
   end
 end
