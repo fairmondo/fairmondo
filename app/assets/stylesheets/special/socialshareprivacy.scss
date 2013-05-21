@@ -41,14 +41,14 @@
     cursor: pointer;
 }
 .social_share_privacy_area li .switch.on {
-    background-position: 0 -12px; 
+    background-position: 0 -12px;
 }
 /* Switch end */
 /* Tooltips begin */
 .social_share_privacy_area li.help_info {
-    position: relative; 
+    position: relative;
 }
-.social_share_privacy_area li.help_info .info, 
+.social_share_privacy_area li.help_info .info,
 .social_share_privacy_area li .help_info.icon .info {
     display: none;
     position: absolute;
@@ -78,7 +78,7 @@
     left: -243px;
     width: 350px;
 }
-.social_share_privacy_area li.help_info.display .info, 
+.social_share_privacy_area li.help_info.display .info,
 .social_share_privacy_area li .help_info.icon.display .info {
     display: block;
 }

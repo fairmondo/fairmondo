@@ -13,5 +13,5 @@ describe LegalEntity do
     LegalEntity.model_name.should eq User.model_name
   end
 
-  
+
 end
