@@ -2,6 +2,8 @@ class Library < ActiveRecord::Base
 
   attr_accessible :name, :public, :user, :user_id
 
+  delegate :nickname, :to => :user, :prefix => true
+
   # Validations
 
   validates :name,:user, :presence => { :message => I18n.t('library.error.presence') }

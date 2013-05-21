@@ -70,9 +70,6 @@ describe User do
     user.fullname.should eq "#{user.forename} #{user.surname}"
   end
 
-  it "returns correct display_name" do
-    user.display_name.should eq user.fullname
-  end
 
   it "returns correct name" do
     user.name.should eq user.nickname
