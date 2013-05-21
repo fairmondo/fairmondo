@@ -25,6 +25,32 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  ## programmatically get controller's filters
+  # def self.filters(kind = nil)
+  #   all_filters = _process_action_callbacks
+  #   all_filters = all_filters.select{|f| f.kind == kind} if kind
+  #   all_filters.map { :filter }
+  # end
+  def self.has_before_filter_of_type? filter, action_name = nil
+    all_filters = _process_action_callbacks
+    filter_hash = all_filters.select{ |f| f.kind == :before && f.filter == filter }[0].per_key
+
+    if filter_hash && action_name
+      # print filter_hash
+      # print action_name
+      if filter_hash[:unless]
+        !eval(filter_hash[:unless][0]) # these describe actions excluded from the filter. returns true => action doesnt have filter
+      elsif filter_hash[:if]
+        eval(filter_hash[:if][0]) # these describe actions including the filter. returns true => action has filter
+      else
+        true # everyone gets the before filter
+      end
+    else
+      false
+    end
+  end
+
+
   protected
 
   def render_users_hero

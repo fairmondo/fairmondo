@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :library do
-    name "MyString"
+    sequence(:name) {|n| "LibraryName#{n}" }
     public false
     user
      factory :library_with_elements do

@@ -76,6 +76,20 @@ describe 'Library' do
       end
     end
   end
+
+  context "with another user's library" do
+    before do
+      user = FactoryGirl.create :user
+      @pub_lib = FactoryGirl.create :library, user: user, public: true
+      @priv_lib = FactoryGirl.create :library, user: user, public: false
+      visit user_libraries_path user
+    end
+
+    it "should show the users public library but not the private one" do
+      page.should have_content @pub_lib.name
+      page.should_not have_content @priv_lib.name
+    end
+  end
 end
 
 describe "Library Elements" do
