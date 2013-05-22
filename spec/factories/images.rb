@@ -5,7 +5,7 @@ FactoryGirl.define do
     image_file_size       { Random.new.rand(0..5) }
 
     factory :fixture_image do |f|
-      image { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
+      image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
     end
   end
 end
