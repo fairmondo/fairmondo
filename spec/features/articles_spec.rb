@@ -141,6 +141,7 @@ describe 'Article management' do
       end
 
       it "should fail with an empty report text" do
+        fill_in 'report', with: ''
         click_button I18n.t 'article.actions.report'
 
         page.should have_content I18n.t 'article.actions.reported-error'

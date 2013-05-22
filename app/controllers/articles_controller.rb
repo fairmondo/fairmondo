@@ -119,7 +119,7 @@ class ArticlesController < InheritedResources::Base
     @text = params[:report]
     @article = Article.find(params[:id])
     if @text == ''
-      redirect_to @article, :notice => (I18n.t 'article.actions.reported-error')
+      redirect_to @article, :alert => (I18n.t 'article.actions.reported-error')
     else
       ArticleMailer.report_article(@article,@text).deliver
       redirect_to @article, :notice => (I18n.t 'article.actions.reported')

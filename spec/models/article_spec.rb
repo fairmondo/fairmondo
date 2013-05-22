@@ -13,6 +13,10 @@ describe Article do
     describe "amoeba" do
       it "should copy an article with images" do
         article = FactoryGirl.create :article, :with_fixture_image
+        testpath = article.images.first.image.path # The image needs to be in place !!!
+        FileUtils.mkpath File.dirname(testpath) # make the dir
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'test.png'), testpath) #copy the image
+        
         dup = article.amoeba_dup
         dup.images[0].id.should_not eq article.images[0].id
         dup.images[0].image_file_name.should eq article.images[0].image_file_name
