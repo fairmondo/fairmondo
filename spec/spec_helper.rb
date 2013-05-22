@@ -32,6 +32,8 @@ Spork.prefork do
 
   require 'sunspot_test/rspec' # for starting the solr engine
 
+  include ActionDispatch::TestProcess # for fixture_file_upload
+
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}

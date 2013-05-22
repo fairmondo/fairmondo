@@ -27,9 +27,9 @@ module Article::FeesAndDonations
 
    ## -------------- Calculate Fees And Donations ---------------
 
- def friendly_percent_calculated
-    Money.new(friendly_percent_result_cents)
-  end
+  # def friendly_percent_calculated
+  #   Money.new(friendly_percent_result_cents)
+  # end
 
   def calculated_fees_and_donations
     self.calculated_corruption + self.calculated_friendly + self.calculated_fee

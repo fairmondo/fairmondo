@@ -149,8 +149,7 @@ describe ArticlesController do
       @article  = FactoryGirl.create :article
     end
 
-    describe "for non-signed-in users" do
-
+    describe "for all users" do
       it "should be successful" do
         get :show, id: @article
         response.should be_success
@@ -162,22 +161,21 @@ describe ArticlesController do
       end
     end
 
-    describe "for signed-in users" do
+    # describe "for signed-in users" do
+    #   before do
+    #     sign_in @user
+    #   end
 
-    it "should be successful" do
-        get :show, id: @article
-        response.should render_template :show
-      end
+    #   it "should be successful" do
+    #     get :show, id: @article
+    #     response.should be_success
+    #   end
 
-      it "should render the :show view" do
-        sign_in @user
-        get :show, id: @article
-        response.should render_template :show
-      end
-
-
-
-    end
+    #   it "should render the :show view" do
+    #     get :show, id: @article
+    #     response.should render_template :show
+    #   end
+    # end
   end
 
   describe "GET 'new'" do

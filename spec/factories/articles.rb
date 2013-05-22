@@ -79,5 +79,11 @@ FactoryGirl.define do
         article.images = []
       end
     end
+
+    trait :with_fixture_image do
+      after(:build) do |article|
+        article.images = [FactoryGirl.build(:fixture_image)]
+      end
+    end
   end
 end

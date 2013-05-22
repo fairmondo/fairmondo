@@ -43,7 +43,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def new
-
     if !current_user.valid?
       flash[:error] = t('article.notices.incomplete_profile')
       redirect_to edit_user_registration_path

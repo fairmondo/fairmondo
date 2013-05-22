@@ -1,17 +1,17 @@
 require "spec_helper"
 
 describe ArticlesHelper do
-  describe "#category_button_text(name, children, pad = false)" do
-    it "should return the correct html without a 'padding' argument" do
-      result = helper.category_button_text 'foo', true
-      result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; "><i class="icon-chevron-right"></i></span>'
-    end
+  # describe "#category_button_text(name, children, pad = false)" do
+  #   it "should return the correct html without a 'padding' argument" do
+  #     result = helper.category_button_text 'foo', true
+  #     result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; "><i class="icon-chevron-right"></i></span>'
+  #   end
 
-    it "should return the correct html with padding" do
-      result = helper.category_button_text 'foo', true, true
-      result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; padding-right:10px"><i class="icon-chevron-right"></i></span>'
-    end
-  end
+  #   it "should return the correct html with padding" do
+  #     result = helper.category_button_text 'foo', true, true
+  #     result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; padding-right:10px"><i class="icon-chevron-right"></i></span>'
+  #   end
+  # end
 
   describe "#resource" do
     it "should return the existing resource" do
@@ -47,9 +47,29 @@ describe ArticlesHelper do
     end
   end
 
-  describe "#category_shift(level)" do
-    it "should return the correct css" do
-      helper.category_shift(1).should eq 'padding-left:10px;'
+  describe "#title_image" do
+    before do
+      @article = FactoryGirl.create :article
+      @img1 = FactoryGirl.create :image
+      @img2 = FactoryGirl.create :image
+      @article.images = [@img1, @img2]
+      helper.instance_variable_set("@resource", @article)
+    end
+
+    it "should return the image defined by params" do
+      params[:image] = @img2.id
+      helper.title_image.should eq @img2
+    end
+
+    it "should return the first image if no params are given" do
+      params = nil
+      helper.title_image.should eq @img1
     end
   end
+
+  # describe "#category_shift(level)" do
+  #   it "should return the correct css" do
+  #     helper.category_shift(1).should eq 'padding-left:10px;'
+  #   end
+  # end
 end

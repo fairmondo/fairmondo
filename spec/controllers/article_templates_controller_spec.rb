@@ -14,6 +14,10 @@ describe ArticleTemplatesController do
     template_attributes
   end
 
+  def invalid_attributes
+    valid_attributes.merge name: nil
+  end
+
   let :valid_update_attributes do
     attrs = valid_attributes
     attrs[:article_attributes].merge!(:id => @article_template.article.id)
@@ -40,41 +44,41 @@ describe ArticleTemplatesController do
   end
 
   describe "POST create" do
-    describe "with valid params" do
+    context "with valid params" do
       it "creates a new ArticleTemplate" do
         expect {
-          post :create, {:article_template => valid_attributes}
+          post :create, article_template: valid_attributes
         }.to change(ArticleTemplate, :count).by(1)
       end
 
       it "assigns a newly created article_template as @article_template" do
-        post :create, {:article_template => valid_attributes}
+        post :create, article_template: valid_attributes
         assigns(:article_template).should be_an ArticleTemplate
         assigns(:article_template).should be_persisted
       end
 
       it "redirects to the collection" do
-        post :create, {:article_template => valid_attributes}
-        response.should redirect_to(user_url(@user, :anchor => "my_article_templates"))
+        post :create, article_template: valid_attributes
+        response.should redirect_to user_url @user, anchor: "my_article_templates"
       end
     end
 
-# why does the devise test helper expect a user_article_templates_url?
-    # describe "with invalid params" do
-      # it "assigns a newly created but unsaved article_template as @article_template" do
-        # # Trigger the behavior that occurs when invalid params are submitted
-        # ArticleTemplate.any_instance.stub(:save).and_return(false)
-        # post :create, {:article_template => {}}
-        # assigns(:article_template).should be_a_new(ArticleTemplate)
-      # end
-#
-      # it "re-renders the 'new' template" do
-        # # Trigger the behavior that occurs when invalid params are submitted
-        # ArticleTemplate.any_instance.stub(:save).and_return(false)
-        # post :create, {:article_template => {}}
-        # response.should render_template("new")
-      # end
-    # end
+    context "with invalid params" do
+      it "should try to save the images anyway" do
+        attrs = invalid_attributes
+        attrs[:article_attributes][:images_attributes] = {"0" => {"image" => nil}}
+
+        controller.should_receive(:save_images).and_call_original
+        Image.any_instance.should_receive :save
+
+        post :create, article_template: attrs
+      end
+
+      it "should re-render the :new template" do
+        post :create, article_template: invalid_attributes
+        response.should render_template "new"
+      end
+    end
   end
 
   describe "PUT update" do
@@ -83,7 +87,7 @@ describe ArticleTemplatesController do
       @article_template = FactoryGirl.create(:article_template, :user => @user)
     end
 
-    describe "with valid params" do
+    context "with valid params" do
 
       it "updates the requested article_template" do
         put :update, {:id => @article_template.to_param, "article_template" => {"article_attributes" => {"title" => "updated Title", "id" => @article_template.article.id}}}
@@ -102,20 +106,17 @@ describe ArticleTemplatesController do
       end
     end
 
-# why does the devise test helper expect a user_article_templates_url?
-    # describe "with invalid params" do
-      # it "assigns the article_template as @article_template" do
-        # ArticleTemplate.any_instance.stub(:save).and_return(false)
-        # put :update, {:id => @article_template.to_param, "article_template" => {"article_attributes" => {"title" => "updated Title"}}}
-        # assigns(:article_template).should eq(@article_template)
-      # end
+    context "with invalid params" do
+      it "should try to save the images anyway" do
+        controller.should_receive(:save_images)
+        put :update, {id: @article_template.to_param, article_template: invalid_attributes}
+      end
 
-      # it "re-renders the 'edit' template" do
-        # ArticleTemplate.any_instance.stub(:save).and_return(false)
-        # put :update, {:id => @article_template.to_param, :article_template => {}}
-        # response.should render_template("edit")
-      # end
-    # end
+      it "should re-render the :edit template" do
+        put :update, {id: @article_template.to_param, article_template: invalid_attributes}
+        response.should render_template "edit"
+      end
+    end
   end
 
   describe "DELETE destroy" do
@@ -126,13 +127,13 @@ describe ArticleTemplatesController do
 
     it "destroys the requested article_template" do
       expect {
-        delete :destroy, {:id => @article_template.to_param}
-      }.to change(ArticleTemplate, :count).by(-1)
+        delete :destroy, id: @article_template.to_param
+      }.to change(ArticleTemplate, :count).by -1
     end
 
     it "redirects to the article_templates list" do
       delete :destroy, {:id => @article_template.to_param}
-      response.should redirect_to(user_url(@user, :anchor => "my_article_templates"))
+      response.should redirect_to user_url(@user, anchor: "my_article_templates")
     end
   end
 

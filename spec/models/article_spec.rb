@@ -2,30 +2,33 @@ require 'spec_helper'
 
 describe Article do
 
-  let(:article) { FactoryGirl::create(:article) }
+  let(:article) { FactoryGirl.create(:article) }
   subject { article }
 
-  it {should have_and_belong_to_many :images}
+  describe "::Base" do
+    it {should have_and_belong_to_many :images}
+    it {should belong_to :seller}
+    it {should have_and_belong_to_many :categories}
 
-  it {should belong_to :seller}
-  it {should have_and_belong_to_many :categories}
-
-  it "should return the title image" do
-    image = FactoryGirl.create(:image)
-    article.images << image
-    article.title_image
+    describe "amoeba" do
+      it "should copy an article with images" do
+        article = FactoryGirl.create :article, :with_fixture_image
+        dup = article.amoeba_dup
+        dup.images[0].id.should_not eq article.images[0].id
+        dup.images[0].image_file_name.should eq article.images[0].image_file_name
+      end
+    end
   end
 
 
-
-  describe "Article::Initial" do
+  describe "::Initial" do
     it "should rescue MissingAttributeErrors" do
       article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
       article.initialize_values.should_not raise_error(ActiveModel::MissingAttributeError)
     end
   end
 
-  describe "Article::FeesAndDonations" do
+  describe "::FeesAndDonations" do
 
     #at the moment we do not have friendly percentece any more
     #describe "friendly_percent_calculated" do
@@ -35,7 +38,7 @@ describe Article do
       #end
     #end
 
-    describe "fee_percentage" do
+    describe "#fee_percentage" do
       it "should return the fair percentage when article.fair" do
         article.fair = true
         article.send('fee_percentage').should == 0.03
@@ -45,9 +48,26 @@ describe Article do
         article.send('fee_percentage').should == 0.06
       end
     end
+
+    describe "#calculate_fees_and_donations" do
+      #expand these unit tests!
+      it "should return zeros on fee and corruption with a friendly_percent of gt 100" do
+        article.friendly_percent = 101
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq 0
+        article.calculated_fee.should eq 0
+      end
+
+      it "should return zeros on fee and corruption with a price of 0" do
+        article.price = 0
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq 0
+        article.calculated_fee.should eq 0
+      end
+    end
   end
 
-  describe "Article::Attributes" do
+  describe "::Attributes" do
     it "should throw an error if default_transport_selected isn't able to call the transport function" do
       article.default_transport.should be_true
       article.stub(:send).and_return false
@@ -63,12 +83,12 @@ describe Article do
     end
   end
 
-  describe "Article::Commendation" do
+  describe "::Commendation" do
 
   end
 
-  describe "Article::Categories" do
-    describe "size_validator" do
+  describe "::Categories" do
+    describe "#size_validator" do
       it "should validate size of categories" do
         article_0cat = FactoryGirl.build :article
         article_0cat.categories = []
@@ -83,7 +103,63 @@ describe Article do
       end
     end
 
+    describe "#send_category_proposal" do
+      it "should send an email when a category_proposal was given" do
+        article.category_proposal = 'foo'
+        ArticleMailer.should_receive(:category_proposal).with('foo').and_call_original
 
+        article.send_category_proposal
+      end
+    end
+  end
 
+  describe "::Template" do
+    before do
+      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+    end
+
+    describe "#save_as_template?" do
+      it "should return true when the save_as_template attribute is 1" do
+        @article.save_as_template?.should be_true
+      end
+
+      it "should return false when the save_as_template attribute is 0" do
+        @article.article_template.save_as_template = "0"
+        @article.save_as_template?.should be_false
+      end
+
+      it "should return false when no article_template is set" do
+        @article.article_template = nil
+        @article.save_as_template?.should be_false
+      end
+    end
+
+    describe "#set_user_on_article_template" do
+      it "should set the article's seller as the template's owner" do
+        @article.article_template.user.should be_nil
+
+        @article.set_user_on_article_template
+        @article.article_template.user.should eq @article.seller
+      end
+    end
+
+    describe "#build_and_save_template" do
+      it "should request an amoeba duplication" do
+        @article.should_receive(:amoeba_dup).and_return FactoryGirl.build :article
+        @article.build_and_save_template
+      end
+
+      it "should unset its own article_template_id" do
+        @article.stub(:amoeba_dup).and_return FactoryGirl.build :article
+        @article.build_and_save_template
+        @article.article_template_id.should be_nil
+      end
+
+      it "should save a new article as a template" do
+        @article.stub(:amoeba_dup).and_return FactoryGirl.build :article
+        Article.any_instance.should_receive :save
+        @article.build_and_save_template
+      end
+    end
   end
 end
