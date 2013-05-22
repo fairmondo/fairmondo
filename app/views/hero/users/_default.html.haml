@@ -26,7 +26,7 @@
         - if @user.id==current_user.id
           %li#dashboard-sell
             %a{:href => sales_user_path(current_user)}
-              %strong Verkäufe
+              %strong Verkaufen
         %li#dashboard-library
           %a{:href => user_libraries_path(@user)}
             %strong Sammlungen
@@ -36,6 +36,6 @@
               %strong Profil bearbeiten
           - elsif @user.is_a?(LegalEntity)
             %a{:href => profile_user_path(@user)}
-              %strong Profil
+              %strong AGB / Widerrufserklärung / Impressum
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
