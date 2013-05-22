@@ -43,3 +43,8 @@ erd.pdf
 # Precompiled assets
 public/assets/*
 public/assets_test/*
+
+# Mac .DS_Stores
+.DS_Store
+*/.DS_Store
+**/.DS_Store
