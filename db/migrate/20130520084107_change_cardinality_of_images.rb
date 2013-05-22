@@ -19,8 +19,10 @@ class ChangeCardinalityOfImages < ActiveRecord::Migration
     add_index :articles_images, [:article_id, :image_id]
     Image.reset_column_information
     Image.all.each do |image|
-      article = Article.find image.article_id
-      image.articles << article
+      if image.article_id
+        article = Article.find image.article_id
+        image.articles << article
+      end
     end
     remove_column :images, :article_id
   end
