@@ -14,10 +14,10 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
       css_class = "#{choice[1]}-input-fields"
       opts["data-select-toggle"] ||= css_class
     end
-    builder.radio_button(input_name, choice_value(choice), opts.merge(choice_html_options(choice)).merge(:required => false)) <<
-      template.content_tag(:label,
-        choice_label(choice)
 
+      template.content_tag(:label,
+        (builder.radio_button(input_name, choice_value(choice), opts.merge(choice_html_options(choice)).merge(:required => false)) << choice_label(choice)).html_safe,
+         label_html_options.merge(:for => choice_input_dom_id(choice), :class => nil)
       )
   end
 

@@ -60,7 +60,7 @@
             = f.inputs do
               = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
               = f.input :article_id, :as => :hidden
-            = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-white"
+            = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-primary"
     - alternative = find_fair_alternative_to resource
     - if alternative.present?
       .span3.dark-gray-well.break-word

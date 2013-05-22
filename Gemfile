@@ -12,7 +12,9 @@ platforms :ruby do
   gem 'sqlite3'
   # gem 'activerecord-postgresql-adapter'
   gem 'therubyracer'
-  gem 'pg', :group => :production
+  group :production do
+    gem 'pg'
+  end
   # exclude Debugger from CI
   unless ENV["CI"]
     gem 'debugger', :group => [:development, :test]
@@ -78,6 +80,8 @@ group :assets do
   gem 'bootstrap-will_paginate'
   gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
+  gem "flatui-rails"
+  gem "formtastic-plus-flatui"
   gem 'compass-rails'
 
 
