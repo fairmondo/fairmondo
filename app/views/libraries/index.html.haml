@@ -55,6 +55,6 @@
                   - if policy(library_element).update?
                     = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
                       = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-                      = f.submit t('common.actions.move'), :class => "btn btn-fill btn-white"
+                      = f.submit t('common.actions.move'), :class => "btn btn-fill btn-primary"
 
 

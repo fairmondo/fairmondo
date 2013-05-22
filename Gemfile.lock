@@ -147,7 +147,7 @@ GEM
       formtastic (~> 2.2)
       railties (>= 3.1.0)
       sass-rails
-    formtastic-plus-flatui (0.0.5)
+    formtastic-plus-flatui (0.0.7)
       bootstrap-sass (~> 2.3)
       font-awesome-rails
       formtastic (~> 2.2)
