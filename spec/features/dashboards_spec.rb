@@ -29,7 +29,7 @@ describe 'Dashboard' do
       page.should have_content I18n.t('enumerize.article.condition.new')
     end
 
-    it 'Sell link shows the Sell page' do
+    it 'Sell link shows the Sell page', slow: true do
       click_link I18n.t('common.text.sell')
       page.should have_content I18n.t('formtastic.labels.article.title')
     end

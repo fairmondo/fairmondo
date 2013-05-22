@@ -23,7 +23,7 @@ describe 'Article management' do
         end
       end
 
-      context "with a valid user" do
+      context "with a valid user", slow: true do
         before do
           FactoryGirl.create :category, parent: nil
           visit new_article_path
@@ -101,7 +101,7 @@ describe 'Article management' do
       end
     end
 
-    describe "article update" do
+    describe "article update", slow: true do
       before do
         @article = FactoryGirl.create :inactive_article, seller: @user
         visit edit_article_path @article
@@ -173,14 +173,14 @@ describe 'Article management' do
         page.should have_content I18n.t 'article.show.no_alternative'
       end
 
-      it "should have a different title image with an additional param" do
-        new_img = FactoryGirl.create :image
-        @article.images << new_img
-        @article.save
+      # it "should have a different title image with an additional param" do
+      #   new_img = FactoryGirl.create :image
+      #   @article.images << new_img
+      #   @article.save
 
-        Image.should_receive(:find).with(new_img.id.to_s)
-        visit article_path @article, image: new_img
-      end
+      #   Image.should_receive(:find).with(new_img.id.to_s)
+      #   visit article_path @article, image: new_img
+      # end
     end
   end
 end
