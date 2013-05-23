@@ -23,22 +23,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 
 
-### SimpleCOV ###
-
-require 'simplecov'
-
-SimpleCov.start 'rails' do
-  add_filter "app/mailers/notification.rb"
-  add_filter "gems/*"
-  add_filter "app/mailers/notification.rb"
-  minimum_coverage 100
-end
-
-require 'coveralls'
-Coveralls.wear!
-
-
-
 ### Settings ###
 
 Delayed::Worker.delay_jobs = false
@@ -74,13 +58,12 @@ RSpec.configure do |config|
   # Additional things we want to test apart from the actual suite #
 
   config.after :suite do
-      # Check for best practices
-      bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
-      bp_analyzer.analyze
-      bp_analyzer.output
-      #bp_analyzer.runner.errors.size.should == 0
+    # Check for best practices
+    bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
+    bp_analyzer.analyze
+    bp_analyzer.output
+    #bp_analyzer.runner.errors.size.should == 0
 
-      # Check security
-      Rake::Task['test:brakeman'].invoke
+    audit_security
   end
 end
