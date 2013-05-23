@@ -90,7 +90,9 @@ class User < ActiveRecord::Base
     name = "#{self.nickname}"
   end
 
-
+  def unnecessary_function
+    super
+  end
 
   private
   def create_default_library
