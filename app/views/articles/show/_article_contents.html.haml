@@ -35,11 +35,7 @@
     .span3
       %p
         %b
-<<<<<<< HEAD
-          %span.pull-right= humanized_money_with_symbol @article.price #preis von cent in
-=======
           %span.pull-right= humanized_money_with_symbol resource.price
->>>>>>> 9d49e34d9f1532531825d05c85ffdad229608ce0
           = t('formtastic.labels.article.price')
       - if resource.quantity && resource.quantity != ""
         %p
