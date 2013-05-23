@@ -15,7 +15,7 @@ module Tinycms
           @content = Content.find(params[:id])
         rescue ActiveRecord::RecordNotFound => e
           @content = Content.new(:key => params[:id])
-          render action: "new"
+          render "new"
         end
       else
         @content = Content.find(params[:id])
@@ -38,7 +38,7 @@ module Tinycms
         if @content.save
           format.html { redirect_to @content, notice: 'Content was successfully created.' }
         else
-          format.html { render action: "new" }
+          format.html { render "new" }
         end
       end
     end
@@ -53,7 +53,7 @@ module Tinycms
               notice: 'Content was successfully updated.')
             }
         else
-          format.html { render action: "edit" }
+          format.html { render "edit" }
         end
       end
     end

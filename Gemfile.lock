@@ -42,8 +42,6 @@ GEM
     amoeba (2.0.0)
       activerecord (>= 3.0)
     arel (3.0.2)
-    autotest-fsevent (0.2.8)
-      sys-uname
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
@@ -138,6 +136,7 @@ GEM
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -149,7 +148,6 @@ GEM
       i18n (~> 0.5)
     fastercsv (1.5.5)
     fattr (2.2.1)
-    ffi (1.8.1)
     flatui-rails (0.0.2)
       railties (~> 3.1)
       sass-rails (~> 3.2.0)
@@ -371,8 +369,6 @@ GEM
     sunspot_solr (2.0.0)
     sunspot_test (0.4.0)
       sunspot_rails (>= 1.2.1)
-    sys-uname (0.9.2)
-      ffi (>= 1.0.0)
     temple (0.6.4)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
@@ -381,6 +377,10 @@ GEM
     therubyrhino (2.0.2)
       therubyrhino_jar (>= 1.7.3)
     therubyrhino_jar (1.7.4)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.18.1)
     tilt (1.3.7)
     tinymce-rails (3.5.8.2)
@@ -408,7 +408,6 @@ PLATFORMS
 DEPENDENCIES
   ZenTest
   amoeba
-  autotest-fsevent
   awesome_nested_set
   better_errors
   binding_of_caller
@@ -468,6 +467,7 @@ DEPENDENCIES
   sunspot_test
   therubyracer
   therubyrhino
+  thin
   tinycms!
   tinymce-rails
   tinymce-rails-langs

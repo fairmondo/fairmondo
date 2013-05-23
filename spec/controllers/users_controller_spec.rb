@@ -16,7 +16,7 @@ describe UsersController do
       end
 
       it "should deny access" do
-        get :show
+        get :show , :id => @user
         response.should redirect_to(new_user_session_path)
       end
 
@@ -37,11 +37,6 @@ describe UsersController do
 
       it "should be successful" do
         get :show, :id => @user
-        response.should be_success
-      end
-
-      it "should be successful" do
-        get :show
         response.should be_success
       end
 

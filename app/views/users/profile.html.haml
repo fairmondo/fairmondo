@@ -1,50 +1,50 @@
 .fairnopoly-well
-  %h2= @user.nickname
-  %h3= @user.title + " " + @user.forename + " " + @user.surname
+  %h2= resource.nickname
+  %h3= resource.title + " " + resource.forename + " " + resource.surname
   %p
     = t('formtastic.labels.user.street')
     \:
-    %strong= @user.street
+    %strong= resource.street
   %p
     = t('formtastic.labels.user.city')
     \:
-    %strong= @user.zip + " " + @user.city
+    %strong= resource.zip + " " + resource.city
   %p
     = t('formtastic.labels.user.country')
     \:
-    %strong= @user.country
+    %strong= resource.country
   %p
     = t('formtastic.labels.user.mail')
     \:
     %strong
-      %a{:href => "mailto:#{@user.email}"}= @user.email
+      %a{:href => "mailto:#{resource.email}"}= resource.email
   %p
     = t('formtastic.labels.user.fax')
     \:
-    %strong= @user.fax
+    %strong= resource.fax
   %p
     = t('formtastic.labels.user.phone')
     \:
-    %strong= @user.phone
+    %strong= resource.phone
   %p
     = t('formtastic.labels.user.mobile')
     \:
-    %strong= @user.mobile
+    %strong= resource.mobile
 .fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.terms')
       \:
-  = raw @user.terms
+  = raw resource.terms
 .fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.cancellation')
       \:
-  = raw @user.cancellation
+  = raw resource.cancellation
 .fairnopoly-well
   %p
     %strong
       = t('formtastic.labels.user.about')
       \:
-  = raw @user.about
+  = raw resource.about

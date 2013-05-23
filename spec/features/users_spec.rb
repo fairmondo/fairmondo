@@ -64,21 +64,15 @@ describe 'User management' do
       end
     end
 
-    describe "sales page" do
-      it "should open" do
-        visit sales_user_path @user
-        page.status_code.should == 200
-      end
-    end
 
     describe "user show page" do
       it 'should show the dashboard' do
-        visit users_path
+        visit user_path(@user)
         page.should have_content I18n.t("common.text.profile")
       end
 
       it 'should not show the link to community' do
-        visit users_path
+        visit user_path(@user)
         page.should_not have_content("TrustCommunity")
       end
     end

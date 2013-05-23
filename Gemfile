@@ -120,7 +120,6 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
-  gem 'coveralls', require: false
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
@@ -141,6 +140,13 @@ group :development, :test do
   # Better console
   gem 'pry'
   gem 'pry-doc'
+
+  #Coverage
+  gem 'coveralls', require: false
+
+  # Replace Webrick
+  gem 'thin'
+
 end
 
 group :development do
