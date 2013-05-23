@@ -76,3 +76,9 @@ Fairnopoly::Application.configure do
   end
 
 end
+
+# Use pry as the console
+silence_warnings do
+  require 'pry'
+  IRB = Pry
+end
