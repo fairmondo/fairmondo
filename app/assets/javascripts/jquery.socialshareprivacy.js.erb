@@ -271,6 +271,10 @@
                         $container_pinterest.find('span.switch').addClass('on').removeClass('off').html(options.services.pinterest.txt_pinterest_on);
                         $container_pinterest.find('#pintrest-dummy').replaceWith(pinterest_code);
                        document.getElementsByTagName('head')[0].appendChild(pinterest_script);
+                    } else {
+                        $container_pinterest.removeClass('info_off');
+                        $container_pinterest.find('span.switch').addClass('off').removeClass('on').html(options.services.pinterest.txt_pinterest_off);
+                        $container_pinterest.find('.pinterest').html(pinterest_dummy_btn);
                     }
                 });
             }

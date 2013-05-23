@@ -1,4 +1,6 @@
 require 'spork'
+require 'rails_best_practices'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -9,6 +11,7 @@ Spork.prefork do
   SimpleCov.start 'rails' do
     add_filter "app/mailers/notification.rb"
     add_filter "gems/*"
+    minimum_coverage 100
   end
 
   ENV["RAILS_ENV"] ||= 'test'
@@ -31,6 +34,8 @@ Spork.prefork do
   require Rails.root.join('db/fixtures/category_seed_data.rb')
 
   require 'sunspot_test/rspec' # for starting the solr engine
+
+  include ActionDispatch::TestProcess # for fixture_file_upload
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -55,7 +60,7 @@ Spork.prefork do
     # Add the "visual" tag to a test that uses save_and_open_page.
     # This will give you the corresponding css and js
     if config.inclusion_filter[:visual]
-      config.before (scope = :suite) do
+      config.before(scope = :suite) do
         %x[bundle exec rake assets:precompile]
       end
     end
@@ -79,6 +84,14 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    
+    config.after(:suite) do 
+        analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
+        analyzer.analyze
+        analyzer.output
+        #analyzer.runner.errors.size.should == 0
+    end
+    
   end
 
 end

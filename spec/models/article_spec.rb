@@ -2,55 +2,47 @@ require 'spec_helper'
 
 describe Article do
 
-  let(:article) { FactoryGirl::create(:article) }
+  let(:article) { FactoryGirl.create(:article) }
   subject { article }
 
-  it {should have_many :images}
+  describe "::Base" do
+    it {should have_and_belong_to_many :images}
+    it {should belong_to :seller}
+    it {should have_and_belong_to_many :categories}
 
-  it {should belong_to :seller}
-  it {should have_many :categories}
-
-  it "should return the title image" do
-    image = FactoryGirl.create(:image, :article => article)
-    article.title_image
-  end
-
-  describe "with_user_id scope" do
-    before do
-      @article_with_id = FactoryGirl.create(:article)
-      @article_without_id = FactoryGirl.create(:article).user_id = nil
-    end
-
-    it "should return all articles with a user_id when called with 'true'" do
-      results = Article.with_user_id(true)
-      results.should include(@article_with_id)
-      results.should_not include(@article_without_id)
-    end
-
-    it "should return all articles with a specific user_id when called with an integer" do
-      article_with_correct_id = FactoryGirl.create(:article)
-      results = Article.with_user_id(article_with_correct_id.user_id)
-      results.should include(article_with_correct_id)
-      results.should_not include(@article_with_id)
-      results.should_not include(@article_without_id)
+    describe "amoeba" do
+      it "should copy an article with images" do
+        article = FactoryGirl.create :article, :with_fixture_image
+        testpath = article.images.first.image.path # The image needs to be in place !!!
+        FileUtils.mkpath File.dirname(testpath) # make the dir
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'test.png'), testpath) #copy the image
+        
+        dup = article.amoeba_dup
+        dup.images[0].id.should_not eq article.images[0].id
+        dup.images[0].image_file_name.should eq article.images[0].image_file_name
+      end
     end
   end
 
-  describe "Article::Initial" do
+
+  describe "::Initial" do
     it "should rescue MissingAttributeErrors" do
       article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
       article.initialize_values.should_not raise_error(ActiveModel::MissingAttributeError)
     end
   end
 
-  describe "Article::FeesAndDonations" do
-    describe "friendly_percent_calculated" do
-      it "should call friendly_percent_result" do
-        article.should_receive :friendly_percent_result
-        article.friendly_percent_calculated
-      end
-    end
-    describe "fee_percentage" do
+  describe "::FeesAndDonations" do
+
+    #at the moment we do not have friendly percentece any more
+    #describe "friendly_percent_calculated" do
+      #it "should call friendly_percent_result" do
+        #article.should_receive :friendly_percent_result
+        #article.friendly_percent_calculated
+      #end
+    #end
+
+    describe "#fee_percentage" do
       it "should return the fair percentage when article.fair" do
         article.fair = true
         article.send('fee_percentage').should == 0.03
@@ -60,9 +52,26 @@ describe Article do
         article.send('fee_percentage').should == 0.06
       end
     end
+
+    describe "#calculate_fees_and_donations" do
+      #expand these unit tests!
+      it "should return zeros on fee and corruption with a friendly_percent of gt 100" do
+        article.friendly_percent = 101
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq 0
+        article.calculated_fee.should eq 0
+      end
+
+      it "should return zeros on fee and corruption with a price of 0" do
+        article.price = 0
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq 0
+        article.calculated_fee.should eq 0
+      end
+    end
   end
 
-  describe "Article::Attributes" do
+  describe "::Attributes" do
     it "should throw an error if default_transport_selected isn't able to call the transport function" do
       article.default_transport.should be_true
       article.stub(:send).and_return false
@@ -78,26 +87,12 @@ describe Article do
     end
   end
 
-  describe "Article::Commendation" do
-    describe "with_commendation scope" do
-      it "should be unscoped without commendations" do
-        Article.with_commendation.should == Article.scoped
-      end
-      it "should return the correct scope with given commendations" do
-        article_without_commendations = FactoryGirl.create(:article)
-        article_fair = FactoryGirl.create(:article, fair: true, fair_kind: :fair_trust)
-        article_ecologic = FactoryGirl.create(:article, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
-        article_fair_ecologic = FactoryGirl.create(:article, fair: true, fair_kind: :fair_trust, ecologic: true, ecologic_kind: :ecologic_seal, ecologic_seal: :bio_siegel)
+  describe "::Commendation" do
 
-        results = Article.with_commendation :fair, :ecologic
-        results.should include(article_fair_ecologic, article_fair, article_ecologic)
-        results.should_not include(article_without_commendations)
-      end
-    end
   end
 
-  describe "Article::Categories" do
-    describe "size_validator" do
+  describe "::Categories" do
+    describe "#size_validator" do
       it "should validate size of categories" do
         article_0cat = FactoryGirl.build :article
         article_0cat.categories = []
@@ -112,42 +107,62 @@ describe Article do
       end
     end
 
-    describe "with_exact_category_id scope" do
-      it "should be unscoped without category_id" do
-        Article.with_exact_category_id.should == Article.scoped
-      end
-      it "should return all articles of a given category" do
-        article1_cat1 = FactoryGirl.create :article, :category1
-        article2_cat1 = FactoryGirl.create :article, :category1
-        article1_cat2 = FactoryGirl.create :article, :category2
+    describe "#send_category_proposal" do
+      it "should send an email when a category_proposal was given" do
+        article.category_proposal = 'foo'
+        ArticleMailer.should_receive(:category_proposal).with('foo').and_call_original
 
-        results = Article.with_exact_category_id 1
-        results.should include article1_cat1, article2_cat1
-        results.should_not include article1_cat2
+        article.send_category_proposal
+      end
+    end
+  end
+
+  describe "::Template" do
+    before do
+      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+    end
+
+    describe "#save_as_template?" do
+      it "should return true when the save_as_template attribute is 1" do
+        @article.save_as_template?.should be_true
+      end
+
+      it "should return false when the save_as_template attribute is 0" do
+        @article.article_template.save_as_template = "0"
+        @article.save_as_template?.should be_false
+      end
+
+      it "should return false when no article_template is set" do
+        @article.article_template = nil
+        @article.save_as_template?.should be_false
       end
     end
 
-    describe "with_exact_category_ids scope" do
-      it "should return all articles of multiple given categories" do
-        article_cat1 = FactoryGirl.create :article, :category1
-        article_cat2 = FactoryGirl.create :article, :category2
-        article_cat3 = FactoryGirl.create :article, :category3
+    describe "#set_user_on_article_template" do
+      it "should set the article's seller as the template's owner" do
+        @article.article_template.user.should be_nil
 
-        results = Article.with_exact_category_ids [1, 2]
-        results.should include article_cat1, article_cat2
-        results.should_not include article_cat3
+        @article.set_user_on_article_template
+        @article.article_template.user.should eq @article.seller
       end
     end
 
-    describe "with_category_or_descendant_ids" do
-      it "should do something" do
-        article_cat1 = FactoryGirl.create :article, :category1
-        article_cat2 = FactoryGirl.create :article, :category2
-        article_childcat = FactoryGirl.create :article, :with_child_category
+    describe "#build_and_save_template" do
+      it "should request an amoeba duplication" do
+        @article.should_receive(:amoeba_dup).and_return FactoryGirl.build :article
+        @article.build_and_save_template
+      end
 
-        results = Article.with_category_or_descendant_ids [1, article_childcat.categories[0].id]
-        results.should include article_cat1, article_childcat
-        results.should_not include article_cat2
+      it "should unset its own article_template_id" do
+        @article.stub(:amoeba_dup).and_return FactoryGirl.build :article
+        @article.build_and_save_template
+        @article.article_template_id.should be_nil
+      end
+
+      it "should save a new article as a template" do
+        @article.stub(:amoeba_dup).and_return FactoryGirl.build :article
+        Article.any_instance.should_receive :save
+        @article.build_and_save_template
       end
     end
   end

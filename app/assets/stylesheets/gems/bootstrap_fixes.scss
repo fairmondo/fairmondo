@@ -76,11 +76,11 @@
     background-color: transparent !important;
     background-image: none !important;
   }
-  
+
 .progress .bar {
     @include gradient-vertical($fairnopolyBlue, darken($fairnopolyBlue, 5%));
  }
- 
+
 .progress-danger .bar, .progress .bar-danger {
   @include gradient-vertical($fairnopolyRed, darken($fairnopolyRed, 5%));
 }
@@ -90,7 +90,7 @@
 }
 
 
-// Nav Bars 
+// Nav Bars
 .nav > li > a {
   color: $black;
 }

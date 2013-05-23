@@ -26,11 +26,8 @@ class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
     end
     template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, opts)
   end
-  
+
   def wrapper_classes_raw
     super << " boolean"
   end
-  
-  
-
 end

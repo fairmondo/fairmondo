@@ -2,6 +2,8 @@ class Library < ActiveRecord::Base
 
   attr_accessible :name, :public, :user, :user_id
 
+  delegate :nickname, :to => :user, :prefix => true
+
   # Validations
 
   validates :name,:user, :presence => { :message => I18n.t('library.error.presence') }
@@ -14,8 +16,9 @@ class Library < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :library_elements, :dependent => :destroy
+  has_many :library_elements, dependent: :destroy
+  has_many :articles, through: :library_elements
 
- scope :public, where(public: true)
+  scope :public, where(public: true)
 
 end

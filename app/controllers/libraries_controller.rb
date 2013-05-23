@@ -6,7 +6,7 @@ class LibrariesController < InheritedResources::Base
   before_filter :get_user
 
   before_filter :authenticate_user!
-  
+
   def index
     @library = @user.libraries.build
     index!

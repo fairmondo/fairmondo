@@ -4,7 +4,7 @@ include Warden::Test::Helpers
 
 describe 'Dashboard' do
 
-  describe "for non-signed-in users" do
+  context "for non-signed-in users" do
 
     it "should show a sign in button" do
       visit users_path
@@ -12,10 +12,10 @@ describe 'Dashboard' do
     end
   end
 
-  describe "for signed-in users" do
+  context "for signed-in users" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create :user
       login_as @user
       visit users_path
     end
@@ -29,7 +29,7 @@ describe 'Dashboard' do
       page.should have_content I18n.t('enumerize.article.condition.new')
     end
 
-    it 'Sell link shows the Sell page' do
+    it 'Sell link shows the Sell page', slow: true do
       click_link I18n.t('common.text.sell')
       page.should have_content I18n.t('formtastic.labels.article.title')
     end

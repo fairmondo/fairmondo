@@ -1,13 +1,13 @@
 
 /*
- *  Vertical Forms ... Extracted from responsiveness of formtasticplusbootstrap 
+ *  Vertical Forms ... Extracted from responsiveness of formtasticplusbootstrap
  *  Update with formtastic-plus-bootstrap / lib / assets / stylesheets / formtastic-plus-bootstrap / responsive.css.scss in case of problems
- * 
+ *
  */
 
 
 .form-vertical {
-   
+
     label {
       float: none !important;
       text-align: left !important;
@@ -18,7 +18,7 @@
         right: 0px !important;
       }
     }
-    
+
      legend {
        width: auto !important;
       float: none !important;
@@ -40,13 +40,13 @@
       margin-left: 0px !important;
     }
 
-    
+
     // groups of choices and fragments go left too
     ol.choices-group, ol.fragments-group {
       margin-left: 0px !important;
-      
+
     }
-    
+
     // Lower the gaps between elements
     fieldset.inputs ol > li.input {
       margin-top: 0px !important;
@@ -57,7 +57,7 @@
     .actions ol {
       margin-left: 0px !important;
     }
-  
+
     fieldset.inputs {
       margin: 0 2px !important;
       padding: 0 !important;
@@ -71,9 +71,9 @@
       margin-right: 0 !important;
     }
 
-   
+
   }
-  
+
 .form-column {
   fieldset.inputs {
     margin: 0px;

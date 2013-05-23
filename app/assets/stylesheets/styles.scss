@@ -29,8 +29,10 @@
 @import "font-awesome";
 @import "bootstrap-responsive";
 @import "formtastic-plus-bootstrap/responsive";
+@import "gems/flat-ui_variables";
+@import "formtastic-plus-flatui";
 
-/* 
+/*
  * Design Modules
  */
 
@@ -80,8 +82,8 @@
 
 
 @import "models/article";
-@import "models/article_thumbnail"; 
-@import "models/article_template";  
+@import "models/article_thumbnail";
+@import "models/article_template";
 @import "models/questionnaire";
 @import "models/user";
 

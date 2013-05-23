@@ -1,5 +1,5 @@
 class FixBidAuctionIdToTransactionId < ActiveRecord::Migration
-  
+
   def up
     remove_column :bids,:auction_id
     add_column :bids,:auction_transaction_id, :integer

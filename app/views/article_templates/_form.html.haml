@@ -1,9 +1,9 @@
-= semantic_form_for @article_template, :html => { :class => "form-vertical"}, :builder => Fairtastic::FormBuilder do |f|
-  .fairnopoly-well 
+= semantic_form_for resource, :html => { :class => "form-vertical"}, :builder => Fairtastic::FormBuilder do |f|
+  .fairnopoly-well
     = f.inputs do
       = f.input :name
   = f.semantic_fields_for :article do |article_form|
-    = render :partial => "/articles/common_inputs", :locals => {:f => article_form}
+    = render :partial => "/articles/form/common_inputs", :locals => {:f => article_form}
   .fairnopoly-well
     = f.actions do
       = f.action :submit, :as => :input

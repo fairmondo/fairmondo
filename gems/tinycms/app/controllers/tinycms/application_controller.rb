@@ -12,7 +12,7 @@ class Tinycms::ApplicationController < ApplicationController
       end
     end
   end
-  
+
   # Doesn't work and not needed
   #unless method_defined? :tinymce_admin?
   #  def tinycms_admin?
@@ -20,12 +20,12 @@ class Tinycms::ApplicationController < ApplicationController
   #  end
   #end
   helper_method :tinycms_admin?
-  
+
 =begin
 
   unless method_defined? :tinycms_user
     if method_defined? :current_user
-      define_method :tinycms_user do 
+      define_method :tinycms_user do
         current_user
       end
     else
