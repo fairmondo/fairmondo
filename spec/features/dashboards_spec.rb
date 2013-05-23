@@ -30,7 +30,9 @@ describe 'Dashboard' do
     end
 
     it 'Sell link shows the Sell page', slow: true do
-      click_link I18n.t('common.text.sell')
+      within "#dashboard-sell" do
+        click_link I18n.t('common.text.sell')
+      end
       page.should have_content I18n.t('formtastic.labels.article.title')
     end
 
