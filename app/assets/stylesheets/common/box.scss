@@ -10,7 +10,7 @@
   margin-bottom: 25px;
 
   .box-legend {
-    position:relative;
+
     border: 1px solid #C8C8C8;
     font-family: Helvetica;
 
@@ -21,25 +21,20 @@
       display: block;
       a {
         padding-left: 45px;
-        display: block;
-        position:absolute;
-        width:100%;
-        height:100%;
-        top:0;
-        left:0;
+        margin-left:-45px;
         text-decoration: none;
       }
     }
     h6 {
       margin-left: 15px;
-      
+
       a {
-        
+
         text-decoration: none;
       }
     }
 
-    
+
 
     a.input-tooltip {
       margin: 7px 15px;

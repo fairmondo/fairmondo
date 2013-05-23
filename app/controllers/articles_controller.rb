@@ -7,11 +7,11 @@ class ArticlesController < InheritedResources::Base
   actions :all, :except => [ :destroy ] # inherited methods
 
   # Authorization
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete, :sunspot_failure]
+  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
 
   # Layout Requirements
 
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index, :sunspot_failure]
+  before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index]
 
   #Sunspot Autocomplete
   def autocomplete
@@ -135,20 +135,12 @@ class ArticlesController < InheritedResources::Base
 
   def search_for query
     ######## Solr
-      search = Article.search do
-        fulltext query.title
-        paginate :page => params[:page], :per_page=>12
-        with :fair, true if query.fair
-        with :ecologic, true if query.ecologic
-        with :small_and_precious, true if query.small_and_precious
-        with :condition, query.condition if query.condition
-        with :category_ids, Article::Categories.search_categories(query.categories) if query.categories.present?
-      end
+      search = query.find_like_this params[:page]
       return search.results
     ########
     rescue Errno::ECONNREFUSED
       render_hero :action => "sunspot_failure"
-      return policy_scope(Article).paginate :page => params[:page], :per_page=>12
+      return policy_scope(Article).paginate :page => params[:page]
   end
 
 
