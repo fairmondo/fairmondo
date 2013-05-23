@@ -35,7 +35,7 @@
     .span3
       %p
         %b
-          %span.pull-right= humanized_money_with_symbol @article.price
+          %span.pull-right= humanized_money_with_symbol @article.price #preis von cent in
           = t('formtastic.labels.article.price')
       - if @article.quantity && @article.quantity != ""
         %p
@@ -77,32 +77,48 @@
   .row-fluid
     .span12
 
-      / All Sellers
+      / Artikelbeschreibung
       = render_box_open "content" do
         = @article.content.html_safe
 
+      /Versand und Bezahlung
+
       = render_box "payment" do
-        %strong
-          = t('formtastic.labels.article.default_payment')
-          \:
-        %p
-          = @article.default_payment.text
+        %strong Bezahlung durch :
+      
+      - if @article.default_payment='paypal'
         .border-box.middle-padding
-          = simple_format(@article.payment_details).html_safe
+         %p= t('formtastic.labels.article.payment_paypal')
+        /Erste Box
+        /Selbstabholung
+        - if @article.transport_pickup
+          %strong= t('formtastic.labels.article.transport_pickup')+" :"
+          .border-box.middle-padding
+            %p= t('formtastic.labels.article.transport_pickup')+" vom Erwerber"
+        /Versichert
         %br/
-        %strong
-          = t('formtastic.labels.article.default_transport')
-          \:
-        %p
-          = @article.default_transport.text
+        %strong Versicherungsart :
+        - if @article.transport_insured
+          .border-box.middle-padding
+            %p= t('formtastic.labels.article.transport_insured')+" Artikel"
+            ="Versichert durch "+@article.transport_insured_provider.html_safe
+        - else
+          .border-box.middle-padding
+            %p= t('formtastic.labels.article.transport_uninsured')+" Artikel"
+        /Versdandart
+        %br/
+        %strong Bezahlen :
 
-        .border-box.middle-padding
-          = simple_format(@article.transport_details).html_safe
 
+        
+
+        
       - if @article.fair || @article.ecologic || @article.small_and_precious
         = render_box "commendation" do
           = render 'show_commendation'
+
       / Only legal sellers
+      /%strong.code#message Hello, World!
       - if @article.seller.is_a?(LegalEntity)
         = render_box "terms" do
           = @article.seller.terms.html_safe
@@ -120,3 +136,5 @@
         %br/
         %button.btn.btn-primary
           = t('article.actions.report')
+
+
