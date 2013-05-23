@@ -1,113 +1,86 @@
-require 'spork'
-require 'rails_best_practices'
+ENV["RAILS_ENV"] ||= 'test'
 
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
+### General Requires ###
 
-Spork.prefork do
-  # This file is copied to spec/ when you run 'rails generate rspec:install'
-  require 'simplecov'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+require 'capybara/rspec'
+require Rails.root.join('db/fixtures/category_seed_data.rb')
 
-  SimpleCov.start 'rails' do
-    add_filter "app/mailers/notification.rb"
-    add_filter "gems/*"
-    minimum_coverage 100
-  end
+# For starting the solr engine:
+require 'sunspot_test/rspec'
 
-  ENV["RAILS_ENV"] ||= 'test'
+# To run rake tasks:
+require 'rake'
+Fairnopoly::Application.load_tasks
 
-  begin
-    # if we are on spork we need to do this
+# For fixture_file_upload:
+include ActionDispatch::TestProcess
 
-    Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
-
-    # Prevent main application to eager_load in the prefork block (do not load files in autoload_paths)
-    Spork.trap_method(Rails::Application, :eager_load!)
-  rescue
-    # spork not up
-  end
-
-  require File.expand_path("../../config/environment", __FILE__)
-  require 'rspec/rails'
-  require 'rspec/autorun'
-  require 'capybara/rspec'
-  require Rails.root.join('db/fixtures/category_seed_data.rb')
-
-  require 'sunspot_test/rspec' # for starting the solr engine
-
-  include ActionDispatch::TestProcess # for fixture_file_upload
-
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-  Delayed::Worker.delay_jobs = false
-
-  #Secret Token 4 testing:
-  Fairnopoly::Application.config.secret_token = '599e6eed15b557a8d7fdee1672761277a174a6a7e3e8987876d9e6ac685d68005b285b14371e3b29c395e1d64f820fe05eb981496901c2d73b4a1b6c868fd771'
+# Requires supporting ruby files:
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 
 
-  RSpec.configure do |config|
-    # ## Mock Framework
-    #
-    # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-    #
-    # config.mock_with :mocha
-    # config.mock_with :flexmock
-    # config.mock_with :rr
+### SimpleCOV ###
 
-    # Add the "visual" tag to a test that uses save_and_open_page.
-    # This will give you the corresponding css and js
-    if config.inclusion_filter[:visual]
-      config.before(scope = :suite) do
-        %x[bundle exec rake assets:precompile]
-      end
-    end
+require 'simplecov'
 
-
-    # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-    config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-    # If you're not using ActiveRecord, or you'd prefer not to run each of your
-    # examples within a transaction, remove the following line or assign false
-    # instead of true.
-    config.use_transactional_fixtures = true
-
-    # If true, the base class of anonymous controllers will be inferred
-    # automatically. This will be the default behavior in future versions of
-    # rspec-rails.
-    config.infer_base_class_for_anonymous_controllers = false
-
-    # Run specs in random order to surface order dependencies. If you find an
-    # order dependency and want to debug it, you can fix the order by providing
-    # the seed, which is printed after each run.
-    #     --seed 1234
-    config.order = "random"
-    
-    config.after(:suite) do 
-        analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
-        analyzer.analyze
-        analyzer.output
-        #analyzer.runner.errors.size.should == 0
-    end
-    
-  end
-
+SimpleCov.start 'rails' do
+  add_filter "app/mailers/notification.rb"
+  add_filter "gems/*"
+  add_filter "app/mailers/notification.rb"
+  minimum_coverage 100
 end
 
-Spork.each_run do
-  # This code will be run each time you run your specs.
-  ActiveSupport::Dependencies.clear
-  ActiveRecord::Base.instantiate_observers
-  FactoryGirl.reload
+require 'coveralls'
+Coveralls.wear!
 
-  Dir[File.join(File.dirname(__FILE__), '..', 'app', 'helpers', '*.rb')].each do |file|
-    require file
+
+
+### Settings ###
+
+Delayed::Worker.delay_jobs = false
+
+# Secret Token 4 testing:
+Fairnopoly::Application.config.secret_token = '599e6eed15b557a8d7fdee1672761277a174a6a7e3e8987876d9e6ac685d68005b285b14371e3b29c395e1d64f820fe05eb981496901c2d73b4a1b6c868fd771'
+
+
+
+### RSpec Configurations ###
+
+RSpec.configure do |config|
+
+  ## Configs from presets ##
+
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.use_transactional_fixtures = true
+  config.infer_base_class_for_anonymous_controllers = false
+  config.order = "random"
+
+
+  ## Custom configs ##
+
+  # Add the "visual" tag to a test that uses save_and_open_page.
+  # This will give you the corresponding css and js
+  if config.inclusion_filter[:visual]
+    config.before(scope = :suite) do
+      %x[bundle exec rake assets:precompile]
+    end
+  end
+
+
+  # Additional things we want to test apart from the actual suite #
+
+  config.after :suite do
+      # Check for best practices
+      bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
+      bp_analyzer.analyze
+      bp_analyzer.output
+      #bp_analyzer.runner.errors.size.should == 0
+
+      # Check security
+      Rake::Task['test:brakeman'].invoke
   end
 end
-
-
-
-
-

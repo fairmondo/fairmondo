@@ -132,17 +132,25 @@ group :development, :test do
 
   #test performance
   gem 'spork-rails'
+
+  # test suite additions
+  gem "rails_best_practices"
+  gem "brakeman" # security test: execute with 'brakeman'
+
+  # Better console
+  gem 'pry'
+  gem 'pry-doc'
+
+  #Coverage
+  gem 'coveralls', require: false
 end
 
 group :development do
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem "rails_best_practices"
-  #security
-  gem "brakeman" # security test: execute with 'brakeman'
 
-   # HAML Conversion tools
+  # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
 

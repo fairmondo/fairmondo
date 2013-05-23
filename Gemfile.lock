@@ -197,6 +197,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.1)
     mime-types (1.23)
     modernizr-rails (2.6.2.1)
     money (5.1.1)
@@ -230,6 +231,13 @@ GEM
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-doc (0.4.6)
+      pry (>= 0.9)
+      yard (>= 0.8)
     pundit (0.2.0)
       rails (~> 3.0)
     rack (1.4.5)
@@ -330,6 +338,7 @@ GEM
     slim (1.3.8)
       temple (~> 0.6.3)
       tilt (~> 1.3.3)
+    slop (3.4.5)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
       rails (>= 3.0.0, < 3.3.0)
@@ -377,6 +386,7 @@ GEM
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yard (0.8.6.1)
 
 PLATFORMS
   ruby
@@ -420,6 +430,8 @@ DEPENDENCIES
   paperclip (>= 3.0)
   pg
   progress_bar
+  pry
+  pry-doc
   pundit
   rails (>= 3.2.13)
   rails-erd
