@@ -15,7 +15,6 @@ Fairnopoly::Application.routes.draw do
       get 'report'
     end
     collection do
-      get 'sunspot_failure'
       get 'autocomplete'
     end
   end
@@ -28,11 +27,7 @@ Fairnopoly::Application.routes.draw do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
     member do
-      get 'sales'
       get 'profile'
-    end
-    collection do
-      get 'index' => 'users#show'
     end
   end
 

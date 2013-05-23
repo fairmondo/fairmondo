@@ -27,5 +27,17 @@ module Article::Search
     Delayed::Job.enqueue RemoveIndexJob.new(record_class: self.class.to_s, attributes: self.attributes), queue: 'indexing', priority: 50
   end
 
+  def find_like_this page
+    Article.search do
+        fulltext self.title
+        paginate :page => page
+        with :fair, true if self.fair
+        with :ecologic, true if self.ecologic
+        with :small_and_precious, true if self.small_and_precious
+        with :condition, self.condition if self.condition
+        with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
+    end
+  end
+
 
 end

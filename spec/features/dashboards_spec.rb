@@ -6,8 +6,12 @@ describe 'Dashboard' do
 
   context "for non-signed-in users" do
 
+    before :each do
+      @user = FactoryGirl.create :user
+    end
+
     it "should show a sign in button" do
-      visit users_path
+      visit user_path(@user)
       page.should have_content("Login")
     end
   end
@@ -17,7 +21,7 @@ describe 'Dashboard' do
     before :each do
       @user = FactoryGirl.create :user
       login_as @user
-      visit users_path
+      visit user_path(@user)
     end
 
     it 'should show the dashboard' do
@@ -69,7 +73,7 @@ describe 'Dashboard' do
     before :each do
       @user = FactoryGirl.create(:user, :admin => true)
       login_as @user
-      visit users_path
+      visit user_path(@user)
     end
 
     it 'Admin link only shown for admin user' do
