@@ -87,7 +87,8 @@ If the automated script doesn't work for you, try going through these steps one 
 
 === Testing
 
-{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly]
+{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly]
+
 
 To run the tests: if you haven't already, prepare the testing database
 
