@@ -143,6 +143,10 @@ group :development, :test do
 
   #Coverage
   gem 'coveralls', require: false
+
+  # Replace Webrick
+  gem 'thin'
+
 end
 
 group :development do
