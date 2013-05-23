@@ -5,9 +5,9 @@
 class PlainCheckBoxesInput < Formtastic::Inputs::CheckBoxesInput
 
   def render_label?
-    false    
+    false
   end
-  
+
   def wrapper_classes_raw
     super << " check_boxes"
   end

@@ -6,8 +6,8 @@ class CreateAuctionTemplates < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_column :auctions, :auction_template_id, :integer
-    
+
   end
 end

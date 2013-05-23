@@ -7,21 +7,25 @@
       %tbody
         %tr
           %td
-            %b= raw t('article.preview.fees_and_donations.corruption_percent')
-          %td= humanized_money_with_symbol @article.calculated_corruption
+            = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%") )
+          %td
+            %b= humanized_money_with_symbol resource.calculated_fee
         %tr
           %td
-            %b
-            = t('article.preview.fees_and_donations.friendly_percent')
-          %td= humanized_money_with_symbol @article.calculated_friendly
-        %tr
+            = raw t('article.preview.fees_and_donations.corruption_percent')
           %td
-            %b= t('article.preview.fees_and_donations.fee')
-          %td= humanized_money_with_symbol @article.calculated_fee
+            %b= humanized_money_with_symbol resource.calculated_corruption
+        -#%tr
+          -#%td
+            -#%b
+            -#= t('article.preview.fees_and_donations.friendly_percent')
+          -#%td= humanized_money_with_symbol resource.calculated_friendly
         %tr.table-total-row
           %td
-            %b= t('article.preview.fees_and_donations.total')
-          %td= humanized_money_with_symbol @article.calculated_fees_and_donations
+            %b= t('article.preview.fees_and_donations.total', :fee => (resource.fair ? "3% + 1%" : "6% + 1%")  )
+          %td
+            %b= humanized_money_with_symbol resource.calculated_fees_and_donations
+
     = render_tooltip t("article.preview.tooltips.double_check")
     %h3= t("article.preview.double_check.title")
-    = link_to t("article.labels.submit"), activate_article_path(@article), :class=>"btn btn-success"
+    = link_to t("article.labels.submit"), activate_article_path(resource), :class=>"btn btn-success"

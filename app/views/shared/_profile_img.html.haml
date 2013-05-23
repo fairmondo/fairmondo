@@ -1,13 +1,10 @@
 #profile-img.well.white-well.clear-padding
   .middle-margin
-    - if user.is_a?(LegalEntity) && ((user.forename && !user.forename.empty?) || (user.surname && !user.surname.empty?))
-      %span.big-name
-        = user.forename
-        = user.surname
-      %br/
-      %span.small-name= user.name
-    - else
-      %span.big-name= user.name
+    %span.big-name
+      = user.name
+    %br/
+    - if user.is_a?(LegalEntity)
+      %span.small-name= user.fullname
   .border-box
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))

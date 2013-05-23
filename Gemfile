@@ -12,7 +12,9 @@ platforms :ruby do
   gem 'sqlite3'
   # gem 'activerecord-postgresql-adapter'
   gem 'therubyracer'
-  gem 'pg', :group => :production
+  group :production do
+    gem 'pg'
+  end
   # exclude Debugger from CI
   unless ENV["CI"]
     gem 'debugger', :group => [:development, :test]
@@ -35,6 +37,7 @@ gem 'money-rails' # Deal with Money
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
+gem 'amoeba'
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
@@ -77,6 +80,8 @@ group :assets do
   gem 'bootstrap-will_paginate'
   gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
+  gem "flatui-rails"
+  gem "formtastic-plus-flatui"
   gem 'compass-rails'
 
 
@@ -102,9 +107,6 @@ end
 
 # Testing using RSpec
 group :development, :test do
-  # HAML Conversion tools
-  gem "erb2haml"
-  gem "html2haml"
 
   # Main Test Tools
   gem 'rspec-rails'
@@ -118,6 +120,8 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
+  # Mutation Coverage
+  # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
   #er diagramm generation
   gem "rails-erd"
@@ -126,13 +130,25 @@ group :development, :test do
   gem 'sunspot_solr'
   gem "sunspot_test"
 
+  #test performance
+  gem 'spork-rails'
+end
+
+group :development do
+  # Better error messages
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem "rails_best_practices"
   #security
   gem "brakeman" # security test: execute with 'brakeman'
 
-  #test performance
-  gem 'spork-rails'
+   # HAML Conversion tools
+  gem "erb2haml"
+  gem "html2haml"
 
 
+  # Notify about n+1 queries
+  gem 'bullet'
 end
 
 # Adding Staging-server Embedded Solr

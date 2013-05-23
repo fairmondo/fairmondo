@@ -2,18 +2,11 @@ class ArticleTemplatesController < InheritedResources::Base
 
   before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
-  before_filter :build_article
-  before_filter :setup_categories, :except => [:destroy]
+  before_filter :build_article, :only => [:new,:create]
   before_filter :build_questionnaires, :except => [:destroy]
   before_filter :build_transaction, :only => [:create]
-  before_filter :save_images, :only => [:create, :update]
   actions :all, :except => [:show,:index]
 
-  def build_resource
-    super
-    authorize @article_template
-    @article_template
-  end
 
 
   def begin_of_association_chain
@@ -24,15 +17,37 @@ class ArticleTemplatesController < InheritedResources::Base
   #   @article_templates ||= end_of_association_chain.paginate(:page => params[:page])
   # end
 
+
   def update
-    update! {collection_url}
+    authorize resource
+    update!  do |success, failure|
+       success.html { redirect_to collection_url}
+       failure.html { save_images
+                      render :edit}
+    end
   end
 
   def create
-    create! {collection_url}
+    authorize build_resource
+    create! do |success, failure|
+       success.html { redirect_to collection_url}
+       failure.html { save_images
+                      render :new}
+    end
+  end
+
+  def edit
+    authorize resource
+    edit!
+  end
+
+  def new
+    authorize resource
+    new!
   end
 
   def destroy
+    authorize resource
     destroy! {collection_url}
   end
 
@@ -43,22 +58,23 @@ class ArticleTemplatesController < InheritedResources::Base
   end
 
   def build_article
-    @article ||= resource.article || resource.build_article
+    resource.build_article unless resource.article
+    resource.article.seller = current_user
   end
 
   def build_questionnaires
-    @fair_trust_questionnaire ||= @article.fair_trust_questionnaire || @article.build_fair_trust_questionnaire
-    @social_producer_questionnaire ||= @article.social_producer_questionnaire || @article.build_social_producer_questionnaire
+    resource.article.build_fair_trust_questionnaire unless resource.article.fair_trust_questionnaire
+    resource.article.build_social_producer_questionnaire unless resource.article.social_producer_questionnaire
   end
 
   def build_transaction
-    @article.build_transaction
+    resource.article.build_transaction unless resource.transaction
   end
 
   def save_images
     #At least try to save the images -> not persisted in browser
-    if @article
-      @article.images.each do |image|
+    if resource.article
+      resource.article.images.each do |image|
         ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
         ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
         # if image.image

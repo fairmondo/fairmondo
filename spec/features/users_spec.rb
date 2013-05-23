@@ -25,7 +25,7 @@ describe 'User management' do
         check 'user_agecheck'
         click_button 'sign_up'
         User.find_by_email('email@example.com').confirm!
-      end.to change(User, :count).by(1)
+      end.to change(User, :count).by 1
     end
 
     it "should sign in a valid user" do
@@ -45,7 +45,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      expect { click_button 'Login' }.to raise_error # raises Tinycms error because "banned" is a page
 
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end

@@ -13,9 +13,9 @@ class RenameDependencies < ActiveRecord::Migration
     rename_index :articles_categories, 'index_auctions_categories_on_auction_id', 'index_articles_categories_on_article_id'
     rename_index :articles_categories, 'index_auctions_categories_on_category_id', 'index_articles_categories_on_category_id'
   end
-  
-  
 
 
-  
+
+
+
 end

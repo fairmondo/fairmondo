@@ -1,14 +1,13 @@
-= semantic_fields_for @search_cache do |f|
-  #search-box-filter.row-fluid
-    .span6
-      .fairnopoly-well
-        = f.inputs do
-          = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => @categories, :tooltip => false, :label => false
-    .span6
-      .fairnopoly-well
-        = f.inputs do
-          = f.input :condition,:as => :plain_radio, :label=> true, :collection => Article.condition.options + [["Egal", ""]] , :required => false, :tooltip => false
-          = f.input :fair, :as => :boolean, :tooltip => false
-          = f.input :ecologic , :as => :boolean, :tooltip => false
-          = f.input :small_and_precious , :as => :boolean, :tooltip => false
-    
+#search-box-filter.row-fluid
+  .span6
+    .fairnopoly-well
+      = f.inputs do
+        = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => Category.roots, :tooltip => false, :label => false
+  .span6
+    .fairnopoly-well
+      = f.inputs do
+        = f.input :condition,:as => :plain_radio, :label=> true, :collection => Article.condition.options + [["Egal", ""]] , :required => false, :tooltip => false
+        = f.input :fair, :as => :boolean, :tooltip => false
+        = f.input :ecologic , :as => :boolean, :tooltip => false
+        = f.input :small_and_precious , :as => :boolean, :tooltip => false
+

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  
+
   protect_from_forgery
 
   def build_login
@@ -25,6 +25,14 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  ## programmatically get controller's filters
+  # def self.filters(kind = nil)
+  #   all_filters = _process_action_callbacks
+  #   all_filters = all_filters.select{|f| f.kind == kind} if kind
+  #   all_filters.map { :filter }
+  # end
+
+
   protected
 
   def render_users_hero
@@ -37,10 +45,7 @@ class ApplicationController < ActionController::Base
     @rendered_hero = options
   end
 
-  private
 
-  def setup_categories
-    @categories = Category.roots
-  end
+
 
 end

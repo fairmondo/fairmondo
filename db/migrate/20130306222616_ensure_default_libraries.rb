@@ -3,7 +3,7 @@ class EnsureDefaultLibraries < ActiveRecord::Migration
     has_many :libraries
     def create_default_library
       if self.libraries.empty?
-        Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)
+        # Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id) uncommented because its dirty and it was already run on server
       end
     end
   end

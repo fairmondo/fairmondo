@@ -1,6 +1,6 @@
 class UpdateRemovedFairConditionInAuctions < ActiveRecord::Migration
   class Auction < ActiveRecord::Base
-    
+
   end
   def up
     Auction.reset_column_information
