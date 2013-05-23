@@ -1,4 +1,4 @@
-- if article.seller.is_a?(LegalEntity) && article.basic_price_amount.present?
+- if article.seller.is_a?(LegalEntity) && article.basic_price_amount?
   %p
     %span.pull-right= humanized_money_with_symbol article.basic_price
     = t('formtastic.labels.article.basic_price')
