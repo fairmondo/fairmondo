@@ -120,6 +120,7 @@ group :development, :test do
 
   # Code Coverage
   gem 'simplecov'
+  gem 'coveralls', require: false
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
@@ -140,9 +141,6 @@ group :development, :test do
   # Better console
   gem 'pry'
   gem 'pry-doc'
-
-  #Coverage
-  gem 'coveralls', require: false
 end
 
 group :development do
@@ -157,6 +155,10 @@ group :development do
 
   # Notify about n+1 queries
   gem 'bullet'
+end
+
+group :test do
+  gem 'colorize'
 end
 
 # Adding Staging-server Embedded Solr
