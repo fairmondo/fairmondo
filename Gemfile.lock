@@ -42,6 +42,8 @@ GEM
     amoeba (2.0.0)
       activerecord (>= 3.0)
     arel (3.0.2)
+    autotest-fsevent (0.2.8)
+      sys-uname
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
@@ -140,6 +142,7 @@ GEM
       i18n (~> 0.5)
     fastercsv (1.5.5)
     fattr (2.2.1)
+    ffi (1.8.1)
     flatui-rails (0.0.2)
       railties (~> 3.1)
       sass-rails (~> 3.2.0)
@@ -197,6 +200,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.1)
     mime-types (1.23)
     modernizr-rails (2.6.2.1)
     money (5.1.1)
@@ -230,6 +234,13 @@ GEM
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-doc (0.4.6)
+      pry (>= 0.9)
+      yard (>= 0.8)
     pundit (0.2.0)
       rails (~> 3.0)
     rack (1.4.5)
@@ -330,6 +341,7 @@ GEM
     slim (1.3.8)
       temple (~> 0.6.3)
       tilt (~> 1.3.3)
+    slop (3.4.5)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
       rails (>= 3.0.0, < 3.3.0)
@@ -350,6 +362,8 @@ GEM
     sunspot_solr (2.0.0)
     sunspot_test (0.4.0)
       sunspot_rails (>= 1.2.1)
+    sys-uname (0.9.2)
+      ffi (>= 1.0.0)
     temple (0.6.4)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
@@ -377,6 +391,7 @@ GEM
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yard (0.8.6.1)
 
 PLATFORMS
   ruby
@@ -384,6 +399,7 @@ PLATFORMS
 DEPENDENCIES
   ZenTest
   amoeba
+  autotest-fsevent
   awesome_nested_set
   better_errors
   binding_of_caller
@@ -420,6 +436,8 @@ DEPENDENCIES
   paperclip (>= 3.0)
   pg
   progress_bar
+  pry
+  pry-doc
   pundit
   rails (>= 3.2.13)
   rails-erd
