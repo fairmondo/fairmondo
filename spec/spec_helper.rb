@@ -1,4 +1,6 @@
 require 'spork'
+require 'rails_best_practices'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -9,6 +11,7 @@ Spork.prefork do
   SimpleCov.start 'rails' do
     add_filter "app/mailers/notification.rb"
     add_filter "gems/*"
+    minimum_coverage 100
   end
 
   ENV["RAILS_ENV"] ||= 'test'
@@ -81,6 +84,14 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    
+    config.after(:suite) do 
+        analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
+        analyzer.analyze
+        analyzer.output
+        #analyzer.runner.errors.size.should == 0
+    end
+    
   end
 
 end
