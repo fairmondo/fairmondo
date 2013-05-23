@@ -78,11 +78,14 @@
   .row-fluid
     .span12
 
-      / All Sellers
+      / Artikelbeschreibung
       = render_box_open "content" do
         = resource.content.html_safe
 
+      /Versand und Bezahlung
+
       = render_box "payment" do
+
         %strong
           = t('formtastic.labels.article.default_payment')
           \:
@@ -121,3 +124,5 @@
         %br/
         %button.btn.btn-primary
           = t('article.actions.report')
+
+
