@@ -126,6 +126,7 @@ describe Article do
   describe "::Template" do
     before do
       @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+      @article.article_template.user = nil
     end
 
     describe "#save_as_template?" do

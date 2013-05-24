@@ -13,6 +13,6 @@ RSpec.configure do |config|
     bp_analyzer.instance_variable_set :@options, options.merge({'format' => 'html'})
     bp_analyzer.output
 
-    #bp_analyzer.runner.errors.size.should == 0
+    exit bp_analyzer.runner.errors.size
   end
 end
