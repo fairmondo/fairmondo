@@ -105,7 +105,7 @@
 
       - if resource.has_commendation?
         = render_box "commendation" do
-          = render 'show/commendation'
+          = render 'articles/show/commendation'
       / Only legal sellers
       - if resource.seller.is_a?(LegalEntity)
         = render_box "terms" do
