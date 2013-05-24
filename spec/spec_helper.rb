@@ -28,6 +28,11 @@ Fairnopoly::Application.config.secret_token = '599e6eed15b557a8d7fdee1672761277a
 
 
 
+### Test Setup ###
+
+File.open(Rails.root.join('log/test.log'), 'w') {|f| f.truncate(0) } # clear test log
+
+
 ### RSpec Configurations ###
 
 RSpec.configure do |config|
@@ -51,6 +56,17 @@ RSpec.configure do |config|
   end
 
   config.before :suite do
+    $skip_audits = true # Variable is needed when a test fails and the other audits don't need to be run
     puts "\n[Rspec] Specifications:\n".underline
+  end
+
+  config.after :suite do
+    %x[ code-cleaner . ]
+
+    if RSpec.configuration.reporter.instance_variable_get(:@failure_count) > 0
+      puts "\n\nErrors occured. Not running additional tests.".red
+    else
+      $skip_audits = false
+    end
   end
 end
