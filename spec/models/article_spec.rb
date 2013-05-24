@@ -16,7 +16,7 @@ describe Article do
         testpath = article.images.first.image.path # The image needs to be in place !!!
         FileUtils.mkpath File.dirname(testpath) # make the dir
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'test.png'), testpath) #copy the image
-        
+
         dup = article.amoeba_dup
         dup.images[0].id.should_not eq article.images[0].id
         dup.images[0].image_file_name.should eq article.images[0].image_file_name
@@ -107,14 +107,7 @@ describe Article do
       end
     end
 
-    describe "#send_category_proposal" do
-      it "should send an email when a category_proposal was given" do
-        article.category_proposal = 'foo'
-        ArticleMailer.should_receive(:category_proposal).with('foo').and_call_original
 
-        article.send_category_proposal
-      end
-    end
   end
 
   describe "::Template" do
