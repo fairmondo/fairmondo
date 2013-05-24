@@ -4,7 +4,7 @@
       - if policy(resource).edit?
         = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
       - if policy(resource).deactivate?
-        = link_to t('article.labels.deactivate') , deactivate_article_path, :class => "btn "
+        = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
   %h2
     = resource.title
   - resource.categories.each do |leaf|
@@ -105,7 +105,7 @@
 
       - if resource.has_commendation?
         = render_box "commendation" do
-          = render 'show/commendation'
+          = render 'articles/show/commendation'
       / Only legal sellers
       - if resource.seller.is_a?(LegalEntity)
         = render_box "terms" do
