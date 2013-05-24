@@ -11,6 +11,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 SimpleCov.start 'rails' do
   add_filter "app/mailers/notification.rb"
   add_filter "gems/*"
+  add_filter "lib/tasks/*"
   minimum_coverage 100
 end
 
