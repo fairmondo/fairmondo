@@ -15,12 +15,12 @@
 .row
   .span6
     .fairnopoly-well
-      = link_to t('devise.links.sign_up'), new_registration_path(resource_name), :class => "btn btn-success btn-large pull-right"
+      = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
       = tinycms_content "please-register"
   .span6
     .progress.progress-success.progress-landing
       .bar{:style => "height:100%;width: #{@percentage}%"}
     %p
-      = link_to t('common.actions.take_part'), new_registration_path(resource_name), :class => "pull-right"
+      = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
       = @articles
       = t("common.text.inserted")

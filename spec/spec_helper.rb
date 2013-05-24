@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= 'test'
 
 ### General Requires ###
 
+require 'support/spec_helpers/coverage.rb'
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
