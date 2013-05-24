@@ -68,6 +68,19 @@ describe Article do
         article.calculated_corruption.should eq 0
         article.calculated_fee.should eq 0
       end
+
+      it "should return the max fee when calculated_fee gt max fee" do
+        article.price = 9999
+        article.calculate_fees_and_donations
+        article.calculated_fee.should eq Money.new(3500)
+      end
+
+      it "should always round the corruption up" do
+        article.price = 789.23
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq Money.new(790)
+      end
+
     end
   end
 
@@ -113,6 +126,7 @@ describe Article do
   describe "::Template" do
     before do
       @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+      @article.article_template.user = nil
     end
 
     describe "#save_as_template?" do

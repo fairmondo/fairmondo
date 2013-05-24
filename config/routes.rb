@@ -10,8 +10,6 @@ Fairnopoly::Application.routes.draw do
 
   resources :articles do
     member do
-      get 'activate'
-      get 'deactivate'
       get 'report'
     end
     collection do

@@ -1,42 +1,6 @@
 require "spec_helper"
 
 describe ArticlesHelper do
-  # describe "#category_button_text(name, children, pad = false)" do
-  #   it "should return the correct html without a 'padding' argument" do
-  #     result = helper.category_button_text 'foo', true
-  #     result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; "><i class="icon-chevron-right"></i></span>'
-  #   end
-
-  #   it "should return the correct html with padding" do
-  #     result = helper.category_button_text 'foo', true, true
-  #     result.should eq '<i class="icon-tags"></i> foo<span style=" float: right; padding-right:10px"><i class="icon-chevron-right"></i></span>'
-  #   end
-  # end
-
-  describe "#resource" do
-    it "should return the existing resource" do
-      user = User.new nickname: 'something'
-      assign :resource, user
-      helper.resource.should eq user
-    end
-
-    it "should return a new User without a given resource" do
-      User.should_receive :new
-      helper.resource
-    end
-  end
-
-  describe "#devise_mapping" do
-    it "should return the existing devise_mapping" do
-      assign :devise_mapping, 'foo'
-      helper.devise_mapping.should eq 'foo'
-    end
-
-    it "should return a new mapping if none exists" do
-      Devise.should_receive(:mappings).and_return user: 'foo'
-      helper.devise_mapping.should eq 'foo'
-    end
-  end
 
   describe "#get_category_tree(leaf_category)" do
     it "should return an array with parent categories of a given child category " do
@@ -53,7 +17,7 @@ describe ArticlesHelper do
       @img1 = FactoryGirl.create :image
       @img2 = FactoryGirl.create :image
       @article.images = [@img1, @img2]
-      helper.instance_variable_set("@resource", @article)
+      helper.stub!(:resource).and_return( @article)
     end
 
     it "should return the image defined by params" do

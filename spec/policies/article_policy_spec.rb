@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ArticlePolicy do
   include PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
-  let(:article) { FactoryGirl.create :article }
+  let(:article) { FactoryGirl.create :preview_article }
   let(:user) { nil }
 
   context "for a visitor" do
@@ -19,12 +19,12 @@ describe ArticlePolicy do
     it { should deny(:destroy)           }
 
     context "on an active article" do
-      before { article.active = true     }
+      before { article.activate     }
       it { should permit(:show)          }
     end
 
     context "on an inactive article" do
-      before { article.active = false    }
+      before {     }
       it { should deny(:show)            }
     end
   end
@@ -56,25 +56,27 @@ describe ArticlePolicy do
     end
 
     context "on an active article" do
-      before { article.active = true  }
+      before { article.activate  }
       it { should permit(:deactivate) }
       it { should deny(:activate)     }
     end
 
     context "on an inactive article" do
-      before { article.active = false }
+      before {  }
       it { should deny(:deactivate)   }
       it { should permit(:activate)   }
     end
 
     context "on a locked article" do
-      before { article.locked = true }
+      before {
+            article.activate
+            article.deactivate
+         }
       it { should deny(:edit)        }
       it { should deny(:update)      }
     end
 
     context "on an unlocked article" do
-      before { article.locked = false }
       it { should permit(:edit)       }
       it { should permit(:update)     }
     end

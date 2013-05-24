@@ -224,12 +224,9 @@ describe ArticlesController do
 
       context 'his articles' do
         before :each do
-          @article = FactoryGirl.create :article, seller: @user
+          @article = FactoryGirl.create :preview_article, seller: @user
 
-          #cant use editable_article factory due to defaultscope
-          @article.active = false
-          @article.locked = false
-          @article.save
+
         end
 
         it "should be successful for the seller" do
@@ -239,7 +236,7 @@ describe ArticlesController do
       end
 
       it "should not be able to edit other users articles" do
-        @article = FactoryGirl.create :editable_article
+        @article = FactoryGirl.create :preview_article
 
         expect do
           get :edit, :id => @article
@@ -339,7 +336,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :inactive_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: @user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
@@ -383,11 +380,11 @@ describe ArticlesController do
     before do
       @user = FactoryGirl.create :user
       sign_in @user
-      @article = FactoryGirl.create :inactive_article, seller: @user
+      @article = FactoryGirl.create :preview_article, seller: @user
     end
 
     it "should work" do
-      get :activate, id: @article.id
+      put :update, id: @article.id, :activate => true
       response.should redirect_to @article
       flash[:notice].should eq I18n.t 'article.notices.create'
     end
@@ -396,7 +393,7 @@ describe ArticlesController do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
-      get :activate, id: @article.id
+      put :update, id: @article.id, :activate => true
       response.should_not redirect_to @article
       response.should render_template "edit"
     end
@@ -410,7 +407,7 @@ describe ArticlesController do
     end
 
     it "should work" do
-      get :deactivate, id: @article.id
+      put :update, id: @article.id, :deactivate => true
       response.should redirect_to @article
       flash[:notice].should eq I18n.t 'article.notices.deactivated'
     end
@@ -419,7 +416,7 @@ describe ArticlesController do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
-      get :deactivate, id: @article.id
+       put :update, id: @article.id, :deactivate => true
       response.should_not redirect_to @article
       response.should render_template "edit"
     end

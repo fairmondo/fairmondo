@@ -105,7 +105,7 @@ RailsAdmin.config do |config|
   #     configure :article_template_id, :integer         # Hidden
   #     configure :transaction_id, :integer         # Hidden
   #     configure :active, :boolean
-  #     configure :locked, :boolean
+  #     configure :state, :string
   #     configure :calculated_corruption_cents, :integer
   #     configure :calculated_friendly_cents, :integer
   #     configure :calculated_fee_cents, :integer
