@@ -13,7 +13,7 @@ module ArticlesHelper
     html += "</div>"
     html.html_safe
   end
-
+  
   def condition_badge_class condition
     case condition
     when "new"
@@ -99,4 +99,13 @@ module ArticlesHelper
   def inactive_articles
     resource.articles.where(:active => false).paginate :page => params[:inactive_articles_page]
   end
+
+  def payment_format_for type
+    html=""
+    if resource.send("payment_" + type)
+      html = t('formtastic.labels.article.payment_'+type)
+    end
+    html.html_safe
+  end
+  
 end
