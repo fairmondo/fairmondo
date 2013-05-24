@@ -141,10 +141,16 @@ group :development, :test do
   # Better console
   gem 'pry'
   gem 'pry-doc'
+<<<<<<< HEAD
+=======
+
+  #Coverage
+  gem 'coveralls', require: false
 
   # Replace Webrick
   gem 'thin'
 
+>>>>>>> ef1aad3bf0c3c8b167639f36a599f49f4b82f3ef
 end
 
 group :development do
@@ -155,6 +161,7 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
+
 
   # Notify about n+1 queries
   gem 'bullet'

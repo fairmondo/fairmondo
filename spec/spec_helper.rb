@@ -54,16 +54,7 @@ RSpec.configure do |config|
     end
   end
 
-
-  # Additional things we want to test apart from the actual suite #
-
-  config.after :suite do
-    # Check for best practices
-    bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
-    bp_analyzer.analyze
-    bp_analyzer.output
-    #bp_analyzer.runner.errors.size.should == 0
-
-    audit_security
+  config.before :suite do
+    puts "\n[Rspec] Specifications:\n".underline
   end
 end
