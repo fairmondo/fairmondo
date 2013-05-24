@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  protect_from_forgery
+  #protect_from_forgery
 
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )

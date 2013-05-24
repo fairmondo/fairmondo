@@ -6,20 +6,16 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
-require Rails.root.join('db/fixtures/category_seed_data.rb')
+
+# Requires supporting ruby files:
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # For starting the solr engine:
 require 'sunspot_test/rspec'
 
-# To run rake tasks:
-require 'rake'
-Fairnopoly::Application.load_tasks
-
-# For fixture_file_upload:
+# For fixtures:
 include ActionDispatch::TestProcess
-
-# Requires supporting ruby files:
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+require Rails.root.join('db/fixtures/category_seed_data.rb')
 
 
 
