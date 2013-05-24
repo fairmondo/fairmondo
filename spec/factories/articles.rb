@@ -25,8 +25,7 @@ FactoryGirl.define do
     after(:build) do |article|
       article.images << FactoryGirl.build(:image)
       article.transaction ||= FactoryGirl.build(:preview_transaction,:article => article)
-      article.locked = true
-      article.active = true
+      article.activate
     end
 
     factory :second_hand_article do
@@ -38,19 +37,13 @@ FactoryGirl.define do
       condition "new"
     end
 
-    factory :inactive_article do
+    factory :preview_article do
        after(:build) do |article|
          article.active = false
-         article.locked = false
+         article.state = "preview"
        end
     end
 
-    factory :editable_article do
-      after(:build) do |article|
-         article.active = false
-         article.locked = false
-      end
-    end
 
     trait :category1 do
       after(:build) do |article|

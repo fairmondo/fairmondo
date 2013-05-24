@@ -28,4 +28,4 @@
 
     = render_tooltip t("article.preview.tooltips.double_check")
     %h3= t("article.preview.double_check.title")
-    = link_to t("article.labels.submit"), activate_article_path(resource), :class=>"btn btn-success"
+    = button_to t("article.labels.submit"), article_path(:activate => true), :class=>"btn btn-success btn-break", :method => :put

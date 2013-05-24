@@ -103,7 +103,7 @@ describe 'Article management' do
 
     describe "article update", slow: true do
       before do
-        @article = FactoryGirl.create :inactive_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: @user
         visit edit_article_path @article
       end
 
