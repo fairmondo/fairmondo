@@ -25,5 +25,9 @@ end
 
 def format obj
   # {"warning_type"=>"Mass Assignment", "warning_code"=>17, "fingerprint"=>"27beb3195178f4d43c35b1c282a079319d44adec7cea1ed0f157905a92c92501", "message"=>"Unprotected mass assignment", "file"=>"/Users/tino/ruby/rails_projects/fairnopoly/app/controllers/articles_controller.rb", "line"=>192, "link"=>"http://brakemanscanner.org/docs/warning_types/mass_assignment/", "code"=>"Article.new(params[:article])", "render_path"=>nil, "location"=>{"type"=>"method", "class"=>"ArticlesController", "method"=>"collection"}, "user_input"=>"params[:article]", "confidence"=>"High"}
-  "#{obj['message']} near line #{obj['line']}: #{obj['code']}\n#{obj['file']} | Confidence: #{obj['confidence']}"
+  if obj['line']
+    "#{obj['message']} near line #{obj['line']}: #{obj['code']}\n#{obj['file']}\nConfidence: #{obj['confidence']}"
+  else
+    "#{obj['message']}.\n#{obj['file']}\nConfidence: #{obj['confidence']}"
+  end
 end
