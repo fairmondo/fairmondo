@@ -89,6 +89,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
+    code-cleaner (0.8.2)
     code_analyzer (0.3.1)
       sexp_processor
     coderay (1.0.9)
@@ -423,6 +424,7 @@ DEPENDENCIES
   bullet
   capistrano
   capybara
+  code-cleaner
   coffee-rails
   colorize
   compass-rails

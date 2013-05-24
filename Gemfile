@@ -145,6 +145,8 @@ group :development, :test do
   # Replace Webrick
   gem 'thin'
 
+  # Notify about n+1 queries
+  gem 'bullet'
 end
 
 group :development do
@@ -156,8 +158,8 @@ group :development do
   gem "erb2haml"
   gem "html2haml"
 
-  # Notify about n+1 queries
-  gem 'bullet'
+  # Clean code before commiting
+  gem "code-cleaner"
 end
 
 group :test do
