@@ -107,14 +107,7 @@ describe Article do
       end
     end
 
-    describe "#send_category_proposal" do
-      it "should send an email when a category_proposal was given" do
-        article.category_proposal = 'foo'
-        ArticleMailer.should_receive(:category_proposal).with('foo').and_call_original
 
-        article.send_category_proposal
-      end
-    end
   end
 
   describe "::Template" do
