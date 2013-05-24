@@ -158,6 +158,8 @@ group :development do
 
   # Notify about n+1 queries
   gem 'bullet'
+
+  gem 'rb-readline'
 end
 
 group :test do
