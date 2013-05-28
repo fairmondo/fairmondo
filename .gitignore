@@ -48,3 +48,6 @@ public/assets_test/*
 .DS_Store
 */.DS_Store
 **/.DS_Store
+
+# Ignore merge fragments
+*.orig

@@ -54,7 +54,7 @@ Fairnopoly::Application.configure do
 =end
 
   # Deactivate the mailer
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
 
   # or set it to :test, so you can check the mailer queue (e.g. in the debugger)
   # without actually sending anything

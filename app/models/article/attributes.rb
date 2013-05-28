@@ -37,9 +37,6 @@ module Article::Attributes
 
     monetize :basic_price_cents, :allow_nil => true
 
-    # market place state
-    attr_protected :locked, :active
-
     #money_rails
     attr_accessible :price_cents , :currency, :price
 

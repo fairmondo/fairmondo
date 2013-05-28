@@ -26,8 +26,7 @@ class Article < ActiveRecord::Base
   belongs_to :article_template
 
    #article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize
-  include Template
+  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize, Template, State
 
 
   def images_attributes=(attributes)

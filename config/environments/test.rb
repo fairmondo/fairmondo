@@ -43,4 +43,11 @@ Fairnopoly::Application.configure do
   # Assets for save_and_open_page
   config.assets.prefix = "assets_test"    # place test assets in public/assets_test directory
   config.action_controller.asset_host = "file://#{::Rails.root}/public"
+
+
+  # bullet - n+1 detection
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+  end
 end
