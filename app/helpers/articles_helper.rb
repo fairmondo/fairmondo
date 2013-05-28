@@ -62,6 +62,7 @@ module ArticlesHelper
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
       end
+      without(article)
       any_of do
         with :fair,true
         with :ecologic,true
