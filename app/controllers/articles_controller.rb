@@ -77,42 +77,19 @@ class ArticlesController < InheritedResources::Base
   end
 
   def update # Still needs Refactoring
-    authorize resource
+
+    if state_params_present?
+      change_state!
+    else
+      authorize resource
+    end
+
     update! do |success, failure|
-      success.html { redirect_to @article }
+      success.html { redirect_to resource }
       failure.html { resource_with_dependencies
                      save_images
                      render :edit }
     end
-  end
-
-  def activate
-      authorize resource
-      resource.calculate_fees_and_donations
-      resource.locked = true # Lock The Article
-      resource.active = true # Activate to be searchable
-      update! do |success, failure|
-        success.html { redirect_to resource, :notice => I18n.t('article.notices.create') }
-        failure.html {
-                      resource_with_dependencies
-                      render :edit
-                     }
-      end
-
-
-  end
-
-  def deactivate
-      authorize resource
-      resource.active = false # Deactivate - not searchable
-      update! do |success, failure|
-        success.html {  redirect_to resource, :notice => I18n.t('article.notices.deactivated') }
-        failure.html {
-                      #should not happen!
-                      resource_with_dependencies
-                      render :edit
-                     }
-      end
   end
 
   def report
@@ -131,6 +108,28 @@ class ArticlesController < InheritedResources::Base
 
 
   private
+
+  def change_state!
+
+    # For changing the state of an article
+    # Refer to Article::State
+
+    if params[:activate]
+      params.delete :article # Do not allow any other change
+      authorize resource, :activate?
+      resource.activate
+      flash[:notice] = I18n.t('article.notices.create') if resource.valid?
+    elsif params[:deactivate]
+      params.delete :article # Do not allow any other change
+      authorize resource, :deactivate?
+      resource.deactivate
+      flash[:notice] = I18n.t('article.notices.deactivated')
+    end
+  end
+
+  def state_params_present?
+    params[:activate] || params[:deactivate]
+  end
 
 
   def search_for query

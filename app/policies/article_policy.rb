@@ -21,7 +21,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def update?
-    own? && !article.locked
+    own? && article.preview?
   end
 
   def destroy?

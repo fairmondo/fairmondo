@@ -1,0 +1,5 @@
+Article reported with ID <%= @article.id %> :  <%= @text %>
+===========================================================
+
+Article link: <%= polymorphic_url(@article) %>
+Admin link: <%= rails_admin.show_path(:model_name => "articles", :id => @article.id) %>
