@@ -7,7 +7,7 @@
       %tbody
         %tr
           %td
-            = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%") )
+            = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%"), :max => (resource.fair ? "€15" : "€30")  )
           %td
             %b= humanized_money_with_symbol resource.calculated_fee
         %tr
