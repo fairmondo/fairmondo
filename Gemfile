@@ -139,8 +139,10 @@ group :development, :test do
   gem "brakeman" # security test: execute with 'brakeman'
 
   # Better console
-  gem 'pry'
-  gem 'pry-doc'
+  # Pry has rb-readline bug: https://github.com/pry/pry/issues/868
+  # only solution for this bug is to add gem 'rb-readline'
+  # gem 'pry'
+  # gem 'pry-doc'
 
   # Replace Webrick
   gem 'thin'
