@@ -73,7 +73,7 @@ describe Article do
         article.price = 9999
         article.fair = false
         article.calculate_fees_and_donations
-        article.calculated_fee.should eq Money.new(3500)
+        article.calculated_fee.should eq Money.new(3000)
       end
 
       it "should always round the corruption up" do
