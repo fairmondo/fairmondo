@@ -8,7 +8,7 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug
 
-  delegate :terms, :cancellation, :about, :to => :seller, :prefix => true
+  delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
 

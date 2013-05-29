@@ -12,6 +12,7 @@ de:
       report: "Dein Feedback zu dem Artikel"
 
   article:
+    vat_included: "Inkl. Mehrwertsteuer"
     transport:
       placeholders:
         insured_provider: "z.B. DHL Paket"
