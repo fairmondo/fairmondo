@@ -3,8 +3,6 @@ class ArticleTemplatesController < InheritedResources::Base
   before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
   before_filter :build_article, :only => [:new,:create]
-  before_filter :build_questionnaires, :except => [:destroy]
-  before_filter :build_transaction, :only => [:create]
   actions :all, :except => [:show,:index]
 
 
@@ -60,15 +58,6 @@ class ArticleTemplatesController < InheritedResources::Base
   def build_article
     resource.build_article unless resource.article
     resource.article.seller = current_user
-  end
-
-  def build_questionnaires
-    resource.article.build_fair_trust_questionnaire unless resource.article.fair_trust_questionnaire
-    resource.article.build_social_producer_questionnaire unless resource.article.social_producer_questionnaire
-  end
-
-  def build_transaction
-    resource.article.build_transaction unless resource.transaction
   end
 
   def save_images
