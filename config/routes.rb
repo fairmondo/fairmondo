@@ -11,6 +11,7 @@ Fairnopoly::Application.routes.draw do
   resources :articles do
     member do
       get 'report'
+      get 'clone'
     end
     collection do
       get 'autocomplete'

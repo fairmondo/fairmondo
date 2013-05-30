@@ -28,13 +28,7 @@ module Article::Attributes
 
     # basic price
     attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
-
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
-
-    validates_presence_of :basic_price, :if => :is_LegalEntity
-    validates_presence_of :basic_price_amount, :if => :is_LegalEntity
-
-
     monetize :basic_price_cents, :allow_nil => true
 
     #money_rails
