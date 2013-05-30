@@ -5,7 +5,8 @@ class Article < ActiveRecord::Base
   # bugbug Check if all/any should be accessible (done only for mass upload)
   attr_accessible :title, :content, :created_at, :updated_at, :id, :user_id,
                   :transaction_id, :default_transport, :default_payment,
-                  :categories
+                  :categories, :transport_insured_cents, :basis_price_cents,
+                  :basis_price_amount, :category_1, :category_2, :vat
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -89,11 +90,12 @@ class Article < ActiveRecord::Base
       #   element.map! { |a| a =~ /^[0-9]+$/ ? a.to_i : a }
       # end
       p '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      # row[-1] = Array[row[-1]]
-      # row[-1] = [Category.find(row[-1])]
-      row['categories'] = [Category.find(row['categories'])]
+      p row
+      p row['categories']
+      # p row['categories'].split(',')
+      # row['category_1'] = [Category.find(row['category_1'])]
       #Article.new ... (nach und nach)
-      Article.create!(row.to_hash)
+      # Article.create!(row.to_hash)
     end
   end
 
