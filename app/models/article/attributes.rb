@@ -26,7 +26,6 @@ module Article::Attributes
 
     attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
 
-
     #title
 
     validates_presence_of :title , :content, :unless => :template? # refs #128

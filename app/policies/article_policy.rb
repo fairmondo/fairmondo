@@ -39,6 +39,10 @@ class ArticlePolicy < Struct.new(:user, :article)
     update?
   end
 
+  def clone?
+    own? && !article.preview?
+  end
+
   def update?
     own? && article.preview?
   end
