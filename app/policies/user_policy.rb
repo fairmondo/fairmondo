@@ -1,11 +1,11 @@
 class UserPolicy < Struct.new(:user, :resource)
 
  def profile?
-   true
+   user && true
  end
 
  def show?
-   true
+   user && true
  end
 
 end

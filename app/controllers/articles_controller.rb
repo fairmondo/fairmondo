@@ -88,6 +88,7 @@ class ArticlesController < InheritedResources::Base
   end
 
   def report
+    @article = Article.find params[:id]
     authorize resource
     if params[:report].blank?
       redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
