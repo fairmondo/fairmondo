@@ -1,5 +1,5 @@
 /*
- * Farinopoly - Fairnopoly is an open-source online marketplace soloution.
+ * Farinopoly - Fairnopoly is an open-source online marketplace.
  * Copyright (C) 2013 Fairnopoly eG
  *
  * This file is part of Farinopoly.
