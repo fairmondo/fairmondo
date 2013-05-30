@@ -71,6 +71,7 @@ de:
     titles:
       new: "Artikel einstellen"
       edit: "Artikel editieren"
+      clone: "Artikel kopieren und editieren"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
       sunspot_failure: "Suche nicht verfügbar"

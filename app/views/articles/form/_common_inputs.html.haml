@@ -37,8 +37,8 @@
     = f.input :quantity, :tooltip => true
     = f.input :price, :tooltip => true, :input_html => {value: number_with_precision(f.object.price, precision: 2) }, :required => true
     - if current_user.is_a?(LegalEntity)
-      = f.input :basic_price, :required => true, :tooltip => true
-      = f.input :basic_price_amount, :as => :select, :required => true, :tooltip => true
+      = f.input :basic_price, :tooltip => true
+      = f.input :basic_price_amount, :as => :select, :tooltip => true
 
   = tinymce
 = f.input_step :upload_images do
