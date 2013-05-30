@@ -62,6 +62,7 @@ module ArticlesHelper
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
       end
+      without(article)
       any_of do
         with :fair,true
         with :ecologic,true
@@ -81,11 +82,5 @@ module ArticlesHelper
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
 
-  def active_articles
-    resource.articles.paginate :page => params[:active_articles_page]
-  end
 
-  def inactive_articles
-    resource.articles.where(:active => false).paginate :page => params[:inactive_articles_page]
-  end
 end

@@ -6,6 +6,7 @@
     = render :partial => "articles/form/common_inputs", :locals => {:f => f}
     = f.input_step :double_check, :prefix => false do
       = f.inputs do
+        - f.object.build_article_template unless f.object.article_template
         = f.semantic_fields_for :article_template do |template_form|
           = template_form.input :save_as_template, :as => :plain_check_box
           = template_form.input :name, :required => false

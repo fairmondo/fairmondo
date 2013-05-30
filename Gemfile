@@ -131,16 +131,9 @@ group :development, :test do
   gem 'sunspot_solr'
   gem "sunspot_test"
 
-  #test performance
-  gem 'spork-rails'
-
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
-
-  # Better console
-  gem 'pry'
-  gem 'pry-doc'
 
   # Replace Webrick
   gem 'thin'

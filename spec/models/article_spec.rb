@@ -71,12 +71,14 @@ describe Article do
 
       it "should return the max fee when calculated_fee gt max fee" do
         article.price = 9999
+        article.fair = false
         article.calculate_fees_and_donations
-        article.calculated_fee.should eq Money.new(3500)
+        article.calculated_fee.should eq Money.new(3000)
       end
 
       it "should always round the corruption up" do
         article.price = 789.23
+        article.fair = false
         article.calculate_fees_and_donations
         article.calculated_corruption.should eq Money.new(790)
       end

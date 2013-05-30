@@ -10,4 +10,5 @@
   .caption
     %h5= link_to truncate(article.title, :length => 25), article_path(article,:article => params[:article])
     %h5= humanized_money_with_symbol article.price
+    = render 'articles/show/vat' , :article => article
     = render '/articles/show/basic_price',  :article=> article

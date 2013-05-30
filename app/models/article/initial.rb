@@ -3,6 +3,7 @@ module Article::Initial
 
   included do
    after_initialize :initialize_values
+   after_initialize :build_dependencies
   end
 
   def initialize_values
@@ -16,4 +17,12 @@ module Article::Initial
     rescue ActiveModel::MissingAttributeError
     end
   end
+
+  def build_dependencies
+    self.build_transaction unless self.transaction
+    self.build_fair_trust_questionnaire unless self.fair_trust_questionnaire
+    self.build_social_producer_questionnaire unless self.social_producer_questionnaire
+  end
+
+
 end
