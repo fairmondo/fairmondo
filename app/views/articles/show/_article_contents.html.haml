@@ -39,6 +39,7 @@
         %b
           %span.pull-right= humanized_money_with_symbol resource.price
           = t('formtastic.labels.article.price')
+      = render 'articles/show/vat' , :article => resource
       - if resource.quantity && resource.quantity != ""
         %p
           %span.pull-right= resource.quantity

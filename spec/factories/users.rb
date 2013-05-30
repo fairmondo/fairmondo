@@ -18,7 +18,7 @@ FactoryGirl.define do
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
     title { Faker::Name.prefix }
-    country { Faker::Address.country }
+    country { ["Deutschland",Faker::Address.country].sample }
     street { Faker::Address.street_address }
     city { Faker::Address.city }
     zip { Faker::Address.postcode }

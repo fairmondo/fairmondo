@@ -89,8 +89,9 @@ de:
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
-        price: "Preis in €"
+        price: "Verkaufspreis in €"
         price_currency: "Währung"
+        vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %)
 
         transport_pickup: Selbstabholung
         transport_insured: Versichert
@@ -190,6 +191,8 @@ de:
         content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
         quantity: Trage hier die Menge ein
         price: Trage hier den Preis pro Artikel ein
+
+        vat: Gebe hier die im Preis enthaltene Mehrwertsteuer an.
 
         basic_price: Trage hier den Grundpreis pro Artikel ein.
         basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.

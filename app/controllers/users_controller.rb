@@ -4,4 +4,10 @@ class UsersController < InheritedResources::Base
   actions :show
   custom_actions :resource => :profile
 
+  before_filter :authorize_resource
+
+  def authorize_resource
+    authorize resource
+  end
+
 end

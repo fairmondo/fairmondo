@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
+
+  #pundit
   include Pundit
+  after_filter :verify_authorized_with_exceptions, :except => [:index,:autocomplete]
 
   protect_from_forgery
 
@@ -32,7 +35,6 @@ class ApplicationController < ActionController::Base
   #   all_filters.map { :filter }
   # end
 
-
   protected
 
   def render_users_hero
@@ -45,7 +47,22 @@ class ApplicationController < ActionController::Base
     @rendered_hero = options
   end
 
+  # Pundit checker
 
+  def verify_authorized_with_exceptions
+    verify_authorized unless pundit_unverified_controller
+  end
 
+  def pundit_unverified_controller
+    (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class)
+  end
+
+  def pundit_unverified_modules
+    ["Devise","RailsAdmin"]
+  end
+
+  def pundit_unverified_classes
+    [RegistrationsController]
+  end
 
 end

@@ -13,6 +13,8 @@ class ArticlesController < InheritedResources::Base
 
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index]
 
+  before_filter :ensure_complete_profile , :only => [:new,:create]
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
@@ -43,24 +45,19 @@ class ArticlesController < InheritedResources::Base
   end
 
   def new
-    if !current_user.valid?
-      flash[:error] = t('article.notices.incomplete_profile')
-      redirect_to edit_user_registration_path
-      return
-    end
+    authorize build_resource
+
     ############### From Template ################
     if template_id = (params[:template_select] && params[:template_select][:article_template])
       @applied_template = ArticleTemplate.find(template_id)
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     end
-    build_resource
-    authorize resource_with_dependencies
     new!
   end
 
   def edit
-    authorize resource_with_dependencies
+    authorize resource
     edit!
   end
 
@@ -71,7 +68,6 @@ class ArticlesController < InheritedResources::Base
     create! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images
-                     resource_with_dependencies
                      render :new }
     end
   end
@@ -86,20 +82,19 @@ class ArticlesController < InheritedResources::Base
 
     update! do |success, failure|
       success.html { redirect_to resource }
-      failure.html { resource_with_dependencies
-                     save_images
+      failure.html { save_images
                      render :edit }
     end
   end
 
   def report
-    @text = params[:report]
-    @article = Article.find(params[:id])
-    if @text == ''
-      redirect_to @article, :alert => (I18n.t 'article.actions.reported-error')
+    @article = Article.find params[:id]
+    authorize resource
+    if params[:report].blank?
+      redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
     else
       ArticleMailer.report_article(@article,@text).deliver
-      redirect_to @article, :notice => (I18n.t 'article.actions.reported')
+      redirect_to resource, :notice => (I18n.t 'article.actions.reported')
     end
   end
 
@@ -114,6 +109,14 @@ class ArticlesController < InheritedResources::Base
 
 
   private
+
+  def ensure_complete_profile
+    # Check if the user has filled all fields
+    if !current_user.valid?
+      flash[:error] = t('article.notices.incomplete_profile')
+      redirect_to edit_user_registration_path
+    end
+  end
 
   def change_state!
 
@@ -147,31 +150,6 @@ class ArticlesController < InheritedResources::Base
       render_hero :action => "sunspot_failure"
       return policy_scope(Article).paginate :page => params[:page]
   end
-
-
-  ################## Form #####################
-  def resource_with_dependencies
-    build_questionnaires
-    build_template
-    build_transaction
-    resource
-  end
-
-  def build_transaction
-    resource.build_transaction unless resource.transaction
-  end
-
-  def build_questionnaires
-    resource.build_fair_trust_questionnaire unless resource.fair_trust_questionnaire
-    resource.build_social_producer_questionnaire unless resource.social_producer_questionnaire
-  end
-
-  def build_template
-    resource.build_article_template unless resource.article_template
-  end
-
-
-
 
   ############ Save Images ################
 
