@@ -103,7 +103,6 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-
   ##### Private Helpers
 
 

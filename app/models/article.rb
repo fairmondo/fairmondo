@@ -1,7 +1,11 @@
 class Article < ActiveRecord::Base
   extend Enumerize
 
-  attr_accessible
+
+  # bugbug Check if all/any should be accessible (done only for mass upload)
+  attr_accessible :title, :content, :created_at, :updated_at, :id, :user_id,
+                  :transaction_id, :default_transport, :default_payment,
+                  :categories
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -61,21 +65,36 @@ class Article < ActiveRecord::Base
   end
 
   amoeba do
-      enable
-      include_field :fair_trust_questionnaire
-      include_field :social_producer_questionnaire
-      include_field :categories
-      nullify :transaction_id
-      nullify :article_template_id
-      customize(lambda { |original_article,new_article|
-        original_article.images.each do |image|
-          copyimage = Image.new
-          copyimage.image = image.image
-          new_article.images << copyimage
-          copyimage.save
-        end
-      })
-    end
+    enable
+    include_field :fair_trust_questionnaire
+    include_field :social_producer_questionnaire
+    include_field :categories
+    nullify :transaction_id
+    nullify :article_template_id
+    customize(lambda { |original_article,new_article|
+      original_article.images.each do |image|
+        copyimage = Image.new
+        copyimage.image = image.image
+        new_article.images << copyimage
+        copyimage.save
+      end
+    })
+  end
 
+  # bugbug Mass upload via csv
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      # row.each do |element|
+      #   element.map! { |a| a =~ /^[0-9]+$/ ? a.to_i : a }
+      # end
+      p '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+      # row[-1] = Array[row[-1]]
+      # row[-1] = [Category.find(row[-1])]
+      row['categories'] = [Category.find(row['categories'])]
+      #Article.new ... (nach und nach)
+      Article.create!(row.to_hash)
+    end
+  end
 
 end

@@ -4,6 +4,12 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
+  # Mass upload
+
+  # match "mass_uploads" => "mass_uploads#create"
+  resources :mass_uploads #, :only => [:new]
+
+
   mount Tinycms::Engine => "/cms"
 
   devise_for :user, controllers: { registrations: 'registrations' }
