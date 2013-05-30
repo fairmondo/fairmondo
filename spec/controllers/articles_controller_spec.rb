@@ -219,6 +219,16 @@ describe ArticlesController do
         get :new
         response.should render_template :new
       end
+
+      it "should be possible to get a new article from an existing one" do
+        @article = FactoryGirl.create :article, :without_image , :seller => @user
+        get :new, :edit_as_new => @article.id
+        response.should render_template :new
+        @draftarticle= controller.instance_variable_get(:@article)
+        @draftarticle.new_record?.should be true
+        expect(@draftarticle.title).to eq(@article.title)
+      end
+
     end
   end
 

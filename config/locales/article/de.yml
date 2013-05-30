@@ -55,6 +55,7 @@ de:
       submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
+      edit_as_new: "Bearbeiten und wiedereinstellen"
     list:
       header: "Ergebnisse"
     notices:

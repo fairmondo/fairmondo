@@ -71,6 +71,8 @@ class ArticlesController < InheritedResources::Base
       @applied_template = ArticleTemplate.find(template_id)
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
+    elsif params[:edit_as_new]
+      @article = current_user.articles.find(params[:edit_as_new]).amoeba_dup
     end
     new!
   end
@@ -116,6 +118,7 @@ class ArticlesController < InheritedResources::Base
       redirect_to resource, :notice => (I18n.t 'article.actions.reported')
     end
   end
+
 
 
   ##### Private Helpers
