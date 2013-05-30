@@ -167,3 +167,11 @@ end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
+# Add your own Gems in Gemfile.local
+
+gemfile_local = File.join(File.dirname(__FILE__), 'Gemfile.local')
+if File.readable?(gemfile_local)
+  puts "Loading #{gemfile_local}..." if $DEBUG
+  instance_eval(File.read(gemfile_local))
+end
+

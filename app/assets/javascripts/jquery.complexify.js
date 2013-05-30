@@ -1,7 +1,7 @@
 /*
-	http://github.com/danpalmer/jquery.complexify.js
-
-	This code is distributed under the WTFPL v2:
+*	http://github.com/danpalmer/jquery.complexify.js
+*	Copyright License
+*	This code is distributed under the WTFPL v2:
 */
 (function ($) {
 
@@ -130,7 +130,7 @@
 					};
 				}; return 0;
 			};
-			
+
 			function inBanlist(str) {
 				if (options.banmode === 'strict') {
 					for (var i = 1; i <= str.length; i++) {
@@ -150,19 +150,19 @@
 				$(this).keyup(function () {
 					var password = $(this).val();
 					var complexity = 0, valid = false;
-					
+
 					// Reset complexity to 0 when banned password is found
 					if (!inBanlist(password)) {
-					
+
 						// Add character complexity
 						for (var i = CHARSETS.length - 1; i >= 0; i--) {
 							complexity += additionalComplexityForCharset(password, CHARSETS[i]);
 						}
-						
+
 					} else {
 						complexity = 1;
 					}
-					
+
 					// Use natural log to produce linear scale
 					complexity = Math.log(Math.pow(complexity, password.length)) * (1/options.strengthScaleFactor);
 
@@ -171,11 +171,11 @@
 					// Scale to percentage, so it can be used for a progress bar
 					complexity = (complexity / MAX_COMPLEXITY) * 100;
 					complexity = (complexity > 100) ? 100 : complexity;
-					
+
 					callback.call(this, valid, complexity);
 				});
 			});
-			
+
 		}
 	});
 
