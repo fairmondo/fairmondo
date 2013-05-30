@@ -117,12 +117,6 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-  #def clone
-  #  @article = Article.find(params[:id])
-  #  cloned_article = @article.amoeba_dup
-  #  cloned_article.save
-  #  redirect_to cloned_article
-  #end
 
   ##### Private Helpers
 
