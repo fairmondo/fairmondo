@@ -6,7 +6,8 @@ class Article < ActiveRecord::Base
   attr_accessible :title, :content, :created_at, :updated_at, :id, :user_id,
                   :transaction_id, :default_transport, :default_payment,
                   :categories, :transport_insured_cents, :basis_price_cents,
-                  :basis_price_amount, :category_1, :category_2, :vat
+                  :basis_price_amount, :category_1, :category_2, :vat,
+                  :categories, :article_template_id, :active, :slug, :state
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -84,18 +85,28 @@ class Article < ActiveRecord::Base
 
   # bugbug Mass upload via csv
 
-  def self.import(file)
+  def self.import(file, current_user)
+    CSV.foreach(file.path, headers: false) do |row|
+      row << ('user_id')
+      row << ('categories')
+      row << ('transaction_id')
+    end
     CSV.foreach(file.path, headers: true) do |row|
-      # row.each do |element|
-      #   element.map! { |a| a =~ /^[0-9]+$/ ? a.to_i : a }
-      # end
+      categories = [Category.find(row['category_1'])]
+      categories << Category.find(row['category_2']) if row['category_2']
+      row.delete('category_1')
+      row.delete('category_2')
+      # What is a Transaction anyway? Are they really needed at this moment?
+      # How to create it the right way?
+      transaction = Transaction.create(type: "PreviewTransaction")
+      row['transaction_id'] = transaction.id
+      row['user_id'] = current_user.id
+      row['categories'] = categories
       p '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      p row
-      p row['categories']
-      # p row['categories'].split(',')
-      # row['category_1'] = [Category.find(row['category_1'])]
-      #Article.new ... (nach und nach)
-      # Article.create!(row.to_hash)
+      a = Article.new(row.to_hash)
+      p a
+      a.save!
+      # Article.create(row.to_hash)
     end
   end
 

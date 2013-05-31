@@ -4,10 +4,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
-  # Mass upload
-
-  # match "mass_uploads" => "mass_uploads#create"
-  resources :mass_uploads #, :only => [:new]
+  resources :mass_uploads, :only => [:create]
 
 
   mount Tinycms::Engine => "/cms"
