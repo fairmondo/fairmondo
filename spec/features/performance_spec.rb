@@ -39,14 +39,4 @@ describe 'Performance' do
       page.status_code.should be 200
     end
   end
-
-  describe "Article#new" do
-    it "should succeed" do
-      # Does not yet trigger n+1
-      pending
-      setup_categories
-      visit new_article_path
-      page.status_code.should be 200
-    end
-  end
 end
