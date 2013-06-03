@@ -37,6 +37,16 @@ end
 SimpleCov.at_exit do
   puts "\n\n[SimpleCov] Generating coverage report:\n".underline
   SimpleCov.result.format!
+  puts "\n"
 
-  puts "Please ensure the code coverage is at 100% before pushing.".red.underline if SimpleCov.result.covered_percent < 100
+  if $? == 0 && !$suite_failing
+    if SimpleCov.result.covered_percent < 100
+      puts "Please ensure the code coverage is at 100% before pushing.".red.underline
+    else
+      puts "Perfect! The test suite is passing.".green
+    end
+  else
+    puts "Please take care of the issues described above before pushing.".red.underline
+  end
+  puts "\n"
 end
