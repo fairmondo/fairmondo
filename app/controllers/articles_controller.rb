@@ -79,7 +79,6 @@ class ArticlesController < InheritedResources::Base
   def create
 
     authorize build_resource
-
     create! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images

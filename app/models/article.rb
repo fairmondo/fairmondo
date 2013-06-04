@@ -25,7 +25,12 @@ class Article < ActiveRecord::Base
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :title, :use => :slugged
-  validates_presence_of :slug
+  validates_presence_of :slug unless :template?
+
+  #only generate friendly slug if we dont have a template
+  def should_generate_new_friendly_id?
+    !template?
+  end
 
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
@@ -81,6 +86,7 @@ class Article < ActiveRecord::Base
       include_field :fair_trust_questionnaire
       include_field :social_producer_questionnaire
       include_field :categories
+      nullify :slug
       nullify :transaction_id
       nullify :article_template_id
       customize(lambda { |original_article,new_article|
