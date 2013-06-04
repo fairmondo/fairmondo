@@ -36,15 +36,11 @@ describe ArticlePolicy do
     it { should deny(:deactivate)        }
     it { should deny(:report)            }
     it { should deny(:destroy)           }
+    it { should deny(:show)              }
 
     context "on an active article" do
-      before { article.activate     }
+      before { article.activate          }
       it { should permit(:show)          }
-    end
-
-    context "on an inactive article" do
-      before {     }
-      it { should deny(:show)            }
     end
   end
 
@@ -81,16 +77,15 @@ describe ArticlePolicy do
     end
 
     context "on an inactive article" do
-      before {  }
       it { should deny(:deactivate)   }
       it { should permit(:activate)   }
     end
 
     context "on a locked article" do
-      before {
-            article.activate
-            article.deactivate
-         }
+      before do
+        article.activate
+        article.deactivate
+      end
       it { should deny(:edit)        }
       it { should deny(:update)      }
     end
