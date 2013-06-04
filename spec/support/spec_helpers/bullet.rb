@@ -35,7 +35,7 @@ RSpec.configure do |config|
         puts "No issues found. Very good.".green
       else
         puts bullet_warnings.yellow
-        puts "Please deal with these issues before pushing.".red.underline
+        puts "Performance issues exist.".red.underline
       end
     end
   end

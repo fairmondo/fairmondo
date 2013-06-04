@@ -29,6 +29,7 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 
 # Requires supporting ruby files:
+require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # For starting the solr engine:
@@ -78,6 +79,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     $skip_audits = true # Variable is needed when a test fails and the other audits don't need to be run
+    $suite_failing = false # tracks issues over additional audits
     puts "\n[Rspec] Specifications:\n".underline
   end
 
