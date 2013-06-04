@@ -12,6 +12,7 @@ de:
       report: "Dein Feedback zu dem Artikel"
 
   article:
+    vat_included: "Inkl. Mehrwertsteuer"
     transport:
       placeholders:
         insured_provider: "z.B. DHL Paket"
@@ -54,6 +55,7 @@ de:
       submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
+      edit_as_new: "Bearbeiten und wiedereinstellen"
     list:
       header: "Ergebnisse"
     notices:
@@ -91,7 +93,7 @@ de:
         title: Deine Gebühren und Spenden
         corruption_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
-        fee: "Gebühr bei Verkauf (%{fee} - maximal €35):"
+        fee: "Gebühr bei Verkauf (%{fee} - maximal %{max}):"
         total: "Gesamt bei Verkauf (%{fee}):"
       double_check:
         title: Alle Angaben überprüft?

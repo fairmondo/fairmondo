@@ -131,20 +131,15 @@ group :development, :test do
   gem 'sunspot_solr'
   gem "sunspot_test"
 
-  #test performance
-  gem 'spork-rails'
-
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
 
-  # Better console
-  gem 'pry'
-  gem 'pry-doc'
-
   # Replace Webrick
   gem 'thin'
 
+  # Notify about n+1 queries
+  gem 'bullet'
 end
 
 group :development do
@@ -156,8 +151,8 @@ group :development do
   gem "erb2haml"
   gem "html2haml"
 
-  # Notify about n+1 queries
-  gem 'bullet'
+  # Clean code before commiting
+  gem "code-cleaner"
 end
 
 group :test do
@@ -171,4 +166,12 @@ end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Add your own Gems in Gemfile.local
+
+gemfile_local = File.join(File.dirname(__FILE__), 'Gemfile.local')
+if File.readable?(gemfile_local)
+  puts "Loading #{gemfile_local}..." if $DEBUG
+  instance_eval(File.read(gemfile_local))
+end
 

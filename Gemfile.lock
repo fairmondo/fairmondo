@@ -48,22 +48,22 @@ GEM
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
-    better_errors (0.8.0)
+    better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (2.3.1.0)
+    bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
-    brakeman (1.9.5)
+    brakeman (2.0.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
       haml (>= 3.0, < 5.0)
-      highline (~> 1.6)
+      highline (~> 1.6.19)
       multi_json (~> 1.2)
-      ruby2ruby (= 2.0.3)
+      ruby2ruby (~> 2.0.5)
       ruby_parser (~> 3.1.1)
       sass (~> 3.0)
       slim (~> 1.3.6)
@@ -89,6 +89,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
+    code-cleaner (0.8.2)
     code_analyzer (0.3.1)
       sexp_processor
     coderay (1.0.9)
@@ -116,24 +117,24 @@ GEM
       thor
     daemons (1.1.9)
     debug_inspector (0.0.2)
-    debugger (1.5.0)
+    debugger (1.6.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.0)
+    debugger-ruby_core_source (1.2.2)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.4.4)
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
-    devise (2.2.3)
+    devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
-    enumerize (0.5.1)
+    enumerize (0.6.1)
       activesupport (>= 3.2)
     erb2haml (0.1.5)
       html2haml
@@ -175,10 +176,10 @@ GEM
       sass-rails
     friendly_id (4.0.9)
     fssm (0.2.10)
-    haml (4.0.2)
+    haml (4.0.3)
       tilt
     has_scope (0.5.1)
-    highline (1.6.18)
+    highline (1.6.19)
     hike (1.2.2)
     hpricot (0.8.6)
     html2haml (1.0.1)
@@ -204,11 +205,9 @@ GEM
     launchy (2.3.0)
       addressable (~> 2.3)
     libv8 (3.11.8.17)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    method_source (0.8.1)
     mime-types (1.23)
     modernizr-rails (2.6.2.1)
     money (5.1.1)
@@ -217,11 +216,11 @@ GEM
       activesupport (>= 3.0)
       money (~> 5.1.0)
       railties (>= 3.0)
-    multi_json (1.7.3)
+    multi_json (1.7.4)
     nested_form (0.3.2)
-    net-scp (1.1.0)
+    net-scp (1.1.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.1)
+    net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
@@ -230,7 +229,7 @@ GEM
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
-    paperclip (3.4.1)
+    paperclip (3.4.2)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -242,13 +241,6 @@ GEM
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    pry (0.9.12.2)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
-    pry-doc (0.4.6)
-      pry (>= 0.9)
-      yard (>= 0.8)
     pundit (0.2.0)
       rails (~> 3.0)
     rack (1.4.5)
@@ -274,7 +266,7 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
-    rails_admin (0.4.7)
+    rails_admin (0.4.8)
       bootstrap-sass (~> 2.2)
       builder (~> 3.0)
       coffee-rails (~> 3.1)
@@ -308,7 +300,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
-    ref (1.0.4)
+    ref (1.0.5)
     remotipart (1.0.5)
     responders (0.9.3)
       railties (~> 3.1)
@@ -320,7 +312,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
-    rspec-rails (2.13.1)
+    rspec-rails (2.13.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -329,7 +321,7 @@ GEM
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.9)
     ruby-progressbar (1.0.2)
-    ruby2ruby (2.0.3)
+    ruby2ruby (2.0.5)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
     ruby_parser (3.1.3)
@@ -348,14 +340,9 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slim (1.3.8)
+    slim (1.3.9)
       temple (~> 0.6.3)
-      tilt (~> 1.3.3)
-    slop (3.4.5)
-    spork (1.0.0rc3)
-    spork-rails (3.2.1)
-      rails (>= 3.0.0, < 3.3.0)
-      spork (>= 1.0rc0)
+      tilt (~> 1.3, >= 1.3.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -374,7 +361,7 @@ GEM
       sunspot_rails (>= 1.2.1)
     sys-uname (0.9.2)
       ffi (>= 1.0.0)
-    temple (0.6.4)
+    temple (0.6.5)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
@@ -387,7 +374,7 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.18.1)
-    tilt (1.3.7)
+    tilt (1.4.1)
     tinymce-rails (3.5.8.2)
       railties (>= 3.1.1)
     tinymce-rails-langs (0.1)
@@ -396,7 +383,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    uglifier (2.0.1)
+    uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     uniform_notifier (1.2.0)
@@ -405,7 +392,6 @@ GEM
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yard (0.8.6.1)
 
 PLATFORMS
   ruby
@@ -423,6 +409,7 @@ DEPENDENCIES
   bullet
   capistrano
   capybara
+  code-cleaner
   coffee-rails
   colorize
   compass-rails
@@ -452,8 +439,6 @@ DEPENDENCIES
   paperclip (>= 3.0)
   pg
   progress_bar
-  pry
-  pry-doc
   pundit
   rails (>= 3.2.13)
   rails-erd
@@ -465,7 +450,6 @@ DEPENDENCIES
   selectivizr-rails
   shoulda-matchers
   simplecov
-  spork-rails
   sqlite3
   state_machine
   sunspot_rails

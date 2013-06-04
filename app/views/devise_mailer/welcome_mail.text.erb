@@ -1,0 +1,6 @@
+<%= t('common.text.hello')%> <%= @resource.email %>!
+<%=  t('devise.confirmation.text') %>
+<%= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>
+<%=  t('devise.confirmation.ignoremail') %>
+<%=  t('common.fn_footer_greeting') %>
+<%=  t('common.fn_legal_footer') %>

@@ -1,17 +1,33 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 class ArticlesController < InheritedResources::Base
-
   # Inherited Resources
-
   respond_to :html
-
-  actions :all, :except => [ :destroy ] # inherited methods
+  actions :all, :except => [:destroy] # inherited methods
 
   # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
 
   # Layout Requirements
-
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index]
+  before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
+  before_filter :ensure_complete_profile , :only => [:new, :create]
 
   #Sunspot Autocomplete
   def autocomplete
@@ -30,7 +46,6 @@ class ArticlesController < InheritedResources::Base
     render :json => []
   end
 
-
   def show
     @article = Article.find params[:id]
     authorize resource
@@ -43,24 +58,21 @@ class ArticlesController < InheritedResources::Base
   end
 
   def new
-    if !current_user.valid?
-      flash[:error] = t('article.notices.incomplete_profile')
-      redirect_to edit_user_registration_path
-      return
-    end
+    authorize build_resource
+
     ############### From Template ################
     if template_id = (params[:template_select] && params[:template_select][:article_template])
       @applied_template = ArticleTemplate.find(template_id)
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
+    elsif params[:edit_as_new]
+      @article = current_user.articles.find(params[:edit_as_new]).amoeba_dup
     end
-    build_resource
-    authorize resource_with_dependencies
     new!
   end
 
   def edit
-    authorize resource_with_dependencies
+    authorize resource
     edit!
   end
 
@@ -71,66 +83,72 @@ class ArticlesController < InheritedResources::Base
     create! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images
-                     resource_with_dependencies
                      render :new }
     end
   end
 
   def update # Still needs Refactoring
-    authorize resource
+
+    if state_params_present?
+      change_state!
+    else
+      authorize resource
+    end
+
     update! do |success, failure|
-      success.html { redirect_to @article }
-      failure.html { resource_with_dependencies
-                     save_images
+      success.html { redirect_to resource }
+      failure.html { save_images
                      render :edit }
     end
   end
 
-  def activate
-      authorize resource
-      resource.calculate_fees_and_donations
-      resource.locked = true # Lock The Article
-      resource.active = true # Activate to be searchable
-      update! do |success, failure|
-        success.html { redirect_to resource, :notice => I18n.t('article.notices.create') }
-        failure.html {
-                      resource_with_dependencies
-                      render :edit
-                     }
-      end
-
-
-  end
-
-  def deactivate
-      authorize resource
-      resource.active = false # Deactivate - not searchable
-      update! do |success, failure|
-        success.html {  redirect_to resource, :notice => I18n.t('article.notices.deactivated') }
-        failure.html {
-                      #should not happen!
-                      resource_with_dependencies
-                      render :edit
-                     }
-      end
-  end
-
   def report
-    @text = params[:report]
-    @article = Article.find(params[:id])
-    if @text == ''
-      redirect_to @article, :alert => (I18n.t 'article.actions.reported-error')
+    @article = Article.find params[:id]
+    authorize resource
+    if params[:report].blank?
+      redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
     else
       ArticleMailer.report_article(@article,@text).deliver
-      redirect_to @article, :notice => (I18n.t 'article.actions.reported')
+      redirect_to resource, :notice => (I18n.t 'article.actions.reported')
     end
   end
+
 
 
   ##### Private Helpers
 
 
   private
+
+  def ensure_complete_profile
+    # Check if the user has filled all fields
+    if !current_user.valid?
+      flash[:error] = t('article.notices.incomplete_profile')
+      redirect_to edit_user_registration_path
+    end
+  end
+
+  def change_state!
+
+    # For changing the state of an article
+    # Refer to Article::State
+
+    if params[:activate]
+      params.delete :article # Do not allow any other change
+      authorize resource, :activate?
+      resource.activate
+      flash[:notice] = I18n.t('article.notices.create') if resource.valid?
+    elsif params[:deactivate]
+      params.delete :article # Do not allow any other change
+      authorize resource, :deactivate?
+      resource.deactivate
+      flash[:notice] = I18n.t('article.notices.deactivated')
+    end
+  end
+
+  def state_params_present?
+    params[:activate] || params[:deactivate]
+  end
 
 
   def search_for query
@@ -142,31 +160,6 @@ class ArticlesController < InheritedResources::Base
       render_hero :action => "sunspot_failure"
       return policy_scope(Article).paginate :page => params[:page]
   end
-
-
-  ################## Form #####################
-  def resource_with_dependencies
-    build_questionnaires
-    build_template
-    build_transaction
-    resource
-  end
-
-  def build_transaction
-    resource.build_transaction unless resource.transaction
-  end
-
-  def build_questionnaires
-    resource.build_fair_trust_questionnaire unless resource.fair_trust_questionnaire
-    resource.build_social_producer_questionnaire unless resource.social_producer_questionnaire
-  end
-
-  def build_template
-    resource.build_article_template unless resource.article_template
-  end
-
-
-
 
   ############ Save Images ################
 
@@ -189,4 +182,3 @@ class ArticlesController < InheritedResources::Base
   end
 
 end
-
