@@ -51,3 +51,9 @@ public/assets_test/*
 
 # Ignore merge fragments
 *.orig
+
+# Licence Deriving tmp
+deriving_license_tmp
+
+#Local additional Gemfile
+Gemfile.local

@@ -1,3 +1,22 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 require 'spec_helper'
 
 describe ArticlesController do
@@ -200,6 +219,16 @@ describe ArticlesController do
         get :new
         response.should render_template :new
       end
+
+      it "should be possible to get a new article from an existing one" do
+        @article = FactoryGirl.create :article, :without_image , :seller => @user
+        get :new, :edit_as_new => @article.id
+        response.should render_template :new
+        @draftarticle= controller.instance_variable_get(:@article)
+        @draftarticle.new_record?.should be true
+        expect(@draftarticle.title).to eq(@article.title)
+      end
+
     end
   end
 
