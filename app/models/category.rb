@@ -30,6 +30,9 @@ class Category < ActiveRecord::Base
 
   acts_as_nested_set
 
+  # Ensure no n+1 queries result from Category.roots
+  scope :roots, includes(:children).roots
+
   # recursively determines whether the passed collection includes all ancestors of self
   # without hitting the db
   def include_all_ancestors?(categories)
@@ -44,7 +47,6 @@ class Category < ActiveRecord::Base
   end
 
   def self_and_ancestors_ids
-
     self_and_ancestors = [ self.id ]
     self.ancestors.each do |ancestor|
       self_and_ancestors << ancestor.id
