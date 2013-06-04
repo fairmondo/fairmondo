@@ -17,6 +17,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+unless %x( pwd ) =~ /fairnopoly\n$/
+  puts "You need to run this setup script from the Fairnopoly root directory."
+  exit 1
+end
+
 system('clear')
 puts "Welcome to the Fairnopoly setup."
 puts "\n\n* This script requires you to already have the rails gem installed."
@@ -70,6 +75,10 @@ unless gets.chomp === "abort"
 
   puts "Preparing test database..."
   %x( rake db:test:prepare )
+
+  puts "Running local Solr server..."
+  %x( script/delayed_job start )
+  %x( rake sunspot:solr:start )
 
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
   puts "Press enter to continue (or type \"abort\" to skip the reCAPTCHA setup)."

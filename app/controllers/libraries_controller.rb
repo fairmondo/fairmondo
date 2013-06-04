@@ -28,21 +28,21 @@ class LibrariesController < InheritedResources::Base
 
   def index
     @library = @user.libraries.build
-    index!
+    @libraries = LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
   end
 
   def create
     authorize build_resource
     create! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
       failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
     end
   end
 
   def update
-   authorize resource
-   update! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
+    authorize resource
+    update! do |success,failure|
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
       failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
     end
   end
@@ -58,9 +58,9 @@ class LibrariesController < InheritedResources::Base
     @user
   end
 
-  def collection
-    @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
-  end
+  # def collection
+  #   @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
+  # end
 
   def get_user
     @user = User.find(params[:user_id])
