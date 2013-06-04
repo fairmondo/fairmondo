@@ -3,11 +3,7 @@ class Article < ActiveRecord::Base
 
 
   # bugbug Check if all/any should be accessible (done only for mass upload)
-  attr_accessible :title, :content, :created_at, :updated_at, :id, :user_id,
-                  :transaction_id, :default_transport, :default_payment,
-                  :categories, :transport_insured_cents, :basis_price_cents,
-                  :basis_price_amount, :category_1, :category_2, :vat,
-                  :categories, :article_template_id, :active, :slug, :state
+  attr_accessible
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -99,14 +95,15 @@ class Article < ActiveRecord::Base
       # What is a Transaction anyway? Are they really needed at this moment?
       # How to create it the right way?
       transaction = Transaction.create(type: "PreviewTransaction")
-      row['transaction_id'] = transaction.id
+      row['transaction_id'] = transaction.id # shouldn;t be necessary anymore
       row['user_id'] = current_user.id
       row['categories'] = categories
       p '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      a = Article.new(row.to_hash)
-      p a
-      a.save!
-      # Article.create(row.to_hash)
+      article = Article.new(row.to_hash) # hash er getrennt erstellen, dann was loeschen, dann in den article
+      # article.seller = current_user
+      # article.categories = s.o. (direkt reinpushen)
+      p article
+      article.save! # Save in the controller
     end
   end
 
