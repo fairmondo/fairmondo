@@ -48,3 +48,12 @@ public/assets_test/*
 .DS_Store
 */.DS_Store
 **/.DS_Store
+
+# Ignore merge fragments
+*.orig
+
+# Licence Deriving tmp
+deriving_license_tmp
+
+#Local additional Gemfile
+Gemfile.local

@@ -1,10 +1,32 @@
+-#
+-# Farinopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Farinopoly.
+-#
+-# Farinopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Farinopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
 .fairnopoly-well
   - if current_user && resource.seller.id == current_user.id
     %span.pull-right
       - if policy(resource).edit?
         = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
+      - if resource.locked? && policy(resource).new?
+        = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
       - if policy(resource).deactivate?
-        = link_to t('article.labels.deactivate') , deactivate_article_path, :class => "btn "
+        = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
+
   %h2
     = resource.title
   - resource.categories.each do |leaf|
@@ -37,6 +59,7 @@
         %b
           %span.pull-right= humanized_money_with_symbol resource.price
           = t('formtastic.labels.article.price')
+      = render 'articles/show/vat' , :article => resource
       - if resource.quantity && resource.quantity != ""
         %p
           %span.pull-right= resource.quantity

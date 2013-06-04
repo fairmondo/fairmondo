@@ -1,3 +1,22 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 require 'spec_helper'
 
 describe ArticlesController do
@@ -200,6 +219,16 @@ describe ArticlesController do
         get :new
         response.should render_template :new
       end
+
+      it "should be possible to get a new article from an existing one" do
+        @article = FactoryGirl.create :article, :without_image , :seller => @user
+        get :new, :edit_as_new => @article.id
+        response.should render_template :new
+        @draftarticle= controller.instance_variable_get(:@article)
+        @draftarticle.new_record?.should be true
+        expect(@draftarticle.title).to eq(@article.title)
+      end
+
     end
   end
 
@@ -224,12 +253,9 @@ describe ArticlesController do
 
       context 'his articles' do
         before :each do
-          @article = FactoryGirl.create :article, seller: @user
+          @article = FactoryGirl.create :preview_article, seller: @user
 
-          #cant use editable_article factory due to defaultscope
-          @article.active = false
-          @article.locked = false
-          @article.save
+
         end
 
         it "should be successful for the seller" do
@@ -239,7 +265,7 @@ describe ArticlesController do
       end
 
       it "should not be able to edit other users articles" do
-        @article = FactoryGirl.create :editable_article
+        @article = FactoryGirl.create :preview_article
 
         expect do
           get :edit, :id => @article
@@ -339,7 +365,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :inactive_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: @user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
@@ -383,11 +409,11 @@ describe ArticlesController do
     before do
       @user = FactoryGirl.create :user
       sign_in @user
-      @article = FactoryGirl.create :inactive_article, seller: @user
+      @article = FactoryGirl.create :preview_article, seller: @user
     end
 
     it "should work" do
-      get :activate, id: @article.id
+      put :update, id: @article.id, :activate => true
       response.should redirect_to @article
       flash[:notice].should eq I18n.t 'article.notices.create'
     end
@@ -396,7 +422,7 @@ describe ArticlesController do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
-      get :activate, id: @article.id
+      put :update, id: @article.id, :activate => true
       response.should_not redirect_to @article
       response.should render_template "edit"
     end
@@ -410,7 +436,7 @@ describe ArticlesController do
     end
 
     it "should work" do
-      get :deactivate, id: @article.id
+      put :update, id: @article.id, :deactivate => true
       response.should redirect_to @article
       flash[:notice].should eq I18n.t 'article.notices.deactivated'
     end
@@ -419,7 +445,7 @@ describe ArticlesController do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
-      get :deactivate, id: @article.id
+       put :update, id: @article.id, :deactivate => true
       response.should_not redirect_to @article
       response.should render_template "edit"
     end

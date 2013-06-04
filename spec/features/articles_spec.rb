@@ -1,3 +1,22 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 require 'spec_helper'
 
 include Warden::Test::Helpers
@@ -44,6 +63,9 @@ describe 'Article management' do
             if @user.is_a? LegalEntity
               fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
               select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
+              if @user.country == "Deutschland"
+                select 7 ,from: I18n.t('formtastic.labels.article.vat')
+              end
             end
             fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
             check "article_transport_pickup"
@@ -103,7 +125,7 @@ describe 'Article management' do
 
     describe "article update", slow: true do
       before do
-        @article = FactoryGirl.create :inactive_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: @user
         visit edit_article_path @article
       end
 

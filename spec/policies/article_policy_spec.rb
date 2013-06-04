@@ -1,9 +1,28 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 require 'spec_helper'
 
 describe ArticlePolicy do
   include PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
-  let(:article) { FactoryGirl.create :article }
+  let(:article) { FactoryGirl.create :preview_article }
   let(:user) { nil }
 
   context "for a visitor" do
@@ -19,12 +38,12 @@ describe ArticlePolicy do
     it { should deny(:destroy)           }
 
     context "on an active article" do
-      before { article.active = true     }
+      before { article.activate     }
       it { should permit(:show)          }
     end
 
     context "on an inactive article" do
-      before { article.active = false    }
+      before {     }
       it { should deny(:show)            }
     end
   end
@@ -56,25 +75,27 @@ describe ArticlePolicy do
     end
 
     context "on an active article" do
-      before { article.active = true  }
+      before { article.activate  }
       it { should permit(:deactivate) }
       it { should deny(:activate)     }
     end
 
     context "on an inactive article" do
-      before { article.active = false }
+      before {  }
       it { should deny(:deactivate)   }
       it { should permit(:activate)   }
     end
 
     context "on a locked article" do
-      before { article.locked = true }
+      before {
+            article.activate
+            article.deactivate
+         }
       it { should deny(:edit)        }
       it { should deny(:update)      }
     end
 
     context "on an unlocked article" do
-      before { article.locked = false }
       it { should permit(:edit)       }
       it { should permit(:update)     }
     end

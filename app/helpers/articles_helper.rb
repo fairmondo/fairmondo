@@ -1,3 +1,22 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 module ArticlesHelper
   # Conditions
   def condition_label article, extraclass = ""
@@ -24,17 +43,6 @@ module ArticlesHelper
     bclass
   end
 
-  def resource_name
-    :user
-  end
-
-  def resource
-    @resource ||= User.new
-  end
-
-  def devise_mapping
-    @devise_mapping ||= Devise.mappings[:user]
-  end
 
   def get_category_tree category
     tree = []
@@ -73,6 +81,7 @@ module ArticlesHelper
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
       end
+      without(article)
       any_of do
         with :fair,true
         with :ecologic,true
@@ -92,10 +101,8 @@ module ArticlesHelper
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
 
-  def active_articles
-    resource.articles.paginate :page => params[:active_articles_page]
-  end
 
+<<<<<<< HEAD
   def inactive_articles
     resource.articles.where(:active => false).paginate :page => params[:inactive_articles_page]
   end
@@ -108,4 +115,6 @@ module ArticlesHelper
     html.html_safe
   end
   
+=======
+>>>>>>> 838514792068ee4f6d4a314a5375a735292ff197
 end

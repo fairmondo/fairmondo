@@ -1,3 +1,22 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 require 'spec_helper'
 
 describe Article do
@@ -68,6 +87,21 @@ describe Article do
         article.calculated_corruption.should eq 0
         article.calculated_fee.should eq 0
       end
+
+      it "should return the max fee when calculated_fee gt max fee" do
+        article.price = 9999
+        article.fair = false
+        article.calculate_fees_and_donations
+        article.calculated_fee.should eq Money.new(3000)
+      end
+
+      it "should always round the corruption up" do
+        article.price = 789.23
+        article.fair = false
+        article.calculate_fees_and_donations
+        article.calculated_corruption.should eq Money.new(790)
+      end
+
     end
   end
 
@@ -113,6 +147,7 @@ describe Article do
   describe "::Template" do
     before do
       @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+      @article.article_template.user = nil
     end
 
     describe "#save_as_template?" do

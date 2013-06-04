@@ -1,10 +1,27 @@
+#
+# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Copyright (C) 2013 Fairnopoly eG
+#
+# This file is part of Farinopoly.
+#
+# Farinopoly is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# Farinopoly is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+#
 class ArticleTemplatesController < InheritedResources::Base
 
   before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
   before_filter :build_article, :only => [:new,:create]
-  before_filter :build_questionnaires, :except => [:destroy]
-  before_filter :build_transaction, :only => [:create]
   actions :all, :except => [:show,:index]
 
 
@@ -60,15 +77,6 @@ class ArticleTemplatesController < InheritedResources::Base
   def build_article
     resource.build_article unless resource.article
     resource.article.seller = current_user
-  end
-
-  def build_questionnaires
-    resource.article.build_fair_trust_questionnaire unless resource.article.fair_trust_questionnaire
-    resource.article.build_social_producer_questionnaire unless resource.article.social_producer_questionnaire
-  end
-
-  def build_transaction
-    resource.article.build_transaction unless resource.transaction
   end
 
   def save_images
