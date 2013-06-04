@@ -1,1 +1,1 @@
-task :default => [:brakeman]
+task :default => :setup
