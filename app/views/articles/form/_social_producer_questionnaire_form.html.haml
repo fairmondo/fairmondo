@@ -18,6 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 = article_form.semantic_errors :social_producer_questionnaire
+- article_form.object.build_social_producer_questionnaire unless article_form.object.social_producer_questionnaire
 = article_form.nested_inputs_for :social_producer_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
   %ul.questionnaire
     = f.input_with :purpose, :nonprofit_association
