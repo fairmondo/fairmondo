@@ -30,6 +30,7 @@ module Article::Template
     accepts_nested_attributes_for :article_template, :reject_if => proc {|attributes| attributes['save_as_template'] == "0" }
 
     before_validation :set_user_on_article_template , :if => :save_as_template?
+    validates_associated :article_template , :if => :save_as_template?
 
   end
 
