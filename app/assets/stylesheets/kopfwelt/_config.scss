@@ -11,13 +11,20 @@ $legacy-support-for-ie7: false; // Don't waste bits on IE7
 $experimental-support-for-opera: false; // Because they've switched to Webkit
 
 // Typography
-$base-font-size: 16px;
-$base-font-size-unitless: 16;
-$base-line-height-unitless: 1.5;
+$base-font-size: 18px;
+$base-font-size-unitless: 18;
+$base-line-height-unitless: 1.6;
 //$base-line-height: $base-font-size * $base-line-height-unitless;
 
 $font-header: Georgia, serif;
 $font-body: 'proxima-nova', Helvetica, sans-serif;
+
+$font-size-xxl: 2.22 * $base-font-size; //40px
+$font-size-xl: 1.66 * $base-font-size; //30px
+$font-size-l: 1.38 * $base-font-size; //25px
+$font-size-m: 0.77 * $base-font-size; // 14px
+$font-size-s: 0.73 * $base-font-size; // 13px
+
 
 // Layout with Susy
 $total-columns: 4;
@@ -51,6 +58,8 @@ $anchor-link: $blue;
 $anchor-visited: darken($blue, 20);
 $anchor-hover: $blue;
 $anchor-active: $blue;
+
+$text-color: $black;
 
 
 // //$container-width: em($breakpoint-large);
