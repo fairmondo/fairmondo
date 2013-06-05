@@ -61,6 +61,14 @@ module Fairtastic
       super
     end
 
+    def hidden_semantic_errors(*args)
+      args.inject([]) do |array, method|
+        errors = Array(@object.errors[method.to_sym]).to_sentence
+        @input_step_with_errors ||=errors.present?
+      end
+    end
+
+
     def nested_inputs_for(association_name, options = {}, &block)
       title = options[:name]
       title = localized_string(association_name, object, nil) if title == true

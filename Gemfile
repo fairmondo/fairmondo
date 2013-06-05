@@ -89,6 +89,7 @@ group :assets do
   gem 'tinymce-rails'
   gem 'tinymce-rails-langs'
   gem 'jquery-rails'
+  gem 'jquery-ui-rails'
   #gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
   gem 'coffee-rails'
   gem 'therubyrhino'
@@ -167,11 +168,4 @@ end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Add your own Gems in Gemfile.local
-
-gemfile_local = File.join(File.dirname(__FILE__), 'Gemfile.local')
-if File.readable?(gemfile_local)
-  puts "Loading #{gemfile_local}..." if $DEBUG
-  instance_eval(File.read(gemfile_local))
-end
 
