@@ -68,55 +68,85 @@
                 = msg.html_safe
       = render_data_confirm
 
-    %header
-      .container
-        .row
-          .left-nav
-            %h1#title.hidden-phone
-              %a{:href => "/"}
-                %span Fairnopoly
-          .right-nav
-            %ul#main-nav
-              %li#buy.main-nav-item
-                = link_to t('common.text.buy'), articles_path
-              %li#sell.main-nav-item
-                = link_to t('common.text.sell'), new_article_path
+    %header.l-Header
+      .l-Inner
+        .Logo
+          %h1
+            %a{:href => "/"} Fairnopoly
+        %nav.Nav.Nav--Primary
+          %ul
+            %li.icon-buy
+              = link_to t('common.text.buy'), articles_path
+            %li.icon-sell
+              = link_to t('common.text.sell'), new_article_path
+            /
+              %li#service.main-nav-item
+                %a
+                  t('common.text.service')
+            - if user_signed_in?
+              %li.icon-account
+                = link_to(t('common.actions.logout'), destroy_user_session_path )
+              %li.icon-logout
+                = link_to t('common.text.profile'), user_path(current_user)
               /
-                %li#service.main-nav-item
-                  %a
-                    t('common.text.service')
-              - if user_signed_in?
-                %li#logout.main-nav-item
-                  = link_to(t('common.actions.logout'), destroy_user_session_path )
-                %li#login.main-nav-item
-                  = link_to t('common.text.profile'), user_path(current_user)
-                /
-                  - if current_user.trustcommunity == true
-                    %li#community.main-nav-item
-                      t('common.text.community')
+                - if current_user.trustcommunity == true
+                  %li#community.main-nav-item
+                    t('common.text.community')
 
 
-              - else
-                %li#login.main-nav-item
-                  - if @login
-                    #user-login-form.popover-hidden
-                      = @login.html_safe
-                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
-                  - else
-                    = link_to t('common.actions.login') , new_user_session_path
+            - else
+              %li.icon-account
+                - if @login
+                  .Form.Form--login.is-hidden
+                    = @login.html_safe
+                  = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
+                - else
+                  = link_to t('common.actions.login') , new_user_session_path
         / row
       / container
     = hero
-    #main{:role => "main"}
-      .container
+    .l-Main{:role => "main"}
+      .l-Inner
         = yield
       / .container
     / #main
-    %footer
-      .container
-        .row
-          .span4
-            %h3= t('footer.legal_details')
+    %footer.l-Footer
+      .Footer--top
+        .l-Inner
+          .Logo--small
+            %h4
+              %a{:href => "/"} Fairnopoly
+          .Nav.Nav--meta
+            %li
+              %a{:href => "/faq"}
+                = t('footer.faq')
+            %li
+              %a{:href => "http://info.fairnopoly.de/forum/"}
+                = t('footer.forum')
+            %li
+              %a{:href => "/contact"}
+                = t('footer.contact')
+            %li
+              %a{:href => "/about_us"}
+                = t('footer.about_us')
+            %li
+              %a{:href => "/philosophy"}
+                = t('footer.philosophy')
+            %li
+              %a{:href => "http://info.fairnopoly.de/team/"}
+                = t('footer.team')
+            %li
+              %a{:href => "http://info.fairnopoly.de"}
+                = t('footer.blog')
+            - if current_user && current_user.admin?
+              %li
+                = link_to t('users.menu.admin'), "/admin"
+          .Social
+      .Footer--bottom
+        .l-Inner
+          .Copyright
+            %p &copy; Copyright 2013 fairnopoly
+          .Nav.Nav--legal
             %ul
               %li
                 %a{:href => "/agb"}
@@ -127,39 +157,3 @@
               %li
                 %a{:href => "/imprint"}
                   = t('footer.imprint')
-          .span4
-            %h3
-              = t('common.fairnopoly')
-            %ul
-              %li
-                %a{:href => "/about_us"}
-                  = t('footer.about_us')
-              %li
-                %a{:href => "/philosophy"}
-                  = t('footer.philosophy')
-              %li
-                %a{:href => "http://info.fairnopoly.de/team/"}
-                  = t('footer.team')
-              %li
-                %a{:href => "http://info.fairnopoly.de"}
-                  = t('footer.blog')
-              - if current_user && current_user.admin?
-                %li
-                  = link_to t('users.menu.admin'), "/admin"
-          .span4
-            %h3
-              = t('footer.help')
-            %ul
-              %li
-                %a{:href => "/faq"}
-                  = t('footer.faq')
-              %li
-                %a{:href => "http://info.fairnopoly.de/forum/"}
-                  = t('footer.forum')
-              %li
-                %a{:href => "/contact"}
-                  = t('footer.contact')
-        / row
-      / container
-      #sub-footer
-        \&copy; Fairnopoly 2013 #{I18n.locale}
