@@ -57,3 +57,5 @@ deriving_license_tmp
 
 #Local additional Gemfile
 Gemfile.local
+
+.ruby-version

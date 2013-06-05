@@ -82,8 +82,9 @@ group :assets do
   gem "font-awesome-rails"
   gem "flatui-rails"
   gem "formtastic-plus-flatui"
+  gem "susy", "~> 1.0.8"
+  gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
-
 
   # JS
   gem 'tinymce-rails'
