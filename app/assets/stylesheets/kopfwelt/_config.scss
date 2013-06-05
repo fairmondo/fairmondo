@@ -38,9 +38,20 @@ $lightblue: #4a9bff;
 $green: #1bb531;
 
 $white: #ffffff;
-$lightgray: #959595;
-$gray: #525252;
-$lightbrown: #f4f1ee;
+$black: #2e2e2e;
+$gray: #959595;
+$lightgray: #b4b4b4;
+$darkgray: #525252;
+
+$beige: #ede8e2;
+$lightbeige: #f4f1ee;
+$darkbeige: #e2d9d0;
+
+$anchor-link: $blue;
+$anchor-visited: darken($blue, 20);
+$anchor-hover: $blue;
+$anchor-active: $blue;
+
 
 // //$container-width: em($breakpoint-large);
 // $layout-small: em($breakpoint-small);
