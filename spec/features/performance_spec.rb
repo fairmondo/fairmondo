@@ -25,9 +25,11 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
+include BulletMatcher
+include CategorySeedData
 
 describe 'Performance' do
-  include CategorySeedData
+  before { Bullet.start_request }
 
   describe "Article#index", search: true do
     before do
@@ -36,17 +38,7 @@ describe 'Performance' do
     end
     it "should succeed" do
       visit articles_path
-      page.status_code.should be 200
-    end
-  end
-
-  describe "Article#new" do
-    it "should succeed" do
-      # Does not yet trigger n+1
-      pending
-      setup_categories
-      visit new_article_path
-      page.status_code.should be 200
+      Bullet.should_not throw_warnings
     end
   end
 end

@@ -17,56 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticlePolicy < Struct.new(:user, :article)
+## The final after suite callback
+RSpec.configure do |config|
+  config.after :suite do
+    unless $skip_audits
+      puts "\n\n[Suite] Results:".underline
 
-  def index?
-    true
-  end
-
-  def show?
-    article.active || (user && own?)
-  end
-
-  def new?
-    create?
-  end
-
-  def create?
-    true # Devise already ensured this user is logged in.
-  end
-
-  def edit?
-    update?
-  end
-
-  def update?
-    own? && article.preview?
-  end
-
-  def destroy?
-    false
-  end
-
-  def activate?
-    user && own? && !article.active
-  end
-
-  def deactivate?
-     user && own? && article.active
-  end
-
-  def report?
-    user && !own?
-  end
-
-  private
-  def own?
-    user.id == article.seller.id
-  end
-
-  class Scope < Struct.new(:user, :scope)
-    def resolve
-      scope.where(:active => true)
+      unless $? == 0
+        puts "\nTest suite fails. Do not push before taking care of the issues described above.".red.underline
+      end
     end
   end
 end
