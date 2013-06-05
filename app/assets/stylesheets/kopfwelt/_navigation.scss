@@ -3,11 +3,43 @@
 //
 
 .Nav {
+	// @include pie-clearfix;
+	float: right;
 	margin-top: 0;
 	padding-left: 0;
 	list-style: none;
-	
-	.selected {
-		color: red;
+	ul {
+		@include clearfix;
+		margin: 0;
+		padding: 0;
 	}
+	li {
+		display: inline-block;
+	}
+	a {
+		display: inline-block;
+		padding: 0.5em 1em;
+		text-decoration: none;
+		
+		&:last-child {padding-right: 0}
+		&:hover,
+		&.selected {
+			color: #f1f1f1;
+			border-color: #f1f1f1;
+		}
+		&:hover {}
+		&.selected {}
+	}
+}
+
+.Nav--primary {
+	@include rem(font-size, $font-size-m);
+	margin-top: 4em;
+}
+.Nav--meta {
+	@include rem(font-size, $base-font-size * .94);
+	margin-top: 1em;
+}
+.Nav--legal  {
+	@include rem(font-size, $base-font-size * .83);
 }

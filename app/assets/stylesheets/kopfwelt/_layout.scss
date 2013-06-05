@@ -31,6 +31,13 @@
 // 	@include box-sizing(content-box);
 // }
 .l-Header {
+	& > .l-Inner {
+		@include container;
+	}
+	@include rem(height, 100px);
+	background-image: url(asset-path("back3.gif", image));
+}
+.l-Hero {
 	background-color: $darkbeige;
 	& > .l-Inner {
 		@include container;
@@ -42,15 +49,18 @@
 	}
 }
 .l-Footer {
-	background-color: $darkbeige;
+	//@include rem(height, 230px);
+	background-image: url(asset-path("back3.gif", image));
 	.Footer--top {
 		& > .l-Inner {
 			@include container;
 		}
+		@include rem(height, 180px);
 	}
 	.Footer--bottom {
 		& > .l-Inner {
 			@include container;
 		}
+		@include rem(height, 50px);
 	}
 }

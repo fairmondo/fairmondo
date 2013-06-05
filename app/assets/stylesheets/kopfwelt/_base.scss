@@ -9,6 +9,8 @@ html {
 	color: #000;
 }
 body {
+	padding: 0;
+	margin: 0;
 	background-color: $beige;
 }
 
@@ -33,12 +35,13 @@ h4 {
 	font-weight: 300;
 	line-height: 1.2;
 }
+
 h1 {
 	@include rem(font-size, 30px);
 	margin-bottom: em(17,30);
 }
 h2 {
-	@include rem(font-size, 24px);
+	@include rem(font-size, 25px);
 }
 h3 {
 	@include rem(font-size, 20px);

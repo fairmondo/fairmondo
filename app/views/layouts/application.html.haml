@@ -59,7 +59,7 @@
   %body
     /[if lt IE 8]
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    #notice
+    .notice.is-hidden
       - if !flash.empty?
         - flash.each do |type, msg|
           - if msg && !msg.empty?
@@ -72,8 +72,9 @@
       .l-Inner
         .Logo
           %h1
-            %a{:href => "/"} Fairnopoly
-        %nav.Nav.Nav--Primary
+            %a{:href => "/"}
+              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"} 
+        %nav.Nav.Nav--primary
           %ul
             %li.icon-buy
               = link_to t('common.text.buy'), articles_path
@@ -113,34 +114,36 @@
     %footer.l-Footer
       .Footer--top
         .l-Inner
-          .Logo--small
+          .Logo
             %h4
-              %a{:href => "/"} Fairnopoly
-          .Nav.Nav--meta
-            %li
-              %a{:href => "/faq"}
-                = t('footer.faq')
-            %li
-              %a{:href => "http://info.fairnopoly.de/forum/"}
-                = t('footer.forum')
-            %li
-              %a{:href => "/contact"}
-                = t('footer.contact')
-            %li
-              %a{:href => "/about_us"}
-                = t('footer.about_us')
-            %li
-              %a{:href => "/philosophy"}
-                = t('footer.philosophy')
-            %li
-              %a{:href => "http://info.fairnopoly.de/team/"}
-                = t('footer.team')
-            %li
-              %a{:href => "http://info.fairnopoly.de"}
-                = t('footer.blog')
-            - if current_user && current_user.admin?
+              %a{:href => "/"}
+                %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
+          %nav.Nav.Nav--meta
+            %ul
               %li
-                = link_to t('users.menu.admin'), "/admin"
+                %a{:href => "/faq"}
+                  = t('footer.faq')
+              %li
+                %a{:href => "http://info.fairnopoly.de/forum/"}
+                  = t('footer.forum')
+              %li
+                %a{:href => "/contact"}
+                  = t('footer.contact')
+              %li
+                %a{:href => "/about_us"}
+                  = t('footer.about_us')
+              %li
+                %a{:href => "/philosophy"}
+                  = t('footer.philosophy')
+              %li
+                %a{:href => "http://info.fairnopoly.de/team/"}
+                  = t('footer.team')
+              %li
+                %a{:href => "http://info.fairnopoly.de"}
+                  = t('footer.blog')
+              - if current_user && current_user.admin?
+                %li
+                  = link_to t('users.menu.admin'), "/admin"
           .Social
       .Footer--bottom
         .l-Inner
