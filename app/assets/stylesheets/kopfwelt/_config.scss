@@ -17,7 +17,7 @@ $base-line-height-unitless: 1.5;
 //$base-line-height: $base-font-size * $base-line-height-unitless;
 
 $font-header: Georgia, serif;
-$font-body: Helvetica, sans-serif;
+$font-body: 'proxima-nova', Helvetica, sans-serif;
 
 // Layout with Susy
 $total-columns: 4;
@@ -29,6 +29,7 @@ $grid-padding: em(40);
 $bp-medium: 700;
 $bp-large: 940;
 
+// Colors
 $blue: #3a80c2;
 
 // //$container-width: em($breakpoint-large);
