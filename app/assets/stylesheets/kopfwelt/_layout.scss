@@ -30,3 +30,27 @@
 // 	@include container;
 // 	@include box-sizing(content-box);
 // }
+.l-Header {
+	background-color: $darkbeige;
+	& > .l-Inner {
+		@include container;
+	}
+}
+.l-Main {
+	& > .l-Inner {
+		@include container;
+	}
+}
+.l-Footer {
+	background-color: $darkbeige;
+	.Footer--top {
+		& > .l-Inner {
+			@include container;
+		}
+	}
+	.Footer--bottom {
+		& > .l-Inner {
+			@include container;
+		}
+	}
+}
