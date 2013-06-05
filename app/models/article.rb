@@ -22,7 +22,7 @@ class Article < ActiveRecord::Base
 
 
   # bugbug Check if all/any should be accessible (done only for mass upload)
-  attr_accessible
+  attr_accessible :user_id, :categories
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -101,29 +101,18 @@ class Article < ActiveRecord::Base
   # bugbug Mass upload via csv
 
   def self.import(file, current_user)
-    CSV.foreach(file.path, headers: false) do |row|
-      row << ('user_id')
-      row << ('categories')
-      row << ('transaction_id')
-    end
+    rows_array = []
     CSV.foreach(file.path, headers: true) do |row|
-      categories = [Category.find(row['category_1'])]
-      categories << Category.find(row['category_2']) if row['category_2']
-      row.delete('category_1')
-      row.delete('category_2')
-      # What is a Transaction anyway? Are they really needed at this moment?
-      # How to create it the right way?
-      transaction = Transaction.create(type: "PreviewTransaction")
-      row['transaction_id'] = transaction.id # shouldn;t be necessary anymore
-      row['user_id'] = current_user.id
-      row['categories'] = categories
-      p '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      article = Article.new(row.to_hash) # hash er getrennt erstellen, dann was loeschen, dann in den article
-      # article.seller = current_user
-      # article.categories = s.o. (direkt reinpushen)
-      p article
-      article.save! # Save in the controller
+      rows_array << row.to_hash
     end
+    rows_array.each do |row|
+      row["categories"] = [Category.find(row['category_1'])]
+      row["categories"] << Category.find(row['category_2']) if row['category_2']
+      row.delete("category_1")
+      row.delete("category_2")
+      row["user_id"] = current_user.id
+    end
+    rows_array
   end
 
 end

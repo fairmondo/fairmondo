@@ -83,7 +83,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    charlock_holmes (0.6.9.4)
     choice (0.1.6)
     chunky_png (1.2.8)
     climate_control (0.0.3)
@@ -110,8 +109,6 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    copyright-header (1.0.10)
-      github-linguist (~> 2.6.7)
     coveralls (0.6.7)
       colorize
       multi_json (~> 1.3)
@@ -142,7 +139,6 @@ GEM
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
-    escape_utils (0.3.2)
     eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -180,11 +176,6 @@ GEM
       sass-rails
     friendly_id (4.0.9)
     fssm (0.2.10)
-    github-linguist (2.6.7)
-      charlock_holmes (~> 0.6.6)
-      escape_utils (~> 0.3.1)
-      mime-types (~> 1.19)
-      pygments.rb (~> 0.4.2)
     haml (4.0.3)
       tilt
     has_scope (0.5.1)
@@ -246,16 +237,12 @@ GEM
       mime-types
     pg (0.15.1)
     polyglot (0.3.3)
-    posix-spawn (0.3.6)
     pr_geohash (1.0.0)
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
     pundit (0.2.0)
       rails (~> 3.0)
-    pygments.rb (0.4.2)
-      posix-spawn (~> 0.3.6)
-      yajl-ruby (~> 1.1.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -405,7 +392,6 @@ GEM
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -427,7 +413,6 @@ DEPENDENCIES
   coffee-rails
   colorize
   compass-rails
-  copyright-header
   coveralls
   daemons
   debugger

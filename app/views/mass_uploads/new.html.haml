@@ -1,0 +1,5 @@
+%h2 Artikel importieren
+
+= form_tag mass_uploads_path, multipart: true do
+  = file_field_tag :file
+  = submit_tag "CSV importieren"
