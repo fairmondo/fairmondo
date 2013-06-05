@@ -36,6 +36,11 @@
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
+    
+    %script{:src  => "//use.typekit.net/kli6gpf.js"}
+    :javascript
+      try{Typekit.load();}catch(e){}
+
     = javascript_include_tag "application"
 
     = csrf_meta_tags
