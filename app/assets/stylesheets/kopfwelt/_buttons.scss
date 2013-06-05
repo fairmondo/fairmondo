@@ -1,0 +1,111 @@
+//
+// Buttons
+//
+
+/**
+ * Button template
+ *
+ * Build on this component using rulesets in your application-level CSS.
+ *
+ * 1. Corrects inability to style clickable `input` types in iOS
+ * 6. Prevent button text from being selectable.
+ * 7. Prevent wrapping across multiple lines.
+ */
+
+
+.Button {
+	@extend %bunputs;
+
+	-webkit-appearance: none; /* 1 */
+	
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	user-select: none; /* 6 */
+	white-space: nowrap; /* 7 */
+	
+	@extend %font-bold;
+	@include transition(border-color 200ms);
+	border: 1px solid;
+	border-color: rgba(#000,0.10);
+	background-color: $blue;
+	color: #fff;
+	&:hover {
+		color: #fff;
+		border-color: rgba(#000,0.35);
+	}
+}
+
+/**
+ * UI states
+ */
+
+.Button:hover,
+.Button:focus,
+.Button:active {
+	text-decoration: none;
+}
+.Button:disabled,
+.Button.is-disabled {
+	cursor: default;
+}
+
+
+// Button sizes
+.Button--full {
+	display: block;
+	width: 100%;
+}
+.Button--large {
+	@include rem(font-size, 16px);
+	padding: em(5,16) em(32,16);
+}
+.Button--huge {
+	@include rem(font-size, 24px);
+}
+
+// Button colors
+.Button--white {
+	background-color: #fff;
+	border-color: $darkgray;
+	color: #000;
+	&:hover {
+		color: #000;
+	}
+}
+.Button--gray {
+	background-color: $lightergray;
+	border-color: $darkgray;
+	color: $blue;
+	&:hover {
+		color: #000;
+	}
+}
+.Button--blue {
+	background-color: $blue;
+	&:hover {
+		background-color: $darkblue;
+	}
+}
+.Button--orange {
+	background-color: $orange;
+	&:hover {
+		background-color: $darkorange;
+	}
+	&.Button--huge {
+		@include background-image(linear-gradient(#ff9f33, $orange 50%));
+		&:hover {
+			@include background-image(linear-gradient(#ff8f11, #ed7d00 50%));
+		}
+	}
+}
+// Icons inside buttons
+.Button .Icon {
+	display: inline-block;
+}

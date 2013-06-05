@@ -1,0 +1,90 @@
+//
+// Base
+// 
+
+html {
+	line-height: $base-line-height-unitless;
+	font-size: $base-font-size;
+	font-family: $font-body;
+	color: #000;
+	font-weight: 300;
+}
+
+// Headers
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ol {
+	margin-top: auto;
+	margin-bottom: 1em;
+}
+h1,
+h2,
+h3,
+h4 {
+	color: $blue;
+	font-weight: 300;
+	line-height: 1.2;
+}
+h1 {
+	@include rem(font-size, 30px);
+	margin-bottom: em(17,30);
+}
+h2 {
+	@include rem(font-size, 24px);
+}
+h3 {
+	@include rem(font-size, 20px);
+}
+
+.BodyText {
+	@include rem(font-size, 14px);
+	line-height: 1.4;
+}
+
+// Links
+a {
+	text-decoration: none;
+	color: #000;
+}
+a:hover {
+	color: blue;
+}
+
+// responsive
+iframe,
+img {
+	max-width: 100%;
+}
+img {
+	vertical-align: bottom;
+}
+// remove border in old ie
+a img {
+	border: 0;
+}
+// remove default margin
+figure {
+	margin: 0;
+}
+small {
+	font-size: 80%;
+}
+// Shared for buttons and inputs
+%bunputs {
+	@include rem(font-size, 12px);
+	vertical-align: middle;
+	border-radius: 2px;
+	margin: 0;
+	padding: em(5,12) em(10,12);
+	border: 1px solid;
+	line-height: normal;
+}
+.align-center {
+	text-align: center;
+}

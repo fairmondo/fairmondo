@@ -1,0 +1,24 @@
+//
+// Icons using sprites
+//
+
+// Configuration
+// -----------------------------------
+
+// space between each icon in the sprite 
+$icons-spacing: 40px; // "incons" is the name of the folder
+
+// import the compass function that handles the sprites
+@import "compass/utilities/sprites";
+
+// locate the folders with the icons in
+@import "icons/*.png";
+
+// compass, make icons plizz
+@include all-icons-sprites;
+
+
+// Sprites sizes and hover changes icon color 
+// -----------------------------------
+// assign the icon's width and height to the <i> ellement
+//.icons-download { height: icons-sprite-height(download); width: icons-sprite-width(download);}

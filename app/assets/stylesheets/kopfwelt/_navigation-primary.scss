@@ -1,0 +1,23 @@
+//
+// Primary navigation 
+// -----------------------------------
+.Navigation--primary {
+	@include pie-clearfix;
+	
+	li {
+		display: inline-block;
+	}
+	a {
+		display: inline-block;
+		padding: 0.5em 1em;
+		text-decoration: none;
+		
+		&:hover,
+		&.selected {
+			color: #f1f1f1;
+			border-color: #f1f1f1;
+		}
+		&:hover {}
+		&.selected {}
+	}
+}

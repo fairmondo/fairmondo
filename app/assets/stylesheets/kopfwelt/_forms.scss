@@ -1,0 +1,25 @@
+//
+// Forms
+//
+
+input[type='search'] {
+	-webkit-appearance: none;
+}
+input[type='text'],
+input[type='search'],
+input[type='email'],
+textarea {
+	@extend %bunputs;
+	min-height: 30px;
+	
+	background-color: $gray;
+	border-color: $darkgray;
+	&:focus {
+		outline: 0;
+		background: $lightgray;
+	}
+	&:hover {}
+}
+input[type='submit'] {
+	min-height: 30px;
+}
