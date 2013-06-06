@@ -17,36 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### SimpleCOV ###
+module BulletMatcher
+  extend RSpec::Matchers::DSL
 
-require 'simplecov'
-require 'coveralls'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-]
-
-SimpleCov.start 'rails' do
-  add_filter "app/mailers/notification.rb"
-  add_filter "gems/*"
-  add_filter "lib/tasks/*"
-  minimum_coverage 100
-end
-
-SimpleCov.at_exit do
-  puts "\n\n[SimpleCov] Generating coverage report:\n".underline
-  SimpleCov.result.format!
-  puts "\n"
-
-  if $? == 0 && !$suite_failing
-    if SimpleCov.result.covered_percent < 100
-      puts "Please ensure the code coverage is at 100% before pushing.".red.underline
-    else
-      puts "Perfect! The test suite is passing.".green
+  matcher :throw_warnings do
+    match do |bullet|
+      bullet.perform_out_of_channel_notifications
+      bullet.end_request
+      !bullet.warnings.empty?
     end
-  else
-    puts "Please take care of the issues described above before pushing.".red.underline
+
+    failure_message_for_should_not do |bullet|
+      "Bullet found performance issues but shouldn't have:\n" +
+      bullet.warnings.to_s
+    end
   end
-  puts "\n"
 end

@@ -17,7 +17,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
+= article_form.semantic_errors :fair_trust_questionnaire
+- article_form.object.build_fair_trust_questionnaire unless article_form.object.fair_trust_questionnaire
 = article_form.nested_inputs_for :fair_trust_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
   %ol.questionnaire
     = f.input_with :explanation, :support

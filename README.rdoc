@@ -3,24 +3,23 @@
 
 Fairnopoly is a free market place in the hand of the users.
 
-Read more about it at: http://www.fairnopoly.de/
+Read more about it at: http://www.fairnopoly.de
 
-The development currently is in beta state.
-The Fairnopoly source is developed in ruby-1.9.3
+The development currently is in beta state. Please help us out by contributing code.
 
 
 == Getting started
 
 === Installing Ruby and Ruby on Rails
 
-If you are not sure how to install Ruby and the Ruby on Rails framework on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
+If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em> on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
 
-Make sure you install ruby 1.9.3 and not 2.0.0.
+Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.
 
 === Fairnopoly Project Setup (automated)
 
-Note: the automated process won't work in windows.
-To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and paste in the following line:
+Note: the automated process won't work under Windows.
+To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
     git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout release && ruby setup.rb
 
 What this does:

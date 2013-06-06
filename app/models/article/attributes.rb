@@ -60,10 +60,6 @@ module Article::Attributes
 
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
-    validates_presence_of :basic_price, :if => :has_legal_entity_seller?
-    validates_presence_of :basic_price_amount, :if => :has_legal_entity_seller?
-
-
 
 
     # =========== Transport =============
