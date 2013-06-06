@@ -38,6 +38,7 @@ gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
+gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
