@@ -18,21 +18,16 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < InheritedResources::Base
-
   # Inherited Resources
-
   respond_to :html
-
-  actions :all, :except => [ :destroy ] # inherited methods
+  actions :all, :except => [:destroy] # inherited methods
 
   # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
 
   # Layout Requirements
-
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show,:index]
-
-  before_filter :ensure_complete_profile , :only => [:new,:create]
+  before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
+  before_filter :ensure_complete_profile , :only => [:new, :create]
 
   #Sunspot Autocomplete
   def autocomplete
@@ -50,7 +45,6 @@ class ArticlesController < InheritedResources::Base
   rescue Errno::ECONNREFUSED
     render :json => []
   end
-
 
   def show
     @article = Article.find params[:id]
@@ -85,7 +79,6 @@ class ArticlesController < InheritedResources::Base
   def create
 
     authorize build_resource
-
     create! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images

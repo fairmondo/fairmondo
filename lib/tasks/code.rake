@@ -8,13 +8,13 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-    :license => 'AGPL3',
-    :copyright_software => 'Farinopoly',
-    :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
-    :copyright_holders => ['Fairnopoly eG'],
-    :copyright_years => ['2013'],
-    :add_path => '.',
-    :output_dir => './'
+      :license => 'AGPL3',
+      :copyright_software => 'Farinopoly',
+      :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
+      :copyright_holders => ['Fairnopoly eG'],
+      :copyright_years => ['2013'],
+      :add_path => '.',
+      :output_dir => './'
     }
 
     command_line = CopyrightHeader::CommandLine.new( args )
@@ -29,13 +29,13 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-    :license => 'AGPL3',
-    :copyright_software => 'Farinopoly',
-    :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
-    :copyright_holders => ['Fairnopoly eG'],
-    :copyright_years => ['2013'],
-    :remove_path => '.',
-    :output_dir => './'
+      :license => 'AGPL3',
+      :copyright_software => 'Farinopoly',
+      :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
+      :copyright_holders => ['Fairnopoly eG'],
+      :copyright_years => ['2013'],
+      :remove_path => '.',
+      :output_dir => './'
     }
 
     command_line = CopyrightHeader::CommandLine.new( args )
