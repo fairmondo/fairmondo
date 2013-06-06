@@ -64,7 +64,9 @@
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="15" side="front" />
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="15" side="front"/>
+        <!-- <filter class="solr.HunspellStemFilterFactory" dictionary="de_DE_frami.dic" affix="de_DE_frami.aff" ignoreCase="true" /> -->
+        <!-- <filter class="solr.HyphenationCompoundWordTokenFilterFactory" hyphenator="/home/flyover/Workspace/fairnopoly/solr/conf/de.xml"  /-->
       </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->

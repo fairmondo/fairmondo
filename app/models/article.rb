@@ -22,6 +22,9 @@ class Article < ActiveRecord::Base
 
   attr_accessible
 
+  # softdelete
+  acts_as_paranoid
+
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :title, :use => :slugged
