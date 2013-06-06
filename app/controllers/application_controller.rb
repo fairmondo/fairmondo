@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_modules
-    ["Devise","RailsAdmin"]
+    ["Devise","RailsAdmin","Tinycms"]
   end
 
   def pundit_unverified_classes
