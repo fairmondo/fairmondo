@@ -17,56 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticlePolicy < Struct.new(:user, :article)
+module BulletMatcher
+  extend RSpec::Matchers::DSL
 
-  def index?
-    true
-  end
+  matcher :throw_warnings do
+    match do |bullet|
+      bullet.perform_out_of_channel_notifications
+      bullet.end_request
+      !bullet.warnings.empty?
+    end
 
-  def show?
-    article.active || (user && own?)
-  end
-
-  def new?
-    create?
-  end
-
-  def create?
-    true # Devise already ensured this user is logged in.
-  end
-
-  def edit?
-    update?
-  end
-
-  def update?
-    own? && article.preview?
-  end
-
-  def destroy?
-    false
-  end
-
-  def activate?
-    user && own? && !article.active
-  end
-
-  def deactivate?
-     user && own? && article.active
-  end
-
-  def report?
-    user && !own?
-  end
-
-  private
-  def own?
-    user.id == article.seller.id
-  end
-
-  class Scope < Struct.new(:user, :scope)
-    def resolve
-      scope.where(:active => true)
+    failure_message_for_should_not do |bullet|
+      "Bullet found performance issues but shouldn't have:\n" +
+      bullet.warnings.to_s
     end
   end
 end
