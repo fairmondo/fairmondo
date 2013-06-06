@@ -15,10 +15,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<!--  
+<!--
  This is the Solr schema file. This file should be named "schema.xml" and
  should be in the conf directory under the solr home
- (i.e. ./solr/conf/schema.xml by default) 
+ (i.e. ./solr/conf/schema.xml by default)
  or located where the classloader for the Solr webapp can find it.
 
  This example schema is the recommended starting point for users.
@@ -64,7 +64,9 @@
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="15" side="front" />
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="15" side="front"/>
+        <!-- <filter class="solr.HunspellStemFilterFactory" dictionary="de_DE_frami.dic" affix="de_DE_frami.aff" ignoreCase="true" /> -->
+        <!-- <filter class="solr.HyphenationCompoundWordTokenFilterFactory" hyphenator="/home/flyover/Workspace/fairnopoly/solr/conf/de.xml"  /-->
       </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->
@@ -108,9 +110,9 @@
        given field.
        When using MoreLikeThis, fields used for similarity should be
        stored for best performance.
-     termPositions: Store position information with the term vector.  
+     termPositions: Store position information with the term vector.
        This will increase storage costs.
-     termOffsets: Store offset information with the term vector. This 
+     termOffsets: Store offset information with the term vector. This
        will increase storage costs.
      default: a value that should be used if no value is specified
        when adding a document.

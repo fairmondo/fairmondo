@@ -36,9 +36,10 @@ RSpec.configure do |config|
       puts "Errors: #{errors}"
 
       if warnings == 0 && errors == 0
-        puts "Perfect. Basic security is ensured.".green
+        puts "Basic security is ensured.".green
       else
-        puts "Please remove all errors and warnings before pushing.".red.underline
+        puts "Security issues exist.".red.underline
+        $suite_failing = true
       end
     end
   end

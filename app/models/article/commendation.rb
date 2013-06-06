@@ -41,14 +41,14 @@ module Article::Commendation
     ### fair trust questionnaire
     has_one :fair_trust_questionnaire, :dependent => :destroy
     accepts_nested_attributes_for :fair_trust_questionnaire
-    validates_associated :fair_trust_questionnaire, :if => lambda {|obj| obj.fair_kind == "fair_trust" && obj.fair?}
+    validates_associated :fair_trust_questionnaire, :if =>  Proc.new {|obj| obj.fair_kind == "fair_trust" && obj.fair?}
 
     before_validation :remove_fair_trust_questionnaire_unless_required
 
     ### social producer questionnaire
     has_one :social_producer_questionnaire, :dependent => :destroy
     accepts_nested_attributes_for :social_producer_questionnaire
-    validates_associated :social_producer_questionnaire, :if => lambda {|obj| obj.fair_kind == "social_producer" && obj.fair?}
+    validates_associated :social_producer_questionnaire, :if =>  Proc.new {|obj| obj.fair_kind == "social_producer" && obj.fair?}
 
     before_validation :remove_social_producer_questionnaire_unless_required
 

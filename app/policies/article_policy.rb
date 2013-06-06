@@ -44,7 +44,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    false
+    update? # only soft delete
   end
 
   def activate?
@@ -66,9 +66,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-        scope.where(:active => true)
+      scope.where(:active => true)
     end
   end
-
-
 end
