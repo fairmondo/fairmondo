@@ -17,28 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
+module BulletMatcher
+  extend RSpec::Matchers::DSL
 
-require 'spec_helper'
-
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
+  matcher :throw_warnings do
+    match do |bullet|
+      bullet.perform_out_of_channel_notifications
+      bullet.end_request
+      !bullet.warnings.empty?
     end
-    it "should succeed" do
-      visit articles_path
-      Bullet.should_not throw_warnings
+
+    failure_message_for_should_not do |bullet|
+      "Bullet found performance issues but shouldn't have:\n" +
+      bullet.warnings.to_s
     end
   end
 end
