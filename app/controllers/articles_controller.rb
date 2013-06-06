@@ -20,7 +20,7 @@
 class ArticlesController < InheritedResources::Base
   # Inherited Resources
   respond_to :html
-  actions :all, :except => [:destroy] # inherited methods
+  actions :all # inherited methods
 
   # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
@@ -113,6 +113,10 @@ class ArticlesController < InheritedResources::Base
   end
 
 
+  def destroy
+    authorize resource
+    destroy! { articles_path }
+  end
 
   ##### Private Helpers
 

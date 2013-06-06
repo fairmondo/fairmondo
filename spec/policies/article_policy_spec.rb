@@ -67,7 +67,7 @@ describe ArticlePolicy do
       it { should permit(:create)     }
 
       it { should deny(:report)       }
-      it { should deny(:destroy)      }
+
     end
 
     context "on an active article" do
@@ -88,11 +88,13 @@ describe ArticlePolicy do
       end
       it { should deny(:edit)        }
       it { should deny(:update)      }
+      it { should deny(:destroy)      }
     end
 
     context "on an unlocked article" do
       it { should permit(:edit)       }
       it { should permit(:update)     }
+      it { should permit(:destroy)      }
     end
   end
 end
