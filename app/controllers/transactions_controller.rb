@@ -17,22 +17,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryElementPolicy < Struct.new(:user, :library_element)
+class TransactionsController < InheritedResources::Base
+  respond_to :html
+  actions :show, :edit, :update
 
-  def create?
-    own?
-  end
+  before_filter :authenticate_user!
+  before_filter :authorize_resource
 
-  def update?
-    own?
-  end
-
-  def destroy?
-    own?
+  def edit
+    edit!
   end
 
   private
-  def own?
-    user.id == library_element.library_user_id
+  def authorize_resource
+    authorize resource
   end
+
+  # def update
+  #   authorize resource
+  #   update! do |success,failure|
+  #     success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
+  #     failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+  #   end
+  # end
 end

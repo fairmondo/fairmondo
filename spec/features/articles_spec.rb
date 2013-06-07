@@ -169,6 +169,18 @@ describe 'Article management' do
         page.should have_content I18n.t 'article.actions.reported-error'
       end
     end
+
+    describe "the article view" do
+      before do
+        @article = FactoryGirl.create :article
+      end
+
+      it "should show a buy button that immediately forwards to the transaction page" do
+        visit article_path @article
+        click_link I18n.t 'common.actions.to_cart'
+        current_path.should eq edit_transaction_path @article.transaction
+      end
+    end
   end
 
   context "for signed-out users" do
@@ -182,7 +194,6 @@ describe 'Article management' do
     describe "the article view" do
       before do
         @article = FactoryGirl.create :article
-        visit article_path @article
       end
 
       it "should be accessible" do
@@ -194,6 +205,12 @@ describe 'Article management' do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         visit article_path @article
         page.should have_content I18n.t 'article.show.no_alternative'
+      end
+
+      it "should display a buy button that forces a login" do #! will change after sprint
+        visit article_path @article
+        click_link I18n.t 'common.actions.to_cart'
+        page.should have_content "Login"
       end
 
       # it "should have a different title image with an additional param" do

@@ -17,9 +17,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'spec_helper'
 
-describe UserRelation do
-
-
+# This is a helper that is supposed to be extended by all single table inheritance subclasses.
+module STI
+  # See http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
+  #
+  # @return [String] The parent's model_name
+  def model_name
+    superclass.model_name
+  end
 end

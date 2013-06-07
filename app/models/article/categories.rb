@@ -21,10 +21,8 @@ module Article::Categories
   extend ActiveSupport::Concern
 
   included do
-
-
     attr_accessible :categories_and_ancestors,:category_proposal
-     attr_accessor :category_proposal
+    attr_accessor :category_proposal
 
     # categories refs #154
     has_and_belongs_to_many :categories
@@ -33,8 +31,6 @@ module Article::Categories
       :add_errors_to => [:categories, :categories_and_ancestors]
     }
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
-
-
   end
 
   def categories_and_ancestors

@@ -17,22 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryElementPolicy < Struct.new(:user, :library_element)
-
-  def create?
-    own?
-  end
-
-  def update?
-    own?
-  end
-
-  def destroy?
-    own?
-  end
-
-  private
-  def own?
-    user.id == library_element.library_user_id
-  end
+class FixedPriceTransaction < Transaction
+  extend STI
 end

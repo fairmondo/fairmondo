@@ -25,9 +25,12 @@ describe Article do
   subject { article }
 
   describe "::Base" do
-    it {should have_and_belong_to_many :images}
-    it {should belong_to :seller}
-    it {should have_and_belong_to_many :categories}
+    describe "associations" do
+      it {should have_and_belong_to_many :images}
+      it {should have_and_belong_to_many :categories}
+      it {should belong_to :seller}
+      it {should belong_to(:transaction).dependent(:destroy)}
+    end
 
     describe "amoeba" do
       it "should copy an article with images" do

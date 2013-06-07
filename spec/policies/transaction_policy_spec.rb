@@ -17,7 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PreviewTransaction < Transaction
+require 'spec_helper'
 
+describe TransactionPolicy do
+  include PunditMatcher
 
+  subject { TransactionPolicy.new(user, transaction)  }
+  let(:transaction) { FactoryGirl.create :transaction }
+  let(:user) { nil }
+
+  context "for a visitor" do
+    it { should permit(:edit) }
+  end
+
+  context "for a random logged-in user" do
+    let(:user) { FactoryGirl.create :user }
+    it { should permit(:edit)             }
+  end
+
+  context "for the transaction seller" do
+    let(:user) { transaction.article.seller }
+    it { should deny(:edit)                 }
+  end
 end

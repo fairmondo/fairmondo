@@ -18,18 +18,31 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
+include Warden::Test::Helpers
 
-describe PrivateUser do
+describe 'Transaction' do
 
-  let(:user) { FactoryGirl::create(:private_user)}
-  subject { user }
+  let(:transaction) { FactoryGirl.create :transaction }
+  let(:article) { transaction.article }
+  let(:user) { FactoryGirl.create :user }
 
-  it "should have a valid factory" do
-    should be_valid
+  describe "#edit" do
+
+    context "for a logged-in user" do
+      before { login_as user }
+
+      it "should do show the correct data and fields" do
+        visit edit_transaction_path transaction
+
+        page.should have_content I18n.t 'transaction.edit.heading'
+      end
+    end
+
+    context "for a logged-out user" do
+      it "should not yet be accessible" do
+        visit edit_transaction_path transaction
+        page.should have_content "Login"
+      end
+    end
   end
-
-  it "should return the same model_name as User" do
-    PrivateUser.model_name.should eq User.model_name
-  end
-
 end

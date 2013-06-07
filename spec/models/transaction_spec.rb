@@ -20,4 +20,7 @@
 require 'spec_helper'
 
 describe Transaction do
+  describe "associations" do
+    it { should have_one :article }
+  end
 end
