@@ -27,20 +27,24 @@ describe Category do
     category.should be_valid
   end
 
-  it {should have_and_belong_to_many :articles}
-
-  it "should have the correct parent_id" do
-    @anotherCategory = FactoryGirl.create(:category, :parent => category)
-    @anotherCategory.parent.should eq category
+  describe "associations" do
+    it {should have_and_belong_to_many :articles}
   end
 
-  it "should not have the correct parent_id" do
-    @anotherCategory = FactoryGirl.create(:category)
-    @anotherCategory.parent.should_not eq category
-  end
+  describe "methods" do
+    it "should have the correct parent_id" do
+      @anotherCategory = FactoryGirl.create(:category, :parent => category)
+      @anotherCategory.parent.should eq category
+    end
 
-  it "should return self_and_ancestors_ids" do
-    childCategory = FactoryGirl.create(:category, parent: category)
-    childCategory.self_and_ancestors_ids.should eq [childCategory.id, category.id]
+    it "should not have a parent_id without a parent" do
+      @anotherCategory = FactoryGirl.create(:category)
+      @anotherCategory.parent.should_not eq category
+    end
+
+    it "should return self_and_ancestors_ids" do
+      childCategory = FactoryGirl.create(:category, parent: category)
+      childCategory.self_and_ancestors_ids.should eq [childCategory.id, category.id]
+    end
   end
 end

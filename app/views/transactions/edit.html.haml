@@ -1,0 +1,37 @@
+%h2
+  = t 'transaction.edit.heading'
+
+%h3 Artikel
+%p
+  Produkt:
+  -# @transaction.article.title
+  %br
+  Haendler:
+  -# @transaction.article.seller.fullname #demeter
+
+%h3 Versandkosten
+%p
+  Versicherter Versand
+
+%h3 Bezahlen
+%p
+  PayPal
+
+%h3 Impressum von Haendler XYZ
+%p
+  vorausgefuellt aus Haendlerprofil
+  = link_to 'Drucken'
+
+%h3 Widerrufserklaerung von XYZ
+%p
+  vorausgefuellt aus Haendlerprofil
+  = link_to 'Drucken'
+
+Checkbox AGB akzeptiert
+
+%h3 Rechnungs- und Lieferadresse
+%p
+  vorausgefuellt aus Kaeuferprofil:
+  Name, Vorname, Adresse
+
+= link_to 'Weiter'

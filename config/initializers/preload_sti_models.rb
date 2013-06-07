@@ -17,22 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryElementPolicy < Struct.new(:user, :library_element)
-
-  def create?
-    own?
+if Rails.env.development?
+  Dir.entries("#{Rails.root}/app/models/users").each do |c|
+    require_dependency File.join("app","models", "users", "#{c}") if c =~ /.rb$/
   end
-
-  def update?
-    own?
+  Dir.entries("#{Rails.root}/app/models/transactions").each do |c|
+    require_dependency File.join("app","models", "transactions", "#{c}") if c =~ /.rb$/
   end
-
-  def destroy?
-    own?
-  end
-
-  private
-  def own?
-    user.id == library_element.library_user_id
+  ActionDispatch::Reloader.to_prepare do
+    Dir.entries("#{Rails.root}/app/models/users").each do |c|
+      require_dependency File.join("app","models", "users", "#{c}") if c =~ /.rb$/
+    end
+    Dir.entries("#{Rails.root}/app/models/transactions").each do |c|
+      require_dependency File.join("app","models", "transactions", "#{c}") if c =~ /.rb$/
+    end
   end
 end

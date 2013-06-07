@@ -35,6 +35,7 @@ Fairnopoly::Application.routes.draw do
       get 'autocomplete'
     end
   end
+  resources :transactions, only: [:show, :edit, :update]
 
   get "welcome/index"
 

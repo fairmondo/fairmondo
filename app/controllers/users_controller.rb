@@ -25,6 +25,7 @@ class UsersController < InheritedResources::Base
 
   before_filter :authorize_resource
 
+  private
   def authorize_resource
     authorize resource
   end

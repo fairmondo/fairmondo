@@ -24,5 +24,7 @@ describe Image do
     FactoryGirl.create(:image).should be_valid
   end
 
-  it {should have_and_belong_to_many :articles}
+  describe "associations" do
+    it {should have_and_belong_to_many :articles}
+  end
 end

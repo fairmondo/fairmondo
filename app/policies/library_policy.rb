@@ -45,5 +45,4 @@ class LibraryPolicy < Struct.new(:user, :library)
       end
     end
   end
-
 end

@@ -43,5 +43,4 @@ class ArticleTemplatePolicy < Struct.new(:user, :article_template)
   def own?
     user.id == article_template.user_id
   end
-
 end

@@ -39,7 +39,7 @@ describe LibraryPolicy do
     it { should deny(:destroy)            }
   end
 
-  context "for the template owning user" do
+  context "for the library owning user" do
     let(:user) { library.user    }
     it { should permit(:create)  }
     it { should permit(:update)  }
