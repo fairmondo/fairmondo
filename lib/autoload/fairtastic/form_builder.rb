@@ -54,10 +54,7 @@ module Fairtastic
     end
 
     def semantic_errors(*args)
-      args.inject([]) do |array, method|
-        errors = Array(@object.errors[method.to_sym]).to_sentence
-        @input_step_with_errors ||=errors.present?
-      end
+      hidden_semantic_errors *args
       super
     end
 
