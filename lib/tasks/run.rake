@@ -1,4 +1,4 @@
-namespace :setup do
+namespace :run do
   desc 'Update the current repository branch'
   task :update do
     puts 'Pulling from branch ...'
@@ -11,8 +11,8 @@ namespace :setup do
     system 'rake db:migrate'
     system 'rake db:test:prepare'
 
-    puts '\n\n\nBranch successfully updated.'
+    puts "\n\nBranch successfully updated.\n\n"
   end
 end
 
-task :setup => 'setup:update'
+task update: 'run:update'
