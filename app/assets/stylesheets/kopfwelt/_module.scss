@@ -33,6 +33,22 @@
 	display: block;
 	color: $gray;
 }
+.Breadcrumb {
+	@include span-columns(4, 4);
+	margin-bottom: $gutter-width / 2;
+	ul {margin: 0; padding: 0}
+	li {
+		list-style-type: none;
+	}
+	a {
+		color: $lightgray;
+		text-decoration: none;
+		&:hover {
+			color: $gray;
+		}
+	}
+}
+
 
 // Hero search
 #search-box-filter {display: none}

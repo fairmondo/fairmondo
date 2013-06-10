@@ -19,14 +19,14 @@
 -#
 
 
-.Articles--image
+.Articles-image
   - if article.title_image
     = link_to image_tag(article.title_image.image.url(:thumb)), article_path(article,:article => params[:article])
   - else
     = link_to image_tag("missing.png"), article_path(article,:article => params[:article])
   = features_label article, "in-image-alt"
   
-.Articles--info
+.Articles-info
   %h3.Articles-title= link_to truncate(article.title, :length => 25), article_path(article,:article => params[:article])
   %p.Articles-price= humanized_money_with_symbol article.price
   = render 'articles/show/vat' , :article => article
