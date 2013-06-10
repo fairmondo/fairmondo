@@ -17,7 +17,6 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.l-Hero
-  .l-Inner
-    = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
-      = render "/shared/search_form", :f => f
+
+= semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
+  = render "/shared/search_form", :f => f
