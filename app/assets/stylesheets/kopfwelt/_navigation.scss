@@ -34,7 +34,13 @@
 
 .Nav--primary {
 	@include rem(font-size, $font-size-m);
-	margin-top: 4em;
+	margin-top: 1.5em;
+	li {
+		margin-left: .6em;
+		padding-top: 3em;
+		padding-right: 1em;
+		&:last-child {padding-right: 0}
+	}
 }
 .Nav--meta {
 	@include rem(font-size, $base-font-size * .94);
@@ -43,3 +49,15 @@
 .Nav--legal  {
 	@include rem(font-size, $base-font-size * .83);
 }
+.icons-buy, .icons-sell {
+	background-position-x: 1.5em;
+}
+.icons-account {
+	background-position-x: .5em;
+}
+.icons-logout {
+	background-position-x: .8em;
+}
+
+
+

@@ -76,19 +76,20 @@
               %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"} 
         %nav.Nav.Nav--primary
           %ul
-            %li.icon-buy
+            %li.icons-buy
               = link_to t('common.text.buy'), articles_path
-            %li.icon-sell
+            %li.icons-sell
               = link_to t('common.text.sell'), new_article_path
             /
               %li#service.main-nav-item
                 %a
                   t('common.text.service')
             - if user_signed_in?
-              %li.icon-account
-                = link_to(t('common.actions.logout'), destroy_user_session_path )
-              %li.icon-logout
+              %li.icons-account
                 = link_to t('common.text.profile'), user_path(current_user)
+              %li.icons-logout
+                = link_to(t('common.actions.logout'), destroy_user_session_path )
+             
               /
                 - if current_user.trustcommunity == true
                   %li#community.main-nav-item
