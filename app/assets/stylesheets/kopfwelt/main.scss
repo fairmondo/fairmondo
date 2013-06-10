@@ -17,10 +17,12 @@
 // Project styles
 //@import "_icons.scss";
 @import "_base.scss";
+@import "_icons.scss";
 @import "_layout.scss";
 @import "_module.scss";
 @import "_navigation.scss";
 @import "_navigation-primary.scss";
+
 
 .container {
 	@include container;

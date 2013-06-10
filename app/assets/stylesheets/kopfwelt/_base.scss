@@ -25,23 +25,25 @@ p,
 ol,
 ol {
 	margin-top: auto;
-	margin-bottom: 1em;
+	margin-bottom: .8em;
 }
 h1,
 h2,
 h3,
 h4 {
-	color: $blue;
+	color: $black;
 	font-weight: 300;
 	line-height: 1.2;
 }
 
 h1 {
 	@include rem(font-size, 30px);
+	font-weight: 600;
 	margin-bottom: em(17,30);
 }
 h2 {
 	@include rem(font-size, 25px);
+	font-weight: 600;
 }
 h3 {
 	@include rem(font-size, 20px);
@@ -55,12 +57,16 @@ h3 {
 // Links
 a {
 	text-decoration: none;
-	color: #000;
+	color: $anchor-link;
 }
 a:hover {
-	color: blue;
+	color: $anchor-hover;
+	text-decoration: underline;
 }
 
+a:visited {
+	color: $anchor-visited;
+}
 // responsive
 iframe,
 img {
