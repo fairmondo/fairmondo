@@ -17,20 +17,19 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-#profile-img.well.white-well.clear-padding
-  .middle-margin
-    %span.big-name
-      = user.name
-    %br/
-    - if user.is_a?(LegalEntity)
-      %span.small-name= user.fullname
-  .border-box
+.User-info
+  .User-image
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))
-  .middle-margin
+  %p.User-name
+    = user.name
+  %p.User-name
+  - if user.is_a?(LegalEntity)
+    %span= user.fullname
+  %p.User-legal
     - if user.is_a?(LegalEntity)
-      %i.icon-briefcase
+      %i.icons-briefcase
       %i= t('users.legal_status.show.legal_entity')
     - else
-      %i.icon-user
+      %i.icons-user
       %i= t('users.legal_status.show.private_user')

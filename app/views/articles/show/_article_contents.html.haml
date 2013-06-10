@@ -17,20 +17,18 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.fairnopoly-well
-  - if current_user && resource.seller.id == current_user.id
-    %span.pull-right
-      - if policy(resource).edit?
-        = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
-      - if resource.locked? && policy(resource).new?
-        = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
-      - if policy(resource).deactivate?
-        = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
 
-  %h2
-    = resource.title
+- if current_user && resource.seller.id == current_user.id
+  %span.pull-right
+    - if policy(resource).edit?
+      = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
+    - if resource.locked? && policy(resource).new?
+      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
+    - if policy(resource).deactivate?
+      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
+.Breadcrumb
   - resource.categories.each do |leaf|
-    %ul.breadcrumb
+    %ul
       - category_tree = get_category_tree leaf
       - count = 1
       - category_tree.each do |category|
@@ -42,110 +40,98 @@
             %span.divider
               %i.icon-angle-right.icon-large
         - count = count + 1
-  .clearfix
-  .row-fluid
-    .span6
-      .in-image-container.title-image-wrapper
-        = link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
-        = features_label resource, "in-image-alt"
-        = condition_label resource, "in-image"
-      %ul.thumbnails.article-thumbnails
-        - thumbnails(title_image).each do |image|
-          %li.span3
-            = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(resource, :image => image.id )
-
-    .span3
+.Articles--detail
+  .Articles-image
+    = link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
+    = features_label resource, "in-image-alt"
+    = condition_label resource, "in-image"
+  .Articles-info
+    %h2
+    = resource.title
+    %ul.thumbnails.article-thumbnails
+      - thumbnails(title_image).each do |image|
+        %li.span3
+          = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(resource, :image => image.id )
+    %p
+      %b
+        %span= humanized_money_with_symbol resource.price
+        = t('formtastic.labels.article.price')
+    = render 'articles/show/vat' , :article => resource
+    - if resource.quantity && resource.quantity != ""
       %p
-        %b
-          %span.pull-right= humanized_money_with_symbol resource.price
-          = t('formtastic.labels.article.price')
-      = render 'articles/show/vat' , :article => resource
-      - if resource.quantity && resource.quantity != ""
-        %p
-          %span.pull-right= resource.quantity
-          = t('formtastic.labels.article.quantity')
+        %span.pull-right= resource.quantity
+        = t('formtastic.labels.article.quantity')
+    %p
+    = render 'articles/show/basic_price', :article => resource
+    - if resource.active && current_user && current_user.id != resource.seller.id
+      %p
+        %a.Btn
+          = t('common.actions.buy')
+      - if user_signed_in?
+        = semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+          = f.inputs do
+            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+            = f.input :article_id, :as => :hidden
+          = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-primary"
+  .Articles-social
+    #socialshareprivacy
+  .Articles-accordion
+    / Artikelbeschreibung
+    = render_box_open "content" do
+      = resource.content.html_safe
 
-      -# if resource.friendly_percent && resource.friendly_percent > 0
-        -#%p
-          -#%b= t('article.show.friendly_percent')
-          -#%br/
-          -#%strong= resource.friendly_percent.to_s + "%"
-          -#= t('article.show.will_be')
-          -#%a= t('enumerize.article.friendly_percent_organisation.'+resource.friendly_percent_organisation)
-          -#= t('article.show.contributed')
-      = render 'articles/show/basic_price', :article => resource
-      - if resource.active && current_user && current_user.id != resource.seller.id
-        %p
-          %a.btn.btn-primary.btn-fill.hide
-            = t('common.actions.buy')
-        - if user_signed_in?
-          = semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            = f.inputs do
-              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-              = f.input :article_id, :as => :hidden
-            = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-primary"
-    - alternative = find_fair_alternative_to resource
-    - if alternative.present?
-      .span3.dark-gray-well.break-word
-        %h3= t('article.show.alternative')
-        = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
-    - else
-      .span3.dark-gray-well.break-word
-        %h3= t('article.show.alternative')
-        = t('article.show.no_alternative')
-    -#%strong= tinycms_content "article-side-bar"
-  .row-fluid
-    .span12
-      #socialshareprivacy
-        .clearfix
-  .row-fluid
-    .span12
+    /Versand und Bezahlung
 
-      / Artikelbeschreibung
-      = render_box_open "content" do
-        = resource.content.html_safe
+    = render_box "payment" do
 
-      /Versand und Bezahlung
+      %strong
+        = t('formtastic.labels.article.default_payment')
+        \:
+      %p
+        = resource.default_payment.text
+      .border-box.middle-padding
+        = simple_format(resource.payment_details).html_safe
+      %br/
+      %strong
+        = t('formtastic.labels.article.default_transport')
+        \:
+      %p
+        = resource.default_transport.text
 
-      = render_box "payment" do
+      .border-box.middle-padding
+        = simple_format(resource.transport_details).html_safe
 
-        %strong
-          = t('formtastic.labels.article.default_payment')
-          \:
-        %p
-          = resource.default_payment.text
-        .border-box.middle-padding
-          = simple_format(resource.payment_details).html_safe
-        %br/
-        %strong
-          = t('formtastic.labels.article.default_transport')
-          \:
-        %p
-          = resource.default_transport.text
+    - if resource.has_commendation?
+      = render_box "commendation" do
+        = render 'articles/show/commendation'
+    / Only legal sellers
+    - if resource.seller.is_a?(LegalEntity)
+      = render_box "terms" do
+        = resource.seller_terms.html_safe
+      = render_box "cancellation" do
+        = resource.seller_cancellation.html_safe
+      = render_box "about" do
+        = resource.seller_about.html_safe
 
-        .border-box.middle-padding
-          = simple_format(resource.transport_details).html_safe
+.Articles-related.Articles-list
+  - alternative = find_fair_alternative_to resource
+  - if alternative.present?
+    .dark-gray-well.break-word
+      %h3= t('article.show.alternative')
+      = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
+  - else
+    .dark-gray-well.break-word
+      %h3= t('article.show.alternative')
+      = t('article.show.no_alternative')
 
-      - if resource.has_commendation?
-        = render_box "commendation" do
-          = render 'articles/show/commendation'
-      / Only legal sellers
-      - if resource.seller.is_a?(LegalEntity)
-        = render_box "terms" do
-          = resource.seller_terms.html_safe
-        = render_box "cancellation" do
-          = resource.seller_cancellation.html_safe
-        = render_box "about" do
-          = resource.seller_about.html_safe
-
-- if policy(resource).report?
-  = render_box "report" do
-    .element-in-box
-      = form_for :report, :url => report_article_path, :method => :get do |f|
-        = t('article.notices.report')
-        = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
-        %br/
-        %button.btn.btn-primary
-          = t('article.actions.report')
+  .Articles-policy
+    - if policy(resource).report?
+      = render_box "report" do
+        = form_for :report, :url => report_article_path, :method => :get do |f|
+          = t('article.notices.report')
+          = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
+          %br/
+          %button.Btn
+            = t('article.actions.report')
 
 
