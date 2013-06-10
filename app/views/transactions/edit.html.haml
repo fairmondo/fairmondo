@@ -1,37 +1,52 @@
 %h2
   = t 'transaction.edit.heading'
 
-%h3 Artikel
-%p
-  Produkt:
-  -# @transaction.article.title
-  %br
-  Haendler:
-  -# @transaction.article.seller.fullname #demeter
+= semantic_form_for @transaction do |f|
+  = f.inputs do
+    %h3 Artikel
+    %ul
+      %li
+        Produkt:
+        = @transaction.article_title
+      %li
+        Haendler:
+        = @transaction.article_seller.fullname
 
-%h3 Versandkosten
-%p
-  Versicherter Versand
+    %h3
+      = t 'transaction.edit.transport'
 
-%h3 Bezahlen
-%p
-  PayPal
+    = f.input :selected_transport, as: :select, label: false
 
-%h3 Impressum von Haendler XYZ
-%p
-  vorausgefuellt aus Haendlerprofil
-  = link_to 'Drucken'
+    %h3
+      = t 'transaction.edit.payment'
 
-%h3 Widerrufserklaerung von XYZ
-%p
-  vorausgefuellt aus Haendlerprofil
-  = link_to 'Drucken'
+    = f.input :selected_payment, as: :select, label: false
 
-Checkbox AGB akzeptiert
+    %h3
+      = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
+    %p
+      = @transaction.article_seller.terms
+      = link_to 'Drucken'
 
-%h3 Rechnungs- und Lieferadresse
-%p
-  vorausgefuellt aus Kaeuferprofil:
-  Name, Vorname, Adresse
+    %h3
+      = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
+    %p
+      = @transaction.article_seller.cancellation
+      = link_to 'Drucken'
 
-= link_to 'Weiter'
+    = f.input :tos_accepted
+
+    %h3
+      = t 'transaction.edit.address'
+    %p
+      = current_user.fullname
+      %br
+      = current_user.street
+      %br
+      = current_user.zip
+      = current_user.city
+      %br
+      = current_user.country
+
+  = f.actions do
+    = f.action :submit, label: t('common.actions.continue')

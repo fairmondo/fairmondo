@@ -55,11 +55,11 @@ gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
 gem "pundit" # authorization
 
-
+# Support for memoization
+gem 'memoist'
 
 # Deploy with Capistrano
 gem 'capistrano'
-
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'

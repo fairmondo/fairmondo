@@ -53,5 +53,4 @@ module NoticeHelper
       concat("<button class=\"btn cancel\"  > #{cancel_text} </button>".html_safe)
     end
   end
-
 end

@@ -26,7 +26,7 @@ FactoryGirl.define do
     title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
-    condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
+    condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     vat {[7,19].sample}
     quantity  { (rand(10) + 1) }
@@ -44,7 +44,7 @@ FactoryGirl.define do
     payment_details "payment_details"
     after(:build) do |article|
       article.images << FactoryGirl.build(:image)
-      article.transaction ||= FactoryGirl.build(:preview_transaction,:article => article)
+      article.transaction ||= FactoryGirl.build(:preview_transaction, article: article)
       article.activate
     end
 

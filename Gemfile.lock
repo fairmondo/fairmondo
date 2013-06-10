@@ -207,6 +207,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memoist (0.9.0)
     mime-types (1.23)
     modernizr-rails (2.6.2.2)
     money (5.1.1)
@@ -435,6 +436,7 @@ DEPENDENCIES
   jquery-ui-rails
   json
   launchy
+  memoist
   modernizr-rails
   money-rails
   paperclip (>= 3.0)

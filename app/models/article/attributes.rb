@@ -28,37 +28,35 @@ module Article::Attributes
 
     #title
 
-    validates_presence_of :title , :content, :unless => :template? # refs #128
-    validates_length_of :title, :minimum => 6, :maximum => 65
+    validates_presence_of :title , :content, unless: :template? # refs #128
+    validates_length_of :title, minimum: 6, maximum: 65
 
     #conditions
 
     validates_presence_of :condition
-    validates_presence_of :condition_extra , :if => :old?
-    enumerize :condition, :in => [:new, :old], :predicates =>  true
-    enumerize :condition_extra, :in => [:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken] # refs #225
+    validates_presence_of :condition_extra , if: :old?
+    enumerize :condition, in: [:new, :old], predicates:  true
+    enumerize :condition_extra, in: [:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken] # refs #225
 
     #money_rails and price
 
     attr_accessible :price_cents , :currency, :price, :vat
 
     validates_presence_of :price_cents
-
-    validates_numericality_of :price,
-    :greater_than_or_equal_to => 0
+    validates_numericality_of :price, greater_than_or_equal_to: 0
 
     monetize :price_cents
 
     # vat
 
-    validates_presence_of :vat , :if => :has_legal_entity_seller?
+    validates_presence_of :vat , if: :has_legal_entity_seller?
 
     # basic price
-    attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
+    attr_accessible :basic_price, :basic_price_cents, :basic_price_amount
 
-    monetize :basic_price_cents, :allow_nil => true
+    monetize :basic_price_cents, allow_nil: true
 
-    enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
+    enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
 
 
@@ -72,15 +70,14 @@ module Article::Attributes
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
 
-    enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
+    enumerize :default_transport, in: [:pickup, :insured, :uninsured]
 
     validates_presence_of :default_transport
-    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
-    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+    validates :transport_insured_price, :transport_insured_provider, presence: true, if: :transport_insured
+    validates :transport_uninsured_price, :transport_uninsured_provider, presence: true, if: :transport_uninsured
 
-
-    monetize :transport_uninsured_price_cents, :allow_nil => true
-    monetize :transport_insured_price_cents, :allow_nil => true
+    monetize :transport_uninsured_price_cents, allow_nil: true
+    monetize :transport_insured_price_cents, allow_nil: true
 
     validate :default_transport_selected
 
@@ -96,34 +93,28 @@ module Article::Attributes
                     :payment_invoice,
                     :seller_attributes
 
-    enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    enumerize :default_payment, in: [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     validates_presence_of :default_payment
+    validates :payment_cash_on_delivery_price, presence: true, if: :payment_cash_on_delivery
 
-    validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
-
-    accepts_nested_attributes_for :seller , :update_only => true
+    accepts_nested_attributes_for :seller, update_only: true
 
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
+    monetize :payment_cash_on_delivery_price_cents, allow_nil: true
 
 
     validates_presence_of :quantity
-    validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-
+    validates_numericality_of :quantity, greater_than_or_equal_to: 1, less_than_or_equal_to: 10000
     validate :default_payment_selected
-
   end
-
 
 
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal
-
   end
-
 
   def has_legal_entity_seller?
     self.seller.is_a?(LegalEntity)
@@ -144,8 +135,4 @@ module Article::Attributes
       end
     end
   end
-
-
-
-
 end

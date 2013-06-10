@@ -55,5 +55,9 @@ public/assets_test/*
 # Licence Deriving tmp
 deriving_license_tmp
 
-#Local additional Gemfile
+# Local additional Gemfile
 Gemfile.local
+
+# Documentation files
+doc/
+.yardoc/

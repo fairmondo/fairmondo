@@ -36,7 +36,7 @@ describe TransactionPolicy do
   end
 
   context "for the transaction seller" do
-    let(:user) { transaction.article.seller }
+    let(:user) { transaction.article_seller }
     it { should deny(:edit)                 }
   end
 end
