@@ -38,14 +38,17 @@
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
-	background-color: $darkbeige;
 	& > .l-Inner {
 		@include container;
 	}
+	background-color: $darkbeige;
+	border-bottom: solid .7em $lightgray;
 }
 .l-Main {
 	& > .l-Inner {
 		@include container;
+		padding-top: 3em;
+		padding-bottom: 7em;
 	}
 }
 .l-Footer {

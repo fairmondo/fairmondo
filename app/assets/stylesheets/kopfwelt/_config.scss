@@ -24,6 +24,7 @@ $font-size-xl: 1.66 * $base-font-size; //30px
 $font-size-l: 1.38 * $base-font-size; //25px
 $font-size-m: 0.77 * $base-font-size; // 14px
 $font-size-s: 0.73 * $base-font-size; // 13px
+$font-size-xs: 0.58 * $base-font-size; // 10.5
 
 
 // Layout with Susy
@@ -55,15 +56,19 @@ $lightbeige: #f4f1ee;
 $darkbeige: #e2d9d0;
 
 $anchor-link: $blue;
-$anchor-visited: darken($blue, 20);
+$anchor-visited: darken($blue, 10);
 $anchor-hover: $blue;
 $anchor-active: $blue;
 
 $text-color: $black;
 
+$breakpoint-small: 680;
+$breakpoint-medium: 800;
+$breakpoint-large: 960;
+$breakpoint-huge: 1600;
 
-// //$container-width: em($breakpoint-large);
-// $layout-small: em($breakpoint-small);
-// $layout-medium: em($breakpoint-medium) lt-ie9;
-// $layout-large: em($breakpoint-large) lt-ie9;
-// $layout-huge: em($breakpoint-huge);
+//$container-width: em($breakpoint-large);
+$layout-small: em($breakpoint-small);
+$layout-medium: em($breakpoint-medium);
+$layout-large: em($breakpoint-large);
+$layout-huge: em($breakpoint-huge);
