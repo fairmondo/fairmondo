@@ -34,11 +34,16 @@
 
 .Nav--primary {
 	@include rem(font-size, $font-size-m);
-	margin-top: 1.5em;
+	margin-top: 1em;
 	li {
-		margin-left: .6em;
-		padding-top: 3em;
+		padding-top: 1em;
 		padding-right: 1em;
+		margin-left: .6em;
+		&:last-child {padding-right: 0}
+	}
+	a {
+		padding-top: 2.5em;
+		//padding-right: 1em;
 		&:last-child {padding-right: 0}
 	}
 }
@@ -56,7 +61,7 @@
 	background-position-x: .5em;
 }
 .icons-logout {
-	background-position-x: .8em;
+	background-position-x: .74em;
 }
 
 

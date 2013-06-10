@@ -1,0 +1,82 @@
+.Articles {
+	
+}
+
+.Articles--list {
+	@include pie-clearfix;
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		@include span-columns(4, 4);
+		@include border-radius(.9em);
+		margin-bottom: $gutter-width;
+		overflow: hidden;
+		list-style-type: none;
+	}
+}
+.Articles--image {
+	img {width: 100%; height: auto}
+}
+.Articles--info {
+	@include pie-clearfix;
+	padding: $gutter-width / 2;
+	background-color: $white;
+}
+.Articles-tags {
+	@include pie-clearfix;
+	padding: .2em .6em;
+	border-top: $beige .15em solid;
+	background-color: $white;
+}
+.Articles-title {
+	@include rem(font-size, $font-size-m);
+}
+.Articles-price {
+	@include rem(font-size, $font-size-xl);
+	margin-bottom: 0em;
+}
+.Article-vat, .Article-basicprice {
+	@include rem(font-size, $font-size-xs);
+}
+.Article-vat {
+	@include span-columns(1 alpha, 2);
+}
+.Article-basicprice {
+	@include span-columns(1 omega, 2);
+}
+
+.pagination {
+	text-align: center;
+	li {
+		list-style-type: none;
+		display: inline-block;
+		margin-right: 1em;
+	}
+}
+
+
+@include at-breakpoint($layout-small) {
+	.Articles--list {
+		li {
+			@include span-columns(2, 4);
+			&:nth-child(2n) {
+				@include span-columns(2 omega, 4);
+			}
+		}
+	}
+}
+@include at-breakpoint($layout-large) {
+	.Articles--list {
+		li {
+			@include span-columns(1, 4);
+			&:nth-child(2n) {
+				@include span-columns(1, 4);
+			}
+			&:nth-child(4n) {
+				@include span-columns(1 omega, 4);
+			}
+		}
+	}
+}

@@ -33,12 +33,12 @@
 	display: block;
 	color: $gray;
 }
-// needs to be rewritten when we find the layout datei
-.fairnopoly-well {
-	padding-top: 3em;
-	padding-bottom: 7em;
-}
 
-// @include at-breakpoint() {
-	
-// }
+// Hero search
+#search-box-filter {display: none}
+
+@include at-breakpoint($layout-small) {
+	.Meta {
+		@include span-columns(2, 4);
+	}
+}
