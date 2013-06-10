@@ -1,1 +1,1 @@
-task :default => :setup
+task default: :run
