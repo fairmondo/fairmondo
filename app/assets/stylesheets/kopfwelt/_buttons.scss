@@ -5,6 +5,9 @@
 // Variables
 // -----------------------------------
 
+// Font weight
+// https://www.dropbox.com/s/8h00omt1chxtkvz/Screen%20Shot%202013-06-10%20at%204.26.51%20PM.png
+
 // colors
 
 $btn--blue: $blue; // blue from _config
@@ -17,39 +20,39 @@ $tag--green: $lightgreen; // öko
 $tag--orange: $orange; //klein&fein
 
 $accordion--active: #717171; //gray
-$accordion--inActive: $btn--blue;
+$accordion: $btn--blue;
 
 
 // Base button (The)
 // -----------------------------------
 
+a.Btn {
+	color: white;
+	text-decoration: none;
+}
+
 .Btn {
 	@extend %bunputs;
-
-	-webkit-appearance: none; /* 1 */
-
-	cursor: pointer;
-	display: inline-block;
-	position: relative;
-	text-align: center;
+	color: white;
 	text-decoration: none;
 	background-color: $btn--blue;
-	color: #fff;
-
+	border: 0 solid;
+	border-radius: 5px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 16px;
+	position: relative;
+	text-align: center;
+	
+	@include rem(padding, 7px 14px);
+	
 	// user cannot select .Btn to copy/paste
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-user-select: none;
 	user-select: none; /* 6 */
 	white-space: nowrap; /* 7 */
-
-	//no border
-	border: 0 solid;
-
-	&:hover {
-		color: #fff;
-		border-color: rgba(#000,0.35);
-	}
+	-webkit-appearance: none; /* 1 */
 }
 
 
@@ -60,25 +63,36 @@ $accordion--inActive: $btn--blue;
 	display: block;
 	width: 100%;
 }
-// .Btn--large {
-// 	@include rem(font-size, 16px);
-// 	padding: em(5,16) em(32,16);
-// }
-// .Btn--huge {
-// 	@include rem(font-size, 24px);
-// }
+.Btn--large {
+	@include rem(font-size, 16px);
+	@include rem(padding, 10 6px);
+}
+.Btn--huge {
+	@include rem(font-size, 24px);
+	@include rem(padding, 10 6px);
+}
 
 .Btn--tag {
+	border-radius: 3px;
 	text-transform: uppercase;
+	font-weight: 600;
 	@include rem(font-size, 13px);
-	padding: em(5,16);
+	@include rem(padding, 0 6px);
+}
+
+.Btn-accordion {
+	@include rem(font-size, 14px);
+	@include rem(padding, 4px 27px);
+	font-weight: 400;
+	width: 100%;
+	text-align: left;
 }
 
 // Buttons' colors
 // -----------------------------------
 
 .Btn--blue,
-.Btn-accordion--inActive {
+.Btn-accordion {
 	background-color: $btn--blue;
 	&:hover {
 		background-color: lighten($btn--blue, 10%);
@@ -98,36 +112,40 @@ $accordion--inActive: $btn--blue;
 }
 
 .Btn-tag--gray {
-	background-color: $btn-tag--gray;
+	background-color: $tag--gray;
 	&:hover {
-		background-color: lighten($btn-tag--gray, 10%);
+		background-color: lighten($tag--gray, 10%);
 	}
 }
 .Btn-tag--blue {
-	background-color: $btn-tag--blue;
+	background-color: $tag--blue;
 	&:hover {
-		background-color: lighten($btn-tag--blue, 10%);
+		background-color: lighten($tag--blue, 10%);
 	}
 }
 .Btn-tag--green {
-	background-color: $btn-tag--green;
+	background-color: $tag--green;
 	&:hover {
-		background-color: lighten($btn-tag--green, 10%);
+		background-color: lighten($tag--green, 10%);
 	}
 }
 .Btn-tag--orange {
-	background-color: $btn-tag--orange;
+	background-color: $tag--orange;
 	&:hover {
-		background-color: lighten($btn-tag--orange, 10%);
+		background-color: lighten($tag--orange, 10%);
 	}
 }
 
-.Btn-accordion--active {
-	background-color: $btn-tag--blue;
+.Btn-accordion {
+	background-color: $accordion;
 	&:hover {
-		background-color: lighten($btn-tag--blue, 10%);
+		background-color: lighten($tag--blue, 10%);
+	}
+	&.accordion-is-active {
+		background-color: $accordion--active; 
 	}
 }
+
 
 // Icons inside Btns
 // -----------------------------------
@@ -135,16 +153,3 @@ $accordion--inActive: $btn--blue;
 	display: inline-block;
 }
 
-
-// Ui State
-// -----------------------------------
-
-.Btn:hover,
-.Btn:focus,
-.Btn:active {
-	text-decoration: none;
-}
-.Btn:disabled,
-.Btn.is-disabled {
-	cursor: default;
-}
