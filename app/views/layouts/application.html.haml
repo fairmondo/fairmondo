@@ -106,7 +106,9 @@
                   = link_to t('common.actions.login') , new_user_session_path
         / row
       / container
-    = hero
+    .l-Hero
+      .l-Inner
+        = hero
     .l-Main{:role => "main"}
       .l-Inner
         = yield

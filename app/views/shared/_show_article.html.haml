@@ -31,4 +31,5 @@
   %p.Articles-price= humanized_money_with_symbol article.price
   = render 'articles/show/vat' , :article => article
   = render '/articles/show/basic_price',  :article=> article
+.Articles-tags
   = condition_label article, "Btn--tag Btn-tag--gray"
