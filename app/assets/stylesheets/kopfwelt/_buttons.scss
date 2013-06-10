@@ -2,110 +2,149 @@
 // Buttons
 //
 
-/**
- * Button template
- *
- * Build on this component using rulesets in your application-level CSS.
- *
- * 1. Corrects inability to style clickable `input` types in iOS
- * 6. Prevent button text from being selectable.
- * 7. Prevent wrapping across multiple lines.
- */
+// Variables
+// -----------------------------------
+
+// colors
+
+$btn--blue: $blue; // blue from _config
+$btn--green: $green;
+$btn--gray: $lightgray;
+
+$tag--gray: $darkgray; //neu
+$tag--blue: $lightblue; //fair
+$tag--green: $lightgreen; // öko
+$tag--orange: $orange; //klein&fein
+
+$accordion--active: #717171; //gray
+$accordion--inActive: $btn--blue;
 
 
-.Button {
+// Base button (The)
+// -----------------------------------
+
+.Btn {
 	@extend %bunputs;
 
 	-webkit-appearance: none; /* 1 */
-	
+
 	cursor: pointer;
 	display: inline-block;
 	position: relative;
 	text-align: center;
 	text-decoration: none;
-	
+	background-color: $btn--blue;
+	color: #fff;
+
+	// user cannot select .Btn to copy/paste
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-user-select: none;
 	user-select: none; /* 6 */
 	white-space: nowrap; /* 7 */
-	
-	@extend %font-bold;
-	@include transition(border-color 200ms);
-	border: 1px solid;
-	border-color: rgba(#000,0.10);
-	background-color: $blue;
-	color: #fff;
+
+	//no border
+	border: 0 solid;
+
 	&:hover {
 		color: #fff;
 		border-color: rgba(#000,0.35);
 	}
 }
 
-/**
- * UI states
- */
 
-.Button:hover,
-.Button:focus,
-.Button:active {
-	text-decoration: none;
-}
-.Button:disabled,
-.Button.is-disabled {
-	cursor: default;
-}
+// Buttons' sizes
+// -----------------------------------
 
-
-// Button sizes
-.Button--full {
+.Btn--full {
 	display: block;
 	width: 100%;
 }
-.Button--large {
-	@include rem(font-size, 16px);
-	padding: em(5,16) em(32,16);
-}
-.Button--huge {
-	@include rem(font-size, 24px);
+// .Btn--large {
+// 	@include rem(font-size, 16px);
+// 	padding: em(5,16) em(32,16);
+// }
+// .Btn--huge {
+// 	@include rem(font-size, 24px);
+// }
+
+.Btn--tag {
+	text-transform: uppercase;
+	@include rem(font-size, 13px);
+	padding: em(5,16);
 }
 
-// Button colors
-.Button--white {
-	background-color: #fff;
-	border-color: $darkgray;
-	color: #000;
+// Buttons' colors
+// -----------------------------------
+
+.Btn--blue,
+.Btn-accordion--inActive {
+	background-color: $btn--blue;
 	&:hover {
-		color: #000;
+		background-color: lighten($btn--blue, 10%);
 	}
 }
-.Button--gray {
-	background-color: $lightergray;
-	border-color: $darkgray;
-	color: $blue;
+.Btn--green {
+	background-color: $btn--green;
 	&:hover {
-		color: #000;
+		background-color: lighten($btn--green, 10%);
 	}
 }
-.Button--blue {
-	background-color: $blue;
+.Btn--gray {
+	background-color: $btn--gray;
 	&:hover {
-		background-color: $darkblue;
+		background-color: lighten($btn--gray, 10%);
 	}
 }
-.Button--orange {
-	background-color: $orange;
+
+.Btn-tag--gray {
+	background-color: $btn-tag--gray;
 	&:hover {
-		background-color: $darkorange;
-	}
-	&.Button--huge {
-		@include background-image(linear-gradient(#ff9f33, $orange 50%));
-		&:hover {
-			@include background-image(linear-gradient(#ff8f11, #ed7d00 50%));
-		}
+		background-color: lighten($btn-tag--gray, 10%);
 	}
 }
-// Icons inside buttons
-.Button .Icon {
+.Btn-tag--blue {
+	background-color: $btn-tag--blue;
+	&:hover {
+		background-color: lighten($btn-tag--blue, 10%);
+	}
+}
+.Btn-tag--green {
+	background-color: $btn-tag--green;
+	&:hover {
+		background-color: lighten($btn-tag--green, 10%);
+	}
+}
+.Btn-tag--orange {
+	background-color: $btn-tag--orange;
+	&:hover {
+		background-color: lighten($btn-tag--orange, 10%);
+	}
+}
+
+.Btn-accordion--active {
+	background-color: $btn-tag--blue;
+	&:hover {
+		background-color: lighten($btn-tag--blue, 10%);
+	}
+}
+
+// Icons inside Btns
+// -----------------------------------
+.Btn .Icon {
 	display: inline-block;
+}
+
+
+// Ui State
+// -----------------------------------
+
+.Btn:hover,
+.Btn:focus,
+.Btn:active {
+	text-decoration: none;
+}
+.Btn:disabled,
+.Btn.is-disabled {
+	cursor: default;
 }

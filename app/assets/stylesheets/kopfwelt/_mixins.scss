@@ -1,0 +1,13 @@
+//
+// Mixins
+//
+
+%bunputs {
+	@include rem(font-size, 12px);
+	vertical-align: middle;
+	border-radius: 2px;
+	margin: 0;
+	padding: em(5,12) em(10,12);
+	border: 1px solid;
+	line-height: normal;
+}

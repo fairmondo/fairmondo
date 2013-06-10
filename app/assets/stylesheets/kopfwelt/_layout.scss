@@ -30,6 +30,17 @@
 // 	@include container;
 // 	@include box-sizing(content-box);
 // }
+
+.container {
+	@include container;
+	border: 5px solid yellow;
+	> .row {
+		@include span-columns(1,4);
+		@include nth-omega(4n);
+		background-color: gray;
+	}
+}
+
 .l-Header {
 	& > .l-Inner {
 		@include container;

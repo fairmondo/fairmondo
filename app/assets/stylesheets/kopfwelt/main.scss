@@ -19,18 +19,11 @@
 @import "_base.scss";
 @import "_icons.scss";
 @import "_layout.scss";
+
 @import "_module.scss";
 @import "_navigation.scss";
 @import "_navigation-primary.scss";
 @import "_articles.scss";
 
-
-.container {
-	@include container;
-	border: 5px solid yellow;
-	> .row {
-		@include span-columns(1,4);
-		@include nth-omega(4n);
-		background-color: gray;
-	}
-}
+// pages
+@import "_item-teaser.scss";
