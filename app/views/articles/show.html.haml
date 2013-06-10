@@ -21,7 +21,7 @@
 - meta_description truncate_and_sanitize_without_linebreaks resource.content, 160
 - meta_keywords resource.categories_and_ancestors.collect{ |c| c.name }.join(",")
 
-.row
+.row.show-show
   .span9
     = render "/articles/show/article_contents", :article => resource
   - if resource.active
