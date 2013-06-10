@@ -18,6 +18,7 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class User < ActiveRecord::Base
+  extend Memoist
 
   # lib dependency
   include SanitizeTinyMce
@@ -85,7 +86,6 @@ class User < ActiveRecord::Base
   validates_presence_of :city , :on => :update
 
   validates_presence_of :recaptcha, :on => :create
-
   validates_presence_of :nickname
 
   validates :zip, :presence => true, :on => :update, :zip => true
@@ -96,14 +96,13 @@ class User < ActiveRecord::Base
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
 
-
   validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
-
+  memoize :fullname
 
   def name
     name = "#{self.nickname}"

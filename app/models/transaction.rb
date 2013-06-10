@@ -18,6 +18,21 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Transaction < ActiveRecord::Base
+  extend Enumerize
+
   has_one :article
-  attr_accessible :type
+  attr_accessible :type, :selected_transport, :selected_payment, :tos_accepted
+
+  #@todo remove duplication with data in Article::Attributes
+  enumerize :selected_transport, in: [:pickup, :insured, :uninsured]
+  enumerize :selected_payment, in: [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+
+  delegate :title, :seller, to: :article, prefix: true
+
+  # def possible_transports
+
+  # end
+  # def possible_payments
+
+  # end
 end

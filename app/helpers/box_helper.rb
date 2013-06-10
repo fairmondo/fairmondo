@@ -19,7 +19,13 @@
 #
 #
 module BoxHelper
-  # wrapps the layout call and sanitizes the options
+
+  # Wraps the layout call and sanitizes the options
+  #
+  # @param box_name [String] The box's name
+  # @param options [Array] Further options like :title, :legend_class, :content_class, and :openbox
+  # @param block [Proc] The box's contents
+  # @return [String] The compiled HTML of the box element
   def render_box(box_name, options = {}, &block)
     main_layout =  (options[:openbox] ? "box-open" : "box" )
     render layout: "box_layout",
@@ -37,9 +43,5 @@ module BoxHelper
   def render_box_open(box_name, options = {}, &block)
     options[:openbox] = true
     render_box box_name,options, &block
-
   end
-
-
-
 end

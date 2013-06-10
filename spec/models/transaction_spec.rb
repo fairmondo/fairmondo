@@ -23,4 +23,16 @@ describe Transaction do
   describe "associations" do
     it { should have_one :article }
   end
+
+  describe "model attributes" do
+    it { should respond_to :type }
+    it { should respond_to :selected_transport }
+    it { should respond_to :selected_payment }
+    it { should respond_to :tos_accepted }
+  end
+
+  describe "enumerization" do
+    it { should enumerize(:selected_transport).in(:pickup, :insured, :uninsured) }
+    it { should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice) }
+  end
 end

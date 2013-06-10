@@ -43,7 +43,6 @@ module ArticlesHelper
     bclass
   end
 
-
   def get_category_tree category
     tree = []
     cat = category
@@ -100,6 +99,4 @@ module ArticlesHelper
   def seller_articles
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
-
-
 end

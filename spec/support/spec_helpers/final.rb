@@ -24,7 +24,7 @@ RSpec.configure do |config|
       puts "\n\n[Suite] Results:".underline
 
       unless $? == 0
-        puts "\nTest suite fails. Do not push before taking care of the issues described above.".red.underline
+        puts "\nTest suite fails. Do not push to the repository before taking care of the issues described above.".red.underline
       end
     end
   end

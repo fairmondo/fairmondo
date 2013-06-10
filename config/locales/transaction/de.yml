@@ -3,6 +3,11 @@ de:
   transaction:
     edit:
       heading: "Dein Warenkorb"
+      transport: "Versandkosten"
+      payment: "Bezahlen"
+      terms: "Impressum von %{name}"
+      cancellation: "Widerrufserklärung von %{name}"
+      address: "Rechnungs- und Lieferadresse"
   #   bid:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
