@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module Article::Attributes
   extend ActiveSupport::Concern
@@ -61,6 +63,7 @@ module Article::Attributes
 
 
     # =========== Transport =============
+    TRANSPORT_TYPES = [:pickup, :insured, :uninsured]
 
     #transport
     attr_accessible :default_transport, :transport_pickup,
@@ -70,7 +73,7 @@ module Article::Attributes
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
 
-    enumerize :default_transport, in: [:pickup, :insured, :uninsured]
+    enumerize :default_transport, in: TRANSPORT_TYPES
 
     validates_presence_of :default_transport
     validates :transport_insured_price, :transport_insured_provider, presence: true, if: :transport_insured
@@ -83,6 +86,7 @@ module Article::Attributes
 
 
     # ================ Payment ====================
+    PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
     attr_accessible :default_payment ,:payment_details ,
@@ -93,7 +97,7 @@ module Article::Attributes
                     :payment_invoice,
                     :seller_attributes
 
-    enumerize :default_payment, in: [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    enumerize :default_payment, in: PAYMENT_TYPES
 
     validates_presence_of :default_payment
     validates :payment_cash_on_delivery_price, presence: true, if: :payment_cash_on_delivery
@@ -134,5 +138,36 @@ module Article::Attributes
         errors.add(:default_payment, I18n.t("errors.messages.invalid_default_payment"))
       end
     end
+  end
+
+  # Returns an array with all selected transport types.
+  # Default transport will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected transport types.
+  def selected_transports
+    selected_"transport"
+  end
+
+  # Returns an array with all selected payment types.
+  # Default payment will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected payment types.
+  def selected_payments
+    selected_"payment"
+  end
+
+  private
+  # DRY method for selected_transports and selected_payments
+  #
+  # @api private
+  # @return [Array] An array with selected attribute types
+  def selected_ attribute
+    output = []
+    eval("#{attribute.upcase}_TYPES").each do |e|
+      output << e if self.send "#{attribute}_#{e}"
+    end
+    output.unshift output.delete_at output.index send("default_#{attribute}").to_sym
   end
 end
