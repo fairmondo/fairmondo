@@ -4,10 +4,12 @@ class ReAddSlugIndex < ActiveRecord::Migration
 
   def up
     Article.reset_column_information
-    doubled_articles = Article.find(:all, :group => [:slug], :having => "count(*) > 1" )
+    doubled_articles = Article.find(:all, :group => [:slug], :having => "count(articles.id) > 1" )
     doubled_articles.each do |article|
-      while Article.where(:slug => article.slug).size != 0 do
-         article.slug = "_" + article.slug
+       if article.slug
+        while Article.where(:slug => article.slug).size != 0 do
+           article.slug = "_" + article.slug
+         end
        end
 
       article.save!
