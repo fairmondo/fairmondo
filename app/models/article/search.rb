@@ -22,7 +22,7 @@ module Article::Search
 
   included do
 
-    searchable :unless => :template?, :if => :active do
+    searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
       text :content
       boolean :fair
