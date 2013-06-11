@@ -1,6 +1,5 @@
 namespace :code do
 
-
   desc "Append Licence Information to all Files"
   # Please put gem 'copyright-header'
   task :license => :environment do
@@ -8,8 +7,8 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-      :license => 'AGPL3',
-      :copyright_software => 'Farinopoly',
+      :license_file => 'lib/templates/erb/license/fairnopoly_license.erb',
+      :copyright_software => 'Fairnopoly',
       :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
       :copyright_holders => ['Fairnopoly eG'],
       :copyright_years => ['2013'],
@@ -29,8 +28,8 @@ namespace :code do
     require 'copyright_header'
 
     args = {
-      :license => 'AGPL3',
-      :copyright_software => 'Farinopoly',
+      :license_file => 'lib/templates/erb/license/fairnopoly_license.erb',
+      :copyright_software => 'Fairnopoly',
       :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
       :copyright_holders => ['Fairnopoly eG'],
       :copyright_years => ['2013'],
@@ -42,5 +41,4 @@ namespace :code do
     command_line.execute
 
   end
-
 end
