@@ -2,6 +2,7 @@
 // Base
 // 
 
+
 html {
 	line-height: $base-line-height-unitless;
 	font-size: $base-font-size;
@@ -25,8 +26,9 @@ p,
 ol,
 ol {
 	margin-top: auto;
-	margin-bottom: .8em;
+	margin-bottom: $pBottomMargin;
 }
+
 h1,
 h2,
 h3,

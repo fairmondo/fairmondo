@@ -2,13 +2,32 @@
 // Buttons
 //
 
+
+/*
+ * Buttons classes explained
+ *
+
+.Btn === the classic blue button with a padding of 15x15, font size 17px
+	--green === classic blue but green
+	--greenSmall === green but font size 14px instead of 17
+
+.Btn-tag === a tag button and its colors variations
+	--gray
+	--blue
+	--green
+	--orange
+
+.Btn-accordion === the accordion button with an arrow only
+	.accordion-is-active === same as above but gray and arrow down because active
+
+.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
+	--number === same as above with a number on its right edge
+
+*/
+
+
 // Variables
 // -----------------------------------
-
-// Font weight
-// https://www.dropbox.com/s/8h00omt1chxtkvz/Screen%20Shot%202013-06-10%20at%204.26.51%20PM.png
-
-// colors
 
 $btn--blue: $blue; // blue from _config
 $btn--green: $green;
@@ -33,6 +52,7 @@ a.Btn {
 
 .Btn {
 	@extend %bunputs;
+	background-color: $btn--blue;
 	color: white;
 	text-decoration: none;
 	background-color: $btn--blue;
@@ -40,39 +60,54 @@ a.Btn {
 	border-radius: 5px;
 	cursor: pointer;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 17px;
 	position: relative;
 	text-align: center;
+	margin-bottom: $pBottomMargin;
 	
-	@include rem(padding, 7px 14px);
+	@include rem(padding, 5px 15px);
 	
-	// user cannot select .Btn to copy/paste
+	// user cannot select .Btn to not disturb its copy/paste actions
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-user-select: none;
 	user-select: none; /* 6 */
 	white-space: nowrap; /* 7 */
 	-webkit-appearance: none; /* 1 */
+
+	&:hover {
+		background-color: lighten($btn--blue, 5%);
+	}
 }
 
-
-// Buttons' sizes
+// Base Button Variations (green, greenSmall, gray)
 // -----------------------------------
 
-.Btn--full {
-	display: block;
-	width: 100%;
+
+.Btn--green,
+.Btn--greenSmall {
+	background-color: $btn--green;
+	&:hover {
+		background-color: lighten($btn--green, 5%);
+	}
 }
-.Btn--large {
-	@include rem(font-size, 16px);
-	@include rem(padding, 10 6px);
-}
-.Btn--huge {
-	@include rem(font-size, 24px);
-	@include rem(padding, 10 6px);
+.Btn--greenSmall {
+	font-size: 14px;
+	@include rem(padding, 8px 15px);
 }
 
-.Btn--tag {
+.Btn--gray {
+	background-color: $btn--gray;
+	&:hover {
+		background-color: lighten($btn--gray, 5%);
+	}
+}
+
+
+// Button Tag
+// -----------------------------------
+
+.Btn-tag {
 	border-radius: 3px;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -80,76 +115,96 @@ a.Btn {
 	@include rem(padding, 0 6px);
 }
 
-.Btn-accordion {
-	@include rem(font-size, 14px);
-	@include rem(padding, 4px 27px);
-	font-weight: 400;
-	width: 100%;
-	text-align: left;
-}
-
-// Buttons' colors
-// -----------------------------------
-
-.Btn--blue,
-.Btn-accordion {
-	background-color: $btn--blue;
-	&:hover {
-		background-color: lighten($btn--blue, 10%);
-	}
-}
-.Btn--green {
-	background-color: $btn--green;
-	&:hover {
-		background-color: lighten($btn--green, 10%);
-	}
-}
-.Btn--gray {
-	background-color: $btn--gray;
-	&:hover {
-		background-color: lighten($btn--gray, 10%);
-	}
-}
+// Color variations (tag)
 
 .Btn-tag--gray {
 	background-color: $tag--gray;
 	&:hover {
-		background-color: lighten($tag--gray, 10%);
+		background-color: lighten($tag--gray, 5%);
 	}
 }
 .Btn-tag--blue {
 	background-color: $tag--blue;
 	&:hover {
-		background-color: lighten($tag--blue, 10%);
+		background-color: lighten($tag--blue, 5%);
 	}
 }
 .Btn-tag--green {
 	background-color: $tag--green;
 	&:hover {
-		background-color: lighten($tag--green, 10%);
+		background-color: lighten($tag--green, 5%);
 	}
 }
 .Btn-tag--orange {
 	background-color: $tag--orange;
 	&:hover {
-		background-color: lighten($tag--orange, 10%);
+		background-color: lighten($tag--orange, 5%);
 	}
 }
 
-.Btn-accordion {
+// Accordion & Icons
+// -----------------------------------
+
+.Btn-accordion,
+.Btn-icon {
 	background-color: $accordion;
+	@include rem(font-size, 14px);
+	font-weight: 400;
+	width: 100%;
+	text-align: left;
+
 	&:hover {
-		background-color: lighten($tag--blue, 10%);
+		background-color: lighten($tag--blue, 5%);
 	}
+	
 	&.accordion-is-active {
 		background-color: $accordion--active; 
+		&:hover {
+		background-color: lighten($accordion--active, 5%);
+		}
 	}
 }
 
+// Btn with Icon
 
-// Icons inside Btns
-// -----------------------------------
-.Btn .Icon {
+.Btn [class^="icon-"] {
 	display: inline-block;
+	position: relative;
 }
 
+.icon-arrow {
+	@extend .icons-arrow-inActive;
+	top: 2px;
+	left: -4px;
+}
+
+.icon-arrow--active {
+	@extend .icons-arrow-active;
+	top: 0px;
+	left: -7px;
+}
+
+.icon-box {
+	@extend .icons-box;
+	top: 5px;
+	left: -7px;
+}
+.icon-box--open {
+	@extend .icons-box-open;
+	top: 4px;
+	left: -5px;
+}
+.icon-paper {
+	@extend .icons-paper;
+	top: 3px;
+	left: -5px;
+}
+
+// Btn with Icon and number on the right edge
+
+.Btn [class="number"] {
+	@include rem(font-size, 16px);
+	font-weight: 700;
+	float: right;
+	padding-left: 51px;
+}

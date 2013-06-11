@@ -22,3 +22,35 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 // -----------------------------------
 // assign the icon's width and height to the <i> ellement
 //.icons-download { height: icons-sprite-height(download); width: icons-sprite-width(download);}
+
+
+// Button's icons
+// -----------------------------------
+
+.icons-arrow-active {
+	height: icons-sprite-height(arrow-active);
+	width: icons-sprite-width(arrow-active);
+}
+
+.icons-arrow-inActive {
+	height: icons-sprite-height(arrow-inActive);
+	// width of is-active so both accordion arrow icons have same wdith
+	width: icons-sprite-width(arrow-active);
+}
+
+.icons-box {
+	height: icons-sprite-height(box);
+	width: icons-sprite-width(box);
+}
+
+.icons-box-open {
+	height: icons-sprite-height(box-open);
+	// width of the box icon so all btn have same width
+	width: icons-sprite-width(box);
+}
+
+.icons-paper {
+	height: icons-sprite-height(paper);
+	// width of the box icon so all btn have same width
+	width: icons-sprite-width(box);
+}
