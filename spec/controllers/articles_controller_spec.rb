@@ -360,6 +360,25 @@ describe ArticlesController do
     end
   end
 
+  #TODO: add more tests for delete
+  describe "PUT 'destroy'" do
+    describe "for signed-in users" do
+      before :each do
+        @user = FactoryGirl.create :user
+        @article = FactoryGirl.create :preview_article, seller: @user
+        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs.delete :seller
+        @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
+        sign_in @user
+      end
+
+      it "should delete the preview article" do
+        put :destroy, :id => @article.id
+        response.should redirect_to(articles_path)
+      end
+
+    end
+  end
 
   describe "PUT 'update'" do
     describe "for signed-in users" do

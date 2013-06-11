@@ -26,6 +26,9 @@
       = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
     - if policy(resource).deactivate?
       = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
+    - if policy(resource).destroy?
+      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "btn"
+
 .Breadcrumb
   - resource.categories.each do |leaf|
     %ul

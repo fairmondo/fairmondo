@@ -44,7 +44,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    false
+    update? # only soft delete
   end
 
   def activate?
