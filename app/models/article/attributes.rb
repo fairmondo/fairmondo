@@ -140,13 +140,29 @@ module Article::Attributes
     end
   end
 
+  # Gives the shipping cost for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping price
+  def transport_price transport_type = self.default_transport
+    case transport_type
+    when "insured"
+      transport_insured_price
+    when "uninsured"
+      transport_uninsured_price
+    else
+      Money.new 0
+    end
+  end
+
   # Returns an array with all selected transport types.
   # Default transport will be the first element.
   #
   # @api public
   # @return [Array] An array with selected transport types.
-  def selected_transports
-    selected_"transport"
+  def selectable_transports
+    selectable "transport"
   end
 
   # Returns an array with all selected payment types.
@@ -154,20 +170,23 @@ module Article::Attributes
   #
   # @api public
   # @return [Array] An array with selected payment types.
-  def selected_payments
-    selected_"payment"
+  def selectable_payments
+    selectable "payment"
   end
 
   private
-  # DRY method for selected_transports and selected_payments
+  # DRY method for selectable_transports and selectable_payments
   #
   # @api private
   # @return [Array] An array with selected attribute types
-  def selected_ attribute
+  def selectable attribute
+    # First get all selected attributes
     output = []
     eval("#{attribute.upcase}_TYPES").each do |e|
       output << e if self.send "#{attribute}_#{e}"
     end
+
+    # Now shift the default to be the first element
     output.unshift output.delete_at output.index send("default_#{attribute}").to_sym
   end
 end

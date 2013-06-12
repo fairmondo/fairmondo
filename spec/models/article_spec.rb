@@ -111,18 +111,67 @@ describe Article do
   end
 
   describe "::Attributes" do
-    it "should throw an error if default_transport_selected isn't able to call the transport function" do
-      article.default_transport.should be_true
-      article.stub(:send).and_return false
-      article.default_transport_selected
-      article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-    end
+    describe "methods" do
+      describe "#default_payment_selected" do
+        it "should throw an error if default_transport_selected isn't able to call the transport function" do
+          article.default_transport.should be_true
+          article.stub(:send).and_return false
+          article.default_transport_selected
+          article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
+        end
+      end
 
-    it "should throw an error if default_payment_selected isn't able to call the payment function" do
-      article.default_payment.should be_true
-      article.stub(:send).and_return false
-      article.default_payment_selected
-      article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
+      describe "#default_transport_selected" do
+        it "should throw an error if default_payment_selected isn't able to call the payment function" do
+          article.default_payment.should be_true
+          article.stub(:send).and_return false
+          article.default_payment_selected
+          article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
+        end
+      end
+
+      describe "#transport_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's price" do
+          article.transport_price.should eq Money.new 0
+        end
+
+        it "should return an article's insured transport price" do
+          article.transport_price("insured").should eq Money.new 2000
+        end
+
+        it "should return an article's uninsured transport price" do
+          article.transport_price("uninsured").should eq Money.new 1000
+        end
+
+        it "should return an article's pickup transport price" do
+          article.transport_price("pickup").should eq Money.new 0
+        end
+      end
+
+      describe "#selectable_transports" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("transport")
+          article.selectable_transports
+        end
+      end
+
+      describe "#selectable_payments" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("payment")
+          article.selectable_payments
+        end
+      end
+
+      describe "#selectable (private)" do
+        it "should return an array with selected transport options, the default being first" do
+          output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
+          output[0].should eq :pickup
+          output.should include :insured
+          output.should include :uninsured
+        end
+      end
     end
   end
 

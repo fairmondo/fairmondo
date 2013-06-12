@@ -22,7 +22,7 @@
 %h2
   = t 'transaction.edit.heading'
 
-= semantic_form_for @transaction do |f|
+= semantic_form_for @transaction, url: edit_transaction_path(@transaction), method: :get do |f|
   = f.inputs do
     %h3 Artikel
     %ul
@@ -36,24 +36,24 @@
     %h3
       = t 'transaction.edit.transport'
 
-    = f.input :selected_transport, label: false, include_blank: false, collection: @transaction.article_selected_transports
+    = f.input :selected_transport, label: false, include_blank: false, collection: @transaction.selected_transports
 
     %h3
       = t 'transaction.edit.payment'
 
-    = f.input :selected_payment, label: false, include_blank: false, collection: @transaction.article_selected_payments
+    = f.input :selected_payment, label: false, include_blank: false, collection: @transaction.selected_payments
 
     %h3
       = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
     %p
       = @transaction.article_seller.terms
-      = link_to 'Drucken'
+      = link_to_function 'Drucken', "javascript:print()"
 
     %h3
       = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
     %p
       = @transaction.article_seller.cancellation
-      = link_to 'Drucken'
+      = link_to_function 'Drucken', "javascript:print()"
 
     = f.input :tos_accepted
 
@@ -71,3 +71,4 @@
 
   = f.actions do
     = f.action :submit, label: t('common.actions.continue')
+    -# humanized_money_with_symbol( @transaction.article.price + @transaction.article.transport_price )

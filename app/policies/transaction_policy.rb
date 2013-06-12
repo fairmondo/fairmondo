@@ -25,6 +25,10 @@ class TransactionPolicy < Struct.new(:user, :transaction)
     !own?
   end
 
+  def update?
+    edit?
+  end
+
   private
   def own?
     user ? user.articles.include?(transaction.article) : false

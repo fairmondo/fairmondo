@@ -37,4 +37,37 @@ describe Transaction do
     it { should enumerize(:selected_transport).in(:pickup, :insured, :uninsured) }
     it { should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice) }
   end
+
+  describe "methods" do
+    let (:transaction) { FactoryGirl.create :transaction }
+
+    describe "that are public" do
+      describe "#selected_transports" do
+        it "should call the private #selected method" do
+          transaction.should_receive(:selected).with("transport")
+          transaction.selected_transports
+        end
+      end
+
+      describe "#selected_payments" do
+        it "should call the private #selected method" do
+          transaction.should_receive(:selected).with("payment")
+          transaction.selected_payments
+        end
+      end
+    end
+
+    describe "that are private" do
+      describe "#selected" do
+        it "should get the article's selectable attributes" do
+          transaction.article.should_receive(:selectable).with("transport").and_return(["pickup"])
+          transaction.selected_transports
+        end
+
+        it "should return an Array with selected attributes and their localizations" do
+          transaction.selected_transports.should eq [[I18n.t("enumerize.transaction.selected_transport.pickup"), "pickup"]]
+        end
+      end
+    end
+  end
 end

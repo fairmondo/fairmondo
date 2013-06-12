@@ -29,5 +29,32 @@ class Transaction < ActiveRecord::Base
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 
-  delegate :title, :seller, :selected_transports, :selected_payments, to: :article, prefix: true
+  delegate :title, :seller, :selectable_transports, :selectable_payments, to: :article, prefix: true
+
+  # Get transport options that were selected by seller
+  #
+  # @api public
+  # @return [Array] Array in 2 levels with option name and it's localization
+  def selected_transports
+    selected "transport"
+  end
+
+  # Get payment options that were selected by seller
+  #
+  # @api public
+  # @return [Array] Array in 2 levels with option name and it's localization
+  def selected_payments
+    selected "payment"
+  end
+
+  private
+  # Get attribute options that were selected on transaction's article
+  #
+  # @api private
+  # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
+  # @return [Array] Array in 2 levels with enum option name and it's localization
+  def selected attribute
+    selectables = send("article_selectable_#{attribute}s")
+    Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+  end
 end
