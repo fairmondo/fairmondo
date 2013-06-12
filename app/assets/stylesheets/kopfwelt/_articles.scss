@@ -60,19 +60,30 @@
 .Articles--related {
 	@include span-columns(4, 4);
 }
-.Articles-related-title {
+.Articles-related {
 	@include border-top-radius(.9em);
-	padding: $gutter-width / 2;
+	position: relative;
 	background-color: $white;
-	h3 {
-		font-size: $base-font-size;
-		text-align: center;
+	overflow: hidden;
+	p {
+		padding: $gutter-width / 2;
 	}
+	.icons-helper {
+		display: inline-block;
+		position: absolute;
+		top: 1.1em;
+		right: .8em;
+		cursor: pointer;
+	}
+}
+.Articles-related-title {
+	padding: $gutter-width / 2;
+	font-size: $base-font-size;
+	text-align: center;
 }
 .Article-user {
 	@include span-columns(4, 4);
 }
-
 .pagination {
 	text-align: center;
 	li {
@@ -92,10 +103,11 @@
 			}
 		}
 	}
+	
 }
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
-		@include span-columns(2, 4);
+		@include span-columns(4, 4);
 	}
 	.Articles--related {
 		@include span-columns(2 omega, 4);
@@ -115,6 +127,9 @@
 				@include span-columns(1 omega, 4);
 			}
 		}
+	}
+	.Articles--detail {
+		@include span-columns(2, 4);
 	}
 	.Articles--related {
 		@include span-columns(1 omega, 4);
