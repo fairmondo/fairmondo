@@ -2,26 +2,31 @@
 // Buttons
 //
 
-
 /*
  * Buttons classes explained
- *
+ * === the "&" means that this class needs the whole tree ahead
+
 
 .Btn === the classic blue button with a padding of 15x15, font size 17px
-	--green === classic blue but green
-	--greenSmall === green but font size 14px instead of 17
+	&.Btn--green === classic blue but green btn
+	&.Btn--greenSmall === green but font size 14px instead of 17px
+	&.Btn--gray === same as blue but gray
 
-.Btn-tag === a tag button and its colors variations
-	--gray
-	--blue
-	--green
-	--orange
+	&.Btn-tag === a tag button and its colors variations
+		&.Btn-tag--gray
+		&.Btn-tag--blue
+		&.Btn-tag--green
+		&.Btn-tag--orange
 
-.Btn-accordion === the accordion button with an arrow only
-	.accordion-is-active === same as above but gray and arrow down because active
+	&.Btn-accordion === the accordion button with an arrow only
+		&.accordion-is-active === same as above but gray and arrow down because active
 
-.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
-	--number === same as above with a number on its right edge
+	&.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
+		&.icon-arrow
+		&.icon-arrow--active
+		&.icon-box
+		&.icon-box--open
+		&.icon-paper
 
 */
 

@@ -1,0 +1,13 @@
+//
+// Accordions.scss
+//
+
+.box-legend {
+	@extend .Btn;
+	@extend .Btn-accordion;
+	h3 {
+		margin-bottom: 0;
+		color: white;
+	}
+}
+.box-content {}
