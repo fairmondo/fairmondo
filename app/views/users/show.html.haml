@@ -22,7 +22,7 @@
     = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class=>"span3"}
     = will_paginate active_articles, :param_name => "active_articles_page"
 - else
-  .User-articles
+  .User-additional
     = render_box "offers", :content_class => "padding-box" do
       - if active_articles.empty?
         .fairnopoly-well
