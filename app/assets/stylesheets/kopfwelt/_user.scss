@@ -9,9 +9,29 @@
 // User-info box
 // -----------------------------------
 
+.User-detail {
+	@include span-columns(4, 4);
+	padding-top: 3em;
+}
+.User-profile {
+	@include span-columns(4, 4);
+}
+.User-edit {
+	@include span-columns(2, 4);
+	@include rem(font-size, $font-size-m);
+	margin-bottom: 2em;
+	text-align: center;
+}
+.User-event {
+	@include span-columns(4, 4);
+	@include rem(font-size, $font-size-m);
+	@include rem(margin-bottom, 76px);
+	.User-collection {
+		margin-top: 3em;
+	}
+}
 .User-info {
 	@include border-radius(.9em);
-	@include span-columns(1,4);
 	margin-bottom: 1em;
 	padding: $gutter-width / 4;
 	background: $white;
@@ -27,38 +47,49 @@
 		height: 100%;
 	}
 }
-
 .User-name,
 .User-legal {
 	text-align: center;
-	@include rem(font-size, 14px);
+	@include rem(font-size, $font-size-m);
 }
-
 .User-name {
 	font-weight: 700;
 }
 
-// Dashboard Middle
-// -----------------------------------
-
-#dashboard-middle {
-	@include span-columns(1,4);
-}
-
-#dashboard-events {
-	@include rem(font-size, 14px);
-	@include rem(margin-bottom, 76px);
-}
-
-#dashboard-edit {
-	clear: left;
-	@include span-columns(1,4);
-	text-align: center;
-	@include rem(font-size, 14px);
-	@include rem(margin-top, 13px);
-}
 
 // Media Queries
 // -----------------------------------
+@include at-breakpoint($layout-small) {
+	.User-profile {
+		@include span-columns(2, 4);
+	}
+	.User-edit {
+		@include span-columns(2, 4);
+	}
+	.User-event {
+		@include span-columns(2 omega, 4);
+	}
+}
+@include at-breakpoint($layout-medium) {
+	.User-detail {
+		@include span-columns(4, 4);
+	}
+	
+}
+@include at-breakpoint($layout-large) {
+	.User-detail {
+		@include span-columns(2, 4);
+	}
+	.User-profile {
+		@include span-columns(1, 2);
+	}
+	.User-edit {
+		@include span-columns(1, 2);
+	}
+	.User-event {
+		@include span-columns(1 omega, 2);
+	}
+}
 
-@include at-breakpoint($layout-small) {}
+
+
