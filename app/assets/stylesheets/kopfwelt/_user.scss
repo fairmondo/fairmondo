@@ -1,8 +1,17 @@
+//
+// User page
+//
+
 .User {
 
 }
+
+// User-info box
+// -----------------------------------
+
 .User-info {
 	@include border-radius(.9em);
+	@include span-columns(1,4);
 	padding: $gutter-width / 4;
 	background: $white;
 }
@@ -10,10 +19,22 @@
 	@include border-radius(50%);
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
-	margin: auto;
+	@include rem(margin, 30px auto);
 	overflow: hidden;
 	img {
 		width: 100%;
 		height: 100%;
 	}
+}
+
+.User-name,
+.User-legal {
+	text-align: center;
+}
+
+// Dashboard Middle
+// -----------------------------------
+
+#dashboard-middle {
+	@include span-columns(1,4);
 }
