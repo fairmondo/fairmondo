@@ -31,6 +31,32 @@ class Transaction < ActiveRecord::Base
 
   delegate :title, :seller, :selectable_transports, :selectable_payments, to: :article, prefix: true
 
+  # Edit can be called with GET params. If they are valid, it renders a different
+  # view to show the final sales price. This method is called to validates if the
+  # params are valid.
+  #
+  # @api public
+  # @attr params [Hash] The GET parameters
+  # @return [Boolean]
+  def edit_params_valid? params
+    unless params["transaction"] && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"]
+      return false
+    end
+
+    valid = true
+    unless self.article.send("transport_#{params['transaction']['selected_transport']}?")
+      errors[:selected_transport] = I18n.t 'transaction.notices.transport_not_supported'
+      valid = false
+    end
+
+    unless self.article.send("payment_#{params['transaction']['selected_payment']}?")
+      errors[:selected_payment] = I18n.t 'transaction.notices.payment_not_supported'
+      valid = false
+    end
+
+    valid
+  end
+
   # Get transport options that were selected by seller
   #
   # @api public

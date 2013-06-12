@@ -55,8 +55,6 @@
       = @transaction.article_seller.cancellation
       = link_to_function 'Drucken', "javascript:print()"
 
-    = f.input :tos_accepted
-
     %h3
       = t 'transaction.edit.address'
     %p
@@ -71,4 +69,3 @@
 
   = f.actions do
     = f.action :submit, label: t('common.actions.continue')
-    -# humanized_money_with_symbol( @transaction.article.price + @transaction.article.transport_price )

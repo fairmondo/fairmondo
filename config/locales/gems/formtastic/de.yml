@@ -135,6 +135,8 @@ de:
       library:
         name: Name
         public: Öffentlich
+      transaction:
+        tos_accepted: Ich akzeptiere die AGB
     input_steps:
       user:
         account: Benutzerkonto

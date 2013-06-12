@@ -8,6 +8,15 @@ de:
       terms: "Impressum von %{name}"
       cancellation: "Widerrufserklärung von %{name}"
       address: "Rechnungs- und Lieferadresse"
+
+      payment_type: Zahlungsart
+      transport_type: Versandart
+      transport_provider: Versandanbieter
+    notices:
+      transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
+      payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
+    actions:
+      purchase: "Verbindlich kaufen"
   #   bid:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"

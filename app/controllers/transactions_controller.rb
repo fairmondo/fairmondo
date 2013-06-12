@@ -25,26 +25,15 @@ class TransactionsController < InheritedResources::Base
 
   before_filter :authenticate_user!
   before_filter :authorize_resource
-  # before_filter :ensure_tos_accepted, only: :edit
 
   def edit
-    edit! do
-      if params["transaction"] && params["transaction"]["tos_accepted"] == "1" && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"]
-        return render :step2
-      end
-    end
+    edit! { return render :step2 if resource.edit_params_valid? params }
   end
 
   private
   def authorize_resource
     authorize resource
   end
-
-  # def ensure_tos_accepted
-  #   if params["transaction"]["tos_accepted"] && params["transaction"]["tos_accepted"] != "1"
-  #     flash[:error] = t('article.notices.incomplete_profile')
-  #   end
-  # end
 
   # def update
   #   authorize resource
