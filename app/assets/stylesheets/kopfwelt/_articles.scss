@@ -6,6 +6,9 @@
 	.Articles-info {
 		@include border-bottom-radius(.9em);
 	}
+	.Articles-image {
+		@include border-top-radius(.9em);
+	}
 }
 .Articles--list {
 	@include pie-clearfix;
@@ -61,11 +64,12 @@
 	@include span-columns(4, 4);
 }
 .Articles-related {
-	@include border-top-radius(.9em);
+	@include border-radius(.9em);
 	position: relative;
+	margin-bottom: 1em;
 	background-color: $white;
 	overflow: hidden;
-	p {
+	.Helper-text {
 		padding: $gutter-width / 2;
 	}
 	.icons-helper {
@@ -77,6 +81,7 @@
 	}
 }
 .Articles-related-title {
+	margin-bottom: 0;
 	padding: $gutter-width / 2;
 	font-size: $base-font-size;
 	text-align: center;

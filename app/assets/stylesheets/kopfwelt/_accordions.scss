@@ -2,12 +2,123 @@
 // Accordions.scss
 //
 
+
+.box, .box-open{
+  margin-bottom: 25px;
+
+  .box-legend {
+    @include transition(opacity 1s ease-in-out);
+    border: 1px solid #C8C8C8;
+    h3 {
+      margin-top:auto;
+      margin-bottom:auto;
+      margin-left: 15px;
+      display: block;
+      a {
+        padding-left: 45px;
+        margin-left:-45px;
+        text-decoration: none;
+      }
+    }
+    a.input-tooltip {
+      margin: 7px 15px;
+      span{
+        left: 90%;
+      }
+      span:before, span:after{
+        left: 90%;
+      }
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    a.input-tooltip:hover span, a.input-tooltip.open-tooltip span{
+      top: 50px !important;
+    }
+  }
+
+  .box-content {
+    @include transition(opacity 1s);
+  }
+
+}
+
+.box:not(:target) {
+  .box-legend {
+    a:link, a:visited, a:hover, a:active {
+      color: $white;
+    }
+  }
+
+}
+
+.box:not(:target):not(.error-box) {
+
+  // alternative to display: none - fixes chrome rendering issues for #165
+  .box-content {
+    @include transition-property(opacity, top);
+    @include transition-delay(0s, 1s);
+    @include transition-duration(1s, 0s);
+    position: fixed;
+    top: -3000;
+    z-index: -2; // presumably due to the delay, there may be half second when you cannot klick the content beyond
+    opacity: 0;
+  }
+}
+
+.box:target, .box-open {
+  .box-legend {
+    background-color: lighten($darkgray, 8);
+    a:link, a:visited, a:hover, a:active {
+      color: $white;
+    }
+  }
+  .box-content {
+    @include transition-property(opacity, top);
+    @include transition-delay(0s, 1s);
+    @include transition-duration(1s, 0s);
+  }
+}
+
+.box, .box-open {
+  .box-legend-inside-well {
+    // border: 1px solid $wellBackground;
+  }
+}
+
+// Error Ledgends
+
+.error-box:not(:target), .error-box-visited:not(:target){
+  .box-legend {
+
+    a:link, a:visited, a:hover, a:active {
+      // color: $fairnopolyRed !important;
+    }
+  }
+}
+
+.error-box:target, .error-box-visited:target {
+  .box-legend {
+     // background-color: $fairnopolyRed;
+  }
+}
+
+
+// 
+
 .box-legend {
 	@extend .Btn;
 	@extend .Btn-accordion;
+	margin-bottom: -.2em;
 	h3 {
 		margin-bottom: 0;
 		color: white;
 	}
 }
-.box-content {}
+.box-content {
+	@include border-bottom-radius(.9em);
+	padding: $gutter-width / 2;
+	background-color: $white;
+
+}
