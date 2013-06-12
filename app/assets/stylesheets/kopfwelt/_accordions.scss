@@ -118,6 +118,7 @@
 .box-content {
 	@include border-bottom-radius(.9em);
 	padding: $gutter-width / 2;
+	overflow: auto;
 	background-color: $white;
 }
 
