@@ -34,7 +34,7 @@ describe 'Transaction' do
     context "for a logged-in user" do
       before { login_as user }
 
-      it "should do show the correct data and fields" do
+      it "should show the correct data and fields" do
         visit edit_transaction_path transaction
 
         page.should have_content I18n.t 'transaction.edit.heading'
@@ -45,15 +45,20 @@ describe 'Transaction' do
 
         # Should display shipping selection
         page.should have_content I18n.t 'transaction.edit.transport'
+        page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_transport.pickup')
 
         # Should display payment selection
         page.should have_content I18n.t 'transaction.edit.payment'
+        page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_payment.cash')
 
         # Should display Impressum
         page.should have_content I18n.t 'transaction.edit.terms', name: seller.fullname
 
         # Should display declaration of revocation
         page.should have_content I18n.t 'transaction.edit.cancellation', name: seller.fullname
+
+        # Should display a checkbox for the terms
+        page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
 
         # Should display buyer's address
         page.should have_content I18n.t 'transaction.edit.address'
@@ -62,9 +67,16 @@ describe 'Transaction' do
         page.should have_content user.zip
         page.should have_content user.city
         page.should have_content user.country
+      end
 
-        # Should display 'conitnue' button
-        page.should have_button I18n.t 'common.actions.continue'
+      it "should lead to a site with the final sales price" do
+        t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, default_transport: 'insured', transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
+
+        visit edit_transaction_path t
+        check 'transaction[tos_accepted]'
+        click_button I18n.t 'common.actions.continue'
+
+        page.should have_content '1.010,99'
       end
     end
 

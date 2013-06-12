@@ -100,5 +100,14 @@ FactoryGirl.define do
         article.images = [FactoryGirl.build(:fixture_image)]
       end
     end
+
+    trait :with_all_transports do
+      transport_insured true
+      transport_uninsured true
+      transport_insured_price 20
+      transport_uninsured_price 10
+      transport_insured_provider 'DHL'
+      transport_uninsured_provider 'Hermes'
+    end
   end
 end

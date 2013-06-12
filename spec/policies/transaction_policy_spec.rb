@@ -29,16 +29,19 @@ describe TransactionPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:edit) }
+    it { should permit(:edit)   }
+    it { should permit(:update) }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
     it { should permit(:edit)             }
+    it { should permit(:update)           }
   end
 
   context "for the transaction seller" do
     let(:user) { transaction.article_seller }
     it { should deny(:edit)                 }
+    it { should deny(:update)               }
   end
 end
