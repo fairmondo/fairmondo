@@ -17,43 +17,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::State
-  extend ActiveSupport::Concern
-
-  included do
-    # market place state
-    attr_protected :state
-
-    state_machine :initial => :preview do
-
-      state :preview do
-      end
-
-      state :active do
-      end
-
-      state :locked do
-      end
-
-      state :closed do
-      end
-
-      event :activate do
-        transition [:preview,:locked] => :active
-      end
-
-      event :deactivate do
-        transition :active => :locked
-      end
-
-      event :close do
-        transition :locked => :closed
-      end
-
-      after_transition :on => :activate, :do => :calculate_fees_and_donations
-
-    end
-
+class RemoveDeletedAtFromArticle < ActiveRecord::Migration
+  def up
+    remove_column :articles, :deleted_at
   end
 
+  def down
+    raise ActiveRecord::IrreversibleMigration
+  end
 end
