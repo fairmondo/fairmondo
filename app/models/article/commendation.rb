@@ -72,7 +72,6 @@ module Article::Commendation
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
     validates_length_of :small_and_precious_reason, :minimum => 200, :if => :small_and_precious?
     validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?
-
   end
 
   def has_commendation?

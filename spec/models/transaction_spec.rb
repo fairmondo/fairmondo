@@ -42,6 +42,23 @@ describe Transaction do
     let (:transaction) { FactoryGirl.create :transaction }
 
     describe "that are public" do
+      describe "#edit_params_valid?" do
+        it "should return true with valid params" do
+          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          r.should be_true
+        end
+
+        it "should return false with invalid transport" do
+          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "insured", "selected_payment" => "cash"}
+          r.should be_false
+        end
+
+        it "should return false with invalid payment" do
+          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "paypal"}
+          r.should be_false
+        end
+      end
+
       describe "#selected_transports" do
         it "should call the private #selected method" do
           transaction.should_receive(:selected).with("transport")

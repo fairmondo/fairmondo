@@ -22,5 +22,59 @@
 %h2
   = t 'transaction.edit.heading'
 
-%h3
-  = humanized_money_with_symbol( @transaction.article.price + @transaction.article.transport_price )
+= semantic_form_for @transaction do |f|
+  = f.inputs do
+    = f.hidden_field :selected_transport, value: params["transaction"]["selected_transport"]
+    = f.hidden_field :selected_payment, value: params["transaction"]["selected_payment"]
+
+    %h3
+      Bestelldaten
+
+    %p
+      = "#{t('transaction.edit.payment_type')}: Ueberweisung"
+      %br
+      %br
+      = "#{t('transaction.edit.transport_type')}: Selbstabholung"
+      %br
+      = "#{t('transaction.edit.transport_provider')}: DHL"
+      %br
+      %br
+      %strong
+        = t 'transaction.edit.address'
+      %br
+      = current_user.fullname
+      %br
+      = current_user.street
+      %br
+      = current_user.zip
+      = current_user.city
+      %br
+      = current_user.country
+
+    %h3
+      Vorraussichtlicher Preis
+
+    %p
+      (Netto)
+      = humanized_money_with_symbol @transaction.article.price
+      %br
+      (zzgl X% Mwst)
+      = humanized_money_with_symbol 0
+      %br
+      Versandkosten:
+      = humanized_money_with_symbol @transaction.article.transport_price(params["transaction"]["selected_transport"])
+      -# Bei Nachnahme hier Zusatzkosten
+      -# Grundpreis, falls angegeben
+      %br
+      %br
+      %strong
+        (Brutto)
+        = humanized_money_with_symbol( @transaction.article.price + @transaction.article.transport_price(params["transaction"]["selected_transport"]) )
+
+    %p
+      = f.input :tos_accepted
+
+  = f.actions do
+    = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'btn'
+    = f.action :submit, label: t('transaction.actions.purchase')
+

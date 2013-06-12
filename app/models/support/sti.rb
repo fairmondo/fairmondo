@@ -1,4 +1,4 @@
-#
+# This is a helper that is supposed to be extended by all single table inheritance subclasses.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,8 +19,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-# This is a helper that is supposed to be extended by all single table inheritance subclasses.
 module STI
   # See http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   #
