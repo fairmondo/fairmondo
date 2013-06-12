@@ -17,7 +17,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-#dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "show"}"}
+#dashboard-hero{:class => "#{"closed-container-hero" unless params[:action]== "show"}"}
 	.row-fluid
 		= render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
 		#dashboard-middle
