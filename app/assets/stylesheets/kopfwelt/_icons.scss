@@ -2,6 +2,13 @@
 // Icons using sprites
 //
 
+// Informations
+// -----------------------------------
+// Sprites sizes and hover changes icon color 
+// assign the icon's width and height to the <i> ellement
+//.icons-download { height: icons-sprite-height(download); width: icons-sprite-width(download);}
+
+
 // Configuration
 // -----------------------------------
 
@@ -18,7 +25,68 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 @include all-icons-sprites;
 
 
-// Sprites sizes and hover changes icon color 
+// Icon genral settings
 // -----------------------------------
-// assign the icon's width and height to the <i> ellement
-//.icons-download { height: icons-sprite-height(download); width: icons-sprite-width(download);}
+
+.Icon [class^="icon-"] {
+	display: inline-block;
+	position: relative;
+}
+
+// Button's icons
+// -----------------------------------
+
+.icons-arrow-active {
+	height: icons-sprite-height(arrow-active);
+	width: icons-sprite-width(arrow-active);
+}
+
+.icons-arrow-inActive {
+	height: icons-sprite-height(arrow-inActive);
+	// width of is-active so both accordion arrow icons have same wdith
+	width: icons-sprite-width(arrow-active);
+}
+
+.icons-box {
+	height: icons-sprite-height(box);
+	width: icons-sprite-width(box);
+}
+
+.icons-box-open {
+	height: icons-sprite-height(box-open);
+	// width of the box icon so all btn have same width
+	width: icons-sprite-width(box);
+}
+
+.icons-paper {
+	height: icons-sprite-height(paper);
+	// width of the box icon so all btn have same width
+	width: icons-sprite-width(box);
+}
+
+.icons-helper {
+	height: icons-sprite-height(helper);
+	width: icons-sprite-width(helper);
+}
+
+
+// Profil page icons
+// -----------------------------------
+
+.icons-pencil {
+	height: icons-sprite-height(pencil);
+	width: icons-sprite-width(pencil);
+}
+
+.icons-user {
+	height: icons-sprite-height(user);
+	width: icons-sprite-width(user);
+}
+
+.icon-pencil {
+	@extend .icons-pencil;
+}
+
+.icon-user {
+	@extend .icons-user;
+}
