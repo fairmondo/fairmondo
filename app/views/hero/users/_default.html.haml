@@ -18,43 +18,41 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 #dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "show"}"}
-  .row-fluid
-    .span3
-      = render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
-    #dashboard-middle.span9
-      #dashboard-events
-        - if user_resource.about_me && !user_resource.about_me.empty?
-          %div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
-            = user_resource.about_me.html_safe
-            .clearfix
-          - if params[:full_about]
-            %a.pull-right{:href => user_path(:id => user_resource.id)}
-              %i.icon-chevron-up
-              weniger anzeigen
-          - else
-            %a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
-              %i.icon-chevron-down
-              mehr anzeigen
-        - else
-          .empty-well
-            - if user_resource.id==current_user.id
-              %a.pull-right{:href => edit_user_registration_path}
-                Beschreibung hinzufügen
-            %h4 Noch keine Beschreibung hinzugefügt.
-      %ul.nav.nav-pills
-        - if user_resource.id==current_user.id
-          %li#dashboard-sell
-            %a{:href => user_path(current_user)}
-              %strong Verkaufen
-        %li#dashboard-library
-          %a{:href => user_libraries_path(user_resource)}
-            %strong Sammlungen
-        %li#dashboard-profile
-          - if user_resource.id==current_user.id
-            %a{:href =>  edit_user_registration_path}
-              %strong Profil bearbeiten
-          - elsif user_resource.is_a?(LegalEntity)
-            %a{:href => profile_user_path(user_resource)}
-              %strong AGB / Widerrufserklärung / Impressum
-      #hero-unfold
-        %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
+	.row-fluid
+		= render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
+		#dashboard-middle
+			#dashboard-events
+				- if user_resource.about_me && !user_resource.about_me.empty?
+					%div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+						= user_resource.about_me.html_safe
+						.clearfix
+					- if params[:full_about]
+						%a.pull-right{:href => user_path(:id => user_resource.id)}
+							%i.icon-chevron-up
+							weniger anzeigen
+					- else
+						%a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
+							%i.icon-chevron-down
+							mehr anzeigen
+				- else
+					.empty-well
+						- if user_resource.id==current_user.id
+							%a.pull-right{:href => edit_user_registration_path}
+								Beschreibung hinzufügen
+						%h4 Noch keine Beschreibung hinzugefügt.
+			- if user_resource.id==current_user.id
+				%a.Btn.Btn-icon{:href => user_path(current_user)}
+					%i.icon-box--open
+					Verkaufen
+			%a.Btn.Btn-icon{:href => user_libraries_path(user_resource)}
+				%i.icon-box
+				Sammlungen
+			- if user_resource.id==current_user.id
+				%a{:href =>  edit_user_registration_path}
+					Profil bearbeiten
+			- elsif user_resource.is_a?(LegalEntity)
+				%a{:href => profile_user_path(user_resource)}
+					AGB / Widerrufserklärung / Impressum
+			#hero-unfold
+				%a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
+
