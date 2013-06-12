@@ -11,7 +11,7 @@
 
 .User-info {
 	@include border-radius(.9em);
-	@include span-columns(4,4);
+	@include span-columns(1,4);
 	margin-bottom: 1em;
 	padding: $gutter-width / 4;
 	background: $white;
