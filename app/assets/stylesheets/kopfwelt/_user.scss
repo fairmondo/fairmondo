@@ -53,6 +53,9 @@
 		@include span-columns(2, 2);
 	}
 }
+.User-additional {
+	@include span-columns(4, 4);
+}
 .User-name,
 .User-legal,
 .User-company {
@@ -122,6 +125,9 @@
 				@include span-columns(1 omega, 4);
 			}
 		}
+	}
+	.User-additional {
+		@include span-columns(2, 4);
 	}
 }
 
