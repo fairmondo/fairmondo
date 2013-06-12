@@ -47,7 +47,7 @@
     = condition_label resource, "in-image"
   .Articles-info
     %h2
-    = resource.title
+      = resource.title
     %ul.thumbnails.article-thumbnails
       - thumbnails(title_image).each do |image|
         %li.span3
@@ -113,16 +113,17 @@
       = render_box "about" do
         = resource.seller_about.html_safe
 
-.Articles-related.Articles-list
+.Articles--related
   - alternative = find_fair_alternative_to resource
   - if alternative.present?
-    .dark-gray-well.break-word
+    .Articles-related-title
       %h3= t('article.show.alternative')
       = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
   - else
-    .dark-gray-well.break-word
+    .Articles-related-title
       %h3= t('article.show.alternative')
-      = t('article.show.no_alternative')
+      %p.Helper-text
+        = t('article.show.no_alternative')
 
   .Articles-policy
     - if policy(resource).report?
