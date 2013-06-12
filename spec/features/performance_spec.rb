@@ -37,6 +37,7 @@ describe 'Performance' do
       Sunspot.commit
     end
     it "should succeed" do
+      pending
       visit articles_path
       Bullet.should_not throw_warnings
     end
