@@ -54,3 +54,7 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 	// width of the box icon so all btn have same width
 	width: icons-sprite-width(box);
 }
+.icons-helper {
+	height: icons-sprite-height(helper);
+	width: icons-sprite-width(helper);
+}
