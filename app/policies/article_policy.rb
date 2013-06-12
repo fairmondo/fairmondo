@@ -24,7 +24,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def show?
-    article.active || (user && own?)
+    article.active? || (user && own?)
   end
 
   def new?
@@ -44,15 +44,15 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    false
+    activate?
   end
 
   def activate?
-    user && own? && !article.active
+    user && own? && !article.active?
   end
 
   def deactivate?
-     user && own? && article.active
+     user && own? && article.active?
   end
 
   def report?
@@ -66,7 +66,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-      scope.where(:active => true)
+      scope.where(:state => "active")
     end
   end
 end

@@ -20,7 +20,7 @@
 class ArticlesController < InheritedResources::Base
   # Inherited Resources
   respond_to :html
-  actions :all, :except => [:destroy] # inherited methods
+  actions :all # inherited methods
 
   # Authorization
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
@@ -50,7 +50,7 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    if !resource.active && policy(resource).activate?
+    if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
 
@@ -93,7 +93,6 @@ class ArticlesController < InheritedResources::Base
     else
       authorize resource
     end
-
     update! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images
@@ -112,6 +111,18 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
+  def destroy
+
+    authorize resource
+
+    if resource.preview?
+      destroy! { articles_path }
+    elsif resource.locked?
+      resource.close
+      redirect_to articles_path
+    end
+
+  end
 
   ##### Private Helpers
 
