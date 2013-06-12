@@ -1,5 +1,15 @@
 %h2 Artikel importieren
 
 = form_tag mass_uploads_path, multipart: true do
-  = file_field_tag :file
+  = file_field_tag :file, required: true
+  -# bugbug Do we use these HTML5 (?) required stuff? Possible problem: It
+  -# uses "Sie"
   = submit_tag "CSV importieren"
+  %br
+  %br
+  %p
+    Bitte achte darauf, dass Du Deine CSV-Datei exakt wie in der
+    %b
+      %a{href: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
+        title: 'Musterdatei'} Musterdatei
+    aufgebaut ist.

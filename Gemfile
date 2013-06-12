@@ -26,9 +26,7 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
-
 # Tool Libs
-
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
