@@ -28,8 +28,10 @@
     %span= user.fullname
   %p.User-legal
     - if user.is_a?(LegalEntity)
-      %i.icons-briefcase
-      %i= t('users.legal_status.show.legal_entity')
+      %a.Icon{:href => "#"} 
+        %i.icon-briefcase
+        = t('users.legal_status.show.legal_entity')
     - else
-      %i.icons-user
-      %i= t('users.legal_status.show.private_user')
+      %a.Icon{:href => ""} 
+        %i.icon-user
+        = t('users.legal_status.show.private_user')

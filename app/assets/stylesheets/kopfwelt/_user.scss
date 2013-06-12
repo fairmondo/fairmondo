@@ -31,6 +31,11 @@
 .User-name,
 .User-legal {
 	text-align: center;
+	@include rem(font-size, 14px);
+}
+
+.User-name {
+	font-weight: 700;
 }
 
 // Dashboard Middle
@@ -40,6 +45,20 @@
 	@include span-columns(1,4);
 }
 
-@include at-breakpoint($layout-small) { 
-
+#dashboard-events {
+	@include rem(font-size, 14px);
+	@include rem(margin-bottom, 76px);
 }
+
+#dashboard-edit {
+	clear: left;
+	@include span-columns(1,4);
+	text-align: center;
+	@include rem(font-size, 14px);
+	@include rem(margin-top, 13px);
+}
+
+// Media Queries
+// -----------------------------------
+
+@include at-breakpoint($layout-small) {}
