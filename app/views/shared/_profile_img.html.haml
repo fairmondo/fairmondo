@@ -23,15 +23,15 @@
       = image_tag(user.image.url(:thumb))
   %p.User-name
     = user.name
-  %p.User-name
   - if user.is_a?(LegalEntity)
-    %span= user.fullname
+    %p.User-company
+      = user.fullname
   %p.User-legal
     - if user.is_a?(LegalEntity)
       %a.Icon{:href => "#"} 
-        %i.icon-briefcase
+        %i.icons-briefcase
         = t('users.legal_status.show.legal_entity')
     - else
       %a.Icon{:href => ""} 
-        %i.icon-user
+        %i.icons-user
         = t('users.legal_status.show.private_user')

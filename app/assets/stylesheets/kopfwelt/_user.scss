@@ -47,13 +47,27 @@
 		height: 100%;
 	}
 }
+.User-articles {
+	@include span-columns(4, 4);
+	li {
+		@include span-columns(2, 2);
+	}
+}
 .User-name,
-.User-legal {
-	text-align: center;
+.User-legal,
+.User-company {
 	@include rem(font-size, $font-size-m);
+	@include clearfix;
+	text-align: center;
+	text-transform: capitalize;
+	font-weight: 700;
 }
 .User-name {
-	font-weight: 700;
+	margin-bottom: 0;
+}
+.User-legal {
+	a {color: $gray;}
+	
 }
 
 
@@ -74,7 +88,15 @@
 	.User-detail {
 		@include span-columns(4, 4);
 	}
-	
+	.User-articles {
+		@include span-columns(4, 4);
+		li {
+			@include span-columns(1, 2);
+			&:nth-child(2n) {
+				@include span-columns(1 omega, 2);
+			}
+		}
+	}
 }
 @include at-breakpoint($layout-large) {
 	.User-detail {
@@ -88,6 +110,18 @@
 	}
 	.User-event {
 		@include span-columns(1 omega, 2);
+	}
+	.User-articles {
+		@include span-columns(4, 4);
+		li {
+			@include span-columns(1, 4);
+			&:nth-child(2n) {
+				@include span-columns(1, 4);
+			}
+			&:nth-child(4n) {
+				@include span-columns(1 omega, 4);
+			}
+		}
 	}
 }
 
