@@ -28,6 +28,7 @@
         &.icon-box--open
         &.icon-paper
 
+
 */
 
 
@@ -84,6 +85,22 @@ a.Btn {
         background-color: lighten($btn--blue, 5%);
     }
 }
+
+// // Button clean 
+// // -----------------------------------
+// // apply button to link with icons, but are not really buttons
+
+// .Btn--clean {
+// 	border-radius: 0;
+// 	margin: auto;
+// 	padding: 0;
+// 	border: none;
+// 	line-height: normal;
+// 	background-color: none;
+// 	color: inherit;
+// 	text-decoration: none;
+// 	cursor: pointer;
+// }
 
 // Base Button Variations (green, greenSmall, gray)
 // -----------------------------------

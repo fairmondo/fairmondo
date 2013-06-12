@@ -31,6 +31,10 @@
 // 	@include box-sizing(content-box);
 // }
 
+body {
+	background-color: $darkbeige;
+}
+
 .container {
 	@include container;
 	border: 5px solid yellow;
@@ -49,13 +53,14 @@
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
+	@include rem(margin-top, 60px);
+	background-color: $darkbeige;
 	& > .l-Inner {
 		@include container;
 	}
-	background-color: $darkbeige;
-	border-bottom: solid .7em $lightgray;
 }
 .l-Main {
+	background-color: $darkbeige;
 	& > .l-Inner {
 		@include container;
 		padding-top: 1em;
