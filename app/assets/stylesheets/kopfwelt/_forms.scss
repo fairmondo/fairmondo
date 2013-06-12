@@ -11,7 +11,7 @@ input[type='email'],
 textarea {
 	@extend %bunputs;
 	min-height: 30px;
-	
+	width: 100%;
 	background-color: $gray;
 	border-color: $darkgray;
 	&:focus {
