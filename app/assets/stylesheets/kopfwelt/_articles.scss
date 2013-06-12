@@ -6,6 +6,9 @@
 	.Articles-info {
 		@include border-bottom-radius(.9em);
 	}
+	.Articles-image {
+		@include border-top-radius(.9em);
+	}
 }
 .Articles--list {
 	@include pie-clearfix;
@@ -22,9 +25,11 @@
 	.Articles-tags {
 		@include border-bottom-radius(.9em);
 	}
+	.Articles-image {
+		@include border-top-radius(.9em);
+	}
 }
 .Articles-image {
-	@include border-top-radius(.9em);
 	overflow: hidden;
 	img {width: 100%; height: auto}
 }
@@ -55,13 +60,35 @@
 .Article-basicprice {
 	@include span-columns(1 omega, 2);
 }
-.Articles-related {
+.Articles--related {
 	@include span-columns(4, 4);
+}
+.Articles-related {
+	@include border-radius(.9em);
+	position: relative;
+	margin-bottom: 1em;
+	background-color: $white;
+	overflow: hidden;
+	.Helper-text {
+		padding: $gutter-width / 2;
+	}
+	.icons-helper {
+		display: inline-block;
+		position: absolute;
+		top: 1.1em;
+		right: .8em;
+		cursor: pointer;
+	}
+}
+.Articles-related-title {
+	margin-bottom: 0;
+	padding: $gutter-width / 2;
+	font-size: $base-font-size;
+	text-align: center;
 }
 .Article-user {
 	@include span-columns(4, 4);
 }
-
 .pagination {
 	text-align: center;
 	li {
@@ -81,12 +108,13 @@
 			}
 		}
 	}
+	
 }
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
-		@include span-columns(2, 4);
+		@include span-columns(4, 4);
 	}
-	.Articles-related {
+	.Articles--related {
 		@include span-columns(2 omega, 4);
 	}
 	.Article-user {
@@ -105,7 +133,10 @@
 			}
 		}
 	}
-	.Articles-related {
+	.Articles--detail {
+		@include span-columns(2, 4);
+	}
+	.Articles--related {
 		@include span-columns(1 omega, 4);
 	}
 	.Article-user {

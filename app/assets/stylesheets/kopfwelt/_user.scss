@@ -1,8 +1,18 @@
+//
+// User page
+//
+
 .User {
 
 }
+
+// User-info box
+// -----------------------------------
+
 .User-info {
 	@include border-radius(.9em);
+	@include span-columns(4,4);
+	margin-bottom: 1em;
 	padding: $gutter-width / 4;
 	background: $white;
 }
@@ -10,10 +20,45 @@
 	@include border-radius(50%);
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
-	margin: auto;
+	@include rem(margin, 30px auto);
 	overflow: hidden;
 	img {
 		width: 100%;
 		height: 100%;
 	}
 }
+
+.User-name,
+.User-legal {
+	text-align: center;
+	@include rem(font-size, 14px);
+}
+
+.User-name {
+	font-weight: 700;
+}
+
+// Dashboard Middle
+// -----------------------------------
+
+#dashboard-middle {
+	@include span-columns(1,4);
+}
+
+#dashboard-events {
+	@include rem(font-size, 14px);
+	@include rem(margin-bottom, 76px);
+}
+
+#dashboard-edit {
+	clear: left;
+	@include span-columns(1,4);
+	text-align: center;
+	@include rem(font-size, 14px);
+	@include rem(margin-top, 13px);
+}
+
+// Media Queries
+// -----------------------------------
+
+@include at-breakpoint($layout-small) {}
