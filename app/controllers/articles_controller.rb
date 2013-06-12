@@ -50,7 +50,7 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    if !resource.active && policy(resource).activate?
+    if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
 
@@ -93,7 +93,6 @@ class ArticlesController < InheritedResources::Base
     else
       authorize resource
     end
-
     update! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images
@@ -114,8 +113,16 @@ class ArticlesController < InheritedResources::Base
 
 
   def destroy
+
     authorize resource
-    destroy! { articles_path }
+
+    if resource.preview?
+      destroy! { articles_path }
+    elsif resource.locked?
+      resource.close
+      redirect_to articles_path
+    end
+
   end
 
   ##### Private Helpers
