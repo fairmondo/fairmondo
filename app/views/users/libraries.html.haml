@@ -23,7 +23,7 @@
     %h3= t('library.new_title')
     = form_tag({:action => "new_library" ,:method => "post"} ,{:class =>  "form-inline" }) do
       %input{:name => "library_name"}/
-      %button.btn.btn-primary{:type => "submit"}
+      %button.Btn{:type => "submit"}
         = t('library.new')
   = render 'list_library_priv'
 - else

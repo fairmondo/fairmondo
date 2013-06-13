@@ -25,5 +25,5 @@
     - if devise_mapping.rememberable?
       = f.input :remember_me, :as => :boolean , :label => false
   = f.actions do
-    = f.action :submit, :button_html => {:class => "btn btn-primary"} , :label => :login
+    = f.action :submit, :button_html => {:class => "Btn"} , :label => :login
   = render :partial => "/devise/links" , :locals => { :resource_name => :user , :devise_mapping => Devise.mappings[:user]}

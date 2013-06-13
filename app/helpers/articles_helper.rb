@@ -19,29 +19,29 @@
 #
 module ArticlesHelper
   # Conditions
-  def condition_label article, extraclass = ""
-    bclass=condition_badge_class(article.condition)
-    raw "<span class=\"badge " + bclass + " " + extraclass +"\">" + article.condition_text + "</span>"
-  end
-
-  def features_label article, extraclass = ""
-    html = "<div class=\"" +extraclass+"\">"
-    html +="<span class=\"label label-info\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
-    html +="<span class=\"label label-success\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
-    html +="<span class=\"label label-important\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
-    html += "</div>"
+  def condition_label article
+    # bclass=condition_badge_class(article.condition)
+    html = "<span class=\"Btn Btn-tag Btn-tag--gray\">" + article.condition_text + "</span>"
     html.html_safe
   end
 
-  def condition_badge_class condition
-    case condition
-    when "new"
-      bclass="badge-white"
-    when "old"
-      bclass="badge-inverse"
-    end
-    bclass
+  def features_label article
+    html ="<span class=\"Btn Btn-tag Btn-tag--blue\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
+    html +="<span class=\"Btn Btn-tag Btn-tag--green\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
+    html +="<span class=\"Btn Btn-tag Btn-tag--orange\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
+
+    html.html_safe
   end
+
+  #def condition_badge_class condition
+  #  case condition
+  #  when "new"
+  #    bclass="badge-white"
+  #  when "old"
+  #    bclass="badge-inverse"
+  #  end
+  #  bclass
+  #end
 
 
   def get_category_tree category

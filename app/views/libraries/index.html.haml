@@ -38,11 +38,11 @@
             = t 'library.visibility.private'
           .pull-right
             - if policy(library).update?
-              %a.btn.btn-primary.library_settings_show
+              %a.Btn.library_settings_show
                 %i.icon-cogs
                 = t('common.actions.edit')
             - if policy(library).destroy?
-              %a.btn{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
+              %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
                 %i.icon-trash
                 = t('common.actions.destroy')
           - if policy(library).update?
@@ -74,6 +74,6 @@
                   - if policy(library_element).update?
                     = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
                       = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-                      = f.submit t('common.actions.move'), :class => "btn btn-fill btn-primary"
+                      = f.submit t('common.actions.move'), :class => "Btn"
 
 
