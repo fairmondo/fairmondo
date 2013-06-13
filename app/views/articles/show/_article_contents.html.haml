@@ -21,13 +21,13 @@
 - if current_user && resource.seller.id == current_user.id
   %span.pull-right
     - if policy(resource).edit?
-      = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
+      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
     - if resource.locked? && policy(resource).new?
-      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
+      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
     - if policy(resource).deactivate?
-      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
+      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
     - if policy(resource).destroy?
-      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "btn"
+      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
 
 .Breadcrumb
   - resource.categories.each do |leaf|
@@ -46,7 +46,7 @@
 .Articles--detail
   .Articles-image
     = link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
-    
+
   .Articles-info
     %h2
       = resource.title
