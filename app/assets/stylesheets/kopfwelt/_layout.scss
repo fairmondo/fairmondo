@@ -53,17 +53,31 @@ body {
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
-	@include rem(margin-top, 60px);
 	background-color: $darkbeige;
+	//border-bottom: solid .8em $lightgray;
+	// &:after {
+	// 	@extend .icons-arrow-active;
+	// 	position: relative;
+	// 	height: icons-sprite-height(arrow-active);
+	// 	width: icons-sprite-width(arrow-active);
+	// 	content: '';
+	// 	display: inline-block;
+	// 	margin: 0 auto;
+
+	// }
 	& > .l-Inner {
 		@include container;
+		padding-top: .5em;
+		padding-bottom: .5em;
+		min-height: 4em;
+
 	}
 }
 .l-Main {
-	background-color: $darkbeige;
+	background-color: $beige;
 	& > .l-Inner {
 		@include container;
-		padding-top: 1em;
+		@include rem(padding-top, 40px);
 		padding-bottom: 7em;
 	}
 }

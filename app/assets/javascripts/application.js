@@ -34,3 +34,5 @@
 //= require_tree ./models
 //= require_tree ./customize
 //= require_tree ./visual
+
+//= require_tree ./packery

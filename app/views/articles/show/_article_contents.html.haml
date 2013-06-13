@@ -46,8 +46,7 @@
 .Articles--detail
   .Articles-image
     = link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
-    = features_label resource, "in-image-alt"
-    = condition_label resource, "in-image"
+    
   .Articles-info
     %h2
       = resource.title
@@ -68,14 +67,17 @@
     = render 'articles/show/basic_price', :article => resource
     - if resource.active? && current_user && current_user.id != resource.seller.id
       %p
-        %a.Btn
+        %a.Btn.Btn--green
           = t('common.actions.buy')
       - if user_signed_in?
         = semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
           = f.inputs do
-            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "Btn"}, :label => false
             = f.input :article_id, :as => :hidden
-          = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "btn btn-fill btn-primary"
+          = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
+    %p
+      = features_label resource, "in-image-alt"
+      = condition_label resource, "in-image"
   .Articles-social
     #socialshareprivacy
   .Articles-accordion
@@ -86,23 +88,20 @@
     /Versand und Bezahlung
 
     = render_box "payment" do
-
-      %strong
-        = t('formtastic.labels.article.default_payment')
-        \:
-      %p
-        = resource.default_payment.text
-      .border-box.middle-padding
-        = simple_format(resource.payment_details).html_safe
-      %br/
-      %strong
-        = t('formtastic.labels.article.default_transport')
-        \:
-      %p
-        = resource.default_transport.text
-
-      .border-box.middle-padding
-        = simple_format(resource.transport_details).html_safe
+      .Articles-box
+        %p.Highlight
+          = t('formtastic.labels.article.default_payment')
+          \:
+        %p
+          = resource.default_payment.text
+          = simple_format(resource.payment_details).html_safe
+      .Articles-box
+        %p.Highlight
+          = t('formtastic.labels.article.default_transport')
+          \:
+        %p
+          = resource.default_transport.text
+          = simple_format(resource.transport_details).html_safe
 
     - if resource.has_commendation?
       = render_box "commendation" do
@@ -134,8 +133,8 @@
     - if policy(resource).report?
       = render_box "report" do
         = form_for :report, :url => report_article_path, :method => :get do |f|
-          = t('article.notices.report')
-          = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
+          %p= t('article.notices.report')
+          = f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]
           %br/
           %button.Btn
             = t('article.actions.report')

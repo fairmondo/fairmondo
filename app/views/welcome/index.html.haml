@@ -17,29 +17,24 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.row
-  .span12
+#js-packery.Packery
+  .gutter-sizer
+  .grid-sizer
+  .Teaser#youtube
+    = tinycms_content "start-video"
+  .Teaser
     = tinycms_content "test_phase_greeting"
-.row
-  .span12
-    #youtube
-      = tinycms_content "start-video"
-.row
-  .span6
-    .fairnopoly-well
-      = tinycms_content "buy-ffps"
-  .span6
+  .Teaser.fairnopoly-well
+    = tinycms_content "buy-ffps"
+  .Teaser.span6
     = tinycms_content "progress-ffps"
-/ row
-.row
-  .span6
-    .fairnopoly-well
-      = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-      = tinycms_content "please-register"
-  .span6
-    .progress.progress-success.progress-landing
-      .bar{:style => "height:100%;width: #{@percentage}%"}
-    %p
-      = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
-      = @articles
-      = t("common.text.inserted")
+
+  .Teaser.fairnopoly-well
+    = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
+    = tinycms_content "please-register"
+  .Teaser.progress.progress-success.progress-landing
+    .bar{:style => "height:100%;width: #{@percentage}%"}
+  %p
+    = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
+    = @articles
+    = t("common.text.inserted")
