@@ -66,8 +66,8 @@
                     - html = glyphicons("icon-remove")
                     = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
                   = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
-                  = features_label library_element.article, "in-image-alt-library"
-                  = condition_label library_element.article, "in-image-library"
+                  = features_label library_element.article
+                  = condition_label library_element.article
                 .caption
                   %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
                   %h5= humanized_money_with_symbol library_element.article.price

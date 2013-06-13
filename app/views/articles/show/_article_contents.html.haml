@@ -76,8 +76,8 @@
             = f.input :article_id, :as => :hidden
           = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
     %p
-      = features_label resource, "in-image-alt"
-      = condition_label resource, "in-image"
+      = features_label resource
+      = condition_label resource
   .Articles-social
     #socialshareprivacy
   .Articles-accordion
