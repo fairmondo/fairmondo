@@ -39,7 +39,7 @@ FactoryGirl.define do
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
     title { Faker::Name.prefix }
-    country { ["Deutschland",Faker::Address.country].sample }
+    country "Deutschland"
     street { Faker::Address.street_address }
     city { Faker::Address.city }
     zip { Faker::Address.postcode }
@@ -50,9 +50,8 @@ FactoryGirl.define do
       admin       true
     end
 
-    factory :german_user do
-      country "Deutschland"
-      zip "78123"
+    factory :non_german_user do
+      country Faker::Address.country
     end
 
     factory :private_user, class: 'PrivateUser' do

@@ -2,16 +2,25 @@ de:
 # Transaction System
   transaction:
     edit:
+      # step 1
       heading: "Dein Warenkorb"
       transport: "Versandkosten"
       payment: "Bezahlen"
       terms: "Impressum von %{name}"
       cancellation: "Widerrufserklärung von %{name}"
       address: "Rechnungs- und Lieferadresse"
-
-      payment_type: Zahlungsart
-      transport_type: Versandart
-      transport_provider: Versandanbieter
+      # step 2
+      purchase_data: Bestelldaten
+      payment_type: "Zahlungsart:"
+      transport_type: "Versandart:"
+      transport_provider: "Versandanbieter:"
+      price_heading: Vorraussichtlicher Preis
+      gross: (Brutto)
+      net: (Netto)
+      vat: "(zzgl. %{percent} % MwSt.)"
+      shipping_and_handling: "Versandkosten:"
+      payment_cash_on_delivery_price: "Nachnahme-Kosten:"
+      basic_price: "Grundpreis:"
     notices:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
