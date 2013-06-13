@@ -36,7 +36,7 @@
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
-    
+
     %script{:src  => "//use.typekit.net/kli6gpf.js"}
     :javascript
       try{Typekit.load();}catch(e){}
@@ -73,7 +73,7 @@
         .Logo
           %h1
             %a{:href => "/"}
-              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"} 
+              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
         %nav.Nav.Nav--primary
           %ul
             %li.icons-buy
@@ -89,7 +89,7 @@
                 = link_to t('common.text.profile'), user_path(current_user)
               %li.icons-logout
                 = link_to(t('common.actions.logout'), destroy_user_session_path )
-             
+
               /
                 - if current_user.trustcommunity == true
                   %li#community.main-nav-item
