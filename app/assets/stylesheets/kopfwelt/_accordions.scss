@@ -11,7 +11,6 @@
 		h3 {
 			margin-top:auto;
 			margin-bottom:auto;
-			margin-left: 15px;
 			display: block;
 			a {
 				padding-left: 45px;
@@ -48,6 +47,13 @@
 		a:link, a:visited, a:hover, a:active {
 			color: $white;
 		}
+		h3:before {
+			content: '';
+			@include rotate(-90deg);
+			@extend .icons-arrow-active;
+			display: inline-block;
+			margin-right: .2em;
+		}
 	}
 
 }
@@ -71,6 +77,12 @@
 		background-color: lighten($darkgray, 8);
 		a:link, a:visited, a:hover, a:active {
 			color: $white;
+		}
+		h3:before {
+			content: '';
+			@extend .icons-arrow-active;
+			display: inline-block;
+			margin-right: .2em;
 		}
 	}
 	.box-content {
@@ -118,6 +130,7 @@
 .box-content {
 	@include border-bottom-radius(.9em);
 	padding: $gutter-width / 2;
+	overflow: auto;
 	background-color: $white;
 }
 

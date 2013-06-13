@@ -79,6 +79,12 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 }
 
 .icons-user {
+	display: inline-block;
+	height: icons-sprite-height(user);
+	width: icons-sprite-width(user);
+}
+.icons-briefcase {
+	display: inline-block;
 	height: icons-sprite-height(user);
 	width: icons-sprite-width(user);
 }
