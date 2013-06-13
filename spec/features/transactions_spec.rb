@@ -79,12 +79,20 @@ describe 'Transaction' do
 
       describe "step 2" do
         context "given valid data" do
-          it "should have the correct fields and texts" do #not yet finished
+          it "should have the correct fields and texts" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
             # Should have pre-filled hidden fields
             page.should have_css 'input#transaction_selected_transport[@type=hidden][@value=pickup]'
             page.should have_css 'input#transaction_selected_payment[@type=hidden][@value=cash]'
+
+            # Should display chosen payment type
+            page.should have_content I18n.t 'transaction.edit.payment_type'
+            page.should have_content I18n.t 'enumerize.transaction.selected_payment.cash'
+
+            # Should display chosen transport type (specs for transport provider further down)
+            page.should have_content I18n.t 'transaction.edit.transport_type'
+            page.should have_content I18n.t 'enumerize.transaction.selected_transport.pickup'
 
             # Should display buyer's address
             page.should have_content I18n.t 'transaction.edit.address'
@@ -98,28 +106,88 @@ describe 'Transaction' do
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
           end
 
-          it "should show the correct price for insured transports" do
-            t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
+          context "when testing the displayed total price" do
+            context "without cash_on_delivery" do
+              it "should show the correct price for insured transports" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
 
-            visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
+                visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
 
-            page.should have_content '1.010,99'
+                page.should_not have_content I18n.t 'transaction.edit.payment_cash_on_delivery_price' # could be put in a separate test
+                page.should have_content '1.010,99'
+              end
+
+              it "should show the correct price for uninsured transports" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_uninsured: true, transport_uninsured_price: 5.99, transport_uninsured_provider: 'DHL')
+
+                visit edit_transaction_path t, transaction: {"selected_transport" => "uninsured", "selected_payment" => "cash"}
+
+                page.should have_content '1.005,99'
+              end
+
+              it "should show the correct price for pickups" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 999)
+
+                visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+
+                page.should have_content '999'
+              end
+            end
+
+            context "with cash_on_delivery" do
+              it "should display the increased price" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_cash_on_delivery: true, payment_cash_on_delivery_price: 7.77, price: 1000, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
+
+                visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash_on_delivery"}
+
+                page.should have_content I18n.t('transaction.edit.payment_cash_on_delivery_price')
+                page.should have_content '7,77'
+                page.should have_content '1.018,76'
+              end
+            end
           end
 
-          it "should show the correct price for uninsured transports" do
-            t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_uninsured: true, transport_uninsured_price: 5.99, transport_uninsured_provider: 'DHL')
+          context "when testing the displayed basic price" do
+            it "should show a basic price when one was set" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, basic_price: 1111.11)
+              visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-            visit edit_transaction_path t, transaction: {"selected_transport" => "uninsured", "selected_payment" => "cash"}
+              page.should have_content I18n.t 'transaction.edit.basic_price'
+              page.should have_content '1.111,11'
+            end
 
-            page.should have_content '1.005,99'
+            it "should not show a basic price when none was set" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, :with_private_user, basic_price_cents: 0)
+              visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+
+              page.should_not have_content I18n.t 'transaction.edit.basic_price'
+            end
           end
 
-          it "should show the correct price for pickups" do
-            t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 999)
+          context "when testing the displayed purchase data" do
+            it "should show the correct shipping provider for insured transports" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'Foobar')
 
-            visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+              visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
 
-            page.should have_content '999'
+              page.should have_content I18n.t('transaction.edit.transport_provider')
+              page.should have_content 'Foobar'
+            end
+
+            it "should show the correct shipping provider for uninsured transports" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_uninsured: true, transport_uninsured_price: 5.99, transport_uninsured_provider: 'Bazfuz')
+
+              visit edit_transaction_path t, transaction: {"selected_transport" => "uninsured", "selected_payment" => "cash"}
+
+              page.should have_content I18n.t('transaction.edit.transport_provider')
+              page.should have_content 'Bazfuz'
+            end
+
+            it "should not display a shipping provider for pickups" do
+              visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+
+              page.should_not have_content I18n.t('transaction.edit.transport_provider')
+            end
           end
         end
 

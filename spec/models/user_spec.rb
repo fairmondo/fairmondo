@@ -63,7 +63,7 @@ describe User do
       it { should validate_presence_of :nickname }
 
       describe "zip code validation" do
-        let(:user) { FactoryGirl.create(:german_user) }
+        # let(:user) { FactoryGirl.create(:german_user) } # factory users are currently German by default
 
         it { should validate_presence_of :zip }
 

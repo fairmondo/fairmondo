@@ -49,7 +49,7 @@ module Article::Attributes
 
     monetize :price_cents
 
-    # vat
+    # vat (Value Added Tax)
 
     validates_presence_of :vat , if: :has_legal_entity_seller?
 
@@ -140,6 +140,35 @@ module Article::Attributes
     end
   end
 
+  # Gives the price of the article minus taxes
+  #
+  # @api public
+  # @return [Money]
+  def price_without_vat
+    self.price * ( 100 - self.vat ) / 100
+  end
+
+  # Gives the amount of money for an article that goes towards taxes
+  #
+  # @api public
+  # @return [Money]
+  def vat_price
+    self.price * self.vat / 100
+  end
+
+  # Function to calculate total price for an article.
+  # Note: Params should have already been validated.
+  #
+  # @api public
+  # @param selected_transport [String] Transport type
+  # @param selected_payment [String] Payment type
+  # @return [Money] Total billed price
+  def total_price selected_transport, selected_payment
+    total = self.price + self.transport_price(selected_transport)
+    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+    total
+  end
+
   # Gives the shipping cost for a specified transport type
   #
   # @api public
@@ -153,6 +182,22 @@ module Article::Attributes
       transport_uninsured_price
     else
       Money.new 0
+    end
+  end
+
+  # Gives the shipping provider for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping provider
+  def transport_provider transport_type = self.default_transport
+    case transport_type
+    when "insured"
+      transport_insured_provider
+    when "uninsured"
+      transport_uninsured_provider
+    else
+      nil
     end
   end
 

@@ -42,7 +42,6 @@ include ActionDispatch::TestProcess
 require Rails.root.join('db/fixtures/category_seed_data.rb')
 
 
-
 ### Settings ###
 
 Delayed::Worker.delay_jobs = false

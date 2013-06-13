@@ -150,6 +150,54 @@ describe Article do
         end
       end
 
+      describe "#transport_provider" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's provider" do
+          article.transport_provider.should eq nil
+        end
+
+        it "should return an article's insured transport provider" do
+          article.transport_provider("insured").should eq 'DHL'
+        end
+
+        it "should return an article's uninsured transport provider" do
+          article.transport_provider("uninsured").should eq 'Hermes'
+        end
+
+        it "should return an article's pickup transport provider" do
+          article.transport_provider("pickup").should eq nil
+        end
+      end
+
+      describe "#total_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return the correct price for cash_on_delivery payments" do
+          expected = article.price + article.transport_insured_price + article.payment_cash_on_delivery_price
+          article.total_price("insured", "cash_on_delivery").should eq expected
+        end
+
+        it "should return the correct price for non-cash_on_delivery payments" do
+          expected = article.price + article.transport_uninsured_price
+          article.total_price("uninsured", "cash").should eq expected
+        end
+      end
+
+      describe "#price_without_vat" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.price_without_vat.should eq Money.new 8100
+        end
+      end
+
+      describe "#vat_price" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.vat_price.should eq Money.new 1900
+        end
+      end
+
       describe "#selectable_transports" do
         it "should call the private selectable function" do
           article.should_receive(:selectable).with("transport")

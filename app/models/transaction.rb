@@ -1,4 +1,4 @@
-#
+# A transaction handles the purchase process of an artucle.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -29,32 +29,25 @@ class Transaction < ActiveRecord::Base
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 
-  delegate :title, :seller, :selectable_transports, :selectable_payments, to: :article, prefix: true
+  delegate :title, :seller, :selectable_transports, :selectable_payments,
+           :transport_provider, :transport_price, :payment_cash_on_delivery_price,
+           :basic_price, :price, :vat, :vat_price, :price_without_vat,
+           :total_price,
+           to: :article, prefix: true
 
   # Edit can be called with GET params. If they are valid, it renders a different
   # view to show the final sales price. This method is called to validates if the
   # params are valid.
   #
   # @api public
-  # @attr params [Hash] The GET parameters
+  # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
     unless params["transaction"] && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"]
       return false
     end
 
-    valid = true
-    unless self.article.send("transport_#{params['transaction']['selected_transport']}?")
-      errors[:selected_transport] = I18n.t 'transaction.notices.transport_not_supported'
-      valid = false
-    end
-
-    unless self.article.send("payment_#{params['transaction']['selected_payment']}?")
-      errors[:selected_payment] = I18n.t 'transaction.notices.payment_not_supported'
-      valid = false
-    end
-
-    valid
+    supports?("transport", params["transaction"]["selected_transport"]) && supports?("payment", params["transaction"]["selected_payment"])
   end
 
   # Get transport options that were selected by seller
@@ -74,6 +67,22 @@ class Transaction < ActiveRecord::Base
   end
 
   private
+  # Check if seller allowed [transport/payment] type of [type] for the associated
+  # article. Also sets error message.
+  #
+  # @api private
+  # @param attribute [String] ATM: payment or transport
+  # @param type [String] The type to check
+  # @return [Boolean]
+  def supports? attribute, type
+    if self.article.send "#{attribute}_#{type}?"
+      true
+    else
+      errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
+      false
+    end
+  end
+
   # Get attribute options that were selected on transaction's article
   #
   # @api private

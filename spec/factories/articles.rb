@@ -109,5 +109,9 @@ FactoryGirl.define do
       transport_insured_provider 'DHL'
       transport_uninsured_provider 'Hermes'
     end
+
+    trait :with_private_user do
+      seller { FactoryGirl.create :private_user }
+    end
   end
 end
