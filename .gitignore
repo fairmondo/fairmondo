@@ -59,3 +59,6 @@ deriving_license_tmp
 Gemfile.local
 
 .ruby-version
+
+# compass sprites
+app/assets/images/icons-*.png
