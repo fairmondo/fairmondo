@@ -7,14 +7,13 @@
 // Susy (for robust layout math)
 // also applies * { box-sizing: border-box; }
 @import "susy";
-//@include border-box-sizing;
+@include border-box-sizing;
 
 // Compass
 @import "compass/typography"; // REM fallback
 @import "compass/css3"; // CSS3 mixins
 
-
-// Pluggins
+// Plugins
 @import "_packery.scss";
 
 // Project styles
