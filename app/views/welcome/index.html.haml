@@ -28,15 +28,14 @@
     = tinycms_content "buy-ffps"
   .Teaser.Teaser-pionier
     = tinycms_content "progress-ffps"
-
   .Teaser.Teaser-text
     = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-  .Tease.Tease-register
+  .Teaser.Tease-register
     = tinycms_content "please-register"
   .Teaser.Teaser-progress
     .bar{:style => "height:100%;width: #{@percentage}%"}
   %p.Teaser.Teaser-text
     = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
-  .Tease.Teaser-text
+  .Teaser.Teaser-text
     = @articles
     = t("common.text.inserted")
