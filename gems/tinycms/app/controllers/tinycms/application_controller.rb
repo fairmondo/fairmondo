@@ -19,6 +19,9 @@
 #
 class Tinycms::ApplicationController < ApplicationController
   include Tinycms::ApplicationHelper
+
+  skip_before_filter :authenticate_user!
+
   private
   unless method_defined? :authenticate_tinycms_user
     if method_defined? :authenticate_user!
