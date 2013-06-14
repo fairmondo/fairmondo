@@ -19,13 +19,12 @@
 #
 class User < ActiveRecord::Base
 
-  # lib dependency
-  include SanitizeTinyMce
-
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
   validates_presence_of :slug
+
+  extend Sanitization
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -38,10 +37,12 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
       :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
-      :trustcommunity, :invitor_id, :banned, :about_me,
+      :invitor_id, :banned, :about_me, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about,  :recaptcha, :bank_code ,
       :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+  auto_sanitize :nickname, :forename, :surname, :street, :city
+  auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
   def self.attributes_protected_by_default
