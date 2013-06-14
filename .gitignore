@@ -7,6 +7,8 @@ config/initializers/secret_token.rb
 # Project files
 .project
 .settings
+.sublime-project
+.sublime-workspace
 
 # Autotest configuration file
 .autotest
@@ -62,3 +64,4 @@ Gemfile.local
 
 # compass sprites
 app/assets/images/icons-*.png
+

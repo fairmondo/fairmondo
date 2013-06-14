@@ -1,0 +1,25 @@
+//
+// index
+//
+
+// # Configuration packery
+// $gutter: 2%;
+// $cols: 4;
+
+// # explantation of widths
+// 49% = 2 cols
+// no defined with = 24.5%
+
+
+.Teaser {
+	@include rem(padding, 10px 20px);
+	text-align: center; 
+}
+
+.Teaser-video {
+	width: 49%;
+}
+.Teaser-text {
+}
+.Teaser-pioner {}
+.Teaser-progress {}
