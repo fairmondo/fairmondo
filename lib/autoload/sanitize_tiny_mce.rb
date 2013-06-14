@@ -38,10 +38,5 @@ module SanitizeTinyMce
       }
     )
   end
-  # Convenience method to access static sanitize_tiny_mce on instances
-  # @api public
-  def sanitize_tiny_mce field
-    SanitizeTinyMce.sanitize_tiny_mce field
-  end
 
 end
