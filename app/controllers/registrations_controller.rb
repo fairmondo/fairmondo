@@ -19,7 +19,7 @@
 #
 class RegistrationsController < Devise::RegistrationsController
 
-  before_filter :authenticate_user!, :except => [:create,:new]
+  skip_before_filter :authenticate_user!, :only => [ :create, :new ]
 
   def create
     if verify_recaptcha

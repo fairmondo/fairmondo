@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Fairtastic::FormBuilder
+  
+    &mdash; Documentation by YARD 0.8.6.1
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (F)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Fairtastic.html" title="Fairtastic (module)">Fairtastic</a></span></span>
+     &raquo; 
+    <span class="title">FormBuilder</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Fairtastic::FormBuilder
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Formtastic::FormBuilder</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Formtastic::FormBuilder</li>
+          
+            <li class="next">Fairtastic::FormBuilder</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="Helpers/InputHelper.html" title="Fairtastic::Helpers::InputHelper (module)">Helpers::InputHelper</a></span>, <span class='object_link'><a href="Inputs/Base/InputSteps.html" title="Fairtastic::Inputs::Base::InputSteps (module)">Inputs::Base::InputSteps</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/autoload/fairtastic/form_builder.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hidden_semantic_errors-instance_method" title="#hidden_semantic_errors (instance method)">- (Object) <strong>hidden_semantic_errors</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#input_with-instance_method" title="#input_with (instance method)">- (Object) <strong>input_with</strong>(specification, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>DRYing input_with_purpose and input_with_explanation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inputs-instance_method" title="#inputs (instance method)">- (Object) <strong>inputs</strong>(*args, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#nested_inputs_for-instance_method" title="#nested_inputs_for (instance method)">- (Object) <strong>nested_inputs_for</strong>(association_name, options = {}, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#semantic_errors-instance_method" title="#semantic_errors (instance method)">- (Object) <strong>semantic_errors</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Inputs/Base/InputSteps.html" title="Fairtastic::Inputs::Base::InputSteps (module)">Inputs::Base::InputSteps</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Inputs/Base/InputSteps.html#input_step-instance_method" title="Fairtastic::Inputs::Base::InputSteps#input_step (method)">#input_step</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Helpers/InputHelper.html" title="Fairtastic::Helpers::InputHelper (module)">Helpers::InputHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Helpers/InputHelper.html#input-instance_method" title="Fairtastic::Helpers::InputHelper#input (method)">#input</a></span></p>
+
+  
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="hidden_semantic_errors-instance_method">
+  
+    - (<tt>Object</tt>) <strong>hidden_semantic_errors</strong>(*args) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/autoload/fairtastic/form_builder.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_hidden_semantic_errors'>hidden_semantic_errors</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_array'>array</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span><span class='op'>|</span>
+    <span class='id identifier rubyid_errors'>errors</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='ivar'>@object</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sentence'>to_sentence</span>
+    <span class='ivar'>@input_step_with_errors</span> <span class='op'>||=</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="input_with-instance_method">
+  
+    - (<tt>Object</tt>) <strong>input_with</strong>(specification, *args) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>DRYing input_with_purpose and input_with_explanation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/autoload/fairtastic/form_builder.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_input_with'>input_with</span> <span class='lparen'>(</span><span class='id identifier rubyid_specification'>specification</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_input_args'>input_args</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_specification'>specification</span>
+    <span class='kw'>when</span> <span class='symbol'>:purpose</span> <span class='kw'>then</span> <span class='id identifier rubyid_purpose_args'>purpose_args</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:explanation</span> <span class='kw'>then</span> <span class='id identifier rubyid_explanation_args'>explanation_args</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='comment'>#else raise ArgumentError, &quot;input_with called with an unfamiliar argument&quot;
+</span>  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span>
+    <span class='symbol'>:li</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span>
+      <span class='symbol'>:fieldset</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span>
+        <span class='symbol'>:ol</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_extended_radio_args'>extended_radio_args</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_input_args'>input_args</span><span class='rparen'>)</span>
+      <span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='symbol'>:class</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>inputs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='symbol'>:class</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>questionnaire-entry</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inputs-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inputs</strong>(*args, &amp;block) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/autoload/fairtastic/form_builder.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_extended_fieldset_args'>extended_fieldset_args</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='comma'>,</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="nested_inputs_for-instance_method">
+  
+    - (<tt>Object</tt>) <strong>nested_inputs_for</strong>(association_name, options = {}, &amp;block) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/autoload/fairtastic/form_builder.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_nested_inputs_for'>nested_inputs_for</span><span class='lparen'>(</span><span class='id identifier rubyid_association_name'>association_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_localized_string'>localized_string</span><span class='lparen'>(</span><span class='id identifier rubyid_association_name'>association_name</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_title'>title</span> <span class='op'>==</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_tooltip'>tooltip</span> <span class='op'>=</span> <span class='id identifier rubyid_optional_tooltip_html'>optional_tooltip_html</span><span class='lparen'>(</span><span class='id identifier rubyid_association_name'>association_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tooltip'>tooltip</span> <span class='op'>=</span> <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:span</span><span class='comma'>,</span> <span class='id identifier rubyid_tooltip'>tooltip</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_tooltip'>tooltip</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:h5</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_tooltip'>tooltip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span><span class='comma'>,</span> <span class='symbol'>:class</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>questionnaire-entry</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_semantic_fields_for'>semantic_fields_for</span><span class='lparen'>(</span><span class='id identifier rubyid_association_name'>association_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="semantic_errors-instance_method">
+  
+    - (<tt>Object</tt>) <strong>semantic_errors</strong>(*args) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/autoload/fairtastic/form_builder.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_semantic_errors'>semantic_errors</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hidden_semantic_errors'>hidden_semantic_errors</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>super</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jun 11 12:54:18 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.6.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
