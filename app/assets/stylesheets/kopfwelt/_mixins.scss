@@ -2,6 +2,7 @@
 // Mixins
 //
 
+// for buttons and inputs
 %bunputs {
 	@include rem(font-size, 12px);
 	vertical-align: middle;
@@ -10,4 +11,18 @@
 	padding: em(5,12) em(10,12);
 	border: 1px solid;
 	line-height: normal;
+}
+
+// For fonts
+%Regular {
+	font-weight: 400;
+}
+%Semibold {
+	font-weight: 600;
+}
+%Bold {
+	font-weight: 700;
+}
+%Extrabold {
+	font-weight: 800;
 }

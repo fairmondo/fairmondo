@@ -13,6 +13,10 @@
 @import "compass/typography"; // REM fallback
 @import "compass/css3"; // CSS3 mixins
 
+
+// Pluggins
+@import "_packery.scss";
+
 // Project styles
 //@import "_icons.scss";
 @import "_base.scss";
@@ -27,10 +31,9 @@
 @import "_user.scss";
 
 // pages
+@import "_index.scss";
 @import "_item-teaser.scss";
 
 // modules
 @import "_accordions.scss";
 
-// Pluggins
-@import "_packery.scss";
