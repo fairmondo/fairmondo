@@ -90,7 +90,7 @@ GEM
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     code-cleaner (0.8.2)
-    code_analyzer (0.3.1)
+    code_analyzer (0.3.2)
       sexp_processor
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -154,7 +154,7 @@ GEM
     flatui-rails (0.0.2)
       railties (~> 3.1)
       sass-rails (~> 3.2.0)
-    font-awesome-rails (3.1.1.3)
+    font-awesome-rails (3.2.0.0)
       railties (>= 3.2, < 5.0)
     formtastic (2.2.1)
       actionpack (>= 3.0)
@@ -213,7 +213,7 @@ GEM
       activesupport (>= 3.0)
       money (~> 5.1.0)
       railties (>= 3.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     nested_form (0.3.2)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -274,7 +274,7 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
-    rails_best_practices (1.13.5)
+    rails_best_practices (1.13.6)
       activesupport
       awesome_print
       code_analyzer
@@ -320,14 +320,16 @@ GEM
     ruby_parser (3.1.3)
       sexp_processor (~> 4.1)
     safe_yaml (0.9.3)
+    sanitize (2.0.4)
+      nokogiri (~> 1.6.0)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selectivizr-rails (1.0.1)
+    selectivizr-rails (1.0.2)
     sexp_processor (4.2.1)
-    shoulda-matchers (2.1.0)
+    shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
@@ -440,6 +442,7 @@ DEPENDENCIES
   rails_best_practices
   recaptcha
   rspec-rails
+  sanitize
   sass-rails (~> 3.2)
   selectivizr-rails
   shoulda-matchers

@@ -48,7 +48,7 @@ class Article < ActiveRecord::Base
   belongs_to :article_template
 
    # Article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize, Template, State
+  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitization, Template, State
 
   def images_attributes=(attributes)
     self.images.clear

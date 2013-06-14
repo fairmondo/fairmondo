@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::Sanitize
+module Article::Sanitization
   extend ActiveSupport::Concern
 
    # lib dependency
