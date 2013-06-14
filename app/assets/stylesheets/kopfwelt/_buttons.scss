@@ -87,41 +87,17 @@ a.Btn {
     }
 }
 
-// // Button clean 
-// // -----------------------------------
-// // apply button to link with icons, but are not really buttons
-
-// .Btn--clean {
-// 	border-radius: 0;
-// 	margin: auto;
-// 	padding: 0;
-// 	border: none;
-// 	line-height: normal;
-// 	background-color: none;
-// 	color: inherit;
-// 	text-decoration: none;
-// 	cursor: pointer;
-// }
-
-// // Button clean 
-// // -----------------------------------
-// // apply button to link with icons, but are not really buttons
-
-// .Btn--clean {
-// 	border-radius: 0;
-// 	margin: auto;
-// 	padding: 0;
-// 	border: none;
-// 	line-height: normal;
-// 	background-color: none;
-// 	color: inherit;
-// 	text-decoration: none;
-// 	cursor: pointer;
-// }
 
 // Base Button Variations (green, greenSmall, gray)
 // -----------------------------------
 
+.Btn--blue,
+.Btn--green,
+.Btn--greenSmall,
+.Btn--gray {
+    @include rem(width, 200px);
+    margin: 20px auto;
+}
 
 .Btn--green,
 .Btn--greenSmall {

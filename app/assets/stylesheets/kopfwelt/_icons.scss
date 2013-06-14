@@ -33,6 +33,25 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 	position: relative;
 }
 
+
+// Index's icons
+// -----------------------------------
+
+// iconS (import the sprites)
+.icons-interrogation--green {
+	height: icons-sprite-height(interrogation--green);
+	width: icons-sprite-width(interrogation--green);
+}
+.icons-pionier--green {
+	height: icons-sprite-height(pionier--green);
+	width: icons-sprite-width(pionier--green);
+}
+.icons-index-arrow--draw {
+	height: icons-sprite-height(index-arrow--draw);
+	width: icons-sprite-width(index-arrow--draw);
+}
+
+
 // Button's icons
 // -----------------------------------
 

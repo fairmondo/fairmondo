@@ -2,24 +2,72 @@
 // index
 //
 
-// # Configuration packery
-// $gutter: 2%;
-// $cols: 4;
+/*
+ * Configuration explained 
 
-// # explantation of widths
-// 49% = 2 cols
-// no defined with = 24.5%
+# Configuration packery
+$gutter: 2%;
+$cols: 4;
 
+# explantation of widths
+49% = 2 cols
+no defined with = 24.5%
 
+*/
+
+// General
+// -----------------------------------
 .Teaser {
 	@include rem(padding, 10px 20px);
-	text-align: center; 
+	text-align: center;
+	color: #3c3c3c;
+
+	.Icon [class^="icon-"] {
+		display: block;
+		@include rem(margin, 20px auto);
+	}
+	border-radius: 8px;
 }
+
+
+// Type of .Teasers
+// -----------------------------------
 
 .Teaser-video {
 	width: 49%;
 }
+
 .Teaser-text {
+	width: 49%;
+	font-size: 18px;
+	@extend %Regular;
 }
+.Teaser-total {}
 .Teaser-pioner {}
-.Teaser-progress {}
+
+.Teaser--title {
+	@include rem(font-size, 25px);
+	@extend %Bold;
+	color: black;
+}
+
+.Teaser-pionier--name {}
+
+.Teaser-total--number {}
+
+
+// Icons 
+// -----------------------------------
+
+.icon-interrogation--green {
+	@extend .icons-interrogation--green;
+}
+.icon-pionier--green {
+	@extend .icons-pionier--green;
+}
+.icon-index-arrow--draw {
+	@extend .icons-index-arrow--draw;
+	position: absolute;
+	top: 0px;
+	left: -100px;
+}
