@@ -114,7 +114,7 @@
         = resource.seller_cancellation.html_safe
       = accordion_item "about" do
         = resource.seller_about.html_safe
-    - if resource.libraries.count > 0 
+    - if resource.libraries.count > 0
       = accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do 
         - resource.libraries.each do |library|
           .User-library
