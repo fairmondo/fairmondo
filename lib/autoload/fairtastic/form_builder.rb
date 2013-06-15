@@ -27,6 +27,8 @@ module Fairtastic
     include Fairtastic::Helpers::InputHelper
     include Fairtastic::Inputs::Base::InputSteps
 
+    @@default_form_class = 'formtastic'
+
     def inputs(*args, &block)
       super(*extended_fieldset_args(*args),&block)
     end

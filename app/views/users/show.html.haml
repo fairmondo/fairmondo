@@ -22,8 +22,8 @@
     = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class=>"span3"}
     = will_paginate active_articles, :param_name => "active_articles_page"
 - else
-  .User-additional
-    = render_box "offers", :content_class => "padding-box" do
+  .User-additional.Accordion--activated
+    = accordion_item "offers" do
       - if active_articles.empty?
         .fairnopoly-well
           %strong= t('users.text.no_offers')
@@ -31,12 +31,12 @@
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class=>"span3"}
         = will_paginate active_articles, :params => {:anchor => "offers" } , :param_name => "active_articles_page"
     - if !inactive_articles.empty?
-      = render_box "inactive",:content_class => "padding-box" do
+      = accordion_item "inactive",:content_class => "padding-box" do
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> inactive_articles, :list_class=>"span3"}
         = will_paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
-    = render_box "sold" do
+    = accordion_item "sold" do
       %strong= t('users.text.soon_sold')
-    = render_box "my_article_templates" do
+    = accordion_item "my_article_templates" do
       .private-links
         %ul.nav.nav-pills
           %li

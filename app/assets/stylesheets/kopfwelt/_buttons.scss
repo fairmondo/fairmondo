@@ -171,11 +171,17 @@ a.Btn {
     &:hover {
         background-color: lighten($tag--blue, 5%);
     }
-    
-    &.accordion-is-active {
+
+    &.ui-accordion-header-active {
         background-color: $accordion--active; 
         &:hover {
         background-color: lighten($accordion--active, 5%);
+        }
+        
+        .icon-arrow {
+          @extend .icons-arrow-active;
+          top: 0px;
+          left: -7px;
         }
     }
 }
@@ -188,15 +194,9 @@ a.Btn {
 }
 
 .icon-arrow {
-    @extend .icons-arrow-inActive;
-    top: 2px;
-    left: -4px;
-}
-
-.icon-arrow--active {
-    @extend .icons-arrow-active;
-    top: 0px;
-    left: -7px;
+      @extend .icons-arrow-inActive;
+      top: 2px;
+      left: -4px;
 }
 
 .icon-box {
@@ -204,11 +204,13 @@ a.Btn {
     top: 5px;
     left: -7px;
 }
+
 .icon-box--open {
     @extend .icons-box-open;
     top: 4px;
     left: -5px;
 }
+
 .icon-paper {
     @extend .icons-paper;
     top: 3px;
