@@ -72,7 +72,7 @@
       - if user_signed_in?
         = semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
           = f.inputs do
-            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "Btn"}, :label => false
+            = f.input :library, :collection => current_user.libraries,  :include_blank => false ,  :label => false
             = f.input :article_id, :as => :hidden
           = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
     %p
@@ -80,14 +80,14 @@
       = condition_label resource
   .Articles-social
     #socialshareprivacy
-  .Articles-accordion
+  .Articles-accordion.Accordion--activated
     / Artikelbeschreibung
-    = render_box_open "content" do
+    = accordion_item "content" do
       = resource.content.html_safe
 
     /Versand und Bezahlung
 
-    = render_box "payment" do
+    = accordion_item "payment" do
       .Articles-box
         %p.Highlight
           = t('formtastic.labels.article.default_payment')
@@ -104,16 +104,27 @@
           = simple_format(resource.transport_details).html_safe
 
     - if resource.has_commendation?
-      = render_box "commendation" do
+      = accordion_item "commendation" do
         = render 'articles/show/commendation'
     / Only legal sellers
     - if resource.seller.is_a?(LegalEntity)
-      = render_box "terms" do
+      = accordion_item "terms" do
         = resource.seller_terms.html_safe
-      = render_box "cancellation" do
+      = accordion_item "cancellation" do
         = resource.seller_cancellation.html_safe
-      = render_box "about" do
+      = accordion_item "about" do
         = resource.seller_about.html_safe
+    - if resource.libraries.count > 0 
+      = accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do 
+        - resource.libraries.each do |library|
+          .User-library
+            = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
+            %p
+              = t('common.text.from') + " " + library.user_nickname
+          .User-libraray
+            = link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
+        = will_paginate libraries,:params => {:anchor => "library" }
+
 
 .Articles--related
   - alternative = find_fair_alternative_to resource
@@ -129,9 +140,9 @@
       %p.Helper-text
         = t('article.show.no_alternative')
 
-  .Articles-policy
+  .Articles-policy.Accordion
     - if policy(resource).report?
-      = render_box "report" do
+      = accordion_item "report" do
         = form_for :report, :url => report_article_path, :method => :get do |f|
           %p= t('article.notices.report')
           = f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]

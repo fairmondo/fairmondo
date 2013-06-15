@@ -18,62 +18,58 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if policy(@library).create?
-  .fairnopoly-well
-    %h3= t('library.new')
-    = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-vertical"}) do |f|
-      = f.inputs do
-        = f.input :name
-      = f.actions do
-        = f.action :submit , :value => t('library.create')
-- @libraries.each do |library|
-  - unless library.new_record?
-    = render_box "library"+library.id.to_s , :title => library.name , :content_class => "padding-box" do
-      - if policy(library).update? || policy(library).destroy?
-        .fairnopoly-well
+  %h3= t('library.new')
+  = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-vertical"}) do |f|
+    = f.inputs do
+      = f.input :name
+    = f.actions do
+      = f.action :submit , :value => t('library.create')
+.Accordion--activated
+  - @libraries.each do |library|
+    - unless library.new_record?
+      = accordion_item "library"+library.id.to_s , :title => library.name  do
+        - if policy(library).update? || policy(library).destroy?
           - if library.public?
             %i.icon-globe.icon-large
             = t 'library.visibility.public'
           - else
             %i.icon-user.icon-large
             = t 'library.visibility.private'
-          .pull-right
-            - if policy(library).update?
-              %a.Btn.library_settings_show
-                %i.icon-cogs
-                = t('common.actions.edit')
-            - if policy(library).destroy?
-              %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
-                %i.icon-trash
-                = t('common.actions.destroy')
-          - if policy(library).update?
-            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "form-vertical library_settings"}) do |f|
-              = f.inputs do
-                = f.input :name
-                = f.input :public, :label => false
-              = f.actions do
-                = f.action :submit, :label => :update
-
-      - if library.library_elements.empty?
-        .fairnopoly-well
+        - if policy(library).update?
+          %a.Btn.Library-showsettings
+            %i.icon-cogs
+            = t('common.actions.edit')
+        - if policy(library).destroy?
+          %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
+            %i.icon-trash
+            = t('common.actions.destroy')
+        - if policy(library).update?
+          = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
+            = f.inputs do
+              = f.input :name
+              = f.input :public, :label => false
+            = f.actions do
+              = f.action :submit, :label => :update
+        - if library.library_elements.empty?
           = t('library.no_products')
-      - else
-        %ul.thumbnails
-          - library.library_elements.each do |library_element|
-            %li.span3
-              .thumbnail.white{:style => "position: relative;"}
-                .in-image-container-library
-                  - if policy(library_element).destroy?
-                    - html = glyphicons("icon-remove")
-                    = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
-                  = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
-                  = features_label library_element.article
-                  = condition_label library_element.article
-                .caption
-                  %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
-                  %h5= humanized_money_with_symbol library_element.article.price
-                  - if policy(library_element).update?
-                    = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
-                      = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-                      = f.submit t('common.actions.move'), :class => "Btn"
+        - else
+          %ul.thumbnails
+            - library.library_elements.each do |library_element|
+              %li.span3
+                .thumbnail.white{:style => "position: relative;"}
+                  .in-image-container-library
+                    - if policy(library_element).destroy?
+                      - html = glyphicons("icon-remove")
+                      = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
+                    = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
+                    = features_label library_element.article
+                    = condition_label library_element.article
+                  .caption
+                    %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
+                    %h5= humanized_money_with_symbol library_element.article.price
+                    - if policy(library_element).update?
+                      = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
+                        = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+                        = f.submit t('common.actions.move'), :class => "Btn"
 
 

@@ -21,6 +21,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
+//= require jquery.ui.accordion
 //= require modernizr
 //= require selectivizr
 //= require tinymce
