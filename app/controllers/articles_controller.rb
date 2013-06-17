@@ -25,7 +25,7 @@ class ArticlesController < InheritedResources::Base
   actions :all # inherited methods
 
   # Authorization
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
 
   # Layout Requirements
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
@@ -52,7 +52,7 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    if !resource.active && policy(resource).activate?
+    if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
 
@@ -63,8 +63,7 @@ class ArticlesController < InheritedResources::Base
     authorize build_resource
 
     ############### From Template ################
-    if template_id = (params[:template_select] && params[:template_select][:article_template])
-      @applied_template = ArticleTemplate.find(template_id)
+    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif params[:edit_as_new]
@@ -79,7 +78,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def create
-
     authorize build_resource
     create! do |success, failure|
       success.html { redirect_to resource }
@@ -95,7 +93,6 @@ class ArticlesController < InheritedResources::Base
     else
       authorize resource
     end
-
     update! do |success, failure|
       success.html { redirect_to resource }
       failure.html { save_images
@@ -116,8 +113,16 @@ class ArticlesController < InheritedResources::Base
 
 
   def destroy
+
     authorize resource
-    destroy! { articles_path }
+
+    if resource.preview?
+      destroy! { articles_path }
+    elsif resource.locked?
+      resource.close
+      redirect_to articles_path
+    end
+
   end
 
   ##### Private Helpers

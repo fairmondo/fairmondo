@@ -31,7 +31,7 @@ FactoryGirl.define do
     privacy     "1"
     legal       "1"
     agecheck    "1"
-    recaptcha true
+    recaptcha   '1'
 
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }

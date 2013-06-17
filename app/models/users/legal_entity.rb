@@ -22,8 +22,6 @@
 class LegalEntity < User
   extend STI
 
-  before_validation :sanitize, :on => :create
-
   attr_accessible :terms, :cancellation, :about
   #
   # We cannot validate on user directly else resend password bzw. reset passwort does not work
@@ -42,10 +40,4 @@ class LegalEntity < User
   validates_presence_of :cancellation , :on => :update
   validates_presence_of :about , :on => :update
 
-  def sanitize
-    self.about = sanitize_tiny_mce(self.about)
-    self.cancellation = sanitize_tiny_mce(self.cancellation)
-    self.terms = sanitize_tiny_mce(self.terms)
-    self.about_me = sanitize_tiny_mce(self.about_me)
-  end
 end

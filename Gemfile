@@ -37,12 +37,13 @@ gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
-gem "acts_as_paranoid", "~>0.4.0" # for softdelete
+gem 'sanitize' # Parser based sanitization
+
+#gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
 gem 'sunspot_rails'
-gem 'progress_bar'
 
 # Delayed_Jobs & Daemons
 gem "daemons"
@@ -154,6 +155,10 @@ group :development do
 
   # Clean code before commiting
   gem "code-cleaner"
+
+  #zipruby for icecat catalog download
+  gem "zipruby"
+
 end
 
 group :test do

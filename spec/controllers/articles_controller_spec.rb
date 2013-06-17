@@ -375,8 +375,18 @@ describe ArticlesController do
       end
 
       it "should delete the preview article" do
-        put :destroy, :id => @article.id
-        response.should redirect_to(articles_path)
+        lambda do
+          put :destroy, :id => @article.id
+          response.should redirect_to(articles_path)
+        end.should change(Article.unscoped, :count).by -1
+      end
+
+      it "should softdelete the locked article" do
+        lambda do
+          put :update, id: @article.id, :activate => true
+          put :update, id: @article.id, :deactivate => true
+          put :destroy, :id => @article.id
+        end.should change(Article.unscoped, :count).by 0
       end
 
     end

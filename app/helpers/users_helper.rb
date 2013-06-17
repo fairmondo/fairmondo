@@ -25,10 +25,10 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where(:active => true).paginate :page => params[:active_articles_page]
+    resource.articles.where("state = ?", :active).paginate :page => params[:active_articles_page]
   end
 
   def inactive_articles
-    resource.articles.where(:active => false).paginate :page => params[:inactive_articles_page]
+    resource.articles.where("state != ? AND state != ?", :active, :closed ).paginate :page => params[:inactive_articles_page]
   end
 end
