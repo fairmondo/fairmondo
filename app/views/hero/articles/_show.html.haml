@@ -22,7 +22,7 @@
 .container
   .row
     .span12
-      - if resource.active
+      - if resource.active?
         = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
           = render "/shared/search_form", :f => f
       - else

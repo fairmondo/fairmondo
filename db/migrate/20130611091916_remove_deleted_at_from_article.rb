@@ -19,19 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::Sanitize
-  extend ActiveSupport::Concern
-
-   # lib dependency
-  include SanitizeTinyMce
-
-
-  included do
-    before_validation :sanitize_content, :on => :create
-
-  end
-  def sanitize_content
-    self.content = sanitize_tiny_mce(self.content)
+class RemoveDeletedAtFromArticle < ActiveRecord::Migration
+  def up
+    remove_column :articles, :deleted_at
   end
 
+  def down
+    raise ActiveRecord::IrreversibleMigration
+  end
 end

@@ -62,12 +62,14 @@ describe 'User management' do
 
     it "should not sign in a banned user" do
       user = FactoryGirl.create :user, banned: true
+      Tinycms::Content.create key:'banned', body: '<p>You are banned.</p>'
       visit new_user_session_path
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      expect { click_button 'Login' }.to raise_error # raises Tinycms error because "banned" is a page
+      click_button 'Login'
 
+      page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
   end

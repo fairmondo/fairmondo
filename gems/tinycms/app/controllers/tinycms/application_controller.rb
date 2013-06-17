@@ -21,6 +21,9 @@
 #
 class Tinycms::ApplicationController < ApplicationController
   include Tinycms::ApplicationHelper
+
+  skip_before_filter :authenticate_user!
+
   private
   unless method_defined? :authenticate_tinycms_user
     if method_defined? :authenticate_user!
@@ -34,15 +37,9 @@ class Tinycms::ApplicationController < ApplicationController
     end
   end
 
-  # Doesn't work and not needed
-  #unless method_defined? :tinymce_admin?
-  #  def tinycms_admin?
-  #    true
-  #  end
-  #end
-  helper_method :tinycms_admin?
-
-=begin
+  def ensure_admin
+    raise "You need to be an administrator to do that." unless tinycms_admin?
+  end
 
   unless method_defined? :tinycms_user
     if method_defined? :current_user
@@ -61,6 +58,5 @@ class Tinycms::ApplicationController < ApplicationController
     end
   end
   helper_method :tinycms_admin?
-=end
 
 end

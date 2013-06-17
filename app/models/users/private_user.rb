@@ -22,8 +22,6 @@
 class PrivateUser < User
   extend STI
 
-  before_validation :sanitize, :on => :create
-
   #
   # We cannot validate on user directly else resend password bzw. reset passwort does not work
   # if the user object doesnt validate and the user cannot reset his password!
@@ -36,8 +34,4 @@ class PrivateUser < User
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
-
-  def sanitize
-    self.about_me = sanitize_tiny_mce(self.about_me)
-  end
 end
