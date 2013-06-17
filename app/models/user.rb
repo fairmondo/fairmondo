@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
       :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
       :invitor_id, :banned, :about_me, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-      :terms, :cancellation, :about,  :recaptcha, :bank_code ,
-      :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+      :terms, :cancellation, :about, :bank_code, :paypal_account,
+      :bank_account_number, :bank_name, :bank_account_owner
   auto_sanitize :nickname, :forename, :surname, :street, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
@@ -85,13 +85,13 @@ class User < ActiveRecord::Base
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
 
-  validates_presence_of :recaptcha, :on => :create
-
   validates_presence_of :nickname
 
   validates :zip, :presence => true, :on => :update, :zip => true
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
+
+  validates :recaptcha, presence: true, acceptance: true, on: :create
 
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create

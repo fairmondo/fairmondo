@@ -21,9 +21,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   skip_before_filter :authenticate_user!, :only => [ :create, :new ]
 
+  #before_filter :check_recaptcha, only: :create
+
   def create
+    params[:user]["recaptcha"] = '0'
     if verify_recaptcha
-      params[:user]["recaptcha"] = true
+      params[:user]["recaptcha"] = '1'
     else
       flash.delete :recaptcha_error
     end
