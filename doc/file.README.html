@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.6.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1>Welcome to the Fairnopoly repository</h1>
+
+<p><a href="https://travis-ci.org/fairnopoly/fairnopoly"><img
+src="https://travis-ci.org/fairnopoly/fairnopoly.png" /></a> <a
+href="https://coveralls.io/r/fairnopoly/fairnopoly?branch=release"><img
+src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=release"
+alt="Coverage Status" /></a> <a
+href="https://codeclimate.com/github/fairnopoly/fairnopoly"><img
+src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" /></a></p>
+
+<p>Fairnopoly is a free market place in the hand of the users.</p>
+
+<p>Read more about it at: <a
+href="http://www.fairnopoly.de">www.fairnopoly.de</a></p>
+
+<p>The development currently is in beta state. Please help us out by
+contributing code.</p>
+
+<h2>Getting started</h2>
+
+<h3>Installing Ruby and Ruby on Rails</h3>
+
+<p>If you are not sure how to <em>install Ruby and the Ruby on Rails
+framework</em> on your computer, have a look at Michael Hartl's excellent
+<a
+href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems">tutorial</a>
+on the subject.</p>
+
+<p>Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.</p>
+
+<h3>Fairnopoly Project Setup (automated)</h3>
+
+<p>Note: the automated process won't work under Windows. To run Fairnopoly
+locally in development mode, install ruby and rails. Then open up a console
+and <em>copy &amp; paste</em> in the following line:</p>
+
+<pre class="code ruby"><code class="ruby">git clone git@github.com:fairnopoly/fairnopoly.git &amp;&amp; cd fairnopoly/ &amp;&amp; git checkout release &amp;&amp; ruby setup.rb</code></pre>
+
+<p>What this does:</p>
+<ul><li>
+<p>It sets up a local git repository,</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_clone'>clone</span> <span class='id identifier rubyid_git'>git</span><span class='ivar'>@github</span><span class='period'>.</span><span class='id identifier rubyid_com'>com</span><span class='symbol'>:fairnopoly</span><span class='op'>/</span><span class='id identifier rubyid_fairnopoly'>fairnopoly</span><span class='period'>.</span><span class='id identifier rubyid_git'>git</span></code></pre>
+</li><li>
+<p>switches to the fairnopoly root path,</p>
+
+<pre class="code ruby"><code class="ruby">cd fairnopoly/</code></pre>
+</li><li>
+<p>switches the git branch to "release" (which is the branch we currently use
+for the beta version)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_checkout'>checkout</span> <span class='id identifier rubyid_release'>release</span></code></pre>
+</li><li>
+<p>runs the Fairnopoly setup script</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ruby'>ruby</span> <span class='id identifier rubyid_setup'>setup</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span></code></pre>
+</li></ul>
+
+<h3>Fairnopoly Project Setup (manually)</h3>
+
+<p>If the automated script doesn't work for you, try going through these steps
+one by one:</p>
+<ul><li>
+<p>Set up a local git repository</p>
+
+<pre class="code ruby"><code class="ruby">git clone git@github.com:fairnopoly/fairnopoly.git
+cd fairnopoly/</code></pre>
+</li><li>
+<p>Install required gems (preface with rvmsudo if you are using rvm)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span></code></pre>
+</li><li>
+<p>set up local files and change the setup data if you want</p>
+
+<pre class="code ruby"><code class="ruby">cp config/environments/development.example.rb config/environments/development.rb
+cp config/initializers/secret_token.example config/initializers/secret_token.rb</code></pre>
+</li><li>
+<p>migrate and seed</p>
+
+<pre class="code ruby"><code class="ruby">rake db:create &amp;&amp; rake db:migrate &amp;&amp; rake db:seed &amp;&amp; rake db:test:prepare</code></pre>
+</li><li>
+<p>if you would like to test the mailer, please open the copied file and
+update it according to your testing mail server</p>
+</li><li>
+<p>you may like to adopt the config/database.yml according to your wishes</p>
+</li><li>
+<p>to use the recaptcha you have to add your keys in the api.yml. You can get
+the keys at <a
+href="https://www.google.com/recaptcha/admin/list">www.google.com/recaptcha/admin/list</a></p>
+</li><li>
+<p>start rails and have fun</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rails'>rails</span> <span class='id identifier rubyid_s'>s</span></code></pre>
+</li></ul>
+
+<h3>Known Issues</h3>
+<ul><li>
+<p>Could not find pg-0.15.1 in any of the sources</p>
+
+<p>If you have an error like</p>
+
+<pre class="code ruby"><code class="ruby">...
+rake aborted!
+Could not find pg-0.15.1 in any of the sources
+...</code></pre>
+
+<p>Install the Postgres Library:</p>
+
+<pre class="code ruby"><code class="ruby">sudo apt-get install libpq-dev</code></pre>
+
+<p>Run Bundler</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span></code></pre>
+</li><li>
+<p>(Mac) Invalid gemspec [...ZenTest-4.9.1.gemspec]</p>
+
+<p>If bundler constantly complains about an invalid ZenTest gemspec, run the
+following:</p>
+
+<pre class="code ruby"><code class="ruby">gem uninstall ZenTest
+rm [path to the ZenTest-4.9.1.gemspec it gave you in the error message]
+gem update --system
+bundle</code></pre>
+</li></ul>
+
+<h3>Testing</h3>
+
+<p>To run the tests: if you haven't already, prepare the testing database</p>
+
+<pre class="code ruby"><code class="ruby">rake db:test:prepare</code></pre>
+
+<p>Then run the tests</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rspec'>rspec</span></code></pre>
+
+<p>Run an automated test tab with</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_autotest'>autotest</span></code></pre>
+
+<p>If you update your branch from before, you may have to migrate the test
+database:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RAILS_ENV</span><span class='op'>=</span><span class='id identifier rubyid_test'>test</span> <span class='id identifier rubyid_rake'>rake</span> <span class='label'>db:</span><span class='id identifier rubyid_migrate'>migrate</span></code></pre>
+
+<p><a
+href="https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD">Click
+here</a> to read more about testing in our wiki.</p>
+
+<h3>Workflow</h3>
+
+<p>If you want to help out with programming new features or fixing bugs,
+please consider the following guidelines:</p>
+<ul><li>
+<p>If you do no have direct access to our github repository, you can fork it,
+make changes on your forked repo, and then submit a pull request</p>
+</li><li>
+<p>If you have access to our repository, please create a new git branch before
+making changes when coding a larger feature</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_git'>git</span> <span class='id identifier rubyid_branch'>branch</span> <span class='lbracket'>[</span><span class='id identifier rubyid_featurename'>featurename</span><span class='rbracket'>]</span></code></pre>
+</li><li>
+<p>We use BDD (Behavior Driven Development). Please read our <a
+href="https://github.com/fairnopoly/fairnopoly/wiki/Testing-and-BDD">wiki
+page on the subject</a>.</p>
+</li><li>
+<p>When finished with a task:</p>
+
+<pre class="code ruby"><code class="ruby">git add [corresponding files OR simply . for everything]
+git commit -m &quot;[description]&quot;
+git push</code></pre>
+</li><li>
+<p>If you created a new branch for a larger feature, you need to merge the
+changes after you are finished:</p>
+
+<pre class="code ruby"><code class="ruby">git checkout master
+git merge [featurename] master
+[you might need to resolve merge conflicts]
+git commit
+git push</code></pre>
+</li></ul>
+
+<p>Hint: When a vim window opened after you typed "git commit" without a
+commit message, you can save the default message by simply typing ":wq" and
+pressing enter.</p>
+
+<h3>Run Solr Server</h3>
+
+<p>To avoid having the search not available in your local environment, run</p>
+
+<pre class="code ruby"><code class="ruby">script/delayed_job start
+rake sunspot:solr:start</code></pre>
+
+<p>For more information visit our wiki.</p>
+
+<h2>Contributing</h2>
+
+<p>Share the idea, take part at <a
+href="http://www.fairnopoly.de">www.fairnopoly.de</a>/ and make the world a
+better place!</p>
+
+<p>Regarding the source, there are two ways to contribute.</p>
+<ol><li>
+<p>Report a bug?</p>
+<ul><li>
+<p>Just use the github issue tracker.</p>
+</li></ul>
+</li><li>
+<p>Want to help out and join feature development?</p>
+<ul><li>
+<p>Send us an email at <a
+href="mailto:email@fairnopoly.de">email@fairnopoly.de</a> and work with us
+to make the world a better place</p>
+</li><li>
+<p>or make a github account and click on the button called "Fork" in the upper
+right corner of <a href="https://github.com/fairnopoly/fairnopoly">our
+repository</a>. Then code a few cool features, commit and push your
+changes, and submit a "Pull Request" so we can implement your work.</p>
+</li></ul>
+</li></ol>
+</div></div>
+
+    <div id="footer">
+  Generated on Tue Jun 11 12:54:15 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.6.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

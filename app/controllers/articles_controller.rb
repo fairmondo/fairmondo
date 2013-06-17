@@ -23,7 +23,7 @@ class ArticlesController < InheritedResources::Base
   actions :all # inherited methods
 
   # Authorization
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
 
   # Layout Requirements
   before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]

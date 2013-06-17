@@ -19,7 +19,6 @@
 #
 class ArticleTemplatesController < InheritedResources::Base
 
-  before_filter :authenticate_user!
   before_filter :build_resource, :only => [:new, :create]
   before_filter :build_article, :only => [:new,:create]
   actions :all, :except => [:show,:index]
