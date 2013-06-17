@@ -23,12 +23,6 @@ class ArticleTemplatesController < InheritedResources::Base
   before_filter :build_article, :only => [:new,:create]
   actions :all, :except => [:show,:index]
 
-
-
-  def begin_of_association_chain
-    current_user
-  end
-
   # def collection
   #   @article_templates ||= end_of_association_chain.paginate(:page => params[:page])
   # end
@@ -68,6 +62,10 @@ class ArticleTemplatesController < InheritedResources::Base
   end
 
   private
+
+  def begin_of_association_chain
+    current_user
+  end
 
   def collection_url
     user_path(current_user, :anchor => "my_article_templates")
