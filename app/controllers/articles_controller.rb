@@ -61,8 +61,7 @@ class ArticlesController < InheritedResources::Base
     authorize build_resource
 
     ############### From Template ################
-    if template_id = (params[:template_select] && params[:template_select][:article_template])
-      @applied_template = ArticleTemplate.find(template_id)
+    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif params[:edit_as_new]
@@ -77,7 +76,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def create
-
     authorize build_resource
     create! do |success, failure|
       success.html { redirect_to resource }
