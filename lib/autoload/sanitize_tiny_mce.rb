@@ -18,9 +18,25 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module SanitizeTinyMce
-  def sanitize_tiny_mce(field)
-    ActionController::Base.helpers.sanitize(field,
-    :tags => %w(a b i strong em p param h1 h2 h3 h4 h5 h6 br hr ul li img),
-    :attributes => %w(href name src type value width height data style) );
+  # Sanitization specifically for tiny mce fields which allow certain HTML
+  # elements.
+  #
+  # @api public
+  # @param field [Sting] The content to sanitize
+  # @return [String] The sanitized content
+  def self.sanitize_tiny_mce field
+    Sanitize.clean(field,
+      elements: %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul li img),
+      attributes: {
+        'a' => ['href', 'type'],
+        'img' => ['src'],
+        :all => ['width', 'height', 'style', 'data', 'name']
+      },
+      protocols: {
+        'a' => { 'href' => ['ftp', 'http', 'https', 'mailto'] },
+        'img' => { 'src' => ['http', 'https'] }
+      }
+    )
   end
+
 end

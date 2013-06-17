@@ -47,8 +47,10 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
+  # Misc mixins
+  extend Sanitization
    # Article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize, Template, State
+  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Template, State
 
   def images_attributes=(attributes)
     self.images.clear
