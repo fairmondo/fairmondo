@@ -274,7 +274,7 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
-    rails_best_practices (1.13.6)
+    rails_best_practices (1.13.7)
       activesupport
       awesome_print
       code_analyzer
