@@ -25,6 +25,7 @@
  *
  *= require_self
  *= require kopfwelt/main
+ *= require vendor/jquery.selectBoxIt
  *
 */
 
