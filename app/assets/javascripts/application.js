@@ -26,9 +26,11 @@
 //= require tinymce
 //= require tinymce-jquery
 //= require bootstrap
+//= require turbolinks
 //= require jquery.complexify
 //= require jquery.hashchange
 //= require jquery.socialshareprivacy
+//= require jquery.turbolinks
 
 //= require_tree ./inputs
 //= require_tree ./models
