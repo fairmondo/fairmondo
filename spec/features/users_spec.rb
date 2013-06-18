@@ -70,6 +70,8 @@ describe 'User management' do
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
+
+
   end
 
   context "for signed-in users" do
