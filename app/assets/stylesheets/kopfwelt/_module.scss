@@ -8,11 +8,16 @@
 }
 
 .Logo {
-	float: left;
-	margin-top: 1em;
+	padding-top: 1em;
 }
+.Logo,
 .Copyright {
 	float: left;
+	@media (max-width: 30em) {
+		float: none;
+	}
+}
+.Copyright {
 	@include rem(font-size, 15px);
 	p {
 		margin-top: .4em;

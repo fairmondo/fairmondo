@@ -22,6 +22,9 @@ $cols: 4;
 	// 	$cols: 6;
 	// 	width: (100 - ($gutter*$cols)) /$cols;
 	// }
+	@media (max-width: 30em) {
+		width: 100% !important;
+	}
 }
 
 //

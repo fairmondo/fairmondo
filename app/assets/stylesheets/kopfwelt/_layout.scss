@@ -59,12 +59,14 @@ body {
 		& > .l-Inner {
 			@include container;
 		}
-		margin-bottom: em(103);
+		@media (min-width: 30em) {
+			margin-bottom: em(103);
+		}
 	}
 	.Footer--bottom {
 		& > .l-Inner {
 			@include container;
 		}
-		@include rem(height, 50px);
+		padding-bottom: em(20);
 	}
 }

@@ -33,26 +33,22 @@ no defined with = 24.5%
 // Type of .Teasers
 // -----------------------------------
 
-.Teaser-video {
-	width: 49%;
-}
-
+.Teaser-video,
 .Teaser-text {
 	width: 49%;
-	font-size: 18px;
+}
+.Teaser-text {
+	@include rem(font-size, 18px);
 	@extend %Regular;
 }
-.Teaser-total {}
-.Teaser-pioner {}
-
 .Teaser--title {
 	@include rem(font-size, 25px);
 	@extend %Bold;
 	color: black;
 }
-
+.Teaser-total {}
+.Teaser-pioner {}
 .Teaser-pionier--name {}
-
 .Teaser-total--number {}
 
 
