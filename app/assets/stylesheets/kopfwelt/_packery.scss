@@ -22,12 +22,16 @@ $cols: 4;
 	// 	$cols: 6;
 	// 	width: (100 - ($gutter*$cols)) /$cols;
 	// }
-	@media (max-width: 40em) {
+	@media (max-width: 48em) {
 		width: 49% !important;
 	}
 	@media (max-width: 30em) {
 		width: 100% !important;
 	}
+}
+.Teaser--video,
+.Teaser--text {
+	width: 49%;
 }
 
 //
