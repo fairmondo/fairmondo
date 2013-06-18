@@ -38,10 +38,8 @@ body {
 	// }
 	& > .l-Inner {
 		@include container;
-		padding-top: .5em;
-		padding-bottom: .5em;
-		min-height: 4em;
-
+		padding-top: em(20);
+		padding-bottom: em(20);
 	}
 }
 .l-Main {

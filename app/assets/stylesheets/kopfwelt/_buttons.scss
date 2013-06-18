@@ -58,21 +58,23 @@ a.Btn {
 }
 
 .Btn {
-    @extend %bunputs;
+    @include rem(font-size, 17px);
+    vertical-align: middle;
+
+    display: inline-block;
+    position: relative;
+    margin: 0 0 $pBottomMargin;
+    padding: em(5,17) em(15,17);
+    line-height: normal;
+    
+    border: 0 solid;
+    border-radius: 5px;
+    
     background-color: $btn--blue;
     color: white;
     text-decoration: none;
-    background-color: $btn--blue;
-    border: 0 solid;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 17px;
-    position: relative;
     text-align: center;
-    margin-bottom: $pBottomMargin;
-    
-    @include rem(padding, 5px 15px);
+    cursor: pointer;
     
     // user cannot select .Btn to not disturb its copy/paste actions
     -moz-user-select: none;

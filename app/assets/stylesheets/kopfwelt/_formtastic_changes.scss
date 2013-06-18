@@ -11,23 +11,19 @@ input[type='email'],
 input[type='password'],
 input[type='tel'],
 textarea {
-	@extend %bunputs;
-	@extend %Regular;
 	@include rem(font-size, $base-font-size);
-	@include border-radius(.5em);
-	min-height: 30px;
+	padding: em(8);
 	width: 100%;
-	padding: $gutter-width/ 4;
-	border: $lightgray solid .2em;
-
+	color: $lightgray;
+	border: 2px solid;
+	border-radius: 5px;
 	&:focus {
 		outline: 0;
+		color: $black;
 	}
 	&:hover {}
 }
-input[type='submit'] {
-	min-height: 30px;
-}
+
 label {
 	@extend %Semibold;
 	@include rem(font-size, $font-size-m);
