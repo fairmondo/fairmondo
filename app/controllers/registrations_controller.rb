@@ -33,30 +33,16 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-
-  def update
-    @user_ = User.find(current_user.id)
+def update
+    @user = User.find(current_user.id)
     params_email = params[:user][:email]
 
     successfully_updated = if needs_password?(@user, params)
-      # Workaround
-      # the LegalEntity.update_with_password does not work ??
-      # see: https://github.com/plataformatec/devise/blob/master/lib/devise/models/database_authenticatable.rb
-      # http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
-      # http://stackoverflow.com/questions/14492180/validation-error-on-update-attributes-of-a-subclass-sti
-      if @user_.update_with_password(params[:user])
-        # for workaround, else email is send 2 times
-        params[:user].delete("email")
-        @user.update_without_password params[:user]
-      else
-        false
-      end
+      @user.update_with_password(params[:user])
     else
-    # remove the virtual current_password attribute update_without_password
-    # doesn't know how to ignore it
-      params[:user].delete("current_password")
-      params[:user].delete("password")
-      params[:user].delete("password_confirmation")
+      # remove the virtual current_password attribute update_without_password
+      # doesn't know how to ignore it
+      params[:user].delete(:current_password)
       @user.update_without_password(params[:user])
     end
 
@@ -67,22 +53,24 @@ class RegistrationsController < Devise::RegistrationsController
       else
         set_flash_message :notice, :updated
       end
+
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
       redirect_to user_path(@user)
     else
-      render :edit
+      render "edit"
     end
   end
 
   private
+
   # check if we need password to update user data
-  # ie if password was changed
+  # ie if password or email was changed
   # extend this as needed
   # @api private
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
-    !params[:user][:password].blank?
+      !params[:user][:password].blank?
   end
 
 end
