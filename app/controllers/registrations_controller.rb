@@ -47,9 +47,9 @@ class RegistrationsController < Devise::RegistrationsController
       if @user_.update_with_password(params[:user])
         # for workaround, else email is send 2 times
         params[:user].delete("email")
-        @user.update_without_password(params[:user])
+        @user.update_without_password params[:user]
       else
-      false
+        false
       end
     else
     # remove the virtual current_password attribute update_without_password
@@ -75,9 +75,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  private
   # check if we need password to update user data
   # ie if password was changed
   # extend this as needed
+  # @api private
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
     !params[:user][:password].blank?
