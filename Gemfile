@@ -161,7 +161,9 @@ group :development do
 
   #zipruby for icecat catalog download
   gem "zipruby"
-
+  
+  # activerecord-import for batch-writing into the databse
+  gem 'activerecord-import'
 end
 
 group :test do
