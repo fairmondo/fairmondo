@@ -32,6 +32,9 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-import (0.3.1)
+      activerecord (~> 3.0)
+      activerecord (~> 3.0)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
       activesupport (= 3.2.13)
@@ -154,7 +157,7 @@ GEM
     flatui-rails (0.0.2)
       railties (~> 3.1)
       sass-rails (~> 3.2.0)
-    font-awesome-rails (3.2.0.0)
+    font-awesome-rails (3.2.1.0)
       railties (>= 3.2, < 5.0)
     formtastic (2.2.1)
       actionpack (>= 3.0)
@@ -234,8 +237,8 @@ GEM
     pg (0.15.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
-    pundit (0.2.0)
-      rails (~> 3.0)
+    pundit (0.2.1)
+      activesupport (>= 3.0.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -274,7 +277,7 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
-    rails_best_practices (1.13.6)
+    rails_best_practices (1.13.7)
       activesupport
       awesome_print
       code_analyzer
@@ -394,6 +397,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
+  activerecord-import
   amoeba
   autotest-fsevent
   awesome_nested_set
