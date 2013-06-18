@@ -1,0 +1,5 @@
+$(function () {
+
+	$('select').customSelect();
+	
+});

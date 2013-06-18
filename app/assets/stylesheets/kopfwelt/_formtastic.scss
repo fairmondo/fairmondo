@@ -124,7 +124,6 @@ This stylesheet forms part of the Formtastic Rails Plugin
 --------------------------------------------------------------------------------------------------*/
 .formtastic .input .label {
   display:block;
-  width:25%;
   float:left;
   padding-top:.2em;
 }
@@ -163,8 +162,10 @@ This stylesheet forms part of the Formtastic Rails Plugin
 /* INLINE HINTS
 --------------------------------------------------------------------------------------------------*/
 .formtastic .input .inline-hints {
-  color:#666;
-  margin:0.5em 0 0 25%;
+  @extend %Semibold;
+  @include rem(font-size, $font-size-m);
+  color:$black;
+  //margin:0.5em 0 0 25%;
 }
 
 

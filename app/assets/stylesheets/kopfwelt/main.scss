@@ -16,6 +16,8 @@
 // Plugins
 @import "_packery.scss";
 
+//forms
+@import "_formtastic.scss"; //formtastic base layout
 
 // Project styles
 @import "_mixins.scss";
@@ -29,14 +31,14 @@
 @import "_nav.scss";
 @import "_articles.scss";
 @import "_user.scss";
+@import "_forms.scss";
 
 // pages
 @import "_index.scss";
 @import "_item-teaser.scss";
 
 // modules
-@import "_accordions.scss";
+@import "_accordions.scss"
 
-//forms
-@import "_formtastic.scss" //formtastic base layout
+
 
