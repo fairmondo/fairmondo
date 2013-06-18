@@ -12,12 +12,11 @@
 	}
 	li {
 		display: inline-block;
+		margin-right: em(15);
 	}
 	a {
 		@extend %Semibold;
 		display: block;
-
-		padding: 0.5em 1em;
 		text-decoration: none;
 		
 		&:hover,
@@ -57,16 +56,20 @@
 	}
 }
 
-
 .l-Footer a {
 	color: #434343;
 }
 .Nav--meta {
 	@include rem(font-size, 17px);
-	float: right;
 	margin-top: 1em;
 }
 .Nav--legal  {
-	float: right;
 	@include rem(font-size, 15px);
+}
+
+.Nav--meta,
+.Nav--legal {
+	@media (min-width: 30em) {
+		float: right;
+	}
 }
