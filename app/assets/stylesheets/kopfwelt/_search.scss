@@ -10,8 +10,7 @@
 		margin: 0;
 	}
 }
-.Search-input {
-}
+.Search-input {}
 .Search .Search-input input { // extra specificity
 	@include rem(font-size, 20px);
 	width: 100%;

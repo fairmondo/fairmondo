@@ -37,3 +37,8 @@
 @import "_index.scss";
 @import "_item-teaser.scss";
 @import "_accordions.scss";
+
+//forms
+@import "_formtastic.scss"; //formtastic base layout
+@import "_formtastic_changes.scss";
+@import "_search.scss";
