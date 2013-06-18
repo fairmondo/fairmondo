@@ -42,7 +42,7 @@
 		= @articles
 		= t("common.text.inserted")
 
-	.Teaser.Teaser--text
+	.Teaser.Teaser--text.Teaser--welcome
 		%h2.Teaser-title.Icon
 			%i.icon-interrogation--green
 			Willkommen bei Fairnopoly
@@ -59,14 +59,21 @@
 			%i.icon-index-arrow--draw
 			Mehr erfahren
 
-	.Teaser.Teaser--pioner
+	.Teaser.Teaser--pioneer
 		%h2.Teaser-title Pionier des Tages
-		%p.Teaser--pionier-name Felix Weth, Berlin
-		%img{:src => "", :alt => ""}/
-		%p Kreidetier
-		%p 12 €*
-		%span inkl. 19% MwSt
-		%span *Grundpreis 1.29€/Kg
+		
+		%figure.Profile
+			.Profile-name Felix Weth, Berlin
+			%img.Profile-avatar{:src => "assets/dummy/avatar.png", :alt => "Felix Weth"}
+		
+		%img.Teaser--pioneer-image{:src => "assets/dummy/dummy-245.png", :alt => ""}
+		
+		-# =image_tag "dummy/dummy-245.png", :class => ""
+		
+		%p.Teaser--pioneer-1 Kreidetier
+		%p.Teaser--pioneer-2 12 €*
+		%span.Teaser--pioneer-3 inkl. 19% MwSt
+		%span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
 	
 	.Teaser.Teaser--total
 		%h2.Teaser-title Bis jetzt eingestellte Artikel

@@ -16,22 +16,30 @@
 	@include rem(padding, 10px 20px);
 	text-align: center;
 	color: #3c3c3c;
+	border-radius: 8px;
 
 	.Icon [class^="icon-"] {
 		display: block;
 		@include rem(margin, 20px auto);
 	}
-	border-radius: 8px;
 }
 
 //
 // Teaser variants
 //
 
-.Teaser--video,
-.Teaser--text {
-	width: 49%;
+// Ribbon
+.Teaser--welcome:before {
+	content: '';
+	display: block;
+	width: 132px;
+	height: 132px;
+	background-image: url(asset-path("ribbon-pioneer.png", image));
+	position: absolute;
+	top: -5px;
+	left: -5px;
 }
+
 .Teaser--text {
 	@include rem(font-size, $base-font-size);
 	@extend %Regular;
@@ -41,22 +49,41 @@
 	@extend %Bold;
 	color: black;
 }
-.Teaser--pioner {
+.Teaser--pioneer {
+	padding-left: 0;
+	padding-right: 0;
 	.Teaser-title {
 		@include rem(font-size, $base-font-size);
-	}
-	&:before {
-		content: '';
-		display: block;
-		width: 132px;
-		height: 132px;
-		background-image: url(asset-path("ribbon-pioneer.png", image));
-		position: relative;
-		top: -15px;
-		left: -25px;
+		margin-bottom: em(25,$base-font-size);
 	}
 }
-.Teaser--pionier-name {}
+.Teaser--pioneer-image {
+	width: 100%;
+	margin-bottom: 3px;
+}
+.Teaser--pioneer-1 { @include rem(font-size, 14px); text-align: left; margin: 0 20px; }
+.Teaser--pioneer-2 { @include rem(font-size, 30px); text-align: left; margin: 0 20px; line-height: 1;}
+.Teaser--pioneer-3 { @include rem(font-size, $font-size-xs); float: left; margin-left: 20px;}
+.Teaser--pioneer-4 { @include rem(font-size, $font-size-xs); float: right; margin-right: 20px;}
+
+.Profile {
+	position: relative;
+}
+.Profile-name {
+	@include rem(font-size, 14px);
+	background-color: $green;
+	color: #fff;
+	padding: em(5,14) em(5,14) em(3,14) em(65,14);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.Profile-avatar {
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	top: -18px;
+	left: -8px;
+}
 
 .Teaser--total {
 	// move padding from container to child els
