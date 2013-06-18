@@ -23,6 +23,7 @@ module Tinycms
   class ContentsController < ApplicationController
 
     before_filter :authenticate_tinycms_user, :except => [:show, :not_found]
+    before_filter :ensure_admin, :except => [:show, :not_found]
 
     def index
       @contents = Content.all
