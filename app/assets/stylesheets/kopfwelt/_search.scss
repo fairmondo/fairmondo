@@ -1,0 +1,23 @@
+//
+// Search
+//
+
+.Search {
+	position: relative;
+	max-width: columns(2,4);
+	.input {
+		padding: 0;
+		margin: 0;
+	}
+}
+.Search-input {
+}
+.Search .Search-input input { // extra specificity
+	@include rem(font-size, 20px);
+	width: 100%;
+}
+.Search-button {
+	position: absolute;
+	top: em(9);
+	right: em(11);
+}
