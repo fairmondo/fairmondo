@@ -67,6 +67,7 @@ def update
   # check if we need password to update user data
   # ie if password or email was changed
   # extend this as needed
+  # @api private
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       !params[:user][:password].blank?
