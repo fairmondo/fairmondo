@@ -11,12 +11,12 @@ input[type='email'],
 input[type='password'],
 input[type='tel'],
 textarea {
+	@include border-radius(.5em);
 	@include rem(font-size, $base-font-size);
 	padding: em(8);
 	width: 100%;
-	color: $lightgray;
-	border: 2px solid;
-	border-radius: 5px;
+	color: $black;
+	border: .2em solid $lightgray;
 	&:focus {
 		outline: 0;
 		color: $black;
@@ -32,18 +32,22 @@ label {
 	color: $gray;
 }
 
-
+select {
+	width: 100%;
+}
 // Make sure the select is on top of the fake, custom one
 .hasCustomSelect {
 	z-index: 2;
-	width: 100px;
+	width: 10em;
 }
 .customSelect { 
 	@include border-radius(.5em);
 	border: $lightgray solid .2em;
 	height: 40px;
-	line-height: 35px;
+	line-height: 40px;
 	text-align: center;
+	width: 33%;
+
 }
 .customSelectInner {
 	background: url(asset_path("customSelect-arrow.gif", image)) no-repeat right center;
