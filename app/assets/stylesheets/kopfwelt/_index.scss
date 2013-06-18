@@ -3,15 +3,10 @@
 //
 
 /*
- * Configuration explained 
 
-# Configuration packery
-$gutter: 2%;
-$cols: 4;
-
-# explantation of widths
-49% = 2 cols
-no defined with = 24.5%
+# Explantation of widths. We have a four-col grid.
+1 cols = 23.5%
+2 cols = 49%
 
 */
 
@@ -29,27 +24,60 @@ no defined with = 24.5%
 	border-radius: 8px;
 }
 
+//
+// Teaser variants
+//
 
-// Type of .Teasers
-// -----------------------------------
-
-.Teaser-video,
-.Teaser-text {
+.Teaser--video,
+.Teaser--text {
 	width: 49%;
 }
-.Teaser-text {
-	@include rem(font-size, 18px);
+.Teaser--text {
+	@include rem(font-size, $base-font-size);
 	@extend %Regular;
 }
-.Teaser--title {
+.Teaser-title {
 	@include rem(font-size, 25px);
 	@extend %Bold;
 	color: black;
 }
-.Teaser-total {}
-.Teaser-pioner {}
-.Teaser-pionier--name {}
-.Teaser-total--number {}
+.Teaser--pioner {
+	.Teaser-title {
+		@include rem(font-size, $base-font-size);
+	}
+	&:before {
+		content: '';
+		display: block;
+		width: 132px;
+		height: 132px;
+		background-image: url(asset-path("ribbon-pioneer.png", image));
+		position: relative;
+		top: -15px;
+		left: -25px;
+	}
+}
+.Teaser--pionier-name {}
+
+.Teaser--total {
+	// move padding from container to child els
+	padding: 0;
+	> .Teaser-title,
+	> .Teaser-total--number {
+		@include rem(padding, 10px 20px);
+	}
+	.Teaser-title {
+		@include rem(font-size, $base-font-size);
+		padding-bottom: 0;
+	}
+}
+.Teaser--total-number {
+	@include rem(font-size, 40px);
+	@extend %Semibold;
+	background-color: $green;
+	color: #fff;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
 
 
 // Icons 
@@ -63,7 +91,7 @@ no defined with = 24.5%
 }
 .icon-index-arrow--draw {
 	@extend .icons-index-arrow--draw;
-	position: absolute;
-	top: 0px;
-	left: -100px;
+	position: absolute !important;
+	top: -11px;
+	left: -68px;
 }
