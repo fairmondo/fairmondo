@@ -47,6 +47,8 @@ Fairnopoly::Application.routes.draw do
       get 'profile'
     end
   end
+  
+  resources :categories, :only => [:show]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
