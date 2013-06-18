@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   extend Sanitization
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :token_authenticatable, :encryptable, :lockable,  and :omniauthable
+  devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
