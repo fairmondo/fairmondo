@@ -17,10 +17,28 @@
 	@include span-columns(4, 4);
 }
 .User-edit {
-	@include span-columns(2, 4);
-	@include rem(font-size, $font-size-m);
-	margin-bottom: 2em;
-	text-align: center;
+	p {
+		@include clearfix;
+	}
+	h3 {
+		@extend %Semibold;
+	}
+}
+.User-edit-pw {
+	
+}
+.User--rightside {
+	float: right;
+}
+.User--rightside-up {
+	margin-top: -1.5em;
+}
+.User--rightside-down {
+	margin-top: .7em;
+}
+.User--step {
+	border-bottom: .1em solid $beige;
+	padding: ($gutter-width / 2);
 }
 .User-event {
 	@include span-columns(4, 4);
@@ -80,9 +98,9 @@
 	.User-profile {
 		@include span-columns(2, 4);
 	}
-	.User-edit {
-		@include span-columns(2, 4);
-	}
+	// .User-edit {
+	// 	@include span-columns(2, 4);
+	// }
 	.User-event {
 		@include span-columns(2 omega, 4);
 	}
@@ -108,9 +126,9 @@
 	.User-profile {
 		@include span-columns(1, 2);
 	}
-	.User-edit {
-		@include span-columns(1, 2);
-	}
+	// .User-edit {
+	// 	@include span-columns(1, 2);
+	// }
 	.User-event {
 		@include span-columns(1 omega, 2);
 	}

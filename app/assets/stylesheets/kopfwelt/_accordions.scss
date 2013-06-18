@@ -2,6 +2,10 @@
 // Accordions.scss
 //
 
+.Accordion {
+	@include span-columns(4, 4);
+}
+
 .Accordion-header {
   @extend .Btn;
   @extend .Btn-accordion;
@@ -10,12 +14,32 @@
 
 .Accordion-content {
   @include border-bottom-radius(.9em);
-  padding: $gutter-width / 2;
+  padding: ($gutter-width / 2);
   overflow: auto;
   background-color: $white;
+}
+.User-edit .Accordion-content {
+	padding: ($gutter-width / 2) 0em;
 }
 
 .Accordion-item {
   margin-bottom: 25px;
+  outline: 0;
 }
+
+// Media Queries
+// -----------------------------------
+@include at-breakpoint($layout-small) {
+
+}
+@include at-breakpoint($layout-medium) {
+	.Accordion {
+		@include span-columns(2, 4);
+	}
+}
+@include at-breakpoint($layout-large) {
+
+}
+
+
 

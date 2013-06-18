@@ -19,11 +19,14 @@
 -#
 = f.input_step :terms do
   = f.inputs do
-    %span.pull-right= t('users.privacy.public')
-    = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+    .User--step
+      %span.User--rightside.User--rightside-down= t('users.privacy.public')
+      = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
   = f.inputs do
-    %span.pull-right= t('users.privacy.public')
-    = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+    .User--step
+      %span.User--rightside.User--rightside-down= t('users.privacy.public')
+      = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
   = f.inputs do
-    %span.pull-right= t('users.privacy.public')
-    = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+    .User--step
+      %span.User--rightside.User--rightside-down= t('users.privacy.public')
+      = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
