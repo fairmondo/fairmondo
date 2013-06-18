@@ -1,0 +1,80 @@
+//
+// Navigation
+//
+
+.Nav {
+	padding-left: 0;
+	list-style: none;
+	ul {
+		@include clearfix;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		display: inline-block;
+	}
+	a {
+		@extend %Semibold;
+		display: block;
+
+		padding: 0.5em 1em;
+		text-decoration: none;
+		
+		&:hover,
+		&.selected {
+			@extend %Bold;
+			color: #f1f1f1;
+		}
+	}
+	.icon {
+		display: inline-block;
+	}
+}
+
+.Nav--primary {
+	@include rem(font-size, $font-size-m);
+	float: right;
+	margin-top: 1em;
+	text-align: center;
+
+	li {
+		margin-right: 1em;
+		&:last-child { margin-right: 0; }
+	}
+	a {
+		min-width: em(95,14); // room for bold on hover
+		color: #000;
+		&:hover {
+			color: #000;
+		}
+	}
+	.icon {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: icons-sprite-width(buy);
+		height: icons-sprite-height(buy);
+	}
+}
+
+.Nav--meta {
+	@include rem(font-size, $base-font-size * .94);
+	margin-top: 1em;
+	a {
+		color: #434343;
+	}
+}
+
+.Nav--legal  {
+	@include rem(font-size, $base-font-size * .83);
+}
+
+/*.icons-buy,
+.icons-sell,
+.icons-account {
+	background-position-x: 1.7em;
+}
+.icons-logout {
+	background-position-x: 0.74em;
+}
+*/
