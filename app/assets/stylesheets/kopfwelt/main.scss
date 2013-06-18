@@ -18,6 +18,7 @@
 
 
 // Project styles
+@import "_mixins.scss";
 @import "_base.scss";
 @import "_mixins.scss";
 @import "_icons.scss";
@@ -25,8 +26,7 @@
 
 @import "_module.scss";
 @import "_buttons.scss";
-@import "_navigation.scss";
-@import "_navigation-primary.scss";
+@import "_nav.scss";
 @import "_articles.scss";
 @import "_user.scss";
 

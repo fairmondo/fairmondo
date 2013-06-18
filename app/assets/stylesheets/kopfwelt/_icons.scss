@@ -15,6 +15,9 @@
 // space between each icon in the sprite 
 $icons-spacing: 40px; // "incons" is the name of the folder
 
+// Include dimensions for each sprite
+//$icon-sprite-dimensions: true;
+
 // import the compass function that handles the sprites
 @import "compass/utilities/sprites";
 
@@ -25,7 +28,7 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 @include all-icons-sprites;
 
 
-// Icon genral settings
+// Icon general settings
 // -----------------------------------
 
 .Icon [class^="icon-"] {
