@@ -13,6 +13,7 @@
 }
 .Copyright {
 	float: left;
+	@include rem(font-size, 15px);
 	p {
 		margin-top: .4em;
 	}

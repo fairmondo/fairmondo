@@ -57,24 +57,16 @@
 	}
 }
 
+
+.l-Footer a {
+	color: #434343;
+}
 .Nav--meta {
-	@include rem(font-size, $base-font-size * .94);
+	@include rem(font-size, 17px);
+	float: right;
 	margin-top: 1em;
-	a {
-		color: #434343;
-	}
 }
-
 .Nav--legal  {
-	@include rem(font-size, $base-font-size * .83);
+	float: right;
+	@include rem(font-size, 15px);
 }
-
-/*.icons-buy,
-.icons-sell,
-.icons-account {
-	background-position-x: 1.7em;
-}
-.icons-logout {
-	background-position-x: 0.74em;
-}
-*/

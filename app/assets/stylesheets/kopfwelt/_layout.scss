@@ -59,7 +59,7 @@ body {
 		& > .l-Inner {
 			@include container;
 		}
-		@include rem(height, 180px);
+		margin-bottom: em(103);
 	}
 	.Footer--bottom {
 		& > .l-Inner {
