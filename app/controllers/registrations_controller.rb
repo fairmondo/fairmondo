@@ -58,7 +58,7 @@ def update
       sign_in @user, :bypass => true
       redirect_to user_path(@user)
     else
-      render "edit"
+      render :edit
     end
   end
 
