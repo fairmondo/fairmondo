@@ -10,6 +10,7 @@ input[type='search'],
 input[type='email'],
 input[type='password'],
 input[type='tel'],
+input[type='number'],
 textarea {
 	@include border-radius(.5em);
 	@include rem(font-size, $base-font-size);
@@ -31,14 +32,19 @@ label {
 	display: block;
 	color: $gray;
 }
-
+// CUSTOM SELECT
 select {
 	width: 100%;
 }
+.select {
+	position: relative;
+}
 // Make sure the select is on top of the fake, custom one
 .hasCustomSelect {
+	position: absolute;
+	top: 2em;
 	z-index: 2;
-	width: 10em;
+	width: 100%
 }
 .customSelect { 
 	@include border-radius(.5em);
@@ -46,7 +52,7 @@ select {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	width: 33%;
+	width: 100%;
 
 }
 .customSelectInner {
@@ -56,3 +62,33 @@ select {
 .customSelect.customSelectHover {}
 .customSelect.customSelectOpen {}
 .customSelect.customSelectFocus {}
+
+
+// Article Form
+fieldset.choices {
+	display: block;
+	border-bottom: solid $lightgray .1em;
+	.leaf-item {
+		@include pie-clearfix;
+		padding: 1em;
+		input {
+			float: right;
+		}
+		label {
+			width: 50;
+		}
+	}
+}
+.formtastic .boolean label {
+	padding: 0;
+}
+.formtastic .choices-group {
+	padding: 0;
+}
+
+
+
+
+
+
+

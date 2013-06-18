@@ -106,7 +106,10 @@
 		margin-right: 1em;
 	}
 }
-
+// selling form
+.Article-form {
+	@include span-columns(4, 4);
+}
 
 @include at-breakpoint($layout-small) {
 	.Articles--list {
@@ -128,6 +131,9 @@
 	}
 	.Article-user {
 		@include span-columns(2, 4);
+	}
+	.Article-form {
+		@include span-columns(3, 4);
 	}
 }
 @include at-breakpoint($layout-large) {
