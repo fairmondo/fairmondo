@@ -191,6 +191,9 @@ GEM
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-turbolinks (1.0.0)
+      railties (>= 3.1.0)
+      turbolinks
     jquery-ui-rails (3.0.1)
       jquery-rails
       railties (>= 3.1.0)
@@ -377,6 +380,8 @@ GEM
     treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (1.2.0)
+      coffee-rails
     tzinfo (0.3.37)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
@@ -428,6 +433,7 @@ DEPENDENCIES
   html2haml
   inherited_resources
   jquery-rails
+  jquery-turbolinks
   jquery-ui-rails
   json
   launchy
@@ -458,6 +464,7 @@ DEPENDENCIES
   tinycms!
   tinymce-rails
   tinymce-rails-langs
+  turbolinks
   uglifier (>= 1.0.3)
   will_paginate
   zipruby
