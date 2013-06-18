@@ -1,0 +1,11 @@
+<% if resource.children.count > 0 %>
+	<% next_select_tag = "article_categories_and_ancestors_input_level"+(resource.level.to_i + 2).to_s %>
+	<% new_select_tag = "article_categories_and_ancestors_input_level"+(resource.level.to_i + 1).to_s %>
+	<% if resource.level == 0 %>
+		<% previous_select_tag = "article_categories_and_ancestors" %>
+	<%end%>
+	$("<%=j select_tag new_select_tag, options_for_select([["-",(-1).to_s]]+resource.children.map{ |option| [option.name,option.id.to_s] }) , :class => "article_categories_and_ancestors_selectbox"%>").insertBefore("#article_categories_and_ancestors_select");
+	$("#<%= j new_select_tag %>").change(function() { $("#<%= j new_select_tag %>").nextAll("select").remove(); $.getScript("/categories/"+$('option:selected',$(this)).attr("value"))  });
+	$("#<%= j new_select_tag %>").selectBoxIt()
+<%end%>
+ 
