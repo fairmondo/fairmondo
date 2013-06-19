@@ -21,11 +21,12 @@
   .User-image
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))
+  
   %p.User-name
     = user.name
-  - if user.is_a?(LegalEntity)
-    %p.User-company
-      = user.fullname
+    - if user.is_a?(LegalEntity)
+      %br= user.fullname
+  
   %p.User-legal
     - if user.is_a?(LegalEntity)
       %a.Icon{:href => "#"}
@@ -35,3 +36,12 @@
       %a.Icon{:href => ""}
         %i.icons-user
         = t('users.legal_status.show.private_user')
+
+  - if user_resource.id==current_user.id
+    %a.Icon{:href =>  edit_user_registration_path}
+      %i.icon-pencil
+      Profil bearbeiten
+  - elsif user_resource.is_a?(LegalEntity)
+    %a.Btn.Btn-icon{:href => profile_user_path(user_resource)}
+      %i.icon-paper
+      AGB / Impressum
