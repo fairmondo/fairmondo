@@ -24,7 +24,7 @@ module Article::Search
 
     searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
-      text :content
+      text :content, :as => "content"
       boolean :fair
       boolean :ecologic
       boolean :small_and_precious

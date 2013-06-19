@@ -28,6 +28,7 @@ class MassUpload
     if attributes && attributes[:file]
       @raw_articles = build_raw_articles(attributes[:file], user)
     else
+      # bugbug Abuse of the symbol in the next line
       errors.add(:Bitte, "wähle eine CSV-Datei aus")
     end
   end

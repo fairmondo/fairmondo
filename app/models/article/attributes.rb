@@ -25,6 +25,8 @@ module Article::Attributes
     #common fields
 
     attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
+    auto_sanitize :content, method: 'tiny_mce'
+    auto_sanitize :title
 
     #title
 
@@ -72,6 +74,8 @@ module Article::Attributes
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
 
+    auto_sanitize :transport_insured_provider, :transport_uninsured_provider, :transport_details
+
     enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
 
     validates_presence_of :default_transport
@@ -95,6 +99,7 @@ module Article::Attributes
                     :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
                     :payment_invoice,
                     :seller_attributes
+    auto_sanitize :payment_details
 
     enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
