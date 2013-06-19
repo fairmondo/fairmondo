@@ -43,7 +43,8 @@ h1 {
 	margin-bottom: em(17,30);
 }
 h2 {
-	@include rem(font-size, 25px);
+	@include rem(font-size, 20px);
+	@extend %Bold;
 }
 h3 {
 	@include rem(font-size, 20px);

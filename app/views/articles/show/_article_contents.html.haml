@@ -19,135 +19,146 @@
 -#
 
 - if current_user && resource.seller.id == current_user.id
-  %span.pull-right
-    - if policy(resource).edit?
-      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
-    - if resource.locked? && policy(resource).new?
-      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
-    - if policy(resource).deactivate?
-      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
-    - if policy(resource).destroy?
-      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
+	%span.pull-right
+		- if policy(resource).edit?
+			= link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
+		- if resource.locked? && policy(resource).new?
+			= link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
+		- if policy(resource).deactivate?
+			= button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
+		- if policy(resource).destroy?
+			= link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
 
 .Breadcrumb
-  - resource.categories.each do |leaf|
-    %ul
-      - category_tree = get_category_tree leaf
-      - count = 1
-      - category_tree.each do |category|
-        %li
-          %a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
-            %i.icon-tag
-            = category.name
-          - unless category_tree.last == category
-            %span.divider
-              %i.icon-angle-right.icon-large
-        - count = count + 1
+	%span 
+		%a{:href => '#'} hello
+	>
+	%span
+		%a{:href => '#'} Sub categorie 1
+	>
+	%span
+		%a.last{:href => '#'} you are here!
+
+
+
+	/ - resource.categories.each do |leaf|
+	/ 	%ul
+	/ 		- category_tree = get_category_tree leaf
+	/ 		- count = 1
+	/ 		- category_tree.each do |category|
+	/ 			%li
+	/ 				%a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
+	/ 					%i.icon-tag
+	/ 					= category.name
+	/ 				- unless category_tree.last == category
+	/ 					%span.divider
+	/ 						%i.icon-angle-right.icon-large
+	/ 			- count = count + 1
 .Articles--detail
-  .Articles-image
-    = link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
+	.Articles-image
+		= link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
 
-  .Articles-info
-    %h2
-      = resource.title
-    %ul.thumbnails.article-thumbnails
-      - thumbnails(title_image).each do |image|
-        %li.span3
-          = link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(resource, :image => image.id )
-    %p
-      %b
-        %span= humanized_money_with_symbol resource.price
-        = t('formtastic.labels.article.price')
-    = render 'articles/show/vat' , :article => resource
-    - if resource.quantity && resource.quantity != ""
-      %p
-        %span.pull-right= resource.quantity
-        = t('formtastic.labels.article.quantity')
-    %p
-    = render 'articles/show/basic_price', :article => resource
-    - if resource.active? && current_user && current_user.id != resource.seller.id
-      %p
-        %a.Btn.Btn--green
-          = t('common.actions.buy')
-      - if user_signed_in?
-        = semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-          = f.inputs do
-            = f.input :library, :collection => current_user.libraries,  :include_blank => false ,  :label => false
-            = f.input :article_id, :as => :hidden
-          = f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
-    %p
-      = features_label resource
-      = condition_label resource
-  .Articles-social
-    #socialshareprivacy
-  .Articles-accordion.Accordion--activated
-    / Artikelbeschreibung
-    = accordion_item "content" do
-      = resource.content.html_safe
+	.Articles-info
+		%h2
+			= resource.title
+		%ul.thumbnails.article-thumbnails
+			- thumbnails(title_image).each do |image|
+				%li.span3
+					= link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(resource, :image => image.id )
+		%p
+			%b
+				%span= humanized_money_with_symbol resource.price
+				= t('formtastic.labels.article.price')
+		= render 'articles/show/vat' , :article => resource
+		- if resource.quantity && resource.quantity != ""
+			%p
+				%span.pull-right= resource.quantity
+				= t('formtastic.labels.article.quantity')
+		%p
+		= render 'articles/show/basic_price', :article => resource
+		- if resource.active? && current_user && current_user.id != resource.seller.id
+			%p
+				%a.Btn.Btn--green
+					= t('common.actions.buy')
+			- if user_signed_in?
+				= semantic_form_for(resource.library_elements.build,:html => {:class =>  "form-column" } ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+					= f.inputs do
+						= f.input :library, :collection => current_user.libraries,  :include_blank => false ,  :label => false
+						= f.input :article_id, :as => :hidden
+					= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
+		%p
+			= features_label resource
+			= condition_label resource
+	.Articles-social
+		#socialshareprivacy
+	.Articles-accordion.Accordion--activated
+		/ Artikelbeschreibung
+		= accordion_item "content" do
+			= resource.content.html_safe
 
-    /Versand und Bezahlung
+		/Versand und Bezahlung
 
-    = accordion_item "payment" do
-      .Articles-box
-        %p.Highlight
-          = t('formtastic.labels.article.default_payment')
-          \:
-        %p
-          = resource.default_payment.text
-          = simple_format(resource.payment_details).html_safe
-      .Articles-box
-        %p.Highlight
-          = t('formtastic.labels.article.default_transport')
-          \:
-        %p
-          = resource.default_transport.text
-          = simple_format(resource.transport_details).html_safe
+		= accordion_item "payment" do
+			.Articles-box
+				%p.Highlight
+					= t('formtastic.labels.article.default_payment')
+					\:
+				%p
+					= resource.default_payment.text
+					= simple_format(resource.payment_details).html_safe
+			.Articles-box
+				%p.Highlight
+					= t('formtastic.labels.article.default_transport')
+					\:
+				%p
+					= resource.default_transport.text
+					= simple_format(resource.transport_details).html_safe
 
-    - if resource.has_commendation?
-      = accordion_item "commendation" do
-        = render 'articles/show/commendation'
-    / Only legal sellers
-    - if resource.seller.is_a?(LegalEntity)
-      = accordion_item "terms" do
-        = resource.seller_terms.html_safe
-      = accordion_item "cancellation" do
-        = resource.seller_cancellation.html_safe
-      = accordion_item "about" do
-        = resource.seller_about.html_safe
-    - if resource.libraries.count > 0
-      = accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do 
-        - resource.libraries.each do |library|
-          .User-library
-            = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
-            %p
-              = t('common.text.from') + " " + library.user_nickname
-          .User-libraray
-            = link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
-        = will_paginate libraries,:params => {:anchor => "library" }
+		- if resource.has_commendation?
+			= accordion_item "commendation" do
+				= render 'articles/show/commendation'
+		/ Only legal sellers
+		- if resource.seller.is_a?(LegalEntity)
+			= accordion_item "terms" do
+				= resource.seller_terms.html_safe
+			= accordion_item "cancellation" do
+				= resource.seller_cancellation.html_safe
+			= accordion_item "about" do
+				= resource.seller_about.html_safe
+		- if resource.libraries.count > 0
+			= accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do 
+				- resource.libraries.each do |library|
+					.User-library
+						= link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
+						%p
+							= t('common.text.from') + " " + library.user_nickname
+					.User-libraray
+						= link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
+				= will_paginate libraries,:params => {:anchor => "library" }
 
 
 .Articles--related
-  - alternative = find_fair_alternative_to resource
-  - if alternative.present?
-    .Articles-related
-      %h3.Articles-related-title= t('article.show.alternative')
-      %span.icons-helper
-      = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
-  - else
-    .Articles-related
-      %h3.Articles-related-title= t('article.show.alternative')
-      %span.icons-helper
-      %p.Helper-text
-        = t('article.show.no_alternative')
+	- alternative = find_fair_alternative_to resource
+	- if alternative.present?
+		.Articles-related
+			%h3.Articles-related-title= t('article.show.alternative')
+			%span.icons-helper
+			= render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
+	- else
+		.Articles-related
+			%h3.Articles-related-title= t('article.show.alternative')
+			%span.icons-helper
+			%p.Helper-text
+				= t('article.show.no_alternative')
 
-  .Articles-policy.Accordion
-    - if policy(resource).report?
-      = accordion_item "report" do
-        = form_for :report, :url => report_article_path, :method => :get do |f|
-          %p= t('article.notices.report')
-          = f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]
-          %br/
-          %button.Btn
-            = t('article.actions.report')
+	.Articles-policy.Accordion
+		- if policy(resource).report?
+			= accordion_item "report" do
+				= form_for :report, :url => report_article_path, :method => :get do |f|
+					%p= t('article.notices.report')
+					= f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]
+					%br/
+					%button.Btn
+						= t('article.actions.report')
 
 
