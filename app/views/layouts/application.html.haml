@@ -158,3 +158,6 @@
       / container
       #sub-footer
         \&copy; Fairnopoly 2013 #{I18n.locale}
+
+    -# When logged in, count down until session expires (needs to be reloaded on page change!)
+    = javascript_include_tag "session_expire" if current_user
