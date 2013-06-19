@@ -2,6 +2,14 @@
 // Forms
 //
 
+.formtastic .input {
+	padding: 0;
+	margin: 0 0 $pBottomMargin;
+}
+.formtastic .stringish input {
+	width: 100%;
+}
+
 input[type='search'] {
 	-webkit-appearance: none;
 }
@@ -85,10 +93,8 @@ fieldset.choices {
 .formtastic .choices-group {
 	padding: 0;
 }
-
-
-
-
-
-
-
+.inline-hints {
+	@extend %Semibold;
+	@include rem(font-size, 14px);
+	color: #2e2e2e;
+}
