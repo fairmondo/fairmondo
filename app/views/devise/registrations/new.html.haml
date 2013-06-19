@@ -41,7 +41,7 @@
       = recaptcha_tags :display => {:theme => 'clean'}
       - if recaptcha_error
         %span.help-inline= t('users.captcha.error')
-    - if session[:invitor_id]
+    - if session[:invitor_id] #insecure!
       = f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }
       = f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }
   .element-in-box
