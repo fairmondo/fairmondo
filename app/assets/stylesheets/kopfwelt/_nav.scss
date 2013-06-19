@@ -31,7 +31,6 @@
 }
 
 .Nav--primary {
-	@include rem(font-size, $font-size-m);
 	float: right;
 	margin-top: 1em;
 	text-align: center;
@@ -41,7 +40,7 @@
 		&:last-child { margin-right: 0; }
 	}
 	a {
-		min-width: em(95,14); // room for bold on hover
+		min-width: em(95); // room for bold on hover
 		color: #000;
 		&:hover {
 			color: #000;
