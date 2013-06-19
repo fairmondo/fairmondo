@@ -43,13 +43,9 @@
 
 }
 @include at-breakpoint($layout-medium) {
+}
+@include at-breakpoint($layout-large) {
 	.Accordion {
 		@include span-columns(2, 4);
 	}
 }
-@include at-breakpoint($layout-large) {
-
-}
-
-
-
