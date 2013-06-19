@@ -66,31 +66,24 @@
       = f.inputs do
         
         .User--step
+          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :title,:required => true,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')]
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+          
           = f.input :forename,:required => true
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+          
           = f.input :surname,:required => true
         
         .User--step
+          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           %h3= t('users.form_titles.address')
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
-
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :city,:required => true
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :zip, :required => true
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :phone
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :mobile
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :fax
     = f.input_step :profile, :tooltip => true do
       = f.inputs do

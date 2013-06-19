@@ -21,26 +21,27 @@
 	.gutter-sizer
 	.grid-sizer
 
-	.Teaser.Teaser--video
-		= tinycms_content "start-video"
-	.Teaser
-		= tinycms_content "test_phase_greeting"
-	.Teaser
-		= tinycms_content "buy-ffps"
-	.Teaser
-		= tinycms_content "progress-ffps"
-	.Teaser
-		= link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-	.Teaser
-		= tinycms_content "please-register"
-	.Teaser
-		.bar{:style => "height:100%;width: #{@percentage}%"}
-	.Teaser
-		= link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
+	-#
+		.Teaser.Teaser--video
+			= tinycms_content "start-video"
+		.Teaser
+			= tinycms_content "test_phase_greeting"
+		.Teaser
+			= tinycms_content "buy-ffps"
+		.Teaser
+			= tinycms_content "progress-ffps"
+		.Teaser
+			= link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
+		.Teaser
+			= tinycms_content "please-register"
+		.Teaser
+			.bar{:style => "height:100%;width: #{@percentage}%"}
+		.Teaser
+			= link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
 
-	.Teaser
-		= @articles
-		= t("common.text.inserted")
+		.Teaser
+			= @articles
+			= t("common.text.inserted")
 
 	.Teaser.Teaser--text.Teaser--welcome
 		%h2.Teaser-title.Icon

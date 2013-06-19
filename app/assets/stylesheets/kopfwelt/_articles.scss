@@ -1,6 +1,8 @@
-.Articles {
+//
+// Articles
+//
 
-}
+.Articles {}
 .Articles--detail {
 	@include span-columns(4, 4);
 	.Articles-info {
@@ -21,12 +23,11 @@
 	ul {
 		padding: 0;
 		margin: 0;
+		list-style: none;
 	}
 	li {
-		@include span-columns(4, 4);
+		@include pie-clearfix;
 		margin-bottom: $gutter-width;
-		overflow: hidden;
-		list-style-type: none;
 	}
 	.Articles-tags {
 		@include border-bottom-radius(.9em);
@@ -111,17 +112,27 @@
 	@include span-columns(4, 4);
 }
 
-@include at-breakpoint($layout-small) {
-	.Articles--list {
-		li {
-			@include span-columns(2, 4);
-			&:nth-child(2n) {
-				@include span-columns(2 omega, 4);
-			}
-		}
+.Articles--list li {
+	@include at-breakpoint($layout-small) {
+		@include span-columns(2,4);
+		@include nth-omega(2n);
 	}
-	
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(1,4);
+		&:nth-child(2n) { @include remove-omega; }
+		@include nth-omega(4n);
+	}
+	// @include at-breakpoint($layout-large) {
+	// 	@include span-columns(1, 4);
+	// 	&:nth-child(2n) {
+	// 		@include span-columns(1, 4);
+	// 	}
+	// 	&:nth-child(4n) {
+	// 		@include span-columns(1 omega, 4);
+	// 	}
+	// }
 }
+	
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
 		@include span-columns(4, 4);
@@ -137,17 +148,6 @@
 	}
 }
 @include at-breakpoint($layout-large) {
-	.Articles--list {
-		li {
-			@include span-columns(1, 4);
-			&:nth-child(2n) {
-				@include span-columns(1, 4);
-			}
-			&:nth-child(4n) {
-				@include span-columns(1 omega, 4);
-			}
-		}
-	}
 	.Articles--detail {
 		@include span-columns(2, 4);
 	}
