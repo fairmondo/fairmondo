@@ -49,9 +49,17 @@
 	a {
 		color: $lightgray;
 		text-decoration: none;
+		text-transform: capitalize;
 		&:hover {
 			color: $gray;
 		}
+		&.last {
+			color: black;
+		}
+		&.last:hover {
+			color: $lightgray;
+		}
+
 	}
 }
 .Highlight {
