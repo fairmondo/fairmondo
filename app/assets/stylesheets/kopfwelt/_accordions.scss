@@ -10,6 +10,7 @@
   @extend .Btn;
   @extend .Btn-accordion;
   margin-bottom: -.2em;
+  outline: 0;
 }
 
 .Accordion-content {
