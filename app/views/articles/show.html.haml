@@ -24,7 +24,7 @@ form-#
 .row
   .span9
     = render "/articles/show/article_contents", :article => resource
-  - if resource.active
+  - if resource.active?
     = render "/articles/show/active", :article => resource
   - else
     = render "/articles/show/inactive", :article => resource

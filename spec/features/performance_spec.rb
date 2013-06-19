@@ -36,8 +36,10 @@ describe 'Performance' do
       3.times { FactoryGirl.create(:article, :with_fixture_image) }
       Sunspot.commit
     end
-    it "should succeed" do
+    it "should succeed", visual: true do
+
       visit articles_path
+      save_and_open_page
       Bullet.should_not throw_warnings
     end
   end

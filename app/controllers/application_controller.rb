@@ -19,11 +19,18 @@
 #
 class ApplicationController < ActionController::Base
 
-  #pundit
+  ## Global security
+
+  before_filter :authenticate_user!
+
+  # Pundit
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except => [:index,:autocomplete]
 
   protect_from_forgery
+
+
+  ## Misc
 
   def build_login
     @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
@@ -77,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_modules
-    ["Devise","RailsAdmin"]
+    ["Devise","RailsAdmin","Tinycms"]
   end
 
   def pundit_unverified_classes

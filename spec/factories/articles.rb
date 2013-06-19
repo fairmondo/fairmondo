@@ -59,7 +59,6 @@ FactoryGirl.define do
 
     factory :preview_article do
        after(:build) do |article|
-         article.active = false
          article.state = "preview"
        end
     end
