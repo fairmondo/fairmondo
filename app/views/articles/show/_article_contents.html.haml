@@ -40,18 +40,18 @@
 		%a.last{:href => '#'} you are here!
 
 	/ - resource.categories.each do |leaf|
-	/ 	%ul
-	/ 		- category_tree = get_category_tree leaf
-	/ 		- count = 1
-	/ 		- category_tree.each do |category|
-	/ 			%li
-	/ 				%a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
-	/ 					%i.icon-tag
-	/ 					= category.name
-	/ 				- unless category_tree.last == category
-	/ 					%span.divider
-	/ 						%i.icon-angle-right.icon-large
-	/ 			- count = count + 1
+	/   %ul
+	/     - category_tree = get_category_tree leaf
+	/     - count = 1
+	/     - category_tree.each do |category|
+	/       %li
+	/         %a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
+	/           %i.icon-tag
+	/           = category.name
+	/         - unless category_tree.last == category
+	/           %span.divider
+	/             %i.icon-angle-right.icon-large
+	/       - count = count + 1
 .Articles--detail
 	.Articles-image
 		= link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
@@ -148,18 +148,6 @@
 			%span.icon-helper
 			%p.Helper-text
 				= t('article.show.no_alternative')
-  - alternative = find_fair_alternative_to resource
-  - if alternative.present?
-    .Articles-related
-      %h3.Articles-related-title= t('article.show.alternative')
-      %span.icon-helper
-      = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
-  - else
-    .Articles-related
-      %h3.Articles-related-title= t('article.show.alternative')
-      %span.icon-helper
-      %p.Helper-text
-        = t('article.show.no_alternative')
 
 	.Articles-policy.Accordion
 		- if policy(resource).report?
