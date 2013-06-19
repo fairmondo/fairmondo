@@ -28,6 +28,14 @@
 // Teaser variants
 //
 
+
+.Teaser--video {
+	padding: 0;
+	iframe,
+	embed {
+		width: 100%;
+	}
+}
 // Ribbon
 .Teaser--welcome:before {
 	content: '';
@@ -41,8 +49,7 @@
 }
 
 .Teaser--text {
-	@include rem(font-size, $base-font-size);
-	@extend %Regular;
+	@include rem(font-size, 18px);
 }
 .Teaser-title {
 	@include rem(font-size, 25px);
@@ -53,8 +60,8 @@
 	padding-left: 0;
 	padding-right: 0;
 	.Teaser-title {
-		@include rem(font-size, $base-font-size);
-		margin-bottom: em(25,$base-font-size);
+		@include rem(font-size, 18px);
+		margin-bottom: em(25,18);
 	}
 }
 .Teaser--pioneer-image {
@@ -73,9 +80,24 @@
 	@include rem(font-size, 14px);
 	background-color: $green;
 	color: #fff;
-	padding: em(5,14) em(5,14) em(3,14) em(65,14);
-	overflow: hidden;
-	text-overflow: ellipsis;
+	padding: em(5,14) em(5,14) em(3,14) em(70,14);
+	
+	// don't make it break it
+	// overflow: hidden;
+	// text-overflow: ellipsis;
+	// white-space: nowrap;
+	
+	// &:after {
+	// 	content: "|";
+	// 	padding: em(5,14) 0 em(3,14) 0;
+	// 	@include background(linear-gradient(right, yellow 70%, red));
+	// 	color: $green;
+	// 	display: block;
+	// 	position: absolute;
+	// 	top: 0;
+	// 	right: 0;
+	// 	width: 20px;
+	// }
 }
 .Profile-avatar {
 	position: absolute;

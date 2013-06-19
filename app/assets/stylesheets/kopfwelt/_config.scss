@@ -11,8 +11,8 @@ $legacy-support-for-ie7: false; // Don't waste bits on IE7
 $experimental-support-for-opera: false; // Because they've switched to Webkit
 
 // Typography
-$base-font-size: 18px;
-$base-font-size-unitless: 18;
+$base-font-size: 14px;
+$base-font-size-unitless: 14;
 $base-line-height-unitless: 1.6;
 $pBottomMargin: 0.8em;
 //$base-line-height: $base-font-size * $base-line-height-unitless;
@@ -20,12 +20,12 @@ $pBottomMargin: 0.8em;
 $font-header: Georgia, serif;
 $font-body: 'proxima-nova', Helvetica, sans-serif;
 
-$font-size-xxl: 2.22 * $base-font-size; //40px
-$font-size-xl: 1.66 * $base-font-size; //30px
-$font-size-l: 1.38 * $base-font-size; //25px
-$font-size-m: 0.77 * $base-font-size; // 14px
-$font-size-s: 0.73 * $base-font-size; // 13px
-$font-size-xs: 0.58 * $base-font-size; // 10.5
+$font-size-xxl: 40px;
+$font-size-xl: 30px;
+$font-size-l: 25px;
+$font-size-m: 14px;
+$font-size-s: 13px;
+$font-size-xs: 10.5px;
 
 
 // Layout with Susy

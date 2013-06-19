@@ -22,4 +22,11 @@
 		= f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
 
 	.Search-button
-		= image_submit_tag("icons/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+		= image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+
+.l-Right
+	%button.Btn.Btn-icon.Btn--gray
+		%i.Icon.icon-box
+		Sammlungen durchstöbern
+
+	%i.Icon.icon-helper
