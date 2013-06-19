@@ -11,7 +11,7 @@ de:
         legal_entity: "Firmenprofil"
         private_user: "Privatprofil"
     captcha:
-      error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben." 
+      error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
     legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
     privacy: "Datenschutzerklärung."
     complexify: Passwortstärke
@@ -42,6 +42,7 @@ de:
       no_sold: "Keine verkauften Artikel vorhanden"
       soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
       no_templates: "Keine Templates vorhanden"
+      no_libraries: "Dieser Nutzer hat keine öffentlichen Sammlungen"
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"

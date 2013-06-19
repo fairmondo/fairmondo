@@ -22,26 +22,20 @@ module Article::State
 
   included do
     # market place state
-    attr_protected :state, :active
+    attr_protected :state
 
     state_machine :initial => :preview do
 
       state :preview do
-        def active
-          false
-        end
       end
 
       state :active do
-        def active
-          true
-        end
       end
 
       state :locked do
-        def active
-          false
-        end
+      end
+
+      state :closed do
       end
 
       event :activate do
@@ -50,6 +44,10 @@ module Article::State
 
       event :deactivate do
         transition :active => :locked
+      end
+
+      event :close do
+        transition :locked => :closed
       end
 
       after_transition :on => :activate, :do => :calculate_fees_and_donations

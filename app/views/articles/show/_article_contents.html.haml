@@ -26,6 +26,9 @@
         = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "btn"
       - if policy(resource).deactivate?
         = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "btn btn-primary", :method => :put
+      - if policy(resource).destroy?
+        = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "btn"
+
 
   %h2
     = resource.title
@@ -74,7 +77,7 @@
           -#%a= t('enumerize.article.friendly_percent_organisation.'+resource.friendly_percent_organisation)
           -#= t('article.show.contributed')
       = render 'articles/show/basic_price', :article => resource
-      - if resource.active && current_user && current_user.id != resource.seller.id
+      - if resource.active? && current_user && current_user.id != resource.seller.id
         %p
           %a.btn.btn-primary.btn-fill.hide
             = t('common.actions.buy')

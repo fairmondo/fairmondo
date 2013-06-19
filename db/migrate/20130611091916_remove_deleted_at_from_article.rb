@@ -17,10 +17,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module SanitizeTinyMce
-  def sanitize_tiny_mce(field)
-    ActionController::Base.helpers.sanitize(field,
-    :tags => %w(a b i strong em p param h1 h2 h3 h4 h5 h6 br hr ul li img),
-    :attributes => %w(href name src type value width height data style) );
+class RemoveDeletedAtFromArticle < ActiveRecord::Migration
+  def up
+    remove_column :articles, :deleted_at
+  end
+
+  def down
+    raise ActiveRecord::IrreversibleMigration
   end
 end
