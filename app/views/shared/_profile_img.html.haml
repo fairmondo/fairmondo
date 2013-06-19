@@ -30,9 +30,9 @@
   %p.User-legal
     - if user.is_a?(LegalEntity)
       %a.Icon{:href => "#"}
-        %i.icons-briefcase
+        %i.icon-briefcase
         = t('users.legal_status.show.legal_entity')
     - else
       %a.Icon{:href => ""}
-        %i.icons-user
+        %i.icon-user
         = t('users.legal_status.show.private_user')

@@ -166,7 +166,6 @@ a.Btn {
 	font-weight: 400;
 	width: 100%;
 	text-align: left;
-	background-color: $accordion;
 
 	&:hover {
 		background-color: lighten($tag--blue, 5%);
@@ -179,44 +178,46 @@ a.Btn {
 		}
 		
 		.icon-arrow {
-		  @extend .icons-arrow-active;
+		  @extend .icon-arrow-active;
 		  top: 0px;
 		  left: -7px;
 		}
 	}
 }
 .Btn-accordion {
+	background-color: $accordion;
 	padding-top: em(7, 14);
 	padding-bottom: em(6, 14);
 }
 
 // Btn with Icon
 
-.Btn [class^="icon-"] {
+.Btn [class^="icon"] {
 	display: inline-block;
 	position: relative;
 }
 
 .icon-arrow {
-	  @extend .icons-arrow-inActive;
-	  top: 2px;
-	  left: -4px;
+	top: 2px;
+	left: -4px;
 }
 
 .icon-box {
-	@extend .icons-box;
+	position: relative;
 	top: 5px;
 	left: -5px;
 }
+.icon-helper {
+	display: inline-block;
+	position: relative;
+}
 
 .icon-box--open {
-	@extend .icons-box-open;
 	top: 4px;
 	left: -5px;
 }
 
 .icon-paper {
-	@extend .icons-paper;
 	top: 3px;
 	left: -5px;
 }
