@@ -28,8 +28,9 @@
       = f.inputs do
         - f.object.build_article_template unless f.object.article_template #we need this because we sometimes delete this on validation
         = f.semantic_fields_for :article_template do |template_form|
-          = template_form.input :save_as_template, :as => :plain_check_box
+          = template_form.input :save_as_template, :as => :plain_check_box, :tooltip=> true
           = template_form.input :name, :required => false
 
       = f.actions do
         = f.action :submit , :label => t("article.labels.continue_to_preview")
+        
