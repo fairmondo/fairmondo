@@ -75,18 +75,18 @@
         %nav.Nav.Nav--primary
           %ul
             %li
-              = link_to "<i class='icon icons-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+              = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
             %li
-              = link_to "<i class='icon icons-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
+              = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
             /
               %li#service.main-nav-item
                 %a
                   t('common.text.service')
             - if user_signed_in?
               %li
-                = link_to "<i class='icon icons-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
               %li
-                = link_to "<i class='icon icons-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
+                = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
               /
                 - if current_user.trustcommunity == true
@@ -99,9 +99,9 @@
                 - if @login
                   .Form.Form--login.is-hidden
                     = @login.html_safe
-                  = link_to "<i class='icon icons-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
                 - else
-                  = link_to "<i class='icon icons-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path
         / row
       / container
     .l-Hero

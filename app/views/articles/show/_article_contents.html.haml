@@ -39,8 +39,6 @@
 	%span
 		%a.last{:href => '#'} you are here!
 
-
-
 	/ - resource.categories.each do |leaf|
 	/ 	%ul
 	/ 		- category_tree = get_category_tree leaf
@@ -142,14 +140,26 @@
 	- if alternative.present?
 		.Articles-related
 			%h3.Articles-related-title= t('article.show.alternative')
-			%span.icons-helper
+			%span.icon-helper
 			= render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
 	- else
 		.Articles-related
 			%h3.Articles-related-title= t('article.show.alternative')
-			%span.icons-helper
+			%span.icon-helper
 			%p.Helper-text
 				= t('article.show.no_alternative')
+  - alternative = find_fair_alternative_to resource
+  - if alternative.present?
+    .Articles-related
+      %h3.Articles-related-title= t('article.show.alternative')
+      %span.icon-helper
+      = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
+  - else
+    .Articles-related
+      %h3.Articles-related-title= t('article.show.alternative')
+      %span.icon-helper
+      %p.Helper-text
+        = t('article.show.no_alternative')
 
 	.Articles-policy.Accordion
 		- if policy(resource).report?
