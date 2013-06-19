@@ -18,6 +18,8 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+%h1 Profil bearbeiten
+
 .Accordion.Accordion--activated.User-edit
   = semantic_form_for(@user,  :html => {},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
     = f.semantic_errors

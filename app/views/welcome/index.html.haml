@@ -21,9 +21,9 @@
 	.gutter-sizer
 	.grid-sizer
 
+	
+	
 	-#
-		.Teaser.Teaser--video
-			= tinycms_content "start-video"
 		.Teaser
 			= tinycms_content "test_phase_greeting"
 		.Teaser
@@ -43,11 +43,14 @@
 			= @articles
 			= t("common.text.inserted")
 
+	.Teaser.Teaser--video
+		= tinycms_content "start-video"
+
 	.Teaser.Teaser--text.Teaser--welcome
 		%h2.Teaser-title.Icon
 			%i.icon-interrogation--green
 			Willkommen bei Fairnopoly
-		%p.Subtitle dem fairen Online-Markplatz in Hand der Nutzer*innen
+		%p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
 		%p Die Pionierphase ist gestartet! Du hast jetzt die Chance, zu den zu gehören, die hier ihre Artikel anbieten
 		%a.Btn.Btn--blue{:href => "#"} werde Pionier*in
 	
