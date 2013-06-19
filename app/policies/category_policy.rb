@@ -23,4 +23,8 @@ class CategoryPolicy < Struct.new(:user, :category)
     true
   end
 
+  def edit?
+    true
+  end
+
 end
