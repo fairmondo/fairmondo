@@ -8,25 +8,25 @@
 
 
 .Btn === the classic blue button with a padding of 15x15, font size 17px
-    &.Btn--green === classic blue but green btn
-    &.Btn--greenSmall === green but font size 14px instead of 17px
-    &.Btn--gray === same as blue but gray
+	&.Btn--green === classic blue but green btn
+	&.Btn--greenSmall === green but font size 14px instead of 17px
+	&.Btn--gray === same as blue but gray
 
-    &.Btn-tag === a tag button and its colors variations
-        &.Btn-tag--gray
-        &.Btn-tag--blue
-        &.Btn-tag--green
-        &.Btn-tag--orange
+	&.Btn-tag === a tag button and its colors variations
+		&.Btn-tag--gray
+		&.Btn-tag--blue
+		&.Btn-tag--green
+		&.Btn-tag--orange
 
-    &.Btn-accordion === the accordion button with an arrow only
-        &.accordion-is-active === same as above but gray and arrow down because active
+	&.Btn-accordion === the accordion button with an arrow only
+		&.accordion-is-active === same as above but gray and arrow down because active
 
-    &.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
-        &.icon-arrow
-        &.icon-arrow--active
-        &.icon-box
-        &.icon-box--open
-        &.icon-paper
+	&.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
+		&.icon-arrow
+		&.icon-arrow--active
+		&.icon-box
+		&.icon-box--open
+		&.icon-paper
 
 
 
@@ -53,40 +53,37 @@ $accordion: $btn--blue;
 // -----------------------------------
 
 a.Btn {
-    color: white;
-    text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 .Btn {
-    @include rem(font-size, 17px);
-    vertical-align: middle;
+	@include rem(font-size, 17px);
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	margin: 0 0 $pBottomMargin;
+	padding: em(10,17) em(15,17) em(9,17);
+	line-height: normal;
+	border: 0 solid;
+	border-radius: 5px;
+	background-color: $btn--blue;
+	color: white;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	
+	// user cannot select .Btn to not disturb its copy/paste actions
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	user-select: none; /* 6 */
+	white-space: nowrap; /* 7 */
+	-webkit-appearance: none; /* 1 */
 
-    display: inline-block;
-    position: relative;
-    margin: 0 0 $pBottomMargin;
-    padding: em(5,17) em(15,17);
-    line-height: normal;
-    
-    border: 0 solid;
-    border-radius: 5px;
-    
-    background-color: $btn--blue;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    
-    // user cannot select .Btn to not disturb its copy/paste actions
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none; /* 6 */
-    white-space: nowrap; /* 7 */
-    -webkit-appearance: none; /* 1 */
-
-    &:hover {
-        background-color: lighten($btn--blue, 5%);
-    }
+	&:hover {
+		background-color: lighten($btn--blue, 5%);
+	}
 }
 
 
@@ -97,27 +94,27 @@ a.Btn {
 .Btn--green,
 .Btn--greenSmall,
 .Btn--gray {
-    @include rem(width, 200px);
-    margin: 20px auto;
+	@include rem(width, 200px);
+	margin: 20px auto;
 }
 
 .Btn--green,
 .Btn--greenSmall {
-    background-color: $btn--green;
-    &:hover {
-        background-color: lighten($btn--green, 5%);
-    }
+	background-color: $btn--green;
+	&:hover {
+		background-color: lighten($btn--green, 5%);
+	}
 }
 .Btn--greenSmall {
-    font-size: 14px;
-    @include rem(padding, 8px 15px);
+	font-size: 14px;
+	@include rem(padding, 8px 15px);
 }
 
 .Btn--gray {
-    background-color: $btn--gray;
-    &:hover {
-        background-color: lighten($btn--gray, 5%);
-    }
+	background-color: $btn--gray;
+	&:hover {
+		background-color: lighten($btn--gray, 5%);
+	}
 }
 
 
@@ -125,38 +122,38 @@ a.Btn {
 // -----------------------------------
 
 .Btn-tag {
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: 600;
-    @include rem(font-size, 13px);
-    @include rem(padding, 0 6px);
+	border-radius: 3px;
+	text-transform: uppercase;
+	font-weight: 600;
+	@include rem(font-size, 13px);
+	@include rem(padding, 0 6px);
 }
 
 // Color variations (tag)
 
 .Btn-tag--gray {
-    background-color: $tag--gray;
-    &:hover {
-        background-color: lighten($tag--gray, 5%);
-    }
+	background-color: $tag--gray;
+	&:hover {
+		background-color: lighten($tag--gray, 5%);
+	}
 }
 .Btn-tag--blue {
-    background-color: $tag--blue;
-    &:hover {
-        background-color: lighten($tag--blue, 5%);
-    }
+	background-color: $tag--blue;
+	&:hover {
+		background-color: lighten($tag--blue, 5%);
+	}
 }
 .Btn-tag--green {
-    background-color: $tag--green;
-    &:hover {
-        background-color: lighten($tag--green, 5%);
-    }
+	background-color: $tag--green;
+	&:hover {
+		background-color: lighten($tag--green, 5%);
+	}
 }
 .Btn-tag--orange {
-    background-color: $tag--orange;
-    &:hover {
-        background-color: lighten($tag--orange, 5%);
-    }
+	background-color: $tag--orange;
+	&:hover {
+		background-color: lighten($tag--orange, 5%);
+	}
 }
 
 // Accordion & Icons
@@ -164,66 +161,71 @@ a.Btn {
 
 .Btn-accordion,
 .Btn-icon {
-    background-color: $accordion;
-    @include rem(font-size, 14px);
-    font-weight: 400;
-    width: 100%;
-    text-align: left;
+	@include rem(font-size, 14px);
+	padding: em(8,14) em(15,14) em(12,14);
+	font-weight: 400;
+	width: 100%;
+	text-align: left;
+	background-color: $accordion;
 
-    &:hover {
-        background-color: lighten($tag--blue, 5%);
-    }
+	&:hover {
+		background-color: lighten($tag--blue, 5%);
+	}
 
-    &.ui-accordion-header-active {
-        background-color: $accordion--active; 
-        &:hover {
-        background-color: lighten($accordion--active, 5%);
-        }
-        
-        .icon-arrow {
-          @extend .icons-arrow-active;
-          top: 0px;
-          left: -7px;
-        }
-    }
+	&.ui-accordion-header-active {
+		background-color: $accordion--active; 
+		&:hover {
+		background-color: lighten($accordion--active, 5%);
+		}
+		
+		.icon-arrow {
+		  @extend .icons-arrow-active;
+		  top: 0px;
+		  left: -7px;
+		}
+	}
+}
+.Btn-accordion {
+	padding-top: em(7, 14);
+	padding-bottom: em(6, 14);
 }
 
 // Btn with Icon
 
 .Btn [class^="icon-"] {
-    display: inline-block;
-    position: relative;
+	display: inline-block;
+	position: relative;
 }
 
 .icon-arrow {
-      @extend .icons-arrow-inActive;
-      top: 2px;
-      left: -4px;
+	  @extend .icons-arrow-inActive;
+	  top: 2px;
+	  left: -4px;
 }
 
 .icon-box {
-    @extend .icons-box;
-    top: 5px;
-    left: -7px;
+	@extend .icons-box;
+	top: 5px;
+	left: -5px;
 }
 
 .icon-box--open {
-    @extend .icons-box-open;
-    top: 4px;
-    left: -5px;
+	@extend .icons-box-open;
+	top: 4px;
+	left: -5px;
 }
 
 .icon-paper {
-    @extend .icons-paper;
-    top: 3px;
-    left: -5px;
+	@extend .icons-paper;
+	top: 3px;
+	left: -5px;
 }
 
 // Btn with Icon and number on the right edge
 
 .Btn [class="number"] {
-    @include rem(font-size, 16px);
-    font-weight: 700;
-    float: right;
-    padding-left: 51px;
+	@include rem(font-size, 16px);
+	font-weight: 700;
+	float: right;
+	padding-left: 51px;
 }
