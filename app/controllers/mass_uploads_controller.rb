@@ -6,6 +6,7 @@ class MassUploadsController < ApplicationController
 
   def new
     authorize Article.new, :create? # Needed because of pundit
+    @mass_uploads = MassUpload.new(user = current_user)
   end
 
   def create
@@ -13,13 +14,13 @@ class MassUploadsController < ApplicationController
 
     errors = []
 
-    raw_articles = MassUpload.new(params[:file], current_user)
-    if raw_articles.errors.full_messages.any?
-      raw_articles.errors.full_messages.each do |message|
+    @mass_upload = MassUpload.new(params[:mass_uploads], current_user)
+    if @mass_upload.errors.full_messages.any?
+      @mass_upload.errors.full_messages.each do |message|
         errors << message
       end
     else
-      articles = raw_articles
+      articles = @mass_upload
       articles.save
       if articles.errors.full_messages.any?
         articles.errors.full_messages.each do |message|
@@ -27,6 +28,6 @@ class MassUploadsController < ApplicationController
         end
       end
     end
-    redirect_to new_mass_upload_path, alert: "#{errors.join("<br>")}"
+    render new_mass_upload_path #, alert: "#{errors.join("<br>")}"
   end
 end

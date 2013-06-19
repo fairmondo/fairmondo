@@ -1,15 +1,32 @@
 %h2 Artikel importieren
 
-= form_tag mass_uploads_path, multipart: true do
-  = file_field_tag :file, required: true
-  -# bugbug Do we use these HTML5 (?) required stuff? Possible problem: It
-  -# uses "Sie"
-  = submit_tag "CSV importieren"
-  %br
-  %br
-  %p
-    Bitte achte darauf, dass Du Deine CSV-Datei exakt wie in der
-    %b
-      %a{href: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
-        title: 'Musterdatei'} Musterdatei
-    aufgebaut ist.
+/ - if @errors && @errors.any?
+/   - @errors.each do |error|
+/     .alert.alert-error
+/       = error
+
+= semantic_form_for @mass_uploads, url: mass_uploads_path do |f|
+  = f.inputs do
+    = f.input :file, :label => "Datei", :as => :file, |
+      :input_html => { :required => true }
+    = f.semantic_errors
+    / bugbug I offer a beer for someone to explain me why the required
+    / statement doesn't work although it shows up and looks correctly when
+    / I render the page and look at the html
+  = f.actions do
+    = f.action :submit, :label => "Artikel hochladen"
+
+
+
+/ = form_tag mass_uploads_path, multipart: true do
+/   = file_field_tag :file, required: true
+/   -# bugbug The HTML5 required tag uses "Sie" instead of "Du"
+/   = submit_tag "CSV importieren"
+/   %br
+/   %br
+/   %p
+/     Bitte achte darauf, dass Du Deine CSV-Datei exakt wie in der
+/     %b
+/       %a{href: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
+/         title: 'Musterdatei'} Musterdatei
+/     aufgebaut ist.

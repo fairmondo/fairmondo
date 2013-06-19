@@ -23,9 +23,13 @@ class MassUpload
   # Required dependency for ActiveModel::Errors
   extend ActiveModel::Naming
 
-  def initialize(file, current_user)
+  def initialize(attributes = nil, user)
     @errors = ActiveModel::Errors.new(self)
-    @raw_articles = build_raw_articles(file, current_user)
+    if attributes && attributes[:file]
+      @raw_articles = build_raw_articles(attributes[:file], user)
+    else
+      errors.add(:Bitte, "wähle eine CSV-Datei aus")
+    end
   end
 
   attr_accessor :file
@@ -71,12 +75,12 @@ class MassUpload
     end
   end
 
-  def build_raw_articles(file, current_user)
+  def build_raw_articles(file, user)
     if validate(file)
       raw_article_array = []
       rows_array = []
       categories = []
-      user_id = current_user.id
+      user_id = user.id
       CSV.foreach(file.path, headers: true) do |row|
         rows_array << row.to_hash
       end
@@ -96,7 +100,6 @@ class MassUpload
   end
 
   def save
-    # articles = []
     raw_articles.each_with_index do |raw_article, index|
       raw_article.save
       if raw_article.errors.full_messages.any?
@@ -120,4 +123,5 @@ class MassUpload
   def MassUpload.lookup_ancestors
    [self]
   end
+
 end
