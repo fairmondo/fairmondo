@@ -21,6 +21,11 @@
 	
 	.User-primary
 		= render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
+		- if user_resource.id==current_user.id
+			%p.align-center
+				%a.Icon{:href =>  edit_user_registration_path}
+					%i.icon-pencil
+					Profil bearbeiten
 	
 	.User-secondary
 		- if user_resource.about_me && !user_resource.about_me.empty?

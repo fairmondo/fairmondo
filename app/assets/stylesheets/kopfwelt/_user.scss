@@ -2,12 +2,32 @@
 // User page
 //
 
-.User {
 
+
+//
+// User layout
+//
+.User {
+	@include pie-clearfix;
+
+	@include at-breakpoint($layout-large) {
+		@include span-columns(2,4);
+	}
+}
+.User-primary,
+.User-secondary {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+		@include nth-omega(2n);
+	}
+	@include at-breakpoint($layout-large) {
+		@include span-columns(1,2);
+	}
 }
 
+//
 // User-info box
-// -----------------------------------
+//
 .User-detail {
 	@include span-columns(4, 4);
 	padding-top: 3em;
@@ -23,8 +43,6 @@
 		@extend %Semibold;
 	}
 }
-
-
 
 .User-secondary {
 	@include rem(font-size, $font-size-m);
@@ -77,26 +95,7 @@
 }
 
 
-//
-// User layout
-//
-.User {
-	@include pie-clearfix;
 
-	@include at-breakpoint($layout-large) {
-		@include span-columns(2,4);
-	}
-}
-.User-primary,
-.User-secondary {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(2,4);
-		@include nth-omega(2n);
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(1,2);
-	}
-}
 
 
 
@@ -157,7 +156,9 @@
 	}
 }
 .User--rightside {
-	color: $red;
+	@include rem(font-size, $font-size-m);
+	@extend %Semibold;
+	color: red;
 	float: right;
 }
 .User--step {
