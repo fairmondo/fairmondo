@@ -5,39 +5,16 @@
 body {
 	background-color: $darkbeige;
 }
-
-.container {
+.l-Inner {
 	@include container;
-	border: 5px solid yellow;
-	> .row {
-		@include span-columns(1,4);
-		@include nth-omega(4n);
-		background-color: gray;
-	}
 }
-
 .l-Header {
-	& > .l-Inner {
-		@include container;
-	}
-	@include rem(height, 182px);
+	padding-bottom: 1em;
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
 	background-color: $darkbeige;
-	//border-bottom: solid .8em $lightgray;
-	// &:after {
-	// 	@extend .icon-arrow-active;
-	// 	position: relative;
-	// 	height: icon-sprite-height(arrow-active);
-	// 	width: icon-sprite-width(arrow-active);
-	// 	content: '';
-	// 	display: inline-block;
-	// 	margin: 0 auto;
-
-	// }
-	& > .l-Inner {
-		@include container;
+	.l-Inner.first {
 		padding-top: em(20);
 		padding-bottom: em(20);
 	}
@@ -45,26 +22,18 @@ body {
 .l-Main {
 	background-color: $beige;
 	& > .l-Inner {
-		@include container;
 		@include rem(padding-top, 40px);
 		padding-bottom: 7em;
 	}
 }
 .l-Footer {
-	//@include rem(height, 230px);
 	background-image: url(asset-path("back3.gif", image));
 	.Footer--top {
-		& > .l-Inner {
-			@include container;
-		}
 		@media (min-width: 30em) {
 			margin-bottom: em(103);
 		}
 	}
 	.Footer--bottom {
-		& > .l-Inner {
-			@include container;
-		}
 		padding-bottom: em(20);
 	}
 }
@@ -72,9 +41,3 @@ body {
 
 // Media queries, mobile first
 // -----------------------------------
-
-@media screen and (min-width: 42.214rem) {
-	.l-Header {
-		@include rem(height, 100px);
-	}
-}

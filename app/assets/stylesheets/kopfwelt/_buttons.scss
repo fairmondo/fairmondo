@@ -190,20 +190,22 @@ a.Btn {
 	&:hover {
 		background-color: lighten($tag--blue, 5%);
 	}
-
-	&.ui-accordion-header-active {
-		background-color: $accordion--active; 
-		&:hover {
+}
+.Accordion-header.ui-state-active {
+	background-color: $accordion--active; 
+	&:hover {
 		background-color: lighten($accordion--active, 5%);
-		}
-		
-		.icon-arrow {
-		  @extend .icon-arrow-active;
-		  top: 0px;
-		  left: -7px;
-		}
+	}
+
+	> .icon-arrow {
+		@extend .icon-arrow-down;
+		//background-position: sprite-position($icon, arrow-down);
+		top: 5px;
+		left: -7px;
 	}
 }
+
+
 .Btn-accordion {
 	background-color: $accordion;
 	padding-top: em(7, 14);
@@ -245,10 +247,6 @@ a.Btn {
 // Btn with Icon and number on the right edge
 
 .Btn [class="number"] {
-	// @include rem(font-size, 16px);
-	// font-weight: 700;
-	// float: right;
-	// padding-left: 51px;
 	@include rem(font-size, $font-size-l);
 	display: inline-block;
 	padding: 0;

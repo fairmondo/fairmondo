@@ -38,6 +38,7 @@
 //= require packery
 //= require fancybox
 //= require customSelect
+//= require filter
 
 //= require_tree ./inputs
 //= require_tree ./models
