@@ -143,7 +143,7 @@ de:
       article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
-        commendation: "Optional: Filter für Deinen Artikel"
+        commendation: "Auszeichnung (Optional)"
         article: "Dein Artikel"
         article: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
