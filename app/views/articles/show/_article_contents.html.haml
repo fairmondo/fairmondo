@@ -54,7 +54,7 @@
 	/       - count = count + 1
 .Articles--detail
 	.Articles-image
-		= link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> ['title_image', 'fancybox'], :rel=> "Gallery-article"), "#"
+		= link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
 
 	.Articles-info
 		.Articles-info--right
