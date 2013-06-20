@@ -1,0 +1,53 @@
+//
+// Filter
+//
+
+.Filter {
+	@include pie-clearfix;
+	> .l-Inner {
+		position: relative;
+		height: 0;
+		overflow: hidden;
+		@include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
+		@include transition(height 200ms)
+	}
+
+	input { float: left; clear: left; }
+	label { float: left; width: auto; color: $black; }
+}
+.Filter-col {
+	float: left;
+	margin-right: em(20);
+	margin-bottom: em(20);
+}
+.Filter-col:last-child {}
+.Filter-title {
+	@include rem(font-size, 18px);
+	@extend %Semibold;
+	margin-bottom: em(10,18);
+}
+.Filter-btn {
+	position: absolute;
+	bottom: 40px;
+	right: $gutter-width;
+	margin-bottom: 0;
+}
+.Filter .Btn-accordion {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: $lightgray;
+	color: #fff;
+	text-align: center;
+	.icon-arrow-down {
+		display: block;
+		margin: 0 auto;
+		height: 8px;
+		@include transition(all 200ms);
+	}
+}
+.Filter.is-active {
+	> .l-Inner { height: 200px; }
+	.Btn-accordion .icon-arrow-down {
+		@include rotate(180deg);
+	}
+}

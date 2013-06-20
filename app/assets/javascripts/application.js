@@ -40,10 +40,11 @@
 //= require vendor/packery/packery.pkgd.min
 //= require vendor/packery/imagesloaded.pkgd
 
+
 //= require_tree ./models
 
 //= require visual/accordion
 //= require visual/fancybox
 //= require visual/selectbox
-
-//= require packery
+//= require visual/filter
+//= require visual/packery
