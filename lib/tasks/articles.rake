@@ -2,7 +2,7 @@
 
 namespace :setup do
   desc 'Get a list of articles from http://www.itemmaster.com'
-  task :articles => :environment do | t, args |
+  task :articles, [:number_of_items] => :environment do | t, args |
     require 'faker'
     require 'time'
     require 'net/http'
@@ -12,7 +12,7 @@ namespace :setup do
     def create_users(count)
       n = count / 10
       user_list = []
-      print "Creating users"      
+      print "Creating users"
       counter = 0
       n.times do
         print "."
@@ -23,7 +23,7 @@ namespace :setup do
       User.import user_list
       puts "\n#{n} users have been created."
     end
-    
+
     def get_articles(date, count)
       puts "Getting articles from Item Master..."
 
@@ -83,7 +83,9 @@ namespace :setup do
     start_time = Time.now
     month = 24
     date = (start_time - (60*60*24*7*4*month)).strftime('%Y%m%d')
-    count = 1000
+
+    args.with_defaults :number_of_items => 100
+    count = args.number_of_items.to_i
 
     xml_doc = get_articles(date, count)
 
