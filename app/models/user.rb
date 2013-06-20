@@ -101,16 +101,29 @@ class User < ActiveRecord::Base
   validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
+  # Return forename plus surname
+  # @api public
+  # @return [String]
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
 
-
+  # Return user nickname
+  # @api public
+  # @return [String]
   def name
     name = "#{self.nickname}"
   end
 
+  # Compare IDs of users
+  # @api public
+  # @param user [User] Usually current_user
+  def is? user
+    self.id == user.id
+  end
+
   private
+  # @api private
   def create_default_library
     if self.libraries.empty?
       Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)
