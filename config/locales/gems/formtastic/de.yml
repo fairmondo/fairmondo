@@ -38,6 +38,7 @@ de:
         bank_account_owner: Kontoinhaber
         paypal_account: Paypal-Konto
 
+
       article:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -134,6 +135,8 @@ de:
       library:
         name: Name
         public: Öffentlich
+      transaction:
+        tos_accepted: Ich akzeptiere die AGB
     input_steps:
       user:
         account: Benutzerkonto

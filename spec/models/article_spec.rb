@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
 
@@ -109,18 +111,115 @@ describe Article do
   end
 
   describe "::Attributes" do
-    it "should throw an error if default_transport_selected isn't able to call the transport function" do
-      article.default_transport.should be_true
-      article.stub(:send).and_return false
-      article.default_transport_selected
-      article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-    end
+    describe "methods" do
+      describe "#default_payment_selected" do
+        it "should throw an error if default_transport_selected isn't able to call the transport function" do
+          article.default_transport.should be_true
+          article.stub(:send).and_return false
+          article.default_transport_selected
+          article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
+        end
+      end
 
-    it "should throw an error if default_payment_selected isn't able to call the payment function" do
-      article.default_payment.should be_true
-      article.stub(:send).and_return false
-      article.default_payment_selected
-      article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
+      describe "#default_transport_selected" do
+        it "should throw an error if default_payment_selected isn't able to call the payment function" do
+          article.default_payment.should be_true
+          article.stub(:send).and_return false
+          article.default_payment_selected
+          article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
+        end
+      end
+
+      describe "#transport_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's price" do
+          article.transport_price.should eq Money.new 0
+        end
+
+        it "should return an article's insured transport price" do
+          article.transport_price("insured").should eq Money.new 2000
+        end
+
+        it "should return an article's uninsured transport price" do
+          article.transport_price("uninsured").should eq Money.new 1000
+        end
+
+        it "should return an article's pickup transport price" do
+          article.transport_price("pickup").should eq Money.new 0
+        end
+      end
+
+      describe "#transport_provider" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's provider" do
+          article.transport_provider.should eq nil
+        end
+
+        it "should return an article's insured transport provider" do
+          article.transport_provider("insured").should eq 'DHL'
+        end
+
+        it "should return an article's uninsured transport provider" do
+          article.transport_provider("uninsured").should eq 'Hermes'
+        end
+
+        it "should return an article's pickup transport provider" do
+          article.transport_provider("pickup").should eq nil
+        end
+      end
+
+      describe "#total_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return the correct price for cash_on_delivery payments" do
+          expected = article.price + article.transport_insured_price + article.payment_cash_on_delivery_price
+          article.total_price("insured", "cash_on_delivery").should eq expected
+        end
+
+        it "should return the correct price for non-cash_on_delivery payments" do
+          expected = article.price + article.transport_uninsured_price
+          article.total_price("uninsured", "cash").should eq expected
+        end
+      end
+
+      describe "#price_without_vat" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.price_without_vat.should eq Money.new 8100
+        end
+      end
+
+      describe "#vat_price" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.vat_price.should eq Money.new 1900
+        end
+      end
+
+      describe "#selectable_transports" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("transport")
+          article.selectable_transports
+        end
+      end
+
+      describe "#selectable_payments" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("payment")
+          article.selectable_payments
+        end
+      end
+
+      describe "#selectable (private)" do
+        it "should return an array with selected transport options, the default being first" do
+          output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
+          output[0].should eq :pickup
+          output.should include :insured
+          output.should include :uninsured
+        end
+      end
     end
   end
 

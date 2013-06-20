@@ -1,32 +1,33 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class User < ActiveRecord::Base
   extend Memoist
-
-  # lib dependency
-  include SanitizeTinyMce
 
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
   validates_presence_of :slug
+
+  extend Sanitization
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -39,10 +40,12 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
       :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
-      :trustcommunity, :invitor_id, :banned, :about_me,
+      :invitor_id, :banned, :about_me, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-      :terms, :cancellation, :about,  :recaptcha, :bank_code ,
-      :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+      :terms, :cancellation, :about, :bank_code, :paypal_account,
+      :bank_account_number, :bank_name, :bank_account_owner
+  auto_sanitize :nickname, :forename, :surname, :street, :city
+  auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
   def self.attributes_protected_by_default
@@ -85,12 +88,13 @@ class User < ActiveRecord::Base
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
 
-  validates_presence_of :recaptcha, :on => :create
   validates_presence_of :nickname
 
   validates :zip, :presence => true, :on => :update, :zip => true
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
+
+  validates :recaptcha, presence: true, acceptance: true, on: :create
 
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
