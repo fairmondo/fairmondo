@@ -111,12 +111,12 @@
       -#Versand und Bezahlung
 
       = render_box "payment" do
-        %strong Bezahlung durch XXXXX: 
+        %strong Bezahlung durch XXXXX:
         = payment_format_for "bank_transfer"
         = payment_format_for "cash"
         = payment_format_for "paypal"
         = payment_format_for "cash_on_delivery"
-        = payment_format_for "payment_invoice"
+        = payment_format_for "invoice"
 
       - if resource.has_commendation?
         = render_box "commendation" do

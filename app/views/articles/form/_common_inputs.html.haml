@@ -68,7 +68,7 @@
       = f.input :transport_uninsured_price, :required => true
     = f.input :default_transport, :as => :select, :required => true
     = f.input :transport_details
-    
+
 = f.input_step :commendation, :tooltip => true do
   = f.inputs do
     = f.input :fair, :as => :plain_check_box, :tooltip => true, :js_toggle => true
@@ -130,6 +130,5 @@
     -# f.input :friendly_percent_organisation, :as => :select
 
 = f.semantic_fields_for :transaction do |transaction|
-  
+
   = transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }
-  

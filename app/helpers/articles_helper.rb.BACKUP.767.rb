@@ -32,7 +32,7 @@ module ArticlesHelper
     html += "</div>"
     html.html_safe
   end
-  
+
   def condition_badge_class condition
     case condition
     when "new"
@@ -114,5 +114,5 @@ module ArticlesHelper
     end
     html.html_safe
   end
-  
+
 end
