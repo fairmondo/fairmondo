@@ -1,0 +1,21 @@
+#article_categories_and_ancestors_input {
+  .selectboxit-container , .selectboxit-options {
+    width:24%;
+    margin-right:1%;
+  }
+  #Category-selectbutton {
+     width:25%;
+  }
+
+}
+
+#selected_categories_input > li > span {
+     @extend .Btn;
+     background-color: $white;
+     border: 1px solid;
+     border-color: $lightgray;
+     color: $black;
+     &:hover {
+       background-color: $white;
+     }
+}
