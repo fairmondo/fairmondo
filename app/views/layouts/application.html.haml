@@ -62,7 +62,7 @@
     #notice
       - if !flash.empty?
         - flash.each do |type, msg|
-          - if msg && !msg.empty?
+          - if msg && type != :timedout && !msg.empty?
             = render_notice :type => type do
               %p
                 = msg
