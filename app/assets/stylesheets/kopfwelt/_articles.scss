@@ -92,6 +92,7 @@
 }
 .Articles-title {
 	@include rem(font-size, $font-size-m);
+	margin-bottom: 0;
 }
 p.Articles-price, span.Articles-price {
 	@include rem(font-size, $font-size-xl);
