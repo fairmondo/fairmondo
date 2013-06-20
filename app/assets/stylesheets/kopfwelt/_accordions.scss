@@ -2,20 +2,51 @@
 // Accordions.scss
 //
 
+.Accordion {
+	@include span-columns(4, 4);
+}
+
 .Accordion-header {
   @extend .Btn;
   @extend .Btn-accordion;
   margin-bottom: -.2em;
+  outline: 0;
 }
 
 .Accordion-content {
   @include border-bottom-radius(.9em);
-  padding: $gutter-width / 2;
+  padding: ($gutter-width / 2);
   overflow: auto;
   background-color: $white;
+}
+.User-edit .Accordion-content, .Article-form .Accordion-content {
+	padding: ($gutter-width / 2) 0em;
 }
 
 .Accordion-item {
   margin-bottom: 25px;
+  outline: 0;
 }
 
+.Accordion-step {
+  border-bottom: solid .15em $beige;
+  padding: ($gutter-width / 2);
+}
+.Accordion-step--image {
+  @extend .Accordion-step;
+  padding: 0em ($gutter-width / 2);
+}
+
+
+// Media Queries
+// -----------------------------------
+@include at-breakpoint($layout-small) {
+
+}
+@include at-breakpoint($layout-medium) {
+}
+@include at-breakpoint($layout-large) {
+	.Accordion {
+		@include span-columns(2, 4);
+	}
+}

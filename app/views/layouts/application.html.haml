@@ -42,6 +42,9 @@
       try{Typekit.load();}catch(e){}
 
     = javascript_include_tag "application"
+    :javascript
+      I18n.defaultLocale = "#{I18n.default_locale}";
+      I18n.locale = "#{I18n.locale}";
 
     = csrf_meta_tags
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
@@ -57,8 +60,6 @@
           			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         			})();
   %body
-    /[if lt IE 8]
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     .notice.is-hidden
       - if !flash.empty?
         - flash.each do |type, msg|
@@ -76,19 +77,19 @@
               %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
         %nav.Nav.Nav--primary
           %ul
-            %li.icons-buy
-              = link_to t('common.text.buy'), articles_path
-            %li.icons-sell
-              = link_to t('common.text.sell'), new_article_path
+            %li
+              = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+            %li
+              = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
             /
               %li#service.main-nav-item
                 %a
                   t('common.text.service')
             - if user_signed_in?
-              %li.icons-account
-                = link_to t('common.text.profile'), user_path(current_user)
-              %li.icons-logout
-                = link_to(t('common.actions.logout'), destroy_user_session_path )
+              %li
+                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+              %li.last
+                = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
               /
                 - if current_user.trustcommunity == true
@@ -97,13 +98,13 @@
 
 
             - else
-              %li.icons-account
+              %li.last
                 - if @login
                   .Form.Form--login.is-hidden
                     = @login.html_safe
-                  = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
                 - else
-                  = link_to t('common.actions.login') , new_user_session_path
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path
         / row
       / container
     .l-Hero

@@ -22,8 +22,8 @@
 - meta_keywords resource.categories_and_ancestors.collect{ |c| c.name }.join(",")
 
 .Article
-  = render "/articles/show/article_contents", :article => resource
+	= render "/articles/show/article_contents", :article => resource
 - if resource.active?
-  = render "/articles/show/active", :article => resource
+	= render "/articles/show/active", :article => resource
 - else
-  = render "/articles/show/inactive", :article => resource
+	= render "/articles/show/inactive", :article => resource

@@ -1,0 +1,95 @@
+//
+// Navigation
+//
+
+.Nav {
+	padding-left: 0;
+	list-style: none;
+	ul {
+		@include clearfix;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		display: inline-block;
+		margin-right: em(15);
+	}
+	a {
+		@extend %Semibold;
+		display: block;
+		text-decoration: none;
+		
+		&:hover,
+		&.selected {
+			@extend %Bold;
+			color: #f1f1f1;
+			text-decoration: underline;
+		}
+	}
+	.icon {
+		display: inline-block;
+	}
+}
+
+.Nav--primary {
+	clear: left;
+	@include rem(margin, 16px auto 0);
+	text-align: center;
+
+	li {
+		margin-right: 0;
+		&.last { margin-right: 0; }
+	}
+	a {
+		@include rem(min-width, 70px); // prevent jump
+		color: #000;
+		&:hover {
+			color: #000;
+		}
+	}
+	.icon {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: icon-sprite-width(buy);
+		height: icon-sprite-height(buy);
+	}
+}
+
+.l-Footer a {
+	color: #434343;
+}
+.Nav--meta {
+	@include rem(font-size, 17px);
+	margin-top: 1em;
+}
+.Nav--legal  {
+	@include rem(font-size, 15px);
+}
+
+.Nav--meta,
+.Nav--legal {
+	@media (min-width: 30em) {
+		float: right;
+	}
+}
+
+
+// Responsive navigation, mobile first
+// -----------------------------------
+
+@media screen and (min-width: 42.214rem) {
+	.Nav--primary {
+		float: right;
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 50.7rem) {
+	.Nav--primary {
+		li {
+			@include rem(margin-right, 36px);
+		}
+	}
+}
+

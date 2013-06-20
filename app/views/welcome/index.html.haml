@@ -20,50 +20,65 @@
 #js-packery.Packery
 	.gutter-sizer
 	.grid-sizer
-	.Teaser.Teaser-video
-		= tinycms_content "start-video"
-	.Teaser
-		= tinycms_content "test_phase_greeting"
-	.Teaser
-		= tinycms_content "buy-ffps"
-	.Teaser
-		= tinycms_content "progress-ffps"
-	.Teaser
-		= link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-	.Teaser
-		= tinycms_content "please-register"
-	.Teaser
-		.bar{:style => "height:100%;width: #{@percentage}%"}
-	%p.Teaser
-		= link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
 
-	.Teaser
-		= @articles
-		= t("common.text.inserted")
-	.Teaser.Teaser-text
-		%h2.Teaser--title.Icon
+	
+	
+	-#
+		.Teaser
+			= tinycms_content "test_phase_greeting"
+		.Teaser
+			= tinycms_content "buy-ffps"
+		.Teaser
+			= tinycms_content "progress-ffps"
+		.Teaser
+			= link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
+		.Teaser
+			= tinycms_content "please-register"
+		.Teaser
+			.bar{:style => "height:100%;width: #{@percentage}%"}
+		.Teaser
+			= link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
+
+		.Teaser
+			= @articles
+			= t("common.text.inserted")
+
+	.Teaser.Teaser--video
+		= tinycms_content "start-video"
+
+	.Teaser.Teaser--text.Teaser--welcome
+		%h2.Teaser-title.Icon
 			%i.icon-interrogation--green
 			Willkommen bei Fairnopoly
-		%p.Subtitle dem fairen Online-Markplatz in Hand der Nutzer*innen
+		%p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
 		%p Die Pionierphase ist gestartet! Du hast jetzt die Chance, zu den zu gehören, die hier ihre Artikel anbieten
 		%a.Btn.Btn--blue{:href => "#"} werde Pionier*in
-	.Teaser.Teaser-text
-		%h2.Teaser--title.Icon
+	
+	.Teaser.Teaser--text
+		%h2.Teaser-title.Icon
 			%i.icon-pionier--green
 			Was is Fairnopoly?
 		%p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, neque unde quasi mollitia eos. Maxime, blanditiis nam officia a perspiciatis asperiores temporibus animi consequatur sed dolorem rem praesentium iure libero.
-		%span.Icon
-			%i.icon-index-arrow--draw
 		%a.Btn.Btn--blue{:href => "#"}
-			mehr erfahren
-	.Teaser.Teaser-pioner
-		%h2.Teaser--title Pionier des Tages
-		%p.Teaser-pionier--name Felix Weth, Berlin
-		%img{:src => "", :alt => ""}/
-		%p Kreidetier
-		%p 12 €*
-		%span inkl. 19% MwSt
-		%span *Grundpreis 1.29€/Kg
-	.Teaser.Teaser-total
-		%h2.Teaser--title Bis jetzt eingestellte Artikel
-		%div.Teaser-total--number 11.558
+			%i.icon-index-arrow--draw
+			Mehr erfahren
+
+	.Teaser.Teaser--pioneer
+		%h2.Teaser-title Pionier des Tages
+		
+		%figure.Profile
+			.Profile-name Felix Weth, Berlin
+			%img.Profile-avatar{:src => "assets/dummy/avatar.png", :alt => "Felix Weth"}
+		
+		%img.Teaser--pioneer-image{:src => "assets/dummy/dummy-245.png", :alt => ""}
+		
+		-# =image_tag "dummy/dummy-245.png", :class => ""
+		
+		%p.Teaser--pioneer-1 Kreidetier
+		%p.Teaser--pioneer-2 12 €*
+		%span.Teaser--pioneer-3 inkl. 19% MwSt
+		%span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
+	
+	.Teaser.Teaser--total
+		%h2.Teaser-title Bis jetzt eingestellte Artikel
+		.Teaser--total-number 11.558

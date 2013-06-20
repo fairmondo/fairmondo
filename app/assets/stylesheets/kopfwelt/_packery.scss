@@ -22,17 +22,27 @@ $cols: 4;
 	// 	$cols: 6;
 	// 	width: (100 - ($gutter*$cols)) /$cols;
 	// }
+	@media (max-width: 48em) {
+		width: 49% !important;
+	}
+	@media (max-width: 30em) {
+		width: 100% !important;
+	}
+}
+.Teaser--video,
+.Teaser--text {
+	width: 49%;
 }
 
 //
 // Packery item styling
 //
 .Teaser {
-	background: white;
 	@extend .grid-sizer;
+	@include pie-clearfix;
 	float: left;
 	position: relative;
-	overflow: hidden;
+	background: #fff;
 	
 	// Make sure the link contains everything
 	> a {

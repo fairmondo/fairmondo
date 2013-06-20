@@ -92,7 +92,7 @@ group :assets do
   gem 'tinymce-rails-langs'
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
-  #gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
+  gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master'
   gem 'coffee-rails'
   gem 'therubyrhino'
   gem 'selectivizr-rails'

@@ -6,26 +6,29 @@
 // -----------------------------------
 // Sprites sizes and hover changes icon color 
 // assign the icon's width and height to the <i> ellement
-//.icons-download { height: icons-sprite-height(download); width: icons-sprite-width(download);}
+//.icon-download { height: icon-sprite-height(download); width: icon-sprite-width(download);}
 
 
 // Configuration
 // -----------------------------------
 
 // space between each icon in the sprite 
-$icons-spacing: 40px; // "incons" is the name of the folder
+$icon-spacing: 40px; // "incons" is the name of the folder
+
+// Include dimensions for each sprite
+//$icon-sprite-dimensions: true;
 
 // import the compass function that handles the sprites
 @import "compass/utilities/sprites";
 
 // locate the folders with the icons in
-@import "icons/*.png";
+@import "icon/*.png";
 
 // compass, make icons plizz
-@include all-icons-sprites;
+@include all-icon-sprites;
 
 
-// Icon genral settings
+// Icon general settings
 // -----------------------------------
 
 .Icon [class^="icon-"] {
@@ -38,80 +41,74 @@ $icons-spacing: 40px; // "incons" is the name of the folder
 // -----------------------------------
 
 // iconS (import the sprites)
-.icons-interrogation--green {
-	height: icons-sprite-height(interrogation--green);
-	width: icons-sprite-width(interrogation--green);
+.icon-interrogation--green {
+	height: icon-sprite-height(interrogation--green);
+	width: icon-sprite-width(interrogation--green);
 }
-.icons-pionier--green {
-	height: icons-sprite-height(pionier--green);
-	width: icons-sprite-width(pionier--green);
+.icon-pionier--green {
+	height: icon-sprite-height(pionier--green);
+	width: icon-sprite-width(pionier--green);
 }
-.icons-index-arrow--draw {
-	height: icons-sprite-height(index-arrow--draw);
-	width: icons-sprite-width(index-arrow--draw);
+.icon-index-arrow--draw {
+	height: icon-sprite-height(index-arrow--draw);
+	width: icon-sprite-width(index-arrow--draw);
 }
 
 
 // Button's icons
 // -----------------------------------
 
-.icons-arrow-active {
-	height: icons-sprite-height(arrow-active);
-	width: icons-sprite-width(arrow-active);
+.icon-arrow-active {
+	height: icon-sprite-height(arrow-active);
+	width: icon-sprite-width(arrow-active);
+}
+.icon-arrow {
+	height: icon-sprite-height(arrow);
+	// width of is-active so both accordion arrow icons have same width
+	width: icon-sprite-width(arrow-active);
 }
 
-.icons-arrow-inActive {
-	height: icons-sprite-height(arrow-inActive);
-	// width of is-active so both accordion arrow icons have same wdith
-	width: icons-sprite-width(arrow-active);
+.icon-box {
+	display: inline-block;
+	height: icon-sprite-height(box);
+	width: icon-sprite-width(box);
 }
 
-.icons-box {
-	height: icons-sprite-height(box);
-	width: icons-sprite-width(box);
-}
-
-.icons-box-open {
-	height: icons-sprite-height(box-open);
+.icon-box--open {
+	height: icon-sprite-height(box--open);
 	// width of the box icon so all btn have same width
-	width: icons-sprite-width(box);
+	width: icon-sprite-width(box);
 }
 
-.icons-paper {
-	height: icons-sprite-height(paper);
+.icon-paper {
+	height: icon-sprite-height(paper);
 	// width of the box icon so all btn have same width
-	width: icons-sprite-width(box);
+	width: icon-sprite-width(box);
 }
 
-.icons-helper {
-	height: icons-sprite-height(helper);
-	width: icons-sprite-width(helper);
+.icon-helper {
+	height: icon-sprite-height(helper);
+	width: icon-sprite-width(helper);
 }
 
 
 // Profil page icons
 // -----------------------------------
 
-.icons-pencil {
-	height: icons-sprite-height(pencil);
-	width: icons-sprite-width(pencil);
-}
-
-.icons-user {
-	display: inline-block;
-	height: icons-sprite-height(user);
-	width: icons-sprite-width(user);
-}
-.icons-briefcase {
-	display: inline-block;
-	height: icons-sprite-height(user);
-	width: icons-sprite-width(user);
-}
-
 .icon-pencil {
-	@extend .icons-pencil;
+	height: icon-sprite-height(pencil);
+	width: icon-sprite-width(pencil);
 }
 
 .icon-user {
-	@extend .icons-user;
+	display: inline-block;
+	height: icon-sprite-height(user);
+	width: icon-sprite-width(user);
 }
+.icon-briefcase {
+	display: inline-block;
+	height: icon-sprite-height(user);
+	width: icon-sprite-width(user);
+}
+.icon-pencil {}
+.icon-user {}

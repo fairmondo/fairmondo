@@ -1,6 +1,6 @@
 selected_categories_input = "#selected_categories_input"
-native_select_categories  = "#article_categories_and_ancestors"
-select_button_html_id = "select_category"
+native_select_categories  = ".Category-nativeselect"
+select_button_html_id = "Category-selectbutton"
 changed_select_box = ->
   $(this).nextAll("select").remove() # Remove all selectboxes after this one
   selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
@@ -21,8 +21,7 @@ changed_select_box = ->
 
         # Add handlers and style
         jq_selecttag.change changed_select_box
-        jq_selecttag.selectBoxIt()
-
+        jq_selecttag.selectBoxIt({autoWidth:false})
 select_category = ->
   selected_categories_list = $(selected_categories_input)
   selected_values = []
@@ -59,25 +58,18 @@ select_category = ->
       $.get "/categories/" + selected_category_id + ".js", ((data) ->
         selected_item = $(data)
         selected_categories_list.append selected_item
-        selected_item.append "<a class=\"Btn\">Delete</a>"
+        selected_item.append "<a class=\"Btn\">"+I18n.t("javascript.common.actions.remove")+"</a>"
       ), "html"
 
 $(document).ready ->
   native_category_input = $(native_select_categories)
   selected_categories_list = $(selected_categories_input)
-  category_input_container = native_category_input.parent()
 
-  # Make the dropdowns work
-  category_input_container.css "overflow", "visible"
-  category_input_container.parents().css "overflow", "visible"
 
   #Create the select category button
-  select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>Auswaehlen</a>"
+  select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select")+"</a>"
   select_button = $(select_button_html)
   native_category_input.after select_button
-
-  # Beautify select boxes
-  native_category_input.selectBoxIt()
 
   #event handler
   native_category_input.change changed_select_box

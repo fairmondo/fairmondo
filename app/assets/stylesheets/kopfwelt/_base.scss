@@ -24,7 +24,8 @@ h5,
 h6,
 p,
 ol,
-ol {
+ol,
+dl {
 	margin-top: auto;
 	margin-bottom: $pBottomMargin;
 }
@@ -43,7 +44,8 @@ h1 {
 	margin-bottom: em(17,30);
 }
 h2 {
-	@include rem(font-size, 25px);
+	@include rem(font-size, 20px);
+	@extend %Bold;
 }
 h3 {
 	@include rem(font-size, 20px);
@@ -89,4 +91,9 @@ small {
 
 .align-center {
 	text-align: center;
+}
+
+// remove margin left on dd;
+dd {
+	-webkit-margin-start: 0px;
 }

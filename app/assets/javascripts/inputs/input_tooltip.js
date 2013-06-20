@@ -16,7 +16,6 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 $(document).ready(function(){
 	$("a.input-tooltip").popover({"placement" : "left",  template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'}).click(function(e) {
@@ -33,3 +32,4 @@ $(document).ready(function(){
 	});
 
 });
+ */

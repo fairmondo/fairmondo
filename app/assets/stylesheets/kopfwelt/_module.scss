@@ -8,11 +8,17 @@
 }
 
 .Logo {
-	float: left;
-	margin-top: 1em;
+	@include rem(padding-top, 27px);
 }
+.Logo,
 .Copyright {
 	float: left;
+	@media (max-width: 30em) {
+		float: none;
+	}
+}
+.Copyright {
+	@include rem(font-size, 15px);
 	p {
 		margin-top: .4em;
 	}
@@ -43,9 +49,17 @@
 	a {
 		color: $lightgray;
 		text-decoration: none;
+		text-transform: capitalize;
 		&:hover {
 			color: $gray;
 		}
+		&.last {
+			color: black;
+		}
+		&.last:hover {
+			color: $lightgray;
+		}
+
 	}
 }
 .Highlight {
@@ -53,9 +67,9 @@
 	margin-bottom: 0;
 }
 
-
 // Hero search
 #search-box-filter {display: none}
+
 
 @include at-breakpoint($layout-small) {
 	.Meta {
