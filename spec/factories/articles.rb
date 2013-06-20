@@ -56,7 +56,7 @@ FactoryGirl.define do
     factory :no_second_hand_article do
       condition "new"
     end
-    
+
     factory :preview_article do
        after(:build) do |article|
          article.state = "preview"
