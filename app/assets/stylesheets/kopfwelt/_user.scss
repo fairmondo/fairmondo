@@ -94,11 +94,9 @@
 	top: 2px;
 }
 
-
-
-
-
-
+.User-accordion {
+	@include span-columns(4, 4);
+}
 
 .User-articles {
 	@include at-breakpoint($layout-medium) {

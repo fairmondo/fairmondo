@@ -7,34 +7,50 @@
 }
 
 .Accordion-header {
-  @extend .Btn;
-  @extend .Btn-accordion;
-  margin-bottom: -.2em;
-  outline: 0;
+	@extend .Btn;
+	@extend .Btn-accordion;
+	@include pie-clearfix;
+	margin-bottom: -.2em;
+	outline: 0;
+	.icon-arrow {
+		display: inline-block;
+		float: left;
+	}
+	.content {
+		display: inline-block;
+		// height: auto;
+		// white-space: normal;
+		// margin-right: 2em;
+	}
+	.number {
+		@include rem(font-size, $font-size-l);
+		display: inline-block;
+		padding: 0;
+	}
 }
 
 .Accordion-content {
-  @include border-bottom-radius(.9em);
-  padding: ($gutter-width / 2);
-  overflow: auto;
-  background-color: $white;
+	@include border-bottom-radius(.9em);
+	padding: ($gutter-width / 2);
+	overflow: auto;
+	background-color: $white;
 }
 .User-edit .Accordion-content, .Article-form .Accordion-content {
 	padding: ($gutter-width / 2) 0em;
 }
 
 .Accordion-item {
-  margin-bottom: 25px;
-  outline: 0;
+	margin-bottom: 25px;
+	outline: 0;
 }
 
 .Accordion-step {
-  border-bottom: solid .15em $beige;
-  padding: ($gutter-width / 2);
+	border-bottom: solid .15em $beige;
+	padding: ($gutter-width / 2);
 }
 .Accordion-step--image {
-  @extend .Accordion-step;
-  padding: 0em ($gutter-width / 2);
+	@extend .Accordion-step;
+	padding: 0em ($gutter-width / 2);
 }
 
 
@@ -48,5 +64,11 @@
 @include at-breakpoint($layout-large) {
 	.Accordion {
 		@include span-columns(2, 4);
+	}
+	.Accordion-header {
+		.content {
+			white-space: normal;
+			width: 12em;
+		}
 	}
 }
