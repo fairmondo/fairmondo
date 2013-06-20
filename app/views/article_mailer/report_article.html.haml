@@ -25,4 +25,4 @@
   = polymorphic_url(@article)
 %p
   Admin link:
-  = rails_admin.show_path(:model_name => "articles", :id => @article.id)
+  = polymorphic_url([:admin, @article])
