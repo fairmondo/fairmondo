@@ -21,7 +21,6 @@
 		
 		&:hover,
 		&.selected {
-			@extend %Bold;
 			color: #f1f1f1;
 			text-decoration: underline;
 		}
@@ -45,6 +44,7 @@
 		color: #000;
 		&:hover {
 			color: #000;
+			@extend %Bold;
 		}
 	}
 	.icon {
