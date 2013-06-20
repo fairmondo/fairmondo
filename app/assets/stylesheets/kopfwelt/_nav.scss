@@ -23,6 +23,7 @@
 		&.selected {
 			@extend %Bold;
 			color: #f1f1f1;
+			text-decoration: underline;
 		}
 	}
 	.icon {
@@ -32,7 +33,7 @@
 
 .Nav--primary {
 	clear: left;
-	margin: 1em auto 0;
+	@include rem(margin, 16px auto 0);
 	text-align: center;
 
 	li {
@@ -40,7 +41,7 @@
 		&.last { margin-right: 0; }
 	}
 	a {
-		@include rem(min-width, 67px); // prevent jump
+		@include rem(min-width, 70px); // prevent jump
 		color: #000;
 		&:hover {
 			color: #000;
