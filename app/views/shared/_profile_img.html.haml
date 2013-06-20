@@ -21,17 +21,18 @@
   .User-image
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))
+  
   %p.User-name
     = user.name
-  - if user.is_a?(LegalEntity)
-    %p.User-company
-      = user.fullname
+    - if user.is_a?(LegalEntity)
+      %br= user.fullname
+  
   %p.User-legal
     - if user.is_a?(LegalEntity)
       %a.Icon{:href => "#"}
-        %i.icons-briefcase
+        %i.icon-briefcase
         = t('users.legal_status.show.legal_entity')
     - else
       %a.Icon{:href => ""}
-        %i.icons-user
+        %i.icon-user
         = t('users.legal_status.show.private_user')

@@ -1,0 +1,71 @@
+//
+// Forms
+//
+
+.formtastic .input {
+	padding: 0;
+	margin: 0 0 $pBottomMargin;
+}
+.formtastic .stringish input {
+	width: 100%;
+}
+
+input[type='search'] {
+	-webkit-appearance: none;
+}
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+textarea {
+	@include border-radius(.5em);
+	@include rem(font-size, $base-font-size);
+	padding: em(8);
+	width: 100%;
+	color: $black;
+	border: 2px solid $lightgray;
+	&:focus {
+		outline: 0;
+		color: $black;
+	}
+	&:hover {}
+}
+
+label {
+	@extend %Semibold;
+	@include rem(font-size, $font-size-m);
+	width: 100%;
+	display: block;
+	color: $gray;
+}
+
+
+
+// Article Form
+fieldset.choices {
+	display: block;
+	border-bottom: solid $lightgray .1em;
+	.leaf-item {
+		@include pie-clearfix;
+		padding: 1em;
+		input {
+			float: right;
+		}
+		label {
+			width: 50;
+		}
+	}
+}
+.formtastic .boolean label {
+	padding: 0;
+}
+.formtastic .choices-group {
+	padding: 0;
+}
+.inline-hints {
+	@extend %Semibold;
+	@include rem(font-size, 14px);
+	color: #2e2e2e;
+}

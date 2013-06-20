@@ -3,15 +3,10 @@
 //
 
 /*
- * Configuration explained 
 
-# Configuration packery
-$gutter: 2%;
-$cols: 4;
-
-# explantation of widths
-49% = 2 cols
-no defined with = 24.5%
+# Explantation of widths. We have a four-col grid.
+1 cols = 23.5%
+2 cols = 49%
 
 */
 
@@ -21,53 +16,131 @@ no defined with = 24.5%
 	@include rem(padding, 10px 20px);
 	text-align: center;
 	color: #3c3c3c;
+	border-radius: 8px;
 
 	.Icon [class^="icon-"] {
 		display: block;
 		@include rem(margin, 20px auto);
 	}
-	border-radius: 8px;
 }
 
+//
+// Teaser variants
+//
 
-// Type of .Teasers
-// -----------------------------------
 
-.Teaser-video {
-	width: 49%;
+.Teaser--video {
+	padding: 0;
+	iframe,
+	embed {
+		width: 100%;
+	}
+}
+// Ribbon
+.Teaser--welcome:before {
+	content: '';
+	display: block;
+	width: 132px;
+	height: 132px;
+	background-image: url(asset-path("ribbon-pioneer.png", image));
+	position: absolute;
+	top: -5px;
+	left: -5px;
 }
 
-.Teaser-text {
-	width: 49%;
-	font-size: 18px;
-	@extend %Regular;
+.Teaser--text {
+	@include rem(font-size, 18px);
 }
-.Teaser-total {}
-.Teaser-pioner {}
-
-.Teaser--title {
+.Teaser-title {
 	@include rem(font-size, 25px);
 	@extend %Bold;
 	color: black;
 }
+.Teaser--pioneer {
+	padding-left: 0;
+	padding-right: 0;
+	.Teaser-title {
+		@include rem(font-size, 18px);
+		margin-bottom: em(25,18);
+	}
+}
+.Teaser--pioneer-image {
+	width: 100%;
+	margin-bottom: 3px;
+}
+.Teaser--pioneer-1 { @include rem(font-size, 14px); text-align: left; margin: 0 20px; }
+.Teaser--pioneer-2 { @include rem(font-size, 30px); text-align: left; margin: 0 20px; line-height: 1;}
+.Teaser--pioneer-3 { @include rem(font-size, $font-size-xs); float: left; margin-left: 20px;}
+.Teaser--pioneer-4 { @include rem(font-size, $font-size-xs); float: right; margin-right: 20px;}
 
-.Teaser-pionier--name {}
+.Profile {
+	position: relative;
+}
+.Profile-name {
+	@include rem(font-size, 14px);
+	background-color: $green;
+	color: #fff;
+	padding: em(5,14) em(5,14) em(3,14) em(70,14);
+	
+	// don't make it break it
+	// overflow: hidden;
+	// text-overflow: ellipsis;
+	// white-space: nowrap;
+	
+	// &:after {
+	// 	content: "|";
+	// 	padding: em(5,14) 0 em(3,14) 0;
+	// 	@include background(linear-gradient(right, yellow 70%, red));
+	// 	color: $green;
+	// 	display: block;
+	// 	position: absolute;
+	// 	top: 0;
+	// 	right: 0;
+	// 	width: 20px;
+	// }
+}
+.Profile-avatar {
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	top: -18px;
+	left: -8px;
+}
 
-.Teaser-total--number {}
+.Teaser--total {
+	// move padding from container to child els
+	padding: 0;
+	> .Teaser-title,
+	> .Teaser-total--number {
+		@include rem(padding, 10px 20px);
+	}
+	.Teaser-title {
+		@include rem(font-size, $base-font-size);
+		padding-bottom: 0;
+	}
+}
+.Teaser--total-number {
+	@include rem(font-size, 40px);
+	@extend %Semibold;
+	background-color: $green;
+	color: #fff;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
 
 
 // Icons 
 // -----------------------------------
 
 .icon-interrogation--green {
-	@extend .icons-interrogation--green;
+	@extend .icon-interrogation--green;
 }
 .icon-pionier--green {
-	@extend .icons-pionier--green;
+	@extend .icon-pionier--green;
 }
 .icon-index-arrow--draw {
-	@extend .icons-index-arrow--draw;
-	position: absolute;
-	top: 0px;
-	left: -100px;
+	@extend .icon-index-arrow--draw;
+	position: absolute !important;
+	top: -11px;
+	left: -68px;
 }

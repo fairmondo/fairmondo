@@ -17,9 +17,6 @@ This stylesheet forms part of the Formtastic Rails Plugin
 .formtastic li,
 .formtastic fieldset,
 .formtastic legend,
-.formtastic input,
-.formtastic button,
-.formtastic textarea,
 .formtastic select,
 .formtastic p {
   margin:0;
@@ -45,14 +42,6 @@ This stylesheet forms part of the Formtastic Rails Plugin
 .formtastic acronym {
   border:0;
   font-variant:normal;
-}
-
-.formtastic input,
-.formtastic button,
-.formtastic textarea {
-  font-family:sans-serif;
-  font-size:inherit;
-  font-weight:inherit;
 }
 
 .formtastic input,
@@ -124,7 +113,6 @@ This stylesheet forms part of the Formtastic Rails Plugin
 --------------------------------------------------------------------------------------------------*/
 .formtastic .input .label {
   display:block;
-  width:25%;
   float:left;
   padding-top:.2em;
 }
@@ -163,8 +151,10 @@ This stylesheet forms part of the Formtastic Rails Plugin
 /* INLINE HINTS
 --------------------------------------------------------------------------------------------------*/
 .formtastic .input .inline-hints {
-  color:#666;
-  margin:0.5em 0 0 25%;
+  @extend %Semibold;
+  @include rem(font-size, $font-size-m);
+  color:$black;
+  //margin:0.5em 0 0 25%;
 }
 
 

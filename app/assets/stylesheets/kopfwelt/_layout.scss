@@ -20,17 +20,17 @@ body {
 	& > .l-Inner {
 		@include container;
 	}
-	@include rem(height, 100px);
+	@include rem(height, 182px);
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
 	background-color: $darkbeige;
 	//border-bottom: solid .8em $lightgray;
 	// &:after {
-	// 	@extend .icons-arrow-active;
+	// 	@extend .icon-arrow-active;
 	// 	position: relative;
-	// 	height: icons-sprite-height(arrow-active);
-	// 	width: icons-sprite-width(arrow-active);
+	// 	height: icon-sprite-height(arrow-active);
+	// 	width: icon-sprite-width(arrow-active);
 	// 	content: '';
 	// 	display: inline-block;
 	// 	margin: 0 auto;
@@ -38,10 +38,8 @@ body {
 	// }
 	& > .l-Inner {
 		@include container;
-		padding-top: .5em;
-		padding-bottom: .5em;
-		min-height: 4em;
-
+		padding-top: em(20);
+		padding-bottom: em(20);
 	}
 }
 .l-Main {
@@ -59,12 +57,24 @@ body {
 		& > .l-Inner {
 			@include container;
 		}
-		@include rem(height, 180px);
+		@media (min-width: 30em) {
+			margin-bottom: em(103);
+		}
 	}
 	.Footer--bottom {
 		& > .l-Inner {
 			@include container;
 		}
-		@include rem(height, 50px);
+		padding-bottom: em(20);
+	}
+}
+
+
+// Media queries, mobile first
+// -----------------------------------
+
+@media screen and (min-width: 42.214rem) {
+	.l-Header {
+		@include rem(height, 100px);
 	}
 }

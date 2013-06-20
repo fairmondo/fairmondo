@@ -2,13 +2,32 @@
 // User page
 //
 
-.User {
 
+
+//
+// User layout
+//
+.User {
+	@include pie-clearfix;
+
+	@include at-breakpoint($layout-large) {
+		@include span-columns(2,4);
+	}
+}
+.User-primary,
+.User-secondary {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+		@include nth-omega(2n);
+	}
+	@include at-breakpoint($layout-large) {
+		@include span-columns(1,2);
+	}
 }
 
+//
 // User-info box
-// -----------------------------------
-
+//
 .User-detail {
 	@include span-columns(4, 4);
 	padding-top: 3em;
@@ -17,13 +36,15 @@
 	@include span-columns(4, 4);
 }
 .User-edit {
-	@include span-columns(2, 4);
-	@include rem(font-size, $font-size-m);
-	margin-bottom: 2em;
-	text-align: center;
+	p {
+		@include pie-clearfix;
+	}
+	h3 {
+		@extend %Semibold;
+	}
 }
-.User-event {
-	@include span-columns(4, 4);
+
+.User-secondary {
 	@include rem(font-size, $font-size-m);
 	@include rem(margin-bottom, 76px);
 	.User-collection {
@@ -35,6 +56,7 @@
 	margin-bottom: 1em;
 	padding: $gutter-width / 4;
 	background: $white;
+	text-align: center;
 }
 .User-image {
 	@include border-radius(50%);
@@ -56,42 +78,30 @@
 .User-additional {
 	@include span-columns(4, 4);
 }
-.User-name,
-.User-legal,
-.User-company {
+.User-primary {
 	@include rem(font-size, $font-size-m);
 	@include clearfix;
-	text-align: center;
 	text-transform: capitalize;
 	font-weight: 700;
 }
 .User-name {
-	margin-bottom: 0;
+	line-height: 1.1;
 }
-.User-legal {
-	a {color: $gray;}
-	
+.User-legal a {
+	color: $gray;
+}
+.User-primary .icon-pencil {
+	top: 2px;
 }
 
 
-// Media Queries
-// -----------------------------------
-@include at-breakpoint($layout-small) {
-	.User-profile {
-		@include span-columns(2, 4);
-	}
-	.User-edit {
-		@include span-columns(2, 4);
-	}
-	.User-event {
-		@include span-columns(2 omega, 4);
-	}
-}
-@include at-breakpoint($layout-medium) {
-	.User-detail {
-		@include span-columns(4, 4);
-	}
-	.User-articles {
+
+
+
+
+
+.User-articles {
+	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
 		li {
 			@include span-columns(1, 2);
@@ -100,21 +110,7 @@
 			}
 		}
 	}
-}
-@include at-breakpoint($layout-large) {
-	.User-detail {
-		@include span-columns(2, 4);
-	}
-	.User-profile {
-		@include span-columns(1, 2);
-	}
-	.User-edit {
-		@include span-columns(1, 2);
-	}
-	.User-event {
-		@include span-columns(1 omega, 2);
-	}
-	.User-articles {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(4, 4);
 		li {
 			@include span-columns(1, 4);
@@ -126,10 +122,46 @@
 			}
 		}
 	}
+}
+@include at-breakpoint($layout-large) {
 	.User-additional {
 		@include span-columns(2, 4);
 	}
 }
 
 
+//
+// User/profile edit
+//
+#user_password_input,
+#user_password_confirmation_input {
+	@include at-breakpoint($layout-small) {
+		@include span-columns(1,2);
+		@include nth-omega(2n);
+	}
+}
+#user_current_password_input {
+	clear: both;
+}
 
+#user_current_password,
+#user_email {
+	@include at-breakpoint($layout-small) {
+		max-width: columns(1,2);
+	}
+}
+.User-edit-pw {
+	.controls {
+		clear: both;
+	}
+}
+.User--rightside {
+	@include rem(font-size, $font-size-m);
+	@extend %Semibold;
+	color: red;
+	float: right;
+}
+.User--step {
+	border-bottom: 1px solid $beige;
+	padding: ($gutter-width / 2);
+}

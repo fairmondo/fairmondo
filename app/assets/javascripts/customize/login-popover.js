@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 
 
 // refs #114
@@ -49,4 +49,4 @@ $(document).ready(function(){
         e.preventDefault()
       })
 
-});
+}); */

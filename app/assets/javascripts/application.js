@@ -26,12 +26,12 @@
 //= require selectivizr
 //= require tinymce
 //= require tinymce-jquery
-//= require bootstrap
+//= require i18n
+//= require i18n/translations
 
-
+//= require_tree ./vendor
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize
 //= require_tree ./visual
-//= require_tree ./vendor
 //= require_tree ./packery
