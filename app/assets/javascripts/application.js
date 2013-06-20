@@ -37,4 +37,5 @@
 //= require_tree ./visual
 
 //= require_tree ./packery
+//= require_tree ./fancybox
 //= require_tree ./custom_select
