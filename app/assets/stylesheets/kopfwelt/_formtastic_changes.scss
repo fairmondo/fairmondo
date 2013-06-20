@@ -98,3 +98,19 @@ fieldset.choices {
 	@include rem(font-size, 14px);
 	color: #2e2e2e;
 }
+
+// //
+// // Custom radio buttons (requires on jQuery UI Buttons)
+// //
+// .ui-button {
+// 	@extend  .icon-radio;
+// 	width: icon-sprite-width(radio);
+// 	height: icon-sprite-height(radio);
+// 	overflow: hidden;
+// }
+// .ui-button.ui-state-hover {
+// 	@extend  .icon-radio_active;
+// }
+// .ui-button.ui-state-active {
+// 	@extend  .icon-radio_active;
+// }
