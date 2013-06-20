@@ -12,7 +12,7 @@ de:
       report: "Dein Feedback zu dem Artikel"
 
   article:
-    delete_confirm: "Soll der artikel '%{name}' wirklich gelöscht werden?"
+    delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
     vat_included: "Inkl. Mehrwertsteuer"
     transport:
       placeholders:

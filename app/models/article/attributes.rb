@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module Article::Attributes
   extend ActiveSupport::Concern
@@ -25,6 +27,8 @@ module Article::Attributes
     #common fields
 
     attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
+    auto_sanitize :content, method: 'tiny_mce'
+    auto_sanitize :title
 
     #title
 
@@ -47,7 +51,7 @@ module Article::Attributes
 
     monetize :price_cents
 
-    # vat
+    # vat (Value Added Tax)
 
     validates_presence_of :vat , if: :has_legal_entity_seller?
 
@@ -61,6 +65,7 @@ module Article::Attributes
 
 
     # =========== Transport =============
+    TRANSPORT_TYPES = [:pickup, :insured, :uninsured]
 
     #transport
     attr_accessible :default_transport, :transport_pickup,
@@ -70,7 +75,9 @@ module Article::Attributes
                     :transport_uninsured_price, :transport_uninsured_provider,
                     :transport_details
 
-    enumerize :default_transport, in: [:pickup, :insured, :uninsured]
+    auto_sanitize :transport_insured_provider, :transport_uninsured_provider, :transport_details
+
+    enumerize :default_transport, in: TRANSPORT_TYPES
 
     validates_presence_of :default_transport
     validates :transport_insured_price, :transport_insured_provider, presence: true, if: :transport_insured
@@ -83,6 +90,7 @@ module Article::Attributes
 
 
     # ================ Payment ====================
+    PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
     attr_accessible :default_payment ,:payment_details ,
@@ -92,8 +100,9 @@ module Article::Attributes
                     :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
                     :payment_invoice,
                     :seller_attributes
+    auto_sanitize :payment_details
 
-    enumerize :default_payment, in: [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    enumerize :default_payment, in: PAYMENT_TYPES
 
     validates_presence_of :default_payment
     validates :payment_cash_on_delivery_price, presence: true, if: :payment_cash_on_delivery
@@ -134,5 +143,100 @@ module Article::Attributes
         errors.add(:default_payment, I18n.t("errors.messages.invalid_default_payment"))
       end
     end
+  end
+
+  # Gives the price of the article minus taxes
+  #
+  # @api public
+  # @return [Money]
+  def price_without_vat
+    self.price * ( 100 - self.vat ) / 100
+  end
+
+  # Gives the amount of money for an article that goes towards taxes
+  #
+  # @api public
+  # @return [Money]
+  def vat_price
+    self.price * self.vat / 100
+  end
+
+  # Function to calculate total price for an article.
+  # Note: Params should have already been validated.
+  #
+  # @api public
+  # @param selected_transport [String] Transport type
+  # @param selected_payment [String] Payment type
+  # @return [Money] Total billed price
+  def total_price selected_transport, selected_payment
+    total = self.price + self.transport_price(selected_transport)
+    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+    total
+  end
+
+  # Gives the shipping cost for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping price
+  def transport_price transport_type = self.default_transport
+    case transport_type
+    when "insured"
+      transport_insured_price
+    when "uninsured"
+      transport_uninsured_price
+    else
+      Money.new 0
+    end
+  end
+
+  # Gives the shipping provider for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping provider
+  def transport_provider transport_type = self.default_transport
+    case transport_type
+    when "insured"
+      transport_insured_provider
+    when "uninsured"
+      transport_uninsured_provider
+    else
+      nil
+    end
+  end
+
+  # Returns an array with all selected transport types.
+  # Default transport will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected transport types.
+  def selectable_transports
+    selectable "transport"
+  end
+
+  # Returns an array with all selected payment types.
+  # Default payment will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected payment types.
+  def selectable_payments
+    selectable "payment"
+  end
+
+  private
+  # DRY method for selectable_transports and selectable_payments
+  #
+  # @api private
+  # @return [Array] An array with selected attribute types
+  def selectable attribute
+    # First get all selected attributes
+    output = []
+    eval("#{attribute.upcase}_TYPES").each do |e|
+      output << e if self.send "#{attribute}_#{e}"
+    end
+
+    # Now shift the default to be the first element
+    output.unshift output.delete_at output.index send("default_#{attribute}").to_sym
   end
 end

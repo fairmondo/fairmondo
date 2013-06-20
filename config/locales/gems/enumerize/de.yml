@@ -56,7 +56,7 @@ de:
         tco_certified: TCO certified
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
-      default_transport:
+      default_transport: &transport
         pickup: Selbstabholung
         insured: Versichert
         uninsured: Unversichert
@@ -69,7 +69,7 @@ de:
         meter: 1 Meter
         squaremeter: 1 Quadratmeter
         portion: 1 Portion
-      default_payment:
+      default_payment: &payment
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal
@@ -106,3 +106,7 @@ de:
         generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
         potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
         social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+
+    transaction:
+      selected_transport: *transport
+      selected_payment: *payment

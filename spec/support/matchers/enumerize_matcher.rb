@@ -1,4 +1,11 @@
+# RSpec matcher to spec enumerize settings
+# usage:
+# it { should enumerize(:sex).in(:male, :female).with_default(:male) }
 #
+# @from https://gist.github.com/jumski/2318858
+# @deprecated Remove as soon as it's a regular rspec mathcer. See https://github.com/brainspec/enumerize/issues/31
+#
+# == License:
 # Farinopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
@@ -16,15 +23,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
-#
-# ---
-# RSpec matcher to spec enumerize settings
-# usage:
-#
-# it { should enumerize(:sex).in(:male, :female).with_default(:male) }
-#
-# @from https://gist.github.com/jumski/2318858
-# @deprecated Remove as soon as it's a regular rspec mathcer. See https://github.com/brainspec/enumerize/issues/31
 #
 RSpec::Matchers.define :enumerize do |attribute|
   match do |model|

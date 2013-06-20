@@ -1,0 +1,80 @@
+-# Part 2 of the edit action
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+- selected_transport = params["transaction"]["selected_transport"]
+- selected_payment = params["transaction"]["selected_payment"]
+%h2
+  = t 'transaction.edit.heading'
+
+= semantic_form_for @transaction do |f|
+  = f.inputs do
+    = f.hidden_field :selected_transport, value: selected_transport
+    = f.hidden_field :selected_payment, value: selected_payment
+
+    %h3
+      = t 'transaction.edit.purchase_data'
+
+    %p
+      %strong
+        = t('transaction.edit.payment_type')
+      = t('enumerize.transaction.selected_payment.' + selected_payment)
+    %p
+      %strong
+        = t('transaction.edit.transport_type')
+      = t('enumerize.transaction.selected_transport.' + selected_transport)
+      = transport_provider_for selected_transport
+    %p
+      %strong
+        = t 'transaction.edit.address'
+      %br
+      = current_user.fullname
+      %br
+      = current_user.street
+      %br
+      = current_user.zip
+      = current_user.city
+      %br
+      = current_user.country
+
+    %h3
+      = t 'transaction.edit.price_heading'
+
+    %p
+      = display_net_price
+      %br
+      = display_vat_price
+      %br
+      = I18n.t 'transaction.edit.shipping_and_handling'
+      = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)
+      = display_cash_on_delivery_price
+      = display_basic_price
+    %p
+      %strong
+        = I18n.t 'transaction.edit.gross'
+        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment
+
+    %p
+      = f.input :tos_accepted
+
+  = f.actions do
+    = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'btn'
+    = f.action :submit, label: t('transaction.actions.purchase')
+

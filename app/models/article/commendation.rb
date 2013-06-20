@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module Article::Commendation
   extend ActiveSupport::Concern
@@ -70,7 +72,6 @@ module Article::Commendation
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
     validates_length_of :small_and_precious_reason, :minimum => 200, :if => :small_and_precious?
     validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?
-
   end
 
   def has_commendation?

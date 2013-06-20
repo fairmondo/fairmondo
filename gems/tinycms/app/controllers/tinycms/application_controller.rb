@@ -1,24 +1,29 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Tinycms::ApplicationController < ApplicationController
   include Tinycms::ApplicationHelper
+
+  skip_before_filter :authenticate_user!
+
   private
   unless method_defined? :authenticate_tinycms_user
     if method_defined? :authenticate_user!
@@ -32,15 +37,9 @@ class Tinycms::ApplicationController < ApplicationController
     end
   end
 
-  # Doesn't work and not needed
-  #unless method_defined? :tinymce_admin?
-  #  def tinycms_admin?
-  #    true
-  #  end
-  #end
-  helper_method :tinycms_admin?
-
-=begin
+  def ensure_admin
+    raise "You need to be an administrator to do that." unless tinycms_admin?
+  end
 
   unless method_defined? :tinycms_user
     if method_defined? :current_user
@@ -59,6 +58,5 @@ class Tinycms::ApplicationController < ApplicationController
     end
   end
   helper_method :tinycms_admin?
-=end
 
 end
