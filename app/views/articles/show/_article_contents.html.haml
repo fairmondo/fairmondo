@@ -54,7 +54,7 @@
 	/       - count = count + 1
 .Articles--detail
 	.Articles-image
-		= link_to image_tag( (title_image ? title_image.image.url(:thumb) : "missing.png") , :class=> "title_image"), "#"
+		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
 
 	.Articles-info
 		.Articles-info--right
@@ -83,10 +83,11 @@
 					-# 			= f.input :article_id, :as => :hidden
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
 		.Articles-info--left
-			%ul.thumbnails.article-thumbnails
-				- thumbnails(title_image).each do |image|
-					%li
-						= link_to image_tag(image.image.url(:mini) , :class=> "thumbnail_image") , article_path(resource, :image => image.id )
+			.Article-thumbnails
+				.Thumbnails
+					/ - thumbnails(title_image).each do |image|
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
 			%p.Article-tags
 				= features_label resource
 				= condition_label resource

@@ -21,5 +21,4 @@ $(function(){
 			pckry.layout();
 		});
 	}
-	console.log('hello');
 });
