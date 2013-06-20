@@ -24,8 +24,9 @@
   
   %p.User-name
     = user.name
+    %br/
     - if user.is_a?(LegalEntity)
-      %br= user.fullname
+      = user.fullname
   
   %p.User-legal
     - if user.is_a?(LegalEntity)
