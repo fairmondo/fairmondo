@@ -22,6 +22,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'User management' do
+  let (:user) { FactoryGirl.create :user }
 
   context "for signed-out users" do
     it "should show a login button" do
@@ -48,7 +49,6 @@ describe 'User management' do
     end
 
     it "should sign in a valid user" do
-      user = FactoryGirl.create :user
       visit new_user_session_path
 
       fill_in 'user_email', with: user.email
@@ -70,70 +70,195 @@ describe 'User management' do
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
-
-
   end
 
   context "for signed-in users" do
-    before :each do
-      @user = FactoryGirl.create(:user)
-      login_as @user
-    end
-
     describe "user profile page" do
       it "should open" do
-        visit profile_user_path @user
+        login_as user
+        visit profile_user_path user
         page.status_code.should == 200
       end
     end
 
 
     describe "user show page" do
+      before :each do
+        login_as user
+      end
+
       it 'should show the dashboard' do
-        visit user_path(@user)
+        visit user_path user
         page.should have_content I18n.t("common.text.profile")
       end
 
       it 'should not show the link to community' do
-        visit user_path(@user)
+        visit user_path user
         page.should_not have_content("TrustCommunity")
       end
     end
 
-    describe "update of user registration" do
-      before do
-        visit edit_user_registration_path @user
-        select 'Herr', from: 'user_title' # remove this line when possible
-        select 'Deutschland', from: 'user_country' # remove this line when possible
-      end
+    describe "user edit" do
+      context "for every type of user" do
+        before { login_as user }
 
-      context "updating non-sensitive data" do
-        it "should update a users information without a password" do
-          fill_in 'user_forename', with: 'chunky'
-          fill_in 'user_surname', with: 'bacon'
-          click_button I18n.t 'formtastic.actions.update'
+        it "should show the correct data and fields" do
+          visit edit_user_registration_path user
 
-          page.should have_content I18n.t 'devise.registrations.updated'
-          @user.reload.fullname.should == 'chunky bacon'
+          # Heading
+          page.should have_css "h1", text: I18n.t('common.actions.edit_profile')
+
+          # Account Data
+          page.should have_content I18n.t 'formtastic.labels.user.legal_entity'
+          page.should have_content I18n.t 'formtastic.labels.user.nickname'
+          page.should have_content user.nickname
+          page.should have_content I18n.t 'formtastic.labels.user.image'
+
+          # Account Fields
+          page.should have_css 'h3', text: I18n.t('users.login.title')
+          page.should have_content I18n.t 'formtastic.labels.user.email'
+          page.should have_content I18n.t 'users.change_password'
+          page.should have_content I18n.t 'formtastic.labels.user.password'
+          page.should have_content I18n.t 'formtastic.labels.user.current_password'
+
+          # Contact Info Fields
+          page.should have_content I18n.t 'formtastic.labels.user.title'
+          page.should have_content I18n.t 'formtastic.labels.user.forename'
+          page.should have_content I18n.t 'formtastic.labels.user.surname'
+          page.should have_content I18n.t 'formtastic.labels.user.country'
+          page.should have_content I18n.t 'formtastic.labels.user.street'
+          page.should have_content I18n.t 'formtastic.labels.user.city'
+          page.should have_content I18n.t 'formtastic.labels.user.zip'
+          page.should have_content I18n.t 'formtastic.labels.user.phone'
+          page.should have_content I18n.t 'formtastic.labels.user.mobile'
+          page.should have_content I18n.t 'formtastic.labels.user.fax'
+
+          # Profile Fields
+          page.should have_content I18n.t 'formtastic.labels.user.about_me'
+
+          page.should have_button I18n.t 'formtastic.actions.update'
+        end
+
+        context "updating non-sensitive data" do
+          it "should allow to edit certain data without entering a password" do
+            visit edit_user_registration_path user
+
+            select I18n.t('common.title.woman'), from: 'user_title'
+            fill_in 'user_forename', with: 'Forename'
+            fill_in 'user_surname', with: 'Surname'
+            select 'Deutschland', from: 'user_country'
+            fill_in 'user_street', with: 'User Street 1'
+            fill_in 'user_city', with: 'Gotham City'
+            fill_in 'user_zip', with: '12345'
+            fill_in 'user_phone', with: '0123 4567890-1'
+            fill_in 'user_mobile', with: '0123 456 78901'
+            fill_in 'user_fax', with: '0123 4567890-2'
+            fill_in 'user_about_me', with: 'Foobar Bazfuz stuff and junk.'
+
+            click_button I18n.t 'formtastic.actions.update'
+
+            user.reload.title.should eq I18n.t('common.title.woman')
+            user.forename.should eq 'Forename'
+            user.surname.should eq 'Surname'
+            user.country.should eq 'Deutschland'
+            user.street.should eq 'User Street 1'
+            user.city.should eq 'Gotham City'
+            user.zip.should eq '12345'
+            user.phone.should eq '0123 4567890-1'
+            user.mobile.should eq '0123 456 78901'
+            user.fax.should eq '0123 4567890-2'
+            user.about_me.should eq 'Foobar Bazfuz stuff and junk.'
+
+            current_path.should eq user_path user
+          end
+        end
+
+        context "updating sensitive data" do
+          before do
+            visit edit_user_registration_path user
+            select 'Herr', from: 'user_title' # remove this line when possible
+            select 'Deutschland', from: 'user_country' # remove this line when possible
+          end
+
+          describe '(email)' do
+            before { fill_in 'user_email', with: 'chunky@bacon.com' }
+
+            it "should not update a users email without a password" do
+              click_button I18n.t 'formtastic.actions.update'
+
+              page.should_not have_content I18n.t 'devise.registrations.updated'
+              user.reload.unconfirmed_email.should_not == 'chunky@bacon.com'
+            end
+
+            it "should update a users email with a password" do
+              fill_in 'user_current_password', with: 'password'
+              click_button I18n.t 'formtastic.actions.update'
+
+              page.should have_content I18n.t 'devise.registrations.changed_email'
+              user.reload.unconfirmed_email.should == 'chunky@bacon.com'
+            end
+          end
+
+          describe "(password)" do
+            before do
+              fill_in 'user_password', with: 'changedpassword'
+              fill_in 'user_password_confirmation', with: 'changedpassword'
+            end
+            it "should disallow editing critical data without a password" do
+              click_button I18n.t 'formtastic.actions.update'
+
+              user.reload.valid_password?('changedpassword').should be_false
+
+              within '#user_current_password_input' do
+                page.should have_css 'p.inline-errors', text: I18n.t('errors.messages.blank')
+              end
+            end
+
+            it "should succeed when editing critical data with a password" do
+              fill_in 'user_current_password', with: 'password'
+              click_button I18n.t 'formtastic.actions.update'
+# save_and_open_page
+# debugger
+              user.reload.valid_password?('changedpassword').should be_true
+
+              page.should have_content I18n.t 'devise.registrations.updated'
+            end
+          end
         end
       end
 
-      context "updating sensitive data" do
-        before { fill_in 'user_email', with: 'chunky@bacon.com' }
+      context "for legal entities" do
+        let (:user) { FactoryGirl.create :legal_entity }
+        it "should show the correct specific data and fields" do
+          login_as user
+          visit edit_user_registration_path user
+          page.should have_css 'h3', text: I18n.t('users.form_titles.contact_person')
 
-        it "should not update a users email without a password" do
-          click_button I18n.t 'formtastic.actions.update'
-
-          page.should_not have_content I18n.t 'devise.registrations.updated'
-          @user.reload.unconfirmed_email.should_not == 'chunky@bacon.com'
+          # Legal fields
+          within '#terms_step' do # id of input step
+            page.should have_css 'h3', text: I18n.t('formtastic.input_steps.user.terms')
+            page.should have_content I18n.t 'formtastic.labels.user.terms'
+            page.should have_content I18n.t 'formtastic.labels.user.cancellation'
+            page.should have_content I18n.t 'formtastic.labels.user.about'
+          end
         end
+      end
 
-        it "should update a users email with a password" do
-          fill_in 'user_current_password', with: 'password'
-          click_button I18n.t 'formtastic.actions.update'
+      context "for private users" do
+        let (:user) { FactoryGirl.create :private_user }
+        it "should not show the legal_user's specific data and fields" do
+          login_as user
+          visit edit_user_registration_path user
 
-          page.should have_content I18n.t 'devise.registrations.changed_email'
-          @user.reload.unconfirmed_email.should == 'chunky@bacon.com'
+          page.should_not have_css 'h3', text: I18n.t('users.form_titles.contact_person')
+
+          # Legal fields
+          within '#edit_user' do # id of the form
+            page.should_not have_css 'h3', text: I18n.t('formtastic.input_steps.user.terms')
+            page.should_not have_content I18n.t 'formtastic.labels.user.terms'
+            page.should_not have_content I18n.t 'formtastic.labels.user.cancellation'
+            page.should_not have_content I18n.t 'formtastic.labels.user.about'
+          end
         end
       end
     end
