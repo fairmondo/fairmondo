@@ -92,6 +92,18 @@ a.Btn {
 	&:hover {
 		background-color: lighten($btn--blue, 5%);
 	}
+	// .icon-box, .icon-box--open {
+	// 	display: inline-block;
+	// }
+	// .content {
+	// 	display: inline-block;
+	// 	white-space: normal;
+	// }
+	.number {
+		@include rem(font-size, $font-size-l);
+		display: inline-block;
+		padding: 0;
+	}
 }
 
 
@@ -233,8 +245,12 @@ a.Btn {
 // Btn with Icon and number on the right edge
 
 .Btn [class="number"] {
-	@include rem(font-size, 16px);
-	font-weight: 700;
+	// @include rem(font-size, 16px);
+	// font-weight: 700;
+	// float: right;
+	// padding-left: 51px;
+	@include rem(font-size, $font-size-l);
+	display: inline-block;
+	padding: 0;
 	float: right;
-	padding-left: 51px;
 }

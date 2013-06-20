@@ -21,7 +21,7 @@
   .span6
     .fairnopoly-well
       = f.inputs do
-        = f.input :categories_and_ancestors, :as => :check_box_tree, :collection => Category.roots, :tooltip => false, :label => false
+        = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :tooltip => false, :label => false, :input_html => {:class =>"Category-nativeselect" }
   .span6
     .fairnopoly-well
       = f.inputs do

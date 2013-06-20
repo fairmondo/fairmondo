@@ -26,12 +26,24 @@
 //= require selectivizr
 //= require tinymce
 //= require tinymce-jquery
+
 //= require i18n
 //= require i18n/translations
 
-//= require_tree ./vendor
-//= require_tree ./inputs
+
+//= require vendor/jquery.complexify
+//= require vendor/jquery.hashchange
+//= require vendor/jquery.socialshareprivacy
+//= require vendor/jquery.selectBoxIt
+//= require vendor/fancybox/jquery.fancybox
+
+//= require vendor/packery/packery.pkgd.min
+//= require vendor/packery/imagesloaded.pkgd
+
 //= require_tree ./models
-//= require_tree ./customize
-//= require_tree ./visual
-//= require_tree ./packery
+
+//= require visual/accordion
+//= require visual/fancybox
+//= require visual/selectbox
+
+//= require packery
