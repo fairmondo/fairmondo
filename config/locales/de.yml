@@ -8,9 +8,15 @@ de:
     brand: "fairnopoly.de"
     fairnopoly: "Fairnopoly"
     fn_footer_greeting: "Dein Fairnopoly-Team"
-    fn_legal_footer: "-- Diese Nachricht wurde von Fairnopoly,  https://beta.fairnopoly.de/, gesendet.
-                      Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab,
-                      Erkelenzdamm 59-61, Portal 1, 3. Stock, 10999 Berlin"
+    fn_legal_footer: >
+                        "-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.
+
+                        Kontakt: email@fairnopoly.de, Fairnopoly eG c/o Social Impact Lab, Erkelenzdamm 59-61, Portal 1, 10999 Berlin
+
+                        Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B
+                        Vorstand: Anna Kress, Bastian Neumann
+                        Vorstandsvorsitzender: Felix Weth
+                        Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister"
     actions:
       continue: "Weiter"
       back: "Zurück"
