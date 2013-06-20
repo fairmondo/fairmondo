@@ -20,7 +20,7 @@ body {
 	& > .l-Inner {
 		@include container;
 	}
-	@include rem(height, 100px);
+	@include rem(height, 190px);
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
@@ -66,5 +66,15 @@ body {
 			@include container;
 		}
 		padding-bottom: em(20);
+	}
+}
+
+
+// Media queries, mobile first
+// -----------------------------------
+
+@media screen and (min-width: 42.214rem) {
+	.l-Header {
+		@include rem(height, 100px);
 	}
 }

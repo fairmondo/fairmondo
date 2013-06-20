@@ -31,16 +31,16 @@
 }
 
 .Nav--primary {
-	float: right;
-	margin-top: 1em;
+	clear: left;
+	margin: 1em auto 0;
 	text-align: center;
 
 	li {
-		margin-right: 1em;
-		&:last-child { margin-right: 0; }
+		margin-right: 0;
+		&.last { margin-right: 0; }
 	}
 	a {
-		min-width: em(95); // room for bold on hover
+		@include rem(min-width, 67px); // prevent jump
 		color: #000;
 		&:hover {
 			color: #000;
@@ -72,3 +72,23 @@
 		float: right;
 	}
 }
+
+
+// Responsive navigation, mobile first
+// -----------------------------------
+
+@media screen and (min-width: 42.214rem) {
+	.Nav--primary {
+		float: right;
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 50.7rem) {
+	.Nav--primary {
+		li {
+			@include rem(margin-right, 36px);
+		}
+	}
+}
+
