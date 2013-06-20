@@ -20,7 +20,7 @@ body {
 	& > .l-Inner {
 		@include container;
 	}
-	@include rem(height, 169px);
+	@include rem(height, 182px);
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
