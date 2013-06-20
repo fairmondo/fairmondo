@@ -5,7 +5,8 @@
 .Search {
 	position: relative;
 	float: left;
-	max-width: columns(2,4);
+	width: columns(2,4);
+	max-width: 100%;
 	.input {
 		padding: 0;
 		margin: 0;
@@ -22,9 +23,6 @@
 	right: em(11);
 }
 
-
-.search-form > {
-}
 .l-Hero .l-Right {
 	float: right;
 	.Btn--gray {

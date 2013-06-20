@@ -17,16 +17,48 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-= f.inputs :class => "Search" do
-	.Search-input
-		= f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
 
-	.Search-button
-		= image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+.l-Inner.first
+	= f.inputs :class => "Search" do
+		.Search-input
+			= f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
 
-.l-Right
-	%button.Btn.Btn-icon.Btn--gray
-		%i.Icon.icon-box
-		Sammlungen durchstöbern
+		.Search-button
+			= image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
 
-	%i.Icon.icon-helper
+	.l-Right
+		%button.Btn.Btn-icon.Btn--gray
+			%i.Icon.icon-box
+			Sammlungen durchstöbern
+		%i.Icon.icon-helper
+
+.Filter
+	.l-Inner
+		.Filter-col	
+			%fieldset
+				%legend.Filter-title Zustand <i class="icon-helper" title="Help text"></i>
+				%input{ :type => 'radio', :id => 'radio1' }
+				%label{ :for => 'radio1'} Gebraucht
+				%input{ :type => 'radio', :id => 'radio2' }
+				%label{ :for => 'radio2'} Neu
+				%input{ :type => 'radio', :id => 'radio3' }
+				%label{ :for => 'radio3'} Egal
+
+		.Filter-col
+			%fieldset
+				%legend.Filter-title Filter <i class="icon-helper" title="Help text"></i>
+				%input{ :type => 'checkbox', :id => 'check1' }
+				%label{ :for => 'check1'} Fair
+				%input{ :type => 'checkbox', :id => 'check2' }
+				%label{ :for => 'check2'} Öko
+				%input{ :type => 'checkbox', :id => 'check3' }
+				%label{ :for => 'check3'} Klein &amp; Edel
+
+		.Filter-col
+			%fieldset
+				%legend.Filter-title Kategorien
+				%p Not sure of the functionality here.
+
+		%button.Btn.Filter-btn Suche starten
+
+	%button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>

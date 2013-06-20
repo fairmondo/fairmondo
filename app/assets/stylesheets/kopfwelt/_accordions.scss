@@ -5,15 +5,13 @@
 .Accordion {
 	@include span-columns(4, 4);
 }
-
 .Accordion-header {
 	@extend .Btn;
 	@extend .Btn-accordion;
 	@include pie-clearfix;
-	margin-bottom: -.2em;
+	margin-bottom: -0.2em;
 	outline: 0;
 	.icon-arrow {
-		display: inline-block;
 		float: left;
 	}
 	.content {
@@ -56,11 +54,8 @@
 
 // Media Queries
 // -----------------------------------
-@include at-breakpoint($layout-small) {
-
-}
-@include at-breakpoint($layout-medium) {
-}
+@include at-breakpoint($layout-small) {}
+@include at-breakpoint($layout-medium) {}
 @include at-breakpoint($layout-large) {
 	.Accordion {
 		@include span-columns(2, 4);
