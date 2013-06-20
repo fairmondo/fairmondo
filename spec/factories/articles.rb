@@ -21,7 +21,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
-    seller
+    seller      # alias for User -> see spec/factories/users.rb
     categories_and_ancestors {|c| [c.association(:category)] }
     title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
@@ -56,13 +56,12 @@ FactoryGirl.define do
     factory :no_second_hand_article do
       condition "new"
     end
-
+    
     factory :preview_article do
        after(:build) do |article|
          article.state = "preview"
        end
     end
-
 
     trait :category1 do
       after(:build) do |article|
