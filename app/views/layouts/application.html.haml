@@ -85,7 +85,7 @@
             - if user_signed_in?
               %li
                 = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
-              %li
+              %li.last
                 = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
               /
@@ -95,7 +95,7 @@
 
 
             - else
-              %li
+              %li.last
                 - if @login
                   .Form.Form--login.is-hidden
                     = @login.html_safe
