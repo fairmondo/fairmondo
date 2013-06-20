@@ -27,15 +27,18 @@
 //= require tinymce
 //= require tinymce-jquery
 //= require bootstrap
-//= require jquery.complexify
-//= require jquery.hashchange
-//= require jquery.socialshareprivacy
+//= require vendor/jquery.complexify
+//= require vendor/jquery.hashchange
+//= require vendor/jquery.socialshareprivacy
+
+//= require packery
+//= require fancybox
+//= require customSelect
+//= require vendor/fancybox/jquery.fancybox
+//= require vendor/packery/packery.pkgd.min
+//= require vendor/packery/imagesloaded.pkgd
 
 //= require_tree ./inputs
 //= require_tree ./models
 //= require_tree ./customize
 //= require_tree ./visual
-
-//= require_tree ./packery
-//= require_tree ./fancybox
-//= require_tree ./custom_select
