@@ -31,12 +31,13 @@
 //= require vendor/jquery.hashchange
 //= require vendor/jquery.socialshareprivacy
 
+//= require vendor/fancybox/jquery.fancybox
+//= require vendor/packery/packery.pkgd.min
+//= require vendor/jquery.customSelect
+//= require vendor/packery/imagesloaded.pkgd
 //= require packery
 //= require fancybox
 //= require customSelect
-//= require vendor/fancybox/jquery.fancybox
-//= require vendor/packery/packery.pkgd.min
-//= require vendor/packery/imagesloaded.pkgd
 
 //= require_tree ./inputs
 //= require_tree ./models

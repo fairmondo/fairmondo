@@ -84,6 +84,12 @@
 	position: relative;
 	min-height: 19em;
 }
+.title_image {
+	width: 50%;
+	float: left;
+	padding-right: 7px;
+}
+
 .Articles-tags {
 	@include pie-clearfix;
 	padding: .5em .6em 0em;
