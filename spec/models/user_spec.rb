@@ -84,14 +84,28 @@ describe User do
   # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   # validates_attachment_size :image, :in => 0..5.megabytes
 
+  describe "methods" do
+    describe "#fullname" do
+      it "returns correct fullname" do
+        user.fullname.should eq "#{user.forename} #{user.surname}"
+      end
+    end
 
-  it "returns correct fullname" do
-    user.fullname.should eq "#{user.forename} #{user.surname}"
-  end
+    describe "#name" do
+      it "returns correct name" do
+        user.name.should eq user.nickname
+      end
+    end
 
+    describe "#is?" do
+      it "should return true when users have the same ID" do
+        user.is?(user).should be_true
+      end
 
-  it "returns correct name" do
-    user.name.should eq user.nickname
+      it "should return false when users don't have the same ID" do
+        user.is?(FactoryGirl.create(:user)).should be_false
+      end
+    end
   end
 
 end
