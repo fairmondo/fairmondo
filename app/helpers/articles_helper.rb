@@ -101,12 +101,6 @@ module ArticlesHelper
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
 
-
-
-  def inactive_articles
-    resource.articles.where(:active => false).paginate :page => params[:inactive_articles_page]
-  end
-
   def payment_format_for type
     html=""
     if resource.send("payment_" + type)
