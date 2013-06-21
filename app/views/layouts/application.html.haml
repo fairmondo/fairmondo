@@ -45,21 +45,26 @@
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
-        			_gaq.push(['_setAccount', 'UA-37465097-1']);
-        			_gaq.push(['_trackPageview']);
+        _gaq.push(['_setAccount', 'UA-37465097-1']);
+        _gaq.push (['_gat._anonymizeIp']);
+        _gaq.push(['_setDomainName', 'fairnopoly.de']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
 
-        			(function() {
-          			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        			})();
+      (function()
+      {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
   %body
     /[if lt IE 8]
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     #notice
       - if !flash.empty?
         - flash.each do |type, msg|
-          - if msg && !msg.empty?
+          - if msg && type != :timedout && !msg.empty?
             = render_notice :type => type do
               %p
                 = msg
@@ -160,3 +165,6 @@
       / container
       #sub-footer
         \&copy; Fairnopoly 2013 #{I18n.locale}
+
+    -# When logged in, count down until session expires (needs to be reloaded on page change!)
+    = javascript_include_tag "session_expire" if current_user

@@ -3,8 +3,7 @@ module Sanitization
   extend ActiveSupport::Concern
 
   protected
-  # DSL method to sanitize specific fields automatically before the validation
-  # step.
+  # DSL method to sanitize specific fields automatically before the validation step
   #
   # @api semipublic
   # @param fields [Symbol] As many ActiveRecord fields as you like
@@ -29,19 +28,19 @@ module Sanitization
   private
   # Method content for sanitize_clean_X callbacks
   # @api private
+  # @return [Proc]
   def clean_sanitization field
     Proc.new { self.send("#{field}=", Sanitize.clean(self.send(field))) }
   end
 
   # Method content for sanitize_tiny_mce_X callbacks
   # @api private
+  # @return [Proc]
   def tiny_mce_sanitization field
     Proc.new { self.send("#{field}=", Sanitization.sanitize_tiny_mce(self.send(field))) }
   end
 
-  # Sanitization specifically for tiny mce fields which allow certain HTML
-  # elements.
-  #
+  # Sanitization specifically for tiny mce fields which allow certain HTML elements
   # @api private
   # @param field [Sting] The content to sanitize
   # @return [String] The sanitized content

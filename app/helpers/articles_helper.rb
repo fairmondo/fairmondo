@@ -101,4 +101,13 @@ module ArticlesHelper
   def seller_articles
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
+
+  def payment_format_for type
+    html=""
+    if resource.send("payment_" + type)
+      html = t('formtastic.labels.article.payment_'+type)
+    end
+    html.html_safe
+  end
+
 end
