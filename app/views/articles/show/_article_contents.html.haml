@@ -18,7 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .fairnopoly-well
-  - if current_user && resource.seller.id == current_user.id
+  - if resource.owned_by? current_user
     %span.pull-right
       - if policy(resource).edit?
         = link_to t('article.titles.edit') , edit_article_path , :class => "btn"
@@ -77,7 +77,7 @@
           -#%a= t('enumerize.article.friendly_percent_organisation.'+resource.friendly_percent_organisation)
           -#= t('article.show.contributed')
       = render 'articles/show/basic_price', :article => resource
-      - if resource.active? && current_user && current_user.id != resource.seller.id
+      - if resource.active? && current_user && !resource.owned_by?(current_user)
         %p
           %a.btn.btn-primary.btn-fill.hide
             = t('common.actions.buy')
@@ -104,30 +104,19 @@
   .row-fluid
     .span12
 
-      / Artikelbeschreibung
+      -# Artikelbeschreibung
       = render_box_open "content" do
         = resource.content.html_safe
 
-      /Versand und Bezahlung
+      -#Versand und Bezahlung
 
       = render_box "payment" do
-
-        %strong
-          = t('formtastic.labels.article.default_payment')
-          \:
-        %p
-          = resource.default_payment.text
-        .border-box.middle-padding
-          = simple_format(resource.payment_details).html_safe
-        %br/
-        %strong
-          = t('formtastic.labels.article.default_transport')
-          \:
-        %p
-          = resource.default_transport.text
-
-        .border-box.middle-padding
-          = simple_format(resource.transport_details).html_safe
+        %strong Bezahlung durch XXXXX:
+        = payment_format_for "bank_transfer"
+        = payment_format_for "cash"
+        = payment_format_for "paypal"
+        = payment_format_for "cash_on_delivery"
+        = payment_format_for "invoice"
 
       - if resource.has_commendation?
         = render_box "commendation" do

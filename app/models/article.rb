@@ -98,4 +98,13 @@ class Article < ActiveRecord::Base
       end
     })
   end
+
+  # Does this article belong to user X?
+  # @api public
+  # param user [User] usually current_user
+  def owned_by? user
+    user && self.seller.id == user.id
+  end
+
+
 end

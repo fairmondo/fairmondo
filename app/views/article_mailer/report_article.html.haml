@@ -22,7 +22,10 @@
   = @text
 %p
   Article link:
-  = polymorphic_url(@article)
+  = polymorphic_url([:admin, @article])
 %p
   Admin link:
+
   = rails_admin.show_path(:model_name => "articles", :id => @article.id)
+%p
+  = t('common.fn_legal_footer')
