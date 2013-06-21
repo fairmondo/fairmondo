@@ -153,7 +153,6 @@ GEM
     faker (1.1.2)
       i18n (~> 0.5)
     fastercsv (1.5.5)
-    fattr (2.2.1)
     ffi (1.9.0)
     flatui-rails (0.0.2)
       railties (~> 3.1)

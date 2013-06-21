@@ -98,48 +98,4 @@ class Article < ActiveRecord::Base
       end
     })
   end
-
-
-  # bugbug Mass upload via csv
-
-  # def self.import(file, current_user)
-  #   header_row = ["title", "content", "condition", "price_cents",
-  #                 "default_payment", "quantity", "default_transport",
-  #                 "transport_details", "payment_details", "condition_extra",
-  #                 "transport_pickup", "transport_insured",
-  #                 "transport_uninsured", "transport_insured_provider",
-  #                 "transport_uninsured_provider",
-  #                 "transport_insured_price_cents",
-  #                 "transport_uninsured_price_cents", "payment_bank_transfer",
-  #                 "payment_cash", "payment_paypal", "payment_cash_on_delivery",
-  #                 "payment_invoice", "payment_cash_on_delivery_price_cents",
-  #                 "basic_price_cents", "basic_price_amount", "category_1",
-  #                 "category_2", "vat", "currency"]
-  #   rows_array = []
-  #   CSV.foreach(file.path, headers: false) do |row|
-  #     if row == header_row
-  #       CSV.foreach(file.path, headers: true) do |row|
-  #         rows_array << row.to_hash
-  #       end
-  #       rows_array.each do |row|
-  #         row["categories"] = [Category.find(row['category_1'])]
-  #         row["categories"] << Category.find(row['category_2']) if row['category_2']
-  #         row.delete("category_1")
-  #         row.delete("category_2")
-  #         row["user_id"] = current_user.id
-  #       end
-  #       return rows_array
-  #     else
-  #       if header_row.length == row.length
-  #         comparison_array = header_row.zip(row)
-  #         comparison_array.delete_if { |x| x[0] == x[1] }
-  #       elsif header_row.lenght > row.length
-  #         # error message that user is missing columns
-  #       elsif header_row.length < row.length
-  #         # error message that user is using to many columns
-  #       end
-  #       return rows_array
-  #     end
-  #   end
-  # end
 end

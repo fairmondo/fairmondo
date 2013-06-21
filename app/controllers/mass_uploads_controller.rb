@@ -6,28 +6,41 @@ class MassUploadsController < ApplicationController
 
   def new
     authorize Article.new, :create? # Needed because of pundit
-    @mass_uploads = MassUpload.new(user = current_user)
+
+    @mass_upload = MassUpload.new(user = current_user)
   end
+
+  def show
+    authorize Article.new, :create? # Needed because of pundit
+
+    secret_mass_uploads_number = params[:id]
+    @articles = Article.find_all_by_id(session[secret_mass_uploads_number])
+  end
+
 
   def create
     authorize Article.new, :create? # Needed because of pundit
 
-    errors = []
+    @mass_upload = MassUpload.new(current_user, params[:mass_upload])
 
-    @mass_upload = MassUpload.new(params[:mass_uploads], current_user)
+    # Needed to show the right error messages if no file is selected
+    @mass_upload.validate_input(params[:mass_upload])
+
     if @mass_upload.errors.full_messages.any?
-      @mass_upload.errors.full_messages.each do |message|
-        errors << message
-      end
+      render :new
     else
+      secret_mass_uploads_number = SecureRandom.urlsafe_base64
+      session[secret_mass_uploads_number] = []
       articles = @mass_upload
       articles.save
+      articles.raw_articles.each do |article|
+        session[secret_mass_uploads_number] << article.id
+      end
       if articles.errors.full_messages.any?
-        articles.errors.full_messages.each do |message|
-          errors << message
-        end
+        render :new
+      else
+        redirect_to mass_upload_path(secret_mass_uploads_number)
       end
     end
-    render new_mass_upload_path #, alert: "#{errors.join("<br>")}"
   end
 end

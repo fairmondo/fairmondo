@@ -20,34 +20,52 @@
 #
 class MassUpload
 
+  # Required for Active Model Conversion which is required by Formtastic
+  include ActiveModel::Conversion
+
   # Required dependency for ActiveModel::Errors
   extend ActiveModel::Naming
 
-  def initialize(attributes = nil, user)
+  def initialize(user, attributes = nil)
     @errors = ActiveModel::Errors.new(self)
     if attributes && attributes[:file]
-      @raw_articles = build_raw_articles(attributes[:file], user)
-    else
-      # bugbug Abuse of the symbol in the next line
-      errors.add(:Bitte, "wähle eine CSV-Datei aus")
+      @raw_articles = build_raw_articles(user, attributes[:file])
     end
   end
 
   attr_accessor :file
   attr_reader   :errors, :raw_articles
 
-  def validate(file)
+  def validate_input(file)
+
+    # Needed for the 'stand alone' validation if a correct csv is selected
+    if file.class == ActiveSupport::HashWithIndifferentAccess
+      file = file[:file]
+    end
+
     unless csv_format?(file)
-      # bugbug Abuse of the symbol in the next line
-      errors.add(:Bitte, "wähle eine CSV-Datei aus")
+      errors.add(:file, "Bitte wähle eine CSV-Datei aus")
       return false
     end
+
     unless correct_header?(file)
-      # bugbug Abuse of the symbol in the next line
-      errors.add(:Bei, "der ersten Zeile muss es sich um einen korrekten Header handeln")
+      errors.add(:file, "Bei der ersten Zeile muss es sich um einen korrekten Header handeln")
       return false
     end
     true
+  end
+
+  def validate_articles(articles)
+    valid = true
+    raw_articles.each_with_index do |raw_article, index|
+      unless raw_article.valid?
+        raw_article.errors.full_messages.each do |message|
+          errors.add(:file, "#{message} (Artikelzeile #{index + 1})")
+        end
+        valid = false
+      end
+    end
+    valid
   end
 
   def csv_format?(file)
@@ -76,8 +94,8 @@ class MassUpload
     end
   end
 
-  def build_raw_articles(file, user)
-    if validate(file)
+  def build_raw_articles(user, file)
+    if validate_input(file)
       raw_article_array = []
       rows_array = []
       categories = []
@@ -101,18 +119,14 @@ class MassUpload
   end
 
   def save
-    raw_articles.each_with_index do |raw_article, index|
-      raw_article.save
-      if raw_article.errors.full_messages.any?
-        raw_article.errors.full_messages.each do |message|
-          errors.add(:Spalte, "#{message} (Artikelzeile #{index + 1})")
-        end
+    if validate_articles(raw_articles)
+      raw_articles.each do |raw_article|
+        raw_article.save
       end
     end
   end
 
   # the following 3 methods are needed for Active Model Errors
-
   def read_attribute_for_validation(attr)
    send(attr)
   end
@@ -123,6 +137,11 @@ class MassUpload
 
   def MassUpload.lookup_ancestors
    [self]
+  end
+
+  # Needed for Active Model Conversions
+  def persisted?
+    false
   end
 
 end
