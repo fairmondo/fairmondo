@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
-namespace :setup do
+namespace :db do
   desc 'Get a list of articles from http://www.itemmaster.com'
-  task :articles, [:number_of_items] => :environment do | t, args |
+  task :seed_articles, [:number_of_items] => :environment do | t, args |
     require 'faker'
     require 'time'
     require 'net/http'
