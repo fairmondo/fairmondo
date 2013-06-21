@@ -81,12 +81,26 @@ describe User do
   end
 
   describe "methods" do
-    it "returns correct fullname" do
-      user.fullname.should eq "#{user.forename} #{user.surname}"
+    describe "#fullname" do
+      it "returns correct fullname" do
+        user.fullname.should eq "#{user.forename} #{user.surname}"
+      end
     end
 
-    it "returns correct name" do
-      user.name.should eq user.nickname
+    describe "#name" do
+      it "returns correct name" do
+        user.name.should eq user.nickname
+      end
+    end
+
+    describe "#is?" do
+      it "should return true when users have the same ID" do
+        user.is?(user).should be_true
+      end
+
+      it "should return false when users don't have the same ID" do
+        user.is?(FactoryGirl.create(:user)).should be_false
+      end
     end
   end
 

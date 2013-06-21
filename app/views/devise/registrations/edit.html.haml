@@ -63,11 +63,11 @@
           = f.input :forename,:required => true
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :surname,:required => true
-
           %h3= t('users.form_titles.address')
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
-
+          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+          = f.input :legal_entity_form
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
