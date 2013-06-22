@@ -1,10 +1,12 @@
-selected_categories_input = "#selected_categories_input"
-native_select_categories  = ".Category-nativeselect"
-select_button_html_id = "Category-selectbutton"
-changed_select_box = ->
-  $(this).nextAll("select").remove() # Remove all selectboxes after this one
+selected_categories_input = "#selected_categories_input" # Input Box if multiselect
+native_select_categories  = ".Category-nativeselect" # the original select
+select_button_html_id = "Category-selectbutton" # the select button class
+changed_select_box = (event) ->
+  selected_categories_list = $(selected_categories_input)
+  is_multiselect = $(selected_categories_input).length > 0
+  $(event.target).nextAll("select").remove() # Remove all selectboxes after this one
   selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
-  unless selected_category_id is "-1"
+  unless selected_category_id is "-1" |selected_category_id is ""
     $.getJSON "/categories/" + selected_category_id, (data) ->
       if data.children.length > 0 # only if we have any children in this category
 
@@ -17,11 +19,18 @@ changed_select_box = ->
 
         # Append select box to old box
         jq_selecttag = $(select_tag)
-        jq_selecttag.insertBefore $("#"+select_button_html_id)
+        lastselectbox = $(event.target).next(".selectboxit-container")
+        jq_selecttag.insertAfter lastselectbox
 
         # Add handlers and style
         jq_selecttag.change changed_select_box
         jq_selecttag.selectBoxIt({autoWidth:false})
+      if !is_multiselect
+        selected_value = $(event.target).find("option:selected:first").attr("value")
+        hidden_tag = $(native_select_categories).siblings("input[type=hidden]")
+        hidden_tag.remove()
+        $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[categories_and_ancestors][]\" value=\""+selected_value+"\"></input>")
+          
 select_category = ->
   selected_categories_list = $(selected_categories_input)
   selected_values = []
@@ -35,7 +44,8 @@ select_category = ->
     if value and value isnt "-1"
       selected_values.push value
       selected_texts.push text
-
+  selectboxit = $(this).parent().find("select").first().data("selectBox-selectBoxIt");
+  selectboxit.selectOption 0
   if selected_values.length > 0 # if we selected anything
     selected_category_id = selected_values[selected_values.length - 1]
     add_this_category = true
@@ -64,13 +74,16 @@ select_category = ->
 $(document).ready ->
   native_category_input = $(native_select_categories)
   selected_categories_list = $(selected_categories_input)
+  is_multiselect = $(selected_categories_input).length > 0
 
-
-  #Create the select category button
-  select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select")+"</a>"
-  select_button = $(select_button_html)
-  native_category_input.after select_button
-
+  if is_multiselect
+    #Create the select category button
+    select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select")+"</a>"
+    select_button = $(select_button_html)
+    native_category_input.after select_button
+    # Event for select button
+    select_button.click select_category # On select action
+    
   #event handler
   native_category_input.change changed_select_box
 
@@ -84,5 +97,4 @@ $(document).ready ->
   selected_categories_list.on "click", "li > a", ->
     $(this).parent().remove()
 
-  # Event for select button
-  select_button.click select_category # On select action
+

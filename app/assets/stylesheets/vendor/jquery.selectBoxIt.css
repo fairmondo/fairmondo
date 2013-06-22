@@ -66,8 +66,8 @@
 
 /* Button Text */
 .selectboxit-text {
-  min-width: 100%;
-  text-indent: 5px;
+  min-width: 90%;
+  text-indent: 5%;
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
@@ -78,7 +78,7 @@
 .selectboxit-container .selectboxit-options {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  min-width: 95%;  /* Minimum Width of the dropdown list box options */
+  min-width: 200px;  /* Minimum Width of the dropdown list box options */
   margin: 0;
   padding: 0;
   list-style: none;
