@@ -20,4 +20,3 @@
 
 = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form form-vertical"}, :builder => Fairtastic::FormBuilder do |f|
   = render "/shared/search_form", :f => f
-  = render "/shared/search_form_filter", :f => f

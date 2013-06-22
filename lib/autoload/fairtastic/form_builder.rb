@@ -79,7 +79,7 @@ module Fairtastic
       tooltip = optional_tooltip_html(association_name, options)
       tooltip = template.content_tag(:span, tooltip) if tooltip.present?
 
-      title = template.content_tag(:h5, (title << tooltip).html_safe, :class => "questionnaire-entry")
+      title = template.content_tag(:h3, (title << tooltip).html_safe, :class => "questionnaire-entry")
       title.html_safe << semantic_fields_for(association_name, options, &block)
     end
 
