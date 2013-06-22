@@ -29,10 +29,10 @@ class User < ActiveRecord::Base
 
   extend Sanitization
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  # Include default devise modules. Others available are: :rememberable,
+  # :token_authenticatable, :encryptable, :lockable,  and :omniauthable
+  devise :database_authenticatable, :registerable, :timeoutable,
+         :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
 
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about, :bank_code, :paypal_account,
-      :bank_account_number, :bank_name, :bank_account_owner
+      :bank_account_number, :bank_name, :bank_account_owner, :legal_entity_form
   auto_sanitize :nickname, :forename, :surname, :street, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
@@ -103,16 +103,30 @@ class User < ActiveRecord::Base
   validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
+  # Return forename plus surname
+  # @api public
+  # @return [String]
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
   memoize :fullname
 
+  # Return user nickname
+  # @api public
+  # @return [String]
   def name
     name = "#{self.nickname}"
   end
 
+  # Compare IDs of users
+  # @api public
+  # @param user [User] Usually current_user
+  def is? user
+    self.id == user.id
+  end
+
   private
+  # @api private
   def create_default_library
     if self.libraries.empty?
       Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)
