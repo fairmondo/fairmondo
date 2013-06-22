@@ -10,6 +10,7 @@ de:
         explanations: Erläuterungen
       user:
         legal_entity: Rechtlicher Status
+        legal_entity_form: Unternehmensform (GmbH, OHG, AG...)
         nickname: Nutzername
         email: E-mail Adresse
         image: Profilbild
@@ -28,7 +29,7 @@ de:
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
         fax: "Fax"
-        about_me: "Über mich"
+        about_me: "über mich"
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
         about: "Impressum und Kontakt"
@@ -79,7 +80,7 @@ de:
           producer_advancement: >
             Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
           awareness_raising: >
-            Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+           Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
           environment_protection: >
             Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
         social_producer_questionnaire:
@@ -90,9 +91,9 @@ de:
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
-        price: "Verkaufspreis in €"
+        price: "Preis in €"
         price_currency: "Währung"
-        vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %)
+        vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %) #Von Felix gelöscht
 
         transport_pickup: Selbstabholung
         transport_insured: Versichert
@@ -146,7 +147,7 @@ de:
       article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
-        commendation: "Auszeichnung Deines Artikels (optional)"
+        commendation: "Auszeichnung (Optional)"
         article: "Dein Artikel"
         article: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
@@ -177,27 +178,28 @@ de:
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
       article:
-        title:  "Gebe eine Bezeichnung Deines Artikels ein."
-        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird
-        category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
+        title:  "Bitte gib eine Bezeichnung Deines Artikels ein. Achte dabei darauf, dass die Bezeichnung eindeutig und klar ist, damit Dein Artikel gefunden werden kann."
+        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird
+        category_proposal: 'Dann schlage gerne eine neue Kategorie vor. Wir versuchen, alle Wünsche zu berücksichtigen.'
 
-        fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
+        fair: 'Unter diesen Filter fallen alle Artikel, auf die eines unserer drei Kriterien für "fair" zutrifft:  1. Artikel mit dem Transfer Siegel, von WFTO Mitgliedern oder Weltladen-Lieferanten. 2. Artikel von kleineren Anbietern ohne Siegel, für die bei uns unter "fair trust" fallen. Dafür ist ein Formular auszufüllen. 3. Artikel von sozialen Produzenten, z.B. Sozialunternehmen oder gemeinnützigen Anbietern.'
         fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
-        small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
-        fair_trust_questionnaire: >
-          Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
+        fair_trust_questionnaire: Die mit Sternchen markierten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
         social_producer_questionnaire: >
-          Hier könnt Ihr Eure Artikel in die Kategorie "Sozial" einordnen.
+                    Unter "sozial" fallen Artikel, die mindestens eines der drei Kriterien erfüllen.
 
-        condition: "Trage den Zustand Deines Artikels ein"
+        condition: "Als neu gelten alle Artikel, die unbenutzt, originalverpackt und mit voller Garantie angeboten werden."
+        content: "Die Beschreibung sollte alle für die Käufer*innen relevanten Details zu den Eigenschaften und dem Zustand des Artikels enthalten."
         content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
-        quantity: Trage hier die Menge ein
+        quantity: Falls mehrere Artikel derselben Art angeboten werden, trage hier die Menge ein
         price: Trage hier den Preis pro Artikel ein
 
         vat: Gebe hier die im Preis enthaltene Mehrwertsteuer an.
 
-        basic_price: Trage hier den Grundpreis pro Artikel ein.
+
+        basic_price: Trage hier den Grundpreis pro Artikel ein.#Von Felix gelöscht
         basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.
 
         transport: >
@@ -205,11 +207,11 @@ de:
         payment: >
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
 
-        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 
-
+        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. 
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"

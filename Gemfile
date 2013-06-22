@@ -97,6 +97,8 @@ group :assets do
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
+  gem 'turbolinks'
+  gem 'jquery-turbolinks'
 end
 
 
@@ -159,6 +161,8 @@ group :development do
   #zipruby for icecat catalog download
   gem "zipruby"
 
+  # activerecord-import for batch-writing into the databse
+  gem 'activerecord-import'
 end
 
 group :test do

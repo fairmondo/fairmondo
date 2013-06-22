@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if current_user.id == @user.id
+- if @user.is? current_user
   / Add a new library
   .fairnopoly-well
     %h3= t('library.new_title')

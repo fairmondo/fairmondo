@@ -46,6 +46,22 @@ describe Article do
         dup.images[0].image_file_name.should eq article.images[0].image_file_name
       end
     end
+
+    describe "methods" do
+      describe "#owned_by?(user)" do
+        it "should return false when user is nil" do
+          article.owned_by?(nil).should be_false
+        end
+
+        it "should return false when article doesn't belong to user" do
+          article.owned_by?(FactoryGirl.create(:user)).should be_false
+        end
+
+        it "should return true when article belongs to user" do
+          article.owned_by?(article.seller).should be_true
+        end
+      end
+    end
   end
 
 

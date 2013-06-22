@@ -106,7 +106,7 @@ class ArticlesController < InheritedResources::Base
     if params[:report].blank?
       redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
     else
-      ArticleMailer.report_article(@article,@text).deliver
+      ArticleMailer.report_article(@article,params[:report]).deliver
       redirect_to resource, :notice => (I18n.t 'article.actions.reported')
     end
   end
