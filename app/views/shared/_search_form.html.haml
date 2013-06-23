@@ -40,21 +40,27 @@
           Zustand 
           %i.icon-helper{ :title => "Help text" }
         - ([["Egal", ""]] + Article.condition.options ).each do |option|
-          = f.radio_button :condition, option.last
-          = f.label :condition ,option.first, :value => option.last
+          = f.label :condition , :value => option.last do
+            = f.radio_button :condition, option.last
+            = option.first
+          
     .Filter-col
       %fieldset
         %legend.Filter-title 
           Filter 
           %i.icon-helper{ :title => "Help text" }
-        = f.check_box :fair
-        = f.label :fair, "Fair"
-        = f.check_box :ecologic
-        = f.label :ecologic, "Öko"
-        = f.check_box :small_and_precious
-        = f.label :small_and_precious, "Klein & Edel"
-       
-
+        
+        = f.label :fair do 
+          = f.check_box :fair
+          Fair
+        
+        = f.label :ecologic do 
+          = f.check_box :ecologic 
+          Öko
+        
+        = f.label :small_and_precious do
+          = f.check_box :small_and_precious
+          Klein & Edel
    
     = f.inputs :class => "Filter-col" do
       %legend.Filter-title Kategorien

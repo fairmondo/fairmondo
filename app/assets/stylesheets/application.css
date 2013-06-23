@@ -25,6 +25,9 @@
  *
  *= require_self
  *= require kopfwelt/main
+ *= require jquery.ui.autocomplete
+ *= require jquery.ui.tooltip
+
  *= require vendor/jquery.selectBoxIt
  *
 */
