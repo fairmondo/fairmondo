@@ -33,3 +33,37 @@ $(document).ready(function(){
 
 });
  */
+
+$(document).ready(function(){ 
+	$("i.icon-helper").tooltip({
+		tooltipClass: "top", // class for the arrow/pointer
+		position: {
+			my: "center bottom",
+			at: "center top-20"
+		},
+		show: {
+			duration: 200
+		},
+		hide: {
+			duration: 0
+		}
+		
+	}).off('mouseover');
+	$("i.icon-helper").on( "mouseleave", function( event ) {
+		event.stopImmediatePropagation();
+	});
+	$("i.icon-helper").on('click',function(e) {
+		event.stopPropagation();
+		$("i.icon-helper").tooltip('close');
+		$(event.target).tooltip('open');
+		
+	});
+
+	$('html').delegate('.ui-tooltip-content' ,'click',function(event){
+		event.stopPropagation();
+	});
+	$('html').click(function(e) {
+		$("i.icon-helper").tooltip('close');
+		
+	});
+});

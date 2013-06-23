@@ -22,6 +22,7 @@
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
 //= require jquery.ui.accordion
+//= require jquery.ui.tooltip
 //= require modernizr
 //= require selectivizr
 //= require tinymce
@@ -35,6 +36,7 @@
 //= require vendor/jquery.hashchange
 //= require vendor/jquery.socialshareprivacy
 //= require vendor/jquery.selectBoxIt
+//= require vendor/jquery.icheck
 //= require vendor/fancybox/jquery.fancybox
 
 //= require vendor/packery/packery.pkgd.min
@@ -44,6 +46,8 @@
 //= require_tree ./models
 
 //= require visual/accordion
+//= require visual/tooltip
+//= require visual/button
 //= require visual/fancybox
 //= require visual/selectbox
 //= require visual/filter

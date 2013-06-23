@@ -11,6 +11,11 @@
 	@include pie-clearfix;
 	margin-bottom: -0.2em;
 	outline: 0;
+	 background: $btn--blue !important;
+	 border: 0px solid !important;
+	 &:hover {
+    background-color: lighten($tag--blue, 5%) !important;
+  }
 	.icon-arrow {
 		float: left;
 	}
@@ -32,6 +37,7 @@
 	padding: ($gutter-width / 2);
 	overflow: auto;
 	background-color: $white;
+	border: 0px solid !important;
 }
 .User-edit .Accordion-content, .Article-form .Accordion-content {
 	padding: ($gutter-width / 2) 0em;

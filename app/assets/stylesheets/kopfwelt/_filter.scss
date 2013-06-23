@@ -13,7 +13,7 @@
   }
 
   input { float: left; clear: left; }
-  label { float: left; width: auto; color: $black; }
+  label { width: auto; color: $black; }
 }
 .Filter.is-active {
   > .l-Inner {
