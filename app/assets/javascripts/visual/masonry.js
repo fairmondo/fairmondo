@@ -3,7 +3,8 @@
 //
 
 $(function(){
-// initialize Packery
+	
+	/*// initialize Packery
 	var container = document.querySelector('#js-packery');
 
 	// only run if the container exists
@@ -20,5 +21,18 @@ $(function(){
 		imagesLoaded( container, function() {
 			pckry.layout();
 		});
+	}*/
+
+
+	var $container = $('#js-masonry');
+	if ($container.length > 0) {
+		$container.imagesLoaded( function() {
+				$container.masonry({
+				itemSelector: '.Teaser',
+				gutter: '.gutter-sizer',
+				columnWidth: '.grid-sizer'
+			});
+		});
 	}
+
 });

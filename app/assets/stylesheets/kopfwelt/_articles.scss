@@ -2,20 +2,25 @@
 // Articles
 //
 
-.Articles {}
 .Articles--detail {
 	@include span-columns(4, 4);
 	.Articles-info {
-		@include border-bottom-radius(.9em);
+		@include border-bottom-radius(0.9em);
 	}
 	.Articles-image {
-		@include border-top-radius(.9em);
+		@include border-top-radius(0.9em);
 	}
 	.Articles-box {
 		@include span-columns(1, 2);
 		&:last-child {
 			@include span-columns(1 omega, 2);
 		}
+	}
+	.Article-friendly {
+		margin-top: 1em;
+	}
+	.Article-thumbnails {
+		@include pie-clearfix;
 	}
 }
 .Articles--list {
@@ -28,23 +33,42 @@
 	li {
 		@include pie-clearfix;
 		margin-bottom: $gutter-width;
+
+		//
+		// Article list layout
+		//
+		@include at-breakpoint($layout-small) {
+			// apply 4col layout
+			@include span-columns(2,4);
+			&:nth-child(2n) { @include omega; }
+			&:nth-child(2n+1) { clear: right;}
+		}
+		@include at-breakpoint($layout-medium) {
+			// remove things from 2col layout
+			&:nth-child(2n) { @include span-columns(1,4); }
+			&:nth-child(2n+1) { clear: none;}
+			// apply 4col layout
+			@include span-columns(1,4);
+			&:nth-child(4n) { @include omega; }
+			&:nth-child(4n+1) { clear: right; }
+		}
 	}
 	.Articles-tags {
-		@include border-bottom-radius(.9em);
+		@include border-bottom-radius(0.9em);
 	}
 	.Articles-image {
-		@include border-top-radius(.9em);
+		@include border-top-radius(0.9em);
 	}
 }
 .Articles-image {
 	overflow: hidden;
-	img {width: 100%; height: auto}
+	img {
+		width: 100%;
+		height: auto;
+	}
 }
 .Articles--related {
 	@include span-columns(4, 4);
-	p {
-		@include rem(font-size, $font-size-m);
-	}
 }
 .Articles-related {
 	@include border-radius(.9em);
@@ -63,33 +87,39 @@
 		cursor: pointer;
 	}
 }
+.Articles-related-title {
+	@extend %Semibold;
+	margin-bottom: 0;
+	padding: $gutter-width / 2;
+	font-size: $base-font-size;
+	text-align: center;
+}
 .Articles-info {
 	@include pie-clearfix;
 	padding: $gutter-width / 2;
-	padding-bottom: 0;
+	padding-bottom: .5em;
 	background-color: $white;
 	h2 {
 		@include rem(font-size, $base-font-size);
+	}
+	.title_image {
+		width: 50%;
+		float: left;
+		padding-right: 7px;
 	}
 }
 .Articles-info--right {
 	@include span-columns(2, 2);
 	.Article-vat, .Article-basicprice {
 		@include span-columns(2, 2);
-		margin-bottom: 0;
+		margin-bottom: .3em;
 	}
 }
 .Articles-info--left {
 	@include span-columns(2, 2);
 	position: relative;
-	min-height: 19em;
+	min-height: 19.5em;
 }
-.title_image {
-	width: 50%;
-	float: left;
-	padding-right: 7px;
-}
-
 .Articles-tags {
 	@include pie-clearfix;
 	padding: .5em .6em 0em;
@@ -100,15 +130,19 @@
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
 }
-p.Articles-price, span.Article-price {
+p.Articles-price,
+span.Articles-price {
 	@include rem(font-size, $font-size-xl);
 	@extend %Semibold;
 	display: block;
 	margin-bottom: 0em;
 }
-.Article-vat, .Article-basicprice, .Article-basicset {
+.Article-vat,
+.Article-basicprice,
+.Article-basicset {
 	@include rem(font-size, $font-size-xs);
 	line-height: 1;
+	margin-bottom: .2em;
 }
 .Article-vat {
 	@include span-columns(1 alpha, 2);
@@ -119,18 +153,27 @@ p.Articles-price, span.Article-price {
 .Article-basicset {
 	@include span-columns(1, 2);
 }
+
 .Articles-policy {
 	@include span-columns(4, 4);
 }
-.Articles-related-title {
-	@extend %Semibold;
-	margin-bottom: 0;
-	padding: $gutter-width / 2;
-	font-size: $base-font-size;
-	text-align: center;
+.Article-quantity {
+	@include span-columns(2, 2);
 }
+
 .Article-user {
 	@include span-columns(4, 4);
+}
+.Article-accordion {
+	margin-top: 2em;
+}
+// selling form
+.Article-form {
+	@include span-columns(4, 4);
+}
+.Article-tags {
+	position: absolute;
+	bottom: 0;
 }
 .pagination {
 	text-align: center;
@@ -140,39 +183,7 @@ p.Articles-price, span.Article-price {
 		margin-right: 1em;
 	}
 }
-.Article-accordion {
-	margin-top: 2em;
-}
-// selling form
-.Article-form {
-	@include span-columns(4, 4);
-}
 
-.Articles--list li {
-	@include at-breakpoint($layout-small) {
-		@include span-columns(2,4);
-		@include nth-omega(2n);
-	}
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(1,4);
-		&:nth-child(2n) { @include remove-omega; }
-		@include nth-omega(4n);
-	}
-	// @include at-breakpoint($layout-large) {
-	// 	@include span-columns(1, 4);
-	// 	&:nth-child(2n) {
-	// 		@include span-columns(1, 4);
-	// 	}
-	// 	&:nth-child(4n) {
-	// 		@include span-columns(1 omega, 4);
-	// 	}
-	// }
-}
-.Article-tags {
-	position: absolute;
-	bottom: 0;
-}
-	
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
 		@include span-columns(4, 4);

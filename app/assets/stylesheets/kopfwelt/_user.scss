@@ -2,8 +2,6 @@
 // User page
 //
 
-
-
 //
 // User layout
 //
@@ -28,12 +26,21 @@
 //
 // User-info box
 //
-.User-detail {
+.User--detail {
 	@include span-columns(4, 4);
 	padding-top: 3em;
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+	}
 }
 .User-profile {
 	@include span-columns(4, 4);
+}
+.User-title {
+	@extend %Semibold;
+	margin-bottom: 0;
+	font-size: $base-font-size;
+	text-align: center;
 }
 .User-edit {
 	p {
@@ -162,4 +169,8 @@
 .User--step {
 	border-bottom: 1px solid $beige;
 	padding: ($gutter-width / 2);
+	@media (max-width: 30em) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
