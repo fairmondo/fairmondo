@@ -38,6 +38,20 @@ body {
 	}
 }
 
+.l-Feedback {
+	display: inline-block;
+	position: fixed;
+	top: 50%;
+	@include rem(left, -119px);
+	@include transform(rotate(-90deg));
+}
+
+.Feedback {
+	&.Btn {
+		margin: 0;
+	}
+}
+
 
 // Media queries, mobile first
 // -----------------------------------

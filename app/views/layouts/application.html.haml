@@ -68,7 +68,6 @@
               %p
                 = msg.html_safe
       = render_data_confirm
-
     %header.l-Header
       .l-Inner
         .Logo
@@ -107,6 +106,12 @@
                   = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path
         / row
       / container
+    
+    .l-Feedback
+      %a.Btn.Feedback
+        %i.icon-feedback
+        Dein Feedback zur Website
+
     .l-Hero
       = hero
     .l-Main{:role => "main"}
