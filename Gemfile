@@ -98,8 +98,8 @@ group :assets do
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
-  gem 'turbolinks'
-  gem 'jquery-turbolinks'
+  # gem 'turbolinks'
+  # gem 'jquery-turbolinks'
 end
 
 
