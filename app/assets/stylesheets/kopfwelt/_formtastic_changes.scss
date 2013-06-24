@@ -64,23 +64,21 @@ fieldset.choices {
 		label {
 			width: 50;
 		}
-		
-		
 	}
 	legend {
-      position: static !important;
-      margin-bottom: 1em;
-    }
+		position: static !important;
+		margin-bottom: 1em;
+	}
 }
 
 .formtastic li.check_boxes .choices-group .choice label {
-  position:relative;
-  margin-left: 1.5em;
-  line-height: 100%;
-  input{
-    position: absolute;
-    left: -1.5em;
-  }
+	position:relative;
+	margin-left: 1.5em;
+	line-height: 100%;
+	input{
+		position: absolute;
+		left: -1.5em;
+	}
 }
 
 .formtastic .boolean label {
