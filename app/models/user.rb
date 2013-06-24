@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
   # @api public
   # @param user [User] Usually current_user
   def is? user
-    self.id == user.id
+    user && self.id == user.id
   end
 
   private

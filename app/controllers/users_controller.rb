@@ -23,6 +23,7 @@ class UsersController < InheritedResources::Base
   custom_actions :resource => :profile
 
   before_filter :authorize_resource
+  # skip_before_filter :authenticate_user!
 
   def authorize_resource
     authorize resource
