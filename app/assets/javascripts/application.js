@@ -39,8 +39,8 @@
 //= require vendor/jquery.icheck
 //= require vendor/fancybox/jquery.fancybox
 
-//= require vendor/packery/packery.pkgd.min
-//= require vendor/packery/imagesloaded.pkgd
+//= require vendor/masonry.pkgd.min
+//= require vendor/imagesloaded.pkgd
 
 
 //= require_tree ./models
@@ -51,4 +51,4 @@
 //= require visual/fancybox
 //= require visual/selectbox
 //= require visual/filter
-//= require visual/packery
+//= require visual/masonry

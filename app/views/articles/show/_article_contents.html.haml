@@ -60,20 +60,22 @@
 		.Articles-info--right
 			%h2
 				= resource.title
+			%p.Articles-price= humanized_money_with_symbol resource.price
+			%p.Article-vat= t('formtastic.labels.article.price')
+			%p= render 'articles/show/vat' , :article => resource
 			%p
-				%span.Articles-price= humanized_money_with_symbol resource.price
-				%span= t('formtastic.labels.article.price')
-				= render 'articles/show/vat' , :article => resource
-				- if resource.quantity && resource.quantity != ""
-					%p
-						%span= resource.quantity
-						%span= t('formtastic.labels.article.quantity')
-			%p
-				= render 'articles/show/basic_price', :article => resource
-				- if resource.active? && current_user && current_user.id != resource.seller.id
-					%p
-						%a.Btn.Btn--green
-							= t('common.actions.buy')
+			= render 'articles/show/basic_price', :article => resource
+			- if resource.quantity && resource.quantity != ""
+				%p.Article-quantity
+					%span= resource.quantity
+					%span= t('formtastic.labels.article.quantity')
+				%p
+					%a.Btn.Btn--green
+						= t('Zur Sammlung hinzufügen')
+				-# - if resource.active? && current_user && current_user.id != resource.seller.id
+					-# %p
+						-# %a.Btn.Btn--green
+							-# = t('common.actions.buy')
 					-# not sure what add to collection does.
 					-# but i think a 'buy' button is more important
 					-# - if user_signed_in?
@@ -88,6 +90,14 @@
 					/ - thumbnails(title_image).each do |image|
 					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
 					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
+			.Article-friendly
+				%p.Highlight 
+					=t('Das freundliche Prozent')
+					%span.icon-helper{:title => t('some text')}
+				%p 
+					1% werden an 
+					%a{:href => "#"} Transparency International 
+					gespendet
 			%p.Article-tags
 				= features_label resource
 				= condition_label resource

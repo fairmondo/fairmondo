@@ -1,14 +1,11 @@
 //
-// Packer
+// Masonry/Packery/Dynamid grid
 //
-
-
 
 // be sure to change the $gutter, $cols and media queries
 $gutter: 2%;
 $cols: 4;
 
-.Packery {}
 .gutter-sizer {
 	width: $gutter;
 }
@@ -44,6 +41,16 @@ $cols: 4;
 	position: relative;
 	background: #fff;
 	
+	// we can't use % for this so imitate it like this
+	margin-bottom: em(20);
+	@media (max-width: em(900)) {
+		margin-bottom: em(15);
+	}
+	@media (max-width: em(600)) {
+		margin-bottom: em(10);
+	}
+
+
 	// Make sure the link contains everything
 	> a {
 		display: block;
