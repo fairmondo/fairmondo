@@ -28,9 +28,12 @@
 //
 // User-info box
 //
-.User-detail {
+.User--detail {
 	@include span-columns(4, 4);
 	padding-top: 3em;
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+	}
 }
 .User-profile {
 	@include span-columns(4, 4);

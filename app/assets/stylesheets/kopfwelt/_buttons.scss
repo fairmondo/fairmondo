@@ -114,7 +114,8 @@ a.Btn {
 .Btn--green,
 .Btn--greenSmall,
 .Btn--gray {
-	@include rem(width, 200px);
+	//@include rem(width, 200px);
+	width: auto;
 	margin: 20px auto;
 }
 
