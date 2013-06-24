@@ -62,9 +62,10 @@
           = f.check_box :small_and_precious
           Klein & Edel
    
-    = f.inputs :class => "Filter-col" do
-      %legend.Filter-title Kategorien
-      = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :required => true, :multiple => true, :include_blank => true, :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect"}
+    .Filter-col
+      = f.inputs do
+        %legend.Filter-title Kategorien
+        = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :required => true, :multiple => true, :include_blank => true, :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect"}
  
 
     %button.Btn.Filter-btn Suche starten
