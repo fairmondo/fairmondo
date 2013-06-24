@@ -33,7 +33,7 @@ class LibraryPolicy < Struct.new(:user, :library)
 
   private
   def own?
-    user.id == library.user_id
+    user && user.id == library.user_id
   end
 
   class Scope < Struct.new(:current_user, :user, :scope)
