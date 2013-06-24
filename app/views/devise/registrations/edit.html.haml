@@ -30,6 +30,12 @@
           = current_user.is_a?(LegalEntity) ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
         %p
           %strong
+            = t('formtastic.labels.user.customer_number') + ":"
+
+          %span.pull-right= t('users.visibility.private')
+          = current_user.customer_nr
+        %p
+          %strong
             = t('formtastic.labels.user.nickname') + ":"
 
           %span.pull-right= t('users.visibility.public')
