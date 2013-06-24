@@ -17,42 +17,42 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.User.User--detail{:class => "#{"closed-container-hero" unless params[:action]== "show"}"}
-	
-	.User-primary
-		= render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
-		- if user_resource.id==current_user.id
-			%p.align-center
-				%a.Icon{:href =>  edit_user_registration_path}
-					%i.icon-pencil
-					Profil bearbeiten
-	
-	.User-secondary
-		- if user_resource.about_me && !user_resource.about_me.empty?
-			%div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
-				= user_resource.about_me.html_safe
-				.clearfix
-			- if params[:full_about]
-				%a.pull-right{:href => user_path(:id => user_resource.id)}
-					%i.icon-chevron-up
-					weniger anzeigen
-			- else
-				%a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
-					%i.icon-chevron-down
-					mehr anzeigen
-		- else
-			.empty-well
-				- if user_resource.id==current_user.id
-					%a.pull-right{:href => edit_user_registration_path}
-						Beschreibung hinzufügen
-				%h4 Noch keine Beschreibung hinzugefügt.
-		.User-collection
+.l-Inner
+	.User.User--detail{:class => "#{"closed-container-hero" unless params[:action]== "show"}"}
+		.User-primary
+			= render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
 			- if user_resource.id==current_user.id
-				%a.Btn.Btn-icon{:href => user_path(current_user)}
-					%i.icon-box--open
-					Verkaufen
-			%a.Btn.Btn-icon{:href => user_libraries_path(user_resource)}
-				%i.icon-box
-				Sammlungen
-			#hero-unfold
-				%a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
+				%p.align-center
+					%a.Icon{:href =>  edit_user_registration_path}
+						%i.icon-pencil
+						Profil bearbeiten
+		
+		.User-secondary
+			- if user_resource.about_me && !user_resource.about_me.empty?
+				%div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+					= user_resource.about_me.html_safe
+					.clearfix
+				- if params[:full_about]
+					%a.pull-right{:href => user_path(:id => user_resource.id)}
+						%i.icon-chevron-up
+						weniger anzeigen
+				- else
+					%a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
+						%i.icon-chevron-down
+						mehr anzeigen
+			- else
+				.empty-well
+					- if user_resource.id==current_user.id
+						%a.pull-right{:href => edit_user_registration_path}
+							Beschreibung hinzufügen
+					%h4 Noch keine Beschreibung hinzugefügt.
+			.User-collection
+				- if user_resource.id==current_user.id
+					%a.Btn.Btn-icon{:href => user_path(current_user)}
+						%i.icon-box--open
+						Verkaufen
+				%a.Btn.Btn-icon{:href => user_libraries_path(user_resource)}
+					%i.icon-box
+					Sammlungen
+				#hero-unfold
+					%a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
