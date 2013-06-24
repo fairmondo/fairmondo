@@ -70,6 +70,24 @@ describe 'User management' do
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
+
+    describe "user dashboard" do
+      it "should be accessible" do
+        article = FactoryGirl.create :article
+        visit article_path article
+        find('#profile-img a').click
+        current_path.should eq user_path article.seller
+      end
+    end
+
+    describe "user profile (legal_entity)" do
+      it "should be accessible" do
+        user = FactoryGirl.create :legal_entity
+        visit user_path user
+        click_link I18n.t 'common.text.about_terms'
+        current_path.should eq profile_user_path user
+      end
+    end
   end
 
   context "for signed-in users" do
