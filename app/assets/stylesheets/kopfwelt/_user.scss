@@ -169,4 +169,8 @@
 .User--step {
 	border-bottom: 1px solid $beige;
 	padding: ($gutter-width / 2);
+	@media (max-width: 30em) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
