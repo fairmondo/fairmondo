@@ -122,7 +122,14 @@ class User < ActiveRecord::Base
     self.id == user.id
   end
 
+  # Customer Number should have 8 digits
+  # and is built from the user id
+  def customer_nr
+    self.id.to_s.rjust(8,"0")
+  end
+
   private
+
   # @api private
   def create_default_library
     if self.libraries.empty?
