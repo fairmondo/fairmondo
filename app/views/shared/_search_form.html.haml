@@ -34,38 +34,34 @@
 
 .Filter
   .l-Inner
-    .Filter-col 
-      %fieldset
-        %legend.Filter-title 
-          Zustand 
-          %i.icon-helper{ :title => "Help text" }
-        - ([["Egal", ""]] + Article.condition.options ).each do |option|
-          = f.label :condition , :value => option.last do
-            = f.radio_button :condition, option.last
-            = option.first
-          
     .Filter-col
       %fieldset
-        %legend.Filter-title 
-          Filter 
+        %legend.Filter-title
+          Zustand
           %i.icon-helper{ :title => "Help text" }
-        
-        = f.label :fair do 
-          = f.check_box :fair
-          Fair
-        
-        = f.label :ecologic do 
-          = f.check_box :ecologic 
-          Öko
-        
+        - ([["Egal"]] + Article.condition.options ).each do |option|
+          = f.label :condition , :value => option.last do
+            = f.radio_button(:condition, option.last) + option.first
+
+    .Filter-col
+      %fieldset
+        %legend.Filter-title
+          Filter
+          %i.icon-helper{ :title => "Help text" }
+
+        = f.label :fair do
+          = f.check_box(:fair) + t('formtastic.labels.article.fair')
+
+        = f.label :ecologic do
+          = f.check_box(:ecologic) + t('formtastic.labels.article.ecologic')
+
         = f.label :small_and_precious do
-          = f.check_box :small_and_precious
-          Klein & Edel
-   
+          = f.check_box(:small_and_precious) + t('formtastic.labels.article.small_and_precious')
+
     = f.inputs :class => "Filter-col" do
       %legend.Filter-title Kategorien
       = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :required => true, :multiple => true, :include_blank => true, :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect"}
- 
+
 
     %button.Btn.Filter-btn Suche starten
 
