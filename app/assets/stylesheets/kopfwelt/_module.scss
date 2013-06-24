@@ -67,8 +67,17 @@
 	margin-bottom: 0;
 }
 
+.l-Hero {
+	.l-Inner {
+		h1 {
+			@extend %Semibold;
+			margin-top: .5em;
+		}
+	}
+}
+
 // Hero search
-#search-box-filter {display: none}
+//#search-box-filter {display: none}
 
 
 @include at-breakpoint($layout-small) {
