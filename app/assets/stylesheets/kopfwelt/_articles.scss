@@ -2,14 +2,13 @@
 // Articles
 //
 
-.Articles {}
 .Articles--detail {
 	@include span-columns(4, 4);
 	.Articles-info {
-		@include border-bottom-radius(.9em);
+		@include border-bottom-radius(0.9em);
 	}
 	.Articles-image {
-		@include border-top-radius(.9em);
+		@include border-top-radius(0.9em);
 	}
 	.Articles-box {
 		@include span-columns(1, 2);
@@ -28,17 +27,40 @@
 	li {
 		@include pie-clearfix;
 		margin-bottom: $gutter-width;
+
+		//
+		// Article list layout
+		//
+
+		@include at-breakpoint($layout-small) {
+			// apply 4col layout
+			@include span-columns(2,4);
+			&:nth-child(2n) { @include omega; }
+			&:nth-child(2n+1) { clear: right;}
+		}
+		@include at-breakpoint($layout-medium) {
+			// remove things from 2col layout
+			&:nth-child(2n) { @include span-columns(1,4); }
+			&:nth-child(2n+1) { clear: none;}
+			// apply 4col layout
+			@include span-columns(1,4);
+			&:nth-child(4n) { @include omega; }
+			&:nth-child(4n+1) { clear: right; }
+		}
 	}
 	.Articles-tags {
-		@include border-bottom-radius(.9em);
+		@include border-bottom-radius(0.9em);
 	}
 	.Articles-image {
-		@include border-top-radius(.9em);
+		@include border-top-radius(0.9em);
 	}
 }
 .Articles-image {
 	overflow: hidden;
-	img {width: 100%; height: auto}
+	img {
+		width: 100%;
+		height: auto;
+	}
 }
 .Articles--related {
 	@include span-columns(4, 4);
@@ -100,13 +122,15 @@
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
 }
-p.Articles-price, span.Article-price {
+p.Articles-price,
+span.Articles-price {
 	@include rem(font-size, $font-size-xl);
 	@extend %Semibold;
 	display: block;
 	margin-bottom: 0em;
 }
-.Article-vat, .Article-basicprice, .Article-basicset {
+.Article-vat,
+.Article-basicprice {
 	@include rem(font-size, $font-size-xs);
 	line-height: 1;
 }
@@ -147,32 +171,10 @@ p.Articles-price, span.Article-price {
 .Article-form {
 	@include span-columns(4, 4);
 }
-
-.Articles--list li {
-	@include at-breakpoint($layout-small) {
-		@include span-columns(2,4);
-		@include nth-omega(2n);
-	}
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(1,4);
-		&:nth-child(2n) { @include remove-omega; }
-		@include nth-omega(4n);
-	}
-	// @include at-breakpoint($layout-large) {
-	// 	@include span-columns(1, 4);
-	// 	&:nth-child(2n) {
-	// 		@include span-columns(1, 4);
-	// 	}
-	// 	&:nth-child(4n) {
-	// 		@include span-columns(1 omega, 4);
-	// 	}
-	// }
-}
 .Article-tags {
 	position: absolute;
 	bottom: 0;
 }
-	
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
 		@include span-columns(4, 4);
