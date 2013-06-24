@@ -110,3 +110,15 @@ $icon: sprite-map("icon/*.png");
 	height: icon-sprite-height(user);
 	width: icon-sprite-width(user);
 }
+
+// Feedback icon
+// -----------------------------------
+
+.icon-feedback {
+	display: inline-block;
+	height: icon-sprite-height(feedback);
+	width: icon-sprite-width(feedback);
+	top: 5px;
+	left: -4px;
+	@include transform(rotate(90deg));
+}
