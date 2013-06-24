@@ -42,6 +42,7 @@ body {
 	display: inline-block;
 	position: fixed;
 	top: 50%;
+	z-index: 99;
 	@include rem(left, -119px);
 	@include transform(rotate(-90deg));
 }
