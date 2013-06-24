@@ -90,6 +90,14 @@
 					/ - thumbnails(title_image).each do |image|
 					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
 					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
+			.Article-friendly
+				%p.Highlight 
+					=t('Das freundliche Prozent')
+					%span.icon-helper{:title => t('some text')}
+				%p 
+					1% werden an 
+					%a{:href => "#"} Transparency International 
+					gespendet
 			%p.Article-tags
 				= features_label resource
 				= condition_label resource

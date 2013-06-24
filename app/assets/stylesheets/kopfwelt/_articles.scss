@@ -16,6 +16,12 @@
 			@include span-columns(1 omega, 2);
 		}
 	}
+	.Article-friendly {
+		margin-top: 1em;
+	}
+	.Article-thumbnails {
+		@include pie-clearfix;
+	}
 }
 .Articles--list {
 	@include pie-clearfix;
@@ -169,7 +175,6 @@ span.Articles-price {
 	position: absolute;
 	bottom: 0;
 }
-
 .pagination {
 	text-align: center;
 	li {
