@@ -117,3 +117,7 @@ fieldset.choices {
 // .ui-button.ui-state-active {
 // 	@extend  .icon-radio_active;
 // }
+
+.formtastic .input fieldset.inputs > ol > li.input {
+  margin-left: 0;
+}
