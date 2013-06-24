@@ -31,7 +31,6 @@
 		//
 		// Article list layout
 		//
-
 		@include at-breakpoint($layout-small) {
 			// apply 4col layout
 			@include span-columns(2,4);
@@ -64,9 +63,6 @@
 }
 .Articles--related {
 	@include span-columns(4, 4);
-	p {
-		@include rem(font-size, $font-size-m);
-	}
 }
 .Articles-related {
 	@include border-radius(.9em);
@@ -85,33 +81,39 @@
 		cursor: pointer;
 	}
 }
+.Articles-related-title {
+	@extend %Semibold;
+	margin-bottom: 0;
+	padding: $gutter-width / 2;
+	font-size: $base-font-size;
+	text-align: center;
+}
 .Articles-info {
 	@include pie-clearfix;
 	padding: $gutter-width / 2;
-	padding-bottom: 0;
+	padding-bottom: .5em;
 	background-color: $white;
 	h2 {
 		@include rem(font-size, $base-font-size);
+	}
+	.title_image {
+		width: 50%;
+		float: left;
+		padding-right: 7px;
 	}
 }
 .Articles-info--right {
 	@include span-columns(2, 2);
 	.Article-vat, .Article-basicprice {
 		@include span-columns(2, 2);
-		margin-bottom: 0;
+		margin-bottom: .3em;
 	}
 }
 .Articles-info--left {
 	@include span-columns(2, 2);
 	position: relative;
-	min-height: 19em;
+	min-height: 19.5em;
 }
-.title_image {
-	width: 50%;
-	float: left;
-	padding-right: 7px;
-}
-
 .Articles-tags {
 	@include pie-clearfix;
 	padding: .5em .6em 0em;
@@ -130,9 +132,11 @@ span.Articles-price {
 	margin-bottom: 0em;
 }
 .Article-vat,
-.Article-basicprice {
+.Article-basicprice,
+.Article-basicset {
 	@include rem(font-size, $font-size-xs);
 	line-height: 1;
+	margin-bottom: .2em;
 }
 .Article-vat {
 	@include span-columns(1 alpha, 2);
@@ -143,26 +147,16 @@ span.Articles-price {
 .Article-basicset {
 	@include span-columns(1, 2);
 }
+
 .Articles-policy {
 	@include span-columns(4, 4);
 }
-.Articles-related-title {
-	@extend %Semibold;
-	margin-bottom: 0;
-	padding: $gutter-width / 2;
-	font-size: $base-font-size;
-	text-align: center;
+.Article-quantity {
+	@include span-columns(2, 2);
 }
+
 .Article-user {
 	@include span-columns(4, 4);
-}
-.pagination {
-	text-align: center;
-	li {
-		list-style-type: none;
-		display: inline-block;
-		margin-right: 1em;
-	}
 }
 .Article-accordion {
 	margin-top: 2em;
@@ -175,6 +169,16 @@ span.Articles-price {
 	position: absolute;
 	bottom: 0;
 }
+
+.pagination {
+	text-align: center;
+	li {
+		list-style-type: none;
+		display: inline-block;
+		margin-right: 1em;
+	}
+}
+
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
 		@include span-columns(4, 4);
