@@ -18,8 +18,8 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .User-info
-  - if request.fullpath == 'articles/*'
-    =t('Anbieter')
+  -# Make this dependent on route; only visible if article detail page
+  %h3.User-title Anbieter
   .User-image
     %a{:href => user_path(user)}
       = image_tag(user.image.url(:thumb))

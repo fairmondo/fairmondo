@@ -2,8 +2,6 @@
 // User page
 //
 
-
-
 //
 // User layout
 //
@@ -37,6 +35,12 @@
 }
 .User-profile {
 	@include span-columns(4, 4);
+}
+.User-title {
+	@extend %Semibold;
+	margin-bottom: 0;
+	font-size: $base-font-size;
+	text-align: center;
 }
 .User-edit {
 	p {
