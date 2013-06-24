@@ -95,6 +95,13 @@ fieldset.choices {
 	color: #2e2e2e;
 }
 
+.formtastic .actions {
+	padding-left: 0;
+}
+#user_password_input:nth-child(2n) {
+	float: none;
+}
+
 // //
 // // Custom radio buttons (requires on jQuery UI Buttons)
 // //

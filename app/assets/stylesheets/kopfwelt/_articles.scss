@@ -100,13 +100,13 @@
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
 }
-p.Articles-price, span.Articles-price {
+p.Articles-price, span.Article-price {
 	@include rem(font-size, $font-size-xl);
 	@extend %Semibold;
 	display: block;
 	margin-bottom: 0em;
 }
-.Article-vat, .Article-basicprice {
+.Article-vat, .Article-basicprice, .Article-basicset {
 	@include rem(font-size, $font-size-xs);
 	line-height: 1;
 }
@@ -116,7 +116,9 @@ p.Articles-price, span.Articles-price {
 .Article-basicprice {
 	@include span-columns(1 omega, 2);
 }
-
+.Article-basicset {
+	@include span-columns(1, 2);
+}
 .Articles-policy {
 	@include span-columns(4, 4);
 }
@@ -137,6 +139,9 @@ p.Articles-price, span.Articles-price {
 		display: inline-block;
 		margin-right: 1em;
 	}
+}
+.Article-accordion {
+	margin-top: 2em;
 }
 // selling form
 .Article-form {
