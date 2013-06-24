@@ -43,6 +43,8 @@ de:
       soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
       no_templates: "Keine Templates vorhanden"
       no_libraries: "Dieser Nutzer hat keine öffentlichen Sammlungen"
+      no_description: "Noch keine Beschreibung hinzugefügt."
+      add_desription: "Beschreibung hinzufügen"
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"

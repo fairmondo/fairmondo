@@ -65,6 +65,10 @@ de:
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
+      libraries: "Sammlungen"
+      about_terms: "AGB / Widerrufserklärung / Impressum"
+      more: "mehr anzeigen"
+      less: "weniger anzeigen"
 
     session_expiring_notice: "Du warst zu lang inaktiv und wirst jetzt im Hintergrund von Fairnopoly ausgeloggt."
 
