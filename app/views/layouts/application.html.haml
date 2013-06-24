@@ -37,9 +37,9 @@
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
 
-    %script{:src  => "//use.typekit.net/kli6gpf.js"}
-    :javascript
-      try{Typekit.load();}catch(e){}
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+
 
     = javascript_include_tag "application"
     :javascript
