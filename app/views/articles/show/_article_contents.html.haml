@@ -86,14 +86,15 @@
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
 		.Articles-info--left
 			.Article-thumbnails
-				.Thumbnails
-					/ - thumbnails(title_image).each do |image|
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+				/ - thumbnails(title_image).each do |image|
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
 			.Article-friendly
 				%p.Highlight 
 					=t('Das freundliche Prozent')
-					%span.icon-helper{:title => t('some text')}
+					%i.icon-helper{:title => t('some text')}
 				%p 
 					1% werden an 
 					%a{:href => "#"} Transparency International 
@@ -154,18 +155,18 @@
 	-# small adjustment so I get an alternative to style
 	.Articles-related
 		%h3.Articles-related-title= t('article.show.alternative')
-		%span.icon-helper{:title => t('article.show.no_alternative')}
+		%i.icon-helper{:title => t('article.show.no_alternative')}
 		= render :partial=>'/shared/show_article', :locals=>{ :article=> article}
 
 	-# - if alternative.present?
 	-# 	.Articles-related
 	-# 		%h3.Articles-related-title= t('article.show.alternative')
-	-# 		%span.icon-helper
+	-# 		%i.icon-helper
 	-# 		= render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
 	-# - else
 	-# 	.Articles-related
 	-# 		%h3.Articles-related-title= t('article.show.alternative')
-	-# 		%span.icon-helper
+	-# 		%i.icon-helper
 	-# 		%p.Helper-text
 	-# 			= t('article.show.no_alternative')
 
