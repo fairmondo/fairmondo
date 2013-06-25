@@ -86,15 +86,14 @@
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
 		.Articles-info--left
 			.Article-thumbnails
-				/ - thumbnails(title_image).each do |image|
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "Thumbnails colorbox", :rel => "gallery"}
+				.Thumbnails
+					/ - thumbnails(title_image).each do |image|
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 			.Article-friendly
 				%p.Highlight 
 					=t('Das freundliche Prozent')
-					%i.icon-helper{:title => t('some text')}
+					%span.icon-helper{:title => t('some text')}
 				%p 
 					1% werden an 
 					%a{:href => "#"} Transparency International 
@@ -148,36 +147,3 @@
 					.User-libraray
 						= link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
 				= will_paginate libraries,:params => {:anchor => "library" }
-
-
-.Articles--related
-	- alternative = find_fair_alternative_to resource
-	-# small adjustment so I get an alternative to style
-	.Articles-related
-		%h3.Articles-related-title= t('article.show.alternative')
-		%i.icon-helper{:title => t('article.show.no_alternative')}
-		= render :partial=>'/shared/show_article', :locals=>{ :article=> article}
-
-	-# - if alternative.present?
-	-# 	.Articles-related
-	-# 		%h3.Articles-related-title= t('article.show.alternative')
-	-# 		%i.icon-helper
-	-# 		= render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
-	-# - else
-	-# 	.Articles-related
-	-# 		%h3.Articles-related-title= t('article.show.alternative')
-	-# 		%i.icon-helper
-	-# 		%p.Helper-text
-	-# 			= t('article.show.no_alternative')
-
-	.Articles-policy.Accordion
-		- if policy(resource).report?
-			= accordion_item "report" do
-				= form_for :report, :url => report_article_path, :method => :get do |f|
-					%p= t('article.notices.report')
-					= f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]
-					%br/
-					%button.Btn
-						= t('article.actions.report')
-
-
