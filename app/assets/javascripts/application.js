@@ -37,7 +37,7 @@
 //= require vendor/jquery.socialshareprivacy
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
-//= require vendor/colorbox/jquery.colorbox
+//= require vendor/jquery.colorbox
 
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
