@@ -28,6 +28,8 @@ class MassUpload
 
   def initialize(user, attributes = nil)
     @errors = ActiveModel::Errors.new(self)
+    # To check if there are attributes at all (for rendering the new view) and
+    # to check if any file was selected
     if attributes && attributes[:file]
       @raw_articles = build_raw_articles(user, attributes[:file])
     end
@@ -37,8 +39,9 @@ class MassUpload
   attr_reader   :errors, :raw_articles
 
   def validate_input(file)
-
-    # Needed for the 'stand alone' validation if a correct csv is selected
+    # Needed for the 'stand alone' validation since we don't know if
+    # params[:mass_upload] == nil or not and therefore can't use
+    # params[:mass_upload][:file]
     if file.class == ActiveSupport::HashWithIndifferentAccess
       file = file[:file]
     end
@@ -85,6 +88,7 @@ class MassUpload
                   "payment_invoice", "payment_cash_on_delivery_price_cents",
                   "basic_price_cents", "basic_price_amount", "category_1",
                   "category_2", "vat", "currency"]
+
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
         return true
@@ -126,7 +130,7 @@ class MassUpload
     end
   end
 
-  # the following 3 methods are needed for Active Model Errors
+  # The following 3 methods are needed for Active Model Errors
   def read_attribute_for_validation(attr)
    send(attr)
   end
@@ -139,7 +143,7 @@ class MassUpload
    [self]
   end
 
-  # Needed for Active Model Conversions
+  # The following method is needed for Active Model Conversions
   def persisted?
     false
   end

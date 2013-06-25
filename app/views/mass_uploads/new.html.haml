@@ -1,10 +1,5 @@
 %h2 Artikel importieren
 
-/ - if @errors && @errors.any?
-/   - @errors.each do |error|
-/     .alert.alert-error
-/       = error
-
 = semantic_form_for @mass_upload, url: mass_uploads_path do |f|
   = f.inputs do
     = f.input :file, :label => "Datei", :as => :file,
@@ -14,18 +9,3 @@
     / I render the page and look at the html
   = f.actions do
     = f.action :submit, :label => "Artikel hochladen"
-
-
-
-/ = form_tag mass_uploads_path, multipart: true do
-/   = file_field_tag :file, required: true
-/   -# bugbug The HTML5 required tag uses "Sie" instead of "Du"
-/   = submit_tag "CSV importieren"
-/   %br
-/   %br
-/   %p
-/     Bitte achte darauf, dass Du Deine CSV-Datei exakt wie in der
-/     %b
-/       %a{href: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
-/         title: 'Musterdatei'} Musterdatei
-/     aufgebaut ist.

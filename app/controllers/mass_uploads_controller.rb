@@ -23,7 +23,8 @@ class MassUploadsController < ApplicationController
 
     @mass_upload = MassUpload.new(current_user, params[:mass_upload])
 
-    # Needed to show the right error messages if no file is selected
+    # Needed to show the right error messages if no file is selected since in
+    # this case .new doesn't lead to the validate_input method.
     @mass_upload.validate_input(params[:mass_upload])
 
     if @mass_upload.errors.full_messages.any?
