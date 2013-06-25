@@ -80,6 +80,9 @@ describe MassUpload do
         describe "#save" do
           it "should add the correct error message" do
             incorrect_format_file_mass_upload.save
+            # The "file" at the beginning of the string seems necessary but is
+            # confusing. Should be checked when starting to use
+            # internationalization
             incorrect_format_file_mass_upload.errors.full_messages.should include("file Content muss ausgefüllt werden (Artikelzeile 2)")
           end
         end
