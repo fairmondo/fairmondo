@@ -181,7 +181,7 @@ This stylesheet forms part of the Formtastic Rails Plugin
 /* STRING, NUMERIC, PASSWORD, EMAIL, URL, PHONE, SEARCH (ETC) OVERRIDES
 --------------------------------------------------------------------------------------------------*/
 .formtastic .stringish input {
-  width:72%;
+  //width:72%;
 }
 
 .formtastic .stringish input[size],

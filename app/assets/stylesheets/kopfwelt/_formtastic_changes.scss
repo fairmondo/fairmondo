@@ -7,17 +7,14 @@
 	margin: 0 0 $pBottomMargin;
 	position: relative;
 	i.icon-helper {
-	  position: absolute;
-	  right:2px;
+		position: absolute;
+		right:2px;
 	}
 	
 	fieldset.inputs > ol > li.input {
-	  margin-left:em(15);
+		margin-left:em(15);
 	}
 }
-// .formtastic .stringish input {
-// 	width: 100%;
-// }
 
 input[type='search'] {
 	-webkit-appearance: none;
@@ -96,9 +93,53 @@ fieldset.choices {
 .formtastic .actions {
 	padding-left: 0;
 }
-#user_password_input:nth-child(2n) {
-	float: none !important;
+.controls {
+	@extend %Semibold;
+	color: $gray;
+	margin-bottom: 1em;
 }
+.User-login {
+	.password {
+		float: none !important;
+		clear: both;
+	}
+}
+.User-registration {
+	.stringish {
+		@include span-columns(4, 4);
+	}
+	input {
+		width: 95% !important;
+		max-width: none !important;
+	}
+	.icon-helper {
+		top: 2.5em;
+		right: 0em;
+	}
+}
+
+@include at-breakpoint($layout-small) {
+	.User-registration {
+		.stringish {
+			@include span-columns(2, 4);
+		}
+		.email {@include omega;}
+		#user_password_input {
+			float: left !important;
+			
+		}
+		#user_password_confirmation_input {@include omega;}
+	}
+	.User-login {
+		@include span-columns(2, 4);
+	}
+}
+@include at-breakpoint($layout-medium) {
+	.User-login {
+		@include span-columns(1, 4);
+	}
+}
+
 
 // //
 // // Custom radio buttons (requires on jQuery UI Buttons)
