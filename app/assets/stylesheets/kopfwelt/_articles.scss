@@ -106,7 +106,8 @@
 	.title_image {
 		width: 50%;
 		float: left;
-		padding-right: 7px;
+		@include rem(padding-right, 7px);
+		@include rem(padding-bottom, 7px);
 	}
 }
 .Articles-info--right {
