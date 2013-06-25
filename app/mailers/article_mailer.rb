@@ -26,7 +26,7 @@ class ArticleMailer < ActionMailer::Base
     @article = article
     @user = user
 
-    mail(:to => "tobi@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
+    mail(:to => "melden@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
 
   end
 
