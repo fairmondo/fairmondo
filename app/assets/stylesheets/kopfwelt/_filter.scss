@@ -22,7 +22,8 @@
 }
 .Filter-col {
   float: left;
-  @include span-columns(1,6);
+  @include span-columns(1,4);
+  margin-bottom: 2em;
 }
 
 fieldset.Filter-col { 
@@ -57,5 +58,20 @@ fieldset.Filter-col {
   > .l-Inner { height: 200px; }
   .Btn-accordion .icon-arrow-down {
     @include rotate(180deg);
+  }
+}
+
+@include at-breakpoint($layout-small) {
+  .Filter-col {
+    //float: left;
+    @include span-columns(2,6);
+  }
+}
+@include at-breakpoint($layout-medium) {
+}
+@include at-breakpoint($layout-large) {
+  .Filter-col {
+    //float: left;
+    @include span-columns(1,6);
   }
 }
