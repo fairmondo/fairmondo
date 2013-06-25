@@ -19,6 +19,10 @@
 #
 class FeedbackPolicy < Struct.new(:user, :feedback)
 
+  def new?
+    true
+  end
+
   def create?
 
     case feedback.type

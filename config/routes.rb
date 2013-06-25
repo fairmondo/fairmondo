@@ -42,7 +42,7 @@ Fairnopoly::Application.routes.draw do
 
   get "welcome/index"
 
-  resources :feedbacks, :only => [:create]
+  resources :feedbacks, :only => [:create,:new]
 
   #the user routes
 
