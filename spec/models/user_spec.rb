@@ -106,6 +106,16 @@ describe User do
         user.is?(FactoryGirl.create(:user)).should be_false
       end
     end
+
+    describe "#customer_nr" do
+      it "should have 8 digits" do
+        user.customer_nr.length.should eq 8
+      end
+
+      it "should use the user_id" do
+        FactoryGirl.create(:user).customer_nr.should eq "00000001"
+      end
+    end
   end
 
 end

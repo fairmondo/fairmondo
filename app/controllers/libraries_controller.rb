@@ -24,6 +24,9 @@ class LibrariesController < InheritedResources::Base
   before_filter :render_users_hero
   before_filter :get_user
 
+  # Authorization
+  skip_before_filter :authenticate_user!, :only => [:index]
+
   def index
     @library = @user.libraries.build
     @libraries = LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
