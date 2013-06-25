@@ -98,17 +98,6 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-  def report
-    @article = Article.find params[:id]
-    authorize resource
-    if params[:report].blank?
-      redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
-    else
-      ArticleMailer.report_article(@article,params[:report]).deliver
-      redirect_to resource, :notice => (I18n.t 'article.actions.reported')
-    end
-  end
-
   def destroy
 
     authorize resource

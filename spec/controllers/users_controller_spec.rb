@@ -22,7 +22,7 @@ require 'spec_helper'
 describe UsersController do
   render_views
 
-  describe "GET 'index" do
+  describe "GET 'show'" do
 
     describe "for non-signed-in users" do
 
@@ -34,9 +34,9 @@ describe UsersController do
         controller.should_not be_signed_in
       end
 
-      it "should deny access" do
+      it "should be successful" do
         get :show , :id => @user
-        response.should redirect_to(new_user_session_path)
+        response.should be_success
       end
 
 

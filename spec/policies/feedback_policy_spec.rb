@@ -17,33 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+require 'spec_helper'
 
-  def create?
-    own?
-  end
+describe FeedbackPolicy do
+  include PunditMatcher
 
-  def update?
-    own?
-  end
-
-  def destroy?
-    own?
-  end
-
-  private
-  def own?
-    user && user.id == library.user_id
-  end
-
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user.is? current_user
-        scope
-      else
-        scope.public
-      end
-    end
-  end
+  subject { FeedbackPolicy.new(user, feedback)  }
+  let(:feedback) { FactoryGirl.create :feedback }
+  let(:user) { nil }
 
 end
+
+

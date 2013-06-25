@@ -19,46 +19,42 @@
 #
 require 'spec_helper'
 
-describe LibrariesController do
+describe FeedbacksController do
+
   render_views
 
-  describe "GET 'index" do
+  describe "POST 'create'" do
+
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @article = FactoryGirl.create(:article)
+    end
 
     describe "for non-signed-in users" do
-
-      before :each do
-        @user = FactoryGirl.create(:user)
+      it "should not create an feedback with type report_article" do
+        lambda do
+          post :create, :user_id => @user, :article_id => @article, :type => :report_article, :text => "test"
+        end.should_not change(Feedback, :count)
       end
-
-      it "should be a guest" do
-        controller.should_not be_signed_in
-      end
-
-      it "should allow access" do
-        get :index, :user_id => @user.id
-        response.should be_success
-      end
-
     end
 
     describe "for signed-in users" do
 
       before :each do
-        @library = FactoryGirl.create(:library)
-
-        sign_in @library.user
+        sign_in @user
       end
 
-      it "should be logged in" do
-        controller.should be_signed_in
-      end
-
-      it "should be successful" do
-        get :index, :user_id => @library.user
-        response.should be_success
-      end
+      #it "should create an feedback with type report_article" do
+      #  lambda do
+      #    post :create, :user_id => @user.id, :article_id => @article.id, :type => "report_article", :text => "test"
+      #  end.should change(Feedback , :count).by 1
+      #end
 
     end
-
   end
 end
+
+
+
+
+

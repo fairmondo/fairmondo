@@ -17,33 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+# See http://rails-bestpractices.com/posts/19-use-observer
 
-  def create?
-    own?
-  end
+class FeedbackObserver < ActiveRecord::Observer
 
-  def update?
-    own?
-  end
+  def after_save(feedback)
 
-  def destroy?
-    own?
-  end
+     # Send the feedback
+    case feedback.type
 
-  private
-  def own?
-    user && user.id == library.user_id
-  end
+      when "report_article" then
 
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user.is? current_user
-        scope
+        ArticleMailer.report_article(feedback.article,feedback.user,feedback.text).deliver
+
+      when "send_feedback" then
+
+      when "get_help" then
+
       else
-        scope.public
-      end
     end
+
   end
 
 end

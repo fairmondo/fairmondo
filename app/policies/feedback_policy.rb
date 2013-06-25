@@ -17,33 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+class FeedbackPolicy < Struct.new(:user, :feedback)
 
   def create?
-    own?
-  end
 
-  def update?
-    own?
-  end
+    case feedback.type
 
-  def destroy?
-    own?
-  end
+      when "report_article" then
+          user
 
-  private
-  def own?
-    user && user.id == library.user_id
-  end
+      when "send_feedback" then
+          true
 
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user.is? current_user
-        scope
+      when"get_help" then
+          true
+
       else
-        scope.public
-      end
+        false
+
     end
+
   end
 
 end

@@ -1,5 +1,5 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
 # This file is part of Farinopoly.
@@ -15,35 +15,19 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+class Feedback < ActiveRecord::Base
+  attr_accessible :from, :subject, :text, :to, :type, :user_id, :article_id
 
-  def create?
-    own?
-  end
+  #enumerize :type, :in => [:report_article, :get_help ,:send_feedback]
 
-  def update?
-    own?
-  end
+  # Validations
+  validates :text, :presence => { :message => I18n.t('feedback.error.presence') }
+  validates_presence_of :type
 
-  def destroy?
-    own?
-  end
-
-  private
-  def own?
-    user && user.id == library.user_id
-  end
-
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user.is? current_user
-        scope
-      else
-        scope.public
-      end
-    end
-  end
+  #Relations
+  belongs_to :user
+  belongs_to :article
 
 end

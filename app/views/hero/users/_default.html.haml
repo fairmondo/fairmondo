@@ -30,31 +30,31 @@
           - if params[:full_about]
             %a.pull-right{:href => user_path(:id => user_resource.id)}
               %i.icon-chevron-up
-              weniger anzeigen
+              = t 'common.text.less'
           - else
             %a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
               %i.icon-chevron-down
-              mehr anzeigen
+              = t 'common.text.more'
         - else
           .empty-well
             - if user_resource.is? current_user
               %a.pull-right{:href => edit_user_registration_path}
-                Beschreibung hinzufügen
-            %h4 Noch keine Beschreibung hinzugefügt.
+                = t 'users.text.add_desription'
+            %h4= t 'users.text.no_desription'
       %ul.nav.nav-pills
         - if user_resource.is? current_user
           %li#dashboard-sell
             %a{:href => user_path(current_user)}
-              %strong Verkaufen
+              %strong= t 'common.text.sell'
         %li#dashboard-library
           %a{:href => user_libraries_path(user_resource)}
-            %strong Sammlungen
+            %strong= t 'common.text.libraries'
         %li#dashboard-profile
           - if user_resource.is? current_user
             %a{:href =>  edit_user_registration_path}
-              %strong Profil bearbeiten
+              %strong= t 'common.actions.edit_profile'
           - elsif user_resource.is_a? LegalEntity
             %a{:href => profile_user_path(user_resource)}
-              %strong AGB / Widerrufserklärung / Impressum
+              %strong= t 'common.text.about_terms'
       #hero-unfold
         %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")

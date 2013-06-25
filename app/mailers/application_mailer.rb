@@ -17,33 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+class ApplicationMailer < ActionMailer::Base
 
-  def create?
-    own?
+
+  def help(mail_adr,subject,text,topic)
+
+    mail(:to => "melden@fairnopoly.de", :subject => "")
+
   end
 
-  def update?
-    own?
-  end
+  def feedback(mail_adr,subject,text,topic)
 
-  def destroy?
-    own?
-  end
+    mail(:to => "kundenservice@fairnopoly.de", :subject => "")
 
-  private
-  def own?
-    user && user.id == library.user_id
-  end
-
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user.is? current_user
-        scope
-      else
-        scope.public
-      end
-    end
   end
 
 end

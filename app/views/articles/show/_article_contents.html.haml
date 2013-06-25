@@ -133,11 +133,6 @@
 - if policy(resource).report?
   = render_box "report" do
     .element-in-box
-      = form_for :report, :url => report_article_path, :method => :get do |f|
-        = t('article.notices.report')
-        = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
-        %br/
-        %button.btn.btn-primary
-          = t('article.actions.report')
+      = render :partial=>'/shared/feedback', :locals=>{ :type=> :report_article}
 
 
