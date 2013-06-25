@@ -52,3 +52,5 @@
 //= require visual/selectbox
 //= require visual/filter
 //= require visual/masonry
+
+//= require inputs/password_complexify.js

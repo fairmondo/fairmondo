@@ -99,6 +99,7 @@
 	@include pie-clearfix;
 	padding: $gutter-width / 2;
 	padding-bottom: .5em;
+	min-height: 10em;
 	background-color: $white;
 	h2 {
 		@include rem(font-size, $base-font-size);
@@ -115,6 +116,9 @@
 	.Article-vat, .Article-basicprice {
 		@include span-columns(2, 2);
 		margin-bottom: .3em;
+	}
+	.Btn {
+		float: right;
 	}
 }
 .Articles-info--left {

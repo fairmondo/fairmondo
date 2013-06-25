@@ -65,8 +65,9 @@
 	}
 }
 .Highlight {
+	@include rem(font-size, $font-size-m);
 	color: gray;
-	margin-bottom: 0;
+	margin-bottom: .5em;
 }
 
 .l-Hero {
