@@ -1,5 +1,5 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
 # This file is part of Farinopoly.
@@ -17,21 +17,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticleMailer < ActionMailer::Base
-  default from: "kundenservice@fairnopoly.de"
+class FeedbacksController < InheritedResources::Base
+  respond_to :html
+  actions :create
 
-  def report_article(article,user,text)
+  def create
+    authorize build_resource
+    create! do |success,failure|
 
-    @text = text
-    @article = article
-    @user = user
+      success.html { redirect_to :back, :notice => (I18n.t 'article.actions.reported')  }
+      failure.html { redirect_to :back, :alert => @feedback.errors.full_messages.first }
 
-    mail(:to => "tobi@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
-
-  end
-
-  def category_proposal(category_proposal)
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "Category proposal: " + category_proposal)
+    end
   end
 
 end

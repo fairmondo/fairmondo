@@ -1,0 +1,5 @@
+de:
+# Feedbacks
+  feedback:
+    error:
+      presence: "Die Nachricht kann nicht ohne Text gesendet werden."
