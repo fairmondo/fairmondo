@@ -17,21 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticleMailer < ActionMailer::Base
-  default from: "kundenservice@fairnopoly.de"
+class FeedbackPolicy < Struct.new(:user, :feedback)
 
-  def report_article(article,user,text)
+  def create?
 
-    @text = text
-    @article = article
-    @user = user
+    case feedback.type
 
-    mail(:to => "tobi@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
+      when "report_article" then
+          user
 
-  end
+      when "send_feedback" then
+          true
 
-  def category_proposal(category_proposal)
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "Category proposal: " + category_proposal)
+      when"get_help" then
+          true
+
+      else
+        false
+
+    end
+
   end
 
 end
