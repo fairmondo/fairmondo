@@ -37,7 +37,7 @@
 //= require vendor/jquery.socialshareprivacy
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
-//= require vendor/fancybox/jquery.fancybox
+//= require vendor/colorbox/jquery.colorbox
 
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
@@ -48,7 +48,7 @@
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
-//= require visual/fancybox
+//= require visual/colorbox
 //= require visual/selectbox
 //= require visual/filter
 //= require visual/masonry

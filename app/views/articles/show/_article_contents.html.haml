@@ -53,8 +53,8 @@
 	/             %i.icon-angle-right.icon-large
 	/       - count = count + 1
 .Articles--detail
-	.Articles-image
-		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
+	.Articles-image.Article-photoGallery
+		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 
 	.Articles-info
 		.Articles-info--right
@@ -85,11 +85,11 @@
 					-# 			= f.input :article_id, :as => :hidden
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
 		.Articles-info--left
-			.Article-thumbnails
+			.Article-thumbnails.Article-photoGallery
 				.Thumbnails
 					/ - thumbnails(title_image).each do |image|
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "fancybox", :rel => "gallery"}
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 			.Article-friendly
 				%p.Highlight 
 					=t('Das freundliche Prozent')
