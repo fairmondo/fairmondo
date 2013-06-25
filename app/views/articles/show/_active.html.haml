@@ -31,3 +31,36 @@
         %span.number 15
       .Accordion-content.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom
         %p Lorem ipsum
+
+
+.Articles--related
+  - alternative = find_fair_alternative_to resource
+  -# small adjustment so I get an alternative to style
+  .Articles-related
+    %h3.Articles-related-title= t('article.show.alternative')
+    %span.icon-helper{:title => t('article.show.no_alternative')}
+    = render :partial=>'/shared/show_article', :locals=>{ :article=> article}
+
+  -# - if alternative.present?
+  -#  .Articles-related
+  -#    %h3.Articles-related-title= t('article.show.alternative')
+  -#    %span.icon-helper
+  -#    = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
+  -# - else
+  -#  .Articles-related
+  -#    %h3.Articles-related-title= t('article.show.alternative')
+  -#    %span.icon-helper
+  -#    %p.Helper-text
+  -#      = t('article.show.no_alternative')
+
+  .Articles-policy.Accordion
+    - if policy(resource).report?
+      = accordion_item "report" do
+        = form_for :report, :url => report_article_path, :method => :get do |f|
+          %p= t('article.notices.report')
+          = f.text_area "melden", :rows => 4,:cols => 22,  :name=>"report", :value => params["report"]
+          %br/
+          %button.Btn
+            = t('article.actions.report')
+
+
