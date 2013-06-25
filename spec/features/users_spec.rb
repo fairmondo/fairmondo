@@ -116,51 +116,6 @@ describe 'User management' do
       end
     end
 
-<<<<<<< HEAD
-    describe "user update page" do
-      before do
-        visit edit_user_registration_path @user
-        select 'Herr', from: 'user_title' # remove this line when possible
-        select 'Deutschland', from: 'user_country' # remove this line when possible
-      end
-
-      describe "updating" do
-        context "non-sensitive data" do
-          it "should update a users information without a password" do
-            fill_in 'user_forename', with: 'chunky'
-            fill_in 'user_surname', with: 'bacon'
-            click_button I18n.t 'formtastic.actions.update'
-
-            page.should have_content I18n.t 'devise.registrations.updated'
-            @user.reload.fullname.should == 'chunky bacon'
-          end
-        end
-
-        context "sensitive data" do
-          before { fill_in 'user_email', with: 'chunky@bacon.com' }
-
-          it "should not update a users email without a password" do
-            click_button I18n.t 'formtastic.actions.update'
-
-            page.should_not have_content I18n.t 'devise.registrations.updated'
-            @user.reload.unconfirmed_email.should_not == 'chunky@bacon.com'
-          end
-
-          it "should update a users email with a password" do
-            fill_in 'user_current_password', with: 'password'
-            click_button I18n.t 'formtastic.actions.update'
-
-            page.should have_content I18n.t 'devise.registrations.changed_email'
-            @user.reload.unconfirmed_email.should == 'chunky@bacon.com'
-          end
-        end
-      end
-
-      describe "display data" do
-        it "should show customer number" do
-          page.should have_content I18n.t 'formtastic.labels.user.customer_number'
-          page.should have_content @user.customer_nr
-=======
     describe "user edit" do
       context "for every type of user" do
         before { login_as user }
@@ -175,6 +130,8 @@ describe 'User management' do
           page.should have_content I18n.t 'formtastic.labels.user.legal_entity'
           page.should have_content I18n.t 'formtastic.labels.user.nickname'
           page.should have_content user.nickname
+          page.should have_content I18n.t 'formtastic.labels.user.customer_number'
+          page.should have_content user.customer_nr
           page.should have_content I18n.t 'formtastic.labels.user.image'
 
           # Account Fields
@@ -322,7 +279,6 @@ describe 'User management' do
             page.should_not have_content I18n.t 'formtastic.labels.user.cancellation'
             page.should_not have_content I18n.t 'formtastic.labels.user.about'
           end
->>>>>>> e3935af5a03576c650c0c3149265c6e0e8ca3cb3
         end
       end
     end
