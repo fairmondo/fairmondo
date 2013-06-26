@@ -29,6 +29,8 @@
 	.Btn--gray {
 		width: auto;
 		margin: 0;
+		@include rem(font-size, 16px);
+		@include rem(padding, 6px 18px 10px);
 	}
 	.icon-helper {
 		top: 6px;
@@ -38,6 +40,11 @@
 .Filter-title .icon-helper {
 	top: 2px;
 }
+
+#js-filter-toggle {
+	@include rem(margin-top, 18px);
+}
+
 @include at-breakpoint($layout-small) {
 	.Search {
 		float: left;

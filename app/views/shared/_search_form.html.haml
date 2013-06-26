@@ -18,7 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.l-Inner.first
+.first
   = f.inputs :class => "Search" do
     .Search-input
       = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
