@@ -23,6 +23,11 @@
     = will_paginate active_articles, :param_name => "active_articles_page"
 - else
   .User-additional.Accordion--activated
+
+    = accordion_item "my title", :tooltip => "test" do
+      %p whatever
+
+
     = accordion_item "offers" do
       - if active_articles.empty?
         .fairnopoly-well
