@@ -1,28 +1,34 @@
+//
+// Green/red notice bar
+//
+
 .Notice {
-
+  display: none; // hidden for now
   position: relative;
-  top: 0;
-  right: 0;
-  left: 0;
-  color: $white;
+  color: #fff;
+  .l-Inner {
+    padding-top: ($gutter-width /2);
+    padding-bottom: ($gutter-width /2);
+  }
+  .Btn {
+    margin-bottom: 0;
+  }
 }
-
-// @media (max-width: 767px) {
-//   .notice {
-//       margin-left:-20px;
-//       margin-right:-20px;
-//   }
-// }
-
-.Notice-message {
-  padding-top: 10px;
-}
-
 .Notice--info {
   background-color: $green;
 }
-
-.Notice--error {
+.Notice-error {
   background-color: $red;
 }
 
+// The close button
+#alert-close-main {
+  position: absolute;
+  font-size: 22px;
+  top: 10px;
+  left: 10px;
+  color: #fff;
+  &:hover {
+    text-decoration: none;
+  }
+}

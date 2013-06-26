@@ -17,6 +17,9 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Notice-message{:class => "Notice--#{main_notice_mapper(type)} #{hide}"}
-  .l-Inner
-    = yield
+
+#alert-main{:class => "Notice Notice--#{main_notice_mapper(type)} #{hide}"}
+	%a#alert-close-main.close{"data-dismiss" => "alert"} ×
+	.l-Inner
+		= yield
+
