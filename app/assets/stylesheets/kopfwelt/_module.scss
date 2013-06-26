@@ -26,7 +26,7 @@
 .Meta {
 	@include span-columns(4, 4);
 	@include border-radius(.9em);
-	background: $white;
+	background: #fff;
 	p {
 		@include rem(font-size, $font-size-m);
 	}
@@ -78,11 +78,6 @@
 		}
 	}
 }
-
-// Hero search
-//#search-box-filter {display: none}
-
-
 @include at-breakpoint($layout-small) {
 	.Meta {
 		@include span-columns(2, 4);
