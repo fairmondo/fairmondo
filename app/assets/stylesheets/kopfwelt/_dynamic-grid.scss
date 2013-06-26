@@ -38,7 +38,7 @@ $cols: 4;
 	background: #fff;
 }
 .Teaser,
-.Articles--list > .Article {
+.Article--teaser {
 	@extend .grid-sizer;
 	@include pie-clearfix;
 	float: left;
