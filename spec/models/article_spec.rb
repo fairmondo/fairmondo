@@ -25,7 +25,7 @@ describe Article do
   subject { article }
 
   describe "::Base" do
-    it {should have_and_belong_to_many :images}
+    it {should have_many :images}
     it {should belong_to :seller}
     it {should have_and_belong_to_many :categories}
 

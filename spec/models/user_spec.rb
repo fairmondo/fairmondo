@@ -21,7 +21,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { FactoryGirl::create(:user)}
+  let(:user) { FactoryGirl.create(:user)}
   subject { user }
 
   it "has a valid Factory" do
@@ -36,6 +36,7 @@ describe User do
 
   it {should have_many(:article_templates).dependent(:destroy)}
   it {should have_many(:libraries).dependent(:destroy)}
+  it {should have_one(:image)}
 
   #it {should belong_to :invitor}
 
@@ -116,6 +117,24 @@ describe User do
         FactoryGirl.create(:user).customer_nr.should eq "00000001"
       end
     end
+
+  #    def update_image image
+  #   if User.valid_attribute?('image', image)
+  #     update_attribute 'image', image
+  #   else
+  #     false
+  #   end
+  # end
+
+  # private
+
+  # # Validate single attribute
+  # # @api private
+  # def self.valid_attribute? attr, value
+  #   mock = self.new(attr => value)
+  #   !mock.errors.messages.keys.find { |e| e =~ Regexp.new(attr) }
+  # end
+
   end
 
 end
