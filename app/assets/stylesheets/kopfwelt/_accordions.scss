@@ -63,11 +63,12 @@
 }
 .Accordion-step {
 	border-bottom: solid .15em $beige;
-	padding: ($gutter-width / 2);
+	padding: ($gutter-width / 2) ($gutter-width / 2) em(8);
+
 }
 .Accordion-step--image {
 	@extend .Accordion-step;
-	padding: 0em ($gutter-width / 2);
+	padding: 0 ($gutter-width / 2);
 }
 
 

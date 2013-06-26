@@ -40,7 +40,7 @@ textarea {
 }
 
 label {
-	@extend %Semibold;
+	//@extend %Semibold;
 	@include rem(font-size, $font-size-m);
 	width: 100%;
 	display: block;
@@ -158,5 +158,5 @@ fieldset.choices {
 // }
 
 .formtastic .input fieldset.inputs > ol > li.input {
-  margin-left: 0;
+	margin-left: 0;
 }

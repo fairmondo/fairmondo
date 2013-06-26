@@ -102,10 +102,6 @@ span.Article-price {
 .Article-accordion {
 	margin-top: 2em;
 }
-// selling form
-.Article-form {
-	@include span-columns(4, 4);
-}
 .Article--related {
 	border-radius: 0.9em;
 	position: relative;
@@ -131,10 +127,15 @@ span.Article-price {
 	}
 }
 
-
-// Media queries
-// -----------------------------------
-
+//
+// Responsive layout
+//
+.Article--detail,
+.User--teaser,
+.Related,
+.Article-form {
+	@include transition(width 200ms ease-in);
+}
 @include at-breakpoint($layout-medium) {
 	.Article--detail {
 		@include span-columns(4, 4);
@@ -145,15 +146,21 @@ span.Article-price {
 	.Related {
 		@include span-columns(2 omega, 4);
 	}
-
-	.Article-form {
-		@include span-columns(3, 4);
-	}
 	.Article-info--right {
 		@include span-columns(1 omega, 2);
 	}
 	.Article-info--left {
 		@include span-columns(1 alpha, 2);
+	}
+
+
+}
+.Article-form {
+	float: left;
+	width: 100%;
+
+	@media (min-width: 950px) {
+		@include span-columns(3, 4);
 	}
 }
 @include at-breakpoint($layout-large) {
