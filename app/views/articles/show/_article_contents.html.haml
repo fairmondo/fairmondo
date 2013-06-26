@@ -29,29 +29,6 @@
 		- if policy(resource).destroy?
 			= link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
 
-.Breadcrumb
-	%span 
-		%a{:href => '#'} hello
-	>
-	%span
-		%a{:href => '#'} Sub categorie 1
-	>
-	%span
-		%a.last{:href => '#'} you are here!
-
-	/ - resource.categories.each do |leaf|
-	/   %ul
-	/     - category_tree = get_category_tree leaf
-	/     - count = 1
-	/     - category_tree.each do |category|
-	/       %li
-	/         %a{:href => articles_path(:article => {:categories_and_ancestors  => category.self_and_ancestors_ids })}
-	/           %i.icon-tag
-	/           = category.name
-	/         - unless category_tree.last == category
-	/           %span.divider
-	/             %i.icon-angle-right.icon-large
-	/       - count = count + 1
 .Articles--detail
 	.Articles-image
 		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
@@ -85,11 +62,10 @@
 					-# 			= f.input :article_id, :as => :hidden
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
 		.Articles-info--left
-			.Article-thumbnails
-				.Thumbnails
-					/ - thumbnails(title_image).each do |image|
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
-					= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+			.Thumbnail-container
+				/ - thumbnails(title_image).each do |image|
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
+				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
 			.Article-friendly
 				%p.Highlight 
 					=t('Das freundliche Prozent')
