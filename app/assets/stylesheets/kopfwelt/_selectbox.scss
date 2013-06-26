@@ -3,7 +3,10 @@
 .selectboxit-btn {
   width: 100%;
 }
-
+// Make it wider
+.selectboxit-container ul.selectboxit-options {
+  min-width: 300px;
+}
 .selectboxit-container .selectboxit-text,
 .selectboxit-container .selectboxit-arrow-container {
   height: 35px;
@@ -12,7 +15,6 @@
 .selectboxit-btn {
   border-radius: 0.5em;
   border: $lightgray solid .2em;
-  //text-align: left;
 }
 .selectboxit .selectboxit-text {
   max-width: 90% !important;
@@ -46,8 +48,8 @@
   color: #333;
 }
 .selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor {
-  color: $white;
   background-color: $blue;
+  color: $white;
 }
 .selectboxit-list > .selectboxit-disabled > .selectboxit-option-anchor {
   color: #999;
