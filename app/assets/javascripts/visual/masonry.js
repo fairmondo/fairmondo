@@ -16,7 +16,7 @@ $(function(){
 		});
 	}
 
-	var $articles = $('.Articles--list');
+	var $articles = $('.l-ArticleList');
 	if ($articles.length > 0) {
 		$articles.prepend('<div class="gutter-sizer"></div><div class="grid-sizer"></div>');
 		$articles.imagesLoaded( function() {

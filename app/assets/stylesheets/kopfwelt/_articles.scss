@@ -22,39 +22,12 @@
 .Article-friendly {
 	margin-top: 1em;
 }
-.Articles--list {
+.l-ArticleList {
 	@include pie-clearfix;
-	
-	.Article-tags {
-		border-bottom-left-radius: 0.9em;
-		border-bottom-right-radius: 0.9em;
-	}
 }
-
-
-.Article--related {
-	border-radius: 0.9em;
-	position: relative;
-	margin-bottom: 1em;
-	background-color: $white;
-	overflow: hidden;
-	.Helper-text {
-		padding: $gutter-width / 2;
-	}
-	.icon-helper {
-		display: inline-block;
-		position: absolute;
-		top: 1.1em;
-		right: .8em;
-		cursor: pointer;
-	}
-	.Article-title {
-		@extend %Semibold;
-		margin-bottom: 0;
-		padding: $gutter-width / 2;
-		font-size: $base-font-size;
-		text-align: center;
-	}
+.Article--teaser .Article-tags {
+	border-bottom-left-radius: 0.9em;
+	border-bottom-right-radius: 0.9em;
 }
 .Article-info {
 	@include pie-clearfix;
@@ -133,12 +106,28 @@ span.Article-price {
 .Article-form {
 	@include span-columns(4, 4);
 }
-.pagination {
-	text-align: center;
-	li {
-		list-style-type: none;
+.Article--related {
+	border-radius: 0.9em;
+	position: relative;
+	margin-bottom: 1em;
+	background-color: $white;
+	overflow: hidden;
+	.Helper-text {
+		padding: $gutter-width / 2;
+	}
+	.icon-helper {
 		display: inline-block;
-		margin-right: 1em;
+		position: absolute;
+		top: 1.1em;
+		right: .8em;
+		cursor: pointer;
+	}
+	.Article-title {
+		@extend %Semibold;
+		margin-bottom: 0;
+		padding: $gutter-width / 2;
+		font-size: $base-font-size;
+		text-align: center;
 	}
 }
 
