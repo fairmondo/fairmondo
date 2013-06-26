@@ -4,25 +4,27 @@
 
 .Articles--detail {
 	@include span-columns(4, 4);
-	.Articles-info {
-		@include border-bottom-radius(0.9em);
-	}
-	.Articles-image {
-		@include border-top-radius(0.9em);
-	}
-	.Articles-box {
-		@include span-columns(1, 2);
-		&:last-child {
-			@include span-columns(1 omega, 2);
-		}
-	}
-	.Article-friendly {
-		margin-top: 1em;
-	}
-	.Article-thumbnails {
-		@include pie-clearfix;
+}
+
+.Articles-info {
+	@include border-bottom-radius(0.9em);
+}
+
+.Articles-image {
+	@include border-top-radius(0.9em);
+}
+
+.Articles-box {
+	@include span-columns(1, 2);
+	&:last-child {
+		@include span-columns(1 omega, 2);
 	}
 }
+
+.Article-friendly {
+	margin-top: 1em;
+}
+
 .Articles--list {
 	@include pie-clearfix;
 	ul {
@@ -104,13 +106,15 @@
 	h2 {
 		@include rem(font-size, $base-font-size);
 	}
-	.title_image {
+}
+
+.Thumbnail {
 		width: 50%;
 		float: left;
 		@include rem(padding-right, 7px);
 		@include rem(padding-bottom, 7px);
-	}
 }
+
 .Articles-info--right {
 	@include span-columns(2, 2);
 	.Article-vat, .Article-basicprice {
@@ -189,6 +193,10 @@ span.Articles-price {
 		margin-right: 1em;
 	}
 }
+
+
+// Media queries
+// -----------------------------------
 
 @include at-breakpoint($layout-medium) {
 	.Articles--detail {
