@@ -16,6 +16,7 @@ body {
 	.first {
 		@include rem(margin-top, 18px);
 		padding-bottom: em(20);
+		@include pie-clearfix;
 	}
 	.l-Inner {
 		@include rem(margin-top, 16px);
