@@ -174,8 +174,8 @@ class ArticlesController < InheritedResources::Base
   def save_images
     #At least try to save the images -> not persisted in browser
     resource.images.each do |image|
-        image.save
-     end
+      image.save
+    end
   end
 
   ################## Inherited Resources

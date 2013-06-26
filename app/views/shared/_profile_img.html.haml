@@ -26,7 +26,7 @@
       %span.small-name= user.fullname
   .border-box
     %a{:href => user_path(user)}
-      = image_tag(user.image.url(:thumb))
+      = image_tag(user.image_url(:thumb))
   .middle-margin
     - if user.is_a?(LegalEntity)
       %i.icon-briefcase
