@@ -128,7 +128,7 @@ describe 'Article management' do
 
       it "should fail given invalid data but still try to save images" do
         ArticlesController.any_instance.should_receive(:save_images).and_call_original
-        Image.any_instance.should_receive :save
+        Image.any_instance.should_receive(:save).any_number_of_times
         old_title = @article.title
 
         fill_in 'article_title', with: ''
