@@ -38,6 +38,7 @@ gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
+gem 'sanitize' # Parser based sanitization
 
 #gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
@@ -98,6 +99,8 @@ group :assets do
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
+  # gem 'turbolinks'
+  # gem 'jquery-turbolinks'
 end
 
 
@@ -160,6 +163,8 @@ group :development do
   #zipruby for icecat catalog download
   gem "zipruby"
 
+  # activerecord-import for batch-writing into the databse
+  gem 'activerecord-import'
 end
 
 group :test do

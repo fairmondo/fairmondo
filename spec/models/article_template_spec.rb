@@ -42,4 +42,31 @@ describe ArticleTemplate do
 
   end
 
+  describe "methods" do
+    describe "::template_request_by user, template_select" do
+      it "should return the template when it belongs to the requesting user" do
+        t = ArticleTemplate.template_request_by article_template.user, article_template: article_template.id
+        t.should eq article_template
+      end
+
+      it "should return false when the template does not belong to the user" do
+        user = FactoryGirl.create :user
+        t = ArticleTemplate.template_request_by user, article_template: article_template.id
+        t.should be_false
+      end
+
+      it "should return false when no template was selected" do
+        t = ArticleTemplate.template_request_by article_template.user, nil
+        t.should be_false
+      end
+    end
+  end
+def self.template_request_by user, template_select
+    if template_select && template_select[:article_template]
+      template = ArticleTemplate.find template_select[:article_template]
+      user.article_templates.include?(template) ? template : false
+    else
+      false
+    end
+  end
 end

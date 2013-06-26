@@ -47,8 +47,10 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
+  # Misc mixins
+  extend Sanitization
    # Article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Sanitize, Template, State
+  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Template, State
 
   def images_attributes=(attributes)
     self.images.clear
@@ -82,22 +84,29 @@ class Article < ActiveRecord::Base
   end
 
   amoeba do
-      enable
-      include_field :fair_trust_questionnaire
-      include_field :social_producer_questionnaire
-      include_field :categories
-      nullify :slug
-      nullify :transaction_id
-      nullify :article_template_id
-      customize(lambda { |original_article,new_article|
-        original_article.images.each do |image|
-          copyimage = Image.new
-          copyimage.image = image.image
-          new_article.images << copyimage
-          copyimage.save
-        end
-      })
-    end
+    enable
+    include_field :fair_trust_questionnaire
+    include_field :social_producer_questionnaire
+    include_field :categories
+    nullify :slug
+    nullify :transaction_id
+    nullify :article_template_id
+    customize(lambda { |original_article,new_article|
+      original_article.images.each do |image|
+        copyimage = Image.new
+        copyimage.image = image.image
+        new_article.images << copyimage
+        copyimage.save
+      end
+    })
+  end
+
+  # Does this article belong to user X?
+  # @api public
+  # param user [User] usually current_user
+  def owned_by? user
+    user && self.seller.id == user.id
+  end
 
 
 end

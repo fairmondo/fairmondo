@@ -19,7 +19,11 @@
 #
 class ApplicationController < ActionController::Base
 
-  #pundit
+  ## Global security
+
+  before_filter :authenticate_user!
+
+  # Pundit
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except => [:index,:autocomplete]
 

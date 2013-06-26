@@ -21,6 +21,10 @@ Fairnopoly::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
+  namespace :admin do
+    resources :articles
+  end
+
   resources :article_templates, :except => [:show, :index]
 
   mount Tinycms::Engine => "/cms"
@@ -37,6 +41,8 @@ Fairnopoly::Application.routes.draw do
   end
 
   get "welcome/index"
+
+  resources :feedbacks, :only => [:create]
 
   #the user routes
 

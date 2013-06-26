@@ -19,17 +19,17 @@
 #
 class ArticleTemplate < ActiveRecord::Base
 
-  delegate :title, :to => :article, :prefix => true
+  delegate :title, to: :article, prefix: true
 
-  attr_accessible :article_attributes, :name, :article,:save_as_template
+  attr_accessible :article_attributes, :name, :article, :save_as_template
   attr_accessor :save_as_template
 
-  validates :name, :uniqueness => {:scope => :user_id}
-  validates :name, :presence => true
-  validates :user_id, :presence => true
+  validates :name, uniqueness: { scope: :user_id }
+  validates :name, presence: true
+  validates :user_id, presence: true
 
   belongs_to :user
-  has_one :article, :dependent => :destroy
+  has_one :article, dependent: :destroy
 
   accepts_nested_attributes_for :article
 
@@ -38,8 +38,19 @@ class ArticleTemplate < ActiveRecord::Base
     Article.unscoped{super}
   end
 
-
-
-
+  # Check if a template was selected and if user has the right to use it
+  #
+  # @apt public
+  # @param user [User] Usually current_user
+  # @param template_select [Hash, nil] Part of a param hash
+  # @return [ArticleTemplate, false]
+  def self.template_request_by user, template_select
+    if template_select && template_select[:article_template]
+      template = ArticleTemplate.find template_select[:article_template]
+      user.article_templates.include?(template) ? template : false
+    else
+      false
+    end
+  end
 
 end

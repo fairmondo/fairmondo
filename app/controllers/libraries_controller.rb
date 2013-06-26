@@ -24,7 +24,8 @@ class LibrariesController < InheritedResources::Base
   before_filter :render_users_hero
   before_filter :get_user
 
-  before_filter :authenticate_user!
+  # Authorization
+  skip_before_filter :authenticate_user!, :only => [:index]
 
   def index
     @library = @user.libraries.build

@@ -51,22 +51,27 @@
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
-        			_gaq.push(['_setAccount', 'UA-37465097-1']);
-        			_gaq.push(['_trackPageview']);
+        _gaq.push(['_setAccount', 'UA-37465097-1']);
+        _gaq.push (['_gat._anonymizeIp']);
+        _gaq.push(['_setDomainName', 'fairnopoly.de']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
 
-        			(function() {
-          			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        			})();
+      (function()
+      {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
   %body
     .Notice
       - if !flash.empty?
         - flash.each do |type, msg|
-          - if msg && !msg.empty?
+          - if msg && type != :timedout && !msg.empty?
             = render_notice :type => type do
               %p
-                = msg.html_safe
+                = msg
       = render_data_confirm
     %header.l-Header
       .l-Inner
@@ -152,5 +157,10 @@
                 %a{:href => "/privacy"}
                   = t('footer.privacy')
               %li
+
                 %a{:href => "/imprint"}
                   = t('footer.imprint')
+
+    -# When logged in, count down until session expires (needs to be reloaded on page change!)
+    = javascript_include_tag "session_expire" if current_user
+

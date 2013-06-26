@@ -19,18 +19,17 @@
 #
 class User < ActiveRecord::Base
 
-  # lib dependency
-  include SanitizeTinyMce
-
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
   validates_presence_of :slug
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  extend Sanitization
+
+  # Include default devise modules. Others available are: :rememberable,
+  # :token_authenticatable, :encryptable, :lockable,  and :omniauthable
+  devise :database_authenticatable, :registerable, :timeoutable,
+         :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
 
@@ -38,10 +37,12 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
       :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
-      :trustcommunity, :invitor_id, :banned, :about_me,
+      :invitor_id, :banned, :about_me, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-      :terms, :cancellation, :about,  :recaptcha, :bank_code ,
-      :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+      :terms, :cancellation, :about, :bank_code, :paypal_account,
+      :bank_account_number, :bank_name, :bank_account_owner, :legal_entity_form
+  auto_sanitize :nickname, :forename, :surname, :street, :city
+  auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
   def self.attributes_protected_by_default
@@ -84,13 +85,13 @@ class User < ActiveRecord::Base
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
 
-  validates_presence_of :recaptcha, :on => :create
-
   validates_presence_of :nickname
 
   validates :zip, :presence => true, :on => :update, :zip => true
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
+
+  validates :recaptcha, presence: true, acceptance: true, on: :create
 
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
@@ -100,16 +101,36 @@ class User < ActiveRecord::Base
   validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
+  # Return forename plus surname
+  # @api public
+  # @return [String]
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
 
-
+  # Return user nickname
+  # @api public
+  # @return [String]
   def name
     name = "#{self.nickname}"
   end
 
+  # Compare IDs of users
+  # @api public
+  # @param user [User] Usually current_user
+  def is? user
+    user && self.id == user.id
+  end
+
+  # Customer Number should have 8 digits
+  # and is built from the user id
+  def customer_nr
+    self.id.to_s.rjust(8,"0")
+  end
+
   private
+
+  # @api private
   def create_default_library
     if self.libraries.empty?
       Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)

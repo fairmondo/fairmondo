@@ -53,6 +53,11 @@ public/assets_test/*
 
 # Ignore merge fragments
 *.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+
 
 # Licence Deriving tmp
 deriving_license_tmp
