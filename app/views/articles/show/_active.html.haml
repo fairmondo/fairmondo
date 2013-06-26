@@ -42,5 +42,5 @@
               %p
                 = t('common.text.from') + " " + library.user_nickname
             .span4
-              = link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
+              = link_to image_tag(library.user.url(:thumb)), user_path(:id => library.user.id)
       = will_paginate libraries,:params => {:anchor => "library" }
