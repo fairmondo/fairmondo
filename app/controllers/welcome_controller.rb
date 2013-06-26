@@ -19,12 +19,8 @@
 #
 class WelcomeController < ApplicationController
 
-<<<<<<< HEAD
-=======
   skip_before_filter :authenticate_user!, :only => :index
-  before_filter :build_login
 
->>>>>>> release
   def index
     @articles = Article.count
     @percentage = (@articles.to_f/10000.0)*100.0

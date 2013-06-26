@@ -19,100 +19,100 @@
 -#
 
 - if resource.owned_by? current_user
-	%span
-		- if policy(resource).edit?
-			= link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
-		- if resource.locked? && policy(resource).new?
-			= link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
-		- if policy(resource).deactivate?
-			= button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
-		- if policy(resource).destroy?
-			= link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
+  %span
+    - if policy(resource).edit?
+      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
+    - if resource.locked? && policy(resource).new?
+      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
+    - if policy(resource).deactivate?
+      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
+    - if policy(resource).destroy?
+      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
 .Articles--detail
-	.Article-image
-		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+  .Article-image
+    = link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 
-	.Article-info
-		.Article-info--right
-			%h2
-				= resource.title
-			%p.Article-price= humanized_money_with_symbol resource.price
-			%p.Article-vat= t('formtastic.labels.article.price')
-			%p= render 'articles/show/vat' , :article => resource
-			%p
-			= render 'articles/show/basic_price', :article => resource
-			- if resource.quantity && resource.quantity != ""
-				%p.Article-quantity
-					%span= resource.quantity
-					%span= t('formtastic.labels.article.quantity')
-				%p
-					- if user_signed_in?
-          = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            = f.inputs do
-              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
-              = f.input :article_id, :as => :hidden
-            = f.button t('common.actions.collect'), :class => "Btn Btn--green"
-		.Article-info--left
-			.Thumbnail-container
-				/ - thumbnails(title_image).each do |image|
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
-				= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
-			.Article-friendly
-				%p.Highlight
-					=t('Das freundliche Prozent')
-					%i.icon-helper{:title => t('some text')}
-				%p
-					1% werden an
-					%a{:href => "#"} Transparency International
-					gespendet
-			%p.Article-tags
-				= features_label resource
-				= condition_label resource
-	.Articles-social
-		#socialshareprivacy
-	.Article-accordion.Accordion--activated
-		/ Artikelbeschreibung
-		= accordion_item "content" do
-			= resource.content.html_safe
+  .Article-info
+    .Article-info--right
+      %h2
+        = resource.title
+      %p.Article-price= humanized_money_with_symbol resource.price
+      %p.Article-vat= t('formtastic.labels.article.price')
+      %p= render 'articles/show/vat' , :article => resource
+      %p
+      = render 'articles/show/basic_price', :article => resource
+      - if resource.quantity && resource.quantity != ""
+        %p.Article-quantity
+          %span= resource.quantity
+          %span= t('formtastic.labels.article.quantity')
+        %p
+          - if user_signed_in?
+            = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+              = f.inputs do
+                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                = f.input :article_id, :as => :hidden
+              = f.button t('common.actions.collect'), :class => "Btn Btn--green"
+    .Article-info--left
+      .Thumbnail-container
+        / - thumbnails(title_image).each do |image|
+        = link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
+        = link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
+      .Article-friendly
+        %p.Highlight
+          =t('Das freundliche Prozent')
+          %i.icon-helper{:title => t('some text')}
+        %p
+          1% werden an
+          %a{:href => "#"} Transparency International
+          gespendet
+      %p.Article-tags
+        = features_label resource
+        = condition_label resource
+  .Articles-social
+    #socialshareprivacy
+  .Article-accordion.Accordion--activated
+    / Artikelbeschreibung
+    = accordion_item "content" do
+      = resource.content.html_safe
 
-		= accordion_item "payment" do
-			.Article-box
-				%p.Highlight
-					= t('formtastic.labels.article.default_payment')
-					\:
-				%p
-					= resource.default_payment.text
-					= simple_format(resource.payment_details).html_safe
-			.Article-box
-				%p.Highlight
-					= t('formtastic.labels.article.default_transport')
-					\:
-				%p
-					= resource.default_transport.text
-					= simple_format(resource.transport_details).html_safe
+    = accordion_item "payment" do
+      .Article-box
+        %p.Highlight
+          = t('formtastic.labels.article.default_payment')
+          \:
+        %p
+          = resource.default_payment.text
+          = simple_format(resource.payment_details).html_safe
+      .Article-box
+        %p.Highlight
+          = t('formtastic.labels.article.default_transport')
+          \:
+        %p
+          = resource.default_transport.text
+          = simple_format(resource.transport_details).html_safe
         = payment_format_for "bank_transfer"
         = payment_format_for "cash"
         = payment_format_for "paypal"
         = payment_format_for "cash_on_delivery"
         = payment_format_for "invoice"
-		- if resource.has_commendation?
-			= accordion_item "commendation" do
-				= render 'articles/show/commendation'
-		/ Only legal sellers
-		- if resource.seller.is_a?(LegalEntity)
-			= accordion_item "terms" do
-				= resource.seller_terms.html_safe
-			= accordion_item "cancellation" do
-				= resource.seller_cancellation.html_safe
-			= accordion_item "about" do
-				= resource.seller_about.html_safe
-		- if resource.libraries.count > 0
-			= accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do
-				- resource.libraries.each do |library|
-					.User-library
-						= link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
-						%p
-							= t('common.text.from') + " " + library.user_nickname
-					.User-libraray
-						= link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
-				= will_paginate libraries,:params => {:anchor => "library" }
+    - if resource.has_commendation?
+      = accordion_item "commendation" do
+        = render 'articles/show/commendation'
+    / Only legal sellers
+    - if resource.seller.is_a?(LegalEntity)
+      = accordion_item "terms" do
+        = resource.seller_terms.html_safe
+      = accordion_item "cancellation" do
+        = resource.seller_cancellation.html_safe
+      = accordion_item "about" do
+        = resource.seller_about.html_safe
+    - if resource.libraries.count > 0
+      = accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do
+        - resource.libraries.each do |library|
+          .User-library
+            = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
+            %p
+              = t('common.text.from') + " " + library.user_nickname
+          .User-libraray
+            = link_to image_tag(library.user.image.url(:thumb)), user_path(:id => library.user.id)
+        = will_paginate libraries,:params => {:anchor => "library" }
