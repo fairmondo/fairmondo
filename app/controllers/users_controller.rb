@@ -23,12 +23,13 @@ class UsersController < InheritedResources::Base
   actions :show
   custom_actions :resource => :profile, :collection => :login
 
-  before_filter :authorize_resource
-  skip_before_filter :authenticate_user!, only: [:show, :profile]
+  before_filter :authorize_resource, :except => :login
+  skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
+  skip_after_filter :verify_authorized_with_exceptions, only: [:login]
 
   def login
     login! do |format|
-      format.html render :login , :layout => false
+      format.html render "/devise/sessions/new" , :layout => false
     end
   end
 
