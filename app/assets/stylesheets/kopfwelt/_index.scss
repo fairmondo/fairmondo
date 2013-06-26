@@ -57,7 +57,7 @@
 	@include rem(font-size, 18px);
 }
 .Teaser-title {
-	@include rem(font-size, 25px);
+	@include rem(font-size, 22px);
 	@extend %Bold;
 	color: black;
 }
@@ -73,7 +73,7 @@
 	width: 100%;
 	margin-bottom: 3px;
 }
-.Teaser--pioneer-1 { @include rem(font-size, 14px); text-align: left; margin: 0 20px; }
+.Teaser--pioneer-1 { display: block; @include rem(font-size, 14px); text-align: left; margin: 0 20px; color: $blue; }
 .Teaser--pioneer-2 { @include rem(font-size, 30px); text-align: left; margin: 0 20px; line-height: 1;}
 .Teaser--pioneer-3 { @include rem(font-size, $font-size-xs); float: left; margin-left: 20px;}
 .Teaser--pioneer-4 { @include rem(font-size, $font-size-xs); float: right; margin-right: 20px;}
@@ -121,11 +121,12 @@
 	}
 	.Teaser-title {
 		@include rem(font-size, $base-font-size);
-		padding-bottom: 0;
+		@include rem(padding, 17px 36px);
 	}
 }
 .Teaser--total-number {
 	@include rem(font-size, 40px);
+	@include rem(padding, 8px);
 	@extend %Semibold;
 	background-color: $green;
 	color: #fff;
@@ -148,4 +149,11 @@
 	position: absolute !important;
 	top: -11px;
 	left: -68px;
+}
+
+// Btn
+// -----------------------------------
+
+.Teaser .Btn {
+	@include rem(margin-top, 4px);
 }

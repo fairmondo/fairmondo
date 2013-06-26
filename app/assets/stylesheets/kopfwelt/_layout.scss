@@ -9,14 +9,16 @@ body {
 	@include container;
 }
 .l-Header {
-	padding-bottom: 1em;
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
 	background-color: $darkbeige;
-	.l-Inner.first {
-		padding-top: em(20);
+	.first {
+		@include rem(margin-top, 18px);
 		padding-bottom: em(20);
+	}
+	.l-Inner {
+		@include rem(margin-top, 16px);
 	}
 }
 .l-Main {
