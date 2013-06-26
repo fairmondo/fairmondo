@@ -149,6 +149,7 @@ Regarding the source, there are two ways to contribute.
 
 1. Report a bug?
    * Just use the github issue tracker.
+   * Please tag added bugs with the "bugs" tag
 
 2. Want to help out and join feature development?
    * Send us an email at {email@fairnopoly.de}[mailto:email@fairnopoly.de] and work with us to make the world a better place
