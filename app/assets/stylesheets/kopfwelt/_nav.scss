@@ -12,7 +12,7 @@
 	}
 	li {
 		display: inline-block;
-		margin-right: em(15);
+		@include rem(margin-right, 19px);
 	}
 	a {
 		@extend %Semibold;
@@ -32,7 +32,7 @@
 
 .Nav--primary {
 	clear: left;
-	@include rem(margin, 16px auto 0);
+	@include rem(margin, 22px auto 0);
 	text-align: center;
 
 	li {
@@ -60,17 +60,24 @@
 	color: #434343;
 }
 .Nav--meta {
-	@include rem(font-size, 17px);
-	margin-top: 1em;
+	@include rem(font-size, 13px);
+	@include rem(margin-top, 25px);
+	li {
+		@include rem(margin-right, 15px);
+	}
 }
 .Nav--legal  {
-	@include rem(font-size, 15px);
+	@include rem(font-size, 13px);
+	@include rem(margin-top, 7px);
 }
 
 .Nav--meta,
 .Nav--legal {
 	@media (min-width: 30em) {
 		float: right;
+	}
+	.last {
+		margin-right: 0;
 	}
 }
 

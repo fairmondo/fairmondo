@@ -43,7 +43,7 @@ h4 {
 
 h1 {
 	@include rem(font-size, 30px);
-	margin-bottom: em(17,30);
+	margin-bottom: em(13,30);
 }
 h2 {
 	@include rem(font-size, 20px);

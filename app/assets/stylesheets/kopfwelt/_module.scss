@@ -32,7 +32,8 @@
 	@include border-radius(.9em);
 	background: #fff;
 	p {
-		@include rem(font-size, $font-size-m);
+		@include rem(font-size, 13px);
+		@include rem(margin-bottom, 21px);
 	}
 	@include at-breakpoint($layout-small) {
 		@include span-columns(2, 4);
