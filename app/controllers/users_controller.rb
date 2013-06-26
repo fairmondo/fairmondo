@@ -20,10 +20,19 @@
 class UsersController < InheritedResources::Base
   before_filter :authenticate_user!
 
+  respond_to :html
   actions :show
-  custom_actions :resource => :profile
+  custom_actions :resource => :profile, :collection => :login
 
   before_filter :authorize_resource
+
+  def login
+    login! do |format|
+      format.html render :login , :layout => false
+    end
+  end
+
+  private
 
   def authorize_resource
     authorize resource

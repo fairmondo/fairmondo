@@ -26,7 +26,6 @@ class ArticlesController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
 
   # Layout Requirements
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
   before_filter :ensure_complete_profile , :only => [:new, :create]
 
   #Sunspot Autocomplete

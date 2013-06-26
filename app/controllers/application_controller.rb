@@ -25,10 +25,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  def build_login
-    @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
-  end
-
   helper :all
   helper_method :tinycms_admin?
 
