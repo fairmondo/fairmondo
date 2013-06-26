@@ -13,7 +13,7 @@
 .Article-image {
 	border-top-left-radius: 0.9em;
 	border-top-right-radius: 0.9em;
-	
+
 	img {
 		width: 100%;
 		height: auto;
@@ -37,6 +37,11 @@
 	background-color: $white;
 	h2 {
 		@include rem(font-size, $base-font-size);
+	}
+	#library_element_library_input {
+	  .selectboxit-container {
+	    width:100%;
+	  }
 	}
 }
 

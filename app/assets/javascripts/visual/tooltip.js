@@ -36,10 +36,11 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("i.icon-helper").tooltip({
-		tooltipClass: "bottom", // class for the arrow/pointer
+		tooltipClass: "top", // class for the arrow/pointer
 		position: {
 			my: "center bottom",
-			at: "center top-20"
+			at: "center top-20",
+			collision: "none"
 		}
 
 	}).off('mouseover');

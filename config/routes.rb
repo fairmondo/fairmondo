@@ -49,9 +49,11 @@ Fairnopoly::Application.routes.draw do
   resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
+    collection do
+      get 'login'
+    end
     member do
       get 'profile'
-      get 'login'
     end
   end
 
