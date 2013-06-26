@@ -29,7 +29,7 @@ class UsersController < InheritedResources::Base
 
   def login
     login! do |format|
-      format.html render "/devise/sessions/new" , :layout => false
+      format.html {render "/devise/sessions/new" , :layout => false}
     end
   end
 

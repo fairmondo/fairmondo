@@ -55,9 +55,8 @@
             = f.button t('common.actions.collect'), :class => "Btn Btn--green"
   .Article-info--left
     .Thumbnail-container
-      / - thumbnails(title_image).each do |image|
-      = link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
-      = link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
+      - thumbnails(title_image).each do |image|
+        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
     .Article-friendly
       %p.Highlight
         =t('Das freundliche Prozent')
