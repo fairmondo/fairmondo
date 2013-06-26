@@ -274,20 +274,7 @@ describe ArticlesController do
     end
   end
 
-  describe "report" do
 
-    before :each do
-      @user = FactoryGirl.create :user
-      @article = FactoryGirl.create :article
-      sign_in @user
-    end
-
-    it "reports an article" do
-      get :report, id: @article
-      response.should redirect_to @article
-    end
-
-  end
 
   describe "POST 'create'" do
 

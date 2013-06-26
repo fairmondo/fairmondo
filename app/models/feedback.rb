@@ -1,5 +1,5 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
 # This file is part of Farinopoly.
@@ -15,23 +15,19 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticleMailer < ActionMailer::Base
-  default from: "kundenservice@fairnopoly.de"
+class Feedback < ActiveRecord::Base
+  attr_accessible :from, :subject, :text, :to, :type, :user_id, :article_id
 
-  def report_article(article,user,text)
+  #enumerize :type, :in => [:report_article, :get_help ,:send_feedback]
 
-    @text = text
-    @article = article
-    @user = user
+  # Validations
+  validates :text, :presence => { :message => I18n.t('feedback.error.presence') }
+  validates_presence_of :type
 
-    mail(:to => "melden@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
-
-  end
-
-  def category_proposal(category_proposal)
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "Category proposal: " + category_proposal)
-  end
+  #Relations
+  belongs_to :user
+  belongs_to :article
 
 end

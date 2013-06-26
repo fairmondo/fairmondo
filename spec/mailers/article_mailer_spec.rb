@@ -22,7 +22,8 @@ require "spec_helper"
 describe ArticleMailer do
   describe "report_article" do
     let(:article) { FactoryGirl.create(:article) }
-    let(:mail) { ArticleMailer.report_article(article,"text") }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:mail) { ArticleMailer.report_article(article,user,"text") }
 
     it "renders the subject" do
       mail.subject.should have_content("Article reported")
