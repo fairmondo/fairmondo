@@ -137,7 +137,7 @@
               %li
                 %a{:href => "http://info.fairnopoly.de/team/"}
                   = t('footer.team')
-              %li
+              %li.last
                 %a{:href => "http://info.fairnopoly.de"}
                   = t('footer.blog')
               - if current_user && current_user.admin?
@@ -156,8 +156,7 @@
               %li
                 %a{:href => "/privacy"}
                   = t('footer.privacy')
-              %li
-
+              %li.last
                 %a{:href => "/imprint"}
                   = t('footer.imprint')
 
