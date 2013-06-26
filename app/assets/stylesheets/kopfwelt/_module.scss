@@ -74,12 +74,33 @@
 	.l-Inner {
 		h1 {
 			@extend %Semibold;
-			margin-top: .5em;
+			margin-top: 0.5em;
 		}
 	}
 }
 @include at-breakpoint($layout-small) {
 	.Meta {
 		@include span-columns(2, 4);
+	}
+}
+
+
+//
+// Feedback button
+//
+.l-Feedback {
+	display: inline-block;
+	position: fixed;
+	top: 50%;
+	z-index: 99;
+	@include rem(left, -119px);
+	@include transform(rotate(-90deg));
+	@media (max-width: 30em) {
+		display: none;
+	}
+}
+.Feedback {
+	&.Btn {
+		margin: 0;
 	}
 }
