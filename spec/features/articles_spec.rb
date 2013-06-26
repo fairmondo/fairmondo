@@ -156,17 +156,17 @@ describe 'Article management' do
       end
 
       it "should succeed" do
-        fill_in 'report', with: 'foobar'
+        fill_in 'feedback_text', with: 'foobar'
         click_button I18n.t 'article.actions.report'
 
         page.should have_content I18n.t 'article.actions.reported'
       end
 
       it "should fail with an empty report text" do
-        fill_in 'report', with: ''
+        fill_in 'feedback_text', with: ''
         click_button I18n.t 'article.actions.report'
 
-        page.should have_content I18n.t 'article.actions.reported-error'
+        page.should have_content I18n.t 'feedback.error.presence'
       end
     end
   end

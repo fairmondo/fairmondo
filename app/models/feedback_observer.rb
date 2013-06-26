@@ -17,21 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticleMailer < ActionMailer::Base
-  default from: "kundenservice@fairnopoly.de"
+# See http://rails-bestpractices.com/posts/19-use-observer
 
-  def report_article(article,user,text)
+class FeedbackObserver < ActiveRecord::Observer
 
-    @text = text
-    @article = article
-    @user = user
+  def after_save(feedback)
 
-    mail(:to => "melden@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
+     # Send the feedback
+    case feedback.type
 
-  end
+      when "report_article" then
 
-  def category_proposal(category_proposal)
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "Category proposal: " + category_proposal)
+        ArticleMailer.report_article(feedback.article,feedback.user,feedback.text).deliver
+
+      when "send_feedback" then
+
+      when "get_help" then
+
+      else
+    end
+
   end
 
 end
