@@ -18,13 +18,13 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UsersController < InheritedResources::Base
-  before_filter :authenticate_user!
 
   respond_to :html
   actions :show
   custom_actions :resource => :profile, :collection => :login
 
   before_filter :authorize_resource
+  skip_before_filter :authenticate_user!, only: [:show, :profile]
 
   def login
     login! do |format|

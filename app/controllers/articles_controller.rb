@@ -23,7 +23,7 @@ class ArticlesController < InheritedResources::Base
   actions :all # inherited methods
 
   # Authorization
-  before_filter :authenticate_user!, :except => [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
 
   # Layout Requirements
   before_filter :ensure_complete_profile , :only => [:new, :create]
@@ -60,8 +60,7 @@ class ArticlesController < InheritedResources::Base
     authorize build_resource
 
     ############### From Template ################
-    if template_id = (params[:template_select] && params[:template_select][:article_template])
-      @applied_template = ArticleTemplate.find(template_id)
+    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif params[:edit_as_new]
@@ -76,7 +75,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def create
-
     authorize build_resource
     create! do |success, failure|
       success.html { redirect_to resource }
@@ -97,18 +95,6 @@ class ArticlesController < InheritedResources::Base
                      render :edit }
     end
   end
-
-  def report
-    @article = Article.find params[:id]
-    authorize resource
-    if params[:report].blank?
-      redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
-    else
-      ArticleMailer.report_article(@article,@text).deliver
-      redirect_to resource, :notice => (I18n.t 'article.actions.reported')
-    end
-  end
-
 
   def destroy
 

@@ -28,6 +28,11 @@
 //= require tinymce
 //= require tinymce-jquery
 
+
+// require turbolinks
+// require jquery.turbolinks
+
+
 //= require i18n
 //= require i18n/translations
 

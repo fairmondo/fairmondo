@@ -26,8 +26,8 @@ describe UserPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should deny(:show)    }
-    it { should deny(:profile) }
+    it { should permit(:show)    }
+    it { should permit(:profile) }
   end
 
   context "for a random logged-in user" do

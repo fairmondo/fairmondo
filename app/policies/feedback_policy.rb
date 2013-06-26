@@ -17,19 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::Sanitize
-  extend ActiveSupport::Concern
+class FeedbackPolicy < Struct.new(:user, :feedback)
 
-   # lib dependency
-  include SanitizeTinyMce
+  def create?
 
+    case feedback.type
 
-  included do
-    before_validation :sanitize_content, :on => :create
+      when "report_article" then
+          user
 
-  end
-  def sanitize_content
-    self.content = sanitize_tiny_mce(self.content)
+      when "send_feedback" then
+          true
+
+      when"get_help" then
+          true
+
+      else
+        false
+
+    end
+
   end
 
 end

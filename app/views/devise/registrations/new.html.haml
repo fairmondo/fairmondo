@@ -17,11 +17,6 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if session[:invitor_name]
-  .fairnopoly-well
-    %strong
-      = t('invitation.invitated')
-      = session[:invitor_name]
 = semantic_form_for(resource, :as => resource_name, :html => {:class => "form-vertical"}, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
   .User-registration
@@ -36,15 +31,11 @@
         = f.input :password,:tooltip => true
         = f.input :password_confirmation, :required => true
         = render :partial => "/devise/password_complexity"
-
       - recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
       #recaptcha-view{:class => " #{"error" if recaptcha_error}"}
         = recaptcha_tags :display => {:theme => 'clean'}
         - if recaptcha_error
           %span.help-inline= t('users.captcha.error')
-      - if session[:invitor_id]
-        = f.input :invitor_id, :as => :hidden, :input_html => { :value => session[:invitor_id] ,:readonly => true }
-        = f.input :trustcommunity, :as => :hidden, :input_html => { :value => "true", :readonly => true }
     .User-registration-checkbox
       = f.inputs do
         - legal_link = link_to t('users.legal'), "/agb", :target => "_blank"

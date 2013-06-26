@@ -1,0 +1,13 @@
+startTime = new Date().getTime()
+expireTime = startTime + (60 * 60 * 1000)
+#expireTime = startTime + (19 * 1000) # uncomment to test; expires after 20 seconds
+
+displayWarningWhenExpired = ->
+  if new Date().getTime() >= expireTime
+    window.clearInterval interval
+    displayWarning()
+
+displayWarning = ->
+  alert "<%= I18n.t 'common.session_expiring_notice' %>"
+
+interval = window.setInterval displayWarningWhenExpired, 10000

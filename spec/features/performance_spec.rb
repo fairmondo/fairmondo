@@ -36,8 +36,8 @@ describe 'Performance' do
       3.times { FactoryGirl.create(:article, :with_fixture_image) }
       Sunspot.commit
     end
-    it "should succeed" do
-      pending
+    it "should succeed", visual: true do
+      pending "Sometimes fails, sometimes it doesn't"
       visit articles_path
       Bullet.should_not throw_warnings
     end

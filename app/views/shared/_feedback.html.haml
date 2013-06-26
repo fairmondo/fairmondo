@@ -1,0 +1,15 @@
+
+-case type
+
+-when :report_article then
+  - if user_signed_in?
+    = semantic_form_for :feedback, :url => feedbacks_path do |f|
+      = t('article.notices.report')
+      = f.inputs do
+        = f.input :article_id, :as => :hidden, :input_html => { :value => resource.id }
+        = f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id }
+        = f.input :type, :as => :hidden, :input_html => { :value => :report_article }
+        = f.text_area :text, :rows => 4, :cols => 40
+      %br/
+      %button.btn.btn-primary
+        = t('article.actions.report')

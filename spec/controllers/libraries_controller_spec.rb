@@ -34,10 +34,9 @@ describe LibrariesController do
         controller.should_not be_signed_in
       end
 
-      it "should deny access" do
-
+      it "should allow access" do
         get :index, :user_id => @user.id
-        response.should redirect_to(new_user_session_path)
+        response.should be_success
       end
 
     end
