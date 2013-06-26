@@ -131,17 +131,17 @@ class MassUpload
   end
 
   # The following 3 methods are needed for Active Model Errors
-  def read_attribute_for_validation(attr)
-   send(attr)
-  end
+  # def read_attribute_for_validation(attr)
+  #  send(attr)
+  # end
 
   def MassUpload.human_attribute_name(attr, options = {})
    attr
   end
 
-  def MassUpload.lookup_ancestors
-   [self]
-  end
+  # def MassUpload.lookup_ancestors
+  #  [self]
+  # end
 
   # The following method is needed for Active Model Conversions
   def persisted?

@@ -2,7 +2,6 @@
 # bugbug
 
 require 'spec_helper'
-require 'ruby-debug'
 
 describe MassUpload do
   include CategorySeedData

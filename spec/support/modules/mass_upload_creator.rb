@@ -1,7 +1,5 @@
 module MassUploadCreator
 
-
-
   def create_attributes(path, format)
     ActiveSupport::HashWithIndifferentAccess.new(
       file: fixture_file_upload(path, format)
