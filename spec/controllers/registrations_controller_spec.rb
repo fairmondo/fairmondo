@@ -25,7 +25,7 @@ describe RegistrationsController do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
-  describe "GET 'index" do
+  describe "GET 'index'" do
     describe "for non-signed-in users" do
       before :each do
         @user = FactoryGirl.create(:user)
@@ -69,7 +69,7 @@ describe RegistrationsController do
     end
   end
 
-  describe "POST 'create" do
+  describe "POST 'create'" do
     before(:each) do
       @valid_params = {
         user: {
@@ -85,16 +85,6 @@ describe RegistrationsController do
       }
     end
 
-    # describe "given valid data" do
-    #   it "should create a user" do
-    #     controller.stub(:verify_recaptcha) { true }
-
-    #     lambda do
-    #       post :create, @valid_params
-    #     end.should change(User.all, :count).by 1
-    #   end
-    # end
-
     describe "given invalid data" do
       it "should not create a user wih an invalid recaptcha" do
         controller.stub(:verify_recaptcha) { false }
@@ -103,6 +93,15 @@ describe RegistrationsController do
           post :create, @valid_params
         end.should_not change(User.all, :count)
       end
+    end
+  end
+
+  describe "PUT 'delete'" do
+    it "should still try to save the image on failed update" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      Image.any_instance.should_receive(:save)
+      put :update, user: {nickname: user.nickname, image_attributes: {}} # invalid params
     end
   end
 end

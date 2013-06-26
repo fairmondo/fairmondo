@@ -33,7 +33,13 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-def update
+  def edit
+    @user = User.find(current_user.id)
+    @user.build_image
+    super
+  end
+
+  def update
     @user = User.find(current_user.id)
     params_email = params[:user][:email]
 
@@ -54,10 +60,11 @@ def update
         set_flash_message :notice, :updated
       end
 
-      # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true
+      # Sign in the user bypassing validation in case their password changed
+      sign_in @user, bypass: true
       redirect_to user_path(@user)
     else
+      resource.image.save if resource.image
       render :edit
     end
   end
