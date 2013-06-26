@@ -26,7 +26,6 @@
 					%a.Icon{:href =>  edit_user_registration_path}
 						%i.icon-pencil
 						Profil bearbeiten
-		
 		.User-secondary
 			- if user_resource.about_me && !user_resource.about_me.empty?
 				%div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}

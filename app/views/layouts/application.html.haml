@@ -60,7 +60,7 @@
           			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         			})();
   %body
-    .notice.is-hidden
+    .Notice
       - if !flash.empty?
         - flash.each do |type, msg|
           - if msg && !msg.empty?

@@ -5,7 +5,7 @@
 .Search {
 	position: relative;
 	float: left;
-	width: columns(2,4);
+	width: columns(4,4);
 	max-width: 100%;
 	.input {
 		padding: 0;
@@ -36,4 +36,10 @@
 }
 .Filter-title .icon-helper {
 	top: 2px;
+}
+@include at-breakpoint($layout-small) {
+	.Search {
+		float: left;
+		width: columns(2,4);
+	}
 }

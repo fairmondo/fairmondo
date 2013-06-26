@@ -162,7 +162,7 @@ This stylesheet forms part of the Formtastic Rails Plugin
 --------------------------------------------------------------------------------------------------*/
 .formtastic .inline-errors {
   color:#cc0000;
-  margin:0.5em 0 0 25%;
+  margin:0.5em 0 0 0;
 }
 
 .formtastic .errors {
@@ -181,7 +181,7 @@ This stylesheet forms part of the Formtastic Rails Plugin
 /* STRING, NUMERIC, PASSWORD, EMAIL, URL, PHONE, SEARCH (ETC) OVERRIDES
 --------------------------------------------------------------------------------------------------*/
 .formtastic .stringish input {
-  width:72%;
+  //width:72%;
 }
 
 .formtastic .stringish input[size],
