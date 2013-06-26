@@ -1,48 +1,34 @@
 /* iCheck plugin Minimal skin, blue
 ----------------------------------- */
-.icheckbox{
-
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    width: 18px;
-    height: 18px;
-    border: none;
-    cursor: pointer;
-    vertical-align:middle;
-    margin-right:10px;
-    position: relative !important;
-}
-
-
-.iradio {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    border: none;
-    cursor: pointer;
-    vertical-align:middle;
-    margin-right:10px;
-    position: relative !important;
-}
-
+.iradio,
 .icheckbox {
-    background: url(asset-path("icheck/checkbox.png", image)) no-repeat;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+	vertical-align:middle;
+	margin-right:10px;
+	position: relative !important;
+	top: -1px;
 }
-   
-    .icheckbox.checked {
-        background: url(asset-path("icheck/checkbox_active.png", image)) no-repeat;
-    }
-    
-
+.icheckbox{
+	width: 18px;
+	height: 18px;
+}
 .iradio {
-    background: url(asset-path("icheck/radio.png", image)) no-repeat;
+	width: 20px;
+	height: 20px;
 }
-    
-    .iradio.checked {
-        background: url(asset-path("icheck/radio_active.png", image)) no-repeat;
-    }
-    
-
+.icheckbox {
+	background: url(asset-path("icheck/checkbox.png", image)) no-repeat;
+}   
+.icheckbox.checked {
+	background: url(asset-path("icheck/checkbox_active.png", image)) no-repeat;
+}
+.iradio {
+	background: url(asset-path("icheck/radio.png", image)) no-repeat;
+}
+.iradio.checked {
+	background: url(asset-path("icheck/radio_active.png", image)) no-repeat;
+}

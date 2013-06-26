@@ -17,7 +17,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Article-user
+.User.User--teaser
   .User-info
     = render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
   .User-accordion.Accordion
@@ -32,9 +32,9 @@
       .Accordion-content.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom
         %p Lorem ipsum
 
-.Articles--related
+.Related
   - alternative = find_fair_alternative_to resource
-  .Articles-related
+  .Article.Article--related
     %h3.Articles-related-title= t('article.show.alternative')
     %i.icon-helper
     - if alternative.present?
@@ -43,7 +43,8 @@
       %p.Helper-text
         = t('article.show.no_alternative')
 
-  .Articles-policy.Accordion
+
+  .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do
         = render :partial=>'/shared/feedback', :locals=>{ :type=> :report_article}

@@ -92,9 +92,13 @@
 	display: inline-block;
 	position: fixed;
 	top: 50%;
+	@include rem(right, -122px);
 	z-index: 99;
-	@include rem(left, -119px);
 	@include transform(rotate(-90deg));
+	@include transition(right 100ms ease-in);
+	&:hover {
+		@include rem(right, -118px);
+	}
 	@media (max-width: 30em) {
 		display: none;
 	}
@@ -102,5 +106,6 @@
 .Feedback {
 	&.Btn {
 		margin: 0;
+		padding: em(0,17) em(15,17) em(9,17);
 	}
 }
