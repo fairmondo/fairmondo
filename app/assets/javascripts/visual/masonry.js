@@ -3,32 +3,25 @@
 //
 
 $(function(){
-	
-	/*// initialize Packery
-	var container = document.querySelector('#js-packery');
-
-	// only run if the container exists
-	if ($(container).length > 0) {
-
-		// setup
-		var pckry = new Packery( container, {
-			itemSelector: '.Teaser',
-			gutter: '.gutter-sizer',
-			columnWidth: '.grid-sizer'
-		});
-
-		// layout Packery after all images have loaded
-		imagesLoaded( container, function() {
-			pckry.layout();
-		});
-	}*/
-
 
 	var $container = $('#js-masonry');
 	if ($container.length > 0) {
+		$container.prepend('<div class="gutter-sizer"></div><div class="grid-sizer"></div>');
 		$container.imagesLoaded( function() {
-				$container.masonry({
+			$container.masonry({
 				itemSelector: '.Teaser',
+				gutter: '.gutter-sizer',
+				columnWidth: '.grid-sizer'
+			});
+		});
+	}
+
+	var $articles = $('.Articles--list');
+	if ($articles.length > 0) {
+		$articles.prepend('<div class="gutter-sizer"></div><div class="grid-sizer"></div>');
+		$articles.imagesLoaded( function() {
+			$articles.masonry({
+				itemSelector: '.Article',
 				gutter: '.gutter-sizer',
 				columnWidth: '.grid-sizer'
 			});

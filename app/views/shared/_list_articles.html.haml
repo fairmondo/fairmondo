@@ -18,7 +18,6 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %section.Articles.Articles--list
-  %ul
-    - articles.each do |article|
-      %li{:class => list_class}
-        = render :partial=>'/shared/show_article', :locals=>{ :article=> article}
+	- articles.each do |article|
+		%Article{:class => 'Article'}
+			= render :partial=>'/shared/show_article', :locals=>{ :article=> article}

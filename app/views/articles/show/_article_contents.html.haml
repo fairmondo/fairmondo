@@ -30,14 +30,14 @@
 			= link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
 
 .Articles--detail
-	.Articles-image
+	.Article-image
 		= link_to image_tag((title_image ? title_image.image.url(:thumb) : "missing.png"), :class=> "title_image"), title_image ? title_image.image.url(:thumb) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 
-	.Articles-info
-		.Articles-info--right
+	.Article-info
+		.Article-info--right
 			%h2
 				= resource.title
-			%p.Articles-price= humanized_money_with_symbol resource.price
+			%p.Article-price= humanized_money_with_symbol resource.price
 			%p.Article-vat= t('formtastic.labels.article.price')
 			%p= render 'articles/show/vat' , :article => resource
 			%p
@@ -61,6 +61,7 @@
 					-# 			= f.input :library, :collection => current_user.libraries,  :include_blank => false ,  :label => false
 					-# 			= f.input :article_id, :as => :hidden
 					-# 		= f.button (glyphicons("icon-share-alt").html_safe << " " << t('common.actions.collect')), :class => "Btn Btn--green"
+
 		.Articles-info--left
 			.Thumbnail-container
 				/ - thumbnails(title_image).each do |image|
@@ -87,14 +88,14 @@
 		/Versand und Bezahlung
 
 		= accordion_item "payment" do
-			.Articles-box
+			.Article-box
 				%p.Highlight
 					= t('formtastic.labels.article.default_payment')
 					\:
 				%p
 					= resource.default_payment.text
 					= simple_format(resource.payment_details).html_safe
-			.Articles-box
+			.Article-box
 				%p.Highlight
 					= t('formtastic.labels.article.default_transport')
 					\:
