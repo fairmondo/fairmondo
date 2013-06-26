@@ -22,7 +22,7 @@
     %h3.User-title Anbieter
   .User-image
     %a{:href => user_path(user)}
-      = image_tag(user.image.url(:thumb))
+      = image_tag(user.image_url(:thumb))
   %p.User-name
     = user.name
     %br/
