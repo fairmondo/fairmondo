@@ -44,7 +44,8 @@
 	/           %span.divider
 	/             %i.icon-angle-right.icon-large
 	/       - count = count + 1
-.Article
+
+.Article.Article--detail
 	= render "/articles/show/article_contents", :article => resource
 - if resource.active?
 	= render "/articles/show/active", :article => resource

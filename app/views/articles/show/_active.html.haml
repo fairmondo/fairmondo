@@ -17,7 +17,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Article-user
+.User.User--teaser
   .User-info
     = render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
   .User-accordion.Accordion
@@ -33,11 +33,11 @@
         %p Lorem ipsum
 
 
-.Articles--related
+.Related
   - alternative = find_fair_alternative_to resource
   -# small adjustment so I get an alternative to style
-  .Articles-related
-    %h3.Articles-related-title= t('article.show.alternative')
+  .Article.Article--related
+    %h3.Article-title= t('article.show.alternative')
     %span.icon-helper{:title => t('article.show.no_alternative')}
     = render :partial=>'/shared/show_article', :locals=>{ :article=> article}
 
@@ -53,7 +53,7 @@
   -#    %p.Helper-text
   -#      = t('article.show.no_alternative')
 
-  .Articles-policy.Accordion
+  .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do
         = form_for :report, :url => report_article_path, :method => :get do |f|
