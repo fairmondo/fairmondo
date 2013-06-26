@@ -93,13 +93,6 @@ a.Btn {
 	&:hover {
 		background-color: lighten($btn--blue, 5%);
 	}
-	// .icon-box, .icon-box--open {
-	// 	display: inline-block;
-	// }
-	// .content {
-	// 	display: inline-block;
-	// 	white-space: normal;
-	// }
 	.number {
 		@include rem(font-size, $font-size-l);
 		display: inline-block;
@@ -117,7 +110,6 @@ a.Btn {
 .Btn--gray {
 	//@include rem(width, 200px);
 	width: auto;
-	margin: 20px auto;
 }
 
 .Btn--green,

@@ -37,13 +37,15 @@
               %i.icon-user.icon-large
               = t 'library.visibility.private'
           - if policy(library).update?
-            %a.Btn.Library-showsettings
-              %i.icon-cogs
-              = t('common.actions.edit')
+            %p
+              %a.Btn.Library-showsettings
+                %i.icon-cogs
+                = t('common.actions.edit')
           - if policy(library).destroy?
-            %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
-              %i.icon-trash
-              = t('common.actions.destroy')
+            %p
+              %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
+                %i.icon-trash
+                = t('common.actions.destroy')
           - if policy(library).update?
             = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
               = f.inputs do
