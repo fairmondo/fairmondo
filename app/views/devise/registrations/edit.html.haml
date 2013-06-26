@@ -18,14 +18,16 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+
 %h1 Profil bearbeiten
 
 .Accordion.Accordion--activated.User-edit
-  = semantic_form_for(@user,  :html => {},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@user,  :html => {multipart: true},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, :default_step => true do
 
       .User--step
+
         %p
           %span.User--rightside= t('users.visibility.public')
           %strong.Meta--highlight
@@ -42,6 +44,7 @@
           = current_user.nickname
       .User--step
         %p
+
           %span.User--rightside= t('users.visibility.private')
           %strong.Meta--highlight
             = t('formtastic.labels.user.customer_number') + ":"
@@ -50,12 +53,14 @@
         %p
           %span.User--rightside= t('users.visibility.public')
           %strong.Meta--highlight= t('formtastic.labels.user.image') + ":"
-          = image_tag(current_user.image.url(:thumb), :class => "img-polaroid ")
-          = f.inputs do
-            = f.input :image,  :label => false
+          = image_tag(@user.image_url(:thumb), :class => "img-polaroid ")
+          = f.semantic_fields_for :image do |image|
+            = f.inputs do
+              = image.input :image, label: false, as: :file
 
       .User--step
         %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+
         %h3= t('users.login.title')
         = f.inputs do
           = f.input :email

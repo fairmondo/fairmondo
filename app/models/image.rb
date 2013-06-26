@@ -18,12 +18,25 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-
   attr_accessible :image
 
-  has_and_belongs_to_many :articles
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}
+  belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
+  has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", mini: "130x90#" },
+                            url: "/system/:attached_to/:attachment/:id_partition/:style/:filename",
+                            path: "public/system/:attached_to/:attachment/:id_partition/:style/:filename"
+
+  Paperclip.interpolates :attached_to do |attachment, style|
+    attachment.instance.imageable_type#.class.to_s.downcase
+  end
+
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
+
+
+  # Using polymorphy with STI (User) is tricky: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#label-Polymorphic+Associations
+  # @api public
+  def imageable_type=(sType)
+    super(sType.to_s.classify.constantize.base_class.to_s)
+  end
 end
