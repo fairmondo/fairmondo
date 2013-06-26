@@ -1,0 +1,28 @@
+.Notice {
+
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  color: $white;
+}
+
+// @media (max-width: 767px) {
+//   .notice {
+//       margin-left:-20px;
+//       margin-right:-20px;
+//   }
+// }
+
+.Notice-message {
+  padding-top: 10px;
+}
+
+.Notice--info {
+  background-color: $green;
+}
+
+.Notice--error {
+  background-color: $red;
+}
+

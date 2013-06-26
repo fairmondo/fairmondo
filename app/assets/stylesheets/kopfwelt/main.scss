@@ -15,7 +15,8 @@
 
 // Plugins
 @import "_dynamic-grid.scss";
-@import url("../javascripts/vendor/fancybox/jquery.fancybox.css");
+@import "_colorbox.scss";
+@import "_colorbox_changes.scss";
 
 // Project styles
 @import "_mixins.scss";
@@ -31,12 +32,14 @@
 @import "_search.scss";
 
 // modules
+@import "_notice.scss";
 @import "_module.scss";
 @import "_buttons.scss";
 @import "_nav.scss";
 @import "_accordions.scss";
 @import "_articles.scss";
 @import "_user.scss";
+@import "_login.scss";
 @import "_index.scss";
 @import "_item-teaser.scss";
 @import "_fees.scss";
@@ -44,3 +47,4 @@
 @import "_categories.scss";
 @import "_filter.scss";
 @import "_tooltip.scss";
+@import "_libraries.scss";
