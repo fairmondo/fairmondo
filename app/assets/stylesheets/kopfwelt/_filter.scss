@@ -3,77 +3,90 @@
 //
 
 .Filter {
-  @include pie-clearfix;
-  > .l-Inner {
-    position: relative;
-    height: 0;
-    overflow: hidden !important;
-    @include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
-    @include transition(height 200ms)
-  }
+	@include pie-clearfix;
+	clear: both;
+	position: relative;
+	> .l-Inner {
+		position: relative;
+		height: 0;
+		overflow: hidden !important;
+		@include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
+		@include transition(height 200ms)
+	}
 
-  input { float: left; clear: left; }
-  label { width: auto; color: $black; }
+	input { float: left; clear: left; }
+	label { width: auto; color: $black; }
 }
 .Filter.is-active {
-  > .l-Inner {
-    overflow: visible !important;
-    //min-height: 200px;
-    height: auto;
-  }
-  .Btn-accordion .icon-arrow-down {
-    @include rotate(180deg);
-  }
+	> .l-Inner {
+		overflow: visible !important;
+		//min-height: 200px;
+		height: auto;
+	}
+	.Btn-accordion .icon-arrow-down {
+		@include rotate(180deg);
+	}
 }
 .Filter-col {
-  @include span-columns(4,4);
-  margin-bottom: 2em;
+	@include span-columns(4,4);
+	margin-bottom: 2em;
+	.Filter-title {
+			@include rem(margin-bottom, 12px);
+	}
 }
 
 fieldset.Filter-col { 
-  @include span-columns(4 omega,6);
+	@include span-columns(4 omega,6);
 }
 
 .Filter-title {
-  @include rem(font-size, 18px);
-  @extend %Semibold;
-  margin-bottom: em(10,18);
+	@include rem(font-size, 18px);
+	@extend %Semibold;
+	margin-bottom: em(10,18);
 }
 .Filter-btn {
 
 }
 .Filter .Btn-accordion {
-  margin-bottom: 0;
-  border-radius: 0;
-  background-color: $lightgray;
-  color: #fff;
-  text-align: center;
-  .icon-arrow-down {
-    display: block;
-    margin: 0 auto;
-    height: 8px;
-    @include transition(all 200ms);
-  }
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: $lightgray;
+	color: #fff;
+	text-align: center;
+	.icon-arrow-down {
+		display: block;
+		margin: 0 auto;
+		height: 8px;
+		@include transition(all 200ms);
+	}
 }
 
 
 @include at-breakpoint($layout-small) {
-  .Filter-col {
-    @include span-columns(2,6);
-    &:nth-child(3n) {@include span-columns(2,6); margin-right: 0}
-  }
+	.Filter-col {
+		@include span-columns(2,6);
+		&:nth-child(3n) {
+			@include span-columns(2,6);
+			@include rem(margin, 12px 0 0 0);
+		}
+	}
 }
 @include at-breakpoint($layout-medium) {
 }
 @include at-breakpoint($layout-large) {
-  .Filter-col {
-    @include span-columns(1,6);
-    &:nth-child(3n) {@include span-columns(1,6);}
-  }
-  .Filter-btn {
-    position: absolute;
-    bottom: 40px;
-    right: $gutter-width;
-    margin-bottom: 0;
-  }
+	.Filter-col {
+		@include span-columns(1,6);
+		margin-right: 0;
+		&:nth-child(3n) {@include span-columns(1,6);}
+
+		label {
+			@include rem(margin-top, 13px);
+		}
+	}
+	.Filter-btn {
+		position: absolute;
+		bottom: 47px;
+		right: 3px;
+		margin-bottom: 0;
+	}
 }
