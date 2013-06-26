@@ -14,21 +14,21 @@
 	background: $btn--blue !important;
 	border: 0px solid !important;
 	&:hover {
-	background-color: lighten($tag--blue, 5%) !important;
-}
+		background-color: lighten($tag--blue, 5%) !important;
+	}
 	.icon-arrow {
 		float: left;
 	}
 	.content {
 		display: inline-block;
-		// height: auto;
-		// white-space: normal;
-		// margin-right: 2em;
 	}
 	.number {
 		@include rem(font-size, $font-size-l);
 		display: inline-block;
 		padding: 0;
+	}
+	.icon-helper {
+		float: right;
 	}
 }
 

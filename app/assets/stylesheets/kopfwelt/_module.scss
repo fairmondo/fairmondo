@@ -3,7 +3,7 @@
 //
 
 .is-hidden {
-	// hide while develpoing
+	// hide while developing
 	display: none;
 }
 
@@ -23,12 +23,19 @@
 		margin-top: .4em;
 	}
 }
+
+//
+// Meta
+//
 .Meta {
 	@include span-columns(4, 4);
 	@include border-radius(.9em);
 	background: #fff;
 	p {
 		@include rem(font-size, $font-size-m);
+	}
+	@include at-breakpoint($layout-small) {
+		@include span-columns(2, 4);
 	}
 }
 .Meta--block {
@@ -39,6 +46,11 @@
 	display: block;
 	color: $gray;
 }
+
+
+//
+// Breadcrumb
+//
 .Breadcrumb {
 	@include span-columns(4, 4);
 	margin-bottom: $gutter-width / 3;
@@ -62,25 +74,6 @@
 	}
 	&+.Breadcrumb {
 		@include rem(margin-top, -13px);
-	}
-}
-.Highlight {
-	@include rem(font-size, $font-size-m);
-	color: gray;
-	margin-bottom: .5em;
-}
-
-.l-Hero {
-	.l-Inner {
-		h1 {
-			@extend %Semibold;
-			margin-top: 0.5em;
-		}
-	}
-}
-@include at-breakpoint($layout-small) {
-	.Meta {
-		@include span-columns(2, 4);
 	}
 }
 
@@ -108,4 +101,27 @@
 		margin: 0;
 		padding: em(0,17) em(15,17) em(9,17);
 	}
+}
+
+//
+// A module to seperate paragraphs
+//
+.TextSection {
+	padding-bottom: 1em;
+	border-bottom: 1px solid $gray;
+	margin-bottom: 1em;
+	max-width: em(540);
+}
+
+
+
+.Highlight {
+	@include rem(font-size, $font-size-m);
+	color: gray;
+	margin-bottom: .5em;
+}
+
+.l-Hero .l-Inner h1 {
+	@extend %Semibold;
+	margin-top: 0.5em;
 }

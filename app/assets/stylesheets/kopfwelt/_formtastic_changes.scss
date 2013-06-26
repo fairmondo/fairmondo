@@ -38,7 +38,10 @@ textarea {
 	}
 	&:hover {}
 }
-
+.formtastic .text textarea {
+	width: 100%;
+	max-width: em(500);
+}
 label {
 	//@extend %Semibold;
 	@include rem(font-size, $font-size-m);
