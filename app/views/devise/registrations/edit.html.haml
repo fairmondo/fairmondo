@@ -72,7 +72,7 @@
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
-          = f.input :legal_entity_form
+          = f.input :company_name
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
           %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')

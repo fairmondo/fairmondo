@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, :image_attributes, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about, :bank_code, :paypal_account,
-      :bank_account_number, :bank_name, :bank_account_owner, :legal_entity_form
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name
   auto_sanitize :nickname, :forename, :surname, :street, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 

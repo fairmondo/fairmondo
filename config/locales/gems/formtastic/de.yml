@@ -10,7 +10,7 @@ de:
         explanations: Erläuterungen
       user:
         legal_entity: Rechtlicher Status
-        legal_entity_form: Unternehmensform (GmbH, OHG, AG...)
+        company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
         email: E-mail Adresse
         image: Profilbild
