@@ -27,7 +27,7 @@
     - if policy(resource).deactivate?
       = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
     - if policy(resource).destroy?
-      = link_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => "delete", :class => "Btn Btn--gray"
+      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn Btn--gray"
 
 
 %figure.Article-image
