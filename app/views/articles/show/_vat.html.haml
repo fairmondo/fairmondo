@@ -18,6 +18,6 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if article.seller.is_a?(LegalEntity) && article.seller_country == "Deutschland"
-  %p
-    %span.pull-right= article.vat.to_s + "%"
+  %p.Article-vat
+    %span= article.vat.to_s + "%"
     = t('article.vat_included')

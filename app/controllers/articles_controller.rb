@@ -24,9 +24,9 @@ class ArticlesController < InheritedResources::Base
 
   # Authorization
   skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
+  skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
   before_filter :ensure_complete_profile , :only => [:new, :create]
 
   #Sunspot Autocomplete
@@ -85,7 +85,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def update # Still needs Refactoring
-
     if state_params_present?
       change_state!
     else

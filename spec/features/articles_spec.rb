@@ -55,7 +55,7 @@ describe 'Article management' do
         it 'creates an article' do
           lambda do
             fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-            check Category.root.name
+            select Category.root.name, from: 'article_categories_and_ancestors'
             within("#article_condition_input") do
               choose "article_condition_new"
             end
@@ -86,17 +86,6 @@ describe 'Article management' do
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
 
-        it 'shows sub-categories' do
-          setup_categories
-
-          visit new_article_path
-          hardware_id = Category.find_by_name!('Hardware').id
-
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: false)
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: true)
-        end
       end
     end
 
@@ -205,5 +194,24 @@ describe 'Article management' do
       #   visit article_path @article, image: new_img
       # end
     end
+  end
+
+end
+
+describe "Other articles of this seller box" do
+  before do
+    seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :user_id => seller.id
+    @article_locked = FactoryGirl.create :preview_article, :user_id => seller.id
+    visit article_path @article_active
+    save_and_open_page
+  end
+
+  it "should show active article" do
+    page.should have_link('', href: article_path(@article_active))
+  end
+
+  it "should not show locked article" do
+    page.should have_no_link('', href: article_path(@article_locked))
   end
 end

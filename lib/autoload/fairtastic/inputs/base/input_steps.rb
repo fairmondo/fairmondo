@@ -23,8 +23,7 @@ module Fairtastic
       module InputSteps
 
         def input_step(step_key, options = {}, &block)
-          css = "box"
-          css << " default-step" if options[:default_step]
+          css = "Accordion-item"
 
           if options[:class]
             options[:class] << " #{step_key}-step-inputs"
@@ -32,21 +31,21 @@ module Fairtastic
             options[:class] = "#{step_key}-step-inputs"
           end
 
-
           #evaluate the block before setting css class for errors
           block_content = inputs(options.except(:tooltip), &block)
 
           #if we detect an error at an input we set the error class of input step
           #after setting reset the block error
           if @input_step_with_errors
-            css << " error-box"
+            css << " Accordion-item--errors"
             @input_step_with_errors = false
           end
 
           template.content_tag(:div,
-          step_heading_html(step_key, options) << template.content_tag(:div,block_content, :class => "white-well box-content" ),
+          step_heading_html(step_key, options) << template.content_tag(:div,block_content, :class => "Accordion-content" ) ,
           :class => css, :id => "#{step_key}_step"
           )
+
 
         end
 
@@ -65,21 +64,16 @@ module Fairtastic
             prefix << " "
           end
           tooltip = optional_tooltip_html("#{step_key}_input_step", options)
+          template.content_tag(:a,   template.content_tag(:i,"", :class => "icon-arrow") << prefix.html_safe << (localized_string(step_key, object, "input_steps") || "").html_safe , :href => "##{step_key}_step" ,:class => "Accordion-header")
 
-          template.content_tag(:div,
-          tooltip.html_safe <<
-          template.content_tag(:h3,
-          template.content_tag(:a,
-          "" << prefix << (localized_string(step_key, object, "input_steps") || "") , :href => "##{step_key}_step")
-          )  << template.content_tag(:div,"",:class=>"clearfix"), :class => "box-legend"
-          )
+
         end
 
         def optional_tooltip_html(method, options = {})
           tooltip_text = options[:tooltip]
           tooltip_text = localized_string(method, nil, "tooltips") if options[:tooltip] == true
           if tooltip_text
-            template.content_tag(:a, "",:class => "input-tooltip","data-html" => "true", "data-content" => tooltip_text)
+            template.content_tag(:i, "" ,:class => "icon-helper" ,:title => tooltip_text)
           else
             ""
           end

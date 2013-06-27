@@ -18,6 +18,6 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if user_signed_in?
-  = link_to(t('common.actions.edit_profile'), edit_user_registration_path , :class => "btn pull-right")
+  = link_to(t('common.actions.edit_profile'), edit_user_registration_path , :class => "Btn Btn--gray")
 - else
-  = link_to(t('common.actions.sign_up'), new_user_registration_path , :class => "btn pull-right")
+  = link_to(t('common.actions.sign_up'), new_user_registration_path , :class => "Btn Btn--gray")

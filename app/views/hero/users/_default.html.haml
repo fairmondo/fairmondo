@@ -17,44 +17,42 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-#dashboard-hero{:class => "container #{"closed-container-hero" unless params[:action]== "show"}"}
-  .row-fluid
-    .span3
+.l-Inner
+  .User.User--detail{:class => "#{"closed-container-hero" unless params[:action]== "show"}"}
+    .User-primary
       = render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
-    #dashboard-middle.span9
-      #dashboard-events
-        - if user_resource.about_me && !user_resource.about_me.empty?
-          %div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
-            = user_resource.about_me.html_safe
-            .clearfix
-          - if params[:full_about]
-            %a.pull-right{:href => user_path(:id => user_resource.id)}
-              %i.icon-chevron-up
-              = t 'common.text.less'
-          - else
-            %a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
-              %i.icon-chevron-down
-              = t 'common.text.more'
+      - if user_resource.is? current_user
+        %p.align-center
+          %a.Icon{:href =>  edit_user_registration_path}
+            %i.icon-pencil
+            = t 'common.actions.edit_profile'
+    .User-secondary
+      - if user_resource.about_me && !user_resource.about_me.empty?
+        %div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+          = user_resource.about_me.html_safe
+          .clearfix
+        - if params[:full_about]
+          %a.pull-right{:href => user_path(:id => user_resource.id)}
+            = t 'common.text.less'
         - else
-          .empty-well
-            - if user_resource.is? current_user
-              %a.pull-right{:href => edit_user_registration_path}
-                = t 'users.text.add_desription'
-            %h4= t 'users.text.no_desription'
-      %ul.nav.nav-pills
-        - if user_resource.is? current_user
-          %li#dashboard-sell
-            %a{:href => user_path(current_user)}
-              %strong= t 'common.text.sell'
-        %li#dashboard-library
-          %a{:href => user_libraries_path(user_resource)}
-            %strong= t 'common.text.libraries'
-        %li#dashboard-profile
+          %a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
+            = t 'common.text.more'
+      - else
+        .empty-well
           - if user_resource.is? current_user
-            %a{:href =>  edit_user_registration_path}
-              %strong= t 'common.actions.edit_profile'
-          - elsif user_resource.is_a? LegalEntity
-            %a{:href => profile_user_path(user_resource)}
-              %strong= t 'common.text.about_terms'
-      #hero-unfold
-        %a.pull-right{:href => "#dashboard-hero"}= raw glyphicons("icon-chevron-up")
+            %a.pull-right{:href => edit_user_registration_path}
+              = t 'users.text.add_desription'
+          %h4
+            = t 'users.text.no_desription'
+      .User-collection
+        - if user_resource.is? current_user
+          %a.Btn.Btn-icon{:href => user_path(current_user)}
+            %i.icon-box--open
+            = t 'common.text.sell'
+        %a.Btn.Btn-icon{:href => user_libraries_path(user_resource)}
+          %i.icon-box
+          = t 'common.text.libraries'
+        - if user_resource.is_a? LegalEntity
+          %a.Btn.Btn-icon{:href => profile_user_path(user_resource)}
+            %i.icon-paper
+            = t 'common.text.about_terms'
