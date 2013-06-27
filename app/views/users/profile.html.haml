@@ -17,7 +17,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.fairnopoly-well
+
+.TextSection
   %h2= resource.nickname
   %h3= resource.title + " " + resource.forename + " " + resource.surname
   %p
@@ -49,19 +50,22 @@
     = t('formtastic.labels.user.mobile')
     \:
     %strong= resource.mobile
-.fairnopoly-well
+
+.TextSection
   %p
     %strong
       = t('formtastic.labels.user.terms')
       \:
   = raw resource.terms
-.fairnopoly-well
+
+.TextSection
   %p
     %strong
       = t('formtastic.labels.user.cancellation')
       \:
   = raw resource.cancellation
-.fairnopoly-well
+
+.TextSection
   %p
     %strong
       = t('formtastic.labels.user.about')

@@ -22,7 +22,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'User management' do
-  let (:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.create :user }
 
   context "for signed-out users" do
     it "should show a login button" do
@@ -75,7 +75,7 @@ describe 'User management' do
       it "should be accessible" do
         article = FactoryGirl.create :article
         visit article_path article
-        find('#profile-img a').click
+        find('.User-image a').click
         current_path.should eq user_path article.seller
       end
     end
@@ -248,7 +248,7 @@ describe 'User management' do
       end
 
       context "for legal entities" do
-        let (:user) { FactoryGirl.create :legal_entity }
+        let(:user) { FactoryGirl.create :legal_entity }
         it "should show the correct specific data and fields" do
           login_as user
           visit edit_user_registration_path user
@@ -256,7 +256,7 @@ describe 'User management' do
 
           # Legal fields
           within '#terms_step' do # id of input step
-            page.should have_css 'h3', text: I18n.t('formtastic.input_steps.user.terms')
+            page.should have_css 'a', text: I18n.t('formtastic.input_steps.user.terms')
             page.should have_content I18n.t 'formtastic.labels.user.terms'
             page.should have_content I18n.t 'formtastic.labels.user.cancellation'
             page.should have_content I18n.t 'formtastic.labels.user.about'

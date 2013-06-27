@@ -1,0 +1,101 @@
+//
+// Base
+// 
+
+
+html {
+	line-height: $base-line-height-unitless;
+	font-size: $base-font-size;
+	font-family: $font-body;
+	color: #000;
+}
+body {
+	padding: 0;
+	margin: 0;
+	background-color: $beige;
+}
+
+// Headers
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ol,
+dl {
+	margin-top: auto;
+	margin-bottom: $pBottomMargin;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: $black;
+	font-weight: 300;
+	line-height: 1.2;
+	word-break: break-all;
+	word-break: break-word;
+}
+
+h1 {
+	@include rem(font-size, 30px);
+	margin-bottom: em(13,30);
+}
+h2 {
+	@include rem(font-size, 20px);
+	@extend %Bold;
+}
+h3 {
+	@include rem(font-size, 20px);
+}
+
+.BodyText {
+	@include rem(font-size, 14px);
+	line-height: 1.4;
+}
+
+// Links
+a {
+	text-decoration: none;
+	color: $anchor-link;
+}
+a:hover {
+	color: $anchor-hover;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: $anchor-visited;
+}
+// responsive
+iframe,
+img {
+	max-width: 100%;
+}
+img {
+	vertical-align: bottom;
+}
+// remove border in old ie
+a img {
+	border: 0;
+}
+// remove default margin
+figure {
+	margin: 0;
+}
+small {
+	font-size: 80%;
+}
+
+.align-center {
+	text-align: center;
+}
+
+// remove margin left on dd;
+dd {
+	-webkit-margin-start: 0px;
+}

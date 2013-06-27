@@ -24,5 +24,5 @@ describe Image do
     FactoryGirl.create(:image).should be_valid
   end
 
-  it {should have_and_belong_to_many :articles}
+  it { should belong_to :imageable }
 end

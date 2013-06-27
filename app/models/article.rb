@@ -107,6 +107,5 @@ class Article < ActiveRecord::Base
   def owned_by? user
     user && self.seller.id == user.id
   end
-
-
+  
 end
