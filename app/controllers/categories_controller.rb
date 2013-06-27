@@ -3,6 +3,7 @@ class CategoriesController < InheritedResources::Base
   actions :show
 
   before_filter :authorize_resource
+  skip_before_filter :authenticate_user!
 
   def authorize_resource
     authorize resource

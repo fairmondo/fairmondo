@@ -91,6 +91,10 @@ module ArticlesHelper
     resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
   end
 
+  def active_seller_articles
+    resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
+  end
+
   def payment_format_for type
     html=""
     if resource.send("payment_" + type)
