@@ -59,3 +59,4 @@
 //= require visual/masonry
 
 //= require inputs/password_complexify.js
+//= require inputs/socialshareprivacy.js
