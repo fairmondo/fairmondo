@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
     if request.xhr?
       false
     else
-      super
+      "application"
     end
   end
 
