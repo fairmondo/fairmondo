@@ -21,18 +21,41 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
+//= require jquery.ui.accordion
+//= require jquery.ui.tooltip
 //= require modernizr
 //= require selectivizr
 //= require tinymce
 //= require tinymce-jquery
-//= require bootstrap
+
+
 // require turbolinks
-//= require jquery.complexify
-//= require jquery.hashchange
-//= require jquery.socialshareprivacy
 // require jquery.turbolinks
 
-//= require_tree ./inputs
+
+//= require i18n
+//= require i18n/translations
+
+
+//= require vendor/jquery.complexify
+//= require vendor/jquery.hashchange
+//= require vendor/jquery.socialshareprivacy
+//= require vendor/jquery.selectBoxIt
+//= require vendor/jquery.icheck
+//= require vendor/jquery.colorbox
+
+//= require vendor/masonry.pkgd.min
+//= require vendor/imagesloaded.pkgd
+
+
 //= require_tree ./models
-//= require_tree ./customize
-//= require_tree ./visual
+
+//= require visual/accordion
+//= require visual/tooltip
+//= require visual/button
+//= require visual/colorbox
+//= require visual/selectbox
+//= require visual/filter
+//= require visual/masonry
+
+//= require inputs/password_complexify.js

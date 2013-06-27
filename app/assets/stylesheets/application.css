@@ -24,8 +24,11 @@
  * PLEASE DO NOT PUT ANY CSS CODE IN HERE !!!
  *
  *= require_self
- *= require styles
+
+ *= require jquery.ui.autocomplete
+ *= require jquery.ui.tooltip
+ *= require kopfwelt/main
+
+ *= require vendor/jquery.selectBoxIt
  *
 */
-
-

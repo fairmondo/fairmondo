@@ -24,8 +24,8 @@ module Article::Images
     # ---- IMAGES ------
     attr_accessible :images_attributes
 
-    has_and_belongs_to_many :images
-    accepts_nested_attributes_for :images, :allow_destroy => true
+    has_many :images, as: :imageable #has_and_belongs_to_many :images
+    accepts_nested_attributes_for :images, allow_destroy: true
 
     def title_image
       if images.empty?

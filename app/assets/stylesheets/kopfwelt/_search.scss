@@ -1,0 +1,53 @@
+//
+// Search
+//
+
+.Search {
+	position: relative;
+	float: left;
+	width: columns(4,4);
+	max-width: 100%;
+	.input {
+		padding: 0;
+		margin: 0;
+	}
+}
+.Search-input {}
+.Search .Search-input input { // extra specificity
+	@include rem(font-size, 20px);
+	width: 100%;
+}
+.Search-button {
+	position: absolute;
+	top: em(13);
+	right: em(11);
+}
+
+.l-Hero .l-Right {
+	float: right;
+	margin-top: em(6);
+	.Btn--gray {
+		width: auto;
+		margin: 0;
+		@include rem(font-size, 16px);
+		@include rem(padding, 6px 18px 10px);
+	}
+	.icon-helper {
+		top: 6px;
+		left: 5px;
+	}
+}
+.Filter-title .icon-helper {
+	top: 2px;
+}
+
+#js-filter-toggle {
+	@include rem(margin-top, 18px);
+}
+
+@include at-breakpoint($layout-small) {
+	.Search {
+		float: left;
+		width: columns(2,4);
+	}
+}

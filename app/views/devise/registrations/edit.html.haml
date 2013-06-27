@@ -17,80 +17,91 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.row
-  .span12
-    = semantic_form_for(@user,  :html => { :class => "form-vertical"},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
-      = f.semantic_errors
-      = f.input_step :account, :default_step => true do
+
+
+%h1 Profil bearbeiten
+
+.Accordion.Accordion--activated.User-edit
+  = semantic_form_for(@user,  :html => {multipart: true},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
+    = f.semantic_errors
+    = f.input_step :account, :default_step => true do
+
+      .User--step
+
         %p
-          %strong
+          %span.User--rightside= t('users.visibility.public')
+          %strong.Meta--highlight
             = t('formtastic.labels.user.legal_entity') + ":"
 
-          %span.pull-right= t('users.visibility.public')
+
           = current_user.is_a?(LegalEntity) ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
-        %p
-          %strong
-            = t('formtastic.labels.user.customer_number') + ":"
 
-          %span.pull-right= t('users.visibility.private')
-          = current_user.customer_nr
+      .User--step
         %p
-          %strong
+          %span.User--rightside= t('users.visibility.public')
+          %strong.Meta--highlight
             = t('formtastic.labels.user.nickname') + ":"
-
-          %span.pull-right= t('users.visibility.public')
           = current_user.nickname
+      .User--step
         %p
-          %strong= t('formtastic.labels.user.image') + ":"
-          %span.pull-right= t('users.visibility.public')
-        = image_tag(current_user.image.url(:thumb), :class => "img-polaroid ")
-        = f.inputs do
-          = f.input :image,  :label => false
+
+          %span.User--rightside= t('users.visibility.private')
+          %strong.Meta--highlight
+            = t('formtastic.labels.user.customer_number') + ":"
+          = current_user.customer_nr
+      .User--step
+        %p
+          %span.User--rightside= t('users.visibility.public')
+          %strong.Meta--highlight= t('formtastic.labels.user.image') + ":"
+          = image_tag(@user.image_url(:thumb), :class => "img-polaroid ")
+          = f.semantic_fields_for :image do |image|
+            = f.inputs do
+              = image.input :image, label: false, as: :file
+
+      .User--step
+        %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+
         %h3= t('users.login.title')
         = f.inputs do
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :email
-          %span.pull-right= t('users.visibility.private')
-          = f.input :password,  :label=> t('users.change_password'), :input_html => { :autocomplete => "off" }
-          = render :partial => "/devise/password_complexity"
-          %span.pull-right= t('users.visibility.private')
-          = f.input :password_confirmation
-          %span.pull-right= t('users.visibility.private')
-          = f.input :current_password
-      = f.input_step :contact do
-        = f.inputs do
+
+      .User--step.User-edit-pw
+        = f.input :password,  :label=> t('users.change_password'), :input_html => { :autocomplete => "off"}
+        = f.input :password_confirmation
+        = render :partial => "/devise/password_complexity"
+        = f.input :current_password
+
+
+
+    = f.input_step :contact do
+      = f.inputs do
+
+        .User--step
+          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :title,:required => true,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')]
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :forename,:required => true
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :surname,:required => true
+          - if current_user.is_a?(LegalEntity)
+            = f.input :legal_entity_form
+        .User--step
+          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           %h3= t('users.form_titles.address')
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
-          = f.input :legal_entity_form
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :street,:required => true
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :city,:required => true
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :zip, :required => true
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :phone
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :mobile
-          %span.pull-right= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           = f.input :fax
-      = f.input_step :profile, :tooltip => true do
-        = f.inputs do
-          %span.pull-right= t('users.visibility.public')
+    = f.input_step :profile, :tooltip => true do
+      = f.inputs do
+        .User--step
+          %span.User--rightside= t('users.visibility.public')
           = f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}
           = tinymce
-      - if current_user.is_a?(LegalEntity)
-        = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
-      .fairnopoly-well
-        = f.actions do
-          = f.action :submit, :button_html => {:class => "btn btn-primary btn-large"}
+    - if current_user.is_a?(LegalEntity)
+      = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
+    = f.actions do
+      = f.action :submit, :button_html => {:class => "Btn"}

@@ -55,7 +55,7 @@ describe 'Article management' do
         it 'creates an article' do
           lambda do
             fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-            check Category.root.name
+            select Category.root.name, from: 'article_categories_and_ancestors'
             within("#article_condition_input") do
               choose "article_condition_new"
             end
@@ -86,17 +86,6 @@ describe 'Article management' do
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
 
-        it 'shows sub-categories' do
-          setup_categories
-
-          visit new_article_path
-          hardware_id = Category.find_by_name!('Hardware').id
-
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: false)
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: true)
-        end
       end
     end
 
@@ -139,7 +128,7 @@ describe 'Article management' do
 
       it "should fail given invalid data but still try to save images" do
         ArticlesController.any_instance.should_receive(:save_images).and_call_original
-        Image.any_instance.should_receive :save
+        Image.any_instance.should_receive(:save).any_number_of_times
         old_title = @article.title
 
         fill_in 'article_title', with: ''
