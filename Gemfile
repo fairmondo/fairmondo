@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '>= 3.2.13'
+gem 'rails', '~> 3.2.13'
 
 
 # Bundle edge Rails instead:
@@ -84,15 +84,16 @@ group :assets do
   gem "font-awesome-rails"
   gem "flatui-rails"
   gem "formtastic-plus-flatui"
+  gem "susy", "~> 1.0.8"
+  gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
-
 
   # JS
   gem 'tinymce-rails'
   gem 'tinymce-rails-langs'
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
-  #gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
+  gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'
   gem 'coffee-rails'
   gem 'therubyrhino'
   gem 'selectivizr-rails'
