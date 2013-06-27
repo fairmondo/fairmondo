@@ -25,16 +25,9 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index,:autocomplete]
+  after_filter :verify_authorized_with_exceptions, :except => [:index]
 
   protect_from_forgery
-
-
-  ## Misc
-
-  def build_login
-    @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
-  end
 
   helper :all
   helper_method :tinycms_admin?
@@ -90,5 +83,7 @@ class ApplicationController < ActionController::Base
   def pundit_unverified_classes
     [RegistrationsController]
   end
+
+
 
 end

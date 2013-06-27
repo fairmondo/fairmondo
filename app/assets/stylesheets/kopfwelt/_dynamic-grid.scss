@@ -1,0 +1,71 @@
+//
+// Masonry/Packery/Dynamid grid
+//
+
+// be sure to change the $gutter, $cols and media queries
+$gutter: 2%;
+$cols: 4;
+
+.gutter-sizer {
+	width: $gutter;
+}
+.grid-sizer {
+	width: (100% - ($gutter*($cols - 1))) / $cols;
+	// @media (min-width: em(1000)) {
+	// 	$cols: 4;
+	// 	width: (100 - ($gutter*$cols)) /$cols;
+	// }
+	// @media (min-width: em(1500)) {
+	// 	$cols: 6;
+	// 	width: (100 - ($gutter*$cols)) /$cols;
+	// }
+	@media (max-width: 48em) {
+		width: 49% !important;
+	}
+	@media (max-width: 30em) {
+		width: 100% !important;
+	}
+}
+.Teaser--video,
+.Teaser--text {
+	width: 49%;
+}
+
+//
+// Packery item styling
+//
+.Teaser {
+	background: #fff;
+}
+.Teaser,
+.Article--teaser {
+	@extend .grid-sizer;
+	@include pie-clearfix;
+	float: left;
+	position: relative;
+	
+	// we can't use % for this so imitate it like this
+	margin-bottom: em(20);
+	@media (max-width: em(900)) {
+		margin-bottom: em(15);
+	}
+	@media (max-width: em(600)) {
+		margin-bottom: em(10);
+	}
+
+	// // Border fade-in effect on hover
+	// > a:after {
+	// 	content: "";
+	// 	display: block;
+	// 	position: absolute;
+	// 	top: 0;
+	// 	right: 0;
+	// 	bottom: 0;
+	// 	left: 0;
+	// 	@include transition(all 250ms cubic-bezier(0.19, 1, 0.22, 1));
+	// 	border: 0px solid #000;
+	// }
+	// > a:hover:after {
+	// 	border-width: 5px;
+	// }
+}

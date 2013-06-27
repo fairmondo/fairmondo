@@ -1,0 +1,165 @@
+//
+// Forms
+//
+
+.formtastic .input {
+	padding: 0;
+	margin: 0 0 $pBottomMargin;
+	position: relative;
+	i.icon-helper {
+		position: absolute;
+		right:2px;
+	}
+	
+	fieldset.inputs > ol > li.input {
+		margin-left:em(15);
+	}
+}
+
+input[type='search'] {
+	-webkit-appearance: none;
+}
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+textarea {
+	@include border-radius(.5em);
+	@include rem(font-size, $base-font-size);
+	padding: em(8);
+	width: 100%;
+	color: $black;
+	border: 2px solid $lightgray;
+	&:focus {
+		outline: 0;
+		color: $black;
+	}
+	&:hover {}
+}
+.formtastic .text textarea {
+	width: 100%;
+	max-width: em(500);
+}
+label {
+	//@extend %Semibold;
+	@include rem(font-size, $font-size-m);
+	width: 100%;
+	display: block;
+	color: $gray;
+}
+
+
+
+// Article Form
+fieldset.choices {
+	display: block;
+	.leaf-item {
+		@include pie-clearfix;
+		padding: 1em;
+		input {
+			float: right;
+		}
+		label {
+			width: 50;
+		}
+	}
+	legend {
+		position: static !important;
+		margin-bottom: 1em;
+	}
+}
+
+.formtastic li.check_boxes .choices-group .choice label {
+	position:relative;
+	margin-left: 1.5em;
+	line-height: 100%;
+	input{
+		position: absolute;
+		left: -1.5em;
+	}
+}
+
+.formtastic .boolean label {
+	padding: 0;
+}
+.formtastic .choices-group {
+	padding: 0;
+}
+.inline-hints {
+	@extend %Semibold;
+	@include rem(font-size, 14px);
+	color: #2e2e2e;
+}
+
+.formtastic .actions {
+	padding-left: 0;
+}
+.controls {
+	@extend %Semibold;
+	color: $gray;
+	margin-bottom: 1em;
+}
+.User-login {
+	.password {
+		float: none !important;
+		clear: both;
+	}
+}
+.User-registration {
+	.stringish {
+		@include span-columns(4, 4);
+	}
+	input {
+		width: 95% !important;
+		max-width: none !important;
+	}
+	.icon-helper {
+		top: 2.5em;
+		right: 0em;
+	}
+}
+
+@include at-breakpoint($layout-small) {
+	.User-registration {
+		.stringish {
+			@include span-columns(2, 4);
+		}
+		.email {@include omega;}
+		#user_password_input {
+			float: left !important;
+			
+		}
+		#user_password_confirmation_input {@include omega;}
+	}
+	.User-login {
+		@include span-columns(2, 4);
+	}
+}
+@include at-breakpoint($layout-medium) {
+	.User-login {
+		@include span-columns(1, 4);
+	}
+}
+
+
+// //
+// // Custom radio buttons (requires on jQuery UI Buttons)
+// //
+// .ui-button {
+// 	@extend  .icon-radio;
+// 	width: icon-sprite-width(radio);
+// 	height: icon-sprite-height(radio);
+// 	overflow: hidden;
+// }
+// .ui-button.ui-state-hover {
+// 	@extend  .icon-radio_active;
+// }
+// .ui-button.ui-state-active {
+// 	@extend  .icon-radio_active;
+// }
+
+.formtastic .input fieldset.inputs > ol > li.input {
+	margin-left: 0;
+}

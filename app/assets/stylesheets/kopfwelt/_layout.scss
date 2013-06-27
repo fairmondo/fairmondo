@@ -1,0 +1,48 @@
+//
+// Layout
+//
+
+body {
+	background-color: $darkbeige;
+}
+.l-Inner {
+	@include container;
+}
+.l-Header {
+	background-image: url(asset-path("back3.gif", image));
+}
+.l-Hero {
+	background-color: $darkbeige;
+	.first {
+		@include rem(margin-top, 18px);
+		padding-bottom: em(20);
+		@include pie-clearfix;
+	}
+	.l-Inner {
+		@include rem(margin-top, 16px);
+	}
+}
+.l-Main {
+	background-color: $beige;
+	& > .l-Inner {
+		@include rem(padding-top, 40px);
+		padding-bottom: 7em;
+	}
+}
+.l-Footer {
+	background-image: url(asset-path("back3.gif", image));
+	.Footer--top {
+		@media (min-width: 30em) {
+			margin-bottom: em(103);
+		}
+	}
+	.Footer--bottom {
+		padding-bottom: em(20);
+	}
+}
+
+.Libraries {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+	}
+}
