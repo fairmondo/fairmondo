@@ -87,10 +87,6 @@ module ArticlesHelper
     resource.libraries.public.paginate(:page => params[:page], :per_page=>10)
   end
 
-  def seller_articles
-    resource.seller.articles.paginate(:page => params[:page], :per_page=>18)
-  end
-
   def active_seller_articles
     resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
   end
