@@ -58,4 +58,6 @@
 //= require visual/filter
 //= require visual/masonry
 
-//= require inputs/password_complexify.js
+//= require inputs/password_complexify
+//= require inputs/socialshareprivacy
+//= require customize/rails-confirm

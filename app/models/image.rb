@@ -22,12 +22,10 @@ class Image < ActiveRecord::Base
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", mini: "130x90#" },
-                            url: "/system/:attached_to/:attachment/:id_partition/:style/:filename",
-                            path: "public/system/:attached_to/:attachment/:id_partition/:style/:filename"
+                            url: "/system/:attachment/:id_partition/:style/:filename",
+                            path: "public/system/:attachment/:id_partition/:style/:filename"
 
-  Paperclip.interpolates :attached_to do |attachment, style|
-    attachment.instance.imageable_type#.class.to_s.downcase
-  end
+
 
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']

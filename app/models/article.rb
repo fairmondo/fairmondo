@@ -108,5 +108,4 @@ class Article < ActiveRecord::Base
     user && self.seller.id == user.id
   end
 
-
 end
