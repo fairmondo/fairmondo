@@ -39,6 +39,11 @@ describe UsersController do
         response.should be_success
       end
 
+      it "should be sucessful" do
+        get :login
+        response.should be_success
+      end
+
 
     end
 
@@ -58,6 +63,7 @@ describe UsersController do
         get :show, :id => @user
         response.should be_success
       end
+
 
 
     end

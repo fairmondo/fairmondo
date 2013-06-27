@@ -1,0 +1,50 @@
+//
+// Fees
+//
+
+// it is the right column in detail view (for now)
+
+.Fees {
+	@include span-columns(1,4);
+	@include border-radius(7px);
+	text-align: center;
+	@extend %Semibold;
+	background-color: white;
+
+	h2 {
+		@include rem(font-size, 18px);
+		position: relative;
+		@include rem(padding-top, 17px);
+		@include rem(padding-left, 36px);
+		@include rem(padding-right, 36px);
+	}
+	dt {
+		color: $gray;
+		position: relative;
+		@include rem(margin-top, 10px);
+		border-top: 1px solid $beige;
+		@include rem(padding-top, 10px);
+	}
+
+	dd {
+		padding-left: 0;
+		@include rem(font-size, 25px);
+	}
+
+	dt,
+	dd {
+		@include rem(padding-left, 36px);
+		@include rem(padding-right, 36px);
+	}
+	
+	.is-green {
+		background-color: $green;
+		color: white;
+	}
+	.icon-helper{
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+
+}

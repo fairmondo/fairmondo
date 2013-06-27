@@ -18,9 +18,8 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if @articles.empty?
-  .fairnopoly-well
-    %h3= t("common.text.no_search_result")
-    = t("common.text.no_search_result_text")
+  %h3= t("common.text.no_search_result")
+  = t("common.text.no_search_result_text")
 - else
-  = render :partial=>'/shared/list_articles', :locals=>{ :articles=> @articles, :list_class=>"span3"}
+  = render :partial=>'/shared/list_articles', :locals=>{ :articles=> @articles}
   = will_paginate @articles

@@ -7,6 +7,8 @@ config/initializers/secret_token.rb
 # Project files
 .project
 .settings
+*.sublime-project
+*.sublime-workspace
 
 # Autotest configuration file
 .autotest
@@ -65,3 +67,9 @@ Gemfile.local
 
 # vim fragments / vim swap-files
 *.swp
+
+.ruby-version
+
+# compass sprites
+app/assets/images/icons-*.png
+>>>>>>> e8c06d0a565a31792ed3912458c297e46d32edd3

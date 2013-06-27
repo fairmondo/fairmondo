@@ -18,9 +18,9 @@ You should have received a copy of the GNU Affero General Public License
 along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
 $(document).ready ->
-  $('.library_settings').hide()
-  $('.library_settings_show').click (e) =>
-    $(e.target).parent().parent().find('.library_settings').show()
+  $('.Library-settings').hide()
+  $('.Library-showsettings').click (e) =>
+    $(e.target).parent().parent().find('.Library-settings').show()
     $(e.target).hide()
 
 
