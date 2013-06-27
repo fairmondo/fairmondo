@@ -25,9 +25,7 @@ $(document).ready(function(){
 	$('#login-link').on('click', function (e) {
 		$.colorbox({
 			transition: "none",
-			width: "75%",
 			opacity: 0.4,
-			height: "75%",
 			href:$(this).attr('href')});
 			return false;
 	} );

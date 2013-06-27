@@ -179,7 +179,7 @@
 }
 .User-registration {
 	@include span-columns(4, 4);
-	
+
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(3, 4);
 	}
@@ -201,5 +201,10 @@
 	}
 }
 
-
+// Login in a color box
+#cboxLoadedContent {
+  .User-login {
+    width:100%;
+  }
+}
 
