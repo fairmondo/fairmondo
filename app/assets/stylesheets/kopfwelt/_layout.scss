@@ -17,13 +17,13 @@ body {
 		@include rem(margin-top, 18px);
 		padding-bottom: em(20);
 		@include pie-clearfix;
+		background-color: $darkbeige;
 	}
 	.l-Inner {
 		@include rem(margin-top, 16px);
 	}
 }
 .l-Main {
-	background-color: $beige;
 	& > .l-Inner {
 		@include rem(padding-top, 21px);
 		padding-bottom: 7em;
