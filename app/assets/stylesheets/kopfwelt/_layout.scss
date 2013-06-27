@@ -40,9 +40,3 @@ body {
 		padding-bottom: em(20);
 	}
 }
-
-.Libraries {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(2,4);
-	}
-}
