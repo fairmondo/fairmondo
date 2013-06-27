@@ -20,16 +20,23 @@
 		float: left;
 	}
 	.content {
-		display: inline-block;
-		width: 68%;
+		@include rem(line-height, 15px);
 	}
 	.number {
 		@include rem(font-size, $font-size-l);
 		display: inline-block;
 		padding: 0;
+		@include rem(margin-top, -6px);
 	}
 	.icon-helper {
 		float: right;
+	}
+}
+
+.Accordion-header.Btn-accordion--number {
+	.content {
+		display: inline-block;
+		width: 68%;
 	}
 }
 
@@ -93,10 +100,12 @@
 		width: 100%;
 		margin-right: 0;
 	}
-	.Accordion-header {
-		.content {
-			white-space: normal;
-			width: 58%;
+	.Btn-accordion--number {
+		.Accordion-header {
+			.content {
+				white-space: normal;
+				width: 58%;
+			}
 		}
 	}
 }
