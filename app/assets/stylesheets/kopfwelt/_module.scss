@@ -54,7 +54,8 @@
 //
 .Breadcrumb {
 	@include span-columns(4, 4);
-	margin-bottom: $gutter-width / 3;
+	@include rem(margin-bottom, 27px);
+
 	ul {margin: 0; padding: 0}
 	li {
 		list-style-type: none;

@@ -21,6 +21,7 @@
 	}
 	.content {
 		display: inline-block;
+		width: 68%;
 	}
 	.number {
 		@include rem(font-size, $font-size-l);
@@ -95,7 +96,7 @@
 	.Accordion-header {
 		.content {
 			white-space: normal;
-			width: 12em;
+			width: 58%;
 		}
 	}
 }

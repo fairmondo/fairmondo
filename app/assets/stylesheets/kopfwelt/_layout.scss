@@ -25,7 +25,7 @@ body {
 .l-Main {
 	background-color: $beige;
 	& > .l-Inner {
-		@include rem(padding-top, 40px);
+		@include rem(padding-top, 21px);
 		padding-bottom: 7em;
 	}
 }
