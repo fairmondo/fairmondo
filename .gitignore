@@ -65,7 +65,11 @@ deriving_license_tmp
 #Local additional Gemfile
 Gemfile.local
 
+# vim fragments / vim swap-files
+*.swp
+
 .ruby-version
 
 # compass sprites
 app/assets/images/icons-*.png
+>>>>>>> e8c06d0a565a31792ed3912458c297e46d32edd3
