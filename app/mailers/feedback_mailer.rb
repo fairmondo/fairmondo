@@ -17,22 +17,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Notification < ActionMailer::Base
+class FeedbackMailer < ActionMailer::Base
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notification.invitation.subject
-  #
-  #def invitation(id, user, name, email, activation_key)
-  #
-  #  key = SecureRandom.hex(24)
-  #  @user = user
-  #  @name = name
-  #  @url  = "http://beta.fairnopoly.de/confirm_invitation?id=" + id.to_s + "&key=" + activation_key
-  #
-  #  mail(:to => email, :subject => ("Einladung auf Fairnopoly von "+@user.name) )
-  #
-  #end
+
+  def feedback_and_help( feedback, topic )
+
+    @text = feedback.text
+    @type = feedback.type
+    if $email_addresses
+      mail(:to => $email_addresses['FeedbackMailer'][feedback.type][topic], :from => feedback.from, :subject => feedback.subject)
+    end
+  end
+
 
 end

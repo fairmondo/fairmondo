@@ -1,0 +1,36 @@
+Addresses:
+  ArticleMailer:
+    default_from: 
+    report: 
+    category_proposal: 
+
+  DeviseMailer:
+    mailer_sender: 
+
+  FeedbackMailer:
+    send_feedback:
+      dealer: 
+      private: 
+      buyer: 
+      seller: 
+      technics: 
+      event: 
+      cooperative: 
+      hero: 
+      ngo: 
+      honor:
+      other:
+      trust_community:
+    get_help:
+      marketplace:
+      comm_deal_fair:
+      comm_deal:
+      private_deal:
+      buy:
+      technics:
+      cooperative:
+      hero:
+      ngo:
+      honor:
+      other:
+      trust_community:

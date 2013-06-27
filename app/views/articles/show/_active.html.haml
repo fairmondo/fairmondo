@@ -47,6 +47,4 @@
   .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do
-        = render :partial=>'/shared/feedback', :locals=>{ :type=> :report_article}
-
-
+        = render '/shared/feedback', :type=> "report_article"
