@@ -31,20 +31,16 @@
         = accordion_item "library"+library.id.to_s , :title => library.name  do
           - if policy(library).update? || policy(library).destroy?
             - if library.public?
-              %i.icon-globe.icon-large
               = t 'library.visibility.public'
             - else
-              %i.icon-user.icon-large
               = t 'library.visibility.private'
           - if policy(library).update?
             %p
               %a.Btn.Library-showsettings
-                %i.icon-cogs
                 = t('common.actions.edit')
           - if policy(library).destroy?
             %p
               %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
-                %i.icon-trash
                 = t('common.actions.destroy')
           - if policy(library).update?
             = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
@@ -62,7 +58,7 @@
                   .thumbnail.white{:style => "position: relative;"}
                     .in-image-container-library
                       - if policy(library_element).destroy?
-                        - html = glyphicons("icon-remove")
+                        - html = glyphicons("awesome-icon-remove")
                         = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
                       = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
                       = features_label library_element.article
