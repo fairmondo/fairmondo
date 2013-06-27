@@ -58,6 +58,6 @@ $(document).ready(function(){
 	});
 	$('html').click(function(e) {
 		$("i.icon-helper").tooltip('close');
-
+		e.stopPropagation();
 	});
 });

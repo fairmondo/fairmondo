@@ -18,17 +18,18 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Accordion-item{:id => accordion_name}
-  %a{:href => "##{accordion_name}", :class => "Accordion-header #{accordion_header_class}"}
-    %i.icon-arrow
+	%a{:href => "##{accordion_name}", :class => "Accordion-header #{accordion_header_class}"}
+		%i.icon-arrow
 
-    = accordion_title
+		%span.content
+			= accordion_title
 
-    -if accordion_number
-      %span.number
-        = accordion_number
+		-if accordion_number
+			%span.number
+				= accordion_number
 
-    -if accordion_tooltip
-      %i.icon-helper{:title => accordion_tooltip}
+		-if accordion_tooltip
+			%i.icon-helper{:title => accordion_tooltip}
 
-  .Accordion-content
-    = yield
+	.Accordion-content
+		= yield

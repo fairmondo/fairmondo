@@ -64,7 +64,7 @@ module Fairtastic
             prefix << " "
           end
           tooltip = optional_tooltip_html("#{step_key}_input_step", options)
-          template.content_tag(:a,   template.content_tag(:i,"", :class => "icon-arrow") << prefix.html_safe << (localized_string(step_key, object, "input_steps") || "").html_safe , :href => "##{step_key}_step" ,:class => "Accordion-header")
+          template.content_tag(:a,   template.content_tag(:i,"", :class => "icon-arrow") << prefix.html_safe << (localized_string(step_key, object, "input_steps") || "").html_safe << tooltip, :href => "##{step_key}_step" ,:class => "Accordion-header")
 
 
         end
