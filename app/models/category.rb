@@ -33,18 +33,6 @@ class Category < ActiveRecord::Base
   # Ensure no n+1 queries result from Category.roots
   scope :roots, includes(:children).roots
 
-  # recursively determines whether the passed collection includes all ancestors of self
-  # without hitting the db
-  def include_all_ancestors?(categories)
-    categories = categories.all unless categories.is_a?(Array)
-    return true unless parent_id
-    p = categories.select{|c| c.id == self.parent_id}.first
-    if p
-      p.include_all_ancestors?(categories)
-    else
-      false
-    end
-  end
 
   def self_and_ancestors_ids
     self_and_ancestors = [ self.id ]

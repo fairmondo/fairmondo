@@ -121,14 +121,10 @@ module Article::Attributes
 
   end
 
-
-
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal
-
   end
-
 
   def has_legal_entity_seller?
     self.seller.is_a?(LegalEntity)

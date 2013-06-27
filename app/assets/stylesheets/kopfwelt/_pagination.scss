@@ -1,0 +1,23 @@
+//
+// Navigation in ist of Articles
+//
+
+
+.pagination {
+	text-align: center;
+	li {
+		list-style-type: none;
+		display: inline-block;
+		margin-right: 1em;
+		@extend .Btn;
+		@extend .Btn-tag;
+		@extend .Btn-tag--gray;
+		
+		a {
+			color: white;	
+		}
+	}
+	.active {
+		@extend .Btn-tag--green;
+	}
+}

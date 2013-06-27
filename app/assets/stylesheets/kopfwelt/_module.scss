@@ -1,0 +1,128 @@
+//
+// Modules
+//
+
+.is-hidden {
+	// hide while developing
+	display: none;
+}
+
+.Logo {
+	@include rem(padding-top, 27px);
+}
+.Logo,
+.Copyright {
+	float: left;
+	@media (max-width: 30em) {
+		float: none;
+	}
+}
+.Copyright {
+	@include rem(font-size, 15px);
+	p {
+		margin-top: .4em;
+	}
+}
+
+//
+// Meta
+//
+.Meta {
+	@include span-columns(4, 4);
+	@include border-radius(.9em);
+	background: #fff;
+	p {
+		@include rem(font-size, 13px);
+		@include rem(margin-bottom, 21px);
+	}
+	@include at-breakpoint($layout-small) {
+		@include span-columns(2, 4);
+	}
+}
+.Meta--block {
+	padding: $gutter-width / 2;
+	border-bottom: solid $beige .15em;
+}
+.Meta--highlight {
+	display: block;
+	color: $gray;
+}
+
+
+//
+// Breadcrumb
+//
+.Breadcrumb {
+	@include span-columns(4, 4);
+	margin-bottom: $gutter-width / 3;
+	ul {margin: 0; padding: 0}
+	li {
+		list-style-type: none;
+	}
+	a {
+		color: $lightgray;
+		text-decoration: none;
+		text-transform: capitalize;
+		&:hover {
+			color: $gray;
+		}
+		&.last {
+			color: black;
+		}
+		&.last:hover {
+			color: $lightgray;
+		}
+	}
+	&+.Breadcrumb {
+		@include rem(margin-top, -13px);
+	}
+}
+
+
+//
+// Feedback button
+//
+.l-Feedback {
+	display: inline-block;
+	position: fixed;
+	top: 50%;
+	@include rem(right, -122px);
+	z-index: 99;
+	@include transform(rotate(-90deg));
+	@include transition(right 100ms ease-in);
+	&:hover {
+		@include rem(right, -118px);
+	}
+	@media (max-width: 30em) {
+		display: none;
+	}
+}
+.Feedback {
+	&.Btn {
+		margin: 0;
+		padding: em(0,17) em(15,17) em(9,17);
+	}
+}
+
+//
+// A module to seperate paragraphs
+//
+.TextSection {
+	padding-bottom: 1em;
+	border-bottom: 1px solid $gray;
+	margin-bottom: 1em;
+	max-width: em(540);
+}
+
+
+
+.Highlight {
+	@include rem(font-size, $font-size-m);
+	color: gray;
+	margin-bottom: .5em;
+}
+
+.l-Hero .l-Inner h1 {
+	@extend %Semibold;
+	margin-top: 0.5em;
+}

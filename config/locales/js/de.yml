@@ -1,0 +1,6 @@
+de:
+  javascript:
+    common:
+      actions:
+        remove: "Löschen"
+        select: "Auswählen"

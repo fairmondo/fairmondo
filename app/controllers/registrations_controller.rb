@@ -19,6 +19,7 @@
 #
 class RegistrationsController < Devise::RegistrationsController
 
+  before_filter :dont_cache, only: [ :edit ]
   skip_before_filter :authenticate_user!, :only => [ :create, :new ]
 
   #before_filter :check_recaptcha, only: :create
