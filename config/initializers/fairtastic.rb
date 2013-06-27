@@ -32,29 +32,18 @@ module Formtastic
         def tooltip_text
           localized_string(method, options[:tooltip], :tooltip)
         end
-      end
 
-      module Labelling
-         def label_html
-
-          label = render_label? ? builder.label(input_name, label_text, label_html_options) : "".html_safe
-          label << tooltip
-        end
-      end
-
-      module Choices
-        def legend_html
-          if render_label?
-            template.content_tag(:legend,
-               label_text << tooltip ,
-              label_html_options
-            )
+        def to_html
+          if tooltip
+            tooltip << super
           else
-            "".html_safe
+            super
           end
         end
 
       end
+
+
 
     end
   end
