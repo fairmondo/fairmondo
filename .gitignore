@@ -62,3 +62,6 @@ deriving_license_tmp
 
 #Local additional Gemfile
 Gemfile.local
+
+# vim fragments / vim swap-files
+*.swp
