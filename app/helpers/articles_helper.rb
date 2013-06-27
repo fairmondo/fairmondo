@@ -34,17 +34,6 @@ module ArticlesHelper
     html.html_safe
   end
 
-  #def condition_badge_class condition
-  #  case condition
-  #  when "new"
-  #    bclass="badge-white"
-  #  when "old"
-  #    bclass="badge-inverse"
-  #  end
-  #  bclass
-  #end
-
-
   def get_category_tree category
     tree = []
     cat = category
