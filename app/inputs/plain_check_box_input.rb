@@ -23,10 +23,6 @@
 #  module Inputs
 class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
 
-  def to_html
-    super
-  end
-
   def label_with_nested_checkbox
     builder.label(
       method,

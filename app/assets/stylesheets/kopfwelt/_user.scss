@@ -29,6 +29,8 @@
 .User--detail {
 	@include span-columns(4, 4);
 	padding-top: 3em;
+	@include rem(margin-bottom, 9px);
+
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(2,4);
 	}
@@ -38,8 +40,7 @@
 }
 .User-title {
 	@extend %Semibold;
-	margin-bottom: 0;
-	font-size: $base-font-size;
+	@include rem(font-size, 16px);
 	text-align: center;
 }
 .User-edit {
@@ -52,16 +53,17 @@
 }
 
 .User-secondary {
-	@include rem(font-size, $font-size-m);
+	@include rem(font-size, 13px);
 	@include rem(margin-bottom, 76px);
 	.User-collection {
 		margin-top: 3em;
 	}
 }
+
 .User-info {
 	@include border-radius(.9em);
-	margin-bottom: 1em;
-	padding: $gutter-width / 4;
+	@include rem(margin-bottom, 21px);
+	@include rem(padding, 14px);
 	background: $white;
 	text-align: center;
 }
@@ -69,8 +71,9 @@
 	@include border-radius(50%);
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
-	@include rem(margin, 30px auto);
+	@include rem(margin, 0 auto 20px);
 	overflow: hidden;
+	@include rem(margin-top, 16px);
 	img {
 		width: 100%;
 		height: 100%;
@@ -90,12 +93,19 @@
 	@include clearfix;
 	text-transform: capitalize;
 	font-weight: 700;
+	.User-image {
+		@include rem(margin-top, 17px);
+	}
 }
 .User-name {
 	line-height: 1.1;
+	@include rem(margin-bottom, 16px);
 }
-.User-legal a {
-	color: $gray;
+.User-legal {
+	@include rem(margin-bottom, 8px);
+	a {
+		color: $gray;
+	}
 }
 .User-primary .icon-pencil {
 	top: 2px;
@@ -179,7 +189,7 @@
 }
 .User-registration {
 	@include span-columns(4, 4);
-	
+
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(3, 4);
 	}
@@ -201,5 +211,10 @@
 	}
 }
 
-
+// Login in a color box
+#cboxLoadedContent {
+  .User-login {
+    width:100%;
+  }
+}
 

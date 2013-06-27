@@ -27,19 +27,23 @@
       = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%"), :max => (resource.fair ? "€15" : "€30")  )
       %i.icon-helper
     %dd
-      %b= humanized_money_with_symbol resource.calculated_fee
+      = humanized_money_with_symbol resource.calculated_fee
     %dt
       = raw t('article.preview.fees_and_donations.corruption_percent')
       %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations")}
     %dd
-      %b= humanized_money_with_symbol resource.calculated_corruption
+      = humanized_money_with_symbol resource.calculated_corruption
     -#%dt
       -#= t('article.preview.fees_and_donations.friendly_percent')
     -#%dd= humanized_money_with_symbol resource.calculated_friendly
     %dt.is-green
-      %b= t('article.preview.fees_and_donations.total', :fee => (resource.fair ? "3% + 1%" : "6% + 1%")  )
+      = t('article.preview.fees_and_donations.total', :fee => (resource.fair ? "3% + 1%" : "6% + 1%")  )
       %i.icon-helper
     %dd.is-green
       = humanized_money_with_symbol resource.calculated_fees_and_donations
 
+  // This button is supposed to be like this:
+  // %a.Btn.Btn--green.Btn--greenSmall
+  //   Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen
   %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--green Btn--greenSmall", :method => :put
+
