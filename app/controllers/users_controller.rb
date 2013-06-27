@@ -24,6 +24,7 @@ class UsersController < InheritedResources::Base
   custom_actions :resource => :profile, :collection => :login
 
   before_filter :authorize_resource, :except => :login
+  before_filter :dont_cache, only: [ :show ]
   skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
   skip_after_filter :verify_authorized_with_exceptions, only: [:login]
 
