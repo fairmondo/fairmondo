@@ -17,30 +17,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 
-
+*/
 
 
 $(document).ready(function(){
-	// popover
-    $("#login-link").tooltip({
-    	tooltipClass: "top", // class for the arrow/pointer
-		position: {
-			my: "center bottom",
-			at: "center top-20"
-		},
-		show: {
-			duration: 200
-		},
-		hide: {
-			duration: 0
-		},
-    	content:function(callback) {
-	        $.get('/users/login', { },
-	         function(data) {
-	            callback(data); //**call the callback function to return the value**
-	        });
-    	}
-    });
 
+	$('#login-link').on('click', function (e) {
+		$.colorbox({
+			transition: "none",
+			width: "75%",
+			opacity: 0.4,
+			height: "75%",
+			href:$(this).attr('href')});
+			return false;
+	} );
 
-}); */
+});

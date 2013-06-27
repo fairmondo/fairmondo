@@ -29,7 +29,7 @@ Fairnopoly::Application.routes.draw do
 
   mount Tinycms::Engine => "/cms"
 
-  devise_for :user, controllers: { registrations: 'registrations' }
+  devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
 
   resources :articles do
     member do
