@@ -24,14 +24,6 @@
 
 class PlainRadioInput < Formtastic::Inputs::RadioInput
 
-  def to_html
-    if tooltip
-      tooltip << super
-    else
-      super
-    end
-  end
-
   def choice_html(choice)
     opts = input_html_options
     if options[:js_toggle]

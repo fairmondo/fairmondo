@@ -18,7 +18,6 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .User.User--teaser
-<<<<<<< HEAD
 	= render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
 	.User-accordion.Accordion
 		= accordion_item "other_products", :number => active_seller_articles.count, :title => t('article.titles.other-products') do
@@ -37,16 +36,10 @@
 				= t('article.show.no_alternative')
 
 
-<<<<<<< HEAD
 	.Accordion.Accordion--full
 		- if policy(resource).report?
 			= accordion_item "report" do
 				= render :partial=>'/shared/feedback', :locals=>{ :type=> :report_article}
 
 
-=======
-  .Accordion.Accordion--full
-    - if policy(resource).report?
-      = accordion_item "report" do
-        = render :partial=>'/shared/feedback', :locals=>{ :type=> :report_article}
->>>>>>> release
+
