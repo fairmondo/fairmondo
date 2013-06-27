@@ -21,10 +21,15 @@
 # see  lib/formtastic/helpers/input_helper.rb
 #module Fairtastic
 #  module Inputs
+
 class PlainRadioInput < Formtastic::Inputs::RadioInput
 
   def to_html
-   super
+    if tooltip
+      tooltip << super
+    else
+      super
+    end
   end
 
   def choice_html(choice)
@@ -51,5 +56,6 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
       false
     end
   end
+
 
 end
