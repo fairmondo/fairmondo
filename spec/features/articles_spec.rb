@@ -204,14 +204,14 @@ describe "Other articles of this seller box" do
     @article_active = FactoryGirl.create :article, :user_id => seller.id
     @article_locked = FactoryGirl.create :preview_article, :user_id => seller.id
     visit article_path @article_active
+    save_and_open_page
   end
 
   it "should show active article" do
-    save_and_open_page
-    page.should have_link(href: article_path(@article_active))
+    page.should have_link('', href: article_path(@article_active))
   end
 
   it "should not show locked article" do
-    page.should have_no_link(href: article_path(@article_locked))
+    page.should have_no_link('', href: article_path(@article_locked))
   end
 end
