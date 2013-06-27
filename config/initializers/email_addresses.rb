@@ -17,19 +17,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ApplicationMailer < ActionMailer::Base
+begin
 
+  addresses = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'email_addresses.yml'))))
+  $email_addresses  = addresses['Addresses']
 
-  def help(mail_adr,subject,text,topic)
-
-    mail(:to => "melden@fairnopoly.de", :subject => "")
-
-  end
-
-  def feedback(mail_adr,subject,text,topic)
-
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "")
-
-  end
-
+rescue
+  puts 'email_addresses.yml not found'
 end

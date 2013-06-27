@@ -32,6 +32,7 @@ class FeedbacksController < InheritedResources::Base
   end
 
   def new
+    @type = params[:type]
     authorize build_resource
     new!
   end

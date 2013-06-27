@@ -25,16 +25,12 @@ class FeedbackObserver < ActiveRecord::Observer
 
      # Send the feedback
     case feedback.type
-
       when "report_article" then
-
-        ArticleMailer.report_article(feedback.article,feedback.user,feedback.text).deliver
-
+        ArticleMailer.report_article( feedback.article,feedback.user,feedback.text ).deliver
       when "send_feedback" then
-
+        FeedbackMailer.feedback_and_help( feedback, feedback.feedback_subject ).deliver
       when "get_help" then
-
-      else
+        FeedbackMailer.feedback_and_help( feedback, feedback.help_subject ).deliver
     end
 
   end
