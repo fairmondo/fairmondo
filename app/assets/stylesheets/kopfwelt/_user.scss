@@ -218,3 +218,45 @@
   }
 }
 
+
+
+.User-login {
+	.password {
+		float: none !important;
+		clear: both;
+	}
+}
+.User-registration {
+	.stringish {
+		@include span-columns(4, 4);
+	}
+	input {
+		width: 95% !important;
+		max-width: none !important;
+	}
+	.icon-helper {
+		top: 2.5em;
+		right: 0em;
+	}
+}
+@include at-breakpoint($layout-small) {
+	.User-registration {
+		.stringish {
+			@include span-columns(2, 4);
+		}
+		.email {@include omega;}
+		#user_password_input {
+			float: left !important;
+			
+		}
+		#user_password_confirmation_input {@include omega;}
+	}
+	.User-login {
+		@include span-columns(2, 4);
+	}
+}
+@include at-breakpoint($layout-medium) {
+	.User-login {
+		@include span-columns(1, 4);
+	}
+}
