@@ -24,9 +24,9 @@
       %h6
         %a{:href => "#other_products"}
           = t('article.titles.other-products')
-          (#{seller_articles.count})
+          (#{seller_articles_active.count})
     .box-content
-      = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> seller_articles, :paginate => true, :list_class=>"span4", :anchor=> "other_products"}
+      = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> seller_articles_active, :paginate => true, :list_class=>"span4", :anchor=> "other_products"}
   #library.box
     .box-legend
       %h6
