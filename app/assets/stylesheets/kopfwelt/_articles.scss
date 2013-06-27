@@ -31,9 +31,8 @@
 }
 .Article-info {
 	@include pie-clearfix;
-	padding: $gutter-width / 2;
+	@include rem(padding, 7px 19px);
 	padding-bottom: .5em;
-	min-height: 10em;
 	background-color: $white;
 	h2 {
 		@include rem(font-size, $base-font-size);
@@ -88,12 +87,13 @@ span.Article-price {
 .Article-vat,
 .Article-basicprice,
 .Article-basicset {
-	@include rem(font-size, $font-size-xs);
+	@include rem(font-size, 10px);
 	line-height: 1;
 	margin-bottom: .2em;
 }
 .Article-vat {
 	@include span-columns(1 alpha, 2);
+	@include rem(margin-top, -7px);
 }
 .Article-basicprice {
 	@include span-columns(1 omega, 2);
