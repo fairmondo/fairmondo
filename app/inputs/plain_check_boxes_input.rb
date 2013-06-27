@@ -23,6 +23,14 @@
 #  module Inputs
 class PlainCheckBoxesInput < Formtastic::Inputs::CheckBoxesInput
 
+  def to_html
+    if tooltip
+      tooltip << super
+    else
+      super
+    end
+  end
+
   def render_label?
     false
   end
