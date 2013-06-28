@@ -16,7 +16,7 @@ describe "mass-upload" do
     it "should rediret to login page" do
       visit new_mass_upload_path
       current_path.should eq new_user_session_path
-      should have_selector('h1', text: 'Login')
+      should have_selector(:link_or_button, text: 'Login')
     end
   end
 
@@ -31,57 +31,70 @@ describe "mass-upload" do
       should have_selector('h2', text: 'Artikel importieren')
     end
 
-    describe "correct error message" do
+    context "uploading" do
 
-      it "should be shown when not selecting a file" do
+      it "should show correct error messages when not selecting a file" do
         click_button "Artikel hochladen"
         should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
       end
 
-      it "should be shown when trying to upload a html file" do
+      it "should show correct error messages when selecting a html file" do
         attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_format.html')
         click_button "Artikel hochladen"
         should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
       end
 
-      it "should be shown when trying to upload a csv file with a wrong header" do
-        attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_header.csv')
-        click_button "Artikel hochladen"
-        should have_selector('p.inline-errors', text: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln')
-      end
+      context "when selecting a csv file" do
 
-      # bugbug Der zweite it block gehört hier nicht rein. Besser not dry als schlecht zugeordnet?
-      describe "when uploading a csv file with a wrong article" do
-        before do
-          setup_categories
-          attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_article.csv')
+        before { setup_categories }
+
+        context "with a wrong header" do
+
+          before do
+            attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_header.csv')
+          end
+
+          it "should show correct error messages" do
+            click_button "Artikel hochladen"
+            should have_selector('p.inline-errors', text: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln')
+          end
+
+          it "should not create new articles" do
+            expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
+          end
         end
 
-        it "should be shown" do
-          click_button "Artikel hochladen"
-          should have_selector('p.inline-errors', text: 'Content muss ausgefüllt werden (Artikelzeile 2)')
+        context "with wrong articles" do
+
+          before do
+            attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_article.csv')
+          end
+
+          it "should show correct error messages" do
+            click_button "Artikel hochladen"
+            should have_selector('p.inline-errors', text: 'Content muss ausgefüllt werden (Artikelzeile 2)')
+          end
+
+          it "should not create new articles" do
+            expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
+          end
         end
 
-        it "should also not create new articles" do
-          expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
+        context "with valid articles only" do
+
+          before do
+            attach_file('mass_upload_file', 'spec/fixtures/mass_upload_correct.csv')
+          end
+
+          it "should redirect to the mass_uploads#show" do
+            click_button "Artikel hochladen"
+            should have_content('dummytitle3')
+          end
+
+          it "should create new articles" do
+            expect { click_button "Artikel hochladen" }.to change(Article, :count).by(2)
+          end
         end
-      end
-    end
-
-
-    describe "when uploading a correct csv file" do
-      before do
-        setup_categories
-        attach_file('mass_upload_file', 'spec/fixtures/mass_upload_correct.csv')
-      end
-
-      describe "it should redirect to the mass_uploads#show" do
-        before { click_button "Artikel hochladen" }
-        it { should have_content('dummytitle3') }
-      end
-
-      it "should create new articles" do
-        expect { click_button "Artikel hochladen" }.to change(Article, :count).by(2)
       end
     end
   end

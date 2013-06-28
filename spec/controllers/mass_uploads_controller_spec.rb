@@ -1,13 +1,11 @@
-# bugbug Isn't that all tested in /features/mass_upload_spec.rb already?
-
 require 'spec_helper'
 
 include MassUploadCreator
 include CategorySeedData
 
 describe MassUploadsController do
-  render_views
 
+  # Strictly speaking not necessary since already tested in the feature tests
   describe "GET 'new'" do
 
     context "for non-signed-in users" do
@@ -46,24 +44,11 @@ describe MassUploadsController do
       end
 
       it "should create a mass-upload object" do
-        # bugbugb seems like there is no way to access the secret_mass_uploads_number
         post :create, mass_upload: @attributes
-        # response.should be_redirect
-
-        # controller.instance_variable
-        # puts @test
-        # response.should redirect_to(new_mass_upload_path)
-        p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        p response.redirect_url
-        # p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        # p session
-        # p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        # redirect_to(new_mass_upload_path)
-
-        # secret_mass_uploads_number.should == @user
-        # session[secret_mass_uploads_number].should_not be_empty
+        secret_mass_uploads_number = response.redirect_url.dup
+        secret_mass_uploads_number.slice!("http://test.host/mass_uploads/")
+        response.should redirect_to mass_upload_path(secret_mass_uploads_number)
       end
     end
-
   end
 end
