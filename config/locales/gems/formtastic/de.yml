@@ -40,6 +40,12 @@ de:
         paypal_account: Paypal-Konto
         customer_number: Kundennummer
 
+      feedback:
+        from: "Mail"
+        subject: "Betreff"
+        feedback_subject: "Thema"
+        help_subject: "Thema"
+
       article:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -208,7 +214,7 @@ de:
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 
-        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. 
+        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel.
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"

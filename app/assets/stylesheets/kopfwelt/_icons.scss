@@ -89,6 +89,7 @@ $icon: sprite-map("icon/*.png");
 .icon-helper {
 	height: icon-sprite-height(helper);
 	width: icon-sprite-width(helper);
+	cursor: pointer;
 }
 
 

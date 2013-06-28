@@ -17,4 +17,4 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-WillPaginate.per_page = 12
+WillPaginate.per_page = 24

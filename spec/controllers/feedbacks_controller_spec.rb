@@ -44,11 +44,11 @@ describe FeedbacksController do
         sign_in @user
       end
 
-      #it "should create an feedback with type report_article" do
-      #  lambda do
-      #    post :create, :user_id => @user.id, :article_id => @article.id, :type => "report_article", :text => "test"
-      #  end.should change(Feedback , :count).by 1
-      #end
+     # it "should create an feedback with type report_article" do
+     #   lambda do
+     #     post :create, :user_id => @user.id, :article_id => @article.id, :type => "send_feedback", :text => "test"
+     #   end.should change(Feedback , :count).by 1
+     # end
 
     end
   end

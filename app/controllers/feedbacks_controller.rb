@@ -19,7 +19,7 @@
 #
 class FeedbacksController < InheritedResources::Base
   respond_to :html
-  actions :create
+  actions :create, :new
 
   def create
     authorize build_resource
@@ -29,6 +29,12 @@ class FeedbacksController < InheritedResources::Base
       failure.html { redirect_to :back, :alert => @feedback.errors.full_messages.first }
 
     end
+  end
+
+  def new
+    @type = params[:type]
+    authorize build_resource
+    new!
   end
 
 end

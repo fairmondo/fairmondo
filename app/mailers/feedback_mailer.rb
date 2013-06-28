@@ -17,18 +17,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-# We cannot namespace them properly as formtastic's lookup chain would not find them
-# see  lib/formtastic/helpers/input_helper.rb
-#module Fairtastic
-#  module Inputs
-class PlainCheckBoxesInput < Formtastic::Inputs::CheckBoxesInput
+class FeedbackMailer < ActionMailer::Base
 
-  def render_label?
-    false
+
+  def feedback_and_help( feedback, topic )
+
+    @text = feedback.text
+    @type = feedback.type
+    if $email_addresses
+      mail(:to => $email_addresses['FeedbackMailer'][feedback.type][topic], :from => feedback.from, :subject => feedback.subject)
+    end
   end
 
-  def wrapper_classes_raw
-    super << " check_boxes"
-  end
 
 end
