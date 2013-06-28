@@ -2,6 +2,8 @@
 // Articles
 //
 
+
+
 .Article-info {
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
@@ -31,12 +33,11 @@
 }
 .Article-info {
 	@include pie-clearfix;
-	padding: $gutter-width / 2;
+	@include rem(padding, 7px 19px);
 	padding-bottom: .5em;
-	min-height: 10em;
 	background-color: $white;
 	h2 {
-		@include rem(font-size, $base-font-size);
+		@include rem(font-size, 17px);
 	}
 	#library_element_library_input {
 	  .selectboxit-container {
@@ -54,6 +55,7 @@
 
 .Article-info--right {
 	@include span-columns(2, 2);
+	@include rem(margin-top, 11px);
 	.Article-vat,
 	.Article-basicprice {
 		@include span-columns(2, 2);
@@ -70,9 +72,11 @@
 }
 .Article-tags {
 	@include pie-clearfix;
-	padding: .5em .6em 0em;
-	border-top: $beige 0.15em solid;
 	background-color: $white;
+	.Article--teaser & {
+		padding: .5em .6em 0em;
+		border-top: $beige 0.15em solid;
+	}
 }
 .Articles-title {
 	@include rem(font-size, $font-size-m);
@@ -88,12 +92,16 @@ span.Article-price {
 .Article-vat,
 .Article-basicprice,
 .Article-basicset {
-	@include rem(font-size, $font-size-xs);
+	@include rem(font-size, 10px);
 	line-height: 1;
 	margin-bottom: .2em;
 }
 .Article-vat {
 	@include span-columns(1 alpha, 2);
+	@include rem(margin-bottom, 13px);
+	.Article--teaser & {
+		@include rem(margin-top, -7px);
+	}
 }
 .Article-basicprice {
 	@include span-columns(1 omega, 2);
@@ -113,21 +121,14 @@ span.Article-price {
 	margin-bottom: 1em;
 	background-color: $white;
 	overflow: hidden;
-	.Helper-text {
-		padding: $gutter-width / 2;
-	}
+	@include rem(padding, 14px);
 	.icon-helper {
-		display: inline-block;
-		position: absolute;
-		top: 1.1em;
-		right: .8em;
-		cursor: pointer;
+		top: 0;
+		right: 0;
 	}
 	.Article-title {
 		@extend %Semibold;
-		margin-bottom: 0;
-		padding: $gutter-width / 2;
-		font-size: $base-font-size;
+		@include rem(font-size, 16px);
 		text-align: center;
 	}
 }

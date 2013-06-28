@@ -31,7 +31,11 @@ Fairnopoly::Application.routes.draw do
 
   mount Tinycms::Engine => "/cms"
 
-  devise_for :user, controllers: { registrations: 'registrations' }
+  devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
+
+  namespace :toolbox do
+    get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
+  end
 
   resources :articles do
     member do
@@ -44,7 +48,7 @@ Fairnopoly::Application.routes.draw do
 
   get "welcome/index"
 
-  resources :feedbacks, :only => [:create]
+  resources :feedbacks, :only => [:create,:new]
 
   #the user routes
 

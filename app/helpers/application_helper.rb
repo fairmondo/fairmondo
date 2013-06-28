@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def hero
-    hero = "<div id=\"hero\">"
+    hero = ""
     begin
 
        if @rendered_hero
@@ -33,14 +33,12 @@ module ApplicationHelper
        else
          hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
        end
-
-       hero << "</div>"
         rescue ActionView::MissingTemplate
           begin
             hero += render :partial => "/hero/#{params[:controller]}/default"
-            hero << "</div>"
+
           rescue ActionView::MissingTemplate
-            hero = ""
+
           end
      end
       return hero.html_safe

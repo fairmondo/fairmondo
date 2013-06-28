@@ -19,24 +19,19 @@
 #
 class FeedbackPolicy < Struct.new(:user, :feedback)
 
+  def new?
+    true
+  end
+
   def create?
-
     case feedback.type
-
       when "report_article" then
           user
-
-    #  when "send_feedback" then
-    #      true
-    #
-    #  when"get_help" then
-    #      true
-    #
-    #  else
-    #    false
-
+      when "send_feedback" then
+          true
+      when"get_help" then
+          true
     end
-
   end
 
 end

@@ -34,6 +34,8 @@ coverage
 rails_best_practices_output.html
 #api keys
 config/api.yml
+#email addresses
+config/email_addresses.yml
 
 #Solr Development
 solr/data/**/*
@@ -64,6 +66,9 @@ deriving_license_tmp
 
 #Local additional Gemfile
 Gemfile.local
+
+# vim fragments / vim swap-files
+*.swp
 
 .ruby-version
 
