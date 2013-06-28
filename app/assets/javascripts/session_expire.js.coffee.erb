@@ -1,13 +1,23 @@
 startTime = new Date().getTime()
 expireTime = startTime + (60 * 60 * 1000)
-#expireTime = startTime + (19 * 1000) # uncomment to test; expires after 20 seconds
 
-displayWarningWhenExpired = ->
+checkIfExpired = ->
   if new Date().getTime() >= expireTime
-    window.clearInterval interval
-    displayWarning()
+    checkIfExpiredOnServer (expired) ->
+      if expired
+        window.clearInterval interval
+        displayWarning()
+
+checkIfExpiredOnServer = (callback) ->
+  $.get '/toolbox/session.json', (result) ->
+    callback result.expired
 
 displayWarning = ->
-  alert "<%= I18n.t 'common.session_expiring_notice' %>"
+  $.colorbox({
+    transition: "none",
+    width: "75%",
+    opacity: 0.4,
+    html: "<p style='text-align:center;margin:10px 0 0 0'><%= I18n.t 'common.session_expiring_notice' %></p>"
+  });
 
-interval = window.setInterval displayWarningWhenExpired, 10000
+interval = window.setInterval checkIfExpired, 600000 # every 10 min

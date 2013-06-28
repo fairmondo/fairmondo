@@ -27,11 +27,19 @@ module Article::Images
     has_many :images, as: :imageable #has_and_belongs_to_many :images
     accepts_nested_attributes_for :images, allow_destroy: true
 
+    after_save :ensure_image_links
+
     def title_image
       if images.empty?
         return nil
       else
         return images[0]
+      end
+    end
+
+    def ensure_image_links
+      images.each do |image|
+        image.imageable = self if !image.imageable
       end
     end
 

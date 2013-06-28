@@ -18,16 +18,28 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Feedback < ActiveRecord::Base
-  attr_accessible :from, :subject, :text, :to, :type, :user_id, :article_id
+  extend Enumerize
+  extend ActiveModel::Naming
 
-  #enumerize :type, :in => [:report_article, :get_help ,:send_feedback]
+  attr_accessible :from, :subject, :text, :to, :type, :user_id, :article_id, :feedback_subject, :help_subject
+
+  enumerize :type, :in => [:report_article, :get_help ,:send_feedback]
+
+  enumerize :feedback_subject, :in => [:dealer,:private,:buyer, :seller, :technics,
+          :event, :cooperative, :hero, :ngo, :honor, :other, :trust_community ]
+
+  enumerize :help_subject, :in => [:marketplace, :comm_deal_fair, :comm_deal, :private_deal,
+    :buy, :technics, :cooperative, :hero, :ngo, :honor, :other, :trust_community]
+
 
   # Validations
   validates :text, :presence => { :message => I18n.t('feedback.error.presence') }
   validates_presence_of :type
 
+
   #Relations
   belongs_to :user
   belongs_to :article
+
 
 end

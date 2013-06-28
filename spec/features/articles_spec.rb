@@ -204,7 +204,6 @@ describe "Other articles of this seller box" do
     @article_active = FactoryGirl.create :article, :user_id => seller.id
     @article_locked = FactoryGirl.create :preview_article, :user_id => seller.id
     visit article_path @article_active
-    save_and_open_page
   end
 
   it "should show active article" do
