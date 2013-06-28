@@ -3,7 +3,6 @@
 
 require 'spec_helper'
 
-# bugbug What exactly is this Warden thing anyway???
 include Warden::Test::Helpers
 include CategorySeedData
 
@@ -13,66 +12,62 @@ describe "mass-upload" do
 
   subject { page }
 
-  describe "for signed-out users" do
-    # bugbugb Why is the before necessary? I don't like it, I don't want it!
-    before { visit new_mass_upload_path }
-    it { should have_selector('h1', text: 'Login') }
+  context "for non signed-in users" do
+    it "should rediret to login page" do
+      visit new_mass_upload_path
+      current_path.should eq new_user_session_path
+      should have_selector('h1', text: 'Login')
+    end
   end
 
-  describe "for signed-in users" do
+  context "for signed-in users" do
 
     before do
       login_as user
       visit new_mass_upload_path
     end
 
-    describe "it should render the correct page" do
-      it { should have_selector('h2', text: 'Artikel importieren') }
+    it "should have the correct title" do
+      should have_selector('h2', text: 'Artikel importieren')
     end
 
-    describe "it should show the correct error message when trying to upload without selecting a file" do
-      before { click_button "Artikel hochladen" }
-      # bugbugb Is there a better way to check for errors?
-      it { should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')}
-    end
+    describe "correct error message" do
 
-    describe "it should show the correct error message when trying to upload a html file" do
-      before do
+      it "should be shown when not selecting a file" do
+        click_button "Artikel hochladen"
+        should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
+      end
+
+      it "should be shown when trying to upload a html file" do
         attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_format.html')
         click_button "Artikel hochladen"
+        should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
       end
-      # bugbugb Is there a better way to check for errors?
-      it { should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')}
-    end
 
-    describe "it should show the correct error message when trying to upload a csv file with a wrong header" do
-      before do
+      it "should be shown when trying to upload a csv file with a wrong header" do
         attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_header.csv')
         click_button "Artikel hochladen"
+        should have_selector('p.inline-errors', text: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln')
       end
-      # bugbugb Is there a better way to check for errors?
-      it { should have_selector('p.inline-errors', text: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln') }
+
+      # bugbug Der zweite it block gehört hier nicht rein. Besser not dry als schlecht zugeordnet?
+      describe "when uploading a csv file with a wrong article" do
+        before do
+          setup_categories
+          attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_article.csv')
+        end
+
+        it "should be shown" do
+          click_button "Artikel hochladen"
+          should have_selector('p.inline-errors', text: 'Content muss ausgefüllt werden (Artikelzeile 2)')
+        end
+
+        it "should also not create new articles" do
+          expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
+        end
+      end
     end
 
-    describe "when uploading a csv file with a wrong article" do
-      before do
-        # bugbug Since I use this twice, how to dry it up?
-        setup_categories
-        attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_article.csv')
-      end
-
-      describe "it should show the correct error messages" do
-        # bugbug Not dry but what to to whe I need to use expect below?
-        before { click_button "Artikel hochladen" }
-        # bugbugb Is there a better way to check for errors?
-        it { should have_selector('p.inline-errors', text: 'Content muss ausgefüllt werden (Artikelzeile 2)') }
-      end
-
-      # Why do I need a 'it' block outside in order to make expect work?
-      it "should not create new articles" do
-        expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
-      end
-    end
 
     describe "when uploading a correct csv file" do
       before do
@@ -81,16 +76,10 @@ describe "mass-upload" do
       end
 
       describe "it should redirect to the mass_uploads#show" do
-        # bugbug Not dry but what to to whe I need to use expect below?
         before { click_button "Artikel hochladen" }
-        # bugbugb Is there a better way to check for errors?
         it { should have_content('dummytitle3') }
-        # Anyway to check if I'm on the right path? The following doesn't work:
-        # it { current_path.should eq "mass_upload_path" }
-        # probably because of the secret_number + I can't access the session
       end
 
-      # Why do I need a 'it' block outside in order to make expect work?
       it "should create new articles" do
         expect { click_button "Artikel hochladen" }.to change(Article, :count).by(2)
       end

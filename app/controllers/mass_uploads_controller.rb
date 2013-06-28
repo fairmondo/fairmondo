@@ -31,6 +31,7 @@ class MassUploadsController < ApplicationController
       render :new
     else
       secret_mass_uploads_number = SecureRandom.urlsafe_base64
+      @test = secret_mass_uploads_number
       session[secret_mass_uploads_number] = []
       articles = @mass_upload
       articles.save
