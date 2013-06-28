@@ -22,6 +22,7 @@ class Image < ActiveRecord::Base
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", mini: "130x90#" },
+                            default_url: "/assets/missing.png",
                             url: "/system/:attachment/:id_partition/:style/:filename",
                             path: "public/system/:attachment/:id_partition/:style/:filename"
 
@@ -36,5 +37,10 @@ class Image < ActiveRecord::Base
   # @api public
   def imageable_type=(sType)
     super(sType.to_s.classify.constantize.base_class.to_s)
+  end
+
+  amoeba do
+    enable
+    #nullify :imageable_id
   end
 end
