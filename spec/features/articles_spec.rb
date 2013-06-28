@@ -52,7 +52,7 @@ describe 'Article management' do
           page.should have_content(I18n.t("article.titles.new"))
         end
 
-        it 'creates an article' do
+        it 'creates an article plus a template' do
           lambda do
             fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
             select Category.root.name, from: 'article_categories_and_ancestors'
@@ -75,8 +75,17 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
 
+            # Image
+            attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
+
+            # Template
+            check 'article_article_template_attributes_save_as_template'
+            fill_in 'article_article_template_attributes_name', with: 'template'
+
             find(".double_check-step-inputs").find(".action").find("input").click
-          end.should change(Article.unscoped, :count).by 1
+          end.should change(Article.unscoped, :count).by 2
+
+          current_path.should eq article_path Article.unscoped.last
         end
 
         it "should create an article from a template" do
