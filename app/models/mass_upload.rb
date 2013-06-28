@@ -1,5 +1,3 @@
-# encoding: utf-8
-#
 # Farinopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
@@ -47,12 +45,12 @@ class MassUpload
     end
 
     unless csv_format?(file)
-      errors.add(:file, "Bitte wähle eine CSV-Datei aus")
+      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
       return false
     end
 
     unless correct_header?(file)
-      errors.add(:file, "Bei der ersten Zeile muss es sich um einen korrekten Header handeln")
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
       return false
     end
     true
@@ -63,7 +61,7 @@ class MassUpload
     raw_articles.each_with_index do |raw_article, index|
       unless raw_article.valid?
         raw_article.errors.full_messages.each do |message|
-          errors.add(:file, "#{message} (Artikelzeile #{index + 1})")
+          errors.add(:file, I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 1)))
         end
         valid = false
       end

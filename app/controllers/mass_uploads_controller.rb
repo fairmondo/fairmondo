@@ -1,8 +1,4 @@
-# encoding: utf-8
-# bugbug Only until the notice with Umlauts is moved to an i18n file
-
 class MassUploadsController < ApplicationController
-# bugbug Switch to inherited ressources?!
 
   def new
     authorize Article.new, :create? # Needed because of pundit

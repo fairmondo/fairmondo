@@ -1,0 +1,8 @@
+de:
+  mass_upload:
+    labels:
+      upload_article: "Artikel hochladen"
+    errors:
+      missing_file: "Bitte wähle eine CSV-Datei aus"
+      wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
+      wrong_article: "%{message} (Artikelzeile %{index})"

@@ -1,5 +1,6 @@
 # encoding: utf-8
-# bugbug
+# bugbug Because of hard coded error message for signed-in users with wrong
+# wrong articles should show correct error message
 
 require 'spec_helper'
 
@@ -34,14 +35,14 @@ describe "mass-upload" do
     context "uploading" do
 
       it "should show correct error messages when not selecting a file" do
-        click_button "Artikel hochladen"
-        should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
+        click_button I18n.t('mass_upload.labels.upload_article')
+        should have_selector('p.inline-errors', text: I18n.t('mass_upload.errors.missing_file'))
       end
 
       it "should show correct error messages when selecting a html file" do
         attach_file('mass_upload_file', 'spec/fixtures/mass_upload_wrong_format.html')
-        click_button "Artikel hochladen"
-        should have_selector('p.inline-errors', text: 'Bitte wähle eine CSV-Datei aus')
+        click_button I18n.t('mass_upload.labels.upload_article')
+        should have_selector('p.inline-errors', text: I18n.t('mass_upload.errors.missing_file'))
       end
 
       context "when selecting a csv file" do
@@ -55,8 +56,8 @@ describe "mass-upload" do
           end
 
           it "should show correct error messages" do
-            click_button "Artikel hochladen"
-            should have_selector('p.inline-errors', text: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln')
+            click_button I18n.t('mass_upload.labels.upload_article')
+            should have_selector('p.inline-errors', text: I18n.t('mass_upload.errors.wrong_header'))
           end
 
           it "should not create new articles" do
@@ -71,12 +72,12 @@ describe "mass-upload" do
           end
 
           it "should show correct error messages" do
-            click_button "Artikel hochladen"
+            click_button I18n.t('mass_upload.labels.upload_article')
             should have_selector('p.inline-errors', text: 'Content muss ausgefüllt werden (Artikelzeile 2)')
           end
 
           it "should not create new articles" do
-            expect { click_button "Artikel hochladen" }.not_to change(Article, :count)
+            expect { click_button I18n.t('mass_upload.labels.upload_article') }.not_to change(Article, :count)
           end
         end
 
@@ -87,12 +88,12 @@ describe "mass-upload" do
           end
 
           it "should redirect to the mass_uploads#show" do
-            click_button "Artikel hochladen"
+            click_button I18n.t('mass_upload.labels.upload_article')
             should have_content('dummytitle3')
           end
 
           it "should create new articles" do
-            expect { click_button "Artikel hochladen" }.to change(Article, :count).by(2)
+            expect { click_button I18n.t('mass_upload.labels.upload_article') }.to change(Article, :count).by(2)
           end
         end
       end
