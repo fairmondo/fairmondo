@@ -1,10 +1,14 @@
 $(function () {
 
 	$('select').selectBoxIt({autoWidth:false});
-	parents = $('select').parent();
+	$('select').click(function(e) {
+		parents = $(e.target).parent();
+		parents.css("overflow", "visible");
+		parents.parents().css("overflow", "visible");
+	})
+	
 
-	parents.css("overflow", "visible");
-	parents.parents().css("overflow", "visible");
+	
 
 
 });
