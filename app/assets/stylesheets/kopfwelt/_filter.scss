@@ -6,22 +6,26 @@
 	@include pie-clearfix;
 	clear: both;
 	position: relative;
-	> .l-Inner {
-		position: relative;
-		height: 0;
-		overflow: hidden !important;
+	> .Filter-inner {
+		max-height:0px;
+		overflow:hidden;
 		@include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
-		@include transition(height 200ms)
+		@include transition(max-height 200ms); // make it collapse faster
+		.Filter-btn {
+		  display:none;
+		}
 	}
 
 	input { float: left; clear: left; }
 	label { width: auto; color: $black; }
 }
 .Filter.is-active {
-	> .l-Inner {
-		overflow: visible !important;
-		//min-height: 200px;
-		height: auto;
+	> .Filter-inner {
+		max-height: 999px;
+		@include transition(max-height 1s);
+		.Filter-btn {
+      display:block;
+    }
 	}
 	.Btn-accordion .icon-arrow-down {
 		@include rotate(180deg);

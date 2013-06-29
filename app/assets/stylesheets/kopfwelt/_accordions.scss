@@ -33,6 +33,15 @@
 	}
 }
 
+.Accordion-item--errors {
+  .Accordion-header {
+    background: $red !important;
+  }
+  .Accordion-content {
+    display: block !important;
+  }
+}
+
 .Accordion-header.Btn-accordion--number {
 	.content {
 		display: inline-block;

@@ -68,7 +68,7 @@ select_category = ->
       $.get "/categories/" + selected_category_id + ".js", ((data) ->
         selected_item = $(data)
         selected_categories_list.append selected_item
-        selected_item.append "<a class=\"Btn\">"+I18n.t("javascript.common.actions.remove")+"</a>"
+        selected_item.append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
       ), "html"
 
 $(document).ready ->
@@ -80,7 +80,7 @@ $(document).ready ->
     #Create the select category button
     select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select")+"</a>"
     select_button = $(select_button_html)
-    native_category_input.after select_button
+    native_category_input.parent().after select_button
     # Event for select button
     select_button.click select_category # On select action
     
@@ -91,7 +91,7 @@ $(document).ready ->
   native_category_input.removeAttr "name"
 
   #Create remove buttons
-  selected_categories_list.find("li").append "<a class=\"Btn\">Delete</a>"
+  selected_categories_list.find("li").append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
 
   # Delegate events on remove buttons
   selected_categories_list.on "click", "li > a", ->
