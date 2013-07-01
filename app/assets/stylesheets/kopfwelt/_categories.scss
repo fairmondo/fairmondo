@@ -1,3 +1,6 @@
+// not sure what this file is
+
+/*
 .Article-form {
   #article_categories_and_ancestors_input {
   .selectboxit-container,
@@ -49,6 +52,16 @@
 	display: inline-block;
 
 	
+.select > label:first-child {
+	margin-bottom: 0.2em;
+}
+
+.Article-form #selected_categories_input > li > span {
+	@extend .Btn;
+	background-color: $white;
+	border: 1px solid;
+	border-color: $lightgray;
+	color: $black;
 	&:hover {
 		background-color: $darkgray;
 	}
@@ -68,3 +81,4 @@
 		margin-right: 0;
 	}
 }
+*/

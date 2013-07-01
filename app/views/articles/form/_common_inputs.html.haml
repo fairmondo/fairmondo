@@ -52,7 +52,7 @@
   - (5-f.object.images.size).times { f.object.images.build }
   = f.semantic_fields_for :images do |image|
     = f.inputs do
-      .Accordion-step--image
+      .Accordion-step
         - if image.object.new_record?
           - if first
             = image.input :image , :label => t("formtastic.labels.article.image")
