@@ -184,21 +184,3 @@ span.Article-price {
 		@include span-columns(1 omega, 4);
 	}
 }
-
-
-.Article-form {
-  .stringish,
-  .selectboxit-container,
-  .selectboxit-options {
-     @include at-breakpoint($layout-large) {
-      width: columns(2,4);
-      margin-right: 20px;
-    }
-  }
-  
-  .select > label:first-child {
-    margin-bottom: 0.2em;
-  }
-  
-
-}
