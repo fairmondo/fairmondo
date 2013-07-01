@@ -132,16 +132,29 @@ span.Article-price {
 		text-align: center;
 	}
 }
+.Article-form {
+	float: left;
+	width: 100%;
+}
 
-//
-// Responsive layout
-//
 .Article--detail,
 .User--teaser,
 .Related,
 .Article-form {
 	@include transition(width 200ms ease-in);
 }
+
+//
+// Responsive layout
+//
+
+
+@media (min-width: 950px) {
+	.Article-form {
+		@include span-columns(3, 4);
+	}
+}
+
 @include at-breakpoint($layout-medium) {
 	.Article--detail {
 		@include span-columns(4, 4);
@@ -158,17 +171,8 @@ span.Article-price {
 	.Article-info--left {
 		@include span-columns(1 alpha, 2);
 	}
-
-
 }
-.Article-form {
-	float: left;
-	width: 100%;
 
-	@media (min-width: 950px) {
-		@include span-columns(3, 4);
-	}
-}
 @include at-breakpoint($layout-large) {
 	.Article--detail {
 		@include span-columns(2, 4);
@@ -179,4 +183,22 @@ span.Article-price {
 	.Related {
 		@include span-columns(1 omega, 4);
 	}
+}
+
+
+.Article-form {
+  .stringish,
+  .selectboxit-container,
+  .selectboxit-options {
+     @include at-breakpoint($layout-large) {
+      width: columns(2,4);
+      margin-right: 20px;
+    }
+  }
+  
+  .select > label:first-child {
+    margin-bottom: 0.2em;
+  }
+  
+
 }

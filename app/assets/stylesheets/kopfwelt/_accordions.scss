@@ -9,6 +9,7 @@
 	@extend .Btn;
 	@extend .Btn-accordion;
 	@include pie-clearfix;
+	@include rem(font-size, $font-size-s);
 	margin-bottom: -0.2em;
 	outline: 0;
 	background: $btn--blue !important;
@@ -31,6 +32,15 @@
 	.icon-helper {
 		float: right;
 	}
+}
+
+.Accordion-item--errors {
+  .Accordion-header {
+    background: $red !important;
+  }
+  .Accordion-content {
+    display: block !important;
+  }
 }
 
 .Accordion-header.Btn-accordion--number {
@@ -70,13 +80,19 @@
 	outline: 0;
 }
 .Accordion-step {
-	border-bottom: solid .15em $beige;
-	padding: ($gutter-width / 2) ($gutter-width / 2) em(8);
-
+	border-bottom: solid 2px $beige;
+	margin-bottom: em(15);
 }
-.Accordion-step--image {
-	@extend .Accordion-step;
-	padding: 0 ($gutter-width / 2);
+
+// Remove the last border
+.Accordion-content .input:last-of-type .Accordion-step:last-of-type {
+	border-bottom: 0;
+	margin-bottom: 0;
+	
+	// dirty exception
+	.plain_check_box {
+		padding-bottom: em(15);
+	}
 }
 
 
@@ -87,7 +103,7 @@
 	.Accordion-content {
 		.Articles--list li {
 			@include span-columns(1, 2);
-			&:nth-child(2n) { @include span-columns(1 omega, 2)}
+			&:nth-child(2n) { @include omega; }
 		}
 	}
 }
