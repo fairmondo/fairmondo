@@ -22,10 +22,14 @@
 class ArticleMailer < ActionMailer::Base
   default from: "kundenservice@fairnopoly.de"
 
-  def report_article(article,text)
+  def report_article(article,user,text)
+
     @text = text
     @article = article
-    mail(:to => "melden@fairnopoly.de", :subject => "Article reported with ID: " + article.id.to_s)
+    @user = user
+
+    mail(:to => "melden@fairnopoly.de",:from => user.email, :subject => "Article reported with ID: " + article.id.to_s)
+
   end
 
   def category_proposal(category_proposal)

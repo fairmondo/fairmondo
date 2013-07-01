@@ -26,9 +26,9 @@ class ArticlesController < InheritedResources::Base
 
   # Authorization
   skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
+  skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_filter :build_login , :unless => :user_signed_in?, :only => [:show, :index]
   before_filter :ensure_complete_profile , :only => [:new, :create]
 
   #Sunspot Autocomplete
@@ -87,7 +87,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def update # Still needs Refactoring
-
     if state_params_present?
       change_state!
     else
@@ -99,18 +98,6 @@ class ArticlesController < InheritedResources::Base
                      render :edit }
     end
   end
-
-  def report
-    @article = Article.find params[:id]
-    authorize resource
-    if params[:report].blank?
-      redirect_to resource, :alert => (I18n.t 'article.actions.reported-error')
-    else
-      ArticleMailer.report_article(@article,params[:report]).deliver
-      redirect_to resource, :notice => (I18n.t 'article.actions.reported')
-    end
-  end
-
 
   def destroy
 
@@ -176,8 +163,8 @@ class ArticlesController < InheritedResources::Base
   def save_images
     #At least try to save the images -> not persisted in browser
     resource.images.each do |image|
-        image.save
-     end
+      image.save
+    end
   end
 
   ################## Inherited Resources

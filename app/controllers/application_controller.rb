@@ -27,16 +27,9 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index,:autocomplete]
+  after_filter :verify_authorized_with_exceptions, :except => [:index]
 
   protect_from_forgery
-
-
-  ## Misc
-
-  def build_login
-    @login = render_to_string(:partial => "devise/login_popover" , :layout => false )
-  end
 
   helper :all
   helper_method :tinycms_admin?
@@ -90,7 +83,17 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_classes
-    [RegistrationsController]
+    [RegistrationsController, SessionsController, ToolboxController]
+  end
+
+
+  # Caching security: Set response headers to prevent caching
+  # @api semipublic
+  # @return [undefined]
+  def dont_cache
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
 end

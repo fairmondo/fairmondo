@@ -1,0 +1,6 @@
+= form_for :help, :url => url_for(:action => 'help'), :method => :get do |f|
+  = t('article.notices.report')
+  = f.text_area "melden", :rows => 4,:cols => 40,  :name=>"report", :value => params["report"]
+  %br/
+  %button.btn.btn-primary
+    = t('article.actions.report')

@@ -54,6 +54,7 @@ module Article::Template
 
     ########## build Template #################
   def build_and_save_template
+    ensure_image_links
     # Reown Template
     cloned_article = self.amoeba_dup
     cloned_article.article_template_id = self.article_template_id

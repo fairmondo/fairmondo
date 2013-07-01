@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def hero
-    hero = "<div id=\"hero\">"
+    hero = ""
     begin
 
        if @rendered_hero
@@ -35,24 +35,15 @@ module ApplicationHelper
        else
          hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
        end
-
-       hero << "</div>"
         rescue ActionView::MissingTemplate
           begin
             hero += render :partial => "/hero/#{params[:controller]}/default"
-            hero << "</div>"
+
           rescue ActionView::MissingTemplate
-            hero = ""
+
           end
      end
       return hero.html_safe
-  end
-
-  def render_tooltip tooltip
-    tip = "<a class=\"input-tooltip\"><span>"
-    tip += tooltip
-    tip += "</span></a>"
-    tip.html_safe
   end
 
   def title(title = nil)
@@ -85,6 +76,11 @@ module ApplicationHelper
 
   def search_cache
     Article.new(params[:article])
+  end
+
+  # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
   end
 
 end

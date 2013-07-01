@@ -29,6 +29,8 @@ module Fairtastic
     include Fairtastic::Helpers::InputHelper
     include Fairtastic::Inputs::Base::InputSteps
 
+    @@default_form_class = 'formtastic'
+
     def inputs(*args, &block)
       super(*extended_fieldset_args(*args),&block)
     end
@@ -76,7 +78,7 @@ module Fairtastic
       tooltip = optional_tooltip_html(association_name, options)
       tooltip = template.content_tag(:span, tooltip) if tooltip.present?
 
-      title = template.content_tag(:h5, (title << tooltip).html_safe, :class => "questionnaire-entry")
+      title = template.content_tag(:h3, (title << tooltip).html_safe, :class => "questionnaire-entry")
       title.html_safe << semantic_fields_for(association_name, options, &block)
     end
 
@@ -101,7 +103,7 @@ module Fairtastic
 
     def purpose_args(*args)
       options = args.extract_options!
-      options[:as] = options[:purpose_as] || :plain_check_boxes
+      options[:as] = options[:purpose_as] || :check_boxes
       args[0] = (args[0].to_s << "_purposes").to_sym
       args << options
     end

@@ -1,0 +1,12 @@
+//
+// User libraries/"Sammlungen"
+//
+
+.Libraries {
+	h3 {
+		@extend %Semibold;
+	}
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2,4);
+	}
+}

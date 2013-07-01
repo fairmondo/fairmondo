@@ -92,14 +92,16 @@ class Article < ActiveRecord::Base
     nullify :slug
     nullify :transaction_id
     nullify :article_template_id
-    customize(lambda { |original_article,new_article|
+    customize lambda { |original_article, new_article|
       original_article.images.each do |image|
-        copyimage = Image.new
-        copyimage.image = image.image
+        #copyimage = Image.new
+        #copyimage.image = image.image
+        copyimage = image.amoeba_dup
+        #copyimage.imageable_id = new_article.id
         new_article.images << copyimage
         copyimage.save
       end
-    })
+    }
   end
 
   # Does this article belong to user X?
@@ -108,6 +110,5 @@ class Article < ActiveRecord::Base
   def owned_by? user
     user && self.seller.id == user.id
   end
-
 
 end

@@ -2,9 +2,11 @@ Article reported with ID <%= @article.id %> :  <%= @text %>
 ===========================================================
 
 Article link: <%= polymorphic_url(@article) %>
-<<<<<<< HEAD
-Admin link: <%= rails_admin.show_path(:model_name => "articles", :id => @article.id) %>
-<%= t('common.fn_legal_footer')%>
-=======
 Admin link: <%= polymorphic_url([:admin, @article]) %>
->>>>>>> 9d969da82b0c9ec5e5b13b1d914f978fbca8a1b5
+
+<%= t('common.fn_legal_footer.intro')%>
+<%= t('common.fn_legal_footer.contact')%>
+<%= t('common.fn_legal_footer.registered')%>
+<%= t('common.fn_legal_footer.board')%>
+<%= t('common.fn_legal_footer.ceo')%>
+<%= t('common.fn_legal_footer.supervisory_board')%>

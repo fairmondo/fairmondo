@@ -1,0 +1,54 @@
+//
+// Layout
+//
+
+body {
+	background-color: $beige;
+}
+.l-Inner {
+	@include container;
+}
+.l-Header {
+	background-image: url(asset-path("back3.gif", image));
+}
+.l-Hero {
+	background-color: $beige;
+	.first {
+		@include rem(margin-top, 18px);
+		padding-bottom: em(20);
+		@include pie-clearfix;
+		background-color: $darkbeige;
+	}
+	.l-Inner {
+		@include rem(margin-top, 16px);
+	}
+}
+//
+// Move the container from hero to inner containers on home because of the filter
+//
+.page-Home .l-Hero {
+	> .l-Inner { max-width: none; padding-left: 0; padding-right: 0; }
+	.first,
+	.Filter {
+		@include container;
+	}
+}
+
+
+.l-Main {
+	& > .l-Inner {
+		@include rem(padding-top, 21px);
+		padding-bottom: 7em;
+	}
+}
+.l-Footer {
+	background-image: url(asset-path("back3.gif", image));
+	.Footer--top {
+		@media (min-width: 30em) {
+			margin-bottom: em(103);
+		}
+	}
+	.Footer--bottom {
+		padding-bottom: em(20);
+	}
+}

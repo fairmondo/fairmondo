@@ -22,7 +22,6 @@
 class WelcomeController < ApplicationController
 
   skip_before_filter :authenticate_user!, :only => :index
-  before_filter :build_login
 
   def index
     @articles = Article.count
