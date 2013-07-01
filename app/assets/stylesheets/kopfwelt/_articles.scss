@@ -2,8 +2,6 @@
 // Articles
 //
 
-
-
 .Article-info {
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
@@ -53,6 +51,11 @@
 		@include rem(padding-bottom, 7px);
 }
 
+.Article-info--left {
+	@include span-columns(2, 2);
+	position: relative;
+	min-height: 19.5em;
+}
 .Article-info--right {
 	@include span-columns(2, 2);
 	@include rem(margin-top, 11px);
@@ -64,11 +67,6 @@
 	.Btn {
 		float: right;
 	}
-}
-.Article-info--left {
-	@include span-columns(2, 2);
-	position: relative;
-	min-height: 19.5em;
 }
 .Article-tags {
 	@include pie-clearfix;
@@ -144,61 +142,47 @@ span.Article-price {
 	@include transition(width 200ms ease-in);
 }
 
+
 //
 // Responsive layout
 //
-
-
 @media (min-width: 950px) {
 	.Article-form {
 		@include span-columns(3, 4);
 	}
 }
 
-@include at-breakpoint($layout-medium) {
-	.Article--detail {
+.Article--detail {
+	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
 	}
-	.User.User--teaser {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(2, 4);
-	}
-	.Related {
-		@include span-columns(2 omega, 4);
-	}
-	.Article-info--right {
-		@include span-columns(1 omega, 2);
-	}
-	.Article-info--left {
-		@include span-columns(1 alpha, 2);
 	}
 }
-
-@include at-breakpoint($layout-large) {
-	.Article--detail {
+.User.User--teaser {
+	@include at-breakpoint($layout-medium) {
 		@include span-columns(2, 4);
 	}
-	.User.User--teaser {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(1, 4);
 	}
-	.Related {
+}
+.Related {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(2 omega, 4);
+	}
+	@include at-breakpoint($layout-large) {
 		@include span-columns(1 omega, 4);
 	}
 }
-
-
-.Article-form {
-  .stringish,
-  .selectboxit-container,
-  .selectboxit-options {
-     @include at-breakpoint($layout-large) {
-      width: columns(2,4);
-      margin-right: 20px;
-    }
-  }
-  
-  .select > label:first-child {
-    margin-bottom: 0.2em;
-  }
-  
-
+.Article-info--right {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(1 omega, 2);
+	}
+}
+.Article-info--left {
+	@include at-breakpoint($layout-medium) {
+		@include span-columns(1 alpha, 2);
+	}
 }

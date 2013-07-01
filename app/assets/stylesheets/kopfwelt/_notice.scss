@@ -2,33 +2,46 @@
 // Green/red notice bar
 //
 
+/**
+ *	For this box the functionnality is so:
+ *	- the Notice box is always display none
+ *	- when it has the .is-visible class, it is display block
+ *	- clicking on the "close arrow" will remove the .is-visible class, making it hidden
+ */
+
+
 .Notice {
-  display: none; // hidden for now
-  position: relative;
-  color: #fff;
-  .l-Inner {
-    padding-top: ($gutter-width /2);
-    padding-bottom: ($gutter-width /2);
-  }
-  .Btn {
-    margin-bottom: 0;
-  }
+	display: none; // hidden for now
+	color: #fff;
+	.l-Inner {
+		position: relative;
+		padding-top: ($gutter-width /2);
+		padding-bottom: ($gutter-width /2);
+	}
+	.Btn {
+		margin-bottom: 0;
+	}
+	&.is-visible {
+		display: block;
+	}
 }
 .Notice--info {
-  background-color: $green;
+	background-color: $green;
 }
-.Notice-error {
-  background-color: $red;
+.Notice--error {
+	background-color: $red;
 }
 
 // The close button
-#alert-close-main {
-  position: absolute;
-  font-size: 22px;
-  top: 10px;
-  left: 10px;
-  color: #fff;
-  &:hover {
-    text-decoration: none;
-  }
+.Notice-close {
+	color: white;
+	cursor: pointer;
+	padding: 5px;
+	@include rem(font-size, 22px);
+	position: absolute;
+	top: 0;
+	left: 4px;
+	&:hover {
+		text-decoration: none;
+	}
 }

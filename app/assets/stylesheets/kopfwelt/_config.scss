@@ -34,9 +34,16 @@ $column-width: em(245);
 $gutter-width: em(40);
 $grid-padding: em(40);
 
-// // Breakpoints
-$bp-medium: 700;
-$bp-large: 940;
+// Breakpoints
+$breakpoint-small: 680;
+$breakpoint-medium: 800;
+$breakpoint-large: 960;
+$breakpoint-huge: 1600;
+
+//$container-width: em($breakpoint-large);
+$layout-small: em($breakpoint-small) lt-ie9;
+$layout-medium: em($breakpoint-medium) lt-ie9;
+$layout-large: em($breakpoint-large) lt-ie9;
 
 // Colors
 $blue: #3a80c2;
@@ -63,14 +70,3 @@ $anchor-hover: $blue;
 $anchor-active: $blue;
 
 $text-color: $black;
-
-$breakpoint-small: 680;
-$breakpoint-medium: 800;
-$breakpoint-large: 960;
-$breakpoint-huge: 1600;
-
-//$container-width: em($breakpoint-large);
-$layout-small: em($breakpoint-small);
-$layout-medium: em($breakpoint-medium);
-$layout-large: em($breakpoint-large);
-$layout-huge: em($breakpoint-huge);

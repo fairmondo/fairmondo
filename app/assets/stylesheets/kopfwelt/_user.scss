@@ -51,7 +51,6 @@
 		@extend %Semibold;
 	}
 }
-
 .User-secondary {
 	@include rem(font-size, 13px);
 	@include rem(margin-bottom, 76px);
@@ -59,7 +58,6 @@
 		margin-top: 3em;
 	}
 }
-
 .User-info {
 	@include border-radius(.9em);
 	@include rem(margin-bottom, 21px);
@@ -114,7 +112,6 @@
 .User-accordion {
 	@include span-columns(4, 4);
 }
-
 .User-articles {
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
@@ -138,8 +135,8 @@
 		}
 	}
 }
-@include at-breakpoint($layout-large) {
-	.User-additional {
+.User-additional {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(2, 4);
 	}
 }
@@ -167,7 +164,6 @@
 		}
 	}
 }
-
 .User-edit-pw {
 	.controls {
 		clear: both;
@@ -209,14 +205,9 @@
 }
 
 // Login in a color box
-#cboxLoadedContent {
-  .User-login {
-    width:100%;
-  }
+#cboxLoadedContent .User-login {
+	width:100%;
 }
-
-
-
 .User-login {
 	.password {
 		float: none !important;
@@ -227,17 +218,13 @@
 	.stringish {
 		@include span-columns(4, 4);
 	}
-	input {
-		//width: 95% !important;
-		//max-width: none !important;
-	}
 	.icon-helper {
 		top: em(31);
 		right: em(-8);
 	}
 }
-@include at-breakpoint($layout-small) {
-	.User-registration {
+.User-registration {
+	@include at-breakpoint($layout-small) {
 		.stringish {
 			@include span-columns(2, 4);
 		}
@@ -248,12 +235,12 @@
 		}
 		#user_password_confirmation_input {@include omega;}
 	}
-	.User-login {
+}
+.User-login {
+	@include at-breakpoint($layout-small) {
 		@include span-columns(2, 4);
 	}
-}
-@include at-breakpoint($layout-medium) {
-	.User-login {
+	@include at-breakpoint($layout-medium) {
 		@include span-columns(1, 4);
 	}
 }
