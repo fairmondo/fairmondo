@@ -27,9 +27,10 @@
 
 // forms
 @import "_formtastic.scss"; //formtastic base layout
-@import "_formtastic_changes.scss";
 @import "_icheck.scss";
 @import "_search.scss";
+@import "_selectbox.scss";
+@import "_formtastic_changes.scss";
 
 // modules
 @import "_notice.scss";
@@ -44,7 +45,6 @@
 @import "_index.scss";
 @import "_item-teaser.scss";
 @import "_fees.scss";
-@import "_selectbox.scss";
 @import "_categories.scss";
 @import "_filter.scss";
 @import "_tooltip.scss";
