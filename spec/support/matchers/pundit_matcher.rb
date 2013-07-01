@@ -101,9 +101,9 @@ module PunditMatcher
       filter_hash = all_filters.select{ |f| f.kind == :before && f.filter == filter }[0].per_key
 
       if filter_hash && action_name
-        if filter_hash[:unless]
+        if filter_hash[:unless] && !filter_hash[:unless].empty?
           !eval(filter_hash[:unless][0]) # these describe actions excluded from the filter. returns true => action doesnt have filter
-        elsif filter_hash[:if]
+        elsif filter_hash[:if] && !filter_hash[:if].empty?
           eval(filter_hash[:if][0]) # these describe actions including the filter. returns true => action has filter
         else
           true # every action gets the before filter

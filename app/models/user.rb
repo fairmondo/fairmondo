@@ -62,7 +62,8 @@ class User < ActiveRecord::Base
 
 
   #Relations
-  has_many :articles, :dependent => :destroy
+  has_many :articles, :dependent => :destroy # As seller
+  has_many :transactions # As buyer
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
@@ -122,7 +123,7 @@ class User < ActiveRecord::Base
   # @api public
   # @param user [User] Usually current_user
   def is? user
-    self.id == user.id
+    user && self.id == user.id
   end
 
   private

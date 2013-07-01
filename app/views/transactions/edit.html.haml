@@ -27,10 +27,10 @@
     %h3 Artikel
     %ul
       %li
-        Produkt:
+        = t('common.text.product') + ":"
         = @transaction.article_title
       %li
-        Haendler:
+        = t('common.text.seller') + ":"
         = @transaction.article_seller.fullname
 
     %h3
@@ -44,16 +44,9 @@
     = f.input :selected_payment, label: false, include_blank: false, collection: @transaction.selected_payments
 
     %h3
-      = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
+      = t 'transaction.edit.impressum', name: @transaction.article_seller.fullname
     %p
-      = @transaction.article_seller.terms
-      = link_to_function 'Drucken', "javascript:print()"
-
-    %h3
-      = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
-    %p
-      = @transaction.article_seller.cancellation
-      = link_to_function 'Drucken', "javascript:print()"
+      = @transaction.article_seller.about
 
     %h3
       = t 'transaction.edit.address'

@@ -25,23 +25,31 @@ describe TransactionPolicy do
   include PunditMatcher
 
   subject { TransactionPolicy.new(user, transaction)  }
-  let(:transaction) { FactoryGirl.create :transaction }
+  let(:transaction) { FactoryGirl.create :sold_transaction }
   let(:user) { nil }
 
   context "for a visitor" do
     it { should permit(:edit)   }
     it { should permit(:update) }
+    it { should ultimately_deny(:show)     }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
     it { should permit(:edit)             }
     it { should permit(:update)           }
+    it { should deny(:show)               }
   end
 
   context "for the transaction seller" do
     let(:user) { transaction.article_seller }
     it { should deny(:edit)                 }
     it { should deny(:update)               }
+    it { should permit(:show)               }
+  end
+
+  context "for the transaction buyer" do
+    let(:user) { transaction.buyer }
+    it { should permit(:show)              }
   end
 end

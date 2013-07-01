@@ -137,7 +137,7 @@ de:
         name: Name
         public: Öffentlich
       transaction:
-        tos_accepted: Ich akzeptiere die AGB
+        tos_accepted: Ich akzeptiere die AGB und die Widerrufserfklärung
     input_steps:
       user:
         account: Benutzerkonto

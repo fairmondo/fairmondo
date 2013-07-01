@@ -21,8 +21,7 @@
 #
 class Article < ActiveRecord::Base
   extend Enumerize
-
-  attr_accessible
+  attr_accessible # Just to keep rails_best_practices happy...
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -51,7 +50,7 @@ class Article < ActiveRecord::Base
 
   # Misc mixins
   extend Sanitization
-   # Article module concerns
+  # Article module concerns
   include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Template, State
 
   def images_attributes=(attributes)

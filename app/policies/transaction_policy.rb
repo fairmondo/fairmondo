@@ -29,6 +29,10 @@ class TransactionPolicy < Struct.new(:user, :transaction)
     edit?
   end
 
+  def show?
+    user.is?(transaction.article_seller) || user.is?(transaction.buyer)
+  end
+
   private
   def own?
     user ? user.articles.include?(transaction.article) : false

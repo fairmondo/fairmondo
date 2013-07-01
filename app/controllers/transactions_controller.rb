@@ -30,16 +30,23 @@ class TransactionsController < InheritedResources::Base
     edit! { return render :step2 if resource.edit_params_valid? params }
   end
 
+  # def show
+  #   if resource.available? # if available actually pundit should forbid this action
+  #     redirect_to edit_transaction_path resource
+  #   else
+  #     show!
+  #   end
+  # end
+
+  def update
+    #@transaction = Transaction.find params[:id]
+    resource.buyer_id = current_user.id
+    resource.buy
+    update!
+  end
+
   private
   def authorize_resource
     authorize resource
   end
-
-  # def update
-  #   authorize resource
-  #   update! do |success,failure|
-  #     success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
-  #     failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
-  #   end
-  # end
 end
