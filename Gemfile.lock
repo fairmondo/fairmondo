@@ -281,7 +281,7 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
-    rails_best_practices (1.13.7)
+    rails_best_practices (1.13.8)
       activesupport
       awesome_print
       code_analyzer
@@ -321,7 +321,7 @@ GEM
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.9)
     ruby-progressbar (1.1.1)
-    ruby2ruby (2.0.5)
+    ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
     ruby_parser (3.1.3)

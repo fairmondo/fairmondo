@@ -34,6 +34,14 @@
 
     %p
       %strong
+        = t('common.text.product') + ":"
+      = @transaction.article_title
+    %p
+      %strong
+        = t('common.text.seller') + ":"
+      = @transaction.article_seller.fullname
+    %p
+      %strong
         = t('transaction.edit.payment_type')
       = t('enumerize.transaction.selected_payment.' + selected_payment)
     %p
@@ -54,6 +62,23 @@
       %br
       = current_user.country
 
+
+    %h3
+      = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
+    %p
+      = @transaction.article_seller.terms
+      = link_to_function 'Drucken', "javascript:print()"
+
+    %h3
+      = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
+    %p
+      = @transaction.article_seller.cancellation
+      = link_to_function 'Drucken', "javascript:print()"
+
+    %p
+      = f.input :tos_accepted
+
+
     %h3
       = t 'transaction.edit.price_heading'
 
@@ -70,9 +95,6 @@
       %strong
         = I18n.t 'transaction.edit.gross'
         = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment
-
-    %p
-      = f.input :tos_accepted
 
   = f.actions do
     = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'btn'

@@ -41,7 +41,9 @@ describe 'Transaction' do
           page.should have_content I18n.t 'transaction.edit.heading'
 
           # Should display article data
+          page.should have_content I18n.t 'common.text.product'
           page.should have_content article.title
+          page.should have_content I18n.t 'common.text.seller'
           page.should have_content seller.fullname
 
           # Should display shipping selection
@@ -52,11 +54,8 @@ describe 'Transaction' do
           page.should have_content I18n.t 'transaction.edit.payment'
           page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_payment.cash')
 
-          # Should display Impressum
-          page.should have_content I18n.t 'transaction.edit.terms', name: seller.fullname
-
-          # Should display declaration of revocation
-          page.should have_content I18n.t 'transaction.edit.cancellation', name: seller.fullname
+          # Should display impressum
+          page.should have_content I18n.t 'transaction.edit.impressum', name: seller.fullname
 
           # Should display buyer's address
           page.should have_content I18n.t 'transaction.edit.address'
@@ -86,6 +85,12 @@ describe 'Transaction' do
             page.should have_css 'input#transaction_selected_transport[@type=hidden][@value=pickup]'
             page.should have_css 'input#transaction_selected_payment[@type=hidden][@value=cash]'
 
+            # Should display article data
+            page.should have_content I18n.t 'common.text.product'
+            page.should have_content article.title
+            page.should have_content I18n.t 'common.text.seller'
+            page.should have_content seller.fullname
+
             # Should display chosen payment type
             page.should have_content I18n.t 'transaction.edit.payment_type'
             page.should have_content I18n.t 'enumerize.transaction.selected_payment.cash'
@@ -102,8 +107,27 @@ describe 'Transaction' do
             page.should have_content user.city
             page.should have_content user.country
 
+            # Should display terms
+            page.should have_content I18n.t 'transaction.edit.terms', name: seller.fullname
+
+            # Should display declaration of revocation
+            page.should have_content I18n.t 'transaction.edit.cancellation', name: seller.fullname
+
             # Should display a checkbox for the terms
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
+
+            # Should display buttons
+            page.should have_link I18n.t 'common.actions.back'
+            page.should have_button I18n.t 'transaction.actions.purchase'
+          end
+
+          it "should submit the data successfully" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+
+            check 'transaction_tos_accepted'
+            click_button I18n.t 'transaction.actions.purchase'
+
+            current_path.should eq transaction_path transaction
           end
 
           context "when testing the displayed total price" do
@@ -212,7 +236,28 @@ describe 'Transaction' do
     context "for a logged-out user" do
       it "should not yet be accessible" do
         visit edit_transaction_path transaction
-        page.should have_content "Login"
+        current_path.should eq new_user_session_path
+      end
+    end
+  end
+
+  describe "#show" do
+    context "for a logged-in user" do
+      context "when the transaction is sold" do
+        let (:transaction) { FactoryGirl.create :sold_transaction }
+
+        it "should not redirect" do
+          login_as transaction.buyer
+          visit transaction_path transaction
+          current_path.should eq transaction_path transaction
+        end
+      end
+    end
+
+    context "for a logged-out user" do
+      it "should not yet be accessible" do
+        visit edit_transaction_path transaction
+        current_path.should eq new_user_session_path
       end
     end
   end

@@ -1,6 +1,14 @@
 # encoding: UTF-8
 
 namespace :db do
+  desc 'Migrate & prepare test db'
+  task :update do
+    puts 'Updating database...'
+    system 'rake db:migrate'
+    system 'rake db:test:prepare'
+    puts "\n\nDatabase updated.\n\n"
+  end
+
   desc 'Get a list of articles from http://www.itemmaster.com'
   task :seed_articles, [:number_of_items] => :environment do | t, args |
     require 'faker'

@@ -23,7 +23,9 @@ class Transaction < ActiveRecord::Base
   extend Enumerize
 
   has_one :article
-  attr_accessible :type, :selected_transport, :selected_payment, :tos_accepted
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+  attr_accessible :selected_transport, :selected_payment, :tos_accepted
+  attr_protected :buyer_id, :state
 
   #@todo remove duplication with data in Article::Attributes
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
@@ -34,6 +36,50 @@ class Transaction < ActiveRecord::Base
            :basic_price, :price, :vat, :vat_price, :price_without_vat,
            :total_price,
            to: :article, prefix: true
+
+
+  state_machine initial: :available do
+
+    state :available do
+    end
+
+    state :sold do
+    end
+
+    state :paid do
+    end
+
+    state :sent do
+    end
+
+    state :completed do
+    end
+
+    event :buy do
+      transition :available => :sold
+    end
+
+    event :pay do
+      transition :sold => :paid
+    end
+
+    event :ship do
+      transition :paid => :sent
+    end
+
+    event :receive do
+      transition :sent => :completed
+    end
+  end
+
+  # Transaction type is set via the "kind" attribute. Here we check wether the given value actually inherits from Transaction
+  # @api public
+  # @param type [String] subclass name
+  # @return [undefined]
+  def kind= type
+    raise SecurityError unless type.constantize < self.class
+    self.type = type
+  end
 
   # Edit can be called with GET params. If they are valid, it renders a different
   # view to show the final sales price. This method is called to validates if the
@@ -67,8 +113,7 @@ class Transaction < ActiveRecord::Base
   end
 
   private
-  # Check if seller allowed [transport/payment] type of [type] for the associated
-  # article. Also sets error message.
+  # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
   #
   # @api private
   # @param attribute [String] ATM: payment or transport

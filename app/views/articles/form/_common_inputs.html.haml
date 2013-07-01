@@ -132,5 +132,4 @@
     -# f.input :friendly_percent_organisation, :as => :select
 
 = f.semantic_fields_for :transaction do |transaction|
-
-  = transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }
+  = transaction.input :kind, :as => :hidden, :input_html => { :value => "PreviewTransaction" }
