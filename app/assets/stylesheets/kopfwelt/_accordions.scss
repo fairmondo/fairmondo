@@ -3,7 +3,8 @@
 //
 
 .Accordion {
-	@include span-columns(4, 4);
+	float: left;
+	width: 100%;
 }
 .Accordion-header {
 	@extend .Btn;
@@ -99,29 +100,28 @@
 //
 // Media Queries
 //
-@include at-breakpoint($layout-small) {
-	.Accordion-content {
+.Accordion-content {
+	@include at-breakpoint($layout-small) {
 		.Articles--list li {
 			@include span-columns(1, 2);
 			&:nth-child(2n) { @include omega; }
 		}
 	}
 }
-@include at-breakpoint($layout-medium) {}
-@include at-breakpoint($layout-large) {
-	.Accordion {
+.Accordion {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(2, 4);
 	}
-	.Accordion--full {
+}
+.Accordion--full {
+	@include at-breakpoint($layout-large) {
 		width: 100%;
 		margin-right: 0;
 	}
-	.Btn-accordion--number {
-		.Accordion-header {
-			.content {
-				white-space: normal;
-				width: 58%;
-			}
-		}
+}
+.Btn-accordion--number .Accordion-header .content {
+	@include at-breakpoint($layout-large) {
+		white-space: normal;
+		width: 58%;
 	}
 }
