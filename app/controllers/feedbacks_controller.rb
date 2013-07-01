@@ -20,7 +20,7 @@
 class FeedbacksController < InheritedResources::Base
   respond_to :html
   actions :create, :new
-
+  skip_before_filter :authenticate_user!
   def create
     authorize build_resource
     create! do |success,failure|
