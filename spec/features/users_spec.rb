@@ -24,7 +24,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'User management' do
-  let (:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.create :user }
 
   context "for signed-out users" do
     it "should show a login button" do
@@ -72,6 +72,24 @@ describe 'User management' do
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
     end
+
+    describe "user dashboard" do
+      it "should be accessible" do
+        article = FactoryGirl.create :article
+        visit article_path article
+        find('.User-image a').click
+        current_path.should eq user_path article.seller
+      end
+    end
+
+    describe "user profile (legal_entity)" do
+      it "should be accessible" do
+        user = FactoryGirl.create :legal_entity
+        visit user_path user
+        click_link I18n.t 'common.text.about_terms'
+        current_path.should eq profile_user_path user
+      end
+    end
   end
 
   context "for signed-in users" do
@@ -114,6 +132,8 @@ describe 'User management' do
           page.should have_content I18n.t 'formtastic.labels.user.legal_entity'
           page.should have_content I18n.t 'formtastic.labels.user.nickname'
           page.should have_content user.nickname
+          page.should have_content I18n.t 'formtastic.labels.user.customer_number'
+          page.should have_content user.customer_nr
           page.should have_content I18n.t 'formtastic.labels.user.image'
 
           # Account Fields
@@ -230,7 +250,7 @@ describe 'User management' do
       end
 
       context "for legal entities" do
-        let (:user) { FactoryGirl.create :legal_entity }
+        let(:user) { FactoryGirl.create :legal_entity }
         it "should show the correct specific data and fields" do
           login_as user
           visit edit_user_registration_path user
@@ -238,7 +258,7 @@ describe 'User management' do
 
           # Legal fields
           within '#terms_step' do # id of input step
-            page.should have_css 'h3', text: I18n.t('formtastic.input_steps.user.terms')
+            page.should have_css 'a', text: I18n.t('formtastic.input_steps.user.terms')
             page.should have_content I18n.t 'formtastic.labels.user.terms'
             page.should have_content I18n.t 'formtastic.labels.user.cancellation'
             page.should have_content I18n.t 'formtastic.labels.user.about'

@@ -19,9 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.row
-  .fairnopoly-well
-    = @content.body && @content.body.html_safe
-    - if tinycms_admin?
-      = link_to "Edit", tinycms.edit_content_url(@content)
-      = link_to 'Overview', contents_path
+.fairnopoly-well
+  = @content.body && @content.body.html_safe
+  - if tinycms_admin?
+    = link_to "Edit", tinycms.edit_content_url(@content)
+    = link_to 'Overview', contents_path

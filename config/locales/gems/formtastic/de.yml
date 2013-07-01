@@ -38,6 +38,13 @@ de:
         bank_account_number: Kontonummer
         bank_account_owner: Kontoinhaber
         paypal_account: Paypal-Konto
+        customer_number: Kundennummer
+
+      feedback:
+        from: "Mail"
+        subject: "Betreff"
+        feedback_subject: "Thema"
+        help_subject: "Thema"
 
 
       article:
@@ -57,7 +64,7 @@ de:
         fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
-        small_and_precious: "Klein &amp; Edel"
+        small_and_precious: "Klein & Edel"
         small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
@@ -211,7 +218,7 @@ de:
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 
-        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. 
+        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel.
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"

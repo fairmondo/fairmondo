@@ -28,7 +28,7 @@ describe Article do
 
   describe "::Base" do
     describe "associations" do
-      it {should have_and_belong_to_many :images}
+      it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
       it {should belong_to(:transaction).dependent(:destroy)}

@@ -23,10 +23,20 @@
 - meta_description truncate_and_sanitize_without_linebreaks resource.content, 160
 - meta_keywords resource.categories_and_ancestors.collect{ |c| c.name }.join(",")
 
-.row
-  .span9
-    = render "/articles/show/article_contents", :article => resource
-  - if resource.active?
-    = render "/articles/show/active", :article => resource
-  - else
-    = render "/articles/show/inactive", :article => resource
+- resource.categories.each do |leaf|
+  .Breadcrumb
+    - category_tree = get_category_tree leaf
+    - category_tree.each do |category|
+      - last = category_tree.last == category
+      %span
+        %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids }),
+           class: (last ? 'last' : nil )}
+          = category.name
+      = '>' unless last
+
+.Article.Article--detail
+  = render "/articles/show/article_contents", :article => resource
+- if resource.active?
+  = render "/articles/show/active", :article => resource
+- else
+  = render "/articles/show/inactive", :article => resource

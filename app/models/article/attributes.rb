@@ -119,7 +119,6 @@ module Article::Attributes
     validate :default_payment_selected
   end
 
-
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal

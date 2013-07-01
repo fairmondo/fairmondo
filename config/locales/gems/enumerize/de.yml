@@ -110,3 +110,31 @@ de:
     transaction:
       selected_transport: *transport
       selected_payment: *payment
+
+    feedback:
+      feedback_subject:
+        dealer: "Händler*in"
+        private: "Privatperson"
+        buyer: "Käufer*in"
+        seller: "Verkäufer*in"
+        technics: "Technik und Datenschutz"
+        event: "Veranstaltungen & Aktionen"
+        cooperative: "Genossenschaft"
+        hero: "Heldenprogramm"
+        ngo: "Organisation & Spenden"
+        honor: "Fairnopoly Auszeichnungen"
+        other: "Andere"
+        trust_community: "Trust Community"
+      help_subject:
+        marketplace: "Marktplatz & Handel"
+        comm_deal_fair: "Gewerblicher Handel öko, fair"
+        comm_deal: "Gewerblicher Handel"
+        private_deal: "Privater Handel"
+        buy: "Kauf"
+        technics: "Technik und Datenschutz"
+        cooperative: "Genossenschaft"
+        hero: "Heldenprogramm"
+        ngo: "Organisation & Spenden"
+        honor: "Fairnopoly Auszeichnungen"
+        other: "Andere"
+        trust_community: "Trust Community"

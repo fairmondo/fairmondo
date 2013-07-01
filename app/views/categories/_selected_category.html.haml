@@ -1,0 +1,6 @@
+%li{ :data => {:category => category.id, :ancestors => category.ancestors.map{|c| c.id.to_s}}}
+  = hidden_field :article, :categories_and_ancestors , :as => :hidden, :multiple => true, :value => category.id
+  - category.self_and_ancestors.each do |category|
+    %span.Category-selected
+      = category.name
+

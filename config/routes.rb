@@ -31,7 +31,11 @@ Fairnopoly::Application.routes.draw do
 
   mount Tinycms::Engine => "/cms"
 
-  devise_for :user, controllers: { registrations: 'registrations' }
+  devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
+
+  namespace :toolbox do
+    get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
+  end
 
   resources :articles do
     member do
@@ -45,15 +49,22 @@ Fairnopoly::Application.routes.draw do
 
   get "welcome/index"
 
+  resources :feedbacks, :only => [:create,:new]
+
   #the user routes
 
   resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
+    collection do
+      get 'login'
+    end
     member do
       get 'profile'
     end
   end
+
+  resources :categories, :only => [:show]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 

@@ -23,7 +23,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { FactoryGirl::create(:user)}
+  let(:user) { FactoryGirl.create(:user)}
   subject { user }
 
   it "has a valid Factory" do
@@ -37,6 +37,7 @@ describe User do
     it { should have_many(:article_templates).dependent(:destroy) }
     it { should have_many(:libraries).dependent(:destroy) }
     #it { should belong_to :invitor}
+    it { should have_one(:image) }
   end
 
   describe "validations" do
@@ -102,6 +103,34 @@ describe User do
         user.is?(FactoryGirl.create(:user)).should be_false
       end
     end
+
+    describe "#customer_nr" do
+      it "should have 8 digits" do
+        user.customer_nr.length.should eq 8
+      end
+
+      it "should use the user_id" do
+        FactoryGirl.create(:user).customer_nr.should eq "00000001"
+      end
+    end
+
+  #    def update_image image
+  #   if User.valid_attribute?('image', image)
+  #     update_attribute 'image', image
+  #   else
+  #     false
+  #   end
+  # end
+
+  # private
+
+  # # Validate single attribute
+  # # @api private
+  # def self.valid_attribute? attr, value
+  #   mock = self.new(attr => value)
+  #   !mock.errors.messages.keys.find { |e| e =~ Regexp.new(attr) }
+  # end
+
   end
 
   describe "subclasses" do

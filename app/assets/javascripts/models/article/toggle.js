@@ -25,7 +25,7 @@
 
 $(document).ready(function(){
 	$("input[data-select-toggle][type=checkbox]")
-		.change(function () {
+		.on('change ifChanged', function () {
 			box = $(this);
 			area_id = box.attr("data-select-toggle");
 			$("#" + area_id).parent().toggle(box.is(":checked"));
@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 	if (!$.support.leadingWhitespace) { // IE 7 / 8 version
 		$("input[data-select-toggle][type=radio]")
-			.change(function (e) {
+			.on('change ifChanged',function (e) {
 				box = $(this);
 				area_id = box.attr("data-select-toggle");
 				boxes_for_other_areas = $("input[data-select-toggle][type=radio]")
@@ -51,7 +51,7 @@ $(document).ready(function(){
 			}).trigger('change');
 	} else {
 		$("input[data-select-toggle][type=radio]")
-			.change(function (e) {
+			.on('change ifChanged',function (e) {
 				box = $(this);
 				area_id = box.attr("data-select-toggle");
 				$("#" + area_id).parent().toggle(box.is(":checked"));

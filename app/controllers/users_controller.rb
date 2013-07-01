@@ -21,10 +21,22 @@
 #
 class UsersController < InheritedResources::Base
 
+  respond_to :html
   actions :show
-  custom_actions :resource => :profile
+  custom_actions :resource => :profile, :collection => :login
 
-  before_filter :authorize_resource
+  before_filter :authorize_resource, :except => :login
+  before_filter :dont_cache, only: [ :show ]
+  skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
+  skip_after_filter :verify_authorized_with_exceptions, only: [:login]
+
+  def login
+    login! do |format|
+      format.html {render "/devise/sessions/new" , :layout => false}
+    end
+  end
+
+  private
 
   private
   def authorize_resource

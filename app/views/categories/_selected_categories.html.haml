@@ -1,0 +1,3 @@
+%ul#selected_categories_input
+  - resource.categories.each do |category|
+    = render "/categories/selected_category", :category => category

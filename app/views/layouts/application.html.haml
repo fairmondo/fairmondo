@@ -28,7 +28,7 @@
   / <![endif]
   %head
     %meta{:charset => "utf-8"}
-    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
 
     %title= title
     %meta{ name: 'keywords', content: meta_keywords }
@@ -38,7 +38,15 @@
     = stylesheet_link_tag 'application'
     /[if lt IE 8]
       = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
+
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+
+
     = javascript_include_tag "application"
+    :javascript
+      I18n.defaultLocale = "#{I18n.default_locale}";
+      I18n.locale = "#{I18n.locale}";
 
     = csrf_meta_tags
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
@@ -58,10 +66,8 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
 
-  %body
-    /[if lt IE 8]
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    #notice
+  %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
+    .Notice
       - if !flash.empty?
         - flash.each do |type, msg|
           - if msg && type != :timedout && !msg.empty?
@@ -69,88 +75,51 @@
               %p
                 = msg
       = render_data_confirm
+    %header.l-Header
+      .l-Inner
+        .Logo
+          %h1
+            %a{:href => "/"}
+              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
+        %nav.Nav.Nav--primary
+          %ul
+            %li
+              = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+            %li
+              = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
 
-    %header
-      .container
-        .row
-          .left-nav
-            %h1#title.hidden-phone
-              %a{:href => "/"}
-                %span Fairnopoly
-          .right-nav
-            %ul#main-nav
-              %li#buy.main-nav-item
-                = link_to t('common.text.buy'), articles_path
-              %li#sell.main-nav-item
-                = link_to t('common.text.sell'), new_article_path
-              /
-                %li#service.main-nav-item
-                  %a
-                    t('common.text.service')
-              - if user_signed_in?
-                %li#logout.main-nav-item
-                  = link_to(t('common.actions.logout'), destroy_user_session_path )
-                %li#login.main-nav-item
-                  = link_to t('common.text.profile'), user_path(current_user)
-                /
-                  - if current_user.trustcommunity == true
-                    %li#community.main-nav-item
-                      t('common.text.community')
+            - if user_signed_in?
+              %li
+                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+              %li.last
+                = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
-
-              - else
-                %li#login.main-nav-item
-                  - if @login
-                    #user-login-form.popover-hidden
-                      = @login.html_safe
-                    = link_to t('common.actions.login') , new_user_session_path , :id =>"login-popover" , "data-placement" => "bottom" , "data-title" => t('common.actions.login')
-                  - else
-                    = link_to t('common.actions.login') , new_user_session_path
+            - else
+              %li.last
+                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
         / row
       / container
-    = hero
-    #main{:role => "main"}
-      .container
+
+    .l-Feedback
+      %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
+        %i.icon-feedback
+        Dein Feedback zur Website
+
+    .l-Hero
+      = hero
+    .l-Main{:role => "main"}
+      .l-Inner
         = yield
       / .container
     / #main
-    %footer
-      .container
-        .row
-          .span4
-            %h3= t('footer.legal_details')
-            %ul
-              %li
-                %a{:href => "/agb"}
-                  = t('footer.agb')
-              %li
-                %a{:href => "/privacy"}
-                  = t('footer.privacy')
-              %li
-                %a{:href => "/imprint"}
-                  = t('footer.imprint')
-          .span4
-            %h3
-              = t('common.fairnopoly')
-            %ul
-              %li
-                %a{:href => "/about_us"}
-                  = t('footer.about_us')
-              %li
-                %a{:href => "/philosophy"}
-                  = t('footer.philosophy')
-              %li
-                %a{:href => "http://info.fairnopoly.de/team/"}
-                  = t('footer.team')
-              %li
-                %a{:href => "http://info.fairnopoly.de"}
-                  = t('footer.blog')
-              - if current_user && current_user.admin?
-                %li
-                  = link_to t('users.menu.admin'), "/admin"
-          .span4
-            %h3
-              = t('footer.help')
+    %footer.l-Footer
+      .Footer--top
+        .l-Inner
+          .Logo
+            %h4
+              %a{:href => "/"}
+                %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
+          %nav.Nav.Nav--meta
             %ul
               %li
                 %a{:href => "/faq"}
@@ -161,10 +130,38 @@
               %li
                 %a{:href => "/contact"}
                   = t('footer.contact')
-        / row
-      / container
-      #sub-footer
-        \&copy; Fairnopoly 2013 #{I18n.locale}
+              %li
+                %a{:href => "/about_us"}
+                  = t('footer.about_us')
+              %li
+                %a{:href => "/philosophy"}
+                  = t('footer.philosophy')
+              %li
+                %a{:href => "http://info.fairnopoly.de/team/"}
+                  = t('footer.team')
+              %li.last
+                %a{:href => "http://info.fairnopoly.de"}
+                  = t('footer.blog')
+              - if current_user && current_user.admin?
+                %li
+                  = link_to t('users.menu.admin'), "/admin"
+          .Social
+      .Footer--bottom
+        .l-Inner
+          .Copyright
+            %p &copy; Copyright 2013 fairnopoly
+          .Nav.Nav--legal
+            %ul
+              %li
+                %a{:href => "/agb"}
+                  = t('footer.agb')
+              %li
+                %a{:href => "/privacy"}
+                  = t('footer.privacy')
+              %li.last
+                %a{:href => "/imprint"}
+                  = t('footer.imprint')
 
     -# When logged in, count down until session expires (needs to be reloaded on page change!)
     = javascript_include_tag "session_expire" if current_user
+

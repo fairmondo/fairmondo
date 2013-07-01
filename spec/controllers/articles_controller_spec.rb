@@ -70,15 +70,15 @@ describe ArticlesController do
           controller.instance_variable_get(:@articles).should == []
         end
 
-        context "#categories_with_ancestors" do
-          context "when passing a category_id without its ancestors" do
-            it "should remove the orphan descendants from the passed subtree" do
-              @audio_category = Category.find_by_name!("Audio & HiFi")
-              get :index, :article => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
-              controller.instance_variable_get(:@articles).should == []
-            end
-          end
-        end
+#        context "#categories_with_ancestors" do
+#          context "when passing a category_id without its ancestors" do
+#            it "should remove the orphan descendants from the passed subtree" do
+#              @audio_category = Category.find_by_name!("Audio & HiFi")
+#              get :index, :article => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
+#              controller.instance_variable_get(:@articles).should == []
+#            end
+#          end
+#        end
 
         context "and searching for 'muscheln'" do
 
@@ -276,20 +276,7 @@ describe ArticlesController do
     end
   end
 
-  describe "report" do
 
-    before :each do
-      @user = FactoryGirl.create :user
-      @article = FactoryGirl.create :article
-      sign_in @user
-    end
-
-    it "reports an article" do
-      get :report, id: @article
-      response.should redirect_to @article
-    end
-
-  end
 
   describe "POST 'create'" do
 

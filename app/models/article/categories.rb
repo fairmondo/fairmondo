@@ -40,15 +40,14 @@ module Article::Categories
   end
 
   def categories_and_ancestors=(categories)
+
     if categories.first.is_a?(String) || categories.first.is_a?(Integer)
       categories = categories.select(&:present?).map(&:to_i)
       categories = Category.where(:id => categories)
     end
-    # remove entries which parent is not included in the subtree
-    # e.g. you selected Hardware but unselected Computer afterwards
-    @categories_and_ancestors = categories.select{|c| c.include_all_ancestors?(categories) }
+
     # remove all parents
-    self.categories = Article::Categories.remove_category_parents(@categories_and_ancestors)
+    self.categories = Article::Categories.remove_category_parents(categories)
   end
 
   def self.remove_category_parents(categories)
