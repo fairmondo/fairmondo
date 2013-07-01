@@ -21,7 +21,6 @@
 		  display:none;
 		}
 	}
-
 	input { float: left; clear: left; }
 	label { width: auto; color: $black; }
 }
@@ -65,20 +64,15 @@ fieldset.Filter-col {
 		@include transition(all 200ms);
 	}
 }
-
-
-@include at-breakpoint($layout-small) {
-	.Filter-col {
+.Filter-col {
+	@include at-breakpoint($layout-small) {
 		@include span-columns(2,6);
 		&:nth-child(3n) {
 			@include span-columns(2,6);
 			@include rem(margin, 12px 0 0 0);
 		}
 	}
-}
-@include at-breakpoint($layout-medium) {}
-@include at-breakpoint($layout-large) {
-	.Filter-col {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(1,6);
 		margin-right: 0;
 		&:nth-child(3n) {
@@ -88,7 +82,9 @@ fieldset.Filter-col {
 			@include rem(margin-top, 13px);
 		}
 	}
-	.Filter-btn {
+}
+.Filter-btn {
+	@include at-breakpoint($layout-large) {
 		position: absolute;
 		bottom: 47px;
 		right: 3px;
