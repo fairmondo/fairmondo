@@ -115,6 +115,7 @@ a.Btn {
 .Btn--green,
 .Btn--greenSmall {
 	background-color: $btn--green;
+	white-space: normal;
 	&:hover {
 		background-color: lighten($btn--green, 5%);
 	}
@@ -152,14 +153,12 @@ a.Btn {
 	}
 }
 .Btn-tag--blue {
-	@include rem(margin-right, 4px);
 	background-color: $tag--blue;
 	&:hover {
 		background-color: lighten($tag--blue, 5%);
 	}
 }
 .Btn-tag--green {
-	@include rem(margin-right, 4px);
 	background-color: $tag--green;
 	&:hover {
 		background-color: lighten($tag--green, 5%);
