@@ -32,6 +32,7 @@
 		@include rem(padding, 6px 18px 10px);
 	}
 	.icon-helper {
+		position: relative;
 		top: 6px;
 		left: 5px;
 	}
