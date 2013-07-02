@@ -1,11 +1,5 @@
-//
-// Categories (???)
-//
+// This file
 
-// not sure what this file is but it needs to be cleaned
-// for now outcomment everything
-
-/*
 .Article-form {
   #article_categories_and_ancestors_input {
   .selectboxit-container,
@@ -13,18 +7,18 @@
      {
     @include at-breakpoint($layout-large) {
         width: columns(1,4);
-        
+
       }
       margin-right: 10px;
     }
-    display: inline;
+
   }
-  
+
   .Category-delete, #Category-selectbutton,.Category-selected {
      @include at-breakpoint($layout-large) {
        width: columns(1,4);
        margin-right: 10px;
-       overflow: hidden;      
+       overflow: hidden;
        text-overflow:    ellipsis;
         padding: em(10,17) em(15,17) em(9,17);
      }
@@ -33,7 +27,7 @@
      margin-right: 5px;
      margin: 0 0 $pBottomMargin;
   }
-  
+
   #Category-selectbutton {
     @include at-breakpoint($layout-large) {
       margin-top:0px;
@@ -46,44 +40,35 @@
 
 
 .Article-form #selected_categories_input > li > span.Category-selected {
-  
+
   @include rem(font-size, 17px);
-	line-height: normal;
-	border-radius: 5px;
-	text-decoration: none;
+  line-height: normal;
+  border-radius: 5px;
+  text-decoration: none;
   text-align: center;
-	background-color: #717171;
-	color: $white;
-	display: inline-block;
+  background-color: #717171;
+  color: $white;
+  display: inline-block;
 
-	
-.select > label:first-child {
-	margin-bottom: 0.2em;
-}
 
-.Article-form #selected_categories_input > li > span {
-	@extend .Btn;
-	background-color: $white;
-	border: 1px solid;
-	border-color: $lightgray;
-	color: $black;
-	&:hover {
-		background-color: $darkgray;
-	}
-	
-	
-  
+  &:hover {
+    background-color: $darkgray;
+  }
+
+
+
 }
 .Filter {
-	.selectboxit-container,
-	.selectboxit-options {
-		.selectboxit {
-			background-color: $white;
-		}
-	}
-	.selectboxit-container:last-child {
-		width: 100%;
-		margin-right: 0;
-	}
+  .selectboxit-container,
+  .selectboxit-options {
+    .selectboxit {
+      background-color: $white;
+    }
+  }
+  .selectboxit-container {
+    width: 100%;
+    margin-right: 0;
+    @include rem(margin-bottom, 13px);
+
+  }
 }
-*/

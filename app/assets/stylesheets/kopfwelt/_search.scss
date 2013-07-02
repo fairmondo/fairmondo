@@ -37,12 +37,8 @@
 		left: 5px;
 	}
 }
-.Filter-title .icon-helper {
-	top: 2px;
-}
-#js-filter-toggle {
-	@include rem(margin-top, 18px);
-}
+
+
 .Search {
 	@include at-breakpoint($layout-small) {
 		float: left;
