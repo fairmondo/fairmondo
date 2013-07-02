@@ -128,11 +128,10 @@ de:
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
-
-        transaction: "Angebotsart"
-        expire: "Ablaufdatum"
-      article_template:
         save_as_template: "Eingaben als Vorlage speichern"
+
+
+      article_template:
         name: Vorlagenname
       template_select:
         article_template: Vorlage

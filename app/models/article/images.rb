@@ -48,6 +48,7 @@ module Article::Images
       images.each do |image|
         #image.save unless image.id # Needs an ID to correctly render filepath
         image.imageable = self unless image.imageable
+
       end
     end
 
