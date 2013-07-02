@@ -15,12 +15,9 @@ body {
 	background-color: $beige;
 	.first {
 		@include pie-clearfix;
-		@include rem(padding-top, 10px);
-		//padding-bottom: em(20);
-		//background-color: $darkbeige;
+		padding: .2em 0;
 	}
 	.l-Inner {
-		// ??
 		@include rem(padding-top, 16px);
 	}
 	.Hero-search {
