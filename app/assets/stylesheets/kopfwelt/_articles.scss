@@ -9,6 +9,9 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	.Btn-tag--blue, .Btn-tag--green {
+		@include rem(margin-right, 4px);
+	}
 }
 .Article-image {
 	overflow: hidden;
