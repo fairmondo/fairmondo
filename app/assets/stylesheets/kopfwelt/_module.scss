@@ -44,6 +44,7 @@
 	border-bottom: solid $beige .15em;
 }
 .Meta--highlight {
+	@extend %Semibold;
 	display: block;
 	color: $gray;
 }
