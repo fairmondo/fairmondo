@@ -22,4 +22,5 @@
   = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
     = render "/shared/search_form", :f => f
 - else
-  %h1= t('article.titles.preview')
+  .l-Inner
+    %h1= t('article.titles.preview')

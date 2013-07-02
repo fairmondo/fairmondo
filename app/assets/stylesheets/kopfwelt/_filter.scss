@@ -44,6 +44,7 @@ fieldset.Filter-col {
 .Filter-title {
 	@include rem(font-size, 18px);
 	@extend %Semibold;
+	margin-top: 1em;
 	margin-bottom: em(10,18);
 	.icon-helper {
 	  position: relative;
@@ -63,11 +64,14 @@ fieldset.Filter-col {
 	}
 }
 .Filter-col {
+	fieldset {
+		float: left;
+		width: 100%;
+	}
 	@include at-breakpoint($layout-small) {
 		@include span-columns(2,6);
 		&:nth-child(3n) {
 			@include span-columns(2,6);
-			@include rem(margin, 12px 0 0 0);
 		}
 	}
 	@include at-breakpoint($layout-large) {
