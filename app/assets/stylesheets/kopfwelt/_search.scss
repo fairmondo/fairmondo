@@ -7,8 +7,7 @@
 	float: left;
 	width: columns(4,4);
 	max-width: 100%;
-	.input {
-		padding: 0;
+	input[type='text'] {
 		margin: 0;
 	}
 }
@@ -34,7 +33,12 @@
 	.icon-helper {
 		position: relative;
 		top: 6px;
-		left: 5px;
+		left: 1px;
+	}
+}
+.Filter {
+	.Filter-inner {
+		padding-top: 1em;
 	}
 }
 
