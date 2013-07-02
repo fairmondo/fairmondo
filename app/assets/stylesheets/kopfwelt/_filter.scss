@@ -6,22 +6,31 @@
 	@include pie-clearfix;
 	clear: both;
 	position: relative;
+	> .Filter-inner {
+		max-height: 0px;
+		overflow: hidden;
+		background-color: $darkbeige;
+	}
 	> .l-Inner {
 		position: relative;
 		height: 0;
 		overflow: hidden !important;
 		@include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
-		@include transition(height 200ms)
+		@include transition(max-height 200ms); // make it collapse faster
+		.Filter-btn {
+		  display:none;
+		}
 	}
-
 	input { float: left; clear: left; }
 	label { width: auto; color: $black; }
 }
 .Filter.is-active {
-	> .l-Inner {
-		overflow: visible !important;
-		//min-height: 200px;
-		height: auto;
+	> .Filter-inner {
+		@include transition(max-height 1s);
+		max-height: 999px;
+		.Filter-btn {
+			display:block;
+		}
 	}
 	.Btn-accordion .icon-arrow-down {
 		@include rotate(180deg);
@@ -31,21 +40,16 @@
 	@include span-columns(4,4);
 	margin-bottom: 2em;
 	.Filter-title {
-			@include rem(margin-bottom, 12px);
+		@include rem(margin-bottom, 12px);
 	}
 }
-
 fieldset.Filter-col { 
 	@include span-columns(4 omega,6);
 }
-
 .Filter-title {
 	@include rem(font-size, 18px);
 	@extend %Semibold;
 	margin-bottom: em(10,18);
-}
-.Filter-btn {
-
 }
 .Filter .Btn-accordion {
 	margin-bottom: 0;
@@ -60,33 +64,30 @@ fieldset.Filter-col {
 		@include transition(all 200ms);
 	}
 }
-
-
-@include at-breakpoint($layout-small) {
-	.Filter-col {
+.Filter-col {
+	@include at-breakpoint($layout-small) {
 		@include span-columns(2,6);
 		&:nth-child(3n) {
 			@include span-columns(2,6);
 			@include rem(margin, 12px 0 0 0);
 		}
 	}
-}
-@include at-breakpoint($layout-medium) {
-}
-@include at-breakpoint($layout-large) {
-	.Filter-col {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(1,6);
 		margin-right: 0;
-		&:nth-child(3n) {@include span-columns(1,6);}
-
+		&:nth-child(3n) {
+			@include span-columns(1,6);
+		}
 		label {
 			@include rem(margin-top, 13px);
 		}
 	}
-	.Filter-btn {
+}
+.Filter-btn {
+	@include at-breakpoint($layout-large) {
 		position: absolute;
 		bottom: 47px;
-		right: 3px;
+		right: 40px;
 		margin-bottom: 0;
 	}
 }

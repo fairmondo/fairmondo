@@ -14,16 +14,29 @@ body {
 .l-Hero {
 	background-color: $beige;
 	.first {
-		@include rem(margin-top, 18px);
-		padding-bottom: em(20);
 		@include pie-clearfix;
+		@include rem(padding-top, 18px);
+		padding-bottom: em(20);
+		background-color: $darkbeige;
 	}
 	.l-Inner {
 		@include rem(margin-top, 16px);
 	}
 }
+//
+// Move the container from hero to inner containers on home because of the filter
+//
+.page-index .l-Hero {
+	background-color: $darkbeige;
+	> .l-Inner { max-width: none; padding-left: 0; padding-right: 0; margin-top: 0;}
+	.first,
+	.Filter {
+		@include container;
+	}
+}
+
+
 .l-Main {
-	background-color: $beige;
 	& > .l-Inner {
 		@include rem(padding-top, 21px);
 		padding-bottom: 7em;
@@ -38,11 +51,5 @@ body {
 	}
 	.Footer--bottom {
 		padding-bottom: em(20);
-	}
-}
-
-.Libraries {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(2,4);
 	}
 }

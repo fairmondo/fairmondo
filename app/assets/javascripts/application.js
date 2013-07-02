@@ -53,6 +53,7 @@
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
+//= require visual/noticeClose
 //= require visual/colorbox
 //= require visual/selectbox
 //= require visual/filter

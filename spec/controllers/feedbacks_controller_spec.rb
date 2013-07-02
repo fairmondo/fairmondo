@@ -32,9 +32,9 @@ describe FeedbacksController do
 
     describe "for non-signed-in users" do
       it "should not create an feedback with type report_article" do
-        lambda do
+        expect {
           post :create, :user_id => @user, :article_id => @article, :type => :report_article, :text => "test"
-        end.should_not change(Feedback, :count)
+        }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
 

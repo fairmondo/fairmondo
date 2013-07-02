@@ -20,10 +20,6 @@
 - if resource.is? current_user
   .User-additional.Accordion--activated
 
-    = accordion_item "my title", :tooltip => "test" do
-      %p whatever
-
-
     = accordion_item "offers" do
       - if active_articles.empty?
         %strong= t('users.text.no_offers')
