@@ -48,7 +48,7 @@
                 = f.input :name
                 = f.input :public, :label => false
               = f.actions do
-                = f.action :submit, :label => :update
+                = f.action :submit, :label => :update, :button_html => {:class => "Btn"}
           - if library.library_elements.empty?
             = t('library.no_products')
           - else
