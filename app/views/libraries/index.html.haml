@@ -54,19 +54,20 @@
           - else
             %ul.thumbnails
               - library.library_elements.each do |library_element|
-                %li.span3
-                  .thumbnail.white{:style => "position: relative;"}
-                    .in-image-container-library
-                      - if policy(library_element).destroy?
-                        - html = glyphicons("awesome-icon-remove")
-                        = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
-                      = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
-                      = features_label library_element.article
-                      = condition_label library_element.article
-                    .caption
-                      %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
-                      %h5= humanized_money_with_symbol library_element.article.price
-                      - if policy(library_element).update?
-                        = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
-                          = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-                          = f.submit t('common.actions.move'), :class => "Btn"
+                - if policy(library_element).show?
+                  %li.span3
+                    .thumbnail.white{:style => "position: relative;"}
+                      .in-image-container-library
+                        - if policy(library_element).destroy?
+                          - html = glyphicons("awesome-icon-remove")
+                          = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
+                        = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
+                        = features_label library_element.article
+                        = condition_label library_element.article
+                      .caption
+                        %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
+                        %h5= humanized_money_with_symbol library_element.article.price
+                        - if policy(library_element).update?
+                          = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
+                            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
+                            = f.submit t('common.actions.move'), :class => "Btn"

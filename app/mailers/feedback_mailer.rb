@@ -31,5 +31,4 @@ class FeedbackMailer < ActionMailer::Base
     end
   end
 
-
 end
