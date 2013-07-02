@@ -116,7 +116,6 @@
 }
 
 
-
 .Highlight {
 	@include rem(font-size, $font-size-m);
 	color: gray;
@@ -124,6 +123,5 @@
 }
 
 .l-Hero .l-Inner h1 {
-	@extend %Semibold;
 	margin-top: 0.5em;
 }
