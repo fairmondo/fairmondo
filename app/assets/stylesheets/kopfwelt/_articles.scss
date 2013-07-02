@@ -11,6 +11,7 @@
 	}
 }
 .Article-image {
+	overflow: hidden;
 	border-top-left-radius: 0.9em;
 	border-top-right-radius: 0.9em;
 
@@ -33,6 +34,7 @@
 	@include pie-clearfix;
 	@include rem(padding, 7px 19px);
 	padding-bottom: .5em;
+	min-height: 10em;
 	background-color: $white;
 	h2 {
 		@include rem(font-size, 17px);
@@ -85,7 +87,7 @@ span.Article-price {
 	@include rem(font-size, $font-size-xl);
 	@extend %Semibold;
 	display: block;
-	margin-bottom: 0em;
+	margin-bottom: .3em;
 }
 .Article-vat,
 .Article-basicprice,
