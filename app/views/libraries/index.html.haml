@@ -31,15 +31,15 @@
         = accordion_item "library"+library.id.to_s , :title => library.name  do
           - if policy(library).update? || policy(library).destroy?
             - if library.public?
-              = t 'library.visibility.public'
+              %p= t 'library.visibility.public'
             - else
-              = t 'library.visibility.private'
+              %p= t 'library.visibility.private'
           - if policy(library).update?
-            %p
+            %p.Libraries-settings-left
               %a.Btn.Library-showsettings
                 = t('common.actions.edit')
           - if policy(library).destroy?
-            %p
+            %p.Libraries-settings-right
               %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
                 = t('common.actions.destroy')
           - if policy(library).update?
@@ -50,7 +50,7 @@
               = f.actions do
                 = f.action :submit, :label => :update, :button_html => {:class => "Btn"}
           - if library.library_elements.empty?
-            = t('library.no_products')
+            %p.Libraries-settings-clear= t('library.no_products')
           - else
             %ul.thumbnails
               - library.library_elements.each do |library_element|
