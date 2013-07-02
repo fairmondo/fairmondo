@@ -64,7 +64,6 @@ module Article::Template
     ########## build Template #################
   def build_and_save_template
     # Reown Template
-    debugger
     cloned_article = self.amoeba_dup
     cloned_article.article_template_id = self.backup_template_id
     cloned_article.is_cloned_article = true
