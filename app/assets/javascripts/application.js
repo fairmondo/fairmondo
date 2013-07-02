@@ -50,6 +50,7 @@
 
 //= require_tree ./models
 
+//= require visual/masonry
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
@@ -57,7 +58,7 @@
 //= require visual/colorbox
 //= require visual/selectbox
 //= require visual/filter
-//= require visual/masonry
+
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
