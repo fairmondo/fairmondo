@@ -137,12 +137,17 @@
               %li
                 %a{:href => "http://info.fairnopoly.de/team/"}
                   = t('footer.team')
-              %li.last
-                %a{:href => "http://info.fairnopoly.de"}
-                  = t('footer.blog')
+              
               - if current_user && current_user.admin?
                 %li
+                  %a{:href => "http://info.fairnopoly.de"}
+                    = t('footer.blog')
+                %li.last
                   = link_to t('users.menu.admin'), "/admin"
+              - else
+                %li.last
+                  %a{:href => "http://info.fairnopoly.de"}
+                    = t('footer.blog')
           .Social
       .Footer--bottom
         .l-Inner

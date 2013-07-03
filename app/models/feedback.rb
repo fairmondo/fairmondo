@@ -36,7 +36,6 @@ class Feedback < ActiveRecord::Base
   validates :text, :presence => { :message => I18n.t('feedback.error.presence') }
   validates_presence_of :type
 
-
   #Relations
   belongs_to :user
   belongs_to :article

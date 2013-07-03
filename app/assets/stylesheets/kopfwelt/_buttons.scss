@@ -115,6 +115,7 @@ a.Btn {
 .Btn--green,
 .Btn--greenSmall {
 	background-color: $btn--green;
+	white-space: normal;
 	&:hover {
 		background-color: lighten($btn--green, 5%);
 	}

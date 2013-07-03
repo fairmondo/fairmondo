@@ -7,8 +7,7 @@
 	float: left;
 	width: columns(4,4);
 	max-width: 100%;
-	.input {
-		padding: 0;
+	input[type='text'] {
 		margin: 0;
 	}
 }
@@ -34,15 +33,16 @@
 	.icon-helper {
 		position: relative;
 		top: 6px;
-		left: 5px;
+		left: 1px;
 	}
 }
-.Filter-title .icon-helper {
-	top: 2px;
+.Filter {
+	.Filter-inner {
+		padding-top: 1em;
+	}
 }
-#js-filter-toggle {
-	@include rem(margin-top, 18px);
-}
+
+
 .Search {
 	@include at-breakpoint($layout-small) {
 		float: left;

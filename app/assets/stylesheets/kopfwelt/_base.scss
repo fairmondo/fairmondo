@@ -43,6 +43,7 @@ h4 {
 
 h1 {
 	@include rem(font-size, 30px);
+	@extend %Semibold;
 	margin-bottom: em(13,30);
 }
 h2 {
