@@ -13,28 +13,22 @@ body {
 }
 .l-Hero {
 	background-color: $beige;
+	overflow: auto;
 	.first {
 		@include pie-clearfix;
-		@include rem(padding-top, 18px);
-		padding-bottom: em(20);
-		background-color: $darkbeige;
+		padding: .2em 0;
 	}
 	.l-Inner {
-		@include rem(margin-top, 16px);
+		@include rem(padding-top, 16px);
 	}
-}
-//
-// Move the container from hero to inner containers on home because of the filter
-//
-.page-index .l-Hero {
-	background-color: $darkbeige;
-	> .l-Inner { max-width: none; padding-left: 0; padding-right: 0; margin-top: 0;}
-	.first,
-	.Filter {
+	.Hero-search, .l-User {
+		background-color: $darkbeige;
+	}
+	.Filter-inner {
 		@include container;
+		position: relative;
 	}
 }
-
 
 .l-Main {
 	& > .l-Inner {

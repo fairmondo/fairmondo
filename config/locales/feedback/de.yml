@@ -1,6 +1,10 @@
 de:
 # Feedbacks
   feedback:
+    title:
+      report_article: ""
+      get_help: "Hilfe"
+      send_feedback: "Feedback"
     actions:
       get_help: "Hilfe anfragen"
       send_feedback: "Feedback senden"
