@@ -99,8 +99,4 @@ module ArticlesHelper
     html.html_safe
   end
 
-  def sanitized_object_name form
-    form.object_name
-  end
-
 end

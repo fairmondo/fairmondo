@@ -71,7 +71,6 @@ describe ArticleTemplatesController do
       end
 
       it "assigns a newly created article_template as @article_template" do
-        debugger
         post :create, article_template: valid_attributes
         assigns(:article_template).should be_an ArticleTemplate
         assigns(:article_template).should be_persisted

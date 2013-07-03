@@ -22,7 +22,7 @@
 FactoryGirl.define do
   factory :article_template do
     name { Faker::Lorem.words( rand(3)+2 ) * " " }
-    article { FactoryGirl.create( :article , :is_cloned_article => true)}
+    article
     user
     trait :without_image do
       after(:build) do |article_template|

@@ -176,10 +176,6 @@ describe Article do
         @article.save_as_template?.should be_false
       end
 
-      it "should return false when no article_template is set" do
-        @article.article_template = nil
-        @article.save_as_template?.should be_false
-      end
     end
 
     describe "#not_save_as_template?" do
@@ -192,10 +188,6 @@ describe Article do
         @article.not_save_as_template?.should be_true
       end
 
-      it "should return false when no article_template is set" do
-        @article.article_template = nil
-        @article.not_save_as_template?.should be_true
-      end
     end
 
     describe "#set_user_on_template" do
