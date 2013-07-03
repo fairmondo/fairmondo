@@ -43,7 +43,7 @@
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
 //= require vendor/jquery.colorbox
-
+//= require vendor/jquery.truncator
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
 
@@ -58,7 +58,7 @@
 //= require visual/colorbox
 //= require visual/selectbox
 //= require visual/filter
-
+//= require visual/truncator
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
