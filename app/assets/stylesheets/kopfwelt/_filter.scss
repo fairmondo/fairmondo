@@ -44,10 +44,13 @@ fieldset.Filter-col {
 .Filter-title {
 	@include rem(font-size, 18px);
 	@extend %Semibold;
+	position: relative;
 	margin-top: 1em;
 	margin-bottom: em(10,18);
 	.icon-helper {
-	  position: relative;
+		position: absolute;
+		top: 0em;
+		right: -2em;
 	}
 }
 .Filter .Btn-accordion {
