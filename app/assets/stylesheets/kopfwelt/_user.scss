@@ -77,6 +77,10 @@
 }
 .User-additional {
 	@include span-columns(4, 4);
+	.private-links ul, .private-links ol {
+		padding: 0;
+		list-style-type: none;
+	}
 }
 .User-primary {
 	@include rem(font-size, $font-size-m);

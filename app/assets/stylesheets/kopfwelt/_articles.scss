@@ -84,7 +84,7 @@
 .Article-tags {
 	@include pie-clearfix;
 	background-color: $white;
-	.Article--teaser & {
+	.Article--teaser  {
 		padding: .5em .6em 0em;
 		border-top: $beige 0.15em solid;
 	}
@@ -199,3 +199,4 @@ span.Article-price {
 		@include span-columns(1 alpha, 2);
 	}
 }
+
