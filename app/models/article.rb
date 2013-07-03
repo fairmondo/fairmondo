@@ -95,8 +95,6 @@ class Article < ActiveRecord::Base
       original_article.images.each do |image|
         copyimage = Image.new
         copyimage.image = image.image
-        # copyimage = image.amoeba_dup
-        #copyimage.imageable_id = new_article.id
         new_article.images << copyimage
         copyimage.save
       end

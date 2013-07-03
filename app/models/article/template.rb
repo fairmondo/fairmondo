@@ -23,10 +23,10 @@ module Article::Template
   included do
 
     attr_accessible :article_template_attributes, :save_as_template
-    attr_accessor :is_cloned_article,:save_as_template, :backup_template_id
+    attr_accessor :save_as_template, :backup_template_id
     # refs #128
     default_scope where(:article_template_id => nil)
-    before_save :ensure_no_template_id, :unless => :is_cloned_article
+    before_save :ensure_no_template_id, :if => :save_as_template?
     after_save :build_and_save_template, :if => :save_as_template?
     before_validation :set_user_on_template, :if => :template?
     accepts_nested_attributes_for :article_template, :reject_if => :not_save_as_template?
@@ -66,7 +66,6 @@ module Article::Template
     # Reown Template
     cloned_article = self.amoeba_dup
     cloned_article.article_template_id = self.backup_template_id
-    cloned_article.is_cloned_article = true
     cloned_article.save_as_template = "0"
     cloned_article.save #&& cloned_article.images.each { |image| image.save}#
   end
