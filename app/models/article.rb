@@ -94,7 +94,6 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
       original_article.images.each do |image|
         copyimage = Image.new
-        debugger
         copyimage.image = image.image
         new_article.images << copyimage
         copyimage.save
