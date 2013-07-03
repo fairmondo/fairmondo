@@ -1,36 +1,36 @@
 Addresses:
   ArticleMailer:
-    default_from: 
-    report: 
-    category_proposal: 
+    default_from: "test@example.com"
+    report: "test@example.com"
+    category_proposal: "test@example.com"
 
   DeviseMailer:
-    mailer_sender: 
+    mailer_sender: "test@example.com"
 
   FeedbackMailer:
     send_feedback:
-      dealer: 
-      private: 
-      buyer: 
-      seller: 
-      technics: 
-      event: 
-      cooperative: 
-      hero: 
-      ngo: 
-      honor:
-      other:
-      trust_community:
+      dealer: "test@example.com"
+      private: "test@example.com"
+      buyer: "test@example.com"
+      seller: "test@example.com"
+      technics: "test@example.com"
+      event: "test@example.com"
+      cooperative: "test@example.com"
+      hero: "test@example.com"
+      ngo: "test@example.com"
+      honor:"test@example.com"
+      other:"test@example.com"
+      trust_community:"test@example.com"
     get_help:
-      marketplace:
-      comm_deal_fair:
-      comm_deal:
-      private_deal:
-      buy:
-      technics:
-      cooperative:
-      hero:
-      ngo:
-      honor:
-      other:
-      trust_community:
+      marketplace:"test@example.com"
+      comm_deal_fair:"test@example.com"
+      comm_deal:"test@example.com"
+      private_deal:"test@example.com"
+      buy:"test@example.com"
+      technics:"test@example.com"
+      cooperative:"test@example.com"
+      hero:"test@example.com"
+      ngo:"test@example.com"
+      honor:"test@example.com"
+      other:"test@example.com"
+      trust_community:"test@example.com"

@@ -19,6 +19,10 @@
 #
 class LibraryElementPolicy < Struct.new(:user, :library_element)
 
+  def show?
+    library_element.article.active?
+  end
+
   def create?
     own?
   end
