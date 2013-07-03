@@ -3,6 +3,7 @@
 
 -when "report_article" then
   - if user_signed_in?
+
     = semantic_form_for :feedback, :url => feedbacks_path do |f|
       = t('article.notices.report')
       = f.inputs do
@@ -17,7 +18,8 @@
         = f.action :submit , :label => t('article.actions.report'), :button_html => {:class => "Btn"}
 
 -when "get_help" then
-  = semantic_form_for resource, :url => feedbacks_path do |f|
+  %h1= t('feedback.title.get_help')
+  = semantic_form_for resource, :url => feedbacks_path, :html => {:multipart => true}, :builder => Fairtastic::FormBuilder do |f|
     = f.inputs do
       -# hidden
       - if user_signed_in?
@@ -34,6 +36,7 @@
       = f.action :submit , :label => t('feedback.actions.get_help'), :button_html => {:class => "Btn"}
 
 -when "send_feedback"
+  %h1= t('feedback.title.send_feedback')
   = semantic_form_for resource, :url => feedbacks_path do |f|
     = f.inputs do
       -# hidden

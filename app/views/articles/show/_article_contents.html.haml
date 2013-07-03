@@ -21,7 +21,7 @@
 -#
 
 - if resource.owned_by? current_user
-  %span
+  %div.Article-controls
     - if policy(resource).edit?
       = link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
     - if resource.locked? && policy(resource).new?
