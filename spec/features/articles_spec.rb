@@ -86,7 +86,7 @@ describe 'Article management' do
             find(".double_check-step-inputs").find(".action").find("input").click
           end.should change(Article.unscoped, :count).by 2
 
-          current_path.should eq article_path Article.unscoped.last
+          current_path.should eq article_path Article.unscoped.first
         end
 
         it "should create an article from a template" do

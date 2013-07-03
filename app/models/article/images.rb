@@ -27,7 +27,6 @@ module Article::Images
     has_many :images, as: :imageable #has_and_belongs_to_many :images
     accepts_nested_attributes_for :images, allow_destroy: true
 
-    #after_save :ensure_image_links
 
     # Gives first image if there is one
     # @api public
@@ -40,17 +39,7 @@ module Article::Images
       end
     end
 
-    private
-    # Ensures that all images have their imageable set. This is necessary because of the article duplication for templates
-    # @api private
-    # @return [undefined]
-    def ensure_image_links
-      images.each do |image|
-        #image.save unless image.id # Needs an ID to correctly render filepath
-        image.imageable = self unless image.imageable
 
-      end
-    end
 
   end
 end
