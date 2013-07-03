@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Farinopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
@@ -74,29 +75,60 @@ class MassUpload
   end
 
   def correct_header?(file)
-    header_row = ["title", "content", "condition", "price_cents",
-                  "default_payment", "quantity", "default_transport",
-                  "transport_details", "payment_details", "condition_extra",
-                  "transport_pickup", "transport_insured",
-                  "transport_uninsured", "transport_insured_provider",
-                  "transport_uninsured_provider",
-                  "transport_insured_price_cents",
-                  "transport_uninsured_price_cents", "payment_bank_transfer",
-                  "payment_cash", "payment_paypal", "payment_cash_on_delivery",
-                  "payment_invoice", "payment_cash_on_delivery_price_cents",
-                  "basic_price_cents", "basic_price_amount", "category_1",
-                  "category_2", "vat", "currency"]
+    true
+    # header_row = ["title", "content", "condition", "price_cents",
+    #               "default_payment", "quantity", "default_transport",
+    #               "transport_details", "payment_details", "condition_extra",
+    #               "transport_pickup", "transport_insured",
+    #               "transport_uninsured", "transport_insured_provider",
+    #               "transport_uninsured_provider",
+    #               "transport_insured_price_cents",
+    #               "transport_uninsured_price_cents", "payment_bank_transfer",
+    #               "payment_cash", "payment_paypal", "payment_cash_on_delivery",
+    #               "payment_invoice", "payment_cash_on_delivery_price_cents",
+    #               "basic_price_cents", "basic_price_amount", "category_1",
+    #               "category_2", "vat", "currency"]
 
-    CSV.foreach(file.path, headers: false) do |row|
-      if row == header_row
-        return true
-      else
-        return false
-      end
-    end
+    # CSV.foreach(file.path, headers: false) do |row|
+    #   if row == header_row
+    #     return true
+    #   else
+    #     return false
+    #   end
+    # end
   end
 
   def build_raw_articles(user, file)
+    header_translation = { "Artikelbezeichnung" => "title",
+                           "Artikelbeschreibung" => "content",
+                           "Artikelzustand" => "condition",
+                           "Zustandsbeschreibung" => "condition_extra",
+                           "Preis in Cent" => "price_cents",
+                           "Anzahl (verfuegbar)" => "quantity",
+                           "Standardversand" => "default_transport",
+                           "Selbstabholung" => "transport_pickup",
+                           "Versicherter Versand" => "transport_insured",
+                           "Versandart (versichert)" => "transport_insured_provider",
+                           "Versankosten in Cent (vesichert)" => "transport_insured_price_cents",
+                           "Unversicherter Versand" => "transport_uninsured",
+                           "Versandart (unversichert)" => "transport_uninsured_provider",
+                           "Versankosten in Cent (unversichert)" => "transport_uninsured_price_cents",
+                           "Weitere Angaben (Versand)" => "transport_details",
+                           "Standardbezahlmethode" => "default_payment",
+                           "Ueberweisung (Vorkasse)" => "payment_bank_transfer",
+                           "Barzahlung bei Abholung" => "payment_cash",
+                           "PayPal" => "payment_paypal",
+                           "Nachnahme" => "payment_cash_on_delivery",
+                           "Rechnung" => "payment_invoice",
+                           "Nachnahmezuschlag in Cent" => "payment_cash_on_delivery_price_cents",
+                           "Weitere Angaben (Bezahlmethode)" => "payment_details",
+                           "Grundpreis in Cent" => "basic_price_cents",
+                           "Mengeneinheit" => "basic_price_amount",
+                           "Kategorie 1" => "category_1",
+                           "Kategorie 2" => "category_2",
+                           "Umsatzsteuer" => "vat",
+                           "Waehrung" => "currency"}
+
     if validate_input(file)
       raw_article_array = []
       rows_array = []
@@ -107,10 +139,11 @@ class MassUpload
       end
 
       rows_array.each do |row|
-        categories << Category.find(row['category_1']) if row['category_1']
-        categories << Category.find(row['category_2']) if row['category_2']
-        row.delete("category_1")
-        row.delete("category_2")
+        categories << Category.find(row['Kategorie 1']) if row['Kategorie 1']
+        categories << Category.find(row['Kategorie 2']) if row['Kategorie 2']
+        row.delete("Kategorie 1")
+        row.delete("Kategorie 2")
+        row = Hash[row.map {|k, v| [header_translation[k], v] }]
         article = Article.new(row)
         article.user_id = user_id
         article.categories = categories
