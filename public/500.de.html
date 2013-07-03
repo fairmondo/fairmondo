@@ -1,98 +1,191 @@
-<!--
-    Farinopoly - Fairnopoly is an open-source online marketplace.
-    Copyright (C) 2013 Fairnopoly eG
-
-    This file is part of Farinopoly.
-
-    Farinopoly is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
-
-    Farinopoly is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
--->
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-	<!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Fairnopoly</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]> ><! <![endif]-->
+<html class='no-js'>
+<!-- <![endif] -->
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<title>Fairnopoly</title>
+<meta content='Fairnopoly, Marktplatz, Fair, Genossenschaft' name='keywords'>
+<meta content='Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen' name='description'>
+<meta content='width=device-width' name='viewport'>
+<link href="/assets/kopfwelt/main.css?body=1" media="screen" rel="stylesheet" type="text/css" />
 
-		<link href="/assets/favicon.ico" rel="shortcut icon" type="image/x-icon">
-		<link href="/assets/styles.css" media="screen" rel="stylesheet" type="text/css">
+<!--[if lt IE 8]>
+<link href="/assets/font-awesome-ie7.min.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600' rel='stylesheet' type='text/css'>
 
-		<!-- Google Analytics -->
-		<script type="text/javascript">
-  			var _gaq = _gaq || [];
-  			_gaq.push(['_setAccount', 'UA-37465097-1']);
-  			_gaq.push(['_trackPageview']);
+<script>
+  I18n.defaultLocale = "de";
+  I18n.locale = "de";
+</script>
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="b2pKjmD1HXXPb02yJt0gSiahw6y+oEbYuDI2Fz4GxAo=" name="csrf-token" />
+<link href="/assets/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<!-- Google Analytics -->
+<script>
+  var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37465097-1']);
+    _gaq.push (['_gat._anonymizeIp']);
+    _gaq.push(['_setDomainName', 'fairnopoly.de']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+  
+  (function()
+  {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
 
-  			(function() {
-    			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  			})();
-		</script>
-	</head>
-	<body>
+<body>
 
-		<header>
+    <header class='l-Header'>
+        <div class='l-Inner'>
+            <div class='Logo'>
+                <h1>
+                    <a href='/'>
+                        <img alt='Fairnopoly Logo' src='/assets/logo.png'>
+                    </a>
+                </h1>
+            </div>
+            <nav class='Nav Nav--primary'>
+                <ul>
+                    <li>
+                        <a href="/articles"><i class='icon icon-buy'></i> Einkaufen</a>
+                    </li>
+                    <li>
+                        <a href="/articles/new"><i class='icon icon-sell'></i> Verkaufen</a>
+                    </li>
+                    <li class='last'>
+                        <a href="/user/sign_in" id="login-link"><i class='icon icon-account'></i> Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-			<div class="container">
-				<div class="row">
-					<div class="span12">
-						<h1 id="title" class="hidden-phone"><a href="/"> <span>Fairnopoly</span> </a></h1>
-					</div>
-				</div>
-				<!-- row -->
-			</div>
-			<!-- container -->
-		</header>
-		<div id="hero">
-			<div class="container">
-				<div class="row">
-					<div class="span12">
-						<img src="/assets/service.png" alt="404" class="pull-right"/>
-						<h1>Serverfehler</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="main" role="main">
+<!-- Fehlermeldungstext -->
+    <div class='l-Main' role='main'>
+        <div class='l-Inner'>
+            <div>
+                <img src="/assets/service.png" alt="500" style="float: left; margin-right: 20px;"/>
+                <h1 style="vertical-align: middle;">Serverfehler</h1>
+            </div>
+    		<h3 style="margin-top: 20px">500 - Entschuldingung, da ist wohl etwas schiefgelaufen.</h3>
+    		<p>
+    			Das Fairnopoly-Entwicklerteam arbeitet vermutlich gerade an der Lösung dieses Problems.
+            </p>
+            <p>
+               <A HREF="javascript:history.back()" class="btn btn-sucess">Zurück</A> | <A HREF="/" class="btn btn-sucess">Zurück zur Startseit</A>
+    		</p>
+        </div>
+    </div>
+<!-- /Fehlermeldungstext -->
 
-			<div class="container">
-				<div class="row">
+    <footer class='l-Footer'>
+        <div class='Footer--top'>
+            <div class='l-Inner'>
+                <div class='Logo'>
+                    <h4>
+                        <a href='/'>
+                            <img alt='Fairnopoly Logo' src='/assets/logo-small.png'>
+                        </a>
+                    </h4>
+                </div>
+                <nav class='Nav Nav--meta'>
+                    <ul>
+                        <li>
+                            <a href='/faq'>
+                                FAQ
+                            </a>
+                        </li>
+                        <li>
+                            <a href='http://info.fairnopoly.de/forum/'>
+                                Forum
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/contact'>
+                                Kontakt
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/about_us'>
+                                Über Uns
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/philosophy'>
+                                Philosophie
+                            </a>
+                        </li>
+                        <li>
+                            <a href='http://info.fairnopoly.de/team/'>
+                                Team
+                            </a>
+                        </li>
+                        <li class='last'>
+                            <a href='http://info.fairnopoly.de'>
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class='Social'></div>
+            </div>
+        </div>
+        <div class='Footer--bottom'>
+            <div class='l-Inner'>
+                <div class='Copyright'>
+                    <p>
+                        &copy; Copyright 2013 fairnopoly
+                    </p>
+                </div>
+                <div class='Nav Nav--legal'>
+                    <ul>
+                        <li>
+                            <a href='/agb'>
+                                AGB
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/privacy'>
+                                Datenschutzerklärung
+                            </a>
+                        </li>
+                        <li class='last'>
+                            <a href='/imprint'>
+                                Impressum
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-					<div class="span12 ">
-						<div class="well">
-							<h4>500 - Entschuldingung, da ist wohl etwas schiefgelaufen.</h4>
-							<p>
-								Das Fairnopoly-Entwicklerteam arbeitet vermutlich gerade an der Lösung dieses Problems.
-							</p>
+    <script type="text/javascript">/*<![CDATA[*/
+        alert( "user: chiramiso\nUnused Eager Loading detected\n  Category => [:children]\n  Remove from your finder: :include => [:children]" );
+        /*]]>*/</script>
 
+        <script type="text/javascript">/*<![CDATA[*/
+        if (typeof(console) !== 'undefined' && console.log) {
+          if (console.groupCollapsed && console.groupEnd) {
+            console.groupCollapsed("Uniform Notifier");
+            console.log("user: chiramiso\nUnused Eager Loading detected\n  Category => [:children]\n  Remove from your finder: :include => [:children]");
+            console.groupEnd();
+          } else {
+            console.log("user: chiramiso\nUnused Eager Loading detected\n  Category => [:children]\n  Remove from your finder: :include => [:children]");
+          }
+        }
 
-						</div>
-						<p>
-								<A HREF="javascript:history.back()" class="btn btn-sucess">Zurück</A> <A HREF="/" class="btn btn-sucess">Zurück zur Startseite</A>
-						</p>
-					</div>
-				</div>
-			</div><!-- .container -->
-		</div>
-		<!-- #main -->
-
-	</body>
+    /*]]>*/</script>
+    </body>
 </html>
