@@ -32,5 +32,5 @@
             = template_form.input :save_as_template, :as => :plain_check_box, :tooltip=> true
             = template_form.input :name, :required => false
       = f.actions do
-        = f.action :submit , :label => t("article.labels.continue_to_preview"), :button_html => { :class => 'Btn'}
+        = f.action :submit , :label => t("article.labels.continue_to_preview"), :button_html => { :class => 'Btn'}, :wrapper_html => {:class => 'Accordion-step'}
 

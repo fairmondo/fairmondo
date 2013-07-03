@@ -117,10 +117,14 @@ fieldset.choices {
 	@include rem(font-size, 14px);
 	color: #2e2e2e;
 }
+.formtastic .inline-errors {
+	margin: 0 0 .5em 0;
+}
 .controls {
 	@extend %Semibold;
 	color: $gray;
 	margin-bottom: 1em;
+	clear: both;
 }
 .formtastic li.check_boxes .choices-group .choice label {
 	position:relative;
