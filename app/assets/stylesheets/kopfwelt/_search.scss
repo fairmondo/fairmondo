@@ -33,9 +33,10 @@
 	}
 	.icon-helper {
 		position: relative;
-		top: .7em;
+		top: .5em;
 		right: 0;
 		margin-left: .6em;
+		float: none !important;
 	}
 }
 .Filter {
