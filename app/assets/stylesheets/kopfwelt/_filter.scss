@@ -10,17 +10,11 @@
 		max-height: 0px;
 		overflow: hidden;
 		background-color: $darkbeige;
-	}
-	> .l-Inner {
-		position: relative;
-		height: 0;
-		overflow: hidden !important;
-		@include transition-timing-function(cubic-bezier(0.770, 0.000, 0.175, 1.000));
-		@include transition(max-height 200ms); // make it collapse faster
 		.Filter-btn {
-		  display:none;
-		}
+      display:none;
+    }
 	}
+
 	input { float: left; clear: left; }
 	label { width: auto; color: $black; }
 }
@@ -41,15 +35,20 @@
 	margin-bottom: 2em;
 	.Filter-title {
 		@include rem(margin-bottom, 12px);
+
 	}
 }
-fieldset.Filter-col { 
+fieldset.Filter-col {
 	@include span-columns(4 omega,6);
 }
 .Filter-title {
 	@include rem(font-size, 18px);
 	@extend %Semibold;
+	margin-top: 1em;
 	margin-bottom: em(10,18);
+	.icon-helper {
+	  position: relative;
+	}
 }
 .Filter .Btn-accordion {
 	margin-bottom: 0;
@@ -65,11 +64,14 @@ fieldset.Filter-col {
 	}
 }
 .Filter-col {
+	fieldset {
+		float: left;
+		width: 100%;
+	}
 	@include at-breakpoint($layout-small) {
 		@include span-columns(2,6);
 		&:nth-child(3n) {
 			@include span-columns(2,6);
-			@include rem(margin, 12px 0 0 0);
 		}
 	}
 	@include at-breakpoint($layout-large) {

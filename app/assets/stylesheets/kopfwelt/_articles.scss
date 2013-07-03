@@ -3,14 +3,31 @@
 //
 
 .Article-info {
+	@include pie-clearfix;
+	@include rem(padding, 7px 19px);
+	padding-bottom: .5em;
+	min-height: 10em;
+	background-color: $white;
+	h2 {
+		@include rem(font-size, 17px);
+	}
+	#library_element_library_input {
+	  .selectboxit-container {
+	    width:100%;
+	  }
+	}
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
 	.Article--teaser & {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	.Btn-tag--blue, .Btn-tag--green {
+		@include rem(margin-right, 4px);
+	}
 }
 .Article-image {
+	overflow: hidden;
 	border-top-left-radius: 0.9em;
 	border-top-right-radius: 0.9em;
 
@@ -29,18 +46,14 @@
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
 }
-.Article-info {
-	@include pie-clearfix;
-	@include rem(padding, 7px 19px);
-	padding-bottom: .5em;
-	background-color: $white;
-	h2 {
-		@include rem(font-size, 17px);
-	}
-	#library_element_library_input {
-	  .selectboxit-container {
-	    width:100%;
-	  }
+.Article--detail {
+	.Article-controls {
+		overflow: auto;
+		width: 100%;
+		@include at-breakpoint($layout-small) {
+			a {float: left}
+			form {float: right}
+		}
 	}
 }
 
@@ -85,7 +98,7 @@ span.Article-price {
 	@include rem(font-size, $font-size-xl);
 	@extend %Semibold;
 	display: block;
-	margin-bottom: 0em;
+	margin-bottom: .3em;
 }
 .Article-vat,
 .Article-basicprice,
