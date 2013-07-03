@@ -30,7 +30,7 @@ changed_select_box = (event) ->
         hidden_tag = $(native_select_categories).siblings("input[type=hidden]")
         hidden_tag.remove()
         $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[categories_and_ancestors][]\" value=\""+selected_value+"\"></input>")
-          
+
 select_category = ->
   selected_categories_list = $(selected_categories_input)
   selected_values = []
@@ -80,10 +80,10 @@ $(document).ready ->
     #Create the select category button
     select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select")+"</a>"
     select_button = $(select_button_html)
-    native_category_input.parent().after select_button
+    native_category_input.parent().append select_button
     # Event for select button
     select_button.click select_category # On select action
-    
+
   #event handler
   native_category_input.change changed_select_box
 

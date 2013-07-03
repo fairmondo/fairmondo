@@ -119,9 +119,6 @@ group :development, :test do
   gem 'capybara'
   gem "ZenTest"
 
-  #Autotest on MAC
-  gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
-
   # Code Coverage
   gem 'simplecov'
   gem 'coveralls', require: false
