@@ -42,7 +42,6 @@ module Article::Categories
   end
 
   def categories_and_ancestors=(categories)
-
     if categories.first.is_a?(String) || categories.first.is_a?(Integer)
       categories = categories.select(&:present?).map(&:to_i)
       categories = Category.where(:id => categories)

@@ -79,7 +79,7 @@ describe 'Article management' do
             attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
 
             # Template
-            check 'article_article_template_attributes_save_as_template'
+            check 'article_save_as_template'
             fill_in 'article_article_template_attributes_name', with: 'template'
 
             find(".double_check-step-inputs").find(".action").find("input").click
@@ -89,8 +89,8 @@ describe 'Article management' do
         end
 
         it "should create an article from a template" do
-          base_article = FactoryGirl.create :article, :without_image
-          template = FactoryGirl.create :article_template, article: base_article, user: @user
+
+          template = FactoryGirl.create :article_template, :without_image, user: @user
           visit new_article_path template_select: { article_template: template.id }
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
