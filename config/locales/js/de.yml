@@ -4,3 +4,6 @@ de:
       actions:
         remove: "Löschen"
         select: "Auswählen"
+    truncate:
+      more: "mehr"
+      less: "weniger"
