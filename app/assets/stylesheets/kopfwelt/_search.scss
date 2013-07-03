@@ -23,6 +23,7 @@
 }
 .l-Hero .l-Right {
 	float: right;
+	position: relative;
 	margin-top: em(6);
 	.Btn--gray {
 		width: auto;
@@ -32,8 +33,9 @@
 	}
 	.icon-helper {
 		position: relative;
-		top: 6px;
-		left: 1px;
+		top: -2em;
+		right: 0;
+		margin-left: .6em;
 	}
 }
 .Filter {
