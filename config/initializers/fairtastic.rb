@@ -34,13 +34,13 @@ module Formtastic
         def tooltip_text
           localized_string(method, options[:tooltip], :tooltip)
         end
-
-        def to_html
-          if tooltip
-            tooltip << super
-          else
-            super
-          end
+      end
+      module Wrapping
+        def input_wrapping(&block)
+          template.content_tag(:li,
+            [tooltip , template.capture(&block), error_html, hint_html].join("\n").html_safe,
+            wrapper_html_options
+          )
         end
 
       end
