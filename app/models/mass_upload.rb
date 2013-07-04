@@ -76,26 +76,27 @@ class MassUpload
 
   def correct_header?(file)
     true
-    # header_row = ["title", "content", "condition", "price_cents",
-    #               "default_payment", "quantity", "default_transport",
-    #               "transport_details", "payment_details", "condition_extra",
-    #               "transport_pickup", "transport_insured",
-    #               "transport_uninsured", "transport_insured_provider",
-    #               "transport_uninsured_provider",
-    #               "transport_insured_price_cents",
-    #               "transport_uninsured_price_cents", "payment_bank_transfer",
-    #               "payment_cash", "payment_paypal", "payment_cash_on_delivery",
-    #               "payment_invoice", "payment_cash_on_delivery_price_cents",
-    #               "basic_price_cents", "basic_price_amount", "category_1",
-    #               "category_2", "vat", "currency"]
+    header_row = ["Artikelbezeichnung", "Artikelbeschreibung", "Kategorie 1",
+                  "Kategorie 2", "Grundpreis in Cent", "Mengeneinheit",
+                  "Artikelzustand", "Zustandsbeschreibung", "Preis in Cent",
+                  "Umsatzsteuer", "Waehrung", "Anzahl (verfuegbar)",
+                  "Standardversand", "Selbstabholung", "Versicherter Versand",
+                  "Versandart (versichert)", "Versankosten in Cent (vesichert)",
+                  "Unversicherter Versand", "Versandart (unversichert)",
+                  "Versankosten in Cent (unversichert)",
+                  "Weitere Angaben (Versand)", "Standardbezahlmethode",
+                  "Ueberweisung (Vorkasse)", "Barzahlung bei Abholung",
+                  "PayPal", "Nachnahme",
+                  "Nachnahmezuschlag in Cent", "Rechnung",
+                  "Weitere Angaben (Bezahlmethode)"]
 
-    # CSV.foreach(file.path, headers: false) do |row|
-    #   if row == header_row
-    #     return true
-    #   else
-    #     return false
-    #   end
-    # end
+    CSV.foreach(file.path, headers: false) do |row|
+      if row == header_row
+        return true
+      else
+        return false
+      end
+    end
   end
 
   def build_raw_articles(user, file)
@@ -116,8 +117,13 @@ class MassUpload
                            "Weitere Angaben (Versand)" => "transport_details",
                            "Standardbezahlmethode" => "default_payment",
                            "Ueberweisung (Vorkasse)" => "payment_bank_transfer",
+                           "Kontoinhaber" => "bank_account_owner",
+                           "Bankleitzahl" => "bank_code",
+                           "Name der Bank" => "bank_name" ,
+                           "Kontonummer" => "bank_account_number",
                            "Barzahlung bei Abholung" => "payment_cash",
                            "PayPal" => "payment_paypal",
+                           "PayPal-Konto" => "paypal_account",
                            "Nachnahme" => "payment_cash_on_delivery",
                            "Rechnung" => "payment_invoice",
                            "Nachnahmezuschlag in Cent" => "payment_cash_on_delivery_price_cents",

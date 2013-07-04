@@ -101,6 +101,24 @@
           %span.User--rightside= t('users.visibility.public')
           = f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}
           = tinymce
+
+    = f.input_step :payment_information do
+      = f.inputs do
+
+        .User--step
+          %span.User--rightside= t('users.visibility.private')
+          %h3= t('users.form_titles.banking_account')
+          = f.input :bank_account_owner
+          = f.input :bank_code
+          = f.input :bank_name
+          = f.input :bank_account_number
+
+        .User--step
+          %span.User--rightside= t('users.visibility.private')
+          %h3= t('users.form_titles.paypal_account')
+          = f.input :paypal_account
+
+
     - if current_user.is_a?(LegalEntity)
       = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
     = f.actions do

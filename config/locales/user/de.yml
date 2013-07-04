@@ -24,6 +24,7 @@ de:
     form_titles:
       contact_person: "Ansprechpartner*in"
       address: "Anschrift und Kontaktdaten"
+      banking_account: "Bankkonto"
     countries:
       germany: "Deutschland"
     founder: "Gründer"

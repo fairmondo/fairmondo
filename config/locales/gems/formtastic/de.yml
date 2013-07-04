@@ -37,7 +37,7 @@ de:
         bank_name: Name der Bank
         bank_account_number: Kontonummer
         bank_account_owner: Kontoinhaber
-        paypal_account: Paypal-Konto
+        paypal_account: PayPal-Konto
         customer_number: Kundennummer
 
       feedback:
@@ -148,6 +148,7 @@ de:
         contact: Kontaktinformationen
         profile: Profil
         terms: Rechtliches
+        payment_information: Zahlungs- und Kontoinformationen
       article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
