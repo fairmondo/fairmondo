@@ -103,7 +103,7 @@ group :assets do
   # gem 'jquery-turbolinks'
 end
 
-group :production do
+group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service
 end
 
