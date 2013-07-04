@@ -13,7 +13,7 @@ body {
 }
 .l-Hero {
 	background-color: $beige;
-	overflow: auto;
+	//overflow: auto;
 	.first {
 		@include pie-clearfix;
 		padding: .2em 0;
