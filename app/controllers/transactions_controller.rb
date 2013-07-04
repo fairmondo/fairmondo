@@ -23,7 +23,6 @@ class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
 
-  before_filter :authenticate_user!
   before_filter :authorize_resource
 
   def edit
@@ -42,7 +41,9 @@ class TransactionsController < InheritedResources::Base
     #@transaction = Transaction.find params[:id]
     resource.buyer_id = current_user.id
     resource.buy
-    update!
+    update! do |success, failure|
+      failure.html { redirect_to :back, :alert => resource.errors.full_messages.first }
+    end
   end
 
   private

@@ -121,13 +121,22 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
-          it "should submit the data successfully" do
+          it "should submit the data successfully with accepted AGB" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
             check 'transaction_tos_accepted'
             click_button I18n.t 'transaction.actions.purchase'
 
             current_path.should eq transaction_path transaction
+          end
+
+          it "should not submit the data successfully without accepted AGB" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+
+            click_button I18n.t 'transaction.actions.purchase'
+
+            page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
+            # page.should have_content #Alert -> Implement once those exist again
           end
 
           context "when testing the displayed total price" do

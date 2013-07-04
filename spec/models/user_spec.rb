@@ -110,7 +110,7 @@ describe User do
       end
 
       it "should use the user_id" do
-        FactoryGirl.create(:user).customer_nr.should eq "00000001"
+        user.customer_nr.should eq "0000000#{user.id}"
       end
     end
 
