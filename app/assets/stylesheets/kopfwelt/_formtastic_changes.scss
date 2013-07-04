@@ -61,11 +61,13 @@ textarea,
 label,
 .formtastic .label {
 	@include rem(font-size, $font-size-s);
+	@include pie-clearfix;
 	width: 100%;
 	display: block;
 	color: $gray;
 }
 .formtastic .input .label {
+	float: none !important;
 	padding-top: 0;
 	margin-bottom: em(3,13);
 }
@@ -89,7 +91,8 @@ label,
 		}
 	}
 	.choices-group {
-		padding: 0;
+		padding: 1em 0 0;
+		margin-top: .8em;
 		margin-bottom: em(10);
 	}
 }
@@ -146,9 +149,9 @@ fieldset.choices {
 }
 
 // WYSIWYG
-.Accordion-step .mce-container {
-	margin-top: em(33);
-	margin-bottom: em(20);
+.formtastic .Accordion-step .mce-container {
+	// margin-top: em(33);
+	// margin-bottom: em(20);
 }
 .mce-tinymce.mce-container {
   clear: both;
