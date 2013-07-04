@@ -20,7 +20,7 @@
 .Libraries
   - if policy(@library).create?
     %h3= t('library.new')
-    = semantic_form_for(@library,:url => user_libraries_path(@user),:html => { :class => "form-vertical"}) do |f|
+    = semantic_form_for(@library,:url => user_libraries_path(current_user),:html => { :class => "form-vertical"}) do |f|
       = f.inputs do
         = f.input :name
       = f.actions do
@@ -34,7 +34,7 @@
               %a.Btn.Library-showsettings
                 = t('common.actions.edit')
             - if policy(library).destroy?
-              = link_to t('common.actions.destroy') , user_library_path(@user.id, library.id.to_s) , :class => "Btn Btn--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+              = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Btn Btn--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
 
           - if policy(library).update? || policy(library).destroy?
             - if library.public?
