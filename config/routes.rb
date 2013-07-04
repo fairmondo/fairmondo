@@ -61,6 +61,8 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
+  resources :libraries, :only => [:index]
+
   resources :categories, :only => [:show]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
