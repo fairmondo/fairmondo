@@ -37,6 +37,7 @@ class Transaction < ActiveRecord::Base
            :total_price,
            to: :article, prefix: true
 
+  validates :tos_accepted, acceptance: { accept: true }, on: :update
 
   state_machine initial: :available do
 
@@ -71,6 +72,15 @@ class Transaction < ActiveRecord::Base
       transition :sent => :completed
     end
   end
+
+  # Make virtual field validatable
+  # @api public
+  # @param value [String]
+  # @return [Boolean]
+  def tos_accepted= value
+    @tos_accepted = (value == "1")
+  end
+  attr_reader :tos_accepted
 
   # Transaction type is set via the "kind" attribute. Here we check wether the given value actually inherits from Transaction
   # @api public
