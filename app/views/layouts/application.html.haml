@@ -34,12 +34,9 @@
 
     %meta{:content => "width=device-width", :name => "viewport"}
     = stylesheet_link_tag 'application'
-    /[if lt IE 8]
-      = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
-
 
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
-
+    %link{:href="http://kopfwelt.com/kunden/fairnopoly/style.css", :rel="stylesheet"}
 
     = javascript_include_tag :application
     :javascript
