@@ -21,5 +21,6 @@
 .Notice{:class => "Notice--#{main_notice_mapper(type)} #{hide}"}
 	.l-Inner
 		%a.Notice-close{"data-dismiss" => "alert"} ×
-		= yield
+		%p
+			= yield
 

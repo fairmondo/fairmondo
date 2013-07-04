@@ -125,3 +125,12 @@
 		width: 58%;
 	}
 }
+
+.User-additional .Accordion-item .Article--teaser {
+	@include at-breakpoint($layout-large) {
+		@include span-columns(2, 4);
+		&:nth-child(2n) {
+			@include omega;
+		}
+	}
+}

@@ -162,7 +162,7 @@ describe Article do
 
   describe "::Template" do
     before do
-      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(),save_as_template: "1"
       @article.article_template.user = nil
     end
 
@@ -172,21 +172,29 @@ describe Article do
       end
 
       it "should return false when the save_as_template attribute is 0" do
-        @article.article_template.save_as_template = "0"
+        @article.save_as_template = "0"
         @article.save_as_template?.should be_false
       end
 
-      it "should return false when no article_template is set" do
-        @article.article_template = nil
-        @article.save_as_template?.should be_false
-      end
     end
 
-    describe "#set_user_on_article_template" do
+    describe "#not_save_as_template?" do
+      it "should return true when the save_as_template attribute is 1" do
+        @article.not_save_as_template?.should be_false
+      end
+
+      it "should return false when the save_as_template attribute is 0" do
+        @article.save_as_template = "0"
+        @article.not_save_as_template?.should be_true
+      end
+
+    end
+
+    describe "#set_user_on_template" do
       it "should set the article's seller as the template's owner" do
         @article.article_template.user.should be_nil
 
-        @article.set_user_on_article_template
+        @article.set_user_on_template
         @article.article_template.user.should eq @article.seller
       end
     end
