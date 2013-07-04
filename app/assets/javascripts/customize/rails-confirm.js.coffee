@@ -29,9 +29,9 @@ $.rails.confirmed = (link) ->
 $.rails.showConfirmDialog = (link) ->
   html = link.attr('data-confirm')
   $('body').scrollTop(0);
-  $('#notice .confirmation').removeClass("is-hidden");
-  $('#notice .confirmation_message').html(html)
-  $('#notice .confirm').on 'click', ->
+  $('.Notice--confirmation').removeClass("is-hidden");
+  $('.Notice--confirmation .confirmation_message').html(html)
+  $('.Notice--confirmation .confirm').on 'click', ->
     $.rails.confirmed(link)
-  $('#notice .cancel').on 'click', ->
-    $('#notice .confirmation').addClass("is-hidden");
+  $('.Notice--confirmation  .cancel').on 'click', ->
+    $('.Notice .confirmation').addClass("is-hidden");
