@@ -19,10 +19,6 @@
 #
 module ApplicationHelper
 
-  # Glyph Icons Helpers
-  def glyphicons(name)
-    "<i class=\"" + name + "\"></i>".html_safe
-  end
 
   def hero
     hero = ""
