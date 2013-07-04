@@ -3,22 +3,24 @@
 //
 
 .Libraries {
+  @include span-columns(4, 4);
 	h3 {
 		@extend %Semibold;
 	}
 	ul {
 		list-style-type: none;
 	}
-	@include at-breakpoint($layout-medium) {
+	@include at-breakpoint($layout-large) {
 		@include span-columns(2,4);
 	}
-}
-.Libraries-settings-left {
-	float: left;
 }
 .Libraries-settings-right {
 	float: right;
 }
 .Libraries-settings-clear {
 	clear: both;
+}
+
+#library_public_input {
+  margin-bottom: 10px;
 }

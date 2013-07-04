@@ -29,45 +29,42 @@
     - @libraries.each do |library|
       - unless library.new_record?
         = accordion_item "library"+library.id.to_s , :title => library.name  do
+          %p.Libraries-settings-right
+            - if policy(library).update?
+              %a.Btn.Library-showsettings
+                = t('common.actions.edit')
+            - if policy(library).destroy?
+              = link_to t('common.actions.destroy') , user_library_path(@user.id, library.id.to_s) , :class => "Btn Btn--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+
           - if policy(library).update? || policy(library).destroy?
             - if library.public?
               %p= t 'library.visibility.public'
             - else
               %p= t 'library.visibility.private'
-          - if policy(library).update?
-            %p.Libraries-settings-left
-              %a.Btn.Library-showsettings
-                = t('common.actions.edit')
-          - if policy(library).destroy?
-            %p.Libraries-settings-right
-              = link_to t('common.actions.destroy') , user_library_path(@user.id, library.id.to_s) , :class => "Btn Btn--gray" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+
+
+
 
           - if policy(library).update?
-            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
-              = f.inputs do
-                = f.input :name
-                = f.input :public, :label => false
-              = f.actions do
-                = f.action :submit, :label => :update, :button_html => {:class => "Btn"}
+            .Libraries-settings-clear
+              = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
+                .Accordion-step
+                  = f.inputs do
+                    = f.input :name
+                    = f.input :public, :label => false
+                  = f.actions do
+                    = f.action :submit, :label => :update, :button_html => {:class => "Btn"}
           - if library.library_elements.empty?
             %p.Libraries-settings-clear= t('library.no_products')
           - else
-            %ul.thumbnails
-              - library.library_elements.each do |library_element|
-                - if policy(library_element).show?
-                  %li.span3
-                    .thumbnail.white{:style => "position: relative;"}
-                      .in-image-container-library
-                        - if policy(library_element).destroy?
-                          - html = glyphicons("awesome-icon-remove")
-                          = link_to html.html_safe, user_library_element_path(@user,library_element) ,:method => :delete ,:class=>"pull-right"
-                        = link_to image_tag(library_element.article.title_image ? library_element.article.title_image.image.url(:thumb) : "missing.png" , :class=> "title_image"), library_element.article
-                        = features_label library_element.article
-                        = condition_label library_element.article
-                      .caption
-                        %h5= link_to truncate(library_element.article_title, :length => 25), library_element.article
-                        %h5= humanized_money_with_symbol library_element.article.price
-                        - if policy(library_element).update?
-                          = semantic_form_for(library_element, :url => user_library_element_path(@user,library_element), :html => {:class => "form-inline"}) do |f|
-                            = f.input :library, :collection => current_user.libraries,  :include_blank => false , :input_html => { :class => "btn-fill boarder-no-bottom"}, :label => false
-                            = f.submit t('common.actions.move'), :class => "Btn"
+            .Library-ArticleList.Libraries-settings-clear
+              %section.l-ArticleList
+                - library.library_elements.each do |library_element|
+                  %Article{:class => 'Article Article--teaser'}
+                    = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+                    - if policy(library_element).destroy?
+                      = link_to t('common.actions.destroy'), user_library_element_path(@user,library_element) ,:method => :delete, :class => "Btn Btn--red", :style => "float:right;"
+                    -# if policy(library_element).update?
+                      -#= semantic_form_for(library_element, :url => user_library_element_path(@user,library_element)) do |f|
+                        -#= f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                        -#= f.submit t('common.actions.move'), :class => "Btn"
