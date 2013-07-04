@@ -22,7 +22,7 @@ class FeedbackMailer < ActionMailer::Base
 
   def feedback_and_help( feedback, topic )
 
-    from = feedback.from.blank? ? $email_addresses['FeedbackMailer'][feedback.type]['default_from'] : feedback.from
+    from = feedback.from? ? feedback.from : $email_addresses['FeedbackMailer'][feedback.type]['default_from']
     @text = feedback.text
     @type = feedback.type
 

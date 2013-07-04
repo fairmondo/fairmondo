@@ -103,6 +103,9 @@ group :assets do
   # gem 'jquery-turbolinks'
 end
 
+group :production, :staging do
+  gem 'newrelic_rpm' #Monitoring service
+end
 
 # for generating *.war file
 #group :development do

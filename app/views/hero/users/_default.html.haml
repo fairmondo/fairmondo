@@ -29,15 +29,10 @@
               = t 'common.actions.edit_profile'
       .User-secondary
         - if user_resource.about_me && !user_resource.about_me.empty?
-          %div{:class => "fairnopoly-well clear-margin-bottom about #{"small-about" unless params[:full_about]}"}
+          %div{:data => {:truncate => 250}}
             = user_resource.about_me.html_safe
             .clearfix
-          - if params[:full_about]
-            %a.pull-right{:href => user_path(:id => user_resource.id)}
-              = t 'common.text.less'
-          - else
-            %a.pull-right{:href => user_path(:id => user_resource.id, :full_about => "true")}
-              = t 'common.text.more'
+
         - else
           .empty-well
             - if user_resource.is? current_user

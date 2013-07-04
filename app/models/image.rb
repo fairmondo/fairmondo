@@ -38,9 +38,4 @@ class Image < ActiveRecord::Base
   def imageable_type=(sType)
     super(sType.to_s.classify.constantize.base_class.to_s)
   end
-
-  amoeba do
-    enable
-    #nullify :imageable_id
-  end
 end
