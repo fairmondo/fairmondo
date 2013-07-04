@@ -159,7 +159,7 @@ span.Article-price {
 //
 // Responsive layout
 //
-@media (min-width: 950px) {
+@include at-breakpoint(950px lt-ie9) {
 	.Article-form {
 		@include span-columns(3, 4);
 	}

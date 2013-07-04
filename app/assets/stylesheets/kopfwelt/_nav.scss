@@ -38,6 +38,9 @@
 	li {
 		margin-right: 0;
 		&.last { margin-right: 0; }
+		@include at-breakpoint(50.7em lt-ie9) {
+			@include rem(margin-right, 36px);
+		}
 	}
 	a {
 		@include rem(min-width, 70px); // prevent jump
@@ -53,6 +56,10 @@
 		margin-right: auto;
 		width: icon-sprite-width(buy);
 		height: icon-sprite-height(buy);
+	}
+	@include at-breakpoint(42.214em lt-ie9) {
+		float: right;
+		clear: none;
 	}
 }
 
@@ -73,30 +80,11 @@
 
 .Nav--meta,
 .Nav--legal {
-	@media (min-width: 30em) {
+	@include at-breakpoint(30em lt-ie9) {
 		float: right;
 	}
 	.last {
 		margin-right: 0;
-	}
-}
-
-
-// Responsive navigation, mobile first
-// -----------------------------------
-
-@media screen and (min-width: 42.214rem) {
-	.Nav--primary {
-		float: right;
-		clear: none;
-	}
-}
-
-@media screen and (min-width: 50.7rem) {
-	.Nav--primary {
-		li {
-			@include rem(margin-right, 36px);
-		}
 	}
 }
 
