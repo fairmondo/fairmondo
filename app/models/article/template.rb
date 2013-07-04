@@ -57,17 +57,17 @@ module Article::Template
   end
 
   def ensure_no_template_id
-    self.backup_template_id = self.article_template_id
-    self.article_template_id = nil
+    self.backup_template_id = self.article_template_id # backup the template id
+    self.article_template_id = nil # remove the article template link
   end
 
     ########## build Template #################
   def build_and_save_template
     # Reown Template
-    cloned_article = self.amoeba_dup
-    cloned_article.article_template_id = self.backup_template_id
-    cloned_article.save_as_template = "0"
-    cloned_article.save #&& cloned_article.images.each { |image| image.save}#
+    cloned_article = self.amoeba_dup #duplicate the article
+    cloned_article.article_template_id = self.backup_template_id # get back the original template id
+    cloned_article.save_as_template = "0" #no loops
+    cloned_article.save #
   end
 
 end

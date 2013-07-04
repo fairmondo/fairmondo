@@ -77,6 +77,10 @@
 }
 .User-additional {
 	@include span-columns(4, 4);
+	.private-links ul, .private-links ol {
+		padding: 0;
+		list-style-type: none;
+	}
 }
 .User-primary {
 	@include rem(font-size, $font-size-m);
@@ -184,10 +188,13 @@
 	@include span-columns(4, 4);
 	.stringish {
 		@include span-columns(4, 4);
+		position: relative;
+		//overflow: ;
 	}
 	.icon-helper {
-		top: em(31);
-		right: em(-8);
+		position: absolute;
+		top: 2.2em;
+		right: -.6em;
 	}
 	.User-registration-input {
 		@include span-columns(4, 4);
