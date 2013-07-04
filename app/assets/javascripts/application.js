@@ -28,11 +28,6 @@
 //= require tinymce
 //= require tinymce-jquery
 
-
-// require turbolinks
-// require jquery.turbolinks
-
-
 //= require i18n
 //= require i18n/translations
 
@@ -46,7 +41,6 @@
 //= require vendor/jquery.truncator
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
-
 
 //= require_tree ./models
 
@@ -62,4 +56,3 @@
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
-//= require customize/rails-confirm
