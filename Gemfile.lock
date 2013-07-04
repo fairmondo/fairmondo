@@ -80,7 +80,7 @@ GEM
     builder (3.0.4)
     bullet (4.6.0)
       uniform_notifier
-    capistrano (2.15.4)
+    capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -230,6 +230,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    newrelic_rpm (3.6.5.130)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
@@ -444,6 +445,7 @@ DEPENDENCIES
   launchy
   modernizr-rails
   money-rails
+  newrelic_rpm
   paperclip (>= 3.0)
   pg
   pundit

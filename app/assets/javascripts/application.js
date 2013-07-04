@@ -28,11 +28,6 @@
 //= require tinymce
 //= require tinymce-jquery
 
-
-// require turbolinks
-// require jquery.turbolinks
-
-
 //= require i18n
 //= require i18n/translations
 
@@ -43,13 +38,13 @@
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
 //= require vendor/jquery.colorbox
-
+//= require vendor/jquery.truncator
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
 
-
 //= require_tree ./models
 
+//= require visual/masonry
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
@@ -57,7 +52,7 @@
 //= require visual/colorbox
 //= require visual/selectbox
 //= require visual/filter
-//= require visual/masonry
+//= require visual/truncator
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy

@@ -91,10 +91,8 @@ class Article < ActiveRecord::Base
     nullify :article_template_id
     customize lambda { |original_article, new_article|
       original_article.images.each do |image|
-        #copyimage = Image.new
-        #copyimage.image = image.image
-        copyimage = image.amoeba_dup
-        #copyimage.imageable_id = new_article.id
+        copyimage = Image.new
+        copyimage.image = image.image
         new_article.images << copyimage
         copyimage.save
       end

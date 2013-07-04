@@ -28,7 +28,7 @@ module NoticeHelper
     when :notice
       "info"
     when :confirm
-      "info confirmation"
+      "confirmation"
     else
       "info"
     end
@@ -48,8 +48,8 @@ module NoticeHelper
     cancel_text  = I18n.t('common.text.confirm_no')
     render layout: "notice_layout", locals: { type: :confirm, hide: "is-hidden"} do
       concat("<p class=\"confirmation_message\"></p>".html_safe)
-      concat("<button class=\"Btn Btn--danger confirm\" >  #{confirm_text} </button>".html_safe)
-      concat("<button class=\"Btn cancel\"  > #{cancel_text} </button>".html_safe)
+      concat("<a class=\"Btn Btn--red confirm\" >  #{confirm_text} </a> ".html_safe)
+      concat("<a class=\"Btn cancel\"  > #{cancel_text} </a>".html_safe)
     end
   end
 

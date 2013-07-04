@@ -40,8 +40,8 @@
                 = t('common.actions.edit')
           - if policy(library).destroy?
             %p.Libraries-settings-right
-              %a.Btn.Btn--gray{:href => user_library_path(@user.id, library.id.to_s) , "data-confirm" => t('library.delete_confirm', :name => library.name) ,"data-method" => "delete"}
-                = t('common.actions.destroy')
+              = link_to t('common.actions.destroy') , user_library_path(@user.id, library.id.to_s) , :class => "Btn Btn--gray" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+
           - if policy(library).update?
             = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
               = f.inputs do

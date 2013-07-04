@@ -10,7 +10,7 @@ de:
         explanations: Erläuterungen
       user:
         legal_entity: Rechtlicher Status
-        legal_entity_form: Unternehmensform (GmbH, OHG, AG...)
+        company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
         email: E-mail Adresse
         image: Profilbild
@@ -128,11 +128,10 @@ de:
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
-
-        transaction: "Angebotsart"
-        expire: "Ablaufdatum"
-      article_template:
         save_as_template: "Eingaben als Vorlage speichern"
+
+
+      article_template:
         name: Vorlagenname
       template_select:
         article_template: Vorlage
@@ -154,7 +153,6 @@ de:
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Auszeichnung (Optional)"
         article: "Dein Artikel"
-        article: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Das freundliche Prozent (optional)"
@@ -163,6 +161,8 @@ de:
       template_select:
         prefix: ""
         apply: Deine Vorlagen
+      article_template:
+        template: Name der Vorlage
     hints:
       user:
         edit: &edit_user
@@ -186,16 +186,17 @@ de:
         title:  "Bitte gib eine Bezeichnung Deines Artikels ein. Achte dabei darauf, dass die Bezeichnung eindeutig und klar ist, damit Dein Artikel gefunden werden kann."
         categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird
         category_proposal: 'Dann schlage gerne eine neue Kategorie vor. Wir versuchen, alle Wünsche zu berücksichtigen.'
-
+        ecologic: 'Unter diesen Filter fallen Artikel, die ökologisch nachhaltig produziert wurden. Als solche gelten Produkte mit einem entsprechenden Siegel, oder Produkte, die durch Upcycling aus überschüssigen Materialien entstanden sind.'
         fair: 'Unter diesen Filter fallen alle Artikel, auf die eines unserer drei Kriterien für "fair" zutrifft:  1. Artikel mit dem Transfer Siegel, von WFTO Mitgliedern oder Weltladen-Lieferanten. 2. Artikel von kleineren Anbietern ohne Siegel, für die bei uns unter "fair trust" fallen. Dafür ist ein Formular auszufüllen. 3. Artikel von sozialen Produzenten, z.B. Sozialunternehmen oder gemeinnützigen Anbietern.'
         fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
         small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
         fair_trust_questionnaire: Die mit Sternchen markierten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
                     Unter "sozial" fallen Artikel, die mindestens eines der drei Kriterien erfüllen.
 
-        condition: "Als neu gelten alle Artikel, die unbenutzt, originalverpackt und mit voller Garantie angeboten werden."
+        condition: "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest."
         content: "Die Beschreibung sollte alle für die Käufer*innen relevanten Details zu den Eigenschaften und dem Zustand des Artikels enthalten."
         content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
         quantity: Falls mehrere Artikel derselben Art angeboten werden, trage hier die Menge ein

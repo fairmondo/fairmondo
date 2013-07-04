@@ -40,7 +40,7 @@
         %fieldset
           %legend.Filter-title
             Zustand
-            %i.icon-helper{ :title => "Help text" }
+            %i.icon-helper{ :title => "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest." }
           - ([["Egal"]] + Article.condition.options ).each do |option|
             = f.label :condition , :value => option.last do
               = f.radio_button(:condition, option.last) + option.first
@@ -49,7 +49,7 @@
         %fieldset
           %legend.Filter-title
             Filter
-            %i.icon-helper{ :title => "Help text" }
+            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen. </br>Die Filter sind:</br> FAIR = Fair gehandelte bzw. sozial produzierte Artikel.</br> ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.</br>KLEIN&FEIN = Artikel von kleineren Anbietern, mit besonders guter Qualität." }
 
           = f.label :fair do
             = f.check_box(:fair) + t('formtastic.labels.article.fair')
