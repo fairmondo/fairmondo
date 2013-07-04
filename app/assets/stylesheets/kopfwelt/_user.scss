@@ -114,7 +114,7 @@
 		li {
 			@include span-columns(1, 2);
 			&:nth-child(2n) {
-				@include span-columns(1 omega, 2);
+				@include omega;
 			}
 		}
 	}
@@ -126,7 +126,7 @@
 				@include span-columns(1, 4);
 			}
 			&:nth-child(4n) {
-				@include span-columns(1 omega, 4);
+				@include omega;
 			}
 		}
 	}
