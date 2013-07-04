@@ -18,7 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Libraries
-  - if policy(@library).create?
+  - if user_signed_in? && policy(@library).create?
     %h3= t('library.new')
     = semantic_form_for(@library,:url => user_libraries_path(current_user),:html => { :class => "form-vertical"}) do |f|
       = f.inputs do
@@ -61,7 +61,8 @@
               %section.l-ArticleList
                 - library.library_elements.each do |library_element|
                   %Article{:class => 'Article Article--teaser'}
-                    = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+                    - if policy(library_element).show?
+                      = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
                     - if policy(library_element).destroy?
                       = link_to t('common.actions.destroy'), user_library_element_path(@user,library_element) ,:method => :delete, :class => "Btn Btn--red", :style => "float:right;"
                     -# if policy(library_element).update?
