@@ -39,7 +39,7 @@ body {
 .l-Footer {
 	background-image: url(asset-path("back3.gif", image));
 	.Footer--top {
-		@media (min-width: 30em) {
+		@include at-breakpoint(30em lt-ie9) {
 			margin-bottom: em(103);
 		}
 	}
