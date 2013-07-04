@@ -30,7 +30,7 @@
 	overflow: hidden;
 	border-top-left-radius: 0.9em;
 	border-top-right-radius: 0.9em;
-
+  margin: -0.45em;
 	img {
 		width: 100%;
 		height: auto;
@@ -200,3 +200,8 @@ span.Article-price {
 	}
 }
 
+.Article--teaser {
+  border: 1px solid $beige;
+  border-radius: 0.9em;
+  padding: 0.45em;
+}
