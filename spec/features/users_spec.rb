@@ -60,7 +60,7 @@ describe 'User management' do
 
     it "should not sign in a banned user" do
       user = FactoryGirl.create :user, banned: true
-      Tinycms::Content.create key:'banned', body: '<p>You are banned.</p>'
+      FactoryGirl.create :content, key:'banned', body: '<p>You are banned.</p>'
       visit new_user_session_path
 
       fill_in 'user_email', with: user.email

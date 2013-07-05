@@ -17,29 +17,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
-
 require 'spec_helper'
 
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
+describe Content do
+  describe "fields" do
+    describe "friendly_id" do
+      # see https://github.com/norman/friendly_id/issues/332
+      it "find by slug should work" do
+        content = FactoryGirl.create :content
+        Content.find(content.key).should eq content
+      end
     end
-    it "should succeed" do
-      pending "Sometimes fails, sometimes it doesn't"
-      visit articles_path
-      Bullet.should_not throw_warnings
-    end
+
+    it { should respond_to :key }
+    it { should respond_to :body }
+  end
+
+  describe "validations" do
+    it { should validate_presence_of :key }
   end
 end
