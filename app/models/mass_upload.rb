@@ -99,6 +99,14 @@ class MassUpload
     end
   end
 
+  def missing_bank_details_errors(current_user)
+    if self.errors[:file].grep(/Seller bank/).any?
+      self.errors.clear
+
+      errors.add(:file, I18n.t('mass_upload.errors.missing_bank_details', :link => Rails.application.routes.url_helpers.edit_user_registration_path(current_user)))
+    end
+  end
+
   def build_raw_articles(user, file)
     header_translation = { "Artikelbezeichnung" => "title",
                            "Artikelbeschreibung" => "content",

@@ -27,7 +27,6 @@ class MassUploadsController < ApplicationController
       render :new
     else
       secret_mass_uploads_number = SecureRandom.urlsafe_base64
-      @test = secret_mass_uploads_number
       session[secret_mass_uploads_number] = []
       articles = @mass_upload
       articles.save
@@ -35,6 +34,7 @@ class MassUploadsController < ApplicationController
         session[secret_mass_uploads_number] << article.id
       end
       if articles.errors.full_messages.any?
+        articles.missing_bank_details_errors(current_user)
         render :new
       else
         redirect_to mass_upload_path(secret_mass_uploads_number)

@@ -6,3 +6,4 @@ de:
       missing_file: "Bitte wähle eine CSV-Datei aus"
       wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
       wrong_article: "%{message} (Artikelzeile %{index})"
+      missing_bank_details: 'Bitte ergänze die Zahlungs- und Kontoinformationen in Deinem <a href="%{link}">Profil</a>'

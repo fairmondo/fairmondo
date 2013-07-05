@@ -18,6 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 %p
-  = link_to 'Artikel per CSV importieren', new_mass_upload_path
+  - if current_user.is_a?(LegalEntity)
+    = link_to 'Artikel per CSV importieren', new_mass_upload_path
 
 = render 'form'
