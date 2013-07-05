@@ -17,8 +17,18 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- list_class = "" if local_assigns[:list_class].nil?
-%section{ :class => list_class}
-	- articles.each do |article|
-		%Article{:class => 'Article Article--teaser'}
-			= render :partial=>'/shared/show_article', :locals=>{ :article=> article}
+.Libraries
+
+  .Accordion--activated
+    - @libraries.each do |library|
+      - unless library.new_record?
+        = accordion_item "library"+library.id.to_s , :title => library.name  do
+
+          - if library.library_elements.empty?
+            %p.Libraries-settings-clear= t('library.no_products')
+          - else
+            .Library-ArticleList.Libraries-settings-clear
+              %section.l-ArticleList
+                - library.library_elements.each do |library_element|
+                  %Article{:class => 'Article Article--teaser'}
+                    = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
