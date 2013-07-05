@@ -17,29 +17,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
+require 'tinymce-rails'
+module Tinycms
+  class Engine < ::Rails::Engine
+    isolate_namespace Tinycms
 
-require 'spec_helper'
-
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
+    config.generators do |g|
+      g.test_framework :rspec, :view_specs => false
     end
-    it "should succeed" do
-      pending "Sometimes fails, sometimes it doesn't"
-      visit articles_path
-      Bullet.should_not throw_warnings
+
+    initializer "helper" do |app|
+      ActiveSupport.on_load(:action_view) do
+        include Helper
+      end
     end
+
   end
 end

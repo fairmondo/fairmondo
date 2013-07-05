@@ -27,7 +27,9 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
-  mount Tinycms::Engine => "/cms"
+  resources :contents do
+    get :not_found, :on => :member #?
+  end
 
   devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
 
@@ -71,7 +73,7 @@ Fairnopoly::Application.routes.draw do
   scope :constraints => lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
-    match "/*id" => 'tinycms/contents#show'
+    match "/*id" => 'contents#show'
   end
 
 end

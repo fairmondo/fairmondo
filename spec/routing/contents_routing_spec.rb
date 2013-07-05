@@ -17,29 +17,38 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
+require "spec_helper"
 
-require 'spec_helper'
+describe ContentsController do
+  describe "routing" do
 
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
+    it "routes to #index" do
+      get("/contents").should route_to("contents#index")
     end
-    it "should succeed" do
-      pending "Sometimes fails, sometimes it doesn't"
-      visit articles_path
-      Bullet.should_not throw_warnings
+
+    it "routes to #new" do
+      get("/contents/new").should route_to("contents#new")
     end
+
+    it "routes to #show" do
+      get("/contents/1").should route_to("contents#show", :id => "1")
+    end
+
+    it "routes to #edit" do
+      get("/contents/1/edit").should route_to("contents#edit", :id => "1")
+    end
+
+    it "routes to #create" do
+      post("/contents").should route_to("contents#create")
+    end
+
+    it "routes to #update" do
+      put("/contents/1").should route_to("contents#update", :id => "1")
+    end
+
+    it "routes to #destroy" do
+      delete("/contents/1").should route_to("contents#destroy", :id => "1")
+    end
+
   end
 end

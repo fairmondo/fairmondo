@@ -30,10 +30,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all
-  helper_method :tinycms_admin?
 
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
-  def after_sign_in_path_for(resource_or_scope)
+  def after_sign_in_path_for resource_or_scope
     if resource_or_scope.is_a?(User) && resource_or_scope.banned?
       sign_out resource_or_scope
       flash.discard
@@ -43,8 +42,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def tinycms_admin?
-    current_user && current_user.admin?
+  # Return path with fallback
+  # @api public
+  # @param fallback [String] path
+  # @param options [Hash] (is this really needed?)
+  # @return [String] return path
+  def return_to_path fallback, options = {}
+    return session.delete(:return_to) || fallback if options[:clear]
+    session[:return_to] || fallback
   end
 
   ## programmatically get controller's filters
@@ -77,7 +82,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_modules
-    ["Devise","RailsAdmin","Tinycms"]
+    ["Devise","RailsAdmin"]
   end
 
   def pundit_unverified_classes

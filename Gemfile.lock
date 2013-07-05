@@ -6,15 +6,6 @@ GIT
     i18n-js (2.1.2)
       i18n
 
-PATH
-  remote: gems/tinycms
-  specs:
-    tinycms (0.0.1)
-      friendly_id (~> 4.0.9)
-      jquery-rails
-      rails (~> 3.2.6)
-      tinymce-rails
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -469,7 +460,6 @@ DEPENDENCIES
   therubyracer
   therubyrhino
   thin
-  tinycms!
   tinymce-rails
   tinymce-rails-langs
   uglifier (>= 1.0.3)

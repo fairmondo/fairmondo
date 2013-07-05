@@ -17,29 +17,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
+module Tinycms
+  class Configuration
 
-require 'spec_helper'
+    attr_accessor :tinymce_config_file, :tinycms_user_accessor, :tinycms_user_admin_callable, :sign_in_path
 
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
+    def initialize
+      @tinymce_config_file    = File.join "config", "tinycms.yml"
     end
-    it "should succeed" do
-      pending "Sometimes fails, sometimes it doesn't"
-      visit articles_path
-      Bullet.should_not throw_warnings
-    end
+
   end
 end

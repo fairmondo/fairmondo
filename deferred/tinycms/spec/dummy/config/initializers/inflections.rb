@@ -17,29 +17,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
+# Be sure to restart your server when you modify this file.
 
-require 'spec_helper'
-
-include Warden::Test::Helpers
-include BulletMatcher
-include CategorySeedData
-
-describe 'Performance' do
-  before { Bullet.start_request }
-
-  describe "Article#index", search: true do
-    before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
-    end
-    it "should succeed" do
-      pending "Sometimes fails, sometimes it doesn't"
-      visit articles_path
-      Bullet.should_not throw_warnings
-    end
-  end
-end
+# Add new inflection rules using the following format
+# (all these examples are active by default):
+# ActiveSupport::Inflector.inflections do |inflect|
+#   inflect.plural /^(ox)$/i, '\1en'
+#   inflect.singular /^(ox)en/i, '\1'
+#   inflect.irregular 'person', 'people'
+#   inflect.uncountable %w( fish sheep )
+# end
+#
+# These inflection rules are supported but not enabled by default:
+# ActiveSupport::Inflector.inflections do |inflect|
+#   inflect.acronym 'RESTful'
+# end
