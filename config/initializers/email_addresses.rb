@@ -23,5 +23,12 @@ begin
   $email_addresses  = addresses['Addresses']
 
 rescue
-  puts 'email_addresses.yml not found'
+  begin
+    puts 'email_addresses.yml not found. Try to Load email_addresses.yml.example'
+    addresses = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'email_addresses.yml.example'))))
+    $email_addresses  = addresses['Addresses']
+  rescue
+    puts 'Not possible to load any email_addresses config!'
+  end
+
 end
