@@ -25,8 +25,8 @@ class FeedbacksController < InheritedResources::Base
     authorize build_resource
     create! do |success,failure|
 
-      success.html { redirect_to :back, :notice => (I18n.t 'article.actions.reported')  }
-      failure.html { redirect_to :back, :alert => @feedback.errors.full_messages.first }
+      success.html { redirect_to root_path, :notice => (I18n.t 'article.actions.reported')  }
+      failure.html { redirect_to new_feedback_path(:type => resource.type), :alert => resource.errors.full_messages.first }
 
     end
   end
