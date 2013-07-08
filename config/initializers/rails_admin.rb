@@ -50,7 +50,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-   config.included_models = ['Article', 'ArticleTemplate', 'AuctionTransaction', 'ArticlesCategory', 'Bid', 'Category', 'FairTrustQuestionnaire', 'Image', 'Invitation', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Tinycms::Content', 'Transaction', 'User']
+   config.included_models = ['Article', 'ArticleTemplate', 'AuctionTransaction', 'ArticlesCategory', 'Bid', 'Category', 'FairTrustQuestionnaire', 'Image', 'Invitation', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Content', 'Transaction', 'User']
 
   # Include specific models (exclude the others):
   #  config.included_models = [  'Bid', 'Category',  'Image', 'Invitation',  'Library' , 'Tinycms::Content', 'Transaction', 'User']

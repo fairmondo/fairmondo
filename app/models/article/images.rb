@@ -39,7 +39,13 @@ module Article::Images
       end
     end
 
-
+    def title_image_url type = nil
+      if title_image
+        title_image.image.url(type)
+      else
+        "missing.png"
+      end
+    end
 
   end
 end

@@ -20,8 +20,11 @@
 require 'friendly_id'
 
 class Content < ActiveRecord::Base
+  extend Sanitization
 
   attr_accessible :body, :key
+  auto_sanitize :key
+  auto_sanitize :body, method: 'tiny_mce' # Should we really sanitize :body?
 
   validates :key,  presence: true,
                    uniqueness: true

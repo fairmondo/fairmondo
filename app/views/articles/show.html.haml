@@ -36,5 +36,7 @@
   = render "/articles/show/article_contents", :article => resource
 - if resource.active?
   = render "/articles/show/active", :article => resource
+  - if User.is_admin? current_user
+    = link_to '> (Admin) Set this as featured article', update_settings_path(var: 'featured_article_id', value: resource.id)
 - else
   = render "/articles/show/inactive", :article => resource
