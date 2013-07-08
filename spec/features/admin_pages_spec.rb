@@ -36,6 +36,7 @@ describe 'ActiveAdminPages' do
     before :each do
       @admin = FactoryGirl.create(:admin_user)
       login_as @admin
+      FactoryGirl.create :article #for featured article on index
       visit root_path
     end
 

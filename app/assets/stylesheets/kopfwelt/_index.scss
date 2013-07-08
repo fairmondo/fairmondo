@@ -86,12 +86,12 @@
 	background-color: $green;
 	color: #fff;
 	padding: em(5,14) em(5,14) em(3,14) em(70,14);
-	
+
 	// don't make it break it
 	// overflow: hidden;
 	// text-overflow: ellipsis;
 	// white-space: nowrap;
-	
+
 	// &:after {
 	// 	content: "|";
 	// 	padding: em(5,14) 0 em(3,14) 0;
@@ -105,10 +105,11 @@
 	// }
 }
 .Profile-avatar {
+	@include border-radius(50%);
 	position: absolute;
 	width: 72px;
 	height: 72px;
-	top: -18px;
+	top: -14px;
 	left: -8px;
 }
 
@@ -135,7 +136,7 @@
 }
 
 
-// Icons 
+// Icons
 // -----------------------------------
 
 .icon-interrogation--green {

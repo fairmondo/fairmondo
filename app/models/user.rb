@@ -127,6 +127,13 @@ class User < ActiveRecord::Base
     user && self.id == user.id
   end
 
+  # Static method to get admin status even if current_user is nil
+  # @api public
+  # @param user [User, nil] Usually current_user
+  def self.is_admin? user
+    user && user.admin?
+  end
+
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number

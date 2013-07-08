@@ -118,7 +118,6 @@ module Article::Attributes
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
 
     validate :default_payment_selected
-
   end
 
   def set_sellers_nested_validations

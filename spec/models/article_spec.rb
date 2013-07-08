@@ -137,8 +137,19 @@ describe Article do
     end
   end
 
-  describe "::Commendation" do
+  describe "::Images" do
+    describe "methods" do
+      describe "#title_image_url" do
+        it "should return the first image's URL when one exists" do
+          article.title_image_url.should match %r#/system/images/000/000/001/original/image#
+        end
 
+        it "should return the missing-image-url when no image is set" do
+          article = FactoryGirl.create :article, :without_image
+          article.title_image_url.should eq 'missing.png'
+        end
+      end
+    end
   end
 
   describe "::Categories" do

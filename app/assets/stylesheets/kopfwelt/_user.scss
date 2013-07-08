@@ -219,14 +219,14 @@
 		.email {@include omega;}
 		#user_password_input {
 			float: left !important;
-			
+
 		}
 		#user_password_confirmation_input {@include omega;}
 	}
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(3, 4);
 	}
-	
+
 }
 .User-registration-checkbox .input {
 	margin-bottom: em(10);
