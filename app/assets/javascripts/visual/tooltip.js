@@ -39,10 +39,10 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("i.icon-helper").tooltip({
-		tooltipClass: "top", // class for the arrow/pointer
+		tooltipClass: "bottom", // class for the arrow/pointer
 		position: {
-			my: "center bottom",
-			at: "center top-20",
+			my: "center top",
+			at: "center bottom+20",
 			collision: "none"
 		}
 
@@ -61,6 +61,5 @@ $(document).ready(function(){
 	});
 	$('html').click(function(e) {
 		$("i.icon-helper").tooltip('close');
-		e.stopPropagation();
 	});
 });

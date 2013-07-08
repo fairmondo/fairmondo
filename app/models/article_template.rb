@@ -23,8 +23,7 @@ class ArticleTemplate < ActiveRecord::Base
 
   delegate :title, to: :article, prefix: true
 
-  attr_accessible :article_attributes, :name, :article, :save_as_template
-  attr_accessor :save_as_template
+  attr_accessible :article_attributes, :name, :article
 
   validates :name, uniqueness: { scope: :user_id }
   validates :name, presence: true
@@ -34,6 +33,8 @@ class ArticleTemplate < ActiveRecord::Base
   has_one :article, dependent: :destroy
 
   accepts_nested_attributes_for :article
+
+
 
   # refs #128 avoid default scope
   def article

@@ -24,23 +24,29 @@ module Article::Template
 
   included do
 
-    attr_accessible :article_template_attributes
+    attr_accessible :article_template_attributes, :save_as_template
+    attr_accessor :save_as_template, :backup_template_id
     # refs #128
-    default_scope where(:article_template_id => nil)
+    default_scope where(article_template_id: nil)
+    before_save :ensure_no_template_id, :if => :save_as_template?
+    after_save :build_and_save_template, :if => :save_as_template?
+    before_validation :set_user_on_template, :if => :template?
+    accepts_nested_attributes_for :article_template, :reject_if => :not_save_as_template?
 
-    before_save :build_and_save_template, :if => :save_as_template?
-    accepts_nested_attributes_for :article_template, :reject_if => proc {|attributes| attributes['save_as_template'] == "0" }
 
-    before_validation :set_user_on_article_template , :if => :save_as_template?
     validates_associated :article_template , :if => :save_as_template?
 
   end
 
   def save_as_template?
-    self.article_template && self.article_template.save_as_template == "1"
+    self.save_as_template == "1"
   end
 
-  def set_user_on_article_template
+   def not_save_as_template?
+    !save_as_template?
+   end
+
+  def set_user_on_template
     self.article_template.user = self.seller
   end
 
@@ -52,14 +58,18 @@ module Article::Template
     article_template_id != nil || article_template != nil
   end
 
+  def ensure_no_template_id
+    self.backup_template_id = self.article_template_id # backup the template id
+    self.article_template_id = nil # remove the article template link
+  end
+
     ########## build Template #################
   def build_and_save_template
-    ensure_image_links
     # Reown Template
-    cloned_article = self.amoeba_dup
-    cloned_article.article_template_id = self.article_template_id
-    self.article_template_id = nil
-    cloned_article.save #&& cloned_article.images.each { |image| image.save}
+    cloned_article = self.amoeba_dup #duplicate the article
+    cloned_article.article_template_id = self.backup_template_id # get back the original template id
+    cloned_article.save_as_template = "0" #no loops
+    cloned_article.save #
   end
 
 end

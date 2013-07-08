@@ -77,6 +77,10 @@
 }
 .User-additional {
 	@include span-columns(4, 4);
+	.private-links ul, .private-links ol {
+		padding: 0;
+		list-style-type: none;
+	}
 }
 .User-primary {
 	@include rem(font-size, $font-size-m);
@@ -110,7 +114,7 @@
 		li {
 			@include span-columns(1, 2);
 			&:nth-child(2n) {
-				@include span-columns(1 omega, 2);
+				@include omega;
 			}
 		}
 	}
@@ -122,7 +126,7 @@
 				@include span-columns(1, 4);
 			}
 			&:nth-child(4n) {
-				@include span-columns(1 omega, 4);
+				@include omega;
 			}
 		}
 	}
@@ -184,10 +188,13 @@
 	@include span-columns(4, 4);
 	.stringish {
 		@include span-columns(4, 4);
+		position: relative;
+		//overflow: ;
 	}
 	.icon-helper {
-		top: em(31);
-		right: em(-8);
+		position: absolute;
+		top: 2.2em;
+		right: -.6em;
 	}
 	.User-registration-input {
 		@include span-columns(4, 4);
@@ -212,14 +219,14 @@
 		.email {@include omega;}
 		#user_password_input {
 			float: left !important;
-			
+
 		}
 		#user_password_confirmation_input {@include omega;}
 	}
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(3, 4);
 	}
-	
+
 }
 .User-registration-checkbox .input {
 	margin-bottom: em(10);

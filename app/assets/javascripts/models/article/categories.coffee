@@ -1,6 +1,7 @@
 selected_categories_input = "#selected_categories_input" # Input Box if multiselect
 native_select_categories  = ".Category-nativeselect" # the original select
 select_button_html_id = "Category-selectbutton" # the select button class
+
 changed_select_box = (event) ->
   selected_categories_list = $(selected_categories_input)
   is_multiselect = $(selected_categories_input).length > 0
@@ -65,11 +66,12 @@ select_category = ->
           element_with_this_category.remove() # Remove ancestor catergories
 
     if add_this_category # Add the new category to the field
-      $.get "/categories/" + selected_category_id + ".js", ((data) ->
+      $.get "/categories/" + selected_category_id + ".js?object_name=" + $(selected_categories_input).data("object-name"), ((data) ->
         selected_item = $(data)
         selected_categories_list.append selected_item
         selected_item.append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
       ), "html"
+
 
 $(document).ready ->
   native_category_input = $(native_select_categories)

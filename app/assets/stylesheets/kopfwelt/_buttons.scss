@@ -39,6 +39,7 @@
 $btn--blue: $blue; // blue from _config
 $btn--green: $green;
 $btn--gray: $lightgray;
+$btn--red: $red;
 
 $tag--gray: $darkgray; //neu
 $tag--blue: $lightblue; //fair
@@ -107,7 +108,8 @@ a.Btn {
 .Btn--blue,
 .Btn--green,
 .Btn--greenSmall,
-.Btn--gray {
+.Btn--gray,
+.Btn--red {
 	//@include rem(width, 200px);
 	width: auto;
 }
@@ -129,6 +131,12 @@ a.Btn {
 	background-color: $btn--gray;
 	&:hover {
 		background-color: lighten($btn--gray, 5%);
+	}
+}
+.Btn--red {
+	background-color: $btn--red;
+	&:hover {
+		background-color: lighten($btn--red, 5%);
 	}
 }
 

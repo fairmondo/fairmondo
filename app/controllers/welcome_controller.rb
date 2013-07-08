@@ -24,8 +24,7 @@ class WelcomeController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :index
 
   def index
-    @articles = Article.count
-    @percentage = (@articles.to_f/10000.0)*100.0
+    @featured_article = Article.featured
   end
 
 end

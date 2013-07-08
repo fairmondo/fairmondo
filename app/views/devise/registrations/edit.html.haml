@@ -86,7 +86,7 @@
           = f.input :forename,:required => true
           = f.input :surname,:required => true
           - if current_user.is_a?(LegalEntity)
-            = f.input :legal_entity_form
+            = f.input :company_name
         .User--step
           %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           %h3= t('users.form_titles.address')
