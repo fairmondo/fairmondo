@@ -1,0 +1,46 @@
+-#
+-# Farinopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Farinopoly.
+-#
+-# Farinopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Farinopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+= tinymce_assets
+- if resource.new_record? && resource.key
+  %h2= I18n.t('tinycms.content.not_exists', :url => resource.key )
+  #tinycms_error
+    = I18n.t('tinycms.content.may_be_created')
+= semantic_form_for resource do |f|
+  = f.inputs do
+    - if resource.errors.any?
+      #error_explanation
+        %h3
+          = pluralize(resource.errors.count, "error")
+          prohibited this resource from being saved:
+        %ul
+          - resource.errors.full_messages.each do |msg|
+            %li= msg
+
+    #tinycms_fields
+      - if resource.new_record? && resource.key
+        = f.hidden_field :key
+      - else
+        = f.input :key, required: true
+      .fields
+        = f.input :body, as: :text, required: true, input_html: { class: "tinymce" }
+        = tinymce
+
+      .actions
+        = f.submit

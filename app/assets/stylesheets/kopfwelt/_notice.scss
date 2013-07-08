@@ -11,22 +11,27 @@
 
 
 .Notice {
-	display: none; // hidden for now
+	//display: none; // hidden for now
+	//position: absolute;
 	color: #fff;
+	overflow: auto;
 	.l-Inner {
-		position: relative;
-		padding-top: ($gutter-width /2);
-		padding-bottom: ($gutter-width /2);
+		//position: relative;
+		padding-top: 1.5em;
+		padding-bottom: 1em;
 	}
 	.Btn {
 		margin-bottom: 0;
 	}
-	&.is-visible {
-		display: block;
+	p {
+		@include rem(font-size, $font-size-m);
 	}
 }
 .Notice--info {
 	background-color: $green;
+}
+.Notice--confirmation {
+  background-color: $green;
 }
 .Notice--error {
 	background-color: $red;
@@ -37,11 +42,13 @@
 	color: white;
 	cursor: pointer;
 	padding: 5px;
-	@include rem(font-size, 22px);
-	position: absolute;
+	@include rem(font-size, $font-size-l);
+	//position: absolute;
 	top: 0;
 	left: 4px;
+	float: right;
 	&:hover {
 		text-decoration: none;
+		color: $white;
 	}
 }

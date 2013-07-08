@@ -47,7 +47,7 @@
 .Accordion-header.Btn-accordion--number {
 	.content {
 		display: inline-block;
-		width: 68%;
+		width: 80%;
 	}
 }
 
@@ -89,7 +89,7 @@
 .Accordion-content .input:last-of-type .Accordion-step:last-of-type {
 	border-bottom: 0;
 	margin-bottom: 0;
-	
+
 	// dirty exception
 	.plain_check_box {
 		padding-bottom: em(15);
@@ -123,5 +123,14 @@
 	@include at-breakpoint($layout-large) {
 		white-space: normal;
 		width: 58%;
+	}
+}
+
+.User-additional .Accordion-item .Article--teaser,.Libraries .Accordion-item .Article--teaser  {
+	@include at-breakpoint($layout-large) {
+		@include span-columns(2, 4);
+		&:nth-child(2n) {
+			@include omega;
+		}
 	}
 }

@@ -25,7 +25,7 @@ describe "Feedback" do
 
   describe "get_help" do
     it "should work" do
-
+      FactoryGirl.create :article #for featured article on index
       @user = FactoryGirl.create :user
       login_as @user
 
@@ -43,7 +43,7 @@ describe "Feedback" do
 
   describe "send_feedback" do
     it "should work" do
-
+      FactoryGirl.create :article #for featured article on index
       @user = FactoryGirl.create :user
       login_as @user
 

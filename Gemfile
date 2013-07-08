@@ -57,6 +57,8 @@ gem "pundit" # authorization
 
 # Support for memoization
 gem 'memoist'
+# Settings cache
+gem "rails-settings-cached", "0.2.4" # for 3.x
 
 # Deploy with Capistrano
 gem 'capistrano'
@@ -67,9 +69,6 @@ gem 'faker'
 
 #Rails Adminrails
 gem 'rails_admin'
-
-# Integrated gems
-gem 'tinycms', :path => "gems/tinycms"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -102,6 +101,9 @@ group :assets do
   # gem 'jquery-turbolinks'
 end
 
+group :production, :staging do
+  gem 'newrelic_rpm' #Monitoring service
+end
 
 # for generating *.war file
 #group :development do

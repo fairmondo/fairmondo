@@ -6,15 +6,6 @@ GIT
     i18n-js (2.1.2)
       i18n
 
-PATH
-  remote: gems/tinycms
-  specs:
-    tinycms (0.0.1)
-      friendly_id (~> 4.0.9)
-      jquery-rails
-      rails (~> 3.2.6)
-      tinymce-rails
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -80,7 +71,7 @@ GEM
     builder (3.0.4)
     bullet (4.6.0)
       uniform_notifier
-    capistrano (2.15.4)
+    capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -231,6 +222,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    newrelic_rpm (3.6.5.130)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
@@ -268,6 +260,8 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
+    rails-settings-cached (0.2.4)
+      rails (>= 3.0.0)
     rails_admin (0.4.9)
       bootstrap-sass (~> 2.2)
       builder (~> 3.0)
@@ -446,11 +440,13 @@ DEPENDENCIES
   memoist
   modernizr-rails
   money-rails
+  newrelic_rpm
   paperclip (>= 3.0)
   pg
   pundit
   rails (~> 3.2.13)
   rails-erd
+  rails-settings-cached (= 0.2.4)
   rails_admin
   rails_best_practices
   recaptcha
@@ -469,7 +465,6 @@ DEPENDENCIES
   therubyracer
   therubyrhino
   thin
-  tinycms!
   tinymce-rails
   tinymce-rails-langs
   uglifier (>= 1.0.3)

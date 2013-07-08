@@ -28,11 +28,13 @@ describe 'User management' do
 
   context "for signed-out users" do
     it "should show a login button" do
+      FactoryGirl.create :article #for featured article on index
       visit root_path
       page.should have_content("Login")
     end
 
     it "registers a new user" do
+      FactoryGirl.create :article #for featured article on index
       Recaptcha.with_configuration(:public_key => '12345') do
         visit new_user_registration_path
       end
@@ -62,7 +64,7 @@ describe 'User management' do
 
     it "should not sign in a banned user" do
       user = FactoryGirl.create :user, banned: true
-      Tinycms::Content.create key:'banned', body: '<p>You are banned.</p>'
+      FactoryGirl.create :content, key:'banned', body: '<p>You are banned.</p>'
       visit new_user_session_path
 
       fill_in 'user_email', with: user.email

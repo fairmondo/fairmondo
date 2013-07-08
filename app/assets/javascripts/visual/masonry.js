@@ -26,6 +26,7 @@ $(function(){
 				columnWidth: '.grid-sizer'
 			});
 		});
+
 	}
 
 });

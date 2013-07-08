@@ -40,7 +40,7 @@ class LibraryPolicy < Struct.new(:user, :library)
 
   class Scope < Struct.new(:current_user, :user, :scope)
     def resolve
-      if user.is? current_user
+      if user && (user.is? current_user)
         scope
       else
         scope.public

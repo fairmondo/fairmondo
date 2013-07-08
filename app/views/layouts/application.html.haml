@@ -36,14 +36,11 @@
 
     %meta{:content => "width=device-width", :name => "viewport"}
     = stylesheet_link_tag 'application'
-    /[if lt IE 8]
-      = stylesheet_link_tag 'font-awesome-ie7.min.css', media: 'all'
-
 
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://kopfwelt.com/kunden/fairnopoly/style.css", :rel => "stylesheet", :type => "text/css"}
 
-
-    = javascript_include_tag "application"
+    = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
@@ -101,9 +98,12 @@
       / container
 
     .l-Feedback
+      %a.Btn.Feedback{:href=>new_feedback_path(:type => :get_help)}
+        %i.icon-feedback
+        = t('common.text.help')
       %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
         %i.icon-feedback
-        Dein Feedback zur Website
+        = t('common.text.feedback')
 
     .l-Hero
       = hero
@@ -139,17 +139,14 @@
               %li
                 %a{:href => "http://info.fairnopoly.de/team/"}
                   = t('footer.team')
-
-              - if current_user && current_user.admin?
+              - if User.is_admin? current_user
                 %li
-                  %a{:href => "http://info.fairnopoly.de"}
-                    = t('footer.blog')
-                %li.last
                   = link_to t('users.menu.admin'), "/admin"
-              - else
-                %li.last
-                  %a{:href => "http://info.fairnopoly.de"}
-                    = t('footer.blog')
+                %li
+                  = link_to 'Manage Pages', "/contents"
+              %li.last
+                %a{:href => "http://info.fairnopoly.de"}
+                  = t('footer.blog')
           .Social
       .Footer--bottom
         .l-Inner

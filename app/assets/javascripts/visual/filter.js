@@ -11,6 +11,6 @@ $(function() {
 		event.preventDefault();
 		
 		$filter.toggleClass('is-active');
-		$filter.find(".Filter-inner").css("overflow","hidden");
+		// $filter.find(".Filter-inner").css("overflow","hidden");
 	});
 });
