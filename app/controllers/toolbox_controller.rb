@@ -1,7 +1,7 @@
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_filter :authenticate_user!, only: [ :session ]
+  skip_before_filter :authenticate_user!, only: [ :session,:confirm ]
 
   def session
     respond_to do |format|
@@ -9,4 +9,11 @@ class ToolboxController < ApplicationController
       format.json { render status: 200, json: { expired: current_user.nil? } }
     end
   end
+
+  def confirm
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

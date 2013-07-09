@@ -36,7 +36,7 @@ describe ArticlesHelper do
       @img1 = FactoryGirl.create :image
       @img2 = FactoryGirl.create :image
       @article.images = [@img1, @img2]
-      helper.stub!(:resource).and_return( @article)
+      helper.stub(:resource).and_return( @article)
     end
 
     it "should return the image defined by params" do
