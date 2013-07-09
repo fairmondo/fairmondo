@@ -2,15 +2,26 @@
 // Filter
 //
 
-$(function() {
-	var visible = false;
-	var $filter = $('.Filter');
-	var $filterToggle = $('#js-filter-toggle');
-
-	$filterToggle.click(function(event){
+var togglefilter = function(event){
 		event.preventDefault();
-		
-		$filter.toggleClass('is-active');
-		// $filter.find(".Filter-inner").css("overflow","hidden");
+
+		filter.toggleClass('is-active');
+		filter.find(".Filter-inner").css("overflow","hidden");
+	}
+
+$(function() {
+
+	filter = $('.Filter');
+	filterToggle = $('#js-filter-toggle');
+
+	filterToggle.click(togglefilter);
+
+	inputToggele = $('#search_input');
+	inputToggele.focus(function(event) {
+		filter.addClass('is-active');
 	});
+
+
+
 });
+
