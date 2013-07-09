@@ -70,6 +70,12 @@ gem 'faker'
 #Rails Adminrails
 gem 'rails_admin'
 
+# Assets that need to be toplevel
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+gem 'jquery-rails'
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -87,9 +93,6 @@ group :assets do
   gem 'compass-rails'
 
   # JS
-  gem 'tinymce-rails'
-  gem 'tinymce-rails-langs'
-  gem 'jquery-rails'
   gem 'jquery-ui-rails'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'
   gem 'coffee-rails'
