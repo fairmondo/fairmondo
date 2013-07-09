@@ -39,14 +39,13 @@ module NoticeHelper
     render layout: "notice_layout",
       locals: {
         type: options[:type],
-        hide: ""
       }, &block
   end
 
   def render_data_confirm
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')
-    render layout: "notice_layout", locals: { type: :confirm, hide: "is-hidden"} do
+    render layout: "/application/notice_layout", locals: { type: :confirm} do
       concat("<p class=\"confirmation_message\"></p>".html_safe)
       concat("<a class=\"Btn Btn--red confirm\" >  #{confirm_text} </a> ".html_safe)
       concat("<a class=\"Btn cancel\"  > #{cancel_text} </a>".html_safe)
