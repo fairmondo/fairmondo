@@ -18,62 +18,72 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 #js-masonry.Masonry
-	-#
-		.Teaser
-			= tinycms_content "test_phase_greeting"
-		.Teaser
-			= tinycms_content "buy-ffps"
-		.Teaser
-			= tinycms_content "progress-ffps"
-		.Teaser
-			= link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-		.Teaser
-			= tinycms_content "please-register"
-		.Teaser
-			.bar{:style => "height:100%;width: #{@percentage}%"}
-		.Teaser
-			= link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
+  -#
+    .Teaser
+      = tinycms_content "test_phase_greeting"
+    .Teaser
+      = tinycms_content "buy-ffps"
+    .Teaser
+      = tinycms_content "progress-ffps"
+    .Teaser
+      = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
+    .Teaser
+      = tinycms_content "please-register"
+    .Teaser
+      .bar{:style => "height:100%;width: #{@percentage}%"}
+    .Teaser
+      = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
 
-		.Teaser
-			= @articles
-			= t("common.text.inserted")
+    .Teaser
+      = @articles
+      = t("common.text.inserted")
 
-	.Teaser.Teaser--video
-		= tinycms_content "start-video"
+  .Teaser.Teaser--video
+    = tinycms_content "start-video"
 
-	.Teaser.Teaser--text.Teaser--welcome
-		%h2.Teaser-title.Icon
-			%i.icon-pionier--green
-			Willkommen bei Fairnopoly
-		%p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
-		%p Die Pionierphase ist gestartet! Du hast jetzt die Chance, zu den zu gehören, die hier ihre Artikel anbieten
-		%a.Btn.Btn--blue{href: "pioneer"} werde Pionier*in
+  .Teaser.Teaser--text.Teaser--welcome
+    %h2.Teaser-title.Icon
+      %i.icon-pionier--green
+      Willkommen bei Fairnopoly
+    %p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
+    %p Die Pionierphase ist gestartet! Du hast jetzt die Chance, zu den zu gehören, die hier ihre Artikel anbieten
+    %a.Btn.Btn--blue{href: "pioneer"} werde Pionier*in
 
-	.Teaser.Teaser--text
-		%h2.Teaser-title.Icon
-			%i.icon-interrogation--green
-			Was is Fairnopoly?
-		%p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, neque unde quasi mollitia eos. Maxime, blanditiis nam officia a perspiciatis asperiores temporibus animi consequatur sed dolorem rem praesentium iure libero.
-		%a.Btn.Btn--blue{href: "what_is_fairnopoly"}
-			%i.icon-index-arrow--draw
-			Mehr erfahren
+  .Teaser.Teaser--text
+    %h2.Teaser-title.Icon
+      %i.icon-interrogation--green
+      Was is Fairnopoly?
+    %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, neque unde quasi mollitia eos. Maxime, blanditiis nam officia a perspiciatis asperiores temporibus animi consequatur sed dolorem rem praesentium iure libero.
+    %a.Btn.Btn--blue{href: "what_is_fairnopoly"}
+      %i.icon-index-arrow--draw
+      Mehr erfahren
 
-	.Teaser.Teaser--pioneer
-		%h2.Teaser-title Pionier des Tages
+  - if @featured_article
+    .Teaser.Teaser--pioneer
+      %h2.Teaser-title Pionier des Tages
 
-		%figure.Profile
-			.Profile-name= @featured_article.seller.fullname + ', ' + @featured_article.seller.city
-			= link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.fullname), user_path(@featured_article.seller)
+      %figure.Profile
+        .Profile-name= @featured_article.seller.fullname + ', ' + @featured_article.seller.city
+        = link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.fullname), user_path(@featured_article.seller)
 
-		= link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
+      = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
 
-		-# =image_tag "dummy/dummy-245.png", :class => ""
+      = link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
+      %p.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
+      %span.Teaser--pioneer-3= 'inkl. ' + @featured_article.vat.to_s + '% MwSt' #inkl. 19% MwSt
+      %span.Teaser--pioneer-4= '*Grundpreis ' + humanized_money_with_symbol(@featured_article.basic_price) #*Grundpreis 1.29€/Kg
+  - else # implementing dummy for now. Feel free to erase. CSS would need to be fixed though.
+    .Teaser.Teaser--pioneer
+      %h2.Teaser-title Pionier des Tages
+      %figure.Profile
+        .Profile-name Felix Weth, Berlin
+        =image_tag "dummy/avatar.png", class: "Profile-avatar"
+      =image_tag "dummy/dummy-245.png", class: "Teaser--pioneer-image"
+      %a{href: "#", class: "Teaser--pioneer-1"} Kreidetier
+      %p.Teaser--pioneer-2 12 €*
+      %span.Teaser--pioneer-3 inkl. 19% MwSt
+      %span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
 
-		= link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
-		%p.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
-		%span.Teaser--pioneer-3= 'inkl. ' + @featured_article.vat.to_s + '% MwSt' #inkl. 19% MwSt
-		%span.Teaser--pioneer-4= '*Grundpreis ' + humanized_money_with_symbol(@featured_article.basic_price) #*Grundpreis 1.29€/Kg
-
-	.Teaser.Teaser--total
-		%h2.Teaser-title Bis jetzt eingestellte Artikel
-		.Teaser--total-number= number_with_delimiter(Article.count, delimiter: ".")
+  .Teaser.Teaser--total
+    %h2.Teaser-title Bis jetzt eingestellte Artikel
+    .Teaser--total-number= number_with_delimiter(Article.count, delimiter: ".")
