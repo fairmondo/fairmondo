@@ -98,7 +98,12 @@
 	@media (max-width: 30em) {
 		display: none;
 	}
+
+	.lt-ie9 & {
+		display: none;
+	}
 }
+
 .Feedback {
 	&.Btn {
 		margin: 0;
