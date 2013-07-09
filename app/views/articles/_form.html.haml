@@ -18,7 +18,6 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Article-form.Accordion--activated
-  = tinymce_assets
   = render :partial => "articles/form/article_template_select"
   = semantic_form_for resource, :html => {:multipart => true}, :builder => Fairtastic::FormBuilder do |f|
     = f.semantic_errors
