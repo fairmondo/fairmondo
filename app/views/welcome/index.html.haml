@@ -63,7 +63,8 @@
       %h2.Teaser-title Pionier des Tages
 
       %figure.Profile
-        .Profile-name= @featured_article.seller.fullname + ', ' + @featured_article.seller.city
+        .Profile-container
+          .Profile-name= @featured_article.seller.fullname + ', ' + @featured_article.seller.city
         = link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.fullname), user_path(@featured_article.seller)
 
       = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
