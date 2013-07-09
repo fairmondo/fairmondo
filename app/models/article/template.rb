@@ -25,7 +25,6 @@ module Article::Template
     attr_accessible :article_template_attributes, :save_as_template
     attr_accessor :save_as_template, :backup_template_id
     # refs #128
-    default_scope where(article_template_id: nil)
     before_save :ensure_no_template_id, :if => :save_as_template?
     after_save :build_and_save_template, :if => :save_as_template?
     before_validation :set_user_on_template, :if => :template?

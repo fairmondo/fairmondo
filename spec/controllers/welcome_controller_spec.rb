@@ -27,7 +27,6 @@ describe WelcomeController do
     describe "for non-signed-in users" do
 
       it "should be successful" do
-        FactoryGirl.create :article #for featured article
         get :index
         response.should be_success
       end

@@ -22,7 +22,11 @@ class WelcomeController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :index
 
   def index
-    @featured_article = Article.featured
+    begin
+      @featured_article = Article.featured
+    rescue ActiveRecord::RecordNotFound
+      @featured_article = nil
+    end
   end
 
 end
