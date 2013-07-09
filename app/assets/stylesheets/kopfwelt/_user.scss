@@ -107,7 +107,12 @@
 
 .User-accordion {
 	@include span-columns(4, 4);
+	
+	.lt-ie9 & {
+		width: 100%;
+	}
 }
+
 .User-articles {
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
