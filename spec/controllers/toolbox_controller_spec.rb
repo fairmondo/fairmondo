@@ -18,4 +18,21 @@ describe ToolboxController do
       end
     end
   end
+
+   describe "GET 'confirm'" do
+    context "as js" do
+      it "should be successful" do
+        get :confirm, format: :js
+        response.should be_success
+      end
+    end
+
+    context "as html" do
+      it "should fail" do
+        get :confirm
+        response.should_not be_success
+      end
+    end
+  end
+
 end

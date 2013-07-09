@@ -52,4 +52,10 @@ describe NoticeHelper do
       helper.main_notice_mapper(:thissymboldoesntexist).should eq 'info'
     end
   end
+
+  describe "#render_data_confirm" do
+    it "should build a html page" do
+      helper.render_data_confirm.should be_a String
+    end
+  end
 end
