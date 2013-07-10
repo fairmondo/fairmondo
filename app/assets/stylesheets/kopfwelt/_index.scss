@@ -137,6 +137,11 @@
 }
 .icon-pionier--green {
   @extend .icon-pionier--green;
+  /** DIRTY (just to test) **/
+  width: 70px;
+  height: 70px;
+  background: url(/assets/pioneer-small.png)
+  /** /DIRTY **/
 }
 .icon-index-arrow--draw {
   @extend .icon-index-arrow--draw;
