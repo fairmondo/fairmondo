@@ -9,7 +9,7 @@ namespace :code do
 
     args = {
       :license => 'AGPL3',
-      :copyright_software => 'Farinopoly',
+      :copyright_software => 'Fairnopoly',
       :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
       :copyright_holders => ['Fairnopoly eG'],
       :copyright_years => ['2013'],
@@ -30,7 +30,7 @@ namespace :code do
 
     args = {
       :license => 'AGPL3',
-      :copyright_software => 'Farinopoly',
+      :copyright_software => 'Fairnopoly',
       :copyright_software_description => "Fairnopoly is an open-source online marketplace.",
       :copyright_holders => ['Fairnopoly eG'],
       :copyright_years => ['2013'],
