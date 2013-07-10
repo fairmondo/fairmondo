@@ -5,7 +5,8 @@ def test_sanitize_mce field, admin = false
 end
 
 describe 'Sanitization' do
-  describe "::sanitize_tiny_mce" do #private
+  # private methods
+  describe "::sanitize_tiny_mce" do
     context "for all users" do
       describe "sanitizing links" do
         it "should allow http protocol" do
@@ -41,7 +42,7 @@ describe 'Sanitization' do
     context "for admins" do
       it "should allow div and span tags + ids, classes, target, and style attributes" do
         field = '<div id="something"><span class="someclass"><a href="#x" target="_blank" style="color:red;">Test</a></span></div>'
-          test_sanitize_mce(field, true).should eq field
+        test_sanitize_mce(field, true).should eq field
       end
     end
   end
