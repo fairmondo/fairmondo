@@ -22,12 +22,12 @@ class FeedbackMailer < ActionMailer::Base
 
   def feedback_and_help( feedback, topic )
 
-    from = feedback.from? ? feedback.from : $email_addresses['FeedbackMailer'][feedback.type]['default_from']
     @text = feedback.text
     @type = feedback.type
+    from = feedback.from? ? feedback.from : $email_addresses['FeedbackMailer'][@type]['default_from']
 
     if $email_addresses
-      mail(:to => $email_addresses['FeedbackMailer'][feedback.type][topic], :from => from, :subject => feedback.subject)
+      mail(:to => $email_addresses['FeedbackMailer'][@type][topic], :from => from, :subject => feedback.subject)
     end
   end
 
