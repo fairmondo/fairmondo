@@ -22,6 +22,8 @@ class Article < ActiveRecord::Base
 
   attr_accessible
 
+  attr_accessible(*column_names , :as => :admin)
+
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :title, :use => :slugged
