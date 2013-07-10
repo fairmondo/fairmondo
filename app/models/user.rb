@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about, :bank_code, :paypal_account,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name
+
+  attr_accessible(*column_names , :as => :admin)
+
   auto_sanitize :nickname, :forename, :surname, :street, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
