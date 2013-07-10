@@ -3,13 +3,13 @@ module Sanitization
   extend ActiveSupport::Concern
 
   protected
-  # DSL method to sanitize specific fields automatically before the validation
-  # step.
+  # DSL method to sanitize specific fields automatically before the validation step
   #
   # @api semipublic
   # @param fields [Symbol] As many ActiveRecord fields as you like
   # @param options [Hash] (Optional)
   #   :method - default: 'clean' | others: 'tiny_mce'
+  #   :admin  - default:  false  | allows more elements when true
   #   + other before_validate params
   # @return [undefined]
   def auto_sanitize *fields
