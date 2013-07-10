@@ -37,7 +37,7 @@ describe ArticleMailer do
   describe "category_proposal" do
     it "should call the mail function" do
       a = ArticleMailer.send("new")
-      a.should_receive(:mail).with(to: 'kundenservice@fairnopoly.de', subject: "Category proposal: foobar" ).and_return true
+      a.should_receive(:mail).with(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: foobar" ).and_return true
       a.category_proposal("foobar")
     end
   end
