@@ -24,7 +24,7 @@ class Content < ActiveRecord::Base
 
   attr_accessible :body, :key
   auto_sanitize :key
-  auto_sanitize :body, method: 'tiny_mce' # Should we really sanitize :body?
+  auto_sanitize :body, method: 'tiny_mce', admin: true
 
   validates :key,  presence: true,
                    uniqueness: true
