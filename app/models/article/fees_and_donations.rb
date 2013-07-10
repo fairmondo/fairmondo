@@ -29,10 +29,10 @@ module Article::FeesAndDonations
 
   included do
 
-    attr_accessible :calculated_corruption_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
+    attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
     # Fees and donations
-    monetize :calculated_corruption_cents, :allow_nil => true
+    monetize :calculated_fair_cents, :allow_nil => true
     monetize :calculated_friendly_cents, :allow_nil => true
     monetize :calculated_fee_cents, :allow_nil => true
 
@@ -52,16 +52,16 @@ module Article::FeesAndDonations
   # end
 
   def calculated_fees_and_donations
-    self.calculated_corruption + self.calculated_friendly + self.calculated_fee
+    self.calculated_fair + self.calculated_friendly + self.calculated_fee
   end
 
   def calculate_fees_and_donations
     self.calculated_friendly = Money.new(friendly_percent_result_cents)
     if self.friendly_percent < 100 && self.price > 0
-      self.calculated_corruption  = corruption_percent_result
+      self.calculated_fair  = fair_percent_result
       self.calculated_fee = fee_result
     else
-      self.calculated_corruption  = 0
+      self.calculated_fair  = 0
       self.calculated_fee = 0
     end
   end
@@ -78,13 +78,13 @@ private
 
   ## fees and donations
 
-  def corruption_percentage
+  def fair_percentage
     0.01
   end
 
-  def corruption_percent_result
+  def fair_percent_result
     # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
-    Money.new(((self.price_cents - friendly_percent_result_cents) * corruption_percentage).ceil)
+    Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
   end
 
   def fee_percentage
