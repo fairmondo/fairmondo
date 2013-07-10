@@ -338,7 +338,7 @@ describe ArticlesController do
 
         lambda do
           post :create, :article => @article_attrs
-        end.should raise_error(SecurityError)
+        end.should raise_error SecurityError
 
         @user.reload
         @user.nickname.should_not eq @article_attrs[:seller_attributes][:nickname]

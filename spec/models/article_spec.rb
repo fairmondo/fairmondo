@@ -63,7 +63,7 @@ describe Article do
   describe "::Initial" do
     it "should rescue MissingAttributeErrors" do
       article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
-      article.initialize_values.should_not raise_error(ActiveModel::MissingAttributeError)
+      expect { article.initialize_values }.not_to raise_error
     end
   end
 
