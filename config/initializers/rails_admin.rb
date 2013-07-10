@@ -125,7 +125,7 @@ RailsAdmin.config do |config|
   #     configure :transaction_id, :integer         # Hidden
   #     configure :active, :boolean
   #     configure :state, :string
-  #     configure :calculated_corruption_cents, :integer
+  #     configure :calculated_fair_cents, :integer
   #     configure :calculated_friendly_cents, :integer
   #     configure :calculated_fee_cents, :integer
   #     configure :condition_extra, :string
