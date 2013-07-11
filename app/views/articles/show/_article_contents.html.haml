@@ -105,14 +105,14 @@
       = resource.seller_cancellation.html_safe
     = accordion_item "about" do
       = resource.seller_about.html_safe
-  - if resource.libraries.count > 0
-    = accordion_item "library", :number => resource.libraries.count, :title => t('article.titles.libraries') do
-      - resource.libraries.each do |library|
+  - if resource.libraries.find_all_by_public(true).count > 0
+    = accordion_item "library", :number => resource.libraries.find_all_by_public(true).count, :title => t('article.titles.libraries') do
+      - resource.libraries.find_all_by_public(true).each do |library|
         .User-library
           = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
           %p
             = t('common.text.from') + " " + library.user_nickname
-        .User-libraray
+        .User-library
           = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
       = will_paginate libraries,:params => {:anchor => "library" }
 
