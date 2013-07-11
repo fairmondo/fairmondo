@@ -20,7 +20,7 @@
 class Library < ActiveRecord::Base
 
   attr_accessible :name, :public, :user, :user_id
-  attr_accessible(*column_names , :as => :admin)
+  extend AccessibleForAdmins
 
   delegate :nickname, :to => :user, :prefix => true
 
