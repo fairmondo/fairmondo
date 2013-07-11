@@ -24,7 +24,7 @@ module Article::Categories
 
 
     attr_accessible :categories_and_ancestors,:category_proposal
-     attr_accessor :category_proposal
+    attr_accessor :category_proposal
 
     # categories refs #154
     has_and_belongs_to_many :categories

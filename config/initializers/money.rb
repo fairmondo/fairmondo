@@ -24,7 +24,8 @@ MoneyRails.configure do |config|
   # To set the default currency
   #
   config.default_currency = :eur
-
+  config.no_cents_if_whole = false
+  config.sign_before_symbol = false
   # Set default bank object
   #
   # Example:
