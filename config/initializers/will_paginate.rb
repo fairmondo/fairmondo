@@ -19,7 +19,6 @@
 #
 WillPaginate.per_page = 24
 
-
 # Fix the kaminari per issue for rails_admin
 if defined?(WillPaginate)
   module WillPaginate
