@@ -183,6 +183,11 @@ a.Btn {
 // Accordion & Icons
 // -----------------------------------
 
+.Btn-icon {
+	// make a multiple line text being all aligned left
+	@include rem(padding-left, 42px);
+	@include rem(text-indent, -27px);
+}
 .Btn-accordion,
 .Btn-icon {
 	@include rem(font-size, 14px);
