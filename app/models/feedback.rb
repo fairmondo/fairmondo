@@ -33,8 +33,9 @@ class Feedback < ActiveRecord::Base
 
 
   # Validations
-  validates :text, :presence => { :message => I18n.t('feedback.error.presence') }
-  validates_presence_of :type
+  validates :text, presence: { message: I18n.t('feedback.error.presence') }
+  validates :type, presence: true
+  validates :from, presence: true
 
   #Relations
   belongs_to :user
