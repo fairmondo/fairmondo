@@ -18,7 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Libraries
-  - if user_signed_in? && policy(@library).create?
+  - if user_signed_in? && @library && policy(@library).create?
     %h3= t('library.new')
     = semantic_form_for(@library,:url => user_libraries_path(current_user),:html => { :class => "form-vertical"}) do |f|
       = f.inputs do
