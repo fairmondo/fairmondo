@@ -150,6 +150,7 @@ a.Btn {
 	font-weight: 600;
 	@include rem(font-size, 13px);
 	@include rem(padding, 0 6px);
+	@include rem(margin-right, 4px);
 }
 
 // Color variations (tag)
