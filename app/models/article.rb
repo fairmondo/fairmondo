@@ -21,8 +21,7 @@ class Article < ActiveRecord::Base
   extend Enumerize
 
   attr_accessible
-
-  attr_accessible(*column_names , :as => :admin)
+  extend AccessibleForAdmins
 
   # Friendly_id for beautiful links
   extend FriendlyId

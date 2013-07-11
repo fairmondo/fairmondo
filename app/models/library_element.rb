@@ -20,7 +20,7 @@
 class LibraryElement < ActiveRecord::Base
 
   attr_accessible :article, :library, :library_id, :article_id
-  attr_accessible(*column_names , :as => :admin)
+  extend AccessibleForAdmins
 
   delegate :name, :user_id , :to => :library , :prefix => true
   delegate :title, :to => :article, :prefix => true
