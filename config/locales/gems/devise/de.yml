@@ -28,6 +28,8 @@ de:
       updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
       updated_not_active: 'Dein Passwort wurde geändert.'
       send_paranoid_instructions: "Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst."
+      user:
+        no_token: Du versuchst dein Passwort ohne Passwort Token zu ändern.
     confirmations:
       send_instructions: 'Du erhältst in wenigen Minuten eine Email, mit der Du Deine Registrierung bestätigen kannst.'
       send_paranoid_instructions: 'Falls Deine Emailadresse in unserer Datenbank existiert, erhältst Du in wenigen Minuten eine Email mit einer Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
