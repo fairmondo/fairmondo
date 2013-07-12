@@ -23,8 +23,10 @@ class Content < ActiveRecord::Base
   extend Sanitization
 
   attr_accessible :body, :key
+  extend AccessibleForAdmins
+
   auto_sanitize :key
-  auto_sanitize :body, method: 'tiny_mce' # Should we really sanitize :body?
+  auto_sanitize :body, method: 'tiny_mce', admin: true
 
   validates :key,  presence: true,
                    uniqueness: true

@@ -68,7 +68,7 @@ describe Article do
   describe "::Initial" do
     it "should rescue MissingAttributeErrors" do
       article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
-      article.initialize_values.should_not raise_error(ActiveModel::MissingAttributeError)
+      expect { article.initialize_values }.not_to raise_error
     end
   end
 
@@ -95,17 +95,17 @@ describe Article do
 
     describe "#calculate_fees_and_donations" do
       #expand these unit tests!
-      it "should return zeros on fee and corruption with a friendly_percent of gt 100" do
+      it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
         article.friendly_percent = 101
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq 0
+        article.calculated_fair.should eq 0
         article.calculated_fee.should eq 0
       end
 
-      it "should return zeros on fee and corruption with a price of 0" do
+      it "should return zeros on fee and fair cents with a price of 0" do
         article.price = 0
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq 0
+        article.calculated_fair.should eq 0
         article.calculated_fee.should eq 0
       end
 
@@ -116,11 +116,11 @@ describe Article do
         article.calculated_fee.should eq Money.new(3000)
       end
 
-      it "should always round the corruption up" do
+      it "should always round the fair cents up" do
         article.price = 789.23
         article.fair = false
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq Money.new(790)
+        article.calculated_fair.should eq Money.new(790)
       end
 
     end

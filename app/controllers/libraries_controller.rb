@@ -30,7 +30,7 @@ class LibrariesController < InheritedResources::Base
   skip_before_filter :authenticate_user!, :only => [:index]
 
   def index
-    @library = current_user.libraries.build if user_signed_in?
+    @library = @user.libraries.build if user_signed_in?
     @libraries = LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
 
     render :global_index unless user_focused?

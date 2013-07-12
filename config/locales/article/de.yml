@@ -92,7 +92,7 @@ de:
     preview:
       fees_and_donations:
         title: Deine Gebühren und Spenden
-        corruption_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
+        fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
         fee: "Gebühr bei Verkauf (%{fee} - maximal %{max}):"
         total: "Gesamt bei Verkauf (%{fee}):"
