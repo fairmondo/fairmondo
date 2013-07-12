@@ -24,6 +24,7 @@ MoneyRails.configure do |config|
   # To set the default currency
   #
   config.default_currency = :eur
+  config.no_cents_if_whole = false
 
   # Set default bank object
   #
@@ -57,4 +58,15 @@ MoneyRails.configure do |config|
   #   :decimal_mark        => ","
   # }
 
+end
+
+# Monkey Patch
+# Url: https://github.com/RubyMoney/money-rails/blob/master/lib/money-rails/helpers/action_view_extension.rb
+# Patch to have the symbol after the amount and always have 2 digits after the seperator
+module MoneyRails
+  module ActionViewExtension
+    def humanized_money_with_symbol(value)
+      humanized_money(value, :symbol_position => :after, :symbol => true, :no_cents_if_whole => false)
+    end
+  end
 end
