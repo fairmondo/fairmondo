@@ -36,7 +36,9 @@ describe "Feedback" do
 
       select I18n.t("enumerize.feedback.help_subject.marketplace"), from: I18n.t('formtastic.labels.feedback.help_subject')
 
+      FeedbackMailer.any_instance.should_receive(:mail)
       click_button I18n.t 'feedback.actions.get_help'
+      page.should have_content I18n.t 'article.actions.reported'
     end
   end
 
@@ -53,9 +55,9 @@ describe "Feedback" do
 
       select I18n.t("enumerize.feedback.feedback_subject.cooperative"), from: I18n.t('formtastic.labels.feedback.feedback_subject')
 
+      FeedbackMailer.any_instance.should_receive(:mail)
       click_button I18n.t 'feedback.actions.send_feedback'
-
+      page.should have_content I18n.t 'article.actions.reported'
     end
   end
-
 end

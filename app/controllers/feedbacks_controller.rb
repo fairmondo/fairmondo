@@ -21,18 +21,18 @@ class FeedbacksController < InheritedResources::Base
   respond_to :html
   actions :create, :new
   skip_before_filter :authenticate_user!
+
   def create
     authorize build_resource
+    resource.set_user_id current_user
     create! do |success,failure|
-
-      success.html { redirect_to root_path, :notice => (I18n.t 'article.actions.reported')  }
-      failure.html { redirect_to new_feedback_path(:type => resource.type), :alert => resource.errors.full_messages.first }
-
+      success.html { redirect_to root_path, notice: (I18n.t 'article.actions.reported')  }
+      failure.html { render :new }
     end
   end
 
   def new
-    @type = params[:type]
+    @type = params[:type] || "send_feedback"
     authorize build_resource
     new!
   end
