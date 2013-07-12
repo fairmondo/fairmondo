@@ -1,16 +1,21 @@
 .User-table {
+	table, tbody, td, tr {
+		border-collapse:collapse;
+	}
 	th:nth-child(2) {
 		display: none;
 	}
 	td:nth-child(2) {
 		display: none;
 	}
+	td {border-bottom: solid .1em $beige;}
 	a {
 		color: $blue;
 	}
 	.Btn {
 		width: 2em;
 		height: 2em;
+		margin-top: 0.6em;
 		overflow: hidden;
 		text-indent: 5em;
 	}
@@ -40,10 +45,10 @@
 	}
 	@include at-breakpoint($layout-small) {
 		th:nth-child(2) {
-			display: table;
+			display: table-cell;
 		}
 		td:nth-child(2) {
-			display: table;
+			display: table-cell;
 		}
 	}
 }
