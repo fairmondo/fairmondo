@@ -38,4 +38,4 @@
   .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do
-        = render '/shared/feedback', :type=> "report_article"
+        = render 'feedbacks/types/report', feedback: Feedback.new

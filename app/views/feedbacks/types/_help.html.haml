@@ -1,0 +1,14 @@
+%h1= t('feedback.title.get_help')
+= semantic_form_for resource, url: feedbacks_path, html: {multipart: true}, builder: Fairtastic::FormBuilder do |f|
+  = f.inputs do
+    -# hidden
+    = f.input :type, as: :hidden, input_html: { value: 'get_help' }
+    -# user-input
+    = f.input :from, required: true
+    = f.input :subject, required: true
+    = f.input :text, label: false, required: true
+
+    = f.input :help_subject, as: :select, required: true, include_blank: true
+
+  = f.actions do
+    = f.action :submit , label: t('feedback.actions.get_help'), button_html: {class: "Btn"}
