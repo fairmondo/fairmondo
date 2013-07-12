@@ -30,7 +30,7 @@
       = t('article.show.alternative')
       %i.icon-helper
     - if alternative.present?
-      = render :partial=>'/shared/show_article', :locals=>{ :article=> article}
+      = render :partial=>'/shared/show_article', :locals=>{ :article=> alternative}
     - else
       %p.Helper-text
         = t('article.show.no_alternative')

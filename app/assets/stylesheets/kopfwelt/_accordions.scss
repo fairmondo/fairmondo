@@ -32,6 +32,11 @@
 	}
 	.icon-helper {
 		float: right;
+		// this is to fix the size of the accardio that was
+		// bigger when the icon-helper was in (that when in
+		// was not)
+		@include rem(margin-bottom, -3px);
+		@include rem(margin-top, -3px);
 	}
 }
 
