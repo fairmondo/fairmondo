@@ -183,6 +183,11 @@ fieldset.choices {
 	margin-left: 0;
 }
 
+.formtastic ul.errors {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
 /*.Article-form {
 	.stringish,
 	.selectboxit-container,
