@@ -83,9 +83,10 @@ module ArticlesHelper
    return nil
   end
 
-  def libraries
-    resource.libraries.public.paginate(:page => params[:page], :per_page=>10)
-  end
+  # seems unused. remove unless problems arise.
+  # def libraries
+  #   resource.libraries.public.paginate(:page => params[:page], :per_page=>10)
+  # end
 
   def active_seller_articles
     resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
