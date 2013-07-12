@@ -1,0 +1,13 @@
+- if user_signed_in?
+
+  = semantic_form_for feedback, url: feedbacks_path do |f|
+    = t('article.notices.report')
+    = f.inputs do
+      -# hidden
+      = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+      = f.input :type, as: :hidden, input_html: { value: 'report_article' }
+      -# user input
+      = f.input :text, rows: 4
+
+    = f.actions do
+      = f.action :submit , label: t('article.actions.report'), button_html: {class: "Btn"}

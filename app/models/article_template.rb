@@ -24,6 +24,7 @@ class ArticleTemplate < ActiveRecord::Base
   delegate :title, to: :article, prefix: true
 
   attr_accessible :article_attributes, :name, :article
+  extend AccessibleForAdmins
 
   validates :name, uniqueness: { scope: :user_id }
   validates :name, presence: true

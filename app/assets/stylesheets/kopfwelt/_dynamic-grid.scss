@@ -37,6 +37,7 @@ $cols: 4;
 .Teaser {
 	background: #fff;
 }
+
 .Teaser,
 .Article--teaser {
 	@extend .grid-sizer;
@@ -53,19 +54,7 @@ $cols: 4;
 		margin-bottom: em(10);
 	}
 
-	// // Border fade-in effect on hover
-	// > a:after {
-	// 	content: "";
-	// 	display: block;
-	// 	position: absolute;
-	// 	top: 0;
-	// 	right: 0;
-	// 	bottom: 0;
-	// 	left: 0;
-	// 	@include transition(all 250ms cubic-bezier(0.19, 1, 0.22, 1));
-	// 	border: 0px solid #000;
-	// }
-	// > a:hover:after {
-	// 	border-width: 5px;
-	// }
+	.lt-ie9 & {
+		margin-bottom: em(20);
+	}
 }

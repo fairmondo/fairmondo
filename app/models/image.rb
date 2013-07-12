@@ -21,6 +21,7 @@
 #
 class Image < ActiveRecord::Base
   attr_accessible :image
+  extend AccessibleForAdmins
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", mini: "130x90#" },

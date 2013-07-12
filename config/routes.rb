@@ -37,6 +37,7 @@ Fairnopoly::Application.routes.draw do
 
   namespace :toolbox do
     get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
+    get 'confirm' , constraints: {format: 'js'}
   end
 
   resources :articles do

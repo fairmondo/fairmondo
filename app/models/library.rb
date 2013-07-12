@@ -22,6 +22,7 @@
 class Library < ActiveRecord::Base
 
   attr_accessible :name, :public, :user, :user_id
+  extend AccessibleForAdmins
 
   delegate :nickname, :to => :user, :prefix => true
 

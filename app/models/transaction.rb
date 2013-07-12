@@ -25,6 +25,7 @@ class Transaction < ActiveRecord::Base
   has_one :article
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   attr_accessible :selected_transport, :selected_payment, :tos_accepted
+  extend AccessibleForAdmins
   attr_protected :buyer_id, :state
 
   #@todo remove duplication with data in Article::Attributes
