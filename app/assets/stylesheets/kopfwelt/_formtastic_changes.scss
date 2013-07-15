@@ -42,6 +42,19 @@ textarea {
     color: $black;
   }
   &:hover {}
+
+  // Fix for the firefox placeholders not coloring correctly
+  // refs #168
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: #888;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: #888;
+  }
+
+
 }
 input[type='text'],
 input[type='search'],
