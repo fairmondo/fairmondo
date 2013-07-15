@@ -10,7 +10,7 @@ $cols: 4;
 	width: $gutter;
 }
 .grid-sizer {
-	width: (100% - ($gutter*($cols - 1))) / $cols;
+	width: ((100% - ($gutter*($cols - 1))) / $cols) - 0.5;
 
 	@media (max-width: 48em) {
 		width: 48.2%;
