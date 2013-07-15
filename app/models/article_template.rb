@@ -47,7 +47,7 @@ class ArticleTemplate < ActiveRecord::Base
   # @param template_select [Hash, nil] Part of a param hash
   # @return [ArticleTemplate, false]
   def self.template_request_by user, template_select
-    if template_select && template_select[:article_template]
+    if template_select && template_select[:article_template] && !template_select[:article_template].blank?
       template = ArticleTemplate.find template_select[:article_template]
       user.article_templates.include?(template) ? template : false
     else
