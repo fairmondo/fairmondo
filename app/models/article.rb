@@ -57,7 +57,7 @@ class Article < ActiveRecord::Base
     self.images.clear
     attributes.each_key do |key|
       if attributes[key].has_key? :id
-        self.images << Image.find(attributes[key][:id]) unless attributes[key].has_key?(:_destroy)
+        self.images << Image.find(attributes[key][:id]) unless attributes[key][:_destroy] == "1"
       else
         self.images << Image.new(attributes[key])
       end
