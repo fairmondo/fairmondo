@@ -25,6 +25,7 @@ describe 'Article management' do
   include CategorySeedData
 
   context "for signed-in users" do
+
     before :each do
       @user = FactoryGirl.create :user
       login_as @user, scope: :user
@@ -50,6 +51,13 @@ describe 'Article management' do
 
         it "should have the correct title" do
           page.should have_content(I18n.t("article.titles.new"))
+        end
+
+        it "should show the create article page when selecting no template" do
+
+          visit new_article_path template_select: { article_template: "" }
+          current_path.should == new_article_path
+
         end
 
         it 'creates an article plus a template' do
@@ -168,6 +176,7 @@ describe 'Article management' do
         page.should have_content I18n.t 'feedback.error.presence'
       end
     end
+
   end
 
   context "for signed-out users" do
