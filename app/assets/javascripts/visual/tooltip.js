@@ -44,17 +44,17 @@ $(document).ready(function(){
 		}
 
 	}).off('mouseover');
-	$("i.icon-helper").on( "mouseleave", function( event ) {
-		event.stopImmediatePropagation();
+	$("i.icon-helper").on( "mouseleave", function( e ) {
+		e.stopImmediatePropagation();
 	});
 	$("i.icon-helper").on('click',function(e) {
-		event.stopPropagation();
+		e.stopPropagation();
 		$("i.icon-helper").tooltip('close');
-		$(event.target).tooltip('open');
+		$(e.target).tooltip('open');
 	});
 
-	$('html').delegate('.ui-tooltip-content' ,'click',function(event){
-		event.stopPropagation();
+	$('html').delegate('.ui-tooltip-content' ,'click',function(e){
+		e.stopPropagation();
 	});
 	$('html').click(function(e) {
 		$("i.icon-helper").tooltip('close');
