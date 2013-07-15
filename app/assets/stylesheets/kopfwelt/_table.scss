@@ -2,13 +2,21 @@
 	table, tbody, td, tr {
 		border-collapse:collapse;
 	}
-	th:nth-child(2) {
-		display: none;
+	th {
+		@include rem(font-size, $font-size-xs);
+		padding: 2em 2em .7em 0;
+		text-align: left;
+		border-bottom: lightgray solid 1px;
+		&:nth-child(2) {
+			display: none;
+		}
 	}
-	td:nth-child(2) {
-		display: none;
+	td {
+		border-bottom: solid .1em $beige;
+		&:nth-child(2) {
+			display: none;
+		}
 	}
-	td {border-bottom: solid .1em $beige;}
 	a {
 		color: $blue;
 	}
@@ -30,6 +38,7 @@
 	}
 	.Btn--blue {
 		@include sprite-background-position($icon-sprites, 'pencil--white', 8px, 9px);
+		margin-left: 1em;
 	}
 	.Btn--blue:after {
 		content: "";
