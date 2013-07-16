@@ -62,7 +62,7 @@ unless gets.chomp === "abort"
   %x( cp config/environments/development.example.rb config/environments/development.rb )
 
   puts "Copying secret token..."
-  %x( cp config/secret_token.example config/secret_token.rb )
+  %x( cp config/initializers/secret_token.example config/initializers/secret_token.rb )
 
   puts "Copying email_addresses.yml..."
   %x( cp config/email_addresses.yml.example config/email_addresses.yml )
