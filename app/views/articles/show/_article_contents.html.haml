@@ -115,4 +115,3 @@
         .User-library
           = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
       = will_paginate libraries,:params => {:anchor => "library" }
-
