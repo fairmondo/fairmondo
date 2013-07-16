@@ -83,6 +83,19 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
 
+            # social producer
+            #check "article_fair"
+            #within("#article_fair_kind_input") do
+            #  choose "article_fair_kind_social_producer"
+            #end
+            #within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
+            #  choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
+            #end
+
+            #within("#article_social_producer_questionnaire_attributes_nonprofit_association_purposes_input") do
+            #  check I18n.t("enumerize.social_producer_questionnaire.nonprofit_association_purposes.youth_and_elderly")
+            #end
+
             # Image
             #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
             # Doesn't work correctly at the moment
