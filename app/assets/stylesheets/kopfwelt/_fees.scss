@@ -49,6 +49,7 @@
 	dd {
 		@include rem(padding-left, 36px);
 		@include rem(padding-right, 36px);
+		width: 100%;
 	}	
 	.is-green {
 		background-color: $green;
