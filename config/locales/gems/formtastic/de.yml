@@ -132,7 +132,8 @@ de:
 
 
       article_template:
-        name: Vorlagenname
+        name: Vorlage
+        article_title: Artikel
       template_select:
         article_template: Vorlage
       image:
