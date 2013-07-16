@@ -87,4 +87,4 @@
 
   .Teaser.Teaser--total
     %h2.Teaser-title Bis jetzt eingestellte Artikel
-    .Teaser--total-number= number_with_delimiter(Article.count, delimiter: ".")
+    .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")
