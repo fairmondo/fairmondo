@@ -33,7 +33,14 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
     super
   end
 
+  # Validations
+
+  before_validation :is_social_producer?
+
   validates_presence_of :nonprofit_association_purposes, :if => :nonprofit_association?
+  validates_presence_of :social_businesses_muhammad_yunus_purposes, :if => :social_businesses_muhammad_yunus?
+  validates_presence_of :social_entrepreneur_purposes, :if => :social_entrepreneur?
+
 
   serialize :nonprofit_association_purposes, Array
   enumerize :nonprofit_association_purposes, :in => [
@@ -53,7 +60,6 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   ], :multiple => true
 
   serialize :social_businesses_muhammad_yunus_purposes, Array
-  validates_presence_of :social_businesses_muhammad_yunus_purposes, :if => :social_businesses_muhammad_yunus?
   enumerize :social_businesses_muhammad_yunus_purposes, :in =>  [
     :social_proplem,
     :dividend,
@@ -63,7 +69,6 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   ], :multiple => true
 
   serialize :social_entrepreneur_purposes, Array
-  validates_presence_of :social_entrepreneur_purposes, :if => :social_entrepreneur?
   enumerize :social_entrepreneur_purposes, :in => [
     :social_proplem,
     :big_social_groups,
@@ -72,5 +77,10 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
     :potential_social_advancement,
     :social_sensitization
   ], :multiple => true
+
+
+  def is_social_producer?
+    self.nonprofit_association? || self.social_businesses_muhammad_yunus? || self.social_entrepreneur?
+  end
 
 end
