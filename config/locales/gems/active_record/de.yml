@@ -296,3 +296,8 @@ de:
 
     errors:
       <<: *errors
+      models:
+        image:
+          attributes:
+            image_file_size:
+              in_between: "Das Bild ist zu groß"
