@@ -46,13 +46,13 @@
       %i.icon-pionier--blue
       Willkommen bei Fairnopoly
     %p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
-    %p Die Pionierphase ist gestartet! Du hast jetzt die Chance, zu den zu gehören, die hier ihre Artikel anbieten
-    = link_to "werde Pionier*in", new_user_registration_path, class: "Btn Btn--blue"
+    %p Die Pionierphase ist gestartet! Du kannst jetzt zu den ersten zu gehören, die hier Artikel anbieten und so zum erfolgreichen Start beitragen.
+    = link_to "Pionier*in werden", new_user_registration_path, class: "Btn Btn--blue"
 
   .Teaser.Teaser--text
     %h2.Teaser-title.Icon
       %i.icon-interrogation--green
-      Was is Fairnopoly?
+      Was ist Fairnopoly?
     %p Fairnopoly ist ein neuer Online-Marktplatz mit einem fairen Unternehmensmodell. Auf dem Marktplatz kann grundsätzlich alles angeboten werden, was legal ist. Gebrauchte und als "fair" ausgezeichnete Produkte werden dabei besonders gefördert.
     %a.Btn.Btn--blue{href: "about_us"}
       %i.icon-index-arrow--draw
@@ -60,7 +60,7 @@
 
   - if @featured_article
     .Teaser.Teaser--pioneer
-      %h2.Teaser-title Pionier des Tages
+      %h2.Teaser-title Pionier*in des Tages
 
       %figure.Profile
         .Profile-container
@@ -86,5 +86,5 @@
       %span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
 
   .Teaser.Teaser--total
-    %h2.Teaser-title Bis jetzt eingestellte Artikel
+    %h2.Teaser-title Bisher eingestellte Artikel
     .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")
