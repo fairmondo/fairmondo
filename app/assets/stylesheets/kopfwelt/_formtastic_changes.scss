@@ -106,8 +106,9 @@ label,
   .choices-group {
     width: 100%;
     padding: 1em 0 0;
-    margin-top: .8em;
     margin-bottom: em(10);
+    padding-top: 1em;
+    margin-top: 1em;
   }
 }
 
@@ -164,8 +165,8 @@ fieldset.choices {
 
 // WYSIWYG
 .formtastic .Accordion-step .mce-container {
-  // margin-top: em(33);
-  // margin-bottom: em(20);
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .mce-tinymce.mce-container {
   clear: both;
