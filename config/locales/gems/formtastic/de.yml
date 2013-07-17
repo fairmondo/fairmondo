@@ -41,7 +41,7 @@ de:
         customer_number: Kundennummer
 
       feedback:
-        from: "Mail"
+        from: "Deine Email-Adresse"
         subject: "Betreff"
         feedback_subject: "Thema"
         help_subject: "Thema"
