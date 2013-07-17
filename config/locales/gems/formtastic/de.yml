@@ -8,6 +8,7 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
+        purpose: "Wenn ja, fülle gebe zusätzich noch folgendes an:"
       user:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
@@ -68,31 +69,7 @@ de:
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
         small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
-        fair_trust_questionnaire:
-          support: >
-            Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
-          transparency: >
-            Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
-          collaboration: >
-            Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
-          minimum_wage: >
-            Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
-          child_labor: >
-            Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
-          sexual_equality: >
-            a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
-          labor_conditions: >
-            Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
-          producer_advancement: >
-            Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
-          awareness_raising: >
-           Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
-          environment_protection: >
-            Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
-        social_producer_questionnaire:
-          nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
-          social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus
-          social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+
 
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
@@ -129,7 +106,31 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
-
+      fair_trust_questionnaire:
+        support: >
+          Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
+        transparency: >
+          Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
+        collaboration: >
+          Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
+        minimum_wage: >
+          Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
+        child_labor: >
+          Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
+        sexual_equality: >
+          a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
+        labor_conditions: >
+          Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
+        producer_advancement: >
+          Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
+        awareness_raising: >
+         Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+        environment_protection: >
+          Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+      social_producer_questionnaire:
+        nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
+        social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus
+        social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
 
       article_template:
         name: Vorlage
