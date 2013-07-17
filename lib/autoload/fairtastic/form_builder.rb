@@ -105,6 +105,7 @@ module Fairtastic
     def purpose_args(*args)
       options = args.extract_options!
       options[:as] = options[:purpose_as] || :check_boxes
+      options[:label] =  I18n.t('formtastic.labels.questionnaire.purpose')
       args[0] = (args[0].to_s << "_purposes").to_sym
       args << options
     end
