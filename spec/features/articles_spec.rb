@@ -249,3 +249,21 @@ describe "Other articles of this seller box" do
     page.should have_no_link('', href: article_path(@article_locked))
   end
 end
+
+describe "Pagination for libraries should work" do
+  before do
+    @seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    30.times do
+      lib = FactoryGirl.create :library, :user => @seller, :public => true
+      FactoryGirl.create :library_element, :article => @article_active, :library => lib
+    end
+
+    visit article_path @article_active
+  end
+
+  it "should show selector div.pagination" do
+    page.assert_selector('div.pagination')
+  end
+end
