@@ -90,7 +90,8 @@ $(document).ready ->
   native_category_input.change changed_select_box
 
   # Dont let the native element do anything
-  native_category_input.removeAttr "name"
+  # used to be removeAttr, but this caused IE to crash
+  native_category_input.attr "name", 'ignore'
 
   #Create remove buttons
   selected_categories_list.find("li").append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
