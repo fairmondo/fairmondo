@@ -53,9 +53,7 @@ describe 'Dashboard' do
     end
 
     it 'Sell link shows the Sell page', slow: true do
-      within ".User-collection" do
-        click_link I18n.t('common.text.sell')
-      end
+      click_link I18n.t('common.text.sell')
       page.should have_content I18n.t('formtastic.labels.article.title')
     end
 
