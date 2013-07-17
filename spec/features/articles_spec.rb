@@ -84,17 +84,20 @@ describe 'Article management' do
             fill_in 'article_payment_details', with: 'payment_details'
 
             # social producer
-            #check "article_fair"
-            #within("#article_fair_kind_input") do
-            #  choose "article_fair_kind_social_producer"
-            #end
-            #within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
-            #  choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
-            #end
-
-            #within("#article_social_producer_questionnaire_attributes_nonprofit_association_purposes_input") do
-            #  check I18n.t("enumerize.social_producer_questionnaire.nonprofit_association_purposes.youth_and_elderly")
-            #end
+            check "article_fair"
+            within("#article_fair_kind_input") do
+              choose "article_fair_kind_social_producer"
+            end
+            within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
+              choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
+            end
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_purposes_youth_and_elderly"
+            within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
+              choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
+            end
+            within("#article_social_producer_questionnaire_attributes_social_entrepreneur_input") do
+              choose "article_social_producer_questionnaire_attributes_social_entrepreneur_false"
+            end
 
             # Image
             #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
