@@ -42,7 +42,11 @@
 //= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
 
-//= require_tree ./models
+//= require models/article/categories
+//= require models/article/search_input
+//= require models/article/toggle
+//= require models/library/libraries
+//= require models/user/login
 
 //= require visual/masonry
 //= require visual/accordion
