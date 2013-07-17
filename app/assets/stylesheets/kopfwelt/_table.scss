@@ -2,6 +2,9 @@
 	table, tbody, td, tr {
 		border-collapse:collapse;
 	}
+	tbody {
+		width: 100%;
+	}
 	th {
 		@include rem(font-size, $font-size-xs);
 		padding: 2em 2em .7em 0;
@@ -13,8 +16,12 @@
 	}
 	td {
 		border-bottom: solid .1em $beige;
+		&:first-child {
+			padding-right: 2.5em;
+		}
 		&:nth-child(2) {
 			display: none;
+			padding-right: 2.5em;
 		}
 	}
 	a {
