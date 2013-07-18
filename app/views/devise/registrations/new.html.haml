@@ -38,8 +38,9 @@
           %span.help-inline= t('users.captcha.error')
     .User-registration-checkbox
       = f.inputs do
-        - legal_link = link_to t('users.legal'), "/agb", :target => "_blank"
-        - privacy_link = link_to t('users.privacy'), "/privacy", :target => "_blank"
+        -# onclick javascript because icheck causes click on link to fail
+        - legal_link = link_to t('users.legal'), "/agb", :target => "_blank", onclick: on_click_open_link_in_label('/agb')
+        - privacy_link = link_to t('users.privacy'), "/privacy", :target => "_blank", onclick: on_click_open_link_in_label('/privacy')
         = f.input :agecheck,  :as => :boolean, :required => true
         = f.input :legal,  :as => :boolean,:required => true , :label => t("common.text.i_accept_the").html_safe + legal_link
         = f.input :privacy, :as => :boolean,:required => true , :label => t("common.text.i_accept_the").html_safe + privacy_link
