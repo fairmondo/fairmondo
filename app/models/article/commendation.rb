@@ -64,8 +64,7 @@ module Article::Commendation
 
     ## small_and_precious
 
-    #validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?, :message => I18n.t('article.form.errors.small_and_precious_eu_small_enterprise')
-    validates_inclusion_of :small_and_precious_eu_small_enterprise, :in => [true, false], :if => :small_and_precious?
+    validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?, :message => I18n.t('article.form.errors.small_and_precious_eu_small_enterprise')
     validates_presence_of :small_and_precious_edition, :if => :small_and_precious?
     validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
