@@ -71,7 +71,7 @@ module Fairtastic
            @input_step_with_errors ||=item.errors.present?
         end
       else
-         @input_step_with_errors ||=relation.errors.present?
+         @input_step_with_errors ||= (relation && relation.errors.present?)
       end
       super
     end
