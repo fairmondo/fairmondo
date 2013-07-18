@@ -35,25 +35,29 @@ class PrivateUser < User
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
 
+
   state_machine :initial => :standard do
 
-    event :get_good_ratings_in_last_50_ratings do
-      transition :standard => :good, :bad => :standard
+    # if more than 90% positive ratings in the last 50 ratings:
+    event :rate_to_good do
+      transition :standard => :good
     end
 
-    event :get_average_ratings_in_last_50_ratings do
+    # if between 80% and 90% positive ratings in the last 50 ratings:
+    event :rate_to_standard do
       transition :bad => :standard
     end
 
-    event :get_bad_ratings_in_last_50_ratings do
-      transition :standard => :bad, :good => :bad
+    # if less than 80% positive ratings in the last 50 ratings:
+    event :rate_to_bad do
+      transition :good => :bad, :standard => :bad
     end
 
-    event :get_blocked do
+    event :block do
       transition all => :blocked
     end
 
-    event :get_unblocked do
+    event :unblock do
       transition :blocked => :standard
     end
 
