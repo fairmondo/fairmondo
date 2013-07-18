@@ -250,7 +250,7 @@ describe "Other articles of this seller box" do
   end
 end
 
-describe "Pagination for libraries should work" do
+describe "Pagination for libraries should work", visual: true do
   before do
     @seller = FactoryGirl.create :seller
     @article_active = FactoryGirl.create :article, :seller => @seller
@@ -261,6 +261,7 @@ describe "Pagination for libraries should work" do
     end
 
     visit article_path @article_active
+    save_and_open_page
   end
 
   it "should show selector div.pagination" do
