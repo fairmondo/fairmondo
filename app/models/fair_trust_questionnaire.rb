@@ -19,6 +19,10 @@
 #
 class FairTrustQuestionnaire < ActiveRecord::Base
 
+  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # This thing will be reworked soon so don't work on this till they finished the concept
+  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   attr_accessible :support, :support_explanation,
    :transparency, :transparency_explanation,
    :collaboration,:collaboration_explanation,
@@ -32,29 +36,18 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   belongs_to :article
 
-  before_validation :has_needed_extra_details?
-
-  validates_presence_of :support, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates_presence_of :support
   validates_presence_of :support_explanation
-  validates_presence_of :transparency, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates_presence_of :transparency
   validates_presence_of :transparency_explanation
 
-  validates_presence_of :minimum_wage, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates_presence_of :minimum_wage
   validates_presence_of :minimum_wage_explanation
   validates_presence_of :child_labor_explanation, :if => :child_labor?
 
-  validates_presence_of :sexual_equality, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates_presence_of :sexual_equality
   validates_presence_of :sexual_equality_explanation
 
-  # :collaboration_explanation
-  # :labor_conditions_explanation
-  # :producer_advancement_explanation
-  # :awareness_raising_explanation
-  # :environment_protection_explanation
 
-  def has_needed_extra_details?
-    [ self.collaboration, self.child_labor, self.labor_conditions,
-      self.producer_advancement, self.awareness_raising, self.environment_protection ].count(true) >= 3
-  end
 
 end
