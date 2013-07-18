@@ -49,10 +49,11 @@
       %p
         - if user_signed_in?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            = f.inputs do
-              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
-              = f.input :article_id, :as => :hidden
-            = f.button t('common.actions.collect'), :class => "Btn Btn--green"
+            .library
+              = f.inputs do
+                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                = f.input :article_id, :as => :hidden
+              = f.button t('common.actions.collect'), :class => "Btn Btn--green"
   .Article-info--left
     .Thumbnail-container
       - thumbnails(title_image).each do |image|
@@ -114,4 +115,4 @@
             = t('common.text.from') + " " + library.user_nickname
         .User-library
           = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
-      = will_paginate libraries, :params => {:anchor => "library" }
+      = will_paginate libraries, :params => { :anchor => "library" }
