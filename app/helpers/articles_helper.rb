@@ -85,7 +85,7 @@ module ArticlesHelper
 
   #seems unused. remove unless problems arise.
   def libraries
-    resource.libraries.public.paginate(:page => params[:page], :per_page=>10)
+    resource.libraries.where(:public => true).paginate(:page => params[:page], :per_page=>10)
   end
 
   def active_seller_articles
