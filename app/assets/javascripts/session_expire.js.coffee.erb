@@ -17,8 +17,7 @@ displayWarning = ->
     transition: "none",
     width: "auto",
     opacity: 0.4,
-    # overflow: "hidden",
-    html: "<div id='inactive-msg'><p><%= I18n.t 'common.session_expiring_notice' %></p></div>"
+    html: "<div id='inactive-msg'><p>" + I18n.t("javascript.common.session_expiring_notice") + "</p></div>"
   });
 
-interval = window.setInterval checkIfExpired, 60000 # every 10 min
+interval = window.setInterval checkIfExpired, 600000 # every 10 min

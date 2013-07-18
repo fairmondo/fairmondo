@@ -70,8 +70,6 @@ de:
       feedback: "Dein Feedback"
       help: "Hilfe"
       my_articles: "Meine Artikel"
-    session_expiring_notice: "Du warst zu lang inaktiv und wirst jetzt im Hintergrund von Fairnopoly ausgeloggt."
-
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
