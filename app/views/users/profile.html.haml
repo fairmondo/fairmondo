@@ -21,54 +21,56 @@
 .Meta
   .Meta--block
     %h2= resource.nickname
-    %h3= resource.title + " " + resource.forename + " " + resource.surname
-    %p
-      = t('formtastic.labels.user.street')
-      \:
-      %strong= resource.street
-    %p
-      = t('formtastic.labels.user.city')
-      \:
-      %strong= resource.zip + " " + resource.city
-    %p
-      = t('formtastic.labels.user.country')
-      \:
-      %strong= resource.country
-    %p
-      = t('formtastic.labels.user.mail')
-      \:
-      %strong
-        %a{:href => "mailto:#{resource.email}"}= resource.email
-    %p
-      = t('formtastic.labels.user.fax')
-      \:
-      %strong= resource.fax
-    %p
-      = t('formtastic.labels.user.phone')
-      \:
-      %strong= resource.phone
-    %p
-      = t('formtastic.labels.user.mobile')
-      \:
-      %strong= resource.mobile
-
-  .Meta--block
-    %p
-      %span.Meta--highlight
-        = t('formtastic.labels.user.terms')
+    - if resource.is_a? LegalEntity
+      %h3= resource.title + " " + resource.forename + " " + resource.surname
+      %p
+        = t('formtastic.labels.user.street')
         \:
-      = raw resource.terms
-
-  .Meta--block
-    %p
-      %span.Meta--highlight
-        = t('formtastic.labels.user.cancellation')
+        %strong= resource.street
+      %p
+        = t('formtastic.labels.user.city')
         \:
-      = raw resource.cancellation
-
-  .Meta--block
-    %p
-      %span.Meta--highlight
-        = t('formtastic.labels.user.about')
+        %strong= resource.zip + " " + resource.city
+      %p
+        = t('formtastic.labels.user.country')
         \:
-      = raw resource.about
+        %strong= resource.country
+      %p
+        = t('formtastic.labels.user.mail')
+        \:
+        %strong
+          %a{:href => "mailto:#{resource.email}"}= resource.email
+      %p
+        = t('formtastic.labels.user.fax')
+        \:
+        %strong= resource.fax
+      %p
+        = t('formtastic.labels.user.phone')
+        \:
+        %strong= resource.phone
+      %p
+        = t('formtastic.labels.user.mobile')
+        \:
+        %strong= resource.mobile
+
+      .Meta--block
+      %p
+        %span.Meta--highlight
+
+          = t('formtastic.labels.user.terms')
+          \:
+        = raw resource.terms
+
+      .Meta--block
+        %p
+          %span.Meta--highlight
+            = t('formtastic.labels.user.cancellation')
+            \:
+          = raw resource.cancellation
+
+      .Meta--block
+        %p
+          %span.Meta--highlight
+            = t('formtastic.labels.user.about')
+            \:
+          = raw resource.about

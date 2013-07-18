@@ -106,7 +106,9 @@ class User < ActiveRecord::Base
   validates :agecheck, :acceptance => true , :on => :create
 
 
-  validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
+  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
+  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
+  validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
   # Return forename plus surname
