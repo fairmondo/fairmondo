@@ -40,7 +40,7 @@
         %fieldset
           %legend.Filter-title
             Zustand
-            %i.icon-helper{ :title => "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest." }
+            %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
           - ([["Egal"]] + Article.condition.options ).each do |option|
             = f.label :condition , :value => option.last do
               = f.radio_button(:condition, option.last) + option.first
