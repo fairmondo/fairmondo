@@ -47,8 +47,7 @@ de:
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
         small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
-        FairTrustQuestionnaire:
-          invalid: "Nicht zufriedenstellend beantwortet"
+
 
 
     labels:
