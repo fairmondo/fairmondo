@@ -83,6 +83,43 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
 
+            # Image
+            #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
+            # Doesn't work correctly at the moment
+
+            # Template
+            check 'article_save_as_template'
+            fill_in 'article_article_template_attributes_name', with: 'template'
+
+            find(".double_check-step-inputs").find(".action").find("input").click
+          end.should change(Article.unscoped, :count).by 2
+
+          current_path.should eq article_path Article.unscoped.first
+        end
+
+        it "should create an article with sozial producer filter" do
+          lambda do
+            fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
+            select Category.root.name, from: 'article_categories_and_ancestors'
+            within("#article_condition_input") do
+              choose "article_condition_new"
+            end
+
+            if @user.is_a? LegalEntity
+              fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
+              select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
+              if @user.country == "Deutschland"
+                select 7 ,from: I18n.t('formtastic.labels.article.vat')
+              end
+            end
+            fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
+            check "article_transport_pickup"
+            select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
+            fill_in 'article_transport_details', with: 'transport_details'
+            check "article_payment_cash"
+            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
+            fill_in 'article_payment_details', with: 'payment_details'
+
             # social producer
             check "article_fair"
             within("#article_fair_kind_input") do
@@ -99,19 +136,87 @@ describe 'Article management' do
               choose "article_social_producer_questionnaire_attributes_social_entrepreneur_false"
             end
 
-            # Image
-            #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
-            # Doesn't work correctly at the moment
-
-            # Template
-            check 'article_save_as_template'
-            fill_in 'article_article_template_attributes_name', with: 'template'
-
             find(".double_check-step-inputs").find(".action").find("input").click
-          end.should change(Article.unscoped, :count).by 2
+          end.should change(Article.unscoped, :count).by 1
 
           current_path.should eq article_path Article.unscoped.first
+
         end
+
+
+        it "should create an article with Fair Trust filter" do
+          lambda do
+            fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
+            select Category.root.name, from: 'article_categories_and_ancestors'
+            within("#article_condition_input") do
+              choose "article_condition_new"
+            end
+
+            if @user.is_a? LegalEntity
+              fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
+              select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
+              if @user.country == "Deutschland"
+                select 7 ,from: I18n.t('formtastic.labels.article.vat')
+              end
+            end
+            fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
+            check "article_transport_pickup"
+            select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
+            fill_in 'article_transport_details', with: 'transport_details'
+            check "article_payment_cash"
+            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
+            fill_in 'article_payment_details', with: 'payment_details'
+
+            # fair trust
+            check "article_fair"
+            within("#article_fair_kind_input") do
+              choose "article_fair_kind_fair_trust"
+            end
+
+            within("#article_fair_trust_questionnaire_attributes_support_input") do
+              choose "article_fair_trust_questionnaire_attributes_support_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_support_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+
+            within("#article_fair_trust_questionnaire_attributes_transparency_input") do
+              choose "article_fair_trust_questionnaire_attributes_transparency_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_transparency_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+            within("#article_fair_trust_questionnaire_attributes_minimum_wage_input") do
+              choose "article_fair_trust_questionnaire_attributes_minimum_wage_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_minimum_wage_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+            within("#article_fair_trust_questionnaire_attributes_sexual_equality_input") do
+              choose "article_fair_trust_questionnaire_attributes_sexual_equality_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_sexual_equality_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+
+            #extra questions
+            within("#article_fair_trust_questionnaire_attributes_labor_conditions_input") do
+              choose "article_fair_trust_questionnaire_attributes_labor_conditions_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_labor_conditions_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+             within("#article_fair_trust_questionnaire_attributes_producer_advancement_input") do
+              choose "article_fair_trust_questionnaire_attributes_producer_advancement_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_producer_advancement_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+            within("#article_fair_trust_questionnaire_attributes_awareness_raising_input") do
+              choose "article_fair_trust_questionnaire_attributes_awareness_raising_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_awareness_raising_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+            find(".double_check-step-inputs").find(".action").find("input").click
+          end.should change(Article.unscoped, :count).by 1
+
+          current_path.should eq article_path Article.unscoped.first
+
+        end
+
+
 
         it "should create an article from a template" do
 
