@@ -45,6 +45,9 @@ de:
         article: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
+      errors:
+        small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
+
 
 
     labels:

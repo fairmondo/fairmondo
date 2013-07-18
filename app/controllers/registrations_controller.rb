@@ -36,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find(current_user.id)
-    @user.build_image
+    @user.build_image unless @user.image
     super
   end
 
