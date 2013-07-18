@@ -114,7 +114,7 @@
       = f.inputs :id => 'fair-input-fields' do
         = f.input :fair_kind, :as => :plain_radio, :js_toggle => true
         = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
-          = f.input :fair_seal, :tooltip => true, :required => true
+          = f.input :fair_seal, :required => true
         = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
           = render(:partial => 'articles/form/fair_trust_questionnaire_form', :locals => {:article_form => f})
         = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do

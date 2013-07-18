@@ -13,12 +13,12 @@ de:
         used_satisfying: "Gebraucht / zufriedenstellend"
         broken:  "Defekt / Schwere Mängel"
       fair_kind:
-        fair_seal: Produzent mit Siegel oder anerkannt
-        fair_trust: Fair Trust
-        social_producer: Sozialer Produzent
+        fair_seal: Mit Siegel oder anerkannter Handelspartner
+        fair_trust: fairtrust
+        social_producer: Soziale Produktion
       fair_seal:
-        trans_fair: TransFair Siegel
-        weltladen: Anerkannter Weltladen-Lieferant
+        trans_fair: Fairtrade-Siegel (TransFair)
+        weltladen: Weltladen-Handelspartner
         wtfo: WFTO-Mitglied
       ecologic_kind:
         ecologic_seal: "Artikel trägt ein Öko-Siegel"

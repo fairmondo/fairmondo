@@ -91,7 +91,7 @@ de:
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
     categories:
       proposal:
-        question: "Du vermisst eine Kategorie?"
+        question: "Kategorie vorschlagen:"
       remove-filter:  "Kategorie-Filter entfernen"
     preview:
       fees_and_donations:
