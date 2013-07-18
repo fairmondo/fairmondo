@@ -178,7 +178,6 @@ describe 'Article management' do
             end
             fill_in 'article_fair_trust_questionnaire_attributes_support_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
 
-
             within("#article_fair_trust_questionnaire_attributes_transparency_input") do
               choose "article_fair_trust_questionnaire_attributes_transparency_true"
             end
@@ -193,6 +192,11 @@ describe 'Article management' do
               choose "article_fair_trust_questionnaire_attributes_sexual_equality_true"
             end
             fill_in 'article_fair_trust_questionnaire_attributes_sexual_equality_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+
+            within("#article_fair_trust_questionnaire_attributes_child_labor_input") do
+              choose "article_fair_trust_questionnaire_attributes_child_labor_true"
+            end
+            fill_in 'article_fair_trust_questionnaire_attributes_child_labor_explanation', with: '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
 
 
             #extra questions
