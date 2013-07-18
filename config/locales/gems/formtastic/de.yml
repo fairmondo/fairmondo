@@ -8,7 +8,7 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
-        purpose: "Wenn ja, fülle gebe zusätzich noch folgendes an:"
+        purpose: "Wenn ja, gebe zusätzlich noch folgende Angaben an:"
       user:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
@@ -65,7 +65,7 @@ de:
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "Klein & Edel"
-        small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
+        small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission (muss mit Ja beantwortet werden).
         small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
         small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
@@ -108,29 +108,29 @@ de:
         save_as_template: "Eingaben als Vorlage speichern"
       fair_trust_questionnaire:
         support: >
-          Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
+          1. Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
         transparency: >
-          Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
-        collaboration: >
-          Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
+          2. Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
         minimum_wage: >
-          Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
+          3. Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
         child_labor: >
-          Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
+          4. Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
         sexual_equality: >
-          a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
+          5. a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
+        collaboration: >
+          6. Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
         labor_conditions: >
-          Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
+          7. Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
         producer_advancement: >
-          Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
+          8. Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
         awareness_raising: >
-         Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+         9. Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
         environment_protection: >
-          Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+         10. Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
       social_producer_questionnaire:
-        nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
-        social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus
-        social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+        nonprofit_association: "1. Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
+        social_businesses_muhammad_yunus: "2. Social Businesses nach dem Konzept von Muhammad Yunus"
+        social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?"
 
       article_template:
         name: Vorlage
@@ -192,10 +192,10 @@ de:
         fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
         upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
         small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
-        fair_trust_questionnaire: Die mit Sternchen markierten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        fair_trust_questionnaire: Die Fragen 1-5 sind mit Ja zu beantworten. Zusätzlich müssen die Angaben erläutert werden. Von den Fragen 6-10 müssen mindestens drei weitere mit Ja beantwortet und erläutert werden.
         save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
-                    Unter "sozial" fallen Artikel, die mindestens eines der drei Kriterien erfüllen.
+                    Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
 
         condition: "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest."
         content: "Die Beschreibung sollte alle für die Käufer*innen relevanten Details zu den Eigenschaften und dem Zustand des Artikels enthalten."
