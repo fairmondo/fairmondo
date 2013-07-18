@@ -168,6 +168,11 @@ fieldset.choices {
   margin-top: 0;
   margin-bottom: 0;
 }
+.formtastic li.text div.mce-tinymce{
+  margin-bottom: 1em;
+}
+
+
 .mce-tinymce.mce-container {
   clear: both;
 }

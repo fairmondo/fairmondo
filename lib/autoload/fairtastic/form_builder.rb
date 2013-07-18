@@ -63,13 +63,18 @@ module Fairtastic
       super
     end
 
-    def hidden_semantic_errors(*args)
-      args.inject([]) do |array, method|
-        errors = Array(@object.errors[method.to_sym]).to_sentence
-        @input_step_with_errors ||=errors.present?
+    # Make Accordions red if contains errors
+    def semantic_fields_for(record_or_name_or_array, *args, &block)
+      relation = @object.send(record_or_name_or_array)
+      if relation.kind_of?(Array)
+        relation.each do |item|
+           @input_step_with_errors ||=item.errors.present?
+        end
+      else
+         @input_step_with_errors ||= (relation && relation.errors.present?)
       end
+      super
     end
-
 
     def nested_inputs_for(association_name, options = {}, &block)
       title = options[:name]

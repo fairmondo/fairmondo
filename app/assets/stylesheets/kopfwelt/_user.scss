@@ -178,7 +178,7 @@
 .User--rightside {
 	@include rem(font-size, $font-size-m);
 	@extend %Semibold;
-	color: red;
+	color: $lightgray;
 	float: right;
 }
 .User--step {
