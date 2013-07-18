@@ -34,4 +34,42 @@ class PrivateUser < User
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
+
+  state_machine :initial => :standard do
+
+    event :get_good_ratings_in_last_50_ratings do
+      transition :standard => :good, :bad => :standard
+    end
+
+    event :get_average_ratings_in_last_50_ratings do
+      transition :bad => :standard
+    end
+
+    event :get_bad_ratings_in_last_50_ratings do
+      transition :standard => :bad, :good => :bad
+    end
+
+    event :get_blocked do
+      transition all => :blocked
+    end
+
+    event :get_unblocked do
+      transition :blocked => :standard
+    end
+
+  end
+
+  PRIVATE_BAD_FACTOR = 2
+  PRIVATE_GOOD_FACTOR = 2
+
+  PRIVATE_STANDARD_SALESVOLUME = 12
+  PRIVATE_TRUSTED_BONUS = 15
+  PRIVATE_VERIFIED_BONUS = 20
+  VERIFIED = false
+
+  def sales_volume
+    ( bad? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
+    ( PRIVATE_STANDARD_SALESVOLUME + ( self.trustcommunity ? PRIVATE_TRUSTED_BONUS : 0 ) + ( VERIFIED ? PRIVATE_VERIFIED_BONUS : 0) ) * ( good? ? PRIVATE_GOOD_FACTOR : 1  ))
+  end
+
 end
