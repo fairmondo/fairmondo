@@ -4,7 +4,7 @@ $(function() {
 		$('.Notice--info').addClass('is-hidden');
 	}, 10000);
 
-	$('.Notice-close').on('click', function(){
+	$('.Notice').on('click','.Notice-close', function(){
 		$(this).parent().parent().addClass('is-hidden');
 	})
 	//$('.Notice').delay(5000).addClass('is-hidden');
