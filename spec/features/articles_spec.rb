@@ -250,7 +250,7 @@ describe "Other articles of this seller box" do
   end
 end
 
-describe "Pagination for libraries should work" do
+describe "Pagination for libraries should work"  do
   before do
     @seller = FactoryGirl.create :seller
     @article_active = FactoryGirl.create :article, :seller => @seller

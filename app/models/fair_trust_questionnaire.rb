@@ -19,6 +19,10 @@
 #
 class FairTrustQuestionnaire < ActiveRecord::Base
 
+  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # This thing will be reworked soon so don't work on this till they finished the concept
+  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   attr_accessible :support, :support_explanation,
    :transparency, :transparency_explanation,
    :collaboration,:collaboration_explanation,
@@ -39,15 +43,21 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   validates_presence_of :minimum_wage
   validates_presence_of :minimum_wage_explanation
-  validates_presence_of :child_labor_explanation, :if => :child_labor?
+  validates_presence_of :child_labor, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates_presence_of :child_labor_explanation
 
   validates_presence_of :sexual_equality
   validates_presence_of :sexual_equality_explanation
 
-  # :collaboration_explanation
-  # :labor_conditions_explanation
-  # :producer_advancement_explanation
-  # :awareness_raising_explanation
-  # :environment_protection_explanation
+
+  # validate explanation of extra details
+  validates_presence_of :collaboration_explanation, :if => :collaboration
+  validates_presence_of :labor_conditions_explanation, :if => :labor_conditions
+  validates_presence_of :producer_advancement_explanation, :if => :producer_advancement
+  validates_presence_of :awareness_raising_explanation, :if => :awareness_raising
+  validates_presence_of :environment_protection_explanation, :if => :environment_protection
+
+
+
 
 end

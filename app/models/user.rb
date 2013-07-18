@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   has_many :libraries, :dependent => :destroy
 
   ##
-  has_one :image, as: :imageable, autosave: true
+  has_one :image, as: :imageable
   accepts_nested_attributes_for :image
   ##
 
