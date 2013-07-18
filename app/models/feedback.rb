@@ -26,14 +26,12 @@ class Feedback < ActiveRecord::Base
 
   enumerize :type, in: [ :report_article, :get_help, :send_feedback ]
 
-  enumerize :feedback_subject, in: [ :dealer, :private, :buyer, :seller, :technics,
-                                     :event, :cooperative, :hero, :ngo, :honor,
-                                     :other, :trust_community ]
+  enumerize :feedback_subject, in: [ :dealer, :technics, :other]
+                                     #, :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
 
-  enumerize :help_subject, in: [ :marketplace, :comm_deal_fair, :comm_deal,
-                                 :private_deal, :buy, :technics, :cooperative,
-                                 :hero, :ngo, :honor, :other, :trust_community ]
-
+  enumerize :help_subject, in: [ :marketplace,  :technics, :cooperative,
+                                 :hero,  :other ]
+                                  #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
   validates :text, presence: { message: I18n.t('feedback.error.presence') }

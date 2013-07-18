@@ -4,6 +4,7 @@ de:
       actions:
         remove: "Löschen"
         select: "Auswählen"
+      session_expiring_notice: "Du warst zu lang inaktiv und wirst jetzt im Hintergrund von Fairnopoly ausgeloggt."
     truncate:
       more: "mehr"
       less: "weniger"
