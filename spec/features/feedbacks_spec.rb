@@ -53,7 +53,7 @@ describe "Feedback" do
       fill_in 'feedback_subject', with: 'test'
       fill_in 'feedback_text', with: 'testtesttest'
 
-      select I18n.t("enumerize.feedback.feedback_subject.cooperative"), from: I18n.t('formtastic.labels.feedback.feedback_subject')
+      select I18n.t("enumerize.feedback.feedback_subject.dealer"), from: I18n.t('formtastic.labels.feedback.feedback_subject')
 
       FeedbackMailer.any_instance.should_receive(:mail)
       click_button I18n.t 'feedback.actions.send_feedback'
