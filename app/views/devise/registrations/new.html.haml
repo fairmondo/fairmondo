@@ -28,14 +28,16 @@
           = f.input :email,  :tooltip => true, :input_html => { :value => session[:invited_email] ,:readonly => true }
         - else
           = f.input :email,  :tooltip => true, :required => true
-        = f.input :password,:tooltip => true
-        = f.input :password_confirmation, :required => true
+        = f.input :password, tooltip: true
+        = f.input :password_confirmation, tooltip: true, :required => true
         = render :partial => "/devise/password_complexity"
       - recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
-      #recaptcha-view{:class => " #{"error" if recaptcha_error}"}
-        = recaptcha_tags :display => {:theme => 'clean'}
-        - if recaptcha_error
-          %span.help-inline= t('users.captcha.error')
+      .controls
+        Gib die beiden Worte unten im Feld ein.
+        #recaptcha-view{:class => " #{"error" if recaptcha_error}"}
+          = recaptcha_tags :display => {:theme => 'clean'}
+          - if recaptcha_error
+            %span.help-inline= t('users.captcha.error')
     .User-registration-checkbox
       = f.inputs do
         -# onclick javascript because icheck causes click on link to fail
