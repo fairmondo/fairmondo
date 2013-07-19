@@ -67,6 +67,7 @@
       - first=false
 = f.input_step :transport_and_payment do
   .Accordion-step
+    %p Versandoptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
       = f.input :transport_pickup, :as => :plain_check_box
       = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
@@ -80,8 +81,8 @@
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
+    %p Bezahloptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
-
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
         = f.semantic_fields_for :seller do |user|

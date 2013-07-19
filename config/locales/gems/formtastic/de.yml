@@ -174,8 +174,9 @@ de:
       user:
         new: &new_user
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
-          nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
-          password: "Bitte achte auf Deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+          nickname: "Diesen Namen sehen auch andere Nutzer*innen."
+          password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
+          password_confirmation: "Wiederhole Dein gewünschtes Passwort."
         create: *new_user
         edit: &edit_user
           terms: "Trage hier Deine AGB ein."
@@ -184,9 +185,9 @@ de:
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
       article:
-        title:  "Wähle ein Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
+        title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
         categories_and_ancestors: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt Wird"
-        category_proposal: 'Dann schlage gerne eine neue Kategorie vor. Wir versuchen, alle Wünsche zu berücksichtigen.'
+        category_proposal: 'Wir nehmen gerne Kategorievorschläge entgegen und werden diese entsprechend ihrer Häufigkeit hinzufügen.'
         ecologic: 'Unter diesen Filter fallen Artikel, die ökologisch nachhaltig produziert wurden. Als solche gelten Produkte mit einem entsprechenden Siegel, oder Produkte, die durch Upcycling aus überschüssigen Materialien entstanden sind.'
         fair: 'Unter diesen Filter fallen alle Artikel, auf die eines unserer drei Kriterien für "fair" zutrifft:  1. Artikel mit dem Transfer Siegel, von WFTO Mitgliedern oder Weltladen-Lieferanten. 2. Artikel von kleineren Anbietern ohne Siegel, für die bei uns unter "fair trust" fallen. Dafür ist ein Formular auszufüllen. 3. Artikel von sozialen Produzenten, z.B. Sozialunternehmen oder gemeinnützigen Anbietern.'
         upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
@@ -196,17 +197,16 @@ de:
         social_producer_questionnaire: >
                     Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
 
-        condition: "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest."
-        content: "Die Beschreibung sollte alle für die Käufer*innen relevanten Details zu den Eigenschaften und dem Zustand des Artikels enthalten."
-        content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
-        quantity: Falls mehrere Artikel derselben Art angeboten werden, trage hier die Menge ein
-        price: Trage hier den Preis pro Artikel ein
+        condition: "Ist Dein Artikel neu oder gebraucht?"
+        content: "Beschreibe Deine Artikel - geh dabei z.B. auf besondere Merkmale, Zustand und ggf. Gebrauchsspuren Deines Artikels ein. Eine gute Beschreibung macht es Käufer*innen leichter, das Angebot abzuschätzen."
+        quantity: "Falls Du mehrere Artikel derselben Art verkaufen möchtest, trage hier die Menge ein."
+        price: "Gib hier bitte den Endpreis Deines Artikels für die Käufer*innen an (ggf. inklusive Mehrwertsteuer). Versandkosten werden weiter unten abgefragt."
 
-        vat: Gebe hier die im Preis enthaltene Mehrwertsteuer an.
+        vat: Gib hier die im Preis enthaltene Mehrwertsteuer an.
 
 
-        basic_price: Trage hier den Grundpreis pro Artikel ein.#Von Felix gelöscht
-        basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.
+        basic_price: "Wenn Du z.B. Kirschen auf Fairnopoly verkaufen würdest, musst Du den Grundpreis, also den Preis pro Kilogramm (z.B. 1 Eur / kg) angeben. Mehr dazu <a href='/faq#geb4'>hier</a>"
+        basic_price_amount: Gib hier die Mengeneinheit des Grundpreises an.
 
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
@@ -217,7 +217,7 @@ de:
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 
-        article_template: Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel.
+        article_template: "Speichere Deine Eingaben als Vorlage - so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
