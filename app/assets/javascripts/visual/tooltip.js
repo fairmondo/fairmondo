@@ -62,7 +62,3 @@ $(document).ready(function(){
     $("i.icon-helper").tooltip('close');
   });
 });
-
-String.prototype.newlineToBr = function() {
-  self = self
-}
