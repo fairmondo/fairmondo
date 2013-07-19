@@ -86,7 +86,7 @@ de:
         transport_uninsured_provider: Versandart
         transport_uninsured_price: Versandkosten (€)
 
-        default_transport: "Standardversand"
+        default_transport: "Bevorzugte Versandmethode"
         transport_details: "Weitere Angaben:"
 
         payment_bank_transfer: Überweisung (Vorkasse)
@@ -96,10 +96,13 @@ de:
         payment_cash_on_delivery_price: Nachnahmezuschlag (€)
         payment_invoice: Rechnung
 
-        default_payment: "Standardbezahlmethode"
+        payment_methods: Bezahlmethoden
+
         payment_details: "Weitere Angaben:"
 
         basic_price: "Grundpreis (€)"
+        basic_price_simple: "Grundpreis:"
+        per: "pro"
         basic_price_amount: "Mengeneinheit"
 
         friendly_percent: "Spendenanteil - das freundliche Prozent"

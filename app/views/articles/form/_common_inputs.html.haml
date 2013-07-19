@@ -103,8 +103,7 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-
-      = f.input :default_payment, :as => :select, :required => true
+      = f.semantic_errors :payment_options
       = f.input :payment_details, :input_html => {:rows => 7}
 
 
