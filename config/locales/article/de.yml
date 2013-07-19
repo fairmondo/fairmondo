@@ -49,6 +49,7 @@ de:
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
         small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
+        invalid_payment_option: "Bitte gib mindestens eine Zahlungsart an!"
 
 
 
@@ -99,8 +100,11 @@ de:
         title: Deine Gebühren und Spenden
         fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
-        fee: "Gebühr bei Verkauf (%{fee} - maximal %{max}):"
-        total: "Gesamt bei Verkauf (%{fee}):"
+        fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
+        total: "Gesamt bei Verkauf (%{fee}), inkl. 19% MwSt:"
+        quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
+        netto: "Nettobetrag:"
+
       double_check:
         title: Alle Angaben überprüft?
       tooltips:
