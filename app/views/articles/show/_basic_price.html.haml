@@ -21,4 +21,5 @@
   %p.Article-basicprice
     %span= t('formtastic.labels.article.basic_price_simple')
     = humanized_money_with_symbol article.basic_price
-    = t('formtastic.labels.article.per') + " " + t('enumerize.article.basic_price_amount.'+ article.basic_price_amount)
+    = t('formtastic.labels.article.per') + " " |
+    + t('enumerize.article.basic_price_amount.'+ article.basic_price_amount) |
