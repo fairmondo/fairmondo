@@ -81,7 +81,6 @@
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
-
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
         = f.semantic_fields_for :seller do |user|
@@ -102,8 +101,7 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-
-      = f.input :default_payment, :as => :select, :required => true
+      = f.semantic_errors :payment_options
       = f.input :payment_details, :input_html => {:rows => 7}
 
 
