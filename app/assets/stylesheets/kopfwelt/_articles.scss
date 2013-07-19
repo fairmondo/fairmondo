@@ -110,6 +110,7 @@ span.Article-price {
 }
 .Article-vat {
 	width: 100% !important;
+	margin-bottom: 0.3em !important;
 	@include span-columns(1 alpha, 2);
 	@include rem(margin-bottom, 13px);
 	.Article--teaser & {
