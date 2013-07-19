@@ -59,13 +59,13 @@
       - thumbnails(title_image).each do |image|
         = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
     .Article-friendly
-      / %p.Highlight
-      /   =t('Das freundliche Prozent')
-      /   %i.icon-helper{:title => t('some text')}
-      / %p
-      /   1% werden an
-      /   %a{:href => "#"} Transparency International
-      /   gespendet
+      %p.Highlight
+        =t('Das faire Prozent')
+        %i.icon-helper{:title => t('some text')}
+      %p
+        1% werden an
+        %a{:href => "http://www.transparency.de/"} Transparency International
+        gespendet
     %p
       -#Accordion--activated.Article-tags
       = features_label resource
@@ -78,11 +78,10 @@
 
   = accordion_item "payment" do
     .Article-box
-      %p.Highlight
-        = t('formtastic.labels.article.default_payment')
+      %p.Higlight
+        = t('formtastic.labels.article.payment_methods')
         \:
       %p
-        = resource.default_payment.text
         = simple_format(resource.payment_details).html_safe
     .Article-box
       %p.Highlight
