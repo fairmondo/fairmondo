@@ -3,4 +3,3 @@ de:
     messages:
       invalid_default_transport: "Da Du diese Versandart nicht ausgewählt hast kann sie auch nicht Dein Standardversand sein."
       invalid_default_payment: "Da Du diese Zahlungsmethode nicht ausgewählt hast kann sie auch nicht Deine Standardzahlungsmethode sein."
-      
