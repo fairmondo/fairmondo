@@ -1,5 +1,5 @@
 = Welcome to the Fairnopoly repository
-{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=release" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=release] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly]
+{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=master] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly]
 
 Fairnopoly is a free market place in the hand of the users.
 
@@ -20,10 +20,8 @@ Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.
 
 Note: the automated process won't work under Windows.
 To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
-```
-git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout release && ruby setup.rb
 
-```
+    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout release && ruby setup.rb
 
 What this does:
 * It sets up a local git repository,

@@ -101,6 +101,8 @@ de:
         payment_details: "Weitere Angaben:"
 
         basic_price: "Grundpreis (€)"
+        basic_price_simple: "Grundpreis:"
+        per: "pro"
         basic_price_amount: "Mengeneinheit"
 
         friendly_percent: "Spendenanteil - das freundliche Prozent"

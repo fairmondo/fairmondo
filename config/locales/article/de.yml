@@ -13,6 +13,8 @@ de:
 
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+    included_short: "Inkl."
+    vat: "Mehrwertsteuer"
     vat_included: "Inkl. Mehrwertsteuer"
     transport:
       placeholders:
