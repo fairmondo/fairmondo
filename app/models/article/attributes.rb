@@ -92,7 +92,7 @@ module Article::Attributes
     # ================ Payment ====================
 
     #payment
-    attr_accessible :default_payment ,:payment_details ,
+    attr_accessible :payment_details ,
                     :payment_bank_transfer,
                     :payment_cash,
                     :payment_paypal,
@@ -100,10 +100,6 @@ module Article::Attributes
                     :payment_invoice,
                     :seller_attributes
     auto_sanitize :payment_details
-
-    enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
-
-    validates_presence_of :default_payment
 
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
 
@@ -116,8 +112,7 @@ module Article::Attributes
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-
-    validate :default_payment_selected
+    validate :payment_method_checked
   end
 
   def set_sellers_nested_validations
@@ -137,15 +132,9 @@ module Article::Attributes
     end
   end
 
-  def default_payment_selected
-    if self.default_payment
-      unless self.send("payment_#{self.default_payment}")
-        errors.add(:default_payment, I18n.t("errors.messages.invalid_default_payment"))
-      end
+  def payment_method_checked
+    unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
+      errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
     end
   end
-
-
-
-
 end
