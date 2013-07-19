@@ -18,45 +18,51 @@
  * along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 $(document).ready(function(){
-	$("a.input-tooltip").popover({"placement" : "left",  template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'}).click(function(e) {
+  $("a.input-tooltip").popover({"placement" : "left",  template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'}).click(function(e) {
         e.stopPropagation();
     });
 
-	$(window).hashchange( function(){
-	    // Alerts every time the hash changes!
-	   $("a.input-tooltip").popover('hide');
-  	});
+  $(window).hashchange( function(){
+      // Alerts every time the hash changes!
+     $("a.input-tooltip").popover('hide');
+    });
 
-	$('html').click(function(e) {
-    	$("a.input-tooltip").popover('hide');
-	});
+  $('html').click(function(e) {
+      $("a.input-tooltip").popover('hide');
+  });
 
 });
  */
 
 $(document).ready(function(){
-	$("i.icon-helper").tooltip({
-		tooltipClass: "bottom", // class for the arrow/pointer
-		position: {
-			my: "center top",
-			at: "center bottom+20",
-			collision: "none"
-		}
+  $("i.icon-helper").tooltip({
+    tooltipClass: "bottom", // class for the arrow/pointer
+    position: {
+      my: "center top",
+      at: "center bottom+20",
+      collision: "none"
+    },
+    content: function() {
+      return $(this).attr('title').split('\n').join('<br/>');  // this allows line breaks
+    }
+  }).off('mouseover');
+  $("i.icon-helper").on( "mouseleave", function( e ) {
+    e.stopImmediatePropagation();
+  });
+  $("i.icon-helper").on('click',function(e) {
+    e.stopPropagation();
+    $("i.icon-helper").tooltip('close');
+    $(e.target).tooltip('open');
+  });
 
-	}).off('mouseover');
-	$("i.icon-helper").on( "mouseleave", function( e ) {
-		e.stopImmediatePropagation();
-	});
-	$("i.icon-helper").on('click',function(e) {
-		e.stopPropagation();
-		$("i.icon-helper").tooltip('close');
-		$(e.target).tooltip('open');
-	});
-
-	$('html').delegate('.ui-tooltip-content' ,'click',function(e){
-		e.stopPropagation();
-	});
-	$('html').click(function(e) {
-		$("i.icon-helper").tooltip('close');
-	});
+  $('html').delegate('.ui-tooltip-content' ,'click',function(e){
+    e.stopPropagation();
+  });
+  $('html').click(function(e) {
+    $("i.icon-helper").tooltip('close');
+  });
 });
+
+String.prototype.newlineToBr = function() {
+  self = self
+}
