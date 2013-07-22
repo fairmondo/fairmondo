@@ -15,9 +15,9 @@ checkIfExpiredOnServer = (callback) ->
 displayWarning = ->
   $.colorbox({
     transition: "none",
-    width: "75%",
+    width: "auto",
     opacity: 0.4,
-    html: "<p style='text-align:center;margin:10px 0 0 0'><%= I18n.t 'common.session_expiring_notice' %></p>"
+    html: "<div id='inactive-msg'><p>" + I18n.t("javascript.common.session_expiring_notice") + "</p></div>"
   });
 
 interval = window.setInterval checkIfExpired, 600000 # every 10 min

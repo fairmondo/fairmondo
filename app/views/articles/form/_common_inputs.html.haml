@@ -69,6 +69,7 @@
       - first=false
 = f.input_step :transport_and_payment do
   .Accordion-step
+    %p Versandoptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
       = f.input :transport_pickup, :as => :plain_check_box
       = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
@@ -82,8 +83,8 @@
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
+    %p Bezahloptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
-
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
         = f.semantic_fields_for :seller do |user|
@@ -104,8 +105,7 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-
-      = f.input :default_payment, :as => :select, :required => true
+      = f.semantic_errors :payment_options
       = f.input :payment_details, :input_html => {:rows => 7}
 
 
@@ -116,7 +116,7 @@
       = f.inputs :id => 'fair-input-fields' do
         = f.input :fair_kind, :as => :plain_radio, :js_toggle => true
         = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
-          = f.input :fair_seal, :tooltip => true, :required => true
+          = f.input :fair_seal, :required => true
         = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
           = render(:partial => 'articles/form/fair_trust_questionnaire_form', :locals => {:article_form => f})
         = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do

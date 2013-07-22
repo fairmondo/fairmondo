@@ -40,7 +40,6 @@ FactoryGirl.define do
     transport_pickup true
 
     transport_details "transport_details"
-    default_payment "cash"
     payment_cash true
 
     payment_details "payment_details"

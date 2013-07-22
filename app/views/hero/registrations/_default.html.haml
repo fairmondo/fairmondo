@@ -20,5 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .l-Inner
-  %h1= t('common.actions.sign_up')
+  %h1
+    = t('common.actions.sign_up')
+    %i.icon-helper{ title: 'Sobald Du registriert bist, kannst Du alle Funktionen von Fairnopoly nutzen.' }
   = tinycms_content "register_info"

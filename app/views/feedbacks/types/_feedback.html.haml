@@ -5,9 +5,9 @@
     = f.input :type, as: :hidden, input_html: { value: 'send_feedback' }
     -# user-input
 
+    = f.input :from, required: false
     = f.input :subject, required: true
     = f.input :text, label: false, required: true
-    = f.input :from, required: false
     = f.input :feedback_subject, as: :select, required: true, include_blank: true
 
   = f.actions do
