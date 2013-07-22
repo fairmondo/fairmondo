@@ -48,14 +48,14 @@ body {
 	}
 }
 
-.pages-feedbacks {
-	.l-Main > .l-Inner {
-		width: columns(4,4);
-		@include pie-clearfix;
+// .pages-feedbacks {
+// 	.l-Main > .l-Inner {
+// 		width: columns(4,4);
+// 		@include pie-clearfix;
 
-		@include at-breakpoint($layout-large) {
-			width: columns(2,4);
-			margin-left: 0;
-		}
-	}
-}
+// 		@include at-breakpoint($layout-large) {
+// 			width: columns(2,4);
+// 			margin-left: 0;
+// 		}
+// 	}
+// }
