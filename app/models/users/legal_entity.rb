@@ -41,7 +41,6 @@ class LegalEntity < User
   validates_presence_of :about , :on => :update
 
 
-
   COMMERCIAL_BAD_FACTOR = 2
   COMMERCIAL_GOOD_FACTOR = 2
 
@@ -51,37 +50,16 @@ class LegalEntity < User
 
 
   state_machine :initial => :standard do
-    before_transition :on => :rate_to_good, :do => :level_up
-
     # if more than 90% positive ratings in the last 50 ratings:
     event :rate_up_good_levels do
       transition :standard => :good1, :good1 => :good2, :good2 => :good3, :good3 => :good4
     end
-
-    # if between 80% and 90% positive ratings in the last 50 ratings:
-    event :rate_to_standard do
-      transition :bad => :standard
-    end
-
-    # if less than 80% positive ratings in the last 50 ratings:
-    event :rate_to_bad do
-      transition all => :bad
-    end
-
-    event :block do
-      transition all => :blocked
-    end
-
-    event :unblock do
-      transition :blocked => :standard
-    end
-
   end
 
   def sales_volume
     bad? ? ( COMMERCIAL_STANDARD_SALESVOLUME / COMMERCIAL_BAD_FACTOR ) :
-    ( COMMERCIAL_STANDARD_SALESVOLUME + ( VERIFIED ? COMMERCIAL_VERIFIED_BONUS : 0) ) *
-    ( good1? ? COMMERCIAL_GOOD_FACTOR : 1) * ( good2? ? COMMERCIAL_GOOD_FACTOR**2 : 1) * ( good3? ? COMMERCIAL_GOOD_FACTOR**3 : 1) * ( good4? ? COMMERCIAL_GOOD_FACTOR**4 : 1)
+    ( COMMERCIAL_STANDARD_SALESVOLUME + ( VERIFIED ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
+    ( good1? ? COMMERCIAL_GOOD_FACTOR : 1 ) * ( good2? ? COMMERCIAL_GOOD_FACTOR**2 : 1 ) * ( good3? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) * ( good4? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
   end
 
 end
