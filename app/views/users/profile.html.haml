@@ -21,7 +21,7 @@
 .Meta
   .Meta--block
     %h2= resource.nickname
-    - if resource.valid?
+
       - if resource.is_a? LegalEntity
         %h3= resource.title + " " + resource.forename + " " + resource.surname
         %p
