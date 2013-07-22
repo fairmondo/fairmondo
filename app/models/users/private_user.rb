@@ -35,6 +35,13 @@ class PrivateUser < User
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
 
+  PRIVATE_BAD_FACTOR = 2
+  PRIVATE_GOOD_FACTOR = 2
+
+  PRIVATE_STANDARD_SALESVOLUME = 1500
+  PRIVATE_TRUSTED_BONUS = 1500
+  PRIVATE_VERIFIED_BONUS = 7000
+  VERIFIED = false
 
   state_machine :initial => :standard do
 
@@ -50,7 +57,7 @@ class PrivateUser < User
 
     # if less than 80% positive ratings in the last 50 ratings:
     event :rate_to_bad do
-      transition :good => :bad, :standard => :bad
+      transition all => :bad
     end
 
     event :block do
@@ -63,13 +70,6 @@ class PrivateUser < User
 
   end
 
-  PRIVATE_BAD_FACTOR = 2
-  PRIVATE_GOOD_FACTOR = 2
-
-  PRIVATE_STANDARD_SALESVOLUME = 12
-  PRIVATE_TRUSTED_BONUS = 15
-  PRIVATE_VERIFIED_BONUS = 20
-  VERIFIED = false
 
   def sales_volume
     ( bad? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
