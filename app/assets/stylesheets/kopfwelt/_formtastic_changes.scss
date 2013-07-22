@@ -2,7 +2,8 @@
 // Forms
 //
 
-.formtastic .inputs {
+.formtastic .inputs,
+.formtastic .action {
 	@include pie-clearfix;
 	float: left;
 	width: 100%;
@@ -140,6 +141,9 @@ fieldset.choices {
 .formtastic .inline-errors {
 	margin: -1em 0 .5em 0;
 }
+.formtastic li.boolean.error p.inline-errors {
+	margin-top: 0em;
+}
 .controls {
 	@extend %Semibold;
 	color: $gray;
@@ -207,4 +211,13 @@ fieldset.choices {
 .formtastic ul.errors {
 	margin-left: 2em;
 	margin-bottom: 1em;
+	@include pie-clearfix;
+}
+
+.formtastic .inputs,
+.formtastic .actions {
+	@include pie-clearfix;
+	float: left;
+	width: 100%;
+	overflow: visible;
 }
