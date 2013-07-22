@@ -16,7 +16,6 @@
 		width: columns(2,4) !important;
 	}
 }
-.Search-input {}
 .Search .Search-input input { // extra specificity
 	@include rem(font-size, 20px);
 	width: 100%;
