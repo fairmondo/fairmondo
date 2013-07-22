@@ -156,24 +156,6 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
-  private
-
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
-    end
-  end
-
-
-  BUYER_BAD_FACTOR = 2
-  BUYER_GOOD_FACTOR = 2
-
-  BUYER_STANDARD_SALESVOLUME = 1500
-  BUYER_TRUSTED_BONUS = 1500
-  BUYER_VERIFIED_BONUS = 7000
-  BUYER_VERIFIED = false
-
   state_machine :seller_state, :initial => :standard do
     # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard do
@@ -195,20 +177,43 @@ class User < ActiveRecord::Base
 
   end
 
-  state_machine :buyer_state, :initial => :standard do
+
+  BUYER_BAD_FACTOR = 6
+  BUYER_GOOD_FACTOR = 2
+
+  BUYER_STANDARD_SALESVOLUME = 3000
+  BUYER_TRUSTED_BONUS = 7000
+
+  state_machine :buyer_state, :initial => :standard_buyer do
     # if more than 90% positive ratings in the last 50 ratings:
     event :rate_up_to_good_buyer do
-      transition :standard => :good
+      transition :standard_buyer => :good_buyer
     end
 
     # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard_buyer do
-      transition :bad => :standard
+      transition :bad_buyer => :standard_buyer
     end
 
     # if less than 80% positive ratings in the last 50 ratings:
     event :rate_down_to_bad_buyer do
-      transition all => :bad
+      transition all => :bad_buyer
     end
   end
+
+  def purchase_volume
+    bad_buyer? ? ( BUYER_STANDARD_SALESVOLUME / BUYER_BAD_FACTOR ) :
+   ( BUYER_STANDARD_SALESVOLUME + ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) * ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
+  end
+
+
+  private
+
+  # @api private
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    end
+  end
+
 end
