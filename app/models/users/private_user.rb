@@ -44,7 +44,7 @@ class PrivateUser < User
   VERIFIED = false
 
 
-  state_machine :initial => :standard do
+  state_machine :seller_state, :initial => :standard do
     # if more than 90% positive ratings in the last 50 ratings:
     event :rate_up_to_good do
       transition :standard => :good
