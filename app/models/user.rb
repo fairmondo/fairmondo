@@ -165,13 +165,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  state_machine :initial => :standard do
 
-    # if more than 90% positive ratings in the last 50 ratings:
-    event :rate_up_to_good do
-      transition :standard => :good
-    end
+  BUYER_BAD_FACTOR = 2
+  BUYER_GOOD_FACTOR = 2
 
+  BUYER_STANDARD_SALESVOLUME = 1500
+  BUYER_TRUSTED_BONUS = 1500
+  BUYER_VERIFIED_BONUS = 7000
+  BUYER_VERIFIED = false
+
+  state_machine :seller_state, :initial => :standard do
     # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard do
       transition :bad => :standard
@@ -190,5 +193,22 @@ class User < ActiveRecord::Base
       transition :blocked => :standard
     end
 
+  end
+
+  state_machine :buyer_state, :initial => :standard do
+    # if more than 90% positive ratings in the last 50 ratings:
+    event :rate_up_to_good_buyer do
+      transition :standard => :good
+    end
+
+    # if between 80% and 90% positive ratings in the last 50 ratings:
+    event :rate_up_to_standard_buyer do
+      transition :bad => :standard
+    end
+
+    # if less than 80% positive ratings in the last 50 ratings:
+    event :rate_down_to_bad_buyer do
+      transition all => :bad
+    end
   end
 end
