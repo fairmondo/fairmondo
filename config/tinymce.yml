@@ -2,7 +2,7 @@ width : "100%"
 height : 400
 menubar: false
 statusbar: false
-toolbar: undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code
+toolbar: undo redo | styleselect | bold italic | bullist numlist | link image code
 removed_menuitems: 'newdocument'
 browser_spellcheck : true
 plugins:

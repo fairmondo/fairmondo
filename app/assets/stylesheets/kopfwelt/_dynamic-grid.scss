@@ -10,25 +10,21 @@ $cols: 4;
 	width: $gutter;
 }
 .grid-sizer {
-	width: (100% - ($gutter*($cols - 1))) / $cols;
-	// @media (min-width: em(1000)) {
-	// 	$cols: 4;
-	// 	width: (100 - ($gutter*$cols)) /$cols;
-	// }
-	// @media (min-width: em(1500)) {
-	// 	$cols: 6;
-	// 	width: (100 - ($gutter*$cols)) /$cols;
-	// }
+	width: ((100% - ($gutter*($cols - 1))) / $cols) - 0.5;
+
 	@media (max-width: 48em) {
-		width: 49% !important;
+		width: 48.2%;
 	}
 	@media (max-width: 30em) {
-		width: 100% !important;
+		width: 100%;
 	}
 }
 .Teaser--video,
 .Teaser--text {
-	width: 49%;
+	width: 48.2%;
+	@media (max-width: 30em) {
+		width: 100%;
+	}
 }
 
 //
@@ -45,16 +41,12 @@ $cols: 4;
 	float: left;
 	position: relative;
 	
-	// we can't use % for this so imitate it like this
-	margin-bottom: em(20);
-	@media (max-width: em(900)) {
-		margin-bottom: em(15);
+	// we can't use % for vertical margins so imitate the horizontal one like this
+	margin-bottom: em(40);
+	@media (max-width: 55em) {
+		margin-bottom: em(25);
 	}
-	@media (max-width: em(600)) {
-		margin-bottom: em(10);
-	}
-
-	.lt-ie9 & {
+	@media (max-width: 30em) {
 		margin-bottom: em(20);
 	}
 }

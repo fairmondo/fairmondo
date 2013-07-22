@@ -49,8 +49,8 @@ module Sanitization
   def self.sanitize_tiny_mce field, admin_mode = false
     Sanitize.clean(field,
       elements: admin_mode ?
-        %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul li img div span) :
-        %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul li img),
+        %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img div span) :
+        %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img),
       attributes: {
         'a' => admin_mode ?
           ['href', 'type', 'target'] :

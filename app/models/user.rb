@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   has_many :libraries, :dependent => :destroy
 
   ##
-  has_one :image, as: :imageable, autosave: true
+  has_one :image, as: :imageable
   accepts_nested_attributes_for :image
   ##
 
@@ -108,8 +108,9 @@ class User < ActiveRecord::Base
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
-
-  validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
+  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
+  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
+  validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
   # Return forename plus surname

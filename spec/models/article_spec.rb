@@ -128,23 +128,6 @@ describe Article do
 
   describe "::Attributes" do
     describe "methods" do
-      describe "#default_payment_selected" do
-        it "should throw an error if default_transport_selected isn't able to call the transport function" do
-          article.default_transport.should be_true
-          article.stub(:send).and_return false
-          article.default_transport_selected
-          article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-        end
-      end
-
-      describe "#default_transport_selected" do
-        it "should throw an error if default_payment_selected isn't able to call the payment function" do
-          article.default_payment.should be_true
-          article.stub(:send).and_return false
-          article.default_payment_selected
-          article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
-        end
-      end
 
       describe "#transport_price" do
         let (:article) { FactoryGirl.create :article, :with_all_transports }
