@@ -164,4 +164,31 @@ class User < ActiveRecord::Base
       Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
   end
+
+  state_machine :initial => :standard do
+
+    # if more than 90% positive ratings in the last 50 ratings:
+    event :rate_up_to_good do
+      transition :standard => :good
+    end
+
+    # if between 80% and 90% positive ratings in the last 50 ratings:
+    event :rate_up_to_standard do
+      transition :bad => :standard
+    end
+
+    # if less than 80% positive ratings in the last 50 ratings:
+    event :rate_down_to_bad do
+      transition all => :bad
+    end
+
+    event :block do
+      transition all => :blocked
+    end
+
+    event :unblock do
+      transition :blocked => :standard
+    end
+
+  end
 end

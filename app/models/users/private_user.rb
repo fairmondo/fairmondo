@@ -43,33 +43,13 @@ class PrivateUser < User
   PRIVATE_VERIFIED_BONUS = 7000
   VERIFIED = false
 
-  state_machine :initial => :standard do
 
+  state_machine :initial => :standard do
     # if more than 90% positive ratings in the last 50 ratings:
-    event :rate_to_good do
+    event :rate_up_to_good do
       transition :standard => :good
     end
-
-    # if between 80% and 90% positive ratings in the last 50 ratings:
-    event :rate_to_standard do
-      transition :bad => :standard
-    end
-
-    # if less than 80% positive ratings in the last 50 ratings:
-    event :rate_to_bad do
-      transition all => :bad
-    end
-
-    event :block do
-      transition all => :blocked
-    end
-
-    event :unblock do
-      transition :blocked => :standard
-    end
-
   end
-
 
   def sales_volume
     ( bad? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
