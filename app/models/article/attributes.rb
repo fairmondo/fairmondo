@@ -81,7 +81,7 @@ module Article::Attributes
     validates_presence_of :default_transport
     validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
     validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
-
+    validates :transport_details, :length => { :maximum => 2500 }
 
     monetize :transport_uninsured_price_cents, :allow_nil => true
     monetize :transport_insured_price_cents, :allow_nil => true
@@ -109,6 +109,7 @@ module Article::Attributes
 
     monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
 
+    validates :payment_details, :length => { :maximum => 2500 }
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
@@ -136,7 +137,7 @@ module Article::Attributes
 
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
-        errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
+        errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
       end
     end
 end
