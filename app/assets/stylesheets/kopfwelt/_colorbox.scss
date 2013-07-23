@@ -67,3 +67,9 @@
 .cboxIE #cboxMiddleRight {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
 }
+
+#inactive-msg {
+    text-align:center;
+    margin:10px 0 0 0;
+    overflow: auto;
+}

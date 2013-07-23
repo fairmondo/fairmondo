@@ -37,7 +37,7 @@ $.rails.showConfirmDialog = (link) ->
     $('.Notice--confirmation .confirmation_message').html(html)
     $('.Notice--confirmation .confirm').on 'click', ->
       $.rails.confirmed(link)
-    $('.Notice--confirmation  .cancel').on 'click', ->
-      $('.Notice .confirmation').addClass("is-hidden");
+    $('.Notice--confirmation .cancel').on 'click', ->
+      $('.Notice--confirmation').addClass("is-hidden");
   ), "html"
 

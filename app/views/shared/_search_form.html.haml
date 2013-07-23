@@ -34,7 +34,7 @@
         %a.Btn.Btn-icon.Btn--gray{:href => libraries_path}
           %i.Icon.icon-box
           Sammlungen durchstöbern
-        %i.Icon.icon-helper
+        %i.Icon.icon-helper{ title: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
 
   .Filter
     .Filter-inner
@@ -42,7 +42,7 @@
         %fieldset
           %legend.Filter-title
             Zustand
-            %i.icon-helper{ :title => "Wähle aus, ob Du nur gebrauchte, nur neue, oder sowohl gebrauchte als auch neue Artikel angezeigt bekommen möchtest." }
+            %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
           - ([["Egal"]] + Article.condition.options ).each do |option|
             = f.label :condition , :value => option.last do
               = f.radio_button(:condition, option.last) + option.first
@@ -51,7 +51,7 @@
         %fieldset
           %legend.Filter-title
             Filter
-            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen. </br>Die Filter sind:</br> FAIR = Fair gehandelte bzw. sozial produzierte Artikel.</br> ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.</br>KLEIN&FEIN = Artikel von kleineren Anbietern, mit besonders guter Qualität." }
+            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&FEIN = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
 
           = f.label :fair do
             = f.check_box(:fair) + t('formtastic.labels.article.fair')

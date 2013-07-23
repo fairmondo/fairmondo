@@ -13,15 +13,15 @@
 // General
 // -----------------------------------
 .Teaser {
-  @include rem(padding, 10px 20px);
-  text-align: center;
-  color: #3c3c3c;
-  border-radius: 8px;
+	@include rem(padding, 10px 20px);
+	text-align: center;
+	color: #3c3c3c;
+	border-radius: 8px;
 
-  .Icon [class^="icon-"] {
-    display: block;
-    @include rem(margin, 20px auto);
-  }
+	.Icon [class^="icon-"] {
+		display: block;
+		@include rem(margin, 20px auto);
+	}
 }
 
 //
@@ -30,103 +30,126 @@
 
 
 .Teaser--video {
-  padding: 0 0 30.25% 0;
-  position: relative;
-  iframe,
-  embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+	padding: 0 0 30.25% 0;
+	position: relative;
+	iframe,
+	embed {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
 }
 // Ribbon
 .Teaser--welcome:before {
-  content: '';
-  display: block;
-  width: 132px;
-  height: 132px;
-  background-image: url(asset-path("ribbon-pioneer.png", image));
-  background-repeat: no-repeat;
-  position: absolute;
-  top: -5px;
-  left: -5px;
+	content: '';
+	display: block;
+	width: 132px;
+	height: 132px;
+	background-image: url(asset-path("ribbon-pioneer.png", image));
+	background-repeat: no-repeat;
+	position: absolute;
+	top: -5px;
+	left: -5px;
 }
 
 .Teaser--text {
-  @include rem(font-size, 18px);
+	@include rem(font-size, 18px);
 }
 .Teaser-title {
-  @include rem(font-size, 22px);
-  @extend %Bold;
-  color: black;
+	@include rem(font-size, 22px);
+	@extend %Bold;
+	color: black;
 }
 .Teaser--pioneer {
-  padding-left: 0;
-  padding-right: 0;
-  .Teaser-title {
-    @include rem(font-size, 18px);
-    margin-bottom: em(25,18);
-  }
+	padding-left: 0;
+	padding-right: 0;
+	.Teaser-title {
+		@include rem(font-size, 18px);
+		margin-bottom: em(25,18);
+	}
 }
 .Teaser--pioneer-image {
-  width: 100%;
-  margin-bottom: 3px;
+	width: 100%;
+	margin-bottom: 3px;
 }
-.Teaser--pioneer-1 { display: block; @include rem(font-size, 14px); text-align: left; margin: 0 20px; color: $blue; }
-.Teaser--pioneer-2 { @include rem(font-size, 30px); text-align: left; margin: 0 20px; line-height: 1; word-break: break-word;}
-.Teaser--pioneer-3 { @include rem(font-size, $font-size-xs); float: left; margin-left: 20px;}
-.Teaser--pioneer-4 { @include rem(font-size, $font-size-xs); float: right; margin-right: 20px;}
+.Teaser--pioneer-1 {
+	display: block;
+	@include rem(font-size, 14px);
+	text-align: left;
+	margin: 0 20px;
+	color: $blue;
+		.lt-ie9 & {
+			word-break: break-word;
+		}
+}
+.Teaser--pioneer-2 {
+	@include rem(font-size, 30px);
+	text-align: left;
+	margin: 0 20px;
+	line-height: 1;
+	word-break: break-word;
+}
+.Teaser--pioneer-3 {
+	@include rem(font-size, $font-size-xs);
+	float: left;
+	margin-left: 20px;
+}
+.Teaser--pioneer-4 {
+	@include rem(font-size, $font-size-xs);
+	float: right;
+	margin-right: 20px;
+}
 
 .Profile {
-  position: relative;
+	position: relative;
 }
 .Profile-container {
-  // support one or two lines of text, fix height to 2 lines
-  background-color: $green;
-  overflow: hidden;
-  height: 3.1em;
+	// support one or two lines of text, fix height to 2 lines
+	background-color: $green;
+	overflow: hidden;
+	height: 3.1em;
 }
 .Profile-name {
-  @include rem(font-size, 14px);
-  color: #fff;
-  padding: em(5,14) em(5,14) em(3,14) em(70,14);
+	@include rem(font-size, 14px);
+	color: #fff;
+	padding: em(5,14) em(5,14) em(3,14) em(70,14);
 
-  // vertical align
-  height: 3.1em;
-  display: table-cell;
-  vertical-align: middle;
+	// vertical align
+	height: 3.1em;
+	display: table-cell;
+	vertical-align: middle;
 }
 .Profile-avatar {
-  @include border-radius(50%);
-  position: absolute;
-  width: 72px;
-  height: 72px;
-  top: -14px;
-  left: -8px;
+	@include border-radius(50%);
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	top: -14px;
+	left: -8px;
 }
 
 .Teaser--total {
-  // move padding from container to child els
-  padding: 0;
-  > .Teaser-title,
-  > .Teaser-total--number {
-    @include rem(padding, 10px 20px);
-  }
-  .Teaser-title {
-    @include rem(font-size, $base-font-size);
-    @include rem(padding, 17px 36px);
-  }
+	// move padding from container to child els
+	padding: 0;
+	> .Teaser-title,
+	> .Teaser-total--number {
+		@include rem(padding, 10px 20px);
+	}
+	.Teaser-title {
+		@include rem(font-size, $base-font-size);
+		@include rem(padding, 17px 36px);
+	}
 }
 .Teaser--total-number {
-  @include rem(font-size, 40px);
-  @include rem(padding, 8px);
-  @extend %Semibold;
-  background-color: $green;
-  color: #fff;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+	@include rem(font-size, 40px);
+	@include rem(padding, 8px);
+	@extend %Semibold;
+	background-color: $green;
+	color: #fff;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
 }
 
 
@@ -134,21 +157,21 @@
 // -----------------------------------
 
 .icon-interrogation--green {
-  @extend .icon-interrogation--green;
+	@extend .icon-interrogation--green;
 }
 .icon-pionier--blue {
-  @extend .icon-pionier--blue;
+	@extend .icon-pionier--blue;
 }
 .icon-index-arrow--draw {
-  @extend .icon-index-arrow--draw;
-  position: absolute !important;
-  top: -11px;
-  left: -68px;
+	@extend .icon-index-arrow--draw;
+	position: absolute !important;
+	top: -11px;
+	left: -68px;
 }
 
 // Btn
 // -----------------------------------
 
 .Teaser .Btn {
-  @include rem(margin-top, 4px);
+	@include rem(margin-top, 4px);
 }

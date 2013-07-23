@@ -17,18 +17,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FeedbackMailer < ActionMailer::Base
+require 'spec_helper'
 
+include Warden::Test::Helpers
 
-  def feedback_and_help( feedback, topic )
+describe 'Article Template management' do
+  include CategorySeedData
 
-    @text = feedback.text
-    @type = feedback.type
-    from = feedback.from? ? feedback.from : $email_addresses['ArticleMailer']['default_from']
+  context "for signed-in users" do
 
-    if $email_addresses
-      mail(to: $email_addresses['FeedbackMailer'][@type][topic], from: from, subject: feedback.subject)
+    before :each do
+      @user = FactoryGirl.create :user
+      login_as @user, scope: :user
+    end
+
+    describe "article template creation" do
+      it "has at least one correct label for the questionnaires" do
+        visit new_article_template_path
+        page.should have_content I18n.t 'formtastic.labels.fair_trust_questionnaire.support'
+      end
     end
   end
 
+
 end
+

@@ -35,6 +35,8 @@
       %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations")}
     %dd
       = humanized_money_with_symbol resource.calculated_fair
+    %dt
+      = t('article.preview.fees_and_donations.quarter_fee')
     -#%dt
       -#= t('article.preview.fees_and_donations.friendly_percent')
     -#%dd= humanized_money_with_symbol resource.calculated_friendly
@@ -43,7 +45,9 @@
       %i.icon-helper
     %dd.is-green
       = humanized_money_with_symbol resource.calculated_fees_and_donations
-
+    %dt
+      = t('article.preview.fees_and_donations.netto')
+      = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
   // This button is supposed to be like this:
   // %a.Btn.Btn--green.Btn--greenSmall
   //   Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen

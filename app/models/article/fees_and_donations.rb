@@ -23,6 +23,7 @@ module Article::FeesAndDonations
   extend ActiveSupport::Concern
 
   AUCTION_FEES = {
+    :min => 0.1,
     :max_fair => 15.0,
     :max_default => 30.0,
     :fair => 0.03,
@@ -55,6 +56,12 @@ module Article::FeesAndDonations
 
   def calculated_fees_and_donations
     self.calculated_fair + self.calculated_friendly + self.calculated_fee
+  end
+
+  def calculated_fees_and_donations_netto
+    fee_cents = self.calculated_fair_cents + self.calculated_friendly_cents + self.calculated_fee_cents
+    netto = Money.new((fee_cents - (fee_cents * 0.19)).ceil)
+    netto
   end
 
   def calculate_fees_and_donations
@@ -101,8 +108,11 @@ private
     # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
     r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
     max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
+    min = Money.new(AUCTION_FEES[:min]*100)
+    r = min if r < min
     r = max if r > max
     r
+
   end
 
 end
