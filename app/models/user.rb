@@ -111,6 +111,8 @@ class User < ActiveRecord::Base
   validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
 
+  validates :about_me, :length => { :maximum => 2500 }
+
   # Return forename plus surname
   # @api public
   # @return [String]
