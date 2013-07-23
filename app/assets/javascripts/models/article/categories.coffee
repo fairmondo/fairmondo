@@ -47,7 +47,6 @@ get_selected_values = ->
 append_selected_category = ->
   selected_values = get_selected_values()
   selected_category_id = selected_values[selected_values.length - 1]
-  debugger
   $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[categories_and_ancestors][]\" value=\""+selected_category_id+"\"></input>")
 
 
@@ -77,7 +76,6 @@ select_category = ->
           element_with_this_category.remove() # Remove ancestor catergories
     if add_this_category # Add the new category to the field
       $.get "/categories/" + selected_category_id + ".js?object_name=" + $(selected_categories_input).data("object-name"), ((data) ->
-        debugger
         selected_item = $(data)
         selected_categories_list.append selected_item
         selected_item.append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
