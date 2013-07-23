@@ -10,6 +10,7 @@
 	background-color: $white;
 	h2 {
 		@include rem(font-size, 17px);
+		word-break: break-all;
 	}
 	#library_element_library_input {
 	  .selectboxit-container {
@@ -93,6 +94,7 @@
 .Articles-title {
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
+	word-break: break-all;
 }
 p.Article-price,
 span.Article-price {
@@ -110,6 +112,7 @@ span.Article-price {
 }
 .Article-vat {
 	width: 100% !important;
+	margin-bottom: 0.3em !important;
 	@include span-columns(1 alpha, 2);
 	@include rem(margin-bottom, 13px);
 	.Article--teaser & {
