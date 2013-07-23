@@ -13,6 +13,8 @@ de:
 
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+    included_short: "Inkl."
+    vat: "Mehrwertsteuer"
     vat_included: "Inkl. Mehrwertsteuer"
     transport:
       placeholders:
@@ -45,6 +47,10 @@ de:
         article: "Auktion"
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
+      errors:
+        small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
+        invalid_payment_option: "Bitte gib mindestens eine Zahlungsart an!"
+
 
 
     labels:
@@ -87,15 +93,18 @@ de:
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
     categories:
       proposal:
-        question: "Du vermisst eine Kategorie?"
+        question: "Kategorie vorschlagen:"
       remove-filter:  "Kategorie-Filter entfernen"
     preview:
       fees_and_donations:
         title: Deine Gebühren und Spenden
         fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
         friendly_percent: "Das freundliche Prozent:"
-        fee: "Gebühr bei Verkauf (%{fee} - maximal %{max}):"
-        total: "Gesamt bei Verkauf (%{fee}):"
+        fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
+        total: "Gesamt bei Verkauf (%{fee}), inkl. 19% MwSt:"
+        quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
+        netto: "Nettobetrag:"
+
       double_check:
         title: Alle Angaben überprüft?
       tooltips:

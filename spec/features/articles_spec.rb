@@ -27,6 +27,7 @@ describe 'Article management' do
   include CategorySeedData
 
   context "for signed-in users" do
+
     before :each do
       @user = FactoryGirl.create :user
       login_as @user, scope: :user
@@ -54,6 +55,13 @@ describe 'Article management' do
           page.should have_content(I18n.t("article.titles.new"))
         end
 
+        it "should show the create article page when selecting no template" do
+
+          visit new_article_path template_select: { article_template: "" }
+          current_path.should == new_article_path
+
+        end
+
         it 'creates an article plus a template' do
           lambda do
             fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
@@ -74,8 +82,23 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
             fill_in 'article_transport_details', with: 'transport_details'
             check "article_payment_cash"
-            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
+
+            # social producer
+            check "article_fair"
+            within("#article_fair_kind_input") do
+              choose "article_fair_kind_social_producer"
+            end
+            within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
+              choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
+            end
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_purposes_youth_and_elderly"
+            within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
+              choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
+            end
+            within("#article_social_producer_questionnaire_attributes_social_entrepreneur_input") do
+              choose "article_social_producer_questionnaire_attributes_social_entrepreneur_false"
+            end
 
             # Image
             #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
@@ -241,5 +264,23 @@ describe "Other articles of this seller box" do
 
   it "should not show locked article" do
     page.should have_no_link('', href: article_path(@article_locked))
+  end
+end
+
+describe "Pagination for libraries should work"  do
+  before do
+    @seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    30.times do
+      lib = FactoryGirl.create :library, :user => @seller, :public => true
+      FactoryGirl.create :library_element, :article => @article_active, :library => lib
+    end
+
+    visit article_path @article_active
+  end
+
+  it "should show selector div.pagination" do
+    page.assert_selector('div.pagination')
   end
 end
