@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
 
-  validates_presence_of :nickname
+  validates :nickname , :presence => true, :uniqueness => true
 
   validates :zip, :presence => true, :on => :update, :zip => true
   # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
