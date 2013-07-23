@@ -10,8 +10,12 @@
 	input[type='text'] {
 		margin: 0;
 	}
+	@include at-breakpoint($layout-small) {
+		//@include span-columns(2, 4) !important;
+		float: left;
+		width: columns(2,4) !important;
+	}
 }
-.Search-input {}
 .Search .Search-input input { // extra specificity
 	@include rem(font-size, 20px);
 	width: 100%;
@@ -46,9 +50,10 @@
 }
 
 
-.Search {
-	@include at-breakpoint($layout-small) {
-		float: left;
-		width: columns(2,4);
-	}
-}
+// .Search {
+// 	@include at-breakpoint($layout-small) {
+// 		@include span-columns(2, 4);
+// 		float: left;
+// 		//width: columns(2,4);
+// 	}
+// }
