@@ -60,7 +60,7 @@ de:
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
-      submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
+      submit: "Angebot gebührenpflichtig einstellen"
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
@@ -99,10 +99,10 @@ de:
     preview:
       fees_and_donations:
         title: Deine Gebühren und Spenden
-        fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
+        fair_percent: "Das faire Prozent (1%):"
         friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
-        total: "Gesamt bei Verkauf (%{fee}), inkl. 19% MwSt:"
+        total: "Gesamt bei Verkauf, inkl. 19% MwSt:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
         netto: "Nettobetrag:"
 
