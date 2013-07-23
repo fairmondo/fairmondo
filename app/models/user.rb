@@ -181,8 +181,9 @@ class User < ActiveRecord::Base
   BUYER_BAD_FACTOR = 6
   BUYER_GOOD_FACTOR = 2
 
-  BUYER_STANDARD_SALESVOLUME = 3000
-  BUYER_TRUSTED_BONUS = 7000
+  NOT_REGISTERED_BUYER_PURCHASEVOLUME = 4
+  BUYER_STANDARD_PURCHASEVOLUME = 12
+  BUYER_TRUSTED_BONUS = 42
 
   state_machine :buyer_state, :initial => :standard_buyer do
     # if more than 90% positive ratings in the last 50 ratings:
@@ -202,8 +203,8 @@ class User < ActiveRecord::Base
   end
 
   def purchase_volume
-    bad_buyer? ? ( BUYER_STANDARD_SALESVOLUME / BUYER_BAD_FACTOR ) :
-   ( BUYER_STANDARD_SALESVOLUME + ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) * ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
+    bad_buyer? ? ( BUYER_STANDARD_PURCHASEVOLUME / BUYER_BAD_FACTOR ) :
+   ( BUYER_STANDARD_PURCHASEVOLUME + ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) * ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
   end
 
 
