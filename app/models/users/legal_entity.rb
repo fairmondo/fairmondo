@@ -51,7 +51,7 @@ class LegalEntity < User
 
   state_machine :initial => :standard do
     # if more than 90% positive ratings in the last 50 ratings:
-    event :rate_up_good_levels do
+    event :rate_up_to_good do
       transition :standard => :good1, :good1 => :good2, :good2 => :good3, :good3 => :good4
     end
   end
