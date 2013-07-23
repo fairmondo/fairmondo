@@ -47,7 +47,7 @@ module Article::Attributes
     validates_presence_of :price_cents
 
     validates_numericality_of :price,
-    :greater_than_or_equal_to => 0
+    :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000
 
     monetize :price_cents
 
