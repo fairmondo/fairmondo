@@ -5,7 +5,7 @@
 .formtastic .inputs,
 .formtastic .actions {
 	@include pie-clearfix;
-	float: left;
+	float: none;
 	width: 100%;
 	overflow: visible;
 }
@@ -221,10 +221,3 @@ fieldset.choices {
 	@include pie-clearfix;
 }
 
-.formtastic .inputs,
-.formtastic .actions {
-	@include pie-clearfix;
-	float: left;
-	width: 100%;
-	overflow: visible;
-}
