@@ -27,9 +27,9 @@ module ArticlesHelper
 
   def features_label article
     html = ""
-    html +="<span class=\"Btn Btn-tag Btn-tag--blue\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
-    html +="<span class=\"Btn Btn-tag Btn-tag--green\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
-    html +="<span class=\"Btn Btn-tag Btn-tag--orange\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
+    html << "<span class=\"Btn Btn-tag Btn-tag--blue\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
+    html << "<span class=\"Btn Btn-tag Btn-tag--green\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
+    html << "<span class=\"Btn Btn-tag Btn-tag--orange\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
 
     html.html_safe
   end
