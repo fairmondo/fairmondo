@@ -113,11 +113,13 @@ label,
 	}
 	.choices-group {
 		width: 100%;
-		padding: 1em 0 0;
+		padding: 0;
 		margin-bottom: em(10);
-		padding-top: 1em;
-		margin-top: 1em;
+
 	}
+	.choices .label label {
+  position: static;
+  }
 }
 
 fieldset.choices {
