@@ -158,12 +158,11 @@ class User < ActiveRecord::Base
   end
 
   state_machine :seller_state, :initial => :standard do
-    # if between 80% and 90% positive ratings in the last 50 ratings:
+
     event :rate_up_to_standard do
       transition :bad => :standard
     end
 
-    # if less than 80% positive ratings in the last 50 ratings:
     event :rate_down_to_bad do
       transition all => :bad
     end
