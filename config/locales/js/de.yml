@@ -4,7 +4,7 @@ de:
       actions:
         remove: "Löschen"
         select: "Auswählen"
-        select_another_category: "Weitere Kategorie auswählen"
+        select_another_category: "Weitere Kategorie hinzufügen"
       session_expiring_notice: "Du warst zu lang inaktiv und wirst jetzt im Hintergrund von Fairnopoly ausgeloggt."
     truncate:
       more: "mehr"
