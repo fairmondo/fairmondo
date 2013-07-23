@@ -47,7 +47,7 @@
         %span= resource.quantity
         %span= t('formtastic.labels.article.quantity')
       %p
-        - if user_signed_in?
+        - if user_signed_in? && !current_user.libraries.blank?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
             .library
               = f.inputs do
