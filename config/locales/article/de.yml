@@ -110,7 +110,7 @@ de:
         title: Alle Angaben überprüft?
       tooltips:
         fees_and_donations: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+          1% des Artikelendpreises wird bei erfolgreichem Verkauf wird automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet.
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
           Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.

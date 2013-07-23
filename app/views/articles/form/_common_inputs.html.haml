@@ -126,7 +126,7 @@
       = f.inputs :id => 'ecologic-input-fields' do
         = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
         = f.inputs :id => 'ecologic_seal-input-fields', :class => "ecologic_kind" do
-          = f.input :ecologic_seal, :required => true
+          = f.input :ecologic_seal, :required => true, tooltip: true
         = f.inputs :id => 'upcycling-input-fields', :class => "ecologic_kind" do
           = f.input :upcycling_reason, :required => true , :tooltip => true
     .Accordion-step
