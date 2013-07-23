@@ -49,6 +49,10 @@
 	.User-collection {
 		margin-top: 3em;
 	}
+	img {
+		width: 100%;
+		height: auto;
+	}
 }
 .User-info {
 	@include border-radius(.9em);
