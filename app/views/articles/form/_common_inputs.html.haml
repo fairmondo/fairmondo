@@ -25,6 +25,8 @@
       = render '/categories/selected_categories', :f => f
       = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :tooltip => true, :required => true, :multiple => true, :include_blank => true, :input_html => {:class => "Category-nativeselect"}
     .Accordion-step
+
+
       = f.input :category_proposal,:label => t('article.categories.proposal.question'), :tooltip => true
 
 = f.input_step :article do
