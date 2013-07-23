@@ -23,6 +23,11 @@
 	right: 2px;
 	float: right;
 }
+.formtastic .icon-helper.no-float {
+	right: 0;
+	top: 4px;
+	float: none;
+}
 
 input[type='search'] {
 	-webkit-appearance: none;
