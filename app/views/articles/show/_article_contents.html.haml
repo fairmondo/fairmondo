@@ -54,18 +54,18 @@
                 = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
                 = f.input :article_id, :as => :hidden
               = f.button t('common.actions.collect'), :class => "Btn Btn--green"
+        - elsif user_signed_in?
+          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
   .Article-info--left
     .Thumbnail-container
       - thumbnails(title_image).each do |image|
         = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
     .Article-friendly
       %p.Highlight
-        =t('Das faire Prozent')
+        =t('article.show.friendly_percent')
         %i.icon-helper{:title => t('some text')}
       %p
-        1% werden an
-        %a{:href => "http://www.transparency.de/"} Transparency International
-        gespendet
+        =t('article.show.donate_html')
     %p
       -#Accordion--activated.Article-tags
       = features_label resource
