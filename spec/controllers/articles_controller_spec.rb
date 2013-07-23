@@ -431,7 +431,7 @@ describe ArticlesController do
     it "should work" do
       put :update, id: @article.id, :activate => true
       response.should redirect_to @article
-      flash[:notice].should eq I18n.t 'article.notices.create'
+      flash[:notice].should eq I18n.t 'article.notices.create_html'
     end
 
     it "should not work with an invalid article" do
