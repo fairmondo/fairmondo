@@ -55,6 +55,8 @@ de:
 
 
     labels:
+      shipping_options: "Versandoptionen:"
+      payment_options: "Bezahloptionen:"
       payment: "Bezahloption"
       price: "Preis"
       shipping_condition: "Versand-Zustand"
