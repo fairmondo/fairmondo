@@ -132,7 +132,7 @@ class ArticlesController < InheritedResources::Base
       params.delete :article # Do not allow any other change
       authorize resource, :activate?
       resource.activate
-      flash[:notice] = I18n.t('article.notices.create') if resource.valid?
+      flash[:notice] = I18n.t('article.notices.create_html').html_safe if resource.valid?
     elsif params[:deactivate]
       params.delete :article # Do not allow any other change
       authorize resource, :deactivate?
