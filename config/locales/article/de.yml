@@ -21,8 +21,9 @@ de:
         insured_provider: "z.B. DHL Paket"
         uninsured_provider: "z.B. DHL Päckchen"
     show:
-      friendly_percent: "Das freundliche Prozent"
+      friendly_percent: "Das faire Prozent"
       will_be: " werden an "
+      donate_html: "1% werden an <a href='http://www.transparency.de/'>Transparency International</a> gespendet"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
@@ -99,7 +100,7 @@ de:
       fees_and_donations:
         title: Deine Gebühren und Spenden
         fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
-        friendly_percent: "Das freundliche Prozent:"
+        friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
         total: "Gesamt bei Verkauf (%{fee}), inkl. 19% MwSt:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
