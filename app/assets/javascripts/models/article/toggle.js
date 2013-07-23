@@ -23,10 +23,10 @@
 
 $(document).ready(function(){
 	$("input[data-select-toggle][type=checkbox]")
-		.on('change ifChanged', function () {
+		.on('ifCreated ifToggled', function () {
 			box = $(this);
 			area_id = box.attr("data-select-toggle");
-			$("#" + area_id).parent().toggle(box.is(":checked"));
+			$("#" + area_id).parent().toggle(this.checked);
 		}).trigger('change')
 
 	if (!$.support.leadingWhitespace) { // IE 7 / 8 version
