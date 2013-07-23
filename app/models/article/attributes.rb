@@ -136,7 +136,7 @@ module Article::Attributes
 
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
-        errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
+        errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
       end
     end
 end
