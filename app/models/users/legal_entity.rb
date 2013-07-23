@@ -46,7 +46,6 @@ class LegalEntity < User
 
   COMMERCIAL_STANDARD_SALESVOLUME = 35
   COMMERCIAL_VERIFIED_BONUS = 50
-  VERIFIED = false
 
 
   state_machine :seller_state, :initial => :standard do
@@ -58,7 +57,7 @@ class LegalEntity < User
 
   def sales_volume
     bad? ? ( COMMERCIAL_STANDARD_SALESVOLUME / COMMERCIAL_BAD_FACTOR ) :
-    ( COMMERCIAL_STANDARD_SALESVOLUME + ( VERIFIED ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
+    ( COMMERCIAL_STANDARD_SALESVOLUME + ( self.verified ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
     ( good1? ? COMMERCIAL_GOOD_FACTOR : 1 ) * ( good2? ? COMMERCIAL_GOOD_FACTOR**2 : 1 ) * ( good3? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) * ( good4? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
   end
 
