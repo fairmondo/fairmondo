@@ -167,11 +167,6 @@ class User < ActiveRecord::Base
 
   state_machine :initial => :standard do
 
-    # if more than 90% positive ratings in the last 50 ratings:
-    event :rate_up_to_good do
-      transition :standard => :good
-    end
-
     # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard do
       transition :bad => :standard
