@@ -14,12 +14,17 @@
 }
 .User-primary,
 .User-secondary {
+	@include at-breakpoint($layout-small) {
+		@include span-columns(2,4);
+		@include nth-omega(2n);
+	}
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(2,4);
 		@include nth-omega(2n);
 	}
 	@include at-breakpoint($layout-large) {
 		@include span-columns(1,2);
+		@include nth-omega(2n);
 	}
 }
 
@@ -30,7 +35,9 @@
 	@include span-columns(4, 4);
 	padding-top: 3em;
 	@include rem(margin-bottom, 9px);
-
+	@include at-breakpoint($layout-small) {
+		@include span-columns(4,4);
+	}
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(2,4);
 	}
@@ -144,6 +151,9 @@
 	@include at-breakpoint($layout-large) {
 		@include span-columns(2, 4);
 	}
+}
+.User-secondary {
+
 }
 
 //
