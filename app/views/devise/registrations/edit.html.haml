@@ -29,7 +29,9 @@
       .User--step
 
         %p
-          %span.User--rightside= t('users.visibility.public')
+          %span.User--rightside
+            = t('users.visibility.public')
+            %i.icon-helper.no-float{title: "Für Dich und andere Nutzer*innen sichtbar." }
           %strong.Meta--highlight
             = t('formtastic.labels.user.legal_entity') + ":"
 
@@ -45,7 +47,9 @@
       .User--step
         %p
 
-          %span.User--rightside= t('users.visibility.private')
+          %span.User--rightside
+            = t('users.visibility.private')
+            %i.icon-helper.no-float{title: "Nur für Dich sichtbar." }
           %strong.Meta--highlight
             = t('formtastic.labels.user.customer_number') + ":"
           = current_user.customer_nr
@@ -56,7 +60,7 @@
           = image_tag(@user.image_url(:thumb), :class => "img-polaroid ")
           = f.semantic_fields_for :image do |image|
             = f.inputs do
-              = image.input :image, label: false, as: :file
+              = image.input :image, label: false, as: :file, tooltip: true
 
       .User--step
         %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
@@ -99,7 +103,7 @@
       = f.inputs do
         .User--step
           %span.User--rightside= t('users.visibility.public')
-          = f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}
+          = f.input :about_me, :as => :text, :limit => 2500, :input_html => {:class => "tinymce"}
           = tinymce
     - if current_user.is_a?(LegalEntity)
       = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
