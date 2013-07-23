@@ -99,7 +99,7 @@
       = f.inputs do
         .User--step
           %span.User--rightside= t('users.visibility.public')
-          = f.input :about_me, :as => :text, :input_html => {:class => "tinymce"}
+          = f.input :about_me, :as => :text, :limit => 2500, :input_html => {:class => "tinymce"}
           = tinymce
     - if current_user.is_a?(LegalEntity)
       = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
