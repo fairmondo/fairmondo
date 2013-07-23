@@ -156,17 +156,7 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
-  private
-
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
-    end
-  end
-
-  state_machine :initial => :standard do
-
+  state_machine :seller_state, :initial => :standard do
     # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard do
       transition :bad => :standard
@@ -186,4 +176,14 @@ class User < ActiveRecord::Base
     end
 
   end
+
+  private
+
+  # @api private
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    end
+  end
+
 end
