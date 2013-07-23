@@ -33,18 +33,14 @@
     %meta{ name: 'description', content: meta_description }
 
     %meta{:content => "width=device-width", :name => "viewport"}
-    = stylesheet_link_tag 'application'
 
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "http://kopfwelt.com/kunden/fairnopoly/style.css", :rel => "stylesheet", :type => "text/css"}
+    = csrf_meta_tags
+    = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
 
     = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
-
-    = csrf_meta_tags
-    = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
@@ -53,9 +49,7 @@
         _gaq.push(['_setDomainName', 'fairnopoly.de']);
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
-
-      (function()
-      {
+      (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
@@ -161,6 +155,14 @@
                 %a{:href => "/imprint"}
                   = t('footer.imprint')
 
+
+    -#--------------- Addittional Assets -----------------
+    = stylesheet_link_tag 'application'
+    %style
+      = tinycms_content "hopeglory" # remove after final implementation
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://kopfwelt.com/kunden/fairnopoly/style.css", :rel => "stylesheet", :type => "text/css"}
+
     -# When logged in, count down until session expires (needs to be reloaded on page change!)
     = javascript_include_tag "session_expire" if current_user
-
