@@ -47,7 +47,7 @@ module Article::Attributes
     validates_presence_of :price_cents
 
     validates_numericality_of :price,
-    :greater_than_or_equal_to => 0
+    :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000
 
     monetize :price_cents
 
@@ -124,17 +124,19 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
-  def default_transport_selected
-    if self.default_transport
-      unless self.send("transport_#{self.default_transport}")
-        errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+  private
+
+    def default_transport_selected
+      if self.default_transport
+        unless self.send("transport_#{self.default_transport}")
+          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+        end
       end
     end
-  end
 
-  def payment_method_checked
-    unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
-      errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
+    def payment_method_checked
+      unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
+        errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
+      end
     end
-  end
 end

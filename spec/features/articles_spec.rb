@@ -80,7 +80,6 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
             fill_in 'article_transport_details', with: 'transport_details'
             check "article_payment_cash"
-            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
 
             # social producer
@@ -220,6 +219,12 @@ describe 'Article management' do
         page.should have_content I18n.t 'article.show.no_alternative'
       end
 
+      it "should have link to Transparency International" do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+        page.should have_link("Transparency International", :href => "http://www.transparency.de/")
+      end
+
       # it "should have a different title image with an additional param" do
       #   new_img = FactoryGirl.create :image
       #   @article.images << new_img
@@ -265,5 +270,13 @@ describe "Pagination for libraries should work"  do
 
   it "should show selector div.pagination" do
     page.assert_selector('div.pagination')
+  end
+end
+
+describe "Article Page should show link to Transparency International" do
+  it "should have link to Transparency International" do
+    @article = FactoryGirl.create :article
+    visit article_path @article
+    page.should have_link("Transparency International", :href => "http://www.transparency.de/")
   end
 end
