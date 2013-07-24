@@ -74,7 +74,7 @@ de:
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
-        price: "Preis in €"
+        price: "Verkaufspreis in €"
         price_currency: "Währung"
         vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %) #Von Felix gelöscht
 
@@ -206,7 +206,7 @@ de:
         condition: "Ist Dein Artikel neu oder gebraucht?"
         content: "Beschreibe Deine Artikel - geh dabei z.B. auf besondere Merkmale, Zustand und ggf. Gebrauchsspuren Deines Artikels ein. Eine gute Beschreibung macht es Käufer*innen leichter, das Angebot abzuschätzen."
         quantity: "Falls Du mehrere Artikel derselben Art verkaufen möchtest, trage hier die Menge ein."
-        price: "Gib hier bitte den Endpreis Deines Artikels für die Käufer*innen an (ggf. inklusive Mehrwertsteuer). Versandkosten werden weiter unten abgefragt."
+        price: "Trage hier den Verkaufspreis pro Artikel ein. Falls Du als gewerbliche*r Händler*in die MwSt ausweisen musst, ist das der Preis inkl. MwSt."
 
         vat: Gib hier die im Preis enthaltene Mehrwertsteuer an.
 
