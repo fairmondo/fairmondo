@@ -273,6 +273,34 @@ describe "Pagination for libraries should work"  do
   end
 end
 
+describe "LibraryElements should exist only on acive articles" do
+
+  before do
+    @seller = FactoryGirl.create :seller
+    @buyer = FactoryGirl.create :buyer
+
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    @lib = FactoryGirl.create :library, :user => @buyer, :public => true
+    FactoryGirl.create :library_element, :article => @article_active, :library => @lib
+
+  end
+
+  it "should delete LibraryElement when deactivating an article" do
+
+    login_as @seller, scope: :user
+    visit article_path @article_active
+    click_button I18n.t 'article.labels.deactivate'
+
+    login_as @buyer, scope: :user
+    visit user_libraries_path @buyer
+    within("#library"+@lib.id.to_s) do
+      page.should have_content I18n.t 'library.no_products'
+    end
+  end
+
+end
+
 describe "Article Page should show link to Transparency International" do
   it "should have link to Transparency International" do
     @article = FactoryGirl.create :article
