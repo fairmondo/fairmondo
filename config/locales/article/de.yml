@@ -13,9 +13,10 @@ de:
 
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+
     included_short: "Inkl."
     vat: "Mehrwertsteuer"
-    vat_included: "Inkl. Mehrwertsteuer"
+    vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
     transport:
       placeholders:
         insured_provider: "z.B. DHL Paket"
@@ -51,8 +52,6 @@ de:
       errors:
         small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an!"
-
-
 
     labels:
       payment: "Bezahloption"
