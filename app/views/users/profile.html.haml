@@ -23,7 +23,10 @@
     %h2= resource.nickname
     - if resource.valid?
       - if resource.is_a? LegalEntity
-        %h3= resource.title + " " + resource.forename + " " + resource.surname
+        - if resource.title?
+          %h3= resource.title + " " + resource.forename + " " + resource.surname
+        - else
+          %h3= resource.forename + " " + resource.surname
         %p
           = t('formtastic.labels.user.street')
           \:
