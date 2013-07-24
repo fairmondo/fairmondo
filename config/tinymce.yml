@@ -7,6 +7,7 @@ removed_menuitems: 'newdocument'
 browser_spellcheck: true
 forced_br_newline: true
 forced_root_block: ''
+
 plugins:
   - table
   - fullscreen

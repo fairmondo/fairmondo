@@ -54,6 +54,7 @@
         _gaq.push(['_setDomainName', 'fairnopoly.de']);
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
+
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -147,7 +148,7 @@
       .Footer--bottom
         .l-Inner
           .Copyright
-            %p &copy; Copyright 2013 fairnopoly
+            %p &copy; Copyright 2013 Fairnopoly eG
           .Nav.Nav--legal
             %ul
               %li
@@ -166,3 +167,4 @@
 
     -# When logged in, count down until session expires (needs to be reloaded on page change!)
     = javascript_include_tag "session_expire" if current_user
+
