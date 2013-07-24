@@ -33,9 +33,9 @@ class LegalEntity < User
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
   # validates legal entity
-  validates_presence_of :terms , :on => :update
-  validates_presence_of :cancellation , :on => :update
-  validates_presence_of :about , :on => :update
+  validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
+  validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
+  validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name

@@ -5,9 +5,12 @@
 .formtastic .inputs,
 .formtastic .actions {
 	@include pie-clearfix;
-	float: left;
+	float: none;
 	width: 100%;
 	overflow: visible;
+	.action {
+	  float:none;
+	}
 }
 .formtastic .input {
 	padding: 0;
@@ -22,6 +25,11 @@
 	position: relative;
 	right: 2px;
 	float: right;
+}
+.formtastic .icon-helper.no-float {
+	right: 0;
+	top: 4px;
+	float: none;
 }
 
 input[type='search'] {
@@ -108,11 +116,13 @@ label,
 	}
 	.choices-group {
 		width: 100%;
-		padding: 1em 0 0;
+		padding: 0;
 		margin-bottom: em(10);
-		padding-top: 1em;
-		margin-top: 1em;
+
 	}
+	.choices .label label {
+  position: static;
+  }
 }
 
 fieldset.choices {
@@ -214,10 +224,3 @@ fieldset.choices {
 	@include pie-clearfix;
 }
 
-.formtastic .inputs,
-.formtastic .actions {
-	@include pie-clearfix;
-	float: left;
-	width: 100%;
-	overflow: visible;
-}

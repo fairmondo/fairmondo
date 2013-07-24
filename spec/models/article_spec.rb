@@ -133,7 +133,7 @@ describe Article do
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
-        article.errors[:payment_options].should == [I18n.t("article.form.errors.invalid_payment_option")]
+        article.errors[:payment_details].should == [I18n.t("article.form.errors.invalid_payment_option")]
       end
     end
   end
