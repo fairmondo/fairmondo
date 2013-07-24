@@ -8,6 +8,9 @@
 	float: none;
 	width: 100%;
 	overflow: visible;
+	.action {
+	  float:none;
+	}
 }
 .formtastic .input {
 	padding: 0;
