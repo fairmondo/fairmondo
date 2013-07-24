@@ -93,14 +93,6 @@
         / row
       / container
 
-    .l-Feedback
-      %a.Btn.Feedback{:href=>new_feedback_path(:type => :get_help)}
-        %i.icon-feedback
-        = t('common.text.help')
-      %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
-        %i.icon-feedback
-        = t('common.text.feedback')
-
     .l-Hero
       = hero
     .l-Main{:role => "main"}
@@ -117,6 +109,14 @@
                 %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
           %nav.Nav.Nav--meta
             %ul
+              %li
+                .l-Feedback
+                  %a.Btn.Feedback{:href=>new_feedback_path(:type => :get_help)}
+                    %i.icon-feedback
+                    = t('common.text.help')
+                  %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
+                    %i.icon-feedback
+                    = t('common.text.feedback')
               %li
                 %a{:href => "/faq"}
                   = t('footer.faq')
