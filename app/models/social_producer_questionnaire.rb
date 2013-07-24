@@ -37,7 +37,7 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
 
   validate :is_social_producer
 
-  validates :nonprofit_association_checkboxesvalidates, :size => {:in => 1..-1}, :if => :nonprofit_association?
+  validates :nonprofit_association_checkboxes, :size => {:in => 1..-1}, :if => :nonprofit_association?
   validates :social_businesses_muhammad_yunus_checkboxes, :size => {:in => 1..-1}, :if => :social_businesses_muhammad_yunus?
   validates :social_entrepreneur_checkboxes, :size => {:in => 1..-1}, :if => :social_entrepreneur?
   validates_presence_of :social_entrepreneur_explanation, :if => :social_entrepreneur?
