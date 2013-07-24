@@ -115,7 +115,6 @@ RailsAdmin.config do |config|
   #     configure :ecologic, :boolean
   #     configure :ecologic_seal, :string
   #     configure :small_and_precious, :boolean
-  #     configure :small_and_precious_edition, :integer
   #     configure :small_and_precious_reason, :text
   #     configure :small_and_precious_handmade, :boolean
   #     configure :quantity, :integer
