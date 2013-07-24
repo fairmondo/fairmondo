@@ -54,6 +54,7 @@
         _gaq.push(['_setDomainName', 'fairnopoly.de']);
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
+
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -93,14 +94,6 @@
         / row
       / container
 
-    .l-Feedback
-      %a.Btn.Feedback{:href=>new_feedback_path(:type => :get_help)}
-        %i.icon-feedback
-        = t('common.text.help')
-      %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
-        %i.icon-feedback
-        = t('common.text.feedback')
-
     .l-Hero
       = hero
     .l-Main{:role => "main"}
@@ -117,6 +110,14 @@
                 %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
           %nav.Nav.Nav--meta
             %ul
+              %li
+                .l-Feedback
+                  %a.Btn.Feedback{:href=>new_feedback_path(:type => :get_help)}
+                    %i.icon-feedback
+                    = t('common.text.help')
+                  %a.Btn.Feedback{:href=>new_feedback_path(:type => :send_feedback)}
+                    %i.icon-feedback
+                    = t('common.text.feedback')
               %li
                 %a{:href => "/faq"}
                   = t('footer.faq')
@@ -166,3 +167,4 @@
 
     -# When logged in, count down until session expires (needs to be reloaded on page change!)
     = javascript_include_tag "session_expire" if current_user
+
