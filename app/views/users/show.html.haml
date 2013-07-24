@@ -43,3 +43,4 @@
   .User-articles
     = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles}
     = will_paginate active_articles, :param_name => "active_articles_page"
+

@@ -27,9 +27,11 @@ module ArticlesHelper
 
   def features_label article
     html = ""
+
     html << "<span class=\"Btn Btn-tag Btn-tag--blue\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
     html << "<span class=\"Btn Btn-tag Btn-tag--green\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
     html << "<span class=\"Btn Btn-tag Btn-tag--orange\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
+
 
     html.html_safe
   end
@@ -83,7 +85,6 @@ module ArticlesHelper
     return nil
   end
 
-  #seems unused. remove unless problems arise.
   def libraries
     resource.libraries.where(:public => true).paginate(:page => params[:page], :per_page=>10)
   end
@@ -92,12 +93,31 @@ module ArticlesHelper
     resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
   end
 
-  def payment_format_for type
-    html=""
-    if resource.send("payment_" + type)
-      html = t('formtastic.labels.article.payment_'+type)
-    end
-    html.html_safe
+   def transport_format_for method,css_classname=""
+    type = "transport"
+      options_format_for type, method,css_classname
   end
 
+  def payment_format_for method, css_classname=""
+    type = "payment"
+      options_format_for type, method, css_classname
+  end
+
+  def options_format_for type, method, css_classname
+
+    if resource.send(type + "_" + method)
+      html ="<li class= "+ css_classname +" >"
+      html << t('formtastic.labels.article.'+ type +'_'+ method)+" "
+      attach_price = type + "_" + method+"_price"
+
+      if resource.respond_to?(attach_price.to_sym)
+        html << "zzgl. "
+        html << humanized_money_with_symbol(resource.send(attach_price))
+      else
+         html <<"(kostenfrei)"
+      end
+      html <<"</li>"
+      html.html_safe
+    end
+  end
 end

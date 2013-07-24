@@ -50,6 +50,21 @@ describe ArticlesHelper do
     end
   end
 
+  describe "options_format_for (type, method, css_classname)" do
+     before do
+      helper.stub(:resource).and_return FactoryGirl.create :article, :transport_uninsured => true, :transport_uninsured_price => 3, :transport_uninsured_provider => "test"
+     end
+
+    it "should return 'kostenfrei'" do
+      helper.options_format_for("transport","pickup","").should match /(kostenfrei)/
+    end
+
+    it "should return 'zzgl.'" do
+      helper.options_format_for("transport","uninsured","").should match /zzgl. /
+    end
+
+  end
+
   # describe "#category_shift(level)" do
   #   it "should return the correct css" do
   #     helper.category_shift(1).should eq 'padding-left:10px;'
