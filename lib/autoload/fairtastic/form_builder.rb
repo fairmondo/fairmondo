@@ -33,8 +33,11 @@ module Fairtastic
       super(*extended_fieldset_args(*args),&block)
     end
 
+
+
     # DRYing input_with_purpose and input_with_explanation
     def input_with (specification, *args)
+       ActiveSupport::Deprecation.warn "please stop using this method in favour of formtastic build-ins", caller
       input_args = case specification
         when :purpose then purpose_args(*args)
         when :explanation then explanation_args(*args)
