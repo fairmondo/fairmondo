@@ -137,7 +137,7 @@ de:
         nonprofit_association: "1. Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
-
+        social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
       article_template:
         name: Vorlage
         article_title: Artikel

@@ -90,7 +90,7 @@ describe 'Article management' do
             within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
               choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
             end
-            check "article_social_producer_questionnaire_attributes_nonprofit_association_purposes_youth_and_elderly"
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_checkboxes_youth_and_elderly"
             within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
               choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
             end
