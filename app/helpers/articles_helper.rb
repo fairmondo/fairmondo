@@ -85,7 +85,6 @@ module ArticlesHelper
     return nil
   end
 
-  #seems unused. remove unless problems arise.
   def libraries
     resource.libraries.where(:public => true).paginate(:page => params[:page], :per_page=>10)
   end

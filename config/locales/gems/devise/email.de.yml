@@ -2,12 +2,13 @@ de:
   devise:
     confirmation:
       resend: "Bestätigungsanweisungen erneut schicken"
-      text: "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
-               Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
-               Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
-               Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
+      text: >
+        "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
+        Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
+        Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
+        Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
       link: "Meine Registrierung bestätigen."
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de oder ignoriere einfach diese Email."
       email:
         text: "Jemand hat einen Link zum Ändern Deiner Email Adresse auf Fairnopoly angefordert. Um Deine Email Adresse zu ändern, klicke auf den folgenden Link:"
         link: "Email Adresse hier ändern"
