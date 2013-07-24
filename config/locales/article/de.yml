@@ -24,7 +24,7 @@ de:
     show:
       friendly_percent: "Das faire Prozent"
       will_be: " werden an "
-      donate_html: "1% werden an <a href='http://www.transparency.de/'>Transparency International</a> gespendet"
+      donate_html: "1% werden an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
