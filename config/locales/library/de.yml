@@ -1,5 +1,7 @@
 de:
 # Libraries
+  libraries:
+    no_library: "Es wurden noch keine Sammlungen von unseren Nutzer*innen angelegt."
   library:
     error:
       uniqueness: "Eine Sammlung mit diesem Namen existiert bereits."
