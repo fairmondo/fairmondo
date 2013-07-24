@@ -9,8 +9,10 @@ de:
     fairnopoly: "Fairnopoly"
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
-      intro: "-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet."
-      contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG c/o Social Impact Lab, Erkelenzdamm 59-61, Portal 1, 10999 Berlin"
+      intro: >
+        "----------
+        Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet."
+      contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
       registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B"
       board: "Vorstand: Anna Kress, Bastian Neumann"
       ceo: "Vorstandsvorsitzender: Felix Weth"
@@ -63,8 +65,8 @@ de:
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
-      libraries: "Sammlungen"
-      about_terms: "AGB / Widerrufserklärung / Impressum"
+      libraries: "Meine Sammlungen"
+      about_terms: "Meine Firmendaten"
       more: "mehr anzeigen"
       less: "weniger anzeigen"
       feedback: "Dein Feedback"
