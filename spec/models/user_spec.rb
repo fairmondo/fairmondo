@@ -45,6 +45,8 @@ describe User do
 
   context "always" do
     it {should validate_presence_of :email}
+    it {should validate_presence_of :nickname}
+    it {should validate_uniqueness_of :nickname}
   end
 
   context "on create" do
@@ -62,7 +64,7 @@ describe User do
     it {should validate_presence_of :country}
     it {should validate_presence_of :street}
     it {should validate_presence_of :city}
-    it {should validate_presence_of :nickname}
+
 
     describe "zip code validation" do
       let(:user) { FactoryGirl.create(:german_user) }

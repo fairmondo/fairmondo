@@ -69,8 +69,10 @@
       - first=false
 = f.input_step :transport_and_payment do
   .Accordion-step
-    %p Versandoptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
+      %li.input
+        %label.label
+          = t('article.labels.shipping_options')
       = f.input :transport_pickup, :as => :plain_check_box
       = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'transport_insured-input-fields', :class => "transport_insured" do
@@ -83,8 +85,10 @@
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
-    %p Bezahloptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
+      %li.input
+        %label.label
+          = t('article.labels.payment_options')
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
         = f.semantic_fields_for :seller do |user|
@@ -105,7 +109,6 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-      = f.semantic_errors :payment_options
       = f.input :payment_details, :input_html => {:rows => 7}
 
 
@@ -126,7 +129,7 @@
       = f.inputs :id => 'ecologic-input-fields' do
         = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
         = f.inputs :id => 'ecologic_seal-input-fields', :class => "ecologic_kind" do
-          = f.input :ecologic_seal, :required => true
+          = f.input :ecologic_seal, :required => true, tooltip: true
         = f.inputs :id => 'upcycling-input-fields', :class => "ecologic_kind" do
           = f.input :upcycling_reason, :required => true , :tooltip => true
     .Accordion-step

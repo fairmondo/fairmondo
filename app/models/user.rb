@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
 
-  validates_presence_of :nickname
+  validates :nickname , :presence => true, :uniqueness => true
 
   validates :zip, :presence => true, :on => :update, :zip => true
   # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
@@ -110,6 +110,8 @@ class User < ActiveRecord::Base
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
   validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
   validates :paypal_account , :presence => true , :if => :paypal_validation
+
+  validates :about_me, :length => { :maximum => 2500 }
 
   # Return forename plus surname
   # @api public
