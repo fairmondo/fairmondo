@@ -60,7 +60,6 @@ describe User do
   context "on update" do
     it {should validate_presence_of :forename}
     it {should validate_presence_of :surname}
-    it {should validate_presence_of :title}
     it {should validate_presence_of :country}
     it {should validate_presence_of :street}
     it {should validate_presence_of :city}
