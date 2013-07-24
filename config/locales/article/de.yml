@@ -13,9 +13,10 @@ de:
 
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+
     included_short: "Inkl."
     vat: "Mehrwertsteuer"
-    vat_included: "Inkl. Mehrwertsteuer"
+    vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
     transport:
       placeholders:
         insured_provider: "z.B. DHL Paket"
@@ -52,8 +53,6 @@ de:
         small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an!"
 
-
-
     labels:
       shipping_options: "Versandoptionen:"
       payment_options: "Bezahloptionen:"
@@ -69,7 +68,7 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
+      create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"

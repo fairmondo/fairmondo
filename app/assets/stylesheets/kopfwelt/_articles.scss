@@ -105,6 +105,7 @@ span.Article-price {
 }
 .Article-vat,
 .Article-basicprice,
+.Article-transportprice,
 .Article-basicset {
 	@include rem(font-size, 10px);
 	line-height: 1;
