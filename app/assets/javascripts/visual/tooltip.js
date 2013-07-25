@@ -32,27 +32,44 @@ $(document).ready(function(){
   });
 
 });
- */
+*/
 
 $(document).ready(function(){
-  $("i.icon-helper").tooltip({
+  $("i.icon-helper").tooltip
+  (
+  {
     tooltipClass: "bottom", // class for the arrow/pointer
-    position: {
+    position:
+    {
       my: "center top",
-      at: "center bottom+20",
-      collision: "none"
+      at: "center bottom+20"
     },
-    content: function() {
+    open: function( e, ui ) {
+    	$(e.target).data("opened",true);
+    },
+    close: function( e, ui ) {
+    	$(e.target).data("opened",false);
+    },
+    content: function()
+    {
       return $(this).attr('title').split('\n').join('<br/>');  // this allows line breaks
     }
-  }).off('mouseover');
+  }
+  ).off('mouseover');
+
+
+
   $("i.icon-helper").on( "mouseleave", function( e ) {
     e.stopImmediatePropagation();
   });
   $("i.icon-helper").on('click',function(e) {
     e.stopPropagation();
-    $("i.icon-helper").tooltip('close');
-    $(e.target).tooltip('open');
+
+    alreadyopen = $(e.target).data("opened")
+    $("i.icon-helper").tooltip('close'); //Close all open tooltips
+    if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
+    	$(e.target).tooltip('open');
+    }
   });
 
   $('html').delegate('.ui-tooltip-content' ,'click',function(e){
