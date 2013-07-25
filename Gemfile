@@ -15,8 +15,6 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  # exclude Debugger from CI
-
   gem 'debugger', :group => [:development, :test]
 
 end
