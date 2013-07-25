@@ -79,7 +79,7 @@ de:
         transparency_international: Transparency International
 
     social_producer_questionnaire:
-      nonprofit_association_purposes:
+      nonprofit_association_checkboxes:
         youth_and_elderly: Förderung der Jugend- und Altenhilfe
         art_and_culture: Förderung von Kunst und Kultur
         national_and_vocational_training: Förderung der Erziehung, Volks- und Berufsbildung
@@ -93,13 +93,13 @@ de:
         convicts_and_ex_convicts: Förderung der Fürsorge für Strafgefangene und ehemalige Strafgefangene
         sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
         democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind
-      social_businesses_muhammad_yunus_purposes:
+      social_businesses_muhammad_yunus_checkboxes:
         social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
         dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
         reinvestment: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
         natural_protection: Arbeitet das Unternehmen umweltbewusst ?
         conditions_of_work: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
-      social_entrepreneur_purposes:
+      social_entrepreneur_checkboxes:
         social_proplem: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
         big_social_groups: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
         small_social_groups: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?

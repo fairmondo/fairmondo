@@ -36,7 +36,7 @@ class PlainCheckBoxInput < Formtastic::Inputs::BooleanInput
   def check_box_html
     opts = input_html_options
     if options[:js_toggle]
-      css_class = options[:js_toggle].is_a?(String) ? options[:js_toggle] : "#{method}-input-fields"
+      css_class = options[:js_toggle].is_a?(String) ? options[:js_toggle] : "#{method}-checked"
       opts["data-select-toggle"] ||= css_class
     end
     template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, opts)

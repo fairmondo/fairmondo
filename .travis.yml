@@ -3,9 +3,10 @@ rvm:
   - 1.9.3
 env:
   - DB=sqlite
+  - CI=true
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
-  - RAILS_ENV=test rspec
+  - RAILS_ENV=test bundle exec rspec
 notifications:
   email:
     - devel-team@fairnopoly.de

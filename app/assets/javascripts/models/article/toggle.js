@@ -27,36 +27,14 @@ $(document).ready(function(){
 			box = $(this);
 			area_id = box.attr("data-select-toggle");
 			$("#" + area_id).parent().toggle(this.checked);
-		}).trigger('change')
+		});
 
-	if (!$.support.leadingWhitespace) { // IE 7 / 8 version
-		$("input[data-select-toggle][type=radio]")
-			.on('change ifChanged',function (e) {
+	$("input[data-select-toggle][type=radio]")
+			.on('ifCreated ifToggled',function (e) {
 				box = $(this);
 				area_id = box.attr("data-select-toggle");
-				boxes_for_other_areas = $("input[data-select-toggle][type=radio]")
+				$("#" + area_id).parent().toggle(this.checked);
+			});
 
-				boxes_for_other_areas.each(function(i) {
-					other_box = $(this);
-					if (! other_box.attr("checked")) {
-						other_area_id = other_box.attr("data-select-toggle");
-						$("#" + other_area_id).parent().toggle(false);
-					}
-				});
-				if (box.attr("checked")) {
-					$("#" + area_id).parent().toggle(true);
-				}
-			}).trigger('change');
-	} else {
-		$("input[data-select-toggle][type=radio]")
-			.on('change ifChanged',function (e) {
-				box = $(this);
-				area_id = box.attr("data-select-toggle");
-				$("#" + area_id).parent().toggle(box.is(":checked"));
-				if(e.isTrigger == undefined) {
-				  $("input[name='" + box.attr("name") + "']:not([data-select-toggle=" + area_id + "])").trigger('change');
-				}
-			}).trigger('change')
-	}
 
 });
