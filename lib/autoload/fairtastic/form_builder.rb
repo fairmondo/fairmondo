@@ -39,7 +39,7 @@ module Fairtastic
     def input_with (specification, *args)
        ActiveSupport::Deprecation.warn "please stop using this method in favour of formtastic build-ins", caller
       input_args = case specification
-        when :purpose then purpose_args(*args)
+        # when :purpose then purpose_args(*args)
         when :explanation then explanation_args(*args)
         #else raise ArgumentError, "input_with called with an unfamiliar argument"
       end
@@ -107,14 +107,6 @@ module Fairtastic
       else
          options[:class] = "inputs"
       end
-      args << options
-    end
-
-    def purpose_args(*args)
-      options = args.extract_options!
-      options[:as] = options[:purpose_as] || :check_boxes
-      options[:label] =  I18n.t('formtastic.labels.questionnaire.purpose')
-      args[0] = (args[0].to_s << "_purposes").to_sym
       args << options
     end
 
