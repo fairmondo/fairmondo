@@ -64,9 +64,12 @@ textarea {
 	&::-moz-placeholder {  /* Firefox 19+ */
 		color: #888;
 	}
-
-
 }
+
+input[type='file'] {
+	width: 100%;
+}
+
 input[type='text'],
 input[type='search'],
 input[type='email'],
