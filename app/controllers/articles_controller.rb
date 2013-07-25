@@ -105,6 +105,8 @@ class ArticlesController < InheritedResources::Base
       destroy! { articles_path }
     elsif resource.locked?
       resource.close
+      # delete the article from the collections
+      resource.library_elements.delete_all
       redirect_to articles_path
     end
 
@@ -137,6 +139,8 @@ class ArticlesController < InheritedResources::Base
       params.delete :article # Do not allow any other change
       authorize resource, :deactivate?
       resource.deactivate
+      # delete the article from the collections
+      resource.library_elements.delete_all
       flash[:notice] = I18n.t('article.notices.deactivated')
     end
   end
