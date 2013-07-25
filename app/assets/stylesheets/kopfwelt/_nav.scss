@@ -36,16 +36,8 @@
 	text-align: center;
 
 	li {
-		margin-left: em(5,14);
-		margin-right: em(5,14);
-		@include at-breakpoint(40em) {
-			margin-left: em(10,14);
-			margin-right: em(10,14);
-		}
-		@include at-breakpoint(50.7em lt-ie9) {
-			margin-left: em(18,14);
-			margin-right: em(18,14);
-		}
+		// all margins moved to the icon to avoid
+		// the jump on hover
 	}
 	a {
 		@include rem(min-width, 70px); // prevent jump
@@ -57,10 +49,19 @@
 	}
 	.icon {
 		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: em(5,14);
+		margin-right: em(5,14);
 		width: icon-sprite-width(buy);
 		height: icon-sprite-height(buy);
+
+		@include at-breakpoint(40em) {
+			margin-left: em(10,14);
+			margin-right: em(10,14);
+		}
+		@include at-breakpoint(50.7em lt-ie9) {
+			margin-left: em(18,14);
+			margin-right: em(18,14);
+		}
 	}
 	@include at-breakpoint(40em lt-ie9) {
 		float: right;
