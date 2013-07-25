@@ -16,9 +16,9 @@ platforms :ruby do
     gem 'pg'
   end
   # exclude Debugger from CI
-  # unless ENV["CI"]
-  #   gem 'debugger', :group => [:development, :test]
-  # end
+  unless ENV["CI"]
+    gem 'debugger', :group => [:development, :test]
+  end
 end
 
 # Forms & Upload
