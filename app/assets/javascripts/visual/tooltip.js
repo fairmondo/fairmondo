@@ -42,8 +42,7 @@ $(document).ready(function(){
     position:
     {
       my: "center top",
-      at: "center bottom+20",
-      collision: "none"
+      at: "center bottom+20"
     },
     open: function( e, ui ) {
     	$(e.target).data("opened",true);
