@@ -42,6 +42,12 @@ $(document).ready(function(){
       at: "center bottom+20",
       collision: "none"
     },
+    open: function( e, ui ) {
+    	$(e.target).data("opened",true);
+    },
+    close: function( e, ui ) {
+    	$(e.target).data("opened",false);
+    },
     content: function() {
       return $(this).attr('title').split('\n').join('<br/>');  // this allows line breaks
     }
@@ -51,8 +57,11 @@ $(document).ready(function(){
   });
   $("i.icon-helper").on('click',function(e) {
     e.stopPropagation();
-    $("i.icon-helper").tooltip('close');
-    $(e.target).tooltip('open');
+    alreadyopen = $(e.target).data("opened")
+    $("i.icon-helper").tooltip('close'); //Close all open tooltips
+    if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
+    	$(e.target).tooltip('open');
+    }
   });
 
   $('html').delegate('.ui-tooltip-content' ,'click',function(e){
