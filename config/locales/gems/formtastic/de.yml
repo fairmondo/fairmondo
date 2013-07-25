@@ -93,6 +93,7 @@ de:
         default_transport: "Bevorzugte Versandmethode"
         transport_details: "Weitere Angaben:"
 
+        default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
         payment_cash: Barzahlung bei Abholung
         payment_paypal: PayPal
