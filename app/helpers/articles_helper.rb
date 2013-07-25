@@ -66,9 +66,17 @@ module ArticlesHelper
     thumbnails
   end
 
-  def find_fair_alternative_to article
+  def find_fair_alternative_to article, params
+    if params['article'] && params['article']['title'] && !params['article']['title'].blank?
+      find_fair_alternative params['article']['title'], article
+    else
+      find_fair_alternative article.title, article
+    end
+  end
+
+  def find_fair_alternative text, article
     search = Article.search do
-      fulltext article.title do
+      fulltext text do
         boost(3.0) { with(:fair, true) }
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
