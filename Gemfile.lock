@@ -102,6 +102,7 @@ GEM
     coffee-script-source (1.6.3)
     colored (1.2)
     colorize (0.5.8)
+    columnize (0.3.6)
     compass (0.13.alpha.4)
       chunky_png (~> 1.2)
       listen (<= 0.9.9)
@@ -116,6 +117,12 @@ GEM
       thor
     daemons (1.1.9)
     debug_inspector (0.0.2)
+    debugger (1.6.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.4.4)
@@ -408,6 +415,7 @@ DEPENDENCIES
   compass-rails
   coveralls
   daemons
+  debugger
   delayed_job_active_record
   devise
   enumerize (>= 0.5.1)
