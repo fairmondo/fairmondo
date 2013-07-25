@@ -26,6 +26,9 @@
 	p {
 		@include rem(font-size, $font-size-m);
 	}
+	a {
+		color: white;
+	}
 }
 .Notice--info {
 	background-color: $green;
