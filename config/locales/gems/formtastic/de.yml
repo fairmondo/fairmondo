@@ -60,7 +60,7 @@ de:
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
 
-        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
+        fair_trust_questionnaire: "Fragebogen für 'fairtrust'"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "klein&edel"
@@ -114,25 +114,20 @@ de:
         save_as_template: "Eingaben als Vorlage speichern"
       fair_trust_questionnaire:
         support: >
-          1. Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
-        transparency: >
-          2. Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
-        minimum_wage: >
-          3. Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
-        child_labor: >
-          4. Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
-        sexual_equality: >
-          5. a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
-        collaboration: >
-          6. Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
+          1. Werden vom Weltmarkt marginsaliserte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
         labor_conditions: >
-          7. Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
-        producer_advancement: >
-          8. Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
-        awareness_raising: >
-         9. Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+          2. Wird für angemessene Arbeitsbedindungen gesorgt?
         environment_protection: >
-         10. Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+          3. Werden in der Produktion Aspekte der ökologischen Nachhaltigkeit berücksichtigt?
+        controlling: >
+          4. Gibt es Maßnahmen zur Überprüfung der o.g. Kriterien und deren Nachvollziehbarkeit?
+        awareness_raising: >
+          5. Werden Bildungsmaßnahmen zur Sensibilisierung von Verbraucher*innen sowie Maßnahmen zur Transparenz geleistet?
+        support_explanation: 'Erläuterungen:'
+        labor_conditions_explanation: 'Erläuterungen:'
+        environment_protection_explanation: 'Erläuterungen:'
+        controlling_explanation: 'Erläuterungen:'
+        awareness_raising_explanation: 'Erläuterungen:'
       social_producer_questionnaire:
         nonprofit_association: "1. Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
