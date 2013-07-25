@@ -16,7 +16,7 @@ de:
     reset:
       text: "Jemand hat einen Link zum Ändern Deines Passworts auf Fairnopoly angefordert. Um Dein Passwort zu ändern, klicke auf den folgenden Link:"
       link: "Passwort hier ändern"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de, oder ignoriere einfach diese Email."
       info: "Dein Passwort ändert sich erst, wenn Du den oben angegebenen Link benutzt, um ein neues Passwort anzulegen."
       request: "Bitte sende mir Anweisungen zu, um mein Passwort zurückzusetzen"
       title: "Passwort vergessen?"
@@ -27,4 +27,4 @@ de:
       info: "Dein Benutzerkonto wurde aufgrund einer ungewöhnlich hohen Anzahl fehlgeschlagener Login-Versuche gesperrt."
       linktext: "Klicke auf den unten stehenden Link, um Dein Benutzerkonto freizuschalten:"
       link: "Benutzerkonto freischalten"
-      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: email@fairnopoly.de, oder ignoriere einfach diese Email."
+      ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de, oder ignoriere einfach diese Email."
