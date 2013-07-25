@@ -8,7 +8,6 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
-        purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
       user:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
