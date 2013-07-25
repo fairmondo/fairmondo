@@ -33,6 +33,15 @@ class FairTrustQuestionnaire < ActiveRecord::Base
 
   belongs_to :article
 
+  def initialize(*args)
+    if args.present?
+      args[0].select{|k,v| k.match(/_checkboxes$/)}.each_pair do |k, v|
+        args[0][k] = v.reject(&:empty?)
+      end
+    end
+    super
+  end
+
   # Q1
 
   serialize :support_checkboxes, Array
@@ -46,11 +55,11 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :community,
     :premiums,
     :other
-  ]
+  ], multiple: true
 
   validates :support, presence: true
-  validates :support_checkboxes, presence: true, if: :support
-  validates :support_explanation, presence: true, if: :support
+  validates :support_checkboxes, presence: true, size: {in: 3..-1}, if: :support
+  validates :support_explanation, presence: true, length: {minimum: 150}, if: :support
 
   # Q2
 
@@ -66,11 +75,12 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :child_labor_ban,
     :child_labor_restrictions,
     :other
-  ]
+  ], multiple: true
 
   validates :labor_conditions, presence: true
-  validates :labor_conditions_checkboxes, presence: true, if: :labor_conditions
-  validates :labor_conditions_explanation, presence: true, if: :labor_conditions
+  validates :labor_conditions_checkboxes, presence: true,
+                              size: {in: 4..-1}, if: :labor_conditions
+  validates :labor_conditions_explanation, presence: true, length: {minimum: 150}, if: :labor_conditions
 
   # Q3
 
@@ -84,11 +94,11 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :ecological_farming,
     :ecological_farming_transition,
     :other
-  ]
+  ], multiple: true
 
   #validates :environment_protection, presence: true
   validates :environment_protection_checkboxes, presence: true, if: :environment_protection
-  #validates :environment_protection_explanation, presence: true, if: :environment_protection
+  validates :environment_protection_explanation, length: {minimum: 150}, if: :environment_protection
 
   # Q4
 
@@ -100,12 +110,12 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :producer_visits,
     :own_system,
     :other
-  ]
+  ], multiple: true
 
   # remove? I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
   validates :controlling, presence: true
-  validates :controlling_checkboxes, presence: true, if: :controlling
-  validates :controlling_explanation, presence: true, if: :controlling
+  validates :controlling_checkboxes, presence: true, size: {in: 2..-1}, if: :controlling
+  validates :controlling_explanation, presence: true, length: {minimum: 150}, if: :controlling
 
   # Q5
 
@@ -118,10 +128,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :global_market_education,
     :fair_trade_concept,
     :other
-  ]
+  ], multiple: true
 
   #validates :awareness_raising, presence: true
   validates :awareness_raising_checkboxes, presence: true, if: :awareness_raising
-  #validates :awareness_raising_explanation, presence: true, if: :awareness_raising
+  validates :awareness_raising_explanation, length: {minimum: 150}, if: :awareness_raising
 
 end
