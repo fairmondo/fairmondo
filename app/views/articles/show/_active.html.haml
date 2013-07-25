@@ -24,7 +24,7 @@
       = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"}
 
 .Related
-  - alternative = find_fair_alternative_to resource
+  - alternative = find_fair_alternative_to resource, params
   .Article.Article--related
     %h3.Article-title
       = t('article.show.alternative')
