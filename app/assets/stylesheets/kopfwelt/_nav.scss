@@ -18,7 +18,7 @@
 		@extend %Semibold;
 		// display: block;
 		text-decoration: none;
-		
+
 		&:hover,
 		&.selected {
 			color: #f1f1f1;
@@ -32,14 +32,19 @@
 
 .Nav--primary {
 	clear: left;
-	@include rem(margin, 22px auto 0);
+	margin: 22px auto 10px;
 	text-align: center;
 
 	li {
-		margin-right: 0;
-		&.last { margin-right: 0; }
+		margin-left: em(5,14);
+		margin-right: em(5,14);
+		@include at-breakpoint(40em) {
+			margin-left: em(10,14);
+			margin-right: em(10,14);
+		}
 		@include at-breakpoint(50.7em lt-ie9) {
-			@include rem(margin-right, 36px);
+			margin-left: em(18,14);
+			margin-right: em(18,14);
 		}
 	}
 	a {
@@ -57,9 +62,11 @@
 		width: icon-sprite-width(buy);
 		height: icon-sprite-height(buy);
 	}
-	@include at-breakpoint(42.214em lt-ie9) {
+	@include at-breakpoint(40em lt-ie9) {
 		float: right;
 		clear: none;
+		margin-bottom: 0;
+		.last { margin-right: 0; }
 	}
 }
 
