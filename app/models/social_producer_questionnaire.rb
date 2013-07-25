@@ -35,11 +35,12 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
 
   # Validations
 
-  before_validation :is_social_producer?
+  validate :is_social_producer
 
-  validates_presence_of :nonprofit_association_checkboxes, :if => :nonprofit_association?
-  validates_presence_of :social_businesses_muhammad_yunus_checkboxes, :if => :social_businesses_muhammad_yunus?
-  validates_presence_of :social_entrepreneur_checkboxes, :if => :social_entrepreneur?
+  validates :nonprofit_association_checkboxes, :size => {:in => 1..-1}, :if => :nonprofit_association?
+  validates :social_businesses_muhammad_yunus_checkboxes, :size => {:in => 1..-1}, :if => :social_businesses_muhammad_yunus?
+  validates :social_entrepreneur_checkboxes, :size => {:in => 1..-1}, :if => :social_entrepreneur?
+  validates_presence_of :social_entrepreneur_explanation, :if => :social_entrepreneur?
 
 
   serialize :nonprofit_association_checkboxes, Array
@@ -79,8 +80,10 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   ], :multiple => true
 
 
-  def is_social_producer?
-    self.nonprofit_association? || self.social_businesses_muhammad_yunus? || self.social_entrepreneur?
+  def is_social_producer
+    unless (self.nonprofit_association? || self.social_businesses_muhammad_yunus? || self.social_entrepreneur?)
+      errors.add(:base,I18n.t('article.form.errors.social_producer_questionnaire.no_social_producer'))
+    end
   end
 
 end
