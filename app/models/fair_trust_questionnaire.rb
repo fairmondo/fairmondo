@@ -18,46 +18,110 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class FairTrustQuestionnaire < ActiveRecord::Base
+  extend Enumerize
 
-  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  # This thing will be reworked soon so don't work on this till they finished the concept
-  # ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  attr_accessible :support, :support_explanation,
-   :transparency, :transparency_explanation,
-   :collaboration,:collaboration_explanation,
-   :minimum_wage, :minimum_wage_explanation,
-   :child_labor, :child_labor_explanation,
-   :sexual_equality, :sexual_equality_explanation ,
-   :labor_conditions, :labor_conditions_explanation,
-   :producer_advancement,:producer_advancement_explanation,
-   :awareness_raising, :awareness_raising_explanation,
-   :environment_protection,:environment_protection_explanation
+  # Question 1: supports marginalized workers (req)
+  attr_accessible :support, :support_checkboxes, :support_explanation,
+    # Question 2: labor conditions acceptable? (req)
+    :labor_conditions, :labor_conditions_checkboxes, :labor_conditions_explanation,
+    # Question 3: is production environmentally friendly (opt)
+    :environment_protection, :environment_protection_checkboxes, :environment_protection_explanation,
+    # Question 4: does controlling of these standards exist (req)
+    :controlling, :controlling_checkboxes, :controlling_explanation,
+    # Question 5: awareness raising programs supported? (opt)
+    :awareness_raising, :awareness_raising_checkboxes, :awareness_raising_explanation
 
   belongs_to :article
 
-  validates_presence_of :support
-  validates_presence_of :support_explanation
-  validates_presence_of :transparency
-  validates_presence_of :transparency_explanation
+  # Q1
 
-  validates_presence_of :minimum_wage
-  validates_presence_of :minimum_wage_explanation
-  validates_presence_of :child_labor, :message => I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
-  validates_presence_of :child_labor_explanation
+  serialize :support_checkboxes, Array
+  enumerize :support_checkboxes, in: [
+    :prefinance,
+    :longterm,
+    :development,
+    :minimum_wage,
+    :higher_prices,
+    :direct_negotiations,
+    :community,
+    :premiums,
+    :other
+  ]
 
-  validates_presence_of :sexual_equality
-  validates_presence_of :sexual_equality_explanation
+  validates :support, presence: true
+  validates :support_checkboxes, presence: true, if: :support
+  validates :support_explanation, presence: true, if: :support
 
+  # Q2
 
-  # validate explanation of extra details
-  validates_presence_of :collaboration_explanation, :if => :collaboration
-  validates_presence_of :labor_conditions_explanation, :if => :labor_conditions
-  validates_presence_of :producer_advancement_explanation, :if => :producer_advancement
-  validates_presence_of :awareness_raising_explanation, :if => :awareness_raising
-  validates_presence_of :environment_protection_explanation, :if => :environment_protection
+  serialize :labor_conditions_checkboxes, Array
+  enumerize :labor_conditions_checkboxes, in: [
+    :secure_environment,
+    :hygiene,
+    :working_hours,
+    :free_assembly,
+    :advocacy_group,
+    :sexual_equality,
+    :no_discrimination,
+    :child_labor_ban,
+    :child_labor_restrictions,
+    :other
+  ]
 
+  validates :labor_conditions, presence: true
+  validates :labor_conditions_checkboxes, presence: true, if: :labor_conditions
+  validates :labor_conditions_explanation, presence: true, if: :labor_conditions
 
+  # Q3
 
+  serialize :environment_protection_checkboxes, Array
+  enumerize :environment_protection_checkboxes, in: [
+    :chemical_fertilizers,
+    :pesticides,
+    :waste_management,
+    :recycling,
+    :renewable_energies,
+    :ecological_farming,
+    :ecological_farming_transition,
+    :other
+  ]
+
+  #validates :environment_protection, presence: true
+  validates :environment_protection_checkboxes, presence: true, if: :environment_protection
+  #validates :environment_protection_explanation, presence: true, if: :environment_protection
+
+  # Q4
+
+  serialize :controlling_checkboxes, Array
+  enumerize :controlling_checkboxes, in: [
+    :transparent_supply_chain,
+    :annual_reports,
+    :inspectors,
+    :producer_visits,
+    :own_system,
+    :other
+  ]
+
+  # remove? I18n.t('article.form.errors.FairTrustQuestionnaire.invalid')
+  validates :controlling, presence: true
+  validates :controlling_checkboxes, presence: true, if: :controlling
+  validates :controlling_explanation, presence: true, if: :controlling
+
+  # Q5
+
+  serialize :awareness_raising_checkboxes, Array
+  enumerize :awareness_raising_checkboxes, in: [
+    :producer_transparency,
+    :employee_transparency,
+    :price_transparency,
+    :responsible_consumption_education,
+    :global_market_education,
+    :fair_trade_concept,
+    :other
+  ]
+
+  #validates :awareness_raising, presence: true
+  validates :awareness_raising_checkboxes, presence: true, if: :awareness_raising
+  #validates :awareness_raising_explanation, presence: true, if: :awareness_raising
 
 end
