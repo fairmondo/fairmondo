@@ -18,6 +18,26 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ArticlesHelper
+
+  def get_social_producer_questionaire_for question, article
+    html = ""
+    if article.social_producer_questionnaire.send(question)
+
+      html << "<p><b>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<p>" + t('article.show.agree')+ "</p>"
+
+      value = article.social_producer_questionnaire.attributes[question.to_s + "_checkboxes"]
+      if value
+        html << "<ul>"
+        value.each do |purpose|
+          html << "<li>" + t('enumerize.social_producer_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
+        end
+        html << "</ul>"
+      end
+    end
+    html.html_safe
+  end
+
   # Conditions
   def condition_label article
     # bclass=condition_badge_class(article.condition)
@@ -28,11 +48,15 @@ module ArticlesHelper
   def features_label article
     html = ""
 
-    html << "<span class=\"Btn Btn-tag Btn-tag--blue\">" + t("formtastic.labels.article.fair")+ "</span>" if article.fair
-    html << "<span class=\"Btn Btn-tag Btn-tag--green\">" + t("formtastic.labels.article.ecologic")+ "</span>" if article.ecologic
-    html << "<span class=\"Btn Btn-tag Btn-tag--orange\">" + t("formtastic.labels.article.small_and_precious")+ "</span>" if article.small_and_precious
+    html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue") if article.fair
+    html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green") if article.ecologic
+    html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange") if article.small_and_precious
 
+    html.html_safe
+  end
 
+  def get_features_label text, btn_class
+    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
     html.html_safe
   end
 
