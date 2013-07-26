@@ -89,7 +89,7 @@ $(document).ready ->
 
   if is_multiselect
     #Create the select category button
-    select_button_html = "<a class='Btn' id='"+ select_button_html_id + "'>"+I18n.t("javascript.common.actions.select_another_category")+"</a>"
+    select_button_html = "<a class='Btn' id='"+ select_button_html_id + "' title=" + I18n.t('javascript.common.actions.select_another_category') + ">"+I18n.t("javascript.common.actions.add_category_picker")+"</a>"
     select_button = $(select_button_html)
     native_category_input.parent().append select_button
     # Event for select button

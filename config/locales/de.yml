@@ -72,6 +72,7 @@ de:
       feedback: "Dein Feedback"
       help: "Hilfe"
       my_articles: "Meine Artikel"
+      fair: "Fair"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

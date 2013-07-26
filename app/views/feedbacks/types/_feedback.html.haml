@@ -6,7 +6,7 @@
     -# user-input
 
     = f.input :from, required: false
-    = f.input :subject, required: true, placeholder: t('feedback.title.send_feedback')
+    = f.input :subject, required: true, :input_html => { value: t('feedback.title.send_feedback'), :readonly => true}
     = f.input :text, label: false, required: true
     = f.input :feedback_subject, as: :select, required: true, include_blank: true
 
