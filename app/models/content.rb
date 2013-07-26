@@ -23,7 +23,7 @@ class Content < ActiveRecord::Base
   extend Sanitization
 
   attr_accessible :body, :key
-  extend AccessibleForAdmins
+  attr_accessible :body, :key, as: :admin
 
   auto_sanitize :key
   auto_sanitize :body, method: 'tiny_mce', admin: true
