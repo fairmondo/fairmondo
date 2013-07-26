@@ -23,7 +23,7 @@ FactoryGirl.define do
   factory :user, aliases: [:seller,:buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
-    nickname    { Faker::Internet.user_name }
+    sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
     privacy     "1"

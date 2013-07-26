@@ -7,6 +7,10 @@ body {
 }
 .l-Inner {
 	@include container;
+	@media (max-width: 25em) {
+		padding-left: $gutter-width / 2;
+		padding-right: $gutter-width / 2;
+	}
 }
 .l-Header {
 	background-image: url(asset-path("back3.gif", image));
