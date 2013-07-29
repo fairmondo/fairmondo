@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
-  validates_presence_of :transaction
+  validates_presence_of :transaction, :unless => :template?
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
