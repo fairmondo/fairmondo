@@ -27,7 +27,6 @@
         = f.inputs do
           = f.input :save_as_template, :as => :plain_check_box, :tooltip=> true
           - f.object.build_article_template unless f.object.article_template #we need this because we sometimes delete this on validation
-          = f.object.article_template.errors.to_json
           = f.semantic_fields_for :article_template do |template_form|
             = template_form.input :name, :required => false
       = f.actions do
