@@ -3,10 +3,10 @@ de:
     confirmation:
       resend: "Bestätigungsanweisungen erneut schicken"
       text: >
-        "Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
+        Vielen Dank für Deine Registrierung bei Fairnopoly, dem fairen Online-Marktplatz in Hand der Nutzer*innen!
         Durch Deine Registrierung hast Du Dich bereit erklärt, die angehängten AGB und die Datenschutzerklärung von Fairnopoly zu akzeptieren.
         Bitte bestätige Deine Emailadresse, um den Registrierungsvorgang abzuschließen.
-        Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:"
+        Für die Bestätigung der Registrierung klicke bitte auf den folgenden Link:
       link: "Meine Registrierung bestätigen."
       ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de oder ignoriere einfach diese Email."
       email:
