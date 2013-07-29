@@ -19,7 +19,7 @@
 -#
 
 %figure.Article-image
-  = link_to image_tag(article.title_image_url(:thumb)), article_path(article,:article => params[:article])
+  = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
 
 .Article-info
   %h3.Articles-title= link_to truncate(article.title, :length => 25), article_path(article)
