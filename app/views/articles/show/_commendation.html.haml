@@ -40,17 +40,11 @@
         - when "fair_trust"
           - if resource.fair_trust_questionnaire
             %h3= t('enumerize.article.fair_kind.fair_trust')
-            - for attribute in resource.fair_trust_questionnaire.attributes.keys
-              - value = resource.fair_trust_questionnaire.attributes[attribute]
-              - if !attribute.to_s.downcase.include? "id"
-                - if attribute.to_s.downcase.include? "explanation"
-                  %p
-                    = value.to_s
-                - else
-                  %p= t('formtastic.labels.article.fair_trust_questionnaire.' + attribute.to_s)
-                  %p
-                    %strong
-                      = value ? t('article.show.agree') : t('article.show.non_agree')
+            = get_fair_trust_questionaire_for :support, resource
+            = get_fair_trust_questionaire_for :labor_conditions, resource
+            = get_fair_trust_questionaire_for :environment_protection, resource
+            = get_fair_trust_questionaire_for :controlling, resource
+            = get_fair_trust_questionaire_for :awareness_raising, resource
         - when "fair_seal"
           %h3= t('enumerize.article.fair_kind.fair_seal')
           %p

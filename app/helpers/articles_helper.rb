@@ -38,6 +38,27 @@ module ArticlesHelper
     html.html_safe
   end
 
+  def get_fair_trust_questionaire_for question, article
+    html = ""
+    if article.fair_trust_questionnaire.send(question)
+
+      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<p>" + t('article.show.agree')+ "</p>"
+
+      value = article.fair_trust_questionnaire.attributes[question.to_s + "_checkboxes"]
+      if value
+        html << "<ul>"
+        value.each do |purpose|
+          html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
+        end
+        html << "</ul>"
+      end
+      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s +  '_explanation') + "</b></p>"
+      html << "<p>" + article.fair_trust_questionnaire.send(question.to_s + "_explanation") + "</p>"
+    end
+    html.html_safe
+  end
+
   # Conditions
   def condition_label article
     # bclass=condition_badge_class(article.condition)
