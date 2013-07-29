@@ -57,9 +57,12 @@ class Article < ActiveRecord::Base
     self.images.clear
     attributes.each_key do |key|
       if attributes[key].has_key? :id
-        image = Image.find(attributes[key][:id])
-        image.update_attributes(attributes[key])
-        self.images << image unless attributes[key][:_destroy] == "1"
+        unless attributes[key][:_destroy] == "1"
+           image = Image.find(attributes[key][:id])
+           image.image = attributes[key]["image"] if attributes[key].has_key? :image # updated the image itself
+           self.images << image
+        end
+
       else
         self.images << Image.new(attributes[key])
       end
