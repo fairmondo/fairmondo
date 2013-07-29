@@ -23,8 +23,9 @@ module Article::Search
   included do
 
     searchable :unless => :template?, :if => :active? do
-      text :title, :boost => 5.0 , :stored => true
-      text :content, :as => "content"
+      text :title, :boost => 5.0, :stored => true
+      text :title, :as => 'title_text_ngram', :stored => true
+      text :content
       boolean :fair
       boolean :ecologic
       boolean :small_and_precious

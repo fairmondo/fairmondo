@@ -61,7 +61,7 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="text" class="solr.TextField" omitNorms="false" positionIncrementGap="0">
       <analyzer type="index">
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.HyphenatedWordsFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.DictionaryCompoundWordTokenFilterFactory" dictionary="german-common-nouns.txt"
@@ -72,36 +72,17 @@
 		<tokenizer class="solr.WhitespaceTokenizerFactory"/>
 		<filter class="solr.LowerCaseFilterFactory"/>
 		<filter class="solr.GermanStemFilterFactory"/>
-
 	  </analyzer>
     </fieldType>
-    <fieldType name="autocomplete" class="solr.TextField" positionIncrementGap="100">
-	  <analyzer type="index">
-	    <tokenizer class="solr.KeywordTokenizerFactory"/>
-	    <filter class="solr.LowerCaseFilterFactory"/>
-	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" />
-	  </analyzer>
-	  <analyzer type="query">
-		<tokenizer class="solr.KeywordTokenizerFactory"/>
-		<filter class="solr.LowerCaseFilterFactory"/>
-	  </analyzer>
-	</fieldType>
-    <fieldType name="content" class="solr.TextField" omitNorms="false" positionIncrementGap="50">
-      <analyzer type="index">
-      	<charFilter class="solr.HTMLStripCharFilterFactory"/>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.HyphenatedWordsFilterFactory"/>
+     <fieldType name="text_ngram" class="solr.TextField" omitNorms="false">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-		<filter class="solr.DictionaryCompoundWordTokenFilterFactory" dictionary="german-common-nouns.txt"
-           		minWordSize="5" minSubwordSize="4" maxSubwordSize="15" onlyLongestMatch="false"/>
-		<filter class="solr.GermanStemFilterFactory"/>
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="6" side="front"/>
       </analyzer>
-	  <analyzer type="query">
-		<tokenizer class="solr.WhitespaceTokenizerFactory"/>
-		<filter class="solr.LowerCaseFilterFactory"/>
-		<filter class="solr.GermanStemFilterFactory"/>
-	  </analyzer>
     </fieldType>
+
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
@@ -158,7 +139,6 @@
     <field name="class_name" stored="false" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
     <field name="text" stored="false" type="string" multiValued="true" indexed="true"/>
-    <field name="content" stored="false" type="content" multiValued="true" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
     <field name="lat" stored="true" type="tdouble" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
@@ -272,7 +252,10 @@
     <dynamicField name="*_llm" stored="false" type="location" multiValued="true" indexed="true"/>
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
-    <dynamicField name="*_ac" type="autocomplete" indexed="true"  stored="true"/>
+
+	<!-- NGram Autocomplete -->
+	<dynamicField name="*_text_ngram" type="text_ngram" stored="true" multiValued="true" indexed="true"/>
+
   </fields>
   <!-- Field to use to determine and enforce document uniqueness.
       Unless this field is marked with required="false", it will be a required field
