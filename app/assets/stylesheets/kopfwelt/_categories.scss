@@ -15,24 +15,25 @@
   }
 
   .Category-delete, #Category-selectbutton,.Category-selected {
-     @include at-breakpoint($layout-large) {
-       width: columns(1,4);
-       margin-right: 10px;
-       overflow: hidden;
-       text-overflow:    ellipsis;
-        padding: em(10,17) em(15,17) em(9,17);
-     }
-     vertical-align: inherit;
-     padding:3px;
-     margin-right: 5px;
-     margin: 0 0 $pBottomMargin;
+    @include at-breakpoint($layout-large) {
+      margin-right: 10px;
+      width: columns(1,4);
+    }
+
+    overflow: hidden;
+    text-overflow:    ellipsis;
+    vertical-align: inherit;
+    padding: em(10,17) em(15,17) em(9,17);
+    margin-right: 5px;
+    margin: 0 0 $pBottomMargin;
   }
+
 
   #Category-selectbutton {
     @include at-breakpoint($layout-large) {
-      margin-top:0px;
+      @include rem(max-width, 44px);
+      font-weight: bold;
     }
-    margin-top:10px;
   }
 }
 

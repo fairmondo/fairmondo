@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
   validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
-  validates :paypal_account , :presence => true , :if => :paypal_validation
+  validates :paypal_account , :presence => true , format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ } , :if => :paypal_validation
 
   validates :about_me, :length => { :maximum => 2500 }
 
@@ -120,8 +120,8 @@ class User < ActiveRecord::Base
   end
 
   # Return user nickname
-  # @api public
-  # @return [String]
+  # @api return
+  # @public [String]
   def name
     name = "#{self.nickname}"
   end
