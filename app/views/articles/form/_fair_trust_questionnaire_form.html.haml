@@ -24,26 +24,31 @@
     = f.input :support, as: :plain_radio, label: true, js_toggle: true
     = f.inputs id: 'true-support' do
       = f.input :support_checkboxes, as: :check_boxes, label: false
+      = f.input :support_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :support_explanation
 
     = f.input :labor_conditions, as: :plain_radio, label: true, js_toggle: true
     = f.inputs id: 'true-labor_conditions' do
       = f.input :labor_conditions_checkboxes, as: :check_boxes, label: false
+      = f.input :labor_conditions_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :labor_conditions_explanation
 
     = f.input :environment_protection, as: :plain_radio, label: true, js_toggle: true
     = f.inputs id: 'true-environment_protection' do
       = f.input :environment_protection_checkboxes, as: :check_boxes, label: false
+      = f.input :environment_protection_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :environment_protection_explanation
 
     = f.input :controlling, as: :plain_radio, label: true, js_toggle: true
     = f.inputs id: 'true-controlling' do
       = f.input :controlling_checkboxes, as: :check_boxes, label: false
+      = f.input :controlling_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :controlling_explanation
 
     = f.input :awareness_raising, as: :plain_radio, label: true, js_toggle: true
     = f.inputs id: 'true-awareness_raising' do
       = f.input :awareness_raising_checkboxes, as: :check_boxes, label: false
+      = f.input :awareness_raising_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :awareness_raising_explanation
 
 
