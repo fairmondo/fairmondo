@@ -299,4 +299,4 @@ de:
         image:
           attributes:
             image_file_size:
-              in_between: "Das Bild ist zu groß"
+              in_between: "Das Bild ist zu groß. Maximal 5 MB."
