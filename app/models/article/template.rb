@@ -73,7 +73,7 @@ module Article::Template
     cloned_article = self.amoeba_dup #duplicate the article
     cloned_article.article_template_id = self.backup_template_id # get back the original template id
     cloned_article.save_as_template = "0" #no loops
-    cloned_article.save #
+    cloned_article.save #save the cloned article
   end
 
 end
