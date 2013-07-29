@@ -24,13 +24,16 @@ module Article::Template
 
     attr_accessible :article_template_attributes, :save_as_template
     attr_accessor :save_as_template, :backup_template_id
-    # refs #128
+
+    # Make the original article loose template status
     before_save :ensure_no_template_id, :if => :save_as_template?
+
+    # Build the template
     after_save :build_and_save_template, :if => :save_as_template?
-    before_validation :set_user_on_template, :if => :template?
+    before_validation :set_user_on_template, :if => :save_as_template?
+
+    # Things to do for the associated template
     accepts_nested_attributes_for :article_template, :reject_if => :not_save_as_template?
-
-
     validates_associated :article_template , :if => :save_as_template?
 
   end
@@ -52,12 +55,16 @@ module Article::Template
     # Note:
     # * if not yet saved, there cannot be a article_template_id
     # * the inverse reference is set in article_template model before validation
-    article_template_id != nil || article_template != nil
+    article_template_id != nil
   end
 
   def ensure_no_template_id
     self.backup_template_id = self.article_template_id # backup the template id
     self.article_template_id = nil # remove the article template link
+  end
+
+  def fetch_template_id_on_error
+    self.article_template_id =  self.backup_template_id unless self.errors.empty? #redo :ensure_no_template_id on errors
   end
 
     ########## build Template #################
