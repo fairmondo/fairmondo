@@ -95,5 +95,13 @@ FactoryGirl.define do
         article.images = [FactoryGirl.build(:fixture_image)]
       end
     end
+
+    trait :fair do
+      fair true
+      fair_kind :fair_seal
+      fair_seal :trans_fair
+    end
+
+
   end
 end
