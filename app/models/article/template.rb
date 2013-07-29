@@ -63,9 +63,6 @@ module Article::Template
     self.article_template_id = nil # remove the article template link
   end
 
-  def fetch_template_id_on_error
-    self.article_template_id =  self.backup_template_id unless self.errors.empty? #redo :ensure_no_template_id on errors
-  end
 
     ########## build Template #################
   def build_and_save_template
