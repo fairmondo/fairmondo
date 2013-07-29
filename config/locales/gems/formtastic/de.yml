@@ -60,7 +60,7 @@ de:
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
 
-        fair_trust_questionnaire: "Fragebogen für 'fairtrust'"
+        fair_trust_questionnaire: "Leider erfüllt Dein Artikel nicht die Anforderungen an unseren fairtrust-Filter. Der Fragebogen"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "klein&edel"
@@ -196,7 +196,7 @@ de:
         upcycling_reason: 'Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>'
         small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
         small_and_precious_eu_small_enterprise: 'Die EU-Kommission klassifiziert als Kleinst- oder Klein-Unternehmen: <50 Mitarbeiter*innen, max. 10 Millionen € Umsatzerlöse bzw. Bilanzsumme. Werden die Artikel nicht durch den*die Produzent*in selbst vertrieben, müssen sowohl Produzent*innen als auch Anbieter*innen ein Kleinst- oder Klein-Unternehmen sein.'
-        fair_trust_questionnaire: Die Fragen 1-5 sind mit Ja zu beantworten. Zusätzlich müssen die Angaben erläutert werden. Von den Fragen 6-10 müssen mindestens drei weitere mit Ja beantwortet und erläutert werden.
+        fair_trust_questionnaire: 'fairtrust richtet sich an Verkäufer*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
         save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
                     Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
