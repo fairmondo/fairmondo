@@ -96,7 +96,7 @@ FactoryGirl.define do
       end
     end
 
-    trait :fair do
+    trait :simple_fair do
       fair true
       fair_kind :fair_seal
       fair_seal :trans_fair
