@@ -49,10 +49,15 @@ module ArticlesHelper
       if value
         html << "<ul>"
         value.each do |purpose|
-          html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
+          html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose)
+          if purpose == "other" && article.fair_trust_questionnaire.send(question.to_s + "_other")
+            html << " " + article.fair_trust_questionnaire.send(question.to_s + "_other")
+          end
+          html << "</li>"
         end
         html << "</ul>"
       end
+
       html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s +  '_explanation') + "</b></p>"
       html << "<p>" + article.fair_trust_questionnaire.send(question.to_s + "_explanation") + "</p>"
     end
