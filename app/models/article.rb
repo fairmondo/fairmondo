@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
-  validates_presence_of :transaction , :unless => :template?
+  validates_presence_of :transaction
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
@@ -44,7 +44,7 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
-  validates_presence_of :user_id, :unless => :template?
+  validates_presence_of :user_id
 
   belongs_to :article_template
 
