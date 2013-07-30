@@ -19,7 +19,7 @@ describe Feedback do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:text).with_message(I18n.t('feedback.error.presence')) }
+    it { should validate_presence_of(:text) }
     it { should validate_presence_of :type }
     it { should_not allow_value('test@').for :from }
     it { should_not allow_value('@test.').for :from }
