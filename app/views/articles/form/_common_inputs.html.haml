@@ -57,7 +57,7 @@
       .Accordion-step
         - if image.object.new_record?
           - if first
-            = image.input :image , :label => t("formtastic.labels.article.image")
+            = image.input :image, :label => t("formtastic.labels.article.image")
           - else
             = image.input :image
         - else
