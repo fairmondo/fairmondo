@@ -33,7 +33,7 @@
   = f.inputs do
     .Accordion-step
       = f.input :condition, :tooltip => true,:as => :plain_radio, :label => true, :js_toggle => true
-      = f.inputs :id => 'old-input-fields', :class => "condition" do
+      = f.inputs :id => 'old-condition', :class => "condition" do
         = f.input :condition_extra, :required => true
   = f.inputs do
     .Accordion-step
@@ -57,7 +57,7 @@
       .Accordion-step
         - if image.object.new_record?
           - if first
-            = image.input :image , :label => t("formtastic.labels.article.image")
+            = image.input :image, :label => t("formtastic.labels.article.image")
           - else
             = image.input :image
         - else
@@ -75,11 +75,11 @@
           = t('article.labels.shipping_options')
       = f.input :transport_pickup, :as => :plain_check_box
       = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_insured-input-fields', :class => "transport_insured" do
+      = f.inputs :id => 'transport_insured-checked', :class => "transport_insured" do
         = f.input :transport_insured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.insured_provider') }
         = f.input :transport_insured_price, :required => true
       = f.input :transport_uninsured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_uninsured-input-fields', :class => "transport_uninsured" do
+      = f.inputs :id => 'transport_uninsured-checked', :class => "transport_uninsured" do
         = f.input :transport_uninsured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.uninsured_provider') }
         = f.input :transport_uninsured_price, :required => true
       = f.input :default_transport, :as => :select, :required => true
@@ -90,7 +90,7 @@
         %label.label
           = t('article.labels.payment_options')
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'payment_bank_transfer-input-fields', :class => "payment_bank_transfer" do
+      = f.inputs :id => 'payment_bank_transfer-checked', :class => "payment_bank_transfer" do
         = f.semantic_fields_for :seller do |user|
           = user.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
           = user.input :bank_code, :required => true, :label => t('formtastic.labels.user.bank_code')
@@ -100,12 +100,12 @@
       = f.input :payment_cash, :as => :plain_check_box
 
       = f.input :payment_paypal, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'payment_paypal-input-fields', :class => "payment_paypal" do
+      = f.inputs :id => 'payment_paypal-checked', :class => "payment_paypal" do
         = f.semantic_fields_for :seller do |user|
           = user.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
       = f.input :payment_cash_on_delivery, :as => :plain_check_box, :js_toggle => true
 
-      = f.inputs :id => 'payment_cash_on_delivery-input-fields', :class => "payment_cash_on_delivery" do
+      = f.inputs :id => 'payment_cash_on_delivery-checked', :class => "payment_cash_on_delivery" do
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
@@ -116,27 +116,26 @@
   = f.inputs do
     .Accordion-step
       = f.input :fair, :as => :plain_check_box, :tooltip => true, :js_toggle => true
-      = f.inputs :id => 'fair-input-fields' do
+      = f.inputs :id => 'fair-checked' do
         = f.input :fair_kind, :as => :plain_radio, :js_toggle => true
-        = f.inputs :id => 'fair_seal-input-fields', :class => "fair_kind" do
+        = f.inputs :id => 'fair_seal-fair_kind' do
           = f.input :fair_seal, :required => true
-        = f.inputs :id => 'fair_trust-input-fields', :class => "fair_kind" do
+        = f.inputs :id => 'fair_trust-fair_kind' do
           = render(:partial => 'articles/form/fair_trust_questionnaire_form', :locals => {:article_form => f})
-        = f.inputs :id => 'social_producer-input-fields', :class => "fair_kind" do
+        = f.inputs :id => 'social_producer-fair_kind' do
           = render(:partial => 'articles/form/social_producer_questionnaire_form', :locals => {:article_form => f})
     .Accordion-step
       = f.input :ecologic, :as => :plain_check_box, :tooltip => true,:js_toggle => true
-      = f.inputs :id => 'ecologic-input-fields' do
+      = f.inputs :id => 'ecologic-checked' do
         = f.input :ecologic_kind, :as => :plain_radio, :js_toggle => true
-        = f.inputs :id => 'ecologic_seal-input-fields', :class => "ecologic_kind" do
+        = f.inputs :id => 'ecologic_seal-ecologic_kind', :class => "ecologic_kind" do
           = f.input :ecologic_seal, :required => true, tooltip: true
-        = f.inputs :id => 'upcycling-input-fields', :class => "ecologic_kind" do
+        = f.inputs :id => 'upcycling-ecologic_kind', :class => "ecologic_kind" do
           = f.input :upcycling_reason, :required => true , :tooltip => true
     .Accordion-step
       = f.input :small_and_precious, :as => :plain_check_box, :tooltip => true, :js_toggle => true
-      = f.inputs :id => 'small_and_precious-input-fields' do
+      = f.inputs :id => 'small_and_precious-checked' do
         = f.input :small_and_precious_eu_small_enterprise, :as => :radio, :tooltip => true, :required => true
-        = f.input :small_and_precious_edition, :tooltip => true, :required => true
         = f.input :small_and_precious_reason, :tooltip => true, :required => true
         = f.input :small_and_precious_handmade, :as => :radio, :tooltip => true, :required => true
 

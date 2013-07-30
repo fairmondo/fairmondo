@@ -24,13 +24,13 @@ de:
     show:
       friendly_percent: "Das faire Prozent"
       will_be: " werden an "
-      donate_html: "1% werden an <a href='http://www.transparency.de/'>Transparency International</a> gespendet"
+      donate_html: "1% werden an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
       title_addition: " zu kaufen bei Fairnopoly"
       alternative: "Faire Alternative"
-      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
+      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -52,6 +52,8 @@ de:
       errors:
         small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an!"
+        social_producer_questionnaire:
+          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
 
     labels:
       shipping_options: "Versandoptionen:"

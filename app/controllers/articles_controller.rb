@@ -65,7 +65,10 @@ class ArticlesController < InheritedResources::Base
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif params[:edit_as_new]
-      @article = current_user.articles.find(params[:edit_as_new]).amoeba_dup
+      @old_article = current_user.articles.find(params[:edit_as_new])
+      @article = @old_article.amoeba_dup
+      @old_article.close
+      @old_article.save
     end
     new!
   end
@@ -105,6 +108,8 @@ class ArticlesController < InheritedResources::Base
       destroy! { articles_path }
     elsif resource.locked?
       resource.close
+      # delete the article from the collections
+      resource.library_elements.delete_all
       redirect_to articles_path
     end
 
@@ -137,6 +142,8 @@ class ArticlesController < InheritedResources::Base
       params.delete :article # Do not allow any other change
       authorize resource, :deactivate?
       resource.deactivate
+      # delete the article from the collections
+      resource.library_elements.delete_all
       flash[:notice] = I18n.t('article.notices.deactivated')
     end
   end

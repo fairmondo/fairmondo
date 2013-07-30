@@ -90,7 +90,7 @@ describe 'Article management' do
             within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
               choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
             end
-            check "article_social_producer_questionnaire_attributes_nonprofit_association_purposes_youth_and_elderly"
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_checkboxes_youth_and_elderly"
             within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
               choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
             end
@@ -271,6 +271,34 @@ describe "Pagination for libraries should work"  do
   it "should show selector div.pagination" do
     page.assert_selector('div.pagination')
   end
+end
+
+describe "LibraryElements should exist only on acive articles" do
+
+  before do
+    @seller = FactoryGirl.create :seller
+    @buyer = FactoryGirl.create :buyer
+
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    @lib = FactoryGirl.create :library, :user => @buyer, :public => true
+    FactoryGirl.create :library_element, :article => @article_active, :library => @lib
+
+  end
+
+  it "should delete LibraryElement when deactivating an article" do
+
+    login_as @seller, scope: :user
+    visit article_path @article_active
+    click_button I18n.t 'article.labels.deactivate'
+
+    login_as @buyer, scope: :user
+    visit user_libraries_path @buyer
+    within("#library"+@lib.id.to_s) do
+      page.should have_content I18n.t 'library.no_products'
+    end
+  end
+
 end
 
 describe "Article Page should show link to Transparency International" do
