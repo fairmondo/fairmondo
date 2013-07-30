@@ -20,7 +20,6 @@
 
 require 'debugger'
 
-
 role :app, "78.109.61.137", :primary => true
 role :web, "78.109.61.137", :primary => true
 role :db, "78.109.61.137", :primary => true
@@ -55,8 +54,8 @@ end
 namespace :content do
   desc "Import content"
   task :import do
-    debugger
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake content:import_csv[#{csv_location}]"
+    upload "#{ARGV[2]}", "#{shared_path}/content_import.csv"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake content:import #{shared_path}/upload/content_import.csv"
   end
 end
 
