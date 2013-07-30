@@ -24,8 +24,9 @@
     - if resource.locked? && policy(resource).new?
       = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
     - if policy(resource).deactivate?
-      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
       %i.icon-helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
+      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
+
     - if policy(resource).destroy?
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn Btn--gray"
 
@@ -86,8 +87,9 @@
 
   = accordion_item "payment" do
     .Article-box
-      %p.Highlight
-        = t('formtastic.labels.article.payment_methods')+':'
+      %p
+        %b
+          = t('formtastic.labels.article.payment_methods')+':'
         %ul
           = payment_format_for "bank_transfer"
           = payment_format_for "cash"
@@ -96,8 +98,9 @@
           = payment_format_for "invoice"
       = simple_format(resource.payment_details).html_safe
     .Article-box
-      %p.Highlight
-        = t('formtastic.labels.article.default_transport')+':'
+      %p
+        %b
+          = t('formtastic.labels.article.default_transport')+':'
         %ul
           = transport_format_for "pickup"
           = transport_format_for "insured"
