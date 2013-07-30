@@ -10,8 +10,8 @@ de:
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
       intro: >
-        "----------
-        Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet."
+        ----------
+        Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
       registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B"
       board: "Vorstand: Anna Kress, Bastian Neumann"
@@ -27,7 +27,7 @@ de:
       invite: "Einladen"
       trust: "Vertrauen"
       logout: "Logout"
-      login: "Login"
+      login: "Anmelden"
       sign_up: "Registrierung"
       edit_profile: "Profil bearbeiten"
       search: "Suche"
@@ -72,6 +72,7 @@ de:
       feedback: "Dein Feedback"
       help: "Hilfe"
       my_articles: "Meine Artikel"
+      fair: "Fair"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

@@ -12,6 +12,12 @@ development:
     port: 8982
     log_level: INFO
 
+staging:
+  solr:
+    hostname: localhost
+    port: 8982
+    log_level: INFO
+
 test:
   solr:
     hostname: localhost

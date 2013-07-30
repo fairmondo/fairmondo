@@ -2,17 +2,7 @@
 // Green/red notice bar
 //
 
-/**
- *	For this box the functionnality is so:
- *	- the Notice box is always display none
- *	- when it has the .is-visible class, it is display block
- *	- clicking on the "close arrow" will remove the .is-visible class, making it hidden
- */
-
-
 .Notice {
-	//display: none; // hidden for now
-	//position: absolute;
 	color: #fff;
 	overflow: auto;
 	.l-Inner {
@@ -25,30 +15,38 @@
 	}
 	p {
 		@include rem(font-size, $font-size-m);
+		a {
+		  text-decoration: underline;
+		}
 	}
+	a {
+		color: white;
+
+	}
+
 }
 .Notice--info {
-	background-color: $green;
+  background-color: $green;
 }
 .Notice--confirmation {
   background-color: $green;
 }
 .Notice--error {
-	background-color: $red;
+  background-color: $red;
 }
 
 // The close button
 .Notice-close {
-	color: white;
-	cursor: pointer;
-	padding: 5px;
-	@include rem(font-size, $font-size-l);
-	//position: absolute;
-	top: 0;
-	left: 4px;
-	float: right;
-	&:hover {
-		text-decoration: none;
-		color: $white;
-	}
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  @include rem(font-size, $font-size-l);
+  //position: absolute;
+  top: 0;
+  left: 4px;
+  float: right;
+  &:hover {
+    text-decoration: none;
+    color: $white;
+  }
 }

@@ -39,18 +39,23 @@ $(document).ready(function(){
   (
   {
     tooltipClass: "bottom", // class for the arrow/pointer
-    position: 
+    position:
     {
       my: "center top",
-      at: "center bottom+20",
-      collision: "none"
+      at: "center bottom+20"
     },
-    content: function() 
+    open: function( e, ui ) {
+    	$(e.target).data("opened",true);
+    },
+    close: function( e, ui ) {
+    	$(e.target).data("opened",false);
+    },
+    content: function()
     {
       return $(this).attr('title').split('\n').join('<br/>');  // this allows line breaks
     }
   }
-  ).on('mouseover');
+  ).off('mouseover');
 
 
 
@@ -59,7 +64,12 @@ $(document).ready(function(){
   });
   $("i.icon-helper").on('click',function(e) {
     e.stopPropagation();
-    $(e.target).tooltip('close');
+
+    alreadyopen = $(e.target).data("opened")
+    $("i.icon-helper").tooltip('close'); //Close all open tooltips
+    if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
+    	$(e.target).tooltip('open');
+    }
   });
 
   $('html').delegate('.ui-tooltip-content' ,'click',function(e){

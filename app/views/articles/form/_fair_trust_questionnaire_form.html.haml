@@ -17,17 +17,52 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-= article_form.semantic_errors :fair_trust_questionnaire
 - article_form.object.build_fair_trust_questionnaire unless article_form.object.fair_trust_questionnaire
 = article_form.nested_inputs_for :fair_trust_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
-  %ol.questionnaire
-    = f.input_with :explanation, :support
-    = f.input_with :explanation, :transparency
-    = f.input_with :explanation, :minimum_wage
-    = f.input_with :explanation, :child_labor
-    = f.input_with :explanation, :sexual_equality
-    = f.input_with :explanation, :collaboration
-    = f.input_with :explanation, :labor_conditions
-    = f.input_with :explanation, :producer_advancement
-    = f.input_with :explanation, :awareness_raising
-    = f.input_with :explanation, :environment_protection
+  = article_form.semantic_errors :fair_trust_questionnaire
+  = f.inputs do
+    = f.input :support, as: :plain_radio, label: true, js_toggle: true
+    = f.inputs id: 'true-support' do
+      = f.input :support_checkboxes, as: :check_boxes, label: false
+      = f.input :support_other, label: false, wrapper_html: {class: 'other-checkbox'}
+      = f.input :support_explanation
+
+    = f.input :labor_conditions, as: :plain_radio, label: true, js_toggle: true
+    = f.inputs id: 'true-labor_conditions' do
+      = f.input :labor_conditions_checkboxes, as: :check_boxes, label: false
+      = f.input :labor_conditions_other, label: false, wrapper_html: {class: 'other-checkbox'}
+      = f.input :labor_conditions_explanation
+
+    = f.input :environment_protection, as: :plain_radio, label: true, js_toggle: true
+    = f.inputs id: 'true-environment_protection' do
+      = f.input :environment_protection_checkboxes, as: :check_boxes, label: false
+      = f.input :environment_protection_other, label: false, wrapper_html: {class: 'other-checkbox'}
+      = f.input :environment_protection_explanation
+
+    = f.input :controlling, as: :plain_radio, label: true, js_toggle: true
+    = f.inputs id: 'true-controlling' do
+      = f.input :controlling_checkboxes, as: :check_boxes, label: false
+      = f.input :controlling_other, label: false, wrapper_html: {class: 'other-checkbox'}
+      = f.input :controlling_explanation
+
+    = f.input :awareness_raising, as: :plain_radio, label: true, js_toggle: true
+    = f.inputs id: 'true-awareness_raising' do
+      = f.input :awareness_raising_checkboxes, as: :check_boxes, label: false
+      = f.input :awareness_raising_other, label: false, wrapper_html: {class: 'other-checkbox'}
+      = f.input :awareness_raising_explanation
+
+
+/ = article_form.semantic_errors :social_producer_questionnaire
+/ - article_form.object.build_social_producer_questionnaire unless article_form.object.social_producer_questionnaire
+/ = article_form.nested_inputs_for :social_producer_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
+/   = f.inputs do
+/     = f.input :nonprofit_association,:as => :plain_radio, :label => true, :js_toggle => true
+/     = f.inputs :id => 'true-nonprofit_association' do
+/       = f.input :nonprofit_association_checkboxes, :as => :check_boxes, :label => false
+/     = f.input :social_businesses_muhammad_yunus,:as => :plain_radio, :label => true, :js_toggle => true
+/     = f.inputs :id => 'true-social_businesses_muhammad_yunus' do
+/       = f.input :social_businesses_muhammad_yunus_checkboxes, :as => :check_boxes, :label => false
+/     = f.input :social_entrepreneur,:as => :plain_radio, :label => true, :js_toggle => true
+/     = f.inputs :id => 'true-social_entrepreneur' do
+/       = f.input :social_entrepreneur_checkboxes, :as => :check_boxes, :label => false
+/       = f.input :social_entrepreneur_explanation
