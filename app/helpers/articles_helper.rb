@@ -28,7 +28,7 @@ module ArticlesHelper
 
       value = article.social_producer_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul>"
+        html << "<ul class=\"small\">"
         value.each do |purpose|
           html << "<li>" + t('enumerize.social_producer_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
         end
@@ -47,7 +47,7 @@ module ArticlesHelper
 
       value = article.fair_trust_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul>"
+        html << "<ul class=\"small\">"
         value.each do |purpose|
           html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose)
           if purpose == "other" && article.fair_trust_questionnaire.send(question.to_s + "_other")
