@@ -32,7 +32,7 @@ class Category < ActiveRecord::Base
   acts_as_nested_set
 
   # Ensure no n+1 queries result from Category.roots
-  scope :roots, includes(:children).roots
+  scope :roots #, includes(:children).roots
 
 
   def self_and_ancestors_ids
