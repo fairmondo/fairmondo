@@ -70,7 +70,7 @@ describe ArticlesHelper do
        @normal_article =  FactoryGirl.create :article ,:category1, :title => "weisse schockolade"
        @other_normal_article = FactoryGirl.create :article,:category2 , :title => "schwarze schockolade aber anders"
        @not_related_article = FactoryGirl.create :article,:category1 , :title => "schuhcreme"
-       @fair_article = FactoryGirl.create :article, :fair ,:category1 , :title => "schwarze fairtrade schockolade"
+       @fair_article = FactoryGirl.create :article, :simple_fair ,:category1 , :title => "schwarze fairtrade schockolade"
 
        Sunspot.commit
      end
@@ -84,7 +84,7 @@ describe ArticlesHelper do
      end
 
      it "should prefer the same category over matches in the title" do
-        @other_fair_article = FactoryGirl.create :article, :fair ,:category2 , :title => "weisse schockolade"
+        @other_fair_article = FactoryGirl.create :article, :simple_fair ,:category2 , :title => "weisse schockolade"
          Sunspot.commit
         (helper.find_fair_alternative_to @other_normal_article).should eq @other_fair_article
      end
