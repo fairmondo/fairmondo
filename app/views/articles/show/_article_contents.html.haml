@@ -86,8 +86,9 @@
 
   = accordion_item "payment" do
     .Article-box
-      %p.Highlight
-        = t('formtastic.labels.article.payment_methods')+':'
+      %p
+        %b
+          = t('formtastic.labels.article.payment_methods')+':'
         %ul
           = payment_format_for "bank_transfer"
           = payment_format_for "cash"
@@ -96,8 +97,9 @@
           = payment_format_for "invoice"
       = simple_format(resource.payment_details).html_safe
     .Article-box
-      %p.Highlight
-        = t('formtastic.labels.article.default_transport')+':'
+      %p
+        %b
+          = t('formtastic.labels.article.default_transport')+':'
         %ul
           = transport_format_for "pickup"
           = transport_format_for "insured"
