@@ -99,7 +99,13 @@ namespace :deploy do
 
 end
 
-
+namespace :content  do
+  desc "Import content"
+  task :import, :roles => :db do
+    upload "#{ARGV[2]}", "#{shared_path}/content_import.csv"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake content:import #{shared_path}/content_import.csv"
+  end
+end
 
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"
