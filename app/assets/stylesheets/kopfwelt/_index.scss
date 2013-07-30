@@ -56,7 +56,7 @@
 }
 
 .Teaser--text {
-	@include rem(font-size, 18px);
+	@include rem(font-size, $font-size-m);
 }
 .Teaser-title {
 	@include rem(font-size, 22px);
@@ -67,7 +67,7 @@
 	padding-left: 0;
 	padding-right: 0;
 	.Teaser-title {
-		@include rem(font-size, 18px);
+		// @include rem(font-size, 18px);
 		margin-bottom: em(25,18);
 	}
 }
@@ -140,7 +140,7 @@
 		@include rem(padding, 10px 20px);
 	}
 	.Teaser-title {
-		@include rem(font-size, $base-font-size);
+		// @include rem(font-size, $base-font-size);
 		@include rem(padding, 17px 36px);
 	}
 }
