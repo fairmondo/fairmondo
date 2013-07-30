@@ -53,9 +53,16 @@
 	.Article-controls {
 		overflow: auto;
 		width: 100%;
+
+		i.icon-helper {
+			float: left;
+			margin: 10px;
+		}
+
 		@include at-breakpoint($layout-small) {
 			a {float: left}
 			form {float: right}
+			i.icon-helper {float: right}
 		}
 	}
 }
