@@ -14,15 +14,15 @@ de:
         broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Mit Siegel oder anerkannter Handelspartner
-        fair_trust: Fairtrust
+        fair_trust: fairtrust
         social_producer: Soziale Produktion
       fair_seal:
         trans_fair: Fairtrade-Siegel (TransFair)
         weltladen: Weltladen-Handelspartner
         wtfo: WFTO-Mitglied
       ecologic_kind:
-        ecologic_seal: "Artikel trägt ein Öko-Siegel"
-        upcycling: "Artikel fällt unter Upcycling"
+        ecologic_seal: "Der Artikel trägt ein Öko-Siegel"
+        upcycling: "Der Artikel ist durch Upcycling entstanden"
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel
