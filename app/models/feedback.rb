@@ -34,7 +34,7 @@ class Feedback < ActiveRecord::Base
                                   #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
-  validates :text, presence: { message: I18n.t('feedback.error.presence') }
+  validates :text, presence: true
   validates :type, presence: true
   validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ },
                    allow_blank: true
