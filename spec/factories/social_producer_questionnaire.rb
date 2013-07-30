@@ -17,30 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Category < ActiveRecord::Base
+require 'faker'
 
-  attr_accessible :name, :parent, :desc, :parent_id
-  extend AccessibleForAdmins
+FactoryGirl.define do
+  factory :social_producer_questionnaire do
+      nonprofit_association true
+      nonprofit_association_checkboxes [:youth_and_elderly,:art_and_culture,:national_and_vocational_training]
 
-  has_and_belongs_to_many :articles
+      social_businesses_muhammad_yunus true
+      social_businesses_muhammad_yunus_checkboxes [:social_proplem, :dividend, :reinvestment ]
 
-  belongs_to :parent , :class_name => 'Category'
+      social_entrepreneur true
+      social_entrepreneur_checkboxes [ :social_proplem, :big_social_groups, :small_social_groups ]
 
-  # Doesn't work with our category tree
-  #validates :name, :uniqueness => true
-
-  acts_as_nested_set
-
-  # Ensure no n+1 queries result from Category.roots
-  scope :roots #, includes(:children).roots
-
-
-  def self_and_ancestors_ids
-    self_and_ancestors = [ self.id ]
-    self.ancestors.each do |ancestor|
-      self_and_ancestors << ancestor.id
-    end
-    self_and_ancestors
+      social_entrepreneur_explanation Faker::Lorem.sentence(200)
   end
-
 end
