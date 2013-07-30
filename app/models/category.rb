@@ -48,7 +48,7 @@ class Category < ActiveRecord::Base
   # @return [Array]
   def self.sorted_roots
     other = self.find_by_name("Sonstiges") #internationalize!
-    roots = self.roots.order(:name)
+    roots = self.order(:name).roots
 
     if roots.include? other
       roots.delete_at roots.index other
