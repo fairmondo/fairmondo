@@ -22,9 +22,9 @@
 -# Be careful, between case and when should not be a empty line
 .Commendation
   %dl
-    %dt
-      -# FAIR
-      - if resource.fair
+    -# FAIR
+    - if resource.fair
+      %dt
         =get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tagBig Btn-tag--blue")
         - case resource.fair_kind
         - when "social_producer"
@@ -49,9 +49,10 @@
           %h3= t('enumerize.article.fair_kind.fair_seal')
           %p
             %strong= t('enumerize.article.fair_seal.' + resource.fair_seal)
-    %dt
-      -# ECOLOGIC
-      - if resource.ecologic
+
+    -# ECOLOGIC
+    - if resource.ecologic
+      %dt
         =get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tagBig Btn-tag--green")
         %h3= t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
         - if resource.ecologic_kind == "ecologic_seal"
@@ -59,9 +60,10 @@
             %b= t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
         - if resource.ecologic_kind == "upcycling"
           %p= resource.upcycling_reason
-    %dt
-      -# SMALL AND PRECIOUS
-      - if resource.small_and_precious
+
+    -# SMALL AND PRECIOUS
+    - if resource.small_and_precious
+      %dt
         =get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tagBig Btn-tag--orange")
         %p
           %b= t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
@@ -72,6 +74,3 @@
         %p
           %b= t('formtastic.labels.article.small_and_precious_handmade')
         %p= resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')
-
-
-
