@@ -43,16 +43,19 @@ class PrivateUser < User
   PRIVATE_VERIFIED_BONUS = 35
 
 
-  state_machine :seller_state, :initial => :standard do
+  state_machine :seller_state, :initial => :standard_seller do
 
-    event :rate_up_to_good do
-      transition :standard => :good
+    event :rate_up_to_good_seller do
+      transition :standard_seller => :good_seller
     end
   end
 
   def sales_volume
-    ( bad? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
-    ( PRIVATE_STANDARD_SALESVOLUME + ( self.trustcommunity ? PRIVATE_TRUSTED_BONUS : 0 ) + ( self.verified ? PRIVATE_VERIFIED_BONUS : 0) ) * ( good? ? PRIVATE_GOOD_FACTOR : 1  ))
+    ( bad_seller? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
+    ( PRIVATE_STANDARD_SALESVOLUME +
+    ( self.trustcommunity ? PRIVATE_TRUSTED_BONUS : 0 ) +
+    ( self.verified ? PRIVATE_VERIFIED_BONUS : 0) ) *
+    ( good_seller? ? PRIVATE_GOOD_FACTOR : 1  ))
   end
 
 end
