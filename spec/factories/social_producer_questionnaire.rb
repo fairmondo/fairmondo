@@ -17,30 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Formtastic
-  module Inputs
-    module Base
-      module Html
-        def tooltip
-          template.content_tag(:i, "" ,:class => "icon-helper",:title => tooltip_text.html_safe ) if tooltip?
-        end
+require 'faker'
 
-        def tooltip?
-          tooltip_text.present? && !tooltip_text.kind_of?(Hash)
-        end
+FactoryGirl.define do
+  factory :social_producer_questionnaire do
+      nonprofit_association true
+      nonprofit_association_checkboxes [:youth_and_elderly,:art_and_culture,:national_and_vocational_training]
 
-        def tooltip_text
-          localized_string(method, options[:tooltip], :tooltip)
-        end
-      end
-      module Wrapping
-        def input_wrapping(&block)
-          template.content_tag(:li,
-            [tooltip , template.capture(&block), error_html, hint_html].join("\n").html_safe,
-            wrapper_html_options
-          )
-        end
-      end
-    end
+      social_businesses_muhammad_yunus true
+      social_businesses_muhammad_yunus_checkboxes [:social_proplem, :dividend, :reinvestment ]
+
+      social_entrepreneur true
+      social_entrepreneur_checkboxes [ :social_proplem, :big_social_groups, :small_social_groups ]
+
+      social_entrepreneur_explanation Faker::Lorem.sentence(200)
   end
 end

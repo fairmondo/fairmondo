@@ -50,19 +50,17 @@ module Sanitization
     Sanitize.clean(field,
       elements: admin_mode ?
         %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img div span) :
-        %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img),
+        %w(b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li),
       attributes: {
-        'a' => admin_mode ?
-          ['href', 'type', 'target'] :
-          ['href', 'type'],
-        'img' => ['src'],
+        'a' => ['href', 'type', 'target'],
+        'img' => ['src', 'alt'],
         :all => admin_mode ?
           ['width', 'height', 'data', 'name', 'id', 'class', 'style'] :
           ['width', 'height', 'data', 'name']
       },
       protocols: {
         'a' => { 'href' => ['http', 'https', 'mailto', :relative] },
-        'img' => { 'src' => ['http', 'https'] }
+        'img' => { 'src' => ['http', 'https', :relative] }
       }
     )
   end

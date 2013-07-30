@@ -26,17 +26,17 @@ role :web, "78.109.61.137", :primary => true
 role :db, "78.109.61.137", :primary => true
 
 set :rails_env, "staging"
-set :branch, "master"
+set :branch, "release"
 
 
 namespace :solr do
   desc "start solr"
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
   end
   desc "stop solr"
   task :stop, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
   end
   desc "restart solr"
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -59,7 +59,6 @@ namespace :content do
     run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake content:import_csv[#{csv_location}]"
   end
 end
-
 
 #Sunspot Hooks
 after "deploy:stop",    "solr:stop"

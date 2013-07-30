@@ -30,7 +30,7 @@ module Article::Attributes
 
     #title
 
-    validates_presence_of :title , :content, :unless => :template? # refs #128
+    validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 65
 
     #conditions

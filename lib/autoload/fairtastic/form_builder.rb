@@ -33,7 +33,6 @@ module Fairtastic
       super(*extended_fieldset_args(*args),&block)
     end
 
-
     def semantic_errors(*args)
       args.inject([]) do |array, method|
         errors = Array(@object.errors[method.to_sym]).to_sentence
@@ -78,8 +77,5 @@ module Fairtastic
       end
       args << options
     end
-
-
-
   end
 end

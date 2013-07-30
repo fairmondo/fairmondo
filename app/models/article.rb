@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
-  validates_presence_of :transaction , :unless => :template?
+  validates_presence_of :transaction, :unless => :template?
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
@@ -44,7 +44,7 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
-  validates_presence_of :user_id, :unless => :template?
+  validates_presence_of :user_id
 
   belongs_to :article_template
 
@@ -57,7 +57,12 @@ class Article < ActiveRecord::Base
     self.images.clear
     attributes.each_key do |key|
       if attributes[key].has_key? :id
-        self.images << Image.find(attributes[key][:id]) unless attributes[key][:_destroy] == "1"
+        unless attributes[key][:_destroy] == "1"
+           image = Image.find(attributes[key][:id])
+           image.image = attributes[key]["image"] if attributes[key].has_key? :image # updated the image itself
+           self.images << image
+        end
+
       else
         self.images << Image.new(attributes[key])
       end

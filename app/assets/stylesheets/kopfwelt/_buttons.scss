@@ -165,6 +165,16 @@ a.Btn {
 	@include rem(margin-right, 4px);
 }
 
+.Btn-tagBig {
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  @include rem(font-size, 30px);
+  @include rem(padding, 0 6px);
+  @include rem(margin-right, 4px);
+}
+
+
 // Color variations (tag)
 
 .Btn-tag--gray {
