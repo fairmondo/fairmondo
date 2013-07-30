@@ -14,7 +14,7 @@ de:
         broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Mit Siegel oder anerkannter Handelspartner
-        fair_trust: fairtrust
+        fair_trust: Fairtrust
         social_producer: Soziale Produktion
       fair_seal:
         trans_fair: Fairtrade-Siegel (TransFair)
@@ -88,7 +88,7 @@ de:
         direct_negotiations: 'Direkte Preisverhandlungen mit Produzent*innen'
         community: 'Förderung der Produzentengemeinschaften (z.B. Schulen, Kindergärten, Gesundheitseinrichtungen, Infrastruktur)'
         premiums: 'Prämienzahlungen (zur Förderung sozialer Belange)'
-        other: 'Sonstige (plus Textbox)'
+        other: 'Sonstiges:'
       labor_conditions_checkboxes:
         secure_environment: 'Sichere Arbeitsumgebung (z.B. Sicherheitskleidung, Fortbildungen und Schulungen zum Umgang mit toxischen Stoffen)'
         hygiene: 'Einhaltung hygienischer Standards'
@@ -99,7 +99,7 @@ de:
         no_discrimination: 'Nichtdiskriminierung'
         child_labor_ban: 'Verbot von Kinderarbeit'
         child_labor_restrictions: 'Mitarbeit von Kindern, die Wohlergehen, Bildung, Sicherheit und Spielbedürfnis nicht beeinträchtigt'
-        other: 'Sonstige (plus Textbox)'
+        other: 'Sonstiges:'
       environment_protection_checkboxes:
         chemical_fertilizers: 'Verantwortungsvoller Umgang mit chemischen Düngemitteln'
         pesticides: 'Verantwortungsvoller Umgang mit chemischen Pestiziden'
@@ -108,14 +108,14 @@ de:
         renewable_energies: 'Bezug von erneuerbaren Energien'
         ecological_farming: 'ökologische Landwirtschaft'
         ecological_farming_transition: 'Umstellung zur ökolgischen Landwirtschaft'
-        other: 'Sonstige (plus Textbox)'
+        other: 'Sonstiges:'
       controlling_checkboxes:
         transparent_supply_chain: 'transparente Wertschöpfungskette'
         annual_reports: 'schriftliche Jahresberichte (mit Bezug auf o.g. Kriterien)'
         inspectors: 'Inspektor*innen vor Ort'
         producer_visits: 'Produzent*innenbesuche vor Ort'
         own_system: 'Eigenes System für Monitoring & Evaluierung (bitte erläutern)'
-        other: 'Sonstige (plus Textbox)'
+        other: 'Sonstiges:'
       awareness_raising_checkboxes:
         producer_transparency: 'Transparenzmaßnahmen gegenüber Produzent*innen/Arbeiter*innen'
         employee_transparency: 'Transparenzmaßnahmen gegenüber Mitarbeiter*innen innerhalb der eigenen Organisation'
@@ -123,7 +123,7 @@ de:
         responsible_consumption_education: 'Bildungsaßnahmen zu verantwortungvollem Konsum'
         global_market_education: 'Bildungsmaßnahmen zur unfairen Weltmarktsituation'
         fair_trade_concept: "Maßnahmen zur Verbreitung des Konzepts 'Fairer Handel'"
-        other: 'Sonstige (plus Textbox)'
+        other: 'Sonstiges:'
 
     social_producer_questionnaire:
       nonprofit_association_checkboxes:

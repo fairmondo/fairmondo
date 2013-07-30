@@ -267,3 +267,18 @@
 		@include span-columns(1, 4);
 	}
 }
+.User-library {
+	@include span-columns(2, 2);
+
+	.User-library--title,
+	.User-library--user {
+		text-align: center;
+	} 
+
+	@include at-breakpoint($layout-small) {
+		@include span-columns(1, 2);
+		&:nth-child(2) {
+			@include span-columns(1 omega, 2);
+		}
+	}
+}
