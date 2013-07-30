@@ -9,3 +9,8 @@ namespace :content do
     end
   end
 end
+
+
+
+
+cap staging content:import /Users/basti/Downloads/content_2013-07-26_14h11m25.csv
