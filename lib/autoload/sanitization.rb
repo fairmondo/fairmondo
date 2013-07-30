@@ -54,7 +54,7 @@ module Sanitization
         attributes: {
           'a' => ['href', 'type', 'target'],
           'img' => ['src', 'alt'],
-          'iframe' => ['source', 'frameborder'],
+          'iframe' => ['src', 'frameborder'],
           :all => admin_mode ?
             ['width', 'height', 'data', 'name', 'id', 'class', 'style'] :
             ['width', 'height', 'data', 'name']
