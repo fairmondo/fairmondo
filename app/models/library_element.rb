@@ -26,7 +26,7 @@ class LibraryElement < ActiveRecord::Base
   delegate :title, :to => :article, :prefix => true
 
   # Validations
-  validates :library_id, :uniqueness => {:scope => :article_id , :message => I18n.t('library_element.error.uniqueness') }
+  validates :library_id, :uniqueness => {:scope => :article_id  }
   validates :library_id , :presence => true
 
   # Relations
