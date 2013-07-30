@@ -180,7 +180,7 @@ de:
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
         create: *new_user
         edit: &edit_user
-          image: "Lade ein Foto von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
+          image: "Lade ein Foto(max. 5MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
