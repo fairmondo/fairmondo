@@ -62,6 +62,20 @@ FactoryGirl.define do
        end
     end
 
+    factory :social_production do
+
+      fair true
+      fair_kind :social_producer
+      association :social_producer_questionnaire
+
+    end
+
+    factory :fair_trust do
+      fair true
+      fair_kind :fair_trust
+      association :fair_trust_questionnaire
+    end
+
     trait :category1 do
       after(:build) do |article|
         article.categories = [Category.find(1)]
@@ -101,6 +115,7 @@ FactoryGirl.define do
       fair_kind :fair_seal
       fair_seal :trans_fair
     end
+
 
 
   end
