@@ -21,7 +21,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { FactoryGirl.create(:user)}
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   it "has a valid Factory" do
@@ -69,16 +69,13 @@ describe User do
       let(:user) { FactoryGirl.create(:german_user) }
 
       it {should validate_presence_of :zip}
+      it {should allow_value('12345').for :zip}
+      it {should_not allow_value('a1b2c').for :zip}
+    end
 
-      it "should validate the length" do
-        user.zip = 1234
-        user.should_not be_valid
-      end
-
-      it "should validate the format" do
-        user.zip = "a1b2c"
-        user.should_not be_valid
-      end
+    describe "address validation" do
+      it {should allow_value('Test Str. 1a').for :street}
+      it {should_not allow_value('Test Str.').for :street}
     end
   end
 
