@@ -64,7 +64,7 @@ module Article::Commendation
 
     ## small_and_precious
 
-    validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?, :message => I18n.t('article.form.errors.small_and_precious_eu_small_enterprise')
+    validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
     validates :small_and_precious_reason, :length => { :minimum => 150, :maximum => 2500 }, :if => :small_and_precious?
     #validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?  # this allows only value true, but not false

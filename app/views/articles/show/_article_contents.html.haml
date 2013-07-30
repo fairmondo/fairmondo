@@ -17,7 +17,6 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
 - if resource.owned_by? current_user
   %div.Article-controls
     - if policy(resource).edit?
@@ -25,7 +24,9 @@
     - if resource.locked? && policy(resource).new?
       = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
     - if policy(resource).deactivate?
+      %i.icon-helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
       = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
+
     - if policy(resource).destroy?
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn Btn--gray"
 
@@ -71,7 +72,7 @@
       %p.Highlight
 
         =t('article.show.friendly_percent')
-        %i.icon-helper{:title => t('some text')}
+        %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
       %p
         =t('article.show.donate_html')
     %p

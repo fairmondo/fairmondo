@@ -149,6 +149,7 @@ de:
       maximum_entries: maximal %{count} Optionen können ausgewählt werden
       minimum_categories: "Bitte wähle mindestens eine Kategorie für Deinen Artikel aus"
       maximum_categories: "Bitte wähle nicht mehr als %{count} Kategorien für Deinen Artikel"
+
     template:
       body: ! 'Bitte überprüfe folgende Felder:'
       header:
@@ -300,3 +301,21 @@ de:
           attributes:
             image_file_size:
               in_between: "Das Bild ist zu groß. Maximal 5 MB."
+        article:
+          attributes:
+            small_and_precious_eu_small_enterprise:
+              blank: "Nicht zufriedenstellend beantwortet"
+        feedback:
+          attributes:
+            text:
+              blank: Die Nachricht kann nicht ohne Text gesendet werden.
+        library_element:
+          attributes:
+            library_id:
+              taken: Der Artikel ist schon in deiner Sammlung.
+        library:
+          attributes:
+            name:
+              too_long: "Der Name der Sammlung darf nicht länger als %{count} Zeichen sein."
+              taken: "Eine Sammlung mit diesem Namen existiert bereits."
+              blank: "Eine Sammlung benötigt einen Namen."

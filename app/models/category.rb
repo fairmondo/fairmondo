@@ -43,4 +43,18 @@ class Category < ActiveRecord::Base
     self_and_ancestors
   end
 
+  # Display all categories, sorted by name, other being last
+  # @api public
+  # @return [Array]
+  def self.sorted_roots
+    other = self.find_by_name("Sonstiges") #internationalize!
+    roots = self.roots.order(:name)
+
+    if roots.include? other
+      roots.delete_at roots.index other
+      roots.push(other)
+    end
+    roots
+  end
+
 end

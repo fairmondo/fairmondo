@@ -8,5 +8,4 @@ de:
     actions:
       get_help: "Hilfe anfragen"
       send_feedback: "Feedback senden"
-    error:
-      presence: "Die Nachricht kann nicht ohne Text gesendet werden."
+
