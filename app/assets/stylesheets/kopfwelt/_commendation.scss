@@ -1,0 +1,16 @@
+//
+// Commendation
+//
+
+.Commendation {
+
+	dl {
+		padding-top: 1px;
+	}
+	dt {
+		@include rem(margin-top, 10px);
+		@include rem(padding-top, 10px);
+		border-bottom: 1px solid $beige;
+	}
+
+}

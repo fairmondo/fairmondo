@@ -51,7 +51,7 @@
     = render 'articles/show/basic_price', :article => resource
     - if resource.quantity && resource.quantity != ""
       %p.Article-quantity
-        %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => @article.quantity)
+        %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.quantity)
       %p
         - if user_signed_in? && !current_user.libraries.blank?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
@@ -87,7 +87,7 @@
   = accordion_item "payment" do
     .Article-box
       %p.Highlight
-        = t('formtastic.labels.article.default_payment')+':'
+        = t('formtastic.labels.article.payment_methods')+':'
         %ul
           = payment_format_for "bank_transfer"
           = payment_format_for "cash"
@@ -117,12 +117,12 @@
   - if resource.libraries.find_all_by_public(true).count > 0
     = accordion_item "library", :number => resource.libraries.find_all_by_public(true).count, :title => t('article.titles.libraries') do
       - libraries.each do |library|
-        .User-library
-          = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
-          %p
+        .User-library.Article--teaser
+          .User-image
+            = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
+          %p.User-library--title
+            = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
+          %p.User-library--user
             = t('common.text.from') + " " + library.user_nickname
-        .User-library
-          = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
 
       = will_paginate libraries, :params => {:anchor => "library" }
-

@@ -12,10 +12,13 @@
 		@include rem(font-size, 17px);
 		word-break: break-all;
 	}
-	#library_element_library_input {
-	  .selectboxit-container {
-	    width:100%;
-	  }
+	form.library_element .library .inputs {
+	  float: left;
+  	#library_element_library_input {
+  	  .selectboxit-container {
+  	    width:100%;
+  	  }
+  	}
 	}
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
@@ -212,5 +215,6 @@ span.Article-price {
 .Article--teaser {
   border: 1px solid $beige;
   border-radius: 0.9em;
+  // padding breaks the correct masonry grid width
   padding: 0.45em;
 }

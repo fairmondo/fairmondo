@@ -8,7 +8,6 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
-        purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
       user:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
@@ -57,16 +56,15 @@ de:
         fair: fair
         fair_seal: "Bitte wähle aus der Liste aus:"
 
-        ecologic: öko
+        ecologic: Öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
 
-        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
+        fair_trust_questionnaire: "Leider erfüllt Dein Artikel nicht die Anforderungen an unseren fairtrust-Filter. Der Fragebogen"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "klein&edel"
         small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Klein-Unternehmen nach der Definition der EU-Kommission.
-        small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
         small_and_precious_reason: "Warum ist Dein Artikel edel (Produktionsprozess, Hauptmaterialien, Auflage etc.)?"
         small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
 
@@ -116,30 +114,25 @@ de:
         save_as_template: "Eingaben als Vorlage speichern"
       fair_trust_questionnaire:
         support: >
-          1. Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
-        transparency: >
-          2. Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
-        minimum_wage: >
-          3. Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
-        child_labor: >
-          4. Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
-        sexual_equality: >
-          5. a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
-        collaboration: >
-          6. Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
+          1. Werden vom Weltmarkt marginsaliserte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
         labor_conditions: >
-          7. Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
-        producer_advancement: >
-          8. Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
-        awareness_raising: >
-         9. Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
+          2. Wird für angemessene Arbeitsbedindungen gesorgt?
         environment_protection: >
-         10. Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
+          3. Werden in der Produktion Aspekte der ökologischen Nachhaltigkeit berücksichtigt?
+        controlling: >
+          4. Gibt es Maßnahmen zur Überprüfung der o.g. Kriterien und deren Nachvollziehbarkeit?
+        awareness_raising: >
+          5. Werden Bildungsmaßnahmen zur Sensibilisierung von Verbraucher*innen sowie Maßnahmen zur Transparenz geleistet?
+        support_explanation: 'Erläuterungen:'
+        labor_conditions_explanation: 'Erläuterungen:'
+        environment_protection_explanation: 'Erläuterungen:'
+        controlling_explanation: 'Erläuterungen:'
+        awareness_raising_explanation: 'Erläuterungen:'
       social_producer_questionnaire:
         nonprofit_association: "1. Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
-
+        social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
       article_template:
         name: Vorlage
         article_title: Artikel
@@ -203,7 +196,7 @@ de:
         upcycling_reason: 'Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>'
         small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
         small_and_precious_eu_small_enterprise: 'Die EU-Kommission klassifiziert als Kleinst- oder Klein-Unternehmen: <50 Mitarbeiter*innen, max. 10 Millionen € Umsatzerlöse bzw. Bilanzsumme. Werden die Artikel nicht durch den*die Produzent*in selbst vertrieben, müssen sowohl Produzent*innen als auch Anbieter*innen ein Kleinst- oder Klein-Unternehmen sein.'
-        fair_trust_questionnaire: Die Fragen 1-5 sind mit Ja zu beantworten. Zusätzlich müssen die Angaben erläutert werden. Von den Fragen 6-10 müssen mindestens drei weitere mit Ja beantwortet und erläutert werden.
+        fair_trust_questionnaire: 'fairtrust richtet sich an Verkäufer*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
         save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
                     Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.

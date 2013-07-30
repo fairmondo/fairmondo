@@ -22,7 +22,7 @@ module Article::Commendation
 
   included do
 
-    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_edition , :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
+    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
     attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
 
 
@@ -65,8 +65,6 @@ module Article::Commendation
     ## small_and_precious
 
     validates_presence_of :small_and_precious_eu_small_enterprise, :if => :small_and_precious?, :message => I18n.t('article.form.errors.small_and_precious_eu_small_enterprise')
-    validates_presence_of :small_and_precious_edition, :if => :small_and_precious?
-    validates_numericality_of :small_and_precious_edition, :greater_than => 0, :if => :small_and_precious?
     validates_presence_of :small_and_precious_reason, :if => :small_and_precious?
     validates :small_and_precious_reason, :length => { :minimum => 150, :maximum => 2500 }, :if => :small_and_precious?
     #validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?  # this allows only value true, but not false
