@@ -35,13 +35,6 @@ class PrivateUser < User
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
 
-  PRIVATE_BAD_FACTOR = 2
-  PRIVATE_GOOD_FACTOR = 2
-
-  PRIVATE_STANDARD_SALESVOLUME = 20
-  PRIVATE_TRUSTED_BONUS = 20
-  PRIVATE_VERIFIED_BONUS = 35
-
 
   state_machine :seller_state, :initial => :standard_seller do
 
@@ -50,12 +43,22 @@ class PrivateUser < User
     end
   end
 
+  def private_seller_constants
+    private_seller_constants = {
+      :standard_salesvolume => 35,
+      :verified_bonus => 10,
+      :trusted_bonus => 20,
+      :good_factor => 2,
+      :bad_factor => 2
+    }
+  end
+
   def sales_volume
-    ( bad_seller? ? ( PRIVATE_STANDARD_SALESVOLUME / PRIVATE_BAD_FACTOR ) :
-    ( PRIVATE_STANDARD_SALESVOLUME +
-    ( self.trustcommunity ? PRIVATE_TRUSTED_BONUS : 0 ) +
-    ( self.verified ? PRIVATE_VERIFIED_BONUS : 0) ) *
-    ( good_seller? ? PRIVATE_GOOD_FACTOR : 1  ))
+    ( bad_seller? ? ( private_seller_constants[:standard_salesvolume] / private_seller_constants[:bad_factor] ) :
+    ( private_seller_constants[:standard_salesvolume] +
+    ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +
+    ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
+    ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
   end
 
 end
