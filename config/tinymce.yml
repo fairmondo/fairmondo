@@ -6,8 +6,6 @@ default:
   toolbar: undo redo | styleselect | bold italic | bullist numlist | code
   removed_menuitems: 'newdocument'
   browser_spellcheck: true
-  forced_br_newline: true
-  forced_root_block: ''
 
   plugins:
     - table
@@ -33,8 +31,6 @@ admin:
   toolbar: undo redo | styleselect | bold italic | bullist numlist | link image code
   removed_menuitems: 'newdocument'
   browser_spellcheck: true
-  forced_br_newline: true
-  forced_root_block: ''
 
   plugins:
     - table
