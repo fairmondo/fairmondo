@@ -15,10 +15,8 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  # exclude Debugger from CI
-  unless ENV["CI"]
-    gem 'debugger', :group => [:development, :test]
-  end
+  gem 'debugger', :group => [:development, :test]
+
 end
 
 # Forms & Upload
@@ -169,6 +167,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'colorize'
 end
 
