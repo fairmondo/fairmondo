@@ -157,14 +157,14 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
-  state_machine :seller_state, :initial => :standard do
+  state_machine :seller_state, :initial => :standard_seller do
 
-    event :rate_up_to_standard do
-      transition :bad => :standard
+    event :rate_up_to_standard_seller do
+      transition :bad_seller => :standard_seller
     end
 
-    event :rate_down_to_bad do
-      transition all => :bad
+    event :rate_down_to_bad_seller do
+      transition all => :bad_seller
     end
 
     event :block do
@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
     end
 
     event :unblock do
-      transition :blocked => :standard
+      transition :blocked => :standard_seller
     end
 
   end
@@ -186,17 +186,15 @@ class User < ActiveRecord::Base
   BUYER_TRUSTED_BONUS = 42
 
   state_machine :buyer_state, :initial => :standard_buyer do
-    # if more than 90% positive ratings in the last 50 ratings:
+
     event :rate_up_to_good_buyer do
       transition :standard_buyer => :good_buyer
     end
 
-    # if between 80% and 90% positive ratings in the last 50 ratings:
     event :rate_up_to_standard_buyer do
       transition :bad_buyer => :standard_buyer
     end
 
-    # if less than 80% positive ratings in the last 50 ratings:
     event :rate_down_to_bad_buyer do
       transition all => :bad_buyer
     end
@@ -204,7 +202,9 @@ class User < ActiveRecord::Base
 
   def purchase_volume
     bad_buyer? ? ( BUYER_STANDARD_PURCHASEVOLUME / BUYER_BAD_FACTOR ) :
-   ( BUYER_STANDARD_PURCHASEVOLUME + ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) * ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
+    ( BUYER_STANDARD_PURCHASEVOLUME +
+    ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) *
+    ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
   end
 
 

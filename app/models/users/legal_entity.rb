@@ -48,17 +48,30 @@ class LegalEntity < User
   COMMERCIAL_VERIFIED_BONUS = 50
 
 
-  state_machine :seller_state, :initial => :standard do
+  state_machine :seller_state, :initial => :standard_seller do
 
-    event :rate_up_to_good do
-      transition :standard => :good1, :good1 => :good2, :good2 => :good3, :good3 => :good4
+    event :rate_up_to_good1_seller do
+      transition :standard_seller => :good1_seller
+    end
+    event :rate_up_to_good2_seller do
+      transition :good1_seller => :good2_seller
+    end
+    event :rate_up_to_good3_seller do
+      transition :good2_seller => :good3_seller
+    end
+    event :rate_up_to_good4_seller do
+      transition :good3_seller => :good4_seller
     end
   end
 
   def sales_volume
-    bad? ? ( COMMERCIAL_STANDARD_SALESVOLUME / COMMERCIAL_BAD_FACTOR ) :
-    ( COMMERCIAL_STANDARD_SALESVOLUME + ( self.verified ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
-    ( good1? ? COMMERCIAL_GOOD_FACTOR : 1 ) * ( good2? ? COMMERCIAL_GOOD_FACTOR**2 : 1 ) * ( good3? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) * ( good4? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
+    bad_seller ? ( COMMERCIAL_STANDARD_SALESVOLUME / COMMERCIAL_BAD_FACTOR ) :
+    ( COMMERCIAL_STANDARD_SALESVOLUME +
+    ( self.verified ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
+    ( good1_seller? ? COMMERCIAL_GOOD_FACTOR : 1 ) *
+    ( good2_seller? ? COMMERCIAL_GOOD_FACTOR**2 : 1 ) *
+    ( good3_seller? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) *
+    ( good4_seller? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
   end
 
 end

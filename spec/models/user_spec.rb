@@ -160,4 +160,267 @@ describe User do
       end
     end
   end
+
+  describe "states" do
+    describe "seller_states" do
+      describe PrivateUser do
+        let(:private_seller) { FactoryGirl::create(:private_user) }
+        subject { private_seller }
+
+        context "being a bad seller" do
+          it "should be able to rate to standard seller" do
+            private_seller.seller_state = "bad_seller"
+            private_seller.rate_up_to_standard_seller
+            private_seller.should be_standard_seller
+          end
+          it "should not be able to rate to good seller" do
+            private_seller.seller_state = "bad_seller"
+            private_seller.rate_up_to_good_seller
+            private_seller.should be_bad_seller
+          end
+        end
+
+        context "being a standard seller" do
+          it "should be able to rate to bad seller" do
+            private_seller.seller_state = "standard_seller"
+            private_seller.rate_down_to_bad_seller
+            private_seller.should be_bad_seller
+          end
+          it "should be able to rate to good seller" do
+            private_seller.seller_state = "standard_seller"
+            private_seller.rate_up_to_good_seller
+            private_seller.should be_good_seller
+          end
+        end
+
+        context "being a good seller" do
+          it "should be able to rate to bad seller" do
+            private_seller.seller_state = "good_seller"
+            private_seller.rate_down_to_bad_seller
+            private_seller.should be_bad_seller
+          end
+          it "should not be able to rate to standard seller" do
+            private_seller.seller_state = "good_seller"
+            private_seller.rate_up_to_standard_seller
+            private_seller.should be_good_seller
+          end
+        end
+
+      end
+
+      describe LegalEntity do
+        let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
+        subject { commercial_seller }
+        context "being a bad seller" do
+          it "should be able to rate to standard seller" do
+            commercial_seller.seller_state = "bad_seller"
+            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.should be_standard_seller
+          end
+          it "should not be able to rate to good1 seller" do
+            commercial_seller.seller_state = "bad_seller"
+            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to good2 seller" do
+            commercial_seller.seller_state = "bad_seller"
+            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to good3 seller" do
+            commercial_seller.seller_state = "bad_seller"
+            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to good4 seller" do
+            commercial_seller.seller_state = "bad_seller"
+            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.should be_bad_seller
+          end
+        end
+
+         context "being a standard seller" do
+          it "should be able to rate to bad seller" do
+            commercial_seller.seller_state = "standard_seller"
+            commercial_seller.rate_down_to_bad_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should be able to rate to good1 seller" do
+            commercial_seller.seller_state = "standard_seller"
+            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.should be_good1_seller
+          end
+          it "should not be able to rate to good2 seller" do
+            commercial_seller.seller_state = "standard_seller"
+            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.should be_standard_seller
+          end
+          it "should not be able to rate to good3 seller" do
+            commercial_seller.seller_state = "standard_seller"
+            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.should be_standard_seller
+          end
+          it "should not be able to rate to good4 seller" do
+            commercial_seller.seller_state = "standard_seller"
+            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.should be_standard_seller
+          end
+        end
+
+        context "being a good1 seller" do
+          it "should be able to rate to bad seller" do
+            commercial_seller.seller_state = "good1_seller"
+            commercial_seller.rate_down_to_bad_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to standard seller" do
+            commercial_seller.seller_state = "good1_seller"
+            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.should be_good1_seller
+          end
+          it "should be able to rate to good2 seller" do
+            commercial_seller.seller_state = "good1_seller"
+            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.should be_good2_seller
+          end
+          it "should not be able to rate to good3 seller" do
+            commercial_seller.seller_state = "good1_seller"
+            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.should be_good1_seller
+          end
+          it "should not be able to rate to good4 seller" do
+            commercial_seller.seller_state = "good1_seller"
+            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.should be_good1_seller
+          end
+        end
+
+        context "being a good2 seller" do
+          it "should be able to rate to bad seller" do
+            commercial_seller.seller_state = "good2_seller"
+            commercial_seller.rate_down_to_bad_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to standard seller" do
+            commercial_seller.seller_state = "good2_seller"
+            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.should be_good2_seller
+          end
+          it "should not be able to rate to good1 seller" do
+            commercial_seller.seller_state = "good2_seller"
+            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.should be_good2_seller
+          end
+          it "should be able to rate to good3 seller" do
+            commercial_seller.seller_state = "good2_seller"
+            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.should be_good3_seller
+          end
+          it "should not be able to rate to good4 seller" do
+            commercial_seller.seller_state = "good2_seller"
+            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.should be_good2_seller
+          end
+        end
+
+        context "being a good3 seller" do
+          it "should be able to rate to bad seller" do
+            commercial_seller.seller_state = "good3_seller"
+            commercial_seller.rate_down_to_bad_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to standard seller" do
+            commercial_seller.seller_state = "good3_seller"
+            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.should be_good3_seller
+          end
+          it "should not be able to rate to good1 seller" do
+            commercial_seller.seller_state = "good3_seller"
+            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.should be_good3_seller
+          end
+          it "should not be able to rate to good2 seller" do
+            commercial_seller.seller_state = "good3_seller"
+            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.should be_good3_seller
+          end
+          it "should be able to rate to good4 seller" do
+            commercial_seller.seller_state = "good3_seller"
+            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.should be_good4_seller
+          end
+        end
+
+        context "being a good4 seller" do
+          it "should be able to rate to bad seller" do
+            commercial_seller.seller_state = "good4_seller"
+            commercial_seller.rate_down_to_bad_seller
+            commercial_seller.should be_bad_seller
+          end
+          it "should not be able to rate to standard seller" do
+            commercial_seller.seller_state = "good4_seller"
+            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.should be_good4_seller
+          end
+          it "should not be able to rate to good1 seller" do
+            commercial_seller.seller_state = "good4_seller"
+            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.should be_good4_seller
+          end
+          it "should not be able to rate to good2 seller" do
+            commercial_seller.seller_state = "good4_seller"
+            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.should be_good4_seller
+          end
+          it "should not be able to rate to good3 seller" do
+            commercial_seller.seller_state = "good4_seller"
+            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.should be_good4_seller
+          end
+        end
+      end
+    end
+
+    describe "buyer_states" do
+      context "user being a bad buyer" do
+        it "should be able to rate to standard buyer" do
+          user.buyer_state = "bad_buyer"
+          user.rate_up_to_standard_buyer
+          user.should be_standard_buyer
+        end
+        it "should not be able to rate to good buyer" do
+          user.buyer_state = "bad_buyer"
+          user.rate_up_to_good_buyer
+          user.should be_bad_buyer
+        end
+      end
+
+      context "user being a standard buyer" do
+        it "should be able to rate to bad buyer" do
+          user.buyer_state = "standard_buyer"
+          user.rate_down_to_bad_buyer
+          user.should be_bad_buyer
+        end
+        it "should be able to rate to good buyer" do
+          user.buyer_state = "standard_buyer"
+          user.rate_up_to_good_buyer
+          user.should be_good_buyer
+        end
+      end
+
+      context "user being a good buyer" do
+          it "should be able to rate to bad buyer" do
+            user.buyer_state = "good_buyer"
+            user.rate_down_to_bad_buyer
+            user.should be_bad_buyer
+          end
+          it "should not be able to rate to standard buyer" do
+            user.buyer_state = "good_buyer"
+            user.rate_up_to_standard_buyer
+            user.should be_good_buyer
+          end
+        end
+    end
+
+  end
 end
