@@ -20,7 +20,7 @@
 	}
 }
 .Search .Search-input input { // extra specificity
-	@include rem(font-size, 20px);
+	@include rem(font-size, 17px);
 	width: 100%;
 }
 .Search-button {
@@ -35,7 +35,7 @@
 	.Btn--gray {
 		width: auto;
 		margin: 0;
-		@include rem(font-size, 16px);
+		@include rem(font-size, 17px);
 		@include rem(padding, 6px 18px 10px);
 	}
 	.icon-helper {

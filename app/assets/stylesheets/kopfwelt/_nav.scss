@@ -15,7 +15,7 @@
 		@include rem(margin-right, 19px);
 	}
 	a {
-		@extend %Semibold;
+		// @extend %Semibold;
 		// display: block;
 		text-decoration: none;
 
@@ -44,7 +44,7 @@
 		color: #000;
 		&:hover {
 			color: #000;
-			@extend %Bold;
+			// @extend %Bold;
 		}
 	}
 	.icon {
