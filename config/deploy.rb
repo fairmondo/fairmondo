@@ -106,13 +106,6 @@ namespace :import do
     upload "#{ARGV[2]}", "#{shared_path}/uploads/#{file_name}.csv"
     run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake import:content #{shared_path}/uploads/#{file_name}.csv"
   end
-  desc "Import categories"
-  task :categories do
-    run "mkdir -p #{shared_path}/uploads"
-    file_name = Time.now.utc.strftime("%Y%m%d%H%M%S")
-    upload "#{ARGV[2]}", "#{shared_path}/uploads/#{file_name}.csv"
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake import:categories #{shared_path}/uploads/#{file_name}.csv"
-  end
 end
 
 ##### After and Before Tasks #####
