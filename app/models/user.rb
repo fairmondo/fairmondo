@@ -86,11 +86,11 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
 
-  validates_presence_of :forename , :on => :update
-  validates_presence_of :surname , :on => :update
-  validates_presence_of :country , :on => :update
-  validates_presence_of :street , :on => :update
-  validates_presence_of :city , :on => :update
+  validates :forename, presence: true, on: :update
+  validates :surname, presence: true, on: :update
+  validates :country, presence: true, on: :update
+  validates :street, presence: true, format: /\A.+\d+.*\z/, on: :update # format: ensure digit for house number
+  validates :city, presence: true, on: :update
 
   validates :nickname , :presence => true, :uniqueness => true
 

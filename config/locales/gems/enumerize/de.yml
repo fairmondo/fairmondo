@@ -14,15 +14,15 @@ de:
         broken:  "Defekt / Schwere Mängel"
       fair_kind:
         fair_seal: Mit Siegel oder anerkannter Handelspartner
-        fair_trust: Fairtrust
+        fair_trust: fairtrust
         social_producer: Soziale Produktion
       fair_seal:
         trans_fair: Fairtrade-Siegel (TransFair)
         weltladen: Weltladen-Handelspartner
         wtfo: WFTO-Mitglied
       ecologic_kind:
-        ecologic_seal: "Artikel trägt ein Öko-Siegel"
-        upcycling: "Artikel fällt unter Upcycling"
+        ecologic_seal: "Der Artikel trägt ein Öko-Siegel"
+        upcycling: "Der Artikel ist durch Upcycling entstanden"
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel
@@ -141,18 +141,29 @@ de:
         sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
         democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind
       social_businesses_muhammad_yunus_checkboxes:
-        social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
-        dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
-        reinvestment: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
-        natural_protection: Arbeitet das Unternehmen umweltbewusst ?
-        conditions_of_work: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
+        social_proplem: Das Unternehmensziel besteht darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen
+        dividend: Es erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business
+        reinvestment: Es werden die Überschüsse des Social Business in das Unternehmen reinvestiert
+        natural_protection: Das Unternehmen arbeitet umweltbewusst
+        conditions_of_work: Die Arbeitsbedingungen der Mitarbeiter im Unternehmen sind sehr gut
+        social_proplem_old: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
+        dividend_old: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
+        reinvestment_old: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
+        natural_protection_old: Arbeitet das Unternehmen umweltbewusst ?
+        conditions_of_work_old: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
       social_entrepreneur_checkboxes:
-        social_proplem: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
-        big_social_groups: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
-        small_social_groups: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
-        generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
-        potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
-        social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+        social_proplem: Das Unternehmensziel besteht darin, ein gesellschaftliches Problem zu lösen
+        big_social_groups: Das Projekt wird für große gesellschaftliche Gruppen umgesetzt
+        small_social_groups: Das Projekt wird für kleine gesellschaftliche Gruppen umgesetzt
+        generally_charitable: Das Unternehmen arbeitet primär gewinnorientiert
+        potential_social_advancement: Es besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken
+        social_sensitization: Es werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert
+        social_proplem_old: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+        big_social_groups_old: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
+        small_social_groups_old: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
+        generally_charitable_old: Arbeitet das Unternehmen primär gewinnorientiert?
+        potential_social_advancement_old: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
+        social_sensitization_old: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
 
     feedback:
       feedback_subject:

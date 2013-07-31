@@ -36,7 +36,8 @@
             -if !resource.social_producer_questionnaire.social_entrepreneur_explanation.blank?
               %p
                 %b= t('formtastic.labels.social_producer_questionnaire.social_entrepreneur_explanation')
-              %p= resource.social_producer_questionnaire.social_entrepreneur_explanation
+              .small
+                %p= resource.social_producer_questionnaire.social_entrepreneur_explanation
         - when "fair_trust"
           - if resource.fair_trust_questionnaire
             %h3= t('enumerize.article.fair_kind.fair_trust')
@@ -59,7 +60,8 @@
           %p
             %b= t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
         - if resource.ecologic_kind == "upcycling"
-          %p= resource.upcycling_reason
+          .small
+            %p= resource.upcycling_reason
 
     -# SMALL AND PRECIOUS
     - if resource.small_and_precious
@@ -70,7 +72,8 @@
         %p= resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')
         %p
           %b= t('formtastic.labels.article.small_and_precious_reason')
-        %p= resource.small_and_precious_reason
+        .small
+          %p= resource.small_and_precious_reason
         %p
           %b= t('formtastic.labels.article.small_and_precious_handmade')
         %p= resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')
