@@ -46,19 +46,17 @@ module Article::Attributes
 
     validates_presence_of :price_cents
 
-    validates_numericality_of :price,
-    :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000
+    monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
 
-    monetize :price_cents
 
     # vat
 
     validates_presence_of :vat , :if => :has_legal_entity_seller?
 
     # basic price
-    attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
+    attr_accessible :basic_price, :basic_price_cents, :basic_price_amount
 
-    monetize :basic_price_cents, :allow_nil => true
+    monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
@@ -83,8 +81,8 @@ module Article::Attributes
     validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
     validates :transport_details, :length => { :maximum => 2500 }
 
-    monetize :transport_uninsured_price_cents, :allow_nil => true
-    monetize :transport_insured_price_cents, :allow_nil => true
+    monetize :transport_uninsured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_insured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validate :default_transport_selected
 
@@ -107,7 +105,7 @@ module Article::Attributes
 
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
+    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validates :payment_details, :length => { :maximum => 2500 }
 
