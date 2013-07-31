@@ -26,7 +26,7 @@ class FeedbacksController < InheritedResources::Base
     authorize build_resource
     resource.set_user_id current_user
     create! do |success,failure|
-      success.html { redirect_to root_path, notice: (I18n.t 'article.actions.reported')  }
+      success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
       failure.html { render :new }
     end
   end
@@ -36,5 +36,15 @@ class FeedbacksController < InheritedResources::Base
     authorize build_resource
     new!
   end
+
+  private
+
+    def redirect_path
+      if @feedback.type == "report_article"
+        article_path(Article.find(@feedback.article_id))
+      else
+        root_path
+      end
+    end
 
 end
