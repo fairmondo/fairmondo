@@ -8,13 +8,5 @@ namespace :import do
       content_new.save
     end
   end
-  desc "Import categories"
-  task :categories => :environment do
-    CSV.foreach(ARGV[1], headers: true) do |row|
-      hash_row = row.to_hash
-      cat_new = Category.find_or_create_by_name(hash_row["Name"])
-      cat_new.update_attributes(parent_id: hash_row["Parent id"])
-    end
-  end
 end
 
