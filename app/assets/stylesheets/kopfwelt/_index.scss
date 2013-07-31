@@ -81,10 +81,7 @@
 	text-align: left;
 	margin: 0 20px;
 	color: $blue;
-	word-break: break-all;
-		.lt-ie9 & {
-			word-break: break-word;
-		}
+	word-break: break-word;
 }
 .Teaser--pioneer-2 {
 	@include rem(font-size, 30px);

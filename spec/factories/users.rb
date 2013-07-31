@@ -57,6 +57,10 @@ FactoryGirl.define do
     end
     factory :legal_entity, class: 'LegalEntity' do
     end
+
+    factory :incomplete_user do
+      country nil
+    end
   end
 
   #Only for attribute generation
