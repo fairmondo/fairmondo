@@ -22,7 +22,8 @@
   = @text
 %p
   Article link:
-  = polymorphic_url([:admin, @article])
+  = polymorphic_url([@article])
+
 %p
   Admin link:
   = polymorphic_url([:admin, @article])

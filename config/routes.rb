@@ -22,7 +22,7 @@ Fairnopoly::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   namespace :admin do
-    resources :articles
+    resources :article
   end
 
   resources :article_templates, :except => [:show, :index]
