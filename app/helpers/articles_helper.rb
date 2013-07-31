@@ -126,6 +126,7 @@ module ArticlesHelper
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
         minimum_match 1
+        exclude_fields(:content)
         fields(:title)
       end
       without(article)
@@ -135,9 +136,30 @@ module ArticlesHelper
         with :condition, :old
       end
     end
-    return search.results.first
+    alternative = search.results.first
+    if rate_article(article) < rate_article(alternative)
+      return alternative
+    else
+      return nil
+    end
   rescue Errno::ECONNREFUSED
     return nil
+  end
+
+  def rate_article article
+    if article == nil
+      return 0
+    end
+    if article.fair
+      return 3
+    end
+    if article.ecologic
+      return 2
+    end
+    if article.condition.old?
+      return 1
+    end
+    return 0
   end
 
   def libraries

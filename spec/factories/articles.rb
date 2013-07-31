@@ -116,7 +116,11 @@ FactoryGirl.define do
       fair_seal :trans_fair
     end
 
-
+    trait :simple_ecologic do
+      ecologic true
+      ecologic_kind :ecologic_seal
+      ecologic_seal :bio_siegel
+    end
 
   end
 end

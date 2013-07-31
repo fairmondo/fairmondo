@@ -95,6 +95,37 @@ describe ArticlesHelper do
 
   end
 
+  describe "#rate_article" do
+
+     it "should return 3 on fair article" do
+        @article = FactoryGirl.create :article, :simple_fair
+        (helper.rate_article  @article).should eq 3
+     end
+
+     it "should return 2 on eco article" do
+         @article = FactoryGirl.create :article, :simple_ecologic
+         (helper.rate_article  @article).should eq 2
+     end
+
+      it "should return 1 on old article" do
+         @article =  FactoryGirl.create :second_hand_article
+        (helper.rate_article  @article).should eq 1
+     end
+
+     it "should return 0 on normal article" do
+        @article =  FactoryGirl.create :no_second_hand_article
+        (helper.rate_article  @article).should eq 0
+     end
+
+     it "should return 0 on nil article" do
+        @article =  nil
+        (helper.rate_article  @article).should eq 0
+     end
+
+  end
+
+
+
   # describe "#category_shift(level)" do
   #   it "should return the correct css" do
   #     helper.category_shift(1).should eq 'padding-left:10px;'
