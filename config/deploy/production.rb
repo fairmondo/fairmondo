@@ -25,6 +25,7 @@ role :db, "78.109.61.168", :primary => true
 
 set :rails_env, "production"
 set :branch, "release"
+<<<<<<< HEAD
 
 
 namespace :content  do
@@ -34,3 +35,5 @@ namespace :content  do
     run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake content:import #{shared_path}/content_import.csv"
   end
 end
+=======
+>>>>>>> e93e0bbe7abb92abde275e625291418406736db6
