@@ -22,12 +22,11 @@
   = @text
 %p
   Article link:
-  = polymorphic_url([:admin, @article.id])
+  = polymorphic_url([@article])
 
 %p
   Admin link:
   = polymorphic_url([:admin, @article])
-
 %p
   = t('common.fn_legal_footer.intro.intro')
 %p
