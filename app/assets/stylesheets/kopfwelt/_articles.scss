@@ -10,7 +10,7 @@
 	background-color: $white;
 	h2 {
 		@include rem(font-size, 17px);
-		word-break: break-all;
+		word-break: break-word;
 	}
 	form.library_element .library .inputs {
 	  float: left;
@@ -104,7 +104,7 @@
 .Articles-title {
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
-	word-break: break-all;
+	word-break: break-word;
 }
 p.Article-price,
 span.Article-price {
