@@ -49,11 +49,12 @@ module Sanitization
       modify Sanitize.clean(
         field,
         elements: admin_mode ?
-          %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img div span) :
+          %w(a b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li img div span iframe) :
           %w(b i strong em p h1 h2 h3 h4 h5 h6 br hr ul ol li),
         attributes: {
           'a' => ['href', 'type', 'target'],
           'img' => ['src', 'alt'],
+          'iframe' => ['src', 'frameborder'],
           :all => admin_mode ?
             ['width', 'height', 'data', 'name', 'id', 'class', 'style'] :
             ['width', 'height', 'data', 'name']

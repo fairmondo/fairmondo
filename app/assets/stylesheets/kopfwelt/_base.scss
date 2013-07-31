@@ -52,7 +52,7 @@ h3 {
 	@include rem(font-size, 20px);
 }
 h4 {
-  @extend %Semibold;
+  @extend %Bold;
 }
 
 .BodyText {

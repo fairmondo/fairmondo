@@ -52,7 +52,6 @@ namespace :solr do
 end
 
 
-
 #Sunspot Hooks
 after "deploy:stop",    "solr:stop"
 after "deploy:start",   "solr:start"
