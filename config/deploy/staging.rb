@@ -17,6 +17,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+
+require 'debugger'
+
 role :app, "78.109.61.137", :primary => true
 role :web, "78.109.61.137", :primary => true
 role :db, "78.109.61.137", :primary => true
@@ -47,7 +50,6 @@ namespace :solr do
     run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:reindex"
   end
 end
-
 
 
 #Sunspot Hooks

@@ -1,6 +1,6 @@
 //
 // Base
-// 
+//
 
 
 html {
@@ -50,6 +50,9 @@ h2 {
 }
 h3 {
 	@include rem(font-size, 20px);
+}
+h4 {
+  @extend %Bold;
 }
 
 .BodyText {

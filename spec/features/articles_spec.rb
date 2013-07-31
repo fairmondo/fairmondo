@@ -188,7 +188,7 @@ describe 'Article management' do
         fill_in 'feedback_text', with: ''
         click_button I18n.t 'article.actions.report'
 
-        page.should have_content I18n.t 'feedback.error.presence'
+        page.should have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
       end
     end
 
