@@ -126,6 +126,7 @@
           %p.User-library--title
             = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
           %p.User-library--user
-            = t('common.text.from') + " " + library.user_nickname
+            = t('common.text.from') + " "
+            = link_to( library.user_nickname, user_path(library.user))
 
       = will_paginate libraries, :params => {:anchor => "library" }
