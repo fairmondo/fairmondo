@@ -24,7 +24,7 @@ class FeedbackPolicy < Struct.new(:user, :feedback)
   end
 
   def create?
-    case feedback.type
+    case feedback.variety
       when "report_article" then
         user
       when "send_feedback" then

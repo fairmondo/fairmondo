@@ -28,7 +28,7 @@ describe "Feedback" do
       @user = FactoryGirl.create :user
       login_as @user
 
-      visit new_feedback_path(:type => "get_help")
+      visit new_feedback_path(:variety => "get_help")
 
       fill_in 'feedback_from', with: 'test@test.de'
       fill_in 'feedback_subject', with: 'test'
@@ -47,7 +47,7 @@ describe "Feedback" do
       @user = FactoryGirl.create :user
       login_as @user
 
-      visit new_feedback_path(:type => "send_feedback")
+      visit new_feedback_path(:variety => "send_feedback")
 
       fill_in 'feedback_from', with: 'test@test.de'
       fill_in 'feedback_subject', with: 'test'

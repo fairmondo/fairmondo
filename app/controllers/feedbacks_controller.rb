@@ -32,7 +32,7 @@ class FeedbacksController < InheritedResources::Base
   end
 
   def new
-    @type = params[:type] || "send_feedback"
+    @variety = params[:variety] || "send_feedback"
     authorize build_resource
     new!
   end
@@ -40,7 +40,7 @@ class FeedbacksController < InheritedResources::Base
   private
 
     def redirect_path
-      if @feedback.type == "report_article"
+      if @feedback.variety == "report_article"
         article_path(Article.find(@feedback.article_id))
       else
         root_path
