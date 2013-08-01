@@ -24,7 +24,7 @@ class FeedbackObserver < ActiveRecord::Observer
   def after_save(feedback)
 
      # Send the feedback
-    case feedback.type
+    case feedback.variety
       when "report_article" then
         ArticleMailer.report_article( feedback.article,feedback.user,feedback.text ).deliver
       when "send_feedback" then

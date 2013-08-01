@@ -18,17 +18,17 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
--type = @type || resource.type
--case type
+-variety = @variety || resource.variety
+-case variety
 
 -when "report_article" then
   .Feedback-form
-    = render 'feedbacks/types/report', feedback: resource
+    = render 'feedbacks/varieties/report', feedback: resource
 
 -when "get_help" then
   .Feedback-form
-    = render 'feedbacks/types/help'
+    = render 'feedbacks/varieties/help'
 
 -when "send_feedback"
   .Feedback-form
-    = render 'feedbacks/types/feedback'
+    = render 'feedbacks/varieties/feedback'

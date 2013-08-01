@@ -21,10 +21,10 @@ class Feedback < ActiveRecord::Base
   extend Enumerize
   extend ActiveModel::Naming
 
-  attr_accessible :from, :subject, :text, :to, :type, :article_id,
+  attr_accessible :from, :subject, :text, :to, :variety, :article_id,
                   :feedback_subject, :help_subject
 
-  enumerize :type, in: [ :report_article, :get_help, :send_feedback ]
+  enumerize :variety, in: [ :report_article, :get_help, :send_feedback ]
 
   enumerize :feedback_subject, in: [ :dealer, :technics, :other]
                                      #, :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
@@ -35,11 +35,11 @@ class Feedback < ActiveRecord::Base
 
   # Validations
   validates :text, presence: true
-  validates :type, presence: true
+  validates :variety, presence: true
   validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ },
                    allow_blank: true
-  validates :feedback_subject, presence: true, if: lambda { self.type == 'send_feedback' }
-  validates :help_subject, presence: true, if: lambda { self.type == 'get_help' }
+  validates :feedback_subject, presence: true, if: lambda { self.variety == 'send_feedback' }
+  validates :help_subject, presence: true, if: lambda { self.variety == 'get_help' }
   validates :subject, presence: true, unless: :is_report_article
 
   #Relations
@@ -58,6 +58,6 @@ class Feedback < ActiveRecord::Base
   # For validation
   # @api private
   def is_report_article
-    self.type == 'report_article'
+    self.variety == 'report_article'
   end
 end
