@@ -163,11 +163,11 @@ module ArticlesHelper
   end
 
   def libraries
-    resource.libraries.where(:public => true).paginate(:page => params[:page], :per_page=>10)
+    resource.libraries.where(:public => true).page(params[:page]).per(10)
   end
 
   def active_seller_articles
-    resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
+    resource.seller.articles.where(:state => "active").page(params[:page]).per(18)
   end
 
    def transport_format_for method,css_classname=""
