@@ -63,6 +63,7 @@
               = f.button t('common.actions.collect'), :class => "Btn Btn--blue"
               %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst." }
         - elsif user_signed_in?
+          %br
           = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
   .Article-info--left
     .Thumbnail-container
