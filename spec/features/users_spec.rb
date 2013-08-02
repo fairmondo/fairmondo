@@ -283,5 +283,41 @@ describe 'User management' do
       end
     end
   end
+end
 
+describe "Pioneer of the day" do
+
+  context "is a private user" do
+    let (:user) { FactoryGirl.create :private_user }
+    let (:article) { FactoryGirl.create :article, :user_id => user.id }
+
+    it "should show the users nickname" do
+      Settings.featured_article_id = article.id
+      visit root_path
+      page.should have_css '.Profile-name', text: user.nickname
+    end
+
+    it "should not show the users city" do
+      Settings.featured_article_id = article.id
+      visit root_path
+      page.should_not have_css '.Profile-name', text: user.city
+    end
+  end
+
+  context "is a legal entity" do
+    let (:user) { FactoryGirl.create :legal_entity, city: "Berlin", company_name: "Fairnopoly eG" }
+    let (:article) { FactoryGirl.create :article, :user_id => user.id }
+
+    it "should show the users company name" do
+      Settings.featured_article_id = article.id
+      visit root_path
+      page.should have_css '.Profile-name', text: user.company_name
+    end
+
+    it "should show the users city" do
+      Settings.featured_article_id = article.id
+      visit root_path
+      page.should have_css '.Profile-name', text: user.city
+    end
+  end
 end
