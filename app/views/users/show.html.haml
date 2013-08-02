@@ -25,11 +25,11 @@
         %strong= t('users.text.no_offers')
       - else
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class => "l-ArticleList"}
-        = will_paginate active_articles, :params => {:anchor => "offers" } , :param_name => "active_articles_page"
+        = paginate active_articles, :params => {:anchor => "offers" } , :param_name => "active_articles_page"
     - if !inactive_articles.empty?
       = accordion_item "inactive",:content_class => "padding-box" do
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> inactive_articles, :list_class => "l-ArticleList"}
-        = will_paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
+        = paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
     = accordion_item "sold" do
       %strong= t('users.text.soon_sold')
     = accordion_item "my_article_templates" do
@@ -42,5 +42,5 @@
 - else
   .User-articles
     = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles}
-    = will_paginate active_articles, :param_name => "active_articles_page"
+    = paginate active_articles, :param_name => "active_articles_page"
 

@@ -23,11 +23,11 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where("state = ?", :active).paginate :page => params[:active_articles_page]
+    resource.articles.where("state = ?", :active).page(params[:active_articles_page])
   end
 
   def inactive_articles
-    resource.articles.where("state != ? AND state != ?", :active, :closed ).paginate :page => params[:inactive_articles_page]
+    resource.articles.where("state != ? AND state != ?", :active, :closed ).page(params[:inactive_articles_page])
   end
 
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link
