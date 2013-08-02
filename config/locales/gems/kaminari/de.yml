@@ -1,0 +1,9 @@
+de:
+  # Gems & Plugins
+  views:
+    pagination:
+      next:
+        "Weiter"
+      previous:
+        "Zurück"
+      truncate: "..."

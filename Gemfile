@@ -30,7 +30,6 @@ gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
-gem 'will_paginate'
 gem 'money-rails' # Deal with Money
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
@@ -80,12 +79,7 @@ group :assets do
 
    # CSS
   gem 'sass-rails', '~> 3.2'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
-  gem 'bootstrap-will_paginate'
-  gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
-  gem "flatui-rails"
-  gem "formtastic-plus-flatui"
   gem "susy", "~> 1.0.8"
   gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
