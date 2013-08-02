@@ -54,18 +54,28 @@ class Feedback < ActiveRecord::Base
     self.user_id = current_user.id if current_user
   end
 
-  def set_user_agent user_agent
-    self.user_agent = user_agent
+  def translate_subject
+    if self.variety == "send_feedback"
+      I18n.t("enumerize.feedback.feedback_subject.#{self.feedback_subject}")
+    elsif self.variety == "get_help"
+      I18n.t("enumerize.feedback.help_subject.#{self.help_subject}")
+    end
   end
 
-  def set_source_page source_page
-    self.source_page = source_page
+  def last_article_id
+    if self.user_id && User.find(self.user_id).articles.last
+      User.find(self.user_id).articles.last.id
+    elsif self.user_id
+      I18n.t('feedback.details.no_article_existent')
+    else
+      I18n.t('feedback.details.user_not_logged_in')
+    end
   end
 
   private
-  # For validation
-  # @api private
-  def is_report_article
-    self.variety == 'report_article'
-  end
+    # For validation
+    # @api private
+    def is_report_article
+      self.variety == 'report_article'
+    end
 end

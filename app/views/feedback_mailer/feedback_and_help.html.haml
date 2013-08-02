@@ -18,18 +18,28 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-= @text
+%p
+  Thema:
+  = @feedback_subject
+
+%p
+  Inhalt:
+  = @feedback.text
 
 
-= "Technische Details für den IT - Support"
+= t('feedback.details.details_for_tech_support')
 %p
   User-Agent:
-  = @user_agent
+  = @feedback.user_agent
 
 %p
   Source-Page:
-  = @source_page
+  = @feedback.source_page
 
 %p
   Feedback-ID:
-  = @id
+  = @feedback.id
+
+%p
+  = t('feedback.details.last_uploaded_article_id')
+  = @last_article_id
