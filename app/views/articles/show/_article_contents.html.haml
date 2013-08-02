@@ -130,4 +130,4 @@
             = t('common.text.from') + " "
             = link_to( library.user_nickname, user_path(library.user))
 
-      = will_paginate libraries, :params => {:anchor => "library" }
+      = paginate libraries, :params => {:anchor => "library" }
