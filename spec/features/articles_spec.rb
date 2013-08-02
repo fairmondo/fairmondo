@@ -92,7 +92,7 @@ describe 'Article management' do
             within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
               choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
             end
-            check "article_social_producer_questionnaire_attributes_nonprofit_association_purposes_youth_and_elderly"
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_checkboxes_youth_and_elderly"
             within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
               choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
             end
@@ -190,7 +190,7 @@ describe 'Article management' do
         fill_in 'feedback_text', with: ''
         click_button I18n.t 'article.actions.report'
 
-        page.should have_content I18n.t 'feedback.error.presence'
+        page.should have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
       end
     end
 
@@ -234,7 +234,13 @@ describe 'Article management' do
       it "should display a buy button that forces a login" do #! will change after sprint
         visit article_path @article
         click_link I18n.t 'common.actions.to_cart'
-        page.should have_content "Login"
+        page.should have_content I18n.t 'common.actions.login'
+      end
+
+      it "should have link to Transparency International" do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+        page.should have_link("Transparency International", :href => "http://www.transparency.de/")
       end
 
       # it "should have a different title image with an additional param" do
@@ -282,5 +288,41 @@ describe "Pagination for libraries should work"  do
 
   it "should show selector div.pagination" do
     page.assert_selector('div.pagination')
+  end
+end
+
+describe "LibraryElements should exist only on acive articles" do
+
+  before do
+    @seller = FactoryGirl.create :seller
+    @buyer = FactoryGirl.create :buyer
+
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    @lib = FactoryGirl.create :library, :user => @buyer, :public => true
+    FactoryGirl.create :library_element, :article => @article_active, :library => @lib
+
+  end
+
+  it "should delete LibraryElement when deactivating an article" do
+
+    login_as @seller, scope: :user
+    visit article_path @article_active
+    click_button I18n.t 'article.labels.deactivate'
+
+    login_as @buyer, scope: :user
+    visit user_libraries_path @buyer
+    within("#library"+@lib.id.to_s) do
+      page.should have_content I18n.t 'library.no_products'
+    end
+  end
+
+end
+
+describe "Article Page should show link to Transparency International" do
+  it "should have link to Transparency International" do
+    @article = FactoryGirl.create :article
+    visit article_path @article
+    page.should have_link("Transparency International", :href => "http://www.transparency.de/")
   end
 end

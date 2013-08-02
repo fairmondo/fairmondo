@@ -15,20 +15,24 @@ de:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
     included_short: "Inkl."
     vat: "Mehrwertsteuer"
-    vat_included: "Inkl. Mehrwertsteuer"
+
+    included_short: "Inkl."
+    vat: "Mehrwertsteuer"
+    vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
     transport:
       placeholders:
         insured_provider: "z.B. DHL Paket"
         uninsured_provider: "z.B. DHL Päckchen"
     show:
-      friendly_percent: "Das freundliche Prozent"
+      friendly_percent: "Das faire Prozent"
       will_be: " werden an "
+      donate_html: "1% werden an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
       title_addition: " zu kaufen bei Fairnopoly"
       alternative: "Faire Alternative"
-      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
+      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -48,29 +52,30 @@ de:
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
-        small_and_precious_eu_small_enterprise: "Nicht zufriedenstellend beantwortet"
-        invalid_payment_option: "Bitte gib mindestens eine Zahlungsart an!"
-
-
+        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
+        social_producer_questionnaire:
+          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
 
     labels:
-      payment: "Zahlungsart"
+      shipping_options: "Versandoptionen:"
+      payment_options: "Bezahloptionen:"
+      payment: "Bezahloption"
       price: "Preis"
       shipping_condition: "Versand-Zustand"
       expiration_date: "Ablaufdatum"
       type: "Angebotsart"
-      submit: "Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen."
+      submit: "Angebot gebührenpflichtig einstellen"
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
     list:
       header: "Ergebnisse"
     notices:
-      create: 'Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a id="WebLinkDescLink" href="http://de.surveymonkey.com/s/TJ69GDD">an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!'
+      create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, kannst du diesen Artikel melden:"
-      incomplete_profile: "Du musst alle Pflichtfelder in Deinem Profil angeben, bevor Du einen Artikel einstellen kannst."
+      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
+      incomplete_profile: 'Um Artikel anbieten zu können, musst Du zunächst die Pflichtfelder in Deinem Profil ausfüllen. Du wirst auf die "Profil bearbeiten"-Seite weitergleitet.'
       inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
       locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
       deactivated: "Artikel wurde erfolgreich vom Marktplatz genommen!"
@@ -89,7 +94,7 @@ de:
       edit: "Artikel bearbeiten"
       profile: "Verkäufer*in ansehen"
       report: "Feedback senden"
-      reported: "Das Feedback wurde erfolgreich gesendet."
+      reported: "Dein Feedback wurde erfolgreich gesendet."
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
     categories:
       proposal:
@@ -98,10 +103,10 @@ de:
     preview:
       fees_and_donations:
         title: Deine Gebühren und Spenden
-        fair_percent: "Dein Beitrag zur Korruptions&shy;bekämpfung pro verkauftem Artikel (1%):"
-        friendly_percent: "Das freundliche Prozent:"
+        fair_percent: "Das faire Prozent (1%):"
+        friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
-        total: "Gesamt bei Verkauf (%{fee}), inkl. 19% MwSt:"
+        total: "Gesamt bei Verkauf, inkl. 19% MwSt:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
         netto: "Nettobetrag:"
 
@@ -109,7 +114,7 @@ de:
         title: Alle Angaben überprüft?
       tooltips:
         fees_and_donations: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Mehr erfährst Du <hier>.
+          1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet.
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
           Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.

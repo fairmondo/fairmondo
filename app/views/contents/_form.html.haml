@@ -39,7 +39,7 @@
         = f.input :key, required: true
       .fields
         = f.input :body, as: :text, required: true, input_html: { class: "tinymce" }
-        = tinymce
+        = tinymce :admin
 
       .actions
         = f.submit

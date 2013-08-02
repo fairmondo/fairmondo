@@ -42,11 +42,7 @@ module Formtastic
             wrapper_html_options
           )
         end
-
       end
-
-
-
     end
   end
 end

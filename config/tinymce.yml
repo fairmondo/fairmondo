@@ -1,22 +1,49 @@
-width : "100%"
-height : 400
-menubar: false
-statusbar: false
-toolbar: undo redo | styleselect | bold italic | bullist numlist | link image code
-removed_menuitems: 'newdocument'
-browser_spellcheck : true
-plugins:
-  - table
-  - fullscreen
-  - image
-  - code
-  - link
-style_formats :
-  - title : 'Fairnopoly - h1'
-    block : 'h1'
-  - title : 'Fairnopoly - h2'
-    block : 'h2'
-  - title : 'Fairnopoly - h3'
-    block : 'h3'
-  - title : 'Fairnopoly - h4'
-    block : 'h4'
+default:
+  width : "100%"
+  height : 400
+  menubar: false
+  statusbar: false
+  toolbar: undo redo | styleselect | bold italic | bullist numlist | code
+  removed_menuitems: 'newdocument'
+  browser_spellcheck: true
+
+  plugins:
+    - table
+    - fullscreen
+    - image
+    - code
+    - link
+  style_formats :
+    - title : 'Fairnopoly - h1'
+      block : 'h1'
+    - title : 'Fairnopoly - h2'
+      block : 'h2'
+    - title : 'Fairnopoly - h3'
+      block : 'h3'
+    - title : 'Fairnopoly - h4'
+      block : 'h4'
+
+admin:
+  width : "100%"
+  height : 400
+  menubar: false
+  statusbar: false
+  toolbar: undo redo | styleselect | bold italic | bullist numlist | link image code
+  removed_menuitems: 'newdocument'
+  browser_spellcheck: true
+
+  plugins:
+    - table
+    - fullscreen
+    - image
+    - code
+    - link
+  style_formats :
+    - title : 'Fairnopoly - h1'
+      block : 'h1'
+    - title : 'Fairnopoly - h2'
+      block : 'h2'
+    - title : 'Fairnopoly - h3'
+      block : 'h3'
+    - title : 'Fairnopoly - h4'
+      block : 'h4'

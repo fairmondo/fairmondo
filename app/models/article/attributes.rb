@@ -49,7 +49,8 @@ module Article::Attributes
     validates_presence_of :price_cents
     validates_numericality_of :price, greater_than_or_equal_to: 0
 
-    monetize :price_cents
+    monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
+
 
     # vat (Value Added Tax)
 
@@ -58,7 +59,7 @@ module Article::Attributes
     # basic price
     attr_accessible :basic_price, :basic_price_cents, :basic_price_amount
 
-    monetize :basic_price_cents, allow_nil: true
+    monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
@@ -80,11 +81,12 @@ module Article::Attributes
     enumerize :default_transport, in: TRANSPORT_TYPES
 
     validates_presence_of :default_transport
-    validates :transport_insured_price, :transport_insured_provider, presence: true, if: :transport_insured
-    validates :transport_uninsured_price, :transport_uninsured_provider, presence: true, if: :transport_uninsured
+    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
+    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+    validates :transport_details, :length => { :maximum => 2500 }
 
-    monetize :transport_uninsured_price_cents, allow_nil: true
-    monetize :transport_insured_price_cents, allow_nil: true
+    monetize :transport_uninsured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_insured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validate :default_transport_selected
 
@@ -108,8 +110,9 @@ module Article::Attributes
 
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, allow_nil: true
+    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
+    validates :payment_details, :length => { :maximum => 2500 }
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
@@ -125,116 +128,117 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
-  def default_transport_selected
-    if self.default_transport
-      unless self.send("transport_#{self.default_transport}")
-        errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+  # Gives the price of the article minus taxes
+    #
+    # @api public
+    # @return [Money]
+    def price_without_vat
+      self.price * ( 100 - self.vat ) / 100
+    end
+
+    # Gives the amount of money for an article that goes towards taxes
+    #
+    # @api public
+    # @return [Money]
+    def vat_price
+      self.price * self.vat / 100
+    end
+
+    # Function to calculate total price for an article.
+    # Note: Params should have already been validated.
+    #
+    # @api public
+    # @param selected_transport [String] Transport type
+    # @param selected_payment [String] Payment type
+    # @return [Money] Total billed price
+    def total_price selected_transport, selected_payment
+      total = self.price + self.transport_price(selected_transport)
+      total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+      total
+    end
+
+    # Gives the shipping cost for a specified transport type
+    #
+    # @api public
+    # @param transport_type [String] The transport type to look up
+    # @return [Money] The shipping price
+    def transport_price transport_type = self.default_transport
+      case transport_type
+      when "insured"
+        transport_insured_price
+      when "uninsured"
+        transport_uninsured_price
+      else
+        Money.new 0
       end
     end
-  end
 
-  def payment_method_checked
-    unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
-      errors.add(:payment_options, I18n.t("article.form.errors.invalid_payment_option"))
+    # Gives the shipping provider for a specified transport type
+    #
+    # @api public
+    # @param transport_type [String] The transport type to look up
+    # @return [Money] The shipping provider
+    def transport_provider transport_type = self.default_transport
+      case transport_type
+      when "insured"
+        transport_insured_provider
+      when "uninsured"
+        transport_uninsured_provider
+      else
+        nil
+      end
     end
-  end
 
-  # Gives the price of the article minus taxes
-  #
-  # @api public
-  # @return [Money]
-  def price_without_vat
-    self.price * ( 100 - self.vat ) / 100
-  end
-
-  # Gives the amount of money for an article that goes towards taxes
-  #
-  # @api public
-  # @return [Money]
-  def vat_price
-    self.price * self.vat / 100
-  end
-
-  # Function to calculate total price for an article.
-  # Note: Params should have already been validated.
-  #
-  # @api public
-  # @param selected_transport [String] Transport type
-  # @param selected_payment [String] Payment type
-  # @return [Money] Total billed price
-  def total_price selected_transport, selected_payment
-    total = self.price + self.transport_price(selected_transport)
-    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-    total
-  end
-
-  # Gives the shipping cost for a specified transport type
-  #
-  # @api public
-  # @param transport_type [String] The transport type to look up
-  # @return [Money] The shipping price
-  def transport_price transport_type = self.default_transport
-    case transport_type
-    when "insured"
-      transport_insured_price
-    when "uninsured"
-      transport_uninsured_price
-    else
-      Money.new 0
+    # Returns an array with all selected transport types.
+    # Default transport will be the first element.
+    #
+    # @api public
+    # @return [Array] An array with selected transport types.
+    def selectable_transports
+      selectable "transport"
     end
-  end
 
-  # Gives the shipping provider for a specified transport type
-  #
-  # @api public
-  # @param transport_type [String] The transport type to look up
-  # @return [Money] The shipping provider
-  def transport_provider transport_type = self.default_transport
-    case transport_type
-    when "insured"
-      transport_insured_provider
-    when "uninsured"
-      transport_uninsured_provider
-    else
-      nil
+    # Returns an array with all selected payment types.
+    # Default payment will be the first element.
+    #
+    # @api public
+    # @return [Array] An array with selected payment types.
+    def selectable_payments
+      selectable "payment"
     end
-  end
-
-  # Returns an array with all selected transport types.
-  # Default transport will be the first element.
-  #
-  # @api public
-  # @return [Array] An array with selected transport types.
-  def selectable_transports
-    selectable "transport"
-  end
-
-  # Returns an array with all selected payment types.
-  # Default payment will be the first element.
-  #
-  # @api public
-  # @return [Array] An array with selected payment types.
-  def selectable_payments
-    selectable "payment"
-  end
 
   private
-  # DRY method for selectable_transports and selectable_payments
-  #
-  # @api private
-  # @return [Array] An array with selected attribute types
-  def selectable attribute
-    # First get all selected attributes
-    output = []
-    eval("#{attribute.upcase}_TYPES").each do |e|
-      output << e if self.send "#{attribute}_#{e}"
+
+    def default_transport_selected
+      if self.default_transport
+        unless self.send("transport_#{self.default_transport}")
+          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+        end
+      end
     end
 
-    # Now shift the default to be the first element
-    if attribute == "transport"
-      output.unshift output.delete_at output.index send("default_transport").to_sym
-    else
-      output
+    def payment_method_checked
+      unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
+        errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
+      end
     end
-  end
+
+    # DRY method for selectable_transports and selectable_payments
+    #
+    # @api private
+    # @return [Array] An array with selected attribute types
+    def selectable attribute
+      # First get all selected attributes
+      output = []
+      eval("#{attribute.upcase}_TYPES").each do |e|
+        output << e if self.send "#{attribute}_#{e}"
+      end
+
+      # Now shift the default to be the first element
+      if attribute == "transport"
+        output.unshift output.delete_at output.index send("default_transport").to_sym
+      else
+        output
+      end
+    end
 end

@@ -27,3 +27,4 @@ role :db, "78.109.61.168", :primary => true
 
 set :rails_env, "production"
 set :branch, "release"
+

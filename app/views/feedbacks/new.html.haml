@@ -24,10 +24,13 @@
 -case type
 
 -when "report_article" then
-  = render 'feedbacks/types/report', feedback: resource
+  .Feedback-form
+    = render 'feedbacks/types/report', feedback: resource
 
 -when "get_help" then
-  = render 'feedbacks/types/help'
+  .Feedback-form
+    = render 'feedbacks/types/help'
 
 -when "send_feedback"
-  = render 'feedbacks/types/feedback'
+  .Feedback-form
+    = render 'feedbacks/types/feedback'

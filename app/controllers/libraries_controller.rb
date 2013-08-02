@@ -40,7 +40,7 @@ class LibrariesController < InheritedResources::Base
     authorize build_resource
     create! do |success,failure|
       success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
     end
   end
 
@@ -48,7 +48,7 @@ class LibrariesController < InheritedResources::Base
     authorize resource
     update! do |success,failure|
       success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
     end
   end
 

@@ -25,6 +25,7 @@ module CategorySeedData
     electronic = Category.find_or_create_by_name("Elektronik")
     Category.find_or_create_by_name("Haus & Garten")
     Category.find_or_create_by_name("Freizeit & Hobby")
+    Category.find_or_create_by_name("Sonstiges")
     computer = Category.find_or_create_by_name("Computer", :parent => electronic)
     Category.find_or_create_by_name("Audio & HiFi", :parent => electronic)
     Category.find_or_create_by_name("Hardware", :parent => computer)

@@ -72,9 +72,9 @@
       = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
 
       = link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
-      %p.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
-      %span.Teaser--pioneer-3= 'inkl. ' + @featured_article.vat.to_s + '% MwSt' #inkl. 19% MwSt
-      %span.Teaser--pioneer-4= '*Grundpreis ' + humanized_money_with_symbol(@featured_article.basic_price) #*Grundpreis 1.29€/Kg
+      %p.Article-price.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
+      %span.Teaser--pioneer-3= render 'articles/show/vat' , :article => @featured_article
+      %span.Teaser--pioneer-3= render '/articles/show/basic_price',  :article => @featured_article
   - else # implementing dummy for now. Feel free to erase. CSS would need to be fixed though.
     .Teaser.Teaser--pioneer
       %h2.Teaser-title Pionier des Tages
@@ -88,5 +88,6 @@
       %span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
 
   .Teaser.Teaser--total
-    %h2.Teaser-title Bisher eingestellte Artikel
+    %h2.Teaser-title Fairnopoly wächst!
+    %p So viele Artikel wurden bisher eingestellt:
     .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")

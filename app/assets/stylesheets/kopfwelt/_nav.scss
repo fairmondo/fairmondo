@@ -15,10 +15,10 @@
 		@include rem(margin-right, 19px);
 	}
 	a {
-		@extend %Semibold;
-		display: block;
+		// @extend %Semibold;
+		// display: block;
 		text-decoration: none;
-		
+
 		&:hover,
 		&.selected {
 			color: #f1f1f1;
@@ -32,34 +32,42 @@
 
 .Nav--primary {
 	clear: left;
-	@include rem(margin, 22px auto 0);
+	margin: 22px auto 10px;
 	text-align: center;
 
 	li {
-		margin-right: 0;
-		&.last { margin-right: 0; }
-		@include at-breakpoint(50.7em lt-ie9) {
-			@include rem(margin-right, 36px);
-		}
+		// all margins moved to the icon to avoid
+		// the jump on hover
 	}
 	a {
 		@include rem(min-width, 70px); // prevent jump
 		color: #000;
 		&:hover {
 			color: #000;
-			@extend %Bold;
+			// @extend %Bold;
 		}
 	}
 	.icon {
 		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: em(5,14);
+		margin-right: em(5,14);
 		width: icon-sprite-width(buy);
 		height: icon-sprite-height(buy);
+
+		@include at-breakpoint(40em) {
+			margin-left: em(10,14);
+			margin-right: em(10,14);
+		}
+		@include at-breakpoint(50.7em lt-ie9) {
+			margin-left: em(18,14);
+			margin-right: em(18,14);
+		}
 	}
-	@include at-breakpoint(42.214em lt-ie9) {
+	@include at-breakpoint(40em lt-ie9) {
 		float: right;
 		clear: none;
+		margin-bottom: 0;
+		.last { margin-right: 0; }
 	}
 }
 

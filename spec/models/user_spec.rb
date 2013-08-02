@@ -23,7 +23,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { FactoryGirl.create(:user)}
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   it "has a valid Factory" do
@@ -44,6 +44,9 @@ describe User do
 
     context "always" do
       it { should validate_presence_of :email }
+      it {should validate_presence_of :email}
+      it {should validate_presence_of :nickname}
+      it {should validate_uniqueness_of :nickname}
     end
 
     context "on create" do
@@ -64,19 +67,14 @@ describe User do
       it { should validate_presence_of :nickname }
 
       describe "zip code validation" do
-        # let(:user) { FactoryGirl.create(:german_user) } # factory users are currently German by default
+        it {should validate_presence_of :zip}
+        it {should allow_value('12345').for :zip}
+        it {should_not allow_value('a1b2c').for :zip}
+      end
 
-        it { should validate_presence_of :zip }
-
-        it "should validate the length" do
-          user.zip = 1234
-          user.should_not be_valid
-        end
-
-        it "should validate the format" do
-          user.zip = "a1b2c"
-          user.should_not be_valid
-        end
+      describe "address validation" do
+        it {should allow_value('Test Str. 1a').for :street}
+        it {should_not allow_value('Test Str.').for :street}
       end
     end
   end
@@ -113,24 +111,6 @@ describe User do
         user.customer_nr.should eq "0000000#{user.id}"
       end
     end
-
-  #    def update_image image
-  #   if User.valid_attribute?('image', image)
-  #     update_attribute 'image', image
-  #   else
-  #     false
-  #   end
-  # end
-
-  # private
-
-  # # Validate single attribute
-  # # @api private
-  # def self.valid_attribute? attr, value
-  #   mock = self.new(attr => value)
-  #   !mock.errors.messages.keys.find { |e| e =~ Regexp.new(attr) }
-  # end
-
   end
 
   describe "subclasses" do
@@ -409,17 +389,17 @@ describe User do
       end
 
       context "user being a good buyer" do
-          it "should be able to rate to bad buyer" do
-            user.buyer_state = "good_buyer"
-            user.rate_down_to_bad_buyer
-            user.should be_bad_buyer
-          end
-          it "should not be able to rate to standard buyer" do
-            user.buyer_state = "good_buyer"
-            user.rate_up_to_standard_buyer
-            user.should be_good_buyer
-          end
+        it "should be able to rate to bad buyer" do
+          user.buyer_state = "good_buyer"
+          user.rate_down_to_bad_buyer
+          user.should be_bad_buyer
         end
+        it "should not be able to rate to standard buyer" do
+          user.buyer_state = "good_buyer"
+          user.rate_up_to_standard_buyer
+          user.should be_good_buyer
+        end
+      end
     end
 
   end

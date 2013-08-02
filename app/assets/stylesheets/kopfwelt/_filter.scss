@@ -42,7 +42,7 @@ fieldset.Filter-col {
 	@include span-columns(4 omega,6);
 }
 .Filter-title {
-	@include rem(font-size, 18px);
+	@include rem(font-size, 17px);
 	@extend %Semibold;
 	position: relative;
 	margin-top: 1em;

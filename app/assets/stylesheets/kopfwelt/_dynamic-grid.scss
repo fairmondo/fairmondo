@@ -7,46 +7,46 @@ $gutter: 3.6%;
 $cols: 4;
 
 .gutter-sizer {
-	width: $gutter;
+  width: $gutter;
 }
 .grid-sizer {
-	width: ((100% - ($gutter*($cols - 1))) / $cols) - 0.5;
+  width: ((100% - ($gutter*($cols - 1))) / $cols) - 0.5;
 
-	@media (max-width: 48em) {
-		width: 48.2%;
-	}
-	@media (max-width: 30em) {
-		width: 100%;
-	}
+  @media (max-width: 48em) {
+    width: 48.2%;
+  }
+  @media (max-width: 30em) {
+    width: 100%;
+  }
 }
 .Teaser--video,
 .Teaser--text {
-	width: 48.2%;
-	@media (max-width: 30em) {
-		width: 100%;
-	}
+  width: 48.2%;
+  @media (max-width: 30em) {
+    width: 100%;
+  }
 }
 
 //
 // Packery item styling
 //
 .Teaser {
-	background: #fff;
+  background: #fff;
 }
 
 .Teaser,
 .Article--teaser {
-	@extend .grid-sizer;
-	@include pie-clearfix;
-	float: left;
-	position: relative;
-	
-	// we can't use % for vertical margins so imitate the horizontal one like this
-	margin-bottom: em(40);
-	@media (max-width: 55em) {
-		margin-bottom: em(25);
-	}
-	@media (max-width: 30em) {
-		margin-bottom: em(20);
-	}
+  @extend .grid-sizer;
+  @include pie-clearfix;
+  float: left;
+  position: relative;
+
+  // we can't use % for vertical margins so imitate the horizontal one like this
+  margin-bottom: em(40);
+  @media (max-width: 55em) {
+    margin-bottom: em(25);
+  }
+  @media (max-width: 30em) {
+    margin-bottom: em(20);
+  }
 }

@@ -33,7 +33,7 @@ describe 'Dashboard' do
 
     it "should show a sign in button" do
       visit user_path(@user)
-      page.should have_content "Login"
+      page.should have_content I18n.t('common.actions.login')
     end
   end
 

@@ -49,7 +49,7 @@ describe 'Library' do
       context "given invalid data" do
         it "should not work" do
           click_button 'Sammlung erstellen'
-          page.should have_content I18n.t 'library.error.presence'
+          page.should have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
         end
       end
     end
@@ -80,7 +80,7 @@ describe 'Library' do
           end
 
           page.should have_selector 'a', text: 'foobar'
-          page.should have_content I18n.t 'library.error.presence'
+          page.should have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
         end
       end
     end

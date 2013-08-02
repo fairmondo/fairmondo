@@ -18,17 +18,22 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Libraries
+  - if !@libraries.blank?
+    .Accordion--activated
+      - @libraries.each do |library|
+        - unless library.new_record?
+          = accordion_item "library"+library.id.to_s , :title => library.name  do
 
-  .Accordion--activated
-    - @libraries.each do |library|
-      - unless library.new_record?
-        = accordion_item "library"+library.id.to_s , :title => library.name  do
-
-          - if library.library_elements.empty?
-            %p.Libraries-settings-clear= t('library.no_products')
-          - else
-            .Library-ArticleList.Libraries-settings-clear
-              %section.l-ArticleList
-                - library.library_elements.each do |library_element|
-                  %Article{:class => 'Article Article--teaser'}
-                    = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+            - if library.library_elements.empty?
+              %p.Libraries-settings-clear= t('library.no_products')
+            - else
+              = t('common.text.from') + " "
+              = link_to( library.user_nickname, user_path(library.user))
+              %p
+                .Library-ArticleList.Libraries-settings-clear
+                  %section.l-ArticleList
+                    - library.library_elements.each do |library_element|
+                      %Article{:class => 'Article Article--teaser'}
+                        = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+  - else
+    = t('libraries.no_library')

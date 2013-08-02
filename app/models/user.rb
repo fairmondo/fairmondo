@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   has_many :libraries, :dependent => :destroy
 
   ##
-  has_one :image, as: :imageable, autosave: true
+  has_one :image, as: :imageable
   accepts_nested_attributes_for :image
   ##
 
@@ -90,14 +90,13 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
 
-  validates_presence_of :forename , :on => :update
-  validates_presence_of :surname , :on => :update
-  validates_presence_of :title , :on => :update
-  validates_presence_of :country , :on => :update
-  validates_presence_of :street , :on => :update
-  validates_presence_of :city , :on => :update
+  validates :forename, presence: true, on: :update
+  validates :surname, presence: true, on: :update
+  validates :country, presence: true, on: :update
+  validates :street, presence: true, format: /\A.+\d+.*\z/, on: :update # format: ensure digit for house number
+  validates :city, presence: true, on: :update
 
-  validates_presence_of :nickname
+  validates :nickname , :presence => true, :uniqueness => true
 
   validates :zip, :presence => true, :on => :update, :zip => true
   # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
@@ -111,7 +110,9 @@ class User < ActiveRecord::Base
   validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
   validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
-  validates :paypal_account , :presence => true , :if => :paypal_validation
+  validates :paypal_account , :presence => true , format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ } , :if => :paypal_validation
+
+  validates :about_me, :length => { :maximum => 2500 }
 
   # Return forename plus surname
   # @api public
@@ -122,8 +123,8 @@ class User < ActiveRecord::Base
   memoize :fullname
 
   # Return user nickname
-  # @api public
-  # @return [String]
+  # @api return
+  # @public [String]
   def name
     name = "#{self.nickname}"
   end

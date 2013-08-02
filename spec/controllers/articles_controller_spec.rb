@@ -168,9 +168,22 @@ describe ArticlesController do
     before :each do
       @user = FactoryGirl.create :user
       @article  = FactoryGirl.create :article
+      @article_social_production = FactoryGirl.create :social_production
+      @article_fair_trust = FactoryGirl.create :fair_trust
     end
 
     describe "for all users" do
+
+      it "should be successful" do
+        get :show, id: @article_fair_trust
+        response.should be_success
+      end
+
+      it "should be successful" do
+        get :show, id: @article_social_production
+        response.should be_success
+      end
+
       it "should be successful" do
         get :show, id: @article
         response.should be_success
@@ -433,7 +446,7 @@ describe ArticlesController do
     it "should work" do
       put :update, id: @article.id, :activate => true
       response.should redirect_to @article
-      flash[:notice].should eq I18n.t 'article.notices.create'
+      flash[:notice].should eq I18n.t 'article.notices.create_html'
     end
 
     it "should not work with an invalid article" do

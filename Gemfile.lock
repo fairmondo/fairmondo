@@ -449,6 +449,7 @@ DEPENDENCIES
   rails-settings-cached (= 0.2.4)
   rails_admin
   rails_best_practices
+  rake
   recaptcha
   rspec-rails
   sanitize

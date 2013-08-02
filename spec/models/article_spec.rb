@@ -127,6 +127,19 @@ describe Article do
   end
 
   describe "::Attributes" do
+    describe "Validations" do
+      it "should throw an error if selected default_transport option is not true for transport_'option'" do
+        article.default_transport = "pickup"
+        article.transport_pickup = false
+        article.save
+        article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
+      end
+      it "should throw an error if no payment option is selected" do
+        article.payment_cash = false
+        article.save
+        article.errors[:payment_details].should == [I18n.t("article.form.errors.invalid_payment_option")]
+      end
+    end
     describe "methods" do
 
       describe "#transport_price" do

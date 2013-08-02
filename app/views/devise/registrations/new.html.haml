@@ -37,7 +37,7 @@
       .controls
         Gib die beiden Worte unten im Feld ein.
         #recaptcha-view{:class => " #{"error" if recaptcha_error}"}
-          = recaptcha_tags :display => {:theme => 'clean'}
+          = recaptcha_tags :display => {:theme => 'clean'}, :ajax => true
           - if recaptcha_error
             %span.help-inline= t('users.captcha.error')
     .User-registration-checkbox
