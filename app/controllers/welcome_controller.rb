@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
 
   def index
     begin
-      @featured_article = Article.featured
+      @featured_article = Article.active.featured
     rescue ActiveRecord::RecordNotFound
       @featured_article = nil
     end

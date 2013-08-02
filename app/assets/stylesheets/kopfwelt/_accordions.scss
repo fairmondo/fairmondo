@@ -88,6 +88,7 @@
 .Accordion-step {
 	border-bottom: solid 2px $beige;
 	margin-bottom: em(15);
+	overflow: auto;
 }
 
 // Remove the last border

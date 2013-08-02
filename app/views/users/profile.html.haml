@@ -23,8 +23,11 @@
 .Meta
   .Meta--block
     %h2= resource.nickname
-    - if resource.is_a? LegalEntity
-      %h3= resource.title + " " + resource.forename + " " + resource.surname
+    - if resource.valid? && resource.is_a?(LegalEntity)
+      - if resource.title?
+        %h3= resource.title + " " + resource.forename + " " + resource.surname
+      - else
+        %h3= resource.forename + " " + resource.surname
       %p
         = t('formtastic.labels.user.street')
         \:
@@ -56,6 +59,8 @@
         %strong= resource.mobile
 
       .Meta--block
+  - if resource.valid? && resource.is_a?(LegalEntity)
+    .Meta--block
       %p
         %span.Meta--highlight
 
@@ -63,16 +68,16 @@
           \:
         = raw resource.terms
 
-      .Meta--block
-        %p
-          %span.Meta--highlight
-            = t('formtastic.labels.user.cancellation')
-            \:
-          = raw resource.cancellation
+    .Meta--block
+      %p
+        %span.Meta--highlight
+          = t('formtastic.labels.user.cancellation')
+          \:
+        = raw resource.cancellation
 
-      .Meta--block
-        %p
-          %span.Meta--highlight
-            = t('formtastic.labels.user.about')
-            \:
-          = raw resource.about
+    .Meta--block
+      %p
+        %span.Meta--highlight
+          = t('formtastic.labels.user.about')
+          \:
+        = raw resource.about

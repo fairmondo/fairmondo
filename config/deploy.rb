@@ -98,10 +98,17 @@ namespace :deploy do
       migrate
     end
   end
-
 end
 
-
+namespace :import do
+  desc "Import content"
+  task :content do
+    run "mkdir -p #{shared_path}/uploads"
+    file_name = Time.now.utc.strftime("%Y%m%d%H%M%S")
+    upload "#{ARGV[2]}", "#{shared_path}/uploads/#{file_name}.csv"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake import:content #{shared_path}/uploads/#{file_name}.csv"
+  end
+end
 
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"

@@ -10,11 +10,15 @@
 	background-color: $white;
 	h2 {
 		@include rem(font-size, 17px);
+		word-break: break-word;
 	}
-	#library_element_library_input {
-	  .selectboxit-container {
-	    width:100%;
-	  }
+	form.library_element .library .inputs {
+	  float: left;
+  	#library_element_library_input {
+  	  .selectboxit-container {
+  	    width:100%;
+  	  }
+  	}
 	}
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
@@ -49,9 +53,16 @@
 	.Article-controls {
 		overflow: auto;
 		width: 100%;
+
+		i.icon-helper {
+			float: left;
+			margin: 10px;
+		}
+
 		@include at-breakpoint($layout-small) {
 			a {float: left}
 			form {float: right}
+			i.icon-helper {float: right}
 		}
 	}
 }
@@ -93,6 +104,7 @@
 .Articles-title {
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
+	word-break: break-word;
 }
 p.Article-price,
 span.Article-price {
@@ -103,6 +115,7 @@ span.Article-price {
 }
 .Article-vat,
 .Article-basicprice,
+.Article-transportprice,
 .Article-basicset {
 	@include rem(font-size, 10px);
 	line-height: 1;
@@ -110,6 +123,7 @@ span.Article-price {
 }
 .Article-vat {
 	width: 100% !important;
+	margin-bottom: 0.3em !important;
 	@include span-columns(1 alpha, 2);
 	@include rem(margin-bottom, 13px);
 	.Article--teaser & {
@@ -208,5 +222,6 @@ span.Article-price {
 .Article--teaser {
   border: 1px solid $beige;
   border-radius: 0.9em;
+  // padding breaks the correct masonry grid width
   padding: 0.45em;
 }

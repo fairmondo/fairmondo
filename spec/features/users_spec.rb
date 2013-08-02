@@ -29,7 +29,7 @@ describe 'User management' do
   context "for signed-out users" do
     it "should show a login button" do
       visit root_path
-      page.should have_content("Login")
+      page.should have_content I18n.t('common.actions.login')
     end
 
     it "registers a new user" do

@@ -51,7 +51,7 @@
         %fieldset
           %legend.Filter-title
             Filter
-            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&FEIN = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
+            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&EDEL = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
 
           = f.label :fair do
             = f.check_box(:fair) + t('formtastic.labels.article.fair')
@@ -65,7 +65,7 @@
       .Filter-col
         = f.inputs do
           %legend.Filter-title Kategorien
-          = f.input :categories_and_ancestors, :as => :select, :collection => Category.roots, :required => true, :multiple => true, :include_blank => true, :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect"}
+          = f.input :categories_and_ancestors, :as => :select, :collection => Category.sorted_roots, :required => true, :multiple => true, :include_blank => true, :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect"}
 
         %button.Btn.Filter-btn Suche starten
 

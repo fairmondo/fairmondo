@@ -7,6 +7,10 @@ body {
 }
 .l-Inner {
 	@include container;
+	@media (max-width: 25em) {
+		padding-left: $gutter-width / 2;
+		padding-right: $gutter-width / 2;
+	}
 }
 .l-Header {
 	background-image: url(asset-path("back3.gif", image));
@@ -47,3 +51,15 @@ body {
 		padding-bottom: em(20);
 	}
 }
+
+// .pages-feedbacks {
+// 	.l-Main > .l-Inner {
+// 		width: columns(4,4);
+// 		@include pie-clearfix;
+
+// 		@include at-breakpoint($layout-large) {
+// 			width: columns(2,4);
+// 			margin-left: 0;
+// 		}
+// 	}
+// }

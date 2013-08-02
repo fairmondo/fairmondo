@@ -1,5 +1,5 @@
 de:
   errors:
     messages:
-      zip_length: "muss %{count}-stellig sein"
+      zip_length: "Bitte gib eine %{count}-stellige Postleitzahl ein"
       zip_format: "muss aus Zahlen bestehen"

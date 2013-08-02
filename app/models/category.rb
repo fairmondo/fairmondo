@@ -22,7 +22,7 @@
 class Category < ActiveRecord::Base
 
   attr_accessible :name, :parent, :desc, :parent_id
-  extend AccessibleForAdmins
+  attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, :lft, :rgt, :depth, as: :admin
 
   has_and_belongs_to_many :articles
 
@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   acts_as_nested_set
 
   # Ensure no n+1 queries result from Category.roots
-  scope :roots, includes(:children).roots
+  scope :roots , includes(:children).roots
 
 
   def self_and_ancestors_ids
@@ -43,6 +43,20 @@ class Category < ActiveRecord::Base
       self_and_ancestors << ancestor.id
     end
     self_and_ancestors
+  end
+
+  # Display all categories, sorted by name, other being last
+  # @api public
+  # @return [Array]
+  def self.sorted_roots
+    other = self.find_by_name("Sonstiges") #internationalize!
+    roots = self.order(:name).roots
+
+    if roots.include? other
+      roots.delete_at roots.index other
+      roots.push(other)
+    end
+    roots
   end
 
 end
