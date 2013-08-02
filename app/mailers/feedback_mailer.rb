@@ -24,6 +24,10 @@ class FeedbackMailer < ActionMailer::Base
 
     @text = feedback.text
     @variety = feedback.variety
+    @user_agent = feedback.user_agent
+    @source_page = feedback.source_page
+    @id = feedback.id
+
     from = feedback.from? ? feedback.from : $email_addresses['ArticleMailer']['default_from']
 
     if $email_addresses

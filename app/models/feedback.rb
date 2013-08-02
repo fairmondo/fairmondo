@@ -54,6 +54,14 @@ class Feedback < ActiveRecord::Base
     self.user_id = current_user.id if current_user
   end
 
+  def set_user_agent user_agent
+    self.user_agent = user_agent
+  end
+
+  def set_source_page source_page
+    self.source_page = source_page
+  end
+
   private
   # For validation
   # @api private
