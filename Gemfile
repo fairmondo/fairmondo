@@ -174,6 +174,9 @@ end
 # Adding Staging-server Embedded Solr
 group :staging do
   gem 'sunspot_solr'
+
+  #for testing search
+  gem 'activerecord-import'
 end
 
 # To use ActiveModel has_secure_password
