@@ -14,7 +14,6 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  background: white;
 }
 
 /* Styles that apply to all SelectBoxIt elements */
@@ -147,6 +146,7 @@
   width: 30px;
   position: absolute;
   right: 0;
+  background: white;
 }
 
 /* Drop Down down arrow */
