@@ -25,6 +25,9 @@ class FeedbacksController < InheritedResources::Base
   def create
     authorize build_resource
     resource.set_user_id current_user
+    # bugbug Warum eigene Funktionen
+    resource.set_source_page session[:source_page]
+    resource.set_user_agent request.env["HTTP_USER_AGENT"]
     create! do |success,failure|
       success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
       failure.html { render :new }
@@ -33,6 +36,7 @@ class FeedbacksController < InheritedResources::Base
 
   def new
     @variety = params[:variety] || "send_feedback"
+    session[:source_page] = request.env["HTTP_REFERER"]
     authorize build_resource
     new!
   end

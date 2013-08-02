@@ -29,7 +29,7 @@ class FeedbackObserver < ActiveRecord::Observer
         ArticleMailer.report_article( feedback.article,feedback.user,feedback.text ).deliver
       when "send_feedback" then
         feedback.subject.prepend("[Feedback] ")
-        FeedbackMailer.feedback_and_help( feedback, feedback.feedback_subject ).deliver
+        FeedbackMailer.feedback_and_help( feedback, feedback.feedback_subject).deliver
       when "get_help" then
         feedback.subject.prepend("[Hilfe] ")
         FeedbackMailer.feedback_and_help( feedback, feedback.help_subject ).deliver
