@@ -7,7 +7,9 @@ describe FeedbackMailer do
     it "should call the mail function with valid params" do
       variety = 'send_feedback'
       a = FeedbackMailer.send("new")
-      a.should_receive(:mail).with(to: $email_addresses['FeedbackMailer']['send_feedback']['dealer'], from: $email_addresses['ArticleMailer']['default_from'], subject: "bazfuz" ).and_return true
+      a.should_receive(:mail).with(
+        to: $email_addresses['FeedbackMailer']['send_feedback']['dealer'],
+        from: $email_addresses['ArticleMailer']['default_from'], subject: "bazfuz" ).and_return true
       a.feedback_and_help Feedback.new(text: 'foobar', variety: 'send_feedback', subject: 'bazfuz'), 'dealer'
     end
   end
