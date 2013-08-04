@@ -114,4 +114,13 @@ class Article < ActiveRecord::Base
     user && self.seller.id == user.id
   end
 
+  # for featured article
+  def profile_name
+    if self.seller.type == "PrivateUser"
+      self.seller.nickname
+    else
+      "#{self.seller.company_name}, #{self.seller.city}"
+    end
+  end
+
 end
