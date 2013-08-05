@@ -147,10 +147,18 @@
 	@extend %Semibold;
 	background-color: $green;
 	color: #fff;
+	margin-bottom: 30px;
+}
+
+.Teaser--total-user {
+	@include rem(font-size, 40px);
+	@include rem(padding, 8px);
+	@extend %Semibold;
+	background-color: $green;
+	color: #fff;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
-
 
 // Icons
 // -----------------------------------
