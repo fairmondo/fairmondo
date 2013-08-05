@@ -43,7 +43,6 @@ describe User do
   describe "validations" do
 
     context "always" do
-      it { should validate_presence_of :email }
       it {should validate_presence_of :email}
       it {should validate_presence_of :nickname}
       it {should validate_uniqueness_of :nickname}
@@ -56,6 +55,7 @@ describe User do
       it { should validate_acceptance_of :agecheck }
       it { should validate_presence_of :recaptcha }
     end
+
 
     context "on update" do
       it { should validate_presence_of :forename }
@@ -76,6 +76,7 @@ describe User do
         it {should allow_value('Test Str. 1a').for :street}
         it {should_not allow_value('Test Str.').for :street}
       end
+
     end
   end
 

@@ -58,4 +58,9 @@ class PrivateUser < User
     ( good_seller? ? PRIVATE_GOOD_FACTOR : 1  ))
   end
 
+  # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
+  def self.model_name
+    User.model_name
+  end
+
 end

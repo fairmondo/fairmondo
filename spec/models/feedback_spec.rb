@@ -6,7 +6,7 @@ describe Feedback do
     it { should respond_to 'subject' }
     it { should respond_to 'text' }
     it { should respond_to 'to' }
-    it { should respond_to 'type' }
+    it { should respond_to 'variety' }
     it { should respond_to 'user_id' }
     it { should respond_to 'article_id' }
     it { should respond_to 'feedback_subject' }
@@ -20,7 +20,7 @@ describe Feedback do
 
   describe "validations" do
     it { should validate_presence_of(:text) }
-    it { should validate_presence_of :type }
+    it { should validate_presence_of :variety }
     it { should_not allow_value('test@').for :from }
     it { should_not allow_value('@test.').for :from }
     it { should_not allow_value('test.com').for :from }
@@ -29,12 +29,12 @@ describe Feedback do
     it { should validate_presence_of :subject }
 
     context "when validating send_feedback" do
-      before { subject.type = 'send_feedback' }
+      before { subject.variety = 'send_feedback' }
       it { should validate_presence_of :feedback_subject }
     end
 
     context "when validating get_help" do
-      before { subject.type = 'get_help' }
+      before { subject.variety = 'get_help' }
       it { should validate_presence_of :help_subject }
     end
   end

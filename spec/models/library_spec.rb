@@ -38,13 +38,13 @@ describe Library do
 
   describe "validations" do
     context "for name" do
-      it { should validate_presence_of(:name).with_message(I18n.t('library.error.presence')) }
-      it { should validate_uniqueness_of(:name).scoped_to(:user_id).with_message(I18n.t('library.error.uniqueness')) }
-      it { should ensure_length_of(:name).is_at_most(25).with_long_message(I18n.t('library.error.length')) } #pending "No idea why this fails... it shouldn't";
+      it { should validate_presence_of(:name) }
+      it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
+      it { should ensure_length_of(:name).is_at_most(25) } #pending "No idea why this fails... it shouldn't";
     end
 
     context "for user" do
-      it { should validate_presence_of(:user).with_message(I18n.t('library.error.presence')) }
+      it { should validate_presence_of(:user) }
     end
   end
 end

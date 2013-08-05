@@ -26,7 +26,7 @@ class ArticleTemplatesController < InheritedResources::Base
   actions :all, :except => [:show,:index]
 
   # def collection
-  #   @article_templates ||= end_of_association_chain.paginate(:page => params[:page])
+  #   @article_templates ||= end_of_association_chain.page(params[:page])
   # end
 
 

@@ -52,19 +52,3 @@
       = f.input :awareness_raising_checkboxes, as: :check_boxes, label: false
       = f.input :awareness_raising_other, label: false, wrapper_html: {class: 'other-checkbox'}
       = f.input :awareness_raising_explanation
-
-
-/ = article_form.semantic_errors :social_producer_questionnaire
-/ - article_form.object.build_social_producer_questionnaire unless article_form.object.social_producer_questionnaire
-/ = article_form.nested_inputs_for :social_producer_questionnaire, :name => t('form.fill_in_questionnaire'), :tooltip => true do |f|
-/   = f.inputs do
-/     = f.input :nonprofit_association,:as => :plain_radio, :label => true, :js_toggle => true
-/     = f.inputs :id => 'true-nonprofit_association' do
-/       = f.input :nonprofit_association_checkboxes, :as => :check_boxes, :label => false
-/     = f.input :social_businesses_muhammad_yunus,:as => :plain_radio, :label => true, :js_toggle => true
-/     = f.inputs :id => 'true-social_businesses_muhammad_yunus' do
-/       = f.input :social_businesses_muhammad_yunus_checkboxes, :as => :check_boxes, :label => false
-/     = f.input :social_entrepreneur,:as => :plain_radio, :label => true, :js_toggle => true
-/     = f.inputs :id => 'true-social_entrepreneur' do
-/       = f.input :social_entrepreneur_checkboxes, :as => :check_boxes, :label => false
-/       = f.input :social_entrepreneur_explanation

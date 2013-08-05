@@ -82,6 +82,7 @@ de:
   form:
     select_from_list: Bitte wähle aus der Liste aus
     fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
+    fill_in_non_profit: "Bitte kreuze an, welche(r) gemeinnützige(n) Zweck(e) verfolgt werden."
 
   template_select:
     notices:

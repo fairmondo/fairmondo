@@ -61,8 +61,8 @@ de:
         ecologic: öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
+        fair_trust_questionnaire: "Fairtrust Fragebogen"
 
-        fair_trust_questionnaire: "Leider erfüllt Dein Artikel nicht die Anforderungen an unseren fairtrust-Filter. Der Fragebogen"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "klein&edel"
@@ -124,9 +124,6 @@ de:
         controlling: >
           4. Gibt es Maßnahmen zur Überprüfung der o.g. Kriterien und deren Nachvollziehbarkeit?
         awareness_raising: >
-         9. Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
-        environment_protection: >
-         10. Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
           5. Werden Bildungsmaßnahmen zur Sensibilisierung von Verbraucher*innen sowie Maßnahmen zur Transparenz geleistet?
         support_explanation: 'Erläuterungen:'
         labor_conditions_explanation: 'Erläuterungen:'
@@ -134,7 +131,6 @@ de:
         controlling_explanation: 'Erläuterungen:'
         awareness_raising_explanation: 'Erläuterungen:'
       social_producer_questionnaire:
-        nonprofit_association: "1. Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         nonprofit_association: "1. Ist die*der Produzent*in des Artikels laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"

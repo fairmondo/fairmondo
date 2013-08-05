@@ -17,21 +17,6 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
-$(document).ready(function(){
-  $("a.input-tooltip").popover({"placement" : "left",  template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'}).click(function(e) {
-        e.stopPropagation();
-    });
-
-  $(window).hashchange( function(){
-      // Alerts every time the hash changes!
-     $("a.input-tooltip").popover('hide');
-    });
-
-  $('html').click(function(e) {
-      $("a.input-tooltip").popover('hide');
-  });
-
-});
 */
 
 $(document).ready(function(){
@@ -78,4 +63,6 @@ $(document).ready(function(){
   $('html').click(function(e) {
     $("i.icon-helper").tooltip('close');
   });
+
 });
+

@@ -31,4 +31,4 @@
     - paginate_params = { }
     - if defined? anchor
       - paginate_params[:anchor] = anchor
-    = will_paginate articles,:params => paginate_params,:page_links => false
+    = paginate articles,:params => paginate_params,:page_links => false

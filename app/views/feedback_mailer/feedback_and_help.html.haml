@@ -20,4 +20,29 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-= @text
+%p
+  Thema:
+  = @feedback_subject
+
+%p
+  Inhalt:
+  = @feedback.text
+
+
+= t('feedback.details.details_for_tech_support')
+%p
+  User-Agent:
+  = @feedback.user_agent
+
+%p
+  Source-Page:
+  = @feedback.source_page
+
+%p
+  Feedback-ID:
+  = @feedback.id
+
+%p
+  = t('feedback.details.last_uploaded_article_id')
+  = @last_article_id
+

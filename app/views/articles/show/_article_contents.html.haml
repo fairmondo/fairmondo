@@ -65,6 +65,7 @@
               = f.button t('common.actions.collect'), :class => "Btn Btn--blue"
               %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst." }
         - elsif user_signed_in?
+          %br
           = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
     - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
       %p
@@ -133,5 +134,5 @@
           %p.User-library--user
             = t('common.text.from') + " "
             = link_to( library.user_nickname, user_path(library.user))
+      = paginate libraries, :params => {:anchor => "library" }
 
-      = will_paginate libraries, :params => {:anchor => "library" }

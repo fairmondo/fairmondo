@@ -52,7 +52,7 @@ module Article::Search
   def find_like_this page
     Article.search(:include => [:transaction, :seller, :images]) do
       fulltext self.title
-      paginate :page => page, :per_page => WillPaginate.per_page
+      paginate :page => page, :per_page => Kaminari.config.default_per_page
       with :fair, true if self.fair
       with :ecologic, true if self.ecologic
       with :small_and_precious, true if self.small_and_precious

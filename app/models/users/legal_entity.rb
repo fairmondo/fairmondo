@@ -35,10 +35,11 @@ class LegalEntity < User
   validates_presence_of :street , :on => :update
   validates_presence_of :city , :on => :update
   validates_presence_of :zip , :on => :update
-  # validates legal entity
-  validates_presence_of :terms , :on => :update
-  validates_presence_of :cancellation , :on => :update
-  validates_presence_of :about , :on => :update
+
+   # validates legal entity
+  validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
+  validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
+  validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
 
 
   COMMERCIAL_BAD_FACTOR = 2
@@ -73,5 +74,11 @@ class LegalEntity < User
     ( good3_seller? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) *
     ( good4_seller? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
   end
+
+  # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
+  def self.model_name
+    User.model_name
+  end
+
 
 end

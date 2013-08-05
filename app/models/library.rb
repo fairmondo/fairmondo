@@ -26,12 +26,11 @@ class Library < ActiveRecord::Base
 
   delegate :nickname, :to => :user, :prefix => true
 
-  # Validations
-  validates :user, presence: { :message => I18n.t('library.error.presence') }
+  validates :name,:user, :presence => true
 
-  validates :name, presence: { :message => I18n.t('library.error.presence') },
-                   uniqueness: { :scope => :user_id, :message => I18n.t('library.error.uniqueness') },
-                   length: { :maximum => 25, :message => I18n.t('library.error.length') }
+  validates :name, :uniqueness => {:scope => :user_id}, length: { :maximum => 25}
+
+
 
   #Relations
 

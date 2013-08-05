@@ -112,6 +112,7 @@ FactoryGirl.define do
       end
     end
 
+
     trait :with_all_transports do
       transport_insured true
       transport_uninsured true
@@ -124,6 +125,7 @@ FactoryGirl.define do
     trait :with_private_user do
       seller { FactoryGirl.create :private_user }
     end
+
     trait :simple_fair do
       fair true
       fair_kind :fair_seal

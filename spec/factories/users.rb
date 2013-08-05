@@ -44,7 +44,9 @@ FactoryGirl.define do
     city { Faker::Address.city }
     zip { Faker::Address.postcode }
 
-    confirmed_at  Time.now
+    company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
+
+    confirmed_at Time.now
 
     factory :admin_user do
       admin       true

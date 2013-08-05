@@ -191,6 +191,7 @@ describe 'Article management' do
         click_button I18n.t 'article.actions.report'
 
         page.should have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
+
       end
     end
 
@@ -203,8 +204,10 @@ describe 'Article management' do
         visit article_path @article
         click_link I18n.t 'common.actions.to_cart'
         current_path.should eq edit_transaction_path @article.transaction
+
       end
     end
+
   end
 
   context "for signed-out users" do
@@ -236,6 +239,7 @@ describe 'Article management' do
         click_link I18n.t 'common.actions.to_cart'
         page.should have_content I18n.t 'common.actions.login'
       end
+
 
       it "should have link to Transparency International" do
         @article = FactoryGirl.create :article
