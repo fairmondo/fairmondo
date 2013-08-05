@@ -90,3 +90,6 @@
     %h2.Teaser-title Fairnopoly wächst!
     %p So viele Artikel wurden bisher eingestellt:
     .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")
+    %p So viele Nutzer*innen haben sich bisher registriert:
+    .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
+
