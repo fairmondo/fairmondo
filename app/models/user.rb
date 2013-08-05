@@ -74,10 +74,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :image
   ##
 
-  # has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"},
-  #                           :default_url => "missing.png",
-  #                           :url => "/system/users/:attachment/:id_partition/:style/:filename",
-  #                           :path => "public/system/users/:attachment/:id_partition/:style/:filename"
+
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
@@ -95,8 +92,7 @@ class User < ActiveRecord::Base
   validates :nickname , :presence => true, :uniqueness => true
 
   validates :zip, :presence => true, :on => :update, :zip => true
-  # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  # validates_attachment_size :image, :in => 0..5.megabytes
+
 
   validates :recaptcha, presence: true, acceptance: true, on: :create
 
