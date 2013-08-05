@@ -178,7 +178,7 @@ module ArticlesHelper
 
    def transport_format_for method,css_classname=""
     type = "transport"
-      options_format_for type, method,css_classname
+      options_format_for type, method, css_classname
   end
 
   def payment_format_for method, css_classname=""
@@ -187,7 +187,6 @@ module ArticlesHelper
   end
 
   def options_format_for type, method, css_classname
-
     if resource.send(type + "_" + method)
       html ="<li class= "+ css_classname +" >"
       html << t('formtastic.labels.article.'+ type +'_'+ method)+" "
