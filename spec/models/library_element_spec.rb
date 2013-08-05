@@ -37,7 +37,7 @@ describe LibraryElement do
   describe "validations" do
     context "for library_id" do
       it { should validate_presence_of(:library_id) }
-      it { should validate_uniqueness_of(:library_id).scoped_to(:article_id).with_message(I18n.t('library_element.error.uniqueness')) }
+      it { should validate_uniqueness_of(:library_id).scoped_to(:article_id) }
     end
   end
 end

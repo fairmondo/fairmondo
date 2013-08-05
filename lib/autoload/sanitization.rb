@@ -1,6 +1,7 @@
 # Sanitization DSL. Should be used for all text input fields
 module Sanitization
   extend ActiveSupport::Concern
+  require 'cgi'
 
   protected
     # DSL method to sanitize specific fields automatically before the validation step
@@ -22,6 +23,18 @@ module Sanitization
           method_name = "sanitize_#{options[:method]}_#{field}"
           define_method method_name, send("#{options[:method]}_sanitization", field, options[:admin])
           before_validation method_name.to_sym, options
+
+
+          # TinyMCE contents are assumed to have HTML content and are now sanitized. So we can always give them the html_safe flag.
+          if options[:method] == 'tiny_mce'
+            define_method "#{field}_with_html_safe", Proc.new {
+              orig = send("#{field}_without_html_safe")
+              orig.is_a?(String) ? orig.html_safe : orig
+            }
+            define_method field, -> { read_attribute field } #no idea why this fix is needed
+            alias_method_chain field, :html_safe
+          end
+
         end
       end
     end
@@ -30,13 +43,13 @@ module Sanitization
     # Method content for sanitize_clean_X callbacks
     # @api private
     # @return [Proc]
+
     def clean_sanitization field, admin_mode # admin_mode not used
       Proc.new { self.send("#{field}=", Sanitization.sanitize_clean(self.send(field))) }
     end
 
     # Method content for sanitize_tiny_mce_X callbacks
     # @api private
-    # @return [Proc]
     def tiny_mce_sanitization field, admin_mode
       Proc.new { self.send("#{field}=", Sanitization.sanitize_tiny_mce(self.send(field), admin_mode)) }
     end
@@ -74,7 +87,7 @@ module Sanitization
     # @param field [String] The content to sanitize
     # @return [String] The sanitized content
     def self.sanitize_clean field
-      modify Sanitize.clean(field)
+      reverse_encoding modify Sanitize.clean(field)
     end
 
     # Modify sanitized strings even further
@@ -91,5 +104,13 @@ module Sanitization
       else
         string
       end
+    end
+
+    # Clean sanitized fields get HTML entities encoded, which we need to revert
+    # @api private
+    # @param string [String, nil] The string with HTML-entities
+    # @return [String] The unencoded string
+    def self.reverse_encoding string
+      string.is_a?(String) ? CGI.unescapeHTML(string) : string
     end
 end

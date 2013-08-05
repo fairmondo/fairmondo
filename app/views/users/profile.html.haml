@@ -57,8 +57,6 @@
         = t('formtastic.labels.user.mobile')
         \:
         %strong= resource.mobile
-
-      .Meta--block
   - if resource.valid? && resource.is_a?(LegalEntity)
     .Meta--block
       %p

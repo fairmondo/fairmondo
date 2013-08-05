@@ -54,17 +54,6 @@ textarea {
   }
   &:hover {}
 
-	// Fix for the firefox placeholders not coloring correctly
-	// refs #168
-
-	&:-moz-placeholder { /* Firefox 18- */
-		color: #888;
-	}
-
-	&::-moz-placeholder {  /* Firefox 19+ */
-		color: #888;
-	}
-
 
   // Fix for the firefox placeholders not coloring correctly
   // refs #168
@@ -76,6 +65,7 @@ textarea {
   &::-moz-placeholder {  /* Firefox 19+ */
     color: #888;
   }
+
 }
 
 input[type='file'] {
@@ -202,6 +192,8 @@ fieldset.choices {
 .formtastic li.text div.mce-tinymce{
   margin-bottom: 1em;
 }
+
+
 .mce-tinymce.mce-container {
   clear: both;
 }
@@ -238,6 +230,5 @@ fieldset.choices {
 }
 .formtastic .input fieldset.inputs > ol > li.other-checkbox {
   margin-left: 50px;
-
   input { width: 100%; max-width: none; }
 }

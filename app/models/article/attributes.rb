@@ -32,8 +32,11 @@ module Article::Attributes
 
     #title
 
-    validates_presence_of :title , :content, unless: :template? # refs #128
-    validates_length_of :title, minimum: 6, maximum: 65
+
+
+    validates_presence_of :title , :content
+    validates_length_of :title, :minimum => 6, :maximum => 65
+
 
     #conditions
 
@@ -127,6 +130,7 @@ module Article::Attributes
   def has_legal_entity_seller?
     self.seller.is_a?(LegalEntity)
   end
+
 
   # Gives the price of the article minus taxes
     #
@@ -241,4 +245,7 @@ module Article::Attributes
         output
       end
     end
+
+
+
 end

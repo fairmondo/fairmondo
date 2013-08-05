@@ -162,7 +162,7 @@ class ArticlesController < InheritedResources::Base
     ########
     rescue Errno::ECONNREFUSED
       render_hero :action => "sunspot_failure"
-      return policy_scope(Article).paginate :page => params[:page], :per_page => WillPaginate.per_page
+      return policy_scope(Article).page params[:page]
   end
 
   ############ Save Images ################

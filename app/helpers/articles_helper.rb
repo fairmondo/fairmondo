@@ -75,11 +75,15 @@ module ArticlesHelper
 
   def features_label article
     html = ""
-
     html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue") if article.fair
     html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green") if article.ecologic
     html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange") if article.small_and_precious
 
+    html.html_safe
+  end
+
+  def get_features_label text, btn_class
+    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
     html.html_safe
   end
 
@@ -165,11 +169,11 @@ module ArticlesHelper
   end
 
   def libraries
-    resource.libraries.where(:public => true).paginate(:page => params[:page], :per_page=>10)
+    resource.libraries.where(:public => true).page(params[:page]).per(10)
   end
 
   def active_seller_articles
-    resource.seller.articles.where(:state => "active").paginate(:page => params[:page], :per_page=>18)
+    resource.seller.articles.where(:state => "active").page(params[:page]).per(18)
   end
 
    def transport_format_for method,css_classname=""

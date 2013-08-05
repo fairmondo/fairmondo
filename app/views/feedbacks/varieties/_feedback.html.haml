@@ -2,7 +2,7 @@
 = semantic_form_for resource, url: feedbacks_path do |f|
   = f.inputs do
     -# hidden
-    = f.input :type, as: :hidden, input_html: { value: 'send_feedback' }
+    = f.input :variety, as: :hidden, input_html: { value: 'send_feedback' }
     -# user-input
 
     = f.input :from, required: false

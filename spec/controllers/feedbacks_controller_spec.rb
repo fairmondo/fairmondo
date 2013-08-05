@@ -31,14 +31,10 @@ describe FeedbacksController do
     end
 
     describe "for non-signed-in users" do
-      it "should not create an feedback with type report_article" do
-        lambda do
-          begin
-            post :create, :user_id => @user, :article_id => @article, :type => :report_article, :text => "test"
-          rescue
-            # Rescue Pundit::NotAuthorizedError #=> This test should probably be just a pundit test.
-          end
-        end.should_not change(Feedback, :count)
+      it "should not create an feedback with variety report_article" do
+        expect {
+          post :create, :user_id => @user, :article_id => @article, :variety => :report_article, :text => "test"
+        }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
 
@@ -48,9 +44,9 @@ describe FeedbacksController do
         sign_in @user
       end
 
-     # it "should create an feedback with type report_article" do
+     # it "should create an feedback with variety report_article" do
      #   lambda do
-     #     post :create, :user_id => @user.id, :article_id => @article.id, :type => "send_feedback", :text => "test"
+     #     post :create, :user_id => @user.id, :article_id => @article.id, :variety => "send_feedback", :text => "test"
      #   end.should change(Feedback , :count).by 1
      # end
 

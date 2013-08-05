@@ -27,11 +27,11 @@
   = f.inputs do
     = f.input :nonprofit_association,:as => :plain_radio, :label => true, :js_toggle => true
     = f.inputs :id => 'true-nonprofit_association' do
-      = f.input :nonprofit_association_checkboxes, :as => :check_boxes, :label => false
+      = f.input :nonprofit_association_checkboxes, :as => :check_boxes, :label => t('form.fill_in_non_profit')
     = f.input :social_businesses_muhammad_yunus,:as => :plain_radio, :label => true, :js_toggle => true
     = f.inputs :id => 'true-social_businesses_muhammad_yunus' do
       = f.input :social_businesses_muhammad_yunus_checkboxes, :as => :check_boxes, :label => false
-    = f.input :social_entrepreneur,:as => :plain_radio, :label => true, :js_toggle => true
+    = f.input :social_entrepreneur, :as => :plain_radio, :label => true, :js_toggle => true
     = f.inputs :id => 'true-social_entrepreneur' do
       = f.input :social_entrepreneur_checkboxes, :as => :check_boxes, :label => false
       = f.input :social_entrepreneur_explanation

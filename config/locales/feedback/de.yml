@@ -8,4 +8,9 @@ de:
     actions:
       get_help: "Hilfe anfragen"
       send_feedback: "Feedback senden"
+    details:
+      details_for_tech_support: "Technische Details für den IT - Support"
+      last_uploaded_article_id: "ID des zuletzt vom User eingestellten Artikels"
+      no_article_existent: "Kein Artikel vorhanden"
+      user_not_logged_in: "User war nicht eingeloggt"
 

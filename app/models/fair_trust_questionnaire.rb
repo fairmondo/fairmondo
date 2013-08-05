@@ -23,6 +23,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
+
   # Question 1: supports marginalized workers (req)
   attr_accessible :support, :support_checkboxes, :support_explanation, :support_other,
     # Question 2: labor conditions acceptable? (req)
@@ -33,6 +34,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     :controlling, :controlling_checkboxes, :controlling_explanation, :controlling_other,
     # Question 5: awareness raising programs supported? (opt)
     :awareness_raising, :awareness_raising_checkboxes, :awareness_raising_explanation, :awareness_raising_other
+
 
   auto_sanitize :support_explanation, :support_other,
                 :labor_conditions_explanation, :labor_conditions_other,

@@ -25,6 +25,8 @@ class FeedbacksController < InheritedResources::Base
   def create
     authorize build_resource
     resource.set_user_id current_user
+    resource.source_page = session[:source_page]
+    resource.user_agent = request.env["HTTP_USER_AGENT"]
     create! do |success,failure|
       success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
       failure.html { render :new }
@@ -32,7 +34,8 @@ class FeedbacksController < InheritedResources::Base
   end
 
   def new
-    @type = params[:type] || "send_feedback"
+    @variety = params[:variety] || "send_feedback"
+    session[:source_page] = request.env["HTTP_REFERER"]
     authorize build_resource
     new!
   end
@@ -40,7 +43,8 @@ class FeedbacksController < InheritedResources::Base
   private
 
     def redirect_path
-      if @feedback.type == "report_article"
+
+      if @feedback.variety == "report_article"
         article_path(Article.find(@feedback.article_id))
       else
         root_path

@@ -1,10 +1,8 @@
 de:
 # Libraries
+  libraries:
+    no_library: "Es wurden noch keine Sammlungen von unseren Nutzer*innen angelegt."
   library:
-    error:
-      uniqueness: "Eine Sammlung mit diesem Namen existiert bereits."
-      length: "Der Name der Sammlung darf nicht länger als 25 Zeichen sein."
-      presence: "Eine Sammlung benötigt einen Namen."
     new: "Neue Sammlung"
     default: "Standardsammlung"
     no_products: "Diese Sammlung enthält im Moment keine Artikel."
@@ -14,7 +12,5 @@ de:
       public: Öffentliche Sammlung
       private: Private Sammlung
   library_element:
-    error:
-      uniqueness: "Der Artikel ist schon in deiner Sammlung."
     notice:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."

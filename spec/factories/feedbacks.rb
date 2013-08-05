@@ -6,6 +6,6 @@ FactoryGirl.define do
     subject { Faker::Lorem.sentence }
     from { Faker::Internet.email }
     to { Faker::Internet.email }
-    type {[:report_article, :get_help ,:send_feedback].sample}
+    variety {[:report_article, :get_help ,:send_feedback].sample}
   end
 end
