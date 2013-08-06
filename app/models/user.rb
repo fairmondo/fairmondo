@@ -154,6 +154,7 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
+
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_standard_seller do
@@ -174,14 +175,6 @@ class User < ActiveRecord::Base
 
   end
 
-
-  BUYER_BAD_FACTOR = 6
-  BUYER_GOOD_FACTOR = 2
-
-  NOT_REGISTERED_BUYER_PURCHASEVOLUME = 4
-  BUYER_STANDARD_PURCHASEVOLUME = 12
-  BUYER_TRUSTED_BONUS = 42
-
   state_machine :buyer_state, :initial => :standard_buyer do
 
     event :rate_up_to_good_buyer do
@@ -197,11 +190,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def buyer_constants
+    buyer_constants = {
+      :not_registered_purchasevolume => 4,
+      :standard_purchasevolume => 12,
+      :trusted_bonus => 12,
+      :good_factor => 2,
+      :bad_factor => 6
+    }
+  end
+
   def purchase_volume
-    bad_buyer? ? ( BUYER_STANDARD_PURCHASEVOLUME / BUYER_BAD_FACTOR ) :
-    ( BUYER_STANDARD_PURCHASEVOLUME +
-    ( self.trustcommunity ? BUYER_TRUSTED_BONUS : 0 ) ) *
-    ( good_buyer? ? BUYER_GOOD_FACTOR : 1 )
+    ( bad_buyer? ? ( buyer_constants[:standard_purchasevolume] / buyer_constants[:bad_factor] ) :
+    ( buyer_constants[:standard_purchasevolume] +
+    ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
+    ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
   end
 
 

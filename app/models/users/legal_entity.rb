@@ -42,13 +42,6 @@ class LegalEntity < User
   validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
 
 
-  COMMERCIAL_BAD_FACTOR = 2
-  COMMERCIAL_GOOD_FACTOR = 2
-
-  COMMERCIAL_STANDARD_SALESVOLUME = 35
-  COMMERCIAL_VERIFIED_BONUS = 50
-
-
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_good1_seller do
@@ -65,14 +58,23 @@ class LegalEntity < User
     end
   end
 
+  def commercial_seller_constants
+    commercial_seller_constants = {
+      :standard_salesvolume => 35,
+      :verified_bonus => 50,
+      :good_factor => 2,
+      :bad_factor => 2
+    }
+  end
+
   def sales_volume
-    bad_seller ? ( COMMERCIAL_STANDARD_SALESVOLUME / COMMERCIAL_BAD_FACTOR ) :
-    ( COMMERCIAL_STANDARD_SALESVOLUME +
-    ( self.verified ? COMMERCIAL_VERIFIED_BONUS : 0 ) ) *
-    ( good1_seller? ? COMMERCIAL_GOOD_FACTOR : 1 ) *
-    ( good2_seller? ? COMMERCIAL_GOOD_FACTOR**2 : 1 ) *
-    ( good3_seller? ? COMMERCIAL_GOOD_FACTOR**3 : 1 ) *
-    ( good4_seller? ? COMMERCIAL_GOOD_FACTOR**4 : 1 )
+    bad_seller? ? ( commercial_seller_constants[:standard_salesvolume] / commercial_seller_constants[:bad_factor] ) :
+    ( commercial_seller_constants[:standard_salesvolume] +
+    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 ) ) *
+    ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
+    ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
+    ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
+    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 )
   end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
