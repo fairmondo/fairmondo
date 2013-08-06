@@ -102,22 +102,6 @@ module ArticlesHelper
     Category.where(:id => cat.parent_id).first
   end
 
-  def title_image
-    if params[:image]
-      resource.images.find(params[:image])
-    else
-      resource.images[0]
-    end
-  end
-
-  def thumbnails title_image
-    thumbnails = resource.images
-    thumbnails.reject!{|image| image.id == title_image.id}  #Reject the selected image from thumbs
-    thumbnails
-  end
-
-
-
   def find_fair_alternative_to article
     search = Article.search do
       fulltext article.title do
