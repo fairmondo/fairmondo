@@ -18,7 +18,7 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  attr_accessible :image
+  attr_accessible :image, :is_title
   extend AccessibleForAdmins
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles

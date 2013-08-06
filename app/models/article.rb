@@ -59,12 +59,13 @@ class Article < ActiveRecord::Base
       if attributes[key].has_key? :id
         unless attributes[key][:_destroy] == "1"
            image = Image.find(attributes[key][:id])
-           image.image = attributes[key]["image"] if attributes[key].has_key? :image # updated the image itself
+           image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
+           image.is_title = attributes[key][:is_title]
            self.images << image
         end
 
       else
-        self.images << Image.new(attributes[key])
+        self.images << Image.new(attributes[key]) if attributes[key][:image] != nil
       end
     end
   end
@@ -101,6 +102,7 @@ class Article < ActiveRecord::Base
       original_article.images.each do |image|
         copyimage = Image.new
         copyimage.image = image.image
+        copyimage.is_title = image.is_title
         new_article.images << copyimage
         copyimage.save
       end

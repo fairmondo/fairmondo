@@ -141,6 +141,7 @@ de:
       image:
         image: Bild
         _destroy: Löschen
+        is_title: Titelbild
       library:
         name: Name
         public: Öffentlich
