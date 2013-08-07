@@ -308,3 +308,25 @@ describe "Article Page should show link to Transparency International" do
     page.should have_link("Transparency International", :href => "http://www.transparency.de/")
   end
 end
+
+describe "Article feature label buttons" do
+  before do
+    @seller = FactoryGirl.create :user
+    @article = FactoryGirl.create :article, :simple_ecologic, :seller => @seller
+  end
+
+  describe "on the article show page" do
+    it "should have a ecological feature label link" do
+      visit article_path(@article)
+      page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
+    end
+  end
+
+  describe "on the user show page" do
+    it "should not have a ecological feature label link" do
+      visit user_path(@seller)
+      page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
+      page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
+    end
+  end
+end
