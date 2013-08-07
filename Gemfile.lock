@@ -217,7 +217,6 @@ GEM
     parallel (0.7.1)
     parallel_tests (0.15.0)
       parallel
-    perftools.rb (2.0.1)
     pg (0.15.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
@@ -423,7 +422,6 @@ DEPENDENCIES
   newrelic_rpm
   paperclip (>= 3.0)
   parallel_tests
-  perftools.rb
   pg
   pundit
   rails (~> 3.2.13)

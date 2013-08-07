@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #Rails
 gem 'rails', '~> 3.2.13'
-gem 'perftools.rb'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
