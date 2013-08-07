@@ -18,11 +18,11 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  attr_accessible :image
+  attr_accessible :image, :is_title
   extend AccessibleForAdmins
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
-  has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", mini: "130x90#", profile: "300x300#" },
+  has_attached_file :image, styles: { medium: "520x360>", thumb: "260x180#", profile: "300x300#" },
                             default_url: "/assets/missing.png",
                             url: "/system/:attachment/:id_partition/:style/:filename",
                             path: "public/system/:attachment/:id_partition/:style/:filename"

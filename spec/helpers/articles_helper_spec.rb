@@ -30,25 +30,7 @@ describe ArticlesHelper do
     end
   end
 
-  describe "#title_image" do
-    before do
-      @article = FactoryGirl.create :article
-      @img1 = FactoryGirl.create :image
-      @img2 = FactoryGirl.create :image
-      @article.images = [@img1, @img2]
-      helper.stub(:resource).and_return( @article)
-    end
 
-    it "should return the image defined by params" do
-      params[:image] = @img2.id
-      helper.title_image.should eq @img2
-    end
-
-    it "should return the first image if no params are given" do
-      params = nil
-      helper.title_image.should eq @img1
-    end
-  end
 
   describe "options_format_for (type, method, css_classname)" do
      before do

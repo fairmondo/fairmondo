@@ -50,23 +50,18 @@
         - if current_user.country == "Deutschland"
           = f.input :vat, :required => true, :tooltip => true, :as => :select, :collection => [7,19]
 = f.input_step :upload_images do
-  - first=true
   - (5-f.object.images.size).times { f.object.images.build }
+  = f.semantic_errors :images
   = f.semantic_fields_for :images do |image|
     = f.inputs do
       .Accordion-step
         - if image.object.new_record?
-          - if first
-            = image.input :image, :label => t("formtastic.labels.article.image")
-          - else
-            = image.input :image
+          = image.input :image
         - else
           = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
-          - if first
-            = image.input :image, :label => t("formtastic.labels.article.other_image")
-          - else
-            = image.input :_destroy, :as => :boolean , :label => false
-      - first=false
+          = image.input :_destroy, :as => :boolean , :label => false
+        = image.input :is_title, :input_html =>  { :class => "Image-titleinput"}
+
 = f.input_step :transport_and_payment do
   .Accordion-step
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
