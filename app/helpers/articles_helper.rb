@@ -87,11 +87,6 @@ module ArticlesHelper
     html.html_safe
   end
 
-  def get_features_label text, btn_class
-    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
-    html.html_safe
-  end
-
   def get_category_tree category
     tree = []
     cat = category
