@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.13'
+gem 'rails', '~> 3.2.14'
 
 
 # Bundle edge Rails instead:
