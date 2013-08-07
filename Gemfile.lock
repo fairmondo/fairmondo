@@ -216,7 +216,6 @@ GEM
     parallel (0.7.1)
     parallel_tests (0.15.0)
       parallel
-    perftools.rb (2.0.1)
     pg (0.16.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
@@ -294,12 +293,8 @@ GEM
     rspec-core (2.14.4)
     rspec-expectations (2.14.0)
       diff-lcs (>= 1.1.3, < 2.0)
-<<<<<<< HEAD
-    rspec-mocks (2.14.2)
-=======
     rspec-instafail (0.2.4)
-    rspec-mocks (2.14.1)
->>>>>>> 2007fab... refactor and speed up test suite
+    rspec-mocks (2.14.2)
     rspec-rails (2.14.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -427,7 +422,6 @@ DEPENDENCIES
   newrelic_rpm
   paperclip (>= 3.0)
   parallel_tests
-  perftools.rb
   pg
   pundit
   rails (~> 3.2.14)
