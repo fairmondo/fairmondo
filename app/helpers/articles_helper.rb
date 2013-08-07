@@ -82,7 +82,7 @@ module ArticlesHelper
   end
 
   def get_features_label text, btn_class
-    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
+    html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
     html.html_safe
   end
 
