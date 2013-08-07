@@ -32,6 +32,14 @@ module UsersHelper
     resource.articles.where("state != ? AND state != ?", :active, :closed ).page(params[:inactive_articles_page])
   end
 
+  def sold_articles
+    resource.articles.where("state = ?", :sold).page(params[:sold_articles_page])
+  end
+
+  def bought_articles
+    resource.bought_articles.page(params[:bought_articles_page])
+  end
+
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link
   # @param target [String] path
   # @return [String] JS code

@@ -27,18 +27,19 @@ RSpec.configure do |config|
     # Empty out the bullet log
     File.open($bullet_log, 'w') {|f| f.truncate(0) }
   end
+end
 
-  config.after :suite do
-    unless $skip_audits
-      puts "\n\n[Bullet] Checking for performance drains:\n".underline
-      bullet_warnings = File.open($bullet_log, "rb").read
+after_suite do
+  unless $skip_audits
+    puts "\n\n[Bullet] Checking for performance drains:\n".underline
+    bullet_warnings = File.open($bullet_log, "rb").read
 
-      if bullet_warnings.empty?
-        puts "No issues found. Very good.".green
-      else
-        puts bullet_warnings.yellow
-        puts "Performance issues exist.".red.underline
-      end
+    if bullet_warnings.empty?
+      puts "No issues found. Very good.".green
+    else
+      puts bullet_warnings.yellow
+      puts "Performance issues exist.".red.underline
     end
   end
 end
+
