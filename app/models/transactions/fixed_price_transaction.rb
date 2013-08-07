@@ -21,4 +21,13 @@
 #
 class FixedPriceTransaction < Transaction
   extend STI
+
+  state_machine do
+    after_transition :buy, do: :set_article_sold
+  end
+
+  private
+    def set_article_sold
+      self.article.sold_out
+    end
 end

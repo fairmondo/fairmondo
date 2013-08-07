@@ -29,15 +29,19 @@ module Article::State
     state_machine :initial => :preview do
 
       state :preview do
+        # Inactive and editable
       end
 
       state :active do
+        # Searchable and buyable
       end
 
       state :locked do
+        # Same as preview but not editable
       end
 
       state :closed do
+        # Deleted or sold
       end
 
       event :activate do
@@ -50,6 +54,10 @@ module Article::State
 
       event :close do
         transition :locked => :closed
+      end
+
+      event :sold_out do
+        transition :active => :closed
       end
 
       after_transition :on => :activate, :do => :calculate_fees_and_donations

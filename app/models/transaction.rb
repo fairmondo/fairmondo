@@ -38,7 +38,7 @@ class Transaction < ActiveRecord::Base
            :total_price,
            to: :article, prefix: true
 
-  validates :tos_accepted, acceptance: { accept: true }, on: :update
+  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
 
   state_machine initial: :available do
 

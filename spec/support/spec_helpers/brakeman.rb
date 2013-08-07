@@ -22,27 +22,25 @@
 require 'json'
 
 # Check security
-RSpec.configure do |config|
-  config.after :suite do
-    unless $skip_audits
-      puts "\n\n[Brakeman] Security Audit:\n".underline
-      result = JSON.parse %x( bundle exec rake test:brakeman )
+after_suite do
+  unless $skip_audits
+    puts "\n\n[Brakeman] Security Audit:\n".underline
+    result = JSON.parse %x( bundle exec rake test:brakeman )
 
-      warnings = result['warnings'].length
-      errors = result['errors'].length
+    warnings = result['warnings'].length
+    errors = result['errors'].length
 
-      result['warnings'].each {|w| puts "Warning: #{format(w)}".yellow } unless warnings == 0
-      result['errors'].each {|e| puts "Error: #{format(e)}".red } unless errors == 0
+    result['warnings'].each {|w| puts "Warning: #{format(w)}".yellow } unless warnings == 0
+    result['errors'].each {|e| puts "Error: #{format(e)}".red } unless errors == 0
 
-      puts "Warnings: #{warnings}"
-      puts "Errors: #{errors}"
+    puts "Warnings: #{warnings}"
+    puts "Errors: #{errors}"
 
-      if warnings == 0 && errors == 0
-        puts "Basic security is ensured.".green
-      else
-        puts "Security issues exist.".red.underline
-        $suite_failing = true
-      end
+    if warnings == 0 && errors == 0
+      puts "Basic security is ensured.".green
+    else
+      puts "Security issues exist.".red.underline
+      $suite_failing = true
     end
   end
 end
