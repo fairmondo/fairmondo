@@ -1,10 +1,16 @@
-
-
 $(function() {
 	target = 0;
 	if(window.location.hash){
-		target = $(window.location.hash).index()
+	  target = $(window.location.hash).index('.Accordion-item')
 	}
+	$(".commendation-anchor").click(function() {
+	  button = $(event.target).attr('href')
+	    target = $(button).index('.Accordion-item')
+	   $(".Accordion--activated").accordion({
+	     animate: false,
+	     active: target
+	   });
+	});
 	$(".Accordion").accordion({
 		header: "a.Accordion-header",
 		heightStyle: "content",

@@ -83,12 +83,7 @@ module ArticlesHelper
   end
 
   def get_features_label text, btn_class
-    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
-    html.html_safe
-  end
-
-  def get_features_label text, btn_class
-    html = "<span class=\""+ btn_class +"\">" + text + "</span>"
+    html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
     html.html_safe
   end
 
@@ -107,22 +102,6 @@ module ArticlesHelper
   def parent_category cat
     Category.where(:id => cat.parent_id).first
   end
-
-  def title_image
-    if params[:image]
-      resource.images.find(params[:image])
-    else
-      resource.images[0]
-    end
-  end
-
-  def thumbnails title_image
-    thumbnails = resource.images
-    thumbnails.reject!{|image| image.id == title_image.id}  #Reject the selected image from thumbs
-    thumbnails
-  end
-
-
 
   def find_fair_alternative_to article
     search = Article.search do
