@@ -47,6 +47,7 @@
 //= require models/article/categories
 //= require models/article/search_input
 //= require models/article/toggle
+//= require models/article/titleimage
 //= require models/library/libraries
 //= require models/user/login
 
@@ -63,4 +64,5 @@
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
+
 //= require customize/rails-confirm

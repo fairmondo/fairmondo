@@ -246,6 +246,17 @@ describe Article do
           article = FactoryGirl.create :article, :without_image
           article.title_image_url.should eq 'missing.png'
         end
+
+         it "should return the first image's URL when one exists" do
+          article.images = [FactoryGirl.build(:fixture_image),FactoryGirl.build(:fixture_image)]
+          article.images.each do |image|
+            image.is_title = true
+            image.save
+          end
+          article.save
+          article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
+        end
+
       end
     end
   end

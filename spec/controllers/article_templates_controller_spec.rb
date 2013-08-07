@@ -87,7 +87,7 @@ describe ArticleTemplatesController do
     context "with invalid params" do
       it "should try to save the images anyway" do
         attrs = invalid_attributes
-        attrs[:article_attributes][:images_attributes] = {"0" => {"image" => nil}}
+        attrs[:article_attributes][:images_attributes] = {"0" => {"image" => fixture_file_upload('/test.png')}}
 
         controller.should_receive(:save_images).and_call_original
         Image.any_instance.should_receive :save
