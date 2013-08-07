@@ -51,14 +51,4 @@ module UsersHelper
       return false;"
   end
 
-  # JS used in icheck checkboxes onclick to open a new window with the contents of a link
-  # @param target [String] path
-  # @return [String] JS code
-  def on_click_open_link_in_label target
-    "var e=arguments[0] || window.event;
-      window.open('#{target}','_blank');
-      e.cancelBubble = true;
-      e.stopPropagation();
-      return false;"
-  end
 end

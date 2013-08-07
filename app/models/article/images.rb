@@ -29,11 +29,15 @@ module Article::Images
     has_many :images, as: :imageable #has_and_belongs_to_many :images
     accepts_nested_attributes_for :images, allow_destroy: true
 
+    validate :only_one_title_image
 
     # Gives first image if there is one
     # @api public
     # @return [Image, nil]
     def title_image
+      images.each do |image|
+        return image if image.is_title
+      end
       if images.empty?
         return nil
       else
@@ -46,6 +50,17 @@ module Article::Images
         title_image.image.url(type)
       else
         "missing.png"
+      end
+    end
+
+    def thumbnails
+      self.images.where(:is_title => false)
+    end
+
+    def only_one_title_image
+      title_images = self.images.where(:is_title => true)
+      if title_images.count > 1
+         errors.add(:images, I18n.t("article.form.errors.only_one_title_image"))
       end
     end
 
