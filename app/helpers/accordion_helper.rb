@@ -32,9 +32,4 @@ module AccordionHelper
         accordion_header_class: header_class
       }, &block
   end
-
-
-
-
-
 end
