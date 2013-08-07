@@ -21,5 +21,6 @@ staging:
 test:
   solr:
     hostname: localhost
-    port: 8981
+    port: <%= 8981 + ENV['TEST_ENV_NUMBER'].to_i %>
     log_level: WARNING
+    data_path: <%= File.join(::Rails.root, 'solr', 'data', ::Rails.env, ENV['TEST_ENV_NUMBER'].to_i.to_s) %>
