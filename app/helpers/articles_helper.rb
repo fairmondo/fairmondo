@@ -81,7 +81,7 @@ module ArticlesHelper
   end
 
   def get_features_label text, btn_class, article
-    if article_path(article) == request.path
+    if article_path(article) == request.path && btn_class =~ /Btn-tag /
       html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
     else
       html = "<span class=\""+ btn_class +"\">" + text + "</span>"
