@@ -121,23 +121,23 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
-          it "should submit the data successfully with accepted AGB" do
-            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          # it "should submit the data successfully with accepted AGB" do
+          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-            check 'transaction_tos_accepted'
-            click_button I18n.t 'transaction.actions.purchase'
+          #   check 'transaction_tos_accepted'
+          #   click_button I18n.t 'transaction.actions.purchase'
 
-            current_path.should eq transaction_path transaction
-          end
+          #   current_path.should eq transaction_path transaction
+          # end
 
-          it "should not submit the data successfully without accepted AGB" do
-            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          # it "should not submit the data successfully without accepted AGB" do
+          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-            click_button I18n.t 'transaction.actions.purchase'
+          #   click_button I18n.t 'transaction.actions.purchase'
 
-            page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-            # page.should have_content #Alert -> Implement once those exist again
-          end
+          #   page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
+          #   # page.should have_content #Alert -> Implement once those exist again
+          # end
 
           context "when testing the displayed total price" do
             context "without cash_on_delivery" do
@@ -255,11 +255,21 @@ describe 'Transaction' do
       context "when the transaction is sold" do
         let (:transaction) { FactoryGirl.create :sold_transaction }
 
-        it "should not redirect" do
-          login_as transaction.buyer
-          visit transaction_path transaction
-          current_path.should eq transaction_path transaction
+        context "and the user is the buyer" do
+          it "should not redirect" do
+            login_as transaction.buyer
+            visit transaction_path transaction
+            current_path.should eq transaction_path transaction
+          end
         end
+
+        context "but the current user isn't the one who bought" do
+
+        end
+      end
+
+      context "when the transaction is not sold" do
+
       end
     end
 

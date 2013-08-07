@@ -20,14 +20,12 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 ## The final after suite callback
-RSpec.configure do |config|
-  config.after :suite do
-    unless $skip_audits
-      puts "\n\n[Suite] Results:".underline
+def final_after_hook
+  unless $skip_audits
+    puts "\n\n[Suite] Results:".underline
 
-      unless $? == 0
-        puts "\nTest suite fails. Do not push to the repository before taking care of the issues described above.".red.underline
-      end
+    unless $? == 0
+      puts "\nTest suite fails. Do not push to the repository before taking care of the issues described above.".red.underline
     end
   end
 end

@@ -21,7 +21,7 @@
 #
 # Configure Rails Envinronment
 require 'rubygems'
-require 'spork'
+#require 'spork'
 
 Spork.prefork do
   ENV["RAILS_ENV"] = "test"
