@@ -18,7 +18,7 @@ config/initializers/secret_token.rb
 
 # Ignore all logfiles and tempfiles
 /log/*.log
-/log/*.log.lck
+/log/*.log.*
 /tmp
 # Gemfile.lock -> ER error without it
 

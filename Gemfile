@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #Rails
 gem 'rails', '~> 3.2.13'
-
+gem 'perftools.rb'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -133,6 +133,8 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
+  gem 'parallel_tests'
+  gem 'rspec-instafail'
 
   # Replace Webrick
   gem 'thin'
@@ -149,9 +151,6 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-
-  # Clean code before commiting
-  gem "code-cleaner"
 
   #zipruby for icecat catalog download
   gem "zipruby"
