@@ -57,7 +57,8 @@ module Article::Attributes
 
     # vat (Value Added Tax)
 
-    validates_presence_of :vat , if: :has_legal_entity_seller?
+    validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :has_legal_entity_seller?
+
 
     # basic price
     attr_accessible :basic_price, :basic_price_cents, :basic_price_amount
