@@ -109,7 +109,7 @@
       = simple_format(resource.transport_details).html_safe
   - if resource.has_commendation?
     = accordion_item "commendation" do
-      = render 'articles/show/commendation'
+      = render 'articles/show/commendation', :article => resource
   / Only legal sellers
   - if resource.seller.is_a?(LegalEntity)
     = accordion_item "terms" do
