@@ -122,5 +122,11 @@ FactoryGirl.define do
       ecologic_seal :bio_siegel
     end
 
+    trait :simple_small_and_precious do
+      small_and_precious true
+      small_and_precious_eu_small_enterprise true
+      small_and_precious_reason "a"*151
+    end
+
   end
 end
