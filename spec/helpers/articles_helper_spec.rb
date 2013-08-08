@@ -61,8 +61,8 @@ describe ArticlesHelper do
         (helper.find_fair_alternative_to @normal_article).should eq @fair_article
      end
 
-      it "should find a fair alternative in with the similar title and other category" do
-        (helper.find_fair_alternative_to @other_normal_article).should eq @fair_article
+      it "should not find a fair alternative with a similar title and an other category" do
+        (helper.find_fair_alternative_to @other_normal_article).should_not eq @fair_article
      end
 
      it "should prefer the same category over matches in the title" do
