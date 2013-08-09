@@ -72,6 +72,8 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 
+# Cron Jobs für Rechnungen
+gem 'whenever'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -98,6 +100,7 @@ end
 
 group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service
+  # gem 'whenever' # cron jobs
 end
 
 # for generating *.war file
