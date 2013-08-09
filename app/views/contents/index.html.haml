@@ -17,6 +17,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+
 %h1 Listing contents
 %table
   %tr
@@ -32,3 +33,10 @@
       %td= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Content', new_content_path
+%h1 Statistics
+%h2 LegalEntity Count
+%p
+  =LegalEntity.all.count
+%h2 LegalEntity Articles Count
+%p
+  = LegalEntity.all.collect {|u| u.articles.active }.flatten.count
