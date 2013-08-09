@@ -45,7 +45,8 @@ class Article < ActiveRecord::Base
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
-  belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
+  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id'
   validates_presence_of :user_id
 
   belongs_to :article_template
