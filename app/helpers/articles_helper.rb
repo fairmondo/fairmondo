@@ -110,7 +110,6 @@ module ArticlesHelper
   def find_fair_alternative_to article
     search = Article.search do
       fulltext article.title do
-        boost(4.0) { with :category_ids, Article::Categories.search_categories(article.categories) }
         boost(3.0) { with(:fair, true) }
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
@@ -119,6 +118,7 @@ module ArticlesHelper
         fields(:title)
       end
       without(article)
+      with :category_ids, Article::Categories.search_categories(article.categories)
       any_of do
         with :fair,true
         with :ecologic,true
