@@ -18,7 +18,7 @@ config/initializers/secret_token.rb
 
 # Ignore all logfiles and tempfiles
 /log/*.log
-/log/*.log.lck
+/log/*.log.*
 /tmp
 # Gemfile.lock -> ER error without it
 
@@ -64,7 +64,7 @@ public/assets_test/*
 # Licence Deriving tmp
 deriving_license_tmp
 
-#Local additional Gemfile
+# Local additional Gemfile
 Gemfile.local
 
 # vim fragments / vim swap-files

@@ -24,6 +24,7 @@ module Sanitization
           define_method method_name, send("#{options[:method]}_sanitization", field, options[:admin])
           before_validation method_name.to_sym, options
 
+
           # TinyMCE contents are assumed to have HTML content and are now sanitized. So we can always give them the html_safe flag.
           if options[:method] == 'tiny_mce'
             define_method "#{field}_with_html_safe", Proc.new {
@@ -33,6 +34,7 @@ module Sanitization
             define_method field, -> { read_attribute field } #no idea why this fix is needed
             alias_method_chain field, :html_safe
           end
+
         end
       end
     end
@@ -40,6 +42,8 @@ module Sanitization
   private
     # Method content for sanitize_clean_X callbacks
     # @api private
+    # @return [Proc]
+
     def clean_sanitization field, admin_mode # admin_mode not used
       Proc.new { self.send("#{field}=", Sanitization.sanitize_clean(self.send(field))) }
     end

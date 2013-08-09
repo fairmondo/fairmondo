@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module Article::State
   extend ActiveSupport::Concern
@@ -27,15 +29,19 @@ module Article::State
     state_machine :initial => :preview do
 
       state :preview do
+        # Inactive and editable
       end
 
       state :active do
+        # Searchable and buyable
       end
 
       state :locked do
+        # Same as preview but not editable
       end
 
       state :closed do
+        # Deleted or sold
       end
 
       event :activate do
@@ -48,6 +54,10 @@ module Article::State
 
       event :close do
         transition :locked => :closed
+      end
+
+      event :sold_out do
+        transition :active => :closed
       end
 
       after_transition :on => :activate, :do => :calculate_fees_and_donations

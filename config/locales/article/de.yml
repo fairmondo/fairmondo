@@ -13,6 +13,8 @@ de:
 
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+    included_short: "Inkl."
+    vat: "Mehrwertsteuer"
 
     included_short: "Inkl."
     vat: "Mehrwertsteuer"
@@ -53,7 +55,7 @@ de:
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
-
+        only_one_title_image: "Nur ein Bild kann Titelbild sein!"
     labels:
       shipping_options: "Versandoptionen:"
       payment_options: "Bezahloptionen:"

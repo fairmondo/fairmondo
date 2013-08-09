@@ -34,6 +34,7 @@ de:
       report: "Melden"
       take_part: "Mitmachen"
       buy: "Kaufen"
+      to_cart: "In den Warenkorb"
       collect: "Sammeln"
       move: "Verschieben"
     title:
@@ -73,6 +74,10 @@ de:
       help: "Hilfe"
       my_articles: "Meine Artikel"
       fair: "Fair"
+      seller: "Händler"
+      product: "Produkt"
+      libraries: "Sammlungen"
+      about_terms: "AGB / Widerrufserklärung / Impressum"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

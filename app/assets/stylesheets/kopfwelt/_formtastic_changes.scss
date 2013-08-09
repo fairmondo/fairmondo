@@ -54,6 +54,7 @@ textarea {
   }
   &:hover {}
 
+
   // Fix for the firefox placeholders not coloring correctly
   // refs #168
 
@@ -64,6 +65,7 @@ textarea {
   &::-moz-placeholder {  /* Firefox 19+ */
     color: #888;
   }
+
 }
 
 input[type='file'] {
@@ -147,9 +149,9 @@ fieldset.choices {
 }
 
 .inline-hints {
-  @extend %Semibold;
-  @include rem(font-size, 14px);
-  color: #2e2e2e;
+	@extend %Semibold;
+	@include rem(font-size, 14px);
+	color: #2e2e2e;
 }
 .formtastic .inline-errors {
   margin: -1em 0 .5em 0;
@@ -226,9 +228,7 @@ fieldset.choices {
   margin-bottom: 1em;
   @include pie-clearfix;
 }
-
 .formtastic .input fieldset.inputs > ol > li.other-checkbox {
   margin-left: 50px;
-
   input { width: 100%; max-width: none; }
 }

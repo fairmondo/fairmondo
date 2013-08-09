@@ -8,6 +8,7 @@ de:
       questionnaire:
         explanation: Erläuterung
         explanations: Erläuterungen
+        purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
       user:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
@@ -46,6 +47,7 @@ de:
         feedback_subject: "Thema"
         help_subject: "Thema"
 
+
       article:
         title: "Artikelbezeichnung"
         content: "Beschreibung"
@@ -59,8 +61,8 @@ de:
         ecologic: öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
-
         fair_trust_questionnaire: "Fairtrust Fragebogen"
+
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
         small_and_precious: "klein&edel"
@@ -141,9 +143,12 @@ de:
       image:
         image: Bild
         _destroy: Löschen
+        is_title: Titelbild
       library:
         name: Name
         public: Öffentlich
+      transaction:
+        tos_accepted: Ich akzeptiere die AGB und die Widerrufserfklärung
     input_steps:
       user:
         account: Benutzerkonto

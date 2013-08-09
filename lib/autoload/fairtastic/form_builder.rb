@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Autoloading did not work, thus, I require our custom inputs explicitly
 
@@ -33,6 +35,7 @@ module Fairtastic
       super(*extended_fieldset_args(*args),&block)
     end
 
+
     def semantic_errors(*args)
       args.inject([]) do |array, method|
         errors = Array(@object.errors[method.to_sym]).to_sentence
@@ -40,6 +43,7 @@ module Fairtastic
       end
       super
     end
+
 
     # Make Accordions red if contains errors
     def semantic_fields_for(record_or_name_or_array, *args, &block)

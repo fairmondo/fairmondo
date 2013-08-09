@@ -1,21 +1,23 @@
 -#
--# Farinopoly - Fairnopoly is an open-source online marketplace.
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
 -# Copyright (C) 2013 Fairnopoly eG
 -#
--# This file is part of Farinopoly.
+-# This file is part of Fairnopoly.
 -#
--# Farinopoly is free software: you can redistribute it and/or modify
+-# Fairnopoly is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Farinopoly is distributed in the hope that it will be useful,
+-# Fairnopoly is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
 
@@ -25,7 +27,7 @@
     -# FAIR
     - if resource.fair
       %dt
-        =get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tagBig Btn-tag--blue")
+        =get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tagBig Btn-tag--blue", article)
         - case resource.fair_kind
         - when "social_producer"
           - if resource.social_producer_questionnaire
@@ -54,7 +56,7 @@
     -# ECOLOGIC
     - if resource.ecologic
       %dt
-        =get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tagBig Btn-tag--green")
+        =get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tagBig Btn-tag--green", article)
         %h3= t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
         - if resource.ecologic_kind == "ecologic_seal"
           %p
@@ -66,7 +68,7 @@
     -# SMALL AND PRECIOUS
     - if resource.small_and_precious
       %dt
-        =get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tagBig Btn-tag--orange")
+        =get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tagBig Btn-tag--orange", article)
         %p
           %b= t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
         %p= resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')

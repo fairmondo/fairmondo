@@ -29,18 +29,20 @@ de:
     founder: "Gründer"
     boxes:
       my_article_templates: Meine Vorlagen
-      offers: "Eingestellte Artikel"
+      active: "Eingestellte Artikel"
       inactive: "Nicht eingestellte Artikel"
       sold: "Verkaufte Artikel"
+      bought: "Gekaufte Artikel"
     no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
       invitor: "Einladender"
       invited_people: "Eingeladene Benutzer"
     text:
-      no_offers: "Keine Angebote eingestellt"
+      no_active: "Keine Angebote eingestellt"
+      no_inactive: "Keine uneingestellten Angebote vorhanden"
       no_sold: "Keine verkauften Artikel vorhanden"
-      soon_sold: "Bald kannst Du hier Deine verkauften Artikel betrachten"
+      no_bought: "Keine gekauften Artikel vorhanden"
       no_templates: "Keine Templates vorhanden"
       no_libraries: "Dieser Nutzer hat keine öffentlichen Sammlungen"
       no_description: "Noch keine Beschreibung hinzugefügt."

@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
 
@@ -25,9 +27,12 @@ describe Article do
   subject { article }
 
   describe "::Base" do
-    it {should have_many :images}
-    it {should belong_to :seller}
-    it {should have_and_belong_to_many :categories}
+    describe "associations" do
+      it {should have_many :images}
+      it {should have_and_belong_to_many :categories}
+      it {should belong_to :seller}
+      it {should belong_to(:transaction).dependent(:destroy)}
+    end
 
     describe "amoeba" do
       it "should copy an article with images" do
@@ -129,11 +134,103 @@ describe Article do
         article.save
         article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
       end
-
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
         article.errors[:payment_details].should == [I18n.t("article.form.errors.invalid_payment_option")]
+      end
+    end
+    describe "methods" do
+
+      describe "#transport_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's price" do
+          article.transport_price.should eq Money.new 0
+        end
+
+        it "should return an article's insured transport price" do
+          article.transport_price("insured").should eq Money.new 2000
+        end
+
+        it "should return an article's uninsured transport price" do
+          article.transport_price("uninsured").should eq Money.new 1000
+        end
+
+        it "should return an article's pickup transport price" do
+          article.transport_price("pickup").should eq Money.new 0
+        end
+      end
+
+      describe "#transport_provider" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return an article's default_transport's provider" do
+          article.transport_provider.should eq nil
+        end
+
+        it "should return an article's insured transport provider" do
+          article.transport_provider("insured").should eq 'DHL'
+        end
+
+        it "should return an article's uninsured transport provider" do
+          article.transport_provider("uninsured").should eq 'Hermes'
+        end
+
+        it "should return an article's pickup transport provider" do
+          article.transport_provider("pickup").should eq nil
+        end
+      end
+
+      describe "#total_price" do
+        let (:article) { FactoryGirl.create :article, :with_all_transports }
+
+        it "should return the correct price for cash_on_delivery payments" do
+          expected = article.price + article.transport_insured_price + article.payment_cash_on_delivery_price
+          article.total_price("insured", "cash_on_delivery").should eq expected
+        end
+
+        it "should return the correct price for non-cash_on_delivery payments" do
+          expected = article.price + article.transport_uninsured_price
+          article.total_price("uninsured", "cash").should eq expected
+        end
+      end
+
+      describe "#price_without_vat" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.price_without_vat.should eq Money.new 8100
+        end
+      end
+
+      describe "#vat_price" do
+        it "should return the correct price" do
+          article = FactoryGirl.create :article, price: 100, vat: 19
+          article.vat_price.should eq Money.new 1900
+        end
+      end
+
+      describe "#selectable_transports" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("transport")
+          article.selectable_transports
+        end
+      end
+
+      describe "#selectable_payments" do
+        it "should call the private selectable function" do
+          article.should_receive(:selectable).with("payment")
+          article.selectable_payments
+        end
+      end
+
+      describe "#selectable (private)" do
+        it "should return an array with selected transport options, the default being first" do
+          output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
+          output[0].should eq :pickup
+          output.should include :insured
+          output.should include :uninsured
+        end
       end
     end
   end
@@ -149,6 +246,17 @@ describe Article do
           article = FactoryGirl.create :article, :without_image
           article.title_image_url.should eq 'missing.png'
         end
+
+         it "should return the first image's URL when one exists" do
+          article.images = [FactoryGirl.build(:fixture_image),FactoryGirl.build(:fixture_image)]
+          article.images.each do |image|
+            image.is_title = true
+            image.save
+          end
+          article.save
+          article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
+        end
+
       end
     end
   end

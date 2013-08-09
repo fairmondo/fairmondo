@@ -22,6 +22,7 @@ class FeedbackMailer < ActionMailer::Base
 
   def feedback_and_help( feedback, topic )
 
+
     @feedback = feedback
     @feedback_subject = @feedback.translate_subject
     @last_article_id = @feedback.last_article_id
