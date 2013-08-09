@@ -108,5 +108,15 @@
           = tinymce
     - if current_user.is_a?(LegalEntity)
       = render :partial =>'/devise/registrations/edit_legal', :locals => {:f => f}
+    = f.input_step :payment do
+      %h3= t('users.form_titles.bank_account')
+      %p= t('formtastic.labels.user.bank_account_notification')
+      = f.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
+      = f.input :bank_code, :required => true, :input_html => {:id => "bank_code"}, :label => t('formtastic.labels.user.bank_code')
+      = f.input :bank_name, :required => true, :input_html => {:id => "bank_name"}, :label => t('formtastic.labels.user.bank_name')
+      = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number"}, :label => t('formtastic.labels.user.bank_account_number')
+      %h3= t('formtastic.labels.input_step.user.paypal')
+      %p= t('formtastic.labels.user.paypal_notification')
+      = f.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}

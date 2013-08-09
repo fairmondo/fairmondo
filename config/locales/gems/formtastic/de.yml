@@ -33,12 +33,14 @@ de:
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
         about: "Impressum und Kontakt"
-        bank_code: Bankleitzahl
-        bank_name: Name der Bank
-        bank_account_number: Kontonummer
-        bank_account_owner: Kontoinhaber
-        paypal_account: Paypal-Konto
-        customer_number: Kundennummer
+        bank_account_notification: "(Eine Änderung wirkt sich auf all ihre Artikel aus, bei der Sie die Bezahloption \"Überweisung\" gewählt haben.)"
+        bank_code: "Bankleitzahl"
+        bank_name: "Name der Bank"
+        bank_account_number: "Kontonummer"
+        bank_account_owner: "Kontoinhaber"
+        paypal_notification: "(Eine Änderung wirkt sich auf all ihre Artikel aus, bei der Sie die Bezahloption \"PayPal\" gewählt haben.)"
+        paypal_account: "Paypal-Konto"
+        customer_number: "Kundennummer"
 
       feedback:
         from: "Deine Email-Adresse"
@@ -150,6 +152,7 @@ de:
         account: Benutzerkonto
         contact: Kontaktinformationen
         profile: Profil
+        payment: Zahlungsoptionen
         terms: Rechtliches
       article:
         prefix: "Schritt %{count}:"

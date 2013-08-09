@@ -85,19 +85,23 @@
         %label.label
           = t('article.labels.payment_options')
       = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'payment_bank_transfer-checked', :class => "payment_bank_transfer" do
-        = f.semantic_fields_for :seller do |user|
-          = user.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
-          = user.input :bank_code, :required => true, :label => t('formtastic.labels.user.bank_code')
-          = user.input :bank_name, :required => true, :label => t('formtastic.labels.user.bank_name')
-          = user.input :bank_account_number, :required => true, :label => t('formtastic.labels.user.bank_account_number')
+      - if current_user.bank_account_exists?
+        = f.inputs :id => 'payment_bank_transfer-checked', :class => "payment_bank_transfer" do
+          %p (Bankdaten können nur im Profil geändert werden)
+          = f.semantic_fields_for :seller do |user|
+            = user.input :bank_account_owner, :required => true, :input_html => { :value => current_user.bank_account_owner, :disabled => true}, :label => t('formtastic.labels.user.bank_account_owner')
+            = user.input :bank_code, :required => true, :input_html => {:id => "bank_code", :value => current_user.bank_code, :disabled => true }, :label => t('formtastic.labels.user.bank_code')
+            = user.input :bank_name, :required => true, :input_html => {:id => "bank_name", :value => current_user.bank_name, :disabled => true }, :label => t('formtastic.labels.user.bank_name')
+            = user.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :value => current_user.bank_account_number, :disabled => true }, :label => t('formtastic.labels.user.bank_account_number')
 
       = f.input :payment_cash, :as => :plain_check_box
 
       = f.input :payment_paypal, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'payment_paypal-checked', :class => "payment_paypal" do
+        %p (PayPal-Daten können nur im Profil geändert werden)
         = f.semantic_fields_for :seller do |user|
-          = user.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
+          = user.input :paypal_account, :required => true, :input_html => { :value => current_user.paypal_account, :disabled => true}, :label => t('formtastic.labels.user.paypal_account')
+
       = f.input :payment_cash_on_delivery, :as => :plain_check_box, :js_toggle => true
 
       = f.inputs :id => 'payment_cash_on_delivery-checked', :class => "payment_cash_on_delivery" do
