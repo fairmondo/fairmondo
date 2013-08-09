@@ -58,7 +58,8 @@ class User < ActiveRecord::Base
   attr_protected :admin
 
 
-  attr_accessor :recaptcha, :bank_account_validation , :paypal_validation
+  attr_accessor :recaptcha,:wants_to_sell
+  attr_accessor :bank_account_validation , :paypal_validation
 
 
   #Relations
@@ -85,13 +86,11 @@ class User < ActiveRecord::Base
 
   validates :forename, presence: true, on: :update
   validates :surname, presence: true, on: :update
-  validates :country, presence: true, on: :update
-  validates :street, presence: true, format: /\A.+\d+.*\z/, on: :update # format: ensure digit for house number
-  validates :city, presence: true, on: :update
 
   validates :nickname , :presence => true, :uniqueness => true
 
-  validates :zip, :presence => true, :on => :update, :zip => true
+  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
 
 
   validates :recaptcha, presence: true, acceptance: true, on: :create
@@ -101,10 +100,16 @@ class User < ActiveRecord::Base
   validates :agecheck, :acceptance => true , :on => :create
 
 
-  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
-  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
-  validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
-  validates :paypal_account , :presence => true , format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ } , :if => :paypal_validation
+  with_options if: :wants_to_sell? do |seller|
+    seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
+  end
+
+  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :unless => Proc.new {|c| c.bank_code.blank?}
+  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10}, :unless => Proc.new {|c| c.bank_account_number.blank?}
+  validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, :unless => Proc.new {|c| c.paypal_account.blank?}
+  validates :paypal_account, presence: true, if: :paypal_validation
+  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true, if: :bank_account_validation
 
   validates :about_me, :length => { :maximum => 2500 }
 
@@ -151,6 +156,21 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
+  def bank_account_exists?
+    ( self.bank_code.to_s != '' ) && ( self.bank_account_number.to_s != '' )
+  end
+
+  def paypal_account_exists?
+    self.paypal_account.to_s != ''
+  end
+
+  def can_sell?
+    self.wants_to_sell = true
+    can_sell = self.valid?
+    self.wants_to_sell = false
+    can_sell
+  end
+
   private
 
   # @api private
@@ -158,5 +178,9 @@ class User < ActiveRecord::Base
     if self.libraries.empty?
       Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
+  end
+
+  def wants_to_sell?
+    self.wants_to_sell
   end
 end
