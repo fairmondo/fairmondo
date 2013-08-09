@@ -3,14 +3,6 @@ $(function() {
 	if(window.location.hash){
 	  target = $(window.location.hash).index('.Accordion-item')
 	}
-	// $(".commendation-anchor").click(function() {
-	//   button = $(event.target).attr('href')
-	//     target = $(button).index('.Accordion-item')
-	//    $(".Accordion--activated").accordion({
-	//      animate: false,
-	//      active: target
-	//    });
-	// });
 	$(".accordion-anchor").click(function() {
 	  link = $(event.target).attr('href')
 	  target = $(link).index('.Accordion-item')
