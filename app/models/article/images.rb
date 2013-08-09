@@ -58,8 +58,11 @@ module Article::Images
     end
 
     def only_one_title_image
-      title_images = self.images.where(:is_title => true)
-      if title_images.count > 1
+      count_images = 0
+      title_images = self.images.each do |image|
+        count_images+=1 if image.is_title
+      end
+      if count_images > 1
          errors.add(:images, I18n.t("article.form.errors.only_one_title_image"))
       end
     end
