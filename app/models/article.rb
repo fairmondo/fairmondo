@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Article < ActiveRecord::Base
   extend Enumerize
@@ -59,12 +61,13 @@ class Article < ActiveRecord::Base
       if attributes[key].has_key? :id
         unless attributes[key][:_destroy] == "1"
            image = Image.find(attributes[key][:id])
-           image.image = attributes[key]["image"] if attributes[key].has_key? :image # updated the image itself
+           image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
+           image.is_title = attributes[key][:is_title]
            self.images << image
         end
 
       else
-        self.images << Image.new(attributes[key])
+        self.images << Image.new(attributes[key]) if attributes[key][:image] != nil
       end
     end
   end
@@ -101,6 +104,7 @@ class Article < ActiveRecord::Base
       original_article.images.each do |image|
         copyimage = Image.new
         copyimage.image = image.image
+        copyimage.is_title = image.is_title
         new_article.images << copyimage
         copyimage.save
       end

@@ -1,26 +1,28 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller,:buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
+  factory :user, aliases: [:seller, :buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
@@ -37,7 +39,7 @@ FactoryGirl.define do
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
     title { Faker::Name.prefix }
-    country { ["Deutschland",Faker::Address.country].sample }
+    country "Deutschland"
     street { Faker::Address.street_address }
     city { Faker::Address.city }
     zip { Faker::Address.postcode }
@@ -50,9 +52,8 @@ FactoryGirl.define do
       admin       true
     end
 
-    factory :german_user do
-      country "Deutschland"
-      zip "78123"
+    factory :non_german_user do
+      country Faker::Address.country
     end
 
     factory :private_user, class: 'PrivateUser' do

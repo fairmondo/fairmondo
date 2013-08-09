@@ -1,21 +1,23 @@
 -#
--# Farinopoly - Fairnopoly is an open-source online marketplace.
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
 -# Copyright (C) 2013 Fairnopoly eG
 -#
--# This file is part of Farinopoly.
+-# This file is part of Fairnopoly.
 -#
--# Farinopoly is free software: you can redistribute it and/or modify
+-# Fairnopoly is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Farinopoly is distributed in the hope that it will be useful,
+-# Fairnopoly is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 = f.input_step :title_and_categories, :default_step => true do
   = f.inputs do
@@ -48,27 +50,23 @@
         = f.input :basic_price, :tooltip => true, :input_html => {value: number_with_precision(f.object.basic_price, precision: 2) }
         = f.input :basic_price_amount, :as => :select, :tooltip => true
         - if current_user.country == "Deutschland"
-          = f.input :vat, :required => true, :tooltip => true, :as => :select, :collection => [7,19]
+          = f.input :vat, :required => true, :tooltip => true, :as => :select, :collection => [0,7,19]
 = f.input_step :upload_images do
-  - first=true
   - (5-f.object.images.size).times { f.object.images.build }
+  = f.semantic_errors :images
   = f.semantic_fields_for :images do |image|
     = f.inputs do
       .Accordion-step
         - if image.object.new_record?
-          - if first
-            = image.input :image, :label => t("formtastic.labels.article.image")
-          - else
-            = image.input :image
+          = image.input :image
         - else
           = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
-          - if first
-            = image.input :image, :label => t("formtastic.labels.article.other_image")
-          - else
-            = image.input :_destroy, :as => :boolean , :label => false
-      - first=false
+          = image.input :_destroy, :as => :boolean , :label => false
+        = image.input :is_title, :input_html =>  { :class => "Image-titleinput"}
+
 = f.input_step :transport_and_payment do
   .Accordion-step
+    %p Versandoptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
       %li.input
         %label.label
@@ -85,6 +83,7 @@
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
+    %p Bezahloptionen:
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
       %li.input
         %label.label
@@ -145,5 +144,4 @@
     -# f.input :friendly_percent_organisation, :as => :select
 
 = f.semantic_fields_for :transaction do |transaction|
-
-  = transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }
+  = transaction.input :kind, :as => :hidden, :input_html => { :value => "PreviewTransaction" }

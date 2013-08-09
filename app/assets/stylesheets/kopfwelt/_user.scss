@@ -118,7 +118,7 @@
 
 .User-accordion {
 	@include span-columns(4, 4);
-	
+
 	.lt-ie9 & {
 		width: 100%;
 	}
@@ -273,7 +273,7 @@
 	.User-library--title,
 	.User-library--user {
 		text-align: center;
-	} 
+	}
 
 	@include at-breakpoint($layout-small) {
 		@include span-columns(1, 2);
@@ -281,4 +281,6 @@
 			@include span-columns(1 omega, 2);
 		}
 	}
+
 }
+

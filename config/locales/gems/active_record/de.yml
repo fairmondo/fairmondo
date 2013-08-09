@@ -124,6 +124,7 @@ de:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: muss akzeptiert werden
+      multiple_accepted: müssen akzeptiert werden
       blank: muss ausgefüllt werden
       confirmation: stimmt nicht mit der Bestätigung überein
       empty: muss ausgefüllt werden
@@ -293,6 +294,10 @@ de:
       transaction:
         one: Transaktionsobjekt
         other: Transaktionsobjekte
+
+    attributes:
+      transaction:
+        tos_accepted: "Die AGB und die Widerrufserklärung"
 
     errors:
       <<: *errors

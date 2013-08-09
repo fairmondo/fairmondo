@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module ArticlesHelper
 
@@ -73,16 +75,19 @@ module ArticlesHelper
 
   def features_label article
     html = ""
-
-    html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue") if article.fair
-    html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green") if article.ecologic
-    html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange") if article.small_and_precious
+    html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue", article) if article.fair
+    html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green", article) if article.ecologic
+    html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange", article) if article.small_and_precious
 
     html.html_safe
   end
 
-  def get_features_label text, btn_class
-    html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
+  def get_features_label text, btn_class, article
+    if article_path(article) == request.path && btn_class =~ /Btn-tag /
+      html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
+    else
+      html = "<span class=\""+ btn_class +"\">" + text + "</span>"
+    end
     html.html_safe
   end
 
@@ -101,22 +106,6 @@ module ArticlesHelper
   def parent_category cat
     Category.where(:id => cat.parent_id).first
   end
-
-  def title_image
-    if params[:image]
-      resource.images.find(params[:image])
-    else
-      resource.images[0]
-    end
-  end
-
-  def thumbnails title_image
-    thumbnails = resource.images
-    thumbnails.reject!{|image| image.id == title_image.id}  #Reject the selected image from thumbs
-    thumbnails
-  end
-
-
 
   def find_fair_alternative_to article
     search = Article.search do

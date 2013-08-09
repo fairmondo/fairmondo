@@ -1,7 +1,33 @@
 de:
 # Transaction System
   transaction:
-    bid:
-      smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
-      smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
-      success: "Sie sind jetzt Höchstbietender!"
+    edit:
+      # step 1
+      heading: "Dein Warenkorb"
+      transport: "Versandkosten"
+      payment: "Bezahlen"
+      impressum: "Impressum von %{name}"
+      address: "Rechnungs- und Lieferadresse"
+      # step 2
+      purchase_data: Bestelldaten
+      payment_type: "Zahlungsart:"
+      transport_type: "Versandart:"
+      transport_provider: "Versandanbieter:"
+      terms: "AGB von %{name}"
+      cancellation: "Widerrufserklärung von %{name}"
+      price_heading: Finaler Preis
+      gross: (Brutto)
+      net: (Netto)
+      vat: "(zzgl. %{percent} % MwSt.)"
+      shipping_and_handling: "Versandkosten:"
+      payment_cash_on_delivery_price: "Nachnahme-Kosten:"
+      basic_price: "Grundpreis:"
+    notices:
+      transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
+      payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
+    actions:
+      purchase: "Verbindlich kaufen und bezahlen"
+  #   bid:
+  #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+  #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
+  #     success: "Sie sind jetzt Höchstbietender!"

@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
 
@@ -189,6 +191,20 @@ describe 'Article management' do
         click_button I18n.t 'article.actions.report'
 
         page.should have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
+
+      end
+    end
+
+    describe "the article view" do
+      before do
+        @article = FactoryGirl.create :article
+      end
+
+      it "should show a buy button that immediately forwards to the transaction page" do
+        visit article_path @article
+        click_link I18n.t 'common.actions.to_cart'
+        current_path.should eq edit_transaction_path @article.transaction
+
       end
     end
 
@@ -205,7 +221,6 @@ describe 'Article management' do
     describe "the article view" do
       before do
         @article = FactoryGirl.create :article
-        visit article_path @article
       end
 
       it "should be accessible" do
@@ -218,6 +233,13 @@ describe 'Article management' do
         visit article_path @article
         page.should have_content I18n.t 'article.show.no_alternative'
       end
+
+      it "should display a buy button that forces a login" do #! will change after sprint
+        visit article_path @article
+        click_link I18n.t 'common.actions.to_cart'
+        page.should have_content I18n.t 'common.actions.login'
+      end
+
 
       it "should have link to Transparency International" do
         @article = FactoryGirl.create :article
@@ -306,5 +328,27 @@ describe "Article Page should show link to Transparency International" do
     @article = FactoryGirl.create :article
     visit article_path @article
     page.should have_link("Transparency International", :href => "http://www.transparency.de/")
+  end
+end
+
+describe "Article feature label buttons" do
+  before do
+    @seller = FactoryGirl.create :user
+    @article = FactoryGirl.create :article, :simple_ecologic, :seller => @seller
+  end
+
+  describe "on the article show page" do
+    it "should have a ecological feature label link" do
+      visit article_path(@article)
+      page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
+    end
+  end
+
+  describe "on the user show page" do
+    it "should not have a ecological feature label link" do
+      visit user_path(@seller)
+      page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
+      page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
+    end
   end
 end

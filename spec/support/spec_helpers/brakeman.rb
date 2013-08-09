@@ -1,46 +1,46 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'json'
 
 # Check security
-RSpec.configure do |config|
-  config.after :suite do
-    unless $skip_audits
-      puts "\n\n[Brakeman] Security Audit:\n".underline
-      result = JSON.parse %x( bundle exec rake test:brakeman )
+after_suite do
+  unless $skip_audits
+    puts "\n\n[Brakeman] Security Audit:\n".underline
+    result = JSON.parse %x( bundle exec rake test:brakeman )
 
-      warnings = result['warnings'].length
-      errors = result['errors'].length
+    warnings = result['warnings'].length
+    errors = result['errors'].length
 
-      result['warnings'].each {|w| puts "Warning: #{format(w)}".yellow } unless warnings == 0
-      result['errors'].each {|e| puts "Error: #{format(e)}".red } unless errors == 0
+    result['warnings'].each {|w| puts "Warning: #{format(w)}".yellow } unless warnings == 0
+    result['errors'].each {|e| puts "Error: #{format(e)}".red } unless errors == 0
 
-      puts "Warnings: #{warnings}"
-      puts "Errors: #{errors}"
+    puts "Warnings: #{warnings}"
+    puts "Errors: #{errors}"
 
-      if warnings == 0 && errors == 0
-        puts "Basic security is ensured.".green
-      else
-        puts "Security issues exist.".red.underline
-        $suite_failing = true
-      end
+    if warnings == 0 && errors == 0
+      puts "Basic security is ensured.".green
+    else
+      puts "Security issues exist.".red.underline
+      $suite_failing = true
     end
   end
 end

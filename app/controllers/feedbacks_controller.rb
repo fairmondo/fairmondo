@@ -43,6 +43,7 @@ class FeedbacksController < InheritedResources::Base
   private
 
     def redirect_path
+
       if @feedback.variety == "report_article"
         article_path(Article.find(@feedback.article_id))
       else

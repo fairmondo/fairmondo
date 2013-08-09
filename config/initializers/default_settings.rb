@@ -1,6 +1,7 @@
 # For rails-settings-cached
 begin
-  if active_articles = Article.where(:state => :active)
+  active_articles = Article.where(:state => :active)
+  if active_articles
     last_article = active_articles.last
   end
 rescue

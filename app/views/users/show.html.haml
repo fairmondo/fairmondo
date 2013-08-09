@@ -1,37 +1,31 @@
 -#
--# Farinopoly - Fairnopoly is an open-source online marketplace.
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
 -# Copyright (C) 2013 Fairnopoly eG
 -#
--# This file is part of Farinopoly.
+-# This file is part of Fairnopoly.
 -#
--# Farinopoly is free software: you can redistribute it and/or modify
+-# Fairnopoly is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Farinopoly is distributed in the hope that it will be useful,
+-# Fairnopoly is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if resource.is? current_user
   .User-additional.Accordion--activated
+    = render partial: 'article_box', locals: { item_name: 'active', sub_articles: active_articles }
+    = render partial: 'article_box', locals: { item_name: 'inactive', sub_articles: inactive_articles }
+    = render partial: 'article_box', locals: { item_name: 'sold', sub_articles: sold_articles }
+    = render partial: 'article_box', locals: { item_name: 'bought', sub_articles: bought_articles }
 
-    = accordion_item "offers" do
-      - if active_articles.empty?
-        %strong= t('users.text.no_offers')
-      - else
-        = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class => "l-ArticleList"}
-        = paginate active_articles, :params => {:anchor => "offers" } , :param_name => "active_articles_page"
-    - if !inactive_articles.empty?
-      = accordion_item "inactive",:content_class => "padding-box" do
-        = render :partial=>'/shared/list_articles', :locals=>{ :articles=> inactive_articles, :list_class => "l-ArticleList"}
-        = paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
-    = accordion_item "sold" do
-      %strong= t('users.text.soon_sold')
     = accordion_item "my_article_templates" do
       .private-links
         %ul.nav.nav-pills
@@ -43,4 +37,5 @@
   .User-articles
     = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles}
     = paginate active_articles, :param_name => "active_articles_page"
+
 

@@ -1,23 +1,26 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class User < ActiveRecord::Base
+  extend Memoist
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -62,7 +65,9 @@ class User < ActiveRecord::Base
 
 
   #Relations
-  has_many :articles, :dependent => :destroy
+  has_many :articles, :dependent => :destroy # As seller
+  has_many :bought_articles, through: :transactions, source: :article
+  has_many :transactions, foreign_key: 'buyer_id' # As buyer
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
@@ -99,8 +104,6 @@ class User < ActiveRecord::Base
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
-
-
   validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :presence => true, :if => :bank_account_validation
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10} , :presence => true , :if => :bank_account_validation
   validates :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
@@ -114,6 +117,7 @@ class User < ActiveRecord::Base
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
+  memoize :fullname
 
   # Return user nickname
   # @api return
@@ -151,6 +155,60 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
+
+  state_machine :seller_state, :initial => :standard_seller do
+
+    event :rate_up_to_standard_seller do
+      transition :bad_seller => :standard_seller
+    end
+
+    event :rate_down_to_bad_seller do
+      transition all => :bad_seller
+    end
+
+    event :block do
+      transition all => :blocked
+    end
+
+    event :unblock do
+      transition :blocked => :standard_seller
+    end
+
+  end
+
+  state_machine :buyer_state, :initial => :standard_buyer do
+
+    event :rate_up_to_good_buyer do
+      transition :standard_buyer => :good_buyer
+    end
+
+    event :rate_up_to_standard_buyer do
+      transition :bad_buyer => :standard_buyer
+    end
+
+    event :rate_down_to_bad_buyer do
+      transition all => :bad_buyer
+    end
+  end
+
+  def buyer_constants
+    buyer_constants = {
+      :not_registered_purchasevolume => 4,
+      :standard_purchasevolume => 12,
+      :trusted_bonus => 12,
+      :good_factor => 2,
+      :bad_factor => 6
+    }
+  end
+
+  def purchase_volume
+    ( bad_buyer? ? ( buyer_constants[:standard_purchasevolume] / buyer_constants[:bad_factor] ) :
+    ( buyer_constants[:standard_purchasevolume] +
+    ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
+    ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
+  end
+
+
   private
 
   # @api private
@@ -159,4 +217,5 @@ class User < ActiveRecord::Base
       Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
   end
+
 end

@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Check for n+1 queries and other slow stuff
 RSpec.configure do |config|
@@ -25,18 +27,19 @@ RSpec.configure do |config|
     # Empty out the bullet log
     File.open($bullet_log, 'w') {|f| f.truncate(0) }
   end
+end
 
-  config.after :suite do
-    unless $skip_audits
-      puts "\n\n[Bullet] Checking for performance drains:\n".underline
-      bullet_warnings = File.open($bullet_log, "rb").read
+after_suite do
+  unless $skip_audits
+    puts "\n\n[Bullet] Checking for performance drains:\n".underline
+    bullet_warnings = File.open($bullet_log, "rb").read
 
-      if bullet_warnings.empty?
-        puts "No issues found. Very good.".green
-      else
-        puts bullet_warnings.yellow
-        puts "Performance issues exist.".red.underline
-      end
+    if bullet_warnings.empty?
+      puts "No issues found. Very good.".green
+    else
+      puts bullet_warnings.yellow
+      puts "Performance issues exist.".red.underline
     end
   end
 end
+

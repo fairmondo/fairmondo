@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.13'
-
+gem 'rails', '~> 3.2.14'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -53,12 +52,13 @@ gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
 gem "pundit" # authorization
 
+# Support for memoization
+gem 'memoist'
 # Settings cache
 gem "rails-settings-cached", "0.2.4" # for 3.x
 
 # Deploy with Capistrano
 gem 'capistrano'
-
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'
@@ -136,6 +136,8 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
+  gem 'parallel_tests'
+  gem 'rspec-instafail'
 
   # Replace Webrick
   gem 'thin'
@@ -152,9 +154,6 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-
-  # Clean code before commiting
-  gem "code-cleaner"
 
   #zipruby for icecat catalog download
   gem "zipruby"

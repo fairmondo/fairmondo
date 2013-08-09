@@ -1,21 +1,23 @@
 #
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module PunditMatcher
   extend RSpec::Matchers::DSL
@@ -99,9 +101,9 @@ module PunditMatcher
       filter_hash = all_filters.select{ |f| f.kind == :before && f.filter == filter }[0].per_key
 
       if filter_hash && action_name
-        if filter_hash[:unless]
+        if filter_hash[:unless] && !filter_hash[:unless].empty?
           !eval(filter_hash[:unless][0]) # these describe actions excluded from the filter. returns true => action doesnt have filter
-        elsif filter_hash[:if]
+        elsif filter_hash[:if] && !filter_hash[:if].empty?
           eval(filter_hash[:if][0]) # these describe actions including the filter. returns true => action has filter
         else
           true # every action gets the before filter
