@@ -9,9 +9,6 @@ namespace :run do
 
     puts 'Updating database...'
     system 'rake run:migrations'
-    system 'rake db:test:prepare'
-    system 'rake db:test:prepare'
-
     puts "\n\nBranch successfully updated.\n\n"
   end
 
