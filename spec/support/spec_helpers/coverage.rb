@@ -47,7 +47,7 @@ SimpleCov.at_exit do
     if $? == 0 && !$suite_failing
       if SimpleCov.result.covered_percent < 100
         puts "Please ensure the code coverage is at 100% before pushing to the Fairnopoly repository.".red.underline
-        puts "Note: Code coverage isn't accurately calculated if you ran this with parallel_test.".yellow
+        puts "Note: Code coverage isn't accurately calculated if you ran this with parallel_test or only ran part of the test suite.".yellow
       else
         puts "Perfect! The test suite is passing.".green
       end

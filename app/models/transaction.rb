@@ -124,28 +124,28 @@ class Transaction < ActiveRecord::Base
   end
 
   private
-  # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
-  #
-  # @api private
-  # @param attribute [String] ATM: payment or transport
-  # @param type [String] The type to check
-  # @return [Boolean]
-  def supports? attribute, type
-    if self.article.send "#{attribute}_#{type}?"
-      true
-    else
-      errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
-      false
+    # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
+    #
+    # @api private
+    # @param attribute [String] ATM: payment or transport
+    # @param type [String] The type to check
+    # @return [Boolean]
+    def supports? attribute, type
+      if self.article.send "#{attribute}_#{type}?"
+        true
+      else
+        errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
+        false
+      end
     end
-  end
 
-  # Get attribute options that were selected on transaction's article
-  #
-  # @api private
-  # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
-  # @return [Array] Array in 2 levels with enum option name and it's localization
-  def selected attribute
-    selectables = send("article_selectable_#{attribute}s")
-    Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
-  end
+    # Get attribute options that were selected on transaction's article
+    #
+    # @api private
+    # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
+    # @return [Array] Array in 2 levels with enum option name and it's localization
+    def selected attribute
+      selectables = send("article_selectable_#{attribute}s")
+      Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+    end
 end

@@ -29,6 +29,10 @@ describe 'Transaction' do
   let(:seller) { transaction.article.seller }
   let(:user) { FactoryGirl.create :user }
 
+  def pay_on_pickup_attrs
+    { transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"} }
+  end
+
   describe "#edit" do
 
     context "for a logged-in user" do
@@ -64,6 +68,21 @@ describe 'Transaction' do
           page.should have_content user.zip
           page.should have_content user.city
           page.should have_content user.country
+
+          # Should have optional message field
+          pending "Optional message field missing."
+        end
+
+        it "should show a quantity field for MultipleFixedPriceTransactions" do
+          pending "Not yet implemented."
+        end
+
+        it "shouldn't show a quantity field for other transactions" do
+          pending "Not yet implemented."
+        end
+
+        it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
+          pending "Not yet implemented."
         end
 
         it "should lead to step 2" do
@@ -121,23 +140,67 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
-          # it "should submit the data successfully with accepted AGB" do
-          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          it "should submit the data successfully with accepted AGB" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-          #   check 'transaction_tos_accepted'
-          #   click_button I18n.t 'transaction.actions.purchase'
+            check 'transaction_tos_accepted'
+            click_button I18n.t 'transaction.actions.purchase'
 
-          #   current_path.should eq transaction_path transaction
-          # end
+            current_path.should eq transaction_path transaction
+          end
 
-          # it "should not submit the data successfully without accepted AGB" do
-          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          it "should not submit the data successfully without accepted AGB" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-          #   click_button I18n.t 'transaction.actions.purchase'
+            click_button I18n.t 'transaction.actions.purchase'
 
-          #   page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-          #   # page.should have_content #Alert -> Implement once those exist again
-          # end
+            page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
+            # page.should have_content #Alert -> Implement once those exist again
+          end
+
+          context "when testing the effects of the purchase" do
+            context "for FixedPriceTransactions" do
+              let (:transaction) { FactoryGirl.create :single_transaction }
+              it "should set the states of article and transaction" do
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+
+                transaction.should be_available
+                transaction.article.should be_active
+
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                transaction.reload.should be_sold
+                transaction.article.should be_closed
+
+                #pending "Not yet implemented."
+              end
+
+              it "should remove the article from the search" do
+                pending "Not yet implemented."
+              end
+
+              it "should show an error page when article was already sold to someone else in the meantime" do
+                pending "Not yet implemented."
+              end
+            end
+
+            context "for MultipleFixedPriceTransactions" do
+              it "should reduce the number of items by one or more (depending on user choice)" do
+                pending "Not yet implemented."
+              end
+            end
+
+            context "for all transactions" do
+              it "should send an email to the buyer" do
+                pending "Not yet implemented."
+              end
+
+              it "should send a email to the seller" do
+                pending "Not yet implemented."
+              end
+            end
+          end
 
           context "when testing the displayed total price" do
             context "without cash_on_delivery" do
@@ -261,15 +324,23 @@ describe 'Transaction' do
             visit transaction_path transaction
             current_path.should eq transaction_path transaction
           end
+
+          it "should show the correct data and fields" do
+            pending "Not yet implemented."
+          end
         end
 
         context "but the current user isn't the one who bought" do
-
+          it "shouldn't be accessible" do
+            pending "Not yet implemented."
+          end
         end
       end
 
       context "when the transaction is not sold" do
-
+        it "should redirect to the edit page" do
+          pending "Not yet implemented."
+        end
       end
     end
 
