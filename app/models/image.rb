@@ -41,4 +41,18 @@ class Image < ActiveRecord::Base
   def imageable_type=(sType)
     super(sType.to_s.classify.constantize.base_class.to_s)
   end
+
+  # Get The Geometry of a image
+  #
+  # Use the returned Object to get the Size of the image
+  # geo = image.geometry :medium
+  # geo.width
+  # geo.height
+  #
+  # param style [Symbol] style of the image you want the dimensions of
+  # return [Paperclip Geometry Object]
+  def geometry style
+     Paperclip::Geometry.from_file(self.image.path(style))
+  end
+
 end
