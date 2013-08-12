@@ -5,7 +5,7 @@ de:
         legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
         private_user: "Ich bin Privatperson"
       edit:
-        legal_entity: "Juristische Person"
+        legal_entity: "Gewerbliche(r) Anbieter*in oder juristische Person"
         private_user: "Privatperson"
       show:
         legal_entity: "Firmenprofil"
