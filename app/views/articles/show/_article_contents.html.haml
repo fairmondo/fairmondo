@@ -31,8 +31,8 @@
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn Btn--gray"
 
 
-%figure.Article-image{:style => "max-width: #{resource.title_image.geometry(:original).width}px"}
-  = link_to image_tag((resource.title_image ? resource.title_image.image.url(:medium) : "missing.png"), :class=> "title_image"), resource.title_image ? resource.title_image.image.url(:original) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
+%figure.Article-image
+  = link_to image_tag((resource.title_image ? resource.title_image.image.url(:medium) : "missing.png"), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image ? resource.title_image.image.url(:original) : "/assets/missing.png", {:class => "colorbox", :rel => "gallery"}
 
 .Article-info
   .Article-info--right
