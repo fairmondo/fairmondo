@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   # Return path with fallback
   # @api public
   # @param fallback [String] path
