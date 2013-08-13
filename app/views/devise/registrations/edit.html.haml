@@ -97,8 +97,8 @@
           %h3= t('users.form_titles.address')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
           = f.input :street,:required => true
-          = f.input :city,:required => true
           = f.input :zip, :required => true
+          = f.input :city,:required => true
           = f.input :phone
           = f.input :mobile
           = f.input :fax
