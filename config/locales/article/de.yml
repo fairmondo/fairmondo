@@ -14,9 +14,7 @@ de:
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
     included_short: "Inkl."
-    vat: "Mehrwertsteuer"
-
-    included_short: "Inkl."
+    deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>
     vat: "Mehrwertsteuer"
     vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
     transport:
@@ -68,6 +66,7 @@ de:
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
+      edit_or_delete: "Bearbeiten oder löschen"
     list:
       header: "Ergebnisse"
     notices:
