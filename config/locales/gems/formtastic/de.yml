@@ -25,7 +25,7 @@ de:
         surname:  "Nachname"
         country: "Land"
         street: "Straße und Hausnummer"
-        city: "Stadt"
+        city: "Ort"
         zip: "PLZ"
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
@@ -116,7 +116,7 @@ de:
         save_as_template: "Eingaben als Vorlage speichern"
       fair_trust_questionnaire:
         support: >
-          1. Werden vom Weltmarkt marginsaliserte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
+          1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
         labor_conditions: >
           2. Wird für angemessene Arbeitsbedindungen gesorgt?
         environment_protection: >

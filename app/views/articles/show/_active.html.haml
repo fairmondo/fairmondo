@@ -22,7 +22,7 @@
 .User.User--teaser
   = render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
   .User-accordion.Accordion
-    = accordion_item "other_products", :number => active_seller_articles.count, :title => t('article.titles.other-products') do
+    = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
       = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"}
 
 .Related
