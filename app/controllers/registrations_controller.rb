@@ -36,6 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find current_user.id
+    check_incomplete_profile! @user
     @user.valid?
     super
   end
@@ -45,6 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     successfully_updated  = false
+    check_incomplete_profile! @user
     if needs_password?(resource, params)
       successfully_updated = resource.update_with_password(account_update_params)
 
@@ -85,6 +87,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for resource_or_scope
     user_path(resource_or_scope)
+  end
+  
+  def check_incomplete_profile! user
+    user.wants_to_sell = true if params[:incomplete_profile]
   end
 
 end
