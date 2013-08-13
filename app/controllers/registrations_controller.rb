@@ -58,7 +58,7 @@ class RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
+           :changed_email : :updated
         set_flash_message :notice, flash_key
       end
       sign_in resource_name, resource, :bypass => true
@@ -81,6 +81,10 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       !params[:user][:password].blank?
+  end
+
+  def after_update_path_for resource_or_scope
+    user_path(resource_or_scope)
   end
 
 end
