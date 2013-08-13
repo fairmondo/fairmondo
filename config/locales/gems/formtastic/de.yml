@@ -33,12 +33,12 @@ de:
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
         about: "Impressum und Kontakt"
-        bank_account_notification: "(Eine Änderung wirkt sich auf all ihre Artikel aus, bei der Sie die Bezahloption \"Überweisung\" gewählt haben.)"
+        bank_account_notification: "(Beachte, dass sich eine Änderung auf all deine Artikel auswirkt, bei der du die Bezahloption  \"Überweisung\" gewählt hast.)"
         bank_code: "Bankleitzahl"
         bank_name: "Name der Bank"
         bank_account_number: "Kontonummer"
         bank_account_owner: "Kontoinhaber"
-        paypal_notification: "(Eine Änderung wirkt sich auf all ihre Artikel aus, bei der Sie die Bezahloption \"PayPal\" gewählt haben.)"
+        paypal_notification: "(Beachte, dass sich eine Änderung auf all deine Artikel auswirkt, bei der du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_account: "Paypal-Konto"
         customer_number: "Kundennummer"
 
@@ -191,6 +191,7 @@ de:
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
+        payment_input_step: "Beachte, dass sich eine Änderung auf all deine Artikel auswirkt, bei der du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
       article:
         title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
         categories_and_ancestors: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt Wird"
@@ -222,7 +223,8 @@ de:
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         payment: >
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-
+        payment_bank_transfer:  Deine Bankdaten kannst du nur im Profil ändern.
+        payment_paypal:  Deine PayPal-Daten kannst du nur im Profil ändern.
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
