@@ -106,4 +106,28 @@ $large-from: 800px;
 .Teaser,
 .Article--teaser {
   margin-bottom: em(38);
+  float:left;
+  @media (min-width: em($small-from)) and  (max-width: em($medium-from - 1)) {
+    margin-right:  gutter($small-columns);
+    &:nth-child(2n) {
+      @include omega;
+      @include pie-clearfix;
+    }
+  }
+
+  @media (min-width: em($medium-from)) and  (max-width: em($large-from - 1)) {
+    margin-right:  gutter($medium-columns);
+    &:nth-child(3n) {
+      @include omega;
+      @include pie-clearfix;
+    }
+  }
+  @media (min-width: em($large-from)) {
+    margin-right:  gutter($large-columns);
+    &:nth-child(4n) {
+      @include omega;
+      @include pie-clearfix;
+    }
+  }
+
 }
