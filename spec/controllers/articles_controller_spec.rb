@@ -324,40 +324,6 @@ describe ArticlesController do
       end
 
     end
-
-    describe "nesting user forms" do
-
-      before :each do
-        sign_in @user
-        @article_attrs[:seller_attributes] = FactoryGirl.attributes_for :nested_seller_update
-        @article_attrs[:seller_attributes][:id] = @user.id
-        @article_attrs[:payment_bank_transfer] = true
-      end
-
-      it "should update the users bank info" do
-        lambda do
-          post :create, :article => @article_attrs
-        end.should change(Article.unscoped, :count).by 1
-
-        @user.reload
-        @user.bank_code.should eq @article_attrs[:seller_attributes][:bank_code]
-      end
-
-
-      it "should not update the users invalid attributes" do
-         begin
-          @article_attrs[:seller_attributes][:nickname] = Faker::Internet.user_name
-        end while @article_attrs[:seller_attributes][:nickname] == @user.nickname
-
-        lambda do
-          post :create, :article => @article_attrs
-        end.should raise_error SecurityError
-
-        @user.reload
-        @user.nickname.should_not eq @article_attrs[:seller_attributes][:nickname]
-
-      end
-    end
   end
 
   #TODO: add more tests for delete
