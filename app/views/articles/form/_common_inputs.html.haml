@@ -128,7 +128,7 @@
         = f.inputs :id => 'upcycling-ecologic_kind', :class => "ecologic_kind" do
           = f.input :upcycling_reason, :required => true , :tooltip => true
     .Accordion-step
-      = f.input :small_and_precious, :as => :plain_check_box, :tooltip => true, :js_toggle => true
+      = f.input :small_and_precious, :as => :plain_check_box, :tooltip => t('formtastic.tooltips.article.small_and_precious', :href => link_to(t('formtastic.tooltips.article.small_and_precious_href'), "/faq#fi5", :class => "tooltip-link")), :js_toggle => true
       = f.inputs :id => 'small_and_precious-checked' do
         = f.input :small_and_precious_eu_small_enterprise, :as => :radio, :tooltip => true, :required => true
         = f.input :small_and_precious_reason, :tooltip => true, :required => true
