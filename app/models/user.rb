@@ -160,10 +160,6 @@ class User < ActiveRecord::Base
     ( self.bank_code.to_s != '' ) && ( self.bank_account_number.to_s != '' )
   end
 
-  def paypal_account_exists?
-    self.paypal_account.to_s != ''
-  end
-
   def can_sell?
     self.wants_to_sell = true
     can_sell = self.valid?

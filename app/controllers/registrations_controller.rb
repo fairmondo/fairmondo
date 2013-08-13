@@ -82,4 +82,8 @@ class RegistrationsController < Devise::RegistrationsController
       !params[:user][:password].blank?
   end
 
+  def check_incomplete_profile! user
+    user.wants_to_sell = true if params[:incomplete_profile]
+  end
+
 end
