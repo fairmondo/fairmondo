@@ -111,7 +111,6 @@ $large-from: 800px;
     margin-right:  gutter($small-columns);
     &:nth-child(2n) {
       @include omega;
-      @include pie-clearfix;
     }
   }
 
@@ -119,14 +118,12 @@ $large-from: 800px;
     margin-right:  gutter($medium-columns);
     &:nth-child(3n) {
       @include omega;
-      @include pie-clearfix;
     }
   }
   @media (min-width: em($large-from)) {
     margin-right:  gutter($large-columns);
     &:nth-child(4n) {
       @include omega;
-      @include pie-clearfix;
     }
   }
 
