@@ -36,6 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find current_user.id
+    check_incomplete_profile! @user
     @user.build_image unless @user.image
     @user.valid?
     super
@@ -43,6 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
+    check_incomplete_profile! @user
     params_email = params[:user][:email]
 
     successfully_updated = if needs_password?(@user, params)
