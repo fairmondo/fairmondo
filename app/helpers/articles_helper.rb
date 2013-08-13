@@ -177,8 +177,13 @@ module ArticlesHelper
         html << "zzgl. "
         html << humanized_money_with_symbol(resource.send(attach_price))
       else
-         html <<"(kostenfrei)"
+         html << "(kostenfrei)"
       end
+
+      if type == "transport" && method == "pickup"
+        html << ", PLZ: #{resource.seller.zip}"
+      end
+
       html <<"</li>"
       html.html_safe
     end

@@ -80,6 +80,7 @@ de:
         vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %) #Von Felix gelöscht
 
         transport_pickup: Selbstabholung
+        transport_pickup_extended: Selbstabholung (Deine PLZ wird als Abholort übernommen)
         transport_insured: Versichert
         transport_insured_provider: Versandart
         transport_insured_price: Versandkosten (€)
