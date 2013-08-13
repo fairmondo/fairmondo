@@ -3,15 +3,11 @@
 //
 
 .Libraries {
-  @include span-columns(4, 4);
 	h3 {
 		@extend %Semibold;
 	}
 	ul {
 		list-style-type: none;
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(2,4);
 	}
 }
 .Libraries-settings-right {

@@ -1,52 +1,109 @@
 //
-// Masonry/Packery/Dynamid grid
+// Masonry
 //
 
-// be sure to change the $gutter, $cols and media queries
-$gutter: 3.6%;
-$cols: 4;
+// When using Masonry with percentage widths, which is required to make it responsive, we need to work with the extra elements: .grid-sizer and .gutter-sizer. These are inserted with javascript and used to calculate the proper widths and avoid rounding errors as much as possible.
 
-.gutter-sizer {
-  width: $gutter;
-}
-.grid-sizer {
-  width: ((100% - ($gutter*($cols - 1))) / $cols) - 0.5;
+// The horizontal gutter in the grid comes from the .gutter-sizer alone so do not use any margin-left or right on the .grid-sizer nor on the items in the masonry grid. .gutter-sizer will be enough.
+// The vertical gutter you can put on the items in the grid.
 
-  @media (max-width: 48em) {
-    width: 48.2%;
-  }
-  @media (max-width: 30em) {
-    width: 100%;
-  }
-}
-.Teaser--video,
-.Teaser--text {
-  width: 48.2%;
-  @media (max-width: 30em) {
-    width: 100%;
-  }
-}
+// More on masonry.desandro.com
+
+// I've defined some variables for easier configuration. The grid goes from 1 -> 2 -> 3 -> 4 items in each row. The small/medium and medium/large are corrently outcommented but could be used if you need more.
+
+// Small version
+$small-columns: 2;
+$small-from: 400px;
+
+// // Small/Medium version
+// $sm-columns: 3;
+// $sm-from: 600px;
+
+// Medium version
+$medium-columns: 3;
+$medium-from: 550px;
+
+// // Medium/Large version
+// $ml-columns: 5;
+// $ml-from: 1200px;
+
+// Large version
+$large-columns: 4;
+$large-from: 800px;
+
 
 //
-// Packery item styling
+// Grid items
 //
-.Teaser {
-  background: #fff;
-}
-
+.grid-sizer,
 .Teaser,
 .Article--teaser {
-  @extend .grid-sizer;
-  @include pie-clearfix;
-  float: left;
-  position: relative;
+  @media (min-width: em($small-from)) {
+    width: columns(1,$small-columns);
+  }
+  // @media (min-width: em($sm-from)) {
+  //  width: columns(1,$sm-columns);
+  // }
+  @media (min-width: em($medium-from)) {
+    width: columns(1,$medium-columns);
+  }
+  // @media (min-width: em($ml-from)) {
+  //  width: columns(1,$ml-columns);
+  // }
+  @media (min-width: em($large-from)) {
+    width: columns(1,$large-columns);
+  }
+}
 
-  // we can't use % for vertical margins so imitate the horizontal one like this
-  margin-bottom: em(40);
-  @media (max-width: 55em) {
-    margin-bottom: em(25);
+
+//
+// Items with double-size
+//
+.Teaser--video,
+.Teaser--text {
+  @media (min-width: em($small-from)) {
+    width: columns(2,$small-columns);
   }
-  @media (max-width: 30em) {
-    margin-bottom: em(20);
+  // @media (min-width: em($sm-from)) {
+  //  width: columns(1,$sm-columns);
+  // }
+  @media (min-width: em($medium-from)) {
+    width: columns(2,$medium-columns);
   }
+  // @media (min-width: em($ml-from)) {
+  //  width: columns(1,$ml-columns);
+  // }
+  @media (min-width: em($large-from)) {
+    width: columns(2,$large-columns);
+  }
+}
+
+
+//
+// Grid horizontal gutter
+//
+.gutter-sizer {
+  @media (min-width: em($small-from)) {
+    width: gutter($small-columns);
+  }
+  // @media (min-width: em($sm-from)) {
+  //  width: gutter($sm-columns);
+  // }
+  @media (min-width: em($medium-from)) {
+    width: gutter($medium-columns);
+  }
+  // @media (min-width: em($ml-from)) {
+  //  width: gutter($ml-columns);
+  // }
+  @media (min-width: em($large-from)) {
+    width: gutter($large-columns);
+  }
+}
+
+//
+// Grid vertical gutter
+//
+.Teaser,
+.Article--teaser {
+  margin-bottom: em(38);
 }

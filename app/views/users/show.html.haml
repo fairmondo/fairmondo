@@ -18,7 +18,7 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if resource.is? current_user
-  .User-additional.Accordion--activated
+  .User-additional.Accordion--containsArticles.Accordion--activated
 
     = accordion_item "offers" do
       - if active_articles.empty?

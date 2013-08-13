@@ -25,7 +25,7 @@
         = f.input :name
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Btn"}
-  .Accordion--activated
+  .Accordion--containsArticles.Accordion--activated
     - @libraries.each do |library|
       - unless library.new_record?
         = accordion_item "library"+library.id.to_s , :title => library.name  do
@@ -60,12 +60,9 @@
             .Library-ArticleList.Libraries-settings-clear
               %section.l-ArticleList
                 - library.library_elements.each do |library_element|
-                  %Article{:class => 'Article Article--teaser'}
-                    - if policy(library_element).show?
+                  - if policy(library_element).show?
+                    %Article{:class => 'Article Article--teaser'}
                       = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
-                    - if policy(library_element).destroy?
-                      = link_to t('common.actions.destroy'), user_library_element_path(@user,library_element) ,:method => :delete, :class => "Btn Btn--red", :style => "float:right;"
-                    -# if policy(library_element).update?
-                      -#= semantic_form_for(library_element, :url => user_library_element_path(@user,library_element)) do |f|
-                        -#= f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
-                        -#= f.submit t('common.actions.move'), :class => "Btn"
+                      .Article-actions
+                        - if policy(library_element).destroy?
+                          = link_to t('common.actions.destroy'), user_library_element_path(@user,library_element) ,:method => :delete, :class => "Btn Btn--red", :style => "float:right;"
