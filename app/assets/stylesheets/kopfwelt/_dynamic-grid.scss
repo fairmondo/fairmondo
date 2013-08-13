@@ -100,10 +100,13 @@ $large-from: 800px;
   }
 }
 
+.Teaser {
+  margin-bottom: em(38);
+}
+
 //
 // Grid vertical gutter
 //
-.Teaser,
 .Article--teaser {
   margin-bottom: em(38);
   float:left;
