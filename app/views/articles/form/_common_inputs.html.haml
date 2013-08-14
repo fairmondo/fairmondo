@@ -139,6 +139,3 @@
     -# f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}
     -# f.input :friendly_percent_organisation, :as => :select
 
-= f.semantic_fields_for :transaction do |transaction|
-
-  = transaction.input :type, :as => :hidden, :input_html => { :value => "PreviewTransaction" }
