@@ -25,7 +25,7 @@ de:
         surname:  "Nachname"
         country: "Land"
         street: "Straße und Hausnummer"
-        city: "Stadt"
+        city: "Ort"
         zip: "PLZ"
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
@@ -82,6 +82,7 @@ de:
         vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %) #Von Felix gelöscht
 
         transport_pickup: Selbstabholung
+        transport_pickup_extended: Selbstabholung (Deine PLZ wird als Abholort übernommen)
         transport_insured: Versichert
         transport_insured_provider: Versandart
         transport_insured_price: Versandkosten (€)
@@ -116,7 +117,7 @@ de:
         save_as_template: "Eingaben als Vorlage speichern"
       fair_trust_questionnaire:
         support: >
-          1. Werden vom Weltmarkt marginsaliserte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
+          1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
         labor_conditions: >
           2. Wird für angemessene Arbeitsbedindungen gesorgt?
         environment_protection: >
@@ -199,7 +200,8 @@ de:
         ecologic_seal: 'Qualifiziert für diesen Filter sind alle Artikel mit Siegeln, die von der VERBRAUCHER INITIATIVE e.V.  im ökologischen Bereich als "empfehlenswert" eingestuft werden.'
         fair: 'Unter diesen Filter fallen alle Artikel, auf die eines unserer drei Kriterien für "fair" zutrifft:  1. Artikel mit dem Transfer Siegel, von WFTO Mitgliedern oder Weltladen-Lieferanten. 2. Artikel von kleineren Anbietern ohne Siegel, für die bei uns unter "fair trust" fallen. Dafür ist ein Formular auszufüllen. 3. Artikel von sozialen Produzenten, z.B. Sozialunternehmen oder gemeinnützigen Anbietern.'
         upcycling_reason: 'Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden.'
-        small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu unter"
+        small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu in den %{href}"
+        small_and_precious_href: "FAQ"
         small_and_precious_eu_small_enterprise: 'Die EU-Kommission klassifiziert als Kleinst- oder Klein-Unternehmen: <50 Mitarbeiter*innen, max. 10 Millionen € Umsatzerlöse bzw. Bilanzsumme. Werden die Artikel nicht durch den*die Produzent*in selbst vertrieben, müssen sowohl Produzent*innen als auch Anbieter*innen ein Kleinst- oder Klein-Unternehmen sein.'
         fair_trust_questionnaire: 'fairtrust richtet sich an Verkäufer*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
         save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
@@ -223,6 +225,7 @@ de:
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
 
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 5 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 

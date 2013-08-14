@@ -20,12 +20,12 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if resource.is? current_user
-  .User-additional.Accordion--activated
-    = render partial: 'article_box', locals: { item_name: 'active', sub_articles: active_articles }
-    = render partial: 'article_box', locals: { item_name: 'inactive', sub_articles: inactive_articles }
-    = render partial: 'article_box', locals: { item_name: 'sold', sub_articles: sold_articles }
-    = render partial: 'article_box', locals: { item_name: 'bought', sub_articles: bought_articles }
-
+  .User-additional.Accordion--containsArticles.Accordion--activated
+    = render 'article_box', item_name: 'active', sub_articles: active_articles
+    = render 'article_box', item_name: 'inactive', sub_articles: inactive_articles
+    = render 'article_box', item_name: 'sold', sub_articles: sold_articles
+    = render 'article_box', item_name: 'bought', sub_articles: bought_articles
+  .User-additional.Accordion--containsArticles.Accordion--activated
     = accordion_item "my_article_templates" do
       .private-links
         %ul.nav.nav-pills

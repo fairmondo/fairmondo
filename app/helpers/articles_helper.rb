@@ -78,13 +78,12 @@ module ArticlesHelper
     html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue", article) if article.fair
     html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green", article) if article.ecologic
     html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange", article) if article.small_and_precious
-
     html.html_safe
   end
 
   def get_features_label text, btn_class, article
     if article_path(article) == request.path && btn_class =~ /Btn-tag /
-      html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
+      html = "<a href=\"#commendation\" class=\""+ btn_class +" accordion-anchor\">" + text + "</a>"
     else
       html = "<span class=\""+ btn_class +"\">" + text + "</span>"
     end
@@ -110,7 +109,6 @@ module ArticlesHelper
   def find_fair_alternative_to article
     search = Article.search do
       fulltext article.title do
-        boost(4.0) { with :category_ids, Article::Categories.search_categories(article.categories) }
         boost(3.0) { with(:fair, true) }
         boost(2.0) { with(:ecologic, true) }
         boost(1.0) { with(:condition, :old) }
@@ -119,6 +117,7 @@ module ArticlesHelper
         fields(:title)
       end
       without(article)
+      with :category_ids, Article::Categories.search_categories(article.categories)
       any_of do
         with :fair,true
         with :ecologic,true
@@ -179,8 +178,13 @@ module ArticlesHelper
         html << "zzgl. "
         html << humanized_money_with_symbol(resource.send(attach_price))
       else
-         html <<"(kostenfrei)"
+         html << "(kostenfrei)"
       end
+
+      if type == "transport" && method == "pickup"
+        html << ", PLZ: #{resource.seller.zip}"
+      end
+
       html <<"</li>"
       html.html_safe
     end
