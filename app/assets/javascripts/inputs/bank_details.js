@@ -5,15 +5,15 @@ $(document.body).ready(function(){
   $('#bank_code').focusout (function() {
     bank_code = this.value
     if(bank_code != ''){
-      $('#user_bank_code_input .inline-errors').remove()
+      removeInvalidBankCodeWarning()
       $.getJSON('/bank_details/get_bank_name.json', "bank_code="+bank_code, function(data) {
         if(data){
           $('#bank_name').val(data)
           $('#user_bank_name_input .inline-errors').remove()
           checkBankDetails(account, bank_code)
         } else {
-          addInvalidBankCodeWarning()
-          if(account != '') addAccountValidationNotPossibleWarning()
+            addInvalidBankCodeWarning()
+            if(account != '') addAccountValidationNotPossibleWarning()
         }
       });
     }
@@ -40,22 +40,35 @@ checkBankDetails = function(account, bank_code){
   if(account != '' && bank_code != ''){
     bank_data = "bank_account_number="+account+"&bank_code="+bank_code
     $.getJSON('/bank_details/check.json', bank_data, function(data) {
-      if(data) $('#user_bank_account_number_input .inline-errors').remove()
+      if(data) removeInvalidAccountNumberWarning()
       else addInvalidAccountNumberWarning()
     });
   }
 }
 
+
 addInvalidBankCodeWarning = function(){
   $("<p>").appendTo('#user_bank_code_input').addClass('inline-errors').html('Bitte Bankleitzahl überprüfen.')
+  $('#user_bankaccount_warning').checked = true
 }
 
 addInvalidAccountNumberWarning = function(){
   $('#user_bank_account_number_input .inline-errors').remove()
   $("<p>").appendTo('#user_bank_account_number_input').addClass('inline-errors').html('Bitte Kontonummer überprüfen.')
+  $('#user_bankaccount_warning').checked = true
 }
 
 addAccountValidationNotPossibleWarning = function(){
   $('#user_bank_account_number_input .inline-errors').remove()
   $("<p>").appendTo('#user_bank_account_number_input').addClass('inline-errors').html('Die Kontonummer kann ohne gültige BLZ nicht überprüft werden.')
+}
+
+removeInvalidBankCodeWarning = function(){
+  $('#user_bank_code_input .inline-errors').remove()
+  $('#user_bankaccount_warning').checked = false
+}
+
+removeInvalidAccountNumberWarning = function(){
+  $('#user_bank_account_number_input .inline-errors').remove()
+  $('#user_bankaccount_warning').checked = false
 }
