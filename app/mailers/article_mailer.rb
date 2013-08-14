@@ -22,7 +22,7 @@
 class ArticleMailer < ActionMailer::Base
   default from: $email_addresses['ArticleMailer']['default_from']
 
-  def report_article(article,user,text)
+  def report_article article, user, text
     @text = text
     @article = article
     @user = user
@@ -30,7 +30,7 @@ class ArticleMailer < ActionMailer::Base
     mail(to: $email_addresses['ArticleMailer']['report'], from: user.email, subject: "Article reported with ID: #{article.id}")
   end
 
-  def category_proposal(category_proposal)
+  def category_proposal category_proposal
     mail(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: #{category_proposal}")
   end
 
