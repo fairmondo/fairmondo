@@ -78,13 +78,12 @@ module ArticlesHelper
     html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue", article) if article.fair
     html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green", article) if article.ecologic
     html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange", article) if article.small_and_precious
-
     html.html_safe
   end
 
   def get_features_label text, btn_class, article
     if article_path(article) == request.path && btn_class =~ /Btn-tag /
-      html = "<a href=\"#commendation\" class=\""+ btn_class +" commendation-anchor\">" + text + "</a>"
+      html = "<a href=\"#commendation\" class=\""+ btn_class +" accordion-anchor\">" + text + "</a>"
     else
       html = "<span class=\""+ btn_class +"\">" + text + "</span>"
     end
