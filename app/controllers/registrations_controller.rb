@@ -38,40 +38,41 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find current_user.id
-    @user.build_image unless @user.image
     @user.valid?
     super
   end
 
-  def update
-    @user = User.find(current_user.id)
-    params_email = params[:user][:email]
 
-    successfully_updated = if needs_password?(@user, params)
-      @user.update_with_password(params[:user])
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+    successfully_updated  = false
+    if needs_password?(resource, params)
+      successfully_updated = resource.update_with_password(account_update_params)
+
     else
       # remove the virtual current_password attribute update_without_password
       # doesn't know how to ignore it
       params[:user].delete(:current_password)
-      @user.update_without_password(params[:user])
+      successfully_updated = resource.update_without_password(account_update_params)
     end
 
     if successfully_updated
-      #show message for reconfirmable if email was changed
-      if @user.email != params_email
-        set_flash_message :notice, :changed_email
-      else
-        set_flash_message :notice, :updated
+      if is_navigational_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+           :changed_email : :updated
+        set_flash_message :notice, flash_key
       end
-
-      # Sign in the user bypassing validation in case their password changed
-      sign_in @user, bypass: true
-      redirect_to user_path(@user)
+      sign_in resource_name, resource, :bypass => true
+      respond_with resource, :location => after_update_path_for(resource)
     else
+      clean_up_passwords resource
       resource.image.save if resource.image
-      render :edit
+      respond_with resource
     end
   end
+
+
 
   private
 
@@ -82,6 +83,10 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       !params[:user][:password].blank?
+  end
+
+  def after_update_path_for resource_or_scope
+    user_path(resource_or_scope)
   end
 
 end

@@ -34,12 +34,20 @@
 	overflow: hidden;
 	border-top-left-radius: 0.9em;
 	border-top-right-radius: 0.9em;
+	background-color: white;
+
+
 	img {
 		width: 100%;
+
 		height: auto;
+		margin-left: auto;
+    margin-right: auto;
+    display: block;
 	}
 }
 .Article-friendly {
+  clear:both;
 	margin-top: 1em;
 }
 .l-ArticleList {
@@ -101,6 +109,11 @@
 		border-top: $beige 0.15em solid;
 	}
 }
+.Article-actions {
+  padding: .5em .6em 0em;
+  border-top: $beige 0.15em solid;
+}
+
 .Articles-title {
 	@include rem(font-size, $font-size-m);
 	margin-bottom: 0;
@@ -112,6 +125,7 @@ span.Article-price {
 	@extend %Semibold;
 	display: block;
 	margin-bottom: .3em;
+	word-break: break-word;
 }
 .Article-vat,
 .Article-basicprice,
@@ -222,6 +236,4 @@ span.Article-price {
 .Article--teaser {
   border: 1px solid $beige;
   border-radius: 0.9em;
-  // padding breaks the correct masonry grid width
-  padding: 0.45em;
 }
