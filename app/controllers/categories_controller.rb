@@ -11,7 +11,7 @@ class CategoriesController < InheritedResources::Base
 
   def show
     show! do |format|
-      format.json { render :json => resource.to_json(:include => :children) }
+      format.json { render :json => resource.children.to_json(:only => [ :id, :name ]) }
     end
   end
 

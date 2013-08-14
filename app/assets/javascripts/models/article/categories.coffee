@@ -9,11 +9,11 @@ changed_select_box = (event) ->
   selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
   unless selected_category_id is "-1" |selected_category_id is ""
     $.getJSON "/categories/" + selected_category_id, (data) ->
-      if data.children.length > 0 # only if we have any children in this category
+      if data.length > 0 # only if we have any children in this category
 
         # Build Select Box
         select_tag = "<select><option value=\"-1\"></option>" # Add empty option
-        $.each data.children, (index, child) ->
+        $.each data, (index, child) ->
           select_tag += "<option value=\"" + child.id + "\">" + child.name + "</option>"
 
         select_tag += "</select>"
