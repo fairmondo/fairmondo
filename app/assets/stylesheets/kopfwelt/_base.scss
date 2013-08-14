@@ -73,6 +73,11 @@ a:hover {
 a:visited {
 	color: $anchor-visited;
 }
+
+a.tooltip-link {
+	color: $anchor-link;
+}
+
 // responsive
 iframe,
 img {
