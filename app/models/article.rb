@@ -36,7 +36,6 @@ class Article < ActiveRecord::Base
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
-  validates_presence_of :transaction, :unless => :template?
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
@@ -51,7 +50,7 @@ class Article < ActiveRecord::Base
   # Misc mixins
   extend Sanitization
    # Article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Template, State, Scopes
+  include Categories, Commendation, FeesAndDonations, Images, BuildTransaction, Attributes, Search, Template, State, Scopes
 
   def images_attributes=(attributes)
     self.images.clear
@@ -124,5 +123,6 @@ class Article < ActiveRecord::Base
       "#{self.seller.company_name}, #{self.seller.city}"
     end
   end
+
 
 end
