@@ -120,7 +120,7 @@ class Article < ActiveRecord::Base
     if self.seller.type == "PrivateUser"
       self.seller.nickname
     else
-      "#{self.seller.company_name}, #{self.seller.city}"
+      "#{self.seller.nickname}, #{self.seller.city}"
     end
   end
 
