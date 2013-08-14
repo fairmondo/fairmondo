@@ -121,11 +121,11 @@
     = accordion_item "about" do
       = resource.seller_about.html_safe
   - if resource.libraries.find_all_by_public(true).count > 0
-    = accordion_item "library", :number => resource.libraries.find_all_by_public(true).count, :title => t('article.titles.libraries') do
+    = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
       - libraries.each do |library|
         .User-library.Article--teaser
           .User-image
-            = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
+            = link_to image_tag(library.user.image_url(:profile)), user_path(:id => library.user.id)
           %p.User-library--title
             = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
           %p.User-library--user
