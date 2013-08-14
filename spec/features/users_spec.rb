@@ -239,8 +239,7 @@ describe 'User management' do
             it "should succeed when editing critical data with a password" do
               fill_in 'user_current_password', with: 'password'
               click_button I18n.t 'formtastic.actions.update'
-# save_and_open_page
-# debugger
+
               user.reload.valid_password?('changedpassword').should be_true
 
               page.should have_content I18n.t 'devise.registrations.updated'

@@ -70,7 +70,8 @@ describe 'Transaction' do
           page.should have_content user.country
 
           # Should have optional message field
-          pending "Optional message field missing."
+          pending "almost!"
+          page.should have_selector 'input', text: "Optional message"
         end
 
         it "should show a quantity field for MultipleFixedPriceTransactions" do
@@ -155,7 +156,7 @@ describe 'Transaction' do
             click_button I18n.t 'transaction.actions.purchase'
 
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-            # page.should have_content #Alert -> Implement once those exist again
+            page.should have_content I18n.t 'activerecord.attributes.transaction.tos_accepted'
           end
 
           context "when testing the effects of the purchase" do
@@ -172,16 +173,34 @@ describe 'Transaction' do
 
                 transaction.reload.should be_sold
                 transaction.article.should be_closed
-
-                #pending "Not yet implemented."
               end
 
-              it "should remove the article from the search" do
-                pending "Not yet implemented."
+              describe "on search", search: true do
+                it "should remove the article from the search result list" do
+                  transaction = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, title: 'foobar')
+                  Sunspot.commit
+
+                  visit articles_path
+                  page.should have_link 'foobar'
+
+                  visit edit_transaction_path transaction, pay_on_pickup_attrs
+                  check 'transaction_tos_accepted'
+                  click_button I18n.t 'transaction.actions.purchase'
+
+                  visit articles_path
+                  page.should_not have_link 'foobar'
+                end
               end
 
               it "should show an error page when article was already sold to someone else in the meantime" do
                 pending "Not yet implemented."
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+
+                transaction.sell
+
+                click_button I18n.t 'transaction.actions.purchase'
+                page.should have_content 'Bereits verkauft.'
               end
             end
 
@@ -193,11 +212,25 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                pending "Not yet implemented."
+                pending "almost!"
+                transaction = FactoryGirl.create :single_transaction
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                last_delivery = ActionMailer::Base.deliveries.last # one of these won't be actually the last
+                last_delivery.encoded.should include("Erfolgreich gekauft... Zahlungsdaten und so")
               end
 
               it "should send a email to the seller" do
-                pending "Not yet implemented."
+                pending "almost!"
+                transaction = FactoryGirl.create :single_transaction
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                last_delivery = ActionMailer::Base.deliveries.last # one of these won't be actually the last
+                last_delivery.encoded.should include("Artikel verkauft... Artikeldaten, Adressdaten und so")
               end
             end
           end
@@ -317,22 +350,31 @@ describe 'Transaction' do
     context "for a logged-in user" do
       context "when the transaction is sold" do
         let (:transaction) { FactoryGirl.create :sold_transaction }
+        let (:buyer)       { transaction.buyer }
 
         context "and the user is the buyer" do
-          it "should not redirect" do
-            login_as transaction.buyer
+          before do
+            login_as buyer
             visit transaction_path transaction
+          end
+
+          it "should not redirect" do
             current_path.should eq transaction_path transaction
           end
 
           it "should show the correct data and fields" do
             pending "Not yet implemented."
+            page.should have_content "Alles moegliche"
           end
         end
 
         context "but the current user isn't the one who bought" do
           it "shouldn't be accessible" do
             pending "Not yet implemented."
+            login_as user
+            visit transaction_path transaction
+            current_path.should_not eq transaction_path transaction
+            page.should have_content "What are you trying to do there buddy?"
           end
         end
       end
@@ -340,6 +382,9 @@ describe 'Transaction' do
       context "when the transaction is not sold" do
         it "should redirect to the edit page" do
           pending "Not yet implemented."
+          login_as user
+          visit transaction_path transaction
+          current_path.should eq edit_transaction_path transaction
         end
       end
     end

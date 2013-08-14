@@ -21,12 +21,15 @@
 #
 class Transaction < ActiveRecord::Base
   extend Enumerize
+  extend Sanitization
 
   has_one :article
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
-  attr_accessible :selected_transport, :selected_payment, :tos_accepted
+  attr_accessible :selected_transport, :selected_payment, :tos_accepted, :message
   extend AccessibleForAdmins
   attr_protected :buyer_id, :state
+
+  auto_sanitize :message
 
   #@todo remove duplication with data in Article::Attributes
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
@@ -39,6 +42,7 @@ class Transaction < ActiveRecord::Base
            to: :article, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  #validates :message, allow_blank: true, on: :update
 
   state_machine initial: :available do
 
