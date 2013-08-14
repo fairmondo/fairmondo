@@ -155,7 +155,7 @@ module ArticlesHelper
   end
 
   def active_seller_articles
-    resource.seller.articles.where(:state => "active").page(params[:page]).per(18)
+    resource.seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
   end
 
    def transport_format_for method,css_classname=""
