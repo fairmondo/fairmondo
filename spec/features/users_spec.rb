@@ -308,10 +308,10 @@ describe "Pioneer of the day" do
     let (:user) { FactoryGirl.create :legal_entity, city: "Berlin", company_name: "Fairnopoly eG" }
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
-    it "should show the users company name" do
+    it "should show the users nickname" do
       Settings.featured_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.company_name
+      page.should have_css '.Profile-name', text: user.nickname
     end
 
     it "should show the users city" do
