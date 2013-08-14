@@ -62,5 +62,6 @@
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
+//= require inputs/bank_details
 
 //= require customize/rails-confirm
