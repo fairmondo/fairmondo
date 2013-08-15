@@ -65,10 +65,7 @@
       %h2.Teaser-title Pionier*in des Tages
       %figure.Profile
         .Profile-container
-          - if @featured_article.seller.type == "PrivateUser"
-            .Profile-name= @featured_article.seller.nickname
-          - else
-            .Profile-name= @featured_article.seller.nickname + ', ' + @featured_article.seller.city
+          .Profile-name= @featured_article.profile_name
         = link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
 
       = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
