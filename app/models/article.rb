@@ -50,6 +50,8 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
+  belongs_to :invoice
+  
   # Misc mixins
   extend Sanitization
    # Article module concerns
