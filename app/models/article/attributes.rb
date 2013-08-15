@@ -105,7 +105,9 @@ module Article::Attributes
     monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validates :payment_details, :length => { :maximum => 2500 }
-    validate :paypal_account_exists, :bank_account_exists
+
+    validate :bank_account_exists, :if => :payment_bank_transfer
+    validate :paypal_account_exists, :if => :payment_paypal
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
@@ -138,13 +140,13 @@ module Article::Attributes
     end
 
     def bank_account_exists
-      if ( self.payment_bank_transfer && !self.seller.bank_account_exists? )
+      if !self.seller.bank_account_exists?
         errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
       end
     end
 
     def paypal_account_exists
-      if ( self.payment_paypal && !self.seller.paypal_account_exists? )
+      if !self.seller.paypal_account_exists?
         errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
       end
     end
