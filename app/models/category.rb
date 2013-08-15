@@ -31,9 +31,6 @@ class Category < ActiveRecord::Base
 
   acts_as_nested_set
 
-  # Ensure no n+1 queries result from Category.roots
-  scope :roots , includes(:children).roots
-
 
   def self_and_ancestors_ids
     self_and_ancestors = [ self.id ]
@@ -48,7 +45,7 @@ class Category < ActiveRecord::Base
   # @return [Array]
   def self.sorted_roots
     other = self.find_by_name("Sonstiges") #internationalize!
-    roots = self.order(:name).roots
+    roots = self.order(:name).where(:parent_id => nil)
 
     if roots.include? other
       roots.delete_at roots.index other

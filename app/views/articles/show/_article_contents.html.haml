@@ -20,15 +20,15 @@
 - if resource.owned_by? current_user
   %div.Article-controls
     - if policy(resource).edit?
-      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn Btn--gray"
+      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn"
     - if resource.locked? && policy(resource).new?
-      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn Btn--gray"
+      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn"
     - if policy(resource).deactivate?
       %i.icon-helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
+      = link_to t('article.labels.edit_or_delete') , article_path(:deactivate => true), :confirm => t('article.deactivate_confirm') , :class => "Btn", :method => :put
       = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
-
     - if policy(resource).destroy?
-      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn Btn--gray"
+      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn"
 
 
 %figure.Article-image
@@ -121,11 +121,11 @@
     = accordion_item "about" do
       = resource.seller_about.html_safe
   - if resource.libraries.find_all_by_public(true).count > 0
-    = accordion_item "library", :number => resource.libraries.find_all_by_public(true).count, :title => t('article.titles.libraries') do
+    = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
       - libraries.each do |library|
         .User-library.Article--teaser
           .User-image
-            = link_to image_tag(library.user.image_url(:thumb)), user_path(:id => library.user.id)
+            = link_to image_tag(library.user.image_url(:profile)), user_path(:id => library.user.id)
           %p.User-library--title
             = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
           %p.User-library--user
