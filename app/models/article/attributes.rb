@@ -106,6 +106,9 @@ module Article::Attributes
 
     validates :payment_details, :length => { :maximum => 2500 }
 
+    validate :bank_account_exists, :if => :payment_bank_transfer
+    validate :paypal_account_exists, :if => :payment_paypal
+
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
     validate :payment_method_checked
@@ -133,6 +136,18 @@ module Article::Attributes
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
         errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
+      end
+    end
+
+    def bank_account_exists
+      if !self.seller.bank_account_exists?
+        errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
+      end
+    end
+
+    def paypal_account_exists
+      if !self.seller.paypal_account_exists?
+        errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
       end
     end
 end
