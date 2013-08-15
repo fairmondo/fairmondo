@@ -50,7 +50,9 @@ de:
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
-        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
+        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an."
+        paypal_details_missing: "Bitte gib deine PayPal-Daten im Profil ein."
+        bank_details_missing: "Bitte gib deine Bankdaten an."
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"

@@ -157,7 +157,11 @@ class User < ActiveRecord::Base
   end
 
   def bank_account_exists?
-    ( self.bank_code.to_s != '' ) && ( self.bank_account_number.to_s != '' )
+    ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
+  end
+
+  def paypal_account_exists?
+    ( self.paypal_account.to_s != '' )
   end
 
   def can_sell?
