@@ -25,6 +25,8 @@ module Article::Images
     attr_accessible :images_attributes
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
+
+
     accepts_nested_attributes_for :images, allow_destroy: true
 
     validate :only_one_title_image

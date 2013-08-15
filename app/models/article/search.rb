@@ -48,7 +48,7 @@ module Article::Search
   end
 
   def find_like_this page
-    Article.search(:include => [:transaction, :seller, :images]) do
+    Article.search(:include => [:seller, :images]) do
       fulltext self.title
       paginate :page => page, :per_page => Kaminari.config.default_per_page
       with :fair, true if self.fair

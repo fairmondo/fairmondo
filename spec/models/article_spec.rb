@@ -60,10 +60,9 @@ describe Article do
   end
 
 
-  describe "::Initial" do
-    it "should rescue MissingAttributeErrors" do
-      article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
-      expect { article.initialize_values }.not_to raise_error
+  describe "::BuildTransaction" do
+    it "should build a specific transaction" do
+       article.build_specific_transaction.should be_a PreviewTransaction
     end
   end
 
