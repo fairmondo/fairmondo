@@ -72,25 +72,6 @@ class Article < ActiveRecord::Base
   end
 
 
-  # We have to do this in the article class because we want to
-  # override the dynamic Rails method to get rid of the RecordNotFound
-  # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
-  def seller_attributes=(seller_attrs)
-    if seller_attrs.has_key?(:id)
-      self.seller = User.find(seller_attrs.delete(:id))
-      rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
-      if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array
-        raise SecurityError
-      end
-      self.seller.attributes = seller_attrs
-    end
-  end
-
-   # The allowed attributes for updating user/seller in article form
-  def valid_seller_attributes
-    ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
-  end
-
   amoeba do
     enable
     include_field :fair_trust_questionnaire
@@ -122,7 +103,7 @@ class Article < ActiveRecord::Base
     if self.seller.type == "PrivateUser"
       self.seller.nickname
     else
-      "#{self.seller.company_name}, #{self.seller.city}"
+      "#{self.seller.nickname}, #{self.seller.city}"
     end
   end
 
