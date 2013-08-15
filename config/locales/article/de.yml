@@ -19,8 +19,8 @@ de:
     included_short: "Inkl."
     transport:
       placeholders:
-        insured_provider: "z.B. DHL Paket"
-        uninsured_provider: "z.B. DHL Päckchen"
+        type1_provider: "z.B. DHL Paket"
+        type2_provider: "z.B. DHL Päckchen"
     show:
       friendly_percent: "Das faire Prozent"
       will_be: " werden an "

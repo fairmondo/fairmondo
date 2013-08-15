@@ -66,23 +66,23 @@ module Article::Attributes
 
     #transport
     attr_accessible :default_transport, :transport_pickup,
-                    :transport_insured, :transport_insured_price_cents,
-                    :transport_insured_price, :transport_insured_provider,
-                    :transport_uninsured, :transport_uninsured_price_cents,
-                    :transport_uninsured_price, :transport_uninsured_provider,
+                    :transport_type1, :transport_type1_price_cents,
+                    :transport_type1_price, :transport_type1_provider,
+                    :transport_type2, :transport_type2_price_cents,
+                    :transport_type2_price, :transport_type2_provider,
                     :transport_details
 
-    auto_sanitize :transport_insured_provider, :transport_uninsured_provider, :transport_details
+    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
-    enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
+    enumerize :default_transport, :in => [:pickup, :type1, :type2]
 
     validates_presence_of :default_transport
-    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
-    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+    validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
+    validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
 
-    monetize :transport_uninsured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-    monetize :transport_insured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validate :default_transport_selected
 
