@@ -47,7 +47,7 @@ get_selected_values = ->
 append_selected_category = ->
   selected_values = get_selected_values()
   selected_category_id = selected_values[selected_values.length - 1]
-  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[categories_and_ancestors][]\" value=\""+selected_category_id+"\"></input>")
+  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\""+$(selected_categories_input).data("object-name")+"[categories_and_ancestors][]\" value=\""+selected_category_id+"\"></input>")
 
 
 select_category = ->
