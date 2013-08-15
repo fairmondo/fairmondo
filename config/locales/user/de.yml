@@ -24,6 +24,8 @@ de:
     form_titles:
       contact_person: "Ansprechpartner*in"
       address: "Anschrift und Kontaktdaten"
+      payment_bank_account: "Bankverbindung"
+      payment_paypal: "PayPal"
     countries:
       germany: "Deutschland"
     founder: "Gründer"
