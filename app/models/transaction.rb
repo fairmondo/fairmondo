@@ -31,7 +31,6 @@ class Transaction < ActiveRecord::Base
 
   auto_sanitize :message
 
-  #@todo remove duplication with data in Article::Attributes
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 

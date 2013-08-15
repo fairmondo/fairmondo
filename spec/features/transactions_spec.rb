@@ -70,8 +70,7 @@ describe 'Transaction' do
           page.should have_content user.country
 
           # Should have optional message field
-          pending "almost!"
-          page.should have_selector 'input', text: "Optional message"
+          page.should have_content I18n.t('formtastic.labels.transaction.message')
         end
 
         it "should show a quantity field for MultipleFixedPriceTransactions" do
@@ -212,25 +211,21 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                pending "almost!"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
                 click_button I18n.t 'transaction.actions.purchase'
 
-                last_delivery = ActionMailer::Base.deliveries.last # one of these won't be actually the last
-                last_delivery.encoded.should include("Erfolgreich gekauft... Zahlungsdaten und so")
+                ActionMailer::Base.deliveries.last.encoded.should include("Erfolgreich gekauft... Zahlungsdaten und so")
               end
 
               it "should send a email to the seller" do
-                pending "almost!"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
                 click_button I18n.t 'transaction.actions.purchase'
 
-                last_delivery = ActionMailer::Base.deliveries.last # one of these won't be actually the last
-                last_delivery.encoded.should include("Artikel verkauft... Artikeldaten, Adressdaten und so")
+                ActionMailer::Base.deliveries[-2].encoded.should include("Artikel verkauft... Artikeldaten, Adressdaten und so")
               end
             end
           end
