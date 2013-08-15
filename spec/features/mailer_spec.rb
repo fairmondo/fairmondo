@@ -1,12 +1,14 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
-#rake routes zeigt die Pfade
-describe 'User Email answer by' do
-  it "registers a new user" do
+
+# These tests don't actually test anything useful. Please someone rewrite the include statements to actually check the correct content of the email. I also don't think a lot of the Recaptcha statements actually do anything. After you're done, please remove this comment. -KK
+describe 'User Mailer' do
+  describe 'on registration' do
+    it "should send a registration email" do
       Recaptcha.with_configuration(:public_key => '12345') do
         visit new_user_registration_path
-    end
+      end
       expect do
         fill_in 'user_nickname',              with: 'nickname'
         fill_in 'user_email',                 with: 'email@example.com'
@@ -21,8 +23,9 @@ describe 'User Email answer by' do
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
         last_delivery.encoded.should include("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
       end
-  end
-  it "reset a password" do
+    end
+
+    it "should send a password reset email" do
       Recaptcha.with_configuration(:public_key => '12345') do
         visit new_user_password_path
       end
@@ -33,29 +36,32 @@ describe 'User Email answer by' do
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
         last_delivery.body.should match ("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
       end
-  end
-  it"has not recieved authentication" do
+    end
+
+    it "should send a new confirmation email" do
       Recaptcha.with_configuration(:public_key => '12345') do
         visit new_user_confirmation_path
-  end
+      end
+
       expect do
         fill_in 'user_email',                 with: 'email@example.com'
         click_button 'sign_up'
         last_delivery = ActionMailer::Base.deliveries.last
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
         last_delivery.encoded.should include("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
+      end
+    end
   end
 end
-end
 
-describe "Feedback mails" do
-  context "for non-signed in user" do
+describe "Feedback Mailer" do
+  context "for signed-out users" do
     before do
       visit root_path
       click_link I18n.t('common.text.feedback')
     end
 
-    it "sending feedback" do
+    it "should send a feedback email with the correct contents" do
       fill_in 'feedback_from',              with: 'email@example.com'
       fill_in 'feedback_subject',           with: 'Das ist die Betreffzeile'
       fill_in 'feedback_text',              with: 'Das ist der Inhalt'
@@ -70,7 +76,7 @@ describe "Feedback mails" do
     end
   end
 
-  context "for signed in user" do
+  context "for signed-in users" do
     let(:user) { FactoryGirl.create :user }
 
     before do
@@ -79,7 +85,7 @@ describe "Feedback mails" do
       click_link I18n.t('common.text.feedback')
     end
 
-    it "sending feedback" do
+    it "should send a feedback email with the correct contents" do
       article = FactoryGirl.create :article, :user_id => user.id
       fill_in 'feedback_from',              with: 'email@example.com'
       fill_in 'feedback_subject',           with: 'Das ist die Betreffzeile'

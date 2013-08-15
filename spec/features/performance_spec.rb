@@ -1,4 +1,7 @@
+# This is kind of a special integration test group.
 #
+# Since our test suite also notices performance issues via the bullet gem
+# we need tests that specifically trigger n+1 issues.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,10 +22,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
 
 require 'spec_helper'
 

@@ -22,13 +22,19 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :transaction, :class => 'Transaction' do
+  factory :transaction, class: ['PreviewTransaction', 'FixedPriceTransaction', 'MultipleFixedPriceTransaction'].sample do
     article
 
-    factory :preview_transaction, :class => 'PreviewTransaction' do
+    factory :super_transaction, class: 'Transaction' do
+    end
+    factory :preview_transaction, class: 'PreviewTransaction' do
+    end
+    factory :single_transaction, class: 'FixedPriceTransaction' do
+    end
+    factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
     end
 
-    factory :sold_transaction do
+    factory :sold_transaction, class: 'FixedPriceTransaction' do
       buyer
       state 'sold'
     end
