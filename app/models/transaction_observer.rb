@@ -20,22 +20,12 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class FeedbackObserver < ActiveRecord::Observer
+class TransactionObserver < ActiveRecord::Observer
+  def after_update transaction
+    # Send an email to the seller
+    TransactionMailer.seller_notification(transaction).deliver
 
-  def after_save(feedback)
-    # Send the feedback
-    case feedback.variety
-      when "report_article" then
-        ArticleMailer.report_article( feedback.article, feedback.user, feedback.text ).deliver
-      when "send_feedback" then
-        feedback.subject.prepend("[Feedback] ")
-        FeedbackMailer.feedback_and_help( feedback, feedback.feedback_subject ).deliver
-
-      when "get_help" then
-        feedback.subject.prepend("[Hilfe] ")
-        FeedbackMailer.feedback_and_help( feedback, feedback.help_subject ).deliver
-    end
-
+    # Send a confirmation email to the buyer
+    TransactionMailer.buyer_notification(transaction).deliver
   end
-
 end

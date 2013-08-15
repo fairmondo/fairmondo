@@ -1,4 +1,4 @@
-# See http://rails-bestpractices.com/posts/19-use-observer
+# Responsible for buyer's confirmations and sales notifications.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,23 +19,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+class TransactionMailer < ActionMailer::Base
+  default from: $email_addresses['ArticleMailer']['default_from']
 
-class FeedbackObserver < ActiveRecord::Observer
+  def buyer_notification transaction
+    mail(to: transaction.buyer.email, subject: "You bought stuff")
+  end
 
-  def after_save(feedback)
-    # Send the feedback
-    case feedback.variety
-      when "report_article" then
-        ArticleMailer.report_article( feedback.article, feedback.user, feedback.text ).deliver
-      when "send_feedback" then
-        feedback.subject.prepend("[Feedback] ")
-        FeedbackMailer.feedback_and_help( feedback, feedback.feedback_subject ).deliver
-
-      when "get_help" then
-        feedback.subject.prepend("[Hilfe] ")
-        FeedbackMailer.feedback_and_help( feedback, feedback.help_subject ).deliver
-    end
-
+  def seller_notification transaction
+    mail(to: transaction.article_seller.email, subject: "You sold stuff")
   end
 
 end
