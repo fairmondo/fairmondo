@@ -126,6 +126,18 @@ FactoryGirl.define do
       seller { FactoryGirl.create :private_user }
     end
 
+    ## These might be helpful but tend to create double articles and users
+    # trait :with_single_transaction do
+    #   after(:create) do |a|
+    #     FactoryGirl.create :single_transaction, article: a
+    #   end
+    #   #association :transaction, factory: :single_transaction
+    # end
+
+    # trait :with_multiple_transaction do
+    #   #association :transaction, factory: :multiple_transaction
+    # end
+
     trait :simple_fair do
       fair true
       fair_kind :fair_seal

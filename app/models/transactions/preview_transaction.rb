@@ -21,8 +21,4 @@
 #
 class PreviewTransaction < Transaction
   extend STI
-
-  state_machine do
-    before_transition :buy, do: -> {raise "This article hasn't been activated and can't be sold"}
-  end
 end

@@ -40,7 +40,7 @@ describe Transaction do
   end
 
   describe "methods" do
-    let (:transaction) { FactoryGirl.create :transaction }
+    let (:transaction) { FactoryGirl.create :super_transaction }
 
     describe "that are public" do
 
