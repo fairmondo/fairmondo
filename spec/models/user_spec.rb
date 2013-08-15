@@ -70,12 +70,15 @@ describe User do
         it {should validate_presence_of :zip}
         it {should allow_value('12345').for :zip}
         it {should_not allow_value('a1b2c').for :zip}
+        it {should_not allow_value('123456').for :zip}
+        it {should_not allow_value('1234').for :zip}
       end
 
       describe "address validation" do
         it {should allow_value('Test Str. 1a').for :street}
         it {should_not allow_value('Test Str.').for :street}
       end
+
 
     end
   end

@@ -48,6 +48,12 @@ FactoryGirl.define do
 
     confirmed_at Time.now
 
+    bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
+    bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
+    bank_account_owner Faker::Name.name
+    bank_name Faker::Name.name
+    #paypal_account Faker::Internet.email
+
     factory :admin_user do
       admin       true
     end
@@ -64,15 +70,6 @@ FactoryGirl.define do
     factory :incomplete_user do
       country nil
     end
-  end
-
-  #Only for attribute generation
-  factory :nested_seller_update, class: PrivateUser do
-    bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
-    bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
-    bank_account_owner Faker::Name.name
-    bank_name Faker::Name.name
-    #paypal_account Faker::Internet.email
   end
 
 end

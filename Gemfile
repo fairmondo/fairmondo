@@ -72,6 +72,8 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 
+# KontoAPI checks bank data
+gem 'kontoapi-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
