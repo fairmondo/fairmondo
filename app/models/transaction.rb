@@ -40,6 +40,8 @@ class Transaction < ActiveRecord::Base
            :basic_price, :price, :vat, :vat_price, :price_without_vat,
            :total_price,
            to: :article, prefix: true
+  delegate :email, to: :buyer, prefix: true
+  delegate :email, to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
   #validates :message, allow_blank: true, on: :update
