@@ -56,7 +56,7 @@
     = f.inputs do
       .Accordion-step
         - if image.object.new_record?
-          = image.input :image
+          = image.input :image, :input_html =>  { :class => "Image-upload-extend-columns"}
         - else
           = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
           = image.input :_destroy, :as => :boolean , :label => false
