@@ -95,13 +95,10 @@ module Article::Attributes
                     :payment_cash,
                     :payment_paypal,
                     :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-                    :payment_invoice,
-                    :seller_attributes
+                    :payment_invoice
     auto_sanitize :payment_details
 
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
-
-    accepts_nested_attributes_for :seller , :update_only => true
 
     before_validation :set_sellers_nested_validations
 

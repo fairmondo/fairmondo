@@ -18,15 +18,20 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 begin
-
+  # Loading api.yml
   api = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'api.yml'))))
 
+  # recaptcha-api
   Recaptcha.configure do |config|
-
     config.public_key  = api['recaptcha']['public']
     config.private_key = api['recaptcha']['private']
-
   end
+
+  # konto-api
+  KontoAPI::api_key = api['kontoapi']['key']
+  KontoAPI::timeout = 10
+
+
 rescue
   puts 'api.yml not found'
 end
