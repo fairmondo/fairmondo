@@ -109,5 +109,5 @@ $(document).ready ->
   selected_categories_list.on "click", "li > a", ->
     $(this).parent().remove()
 
-  $("#new_article").submit ->
+  $(".js-category-add").submit ->
     append_selected_category()
