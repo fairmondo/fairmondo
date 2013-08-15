@@ -43,16 +43,7 @@ describe Transaction do
     let (:transaction) { FactoryGirl.create :transaction }
 
     describe "that are public" do
-      describe "#kind=" do
-        it "should raise an Error when a false type is set" do
-          expect { transaction.kind = "PrivateUser" }.to raise_exception SecurityError
-        end
 
-        it "should set the type when given a type that inherits from Transaction" do
-          transaction.should_receive(:type=)
-          transaction.kind = "PreviewTransaction"
-        end
-      end
       describe "#edit_params_valid?" do
         it "should return true with valid params" do
           r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "cash"}

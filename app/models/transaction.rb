@@ -83,14 +83,6 @@ class Transaction < ActiveRecord::Base
   end
   attr_reader :tos_accepted
 
-  # Transaction type is set via the "kind" attribute. Here we check wether the given value actually inherits from Transaction
-  # @api public
-  # @param type [String] subclass name
-  # @return [undefined]
-  def kind= type
-    raise SecurityError unless type.constantize < self.class
-    self.type = type
-  end
 
   # Edit can be called with GET params. If they are valid, it renders a different
   # view to show the final sales price. This method is called to validates if the

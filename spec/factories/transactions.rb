@@ -24,7 +24,6 @@
 FactoryGirl.define do
   factory :transaction, :class => 'Transaction' do
     article
-    kind "PreviewTransaction"
 
     factory :preview_transaction, :class => 'PreviewTransaction' do
     end
