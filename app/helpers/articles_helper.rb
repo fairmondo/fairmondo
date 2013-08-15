@@ -169,8 +169,14 @@ module ArticlesHelper
 
   def options_format_for type, method, css_classname
     if resource.send(type + "_" + method)
-      html ="<li class= "+ css_classname +" >"
-      html << t('formtastic.labels.article.'+ type +'_'+ method)+" "
+      html = "<li class= "+ css_classname +" >"
+
+      if method == "type1" || method == "type2"
+        html << resource.send(type + "_" + method + "_provider" ) + " "
+      else
+        html << t('formtastic.labels.article.'+ type +'_'+ method)+ " "
+      end
+
       attach_price = type + "_" + method+"_price"
 
       if resource.respond_to?(attach_price.to_sym)
