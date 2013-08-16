@@ -64,9 +64,9 @@
       %figure.Profile
         .Profile-container
           .Profile-name= @featured_article.profile_name
-        = link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
+        = link_to image_tag(@featured_article.seller.image_url(:profile), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
 
-      = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
+      = link_to image_tag(@featured_article.title_image_url(:profile), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
 
       = link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
       %p.Article-price.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
