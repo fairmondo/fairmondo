@@ -30,9 +30,8 @@ module Article::Attributes
     auto_sanitize :content, method: 'tiny_mce'
     auto_sanitize :title
 
+
     #title
-
-
 
     validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 65
@@ -44,6 +43,7 @@ module Article::Attributes
     validates_presence_of :condition_extra , if: :old?
     enumerize :condition, in: [:new, :old], predicates:  true
     enumerize :condition_extra, in: [:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken] # refs #225
+
 
     #money_rails and price
 
@@ -70,27 +70,27 @@ module Article::Attributes
 
 
     # =========== Transport =============
-    TRANSPORT_TYPES = [:pickup, :insured, :uninsured]
+    TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     #transport
     attr_accessible :default_transport, :transport_pickup,
-                    :transport_insured, :transport_insured_price_cents,
-                    :transport_insured_price, :transport_insured_provider,
-                    :transport_uninsured, :transport_uninsured_price_cents,
-                    :transport_uninsured_price, :transport_uninsured_provider,
+                    :transport_type1, :transport_type1_price_cents,
+                    :transport_type1_price, :transport_type1_provider,
+                    :transport_type2, :transport_type2_price_cents,
+                    :transport_type2_price, :transport_type2_provider,
                     :transport_details
 
-    auto_sanitize :transport_insured_provider, :transport_uninsured_provider, :transport_details
+    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
     enumerize :default_transport, in: TRANSPORT_TYPES
 
     validates_presence_of :default_transport
-    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
-    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+    validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
+    validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
 
-    monetize :transport_uninsured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-    monetize :transport_insured_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validate :default_transport_selected
 
@@ -114,6 +114,9 @@ module Article::Attributes
     monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validates :payment_details, :length => { :maximum => 2500 }
+
+    validate :bank_account_exists, :if => :payment_bank_transfer
+    validate :paypal_account_exists, :if => :payment_paypal
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
@@ -166,10 +169,10 @@ module Article::Attributes
     # @return [Money] The shipping price
     def transport_price transport_type = self.default_transport
       case transport_type
-      when "insured"
-        transport_insured_price
-      when "uninsured"
-        transport_uninsured_price
+      when "type1"
+        transport_type1_price
+      when "type2"
+        transport_type2_price
       else
         Money.new 0
       end
@@ -182,10 +185,10 @@ module Article::Attributes
     # @return [Money] The shipping provider
     def transport_provider transport_type = self.default_transport
       case transport_type
-      when "insured"
-        transport_insured_provider
-      when "uninsured"
-        transport_uninsured_provider
+      when "type1"
+        transport_type1_provider
+      when "type2"
+        transport_type2_provider
       else
         nil
       end
@@ -246,4 +249,15 @@ module Article::Attributes
 
 
 
+    def bank_account_exists
+      if !self.seller.bank_account_exists?
+        errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
+      end
+    end
+
+    def paypal_account_exists
+      if !self.seller.paypal_account_exists?
+        errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
+      end
+    end
 end

@@ -35,7 +35,7 @@ describe Transaction do
   end
 
   describe "enumerization" do
-    it { should enumerize(:selected_transport).in(:pickup, :insured, :uninsured) }
+    it { should enumerize(:selected_transport).in(:pickup, :type1, :type2) }
     it { should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice) }
   end
 
@@ -51,7 +51,7 @@ describe Transaction do
         end
 
         it "should return false with invalid transport" do
-          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "insured", "selected_payment" => "cash"}
+          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "type1", "selected_payment" => "cash"}
           r.should be_false
         end
 

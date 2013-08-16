@@ -58,7 +58,7 @@
     = f.inputs do
       .Accordion-step
         - if image.object.new_record?
-          = image.input :image
+          = image.input :image, :input_html =>  { :class => "Image-upload-extend-columns"}
         - else
           = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
           = image.input :_destroy, :as => :boolean , :label => false
@@ -72,14 +72,14 @@
         %label.label
           = t('article.labels.shipping_options')
       = f.input :transport_pickup, :as => :plain_check_box, :label => t("formtastic.labels.article.transport_pickup_extended")
-      = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_insured-checked', :class => "transport_insured" do
-        = f.input :transport_insured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.insured_provider') }
-        = f.input :transport_insured_price, :required => true
-      = f.input :transport_uninsured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_uninsured-checked', :class => "transport_uninsured" do
-        = f.input :transport_uninsured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.uninsured_provider') }
-        = f.input :transport_uninsured_price, :required => true
+      = f.input :transport_type1, :as => :plain_check_box, :js_toggle => true
+      = f.inputs :id => 'transport_type1-checked', :class => "transport_type1" do
+        = f.input :transport_type1_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type1_provider') }
+        = f.input :transport_type1_price, :required => true
+      = f.input :transport_type2, :as => :plain_check_box, :js_toggle => true
+      = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
+        = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
+        = f.input :transport_type2_price, :required => true
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step

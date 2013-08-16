@@ -85,12 +85,12 @@ de:
 
         transport_pickup: Selbstabholung
         transport_pickup_extended: Selbstabholung (Deine PLZ wird als Abholort übernommen)
-        transport_insured: Versichert
-        transport_insured_provider: Versandart
-        transport_insured_price: Versandkosten (€)
-        transport_uninsured: Unversichert
-        transport_uninsured_provider: Versandart
-        transport_uninsured_price: Versandkosten (€)
+        transport_type1: Versand
+        transport_type1_provider: Versandart
+        transport_type1_price: Versandkosten (€)
+        transport_type2: Alternativer Versand
+        transport_type2_provider: Versandart
+        transport_type2_price: Versandkosten (€)
         transport_method: "Versandmethode(n)"
 
         default_transport: "Bevorzugte Versandmethode"
