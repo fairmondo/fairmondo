@@ -72,6 +72,9 @@ describe User do
     it { should validate_presence_of :city }
 
     describe "zip code validation" do
+      before :each do
+        user.country = "Deutschland"
+      end
       it {should validate_presence_of :zip}
       it {should allow_value('12345').for :zip}
       it {should_not allow_value('a1b2c').for :zip}
@@ -119,6 +122,7 @@ describe User do
         FactoryGirl.create(:user).customer_nr.should eq "00000001"
       end
     end
+
 
   #    def update_image image
   #   if User.valid_attribute?('image', image)
