@@ -36,7 +36,7 @@ describe ArticlesHelper do
 
   describe "options_format_for (type, method, css_classname)" do
      before do
-      helper.stub(:resource).and_return FactoryGirl.create :article, :transport_uninsured => true, :transport_uninsured_price => 3, :transport_uninsured_provider => "test"
+      helper.stub(:resource).and_return FactoryGirl.create :article, :transport_type2 => true, :transport_type2_price => 3, :transport_type2_provider => "test"
      end
 
     it "should return 'kostenfrei'" do
@@ -44,7 +44,7 @@ describe ArticlesHelper do
     end
 
     it "should return 'zzgl.'" do
-      helper.options_format_for("transport","uninsured","").should match /zzgl. /
+      helper.options_format_for("transport","type2","").should match /zzgl. /
     end
 
   end

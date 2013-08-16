@@ -40,7 +40,7 @@
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
     = stylesheet_link_tag 'application'
 
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
     = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
@@ -117,6 +117,10 @@
                   %a.Btn.Feedback{:href=>new_feedback_path(:variety => :send_feedback)}
                     %i.icon-feedback
                     = t('common.text.feedback')
+                  %a.Btn.Feedback{href: '/anteile-zeichnen'}
+                    %i.icon-feedback
+                    = t('common.text.shares')
+
               %li
                 %a{:href => "/faq"}
                   = t('footer.faq')
