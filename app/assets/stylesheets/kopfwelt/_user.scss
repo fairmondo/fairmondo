@@ -21,6 +21,7 @@
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(2,4);
 		@include nth-omega(2n);
+		@include rem(margin-bottom, 38px);
 	}
 	@include at-breakpoint($layout-large) {
 		@include span-columns(1,2);
@@ -32,16 +33,39 @@
 // User-info box
 //
 .User--detail {
-	@include span-columns(4, 4);
 	padding-top: 3em;
 	@include rem(margin-bottom, 9px);
-	@include at-breakpoint($layout-small) {
-		@include span-columns(4,4);
-	}
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(2,4);
 	}
 }
+
+.User-announcement {
+
+  @include rem(margin-bottom, 9px);
+  @include at-breakpoint($layout-medium) {
+     padding-top: 3em;
+    @include span-columns(1 omega,4);
+  }
+}
+
+.User-announcement-inner {
+  @include rem(padding, 10px 20px);
+  padding-top: 1em;
+  text-align: center;
+  color: #3c3c3c;
+  border-radius: 8px;
+  background: #fff;
+
+}
+
+.User-announcement-title [class^="icon-"] {
+    display: block;
+    margin: 20px auto;
+    margin: 1.42857rem auto;
+  }
+
+
 .User-profile {
 	@include span-columns(4, 4);
 }
@@ -52,7 +76,7 @@
 }
 .User-secondary {
 	@include rem(font-size, 13px);
-	@include rem(margin-bottom, 76px);
+
 	.User-collection {
 		margin-top: 3em;
 	}
