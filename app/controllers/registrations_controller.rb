@@ -78,7 +78,7 @@ class RegistrationsController < Devise::RegistrationsController
   def after_update_path_for resource_or_scope
     user_path(resource_or_scope)
   end
- 
+
   def check_incomplete_profile! user
     user.wants_to_sell = true if params[:incomplete_profile]
   end
