@@ -194,4 +194,13 @@ module ArticlesHelper
       html.html_safe
     end
   end
+
+  def filter_class
+    if params[:controller] == "articles" && params[:action] == "index"
+      "is-active"
+    else
+      ""
+    end
+  end
+
 end
