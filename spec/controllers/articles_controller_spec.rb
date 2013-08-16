@@ -82,7 +82,7 @@ describe ArticlesController do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
             get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should == [@article, @hardware_article]
+            controller.instance_variable_get(:@articles).should == [@hardware_article,@article]
           end
 
           it "should chain both filters" do
