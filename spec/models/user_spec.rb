@@ -58,21 +58,23 @@ describe User do
   end
 
   context "on update" do
-    it {should validate_presence_of :forename}
-    it {should validate_presence_of :surname}
-    it {should validate_presence_of :country}
-    it {should validate_presence_of :street}
-    it {should validate_presence_of :city}
+    it { should validate_presence_of :forename }
+    it { should validate_presence_of :surname }
+  end
 
+  context "if user wants to sell" do
+    before :each do
+      user.wants_to_sell = true
+    end
+
+    it { should validate_presence_of :country }
+    it { should validate_presence_of :street }
+    it { should validate_presence_of :city }
 
     describe "zip code validation" do
-      let(:user) { FactoryGirl.create(:german_user) }
-
       it {should validate_presence_of :zip}
       it {should allow_value('12345').for :zip}
       it {should_not allow_value('a1b2c').for :zip}
-      it {should_not allow_value('123456').for :zip}
-      it {should_not allow_value('1234').for :zip}
     end
 
     describe "address validation" do
