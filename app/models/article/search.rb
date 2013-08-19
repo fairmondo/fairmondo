@@ -31,6 +31,7 @@ module Article::Search
       boolean :small_and_precious
       string :condition
       integer :category_ids, :references => Category, :multiple => true
+      time :created_at
     end
 
     # Indexing via Delayed Job Daemon
@@ -56,6 +57,7 @@ module Article::Search
       with :small_and_precious, true if self.small_and_precious
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
+      order_by(:created_at, :desc)
     end
   end
 end
