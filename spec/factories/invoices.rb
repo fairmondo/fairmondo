@@ -5,8 +5,8 @@ FactoryGirl.define do
     user_id 1
     created_at "2013-08-14 11:15:26"
     updated_at "2013-08-14 11:15:26"
-    due_date "2013-08-14 11:15:26"
-    state ""
+    due_date 14.days.from_now
+    state "open"
     paid false
     article_id 1
   end
