@@ -25,5 +25,7 @@ class ArticleObserver < ActiveRecord::Observer
      if article.category_proposal.present?
         ArticleMailer.category_proposal(article.category_proposal).deliver
      end
+     article.update_column(:title_image_thumb_path,article.title_image.image(:thumb))
   end
+
 end
