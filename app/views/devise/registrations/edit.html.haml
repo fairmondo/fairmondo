@@ -85,7 +85,7 @@
           %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          = f.input :title,:required => true,:as => :select, :collection => [t('common.title.woman'),t('common.title.man')]
+          = f.input :title, :as => :select, :collection => [t('common.title.woman'),t('common.title.man')]
           = f.input :forename,:required => true
           = f.input :surname,:required => true
           - if current_user.is_a?(LegalEntity)

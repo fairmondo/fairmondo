@@ -5,5 +5,5 @@
 -#    total_pages:   total number of pages
 -#    per_page:      number of items to fetch per page
 -#    remote:        data-remote
-%li.last
-  = link_to_unless current_page.last?, raw(t 'views.pagination.last'), url, {:remote => remote}
+%li.last{:class => "#{'active' if current_page.last?}"}
+  = link_to_unless current_page.last?, total_pages.to_s, url, {:remote => remote}
