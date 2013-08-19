@@ -116,7 +116,7 @@ module ArticlesHelper
         fields(:title)
       end
       without(article)
-      with :category_ids, Article::Categories.search_categories(article.categories)
+      with :category_ids, Article::Categories.specific_search_categories(article.categories)
       any_of do
         with :fair,true
         with :ecologic,true
@@ -187,7 +187,7 @@ module ArticlesHelper
       end
 
       if type == "transport" && method == "pickup"
-        html << ", PLZ: #{resource.seller.zip}"
+        html << ", <br/>PLZ: #{resource.seller.zip}"
       end
 
       html <<"</li>"

@@ -76,5 +76,14 @@ module Article::Categories
     ids
   end
 
+  # Only allow categories that are not "Other"
+  def self.specific_search_categories(categories)
+
+    ids = self.search_categories(categories)
+    other = Category.find_by_name("Sonstiges") #internationalize!
+    ids.map! { |id| id == other.id ? 0 : id} if other  #set the other category to 0 because solr throws exceptions if categories are empty
+    ids
+  end
+
 
 end
