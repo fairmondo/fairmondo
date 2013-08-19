@@ -134,6 +134,19 @@ describe Article do
         article.save
         article.errors[:payment_details].should == [I18n.t("article.form.errors.invalid_payment_option")]
       end
+
+      it "should throw an error if bank transfer is selected, but bank data is missing" do
+        article.seller.stub(:bank_account_exists?).and_return(false)
+        article.payment_bank_transfer = true
+        article.save
+        article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
+      end
+
+        it "should throw an error if paypal is selected, but bank data is missing" do
+        article.payment_paypal = true
+        article.save
+        article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
+      end
     end
   end
 
