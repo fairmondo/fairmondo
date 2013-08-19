@@ -38,9 +38,6 @@
       = @articles
       = t("common.text.inserted")
 
-  .Teaser.Teaser--video
-    = tinycms_content "start-video"
-
   .Teaser.Teaser--text.Teaser--welcome
     %h2.Teaser-title.Icon
       %i.icon-pionier--blue
@@ -48,6 +45,9 @@
     %p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
     %p Die Pionierphase ist gestartet! Du kannst jetzt zu den ersten gehören, die hier Artikel anbieten und so zum erfolgreichen Start beitragen.
     = link_to "Pionier*in werden", new_user_registration_path, class: "Btn Btn--blue"
+
+  .Teaser.Teaser--video
+    = tinycms_content "start-video"
 
   .Teaser.Teaser--text
     %h2.Teaser-title.Icon
