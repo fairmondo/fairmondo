@@ -60,24 +60,15 @@ describe User do
   context "on update" do
     it { should validate_presence_of :forename }
     it { should validate_presence_of :surname }
-  end
-
-  context "if user wants to sell" do
-    before :each do
-      user.wants_to_sell = true
-    end
-
-    it { should validate_presence_of :country }
-    it { should validate_presence_of :street }
-    it { should validate_presence_of :city }
 
     describe "zip code validation" do
       before :each do
         user.country = "Deutschland"
       end
-      it {should validate_presence_of :zip}
       it {should allow_value('12345').for :zip}
       it {should_not allow_value('a1b2c').for :zip}
+      it {should_not allow_value('123456').for :zip}
+      it {should_not allow_value('1234').for :zip}
     end
 
     describe "address validation" do
@@ -86,9 +77,16 @@ describe User do
     end
   end
 
-  # validates :zip, :presence => true, :on => :update, :zip => true
-  # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  # validates_attachment_size :image, :in => 0..5.megabytes
+  context "if user wants to sell" do
+    before :each do
+      user.wants_to_sell = true
+    end
+
+    it {should validate_presence_of :zip}
+    it { should validate_presence_of :country }
+    it { should validate_presence_of :street }
+    it { should validate_presence_of :city }
+  end
 
   describe "methods" do
     describe "#fullname" do
@@ -120,6 +118,24 @@ describe User do
 
       it "should use the user_id" do
         FactoryGirl.create(:user).customer_nr.should eq "00000001"
+      end
+    end
+
+    describe "paypal_account_exists?" do
+      it "should be true if user has paypal account" do
+        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_true
+      end
+      it "should be false if user does not have paypal account" do
+        user.paypal_account_exists?.should be_false
+      end
+    end
+
+    describe "bank_account_exists?" do
+      it "should be true if user has bank account" do
+        user.bank_account_exists?.should be_true
+      end
+      it "should be false if user does not have bank account" do
+        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_false
       end
     end
 
