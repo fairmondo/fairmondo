@@ -19,13 +19,13 @@
 
 .l-Feedback {
 	&:hover {
-		@include rem(right, -118px);
+		@include rem(right, -190px);
 	}
 	@include at-breakpoint(30em) {
 		display: inline-block;
 		position: fixed;
 		top: 50%;
-		@include rem(right, -122px);
+		@include rem(right, -193px);
 		z-index: 99;
 		@include transform(rotate(-90deg));
 		@include transition(right 100ms ease-in);
@@ -51,5 +51,11 @@
 				display: inline-block;
 			}
 		}
+	}
+	&.Btn--green{
+	  @include at-breakpoint(30em) {
+	    background-color: $green;
+	  }
+
 	}
 }

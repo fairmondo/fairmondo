@@ -38,6 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find current_user.id
+    check_incomplete_profile! @user
     @user.valid?
     super
   end
@@ -46,16 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-    successfully_updated  = false
-    if needs_password?(resource, params)
-      successfully_updated = resource.update_with_password(account_update_params)
-
-    else
-      # remove the virtual current_password attribute update_without_password
-      # doesn't know how to ignore it
-      params[:user].delete(:current_password)
-      successfully_updated = resource.update_without_password(account_update_params)
-    end
+    successfully_updated  = update_account(account_update_params)
 
     if successfully_updated
       if is_navigational_format?
@@ -87,6 +79,21 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for resource_or_scope
     user_path(resource_or_scope)
+  end
+
+  def check_incomplete_profile! user
+    user.wants_to_sell = true if params[:incomplete_profile]
+  end
+
+  def update_account account_update_params
+    if needs_password?(resource, params)
+     resource.update_with_password(account_update_params)
+    else
+      # remove the virtual current_password attribute update_without_password
+      # doesn't know how to ignore it
+      params[:user].delete(:current_password)
+      resource.update_without_password(account_update_params)
+    end
   end
 
 end

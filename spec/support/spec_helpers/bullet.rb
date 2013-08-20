@@ -39,6 +39,7 @@ after_suite do
     else
       puts bullet_warnings.yellow
       puts "Performance issues exist.".red.underline
+      $suite_failing = true
     end
   end
 end

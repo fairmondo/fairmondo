@@ -58,8 +58,8 @@ de:
         tuev_eco_kreis: TÜV ECO-Kreis
       default_transport: &transport
         pickup: Selbstabholung
-        insured: Versichert
-        uninsured: Unversichert
+        type1: Versand
+        type2: Alternativer Versand
       basic_price_amount:
         kilogram: 1 Kilogramm
         gram: 100 Gramm

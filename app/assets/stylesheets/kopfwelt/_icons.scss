@@ -92,6 +92,10 @@ $icon: sprite-map("icon/*.png");
 	cursor: pointer;
 }
 
+.icon-get-share {
+  height: icon-sprite-height(get-share);
+  width: icon-sprite-width(get-share);
+}
 
 // Profil page icons
 // -----------------------------------

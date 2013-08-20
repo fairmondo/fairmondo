@@ -29,6 +29,10 @@ describe 'Transaction' do
   let(:seller) { transaction.article.seller }
   let(:user) { FactoryGirl.create :user }
 
+  def pay_on_pickup_attrs
+    { transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"} }
+  end
+
   describe "#edit" do
 
     context "for a logged-in user" do
@@ -64,6 +68,21 @@ describe 'Transaction' do
           page.should have_content user.zip
           page.should have_content user.city
           page.should have_content user.country
+
+          # Should have optional message field
+          page.should have_content I18n.t('formtastic.labels.transaction.message')
+        end
+
+        it "should show a quantity field for MultipleFixedPriceTransactions" do
+          pending "Not yet implemented."
+        end
+
+        it "shouldn't show a quantity field for other transactions" do
+          pending "Not yet implemented."
+        end
+
+        it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
+          pending "Not yet implemented."
         end
 
         it "should lead to step 2" do
@@ -121,39 +140,111 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
-          # it "should submit the data successfully with accepted AGB" do
-          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          it "should submit the data successfully with accepted AGB" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-          #   check 'transaction_tos_accepted'
-          #   click_button I18n.t 'transaction.actions.purchase'
+            check 'transaction_tos_accepted'
+            click_button I18n.t 'transaction.actions.purchase'
 
-          #   current_path.should eq transaction_path transaction
-          # end
+            current_path.should eq transaction_path transaction
+          end
 
-          # it "should not submit the data successfully without accepted AGB" do
-          #   visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          it "should not submit the data successfully without accepted AGB" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
-          #   click_button I18n.t 'transaction.actions.purchase'
+            click_button I18n.t 'transaction.actions.purchase'
 
-          #   page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-          #   # page.should have_content #Alert -> Implement once those exist again
-          # end
+            page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
+            page.should have_content I18n.t 'activerecord.attributes.transaction.tos_accepted'
+          end
+
+          context "when testing the effects of the purchase" do
+            context "for FixedPriceTransactions" do
+              let (:transaction) { FactoryGirl.create :single_transaction }
+              it "should set the states of article and transaction" do
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+
+                transaction.should be_available
+                transaction.article.should be_active
+
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                transaction.reload.should be_sold
+                transaction.article.should be_closed
+              end
+
+              describe "on search", search: true do
+                it "should remove the article from the search result list" do
+                  transaction = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, title: 'foobar')
+                  Sunspot.commit
+
+                  visit articles_path
+                  page.should have_link 'foobar'
+
+                  visit edit_transaction_path transaction, pay_on_pickup_attrs
+                  check 'transaction_tos_accepted'
+                  click_button I18n.t 'transaction.actions.purchase'
+
+                  visit articles_path
+                  page.should_not have_link 'foobar'
+                end
+              end
+
+              it "should show an error page when article was already sold to someone else in the meantime" do
+                pending "Not yet implemented."
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+
+                transaction.sell
+
+                click_button I18n.t 'transaction.actions.purchase'
+                page.should have_content 'Bereits verkauft.'
+              end
+            end
+
+            context "for MultipleFixedPriceTransactions" do
+              it "should reduce the number of items by one or more (depending on user choice)" do
+                pending "Not yet implemented."
+              end
+            end
+
+            context "for all transactions" do
+              it "should send an email to the buyer" do
+                transaction = FactoryGirl.create :single_transaction
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                ActionMailer::Base.deliveries.last.encoded.should include("Erfolgreich gekauft... Zahlungsdaten und so")
+              end
+
+              it "should send a email to the seller" do
+                transaction = FactoryGirl.create :single_transaction
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                ActionMailer::Base.deliveries[-2].encoded.should include("Artikel verkauft... Artikeldaten, Adressdaten und so")
+              end
+            end
+          end
 
           context "when testing the displayed total price" do
             context "without cash_on_delivery" do
-              it "should show the correct price for insured transports" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
+              it "should show the correct price for type1 transports" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
 
-                visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
+                visit edit_transaction_path t, transaction: {"selected_transport" => "type1", "selected_payment" => "cash"}
 
                 page.should_not have_content I18n.t 'transaction.edit.payment_cash_on_delivery_price' # could be put in a separate test
                 page.should have_content '1.010,99'
               end
 
-              it "should show the correct price for uninsured transports" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_uninsured: true, transport_uninsured_price: 5.99, transport_uninsured_provider: 'DHL')
+              it "should show the correct price for type2 transports" do
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'DHL')
 
-                visit edit_transaction_path t, transaction: {"selected_transport" => "uninsured", "selected_payment" => "cash"}
+                visit edit_transaction_path t, transaction: {"selected_transport" => "type2", "selected_payment" => "cash"}
 
                 page.should have_content '1.005,99'
               end
@@ -169,9 +260,9 @@ describe 'Transaction' do
 
             context "with cash_on_delivery" do
               it "should display the increased price" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_cash_on_delivery: true, payment_cash_on_delivery_price: 7.77, price: 1000, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'DHL')
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_cash_on_delivery: true, payment_cash_on_delivery_price: 7.77, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
 
-                visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash_on_delivery"}
+                visit edit_transaction_path t, transaction: {"selected_transport" => "type1", "selected_payment" => "cash_on_delivery"}
 
                 page.should have_content I18n.t('transaction.edit.payment_cash_on_delivery_price')
                 page.should have_content '7,77'
@@ -198,19 +289,19 @@ describe 'Transaction' do
           end
 
           context "when testing the displayed purchase data" do
-            it "should show the correct shipping provider for insured transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_insured: true, transport_insured_price: 10.99, transport_insured_provider: 'Foobar')
+            it "should show the correct shipping provider for type1 transports" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'Foobar')
 
-              visit edit_transaction_path t, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
+              visit edit_transaction_path t, transaction: {"selected_transport" => "type1", "selected_payment" => "cash"}
 
               page.should have_content I18n.t('transaction.edit.transport_provider')
               page.should have_content 'Foobar'
             end
 
-            it "should show the correct shipping provider for uninsured transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_uninsured: true, transport_uninsured_price: 5.99, transport_uninsured_provider: 'Bazfuz')
+            it "should show the correct shipping provider for type2 transports" do
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'Bazfuz')
 
-              visit edit_transaction_path t, transaction: {"selected_transport" => "uninsured", "selected_payment" => "cash"}
+              visit edit_transaction_path t, transaction: {"selected_transport" => "type2", "selected_payment" => "cash"}
 
               page.should have_content I18n.t('transaction.edit.transport_provider')
               page.should have_content 'Bazfuz'
@@ -226,7 +317,7 @@ describe 'Transaction' do
 
         context "given invalid data" do
           it "should not render with an unsupported transport type" do
-            visit edit_transaction_path transaction, transaction: {"selected_transport" => "insured", "selected_payment" => "cash"}
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "type1", "selected_payment" => "cash"}
 
             page.should_not have_button I18n.t 'transaction.actions.purchase'
             page.should have_content I18n.t 'transaction.notices.transport_not_supported'
@@ -254,22 +345,42 @@ describe 'Transaction' do
     context "for a logged-in user" do
       context "when the transaction is sold" do
         let (:transaction) { FactoryGirl.create :sold_transaction }
+        let (:buyer)       { transaction.buyer }
 
         context "and the user is the buyer" do
-          it "should not redirect" do
-            login_as transaction.buyer
+          before do
+            login_as buyer
             visit transaction_path transaction
+          end
+
+          it "should not redirect" do
             current_path.should eq transaction_path transaction
+          end
+
+          it "should show the correct data and fields" do
+            pending "Not yet implemented."
+            page.should have_content "Alles moegliche"
           end
         end
 
         context "but the current user isn't the one who bought" do
-
+          it "shouldn't be accessible" do
+            pending "Not yet implemented."
+            login_as user
+            visit transaction_path transaction
+            current_path.should_not eq transaction_path transaction
+            page.should have_content "What are you trying to do there buddy?"
+          end
         end
       end
 
       context "when the transaction is not sold" do
-
+        it "should redirect to the edit page" do
+          pending "Not yet implemented."
+          login_as user
+          visit transaction_path transaction
+          current_path.should eq edit_transaction_path transaction
+        end
       end
     end
 

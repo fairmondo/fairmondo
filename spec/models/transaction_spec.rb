@@ -35,24 +35,15 @@ describe Transaction do
   end
 
   describe "enumerization" do
-    it { should enumerize(:selected_transport).in(:pickup, :insured, :uninsured) }
+    it { should enumerize(:selected_transport).in(:pickup, :type1, :type2) }
     it { should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice) }
   end
 
   describe "methods" do
-    let (:transaction) { FactoryGirl.create :transaction }
+    let (:transaction) { FactoryGirl.create :super_transaction }
 
     describe "that are public" do
-      describe "#kind=" do
-        it "should raise an Error when a false type is set" do
-          expect { transaction.kind = "PrivateUser" }.to raise_exception SecurityError
-        end
 
-        it "should set the type when given a type that inherits from Transaction" do
-          transaction.should_receive(:type=)
-          transaction.kind = "PreviewTransaction"
-        end
-      end
       describe "#edit_params_valid?" do
         it "should return true with valid params" do
           r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "cash"}
@@ -60,7 +51,7 @@ describe Transaction do
         end
 
         it "should return false with invalid transport" do
-          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "insured", "selected_payment" => "cash"}
+          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "type1", "selected_payment" => "cash"}
           r.should be_false
         end
 

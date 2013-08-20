@@ -1,4 +1,4 @@
-#
+# See http://rails-bestpractices.com/posts/19-use-observer
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,13 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-# See http://rails-bestpractices.com/posts/19-use-observer
 
 class ArticleObserver < ActiveRecord::Observer
   def after_save(article)
-     # Send a Category Proposal
-     if article.category_proposal.present?
-        ArticleMailer.category_proposal(article.category_proposal).deliver
-     end
+    # Send a Category Proposal
+    if article.category_proposal.present?
+      ArticleMailer.category_proposal(article.category_proposal).deliver
+    end
   end
 end

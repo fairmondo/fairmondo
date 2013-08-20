@@ -38,14 +38,14 @@ class Article < ActiveRecord::Base
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
 
   # Relations
-  validates_presence_of :transaction, :unless => :template?
   belongs_to :transaction, :dependent => :destroy
   accepts_nested_attributes_for :transaction
 
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
-  belongs_to :seller, :class_name => 'User', :foreign_key => 'user_id'
+  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id'
   validates_presence_of :user_id
 
   belongs_to :article_template
@@ -55,7 +55,7 @@ class Article < ActiveRecord::Base
   # Misc mixins
   extend Sanitization
    # Article module concerns
-  include Categories, Commendation, FeesAndDonations, Images, Initial, Attributes, Search, Template, State, Scopes
+  include Categories, Commendation, FeesAndDonations, Images, BuildTransaction, Attributes, Search, Template, State, Scopes
 
   def images_attributes=(attributes)
     self.images.clear
@@ -74,25 +74,6 @@ class Article < ActiveRecord::Base
     end
   end
 
-
-  # We have to do this in the article class because we want to
-  # override the dynamic Rails method to get rid of the RecordNotFound
-  # http://stackoverflow.com/questions/9864501/recordnotfound-with-accepts-nested-attributes-for-and-belongs-to
-  def seller_attributes=(seller_attrs)
-    if seller_attrs.has_key?(:id)
-      self.seller = User.find(seller_attrs.delete(:id))
-      rejected = seller_attrs.reject { |k,v| valid_seller_attributes.include?(k) }
-      if rejected != nil && !rejected.empty? # Docs say reject! will return nil for no change but returns empty array
-        raise SecurityError
-      end
-      self.seller.attributes = seller_attrs
-    end
-  end
-
-   # The allowed attributes for updating user/seller in article form
-  def valid_seller_attributes
-    ["bank_code", "bank_account_number", "bank_account_owner" ,"paypal_account", "bank_name" ]
-  end
 
   amoeba do
     enable
@@ -125,8 +106,9 @@ class Article < ActiveRecord::Base
     if self.seller.type == "PrivateUser"
       self.seller.nickname
     else
-      "#{self.seller.company_name}, #{self.seller.city}"
+      "#{self.seller.nickname}, #{self.seller.city}"
     end
   end
+
 
 end

@@ -21,14 +21,16 @@
 #
 class Transaction < ActiveRecord::Base
   extend Enumerize
+  extend Sanitization
 
   has_one :article
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
-  attr_accessible :selected_transport, :selected_payment, :tos_accepted
+  attr_accessible :selected_transport, :selected_payment, :tos_accepted, :message
   extend AccessibleForAdmins
   attr_protected :buyer_id, :state
 
-  #@todo remove duplication with data in Article::Attributes
+  auto_sanitize :message
+
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 
@@ -37,8 +39,11 @@ class Transaction < ActiveRecord::Base
            :basic_price, :price, :vat, :vat_price, :price_without_vat,
            :total_price,
            to: :article, prefix: true
+  delegate :email, to: :buyer, prefix: true
+  delegate :email, to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  #validates :message, allow_blank: true, on: :update
 
   state_machine initial: :available do
 
@@ -83,14 +88,6 @@ class Transaction < ActiveRecord::Base
   end
   attr_reader :tos_accepted
 
-  # Transaction type is set via the "kind" attribute. Here we check wether the given value actually inherits from Transaction
-  # @api public
-  # @param type [String] subclass name
-  # @return [undefined]
-  def kind= type
-    raise SecurityError unless type.constantize < self.class
-    self.type = type
-  end
 
   # Edit can be called with GET params. If they are valid, it renders a different
   # view to show the final sales price. This method is called to validates if the
@@ -124,28 +121,28 @@ class Transaction < ActiveRecord::Base
   end
 
   private
-  # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
-  #
-  # @api private
-  # @param attribute [String] ATM: payment or transport
-  # @param type [String] The type to check
-  # @return [Boolean]
-  def supports? attribute, type
-    if self.article.send "#{attribute}_#{type}?"
-      true
-    else
-      errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
-      false
+    # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
+    #
+    # @api private
+    # @param attribute [String] ATM: payment or transport
+    # @param type [String] The type to check
+    # @return [Boolean]
+    def supports? attribute, type
+      if self.article.send "#{attribute}_#{type}?"
+        true
+      else
+        errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
+        false
+      end
     end
-  end
 
-  # Get attribute options that were selected on transaction's article
-  #
-  # @api private
-  # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
-  # @return [Array] Array in 2 levels with enum option name and it's localization
-  def selected attribute
-    selectables = send("article_selectable_#{attribute}s")
-    Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
-  end
+    # Get attribute options that were selected on transaction's article
+    #
+    # @api private
+    # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
+    # @return [Array] Array in 2 levels with enum option name and it's localization
+    def selected attribute
+      selectables = send("article_selectable_#{attribute}s")
+      Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+    end
 end

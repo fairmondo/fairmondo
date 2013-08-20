@@ -40,6 +40,11 @@ Fairnopoly::Application.routes.draw do
     get 'confirm' , constraints: {format: 'js'}
   end
 
+  namespace :bank_details do
+    get 'check', constraints: {format: 'json'}
+    get 'get_bank_name', constraints: {format: 'json'}
+  end
+
   resources :articles do
     member do
       get 'report'

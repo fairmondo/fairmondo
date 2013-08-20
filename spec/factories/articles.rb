@@ -114,17 +114,29 @@ FactoryGirl.define do
 
 
     trait :with_all_transports do
-      transport_insured true
-      transport_uninsured true
-      transport_insured_price 20
-      transport_uninsured_price 10
-      transport_insured_provider 'DHL'
-      transport_uninsured_provider 'Hermes'
+      transport_type1 true
+      transport_type2 true
+      transport_type1_price 20
+      transport_type2_price 10
+      transport_type1_provider 'DHL'
+      transport_type2_provider 'Hermes'
     end
 
     trait :with_private_user do
       seller { FactoryGirl.create :private_user }
     end
+
+    ## These might be helpful but tend to create double articles and users
+    # trait :with_single_transaction do
+    #   after(:create) do |a|
+    #     FactoryGirl.create :single_transaction, article: a
+    #   end
+    #   #association :transaction, factory: :single_transaction
+    # end
+
+    # trait :with_multiple_transaction do
+    #   #association :transaction, factory: :multiple_transaction
+    # end
 
     trait :simple_fair do
       fair true
