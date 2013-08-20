@@ -132,85 +132,97 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
+  # The field 'quantity_sold' isn't accessible directly and should only be increased after sales with this function
+  # @api public
+  # @param number [Integer]
+  # @return [Integer, Booldean] Total quantity_sold if successful, else Boolean false
+  def increase_quantity_sold_by number
+    total_sold_number = self.quantity_sold + number
+    if total_sold_number > self.quantity
+      false
+    else
+      self.quantity_sold = total_sold_number
+    end
+  end
 
   # Gives the price of the article minus taxes
-    #
-    # @api public
-    # @return [Money]
-    def price_without_vat
-      self.price * ( 100 - self.vat ) / 100
-    end
+  #
+  # @api public
+  # @return [Money]
+  def price_without_vat
+    self.price * ( 100 - self.vat ) / 100
+  end
 
-    # Gives the amount of money for an article that goes towards taxes
-    #
-    # @api public
-    # @return [Money]
-    def vat_price
-      self.price * self.vat / 100
-    end
+  # Gives the amount of money for an article that goes towards taxes
+  #
+  # @api public
+  # @return [Money]
+  def vat_price
+    self.price * self.vat / 100
+  end
 
-    # Function to calculate total price for an article.
-    # Note: Params should have already been validated.
-    #
-    # @api public
-    # @param selected_transport [String] Transport type
-    # @param selected_payment [String] Payment type
-    # @return [Money] Total billed price
-    def total_price selected_transport, selected_payment
-      total = self.price + self.transport_price(selected_transport)
-      total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-      total
-    end
+  # Function to calculate total price for an article.
+  # Note: Params should have already been validated.
+  #
+  # @api public
+  # @param selected_transport [String] Transport type
+  # @param selected_payment [String] Payment type
+  # @return [Money] Total billed price
+  def total_price selected_transport, selected_payment
+    total = self.price + self.transport_price(selected_transport)
+    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+    total
+  end
 
-    # Gives the shipping cost for a specified transport type
-    #
-    # @api public
-    # @param transport_type [String] The transport type to look up
-    # @return [Money] The shipping price
-    def transport_price transport_type = self.default_transport
-      case transport_type
-      when "type1"
-        transport_type1_price
-      when "type2"
-        transport_type2_price
-      else
-        Money.new 0
-      end
+  # Gives the shipping cost for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping price
+  def transport_price transport_type = self.default_transport
+    case transport_type
+    when "type1"
+      transport_type1_price
+    when "type2"
+      transport_type2_price
+    else
+      Money.new 0
     end
+  end
 
-    # Gives the shipping provider for a specified transport type
-    #
-    # @api public
-    # @param transport_type [String] The transport type to look up
-    # @return [Money] The shipping provider
-    def transport_provider transport_type = self.default_transport
-      case transport_type
-      when "type1"
-        transport_type1_provider
-      when "type2"
-        transport_type2_provider
-      else
-        nil
-      end
+  # Gives the shipping provider for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping provider
+  def transport_provider transport_type = self.default_transport
+    case transport_type
+    when "type1"
+      transport_type1_provider
+    when "type2"
+      transport_type2_provider
+    else
+      nil
     end
+  end
 
-    # Returns an array with all selected transport types.
-    # Default transport will be the first element.
-    #
-    # @api public
-    # @return [Array] An array with selected transport types.
-    def selectable_transports
-      selectable "transport"
-    end
+  # Returns an array with all selected transport types.
+  # Default transport will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected transport types.
+  def selectable_transports
+    selectable "transport"
+  end
 
-    # Returns an array with all selected payment types.
-    # Default payment will be the first element.
-    #
-    # @api public
-    # @return [Array] An array with selected payment types.
-    def selectable_payments
-      selectable "payment"
-    end
+  # Returns an array with all selected payment types.
+  # Default payment will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected payment types.
+  def selectable_payments
+    selectable "payment"
+  end
 
   private
 

@@ -25,6 +25,8 @@ describe ArticlesController do
   render_views
   include CategorySeedData
 
+  let (:user) { FactoryGirl.create(:user) }
+
   describe "GET 'index'" do
 
     describe "search", :search => true do
@@ -131,9 +133,8 @@ describe ArticlesController do
 
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
         @article = FactoryGirl.create :article
-        sign_in @user
+        sign_in user
       end
 
       it "should be successful" do
@@ -166,7 +167,6 @@ describe ArticlesController do
   describe "GET 'show" do
 
     before :each do
-      @user = FactoryGirl.create :user
       @article  = FactoryGirl.create :article
       @article_social_production = FactoryGirl.create :social_production
       @article_fair_trust = FactoryGirl.create :fair_trust
@@ -226,8 +226,7 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create :user
-        sign_in @user
+        sign_in user
       end
 
       it "should render the :new view" do
@@ -236,7 +235,7 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        @article = FactoryGirl.create :article, :without_image , :seller => @user
+        @article = FactoryGirl.create :article, :without_image , :seller => user
         get :new, :edit_as_new => @article.id
         response.should render_template :new
         @draftarticle= controller.instance_variable_get(:@article)
@@ -262,13 +261,12 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create :user
-        sign_in @user
+        sign_in user
       end
 
       context 'his articles' do
         before :each do
-          @article = FactoryGirl.create :preview_article, seller: @user
+          @article = FactoryGirl.create :preview_article, seller: user
 
 
         end
@@ -294,7 +292,6 @@ describe ArticlesController do
   describe "POST 'create'" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
       @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
       @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
     end
@@ -310,7 +307,7 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        sign_in @user
+        sign_in user
       end
 
       it "should create an article" do
@@ -332,12 +329,11 @@ describe ArticlesController do
   describe "PUT 'destroy'" do
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :preview_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
-        sign_in @user
+        sign_in user
       end
 
       it "should delete the preview article" do
@@ -361,12 +357,11 @@ describe ArticlesController do
   describe "PUT 'update'" do
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :preview_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
-        sign_in @user
+        sign_in user
       end
 
       it "should update the article with new information" do
@@ -404,9 +399,8 @@ describe ArticlesController do
 
   describe "GET 'activate'" do
     before do
-      @user = FactoryGirl.create :user
-      sign_in @user
-      @article = FactoryGirl.create :preview_article, seller: @user
+      sign_in user
+      @article = FactoryGirl.create :preview_article, seller: user
     end
 
     it "should work" do
@@ -427,9 +421,8 @@ describe ArticlesController do
 
   describe "GET 'deactivate'" do
     before do
-      @user = FactoryGirl.create :user
-      sign_in @user
-      @article = FactoryGirl.create :article, seller: @user
+      sign_in user
+      @article = FactoryGirl.create :article, seller: user
     end
 
     it "should work" do

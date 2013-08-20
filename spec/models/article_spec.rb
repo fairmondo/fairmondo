@@ -67,8 +67,14 @@ describe Article do
 
 
   describe "::BuildTransaction" do
-    it "should build a specific transaction" do
-       article.build_specific_transaction.should be_a PreviewTransaction
+    it "should build a FPT when article quantity is one" do
+      article.quantity = 1
+      article.build_specific_transaction.should be_a FixedPriceTransaction
+    end
+
+    it "should build a MFPT when article quantity is greater than one" do
+      article.quantity = 2
+      article.build_specific_transaction.should be_a MultipleFixedPriceTransaction
     end
   end
 

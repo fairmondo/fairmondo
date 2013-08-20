@@ -1,4 +1,4 @@
-#
+# Read about factories at https://github.com/thoughtbot/factory_girl
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,11 +19,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :transaction, class: ['PreviewTransaction', 'FixedPriceTransaction', 'MultipleFixedPriceTransaction'].sample do
-    article
+  factory :transaction, class: ['PreviewTransaction', 'FixedPriceTransaction'].sample do
+    article { FactoryGirl.create :article, :without_build_transaction }
 
     factory :super_transaction, class: 'Transaction' do
     end
@@ -32,6 +30,7 @@ FactoryGirl.define do
     factory :single_transaction, class: 'FixedPriceTransaction' do
     end
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
+      article { FactoryGirl.create :article, :without_build_transaction, :with_larger_quantity }
     end
 
     factory :sold_transaction, class: 'FixedPriceTransaction' do

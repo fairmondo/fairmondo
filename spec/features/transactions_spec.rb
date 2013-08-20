@@ -24,7 +24,7 @@ include Warden::Test::Helpers
 
 describe 'Transaction' do
 
-  let(:transaction) { FactoryGirl.create :transaction }
+  let(:transaction) { FactoryGirl.create :single_transaction }
   let(:article) { transaction.article }
   let(:seller) { transaction.article.seller }
   let(:user) { FactoryGirl.create :user }
@@ -74,11 +74,15 @@ describe 'Transaction' do
         end
 
         it "should show a quantity field for MultipleFixedPriceTransactions" do
-          pending "Not yet implemented."
+          visit edit_transaction_path FactoryGirl.create :multiple_transaction
+
+          page.should have_content I18n.t('formtastic.labels.transaction.quantity_bought')
         end
 
         it "shouldn't show a quantity field for other transactions" do
-          pending "Not yet implemented."
+          visit edit_transaction_path transaction
+
+          page.should_not have_content I18n.t('formtastic.labels.transaction.quantity_bought')
         end
 
         it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
