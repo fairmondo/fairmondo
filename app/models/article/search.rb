@@ -32,6 +32,10 @@ module Article::Search
       string :condition
       integer :category_ids, :references => Category, :multiple => true
       time :created_at
+      string :title_image_thumb_path, :stored => true
+      integer :price_cents, :stored => true
+      boolean :transport_pickup
+      string :zip
     end
 
     # Indexing via Delayed Job Daemon
@@ -42,6 +46,16 @@ module Article::Search
     alias_method_chain :remove_from_index, :delayed
     alias :solr_remove_from_index :remove_from_index
 
+    alias_method_chain :perform_index_tasks, :thumbnail
+
+
+  end
+
+  def perform_index_tasks_with_thumbnail
+    # Store the Title image path for indexing
+     self.update_column(:title_image_thumb_path,title_image.image(:thumb)) if title_image
+     # Do the indexing (solr)
+     perform_index_tasks_without_thumbnail
   end
 
   def remove_from_index_with_delayed
@@ -60,4 +74,10 @@ module Article::Search
       order_by(:created_at, :desc)
     end
   end
+
+  def zip
+    self.seller.zip
+  end
+
+
 end
