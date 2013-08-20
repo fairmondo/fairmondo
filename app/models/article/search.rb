@@ -26,14 +26,28 @@ module Article::Search
       text :title, :boost => 5.0, :stored => true
       text :title, :as => 'title_text_ngram', :stored => true
       text :content
+
+      # filters
       boolean :fair
       boolean :ecologic
       boolean :small_and_precious
       string :condition
+
+      # for category filters
       integer :category_ids, :references => Category, :multiple => true
+
+      # for sorting
       time :created_at
-      string :title_image_thumb_path, :stored => true
+
+      # don't hit AR and store fields in solr
+      string :title_image, :using => :title_image_thumb_path, :stored => true
       integer :price_cents, :stored => true
+      integer :basic_price_cents, :stored => true
+      integer :basic_price_amount, :stored => true
+      integer :vat, :stored => true
+
+      # Possible future local search
+
       boolean :transport_pickup
       string :zip
     end
@@ -51,11 +65,8 @@ module Article::Search
 
   end
 
-  def perform_index_tasks_with_thumbnail
-    # Store the Title image path for indexing
-     self.update_column(:title_image_thumb_path,title_image.image(:thumb)) if title_image
-     # Do the indexing (solr)
-     perform_index_tasks_without_thumbnail
+  def title_image_thumb_path
+     title_image.image(:thumb) if title_image
   end
 
   def remove_from_index_with_delayed
