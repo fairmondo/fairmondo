@@ -23,7 +23,6 @@ class PrivateUser < User
   extend STI
 
 
-
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_good_seller do
