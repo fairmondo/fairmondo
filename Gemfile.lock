@@ -165,6 +165,9 @@ GEM
       haml (>= 4.0.0.rc.1)
       hpricot (~> 0.8.6)
       ruby_parser (~> 3.1.1)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -198,6 +201,7 @@ GEM
       money (~> 5.1.0)
       railties (>= 3.0)
     multi_json (1.7.8)
+    multi_xml (0.5.5)
     nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -416,6 +420,7 @@ DEPENDENCIES
   friendly_id (>= 4.0.9)
   haml
   html2haml
+  httparty
   i18n-js!
   inherited_resources
   jquery-rails
