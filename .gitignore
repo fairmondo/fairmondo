@@ -73,4 +73,4 @@ Gemfile.local
 .ruby-version
 
 # compass sprites
-app/assets/images/icons-*.png
+app/assets/images/icon-*.png

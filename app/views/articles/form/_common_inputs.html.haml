@@ -58,7 +58,7 @@
     = f.inputs do
       .Accordion-step
         - if image.object.new_record?
-          = image.input :image
+          = image.input :image, :input_html =>  { :class => "Image-upload-extend-columns"}
         - else
           = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
           = image.input :_destroy, :as => :boolean , :label => false
@@ -72,14 +72,14 @@
         %label.label
           = t('article.labels.shipping_options')
       = f.input :transport_pickup, :as => :plain_check_box, :label => t("formtastic.labels.article.transport_pickup_extended")
-      = f.input :transport_insured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_insured-checked', :class => "transport_insured" do
-        = f.input :transport_insured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.insured_provider') }
-        = f.input :transport_insured_price, :required => true
-      = f.input :transport_uninsured, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'transport_uninsured-checked', :class => "transport_uninsured" do
-        = f.input :transport_uninsured_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.uninsured_provider') }
-        = f.input :transport_uninsured_price, :required => true
+      = f.input :transport_type1, :as => :plain_check_box, :js_toggle => true
+      = f.inputs :id => 'transport_type1-checked', :class => "transport_type1" do
+        = f.input :transport_type1_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type1_provider') }
+        = f.input :transport_type1_price, :required => true
+      = f.input :transport_type2, :as => :plain_check_box, :js_toggle => true
+      = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
+        = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
+        = f.input :transport_type2_price, :required => true
       = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
@@ -88,20 +88,22 @@
       %li.input
         %label.label
           = t('article.labels.payment_options')
-      = f.input :payment_bank_transfer, :as => :plain_check_box, :js_toggle => true
-      = f.inputs :id => 'payment_bank_transfer-checked', :class => "payment_bank_transfer" do
-        = f.semantic_fields_for :seller do |user|
-          = user.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
-          = user.input :bank_code, :required => true, :label => t('formtastic.labels.user.bank_code')
-          = user.input :bank_name, :required => true, :label => t('formtastic.labels.user.bank_name')
-          = user.input :bank_account_number, :required => true, :label => t('formtastic.labels.user.bank_account_number')
+      = f.input :payment_bank_transfer, :as => :plain_check_box, :tooltip => true, :js_toggle => true
+      - if current_user.bank_account_exists?
+        = f.inputs :id => 'payment_bank_transfer-checked', :class => "payment_bank_transfer" do
+          = f.semantic_fields_for :seller do |user|
+            = user.input :bank_account_owner, :required => true, :input_html => { :value => current_user.bank_account_owner, :disabled => true}, :label => t('formtastic.labels.user.bank_account_owner')
+            = user.input :bank_code, :required => true, :input_html => {:id => "bank_code", :value => current_user.bank_code, :disabled => true }, :label => t('formtastic.labels.user.bank_code')
+            = user.input :bank_name, :required => true, :input_html => {:id => "bank_name", :value => current_user.bank_name, :disabled => true }, :label => t('formtastic.labels.user.bank_name')
+            = user.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :value => current_user.bank_account_number, :disabled => true }, :label => t('formtastic.labels.user.bank_account_number')
 
       = f.input :payment_cash, :as => :plain_check_box
 
-      = f.input :payment_paypal, :as => :plain_check_box, :js_toggle => true
+      = f.input :payment_paypal, :as => :plain_check_box, :tooltip => true, :js_toggle => true
       = f.inputs :id => 'payment_paypal-checked', :class => "payment_paypal" do
         = f.semantic_fields_for :seller do |user|
-          = user.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
+          = user.input :paypal_account, :required => true, :input_html => { :value => current_user.paypal_account, :disabled => true}, :label => t('formtastic.labels.user.paypal_account')
+
       = f.input :payment_cash_on_delivery, :as => :plain_check_box, :js_toggle => true
 
       = f.inputs :id => 'payment_cash_on_delivery-checked', :class => "payment_cash_on_delivery" do
@@ -143,5 +145,3 @@
     -# f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}
     -# f.input :friendly_percent_organisation, :as => :select
 
-= f.semantic_fields_for :transaction do |transaction|
-  = transaction.input :kind, :as => :hidden, :input_html => { :value => "PreviewTransaction" }

@@ -1,4 +1,7 @@
+# This is kind of a special integration test group.
 #
+# Since our test suite also notices performance issues via the bullet gem
+# we need tests that specifically trigger n+1 issues.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,10 +22,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-### This is kind of a special integration test group.
-###
-### Since our test suite also noitces performance issues via the bullet gem
-### we need tests that specifically trigger n+1 issues.
 
 require 'spec_helper'
 
@@ -35,13 +34,29 @@ describe 'Performance' do
 
   describe "Article#index", search: true do
     before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
+      2.times { FactoryGirl.create(:article, :with_fixture_image) }
       Sunspot.commit
     end
-    it "should not throw bullet warnings" do
-      pending "Sometimes succeeds, sometimes fails"
+
+    it "should not show bullet warnings" do
       visit articles_path
       Bullet.should_not throw_warnings
     end
   end
+
+  describe "Article#show" do
+    before do
+      @seller = FactoryGirl.create(:user)
+      @library = FactoryGirl.create(:library, :user => @seller)
+      @art1 = FactoryGirl.create(:article, :with_fixture_image, :seller => @seller)
+      @art2 = FactoryGirl.create(:article, :with_fixture_image, :seller => @seller)
+      FactoryGirl.create(:library_element , :article => @art1 , :library => @library)
+    end
+    it "should not show bullet warnings" do
+      visit article_path(@art1)
+      Bullet.should_not throw_warnings
+    end
+
+  end
+
 end

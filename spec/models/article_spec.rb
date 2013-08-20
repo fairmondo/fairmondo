@@ -31,6 +31,7 @@ describe Article do
       it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
+      it {should have_many :buyer}
       it {should belong_to(:transaction).dependent(:destroy)}
     end
 
@@ -65,10 +66,9 @@ describe Article do
   end
 
 
-  describe "::Initial" do
-    it "should rescue MissingAttributeErrors" do
-      article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
-      expect { article.initialize_values }.not_to raise_error
+  describe "::BuildTransaction" do
+    it "should build a specific transaction" do
+       article.build_specific_transaction.should be_a PreviewTransaction
     end
   end
 
@@ -149,12 +149,12 @@ describe Article do
           article.transport_price.should eq Money.new 0
         end
 
-        it "should return an article's insured transport price" do
-          article.transport_price("insured").should eq Money.new 2000
+        it "should return an article's type1 transport price" do
+          article.transport_price("type1").should eq Money.new 2000
         end
 
-        it "should return an article's uninsured transport price" do
-          article.transport_price("uninsured").should eq Money.new 1000
+        it "should return an article's type2 transport price" do
+          article.transport_price("type2").should eq Money.new 1000
         end
 
         it "should return an article's pickup transport price" do
@@ -169,12 +169,12 @@ describe Article do
           article.transport_provider.should eq nil
         end
 
-        it "should return an article's insured transport provider" do
-          article.transport_provider("insured").should eq 'DHL'
+        it "should return an article's type1 transport provider" do
+          article.transport_provider("type1").should eq 'DHL'
         end
 
-        it "should return an article's uninsured transport provider" do
-          article.transport_provider("uninsured").should eq 'Hermes'
+        it "should return an article's type2 transport provider" do
+          article.transport_provider("type2").should eq 'Hermes'
         end
 
         it "should return an article's pickup transport provider" do
@@ -186,13 +186,13 @@ describe Article do
         let (:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return the correct price for cash_on_delivery payments" do
-          expected = article.price + article.transport_insured_price + article.payment_cash_on_delivery_price
-          article.total_price("insured", "cash_on_delivery").should eq expected
+          expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price
+          article.total_price("type1", "cash_on_delivery").should eq expected
         end
 
         it "should return the correct price for non-cash_on_delivery payments" do
-          expected = article.price + article.transport_uninsured_price
-          article.total_price("uninsured", "cash").should eq expected
+          expected = article.price + article.transport_type2_price
+          article.total_price("type2", "cash").should eq expected
         end
       end
 
@@ -228,8 +228,8 @@ describe Article do
         it "should return an array with selected transport options, the default being first" do
           output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
           output[0].should eq :pickup
-          output.should include :insured
-          output.should include :uninsured
+          output.should include :type1
+          output.should include :type2
         end
       end
     end

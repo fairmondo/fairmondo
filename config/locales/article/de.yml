@@ -17,10 +17,11 @@ de:
     deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>"
     vat: "Mehrwertsteuer"
     vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
+    included_short: "Inkl."
     transport:
       placeholders:
-        insured_provider: "z.B. DHL Paket"
-        uninsured_provider: "z.B. DHL Päckchen"
+        type1_provider: "z.B. DHL Paket"
+        type2_provider: "z.B. DHL Päckchen"
     show:
       friendly_percent: "Das faire Prozent"
       will_be: " werden an "
@@ -50,7 +51,9 @@ de:
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
-        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
+        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an."
+        paypal_details_missing: "Bitte gib deine PayPal-Daten im Profil ein."
+        bank_details_missing: "Bitte gib deine Bankdaten an."
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"

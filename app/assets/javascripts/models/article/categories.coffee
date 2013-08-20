@@ -9,11 +9,11 @@ changed_select_box = (event) ->
   selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
   unless selected_category_id is "-1" |selected_category_id is ""
     $.getJSON "/categories/" + selected_category_id, (data) ->
-      if data.children.length > 0 # only if we have any children in this category
+      if data.length > 0 # only if we have any children in this category
 
         # Build Select Box
         select_tag = "<select><option value=\"-1\"></option>" # Add empty option
-        $.each data.children, (index, child) ->
+        $.each data, (index, child) ->
           select_tag += "<option value=\"" + child.id + "\">" + child.name + "</option>"
 
         select_tag += "</select>"
@@ -47,7 +47,7 @@ get_selected_values = ->
 append_selected_category = ->
   selected_values = get_selected_values()
   selected_category_id = selected_values[selected_values.length - 1]
-  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[categories_and_ancestors][]\" value=\""+selected_category_id+"\"></input>")
+  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\""+$(selected_categories_input).data("object-name")+"[categories_and_ancestors][]\" value=\""+selected_category_id+"\"></input>")
 
 
 select_category = ->
@@ -109,5 +109,5 @@ $(document).ready ->
   selected_categories_list.on "click", "li > a", ->
     $(this).parent().remove()
 
-  $("#new_article").submit ->
+  $(".js-category-add").submit ->
     append_selected_category()
