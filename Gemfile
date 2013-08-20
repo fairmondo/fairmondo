@@ -72,8 +72,9 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 
-# Cron Jobs für Rechnungen
+# Gems used for invoices
 gem 'whenever'
+gem 'httparty'
 
 # Gems used only for assets and not required
 # in production environments by default.
