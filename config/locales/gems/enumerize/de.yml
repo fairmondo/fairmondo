@@ -3,8 +3,8 @@ de:
   enumerize:
     article:
       condition:
-        new: "Neu"
-        old: "Gebraucht"
+        new: "neu"
+        old: "gebraucht"
       condition_extra:
         as_good_as_new: "Neuwertig"
         as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
