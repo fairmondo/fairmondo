@@ -60,9 +60,6 @@ module Article::Search
     alias_method_chain :remove_from_index, :delayed
     alias :solr_remove_from_index :remove_from_index
 
-    alias_method_chain :perform_index_tasks, :thumbnail
-
-
   end
 
   def title_image_thumb_path
