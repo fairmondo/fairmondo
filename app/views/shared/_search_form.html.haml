@@ -41,7 +41,7 @@
           %legend.Filter-title
             Zustand
             %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
-          - ([["Egal"]] + Article.condition.options ).each do |option|
+          - ( Article.condition.options.reverse + [["egal"]]).each do |option|
             = f.label :condition , :value => option.last do
               = f.radio_button(:condition, option.last) + option.first
 
