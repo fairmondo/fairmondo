@@ -29,7 +29,10 @@ class UserObserver < ActiveRecord::Observer
   #handle_asynchronously :check_bank_details
 
   def check_bank_details(id, bank_account_number, bank_code)
+    begin
       user = User.find_by_id(id)
       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
+    rescue
+    end
   end
 end
