@@ -21,9 +21,17 @@
 #
 class FixedPriceTransaction < Transaction
   extend STI
+  attr_accessible :quantity_bought
 
   state_machine do
     after_transition on: :buy, do: :set_article_sold
+  end
+
+  #validates :quantity_bought, numericality: true, on: :update
+
+  # Allow quantity_bought field for this transaction type
+  def quantity_bought
+    read_attribute :quantity_bought
   end
 
   private

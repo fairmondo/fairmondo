@@ -22,6 +22,13 @@
 require 'spec_helper'
 
 describe Transaction do
+  describe "attributes" do
+    it { should respond_to 'selected_transport' }
+    it { should respond_to 'selected_payment' }
+    it { should respond_to 'tos_accepted' }
+    it { should respond_to 'message' }
+  end
+
   describe "associations" do
     it { should have_one :article }
     it { should belong_to :buyer  }
@@ -89,4 +96,94 @@ describe Transaction do
       end
     end
   end
+end
+
+describe MultipleFixedPriceTransaction do
+  let (:mfpt) { MultipleFixedPriceTransaction.new }
+
+  it "should have a valid factory" do
+    expect {
+      FactoryGirl.create :multiple_transaction
+    }.to change(Transaction, :count).by 1
+    t = Transaction.last
+    t.type.should eq "MultipleFixedPriceTransaction"
+    t.article.should be_an Article
+    t.article_quantity.should > 1
+  end
+  
+  describe "attributes" do
+    it { should respond_to 'quantity_available' }
+  end
+
+  describe "methods" do
+    describe "#handle_multiple_transaction" do
+
+      context "when quantity_bought is greater than the available quantity" do
+        it "should return false" do
+          #transaction = FactoryGirl.create :multiple_transaction
+          mfpt.quantity_available = 2
+          mfpt.quantity_bought = 3
+          mfpt.send(:handle_multiple_transaction, nil).should be_false
+        end
+      end
+
+      context "when quantity_bought is lower than the available quantity" do
+        before do
+          mfpt.quantity_available = 3
+          mfpt.quantity_bought = 2
+        end
+
+        it "should return false" do
+          FixedPriceTransaction.any_instance.stub(:save!)
+          FixedPriceTransaction.any_instance.stub(:buy)
+          mfpt.send(:handle_multiple_transaction, nil).should be_false
+        end
+
+        it "should create a new FixedPriceTransaction with the correct data" do
+          FixedPriceTransaction.any_instance.stub(:buy)
+          FixedPriceTransaction.any_instance.should_receive(:save!).and_return(true)
+          #...
+          mfpt.send(:handle_multiple_transaction, nil)
+        end
+
+        it "should trigger the buy event on the new FixedPriceTransaction" do
+          FixedPriceTransaction.any_instance.should_receive(:buy).and_return(true)
+          mfpt.send(:handle_multiple_transaction, nil)
+        end
+      end
+
+      context "when quantity_bought is equal to the available quantity" do
+        it "should return true" do
+          mfpt.quantity_available = mfpt.quantity_bought = 2
+          FixedPriceTransaction.any_instance.stub(:save!)
+          FixedPriceTransaction.any_instance.stub(:buy)
+          mfpt.send(:handle_multiple_transaction, nil).should be_true
+        end
+
+        # not repeating tests from "lower than". Other behavious should be similar.
+      end
+    end
+  end
+end
+
+describe FixedPriceTransaction do
+
+  it "should have a valid factory" do
+    expect {
+      FactoryGirl.create :single_transaction
+    }.to change(Transaction, :count).by 1
+    t = Transaction.last
+    t.type.should eq "FixedPriceTransaction"
+    t.article.should be_an Article
+    t.article_quantity.should eq 1
+  end
+
+  describe "attributes" do
+    it { should respond_to 'quantity_bought' }
+  end
+
+  # describe "validations" do
+  #   subject { FactoryGirl.create :single_transaction }
+  #   it { should validate_numericality_of 'quantity_bought' }
+  # end
 end
