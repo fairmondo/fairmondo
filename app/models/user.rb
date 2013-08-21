@@ -35,14 +35,15 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
+  user_attributes = [:email, :password, :password_confirmation, :remember_me,
       :nickname, :forename, :surname, :privacy, :legal, :agecheck,
       :invitor_id, :banned, :about_me, :image_attributes, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about, :bank_code, :paypal_account,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name]
 
-  extend AccessibleForAdmins
+  attr_accessible *user_attributes
+  attr_accessible *user_attributes, :as => :admin
 
   auto_sanitize :nickname, :forename, :surname, :street, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
@@ -52,8 +53,6 @@ class User < ActiveRecord::Base
   def self.attributes_protected_by_default
     ["id"] # default is ["id","type"]
   end
-
-
   attr_accessible :type
   attr_protected :admin
 
