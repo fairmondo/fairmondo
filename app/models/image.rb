@@ -27,7 +27,7 @@ class Image < ActiveRecord::Base
                             url: "/system/:attachment/:id_partition/:style/:filename",
                             path: "public/system/:attachment/:id_partition/:style/:filename"
 
-
+  default_scope order('created_at ASC')
 
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
