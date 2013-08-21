@@ -53,6 +53,7 @@ Fairnopoly::Application.routes.draw do
   end
 
   get "welcome/index"
+  get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
   resources :feedbacks, :only => [:create,:new]
 
