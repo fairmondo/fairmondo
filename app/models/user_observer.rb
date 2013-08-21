@@ -17,28 +17,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'spec_helper'
+# See http://rails-bestpractices.com/posts/19-use-observer
 
-include Warden::Test::Helpers
-
-describe 'Article Template management' do
-  include CategorySeedData
-
-  context "for signed-in users" do
-
-    before :each do
-      @user = FactoryGirl.create :user
-      login_as @user, scope: :user
-    end
-
-    describe "article template creation" do
-      it "has at least one correct label for the questionnaires" do
-        visit new_article_template_path
-        page.should have_content I18n.t 'formtastic.labels.fair_trust_questionnaire.support'
-      end
+class UserObserver < ActiveRecord::Observer
+  def before_save(user)
+    if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
+      check_bank_details( user.id, user.bank_account_number, user.bank_code )
     end
   end
 
+  #handle_asynchronously :check_bank_details
 
+  def check_bank_details(id, bank_account_number, bank_code)
+    begin
+      user = User.find_by_id(id)
+      user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
+    rescue
+    end
+  end
 end
-
