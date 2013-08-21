@@ -122,12 +122,8 @@ class Transaction < ActiveRecord::Base
 
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
-    def quantity_available
-      raise NoMethodError
-    end
-    def quantity_bought
-      raise NoMethodError
-    end
+    def quantity_available; raise NoMethodError; end
+    def quantity_bought; raise NoMethodError; end
 
   private
     # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
