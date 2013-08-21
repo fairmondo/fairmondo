@@ -6,8 +6,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.datetime :updated_at
       t.datetime :due_date
       t.string :state
-      t.boolean :paid
-      t.integer :article_id
 
       t.timestamps
     end
