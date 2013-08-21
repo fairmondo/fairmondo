@@ -1,4 +1,3 @@
-class Settings < RailsSettings::CachedSettings
+class Settings < RailsSettings::Settings
   attr_accessible :var
-  extend AccessibleForAdmins
 end
