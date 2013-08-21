@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index]
+  after_filter :verify_authorized_with_exceptions, :except => [:index,:feed]
 
   protect_from_forgery
 

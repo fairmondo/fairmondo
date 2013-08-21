@@ -164,7 +164,7 @@ describe Article do
     describe "methods" do
 
       describe "#transport_price" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return an article's default_transport's price" do
           article.transport_price.should eq Money.new 0
@@ -253,6 +253,7 @@ describe Article do
           output.should include :type2
         end
       end
+
     end
   end
 
