@@ -86,7 +86,7 @@ describe ArticlesController do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
             get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should == [@article, @hardware_article]
+            controller.instance_variable_get(:@articles).should =~ [@hardware_article,@article]
           end
 
           it "should chain both filters" do
@@ -103,7 +103,7 @@ describe ArticlesController do
 
             it "should find all articles with title 'muscheln' with empty condition and category filter" do
               get :index, article: {categories_and_ancestors: [], title: "muscheln"}
-              controller.instance_variable_get(:@articles).should == [@article, @hardware_article, @no_second_hand_article]
+              controller.instance_variable_get(:@articles).should =~ [ @no_second_hand_article,@hardware_article,@article]
             end
 
             it "should chain all filters" do
@@ -192,6 +192,14 @@ describe ArticlesController do
       it "should render the :show view" do
         get :show, id: @article
         response.should render_template :show
+      end
+
+      it "should render the :show view" do
+        @article.deactivate
+        @article.close
+        expect {
+        get :show, id: @article
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 

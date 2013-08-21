@@ -120,7 +120,27 @@ describe User do
         user.customer_nr.should eq "0000000#{user.id}"
       end
     end
+
+    describe "paypal_account_exists?" do
+      it "should be true if user has paypal account" do
+        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_true
+      end
+      it "should be false if user does not have paypal account" do
+        user.paypal_account_exists?.should be_false
+      end
+    end
+
+    describe "bank_account_exists?" do
+      it "should be true if user has bank account" do
+        user.bank_account_exists?.should be_true
+      end
+      it "should be false if user does not have bank account" do
+        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_false
+      end
+    end
+
   end
+
 
   describe "subclasses" do
     describe PrivateUser do
