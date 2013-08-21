@@ -191,6 +191,14 @@ describe ArticlesController do
         get :show, id: @article
         response.should render_template :show
       end
+
+      it "should render the :show view" do
+        @article.deactivate
+        @article.close
+        expect {
+        get :show, id: @article
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
 
     # describe "for signed-in users" do
