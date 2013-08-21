@@ -83,6 +83,15 @@ describe Transaction do
       end
     end
 
+    describe "that are protected" do
+      it "should generally not allow quantity_available" do
+        expect { transaction.quantity_available }.to raise_error(NoMethodError)
+      end
+      it "should generally not allow quantity_bought" do
+        expect { transaction.quantity_bought }.to raise_error(NoMethodError)
+      end
+    end
+
     describe "that are private" do
       describe "#selected" do
         it "should get the article's selectable attributes" do
@@ -167,6 +176,7 @@ describe MultipleFixedPriceTransaction do
 end
 
 describe FixedPriceTransaction do
+  let (:fpt) { FixedPriceTransaction.new }
 
   it "should have a valid factory" do
     expect {
@@ -180,6 +190,10 @@ describe FixedPriceTransaction do
 
   describe "attributes" do
     it { should respond_to 'quantity_bought' }
+    it "should read quantity_bought" do
+      fpt.quantity_bought = 3
+      fpt.quantity_bought.should eq 3
+    end
   end
 
   # describe "validations" do

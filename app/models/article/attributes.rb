@@ -132,19 +132,6 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
-  # The field 'quantity_sold' isn't accessible directly and should only be increased after sales with this function
-  # @api public
-  # @param number [Integer]
-  # @return [Integer, Booldean] Total quantity_sold if successful, else Boolean false
-  def increase_quantity_sold_by number
-    total_sold_number = self.quantity_sold + number
-    if total_sold_number > self.quantity
-      false
-    else
-      self.quantity_sold = total_sold_number
-    end
-  end
-
   # Gives the price of the article minus taxes
   #
   # @api public

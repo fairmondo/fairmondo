@@ -331,7 +331,6 @@ describe ArticlesController do
         @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
-        @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
         sign_in user
       end
 
