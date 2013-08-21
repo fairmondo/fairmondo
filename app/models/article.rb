@@ -50,7 +50,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
-  has_many :invoices
+  has_and_belongs_to_many :invoices
 
   # Misc mixins
   extend Sanitization
