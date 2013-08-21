@@ -19,8 +19,9 @@
 #
 class LibraryElement < ActiveRecord::Base
 
-  attr_accessible :article, :library, :library_id, :article_id
-  extend AccessibleForAdmins
+  library_element_attributes = [:article, :library, :library_id, :article_id]
+  attr_accessible *library_element_attributes
+  attr_accessible *library_element_attributes, :as => :admin
 
   delegate :name, :user_id , :to => :library , :prefix => true
   delegate :title, :to => :article, :prefix => true
