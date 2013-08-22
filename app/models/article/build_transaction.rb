@@ -23,12 +23,18 @@ module Article::BuildTransaction
   extend ActiveSupport::Concern
 
   included do
+    attr_accessor :skip_build_transaction # Can be set to true if a specific transaction is going to be provided. Used mainly for tests.
+
     before_create :build_specific_transaction, :unless => :template?
   end
 
   def build_specific_transaction
-    self.transaction = PreviewTransaction.create
+    unless self.skip_build_transaction # Is it possible to provide two :unless params for after_create? -KK
+      if self.quantity == 1
+        self.transaction = FixedPriceTransaction.create
+      else
+        self.transaction = MultipleFixedPriceTransaction.create
+      end
+    end
   end
-
-
 end

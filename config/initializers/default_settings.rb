@@ -1,3 +1,4 @@
+
 # For rails-settings-cached
 begin
   active_articles = Article.where(:state => :active)
