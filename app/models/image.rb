@@ -20,8 +20,9 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  attr_accessible :image, :is_title
-  extend AccessibleForAdmins
+  image_attributes = [:image, :is_title]
+  attr_accessible *image_attributes
+  attr_accessible *image_attributes, :as => :admin
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { medium: "520>x360>", thumb: "260x180#", profile: "300x300#" },
