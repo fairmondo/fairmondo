@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
     ["id"] # default is ["id","type"]
   end
   attr_accessible :type
+  attr_accessible :type, :as => :admin
   attr_protected :admin
 
 
