@@ -71,8 +71,8 @@ module Sanitization
           'img' => ['src', 'alt'],
           'iframe' => ['src', 'frameborder'],
           :all => admin_mode ?
-            ['width', 'height', 'data', 'name', 'id', 'class', 'style'] :
-            ['width', 'height', 'data', 'name']
+            ['width', 'height', 'data', 'name', 'id', 'class', 'style', 'data-truncate'] :
+            ['width', 'height', 'name']
         },
         protocols: {
           'a' => { 'href' => ['http', 'https', 'mailto', :relative] },

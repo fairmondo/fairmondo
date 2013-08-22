@@ -47,8 +47,12 @@ end
 
 setup_categories
 
-50.times do
+25.times do
   FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, :without_image)
+  # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
+end
+25.times do
+  FactoryGirl.create :multiple_transaction, article: FactoryGirl.create(:article, :without_image, :with_larger_quantity)
   # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
 end
 

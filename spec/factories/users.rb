@@ -70,6 +70,15 @@ FactoryGirl.define do
     factory :incomplete_user do
       country nil
     end
+
+    trait :no_bank_data do
+      bank_code ""
+      bank_account_number ""
+    end
+
+    trait :paypal_data do
+      paypal_account Faker::Internet.email
+    end
   end
 
 end

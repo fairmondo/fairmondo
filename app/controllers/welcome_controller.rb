@@ -21,13 +21,22 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => :index
+  skip_before_filter :authenticate_user!, :only => [:index,:feed]
 
   def index
     begin
       @featured_article = Article.active.featured
     rescue ActiveRecord::RecordNotFound
       @featured_article = nil
+    end
+  end
+
+  # Rss Feed
+  def feed
+    @articles = Article.active.limit(20)
+
+    respond_to do |format|
+      format.rss { render :layout => false } #index.rss.builder
     end
   end
 

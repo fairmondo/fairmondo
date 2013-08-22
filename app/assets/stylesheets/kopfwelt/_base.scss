@@ -9,6 +9,8 @@ html {
 	font-family: $font-body;
 	color: #000;
 }
+input, textarea, select,button{font-family:inherit;}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -23,7 +25,6 @@ h4,
 h5,
 h6,
 p,
-ol,
 ol,
 dl {
 	margin-top: auto;

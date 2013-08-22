@@ -67,8 +67,14 @@ describe Article do
 
 
   describe "::BuildTransaction" do
-    it "should build a specific transaction" do
-       article.build_specific_transaction.should be_a PreviewTransaction
+    it "should build a FPT when article quantity is one" do
+      article.quantity = 1
+      article.build_specific_transaction.should be_a FixedPriceTransaction
+    end
+
+    it "should build a MFPT when article quantity is greater than one" do
+      article.quantity = 2
+      article.build_specific_transaction.should be_a MultipleFixedPriceTransaction
     end
   end
 
@@ -158,7 +164,7 @@ describe Article do
     describe "methods" do
 
       describe "#transport_price" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return an article's default_transport's price" do
           article.transport_price.should eq Money.new 0
@@ -247,6 +253,7 @@ describe Article do
           output.should include :type2
         end
       end
+
     end
   end
 

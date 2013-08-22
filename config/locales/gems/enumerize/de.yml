@@ -3,15 +3,15 @@ de:
   enumerize:
     article:
       condition:
-        new: "Neu"
-        old: "Gebraucht"
+        new: "neu"
+        old: "gebraucht"
       condition_extra:
-        as_good_as_new: "Neuwertig"
-        as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
-        used_very_good: "Gebraucht / sehr gut"
-        used_good: "Gebraucht / gut"
-        used_satisfying: "Gebraucht / zufriedenstellend"
-        broken:  "Defekt / Schwere Mängel"
+        as_good_as_new: "neuwertig"
+        as_good_as_warranted: "neuwertig mit Garantie oder Gewährleistung"
+        used_very_good: "gebraucht / sehr gut"
+        used_good: "gebraucht / gut"
+        used_satisfying: "gebraucht / zufriedenstellend"
+        broken:  "defekt / schwere Mängel"
       fair_kind:
         fair_seal: Mit Siegel oder anerkannter Handelspartner
         fair_trust: fairtrust

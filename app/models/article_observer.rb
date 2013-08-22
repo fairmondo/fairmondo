@@ -27,4 +27,5 @@ class ArticleObserver < ActiveRecord::Observer
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
   end
+
 end

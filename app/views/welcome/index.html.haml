@@ -40,9 +40,6 @@
       = @articles
       = t("common.text.inserted")
 
-  .Teaser.Teaser--video
-    = tinycms_content "start-video"
-
   .Teaser.Teaser--text.Teaser--welcome
     %h2.Teaser-title.Icon
       %i.icon-pionier--blue
@@ -51,14 +48,8 @@
     %p Die Pionierphase ist gestartet! Du kannst jetzt zu den ersten gehören, die hier Artikel anbieten und so zum erfolgreichen Start beitragen.
     = link_to "Pionier*in werden", new_user_registration_path, class: "Btn Btn--blue"
 
-  .Teaser.Teaser--text
-    %h2.Teaser-title.Icon
-      %i.icon-interrogation--green
-      Was ist Fairnopoly?
-    %p Fairnopoly ist ein neuer Online-Marktplatz mit einem fairen Unternehmensmodell. Auf dem Marktplatz kann grundsätzlich alles angeboten werden, was legal ist. Gebrauchte und als "fair" ausgezeichnete Produkte werden dabei besonders gefördert.
-    %a.Btn.Btn--blue{href: "about_us"}
-      %i.icon-index-arrow--draw
-      Mehr erfahren
+  .Teaser.Teaser--video
+    = tinycms_content "start-video"
 
   - if @featured_article
     .Teaser.Teaser--pioneer
@@ -66,7 +57,7 @@
       %figure.Profile
         .Profile-container
           .Profile-name= @featured_article.profile_name
-        = link_to image_tag(@featured_article.seller.image_url(:thumb), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
+        = link_to image_tag(@featured_article.seller.image_url(:profile), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
 
       = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
 
@@ -78,10 +69,11 @@
     .Teaser.Teaser--pioneer
       %h2.Teaser-title Pionier des Tages
       %figure.Profile
-        .Profile-name Felix Weth, Berlin
+        .Profile-container
+          .Profile-name Felix Weth, Berlin
         =image_tag "dummy/avatar.png", class: "Profile-avatar"
       =image_tag "dummy/dummy-245.png", class: "Teaser--pioneer-image"
-      %a{href: "#", class: "Teaser--pioneer-1"} Kreidetier
+      Kreidetier
       %p.Teaser--pioneer-2 12 €*
       %span.Teaser--pioneer-3 inkl. 19% MwSt
       %span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
@@ -92,4 +84,13 @@
     .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
+
+  .Teaser.Teaser--text
+    %h2.Teaser-title.Icon
+      %i.icon-interrogation--green
+      Was ist Fairnopoly?
+    %p Fairnopoly ist ein neuer Online-Marktplatz mit einem fairen Unternehmensmodell. Auf dem Marktplatz kann grundsätzlich alles angeboten werden, was legal ist. Gebrauchte und als "fair" ausgezeichnete Produkte werden dabei besonders gefördert.
+    %a.Btn.Btn--blue{href: "about_us"}
+      %i.icon-index-arrow--draw
+      Mehr erfahren
 
