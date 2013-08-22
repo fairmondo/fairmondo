@@ -1,5 +1,6 @@
-class TransactionObserver < ActiveRecrd::Observer
-	def after_update(transaction)
-		puts "Hallo, ich wurde geupdatet!"
+class TransactionObserver < ActiveRecord::Observer
+	def after_buy(transaction, transition)
+		Invoice.invoice_action_chain(transaction)
+		puts "#{transition}"
 	end
 end
