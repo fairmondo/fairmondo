@@ -25,6 +25,8 @@ describe ArticlesController do
   render_views
   include CategorySeedData
 
+  let (:user) { FactoryGirl.create(:user) }
+
   describe "GET 'index'" do
 
     describe "search", :search => true do
@@ -84,7 +86,7 @@ describe ArticlesController do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
             get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should == [@article, @hardware_article]
+            controller.instance_variable_get(:@articles).should =~ [@hardware_article,@article]
           end
 
           it "should chain both filters" do
@@ -101,7 +103,7 @@ describe ArticlesController do
 
             it "should find all articles with title 'muscheln' with empty condition and category filter" do
               get :index, article: {categories_and_ancestors: [], title: "muscheln"}
-              controller.instance_variable_get(:@articles).should == [@article, @hardware_article, @no_second_hand_article]
+              controller.instance_variable_get(:@articles).should =~ [ @no_second_hand_article,@hardware_article,@article]
             end
 
             it "should chain all filters" do
@@ -131,9 +133,8 @@ describe ArticlesController do
 
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
         @article = FactoryGirl.create :article
-        sign_in @user
+        sign_in user
       end
 
       it "should be successful" do
@@ -166,7 +167,6 @@ describe ArticlesController do
   describe "GET 'show" do
 
     before :each do
-      @user = FactoryGirl.create :user
       @article  = FactoryGirl.create :article
       @article_social_production = FactoryGirl.create :social_production
       @article_fair_trust = FactoryGirl.create :fair_trust
@@ -192,6 +192,14 @@ describe ArticlesController do
       it "should render the :show view" do
         get :show, id: @article
         response.should render_template :show
+      end
+
+      it "should render the :show view" do
+        @article.deactivate
+        @article.close
+        expect {
+        get :show, id: @article
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -226,8 +234,7 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create :user
-        sign_in @user
+        sign_in user
       end
 
       it "should render the :new view" do
@@ -236,7 +243,7 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        @article = FactoryGirl.create :article, :without_image , :seller => @user
+        @article = FactoryGirl.create :article, :without_image , :seller => user
         get :new, :edit_as_new => @article.id
         response.should render_template :new
         @draftarticle= controller.instance_variable_get(:@article)
@@ -262,13 +269,12 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        @user = FactoryGirl.create :user
-        sign_in @user
+        sign_in user
       end
 
       context 'his articles' do
         before :each do
-          @article = FactoryGirl.create :preview_article, seller: @user
+          @article = FactoryGirl.create :preview_article, seller: user
 
 
         end
@@ -294,9 +300,7 @@ describe ArticlesController do
   describe "POST 'create'" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
-      @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
-      @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
+      @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category).id]
     end
 
     describe "for non-signed-in users" do
@@ -310,7 +314,7 @@ describe ArticlesController do
     describe "for signed-in users" do
 
       before :each do
-        sign_in @user
+        sign_in user
       end
 
       it "should create an article" do
@@ -332,12 +336,10 @@ describe ArticlesController do
   describe "PUT 'destroy'" do
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :preview_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
-        @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
-        sign_in @user
+        sign_in user
       end
 
       it "should delete the preview article" do
@@ -361,12 +363,10 @@ describe ArticlesController do
   describe "PUT 'update'" do
     describe "for signed-in users" do
       before :each do
-        @user = FactoryGirl.create :user
-        @article = FactoryGirl.create :preview_article, seller: @user
+        @article = FactoryGirl.create :preview_article, seller: user
         @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
-        @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
-        sign_in @user
+        sign_in user
       end
 
       it "should update the article with new information" do
@@ -404,9 +404,8 @@ describe ArticlesController do
 
   describe "GET 'activate'" do
     before do
-      @user = FactoryGirl.create :user
-      sign_in @user
-      @article = FactoryGirl.create :preview_article, seller: @user
+      sign_in user
+      @article = FactoryGirl.create :preview_article, seller: user
     end
 
     it "should work" do
@@ -427,9 +426,8 @@ describe ArticlesController do
 
   describe "GET 'deactivate'" do
     before do
-      @user = FactoryGirl.create :user
-      sign_in @user
-      @article = FactoryGirl.create :article, seller: @user
+      sign_in user
+      @article = FactoryGirl.create :article, seller: user
     end
 
     it "should work" do

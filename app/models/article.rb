@@ -23,7 +23,6 @@ class Article < ActiveRecord::Base
   extend Enumerize
 
   attr_accessible
-  extend AccessibleForAdmins
 
   # Friendly_id for beautiful links
   extend FriendlyId

@@ -50,32 +50,48 @@ describe ArticlesHelper do
   end
 
   describe "#fair_alternative_to", search: true do
-     before do
-       @normal_article =  FactoryGirl.create :article ,:category1, :title => "weisse schockolade"
-       @other_normal_article = FactoryGirl.create :article,:category2 , :title => "schwarze schockolade aber anders"
-       @not_related_article = FactoryGirl.create :article,:category1 , :title => "schuhcreme"
-       @fair_article = FactoryGirl.create :article, :simple_fair ,:category1 , :title => "schwarze fairtrade schockolade"
+     context "find fair alternative" do
+       before do
+         @normal_article =  FactoryGirl.create :article ,:category1, :title => "weisse schockolade"
+         @other_normal_article = FactoryGirl.create :article,:category2 , :title => "schwarze schockolade aber anders"
+         @not_related_article = FactoryGirl.create :article,:category1 , :title => "schuhcreme"
+         @fair_article = FactoryGirl.create :article, :simple_fair ,:category1 , :title => "schwarze fairtrade schockolade"
 
-       Sunspot.commit
-     end
-
-     it "should find a fair alternative in with the similar title and category" do
-        (helper.find_fair_alternative_to @normal_article).should eq @fair_article
-     end
-
-      it "should not find a fair alternative with a similar title and an other category" do
-        (helper.find_fair_alternative_to @other_normal_article).should_not eq @fair_article
-     end
-
-     it "should prefer the same category over matches in the title" do
-        @other_fair_article = FactoryGirl.create :article, :simple_fair ,:category2 , :title => "weisse schockolade"
          Sunspot.commit
-        (helper.find_fair_alternative_to @other_normal_article).should eq @other_fair_article
+       end
+
+       it "should find a fair alternative in with the similar title and category" do
+          (helper.find_fair_alternative_to @normal_article).should eq @fair_article
+       end
+
+        it "should not find a fair alternative with a similar title and an other category" do
+          (helper.find_fair_alternative_to @other_normal_article).should_not eq @fair_article
+       end
+
+       it "should prefer the same category over matches in the title" do
+          @other_fair_article = FactoryGirl.create :article, :simple_fair ,:category2 , :title => "weisse schockolade"
+           Sunspot.commit
+          (helper.find_fair_alternative_to @other_normal_article).should eq @other_fair_article
+       end
+
+       it "should not find an unrelated article" do
+          (helper.find_fair_alternative_to @not_related_article).should eq nil
+       end
+     end
+     context "dont find fair alternative in categories with misc content" do
+      before do
+         @other_category  = FactoryGirl.create(:category,:name => "Sonstiges")
+         @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories_and_ancestors => [@other_category,FactoryGirl.create(:category)]
+         @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories_and_ancestors => [@other_category]
+
+         Sunspot.commit
+       end
+
+       it "sould not find the other article" do
+         (helper.find_fair_alternative_to @normal_article).should eq nil
+       end
      end
 
-     it "should not find an unrelated article" do
-        (helper.find_fair_alternative_to @not_related_article).should eq nil
-     end
 
   end
 
