@@ -1,10 +1,18 @@
 class Invoice < ActiveRecord::Base
-  attr_accessible :article_id, :created_at, :due_date, :state, :updated_at, :user_id
+  invoice_attributes =  [ :article_id,
+                          :created_at,
+                          :due_date,
+                          :state,
+                          :updated_at,
+                          :invoice_date,
+                          :user_id ]
+  attr_accessible *invoice_attributes
+  attr_accessible *invoice_attributes, :as => :admin
 
   belongs_to :user
   has_and_belongs_to_many :articles
 
-  #validates_presence_of :user_id, :created_at, :updated_at, :due_date, :state
+  validates_presence_of :user_id, :created_at, :updated_at, :due_date, :state
 
 
   # State machine for states of invoice
@@ -36,20 +44,18 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def self.invoice_action_chain(transaction)
-    @article = Article.find_by_transaction_id(transaction.id)
+  def self.invoice_action_chain( transaction )
+    extend InvoicesHelper
 
-    # if user has invoice do
-    #   add transaction_article to Invoice
-    # else
-    #   create new invoice with transaction_article
-    # end
+    @article  = Article.find_by_transaction_id( transaction.id )
+    @seller   = User.find_by_id( @article.user_id )
 
-    @invoice = Invoice.new  :user_id => @article.user_id,
-                            :due_date => 14.days.from_now
-    @invoice.save
-
-    puts "I did it!!!"
+    if has_open_invoice( @seller )
+      add_article_to_invoice ( @article )
+    else
+      create_new_invoice( @article, @seller )
+    end
   end
-  #handle_asynchronously :invoice_action_chain
+  # Funzt aus irgendeinem Grund nicht
+  # handle_asynchronously :invoice_action_chain
 end
