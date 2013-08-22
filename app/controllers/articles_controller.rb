@@ -59,6 +59,8 @@ class ArticlesController < InheritedResources::Base
     end
 
     show!
+  rescue Pundit::NotAuthorizedError
+    raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
   end
 
   def new

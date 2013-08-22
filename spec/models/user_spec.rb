@@ -59,19 +59,11 @@ describe User do
     context "on update" do
       it { should validate_presence_of :forename }
       it { should validate_presence_of :surname }
-    end
-
-    context "if user wants to sell" do
-      before :each do
-        user.wants_to_sell = true
-      end
-
-      it { should validate_presence_of :country }
-      it { should validate_presence_of :street }
-      it { should validate_presence_of :city }
 
       describe "zip code validation" do
-        it {should validate_presence_of :zip}
+        before :each do
+          user.country = "Deutschland"
+        end
         it {should allow_value('12345').for :zip}
         it {should_not allow_value('a1b2c').for :zip}
         it {should_not allow_value('123456').for :zip}
@@ -82,6 +74,17 @@ describe User do
         it {should allow_value('Test Str. 1a').for :street}
         it {should_not allow_value('Test Str.').for :street}
       end
+    end
+
+    context "if user wants to sell" do
+      before :each do
+        user.wants_to_sell = true
+      end
+
+      it {should validate_presence_of :zip}
+      it { should validate_presence_of :country }
+      it { should validate_presence_of :street }
+      it { should validate_presence_of :city }
     end
   end
 
@@ -117,7 +120,27 @@ describe User do
         user.customer_nr.should eq "0000000#{user.id}"
       end
     end
+
+    describe "paypal_account_exists?" do
+      it "should be true if user has paypal account" do
+        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_true
+      end
+      it "should be false if user does not have paypal account" do
+        user.paypal_account_exists?.should be_false
+      end
+    end
+
+    describe "bank_account_exists?" do
+      it "should be true if user has bank account" do
+        user.bank_account_exists?.should be_true
+      end
+      it "should be false if user does not have bank account" do
+        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_false
+      end
+    end
+
   end
+
 
   describe "subclasses" do
     describe PrivateUser do

@@ -56,6 +56,7 @@ Fairnopoly::Application.routes.draw do
   resources :transactions, only: [:show, :edit, :update]
 
   get "welcome/index"
+  get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
   resources :feedbacks, :only => [:create,:new]
 

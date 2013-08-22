@@ -25,8 +25,10 @@ module Article::Attributes
   included do
 
     #common fields
+    common_attributes = [:title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes]
+    attr_accessible *common_attributes
+    attr_accessible *common_attributes, :as => :admin
 
-    attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
     auto_sanitize :content, method: 'tiny_mce'
     auto_sanitize :title
 
@@ -47,7 +49,9 @@ module Article::Attributes
 
     #money_rails and price
 
-    attr_accessible :price_cents , :currency, :price, :vat
+    money_attributes = [:price_cents , :currency, :price, :vat]
+    attr_accessible *money_attributes
+    attr_accessible *money_attributes, :as => :admin
 
     validates_presence_of :price_cents
     validates_numericality_of :price, greater_than_or_equal_to: 0
@@ -61,7 +65,9 @@ module Article::Attributes
 
 
     # basic price
-    attr_accessible :basic_price, :basic_price_cents, :basic_price_amount
+    basic_price_attributes = [:basic_price, :basic_price_cents, :basic_price_amount]
+    attr_accessible *basic_price_attributes
+    attr_accessible *basic_price_attributes, :as => :admin
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
@@ -73,12 +79,14 @@ module Article::Attributes
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     #transport
-    attr_accessible :default_transport, :transport_pickup,
+    transport_attributes = [:default_transport, :transport_pickup,
                     :transport_type1, :transport_type1_price_cents,
                     :transport_type1_price, :transport_type1_provider,
                     :transport_type2, :transport_type2_price_cents,
                     :transport_type2_price, :transport_type2_provider,
-                    :transport_details
+                    :transport_details]
+    attr_accessible *transport_attributes
+    attr_accessible *transport_attributes, :as => :admin
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
@@ -99,12 +107,15 @@ module Article::Attributes
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
-    attr_accessible :payment_details ,
+    payment_attributes = [:payment_details ,
                     :payment_bank_transfer,
                     :payment_cash,
                     :payment_paypal,
                     :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-                    :payment_invoice
+                    :payment_invoice]
+    attr_accessible *payment_attributes
+    attr_accessible *payment_attributes, :as => :admin
+
     auto_sanitize :payment_details
 
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
@@ -132,85 +143,84 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
-
   # Gives the price of the article minus taxes
-    #
-    # @api public
-    # @return [Money]
-    def price_without_vat
-      self.price * ( 100 - self.vat ) / 100
-    end
+  #
+  # @api public
+  # @return [Money]
+  def price_without_vat
+    self.price * ( 100 - self.vat ) / 100
+  end
 
-    # Gives the amount of money for an article that goes towards taxes
-    #
-    # @api public
-    # @return [Money]
-    def vat_price
-      self.price * self.vat / 100
-    end
+  # Gives the amount of money for an article that goes towards taxes
+  #
+  # @api public
+  # @return [Money]
+  def vat_price
+    self.price * self.vat / 100
+  end
 
-    # Function to calculate total price for an article.
-    # Note: Params should have already been validated.
-    #
-    # @api public
-    # @param selected_transport [String] Transport type
-    # @param selected_payment [String] Payment type
-    # @return [Money] Total billed price
-    def total_price selected_transport, selected_payment
-      total = self.price + self.transport_price(selected_transport)
-      total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-      total
-    end
+  # Function to calculate total price for an article.
+  # Note: Params should have already been validated.
+  #
+  # @api public
+  # @param selected_transport [String] Transport type
+  # @param selected_payment [String] Payment type
+  # @return [Money] Total billed price
+  def total_price selected_transport, selected_payment
+    total = self.price + self.transport_price(selected_transport)
+    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+    total
+  end
 
-    # Gives the shipping cost for a specified transport type
-    #
-    # @api public
-    # @param transport_type [String] The transport type to look up
-    # @return [Money] The shipping price
-    def transport_price transport_type = self.default_transport
-      case transport_type
-      when "type1"
-        transport_type1_price
-      when "type2"
-        transport_type2_price
-      else
-        Money.new 0
-      end
+  # Gives the shipping cost for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping price
+  def transport_price transport_type = self.default_transport
+    case transport_type
+    when "type1"
+      transport_type1_price
+    when "type2"
+      transport_type2_price
+    else
+      Money.new 0
     end
+  end
 
-    # Gives the shipping provider for a specified transport type
-    #
-    # @api public
-    # @param transport_type [String] The transport type to look up
-    # @return [Money] The shipping provider
-    def transport_provider transport_type = self.default_transport
-      case transport_type
-      when "type1"
-        transport_type1_provider
-      when "type2"
-        transport_type2_provider
-      else
-        nil
-      end
+  # Gives the shipping provider for a specified transport type
+  #
+  # @api public
+  # @param transport_type [String] The transport type to look up
+  # @return [Money] The shipping provider
+  def transport_provider transport_type = self.default_transport
+    case transport_type
+    when "type1"
+      transport_type1_provider
+    when "type2"
+      transport_type2_provider
+    else
+      nil
     end
+  end
 
-    # Returns an array with all selected transport types.
-    # Default transport will be the first element.
-    #
-    # @api public
-    # @return [Array] An array with selected transport types.
-    def selectable_transports
-      selectable "transport"
-    end
+  # Returns an array with all selected transport types.
+  # Default transport will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected transport types.
+  def selectable_transports
+    selectable "transport"
+  end
 
-    # Returns an array with all selected payment types.
-    # Default payment will be the first element.
-    #
-    # @api public
-    # @return [Array] An array with selected payment types.
-    def selectable_payments
-      selectable "payment"
-    end
+  # Returns an array with all selected payment types.
+  # Default payment will be the first element.
+  #
+  # @api public
+  # @return [Array] An array with selected payment types.
+  def selectable_payments
+    selectable "payment"
+  end
 
   private
 

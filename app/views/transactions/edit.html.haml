@@ -64,6 +64,8 @@
       = 'Sonstiges'
     %p
       = f.input :message
+      - if @transaction.is_a? MultipleFixedPriceTransaction
+        = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1 }
 
   = f.actions do
     = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}

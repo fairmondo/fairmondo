@@ -30,7 +30,7 @@ $.rails.confirmed = (link) ->
 
 $.rails.showConfirmDialog = (link) ->
   html = link.attr('data-confirm')
-  $('body').scrollTop(0);
+  window.scrollTo(0, 0);
   $.get "/toolbox/confirm.js", ((data) ->#
     htmlcontents = $(data)
     $('.Notice').append htmlcontents

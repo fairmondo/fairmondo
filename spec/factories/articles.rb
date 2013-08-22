@@ -31,7 +31,7 @@ FactoryGirl.define do
     condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
     vat {[0,7,19].sample}
-    quantity  { (rand(10) + 1) }
+    quantity 1
 
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
@@ -45,7 +45,6 @@ FactoryGirl.define do
     payment_details "payment_details"
     after(:build) do |article|
       article.images << FactoryGirl.build(:image)
-      article.transaction ||= FactoryGirl.build(:preview_transaction, article: article)
       article.activate
     end
 
@@ -156,5 +155,12 @@ FactoryGirl.define do
       small_and_precious_reason "a"*151
     end
 
+    trait :with_larger_quantity do
+      quantity { (rand(100)+2) }
+    end
+
+    trait :without_build_transaction do
+      skip_build_transaction true
+    end
   end
 end

@@ -19,13 +19,13 @@
 
 .l-Feedback {
 	&:hover {
-		@include rem(right, -190px);
+		@include rem(right, -193px);
 	}
 	@include at-breakpoint(30em) {
 		display: inline-block;
 		position: fixed;
 		top: 50%;
-		@include rem(right, -193px);
+		@include rem(right, -196px);
 		z-index: 99;
 		@include transform(rotate(-90deg));
 		@include transition(right 100ms ease-in);
