@@ -25,8 +25,11 @@ class Transaction < ActiveRecord::Base
 
   has_one :article
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
-  attr_accessible :selected_transport, :selected_payment, :tos_accepted, :message
-  extend AccessibleForAdmins
+
+  transaction_attributes = [:selected_transport, :selected_payment, :tos_accepted, :message, :type]
+  attr_accessible *transaction_attributes
+  attr_accessible *transaction_attributes, :as => :admin
+
   attr_protected :buyer_id, :state, :quantity_bought, :quantity_available
 
   auto_sanitize :message

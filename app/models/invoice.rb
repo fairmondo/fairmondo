@@ -36,7 +36,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def invoice_chain(transaction)
+  def self.invoice_action_chain(transaction)
     @article = Article.find_by_transaction_id(transaction.id)
 
     # if user has invoice do
@@ -48,6 +48,8 @@ class Invoice < ActiveRecord::Base
     @invoice = Invoice.new  :user_id => @article.user_id,
                             :due_date => 14.days.from_now
     @invoice.save
+
+    puts "I did it!!!"
   end
-  handle_asynchronously :invoice_chain
+  #handle_asynchronously :invoice_action_chain
 end
