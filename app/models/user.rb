@@ -235,18 +235,31 @@ class User < ActiveRecord::Base
     can_sell
   end
 
-
-  private
-
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+  ####################### Invoice stuff ###################
+  def has_open_invoice?
+    begin
+      Invoice.where( :user_id => self.id ).order( "created_at" ).last.open?
+    rescue
+      false
     end
   end
 
-  def wants_to_sell?
-    self.wants_to_sell
+  def self.has_paid_quarterly_fee?
+    self.quarterly_fee?
   end
+  ####################### Invoice stuff ###################
+
+  private
+
+    # @api private
+    def create_default_library
+      if self.libraries.empty?
+        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+      end
+    end
+
+    def wants_to_sell?
+      self.wants_to_sell
+    end
 
 end

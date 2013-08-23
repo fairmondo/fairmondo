@@ -4,18 +4,18 @@ class Invoice < ActiveRecord::Base
                           :due_date,
                           :state,
                           :updated_at,
-                          :invoice_date,
                           :user_id ]
   attr_accessible *invoice_attributes
   attr_accessible *invoice_attributes, :as => :admin
 
   belongs_to :user
-  has_and_belongs_to_many :articles
+  has_many :invoice_items
+  has_many :articles, :through => :invoice_items
 
-  validates_presence_of :user_id, :created_at, :updated_at, :due_date, :state
+  validates_presence_of :user_id, :due_date, :state
 
 
-  # State machine for states of invoice
+  ################ State machine for states of invoice ################
   state_machine :initial => :open do
   	state :open do
       # initial state for all new invoices
@@ -43,19 +43,46 @@ class Invoice < ActiveRecord::Base
       transition [ :open, :first_reminder, :second_reminder ] => :closed
     end
   end
+  ################ State machine for states of invoice ################
 
+  ################ Methods ################
   def self.invoice_action_chain( transaction )
-    extend InvoicesHelper
+    @seller = transaction.article.seller
 
-    @article  = Article.find_by_transaction_id( transaction.id )
-    @seller   = User.find_by_id( @article.user_id )
-
-    if has_open_invoice( @seller )
-      add_article_to_invoice ( @article )
+    if @seller.has_open_invoice?
+      invoice = Invoice.where( :user_id => @seller.id, :state => :open ).order( "created_at" ).last
+      add_article_to_open_invoice( transaction, invoice )
     else
-      create_new_invoice( @article, @seller )
+      create_new_invoice_and_add_item( transaction, @seller )
     end
   end
   # Funzt aus irgendeinem Grund nicht
   # handle_asynchronously :invoice_action_chain
+
+  def self.has_open_invoice( seller )
+
+    # end
+    false
+  end
+
+  def self.create_new_invoice_and_add_item( transaction, seller )
+    invoice = Invoice.create  :user_id => seller.id,
+                              :due_date => 1.month.from_now
+
+    add_item_to_open_invoice( transaction, invoice )
+  end
+
+  def self.add_item_to_open_invoice( transaction, invoice )
+    invoice_item = InvoiceItem.create   :article_id => transaction.article.id,
+                                        :invoice_id => invoice.id,
+                                        #:quantity => transaction.quantity_bought,
+                                        :price_cents => transaction.article.price_cents,
+                                        :calculated_fee_cents => transaction.article.calculated_fee_cents,
+                                        :calculated_fair_cents => transaction.article.calculated_fair_cents,
+                                        :calculated_friendly_cents => transaction.article.calculated_friendly_cents
+
+  end
+
+  def self.invoice_billable?
+  end
 end
