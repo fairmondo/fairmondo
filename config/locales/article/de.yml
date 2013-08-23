@@ -10,9 +10,14 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback zu dem Artikel"
-
+    export:
+      nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
+      all: "Alle Artikel als CSV Datei exportieren"
+      active: "Alle eingestellten Artikel als CSV Datei exportieren"
+      inactive: "Alle nicht eingestellten Artikel als CSV Datei exportieren"
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+    included_short: "Inkl."
     deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>"
     vat: "Mehrwertsteuer"
     vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
@@ -72,6 +77,7 @@ de:
     list:
       header: "Ergebnisse"
     notices:
+      mass_upload_create_html: "Die Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
@@ -108,6 +114,7 @@ de:
         friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
         total: "Gesamt bei Verkauf, inkl. 19% MwSt:"
+        total_all_articles: "Die gesamten Gebühren beim Verkauf aller Artikel inkl MwSt. belaufen sich auf:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
         netto: "Nettobetrag:"
 

@@ -104,5 +104,32 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.export_articles(user, params = nil)
+    if params == "active"
+      articles = user.articles.where(:state => "active")
+    elsif params == "preview"
+      articles = user.articles.where(:state => "preview")
+    else
+      articles = user.articles
+    end
 
+    header_row = ["title", "categories", "condition", "condition_extra",
+                  "content", "quantity", "price_cents", "basic_price_cents",
+                  "basic_price_amount","vat", "transport_pickup",
+                  "transport_insured", "transport_insured_provider",
+                  "transport_insured_price_cents", "transport_uninsured",
+                  "transport_uninsured_provider",
+                  "transport_uninsured_price_cents", "default_transport",
+                  "transport_details", "payment_bank_transfer", "payment_cash",
+                  "payment_paypal", "payment_cash_on_delivery",
+                  "payment_cash_on_delivery_price_cents", "payment_invoice",
+                  "payment_details", "currency"]
+
+    CSV.generate(:col_sep => ";") do |csv|
+      csv << header_row
+      articles.each do |article|
+        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..-1])
+      end
+    end
+  end
 end
