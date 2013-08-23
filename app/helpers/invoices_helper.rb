@@ -5,6 +5,7 @@ module InvoicesHelper
 	def has_open_invoice( seller )
 		# if seller
 		# end
+		false
 	end
 
 	def create_new_invoice( article, seller )
