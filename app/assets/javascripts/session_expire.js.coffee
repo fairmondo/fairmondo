@@ -37,4 +37,4 @@ trackMouseClicks = ->
 
 interval = window.setInterval checkIfExpired, (devise_expire/6) # every 10 min
 
-notify = window.setTimeout trackMouseClicks, ((devise_expire*4)/6) # every 50 min
+notify = window.setTimeout trackMouseClicks, ((devise_expire*4)/6) # every 40 min
