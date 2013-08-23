@@ -56,7 +56,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def report?
-    user && !own?
+    ((user && !own?) || !user)  && article.active?
   end
 
   private
