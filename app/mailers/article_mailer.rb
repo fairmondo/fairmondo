@@ -24,8 +24,8 @@ class ArticleMailer < ActionMailer::Base
     @text = text
     @article = article
     @user = user
-
-    mail(to: $email_addresses['ArticleMailer']['report'], from: user.email, subject: "Article reported with ID: #{article.id}")
+    mail = @user ? @user.email : "noreply@fairnopoly.de"
+    mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
   def category_proposal(category_proposal)
