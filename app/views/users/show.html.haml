@@ -32,6 +32,11 @@
         = paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
     = accordion_item "sold" do
       %strong= t('users.text.soon_sold')
+
+    - if current_user.type == "LegalEntity"
+      = render 'export_article_box'
+      = render 'import_article_box'
+
     = accordion_item "my_article_templates" do
       .private-links
         %ul.nav.nav-pills

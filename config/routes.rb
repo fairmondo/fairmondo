@@ -27,6 +27,10 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
+  resources :mass_uploads, :only => [:new, :create, :show, :update]
+
+  get 'exports/show'
+
   resources :contents do
     get :not_found, :on => :member #?
   end

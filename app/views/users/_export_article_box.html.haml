@@ -1,0 +1,12 @@
+= accordion_item "export" do
+  - if current_user.articles.empty?
+    = t('articles.export.nothing_available')
+  - else
+    .Accordion-step
+      = link_to t('articles.export.all'), exports_show_path(format: "csv"), :class => "Btn Btn--blue"
+    - unless current_user.articles.where(:state => "active").empty?
+      .Accordion-step
+        = link_to t('articles.export.active'), exports_show_path(kind_of_article: "active", format: "csv"), :class => "Btn Btn--blue"
+    - unless current_user.articles.where(:state => "preview").empty?
+      .Accordion-step
+        = link_to t('articles.export.inactive'), exports_show_path(kind_of_article: "preview", format: "csv"), :class => "Btn Btn--blue"

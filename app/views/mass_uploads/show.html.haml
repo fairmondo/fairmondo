@@ -1,0 +1,8 @@
+%h1
+  = t('mass_upload.titles.uploaded_articles')
+
+%ul
+  - @articles.each do |article|
+    = render "article_digest", :article => article
+
+= render "mass_activation", :articles => @articles

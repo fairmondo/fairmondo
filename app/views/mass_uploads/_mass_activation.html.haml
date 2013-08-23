@@ -1,0 +1,9 @@
+= t('article.preview.fees_and_donations.total_all_articles')
+= humanized_money_with_symbol(MassUpload.calculate_total_fees(articles))
+- if articles.all? { |article| article.state ==  "active" }
+  %a.Btn.Btn--red.Btn--redSmall
+    = t("mass_upload.labels.all_articles_activated")
+- else
+  %a= button_to t("mass_upload.labels.mass_activate_articles"),
+    mass_upload_path(params[:id]),
+    class: "Btn Btn--green Btn--greenSmall", :method => :put

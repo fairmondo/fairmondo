@@ -165,6 +165,8 @@ de:
         friendly_percent: "Das freundliche Prozent (optional)"
         double_check: "Artikel einstellen"
         upload_images: "Bilder hochladen"
+      mass_upload:
+        upload_csv: "Artikel per CSV-Datei importieren"
       template_select:
         prefix: ""
         apply: Deine Vorlagen
