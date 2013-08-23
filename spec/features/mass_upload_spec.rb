@@ -37,7 +37,7 @@ describe "Mass-upload" do
 
     before do
       login_as legal_entity_user
-      visit new_article_path
+      visit new_mass_upload_path
     end
 
     it "should have a csv upload link" do
