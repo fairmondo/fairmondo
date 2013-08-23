@@ -172,7 +172,6 @@ $(document).ready ->
     # used to be removeAttr, but this caused IE to crash
     native_category_input.attr "name", 'ignore'
 
-<<<<<<< HEAD
   if is_multiselect
     #Create the select category button
     select_button_html = "<a class='Btn' id='"+ select_button_html_id + "' title='" + I18n.t('javascript.common.actions.select_another_category') + "'>"+I18n.t("javascript.common.actions.add_category_picker")+"</a>"
@@ -197,5 +196,3 @@ $(document).ready ->
 
   $(".js-category-add").submit ->
     append_selected_category()
-=======
->>>>>>> release
