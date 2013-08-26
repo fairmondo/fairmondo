@@ -19,8 +19,6 @@
 -#
 - if resource.is? current_user
   .User-additional.Accordion--containsArticles.Accordion--activated
-    - if current_user.type == "LegalEntity"
-      = link_to t('articles.export.all'), exports_show_path(format: "csv"), :class => "Btn Btn--blue"
     = accordion_item "offers" do
       - if active_articles.empty?
         %strong= t('users.text.no_offers')
