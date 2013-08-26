@@ -123,8 +123,7 @@ class Article < ActiveRecord::Base
                   "transport_details", "payment_bank_transfer", "payment_cash",
                   "payment_paypal", "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
-                  "payment_details", "currency", "fair", "fair_seal",
-                  "ecologic", "ecologic_seal"]
+                  "payment_details", "currency", "fair_seal", "ecologic_seal"]
 
     CSV.generate(:col_sep => ";") do |csv|
       csv << header_row
