@@ -26,35 +26,52 @@
 #
 class MultipleFixedPriceTransaction < Transaction
   extend STI
-  attr_accessible :quantity_available
+
+  has_many :children, class_name: 'PartialFixedPriceTransaction', inverse_of: :parent
 
   # Allow quantity_available field for this transaction type
   def quantity_available
     read_attribute :quantity_available
   end
-  # Allow quantity_bought - /!\ ensure it's not saved here but only forwarded to a FixedPriceTransaction
+  # Allow quantity_bought - /!\ ensure it's not saved here but only forwarded to a PartialFixedPriceTransaction
   def quantity_bought
     read_attribute :quantity_bought
   end
 
   state_machine do
-    before_transition on: :buy, do: :handle_multiple_transaction
+    before_transition on: :buy, do: :buy_multiple_transaction
+    after_transition on: :buy, if: :sold_out_after_buy? do |t, transition|
+      t.article.sold_out
+    end
   end
 
-  private
+  # The field 'quantity_available' isn't accessible directly and should only be decreased after sales with this function
+  # @api public
+  # @param number [Integer]
+  # @return [Integer, Booldean] Total quantity_available if successful, else Boolean false
+  def reduce_quantity_available_by number
+    self.quantity_available = self.quantity_available - number
+    self.save!
+  end
 
-    # The main transition handler (see class description)
-    # @param transition [StateMachine::Transition]
-    # @return [Boolean] Whether or not the transition to "sold" should proceed
-    def handle_multiple_transaction transition
-      if quantity_bought <= quantity_available
-        fpt = FixedPriceTransaction.new()
-        fpt.save!
-        fpt.buy
-        return (quantity_bought == quantity_available)
-      else
-        errors.add :quantity_bought, 'Nope'
-        return false
-      end
+  # The main transition handler (see class description)
+  # @return [undefined] not important
+  def buy_multiple_transaction
+    self.quantity_bought ||= 1
+    if self.quantity_bought <= self.quantity_available
+      fpt = PartialFixedPriceTransaction.new parent: self, quantity_bought: self.quantity_bought
+      fpt.save!
+      reduce_quantity_available_by self.quantity_bought if fpt.buy
+    else
+      errors.add :quantity_bought, "You can't buy more than we have available"
     end
+    true
+  end
+
+  # MFPT wait before being sold out
+  def sold_out_after_buy?
+    self.quantity_available == 0
+  end
 end
+
+#ey du hau ma quantity_sold raus

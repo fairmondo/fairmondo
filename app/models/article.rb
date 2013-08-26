@@ -35,6 +35,7 @@ class Article < ActiveRecord::Base
   end
 
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
+  delegate :quantity_available, to: :transaction, prefix: true
 
   # Relations
   belongs_to :transaction, :dependent => :destroy

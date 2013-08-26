@@ -20,20 +20,21 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 FactoryGirl.define do
-  factory :transaction, class: ['PreviewTransaction', 'FixedPriceTransaction'].sample do
+  factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
     article { FactoryGirl.create :article, :without_build_transaction }
 
     factory :super_transaction, class: 'Transaction' do
     end
     factory :preview_transaction, class: 'PreviewTransaction' do
     end
-    factory :single_transaction, class: 'FixedPriceTransaction' do
+    factory :single_transaction, class: 'SingleFixedPriceTransaction' do
     end
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
-      article { FactoryGirl.create :article, :without_build_transaction, :with_larger_quantity }
+      article { FactoryGirl.create :article, :without_build_transaction, quantity: 50 }
+      quantity_available 50
     end
 
-    factory :sold_transaction, class: 'FixedPriceTransaction' do
+    factory :sold_transaction, class: 'SingleFixedPriceTransaction' do
       buyer
       state 'sold'
     end

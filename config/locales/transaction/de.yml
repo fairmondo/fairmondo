@@ -13,11 +13,11 @@ de:
       payment_type: "Zahlungsart:"
       transport_type: "Versandart:"
       transport_provider: "Versandanbieter:"
+      message: "Mitgeschickte Nachricht:"
       terms: "AGB von %{name}"
       cancellation: "Widerrufserklärung von %{name}"
       price_heading: Finaler Preis
-      gross: (Brutto)
-      net: (Netto)
+      net: "Verkaufspreis:"
       vat: "(zzgl. %{percent} % MwSt.)"
       shipping_and_handling: "Versandkosten:"
       payment_cash_on_delivery_price: "Nachnahme-Kosten:"

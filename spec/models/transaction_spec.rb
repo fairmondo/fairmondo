@@ -119,80 +119,80 @@ describe MultipleFixedPriceTransaction do
     t.article.should be_an Article
     t.article_quantity.should > 1
   end
-  
+
+  it "should be generated with an article that has a quantity of more than one" do
+    expect {
+      FactoryGirl.create :article, quantity: 2
+    }.to change(Transaction, :count).by 1
+    Article.last.transaction.should be_a MultipleFixedPriceTransaction
+  end
+
   describe "attributes" do
     it { should respond_to 'quantity_available' }
   end
 
   describe "methods" do
-    describe "#handle_multiple_transaction" do
+    describe "#buy_multiple_transaction" do
 
       context "when quantity_bought is greater than the available quantity" do
-        it "should return false" do
-          #transaction = FactoryGirl.create :multiple_transaction
+        it "should add an error" do
           mfpt.quantity_available = 2
           mfpt.quantity_bought = 3
-          mfpt.send(:handle_multiple_transaction, nil).should be_false
+          mfpt.send(:buy_multiple_transaction)
+          mfpt.errors[:quantity_bought].should_not be_nil
         end
       end
 
-      context "when quantity_bought is lower than the available quantity" do
+      context "when quantity_bought is lower than (or equal to) the available quantity" do
         before do
           mfpt.quantity_available = 3
           mfpt.quantity_bought = 2
         end
 
-        it "should return false" do
-          FixedPriceTransaction.any_instance.stub(:save!)
-          FixedPriceTransaction.any_instance.stub(:buy)
-          mfpt.send(:handle_multiple_transaction, nil).should be_false
-        end
-
-        it "should create a new FixedPriceTransaction with the correct data" do
-          FixedPriceTransaction.any_instance.stub(:buy)
-          FixedPriceTransaction.any_instance.should_receive(:save!).and_return(true)
+        it "should create a new PartialFixedPriceTransaction with the correct data" do
+          PartialFixedPriceTransaction.any_instance.stub(:buy)
+          PartialFixedPriceTransaction.any_instance.should_receive(:save!).and_return(true)
           #...
-          mfpt.send(:handle_multiple_transaction, nil)
+          mfpt.send(:buy_multiple_transaction)
         end
 
-        it "should trigger the buy event on the new FixedPriceTransaction" do
-          FixedPriceTransaction.any_instance.should_receive(:buy).and_return(true)
-          mfpt.send(:handle_multiple_transaction, nil)
+        it "should trigger the buy event on the new PartialFixedPriceTransaction" do
+          mfpt.save
+          PartialFixedPriceTransaction.any_instance.stub(:save!)
+          mfpt.stub(:save!)
+          PartialFixedPriceTransaction.any_instance.should_receive(:buy).and_return(true)
+          mfpt.send(:buy_multiple_transaction)
         end
-      end
-
-      context "when quantity_bought is equal to the available quantity" do
-        it "should return true" do
-          mfpt.quantity_available = mfpt.quantity_bought = 2
-          FixedPriceTransaction.any_instance.stub(:save!)
-          FixedPriceTransaction.any_instance.stub(:buy)
-          mfpt.send(:handle_multiple_transaction, nil).should be_true
-        end
-
-        # not repeating tests from "lower than". Other behavious should be similar.
       end
     end
   end
 end
 
-describe FixedPriceTransaction do
-  let (:fpt) { FixedPriceTransaction.new }
+describe SingleFixedPriceTransaction do
+  let (:fpt) { SingleFixedPriceTransaction.new }
 
   it "should have a valid factory" do
     expect {
       FactoryGirl.create :single_transaction
     }.to change(Transaction, :count).by 1
     t = Transaction.last
-    t.type.should eq "FixedPriceTransaction"
+    t.type.should eq "SingleFixedPriceTransaction"
     t.article.should be_an Article
     t.article_quantity.should eq 1
   end
 
+  it "should be generated with an article that has a quantity one" do
+    expect {
+      FactoryGirl.create :article
+    }.to change(Transaction, :count).by 1
+    Article.last.transaction.should be_a SingleFixedPriceTransaction
+  end
+
   describe "attributes" do
     it { should respond_to 'quantity_bought' }
-    it "should read quantity_bought" do
-      fpt.quantity_bought = 3
-      fpt.quantity_bought.should eq 3
+    it "should read quantity_bought, and it should always be one" do
+      fpt.send(:quantity_bought=, 3)
+      fpt.send(:quantity_bought).should eq 1
     end
   end
 

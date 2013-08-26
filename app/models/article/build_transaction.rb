@@ -28,13 +28,20 @@ module Article::BuildTransaction
     before_create :build_specific_transaction, :unless => :template?
   end
 
-  def build_specific_transaction
-    unless self.skip_build_transaction # Is it possible to provide two :unless params for after_create? -KK
-      if self.quantity == 1
-        self.transaction = FixedPriceTransaction.create
-      else
-        self.transaction = MultipleFixedPriceTransaction.create
+  private
+    # Create a transaction for every new article
+    # @api private
+    # @return [Transaction]
+    def build_specific_transaction
+      unless self.skip_build_transaction || self.transaction # Is it possible to provide two :unless params for after_create? -KK
+        if self.quantity == 1
+          self.transaction = SingleFixedPriceTransaction.create
+        else
+          self.transaction = MultipleFixedPriceTransaction.new
+          self.transaction.quantity_available = self.quantity
+          self.transaction.save
+        end
       end
+      self.transaction
     end
-  end
 end

@@ -50,7 +50,9 @@ module TransactionHelper
   def display_basic_price
     if (price = resource.article_basic_price) > 0
       ("<br>#{t('transaction.edit.basic_price')}" +
-      "#{humanized_money_with_symbol(price)}").html_safe
+      "#{humanized_money_with_symbol(price)}" +
+      t('common.text.glue.per') +
+      " ").html_safe
     end
   end
 
