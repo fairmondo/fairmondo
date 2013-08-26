@@ -124,7 +124,7 @@ class Article < ActiveRecord::Base
                   "payment_paypal", "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
                   "payment_details", "currency", "fair_seal", "ecologic_seal",
-                  "custom_seller_identifier"]
+                  "gtin", "custom_seller_identifier"]
 
     CSV.generate(:col_sep => ";") do |csv|
       csv << header_row
