@@ -64,29 +64,7 @@
     margin: 1.42857rem auto;
 }
 
-.Import-banner {
-  @include rem(margin-bottom, 9px);
-  @include at-breakpoint($layout-medium) {
-     padding-top: 3em;
-    @include span-columns(1 omega,4);
-  }
-}
 
-.Import-banner-inner {
-  @include rem(padding, 10px 20px);
-  padding-top: 1em;
-  text-align: center;
-  color: #3c3c3c;
-  border-radius: 8px;
-  background: #fff;
-
-}
-
-.Import-banner-title [class^="icon-"] {
-    display: block;
-    margin: 20px auto;
-    margin: 1.42857rem auto;
-}
 
 
 .User-profile {

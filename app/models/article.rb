@@ -116,14 +116,15 @@ class Article < ActiveRecord::Base
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
                   "basic_price_amount","vat", "transport_pickup",
-                  "transport_insured", "transport_insured_provider",
-                  "transport_insured_price_cents", "transport_uninsured",
-                  "transport_uninsured_provider",
-                  "transport_uninsured_price_cents", "default_transport",
+                  "transport_type1", "transport_type1_provider",
+                  "transport_type1_price_cents", "transport_type2",
+                  "transport_type2_provider",
+                  "transport_type2_price_cents", "default_transport",
                   "transport_details", "payment_bank_transfer", "payment_cash",
                   "payment_paypal", "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
-                  "payment_details", "currency"]
+                  "payment_details", "currency", "fair", "fair_seal",
+                  "ecologic", "ecologic_seal"]
 
     CSV.generate(:col_sep => ";") do |csv|
       csv << header_row
