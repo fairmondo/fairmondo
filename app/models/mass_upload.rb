@@ -84,7 +84,7 @@ class MassUpload
 
   def correct_header?(file)
     # bugbug header_row aus YAML file erstellen (siehe settings gem -> pioner des tages)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;currency;fair_seal;ecologic_seal;gtin;custom_seller_identifier"]
+    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;currency;fair_seal;ecologic_seal;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
@@ -137,6 +137,9 @@ class MassUpload
         if article.ecologic_seal
           article.ecologic = true
           article.ecologic_kind = "ecologic_seal"
+        end
+        if article.small_and_precious_eu_small_enterprise
+          article.small_and_precious = true
         end
         article.categories = categories if categories
         raw_article_array << article
