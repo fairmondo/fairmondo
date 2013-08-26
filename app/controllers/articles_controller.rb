@@ -69,8 +69,8 @@ class ArticlesController < InheritedResources::Base
     elsif params[:edit_as_new]
       @old_article = current_user.articles.find(params[:edit_as_new])
       @article = @old_article.amoeba_dup
-      @old_article.close
-      @old_article.save
+      #if the old article has errors we still want to remove it from the marketplace
+      @old_article.close_without_validation
     end
     new!
   end
@@ -94,24 +94,22 @@ class ArticlesController < InheritedResources::Base
       change_state!
     else
       authorize resource
+      update! do |success, failure|
+        success.html { redirect_to resource }
+        failure.html { save_images
+                       render :edit }
+      end
     end
-    update! do |success, failure|
-      success.html { redirect_to resource }
-      failure.html { save_images
-                     render :edit }
-    end
+
   end
 
   def destroy
-
     authorize resource
-
     if resource.preview?
       destroy! { articles_path }
     elsif resource.locked?
-      resource.close
-      # delete the article from the collections
-      resource.library_elements.delete_all
+      resource.close_without_validation
+
       redirect_to articles_path
     end
 
@@ -134,19 +132,21 @@ class ArticlesController < InheritedResources::Base
 
     # For changing the state of an article
     # Refer to Article::State
-
+    params.delete :article # Do not allow any other change
     if params[:activate]
-      params.delete :article # Do not allow any other change
       authorize resource, :activate?
-      resource.activate
-      flash[:notice] = I18n.t('article.notices.create_html').html_safe if resource.valid?
+      if resource.activate
+        flash[:notice] = I18n.t('article.notices.create_html').html_safe
+        redirect_to resource
+      else
+        # The article became invalid so please try a new one
+        redirect_to new_article_path(:edit_as_new => resource.id)
+      end
     elsif params[:deactivate]
-      params.delete :article # Do not allow any other change
       authorize resource, :deactivate?
-      resource.deactivate
-      # delete the article from the collections
-      resource.library_elements.delete_all
+      resource.deactivate_without_validation
       flash[:notice] = I18n.t('article.notices.deactivated')
+      redirect_to resource
     end
   end
 
