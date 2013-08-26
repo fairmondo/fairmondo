@@ -66,6 +66,10 @@ module Article::Attributes
 
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
+    # custom seller identifier
+
+    attr_accessible :custom_seller_identifier
+    validates_length_of :custom_seller_identifier, :maximum => 65
 
 
     # =========== Transport =============
