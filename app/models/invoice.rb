@@ -59,12 +59,6 @@ class Invoice < ActiveRecord::Base
   # Funzt aus irgendeinem Grund nicht
   # handle_asynchronously :invoice_action_chain
 
-  def self.has_open_invoice( seller )
-
-    # end
-    false
-  end
-
   def self.create_new_invoice_and_add_item( transaction, seller )
     invoice = Invoice.create  :user_id => seller.id,
                               :due_date => 30.days.from_now.at_beginning_of_month.next_month
@@ -80,9 +74,14 @@ class Invoice < ActiveRecord::Base
                                         :calculated_fee_cents => transaction.article.calculated_fee_cents,
                                         :calculated_fair_cents => transaction.article.calculated_fair_cents,
                                         :calculated_friendly_cents => transaction.article.calculated_friendly_cents
-
+                                        #:quarterly_fee
   end
 
-  def self.invoice_billable?
+  def total_fee( transaction )
+    self.total_fee_cents += transaction.article.calculated_friendly_cents + transaction.article.calculated_fair_cents + transaction.article.calculated_fee_cents
+  end
+
+  def invoice_billable?
+    self.total_fee_cents >= 10000
   end
 end
