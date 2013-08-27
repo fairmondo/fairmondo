@@ -151,7 +151,7 @@ de:
         name: Name
         public: Öffentlich
       transaction:
-        tos_accepted: Ich akzeptiere die AGB und die Widerrufserfklärung
+        tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung
         message: Nachricht an den Verkäufer (optional)
         quantity_bought: Anzahl
     input_steps:

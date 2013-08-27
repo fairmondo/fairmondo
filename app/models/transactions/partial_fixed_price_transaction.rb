@@ -19,15 +19,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FixedPriceTransaction < Transaction
+class PartialFixedPriceTransaction < SingleFixedPriceTransaction
   extend STI
-  attr_accessible :quantity_bought
 
-  state_machine do
-    after_transition on: :buy, do: :set_article_sold
-  end
+  belongs_to :parent, class_name: 'MultipleFixedPriceTransaction', inverse_of: :children
+  has_one :article, through: :parent
+  has_one :buyer, through: :parent
 
   #validates :quantity_bought, numericality: true, on: :update
+  validates :parent_id, presence: true
 
   # Allow quantity_bought field for this transaction type
   def quantity_bought
@@ -36,6 +36,7 @@ class FixedPriceTransaction < Transaction
 
   private
     def set_article_sold
-      self.article.sold_out
+      # Will be set in MFPT
+      true
     end
 end
