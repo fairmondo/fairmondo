@@ -22,19 +22,21 @@
 = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => Fairtastic::FormBuilder do |f|
   .Hero-search
     .l-Inner
-      .first
-        = f.inputs :class => "Search" do
-          .Search-input
-            = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
+      .l-Left
+        %a.Btn.Btn--gray{:href => articles_path}
+          Marktplatz durchstöbern
+      = f.inputs :class => "Search" do
+        .Search-input
+          = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
 
-          .Search-button
-            = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+        .Search-button
+          = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
 
-        .l-Right
-          %a.Btn.Btn-icon.Btn--gray{:href => libraries_path}
-            %i.Icon.icon-box
-            Sammlungen durchstöbern
-          %i.Icon.icon-helper{ title: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
+      .l-Right
+        %a.Btn.Btn-icon.Btn--gray{:href => libraries_path}
+          %i.Icon.icon-box
+          Sammlungen durchstöbern
+        %i.Icon.icon-helper{ title: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
 
     .Filter{:class => filter_class}
       .Filter-inner
