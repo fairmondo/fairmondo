@@ -81,6 +81,8 @@ class User < ActiveRecord::Base
   ##
 
 
+  has_many :ratings, foreign_key: 'rated_user_id'
+
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
@@ -163,6 +165,32 @@ class User < ActiveRecord::Base
   def image_url symbol
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
+
+  def update_ratings
+    positive_ratings = self.ratings.where(:rating => 'positive').count
+    negative_ratings = self.ratings.where(:rating => 'negative').count
+    all_ratings = self.ratings.count
+    self.update_attributes(:percentage_of_positive_ratings => positive_ratings / all_ratings * 100,
+      :percentage_of_negative_ratings => negative_ratings / all_ratings * 100)
+    self.save
+    update_seller_state
+  end
+
+  def update_seller_state
+    # if rated user is private user
+    if self.percentage_of_positive_ratings > 70
+      if self.percentage_of_positive_ratings > 90
+        self.rate_up_to_good_seller
+      else
+        self.rate_up_to_standard_seller
+      end
+    else
+      if self.rate_down_to_bad_seller > 30
+        self.rate_up_to_good_seller
+      end
+    end
+  end
+
 
 
   state_machine :seller_state, :initial => :standard_seller do
