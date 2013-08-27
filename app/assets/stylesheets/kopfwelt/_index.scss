@@ -83,7 +83,7 @@
 	display: block;
 	@include rem(font-size, 14px);
 	text-align: left;
-	margin: 0 20px;
+	margin: em(5) em(20);
 	color: $blue;
 	word-break: break-word;
 }
