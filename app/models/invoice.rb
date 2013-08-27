@@ -67,7 +67,7 @@ class Invoice < ActiveRecord::Base
 
   def self.create_new_invoice_and_add_item( transaction, seller )
     invoice = Invoice.create  :user_id => seller.id,
-                              :due_date => 1.month.from_now
+                              :due_date => 30.days.from_now.at_beginning_of_month.next_month
 
     add_item_to_open_invoice( transaction, invoice )
   end
