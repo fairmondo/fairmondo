@@ -21,6 +21,8 @@
 -#
 - selected_transport = params["transaction"]["selected_transport"]
 - selected_payment = params["transaction"]["selected_payment"]
+- message = params["transaction"]["message"]
+- quantity = params["transaction"]["quantity_bought"]
 %h2
   = t 'transaction.edit.heading'
 
@@ -28,17 +30,15 @@
   = f.inputs do
     = f.hidden_field :selected_transport, value: selected_transport
     = f.hidden_field :selected_payment, value: selected_payment
+    = f.hidden_field :message, value: message
+    = f.hidden_field :quantity_bought, value: quantity
 
     %h3
       = t 'transaction.edit.purchase_data'
 
     %p
-      %strong
-        = t('common.text.product') + ":"
       = @transaction.article_title
-    %p
-      %strong
-        = t('common.text.seller') + ":"
+      = t 'common.text.glue.by'
       = @transaction.article_seller.fullname
     %p
       %strong
@@ -61,6 +61,12 @@
       = current_user.city
       %br
       = current_user.country
+    - if message && !message.empty?
+      %p
+        %strong
+          = t 'transaction.edit.message'
+        %br
+        = message
 
 
     %h3
@@ -83,6 +89,9 @@
       = t 'transaction.edit.price_heading'
 
     %p
+      %strong
+        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment, quantity
+    %p
       = display_net_price
       %br
       = display_vat_price
@@ -91,10 +100,6 @@
       = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)
       = display_cash_on_delivery_price
       = display_basic_price
-    %p
-      %strong
-        = I18n.t 'transaction.edit.gross'
-        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment
 
   = f.actions do
     = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}

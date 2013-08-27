@@ -41,7 +41,11 @@ module Article::State
       end
 
       state :closed do
-        # Deleted or sold
+        # Deleted
+      end
+
+      state :sold do
+        # Sold
       end
 
       event :activate do
@@ -57,7 +61,7 @@ module Article::State
       end
 
       event :sold_out do
-        transition :active => :closed
+        transition :active => :sold
       end
 
       after_transition :on => :activate, :do => :calculate_fees_and_donations

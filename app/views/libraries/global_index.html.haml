@@ -27,7 +27,7 @@
             - if library.library_elements.empty?
               %p.Libraries-settings-clear= t('library.no_products')
             - else
-              = t('common.text.from') + " "
+              = t('common.text.glue.from') + " "
               = link_to( library.user_nickname, user_path(library.user))
               %p
                 .Library-ArticleList.Libraries-settings-clear

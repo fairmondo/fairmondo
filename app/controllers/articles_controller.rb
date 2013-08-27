@@ -57,7 +57,6 @@ class ArticlesController < InheritedResources::Base
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
-
     show!
   rescue Pundit::NotAuthorizedError
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
