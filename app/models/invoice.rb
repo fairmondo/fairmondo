@@ -79,7 +79,8 @@ class Invoice < ActiveRecord::Base
   end
 
   # this method adds the quarterly fee to the invoice if invoice is the last of this quarter
-  def self.add_quarterly_fee
+  def add_quarterly_fee
+    # Das Datum muss ins selbe Format gebracht werden
     if Time.now.end_of_quarter == self.due_date
       invoice_item = InvoiceItem.create   :invoice_id => self.id,
                                           :quantity => 1,
