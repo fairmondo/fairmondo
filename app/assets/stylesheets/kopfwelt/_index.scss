@@ -23,6 +23,7 @@
 		display: block;
 		@include rem(margin, 20px auto);
 	}
+
 }
 
 //
@@ -59,6 +60,7 @@
 
 .Teaser--text {
 	@include rem(font-size, $font-size-m);
+	padding-top: 2em;
 }
 .Teaser-title {
 	@include rem(font-size, 22px);
