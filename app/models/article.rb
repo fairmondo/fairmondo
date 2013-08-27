@@ -68,7 +68,6 @@ class Article < ActiveRecord::Base
     end
   end
 
-
   amoeba do
     enable
     include_field :fair_trust_questionnaire
