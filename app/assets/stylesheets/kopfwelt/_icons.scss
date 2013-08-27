@@ -49,10 +49,7 @@ $icon: sprite-map("icon/*.png");
 	width: icon-sprite-width(pionier--blue);
 	height: icon-sprite-height(pionier--blue);
 }
-.icon-index-arrow--draw {
-	width: icon-sprite-width(index-arrow--draw);
-	height: icon-sprite-height(index-arrow--draw);
-}
+
 
 
 // Button's icons
@@ -121,9 +118,27 @@ $icon: sprite-map("icon/*.png");
 
 .icon-feedback {
 	display: inline-block;
-	height: icon-sprite-height(feedback);
-	width: icon-sprite-width(feedback);
+	height: 26px;
+  width: 26px;
 	top: 5px;
 	left: -4px;
-	@include transform(rotate(90deg));
+
+}
+
+.icon-help {
+  display: inline-block;
+  height: 26px;
+  width: 26px;
+  top: 5px;
+  left: -4px;
+
+}
+
+.icon-shares {
+  display: inline-block;
+  height: 26px;
+  width: 26px;
+  top: 5px;
+  left: -4px;
+  @include transform(rotate(90deg));
 }
