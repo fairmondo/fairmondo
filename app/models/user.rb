@@ -237,11 +237,7 @@ class User < ActiveRecord::Base
 
   ####################### Invoice stuff ###################
   def has_open_invoice?
-    begin
-      Invoice.where( :user_id => self.id ).order( "created_at" ).last.open?
-    rescue
-      false
-    end
+    Invoice.find_by_user_id_and_state( self.id, "open" ).present?
   end
 
   def self.has_paid_quarterly_fee?

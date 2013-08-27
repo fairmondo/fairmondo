@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe Invoice do
-  pending "add some examples to (or delete) #{__FILE__}"
+	let(:transaction) { FactoryGirl.create :single_transaction }
+  let(:article) { transaction.article }
+  let(:seller) { transaction.article.seller }
+  let(:user) { FactoryGirl.create :user }
+
+  describe "Use buy event on Transaction" do
+
+  end
 end
