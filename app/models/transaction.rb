@@ -25,6 +25,7 @@ class Transaction < ActiveRecord::Base
 
   has_one :article
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+  has_one :rating
 
   transaction_attributes = [:selected_transport, :selected_payment, :tos_accepted, :message]
   attr_accessible *transaction_attributes
