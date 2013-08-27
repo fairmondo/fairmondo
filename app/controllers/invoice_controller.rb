@@ -1,3 +1,3 @@
 class InvoiceController < InheritedResources::Base
-	actions :create, :update
+	actions :create, :edit, :show
 end
