@@ -19,14 +19,6 @@
 #
 class MassUpload
 
-
-  # bugbug Check if really needed
-  # @@headers = Hash.new
-
-  # def self.headers(headers)
-  #   @@headers = headers
-  # end
-
   # Required for Active Model Conversion which is required by Formtastic
   include ActiveModel::Conversion
 
@@ -84,7 +76,7 @@ class MassUpload
 
   def correct_header?(file)
     # bugbug header_row aus YAML file erstellen (siehe settings gem -> pioner des tages)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;currency;fair_seal;ecologic_seal;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;currency;fair_seal;ecologic_seal;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
@@ -128,6 +120,13 @@ class MassUpload
       rows_array.each do |row|
         categories = Category.find_imported_categories(row['categories'])
         row.delete("categories")
+        # if row['title_image_url']
+        #   image = Image.new
+        #   image.image = URI.parse(row['title_image_url'])
+        #   image.is_title = true
+        #   image.save
+        # end
+        # row.delete("title_image_url")
         article = Article.new(row)
         article.user_id = user_id
         if article.fair_seal
