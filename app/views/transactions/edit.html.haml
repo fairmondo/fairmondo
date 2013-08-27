@@ -25,13 +25,10 @@
 = semantic_form_for @transaction, url: edit_transaction_path(@transaction), method: :get do |f|
   = f.inputs do
     %h3 Artikel
-    %ul
-      %li
-        = t('common.text.product') + ":"
-        = @transaction.article_title
-      %li
-        = t('common.text.seller') + ":"
-        = @transaction.article_seller.fullname
+    %p
+      = @transaction.article_title
+      = t 'common.text.glue.by'
+      = @transaction.article_seller.fullname
 
     %h3
       = t 'transaction.edit.transport'
@@ -65,7 +62,7 @@
     %p
       = f.input :message
       - if @transaction.is_a? MultipleFixedPriceTransaction
-        = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1 }
+        = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, placeholder: 1 }
 
   = f.actions do
     = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}

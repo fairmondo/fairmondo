@@ -204,4 +204,12 @@ module ArticlesHelper
     end
   end
 
+  def categories_for_filter form
+    if form.object.categories.length > 0
+      tree = get_category_tree(form.object.categories.first)
+      return tree.map { |category| category.id}.to_json
+    end
+    return [].to_json
+  end
+
 end

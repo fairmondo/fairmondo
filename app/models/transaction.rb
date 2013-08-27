@@ -66,7 +66,8 @@ class Transaction < ActiveRecord::Base
     end
 
     event :buy do
-      transition :available => :sold
+      transition :available => :sold, if: :sold_out_after_buy?
+      transition :available => same
     end
 
     event :pay do
@@ -80,6 +81,11 @@ class Transaction < ActiveRecord::Base
     event :receive do
       transition :sent => :completed
     end
+  end
+
+  # Per default a transaction automatically is sold out after the first buy event, except for MultipleFPT
+  def sold_out_after_buy?
+    true
   end
 
   # Make virtual field validatable
