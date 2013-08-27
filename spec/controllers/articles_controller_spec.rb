@@ -414,13 +414,13 @@ describe ArticlesController do
       flash[:notice].should eq I18n.t 'article.notices.create_html'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article and set it as new article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
       put :update, id: @article.id, :activate => true
       response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to new_article_path(:edit_as_new => @article.id)
     end
   end
 
@@ -436,13 +436,13 @@ describe ArticlesController do
       flash[:notice].should eq I18n.t 'article.notices.deactivated'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
        put :update, id: @article.id, :deactivate => true
-      response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to @article
+      @article.reload.locked?.should == true
     end
   end
 end

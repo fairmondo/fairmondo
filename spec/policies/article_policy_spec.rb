@@ -43,6 +43,7 @@ describe ArticlePolicy do
     context "on an active article" do
       before { article.activate          }
       it { should permit(:show)          }
+      it { should permit(:report)            }
     end
   end
 
