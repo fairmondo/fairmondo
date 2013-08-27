@@ -165,11 +165,13 @@ module Article::Attributes
   # @api public
   # @param selected_transport [String] Transport type
   # @param selected_payment [String] Payment type
+  # @param selected_payment [String, Integer] Amount of articles bought
   # @return [Money] Total billed price
-  def total_price selected_transport, selected_payment
+  def total_price selected_transport, selected_payment, quantity
+    quantity ||= 1
     total = self.price + self.transport_price(selected_transport)
     total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-    total
+    total * quantity.to_i
   end
 
   # Gives the shipping cost for a specified transport type

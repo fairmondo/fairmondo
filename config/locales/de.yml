@@ -61,8 +61,6 @@ de:
       relation: "Beziehung"
       profile: "Profil"
       inserted: "Artikel wurden bereits eingestellt"
-      from: "von"
-      and: " und "
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
@@ -75,10 +73,15 @@ de:
       shares: "Anteile zeichnen"
       my_articles: "Meine Artikel"
       fair: "Fair"
-      seller: "Händler"
+      seller: "Händler*in"
       product: "Produkt"
       libraries: "Sammlungen"
       about_terms: "AGB / Widerrufserklärung / Impressum"
+      glue:
+        from: "von"
+        and: " und "
+        by: "von"
+        per: "pro"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

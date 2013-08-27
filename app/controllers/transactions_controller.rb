@@ -40,8 +40,10 @@ class TransactionsController < InheritedResources::Base
   def update
     #@transaction = Transaction.find params[:id]
     resource.buyer_id = current_user.id
-    resource.buy
     update! do |success, failure|
+      #debugger
+      resource.buy if success.class # using .class was the only way I could find to get a true or false value
+      #debugger
       failure.html { redirect_to :back, :alert => resource.errors.full_messages.first }
     end
   end

@@ -38,16 +38,14 @@ describe 'Transaction' do
     context "for a logged-in user" do
       before { login_as user }
 
-      describe "step 1" do
+      describe "during step 1" do
         it "should show the correct data and fields" do
           visit edit_transaction_path transaction
 
           page.should have_content I18n.t 'transaction.edit.heading'
 
           # Should display article data
-          page.should have_content I18n.t 'common.text.product'
           page.should have_content article.title
-          page.should have_content I18n.t 'common.text.seller'
           page.should have_content seller.fullname
 
           # Should display shipping selection
@@ -99,7 +97,7 @@ describe 'Transaction' do
         end
       end
 
-      describe "step 2" do
+      describe "during step 2" do
         context "given valid data" do
           it "should have the correct fields and texts" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
@@ -109,9 +107,7 @@ describe 'Transaction' do
             page.should have_css 'input#transaction_selected_payment[@type=hidden][@value=cash]'
 
             # Should display article data
-            page.should have_content I18n.t 'common.text.product'
             page.should have_content article.title
-            page.should have_content I18n.t 'common.text.seller'
             page.should have_content seller.fullname
 
             # Should display chosen payment type
@@ -130,6 +126,9 @@ describe 'Transaction' do
             page.should have_content user.city
             page.should have_content user.country
 
+            # Should not display optional fields
+            page.should_not have_content I18n.t 'transaction.edit.message'
+
             # Should display terms
             page.should have_content I18n.t 'transaction.edit.terms', name: seller.fullname
 
@@ -143,6 +142,13 @@ describe 'Transaction' do
             page.should have_link I18n.t 'common.actions.back'
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
+
+          it "should show the optional message when one was given" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash", "message" => "Something that wouldn't be there otherwise"}
+            page.should have_content I18n.t 'transaction.edit.message'
+            page.should have_content "Something that wouldn't be there otherwise"
+          end
+
 
           it "should submit the data successfully with accepted AGB" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
@@ -163,7 +169,7 @@ describe 'Transaction' do
           end
 
           context "when testing the effects of the purchase" do
-            context "for FixedPriceTransactions" do
+            context "for SingleFixedPriceTransaction" do
               let (:transaction) { FactoryGirl.create :single_transaction }
               it "should set the states of article and transaction" do
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
@@ -175,7 +181,7 @@ describe 'Transaction' do
                 click_button I18n.t 'transaction.actions.purchase'
 
                 transaction.reload.should be_sold
-                transaction.article.should be_closed
+                transaction.article.should be_sold
               end
 
               describe "on search", search: true do
@@ -208,8 +214,32 @@ describe 'Transaction' do
             end
 
             context "for MultipleFixedPriceTransactions" do
-              it "should reduce the number of items by one or more (depending on user choice)" do
-                pending "Not yet implemented."
+              let (:article) { FactoryGirl.create :article, :with_larger_quantity }
+              let (:transaction) { article.transaction }
+
+              it "should reduce the number of items" do
+                visit edit_transaction_path transaction, pay_on_pickup_attrs
+                check 'transaction_tos_accepted'
+                click_button I18n.t 'transaction.actions.purchase'
+
+                visit article_path transaction.article
+                page.should have_content I18n.t('formtastic.labels.article.quantity_with_numbers', quantities: (transaction.article_quantity - 1))
+              end
+
+              describe "on search", search: true do
+                it "should set the article to 'sold out' when all items are sold" do
+                  attrs = pay_on_pickup_attrs
+                  attrs[:transaction][:quantity_bought] = transaction.quantity_available
+
+                  visit edit_transaction_path transaction, attrs
+                  check 'transaction_tos_accepted'
+                  click_button I18n.t 'transaction.actions.purchase'
+
+                  article.reload.should be_sold
+                  Sunspot.commit
+                  visit articles_path
+                  page.should_not have_content Regexp.new article.title[0..20]
+                end
               end
             end
 
@@ -237,7 +267,7 @@ describe 'Transaction' do
           context "when testing the displayed total price" do
             context "without cash_on_delivery" do
               it "should show the correct price for type1 transports" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
+                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
 
                 visit edit_transaction_path t, transaction: {"selected_transport" => "type1", "selected_payment" => "cash"}
 
@@ -246,7 +276,7 @@ describe 'Transaction' do
               end
 
               it "should show the correct price for type2 transports" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'DHL')
+                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'DHL')
 
                 visit edit_transaction_path t, transaction: {"selected_transport" => "type2", "selected_payment" => "cash"}
 
@@ -254,11 +284,19 @@ describe 'Transaction' do
               end
 
               it "should show the correct price for pickups" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, price: 999)
+                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 999)
 
                 visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
                 page.should have_content '999'
+              end
+
+              it "should show the correct price for MultipleFixedPriceTransactions when quantity_bought is greater than one" do
+                t = FactoryGirl.create :multiple_transaction, article: FactoryGirl.create(:article, :with_larger_quantity, price: 222)
+
+                visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash", "quantity_bought" => 2}
+
+                page.should have_content '444'
               end
             end
 
@@ -369,11 +407,10 @@ describe 'Transaction' do
 
         context "but the current user isn't the one who bought" do
           it "shouldn't be accessible" do
-            pending "Not yet implemented."
             login_as user
-            visit transaction_path transaction
-            current_path.should_not eq transaction_path transaction
-            page.should have_content "What are you trying to do there buddy?"
+            expect do
+              visit transaction_path transaction
+            end.to raise_error(Pundit::NotAuthorizedError)
           end
         end
       end

@@ -1,8 +1,7 @@
 $(function () {
  $('select').selectBoxIt({autoWidth:false});
- $('select').click(function(e) {
-   parents = $(e.target).parent();
-   parents.css("overflow", "visible");
-   parents.parents().css("overflow", "visible");
+ $('body').on('click','span.selectboxit-container',function(e) {
+   $('span.selectboxit-container').parents().css("overflow", "visible");
+
  });
 });
