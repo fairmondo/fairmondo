@@ -202,7 +202,6 @@ describe 'Transaction' do
               end
 
               it "should show an error page when article was already sold to someone else in the meantime" do
-                pending 'Under construction'
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
 
@@ -421,7 +420,6 @@ describe 'Transaction' do
 
       context "when the transaction is not sold" do
         it "should redirect to the edit page" do
-          pending 'Under construction'
           login_as user
           visit transaction_path transaction
           current_path.should eq edit_transaction_path transaction

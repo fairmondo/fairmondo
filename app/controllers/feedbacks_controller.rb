@@ -50,5 +50,4 @@ class FeedbacksController < InheritedResources::Base
         root_path
       end
     end
-
 end

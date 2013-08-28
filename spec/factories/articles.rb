@@ -25,7 +25,7 @@ FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
     seller      # alias for User -> see spec/factories/users.rb
     categories_and_ancestors {|c| [c.association(:category)] }
-    title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
+    title     { Faker::Lorem.words(rand(3..5)).join ' ' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
@@ -64,11 +64,9 @@ FactoryGirl.define do
     end
 
     factory :social_production do
-
       fair true
       fair_kind :social_producer
       association :social_producer_questionnaire
-
     end
 
     factory :fair_trust do
