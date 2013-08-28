@@ -5,7 +5,6 @@
 .Search {
 	position: relative;
 	float: left;
-	width: columns(4,4);
 	max-width: 100%;
 	input[type='text'] {
 		margin: 0;
@@ -14,7 +13,6 @@
 		float: left !important;
 	}
 	@include at-breakpoint($layout-small) {
-		//@include span-columns(2, 4) !important;
 		float: left;
 		width: columns(2,4) !important;
 	}
@@ -28,24 +26,48 @@
 	top: em(13);
 	right: em(11);
 }
-.l-Hero .l-Right {
-	float: right;
-	position: relative;
-	margin-top: em(6);
-	.Btn--gray {
-		width: auto;
-		margin: 0;
-		@include rem(font-size, 17px);
-		@include rem(padding, 6px 18px 10px);
-	}
-	.icon-helper {
-		position: relative;
-		top: .5em;
-		right: 0;
-		margin-left: .6em;
-		float: none !important;
-	}
+
+.l-Hero {
+
+  .Btn--gray {
+    width: auto;
+    margin: 1px;
+    @include rem(font-size, 17px);
+    @include rem(padding, 6px 18px 10px);
+  }
+
+  .l-Left {
+    float: left;
+    margin-top: em(6);
+    margin-right: em(17);
+    display: none;
+    @include at-breakpoint(em(1166)) {
+      display:block;
+    }
+    .Btn--gray {
+      @include rem(padding, 7px 18px 11px); // Without the icon it is smaller
+    }
+  }
+
+ .l-Right {
+  float: right;
+  position: relative;
+  margin-top: em(6);
+
+    .icon-helper {
+      position: relative;
+      top: .5em;
+      right: 0;
+      margin-left: .6em;
+      float: none !important;
+    }
+  }
+
+
+
 }
+
+
 .Filter {
 	.Filter-inner {
 		padding-top: 1em;

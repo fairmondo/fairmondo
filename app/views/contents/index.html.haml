@@ -35,10 +35,57 @@
       %td= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Content', new_content_path
-%h1 Statistics
-%h2 LegalEntity Count
+%hr
+%h1 Statistiken
+%h2 Anzahl Geschäftskunden
 %p
   =LegalEntity.all.count
-%h2 LegalEntity Articles Count
+%h2 Anzahl Artikel von Geschäftskunden
 %p
   = LegalEntity.all.collect {|u| u.articles.active }.flatten.count
+- result = statistics_articles
+%h2 Anzahl Privatkunden
+%p
+  =PrivateUser.all.count
+%h2 Anzahl Artikel von Privatkunden
+%p
+  = PrivateUser.all.collect {|u| u.articles.active }.flatten.count
+- result = statistics_articles
+%hr
+%h2 Insgesamt eingestellter Warenwert (ohne Artikelstückzahlen)
+%p
+  = result[:sum]
+%h2 Insgesamt eingestellter Warenwert (mit Artikelstückzahlen)
+%p
+  = result[:sum_quantity]
+%hr
+%h2 Gesamtprovision für FN (ohne Artikelstückzahlen)
+%p
+  = result[:provision]
+%h2 Gesamtprovision für FN (mit Artikelstückzahlen)
+%p
+  = result[:provision_quantity]
+%hr
+%h2 Gesamtspendenaufkommen (ohne Artikelstückzahlen)
+%p
+  = result[:fair]
+%h2 Gesamtspendenaufkommen (mit Artikelstückzahlen)
+%p
+  = result[:fair_quantity]
+%hr
+%h2 Anteil von als fair eingestuften Artikeln in % im Vergleich zu sonstigen Artikeln (Artikelstückzahlen nicht berücksichtigt)
+%p
+  = result[:fair_part]*100
+  = "%"
+%h2 Anteil von als öko eingestuften Artikeln in % im Vergleich zu sonstigen Artikeln (Artikelstückzahlen nicht berücksichtigt)
+%p
+  = result[:eco_part]*100
+  = "%"
+%hr
+%h2 Aufteilung nach Kategorien:
+%ul
+  - Category.sorted_roots.each do |c|
+    %li
+      = c.name
+      = ":"
+      = statistics_category(c)

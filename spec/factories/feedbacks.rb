@@ -7,5 +7,11 @@ FactoryGirl.define do
     from { Faker::Internet.email }
     to { Faker::Internet.email }
     variety {[:report_article, :get_help ,:send_feedback].sample}
+    user
+
+    trait :report_article do
+      variety :report_article
+      article_id { FactoryGirl.create(:article).id}
+    end
   end
 end
