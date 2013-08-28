@@ -5,7 +5,7 @@ de:
     labels:
       upload_article_via_csv: "Artikel per CSV-Datei importieren"
       upload_article: "Artikel hochladen"
-      mass_activate_articles: "Alle Angebote einstellen. Beachte, das bei erfolgreichem Verkauf für jeden Artikel Gebühren entstehen."
+      mass_activate_articles: "Alle Angebote gebührenpflichtig einstellen"
       article_activated: "Artikel bereits eingestellt"
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
