@@ -24,28 +24,21 @@
 
 = semantic_form_for @transaction, url: edit_transaction_path(@transaction), method: :get do |f|
   = f.inputs do
-    %h3 Artikel
+    = render 'article_display'
+
+    %hr
+
+    %h3
+      = t 'transaction.edit.choose_purchase_data'
+
+    - if @transaction.is_a? MultipleFixedPriceTransaction
+      = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, placeholder: 1 }
+
+    = f.input :selected_transport, include_blank: false, collection: @transaction.selected_transports
+
+    = f.input :selected_payment, include_blank: false, collection: @transaction.selected_payments
+
     %p
-      = @transaction.article_title
-      = t 'common.text.glue.by'
-      = @transaction.article_seller.fullname
-
-    %h3
-      = t 'transaction.edit.transport'
-
-    = f.input :selected_transport, label: false, include_blank: false, collection: @transaction.selected_transports
-
-    %h3
-      = t 'transaction.edit.payment'
-
-    = f.input :selected_payment, label: false, include_blank: false, collection: @transaction.selected_payments
-
-    %h3
-      = t 'transaction.edit.impressum', name: @transaction.article_seller.fullname
-    %p
-      = @transaction.article_seller.about
-
-    %h3
       = t 'transaction.edit.address'
     %p
       = current_user.fullname
@@ -57,12 +50,10 @@
       %br
       = current_user.country
 
-    %h3
-      = 'Sonstiges'
+    %hr
+
     %p
-      = f.input :message
-      - if @transaction.is_a? MultipleFixedPriceTransaction
-        = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, placeholder: 1 }
+      = t 'transaction.edit.next_step_explanation'
 
   = f.actions do
     = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}

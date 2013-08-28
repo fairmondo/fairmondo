@@ -45,21 +45,19 @@ describe 'Transaction' do
           page.should have_content I18n.t 'transaction.edit.heading'
 
           # Should display article data
-          page.should have_content article.title
-          page.should have_content seller.fullname
+          page.should have_link article.title
+          page.should have_link seller.fullname
+          page.should have_content I18n.t 'transaction.edit.preliminary_price'
 
-          # Should display shipping selection
-          page.should have_content I18n.t 'transaction.edit.transport'
+          # Should display purchase options
+          page.should have_content I18n.t 'transaction.edit.choose_purchase_data'
+          ## Should display shipping selection
+          page.should have_content I18n.t 'formtastic.labels.transaction.selected_transport'
           page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_transport.pickup')
-
-          # Should display payment selection
-          page.should have_content I18n.t 'transaction.edit.payment'
+          ## Should display payment selection
+          page.should have_content I18n.t 'formtastic.labels.transaction.selected_payment'
           page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_payment.cash')
-
-          # Should display impressum
-          page.should have_content I18n.t 'transaction.edit.impressum', name: seller.fullname
-
-          # Should display buyer's address
+          ## Should display buyer's address
           page.should have_content I18n.t 'transaction.edit.address'
           page.should have_content user.fullname
           page.should have_content user.street
@@ -67,8 +65,9 @@ describe 'Transaction' do
           page.should have_content user.city
           page.should have_content user.country
 
-          # Should have optional message field
-          page.should have_content I18n.t('formtastic.labels.transaction.message')
+          # Should display info text and button
+          page.should have_content I18n.t 'transaction.edit.next_step_explanation'
+          page.should have_button I18n.t 'common.actions.continue'
         end
 
         it "should show a quantity field for MultipleFixedPriceTransactions" do
@@ -84,7 +83,7 @@ describe 'Transaction' do
         end
 
         it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
-          pending 'Under construction'
+          pending 'Not yet implemented.'
         end
 
         it "should lead to step 2" do
@@ -103,12 +102,17 @@ describe 'Transaction' do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
             # Should have pre-filled hidden fields
+            page.should have_css 'input#transaction_quantity_bought[@type=hidden][@value="1"]'
             page.should have_css 'input#transaction_selected_transport[@type=hidden][@value=pickup]'
             page.should have_css 'input#transaction_selected_payment[@type=hidden][@value=cash]'
 
             # Should display article data
-            page.should have_content article.title
-            page.should have_content seller.fullname
+            page.should have_link article.title
+            page.should have_link seller.fullname
+            page.should have_content I18n.t 'transaction.edit.preliminary_price'
+
+            # Should display chosen quantity
+            page.should have_content(I18n.t('transaction.edit.quantity_bought')+' 1')
 
             # Should display chosen payment type
             page.should have_content I18n.t 'transaction.edit.payment_type'
@@ -126,29 +130,30 @@ describe 'Transaction' do
             page.should have_content user.city
             page.should have_content user.country
 
-            # Should not display optional fields
-            page.should_not have_content I18n.t 'transaction.edit.message'
+
+            # Should display impressum
+            page.should have_content I18n.t 'transaction.edit.impressum'
+            page.should have_content transaction.article_seller.about
 
             # Should display terms
-            page.should have_content I18n.t 'transaction.edit.terms', name: seller.fullname
+            page.should have_content I18n.t 'transaction.edit.terms'
+            page.should have_content transaction.article_seller.terms
 
             # Should display declaration of revocation
-            page.should have_content I18n.t 'transaction.edit.cancellation', name: seller.fullname
+            page.should have_content I18n.t 'transaction.edit.cancellation'
+            page.should have_content transaction.article_seller.cancellation
 
             # Should display a checkbox for the terms
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
+
+
+            # Should have optional message field
+            page.should have_content I18n.t 'transaction.edit.message'
 
             # Should display buttons
             page.should have_link I18n.t 'common.actions.back'
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
-
-          it "should show the optional message when one was given" do
-            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash", "message" => "Something that wouldn't be there otherwise"}
-            page.should have_content I18n.t 'transaction.edit.message'
-            page.should have_content "Something that wouldn't be there otherwise"
-          end
-
 
           it "should submit the data successfully with accepted AGB" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
@@ -170,7 +175,6 @@ describe 'Transaction' do
 
           context "when testing the effects of the purchase" do
             context "for SingleFixedPriceTransaction" do
-              let (:transaction) { FactoryGirl.create :single_transaction }
               it "should set the states of article and transaction" do
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
 

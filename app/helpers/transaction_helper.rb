@@ -31,6 +31,15 @@ module TransactionHelper
     end
   end
 
+  def display_preliminary_price
+    output = t('transaction.edit.preliminary_price')
+    if resource.article_vat && resource.article_vat > 0
+      output += t 'transaction.edit.including_vat', percent: resource.article_vat
+    end
+    output += ': '
+    output += humanized_money_with_symbol resource.article_price_without_vat
+  end
+
   def display_total_price selected_transport, selected_payment, quantity
     ('<strong>' + t('transaction.edit.total_price') + '</strong> ' +
       humanized_money_with_symbol(
