@@ -9,8 +9,12 @@ class Invoice < ActiveRecord::Base
   belongs_to :user
   has_many :invoice_items
   has_many :articles, :through => :invoice_items
+  # Law of Demeter
+  # try to refactor to use immediate associations
+  # delegate :attr1, :attr2, :to => :article, :prefix => true
 
   validates_presence_of :user_id, :due_date, :state, :total_fee_cents
+  validates_numericality_of :total_fee_cents
 
 
   ################ State machine for states of invoice ################
