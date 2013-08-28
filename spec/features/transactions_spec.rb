@@ -84,7 +84,7 @@ describe 'Transaction' do
         end
 
         it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
-          pending "Not yet implemented."
+          pending 'Under construction'
         end
 
         it "should lead to step 2" do
@@ -202,14 +202,18 @@ describe 'Transaction' do
               end
 
               it "should show an error page when article was already sold to someone else in the meantime" do
-                pending "Not yet implemented."
+                pending 'Under construction'
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
 
-                transaction.sell
+                mail = Mail::Message.new
+                TransactionMailer.stub(:seller_notification).and_return(mail)
+                TransactionMailer.stub(:buyer_notification).and_return(mail)
+                mail.stub(:deliver)
+                transaction.buy
 
                 click_button I18n.t 'transaction.actions.purchase'
-                page.should have_content 'Bereits verkauft.'
+                page.should have_content 'bereits verkauft.'
               end
             end
 
@@ -417,7 +421,7 @@ describe 'Transaction' do
 
       context "when the transaction is not sold" do
         it "should redirect to the edit page" do
-          pending "Not yet implemented."
+          pending 'Under construction'
           login_as user
           visit transaction_path transaction
           current_path.should eq edit_transaction_path transaction

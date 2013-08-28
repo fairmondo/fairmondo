@@ -17,7 +17,8 @@ de:
       terms: "AGB von %{name}"
       cancellation: "Widerrufserklärung von %{name}"
       price_heading: Finaler Preis
-      net: "Verkaufspreis:"
+      total_price: "Verkaufspreis:"
+      net: "Nettopreis:"
       vat: "(zzgl. %{percent} % MwSt.)"
       shipping_and_handling: "Versandkosten:"
       payment_cash_on_delivery_price: "Nachnahme-Kosten:"

@@ -23,6 +23,7 @@
 - selected_payment = params["transaction"]["selected_payment"]
 - message = params["transaction"]["message"]
 - quantity = params["transaction"]["quantity_bought"]
+- quantity = 1 if quantity.nil? || quantity.empty?
 %h2
   = t 'transaction.edit.heading'
 
@@ -89,12 +90,11 @@
       = t 'transaction.edit.price_heading'
 
     %p
-      %strong
-        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment, quantity
+      = display_total_price selected_transport, selected_payment, quantity
     %p
-      = display_net_price
+      = display_net_price quantity
       %br
-      = display_vat_price
+      = display_vat_price quantity
       %br
       = I18n.t 'transaction.edit.shipping_and_handling'
       = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)

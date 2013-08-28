@@ -68,10 +68,20 @@ class MultipleFixedPriceTransaction < Transaction
     true
   end
 
-  # MFPT wait before being sold out
-  def sold_out_after_buy?
-    self.quantity_available == 0
-  end
+  private
+    # quantity params need to be validated for MFPTs
+    def quantity_param_valid? params
+      if params['transaction']['quantity_bought'] && !(params['transaction']['quantity_bought'].to_i <= self.quantity_available)
+        errors.add :quantity_bought, "We don't have that many."
+        return false
+      end
+      true
+    end
+
+    # MFPTs wait before being sold out
+    def sold_out_after_buy?
+      self.quantity_available == 0
+    end
 end
 
 #ey du hau ma quantity_sold raus
