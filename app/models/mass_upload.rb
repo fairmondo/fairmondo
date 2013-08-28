@@ -163,6 +163,26 @@ class MassUpload
     total_fee
   end
 
+  def self.calculate_total_fair(articles)
+    total_fair = Money.new(0)
+    articles.each do |article|
+      total_fair += article.calculated_fair
+    end
+    total_fair
+  end
+
+  def self.calculate_total_fees_and_donations(articles)
+    self.calculate_total_fees(articles) + self.calculate_total_fair(articles)
+  end
+
+  def self.calculate_total_fees_and_donations_netto(articles)
+    total_netto = Money.new(0)
+    articles.each do |article|
+      total_netto += article.calculated_fees_and_donations_netto
+    end
+    total_netto
+  end
+
   # The following 3 methods are needed for Active Model Errors
 
   def MassUpload.human_attribute_name(attr, options = {})
