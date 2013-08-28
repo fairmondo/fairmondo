@@ -13,5 +13,4 @@ class BankDetailsController < ApplicationController
       format.json { render :json => @result.to_json }
     end
   end
-
 end

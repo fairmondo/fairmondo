@@ -3,11 +3,11 @@ class SessionsController < Devise::SessionsController
   layout :layout
 
   private
-  def layout
-    if request.xhr?
-      false
-    else
-      "application"
+    def layout
+      if request.xhr?
+        false
+      else
+        "application"
+      end
     end
-  end
 end

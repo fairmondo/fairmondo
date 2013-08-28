@@ -68,32 +68,31 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  # check if we need password to update user data
-  # ie if password or email was changed
-  # extend this as needed
-  # @api private
-  def needs_password?(user, params)
-    user.email != params[:user][:email] ||
-      !params[:user][:password].blank?
-  end
-
-  def after_update_path_for resource_or_scope
-    user_path(resource_or_scope)
-  end
-
-  def check_incomplete_profile! user
-    user.wants_to_sell = true if params[:incomplete_profile]
-  end
-
-  def update_account account_update_params
-    if needs_password?(resource, params)
-     resource.update_with_password(account_update_params)
-    else
-      # remove the virtual current_password attribute update_without_password
-      # doesn't know how to ignore it
-      params[:user].delete(:current_password)
-      resource.update_without_password(account_update_params)
+    # check if we need password to update user data
+    # ie if password or email was changed
+    # extend this as needed
+    # @api private
+    def needs_password?(user, params)
+      user.email != params[:user][:email] ||
+        !params[:user][:password].blank?
     end
-  end
 
+    def after_update_path_for resource_or_scope
+      user_path(resource_or_scope)
+    end
+
+    def check_incomplete_profile! user
+      user.wants_to_sell = true if params[:incomplete_profile]
+    end
+
+    def update_account account_update_params
+      if needs_password?(resource, params)
+       resource.update_with_password(account_update_params)
+      else
+        # remove the virtual current_password attribute update_without_password
+        # doesn't know how to ignore it
+        params[:user].delete(:current_password)
+        resource.update_without_password(account_update_params)
+      end
+    end
 end

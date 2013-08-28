@@ -22,10 +22,11 @@
 class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
-  custom_actions resource: :already_sold
+  custom_actions :resource => :already_sold
 
+  before_filter :redirect_if_already_sold, only: [:edit, :update]
+  before_filter :redirect_if_not_yet_sold, only: :show
   before_filter :authorize_resource
-  before_filter :check_if_already_sold, only: [:edit, :update]
 
   def edit
     edit! { return render :step2 if resource.edit_params_valid? params }
@@ -52,7 +53,11 @@ class TransactionsController < InheritedResources::Base
       authorize resource
     end
 
-    def check_if_already_sold
-      redirect_to already_sold_path(resource) unless resource.available?
+    def redirect_if_already_sold
+      redirect_to already_sold_transaction_path(resource) unless resource.available?
+    end
+
+    def redirect_if_not_yet_sold
+      redirect_to edit_transaction_path(resource) if resource.available?
     end
 end

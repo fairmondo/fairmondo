@@ -37,10 +37,7 @@ class UsersController < InheritedResources::Base
   end
 
   private
-
-  private
-  def authorize_resource
-    authorize resource
-  end
-
+    def authorize_resource
+      authorize resource
+    end
 end
