@@ -94,6 +94,8 @@ module Article::Attributes
     enumerize :default_transport, :in => [:pickup, :type1, :type2]
 
     validates_presence_of :default_transport
+    validates :transport_type1_provider, :length => { :maximum => 255 }
+    validates :transport_type2_provider, :length => { :maximum => 255 }
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
