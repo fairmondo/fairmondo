@@ -20,36 +20,15 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 #js-masonry.Masonry
-  -#
-    .Teaser
-      = tinycms_content "test_phase_greeting"
-    .Teaser
-      = tinycms_content "buy-ffps"
-    .Teaser
-      = tinycms_content "progress-ffps"
-    .Teaser
-      = link_to t('devise.links.sign_up'), new_registration_path(:user), :class => "btn btn-success btn-large pull-right"
-    .Teaser
-      = tinycms_content "please-register"
-    .Teaser
-      .bar{:style => "height:100%;width: #{@percentage}%"}
-    .Teaser
-      = link_to t('common.actions.take_part'), new_registration_path(:user), :class => "pull-right"
-
-    .Teaser
-      = @articles
-      = t("common.text.inserted")
 
   .Teaser.Teaser--text.Teaser--welcome
     %h2.Teaser-title.Icon
       %i.icon-pionier--blue
       Willkommen bei Fairnopoly
-    %p <strong>dem fairen Online-Markplatz in Hand der Nutzer*innen</strong>
-    %p Die Pionierphase ist gestartet! Du kannst jetzt zu den ersten gehören, die hier Artikel anbieten und so zum erfolgreichen Start beitragen.
+    %p
+      %strong dem fairen Online-Markplatz in Hand der Nutzer*innen
+    %p Am 24. September wird die Kauffunktion freigeschaltet. Bis dahin läuft die Pionierphase, in der wir mindestens 10.000 Artikel sammeln möchten. Auch Du kannst jetzt Artikel einstellen und so zum erfolgreichen Start beitragen:
     = link_to "Pionier*in werden", new_user_registration_path, class: "Btn Btn--blue"
-
-  .Teaser.Teaser--video
-    = tinycms_content "start-video"
 
   - if @featured_article
     .Teaser.Teaser--pioneer
@@ -62,21 +41,12 @@
       = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
 
       = link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
-      %p.Article-price.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
-      %span.Teaser--pioneer-3= render 'articles/show/vat' , :article => @featured_article
-      %span.Teaser--pioneer-3= render '/articles/show/basic_price',  :article => @featured_article
-  - else # implementing dummy for now. Feel free to erase. CSS would need to be fixed though.
-    .Teaser.Teaser--pioneer
-      %h2.Teaser-title Pionier des Tages
-      %figure.Profile
-        .Profile-container
-          .Profile-name Felix Weth, Berlin
-        =image_tag "dummy/avatar.png", class: "Profile-avatar"
-      =image_tag "dummy/dummy-245.png", class: "Teaser--pioneer-image"
-      Kreidetier
-      %p.Teaser--pioneer-2 12 €*
-      %span.Teaser--pioneer-3 inkl. 19% MwSt
-      %span.Teaser--pioneer-4 *Grundpreis 1.29€/Kg
+      -#%p.Article-price.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
+      -#%span.Teaser--pioneer-3= render 'articles/show/vat' , :article => @featured_article
+      -#%span.Teaser--pioneer-3= render '/articles/show/basic_price',  :article => @featured_article
+      %a.Btn{:href => "http://info.fairnopoly.de/pionierkalender/"}
+        Zum Pionierkalender
+
 
   .Teaser.Teaser--total
     %h2.Teaser-title Fairnopoly wächst!
@@ -85,12 +55,23 @@
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count)
 
+
+  .Teaser.Teaser--video
+    = tinycms_content "start-video"
+
+
   .Teaser.Teaser--text
     %h2.Teaser-title.Icon
-      %i.icon-interrogation--green
       Was ist Fairnopoly?
-    %p Fairnopoly ist ein neuer Online-Marktplatz mit einem fairen Unternehmensmodell. Auf dem Marktplatz kann grundsätzlich alles angeboten werden, was legal ist. Gebrauchte und als "fair" ausgezeichnete Produkte werden dabei besonders gefördert.
+    %p Fairnopoly ist ein neuer Online-Marktplatz, der als Genossenschaft seinen Nutzer*innen gehört.
+    %p Gewinne werden fair verteilt, Informationen statt Werbung geboten - und das alles transparent und kontrollierbar.
+    %p
+      Du kannst Dich jetzt
+      %a{ :href =>  new_user_registration_path }
+        registrieren
+      und bereits Artikel einstellen, Sammlungen anlegen und
+      %a{:href => "/anteile-zeichnen"}
+        Anteile zeichnen.
     %a.Btn.Btn--blue{href: "about_us"}
-      %i.icon-index-arrow--draw
       Mehr erfahren
 
