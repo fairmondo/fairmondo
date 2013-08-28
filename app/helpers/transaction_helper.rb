@@ -31,6 +31,14 @@ module TransactionHelper
     end
   end
 
+  def display_total_price selected_transport, selected_payment, quantity
+    ('<strong>' + t('transaction.edit.total_price') + '</strong> ' +
+      humanized_money_with_symbol(
+        resource.article_total_price(selected_transport, selected_payment, quantity)
+      )
+    ).html_safe
+  end
+
   # Return a basic display of the cash on delivery price for the current view's
   # resource if one exists.
   #
@@ -49,28 +57,30 @@ module TransactionHelper
   # @return [String, nil] Display HTML if there is something to display
   def display_basic_price
     if (price = resource.article_basic_price) > 0
-      ("<br>#{t('transaction.edit.basic_price')}" +
-      "#{humanized_money_with_symbol(price)}" +
-      t('common.text.glue.per') +
-      " ").html_safe
+      (
+        "<br>#{t('transaction.edit.basic_price')} " +
+        "#{humanized_money_with_symbol(price)} " +
+        t('common.text.glue.per') +
+        " " + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
+      ).html_safe
     end
   end
 
   # Return a display for the amount of money that goes towards taxes
   #
   # @return [String] Display HTML
-  def display_vat_price
+  def display_vat_price quantity
     output = I18n.t 'transaction.edit.vat', percent: resource.article_vat
     output += " "
-    output += humanized_money_with_symbol resource.article_vat_price
+    output += humanized_money_with_symbol resource.article_vat_price quantity
   end
 
   # Return a display for the net price
   #
   # @return [String] Display HTML
-  def display_net_price
+  def display_net_price quantity
     output = I18n.t 'transaction.edit.net'
     output += " "
-    output += humanized_money_with_symbol resource.article_price_without_vat
+    output += humanized_money_with_symbol resource.article_price_without_vat quantity
   end
 end

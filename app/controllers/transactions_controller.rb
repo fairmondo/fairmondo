@@ -22,8 +22,10 @@
 class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
+  custom_actions resource: :already_sold
 
   before_filter :authorize_resource
+  before_filter :check_if_already_sold, only: [:edit, :update]
 
   def edit
     edit! { return render :step2 if resource.edit_params_valid? params }
@@ -38,18 +40,19 @@ class TransactionsController < InheritedResources::Base
   # end
 
   def update
-    #@transaction = Transaction.find params[:id]
     resource.buyer_id = current_user.id
     update! do |success, failure|
-      #debugger
       resource.buy if success.class # using .class was the only way I could find to get a true or false value
-      #debugger
       failure.html { redirect_to :back, :alert => resource.errors.full_messages.first }
     end
   end
 
   private
-  def authorize_resource
-    authorize resource
-  end
+    def authorize_resource
+      authorize resource
+    end
+
+    def check_if_already_sold
+      redirect_to already_sold_path(resource) unless resource.available?
+    end
 end
