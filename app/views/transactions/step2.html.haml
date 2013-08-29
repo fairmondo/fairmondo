@@ -22,7 +22,7 @@
 - selected_transport = params["transaction"]["selected_transport"]
 - selected_payment = params["transaction"]["selected_payment"]
 - quantity = params["transaction"]["quantity_bought"]
-- quantity = 1 if quantity.nil? || quantity.empty?
+- quantity = (quantity.nil? || quantity.empty?) ? 1 : quantity.to_i
 %h2
   = t 'transaction.edit.heading'
 
@@ -107,20 +107,19 @@
 
     %p
       %strong
-        = display_preliminary_price quantity
+        = t('transaction.edit.quantity_bought') + quantity.to_s
+      %br
+      %strong
+        = display_sales_price quantity
 
       - if resource.article_seller.is_a? LegalEntity
         = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
       %br
-      = t 'transaction.edit.fair_percent', donation: '???'
+      = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
       %hr
-      %strong
-        = I18n.t 'transaction.edit.shipping_and_handling'
-      = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)
-      = '(' + t('enumerize.transaction.selected_transport.' + selected_transport) +')'
+      = display_transport_price selected_transport, quantity
       %br
-      - if 'Nachnahme'
-        = display_cash_on_delivery_price
+      = display_cash_on_delivery_price selected_payment
       %hr
       = display_total_price selected_transport, selected_payment, quantity
 
