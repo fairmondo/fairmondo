@@ -65,27 +65,26 @@ module Article::State
         transition :active => :sold
       end
 
-      after_transition :on => :activate, :do => :calculate_fees_and_donations
+      before_transition :on => :activate, :do => :calculate_fees_and_donations
       after_transition :on => :deactivate, :do => :remove_from_libraries
-
     end
 
   end
 
   def remove_from_libraries
-     # delete the article from the collections
-      self.library_elements.delete_all
+    # delete the article from the collections
+    self.library_elements.delete_all
   end
 
   def deactivate_without_validation
-      self.state = "locked"
-      self.remove_from_libraries
-      self.save(:validate => false) # do it anyways
+    self.state = "locked"
+    self.remove_from_libraries
+    self.save(:validate => false) # do it anyways
   end
 
   def close_without_validation
-      self.state = "closed"
-      self.save(:validate => false) # do it anyways
+    self.state = "closed"
+    self.save(:validate => false) # do it anyways
   end
 
 end

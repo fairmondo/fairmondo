@@ -322,7 +322,7 @@ describe 'Transaction' do
 
           context "when testing the displayed basic price" do
             it "should show a basic price when one was set" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, basic_price: 1111.11)
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, basic_price: 1111.11, seller: FactoryGirl.create(:legal_entity))
               visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
               page.should have_content I18n.t 'transaction.edit.basic_price'
@@ -330,7 +330,7 @@ describe 'Transaction' do
             end
 
             it "should not show a basic price when none was set" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, :with_private_user, basic_price_cents: 0)
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, :with_private_user, basic_price_cents: 0, seller: FactoryGirl.create(:legal_entity))
               visit edit_transaction_path t, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
               page.should_not have_content I18n.t 'transaction.edit.basic_price'

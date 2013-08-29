@@ -32,13 +32,18 @@ module TransactionHelper
   end
 
 
-  def display_preliminary_price quantity = 1
+  def display_preliminary_price
     output = t('transaction.edit.preliminary_price')
     if resource.article_vat && resource.article_vat > 0
       output += t 'transaction.edit.including_vat', percent: resource.article_vat
     end
     output += ': '
-    output += humanized_money_with_symbol resource.article_price_without_vat quantity
+    output += humanized_money_with_symbol resource.article_price_without_vat
+  end
+
+  def display_sales_price quantity = 1
+    t('transaction.edit.sales_price') +
+    humanized_money_with_symbol(resource.article_price_without_vat(quantity))
   end
 
   def display_total_price selected_transport, selected_payment, quantity
@@ -53,11 +58,21 @@ module TransactionHelper
   # resource if one exists.
   #
   # @return [String, nil] Display HTML if there is something to display
-  def display_cash_on_delivery_price
-    if (price = resource.article_payment_cash_on_delivery_price) > 0
+  def display_cash_on_delivery_price selected_payment
+    if (price = resource.article_payment_cash_on_delivery_price) > 0 && selected_payment == 'cash_on_delivery'
 
-      ('<br>' + t('transaction.edit.payment_cash_on_delivery_price') +
-      humanized_money_with_symbol(price)).html_safe
+      (t('transaction.edit.payment_cash_on_delivery_price') +
+      ' ' + humanized_money_with_symbol(price))
+    end
+  end
+
+  def display_transport_price selected_transport, quantity = 1
+    output = "<strong>#{I18n.t 'transaction.edit.shipping_and_handling'}</strong> ".html_safe
+    output += humanized_money_with_symbol(resource.article_transport_price(selected_transport, quantity))
+    if selected_transport == 'type1'
+      output += " (#{resource.article_transport_type1_provider})"
+    elsif selected_transport == 'type2'
+      output += " (#{resource.article_transport_type2_provider})"
     end
   end
 
@@ -67,12 +82,10 @@ module TransactionHelper
   # @return [String, nil] Display HTML if there is something to display
   def display_basic_price
     if (price = resource.article_basic_price) > 0
-      (
-        "<br>#{t('transaction.edit.basic_price')} " +
-        "#{humanized_money_with_symbol(price)} " +
-        t('common.text.glue.per') +
-        " " + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
-      ).html_safe
+      "<br>#{t('transaction.edit.basic_price')} ".html_safe +
+      "#{humanized_money_with_symbol(price)} " +
+      t('common.text.glue.per') +
+      t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
     end
   end
 

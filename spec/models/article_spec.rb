@@ -304,8 +304,22 @@ describe Article do
         article_3cat.should_not be_valid
       end
     end
+  end
 
-
+  describe "::State" do
+    describe "state machine hooks:" do
+      describe "on activate" do
+        it "should calculate the fees and donations" do
+          article = FactoryGirl.create :preview_article
+          article.calculated_fair_cents = 0
+          article.calculated_fee_cents = 0
+          article.save
+          article.activate
+          article.reload.calculated_fee.should be > 0
+          article.calculated_fair.should be > 0
+        end
+      end
+    end
   end
 
   describe "::Template" do

@@ -145,18 +145,18 @@ module Article::Attributes
 
   # Gives the price of the article minus taxes
   # @api public
-  # @param quantity [Integer, String] Amount of articles calculated
+  # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
   def price_without_vat quantity = 1
-    ( self.price * ( 100 - self.vat ) / 100 ) * quantity.to_i
+    ( self.price * ( 100 - self.vat ) / 100 ) * quantity
   end
 
   # Gives the amount of money for an article that goes towards taxes
   # @api public
-  # @param quantity [Integer, String] Amount of articles calculated
+  # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
   def vat_price quantity = 1
-    ( self.price * self.vat / 100 ) * quantity.to_i
+    ( self.price * self.vat / 100 ) * quantity
   end
 
   # Function to calculate total price for an article.
@@ -165,26 +165,27 @@ module Article::Attributes
   # @api public
   # @param selected_transport [String] Transport type
   # @param selected_payment [String] Payment type
-  # @param selected_payment [String, Integer] Amount of articles bought
+  # @param selected_payment [Integer] Amount of articles bought
   # @return [Money] Total billed price
   def total_price selected_transport, selected_payment, quantity
     quantity ||= 1
     total = self.price + self.transport_price(selected_transport)
     total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-    total * quantity.to_i
+    total * quantity
   end
 
   # Gives the shipping cost for a specified transport type
   #
   # @api public
   # @param transport_type [String] The transport type to look up
+  # @param quantity [Integer]
   # @return [Money] The shipping price
-  def transport_price transport_type = self.default_transport
+  def transport_price transport_type = self.default_transport, quantity = 1
     case transport_type
     when "type1"
-      transport_type1_price
+      transport_type1_price * quantity
     when "type2"
-      transport_type2_price
+      transport_type2_price * quantity
     else
       Money.new 0
     end

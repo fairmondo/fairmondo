@@ -35,13 +35,13 @@ module Article::BuildTransaction
     def build_specific_transaction
       unless self.skip_build_transaction || self.transaction # Is it possible to provide two :unless params for after_create? -KK
         if self.quantity == 1
-          self.transaction = SingleFixedPriceTransaction.create
+          fpt = SingleFixedPriceTransaction.create
         else
-          self.transaction = MultipleFixedPriceTransaction.new
-          self.transaction.quantity_available = self.quantity
-          self.transaction.save
+          fpt = MultipleFixedPriceTransaction.new
+          fpt.quantity_available = self.quantity
+          fpt.save
         end
+        self.transaction = fpt
       end
-      self.transaction
     end
 end
