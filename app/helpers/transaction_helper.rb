@@ -93,16 +93,20 @@ module TransactionHelper
   #
   # @return [String] Display HTML
   def display_vat_price quantity
-    output = I18n.t 'transaction.edit.vat', percent: resource.article_vat
-    output += " "
-    output += humanized_money_with_symbol resource.article_vat_price quantity
+    if resource.article_vat && resource.article_vat > 0
+      output = '<br>'.html_safe
+      output += I18n.t 'transaction.edit.vat', percent: resource.article_vat
+      output += " "
+      output += humanized_money_with_symbol resource.article_vat_price quantity
+    end
   end
 
   # Return a display for the net price
   #
   # @return [String] Display HTML
   def display_net_price quantity
-    output = I18n.t 'transaction.edit.net'
+    output = '<br>'.html_safe
+    output += I18n.t 'transaction.edit.net'
     output += " "
     output += humanized_money_with_symbol resource.article_price_without_vat quantity
   end
