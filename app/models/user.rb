@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
     Invoice.find_by_user_id_and_state( self.id, "open" ).present?
   end
 
-  def self.has_paid_quarterly_fee?
+  def has_paid_quarterly_fee?
     self.quarterly_fee?
   end
   ####################### Invoice stuff ###################

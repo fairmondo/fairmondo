@@ -8,6 +8,10 @@ describe Invoice do
 #   let(:invoice) { FactoryGirl.create :invoice, :user_id => user.id }
 # end
 
+  it "has a valid Factory" do
+    should be_valid
+  end
+
   describe "model attributes" do
   	it { should respond_to :due_date }
   	it { should respond_to :state }
@@ -31,7 +35,7 @@ describe Invoice do
   end
 
   describe "state machine" do
-		let (:invoice) { FactoryGirl.create :invoice }
+		let ( :invoice ) { FactoryGirl.create :invoice }
 
   	describe "states" do
   		it "should have state 'open'" do
@@ -84,7 +88,8 @@ describe Invoice do
 	end
 
   describe "methods" do
-  	let (:invoice) { FactoryGirl.create :invoice }
+  	let ( :invoice ) { FactoryGirl.create :invoice }
+    let ( :user ) { FactoryGirl.create :user }
 
   	describe "that are public:" do
   		before do
@@ -92,16 +97,33 @@ describe Invoice do
   			transaction = article.transaction
   		end
 
-  		it "'invoice_action_chain' should be triggered when 'transaction.buy' is executed" do
-        pending
-  		end
+  		# This is maybe not necessary
+    #   it "'invoice_action_chain' should be triggered when 'transaction.buy' is executed" do
+    #     pending
+  		# end
 
       it "'calculate_total_fee' should calculate total_fee" do
         pending
       end
 
-      it "'add_quarterly_fee' should add the quarterly fee to invoice" do
-        pending
+      context "'add_quarterly_fee' should" do
+        it "add the quarterly fee to invoice if invoice is the last of this quarter" do
+          pending
+        end
+
+        it "not add the quarterly fee to invoice if invoice is not the last of this quarter" do
+        end
+      end
+
+      context "create_invoice should" do
+        it "create invoice if user has no open invoice" do
+          pending
+        end
+
+        it "not create invoice if user has open invoice" do
+          pending
+          # invoice.user_id = user.id
+        end
       end
 
       context "is the invoice billable? dependent on 'total_fee_cents" do
@@ -132,7 +154,3 @@ describe Invoice do
   	end
   end
 end
-
-
-
-
