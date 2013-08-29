@@ -138,6 +138,7 @@ group :development, :test do
   gem "brakeman" # security test: execute with 'brakeman'
   gem 'parallel_tests'
   gem 'rspec-instafail'
+  #gem 'timecop' #for faking test time/date
 
   # Replace Webrick
   gem 'thin'
