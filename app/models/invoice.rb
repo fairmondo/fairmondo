@@ -13,8 +13,10 @@ class Invoice < ActiveRecord::Base
   # try to refactor to use immediate associations
   # delegate :attr1, :attr2, :to => :article, :prefix => true
 
-  validates_presence_of :user_id, :due_date, :state, :total_fee_cents
-  validates_numericality_of :total_fee_cents
+  validates_presence_of *invoice_attributes
+  validates_numericality_of :total_fee_cents, 
+                            :only_integer => true, 
+                            :greater_than_or_equal_to => 0
 
 
   ################ State machine for states of invoice ################
