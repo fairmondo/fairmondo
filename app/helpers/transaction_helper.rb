@@ -58,11 +58,11 @@ module TransactionHelper
   # resource if one exists.
   #
   # @return [String, nil] Display HTML if there is something to display
-  def display_cash_on_delivery_price selected_payment
+  def display_cash_on_delivery_price selected_payment, quantity = 1
     if (price = resource.article_payment_cash_on_delivery_price) > 0 && selected_payment == 'cash_on_delivery'
 
       (t('transaction.edit.payment_cash_on_delivery_price') +
-      ' ' + humanized_money_with_symbol(price))
+      ' ' + humanized_money_with_symbol(price * quantity))
     end
   end
 

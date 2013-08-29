@@ -111,33 +111,26 @@
 
             %p
               %strong
-                = display_preliminary_price quantity
+                = t('transaction.edit.quantity_bought') + quantity.to_s
+              %br
+              %strong
+                = display_sales_price quantity
 
-    %hr
+              - if resource.article_seller.is_a? LegalEntity
+                = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
+              %br
+              = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+              %hr
+              %br
+              = display_transport_price selected_transport, quantity
+              %br
+              = display_cash_on_delivery_price selected_payment, quantity
+              %hr
+              %br
+              %h2
+                = display_total_price selected_transport, selected_payment, quantity
 
-
-    %h3
-      = t 'transaction.edit.price_heading'
-
-    %p
-      %strong
-        = t('transaction.edit.quantity_bought') + quantity.to_s
-      %br
-      %strong
-        = display_sales_price quantity
-
-      - if resource.article_seller.is_a? LegalEntity
-        = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
-      %br
-      = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-      %hr
-      = display_transport_price selected_transport, quantity
-      %br
-      = display_cash_on_delivery_price selected_payment
-      %hr
-      = display_total_price selected_transport, selected_payment, quantity
-
-
-  = f.actions do
-    = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
-    = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'Btn'
+          %br
+          = f.actions do
+            = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
+            = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'Btn'
