@@ -23,81 +23,95 @@
 - selected_payment = params["transaction"]["selected_payment"]
 - quantity = params["transaction"]["quantity_bought"]
 - quantity = (quantity.nil? || quantity.empty?) ? 1 : quantity.to_i
-%h2
-  = t 'transaction.edit.heading'
 
-= semantic_form_for @transaction do |f|
-  = f.inputs do
-    = f.hidden_field :selected_transport, value: selected_transport
-    = f.hidden_field :selected_payment, value: selected_payment
-    = f.hidden_field :quantity_bought, value: quantity
+.l-Main
+  .l-Inner
+    .Content
+      .Content-inner
+        %h1
+          = t 'transaction.edit.heading'
 
-    = render 'article_display'
-    %hr
+        = semantic_form_for @transaction do |f|
+          = f.inputs do
+            = f.hidden_field :selected_transport, value: selected_transport
+            = f.hidden_field :selected_payment, value: selected_payment
+            = f.hidden_field :quantity_bought, value: quantity
 
-    %h3
-      = t 'transaction.edit.purchase_data'
+            = render 'article_display'
+            %hr
+            %br
+            %h3
+              = t 'transaction.edit.purchase_data'
 
-    %p
-      %strong
-        = t('transaction.edit.quantity_bought')
-      = quantity
-    %p
-      %strong
-        = t('transaction.edit.payment_type')
-      = t('enumerize.transaction.selected_payment.' + selected_payment)
-    %p
-      %strong
-        = t('transaction.edit.transport_type')
-      = t('enumerize.transaction.selected_transport.' + selected_transport)
-      = transport_provider_for selected_transport
-    %p
-      %strong
-        = t 'transaction.edit.address'
-      %br
-      = current_user.fullname
-      %br
-      = current_user.street
-      %br
-      = current_user.zip
-      = current_user.city
-      %br
-      = current_user.country
+            %p
+              %strong
+                = t('transaction.edit.quantity_bought')
+              = quantity
+            %p
+              %strong
+                = t('transaction.edit.payment_type')
+              = t('enumerize.transaction.selected_payment.' + selected_payment)
+            %p
+              %strong
+                = t('transaction.edit.transport_type')
+              = t('enumerize.transaction.selected_transport.' + selected_transport)
+              = transport_provider_for selected_transport
+            %p
+              %br
+              %h3
+                = t 'transaction.edit.address'
+              = current_user.fullname
+              %br
+              = current_user.street
+              %br
+              = current_user.zip
+              = current_user.city
+              %br
+              = current_user.country
 
-    %hr
+            %hr
+            %br
+            %h3
+              = t 'transaction.edit.seller_data'
 
+            %p
+              = resource.article_seller.fullname
+            %p
+              = t 'transaction.edit.impressum'
+              .Scrollbox
+                = @transaction.article_seller.about
 
-    %h3
-      = t 'transaction.edit.seller_data'
+            %p
+              = t 'transaction.edit.terms'
+              .Scrollbox
+                = @transaction.article_seller.terms
+              = link_to_function 'Drucken', "javascript:print()"
 
-    %p
-      = resource.article_seller.fullname
-    %p
-      = t 'transaction.edit.impressum'
-      .Scrollbox
-        = @transaction.article_seller.about
+            %p
+              = t 'transaction.edit.cancellation'
+              .Scrollbox
+                = @transaction.article_seller.cancellation
+              = link_to_function 'Drucken', "javascript:print()"
 
-    %p
-      = t 'transaction.edit.terms'
-      .Scrollbox
-        = @transaction.article_seller.terms
-      = link_to_function 'Drucken', "javascript:print()"
+            %p
+              = f.input :tos_accepted
 
-    %p
-      = t 'transaction.edit.cancellation'
-      .Scrollbox
-        = @transaction.article_seller.cancellation
-      = link_to_function 'Drucken', "javascript:print()"
+            %hr
+            %br
+            %h3
+              = t 'transaction.edit.message'
+            %p
+              = f.input :message, label: false
 
-    %p
-      = f.input :tos_accepted
+            %hr
+            %br
 
-    %hr
+            %h3
+              = t 'transaction.edit.price_heading'
 
-    %h3
-      = t 'transaction.edit.message'
-    %p
-      = f.input :message, label: false
+            %p
+              %strong
+                = display_preliminary_price quantity
 
     %hr
 
