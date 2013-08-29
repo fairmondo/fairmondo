@@ -162,13 +162,13 @@ module Article::Attributes
     end
 
     def bank_account_exists
-      if !self.seller.bank_account_exists?
+      unless self.seller.bank_account_exists?
         errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
       end
     end
 
     def paypal_account_exists
-      if !self.seller.paypal_account_exists?
+      unless self.seller.paypal_account_exists?
         errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
       end
     end

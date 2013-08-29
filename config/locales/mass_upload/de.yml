@@ -14,7 +14,7 @@ de:
       wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
       wrong_article: "%{message} (Artikelzeile %{index})"
       wrong_article_message: "Content muss ausgefüllt werden"
-      missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungs- und Kontoinformationen (%{missing_payment})</a>.'
+      missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungsoptionen (%{missing_payment})</a>.'
     header:
       title: "Artikelbezeichnung"
       content: "Artikelbeschreibung"
