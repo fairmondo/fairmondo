@@ -237,3 +237,9 @@ fieldset.choices {
   margin-left: 50px;
   input { width: 100%; max-width: none; }
 }
+
+// fonts
+.formtastic strong {
+  font-style: normal;
+  font-weight: bold;
+}
