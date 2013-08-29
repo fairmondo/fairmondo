@@ -92,9 +92,47 @@ describe Invoice do
   			transaction = article.transaction
   		end
 
-  		describe "'invoice_action_chain' should be triggered when 'transaction.buy' is executed" do
-
+  		it "'invoice_action_chain' should be triggered when 'transaction.buy' is executed" do
+        pending
   		end
+
+      it "'calculate_total_fee' should calculate total_fee" do
+        pending
+      end
+
+      it "'add_quarterly_fee' should add the quarterly fee to invoice" do
+        pending
+      end
+
+      context "is the invoice billable? dependent on 'total_fee_cents" do
+        it "'invoice_billable?' should  return 'true' if total_fee_cents is 1000 or bigger" do
+          invoice.total_fee_cents = 1000
+          invoice.invoice_billable?.should be_true
+        end
+
+        it "'invoice_billable?' should  return 'false' if total_fee_cents is between 0 and 999" do
+          invoice.total_fee_cents = 657
+          invoice.invoice_billable?.should be_false
+        end
+      end
+
+      context "set due date dependent on invoice_billable?" do
+        it "due date should be at end of month if invoice is billable" do
+          invoice.total_fee_cents = 1001
+          invoice.set_due_date
+          invoice.due_date.should eq 30.days.from_now.at_end_of_month
+        end
+
+        it "due date should be at end of quarter if invoice is not billable" do
+          invoice.total_fee_cents = 675
+          invoice.set_due_date
+          invoice.due_date.should eq 30.days.from_now.at_end_of_quarter
+        end
+      end
   	end
   end
 end
+
+
+
+
