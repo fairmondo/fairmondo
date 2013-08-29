@@ -123,17 +123,8 @@ class MassUpload
         article = Article.new(row)
         article.user_id = user_id
         article.currency = "EUR"
-        if article.fair_seal
-          article.fair = true
-          article.fair_kind = "fair_seal"
-        end
-        if article.ecologic_seal
-          article.ecologic = true
-          article.ecologic_kind = "ecologic_seal"
-        end
-        if article.small_and_precious_eu_small_enterprise
-          article.small_and_precious = true
-        end
+        check_commendation(article)
+        revise_prices(article)
         article.categories = categories if categories
         raw_article_array << article
       end
@@ -175,6 +166,32 @@ class MassUpload
       total_netto += article.calculated_fees_and_donations_netto
     end
     total_netto
+  end
+
+  def check_commendation(article)
+    if article.fair_seal
+      article.fair = true
+      article.fair_kind = "fair_seal"
+    end
+    if article.ecologic_seal
+      article.ecologic = true
+      article.ecologic_kind = "ecologic_seal"
+    end
+    if article.small_and_precious_eu_small_enterprise
+      article.small_and_precious = true
+    end
+  end
+
+  def revise_prices(article)
+    unless article.basic_price
+      article.basic_price = 0
+    end
+    unless article.transport_type1_price_cents
+      article.transport_type1_price_cents = 0
+    end
+    unless article.transport_type2_price_cents
+      article.transport_type2_price_cents = 0
+    end
   end
 
   # The following 3 methods are needed for Active Model Errors

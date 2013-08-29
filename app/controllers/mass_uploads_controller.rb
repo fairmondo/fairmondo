@@ -9,9 +9,8 @@ class MassUploadsController < ApplicationController
   def show
     authorize Article.new, :create? # Needed because of pundit
     secret_mass_uploads_number = params[:id]
-    @articles = Article.find_all_by_id(session[secret_mass_uploads_number])
+    @articles = Article.find_all_by_id(session[secret_mass_uploads_number]).sort_by(&:created_at)
   end
-
 
   def create
     authorize Article.new, :create? # Needed because of pundit
