@@ -39,8 +39,8 @@ class Transaction < ActiveRecord::Base
 
   delegate :title, :seller, :selectable_transports, :selectable_payments,
            :transport_provider, :transport_price, :payment_cash_on_delivery_price,
-           :basic_price, :price, :vat, :vat_price, :price_without_vat,
-           :total_price, :quantity, :quantity_left,
+           :basic_price, :basic_price_amount, :price, :vat, :vat_price,
+           :price_without_vat, :total_price, :quantity, :quantity_left,
            to: :article, prefix: true
   delegate :email, to: :buyer, prefix: true
   delegate :email, to: :article_seller, prefix: true
@@ -110,7 +110,9 @@ class Transaction < ActiveRecord::Base
       return false
     end
 
-    supports?("transport", params["transaction"]["selected_transport"]) && supports?("payment", params["transaction"]["selected_payment"])
+    supports?("transport", params["transaction"]["selected_transport"]) &&
+    supports?("payment", params["transaction"]["selected_payment"]) &&
+    quantity_param_valid?(params)
   end
 
   # Get transport options that were selected by seller
@@ -133,6 +135,11 @@ class Transaction < ActiveRecord::Base
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
     def quantity_available; raise NoMethodError; end
     def quantity_bought; raise NoMethodError; end
+
+    # Quantity is valid in general. Will change for MFPT
+    def quantity_param_valid? params
+      true
+    end
 
   private
     # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message

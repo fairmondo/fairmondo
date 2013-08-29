@@ -16,5 +16,4 @@ class CategoriesController < InheritedResources::Base
   end
 
   respond_to :json,:js
-
 end

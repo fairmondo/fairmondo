@@ -165,6 +165,18 @@ describe MultipleFixedPriceTransaction do
         end
       end
     end
+
+    describe "#quantity_param_valid?" do
+      it "should return true by default" do
+        mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => nil}}).should be_true
+      end
+
+      it "should add an error and return false when quantity_bought is larger than quantity_available" do
+        mfpt.quantity_available = 9
+        mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => '10'}}).should be_false
+        mfpt.errors.full_messages.should include("Quantity bought We don't have that many.")
+      end
+    end
   end
 end
 

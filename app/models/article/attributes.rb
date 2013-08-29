@@ -144,19 +144,19 @@ module Article::Attributes
   end
 
   # Gives the price of the article minus taxes
-  #
   # @api public
+  # @param quantity [Integer, String] Amount of articles calculated
   # @return [Money]
-  def price_without_vat
-    self.price * ( 100 - self.vat ) / 100
+  def price_without_vat quantity = 1
+    ( self.price * ( 100 - self.vat ) / 100 ) * quantity.to_i
   end
 
   # Gives the amount of money for an article that goes towards taxes
-  #
   # @api public
+  # @param quantity [Integer, String] Amount of articles calculated
   # @return [Money]
-  def vat_price
-    self.price * self.vat / 100
+  def vat_price quantity = 1
+    ( self.price * self.vat / 100 ) * quantity.to_i
   end
 
   # Function to calculate total price for an article.

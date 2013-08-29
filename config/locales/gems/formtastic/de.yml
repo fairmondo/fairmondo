@@ -152,8 +152,9 @@ de:
         public: Öffentlich
       transaction:
         tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung
-        message: Nachricht an den Verkäufer (optional)
-        quantity_bought: Anzahl
+        quantity_bought: "Artikelanzahl:"
+        selected_transport: "Bitte wähle eine Versandmethode aus:"
+        selected_payment: "Bitte wähle eine Bezahloption aus:"
     input_steps:
       user:
         account: Benutzerkonto

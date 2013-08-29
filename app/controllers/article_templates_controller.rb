@@ -65,32 +65,31 @@ class ArticleTemplatesController < InheritedResources::Base
 
   private
 
-  def begin_of_association_chain
-    current_user
-  end
+    def begin_of_association_chain
+      current_user
+    end
 
-  def collection_url
-    user_path(current_user, :anchor => "my_article_templates")
-  end
+    def collection_url
+      user_path(current_user, :anchor => "my_article_templates")
+    end
 
-  def build_article
-    resource.build_article unless resource.article
-    resource.article.seller = current_user
-  end
+    def build_article
+      resource.build_article unless resource.article
+      resource.article.seller = current_user
+    end
 
-  def save_images
-    #At least try to save the images -> not persisted in browser
-    if resource.article
-      resource.article.images.each do |image|
-        ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
-        ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
-        # if image.image
-          image.save
-        # else
-        #   @article.images.remove image
-        # end
+    def save_images
+      #At least try to save the images -> not persisted in browser
+      if resource.article
+        resource.article.images.each do |image|
+          ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
+          ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
+          # if image.image
+            image.save
+          # else
+          #   @article.images.remove image
+          # end
+        end
       end
     end
-  end
-
 end
