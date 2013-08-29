@@ -21,8 +21,8 @@
 -#
 - selected_transport = params["transaction"]["selected_transport"]
 - selected_payment = params["transaction"]["selected_payment"]
-- message = params["transaction"]["message"]
 - quantity = params["transaction"]["quantity_bought"]
+- quantity = 1 if quantity.nil? || quantity.empty?
 %h2
   = t 'transaction.edit.heading'
 
@@ -30,16 +30,18 @@
   = f.inputs do
     = f.hidden_field :selected_transport, value: selected_transport
     = f.hidden_field :selected_payment, value: selected_payment
-    = f.hidden_field :message, value: message
     = f.hidden_field :quantity_bought, value: quantity
+
+    = render 'article_display'
+    %hr
 
     %h3
       = t 'transaction.edit.purchase_data'
 
     %p
-      = @transaction.article_title
-      = t 'common.text.glue.by'
-      = @transaction.article_seller.fullname
+      %strong
+        = t('transaction.edit.quantity_bought')
+      = quantity
     %p
       %strong
         = t('transaction.edit.payment_type')
@@ -61,40 +63,54 @@
       = current_user.city
       %br
       = current_user.country
-    - if message && !message.empty?
-      %p
-        %strong
-          = t 'transaction.edit.message'
-        %br
-        = message
+
+    %hr
 
 
     %h3
-      = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
+      = t 'transaction.edit.seller_data'
+
     %p
-      = @transaction.article_seller.terms
+      = resource.article_seller.fullname
+    %p
+      = t 'transaction.edit.impressum'
+      .Scrollbox
+        = @transaction.article_seller.about
+
+    %p
+      = t 'transaction.edit.terms'
+      .Scrollbox
+        = @transaction.article_seller.terms
       = link_to_function 'Drucken', "javascript:print()"
 
-    %h3
-      = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
     %p
-      = @transaction.article_seller.cancellation
+      = t 'transaction.edit.cancellation'
+      .Scrollbox
+        = @transaction.article_seller.cancellation
       = link_to_function 'Drucken', "javascript:print()"
 
     %p
       = f.input :tos_accepted
+
+    %hr
+
+    %h3
+      = t 'transaction.edit.message'
+    %p
+      = f.input :message, label: false
+
+    %hr
 
 
     %h3
       = t 'transaction.edit.price_heading'
 
     %p
-      %strong
-        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment, quantity
+      = display_total_price selected_transport, selected_payment, quantity
     %p
-      = display_net_price
+      = display_net_price quantity
       %br
-      = display_vat_price
+      = display_vat_price quantity
       %br
       = I18n.t 'transaction.edit.shipping_and_handling'
       = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)

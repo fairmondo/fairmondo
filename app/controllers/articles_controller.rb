@@ -123,69 +123,68 @@ class ArticlesController < InheritedResources::Base
 
   private
 
-  def ensure_complete_profile
-    # Check if the user has filled all fields
-    if !current_user.can_sell?
-      flash[:error] = t('article.notices.incomplete_profile')
-      redirect_to edit_user_registration_path(:incomplete_profile => true)
-    end
-  end
-
-  def change_state!
-
-    # For changing the state of an article
-    # Refer to Article::State
-    params.delete :article # Do not allow any other change
-    if params[:activate]
-      authorize resource, :activate?
-      if resource.activate
-        flash[:notice] = I18n.t('article.notices.create_html').html_safe
-        redirect_to resource
-      else
-        # The article became invalid so please try a new one
-        redirect_to new_article_path(:edit_as_new => resource.id)
+    def ensure_complete_profile
+      # Check if the user has filled all fields
+      if !current_user.can_sell?
+        flash[:error] = t('article.notices.incomplete_profile')
+        redirect_to edit_user_registration_path(:incomplete_profile => true)
       end
-    elsif params[:deactivate]
-      authorize resource, :deactivate?
-      resource.deactivate_without_validation
-      flash[:notice] = I18n.t('article.notices.deactivated')
-      redirect_to resource
     end
-  end
 
-  def state_params_present?
-    params[:activate] || params[:deactivate]
-  end
+    def change_state!
 
-
-  def search_for query
-    ######## Solr
-      search = query.find_like_this params[:page]
-      return search.results
-    ########
-    rescue Errno::ECONNREFUSED
-      render_hero :action => "sunspot_failure"
-      return policy_scope(Article).page params[:page]
-  end
-
-  ############ Save Images ################
-
-  def save_images
-    #At least try to save the images -> not persisted in browser
-    resource.images.each do |image|
-      image.save
+      # For changing the state of an article
+      # Refer to Article::State
+      params.delete :article # Do not allow any other change
+      if params[:activate]
+        authorize resource, :activate?
+        if resource.activate
+          flash[:notice] = I18n.t('article.notices.create_html').html_safe
+          redirect_to resource
+        else
+          # The article became invalid so please try a new one
+          redirect_to new_article_path(:edit_as_new => resource.id)
+        end
+      elsif params[:deactivate]
+        authorize resource, :deactivate?
+        resource.deactivate_without_validation
+        flash[:notice] = I18n.t('article.notices.deactivated')
+        redirect_to resource
+      end
     end
-  end
 
-  ################## Inherited Resources
-  protected
+    def state_params_present?
+      params[:activate] || params[:deactivate]
+    end
 
-  def collection
-    @articles ||= search_for Article.new(params[:article])
-  end
 
-  def begin_of_association_chain
-    current_user
-  end
+    def search_for query
+      ######## Solr
+        search = query.find_like_this params[:page]
+        return search.results
+      ########
+      rescue Errno::ECONNREFUSED
+        render_hero :action => "sunspot_failure"
+        return policy_scope(Article).page params[:page]
+    end
 
+    ############ Save Images ################
+
+    def save_images
+      #At least try to save the images -> not persisted in browser
+      resource.images.each do |image|
+        image.save
+      end
+    end
+
+    ################## Inherited Resources
+    protected
+
+    def collection
+      @articles ||= search_for Article.new(params[:article])
+    end
+
+    def begin_of_association_chain
+      current_user
+    end
 end

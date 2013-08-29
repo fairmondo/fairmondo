@@ -53,7 +53,11 @@ Fairnopoly::Application.routes.draw do
       get 'autocomplete'
     end
   end
-  resources :transactions, only: [:show, :edit, :update]
+  resources :transactions, only: [:show, :edit, :update] do
+    member do
+      get 'already_sold'
+    end
+  end
 
   get "welcome/index"
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}

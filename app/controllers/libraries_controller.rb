@@ -57,22 +57,21 @@ class LibrariesController < InheritedResources::Base
     destroy! { user_libraries_path(@user)}
   end
 
-  protected
+  private
 
-  def begin_of_association_chain
-    @user if user_focused?
-  end
+    def begin_of_association_chain
+      @user if user_focused?
+    end
 
-  # def collection
-  #   @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
-  # end
+    # def collection
+    #   @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
+    # end
 
-  def get_user
-    @user = User.find(params[:user_id])
-  end
+    def get_user
+      @user = User.find(params[:user_id])
+    end
 
-  def user_focused?
-    params.has_key? :user_id
-  end
-
+    def user_focused?
+      params.has_key? :user_id
+    end
 end
