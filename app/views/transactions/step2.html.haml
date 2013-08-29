@@ -106,16 +106,24 @@
       = t 'transaction.edit.price_heading'
 
     %p
-      = display_total_price selected_transport, selected_payment, quantity
-    %p
-      = display_net_price quantity
+      %strong
+        = display_preliminary_price quantity
+
+      - if resource.article_seller.is_a? LegalEntity
+        = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
       %br
-      = display_vat_price quantity
-      %br
-      = I18n.t 'transaction.edit.shipping_and_handling'
+      = t 'transaction.edit.fair_percent', donation: '???'
+      %hr
+      %strong
+        = I18n.t 'transaction.edit.shipping_and_handling'
       = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)
-      = display_cash_on_delivery_price
-      = display_basic_price
+      = '(' + t('enumerize.transaction.selected_transport.' + selected_transport) +')'
+      %br
+      - if 'Nachnahme'
+        = display_cash_on_delivery_price
+      %hr
+      = display_total_price selected_transport, selected_payment, quantity
+
 
   = f.actions do
     = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
