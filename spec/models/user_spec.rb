@@ -663,4 +663,203 @@ describe User do
       end
     end
   end
+
+  describe "seller rating" do
+    describe PrivateUser do
+
+      context "with positive ratings over 90%" do
+        before :all do
+          @private_seller = FactoryGirl::create(:private_user)
+          46.times do
+            FactoryGirl.create(:positive_rating, :rated_user => @private_seller)
+          end
+          4.times do
+            FactoryGirl.create(:negative_rating, :rated_user => @private_seller)
+          end
+        end
+
+        it "should change percentage of positive ratings" do
+          @private_seller.update_ratings
+          @private_seller.percentage_of_positive_ratings.should eq 92.0
+        end
+        it "should stay good seller" do
+          @private_seller.seller_state = "good_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "good_seller"
+        end
+        it "should change from standard to good seller" do
+          @private_seller.seller_state = "standard_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "good_seller"
+        end
+         it "should change from bad to standard seller" do
+          @private_seller.seller_state = "bad_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "standard_seller"
+        end
+      end
+
+      context "with positive ratings over 75%" do
+        before :all do
+          @private_seller = FactoryGirl::create(:private_user)
+          40.times do
+            FactoryGirl.create(:positive_rating, :rated_user => @private_seller)
+          end
+          10.times do
+            FactoryGirl.create(:negative_rating, :rated_user => @private_seller)
+          end
+        end
+
+        it "should change percentage of positive ratings" do
+          @private_seller.update_ratings
+          @private_seller.percentage_of_positive_ratings.should eq 80.0
+        end
+        it "should stay good seller" do
+          @private_seller.seller_state = "good_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "good_seller"
+        end
+        it "should stay standard seller" do
+          @private_seller.seller_state = "standard_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "standard_seller"
+        end
+         it "should change from bad to standard seller" do
+          @private_seller.seller_state = "bad_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "standard_seller"
+        end
+      end
+
+      context "with negative ratings over 25%" do
+        before :all do
+          @private_seller = FactoryGirl::create(:private_user)
+          35.times do
+            FactoryGirl.create(:positive_rating, :rated_user => @private_seller)
+          end
+          15.times do
+            FactoryGirl.create(:negative_rating, :rated_user => @private_seller)
+          end
+        end
+
+        it "should change percentage of negative ratings" do
+          @private_seller.update_ratings
+          @private_seller.percentage_of_negative_ratings.should eq 30.0
+        end
+        it "should change from good to bad seller" do
+          @private_seller.seller_state = "good_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard to bad seller" do
+          @private_seller.seller_state = "standard_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "bad_seller"
+        end
+         it "should stay bad seller" do
+          @private_seller.seller_state = "bad_seller"
+          @private_seller.update_ratings
+          @private_seller.seller_state.should eq "bad_seller"
+        end
+      end
+
+    end
+
+    describe LegalEntity do
+
+      context "with positive ratings over 70%" do
+        before :all do
+          @commercial_seller = FactoryGirl.create(:legal_entity)
+          40.times do
+            FactoryGirl.create(:positive_rating, :rated_user => @commercial_seller)
+          end
+          10.times do
+            FactoryGirl.create(:negative_rating, :rated_user => @commercial_seller)
+          end
+        end
+
+        it "should change percentage of positive ratings" do
+          @commercial_seller.update_ratings
+          @commercial_seller.percentage_of_positive_ratings.should eq 80.0
+        end
+        it "should stay good1 seller" do
+          @commercial_seller.seller_state = "good1_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should stay good2 seller" do
+          @commercial_seller.seller_state = "good2_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should stay good3 seller" do
+          @commercial_seller.seller_state = "good3_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good4 seller" do
+          @commercial_seller.seller_state = "good4_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "good4_seller"
+        end
+        it "should stay standard seller" do
+          @commercial_seller.seller_state = "standard_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "standard_seller"
+        end
+        it "should change from bad to standard seller" do
+          @commercial_seller.seller_state = "bad_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "standard_seller"
+        end
+      end
+
+      context "with negative ratings over 25%" do
+        before :all do
+          @commercial_seller = FactoryGirl.create(:legal_entity)
+          35.times do
+            FactoryGirl.create(:positive_rating, :rated_user => @commercial_seller)
+          end
+          15.times do
+            FactoryGirl.create(:negative_rating, :rated_user => @commercial_seller)
+          end
+        end
+
+        it "should change percentage of negative ratings" do
+          @commercial_seller.update_ratings
+          @commercial_seller.percentage_of_negative_ratings.should eq 30.0
+        end
+        it "should change from good1 to bad seller" do
+          @commercial_seller.seller_state = "good1_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good2 to bad seller" do
+          @commercial_seller.seller_state = "good2_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good3 to bad seller" do
+          @commercial_seller.seller_state = "good3_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good4 to bad seller" do
+          @commercial_seller.seller_state = "good4_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard to bad seller" do
+          @commercial_seller.seller_state = "standard_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should stay bad seller" do
+          @commercial_seller.seller_state = "bad_seller"
+          @commercial_seller.update_ratings
+          @commercial_seller.seller_state.should eq "bad_seller"
+        end
+      end
+    end
+  end
 end
