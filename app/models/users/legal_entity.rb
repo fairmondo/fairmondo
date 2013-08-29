@@ -22,8 +22,34 @@
 class LegalEntity < User
   extend STI
 
+  def upgrade_seller_state
+    if self.seller_state == 'good1_seller'
+      calculate_percentage_of_positive_ratings 100
+      if self.percentage_of_positive_ratings > 90
+        self.rate_up_to_good2_seller
+      end
+
+    elsif self.seller_state == 'good2_seller'
+      calculate_percentage_of_positive_ratings 500
+      if self.percentage_of_positive_ratings > 90
+        self.rate_up_to_good3_seller
+      end
+
+    elsif self.seller_state == 'good3_seller'
+      calculate_percentage_of_positive_ratings 1000
+      if self.percentage_of_positive_ratings > 90
+        self.rate_up_to_good4_seller
+      end
+
+    else
+      self.rate_up_to_good1_seller
+      self.rate_up_to_standard_seller
+    end
+  end
+
 
   attr_accessible :terms, :cancellation, :about
+  attr_accessible :percentage_of_positive_ratings, :percentage_of_negative_ratings
 
    # validates legal entity
   validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
@@ -69,6 +95,18 @@ class LegalEntity < User
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
     User.model_name
+  end
+
+  private
+
+  def calculate_percentage_of_positive_ratings number_of_ratings
+    newest_ratings = self.ratings.limit(number_of_ratings)
+    number_of_newest_ratings = newest_ratings.count.to_f
+    number_of_positive_ratings = newest_ratings.select { |rates| rates.rating == 'positive' }.count
+    percentage_of_positive_ratings = number_of_positive_ratings / number_of_newest_ratings * 100
+
+    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings)
+    self.save
   end
 
 

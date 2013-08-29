@@ -167,26 +167,29 @@ class User < ActiveRecord::Base
   end
 
   def update_ratings
-    positive_ratings = self.ratings.where(:rating => 'positive').count
-    negative_ratings = self.ratings.where(:rating => 'negative').count
-    all_ratings = self.ratings.count
-    self.update_attributes(:percentage_of_positive_ratings => positive_ratings / all_ratings * 100,
-      :percentage_of_negative_ratings => negative_ratings / all_ratings * 100)
+    newest_ratings = self.ratings.limit(50)
+    number_of_newest_ratings = newest_ratings.count.to_f
+    number_of_positive_ratings = newest_ratings.select { |rates| rates.rating == 'positive' }.count
+    number_of_negative_ratings = newest_ratings.select { |rates| rates.rating == 'negative' }.count
+
+    percentage_of_positive_ratings = number_of_positive_ratings / number_of_newest_ratings * 100
+    percentage_of_negative_ratings = number_of_negative_ratings / number_of_newest_ratings * 100
+
+    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
+      :percentage_of_negative_ratings => percentage_of_negative_ratings)
     self.save
     update_seller_state
   end
 
   def update_seller_state
     # if rated user is private user
-    if self.percentage_of_positive_ratings > 70
-      if self.percentage_of_positive_ratings > 90
-        self.rate_up_to_good_seller
-      else
+    if self.percentage_of_positive_ratings > 90
+        upgrade_seller_state
+    elsif self.percentage_of_positive_ratings > 75
         self.rate_up_to_standard_seller
-      end
     else
-      if self.rate_down_to_bad_seller > 30
-        self.rate_up_to_good_seller
+      if self.percentage_of_negative_ratings > 25
+        self.rate_down_to_bad_seller
       end
     end
   end
