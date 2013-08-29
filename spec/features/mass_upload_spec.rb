@@ -19,15 +19,16 @@ describe "Mass-upload" do
   end
 
   context "for signed-in private users" do
+    let (:legal_entity_user) { FactoryGirl.create :legal_entity,
+                              :missing_bank_data }
     before do
       login_as private_user
       visit new_article_path
     end
 
     it "should not have a csv upload link" do
-      should_not have_link(I18n.t(
-        'mass_upload.labels.upload_article_via_csv'),
-        href: new_mass_upload_path
+      should_not have_link(I18n.t('users.boxes.import'),
+                           href: new_mass_upload_path
       )
     end
   end
@@ -37,30 +38,29 @@ describe "Mass-upload" do
 
     before do
       login_as legal_entity_user
-      visit new_mass_upload_path
+      visit new_article_path
     end
 
     it "should have a csv upload link" do
-      should have_link(I18n.t('users.boxes.export'))
+      should have_link(I18n.t('users.boxes.import'))
     end
 
     describe "when uploading" do
       before do
         setup_categories
-        click_link I18n.t('mass_upload.labels.upload_article_via_csv')
+        visit new_mass_upload_path
       end
 
       describe "as a user missing payment data -" do
-        before do
-          click_button I18n.t('mass_upload.labels.upload_article')
-          attach_file('mass_upload_file',
-                      'spec/fixtures/mass_upload_correct.csv')
-        end
+        before { attach_file('mass_upload_file',
+                             'spec/fixtures/mass_upload_correct.csv') }
 
         describe "all payment data -" do
-          before { click_button I18n.t('mass_upload.labels.upload_article') }
+          let (:legal_entity_user) { FactoryGirl.create :legal_entity,
+                                      :missing_bank_data }
 
           it "should show the correct error notice" do
+            click_button I18n.t('mass_upload.labels.upload_article')
             should have_css(".Notice--error")
             html.should include(
               I18n.t('mass_upload.errors.missing_payment_details',
@@ -72,11 +72,10 @@ describe "Mass-upload" do
         end
 
         describe "paypal data -" do
-          let (:legal_entity_user) { FactoryGirl.create :legal_entity,
-                                    :bank_data }
-          before { click_button I18n.t('mass_upload.labels.upload_article') }
+          let (:legal_entity_user) { FactoryGirl.create :legal_entity }
 
           it "should show the correct error notice" do
+            click_button I18n.t('mass_upload.labels.upload_article')
             should have_css(".Notice--error")
             html.should include(
               I18n.t('mass_upload.errors.missing_payment_details',
@@ -89,10 +88,10 @@ describe "Mass-upload" do
 
         describe "bank data -" do
           let (:legal_entity_user) { FactoryGirl.create :legal_entity,
-                                      :paypal_data }
-          before { click_button I18n.t('mass_upload.labels.upload_article') }
+                                      :missing_bank_data, :paypal_data }
 
           it "should show the correct error notice" do
+            click_button I18n.t('mass_upload.labels.upload_article')
             should have_css(".Notice--error")
             html.should include(
               I18n.t('mass_upload.errors.missing_payment_details',
@@ -106,7 +105,7 @@ describe "Mass-upload" do
 
       context "as a user with complete payment data" do
         let (:legal_entity_user) { FactoryGirl.create :legal_entity,
-                                    :paypal_data, :bank_data }
+                                    :paypal_data }
 
         context "and a valid csv file" do
           before do
@@ -117,10 +116,8 @@ describe "Mass-upload" do
 
           it "should redirect to the mass_uploads#show" do
             should have_content('dummytitle1')
-            should have_selector('input.Btn.Btn--green.Btn--greenSmall')
-            should have_xpath("/html/body/div[3]/div/a/form/div/input[2]
-              [contains(@value, '#{I18n.t('mass_upload.labels.mass_activate_articles')}')]
-              ")
+            should have_selector('input.Btn.Btn--blue.Btn--blueBig',
+                          I18n.t('mass_upload.labels.mass_activate_articles'))
           end
 
           it "should create new articles" do

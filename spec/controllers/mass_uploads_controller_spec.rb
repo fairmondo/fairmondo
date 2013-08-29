@@ -29,7 +29,7 @@ describe MassUploadsController do
   end
 
   describe "mass-upload creation" do
-    let(:user) { FactoryGirl.create(:legal_entity, :paypal_data, :bank_data) }
+    let(:user) { FactoryGirl.create(:legal_entity, :paypal_data) }
     let(:attributes) { create_attributes('/mass_upload_correct.csv', 'text/csv') }
 
     before do

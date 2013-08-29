@@ -88,19 +88,19 @@ class MassUpload
   end
 
   def missing_bank_details_errors?
-    self.errors[:file].grep(/Seller bank/).any? || self.errors[:file].grep(/Seller paypal/).any?
+    self.errors[:file].grep(/Payment bank transfer/).any? || self.errors[:file].grep(/Payment paypal/).any?
   end
 
   def add_missing_bank_details_errors_notice
-    if self.errors[:file].grep(/Seller bank/).any? && self.errors[:file].grep(/Seller paypal/).any?
+    if self.errors[:file].grep(/Payment bank transfer/).any? && self.errors[:file].grep(/Payment paypal/).any?
       error_message = I18n.t('mass_upload.errors.missing_payment_details',
                         link: '#payment_step',
                         missing_payment: I18n.t('formtastic.labels.user.paypal_and_bank_account'))
-    elsif self.errors[:file].grep(/Seller bank/).any?
+    elsif self.errors[:file].grep(/Payment bank transfer/).any?
       error_message = I18n.t('mass_upload.errors.missing_payment_details',
                         link: '#payment_step',
                         missing_payment: I18n.t('formtastic.labels.user.bank_account'))
-    elsif self.errors[:file].grep(/Seller paypal/).any?
+    elsif self.errors[:file].grep(/Payment paypal/).any?
       error_message = I18n.t('mass_upload.errors.missing_payment_details',
                         link: '#payment_step',
                         missing_payment: I18n.t('formtastic.labels.user.paypal_account'))

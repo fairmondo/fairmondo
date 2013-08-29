@@ -40,6 +40,7 @@ de:
         bank_account_owner: "Kontoinhaber"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all deine Artikel auswirkt, bei der du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_account: "Paypal-Konto"
+        paypal_and_bank_account: "PayPal- und Bankkonto"
         customer_number: "Kundennummer"
 
       feedback:
@@ -246,5 +247,3 @@ de:
       # Login
       login: "Login"
       sign_up: "Registrieren"
-
-

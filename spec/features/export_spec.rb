@@ -22,34 +22,21 @@ describe "Export" do
   end
 
 
-  # describe "for signed-in legal entity users" do
+  describe "for signed-in legal entity users" do
 
-    # before do
-      # setup_categories
-      # login_as legal_entity_user
-      # visit new_mass_upload_path
-      # attach_file('mass_upload_file',
-      #             'spec/fixtures/mass_upload_correct.csv')
+    before do
+      setup_categories
+      login_as legal_entity_user
+      visit new_mass_upload_path
+      attach_file('mass_upload_file',
+                  'spec/fixtures/mass_upload_correct.csv')
       # click_button I18n.t('mass_upload.labels.upload_article')
-      # debugger
-      # visit user_path(legal_entity_user)
-    # end
+    end
 
-    # it "should create new articles" do
-      # visit new_article_path
-      # # visit new_mass_upload_path
-      # # debugger
-      # attach_file('mass_upload_file',
-      #             'spec/fixtures/mass_upload_correct.csv')
-      # should have_button I18n.t('mass_upload.labels.upload_article')
-      # # click_button I18n.t('mass_upload.labels.upload_article')
-      # expect { click_button I18n.t('mass_upload.labels.upload_article') }
-      #           .to change(Article, :count).by(2)
-      # visit user_path(legal_entity_user)
-      # # save_and_open_page
-      # should have_link(I18n.t('users.boxes.export'))
-      # should have_link(I18n.t('articles.export.all'))
-    # end
+    it "should create new articles" do
+      expect { click_button I18n.t('mass_upload.labels.upload_article') }
+                .to change(Article, :count).by(2)
+    end
 
     # it "should have a csv upload link" do
     #   should have_link(I18n.t('users.boxes.export'))
@@ -66,5 +53,5 @@ describe "Export" do
     #     should have_link(I18n.t('users.boxes.export'))
     #   end
     # end
-  # end
+  end
 end
