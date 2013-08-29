@@ -22,6 +22,11 @@
 class PrivateUser < User
   extend STI
 
+  def upgrade_seller_state
+    self.rate_up_to_good_seller
+    self.rate_up_to_standard_seller
+  end
+
 
   state_machine :seller_state, :initial => :standard_seller do
 
