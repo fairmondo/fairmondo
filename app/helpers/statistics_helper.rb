@@ -48,13 +48,13 @@ module StatisticsHelper
        result[:fair] += article.calculated_fair
        result[:fair_quantity] += (article.calculated_fair * article.quantity)
 
-        if article.fair
-          result[:provision_by_fair] += article.calculated_fee
-          result[:provision_by_fair_quantity] += ( article.calculated_fee * article.quantity )
-        else
-          result[:provision_by_conventional] += article.calculated_fee
-          result[:provision_by_conventional_quantity] += ( article.calculated_fee * article.quantity )
-        end
+        # if article.fair
+        #   result[:provision_by_fair] += article.calculated_fee
+        #   result[:provision_by_fair_quantity] += ( article.calculated_fee * article.quantity )
+        # else
+        #   result[:provision_by_conventional] += article.calculated_fee
+        #   result[:provision_by_conventional_quantity] += ( article.calculated_fee * article.quantity )
+        # end
      end
 
      count_fair = Article.active.where(:fair => true).count
