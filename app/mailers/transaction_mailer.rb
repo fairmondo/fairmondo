@@ -23,11 +23,11 @@ class TransactionMailer < ActionMailer::Base
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction
-    mail(to: transaction.buyer_email, subject: "You bought stuff")
+    mail(to: transaction.buyer_email, subject: t {'transaction.notifications.buyer.buyer_subject'})
   end
 
   def seller_notification transaction
-    mail(to: transaction.article_seller_email, subject: "You sold stuff")
+    mail(to: transaction.article_seller_email, subject: t {'transaction.notifications.seller.seller_subject'})
   end
 
 end
