@@ -20,7 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class TransactionMailer < ActionMailer::Base
-	helper TransactionMailerHelper
+	helper TransactionHelper
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction

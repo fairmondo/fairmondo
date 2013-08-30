@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %p
-	= t 'transaction.notifications.greeting' + @transaction.article_seller.fullname + ','
+	= 'Hallo ' + @transaction.buyer.fullname + ','
 	%p
 		= t 'transaction.notifications.buyer.buyer_text'
-		= display_total_price @transaction, @transaction.selected_transport, @transaction.selected_payment, @transaction.quantity_bought
+		'Dein Artikelpreis: 4567,00Euro'
