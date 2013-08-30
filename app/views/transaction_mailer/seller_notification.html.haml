@@ -20,4 +20,8 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %p
-  Artikel verkauft... Artikeldaten, Adressdaten und so
+	= 'Hallo ' + @transaction.article_seller.fullname + ','
+	%p
+		= t 'transaction.notifications.seller.seller_text'
+		Arttikel: Ein Artikel
+		Artikelpreis: 4567,00Euro

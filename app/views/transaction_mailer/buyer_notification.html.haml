@@ -20,4 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %p
-  Erfolgreich gekauft... Zahlungsdaten und so
+	= 'Hallo ' + @transaction.buyer.fullname + ','
+	%p
+		= t 'transaction.notifications.buyer.buyer_text'
+		'Dein Artikelpreis: 4567,00Euro'

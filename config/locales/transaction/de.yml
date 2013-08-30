@@ -49,3 +49,11 @@ de:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     success: "Sie sind jetzt Höchstbietender!"
+    notifications:
+      greeting: "Liebe*r"
+      seller:
+        seller_subject: "Artikel auf Fairnopoly verkauft"
+        seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft. Alle Bestelldaten der/des Käufer*in sind unten für Dich zusammen gefasst. Dein Fairnopoly Team"
+      buyer:
+        buyer_subject: "Dein Einkauf auf Fairnopoly"
+        buyer_text: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt. Bitte beachte, dass der Kauf erst durch eine Bestätigung bzw. den Versand der/des Verkäufer*in zustande kommt. Alle Bestelldaten sind unten für Dich zusammen gefasst. Dein Fairnopoly-Team."
