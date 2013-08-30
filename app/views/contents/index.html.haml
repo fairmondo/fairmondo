@@ -65,6 +65,18 @@
 %h2 Gesamtprovision für FN (mit Artikelstückzahlen)
 %p
   = result[:provision_quantity]
+
+%h2 Provision durch als fair eingestufte Artikel (3% Provision, ohne Artikelstückzahlen)
+%p
+  = result[:provision_by_fair]
+%h2Provision durch als fair eingestufte Artikel (3% Provision, mit Artikelstückzahlen)
+  = result[:provision_by_fair_quantity]
+
+%h2 Provision durch konventionelle Artikel (6% Provision, ohne Artikelstückzahlen)
+%p
+  = result[:provision_by_conventional]
+%h2 Provision durch konventionelle Artikel (6% Provision, mit Artikelstückzahlen)
+  = result[:provision_by_conventional_quantity]
 %hr
 %h2 Gesamtspendenaufkommen (ohne Artikelstückzahlen)
 %p
