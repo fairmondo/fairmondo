@@ -20,13 +20,16 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class TransactionMailer < ActionMailer::Base
+	helper TransactionMailerHelper
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction
+  	@transaction = transaction
     mail(to: transaction.buyer_email, subject: t {'transaction.notifications.buyer.buyer_subject'})
   end
 
   def seller_notification transaction
+  	@transaction = transaction
     mail(to: transaction.article_seller_email, subject: t {'transaction.notifications.seller.seller_subject'})
   end
 

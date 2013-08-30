@@ -25,6 +25,11 @@ module TransactionHelper
   #
   # @param type [String] Transport type
   # @return [String, nil] Display HTML if there is something to display
+
+  # def resource *transaction
+  #   resource ||= transaction
+  # end
+
   def transport_provider_for type
     if provider = resource.article_transport_provider(type)
       "<br><strong>#{t('transaction.edit.transport_provider')}</strong> #{provider}".html_safe
