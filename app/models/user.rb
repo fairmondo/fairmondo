@@ -164,6 +164,13 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
+  # Return a formatted address
+  # @api public
+  # @return [String]
+  def address
+    "#{self.street}, #{self.zip} #{self.city}"
+  end
+
 
   state_machine :seller_state, :initial => :standard_seller do
 

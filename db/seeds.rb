@@ -42,7 +42,12 @@ end
 
 user = User.find_by_email("user@user.com")
 unless user
-  user = FactoryGirl.create(:user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+  user = FactoryGirl.create(:private_user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+end
+
+user_legal = User.find_by_email("le@le.com")
+unless user
+  user_legal = FactoryGirl.create(:legal_entity, :email => "user@user.com", :password => "password", :password_confirmation => "password")
 end
 
 setup_categories
