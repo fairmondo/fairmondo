@@ -44,7 +44,8 @@ class Transaction < ActiveRecord::Base
            :transport_type1_provider, :transport_type2_provider, :calculated_fair,
            to: :article, prefix: true
   delegate :email, to: :buyer, prefix: true
-  delegate :email, to: :article_seller, prefix: true
+  delegate :email, :fullname, :nickname, :phone, :mobile, :address,
+           to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
   #validates :message, allow_blank: true, on: :update

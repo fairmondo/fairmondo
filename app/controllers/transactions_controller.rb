@@ -58,6 +58,8 @@ class TransactionsController < InheritedResources::Base
     end
 
     def redirect_if_not_yet_sold
-      redirect_to edit_transaction_path(resource) if resource.available?
+      if resource.available? && ( !resource.buyer || !resource.buyer.is?(current_user) )
+        redirect_to edit_transaction_path(resource)
+      end
     end
 end

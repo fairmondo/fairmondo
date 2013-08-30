@@ -30,6 +30,16 @@ de:
       shipping_and_handling: "Versandkosten:"
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme:"
       basic_price: "Grundpreis:"
+    show:
+      payment_title_bank_transfer: "Bezahlabwicklung per Vorkasse"
+      payment_title_cash: "Bezahlabwicklung als Barzahlung bei Abholung"
+      payment_title_paypal: "Bezahlabwicklung/PayPal"
+      payment_title_cash_on_delivery: "Bezahlabwicklung per Nachnahme"
+      payment_title_invoice: "Bezahlabwicklung per Rechnung"
+      thank_you: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt."
+      thank_you_invoice: "Zusätzlich wirst Du eine Rechnung mit Zahlungsinformationen von der*dem Verkäufer*in erhalten."
+      further_questions: "Hast Du weitere Fragen? Bitte nutze die Kontaktdaten der*des Verkäufer*in:"
+      further_questions_cash: "Um den Kauf abzuschließen und einen Abholtermin zu vereinbaren, nutze bitte die Kontaktdaten der*des Verkäufer*in:"
     notices:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."

@@ -34,16 +34,16 @@ module TransactionHelper
 
   def display_preliminary_price
     output = t('transaction.edit.preliminary_price')
-    if resource.article_vat && resource.article_vat > 0
+    if resource.article_seller.is_a?(LegalEntity) && resource.article_vat && resource.article_vat > 0
       output += t 'transaction.edit.including_vat', percent: resource.article_vat
     end
     output += ': '
-    output += humanized_money_with_symbol resource.article_price_without_vat
+    output += humanized_money_with_symbol resource.article_price
   end
 
   def display_sales_price quantity = 1
     t('transaction.edit.sales_price') +
-    humanized_money_with_symbol(resource.article_price_without_vat(quantity))
+    humanized_money_with_symbol(resource.article_price * quantity)
   end
 
   def display_total_price selected_transport, selected_payment, quantity
@@ -67,13 +67,14 @@ module TransactionHelper
   end
 
   def display_transport_price selected_transport, quantity = 1
-    output = "<strong>#{I18n.t 'transaction.edit.shipping_and_handling'}</strong> ".html_safe
+    output = "<strong>#{t 'transaction.edit.shipping_and_handling'}</strong> ".html_safe
     output += humanized_money_with_symbol(resource.article_transport_price(selected_transport, quantity))
     if selected_transport == 'type1'
       output += " (#{resource.article_transport_type1_provider})"
     elsif selected_transport == 'type2'
       output += " (#{resource.article_transport_type2_provider})"
     end
+    output
   end
 
   # Return a basic display of the pasic price for the current view's resource
@@ -109,5 +110,11 @@ module TransactionHelper
     output += I18n.t 'transaction.edit.net'
     output += " "
     output += humanized_money_with_symbol resource.article_price_without_vat quantity
+  end
+
+
+  ########### SHOW ############
+  def display_show_title
+
   end
 end
