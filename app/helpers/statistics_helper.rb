@@ -33,6 +33,10 @@ module StatisticsHelper
       result[:sum_quantity]= Money.new(0)
       result[:provision]= Money.new(0)
       result[:provision_quantity]= Money.new(0)
+      result[:provision_by_fair]= Money.new(0)
+      result[:provision_by_fair_quantity]= Money.new(0)
+      result[:provision_by_conventional]= Money.new(0)
+      result[:provision_by_conventional_quantitiy]= Money.new(0)
       result[:fair]= Money.new(0)
       result[:fair_quantity]= Money.new(0)
 
@@ -43,6 +47,14 @@ module StatisticsHelper
        result[:provision_quantity] += (article.calculated_fee * article.quantity)
        result[:fair] += article.calculated_fair
        result[:fair_quantity] += (article.calculated_fair * article.quantity)
+
+        # if article.fair
+        #   result[:provision_by_fair] += article.calculated_fee
+        #   result[:provision_by_fair_quantity] += ( article.calculated_fee * article.quantity )
+        # else
+        #   result[:provision_by_conventional] += article.calculated_fee
+        #   result[:provision_by_conventional_quantity] += ( article.calculated_fee * article.quantity )
+        # end
      end
 
      count_fair = Article.active.where(:fair => true).count
