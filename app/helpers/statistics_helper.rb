@@ -28,31 +28,28 @@ module StatisticsHelper
   end
 
   def statistics_articles
-      result = {}
-      result[:sum]= Money.new(0)
-      result[:sum_quantity]= Money.new(0)
-      result[:provision]= Money.new(0)
-      result[:provision_quantity]= Money.new(0)
-      result[:fair]= Money.new(0)
-      result[:fair_quantity]= Money.new(0)
+    result = {}
+    result[:sum]= Money.new(0)
+    result[:sum_quantity]= Money.new(0)
+    result[:provision]= Money.new(0)
+    result[:provision_quantity]= Money.new(0)
+    result[:fair]= Money.new(0)
+    result[:fair_quantity]= Money.new(0)
 
-     Article.active.each do |article|
-       result[:sum] += article.price
-       result[:sum_quantity] += (article.price * article.quantity)
-       result[:provision] += article.calculated_fee
-       result[:provision_quantity] += (article.calculated_fee * article.quantity)
-       result[:fair] += article.calculated_fair
-       result[:fair_quantity] += (article.calculated_fair * article.quantity)
-     end
+    Article.active.each do |article|
+      result[:sum] += article.price
+      result[:sum_quantity] += (article.price * article.quantity)
+      result[:provision] += article.calculated_fee
+      result[:provision_quantity] += (article.calculated_fee * article.quantity)
+      result[:fair] += article.calculated_fair
+      result[:fair_quantity] += (article.calculated_fair * article.quantity)
+    end
 
-     count_fair = Article.active.where(:fair => true).count
-     count_eco = Article.active.where(:ecologic => true).count
-     count_total =  Article.active.count
-     result[:fair_part] =  count_fair*1.0 / (count_total==0 ? 1 : count_total)
-     result[:eco_part] =  count_eco*1.0 / (count_total==0 ? 1 : count_total)
-     result
+    count_fair = Article.active.where(:fair => true).count
+    count_eco = Article.active.where(:ecologic => true).count
+    count_total =  Article.active.count
+    result[:fair_part] =  count_fair*1.0 / (count_total==0 ? 1 : count_total)
+    result[:eco_part] =  count_eco*1.0 / (count_total==0 ? 1 : count_total)
+    result
   end
-
-
-
 end
