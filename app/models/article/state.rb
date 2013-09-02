@@ -51,7 +51,7 @@ module Article::State
         transition :locked => :closed
       end
 
-      after_transition :on => :activate, :do => :calculate_fees_and_donations
+      before_transition :on => :activate, :do => :calculate_fees_and_donations
       after_transition :on => :deactivate, :do => :remove_from_libraries
 
     end
