@@ -52,14 +52,17 @@ end
 
 setup_categories
 
-25.times do
+15.times do
   FactoryGirl.create(:article, :without_image)
-  # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
 end
-25.times do
+15.times do
   FactoryGirl.create(:article, :without_image, :with_larger_quantity)
-  # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
 end
+# Different articles to test transactions
+FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+                   :with_all_payments, :with_private_user, title: 'Tester By Private User'
+FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+                   :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity'
 
 
 # TinyCMS pages
