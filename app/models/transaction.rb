@@ -133,6 +133,15 @@ class Transaction < ActiveRecord::Base
     selected "payment"
   end
 
+  # Shortcut for article_total_price working with saved data
+  def total_price
+    self.article_total_price(
+      self.selected_transport,
+      self.selected_payment,
+      self.quantity_bought
+    )
+  end
+
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
     def quantity_available; raise NoMethodError; end

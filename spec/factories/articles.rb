@@ -117,10 +117,26 @@ FactoryGirl.define do
       transport_type2_price 10
       transport_type1_provider 'DHL'
       transport_type2_provider 'Hermes'
+      transport_details { Faker::Lorem.paragraph(rand(2..5)) }
+    end
+
+    trait :with_all_payments do
+      payment_bank_transfer true
+      payment_cash true
+      payment_paypal true
+      payment_cash_on_delivery true
+      payment_cash_on_delivery_price 5
+      payment_invoice true
+      payment_details { Faker::Lorem.paragraph(rand(2..5)) }
     end
 
     trait :with_private_user do
-      seller { FactoryGirl.create :private_user }
+      seller { FactoryGirl.create :private_user, :paypal_data } # adding paypal data because it is needed for with_all_transports
+    end
+
+    trait :with_legal_entity do
+      vat { [7, 19].sample }
+      seller { FactoryGirl.create :legal_entity, :paypal_data }
     end
 
     ## These might be helpful but tend to create double articles and users

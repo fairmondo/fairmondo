@@ -51,7 +51,7 @@ class MultipleFixedPriceTransaction < Transaction
   # @return [Integer, Booldean] Total quantity_available if successful, else Boolean false
   def reduce_quantity_available_by number
     self.quantity_available = self.quantity_available - number
-    self.save!
+    clear_data_and_save
   end
 
   # The main transition handler (see class description)
@@ -59,13 +59,30 @@ class MultipleFixedPriceTransaction < Transaction
   def buy_multiple_transaction
     self.quantity_bought ||= 1
     if self.quantity_bought <= self.quantity_available
-      fpt = PartialFixedPriceTransaction.new parent: self, quantity_bought: self.quantity_bought
+      fpt = PartialFixedPriceTransaction.new self.forward_data
       fpt.save!
       reduce_quantity_available_by self.quantity_bought if fpt.buy
     else
       errors.add :quantity_bought, "You can't buy more than we have available"
     end
     true
+  end
+
+  # quantity_bought, transport_selected, and payment_selected shouldn't be saved on a MFPT but only be forwarded to the PartialFPT
+  def forward_data
+    {
+      parent: self,
+      quantity_bought: self.quantity_bought,
+      selected_transport: self.selected_transport,
+      selected_payment: self.selected_payment
+    }
+  end
+  def clear_data_and_save
+    self.quantity_bought = nil
+    self.selected_transport = nil
+    self.selected_payment = nil
+
+    self.save!
   end
 
   private
@@ -83,5 +100,3 @@ class MultipleFixedPriceTransaction < Transaction
       self.quantity_available == 0
     end
 end
-
-#ey du hau ma quantity_sold raus
