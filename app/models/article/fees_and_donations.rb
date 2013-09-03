@@ -78,7 +78,7 @@ private
 
   def friendly_percent_result_cents
     # At the moment there is no friendly percent
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     #(self.price_cents * (self.friendly_percent / 100.0)).ceil
     0
   end
@@ -90,7 +90,7 @@ private
   end
 
   def fair_percent_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
   end
 
@@ -103,7 +103,7 @@ private
   end
 
   def fee_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
     max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
     min = Money.new(AUCTION_FEES[:min]*100)
