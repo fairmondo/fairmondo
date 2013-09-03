@@ -29,4 +29,19 @@ module TransactionMailerHelper
  		"dreh' das Spiel um\n" +
  		"**************************************************************"
  	end
+
+  def show_address role
+    "#{role.fullname}\n" +
+    "#{role.street}\n" +
+    "#{role.zip} " + "#{role.city}"
+  end
+
+  def article_details transaction
+    "#{transaction.article_title}\n" +
+    "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n" +
+    "Artikelanzahl: " + "#{transaction.quantity_bought.to_s}\n" +
+    "Bezahlmethode: " + "#{transaction.selected_payment}\n" +
+    "Versandmethode: " + "#{transaction.selected_transport}\n"
+  end
+
 end
