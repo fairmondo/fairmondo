@@ -24,21 +24,27 @@ class LegalEntity < User
 
   def upgrade_seller_state
     if self.seller_state == 'good1_seller'
-      calculate_percentage_of_positive_ratings 100
-      if self.percentage_of_positive_ratings > 90
-        self.rate_up_to_good2_seller
+      if self.ratings.limit(100).count == 100
+        percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 100
+        if percentage_of_positive_ratings > 90
+          self.rate_up_to_good2_seller
+        end
       end
 
     elsif self.seller_state == 'good2_seller'
-      calculate_percentage_of_positive_ratings 500
-      if self.percentage_of_positive_ratings > 90
-        self.rate_up_to_good3_seller
+      if self.ratings.limit(500).count == 500
+         percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 500
+        if percentage_of_positive_ratings > 90
+          self.rate_up_to_good3_seller
+        end
       end
 
     elsif self.seller_state == 'good3_seller'
-      calculate_percentage_of_positive_ratings 1000
-      if self.percentage_of_positive_ratings > 90
-        self.rate_up_to_good4_seller
+      if self.ratings.limit(1000).count == 1000
+         percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 1000
+        if percentage_of_positive_ratings > 90
+          self.rate_up_to_good4_seller
+        end
       end
 
     else
@@ -96,18 +102,5 @@ class LegalEntity < User
   def self.model_name
     User.model_name
   end
-
-  private
-
-  def calculate_percentage_of_positive_ratings number_of_ratings
-    newest_ratings = self.ratings.limit(number_of_ratings)
-    number_of_newest_ratings = newest_ratings.count.to_f
-    number_of_positive_ratings = newest_ratings.select { |rates| rates.rating == 'positive' }.count
-    percentage_of_positive_ratings = number_of_positive_ratings / number_of_newest_ratings * 100
-
-    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings)
-    self.save
-  end
-
 
 end
