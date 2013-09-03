@@ -21,26 +21,25 @@
 #
 class TransactionMailer < ActionMailer::Base
 	helper TransactionHelper
+	helper TransactionMailerHelper
+
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction
   	@transaction 	= transaction
-  	@seller 			= transaction.seller
+  	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
-    mail(to: transaction.buyer_email, subject: t {'transaction.notifications.buyer.buyer_subject'})
+    mail(	to: 			transaction.buyer_email,
+    			subject: 	"[Fairnopoly] " + t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})")
   end
 
   def seller_notification transaction
   	@transaction 	= transaction
-  	@seller 			= transaction.seller
+  	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
     mail(	to: 			transaction.article_seller_email,
-    			subject: 	t {'transaction.notifications.seller.seller_subject'}) do |format|
-    			format.text { render :inline }
-    			format.html { render :inline }
-    end
+    			subject: 	"[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})")
   end
-
 end
