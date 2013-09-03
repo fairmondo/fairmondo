@@ -114,15 +114,16 @@ class Article < ActiveRecord::Base
 
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
-                  "basic_price_amount","vat", "transport_pickup",
-                  "transport_type1", "transport_type1_provider",
-                  "transport_type1_price_cents", "transport_type2",
-                  "transport_type2_provider",
+                  "basic_price_amount","vat", "title_image_url", "image_2_url",
+                  "image_3_url", "image_4_url", "image_5_url",
+                  "transport_pickup", "transport_type1",
+                  "transport_type1_provider", "transport_type1_price_cents",
+                  "transport_type2", "transport_type2_provider",
                   "transport_type2_price_cents", "default_transport",
                   "transport_details", "payment_bank_transfer", "payment_cash",
                   "payment_paypal", "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
-                  "payment_details", "currency", "fair_seal", "ecologic_seal",
+                  "payment_details", "fair_seal", "ecologic_seal",
                   "small_and_precious_eu_small_enterprise",
                   "small_and_precious_reason", "small_and_precious_handmade",
                   "gtin", "custom_seller_identifier"]
@@ -130,8 +131,22 @@ class Article < ActiveRecord::Base
     CSV.generate(:col_sep => ";") do |csv|
       csv << header_row
       articles.each do |article|
-        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..-1])
+        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..9]) + article.provide_external_urls + article.attributes.values_at(*header_row[15..-1])
       end
     end
+  end
+
+
+  def provide_external_urls
+    external_urls = []
+    unless self.images.empty?
+      self.images.each do |image|
+        external_urls << image.external_url
+      end
+    end
+    until external_urls.length == 5
+      external_urls << ""
+    end
+    external_urls
   end
 end

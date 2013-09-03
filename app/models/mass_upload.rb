@@ -129,7 +129,7 @@ class MassUpload
         raw_article_array << article
       end
     end
-    raw_article_array
+    raw_article_array.reverse if raw_article_array
   end
 
   def save

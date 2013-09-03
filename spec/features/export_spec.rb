@@ -6,18 +6,18 @@ include CategorySeedData
 describe "Export" do
 
   let (:private_user) { FactoryGirl.create :private_user }
-  let (:legal_entity_user) { FactoryGirl.create :legal_entity, :paypal_data }
+  let (:legal_entity) { FactoryGirl.create :legal_entity, :paypal_data }
 
   subject { page }
 
-  context "for signed-in private users" do
+  describe "for signed-in private users" do
     before do
       login_as private_user
       visit user_path(private_user)
     end
 
     it "should not have a export link" do
-      should_not have_button I18n.t('mass_upload.labels.upload_article')
+      should_not have_link I18n.t('articles.export.inactive')
     end
   end
 
@@ -26,32 +26,44 @@ describe "Export" do
 
     before do
       setup_categories
-      login_as legal_entity_user
+      login_as legal_entity
       visit new_mass_upload_path
-      attach_file('mass_upload_file',
-                  'spec/fixtures/mass_upload_correct.csv')
-      # click_button I18n.t('mass_upload.labels.upload_article')
     end
 
-    it "should create new articles" do
-      expect { click_button I18n.t('mass_upload.labels.upload_article') }
-                .to change(Article, :count).by(2)
+    describe "visting the new_article_path" do
+      before do
+        attach_file('mass_upload_file',
+                    'spec/fixtures/mass_upload_correct.csv')
+        click_button I18n.t('mass_upload.labels.upload_article')
+        visit user_path(legal_entity)
+      end
+
+      it "should have a export link" do
+        should have_link I18n.t('articles.export.inactive')
+      end
     end
 
-    # it "should have a csv upload link" do
-    #   should have_link(I18n.t('users.boxes.export'))
-    #   should have_link(I18n.t('articles.export.all'))
-    # end
+    # bugbug should this be a model spec?
+    describe "when exporting inactive articles" do
 
-    # describe "clicking export all articles" do
-    #   before do
-    #     click_link I18n.t('articles.export.all')
-    #     debugger
-    #   end
+      it "should be equal to the uploaded file" do
+        @csv = Article.export_articles(legal_entity)
+        @csv == File.read('spec/fixtures/mass_upload_correct.csv')
+      end
+    end
 
-    #   it "should have a response body" do
-    #     should have_link(I18n.t('users.boxes.export'))
-    #   end
-    # end
+    describe "when exporting active articles" do
+      before do
+        attach_file('mass_upload_file',
+                    'spec/fixtures/mass_upload_correct.csv')
+        click_button I18n.t('mass_upload.labels.upload_article')
+        click_button I18n.t("mass_upload.labels.mass_activate_articles")
+      end
+
+      it "should be equal to the uploaded file" do
+        @csv = Article.export_articles(legal_entity, "active")
+        @csv == File.read('spec/fixtures/mass_upload_correct.csv')
+      end
+    end
   end
 end
