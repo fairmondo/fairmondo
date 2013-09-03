@@ -52,24 +52,38 @@
 %hr
 %h2 Insgesamt eingestellter Warenwert (ohne Artikelstückzahlen)
 %p
-  = result[:sum]
+  = humanized_money_with_symbol result[:sum]
 %h2 Insgesamt eingestellter Warenwert (mit Artikelstückzahlen)
 %p
-  = result[:sum_quantity]
+  = humanized_money_with_symbol result[:sum_quantity]
 %hr
 %h2 Gesamtprovision für FN (ohne Artikelstückzahlen)
 %p
-  = result[:provision]
+  = humanized_money_with_symbol result[:provision]
 %h2 Gesamtprovision für FN (mit Artikelstückzahlen)
 %p
-  = result[:provision_quantity]
+  = humanized_money_with_symbol result[:provision_quantity]
+
+%h2 Provision durch als fair eingestufte Artikel (3% Provision, ohne Artikelstückzahlen)
+%p
+  = humanized_money_with_symbol result[:provision_by_fair]
+%h2 Provision durch als fair eingestufte Artikel (3% Provision, mit Artikelstückzahlen)
+%p
+  = humanized_money_with_symbol result[:provision_by_fair_quantity]
+
+%h2 Provision durch konventionelle Artikel (6% Provision, ohne Artikelstückzahlen)
+%p
+  = humanized_money_with_symbol result[:provision_by_conventional]
+%h2 Provision durch konventionelle Artikel (6% Provision, mit Artikelstückzahlen)
+%p
+  = humanized_money_with_symbol result[:provision_by_conventional_quantity]
 %hr
 %h2 Gesamtspendenaufkommen (ohne Artikelstückzahlen)
 %p
-  = result[:fair]
+  = humanized_money_with_symbol result[:fair]
 %h2 Gesamtspendenaufkommen (mit Artikelstückzahlen)
 %p
-  = result[:fair_quantity]
+  = humanized_money_with_symbol result[:fair_quantity]
 %hr
 %h2 Anteil von als fair eingestuften Artikeln in % im Vergleich zu sonstigen Artikeln (Artikelstückzahlen nicht berücksichtigt)
 %p
