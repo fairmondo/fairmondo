@@ -53,7 +53,7 @@ de:
       greeting: "Liebe*r"
       seller:
         seller_subject: "Artikel auf Fairnopoly verkauft"
-        seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft. \nAlle Bestelldaten der/des Käufer*in sind unten für Dich zusammen gefasst. Dein Fairnopoly Team"
+        seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft. \nAlle Bestelldaten der/des Käufer*in sind unten für Dich zusammen gefasst.\n\n Dein Fairnopoly Team"
       buyer:
         buyer_subject: "Dein Einkauf auf Fairnopoly"
-        buyer_text: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt. Bitte beachte, dass der Kauf erst durch eine Bestätigung bzw. den Versand der/des Verkäufer*in zustande kommt. Alle Bestelldaten sind unten für Dich zusammen gefasst. Dein Fairnopoly-Team."
+        buyer_text: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt. Bitte beachte, dass der Kauf erst durch eine Bestätigung bzw. den Versand der/des Verkäufer*in zustande kommt. Alle Bestelldaten sind unten für Dich zusammen gefasst.\n\n Dein Fairnopoly-Team."

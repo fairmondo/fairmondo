@@ -4,19 +4,29 @@
 
 ***
 
-<!-- Deine Bestellangaben:
-<%= 'Artikelanzahl: ' + @transaction.quantity_bought.to_s %>
-<%= 'Bezahlmethode: ' + @transaction.selected_payment %>
-<%= 'Versandmethode: ' + @transaction.selected_transport %>
+Angaben zu Deiner Bestellung:
+<%= article_details @transaction %>
 
 Deine Rechnungs- und Lieferadresse:
-<%= @transaction.article_seller.fullname %>
-<%= @transaction.article_seller.street %>
-<%= @transaction.article_seller.zip + ' ' + @transaction.article_seller.city %> -->
+<%= show_address @buyer %>
 
 ***
 
-Impressum / AGB / Widerruf der*des Verkäufer*in
+
+***
+
+Impressum:
+<%= @seller.about %>
+
+***
+
+AGB:
+<%= @seller.terms %>
+
+***
+
+Widerrufsbelehrung:
+<%= @seller.cancellation %>
 
 ***
 
