@@ -61,8 +61,6 @@ class ArticlesController < InheritedResources::Base
 
   def new
     authorize build_resource
-    # bugbug chek if still needed
-    @mass_upload = MassUpload.new(user = current_user) if current_user.is_a?(LegalEntity)
 
     ############### From Template ################
     if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])

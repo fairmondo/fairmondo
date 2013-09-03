@@ -81,6 +81,7 @@ module Article::Images
       if image_url
         image = Image.new(:image => URI.parse(image_url))
         image.is_title = is_title
+        image.external_url = image_url
         image.save
         self.images << image
       end
