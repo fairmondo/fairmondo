@@ -59,6 +59,7 @@ de:
     labels:
       shipping_options: "Versandoptionen:"
       payment_options: "Bezahloptionen:"
+      default_transport: "Bevorzugte Versandoption"
       payment: "Bezahloption"
       price: "Preis"
       shipping_condition: "Versand-Zustand"
