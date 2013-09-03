@@ -24,13 +24,23 @@ class TransactionMailer < ActionMailer::Base
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction
-  	@transaction = transaction
+  	@transaction 	= transaction
+  	@seller 			= transaction.seller
+  	@buyer 				= transaction.buyer
+
     mail(to: transaction.buyer_email, subject: t {'transaction.notifications.buyer.buyer_subject'})
   end
 
   def seller_notification transaction
-  	@transaction = transaction
-    mail(to: transaction.article_seller_email, subject: t {'transaction.notifications.seller.seller_subject'})
+  	@transaction 	= transaction
+  	@seller 			= transaction.seller
+  	@buyer 				= transaction.buyer
+
+    mail(	to: 			transaction.article_seller_email,
+    			subject: 	t {'transaction.notifications.seller.seller_subject'}) do |format|
+    			format.text { render :inline }
+    			format.html { render :inline }
+    end
   end
 
 end
