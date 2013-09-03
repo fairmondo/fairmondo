@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   ##
 
 
-  has_many :ratings, foreign_key: 'rated_user_id'
+  has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy
 
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
@@ -166,14 +166,12 @@ class User < ActiveRecord::Base
     (img = image) ? img.image.url(symbol) : "/assets/missing.png"
   end
 
+  # Update percentage of positive and negative ratings of seller
+  # @api public
+  # @return [undefined]
   def update_ratings
-    newest_ratings = self.ratings.limit(50)
-    number_of_newest_ratings = newest_ratings.count.to_f
-    number_of_positive_ratings = newest_ratings.select { |rates| rates.rating == 'positive' }.count
-    number_of_negative_ratings = newest_ratings.select { |rates| rates.rating == 'negative' }.count
-
-    percentage_of_positive_ratings = number_of_positive_ratings / number_of_newest_ratings * 100
-    percentage_of_negative_ratings = number_of_negative_ratings / number_of_newest_ratings * 100
+    percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 50
+    percentage_of_negative_ratings = calculate_percentage_of_biased_ratings 'negative', 50
 
     self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
       :percentage_of_negative_ratings => percentage_of_negative_ratings)
@@ -181,15 +179,30 @@ class User < ActiveRecord::Base
     update_seller_state
   end
 
+  # Calculates percentage of positive and negative ratings of seller
+  # @api public
+  # @param bias [String] positive or negative
+  # @param limit [Integer]
+  # @return [Float]
+  def calculate_percentage_of_biased_ratings bias, limit
+    newest_ratings = self.ratings.limit(limit)
+    number_of_newest_ratings = newest_ratings.count.to_f
+    number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
+    number_of_biased_ratings / number_of_newest_ratings * 100
+  end
+
+
   def update_seller_state
     # if rated user is private user
-    if self.percentage_of_positive_ratings > 90
-        upgrade_seller_state
-    elsif self.percentage_of_positive_ratings > 75
-        self.rate_up_to_standard_seller
+    if self.percentage_of_negative_ratings > 25
+      self.rate_down_to_bad_seller
     else
-      if self.percentage_of_negative_ratings > 25
-        self.rate_down_to_bad_seller
+      if self.percentage_of_positive_ratings > 75
+        if self.percentage_of_positive_ratings > 90
+          upgrade_seller_state
+        else
+          self.rate_up_to_standard_seller
+        end
       end
     end
   end

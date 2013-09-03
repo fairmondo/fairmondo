@@ -11,6 +11,10 @@ FactoryGirl.define do
       rating "positive"
     end
 
+    factory :neutral_rating do
+      rating "neutral"
+    end
+
     factory :negative_rating do
       rating "negative"
     end
