@@ -78,8 +78,7 @@
         = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, :required => true
       %li.input
-        = t('article.labels.default_transport') + '*'
-      = f.input :default_transport, :as => :select, :required => true, :label => false
+      = f.input :default_transport, :as => :select, :required => true
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
