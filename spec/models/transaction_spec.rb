@@ -30,7 +30,7 @@ describe Transaction do
   end
 
   describe "associations" do
-    it { should have_one :article }
+    it { should belong_to :article }
     it { should belong_to :buyer  }
   end
 
@@ -147,6 +147,7 @@ describe MultipleFixedPriceTransaction do
         before do
           mfpt.quantity_available = 3
           mfpt.quantity_bought = 2
+          mfpt.buyer = User.new id: 1
         end
 
         it "should create a new PartialFixedPriceTransaction with the correct data" do
@@ -174,7 +175,7 @@ describe MultipleFixedPriceTransaction do
       it "should add an error and return false when quantity_bought is larger than quantity_available" do
         mfpt.quantity_available = 9
         mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => '10'}}).should be_false
-        mfpt.errors.full_messages.should include("Quantity bought We don't have that many.")
+        mfpt.errors.full_messages.should include('Quantity bought '+I18n.t('transaction.errors.too_many_bought', available: 9))
       end
     end
   end
@@ -205,6 +206,16 @@ describe SingleFixedPriceTransaction do
     it "should read quantity_bought, and it should always be one" do
       fpt.send(:quantity_bought=, 3)
       fpt.send(:quantity_bought).should eq 1
+    end
+  end
+
+  describe "methods" do
+    describe "#total_price" do
+      it "should forward the call to article" do
+        fpt.article = Article.new
+        fpt.article.should_receive(:total_price)
+        fpt.total_price
+      end
     end
   end
 

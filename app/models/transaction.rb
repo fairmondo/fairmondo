@@ -23,14 +23,12 @@ class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
-  has_one :article
+  belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
 
   transaction_attributes = [:selected_transport, :selected_payment, :tos_accepted, :message, :quantity_bought]
-  attr_accessible *transaction_attributes
-  attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
-
-  attr_protected :buyer_id, :state, :quantity_available
+  #attr_accessible *transaction_attributes
+  #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
   auto_sanitize :message
 
@@ -45,6 +43,7 @@ class Transaction < ActiveRecord::Base
            to: :article, prefix: true
   delegate :email, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address,
+           :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
