@@ -9,13 +9,15 @@
 
 ***
 
-<%= t('transaction.notifications.seller.shipping_request') %>
-<%= show_contact_info @buyer %>
+<%= t('transaction.notifications.seller.buyer_message') %>
+<%= buyer_message @transaction %>
 
 ***
 
-<%= t('transaction.notifications.seller.buyer_message') %>
-<%= buyer_message @transaction %>
+<%= t('transaction.notifications.seller.shipping_request') %>
+<%= show_contact_info @buyer %>
+
+<%= payment_method_info @transaction %>
 
 ***
 
