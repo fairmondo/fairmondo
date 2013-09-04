@@ -1,16 +1,33 @@
-Liebe*r Käufer*in,
+<%= transaction_mail_greeting @transaction, :buyer %>
 
-Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt. Bitte beachte, dass der Kauf erst durch eine Bestätigung bzw. den Versand der/des Verkäufer*in zustande kommt. Alle Bestelldaten sind unten für Dich zusammen gefasst. Dein Fairnopoly-Team.
-
-***
-
-Deine Bestelldaten:
-
-Verkäufer*in
-Adresse
-Stadt
-PLZ
+<%= t('transaction.notifications.buyer.buyer_text') %>
 
 ***
 
-Impressum / AGB / Widerruf der*des Verkäufer*in
+Angaben zu Deiner Bestellung:
+<%= article_details @transaction %>
+
+Deine Rechnungs- und Lieferadresse:
+<%= show_address @buyer %>
+
+***
+
+
+***
+
+Impressum:
+<%= @seller.about %>
+
+***
+
+AGB:
+<%= @seller.terms %>
+
+***
+
+Widerrufsbelehrung:
+<%= @seller.cancellation %>
+
+***
+
+<%= fairnopoly_email_footer %>

@@ -80,7 +80,9 @@
       = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
         = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, :required => true
-      = f.input :default_transport, :as => :select, :required => true
+      %li.input
+        = t('article.labels.default_transport') + '*'
+      = f.input :default_transport, :as => :select, :required => true, :label => false
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
     %p Bezahloptionen:

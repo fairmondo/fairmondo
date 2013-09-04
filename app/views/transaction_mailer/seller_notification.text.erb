@@ -1,14 +1,10 @@
-Hallo Verkäufer*in,
+<%= transaction_mail_greeting @transaction, :seller %>
 
-herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft.
-Alle Bestelldaten der/des Käufer*in sind unten für Dich zusammen gefasst.
-
-Dein Fairnopoly Team
+<%= t('transaction.notifications.seller.seller_text') %>
 
 ***
 
-Hier soll ein Link zum Artikel sein:
-http://dein_artikel_auf_fairnopoly.de
+<%= link_to "@transaction.article_title", article_path(@transaction.article) %>
 
 1 Artikel
 Nachnahme
@@ -35,5 +31,4 @@ Deine Verkaufsgebühren...
 
 ***
 
-Rairnopoly eG
-Email Footer
+<%= fairnopoly_email_footer %>
