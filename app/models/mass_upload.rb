@@ -58,11 +58,16 @@ class MassUpload
   end
 
   def validate_articles(articles)
+    # bugbugb Needs refactoring (the error messages should be styled elsewhere)
     valid = true
     raw_articles.each_with_index do |raw_article, index|
       unless raw_article.valid?
         raw_article.errors.full_messages.each do |message|
-          errors.add(:file, I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 1)))
+          if raw_article.errors.full_messages[0] == message && index > 0
+            errors.add(:file, "<br><br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+          else
+            errors.add(:file, "<br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+          end
         end
         valid = false
       end
@@ -75,7 +80,6 @@ class MassUpload
   end
 
   def correct_header?(file)
-    # bugbug header_row aus YAML file erstellen (siehe settings gem -> pioner des tages)
     header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_seal;ecologic_seal;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
