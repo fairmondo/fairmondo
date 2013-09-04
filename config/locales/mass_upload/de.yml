@@ -12,7 +12,7 @@ de:
     errors:
       missing_file: "Bitte wähle eine CSV-Datei aus"
       wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
-      wrong_article: "%{message} (Artikelzeile %{index})"
+      wrong_article: "Zeile %{index}: %{message}"
       wrong_article_message: "Content muss ausgefüllt werden"
       missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungsoptionen (%{missing_payment})</a>.'
     header:
