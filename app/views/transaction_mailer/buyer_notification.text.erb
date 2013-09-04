@@ -4,28 +4,35 @@
 
 ***
 
-Angaben zu Deiner Bestellung:
+<%= t('transaction.notifications.buyer.order_infos') %>
 <%= article_details @transaction %>
 
-Deine Rechnungs- und Lieferadresse:
-<%= show_address @buyer %>
+<%= t('transaction.edit.address') %>
+<%= show_contact_info @buyer %>
 
 ***
 
+<%= article_payment_info @transaction %>
+<%= t('transaction.notifications.buyer.payment_type') %>
+<%= payment_method_info @transaction %>
+***
+
+<%= t('transaction.edit.seller_data') %>
+<%= show_contact_info @seller %>
 
 ***
 
-Impressum:
+<%= t('transaction.edit.imprint') %>
 <%= @seller.about %>
 
 ***
 
-AGB:
+<%= t('transaction.edit.terms') %>
 <%= @seller.terms %>
 
 ***
 
-Widerrufsbelehrung:
+<%= t('transaction.edit.cancellation') %>
 <%= @seller.cancellation %>
 
 ***
