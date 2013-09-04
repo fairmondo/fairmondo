@@ -27,7 +27,7 @@
 class MultipleFixedPriceTransaction < Transaction
   extend STI
 
-  has_many :children, class_name: 'PartialFixedPriceTransaction', inverse_of: :parent
+  has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -51,7 +51,6 @@ class MultipleFixedPriceTransaction < Transaction
   # @return [Integer, Booldean] Total quantity_available if successful, else Boolean false
   def reduce_quantity_available_by number
     self.quantity_available = self.quantity_available - number
-    clear_data_and_save
   end
 
   # The main transition handler (see class description)
@@ -59,25 +58,33 @@ class MultipleFixedPriceTransaction < Transaction
   def buy_multiple_transaction
     self.quantity_bought ||= 1
     if self.quantity_bought <= self.quantity_available
-      fpt = PartialFixedPriceTransaction.new self.forward_data
-      fpt.save!
+      fpt = self.forward_data_to_partial
       reduce_quantity_available_by self.quantity_bought if fpt.buy
+      clear_data_and_save
     else
-      errors.add :quantity_bought, "You can't buy more than we have available"
+      errors.add :quantity_bought, I18n.t('transaction.errors.too_many_bought', available: self.quantity_available)
     end
     true
   end
 
-  # quantity_bought, transport_selected, and payment_selected shouldn't be saved on a MFPT but only be forwarded to the PartialFPT
-  def forward_data
-    {
-      parent: self,
+  # buyer, quantity_bought, transport_selected, and payment_selected shouldn't be saved on a MFPT but only be forwarded to the PartialFPT
+  def forward_data_to_partial
+    partial = PartialFixedPriceTransaction.create({
       quantity_bought: self.quantity_bought,
       selected_transport: self.selected_transport,
       selected_payment: self.selected_payment
-    }
+    })
+
+    # protected attrs
+    partial.parent = self
+    partial.article = self.article
+    partial.buyer_id = self.buyer.id #buyer= causes mass-assignment error
+
+    partial.save!
+    return partial
   end
   def clear_data_and_save
+    self.buyer = nil
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
@@ -89,7 +96,7 @@ class MultipleFixedPriceTransaction < Transaction
     # quantity params need to be validated for MFPTs
     def quantity_param_valid? params
       if params['transaction']['quantity_bought'] && !(params['transaction']['quantity_bought'].to_i <= self.quantity_available)
-        errors.add :quantity_bought, "We don't have that many."
+        errors.add :quantity_bought, I18n.t('transaction.errors.too_many_bought', available: self.quantity_available)
         return false
       end
       true
