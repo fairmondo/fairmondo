@@ -435,7 +435,6 @@ describe 'Transaction' do
       context "but the transaction is a MFPT" do
         it "should redirect the user to the transaction#show of the transaction he bought" do
           t = FactoryGirl.create :partial_transaction
-          debugger
           login_as t.buyer
 
           visit transaction_path t.parent

@@ -38,8 +38,8 @@ class Article < ActiveRecord::Base
   delegate :quantity_available, to: :transaction, prefix: true
 
   # Relations
-  has_one :transaction, :dependent => :destroy, inverse_of: :article
-  has_many :partial_transactions, through: :transaction, source_type: 'MultipleFixedPriceTransaction', source: 'PartialFixedPriceTransaction', inverse_of: :articles
+  has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
+  has_many :partial_transactions, conditions: "type = 'PartialFixedPriceTransaction'", inverse_of: :article
   accepts_nested_attributes_for :transaction
 
   has_many :library_elements, :dependent => :destroy
