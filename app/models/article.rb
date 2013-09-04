@@ -38,7 +38,8 @@ class Article < ActiveRecord::Base
   delegate :quantity_available, to: :transaction, prefix: true
 
   # Relations
-  belongs_to :transaction, :dependent => :destroy
+  has_one :transaction, :dependent => :destroy, inverse_of: :article
+  has_many :partial_transactions, through: :transaction, source_type: 'MultipleFixedPriceTransaction', source: 'PartialFixedPriceTransaction', inverse_of: :articles
   accepts_nested_attributes_for :transaction
 
   has_many :library_elements, :dependent => :destroy
@@ -79,7 +80,6 @@ class Article < ActiveRecord::Base
     include_field :social_producer_questionnaire
     include_field :categories
     nullify :slug
-    nullify :transaction_id
     nullify :article_template_id
     customize lambda { |original_article, new_article|
       original_article.images.each do |image|

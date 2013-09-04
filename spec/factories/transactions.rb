@@ -33,6 +33,16 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :without_build_transaction, quantity: 50 }
       quantity_available 50
     end
+    factory :partial_transaction, class: 'PartialFixedPriceTransaction' do
+      parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
+      quantity_bought 1
+      selected_transport 'pickup'
+      selected_payment 'cash'
+
+      after(:create) do |t|
+        t.buyer = FactoryGirl.create(:user)
+      end
+    end
 
     factory :sold_transaction, class: 'SingleFixedPriceTransaction' do
       buyer

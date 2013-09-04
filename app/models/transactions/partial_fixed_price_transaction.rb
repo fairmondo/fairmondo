@@ -23,7 +23,7 @@ class PartialFixedPriceTransaction < SingleFixedPriceTransaction
   extend STI
 
   belongs_to :parent, class_name: 'MultipleFixedPriceTransaction', inverse_of: :children
-  has_one :article, through: :parent
+  belongs_to :article, inverse_of: :partial_transactions
   has_one :buyer, through: :parent
 
   #validates :quantity_bought, numericality: true, on: :update
