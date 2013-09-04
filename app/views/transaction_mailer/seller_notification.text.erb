@@ -4,30 +4,27 @@
 
 ***
 
-<%= link_to "@transaction.article_title", article_path(@transaction.article) %>
-
-1 Artikel
-Nachnahme
-Paypal
-
-Adresse der*des Käufer*in
-Klara Käuferin
-Kaufgasse 43
-12234 Kaufhausen
+<%= t('transaction.notifications.seller.order_infos') %>
+<%= article_details @transaction %>
 
 ***
 
-Nachricht der Käufer*in
-blabdfljasfmllkasdfkjaskö
+<%= t('transaction.notifications.seller.shipping_request') %>
+<%= show_contact_info @buyer %>
 
 ***
 
-Zu Zahlen:
-1234,56 Euro
+<%= t('transaction.notifications.seller.buyer_message') %>
+<%= buyer_message @transaction %>
 
 ***
 
-Deine Verkaufsgebühren...
+
+
+***
+
+<%= t('transaction.notifications.seller.seller_fee_text') %>
+<%= fees_and_donations @transaction %>
 
 ***
 
