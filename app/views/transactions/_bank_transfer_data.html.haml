@@ -4,4 +4,10 @@
   auf folgendes Konto:
 
 %p
-  [Bankdaten]
+  = "#{t 'formtastic.labels.user.bank_account_owner'}: #{resource.article_seller_bank_account_owner}"
+  %br
+  = "#{t 'formtastic.labels.user.bank_account_number'}: #{resource.article_seller_bank_account_number}"
+  %br
+  = "#{t 'formtastic.labels.user.bank_code'}: #{resource.article_seller_bank_code}"
+  %br
+  = "#{t 'formtastic.labels.user.bank_name'}: #{resource.article_seller_bank_name}"

@@ -43,6 +43,8 @@ de:
     notices:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
+    errors:
+      too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verüfgbar."
     actions:
       purchase: "Verbindlich kaufen und bezahlen"
   #   bid:
