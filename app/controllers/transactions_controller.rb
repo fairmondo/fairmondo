@@ -65,7 +65,7 @@ class TransactionsController < InheritedResources::Base
     end
 
     def redirect_to_child
-      #if !resource.available? &&
+      if !resource.available? && resource.children && resource.children.includes? current_user
     end
 
     def permitted_params
