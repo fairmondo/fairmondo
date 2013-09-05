@@ -24,7 +24,10 @@ module Article::Images
 
   included do
     # ---- IMAGES ------
-    attr_accessible :images_attributes
+    def self.image_attrs
+      [ images_attributes: Image.image_attrs ]
+    end
+    #! attr_accessible :images_attributes
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 

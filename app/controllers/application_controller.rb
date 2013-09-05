@@ -101,4 +101,10 @@ class ApplicationController < ActionController::Base
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
+
+  # Strong_parameters default params permitter
+  def permitted_params
+    klass = controller_name.classify
+    params.permit klass.downcase.to_sym => klass.constantize.send("#{klass.downcase}_attrs")
+  end
 end

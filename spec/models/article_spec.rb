@@ -34,7 +34,6 @@ describe Article do
       it {should belong_to :seller}
       it {should have_many :buyer}
       it {should have_one(:transaction).dependent(:destroy)}
-      it {should have_many(:partial_transactions).through(:transaction)}
     end
 
     describe "amoeba" do

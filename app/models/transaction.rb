@@ -26,7 +26,10 @@ class Transaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
 
-  transaction_attributes = [:selected_transport, :selected_payment, :tos_accepted, :message, :quantity_bought]
+  def self.transaction_attrs
+    [:selected_transport, :selected_payment, :tos_accepted, :message,
+    :quantity_bought]
+  end
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -140,6 +143,10 @@ class Transaction < ActiveRecord::Base
       self.quantity_bought
     )
   end
+
+  # Default behavior for associations in subclasses
+  def parent; nil; end
+  def children; []; end
 
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.

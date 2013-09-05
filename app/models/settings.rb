@@ -1,5 +1,7 @@
 class Settings < RailsSettings::CachedSettings
-  settings_attributes = [:var]
-  attr_accessible *settings_attributes
-  attr_accessible *settings_attributes, :as => :admin
+  def self.settings_attrs
+    [:var]
+  end
+  #! attr_accessible *settings_attributes
+  #! attr_accessible *settings_attributes, :as => :admin
 end

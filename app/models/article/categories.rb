@@ -23,7 +23,10 @@ module Article::Categories
   extend ActiveSupport::Concern
 
   included do
-    attr_accessible :categories_and_ancestors,:category_proposal
+    def self.category_attrs
+      [:category_proposal, categories_and_ancestors: []]
+    end
+    #! attr_accessible :categories_and_ancestors, :category_proposal
     attr_accessor :category_proposal
 
     # categories refs #154

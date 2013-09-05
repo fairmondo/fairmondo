@@ -21,8 +21,11 @@
 #
 class Category < ActiveRecord::Base
 
-  attr_accessible :name, :parent, :desc, :parent_id
-  attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, :lft, :rgt, :depth, as: :admin
+  def self.category_attrs
+    [:name, :parent, :desc, :parent_id]
+  end
+  #! attr_accessible :name, :parent, :desc, :parent_id
+  #! attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, :lft, :rgt, :depth, as: :admin
 
   has_and_belongs_to_many :articles
 

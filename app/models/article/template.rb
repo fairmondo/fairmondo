@@ -24,7 +24,11 @@ module Article::Template
 
   included do
 
-    attr_accessible :article_template_attributes, :save_as_template
+    def self.template_attrs
+      [:save_as_template,
+        { article_template_attributes: ArticleTemplate.articletemplate_attrs }]
+    end
+    #! attr_accessible :article_template_attributes, :save_as_template
     attr_accessor :save_as_template, :backup_template_id
 
     # Make the original article loose template status
