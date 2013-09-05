@@ -22,8 +22,10 @@
 class LegalEntity < User
   extend STI
 
-
-  attr_accessible :terms, :cancellation, :about
+  def self.user_attrs
+    super + [:terms, :cancellation, :about]
+  end
+  #! attr_accessible :terms, :cancellation, :about
 
    # validates legal entity
   validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
