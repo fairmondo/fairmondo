@@ -168,6 +168,15 @@ class ArticlesController < InheritedResources::Base
         return policy_scope(Article).page params[:page]
     end
 
+    def permitted_params
+      params.permit(article: (
+        Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+        Article.basic_price_attrs + Article.transport_attrs +
+        Article.category_attrs + Article.commendation_attrs +
+        Article.image_attrs + Article.fee_attrs + Article.template_attrs
+      ))
+    end
+
     ############ Save Images ################
 
     def save_images
@@ -177,8 +186,8 @@ class ArticlesController < InheritedResources::Base
       end
     end
 
-    ################## Inherited Resources
-    protected
+  ################## Inherited Resources
+  protected
 
     def collection
       @articles ||= search_for Article.new(params[:article])

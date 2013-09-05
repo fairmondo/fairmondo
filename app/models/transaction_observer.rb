@@ -22,7 +22,7 @@
 
 class TransactionObserver < ActiveRecord::Observer
   def after_update transaction
-    if transaction.sold?
+    if transaction.sold? && transaction.type != 'MultipleFixedPriceTransaction'
       # Send an email to the seller
       TransactionMailer.seller_notification(transaction).deliver
 

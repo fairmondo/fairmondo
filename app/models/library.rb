@@ -21,9 +21,11 @@
 #
 class Library < ActiveRecord::Base
 
-  library_attributes = [:name, :public, :user, :user_id]
-  attr_accessible *library_attributes
-  attr_accessible *library_attributes, :as => :admin
+  def self.library_attrs
+    [:name, :public, :user, :user_id]
+  end
+  #! attr_accessible *library_attributes
+  #! attr_accessible *library_attributes, :as => :admin
 
   delegate :nickname, :to => :user, :prefix => true
 

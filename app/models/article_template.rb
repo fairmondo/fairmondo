@@ -23,9 +23,11 @@ class ArticleTemplate < ActiveRecord::Base
 
   delegate :title, to: :article, prefix: true
 
-  template_attributes = [:article_attributes, :name, :article]
-  attr_accessible *template_attributes
-  attr_accessible *template_attributes, :as => :admin
+  def self.articletemplate_attrs
+    [:article_attributes, :name, :article]
+  end
+  #! attr_accessible *template_attributes
+  #! attr_accessible *template_attributes, :as => :admin
 
   validates :name, uniqueness: { scope: :user_id }
   validates :name, presence: true
