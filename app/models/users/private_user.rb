@@ -24,7 +24,6 @@ class PrivateUser < User
 
   def upgrade_seller_state
     self.rate_up_to_good_seller
-    self.rate_up_to_standard_seller
   end
 
 

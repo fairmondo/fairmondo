@@ -671,13 +671,13 @@ describe User do
       context "percentage of ratings" do
         before :each do
           7.times do
-            FactoryGirl.create(:positive_rating, :rated_user => private_seller)
+            FactoryGirl.create( :positive_rating, :rated_user => private_seller )
           end
           2.times do
-            FactoryGirl.create(:neutral_rating, :rated_user => private_seller)
+            FactoryGirl.create( :neutral_rating, :rated_user => private_seller )
           end
           1.times do
-            FactoryGirl.create(:negative_rating, :rated_user => private_seller)
+            FactoryGirl.create( :negative_rating, :rated_user => private_seller )
           end
         end
 
@@ -692,26 +692,30 @@ describe User do
 
       end
 
-      context "with positive ratings over 90%" do
+      context "with negative ratings over 25%" do
         before :each do
-          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(92)
-          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(8)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(50)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(30)
         end
 
-        it "should stay good seller" do
+        it "should change percentage of negative ratings" do
+          private_seller.update_ratings
+          private_seller.percentage_of_negative_ratings.should eq 30.0
+        end
+        it "should change from good to bad seller" do
           private_seller.seller_state = "good_seller"
           private_seller.update_ratings
-          private_seller.seller_state.should eq "good_seller"
+          private_seller.seller_state.should eq "bad_seller"
         end
-        it "should change from standard to good seller" do
+        it "should change from standard to bad seller" do
           private_seller.seller_state = "standard_seller"
           private_seller.update_ratings
-          private_seller.seller_state.should eq "good_seller"
+          private_seller.seller_state.should eq "bad_seller"
         end
-        it "should change from bad to standard seller" do
+         it "should stay bad seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_ratings
-          private_seller.seller_state.should eq "standard_seller"
+          private_seller.seller_state.should eq "bad_seller"
         end
       end
 
@@ -742,33 +746,28 @@ describe User do
         end
       end
 
-      context "with negative ratings over 25%" do
+      context "with positive ratings over 90%" do
         before :each do
-          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(50)
-          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(30)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(92)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(8)
         end
 
-        it "should change percentage of negative ratings" do
-          private_seller.update_ratings
-          private_seller.percentage_of_negative_ratings.should eq 30.0
-        end
-        it "should change from good to bad seller" do
+        it "should stay good seller" do
           private_seller.seller_state = "good_seller"
           private_seller.update_ratings
-          private_seller.seller_state.should eq "bad_seller"
+          private_seller.seller_state.should eq "good_seller"
         end
-        it "should change from standard to bad seller" do
+        it "should change from standard to good seller" do
           private_seller.seller_state = "standard_seller"
           private_seller.update_ratings
-          private_seller.seller_state.should eq "bad_seller"
+          private_seller.seller_state.should eq "good_seller"
         end
-         it "should stay bad seller" do
+        it "should stay bad seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_ratings
           private_seller.seller_state.should eq "bad_seller"
         end
       end
-
     end
 
     describe LegalEntity do
@@ -818,6 +817,16 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(15)
         end
 
+        it "should change from bad to standard seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_ratings
+          commercial_seller.seller_state.should eq "standard_seller"
+        end
+        it "should stay standard seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_ratings
+          commercial_seller.seller_state.should eq "standard_seller"
+        end
         it "should stay good1 seller" do
           commercial_seller.seller_state = "good1_seller"
           commercial_seller.update_ratings
@@ -837,16 +846,6 @@ describe User do
           commercial_seller.seller_state = "good4_seller"
           commercial_seller.update_ratings
           commercial_seller.seller_state.should eq "good4_seller"
-        end
-        it "should stay standard seller" do
-          commercial_seller.seller_state = "standard_seller"
-          commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "standard_seller"
-        end
-        it "should change from bad to standard seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "standard_seller"
         end
       end
 
@@ -854,12 +853,13 @@ describe User do
         before :each do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(92)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(8)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(80)
         end
 
-        it "should change from bad to standard seller" do
+        it "should stay bad seller" do
           commercial_seller.seller_state = "bad_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "standard_seller"
+          commercial_seller.seller_state.should eq "bad_seller"
         end
         it "should change from standard to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
@@ -888,15 +888,21 @@ describe User do
         end
       end
 
-      context "with positive ratings over 90% in last 100 ratings" do
+      context "with additionally positive ratings over 90% in last 100 ratings" do
         before :each do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
-          ActiveRecord::Relation.any_instance.stub(:count).and_return(100)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(80)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(95)
         end
 
-        it "should change from standard to good1 seller" do
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_ratings
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_ratings
           commercial_seller.seller_state.should eq "good1_seller"
@@ -923,30 +929,31 @@ describe User do
         end
       end
 
-      context "with positive ratings over 90% in last 500 ratings" do
+      context "with additionally positive ratings over 90% in last 500 ratings" do
         before :each do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
-          ActiveRecord::Relation.any_instance.stub(:count).and_return(500)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(80)
         end
 
-        it "should change from bad to standard seller" do
+        it "should stay bad seller" do
           commercial_seller.seller_state = "bad_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "standard_seller"
+          commercial_seller.seller_state.should eq "bad_seller"
         end
-        it "should change from standard to good1 seller" do
+        it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_ratings
           commercial_seller.seller_state.should eq "good1_seller"
         end
-        it "should stay good1 seller" do
+        it "should change from good1 to good2 seller" do
           commercial_seller.seller_state = "good1_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "good1_seller"
+          commercial_seller.seller_state.should eq "good2_seller"
         end
-        it "should  change from good2 to good3 seller" do
+        it "should change from good2 to good3 seller" do
           commercial_seller.seller_state = "good2_seller"
           commercial_seller.update_ratings
           commercial_seller.seller_state.should eq "good3_seller"
@@ -963,33 +970,34 @@ describe User do
         end
       end
 
-      context "with positive ratings over 90% in last 1000 ratings" do
+      context "with additionally positive ratings over 90% in last 1000 ratings" do
         before :each do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
-          ActiveRecord::Relation.any_instance.stub(:count).and_return(1000)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(92)
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(92)
         end
 
-        it "should change from bad to standard seller" do
+        it "should stay bad seller" do
           commercial_seller.seller_state = "bad_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "standard_seller"
+          commercial_seller.seller_state.should eq "bad_seller"
         end
-        it "should change from standard to good1 seller" do
+        it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_ratings
           commercial_seller.seller_state.should eq "good1_seller"
         end
-        it "should stay good1 seller" do
+        it "should change from good1 to good2 seller" do
           commercial_seller.seller_state = "good1_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "good1_seller"
+          commercial_seller.seller_state.should eq "good2_seller"
         end
-        it "should stay good2 seller" do
+        it "should change from good2 to good3 seller" do
           commercial_seller.seller_state = "good2_seller"
           commercial_seller.update_ratings
-          commercial_seller.seller_state.should eq "good2_seller"
+          commercial_seller.seller_state.should eq "good3_seller"
         end
         it "should change from good3 to good4 seller" do
           commercial_seller.seller_state = "good3_seller"

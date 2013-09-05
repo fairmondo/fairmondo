@@ -191,19 +191,18 @@ class User < ActiveRecord::Base
     number_of_biased_ratings / number_of_newest_ratings * 100
   end
 
-
+  # Changes seller state depending on positive and negative ratings
+  # @api private
+  # @return [undefined]
   def update_seller_state
-    # if rated user is private user
-    if self.percentage_of_negative_ratings > 25
-      self.rate_down_to_bad_seller
-    else
-      if self.percentage_of_positive_ratings > 75
-        if self.percentage_of_positive_ratings > 90
-          upgrade_seller_state
-        else
-          self.rate_up_to_standard_seller
-        end
+    if self.percentage_of_positive_ratings > 75
+      if self.percentage_of_positive_ratings > 90
+        upgrade_seller_state
+      else
+        self.rate_up_to_standard_seller
       end
+    elsif self.percentage_of_negative_ratings > 25
+      self.rate_down_to_bad_seller
     end
   end
 

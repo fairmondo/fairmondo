@@ -23,33 +23,27 @@ class LegalEntity < User
   extend STI
 
   def upgrade_seller_state
-    if self.seller_state == 'good1_seller'
-      if self.ratings.limit(100).count == 100
-        percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 100
-        if percentage_of_positive_ratings > 90
+    if self.seller_state == "standard_seller"
+       self.rate_up_to_good1_seller
+    elsif (self.seller_state == "good1_seller") || (self.seller_state == "good2_seller") ||  (self.seller_state == "good3_seller")
+      percentage_of_positive_ratings_in_last_100 = calculate_percentage_of_biased_ratings 'positive', 100
+      if percentage_of_positive_ratings_in_last_100 > 90
+        if self.seller_state == "good1_seller"
           self.rate_up_to_good2_seller
+        else
+          percentage_of_positive_ratings_in_last_500 = calculate_percentage_of_biased_ratings 'positive', 500
+          if percentage_of_positive_ratings_in_last_500 > 90
+            if self.seller_state == "good2_seller"
+              self.rate_up_to_good3_seller
+            else
+              percentage_of_positive_ratings_in_last_1000 = calculate_percentage_of_biased_ratings 'positive', 1000
+              if percentage_of_positive_ratings_in_last_1000 > 90
+                self.rate_up_to_good4_seller
+              end
+            end
+          end
         end
       end
-
-    elsif self.seller_state == 'good2_seller'
-      if self.ratings.limit(500).count == 500
-         percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 500
-        if percentage_of_positive_ratings > 90
-          self.rate_up_to_good3_seller
-        end
-      end
-
-    elsif self.seller_state == 'good3_seller'
-      if self.ratings.limit(1000).count == 1000
-         percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 1000
-        if percentage_of_positive_ratings > 90
-          self.rate_up_to_good4_seller
-        end
-      end
-
-    else
-      self.rate_up_to_good1_seller
-      self.rate_up_to_standard_seller
     end
   end
 
