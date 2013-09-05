@@ -1,6 +1,6 @@
 .Fees
   %h3
-    = t('article.preview.fees_and_donations.title')
+    = t('article.preview.fees_and_donations.mass_upload_title')
 
   %dl
     %dt
@@ -9,7 +9,7 @@
     %dd
       = humanized_money_with_symbol MassUpload.calculate_total_fees(articles)
     %dt
-      = raw t('article.preview.fees_and_donations.fair_percent')
+      = raw t('article.preview.fees_and_donations.mass_upload_fair_percent')
       %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
     %dd
       = humanized_money_with_symbol MassUpload.calculate_total_fair(articles)
@@ -22,6 +22,8 @@
     %dt
       = "* " << t('article.preview.fees_and_donations.netto')
       = humanized_money_with_symbol MassUpload.calculate_total_fees_and_donations_netto(articles)
+    %dt
+      = t('article.preview.fees_and_donations.quarter_fee')
 
   - if articles.all? { |article| article.state ==  "active" }
     %a.Btn.Btn--red.Btn--redBig
