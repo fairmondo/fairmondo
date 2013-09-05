@@ -1,31 +1,43 @@
+<%= t('transaction.notifications.buyer.intro') %>
+<%= t('transaction.notifications.begin') %>
+
 <%= transaction_mail_greeting @transaction, :buyer %>
 
 <%= t('transaction.notifications.buyer.buyer_text') %>
 
 ***
 
-Angaben zu Deiner Bestellung:
-<%= article_details @transaction %>
+<%= t('transaction.notifications.buyer.order_infos') %>
+<%= order_details @transaction %>
 
-Deine Rechnungs- und Lieferadresse:
-<%= show_address @buyer %>
-
-***
-
+<%= t('transaction.edit.address') %>
+<%= show_contact_info @buyer %>
 
 ***
 
-Impressum:
+<%= article_payment_info @transaction, :buyer %>
+<%= t('transaction.notifications.buyer.payment_type') %>
+
+<%= payment_method_info @transaction %>
+
+***
+
+<%= t('transaction.edit.seller_data') %>
+<%= show_contact_info @seller %>
+
+***
+
+<%= t('transaction.edit.imprint') %>
 <%= @seller.about %>
 
 ***
 
-AGB:
+<%= t('transaction.edit.terms') %>
 <%= @seller.terms %>
 
 ***
 
-Widerrufsbelehrung:
+<%= t('transaction.edit.cancellation') %>
 <%= @seller.cancellation %>
 
 ***
