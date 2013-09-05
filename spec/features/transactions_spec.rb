@@ -131,8 +131,8 @@ describe 'Transaction' do
             page.should have_content user.country
 
 
-            # Should display impressum
-            page.should have_content I18n.t 'transaction.edit.impressum'
+            # Should display imprint
+            page.should have_content I18n.t 'transaction.edit.imprint'
             page.should have_content transaction.article_seller.about
 
             # Should display terms
