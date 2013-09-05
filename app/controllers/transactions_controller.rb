@@ -26,7 +26,7 @@ class TransactionsController < InheritedResources::Base
 
   before_filter :redirect_if_already_sold, only: [:edit, :update]
   before_filter :redirect_if_not_yet_sold, only: :show
-  before_filter :redirect_to_child, only: :show
+  before_filter :redirect_to_child_show, only: :show
   before_filter :authorize_resource
 
   def edit
@@ -64,11 +64,12 @@ class TransactionsController < InheritedResources::Base
       end
     end
 
-    def redirect_to_child
-      #if !resource.available? &&
-    end
-
-    def permitted_params
-      params.permit(transaction: [:selected_transport, :selected_payment, :tos_accepted, :message, :quantity_bought])
+    def redirect_to_child_show
+      if !resource.available? && resource.children
+        child_transactions = resource.children.select { |c| c.buyer == current_user }
+        unless child_transactions.empty?
+          redirect_to transaction_path child_transactions[-1]
+        end
+      end
     end
 end
