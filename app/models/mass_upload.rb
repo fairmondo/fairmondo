@@ -80,7 +80,7 @@ class MassUpload
   end
 
   def correct_header?(file)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_seal;ecologic_seal;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_seal;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
@@ -133,7 +133,7 @@ class MassUpload
         raw_article_array << article
       end
     end
-    raw_article_array.reverse if raw_article_array
+    raw_article_array
   end
 
   def save
@@ -180,6 +180,9 @@ class MassUpload
     if article.ecologic_seal
       article.ecologic = true
       article.ecologic_kind = "ecologic_seal"
+    elsif article.upcycling_reason
+      article.ecologic = true
+      article.ecologic_kind = "upcycling"
     end
     if article.small_and_precious_eu_small_enterprise
       article.small_and_precious = true
