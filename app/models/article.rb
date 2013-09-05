@@ -104,5 +104,8 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def is_not_conventional?
+    self.fair || self.ecologic || self.small_and_precious || self.condition == "new"
+  end
 
 end

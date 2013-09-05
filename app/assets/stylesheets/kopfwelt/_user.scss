@@ -283,16 +283,31 @@
 	}
 }
 .User-library {
-
 	.User-library--title,
 	.User-library--user {
 		text-align: center;
 	}
-
 	@include at-breakpoint($layout-small) {
 		@include span-columns(1, 2);
 		&:nth-child(2) {
 			@include span-columns(1 omega, 2);
 		}
 	}
+}
+
+.User-library-test {
+	.User-library--title,
+	.User-library--user {
+		text-align: center;
+	}
+
+	text-align: center;
+	clear: both;
+	float: left;
+	border-radius: .8em;
+	border-style: solid;
+	border-color: $darkgray;
+	border-width: 1px;
+	width: 98%;
+	margin-bottom: .5em;
 }
