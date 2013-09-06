@@ -192,7 +192,7 @@ class User < ActiveRecord::Base
   end
 
   # Changes seller state depending on positive and negative ratings
-  # @api private
+  # @api public
   # @return [undefined]
   def update_seller_state
     if self.percentage_of_positive_ratings > 75
