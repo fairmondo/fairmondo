@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 
   def render_hero options
     options[:action] ||= "default"
-    options[:controller] ||= params[:controller]
+    options[:controller] ||= params.permit(:controller)[:controller]
     @rendered_hero = options
   end
 
@@ -92,6 +92,11 @@ class ApplicationController < ActionController::Base
     [RegistrationsController, SessionsController, ToolboxController, BankDetailsController]
   end
 
+  # To be inherited and used in a before_filter
+  def authorize_resource
+    authorize resource
+  end
+
 
   # Caching security: Set response headers to prevent caching
   # @api semipublic
@@ -105,6 +110,6 @@ class ApplicationController < ActionController::Base
   # Strong_parameters default params permitter
   def permitted_params
     klass = controller_name.classify
-    params.permit klass.downcase.to_sym => klass.constantize.send("#{klass.downcase}_attrs")
+    params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
   end
 end

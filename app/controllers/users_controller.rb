@@ -35,9 +35,4 @@ class UsersController < InheritedResources::Base
       format.html {render "/devise/sessions/new" , :layout => false}
     end
   end
-
-  private
-    def authorize_resource
-      authorize resource
-    end
 end

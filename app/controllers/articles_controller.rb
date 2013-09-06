@@ -34,7 +34,7 @@ class ArticlesController < InheritedResources::Base
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
-      fulltext params[:keywords] do
+      fulltext permitted_search_params[:keywords] do
         fields(:title)
       end
     end
@@ -66,11 +66,11 @@ class ArticlesController < InheritedResources::Base
     authorize build_resource
 
     ############### From Template ################
-    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
+    if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
-    elsif params[:edit_as_new]
-      @old_article = current_user.articles.find(params[:edit_as_new])
+    elsif permitted_new_params[:edit_as_new]
+      @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
       @article = @old_article.amoeba_dup
       #if the old article has errors we still want to remove it from the marketplace
       @old_article.close_without_validation
@@ -135,8 +135,7 @@ class ArticlesController < InheritedResources::Base
 
       # For changing the state of an article
       # Refer to Article::State
-      params.delete :article # Do not allow any other change
-      if params[:activate]
+      if permitted_state_params[:activate]
         authorize resource, :activate?
         if resource.activate
           flash[:notice] = I18n.t('article.notices.create_html').html_safe
@@ -145,7 +144,7 @@ class ArticlesController < InheritedResources::Base
           # The article became invalid so please try a new one
           redirect_to new_article_path(:edit_as_new => resource.id)
         end
-      elsif params[:deactivate]
+      elsif permitted_state_params[:deactivate]
         authorize resource, :deactivate?
         resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
@@ -154,27 +153,28 @@ class ArticlesController < InheritedResources::Base
     end
 
     def state_params_present?
-      params[:activate] || params[:deactivate]
+      permitted_state_params[:activate] || permitted_state_params[:deactivate]
     end
 
 
     def search_for query
       ######## Solr
-        search = query.find_like_this params[:page]
+        search = query.find_like_this permitted_search_params[:page]
         return search.results
       ########
       rescue Errno::ECONNREFUSED
         render_hero :action => "sunspot_failure"
-        return policy_scope(Article).page params[:page]
+        return policy_scope(Article).page permitted_search_params[:page]
     end
 
-    def permitted_params
-      params.permit(article: (
-        Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-        Article.basic_price_attrs + Article.transport_attrs +
-        Article.category_attrs + Article.commendation_attrs +
-        Article.image_attrs + Article.fee_attrs + Article.template_attrs
-      ))
+    def permitted_state_params
+      params.permit :activate, :deactivate
+    end
+    def permitted_new_params
+      params.permit :template_select, :edit_as_new
+    end
+    def permitted_search_params
+      params.permit :page, :keywords
     end
 
     ############ Save Images ################
@@ -190,7 +190,7 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for Article.new(params[:article])
+      @articles ||= search_for Article.new(permitted_params[:article])
     end
 
     def begin_of_association_chain
