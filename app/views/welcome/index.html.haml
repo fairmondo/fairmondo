@@ -57,6 +57,22 @@
   .Teaser.Teaser--video
     = tinycms_content "start-video"
 
+  .Teaser.Teaser--text
+    %h2
+      Gezeichnete Genossenschafts-Anteile im September:
+    %p
+      .goal-container
+        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 200000.0
+        - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
+        - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 50000.0
+        .goal{ :style => "width: 100%; height: 50px;"}
+          .reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; height: 50px;" }
+        = "#{money_without_cents(reached)}€ von #{money_without_cents(goal)}€ diesen Monat erreicht."
+        %p
+          = "Insgesamt gezeichnete Genossenschafts-Anteile: #{money_without_cents( all_this_year + reached)}€"
+        %p
+          %a{ :href => "/anteile-zeichnen" }
+            Weitere Informationen zum Anteile zeichnen.
 
   .Teaser.Teaser--text
     %h2.Teaser-title.Icon

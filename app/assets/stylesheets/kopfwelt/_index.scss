@@ -186,3 +186,12 @@
 .Teaser .Btn {
 	@include rem(margin-top, 4px);
 }
+
+.goal {
+	background-color: #96C748;
+	margin-bottom: .4em;
+}
+
+.reached {
+	background-color: $green;
+}
