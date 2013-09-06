@@ -81,8 +81,10 @@ describe 'Article management' do
         end
 
         it "should show the create article page when selecting no template" do
+
           visit new_article_path template_select: { article_template: "" }
           current_path.should == new_article_path
+
         end
 
         it 'should create an article plus a template' do
@@ -138,6 +140,7 @@ describe 'Article management' do
         end
 
         it "should create an article from a template" do
+
           template = FactoryGirl.create :article_template, :without_image, user: user
           visit new_article_path template_select: { article_template: template.id }
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
@@ -252,6 +255,10 @@ describe 'Article management' do
     end
 
     describe "the article view" do
+      before do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+      end
 
       it "should be accessible" do
         visit article_path article
@@ -260,8 +267,10 @@ describe 'Article management' do
 
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
-        visit article_path article
-        page.should have_content I18n.t 'article.show.no_alternative'
+        visit article_path @article
+        if @article.is_conventional?
+          page.should have_content I18n.t 'article.show.no_alternative'
+        end
       end
 
       it "should display a buy button that forces a login" do #! will change after sprint
@@ -309,6 +318,78 @@ describe 'Article management' do
       #   visit article_path @article, image: new_img
       # end
     end
+  end
+
+end
+
+describe "Other articles of this seller box" do
+  before do
+    seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :user_id => seller.id
+    @article_locked = FactoryGirl.create :preview_article, :user_id => seller.id
+    visit article_path @article_active
+  end
+
+  it "should show active article" do
+    page.should have_link('', href: article_path(@article_active))
+  end
+
+  it "should not show locked article" do
+    page.should have_no_link('', href: article_path(@article_locked))
+  end
+end
+
+describe "Pagination for libraries should work"  do
+  before do
+    @seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    30.times do
+      lib = FactoryGirl.create :library, :user => @seller, :public => true
+      FactoryGirl.create :library_element, :article => @article_active, :library => lib
+    end
+
+    visit article_path @article_active
+  end
+
+  it "should show selector div.pagination" do
+    page.assert_selector('div.pagination')
+  end
+end
+
+describe "LibraryElements should exist only on acive articles" do
+
+  before do
+    @seller = FactoryGirl.create :seller
+    @buyer = FactoryGirl.create :buyer
+
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    @lib = FactoryGirl.create :library, :user => @buyer, :public => true
+    FactoryGirl.create :library_element, :article => @article_active, :library => @lib
+
+  end
+
+  it "should delete LibraryElement when deactivating an article" do
+
+    login_as @seller, scope: :user
+    visit article_path @article_active
+    click_button I18n.t 'article.labels.deactivate'
+
+    login_as @buyer, scope: :user
+    visit user_libraries_path @buyer
+    within("#library"+@lib.id.to_s) do
+      page.should have_content I18n.t 'library.no_products'
+    end
+  end
+
+end
+
+describe "Article Page should show link to Transparency International" do
+  it "should have link to Transparency International" do
+    @article = FactoryGirl.create :article
+    visit article_path @article
+    page.should have_link("Transparency International", :href => "http://www.transparency.de/")
   end
 end
 

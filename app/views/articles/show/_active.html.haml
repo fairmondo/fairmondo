@@ -44,7 +44,7 @@
       = accordion_item "report" do
         = render 'feedbacks/varieties/report', feedback: Feedback.new
 
-- if resource.is_not_conventional?
+- if resource.is_conventional?
   .Related
     - alternative = find_fair_alternative_to resource
     .Article.Article--related
