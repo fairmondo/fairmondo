@@ -261,7 +261,7 @@ describe 'Article management' do
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         visit article_path article
-        if @article.is_conventional?
+        if article.is_conventional?
           page.should have_content I18n.t 'article.show.no_alternative'
         end
       end
