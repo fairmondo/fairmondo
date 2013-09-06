@@ -188,8 +188,11 @@
 }
 
 .goal {
-	background-color: #96C748;
+	background-color: white;
 	margin-bottom: .4em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: $lightgray;
 }
 
 .reached {
