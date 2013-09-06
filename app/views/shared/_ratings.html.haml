@@ -19,15 +19,11 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+%div{id: 'name-rating'}
+  %img{ :src => image_path('thumbs/thumb-up.jpg'), :alt => "good rating" }
+  %span= user_resource.percentage_of_positive_ratings.to_s+"%"
+  %img{ :src => image_path('thumbs/thumb-neutral.jpg'), :alt => "neutral rating" }
+  %span= (100-user_resource.percentage_of_positive_ratings-user_resource.percentage_of_negative_ratings).to_s+"%"
+  %img{ :src => image_path('thumbs/thumb-down.jpg'), :alt => "negative rating" }
+  %span= user_resource.percentage_of_negative_ratings.to_s+"%"
 
-%figure.Article-image
-  = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-
-.Article-info
-  %h3.Articles-title= link_to truncate(article.title, :length => 25), article_path(article)
-  %p.Article-price= humanized_money_with_symbol article.price
-  = render 'articles/show/vat' , :article => article
-  = render '/articles/show/basic_price', :article => article
-.Article-tags
-  = condition_label article
-  = features_label article
