@@ -80,7 +80,9 @@ class MassUpload
   end
 
   def correct_header?(file)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_seal;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    # bugbug header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_seal;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    # header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
@@ -124,6 +126,40 @@ class MassUpload
       rows_array.each do |row|
         categories = Category.find_imported_categories(row['categories'])
         row.delete("categories")
+        # bugbugb start
+        row = row.to_a
+        fair_trust_questionnaire_attributes_array = row[32..51]
+        social_producer_questionnaire_attributes_array = row[52..58]
+        row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
+        if row[30][1] == "fair_trust"
+          fair_trust_questionnaire_attributes = {}
+          fair_trust_questionnaire_attributes_array.each do |pair|
+            if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
+              fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1].split
+            elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
+              fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
+            else
+              fair_trust_questionnaire_attributes[pair.first] = pair[1..-1].first
+            end
+          end
+          row = Hash[row]
+          row["fair_trust_questionnaire_attributes"] = fair_trust_questionnaire_attributes
+        elsif row[30][1] == "social_producer"
+          social_producer_questionnaire_attributes = {}
+          social_producer_questionnaire_attributes_array.each do |pair|
+            if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
+              social_producer_questionnaire_attributes[pair.first] = [""] + pair[1].split
+            elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
+              social_producer_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
+            else
+              social_producer_questionnaire_attributes[pair.first] = pair[1..-1].first
+            end
+          end
+          row = Hash[row]
+          row["social_producer_questionnaire_attributes"] = social_producer_questionnaire_attributes
+        else
+          row = Hash[row]
+        end
         article = Article.new(row)
         article.user_id = user_id
         article.currency = "EUR"
@@ -173,9 +209,8 @@ class MassUpload
   end
 
   def check_commendation(article)
-    if article.fair_seal
+    if article.fair_kind
       article.fair = true
-      article.fair_kind = "fair_seal"
     end
     if article.ecologic_seal
       article.ecologic = true
