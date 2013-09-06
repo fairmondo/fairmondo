@@ -25,19 +25,34 @@
     = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
       = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"}
 
-.Related
-  - alternative = find_fair_alternative_to resource
-  .Article.Article--related
-    %h3.Article-title
-      = t('article.show.alternative')
-      %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
-    - if alternative.present?
-      = render :partial=>'/shared/show_article', :locals=>{article: alternative}
-    - else
-      %p.Helper-text
-        = t('article.show.no_alternative')
+  - if resource.libraries.find_all_by_public(true).count > 0
+    .Accordion.Accordion--full
+      = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
+        - libraries.each do |library|
+          .User-library-test
+            .User-image
+              = link_to image_tag(library.user.image_url(:profile)), user_path(:id => library.user.id)
+            %p.User-library--title
+              = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
+            %p.User-library--user
+              = t('common.text.from') + " "
+              = link_to( library.user_nickname, user_path(library.user))
+        = paginate libraries, :params => {:anchor => "library" }
 
   .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do
         = render 'feedbacks/varieties/report', feedback: Feedback.new
+
+- if resource.is_conventional?
+  .Related
+    - alternative = find_fair_alternative_to resource
+    .Article.Article--related
+      %h3.Article-title
+        = t('article.show.alternative')
+        %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
+      - if alternative.present?
+        = render :partial=>'/shared/show_article', :locals=>{article: alternative}
+      - else
+        %p.Helper-text
+          = t('article.show.no_alternative')

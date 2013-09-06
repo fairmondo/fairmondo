@@ -115,4 +115,8 @@ class Article < ActiveRecord::Base
       Article.image_attrs + Article.fee_attrs + Article.template_attrs(with_nested_template)
     )
   end
+
+  def is_conventional?
+    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
+  end
 end

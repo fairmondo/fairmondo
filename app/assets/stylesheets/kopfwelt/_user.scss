@@ -93,7 +93,7 @@
 	text-align: center;
 }
 .User-image {
-	@include border-radius(50%);
+	@include border-radius(.8em);
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
 	@include rem(margin, 0 auto 20px);
@@ -283,18 +283,31 @@
 	}
 }
 .User-library {
-
 	.User-library--title,
 	.User-library--user {
 		text-align: center;
 	}
-
 	@include at-breakpoint($layout-small) {
 		@include span-columns(1, 2);
 		&:nth-child(2) {
 			@include span-columns(1 omega, 2);
 		}
 	}
-
 }
 
+.User-library-test {
+	.User-library--title,
+	.User-library--user {
+		text-align: center;
+	}
+
+	text-align: center;
+	clear: both;
+	float: left;
+	border-radius: .8em;
+	border-style: solid;
+	border-color: $darkgray;
+	border-width: 1px;
+	width: 98%;
+	margin-bottom: .5em;
+}
