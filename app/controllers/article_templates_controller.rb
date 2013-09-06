@@ -23,43 +23,27 @@ class ArticleTemplatesController < InheritedResources::Base
 
   before_filter :build_resource, :only => [:new, :create]
   before_filter :build_article, :only => [:new,:create]
+  before_filter :authorize_resource, except: [:create]
   actions :all, :except => [:show,:index]
 
-  # def collection
-  #   @article_templates ||= end_of_association_chain.page(params[:page])
-  # end
-
-
   def update
-    authorize resource
-    update!  do |success, failure|
-       success.html { redirect_to collection_url}
-       failure.html { save_images
-                      render :edit}
+    update! do |success, failure|
+      success.html { redirect_to collection_url}
+      failure.html { save_images
+                     render :edit}
     end
   end
 
   def create
     authorize build_resource
     create! do |success, failure|
-       success.html { redirect_to collection_url}
-       failure.html { save_images
-                      render :new}
+      success.html { redirect_to collection_url}
+      failure.html { save_images
+                     render :new}
     end
   end
 
-  def edit
-    authorize resource
-    edit!
-  end
-
-  def new
-    authorize resource
-    new!
-  end
-
   def destroy
-    authorize resource
     destroy! {collection_url}
   end
 

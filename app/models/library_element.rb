@@ -21,7 +21,7 @@
 #
 class LibraryElement < ActiveRecord::Base
 
-  def self.libraryelement_attrs
+  def self.library_element_attrs
     [:article, :library, :library_id, :article_id]
   end
   #! attr_accessible *library_element_attributes

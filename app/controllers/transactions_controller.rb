@@ -30,7 +30,7 @@ class TransactionsController < InheritedResources::Base
   before_filter :authorize_resource
 
   def edit
-    edit! { return render :step2 if resource.edit_params_valid? params }
+    edit! { return render :step2 if resource.edit_params_valid? permitted_params }
   end
 
   # def show
@@ -50,10 +50,6 @@ class TransactionsController < InheritedResources::Base
   end
 
   private
-    def authorize_resource
-      authorize resource
-    end
-
     def redirect_if_already_sold
       redirect_to already_sold_transaction_path(resource) unless resource.available?
     end

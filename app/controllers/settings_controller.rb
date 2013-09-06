@@ -11,4 +11,9 @@ class SettingsController < ApplicationController
 
     redirect_to :back
   end
+
+  private
+    def permitted_params
+      params.permit *Setting.setting_params
+    end
 end

@@ -22,6 +22,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   before_filter :dont_cache, only: [ :edit ]
+  before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, :only => [ :create, :new ]
 
   #before_filter :check_recaptcha, only: :create
@@ -64,8 +65,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-
-
   private
 
     # check if we need password to update user data
@@ -91,8 +90,21 @@ class RegistrationsController < Devise::RegistrationsController
       else
         # remove the virtual current_password attribute update_without_password
         # doesn't know how to ignore it
-        params[:user].delete(:current_password)
+        account_update_params.delete(:current_password) if account_update_params
         resource.update_without_password(account_update_params)
+      end
+    end
+
+  protected
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit(
+          :nickname, :type, :agecheck, :legal, :privacy, :recaptcha, # <- custom fields
+          :email, :password, :password_confirmation
+        )
+      end
+      devise_parameter_sanitizer.for(:account_update) do |u|
+        u.permit(*User.user_attrs, :current_password)
       end
     end
 end
