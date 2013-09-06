@@ -1,3 +1,4 @@
+
 -#
 -#
 -# == License:
@@ -45,6 +46,11 @@
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
+    / Icons for iOS Devices (iPhone, iPad)
+    %link{ :rel => 'apple-touch-icon', :href => 'assets/images/touch-icon-iphone.png', :type => "image/png"  }
+    %link{ :rel => 'apple-touch-icon', :sizes => '72x72', :href => 'assets/images/touch-icon-ipad.png', :type => "image/png"  }
+    %link{ :rel => 'apple-touch-icon', :sizes => '114x114', :href => 'assets/images/touch-icon-iphone-retina.png', :type => "image/png"  }
+    %link{ :rel => 'apple-touch-icon', :sizes => '144x144', :href => 'assets/images/touch-icon-ipad-retina.png', :type => "image/png"  }
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
