@@ -50,6 +50,8 @@ module Article::Attributes
     attr_accessible *money_attributes, :as => :admin
 
     validates_presence_of :price_cents
+    validates_numericality_of :price_cents, :less_than_or_equal_to => 1000000
+    validates_numericality_of :price, greater_than_or_equal_to: 0
 
     monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
 
@@ -62,6 +64,7 @@ module Article::Attributes
     basic_price_attributes = [:basic_price, :basic_price_cents, :basic_price_amount]
     attr_accessible *basic_price_attributes
     attr_accessible *basic_price_attributes, :as => :admin
+    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
