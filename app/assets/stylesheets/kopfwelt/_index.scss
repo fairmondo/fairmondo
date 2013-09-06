@@ -125,7 +125,7 @@
 	vertical-align: middle;
 }
 .Profile-avatar {
-	@include border-radius(50%);
+	@include border-radius(.8em);
 	position: absolute;
 	width: 72px;
 	height: 72px;
@@ -185,4 +185,16 @@
 
 .Teaser .Btn {
 	@include rem(margin-top, 4px);
+}
+
+.goal {
+	background-color: white;
+	margin-bottom: .4em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: $lightgray;
+}
+
+.reached {
+	background-color: $green;
 }
