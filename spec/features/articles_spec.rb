@@ -216,7 +216,9 @@ describe 'Article management' do
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         visit article_path @article
-        page.should have_content I18n.t 'article.show.no_alternative'
+        if @article.is_conventional?
+          page.should have_content I18n.t 'article.show.no_alternative'
+        end
       end
 
       it "should have link to Transparency International" do
