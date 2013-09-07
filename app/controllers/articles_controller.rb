@@ -171,7 +171,7 @@ class ArticlesController < InheritedResources::Base
       params.permit :activate, :deactivate
     end
     def permitted_new_params
-      params.permit :template_select, :edit_as_new
+      params.permit :edit_as_new, template_select: [:article_template]
     end
     def permitted_search_params
       params.permit :page, :keywords

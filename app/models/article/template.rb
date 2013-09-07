@@ -26,6 +26,7 @@ module Article::Template
 
     def self.template_attrs with_nested = true
       output = [:save_as_template]
+      output.push(:id) unless with_nested # Article.id needed for article_template update
       output.push(article_template_attributes: ArticleTemplate.article_template_attrs) if with_nested
       output
     end

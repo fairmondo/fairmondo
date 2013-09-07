@@ -148,6 +148,7 @@ describe MultipleFixedPriceTransaction do
           mfpt.quantity_available = 3
           mfpt.quantity_bought = 2
           mfpt.buyer = User.new id: 1
+          mfpt.article = Article.new
         end
 
         it "should create a new PartialFixedPriceTransaction with the correct data" do

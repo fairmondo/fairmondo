@@ -213,6 +213,10 @@ describe 'Transaction' do
                 TransactionMailer.stub(:seller_notification).and_return(mail)
                 TransactionMailer.stub(:buyer_notification).and_return(mail)
                 mail.stub(:deliver)
+
+                transaction.buyer = FactoryGirl.create :user
+                transaction.quantity_bought = 1
+                transaction.stub(:buyer=)
                 transaction.buy
 
                 click_button I18n.t 'transaction.actions.purchase'

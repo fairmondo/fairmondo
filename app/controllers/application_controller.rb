@@ -110,6 +110,12 @@ class ApplicationController < ActionController::Base
   # Strong_parameters default params permitter
   def permitted_params
     klass = controller_name.classify
-    params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
+    manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
+  end
+
+  # modify params, does nothing unless overwritten in specific controller
+  # @return [Hash] params
+  def manual_params allowed_params
+    allowed_params
   end
 end
