@@ -25,7 +25,7 @@ module Article::Images
   included do
     # ---- IMAGES ------
     def self.image_attrs
-      [ images_attributes: Image.image_attrs ]
+      [ images_attributes: Image.image_attrs(true) ]
     end
     #! attr_accessible :images_attributes
 

@@ -29,6 +29,9 @@ class MultipleFixedPriceTransaction < Transaction
 
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
+  validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
+  validates :quantity_available, presence: true, numericality: true
+
   # Allow quantity_available field for this transaction type
   def quantity_available
     read_attribute :quantity_available
@@ -78,13 +81,13 @@ class MultipleFixedPriceTransaction < Transaction
     # protected attrs
     partial.parent = self
     partial.article = self.article
-    partial.buyer_id = self.buyer.id #buyer= causes mass-assignment error
+    partial.buyer = self.buyer
 
     partial.save!
     return partial
   end
   def clear_data_and_save
-    self.buyer = nil
+    #self.buyer = nil # Uncomment if possible! As of right now this will throw validation errors
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil

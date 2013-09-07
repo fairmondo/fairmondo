@@ -76,4 +76,12 @@ class ArticleTemplatesController < InheritedResources::Base
         end
       end
     end
+
+    def manual_params allowed_params
+      if allowed_params["article_template"]
+        allowed_params["article_template"]["user_id"] = current_user.id
+        allowed_params["article_template"]["article_attributes"]["user_id"] = current_user.id
+      end
+      allowed_params
+    end
 end
