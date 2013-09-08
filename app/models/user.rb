@@ -40,10 +40,9 @@ class User < ActiveRecord::Base
 
   def self.user_attrs
     [:email, :password, :password_confirmation, :remember_me, :type,
-    :nickname, :forename, :surname, :privacy, :legal, :agecheck,
-    :invitor_id, :banned, :about_me, #:trustcommunity,
+    :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
+    :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
     :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-    :terms, :cancellation, :about, :bank_code, :paypal_account,
     :bank_account_number, :bank_name, :bank_account_owner, :company_name,
     { image_attributes: Image.image_attrs }
     ]

@@ -335,3 +335,18 @@ describe "Article feature label buttons" do
     end
   end
 end
+
+describe "Pioneer of the day" do
+  it "should be updatable by an admin" do
+    login_as FactoryGirl.create :admin_user
+
+    visit root_path
+    page.should_not have_link 'Foobar'
+
+    visit article_path FactoryGirl.create :article, title: 'Foobar'
+    click_link '> (Admin) Set this as featured article'
+
+    visit root_path
+    page.should have_link 'Foobar'
+  end
+end
