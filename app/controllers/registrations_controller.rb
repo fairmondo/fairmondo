@@ -104,7 +104,7 @@ class RegistrationsController < Devise::RegistrationsController
         )
       end
       devise_parameter_sanitizer.for(:account_update) do |u|
-        u.permit(*User.user_attrs, :current_password)
+        u.permit(*resource.class.user_attrs, :current_password)
       end
     end
 end

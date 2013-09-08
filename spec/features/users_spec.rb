@@ -263,6 +263,19 @@ describe 'User management' do
             page.should have_content I18n.t 'formtastic.labels.user.about'
           end
         end
+
+        it "should update the specific fields" do
+          login_as user
+          visit edit_user_registration_path user
+          fill_in 'user_terms', with: 'foobar'
+          fill_in 'user_cancellation', with: 'foobar'
+          fill_in 'user_about', with: 'foobar'
+
+          click_button I18n.t 'formtastic.actions.update'
+          user.reload.terms.should eq 'foobar'
+          user.cancellation.should eq 'foobar'
+          user.about.should eq 'foobar'
+        end
       end
 
       context "for private users" do

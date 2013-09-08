@@ -14,6 +14,6 @@ class SettingsController < ApplicationController
 
   private
     def permitted_params
-      params.permit *Setting.setting_params
+      params.permit *Settings.setting_attrs
     end
 end
