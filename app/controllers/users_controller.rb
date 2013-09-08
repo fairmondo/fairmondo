@@ -35,4 +35,21 @@ class UsersController < InheritedResources::Base
       format.html {render "/devise/sessions/new" , :layout => false}
     end
   end
+
+  def profile
+    profile! do |format|
+      format.html do
+        if ['terms', 'cancellation'].include? permitted_profile_params[:print]
+          render '/users/print', layout: false, locals: { field: permitted_profile_params[:print] }
+        else
+          render '/users/profile'
+        end
+      end
+    end
+  end
+
+  private
+    def permitted_profile_params
+      params.permit :print
+    end
 end

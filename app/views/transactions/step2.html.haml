@@ -76,22 +76,22 @@
 
             %p
               = resource.article_seller.fullname
-            %p
+            #about
               = t 'transaction.edit.imprint'
               .Scrollbox
-                = @transaction.article_seller.about
+                = @transaction.article_seller_about
 
-            %p
+            #terms
               = t 'transaction.edit.terms'
               .Scrollbox
-                = @transaction.article_seller.terms
-              = link_to_function 'Drucken', "javascript:print()"
+                = @transaction.article_seller_terms
+              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
 
-            %p
+            #cancellation
               = t 'transaction.edit.cancellation'
               .Scrollbox
-                = @transaction.article_seller.cancellation
-              = link_to_function 'Drucken', "javascript:print()"
+                = @transaction.article_seller_cancellation
+              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
 
             %p
               = f.input :tos_accepted
