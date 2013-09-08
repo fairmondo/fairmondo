@@ -48,6 +48,7 @@ class Transaction < ActiveRecord::Base
   delegate :email, :forename, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
+           :about, :terms, :cancellation,
            to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
