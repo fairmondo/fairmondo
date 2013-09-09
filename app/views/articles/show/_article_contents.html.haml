@@ -72,6 +72,7 @@
     - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
       %p
         = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill"
+
   .Article-info--left
     .Thumbnail-container
       - resource.thumbnails.each do |image|
@@ -114,7 +115,7 @@
     .Article-box
       %p
         %b
-          = t('formtastic.labels.article.transport_method')+':'
+          = t('formtastic.labels.article.transport_method') + ':'
         %ul
           = transport_format_for "pickup"
           = transport_format_for "type1"
@@ -131,3 +132,6 @@
       = resource.seller_cancellation.html_safe
     = accordion_item "about" do
       = resource.seller_about.html_safe
+
+
+
