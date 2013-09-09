@@ -36,7 +36,7 @@
               = t 'transaction.edit.choose_purchase_data'
 
             - if @transaction.is_a? MultipleFixedPriceTransaction
-              = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, placeholder: 1 }
+              = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, value: 1 }
 
             = f.input :selected_transport, include_blank: false, collection: @transaction.selected_transports
 
@@ -46,15 +46,28 @@
               %br
               %h3
                 = t 'transaction.edit.address'
+                %br
+                %p
+                  = f.input :forename, required: true, input_html: { value: current_user.forename }
+
+                  = f.input :surname, required: true, input_html: { value: current_user.surname }
+
+                  = f.input :street, required: true, input_html: { value: current_user.street }
+
+                  = f.input :city, required: true, input_html: { value: current_user.city }
+
+                  = f.input :zip, required: true, input_html: { value: current_user.zip }
+
+                  = f.input :country, required: true, input_html: { value: current_user.country }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
             %p
-              = current_user.fullname
-              %br
-              = current_user.street
-              %br
-              = current_user.zip
-              = current_user.city
-              %br
-              = current_user.country
+              / = current_user.fullname
+              / %br
+              / = current_user.street
+              / %br
+              / = current_user.zip
+              / = current_user.city
+              / %br
+              / = current_user.country
 
             %hr
             %br
