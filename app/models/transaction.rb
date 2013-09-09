@@ -30,6 +30,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought]
   end
+  attr_accessor :updating_state
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -44,12 +45,15 @@ class Transaction < ActiveRecord::Base
            :price_without_vat, :total_price, :quantity, :quantity_left,
            :transport_type1_provider, :transport_type2_provider, :calculated_fair,
            to: :article, prefix: true
-  delegate :email, to: :buyer, prefix: true
-  delegate :email, :fullname, :nickname, :phone, :mobile, :address,
+  delegate :email, :forename, to: :buyer, prefix: true
+  delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
+           :about, :terms, :cancellation,
            to: :article_seller, prefix: true
 
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  validates :buyer, presence: true, on: :update, if: :updating_state
+  validates :article, presence: true
   #validates :message, allow_blank: true, on: :update
 
   state_machine initial: :available do
@@ -84,6 +88,11 @@ class Transaction < ActiveRecord::Base
 
     event :receive do
       transition :sent => :completed
+    end
+
+    before_transition do |transaction, transition|
+      # To be able to differentiate between updates by article modifications or state changes
+      transaction.updating_state = true
     end
   end
 

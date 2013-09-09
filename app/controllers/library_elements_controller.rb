@@ -48,6 +48,6 @@ class LibraryElementsController < InheritedResources::Base
 
   private
     def get_user
-      @user = User.find params[:user_id]
+      @user = User.find params.permit(:user_id)[:user_id]
     end
 end

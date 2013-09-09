@@ -1,0 +1,5 @@
+%h1= I18n.t "users.print.#{field}", name: resource.fullname
+= resource.send(field)
+
+:javascript
+  print();

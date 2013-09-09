@@ -26,7 +26,7 @@
       %i.icon-pionier--blue
       Willkommen bei Fairnopoly
     %p
-      %strong dem fairen Online-Markplatz in Hand der Nutzer*innen
+      %strong Fairnopoly - Der Online-Marktplatz für alle.
     %p Stelle ab sofort Deine Artikel bei uns ein, und wir schenken Dir die Verkaufsprovision für Deine ersten 10 verkauften Artikel. Ab dem 24. September eröffnen wir offiziell den Verkauf! Klicke hier und werde Pionier:
     = link_to "Pionier*in werden", new_user_registration_path, class: "Btn Btn--blue"
 
@@ -59,6 +59,23 @@
   .Teaser.Teaser--video
     = tinycms_content "start-video"
 
+  .Teaser.Teaser--text
+    %h2.Teaser-title Gezeichnete Anteile im September:
+    %p
+      .goal-container
+        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 200000.0
+        - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
+        - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 50000.0
+        .goal{ :style => "width: 100%; height: 50px;"}
+          - unless goal == 0
+            .reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; height: 48px;" }
+        %strong
+          = "#{money_without_cents(reached)}€ von #{money_without_cents(goal)}€ diesen Monat erreicht!"
+        %p
+          = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents( all_this_year + reached)}€ gezeichnet."
+        %p
+          %a{ :href => "/anteile-zeichnen" }
+            Weitere Informationen zum Anteile zeichnen.
 
   .Teaser.Teaser--text
     %h2.Teaser-title.Icon

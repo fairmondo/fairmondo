@@ -82,10 +82,6 @@ describe 'Transaction' do
           page.should_not have_content I18n.t('formtastic.labels.transaction.quantity_bought')
         end
 
-        it "should have working 'print' links that lead to a new page with only the print view (and auto-executing js)" do
-          pending 'Not yet implemented.'
-        end
-
         it "should lead to step 2" do
           visit edit_transaction_path transaction
 
@@ -155,6 +151,21 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
+          it "should have working terms 'print' link that leads to a new page with only the print view (and auto-executing js)" do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+            within '#terms' do
+              click_link 'Drucken'
+            end
+            page.should have_content transaction.article_seller_terms
+          end
+          it "should have a working cancellation 'print' link ..." do
+            visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
+            within '#cancellation' do
+              click_link 'Drucken'
+            end
+            page.should have_content transaction.article_seller_cancellation
+          end
+
           it "should submit the data successfully with accepted AGB" do
             visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "cash"}
 
@@ -213,6 +224,10 @@ describe 'Transaction' do
                 TransactionMailer.stub(:seller_notification).and_return(mail)
                 TransactionMailer.stub(:buyer_notification).and_return(mail)
                 mail.stub(:deliver)
+
+                transaction.buyer = FactoryGirl.create :user
+                transaction.quantity_bought = 1
+                transaction.stub(:buyer=)
                 transaction.buy
 
                 click_button I18n.t 'transaction.actions.purchase'

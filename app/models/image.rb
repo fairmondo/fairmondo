@@ -20,8 +20,10 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  def self.image_attrs
-    [:image, :is_title]
+  def self.image_attrs nested_attrs = false
+    output = [:image, :is_title]
+    output.push(:_destroy, :id) if nested_attrs
+    output
   end
   #! attr_accessible *image_attributes
   #! attr_accessible *image_attributes, :as => :admin

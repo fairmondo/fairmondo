@@ -34,6 +34,7 @@ class SingleFixedPriceTransaction < Transaction
   def quantity_bought= number
     super 1
   end
+  validates :quantity_bought, presence: true, inclusion: [1], on: :update, if: :updating_state
 
   private
     def set_article_sold

@@ -31,7 +31,7 @@ class LibrariesController < InheritedResources::Base
 
   def index
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
+    @libraries = LibraryPolicy::Scope.new( current_user, @user, end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
 
     render :global_index unless user_focused?
   end
@@ -68,10 +68,14 @@ class LibrariesController < InheritedResources::Base
     # end
 
     def get_user
-      @user = User.find(params[:user_id])
+      @user = User.find(permitted_id_params[:user_id])
     end
 
     def user_focused?
-      params.has_key? :user_id
+      permitted_id_params.has_key? :user_id
+    end
+
+    def permitted_id_params
+      params.permit :user_id
     end
 end

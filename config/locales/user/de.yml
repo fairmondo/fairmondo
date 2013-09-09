@@ -67,5 +67,8 @@ de:
       new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
       existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
       no_invited: "Du hast noch Niemand in die Vertrauensgemeinschaft eingeladen"
+    print:
+      terms: "AGB von %{name}"
+      cancellation: "Widerrufsbelehrung und Rücknahmeerklärung von %{name}"
 
 
