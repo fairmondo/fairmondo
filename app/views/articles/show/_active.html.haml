@@ -29,7 +29,7 @@
     .Accordion.Accordion--full
       = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
         - libraries.each do |library|
-          .User-library-test
+          .User-library-small
             .User-image
               = link_to image_tag(library.user.image_url(:profile)), user_path(:id => library.user.id)
             %p.User-library--title
