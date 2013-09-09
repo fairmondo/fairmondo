@@ -11,7 +11,7 @@
 <%= order_details @transaction %>
 
 <%= t('transaction.edit.address') %>
-<%= show_contact_info @buyer %>
+<%= show_buyer_address @transaction %>
 
 ***
 
@@ -23,7 +23,7 @@
 ***
 
 <%= t('transaction.edit.seller_data') %>
-<%= show_contact_info @seller %>
+<%= show_contact_info_seller @seller %>
 
 ***
 

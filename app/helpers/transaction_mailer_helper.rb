@@ -32,11 +32,18 @@ module TransactionMailerHelper
  		"**************************************************************"
  	end
 
-  def show_contact_info role
-    "#{role.fullname}\n" +
-    "#{role.street}\n" +
-    "#{role.zip} " + "#{role.city}\n\n" +
-    "#{role.email}"
+  def show_contact_info_seller seller
+    "#{seller.fullname}\n" +
+    "#{seller.street}\n" +
+    "#{seller.zip} " + "#{seller.city}\n\n" +
+    "#{seller.email}"
+  end
+
+  def show_buyer_address transaction
+    "#{transaction.forename} #{transaction.surname}\n" +
+    "#{transaction.street}\n" +
+    "#{transaction.zip} " + "#{transaction.city}\n\n" +
+    "#{transaction.email}"
   end
 
   def order_details transaction

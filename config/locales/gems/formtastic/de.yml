@@ -155,6 +155,12 @@ de:
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Bitte wähle eine Versandmethode aus:"
         selected_payment: "Bitte wähle eine Bezahloption aus:"
+        forename: "Vorname:"
+        surname: "Nachname:"
+        street: "Straße und Hausnummer:"
+        city: "Ort:"
+        zip: "Postleitzahl:"
+        country: "Land:"
     input_steps:
       user:
         account: Benutzerkonto
@@ -251,5 +257,3 @@ de:
       # Login
       login: "Login"
       sign_up: "Registrieren"
-
-
