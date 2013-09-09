@@ -267,23 +267,23 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                pending "Paul mach wieder heile"
+                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
                 click_button I18n.t 'transaction.actions.purchase'
 
-                ActionMailer::Base.deliveries.last.encoded.should include("Erfolgreich gekauft... Zahlungsdaten und so")
+                ActionMailer::Base.deliveries.last.encoded.should include( I18n.t('transaction.notifications.buyer.buyer_text') )
               end
 
               it "should send a email to the seller" do
-                pending "Paul mach wieder heile"
+                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction, pay_on_pickup_attrs
                 check 'transaction_tos_accepted'
                 click_button I18n.t 'transaction.actions.purchase'
 
-                ActionMailer::Base.deliveries[-2].encoded.should include("Artikel verkauft... Artikeldaten, Adressdaten und so")
+                ActionMailer::Base.deliveries[-2].encoded.should include( I18n.t('transaction.notifications.seller.seller_text') )
               end
             end
           end
@@ -464,5 +464,9 @@ describe 'Transaction' do
         current_path.should eq new_user_session_path
       end
     end
+  end
+
+  describe "Transaction Emails" do
+
   end
 end
