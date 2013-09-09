@@ -28,6 +28,7 @@ class TransactionsController < InheritedResources::Base
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
   before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :authorize_resource
+  before_filter :dont_cache
 
   def edit
     edit! { return render :step2 if resource.edit_params_valid? permitted_params }
