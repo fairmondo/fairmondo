@@ -3,7 +3,7 @@ de:
   transaction:
     edit:
       # step 1
-      heading: "Dein Warenkorb"
+      heading: "Dein Artikel"
       sold_by: "Angeboten von "
       preliminary_price: "Verkaufspreis: "
       including_vat: " (inkl. %{percent} % MwSt)"
