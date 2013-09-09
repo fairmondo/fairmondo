@@ -107,8 +107,16 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.article_attrs with_nested_template = true
+    (
+      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+      Article.basic_price_attrs + Article.transport_attrs +
+      Article.category_attrs + Article.commendation_attrs +
+      Article.image_attrs + Article.fee_attrs + Article.template_attrs(with_nested_template)
+    )
+  end
+
   def is_conventional?
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
   end
-
 end

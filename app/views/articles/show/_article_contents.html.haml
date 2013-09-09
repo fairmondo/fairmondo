@@ -1,21 +1,23 @@
 -#
--# Farinopoly - Fairnopoly is an open-source online marketplace.
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
 -# Copyright (C) 2013 Fairnopoly eG
 -#
--# This file is part of Farinopoly.
+-# This file is part of Fairnopoly.
 -#
--# Farinopoly is free software: you can redistribute it and/or modify
+-# Fairnopoly is free software: you can redistribute it and/or modify
 -# it under the terms of the GNU Affero General Public License as
 -# published by the Free Software Foundation, either version 3 of the
 -# License, or (at your option) any later version.
 -#
--# Farinopoly is distributed in the hope that it will be useful,
+-# Fairnopoly is distributed in the hope that it will be useful,
 -# but WITHOUT ANY WARRANTY; without even the implied warranty of
 -# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -# GNU Affero General Public License for more details.
 -#
 -# You should have received a copy of the GNU Affero General Public License
--# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if resource.owned_by? current_user
   %div.Article-controls
@@ -52,21 +54,22 @@
     - unless article.vat == 0
       %p.Article-vat= t('article.vat_included', :mwst => article.vat)
     = render 'articles/show/basic_price', :article => resource
-    - if resource.quantity && resource.quantity != ""
+    - if resource.quantity > 1
       %p.Article-quantity
-        %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.quantity)
-      %p
-        - if user_signed_in? && !current_user.libraries.blank?
-          = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            .library
-              = f.inputs do
-                = f.input :library, :collection => current_user.libraries, :include_blank => false , :label => false
-                = f.input :article_id, :as => :hidden
-              = f.button t('common.actions.collect'), :class => "Btn Btn--blue"
-              %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst." }
-        - elsif user_signed_in?
-          %br
-          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
+        %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
+    %p
+      - if user_signed_in? && !current_user.libraries.blank?
+        = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+          .library
+            = f.inputs do
+              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+              = f.input :article_id, :as => :hidden
+            = f.button t('common.actions.collect'), :class => "Btn Btn--blue"
+            %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst." }
+      - elsif user_signed_in?
+        %br
+        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
+    - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
       %p
         = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill"
 

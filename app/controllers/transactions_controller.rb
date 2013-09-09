@@ -25,12 +25,12 @@ class TransactionsController < InheritedResources::Base
   custom_actions :resource => :already_sold
 
   before_filter :redirect_if_already_sold, only: [:edit, :update]
-  before_filter :redirect_if_not_yet_sold, only: :show
-  before_filter :redirect_to_child_show, only: :show
+  before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
+  before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :authorize_resource
 
   def edit
-    edit! { return render :step2 if resource.edit_params_valid? params }
+    edit! { return render :step2 if resource.edit_params_valid? permitted_params }
   end
 
   # def show
@@ -50,10 +50,6 @@ class TransactionsController < InheritedResources::Base
   end
 
   private
-    def authorize_resource
-      authorize resource
-    end
-
     def redirect_if_already_sold
       redirect_to already_sold_transaction_path(resource) unless resource.available?
     end
@@ -65,11 +61,16 @@ class TransactionsController < InheritedResources::Base
     end
 
     def redirect_to_child_show
-      if !resource.available? && resource.children
+      #debugger
+      if resource.children
         child_transactions = resource.children.select { |c| c.buyer == current_user }
         unless child_transactions.empty?
           redirect_to transaction_path child_transactions[-1]
         end
       end
+    end
+
+    def multiple?
+      resource.is_a?(MultipleFixedPriceTransaction)
     end
 end
