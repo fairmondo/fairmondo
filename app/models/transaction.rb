@@ -56,14 +56,6 @@ class Transaction < ActiveRecord::Base
   validates :article, presence: true
   #validates :message, allow_blank: true, on: :update
 
-  # Validations for buyer address
-  validates :forename, presence: true
-  validates :surname, presence: true
-  validates :street, presence: true
-  validates :city, presence: true
-  validates :zip, presence: true
-  validates :country, presence: true
-
   state_machine initial: :available do
 
     state :available do
@@ -133,12 +125,12 @@ class Transaction < ActiveRecord::Base
 
     supports?("transport", params["transaction"]["selected_transport"]) &&
     supports?("payment", params["transaction"]["selected_payment"]) &&
-    supports?("forename", params["transaction"]["forename"]) &&
-    supports?("surname", params["transaction"]["surname"]) &&
-    supports?("street", params["transaction"]["street"]) &&
-    supports?("city", params["transaction"]["city"]) &&
-    supports?("zip", params["transaction"]["zip"]) &&
-    supports?("country", params["transaction"]["country"]) &&
+    # supports?("forename", params["transaction"]["forename"]) &&
+    # supports?("surname", params["transaction"]["surname"]) &&
+    # supports?("street", params["transaction"]["street"]) &&
+    # supports?("city", params["transaction"]["city"]) &&
+    # supports?("zip", params["transaction"]["zip"]) &&
+    # supports?("country", params["transaction"]["country"]) &&
     quantity_param_valid?(params)
   end
 

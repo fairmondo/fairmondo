@@ -60,14 +60,6 @@
 
                   = f.input :country, required: true, input_html: { value: current_user.country }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
             %p
-              / = current_user.fullname
-              / %br
-              / = current_user.street
-              / %br
-              / = current_user.zip
-              / = current_user.city
-              / %br
-              / = current_user.country
 
             %hr
             %br

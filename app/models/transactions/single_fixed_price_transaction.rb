@@ -22,6 +22,14 @@
 class SingleFixedPriceTransaction < Transaction
   extend STI
 
+  # Validations for buyer address
+  # validates :forename, presence: true, on: :update
+  # validates :surname, presence: true, on: :update
+  # validates :street, presence: true, on: :update
+  # validates :city, presence: true, on: :update
+  # validates :zip, presence: true, on: :update
+  # validates :country, presence: true, on: :update
+
   state_machine do
     after_transition on: :buy, do: :set_article_sold
   end

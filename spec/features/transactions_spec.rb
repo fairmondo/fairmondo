@@ -57,14 +57,14 @@ describe 'Transaction' do
           ## Should display payment selection
           page.should have_content I18n.t 'formtastic.labels.transaction.selected_payment'
           page.should have_selector 'select', text: I18n.t('enumerize.transaction.selected_payment.cash')
-          ## Should display buyer's address
+          ## Should display buyer's address input fields
           page.should have_content I18n.t 'transaction.edit.address'
-          page.should have_content user.fullname
-          page.should have_content user.street
-          page.should have_content user.zip
-          page.should have_content user.city
-          page.should have_content user.country
-
+          page.should have_content I18n.t 'formtastic.labels.transaction.forename'
+          page.should have_content I18n.t 'formtastic.labels.transaction.surname'
+          page.should have_content I18n.t 'formtastic.labels.transaction.street'
+          page.should have_content I18n.t 'formtastic.labels.transaction.zip'
+          page.should have_content I18n.t 'formtastic.labels.transaction.city'
+          page.should have_content I18n.t 'formtastic.labels.transaction.country'
           # Should display info text and button
           page.should have_content I18n.t 'transaction.edit.next_step_explanation'
           page.should have_button I18n.t 'common.actions.continue'
