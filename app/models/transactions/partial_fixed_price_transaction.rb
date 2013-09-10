@@ -35,7 +35,7 @@ class PartialFixedPriceTransaction < SingleFixedPriceTransaction
 
   # prevents partial fixed price transaction from setting quantity_bought to 1 as it happens
   # in the single fixed price transaction
-  undef quantity_bought=
+  undef :quantity_bought=
 
   private
     def set_article_sold
