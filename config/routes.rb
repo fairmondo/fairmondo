@@ -55,6 +55,7 @@ Fairnopoly::Application.routes.draw do
   end
   resources :transactions, only: [:show, :edit, :update] do
     member do
+      put 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
     end
   end
