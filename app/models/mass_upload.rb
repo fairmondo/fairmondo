@@ -126,7 +126,7 @@ class MassUpload
       rows_array.each do |row|
         categories = Category.find_imported_categories(row['categories'])
         row.delete("categories")
-        # bugbugb start
+        # bugbugb start (Refactor asap!)
         row = row.to_a
         fair_trust_questionnaire_attributes_array = row[32..51]
         social_producer_questionnaire_attributes_array = row[52..58]
@@ -160,6 +160,7 @@ class MassUpload
         else
           row = Hash[row]
         end
+        # bugbug end
         article = Article.new(row)
         article.user_id = user_id
         article.currency = "EUR"

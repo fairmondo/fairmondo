@@ -115,7 +115,7 @@ describe "Mass-upload" do
           end
 
           it "should redirect to the mass_uploads#show" do
-            should have_content('dummytitle1')
+            should have_content('Name von Artikel 1')
             should have_selector('input.Btn.Btn--blue.Btn--blueBig',
                           I18n.t('mass_upload.labels.mass_activate_articles'))
           end
@@ -170,12 +170,13 @@ describe "Mass-upload" do
             before { attach_file('mass_upload_file',
                         'spec/fixtures/mass_upload_wrong_article.csv') }
 
-            it "should show correct error messages" do
+            it "should show correct error messages", visual: true  do
               click_button I18n.t('mass_upload.labels.upload_article')
+              save_and_open_page
               should have_selector('p.inline-errors',
                 text: I18n.t('mass_upload.errors.wrong_article',
                   message: I18n.t('mass_upload.errors.wrong_article_message'),
-                  index: 2))
+                  index: 3))
             end
 
             it "should not create new articles" do
