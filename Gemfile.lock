@@ -125,11 +125,7 @@ GEM
     delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
-<<<<<<< HEAD
-    devise (3.0.3)
-=======
     devise (3.1.0)
->>>>>>> 9394285e229048354f7e65c9473d4bfcb3ed8851
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -204,11 +200,7 @@ GEM
       activesupport (>= 3.0)
       money (~> 5.1.0)
       railties (>= 3.0)
-<<<<<<< HEAD
-    multi_json (1.7.9)
-=======
     multi_json (1.8.0)
->>>>>>> 9394285e229048354f7e65c9473d4bfcb3ed8851
     nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
