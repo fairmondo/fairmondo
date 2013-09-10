@@ -19,15 +19,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+require 'faker'
+
 FactoryGirl.define do
   factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
     article { FactoryGirl.create :article, :without_build_transaction }
+
+    forename { Faker::Name.first_name }
+    surname  { Faker::Name.last_name }
+    street   { Faker::Address.street_address }
+    city     { Faker::Address.city }
+    zip      { Faker::Address.postcode }
+    country  "Deutschland"
 
     factory :super_transaction, class: 'Transaction' do
     end
     factory :preview_transaction, class: 'PreviewTransaction' do
     end
     factory :single_transaction, class: 'SingleFixedPriceTransaction' do
+      forename { Faker::Name.first_name }
+      surname  { Faker::Name.last_name }
+      street   { Faker::Address.street_address }
+      city     { Faker::Address.city }
+      zip      { Faker::Address.postcode }
+      country  "Deutschland"
     end
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
       article { FactoryGirl.create :article, :without_build_transaction, quantity: 50 }
@@ -39,6 +54,13 @@ FactoryGirl.define do
       quantity_bought 1
       selected_transport 'pickup'
       selected_payment 'cash'
+
+      forename { Faker::Name.first_name }
+      surname  { Faker::Name.last_name }
+      street   { Faker::Address.street_address }
+      city     { Faker::Address.city }
+      zip      { Faker::Address.postcode }
+      country  "Deutschland"
     end
 
     factory :sold_transaction, class: 'SingleFixedPriceTransaction' do

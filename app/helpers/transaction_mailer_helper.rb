@@ -19,16 +19,17 @@ module TransactionMailerHelper
  	end
 
  	def fairnopoly_email_footer
+    "#{ t(common.fn_legal_footer.intro)}"
 		"**************************************************************\n" +
  		"Fairnopoly eG\n" +
  		"Glogauerstr. 21\n" +
  		"10999 Berlin\n\n" +
- 		"Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B\n" +
- 		"Vorstand: Anna Kress, Bastian Neumann\n" +
- 		"Vorstandsvorsitzender: Felix Weth\n" +
- 		"Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister\n\n" +
- 		"www.fairnopoly.de\n" +
- 		"dreh' das Spiel um\n" +
+ 		"#{t(common.fn_legal_footer.registered)}\n" +
+ 		"#{t(common.fn_legal_footer.board)}\n" +
+ 		"#{t(common.fn_legal_footer.ceo)}\n" +
+ 		"#{t(common.fn_legal_footer.supervisory_board)}\n\n" +
+ 		"#{t(common.brand)}\n" +
+ 		"#{t(common.claim)}\n" +
  		"**************************************************************"
  	end
 
@@ -43,7 +44,7 @@ module TransactionMailerHelper
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
     "#{transaction.zip} " + "#{transaction.city}\n\n" +
-    "#{transaction.email}"
+    "#{transaction.buyer_email}"
   end
 
   def order_details transaction
