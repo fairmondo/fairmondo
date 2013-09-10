@@ -31,6 +31,7 @@ class MultipleFixedPriceTransaction < Transaction
 
   validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
   validates :quantity_available, presence: true, numericality: true
+  validates :quantity_bought, presence: true, quantity_bought: true, if: :validating_step1
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -96,15 +97,6 @@ class MultipleFixedPriceTransaction < Transaction
   end
 
   private
-    # quantity params need to be validated for MFPTs
-    def quantity_param_valid? params
-      if params['transaction']['quantity_bought'] && !(params['transaction']['quantity_bought'].to_i <= self.quantity_available)
-        errors.add :quantity_bought, I18n.t('transaction.errors.too_many_bought', available: self.quantity_available)
-        return false
-      end
-      true
-    end
-
     # MFPTs wait before being sold out
     def sold_out_after_buy?
       self.quantity_available == 0

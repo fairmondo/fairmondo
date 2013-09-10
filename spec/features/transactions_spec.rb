@@ -272,7 +272,7 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                # pending "Paul mach wieder heile"
+                pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
@@ -283,7 +283,7 @@ describe 'Transaction' do
               end
 
               it "should send a email to the seller" do
-                # pending "Paul mach wieder heile"
+                pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
@@ -406,7 +406,7 @@ describe 'Transaction' do
           end
         end
 
-        # context "given invalid data" do
+        context "given invalid data" do
         #   it "should not render with an unsupported transport type" do
         #     visit edit_transaction_path transaction
         #     click_button I18n.t 'common.actions.continue'
@@ -421,7 +421,22 @@ describe 'Transaction' do
         #     page.should_not have_button I18n.t 'transaction.actions.purchase'
         #     page.should have_content I18n.t 'transaction.notices.payment_not_supported'
         #   end
-        # end
+
+          it "should not render with invalid address fields" do
+            visit edit_transaction_path transaction
+            fill_in 'transaction_forename', with: ''
+            fill_in 'transaction_surname', with: ''
+            fill_in 'transaction_street', with: 'foobar' # no number
+            fill_in 'transaction_city', with: ''
+            fill_in 'transaction_zip', with: 'abc'
+            click_button I18n.t 'common.actions.continue'
+
+            page.should_not have_button I18n.t 'transaction.actions.purchase'
+            pending 'working on this'
+            save_and_open_page
+            page.should have_content I18n.t 'transaction.notices.transport_not_supported'
+          end
+        end
       end
     end
 
