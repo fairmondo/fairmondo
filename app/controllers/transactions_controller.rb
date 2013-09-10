@@ -46,7 +46,13 @@ class TransactionsController < InheritedResources::Base
     resource.buyer_id = current_user.id
     update! do |success, failure|
       resource.buy if success.class # using .class was the only way I could find to get a true or false value
-      failure.html { return render :step2 if resource.edit_params_valid? permitted_params }
+      failure.html do
+        if resource.edit_params_valid? permitted_params
+          return render :step2
+        else
+          return render :edit
+        end
+      end
     end
   end
 
