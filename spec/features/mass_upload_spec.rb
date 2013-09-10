@@ -125,7 +125,7 @@ describe "Mass-upload" do
             attach_file('mass_upload_file',
                         'spec/fixtures/mass_upload_correct.csv')
             expect { click_button I18n.t('mass_upload.labels.upload_article') }
-                      .to change(Article, :count).by(2)
+                      .to change(Article, :count).by(3)
           end
 
           describe "activate articles" do
