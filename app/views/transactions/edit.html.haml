@@ -25,7 +25,7 @@
       .Content-inner
         %h1
           = t 'transaction.edit.heading'
-        = semantic_form_for @transaction, url: edit_transaction_path(@transaction), method: :get do |f|
+        = semantic_form_for @transaction, url: step2_transaction_path(@transaction) do |f|
           = f.inputs do
             = render 'article_display'
 

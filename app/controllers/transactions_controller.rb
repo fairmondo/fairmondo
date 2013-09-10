@@ -28,6 +28,7 @@ class TransactionsController < InheritedResources::Base
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
   before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :authorize_resource
+  before_filter :dont_cache
 
   def edit
     edit! { return render :step2 if resource.edit_params_valid? permitted_params }
@@ -45,7 +46,7 @@ class TransactionsController < InheritedResources::Base
     resource.buyer_id = current_user.id
     update! do |success, failure|
       resource.buy if success.class # using .class was the only way I could find to get a true or false value
-      failure.html { redirect_to :back, :alert => resource.errors.full_messages.first }
+      failure.html { return render :step2 if resource.edit_params_valid? permitted_params }
     end
   end
 
@@ -61,7 +62,6 @@ class TransactionsController < InheritedResources::Base
     end
 
     def redirect_to_child_show
-      #debugger
       if resource.children
         child_transactions = resource.children.select { |c| c.buyer == current_user }
         unless child_transactions.empty?
