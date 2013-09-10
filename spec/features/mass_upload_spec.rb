@@ -170,9 +170,8 @@ describe "Mass-upload" do
             before { attach_file('mass_upload_file',
                         'spec/fixtures/mass_upload_wrong_article.csv') }
 
-            it "should show correct error messages", visual: true  do
+            it "should show correct error messages" do
               click_button I18n.t('mass_upload.labels.upload_article')
-              save_and_open_page
               should have_selector('p.inline-errors',
                 text: I18n.t('mass_upload.errors.wrong_article',
                   message: I18n.t('mass_upload.errors.wrong_article_message'),
