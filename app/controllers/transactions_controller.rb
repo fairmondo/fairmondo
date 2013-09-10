@@ -31,7 +31,7 @@ class TransactionsController < InheritedResources::Base
   before_filter :dont_cache
 
   def edit
-    edit! { return render :step2 if resource.edit_params_valid? permitted_params }
+    edit! { return render :step2 if permitted_params['transaction'] && resource.edit_params_valid?(permitted_params) }
   end
 
   # def show
