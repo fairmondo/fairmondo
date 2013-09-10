@@ -28,9 +28,9 @@ class Transaction < ActiveRecord::Base
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought]
+    :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state
+  attr_accessor :updating_state, :validating_step2
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -56,13 +56,23 @@ class Transaction < ActiveRecord::Base
   validates :article, presence: true
   #validates :message, allow_blank: true, on: :update
 
-  # Validations for buyer address
-  validates :forename, presence: true
-  validates :surname, presence: true
-  validates :street, presence: true
-  validates :city, presence: true
-  validates :zip, presence: true
-  validates :country, presence: true
+  # # Validations for buyer address
+  # validates :forename, presence: true
+  # validates :surname, presence: true
+  # validates :street, presence: true
+  # validates :city, presence: true
+  # validates :zip, presence: true
+  # validates :country, presence: true
+
+  # with_options unless: :validating_step2? do |transaction|
+  #   transaction.validates :forename, presence: true, on: :update
+  #   transaction.validates :surname, presence: true, on: :update
+  #   transaction.validates :street, presence:true, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  #   transaction.validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
+
+  #   transaction.validates :country, :street, :city, :zip, presence: true, on: :update
+  #   transaction.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
+  # end
 
   state_machine initial: :available do
 
@@ -127,19 +137,23 @@ class Transaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
-    unless params["transaction"] && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"] && params["transaction"]["forename"] && params["transaction"]["surname"] && params["transaction"]["street"] && params["transaction"]["city"] && params["transaction"]["zip"] && params["transaction"]["country"]
+    # validator_instance = self.class.new params
+    # validator_instance.validating_step2 = true
+    # validator_instance.valid?
+    unless params["transaction"] && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"]# && params["transaction"]["forename"] && params["transaction"]["surname"] && params["transaction"]["street"] && params["transaction"]["city"] && params["transaction"]["zip"] && params["transaction"]["country"]
       return false
     end
 
     supports?("transport", params["transaction"]["selected_transport"]) &&
     supports?("payment", params["transaction"]["selected_payment"]) &&
-    supports?("forename", params["transaction"]["forename"]) &&
-    supports?("surname", params["transaction"]["surname"]) &&
-    supports?("street", params["transaction"]["street"]) &&
-    supports?("city", params["transaction"]["city"]) &&
-    supports?("zip", params["transaction"]["zip"]) &&
-    supports?("country", params["transaction"]["country"]) &&
     quantity_param_valid?(params)
+
+    # supports?("forename", params["transaction"]["forename"]) &&
+    # supports?("surname", params["transaction"]["surname"]) &&
+    # supports?("street", params["transaction"]["street"]) &&
+    # supports?("city", params["transaction"]["city"]) &&
+    # supports?("zip", params["transaction"]["zip"]) &&
+    # supports?("country", params["transaction"]["country"]) &&
   end
 
   # Get transport options that were selected by seller

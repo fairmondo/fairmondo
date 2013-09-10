@@ -43,7 +43,7 @@ module TransactionMailerHelper
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
     "#{transaction.zip} " + "#{transaction.city}\n\n" +
-    "#{transaction.email}"
+    "#{transaction.buyer_email}"
   end
 
   def order_details transaction
