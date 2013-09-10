@@ -25,7 +25,6 @@ class PartialFixedPriceTransaction < SingleFixedPriceTransaction
   belongs_to :parent, class_name: 'MultipleFixedPriceTransaction', inverse_of: :children
   belongs_to :article, inverse_of: :partial_transactions
 
-  validates :quantity_bought, presence: true, numericality: true, on: :update, if: :updating_state
   validates :parent_id, presence: true
 
   # Allow quantity_bought field for this transaction type
@@ -35,7 +34,9 @@ class PartialFixedPriceTransaction < SingleFixedPriceTransaction
 
   # prevents partial fixed price transaction from setting quantity_bought to 1 as it happens
   # in the single fixed price transaction
-  undef :quantity_bought=
+  def quantity_bought= number
+    write_attribute(:quantity_bought, number)
+  end
 
   private
     def set_article_sold
