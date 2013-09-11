@@ -23,13 +23,12 @@
 - selected_payment = params["transaction"]["selected_payment"]
 - quantity = params["transaction"]["quantity_bought"]
 - quantity = (quantity.nil? || quantity.empty?) ? 1 : quantity.to_i
-
-- forename = params['transaction']['forename']
-- surname = params['transaction']['surname']
-- street = params['transaction']['street']
-- city = params['transaction']['city']
-- zip = params['transaction']['zip']
-- country = params['transaction']['country']
+- forename = params["transaction"]["forename"]
+- surname  = params["transaction"]["surname"]
+- street   = params["transaction"]["street"]
+- city     = params["transaction"]["city"]
+- zip      = params["transaction"]["zip"]
+- country  = params["transaction"]["country"]
 
 .l-Main
   .l-Inner
@@ -83,32 +82,35 @@
               %br
               = country
 
-            %hr
-            %br
-            %h3
-              = t 'transaction.edit.seller_data'
+            - if @transaction.article_seller.is_a?(LegalEntity)
+              .about_terms_cancellation
+                %hr
+                %br
+                %h3
+                  = t 'transaction.edit.seller_data'
 
-            %p
-              = resource.article_seller.fullname
-            #about
-              = t 'transaction.edit.imprint'
-              .Scrollbox
-                = @transaction.article_seller_about
+                %p
+                  = resource.article_seller.fullname
 
-            #terms
-              = t 'transaction.edit.terms'
-              .Scrollbox
-                = @transaction.article_seller_terms
-              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
+                #about
+                  = t 'transaction.edit.imprint'
+                  .Scrollbox
+                    = @transaction.article_seller_about
 
-            #cancellation
-              = t 'transaction.edit.cancellation'
-              .Scrollbox
-                = @transaction.article_seller_cancellation
-              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
+                #terms
+                  = t 'transaction.edit.terms'
+                  .Scrollbox
+                    = @transaction.article_seller_terms
+                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
 
-            %p
-              = f.input :tos_accepted
+                #cancellation
+                  = t 'transaction.edit.cancellation'
+                  .Scrollbox
+                    = @transaction.article_seller_cancellation
+                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
+
+                %p
+                  = f.input :tos_accepted
 
             %hr
             %br

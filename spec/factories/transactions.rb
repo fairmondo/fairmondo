@@ -19,26 +19,52 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+require 'faker'
+
 FactoryGirl.define do
   factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
     article { FactoryGirl.create :article, :without_build_transaction }
 
+    forename { Faker::Name.first_name }
+    surname  { Faker::Name.last_name }
+    street   { Faker::Address.street_address }
+    city     { Faker::Address.city }
+    zip      { Faker::Address.postcode }
+    country  "Deutschland"
+
     factory :super_transaction, class: 'Transaction' do
     end
+
     factory :preview_transaction, class: 'PreviewTransaction' do
     end
+
     factory :single_transaction, class: 'SingleFixedPriceTransaction' do
+      forename { Faker::Name.first_name }
+      surname  { Faker::Name.last_name }
+      street   { Faker::Address.street_address }
+      city     { Faker::Address.city }
+      zip      { Faker::Address.postcode }
+      country  "Deutschland"
     end
+
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
       article { FactoryGirl.create :article, :without_build_transaction, quantity: 50 }
       quantity_available 50
     end
+
     factory :partial_transaction, class: 'PartialFixedPriceTransaction' do
       buyer
       parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
       quantity_bought 1
       selected_transport 'pickup'
       selected_payment 'cash'
+
+      forename { Faker::Name.first_name }
+      surname  { Faker::Name.last_name }
+      street   { Faker::Address.street_address }
+      city     { Faker::Address.city }
+      zip      { Faker::Address.postcode }
+      country  "Deutschland"
     end
 
     factory :sold_transaction, class: 'SingleFixedPriceTransaction' do
@@ -47,9 +73,21 @@ FactoryGirl.define do
       selected_transport 'pickup'
       selected_payment 'cash'
     end
+
     #factory :auction_transaction, :class => 'AuctionTransaction' do
     #   expire    { (rand(10) + 2).hours.from_now }
     #end
-  end
 
+    trait :legal_transaction do
+      article { FactoryGirl.create :article, :with_legal_entity, :without_build_transaction}
+    end
+
+    trait :private_transaction do
+      article { FactoryGirl.create :article, :with_private_user, :without_build_transaction}
+    end
+
+    factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
+      buyer { FactoryGirl.create :buyer }
+    end
+  end
 end
