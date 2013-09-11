@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state, :validating_step1
+  attr_accessor :updating_state
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -56,14 +56,13 @@ class Transaction < ActiveRecord::Base
   validates :article, presence: true
 
   # UPDATE
-  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update, unless: :validating_step1
-  validates :buyer, presence: true, on: :update
+  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
   #validates :message, allow_blank: true, on: :update
 
-  with_options if: :validating_step1 do |transaction|
+  validates :buyer, presence: true, on: :update, if: :updating_state
+  with_options if: :updating_state, unless: :multiple? do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
     transaction.validates :selected_payment, supported_option: true, presence: true
-    #transaction.validates :quantity_bought, quantity_param_valid: true
 
     transaction.validates :forename, presence: true
     transaction.validates :surname, presence: true
@@ -72,14 +71,6 @@ class Transaction < ActiveRecord::Base
     transaction.validates :zip, zip: true, presence: true
     transaction.validates :country, presence: true
   end
-
-  # with_options unless: :validating_step2? do |transaction|
-  #   transaction.validates :forename, presence: true, on: :update
-  #   transaction.validates :surname, presence: true, on: :update
-  #   transaction.validates :street, presence:true, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  #   transaction.validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
-  #   transaction.validates :country, :street, :city, :zip, presence: true, on: :update
-  # end
 
   state_machine initial: :available do
 
@@ -187,6 +178,10 @@ class Transaction < ActiveRecord::Base
     def quantity_available; raise NoMethodError; end
     def quantity_bought; raise NoMethodError; end
 
+    def multiple?
+      is_a? MultipleFixedPriceTransaction
+    end
+
   private
     # Get attribute options that were selected on transaction's article
     #
@@ -198,11 +193,12 @@ class Transaction < ActiveRecord::Base
       Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
     end
 
+    # Create new instance to run validations on
     def create_validator_transaction params
       validator_transaction = self.class.new params
       validator_transaction.article = self.article
       validator_transaction.quantity_available = self.quantity_available if self.is_a? MultipleFixedPriceTransaction
-      validator_transaction.validating_step1 = true
+      validator_transaction.updating_state = true
       validator_transaction
     end
 end
