@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module TransactionMailerHelper
-	def mail_display_total_price transaction, selected_transport, selected_payment, quantity
+  def mail_display_total_price transaction, selected_transport, selected_payment, quantity
     ('<strong>' + t('transaction.edit.total_price') + '</strong> ' +
       humanized_money_with_symbol(
         transaction.article_total_price(selected_transport, selected_payment, quantity)
@@ -9,29 +9,29 @@ module TransactionMailerHelper
     ).html_safe
   end
 
- 	def transaction_mail_greeting transaction, role
- 		case role
- 			when :buyer
- 				t('transaction.notifications.greeting') + ' ' + @transaction.buyer_forename + ','
- 			when :seller
-				t('transaction.notifications.greeting') + ' ' + @transaction.article_seller_forename + ','
-		end
- 	end
+  def transaction_mail_greeting transaction, role
+    case role
+      when :buyer
+        t('transaction.notifications.greeting') + ' ' + @transaction.buyer_forename + ','
+      when :seller
+        t('transaction.notifications.greeting') + ' ' + @transaction.article_seller_forename + ','
+    end
+  end
 
- 	def fairnopoly_email_footer
-    "#{ t(common.fn_legal_footer.intro)}"
-		"**************************************************************\n" +
- 		"Fairnopoly eG\n" +
- 		"Glogauerstr. 21\n" +
- 		"10999 Berlin\n\n" +
- 		"#{t(common.fn_legal_footer.registered)}\n" +
- 		"#{t(common.fn_legal_footer.board)}\n" +
- 		"#{t(common.fn_legal_footer.ceo)}\n" +
- 		"#{t(common.fn_legal_footer.supervisory_board)}\n\n" +
- 		"#{t(common.brand)}\n" +
- 		"#{t(common.claim)}\n" +
- 		"**************************************************************"
- 	end
+  def fairnopoly_email_footer
+    "#{ t('common.fn_legal_footer.intro')}"
+    "**************************************************************\n" +
+    "Fairnopoly eG\n" +
+    "Glogauerstr. 21\n" +
+    "10999 Berlin\n\n" +
+    "#{t('common.fn_legal_footer.registered')}\n" +
+    "#{t('common.fn_legal_footer.board')}\n" +
+    "#{t('common.fn_legal_footer.ceo')}\n" +
+    "#{t('common.fn_legal_footer.supervisory_board')}\n\n" +
+    "#{t('common.brand')}\n" +
+    "#{t('common.claim')}\n" +
+    "**************************************************************"
+  end
 
   def show_contact_info_seller seller
     "#{seller.fullname}\n" +
