@@ -43,6 +43,13 @@
             = f.hidden_field :selected_payment, value: selected_payment
             = f.hidden_field :quantity_bought, value: quantity
 
+            = f.hidden_field :forename, value: forename
+            = f.hidden_field :surname, value: surname
+            = f.hidden_field :street, value: street
+            = f.hidden_field :city, value: city
+            = f.hidden_field :zip, value: zip
+            = f.hidden_field :country, value: country
+
             = render 'article_display'
             %hr
             %br
@@ -66,14 +73,14 @@
               %br
               %h3
                 = t 'transaction.edit.address'
-              = "#{forename} #{surname}"
+              = forename + ' ' + surname
               %br
-              = "#{street}"
+              = street
               %br
-              = "#{zip}"
-              = "#{city}"
+              = zip
+              = city
               %br
-              = "#{country}"
+              = country
 
             - if @transaction.article_seller.is_a?(LegalEntity)
               .about_terms_cancellation

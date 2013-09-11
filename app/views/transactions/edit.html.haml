@@ -36,30 +36,29 @@
               = t 'transaction.edit.choose_purchase_data'
 
             - if @transaction.is_a? MultipleFixedPriceTransaction
-              = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1, value: 1 }
+              = f.input :quantity_bought, input_html: { min: 1, max: resource.article_quantity, step: 1, value: 1 }
 
-            = f.input :selected_transport, include_blank: false, collection: @transaction.selected_transports
+            = f.input :selected_transport, include_blank: false, collection: resource.selected_transports
+            %ul.Price-list
+              = display_price_list_item :transport, :type1
+              = display_price_list_item :transport, :type2
 
-            = f.input :selected_payment, include_blank: false, collection: @transaction.selected_payments
+            = f.input :selected_payment, include_blank: false, collection: resource.selected_payments
+            %ul.Price-list
+              = display_price_list_item :payment, :cash_on_delivery
 
             %p
               %br
               %h3
                 = t 'transaction.edit.address'
-                %br
-                %p
-                  = f.input :forename, required: true, input_html: { value: current_user.forename }
-
-                  = f.input :surname, required: true, input_html: { value: current_user.surname }
-
-                  = f.input :street, required: true, input_html: { value: current_user.street }
-
-                  = f.input :city, required: true, input_html: { value: current_user.city }
-
-                  = f.input :zip, required: true, input_html: { value: current_user.zip }
-
-                  = f.input :country, required: true, input_html: { value: current_user.country }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
-            %p
+              %br
+              %p
+                = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
+                = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
+                = f.input :street, required: true, input_html: { value: default_address_value(:street) }
+                = f.input :city, required: true, input_html: { value: default_address_value(:city) }
+                = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
+                = f.input :country, required: true, input_html: { value: default_address_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
 
             %hr
             %br

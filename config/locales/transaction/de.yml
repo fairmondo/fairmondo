@@ -8,6 +8,9 @@ de:
       preliminary_price: "Verkaufspreis: "
       including_vat: " (inkl. %{percent} % MwSt)"
       choose_purchase_data: "Bitte wähle Deine Bestellangaben:"
+      type1: 'Versand: '
+      type2: 'Alternativer Versand: '
+      cash_on_delivery: 'Nachnahmekosten: '
       address: "Deine Rechnungs- und Lieferadresse:"
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       # step 2
@@ -44,7 +47,7 @@ de:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
     errors:
-      too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verüfgbar."
+      too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verfügbar."
     actions:
       purchase: "Verbindlich kaufen und bezahlen"
   #   bid:
