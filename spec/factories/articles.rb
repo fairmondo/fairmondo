@@ -80,19 +80,23 @@ FactoryGirl.define do
         article.categories = [Category.find(1)]
       end
     end
+
     trait :category2 do
       after(:build) do |article|
         article.categories = [Category.find(2)]
       end
     end
+
     trait :category3 do
       after(:build) do |article|
         article.categories = [Category.find(3)]
       end
     end
+
     trait :with_child_category do
       categories_and_ancestors {|c| [c.association(:category), c.association(:child_category)] }
     end
+
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
       categories_and_ancestors {|c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
@@ -108,7 +112,6 @@ FactoryGirl.define do
         article.images = [FactoryGirl.build(:fixture_image)]
       end
     end
-
 
     trait :with_all_transports do
       transport_type1 true

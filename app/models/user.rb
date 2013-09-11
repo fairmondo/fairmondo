@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   def fullname
     "#{self.forename} #{self.surname}"
   end
-  memoize :fullname
+  # memoize :fullname
 
   # Return user nickname
   # @api return
