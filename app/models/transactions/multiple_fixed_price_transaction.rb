@@ -31,6 +31,7 @@ class MultipleFixedPriceTransaction < Transaction
 
   validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
   validates :quantity_available, presence: true, numericality: true
+  validates :quantity_bought, quantity_bought: true, if: :updating_state
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -75,7 +76,13 @@ class MultipleFixedPriceTransaction < Transaction
     partial = PartialFixedPriceTransaction.create({
       quantity_bought: self.quantity_bought,
       selected_transport: self.selected_transport,
-      selected_payment: self.selected_payment
+      selected_payment: self.selected_payment,
+      forename: self.forename,
+      surname: self.surname,
+      street: self.street,
+      city: self.city,
+      zip: self.zip,
+      country: self.country,
     })
 
     # protected attrs
@@ -91,20 +98,17 @@ class MultipleFixedPriceTransaction < Transaction
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
+    self.forename = nil
+    self.surname = nil
+    self.street = nil
+    self.city = nil
+    self.zip = nil
+    self.country = nil
 
     self.save!
   end
 
   private
-    # quantity params need to be validated for MFPTs
-    def quantity_param_valid? params
-      if params['transaction']['quantity_bought'] && !(params['transaction']['quantity_bought'].to_i <= self.quantity_available)
-        errors.add :quantity_bought, I18n.t('transaction.errors.too_many_bought', available: self.quantity_available)
-        return false
-      end
-      true
-    end
-
     # MFPTs wait before being sold out
     def sold_out_after_buy?
       self.quantity_available == 0

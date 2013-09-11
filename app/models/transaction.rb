@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state, :validating_step2
+  attr_accessor :updating_state
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -51,28 +51,26 @@ class Transaction < ActiveRecord::Base
            :about, :terms, :cancellation,
            to: :article_seller, prefix: true
 
-  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update, if: :is_legal_entity?
-  validates :buyer, presence: true, on: :update, if: :updating_state
+  # CREATE
+  #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
   validates :article, presence: true
+
+  # UPDATE
+  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
   #validates :message, allow_blank: true, on: :update
 
-  # # Validations for buyer address
-  # validates :forename, presence: true
-  # validates :surname, presence: true
-  # validates :street, presence: true
-  # validates :city, presence: true
-  # validates :zip, presence: true
-  # validates :country, presence: true
+  validates :buyer, presence: true, on: :update, if: :updating_state
+  with_options if: :updating_state, unless: :multiple? do |transaction|
+    transaction.validates :selected_transport, supported_option: true, presence: true
+    transaction.validates :selected_payment, supported_option: true, presence: true
 
-  # with_options unless: :validating_step2? do |transaction|
-  #   transaction.validates :forename, presence: true, on: :update
-  #   transaction.validates :surname, presence: true, on: :update
-  #   transaction.validates :street, presence:true, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  #   transaction.validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
-
-  #   transaction.validates :country, :street, :city, :zip, presence: true, on: :update
-  #   transaction.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
-  # end
+    transaction.validates :forename, presence: true
+    transaction.validates :surname, presence: true
+    transaction.validates :street, format: /\A.+\d+.*\z/, presence: true
+    transaction.validates :city, presence: true
+    transaction.validates :zip, zip: true, presence: true
+    transaction.validates :country, presence: true
+  end
 
   state_machine initial: :available do
 
@@ -137,23 +135,13 @@ class Transaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
-    # validator_instance = self.class.new params
-    # validator_instance.validating_step2 = true
-    # validator_instance.valid?
-    unless params["transaction"] && params["transaction"]["selected_payment"] && params["transaction"]["selected_transport"]# && params["transaction"]["forename"] && params["transaction"]["surname"] && params["transaction"]["street"] && params["transaction"]["city"] && params["transaction"]["zip"] && params["transaction"]["country"]
-      return false
+    validator_instance = create_validator_transaction params['transaction']
+    if validator_instance.valid?
+      true
+    else
+      validator_instance.errors.each { |k,v| self.errors.add k, v }
+      false
     end
-
-    supports?("transport", params["transaction"]["selected_transport"]) &&
-    supports?("payment", params["transaction"]["selected_payment"]) &&
-    quantity_param_valid?(params)
-
-    # supports?("forename", params["transaction"]["forename"]) &&
-    # supports?("surname", params["transaction"]["surname"]) &&
-    # supports?("street", params["transaction"]["street"]) &&
-    # supports?("city", params["transaction"]["city"]) &&
-    # supports?("zip", params["transaction"]["zip"]) &&
-    # supports?("country", params["transaction"]["country"]) &&
   end
 
   # Get transport options that were selected by seller
@@ -190,27 +178,11 @@ class Transaction < ActiveRecord::Base
     def quantity_available; raise NoMethodError; end
     def quantity_bought; raise NoMethodError; end
 
-    # Quantity is valid in general. Will change for MFPT
-    def quantity_param_valid? params
-      true
+    def multiple?
+      is_a? MultipleFixedPriceTransaction
     end
 
   private
-    # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
-    #
-    # @api private
-    # @param attribute [String] ATM: payment or transport
-    # @param type [String] The type to check
-    # @return [Boolean]
-    def supports? attribute, type
-      if self.article.send "#{attribute}_#{type}?"
-        true
-      else
-        errors["selected_#{attribute}".to_sym] = I18n.t "transaction.notices.#{attribute}_not_supported"
-        false
-      end
-    end
-
     # Get attribute options that were selected on transaction's article
     #
     # @api private
@@ -219,6 +191,15 @@ class Transaction < ActiveRecord::Base
     def selected attribute
       selectables = send("article_selectable_#{attribute}s")
       Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+    end
+
+    # Create new instance to run validations on
+    def create_validator_transaction params
+      validator_transaction = self.class.new params
+      validator_transaction.article = self.article
+      validator_transaction.quantity_available = self.quantity_available if self.is_a? MultipleFixedPriceTransaction
+      validator_transaction.updating_state = true
+      validator_transaction
     end
 
     def is_legal_entity?

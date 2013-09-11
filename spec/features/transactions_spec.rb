@@ -252,11 +252,7 @@ describe 'Transaction' do
                 TransactionMailer.stub(:seller_notification).and_return(mail)
                 TransactionMailer.stub(:buyer_notification).and_return(mail)
                 mail.stub(:deliver)
-
-                transaction.buyer = FactoryGirl.create :user
-                transaction.quantity_bought = 1
-                transaction.stub(:buyer=)
-                transaction.buy
+                transaction.update_attribute :state, 'sold'
 
                 click_button I18n.t 'transaction.actions.purchase'
                 page.should have_content 'bereits verkauft.'
@@ -439,7 +435,7 @@ describe 'Transaction' do
           end
         end
 
-        # context "given invalid data" do
+        context "given invalid data" do
         #   it "should not render with an unsupported transport type" do
         #     visit edit_transaction_path transaction
         #     click_button I18n.t 'common.actions.continue'
@@ -454,7 +450,45 @@ describe 'Transaction' do
         #     page.should_not have_button I18n.t 'transaction.actions.purchase'
         #     page.should have_content I18n.t 'transaction.notices.payment_not_supported'
         #   end
-        # end
+
+          it "should not render with invalid address fields" do
+            visit edit_transaction_path transaction
+            fill_in 'transaction_forename', with: ''
+            fill_in 'transaction_surname', with: ''
+            fill_in 'transaction_street', with: 'foobar' # no number
+            fill_in 'transaction_city', with: ''
+            fill_in 'transaction_zip', with: 'abc'
+            click_button I18n.t 'common.actions.continue'
+
+            page.should_not have_button I18n.t 'transaction.actions.purchase'
+            within '#transaction_forename_input' do
+              page.should have_content I18n.t 'errors.messages.blank'
+            end
+            within '#transaction_surname_input' do
+              page.should have_content I18n.t 'errors.messages.blank'
+            end
+            within '#transaction_street_input' do
+              page.should have_content I18n.t 'errors.messages.invalid'
+            end
+            within '#transaction_city_input' do
+              page.should have_content I18n.t 'errors.messages.blank'
+            end
+            within '#transaction_zip_input' do
+              page.should have_content I18n.t 'errors.messages.zip_format'
+            end
+          end
+
+          it "should not render with a quantity that's too high" do
+            mfpt = FactoryGirl.create(:multiple_transaction)
+            visit edit_transaction_path mfpt
+            fill_in 'transaction_quantity_bought', with: '9999999'
+            click_button I18n.t 'common.actions.continue'
+
+            within '#transaction_quantity_bought_input' do
+              page.should have_content I18n.t('transaction.errors.too_many_bought', available: mfpt.quantity_available)
+            end
+          end
+        end
       end
     end
 

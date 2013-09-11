@@ -52,18 +52,31 @@ describe Transaction do
     describe "that are public" do
 
       describe "#edit_params_valid?" do
+        def valid_params
+          {
+            "selected_transport" => "pickup",
+            "selected_payment" => "cash",
+            "forename" => "Foo",
+            "surname" => "Bar",
+            "street" => "Baz Str. 1",
+            "city" => "Fuz",
+            "zip" => "12345",
+            "country" => "Deutschland"
+          }
+        end
+
         it "should return true with valid params" do
-          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "cash"}
+          r = transaction.edit_params_valid? "transaction" => valid_params
           r.should be_true
         end
 
         it "should return false with invalid transport" do
-          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "type1", "selected_payment" => "cash"}
+          r = transaction.edit_params_valid? "transaction" => valid_params.merge({"selected_transport" => "type1"})
           r.should be_false
         end
 
         it "should return false with invalid payment" do
-          r = transaction.edit_params_valid? "transaction" => {"selected_transport" => "pickup", "selected_payment" => "paypal"}
+          r = transaction.edit_params_valid? "transaction" => valid_params.merge({"selected_payment" => "paypal"})
           r.should be_false
         end
       end
@@ -168,17 +181,17 @@ describe MultipleFixedPriceTransaction do
       end
     end
 
-    describe "#quantity_param_valid?" do
-      it "should return true by default" do
-        mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => nil}}).should be_true
-      end
+    # describe "#quantity_param_valid?" do
+    #   it "should return true by default" do
+    #     mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => nil}}).should be_true
+    #   end
 
-      it "should add an error and return false when quantity_bought is larger than quantity_available" do
-        mfpt.quantity_available = 9
-        mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => '10'}}).should be_false
-        mfpt.errors.full_messages.should include('Quantity bought '+I18n.t('transaction.errors.too_many_bought', available: 9))
-      end
-    end
+    #   it "should add an error and return false when quantity_bought is larger than quantity_available" do
+    #     mfpt.quantity_available = 9
+    #     mfpt.send(:quantity_param_valid?, {'transaction' => {'quantity_bought' => '10'}}).should be_false
+    #     mfpt.errors.full_messages.should include('Quantity bought '+I18n.t('transaction.errors.too_many_bought', available: 9))
+    #   end
+    # end
   end
 end
 
