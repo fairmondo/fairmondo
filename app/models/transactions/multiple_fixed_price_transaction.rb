@@ -31,7 +31,7 @@ class MultipleFixedPriceTransaction < Transaction
 
   validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
   validates :quantity_available, presence: true, numericality: true
-  validates :quantity_bought, presence: true, quantity_bought: true, if: :validating_step1
+  validates :quantity_bought, quantity_bought: true, if: :updating_state
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -76,7 +76,13 @@ class MultipleFixedPriceTransaction < Transaction
     partial = PartialFixedPriceTransaction.create({
       quantity_bought: self.quantity_bought,
       selected_transport: self.selected_transport,
-      selected_payment: self.selected_payment
+      selected_payment: self.selected_payment,
+      forename: self.forename,
+      surname: self.surname,
+      street: self.street,
+      city: self.city,
+      zip: self.zip,
+      country: self.country,
     })
 
     # protected attrs
@@ -92,6 +98,12 @@ class MultipleFixedPriceTransaction < Transaction
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
+    self.forename = nil
+    self.surname = nil
+    self.street = nil
+    self.city = nil
+    self.zip = nil
+    self.country = nil
 
     self.save!
   end

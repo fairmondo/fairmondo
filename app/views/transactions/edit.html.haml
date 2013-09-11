@@ -46,28 +46,14 @@
               %br
               %h3
                 = t 'transaction.edit.address'
-                %br
-                %p
-                  = f.input :forename, required: true, input_html: { value: current_user.forename }
-
-                  = f.input :surname, required: true, input_html: { value: current_user.surname }
-
-                  = f.input :street, required: true, input_html: { value: current_user.street }
-
-                  = f.input :city, required: true, input_html: { value: current_user.city }
-
-                  = f.input :zip, required: true, input_html: { value: current_user.zip }
-
-                  = f.input :country, required: true, input_html: { value: current_user.country }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
-            %p
-              / = current_user.fullname
-              / %br
-              / = current_user.street
-              / %br
-              / = current_user.zip
-              / = current_user.city
-              / %br
-              / = current_user.country
+              %br
+              %p
+                = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
+                = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
+                = f.input :street, required: true, input_html: { value: default_address_value(:street) }
+                = f.input :city, required: true, input_html: { value: default_address_value(:city) }
+                = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
+                = f.input :country, required: true, input_html: { value: default_address_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
 
             %hr
             %br

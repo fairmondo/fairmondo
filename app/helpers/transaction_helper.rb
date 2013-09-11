@@ -117,6 +117,17 @@ module TransactionHelper
     output += humanized_money_with_symbol resource.article_price_without_vat quantity
   end
 
+  # Default input field value -> param or current_user.*
+  # @api public
+  # @param field [Symbol]
+  # @return [String, nil]
+  def default_address_value field
+    if params['transaction'] && params['transaction'][field]
+      params['transaction'][field]
+    else
+      current_user.send(field)
+    end
+  end
 
   ########### SHOW ############
   def display_show_title
