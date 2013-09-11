@@ -124,41 +124,7 @@ class MassUpload
       rows_array.each do |row|
         categories = Category.find_imported_categories(row['categories'])
         row.delete("categories")
-        # bugbugb start (Refactor asap!)
-        row = row.to_a
-        fair_trust_questionnaire_attributes_array = row[32..51]
-        social_producer_questionnaire_attributes_array = row[52..58]
-        row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
-        if row[30][1] == "fair_trust"
-          fair_trust_questionnaire_attributes = {}
-          fair_trust_questionnaire_attributes_array.each do |pair|
-            if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
-              fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1].split
-            elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
-              fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
-            else
-              fair_trust_questionnaire_attributes[pair.first] = pair[1..-1].first
-            end
-          end
-          row = Hash[row]
-          row["fair_trust_questionnaire_attributes"] = fair_trust_questionnaire_attributes
-        elsif row[30][1] == "social_producer"
-          social_producer_questionnaire_attributes = {}
-          social_producer_questionnaire_attributes_array.each do |pair|
-            if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
-              social_producer_questionnaire_attributes[pair.first] = [""] + pair[1].split
-            elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
-              social_producer_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
-            else
-              social_producer_questionnaire_attributes[pair.first] = pair[1..-1].first
-            end
-          end
-          row = Hash[row]
-          row["social_producer_questionnaire_attributes"] = social_producer_questionnaire_attributes
-        else
-          row = Hash[row]
-        end
-        # bugbug end
+        row = include_fair_social_questionnaires(row)
         article = Article.new(row)
         article.user_id = user_id
         article.currency = "EUR"
@@ -205,6 +171,76 @@ class MassUpload
       total_netto += article.calculated_fees_and_donations_netto
     end
     total_netto
+  end
+
+  def include_fair_social_questionnaires(row)
+    # bugbugb start (Refactor asap!)
+    # row = row.to_a
+    # fair_trust_questionnaire_attributes_array = row[32..51]
+    # social_producer_questionnaire_attributes_array = row[52..58]
+    # row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
+    # debugger
+    # if row[30][1] == "fair_trust"
+    #   fair_trust_questionnaire_attributes = {}
+    #   fair_trust_questionnaire_attributes_array.each do |pair|
+    #     if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
+    #       fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1].split
+    #     elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
+    #       fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
+    #     else
+    #       fair_trust_questionnaire_attributes[pair.first] = pair[1..-1].first
+    #     end
+    #   end
+    #   row = Hash[row]
+    #   row["fair_trust_questionnaire_attributes"] = fair_trust_questionnaire_attributes
+    # elsif row[30][1] == "social_producer"
+    #   social_producer_questionnaire_attributes = {}
+    #   social_producer_questionnaire_attributes_array.each do |pair|
+    #     if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
+    #       social_producer_questionnaire_attributes[pair.first] = [""] + pair[1].split
+    #     elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
+    #       social_producer_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
+    #     else
+    #       social_producer_questionnaire_attributes[pair.first] = pair[1..-1].first
+    #     end
+    #   end
+    #   row = Hash[row]
+    #   row["social_producer_questionnaire_attributes"] = social_producer_questionnaire_attributes
+    # else
+    #   row = Hash[row]
+    # end
+    # row
+    row = row.to_a
+    fair_trust_questionnaire_attributes_array = row[32..51]
+    social_producer_questionnaire_attributes_array = row[52..58]
+    fair_trust_questionnaire_attributes = {}
+    social_producer_questionnaire_attributes = {}
+    row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
+    if row[30][1] == "fair_trust"
+      key = "fair_trust_questionnaire_attributes"
+      row = inject_questionnaire(fair_trust_questionnaire_attributes_array, fair_trust_questionnaire_attributes, row, key)
+    elsif row[30][1] == "social_producer"
+      key = "social_producer_questionnaire_attributes"
+      row = inject_questionnaire(social_producer_questionnaire_attributes_array, social_producer_questionnaire_attributes, row, key)
+    else
+      row = Hash[row]
+    end
+    row
+  end
+
+  def inject_questionnaire (attributes_array, attributes_hash, row, key)
+    attributes_array.each do |pair|
+      if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
+        attributes_hash[pair.first] = [""] + pair[1].split
+      elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
+        attributes_hash[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
+      else
+        attributes_hash[pair.first] = pair[1..-1].first
+      end
+    end
+    row = Hash[row]
+    row[key] = attributes_hash
+    row
   end
 
   def check_commendation(article)
