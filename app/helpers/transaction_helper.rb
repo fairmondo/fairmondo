@@ -36,6 +36,20 @@ module TransactionHelper
     end
   end
 
+  def display_price_list_item transpay, type
+    if resource.send("article_selectable_#{transpay}s".to_sym).include?(type)
+      output =
+        '<li>'.html_safe +
+          t("transaction.edit.#{type}")
+      output +=
+          ( resource.article.send("#{transpay}_#{type}_provider".to_sym) + ' ' ) if transpay == :transport
+      output +=
+          humanized_money_with_symbol(resource.article.send("#{transpay}_#{type}_price".to_sym))
+      output +=
+        '</li>'.html_safe
+    end
+  end
+
 
   def display_preliminary_price
     output = t('transaction.edit.preliminary_price')
