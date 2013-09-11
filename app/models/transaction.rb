@@ -51,7 +51,7 @@ class Transaction < ActiveRecord::Base
            :about, :terms, :cancellation,
            to: :article_seller, prefix: true
 
-  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update, if: :is_legal_entity?
   validates :buyer, presence: true, on: :update, if: :updating_state
   validates :article, presence: true
   #validates :message, allow_blank: true, on: :update
@@ -219,5 +219,9 @@ class Transaction < ActiveRecord::Base
     def selected attribute
       selectables = send("article_selectable_#{attribute}s")
       Transaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+    end
+
+    def is_legal_entity?
+      self.article_seller.is_a? LegalEntity
     end
 end

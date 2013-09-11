@@ -28,6 +28,8 @@ describe 'Transaction' do
   let(:article) { transaction.article }
   let(:seller) { transaction.article.seller }
   let(:user) { FactoryGirl.create :user }
+  let(:private_transaction) {FactoryGirl.create :single_transaction, :private_transaction}
+  let(:legal_transaction) {FactoryGirl.create :single_transaction, :legal_transaction}
 
   describe "#edit" do
 
@@ -124,23 +126,6 @@ describe 'Transaction' do
             page.should have_content user.city
             page.should have_content user.country
 
-
-            # Should display imprint
-            page.should have_content I18n.t 'transaction.edit.imprint'
-            page.should have_content transaction.article_seller.about
-
-            # Should display terms
-            page.should have_content I18n.t 'transaction.edit.terms'
-            page.should have_content transaction.article_seller.terms
-
-            # Should display declaration of revocation
-            page.should have_content I18n.t 'transaction.edit.cancellation'
-            page.should have_content transaction.article_seller.cancellation
-
-            # Should display a checkbox for the terms
-            page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
-
-
             # Should have optional message field
             page.should have_content I18n.t 'transaction.edit.message'
 
@@ -149,35 +134,66 @@ describe 'Transaction' do
             page.should have_button I18n.t 'transaction.actions.purchase'
           end
 
+          context "dependent on kind of seller (legal vs private)" do
+            it "should show imprint, terms, declaration of invocation and terms-checkbox if seller is legal entity" do
+              visit edit_transaction_path legal_transaction
+              click_button I18n.t 'common.actions.continue'
+
+              # Should display imprint
+              page.should have_content I18n.t 'transaction.edit.imprint'
+              page.should have_content legal_transaction.article_seller.about
+
+              # Should display terms
+              page.should have_content I18n.t 'transaction.edit.terms'
+              page.should have_content legal_transaction.article_seller.terms
+
+              # Should display declaration of revocation
+              page.should have_content I18n.t 'transaction.edit.cancellation'
+              page.should have_content legal_transaction.article_seller.cancellation
+
+              # Should display a checkbox for the terms
+              page.should have_css 'input#transaction_tos_accepted[@type=checkbox]'
+            end
+
+            it "should not show imprint, terms, declaration of invocation and terms-checkbox" do
+              visit edit_transaction_path private_transaction
+              click_button I18n.t 'common.actions.continue'
+
+              page.should_not have_css('div.about_terms_cancellation')
+            end
+          end
+
           it "should have working terms 'print' link that leads to a new page with only the print view (and auto-executing js)" do
-            visit edit_transaction_path transaction
+            visit edit_transaction_path legal_transaction
             click_button I18n.t 'common.actions.continue'
             within '#terms' do
               click_link 'Drucken'
             end
-            page.should have_content transaction.article_seller_terms
+            page.should have_content legal_transaction.article_seller_terms
           end
+
           it "should have a working cancellation 'print' link ..." do
-            visit edit_transaction_path transaction
+            visit edit_transaction_path legal_transaction
             click_button I18n.t 'common.actions.continue'
             within '#cancellation' do
               click_link 'Drucken'
             end
-            page.should have_content transaction.article_seller_cancellation
+            page.should have_content legal_transaction.article_seller_cancellation
           end
 
           it "should submit the data successfully with accepted terms" do
-            visit edit_transaction_path transaction
+            visit edit_transaction_path legal_transaction
             click_button I18n.t 'common.actions.continue'
 
             check 'transaction_tos_accepted'
             click_button I18n.t 'transaction.actions.purchase'
 
-            current_path.should eq transaction_path transaction
+            current_path.should eq transaction_path legal_transaction
           end
 
           it "should not submit the data successfully without accepted terms" do
-            visit edit_transaction_path transaction
+            visit edit_transaction_path legal_transaction
+
             click_button I18n.t 'common.actions.continue'
 
             click_button I18n.t 'transaction.actions.purchase'
@@ -195,7 +211,9 @@ describe 'Transaction' do
                 transaction.should be_available
                 transaction.article.should be_active
 
-                check 'transaction_tos_accepted'
+                if transaction.article_seller.is_a? LegalEntity
+                  check 'transaction_tos_accepted'
+                end
                 click_button I18n.t 'transaction.actions.purchase'
 
                 transaction.reload.should be_sold
@@ -212,7 +230,9 @@ describe 'Transaction' do
 
                   visit edit_transaction_path transaction
                   click_button I18n.t 'common.actions.continue'
-                  check 'transaction_tos_accepted'
+                  if transaction.article_seller.is_a? LegalEntity
+                    check 'transaction_tos_accepted'
+                  end
                   click_button I18n.t 'transaction.actions.purchase'
 
                   visit articles_path
@@ -223,7 +243,10 @@ describe 'Transaction' do
               it "should show an error page when article was already sold to someone else in the meantime" do
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
-                check 'transaction_tos_accepted'
+
+                if transaction.article_seller.is_a? LegalEntity
+                  check 'transaction_tos_accepted'
+                end
 
                 mail = Mail::Message.new
                 TransactionMailer.stub(:seller_notification).and_return(mail)
@@ -247,7 +270,9 @@ describe 'Transaction' do
               it "should reduce the number of items" do
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
-                check 'transaction_tos_accepted'
+                if transaction.article_seller.is_a? LegalEntity
+                  check 'transaction_tos_accepted'
+                end
                 click_button I18n.t 'transaction.actions.purchase'
 
                 visit article_path transaction.article
@@ -259,7 +284,9 @@ describe 'Transaction' do
                   visit edit_transaction_path transaction
                   fill_in 'transaction_quantity_bought', with: transaction.quantity_available
                   click_button I18n.t 'common.actions.continue'
-                  check 'transaction_tos_accepted'
+                  if transaction.article_seller.is_a? LegalEntity
+                    check 'transaction_tos_accepted'
+                  end
                   click_button I18n.t 'transaction.actions.purchase'
 
                   article.reload.should be_sold
@@ -273,24 +300,30 @@ describe 'Transaction' do
             context "for all transactions" do
               it "should send an email to the buyer" do
                 # pending "Paul mach wieder heile"
-                transaction = FactoryGirl.create :single_transaction
+                transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
-                check 'transaction_tos_accepted'
+                if transaction.article_seller.is_a? LegalEntity
+                  check 'transaction_tos_accepted'
+                end
                 click_button I18n.t 'transaction.actions.purchase'
 
-                ActionMailer::Base.deliveries.last.encoded.should include( I18n.t('transaction.notifications.buyer.buyer_text') )
+                ActionMailer::Base.deliveries.last.to.should == [transaction.buyer_email]
+                #ActionMailer::Base.deliveries.last.encoded.should include( I18n.t('transaction.notifications.buyer.buyer_text') )
               end
 
               it "should send a email to the seller" do
                 # pending "Paul mach wieder heile"
-                transaction = FactoryGirl.create :single_transaction
+                transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
-                check 'transaction_tos_accepted'
+                if transaction.article_seller.is_a? LegalEntity
+                  check 'transaction_tos_accepted'
+                end
                 click_button I18n.t 'transaction.actions.purchase'
 
-                ActionMailer::Base.deliveries[-2].encoded.should include( I18n.t('transaction.notifications.seller.seller_text') )
+                ActionMailer::Base.deliveries[-2].to.should == [transaction.article_seller.email]
+                #ActionMailer::Base.deliveries[-2].encoded.should include( I18n.t('transaction.notifications.seller.seller_text') )
               end
             end
           end
@@ -490,9 +523,5 @@ describe 'Transaction' do
         current_path.should eq new_user_session_path
       end
     end
-  end
-
-  describe "Transaction Emails" do
-
   end
 end

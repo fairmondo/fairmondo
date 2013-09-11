@@ -34,8 +34,10 @@ FactoryGirl.define do
 
     factory :super_transaction, class: 'Transaction' do
     end
+
     factory :preview_transaction, class: 'PreviewTransaction' do
     end
+
     factory :single_transaction, class: 'SingleFixedPriceTransaction' do
       forename { Faker::Name.first_name }
       surname  { Faker::Name.last_name }
@@ -44,10 +46,12 @@ FactoryGirl.define do
       zip      { Faker::Address.postcode }
       country  "Deutschland"
     end
+
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
       article { FactoryGirl.create :article, :without_build_transaction, quantity: 50 }
       quantity_available 50
     end
+
     factory :partial_transaction, class: 'PartialFixedPriceTransaction' do
       buyer
       parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
@@ -69,9 +73,21 @@ FactoryGirl.define do
       selected_transport 'pickup'
       selected_payment 'cash'
     end
+
     #factory :auction_transaction, :class => 'AuctionTransaction' do
     #   expire    { (rand(10) + 2).hours.from_now }
     #end
-  end
 
+    trait :legal_transaction do
+      article { FactoryGirl.create :article, :with_legal_entity, :without_build_transaction}
+    end
+
+    trait :private_transaction do
+      article { FactoryGirl.create :article, :with_private_user, :without_build_transaction}
+    end
+
+    factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
+      buyer { FactoryGirl.create :buyer }
+    end
+  end
 end
