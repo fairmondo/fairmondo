@@ -20,7 +20,9 @@
 ***
 
 <%= t('transaction.notifications.seller.buyer_message') %>
-<%= buyer_message @transaction %>
+<% unless @transaction.message == nil %>
+	<%= @transaction.message %>
+<% end %>
 
 ***
 

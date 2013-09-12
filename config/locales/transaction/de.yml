@@ -79,10 +79,9 @@ de:
         payment_type: "Deine Bezahlmethode: "
         paypal: "PayPal"
         bank_transfer: "Überweisung"
-        cash_on_delivery: "Barzahlung"
         fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von: "
         please_pay: "Bitte überweise den Gesamtbetrag umgehende auf folgendes Konto: "
-      payment_method:
+        buyer_message: "Deine Nachricht an die Verkäufer*in:"
         bank_transfer: "Überweisung"
         paypal: "PayPal"
         cash: "Barzahlung bei Abholung"

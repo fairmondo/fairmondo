@@ -16,9 +16,7 @@
 ***
 
 <%= article_payment_info @transaction, :buyer %>
-<%= t('transaction.notifications.buyer.payment_type') %>
-
-<%= payment_method_info @transaction %>
+<%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction}" %>
 
 ***
 
@@ -27,19 +25,30 @@
 
 ***
 
-<%= t('transaction.edit.imprint') %>
-<%= @seller.about %>
+<%= t('transaction.notifications.buyer.buyer_message') %>
+<% unless @transaction.message == nil %>
+	<%= @transaction.message %>
+<% end %>
 
 ***
 
-<%= t('transaction.edit.terms') %>
-<%= @seller.terms %>
-
+<% if @transaction.article_seller.is_a? LegalEntity %>
 ***
 
-<%= t('transaction.edit.cancellation') %>
-<%= @seller.cancellation %>
+	<%= t('transaction.edit.imprint') %>
+	<%= @seller.about %>
+
+	***
+
+	<%= t('transaction.edit.terms') %>
+	<%= @seller.terms %>
+
+	***
+
+	<%= t('transaction.edit.cancellation') %>
+	<%= @seller.cancellation %>
 
 ***
+<% end %>
 
 <%= fairnopoly_email_footer %>
