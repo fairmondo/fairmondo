@@ -77,6 +77,7 @@ class MultipleFixedPriceTransaction < Transaction
       quantity_bought: self.quantity_bought,
       selected_transport: self.selected_transport,
       selected_payment: self.selected_payment,
+      message: self.message,
       forename: self.forename,
       surname: self.surname,
       street: self.street,
@@ -98,6 +99,7 @@ class MultipleFixedPriceTransaction < Transaction
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
+    self.message = nil
     self.forename = nil
     self.surname = nil
     self.street = nil
