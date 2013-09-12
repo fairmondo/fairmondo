@@ -50,6 +50,13 @@ class MassUpload
       return false
     end
 
+    begin
+      lines = CSV.read(file.path, :encoding => 'utf-8')
+    rescue ArgumentError
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
+      return false
+    end
+
     unless correct_header?(file)
       errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
       return false
@@ -58,7 +65,7 @@ class MassUpload
   end
 
   def validate_articles(articles)
-    # bugbugb Needs refactoring (the error messages should be styled elsewhere)
+    # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     valid = true
     raw_articles.each_with_index do |raw_article, index|
       unless raw_article.valid?

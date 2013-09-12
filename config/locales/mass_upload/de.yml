@@ -10,6 +10,7 @@ de:
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
     errors:
+      wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein"
       missing_file: "Bitte wähle eine CSV-Datei aus"
       wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
       wrong_article: "Zeile %{index}: %{message}"

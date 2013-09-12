@@ -194,6 +194,16 @@ describe "Mass-upload" do
             end
           end
 
+          describe "wrong encoding)" do
+            it "should show correct error messages" do
+              attach_file('mass_upload_file',
+                          'spec/fixtures/mass_upload_wrong_encoding.csv')
+              click_button I18n.t('mass_upload.labels.upload_article')
+              should have_selector('p.inline-errors',
+                text: I18n.t('mass_upload.errors.wrong_encoding'))
+            end
+          end
+
           describe "no file selected)" do
             it "should show correct error messages" do
               click_button I18n.t('mass_upload.labels.upload_article')
