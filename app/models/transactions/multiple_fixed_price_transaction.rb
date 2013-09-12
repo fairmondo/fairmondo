@@ -60,6 +60,7 @@ class MultipleFixedPriceTransaction < Transaction
   # The main transition handler (see class description)
   # @return [undefined] not important
   def buy_multiple_transaction
+    self.updating_multiple = true
     self.quantity_bought ||= 1
     if self.quantity_bought <= self.quantity_available
       fpt = self.forward_data_to_partial

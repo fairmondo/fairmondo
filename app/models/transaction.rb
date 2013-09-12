@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state
+  attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -60,7 +60,7 @@ class Transaction < ActiveRecord::Base
   #validates :message, allow_blank: true, on: :update
 
   validates :buyer, presence: true, on: :update, if: :updating_state
-  with_options if: :updating_state, unless: :multiple? do |transaction|
+  with_options if: :updating_state, unless: :updating_multiple do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
     transaction.validates :selected_payment, supported_option: true, presence: true
 
@@ -177,10 +177,6 @@ class Transaction < ActiveRecord::Base
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
     def quantity_available; raise NoMethodError; end
     def quantity_bought; raise NoMethodError; end
-
-    def multiple?
-      is_a? MultipleFixedPriceTransaction
-    end
 
   private
     # Get attribute options that were selected on transaction's article

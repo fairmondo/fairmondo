@@ -295,7 +295,6 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
@@ -309,7 +308,6 @@ describe 'Transaction' do
               end
 
               it "should send a email to the seller" do
-                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
