@@ -148,7 +148,7 @@ class MassUpload
   def self.calculate_total_fees(articles)
     total_fee = Money.new(0)
     articles.each do |article|
-      total_fee += article.calculate_fees_and_donations
+      total_fee += article.calculate_fees_and_donations * article.quantity
     end
     total_fee
   end
@@ -156,7 +156,7 @@ class MassUpload
   def self.calculate_total_fair(articles)
     total_fair = Money.new(0)
     articles.each do |article|
-      total_fair += article.calculated_fair
+      total_fair += article.calculated_fair * article.quantity
     end
     total_fair
   end
@@ -268,6 +268,9 @@ class MassUpload
     end
     unless article.transport_type2_price_cents
       article.transport_type2_price_cents = 0
+    end
+    unless article.payment_cash_on_delivery_price_cents
+      article.payment_cash_on_delivery_price_cents = 0
     end
   end
 
