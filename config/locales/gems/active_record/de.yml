@@ -312,7 +312,7 @@ de:
         library_element:
           attributes:
             library_id:
-              taken: Der Artikel ist schon in deiner Sammlung.
+              taken: Der Artikel ist schon in Deiner Sammlung.
         library:
           attributes:
             name:
