@@ -3,12 +3,16 @@
 }
 
 .User-image .pioneer-button{
-  height: 70px;
+  height: 60px;
   left: -20px;
   top: 120px;
-  width: 70px;
+  width: 60px;
 }
+
 .User-image{
   position: relative;
 }
 
+.profile-pic{
+  @include border-radius(.8em);
+}
