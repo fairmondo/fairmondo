@@ -47,15 +47,15 @@ module TransactionMailerHelper
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
     case transaction.selected_payment
       when 'bank_transfer'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.bank_transfer') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
       when 'paypal'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.paypal') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.paypal') }\n"
       when 'cash'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.cash') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash') }\n"
       when 'cash_on_delivery'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.cash_on_delivery') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash_on_delivery') }\n"
       when 'invoice'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.invoice') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.invoice') }\n"
     end
 
     case transaction.selected_transport
@@ -87,14 +87,17 @@ module TransactionMailerHelper
     string
   end
 
-  def payment_method_info transaction
+  def payment_method_info transaction, role
+    string = ""
     case transaction.selected_payment
       when 'cash_on_delivery'
         "#{ t('transaction.notifications.buyer.cash_on_delivery') }"
       when 'bank_transfer'
-        "#{ t('transaction.notifications.buyer.bank_transfer') }\n" +
-        "#{ t('transaction.notifications.buyer.please_pay') }\n" +
-        "#{ seller_bank_account transaction.article_seller }"
+        string += "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
+        if role == :buyer
+          string += "#{ t('transaction.notifications.buyer.please_pay') }\n" +
+          "#{ seller_bank_account transaction.article_seller }"
+        end
       when 'paypal'
         "#{ t('transaction.notifications.buyer.paypal') }"
       when 'invoice'

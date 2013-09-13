@@ -31,7 +31,7 @@ class TransactionMailer < ActionMailer::Base
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
-    mail(	to: 			transaction.buyer_email,
+    mail(	to: 			@buyer.email,
     			subject: 	"[Fairnopoly] " + t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})") do |format|
           format.text
     end
@@ -42,7 +42,7 @@ class TransactionMailer < ActionMailer::Base
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
-    mail(	to: 			transaction.article_seller_email,
+    mail(	to: 			@seller.email,
     			subject: 	"[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})") do |format|
           format.text
     end

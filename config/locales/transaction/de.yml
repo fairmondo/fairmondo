@@ -83,7 +83,6 @@ de:
         please_pay: "Bitte überweise den Gesamtbetrag umgehende auf folgendes Konto: "
         buyer_message: "Deine Nachricht an die Verkäufer*in:"
         bank_transfer: "Überweisung"
-        paypal: "PayPal"
         cash: "Barzahlung bei Abholung"
         cash_on_delivery: "Nachnahme"
         invoice: "Rechnung"
