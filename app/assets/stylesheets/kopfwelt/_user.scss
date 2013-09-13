@@ -97,7 +97,7 @@
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
 	@include rem(margin, 0 auto 20px);
-	overflow: hidden;
+	overflow: visible;
 	@include rem(margin-top, 16px);
 	img {
 		width: 100%;
