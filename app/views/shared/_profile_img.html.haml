@@ -23,6 +23,7 @@
   - if defined?(show_title) && show_title
     %h3.User-title Anbieter*in
   .User-image
+    = image_tag "pionierbutton.png", :class => "pioneer-button"
     %a{:href => user_path(user)}
       = image_tag(user.image_url(:profile))
   %p.User-name
