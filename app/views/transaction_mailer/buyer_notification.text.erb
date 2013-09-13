@@ -16,7 +16,7 @@
 ***
 
 <%= article_payment_info @transaction, :buyer %>
-<%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction}" %>
+<%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction, :buyer}" %>
 
 ***
 
