@@ -12,11 +12,9 @@ module TransactionMailerHelper
   end
 
   def fairnopoly_email_footer
-    "#{ t('common.fn_legal_footer.intro')}"
+    "#{ t('common.fn_legal_footer.intro')}" +
     "**************************************************************\n" +
-    "Fairnopoly eG\n" +
-    "Glogauerstr. 21\n" +
-    "10999 Berlin\n\n" +
+    "#{t('common.fn_legal_footer.contact')}\n" +
     "#{t('common.fn_legal_footer.registered')}\n" +
     "#{t('common.fn_legal_footer.board')}\n" +
     "#{t('common.fn_legal_footer.ceo')}\n" +
@@ -30,6 +28,7 @@ module TransactionMailerHelper
     "#{seller.fullname}\n" +
     "#{seller.street}\n" +
     "#{seller.zip} " + "#{seller.city}\n\n" +
+    "#{seller.country}\n" +
     "#{seller.email}"
   end
 
@@ -37,6 +36,7 @@ module TransactionMailerHelper
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
     "#{transaction.zip} " + "#{transaction.city}\n\n" +
+    "#{transaction.country}\n" +
     "#{transaction.buyer_email}"
   end
 

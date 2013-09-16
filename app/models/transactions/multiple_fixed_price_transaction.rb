@@ -94,6 +94,7 @@ class MultipleFixedPriceTransaction < Transaction
     partial.save!
     return partial
   end
+
   def clear_data_and_save
     #self.buyer = nil # Uncomment if possible! As of right now this will throw validation errors
     self.quantity_bought = nil
