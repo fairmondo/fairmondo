@@ -44,7 +44,7 @@ describe 'Transaction' do
 
           # Should display article data
           page.should have_link article.title
-          page.should have_link seller.fullname
+          page.should have_link seller.nickname
           page.should have_content I18n.t 'transaction.edit.preliminary_price'
 
           # Should display purchase options
@@ -104,7 +104,7 @@ describe 'Transaction' do
 
             # Should display article data
             page.should have_link article.title
-            page.should have_link seller.fullname
+            page.should have_link seller.nickname
             page.should have_content I18n.t 'transaction.edit.preliminary_price'
 
             # Should display chosen quantity
