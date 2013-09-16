@@ -10,7 +10,7 @@ describe TransactionMailerHelper do
 		# pending "needs to be fixed"
 		context "dependent on role it should return the right greeting" do
 			it "if role is buyer it should return buyer greeting" do
-				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.buyer_forename + ','
+				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.forename + ','
 			end
 
 			it "if role is seller it should return seller greeting" do
