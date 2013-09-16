@@ -116,12 +116,12 @@
           %h3= t('users.form_titles.payment_bank_account')
           /%p= t('formtastic.labels.user.bank_account_notification')
           = f.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
-          = f.input :bank_code, :required => true, :input_html => {:id => "bank_code"}, :label => t('formtastic.labels.user.bank_code')
+          = f.input :bank_code, :required => true, :input_html => {:id => "bank_code", :maxlength => 8}, :label => t('formtastic.labels.user.bank_code')
           = f.input :bank_name, :required => true, :input_html => {:id => "bank_name"}, :label => t('formtastic.labels.user.bank_name')
-          = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number"}, :label => t('formtastic.labels.user.bank_account_number')
+          = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :maxlength => 10}, :label => t('formtastic.labels.user.bank_account_number')
         .User--step
           %h3= t('users.form_titles.payment_paypal')
           /%p= t('formtastic.labels.user.paypal_notification')
-          = f.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
+          = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account')
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}
