@@ -23,17 +23,24 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
-
-  # Question 1: supports marginalized workers (req)
-  attr_accessible :support, :support_checkboxes, :support_explanation, :support_other,
-    # Question 2: labor conditions acceptable? (req)
-    :labor_conditions, :labor_conditions_checkboxes, :labor_conditions_explanation, :labor_conditions_other,
-    # Question 3: is production environmentally friendly (opt)
-    :environment_protection, :environment_protection_checkboxes, :environment_protection_explanation, :environment_protection_other,
-    # Question 4: does controlling of these standards exist (req)
-    :controlling, :controlling_checkboxes, :controlling_explanation, :controlling_other,
-    # Question 5: awareness raising programs supported? (opt)
-    :awareness_raising, :awareness_raising_checkboxes, :awareness_raising_explanation, :awareness_raising_other
+  def self.questionnaire_attrs
+    [
+      # Question 1: supports marginalized workers (req)
+      :support, :support_explanation, :support_other, {support_checkboxes:[]},
+      # Question 2: labor conditions acceptable? (req)
+      :labor_conditions, {labor_conditions_checkboxes:[]},
+      :labor_conditions_explanation, :labor_conditions_other,
+      # Question 3: is production environmentally friendly (opt)
+      :environment_protection, {environment_protection_checkboxes:[]},
+      :environment_protection_explanation, :environment_protection_other,
+      # Question 4: does controlling of these standards exist (req)
+      :controlling, {controlling_checkboxes:[]}, :controlling_explanation,
+      :controlling_other,
+      # Question 5: awareness raising programs supported? (opt)
+      :awareness_raising, {awareness_raising_checkboxes:[]},
+      :awareness_raising_explanation, :awareness_raising_other
+    ]
+  end
 
 
   auto_sanitize :support_explanation, :support_other,

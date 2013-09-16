@@ -31,13 +31,13 @@ de:
       contributed: " gespendet."
       title_addition: " zu kaufen bei Fairnopoly"
       alternative: "Faire Alternative"
-      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
+      no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
     hero:
       search: "Suche nach"
       filter: "Filter nach"
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
-      sunspot_failure: "Leider ist die Suche im Moment nicht verfügbar. Das Fairnopoly-Team arbeitet bereits an einer Lösung. Solange sie Suche nicht verfügbar ist kannst du hier alle Artikel selbst durchsuchen."
+      sunspot_failure: "Leider ist die Suche im Moment nicht verfügbar. Das Fairnopoly-Team arbeitet bereits an einer Lösung. Solange die Suche nicht verfügbar ist kannst Du hier alle Artikel selbst durchsuchen."
     form:
       missing_terms: "Bevor Du einen Artikel einstellen kannst, muss Folgendes im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
@@ -52,14 +52,15 @@ de:
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an."
-        paypal_details_missing: "Bitte gib deine PayPal-Daten im Profil ein."
-        bank_details_missing: "Bitte gib deine Bankdaten an."
+        paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein."
+        bank_details_missing: "Bitte gib Deine Bankdaten an."
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"
     labels:
       shipping_options: "Versandoptionen:"
       payment_options: "Bezahloptionen:"
+      default_transport: "Bevorzugte Versandoption"
       payment: "Bezahloption"
       price: "Preis"
       shipping_condition: "Versand-Zustand"

@@ -1,1 +1,54 @@
-Erfolgreich gekauft... Zahlungsdaten und so
+<%= t('transaction.notifications.buyer.intro') %>
+<%= t('transaction.notifications.begin') %>
+
+<%= transaction_mail_greeting @transaction, :buyer %>
+
+<%= t('transaction.notifications.buyer.buyer_text') %>
+
+***
+
+<%= t('transaction.notifications.buyer.order_infos') %>
+<%= order_details @transaction %>
+
+<%= t('transaction.edit.address') %>
+<%= show_buyer_address @transaction %>
+
+***
+
+<%= article_payment_info @transaction, :buyer %>
+<%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction, :buyer}" %>
+
+***
+
+<%= t('transaction.edit.seller_data') %>
+<%= show_contact_info_seller @seller %>
+
+***
+
+<%= t('transaction.notifications.buyer.buyer_message') %>
+<% unless @transaction.message == nil %>
+	<%= @transaction.message %>
+<% end %>
+
+***
+
+<% if @transaction.article_seller.is_a? LegalEntity %>
+***
+
+	<%= t('transaction.edit.imprint') %>
+	<%= @seller.about %>
+
+	***
+
+	<%= t('transaction.edit.terms') %>
+	<%= @seller.terms %>
+
+	***
+
+	<%= t('transaction.edit.cancellation') %>
+	<%= @seller.cancellation %>
+
+***
+<% end %>
+
+<%= fairnopoly_email_footer %>

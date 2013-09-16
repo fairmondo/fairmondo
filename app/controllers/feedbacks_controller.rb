@@ -34,7 +34,7 @@ class FeedbacksController < InheritedResources::Base
   end
 
   def new
-    @variety = params[:variety] || "send_feedback"
+    @variety = permitted_new_params[:variety] || "send_feedback"
     session[:source_page] = request.env["HTTP_REFERER"]
     authorize build_resource
     new!
@@ -43,12 +43,13 @@ class FeedbacksController < InheritedResources::Base
   private
 
     def redirect_path
-
       if @feedback.variety == "report_article"
         article_path(Article.find(@feedback.article_id))
       else
         root_path
       end
     end
-
+    def permitted_new_params
+      params.permit :variety
+    end
 end

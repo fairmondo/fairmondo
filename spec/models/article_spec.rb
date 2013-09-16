@@ -23,7 +23,8 @@ require 'spec_helper'
 
 describe Article do
 
-  let(:article) { FactoryGirl.create(:article) }
+  let(:article) { Article.new }
+  let(:db_article) { FactoryGirl.create(:article) }
   subject { article }
 
   describe "::Base" do
@@ -32,7 +33,7 @@ describe Article do
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
       it {should have_many :buyer}
-      it {should belong_to(:transaction).dependent(:destroy)}
+      it {should have_one(:transaction).dependent(:destroy)}
     end
 
     describe "amoeba" do
@@ -55,11 +56,11 @@ describe Article do
         end
 
         it "should return false when article doesn't belong to user" do
-          article.owned_by?(FactoryGirl.create(:user)).should be_false
+          db_article.owned_by?(FactoryGirl.create(:user)).should be_false
         end
 
         it "should return true when article belongs to user" do
-          article.owned_by?(article.seller).should be_true
+          db_article.owned_by?(db_article.seller).should be_true
         end
       end
     end
@@ -67,14 +68,14 @@ describe Article do
 
 
   describe "::BuildTransaction" do
-    it "should build a FPT when article quantity is one" do
+    it "should build a SFPT when article quantity is one" do
       article.quantity = 1
-      article.build_specific_transaction.should be_a FixedPriceTransaction
+      article.send(:build_specific_transaction).should be_a SingleFixedPriceTransaction
     end
 
     it "should build a MFPT when article quantity is greater than one" do
       article.quantity = 2
-      article.build_specific_transaction.should be_a MultipleFixedPriceTransaction
+      article.send(:build_specific_transaction).should be_a MultipleFixedPriceTransaction
     end
   end
 
@@ -148,16 +149,16 @@ describe Article do
       end
 
       it "should throw an error if bank transfer is selected, but bank data is missing" do
-        article.seller.stub(:bank_account_exists?).and_return(false)
-        article.payment_bank_transfer = true
-        article.save
-        article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
+        db_article.seller.stub(:bank_account_exists?).and_return(false)
+        db_article.payment_bank_transfer = true
+        db_article.save
+        db_article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
       end
 
         it "should throw an error if paypal is selected, but bank data is missing" do
-        article.payment_paypal = true
-        article.save
-        article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
+        db_article.payment_paypal = true
+        db_article.save
+        db_article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
       end
     end
 
@@ -208,12 +209,17 @@ describe Article do
 
         it "should return the correct price for cash_on_delivery payments" do
           expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price
-          article.total_price("type1", "cash_on_delivery").should eq expected
+          article.total_price("type1", "cash_on_delivery", nil).should eq expected
         end
 
         it "should return the correct price for non-cash_on_delivery payments" do
           expected = article.price + article.transport_type2_price
-          article.total_price("type2", "cash").should eq expected
+          article.total_price("type2", "cash", nil).should eq expected
+        end
+
+        it "should return a multiplied price when a quantity is given" do
+          expected = (article.price + article.transport_type2_price) * 3
+          article.total_price("type2", "cash", 3).should eq expected
         end
       end
 
@@ -261,7 +267,7 @@ describe Article do
     describe "methods" do
       describe "#title_image_url" do
         it "should return the first image's URL when one exists" do
-          article.title_image_url.should match %r#/system/images/000/000/001/original/image#
+          db_article.title_image_url.should match %r#/system/images/000/000/001/original/image#
         end
 
         it "should return the missing-image-url when no image is set" do
@@ -298,8 +304,22 @@ describe Article do
         article_3cat.should_not be_valid
       end
     end
+  end
 
-
+  describe "::State" do
+    describe "state machine hooks:" do
+      describe "on activate" do
+        it "should calculate the fees and donations" do
+          article = FactoryGirl.create :preview_article
+          article.calculated_fair_cents = 0
+          article.calculated_fee_cents = 0
+          article.save
+          article.activate
+          article.reload.calculated_fee.should be > 0
+          article.calculated_fair.should be > 0
+        end
+      end
+    end
   end
 
   describe "::Template" do

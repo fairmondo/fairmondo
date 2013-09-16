@@ -25,9 +25,11 @@ module Article::Attributes
   included do
 
     #common fields
-    common_attributes = [:title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes]
-    attr_accessible *common_attributes
-    attr_accessible *common_attributes, :as => :admin
+    def self.common_attrs
+      [:title, :content, :condition, :condition_extra  , :quantity , :transaction_attributes]
+    end
+    #! attr_accessible *common_attributes
+    #! attr_accessible *common_attributes, :as => :admin
 
     auto_sanitize :content, method: 'tiny_mce'
     auto_sanitize :title
@@ -49,9 +51,11 @@ module Article::Attributes
 
     #money_rails and price
 
-    money_attributes = [:price_cents , :currency, :price, :vat]
-    attr_accessible *money_attributes
-    attr_accessible *money_attributes, :as => :admin
+    def self.money_attrs
+      [:price_cents , :currency, :price, :vat]
+    end
+    #! attr_accessible *money_attributes
+    #! attr_accessible *money_attributes, :as => :admin
 
     validates_presence_of :price_cents
     validates_numericality_of :price, greater_than_or_equal_to: 0
@@ -65,9 +69,11 @@ module Article::Attributes
 
 
     # basic price
-    basic_price_attributes = [:basic_price, :basic_price_cents, :basic_price_amount]
-    attr_accessible *basic_price_attributes
-    attr_accessible *basic_price_attributes, :as => :admin
+    def self.basic_price_attrs
+      [:basic_price, :basic_price_cents, :basic_price_amount]
+    end
+    #! attr_accessible *basic_price_attributes
+    #! attr_accessible *basic_price_attributes, :as => :admin
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
@@ -79,14 +85,16 @@ module Article::Attributes
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     #transport
-    transport_attributes = [:default_transport, :transport_pickup,
-                    :transport_type1, :transport_type1_price_cents,
-                    :transport_type1_price, :transport_type1_provider,
-                    :transport_type2, :transport_type2_price_cents,
-                    :transport_type2_price, :transport_type2_provider,
-                    :transport_details]
-    attr_accessible *transport_attributes
-    attr_accessible *transport_attributes, :as => :admin
+    def self.transport_attrs
+      [:default_transport, :transport_pickup,
+      :transport_type1, :transport_type1_price_cents,
+      :transport_type1_price, :transport_type1_provider,
+      :transport_type2, :transport_type2_price_cents,
+      :transport_type2_price, :transport_type2_provider,
+      :transport_details]
+    end
+    #! attr_accessible *transport_attributes
+    #! attr_accessible *transport_attributes, :as => :admin
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
@@ -107,14 +115,16 @@ module Article::Attributes
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
-    payment_attributes = [:payment_details ,
-                    :payment_bank_transfer,
-                    :payment_cash,
-                    :payment_paypal,
-                    :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-                    :payment_invoice]
-    attr_accessible *payment_attributes
-    attr_accessible *payment_attributes, :as => :admin
+    def self.payment_attrs
+      [:payment_details,
+      :payment_bank_transfer,
+      :payment_cash,
+      :payment_paypal,
+      :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
+      :payment_invoice]
+    end
+    #! attr_accessible *payment_attributes
+    #! attr_accessible *payment_attributes, :as => :admin
 
     auto_sanitize :payment_details
 
@@ -144,19 +154,19 @@ module Article::Attributes
   end
 
   # Gives the price of the article minus taxes
-  #
   # @api public
+  # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
-  def price_without_vat
-    self.price * ( 100 - self.vat ) / 100
+  def price_without_vat quantity = 1
+    ( self.price * ( 100 - self.vat ) / 100 ) * quantity
   end
 
   # Gives the amount of money for an article that goes towards taxes
-  #
   # @api public
+  # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
-  def vat_price
-    self.price * self.vat / 100
+  def vat_price quantity = 1
+    ( self.price * self.vat / 100 ) * quantity
   end
 
   # Function to calculate total price for an article.
@@ -165,24 +175,27 @@ module Article::Attributes
   # @api public
   # @param selected_transport [String] Transport type
   # @param selected_payment [String] Payment type
+  # @param selected_payment [Integer] Amount of articles bought
   # @return [Money] Total billed price
-  def total_price selected_transport, selected_payment
+  def total_price selected_transport, selected_payment, quantity
+    quantity ||= 1
     total = self.price + self.transport_price(selected_transport)
     total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-    total
+    total * quantity
   end
 
   # Gives the shipping cost for a specified transport type
   #
   # @api public
   # @param transport_type [String] The transport type to look up
+  # @param quantity [Integer]
   # @return [Money] The shipping price
-  def transport_price transport_type = self.default_transport
+  def transport_price transport_type = self.default_transport, quantity = 1
     case transport_type
     when "type1"
-      transport_type1_price
+      transport_type1_price * quantity
     when "type2"
-      transport_type2_price
+      transport_type2_price * quantity
     else
       Money.new 0
     end

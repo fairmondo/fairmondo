@@ -21,8 +21,7 @@
 #
 class Article < ActiveRecord::Base
   extend Enumerize
-
-  attr_accessible
+  #! attr_accessible
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -35,9 +34,11 @@ class Article < ActiveRecord::Base
   end
 
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
+  delegate :quantity_available, to: :transaction, prefix: true
 
   # Relations
-  belongs_to :transaction, :dependent => :destroy
+  has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
+  has_many :partial_transactions, class_name: 'PartialFixedPriceTransaction', conditions: "type = 'PartialFixedPriceTransaction'", inverse_of: :article
   accepts_nested_attributes_for :transaction
 
   has_many :library_elements, :dependent => :destroy
@@ -78,7 +79,6 @@ class Article < ActiveRecord::Base
     include_field :social_producer_questionnaire
     include_field :categories
     nullify :slug
-    nullify :transaction_id
     nullify :article_template_id
     customize lambda { |original_article, new_article|
       original_article.images.each do |image|
@@ -107,5 +107,16 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.article_attrs with_nested_template = true
+    (
+      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+      Article.basic_price_attrs + Article.transport_attrs +
+      Article.category_attrs + Article.commendation_attrs +
+      Article.image_attrs + Article.fee_attrs + Article.template_attrs(with_nested_template)
+    )
+  end
 
+  def is_conventional?
+    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
+  end
 end

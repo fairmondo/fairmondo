@@ -36,11 +36,18 @@ class UsersController < InheritedResources::Base
     end
   end
 
-  private
-
-  private
-  def authorize_resource
-    authorize resource
+  def profile
+    profile! do |format|
+      format.html do
+        if ['terms', 'cancellation'].include? permitted_profile_params[:print]
+          render '/users/print', layout: false, locals: { field: permitted_profile_params[:print] }
+        end
+      end
+    end
   end
 
+  private
+    def permitted_profile_params
+      params.permit :print
+    end
 end

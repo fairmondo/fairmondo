@@ -26,31 +26,18 @@ describe FeedbacksController do
   describe "POST 'create'" do
 
     before :each do
-      @user = FactoryGirl.create(:user)
-      @article = FactoryGirl.create(:article)
+      @attributes = FactoryGirl.attributes_for :feedback, :report_article
     end
 
     describe "for non-signed-in users" do
-      it "should not create an feedback with variety report_article" do
+      it "should create a feedback with variety report_article" do
         expect {
-          post :create, :user_id => @user, :article_id => @article, :variety => :report_article, :text => "test"
-        }.to raise_error(Pundit::NotAuthorizedError)
+          post :create, feedback: @attributes
+        }.to change(Feedback , :count).by 1
       end
     end
 
-    describe "for signed-in users" do
 
-      before :each do
-        sign_in @user
-      end
-
-     # it "should create an feedback with variety report_article" do
-     #   lambda do
-     #     post :create, :user_id => @user.id, :article_id => @article.id, :variety => "send_feedback", :text => "test"
-     #   end.should change(Feedback , :count).by 1
-     # end
-
-    end
   end
 end
 

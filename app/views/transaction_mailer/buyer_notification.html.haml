@@ -20,4 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %p
-  Erfolgreich gekauft... Zahlungsdaten und so
+	= transaction_mail_greeting @transaction, :buyer
+	%p
+		= t('transaction.notifications.buyer.buyer_text')
+		/ = display_total_price @transaction.selected_transport, @transaction.selected_payment, @transaction.quantity_bought
