@@ -77,6 +77,6 @@ class TransactionsController < InheritedResources::Base
     end
 
     def multiple?
-      resource.is_a?(MultipleFixedPriceTransaction)
+      resource.multiple?
     end
 end

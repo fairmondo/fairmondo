@@ -59,7 +59,7 @@ class Transaction < ActiveRecord::Base
   validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
   #validates :message, allow_blank: true, on: :update
 
-  validates :buyer, presence: true, on: :update, if: :updating_state
+  validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
     transaction.validates :selected_payment, supported_option: true, presence: true
@@ -167,6 +167,10 @@ class Transaction < ActiveRecord::Base
       self.selected_payment,
       self.quantity_bought
     )
+  end
+
+  def multiple?
+    is_a? MultipleFixedPriceTransaction
   end
 
   # Default behavior for associations in subclasses
