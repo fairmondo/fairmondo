@@ -2,7 +2,7 @@
 ===================================================
 <%= t('devise.unlock.info')%>
 <%= t('devise.unlock.linktext')%>
-<%= link_to t('devise.unlock.link'), unlock_url(@resource, :unlock_token => @resource.unlock_token)%>
+<%= unlock_url(@resource, :unlock_token => @token) %>
 <%= t('devise.unlock.ignoremail')%>
 <%= t('common.fn_footer_greeting')%>
 <%= t('common.fn_legal_footer.intro')%>
