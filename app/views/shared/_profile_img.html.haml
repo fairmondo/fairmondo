@@ -21,7 +21,7 @@
   - if defined?(show_title) && show_title
     %h3.User-title Anbieter*in
   .User-image
-    - if user.created_at < Time.parse("2013-09-24 23:59:59.000000 CEST +02:00")
+    - if user.is_pioneer?
       = image_tag "pionierbutton.png", :class => "pioneer-button"
     %a{:href => user_path(user)}
       = image_tag(user.image_url(:profile), :class => "profile-pic")
