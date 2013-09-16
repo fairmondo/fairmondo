@@ -112,6 +112,13 @@ class MultipleFixedPriceTransaction < Transaction
     self.save!
   end
 
+  # This might be called on article update when quantity has changed to 1
+  def transform_to_single
+    self.type = 'SingleFixedPriceTransaction'
+    self.save!
+    self.update_attribute :quantity_available, nil
+  end
+
   private
     # MFPTs wait before being sold out
     def sold_out_after_buy?
