@@ -37,6 +37,10 @@ class TransactionPolicy < Struct.new(:user, :transaction)
     true
   end
 
+  def print_order?
+    user.is?(transaction.buyer)
+  end
+
   private
   def own?
     user ? user.articles.include?(transaction.article) : false

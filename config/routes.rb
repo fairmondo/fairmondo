@@ -53,10 +53,12 @@ Fairnopoly::Application.routes.draw do
       get 'autocomplete'
     end
   end
+
   resources :transactions, only: [:show, :edit, :update] do
     member do
       put 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
+      get 'print_order'
     end
   end
 
