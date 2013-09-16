@@ -197,8 +197,4 @@ class Transaction < ActiveRecord::Base
       validator_transaction.updating_state = true
       validator_transaction
     end
-
-    def is_legal_entity?
-      self.article_seller.is_a? LegalEntity
-    end
 end
