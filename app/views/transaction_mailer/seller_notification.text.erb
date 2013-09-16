@@ -15,12 +15,14 @@
 <%= t('transaction.notifications.seller.shipping_request') %>
 <%= show_buyer_address @transaction %>
 
-<%= payment_method_info @transaction %>
+<%= payment_method_info @transaction, :seller %>
 
 ***
 
 <%= t('transaction.notifications.seller.buyer_message') %>
-<%= buyer_message @transaction %>
+<% unless @transaction.message == nil %>
+	<%= @transaction.message %>
+<% end %>
 
 ***
 

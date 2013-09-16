@@ -1,20 +1,13 @@
 # encoding: utf-8
 
 module TransactionMailerHelper
-  def mail_display_total_price transaction, selected_transport, selected_payment, quantity
-    ('<strong>' + t('transaction.edit.total_price') + '</strong> ' +
-      humanized_money_with_symbol(
-        transaction.article_total_price(selected_transport, selected_payment, quantity)
-      )
-    ).html_safe
-  end
 
   def transaction_mail_greeting transaction, role
     case role
       when :buyer
-        t('transaction.notifications.greeting') + ' ' + @transaction.buyer_forename + ','
+        t('transaction.notifications.greeting') + ' ' + transaction.buyer_forename + ','
       when :seller
-        t('transaction.notifications.greeting') + ' ' + @transaction.article_seller_forename + ','
+        t('transaction.notifications.greeting') + ' ' + transaction.article_seller_forename + ','
     end
   end
 
@@ -54,15 +47,15 @@ module TransactionMailerHelper
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
     case transaction.selected_payment
       when 'bank_transfer'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.bank_transfer') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
       when 'paypal'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.paypal') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.paypal') }\n"
       when 'cash'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.cash') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash') }\n"
       when 'cash_on_delivery'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.cash_on_delivery') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash_on_delivery') }\n"
       when 'invoice'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.payment_method.invoice') }\n"
+        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.invoice') }\n"
     end
 
     case transaction.selected_transport
@@ -86,21 +79,31 @@ module TransactionMailerHelper
     end
     string += "----------------------------------------------\n"
     string += "#{ t('transaction.edit.shipping_and_handling') }" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
+    if role == :buyer && transaction.selected_payment == 'cash_on_delivery'
+      string += "#{ t('transaction.edit.cash_on_delivery') }" + "#{humanized_money_with_symbol(transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}\n"
+    end
     string += "----------------------------------------------\n"
-    string += "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport) + transaction.article_price * transaction.quantity_bought)}"
+    string += "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought) + transaction.article_price * transaction.quantity_bought + transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}"
     string
   end
 
-  def payment_method_info transaction
+  def payment_method_info transaction, role
+    string = ""
     case transaction.selected_payment
-      when :cash_on_delivery
+      when 'cash_on_delivery'
         "#{ t('transaction.notifications.buyer.cash_on_delivery') }"
-      when :bank_transfer
-        "#{ t('transaction.notifications.buyer.bank_transfer') }\n" +
-        "#{ t('transaction.notifications.buyer.please_pay') }\n" +
-        "#{ seller_bank_account transaction.article_seller }"
-      when :paypal
+      when 'bank_transfer'
+        string += "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
+        if role == :buyer
+          string += "#{ t('transaction.notifications.buyer.please_pay') }\n" +
+          "#{ seller_bank_account transaction.article_seller }"
+        end
+      when 'paypal'
         "#{ t('transaction.notifications.buyer.paypal') }"
+      when 'invoice'
+        "#{ t('transaction.notifications.buyer.invoice') }"
+      when 'cash'
+        "#{ t('transaction.notifications.buyer.cash') }"
     end
   end
 
@@ -117,11 +120,8 @@ module TransactionMailerHelper
   end
 
   def buyer_message transaction
-    if transaction.message?
+    unless transaction.message == nil
       transaction.message
-    else
-      ""
     end
   end
-
 end
