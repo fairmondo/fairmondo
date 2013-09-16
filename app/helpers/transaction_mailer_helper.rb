@@ -25,11 +25,16 @@ module TransactionMailerHelper
   end
 
   def show_contact_info_seller seller
-    "#{seller.fullname}\n" +
-    "#{seller.street}\n" +
-    "#{seller.zip} " + "#{seller.city}\n\n" +
-    "#{seller.country}\n" +
-    "#{seller.email}"
+    string = ""
+    if seller.title
+      string += "#{seller.title}"
+    end
+    string += "#{seller.forename} #{seller.surname}\n"
+    string += "#{seller.street}\n"
+    string += "#{seller.zip} " + "#{seller.city}\n\n"
+    string += "#{seller.country}\n"
+    string += "#{seller.email}"
+    string
   end
 
   def show_buyer_address transaction
