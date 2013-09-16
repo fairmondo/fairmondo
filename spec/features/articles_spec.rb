@@ -183,6 +183,21 @@ describe 'Article management' do
         current_path.should eq article_path @article
       end
 
+      it "should change the transaction when quantity was changes from one to many" do
+        @article.transaction.should be_a SingleFixedPriceTransaction
+
+        fill_in 'article_quantity', with: 2
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.transaction.should be_a MultipleFixedPriceTransaction
+
+        visit edit_article_path @article
+        fill_in 'article_quantity', with: 1
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.transaction.should be_a SingleFixedPriceTransaction
+      end
+
       it "should fail given invalid data but still try to save images" do
         ArticlesController.any_instance.should_receive(:save_images).and_call_original
         Image.any_instance.should_receive(:save).twice
