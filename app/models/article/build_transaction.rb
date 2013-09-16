@@ -49,14 +49,10 @@ module Article::BuildTransaction
     # When quantity was changed, the transaction needs to change
     def update_specific_transaction
       if self.transaction
-        if self.quantity == 1 and !self.transaction.is_a? SingleFixedPriceTransaction
-          self.transaction.type = 'SingleFixedPriceTransaction'
-          self.transaction.quantity_available = nil
-          self.transaction.save!
-        elsif self.quantity > 1 and !self.transaction.is_a? MultipleFixedPriceTransaction
-          self.transaction.type = 'MultipleFixedPriceTransaction'
-          self.transaction.quantity_available = self.quantity
-          self.transaction.save!
+        if self.quantity == 1 and self.transaction.is_a? MultipleFixedPriceTransaction
+          self.transaction.transform_to_single
+        elsif self.quantity > 1 and self.transaction.is_a? SingleFixedPriceTransaction
+          self.transaction.transform_to_multiple self.quantity
         end
       end
     end
