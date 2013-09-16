@@ -22,6 +22,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   before_filter :dont_cache, only: [ :edit ]
+  before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, :only => [ :create, :new ]
 
   #before_filter :check_recaptcha, only: :create
@@ -64,36 +65,46 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-
-
   private
 
-  # check if we need password to update user data
-  # ie if password or email was changed
-  # extend this as needed
-  # @api private
-  def needs_password?(user, params)
-    user.email != params[:user][:email] ||
-      !params[:user][:password].blank?
-  end
-
-  def after_update_path_for resource_or_scope
-    user_path(resource_or_scope)
-  end
-
-  def check_incomplete_profile! user
-    user.wants_to_sell = true if params[:incomplete_profile]
-  end
-
-  def update_account account_update_params
-    if needs_password?(resource, params)
-     resource.update_with_password(account_update_params)
-    else
-      # remove the virtual current_password attribute update_without_password
-      # doesn't know how to ignore it
-      params[:user].delete(:current_password)
-      resource.update_without_password(account_update_params)
+    # check if we need password to update user data
+    # ie if password or email was changed
+    # extend this as needed
+    # @api private
+    def needs_password?(user, params)
+      user.email != params[:user][:email] ||
+        !params[:user][:password].blank?
     end
-  end
 
+    def after_update_path_for resource_or_scope
+      user_path(resource_or_scope)
+    end
+
+    def check_incomplete_profile! user
+      user.wants_to_sell = true if params[:incomplete_profile]
+    end
+
+    def update_account account_update_params
+      if needs_password?(resource, params)
+       resource.update_with_password(account_update_params)
+      else
+        # remove the virtual current_password attribute update_without_password
+        # doesn't know how to ignore it
+        account_update_params.delete(:current_password) if account_update_params
+        resource.update_without_password(account_update_params)
+      end
+    end
+
+  protected
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit(
+          :nickname, :type, :agecheck, :legal, :privacy, :recaptcha, # <- custom fields
+          :email, :password, :password_confirmation
+        )
+      end
+      devise_parameter_sanitizer.for(:account_update) do |u|
+        u.permit(*resource.class.user_attrs, :current_password)
+      end
+    end
 end

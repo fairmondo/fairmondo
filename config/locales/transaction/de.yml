@@ -3,31 +3,88 @@ de:
   transaction:
     edit:
       # step 1
-      heading: "Dein Warenkorb"
-      transport: "Versandkosten"
-      payment: "Bezahlen"
-      impressum: "Impressum von %{name}"
-      address: "Rechnungs- und Lieferadresse"
+      heading: "Dein Artikel"
+      sold_by: "Angeboten von "
+      preliminary_price: "Verkaufspreis: "
+      including_vat: " (inkl. %{percent} % MwSt)"
+      choose_purchase_data: "Bitte wähle Deine Bestellangaben:"
+      type1: 'Versand: '
+      type2: 'Alternativer Versand: '
+      cash_on_delivery: 'Nachnahmekosten: '
+      address: "Deine Rechnungs- und Lieferadresse:"
+      next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       # step 2
-      purchase_data: Bestelldaten
-      payment_type: "Zahlungsart:"
-      transport_type: "Versandart:"
-      transport_provider: "Versandanbieter:"
-      terms: "AGB von %{name}"
-      cancellation: "Widerrufserklärung von %{name}"
-      price_heading: Finaler Preis
-      gross: (Brutto)
-      net: (Netto)
+      purchase_data: "Deine Bestellangaben: "
+      quantity_bought: "Artikelanzahl: "
+      payment_type: "Bezahlmethode: "
+      transport_type: "Versandmethode: "
+      transport_provider: "Versandanbieter: "
+      seller_data: "Der Artikel wird verkauft durch: "
+      message: "Optional: Deine Nachricht an den*die Verkäufer*in"
+      imprint: "Impressum"
+      terms: "AGB"
+      cancellation: "Widerrufsbelehrung und Rücknahme"
+      price_heading: "Zu Zahlen:"
+      sales_price: "Verkaufspreis gesamt: "
+      total_price: "Gesamt: "
+      fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
+      net: "Nettopreis:"
       vat: "(zzgl. %{percent} % MwSt.)"
-      shipping_and_handling: "Versandkosten:"
-      payment_cash_on_delivery_price: "Nachnahme-Kosten:"
-      basic_price: "Grundpreis:"
+      shipping_and_handling: "Versandkosten: "
+      payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
+      basic_price: "Grundpreis: "
+    show:
+      payment_title_bank_transfer: "Bezahlabwicklung per Vorkasse"
+      payment_title_cash: "Bezahlabwicklung als Barzahlung bei Abholung"
+      payment_title_paypal: "Bezahlabwicklung/PayPal"
+      payment_title_cash_on_delivery: "Bezahlabwicklung per Nachnahme"
+      payment_title_invoice: "Bezahlabwicklung per Rechnung"
+      thank_you: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt."
+      thank_you_invoice: "Zusätzlich wirst Du eine Rechnung mit Zahlungsinformationen von der*dem Verkäufer*in erhalten."
+      further_questions: "Hast Du weitere Fragen? Bitte nutze die Kontaktdaten der*des Verkäufer*in:"
+      further_questions_cash: "Um den Kauf abzuschließen und einen Abholtermin zu vereinbaren, nutze bitte die Kontaktdaten der*des Verkäufer*in:"
     notices:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
+    errors:
+      too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verfügbar."
     actions:
       purchase: "Verbindlich kaufen und bezahlen"
   #   bid:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     success: "Sie sind jetzt Höchstbietender!"
+    notifications:
+      greeting: "Liebe*r"
+      begin: "--------- Beginn der Nachricht ---------"
+      seller:
+        intro: "Diese Email wurde automatisch generiert. Bitte antworte nicht auf diese Email. Die Email-Adresse der Käufer*in findest Du weiter unten."
+        seller_subject: "Artikel auf Fairnopoly verkauft"
+        seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft. \nAlle Bestelldaten der/des Käufer*in sind unten für Dich zusammen gefasst.\n\n Dein Fairnopoly Team"
+        seller_fee_text: "Deine Verkaufsgebühren und Spenden, welche zum nächsten Abrechnungstermin durch die Fairnopoly eG von Deinem Konto eingezogen werden: "
+        order_infos: "Angaben zum gekauften Artikel: "
+        shipping_request: "Bitte versende den/die gekauften Artikel umgehend an: "
+        buyer_message: "Nachricht der Käufer*in: "
+        fees: "Deine Gebühren: "
+        donations: "Deine Spende: "
+        bank_account_owner: "Kontoinhaber*in: "
+        bank_account_number: "Kontonummer: "
+        bank_code: "Bankleitzahl: "
+        bank_name: "Name der Bank: "
+      buyer:
+        intro: "Diese Email wurde automatisch generiert. Bitte antworte nicht auf diese Email. Die Email-Adresse der Verkäufer*in findest Du weiter unten."
+        buyer_subject: "Dein Einkauf auf Fairnopoly"
+        buyer_text: "Vielen Dank für Deinen Einkauf! Wir haben Dir bereits eine Email mit allen Bestelldaten zugeschickt. Bitte beachte, dass der Kauf erst durch eine Bestätigung bzw. den Versand der/des Verkäufer*in zustande kommt. Alle Bestelldaten sind unten für Dich zusammen gefasst.\n\n Dein Fairnopoly-Team."
+        order_infos: "Angaben zu Deiner Bestellung: "
+        payment_type: "Deine Bezahlmethode: "
+        paypal: "PayPal"
+        bank_transfer: "Überweisung"
+        fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von: "
+        please_pay: "Bitte überweise den Gesamtbetrag umgehende auf folgendes Konto: "
+        buyer_message: "Deine Nachricht an die Verkäufer*in:"
+        bank_transfer: "Überweisung"
+        cash: "Barzahlung bei Abholung"
+        cash_on_delivery: "Nachnahme"
+        invoice: "Rechnung"
+      transport:
+        pickup: "Selbstabholung"

@@ -64,6 +64,7 @@ FactoryGirl.define do
 
     factory :private_user, class: 'PrivateUser' do
     end
+
     factory :legal_entity, class: 'LegalEntity' do
     end
 

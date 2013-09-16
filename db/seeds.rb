@@ -42,19 +42,27 @@ end
 
 user = User.find_by_email("user@user.com")
 unless user
-  user = FactoryGirl.create(:user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+  user = FactoryGirl.create(:private_user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+end
+
+user_legal = User.find_by_email("le@le.com")
+unless user_legal
+  user_legal = FactoryGirl.create(:legal_entity, :email => "le@le.com", :password => "password", :password_confirmation => "password")
 end
 
 setup_categories
 
-25.times do
-  FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, :without_image)
-  # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
+15.times do
+  FactoryGirl.create(:article, :without_image)
 end
-25.times do
-  FactoryGirl.create :multiple_transaction, article: FactoryGirl.create(:article, :without_image, :with_larger_quantity)
-  # Haven't found a way to create an article with a specific transaction that didn't create double articles and users. Creating the transaction first seemed the only way. -KK
+15.times do
+  FactoryGirl.create(:article, :without_image, :with_larger_quantity)
 end
+# Different articles to test transactions
+FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+                   :with_all_payments, :with_private_user, title: 'Tester By Private User'
+FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+                   :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity'
 
 
 # TinyCMS pages

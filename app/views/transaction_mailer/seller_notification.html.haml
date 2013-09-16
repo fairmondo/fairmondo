@@ -20,4 +20,6 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %p
-  Artikel verkauft... Artikeldaten, Adressdaten und so
+	= transaction_mail_greeting @transaction, :seller
+	%p
+		= t('transaction.notifications.seller.seller_text')

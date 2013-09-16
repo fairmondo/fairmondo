@@ -49,6 +49,28 @@ describe 'Article management' do
       end
 
       context "with a valid user", slow: true do
+        def fill_form_with_valid_article
+          fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
+          select Category.root.name, from: 'article_categories_and_ancestors'
+          within("#article_condition_input") do
+            choose "article_condition_new"
+          end
+
+          if user.is_a? LegalEntity
+            fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
+            select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
+            if user.country == "Deutschland"
+              select 7 ,from: I18n.t('formtastic.labels.article.vat')
+            end
+          end
+          fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
+          check "article_transport_pickup"
+          select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
+          fill_in 'article_transport_details', with: 'transport_details'
+          check "article_payment_cash"
+          fill_in 'article_payment_details', with: 'payment_details'
+        end
+
         before do
           FactoryGirl.create :category, parent: nil
           visit new_article_path
@@ -63,27 +85,9 @@ describe 'Article management' do
           current_path.should == new_article_path
         end
 
-        it 'creates an article plus a template' do
+        it 'should create an article plus a template' do
           lambda do
-            fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-            select Category.root.name, from: 'article_categories_and_ancestors'
-            within("#article_condition_input") do
-              choose "article_condition_new"
-            end
-
-            if user.is_a? LegalEntity
-              fill_in I18n.t('formtastic.labels.article.basic_price'), with: '99,99'
-              select I18n.t("enumerize.article.basic_price_amount.kilogram"), from: I18n.t('formtastic.labels.article.basic_price_amount')
-              if user.country == "Deutschland"
-                select 7 ,from: I18n.t('formtastic.labels.article.vat')
-              end
-            end
-            fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
-            check "article_transport_pickup"
-            select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
-            fill_in 'article_transport_details', with: 'transport_details'
-            check "article_payment_cash"
-            fill_in 'article_payment_details', with: 'payment_details'
+            fill_form_with_valid_article
 
             # social producer
             check "article_fair"
@@ -113,6 +117,24 @@ describe 'Article management' do
           end.should change(Article.unscoped, :count).by 2
 
           current_path.should eq article_path Article.unscoped.first
+          Article.find('article-title').transaction.should be_a SingleFixedPriceTransaction
+        end
+
+        it "should create an article with a MultipleFixedPriceTransaction" do
+          lambda do
+            fill_form_with_valid_article
+
+            # Increase Quantity
+            fill_in 'article_quantity', with: '2'
+
+            # Template -> should still only create one transaction
+            check 'article_save_as_template'
+            fill_in 'article_article_template_attributes_name', with: 'template'
+
+            find(".double_check-step-inputs").find(".action").find("input").click
+          end.should change(Transaction, :count).by 1
+
+          Article.find('article-title').transaction.should be_a MultipleFixedPriceTransaction
         end
 
         it "should create an article from a template" do
@@ -239,7 +261,9 @@ describe 'Article management' do
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         visit article_path article
-        page.should have_content I18n.t 'article.show.no_alternative'
+        if article.is_conventional?
+          page.should have_content I18n.t 'article.show.no_alternative'
+        end
       end
 
       it "should display a buy button that forces a login" do #! will change after sprint
@@ -309,5 +333,20 @@ describe "Article feature label buttons" do
       page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
       page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
     end
+  end
+end
+
+describe "Pioneer of the day" do
+  it "should be updatable by an admin" do
+    login_as FactoryGirl.create :admin_user
+
+    visit root_path
+    page.should_not have_link 'Foobar'
+
+    visit article_path FactoryGirl.create :article, title: 'Foobar'
+    click_link '> (Admin) Set this as featured article'
+
+    visit root_path
+    page.should have_link 'Foobar'
   end
 end

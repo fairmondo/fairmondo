@@ -19,23 +19,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FixedPriceTransaction < Transaction
-  extend STI
-  attr_accessible :quantity_bought
-
-  state_machine do
-    after_transition on: :buy, do: :set_article_sold
-  end
-
-  #validates :quantity_bought, numericality: true, on: :update
-
-  # Allow quantity_bought field for this transaction type
-  def quantity_bought
-    read_attribute :quantity_bought
-  end
-
-  private
-    def set_article_sold
-      self.article.sold_out
+class QuantityBoughtValidator < ActiveModel::EachValidator
+  # quantity params need to be validated for MFPTs
+  #
+  # @api public
+  def validate_each(record, attribute, value)
+    if value && value > record.quantity_available
+      record.errors[attribute] << I18n.t('transaction.errors.too_many_bought', available: record.quantity_available)
     end
+  end
 end

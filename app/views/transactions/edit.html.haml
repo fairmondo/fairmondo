@@ -19,53 +19,52 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-%h2
-  = t 'transaction.edit.heading'
+.l-Main
+  .l-Inner
+    .Content
+      .Content-inner
+        %h1
+          = t 'transaction.edit.heading'
+        = semantic_form_for @transaction, url: step2_transaction_path(@transaction) do |f|
+          = f.inputs do
+            = render 'article_display'
 
-= semantic_form_for @transaction, url: edit_transaction_path(@transaction), method: :get do |f|
-  = f.inputs do
-    %h3 Artikel
-    %ul
-      %li
-        = t('common.text.product') + ":"
-        = @transaction.article_title
-      %li
-        = t('common.text.seller') + ":"
-        = @transaction.article_seller.fullname
+            %hr
 
-    %h3
-      = t 'transaction.edit.transport'
+            %h3
+              %br
+              = t 'transaction.edit.choose_purchase_data'
 
-    = f.input :selected_transport, label: false, include_blank: false, collection: @transaction.selected_transports
+            - if @transaction.is_a? MultipleFixedPriceTransaction
+              = f.input :quantity_bought, input_html: { min: 1, max: resource.article_quantity, step: 1, value: 1 }
 
-    %h3
-      = t 'transaction.edit.payment'
+            = f.input :selected_transport, include_blank: false, collection: resource.selected_transports
+            %ul.Price-list
+              = display_price_list_item :transport, :type1
+              = display_price_list_item :transport, :type2
 
-    = f.input :selected_payment, label: false, include_blank: false, collection: @transaction.selected_payments
+            = f.input :selected_payment, include_blank: false, collection: resource.selected_payments
+            %ul.Price-list
+              = display_price_list_item :payment, :cash_on_delivery
 
-    %h3
-      = t 'transaction.edit.impressum', name: @transaction.article_seller.fullname
-    %p
-      = @transaction.article_seller.about
+            %p
+              %br
+              %h3
+                = t 'transaction.edit.address'
+              %br
+              %p
+                = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
+                = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
+                = f.input :street, required: true, input_html: { value: default_address_value(:street) }
+                = f.input :city, required: true, input_html: { value: default_address_value(:city) }
+                = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
+                = f.input :country, required: true, input_html: { value: default_address_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
 
-    %h3
-      = t 'transaction.edit.address'
-    %p
-      = current_user.fullname
-      %br
-      = current_user.street
-      %br
-      = current_user.zip
-      = current_user.city
-      %br
-      = current_user.country
-
-    %h3
-      = 'Sonstiges'
-    %p
-      = f.input :message
-      - if @transaction.is_a? MultipleFixedPriceTransaction
-        = f.input :quantity_bought, input_html: { min: 1, max: @transaction.article_quantity, step: 1 }
-
-  = f.actions do
-    = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}
+            %hr
+            %br
+            %p
+              = t 'transaction.edit.next_step_explanation'
+          %p
+            %br
+            = f.actions do
+              = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}

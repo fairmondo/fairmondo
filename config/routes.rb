@@ -33,7 +33,7 @@ Fairnopoly::Application.routes.draw do
     get :not_found, :on => :member #?
   end
 
-  devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
+  devise_for :user, controllers: { registrations: 'registrations', sessions: 'sessions' }
 
   namespace :toolbox do
     get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
@@ -53,7 +53,12 @@ Fairnopoly::Application.routes.draw do
       get 'autocomplete'
     end
   end
-  resources :transactions, only: [:show, :edit, :update]
+  resources :transactions, only: [:show, :edit, :update] do
+    member do
+      put 'edit' => 'transactions#edit', as: :step2
+      get 'already_sold'
+    end
+  end
 
   get "welcome/index"
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}

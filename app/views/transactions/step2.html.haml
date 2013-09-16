@@ -21,81 +21,132 @@
 -#
 - selected_transport = params["transaction"]["selected_transport"]
 - selected_payment = params["transaction"]["selected_payment"]
-%h2
-  = t 'transaction.edit.heading'
+- quantity = params["transaction"]["quantity_bought"]
+- quantity = (quantity.nil? || quantity.empty?) ? 1 : quantity.to_i
+- forename = params["transaction"]["forename"]
+- surname  = params["transaction"]["surname"]
+- street   = params["transaction"]["street"]
+- city     = params["transaction"]["city"]
+- zip      = params["transaction"]["zip"]
+- country  = params["transaction"]["country"]
 
-= semantic_form_for @transaction do |f|
-  = f.inputs do
-    = f.hidden_field :selected_transport, value: selected_transport
-    = f.hidden_field :selected_payment, value: selected_payment
+.l-Main
+  .l-Inner
+    .Content
+      .Content-inner
+        %h1
+          = t 'transaction.edit.heading'
 
-    %h3
-      = t 'transaction.edit.purchase_data'
+        = semantic_form_for @transaction do |f|
+          = f.inputs do
+            = f.hidden_field :selected_transport, value: selected_transport
+            = f.hidden_field :selected_payment, value: selected_payment
+            = f.hidden_field :quantity_bought, value: quantity
 
-    %p
-      %strong
-        = t('common.text.product') + ":"
-      = @transaction.article_title
-    %p
-      %strong
-        = t('common.text.seller') + ":"
-      = @transaction.article_seller.fullname
-    %p
-      %strong
-        = t('transaction.edit.payment_type')
-      = t('enumerize.transaction.selected_payment.' + selected_payment)
-    %p
-      %strong
-        = t('transaction.edit.transport_type')
-      = t('enumerize.transaction.selected_transport.' + selected_transport)
-      = transport_provider_for selected_transport
-    %p
-      %strong
-        = t 'transaction.edit.address'
-      %br
-      = current_user.fullname
-      %br
-      = current_user.street
-      %br
-      = current_user.zip
-      = current_user.city
-      %br
-      = current_user.country
+            = f.hidden_field :forename, value: forename
+            = f.hidden_field :surname, value: surname
+            = f.hidden_field :street, value: street
+            = f.hidden_field :city, value: city
+            = f.hidden_field :zip, value: zip
+            = f.hidden_field :country, value: country
 
+            = render 'article_display'
+            %hr
+            %br
+            %h3
+              = t 'transaction.edit.purchase_data'
 
-    %h3
-      = t 'transaction.edit.terms', name: @transaction.article_seller.fullname
-    %p
-      = @transaction.article_seller.terms
-      = link_to_function 'Drucken', "javascript:print()"
+            %p
+              %strong
+                = t('transaction.edit.quantity_bought')
+              = quantity
+            %p
+              %strong
+                = t('transaction.edit.payment_type')
+              = t('enumerize.transaction.selected_payment.' + selected_payment)
+            %p
+              %strong
+                = t('transaction.edit.transport_type')
+              = t('enumerize.transaction.selected_transport.' + selected_transport)
+              = transport_provider_for selected_transport
+            %p
+              %br
+              %h3
+                = t 'transaction.edit.address'
+              = forename + ' ' + surname
+              %br
+              = street
+              %br
+              = zip
+              = city
+              %br
+              = country
 
-    %h3
-      = t 'transaction.edit.cancellation', name: @transaction.article_seller.fullname
-    %p
-      = @transaction.article_seller.cancellation
-      = link_to_function 'Drucken', "javascript:print()"
+            - if @transaction.article_seller.is_a?(LegalEntity)
+              .about_terms_cancellation
+                %hr
+                %br
+                %h3
+                  = t 'transaction.edit.seller_data'
 
-    %p
-      = f.input :tos_accepted
+                %p
+                  = resource.article_seller.fullname
 
+                #about
+                  = t 'transaction.edit.imprint'
+                  .Scrollbox
+                    = @transaction.article_seller_about
 
-    %h3
-      = t 'transaction.edit.price_heading'
+                #terms
+                  = t 'transaction.edit.terms'
+                  .Scrollbox
+                    = @transaction.article_seller_terms
+                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
 
-    %p
-      = display_net_price
-      %br
-      = display_vat_price
-      %br
-      = I18n.t 'transaction.edit.shipping_and_handling'
-      = humanized_money_with_symbol @transaction.article_transport_price(selected_transport)
-      = display_cash_on_delivery_price
-      = display_basic_price
-    %p
-      %strong
-        = I18n.t 'transaction.edit.gross'
-        = humanized_money_with_symbol @transaction.article_total_price selected_transport, selected_payment
+                #cancellation
+                  = t 'transaction.edit.cancellation'
+                  .Scrollbox
+                    = @transaction.article_seller_cancellation
+                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
 
-  = f.actions do
-    = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
-    = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'Btn'
+                %p
+                  = f.input :tos_accepted
+
+            %hr
+            %br
+            %h3
+              = t 'transaction.edit.message'
+            %p
+              = f.input :message, label: false
+
+            %hr
+            %br
+
+            %h3
+              = t 'transaction.edit.price_heading'
+
+            %p
+              %strong
+                = t('transaction.edit.quantity_bought') + quantity.to_s
+              %br
+              %strong
+                = display_sales_price quantity
+
+              - if resource.article_seller.is_a? LegalEntity
+                = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
+              %br
+              = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+              %hr
+              %br
+              = display_transport_price selected_transport, quantity
+              %br
+              = display_cash_on_delivery_price selected_payment, quantity
+              %hr
+              %br
+              %h2
+                = display_total_price selected_transport, selected_payment, quantity
+
+          %br
+          = f.actions do
+            = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
+            = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'Btn'

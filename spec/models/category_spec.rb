@@ -34,19 +34,29 @@ describe Category do
   end
 
   describe "methods" do
-    it "should have the correct parent_id" do
-      @anotherCategory = FactoryGirl.create(:category, :parent => category)
-      @anotherCategory.parent.should eq category
+    describe "#self.category_attrs" do
+      it "should return an array" do
+        Category.category_attrs.should be_an Array
+      end
     end
 
-    it "should not have a parent_id without a parent" do
-      @anotherCategory = FactoryGirl.create(:category)
-      @anotherCategory.parent.should_not eq category
+    describe "#parent" do
+      it "should have the correct parent_id" do
+        @anotherCategory = FactoryGirl.create(:category, :parent => category)
+        @anotherCategory.parent.should eq category
+      end
+
+      it "should not have a parent_id without a parent" do
+        @anotherCategory = FactoryGirl.create(:category)
+        @anotherCategory.parent.should_not eq category
+      end
     end
 
-    it "should return self_and_ancestors_ids" do
-      childCategory = FactoryGirl.create(:category, parent: category)
-      childCategory.self_and_ancestors_ids.should eq [childCategory.id, category.id]
+    describe "#self_and_ancestors_ids" do
+      it "should return self_and_ancestors_ids" do
+        childCategory = FactoryGirl.create(:category, parent: category)
+        childCategory.self_and_ancestors_ids.should eq [childCategory.id, category.id]
+      end
     end
   end
 end
