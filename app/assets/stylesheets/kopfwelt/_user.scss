@@ -93,11 +93,9 @@
 	text-align: center;
 }
 .User-image {
-	@include border-radius(.8em);
 	width: $column-width / 1.5;
 	height: $column-width / 1.5;
 	@include rem(margin, 0 auto 20px);
-	overflow: hidden;
 	@include rem(margin-top, 16px);
 	img {
 		width: 100%;
