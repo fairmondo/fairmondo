@@ -29,7 +29,6 @@ class MultipleFixedPriceTransaction < Transaction
 
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
-  validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
   validates :quantity_available, presence: true, numericality: true
   validates :quantity_bought, quantity_bought: true, if: :updating_state
 
@@ -97,7 +96,7 @@ class MultipleFixedPriceTransaction < Transaction
   end
 
   def clear_data_and_save
-    #self.buyer = nil # Uncomment if possible! As of right now this will throw validation errors
+    self.buyer = nil
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
