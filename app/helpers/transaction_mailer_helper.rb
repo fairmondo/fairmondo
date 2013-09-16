@@ -5,7 +5,7 @@ module TransactionMailerHelper
   def transaction_mail_greeting transaction, role
     case role
       when :buyer
-        t('transaction.notifications.greeting') + ' ' + transaction.buyer_forename + ','
+        t('transaction.notifications.greeting') + ' ' + transaction.forename + ','
       when :seller
         t('transaction.notifications.greeting') + ' ' + transaction.article_seller_forename + ','
     end
