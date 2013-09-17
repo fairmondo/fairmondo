@@ -57,7 +57,7 @@ class MultipleFixedPriceTransaction < Transaction
   end
 
   # The main transition handler (see class description)
-  # @return [undefined] not important
+  # @return [Boolean] not important
   def buy_multiple_transaction
     self.updating_multiple = true
     self.quantity_bought ||= 1
