@@ -134,6 +134,13 @@ class User < ActiveRecord::Base
     user && self.id == user.id
   end
 
+  # Check if user was created before Sept 24th 2013
+  # @api public
+  # @param user [User] Usually current_user
+  def is_pioneer?
+    self.created_at < Time.parse("2013-09-23 23:59:59.000000 CEST +02:00")
+  end
+
   # Static method to get admin status even if current_user is nil
   # @api public
   # @param user [User, nil] Usually current_user
