@@ -54,6 +54,9 @@ FactoryGirl.define do
     bank_name Faker::Name.name
     #paypal_account Faker::Internet.email
 
+    seller_state "standard_seller"
+    buyer_state "standard_buyer"
+
     factory :admin_user do
       admin       true
     end
