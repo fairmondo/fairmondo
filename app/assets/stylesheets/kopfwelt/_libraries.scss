@@ -1,0 +1,22 @@
+//
+// User libraries/"Sammlungen"
+//
+
+.Libraries {
+	h3 {
+		@extend %Semibold;
+	}
+	ul {
+		list-style-type: none;
+	}
+}
+.Libraries-settings-right {
+	float: right;
+}
+.Libraries-settings-clear {
+	clear: both;
+}
+
+#library_public_input {
+  margin-bottom: 10px;
+}

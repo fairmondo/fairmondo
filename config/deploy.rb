@@ -69,8 +69,10 @@ namespace :deploy do
   desc "Additional Symlinks"
   task :additional_symlink, :roles => :app do
     run "ln -nfs #{shared_path}/data/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/data/config/newrelic.yml #{release_path}/config/newrelic.yml"
     run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
     run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
+    run "ln -nfs #{shared_path}/data/config/email_addresses.yml #{release_path}/config/email_addresses.yml"
     run "ln -nfs #{shared_path}/data/config/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
     run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
     run "ln -nfs #{shared_path}/data/solr/data #{release_path}/solr/data"
@@ -94,10 +96,17 @@ namespace :deploy do
       migrate
     end
   end
-
 end
 
-
+namespace :import do
+  desc "Import content"
+  task :content do
+    run "mkdir -p #{shared_path}/uploads"
+    file_name = Time.now.utc.strftime("%Y%m%d%H%M%S")
+    upload "#{ARGV[2]}", "#{shared_path}/uploads/#{file_name}.csv"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake import:content #{shared_path}/uploads/#{file_name}.csv"
+  end
+end
 
 ##### After and Before Tasks #####
 before "deploy:assets:precompile", "deploy:additional_symlink"

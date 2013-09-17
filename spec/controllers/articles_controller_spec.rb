@@ -68,21 +68,21 @@ describe ArticlesController do
           controller.instance_variable_get(:@articles).should == []
         end
 
-        context "#categories_with_ancestors" do
-          context "when passing a category_id without its ancestors" do
-            it "should remove the orphan descendants from the passed subtree" do
-              @audio_category = Category.find_by_name!("Audio & HiFi")
-              get :index, :article => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
-              controller.instance_variable_get(:@articles).should == []
-            end
-          end
-        end
+#        context "#categories_with_ancestors" do
+#          context "when passing a category_id without its ancestors" do
+#            it "should remove the orphan descendants from the passed subtree" do
+#              @audio_category = Category.find_by_name!("Audio & HiFi")
+#              get :index, :article => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
+#              controller.instance_variable_get(:@articles).should == []
+#            end
+#          end
+#        end
 
         context "and searching for 'muscheln'" do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
             get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should == [@article, @hardware_article]
+            controller.instance_variable_get(:@articles).should =~ [@hardware_article,@article]
           end
 
           it "should chain both filters" do
@@ -99,7 +99,7 @@ describe ArticlesController do
 
             it "should find all articles with title 'muscheln' with empty condition and category filter" do
               get :index, article: {categories_and_ancestors: [], title: "muscheln"}
-              controller.instance_variable_get(:@articles).should == [@article, @hardware_article, @no_second_hand_article]
+              controller.instance_variable_get(:@articles).should =~ [ @no_second_hand_article,@hardware_article,@article]
             end
 
             it "should chain all filters" do
@@ -166,9 +166,22 @@ describe ArticlesController do
     before :each do
       @user = FactoryGirl.create :user
       @article  = FactoryGirl.create :article
+      @article_social_production = FactoryGirl.create :social_production
+      @article_fair_trust = FactoryGirl.create :fair_trust
     end
 
     describe "for all users" do
+
+      it "should be successful" do
+        get :show, id: @article_fair_trust
+        response.should be_success
+      end
+
+      it "should be successful" do
+        get :show, id: @article_social_production
+        response.should be_success
+      end
+
       it "should be successful" do
         get :show, id: @article
         response.should be_success
@@ -177,6 +190,14 @@ describe ArticlesController do
       it "should render the :show view" do
         get :show, id: @article
         response.should render_template :show
+      end
+
+      it "should render the :show view" do
+        @article.deactivate
+        @article.close
+        expect {
+        get :show, id: @article
+        }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -274,20 +295,7 @@ describe ArticlesController do
     end
   end
 
-  describe "report" do
 
-    before :each do
-      @user = FactoryGirl.create :user
-      @article = FactoryGirl.create :article
-      sign_in @user
-    end
-
-    it "reports an article" do
-      get :report, id: @article
-      response.should redirect_to @article
-    end
-
-  end
 
   describe "POST 'create'" do
 
@@ -324,42 +332,37 @@ describe ArticlesController do
       end
 
     end
-
-    describe "nesting user forms" do
-
-      before :each do
-        sign_in @user
-        @article_attrs[:seller_attributes] = FactoryGirl.attributes_for :nested_seller_update
-        @article_attrs[:seller_attributes][:id] = @user.id
-        @article_attrs[:payment_bank_transfer] = true
-      end
-
-      it "should update the users bank info" do
-        lambda do
-          post :create, :article => @article_attrs
-        end.should change(Article.unscoped, :count).by 1
-
-        @user.reload
-        @user.bank_code.should eq @article_attrs[:seller_attributes][:bank_code]
-      end
-
-
-      it "should not update the users invalid attributes" do
-         begin
-          @article_attrs[:seller_attributes][:nickname] = Faker::Internet.user_name
-        end while @article_attrs[:seller_attributes][:nickname] == @user.nickname
-
-        lambda do
-          post :create, :article => @article_attrs
-        end.should raise_error(SecurityError)
-
-        @user.reload
-        @user.nickname.should_not eq @article_attrs[:seller_attributes][:nickname]
-
-      end
-    end
   end
 
+  #TODO: add more tests for delete
+  describe "PUT 'destroy'" do
+    describe "for signed-in users" do
+      before :each do
+        @user = FactoryGirl.create :user
+        @article = FactoryGirl.create :preview_article, seller: @user
+        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs.delete :seller
+        @article_attrs[:transaction_attributes] = FactoryGirl.attributes_for :transaction
+        sign_in @user
+      end
+
+      it "should delete the preview article" do
+        lambda do
+          put :destroy, :id => @article.id
+          response.should redirect_to(articles_path)
+        end.should change(Article.unscoped, :count).by -1
+      end
+
+      it "should softdelete the locked article" do
+        lambda do
+          put :update, id: @article.id, :activate => true
+          put :update, id: @article.id, :deactivate => true
+          put :destroy, :id => @article.id
+        end.should change(Article.unscoped, :count).by 0
+      end
+
+    end
+  end
 
   describe "PUT 'update'" do
     describe "for signed-in users" do
@@ -415,16 +418,16 @@ describe ArticlesController do
     it "should work" do
       put :update, id: @article.id, :activate => true
       response.should redirect_to @article
-      flash[:notice].should eq I18n.t 'article.notices.create'
+      flash[:notice].should eq I18n.t 'article.notices.create_html'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article and set it as new article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
       put :update, id: @article.id, :activate => true
       response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to new_article_path(:edit_as_new => @article.id)
     end
   end
 
@@ -441,13 +444,13 @@ describe ArticlesController do
       flash[:notice].should eq I18n.t 'article.notices.deactivated'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
        put :update, id: @article.id, :deactivate => true
-      response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to @article
+      @article.reload.locked?.should == true
     end
   end
 end

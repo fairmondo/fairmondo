@@ -28,7 +28,7 @@ module NoticeHelper
     when :notice
       "info"
     when :confirm
-      "info confirmation"
+      "confirmation"
     else
       "info"
     end
@@ -39,18 +39,16 @@ module NoticeHelper
     render layout: "notice_layout",
       locals: {
         type: options[:type],
-        hide: ""
       }, &block
   end
 
   def render_data_confirm
-    confirm_icon = glyphicons('icon-trash')
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')
-    render layout: "notice_layout", locals: { type: :confirm, hide: "hide"} do
+    render layout: "/application/notice_layout", locals: { type: :confirm} do
       concat("<p class=\"confirmation_message\"></p>".html_safe)
-      concat("<button class=\"btn btn-danger confirm\" > #{confirm_icon} #{confirm_text} </button>".html_safe)
-      concat("<button class=\"btn cancel\"  > #{cancel_text} </button>".html_safe)
+      concat("<a class=\"Btn Btn--red confirm\" >  #{confirm_text} </a> ".html_safe)
+      concat("<a class=\"Btn cancel\"  > #{cancel_text} </a>".html_safe)
     end
   end
 

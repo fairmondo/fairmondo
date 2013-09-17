@@ -8,9 +8,15 @@ de:
     brand: "fairnopoly.de"
     fairnopoly: "Fairnopoly"
     fn_footer_greeting: "Dein Fairnopoly-Team"
-    fn_legal_footer: "-- Diese Nachricht wurde von Fairnopoly,  https://beta.fairnopoly.de/, gesendet.
-                      Kontakt: email@fairnopoly.de, Fairnopoly eG i.G. c/o Social Impact Lab,
-                      Erkelenzdamm 59-61, Portal 1, 3. Stock, 10999 Berlin"
+    fn_legal_footer:
+      intro: >
+        ----------
+        Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.
+      contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
+      registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B"
+      board: "Vorstand: Anna Kress, Bastian Neumann"
+      ceo: "Vorstandsvorsitzender: Felix Weth"
+      supervisory_board: "Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -21,7 +27,7 @@ de:
       invite: "Einladen"
       trust: "Vertrauen"
       logout: "Logout"
-      login: "Login"
+      login: "Anmelden"
       sign_up: "Registrierung"
       edit_profile: "Profil bearbeiten"
       search: "Suche"
@@ -59,11 +65,20 @@ de:
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
-
+      libraries: "Meine Sammlungen"
+      about_terms: "Meine Firmendaten"
+      more: "mehr anzeigen"
+      less: "weniger anzeigen"
+      feedback: "Feedback"
+      help: "Hilfe"
+      shares: "Anteile zeichnen"
+      my_articles: "Meine Artikel"
+      fair: "Fair"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
     fill_in_questionnaire: Bitte fülle folgenden Fragenkatalog aus
+    fill_in_non_profit: "Bitte kreuze an, welche(r) gemeinnützige(n) Zweck(e) verfolgt werden."
 
   template_select:
     notices:
@@ -81,5 +96,5 @@ de:
       may_be_created: "Hier kannst Du sie erstellen"
 
   meta_tags:
-    description: "Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen"
+    description: "Fairnopoly - Der Online-Marktplatz für alle."
     keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"

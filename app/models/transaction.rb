@@ -19,5 +19,7 @@
 #
 class Transaction < ActiveRecord::Base
   has_one :article
-  attr_accessible :type
+  transaction_attributes = [:type]
+  attr_accessible *transaction_attributes
+  attr_accessible *transaction_attributes, :as => :admin
 end

@@ -18,9 +18,8 @@
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if article.seller.is_a?(LegalEntity) && article.basic_price_amount?
-  %p
-    %span.pull-right= humanized_money_with_symbol article.basic_price
-    = t('formtastic.labels.article.basic_price')
-  %p
-    %span.pull-right= t('enumerize.article.basic_price_amount.'+article.basic_price_amount)
-    = t('formtastic.labels.article.basic_price_amount')
+  %p.Article-basicprice
+    %span= t('formtastic.labels.article.basic_price_simple')
+    = humanized_money_with_symbol article.basic_price
+    = t('formtastic.labels.article.per') + " " |
+    + t('enumerize.article.basic_price_amount.'+ article.basic_price_amount) |

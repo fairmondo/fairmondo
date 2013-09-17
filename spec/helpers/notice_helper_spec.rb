@@ -46,10 +46,16 @@ describe NoticeHelper do
       helper.main_notice_mapper(:notice).should eq 'info'
     end
     it "returns 'info confirmation' when given :confirm" do
-      helper.main_notice_mapper(:confirm).should eq 'info confirmation'
+      helper.main_notice_mapper(:confirm).should eq 'confirmation'
     end
     it "returns 'info' when given anything else" do
       helper.main_notice_mapper(:thissymboldoesntexist).should eq 'info'
+    end
+  end
+
+  describe "#render_data_confirm" do
+    it "should build a html page" do
+      helper.render_data_confirm.should be_a String
     end
   end
 end

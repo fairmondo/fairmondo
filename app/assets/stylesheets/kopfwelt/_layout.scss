@@ -1,0 +1,65 @@
+//
+// Layout
+//
+
+body {
+	background-color: $beige;
+}
+.l-Inner {
+	@include container;
+	@media (max-width: 25em) {
+		padding-left: $gutter-width / 2;
+		padding-right: $gutter-width / 2;
+	}
+}
+.l-Header {
+	background-image: url(asset-path("back3.gif", image));
+}
+.l-Hero {
+	background-color: $beige;
+
+	.first {
+		@include pie-clearfix;
+		padding: .2em 0;
+	}
+	.l-Inner {
+		@include rem(padding-top, 16px);
+	}
+	.Hero-search, .l-User {
+		background-color: $darkbeige;
+	}
+	.Filter-inner {
+		@include container;
+		position: relative;
+	}
+}
+
+.l-Main {
+	& > .l-Inner {
+		@include rem(padding-top, 21px);
+		padding-bottom: 7em;
+	}
+}
+.l-Footer {
+	background-image: url(asset-path("back3.gif", image));
+	.Footer--top {
+		@include at-breakpoint(30em lt-ie9) {
+			margin-bottom: em(103);
+		}
+	}
+	.Footer--bottom {
+		padding-bottom: em(20);
+	}
+}
+
+// .pages-feedbacks {
+// 	.l-Main > .l-Inner {
+// 		width: columns(4,4);
+// 		@include pie-clearfix;
+
+// 		@include at-breakpoint($layout-large) {
+// 			width: columns(2,4);
+// 			margin-left: 0;
+// 		}
+// 	}
+// }

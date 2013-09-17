@@ -25,28 +25,36 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
+include BulletMatcher
+include CategorySeedData
 
 describe 'Performance' do
-  include CategorySeedData
+  before { Bullet.start_request }
 
   describe "Article#index", search: true do
     before do
-      3.times { FactoryGirl.create(:article, :with_fixture_image) }
+      2.times { FactoryGirl.create(:article, :with_fixture_image) }
       Sunspot.commit
     end
-    it "should succeed" do
+    it "should not show bullet warnings" do
       visit articles_path
-      page.status_code.should be 200
+      Bullet.should_not throw_warnings
     end
   end
 
-  describe "Article#new" do
-    it "should succeed" do
-      # Does not yet trigger n+1
-      pending
-      setup_categories
-      visit new_article_path
-      page.status_code.should be 200
+  describe "Article#show" do
+    before do
+      @seller = FactoryGirl.create(:user)
+      @library = FactoryGirl.create(:library, :user => @seller)
+      @art1 = FactoryGirl.create(:article, :with_fixture_image, :seller => @seller)
+      @art2 = FactoryGirl.create(:article, :with_fixture_image, :seller => @seller)
+      FactoryGirl.create(:library_element , :article => @art1 , :library => @library)
     end
+    it "should not show bullet warnings" do
+      visit article_path(@art1)
+      Bullet.should_not throw_warnings
+    end
+
   end
+
 end

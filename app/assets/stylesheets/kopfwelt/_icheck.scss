@@ -1,0 +1,35 @@
+/* iCheck plugin Minimal skin, blue
+----------------------------------- */
+.formtastic .choices-group {
+	margin-top: 1px;
+}
+.iradio,
+.icheckbox {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+	vertical-align: middle;
+	margin-right: 10px;
+	position: relative !important;
+	top: -1px;
+}
+.icheckbox {
+	width: 18px;
+	height: 18px;
+	background: url(asset-path("icheck/checkbox.png", image)) no-repeat;
+	&.checked {
+		background: url(asset-path("icheck/checkbox_active.png", image)) no-repeat;
+		z-index: 50;
+	}
+}
+.iradio {
+	width: 20px;
+	height: 20px;
+	background: url(asset-path("icheck/radio.png", image)) no-repeat;
+	&.checked {
+		background: url(asset-path("icheck/radio_active.png", image)) no-repeat;
+		z-index: 50;
+	}
+}

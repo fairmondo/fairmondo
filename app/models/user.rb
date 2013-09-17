@@ -19,42 +19,47 @@
 #
 class User < ActiveRecord::Base
 
-  # lib dependency
-  include SanitizeTinyMce
-
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
   validates_presence_of :slug
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  extend Sanitization
+
+  # Include default devise modules. Others available are: :rememberable,
+  # :token_authenticatable, :encryptable, :lockable,  and :omniauthable
+  devise :database_authenticatable, :registerable, :timeoutable,
+         :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
 
   # Setup accessible (or protected) attributes for your model
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-      :nickname, :forename, :surname, :image,:privacy, :legal, :agecheck,
-      :trustcommunity, :invitor_id, :banned, :about_me,
+  user_attributes = [:email, :password, :password_confirmation, :remember_me,
+      :nickname, :forename, :surname, :privacy, :legal, :agecheck,
+      :invitor_id, :banned, :about_me, :image_attributes, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-      :terms, :cancellation, :about,  :recaptcha, :bank_code ,
-      :bank_account_number , :bank_name ,:bank_account_owner, :paypal_account
+      :terms, :cancellation, :about, :bank_code, :paypal_account,
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name]
+
+  attr_accessible *user_attributes
+  attr_accessible *user_attributes, :as => :admin
+
+  auto_sanitize :nickname, :forename, :surname, :street, :city
+  auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
+  # @api public
   def self.attributes_protected_by_default
-    # default is ["id","type"]
-    ["id"]
+    ["id"] # default is ["id","type"]
   end
-
-
   attr_accessible :type
+  attr_accessible :type, :as => :admin
   attr_protected :admin
 
 
-  attr_accessor :recaptcha, :bank_account_validation , :paypal_validation
+  attr_accessor :recaptcha,:wants_to_sell
+  attr_accessor :bank_account_validation , :paypal_validation
 
 
   #Relations
@@ -65,10 +70,12 @@ class User < ActiveRecord::Base
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"},
-                            :default_url => "missing.png",
-                            :url => "/system/users/:attachment/:id_partition/:style/:filename",
-                            :path => "public/system/users/:attachment/:id_partition/:style/:filename"
+  ##
+  has_one :image, as: :imageable
+  accepts_nested_attributes_for :image
+  ##
+
+
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
@@ -77,42 +84,110 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
 
-  validates_presence_of :forename , :on => :update
-  validates_presence_of :surname , :on => :update
-  validates_presence_of :title , :on => :update
-  validates_presence_of :country , :on => :update
-  validates_presence_of :street , :on => :update
-  validates_presence_of :city , :on => :update
+  validates :forename, presence: true, on: :update
+  validates :surname, presence: true, on: :update
 
-  validates_presence_of :recaptcha, :on => :create
+  validates :nickname , :presence => true, :uniqueness => true
 
-  validates_presence_of :nickname
+  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
 
-  validates :zip, :presence => true, :on => :update, :zip => true
-  validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates_attachment_size :image, :in => 0..5.megabytes
+
+  validates :recaptcha, presence: true, acceptance: true, on: :create
 
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
 
 
-  validates :bank_code , :bank_account_number , :bank_name ,:bank_account_owner, :presence => true , :if => :bank_account_validation
-  validates :paypal_account , :presence => true , :if => :paypal_validation
+  with_options if: :wants_to_sell? do |seller|
+    seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
+  end
 
+  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :unless => Proc.new {|c| c.bank_code.blank?}
+  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10}, :unless => Proc.new {|c| c.bank_account_number.blank?}
+  validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, :unless => Proc.new {|c| c.paypal_account.blank?}
+  validates :paypal_account, presence: true, if: :paypal_validation
+  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true, if: :bank_account_validation
+
+  validates :about_me, :length => { :maximum => 2500 }
+
+  # Return forename plus surname
+  # @api public
+  # @return [String]
   def fullname
     fullname = "#{self.forename} #{self.surname}"
   end
 
-
+  # Return user nickname
+  # @api return
+  # @public [String]
   def name
     name = "#{self.nickname}"
   end
 
+  # Compare IDs of users
+  # @api public
+  # @param user [User] Usually current_user
+  def is? user
+    user && self.id == user.id
+  end
+
+  # Check if user was created before Sept 24th 2013
+  # @api public
+  # @param user [User] Usually current_user
+  def is_pioneer?
+    self.created_at < Time.parse("2013-09-23 23:59:59.000000 CEST +02:00")
+  end
+
+  # Static method to get admin status even if current_user is nil
+  # @api public
+  # @param user [User, nil] Usually current_user
+  def self.is_admin? user
+    user && user.admin?
+  end
+
+  # Get generated customer number
+  # @api public
+  # @return [String] 8-digit number
+  def customer_nr
+    id.to_s.rjust 8, "0"
+  end
+
+  # Get url for user image
+  # @api public
+  # @param symbol [Symbol] which type
+  # @return [String] URL
+  def image_url symbol
+    (img = image) ? img.image.url(symbol) : "/assets/missing.png"
+  end
+
+  def bank_account_exists?
+    ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
+  end
+
+  def paypal_account_exists?
+    ( self.paypal_account.to_s != '' )
+  end
+
+  def can_sell?
+    self.wants_to_sell = true
+    can_sell = self.valid?
+    self.wants_to_sell = false
+    can_sell
+  end
+
   private
+
+  # @api private
   def create_default_library
     if self.libraries.empty?
-      Library.create(:name => I18n.t('library.default'),:public => false, :user_id => self.id)
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
+  end
+
+  def wants_to_sell?
+    self.wants_to_sell
   end
 end

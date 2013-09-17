@@ -3,26 +3,26 @@ de:
   enumerize:
     article:
       condition:
-        new: "Neu"
-        old: "Gebraucht"
+        new: "neu"
+        old: "gebraucht"
       condition_extra:
-        as_good_as_new: "Neuwertig"
-        as_good_as_warranted: "Neuwertig mit Garantie oder Gewährleistung"
-        used_very_good: "Gebraucht / sehr gut"
-        used_good: "Gebraucht / gut"
-        used_satisfying: "Gebraucht / zufriedenstellend"
-        broken:  "Defekt / Schwere Mängel"
+        as_good_as_new: "neuwertig"
+        as_good_as_warranted: "neuwertig mit Garantie oder Gewährleistung"
+        used_very_good: "gebraucht / sehr gut"
+        used_good: "gebraucht / gut"
+        used_satisfying: "gebraucht / zufriedenstellend"
+        broken:  "defekt / schwere Mängel"
       fair_kind:
-        fair_seal: Produzent mit Siegel oder anerkannt
-        fair_trust: Fair Trust
-        social_producer: Sozialer Produzent
+        fair_seal: Mit Siegel oder anerkannter Handelspartner
+        fair_trust: fairtrust
+        social_producer: Soziale Produktion
       fair_seal:
-        trans_fair: TransFair Siegel
-        weltladen: Anerkannter Weltladen-Lieferant
+        trans_fair: Fairtrade-Siegel (TransFair)
+        weltladen: Weltladen-Handelspartner
         wtfo: WFTO-Mitglied
       ecologic_kind:
-        ecologic_seal: "Artikel trägt ein Öko-Siegel"
-        upcycling: "Artikel fällt unter Upcycling"
+        ecologic_seal: "Der Artikel trägt ein Öko-Siegel"
+        upcycling: "Der Artikel ist durch Upcycling entstanden"
       ecologic_seal:
         bio_siegel: Bio-Siegel
         eg_bio_siegel: EG-Bio-Siegel
@@ -58,8 +58,8 @@ de:
         tuev_eco_kreis: TÜV ECO-Kreis
       default_transport:
         pickup: Selbstabholung
-        insured: Versichert
-        uninsured: Unversichert
+        type1: Versand
+        type2: Alternativer Versand
       basic_price_amount:
         kilogram: 1 Kilogramm
         gram: 100 Gramm
@@ -78,8 +78,55 @@ de:
       friendly_percent_organisation:
         transparency_international: Transparency International
 
+    fair_trust_questionnaire:
+      support_checkboxes:
+        prefinance: 'Vorfinanzierung der Produktion'
+        longterm: 'Langfristig angelegte Zusammenarbeit'
+        development: 'Weiterentwicklung der Potenziale von Produzent*innen (Schulungen, höherstufige Produktion, etc.)'
+        minimum_wage: 'Löhne für Produktionsarbeiter*innen, die mindestens dem landesspezifischen gesetzlichen Mindestlohn (so vorhanden) entsprechen'
+        higher_prices: 'Preise für Produzent*innen, die über dem Weltmarktpreis liegen'
+        direct_negotiations: 'Direkte Preisverhandlungen mit Produzent*innen'
+        community: 'Förderung der Produzentengemeinschaften (z.B. Schulen, Kindergärten, Gesundheitseinrichtungen, Infrastruktur)'
+        premiums: 'Prämienzahlungen (zur Förderung sozialer Belange)'
+        other: 'Sonstiges:'
+      labor_conditions_checkboxes:
+        secure_environment: 'Sichere Arbeitsumgebung (z.B. Sicherheitskleidung, Fortbildungen und Schulungen zum Umgang mit toxischen Stoffen)'
+        hygiene: 'Einhaltung hygienischer Standards'
+        working_hours: 'Angemessene Arbeitszeiten'
+        free_assembly: 'Recht auf Versammlungsfreiheit'
+        advocacy_group: 'Recht auf Interessenvertretung (z.B. Betriebsräte)'
+        sexual_equality: 'Geschlechtergerechtigkeit'
+        no_discrimination: 'Nichtdiskriminierung'
+        child_labor_ban: 'Verbot von Kinderarbeit'
+        child_labor_restrictions: 'Mitarbeit von Kindern, die Wohlergehen, Bildung, Sicherheit und Spielbedürfnis nicht beeinträchtigt'
+        other: 'Sonstiges:'
+      environment_protection_checkboxes:
+        chemical_fertilizers: 'Verantwortungsvoller Umgang mit chemischen Düngemitteln'
+        pesticides: 'Verantwortungsvoller Umgang mit chemischen Pestiziden'
+        waste_management: 'Abfallmanagement (z.B. Mülltrennung)'
+        recycling: 'Recycling'
+        renewable_energies: 'Bezug von erneuerbaren Energien'
+        ecological_farming: 'ökologische Landwirtschaft'
+        ecological_farming_transition: 'Umstellung zur ökolgischen Landwirtschaft'
+        other: 'Sonstiges:'
+      controlling_checkboxes:
+        transparent_supply_chain: 'transparente Wertschöpfungskette'
+        annual_reports: 'schriftliche Jahresberichte (mit Bezug auf o.g. Kriterien)'
+        inspectors: 'Inspektor*innen vor Ort'
+        producer_visits: 'Produzent*innenbesuche vor Ort'
+        own_system: 'Eigenes System für Monitoring & Evaluierung (bitte erläutern)'
+        other: 'Sonstiges:'
+      awareness_raising_checkboxes:
+        producer_transparency: 'Transparenzmaßnahmen gegenüber Produzent*innen/Arbeiter*innen'
+        employee_transparency: 'Transparenzmaßnahmen gegenüber Mitarbeiter*innen innerhalb der eigenen Organisation'
+        price_transparency: 'Transparenz über Endpreiszusammensetzung'
+        responsible_consumption_education: 'Bildungsaßnahmen zu verantwortungvollem Konsum'
+        global_market_education: 'Bildungsmaßnahmen zur unfairen Weltmarktsituation'
+        fair_trade_concept: "Maßnahmen zur Verbreitung des Konzepts 'Fairer Handel'"
+        other: 'Sonstiges:'
+
     social_producer_questionnaire:
-      nonprofit_association_purposes:
+      nonprofit_association_checkboxes:
         youth_and_elderly: Förderung der Jugend- und Altenhilfe
         art_and_culture: Förderung von Kunst und Kultur
         national_and_vocational_training: Förderung der Erziehung, Volks- und Berufsbildung
@@ -93,16 +140,55 @@ de:
         convicts_and_ex_convicts: Förderung der Fürsorge für Strafgefangene und ehemalige Strafgefangene
         sexual_equality: Förderung der Gleichberechtigung von Frauen und Männern
         democratic_political_system: Allgemeine Förderung des demokratischen Staatswesens; hierzu gehören nicht Bestrebungen, die nur bestimmte Einzelinteressen staatsbürgerlicher Art verfolgen oder die auf den kommunalpolitischen Bereich beschränkt sind
-      social_businesses_muhammad_yunus_purposes:
-        social_proplem: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
-        dividend: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
-        reinvestment: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
-        natural_protection: Arbeitet das Unternehmen umweltbewusst ?
-        conditions_of_work: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
-      social_entrepreneur_purposes:
-        social_proplem: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
-        big_social_groups: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
-        small_social_groups: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
-        generally_charitable: Arbeitet das Unternehmen primär gewinnorientiert?
-        potential_social_advancement: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
-        social_sensitization: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+      social_businesses_muhammad_yunus_checkboxes:
+        social_proplem: Das Unternehmensziel besteht darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen
+        dividend: Es erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business
+        reinvestment: Es werden die Überschüsse des Social Business in das Unternehmen reinvestiert
+        natural_protection: Das Unternehmen arbeitet umweltbewusst
+        conditions_of_work: Die Arbeitsbedingungen der Mitarbeiter im Unternehmen sind sehr gut
+        social_proplem_old: Besteht das Unternehmensziel darin, ein soziales Problem durch wirtschaftliches Handeln zu lösen ?
+        dividend_old: Erfolgt eine Ausschüttung von Dividenden an die Eigentümer oder Investoren des Social Business?
+        reinvestment_old: Werden die Überschüsse des Social Business in das Unternehmen reinvestiert?
+        natural_protection_old: Arbeitet das Unternehmen umweltbewusst ?
+        conditions_of_work_old: Sind die Arbeitsbedingungen der Mitarbeiter im Unternehmen sehr gut ?
+      social_entrepreneur_checkboxes:
+        social_proplem: Das Unternehmensziel besteht darin, ein gesellschaftliches Problem zu lösen
+        big_social_groups: Das Projekt wird für große gesellschaftliche Gruppen umgesetzt
+        small_social_groups: Das Projekt wird für kleine gesellschaftliche Gruppen umgesetzt
+        generally_charitable: Das Unternehmen arbeitet primär gewinnorientiert
+        potential_social_advancement: Es besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken
+        social_sensitization: Es werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert
+        social_proplem_old: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+        big_social_groups_old: Wird das Projekt für große gesellschaftliche Gruppen umgesetzt ?
+        small_social_groups_old: Wird das Projekt für kleine gesellschaftliche Gruppen umgesetzt ?
+        generally_charitable_old: Arbeitet das Unternehmen primär gewinnorientiert?
+        potential_social_advancement_old: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
+        social_sensitization_old: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
+
+    feedback:
+      feedback_subject:
+        dealer: "Händler*in"
+        private: "Privatperson"
+        buyer: "Käufer*in"
+        seller: "Verkäufer*in"
+        technics: "Technik und Datenschutz"
+        event: "Veranstaltungen & Aktionen"
+        cooperative: "Genossenschaft"
+        hero: "Heldenprogramm"
+        ngo: "Organisation & Spenden"
+        honor: "Fairnopoly Auszeichnungen"
+        other: "Anderes"
+        trust_community: "Trust Community"
+      help_subject:
+        marketplace: "Marktplatz & Handel"
+        comm_deal_fair: "Gewerblicher Handel öko, fair"
+        comm_deal: "Gewerblicher Handel"
+        private_deal: "Privater Handel"
+        buy: "Kauf"
+        technics: "Technik und Datenschutz"
+        cooperative: "Genossenschaft"
+        hero: "Heldenprogramm"
+        ngo: "Organisation & Spenden"
+        honor: "Fairnopoly Auszeichnungen"
+        other: "Anderes"
+        trust_community: "Trust Community"

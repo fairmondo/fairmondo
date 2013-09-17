@@ -1,0 +1,75 @@
+// This file
+
+.Article-form {
+  #article_categories_and_ancestors_input {
+  .selectboxit-container,
+    .selectboxit-options,
+     {
+    @include at-breakpoint($layout-large) {
+        width: columns(1,4);
+
+      }
+      margin-right: 10px;
+    }
+
+  }
+
+  .Category-delete, #Category-selectbutton,.Category-selected {
+    @include at-breakpoint($layout-large) {
+      margin-right: 10px;
+      width: columns(1,4);
+    }
+
+    overflow: hidden;
+    text-overflow:    ellipsis;
+    vertical-align: inherit;
+    padding: em(10,17) em(15,17) em(9,17);
+    margin-right: 5px;
+    margin: 0 0 $pBottomMargin;
+  }
+
+
+  #Category-selectbutton {
+    @include at-breakpoint($layout-large) {
+      @include rem(max-width, 44px);
+      font-weight: bold;
+    }
+  }
+}
+
+
+
+
+.Article-form #selected_categories_input > li > span.Category-selected {
+
+  @include rem(font-size, 17px);
+  line-height: normal;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  background-color: #717171;
+  color: $white;
+  display: inline-block;
+
+
+  &:hover {
+    background-color: $darkgray;
+  }
+
+
+
+}
+.Filter {
+  .selectboxit-container,
+  .selectboxit-options {
+    .selectboxit {
+      background-color: $white;
+    }
+  }
+  .selectboxit-container {
+    width: 100%;
+    margin-right: 0;
+    @include rem(margin-bottom, 13px);
+
+  }
+}

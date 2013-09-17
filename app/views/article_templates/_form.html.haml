@@ -17,12 +17,13 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-= semantic_form_for resource, :html => { :class => "form-vertical"}, :builder => Fairtastic::FormBuilder do |f|
-  .fairnopoly-well
-    = f.inputs do
-      = f.input :name
-  = f.semantic_fields_for :article do |article_form|
-    = render :partial => "/articles/form/common_inputs", :locals => {:f => article_form}
-  .fairnopoly-well
+.Article-form.Accordion--activated
+  = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, :builder => Fairtastic::FormBuilder do |f|
+    = f.input_step "template" do
+      .Accordion-step
+        = f.inputs do
+          = f.input :name
+    = f.semantic_fields_for :article do |article_form|
+      = render :partial => "/articles/form/common_inputs", :locals => {:f => article_form}
     = f.actions do
-      = f.action :submit, :as => :input
+      = f.action :submit , :button_html => {:class => "Btn" }

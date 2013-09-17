@@ -17,7 +17,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-%ul.thumbnails
-  - articles.each do |article|
-    %li{:class => list_class}
-      = render :partial=>'/shared/show_article', :locals=>{ :article=> article}
+- list_class = "" if local_assigns[:list_class].nil?
+%section{ :class => list_class}
+	- articles.each do |article|
+		%Article{:class => 'Article Article--teaser'}
+			= render :partial=>'/shared/show_article', :locals=>{ :article=> article}

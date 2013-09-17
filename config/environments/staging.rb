@@ -69,7 +69,7 @@ Fairnopoly::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'development.fairnopoly.de' }
+  config.action_mailer.default_url_options = { :host => 'development.fairnopoly.de'}
   # Enable threaded mode
   # config.threadsafe!
 
@@ -85,9 +85,7 @@ Fairnopoly::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
 
-  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml'))))
-  ActionMailer::Base.smtp_settings[:openssl_verify_mode] = false
-  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
-
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
 end

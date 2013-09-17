@@ -17,20 +17,27 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-#profile-img.well.white-well.clear-padding
-  .middle-margin
-    %span.big-name
-      = user.name
+.User-info
+  - if defined?(show_title) && show_title
+    %h3.User-title Anbieter*in
+  .User-image
+    - if user.is_pioneer?
+      = image_tag "pionierbutton.png", :class => "pioneer-button"
+    %a{:href => user_path(user)}
+      = image_tag(user.image_url(:profile), :class => "profile-pic")
+  %p.User-name
+    = user.name
     %br/
     - if user.is_a?(LegalEntity)
-      %span.small-name= user.fullname
-  .border-box
-    %a{:href => user_path(user)}
-      = image_tag(user.image.url(:thumb))
-  .middle-margin
+      = user.fullname
+
+  %p.User-legal
+
     - if user.is_a?(LegalEntity)
-      %i.icon-briefcase
-      %i= t('users.legal_status.show.legal_entity')
+      %a.Icon{:href => "#"}
+        %i.icon-briefcase
+        = link_to(t('users.legal_status.show.legal_entity'), profile_user_path(user))
     - else
-      %i.icon-user
-      %i= t('users.legal_status.show.private_user')
+      %a.Icon{:href => ""}
+        %i.icon-user
+        = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))

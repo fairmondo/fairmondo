@@ -19,65 +19,79 @@
 #
 class RegistrationsController < Devise::RegistrationsController
 
-  before_filter :authenticate_user!, :except => [:create,:new]
+  before_filter :dont_cache, only: [ :edit ]
+  skip_before_filter :authenticate_user!, :only => [ :create, :new ]
+
+  #before_filter :check_recaptcha, only: :create
 
   def create
+    params[:user]["recaptcha"] = '0'
     if verify_recaptcha
-      params[:user]["recaptcha"] = true
+      params[:user]["recaptcha"] = '1'
     else
       flash.delete :recaptcha_error
     end
     super
   end
 
+  def edit
+    @user = User.find current_user.id
+    check_incomplete_profile! @user
+    @user.valid?
+    super
+  end
+
 
   def update
-    @user_ = User.find(current_user.id)
-    params_email = params[:user][:email]
-
-    successfully_updated = if needs_password?(@user, params)
-      # Workaround
-      # the LegalEntity.update_with_password does not work ??
-      # see: https://github.com/plataformatec/devise/blob/master/lib/devise/models/database_authenticatable.rb
-      # http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
-      # http://stackoverflow.com/questions/14492180/validation-error-on-update-attributes-of-a-subclass-sti
-      if @user_.update_with_password(params[:user])
-        # for workaround, else email is send 2 times
-        params[:user].delete("email")
-        @user.update_without_password(params[:user])
-      else
-      false
-      end
-    else
-    # remove the virtual current_password attribute update_without_password
-    # doesn't know how to ignore it
-      params[:user].delete("current_password")
-      params[:user].delete("password")
-      params[:user].delete("password_confirmation")
-      @user.update_without_password(params[:user])
-    end
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+    successfully_updated  = update_account(account_update_params)
 
     if successfully_updated
-      #show message for reconfirmable if email was changed
-      if @user.email != params_email
-        set_flash_message :notice, :changed_email
-      else
-        set_flash_message :notice, :updated
+      if is_navigational_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+           :changed_email : :updated
+        set_flash_message :notice, flash_key
       end
-      # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true
-      redirect_to user_path(@user)
+      sign_in resource_name, resource, :bypass => true
+      respond_with resource, :location => after_update_path_for(resource)
     else
-      render :edit
+      clean_up_passwords resource
+      resource.image.save if resource.image
+      respond_with resource
     end
   end
 
+
+
+  private
+
   # check if we need password to update user data
-  # ie if password was changed
+  # ie if password or email was changed
   # extend this as needed
+  # @api private
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
-    !params[:user][:password].blank?
+      !params[:user][:password].blank?
+  end
+
+  def after_update_path_for resource_or_scope
+    user_path(resource_or_scope)
+  end
+
+  def check_incomplete_profile! user
+    user.wants_to_sell = true if params[:incomplete_profile]
+  end
+
+  def update_account account_update_params
+    if needs_password?(resource, params)
+     resource.update_with_password(account_update_params)
+    else
+      # remove the virtual current_password attribute update_without_password
+      # doesn't know how to ignore it
+      params[:user].delete(:current_password)
+      resource.update_without_password(account_update_params)
+    end
   end
 
 end

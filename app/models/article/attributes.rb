@@ -23,12 +23,16 @@ module Article::Attributes
   included do
 
     #common fields
+    common_attributes = [:title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes]
+    attr_accessible *common_attributes
+    attr_accessible *common_attributes, :as => :admin
 
-    attr_accessible :title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes
+    auto_sanitize :content, method: 'tiny_mce'
+    auto_sanitize :title
 
     #title
 
-    validates_presence_of :title , :content, :unless => :template? # refs #128
+    validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 65
 
     #conditions
@@ -40,51 +44,53 @@ module Article::Attributes
 
     #money_rails and price
 
-    attr_accessible :price_cents , :currency, :price, :vat
+    money_attributes = [:price_cents , :currency, :price, :vat]
+    attr_accessible *money_attributes
+    attr_accessible *money_attributes, :as => :admin
 
     validates_presence_of :price_cents
 
-    validates_numericality_of :price,
-    :greater_than_or_equal_to => 0
+    monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
 
-    monetize :price_cents
 
     # vat
 
-    validates_presence_of :vat , :if => :has_legal_entity_seller?
+    validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :has_legal_entity_seller?
 
     # basic price
-    attr_accessible :basic_price,:basic_price_cents, :basic_price_amount
+    basic_price_attributes = [:basic_price, :basic_price_cents, :basic_price_amount]
+    attr_accessible *basic_price_attributes
+    attr_accessible *basic_price_attributes, :as => :admin
 
-    monetize :basic_price_cents, :allow_nil => true
+    monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, :in => [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
-
-    validates_presence_of :basic_price, :if => :has_legal_entity_seller?
-    validates_presence_of :basic_price_amount, :if => :has_legal_entity_seller?
-
 
 
 
     # =========== Transport =============
 
     #transport
-    attr_accessible :default_transport, :transport_pickup,
-                    :transport_insured, :transport_insured_price_cents,
-                    :transport_insured_price, :transport_insured_provider,
-                    :transport_uninsured, :transport_uninsured_price_cents,
-                    :transport_uninsured_price, :transport_uninsured_provider,
-                    :transport_details
+    transport_attributes = [:default_transport, :transport_pickup,
+                    :transport_type1, :transport_type1_price_cents,
+                    :transport_type1_price, :transport_type1_provider,
+                    :transport_type2, :transport_type2_price_cents,
+                    :transport_type2_price, :transport_type2_provider,
+                    :transport_details]
+    attr_accessible *transport_attributes
+    attr_accessible *transport_attributes, :as => :admin
 
-    enumerize :default_transport, :in => [:pickup, :insured, :uninsured]
+    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
+
+    enumerize :default_transport, :in => [:pickup, :type1, :type2]
 
     validates_presence_of :default_transport
-    validates :transport_insured_price, :transport_insured_provider, :presence => true ,:if => :transport_insured
-    validates :transport_uninsured_price, :transport_uninsured_provider, :presence => true ,:if => :transport_uninsured
+    validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
+    validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
+    validates :transport_details, :length => { :maximum => 2500 }
 
-
-    monetize :transport_uninsured_price_cents, :allow_nil => true
-    monetize :transport_insured_price_cents, :allow_nil => true
+    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
     validate :default_transport_selected
 
@@ -92,64 +98,67 @@ module Article::Attributes
     # ================ Payment ====================
 
     #payment
-    attr_accessible :default_payment ,:payment_details ,
+    payment_attributes = [:payment_details ,
                     :payment_bank_transfer,
                     :payment_cash,
                     :payment_paypal,
                     :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-                    :payment_invoice,
-                    :seller_attributes
+                    :payment_invoice]
+    attr_accessible *payment_attributes
+    attr_accessible *payment_attributes, :as => :admin
 
-    enumerize :default_payment, :in => [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
-
-    validates_presence_of :default_payment
+    auto_sanitize :payment_details
 
     validates :payment_cash_on_delivery_price, :presence => true ,:if => :payment_cash_on_delivery
 
-    accepts_nested_attributes_for :seller , :update_only => true
-
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, :allow_nil => true
+    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
+    validates :payment_details, :length => { :maximum => 2500 }
+
+    validate :bank_account_exists, :if => :payment_bank_transfer
+    validate :paypal_account_exists, :if => :payment_paypal
 
     validates_presence_of :quantity
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-
-    validate :default_payment_selected
-
+    validate :payment_method_checked
   end
-
-
 
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer
     seller.paypal_validation = true if payment_paypal
-
   end
-
 
   def has_legal_entity_seller?
     self.seller.is_a?(LegalEntity)
   end
 
-  def default_transport_selected
-    if self.default_transport
-      unless self.send("transport_#{self.default_transport}")
-        errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+  private
+
+    def default_transport_selected
+      if self.default_transport
+        unless self.send("transport_#{self.default_transport}")
+          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
+        end
       end
     end
-  end
 
-  def default_payment_selected
-    if self.default_payment
-      unless self.send("payment_#{self.default_payment}")
-        errors.add(:default_payment, I18n.t("errors.messages.invalid_default_payment"))
+    def payment_method_checked
+      unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
+        errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
       end
     end
-  end
 
+    def bank_account_exists
+      if !self.seller.bank_account_exists?
+        errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
+      end
+    end
 
-
-
+    def paypal_account_exists
+      if !self.seller.paypal_account_exists?
+        errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
+      end
+    end
 end

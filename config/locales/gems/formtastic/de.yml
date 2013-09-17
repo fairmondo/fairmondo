@@ -10,6 +10,7 @@ de:
         explanations: Erläuterungen
       user:
         legal_entity: Rechtlicher Status
+        company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
         email: E-mail Adresse
         image: Profilbild
@@ -23,20 +24,29 @@ de:
         surname:  "Nachname"
         country: "Land"
         street: "Straße und Hausnummer"
-        city: "Stadt"
+        city: "Ort"
         zip: "PLZ"
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
         fax: "Fax"
-        about_me: "Über mich"
+        about_me: "über mich"
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
         about: "Impressum und Kontakt"
-        bank_code: Bankleitzahl
-        bank_name: Name der Bank
-        bank_account_number: Kontonummer
-        bank_account_owner: Kontoinhaber
-        paypal_account: Paypal-Konto
+        bank_account_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption  \"Überweisung\" gewählt hast.)"
+        bank_code: "Bankleitzahl"
+        bank_name: "Name der Bank"
+        bank_account_number: "Kontonummer"
+        bank_account_owner: "Kontoinhaber"
+        paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
+        paypal_account: "Paypal-Konto"
+        customer_number: "Kundennummer"
+
+      feedback:
+        from: "Deine Email-Adresse"
+        subject: "Betreff"
+        feedback_subject: "Thema"
+        help_subject: "Thema"
 
       article:
         title: "Artikelbezeichnung"
@@ -45,65 +55,46 @@ de:
         categories_and_ancestors: Kategorien
         image: "Titelbild"
         other_image: "Anderes Titelbild hochladen"
-        fair: Fair
+        fair: fair
         fair_seal: "Bitte wähle aus der Liste aus:"
 
-        ecologic: Öko
+        ecologic: öko
         ecologic_seal: "Dein Artikel trägt eines der folgenden Siegel:"
         upcycling_reason: "Bitte erläutere, warum Dein Artikel unter Upcycling fällt."
 
-        fair_trust_questionnaire: "Fragebogen für 'Fair Trust'"
+        fair_trust_questionnaire: "Fairtrust Fragebogen"
         social_producer_questionnaire: "Fragebogen für Soziale Produzenten"
 
-        small_and_precious: "Klein &amp; Edel"
-        small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Kleines Unternehmen nach der Definition der EU-Kommission.
-        small_and_precious_edition: Wie hoch ist die Auflage (jährlich oder gesamt)?
-        small_and_precious_reason: Warum ist Dein Artikel edel (Produktionsprozess und Hauptmaterialien)?
+        small_and_precious: "klein&edel"
+        small_and_precious_eu_small_enterprise: Mein Unternehmen ist ein Kleinst- oder Klein-Unternehmen nach der Definition der EU-Kommission.
+        small_and_precious_reason: "Warum ist Dein Artikel edel (Produktionsprozess, Hauptmaterialien, Auflage etc.)?"
         small_and_precious_handmade: Ist der Artikel handgearbeitet (nicht zwingend)?
-        fair_trust_questionnaire:
-          support: >
-            Werden durch den Handel benachteiligte Produzenten unterstützt und gefördert? Wenn ja, wie? (z.B. Vorfinanzierung der Produktion)
-          transparency: >
-            Wie wird für Transparenz in der Wertschöpfungskette gesorgt? Wer kontrolliert die Einhaltung der „fairen“ Bedingungen?
-          collaboration: >
-            Besteht eine langfristige angelegte Zusammenarbeit (z.B. Jahresvertrag?)
-          minimum_wage: >
-            Wird ein Preis bezahlt, der über dem gesetzlichen Mindestlohn des Landes liegt, bzw. der höher als der Weltmarktpreis ist?
-          child_labor: >
-            Wird Kinderarbeit geleistet? Wenn ja, werden sie durch die Arbeit nicht in ihrer sozialen, körperlichen und schulischen Entwicklung gestört?
-          sexual_equality: >
-            a) Gibt es geschlechtliche Gleichbehandlung? b) Bestehen keine Diskriminierungen? c) Haben die Arbeiter/Produzenten das Recht auf Versammlungsfreiheit?
-          labor_conditions: >
-            Wird für gute Arbeitsbedingungen gesorgt (orientiert an der ILO-Konvention 155 zu Gesundheit und Sicherheit am Arbeitsplatz)?
-          producer_advancement: >
-            Werden durch den fairen Handel die Potentiale der Produzentenorganisation weiterentwickelt? (z.B. höherstufige Produktion)
-          awareness_raising: >
-            Wird durch den Handel auf die unfairen Bedingungen auf dem Weltmarkt aufmerksam gemacht und Bewusstseinsbildung hierfür vorangetrieben?
-          environment_protection: >
-            Spielt Umweltschutz eine Rolle? Was für Maßnahmen werden umgesetzt?
-        social_producer_questionnaire:
-          nonprofit_association: Ist die Einrichtung laut Satzung oder Gesellschaftsvertrag gemeinnützig?
-          social_businesses_muhammad_yunus: Social Businesses nach dem Konzept von Muhammad Yunus
-          social_entrepreneur: Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen ?
+
 
         condition: "Artikelzustand"
         condition_extra: "Zustandsbeschreibung"
         quantity: "Anzahl (verfügbar)"
+
+        quantity_with_numbers: 'Anzahl: %{quantities} (verfügbar)'
         price: "Verkaufspreis in €"
+
         price_currency: "Währung"
-        vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %)
+        vat: Der Verkaufspreis enthält die gesetzliche Mehrwertsteuer von (in %) #Von Felix gelöscht
 
         transport_pickup: Selbstabholung
-        transport_insured: Versichert
-        transport_insured_provider: Versandart
-        transport_insured_price: Versandkosten (€)
-        transport_uninsured: Unversichert
-        transport_uninsured_provider: Versandart
-        transport_uninsured_price: Versandkosten (€)
+        transport_pickup_extended: Selbstabholung (Deine PLZ wird als Abholort übernommen)
+        transport_type1: Versand
+        transport_type1_provider: Versandart
+        transport_type1_price: Versandkosten (€)
+        transport_type2: Alternativer Versand
+        transport_type2_provider: Versandart
+        transport_type2_price: Versandkosten (€)
+        transport_method: "Versandmethode(n)"
 
-        default_transport: "Standardversand"
+        default_transport: "Bevorzugte Versandmethode"
         transport_details: "Weitere Angaben:"
 
+        default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
         payment_cash: Barzahlung bei Abholung
         payment_paypal: PayPal
@@ -111,26 +102,49 @@ de:
         payment_cash_on_delivery_price: Nachnahmezuschlag (€)
         payment_invoice: Rechnung
 
-        default_payment: "Standardbezahlmethode"
+        payment_methods: Bezahloptionen
+
         payment_details: "Weitere Angaben:"
 
         basic_price: "Grundpreis (€)"
+        basic_price_simple: "Grundpreis:"
+        per: "pro"
         basic_price_amount: "Mengeneinheit"
 
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
-
-        transaction: "Angebotsart"
-        expire: "Ablaufdatum"
-      article_template:
         save_as_template: "Eingaben als Vorlage speichern"
-        name: Vorlagenname
+      fair_trust_questionnaire:
+        support: >
+          1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
+        labor_conditions: >
+          2. Wird für angemessene Arbeitsbedindungen gesorgt?
+        environment_protection: >
+          3. Werden in der Produktion Aspekte der ökologischen Nachhaltigkeit berücksichtigt?
+        controlling: >
+          4. Gibt es Maßnahmen zur Überprüfung der o.g. Kriterien und deren Nachvollziehbarkeit?
+        awareness_raising: >
+          5. Werden Bildungsmaßnahmen zur Sensibilisierung von Verbraucher*innen sowie Maßnahmen zur Transparenz geleistet?
+        support_explanation: 'Erläuterungen:'
+        labor_conditions_explanation: 'Erläuterungen:'
+        environment_protection_explanation: 'Erläuterungen:'
+        controlling_explanation: 'Erläuterungen:'
+        awareness_raising_explanation: 'Erläuterungen:'
+      social_producer_questionnaire:
+        nonprofit_association: "1. Ist die*der Produzent*in des Artikels laut Satzung oder Gesellschaftsvertrag gemeinnützig?"
+        social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
+        social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
+        social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
+      article_template:
+        name: Vorlage
+        article_title: Artikel
       template_select:
         article_template: Vorlage
       image:
         image: Bild
         _destroy: Löschen
+        is_title: Titelbild
       library:
         name: Name
         public: Öffentlich
@@ -139,13 +153,13 @@ de:
         account: Benutzerkonto
         contact: Kontaktinformationen
         profile: Profil
+        payment: Zahlungsoptionen
         terms: Rechtliches
       article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
-        commendation: "Auszeichnung Deines Artikels (optional)"
+        commendation: "Filter (optional)"
         article: "Dein Artikel"
-        article: "Das Angebot"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Das freundliche Prozent (optional)"
@@ -154,6 +168,8 @@ de:
       template_select:
         prefix: ""
         apply: Deine Vorlagen
+      article_template:
+        template: Name der Vorlage
     hints:
       user:
         edit: &edit_user
@@ -164,49 +180,57 @@ de:
       user:
         new: &new_user
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
-          nickname: "Dein persönlicher oder gewerblicher Nutzername. Im gewerblichen Fall ist das der Name Deines Shops."
-          password: "Bitte achte auf Deine Sicherheit und verwende Groß-/Kleinschreibung und Sonderzeichen."
+          nickname: "Diesen Namen sehen auch andere Nutzer*innen."
+          password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
+          password_confirmation: "Wiederhole Dein gewünschtes Passwort."
         create: *new_user
         edit: &edit_user
+          image: "Lade ein Foto(max. 5MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
+        payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
       article:
-        title:  "Gebe eine Bezeichnung Deines Artikels ein."
-        categories_and_ancestors: Bitte wähle bis zu 2 Kategorien, in die dein Artikel eingestellt wird
-        category_proposal: 'Dann schlage eine Kategorie für das nächste Mal vor.'
-
-        fair: Diese Auszeichnung vergibt Fairnopoly, falls der Artikel in eine der 3 Kategorien fällt
-        fair_seal: Die Liste der anerkannten Weltladen-Lieferanten ist unter <a href="http://www.weltladen.de/#anerkannte-weltladen-lieferanten">hier</a> zu finden.
-        upcycling_reason: Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden. Mehr zu den Kriterien für diese Auszeichnung findest Du hier <Link auf FAQ-Eintrag>
-        small_and_precious: "Diese Auszeichnung muss von Käufern bestätigt werden. Mehr Infos <hier>. Beantworte dazu folgende Fragen:"
-        fair_trust_questionnaire: >
-          Die fettgedruckten Fragen sind unbedingt zufriedenstellend zu beantworten. Von den anderen fünf müssen mindestens drei weitere zufriedenstellend beantwortet werden.
+        title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
+        categories_and_ancestors: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt Wird"
+        category_proposal: 'Wir nehmen gerne Kategorievorschläge entgegen und werden diese entsprechend ihrer Häufigkeit hinzufügen.'
+        ecologic: 'Unter diesen Filter fallen Artikel, die ökologisch nachhaltig produziert wurden. Als solche gelten Produkte mit einem entsprechenden Siegel, oder Produkte, die durch Upcycling entstanden sind.'
+        ecologic_seal: 'Qualifiziert für diesen Filter sind alle Artikel mit Siegeln, die von der VERBRAUCHER INITIATIVE e.V.  im ökologischen Bereich als "empfehlenswert" eingestuft werden.'
+        fair: 'Unter diesen Filter fallen alle Artikel, auf die eines unserer drei Kriterien für "fair" zutrifft:  1. Artikel mit dem Transfer Siegel, von WFTO Mitgliedern oder Weltladen-Lieferanten. 2. Artikel von kleineren Anbietern ohne Siegel, für die bei uns unter "fair trust" fallen. Dafür ist ein Formular auszufüllen. 3. Artikel von sozialen Produzenten, z.B. Sozialunternehmen oder gemeinnützigen Anbietern.'
+        upcycling_reason: 'Unter Upcycling kannst Du Artikel verkaufen, die aus Materialien produziert wurden, die anderweitig als Abfallprodukte oder nutzlose Stoffe angesehen werden.'
+        small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu in den %{href}"
+        small_and_precious_href: "FAQ"
+        small_and_precious_eu_small_enterprise: 'Die EU-Kommission klassifiziert als Kleinst- oder Klein-Unternehmen: <50 Mitarbeiter*innen, max. 10 Millionen € Umsatzerlöse bzw. Bilanzsumme. Werden die Artikel nicht durch den*die Produzent*in selbst vertrieben, müssen sowohl Produzent*innen als auch Anbieter*innen ein Kleinst- oder Klein-Unternehmen sein.'
+        fair_trust_questionnaire: 'fairtrust richtet sich an Verkäufer*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
+        save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
-          Hier könnt Ihr Eure Artikel in die Kategorie "Sozial" einordnen.
+                    Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
 
-        condition: "Trage den Zustand Deines Artikels ein"
-        content: "Gib bitte eine Beschreibung für Deinen Artikel ein."
-        quantity: Trage hier die Menge ein
-        price: Trage hier den Preis pro Artikel ein
+        condition: "Ist Dein Artikel neu oder gebraucht?"
+        content: "Beschreibe Deine Artikel - geh dabei z.B. auf besondere Merkmale, Zustand und ggf. Gebrauchsspuren Deines Artikels ein. Eine gute Beschreibung macht es Käufer*innen leichter, das Angebot abzuschätzen."
+        quantity: "Falls Du mehrere Artikel derselben Art verkaufen möchtest, trage hier die Menge ein."
+        price: "Trage hier den Verkaufspreis pro Artikel ein. Falls Du als gewerbliche*r Händler*in die MwSt ausweisen musst, ist das der Preis inkl. MwSt."
 
-        vat: Gebe hier die im Preis enthaltene Mehrwertsteuer an.
+        vat: Gib hier die im Preis enthaltene Mehrwertsteuer an.
 
-        basic_price: Trage hier den Grundpreis pro Artikel ein.
-        basic_price_amount: Gebe hier die Mengeneinheit des Grundpreises an.
+
+        basic_price: "Wenn Du z.B. Kirschen auf Fairnopoly verkaufen würdest, musst Du den Grundpreis, also den Preis pro Kilogramm (z.B. 1 Eur / kg) angeben. Mehr dazu <a href='/faq#geb4'>hier</a>"
+        basic_price_amount: Gib hier die Mengeneinheit des Grundpreises an.
 
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         payment: >
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
-
-        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Jedoch zeichnen wir bestimmte Artikel besonders aus. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
+        payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
+        commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
+        upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 5 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 
-
+        article_template: "Speichere Deine Eingaben als Vorlage - so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"

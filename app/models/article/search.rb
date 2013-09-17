@@ -22,14 +22,34 @@ module Article::Search
 
   included do
 
-    searchable :unless => :template?, :if => :active do
+    searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
+      text :title, :as => 'title_text_ngram', :stored => true
       text :content
+
+      # filters
       boolean :fair
       boolean :ecologic
       boolean :small_and_precious
       string :condition
+
+      # for category filters
       integer :category_ids, :references => Category, :multiple => true
+
+      # for sorting
+      time :created_at
+
+      # don't hit AR and store fields in solr
+      string :title_image, :using => :title_image_thumb_path, :stored => true
+      integer :price_cents, :stored => true
+      integer :basic_price_cents, :stored => true
+      integer :basic_price_amount, :stored => true
+      integer :vat, :stored => true
+
+      # Possible future local search
+
+      boolean :transport_pickup
+      string :zip
     end
 
     # Indexing via Delayed Job Daemon
@@ -42,20 +62,29 @@ module Article::Search
 
   end
 
+  def title_image_thumb_path
+     title_image.image(:thumb) if title_image
+  end
+
   def remove_from_index_with_delayed
     Delayed::Job.enqueue RemoveIndexJob.new(record_class: self.class.to_s, attributes: self.attributes), queue: 'indexing', priority: 50
   end
 
   def find_like_this page
-    Article.search do
-        fulltext self.title
-        paginate :page => page
-        with :fair, true if self.fair
-        with :ecologic, true if self.ecologic
-        with :small_and_precious, true if self.small_and_precious
-        with :condition, self.condition if self.condition
-        with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
+    Article.search(:include => [:seller, :images]) do
+      fulltext self.title
+      paginate :page => page, :per_page => Kaminari.config.default_per_page
+      with :fair, true if self.fair
+      with :ecologic, true if self.ecologic
+      with :small_and_precious, true if self.small_and_precious
+      with :condition, self.condition if self.condition
+      with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
+      order_by(:created_at, :desc)
     end
+  end
+
+  def zip
+    self.seller.zip
   end
 
 
