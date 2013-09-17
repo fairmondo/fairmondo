@@ -171,28 +171,3 @@ $(document).ready ->
     # Dont let the native element do anything
     # used to be removeAttr, but this caused IE to crash
     native_category_input.attr "name", 'ignore'
-
-  if is_multiselect
-    #Create the select category button
-    select_button_html = "<a class='Btn' id='"+ select_button_html_id + "' title='" + I18n.t('javascript.common.actions.select_another_category') + "'>"+I18n.t("javascript.common.actions.add_category_picker")+"</a>"
-    select_button = $(select_button_html)
-    native_category_input.parent().append select_button
-    # Event for select button
-    select_button.click select_category # On select action
-
-  #event handler
-  native_category_input.change changed_select_box
-
-  # Dont let the native element do anything
-  # used to be removeAttr, but this caused IE to crash
-  native_category_input.attr "name", 'ignore'
-
-  #Create remove buttons
-  selected_categories_list.find("li").append "<a class=\"Btn Category-delete\">"+I18n.t("javascript.common.actions.remove")+"</a>"
-
-  # Delegate events on remove buttons
-  selected_categories_list.on "click", "li > a", ->
-    $(this).parent().remove()
-
-  $(".js-category-add").submit ->
-    append_selected_category()
