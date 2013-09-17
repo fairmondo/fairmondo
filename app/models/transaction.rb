@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state, :updating_multiple
+  attr_accessor :updating_state, :updating_multiple, :emails_sent
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
