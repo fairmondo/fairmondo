@@ -51,9 +51,14 @@ class MassUpload
     end
 
     begin
-      lines = CSV.read(file.path, :encoding => 'utf-8')
+      CSV.read(file.path, :encoding => 'utf-8')
     rescue ArgumentError
       errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
+      return false
+    end
+
+    unless correct_file_size?(file)
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_file_size'))
       return false
     end
 
@@ -95,6 +100,14 @@ class MassUpload
       else
         return false
       end
+    end
+  end
+
+  def correct_file_size?(file)
+    if CSV.read(file.path).size < 102
+      return true
+    else
+      return false
     end
   end
 

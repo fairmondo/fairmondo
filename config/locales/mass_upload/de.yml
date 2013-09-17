@@ -11,6 +11,7 @@ de:
       bank_account: "Bankkonto"
     errors:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein"
+      wrong_file_size: "Aktuell können maximal 100 Artikel gleichzeitig Hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."
       missing_file: "Bitte wähle eine CSV-Datei aus"
       wrong_header: 'Bei der ersten Zeile muss es sich um einen korrekten Header handeln'
       wrong_article: "Zeile %{index}: %{message}"
