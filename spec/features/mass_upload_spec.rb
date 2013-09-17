@@ -204,6 +204,16 @@ describe "Mass-upload" do
             end
           end
 
+          describe "to many articles)" do
+            it "should show correct error messages" do
+              attach_file('mass_upload_file',
+                          'spec/fixtures/mass_upload_to_many_articles.csv')
+              click_button I18n.t('mass_upload.labels.upload_article')
+              should have_selector('p.inline-errors',
+                text: I18n.t('mass_upload.errors.wrong_file_size'))
+            end
+          end
+
           describe "no file selected)" do
             it "should show correct error messages" do
               click_button I18n.t('mass_upload.labels.upload_article')
