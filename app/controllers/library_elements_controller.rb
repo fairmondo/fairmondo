@@ -21,7 +21,6 @@ class LibraryElementsController < InheritedResources::Base
   respond_to :html
   actions :create, :update, :destroy
   before_filter :get_user
-  before_filter :authenticate_user!
 
   def create
     authorize build_resource

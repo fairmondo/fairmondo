@@ -27,6 +27,9 @@ RailsAdmin.config do |config|
 
   # Set the admin name here (optional second array element will appear in red). For example:
   config.main_app_name = ['Fairnopoly', 'Admin']
+
+  config.attr_accessible_role { :admin }
+
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -50,7 +53,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-   config.included_models = ['Article', 'ArticleTemplate', 'AuctionTransaction', 'ArticlesCategory', 'Bid', 'Category', 'FairTrustQuestionnaire', 'Image', 'Invitation', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Tinycms::Content', 'Transaction', 'User']
+   config.included_models = ['Article', 'ArticleTemplate', 'Category', 'FairTrustQuestionnaire', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'PreviewTransaction', 'PrivateUser', 'SocialProducerQuestionnaire', 'Content', 'Transaction', 'User','Settings']
 
   # Include specific models (exclude the others):
   #  config.included_models = [  'Bid', 'Category',  'Image', 'Invitation',  'Library' , 'Tinycms::Content', 'Transaction', 'User']
@@ -112,7 +115,6 @@ RailsAdmin.config do |config|
   #     configure :ecologic, :boolean
   #     configure :ecologic_seal, :string
   #     configure :small_and_precious, :boolean
-  #     configure :small_and_precious_edition, :integer
   #     configure :small_and_precious_reason, :text
   #     configure :small_and_precious_handmade, :boolean
   #     configure :quantity, :integer
@@ -125,7 +127,7 @@ RailsAdmin.config do |config|
   #     configure :transaction_id, :integer         # Hidden
   #     configure :active, :boolean
   #     configure :state, :string
-  #     configure :calculated_corruption_cents, :integer
+  #     configure :calculated_fair_cents, :integer
   #     configure :calculated_friendly_cents, :integer
   #     configure :calculated_fee_cents, :integer
   #     configure :condition_extra, :string

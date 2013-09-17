@@ -22,7 +22,7 @@ module Formtastic
     module Base
       module Html
         def tooltip
-          template.content_tag(:a, "",:class => "input-tooltip","data-html" => "true", "data-content" => tooltip_text.html_safe) if tooltip?
+          template.content_tag(:i, "" ,:class => "icon-helper",:title => tooltip_text.html_safe ) if tooltip?
         end
 
         def tooltip?
@@ -35,9 +35,8 @@ module Formtastic
       end
       module Wrapping
         def input_wrapping(&block)
-          template.content_tag(
-            :li,
-            [template.capture(&block), tooltip, error_html, hint_html].join("\n").html_safe,
+          template.content_tag(:li,
+            [tooltip , template.capture(&block), error_html, hint_html].join("\n").html_safe,
             wrapper_html_options
           )
         end

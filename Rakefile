@@ -3,5 +3,6 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+ENV['SKIP_RAILS_ADMIN_INITIALIZER']='true'
 
 Fairnopoly::Application.load_tasks

@@ -25,6 +25,7 @@ describe 'Article management' do
   include CategorySeedData
 
   context "for signed-in users" do
+
     before :each do
       @user = FactoryGirl.create :user
       login_as @user, scope: :user
@@ -52,10 +53,17 @@ describe 'Article management' do
           page.should have_content(I18n.t("article.titles.new"))
         end
 
-        it 'creates an article' do
+        it "should show the create article page when selecting no template" do
+
+          visit new_article_path template_select: { article_template: "" }
+          current_path.should == new_article_path
+
+        end
+
+        it 'creates an article plus a template' do
           lambda do
             fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-            check Category.root.name
+            select Category.root.name, from: 'article_categories_and_ancestors'
             within("#article_condition_input") do
               choose "article_condition_new"
             end
@@ -72,31 +80,45 @@ describe 'Article management' do
             select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
             fill_in 'article_transport_details', with: 'transport_details'
             check "article_payment_cash"
-            select I18n.t("enumerize.article.default_payment.cash") , from: I18n.t('formtastic.labels.article.default_payment')
             fill_in 'article_payment_details', with: 'payment_details'
 
+            # social producer
+            check "article_fair"
+            within("#article_fair_kind_input") do
+              choose "article_fair_kind_social_producer"
+            end
+            within("#article_social_producer_questionnaire_attributes_nonprofit_association_input") do
+              choose "article_social_producer_questionnaire_attributes_nonprofit_association_true"
+            end
+            check "article_social_producer_questionnaire_attributes_nonprofit_association_checkboxes_youth_and_elderly"
+            within("#article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_input") do
+              choose "article_social_producer_questionnaire_attributes_social_businesses_muhammad_yunus_false"
+            end
+            within("#article_social_producer_questionnaire_attributes_social_entrepreneur_input") do
+              choose "article_social_producer_questionnaire_attributes_social_entrepreneur_false"
+            end
+
+            # Image
+            #attach_file "article_images_attributes_0_image", Rails.root.join('spec', 'fixtures', 'test.png')
+            # Doesn't work correctly at the moment
+
+            # Template
+            check 'article_save_as_template'
+            fill_in 'article_article_template_attributes_name', with: 'template'
+
             find(".double_check-step-inputs").find(".action").find("input").click
-          end.should change(Article.unscoped, :count).by 1
+          end.should change(Article.unscoped, :count).by 2
+
+          current_path.should eq article_path Article.unscoped.first
         end
 
         it "should create an article from a template" do
-          base_article = FactoryGirl.create :article, :without_image
-          template = FactoryGirl.create :article_template, article: base_article, user: @user
+
+          template = FactoryGirl.create :article_template, :without_image, user: @user
           visit new_article_path template_select: { article_template: template.id }
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
 
-        it 'shows sub-categories' do
-          setup_categories
-
-          visit new_article_path
-          hardware_id = Category.find_by_name!('Hardware').id
-
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: false)
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Elektronik').id}"
-          check "article_categories_and_ancestors_#{Category.find_by_name!('Computer').id}"
-          page.should have_selector("label[for$='article_categories_and_ancestors_#{hardware_id}']", visible: true)
-        end
       end
     end
 
@@ -139,7 +161,7 @@ describe 'Article management' do
 
       it "should fail given invalid data but still try to save images" do
         ArticlesController.any_instance.should_receive(:save_images).and_call_original
-        Image.any_instance.should_receive :save
+        Image.any_instance.should_receive(:save).twice
         old_title = @article.title
 
         fill_in 'article_title', with: ''
@@ -156,19 +178,20 @@ describe 'Article management' do
       end
 
       it "should succeed" do
-        fill_in 'report', with: 'foobar'
+        fill_in 'feedback_text', with: 'foobar'
         click_button I18n.t 'article.actions.report'
 
         page.should have_content I18n.t 'article.actions.reported'
       end
 
       it "should fail with an empty report text" do
-        fill_in 'report', with: ''
+        fill_in 'feedback_text', with: ''
         click_button I18n.t 'article.actions.report'
 
-        page.should have_content I18n.t 'article.actions.reported-error'
+        page.should have_content I18n.t 'activerecord.errors.models.feedback.attributes.text.blank'
       end
     end
+
   end
 
   context "for signed-out users" do
@@ -193,7 +216,15 @@ describe 'Article management' do
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         visit article_path @article
-        page.should have_content I18n.t 'article.show.no_alternative'
+        if @article.is_conventional?
+          page.should have_content I18n.t 'article.show.no_alternative'
+        end
+      end
+
+      it "should have link to Transparency International" do
+        @article = FactoryGirl.create :article
+        visit article_path @article
+        page.should have_link("Transparency International", :href => "http://www.transparency.de/")
       end
 
       # it "should have a different title image with an additional param" do
@@ -204,6 +235,100 @@ describe 'Article management' do
       #   Image.should_receive(:find).with(new_img.id.to_s)
       #   visit article_path @article, image: new_img
       # end
+    end
+  end
+
+end
+
+describe "Other articles of this seller box" do
+  before do
+    seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :user_id => seller.id
+    @article_locked = FactoryGirl.create :preview_article, :user_id => seller.id
+    visit article_path @article_active
+  end
+
+  it "should show active article" do
+    page.should have_link('', href: article_path(@article_active))
+  end
+
+  it "should not show locked article" do
+    page.should have_no_link('', href: article_path(@article_locked))
+  end
+end
+
+describe "Pagination for libraries should work"  do
+  before do
+    @seller = FactoryGirl.create :seller
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    30.times do
+      lib = FactoryGirl.create :library, :user => @seller, :public => true
+      FactoryGirl.create :library_element, :article => @article_active, :library => lib
+    end
+
+    visit article_path @article_active
+  end
+
+  it "should show selector div.pagination" do
+    page.assert_selector('div.pagination')
+  end
+end
+
+describe "LibraryElements should exist only on acive articles" do
+
+  before do
+    @seller = FactoryGirl.create :seller
+    @buyer = FactoryGirl.create :buyer
+
+    @article_active = FactoryGirl.create :article, :seller => @seller
+
+    @lib = FactoryGirl.create :library, :user => @buyer, :public => true
+    FactoryGirl.create :library_element, :article => @article_active, :library => @lib
+
+  end
+
+  it "should delete LibraryElement when deactivating an article" do
+
+    login_as @seller, scope: :user
+    visit article_path @article_active
+    click_button I18n.t 'article.labels.deactivate'
+
+    login_as @buyer, scope: :user
+    visit user_libraries_path @buyer
+    within("#library"+@lib.id.to_s) do
+      page.should have_content I18n.t 'library.no_products'
+    end
+  end
+
+end
+
+describe "Article Page should show link to Transparency International" do
+  it "should have link to Transparency International" do
+    @article = FactoryGirl.create :article
+    visit article_path @article
+    page.should have_link("Transparency International", :href => "http://www.transparency.de/")
+  end
+end
+
+describe "Article feature label buttons" do
+  before do
+    @seller = FactoryGirl.create :user
+    @article = FactoryGirl.create :article, :simple_ecologic, :seller => @seller
+  end
+
+  describe "on the article show page" do
+    it "should have a ecological feature label link" do
+      visit article_path(@article)
+      page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
+    end
+  end
+
+  describe "on the user show page" do
+    it "should not have a ecological feature label link" do
+      visit user_path(@seller)
+      page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
+      page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
     end
   end
 end

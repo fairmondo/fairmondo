@@ -21,29 +21,32 @@ class LibrariesController < InheritedResources::Base
   respond_to :html
   actions :index, :create, :update, :destroy
 
-  before_filter :render_users_hero
-  before_filter :get_user
+  before_filter :render_users_hero , :if =>  :user_focused?
+  before_filter :get_user, :if => :user_focused?
 
-  before_filter :authenticate_user!
+  # Authorization
+  skip_before_filter :authenticate_user!, :only => [:index]
 
   def index
-    @library = @user.libraries.build
-    index!
+    @library = @user.libraries.build if user_signed_in? && @user
+    @libraries = LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve
+
+    render :global_index unless user_focused?
   end
 
   def create
     authorize build_resource
     create! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
     end
   end
 
   def update
-   authorize resource
-   update! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library.id.to_s) }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.full_messages.first }
+    authorize resource
+    update! do |success,failure|
+      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
+      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
     end
   end
 
@@ -55,15 +58,19 @@ class LibrariesController < InheritedResources::Base
   protected
 
   def begin_of_association_chain
-    @user
+    @user if user_focused?
   end
 
-  def collection
-    @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
-  end
+  # def collection
+  #   @libraries ||= LibraryPolicy::Scope.new( current_user, @user , end_of_association_chain ).resolve
+  # end
 
   def get_user
     @user = User.find(params[:user_id])
+  end
+
+  def user_focused?
+    params.has_key? :user_id
   end
 
 end

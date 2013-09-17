@@ -24,5 +24,13 @@ FactoryGirl.define do
     name { Faker::Lorem.words( rand(3)+2 ) * " " }
     article
     user
+    trait :without_image do
+      after(:build) do |article_template|
+        article_template.article.images = []
+      end
+    end
   end
+
+
+
 end

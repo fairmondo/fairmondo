@@ -21,16 +21,13 @@
 # see  lib/formtastic/helpers/input_helper.rb
 #module Fairtastic
 #  module Inputs
-class PlainRadioInput < Formtastic::Inputs::RadioInput
 
-  def to_html
-   super
-  end
+class PlainRadioInput < Formtastic::Inputs::RadioInput
 
   def choice_html(choice)
     opts = input_html_options
     if options[:js_toggle]
-      css_class = "#{choice[1]}-input-fields"
+      css_class = "#{choice[1]}-"+method.to_s
       opts["data-select-toggle"] ||= css_class
     end
 
@@ -51,5 +48,6 @@ class PlainRadioInput < Formtastic::Inputs::RadioInput
       false
     end
   end
+
 
 end

@@ -19,17 +19,19 @@
 #
 class Library < ActiveRecord::Base
 
-  attr_accessible :name, :public, :user, :user_id
+  library_attributes = [:name, :public, :user, :user_id]
+  attr_accessible *library_attributes
+  attr_accessible *library_attributes, :as => :admin
 
   delegate :nickname, :to => :user, :prefix => true
 
   # Validations
 
-  validates :name,:user, :presence => { :message => I18n.t('library.error.presence') }
+  validates :name,:user, :presence => true
 
-  validates :name, :uniqueness => {:scope => :user_id, :message => I18n.t('library.error.uniqueness')}
+  validates :name, :uniqueness => {:scope => :user_id}
 
-  validates_length_of :name, :maximum => 25,:message => I18n.t('library.error.length')
+  validates_length_of :name, :maximum => 25
 
   #Relations
 

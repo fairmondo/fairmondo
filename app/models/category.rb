@@ -20,6 +20,7 @@
 class Category < ActiveRecord::Base
 
   attr_accessible :name, :parent, :desc, :parent_id
+  attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, :lft, :rgt, :depth, as: :admin
 
   has_and_belongs_to_many :articles
 
@@ -30,21 +31,8 @@ class Category < ActiveRecord::Base
 
   acts_as_nested_set
 
-  # recursively determines whether the passed collection includes all ancestors of self
-  # without hitting the db
-  def include_all_ancestors?(categories)
-    categories = categories.all unless categories.is_a?(Array)
-    return true unless parent_id
-    p = categories.select{|c| c.id == self.parent_id}.first
-    if p
-      p.include_all_ancestors?(categories)
-    else
-      false
-    end
-  end
 
   def self_and_ancestors_ids
-
     self_and_ancestors = [ self.id ]
     self.ancestors.each do |ancestor|
       self_and_ancestors << ancestor.id
@@ -52,4 +40,21 @@ class Category < ActiveRecord::Base
     self_and_ancestors
   end
 
+  # Display all categories, sorted by name, other being last
+  # @api public
+  # @return [Array]
+  def self.sorted_roots
+    other = self.other_category
+    roots = self.order(:name).where(:parent_id => nil)
+
+    if roots.include? other
+      roots.delete_at roots.index other
+      roots.push(other)
+    end
+    roots
+  end
+
+  def self.other_category
+     self.where(:parent_id => nil).find_by_name("Sonstiges") #internationalize!
+  end
 end

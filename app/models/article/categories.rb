@@ -24,7 +24,7 @@ module Article::Categories
 
 
     attr_accessible :categories_and_ancestors,:category_proposal
-     attr_accessor :category_proposal
+    attr_accessor :category_proposal
 
     # categories refs #154
     has_and_belongs_to_many :categories
@@ -46,11 +46,9 @@ module Article::Categories
       categories = categories.select(&:present?).map(&:to_i)
       categories = Category.where(:id => categories)
     end
-    # remove entries which parent is not included in the subtree
-    # e.g. you selected Hardware but unselected Computer afterwards
-    @categories_and_ancestors = categories.select{|c| c.include_all_ancestors?(categories) }
+
     # remove all parents
-    self.categories = Article::Categories.remove_category_parents(@categories_and_ancestors)
+    self.categories = Article::Categories.remove_category_parents(categories)
   end
 
   def self.remove_category_parents(categories)
@@ -75,6 +73,15 @@ module Article::Categories
         ids << fullcategories.id
       end
     end
+    ids
+  end
+
+  # Only allow categories that are not "Other"
+  def self.specific_search_categories(categories)
+
+    ids = self.search_categories(categories)
+    other = Category.other_category
+    ids.map! { |id| id == other.id ? 0 : id} if other  #set the other category to 0 because solr throws exceptions if categories are empty
     ids
   end
 

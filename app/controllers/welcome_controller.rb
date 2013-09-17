@@ -19,10 +19,23 @@
 #
 class WelcomeController < ApplicationController
 
-  before_filter :build_login
+  skip_before_filter :authenticate_user!, :only => [:index,:feed]
+
   def index
-    @articles = Article.count
-    @percentage = (@articles.to_f/10000.0)*100.0
+    begin
+      @featured_article = Article.active.featured
+    rescue ActiveRecord::RecordNotFound
+      @featured_article = nil
+    end
+  end
+
+  # Rss Feed
+  def feed
+    @articles = Article.active.limit(20)
+
+    respond_to do |format|
+      format.rss { render :layout => false } #index.rss.builder
+    end
   end
 
 end

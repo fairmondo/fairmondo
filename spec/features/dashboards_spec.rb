@@ -31,7 +31,7 @@ describe 'Dashboard' do
 
     it "should show a sign in button" do
       visit user_path(@user)
-      page.should have_content("Login")
+      page.should have_content I18n.t('common.actions.login')
     end
   end
 
@@ -53,9 +53,7 @@ describe 'Dashboard' do
     end
 
     it 'Sell link shows the Sell page', slow: true do
-      within "#dashboard-sell" do
-        click_link I18n.t('common.text.sell')
-      end
+      click_link I18n.t('common.text.sell')
       page.should have_content I18n.t('formtastic.labels.article.title')
     end
 

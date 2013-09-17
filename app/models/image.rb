@@ -18,12 +18,40 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
+  image_attributes = [:image, :is_title]
+  attr_accessible *image_attributes
+  attr_accessible *image_attributes, :as => :admin
 
-  attr_accessible :image
+  belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
+  has_attached_file :image, styles: { medium: "520>x360>", thumb: "260x180#", profile: "300x300#" },
+                            default_url: "/assets/missing.png",
+                            url: "/system/:attachment/:id_partition/:style/:filename",
+                            path: "public/system/:attachment/:id_partition/:style/:filename"
 
-  has_and_belongs_to_many :articles
-  has_attached_file :image, :styles => { :medium => "520x360>", :thumb => "260x180#" , :mini => "130x90#"}
+  default_scope order('created_at ASC')
+
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
   validates_attachment_size :image, :in => 0..5.megabytes
+
+
+  # Using polymorphy with STI (User) is tricky: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#label-Polymorphic+Associations
+  # @api public
+  def imageable_type=(sType)
+    super(sType.to_s.classify.constantize.base_class.to_s)
+  end
+
+  # Get The Geometry of a image
+  #
+  # Use the returned Object to get the Size of the image
+  # geo = image.geometry :medium
+  # geo.width
+  # geo.height
+  #
+  # param style [Symbol] style of the image you want the dimensions of
+  # return [Paperclip Geometry Object]
+  def geometry style
+     Paperclip::Geometry.from_file(self.image.path(style))
+  end
+
 end

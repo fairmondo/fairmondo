@@ -7,6 +7,8 @@ config/initializers/secret_token.rb
 # Project files
 .project
 .settings
+*.sublime-project
+*.sublime-workspace
 
 # Autotest configuration file
 .autotest
@@ -16,7 +18,7 @@ config/initializers/secret_token.rb
 
 # Ignore all logfiles and tempfiles
 /log/*.log
-/log/*.log.lck
+/log/*.log.*
 /tmp
 # Gemfile.lock -> ER error without it
 
@@ -32,6 +34,8 @@ coverage
 rails_best_practices_output.html
 #api keys
 config/api.yml
+#email addresses
+config/email_addresses.yml
 
 #Solr Development
 solr/data/**/*
@@ -51,9 +55,22 @@ public/assets_test/*
 
 # Ignore merge fragments
 *.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+
 
 # Licence Deriving tmp
 deriving_license_tmp
 
 #Local additional Gemfile
 Gemfile.local
+
+# vim fragments / vim swap-files
+*.swp
+
+.ruby-version
+
+# compass sprites
+app/assets/images/icon-*.png

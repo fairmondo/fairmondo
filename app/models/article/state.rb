@@ -22,40 +22,56 @@ module Article::State
 
   included do
     # market place state
-    attr_protected :state, :active
+    attr_protected :state
 
     state_machine :initial => :preview do
 
       state :preview do
-        def active
-          false
-        end
       end
 
       state :active do
-        def active
-          true
-        end
       end
 
       state :locked do
-        def active
-          false
-        end
+      end
+
+      state :closed do
       end
 
       event :activate do
         transition [:preview,:locked] => :active
       end
 
+      # Theoretical event, can't be performed over state-machine because people with validation issues can't do stuff anymore
       event :deactivate do
         transition :active => :locked
       end
 
-      after_transition :on => :activate, :do => :calculate_fees_and_donations
+      event :close do
+        transition :locked => :closed
+      end
+
+      before_transition :on => :activate, :do => :calculate_fees_and_donations
+      after_transition :on => :deactivate, :do => :remove_from_libraries
 
     end
 
+  end
+
+  def remove_from_libraries
+     # delete the article from the collections
+      self.library_elements.delete_all
+  end
+
+  def deactivate_without_validation
+      self.state = "locked"
+      self.remove_from_libraries
+      self.save(:validate => false) # do it anyways
+  end
+
+  def close_without_validation
+      self.state = "closed"
+      self.save(:validate => false) # do it anyways
   end
 
 end

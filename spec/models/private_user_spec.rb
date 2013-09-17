@@ -21,7 +21,7 @@ require 'spec_helper'
 
 describe PrivateUser do
 
-  let(:user) { FactoryGirl::create(:private_user)}
+  let(:user) { FactoryGirl.create(:private_user)}
   subject { user }
 
   it "should have a valid factory" do

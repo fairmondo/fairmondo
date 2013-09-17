@@ -33,12 +33,12 @@ class LibraryPolicy < Struct.new(:user, :library)
 
   private
   def own?
-    user.id == library.user_id
+    user && user.id == library.user_id
   end
 
   class Scope < Struct.new(:current_user, :user, :scope)
     def resolve
-      if current_user.id == user.id
+      if user && (user.is? current_user)
         scope
       else
         scope.public

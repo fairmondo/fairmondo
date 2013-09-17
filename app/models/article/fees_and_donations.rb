@@ -21,6 +21,7 @@ module Article::FeesAndDonations
   extend ActiveSupport::Concern
 
   AUCTION_FEES = {
+    :min => 0.1,
     :max_fair => 15.0,
     :max_default => 30.0,
     :fair => 0.03,
@@ -29,10 +30,10 @@ module Article::FeesAndDonations
 
   included do
 
-    attr_accessible :calculated_corruption_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
+    attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
     # Fees and donations
-    monetize :calculated_corruption_cents, :allow_nil => true
+    monetize :calculated_fair_cents, :allow_nil => true
     monetize :calculated_friendly_cents, :allow_nil => true
     monetize :calculated_fee_cents, :allow_nil => true
 
@@ -41,7 +42,7 @@ module Article::FeesAndDonations
     validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 100, :only_integer => true
     enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
     validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
-
+    validates :friendly_percent_organisation, :length => { :maximum => 500 }
 
   end
 
@@ -52,16 +53,22 @@ module Article::FeesAndDonations
   # end
 
   def calculated_fees_and_donations
-    self.calculated_corruption + self.calculated_friendly + self.calculated_fee
+    self.calculated_fair + self.calculated_friendly + self.calculated_fee
+  end
+
+  def calculated_fees_and_donations_netto
+    fee_cents = self.calculated_fair_cents + self.calculated_friendly_cents + self.calculated_fee_cents
+    netto = Money.new((fee_cents - (fee_cents * 0.19)).ceil)
+    netto
   end
 
   def calculate_fees_and_donations
     self.calculated_friendly = Money.new(friendly_percent_result_cents)
     if self.friendly_percent < 100 && self.price > 0
-      self.calculated_corruption  = corruption_percent_result
+      self.calculated_fair  = fair_percent_result
       self.calculated_fee = fee_result
     else
-      self.calculated_corruption  = 0
+      self.calculated_fair  = 0
       self.calculated_fee = 0
     end
   end
@@ -71,20 +78,20 @@ private
 
   def friendly_percent_result_cents
     # At the moment there is no friendly percent
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     #(self.price_cents * (self.friendly_percent / 100.0)).ceil
     0
   end
 
   ## fees and donations
 
-  def corruption_percentage
+  def fair_percentage
     0.01
   end
 
-  def corruption_percent_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
-    Money.new(((self.price_cents - friendly_percent_result_cents) * corruption_percentage).ceil)
+  def fair_percent_result
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+    Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
   end
 
   def fee_percentage
@@ -96,11 +103,14 @@ private
   end
 
   def fee_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
     max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
+    min = Money.new(AUCTION_FEES[:min]*100)
+    r = min if r < min
     r = max if r > max
     r
+
   end
 
 end

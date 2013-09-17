@@ -20,17 +20,48 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.autocomplete
+//= require jquery.ui.accordion
+//= require jquery.ui.tooltip
 //= require modernizr
 //= require selectivizr
 //= require tinymce
 //= require tinymce-jquery
-//= require bootstrap
-//= require jquery.complexify
-//= require jquery.hashchange
-//= require jquery.socialshareprivacy
 
-//= require_tree ./inputs
-//= require_tree ./models
-//= require_tree ./customize
-//= require_tree ./visual
+//= require i18n
+//= require i18n/translations
+
+
+//= require vendor/jquery.complexify
+//= require vendor/jquery.hashchange
+//= require vendor/jquery.socialshareprivacy
+//= require vendor/jquery.selectBoxIt
+//= require vendor/jquery.icheck
+//= require vendor/jquery.colorbox
+//= require vendor/jquery.truncator
+//= require vendor/masonry.pkgd.min
+//= require vendor/imagesloaded.pkgd
+
+//= require models/article/categories
+//= require models/article/search_input
+//= require models/article/toggle
+//= require models/article/titleimage
+//= require models/library/libraries
+//= require models/user/login
+
+//= require visual/masonry
+//= require visual/accordion
+//= require visual/tooltip
+//= require visual/button
+//= require visual/noticeClose
+//= require visual/colorbox
+//= require visual/selectbox
+//= require visual/filter
+//= require visual/truncator
+//= require visual/wait_for_submit
+
+//= require inputs/password_complexify
+//= require inputs/socialshareprivacy
+//= require inputs/bank_details
+
+//= require customize/rails-confirm

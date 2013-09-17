@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '>= 3.2.13'
-
+gem 'rails', '~> 3.2.14'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,10 +14,8 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  # exclude Debugger from CI
-  unless ENV["CI"]
-    gem 'debugger', :group => [:development, :test]
-  end
+  gem 'debugger', :group => [:development, :test]
+
 end
 
 # Forms & Upload
@@ -32,17 +29,18 @@ gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
-gem 'will_paginate'
 gem 'money-rails' # Deal with Money
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
+gem 'sanitize' # Parser based sanitization
+
+#gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
 gem 'sunspot_rails'
-gem 'progress_bar'
 
 # Delayed_Jobs & Daemons
 gem "daemons"
@@ -54,7 +52,8 @@ gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
 gem "pundit" # authorization
 
-
+# Settings cache
+gem "rails-settings-cached", "0.2.4" # for 3.x
 
 # Deploy with Capistrano
 gem 'capistrano'
@@ -67,8 +66,13 @@ gem 'faker'
 #Rails Adminrails
 gem 'rails_admin'
 
-# Integrated gems
-gem 'tinycms', :path => "gems/tinycms"
+# Assets that need to be toplevel
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+gem 'jquery-rails'
+
+# KontoAPI checks bank data
+gem 'kontoapi-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -76,27 +80,26 @@ group :assets do
 
    # CSS
   gem 'sass-rails', '~> 3.2'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
-  gem 'bootstrap-will_paginate'
-  gem "formtastic-plus-bootstrap"
   gem "font-awesome-rails"
-  gem "flatui-rails"
-  gem "formtastic-plus-flatui"
+  gem "susy", "~> 1.0.8"
+  gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
 
-
   # JS
-  gem 'tinymce-rails'
-  gem 'tinymce-rails-langs'
-  gem 'jquery-rails'
-  #gem 'i18n-js', :git => 'git@github.com:fnando/i18n-js.git', :branch => 'master' # workaround 4 https://github.com/fnando/i18n-js/issues/137
+  gem 'jquery-ui-rails'
+  gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'
   gem 'coffee-rails'
   gem 'therubyrhino'
   gem 'selectivizr-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'modernizr-rails'
+  # gem 'turbolinks'
+  # gem 'jquery-turbolinks'
 end
 
+group :production, :staging do
+  gem 'newrelic_rpm' #Monitoring service
+end
 
 # for generating *.war file
 #group :development do
@@ -115,9 +118,6 @@ group :development, :test do
   gem 'capybara'
   gem "ZenTest"
 
-  #Autotest on MAC
-  gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
-
   # Code Coverage
   gem 'simplecov'
   gem 'coveralls', require: false
@@ -134,6 +134,8 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
+  gem 'parallel_tests'
+  gem 'rspec-instafail'
 
   # Replace Webrick
   gem 'thin'
@@ -151,27 +153,25 @@ group :development do
   gem "erb2haml"
   gem "html2haml"
 
-  # Clean code before commiting
-  gem "code-cleaner"
+  #zipruby for icecat catalog download
+  gem "zipruby"
+
+  # activerecord-import for batch-writing into the databse
+  gem 'activerecord-import'
 end
 
 group :test do
+  gem 'rake'
   gem 'colorize'
 end
 
 # Adding Staging-server Embedded Solr
 group :staging do
   gem 'sunspot_solr'
+
+  #for testing search
+  gem 'activerecord-import'
 end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Add your own Gems in Gemfile.local
-
-gemfile_local = File.join(File.dirname(__FILE__), 'Gemfile.local')
-if File.readable?(gemfile_local)
-  puts "Loading #{gemfile_local}..." if $DEBUG
-  instance_eval(File.read(gemfile_local))
-end
-

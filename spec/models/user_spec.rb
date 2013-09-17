@@ -21,7 +21,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { FactoryGirl::create(:user)}
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   it "has a valid Factory" do
@@ -36,6 +36,7 @@ describe User do
 
   it {should have_many(:article_templates).dependent(:destroy)}
   it {should have_many(:libraries).dependent(:destroy)}
+  it {should have_one(:image)}
 
   #it {should belong_to :invitor}
 
@@ -44,6 +45,8 @@ describe User do
 
   context "always" do
     it {should validate_presence_of :email}
+    it {should validate_presence_of :nickname}
+    it {should validate_uniqueness_of :nickname}
   end
 
   context "on create" do
@@ -55,43 +58,105 @@ describe User do
   end
 
   context "on update" do
-    it {should validate_presence_of :forename}
-    it {should validate_presence_of :surname}
-    it {should validate_presence_of :title}
-    it {should validate_presence_of :country}
-    it {should validate_presence_of :street}
-    it {should validate_presence_of :city}
-    it {should validate_presence_of :nickname}
+    it { should validate_presence_of :forename }
+    it { should validate_presence_of :surname }
 
     describe "zip code validation" do
-      let(:user) { FactoryGirl.create(:german_user) }
-
-      it {should validate_presence_of :zip}
-
-      it "should validate the length" do
-        user.zip = 1234
-        user.should_not be_valid
+      before :each do
+        user.country = "Deutschland"
       end
+      it {should allow_value('12345').for :zip}
+      it {should_not allow_value('a1b2c').for :zip}
+      it {should_not allow_value('123456').for :zip}
+      it {should_not allow_value('1234').for :zip}
+    end
 
-      it "should validate the format" do
-        user.zip = "a1b2c"
-        user.should_not be_valid
-      end
+    describe "address validation" do
+      it {should allow_value('Test Str. 1a').for :street}
+      it {should_not allow_value('Test Str.').for :street}
     end
   end
 
-  # validates :zip, :presence => true, :on => :update, :zip => true
-  # validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  # validates_attachment_size :image, :in => 0..5.megabytes
+  context "if user wants to sell" do
+    before :each do
+      user.wants_to_sell = true
+    end
 
-
-  it "returns correct fullname" do
-    user.fullname.should eq "#{user.forename} #{user.surname}"
+    it {should validate_presence_of :zip}
+    it { should validate_presence_of :country }
+    it { should validate_presence_of :street }
+    it { should validate_presence_of :city }
   end
 
+  describe "methods" do
+    describe "#fullname" do
+      it "returns correct fullname" do
+        user.fullname.should eq "#{user.forename} #{user.surname}"
+      end
+    end
 
-  it "returns correct name" do
-    user.name.should eq user.nickname
+    describe "#name" do
+      it "returns correct name" do
+        user.name.should eq user.nickname
+      end
+    end
+
+    describe "#is?" do
+      it "should return true when users have the same ID" do
+        user.is?(user).should be_true
+      end
+
+      it "should return false when users don't have the same ID" do
+        user.is?(FactoryGirl.create(:user)).should be_false
+      end
+    end
+
+    describe "#customer_nr" do
+      it "should have 8 digits" do
+        user.customer_nr.length.should eq 8
+      end
+
+      it "should use the user_id" do
+        FactoryGirl.create(:user).customer_nr.should eq "00000001"
+      end
+    end
+
+    describe "paypal_account_exists?" do
+      it "should be true if user has paypal account" do
+        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_true
+      end
+      it "should be false if user does not have paypal account" do
+        user.paypal_account_exists?.should be_false
+      end
+    end
+
+    describe "bank_account_exists?" do
+      it "should be true if user has bank account" do
+        user.bank_account_exists?.should be_true
+      end
+      it "should be false if user does not have bank account" do
+        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_false
+      end
+    end
+
+
+  #    def update_image image
+  #   if User.valid_attribute?('image', image)
+  #     update_attribute 'image', image
+  #   else
+  #     false
+  #   end
+  # end
+
+  # private
+
+  # # Validate single attribute
+  # # @api private
+  # def self.valid_attribute? attr, value
+  #   mock = self.new(attr => value)
+  #   !mock.errors.messages.keys.find { |e| e =~ Regexp.new(attr) }
+  # end
+
   end
 
 end

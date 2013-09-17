@@ -21,14 +21,14 @@ require 'faker'
 
 FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
-    seller
+    seller      # alias for User -> see spec/factories/users.rb
     categories_and_ancestors {|c| [c.association(:category)] }
     title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted ,:used_very_good , :used_good, :used_satisfying , :broken].sample}
     price_cents { Random.new.rand(500000)+1 }
-    vat {[7,19].sample}
+    vat {[0,7,19].sample}
     quantity  { (rand(10) + 1) }
 
     basic_price_cents { Random.new.rand(500000)+1 }
@@ -38,7 +38,6 @@ FactoryGirl.define do
     transport_pickup true
 
     transport_details "transport_details"
-    default_payment "cash"
     payment_cash true
 
     payment_details "payment_details"
@@ -59,11 +58,23 @@ FactoryGirl.define do
 
     factory :preview_article do
        after(:build) do |article|
-         article.active = false
          article.state = "preview"
        end
     end
 
+    factory :social_production do
+
+      fair true
+      fair_kind :social_producer
+      association :social_producer_questionnaire
+
+    end
+
+    factory :fair_trust do
+      fair true
+      fair_kind :fair_trust
+      association :fair_trust_questionnaire
+    end
 
     trait :category1 do
       after(:build) do |article|
@@ -98,5 +109,24 @@ FactoryGirl.define do
         article.images = [FactoryGirl.build(:fixture_image)]
       end
     end
+
+    trait :simple_fair do
+      fair true
+      fair_kind :fair_seal
+      fair_seal :trans_fair
+    end
+
+    trait :simple_ecologic do
+      ecologic true
+      ecologic_kind :ecologic_seal
+      ecologic_seal :bio_siegel
+    end
+
+    trait :simple_small_and_precious do
+      small_and_precious true
+      small_and_precious_eu_small_enterprise true
+      small_and_precious_reason "a"*151
+    end
+
   end
 end

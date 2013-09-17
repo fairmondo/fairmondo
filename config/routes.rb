@@ -21,11 +21,27 @@ Fairnopoly::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
+  namespace :admin do
+    resources :article
+  end
+
   resources :article_templates, :except => [:show, :index]
 
-  mount Tinycms::Engine => "/cms"
+  resources :contents do
+    get :not_found, :on => :member #?
+  end
 
-  devise_for :user, controllers: { registrations: 'registrations' }
+  devise_for :user, controllers: { registrations: 'registrations',sessions: 'sessions' }
+
+  namespace :toolbox do
+    get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
+    get 'confirm' , constraints: {format: 'js'}
+  end
+
+  namespace :bank_details do
+    get 'check', constraints: {format: 'json'}
+    get 'get_bank_name', constraints: {format: 'json'}
+  end
 
   resources :articles do
     member do
@@ -37,16 +53,28 @@ Fairnopoly::Application.routes.draw do
   end
 
   get "welcome/index"
+  get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
+
+  resources :feedbacks, :only => [:create,:new]
 
   #the user routes
 
   resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
+    collection do
+      get 'login'
+    end
     member do
       get 'profile'
     end
   end
+
+  resources :libraries, :only => [:index]
+
+  resources :categories, :only => [:show]
+
+  get 'settings/update', as: 'update_settings'
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
@@ -54,7 +82,7 @@ Fairnopoly::Application.routes.draw do
   scope :constraints => lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
-    match "/*id" => 'tinycms/contents#show'
+    match "/*id" => 'contents#show'
   end
 
 end

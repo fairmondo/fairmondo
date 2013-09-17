@@ -17,53 +17,63 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.fairnopoly-well
-  %h2= resource.nickname
-  %h3= resource.title + " " + resource.forename + " " + resource.surname
-  %p
-    = t('formtastic.labels.user.street')
-    \:
-    %strong= resource.street
-  %p
-    = t('formtastic.labels.user.city')
-    \:
-    %strong= resource.zip + " " + resource.city
-  %p
-    = t('formtastic.labels.user.country')
-    \:
-    %strong= resource.country
-  %p
-    = t('formtastic.labels.user.mail')
-    \:
-    %strong
-      %a{:href => "mailto:#{resource.email}"}= resource.email
-  %p
-    = t('formtastic.labels.user.fax')
-    \:
-    %strong= resource.fax
-  %p
-    = t('formtastic.labels.user.phone')
-    \:
-    %strong= resource.phone
-  %p
-    = t('formtastic.labels.user.mobile')
-    \:
-    %strong= resource.mobile
-.fairnopoly-well
-  %p
-    %strong
-      = t('formtastic.labels.user.terms')
-      \:
-  = raw resource.terms
-.fairnopoly-well
-  %p
-    %strong
-      = t('formtastic.labels.user.cancellation')
-      \:
-  = raw resource.cancellation
-.fairnopoly-well
-  %p
-    %strong
-      = t('formtastic.labels.user.about')
-      \:
-  = raw resource.about
+
+.Meta
+  .Meta--block
+    %h2= resource.nickname
+    - if resource.valid? && resource.is_a?(LegalEntity)
+      - if resource.title?
+        %h3= resource.title + " " + resource.forename + " " + resource.surname
+      - else
+        %h3= resource.forename + " " + resource.surname
+      %p
+        = t('formtastic.labels.user.street')
+        \:
+        %strong= resource.street
+      %p
+        = t('formtastic.labels.user.city')
+        \:
+        %strong= resource.zip + " " + resource.city
+      %p
+        = t('formtastic.labels.user.country')
+        \:
+        %strong= resource.country
+      %p
+        = t('formtastic.labels.user.mail')
+        \:
+        %strong
+          %a{:href => "mailto:#{resource.email}"}= resource.email
+      %p
+        = t('formtastic.labels.user.fax')
+        \:
+        %strong= resource.fax
+      %p
+        = t('formtastic.labels.user.phone')
+        \:
+        %strong= resource.phone
+      %p
+        = t('formtastic.labels.user.mobile')
+        \:
+        %strong= resource.mobile
+  - if resource.valid? && resource.is_a?(LegalEntity)
+    .Meta--block
+      %p
+        %span.Meta--highlight
+
+          = t('formtastic.labels.user.terms')
+          \:
+        = raw resource.terms
+
+    .Meta--block
+      %p
+        %span.Meta--highlight
+          = t('formtastic.labels.user.cancellation')
+          \:
+        = raw resource.cancellation
+
+    .Meta--block
+      %p
+        %span.Meta--highlight
+          = t('formtastic.labels.user.about')
+          \:
+        = raw resource.about

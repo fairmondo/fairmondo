@@ -39,13 +39,15 @@ module Fairnopoly
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib/autoload)
+    # Custom model loads
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    config.active_record.observers = :article_observer
+    config.active_record.observers = :article_observer, :feedback_observer, :user_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

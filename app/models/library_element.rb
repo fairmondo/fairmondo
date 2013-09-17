@@ -19,19 +19,19 @@
 #
 class LibraryElement < ActiveRecord::Base
 
-  attr_accessible :article, :library, :library_id, :article_id
+  library_element_attributes = [:article, :library, :library_id, :article_id]
+  attr_accessible *library_element_attributes
+  attr_accessible *library_element_attributes, :as => :admin
 
   delegate :name, :user_id , :to => :library , :prefix => true
   delegate :title, :to => :article, :prefix => true
+
   # Validations
-
-  validates :library_id, :uniqueness => {:scope => :article_id , :message => I18n.t('library_element.error.uniqueness') }
-
+  validates :library_id, :uniqueness => {:scope => :article_id  }
   validates :library_id , :presence => true
 
   # Relations
-
   belongs_to :article
-  belongs_to :library
+  belongs_to :library, counter_cache: true
 
 end

@@ -25,7 +25,7 @@ describe Article do
   subject { article }
 
   describe "::Base" do
-    it {should have_and_belong_to_many :images}
+    it {should have_many :images}
     it {should belong_to :seller}
     it {should have_and_belong_to_many :categories}
 
@@ -41,13 +41,28 @@ describe Article do
         dup.images[0].image_file_name.should eq article.images[0].image_file_name
       end
     end
+
+    describe "methods" do
+      describe "#owned_by?(user)" do
+        it "should return false when user is nil" do
+          article.owned_by?(nil).should be_false
+        end
+
+        it "should return false when article doesn't belong to user" do
+          article.owned_by?(FactoryGirl.create(:user)).should be_false
+        end
+
+        it "should return true when article belongs to user" do
+          article.owned_by?(article.seller).should be_true
+        end
+      end
+    end
   end
 
 
-  describe "::Initial" do
-    it "should rescue MissingAttributeErrors" do
-      article.stub(:new_record?) { raise ActiveModel::MissingAttributeError }
-      article.initialize_values.should_not raise_error(ActiveModel::MissingAttributeError)
+  describe "::BuildTransaction" do
+    it "should build a specific transaction" do
+       article.build_specific_transaction.should be_a PreviewTransaction
     end
   end
 
@@ -74,17 +89,17 @@ describe Article do
 
     describe "#calculate_fees_and_donations" do
       #expand these unit tests!
-      it "should return zeros on fee and corruption with a friendly_percent of gt 100" do
+      it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
         article.friendly_percent = 101
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq 0
+        article.calculated_fair.should eq 0
         article.calculated_fee.should eq 0
       end
 
-      it "should return zeros on fee and corruption with a price of 0" do
+      it "should return zeros on fee and fair cents with a price of 0" do
         article.price = 0
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq 0
+        article.calculated_fair.should eq 0
         article.calculated_fee.should eq 0
       end
 
@@ -95,34 +110,70 @@ describe Article do
         article.calculated_fee.should eq Money.new(3000)
       end
 
-      it "should always round the corruption up" do
+      it "should always round the fair cents up" do
         article.price = 789.23
         article.fair = false
         article.calculate_fees_and_donations
-        article.calculated_corruption.should eq Money.new(790)
+        article.calculated_fair.should eq Money.new(790)
       end
 
     end
   end
 
   describe "::Attributes" do
-    it "should throw an error if default_transport_selected isn't able to call the transport function" do
-      article.default_transport.should be_true
-      article.stub(:send).and_return false
-      article.default_transport_selected
-      article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-    end
+    describe "Validations" do
+      it "should throw an error if selected default_transport option is not true for transport_'option'" do
+        article.default_transport = "pickup"
+        article.transport_pickup = false
+        article.save
+        article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
+      end
 
-    it "should throw an error if default_payment_selected isn't able to call the payment function" do
-      article.default_payment.should be_true
-      article.stub(:send).and_return false
-      article.default_payment_selected
-      article.errors[:default_payment].should == [I18n.t("errors.messages.invalid_default_payment")]
+      it "should throw an error if no payment option is selected" do
+        article.payment_cash = false
+        article.save
+        article.errors[:payment_details].should == [I18n.t("article.form.errors.invalid_payment_option")]
+      end
+
+      it "should throw an error if bank transfer is selected, but bank data is missing" do
+        article.seller.stub(:bank_account_exists?).and_return(false)
+        article.payment_bank_transfer = true
+        article.save
+        article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
+      end
+
+        it "should throw an error if paypal is selected, but bank data is missing" do
+        article.payment_paypal = true
+        article.save
+        article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
+      end
     end
   end
 
-  describe "::Commendation" do
+  describe "::Images" do
+    describe "methods" do
+      describe "#title_image_url" do
+        it "should return the first image's URL when one exists" do
+          article.title_image_url.should match %r#/system/images/000/000/001/original/image#
+        end
 
+        it "should return the missing-image-url when no image is set" do
+          article = FactoryGirl.create :article, :without_image
+          article.title_image_url.should eq 'missing.png'
+        end
+
+         it "should return the first image's URL when one exists" do
+          article.images = [FactoryGirl.build(:fixture_image),FactoryGirl.build(:fixture_image)]
+          article.images.each do |image|
+            image.is_title = true
+            image.save
+          end
+          article.save
+          article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
+        end
+
+      end
+    end
   end
 
   describe "::Categories" do
@@ -146,7 +197,7 @@ describe Article do
 
   describe "::Template" do
     before do
-      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(save_as_template: "1")
+      @article = FactoryGirl.build :article, article_template_id: 1, article_template: ArticleTemplate.new(),save_as_template: "1"
       @article.article_template.user = nil
     end
 
@@ -156,21 +207,29 @@ describe Article do
       end
 
       it "should return false when the save_as_template attribute is 0" do
-        @article.article_template.save_as_template = "0"
+        @article.save_as_template = "0"
         @article.save_as_template?.should be_false
       end
 
-      it "should return false when no article_template is set" do
-        @article.article_template = nil
-        @article.save_as_template?.should be_false
-      end
     end
 
-    describe "#set_user_on_article_template" do
+    describe "#not_save_as_template?" do
+      it "should return true when the save_as_template attribute is 1" do
+        @article.not_save_as_template?.should be_false
+      end
+
+      it "should return false when the save_as_template attribute is 0" do
+        @article.save_as_template = "0"
+        @article.not_save_as_template?.should be_true
+      end
+
+    end
+
+    describe "#set_user_on_template" do
       it "should set the article's seller as the template's owner" do
         @article.article_template.user.should be_nil
 
-        @article.set_user_on_article_template
+        @article.set_user_on_template
         @article.article_template.user.should eq @article.seller
       end
     end

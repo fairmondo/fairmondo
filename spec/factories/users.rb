@@ -23,13 +23,13 @@ FactoryGirl.define do
   factory :user, aliases: [:seller,:buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
-    nickname    { Faker::Internet.user_name }
+    sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
     privacy     "1"
     legal       "1"
     agecheck    "1"
-    recaptcha true
+    recaptcha   '1'
 
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -42,7 +42,15 @@ FactoryGirl.define do
     city { Faker::Address.city }
     zip { Faker::Address.postcode }
 
-    confirmed_at  Time.now
+    company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
+
+    confirmed_at Time.now
+
+    bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
+    bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
+    bank_account_owner Faker::Name.name
+    bank_name Faker::Name.name
+    #paypal_account Faker::Internet.email
 
     factory :admin_user do
       admin       true
@@ -57,15 +65,19 @@ FactoryGirl.define do
     end
     factory :legal_entity, class: 'LegalEntity' do
     end
-  end
 
-  #Only for attribute generation
-  factory :nested_seller_update, class: PrivateUser do
-    bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
-    bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
-    bank_account_owner Faker::Name.name
-    bank_name Faker::Name.name
-    #paypal_account Faker::Internet.email
+    factory :incomplete_user do
+      country nil
+    end
+
+    trait :no_bank_data do
+      bank_code ""
+      bank_account_number ""
+    end
+
+    trait :paypal_data do
+      paypal_account Faker::Internet.email
+    end
   end
 
 end

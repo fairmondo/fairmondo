@@ -18,16 +18,18 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleMailer < ActionMailer::Base
-  default from: "kundenservice@fairnopoly.de"
+  default from: $email_addresses['ArticleMailer']['default_from']
 
-  def report_article(article,text)
+  def report_article(article,user,text)
     @text = text
     @article = article
-    mail(:to => "melden@fairnopoly.de", :subject => "Article reported with ID: " + article.id.to_s)
+    @user = user
+    mail = @user ? @user.email : "noreply@fairnopoly.de"
+    mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
   def category_proposal(category_proposal)
-    mail(:to => "kundenservice@fairnopoly.de", :subject => "Category proposal: " + category_proposal)
+    mail(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: #{category_proposal}")
   end
 
 end
