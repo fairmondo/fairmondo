@@ -55,6 +55,9 @@ class MassUpload
     rescue ArgumentError
       errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
       return false
+    rescue CSV::MalformedCSVError
+      errors.add(:file, I18n.t('mass_upload.errors.illegal_quoting'))
+      return false
     end
 
     unless correct_file_size?(file)

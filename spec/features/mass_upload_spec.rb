@@ -214,6 +214,16 @@ describe "Mass-upload" do
             end
           end
 
+          describe "illegal-quoting)" do
+            it "should show correct error messages" do
+              attach_file('mass_upload_file',
+                          'spec/fixtures/mass_upload_illegal_quoting.csv')
+              click_button I18n.t('mass_upload.labels.upload_article')
+              should have_selector('p.inline-errors',
+                text: I18n.t('mass_upload.errors.illegal_quoting'))
+            end
+          end
+
           describe "no file selected)" do
             it "should show correct error messages" do
               click_button I18n.t('mass_upload.labels.upload_article')
