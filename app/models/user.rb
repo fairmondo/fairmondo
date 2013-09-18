@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
     :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
     :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-    :bank_account_number, :bank_name, :bank_account_owner, :company_name,
+    :bank_account_number, :bank_name, :bank_account_owner, :company_name, :new_terms_confirmed,
     { image_attributes: Image.image_attrs }
     ]
   end
@@ -121,6 +121,8 @@ class User < ActiveRecord::Base
 
 
   validates :about_me, :length => { :maximum => 2500 }
+
+
 
   # Return forename plus surname
   # @api public
@@ -250,6 +252,10 @@ class User < ActiveRecord::Base
     can_sell
   end
 
+  def reconfirm_terms
+    self.new_terms_confirmed = true
+    self.save
+  end
 
   private
 

@@ -12,6 +12,8 @@ de:
       report: "Dein Feedback zu dem Artikel"
 
   article:
+    activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
+    not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
     included_short: "Inkl."
     deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>"
@@ -75,6 +77,7 @@ de:
       header: "Ergebnisse"
     notices:
       create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
+      confirm_to_buy: "Artikel wurde erfolgreich zum Verkauf eingestellt!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"

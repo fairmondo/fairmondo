@@ -25,9 +25,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
 
+  before_filter :check_new_terms, :except=> [:reconfirm_terms, :sign_out]
+
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index,:feed]
+  after_filter :verify_authorized_with_exceptions, :except=> [:index]
 
   protect_from_forgery
 
@@ -35,7 +37,9 @@ class ApplicationController < ActionController::Base
 
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for resource_or_scope
-    if resource_or_scope.is_a?(User) && resource_or_scope.banned?
+    if resource_or_scope.is_a?(User) && !resource_or_scope.new_terms_confirmed
+      welcome_reconfirm_terms_path
+    elsif resource_or_scope.is_a?(User) && resource_or_scope.banned?
       sign_out resource_or_scope
       flash.discard
       "/banned"
@@ -118,4 +122,15 @@ class ApplicationController < ActionController::Base
   def manual_params allowed_params
     allowed_params
   end
+
+  private
+
+  def check_new_terms
+    if current_user && !current_user.new_terms_confirmed && params[:controller] != 'devise/sessions'
+      redirect_to welcome_reconfirm_terms_path
+    end
+
+  end
+
+
 end
