@@ -10,9 +10,14 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback zu dem Artikel"
-
+    export:
+      nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
+      all: "Alle Artikel als CSV Datei exportieren"
+      active: "Alle eingestellten Artikel als CSV Datei exportieren"
+      inactive: "Alle nicht eingestellten Artikel als CSV Datei exportieren"
   article:
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
+    included_short: "Inkl."
     deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>"
     vat: "Mehrwertsteuer"
     vat_included: "Inkl. %{mwst}% Mehrwertsteuer"
@@ -73,6 +78,7 @@ de:
     list:
       header: "Ergebnisse"
     notices:
+      mass_upload_create_html: "Die Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
@@ -104,19 +110,25 @@ de:
       remove-filter:  "Kategorie-Filter entfernen"
     preview:
       fees_and_donations:
-        title: Deine Gebühren und Spenden
+        title: "Deine Gebühren und Spenden"
+        mass_upload_title: "Deine Gebühren und Spenden bei Verkauf aller Artikel"
         fair_percent: "Das faire Prozent (1%):"
+        mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel:"
         friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
+        total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel"
         total: "Gesamt bei Verkauf, inkl. 19% MwSt:"
+        total_all_articles: "Gesamt bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl) inkl 19% MwSt:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
         netto: "Nettobetrag:"
 
       double_check:
         title: Alle Angaben überprüft?
       tooltips:
+        fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
         fees_and_donations: >
           1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet.
+        fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
           Dann stelle Deinen Artikel ein. Das Einstellen des Artikels ist kostenlos, bei Verkauf fallen die unter Gebühren und Spenden gelisteten Verkaufsgebühren an.

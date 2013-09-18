@@ -40,6 +40,7 @@ de:
         bank_account_owner: "Kontoinhaber"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_account: "Paypal-Konto"
+        paypal_and_bank_account: "PayPal- und Bankkonto"
         customer_number: "Kundennummer"
 
       feedback:
@@ -165,6 +166,8 @@ de:
         friendly_percent: "Das freundliche Prozent (optional)"
         double_check: "Artikel einstellen"
         upload_images: "Bilder hochladen"
+      mass_upload:
+        upload_csv: "Artikel per CSV-Datei importieren"
       template_select:
         prefix: ""
         apply: Deine Vorlagen
@@ -244,5 +247,3 @@ de:
       # Login
       login: "Login"
       sign_up: "Registrieren"
-
-

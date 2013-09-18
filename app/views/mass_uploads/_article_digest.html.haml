@@ -1,0 +1,7 @@
+%li
+  = t('formtastic.labels.article.title') + ": "
+  = (link_to article.title, article_path(article), target: "_blank") + "."
+  = t('article.preview.fees_and_donations.title')
+  = t('article.preview.fees_and_donations.total',
+    fee: (article.fair ? "3% + 1%" : "6% + 1%")  )
+  = humanized_money_with_symbol(article.calculate_fees_and_donations)
