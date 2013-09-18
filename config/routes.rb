@@ -62,6 +62,9 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
+  get "welcome/reconfirm_terms"
+  post "welcome/reconfirm_terms"
+
   get "welcome/index"
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 

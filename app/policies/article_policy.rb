@@ -57,6 +57,10 @@ class ArticlePolicy < Struct.new(:user, :article)
      user && own? && article.active?
   end
 
+  def confirm_to_buy?
+    user && own? && article.active_old?
+  end
+
   def report?
     ((user && !own?) || !user)  && article.active?
   end

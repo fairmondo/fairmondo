@@ -32,6 +32,10 @@ module Article::State
         # Inactive and editable
       end
 
+      state :active_old do
+        # Searchable but not buyable
+      end
+
       state :active do
         # Searchable and buyable
       end
@@ -50,6 +54,10 @@ module Article::State
 
       event :activate do
         transition [:preview,:locked] => :active
+      end
+
+      event :confirm_to_buy do
+        transition :active_old => :active
       end
 
       # Theoretical event, can't be performed over state-machine because people with validation issues can't do stuff anymore

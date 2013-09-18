@@ -30,6 +30,7 @@ class ArticlesController < InheritedResources::Base
 
   # Layout Requirements
   before_filter :ensure_complete_profile , :only => [:new, :create]
+  before_filter :authorize_resource, :only => [:edit, :show]
 
   #Sunspot Autocomplete
   def autocomplete
@@ -50,7 +51,6 @@ class ArticlesController < InheritedResources::Base
 
   def show
     @article = Article.find params[:id]
-    authorize resource
 
     redirect_to transaction_path(resource) if resource.closed?
 
@@ -76,11 +76,6 @@ class ArticlesController < InheritedResources::Base
       @old_article.close_without_validation
     end
     new!
-  end
-
-  def edit
-    authorize resource
-    edit!
   end
 
   def create
@@ -149,11 +144,20 @@ class ArticlesController < InheritedResources::Base
         resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
         redirect_to resource
+      elsif permitted_state_params[:confirm_to_buy]
+        authorize resource, :confirm_to_buy?
+        if resource.confirm_to_buy
+          flash[:notice] = I18n.t('article.notices.confirm_to_buy').html_safe
+          redirect_to resource
+        else
+          # The article became invalid so please try a new one
+          redirect_to new_article_path(:edit_as_new => resource.id)
+        end
       end
     end
 
     def state_params_present?
-      permitted_state_params[:activate] || permitted_state_params[:deactivate]
+      permitted_state_params[:activate] || permitted_state_params[:deactivate] || permitted_state_params[:confirm_to_buy]
     end
 
 
@@ -168,7 +172,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def permitted_state_params
-      params.permit :activate, :deactivate
+      params.permit :activate, :deactivate, :confirm_to_buy
     end
     def permitted_new_params
       params.permit :edit_as_new, template_select: [:article_template]
