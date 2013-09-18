@@ -13,6 +13,7 @@ class MassUploadsController < ApplicationController
   end
 
   def create
+    # bugbug Move model logic into model (@mass_upload use_count > 4)
     authorize Article.new, :create? # Needed because of pundit
 
     @mass_upload = MassUpload.new(current_user, params[:mass_upload])
@@ -42,7 +43,6 @@ class MassUploadsController < ApplicationController
     end
   end
 
-  # bugbug vorlaeufige updatemthode
   def update
     authorize Article.new, :create? # Needed because of pundit
 
