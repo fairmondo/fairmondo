@@ -29,7 +29,7 @@ module UsersHelper
   end
 
   def inactive_articles
-    resource.articles.where("state = ? AND state = ?", :preview, :locked ).includes(:seller,:images).page(params[:inactive_articles_page])
+    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:seller,:images).page(params[:inactive_articles_page])
   end
 
   def sold_articles

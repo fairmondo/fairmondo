@@ -519,8 +519,9 @@ describe 'Transaction' do
             page.should have_content "Alles moegliche"
           end
 
-          it "should have link to the bought article" do
+          it "should have links to article and user profile" do
             page.should have_link transaction.article.title
+            page.should have_link transaction.article_seller_nickname
           end
         end
 

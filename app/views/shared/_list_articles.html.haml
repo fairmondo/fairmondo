@@ -22,6 +22,6 @@
 - list_class = "" if local_assigns[:list_class].nil?
 %section{ class: list_class }
 	- articles.each do |article|
-		- if article.active? || :seller_buyer_display
+		- if article.active? || :dashboard
 			%Article{ class: 'Article Article--teaser' }
 				= render partial: '/shared/show_article', locals: { article: article }
