@@ -49,6 +49,8 @@
     %link{ :rel => 'apple-touch-icon', :sizes => '72x72', :href => 'assets/images/touch-icon-ipad.png', :type => "image/png"  }
     %link{ :rel => 'apple-touch-icon', :sizes => '114x114', :href => 'assets/images/touch-icon-iphone-retina.png', :type => "image/png"  }
     %link{ :rel => 'apple-touch-icon', :sizes => '144x144', :href => 'assets/images/touch-icon-ipad-retina.png', :type => "image/png"  }
+    / provides proper Article-Image for Facebook
+    %link{ :rel => 'image_src', :href => yield(:title_image) }
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
