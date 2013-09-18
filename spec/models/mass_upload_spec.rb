@@ -8,10 +8,6 @@ describe MassUpload do
     setup_categories
   end
 
-  # bugbug Macht das Sinn? Teilweise benutzen wir doch auch inkorrekte...
-  subject { correct_mass_upload }
-
-
   describe "methods" do
 
     describe "with valid input file format" do

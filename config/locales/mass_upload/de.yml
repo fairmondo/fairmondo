@@ -17,7 +17,7 @@ de:
       wrong_article: "Zeile %{index}: %{message}"
       wrong_article_message: "Content muss ausgefüllt werden"
       missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungsoptionen (%{missing_payment})</a>.'
-      illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach us-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschen Standard („“).'
+      illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach us-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschem Standard („“).'
     header:
       title: "Artikelbezeichnung"
       content: "Artikelbeschreibung"

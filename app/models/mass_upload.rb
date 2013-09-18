@@ -197,42 +197,7 @@ class MassUpload
   end
 
   def include_fair_social_questionnaires(row)
-    # bugbugb start (Refactor asap!)
-    # row = row.to_a
-    # fair_trust_questionnaire_attributes_array = row[32..51]
-    # social_producer_questionnaire_attributes_array = row[52..58]
-    # row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
-    # debugger
-    # if row[30][1] == "fair_trust"
-    #   fair_trust_questionnaire_attributes = {}
-    #   fair_trust_questionnaire_attributes_array.each do |pair|
-    #     if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
-    #       fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1].split
-    #     elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
-    #       fair_trust_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
-    #     else
-    #       fair_trust_questionnaire_attributes[pair.first] = pair[1..-1].first
-    #     end
-    #   end
-    #   row = Hash[row]
-    #   row["fair_trust_questionnaire_attributes"] = fair_trust_questionnaire_attributes
-    # elsif row[30][1] == "social_producer"
-    #   social_producer_questionnaire_attributes = {}
-    #   social_producer_questionnaire_attributes_array.each do |pair|
-    #     if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
-    #       social_producer_questionnaire_attributes[pair.first] = [""] + pair[1].split
-    #     elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
-    #       social_producer_questionnaire_attributes[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
-    #     else
-    #       social_producer_questionnaire_attributes[pair.first] = pair[1..-1].first
-    #     end
-    #   end
-    #   row = Hash[row]
-    #   row["social_producer_questionnaire_attributes"] = social_producer_questionnaire_attributes
-    # else
-    #   row = Hash[row]
-    # end
-    # row
+    # bugbug Refactor asap
     row = row.to_a
     fair_trust_questionnaire_attributes_array = row[32..51]
     social_producer_questionnaire_attributes_array = row[52..58]
