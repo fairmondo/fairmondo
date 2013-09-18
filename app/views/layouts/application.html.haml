@@ -141,6 +141,9 @@
                 %a{:href => "/philosophy"}
                   = t('footer.philosophy')
               %li
+                %a{:href => "http://info.fairnopoly.de/pressekit/"}
+                  = t('footer.press')
+              %li
                 %a{:href => "http://info.fairnopoly.de/team/"}
                   = t('footer.team')
               - if User.is_admin? current_user
