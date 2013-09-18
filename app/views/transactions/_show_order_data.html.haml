@@ -13,10 +13,6 @@
 	= t "transaction.show.congratulation_seller"
 	= t "transaction.show.congratulation_seller_invoice" if selected_payment == 'invoice'
 
-= render "bank_transfer_data" if selected_payment == 'bank_transfer'
-
-= render "paypal_data" if selected_payment == 'paypal'
-
 %p
 	- if selected_payment == 'cash'
 		= t 'transaction.show.cash_questions'
