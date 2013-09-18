@@ -1,0 +1,40 @@
+- selected_payment  	= transaction.selected_payment
+- selected_transport 	= transaction.selected_transport
+- quantity 						= transaction.quantity_bought
+
+%h1
+	= t 'transaction.edit.heading'
+= link_to "#{transaction.article.title}", article_path( transaction.article )
+%br
+%h3
+	= t "transaction.show.payment_title_#{selected_payment}"
+
+%p
+	= t "transaction.show.congratulation_seller"
+	= t "transaction.show.congratulation_seller_invoice" if selected_payment == 'invoice'
+
+= render "bank_transfer_data" if selected_payment == 'bank_transfer'
+
+= render "paypal_data" if selected_payment == 'paypal'
+
+%p
+	- if selected_payment == 'cash'
+		= t 'transaction.show.cash_questions'
+%p
+	Nutzername:
+	= transaction.buyer.nickname
+	%br
+	Name:
+	= transaction.buyer.fullname
+	%br
+	Email:
+	= transaction.buyer.email
+	%br
+	%br
+	- unless selected_payment == 'cash'
+		Bitte verschicke den Artikel an folgende Adresse:
+		= transaction.buyer.address
+
+
+%p
+	= link_to 'Lieferschein drucken', print_order_transaction_path( transaction ), class: 'Btn', target: '_blank'
