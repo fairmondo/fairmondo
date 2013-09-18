@@ -50,7 +50,17 @@ FactoryGirl.define do
     bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
-    #paypal_account Faker::Internet.email
+
+    trait :missing_bank_data do
+      bank_code ""
+      bank_account_number ""
+      bank_account_owner ""
+      bank_name ""
+   end
+
+    trait :paypal_data do
+      paypal_account Faker::Internet.email
+    end
 
     factory :admin_user do
       admin       true
