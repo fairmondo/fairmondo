@@ -61,7 +61,7 @@
 
 
           %p
-            = link_to 'Deine Bestellung drucken', print_order_transaction_path( resource ), class: 'Btn', target: '_blank'
+            = link_to 'Deine Bestellung drucken', print_order_buyer_transaction_path( resource ), class: 'Btn', target: '_blank'
 
         - else
           = render partial: 'show_order_data', locals: { transaction: resource }
