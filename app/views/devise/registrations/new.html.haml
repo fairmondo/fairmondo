@@ -49,7 +49,5 @@
         = f.input :legal,  :as => :boolean,:required => true , :label => t("common.text.i_accept_the").html_safe + legal_link
         = f.input :privacy, :as => :boolean,:required => true , :label => t("common.text.i_accept_the").html_safe + privacy_link
 
-        -# for the new terms
-        = f.input :new_terms_confirmed, :as => :hidden, :input_html => { :value => true }
       = f.actions do
         = f.action :submit, :button_html => {:class => "Btn", :id => "sign_up"}, :label => :sign_up
