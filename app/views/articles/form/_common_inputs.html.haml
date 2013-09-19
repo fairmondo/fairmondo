@@ -52,7 +52,7 @@
         - if current_user.country == "Deutschland"
           = f.input :vat, :required => true, :tooltip => true, :as => :select, :collection => [0,7,19]
 = f.input_step :upload_images, :tooltip => t('formtastic.tooltips.article.upload_images_input_step') do
-  - (5-f.object.images.size).times { f.object.images.build }
+  - (2-f.object.images.size).times { f.object.images.build }
   = f.semantic_errors :images
   = f.semantic_fields_for :images do |image|
     = f.inputs do
