@@ -74,10 +74,6 @@ FactoryGirl.define do
       country nil
     end
 
-    factory :new_terms_not_confirmed do
-      new_terms_confirmed '0'
-    end
-
     trait :no_bank_data do
       bank_code ""
       bank_account_number ""
