@@ -78,7 +78,7 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      mass_upload_create_html: "Die Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
+      mass_upload_create_html: "Die Artikel wurden erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
@@ -111,13 +111,14 @@ de:
     preview:
       fees_and_donations:
         title: "Deine Gebühren und Spenden"
-        mass_upload_title: "Deine Gebühren und Spenden bei Verkauf aller Artikel"
+        mass_upload_title: "Deine Gebühren und Spenden bei Verkauf <b>aller</b> Artikel"
         fair_percent: "Das faire Prozent (1%):"
-        mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel:"
+        mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl):"
         friendly_percent: "Das faire Prozent:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
-        total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel"
+        total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl)"
         total: "Gesamt bei Verkauf, inkl. 19% MwSt:"
+        total_mass_upload: "gesamt bei Verkauf des Artikels (gemäß der angegebenen Stückzahl), inkl. 19% MwSt:"
         total_all_articles: "Gesamt bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl) inkl 19% MwSt:"
         quarter_fee: "Ggfs. wird zusätzlich eine Quartalsgebühr von 1,- Euro inkl. 19% MwSt fällig"
         netto: "Nettobetrag:"
