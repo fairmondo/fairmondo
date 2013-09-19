@@ -21,7 +21,7 @@
 #
 class Category < ActiveRecord::Base
 
- def self.category_attrs
+  def self.category_attrs
     [:name, :parent, :desc, :parent_id]
   end
 
