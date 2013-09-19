@@ -114,24 +114,39 @@ class Article < ActiveRecord::Base
 
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
-                  "basic_price_amount","vat", "title_image_url", "image_2_url",
-                  "image_3_url", "image_4_url", "image_5_url",
+                  "basic_price_amount", "vat", "title_image_url", "image_2_url",
                   "transport_pickup", "transport_type1",
-                  "transport_type1_provider", "transport_type1_price_cents",
+                  "transport_type1_provide", "transport_type1_price_cents",
                   "transport_type2", "transport_type2_provider",
                   "transport_type2_price_cents", "default_transport",
-                  "transport_details", "payment_bank_transfer", "payment_cash",
-                  "payment_paypal", "payment_cash_on_delivery",
+                  "transport_details", "payment_bank_transfer",
+                  "payment_cash;payment_paypal", "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
-                  "payment_details", "fair_seal", "ecologic_seal",
-                  "small_and_precious_eu_small_enterprise",
+                  "payment_details", "fair_kind", "fair_seal", "support",
+                  "support_checkboxes", "support_other", "support_explanation",
+                  "labor_conditions", "labor_conditions_checkboxes",
+                  "labor_conditions_other", "labor_conditions_explanation",
+                  "environment_protection", "environment_protection_checkboxes",
+                  "environment_protection_other",
+                  "environment_protection_explanation", "controlling",
+                  "controlling_checkboxes", "controlling_other",
+                  "controlling_explanation", "awareness_raising",
+                  "awareness_raising_checkboxes", "awareness_raising_other",
+                  "awareness_raising_explanation", "nonprofit_association",
+                  "nonprofit_association_checkboxes",
+                  "social_businesses_muhammad_yunus",
+                  "social_businesses_muhammad_yunus_checkboxes",
+                  "social_entrepreneur", "social_entrepreneur_checkboxes",
+                  "social_entrepreneur_explanation", "ecologic_seal",
+                  "upcycling_reason", "small_and_precious_eu_small_enterprise",
                   "small_and_precious_reason", "small_and_precious_handmade",
                   "gtin", "custom_seller_identifier"]
 
     CSV.generate(:col_sep => ";") do |csv|
+      # bugbug Refactor asap
       csv << header_row
       articles.each do |article|
-        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..9]) + article.provide_external_urls + article.attributes.values_at(*header_row[15..-1])
+        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..9]) + article.provide_external_urls + article.attributes.values_at(*header_row[12..-1])
       end
     end
   end
@@ -145,9 +160,10 @@ class Article < ActiveRecord::Base
     unless self.images.empty?
       self.images.each do |image|
         external_urls << image.external_url
+        break if external_urls.length == 2
       end
     end
-    until external_urls.length == 5
+    until external_urls.length == 2
       external_urls << ""
     end
     external_urls

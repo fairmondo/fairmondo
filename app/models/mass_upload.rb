@@ -95,7 +95,7 @@ class MassUpload
   end
 
   def correct_header?(file)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;image_3_url;image_4_url;image_5_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
+    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;title_image_url;image_2_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;default_transport;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
 
     CSV.foreach(file.path, headers: false) do |row|
       if row == header_row
@@ -163,6 +163,7 @@ class MassUpload
   def save
     if validate_articles(raw_articles)
       raw_articles.each do |raw_article|
+        raw_article.calculate_fees_and_donations
         raw_article.save
       end
     end
@@ -171,7 +172,7 @@ class MassUpload
   def self.calculate_total_fees(articles)
     total_fee = Money.new(0)
     articles.each do |article|
-      total_fee += article.calculate_fees_and_donations * article.quantity
+      total_fee += article.calculated_fee * article.quantity
     end
     total_fee
   end
@@ -191,7 +192,7 @@ class MassUpload
   def self.calculate_total_fees_and_donations_netto(articles)
     total_netto = Money.new(0)
     articles.each do |article|
-      total_netto += article.calculated_fees_and_donations_netto
+      total_netto += article.calculated_fees_and_donations_netto_with_quantity
     end
     total_netto
   end
@@ -199,15 +200,15 @@ class MassUpload
   def include_fair_social_questionnaires(row)
     # bugbug Refactor asap
     row = row.to_a
-    fair_trust_questionnaire_attributes_array = row[32..51]
-    social_producer_questionnaire_attributes_array = row[52..58]
+    fair_trust_questionnaire_attributes_array = row[29..48]
+    social_producer_questionnaire_attributes_array = row[49..55]
     fair_trust_questionnaire_attributes = {}
     social_producer_questionnaire_attributes = {}
     row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
-    if row[30][1] == "fair_trust"
+    if row[27][1] == "fair_trust"
       key = "fair_trust_questionnaire_attributes"
       row = inject_questionnaire(fair_trust_questionnaire_attributes_array, fair_trust_questionnaire_attributes, row, key)
-    elsif row[30][1] == "social_producer"
+    elsif row[27][1] == "social_producer"
       key = "social_producer_questionnaire_attributes"
       row = inject_questionnaire(social_producer_questionnaire_attributes_array, social_producer_questionnaire_attributes, row, key)
     else

@@ -1,4 +1,20 @@
-%h1 Artikel importieren
+%h1 Beta-Funktion: Artikel per CSV-Datei importieren
+
+%p
+  Bevor Du dieses Feature erstmalig nutzt, wirf auf jeden Fall einen Blick in die
+  %a{ :href => '/CSV-Upload-Doku_05.pdf', target: "_blank" } Dokumentation
+  und
+  %a{ :href => '/csv-upload-muster_05.csv', target: "_blank" } Musterdatei.
+
+%p
+  Bitte beachte, dass sich die CSV-Upload-Funktion noch im Beta-Stadium befindet, d.h. unter
+  Umständen Fehler auftreten können. Wir empfehlen, zunächst testweise nur kleinere
+  Artikelmengen einzustellen, und die eingestellten Artikel zu überprüfen.
+  Bei Problemen kontaktiere uns einfach unter
+  %a{ :href => "kundenservice@fairnopoly.de." } kundenservice@fairnopoly.de.
+%p
+  Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
+  100 pro Datei begrenzt!
 
 - if current_user.is_a?(LegalEntity)
   = semantic_form_for(@mass_upload, url: mass_uploads_path, :builder => Fairtastic::FormBuilder) do |f|
