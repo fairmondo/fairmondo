@@ -90,8 +90,6 @@ de:
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
         transport_method: "Versandmethode(n)"
-
-        default_transport: "Bevorzugte Versandmethode"
         transport_details: "Weitere Angaben:"
 
         default_payment: "Bevorzugte Bezahlmethode"
