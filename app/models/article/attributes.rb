@@ -23,7 +23,7 @@ module Article::Attributes
   included do
 
     #common fields
-    common_attributes = [:title, :content, :condition  ,:condition_extra  , :quantity , :transaction_attributes]
+    common_attributes = [:title, :content, :condition ,:condition_extra, :quantity, :transaction_attributes]
     attr_accessible *common_attributes
     attr_accessible *common_attributes, :as => :admin
 
@@ -44,7 +44,7 @@ module Article::Attributes
 
     #money_rails and price
 
-    money_attributes = [:price_cents , :currency, :price, :vat]
+    money_attributes = [:price_cents, :currency, :price, :vat]
     attr_accessible *money_attributes
     attr_accessible *money_attributes, :as => :admin
 
@@ -71,7 +71,7 @@ module Article::Attributes
     # =========== Transport =============
 
     #transport
-    transport_attributes = [:default_transport, :transport_pickup,
+    transport_attributes = [:transport_pickup,
                     :transport_type1, :transport_type1_price_cents,
                     :transport_type1_price, :transport_type1_provider,
                     :transport_type2, :transport_type2_price_cents,
@@ -82,9 +82,6 @@ module Article::Attributes
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
-    enumerize :default_transport, :in => [:pickup, :type1, :type2]
-
-    validates_presence_of :default_transport
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
@@ -92,17 +89,15 @@ module Article::Attributes
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
     monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
-    validate :default_transport_selected
-
 
     # ================ Payment ====================
 
     #payment
-    payment_attributes = [:payment_details ,
+    payment_attributes = [:payment_details,
                     :payment_bank_transfer,
                     :payment_cash,
                     :payment_paypal,
-                    :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
+                    :payment_cash_on_delivery, :payment_cash_on_delivery_price, :payment_cash_on_delivery_price_cents,
                     :payment_invoice]
     attr_accessible *payment_attributes
     attr_accessible *payment_attributes, :as => :admin
@@ -135,14 +130,6 @@ module Article::Attributes
   end
 
   private
-
-    def default_transport_selected
-      if self.default_transport
-        unless self.send("transport_#{self.default_transport}")
-          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
-        end
-      end
-    end
 
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
