@@ -304,8 +304,9 @@ de:
       models:
         image:
           attributes:
-            image_file_size:
-              in_between: "Das Bild ist zu groß. Maximal 5 MB."
+            image_file_size: &image
+              in_between: "Das Bild ist zu groß. Maximal 3 MB."
+            image: *image
         article:
           attributes:
             small_and_precious_eu_small_enterprise:

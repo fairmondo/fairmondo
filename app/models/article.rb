@@ -45,7 +45,6 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
-  has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id'
   validates_presence_of :user_id
 
   belongs_to :article_template
@@ -118,5 +117,14 @@ class Article < ActiveRecord::Base
 
   def is_conventional?
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
+  end
+
+  #has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id', source: :article
+  def buyer
+    if self.transaction.multiple?
+      self.partial_transactions.map { |e| e.buyer }
+    else
+      Array.new << self.transaction.buyer
+    end
   end
 end

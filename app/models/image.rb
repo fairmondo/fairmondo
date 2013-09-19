@@ -38,7 +38,7 @@ class Image < ActiveRecord::Base
 
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates_attachment_size :image, :in => 0..5.megabytes
+  validates_attachment_size :image, :in => 0..3.megabytes
 
 
   # Using polymorphy with STI (User) is tricky: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#label-Polymorphic+Associations

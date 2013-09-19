@@ -1,0 +1,73 @@
+- @transaction 				= t
+- buyer 							= @transaction.buyer
+- seller 							= @transaction.article_seller
+- selected_payment 		= @transaction.selected_payment
+- selected_transport 	= @transaction.selected_transport
+- quantity						= @transaction.quantity_bought
+- title 							= @transaction.article.title
+- article 						= @transaction.article
+
+%h3 Lieferschein (Ich bin noch ein Dummy)
+%p
+%h4 Lieferadresse
+%p
+	= buyer.fullname
+	%br
+	= @transaction.street
+	%br
+	= @transaction.zip
+	%br
+	= @transaction.city
+	%br
+	= @transaction.country
+	%br
+%p
+	= Time.now.strftime("%d.%m.%Y")
+%P
+	%table
+		%tr
+			%th
+				Menge
+			%th
+				Artikel
+			%th
+				Einzelpreis
+			%th
+				Gesamtpreis
+		%tr
+			%td
+				= quantity
+			%td
+				= title
+			%td
+				= humanized_money_with_symbol( @transaction.article.price )
+			%td
+				= humanized_money_with_symbol( @transaction.article.price * quantity )
+		%tr
+			%td
+			%td
+				enthaltene MwSt
+			%td
+				= humanized_money_with_symbol(0.19)
+			%td
+				= humanized_money_with_symbol(0.19)
+		%tr
+			%td
+			%td
+				Versand und Verpackung
+			%td
+			%td
+				= humanized_money_with_symbol(4.99)
+		%tr
+			%td
+			%td
+				Gesamt
+			%td
+			%td
+				= humanized_money_with_symbol(5.99)
+				%hr
+				%hr
+
+
+:javascript
+	print();
