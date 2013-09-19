@@ -1,3 +1,5 @@
+# ARGV could be refactored (see: https://github.com/thoughtbot/paperclip/blob/master/lib/tasks/paperclip.rake)
+
 namespace :import do
   desc "Import content"
   task :content => :environment do
@@ -9,4 +11,3 @@ namespace :import do
     end
   end
 end
-

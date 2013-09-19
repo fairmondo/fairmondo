@@ -53,7 +53,16 @@ FactoryGirl.define do
 
     direct_debit '1'
 
-    #paypal_account Faker::Internet.email
+    trait :missing_bank_data do
+      bank_code ""
+      bank_account_number ""
+      bank_account_owner ""
+      bank_name ""
+   end
+
+    trait :paypal_data do
+      paypal_account Faker::Internet.email
+    end
 
     factory :admin_user do
       admin       true

@@ -19,13 +19,14 @@
 -#
 %p
   = t('common.text.hello')
-  = @resource.email
-  \!
+  = @resource.nickname + '!'
 %p= t('devise.confirmation.email.text')
 %p= link_to t('devise.confirmation.email.link'), confirmation_url(@resource, :confirmation_token => @token)
 %p= t('devise.confirmation.email.info')
 %p= t('devise.confirmation.ignoremail')
 %p= t('common.fn_footer_greeting')
+%br
+%p= t('common.fn_legal_footer.spacer')
 %p= t('common.fn_legal_footer.intro')
 %p= t('common.fn_legal_footer.contact')
 %p= t('common.fn_legal_footer.registered')

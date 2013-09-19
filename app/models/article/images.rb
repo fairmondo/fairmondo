@@ -22,7 +22,7 @@ module Article::Images
 
   included do
     # ---- IMAGES ------
-    attr_accessible :images_attributes
+    attr_accessible :images_attributes, :title_image_url
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 
@@ -67,5 +67,24 @@ module Article::Images
       end
     end
 
+    4.times do |number|
+      attr_accessible "image_#{number+2}_url".to_sym
+      define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
+                          add_image(image_url, false)})
+    end
+
+    def title_image_url=(image_url)
+      add_image(image_url, true)
+    end
+
+    def add_image(image_url, is_title)
+      if image_url
+        image = Image.new(:image => URI.parse(image_url))
+        image.is_title = is_title
+        image.external_url = image_url
+        image.save
+        self.images << image
+      end
+    end
   end
 end
