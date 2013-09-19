@@ -41,7 +41,9 @@ de:
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_account: "Paypal-Konto"
         customer_number: "Kundennummer"
-
+        direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
+        direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
+        seller_fees: "Verkaufsgebühren"
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"
