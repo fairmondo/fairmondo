@@ -518,6 +518,10 @@ describe 'Transaction' do
             pending "Not yet implemented."
             page.should have_content "Alles moegliche"
           end
+
+          it "should have link to the bought article" do
+            page.should have_link transaction.article.title
+          end
         end
 
         context "but the current user isn't the one who bought" do

@@ -32,7 +32,6 @@ describe Article do
       it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
-      it {should have_many :buyer}
       it {should have_one(:transaction).dependent(:destroy)}
     end
 

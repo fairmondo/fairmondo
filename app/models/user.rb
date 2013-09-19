@@ -235,8 +235,6 @@ class User < ActiveRecord::Base
     ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
   end
 
-
-
   def bank_account_exists?
     ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
   end
