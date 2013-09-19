@@ -134,13 +134,6 @@ describe Article do
 
   describe "::Attributes" do
     describe "Validations" do
-      it "should throw an error if selected default_transport option is not true for transport_'option'" do
-        article.default_transport = "pickup"
-        article.transport_pickup = false
-        article.save
-        article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-      end
-
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
@@ -166,10 +159,6 @@ describe Article do
       describe "#transport_price" do
         let(:article) { FactoryGirl.create :article, :with_all_transports }
 
-        it "should return an article's default_transport's price" do
-          article.transport_price.should eq Money.new 0
-        end
-
         it "should return an article's type1 transport price" do
           article.transport_price("type1").should eq Money.new 2000
         end
@@ -185,10 +174,6 @@ describe Article do
 
       describe "#transport_provider" do
         let (:article) { FactoryGirl.create :article, :with_all_transports }
-
-        it "should return an article's default_transport's provider" do
-          article.transport_provider.should eq nil
-        end
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'

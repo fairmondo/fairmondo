@@ -86,7 +86,7 @@ module Article::Attributes
 
     #transport
     def self.transport_attrs
-      [:default_transport, :transport_pickup,
+      [:transport_pickup,
       :transport_type1, :transport_type1_price_cents,
       :transport_type1_price, :transport_type1_provider,
       :transport_type2, :transport_type2_price_cents,
@@ -98,17 +98,12 @@ module Article::Attributes
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
-    enumerize :default_transport, in: TRANSPORT_TYPES
-
-    validates_presence_of :default_transport
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
 
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
     monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-
-    validate :default_transport_selected
 
 
     # ================ Payment ====================
@@ -190,7 +185,7 @@ module Article::Attributes
   # @param transport_type [String] The transport type to look up
   # @param quantity [Integer]
   # @return [Money] The shipping price
-  def transport_price transport_type = self.default_transport, quantity = 1
+  def transport_price transport_type, quantity = 1
     case transport_type
     when "type1"
       transport_type1_price * quantity
@@ -206,7 +201,7 @@ module Article::Attributes
   # @api public
   # @param transport_type [String] The transport type to look up
   # @return [Money] The shipping provider
-  def transport_provider transport_type = self.default_transport
+  def transport_provider transport_type
     case transport_type
     when "type1"
       transport_type1_provider
@@ -237,14 +232,6 @@ module Article::Attributes
 
   private
 
-    def default_transport_selected
-      if self.default_transport
-        unless self.send("transport_#{self.default_transport}")
-          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
-        end
-      end
-    end
-
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
         errors.add(:payment_details, I18n.t("article.form.errors.invalid_payment_option"))
@@ -256,18 +243,12 @@ module Article::Attributes
     # @api private
     # @return [Array] An array with selected attribute types
     def selectable attribute
-      # First get all selected attributes
+      # Get all selected attributes
       output = []
       eval("#{attribute.upcase}_TYPES").each do |e|
         output << e if self.send "#{attribute}_#{e}"
       end
-
-      # Now shift the default to be the first element
-      if attribute == "transport"
-        output.unshift output.delete_at output.index send("default_transport").to_sym
-      else
-        output
-      end
+      output
     end
 
 
