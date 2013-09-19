@@ -18,7 +18,7 @@
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  image_attributes = [:image, :is_title]
+  image_attributes = [:image, :is_title, :external_url]
   attr_accessible *image_attributes
   attr_accessible *image_attributes, :as => :admin
 

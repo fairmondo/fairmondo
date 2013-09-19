@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_classes
-    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController]
+    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController]
   end
 
 

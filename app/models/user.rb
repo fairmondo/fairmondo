@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, :image_attributes, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
       :terms, :cancellation, :about, :bank_code, :paypal_account,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name]
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :direct_debit]
 
   attr_accessible *user_attributes
   attr_accessible *user_attributes, :as => :admin
@@ -102,6 +102,7 @@ class User < ActiveRecord::Base
 
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
   end
 

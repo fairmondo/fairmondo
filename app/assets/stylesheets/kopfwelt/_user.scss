@@ -41,7 +41,6 @@
 }
 
 .User-announcement {
-
   @include rem(margin-bottom, 9px);
   @include at-breakpoint($layout-medium) {
      padding-top: 3em;
@@ -63,7 +62,9 @@
     display: block;
     margin: 20px auto;
     margin: 1.42857rem auto;
-  }
+}
+
+
 
 
 .User-profile {
