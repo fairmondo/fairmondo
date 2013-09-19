@@ -65,7 +65,6 @@ describe 'Article management' do
           end
           fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
           check "article_transport_pickup"
-          select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
           fill_in 'article_transport_details', with: 'transport_details'
           check "article_payment_cash"
           fill_in 'article_payment_details', with: 'payment_details'
