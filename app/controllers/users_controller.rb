@@ -46,17 +46,6 @@ class UsersController < InheritedResources::Base
     end
   end
 
-  def release_reconfirm
-    if params[:reconfirm_terms][:legal] == "1" && params[:reconfirm_terms][:privacy] == "1"
-      flash[:notice] = "Erfolgreich freigeschalten!!"
-      redirect_to profile_user_path(current_user)
-      #TODO: activate articles if selected
-    else
-      flash[:error] = "Du musst die AGB und Datenschutzerklaehrungakzeptieren, bevor Du vorfahren kannst!"
-      redirect_to welcome_reconfirm_terms_path
-    end
-  end
-
   private
     def permitted_profile_params
       params.permit :print
