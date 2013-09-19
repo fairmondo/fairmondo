@@ -21,13 +21,13 @@
 #
 class Category < ActiveRecord::Base
 
-  def self.category_attrs
+ def self.category_attrs
     [:name, :parent, :desc, :parent_id]
   end
 
   attr_protected :lft, :rgt, :depth, as: :admin
   #! attr_accessible :name, :parent, :desc, :parent_id
-  #! attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, as: :admin
+  #! attr_accessible :name, :parent, :desc, :parent_id, :article_ids, :child_ids, :created_at, :updated_at, as: :admin
 
   has_and_belongs_to_many :articles
 
