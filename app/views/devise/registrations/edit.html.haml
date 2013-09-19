@@ -122,6 +122,6 @@
         .User--step
           %h3= t('users.form_titles.payment_paypal')
           /%p= t('formtastic.labels.user.paypal_notification')
-          = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account')
+          = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account'), tooltip: true
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}

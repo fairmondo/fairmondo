@@ -39,7 +39,7 @@ de:
         bank_account_number: "Kontonummer"
         bank_account_owner: "Kontoinhaber"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
-        paypal_account: "Paypal-Konto"
+        paypal_account: "Paypal ID"
         customer_number: "Kundennummer"
 
       feedback:
@@ -189,6 +189,7 @@ de:
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
+          paypal_account: "Deine PayPal ID ist Deine für PayPal genutzte E-Mail-Adresse."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
