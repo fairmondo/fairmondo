@@ -92,9 +92,8 @@ module Article::Attributes
     attr_accessible *transport_attributes
     attr_accessible *transport_attributes, :as => :admin
 
-    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details -
+    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
-    validates_presence_of :default_transport
     validates :transport_type1_provider, :length => { :maximum => 255 }
     validates :transport_type2_provider, :length => { :maximum => 255 }
 
