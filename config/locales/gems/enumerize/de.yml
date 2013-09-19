@@ -56,10 +56,6 @@ de:
         tco_certified: TCO certified
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
-      default_transport:
-        pickup: Selbstabholung
-        type1: Versand
-        type2: Alternativer Versand
       basic_price_amount:
         kilogram: 1 Kilogramm
         gram: 100 Gramm
