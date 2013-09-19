@@ -12,7 +12,7 @@ de:
         private_user: "Privatprofil"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
-    legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+    legal: "Allgemeinen Geschäftsbedingungen."
     legal_new: "Allgemeinen Geschäftsbedingungen."
     terms_new_info: "die Allgemeinen Geschäftsbedingungen und Datenschutzerklährung haben sich geändert. Diese müssen akzeptiert werden, bevor du weiter machen kannst."
     activate_all_articles: "Du kannst in diesem Schritt alle bisher eingestellten Artikel zum Verkauf auf Fairnopoly freischalten."
