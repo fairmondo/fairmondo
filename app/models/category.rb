@@ -57,4 +57,10 @@ class Category < ActiveRecord::Base
   def self.other_category
      self.where(:parent_id => nil).find_by_name("Sonstiges") #internationalize!
   end
+
+  def self.find_imported_categories(categories)
+    if categories
+      self.find_all_by_id(categories.split(",").map { |s| s.to_i })
+    end
+  end
 end
