@@ -33,7 +33,6 @@ FactoryGirl.define do
     agecheck    "1"
     recaptcha   '1'
 
-
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -73,6 +72,10 @@ FactoryGirl.define do
 
     factory :incomplete_user do
       country nil
+    end
+
+    factory :new_terms_not_confirmed do
+      new_terms_confirmed '0'
     end
 
     trait :no_bank_data do
