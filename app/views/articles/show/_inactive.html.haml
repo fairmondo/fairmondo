@@ -53,8 +53,7 @@
     %dt
       = t('article.preview.fees_and_donations.quarter_fee')
 
-  // This button is supposed to be like this:
-  // %a.Btn.Btn--green.Btn--greenSmall
-  //   Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen
-  %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
-
+  - if resource.is_available?
+    %a= button_to "Artikel zum Wiedereinstellen bearbeiten", article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+  - else
+    %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put

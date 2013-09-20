@@ -46,6 +46,9 @@
       = resource.title
     %p.Article-price= humanized_money_with_symbol resource.price
     %p.Article-vat= t('formtastic.labels.article.price')
+    - unless article.vat == 0
+      %p.Article-vat= t('article.vat_included', :mwst => article.vat)
+      %br
     %br
     %p.Article-transportprice
       = t('formtastic.labels.article.transport_method')+" :"
@@ -53,27 +56,29 @@
         = transport_format_for "pickup","Article-transportprice"
         = transport_format_for "type1","Article-transportprice"
         = transport_format_for "type2","Article-transportprice"
-    - unless article.vat == 0
-      %p.Article-vat= t('article.vat_included', :mwst => article.vat)
     = render 'articles/show/basic_price', :article => resource
-    - if resource.quantity > 1
+    - if resource.is_available?
       %p.Article-quantity
-        %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
-    %p
-      - if user_signed_in? && !current_user.libraries.blank?
-        = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-          .library
-            = f.inputs do
-              = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
-              = f.input :article_id, :as => :hidden
-            = f.button t('common.actions.collect'), :class => "Btn Btn--blue"
-            %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst." }
-      - elsif user_signed_in?
-        %br
-        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
-    - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
+        %span Dieser Artikel ist bereits ausverkauft
+    - else
+      - if resource.quantity > 1
+        %p.Article-quantity
+          %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
       %p
-        = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill"
+        - if user_signed_in? && !current_user.libraries.blank?
+          = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
+            .library
+              = f.inputs do
+                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                = f.input :article_id, :as => :hidden
+              %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
+              = f.button t('common.actions.collect'), :class => "Btn Btn--blue", :style => "margin:5px;padding:8px;"
+        - elsif user_signed_in?
+          %br
+          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
+      - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
+        %p
+          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", :style => "margin:5px;"
 
   .Article-info--left
     .Thumbnail-container
