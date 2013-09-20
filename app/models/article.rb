@@ -104,6 +104,8 @@ class Article < ActiveRecord::Base
   end
 
   def self.export_articles(user, params = nil)
+    # bugbug The horror...
+
     if params == "active"
       articles = user.articles.where(:state => "active")
     elsif params == "preview"
