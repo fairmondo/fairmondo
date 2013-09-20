@@ -28,6 +28,7 @@ class ArticleTemplate < ActiveRecord::Base
   end
   #! attr_accessible *template_attributes
   #! attr_accessible *template_attributes, :as => :admin
+  auto_sanitize :name
 
   validates :name, uniqueness: { scope: :user_id }
   validates :name, presence: true
