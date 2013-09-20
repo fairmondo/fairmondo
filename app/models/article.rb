@@ -51,7 +51,7 @@ class Article < ActiveRecord::Base
 
   # Misc mixins
   extend Sanitization
-   # Article module concerns
+  # Article module concerns
   include Categories, Commendation, FeesAndDonations, Images, BuildTransaction, Attributes, Search, Template, State, Scopes
 
   def images_attributes=(attributes)
