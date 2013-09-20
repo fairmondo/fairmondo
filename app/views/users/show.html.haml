@@ -25,13 +25,13 @@
       - else
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> active_articles, :list_class => "l-ArticleList"}
         - if current_user.type == "LegalEntity"
-          / = link_to t('articles.export.active'), exports_show_path(kind_of_article: "active", format: "csv"), :class => "Btn Btn--blue"
+          = link_to t('articles.export.active'), exports_show_path(kind_of_article: "active", format: "csv"), :class => "Btn Btn--blue"
         = paginate active_articles, :params => {:anchor => "offers" } , :param_name => "active_articles_page"
     - if !inactive_articles.empty?
       = accordion_item "inactive",:content_class => "padding-box" do
         = render :partial=>'/shared/list_articles', :locals=>{ :articles=> inactive_articles, :list_class => "l-ArticleList"}
         - if current_user.type == "LegalEntity"
-          / = link_to t('articles.export.inactive'), exports_show_path(kind_of_article: "preview", format: "csv"), :class => "Btn Btn--blue"
+          = link_to t('articles.export.inactive'), exports_show_path(kind_of_article: "preview", format: "csv"), :class => "Btn Btn--blue"
         = paginate inactive_articles, :params => {:anchor => "inactive" } , :param_name => "inactive_articles_page"
     = accordion_item "sold" do
       %strong= t('users.text.soon_sold')
