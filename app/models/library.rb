@@ -24,6 +24,7 @@ class Library < ActiveRecord::Base
   def self.library_attrs
     [:name, :public, :user, :user_id]
   end
+  auto_sanitize :name
   #! attr_accessible *library_attributes
   #! attr_accessible *library_attributes, :as => :admin
 
