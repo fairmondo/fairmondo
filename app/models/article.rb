@@ -164,7 +164,7 @@ class Article < ActiveRecord::Base
       end
     end
     until external_urls.length == 2
-      external_urls << ""
+      external_urls << nil
     end
     external_urls
   end
