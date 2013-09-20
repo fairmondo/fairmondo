@@ -52,6 +52,8 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
+    direct_debit '1'
+
     trait :missing_bank_data do
       bank_code ""
       bank_account_number ""

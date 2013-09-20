@@ -28,6 +28,7 @@ set :rails_env, "staging"
 set :branch, "develop"
 
 
+
 namespace :solr do
   desc "start solr"
   task :start, :roles => :app, :except => { :no_release => true } do

@@ -17,6 +17,7 @@ describe "Export" do
     end
 
     it "should not have a export link" do
+      pending "feature temporarily disabled"
       should_not have_link I18n.t('articles.export.inactive')
     end
   end
@@ -39,6 +40,7 @@ describe "Export" do
       end
 
       it "should have a export link" do
+        pending "feature temporarily disabled"
         should have_link I18n.t('articles.export.inactive')
       end
     end
@@ -47,6 +49,7 @@ describe "Export" do
     describe "when exporting inactive articles" do
 
       it "should be equal to the uploaded file" do
+        pending "feature temporarily disabled"
         @csv = Article.export_articles(legal_entity)
         @csv == File.read('spec/fixtures/mass_upload_correct.csv')
       end
@@ -61,6 +64,7 @@ describe "Export" do
       end
 
       it "should be equal to the uploaded file" do
+        pending "feature temporarily disabled"
         @csv = Article.export_articles(legal_entity, "active")
         @csv == File.read('spec/fixtures/mass_upload_correct.csv')
       end

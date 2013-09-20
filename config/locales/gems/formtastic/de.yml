@@ -43,7 +43,9 @@ de:
         paypal_and_bank_account: "PayPal- und Bankkonto"
         paypal_account: "Paypal ID"
         customer_number: "Kundennummer"
-
+        direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
+        direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
+        seller_fees: "Verkaufsgebühren"
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"
