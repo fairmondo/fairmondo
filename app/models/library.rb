@@ -20,6 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Library < ActiveRecord::Base
+  extend Sanitization
 
   def self.library_attrs
     [:name, :public, :user, :user_id]
