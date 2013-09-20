@@ -38,6 +38,8 @@ de:
       inactive: "Nicht eingestellte Artikel"
       sold: "Verkaufte Artikel"
       bought: "Gekaufte Artikel"
+      export: "Artikel exportieren"
+      import: "Artikel per CSV-Datei importieren"
     no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
