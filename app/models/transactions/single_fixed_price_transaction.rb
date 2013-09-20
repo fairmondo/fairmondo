@@ -44,6 +44,11 @@ class SingleFixedPriceTransaction < Transaction
   end
   validates :quantity_bought, presence: true, numericality: true, on: :update, if: :updating_state
 
+  # for having a parallel structure to MultipleFPT
+  def quantity_available
+    self.sold? ? 0 : 1
+  end
+
   # This might be called on article update when quantity has changed to more than 1
   def transform_to_multiple quantity
     self.type = 'MultipleFixedPriceTransaction'
