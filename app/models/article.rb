@@ -119,6 +119,10 @@ class Article < ActiveRecord::Base
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
   end
 
+  def is_available?
+    self.transaction_quantity_available == 0
+  end
+
   #has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id', source: :article
   def buyer
     if self.transaction.multiple?
