@@ -20,6 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleTemplate < ActiveRecord::Base
+  extend Sanitization
 
   delegate :title, to: :article, prefix: true
 
