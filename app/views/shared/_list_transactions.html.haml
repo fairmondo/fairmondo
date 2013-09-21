@@ -19,9 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if @articles.empty?
-  %h3= t("common.text.no_search_result")
-  = t("common.text.no_search_result_text")
-- else
-  = render '/shared/list_articles',  items: @articles, list_class: "l-ArticleList"
-  = paginate @articles
+- list_class = "" if local_assigns[:list_class].nil?
+%section{ class: list_class }
+	- items.each do |item|
+		%Article{ class: 'Article Article--teaser' }
+			= render partial: '/shared/show_transaction', locals: { transaction: item }
