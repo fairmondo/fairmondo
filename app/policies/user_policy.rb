@@ -28,4 +28,5 @@ class UserPolicy < Struct.new(:user, :resource)
   def show?
     true
   end
+
 end

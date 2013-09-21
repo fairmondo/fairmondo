@@ -39,4 +39,5 @@ class WelcomeController < ApplicationController
       format.rss { render :layout => false } #index.rss.builder
     end
   end
+
 end

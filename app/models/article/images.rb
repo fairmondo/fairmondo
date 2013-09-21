@@ -24,10 +24,15 @@ module Article::Images
 
   included do
     # ---- IMAGES ------
+    IMAGE_COUNT = 1
+
     def self.image_attrs
-      [ images_attributes: Image.image_attrs(true) ]
+      attrs = [ images_attributes: Image.image_attrs(true) ]
+      IMAGE_COUNT.times do |number|
+        attrs.push "image_#{number+2}_url".to_sym
+      end
+      attrs
     end
-    #! attr_accessible :images_attributes
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 
@@ -58,6 +63,11 @@ module Article::Images
       end
     end
 
+    IMAGE_COUNT.times do |number|
+      define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
+                          add_image(image_url, false)})
+    end
+
     def thumbnails
       self.images.where(:is_title => false)
     end
@@ -72,5 +82,18 @@ module Article::Images
       end
     end
 
+    def title_image_url=(image_url)
+      add_image(image_url, true)
+    end
+
+    def add_image(image_url, is_title)
+      if image_url
+        image = Image.new(:image => URI.parse(image_url))
+        image.is_title = is_title
+        image.external_url = image_url
+        image.save
+        self.images << image
+      end
+    end
   end
 end

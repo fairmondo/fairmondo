@@ -26,7 +26,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def show?
-    article.active? || (user && own? && !article.closed?)
+    true
   end
 
   def new?

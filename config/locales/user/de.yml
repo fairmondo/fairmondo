@@ -12,7 +12,10 @@ de:
         private_user: "Privatprofil"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
-    legal: "Allgemeinen Geschäftsbedingungen und die Zusatzklausel für die Pionierphase."
+    legal: "Allgemeinen Geschäftsbedingungen."
+    legal_new: "Allgemeinen Geschäftsbedingungen."
+    terms_new_info: "die Allgemeinen Geschäftsbedingungen und Datenschutzerklährung haben sich geändert. Diese müssen akzeptiert werden, bevor du weiter machen kannst."
+    activate_all_articles: "Du kannst in diesem Schritt alle bisher eingestellten Artikel zum Verkauf auf Fairnopoly freischalten."
     privacy: "Datenschutzerklärung."
     complexify: Passwortstärke
     visibility:
@@ -35,14 +38,17 @@ de:
       inactive: "Nicht eingestellte Artikel"
       sold: "Verkaufte Artikel"
       bought: "Gekaufte Artikel"
+      export: "Artikel exportieren"
+      import: "Artikel per CSV-Datei importieren"
     no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
       invitor: "Einladender"
       invited_people: "Eingeladene Benutzer"
     text:
+      no_active_old: "Keine vorhanden"
       no_active: "Keine Angebote eingestellt"
-      no_inactive: "Keine uneingestellten Angebote vorhanden"
+      no_inactive: "Keine Artikel vorhanden"
       no_sold: "Keine verkauften Artikel vorhanden"
       no_bought: "Keine gekauften Artikel vorhanden"
       no_templates: "Keine Templates vorhanden"

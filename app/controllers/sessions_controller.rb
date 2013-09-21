@@ -2,6 +2,8 @@
 class SessionsController < Devise::SessionsController
   layout :layout
 
+  skip_before_filter :check_new_terms
+
   private
     def layout
       if request.xhr?
