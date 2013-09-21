@@ -32,9 +32,11 @@ class DeviseMailer < Devise::Mailer
   end
 
   def confirmation_instructions(record,token, opts={})
-    super
+
     attachments['AGB_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
+
+    super
   end
 
 end
