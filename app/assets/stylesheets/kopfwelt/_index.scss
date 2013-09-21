@@ -57,7 +57,9 @@
 	top: -5px;
 	left: -5px;
 }
+.Teaser--dream-team {
 
+}
 .Teaser--text {
 	@include rem(font-size, $font-size-m);
 	padding-top: 2em;
@@ -68,8 +70,10 @@
 	color: black;
 }
 .Teaser--pioneer {
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 40px;
 	.Teaser-title {
 		// @include rem(font-size, 18px);
 		margin-bottom: em(25,18);

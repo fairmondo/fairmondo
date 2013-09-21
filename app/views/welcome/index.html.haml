@@ -28,23 +28,25 @@
     = image_tag("/assets/welcome/dreamTeam.png")
 
 
-  - if @featured_article
+  - if @dream_team_article
     .Teaser.Teaser--pioneer
-      %h2.Teaser-title Pionier*in des Tages
-      %figure.Profile
-        .Profile-container
-          .Profile-name= @featured_article.profile_name
-        = link_to image_tag(@featured_article.seller.image_url(:profile), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
+      -#%figure.Profile
+      -#  .Profile-container
+      -#    .Profile-name= @featured_article.profile_name
+      -#  = link_to image_tag(@featured_article.seller.image_url(:profile), class: 'Profile-avatar', alt: @featured_article.seller.nickname), user_path(@featured_article.seller)
 
-      = link_to image_tag(@featured_article.title_image_url(:thumb), alt: @featured_article.title), article_path(@featured_article), class: 'Teaser--pioneer-image'
+      = link_to image_tag(@dream_team_article.title_image_url(:thumb), alt: @dream_team_article.title), article_path(@dream_team_article), class: 'Teaser--pioneer-image'
+      = link_to @dream_team_article.title, article_path(@dream_team_article), class: 'Teaser--pioneer-1' #Kreidetier
 
-      = link_to @featured_article.title, article_path(@featured_article), class: 'Teaser--pioneer-1' #Kreidetier
-      -#%p.Article-price.Teaser--pioneer-2= humanized_money_with_symbol(@featured_article.price) + '*' #12 €*
-      -#%span.Teaser--pioneer-3= render 'articles/show/vat' , :article => @featured_article
-      -#%span.Teaser--pioneer-3= render '/articles/show/basic_price',  :article => @featured_article
-      %a.Btn{:href => "http://info.fairnopoly.de/pionierkalender/"}
-        Zum Pionierkalender
+  - if @featured_article2
+    .Teaser.Teaser--pioneer
+      -#%figure.Profile
+      -#  .Profile-container
+      -#    .Profile-name= @featured_article2.profile_name
+      -#  = link_to image_tag(@featured_article2.seller.image_url(:profile), class: 'Profile-avatar', alt: @featured_article2.seller.nickname), user_path(@featured_article2.seller)
 
+      = link_to image_tag(@dream_team_article2.title_image_url(:thumb), alt: @dream_team_article2.title), article_path(@dream_team_article2), class: 'Teaser--pioneer-image'
+      = link_to @dream_team_article2.title, article_path(@dream_team_article2), class: 'Teaser--pioneer-1' #Kreidetier
 
   .Teaser.Teaser--text
     %h2.Teaser-title Gezeichnete Anteile im September:
@@ -64,3 +66,12 @@
           %a{ :href => "/anteile-zeichnen" }
             Weitere Informationen zum Anteile zeichnen.
 
+  .Teaser.Teaser--image
+    = image_tag("/assets/welcome/pionier.png")
+
+  - if @pioneer
+    .Teaser.Teaser--pioneer
+      = link_to image_tag(@pioneer.image_url(:profile), alt: @pioneer.nickname), user_path(@pioneer), class: 'Teaser--pioneer-image'
+  - if @pioneer2
+    .Teaser.Teaser--pioneer
+      = link_to image_tag(@pioneer2.image_url(:profile), alt: @pioneer2.nickname), user_path(@pioneer2), class: 'Teaser--pioneer-image'
