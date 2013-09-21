@@ -19,6 +19,9 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+-# if User.is_admin? current_user
+-#  = link_to '> (Admin) Set this as pioneer', update_settings_path(var: 'pioneer_id', value: resource.id)
+-#  = link_to '> (Admin) Set this as pioneer 2', update_settings_path(var: 'pioneer2_id', value: resource.id)
 - if resource.is? current_user
   .User-additional.Accordion--containsArticles.Accordion--activated
     = render 'article_box', item_name: 'active', sub_articles: active_articles

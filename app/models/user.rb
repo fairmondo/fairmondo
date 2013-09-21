@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
     :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
     :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-    :bank_account_number, :bank_name, :bank_account_owner, :company_name,
+    :bank_account_number, :bank_name, :bank_account_owner, :company_name,:direct_debit,
     { image_attributes: Image.image_attrs }
     ]
   end
@@ -249,6 +249,14 @@ class User < ActiveRecord::Base
     can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
+  end
+
+  def self.pioneer
+    find(::Settings.pioneer_id)
+  end
+
+  def self.pioneer2
+    find(::Settings.pioneer2_id)
   end
 
   private
