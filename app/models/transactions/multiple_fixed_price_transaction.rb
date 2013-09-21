@@ -90,6 +90,7 @@ class MultipleFixedPriceTransaction < Transaction
     partial.parent = self
     partial.article = self.article
     partial.buyer = self.buyer
+    partial.seller = self.seller
 
     partial.save!
     return partial
