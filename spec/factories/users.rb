@@ -33,7 +33,6 @@ FactoryGirl.define do
     agecheck    "1"
     recaptcha   '1'
 
-
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -52,7 +51,19 @@ FactoryGirl.define do
     bank_account_number {rand(99999999).to_s.center(8, rand(9).to_s)}
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
-    #paypal_account Faker::Internet.email
+
+    direct_debit '1'
+
+    trait :missing_bank_data do
+      bank_code ""
+      bank_account_number ""
+      bank_account_owner ""
+      bank_name ""
+   end
+
+    trait :paypal_data do
+      paypal_account Faker::Internet.email
+    end
 
     seller_state "standard_seller"
     buyer_state "standard_buyer"

@@ -30,6 +30,7 @@ class ArticlesController < InheritedResources::Base
 
   # Layout Requirements
   before_filter :ensure_complete_profile , :only => [:new, :create]
+  #before_filter :authorize_resource, :only => [:edit, :show]
 
   #Sunspot Autocomplete
   def autocomplete
@@ -52,7 +53,7 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    redirect_to transaction_path(resource) if resource.closed?
+    redirect_to transaction_path(resource) if resource.closed? # Achtung, Seite existiert nicht!
 
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
@@ -168,7 +169,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def permitted_state_params
-      params.permit :activate, :deactivate
+      params.permit :activate, :deactivate, :confirm_to_buy
     end
     def permitted_new_params
       params.permit :edit_as_new, template_select: [:article_template]

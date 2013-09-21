@@ -61,10 +61,18 @@ module Article::FeesAndDonations
     self.calculated_fair + self.calculated_friendly + self.calculated_fee
   end
 
+  def calculated_fees_and_donations_with_quantity
+    self.calculated_fees_and_donations * self.quantity
+  end
+
   def calculated_fees_and_donations_netto
     fee_cents = self.calculated_fair_cents + self.calculated_friendly_cents + self.calculated_fee_cents
     netto = Money.new((fee_cents / 1.19).ceil)
     netto
+  end
+
+  def calculated_fees_and_donations_netto_with_quantity
+    self.calculated_fees_and_donations_netto * self.quantity
   end
 
   def calculate_fees_and_donations
