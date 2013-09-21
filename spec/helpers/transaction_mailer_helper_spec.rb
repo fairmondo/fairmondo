@@ -10,11 +10,11 @@ describe TransactionMailerHelper do
 		# pending "needs to be fixed"
 		context "dependent on role it should return the right greeting" do
 			it "if role is buyer it should return buyer greeting" do
-				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.forename + ','
+				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + @transaction.forename + ','
 			end
 
 			it "if role is seller it should return seller greeting" do
-				helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.article_seller_forename + ','
+				helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + @transaction.article_seller_forename + ','
 			end
 		end
 	end
@@ -22,13 +22,14 @@ describe TransactionMailerHelper do
 	describe "#fairnopoly_email_footer" do
 		it "should return proper email footer" do
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.intro') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.contact') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.footer_contact') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.registered') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.board') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.ceo') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.supervisory_board') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.brand') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.claim') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.facebook') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.buy_shares') )
 		end
 	end
 
@@ -51,7 +52,6 @@ describe TransactionMailerHelper do
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.city )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.zip )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.country )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.buyer_email )
 		end
 	end
 

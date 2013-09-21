@@ -1,4 +1,5 @@
 <%= t('transaction.notifications.seller.intro') %>
+
 <%= t('transaction.notifications.begin') %>
 
 <%= transaction_mail_greeting @transaction, :seller %>
@@ -8,29 +9,37 @@
 ***
 
 <%= t('transaction.notifications.seller.order_infos') %>
+
 <%= order_details @transaction %>
 
-***
+<%= article_payment_info @transaction, :seller %>
 
+***
+<% if @transaction.selected_transport == 'pickup' %>
+<%= t('transaction.notifications.seller.pickup_info')
+<% else %>
 <%= t('transaction.notifications.seller.shipping_request') %>
+<% end %>
+
 <%= show_buyer_address @transaction %>
+
+<%= "#{t('transaction.notifications.seller.buyer_email')}" %>
+<%= @transaction.buyer_email %>
 
 <%= payment_method_info @transaction, :seller %>
 
 ***
 
 <%= t('transaction.notifications.seller.buyer_message') %>
+
 <% unless @transaction.message == nil %>
-	<%= @transaction.message %>
+<%= @transaction.message %>
 <% end %>
 
 ***
 
-<%= article_payment_info @transaction, :seller %>
-
-***
-
 <%= t('transaction.notifications.seller.seller_fee_text') %>
+
 <%= fees_and_donations @transaction %>
 
 ***
