@@ -135,6 +135,7 @@ class Transaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
+    return false unless params['transaction']
     validator_instance = create_validator_transaction params['transaction']
     if validator_instance.valid?
       true
