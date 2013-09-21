@@ -9,6 +9,7 @@ de:
         Für die Bestätigung der Registrierung gehe bitte auf den folgenden Link:
       link: "Meine Registrierung bestätigen."
       ignoremail: "Falls Du diese Email nicht angefordert hast, wende Dich bitte an unseren Kundenservice: kundenservice@fairnopoly.de oder ignoriere einfach diese Email."
+      email_change_info: "(Falls Du deine Email geändert hast, wird diese nach Bestätigung durch Klick auf den Link geändert.)"
       email:
         text: "Jemand hat einen Link zum Ändern Deiner Email Adresse auf Fairnopoly angefordert. Um Deine Email Adresse zu ändern, gehe auf den folgenden Link:"
         link: "Email Adresse hier ändern"
