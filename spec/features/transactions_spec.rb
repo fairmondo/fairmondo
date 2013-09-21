@@ -501,7 +501,7 @@ describe 'Transaction' do
   describe "#show" do
     context "for a logged-in user" do
       context "when the transaction is sold" do
-        let (:transaction) { FactoryGirl.create :sold_transaction }
+        let (:transaction) { FactoryGirl.create :single_transaction, :sold }
         let (:buyer)       { transaction.buyer }
 
         context "and the user is the buyer" do
