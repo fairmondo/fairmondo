@@ -63,14 +63,16 @@ class User < ActiveRecord::Base
   #! attr_protected :admin
 
 
-  attr_accessor :recaptcha,:wants_to_sell
+  attr_accessor :recaptcha, :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
 
 
   #Relations
+  has_many :transactions, through: :articles
   has_many :articles, :dependent => :destroy # As seller
-  has_many :bought_articles, through: :transactions, source: :article
-  has_many :transactions, foreign_key: 'buyer_id' # As buyer
+  has_many :bought_articles, through: :bought_transactions, source: :article
+  has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
+  has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
