@@ -39,12 +39,13 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
 
   def self.user_attrs
-    [:email, :password, :password_confirmation, :remember_me, :type,
-    :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
-    :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
-    :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-    :bank_account_number, :bank_name, :bank_account_owner, :company_name,:direct_debit,
-    { image_attributes: Image.image_attrs }
+    [
+      :email, :password, :password_confirmation, :remember_me, :type,
+      :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
+      :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
+      :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :direct_debit,
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name,
+      { image_attributes: Image.image_attrs }
     ]
   end
   #! attr_accessible *user_attributes
@@ -63,14 +64,16 @@ class User < ActiveRecord::Base
   #! attr_protected :admin
 
 
-  attr_accessor :recaptcha,:wants_to_sell
+  attr_accessor :recaptcha, :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
 
 
   #Relations
+  has_many :transactions, through: :articles
   has_many :articles, :dependent => :destroy # As seller
-  has_many :bought_articles, through: :transactions, source: :article
-  has_many :transactions, foreign_key: 'buyer_id' # As buyer
+  has_many :bought_articles, through: :bought_transactions, source: :article
+  has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
+  has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 

@@ -501,7 +501,7 @@ describe 'Transaction' do
   describe "#show" do
     context "for a logged-in user" do
       context "when the transaction is sold" do
-        let (:transaction) { FactoryGirl.create :sold_transaction }
+        let (:transaction) { FactoryGirl.create :single_transaction, :sold }
         let (:buyer)       { transaction.buyer }
 
         context "and the user is the buyer" do
@@ -519,8 +519,9 @@ describe 'Transaction' do
             page.should have_content "Alles moegliche"
           end
 
-          it "should have link to the bought article" do
+          it "should have links to article and user profile" do
             page.should have_link transaction.article.title
+            page.should have_link transaction.article_seller_nickname
           end
         end
 

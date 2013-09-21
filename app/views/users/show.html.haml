@@ -24,11 +24,10 @@
   %p= link_to '> (Admin) Set this as pioneer 2', update_settings_path(var: 'pioneer2_id', value: resource.id)
 - if resource.is? current_user
   .User-additional.Accordion--containsArticles.Accordion--activated
-    = render 'article_box', item_name: 'active', sub_articles: active_articles
-    = render 'article_box', item_name: 'inactive', sub_articles: inactive_articles
-    = render 'article_box', item_name: 'sold', sub_articles: sold_articles,seller_buyer_display: true
-    = render 'article_box', item_name: 'bought', sub_articles: bought_articles, seller_buyer_display: true
-
+    = render 'article_box', item_name: 'active', sub_items: active_articles
+    = render 'article_box', item_name: 'inactive', sub_items: inactive_articles
+    = render 'article_box', item_name: 'sold', sub_items: sold_transactions
+    = render 'article_box', item_name: 'bought', sub_items: bought_transactions
 
     = accordion_item "my_article_templates" do
       .private-links
@@ -39,7 +38,5 @@
       = render "article_templates/table", :article_templates => resource.article_templates.includes(:article)
 - else
   .User-articles
-    = render '/shared/list_articles', articles: active_articles
+    = render '/shared/list_articles', items: active_articles
   = paginate active_articles, param_name: "active_articles_page"
-
-

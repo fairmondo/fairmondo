@@ -42,6 +42,7 @@ module Article::BuildTransaction
           fpt.quantity_available = self.quantity
           fpt.save
         end
+        fpt.seller = self.seller
         self.transaction = fpt
       end
     end
