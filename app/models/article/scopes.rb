@@ -9,11 +9,19 @@ module Article::Scopes
 
     #scope :featured, find(::Settings.featured_article_id)
 
-    def self.dream_team
-      find(::Settings.dream_team_article_id)
+    def self.dreamteam
+      if ::Settings.dream_team_article_id
+        find(::Settings.dream_team_article_id)
+      else
+        nil
+      end
     end
-    def self.dream_team2
-      find(::Settings.dream_team_article2_id)
+    def self.dreamteam2
+      if ::Settings.dream_team_article2_id
+        find(::Settings.dream_team_article2_id)
+      else
+        nil
+      end
     end
 
   end

@@ -252,11 +252,19 @@ class User < ActiveRecord::Base
   end
 
   def self.pioneer
-    find(::Settings.pioneer_id)
+    if ::Settings.pioneer_id
+      find(::Settings.pioneer_id)
+    else
+      nil
+    end
   end
 
   def self.pioneer2
-    find(::Settings.pioneer2_id)
+        if ::Settings.pioneer2_id
+      find(::Settings.pioneer2_id)
+    else
+      nil
+    end
   end
 
   private

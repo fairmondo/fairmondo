@@ -38,7 +38,7 @@
       = link_to image_tag(@dream_team_article.title_image_url(:thumb), alt: @dream_team_article.title), article_path(@dream_team_article), class: 'Teaser--pioneer-image'
       = link_to @dream_team_article.title, article_path(@dream_team_article), class: 'Teaser--pioneer-1' #Kreidetier
 
-  - if @featured_article2
+  - if @dream_team_article2
     .Teaser.Teaser--pioneer
       -#%figure.Profile
       -#  .Profile-container
@@ -68,10 +68,11 @@
 
   .Teaser.Teaser--image
     = image_tag("/assets/welcome/pionier.png")
-
   - if @pioneer
     .Teaser.Teaser--pioneer
       = link_to image_tag(@pioneer.image_url(:profile), alt: @pioneer.nickname), user_path(@pioneer), class: 'Teaser--pioneer-image'
   - if @pioneer2
     .Teaser.Teaser--pioneer
       = link_to image_tag(@pioneer2.image_url(:profile), alt: @pioneer2.nickname), user_path(@pioneer2), class: 'Teaser--pioneer-image'
+
+
