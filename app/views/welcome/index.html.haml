@@ -21,16 +21,12 @@
 -#
 #js-masonry.Masonry
 
-  .Teaser.Teaser--text.Teaser--welcome
-    %h2.Teaser-title.Icon
-      %i.icon-pionier--blue
-      Willkommen bei Fairnopoly
-    %p
-      %strong Fairnopoly - Der Online-Marktplatz für alle.
-    %p Stelle bis zum 24. September Artikel ein, und wir schenken Dir die Verkaufsprovision für Deine ersten 10 verkauften Artikel.
-    %p Am 24. September eröffnen wir dann offiziell den Verkauf!
-    = link_to "Jetzt registrieren", new_user_registration_path, class: "Btn Btn--blue"
-    %p= link_to 'Aktiv mithelfen: Held*in werden', 'http://helden.fairnopoly.de/'
+  .Teaser.Teaser--image
+    = image_tag("/assets/welcome/profil.png")
+
+  .Teaser.Teaser--image
+    = image_tag("/assets/welcome/dreamTeam.png")
+
 
   - if @featured_article
     .Teaser.Teaser--pioneer
@@ -50,17 +46,6 @@
         Zum Pionierkalender
 
 
-  .Teaser.Teaser--total
-    %h2.Teaser-title Fairnopoly wächst!
-    %p So viele Artikel wurden bisher eingestellt:
-    .Teaser--total-number= number_with_delimiter(Article.active.count, delimiter: ".")
-    %p So viele Nutzer*innen haben sich bisher registriert:
-    .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
-
-
-  .Teaser.Teaser--video
-    = tinycms_content "start-video"
-
   .Teaser.Teaser--text
     %h2.Teaser-title Gezeichnete Anteile im September:
     %p
@@ -78,19 +63,4 @@
         %p
           %a{ :href => "/anteile-zeichnen" }
             Weitere Informationen zum Anteile zeichnen.
-
-  .Teaser.Teaser--text
-    %h2.Teaser-title.Icon
-      Was ist Fairnopoly?
-    %p Fairnopoly ist ein neuer Online-Marktplatz, der als Genossenschaft seinen Nutzer*innen gehört.
-    %p Gewinne werden fair verteilt, Informationen statt Werbung geboten - und das alles transparent und kontrollierbar.
-    %p
-      Du kannst Dich jetzt
-      %a{ :href =>  new_user_registration_path }
-        registrieren
-      und bereits Artikel einstellen, Sammlungen anlegen und
-      %a{:href => "/anteile-zeichnen"}
-        Anteile zeichnen.
-    %a.Btn.Btn--blue{href: "about_us"}
-      Mehr erfahren
 

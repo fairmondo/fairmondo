@@ -60,7 +60,8 @@ $large-from: 800px;
 // Items with double-size
 //
 .Teaser--video,
-.Teaser--text {
+.Teaser--text,
+.Teaser--image {
   @media (min-width: em($small-from)) {
     width: columns(2,$small-columns);
   }
