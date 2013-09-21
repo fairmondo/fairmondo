@@ -25,7 +25,7 @@ describe TransactionPolicy do
   include PunditMatcher
 
   subject { TransactionPolicy.new(user, transaction)  }
-  let(:transaction) { FactoryGirl.create :sold_transaction }
+  let(:transaction) { FactoryGirl.create :single_transaction, :sold }
   let(:user) { nil }
 
   context "for a visitor" do

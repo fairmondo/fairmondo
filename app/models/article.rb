@@ -40,6 +40,7 @@ class Article < ActiveRecord::Base
   has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
   has_many :partial_transactions, class_name: 'PartialFixedPriceTransaction', conditions: "type = 'PartialFixedPriceTransaction'", inverse_of: :article
   accepts_nested_attributes_for :transaction
+  # validates_presence_of :transaction
 
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
