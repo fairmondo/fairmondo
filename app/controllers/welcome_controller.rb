@@ -27,13 +27,13 @@ class WelcomeController < ApplicationController
     begin
       @pioneer = User.pioneer
       @pioneer2 = User.pioneer2
-      @dream_team_article_id = Article.active.dream_team
-      @dream_team_article2_id = Article.active.dream_team2
+      @dream_team_article = Article.active.dreamteam
+      @dream_team_article2 = Article.active.dreamteam2
     rescue ActiveRecord::RecordNotFound
       @pioneer = nil
       @pioneer2 = nil
-      @dream_team_article_id = nil
-      @dream_team_article2_id = nil
+      @dream_team_article = nil
+      @dream_team_article2 = nil
     end
   end
 
