@@ -91,8 +91,4 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
-
-  #### DELETE AFTER TEST SESSION ####
-  config.log_level = :debug
-  config.consider_all_requests_local = false
 end
