@@ -31,7 +31,7 @@ class Transaction < ActiveRecord::Base
     [:selected_transport, :selected_payment, :tos_accepted, :message,
     :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
   end
-  attr_accessor :updating_state, :updating_multiple, :emails_sent
+  attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
@@ -110,6 +110,10 @@ class Transaction < ActiveRecord::Base
     before_transition do |transaction, transition|
       # To be able to differentiate between updates by article modifications or state changes
       transaction.updating_state = true
+    end
+
+    before_transition on: :buy do |transaction, transition|
+      transaction.sold_at = Time.now
     end
   end
 
