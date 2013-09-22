@@ -83,7 +83,7 @@ class MultipleFixedPriceTransaction < Transaction
       street: self.street,
       city: self.city,
       zip: self.zip,
-      country: self.country,
+      country: self.country
     })
 
     # protected attrs

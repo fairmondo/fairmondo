@@ -16,13 +16,10 @@
 
 <%= order_details @transaction %>
 
-<%= t('transaction.edit.address') %>
-
-<%= show_buyer_address @transaction %>
-
 ***
 
 <%= article_payment_info @transaction, :buyer %>
+
 <%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction, :buyer}" %>
 
 ***
@@ -30,6 +27,12 @@
 <%= t('transaction.edit.seller_data') %>
 
 <%= show_contact_info_seller @seller %>
+
+***
+
+<%= t('transaction.edit.address') %>
+
+<%= show_buyer_address @transaction %>
 
 ***
 
