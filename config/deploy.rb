@@ -38,7 +38,7 @@ set :use_sudo, false
 
 
 ##### Default variables #####
-set :keep_releases, 10
+set :keep_releases, 30
 
 ##### Repository Settings #####
 set :scm,        :git
