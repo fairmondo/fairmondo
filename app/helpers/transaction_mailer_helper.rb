@@ -28,14 +28,17 @@ module TransactionMailerHelper
   def show_contact_info_seller seller
     string = ""
     if seller.is_a? LegalEntity
-      string += "#{seller.company_name}"
+      if seller.company_name
+        string += "#{seller.company_name}\n"
+      end
+      string += "#{seller.forename} #{seller.surname}\n"
     else
       string += "#{seller.title}\n"
       string += "#{seller.forename} #{seller.surname}\n"
     end
     string += "#{seller.street}\n"
-    string += "#{seller.zip} " + "#{seller.city}\n\n"
-    string += "#{seller.country}\n"
+    string += "#{seller.zip} #{seller.city}\n"
+    string += "#{seller.country}\n\n"
     string += "#{seller.email}"
     string
   end
@@ -43,15 +46,15 @@ module TransactionMailerHelper
   def show_buyer_address transaction
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
-    "#{transaction.zip} " + "#{transaction.city}\n\n" +
-    "#{transaction.country}\n\n"
+    "#{transaction.zip} " + "#{transaction.city}\n" +
+    "#{transaction.country}"
   end
 
   def order_details transaction
     string = ""
     string += "#{transaction.article_title}\n"
     if transaction.article.custom_seller_identifier
-      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}"
+      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
@@ -80,20 +83,42 @@ module TransactionMailerHelper
   end
 
   def article_payment_info transaction, role
+    vat = transaction.article.vat
+    vat_price = transaction.article.vat_price * transaction.quantity_bought
+    price_without_vat = transaction.article.price_without_vat * transaction.quantity_bought
+    total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
+    total_price_cash_on_delivery = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought ) + ( transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought )
+
+
+
     string = ""
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought}\n"
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
-    if role == :buyer
-      string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair)}\n"
+
+    if transaction.seller.is_a? LegalEntity
+      string += "#{ t('transaction.edit.net') }" + "#{ price_without_vat }\n"
+      string += "#{ t('transaction.edit.vat', percent: vat) }" + "#{ vat_price }\n"
     end
+
+    if role == :buyer
+      string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
+    end
+
     string += "----------------------------------------------\n"
     string += "#{ t('transaction.edit.shipping_and_handling') }" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
+
     if role == :buyer && transaction.selected_payment == 'cash_on_delivery'
       string += "#{ t('transaction.edit.cash_on_delivery') }" + "#{humanized_money_with_symbol(transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}\n"
     end
+
     string += "----------------------------------------------\n"
-    string += "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought) + transaction.article_price * transaction.quantity_bought + transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}"
+
+    if transaction.selected_payment == 'cash_on_delivery'
+      string += "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol( total_price_cash_on_delivery )}"
+    else
+      string += "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol( total_price )}"
+    end
     string
   end
 
@@ -103,10 +128,11 @@ module TransactionMailerHelper
       when 'cash_on_delivery'
         "#{ t('transaction.notifications.buyer.cash_on_delivery') }"
       when 'bank_transfer'
-        string += "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
+        string += "#{ t('transaction.notifications.buyer.bank_transfer') }\n\n"
         if role == :buyer
-          string += "#{ t('transaction.notifications.buyer.please_pay') }\n" +
-          "https://www.fairnopoly.de/transactions/#{transaction.id}"
+          string += "#{ t('transaction.notifications.buyer.please_pay') }\n"
+          string += "https://www.fairnopoly.de/transactions/#{transaction.id}\n"
+          string
         end
       when 'paypal'
         "#{ t('transaction.notifications.buyer.paypal') }"
@@ -118,9 +144,12 @@ module TransactionMailerHelper
   end
 
   def fees_and_donations transaction
-    "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( transaction.article.calculated_fee * transaction.quantity_bought ) }\n" +
-    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( transaction.article.calculated_fair * transaction.quantity_bought ) }" +
-    "#{ t('transaction.edit.total_price')}" + ""
+    calc_fee = transaction.article.calculated_fee * transaction.quantity_bought
+    calc_don = transaction.article.calculated_fair * transaction.quantity_bought
+    calc_total = calc_fee + calc_don
+    "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
+    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_don ) }\n" +
+    "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol( calc_total) }"
   end
 
   def buyer_message transaction
