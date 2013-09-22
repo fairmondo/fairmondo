@@ -166,7 +166,7 @@ module TransactionHelper
           country: country
         }
       ),
-      class: 'Btn'
+      class: 'Btn--gray'
   end
 
   ########### SHOW ############
