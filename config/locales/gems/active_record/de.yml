@@ -305,7 +305,7 @@ de:
         image:
           attributes:
             image_file_size: &image
-              in_between: "Das Bild ist zu groß. Maximal 3 MB."
+              in_between: "Das Bild ist zu groß. Maximal 2 MB."
             image: *image
         article:
           attributes:

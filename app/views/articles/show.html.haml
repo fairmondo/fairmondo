@@ -36,6 +36,8 @@
 
 .Article.Article--detail
   = render "/articles/show/article_contents", :article => resource
+
+= render "/articles/show/user_teaser", :article => resource
 - if resource.active?
   = render "/articles/show/active", :article => resource
   - if User.is_admin? current_user
