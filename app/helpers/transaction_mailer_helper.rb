@@ -51,7 +51,7 @@ module TransactionMailerHelper
     string = ""
     string += "#{transaction.article_title}\n"
     if transaction.article.custom_seller_identifier
-      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_id}"
+      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
