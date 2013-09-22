@@ -20,7 +20,7 @@ de:
       transport_type: "Versandmethode: "
       transport_provider: "Versandanbieter: "
       seller_data: "Der Artikel wird verkauft durch: "
-      message: "Optional: Deine Nachricht an den*die Verkäufer*in"
+      message: "Optional: Deine Nachricht an die Verkäufer*in"
       imprint: "Impressum"
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
@@ -77,6 +77,7 @@ de:
         bank_name: "Name der Bank: "
         custom_seller_id: "Artikelnummer: "
         buyer_email: "Email-Adresse der Käufer*in:"
+        canceled_transaction: "Bitte beachte: Fairnopoly erhebt keine Gebühren, falls der Kauf nicht zustande kommt, z.B. wenn die Käufer*in innerhalb der gesetzlichen Frist vom Kauf zurücktritt. Bitte wende Dich in diesem Fall rechtzeitig an unseren Kundenservice: kundenservice@fairnopoly.de. Bitte schicke uns dazu den Link zu dem Kaufvorgang. Diesen findest Du in der Box 'Verkaufte Artikel' in Deinem Profil, wenn Du auf 'Deinen Verkauf anschauen' klickst. Der Link endet mit /transactions/xxxx, wobei xxxx die Nummer des Kaufvorgangs ist."
       buyer:
         intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Verkäufer*in findest Du weiter unten."
         buyer_subject: "Dein Einkauf auf Fairnopoly"
@@ -95,5 +96,6 @@ de:
         terms: "AGB der Verkäufer*in"
         imprint: "Impressum der Verkäufer*in"
         cancellation: "Widerrufsbelehrung und Rücknahmebedingungen der Verkäufer*in"
+        security_warning: "Sicherheitshinweis: Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly, insbesondere bei wertvollen Artikeln und Käufen von Privatpersonen einen zusätzlichen schriftlichen Kaufvertrag mit dem Verkäufer abzuschließen und eine Kopie des Personalausweises der Verkäufer*in anzufordern. Muster zu Kaufverträgen findest Du im Internet."
       transport:
         pickup: "Selbstabholung"
