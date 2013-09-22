@@ -5,31 +5,34 @@ module TransactionMailerHelper
   def transaction_mail_greeting transaction, role
     case role
       when :buyer
-        t('transaction.notifications.greeting') + ' ' + transaction.forename + ','
+        t('transaction.notifications.greeting') + transaction.forename + ','
       when :seller
-        t('transaction.notifications.greeting') + ' ' + transaction.article_seller_forename + ','
+        t('transaction.notifications.greeting') + transaction.article_seller_forename + ','
     end
   end
 
   def fairnopoly_email_footer
-    "#{ t('common.fn_legal_footer.intro')}" +
+    "#{ t('common.fn_legal_footer.intro')}\n" +
     "**************************************************************\n" +
-    "#{t('common.fn_legal_footer.contact')}\n" +
+    "#{t('common.fn_legal_footer.footer_contact')}\n" +
     "#{t('common.fn_legal_footer.registered')}\n" +
     "#{t('common.fn_legal_footer.board')}\n" +
-    "#{t('common.fn_legal_footer.ceo')}\n" +
     "#{t('common.fn_legal_footer.supervisory_board')}\n\n" +
     "#{t('common.brand')}\n" +
-    "#{t('common.claim')}\n" +
+    "#{t('common.claim')}\n\n" +
+    "#{t('common.fn_legal_footer.facebook')}\n" +
+    "#{t('common.fn_legal_footer.buy_shares')}\n" +
     "**************************************************************"
   end
 
   def show_contact_info_seller seller
     string = ""
-    if seller.title
-      string += "#{seller.title}"
+    if seller.is_a? LegalEntity
+      string += "#{seller.company_name}"
+    else
+      string += "#{seller.title}\n"
+      string += "#{seller.forename} #{seller.surname}\n"
     end
-    string += "#{seller.forename} #{seller.surname}\n"
     string += "#{seller.street}\n"
     string += "#{seller.zip} " + "#{seller.city}\n\n"
     string += "#{seller.country}\n"
@@ -41,13 +44,15 @@ module TransactionMailerHelper
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
     "#{transaction.zip} " + "#{transaction.city}\n\n" +
-    "#{transaction.country}\n" +
-    "#{transaction.buyer_email}"
+    "#{transaction.country}\n\n"
   end
 
   def order_details transaction
     string = ""
     string += "#{transaction.article_title}\n"
+    if transaction.article.custom_seller_identifier
+      string += "#{ t('transaction.notifications.seller.custom_seller_id')}" + transaction.article.custom_seller_id
+    end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
     case transaction.selected_payment
@@ -121,7 +126,8 @@ module TransactionMailerHelper
 
   def fees_and_donations transaction
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( transaction.article.calculated_fee * transaction.quantity_bought ) }\n" +
-    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( transaction.article.calculated_fair * transaction.quantity_bought ) }"
+    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( transaction.article.calculated_fair * transaction.quantity_bought ) }" +
+    "#{ t('transaction.edit.total_price')}" + ""
   end
 
   def buyer_message transaction
