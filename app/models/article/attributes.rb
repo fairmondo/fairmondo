@@ -179,7 +179,7 @@ module Article::Attributes
   # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
   def vat_price quantity = 1
-    ( self.price - price_without_vat( quantity ) ) * quantity
+    self.price * quantity - price_without_vat( quantity )
   end
 
   # Function to calculate total price for an article.
