@@ -110,13 +110,12 @@ class ArticlesController < InheritedResources::Base
   def destroy
     authorize resource
     if resource.preview?
-      destroy! { articles_path }
+      destroy! { user_path(current_user) }
     elsif resource.locked?
       resource.close_without_validation
 
-      redirect_to articles_path
+      redirect_to user_path(current_user)
     end
-
   end
 
   ##### Private Helpers
