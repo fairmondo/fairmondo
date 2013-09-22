@@ -27,13 +27,10 @@ module TransactionMailerHelper
 
   def show_contact_info_seller seller
     string = ""
-    if seller.is_a? PrivateUser && seller.title
-      string += "#{seller.title}\n"
-    end
-
     if seller.is_a? LegalEntity
       string += "#{seller.company_name}"
     else
+      string += "#{seller.title}\n"
       string += "#{seller.forename} #{seller.surname}\n"
     end
     string += "#{seller.street}\n"

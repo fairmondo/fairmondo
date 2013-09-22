@@ -13,20 +13,15 @@ de:
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
       spacer: "----------"
-      intro: "Diese Nachricht wurde von Fairnopoly, https://www.fairnopoly.de/, gesendet."
+      intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
-      footer_contact: >
-        Fairnopoly eG
-        Glogauer Str. 21
-        10999 Berlin
-
-        email@fairnopoly.de
+      footer_contact: "Fairnopoly eG\nGlogauer Str. 21\n10999 Berlin\n\nemail@fairnopoly.de"
       registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B"
       board: "Vorstand: Felix Weth, Anna Kress, Bastian Neumann"
       ceo: "Vorstandsvorsitzender: Felix Weth"
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
       facebook: "Facebook: www.facebook.com/fairnopoly"
-      buy_shares: "Anteile zeichnen: https://www.fairnopoly.de/anteile-zeichnen"
+      buy_shares: "Anteile zeichnen: www.fairnopoly.de/anteile-zeichnen"
     actions:
       continue: "Weiter"
       back: "Zurück"
