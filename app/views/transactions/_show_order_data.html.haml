@@ -1,14 +1,15 @@
 - selected_payment  	= transaction.selected_payment
 - selected_transport 	= transaction.selected_transport
 - quantity 						= transaction.quantity_bought
-- time								= transaction.updated_at
+- time								= transaction.sold_at
 
 %h1
 	= t 'transaction.edit.heading'
-%p
-= "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
-%p
+%h3
 	= link_to "#{transaction.article.title}", article_path( transaction.article )
+= "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
+%br
+%p
 %h3
 	= t "transaction.show.payment_title_#{selected_payment}"
 
@@ -16,28 +17,40 @@
 	= t "transaction.show.congratulation_seller"
 	= t "transaction.show.congratulation_seller_invoice" if selected_payment == 'invoice'
 
-= render "bank_transfer_data" if selected_payment == 'bank_transfer'
+= t 'transaction.show.seller_bank_transfer' if selected_payment == 'bank_transfer'
 
-= render "paypal_data" if selected_payment == 'paypal'
+= t 'transaction.show.seller_paypal' if selected_payment == 'paypal'
 
 %p
 	- if selected_payment == 'cash'
 		= t 'transaction.show.cash_'
 %p
-	Nutzername:
-	= link_to transaction.buyer.nickname, profile_user_path( transaction.buyer )
+%table
+	%colgroup
+		%col{width: 150}
+		%col{width: 300}
+	%tr
+		%td
+			Nutzername:
+		%td
+			= link_to transaction.buyer.nickname, profile_user_path( transaction.buyer )
+	%tr
+		%td
+			Name:
+		%td
+			= transaction.buyer.fullname
+	%tr
+		%td
+			Email:
+		%td
+			= transaction.buyer.email
+%br
+- unless selected_payment == 'cash'
+	Bitte verschicke den Artikel an folgende Adresse:
 	%br
-	Name:
-	= transaction.buyer.fullname
 	%br
-	Email:
-	= transaction.buyer.email
-	%br
-	%br
-	- unless selected_payment == 'cash'
-		Bitte verschicke den Artikel an folgende Adresse:
-		= transaction.buyer.address
-
-
+	= simple_format show_buyer_address transaction
+%br
+%br
 %p
 	= link_to 'Lieferschein drucken', print_order_seller_transaction_path( transaction ), class: 'Btn', target: '_blank'

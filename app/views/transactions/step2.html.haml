@@ -52,23 +52,6 @@
 
             = render 'article_display'
             %hr
-            %br
-            %h3
-              = t 'transaction.edit.purchase_data'
-
-            %p
-              %strong
-                = t('transaction.edit.quantity_bought')
-              = quantity
-            %p
-              %strong
-                = t('transaction.edit.payment_type')
-              = t('enumerize.transaction.selected_payment.' + selected_payment)
-            %p
-              %strong
-                = t('transaction.edit.transport_type')
-              = t('enumerize.transaction.selected_transport.' + selected_transport)
-              = transport_provider_for selected_transport
             %p
               %br
               %h3
@@ -111,17 +94,43 @@
 
                 %p
                   = f.input :tos_accepted
+            %hr
+            %br
+            %h5
+              = t 'transaction.edit.message'
+            %p
+              = f.input :message, label: false, input_html: { rows: 3 }
 
             %hr
             %br
             %h3
-              = t 'transaction.edit.message'
+              = t 'transaction.edit.purchase_data'
+
             %p
-              = f.input :message, label: false
-
-            %hr
+            %table
+              %colgroup
+                %col{width: 150}
+                %col{width: 300}
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.quantity_bought')
+                %td
+                  = quantity
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.payment_type')
+                %td
+                  = t('enumerize.transaction.selected_payment.' + selected_payment)
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.transport_type')
+                %td
+                  = t('enumerize.transaction.selected_transport.' + selected_transport)
+                  = transport_provider_for selected_transport
             %br
-
             %h3
               = t 'transaction.edit.price_heading'
 
