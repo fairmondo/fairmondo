@@ -122,6 +122,7 @@ module Article::Attributes
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
     monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
+    validate :transport_method_checked
 
     # ================ Payment ====================
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
@@ -248,6 +249,11 @@ module Article::Attributes
   end
 
   private
+    def transport_method_checked
+      unless self.transport_pickup || self.transport_type1 || self.transport_type2
+        errors.add(:transport_details, I18n.t("article.form.errors.invalid_transport_option"))
+      end
+    end
 
     def payment_method_checked
       unless self.payment_bank_transfer || self.payment_paypal || self.payment_cash || self.payment_cash_on_delivery || self.payment_invoice
