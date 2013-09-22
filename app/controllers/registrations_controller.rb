@@ -59,6 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
       sign_in resource_name, resource, :bypass => true
       respond_with resource, :location => after_update_path_for(resource)
     else
+      debugger
       clean_up_passwords resource
       resource.image.save if resource.image
       respond_with resource
