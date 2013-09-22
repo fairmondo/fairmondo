@@ -24,6 +24,7 @@ require 'faker'
 FactoryGirl.define do
   factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
     article { FactoryGirl.create :article, :without_build_transaction }
+    seller { article.seller }
 
     forename { Faker::Name.first_name }
     surname  { Faker::Name.last_name }
@@ -67,7 +68,7 @@ FactoryGirl.define do
       country  "Deutschland"
     end
 
-    factory :sold_transaction, class: 'SingleFixedPriceTransaction' do
+    trait :sold do
       buyer
       state 'sold'
       selected_transport 'pickup'

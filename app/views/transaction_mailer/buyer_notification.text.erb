@@ -1,4 +1,5 @@
 <%= t('transaction.notifications.buyer.intro') %>
+
 <%= t('transaction.notifications.begin') %>
 
 <%= transaction_mail_greeting @transaction, :buyer %>
@@ -8,9 +9,11 @@
 ***
 
 <%= t('transaction.notifications.buyer.order_infos') %>
+
 <%= order_details @transaction %>
 
 <%= t('transaction.edit.address') %>
+
 <%= show_buyer_address @transaction %>
 
 ***
@@ -21,32 +24,33 @@
 ***
 
 <%= t('transaction.edit.seller_data') %>
+
 <%= show_contact_info_seller @seller %>
 
 ***
 
 <%= t('transaction.notifications.buyer.buyer_message') %>
-<% unless @transaction.message == nil %>
-	<%= @transaction.message %>
-<% end %>
+
+<%= buyer_message @transaction %>
 
 ***
 
 <% if @transaction.article_seller.is_a? LegalEntity %>
+<%= t('transaction.notifications.buyer.terms') %>
+
+<%= sanitize @seller.terms %>
+
 ***
 
-	<%= t('transaction.edit.imprint') %>
-	<%= @seller.about %>
+<%= t('transaction.notifications.buyer.cancellation') %>
 
-	***
+<%= sanitize @seller.cancellation %>
 
-	<%= t('transaction.edit.terms') %>
-	<%= @seller.terms %>
+***
 
-	***
+<%= t('transaction.notifications.buyer.imprint') %>
 
-	<%= t('transaction.edit.cancellation') %>
-	<%= @seller.cancellation %>
+<%= sanitize @seller.about %>
 
 ***
 <% end %>
