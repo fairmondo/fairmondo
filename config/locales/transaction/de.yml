@@ -78,7 +78,7 @@ de:
         custom_seller_id: "Artikelnummer: "
         buyer_email: "Email-Adresse der Käufer*in:"
       buyer:
-        intro: "Diese Email wurde automatisch generiert. Bitte antworte nicht auf diese Email. Die Email-Adresse der Verkäufer*in findest Du weiter unten."
+        intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Verkäufer*in findest Du weiter unten."
         buyer_subject: "Dein Einkauf auf Fairnopoly"
         buyer_text: "Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich zusammen gefasst.\n\nDein Fairnopoly-Team."
         order_infos: "Angaben zu Deiner Bestellung: "
