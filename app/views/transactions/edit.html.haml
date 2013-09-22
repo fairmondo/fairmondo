@@ -36,14 +36,14 @@
               = t 'transaction.edit.choose_purchase_data'
 
             - if @transaction.is_a? MultipleFixedPriceTransaction
-              = f.input :quantity_bought, input_html: { min: 1, max: resource.quantity_available, step: 1, value: 1 }
+              = f.input :quantity_bought, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:quantity_bought) || 1 }
 
-            = f.input :selected_transport, include_blank: false, collection: resource.selected_transports
+            = f.input :selected_transport, include_blank: false, collection: resource.selected_transports, selected: default_value(:selected_transport)
             %ul.Price-list
               = display_price_list_item :transport, :type1
               = display_price_list_item :transport, :type2
 
-            = f.input :selected_payment, include_blank: false, collection: resource.selected_payments
+            = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
             %ul.Price-list
               = display_price_list_item :payment, :cash_on_delivery
 

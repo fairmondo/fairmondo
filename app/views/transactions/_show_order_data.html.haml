@@ -1,11 +1,14 @@
 - selected_payment  	= transaction.selected_payment
 - selected_transport 	= transaction.selected_transport
 - quantity 						= transaction.quantity_bought
+- time								= transaction.updated_at
 
 %h1
 	= t 'transaction.edit.heading'
-= link_to "#{transaction.article.title}", article_path( transaction.article )
-%br
+%p
+= "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
+%p
+	= link_to "#{transaction.article.title}", article_path( transaction.article )
 %h3
 	= t "transaction.show.payment_title_#{selected_payment}"
 
@@ -13,12 +16,16 @@
 	= t "transaction.show.congratulation_seller"
 	= t "transaction.show.congratulation_seller_invoice" if selected_payment == 'invoice'
 
+= render "bank_transfer_data" if selected_payment == 'bank_transfer'
+
+= render "paypal_data" if selected_payment == 'paypal'
+
 %p
 	- if selected_payment == 'cash'
-		= t 'transaction.show.cash_questions'
+		= t 'transaction.show.cash_'
 %p
 	Nutzername:
-	= transaction.buyer.nickname
+	= link_to transaction.buyer.nickname, profile_user_path( transaction.buyer )
 	%br
 	Name:
 	= transaction.buyer.fullname

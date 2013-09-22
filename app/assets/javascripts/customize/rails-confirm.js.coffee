@@ -31,13 +31,13 @@ $.rails.confirmed = (link) ->
 $.rails.showConfirmDialog = (link) ->
   html = link.attr('data-confirm')
   window.scrollTo(0, 0);
-  $.get "/toolbox/confirm.js", ((data) ->#
+  $.get "/toolbox/confirm.js", ((data) ->
     htmlcontents = $(data)
-    $('.Notice').append htmlcontents
+    unless $('.Notice--confirmation').length then confirmation_box = $('.Notice').append htmlcontents
     $('.Notice--confirmation .confirmation_message').html(html)
     $('.Notice--confirmation .confirm').on 'click', ->
       $.rails.confirmed(link)
     $('.Notice--confirmation .cancel').on 'click', ->
-      $('.Notice--confirmation').addClass("is-hidden");
+      $('.Notice--confirmation').remove()
   ), "html"
 
