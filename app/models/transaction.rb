@@ -111,6 +111,10 @@ class Transaction < ActiveRecord::Base
       # To be able to differentiate between updates by article modifications or state changes
       transaction.updating_state = true
     end
+
+    before_transition on: :buy do |transaction, transition|
+      transaction.sold_at = Time.now
+    end
   end
 
   # Per default a transaction automatically is sold out after the first buy event, except for MultipleFPT

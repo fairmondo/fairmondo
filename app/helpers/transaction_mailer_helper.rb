@@ -14,7 +14,7 @@ module TransactionMailerHelper
   def fairnopoly_email_footer
     "#{ t('common.fn_legal_footer.intro')}\n" +
     "**************************************************************\n" +
-    "#{t('common.fn_legal_footer.footer_contact')}\n" +
+    "#{t('common.fn_legal_footer.footer_contact')}\n\n" +
     "#{t('common.fn_legal_footer.registered')}\n" +
     "#{t('common.fn_legal_footer.board')}\n" +
     "#{t('common.fn_legal_footer.supervisory_board')}\n\n" +
@@ -106,7 +106,7 @@ module TransactionMailerHelper
         string += "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
         if role == :buyer
           string += "#{ t('transaction.notifications.buyer.please_pay') }\n" +
-          "#{ seller_bank_account transaction.article_seller }"
+          "https://www.fairnopoly.de/transactions/#{transaction.id}"
         end
       when 'paypal'
         "#{ t('transaction.notifications.buyer.paypal') }"
@@ -115,13 +115,6 @@ module TransactionMailerHelper
       when 'cash'
         "#{ t('transaction.notifications.buyer.cash') }"
     end
-  end
-
-  def seller_bank_account seller
-    "#{ t('transaction.notifications.seller.bank_account_owner') }: #{ seller.bank_account_owner }\n" +
-    "#{ t('transaction.notifications.seller.bank_account_number') }: #{ seller.bank_account_number }\n" +
-    "#{ t('transaction.notifications.seller.bank_code') }: #{ seller.bank_code }\n" +
-    "#{ t('transaction.notifications.seller.bank_name') }: #{ seller.bank_name }"
   end
 
   def fees_and_donations transaction
@@ -135,4 +128,13 @@ module TransactionMailerHelper
       transaction.message
     end
   end
+
+  # wird erstmal nicht mehr verwendet
+  #
+  # def seller_bank_account seller
+  #   "#{ t('transaction.notifications.seller.bank_account_owner') }: #{ seller.bank_account_owner }\n" +
+  #   "#{ t('transaction.notifications.seller.bank_account_number') }: #{ seller.bank_account_number }\n" +
+  #   "#{ t('transaction.notifications.seller.bank_code') }: #{ seller.bank_code }\n" +
+  #   "#{ t('transaction.notifications.seller.bank_name') }: #{ seller.bank_name }"
+  # end
 end
