@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 module TransactionMailerHelper
+  # This Helper houses some methods that build all the different strings for the transaction
+  # notifiction emails
 
   def transaction_mail_greeting transaction, role
     case role
@@ -13,7 +15,7 @@ module TransactionMailerHelper
 
   def fairnopoly_email_footer
     "#{ t('common.fn_legal_footer.intro')}\n" +
-    "**************************************************************\n" +
+    "******************************************************************\n" +
     "#{t('common.fn_legal_footer.footer_contact')}\n\n" +
     "#{t('common.fn_legal_footer.registered')}\n" +
     "#{t('common.fn_legal_footer.board')}\n" +
@@ -22,7 +24,7 @@ module TransactionMailerHelper
     "#{t('common.claim')}\n\n" +
     "#{t('common.fn_legal_footer.facebook')}\n" +
     "#{t('common.fn_legal_footer.buy_shares')}\n" +
-    "**************************************************************"
+    "******************************************************************"
   end
 
   def show_contact_info_seller seller
@@ -89,11 +91,10 @@ module TransactionMailerHelper
     total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
     total_price_cash_on_delivery = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought ) + ( transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought )
 
-
-
     string = ""
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought}\n"
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
+    string += "-------------------------------\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
 
     if transaction.seller.is_a? LegalEntity

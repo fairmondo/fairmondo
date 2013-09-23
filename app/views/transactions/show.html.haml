@@ -72,18 +72,18 @@
                   Email:
                 %td
                   = resource.article_seller_email
-            - if mobile = resource.article_seller_mobile
+            - if resource.article_seller_mobile
               %tr
                 %td
                   Tel. (Mobil):
                 %td
-                  = mobile
-            - if phone = resource.article_seller_phone
+                  = resource.article_seller_mobile
+            - if resource.article_seller_phone
               %tr
                 %td
                   Tel. (Festnetz):
                 %td
-                  = phone
+                  = resource.article_seller_phone
           %br
           %p
             = link_to 'Deine Bestellung drucken', print_order_buyer_transaction_path( resource ), class: 'Btn', target: '_blank', locals: { t: resource }
