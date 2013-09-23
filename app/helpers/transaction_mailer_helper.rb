@@ -94,7 +94,7 @@ module TransactionMailerHelper
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
 
-    if transaction.seller.is_a? LegalEntity
+    if transaction.seller.is_a?(LegalEntity)
       string += "#{ t('transaction.edit.net') }" + "#{ price_without_vat }\n"
       string += "#{ t('transaction.edit.vat', percent: vat) }" + "#{ vat_price }\n"
     end
