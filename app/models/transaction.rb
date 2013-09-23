@@ -57,7 +57,7 @@ class Transaction < ActiveRecord::Base
   validates :article, presence: true
 
   # UPDATE
-  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  validates :tos_accepted, acceptance: { accept: true }, on: :update
   #validates :message, allow_blank: true, on: :update
 
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
