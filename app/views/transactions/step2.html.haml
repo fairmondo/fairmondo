@@ -81,15 +81,19 @@
                     = @transaction.article_seller_about
 
                 #terms
-                  = t 'transaction.edit.terms'
-                  .Scrollbox
-                    = @transaction.article_seller_terms
+                  .gray-border
+                    %strong
+                      = t 'transaction.edit.terms'
+                    .Scrollbox
+                      = @transaction.article_seller_terms
                   = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
 
                 #cancellation
-                  = t 'transaction.edit.cancellation'
-                  .Scrollbox
-                    = @transaction.article_seller_cancellation
+                  .gray-border
+                    %strong
+                      = I18n.t 'transaction.edit.cancellation'
+                    .Scrollbox
+                      = @transaction.article_seller_cancellation
                   = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
 
                 %p
@@ -97,23 +101,23 @@
             %hr
             %br
             %h5
-              = t 'transaction.edit.message'
+              = I18n.t 'transaction.edit.message'
             %p
               = f.input :message, label: false, input_html: { rows: 3 }
 
             %hr
-
-            .purchase-form
-              - if @transaction.article.title_image == nil
-                %img{:src => image_path('missing.png'), :alt => "missing"}
-              - else
-                %img{:src => @transaction.article.title_image_url(:thumb)}
-              %figcaption
-                = link_to truncate( @transaction.article.title, :length => 25), article_path( @transaction.article )
+            .small-image-left
+              .gray-border
+                - if @transaction.article.title_image == nil
+                  %img{:src => image_path('missing.png'), :alt => "missing"}
+                - else
+                  %img{:src => @transaction.article.title_image_url(:thumb)}
+                %figcaption
+                  = link_to truncate( @transaction.article.title, :length => 25), article_path( @transaction.article )
 
             %br
             %h3
-              = t 'transaction.edit.purchase_data'
+              = I18n.t 'transaction.edit.purchase_data'
 
             %p
             %table
@@ -123,25 +127,25 @@
               %tr
                 %td
                   %strong
-                    = t('transaction.edit.payment_type')
+                    = I18n.t('transaction.edit.payment_type')
                 %td
-                  = t('enumerize.transaction.selected_payment.' + selected_payment)
+                  = I18n.t('enumerize.transaction.selected_payment.' + selected_payment)
               %tr
                 %td
                   %strong
-                    = t('transaction.edit.transport_type')
+                    = I18n.t('transaction.edit.transport_type')
                 %td
                   = t('enumerize.transaction.selected_transport.' + selected_transport)
-              - unless @transaction.selected_transport == nil
+              - if ( selected_transport == 'type1' || selected_transport == 'type2' )
                 %tr
                   %td
                     %strong
-                      = t('transaction.edit.transport_provider')
+                      = I18n.t('transaction.edit.transport_provider')
                   %td
                     = @transaction.article_transport_provider selected_transport
             %br
             %h3
-              = t 'transaction.edit.price_heading'
+              = I18n.t 'transaction.edit.price_heading'
 
             %p
             %table
@@ -163,7 +167,7 @@
               %tr
                 %td
                   %strong
-                    = t('transaction.edit.sales_price')
+                    = I18n.t('transaction.edit.sales_price')
                 %td
                   = humanized_money_with_symbol(@transaction.article_price * quantity)
 
@@ -181,13 +185,21 @@
                   %td
                     = humanized_money_with_symbol resource.article_vat_price quantity
 
-                - if ( price = resource.article_basic_price > 0 )
-                  %tr
-                    %td
-                      %strong
-                        = t('transaction.edit.basic_price')
-                    %td
-                      = t('common.text.glue.per') + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
+              - if selected_payment == 'cash_on_delivery'
+                %tr
+                  %td
+                    %strong
+                      = I18n.t('transaction.edit.payment_cash_on_delivery_price')
+                  %td
+                    = humanized_money_with_symbol resource.article_payment_cash_on_delivery_price
+
+              - if ( price = resource.article_basic_price > 0 )
+                %tr
+                  %td
+                    %strong
+                      = I18n.t('transaction.edit.basic_price')
+                  %td
+                    = humanized_money_with_symbol(resource.article_basic_price) + t('common.text.glue.per') + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
 
             %small{ :class => 'donation'}
               = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
