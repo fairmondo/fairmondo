@@ -32,12 +32,14 @@
 
 <%= show_buyer_address @transaction %>
 
+<% if @transaction.message && !@transaction.message.empty? %>
 ***
 
 <%= t('transaction.notifications.buyer.buyer_message') %>
 
-<%= buyer_message @transaction %>
+<%= @transaction.message %>
 
+<% end %>
 ***
 
 <% if @transaction.article_seller.is_a? LegalEntity %>
