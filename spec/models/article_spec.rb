@@ -209,15 +209,15 @@ describe Article do
 
       describe "#price_without_vat" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.price_without_vat.should eq Money.new 8100
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.price_without_vat(2).should eq Money.new 20000
         end
       end
 
       describe "#vat_price" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.vat_price.should eq Money.new 1900
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.vat_price(2).should eq Money.new 3800
         end
       end
 
