@@ -145,14 +145,12 @@ module TransactionMailerHelper
     calc_fee = transaction.article.calculated_fee * transaction.quantity_bought
     calc_fair = transaction.article.calculated_fair * transaction.quantity_bought
     calc_total = calc_fee + calc_fair
+
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
-    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fee ) ) }\n" +
-    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fee ) ) }\n" +
     "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_fair ) }\n" +
-    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fair ) ) }\n" +
-    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fair ) ) }\n" +
     "-------------------------------\n" +
-    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }"
+    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*" +
+    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net calc_total) }" + "#{ t('transaction.edit.vat') }" + "#{ humanized_money_with_symbol( vat calc_total ) }"
   end
 
   def net price
