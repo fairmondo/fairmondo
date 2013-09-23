@@ -199,7 +199,7 @@ describe 'Transaction' do
             click_button I18n.t 'transaction.actions.purchase'
 
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-            page.should have_content I18n.t 'errors.messages.multiple_accepted'
+            page.should have_content I18n.t 'errors.messages.accepted'
           end
 
           context "when testing the effects of the purchase" do
