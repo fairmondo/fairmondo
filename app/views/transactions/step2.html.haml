@@ -102,6 +102,15 @@
               = f.input :message, label: false, input_html: { rows: 3 }
 
             %hr
+
+            .purchase-form
+              - if @transaction.article.title_image == nil
+                %img{:src => image_path('missing.png'), :alt => "missing"}
+              - else
+                %img{:src => @transaction.article.title_image_url(:thumb)}
+              %figcaption
+                = link_to truncate( @transaction.article.title, :length => 25), article_path( @transaction.article )
+
             %br
             %h3
               = t 'transaction.edit.purchase_data'
@@ -114,12 +123,6 @@
               %tr
                 %td
                   %strong
-                    = t('transaction.edit.quantity_bought')
-                %td
-                  = quantity
-              %tr
-                %td
-                  %strong
                     = t('transaction.edit.payment_type')
                 %td
                   = t('enumerize.transaction.selected_payment.' + selected_payment)
@@ -129,31 +132,86 @@
                     = t('transaction.edit.transport_type')
                 %td
                   = t('enumerize.transaction.selected_transport.' + selected_transport)
-                  = transport_provider_for selected_transport
+              - unless @transaction.selected_transport == nil
+                %tr
+                  %td
+                    %strong
+                      = t('transaction.edit.transport_provider')
+                  %td
+                    = @transaction.article_transport_provider selected_transport
             %br
             %h3
               = t 'transaction.edit.price_heading'
 
             %p
-              %strong
-                = t('transaction.edit.quantity_bought') + quantity.to_s
-              %br
-              %strong
-                = display_sales_price quantity
+            %table
+              %colgroup
+                %col{width: 220}
+                %col{width: 300}
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.quantity_bought')
+                %td
+                  = quantity.to_s
+              %tr
+                %td
+                  %strong
+                    Verkaufspreis pro Stück:
+                %td
+                  = humanized_money_with_symbol @transaction.article_price
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.sales_price')
+                %td
+                  = humanized_money_with_symbol(@transaction.article_price * quantity)
 
               - if resource.article_seller.is_a? LegalEntity
-                = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
-              %br
-              = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-              %hr
-              %br
-              = ( display_transport_price selected_transport, quantity ) + ' *'
-              %br
-              = display_cash_on_delivery_price selected_payment, quantity
-              %hr
-              %br
-              %h2
-                = display_total_price selected_transport, selected_payment, quantity
+                %tr
+                  %td
+                    %strong
+                      = t('transaction.edit.net')
+                  %td
+                    = humanized_money_with_symbol resource.article_price_without_vat quantity
+                %tr
+                  %td
+                    %strong
+                      = I18n.t 'transaction.edit.vat', percent: resource.article_vat
+                  %td
+                    = humanized_money_with_symbol resource.article_vat_price quantity
+
+                - if ( price = resource.article_basic_price > 0 )
+                  %tr
+                    %td
+                      %strong
+                        = t('transaction.edit.basic_price')
+                    %td
+                      = t('common.text.glue.per') + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
+
+            %small{ :class => 'donation'}
+              = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+
+          %hr
+          %table
+            %colgroup
+              %col{width: 220}
+              %col{width: 300}
+            %tr
+              %td
+                %strong
+                  = t('transaction.edit.shipping_and_handling') + '*:'
+              %td
+                = humanized_money_with_symbol(resource.article_transport_price(selected_transport, quantity))
+                - if selected_transport == 'type1'
+                  = "("+resource.article_transport_type1_provider+")"
+                - elsif selected_transport == 'type2'
+                  = "("+resource.article_transport_type2_provider+")"
+
+          %hr
+          %br
+          %h2
+            = display_total_price selected_transport, selected_payment, quantity
 
           %br
           = f.actions do

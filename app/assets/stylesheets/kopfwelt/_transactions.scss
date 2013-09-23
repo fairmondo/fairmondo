@@ -10,3 +10,23 @@
 .formtastic ul.Price-list li {
   list-style: circle inside;
 }
+
+.donation {
+  font-size: 13px;
+  padding: 3px;
+}
+
+.purchase-form{
+  float: right;
+  width: 140px;
+  margin: 1.5em;
+  padding: 5px;
+  text-align: center;
+  border: 2px solid #B4B4B4;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  color: #2E2E2E;
+
+  image{
+    border-radius: 0.9em;
+  }
+}
