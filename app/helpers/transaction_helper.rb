@@ -96,7 +96,7 @@ module TransactionHelper
     output
   end
 
-  # Return a basic display of the pasic price for the current view's resource
+  # Return a basic display of the basic price for the current view's resource
   # if one exists.
   #
   # @return [String, nil] Display HTML if there is something to display
@@ -166,6 +166,6 @@ module TransactionHelper
           country: country
         }
       ),
-      class: 'Btn Btn--gray'
+      class: 'Btn Btn--graySmaller'
   end
 end
