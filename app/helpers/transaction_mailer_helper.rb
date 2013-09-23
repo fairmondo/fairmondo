@@ -89,8 +89,6 @@ module TransactionMailerHelper
     total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
     total_price_cash_on_delivery = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought ) + ( transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought )
 
-
-
     string = ""
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought}\n"
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
@@ -145,11 +143,24 @@ module TransactionMailerHelper
 
   def fees_and_donations transaction
     calc_fee = transaction.article.calculated_fee * transaction.quantity_bought
-    calc_don = transaction.article.calculated_fair * transaction.quantity_bought
-    calc_total = calc_fee + calc_don
+    calc_fair = transaction.article.calculated_fair * transaction.quantity_bought
+    calc_total = calc_fee + calc_fair
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
-    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_don ) }\n" +
-    "#{ t('transaction.edit.total_price')}" + "#{humanized_money_with_symbol( calc_total) }"
+    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fee ) ) }\n" +
+    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fee ) ) }\n" +
+    "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_fair ) }\n" +
+    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fair ) ) }\n" +
+    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fair ) ) }\n" +
+    "-------------------------------\n" +
+    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }"
+  end
+
+  def net price
+    price / 1.19
+  end
+
+  def vat price
+    price - price / 1.19
   end
 
   def buyer_message transaction
