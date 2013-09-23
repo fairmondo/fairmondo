@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name,
-      { image_attributes: Image.image_attrs }
+      { image_attributes: Image.image_attrs + [:id] }
     ]
   end
   #! attr_accessible *user_attributes
