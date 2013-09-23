@@ -145,13 +145,13 @@ module TransactionMailerHelper
     calc_fee = transaction.article.calculated_fee * transaction.quantity_bought
     calc_fair = transaction.article.calculated_fair * transaction.quantity_bought
     calc_total = calc_fee + calc_fair
-    VAT = 19
+    vat_value = 19
 
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
     "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_fair ) }\n" +
     "-------------------------------\n" +
     "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*\n" +
-    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }" + "#{ t('transaction.edit.vat', percent: VAT) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }"
+    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }" + "#{ t('transaction.edit.vat', percent: vat_value) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }"
   end
 
   def net price
