@@ -43,5 +43,8 @@
   - if User.is_admin? current_user
     %p= link_to '> (Admin) Set this as dream team article', update_settings_path(var: 'dream_team_article_id', value: resource.id)
     %p= link_to '> (Admin) Set this as dream team article 2', update_settings_path(var: 'dream_team_article2_id', value: resource.id)
+    %p= link_to '> (Admin) Set this as pioneer article', update_settings_path(var: 'pioneer_article_id', value: resource.id)
+    %p= link_to '> (Admin) Set this as pioneer article 2', update_settings_path(var: 'pioneer_article2_id', value: resource.id)
+
 - elsif resource.owned_by? current_user
   = render "/articles/show/inactive", :article => resource

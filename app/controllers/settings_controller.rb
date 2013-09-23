@@ -5,10 +5,10 @@ class SettingsController < ApplicationController
 
     value = Sanitize.clean(permitted_params[:value])
     case permitted_params[:var]
-    when 'pioneer_id'
-      Settings.pioneer_id = value
-    when 'pioneer2_id'
-      Settings.pioneer2_id = value
+    when 'pioneer_article_id'
+      Settings.pioneer_article_id = value
+    when 'pioneer_article2_id'
+      Settings.pioneer_article2_id = value
     when 'dream_team_article_id'
       Settings.dream_team_article_id = value
     when 'dream_team_article2_id'

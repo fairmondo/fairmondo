@@ -56,12 +56,12 @@ $large-from: 800px;
 }
 
 
+
 //
 // Items with double-size
 //
 .Teaser--video,
-.Teaser--text,
-.Teaser--image {
+.Teaser--text {
   @media (min-width: em($small-from)) {
     width: columns(2,$small-columns);
   }
@@ -74,6 +74,36 @@ $large-from: 800px;
   // @media (min-width: em($ml-from)) {
   //  width: columns(1,$ml-columns);
   // }
+  @media (min-width: em($large-from)) {
+    width: columns(2,$large-columns);
+  }
+}
+
+//
+// Double Teaser
+//
+.DoubleTeaser {
+   @media (min-width: em($small-from)) {
+    width: columns(2,$small-columns);
+  }
+  // @media (min-width: em($sm-from)) {
+  //  width: columns(1,$sm-columns);
+  // }
+  @media (min-width: em($medium-from)) {
+    width: columns(1,$medium-columns);
+  }
+  // @media (min-width: em($ml-from)) {
+  //  width: columns(1,$ml-columns);
+  // }
+  @media (min-width: em($large-from)) {
+    width: columns(2,$large-columns);
+  }
+}
+
+.DoubleTeaser--alwaysdouble {
+  @media (min-width: em($medium-from)) {
+    width: columns(2,$medium-columns);
+  }
   @media (min-width: em($large-from)) {
     width: columns(2,$large-columns);
   }

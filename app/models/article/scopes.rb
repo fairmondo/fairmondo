@@ -9,16 +9,30 @@ module Article::Scopes
 
     #scope :featured, find(::Settings.featured_article_id)
 
-    def self.dreamteam
+    def self.dreamteam_article
       if ::Settings.dream_team_article_id
         find(::Settings.dream_team_article_id)
       else
         nil
       end
     end
-    def self.dreamteam2
+    def self.dreamteam_article2
       if ::Settings.dream_team_article2_id
         find(::Settings.dream_team_article2_id)
+      else
+        nil
+      end
+    end
+    def self.pioneer_article
+      if ::Settings.pioneer_article_id
+        find(::Settings.pioneer_article_id)
+      else
+        nil
+      end
+    end
+    def self.pioneer_article2
+      if ::Settings.pioneer_article2_id
+        find(::Settings.pioneer_article2_id)
       else
         nil
       end
