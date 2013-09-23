@@ -57,7 +57,7 @@ module TransactionMailerHelper
       string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
-    case
+    case transaction.selected_payment
       when 'bank_transfer'
         string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
       when 'paypal'
@@ -104,7 +104,7 @@ module TransactionMailerHelper
     end
 
     string += "----------------------------------------------\n"
-    string += "#{ t('transaction.edit.shipping_and_handling') }" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
+    string += "#{ t('transaction.edit.shipping_and_handling') }: " + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
 
     if role == :buyer && transaction.selected_payment == 'cash_on_delivery'
       string += "#{ t('transaction.edit.cash_on_delivery') }" + "#{humanized_money_with_symbol(transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}\n"
