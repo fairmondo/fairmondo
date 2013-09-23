@@ -254,22 +254,6 @@ class User < ActiveRecord::Base
     can_sell
   end
 
-  def self.pioneer
-    if ::Settings.pioneer_id
-      find(::Settings.pioneer_id)
-    else
-      nil
-    end
-  end
-
-  def self.pioneer2
-        if ::Settings.pioneer2_id
-      find(::Settings.pioneer2_id)
-    else
-      nil
-    end
-  end
-
   private
 
   # @api private
