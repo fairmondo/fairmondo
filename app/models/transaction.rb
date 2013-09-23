@@ -46,7 +46,7 @@ class Transaction < ActiveRecord::Base
            :price_without_vat, :total_price, :quantity, :quantity_left,
            :transport_type1_provider, :transport_type2_provider, :calculated_fair,
            to: :article, prefix: true
-  delegate :email, :forename, to: :buyer, prefix: true
+  delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,

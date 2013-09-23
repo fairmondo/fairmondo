@@ -152,7 +152,8 @@ module TransactionMailerHelper
     "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fair ) ) }\n" +
     "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fair ) ) }\n" +
     "-------------------------------\n" +
-    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }"
+    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }\n\n\n" +
+    "#{ t('transaction.notifications.seller.quarter_year_fees') }"
   end
 
   def net price
