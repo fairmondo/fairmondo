@@ -60,7 +60,6 @@ describe TransactionMailerHelper do
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
 			helper.order_details( @transaction ).should have_content( article_path( @transaction.article ) )
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
-			helper.order_details( @transaction ).should have_content( t('transaction.edit.quantity_bought') + @transaction.quantity_bought.to_s )
 		end
 	end
 
@@ -134,20 +133,6 @@ describe TransactionMailerHelper do
 
 			helper.fees_and_donations( @transaction ).should have_content( I18n.t('transaction.notifications.seller.donations') )
 			helper.fees_and_donations( @transaction ).should have_content( "#{humanized_money_with_symbol( @transaction.article.calculated_fair * @transaction.quantity_bought )}" )
-		end
-	end
-
-	describe "#buyer_message( transaction )" do
-		it "should return message if there is a message" do
-			@transaction.message = "Hallo ich bin eine Nachricht"
-
-			helper.buyer_message( @transaction ).should have_content( @transaction.message )
-		end
-
-		it "should not return a message if there is no message" do
-			@transaction.message = nil
-
-			helper.buyer_message( @transaction ).should eq nil
 		end
 	end
 end
