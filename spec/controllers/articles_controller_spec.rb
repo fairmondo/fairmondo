@@ -345,7 +345,7 @@ describe ArticlesController do
       it "should delete the preview article" do
         lambda do
           put :destroy, :id => @article.id
-          response.should redirect_to(articles_path)
+          response.should redirect_to(user_path(user))
         end.should change(Article.unscoped, :count).by -1
       end
 
