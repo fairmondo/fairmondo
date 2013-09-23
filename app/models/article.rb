@@ -202,7 +202,7 @@ class Article < ActiveRecord::Base
     CSV.generate(:col_sep => ";") do |csv|
       # bugbug Refactor asap
       csv << header_row
-      articles.each do |article|
+      articles.reverse_order.each do |article|
         csv << article.attributes.values_at("title") +
         [article.categories.map { |a| a.id }.join(",")] +
         article.attributes.values_at(*header_row[2..9]) +
