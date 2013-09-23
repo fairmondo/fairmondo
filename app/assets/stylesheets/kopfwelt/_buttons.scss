@@ -150,6 +150,14 @@ a.Btn {
 		background-color: lighten($btn--gray, 5%);
 	}
 }
+
+.Btn--graySmaller {
+	background-color: $btn--gray;
+	font-size: 13px;
+	&:hover {
+		background-color: lighten($btn--gray, 5%);
+	}
+}
 .Btn--red {
 	background-color: $btn--red;
 	&:hover {
