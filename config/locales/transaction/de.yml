@@ -30,7 +30,7 @@ de:
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
-      shipping_and_handling: "Versandkosten: "
+      shipping_and_handling: "Versandkosten"
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
     show:
@@ -54,7 +54,7 @@ de:
     errors:
       too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verfügbar."
     actions:
-      purchase: "Verbindlich kaufen und bezahlen"
+      purchase: "Zahlungspflichtig Bestellen"
   #   bid:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
