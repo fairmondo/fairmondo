@@ -78,13 +78,21 @@ module Article::Images
     end
 
     def add_image(image_url, is_title)
-      if image_url
+      if image_url && image_url =~ URI::regexp
         image = Image.new(:image => URI.parse(image_url))
         image.is_title = is_title
         image.external_url = image_url
         image.save
         self.images << image
+      elsif image_url !=~ URI::regexp && is_title == true
+        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_title_image_url'))
+      elsif image_url !=~ URI::regexp && is_title == false
+        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
       end
+    end
+
+    def valid_url(url)
+
     end
   end
 end
