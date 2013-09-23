@@ -84,10 +84,10 @@ describe TransactionMailerHelper do
 
 				helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.bank_transfer') )
        	helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.please_pay') )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_account_owner )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_account_number )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_code )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_name )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_owner )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_number )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_code )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_name )
 			end
 
 			it "for 'paypal'" do
@@ -110,14 +110,16 @@ describe TransactionMailerHelper do
 		end
 	end
 
-	describe "#seller_bank_account( seller )" do
-		it "should return the right string for seller bank account" do
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_owner )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_number )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_code )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_name )
-		end
-	end
+	# Diese Methode wird erstmal nicht mehr genutzt
+	#
+	# describe "#seller_bank_account( seller )" do
+	# 	it "should return the right string for seller bank account" do
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_owner )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_number )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_code )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_name )
+	# 	end
+	# end
 
 	describe "#fees_and_donations( transaction )" do
 		include MoneyRails::TestHelpers
