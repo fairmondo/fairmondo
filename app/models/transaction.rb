@@ -35,7 +35,7 @@ class Transaction < ActiveRecord::Base
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
-  auto_sanitize :message
+  auto_sanitize :message, :forename, :surname, :street, :city, :zip, :country
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
