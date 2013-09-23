@@ -13,6 +13,10 @@ class SettingsController < ApplicationController
       Settings.dream_team_article_id = value
     when 'dream_team_article2_id'
       Settings.dream_team_article2_id = value
+    when 'newest_article_id'
+      Settings.newest_article_id = value
+    when 'newest_article2_id'
+      Settings.newest_article2_id = value
     end # add other settings as necessarcy
 
     redirect_to :back

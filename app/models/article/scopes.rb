@@ -23,6 +23,22 @@ module Article::Scopes
         nil
       end
     end
+
+    def self.newest_article
+      if ::Settings.newest_article_id
+        find(::Settings.newest_article_id)
+      else
+        nil
+      end
+    end
+    def self.newest_article2
+      if ::Settings.newest_article2_id
+        find(::Settings.newest_article2_id)
+      else
+        nil
+      end
+    end
+
     def self.pioneer_article
       if ::Settings.pioneer_article_id
         find(::Settings.pioneer_article_id)

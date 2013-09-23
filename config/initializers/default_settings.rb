@@ -15,4 +15,6 @@ ensure
   Settings.defaults[:pioneer_article2_id] = last_article ? last_article.id : nil
   Settings.defaults[:dream_team_article_id] = last_article ? last_article.id : nil
   Settings.defaults[:dream_team_article2_id] = last_article ? last_article.id : nil
+  Settings.defaults[:newest_article_id] = last_article ? last_article.id : nil
+  Settings.defaults[:newest_article2_id] = last_article ? last_article.id : nil
 end
