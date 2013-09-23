@@ -16,17 +16,23 @@
   padding: 3px;
 }
 
-.purchase-form{
+.small-image-left{
   float: right;
   width: 140px;
   margin: 1.5em;
   padding: 5px;
   text-align: center;
-  border: 2px solid #B4B4B4;
-  border-radius: 0.5em 0.5em 0.5em 0.5em;
-  color: #2E2E2E;
 
   image{
     border-radius: 0.9em;
   }
+}
+
+.gray-border{
+  border: 2px solid #B4B4B4;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  color: #2E2E2E;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
 }
