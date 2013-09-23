@@ -166,11 +166,6 @@ module TransactionHelper
           country: country
         }
       ),
-      class: 'Btn'
-  end
-
-  ########### SHOW ############
-  def display_show_title
-
+      class: 'Btn Btn--gray'
   end
 end

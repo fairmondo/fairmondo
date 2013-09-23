@@ -10,11 +10,11 @@ describe TransactionMailerHelper do
 		# pending "needs to be fixed"
 		context "dependent on role it should return the right greeting" do
 			it "if role is buyer it should return buyer greeting" do
-				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.forename + ','
+				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + @transaction.buyer_forename + ','
 			end
 
 			it "if role is seller it should return seller greeting" do
-				helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + ' ' + @transaction.article_seller_forename + ','
+				helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + @transaction.article_seller_forename + ','
 			end
 		end
 	end
@@ -22,13 +22,14 @@ describe TransactionMailerHelper do
 	describe "#fairnopoly_email_footer" do
 		it "should return proper email footer" do
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.intro') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.contact') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.footer_contact') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.registered') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.board') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.ceo') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.supervisory_board') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.brand') )
 			helper.fairnopoly_email_footer.should have_content( I18n.t('common.claim') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.facebook') )
+			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.buy_shares') )
 		end
 	end
 
@@ -51,7 +52,6 @@ describe TransactionMailerHelper do
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.city )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.zip )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.country )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.buyer_email )
 		end
 	end
 
@@ -84,10 +84,10 @@ describe TransactionMailerHelper do
 
 				helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.bank_transfer') )
        	helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.please_pay') )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_account_owner )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_account_number )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_code )
-				helper.payment_method_info( @transaction, :buyer ).should have_content( @transaction.article_seller.bank_name )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_owner )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_number )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_code )
+				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_name )
 			end
 
 			it "for 'paypal'" do
@@ -110,14 +110,16 @@ describe TransactionMailerHelper do
 		end
 	end
 
-	describe "#seller_bank_account( seller )" do
-		it "should return the right string for seller bank account" do
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_owner )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_number )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_code )
-			helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_name )
-		end
-	end
+	# Diese Methode wird erstmal nicht mehr genutzt
+	#
+	# describe "#seller_bank_account( seller )" do
+	# 	it "should return the right string for seller bank account" do
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_owner )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_number )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_code )
+	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_name )
+	# 	end
+	# end
 
 	describe "#fees_and_donations( transaction )" do
 		include MoneyRails::TestHelpers
