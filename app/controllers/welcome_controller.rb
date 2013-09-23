@@ -25,9 +25,15 @@ class WelcomeController < ApplicationController
 
   def index
     begin
-      @featured_article = Article.active.featured
+      @pioneer_article = Article.active.pioneer_article
+      @pioneer_article2 = Article.active.pioneer_article2
+      @dream_team_article = Article.active.dreamteam_article
+      @dream_team_article2 = Article.active.dreamteam_article2
     rescue ActiveRecord::RecordNotFound
-      @featured_article = nil
+      @pioneer_article = nil
+      @pioneer_article2 = nil
+      @dream_team_article = nil
+      @dream_team_article2 = nil
     end
   end
 
