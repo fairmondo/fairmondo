@@ -242,7 +242,7 @@ class MassUpload
       elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
         attributes_hash[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
       else
-        attributes_hash[pair.first] = pair[1..-1].first
+        attributes_hash[pair.first] = pair[1..-1].first || [""]
       end
     end
     row = Hash[row]
