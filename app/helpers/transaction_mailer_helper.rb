@@ -13,7 +13,7 @@ module TransactionMailerHelper
 
   def fairnopoly_email_footer
     "#{ t('common.fn_legal_footer.intro')}\n" +
-    "**************************************************************\n" +
+    "******************************************************************\n" +
     "#{t('common.fn_legal_footer.footer_contact')}\n\n" +
     "#{t('common.fn_legal_footer.registered')}\n" +
     "#{t('common.fn_legal_footer.board')}\n" +
@@ -22,7 +22,7 @@ module TransactionMailerHelper
     "#{t('common.claim')}\n\n" +
     "#{t('common.fn_legal_footer.facebook')}\n" +
     "#{t('common.fn_legal_footer.buy_shares')}\n" +
-    "**************************************************************"
+    "******************************************************************"
   end
 
   def show_contact_info_seller seller
@@ -94,7 +94,7 @@ module TransactionMailerHelper
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
 
-    if transaction.seller.is_a? LegalEntity
+    if transaction.seller.is_a?(LegalEntity)
       string += "#{ t('transaction.edit.net') }" + "#{ price_without_vat }\n"
       string += "#{ t('transaction.edit.vat', percent: vat) }" + "#{ vat_price }\n"
     end
@@ -145,14 +145,14 @@ module TransactionMailerHelper
     calc_fee = transaction.article.calculated_fee * transaction.quantity_bought
     calc_fair = transaction.article.calculated_fair * transaction.quantity_bought
     calc_total = calc_fee + calc_fair
+    vat_value = 19
+
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
-    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fee ) ) }\n" +
-    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fee ) ) }\n" +
     "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_fair ) }\n" +
-    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_fair ) ) }\n" +
-    "#{ t('transaction.edit.vat', percent: 19) }" + "#{ humanized_money_with_symbol( vat( calc_fair ) ) }\n" +
     "-------------------------------\n" +
-    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }\n\n\n" +
+    "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*\n" +
+    "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }\n" +
+    "#{ t('transaction.edit.vat', percent: vat_value) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }\n\n\n" +
     "#{ t('transaction.notifications.seller.quarter_year_fees') }"
   end
 
