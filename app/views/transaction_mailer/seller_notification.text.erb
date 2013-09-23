@@ -15,12 +15,12 @@
 <%= article_payment_info @transaction, :seller %>
 
 ***
+
 <% if @transaction.selected_transport == 'pickup' %>
 <%= t('transaction.notifications.seller.pickup_info') %>
 <% else %>
 <%= t('transaction.notifications.seller.shipping_request') %>
 <% end %>
-
 <%= show_buyer_address @transaction %>
 
 <%= "#{t('transaction.notifications.seller.buyer_email')}" %>
@@ -39,8 +39,8 @@
 ***
 
 <%= t('transaction.notifications.seller.seller_fee_text') %>
-
 <%= fees_and_donations @transaction %>
+
 
 <%= t 'transaction.notifications.seller.canceled_transaction' %>
 
