@@ -32,11 +32,11 @@ set :branch, fetch(:branch, "develop")
 namespace :solr do
   desc "start solr"
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:start"
   end
   desc "stop solr"
   task :stop, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:stop"
   end
   desc "restart solr"
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -53,7 +53,4 @@ namespace :solr do
 end
 
 
-#Sunspot Hooks
-after "deploy:stop",    "solr:stop"
-after "deploy:start",   "solr:start"
-after "deploy:restart", "solr:restart"
+

@@ -35,7 +35,7 @@ class Transaction < ActiveRecord::Base
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
-  auto_sanitize :message
+  auto_sanitize :message, :forename, :surname, :street, :city, :zip, :country
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -46,7 +46,7 @@ class Transaction < ActiveRecord::Base
            :price_without_vat, :total_price, :quantity, :quantity_left,
            :transport_type1_provider, :transport_type2_provider, :calculated_fair,
            to: :article, prefix: true
-  delegate :email, :forename, to: :buyer, prefix: true
+  delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,
@@ -57,7 +57,7 @@ class Transaction < ActiveRecord::Base
   validates :article, presence: true
 
   # UPDATE
-  validates :tos_accepted, acceptance: { accept: true, message: I18n.t('errors.messages.multiple_accepted') }, on: :update
+  validates :tos_accepted, acceptance: { accept: true }, on: :update
   #validates :message, allow_blank: true, on: :update
 
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?

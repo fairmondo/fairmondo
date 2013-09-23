@@ -16,8 +16,6 @@
 
 <%= order_details @transaction %>
 
-***
-
 <%= article_payment_info @transaction, :buyer %>
 
 <%= t('transaction.notifications.buyer.payment_type') + "#{payment_method_info @transaction, :buyer}" %>
@@ -34,12 +32,14 @@
 
 <%= show_buyer_address @transaction %>
 
+<% if @transaction.message && !@transaction.message.empty? %>
 ***
 
 <%= t('transaction.notifications.buyer.buyer_message') %>
 
-<%= buyer_message @transaction %>
+<%= @transaction.message %>
 
+<% end %>
 ***
 
 <% if @transaction.article_seller.is_a? LegalEntity %>
