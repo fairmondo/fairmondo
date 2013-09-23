@@ -24,8 +24,12 @@ class QuantityBoughtValidator < ActiveModel::EachValidator
   #
   # @api public
   def validate_each(record, attribute, value)
-    if value && value > record.quantity_available
-      record.errors[attribute] << I18n.t('transaction.errors.too_many_bought', available: record.quantity_available)
+    if value
+      if value > record.quantity_available
+        record.errors[attribute] << I18n.t('transaction.errors.too_many_bought', available: record.quantity_available)
+      elsif value < 1
+        record.errors[attribute] << I18n.t('errors.messages.greater_than', count: 0)
+      end
     end
   end
 end
