@@ -212,6 +212,7 @@ class Article < ActiveRecord::Base
         create_social_attributes(article, header_row) +
         article.attributes.values_at(*header_row[56..-1])
       end
+      csv.string.gsub! "\"", ""
     end
   end
 
