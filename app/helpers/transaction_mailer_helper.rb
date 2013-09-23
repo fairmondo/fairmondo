@@ -28,12 +28,10 @@ module TransactionMailerHelper
   def show_contact_info_seller seller
     string = ""
     if seller.is_a? LegalEntity
-      if seller.company_name
-        string += "#{seller.company_name}\n"
-      end
+      string += "#{seller.company_name}\n" if seller.company_name
       string += "#{seller.forename} #{seller.surname}\n"
     else
-      string += "#{seller.title}\n"
+      string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
     end
     string += "#{seller.street}\n"
@@ -46,7 +44,7 @@ module TransactionMailerHelper
   def show_buyer_address transaction
     "#{transaction.forename} #{transaction.surname}\n" +
     "#{transaction.street}\n" +
-    "#{transaction.zip} " + "#{transaction.city}\n" +
+    "#{transaction.zip} #{transaction.city}\n" +
     "#{transaction.country}"
   end
 
@@ -57,8 +55,7 @@ module TransactionMailerHelper
       string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
-    string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought.to_s}\n"
-    case transaction.selected_payment
+    case
       when 'bank_transfer'
         string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
       when 'paypal'
@@ -160,12 +157,6 @@ module TransactionMailerHelper
 
   def vat price
     price - price / 1.19
-  end
-
-  def buyer_message transaction
-    unless transaction.message == nil
-      transaction.message
-    end
   end
 
   # wird erstmal nicht mehr verwendet
