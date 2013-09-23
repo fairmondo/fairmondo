@@ -29,11 +29,15 @@ class WelcomeController < ApplicationController
       @pioneer_article2 = Article.active.pioneer_article2
       @dream_team_article = Article.active.dreamteam_article
       @dream_team_article2 = Article.active.dreamteam_article2
+      @newest_article = Article.active.newest_article
+      @newest_article2 = Article.active.newest_article2
     rescue ActiveRecord::RecordNotFound
       @pioneer_article = nil
       @pioneer_article2 = nil
       @dream_team_article = nil
       @dream_team_article2 = nil
+      @newest_article = nil
+      @newest_article2 = nil
     end
   end
 
