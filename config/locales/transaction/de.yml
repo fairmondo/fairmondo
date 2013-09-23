@@ -30,7 +30,7 @@ de:
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
-      shipping_and_handling: "Versandkosten: "
+      shipping_and_handling: "Versandkosten"
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
     show:
