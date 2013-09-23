@@ -118,6 +118,8 @@ class Article < ActiveRecord::Base
   end
 
   def self.export_articles(user, params = nil)
+    # bugbug The horror...
+
     if params == "active"
       articles = user.articles.where(:state => "active")
     elsif params == "preview"
@@ -130,10 +132,10 @@ class Article < ActiveRecord::Base
                   "content", "quantity", "price_cents", "basic_price_cents",
                   "basic_price_amount", "vat", "title_image_url", "image_2_url",
                   "transport_pickup", "transport_type1",
-                  "transport_type1_provide", "transport_type1_price_cents",
+                  "transport_type1_provider", "transport_type1_price_cents",
                   "transport_type2", "transport_type2_provider",
                   "transport_type2_price_cents", "transport_details",
-                  "payment_bank_transfer", "payment_cash;payment_paypal",
+                  "payment_bank_transfer", "payment_cash", "payment_paypal",
                   "payment_cash_on_delivery",
                   "payment_cash_on_delivery_price_cents", "payment_invoice",
                   "payment_details", "fair_kind", "fair_seal", "support",
@@ -156,11 +158,59 @@ class Article < ActiveRecord::Base
                   "small_and_precious_reason", "small_and_precious_handmade",
                   "gtin", "custom_seller_identifier"]
 
+    def self.create_fair_attributes(article, header_row)
+      fair_attributes_raw_array = []
+      fair_attributes = []
+      if article.fair_trust_questionnaire
+        fair_attributes_raw_array = article.fair_trust_questionnaire.attributes.values_at(*header_row[29..48])
+        fair_attributes_raw_array.each do |element|
+          if element.class == Array
+            fair_attributes << element.join(',')
+          else
+            fair_attributes << element
+          end
+        end
+      else
+        20.times do
+          fair_attributes << nil
+        end
+      end
+      fair_attributes
+    end
+
+    def self.create_social_attributes(article, header_row)
+      social_attributes_raw_array = []
+      social_attributes = []
+      if article.social_producer_questionnaire
+        social_attributes_raw_array = article.social_producer_questionnaire.attributes.values_at(*header_row[49..55])
+        social_attributes_raw_array.each do |element|
+          if element.class == Array
+            social_attributes << element.join(',')
+          else
+            social_attributes << element
+          end
+        end
+      else
+        7.times do
+          social_attributes << nil
+        end
+      end
+      social_attributes
+    end
+
+
     CSV.generate(:col_sep => ";") do |csv|
       # bugbug Refactor asap
       csv << header_row
       articles.each do |article|
-        csv << article.attributes.values_at("title") + [article.categories.map { |a| a.id }.join(",")] + article.attributes.values_at(*header_row[2..9]) + article.provide_external_urls + article.attributes.values_at(*header_row[12..-1])
+        csv << article.attributes.values_at("title") +
+        [article.categories.map { |a| a.id }.join(",")] +
+        article.attributes.values_at(*header_row[2..9]) +
+        article.provide_external_urls +
+        article.attributes.values_at(*header_row[12..28]) +
+        create_fair_attributes(article, header_row) +
+        create_social_attributes(article, header_row) +
+        article.attributes.values_at(*header_row[56..-1])
       end
     end
   end
