@@ -5,7 +5,7 @@ module Article::Scopes
     default_scope where(article_template_id: nil).order('created_at DESC')
 
     scope :active, where(state: :active)
-    scope :active_old,where(state: :active_old)
+    scope :counting, where("state = 'active' OR state = 'sold'")
 
     #scope :featured, find(::Settings.featured_article_id)
 

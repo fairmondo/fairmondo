@@ -113,7 +113,7 @@
                 - else
                   %img{:src => @transaction.article.title_image_url(:thumb)}
                 %figcaption
-                  = link_to truncate( @transaction.article.title, :length => 25), article_path( @transaction.article )
+                  = link_to truncate( @transaction.article_title, :length => 25), article_path( @transaction.article )
 
             %br
             %h3

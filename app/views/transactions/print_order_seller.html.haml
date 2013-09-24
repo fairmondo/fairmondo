@@ -1,11 +1,6 @@
-- @transaction 				= t
-- buyer 							= @transaction.buyer
-- seller 							= @transaction.article_seller
-- selected_payment 		= @transaction.selected_payment
-- selected_transport 	= @transaction.selected_transport
-- quantity						= @transaction.quantity_bought
-- title 							= @transaction.article.title
-- article 						= @transaction.article
+- transaction 				= t
+- buyer 							= transaction.buyer
+
 
 %h3 Lieferschein (Ich bin noch ein Dummy)
 %p
@@ -13,13 +8,13 @@
 %p
 	= buyer.fullname
 	%br
-	= @transaction.street
+	= transaction.street
 	%br
-	= @transaction.zip
+	= transaction.zip
 	%br
-	= @transaction.city
+	= transaction.city
 	%br
-	= @transaction.country
+	= transaction.country
 	%br
 %p
 	= Time.now.strftime("%d.%m.%Y")
@@ -36,13 +31,13 @@
 				Gesamtpreis
 		%tr
 			%td
-				= quantity
+				= transaction.quantity_bought
 			%td
-				= title
+				= transaction.article_title
 			%td
-				= humanized_money_with_symbol( @transaction.article.price )
+				= humanized_money_with_symbol( transaction.article_price )
 			%td
-				= humanized_money_with_symbol( @transaction.article.price * quantity )
+				= humanized_money_with_symbol( transaction.article_price * transaction.quantity_bought )
 		%tr
 			%td
 			%td
