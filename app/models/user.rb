@@ -74,7 +74,8 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-  # has_many :bids, :dependent => :destroy
+  has_many :invoices  
+ # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
   has_many :article_templates, :dependent => :destroy
@@ -239,6 +240,8 @@ class User < ActiveRecord::Base
     ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
   end
 
+
+
   def bank_account_exists?
     ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
   end
@@ -254,17 +257,27 @@ class User < ActiveRecord::Base
     can_sell
   end
 
+  ####################### Invoice stuff ###################
+  def has_open_invoice?
+    Invoice.find_by_user_id_and_state( self.id, "open" ).present?
+  end
+
+  def has_paid_quarterly_fee?
+    self.quarterly_fee?
+  end
+  ####################### Invoice stuff ###################
+
   private
 
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    # @api private
+    def create_default_library
+      if self.libraries.empty?
+        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+      end
     end
-  end
 
-  def wants_to_sell?
-    self.wants_to_sell
-  end
+    def wants_to_sell?
+      self.wants_to_sell
+    end
 
 end

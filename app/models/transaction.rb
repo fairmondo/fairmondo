@@ -1,4 +1,4 @@
-# A transaction handles the purchase process of an artucle.
+# # A transaction handles the purchase process of an artucle.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.

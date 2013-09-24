@@ -101,6 +101,7 @@ end
 
 group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service
+  # gem 'whenever' # cron jobs
 end
 
 # for generating *.war file
@@ -138,6 +139,7 @@ group :development, :test do
   gem "brakeman" # security test: execute with 'brakeman'
   gem 'parallel_tests'
   gem 'rspec-instafail'
+  #gem 'timecop' #for faking test time/date
 
   # Replace Webrick
   gem 'thin'
