@@ -158,47 +158,6 @@ class Article < ActiveRecord::Base
                   "small_and_precious_reason", "small_and_precious_handmade",
                   "gtin", "custom_seller_identifier"]
 
-    def self.create_fair_attributes(article, header_row)
-      fair_attributes_raw_array = []
-      fair_attributes = []
-      if article.fair_trust_questionnaire
-        fair_attributes_raw_array = article.fair_trust_questionnaire.attributes.values_at(*header_row[29..48])
-        fair_attributes_raw_array.each do |element|
-          if element.class == Array
-            fair_attributes << element.join(',')
-          else
-            fair_attributes << element
-          end
-        end
-      else
-        20.times do
-          fair_attributes << nil
-        end
-      end
-      fair_attributes
-    end
-
-    def self.create_social_attributes(article, header_row)
-      social_attributes_raw_array = []
-      social_attributes = []
-      if article.social_producer_questionnaire
-        social_attributes_raw_array = article.social_producer_questionnaire.attributes.values_at(*header_row[49..55])
-        social_attributes_raw_array.each do |element|
-          if element.class == Array
-            social_attributes << element.join(',')
-          else
-            social_attributes << element
-          end
-        end
-      else
-        7.times do
-          social_attributes << nil
-        end
-      end
-      social_attributes
-    end
-
-
     CSV.generate(:col_sep => ";") do |csv|
       # bugbug Refactor asap
       csv << header_row
@@ -214,6 +173,46 @@ class Article < ActiveRecord::Base
       end
       csv.string.gsub! "\"", ""
     end
+  end
+
+  def self.create_fair_attributes(article, header_row)
+    fair_attributes_raw_array = []
+    fair_attributes = []
+    if article.fair_trust_questionnaire
+      fair_attributes_raw_array = article.fair_trust_questionnaire.attributes.values_at(*header_row[29..48])
+      fair_attributes_raw_array.each do |element|
+        if element.class == Array
+          fair_attributes << element.join(',')
+        else
+          fair_attributes << element
+        end
+      end
+    else
+      20.times do
+        fair_attributes << nil
+      end
+    end
+    fair_attributes
+  end
+
+  def self.create_social_attributes(article, header_row)
+    social_attributes_raw_array = []
+    social_attributes = []
+    if article.social_producer_questionnaire
+      social_attributes_raw_array = article.social_producer_questionnaire.attributes.values_at(*header_row[49..55])
+      social_attributes_raw_array.each do |element|
+        if element.class == Array
+          social_attributes << element.join(',')
+        else
+          social_attributes << element
+        end
+      end
+    else
+      7.times do
+        social_attributes << nil
+      end
+    end
+    social_attributes
   end
 
   def is_conventional?
