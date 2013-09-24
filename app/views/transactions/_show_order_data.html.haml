@@ -6,7 +6,7 @@
 %h1
   = t 'transaction.edit.heading'
 %h3
-  = link_to "#{transaction.article.title}", article_path( transaction.article )
+  = link_to "#{transaction.article_title}", article_path( transaction.article )
 = "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
 %br
 %p
@@ -21,33 +21,33 @@
 
 %h4= t('transaction.notifications.seller.order_infos')
 
-= simple_format order_details @transaction
+= simple_format order_details transaction
 
-= simple_format article_payment_info @transaction, :seller
+= simple_format article_payment_info transaction, :seller
 
 %hr
 
--if @transaction.selected_transport == 'pickup'
+-if transaction.selected_transport == 'pickup'
   %h4= t('transaction.notifications.seller.pickup_info')
 -else
   %h4= t('transaction.notifications.seller.shipping_request')
 
-= simple_format show_buyer_address @transaction
+= simple_format show_buyer_address transaction
 
 = t('transaction.notifications.seller.buyer_email')
-= @transaction.buyer_email
+= transaction.buyer_email
 
-= simple_format payment_method_info @transaction, :seller
+= simple_format payment_method_info transaction, :seller
 
--if @transaction.message && !@transaction.message.empty?
+-if transaction.message && !transaction.message.empty?
   %hr
   %h4= t('transaction.notifications.seller.buyer_message')
-  %p= @transaction.message
+  %p= transaction.message
 
 %hr
 
 %h4= t('transaction.notifications.seller.seller_fee_text')
-= simple_format fees_and_donations @transaction
+= simple_format fees_and_donations transaction
 
 
 %br

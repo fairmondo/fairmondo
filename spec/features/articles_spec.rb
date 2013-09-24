@@ -358,7 +358,7 @@ describe "Pioneer of the day" do
     page.should_not have_link 'Foobar'
 
     visit article_path FactoryGirl.create :article, title: 'Foobar'
-    click_link '> (Admin) Set this as featured article'
+    click_link '> (Admin) Set this as pioneer article'
 
     visit root_path
     page.should have_link 'Foobar'
