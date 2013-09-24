@@ -130,7 +130,7 @@ class Article < ActiveRecord::Base
 
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
-                  "basic_price_amount", "vat", "title_image_url", "image_2_url",
+                  "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
                   "transport_pickup", "transport_type1",
                   "transport_type1_provider", "transport_type1_price_cents",
                   "transport_type2", "transport_type2_provider",
