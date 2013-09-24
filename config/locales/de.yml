@@ -86,7 +86,7 @@ de:
         from: "von"
         and: " und "
         by: "von"
-        per: "pro "
+        per: " pro "
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
