@@ -32,7 +32,7 @@ FactoryGirl.define do
     city     { Faker::Address.city }
     zip      { Faker::Address.postcode }
     country  "Deutschland"
-
+    sold_at { Time.now }
     factory :super_transaction, class: 'Transaction' do
     end
 

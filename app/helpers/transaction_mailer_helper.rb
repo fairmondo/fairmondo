@@ -53,8 +53,8 @@ module TransactionMailerHelper
   def order_details transaction
     string = ""
     string += "#{transaction.article_title}\n"
-    if transaction.article.custom_seller_identifier
-      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
+    if transaction.article_custom_seller_identifier
+      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article_custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
     case transaction.selected_payment
@@ -82,7 +82,7 @@ module TransactionMailerHelper
   end
 
   def article_payment_info transaction, role
-    vat = transaction.article.vat
+    vat = transaction.article_vat
     vat_price = transaction.article.vat_price * transaction.quantity_bought
     price_without_vat = transaction.article.price_without_vat * transaction.quantity_bought
     total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
