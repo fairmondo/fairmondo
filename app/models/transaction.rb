@@ -122,6 +122,10 @@ class Transaction < ActiveRecord::Base
     true
   end
 
+  def deletable?
+    available?
+  end
+
   # Make virtual field validatable
   # @api public
   # @param value [String]
