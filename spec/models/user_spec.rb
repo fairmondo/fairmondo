@@ -192,6 +192,34 @@ describe User do
       end
     end
 
+    describe "has_open_invoice?" do
+      before do
+        @invoice = FactoryGirl.create( :invoice, :user_id => user.id )
+      end
+
+      it "should be true if user has open invoice" do
+        @invoice.state = "open"
+        @invoice.save
+        user.has_open_invoice?.should be_true
+      end
+
+      it "should be false if user has no open invoice" do
+        @invoice.state = "closed"
+        @invoice.save
+        user.has_open_invoice?.should be_false
+      end
+    end
+
+    describe "has_paid_quarterly_fee?" do
+      it "should return true if user has paid quarterly fee" do
+        pending
+      end
+
+      it "should return false if user has not paid quarterly fee" do
+        pending
+      end
+    end
+
     describe "#address" do
       it "should return a string with street, zip and city" do
         u = User.new street: 'Sesame Street 1', zip: '12345', city: 'Utopia'

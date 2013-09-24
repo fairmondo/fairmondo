@@ -32,4 +32,8 @@ class TransactionObserver < ActiveRecord::Observer
       transaction.update_attribute :purchase_emails_sent, true
     end
   end
+	
+	def after_buy( transaction, transition )
+		Invoice.invoice_action_chain( transaction )
+	end
 end
