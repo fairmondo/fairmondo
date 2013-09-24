@@ -99,9 +99,5 @@ module Article::Images
         self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
       end
     end
-
-    def valid_url(url)
-
-    end
   end
 end
