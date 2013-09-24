@@ -113,7 +113,7 @@
                 - else
                   %img{:src => @transaction.article.title_image_url(:thumb)}
                 %figcaption
-                  = link_to truncate( @transaction.article.title, :length => 25), article_path( @transaction.article )
+                  = link_to truncate( @transaction.article_title, :length => 25), article_path( @transaction.article )
 
             %br
             %h3
@@ -193,13 +193,13 @@
                   %td
                     = humanized_money_with_symbol resource.article_payment_cash_on_delivery_price
 
-              - if ( price = resource.article_basic_price > 0 )
+              - if ( resource.article_basic_price > 0  && resource.article_basic_price_amount)
                 %tr
                   %td
                     %strong
                       = I18n.t('transaction.edit.basic_price')
                   %td
-                    = humanized_money_with_symbol(resource.article_basic_price) + t('common.text.glue.per') + t('enumerize.article.basic_price_amount.'+resource.article_basic_price_amount)
+                    = humanized_money_with_symbol(resource.article_basic_price) + t('common.text.glue.per') +resource.article_basic_price_amount_text
 
             %small{ :class => 'donation'}
               = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)

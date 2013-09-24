@@ -76,18 +76,29 @@ class MassUpload
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     valid = true
     raw_articles.each_with_index do |raw_article, index|
-      unless raw_article.valid?
-        raw_article.errors.full_messages.each do |message|
-          if raw_article.errors.full_messages[0] == message && index > 0
-            errors.add(:file, "<br><br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
-          else
-            errors.add(:file, "<br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
-          end
-        end
-        valid = false
+      image_errors = false
+
+      if raw_article.errors.full_messages.any?
+        valid = add_article_error_messages(raw_article, index, image_errors)
+        image_errors = true
+      end
+
+      if raw_article.invalid?
+        valid = add_article_error_messages(raw_article, index, image_errors)
       end
     end
     valid
+  end
+
+  def add_article_error_messages(raw_article, index, image_errors)
+    raw_article.errors.full_messages.each do |message|
+      if raw_article.errors.full_messages[0] == message && index > 0 && image_errors == false
+        errors.add(:file, "<br><br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+      else
+        errors.add(:file, "<br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+      end
+    end
+    false
   end
 
   def csv_format?(file)
@@ -231,7 +242,7 @@ class MassUpload
       elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
         attributes_hash[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
       else
-        attributes_hash[pair.first] = pair[1..-1].first
+        attributes_hash[pair.first] = pair[1..-1].first || [""]
       end
     end
     row = Hash[row]

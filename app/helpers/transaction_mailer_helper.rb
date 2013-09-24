@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 module TransactionMailerHelper
+  # This Helper houses some methods that build all the different strings for the transaction
+  # notifiction emails
 
   def transaction_mail_greeting transaction, role
     case role
@@ -51,11 +53,11 @@ module TransactionMailerHelper
   def order_details transaction
     string = ""
     string += "#{transaction.article_title}\n"
-    if transaction.article.custom_seller_identifier
-      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
+    if transaction.article_custom_seller_identifier
+      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article_custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
-    case
+    case transaction.selected_payment
       when 'bank_transfer'
         string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
       when 'paypal'
@@ -80,7 +82,7 @@ module TransactionMailerHelper
   end
 
   def article_payment_info transaction, role
-    vat = transaction.article.vat
+    vat = transaction.article_vat
     vat_price = transaction.article.vat_price * transaction.quantity_bought
     price_without_vat = transaction.article.price_without_vat * transaction.quantity_bought
     total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
@@ -89,6 +91,7 @@ module TransactionMailerHelper
     string = ""
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought}\n"
     string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
+    string += "-------------------------------\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
 
     if transaction.seller.is_a?(LegalEntity)
@@ -101,7 +104,7 @@ module TransactionMailerHelper
     end
 
     string += "----------------------------------------------\n"
-    string += "#{ t('transaction.edit.shipping_and_handling') }" + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
+    string += "#{ t('transaction.edit.shipping_and_handling') }: " + "#{humanized_money_with_symbol(transaction.article_transport_price(transaction.selected_transport, transaction.quantity_bought))}\n"
 
     if role == :buyer && transaction.selected_payment == 'cash_on_delivery'
       string += "#{ t('transaction.edit.cash_on_delivery') }" + "#{humanized_money_with_symbol(transaction.article_payment_cash_on_delivery_price * transaction.quantity_bought)}\n"

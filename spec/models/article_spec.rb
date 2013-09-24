@@ -35,6 +35,17 @@ describe Article do
       it {should have_one(:transaction).dependent(:destroy)}
     end
 
+    describe "validations" do
+      context "legal_entity seller" do
+        subject { a = Article.new
+                  a.seller = LegalEntity.new
+                  a.basic_price = 2
+                  a }
+        it {should validate_presence_of :basic_price_amount}
+      end
+
+    end
+
     describe "amoeba" do
       it "should copy an article with images" do
         article = FactoryGirl.create :article, :with_fixture_image
