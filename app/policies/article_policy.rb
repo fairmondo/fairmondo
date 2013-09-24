@@ -50,7 +50,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def activate?
-    user && own? && !article.active?
+    user && own? && !article.active? && !article.sold?
   end
 
   def deactivate?
