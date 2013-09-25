@@ -36,6 +36,7 @@ module TransactionMailerHelper
       string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
     end
+    string += "#{seller.address_suffix}\n" if seller.address_suffix
     string += "#{seller.street}\n"
     string += "#{seller.zip} #{seller.city}\n"
     string += "#{seller.country}\n\n"
@@ -44,10 +45,13 @@ module TransactionMailerHelper
   end
 
   def show_buyer_address transaction
-    "#{transaction.forename} #{transaction.surname}\n" +
-    "#{transaction.street}\n" +
-    "#{transaction.zip} #{transaction.city}\n" +
-    "#{transaction.country}"
+    string = ""
+    string += "#{transaction.forename} #{transaction.surname}\n"
+    string += "#{transaction.address_suffix}" if transaction.address_suffix
+    string += "#{transaction.street}\n"
+    string += "#{transaction.zip} #{transaction.city}\n"
+    string += "#{transaction.country}"
+    string
   end
 
   def order_details transaction

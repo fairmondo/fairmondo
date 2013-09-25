@@ -55,6 +55,7 @@
               %p
                 = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
                 = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
+                = f.input :address_suffix, input_html: { value: default_address_value(:address_suffix) }
                 = f.input :street, required: true, input_html: { value: default_address_value(:street) }
                 = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
                 = f.input :city, required: true, input_html: { value: default_address_value(:city) }
