@@ -29,13 +29,13 @@ class Transaction < ActiveRecord::Base
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought, :forename, :surname, :street, :city, :zip, :country]
+    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country]
   end
   attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
-  auto_sanitize :message, :forename, :surname, :street, :city, :zip, :country
+  auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -68,6 +68,7 @@ class Transaction < ActiveRecord::Base
 
     transaction.validates :forename, presence: true
     transaction.validates :surname, presence: true
+    transaction.validates :address_suffix, length: { maximum: 150 }
     transaction.validates :street, format: /\A.+\d+.*\z/, presence: true
     transaction.validates :city, presence: true
     transaction.validates :zip, zip: true, presence: true

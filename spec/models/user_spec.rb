@@ -193,9 +193,9 @@ describe User do
     end
 
     describe "#address" do
-      it "should return a string with street, zip and city" do
-        u = User.new street: 'Sesame Street 1', zip: '12345', city: 'Utopia'
-        u.address.should eq 'Sesame Street 1, 12345 Utopia'
+      it "should return a string with street, address suffix, zip and city" do
+        u = User.new street: 'Sesame Street 1', address_suffix: 'c/o Cookie Monster', zip: '12345', city: 'Utopia'
+        u.address.should eq 'c/o Cookie Monster, Sesame Street 1, 12345 Utopia'
       end
     end
   end

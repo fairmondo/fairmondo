@@ -59,6 +59,7 @@ describe 'Transaction' do
           page.should have_content I18n.t 'transaction.edit.address'
           page.should have_css "input#transaction_forename[@value='#{user.forename}']"
           page.should have_css "input#transaction_surname[@value='#{user.surname}']"
+          page.should have_css "input#transaction_address_suffix[@value='#{user.address_suffix}']"
           page.should have_css "input#transaction_street[@value='#{user.street}']"
           page.should have_css "input#transaction_city[@value='#{user.city}']"
           page.should have_css "input#transaction_zip[@value='#{user.zip}']"
@@ -122,6 +123,7 @@ describe 'Transaction' do
             page.should have_content I18n.t 'transaction.edit.address'
             page.should have_content user.fullname
             page.should have_content user.street
+            page.should have_content user.address_suffix
             page.should have_content user.zip
             page.should have_content user.city
             page.should have_content user.country
