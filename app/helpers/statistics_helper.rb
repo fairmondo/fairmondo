@@ -65,18 +65,17 @@ module StatisticsHelper
     result
   end
 
-  def sold_articles_statistics
+  def statistics_sold_articles
     result_sold = {}
     result_sold[:sold_value]= Money.new(0)
     result_sold[:sold_fee]= Money.new(0)
     result_sold[:sold_fair]= Money.new(0)
 
-    Transaction.where(state: 'sold').each do |transaction|
+    Transaction.where(state: 'sold').find_each do |transaction|
       result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
       result_sold[:sold_fee] += transaction.article.calculated_fee * transaction.quantity_bought
       result_sold[:sold_fair] += transaction.article.calculated_fair * transaction.quantity_bought
     end
     result_sold
   end
-
 end

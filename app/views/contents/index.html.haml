@@ -93,7 +93,25 @@
 %p
   = result[:eco_part]*100
   = "%"
+
 %hr
+%hr
+- result_sold = statistics_sold_articles
+
+%p
+  %h2 Verkaufte Artikel (Anzahl)
+  = Transaction.where(state: "sold").flatten.count
+%p
+  %h2 Wert der verkauften Artikel
+  = humanized_money_with_symbol result_sold[:sold_value]
+%p
+  %h2 Bisher eingenommene Gebühren
+  = humanized_money_with_symbol result_sold[:sold_fee]
+%p
+  %h2 Bisher eingenommene Spenden (faires Prozent)
+  = humanized_money_with_symbol result_sold[:sold_fair]
+%hr
+
 %h2 Aufteilung nach Kategorien:
 %ul
   - Category.sorted_roots.each do |c|
