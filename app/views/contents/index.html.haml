@@ -101,3 +101,20 @@
       = c.name
       = ":"
       = statistics_category(c)
+
+%hr
+%hr
+- result_sold = sold_articles_statistics
+
+%p
+  %h2 Verkaufte Artikel (Anzahl)
+  = Transaction.where(state: "sold").flatten.count
+%p
+  %h2 Wert der verkauften Artikel
+  = humanized_money_with_symbol result_sold[:sold_value]
+%p
+  %h2 Bisher eingenommene Gebühren
+  = humanized_money_with_symbol result_sold[:sold_fee]
+%p
+  %h2 Bisher eingenommene Spenden (faires Prozent)
+  = humanized_money_with_symbol result_sold[:sold_fair]
