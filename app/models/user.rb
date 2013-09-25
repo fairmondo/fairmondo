@@ -184,7 +184,10 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String]
   def address
-    "#{self.address_suffix}, #{self.street}, #{self.zip} #{self.city}"
+    string = ""
+    string += "#{self.address_suffix}, " if self.address_suffix
+    string += "#{self.street}, #{self.zip} #{self.city}"
+    string
   end
 
 
