@@ -110,8 +110,6 @@ describe User do
     end
 
     context "on update" do
-      it { should validate_presence_of :forename }
-      it { should validate_presence_of :surname }
 
       describe "zip code validation" do
         before :each do
@@ -133,7 +131,8 @@ describe User do
       before :each do
         user.wants_to_sell = true
       end
-
+      it { should validate_presence_of :forename }
+      it { should validate_presence_of :surname }
       it {should validate_presence_of :zip}
       it { should validate_presence_of :country }
       it { should validate_presence_of :street }

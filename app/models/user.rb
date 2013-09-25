@@ -94,8 +94,8 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
 
-  validates :forename, presence: true, on: :update
-  validates :surname, presence: true, on: :update
+  #validates :forename, presence: true, on: :update
+  #validates :surname, presence: true, on: :update
 
   validates :nickname , :presence => true, :uniqueness => true
 
@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
 
 
   with_options if: :wants_to_sell? do |seller|
-    seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
   end
