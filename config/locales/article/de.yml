@@ -15,6 +15,8 @@ de:
       all: "Alle Artikel als CSV Datei exportieren"
       active: "Alle eingestellten Artikel als CSV Datei exportieren"
       inactive: "Alle nicht eingestellten Artikel als CSV Datei exportieren"
+      sold: "Alle verkauften Artikel als CSV exportiernen"
+      bought: "Alle gekauften Artikel als CSV exportieren"
   article:
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
