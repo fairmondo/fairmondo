@@ -47,7 +47,7 @@ module TransactionMailerHelper
   def show_buyer_address transaction
     string = ""
     string += "#{transaction.forename} #{transaction.surname}\n"
-    string += "#{transaction.address_suffix}" if transaction.address_suffix
+    string += "#{transaction.address_suffix}\n" if transaction.address_suffix
     string += "#{transaction.street}\n"
     string += "#{transaction.zip} #{transaction.city}\n"
     string += "#{transaction.country}"
