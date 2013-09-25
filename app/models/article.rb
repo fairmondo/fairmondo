@@ -120,13 +120,15 @@ class Article < ActiveRecord::Base
   def self.export_articles(user, params = nil)
     # bugbug The horror...
 
-    if params == "active"
-      articles = user.articles.where(:state => "active")
-    elsif params == "preview"
-      articles = user.articles.where(:state => "preview")
-    else
-      articles = user.articles
-    end
+    articles = determine_articles_to_export(user, params)
+
+    # if params == "active"
+    #   articles = user.articles.where(:state => "active")
+    # elsif params == "preview"
+    #   articles = user.articles.where(:state => "preview")
+    # else
+    #   articles = user.articles
+    # end
 
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
@@ -171,7 +173,19 @@ class Article < ActiveRecord::Base
         create_social_attributes(article, header_row) +
         article.attributes.values_at(*header_row[56..-1])
       end
+      # bugbug What about quotes used to escape eg semicolon ; ?
       csv.string.gsub! "\"", ""
+    end
+  end
+
+  def self.determine_articles_to_export(user, params)
+    debugger
+    if params == "active"
+      user.articles.where(:state => "active")
+    elsif params == "preview"
+      user.articles.where(:state => "preview")
+    else
+      user.articles
     end
   end
 
