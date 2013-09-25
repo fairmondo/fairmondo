@@ -35,4 +35,9 @@
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
+
+  figcaption{
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
