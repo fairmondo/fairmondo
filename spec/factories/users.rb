@@ -40,6 +40,7 @@ FactoryGirl.define do
     title { Faker::Name.prefix }
     country "Deutschland"
     street { Faker::Address.street_address }
+    address_suffix { Faker::Name.last_name }
     city { Faker::Address.city }
     zip { Faker::Address.postcode }
 
