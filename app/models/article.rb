@@ -122,14 +122,6 @@ class Article < ActiveRecord::Base
 
     articles = determine_articles_to_export(user, params)
 
-    # if params == "active"
-    #   articles = user.articles.where(:state => "active")
-    # elsif params == "preview"
-    #   articles = user.articles.where(:state => "preview")
-    # else
-    #   articles = user.articles
-    # end
-
     header_row = ["title", "categories", "condition", "condition_extra",
                   "content", "quantity", "price_cents", "basic_price_cents",
                   "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
@@ -163,7 +155,7 @@ class Article < ActiveRecord::Base
     CSV.generate(:col_sep => ";") do |csv|
       # bugbug Refactor asap
       csv << header_row
-      articles.reverse_order.each do |article|
+      articles.each do |article|
         csv << article.attributes.values_at("title") +
         [article.categories.map { |a| a.id }.join(",")] +
         article.attributes.values_at(*header_row[2..9]) +
@@ -179,12 +171,24 @@ class Article < ActiveRecord::Base
   end
 
   def self.determine_articles_to_export(user, params)
-    debugger
     if params == "active"
-      user.articles.where(:state => "active")
-    elsif params == "preview"
-      user.articles.where(:state => "preview")
+      articles = user.articles.where(:state => "active")
+      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
+      articles.reverse_order
+    elsif params == "inactive"
+      articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
+      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
+      articles.reverse
+    elsif params == "sold"
+      articles = user.articles.where(:state => "sold")
+      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
+      articles.reverse_order
+    elsif params == "bought"
+      articles = user.bought_articles
+      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
+      articles.reverse_order
     else
+      # bugbug Really needed?
       user.articles
     end
   end
