@@ -61,6 +61,7 @@ module TransactionMailerHelper
       string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article_custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
+    string += "#{t 'transaction.notifications.transaction_id' }" + "#{ transaction.id }\n"
     case transaction.selected_payment
       when 'bank_transfer'
         string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
