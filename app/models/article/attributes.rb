@@ -201,7 +201,7 @@ module Article::Attributes
   def total_price selected_transport, selected_payment, quantity
     quantity ||= 1
     total = self.price + self.transport_price(selected_transport)
-    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
+    total += cash_on_delivery_price selected_transport, selected_payment, quantity
     total * quantity
   end
 
@@ -214,11 +214,20 @@ module Article::Attributes
   def transport_price transport_type, quantity = 1
     case transport_type
     when "type1"
-      transport_type1_price * quantity
+      transport_type1_price  * (quantity.to_f / transport_type1_number).ceil
     when "type2"
-      transport_type2_price * quantity
+      transport_type2_price * transpay_quantifier(transport_type, quantity)
     else
       Money.new 0
+    end
+  end
+
+  # Calculated total cash_on_delivery_price, including quantity and selected_transport
+  def cash_on_delivery_price selected_transport, selected_payment, quantity = 1
+    if selected_payment == 'cash_on_delivery'
+      self.payment_cash_on_delivery_price * transpay_quantifier(selected_transport, quantity)
+    else
+      0
     end
   end
 
@@ -282,7 +291,11 @@ module Article::Attributes
       output
     end
 
-
+    # For CombiTransport: costs are increased every [number] quantity_boughts
+    # @api private
+    def transpay_quantifier selected_transport, quantity
+      (quantity.to_f / send("transport_#{selected_transport}_number")).ceil
+    end
 
     def bank_account_exists
       unless self.seller.bank_account_exists?
