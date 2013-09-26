@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
       :email, :password, :password_confirmation, :remember_me, :type,
       :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
-      :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :direct_debit,
+      :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name,
       { image_attributes: Image.image_attrs + [:id] }
     ]
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   #! attr_accessible *user_attributes
   #! attr_accessible *user_attributes, :as => :admin
 
-  auto_sanitize :nickname, :forename, :surname, :street, :city
+  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
@@ -94,12 +94,13 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
 
-  validates :forename, presence: true, on: :update
-  validates :surname, presence: true, on: :update
+  #validates :forename, presence: true, on: :update
+  #validates :surname, presence: true, on: :update
 
   validates :nickname , :presence => true, :uniqueness => true
 
   validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  validates :address_suffix, length: { maximum: 150 }
   validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
 
 
@@ -112,7 +113,7 @@ class User < ActiveRecord::Base
 
 
   with_options if: :wants_to_sell? do |seller|
-    seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
   end
@@ -183,7 +184,10 @@ class User < ActiveRecord::Base
   # @api public
   # @return [String]
   def address
-    "#{self.street}, #{self.zip} #{self.city}"
+    string = ""
+    string += "#{self.address_suffix}, " if self.address_suffix
+    string += "#{self.street}, #{self.zip} #{self.city}"
+    string
   end
 
 
