@@ -47,8 +47,9 @@ describe "Export" do
     describe "when exporting inactive articles" do
 
       it "should be equal to the uploaded file" do
+        pending "Needs work"
         @csv = Article.export_articles(legal_entity)
-        @csv == File.read('spec/fixtures/mass_upload_correct.csv')
+        @csv.should eq File.read('spec/fixtures/mass_upload_correct.csv')
       end
     end
 
@@ -61,8 +62,9 @@ describe "Export" do
       end
 
       it "should be equal to the uploaded file" do
+        pending "Needs work"
         @csv = Article.export_articles(legal_entity, "active")
-        @csv == File.read('spec/fixtures/mass_upload_correct.csv')
+        @csv.should eq File.read('spec/fixtures/mass_upload_correct.csv')
       end
     end
   end
