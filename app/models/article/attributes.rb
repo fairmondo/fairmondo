@@ -105,8 +105,10 @@ module Article::Attributes
       [:transport_pickup,
       :transport_type1, :transport_type1_price_cents,
       :transport_type1_price, :transport_type1_provider,
+      :transport_type1_number,
       :transport_type2, :transport_type2_price_cents,
       :transport_type2_price, :transport_type2_provider,
+      :transport_type2_number,
       :transport_details]
     end
     #! attr_accessible *transport_attributes
@@ -119,6 +121,10 @@ module Article::Attributes
 
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
+
+    validates :transport_type1_number, numericality: { greater_than: 0 }
+    validates :transport_type2_number, numericality: { greater_than: 0 }
+
     validates :transport_details, :length => { :maximum => 2500 }
 
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
