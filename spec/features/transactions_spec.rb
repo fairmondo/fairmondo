@@ -327,7 +327,7 @@ describe 'Transaction' do
           context "when testing the displayed total price" do
             context "without cash_on_delivery" do
               it "should show the correct price for type1 transports" do
-                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
+                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'DHL')
 
                 visit edit_transaction_path t
                 select I18n.t 'enumerize.transaction.selected_transport.type1', from: 'transaction_selected_transport'
@@ -338,7 +338,7 @@ describe 'Transaction' do
               end
 
               it "should show the correct price for type2 transports" do
-                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'DHL')
+                t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'DHL')
 
                 visit edit_transaction_path t
                 select I18n.t 'enumerize.transaction.selected_transport.type2', from: 'transaction_selected_transport'
@@ -370,7 +370,7 @@ describe 'Transaction' do
 
             context "with cash_on_delivery" do
               it "should display the increased price" do
-                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_cash_on_delivery: true, payment_cash_on_delivery_price: 7.77, price: 1000, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'DHL')
+                t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_cash_on_delivery: true, payment_cash_on_delivery_price: '7,77', price: 1000, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'DHL')
 
                 visit edit_transaction_path t
                 select I18n.t 'enumerize.transaction.selected_transport.type1', from: 'transaction_selected_transport'
@@ -386,7 +386,7 @@ describe 'Transaction' do
 
           context "when testing the displayed basic price" do
             it "should show a basic price when one was set" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, basic_price: 1111.11, seller: FactoryGirl.create(:legal_entity))
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, basic_price: '1111,11', seller: FactoryGirl.create(:legal_entity))
               visit edit_transaction_path t
               click_button I18n.t 'common.actions.continue'
 
@@ -405,7 +405,7 @@ describe 'Transaction' do
 
           context "when testing the displayed purchase data" do
             it "should show the correct shipping provider for type1 transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type1: true, transport_type1_price: 10.99, transport_type1_provider: 'Foobar')
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'Foobar')
 
               visit edit_transaction_path t
               select I18n.t 'enumerize.transaction.selected_transport.type1', from: 'transaction_selected_transport'
@@ -416,7 +416,7 @@ describe 'Transaction' do
             end
 
             it "should show the correct shipping provider for type2 transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type2: true, transport_type2_price: 5.99, transport_type2_provider: 'Bazfuz')
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'Bazfuz')
 
               visit edit_transaction_path t
               select I18n.t 'enumerize.transaction.selected_transport.type2', from: 'transaction_selected_transport'
