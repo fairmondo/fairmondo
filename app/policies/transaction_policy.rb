@@ -22,7 +22,7 @@
 class TransactionPolicy < Struct.new(:user, :transaction)
 
   def edit?
-    !own?
+    !own? && purchasable?
   end
 
   def update?
@@ -48,5 +48,9 @@ class TransactionPolicy < Struct.new(:user, :transaction)
   private
   def own?
     user ? user.articles.include?(transaction.article) : false
+  end
+
+  def purchasable?
+    transaction.article.active?
   end
 end

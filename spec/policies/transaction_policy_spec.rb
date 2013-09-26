@@ -29,9 +29,9 @@ describe TransactionPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:edit)   }
-    it { should permit(:update) }
-    it { should ultimately_deny(:show)     }
+    it { should permit(:edit)             }
+    it { should permit(:update)           }
+    it { should ultimately_deny(:show)    }
   end
 
   context "for a random logged-in user" do
@@ -49,7 +49,7 @@ describe TransactionPolicy do
   end
 
   context "for the transaction buyer" do
-    let(:user) { transaction.buyer }
-    it { should permit(:show)              }
+    let(:user) { transaction.buyer          }
+    it { should permit(:show)               }
   end
 end
