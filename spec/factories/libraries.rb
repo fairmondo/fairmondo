@@ -36,4 +36,8 @@ FactoryGirl.define do
       end
      end
   end
+
+  trait :public do
+    public true
+  end
 end
