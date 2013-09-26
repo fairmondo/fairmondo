@@ -92,9 +92,11 @@ de:
         transport_type1: Versand
         transport_type1_provider: Versandart
         transport_type1_price: Versandkosten (€)
+        transport_type1_number: Versandkosten gelten pro ... Stück
         transport_type2: Alternativer Versand
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
+        transport_type2_number: Versandkosten gelten pro ... Stück
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben:"
 
@@ -103,7 +105,7 @@ de:
         payment_cash: Barzahlung bei Abholung
         payment_paypal: PayPal
         payment_cash_on_delivery: Nachnahme
-        payment_cash_on_delivery_price: Nachnahmezuschlag (€)
+        payment_cash_on_delivery_price: Nachnahmezuschlag pro Sendung (€)
         payment_invoice: Rechnung
 
         payment_methods: Bezahloptionen
