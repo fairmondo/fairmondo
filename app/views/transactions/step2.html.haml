@@ -161,51 +161,44 @@
                 %col{width: 220}
                 %col{width: 300}
               %tr
-                %td
-                  %strong
-                    = t('transaction.edit.quantity_bought')
+                %th
+                  = t('transaction.edit.quantity_bought')
                 %td
                   = quantity.to_s
               %tr
-                %td
-                  %strong
-                    Verkaufspreis pro Stück:
+                %th
+                  Verkaufspreis pro Stück:
                 %td
                   = humanized_money_with_symbol @transaction.article_price
               %tr
-                %td
-                  %strong
-                    = I18n.t('transaction.edit.sales_price')
+                %th
+                  = I18n.t('transaction.edit.sales_price')
                 %td
                   = humanized_money_with_symbol(@transaction.article_price * quantity)
 
               - if resource.article_seller.is_a? LegalEntity
                 %tr
-                  %td
-                    %strong
-                      = t('transaction.edit.net')
+                  %th
+                    = t('transaction.edit.net')
                   %td
                     = humanized_money_with_symbol resource.article_price_without_vat quantity
                 %tr
-                  %td
-                    %strong
-                      = I18n.t 'transaction.edit.vat', percent: resource.article_vat
+                  %th
+                    = I18n.t 'transaction.edit.vat', percent: resource.article_vat
                   %td
                     = humanized_money_with_symbol resource.article_vat_price quantity
 
               - if selected_payment == 'cash_on_delivery'
                 %tr
-                  %td
-                    %strong
-                      = I18n.t('transaction.edit.payment_cash_on_delivery_price') + '*: '
+                  %th
+                    = I18n.t('transaction.edit.payment_cash_on_delivery_price') + '*: '
                   %td
                     = humanized_money_with_symbol ( resource.article_payment_cash_on_delivery_price*quantity )
 
               - if ( resource.article_basic_price > 0  && resource.article_basic_price_amount)
                 %tr
-                  %td
-                    %strong
-                      = I18n.t('transaction.edit.basic_price')
+                  %th
+                    = I18n.t('transaction.edit.basic_price')
                   %td
                     = humanized_money_with_symbol(resource.article_basic_price) + t('common.text.glue.per') +resource.article_basic_price_amount_text
 
@@ -218,9 +211,8 @@
               %col{width: 220}
               %col{width: 300}
             %tr
-              %td
-                %strong
-                  = t('transaction.edit.shipping_and_handling') + '*: '
+              %th
+                = t('transaction.edit.shipping_and_handling') + '*: '
               %td
                 = humanized_money_with_symbol(resource.article_transport_price(selected_transport, quantity))
                 - if selected_transport == 'type1'
