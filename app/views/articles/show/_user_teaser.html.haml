@@ -43,16 +43,5 @@
     - if policy(resource).report?
       = accordion_item "report" do
         = render 'feedbacks/varieties/report', feedback: Feedback.new
-  - if User.is_admin? current_user
-    .Admin-controls
-      - if resource.active?
-        = button_to '*Pionier*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :pioneer}), class: "Btn Btn--redSmall", method: :post
-        = button_to '*Neues auf Fairnopoly*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :newest}), class: "Btn Btn--redSmall", method: :post
-        = button_to 'Neues Dreamteam', exhibits_path(exhibit: {article_id: resource.id, queue: :dream_team}), class: "Btn Btn--redSmall", method: :post
-        %hr
-        - Exhibit.where(:queue => :dream_team).where(:related_article_id => nil).each do |dreamteam|
-          = form_tag exhibit_path(dreamteam), method: :put do
-            = hidden_field_tag 'exhibit[related_article_id]', resource.id
-            = submit_tag "Dreamteam mit #{truncate(dreamteam.article.title,:length => 15)}", class: "Btn Btn--redSmall"
-            = link_to "#{truncate(dreamteam.article.title,:length => 15)} ansehen", dreamteam.article
-            %hr
+
+
