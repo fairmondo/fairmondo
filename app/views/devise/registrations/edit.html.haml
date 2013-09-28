@@ -96,6 +96,7 @@
           %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
           %h3= t('users.form_titles.address')
           = f.input :country,:required => true,:as => :select, :collection => [t('users.countries.germany')]
+          = f.input :address_suffix
           = f.input :street,:required => true
           = f.input :zip, :required => true
           = f.input :city,:required => true

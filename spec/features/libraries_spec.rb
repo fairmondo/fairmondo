@@ -28,6 +28,7 @@ describe 'Library' do
     @user = FactoryGirl.create :user
     login_as @user
   end
+
   context "without existing libraries" do
     describe "creation" do
       before do
@@ -52,6 +53,22 @@ describe 'Library' do
           page.should have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
         end
       end
+    end
+  end
+
+  describe "Global Libraries" do
+    it "should show selector div.pagination" do
+      30.times do FactoryGirl.create :library, :public end
+      visit libraries_path
+      page.should have_selector('div.pagination')
+    end
+  end
+
+  describe "User's library index" do
+    it "should show selector div.pagination" do
+      30.times do FactoryGirl.create :library, :user_id => @user.id end
+      visit user_libraries_path @user
+      page.should have_selector('div.pagination')
     end
   end
 

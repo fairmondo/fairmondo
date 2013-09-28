@@ -24,7 +24,7 @@ module Article::Categories
 
   included do
     def self.category_attrs
-      [:category_proposal, categories_and_ancestors: []]
+      [categories_and_ancestors: []]
     end
     #! attr_accessible :categories_and_ancestors, :category_proposal
     attr_accessor :category_proposal

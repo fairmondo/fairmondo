@@ -25,8 +25,8 @@ module Article::Commendation
   included do
     def self.commendation_attrs
       [
-        :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal,
-        :ecologic_kind, :upcycling_reason , :small_and_precious,
+        :fair, :ecologic, :fair_kind, :fair_seal, :ecologic_seal,
+        :ecologic_kind, :upcycling_reason, :small_and_precious,
         :small_and_precious_eu_small_enterprise, :small_and_precious_reason,
         :small_and_precious_handmade,
         { fair_trust_questionnaire_attributes: FairTrustQuestionnaire.questionnaire_attrs },
