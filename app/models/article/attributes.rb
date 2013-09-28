@@ -26,7 +26,7 @@ module Article::Attributes
 
     #common fields
     def self.common_attrs
-      [:title, :content, :condition, :condition_extra  , :quantity , :transaction_attributes]
+      [:title, :content, :condition, :condition_extra, :quantity, :transaction_attributes]
     end
     #! attr_accessible *common_attributes
     #! attr_accessible *common_attributes, :as => :admin
@@ -53,7 +53,7 @@ module Article::Attributes
     #money_rails and price
 
     def self.money_attrs
-      [:price_cents , :currency, :price, :vat]
+      [:price_cents, :price, :vat]
     end
     #! attr_accessible *money_attributes
     #! attr_accessible *money_attributes, :as => :admin
