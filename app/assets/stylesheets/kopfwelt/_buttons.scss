@@ -158,11 +158,15 @@ a.Btn {
 		background-color: lighten($btn--gray, 5%);
 	}
 }
-.Btn--red {
+.Btn--red,.Btn--redSmall {
 	background-color: $btn--red;
 	&:hover {
 		background-color: lighten($btn--red, 5%);
 	}
+}
+.Btn--redSmall {
+  font-size: 14px;
+  @include rem(padding, 8px 15px);
 }
 
 
