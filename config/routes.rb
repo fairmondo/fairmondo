@@ -92,7 +92,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :categories, :only => [:show]
 
-  get 'settings/update', as: 'update_settings'
+  resources :exhibits, :only => [:create,:update]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
