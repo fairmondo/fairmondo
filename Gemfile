@@ -55,8 +55,6 @@ gem "pundit" # authorization
 
 # Support for memoization
 gem 'memoist'
-# Settings cache
-gem "rails-settings-cached", "0.2.4" # for 3.x
 
 # Deploy with Capistrano
 gem 'capistrano'
