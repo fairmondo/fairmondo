@@ -71,12 +71,12 @@
       = f.inputs :id => 'transport_type1-checked', :class => "transport_type1" do
         = f.input :transport_type1_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type1_provider') }
         = f.input :transport_type1_price, :required => true
-        = f.input :transport_type1_number, input_html: { min: 1, step: 1 }
+        = f.input :transport_type1_number, input_html: { min: 1, step: 1 }, tooltip: true
       = f.input :transport_type2, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
         = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, :required => true
-        = f.input :transport_type2_number, input_html: { min: 1, step: 1 }
+        = f.input :transport_type2_number, input_html: { min: 1, step: 1 }, tooltip: true
       %li.input
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step

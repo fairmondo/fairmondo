@@ -164,8 +164,8 @@ describe Article do
         db_article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
       end
 
-      it {should validate_numericality_of(:transport_type1_number).greater_than(0)}
-      it {should validate_numericality_of(:transport_type2_number).greater_than(0)}
+      it {should validate_numericality_of(:transport_type1_number)}
+      it {should validate_numericality_of(:transport_type2_number)}
     end
 
     describe "methods" do
@@ -216,7 +216,7 @@ describe Article do
         end
 
         it "should return a multiplied price when a quantity is given" do
-          expected = (article.price + article.transport_type2_price) * 3
+          expected = article.price * 3 + article.transport_type2_price
           article.total_price("type2", "cash", 3).should eq expected
         end
       end
