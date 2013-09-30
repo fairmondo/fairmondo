@@ -360,7 +360,7 @@ describe 'Transaction' do
               end
 
               context "for MultipleFixedPriceTransactions" do
-                describe "when quantity_bought is greater than one"
+                describe "when quantity_bought is greater than one" do
                   it "should show the correct price when no transport or payment costs extra" do
                     t = FactoryGirl.create :multiple_transaction, article: FactoryGirl.create(:article, :with_larger_quantity, price: 222)
 
@@ -444,20 +444,20 @@ describe 'Transaction' do
         end
 
         context "given invalid data" do
-        #   it "should not render with an unsupported transport type" do
-        #     visit edit_transaction_path transaction
-        #     click_button I18n.t 'common.actions.continue'
+          #   it "should not render with an unsupported transport type" do
+          #     visit edit_transaction_path transaction
+          #     click_button I18n.t 'common.actions.continue'
 
-        #     page.should_not have_button I18n.t 'transaction.actions.purchase'
-        #     page.should have_content I18n.t 'transaction.notices.transport_not_supported'
-        #   end
+          #     page.should_not have_button I18n.t 'transaction.actions.purchase'
+          #     page.should have_content I18n.t 'transaction.notices.transport_not_supported'
+          #   end
 
-        #   it "should not render with an unsupported payment type" do
-        #     visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "paypal"}
+          #   it "should not render with an unsupported payment type" do
+          #     visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "paypal"}
 
-        #     page.should_not have_button I18n.t 'transaction.actions.purchase'
-        #     page.should have_content I18n.t 'transaction.notices.payment_not_supported'
-        #   end
+          #     page.should_not have_button I18n.t 'transaction.actions.purchase'
+          #     page.should have_content I18n.t 'transaction.notices.payment_not_supported'
+          #   end
 
           it "should not render with invalid address fields" do
             visit edit_transaction_path transaction
