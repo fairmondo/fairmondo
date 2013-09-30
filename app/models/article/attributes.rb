@@ -196,13 +196,13 @@ module Article::Attributes
   # @api public
   # @param selected_transport [String] Transport type
   # @param selected_payment [String] Payment type
-  # @param selected_payment [Integer] Amount of articles bought
+  # @param quantity [Integer, nil] Amount of articles bought
   # @return [Money] Total billed price
   def total_price selected_transport, selected_payment, quantity
     quantity ||= 1
-    total = self.price + self.transport_price(selected_transport)
+    total = self.price * quantity
+    total += self.transport_price(selected_transport)
     total += cash_on_delivery_price selected_transport, selected_payment, quantity
-    total * quantity
   end
 
   # Gives the shipping cost for a specified transport type
@@ -212,11 +212,8 @@ module Article::Attributes
   # @param quantity [Integer]
   # @return [Money] The shipping price
   def transport_price transport_type, quantity = 1
-    case transport_type
-    when "type1"
-      transport_type1_price  * (quantity.to_f / transport_type1_number).ceil
-    when "type2"
-      transport_type2_price * transpay_quantifier(transport_type, quantity)
+    if ["type1", "type2"].include? transport_type
+      send("transport_#{transport_type}_price")  * number_of_shipments(transport_type, quantity)
     else
       Money.new 0
     end
@@ -225,10 +222,16 @@ module Article::Attributes
   # Calculated total cash_on_delivery_price, including quantity and selected_transport
   def cash_on_delivery_price selected_transport, selected_payment, quantity = 1
     if selected_payment == 'cash_on_delivery'
-      self.payment_cash_on_delivery_price * transpay_quantifier(selected_transport, quantity)
+      self.payment_cash_on_delivery_price * number_of_shipments(selected_transport, quantity)
     else
-      0
+      Money.new 0
     end
+  end
+
+  # For CombiTransport: costs are increased every [number] quantity_boughts
+  # @api public
+  def number_of_shipments selected_transport, quantity
+    (quantity.to_f / send("transport_#{selected_transport}_number")).ceil
   end
 
   # Gives the shipping provider for a specified transport type
@@ -289,12 +292,6 @@ module Article::Attributes
         output << e if self.send "#{attribute}_#{e}"
       end
       output
-    end
-
-    # For CombiTransport: costs are increased every [number] quantity_boughts
-    # @api private
-    def transpay_quantifier selected_transport, quantity
-      (quantity.to_f / send("transport_#{selected_transport}_number")).ceil
     end
 
     def bank_account_exists

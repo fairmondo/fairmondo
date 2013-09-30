@@ -11,7 +11,7 @@ de:
       type1: 'Versand: '
       type2: 'Alternativer Versand: '
       cash_on_delivery: 'Nachnahmekosten: '
-      per_transport_number: " je %{number} Stück"
+      per_transport_number: " (Kombiversand: maximal %{number} Stück in einer Sendung)"
       per_transport: " je Sendung"
       address: "Deine Rechnungs- und Lieferadresse:"
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
@@ -26,14 +26,16 @@ de:
       imprint: "Impressum"
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
-      price_heading: "Zu Zahlen:"
+      price_heading: "Zu Zahlen: "
+      price_per_unit: "Verkaufspreis pro Stück: "
       sales_price: "Verkaufspreis gesamt: "
       total_price: "Gesamt: "
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
-      shipping_and_handling: "Versandkosten"
-      payment_cash_on_delivery_price: "Zusatzkosten Nachnahme"
+      number_of_shipments: "Anzahl von Sendungen: "
+      shipping_and_handling: "Versandkosten: "
+      payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
     show:
       payment_title_bank_transfer: "Bezahlabwicklung per Vorkasse"
