@@ -78,7 +78,8 @@
         = f.input :transport_type2_price, :required => true
         = f.input :transport_type2_number, input_html: { min: 1, step: 1 }, tooltip: true
       %li.input
-      = f.input :transport_details, :input_html => {:rows => 7}
+        %br
+        = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
     %p
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
@@ -107,7 +108,9 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-      = f.input :payment_details, :input_html => {:rows => 7}
+      %li.input
+        %br
+        = f.input :payment_details, :input_html => {:rows => 7}
 
 
 = f.input_step :commendation, :tooltip => true do
