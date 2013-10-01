@@ -31,10 +31,6 @@ module Article::FeesAndDonations
   }
 
   included do
-    def self.fee_attrs
-      [:calculated_fair_cents, :calculated_friendly_cents,
-      :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation]
-    end
     #! attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
     # Fees and donations

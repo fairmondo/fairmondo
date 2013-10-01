@@ -29,6 +29,10 @@
       - else
         %h3= resource.forename + " " + resource.surname
       %p
+        = t('formtastic.labels.user.address_suffix')
+        \:
+        %strong= resource.address_suffix
+      %p
         = t('formtastic.labels.user.street')
         \:
         %strong= resource.street
