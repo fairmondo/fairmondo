@@ -144,7 +144,7 @@ describe Article do
   end
 
   describe "::Attributes" do
-    describe "Validations" do
+    describe "validations" do
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
@@ -158,11 +158,14 @@ describe Article do
         db_article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
       end
 
-        it "should throw an error if paypal is selected, but bank data is missing" do
+      it "should throw an error if paypal is selected, but bank data is missing" do
         db_article.payment_paypal = true
         db_article.save
         db_article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
       end
+
+      it {should validate_numericality_of(:transport_type1_number)}
+      it {should validate_numericality_of(:transport_type2_number)}
     end
 
     describe "methods" do
@@ -213,7 +216,7 @@ describe Article do
         end
 
         it "should return a multiplied price when a quantity is given" do
-          expected = (article.price + article.transport_type2_price) * 3
+          expected = article.price * 3 + article.transport_type2_price
           article.total_price("type2", "cash", 3).should eq expected
         end
       end

@@ -38,6 +38,7 @@ describe TransactionMailerHelper do
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.forename )
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.surname )
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.street )
+			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.address_suffix )
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.city )
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.zip )
 			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.country )
@@ -48,6 +49,7 @@ describe TransactionMailerHelper do
 		it "should return the right address for the buyer" do
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.forename )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.surname )
+			helper.show_buyer_address( @transaction ).should have_content( @transaction.address_suffix )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.street )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.city )
 			helper.show_buyer_address( @transaction ).should have_content( @transaction.zip )
@@ -60,6 +62,7 @@ describe TransactionMailerHelper do
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
 			helper.order_details( @transaction ).should have_content( article_path( @transaction.article ) )
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
+			helper.order_details( @transaction ).should have_content( @transaction.id)
 		end
 	end
 

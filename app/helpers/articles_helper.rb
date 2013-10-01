@@ -129,7 +129,7 @@ module ArticlesHelper
     else
       return nil
     end
-  rescue Errno::ECONNREFUSED
+  rescue # Rescue all Errors by not showing an alternative
     return nil
   end
 

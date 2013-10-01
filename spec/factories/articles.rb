@@ -32,6 +32,7 @@ FactoryGirl.define do
     price_cents { Random.new.rand(500000)+1 }
     vat {[0,7,19].sample}
     quantity 1
+    state "active"
 
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
@@ -119,6 +120,8 @@ FactoryGirl.define do
       transport_type2_price 10
       transport_type1_provider 'DHL'
       transport_type2_provider 'Hermes'
+      transport_type1_number { rand(1..10) }
+      transport_type2_number { rand(1..10) }
       transport_details { Faker::Lorem.paragraph(rand(2..5)) }
     end
 
