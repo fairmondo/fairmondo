@@ -92,11 +92,11 @@ de:
         transport_type1: Versand
         transport_type1_provider: Versandart
         transport_type1_price: Versandkosten (€)
-        transport_type1_number: "Diese Versandkosten gelten bis maximal soviel Stück (Kombiversand):"
+        transport_type1_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_type2: Alternativer Versand
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
-        transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück (Kombiversand):"
+        transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen:"
 
