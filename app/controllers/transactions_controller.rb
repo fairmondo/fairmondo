@@ -73,10 +73,7 @@ class TransactionsController < InheritedResources::Base
   end
 
   private
-    def redirect_if_already_sold
-      redirect_to already_sold_transaction_path(resource) unless resource.available?
-    end
-
+    ## show ##
     def redirect_if_not_yet_sold
       if resource.available? && ( !resource.buyer || !resource.buyer.is?(current_user) )
         redirect_to edit_transaction_path(resource)
@@ -92,11 +89,13 @@ class TransactionsController < InheritedResources::Base
       end
     end
 
-    def multiple?
-      resource.multiple?
+    ## edit, update ##
+    def redirect_if_already_sold
+      redirect_to already_sold_transaction_path(resource) unless resource.available?
     end
 
-    def permitted_transaction_params
-      params.permit :print
+    ## other ##
+    def multiple?
+      resource.multiple?
     end
 end

@@ -22,7 +22,7 @@ class Feedback < ActiveRecord::Base
   extend ActiveModel::Naming
 
   def self.feedback_attrs
-    [:from, :subject, :text, :to, :variety, :article_id, :feedback_subject,
+    [:from, :subject, :text, :variety, :article_id, :feedback_subject,
     :help_subject]
   end
   #! attr_accessible ...

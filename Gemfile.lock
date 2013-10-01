@@ -250,8 +250,6 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
-    rails-settings-cached (0.2.4)
-      rails (>= 3.0.0)
     rails_admin (0.4.9)
       bootstrap-sass (~> 2.2)
       builder (~> 3.0)
@@ -441,7 +439,6 @@ DEPENDENCIES
   pundit
   rails (~> 3.2.14)
   rails-erd
-  rails-settings-cached (= 0.2.4)
   rails_admin
   rails_best_practices
   rake
