@@ -124,7 +124,6 @@ de:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: muss akzeptiert werden
-      multiple_accepted: müssen akzeptiert werden
       blank: muss ausgefüllt werden
       confirmation: stimmt nicht mit der Bestätigung überein
       empty: muss ausgefüllt werden
@@ -304,8 +303,9 @@ de:
       models:
         image:
           attributes:
-            image_file_size:
-              in_between: "Das Bild ist zu groß. Maximal 5 MB."
+            image_file_size: &image
+              in_between: "Das Bild ist zu groß. Maximal 2 MB."
+            image: *image
         article:
           attributes:
             small_and_precious_eu_small_enterprise:

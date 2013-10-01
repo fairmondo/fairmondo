@@ -32,8 +32,18 @@ describe Article do
       it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
-      it {should have_many :buyer}
       it {should have_one(:transaction).dependent(:destroy)}
+    end
+
+    describe "validations" do
+      context "legal_entity seller" do
+        subject { a = Article.new
+                  a.seller = LegalEntity.new
+                  a.basic_price = 2
+                  a }
+        it {should validate_presence_of :basic_price_amount}
+      end
+
     end
 
     describe "amoeba" do
@@ -135,13 +145,6 @@ describe Article do
 
   describe "::Attributes" do
     describe "Validations" do
-      it "should throw an error if selected default_transport option is not true for transport_'option'" do
-        article.default_transport = "pickup"
-        article.transport_pickup = false
-        article.save
-        article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-      end
-
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
@@ -167,10 +170,6 @@ describe Article do
       describe "#transport_price" do
         let(:article) { FactoryGirl.create :article, :with_all_transports }
 
-        it "should return an article's default_transport's price" do
-          article.transport_price.should eq Money.new 0
-        end
-
         it "should return an article's type1 transport price" do
           article.transport_price("type1").should eq Money.new 2000
         end
@@ -186,10 +185,6 @@ describe Article do
 
       describe "#transport_provider" do
         let (:article) { FactoryGirl.create :article, :with_all_transports }
-
-        it "should return an article's default_transport's provider" do
-          article.transport_provider.should eq nil
-        end
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'
@@ -225,15 +220,15 @@ describe Article do
 
       describe "#price_without_vat" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.price_without_vat.should eq Money.new 8100
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.price_without_vat(2).should eq Money.new 20000
         end
       end
 
       describe "#vat_price" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.vat_price.should eq Money.new 1900
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.vat_price(2).should eq Money.new 3800
         end
       end
 

@@ -26,6 +26,7 @@ module Article::BuildTransaction
     attr_accessor :skip_build_transaction # Can be set to true if a specific transaction is going to be provided. Used mainly for tests.
 
     before_create :build_specific_transaction, :unless => :template?
+    before_update :update_specific_transaction, unless: :template? # Do templates even receive update calls?
   end
 
   private
@@ -41,7 +42,19 @@ module Article::BuildTransaction
           fpt.quantity_available = self.quantity
           fpt.save
         end
+        fpt.seller = self.seller
         self.transaction = fpt
+      end
+    end
+
+    # When quantity was changed, the transaction needs to change
+    def update_specific_transaction
+      if self.transaction
+        if self.quantity == 1 and self.transaction.is_a? MultipleFixedPriceTransaction
+          self.transaction.transform_to_single
+        elsif self.quantity > 1 and self.transaction.is_a? SingleFixedPriceTransaction
+          self.transaction.transform_to_multiple self.quantity
+        end
       end
     end
 end

@@ -21,7 +21,7 @@ describe 'User Mailer' do
         click_button 'sign_up'
         last_delivery = ActionMailer::Base.deliveries.last
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
-        last_delivery.encoded.should include("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
+        last_delivery.encoded.should include("Aufsichtsratsvorsitzender: Kim Stattaus")
       end
     end
 
@@ -34,7 +34,7 @@ describe 'User Mailer' do
         click_button 'sign_up'
         last_delivery = ActionMailer::Base.deliveries.last
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
-        last_delivery.body.should match ("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
+        last_delivery.body.should match ("Aufsichtsratsvorsitzender: Kim Stattaus")
       end
     end
 
@@ -48,7 +48,7 @@ describe 'User Mailer' do
         click_button 'sign_up'
         last_delivery = ActionMailer::Base.deliveries.last
         last_delivery.encoded.should include("-- Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.")
-        last_delivery.encoded.should include("Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister")
+        last_delivery.encoded.should include("Aufsichtsratsvorsitzender: Kim Stattaus")
       end
     end
   end

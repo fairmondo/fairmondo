@@ -52,23 +52,6 @@
 
             = render 'article_display'
             %hr
-            %br
-            %h3
-              = t 'transaction.edit.purchase_data'
-
-            %p
-              %strong
-                = t('transaction.edit.quantity_bought')
-              = quantity
-            %p
-              %strong
-                = t('transaction.edit.payment_type')
-              = t('enumerize.transaction.selected_payment.' + selected_payment)
-            %p
-              %strong
-                = t('transaction.edit.transport_type')
-              = t('enumerize.transaction.selected_transport.' + selected_transport)
-              = transport_provider_for selected_transport
             %p
               %br
               %h3
@@ -98,55 +81,153 @@
                     = @transaction.article_seller_about
 
                 #terms
-                  = t 'transaction.edit.terms'
-                  .Scrollbox
-                    = @transaction.article_seller_terms
+                  .gray-border
+                    %strong
+                      = t 'transaction.edit.terms'
+                    .Scrollbox
+                      = @transaction.article_seller_terms
                   = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
 
                 #cancellation
-                  = t 'transaction.edit.cancellation'
-                  .Scrollbox
-                    = @transaction.article_seller_cancellation
+                  .gray-border
+                    %strong
+                      = I18n.t 'transaction.edit.cancellation'
+                    .Scrollbox
+                      = @transaction.article_seller_cancellation
                   = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
 
                 %p
                   = f.input :tos_accepted
-
             %hr
             %br
-            %h3
-              = t 'transaction.edit.message'
+            %h5
+              = I18n.t 'transaction.edit.message'
             %p
-              = f.input :message, label: false
+              = f.input :message, label: false, input_html: { rows: 3 }
 
             %hr
-            %br
+            .small-image-left
+              .gray-border
+                - if @transaction.article.title_image == nil
+                  %img{:src => image_path('missing.png'), :alt => "missing"}
+                - else
+                  %img{:src => @transaction.article.title_image_url(:thumb)}
+                %figcaption
+                  = link_to truncate( @transaction.article_title, :length => 25), article_path( @transaction.article )
 
+            %br
             %h3
-              = t 'transaction.edit.price_heading'
+              = I18n.t 'transaction.edit.purchase_data'
 
             %p
-              %strong
-                = t('transaction.edit.quantity_bought') + quantity.to_s
-              %br
-              %strong
-                = display_sales_price quantity
+            %table
+              %colgroup
+                %col{width: 150}
+                %col{width: 300}
+              %tr
+                %td
+                  %strong
+                    = I18n.t('transaction.edit.payment_type')
+                %td
+                  = I18n.t('enumerize.transaction.selected_payment.' + selected_payment)
+              %tr
+                %td
+                  %strong
+                    = I18n.t('transaction.edit.transport_type')
+                %td
+                  = t('enumerize.transaction.selected_transport.' + selected_transport)
+              - if ( selected_transport == 'type1' || selected_transport == 'type2' )
+                %tr
+                  %td
+                    %strong
+                      = I18n.t('transaction.edit.transport_provider')
+                  %td
+                    = @transaction.article_transport_provider selected_transport
+            %br
+            %h3
+              = I18n.t 'transaction.edit.price_heading'
+
+            %p
+            %table
+              %colgroup
+                %col{width: 220}
+                %col{width: 300}
+              %tr
+                %td
+                  %strong
+                    = t('transaction.edit.quantity_bought')
+                %td
+                  = quantity.to_s
+              %tr
+                %td
+                  %strong
+                    Verkaufspreis pro Stück:
+                %td
+                  = humanized_money_with_symbol @transaction.article_price
+              %tr
+                %td
+                  %strong
+                    = I18n.t('transaction.edit.sales_price')
+                %td
+                  = humanized_money_with_symbol(@transaction.article_price * quantity)
 
               - if resource.article_seller.is_a? LegalEntity
-                = render 'legal_entity_price_display', quantity: quantity, selected_transport: selected_transport
-              %br
-              = t 'transaction.edit.fair_percent', donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-              %hr
-              %br
-              = display_transport_price selected_transport, quantity
-              %br
-              = display_cash_on_delivery_price selected_payment, quantity
-              %hr
-              %br
-              %h2
-                = display_total_price selected_transport, selected_payment, quantity
+                %tr
+                  %td
+                    %strong
+                      = t('transaction.edit.net')
+                  %td
+                    = humanized_money_with_symbol resource.article_price_without_vat quantity
+                %tr
+                  %td
+                    %strong
+                      = I18n.t 'transaction.edit.vat', percent: resource.article_vat
+                  %td
+                    = humanized_money_with_symbol resource.article_vat_price quantity
+
+              - if selected_payment == 'cash_on_delivery'
+                %tr
+                  %td
+                    %strong
+                      = I18n.t('transaction.edit.payment_cash_on_delivery_price') + '*: '
+                  %td
+                    = humanized_money_with_symbol ( resource.article_payment_cash_on_delivery_price*quantity )
+
+              - if ( resource.article_basic_price > 0  && resource.article_basic_price_amount)
+                %tr
+                  %td
+                    %strong
+                      = I18n.t('transaction.edit.basic_price')
+                  %td
+                    = humanized_money_with_symbol(resource.article_basic_price) + t('common.text.glue.per') +resource.article_basic_price_amount_text
+
+            %small{ :class => 'donation'}
+              = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+
+          %hr
+          %table
+            %colgroup
+              %col{width: 220}
+              %col{width: 300}
+            %tr
+              %td
+                %strong
+                  = t('transaction.edit.shipping_and_handling') + '*: '
+              %td
+                = humanized_money_with_symbol(resource.article_transport_price(selected_transport, quantity))
+                - if selected_transport == 'type1'
+                  = "("+resource.article_transport_type1_provider+")"
+                - elsif selected_transport == 'type2'
+                  = "("+resource.article_transport_type2_provider+")"
+
+          %hr
+          %br
+          %h2
+            = display_total_price selected_transport, selected_payment, quantity
 
           %br
           = f.actions do
             = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
-            = link_to t('common.actions.back'), edit_transaction_path(@transaction), class: 'Btn'
+            = back_link quantity, selected_transport, selected_payment, forename, surname, street, city, zip, country
+            %p
+              %small * Zur Zeit unterstützen wir keine automatisierten Kombiversand- sowie -nachnahmegebühren. Bitte kläre vorab mit der Verkäufer*in, ob bei Kauf von mehreren Artikeln die Versandgebühren geringer ausfallen, da mehrere Artikel gemeinsam verschickt werden können.

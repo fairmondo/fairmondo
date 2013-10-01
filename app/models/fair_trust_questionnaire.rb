@@ -81,7 +81,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                  size: {in: 3..-1},
                                  if: :support
   validates :support_explanation, presence: true,
-                                  length: {minimum: 150},
+                                  length: {minimum: 150, maximum: 10000},
                                   if: :support
   validates :support_other, presence: true,
                             length: {minimum: 5, maximum: 100},
@@ -108,7 +108,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                           size: {in: 4..-1},
                                           if: :labor_conditions
   validates :labor_conditions_explanation, presence: true,
-                                           length: {minimum: 150},
+                                           length: {minimum: 150 , maximum: 10000},
                                            if: :labor_conditions
   validates :labor_conditions_other, presence: true,
                                      length: {minimum: 5, maximum: 100},
@@ -131,7 +131,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   #validates :environment_protection, presence: true
   validates :environment_protection_checkboxes, presence: true,
                                                 if: :environment_protection
-  validates :environment_protection_explanation, length: {minimum: 150},
+  validates :environment_protection_explanation, length: {minimum: 150, maximum: 10000},
                                                  if: :environment_protection
   validates :environment_protection_other, presence: true,
                                            length: {minimum: 5, maximum: 100},
@@ -154,7 +154,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   validates :controlling_checkboxes, presence: true,
                                      size: {in: 2..-1}, if: :controlling
   validates :controlling_explanation, presence: true,
-                                      length: {minimum: 150},
+                                      length: {minimum: 150, maximum: 10000},
                                       if: :controlling
   validates :controlling_other, presence: true,
                                 length: {minimum: 5, maximum: 100},
@@ -176,7 +176,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   #validates :awareness_raising, presence: true
   validates :awareness_raising_checkboxes, presence: true,
                                            if: :awareness_raising
-  validates :awareness_raising_explanation, length: {minimum: 150},
+  validates :awareness_raising_explanation, length: {minimum: 150, maximum: 10000},
                                             if: :awareness_raising
   validates :awareness_raising_other, presence: true,
                                       length: {minimum: 5, maximum: 100},

@@ -19,8 +19,9 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-%p
-	= transaction_mail_greeting @transaction, :buyer
-	%p
-		= t('transaction.notifications.buyer.buyer_text')
-		/ = display_total_price @transaction.selected_transport, @transaction.selected_payment, @transaction.quantity_bought
+- list_class = "" if local_assigns[:list_class].nil?
+%section{ class: list_class }
+	- items.each do |item|
+		- if item.sold? || :dashboard
+			%Article{ class: 'Article Article--teaser' }
+				= render partial: '/shared/show_transaction', locals: { transaction: item }

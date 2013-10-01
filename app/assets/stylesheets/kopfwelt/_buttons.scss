@@ -139,8 +139,21 @@ a.Btn {
   @include rem(padding, 8px 15px);
 }
 
+.Btn--redBig {
+  margin-right:15px;
+  margin-left:15px;
+}
+
 .Btn--gray {
 	background-color: $btn--gray;
+	&:hover {
+		background-color: lighten($btn--gray, 5%);
+	}
+}
+
+.Btn--graySmaller {
+	background-color: $btn--gray;
+	font-size: 13px;
 	&:hover {
 		background-color: lighten($btn--gray, 5%);
 	}

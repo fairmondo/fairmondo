@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index,:feed]
+  after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
 
   protect_from_forgery
 
@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_classes
-    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController]
+    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController]
   end
 
   # To be inherited and used in a before_filter
@@ -118,4 +118,6 @@ class ApplicationController < ActionController::Base
   def manual_params allowed_params
     allowed_params
   end
+
+
 end

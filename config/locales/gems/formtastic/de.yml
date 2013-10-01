@@ -40,9 +40,12 @@ de:
         bank_account_number: "Kontonummer"
         bank_account_owner: "Kontoinhaber"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
-        paypal_account: "Paypal-Konto"
+        paypal_and_bank_account: "PayPal- und Bankkonto"
+        paypal_account: "Paypal ID"
         customer_number: "Kundennummer"
-
+        direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
+        direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
+        seller_fees: "Verkaufsgebühren"
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"
@@ -92,8 +95,6 @@ de:
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
         transport_method: "Versandmethode(n)"
-
-        default_transport: "Bevorzugte Versandmethode"
         transport_details: "Weitere Angaben:"
 
         default_payment: "Bevorzugte Bezahlmethode"
@@ -178,6 +179,8 @@ de:
         friendly_percent: "Das freundliche Prozent (optional)"
         double_check: "Artikel einstellen"
         upload_images: "Bilder hochladen"
+      mass_upload:
+        upload_csv: "Artikel per CSV-Datei importieren"
       template_select:
         prefix: ""
         apply: Deine Vorlagen
@@ -198,10 +201,11 @@ de:
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
         create: *new_user
         edit: &edit_user
-          image: "Lade ein Foto(max. 5MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
+          image: "Lade ein Foto(max. 2MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
+          paypal_account: "Deine PayPal ID ist Deine für PayPal genutzte E-Mail-Adresse."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
@@ -239,7 +243,7 @@ de:
         payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
         payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
-        upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 5 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
+        upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 2 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >
           Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
 

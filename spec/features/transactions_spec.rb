@@ -44,7 +44,7 @@ describe 'Transaction' do
 
           # Should display article data
           page.should have_link article.title
-          page.should have_link seller.fullname
+          page.should have_link seller.nickname
           page.should have_content I18n.t 'transaction.edit.preliminary_price'
 
           # Should display purchase options
@@ -104,7 +104,7 @@ describe 'Transaction' do
 
             # Should display article data
             page.should have_link article.title
-            page.should have_link seller.fullname
+            page.should have_link seller.nickname
             page.should have_content I18n.t 'transaction.edit.preliminary_price'
 
             # Should display chosen quantity
@@ -199,7 +199,7 @@ describe 'Transaction' do
             click_button I18n.t 'transaction.actions.purchase'
 
             page.should have_css 'input#transaction_tos_accepted[@type=checkbox]' # is still on step 2
-            page.should have_content I18n.t 'errors.messages.multiple_accepted'
+            page.should have_content I18n.t 'errors.messages.accepted'
           end
 
           context "when testing the effects of the purchase" do
@@ -295,7 +295,6 @@ describe 'Transaction' do
 
             context "for all transactions" do
               it "should send an email to the buyer" do
-                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
@@ -309,7 +308,6 @@ describe 'Transaction' do
               end
 
               it "should send a email to the seller" do
-                # pending "Paul mach wieder heile"
                 transaction = FactoryGirl.create :single_transaction, :buyer => user
                 visit edit_transaction_path transaction
                 click_button I18n.t 'common.actions.continue'
@@ -503,7 +501,7 @@ describe 'Transaction' do
   describe "#show" do
     context "for a logged-in user" do
       context "when the transaction is sold" do
-        let (:transaction) { FactoryGirl.create :sold_transaction }
+        let (:transaction) { FactoryGirl.create :single_transaction, :sold }
         let (:buyer)       { transaction.buyer }
 
         context "and the user is the buyer" do
@@ -519,6 +517,11 @@ describe 'Transaction' do
           it "should show the correct data and fields" do
             pending "Not yet implemented."
             page.should have_content "Alles moegliche"
+          end
+
+          it "should have links to article and user profile" do
+            page.should have_link transaction.article.title
+            page.should have_link transaction.article_seller_nickname
           end
         end
 
