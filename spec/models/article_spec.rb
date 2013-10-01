@@ -23,7 +23,8 @@ require 'spec_helper'
 
 describe Article do
 
-  let(:article) { FactoryGirl.create(:article) }
+  let(:article) { Article.new }
+  let(:db_article) { FactoryGirl.create(:article) }
   subject { article }
 
   describe "::Base" do
@@ -31,8 +32,18 @@ describe Article do
       it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
-      it {should have_many :buyer}
-      it {should belong_to(:transaction).dependent(:destroy)}
+      it {should have_one(:transaction).dependent(:destroy)}
+    end
+
+    describe "validations" do
+      context "legal_entity seller" do
+        subject { a = Article.new
+                  a.seller = LegalEntity.new
+                  a.basic_price = 2
+                  a }
+        it {should validate_presence_of :basic_price_amount}
+      end
+
     end
 
     describe "amoeba" do
@@ -55,11 +66,11 @@ describe Article do
         end
 
         it "should return false when article doesn't belong to user" do
-          article.owned_by?(FactoryGirl.create(:user)).should be_false
+          db_article.owned_by?(FactoryGirl.create(:user)).should be_false
         end
 
         it "should return true when article belongs to user" do
-          article.owned_by?(article.seller).should be_true
+          db_article.owned_by?(db_article.seller).should be_true
         end
       end
     end
@@ -67,14 +78,14 @@ describe Article do
 
 
   describe "::BuildTransaction" do
-    it "should build a FPT when article quantity is one" do
+    it "should build a SFPT when article quantity is one" do
       article.quantity = 1
-      article.build_specific_transaction.should be_a FixedPriceTransaction
+      article.send(:build_specific_transaction).should be_a SingleFixedPriceTransaction
     end
 
     it "should build a MFPT when article quantity is greater than one" do
       article.quantity = 2
-      article.build_specific_transaction.should be_a MultipleFixedPriceTransaction
+      article.send(:build_specific_transaction).should be_a MultipleFixedPriceTransaction
     end
   end
 
@@ -134,13 +145,6 @@ describe Article do
 
   describe "::Attributes" do
     describe "Validations" do
-      it "should throw an error if selected default_transport option is not true for transport_'option'" do
-        article.default_transport = "pickup"
-        article.transport_pickup = false
-        article.save
-        article.errors[:default_transport].should == [I18n.t("errors.messages.invalid_default_transport")]
-      end
-
       it "should throw an error if no payment option is selected" do
         article.payment_cash = false
         article.save
@@ -148,16 +152,16 @@ describe Article do
       end
 
       it "should throw an error if bank transfer is selected, but bank data is missing" do
-        article.seller.stub(:bank_account_exists?).and_return(false)
-        article.payment_bank_transfer = true
-        article.save
-        article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
+        db_article.seller.stub(:bank_account_exists?).and_return(false)
+        db_article.payment_bank_transfer = true
+        db_article.save
+        db_article.errors[:payment_bank_transfer].should == [I18n.t("article.form.errors.bank_details_missing")]
       end
 
         it "should throw an error if paypal is selected, but bank data is missing" do
-        article.payment_paypal = true
-        article.save
-        article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
+        db_article.payment_paypal = true
+        db_article.save
+        db_article.errors[:payment_paypal].should == [I18n.t("article.form.errors.paypal_details_missing")]
       end
     end
 
@@ -165,10 +169,6 @@ describe Article do
 
       describe "#transport_price" do
         let(:article) { FactoryGirl.create :article, :with_all_transports }
-
-        it "should return an article's default_transport's price" do
-          article.transport_price.should eq Money.new 0
-        end
 
         it "should return an article's type1 transport price" do
           article.transport_price("type1").should eq Money.new 2000
@@ -185,10 +185,6 @@ describe Article do
 
       describe "#transport_provider" do
         let (:article) { FactoryGirl.create :article, :with_all_transports }
-
-        it "should return an article's default_transport's provider" do
-          article.transport_provider.should eq nil
-        end
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'
@@ -208,26 +204,31 @@ describe Article do
 
         it "should return the correct price for cash_on_delivery payments" do
           expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price
-          article.total_price("type1", "cash_on_delivery").should eq expected
+          article.total_price("type1", "cash_on_delivery", nil).should eq expected
         end
 
         it "should return the correct price for non-cash_on_delivery payments" do
           expected = article.price + article.transport_type2_price
-          article.total_price("type2", "cash").should eq expected
+          article.total_price("type2", "cash", nil).should eq expected
+        end
+
+        it "should return a multiplied price when a quantity is given" do
+          expected = (article.price + article.transport_type2_price) * 3
+          article.total_price("type2", "cash", 3).should eq expected
         end
       end
 
       describe "#price_without_vat" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.price_without_vat.should eq Money.new 8100
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.price_without_vat(2).should eq Money.new 20000
         end
       end
 
       describe "#vat_price" do
         it "should return the correct price" do
-          article = FactoryGirl.create :article, price: 100, vat: 19
-          article.vat_price.should eq Money.new 1900
+          article = FactoryGirl.create :article, price: 119, vat: 19, quantity: 2
+          article.vat_price(2).should eq Money.new 3800
         end
       end
 
@@ -261,7 +262,7 @@ describe Article do
     describe "methods" do
       describe "#title_image_url" do
         it "should return the first image's URL when one exists" do
-          article.title_image_url.should match %r#/system/images/000/000/001/original/image#
+          db_article.title_image_url.should match %r#/system/images/000/000/001/original/image#
         end
 
         it "should return the missing-image-url when no image is set" do
@@ -298,8 +299,22 @@ describe Article do
         article_3cat.should_not be_valid
       end
     end
+  end
 
-
+  describe "::State" do
+    describe "state machine hooks:" do
+      describe "on activate" do
+        it "should calculate the fees and donations" do
+          article = FactoryGirl.create :preview_article
+          article.calculated_fair_cents = 0
+          article.calculated_fee_cents = 0
+          article.save
+          article.activate
+          article.reload.calculated_fee.should be > 0
+          article.calculated_fair.should be > 0
+        end
+      end
+    end
   end
 
   describe "::Template" do

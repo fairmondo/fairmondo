@@ -1,9 +1,11 @@
-<%= t('common.text.hello')%> <%= @resource.email %>!
+<%= t('common.text.hello')%> <%= @resource.nickname %>!
 <%=  t('devise.confirmation.text') %>
-<%= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>
+<%=  confirmation_url(@resource, :confirmation_token => @token) %>
 <%=  t('devise.confirmation.ignoremail') %>
 <%=  t('common.fn_footer_greeting') %>
-<%=  t('common.fn_legal_footer.intro') %>
+
+<%=  t('common.fn_legal_footer.spacer')%>
+<%=  t('common.fn_legal_footer.intro')%>
 <%=  t('common.fn_legal_footer.contact') %>
 <%=  t('common.fn_legal_footer.registered') %>
 <%=  t('common.fn_legal_footer.registered') %>

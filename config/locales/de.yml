@@ -3,20 +3,25 @@ de:
   welcome:
     greetings: "Willkommen bei Fairnopoly"
     search_fair: "Artikel suchen"
+    boxes:
+      active_old: "Bisher eingestellte Artikel"
 # Common Texts
   common:
-    brand: "fairnopoly.de"
+    brand: "www.fairnopoly.de"
     fairnopoly: "Fairnopoly"
+    claim: "dreh' das Spiel um"
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
-      intro: >
-        ----------
-        Diese Nachricht wurde von Fairnopoly, https://beta.fairnopoly.de/, gesendet.
+      spacer: "----------"
+      intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
+      footer_contact: "Fairnopoly eG\nGlogauer Str. 21\n10999 Berlin\n\nemail@fairnopoly.de"
       registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B"
-      board: "Vorstand: Anna Kress, Bastian Neumann"
+      board: "Vorstand: Felix Weth, Anna Kress, Bastian Neumann"
       ceo: "Vorstandsvorsitzender: Felix Weth"
-      supervisory_board: "Aufsichtsrat: Kim Stattaus, Anne Schollmeyer, Ernst Neumeister"
+      supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
+      facebook: "Facebook: www.facebook.com/fairnopoly"
+      buy_shares: "Anteile zeichnen: www.fairnopoly.de/anteile-zeichnen"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -34,7 +39,7 @@ de:
       report: "Melden"
       take_part: "Mitmachen"
       buy: "Kaufen"
-      to_cart: "In den Warenkorb"
+      to_cart: "Kaufen"
       collect: "Sammeln"
       move: "Verschieben"
     title:
@@ -61,8 +66,6 @@ de:
       relation: "Beziehung"
       profile: "Profil"
       inserted: "Artikel wurden bereits eingestellt"
-      from: "von"
-      and: " und "
       i_accept_the: "Ich akzeptiere die "
       no_search_result: "Keine Suchergebnisse"
       no_search_result_text: "Deine Suche ergab leider keine Treffer."
@@ -75,10 +78,15 @@ de:
       shares: "Anteile zeichnen"
       my_articles: "Meine Artikel"
       fair: "Fair"
-      seller: "Händler"
+      seller: "Händler*in"
       product: "Produkt"
       libraries: "Sammlungen"
       about_terms: "AGB / Widerrufserklärung / Impressum"
+      glue:
+        from: "von"
+        and: " und "
+        by: "von"
+        per: " pro "
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
@@ -101,5 +109,5 @@ de:
       may_be_created: "Hier kannst Du sie erstellen"
 
   meta_tags:
-    description: "Fairnopoly, ein fairer Online-Marktplatz in Hand der Nutzer*innen"
+    description: "Fairnopoly - Der Online-Marktplatz für alle."
     keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"

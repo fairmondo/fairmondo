@@ -19,25 +19,16 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.User.User--teaser
-  = render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
-  .User-accordion.Accordion
-    = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
-      = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"}
 
-.Related
-  - alternative = find_fair_alternative_to resource
-  .Article.Article--related
-    %h3.Article-title
-      = t('article.show.alternative')
-      %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
-    - if alternative.present?
-      = render :partial=>'/shared/show_article', :locals=>{article: alternative}
-    - else
-      %p.Helper-text
-        = t('article.show.no_alternative')
-
-  .Accordion.Accordion--full
-    - if policy(resource).report?
-      = accordion_item "report" do
-        = render 'feedbacks/varieties/report', feedback: Feedback.new
+- if resource.is_conventional?
+  .Related
+    - alternative = find_fair_alternative_to resource
+    .Article.Article--related
+      %h3.Article-title
+        = t('article.show.alternative')
+        %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
+      - if alternative.present?
+        = render :partial=>'/shared/show_article', :locals=>{article: alternative}
+      - else
+        %p.Helper-text
+          = t('article.show.no_alternative')

@@ -25,21 +25,18 @@ module ApplicationHelper
   def hero
     hero = ""
     begin
-
-       if @rendered_hero
-         hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
-       else
-         hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
-       end
-        rescue ActionView::MissingTemplate
-          begin
-            hero += render :partial => "/hero/#{params[:controller]}/default"
-
-          rescue ActionView::MissingTemplate
-
-          end
-     end
-      return hero.html_safe
+      if @rendered_hero
+        hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
+      else
+        hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
+      end
+    rescue ActionView::MissingTemplate
+      begin
+        hero += render :partial => "/hero/#{params[:controller]}/default"
+      rescue ActionView::MissingTemplate
+      end
+    end
+    return hero.html_safe
   end
 
   def title(title = nil)
@@ -71,7 +68,7 @@ module ApplicationHelper
   end
 
   def search_cache
-    Article.new(params[:article])
+    Article.new(permitted_search_params[:article])
   end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
@@ -79,5 +76,8 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-
+  private
+    def permitted_search_params
+      params.permit(article: [:title, :condition, :fair, :ecologic, :small_and_precious, categories_and_ancestors: []])
+    end
 end

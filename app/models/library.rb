@@ -20,10 +20,14 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Library < ActiveRecord::Base
+  extend Sanitization
 
-  library_attributes = [:name, :public, :user, :user_id]
-  attr_accessible *library_attributes
-  attr_accessible *library_attributes, :as => :admin
+  def self.library_attrs
+    [:name, :public, :user, :user_id]
+  end
+  auto_sanitize :name
+  #! attr_accessible *library_attributes
+  #! attr_accessible *library_attributes, :as => :admin
 
   delegate :nickname, :to => :user, :prefix => true
 

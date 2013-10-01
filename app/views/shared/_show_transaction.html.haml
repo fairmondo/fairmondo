@@ -1,0 +1,38 @@
+-#
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+%figure.Article-image
+  = link_to image_tag(transaction.article.title_image_url(:thumb)), article_path(transaction.article)
+
+.Article-info
+  %h3.Articles-title= link_to truncate( transaction.article_title, :length => 25), article_path( transaction.article )
+  %p.Article-price= humanized_money_with_symbol transaction.article.price
+  = render 'articles/show/vat', :article => transaction.article
+  = render '/articles/show/basic_price', :article => transaction.article
+  - if user_signed_in? && transaction.buyer == current_user
+    %p
+    = link_to "Deine Bestellung anschauen", transaction_path(transaction)
+  - if user_signed_in? && transaction.seller == current_user
+    %p
+    = link_to "Deinen Verkauf anschauen", transaction_path(transaction)
+.Article-tags
+  = condition_label transaction.article
+  = features_label transaction.article

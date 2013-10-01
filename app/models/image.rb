@@ -20,9 +20,13 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Image < ActiveRecord::Base
-  image_attributes = [:image, :is_title]
-  attr_accessible *image_attributes
-  attr_accessible *image_attributes, :as => :admin
+  def self.image_attrs nested_attrs = false
+    output = [:image, :is_title]
+    output.push(:_destroy, :id) if nested_attrs
+    output
+  end
+  #! attr_accessible *image_attributes
+  #! attr_accessible *image_attributes, :as => :admin
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { medium: "520>x360>", thumb: "260x180#", profile: "300x300#" },
@@ -34,7 +38,7 @@ class Image < ActiveRecord::Base
 
   validates_attachment_presence :image
   validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates_attachment_size :image, :in => 0..5.megabytes
+  validates_attachment_size :image, :in => 0..2.megabytes
 
 
   # Using polymorphy with STI (User) is tricky: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#label-Polymorphic+Associations

@@ -38,6 +38,59 @@ describe User do
     it { should have_many(:libraries).dependent(:destroy) }
     #it { should belong_to :invitor}
     it { should have_one(:image) }
+
+    describe "sold_transactions" do
+      it "should return an array of sold transactions" do
+        # sollte gefunden werden
+        sold_single = FactoryGirl.create(:single_transaction, :sold,
+          article: (FactoryGirl.create :article, :without_build_transaction,
+            seller: user
+          )
+        )
+        sold_partial = FactoryGirl.create(:partial_transaction, :sold,
+          seller: user,
+          parent: (
+            FactoryGirl.create(:multiple_transaction,
+              seller: user,
+              article: (
+                FactoryGirl.create(:article, :without_build_transaction,
+                  quantity: 50,
+                  seller: user
+                )
+              )
+            )
+          )
+        )
+        # sollte NICHT gefunden werden
+        open_single = FactoryGirl.create(:single_transaction,
+          seller: user,
+          article: (
+            FactoryGirl.create(:article, :without_build_transaction,
+              seller: user
+            )
+          )
+        )
+        open_multiple = FactoryGirl.create(:multiple_transaction,
+          seller: user,
+          article: (
+            FactoryGirl.create(:article, :without_build_transaction,
+              quantity: 50,
+              seller: user
+            )
+          )
+        )
+        sold_multiple = FactoryGirl.create(:multiple_transaction, :sold,
+          seller: user
+        )
+
+        arr = user.sold_transactions
+        arr.length.should eq 2
+        arr.should include(sold_single)
+        arr.should include(sold_partial)
+        arr.should_not include(open_single)
+        arr.should_not include(open_multiple)
+      end
+    end
   end
 
   describe "validations" do
@@ -139,6 +192,12 @@ describe User do
       end
     end
 
+    describe "#address" do
+      it "should return a string with street, zip and city" do
+        u = User.new street: 'Sesame Street 1', zip: '12345', city: 'Utopia'
+        u.address.should eq 'Sesame Street 1, 12345 Utopia'
+      end
+    end
   end
 
 

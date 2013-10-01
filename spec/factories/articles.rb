@@ -25,7 +25,7 @@ FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
     seller      # alias for User -> see spec/factories/users.rb
     categories_and_ancestors {|c| [c.association(:category)] }
-    title     { Faker::Lorem.characters(rand(6..65)).chomp '.' }
+    title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
@@ -36,7 +36,6 @@ FactoryGirl.define do
     basic_price_cents { Random.new.rand(500000)+1 }
     basic_price_amount {[:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion].sample}
 
-    default_transport "pickup"
     transport_pickup true
 
     transport_details "transport_details"
@@ -64,11 +63,9 @@ FactoryGirl.define do
     end
 
     factory :social_production do
-
       fair true
       fair_kind :social_producer
       association :social_producer_questionnaire
-
     end
 
     factory :fair_trust do
@@ -82,19 +79,23 @@ FactoryGirl.define do
         article.categories = [Category.find(1)]
       end
     end
+
     trait :category2 do
       after(:build) do |article|
         article.categories = [Category.find(2)]
       end
     end
+
     trait :category3 do
       after(:build) do |article|
         article.categories = [Category.find(3)]
       end
     end
+
     trait :with_child_category do
       categories_and_ancestors {|c| [c.association(:category), c.association(:child_category)] }
     end
+
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
       categories_and_ancestors {|c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
@@ -111,7 +112,6 @@ FactoryGirl.define do
       end
     end
 
-
     trait :with_all_transports do
       transport_type1 true
       transport_type2 true
@@ -119,10 +119,26 @@ FactoryGirl.define do
       transport_type2_price 10
       transport_type1_provider 'DHL'
       transport_type2_provider 'Hermes'
+      transport_details { Faker::Lorem.paragraph(rand(2..5)) }
+    end
+
+    trait :with_all_payments do
+      payment_bank_transfer true
+      payment_cash true
+      payment_paypal true
+      payment_cash_on_delivery true
+      payment_cash_on_delivery_price 5
+      payment_invoice true
+      payment_details { Faker::Lorem.paragraph(rand(2..5)) }
     end
 
     trait :with_private_user do
-      seller { FactoryGirl.create :private_user }
+      seller { FactoryGirl.create :private_user, :paypal_data } # adding paypal data because it is needed for with_all_transports
+    end
+
+    trait :with_legal_entity do
+      vat { [7, 19].sample }
+      seller { FactoryGirl.create :legal_entity, :paypal_data }
     end
 
     ## These might be helpful but tend to create double articles and users

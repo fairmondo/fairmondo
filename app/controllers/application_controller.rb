@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except => [:index,:feed]
+  after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
 
   protect_from_forgery
 
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 
   def render_hero options
     options[:action] ||= "default"
-    options[:controller] ||= params[:controller]
+    options[:controller] ||= params.permit(:controller)[:controller]
     @rendered_hero = options
   end
 
@@ -89,7 +89,12 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_unverified_classes
-    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController]
+    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController]
+  end
+
+  # To be inherited and used in a before_filter
+  def authorize_resource
+    authorize resource
   end
 
 
@@ -101,5 +106,18 @@ class ApplicationController < ActionController::Base
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
+
+  # Strong_parameters default params permitter
+  def permitted_params
+    klass = controller_name.classify
+    manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
+  end
+
+  # modify params, does nothing unless overwritten in specific controller
+  # @return [Hash] params
+  def manual_params allowed_params
+    allowed_params
+  end
+
 
 end

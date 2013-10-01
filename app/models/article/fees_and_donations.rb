@@ -31,8 +31,11 @@ module Article::FeesAndDonations
   }
 
   included do
-
-    attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
+    def self.fee_attrs
+      [:calculated_fair_cents, :calculated_friendly_cents,
+      :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation]
+    end
+    #! attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
     # Fees and donations
     monetize :calculated_fair_cents, :allow_nil => true
@@ -58,10 +61,18 @@ module Article::FeesAndDonations
     self.calculated_fair + self.calculated_friendly + self.calculated_fee
   end
 
+  def calculated_fees_and_donations_with_quantity
+    self.calculated_fees_and_donations * self.quantity
+  end
+
   def calculated_fees_and_donations_netto
     fee_cents = self.calculated_fair_cents + self.calculated_friendly_cents + self.calculated_fee_cents
-    netto = Money.new((fee_cents - (fee_cents * 0.19)).ceil)
+    netto = Money.new((fee_cents / 1.19).ceil)
     netto
+  end
+
+  def calculated_fees_and_donations_netto_with_quantity
+    self.calculated_fees_and_donations_netto * self.quantity
   end
 
   def calculate_fees_and_donations
@@ -80,7 +91,7 @@ private
 
   def friendly_percent_result_cents
     # At the moment there is no friendly percent
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     #(self.price_cents * (self.friendly_percent / 100.0)).ceil
     0
   end
@@ -92,7 +103,7 @@ private
   end
 
   def fair_percent_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
   end
 
@@ -105,7 +116,7 @@ private
   end
 
   def fee_result
-    # for rounding -> do always up rounding (e.g. 900,1 cents are 901 cents)
+    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
     max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
     min = Money.new(AUCTION_FEES[:min]*100)

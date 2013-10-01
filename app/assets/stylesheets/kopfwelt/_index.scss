@@ -23,6 +23,7 @@
 		display: block;
 		@include rem(margin, 20px auto);
 	}
+
 }
 
 //
@@ -44,7 +45,27 @@
 		height: 100%;
 	}
 }
+
+.Teaser--topbar,
+.Teaser--bottombar,
+.Teaser--welcomeimage {
+  width: 100%;
+}
+
+
+.Teaser--bottombar {
+  margin-bottom: 2em;
+}
+
+
+.Teaser--welcome {
+  color: $blue;
+  @include rem(font-size, 18px);
+
+}
+
 // Ribbon
+/*
 .Teaser--welcome:before {
 	content: '';
 	display: block;
@@ -56,9 +77,11 @@
 	top: -5px;
 	left: -5px;
 }
+*/
 
 .Teaser--text {
 	@include rem(font-size, $font-size-m);
+	padding-top: 2em;
 }
 .Teaser-title {
 	@include rem(font-size, 22px);
@@ -66,8 +89,10 @@
 	color: black;
 }
 .Teaser--pioneer {
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 40px;
 	.Teaser-title {
 		// @include rem(font-size, 18px);
 		margin-bottom: em(25,18);
@@ -81,7 +106,7 @@
 	display: block;
 	@include rem(font-size, 14px);
 	text-align: left;
-	margin: 0 20px;
+	margin: em(5) em(20);
 	color: $blue;
 	word-break: break-word;
 }
@@ -123,7 +148,7 @@
 	vertical-align: middle;
 }
 .Profile-avatar {
-	@include border-radius(50%);
+	@include border-radius(.8em);
 	position: absolute;
 	width: 72px;
 	height: 72px;
@@ -183,4 +208,67 @@
 
 .Teaser .Btn {
 	@include rem(margin-top, 4px);
+}
+
+.goal {
+	background-color: white;
+	margin-bottom: .4em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: $lightgray;
+}
+
+.reached {
+	background-color: $green;
+}
+
+
+
+.DoubleTeaser-article {
+  @media (min-width: em($small-from)) {
+      @include span-columns(1,2);
+    }
+   @media (min-width: em($medium-from)) {
+      @include span-columns(2,2);
+    }
+  @media (min-width: em($large-from)) {
+      @include span-columns(1,2);
+    }
+}
+
+.DoubleTeaser-article--right {
+   @media (min-width: em($small-from)) {
+      @include omega;
+    }
+  @media (min-width: em($large-from)) {
+      @include omega;
+    }
+}
+
+.DoubleTeaser--alwaysdouble {
+  .DoubleTeaser-article {
+    @media (min-width: em($medium-from)) {
+        @include span-columns(1,2);
+      }
+    }
+    .DoubleTeaser-article--right {
+      @media (min-width: em($medium-from)) {
+        @include omega;
+      }
+    }
+}
+
+.Teaser-header {
+    @include rem(font-size, 25px);
+    color:$lightgray;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.DoubleTeaser-image {
+  img{width:100%;}
+}
+
+.Teaser-totalheader {
+ @include rem(padding, 10px 20px);
 }

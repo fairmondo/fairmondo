@@ -19,23 +19,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FixedPriceTransaction < Transaction
-  extend STI
-  attr_accessible :quantity_bought
-
-  state_machine do
-    after_transition on: :buy, do: :set_article_sold
-  end
-
-  #validates :quantity_bought, numericality: true, on: :update
-
-  # Allow quantity_bought field for this transaction type
-  def quantity_bought
-    read_attribute :quantity_bought
-  end
-
-  private
-    def set_article_sold
-      self.article.sold_out
+class SupportedOptionValidator < ActiveModel::EachValidator
+  # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
+  #
+  # @api public
+  # @param record [Transaction] currently only supports transactions
+  # @param attribute [String] ATM: selected_payment or selected_transport
+  # @param type [String] The type to check
+  # @return [undefined]
+  def validate_each(record, attribute, type)
+    if type
+      attribute_core = attribute[9..-1] #no 'selected_'
+      unless record.article.send "#{attribute_core}_#{type}?"
+        record.errors[attribute] << I18n.t("transaction.notices.#{attribute_core}_not_supported")
+      end
     end
+  end
 end

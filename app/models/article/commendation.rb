@@ -23,9 +23,18 @@ module Article::Commendation
   extend ActiveSupport::Concern
 
   included do
-
-    attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
-    attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
+    def self.commendation_attrs
+      [
+        :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal,
+        :ecologic_kind, :upcycling_reason , :small_and_precious,
+        :small_and_precious_eu_small_enterprise, :small_and_precious_reason,
+        :small_and_precious_handmade,
+        { fair_trust_questionnaire_attributes: FairTrustQuestionnaire.questionnaire_attrs },
+        { social_producer_questionnaire_attributes: SocialProducerQuestionnaire.questionnaire_attrs }
+      ]
+    end
+    #! attr_accessible :fair, :ecologic , :fair_kind, :fair_seal, :ecologic_seal ,:ecologic_kind , :upcycling_reason , :small_and_precious, :small_and_precious_eu_small_enterprise, :small_and_precious_reason, :small_and_precious_handmade
+    #! attr_accessible :fair_trust_questionnaire_attributes, :social_producer_questionnaire_attributes
 
 
     ##### commendation
@@ -38,7 +47,7 @@ module Article::Commendation
     enumerize :fair_kind, :in => [:fair_seal, :fair_trust, :social_producer]
 
     validates_presence_of :fair_seal, :if => lambda {|obj| obj.fair_kind == "fair_seal" && obj.fair?}
-    enumerize :fair_seal, :in => [:trans_fair, :weltladen, :wtfo], :default => :trans_fair
+    enumerize :fair_seal, :in => [:trans_fair, :weltladen, :wtfo]
 
     ### fair trust questionnaire
     has_one :fair_trust_questionnaire, :dependent => :destroy

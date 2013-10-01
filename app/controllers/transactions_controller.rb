@@ -22,11 +22,16 @@
 class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
+  custom_actions :resource => [:already_sold, :print_order_buyer, :print_order_seller]
 
+  before_filter :redirect_if_already_sold, only: [:edit, :update]
+  before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
+  before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :authorize_resource
+  before_filter :dont_cache
 
   def edit
-    edit! { return render :step2 if resource.edit_params_valid? params }
+    edit! { return render :step2 if request.put? && resource.edit_params_valid?(permitted_params) }
   end
 
   # def show
@@ -37,17 +42,61 @@ class TransactionsController < InheritedResources::Base
   #   end
   # end
 
+  def print_order_buyer
+    show! do |format|
+      format.html do
+        render 'transactions/print_order_buyer', layout: false, locals: { t: resource }
+      end
+    end
+  end
+
+  def print_order_seller
+    show! do |format|
+      format.html do
+        render 'transactions/print_order_seller', layout: false, locals: { t: resource }
+      end
+    end
+  end
+
   def update
-    #@transaction = Transaction.find params[:id]
     resource.buyer_id = current_user.id
-    resource.buy
     update! do |success, failure|
-      failure.html { redirect_to :back, :alert => resource.errors.full_messages.first }
+      resource.buy if success.class # using .class was the only way I could find to get a true or false value
+      failure.html do
+        if resource.edit_params_valid? permitted_params
+          return render :step2
+        else
+          return render :edit
+        end
+      end
     end
   end
 
   private
-  def authorize_resource
-    authorize resource
-  end
+    def redirect_if_already_sold
+      redirect_to already_sold_transaction_path(resource) unless resource.available?
+    end
+
+    def redirect_if_not_yet_sold
+      if resource.available? && ( !resource.buyer || !resource.buyer.is?(current_user) )
+        redirect_to edit_transaction_path(resource)
+      end
+    end
+
+    def redirect_to_child_show
+      if resource.children
+        child_transactions = resource.children.select { |c| c.buyer == current_user }
+        unless child_transactions.empty?
+          redirect_to transaction_path child_transactions[-1]
+        end
+      end
+    end
+
+    def multiple?
+      resource.multiple?
+    end
+
+    def permitted_transaction_params
+      params.permit :print
+    end
 end

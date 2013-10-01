@@ -21,8 +21,11 @@ class Feedback < ActiveRecord::Base
   extend Enumerize
   extend ActiveModel::Naming
 
-  attr_accessible :from, :subject, :text, :to, :variety, :article_id,
-                  :feedback_subject, :help_subject
+  def self.feedback_attrs
+    [:from, :subject, :text, :to, :variety, :article_id, :feedback_subject,
+    :help_subject]
+  end
+  #! attr_accessible ...
 
   enumerize :variety, in: [ :report_article, :get_help, :send_feedback ]
 

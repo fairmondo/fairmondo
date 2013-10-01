@@ -24,9 +24,13 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   extend Sanitization
 
 
-  attr_accessible :nonprofit_association, :nonprofit_association_checkboxes,
-                  :social_businesses_muhammad_yunus, :social_businesses_muhammad_yunus_checkboxes,
-                  :social_entrepreneur, :social_entrepreneur_checkboxes, :social_entrepreneur_explanation
+  def self.questionnaire_attrs
+    [:nonprofit_association, {nonprofit_association_checkboxes:[]},
+    :social_businesses_muhammad_yunus,
+    {social_businesses_muhammad_yunus_checkboxes:[]},
+    :social_entrepreneur, {social_entrepreneur_checkboxes:[]},
+    :social_entrepreneur_explanation]
+  end
 
   auto_sanitize :social_entrepreneur_explanation
 
@@ -48,6 +52,8 @@ class SocialProducerQuestionnaire < ActiveRecord::Base
   validates :nonprofit_association_checkboxes, :size => {:in => 1..-1}, :if => :nonprofit_association?
   validates :social_businesses_muhammad_yunus_checkboxes, :size => {:in => 1..-1}, :if => :social_businesses_muhammad_yunus?
   validates :social_entrepreneur_checkboxes, :size => {:in => 1..-1}, :if => :social_entrepreneur?
+  validates :social_entrepreneur_explanation, length: {minimum: 150, maximum: 10000},
+                                            if: :social_entrepreneur?
   validates_presence_of :social_entrepreneur_explanation, :if => :social_entrepreneur?
 
 

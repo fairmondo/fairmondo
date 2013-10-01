@@ -23,74 +23,65 @@ class ArticleTemplatesController < InheritedResources::Base
 
   before_filter :build_resource, :only => [:new, :create]
   before_filter :build_article, :only => [:new,:create]
+  before_filter :authorize_resource, except: [:create]
   actions :all, :except => [:show,:index]
 
-  # def collection
-  #   @article_templates ||= end_of_association_chain.page(params[:page])
-  # end
-
-
   def update
-    authorize resource
-    update!  do |success, failure|
-       success.html { redirect_to collection_url}
-       failure.html { save_images
-                      render :edit}
+    update! do |success, failure|
+      success.html { redirect_to collection_url}
+      failure.html { save_images
+                     render :edit}
     end
   end
 
   def create
     authorize build_resource
     create! do |success, failure|
-       success.html { redirect_to collection_url}
-       failure.html { save_images
-                      render :new}
+      success.html { redirect_to collection_url}
+      failure.html { save_images
+                     render :new}
     end
   end
 
-  def edit
-    authorize resource
-    edit!
-  end
-
-  def new
-    authorize resource
-    new!
-  end
-
   def destroy
-    authorize resource
     destroy! {collection_url}
   end
 
   private
 
-  def begin_of_association_chain
-    current_user
-  end
+    def begin_of_association_chain
+      current_user
+    end
 
-  def collection_url
-    user_path(current_user, :anchor => "my_article_templates")
-  end
+    def collection_url
+      user_path(current_user, :anchor => "my_article_templates")
+    end
 
-  def build_article
-    resource.build_article unless resource.article
-    resource.article.seller = current_user
-  end
+    def build_article
+      resource.build_article unless resource.article
+      resource.article.seller = current_user
+    end
 
-  def save_images
-    #At least try to save the images -> not persisted in browser
-    if resource.article
-      resource.article.images.each do |image|
-        ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
-        ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
-        # if image.image
-          image.save
-        # else
-        #   @article.images.remove image
-        # end
+    def save_images
+      #At least try to save the images -> not persisted in browser
+      if resource.article
+        resource.article.images.each do |image|
+          ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
+          ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
+          # if image.image
+            image.save
+          # else
+          #   @article.images.remove image
+          # end
+        end
       end
     end
-  end
 
+    def manual_params allowed_params
+      if allowed_params["article_template"]
+        allowed_params["article_template"]["user_id"] = current_user.id
+        allowed_params["article_template"]["article_attributes"]["user_id"] = current_user.id
+      end
+      allowed_params
+    end
 end

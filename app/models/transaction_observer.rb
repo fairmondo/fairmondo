@@ -22,10 +22,14 @@
 
 class TransactionObserver < ActiveRecord::Observer
   def after_update transaction
-    # Send an email to the seller
-    TransactionMailer.seller_notification(transaction).deliver
+    if transaction.sold? && !transaction.multiple? && !transaction.purchase_emails_sent
+      # Send an email to the seller
+      TransactionMailer.seller_notification(transaction).deliver
 
-    # Send a confirmation email to the buyer
-    TransactionMailer.buyer_notification(transaction).deliver
+      # Send a confirmation email to the buyer
+      TransactionMailer.buyer_notification(transaction).deliver
+
+      transaction.update_attribute :purchase_emails_sent, true
+    end
   end
 end

@@ -30,11 +30,12 @@ class ArticlesController < InheritedResources::Base
 
   # Layout Requirements
   before_filter :ensure_complete_profile , :only => [:new, :create]
+  #before_filter :authorize_resource, :only => [:edit, :show]
 
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
-      fulltext params[:keywords] do
+      fulltext permitted_search_params[:keywords] do
         fields(:title)
       end
     end
@@ -52,12 +53,11 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    redirect_to transaction_path(resource) if resource.closed?
+    redirect_to transaction_path(resource) if resource.closed? # Achtung, Seite existiert nicht!
 
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
-
     show!
   rescue Pundit::NotAuthorizedError
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
@@ -67,14 +67,14 @@ class ArticlesController < InheritedResources::Base
     authorize build_resource
 
     ############### From Template ################
-    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
+    if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
-    elsif params[:edit_as_new]
-      @old_article = current_user.articles.find(params[:edit_as_new])
+    elsif permitted_new_params[:edit_as_new]
+      @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
       @article = @old_article.amoeba_dup
-      @old_article.close
-      @old_article.save
+      #if the old article has errors we still want to remove it from the marketplace
+      @old_article.close_without_validation
     end
     new!
   end
@@ -98,27 +98,24 @@ class ArticlesController < InheritedResources::Base
       change_state!
     else
       authorize resource
+      update! do |success, failure|
+        success.html { redirect_to resource }
+        failure.html { save_images
+                       render :edit }
+      end
     end
-    update! do |success, failure|
-      success.html { redirect_to resource }
-      failure.html { save_images
-                     render :edit }
-    end
+
   end
 
   def destroy
-
     authorize resource
-
     if resource.preview?
-      destroy! { articles_path }
+      destroy! { user_path(current_user) }
     elsif resource.locked?
-      resource.close
-      # delete the article from the collections
-      resource.library_elements.delete_all
-      redirect_to articles_path
-    end
+      resource.close_without_validation
 
+      redirect_to user_path(current_user)
+    end
   end
 
   ##### Private Helpers
@@ -126,67 +123,77 @@ class ArticlesController < InheritedResources::Base
 
   private
 
-  def ensure_complete_profile
-    # Check if the user has filled all fields
-    if !current_user.can_sell?
-      flash[:error] = t('article.notices.incomplete_profile')
-      redirect_to edit_user_registration_path(:incomplete_profile => true)
+    def ensure_complete_profile
+      # Check if the user has filled all fields
+      if !current_user.can_sell?
+        flash[:error] = t('article.notices.incomplete_profile')
+        redirect_to edit_user_registration_path(:incomplete_profile => true)
+      end
     end
-  end
 
-  def change_state!
+    def change_state!
 
-    # For changing the state of an article
-    # Refer to Article::State
-
-    if params[:activate]
-      params.delete :article # Do not allow any other change
-      authorize resource, :activate?
-      resource.activate
-      flash[:notice] = I18n.t('article.notices.create_html').html_safe if resource.valid?
-    elsif params[:deactivate]
-      params.delete :article # Do not allow any other change
-      authorize resource, :deactivate?
-      resource.deactivate
-      # delete the article from the collections
-      resource.library_elements.delete_all
-      flash[:notice] = I18n.t('article.notices.deactivated')
+      # For changing the state of an article
+      # Refer to Article::State
+      if permitted_state_params[:activate]
+        authorize resource, :activate?
+        if resource.activate
+          flash[:notice] = I18n.t('article.notices.create_html').html_safe
+          redirect_to resource
+        else
+          # The article became invalid so please try a new one
+          redirect_to new_article_path(:edit_as_new => resource.id)
+        end
+      elsif permitted_state_params[:deactivate]
+        authorize resource, :deactivate?
+        resource.deactivate_without_validation
+        flash[:notice] = I18n.t('article.notices.deactivated')
+        redirect_to resource
+      end
     end
-  end
 
-  def state_params_present?
-    params[:activate] || params[:deactivate]
-  end
-
-
-  def search_for query
-    ######## Solr
-      search = query.find_like_this params[:page]
-      return search.results
-    ########
-    rescue Errno::ECONNREFUSED
-      render_hero :action => "sunspot_failure"
-      return policy_scope(Article).page params[:page]
-  end
-
-  ############ Save Images ################
-
-  def save_images
-    #At least try to save the images -> not persisted in browser
-    resource.images.each do |image|
-      image.save
+    def state_params_present?
+      permitted_state_params[:activate] || permitted_state_params[:deactivate]
     end
-  end
+
+
+    def search_for query
+      ######## Solr
+        search = query.find_like_this permitted_search_params[:page]
+        return search.results
+      ########
+      rescue Errno::ECONNREFUSED
+        render_hero :action => "sunspot_failure"
+        return policy_scope(Article).page permitted_search_params[:page]
+    end
+
+    def permitted_state_params
+      params.permit :activate, :deactivate, :confirm_to_buy
+    end
+    def permitted_new_params
+      params.permit :edit_as_new, template_select: [:article_template]
+    end
+    def permitted_search_params
+      params.permit :page, :keywords
+    end
+
+    ############ Save Images ################
+
+    def save_images
+      #At least try to save the images -> not persisted in browser
+      resource.images.each do |image|
+        image.save
+      end
+    end
 
   ################## Inherited Resources
   protected
 
-  def collection
-    @articles ||= search_for Article.new(params[:article])
-  end
+    def collection
+      @articles ||= search_for Article.new(permitted_params[:article])
+    end
 
-  def begin_of_association_chain
-    current_user
-  end
-
+    def begin_of_association_chain
+      current_user
+    end
 end
