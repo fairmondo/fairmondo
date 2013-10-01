@@ -24,7 +24,7 @@
 %h1 Profil bearbeiten
 
 .Accordion.Accordion--activated.User-edit
-  = semantic_form_for(@user,  :html => {multipart: true   , autocomplete: "off"},:as => resource_name, :url => registration_path(resource_name)  , :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@user,  :html => {multipart: true, autocomplete: "off", class: 'js-visual-submit'},:as => resource_name, :url => registration_path(resource_name), :builder => Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, :default_step => true do
 
@@ -118,12 +118,15 @@
           %h3= t('users.form_titles.payment_bank_account')
           /%p= t('formtastic.labels.user.bank_account_notification')
           = f.input :bank_account_owner, :required => true, :label => t('formtastic.labels.user.bank_account_owner')
-          = f.input :bank_code, :required => true, :input_html => {:id => "bank_code"}, :label => t('formtastic.labels.user.bank_code')
+          = f.input :bank_code, :required => true, :input_html => {:id => "bank_code", :maxlength => 8}, :label => t('formtastic.labels.user.bank_code')
           = f.input :bank_name, :required => true, :input_html => {:id => "bank_name"}, :label => t('formtastic.labels.user.bank_name')
-          = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number"}, :label => t('formtastic.labels.user.bank_account_number')
+          = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :maxlength => 10}, :label => t('formtastic.labels.user.bank_account_number')
+        .User--step
+          - direct_debit__link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", :target => "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
+          = f.input :direct_debit, :required => true, :label => t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit__link + t('formtastic.labels.user.direct_debit2_html').html_safe
         .User--step
           %h3= t('users.form_titles.payment_paypal')
           /%p= t('formtastic.labels.user.paypal_notification')
-          = f.input :paypal_account, :required => true, :label => t('formtastic.labels.user.paypal_account')
+          = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account'), tooltip: true
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}

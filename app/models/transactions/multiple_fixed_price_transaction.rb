@@ -29,7 +29,6 @@ class MultipleFixedPriceTransaction < Transaction
 
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
-  validates :buyer, presence: false, allow_nil: true, on: :update, if: :updating_state
   validates :quantity_available, presence: true, numericality: true
   validates :quantity_bought, quantity_bought: true, if: :updating_state
 
@@ -49,6 +48,10 @@ class MultipleFixedPriceTransaction < Transaction
     end
   end
 
+  def deletable?
+    super && children.empty?
+  end
+
   # The field 'quantity_available' isn't accessible directly and should only be decreased after sales with this function
   # @api public
   # @param number [Integer]
@@ -58,8 +61,9 @@ class MultipleFixedPriceTransaction < Transaction
   end
 
   # The main transition handler (see class description)
-  # @return [undefined] not important
+  # @return [Boolean] not important
   def buy_multiple_transaction
+    self.updating_multiple = true
     self.quantity_bought ||= 1
     if self.quantity_bought <= self.quantity_available
       fpt = self.forward_data_to_partial
@@ -83,19 +87,21 @@ class MultipleFixedPriceTransaction < Transaction
       street: self.street,
       city: self.city,
       zip: self.zip,
-      country: self.country,
+      country: self.country
     })
 
     # protected attrs
     partial.parent = self
     partial.article = self.article
     partial.buyer = self.buyer
+    partial.seller = self.seller
 
     partial.save!
     return partial
   end
+
   def clear_data_and_save
-    #self.buyer = nil # Uncomment if possible! As of right now this will throw validation errors
+    self.buyer = nil
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
@@ -108,6 +114,13 @@ class MultipleFixedPriceTransaction < Transaction
     self.country = nil
 
     self.save!
+  end
+
+  # This might be called on article update when quantity has changed to 1
+  def transform_to_single
+    self.type = 'SingleFixedPriceTransaction'
+    self.save!
+    self.update_attribute :quantity_available, nil
   end
 
   private

@@ -56,10 +56,6 @@ de:
         tco_certified: TCO certified
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
-      default_transport: &transport
-        pickup: Selbstabholung
-        type1: Versand
-        type2: Alternativer Versand
       basic_price_amount:
         kilogram: 1 Kilogramm
         gram: 100 Gramm
@@ -69,12 +65,6 @@ de:
         meter: 1 Meter
         squaremeter: 1 Quadratmeter
         portion: 1 Portion
-      default_payment: &payment
-        bank_transfer: Überweisung (Vorkasse)
-        cash: Barzahlung bei Abholung
-        paypal: PayPal
-        cash_on_delivery: Nachnahme
-        invoice: Rechnung
       friendly_percent_organisation:
         transparency_international: Transparency International
 
@@ -170,8 +160,16 @@ de:
         potential_social_advancement_old: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
         social_sensitization_old: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
     transaction:
-      selected_transport: *transport
-      selected_payment: *payment
+      selected_transport:
+        pickup: Selbstabholung
+        type1: Versand
+        type2: Alternativer Versand
+      selected_payment:
+        bank_transfer: Überweisung (Vorkasse)
+        cash: Barzahlung bei Abholung
+        paypal: PayPal
+        cash_on_delivery: Nachnahme
+        invoice: Rechnung
 
 
     feedback:

@@ -194,13 +194,13 @@ describe ArticlesController do
         response.should render_template :show
       end
 
-      it "should render the :show view" do
-        @article.deactivate
-        @article.close
-        expect {
-        get :show, id: @article
-        }.to raise_error ActiveRecord::RecordNotFound
-      end
+      # it "should render the :show view" do
+      #   @article.deactivate
+      #   @article.close
+      #   expect {
+      #   get :show, id: @article
+      #   }.to raise_error ActiveRecord::RecordNotFound
+      # end
     end
 
     # describe "for signed-in users" do
@@ -345,7 +345,7 @@ describe ArticlesController do
       it "should delete the preview article" do
         lambda do
           put :destroy, :id => @article.id
-          response.should redirect_to(articles_path)
+          response.should redirect_to(user_path(user))
         end.should change(Article.unscoped, :count).by -1
       end
 

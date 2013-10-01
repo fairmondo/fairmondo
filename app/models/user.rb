@@ -39,12 +39,13 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
 
   def self.user_attrs
-    [:email, :password, :password_confirmation, :remember_me, :type,
-    :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
-    :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
-    :title, :country, :street, :city, :zip, :phone, :mobile, :fax,
-    :bank_account_number, :bank_name, :bank_account_owner, :company_name,
-    { image_attributes: Image.image_attrs }
+    [
+      :email, :password, :password_confirmation, :remember_me, :type,
+      :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
+      :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
+      :title, :country, :street, :city, :zip, :phone, :mobile, :fax, :direct_debit,
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name,
+      { image_attributes: Image.image_attrs + [:id] }
     ]
   end
   #! attr_accessible *user_attributes
@@ -63,14 +64,16 @@ class User < ActiveRecord::Base
   #! attr_protected :admin
 
 
-  attr_accessor :recaptcha,:wants_to_sell
+  attr_accessor :recaptcha, :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
 
 
   #Relations
+  has_many :transactions, through: :articles
   has_many :articles, :dependent => :destroy # As seller
-  has_many :bought_articles, through: :transactions, source: :article
-  has_many :transactions, foreign_key: 'buyer_id' # As buyer
+  has_many :bought_articles, through: :bought_transactions, source: :article
+  has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
+  has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
   # has_many :bids, :dependent => :destroy
   # has_many :invitations, :dependent => :destroy
 
@@ -112,6 +115,7 @@ class User < ActiveRecord::Base
 
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, presence: true, on: :update
+    seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
   end
 
@@ -123,6 +127,8 @@ class User < ActiveRecord::Base
 
 
   validates :about_me, :length => { :maximum => 2500 }
+
+
 
   # Return forename plus surname
   # @api public
@@ -144,6 +150,13 @@ class User < ActiveRecord::Base
   # @param user [User] Usually current_user
   def is? user
     user && self.id == user.id
+  end
+
+  # Check if user was created before Sept 24th 2013
+  # @api public
+  # @param user [User] Usually current_user
+  def is_pioneer?
+    self.created_at < Time.parse("2013-09-23 23:59:59.000000 CEST +02:00")
   end
 
   # Static method to get admin status even if current_user is nil

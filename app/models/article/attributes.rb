@@ -39,6 +39,7 @@ module Article::Attributes
 
     validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 65
+    validates_length_of :content, :maximum => 10000
 
 
     #conditions
@@ -58,6 +59,7 @@ module Article::Attributes
     #! attr_accessible *money_attributes, :as => :admin
 
     validates_presence_of :price_cents
+    validates_numericality_of :price_cents, :less_than_or_equal_to => 1000000
     validates_numericality_of :price, greater_than_or_equal_to: 0
 
     monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
@@ -75,18 +77,32 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
+    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000
+
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
+    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents > 0 }
 
+    # legal entity attributes
+
+    def self.legal_entity_attrs
+      [:custom_seller_identifier, :gtin]
+    end
+
+    #! attr_accessible :custom_seller_identifier
+    #! attr_accessible :gtin
+
+    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true
+    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     #transport
     def self.transport_attrs
-      [:default_transport, :transport_pickup,
+      [:transport_pickup,
       :transport_type1, :transport_type1_price_cents,
       :transport_type1_price, :transport_type1_provider,
       :transport_type2, :transport_type2_price_cents,
@@ -98,9 +114,9 @@ module Article::Attributes
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
-    enumerize :default_transport, in: TRANSPORT_TYPES
+    validates :transport_type1_provider, :length => { :maximum => 255 }
+    validates :transport_type2_provider, :length => { :maximum => 255 }
 
-    validates_presence_of :default_transport
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
     validates :transport_details, :length => { :maximum => 2500 }
@@ -108,8 +124,7 @@ module Article::Attributes
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
     monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
-    validate :default_transport_selected
-
+    validate :transport_method_checked
 
     # ================ Payment ====================
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
@@ -158,7 +173,7 @@ module Article::Attributes
   # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
   def price_without_vat quantity = 1
-    ( self.price * ( 100 - self.vat ) / 100 ) * quantity
+    ( self.price / (( 100 + self.vat ) / 100.0) ) * quantity
   end
 
   # Gives the amount of money for an article that goes towards taxes
@@ -166,7 +181,7 @@ module Article::Attributes
   # @param quantity [Integer] Amount of articles calculated
   # @return [Money]
   def vat_price quantity = 1
-    ( self.price * self.vat / 100 ) * quantity
+    self.price * quantity - price_without_vat( quantity )
   end
 
   # Function to calculate total price for an article.
@@ -190,7 +205,7 @@ module Article::Attributes
   # @param transport_type [String] The transport type to look up
   # @param quantity [Integer]
   # @return [Money] The shipping price
-  def transport_price transport_type = self.default_transport, quantity = 1
+  def transport_price transport_type, quantity = 1
     case transport_type
     when "type1"
       transport_type1_price * quantity
@@ -206,7 +221,7 @@ module Article::Attributes
   # @api public
   # @param transport_type [String] The transport type to look up
   # @return [Money] The shipping provider
-  def transport_provider transport_type = self.default_transport
+  def transport_provider transport_type
     case transport_type
     when "type1"
       transport_type1_provider
@@ -236,12 +251,9 @@ module Article::Attributes
   end
 
   private
-
-    def default_transport_selected
-      if self.default_transport
-        unless self.send("transport_#{self.default_transport}")
-          errors.add(:default_transport, I18n.t("errors.messages.invalid_default_transport"))
-        end
+    def transport_method_checked
+      unless self.transport_pickup || self.transport_type1 || self.transport_type2
+        errors.add(:transport_details, I18n.t("article.form.errors.invalid_transport_option"))
       end
     end
 
@@ -256,30 +268,24 @@ module Article::Attributes
     # @api private
     # @return [Array] An array with selected attribute types
     def selectable attribute
-      # First get all selected attributes
+      # Get all selected attributes
       output = []
       eval("#{attribute.upcase}_TYPES").each do |e|
         output << e if self.send "#{attribute}_#{e}"
       end
-
-      # Now shift the default to be the first element
-      if attribute == "transport"
-        output.unshift output.delete_at output.index send("default_transport").to_sym
-      else
-        output
-      end
+      output
     end
 
 
 
     def bank_account_exists
-      if !self.seller.bank_account_exists?
+      unless self.seller.bank_account_exists?
         errors.add(:payment_bank_transfer, I18n.t("article.form.errors.bank_details_missing"))
       end
     end
 
     def paypal_account_exists
-      if !self.seller.paypal_account_exists?
+      unless self.seller.paypal_account_exists?
         errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
       end
     end

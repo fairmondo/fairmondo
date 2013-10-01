@@ -35,8 +35,7 @@
       %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations")}
     %dd
       = humanized_money_with_symbol resource.calculated_fair
-    %dt
-      = t('article.preview.fees_and_donations.quarter_fee')
+
     -#%dt
       -#= t('article.preview.fees_and_donations.friendly_percent')
     -#%dd= humanized_money_with_symbol resource.calculated_friendly
@@ -51,10 +50,14 @@
       = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
 
     %dt
-      = t('article.preview.fees_and_donations.quarter_fee')
+      / = t('article.preview.fees_and_donations.quarter_fee')
+      Zzgl. der
+      %a{:href => "/faq#geb1"}
+        Quartalsgebühr
+      von 1,- Euro (inkl. 19% MwSt).
+      %i.icon-helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
 
-  // This button is supposed to be like this:
-  // %a.Btn.Btn--green.Btn--greenSmall
-  //   Angebot einstellen. Beachte, dass bei erfolgreichem Verkauf Gebühren entstehen
-  %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
-
+  - if resource.is_available?
+    %a= button_to "Artikel zum Wiedereinstellen bearbeiten", article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+  - else
+    %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put

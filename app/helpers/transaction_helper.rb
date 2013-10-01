@@ -96,7 +96,7 @@ module TransactionHelper
     output
   end
 
-  # Return a basic display of the pasic price for the current view's resource
+  # Return a basic display of the basic price for the current view's resource
   # if one exists.
   #
   # @return [String, nil] Display HTML if there is something to display
@@ -136,15 +136,36 @@ module TransactionHelper
   # @param field [Symbol]
   # @return [String, nil]
   def default_address_value field
+    default_value(field) || current_user.send(field)
+  end
+
+  # Default input field value -> param or nil
+  # @api public
+  # @param field [Symbol]
+  # @return [String, nil]
+  def default_value field
     if params['transaction'] && params['transaction'][field]
       params['transaction'][field]
     else
-      current_user.send(field)
+      nil
     end
   end
 
-  ########### SHOW ############
-  def display_show_title
-
+  def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, city, zip, country
+    link_to t('common.actions.back'),
+      edit_transaction_path(@transaction,
+        transaction: {
+          quantity_bought: quantity_bought,
+          selected_transport: selected_transport,
+          selected_payment: selected_payment,
+          forename: forename,
+          surname: surname,
+          street: street,
+          city: city,
+          zip: zip,
+          country: country
+        }
+      ),
+      class: 'Btn Btn--graySmaller'
   end
 end

@@ -65,7 +65,6 @@ describe 'Article management' do
           end
           fill_in I18n.t('formtastic.labels.article.content'), with: 'Article content'
           check "article_transport_pickup"
-          select I18n.t("enumerize.article.default_transport.pickup") , from: I18n.t('formtastic.labels.article.default_transport')
           fill_in 'article_transport_details', with: 'transport_details'
           check "article_payment_cash"
           fill_in 'article_payment_details', with: 'payment_details'
@@ -181,6 +180,21 @@ describe 'Article management' do
 
         @article.reload.title.should eq 'foobar'
         current_path.should eq article_path @article
+      end
+
+      it "should change the transaction when quantity was changes from one to many" do
+        @article.transaction.should be_a SingleFixedPriceTransaction
+
+        fill_in 'article_quantity', with: 2
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.transaction.should be_a MultipleFixedPriceTransaction
+
+        visit edit_article_path @article
+        fill_in 'article_quantity', with: 1
+        click_button I18n.t 'article.labels.continue_to_preview'
+
+        @article.reload.transaction.should be_a SingleFixedPriceTransaction
       end
 
       it "should fail given invalid data but still try to save images" do
@@ -344,7 +358,7 @@ describe "Pioneer of the day" do
     page.should_not have_link 'Foobar'
 
     visit article_path FactoryGirl.create :article, title: 'Foobar'
-    click_link '> (Admin) Set this as featured article'
+    click_link '> (Admin) Set this as pioneer article'
 
     visit root_path
     page.should have_link 'Foobar'

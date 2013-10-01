@@ -27,7 +27,7 @@ class Category < ActiveRecord::Base
 
   attr_protected :lft, :rgt, :depth, as: :admin
   #! attr_accessible :name, :parent, :desc, :parent_id
-  #! attr_accessible :name, :parent, :desc, :parent_id, :created_at, :updated_at, :lft, :rgt, :depth, as: :admin
+  #! attr_accessible :name, :parent, :desc, :parent_id, :article_ids, :child_ids, :created_at, :updated_at, as: :admin
 
   has_and_belongs_to_many :articles
 
@@ -63,5 +63,11 @@ class Category < ActiveRecord::Base
 
   def self.other_category
      self.where(:parent_id => nil).find_by_name("Sonstiges") #internationalize!
+  end
+
+  def self.find_imported_categories(categories)
+    if categories
+      self.find_all_by_id(categories.split(",").map { |s| s.to_i })
+    end
   end
 end

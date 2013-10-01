@@ -26,7 +26,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def show?
-    article.active? || (user && own? && !article.closed?)
+    true
   end
 
   def new?
@@ -46,11 +46,11 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    activate?
+    owned_and_deactivated? && article.deletable?
   end
 
   def activate?
-    user && own? && !article.active?
+    owned_and_deactivated?
   end
 
   def deactivate?
@@ -62,9 +62,13 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   private
-  def own?
-    user.id == article.seller.id
-  end
+    def own?
+      user.id == article.seller.id
+    end
+
+    def owned_and_deactivated?
+      user && own? && ( article.preview? || article.locked? )
+    end
 
   class Scope < Struct.new(:user, :scope)
     def resolve
