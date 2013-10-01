@@ -7,7 +7,10 @@ class CategoriesController < InheritedResources::Base
 
   def show
     show! do |format|
-      format.json { render :json => resource.children.to_json(:only => [ :id, :name ]) }
+      format.json do
+        return_hash = resource.children.map { |child| {id: child.id, name: child.name} }
+        render :json => return_hash.to_json()
+      end
     end
   end
 
