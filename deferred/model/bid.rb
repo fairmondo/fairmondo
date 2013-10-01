@@ -21,7 +21,11 @@
 #
 class Bid < ActiveRecord::Base
 
-  attr_accessible :price_cents
+  def self.bid_attrs
+    [:price_cents]
+  end
+
+  #! attr_accessible :price_cents
   attr_protected :user, :auction_transaction
 
   belongs_to :auction_transaction

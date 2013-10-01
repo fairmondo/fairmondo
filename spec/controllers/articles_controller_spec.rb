@@ -194,13 +194,13 @@ describe ArticlesController do
         response.should render_template :show
       end
 
-      it "should render the :show view" do
-        @article.deactivate
-        @article.close
-        expect {
-        get :show, id: @article
-        }.to raise_error ActiveRecord::RecordNotFound
-      end
+      # it "should render the :show view" do
+      #   @article.deactivate
+      #   @article.close
+      #   expect {
+      #   get :show, id: @article
+      #   }.to raise_error ActiveRecord::RecordNotFound
+      # end
     end
 
     # describe "for signed-in users" do
@@ -345,7 +345,7 @@ describe ArticlesController do
       it "should delete the preview article" do
         lambda do
           put :destroy, :id => @article.id
-          response.should redirect_to(articles_path)
+          response.should redirect_to(user_path(user))
         end.should change(Article.unscoped, :count).by -1
       end
 
@@ -414,13 +414,13 @@ describe ArticlesController do
       flash[:notice].should eq I18n.t 'article.notices.create_html'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article and set it as new article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
       put :update, id: @article.id, :activate => true
       response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to new_article_path(:edit_as_new => @article.id)
     end
   end
 
@@ -436,13 +436,13 @@ describe ArticlesController do
       flash[:notice].should eq I18n.t 'article.notices.deactivated'
     end
 
-    it "should not work with an invalid article" do
+    it "should work with an invalid article" do
       @article.title = nil
       @article.save validate: false
       ## we now have an invalid record
        put :update, id: @article.id, :deactivate => true
-      response.should_not redirect_to @article
-      response.should render_template "edit"
+      response.should redirect_to @article
+      @article.reload.locked?.should == true
     end
   end
 end

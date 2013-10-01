@@ -33,6 +33,18 @@ class TransactionPolicy < Struct.new(:user, :transaction)
     user.is?(transaction.article_seller) || user.is?(transaction.buyer)
   end
 
+  def already_sold?
+    true
+  end
+
+  def print_order_buyer?
+    user.is?(transaction.buyer)
+  end
+
+  def print_order_seller?
+    user.is?(transaction.article_seller)
+  end
+
   private
   def own?
     user ? user.articles.include?(transaction.article) : false

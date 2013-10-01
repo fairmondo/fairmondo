@@ -263,6 +263,19 @@ describe 'User management' do
             page.should have_content I18n.t 'formtastic.labels.user.about'
           end
         end
+
+        it "should update the specific fields" do
+          login_as user
+          visit edit_user_registration_path user
+          fill_in 'user_terms', with: 'foobar'
+          fill_in 'user_cancellation', with: 'foobar'
+          fill_in 'user_about', with: 'foobar'
+
+          click_button I18n.t 'formtastic.actions.update'
+          user.reload.terms.should eq 'foobar'
+          user.cancellation.should eq 'foobar'
+          user.about.should eq 'foobar'
+        end
       end
 
       context "for private users" do
@@ -293,15 +306,15 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.nickname
+      page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should not show the users city" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should_not have_css '.Profile-name', text: user.city
+      page.should_not have_css '.DoubleTeaser-link', text: user.city
     end
   end
 
@@ -310,15 +323,15 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.nickname
+      page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should show the users city" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.city
+      page.should have_css '.DoubleTeaser-link', text: user.city
     end
   end
 end

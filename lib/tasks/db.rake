@@ -10,6 +10,24 @@ namespace :db do
     puts "\n\nDatabase updated.\n\n"
   end
 
+  desc 'Reset, Migrate, Seed & prepare test db'
+  task :upgrade do
+    puts 'Upgrading database...'
+    system 'rake db:migrate:reset'
+    system 'rake db:seed'
+    system 'rake db:test:prepare'
+    puts "\n\nDatabase updated.\n\n"
+  end
+
+  desc 'DB table drop for staging'
+  task :drop_tables do
+    return false unless ENV['RAILS_ENV'] == 'staging'
+    conn = ActiveRecord::Base.connection
+    tables = conn.tables.map { |t| t }
+    tables.each { |t| conn.execute("DROP TABLE IF EXISTS #{t}") }
+    puts "DROP finished."
+  end
+
   desc 'Get a list of articles from http://www.itemmaster.com'
   task :seed_articles, [:number_of_items] => :environment do | t, args |
     require 'faker'

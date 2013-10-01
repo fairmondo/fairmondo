@@ -1,3 +1,4 @@
+
 #
 #
 # == License:
@@ -21,6 +22,11 @@
 #
 class LegalEntity < User
   extend STI
+
+  def self.user_attrs
+    super + [:terms, :cancellation, :about]
+  end
+  #! attr_accessible :terms, :cancellation, :about
 
   def upgrade_seller_state
     if self.seller_state == "standard_seller"
@@ -96,5 +102,6 @@ class LegalEntity < User
   def self.model_name
     User.model_name
   end
+
 
 end

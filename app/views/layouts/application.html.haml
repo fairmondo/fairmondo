@@ -1,3 +1,4 @@
+
 -#
 -#
 -# == License:
@@ -45,6 +46,13 @@
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
+    / Icons for iOS Devices (iPhone, iPad)
+    %link{ rel: 'apple-touch-icon', href: image_path('apple_touch_icon.png'), type: "image/png"  }
+    %link{ rel: 'apple-touch-icon', sizes: '72x72', href: image_path('touch_icon_ipad.png'), type: "image/png"  }
+    %link{ rel: 'apple-touch-icon', sizes: '114x114', href: image_path('touch_icon_iphone_retina.png'), type: "image/png"  }
+    %link{ rel: 'apple-touch-icon', sizes: '144x144', href: image_path('touch_icon_ipad_retina.png'), type: "image/png"  }
+    / provides proper Article-Image for Facebook
+    %link{ :rel => 'image_src', :href => yield(:title_image) }
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
@@ -59,6 +67,8 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
+    / Title Image for posting pictures to Facebook, gets image link from article_contents
+    %link{ :rel => 'image_src', :href => yield(:title_image) }
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
     .Notice
@@ -112,13 +122,13 @@
               %li
                 .l-Feedback
                   %a.Btn.Feedback{:href=>new_feedback_path(:variety => :get_help)}
-                    %i.icon-feedback
+                    %i.icon-help
                     = t('common.text.help')
                   %a.Btn.Feedback{:href=>new_feedback_path(:variety => :send_feedback)}
                     %i.icon-feedback
                     = t('common.text.feedback')
                   %a.Btn.Btn--green.Feedback{href: '/anteile-zeichnen'}
-                    %i.icon-feedback
+                    %i.icon-shares
                     = t('common.text.shares')
 
               %li
@@ -136,6 +146,9 @@
               %li
                 %a{:href => "/philosophy"}
                   = t('footer.philosophy')
+              %li
+                %a{:href => "http://info.fairnopoly.de/pressekit/"}
+                  = t('footer.press')
               %li
                 %a{:href => "http://info.fairnopoly.de/team/"}
                   = t('footer.team')

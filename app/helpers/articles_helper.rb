@@ -69,8 +69,7 @@ module ArticlesHelper
   # Conditions
   def condition_label article
     # bclass=condition_badge_class(article.condition)
-    html = "<span class=\"Btn Btn-tag Btn-tag--gray\">" + article.condition_text + "</span>"
-    html.html_safe
+    '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
   end
 
   def features_label article
@@ -158,14 +157,14 @@ module ArticlesHelper
     resource.seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
   end
 
-   def transport_format_for method,css_classname=""
+   def transport_format_for method, css_classname=""
     type = "transport"
-      options_format_for type, method, css_classname
+    options_format_for type, method, css_classname
   end
 
   def payment_format_for method, css_classname=""
     type = "payment"
-      options_format_for type, method, css_classname
+    options_format_for type, method, css_classname
   end
 
   def options_format_for type, method, css_classname

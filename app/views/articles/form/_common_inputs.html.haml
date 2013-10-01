@@ -26,11 +26,6 @@
     .Accordion-step
       = render '/categories/selected_categories', :f => f
       = f.input :categories_and_ancestors, :as => :select, :collection => Category.sorted_roots, :tooltip => true, :required => true, :multiple => true, :include_blank => true, :input_html => {:class => "Category-nativeselect"}
-    .Accordion-step
-
-
-      = f.input :category_proposal,:label => t('article.categories.proposal.question'), :tooltip => true
-
 = f.input_step :article do
   = f.inputs do
     .Accordion-step
@@ -52,7 +47,7 @@
         - if current_user.country == "Deutschland"
           = f.input :vat, :required => true, :tooltip => true, :as => :select, :collection => [0,7,19]
 = f.input_step :upload_images, :tooltip => t('formtastic.tooltips.article.upload_images_input_step') do
-  - (5-f.object.images.size).times { f.object.images.build }
+  - (3-f.object.images.size).times { f.object.images.build }
   = f.semantic_errors :images
   = f.semantic_fields_for :images do |image|
     = f.inputs do
@@ -60,13 +55,13 @@
         - if image.object.new_record?
           = image.input :image, :input_html =>  { :class => "Image-upload-extend-columns"}
         - else
-          = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) )
+          = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) , target: "_blank")
           = image.input :_destroy, :as => :boolean , :label => false
         = image.input :is_title, :input_html =>  { :class => "Image-titleinput"}
 
 = f.input_step :transport_and_payment do
   .Accordion-step
-    %p Versandoptionen:
+    %p
     = f.inputs :tooltip => t('formtastic.tooltips.article.transport') do
       %li.input
         %label.label
@@ -80,10 +75,10 @@
       = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
         = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, :required => true
-      = f.input :default_transport, :as => :select, :required => true
+      %li.input
       = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
-    %p Bezahloptionen:
+    %p
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
       %li.input
         %label.label

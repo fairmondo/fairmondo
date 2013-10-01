@@ -20,6 +20,7 @@
 class ContentsController < InheritedResources::Base
 
   skip_before_filter :authenticate_user!, :only => [:show, :not_found]
+  before_filter :authorize_resource, only: [:edit, :update, :destroy]
   #before_filter :ensure_admin, :except => [:show, :not_found]
 
   def index
@@ -31,25 +32,20 @@ class ContentsController < InheritedResources::Base
     if policy(build_resource).admin?
       authorize build_resource
       begin
-        @content = Content.find(params[:id])
+        @content = Content.find(permitted_show_params[:id])
       rescue ActiveRecord::RecordNotFound
-        return redirect_to new_content_path key: params[:id]
+        return redirect_to new_content_path key: permitted_show_params[:id]
       end
     else
-      @content = Content.find(params[:id])
+      @content = Content.find(permitted_show_params[:id])
       authorize @content
     end
   end
 
   def new
     authorize build_resource
-    build_resource.key = params[:key] if params[:key]
+    build_resource.key = permitted_new_params[:key] if permitted_new_params[:key]
     new!
-  end
-
-  def edit
-    authorize resource
-    edit!
   end
 
   def create
@@ -58,14 +54,16 @@ class ContentsController < InheritedResources::Base
   end
 
   def update
-    authorize resource
     update! notice: 'Content was successfully updated.' do
       return_to_path(@content, clear: true)
     end
   end
 
-  def destroy
-    authorize resource
-    destroy!
-  end
+  private
+    def permitted_new_params
+      params.permit :key
+    end
+    def permitted_show_params
+      params.permit :id
+    end
 end

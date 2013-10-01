@@ -19,15 +19,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 class TransactionMailer < ActionMailer::Base
+	helper TransactionHelper
+	helper TransactionMailerHelper
+
   default from: $email_addresses['ArticleMailer']['default_from']
 
   def buyer_notification transaction
-    mail(to: transaction.buyer_email, subject: "You bought stuff")
+  	@transaction 	= transaction
+  	@seller 			= transaction.article_seller
+  	@buyer 				= transaction.buyer
+
+    mail(	to: 			@buyer.email,
+    			subject: 	"[Fairnopoly] " + t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})") do |format|
+          format.text
+    end
   end
 
   def seller_notification transaction
-    mail(to: transaction.article_seller_email, subject: "You sold stuff")
-  end
+  	@transaction 	= transaction
+  	@seller 			= transaction.article_seller
+  	@buyer 				= transaction.buyer
 
+    mail(	to: 			@seller.email,
+    			subject: 	"[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})") do |format|
+          format.text
+    end
+  end
 end

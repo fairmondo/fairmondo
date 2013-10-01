@@ -20,12 +20,16 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleTemplate < ActiveRecord::Base
+  extend Sanitization
 
   delegate :title, to: :article, prefix: true
 
-  template_attributes = [:article_attributes, :name, :article]
-  attr_accessible *template_attributes
-  attr_accessible *template_attributes, :as => :admin
+  def self.article_template_attrs
+    [:name, :article, article_attributes: Article.article_attrs(false)]
+  end
+  #! attr_accessible *template_attributes
+  #! attr_accessible *template_attributes, :as => :admin
+  auto_sanitize :name
 
   validates :name, uniqueness: { scope: :user_id }
   validates :name, presence: true
