@@ -70,8 +70,11 @@ module TransactionMailerHelper
 
     if ['pickup', 'type1', 'type2'].include? transaction.selected_transport
       string += t('transaction.edit.transport_type')
-      string += transaction.article_transport_type2_provider
-      string += t('transaction.notifications.general.shipments', count: transaction.article_number_of_shipments(transaction.selected_transport, transaction.quantity_bought)) + "\n\n"
+      string += transaction.article_transport_type1_provider if transaction.selected_transport == "type1"
+      string += transaction.article_transport_type2_provider if transaction.selected_transport == "type2"
+      unless transaction.selected_transport == "pickup"
+        string += t('transaction.notifications.general.shipments', count: transaction.article_number_of_shipments(transaction.selected_transport, transaction.quantity_bought)) + "\n\n"
+      end
     end
 
     string += t("transaction.notifications.#{role}.transaction_id_info", id: transaction.id)
