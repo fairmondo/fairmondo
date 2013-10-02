@@ -6,7 +6,7 @@ namespace :images do
       begin
         image.image.reprocess!
         puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - OK"
-      rescue Exception => e
+      rescue => e
         puts index.to_s + " / #{count.to_s}  - ID: #{image.id} - Exception: #{ e } (#{ e.class })"
       end
     end
