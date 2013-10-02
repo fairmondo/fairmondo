@@ -69,7 +69,9 @@ module Article::Images
     end
 
     def thumbnails
-      self.images.where(:is_title => false)
+      thumbnails = self.images.where(:is_title => false)
+      thumbnails.reject! {|image| image.id == title_image.id if title_image}
+      thumbnails
     end
 
     def only_one_title_image
