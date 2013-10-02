@@ -29,9 +29,11 @@ describe TransactionPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:edit)             }
-    it { should permit(:update)           }
-    it { should ultimately_deny(:show)    }
+    it { should permit(:edit)                        }
+    it { should permit(:update)                      }
+    it { should ultimately_deny(:show)               }
+    it { should ultimately_deny(:print_order_seller) }
+    it { should ultimately_deny(:print_order_buyer)  }
   end
 
   context "for a random logged-in user" do
@@ -39,6 +41,8 @@ describe TransactionPolicy do
     it { should permit(:edit)             }
     it { should permit(:update)           }
     it { should deny(:show)               }
+    it { should deny(:print_order_seller) }
+    it { should deny(:print_order_buyer)  }
   end
 
   context "for the transaction seller" do
@@ -46,10 +50,12 @@ describe TransactionPolicy do
     it { should deny(:edit)                 }
     it { should deny(:update)               }
     it { should permit(:show)               }
+    it { should permit(:print_order_seller) }
   end
 
   context "for the transaction buyer" do
     let(:user) { transaction.buyer          }
     it { should permit(:show)               }
+    it { should permit(:print_order_buyer)  }
   end
 end
