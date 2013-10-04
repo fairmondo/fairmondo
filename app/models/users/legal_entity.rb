@@ -28,11 +28,12 @@ class LegalEntity < User
   end
   #! attr_accessible :terms, :cancellation, :about
 
-   # validates legal entity
-  validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
-  validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
-  validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
-
+  with_options if: :wants_to_sell? do |seller|
+    # validates legal entity
+    seller.validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
+    seller.validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
+    seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
+  end
 
   state_machine :seller_state, :initial => :standard_seller do
 
