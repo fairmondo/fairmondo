@@ -35,7 +35,6 @@
 
 
 //= require vendor/jquery.complexify
-//= require vendor/jquery.hashchange
 //= require vendor/jquery.socialshareprivacy
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
