@@ -1,0 +1,28 @@
+.Highlight {
+  @include rem(padding, 10px 20px);
+  color: #3c3c3c;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 2em;
+  h2 {
+    @include rem(font-size, 25px);
+    color:$lightgray;
+    font-weight: normal;
+  }
+}
+.Highlight:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.Highlight > .Highlight-article {
+  margin-bottom: 1em;
+}
+
+
+
+
+
+
+
