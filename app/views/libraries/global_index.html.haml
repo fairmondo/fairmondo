@@ -19,7 +19,7 @@
 -#
 .Libraries
   - if !@libraries.blank?
-    .Accordion.Accordion--containsArticles
+    .Accordion.Accordion--containsArticles.Accordion--scrollToActive
       - @libraries.each do |library|
         - unless library.new_record?
           = accordion_item "library"+library.id.to_s , :title => library.name  do
