@@ -1,11 +1,11 @@
 $(function() {
 	target = 0;
 	if(window.location.hash){
-	  target = $(window.location.hash).index('.Accordion-item')
+	  target = $(window.location.hash).index('.Accordion-item');
 	}
 	$(".accordion-anchor").click(function() {
-	  link = $(event.target).attr('href')
-	  target = $(link).index('.Accordion-item')
+	  link = $(event.target).attr('href');
+	  target = $(link).index('.Accordion-item');
 	  $(".Accordion--activated").accordion({
 	    animate: false,
 	    active: target
@@ -28,8 +28,16 @@ $(function() {
 		active: target
 	});
 
-	$(".Accordion--containsArticles").on("accordionactivate", function(event,ui) { $('.l-ArticleList').masonry() });
+	$(".Accordion--containsArticles").on("accordionactivate", function(event,ui) { $('.l-ArticleList').masonry(); });
+
+	$(".Accordion--scrollToActive").on("accordionactivate", function(event,ui) {
+    	$('html, body').animate({
+        scrollTop: ui.newHeader.offset().top
+    }, 100);
+     });
 	$(".Accordion").removeClass("ui-accordion ui-widget ui-helper-reset");
 	$(".Accordion-header").removeClass("ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-corner-top ui-accordion-icons ui-state-focus");
-	$(".Accordion-header span").removeClass("ui-accordion-header-icon ui-icon ui-icon-triangle-1-s")
+	$(".Accordion-header span").removeClass("ui-accordion-header-icon ui-icon ui-icon-triangle-1-s");
+
+
 });
