@@ -29,9 +29,9 @@
       %p
         bei
         %br
-        Fairnopoly,
+        Fairnopoly
       %p
-        dem Online-Marktplatz für Alle.
+        dem Online-Marktplatz für alle.
     %p
       Ab sofort kannst Du hier alles kaufen und verkaufen, was Du möchtest.
       %br
@@ -89,4 +89,11 @@
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
 
-
+  .Teaser.DoubleTeaser
+    .Teaser-totalheader
+      %h2.Teaser-header AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue" }
+        Held*in werden
