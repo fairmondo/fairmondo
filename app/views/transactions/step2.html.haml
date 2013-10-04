@@ -183,3 +183,7 @@
           = f.actions do
             = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
             = back_link quantity, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
+
+          - if ['type1', 'type2'].include? selected_transport
+            %br
+            = t('transaction.edit.number_of_shipments_info')
