@@ -37,7 +37,8 @@ $large-from: 800px;
 //
 .grid-sizer,
 .Teaser,
-.Article--teaser {
+.Article--teaser,
+.Highlight-article {
   @media (min-width: em($small-from)) {
     width: columns(1,$small-columns);
   }
@@ -138,7 +139,7 @@ $large-from: 800px;
 //
 // Grid vertical gutter
 //
-.Article--teaser {
+.Article--teaser,.Highlight-article {
   margin-bottom: em(38);
   float:left;
   @media (min-width: em($small-from)) and  (max-width: em($medium-from - 1)) {
@@ -163,4 +164,18 @@ $large-from: 800px;
 
 }
 
+// Hiding articles that are more than we like
+.Highlight-article-2 {
+  display:none;
+  @media (min-width: em($medium-from)) {
+   display:block;
+  }
+}
+
+.Highlight-article-3 {
+  display:none;
+  @media (min-width: em($large-from)) {
+   display:block;
+  }
+}
 
