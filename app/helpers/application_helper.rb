@@ -68,7 +68,10 @@ module ApplicationHelper
   end
 
   def search_cache
-    ArticlesController.search_cache
+    unless @search_cache
+      @search_cache = Article.new(permitted_search_params[:article])
+    end
+    @search_cache
   end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
