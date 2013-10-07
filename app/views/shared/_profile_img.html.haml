@@ -34,7 +34,6 @@
       = user.fullname
 
   %p.User-legal
-
     - if user.is_a?(LegalEntity)
       %a.Icon{:href => "#"}
         %i.icon-briefcase
@@ -43,3 +42,5 @@
       %a.Icon{:href => ""}
         %i.icon-user
         = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))
+
+  = render '/shared/ratings', user: user
