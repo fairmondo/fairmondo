@@ -41,20 +41,20 @@
     .Filter{:class => filter_class}
       .Filter-inner
         .Filter-col
+          %legend.Filter-title
+            Zustand
+            %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
           %fieldset
-            %legend.Filter-title
-              Zustand
-              %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
             - ( Article.condition.options.reverse + [["egal","all"]]).each do |option|
               = f.label :condition , :value => option.last do
                 = f.radio_button(:condition, option.last) + option.first
 
         .Filter-col
-          %fieldset
-            %legend.Filter-title
-              Filter
-              %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&EDEL = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
+          %legend.Filter-title
+            Filter
+            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&EDEL = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
 
+          %fieldset
             = f.label :fair do
               = f.check_box(:fair) + t('formtastic.labels.article.fair')
 
@@ -69,10 +69,12 @@
             %legend.Filter-title Kategorien
             = f.input :categories_and_ancestors, :as => :select, :collection => Category.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f)}}
 
-          %button.Btn.Filter-btn Suche starten
+
         .Filter-col
           = f.inputs do
             %legend.Filter-title Einstellungen
-            = f.input :search_in_content, :as => :boolean
+            = f.input :search_in_content, :as => :boolean, :label => "Artikel&shy;beschreibung durchsuchen".html_safe
+        .Filter-col
+          %button.Btn.Filter-btn Suche starten
       %button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 

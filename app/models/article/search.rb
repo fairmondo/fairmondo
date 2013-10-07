@@ -24,19 +24,17 @@ module Article::Search
 
   included do
 
-    attr_accessor :contentsearch
+    attr_accessor :search_in_content
 
-    def search_in_content= bool
-      if bool == "1"
-        self.contentsearch= true
+    def search_in_content= value
+      if value == "1"
+        @search_in_content = true
       else
-        self.contentsearch= false
+        @search_in_content = false
       end
     end
 
-    def search_in_content
-      self.contentsearch
-    end
+    alias :search_in_content? :search_in_content
 
     def self.search_attrs
       [:search_in_content]
@@ -92,7 +90,13 @@ module Article::Search
 
   def find_like_this page
     Article.search(:include => [:seller, :images]) do
-      fulltext self.title
+      fulltext self.title do
+        if self.search_in_content?
+          fields(:content,:title => 2.0)
+        else
+          fields(:title)
+        end
+      end
       paginate :page => page, :per_page => Kaminari.config.default_per_page
       with :fair, true if self.fair
       with :ecologic, true if self.ecologic

@@ -30,23 +30,14 @@
 		@include rotate(180deg);
 	}
 }
-.Filter-col {
-	@include span-columns(4,4);
-	margin-bottom: 2em;
-	.Filter-title {
-		@include rem(margin-bottom, 12px);
 
-	}
-}
-fieldset.Filter-col {
-	@include span-columns(4 omega,6);
-}
+
 .Filter-title {
 	@include rem(font-size, 17px);
 	@extend %Semibold;
 	position: relative;
 	margin-top: 1em;
-	margin-bottom: em(10,18);
+	@include rem(margin-bottom, 12px !important);
 	.icon-helper {
 		position: absolute;
 		top: 0em;
@@ -67,32 +58,35 @@ fieldset.Filter-col {
 	}
 }
 .Filter-col {
-	fieldset {
-		float: left;
-		width: 100%;
-	}
-	@include at-breakpoint($layout-small) {
-		@include span-columns(2,6);
-		&:nth-child(3n) {
-			@include span-columns(2,6);
+  margin-bottom: 2em;
+
+  label {
+      @include rem(margin-top, 13px);
+  }
+
+	@include at-breakpoint($layout-small-to-large) {
+		@include span-columns(3,6);
+		&:nth-child(2n) {
+			@include span-columns(3 omega,6);
 		}
 	}
 	@include at-breakpoint($layout-large) {
 		@include span-columns(1,6);
-		margin-right: 0;
-		&:nth-child(3n) {
-			@include span-columns(1,6);
+
+		&:nth-child(4n) {
+		  @include span-columns(2,6);
 		}
-		label {
-			@include rem(margin-top, 13px);
-		}
+		&:nth-child(5n) {
+      @include omega;
+    }
+
 	}
 }
+
 .Filter-btn {
-	@include at-breakpoint($layout-large) {
-		position: absolute;
-		bottom: 47px;
-		right: 40px;
-		margin-bottom: 0;
-	}
+  @include at-breakpoint($layout-large) {
+    position: absolute;
+      bottom: 0;
+  }
 }
+
