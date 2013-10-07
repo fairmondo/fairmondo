@@ -63,10 +63,6 @@ describe 'Dashboard' do
  #     page.should_not have_content('Community')
  #   end
 
-    it 'Show Profile link shows the user profile' do
-
-    end
-
     it 'Profile link shows the profile page' do
       click_link I18n.t('common.text.profile')
       page.should have_content("Sammlungen")
