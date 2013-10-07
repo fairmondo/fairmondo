@@ -24,6 +24,24 @@ module Article::Search
 
   included do
 
+    attr_accessor :contentsearch
+
+    def search_in_content= bool
+      if bool == "1"
+        self.contentsearch= true
+      else
+        self.contentsearch= false
+      end
+    end
+
+    def search_in_content
+      self.contentsearch
+    end
+
+    def self.search_attrs
+      [:search_in_content]
+    end
+
     searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
       text :title, :as => 'title_text_ngram', :stored => true
