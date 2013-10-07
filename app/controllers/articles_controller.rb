@@ -188,7 +188,7 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for search_cache
+      @articles ||= search_for @search_cache
     end
 
     def begin_of_association_chain

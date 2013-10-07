@@ -68,9 +68,6 @@ module ApplicationHelper
   end
 
   def search_cache
-    unless @search_cache
-      @search_cache = Article.new(permitted_search_params[:article])
-    end
     @search_cache
   end
 
