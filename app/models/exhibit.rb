@@ -37,6 +37,8 @@ class Exhibit < ActiveRecord::Base
 
   scope :one_day_exhibited, lambda {where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
   scope :oldest_first, order("exhibits.created_at ASC")
+
   scope :article_active, where(" articles.state = 'active' ").includes(:article => [:images,:seller])
   scope :related_article_active, where("related_articles_exhibits.state = 'active' ").includes(:related_article => [:images,:seller])
+
 end
