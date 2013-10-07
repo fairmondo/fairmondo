@@ -70,6 +70,9 @@
             = f.input :categories_and_ancestors, :as => :select, :collection => Category.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f)}}
 
           %button.Btn.Filter-btn Suche starten
-
+        .Filter-col
+          = f.inputs do
+            %legend.Filter-title Einstellungen
+            = f.input :search_in_content, :as => :boolean
       %button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 
