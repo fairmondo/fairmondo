@@ -1,14 +1,30 @@
-#name-rating{
-  text-align: center;
+.User-rating{
+  font-size: 13px;
   line-height: 2;
+  margin-bottom: 0;
+  padding-top: 15px;
+  text-align: center;
+  color: #959595;
 }
 
-#name-rating img{
-  padding-left: 8px;
-  padding-right: 2px;
-  width: 35px;
-}
-
-#name-rating span{
+.User-rating img{
+  padding-left: 5px;
+  /*padding-right: 2px;*/
+  width: 30px;
   vertical-align: middle;
 }
+
+.User-rating span{
+  vertical-align: middle;
+}
+
+.User-rating .text-right{
+  float: right;
+  padding-right: 10px;
+}
+
+.User-rating .text-left{
+  float: left;
+  padding-left: 10px;
+}
+

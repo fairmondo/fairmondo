@@ -29,7 +29,6 @@
             %a.Icon{:href =>  edit_user_registration_path}
               %i.icon-pencil
               = t 'common.actions.edit_profile'
-        = render '/shared/ratings'
       .User-secondary
         - if user_resource.about_me && !user_resource.about_me.empty?
           %div{:data => {:truncate => 250}}

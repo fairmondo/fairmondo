@@ -195,14 +195,20 @@ class User < ActiveRecord::Base
   # Update percentage of positive and negative ratings of seller
   # @api public
   # @return [undefined]
-  def update_ratings
+  def update_rating_counter
+    number_of_ratings = self.ratings.count
     percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 50
+    percentage_of_neutral_ratings = calculate_percentage_of_biased_ratings 'neutral', 50
     percentage_of_negative_ratings = calculate_percentage_of_biased_ratings 'negative', 50
 
     self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
+      :percentage_of_neutral_ratings => percentage_of_neutral_ratings,
       :percentage_of_negative_ratings => percentage_of_negative_ratings)
     self.save
-    update_seller_state
+
+    if ( ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 ) )
+      update_seller_state
+    end
   end
 
   # Calculates percentage of positive and negative ratings of seller
@@ -212,7 +218,7 @@ class User < ActiveRecord::Base
   # @return [Float]
   def calculate_percentage_of_biased_ratings bias, limit
     newest_ratings = self.ratings.limit(limit)
-    number_of_newest_ratings = newest_ratings.count.to_f
+    number_of_newest_ratings = [newest_ratings.count, 1].max.to_f
     number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
     number_of_biased_ratings / number_of_newest_ratings * 100
   end

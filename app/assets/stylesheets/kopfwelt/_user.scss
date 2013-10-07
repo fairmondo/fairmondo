@@ -117,7 +117,7 @@
 .User-primary {
 	@include rem(font-size, $font-size-m);
 	@include clearfix;
-	text-transform: capitalize;
+	/*	text-transform: capitalize; */
 	font-weight: 700;
 	.User-image {
 		@include rem(margin-top, 17px);

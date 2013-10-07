@@ -18,12 +18,17 @@
 -#
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
--#
-%div{id: 'name-rating'}
-  %img{ :src => image_path('thumbs/thumb-up.jpg'), :alt => "good rating" }
-  %span= user_resource.percentage_of_positive_ratings.to_s+"%"
-  %img{ :src => image_path('thumbs/thumb-neutral.jpg'), :alt => "neutral rating" }
-  %span= (100-user_resource.percentage_of_positive_ratings-user_resource.percentage_of_negative_ratings).to_s+"%"
-  %img{ :src => image_path('thumbs/thumb-down.jpg'), :alt => "negative rating" }
-  %span= user_resource.percentage_of_negative_ratings.to_s+"%"
+
+.User-rating
+  %span.text-left Bewertungen gesamt:
+  %span.text-right= user.ratings.count
+  %br/
+  - if user.ratings.count > 0
+    %img{ :src => image_path('thumbs/thumb-up.jpg'), :alt => "good rating" }
+    %span= number_with_precision( user.percentage_of_positive_ratings, :precision => 1 ).to_s+"%"
+    %img{ :src => image_path('thumbs/thumb-neutral.jpg'), :alt => "neutral rating" }
+    %span= number_with_precision( user.percentage_of_neutral_ratings, :precision => 1 ).to_s+"%"
+    %img{ :src => image_path('thumbs/thumb-down.jpg'), :alt => "negative rating" }
+    %span= number_with_precision( user.percentage_of_negative_ratings, :precision => 1 ).to_s+"%"
+
 

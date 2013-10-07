@@ -54,7 +54,7 @@ class LegalEntity < User
 
 
   attr_accessible :terms, :cancellation, :about
-  attr_accessible :percentage_of_positive_ratings, :percentage_of_negative_ratings
+  attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 
    # validates legal entity
   validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
