@@ -149,6 +149,7 @@ describe 'User management' do
           page.should have_content I18n.t 'formtastic.labels.user.surname'
           page.should have_content I18n.t 'formtastic.labels.user.country'
           page.should have_content I18n.t 'formtastic.labels.user.street'
+          page.should have_content I18n.t 'formtastic.labels.user.address_suffix'
           page.should have_content I18n.t 'formtastic.labels.user.city'
           page.should have_content I18n.t 'formtastic.labels.user.zip'
           page.should have_content I18n.t 'formtastic.labels.user.phone'
@@ -170,6 +171,7 @@ describe 'User management' do
             fill_in 'user_surname', with: 'Surname'
             select 'Deutschland', from: 'user_country'
             fill_in 'user_street', with: 'User Street 1'
+            fill_in 'user_address_suffix', with: 'c/o Bruce Wayne'
             fill_in 'user_city', with: 'Gotham City'
             fill_in 'user_zip', with: '12345'
             fill_in 'user_phone', with: '0123 4567890-1'
@@ -184,6 +186,7 @@ describe 'User management' do
             user.surname.should eq 'Surname'
             user.country.should eq 'Deutschland'
             user.street.should eq 'User Street 1'
+            user.address_suffix.should eq 'c/o Bruce Wayne'
             user.city.should eq 'Gotham City'
             user.zip.should eq '12345'
             user.phone.should eq '0123 4567890-1'
@@ -306,15 +309,15 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.nickname
+      page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should not show the users city" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should_not have_css '.Profile-name', text: user.city
+      page.should_not have_css '.DoubleTeaser-link', text: user.city
     end
   end
 
@@ -323,15 +326,15 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.nickname
+      page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should show the users city" do
-      Settings.featured_article_id = article.id
+      Settings.pioneer_article_id = article.id
       visit root_path
-      page.should have_css '.Profile-name', text: user.city
+      page.should have_css '.DoubleTeaser-link', text: user.city
     end
   end
 end

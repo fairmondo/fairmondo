@@ -48,6 +48,10 @@ class MultipleFixedPriceTransaction < Transaction
     end
   end
 
+  def deletable?
+    super && children.empty?
+  end
+
   # The field 'quantity_available' isn't accessible directly and should only be decreased after sales with this function
   # @api public
   # @param number [Integer]
@@ -80,6 +84,7 @@ class MultipleFixedPriceTransaction < Transaction
       message: self.message,
       forename: self.forename,
       surname: self.surname,
+      address_suffix: self.address_suffix,
       street: self.street,
       city: self.city,
       zip: self.zip,
@@ -104,6 +109,7 @@ class MultipleFixedPriceTransaction < Transaction
     self.message = nil
     self.forename = nil
     self.surname = nil
+    self.address_suffix = nil
     self.street = nil
     self.city = nil
     self.zip = nil

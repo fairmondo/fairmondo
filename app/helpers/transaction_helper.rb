@@ -151,7 +151,7 @@ module TransactionHelper
     end
   end
 
-  def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, city, zip, country
+  def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
     link_to t('common.actions.back'),
       edit_transaction_path(@transaction,
         transaction: {
@@ -161,6 +161,7 @@ module TransactionHelper
           forename: forename,
           surname: surname,
           street: street,
+          address_suffix: address_suffix,
           city: city,
           zip: zip,
           country: country

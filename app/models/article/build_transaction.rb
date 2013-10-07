@@ -25,7 +25,7 @@ module Article::BuildTransaction
   included do
     attr_accessor :skip_build_transaction # Can be set to true if a specific transaction is going to be provided. Used mainly for tests.
 
-    before_create :build_specific_transaction, :unless => :template?
+    before_create :build_specific_transaction, unless: :template?
     before_update :update_specific_transaction, unless: :template? # Do templates even receive update calls?
   end
 
