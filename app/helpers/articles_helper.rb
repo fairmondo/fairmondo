@@ -21,6 +21,18 @@
 #
 module ArticlesHelper
 
+  def fair_label_css
+     "Btn Btn-tag Btn-tag--blue"
+  end
+
+  def ecologic_label_css
+    "Btn Btn-tag Btn-tag--green"
+  end
+
+  def small_and_precious_label_css
+     "Btn Btn-tag Btn-tag--orange"
+  end
+
   def get_social_producer_questionaire_for question, article
     html = ""
     if article.social_producer_questionnaire.send(question)
@@ -74,9 +86,9 @@ module ArticlesHelper
 
   def features_label article
     html = ""
-    html << get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tag Btn-tag--blue", article) if article.fair
-    html << get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tag Btn-tag--green", article) if article.ecologic
-    html << get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tag Btn-tag--orange", article) if article.small_and_precious
+    html << get_features_label(t("formtastic.labels.article.fair"), fair_label_css, article) if article.fair
+    html << get_features_label(t("formtastic.labels.article.ecologic"), ecologic_label_css, article) if article.ecologic
+    html << get_features_label(t("formtastic.labels.article.small_and_precious"), small_and_precious_label_css, article) if article.small_and_precious
     html.html_safe
   end
 
