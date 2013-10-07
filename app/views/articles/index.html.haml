@@ -30,7 +30,7 @@
     %h2 BESONDERS & ÖKO
     = render "/articles/show/highlight" , :articles => Exhibit.independent_queue(:ecologic_highlights, 4)
   .Highlight
-    %h2 BESONDERS & EDEL
+    %h2 BESONDERS & KLEIN&EDEL
     = render "/articles/show/highlight" , :articles =>  Exhibit.independent_queue(:small_and_precious_highlights, 4)
 - if @articles.empty?
   %h3= t("common.text.no_search_result")
