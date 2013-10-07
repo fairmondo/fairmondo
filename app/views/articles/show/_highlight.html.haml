@@ -1,0 +1,6 @@
+- articles.each_with_index do |article,index|
+  .Highlight-article{:class => "Highlight-article-#{index}"}
+    = link_to image_tag(article.title_image_url(:thumb), alt: article.title), article_path(article), class: 'Highlight-image'
+    = link_to article.title, article_path(article), class: 'Highlight-link'
+    = " von "
+    = link_to article.profile_name, user_path(article.seller), class: 'Highlight-link'
