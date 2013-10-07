@@ -26,7 +26,7 @@ module Article::Attributes
 
     #common fields
     def self.common_attrs
-      [:title, :content, :condition, :condition_extra  , :quantity , :transaction_attributes]
+      [:title, :content, :condition, :condition_extra, :quantity, :transaction_attributes]
     end
     #! attr_accessible *common_attributes
     #! attr_accessible *common_attributes, :as => :admin
@@ -53,7 +53,7 @@ module Article::Attributes
     #money_rails and price
 
     def self.money_attrs
-      [:price_cents , :currency, :price, :vat]
+      [:price_cents, :price, :vat]
     end
     #! attr_accessible *money_attributes
     #! attr_accessible *money_attributes, :as => :admin
@@ -82,6 +82,8 @@ module Article::Attributes
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
+
+    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents > 0 }
 
     # legal entity attributes
 

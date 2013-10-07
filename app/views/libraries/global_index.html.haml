@@ -35,5 +35,6 @@
                     - library.library_elements.each do |library_element|
                       %Article{:class => 'Article Article--teaser'}
                         = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+    = paginate @libraries
   - else
     = t('libraries.no_library')

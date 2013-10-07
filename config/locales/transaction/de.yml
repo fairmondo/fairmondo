@@ -31,7 +31,7 @@ de:
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
       shipping_and_handling: "Versandkosten"
-      payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
+      payment_cash_on_delivery_price: "Zusatzkosten Nachnahme"
       basic_price: "Grundpreis: "
     show:
       payment_title_bank_transfer: "Bezahlabwicklung per Vorkasse"
@@ -62,6 +62,7 @@ de:
     notifications:
       greeting: "Hallo "
       begin: "--------- Beginn der Nachricht ---------"
+      transaction_id: "Transaktionsnummer: "
       seller:
         intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Käufer*in findest Du weiter unten."
         seller_subject: "Artikel auf Fairnopoly verkauft"

@@ -33,9 +33,7 @@ Fairnopoly::Application.routes.draw do
 
   get 'exports/show'
 
-  resources :contents do
-    get :not_found, :on => :member #?
-  end
+  resources :contents
 
   devise_for :user, controllers: { registrations: 'registrations', sessions: 'sessions' }
 

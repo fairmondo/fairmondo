@@ -36,6 +36,7 @@ module TransactionMailerHelper
       string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
     end
+    string += "#{seller.address_suffix}\n" if seller.address_suffix
     string += "#{seller.street}\n"
     string += "#{seller.zip} #{seller.city}\n"
     string += "#{seller.country}\n\n"
@@ -44,19 +45,23 @@ module TransactionMailerHelper
   end
 
   def show_buyer_address transaction
-    "#{transaction.forename} #{transaction.surname}\n" +
-    "#{transaction.street}\n" +
-    "#{transaction.zip} #{transaction.city}\n" +
-    "#{transaction.country}"
+    string = ""
+    string += "#{transaction.forename} #{transaction.surname}\n"
+    string += "#{transaction.address_suffix}\n" if transaction.address_suffix
+    string += "#{transaction.street}\n"
+    string += "#{transaction.zip} #{transaction.city}\n"
+    string += "#{transaction.country}"
+    string
   end
 
   def order_details transaction
     string = ""
     string += "#{transaction.article_title}\n"
-    if transaction.article.custom_seller_identifier
-      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article.custom_seller_identifier}\n"
+    if transaction.article_custom_seller_identifier
+      string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article_custom_seller_identifier}\n"
     end
     string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
+    string += "#{t 'transaction.notifications.transaction_id' }" + "#{ transaction.id }\n"
     case transaction.selected_payment
       when 'bank_transfer'
         string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
@@ -82,7 +87,7 @@ module TransactionMailerHelper
   end
 
   def article_payment_info transaction, role
-    vat = transaction.article.vat
+    vat = transaction.article_vat
     vat_price = transaction.article.vat_price * transaction.quantity_bought
     price_without_vat = transaction.article.price_without_vat * transaction.quantity_bought
     total_price = transaction.article_transport_price( transaction.selected_transport, transaction.quantity_bought ) + ( transaction.article_price * transaction.quantity_bought )
