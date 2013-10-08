@@ -6,7 +6,7 @@ class MassUploadsController < ApplicationController
   def new
     authorize Article.new, :create? # Needed because of pundit
 
-    @mass_upload = MassUpload.new(current_user)
+    @mass_upload = MassUpload.new
   end
 
   def show
@@ -22,7 +22,6 @@ class MassUploadsController < ApplicationController
     # bugbug Not needed if we test the existence of the file in the initializer with the create_method variable
     # @mass_upload = MassUpload.file_selected?(params[:mass_upload])
     # return render :new if @mass_upload.errors.full_messages.any?
-
     @mass_upload = MassUpload.new(params[:mass_upload])
     unless @mass_upload.parse_csv_for(current_user)
       return render :new
