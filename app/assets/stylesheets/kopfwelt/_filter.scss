@@ -15,8 +15,7 @@
     }
 	}
 
-	input { float: left; clear: left; }
-	label { width: auto; color: $black; }
+
 }
 .Filter.is-active {
 	> .Filter-inner {
@@ -60,16 +59,28 @@
 .Filter-col {
   margin-bottom: 2em;
 
-  label {
-      @include rem(margin-top, 13px);
-  }
+  // Clear Formtastic
+  input {
+    float: left;
+    clear: left;
+    width: auto;
+    margin-bottom: 0;
+    }
+  label , label.label {
+    width: auto;
+    color: $black;
+    @include rem(margin-top, 13px);
+    }
 
+  // 2 Columns on small to large layout
 	@include at-breakpoint($layout-small-to-large) {
 		@include span-columns(3,6);
 		&:nth-child(2n) {
 			@include span-columns(3 omega,6);
 		}
 	}
+
+	// 6 columns on large layout
 	@include at-breakpoint($layout-large) {
 		@include span-columns(1,6);
 

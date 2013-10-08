@@ -24,7 +24,7 @@ module Article::Search
 
   included do
 
-    attr_accessor :search_in_content
+    attr_accessor :search_in_content, :search_for_zip
 
     def search_in_content= value
       if value == "1"
@@ -37,7 +37,7 @@ module Article::Search
     alias :search_in_content? :search_in_content
 
     def self.search_attrs
-      [:search_in_content]
+      [:search_in_content,:search_for_zip]
     end
 
     searchable :unless => :template?, :if => :active? do
@@ -103,6 +103,7 @@ module Article::Search
       with :small_and_precious, true if self.small_and_precious
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
+      with :zip, self.search_for_zip if search_for_zip.present?
       order_by(:created_at, :desc)
     end
   end
