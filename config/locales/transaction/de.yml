@@ -48,6 +48,7 @@ de:
       thank_you_invoice: "Zusätzlich wirst Du eine Rechnung mit Zahlungsinformationen von der*dem Verkäufer*in erhalten."
       further_questions: "Hast Du weitere Fragen? Bitte nutze die Kontaktdaten der*des Verkäufer*in:"
       further_questions_cash: "Um den Kauf abzuschließen und einen Abholtermin zu vereinbaren, nutze bitte die Kontaktdaten der*des Verkäufer*in:"
+      transaction_number: "Transaktionsnummer: "
       seller:
         heading: "Auftragsdaten"
         congratulation: "Herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly.de verkauft. Wir haben Dir bereits eine Email mit allen Daten zur Bestellung zugeschickt."
