@@ -32,16 +32,24 @@ module MassUpload::Questionnaire
 
     if row_hash["fair_kind"] == "fair_trust"
       row_hash["fair_trust_questionnaire_attributes"] = row_hash.extract!(*ftq_attributes.keys)
-      row_hash["fair_trust_questionnaire_attributes"].each do |k, v|
-        row_hash["fair_trust_questionnaire_attributes"][k] = v.split(',') if k.include?("checkboxes")
-      end
+      transform_questionnaire_attributes(row_hash["fair_trust_questionnaire_attributes"])
     elsif row_hash["fair_kind"] == "social_producer"
       row_hash["social_producer_questionnaire_attributes"] = row_hash.extract!(*spq_attributes.keys)
-      row_hash["social_producer_questionnaire_attributes"].each do |k, v|
-        row_hash["social_producer_questionnaire_attributes"][k] = v.split(',') if k.include?("checkboxes")
-      end
+      transform_questionnaire_attributes(row_hash["social_producer_questionnaire_attributes"])
     end
     row_hash.except! *(ftq_attributes.keys+spq_attributes.keys)
+  end
+
+  def self.transform_questionnaire_attributes(attributes)
+    attributes.each do |k, v|
+      if k.include?("checkboxes")
+        if v
+          attributes[k] = v.split(',')
+        else
+          attributes[k] = []
+        end
+      end
+    end
   end
 
   def self.add_commendation(article)

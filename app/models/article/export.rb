@@ -94,7 +94,7 @@ module Article::Export
         articles.reverse_order
       else
         # bugbug Really needed?
-        user.articles
+        articles = user.articles
       end
     end
 

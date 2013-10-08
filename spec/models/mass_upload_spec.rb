@@ -53,13 +53,13 @@ describe MassUpload do
       end
     end
 
-    describe "with input file containing a wrong header" do
+    describe "with input file containing a wrong article" do
       let(:incorrect_format_file_mass_upload) { create_mass_upload('/mass_upload_wrong_article.csv', 'text/csv') }
       let(:incorrect_format_file_attributes) { create_attributes('/mass_upload_wrong_article.csv', 'text/csv') }
 
       describe "#parse_csv_for(user)" do
-        it "should return true" do
-          incorrect_format_file_mass_upload.parse_csv_for(legal_entity_user).should be_true
+        it "should return false" do
+          incorrect_format_file_mass_upload.parse_csv_for(legal_entity_user).should be_false
         end
 
         # describe "#save" do
