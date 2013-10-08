@@ -24,7 +24,7 @@ module Article::Search
 
   included do
 
-    attr_accessor :search_in_content, :search_for_zip
+    attr_accessor :search_in_content, :search_for_zip, :search_order_by
 
     def search_in_content= value
       if value == "1"
@@ -34,10 +34,12 @@ module Article::Search
       end
     end
 
+    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
+
     alias :search_in_content? :search_in_content
 
     def self.search_attrs
-      [:search_in_content,:search_for_zip]
+      [:search_in_content,:search_for_zip,:search_order_by]
     end
 
     searchable :unless => :template?, :if => :active? do
@@ -104,7 +106,16 @@ module Article::Search
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
       with :zip, self.search_for_zip if search_for_zip.present?
-      order_by(:created_at, :desc)
+      case self.search_order_by
+      when "newest"
+        order_by(:created_at, :desc)
+      when "cheapest"
+        order_by(:price_cents, :asc)
+      when "most_expensive"
+        order_by(:price_cents, :desc)
+      else
+        order_by(:created_at, :desc)
+      end
     end
   end
 

@@ -24,20 +24,21 @@
     .l-Inner
       .l-Left
         %a.Btn.Btn--gray{:href => articles_path}
-          Marktplatz durchstöbern
-      = f.inputs :class => "Search" do
-        .Search-input
-          = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
+          %i.icon-box--open
+          Stöbern
+      .l-Left
+        %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
+          %i.icon-box
+          Sammlungen
+      .l-Middle
+        = f.inputs :class => "Search" do
+          .Search-input
+            = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
 
-        .Search-button
-          = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
-
+          .Search-button
+            = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
       .l-Right
-        %a.Btn.Btn-icon.Btn--gray{:href => libraries_path}
-          %i.Icon.icon-box
-          Sammlungen durchstöbern
-        %i.Icon.icon-helper{ title: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
-
+        %button.Btn.Filter-btn Suche starten
     .Filter{:class => filter_class}
       .Filter-inner
         .Filter-col
@@ -69,13 +70,17 @@
             %legend.Filter-title Kategorien
             = f.input :categories_and_ancestors, :as => :select, :collection => Category.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f)}}
 
-
         .Filter-col
           = f.inputs do
-            %legend.Filter-title Einstellungen
-            = f.input :search_in_content, :as => :boolean, :tooltip => true
-            = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }, :tooltip => true
+            %legend.Filter-title Sortierung
+            = f.input :search_order_by, :label => false, :as => :select, :include_blank => false, :selected => :newest
         .Filter-col
-          %button.Btn.Filter-btn Suche starten
+          = f.inputs do
+            %legend.Filter-title
+              Einstellungen
+              %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.<br/>Die PLZ-Suche ermöglicht Dir, über die Postleizahl nach Artikeln in Deiner Nähe suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
+            = f.input :search_in_content, :as => :boolean
+            = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
+
       %button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 

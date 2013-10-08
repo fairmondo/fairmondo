@@ -67,7 +67,10 @@ de:
         portion: 1 Portion
       friendly_percent_organisation:
         transparency_international: Transparency International
-
+      search_order_by:
+        newest: "Neueste Artikel zuerst"
+        cheapest: "Verkaufspreis aufsteigend"
+        most_expensive: "Verkaufspreis absteigend"
     fair_trust_questionnaire:
       support_checkboxes:
         prefinance: 'Vorfinanzierung der Produktion'
