@@ -2,6 +2,7 @@
 // Filter
 //
 
+
 .Filter {
 	@include pie-clearfix;
 	clear: both;
@@ -15,7 +16,6 @@
     }
 	}
 
-
 }
 .Filter.is-active {
 	> .Filter-inner {
@@ -28,6 +28,10 @@
 	.Btn-accordion .icon-arrow-down {
 		@include rotate(180deg);
 	}
+}
+
+.Filter-inner {
+   padding-top: 1em;
 }
 
 
@@ -56,9 +60,10 @@
 		@include transition(all 200ms);
 	}
 }
+
 .Filter-col {
   margin-bottom: 2em;
-
+  //border-right: 1px solid black;
   // Clear Formtastic
   input {
     float: left;
@@ -74,30 +79,48 @@
 
   // 2 Columns on small to large layout
 	@include at-breakpoint($layout-small-to-large) {
-		@include span-columns(3,6);
+		@include span-columns(1,2);
 		&:nth-child(2n) {
-			@include span-columns(3 omega,6);
+			@include span-columns(1 omega,2);
 		}
 	}
 
 	// 6 columns on large layout
 	@include at-breakpoint($layout-large) {
-		@include span-columns(1,6);
+		@include span-columns(2,12);
+		padding-right: em(40);
 
-		&:nth-child(4n) {
-		  @include span-columns(2,6);
-		}
-		&:nth-child(5n) {
+    &:nth-child(3)
+    {
+      @include span-columns(3,12);
+
+    }
+
+    &:nth-child(4) {
+       @include span-columns(3,12);
+    }
+
+    &:nth-child(5) {
       @include omega;
+      padding-right:0em;
     }
 
 	}
 }
 
-.Filter-btn {
-  @include at-breakpoint($layout-large) {
-    position: absolute;
-      bottom: 0;
-  }
-}
+// Special for ZIPs
 
+#article_search_for_zip_input {
+  label.label {
+    float:left !important;
+  }
+  input {
+    display:inline;
+    float:none;
+    width: 5em;
+    margin-left:1em;
+    height: 2em;
+    @include rem(margin-top, 7px);
+  }
+
+}
