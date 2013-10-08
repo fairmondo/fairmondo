@@ -160,8 +160,9 @@ module TransactionMailerHelper
   private
     # gets called in order_details; in extra function to improve readability
     def transport_details transaction
+      output = ''
       if ['pickup', 'type1', 'type2'].include? transaction.selected_transport
-        output = t('transaction.edit.transport_type')
+        output += t('transaction.edit.transport_type')
 
         output += case transaction.selected_transport
           when 'pickup'
@@ -178,6 +179,7 @@ module TransactionMailerHelper
 
         output += "\n"
       end
+      output
     end
 
   # wird erstmal nicht mehr verwendet
