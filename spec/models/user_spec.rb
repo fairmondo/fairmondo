@@ -725,7 +725,9 @@ describe User do
   describe "seller rating" do
     describe PrivateUser do
       let(:private_seller) { FactoryGirl::create(:private_user) }
-      number_of_ratings = 100
+      before :each do
+        private_seller.ratings.stub(:count){ 100 }
+      end
 
       context "percentage of ratings" do
         before :each do
@@ -834,8 +836,9 @@ describe User do
 
     describe LegalEntity do
       let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
-      # commercial_seller.stub(:number_of_ratings) { 1000 }
-      number_of_ratings = 1000
+      before :each do
+        commercial_seller.ratings.stub(:count){ 1000 }
+      end
 
       context "with negative ratings over 25%" do
         before :each do
