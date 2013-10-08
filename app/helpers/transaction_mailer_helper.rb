@@ -68,14 +68,7 @@ module TransactionMailerHelper
       string += t("transaction.notifications.buyer.#{transaction.selected_payment}") + "\n"
     end
 
-    if ['pickup', 'type1', 'type2'].include? transaction.selected_transport
-      string += t('transaction.edit.transport_type')
-      string += transaction.article_transport_type1_provider if transaction.selected_transport == "type1"
-      string += transaction.article_transport_type2_provider if transaction.selected_transport == "type2"
-      unless transaction.selected_transport == "pickup"
-        string += t('transaction.notifications.general.shipments', count: transaction.article_number_of_shipments(transaction.selected_transport, transaction.quantity_bought)) + "\n\n"
-      end
-    end
+    string += transport_details transaction
 
     string += t("transaction.notifications.#{role}.transaction_id_info", id: transaction.id)
     string
@@ -163,6 +156,31 @@ module TransactionMailerHelper
   def vat price
     price - price / 1.19
   end
+
+  private
+    # gets called in order_details; in extra function to improve readability
+    def transport_details transaction
+      output = ''
+      if ['pickup', 'type1', 'type2'].include? transaction.selected_transport
+        output += t('transaction.edit.transport_type')
+
+        output += case transaction.selected_transport
+          when 'pickup'
+            t('enumerize.transaction.selected_transport.pickup') + "\n"
+          when 'type1'
+            transaction.article_transport_type1_provider
+          when 'type2'
+            transaction.article_transport_type2_provider
+        end
+
+        unless transaction.selected_transport == 'pickup'
+          output += t('transaction.notifications.general.shipments', count: transaction.article_number_of_shipments(transaction.selected_transport, transaction.quantity_bought)) + "\n"
+        end
+
+        output += "\n"
+      end
+      output
+    end
 
   # wird erstmal nicht mehr verwendet
   #
