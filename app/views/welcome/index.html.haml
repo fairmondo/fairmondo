@@ -31,7 +31,7 @@
         %br
         Fairnopoly
       %p
-        Der Online-Marktplatz für alle
+        dem Online-Marktplatz für alle.
     %p
       Ab sofort kannst Du hier alles kaufen und verkaufen, was Du möchtest.
       %br
@@ -65,18 +65,20 @@
 
 
   .Teaser
-    %h2.Teaser-header GEZEICHNETE ANTEILE
+    %h2.Teaser-header GEZEICHNETE ANTEILE IM OKTOBER
 
     %p
       .goal-container
-        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 200000.0
-        - reached = Sanitize.clean( tinycms_content "gesamtanteile" ).strip.to_f || 50.0
-        - goal = Sanitize.clean( tinycms_content "gesamtziel" ).strip.to_f || 500000.0
+        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
+        - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
+        - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
         .goal{ :style => "width: 100%; height: 50px;"}
           - unless goal == 0
             .reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; height: 48px;" }
+        %strong
+          = "#{money_without_cents(reached)}€ von #{money_without_cents(goal)}€ diesen Monat erreicht!"
         %p
-          = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents(reached)}€ gezeichnet."
+          = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents( all_this_year + reached)}€ gezeichnet."
         %p
           %a{ :href => "/anteile-zeichnen" }
             Als Mitglied gehört Fairnopoly auch Dir!
@@ -89,4 +91,11 @@
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
 
-
+  .Teaser.DoubleTeaser
+    .Teaser-totalheader
+      %h2.Teaser-header AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
+        Held*in werden
