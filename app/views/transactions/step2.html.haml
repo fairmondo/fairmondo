@@ -137,6 +137,8 @@
               = display_selected_transport selected_transport
 
               = display_transport_provider_for selected_transport
+
+            = display_optional_warning selected_transport, selected_payment
             %br
             %h3
               = I18n.t 'transaction.edit.price_heading'
@@ -158,7 +160,7 @@
 
               = display_basic_price
 
-            %small{ :class => 'donation'}
+            %small{ :class => 'SmallText' }
               = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
 
 
