@@ -1,7 +1,6 @@
 $(function() {
 
 
-
 	$('.Notice').on('click','.Notice-close', function(){
 		$(this).parent().parent().addClass('is-hidden');
 	});

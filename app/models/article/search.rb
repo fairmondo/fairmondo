@@ -119,8 +119,14 @@ module Article::Search
     end
   end
 
+  # Index the zip for sellers
   def zip
-    self.seller.zip
+    #only for products which have pickup transport
+    if self.transport_pickup
+      self.seller.zip
+    else
+      nil
+    end
   end
 
 
