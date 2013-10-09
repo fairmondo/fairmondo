@@ -61,14 +61,22 @@ module Article::Export
         # bugbug Refactor asap
         csv << header_row
         articles.each do |article|
+          debugger
+          row = Hash.new
+          row.merge! (article.attributes)
+          row.merge! (article.fair_trust_questionnaire.attributes)
+          row.merge! (article.social_producer_questionnaire.attributes)
+          row["categories"] = article.categories.map { |a| a.id }.join(",")
+
+
           csv << article.attributes.values_at("title") +
-          [article.categories.map { |a| a.id }.join(",")] +
-          article.attributes.values_at(*header_row[2..9]) +
+          # [article.categories.map { |a| a.id }.join(",")] +
+          # article.attributes.values_at(*header_row[2..9]) +
           article.provide_external_urls +
-          article.attributes.values_at(*header_row[12..28]) +
-          create_fair_attributes(article, header_row) +
-          create_social_attributes(article, header_row) +
-          article.attributes.values_at(*header_row[56..-1])
+          # article.attributes.values_at(*header_row[12..28]) +
+          # create_fair_attributes(article, header_row) +
+          # create_social_attributes(article, header_row) +
+          # article.attributes.values_at(*header_row[56..-1])
         end
         # bugbug What about quotes used to escape eg semicolon ; ?
         csv.string.gsub! "\"", ""
@@ -98,45 +106,45 @@ module Article::Export
       end
     end
 
-    def self.create_fair_attributes(article, header_row)
-      fair_attributes_raw_array = []
-      fair_attributes = []
-      if article.fair_trust_questionnaire
-        fair_attributes_raw_array = article.fair_trust_questionnaire.attributes.values_at(*header_row[29..48])
-        fair_attributes_raw_array.each do |element|
-          if element.class == Array
-            fair_attributes << element.join(',')
-          else
-            fair_attributes << element
-          end
-        end
-      else
-        20.times do
-          fair_attributes << nil
-        end
-      end
-      fair_attributes
-    end
+    # def self.create_fair_attributes(article, header_row)
+    #   fair_attributes_raw_array = []
+    #   fair_attributes = []
+    #   if article.fair_trust_questionnaire
+    #     fair_attributes_raw_array = article.fair_trust_questionnaire.attributes.values_at(*header_row[29..48])
+    #     fair_attributes_raw_array.each do |element|
+    #       if element.class == Array
+    #         fair_attributes << element.join(',')
+    #       else
+    #         fair_attributes << element
+    #       end
+    #     end
+    #   else
+    #     20.times do
+    #       fair_attributes << nil
+    #     end
+    #   end
+    #   fair_attributes
+    # end
 
-    def self.create_social_attributes(article, header_row)
-      social_attributes_raw_array = []
-      social_attributes = []
-      if article.social_producer_questionnaire
-        social_attributes_raw_array = article.social_producer_questionnaire.attributes.values_at(*header_row[49..55])
-        social_attributes_raw_array.each do |element|
-          if element.class == Array
-            social_attributes << element.join(',')
-          else
-            social_attributes << element
-          end
-        end
-      else
-        7.times do
-          social_attributes << nil
-        end
-      end
-      social_attributes
-    end
+    # def self.create_social_attributes(article, header_row)
+    #   social_attributes_raw_array = []
+    #   social_attributes = []
+    #   if article.social_producer_questionnaire
+    #     social_attributes_raw_array = article.social_producer_questionnaire.attributes.values_at(*header_row[49..55])
+    #     social_attributes_raw_array.each do |element|
+    #       if element.class == Array
+    #         social_attributes << element.join(',')
+    #       else
+    #         social_attributes << element
+    #       end
+    #     end
+    #   else
+    #     7.times do
+    #       social_attributes << nil
+    #     end
+    #   end
+    #   social_attributes
+    # end
 
     def provide_external_urls
       external_urls = []
