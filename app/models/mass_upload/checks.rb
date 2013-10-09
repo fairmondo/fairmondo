@@ -22,6 +22,8 @@
 module MassUpload::Checks
   extend ActiveSupport::Concern
 
+  MAX_ARTICLES = 100
+
   def file_selected?
     if file
       return true
@@ -40,9 +42,12 @@ module MassUpload::Checks
     end
   end
 
-  def correct_encoding_and_escaping?
+  def open_csv
+    @csv = []
     begin
-      CSV.read(file.path, :encoding => 'utf-8', :col_sep => ";", :quote_char => '"')
+      CSV.foreach(file.path, :encoding => 'utf-8', :col_sep => ";", :quote_char => '"', headers: true) do |row|
+        @csv << row
+      end
     rescue ArgumentError
       errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
       return false
@@ -50,10 +55,11 @@ module MassUpload::Checks
       errors.add(:file, I18n.t('mass_upload.errors.illegal_quoting'))
       return false
     end
+    return true
   end
 
   def correct_article_count?
-    if CSV.read(file.path, :col_sep => ";", :quote_char => '"').size < 102
+    if @csv.size <= MAX_ARTICLES
       return true
     else
       errors.add(:file, I18n.t('mass_upload.errors.wrong_file_size'))
@@ -62,15 +68,16 @@ module MassUpload::Checks
   end
 
   def correct_header?
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;external_title_image_url;image_2_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
-
-    CSV.foreach(file.path, headers: false) do |row|
-      if row == header_row
-        return true
-      else
-        errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
-        return false
-      end
+    # bugbug @csv.first.keys
+    # bugbug header_row als hash (oder kommt es noch irgendwo auf die Reihenfolge an?)
+    # header_row aus export als gloabl variable
+    header_row = "title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;external_title_image_url;image_2_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier\n"
+    first_line = File.new(file.path, "r").gets
+    if first_line == header_row
+      return true
+    else
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
+      return false
     end
   end
 end

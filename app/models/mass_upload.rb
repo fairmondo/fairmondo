@@ -48,7 +48,7 @@ class MassUpload
       return false
     end
 
-    unless correct_encoding_and_escaping?
+    unless open_csv
       return false
     end
 
@@ -74,14 +74,14 @@ class MassUpload
 
   def build_articles_for(user)
     @articles = []
-    CSV.foreach(self.file.path, headers: true, col_sep: ";") do |row|
+    @csv.each do |row|
       row_hash = row.to_hash
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
-      row_hash = Questionnaire.include_fair_questionnaires!(row_hash)
+      row_hash = Questionnaire.include_fair_questionnaires(row_hash)
       article = Article.new(row_hash)
       article.user_id = user.id
-      Questionnaire.add_commendation(article)
+      Questionnaire.add_commendation!(article)
       revise_prices(article)
       article.categories = categories if categories
       @articles << article
