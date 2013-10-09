@@ -28,7 +28,7 @@ describe "Export" do
       login_as legal_entity
       visit new_mass_upload_path
       attach_file('mass_upload_file',
-                  'spec/fixtures/mass_upload_correct.csv')
+                  'spec/fixtures/mass_upload_correct_export_test.csv')
       click_button I18n.t('mass_upload.labels.upload_article')
     end
 
@@ -46,9 +46,8 @@ describe "Export" do
     describe "when exporting inactive articles" do
 
       it "should be equal to the uploaded file" do
-        pending "Needs work"
         @csv = Article::Export.export_articles(legal_entity)
-        @csv.should eq File.read('spec/fixtures/mass_upload_correct.csv')
+        @csv.should eq File.read('spec/fixtures/mass_upload_correct_export_test.csv')
       end
     end
 

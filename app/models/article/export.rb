@@ -56,8 +56,9 @@ module Article::Export
         articles = user.bought_articles
         articles.reverse_order
       else
-        # bugbug Really needed?
+        # bugbug Really needed or just for tests?
         articles = user.articles
+        articles.reverse
       end
     end
 
