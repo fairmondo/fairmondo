@@ -1,7 +1,9 @@
 class Rating < ActiveRecord::Base
   extend Enumerize
 
-  attr_accessible :rating, :rated_user_id, :text, :transaction_id
+  def self.rating_attrs
+    [:rating, :rated_user_id, :text, :transaction_id]
+  end
 
   belongs_to :transaction
   belongs_to :rated_user, class_name: 'User'

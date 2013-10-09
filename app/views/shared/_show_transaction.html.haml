@@ -30,6 +30,11 @@
   - if user_signed_in? && transaction.buyer == current_user
     %p
     = link_to "Deine Bestellung anschauen", transaction_path(transaction)
+    - if transaction.rating
+      %p bewertet
+    - else
+      %p
+      = link_to "Bestellung bewerten", transaction_new_user_rating_path(transaction.seller, transaction)
   - if user_signed_in? && transaction.seller == current_user
     %p
     = link_to "Deinen Verkauf anschauen", transaction_path(transaction)
