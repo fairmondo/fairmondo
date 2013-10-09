@@ -57,29 +57,30 @@ module Article::Export
                     "small_and_precious_reason", "small_and_precious_handmade",
                     "gtin", "custom_seller_identifier"]
 
-      CSV.generate(:col_sep => ";") do |csv|
+      CSV.generate(:col_sep => ";") do |line|
         # bugbug Refactor asap
-        csv << header_row
+        line << header_row
         articles.each do |article|
-          debugger
           row = Hash.new
           row.merge! (article.attributes)
-          row.merge! (article.fair_trust_questionnaire.attributes)
-          row.merge! (article.social_producer_questionnaire.attributes)
+          row.merge! (article.provide_fair_attributes)
+          # row.merge! (article.fair_trust_questionnaire.attributes) if article.fair_trust_questionnaire
+          # row.merge! (article.social_producer_questionnaire.attributes) if article.social_producer_questionnaire
           row["categories"] = article.categories.map { |a| a.id }.join(",")
-
-
-          csv << article.attributes.values_at("title") +
+          row["external_title_image_url"] = article.images.first.external_url if article.images.first
+          row["image_2_url"] = article.images[1].external_url if article.images[1]
+          line << header_row.map { |element| row[element] }
+          # csv << article.attributes.values_at("title") +
           # [article.categories.map { |a| a.id }.join(",")] +
           # article.attributes.values_at(*header_row[2..9]) +
-          article.provide_external_urls +
+          # article.provide_external_urls +
           # article.attributes.values_at(*header_row[12..28]) +
           # create_fair_attributes(article, header_row) +
           # create_social_attributes(article, header_row) +
           # article.attributes.values_at(*header_row[56..-1])
         end
         # bugbug What about quotes used to escape eg semicolon ; ?
-        csv.string.gsub! "\"", ""
+        line.string.gsub! "\"", ""
       end
     end
 
@@ -146,19 +147,38 @@ module Article::Export
     #   social_attributes
     # end
 
-    def provide_external_urls
-      external_urls = []
-      unless self.images.empty?
-        self.images.each do |image|
-          external_urls << image.external_url
-          break if external_urls.length == 2
+    def provide_fair_attributes
+      attributes = Hash.new
+      if self.fair_trust_questionnaire
+        attributes.merge! (self.fair_trust_questionnaire.attributes)
+      end
+
+      if self.social_producer_questionnaire
+        attributes.merge! (self.social_producer_questionnaire.attributes)
+      end
+      attributes.each do |k, v|
+        if k.include?("checkboxes")
+          if v
+            attributes[k] = v.join(',')
+          else
+            attributes[k] = nil
+          end
         end
       end
-      until external_urls.length == 2
-        external_urls << nil
-      end
-      external_urls
+      attributes
     end
 
-
+    # def provide_external_urls
+    #   external_urls = []
+    #   unless self.images.empty?
+    #     self.images.each do |image|
+    #       external_urls << image.external_url
+    #       break if external_urls.length == 2
+    #     end
+    #   end
+    #   until external_urls.length == 2
+    #     external_urls << nil
+    #   end
+    #   external_urls
+    # end
 end
