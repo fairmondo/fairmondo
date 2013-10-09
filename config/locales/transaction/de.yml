@@ -33,7 +33,8 @@ de:
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
-      number_of_shipments: "Anzahl von Sendungen: "
+      number_of_shipments: "Anzahl von Sendungen*: "
+      number_of_shipments_info: "(*) Für den Versand von mehreren Artikeln in einer Sendung nimm bitte vorab Kontakt mit dem Verkäufer auf, um zu klären, ob das möglich ist."
       shipping_and_handling: "Versandkosten: "
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
@@ -47,6 +48,7 @@ de:
       thank_you_invoice: "Zusätzlich wirst Du eine Rechnung mit Zahlungsinformationen von der*dem Verkäufer*in erhalten."
       further_questions: "Hast Du weitere Fragen? Bitte nutze die Kontaktdaten der*des Verkäufer*in:"
       further_questions_cash: "Um den Kauf abzuschließen und einen Abholtermin zu vereinbaren, nutze bitte die Kontaktdaten der*des Verkäufer*in:"
+      transaction_number: "Transaktionsnummer: "
       seller:
         heading: "Auftragsdaten"
         congratulation: "Herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly.de verkauft. Wir haben Dir bereits eine Email mit allen Daten zur Bestellung zugeschickt."
