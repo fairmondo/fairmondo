@@ -23,63 +23,84 @@
 .Meta
   .Meta--block
     %h2= resource.nickname
+
     - if resource.valid? && resource.is_a?(LegalEntity)
-      - if resource.title?
-        %h3= resource.title + " " + resource.forename + " " + resource.surname
-      - else
-        %h3= resource.forename + " " + resource.surname
-      %p
-        = t('formtastic.labels.user.address_suffix')
-        \:
-        %strong= resource.address_suffix
-      %p
-        = t('formtastic.labels.user.street')
-        \:
-        %strong= resource.street
-      %p
-        = t('formtastic.labels.user.city')
-        \:
-        %strong= resource.zip + " " + resource.city
-      %p
-        = t('formtastic.labels.user.country')
-        \:
-        %strong= resource.country
-      %p
-        = t('formtastic.labels.user.mail')
-        \:
-        %strong
-          %a{:href => "mailto:#{resource.email}"}= resource.email
-      %p
-        = t('formtastic.labels.user.fax')
-        \:
-        %strong= resource.fax
-      %p
-        = t('formtastic.labels.user.phone')
-        \:
-        %strong= resource.phone
-      %p
-        = t('formtastic.labels.user.mobile')
-        \:
-        %strong= resource.mobile
+      %h3
+        - if resource.title?
+          = resource.title + " "
+        - if resource.forename && resource.surname
+          = resource.forename + " " + resource.surname
+      - if resource.address_suffix
+        %p
+          = t('formtastic.labels.user.address_suffix')
+          \:
+          %strong= resource.address_suffix
+
+      - if resource.street
+        %p
+          = t('formtastic.labels.user.street')
+          \:
+          %strong= resource.street
+
+      - if resource.zip && resource.city
+        %p
+          = t('formtastic.labels.user.city')
+          \:
+          %strong= resource.zip + " " + resource.city
+
+      - if resource.country
+        %p
+          = t('formtastic.labels.user.country')
+          \:
+          %strong= resource.country
+
+      - if resource.email
+        %p
+          = t('formtastic.labels.user.mail')
+          \:
+          %strong
+            %a{:href => "mailto:#{resource.email}"}= resource.email
+
+      - if resource.fax
+        %p
+          = t('formtastic.labels.user.fax')
+          \:
+          %strong= resource.fax
+
+      - if resource.phone
+        %p
+          = t('formtastic.labels.user.phone')
+          \:
+          %strong= resource.phone
+
+      - if resource.mobile
+        %p
+          = t('formtastic.labels.user.mobile')
+          \:
+          %strong= resource.mobile
+
   - if resource.valid? && resource.is_a?(LegalEntity)
-    .Meta--block
-      %p
-        %span.Meta--highlight
 
-          = t('formtastic.labels.user.terms')
-          \:
-        = raw resource.terms
+    - if resource.terms
+      .Meta--block
+        %p
+          %span.Meta--highlight
+            = t('formtastic.labels.user.terms')
+            \:
+          = raw resource.terms
 
-    .Meta--block
-      %p
-        %span.Meta--highlight
-          = t('formtastic.labels.user.cancellation')
-          \:
-        = raw resource.cancellation
+    - if resource.cancellation
+      .Meta--block
+        %p
+          %span.Meta--highlight
+            = t('formtastic.labels.user.cancellation')
+            \:
+          = raw resource.cancellation
 
-    .Meta--block
-      %p
-        %span.Meta--highlight
-          = t('formtastic.labels.user.about')
-          \:
-        = raw resource.about
+    - if resource.about
+      .Meta--block
+        %p
+          %span.Meta--highlight
+            = t('formtastic.labels.user.about')
+            \:
+          = raw resource.about

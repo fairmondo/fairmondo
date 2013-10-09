@@ -57,7 +57,7 @@ gem "pundit" # authorization
 gem 'memoist'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '~> 2.15.5'
 
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'

@@ -54,35 +54,23 @@ module TransactionMailerHelper
     string
   end
 
-  def order_details transaction
+  def order_details transaction, role = :buyer
     string = ""
-    string += "#{transaction.article_title}\n"
+    string += transaction.article_title + "\n"
     if transaction.article_custom_seller_identifier
       string += "#{ t('transaction.notifications.seller.custom_seller_identifier')}" + "#{transaction.article_custom_seller_identifier}\n"
     end
-    string += "https://www.fairnopoly.de" + "#{article_path(transaction.article)}\n"
-    string += "#{t 'transaction.notifications.transaction_id' }" + "#{ transaction.id }\n"
-    case transaction.selected_payment
-      when 'bank_transfer'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.bank_transfer') }\n"
-      when 'paypal'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.paypal') }\n"
-      when 'cash'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash') }\n"
-      when 'cash_on_delivery'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.cash_on_delivery') }\n"
-      when 'invoice'
-        string += "#{ t('transaction.edit.payment_type') }" + "#{ t('transaction.notifications.buyer.invoice') }\n"
+    string += article_url(transaction.article) + "\n"
+    string += t('transaction.notifications.transaction_link')
+    string += transaction_url(transaction) + "\n"
+    if ['bank_transfer', 'paypal', 'cash', 'cash_on_delivery', 'invoice'].include? transaction.selected_payment
+      string += t('transaction.edit.payment_type')
+      string += t("transaction.notifications.buyer.#{transaction.selected_payment}") + "\n"
     end
 
-    case transaction.selected_transport
-      when 'pickup'
-        string += "#{ t('transaction.edit.transport_type') }" + "#{t('transaction.notifications.transport.pickup')}\n"
-      when 'type1'
-        string += "#{ t('transaction.edit.transport_type') }" + "#{transaction.article_transport_type1_provider}\n"
-      when 'type2'
-        string += "#{ t('transaction.edit.transport_type') }" + "#{transaction.article_transport_type2_provider}\n"
-    end
+    string += transport_details transaction
+
+    string += t("transaction.notifications.#{role}.transaction_id_info", id: transaction.id)
     string
   end
 
@@ -168,6 +156,31 @@ module TransactionMailerHelper
   def vat price
     price - price / 1.19
   end
+
+  private
+    # gets called in order_details; in extra function to improve readability
+    def transport_details transaction
+      output = ''
+      if ['pickup', 'type1', 'type2'].include? transaction.selected_transport
+        output += t('transaction.edit.transport_type')
+
+        output += case transaction.selected_transport
+          when 'pickup'
+            t('enumerize.transaction.selected_transport.pickup') + "\n"
+          when 'type1'
+            transaction.article_transport_type1_provider
+          when 'type2'
+            transaction.article_transport_type2_provider
+        end
+
+        unless transaction.selected_transport == 'pickup'
+          output += t('transaction.notifications.general.shipments', count: transaction.article_number_of_shipments(transaction.selected_transport, transaction.quantity_bought)) + "\n"
+        end
+
+        output += "\n"
+      end
+      output
+    end
 
   # wird erstmal nicht mehr verwendet
   #

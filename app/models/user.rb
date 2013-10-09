@@ -91,28 +91,21 @@ class User < ActiveRecord::Base
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
-
-  # validations
+  #Registration validations
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
-
-  #validates :forename, presence: true, on: :update
-  #validates :surname, presence: true, on: :update
-
   validates :nickname , :presence => true, :uniqueness => true
-
-  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  validates :address_suffix, length: { maximum: 150 }
-  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
-
-
   validates :recaptcha, presence: true, acceptance: true, on: :create
-
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
 
 
+  # validations
+
+  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  validates :address_suffix, length: { maximum: 150 }
+  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
 
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
