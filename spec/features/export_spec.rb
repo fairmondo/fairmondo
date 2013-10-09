@@ -21,7 +21,6 @@ describe "Export" do
     end
   end
 
-
   describe "for signed-in legal entity users" do
 
     before do
