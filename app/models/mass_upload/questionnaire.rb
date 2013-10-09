@@ -31,14 +31,14 @@ module MassUpload::Questionnaire
     spq = row_hash.extract!(*spq_attributes.keys)
 
     if row_hash["fair_kind"] == "fair_trust"
-      row_hash["fair_trust_questionnaire_attributes"] = transform_questionnaire_attributes(ftq)
+      row_hash["fair_trust_questionnaire_attributes"] = deserialize_checkboxes(ftq)
     elsif row_hash["fair_kind"] == "social_producer"
-      row_hash["social_producer_questionnaire_attributes"] = transform_questionnaire_attributes(spq)
+      row_hash["social_producer_questionnaire_attributes"] = deserialize_checkboxes(spq)
     end
     row_hash
   end
 
-  def self.transform_questionnaire_attributes(attributes)
+  def self.deserialize_checkboxes(attributes)
     attributes.each do |k, v|
       if k.include?("checkboxes")
         if v
