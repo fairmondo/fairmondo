@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
 
+
   # Pundit
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
@@ -118,6 +119,7 @@ class ApplicationController < ActionController::Base
   def manual_params allowed_params
     allowed_params
   end
+
 
 
 end

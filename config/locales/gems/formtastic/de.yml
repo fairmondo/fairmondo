@@ -121,6 +121,8 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
+        search_in_content: "suche in Artikelbeschreibung"
+        search_for_zip: "PLZ"
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -257,7 +259,6 @@ de:
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
-
 
     actions:
       create: "%{model} erstellen"
