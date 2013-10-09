@@ -28,3 +28,18 @@
   padding-left: 10px;
 }
 
+.Rating-left{
+  @include span-columns(4,14);
+}
+.Rating-middle{
+  @include span-columns(7,14);
+  /*border: 1px solid black;*/
+  padding: 10px 40px;
+}
+.Rating-middle textarea{
+  height: 180px;
+
+}
+.Rating-right{
+   @include span-columns(3 omega,14);
+}
