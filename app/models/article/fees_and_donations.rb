@@ -89,13 +89,14 @@ private
     # At the moment there is no friendly percent
     # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     #(self.price_cents * (self.friendly_percent / 100.0)).ceil
+    # Set for NGO to 0 !!
     0
   end
 
   ## fees and donations
 
   def fair_percentage
-    0.01
+    self.seller.ngo ? 0 : 0.01
   end
 
   def fair_percent_result
@@ -104,7 +105,9 @@ private
   end
 
   def fee_percentage
-    if fair?
+    if self.seller.ngo
+      0
+    elsif fair?
       AUCTION_FEES[:fair]
     else
       AUCTION_FEES[:default]
