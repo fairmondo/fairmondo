@@ -47,7 +47,8 @@ de:
       invited_people: "Eingeladene Benutzer"
     text:
       no_active_old: "Keine vorhanden"
-      no_active: "Keine Angebote eingestellt"
+      no_active: "Stelle hier Deinen ersten Artikel ein"
+      no_active_html: "%{href}"
       no_inactive: "Keine Artikel vorhanden"
       no_sold: "Keine verkauften Artikel vorhanden"
       no_bought: "Keine gekauften Artikel vorhanden"

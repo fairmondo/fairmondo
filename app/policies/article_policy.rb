@@ -26,7 +26,10 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def show?
-    true
+    # Active or sold articles can be shown to anyone.
+    # All other state except of closedcan be shown to the
+    # user who owns this article.
+    article.active? || article.sold? || (user && own? && !article.closed?)
   end
 
   def new?
@@ -35,6 +38,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   def create?
     true # Devise already ensured this user is logged in.
+    # FUTURE: Maybe we should deny this for possible guest access.
   end
 
   def edit?
@@ -42,6 +46,9 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def update?
+    # Edititng an article is only allowed in preview state.
+    # After this we should generate a new article on editing.
+    # Refer to ArticlesController#new with params edit_as_new.
     own? && article.preview?
   end
 

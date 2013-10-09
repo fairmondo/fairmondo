@@ -42,6 +42,10 @@
       - if resource.active?
         = button_to '*Pionier*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :pioneer}), class: "Btn Btn--redSmall", method: :post
         = button_to '*Neues auf Fairnopoly*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :newest}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Fairnopoly mag*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fairnopoly_likes}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & fair*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fair_highlights}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & öko*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :ecologic_highlights}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & edel*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :small_and_precious_highlights}), class: "Btn Btn--redSmall", method: :post
         = button_to 'Neues Dreamteam', exhibits_path(exhibit: {article_id: resource.id, queue: :dream_team}), class: "Btn Btn--redSmall", method: :post
         %hr
         - Exhibit.where(:queue => :dream_team).where(:related_article_id => nil).each do |dreamteam|

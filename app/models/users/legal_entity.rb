@@ -27,6 +27,13 @@ class LegalEntity < User
   end
   #! attr_accessible :terms, :cancellation, :about
 
+  with_options if: :wants_to_sell? do |seller|
+    # validates legal entity
+    seller.validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
+    seller.validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
+    seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
+  end
+
   def upgrade_seller_state
     if self.seller_state == "standard_seller"
        self.rate_up_to_good1_seller

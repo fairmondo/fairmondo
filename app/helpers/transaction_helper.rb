@@ -39,9 +39,9 @@ module TransactionHelper
           ( resource.article.send("#{transpay}_#{type}_provider".to_sym) + ' ' ) if transpay == :transport
       output +=
           humanized_money_with_symbol(resource.article.send("#{transpay}_#{type}_price".to_sym))
-      if transpay == :transport
-        output +=
-          t("transaction.edit.per_transport_number", number: resource.article.send("transport_#{type}_number".to_sym))
+      if transpay == :transport && ( resource.is_a? MultipleFixedPriceTransaction )
+          output +=
+            t("transaction.edit.per_transport_number", number: resource.article.send("transport_#{type}_number".to_sym))
       else
         output +=
           t("transaction.edit.per_transport")

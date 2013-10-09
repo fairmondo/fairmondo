@@ -53,8 +53,6 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    redirect_to transaction_path(resource) if resource.closed? # Achtung, Seite existiert nicht!
-
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end

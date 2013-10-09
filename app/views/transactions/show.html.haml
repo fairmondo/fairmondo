@@ -10,16 +10,23 @@
         - if resource.buyer == current_user
           %h1
             = t 'transaction.edit.heading'
-          %h3
+          %h2
             = link_to "#{resource.article.title}", article_path( resource.article )
-            = "Gekauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
-          %br
           %h3
+            = "Gekauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
+          %h3
+            = t 'transaction.show.transaction_number'
+            = resource.id
+          %br
+          %h2
             = t "transaction.show.payment_title_#{selected_payment}"
 
           %p
             = t "transaction.show.thank_you"
             = t "transaction.show.thank_you_invoice" if selected_payment == 'invoice'
+
+          %p
+            = t 'transaction.notifications.buyer.transaction_id_info', id: resource.id
 
           = render "bank_transfer_data" if selected_payment == 'bank_transfer'
 

@@ -33,7 +33,8 @@ de:
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
-      number_of_shipments: "Anzahl von Sendungen: "
+      number_of_shipments: "Anzahl von Sendungen*: "
+      number_of_shipments_info: "(*) Für den Versand von mehreren Artikeln in einer Sendung nimm bitte vorab Kontakt mit dem Verkäufer auf, um zu klären, ob das möglich ist."
       shipping_and_handling: "Versandkosten: "
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
@@ -47,6 +48,7 @@ de:
       thank_you_invoice: "Zusätzlich wirst Du eine Rechnung mit Zahlungsinformationen von der*dem Verkäufer*in erhalten."
       further_questions: "Hast Du weitere Fragen? Bitte nutze die Kontaktdaten der*des Verkäufer*in:"
       further_questions_cash: "Um den Kauf abzuschließen und einen Abholtermin zu vereinbaren, nutze bitte die Kontaktdaten der*des Verkäufer*in:"
+      transaction_number: "Transaktionsnummer: "
       seller:
         heading: "Auftragsdaten"
         congratulation: "Herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly.de verkauft. Wir haben Dir bereits eine Email mit allen Daten zur Bestellung zugeschickt."
@@ -66,13 +68,14 @@ de:
     notifications:
       greeting: "Hallo "
       begin: "--------- Beginn der Nachricht ---------"
-      transaction_id: "Transaktionsnummer: "
+      transaction_link: "Details zur Bestellung: "
       seller:
         intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Käufer*in findest Du weiter unten."
         seller_subject: "Artikel auf Fairnopoly verkauft"
         seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft! \nAlle Bestelldaten der Käufer*in sind unten für Dich zusammengefasst.\n\nDein Fairnopoly Team"
         seller_fee_text: "Deine Verkaufsgebühren und Spenden, welche zum nächsten Abrechnungstermin durch die Fairnopoly eG von Deinem Konto eingezogen werden: "
         order_infos: "Angaben zum verkauften Artikel: "
+        transaction_id_info: "Bitte gib bei Kommunikation mit der*dem Käufer*in folgende Transaktionsnummer an: %{id}"
         shipping_request: "Bitte versende den/die gekauften Artikel umgehend an: "
         pickup_info: "Der Kauf wurde durchgeführt von:"
         buyer_message: "Nachricht der Käufer*in: "
@@ -91,6 +94,7 @@ de:
         buyer_subject: "Dein Einkauf auf Fairnopoly"
         buyer_text: "Vielen Dank für Deinen Einkauf! Alle Bestelldaten sind unten für Dich zusammengefasst.\n\nDein Fairnopoly-Team."
         order_infos: "Angaben zu Deiner Bestellung: "
+        transaction_id_info: "Bitte gib bei Überweisungen oder anderer Kommunikation mit der*dem Verkäufer*in folgende Transaktionsnummer an: %{id}"
         payment_type: "Deine Bezahlmethode: "
         fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von: "
         please_pay: "Bitte überweise den Gesamtbetrag umgehend auf das bei Fairnopoly hinterlegte Bankkonto. Die Kontodaten findest Du hier: "
@@ -104,5 +108,7 @@ de:
         imprint: "Impressum der Verkäufer*in"
         cancellation: "Widerrufsbelehrung und Rücknahmebedingungen der Verkäufer*in"
         security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Verkäufer zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Verkäufers - z.B. durch Übersendung einer Kopie des Personalausweises - bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) nachweisen zu lassen."
+      general:
+        shipments: " (%{count} Sendungen)"
       transport:
         pickup: "Selbstabholung"
