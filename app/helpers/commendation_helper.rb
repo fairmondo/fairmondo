@@ -71,12 +71,14 @@ module CommendationHelper
 
   def commendation_labels_for article
     html = ""
+    new_window = true
     if article_path(article) == request.path
       link = "#commendation"
+      new_window = false
     end
-    html << commendation_label(:fair,:small, link) if article.fair
-    html << commendation_label(:ecologic,:small, link) if article.ecologic
-    html << commendation_label(:small_and_precious,:small, link) if article.small_and_precious
+    html << commendation_label(:fair,:small, link, new_window) if article.fair
+    html << commendation_label(:ecologic,:small, link, new_window) if article.ecologic
+    html << commendation_label(:small_and_precious,:small, link, new_window) if article.small_and_precious
     html.html_safe
   end
 
@@ -84,12 +86,14 @@ module CommendationHelper
   # Get Labels for the commendations
   #
   # @param label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
-  # @param link [String] String adress where the label should link to
-  # @param size [Symbol] Optional label size `:small`,`:medium`, `:big`
+  # @param size [Symbol] label size `:small`,`:medium`, `:big`
+  # @param link [String] Optional string url where the label should link to
+  # @param new_window [Boolean] Optional url in new window?
   #
-  def commendation_label label, size , link = nil
+  def commendation_label label, size , link = nil, new_window = true
     link = commendation_explanation_link label unless link
     html = "<a href=\"#{link}\" "
+    html << "target=\"_blank\" " if new_window
     html << "class=\"#{commendation_label_classes label,size} accordion-anchor\">"
     html << t("formtastic.labels.article.#{label.to_s}")
     html << "</a>"
