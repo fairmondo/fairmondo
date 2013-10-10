@@ -55,10 +55,7 @@ module Article::Export
       elsif params == "bought"
         articles = user.bought_articles
         articles.reverse_order
-      else
-        # bugbug Really needed or just for tests?
-        articles = user.articles
-        articles.reverse
+        # bugbug Something needed in case no params are given?
       end
     end
 
@@ -77,7 +74,7 @@ module Article::Export
     def serialize_checkboxes(attributes)
       attributes.each do |k, v|
         if k.include?("checkboxes")
-          if v
+          if v.any?
             attributes[k] = v.join(',')
           else
             attributes[k] = nil
