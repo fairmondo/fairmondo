@@ -54,11 +54,12 @@ de:
         congratulation: "Herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly.de verkauft. Wir haben Dir bereits eine Email mit allen Daten zur Bestellung zugeschickt."
         congratulation_invoice: "Bitte füge dem Artikel eine Rechnung mit detailierten Zahlungsanweisungen hinzu."
         cash_questions: "Der*die Käufer*in wird sich mit Dir in Verbindung setzen um einen Übergabetermin zu vereinbaren. Alternativ kannst Du den*die Käufer*in auch kontaktieren."
-    notices:
+    errors:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
-    errors:
+      no_pickup_cash_combination: 'Achtung: Wir empfehlen für Selbstabholung die Bezahlmethode "Barzahlung bei Abholung".'
       too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verfügbar."
+      combination_invalid: 'Bei der Versandmethode "%{selected_transport}" kann die Bezahloption "%{selected_payment}" nicht ausgewählt werden.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"
   #   bid:

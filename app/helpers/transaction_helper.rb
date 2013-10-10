@@ -83,6 +83,14 @@ module TransactionHelper
     end
   end
 
+  def display_optional_warning selected_transport, selected_payment
+    if selected_transport == 'pickup' && selected_payment != 'cash' && resource.selected?('payment', 'cash')
+      '<p><small class="SmallText RedText">'.html_safe +
+        t('transaction.errors.no_pickup_cash_combination') +
+      '</small></p>'.html_safe
+    end
+  end
+
 
   def display_quantity_bought quantity
     tablerow(
