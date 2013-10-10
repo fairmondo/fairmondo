@@ -30,13 +30,15 @@ class RatingsController < InheritedResources::Base
   #   rating = @user.ratings.build if user_signed_in? && @user
   # end
 
-  # def create
-  #   authorize build_resource
-  #   create! do |success,failure|
-  #     success.html { redirect_to user_ratings_path(@user) }
-  #     failure.html { redirect_to user_ratings_path(@user) }
-  #   end
-  # end
+  def create
+    authorize build_resource
+    build_resource.rating_user = current_user
+    build_resource.rated_user = build_resource.transaction.seller
+    create! do |success,failure|
+      success.html { redirect_to profile_user_path(current_user) , :alert => 'Deine Bewertung wurde gespeichert' } #:anchor => :sold
+      failure.html { redirect_to profile_user_path(current_user) , :alert => 'Deine Bewertung wurde nicht gespeichert'}
+    end
+  end
 
   private
 

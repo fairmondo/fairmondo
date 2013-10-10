@@ -6,7 +6,7 @@ class Rating < ActiveRecord::Base
   end
 
   belongs_to :transaction
-  belongs_to :rated_user, class_name: 'User'
+  belongs_to :rated_user, class_name: 'User', inverse_of: :ratings
   has_one :rating_user, through: :transaction, source: :buyer
   enumerize :rating, in: [:positive, :neutral, :negative]
   delegate :update_rating_counter, to: :rated_user

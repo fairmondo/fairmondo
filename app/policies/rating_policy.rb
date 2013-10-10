@@ -25,5 +25,9 @@ class RatingPolicy < Struct.new(:user, :rating)
     user.is? rating.transaction.buyer
   end
 
+  def create?
+    new?
+  end
+
 
 end
