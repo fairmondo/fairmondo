@@ -37,9 +37,19 @@
   padding: 10px 40px;
 }
 .Rating-middle textarea{
-  height: 180px;
+  height: 170px;
 
 }
 .Rating-right{
-   @include span-columns(3 omega,14);
+  @include span-columns(3 omega,14);
+}
+
+.Rating-middle li.choice{
+  @include span-columns(2,7);
+}
+.Rating-middle img{
+  width: 25%;
+}
+.Rating-save{
+  float: right;
 }
