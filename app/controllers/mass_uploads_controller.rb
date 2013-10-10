@@ -1,9 +1,12 @@
 class MassUploadsController < ApplicationController
 
+  # Layout Requirements
+  before_filter :ensure_complete_profile , :only => [:new, :create]
+
   def new
     authorize Article.new, :create? # Needed because of pundit
 
-    @mass_upload = MassUpload.new(user = current_user)
+    @mass_upload = MassUpload.new
   end
 
   def show
@@ -13,34 +16,14 @@ class MassUploadsController < ApplicationController
   end
 
   def create
-    # bugbug Move model logic into model (@mass_upload use_count > 4)
     authorize Article.new, :create? # Needed because of pundit
 
-    @mass_upload = MassUpload.new(current_user, params[:mass_upload])
-
-    # Needed to show the right error messages if no file is selected since in
-    # this case .new doesn't lead to the validate_input method.
-    @mass_upload.file_selected?(params[:mass_upload])
-    if @mass_upload.errors.full_messages.any?
-      render :new
-    else
-      secret_mass_uploads_number = SecureRandom.urlsafe_base64
-      session[secret_mass_uploads_number] = []
-      @mass_upload.save
-      @mass_upload.raw_articles.each do |article|
-        session[secret_mass_uploads_number] << article.id
-      end
-      if @mass_upload.errors.full_messages.any?
-        if @mass_upload.missing_bank_details_errors?
-          flash[:alert] = @mass_upload.add_missing_bank_details_errors_notice.html_safe
-          redirect_to edit_user_registration_path(current_user)
-        else
-          render :new
-        end
-      else
-        redirect_to mass_upload_path(secret_mass_uploads_number)
-      end
+    @mass_upload = MassUpload.new(params[:mass_upload])
+    unless @mass_upload.parse_csv_for(current_user)
+      return render :new
     end
+
+    redirect_to mass_upload_path(generate_session_for(@mass_upload.articles))
   end
 
   def update
@@ -54,4 +37,14 @@ class MassUploadsController < ApplicationController
     end
     redirect_to user_path(current_user)
   end
+
+  private
+    def generate_session_for(uploaded_articles)
+      secret_mass_uploads_number = SecureRandom.urlsafe_base64
+      session[secret_mass_uploads_number] = []
+      uploaded_articles.each do |article|
+        session[secret_mass_uploads_number] << article.id
+      end
+      secret_mass_uploads_number
+    end
 end
