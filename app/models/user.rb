@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   # @return [String]
   def address
     string = ""
-    string += "#{self.address_suffix}, " if self.address_suffix
+    string += "#{self.address_suffix}, " if self.address_suffix.present?
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
   end
