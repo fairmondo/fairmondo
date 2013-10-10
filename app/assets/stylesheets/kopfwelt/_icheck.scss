@@ -5,7 +5,6 @@
 }
 .iradio,
 .icheckbox {
-	display: inline-block;
 	margin: 0;
 	padding: 0;
 	border: none;
@@ -13,9 +12,12 @@
 	vertical-align: middle;
 	margin-right: 10px;
 	position: relative !important;
-	top: -1px;
+	float:left;
+  display: block;
+
 }
 .icheckbox {
+
 	width: 18px;
 	height: 18px;
 	background: url(asset-path("icheck/checkbox.png", image)) no-repeat;
@@ -25,6 +27,7 @@
 	}
 }
 .iradio {
+
 	width: 20px;
 	height: 20px;
 	background: url(asset-path("icheck/radio.png", image)) no-repeat;
@@ -32,4 +35,5 @@
 		background: url(asset-path("icheck/radio_active.png", image)) no-repeat;
 		z-index: 50;
 	}
+  top: -2px;
 }

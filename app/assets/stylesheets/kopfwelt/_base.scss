@@ -61,6 +61,15 @@ h4 {
   line-height: 1.4;
 }
 
+.SmallText {
+  font-size: 13px;
+  padding: 3px;
+}
+
+.RedText {
+  color: $warningred;
+}
+
 // Links
 a {
   text-decoration: none;

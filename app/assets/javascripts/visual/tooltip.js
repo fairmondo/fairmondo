@@ -50,7 +50,7 @@ $(document).ready(function(){
   $("i.icon-helper").on('click',function(e) {
     e.stopPropagation();
 
-    alreadyopen = $(e.target).data("opened")
+    alreadyopen = $(e.target).data("opened");
     $("i.icon-helper").tooltip('close'); //Close all open tooltips
     if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
     	$(e.target).tooltip('open');

@@ -173,6 +173,16 @@ class Transaction < ActiveRecord::Base
     selected "payment"
   end
 
+  # Find out if a specifictransport/payment type was selected by the seller
+  # @api public
+  # @param attribute [String] "transport" or "payment"
+  # @param type [String] enumerize type to check
+  # @return [Boolean]
+  def selected? attribute, type
+    filtered_array = selected(attribute).select {|a| a[1] == type }
+    !filtered_array.empty?
+  end
+
   # Shortcut for article_total_price working with saved data
   def total_price
     self.article_total_price(
