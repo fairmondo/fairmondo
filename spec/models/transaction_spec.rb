@@ -94,6 +94,16 @@ describe Transaction do
           transaction.selected_payments
         end
       end
+
+      describe "#selected?" do
+        it "should return true when the seller selected a specific transport/payment type" do
+          transaction.selected?('transport', 'pickup').should be_true
+        end
+
+        it "should return false when the seller didn't select spcified type" do
+          transaction.selected?('payment', 'paypal').should be_false
+        end
+      end
     end
 
     describe "that are protected" do

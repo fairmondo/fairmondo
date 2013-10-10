@@ -28,9 +28,9 @@ function convertInputFormatToFloat(val) {
 }
 
 function convertCalculatedInputFormatToFloat(val) {
-	return convertInputFormatToFloat(val.replace(" Euro",""))
+	return convertInputFormatToFloat(val.replace(" Euro",""));
 }
 
 function convertFloatToCalculatedInputFormat(val) {
-	return val.toFixed(2).toString().replace(".",",") + " Euro"
+	return val.toFixed(2).toString().replace(".",",") + " Euro";
 }
