@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  # config.excluded_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'Transaction', 'User']
+  config.excluded_models = [ 'LegalEntity', 'PrivateUser']
 
   # Include specific models (exclude the others):
   # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'Transaction', 'User']
@@ -506,73 +506,91 @@ RailsAdmin.config do |config|
 
   ###  User  ###
 
-  # config.model 'User' do
+  config.model 'User' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
 
   #   # Found associations:
 
-  #     configure :transactions, :has_many_association
-  #     configure :articles, :has_many_association
-  #     configure :bought_articles, :has_many_association
-  #     configure :bought_transactions, :has_many_association
-  #     configure :sold_transactions, :has_many_association
-  #     configure :article_templates, :has_many_association
-  #     configure :libraries, :has_many_association
-  #     configure :image, :has_one_association
 
   #   # Found columns:
 
-  #     configure :id, :integer
-  #     configure :email, :string
-  #     configure :password, :password         # Hidden
-  #     configure :password_confirmation, :password         # Hidden
-  #     configure :reset_password_token, :string         # Hidden
-  #     configure :reset_password_sent_at, :datetime
-  #     configure :sign_in_count, :integer
-  #     configure :current_sign_in_at, :datetime
-  #     configure :last_sign_in_at, :datetime
-  #     configure :current_sign_in_ip, :string
-  #     configure :last_sign_in_ip, :string
-  #     configure :created_at, :datetime
-  #     configure :updated_at, :datetime
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :admin, :boolean
-  #     configure :invitor_id, :integer
-  #     configure :trustcommunity, :boolean
-  #     configure :confirmation_token, :string
-  #     configure :confirmed_at, :datetime
-  #     configure :confirmation_sent_at, :datetime
-  #     configure :unconfirmed_email, :string
-  #     configure :banned, :boolean
-  #     configure :nickname, :string
-  #     configure :about_me, :text
-  #     configure :terms, :text
-  #     configure :cancellation, :text
-  #     configure :about, :text
-  #     configure :title, :string
-  #     configure :country, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :phone, :string
-  #     configure :mobile, :string
-  #     configure :fax, :string
-  #     configure :slug, :string
-  #     configure :type, :string
-  #     configure :bank_code, :string
-  #     configure :bank_name, :string
-  #     configure :bank_account_owner, :string
-  #     configure :bank_account_number, :string
-  #     configure :paypal_account, :string
-  #     configure :company_name, :string
-  #     configure :bankaccount_warning, :boolean
-  #     configure :seller_state, :string
-  #     configure :buyer_state, :string
-  #     configure :verified, :boolean
-  #     configure :direct_debit, :boolean
-  #     configure :address_suffix, :string
+       field :id do
+         read_only true
+       end
+       field :email
+       field :password
+       field :password_confirmation
+       #field :reset_password_token, :string         # Hidden
+       field :reset_password_sent_at do
+         read_only true
+       end
+       field :sign_in_count do
+         read_only true
+       end
+       field :current_sign_in_at do
+         read_only true
+       end
+       field :last_sign_in_at do
+         read_only true
+       end
+       field :current_sign_in_ip do
+         read_only true
+       end
+       field :last_sign_in_ip do
+         read_only true
+       end
+       field :created_at
+       field :updated_at
+       field :forename
+       field :surname
+       field :admin
+       #field :invitor_id, :integer
+       #field :trustcommunity, :boolean
+       field :confirmation_token
+       field :confirmed_at
+       field :confirmation_sent_at do
+         read_only true
+       end
+       field :unconfirmed_email
+       field :banned
+       field :nickname
+       field :about_me
+       field :terms
+       field :cancellation
+       field :about
+       field :title
+       field :country
+       field :street
+       field :city
+       field :zip
+       field :phone
+       field :mobile
+       field :fax
+       field :slug do
+         read_only true
+       end
+       field :type do
+         read_only true
+       end
+       field :bank_code
+       field :bank_name
+       field :bank_account_owner
+       field :bank_account_number
+       field :paypal_account
+       field :company_name
+       field :bankaccount_warning do
+         read_only true
+       end
+       field :seller_state do
+         read_only true
+       end
+       field :buyer_state do
+         read_only true
+       end
+       field :verified
+       field :direct_debit
+       field :address_suffix
 
   #   # Cross-section configuration:
 
@@ -597,7 +615,7 @@ RailsAdmin.config do |config|
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  # end
+   end
 
 
   ###  Library  ###
