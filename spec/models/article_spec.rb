@@ -90,7 +90,9 @@ describe Article do
   end
 
   describe "::FeesAndDonations" do
-
+    before do
+      article.seller = User.new
+    end
     #at the moment we do not have friendly percentece any more
     #describe "friendly_percent_calculated" do
       #it "should call friendly_percent_result" do
@@ -108,6 +110,12 @@ describe Article do
       it "should return the default percentage when !article.fair" do
         article.send('fee_percentage').should == 0.06
       end
+
+      it "should return 0 percentage when article.seller.ngo" do
+        article.seller.ngo = true
+        article.send('fee_percentage').should == 0
+      end
+
     end
 
     describe "#calculate_fees_and_donations" do
@@ -138,6 +146,15 @@ describe Article do
         article.fair = false
         article.calculate_fees_and_donations
         article.calculated_fair.should eq Money.new(790)
+      end
+
+      it "should be no fees for ngo" do
+        article.seller.ngo = true
+        article.price = 999
+
+        article.calculate_fees_and_donations
+        article.calculated_fair.should eq 0
+        article.calculated_fee.should eq 0
       end
 
     end
