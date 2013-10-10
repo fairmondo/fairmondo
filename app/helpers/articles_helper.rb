@@ -21,84 +21,11 @@
 #
 module ArticlesHelper
 
-  def fair_label_css
-     "Btn Btn-tag Btn-tag--blue"
-  end
-
-  def ecologic_label_css
-    "Btn Btn-tag Btn-tag--green"
-  end
-
-  def small_and_precious_label_css
-     "Btn Btn-tag Btn-tag--orange"
-  end
-
-  def get_social_producer_questionaire_for question, article
-    html = ""
-    if article.social_producer_questionnaire.send(question)
-
-      html << "<p><b>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</b></p>"
-      html << "<p>" + t('article.show.agree')+ "</p>"
-
-      value = article.social_producer_questionnaire.attributes[question.to_s + "_checkboxes"]
-      if value
-        html << "<ul class=\"small\">"
-        value.each do |purpose|
-          html << "<li>" + t('enumerize.social_producer_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
-        end
-        html << "</ul>"
-      end
-    end
-    html.html_safe
-  end
-
-  def get_fair_trust_questionaire_for question, article
-    html = ""
-    if article.fair_trust_questionnaire.send(question)
-
-      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</b></p>"
-      html << "<p>" + t('article.show.agree')+ "</p>"
-
-      value = article.fair_trust_questionnaire.attributes[question.to_s + "_checkboxes"]
-      if value
-        html << "<ul class=\"small\">"
-        value.each do |purpose|
-          html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose)
-          if purpose == "other" && article.fair_trust_questionnaire.send(question.to_s + "_other")
-            html << " " + article.fair_trust_questionnaire.send(question.to_s + "_other")
-          end
-          html << "</li>"
-        end
-        html << "</ul>"
-      end
-
-      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s +  '_explanation') + "</b></p>"
-      html << "<p>" + article.fair_trust_questionnaire.send(question.to_s + "_explanation") + "</p>"
-    end
-    html.html_safe
-  end
 
   # Conditions
   def condition_label article
     # bclass=condition_badge_class(article.condition)
     '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
-  end
-
-  def features_label article
-    html = ""
-    html << get_features_label(t("formtastic.labels.article.fair"), fair_label_css, article) if article.fair
-    html << get_features_label(t("formtastic.labels.article.ecologic"), ecologic_label_css, article) if article.ecologic
-    html << get_features_label(t("formtastic.labels.article.small_and_precious"), small_and_precious_label_css, article) if article.small_and_precious
-    html.html_safe
-  end
-
-  def get_features_label text, btn_class, article
-    if article_path(article) == request.path && btn_class =~ /Btn-tag /
-      html = "<a href=\"#commendation\" class=\""+ btn_class +" accordion-anchor\">" + text + "</a>"
-    else
-      html = "<span class=\""+ btn_class +"\">" + text + "</span>"
-    end
-    html.html_safe
   end
 
   def get_category_tree category

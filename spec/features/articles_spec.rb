@@ -342,10 +342,9 @@ describe "Article feature label buttons" do
   end
 
   describe "on the user show page" do
-    it "should not have a ecological feature label link" do
+    it "should have a ecological feature label link" do
       visit user_path(@seller)
-      page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
-      page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
+      page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
     end
   end
 end
