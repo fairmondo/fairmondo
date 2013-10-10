@@ -35,10 +35,14 @@
 
   %p.User-legal
 
-    - if user.is_a?(LegalEntity)
+    - if user.is_a?(LegalEntity) && !user.ngo
       %a.Icon{:href => "#"}
         %i.icon-briefcase
         = link_to(t('users.legal_status.show.legal_entity'), profile_user_path(user))
+    - elsif user.ngo
+      %a.Icon{:href => "#"}
+        %i.icon-briefcase
+        = link_to(t('users.legal_status.show.ngo'), profile_user_path(user))
     - else
       %a.Icon{:href => ""}
         %i.icon-user
