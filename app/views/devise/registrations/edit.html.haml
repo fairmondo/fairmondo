@@ -37,8 +37,12 @@
           %strong.Meta--highlight
             = t('formtastic.labels.user.legal_entity') + ":"
 
-
-          = current_user.is_a?(LegalEntity) ? t('users.legal_status.edit.legal_entity') : t('users.legal_status.edit.private_user')
+          - if current_user.is_a?(LegalEntity) && !current_user.ngo
+            = t('users.legal_status.edit.legal_entity')
+          - elsif current_user.ngo
+            = t('users.legal_status.edit.ngo')
+          -else
+            = t('users.legal_status.edit.private_user')
 
       .User--step
         %p

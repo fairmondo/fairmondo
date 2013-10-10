@@ -65,60 +65,69 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def render_users_hero
-    render_hero :controller => "users"
-  end
+    def render_users_hero
+      render_hero :controller => "users"
+    end
 
-  def render_hero options
-    options[:action] ||= "default"
-    options[:controller] ||= params.permit(:controller)[:controller]
-    @rendered_hero = options
-  end
+    def render_hero options
+      options[:action] ||= "default"
+      options[:controller] ||= params.permit(:controller)[:controller]
+      @rendered_hero = options
+    end
 
-  # Pundit checker
+    # Pundit checker
 
-  def verify_authorized_with_exceptions
-    verify_authorized unless pundit_unverified_controller
-  end
+    def verify_authorized_with_exceptions
+      verify_authorized unless pundit_unverified_controller
+    end
 
-  def pundit_unverified_controller
-    (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class)
-  end
+    def pundit_unverified_controller
+      (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class)
+    end
 
-  def pundit_unverified_modules
-    ["Devise","RailsAdmin"]
-  end
+    def pundit_unverified_modules
+      ["Devise","RailsAdmin"]
+    end
 
-  def pundit_unverified_classes
-    [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController]
-  end
+    def pundit_unverified_classes
+      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController]
+    end
 
-  # To be inherited and used in a before_filter
-  def authorize_resource
-    authorize resource
-  end
+    # To be inherited and used in a before_filter
+    def authorize_resource
+      authorize resource
+    end
 
 
-  # Caching security: Set response headers to prevent caching
-  # @api semipublic
-  # @return [undefined]
-  def dont_cache
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-  end
+    # Caching security: Set response headers to prevent caching
+    # @api semipublic
+    # @return [undefined]
+    def dont_cache
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
 
-  # Strong_parameters default params permitter
-  def permitted_params
-    klass = controller_name.classify
-    manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
-  end
+    # Strong_parameters default params permitter
+    def permitted_params
+      klass = controller_name.classify
+      manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
+    end
 
-  # modify params, does nothing unless overwritten in specific controller
-  # @return [Hash] params
-  def manual_params allowed_params
-    allowed_params
-  end
+    # modify params, does nothing unless overwritten in specific controller
+    # @return [Hash] params
+    def manual_params allowed_params
+      allowed_params
+    end
+
+    # If user wants to sell
+    def ensure_complete_profile
+      # Check if the user has filled all fields
+      if !current_user.can_sell?
+        flash[:error] = t('article.notices.incomplete_profile')
+        redirect_to edit_user_registration_path(:incomplete_profile => true)
+      end
+    end
 
 
 
