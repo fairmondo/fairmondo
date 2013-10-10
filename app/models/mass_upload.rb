@@ -172,9 +172,9 @@ class MassUpload
 
   # The following 3 methods are needed for Active Model Errors
 
-  def MassUpload.human_attribute_name(attr, options = {})
-   attr
-  end
+  # def MassUpload.human_attribute_name(attr, options = {})
+  #  attr
+  # end
 
   # The following 2 are not currently used but might be needed because of Active
   # Model Errors in the future. They are commented out to make sure the test
