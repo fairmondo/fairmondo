@@ -2,6 +2,7 @@
 // Filter
 //
 
+
 .Filter {
 	@include pie-clearfix;
 	clear: both;
@@ -15,8 +16,6 @@
     }
 	}
 
-	input { float: left; clear: left; }
-	label { width: auto; color: $black; }
 }
 .Filter.is-active {
 	> .Filter-inner {
@@ -30,23 +29,18 @@
 		@include rotate(180deg);
 	}
 }
-.Filter-col {
-	@include span-columns(4,4);
-	margin-bottom: 2em;
-	.Filter-title {
-		@include rem(margin-bottom, 12px);
 
-	}
+.Filter-inner {
+   padding-top: 1em;
 }
-fieldset.Filter-col {
-	@include span-columns(4 omega,6);
-}
+
+
 .Filter-title {
 	@include rem(font-size, 17px);
 	@extend %Semibold;
 	position: relative;
 	margin-top: 1em;
-	margin-bottom: em(10,18);
+	@include rem(margin-bottom, 12px !important);
 	.icon-helper {
 		position: absolute;
 		top: 0em;
@@ -66,33 +60,67 @@ fieldset.Filter-col {
 		@include transition(all 200ms);
 	}
 }
+
 .Filter-col {
-	fieldset {
-		float: left;
-		width: 100%;
-	}
-	@include at-breakpoint($layout-small) {
-		@include span-columns(2,6);
-		&:nth-child(3n) {
-			@include span-columns(2,6);
+  margin-bottom: 2em;
+  //border-right: 1px solid black;
+  // Clear Formtastic
+  input {
+    float: left;
+    clear: left;
+    width: auto;
+    margin-bottom: 0;
+    }
+  label , label.label {
+    width: auto;
+    color: $black;
+    @include rem(margin-top, 13px);
+    }
+
+  // 2 Columns on small to large layout
+	@include at-breakpoint($layout-small-to-large) {
+		@include span-columns(1,2);
+		&:nth-child(2n) {
+			@include span-columns(1 omega,2);
 		}
 	}
+
+	// 6 columns on large layout
 	@include at-breakpoint($layout-large) {
-		@include span-columns(1,6);
-		margin-right: 0;
-		&:nth-child(3n) {
-			@include span-columns(1,6);
-		}
-		label {
-			@include rem(margin-top, 13px);
-		}
+		@include span-columns(2,12);
+		padding-right: em(40);
+
+    &:nth-child(3)
+    {
+      @include span-columns(3,12);
+
+    }
+
+    &:nth-child(4) {
+       @include span-columns(3,12);
+    }
+
+    &:nth-child(5) {
+      @include omega;
+      padding-right:0em;
+    }
+
 	}
 }
-.Filter-btn {
-	@include at-breakpoint($layout-large) {
-		position: absolute;
-		bottom: 47px;
-		right: 40px;
-		margin-bottom: 0;
-	}
+
+// Special for ZIPs
+
+#article_search_for_zip_input {
+  label.label {
+    float:left !important;
+  }
+  input {
+    display:inline;
+    float:none;
+    width: 5em;
+    margin-left:1em;
+    height: 2em;
+    @include rem(margin-top, 7px);
+  }
+
 }
