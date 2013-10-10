@@ -32,6 +32,9 @@ class ArticlesController < InheritedResources::Base
   before_filter :ensure_complete_profile , :only => [:new, :create]
   #before_filter :authorize_resource, :only => [:edit, :show]
 
+  #search_cache
+  before_filter :build_search_cache, :only => :index
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
@@ -180,10 +183,16 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for Article.new(permitted_params[:article])
+      @articles ||= search_for @search_cache
     end
 
     def begin_of_association_chain
       current_user
     end
+
+    def build_search_cache
+     @search_cache = Article.new(permitted_params[:article])
+    end
+
+
 end

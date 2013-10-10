@@ -2,77 +2,66 @@
 // Search
 //
 
+
+.l-Left {
+  display:none;
+  @include at-breakpoint($layout-large) {
+    display:block;
+    @include span-columns(2,12);
+  }
+}
+
+.l-Right {
+  @include at-breakpoint($layout-small-to-large) {
+     @include span-columns(1 omega,4);
+  }
+
+  @include at-breakpoint($layout-large) {
+   @include span-columns(2 omega,12);
+   }
+}
+
+.l-Left,.l-Right  {
+  .Btn {
+    width:100%;
+    @include rem(padding, 0.6em 4px 0.8em);
+    height: em(40);
+  }
+}
+
+.l-Middle {
+  @include at-breakpoint($layout-large) {
+    @include span-columns(6,12);
+  }
+   @include at-breakpoint($layout-small-to-large) {
+     @include span-columns(3,4);
+  }
+}
+
 .Search {
 	position: relative;
-	float: left;
-	max-width: 100%;
 	input[type='text'] {
 		margin: 0;
 	}
 	&.inputs {
 		float: left !important;
 	}
-	@include at-breakpoint($layout-small) {
-		float: left;
-		width: columns(2,4) !important;
-	}
+
 }
 .Search .Search-input input { // extra specificity
 	@include rem(font-size, 17px);
 	width: 100%;
 }
+
 .Search-button {
 	position: absolute;
 	top: em(13);
 	right: em(11);
 }
 
-.l-Hero {
-
-  .Btn--gray {
-    width: auto;
-    margin: 1px;
-    @include rem(font-size, 17px);
-    @include rem(padding, 6px 18px 10px);
-  }
-
-  .l-Left {
-    float: left;
-    margin-top: em(6);
-    margin-right: em(17);
-    display: none;
-    @include at-breakpoint(em(1166)) {
-      display:block;
-    }
-    .Btn--gray {
-      @include rem(padding, 7px 18px 11px); // Without the icon it is smaller
-    }
-  }
-
- .l-Right {
-  float: right;
-  position: relative;
-  margin-top: em(6);
-
-    .icon-helper {
-      position: relative;
-      top: .5em;
-      right: 0;
-      margin-left: .6em;
-      float: none !important;
-    }
-  }
 
 
 
-}
-
-
-.Filter {
-	.Filter-inner {
-		padding-top: 1em;
-	}
-}
 
 
 // .Search {

@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
 
+
   # Pundit
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
@@ -127,6 +128,7 @@ class ApplicationController < ActionController::Base
         redirect_to edit_user_registration_path(:incomplete_profile => true)
       end
     end
+
 
 
 end
