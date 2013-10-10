@@ -94,8 +94,8 @@ module Article::Attributes
     #! attr_accessible :custom_seller_identifier
     #! attr_accessible :gtin
 
-    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true
-    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true
+    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true, allow_blank: true
+    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
