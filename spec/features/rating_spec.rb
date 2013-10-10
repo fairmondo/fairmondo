@@ -24,7 +24,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Rating' do
-  let(:transaction) { FactoryGirl.create :transaction }
+  let(:transaction) { FactoryGirl.create :single_transaction, :sold }
   let(:buyer) { transaction.buyer }
   let(:user) { FactoryGirl.create :user }
 
@@ -53,8 +53,21 @@ describe 'Rating' do
     describe "with user as transaction buyer" do
       it "should show the correct data and fields" do
         visit transaction_new_user_rating_path(transaction.seller, transaction)
+
+        page.should have_css 'form'
+        page.should have_css "input#rating_rating_positive[@value='positive']"
+        page.should have_css "input#rating_rating_neutral[@value='neutral']"
+        page.should have_css "input#rating_rating_negative[@value='negative']"
+        page.should have_css "textarea"
+
+        page.should have_button 'Bewertung speichern'
+        # save_and_open_page
+        click_button 'Bewertung speichern'
+        current_path.should eq profile_user_path(buyer)
+        page.should have_content 'Deine Bewertung wurde gespeichert'
       end
     end
+
   end
 
 

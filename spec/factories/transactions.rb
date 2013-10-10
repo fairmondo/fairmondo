@@ -73,6 +73,7 @@ FactoryGirl.define do
       state 'sold'
       selected_transport 'pickup'
       selected_payment 'cash'
+      purchase_emails_sent true
       sold_at { Time.now }
     end
 

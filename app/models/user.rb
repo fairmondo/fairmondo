@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   ##
 
 
-  has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy
+  has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
 
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
