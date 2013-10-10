@@ -19,20 +19,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class SupportedOptionValidator < ActiveModel::EachValidator
-  # Check if seller allowed [transport/payment] type of [type] for the associated article. Also sets error message
+class CommonSenseValidator < ActiveModel::EachValidator
+  # Check if selected payment method fits selected transport method
   #
   # @api public
   # @param record [Transaction] currently only supports transactions
-  # @param attribute [String] ATM: selected_payment or selected_transport
-  # @param type [String] The type to check
+  # @param attribute [String] currently only supports selected_payment
+  # @param selected_payment [String] The payment type to check
   # @return [undefined]
-  def validate_each(record, attribute, type)
-    if type
-      attribute_core = attribute[9..-1] #no 'selected_'
-      unless record.article.send "#{attribute_core}_#{type}?"
-        record.errors[attribute] << I18n.t("transaction.errors.#{attribute_core}_not_supported")
-      end
+  def validate_each(record, attribute, selected_payment)
+    selected_transport = record.selected_transport
+    if (selected_payment == 'cash_on_delivery' && selected_transport == 'pickup') or (selected_payment == 'cash' && selected_transport != 'pickup')
+      record.errors[attribute] << I18n.t('transaction.errors.combination_invalid',
+        selected_transport: I18n.t("enumerize.transaction.selected_transport.#{selected_transport}"),
+        selected_payment: I18n.t("enumerize.transaction.selected_payment.#{selected_payment}")
+      )
     end
   end
 end
