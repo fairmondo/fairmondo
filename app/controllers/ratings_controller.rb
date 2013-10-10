@@ -26,17 +26,17 @@ class RatingsController < InheritedResources::Base
   before_filter :get_user
   before_filter :authorize_new_with_transaction, only: :new
 
-  def index
-    rating = @user.ratings.build if user_signed_in? && @user
-  end
+  # def index
+  #   rating = @user.ratings.build if user_signed_in? && @user
+  # end
 
-  def create
-    authorize build_resource
-    create! do |success,failure|
-      success.html { redirect_to user_ratings_path(@user) }
-      failure.html { redirect_to user_ratings_path(@user) }
-    end
-  end
+  # def create
+  #   authorize build_resource
+  #   create! do |success,failure|
+  #     success.html { redirect_to user_ratings_path(@user) }
+  #     failure.html { redirect_to user_ratings_path(@user) }
+  #   end
+  # end
 
   private
 

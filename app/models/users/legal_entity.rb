@@ -23,9 +23,11 @@ class LegalEntity < User
   extend STI
 
   def self.user_attrs
-    super + [:terms, :cancellation, :about]
+    super + [:terms, :cancellation,
+      :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
   end
   #! attr_accessible :terms, :cancellation, :about
+  #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
@@ -58,15 +60,6 @@ class LegalEntity < User
       end
     end
   end
-
-
-  attr_accessible :terms, :cancellation, :about
-  attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
-
-   # validates legal entity
-  validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
-  validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
-  validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
 
 
   state_machine :seller_state, :initial => :standard_seller do

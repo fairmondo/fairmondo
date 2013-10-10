@@ -20,15 +20,20 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Rating
-  .Rating-left
-    = render '/shared/profile_img', user: resource.transaction.seller, show_title: true
+  = semantic_form_for resource, url: transaction_new_user_rating_path, :html => {:class => "form-vertical"}, builder: Fairtastic::FormBuilder do |f|
+    .Rating-left
+      = render '/shared/profile_img', user: resource.transaction.seller, show_title: true
 
-  .Rating-middle
-    = semantic_form_for resource, url: transaction_new_user_rating_path, :html => {:class => "form-vertical"}, builder: Fairtastic::FormBuilder do |f|
+    .Rating-middle
       %h4 Deine Bewertung:
       = f.inputs do
-        = f.input :rating, :as => :plain_radio, :label => false, :input_html => {:class => "form-vertical"}
+        = f.input :rating, :as => :plain_radio, :label => false, :collection => {  image_tag("thumbs/thumb-up.jpg") => "positive", image_tag("thumbs/thumb-neutral.jpg") => "neutral",  image_tag("thumbs/thumb-down.jpg") => "negative"}
         = f.input :text, :label => 'Kommentar'
 
-  .Rating-right.Article--teaser
-    = render '/shared/show_article', :article=> resource.transaction.article
+      .Rating-save
+        = f.actions do
+          = f.action :submit , :button_html => {:class => "Btn" }, :label => 'Bewertung speichern'
+
+    .Rating-right.Article--teaser
+      = render '/shared/show_article', :article=> resource.transaction.article
+
