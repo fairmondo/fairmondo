@@ -161,8 +161,10 @@
               = display_basic_price
 
             %small{ :class => 'SmallText' }
-              = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-
+              - if resource.article_seller.ngo
+                = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
+              - else
+                = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
 
           %hr
           %table#Transpay-price-table
