@@ -62,15 +62,6 @@
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
     = render "exhibition", articles: @newest
 
-  .Teaser.DoubleTeaser
-    .Teaser-totalheader
-      %h2.Teaser-header AKTIV MITWIRKEN
-    %p
-      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
-        Held*in werden
-
   .Teaser
     %h2.Teaser-header GEZEICHNETE ANTEILE IM OKTOBER
 
@@ -98,5 +89,13 @@
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
 
+  .Teaser.DoubleTeaser
+    .Teaser-totalheader
+      %h2.Teaser-header AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
+        Held*in werden
 
   .Teaser.DoubleTeaser.NewsTeaser.DoubleTeaser--alwaysdouble#Feed-placeholder
