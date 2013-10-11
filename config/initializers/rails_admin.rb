@@ -594,6 +594,8 @@ RailsAdmin.config do |config|
        field :direct_debit
        field :address_suffix
 
+       field :ngo
+
   #   # Cross-section configuration:
 
   #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName

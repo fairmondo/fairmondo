@@ -146,7 +146,8 @@ module TransactionMailerHelper
     "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*\n" +
     "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }\n" +
     "#{ t('transaction.edit.vat', percent: vat_value) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }\n\n\n" +
-    "#{ t('transaction.notifications.seller.quarter_year_fees') }"
+    ( !transaction.seller.ngo ? "#{ t('transaction.notifications.seller.quarter_year_fees') }" : "" )
+
   end
 
   def net price
