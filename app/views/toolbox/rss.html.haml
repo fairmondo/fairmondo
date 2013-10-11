@@ -1,0 +1,10 @@
+%h2.Teaser-header
+  NEUIGKEITEN
+- @items.each do |item|
+  %p
+    %b
+      = item.title
+    = " - "
+    = truncate(Sanitize.clean( item.description), :length => 90,:separator => " ")
+    = link_to "(mehr lesen)", item.link
+= link_to "Alle Neuigkeiten", "http://info.fairnopoly.de/"
