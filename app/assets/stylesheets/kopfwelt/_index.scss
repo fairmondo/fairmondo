@@ -64,21 +64,6 @@
 
 }
 
-// Ribbon
-/*
-.Teaser--welcome:before {
-	content: '';
-	display: block;
-	width: 132px;
-	height: 132px;
-	background-image: url(asset-path("ribbon-pioneer.png", image));
-	background-repeat: no-repeat;
-	position: absolute;
-	top: -5px;
-	left: -5px;
-}
-*/
-
 .Teaser--text {
 	@include rem(font-size, $font-size-m);
 	padding-top: 2em;
@@ -87,45 +72,6 @@
 	@include rem(font-size, 22px);
 	@extend %Bold;
 	color: black;
-}
-.Teaser--pioneer {
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 20px;
-	padding-bottom: 40px;
-	.Teaser-title {
-		// @include rem(font-size, 18px);
-		margin-bottom: em(25,18);
-	}
-}
-.Teaser--pioneer-image {
-	width: 100%;
-	margin-bottom: 3px;
-}
-.Teaser--pioneer-1 {
-	display: block;
-	@include rem(font-size, 14px);
-	text-align: left;
-	margin: em(5) em(20);
-	color: $blue;
-	word-break: break-word;
-}
-.Teaser--pioneer-2 {
-	@include rem(font-size, 30px);
-	text-align: left;
-	margin: 0 20px;
-	line-height: 1;
-	word-break: break-word;
-}
-.Teaser--pioneer-3 {
-	@include rem(font-size, $font-size-xs);
-	float: left;
-	margin-left: 20px;
-}
-.Teaser--pioneer-4 {
-	@include rem(font-size, $font-size-xs);
-	float: right;
-	margin-right: 20px;
 }
 
 .Profile {
@@ -187,21 +133,7 @@
 	border-bottom-right-radius: 8px;
 }
 
-// Icons
-// -----------------------------------
 
-.icon-interrogation--green {
-	@extend .icon-interrogation--green;
-}
-.icon-pionier--blue {
-	@extend .icon-pionier--blue;
-}
-.icon-index-arrow--draw {
-	@extend .icon-index-arrow--draw;
-	position: absolute !important;
-	top: -11px;
-	left: -68px;
-}
 
 // Btn
 // -----------------------------------
@@ -271,4 +203,13 @@
 
 .Teaser-totalheader {
  @include rem(padding, 10px 20px);
+}
+
+.NewsTeaser {
+  p {
+    text-align:left;
+  }
+  h2 {
+    margin-bottom: em(10);
+  }
 }
