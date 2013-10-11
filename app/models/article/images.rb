@@ -89,6 +89,7 @@ module Article::Images
     end
 
     def add_image(image_url, is_title)
+      # bugbug refactor asap
       if image_url && image_url =~ URI::regexp
         image = Image.new(:image => URI.parse(image_url))
         image.is_title = is_title

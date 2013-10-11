@@ -28,7 +28,7 @@
       %h4 Deine Bewertung:
       = f.inputs do
         = f.input :transaction_id, :as => :hidden
-        = f.input :rating, :as => :plain_radio, :label => false, :collection => {  image_tag("thumbs/thumb-up.jpg") => "positive", image_tag("thumbs/thumb-neutral.jpg") => "neutral",  image_tag("thumbs/thumb-down.jpg") => "negative"}
+        = f.input :rating, :as => :plain_radio, :label => false, :collection => {  image_tag("thumbs/positive.jpg") => "positive", image_tag("thumbs/neutral.jpg") => "neutral",  image_tag("thumbs/negative.jpg") => "negative"}
         = f.input :text, :label => 'Kommentar'
 
       .Rating-save

@@ -53,7 +53,6 @@ describe 'Rating' do
     describe "with user as transaction buyer" do
       it "should show the correct data and fields" do
         visit transaction_new_user_rating_path(transaction.seller, transaction)
-
         page.should have_css 'form'
         page.should have_css "input#rating_rating_positive[@value='positive']"
         page.should have_css "input#rating_rating_neutral[@value='neutral']"
@@ -61,9 +60,20 @@ describe 'Rating' do
         page.should have_css "textarea"
 
         page.should have_button 'Bewertung speichern'
-        # save_and_open_page
+      end
+
+      it "should fail when saving without a selected rating" do
+        visit transaction_new_user_rating_path(transaction.seller, transaction)
         click_button 'Bewertung speichern'
-        current_path.should eq profile_user_path(buyer)
+        current_path.should eq user_path(buyer)
+        page.should have_content 'Deine Bewertung wurde nicht gespeichert'
+      end
+
+      it "should succeed when saving with a selected rating" do
+        visit transaction_new_user_rating_path(transaction.seller, transaction)
+        choose 'rating_rating_positive'
+        click_button 'Bewertung speichern'
+        current_path.should eq user_path(buyer)
         page.should have_content 'Deine Bewertung wurde gespeichert'
       end
     end

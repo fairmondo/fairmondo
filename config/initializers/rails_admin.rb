@@ -547,7 +547,9 @@ RailsAdmin.config do |config|
        field :admin
        #field :invitor_id, :integer
        #field :trustcommunity, :boolean
-       field :confirmation_token
+       field :confirmation_token do
+         read_only true
+       end
        field :confirmed_at
        field :confirmation_sent_at do
          read_only true
@@ -591,6 +593,8 @@ RailsAdmin.config do |config|
        field :verified
        field :direct_debit
        field :address_suffix
+
+       field :ngo
 
   #   # Cross-section configuration:
 

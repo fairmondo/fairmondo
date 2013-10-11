@@ -65,7 +65,7 @@ class Transaction < ActiveRecord::Base
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
-    transaction.validates :selected_payment, supported_option: true, presence: true
+    transaction.validates :selected_payment, supported_option: true, common_sense: true, presence: true
 
     transaction.validates :forename, presence: true
     transaction.validates :surname, presence: true

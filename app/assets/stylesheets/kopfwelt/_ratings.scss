@@ -9,7 +9,6 @@
 
 .User-rating img{
   padding-left: 5px;
-  /*padding-right: 2px;*/
   width: 30px;
   vertical-align: middle;
 }
@@ -36,20 +35,23 @@
   /*border: 1px solid black;*/
   padding: 10px 40px;
 }
-.Rating-middle textarea{
-  height: 170px;
-
-}
 .Rating-right{
   @include span-columns(3 omega,14);
 }
-
 .Rating-middle li.choice{
   @include span-columns(2,7);
+}
+
+.Rating-middle textarea{
+  height: 170px;
 }
 .Rating-middle img{
   width: 25%;
 }
 .Rating-save{
+  float: right;
+}
+.rating-icon img{
+  width: 18%;
   float: right;
 }
