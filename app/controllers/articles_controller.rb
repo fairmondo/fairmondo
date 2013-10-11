@@ -124,14 +124,6 @@ class ArticlesController < InheritedResources::Base
 
   private
 
-    def ensure_complete_profile
-      # Check if the user has filled all fields
-      if !current_user.can_sell?
-        flash[:error] = t('article.notices.incomplete_profile')
-        redirect_to edit_user_registration_path(:incomplete_profile => true)
-      end
-    end
-
     def change_state!
 
       # For changing the state of an article
