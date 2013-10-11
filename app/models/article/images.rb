@@ -63,6 +63,10 @@ module Article::Images
       end
     end
 
+    def title_image_present?
+      title_image && title_image.image.present?
+    end
+
     IMAGE_COUNT.times do |number|
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
                           add_image(image_url, false)})
@@ -91,7 +95,7 @@ module Article::Images
     def add_image(image_url, is_title)
       # bugbug refactor asap
       if image_url && image_url =~ URI::regexp
-        image = Image.new(:image => URI.parse(image_url))
+        image = Image.new
         image.is_title = is_title
         image.external_url = image_url
         image.save
@@ -102,5 +106,15 @@ module Article::Images
         self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
       end
     end
+
+    def extract_external_image!
+      self.images.each do |image|
+        begin
+        image.update_attributes(:image => URI.parse(image.external_url))
+        rescue
+        end
+      end
+    end
+    handle_asynchronously :extract_external_image!
   end
 end
