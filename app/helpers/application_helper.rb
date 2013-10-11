@@ -76,8 +76,5 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  private
-    def permitted_search_params
-      params.permit(article: [:title, :condition, :fair, :ecologic, :small_and_precious, categories_and_ancestors: []])
-    end
+
 end

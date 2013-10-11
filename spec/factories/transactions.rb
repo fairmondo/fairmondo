@@ -91,5 +91,7 @@ FactoryGirl.define do
     factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
       buyer { FactoryGirl.create :buyer }
     end
+
+
   end
 end
