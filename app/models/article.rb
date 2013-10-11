@@ -35,7 +35,7 @@ class Article < ActiveRecord::Base
 
   delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
-  delegate :deletable?, to: :transaction, prefix: false
+  delegate :deletable?,:buyer, to: :transaction, prefix: false
 
   # Relations
   has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
@@ -125,12 +125,5 @@ class Article < ActiveRecord::Base
     self.transaction_quantity_available == 0
   end
 
-  #has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id', source: :article
-  def buyer
-    if self.transaction.multiple?
-      self.partial_transactions.map { |e| e.buyer }
-    else
-      Array.new << self.transaction.buyer
-    end
-  end
+
 end
