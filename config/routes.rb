@@ -62,7 +62,7 @@ Fairnopoly::Application.routes.draw do
       put 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
       get 'print_order_buyer'
-      get 'print_order_seller'
+      #get 'print_order_seller'
     end
   end
 

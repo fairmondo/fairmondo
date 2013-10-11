@@ -73,6 +73,7 @@ describe Article do
           db_article.owned_by?(db_article.seller).should be_true
         end
       end
+
     end
   end
 
