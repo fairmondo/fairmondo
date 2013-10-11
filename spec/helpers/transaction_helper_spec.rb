@@ -43,4 +43,13 @@ describe TransactionHelper do
       helper.display_optional_warning('pickup', 'bank_transfer').should be_a String
     end
   end
+
+  describe "#display_price_list_item" do
+    it "should display transport per number on MultipleFixedPriceTransactions" do
+     helper.stub(:resource).and_return(FactoryGirl.build(:multiple_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
+     helper.display_price_list_item(:transport,:type1).should be_a String
+
+    end
+  end
+
 end
