@@ -86,7 +86,7 @@ module TransactionHelper
   def display_optional_warning selected_transport, selected_payment
     if selected_transport == 'pickup' && selected_payment != 'cash' && resource.selected?('payment', 'cash')
       '<p><small class="SmallText RedText">'.html_safe +
-        t('transaction.notices.no_pickup_cash_combination') +
+        t('transaction.errors.no_pickup_cash_combination') +
       '</small></p>'.html_safe
     end
   end

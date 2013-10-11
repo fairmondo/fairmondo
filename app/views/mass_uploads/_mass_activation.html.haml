@@ -7,21 +7,21 @@
       = t('article.preview.fees_and_donations.total_fee_mass_upload')
       %i.icon-helper{:title => t("article.preview.tooltips.fees_mass_upload")}
     %dd
-      = humanized_money_with_symbol MassUpload.calculate_total_fees(articles)
+      = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees(articles)
     %dt
       = raw t('article.preview.fees_and_donations.mass_upload_fair_percent')
       %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
     %dd
-      = humanized_money_with_symbol MassUpload.calculate_total_fair(articles)
+      = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fair(articles)
     %dt.is-green
       = t('article.preview.fees_and_donations.total_all_articles')
       %i.icon-helper{title: t("mass_upload.tooltips.total_fees_and_donations")}
     %dd.is-green
-      = humanized_money_with_symbol MassUpload.calculate_total_fees_and_donations(articles)
+      = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations(articles)
       = "*"
     %dt
       = "* " << t('article.preview.fees_and_donations.netto')
-      = humanized_money_with_symbol MassUpload.calculate_total_fees_and_donations_netto(articles)
+      = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations_netto(articles)
     %dt
       = t('article.preview.fees_and_donations.quarter_fee')
 
