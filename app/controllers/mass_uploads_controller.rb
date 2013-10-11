@@ -49,7 +49,8 @@ class MassUploadsController < ApplicationController
     secret_mass_uploads_number = params[:id]
     articles = Article.find_all_by_id(session[secret_mass_uploads_number])
     articles.each do |article|
-      article.activate
+      article.update_attribute(:state,"active")
+      article.solr_index!
       flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe if article.valid?
     end
     redirect_to user_path(current_user)
