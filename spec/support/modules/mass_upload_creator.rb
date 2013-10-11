@@ -7,7 +7,7 @@ module MassUploadCreator
   end
 
   def create_mass_upload(path, format)
-    user = FactoryGirl::create(:user)
-    MassUpload.new(user, create_attributes(path, format))
+    # user = FactoryGirl::create(:user)
+    MassUpload.new(create_attributes(path, format))
   end
 end

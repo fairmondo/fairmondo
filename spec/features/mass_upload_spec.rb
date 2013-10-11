@@ -51,52 +51,20 @@ describe "Mass-upload" do
         visit new_mass_upload_path
       end
 
-      describe "as a user missing payment data -" do
-        before { attach_file('mass_upload_file',
-                             'spec/fixtures/mass_upload_correct.csv') }
+      describe "as a user missing paypal data -" do
+        let (:legal_entity_user) { FactoryGirl.create :legal_entity }
 
-        describe "all payment data -" do
-          let (:legal_entity_user) { FactoryGirl.create :legal_entity,
-                                      :missing_bank_data }
-
-          it "should show the correct error notice" do
-            click_button I18n.t('mass_upload.labels.upload_article')
-            should have_css(".Notice--error")
-            html.should include(
-              I18n.t('mass_upload.errors.missing_payment_details',
-                      link: '#payment_step',
-                      missing_payment: I18n.t('formtastic.labels.user.paypal_and_bank_account')
-              )
-            )
-          end
-        end
-
-        describe "paypal data -" do
-          let (:legal_entity_user) { FactoryGirl.create :legal_entity }
+        before do
+          attach_file('mass_upload_file',
+                      'spec/fixtures/mass_upload_correct.csv')
+          click_button I18n.t('mass_upload.labels.upload_article')
 
           it "should show the correct error notice" do
-            click_button I18n.t('mass_upload.labels.upload_article')
             should have_css(".Notice--error")
             html.should include(
               I18n.t('mass_upload.errors.missing_payment_details',
                       link: '#payment_step',
                       missing_payment: I18n.t('formtastic.labels.user.paypal_account')
-              )
-            )
-          end
-        end
-
-        describe "bank data -" do
-          let (:legal_entity_user) { FactoryGirl.create :legal_entity,
-                                      :missing_bank_data, :paypal_data }
-
-          it "should show the correct error notice" do
-            click_button I18n.t('mass_upload.labels.upload_article')
-            should have_css(".Notice--error")
-            html.should include(
-              I18n.t('mass_upload.errors.missing_payment_details',
-                      link: '#payment_step',
-                      missing_payment: I18n.t('formtastic.labels.user.bank_account')
               )
             )
           end

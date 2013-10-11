@@ -35,8 +35,8 @@ class RatingsController < InheritedResources::Base
     build_resource.rating_user = current_user
     build_resource.rated_user = build_resource.transaction.seller
     create! do |success,failure|
-      success.html { redirect_to profile_user_path(current_user) , :alert => 'Deine Bewertung wurde gespeichert' } #:anchor => :sold
-      failure.html { redirect_to profile_user_path(current_user) , :alert => 'Deine Bewertung wurde nicht gespeichert'}
+      success.html { redirect_to user_path(current_user, :anchor => :bought), :notice => 'Deine Bewertung wurde gespeichert' } #:anchor => :sold
+      failure.html { redirect_to user_path(current_user), :alert => 'Deine Bewertung wurde nicht gespeichert'}
     end
   end
 

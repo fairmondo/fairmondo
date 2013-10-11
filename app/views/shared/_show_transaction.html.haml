@@ -31,7 +31,8 @@
     %p
     = link_to "Deine Bestellung anschauen", transaction_path(transaction)
     - if transaction.rating
-      %p bewertet
+      %p.rating-icon
+        %img{ :src => image_path('thumbs/'+transaction.rating.rating+'.jpg'), :alt => "good rating" }
     - else
       %p
       = link_to "Bestellung bewerten", transaction_new_user_rating_path(transaction.seller, transaction)
