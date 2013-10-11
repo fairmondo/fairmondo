@@ -92,7 +92,7 @@ module TransactionMailerHelper
       string += "#{ t('transaction.edit.vat', percent: vat) }" + "#{ vat_price }\n"
     end
 
-    if role == :buyer && !transaction.seller.ngo
+    if role == :buyer && !transaction.article_seller_ngo
       string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
     end
 
