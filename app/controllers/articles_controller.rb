@@ -193,4 +193,6 @@ class ArticlesController < InheritedResources::Base
     def build_search_cache
      @search_cache = Article.new(permitted_params[:article])
     end
+
+
 end
