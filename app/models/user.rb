@@ -235,6 +235,8 @@ class User < ActiveRecord::Base
 
   state_machine :seller_state, :initial => :standard_seller do
 
+    after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
+
     event :rate_up_to_standard_seller do
       transition :bad_seller => :standard_seller
     end
@@ -243,13 +245,13 @@ class User < ActiveRecord::Base
       transition all => :bad_seller
     end
 
-    event :block do
-      transition all => :blocked
-    end
+    # event :block do
+    #   transition all => :blocked
+    # end
 
-    event :unblock do
-      transition :blocked => :standard_seller
-    end
+    # event :unblock do
+    #   transition :blocked => :standard_seller
+    # end
 
   end
 
@@ -266,6 +268,10 @@ class User < ActiveRecord::Base
     event :rate_down_to_bad_buyer do
       transition all => :bad_buyer
     end
+  end
+
+  def send_bad_seller_notification
+    RatingMailer.bad_seller_notification(self).deliver
   end
 
   def buyer_constants
