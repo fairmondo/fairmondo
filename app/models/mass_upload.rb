@@ -101,6 +101,10 @@ class MassUpload
 
     save_articles!
 
+    @articles.each do |article|
+      article.extract_external_image!
+    end
+
     true
   end
 
@@ -141,7 +145,7 @@ class MassUpload
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
       first_line_break = ""
-      if article.errors.full_messages[0] == message && index > 0 # && image_errors == false
+      if article.errors.full_messages[0] == message && index > 0
         first_line_break = "<br/>"
       end
       errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
