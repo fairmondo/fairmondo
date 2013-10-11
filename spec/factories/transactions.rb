@@ -46,6 +46,7 @@ FactoryGirl.define do
       city     { Faker::Address.city }
       zip      { Faker::Address.postcode }
       country  "Deutschland"
+      quantity_bought 1
     end
 
     factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
