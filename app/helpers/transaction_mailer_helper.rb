@@ -92,7 +92,7 @@ module TransactionMailerHelper
       string += "#{ t('transaction.edit.vat', percent: vat) }" + "#{ vat_price }\n"
     end
 
-    if role == :buyer
+    if role == :buyer && !transaction.article_seller_ngo
       string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
     end
 
@@ -146,7 +146,7 @@ module TransactionMailerHelper
     "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*\n" +
     "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }\n" +
     "#{ t('transaction.edit.vat', percent: vat_value) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }\n\n\n" +
-    ( !transaction.seller.ngo ? "#{ t('transaction.notifications.seller.quarter_year_fees') }" : "" )
+    ( !transaction.article_seller_ngo ? "#{ t('transaction.notifications.seller.quarter_year_fees') }" : "" )
 
   end
 

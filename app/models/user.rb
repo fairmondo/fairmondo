@@ -122,6 +122,7 @@ class User < ActiveRecord::Base
 
   validates :about_me, :length => { :maximum => 2500 }
 
+  validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
 
   # Return forename plus surname
@@ -158,6 +159,12 @@ class User < ActiveRecord::Base
   # @param user [User, nil] Usually current_user
   def self.is_admin? user
     user && user.admin?
+  end
+
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
   end
 
   # Get generated customer number
