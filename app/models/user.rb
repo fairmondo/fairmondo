@@ -207,6 +207,9 @@ class User < ActiveRecord::Base
     self.save
 
     if ( ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 ) )
+      if percentage_of_negative_ratings > 50
+        self.banned = true
+      end
       update_seller_state
     end
   end
@@ -223,21 +226,6 @@ class User < ActiveRecord::Base
     number_of_biased_ratings / number_of_newest_ratings * 100
   end
 
-  # Changes seller state depending on positive and negative ratings
-  # @api public
-  # @return [undefined]
-  def update_seller_state
-    if self.percentage_of_positive_ratings > 75
-      if self.percentage_of_positive_ratings > 90
-        upgrade_seller_state
-      else
-        self.rate_up_to_standard_seller
-      end
-    elsif self.percentage_of_negative_ratings > 25
-      self.rate_down_to_bad_seller
-    end
-  end
-
 
 
   state_machine :seller_state, :initial => :standard_seller do
@@ -251,14 +239,6 @@ class User < ActiveRecord::Base
     event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
-
-    # event :block do
-    #   transition all => :blocked
-    # end
-
-    # event :unblock do
-    #   transition :blocked => :standard_seller
-    # end
 
   end
 
@@ -279,6 +259,21 @@ class User < ActiveRecord::Base
 
   def send_bad_seller_notification
     RatingMailer.bad_seller_notification(self).deliver
+  end
+
+  # Changes seller state depending on positive and negative ratings
+  # @api public
+  # @return [undefined]
+  def update_seller_state
+    if self.percentage_of_positive_ratings > 75
+      if self.percentage_of_positive_ratings > 90
+        upgrade_seller_state
+      else
+        self.rate_up_to_standard_seller
+      end
+    elsif self.percentage_of_negative_ratings > 25
+      self.rate_down_to_bad_seller
+    end
   end
 
   def buyer_constants

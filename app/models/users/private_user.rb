@@ -22,9 +22,6 @@
 class PrivateUser < User
   extend STI
 
-  def upgrade_seller_state
-    self.rate_up_to_good_seller
-  end
 
 
   state_machine :seller_state, :initial => :standard_seller do
@@ -32,6 +29,10 @@ class PrivateUser < User
     event :rate_up_to_good_seller do
       transition :standard_seller => :good_seller
     end
+  end
+
+  def upgrade_seller_state
+    self.rate_up_to_good_seller
   end
 
   def private_seller_constants
@@ -51,6 +52,8 @@ class PrivateUser < User
     ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
     ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
   end
+
+
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
