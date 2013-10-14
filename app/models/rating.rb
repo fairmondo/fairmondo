@@ -12,8 +12,8 @@ class Rating < ActiveRecord::Base
   delegate :update_rating_counter, to: :rated_user
 
   validates_presence_of :rating, :rated_user_id, :transaction_id
-  enumerize :rating, in: ['positive','neutral','negative']
   validates :text, :length => { :maximum => 2500 }
+  # auto_sanitize :text
 
   after_save :update_rating_counter
 end

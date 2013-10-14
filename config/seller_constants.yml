@@ -1,0 +1,12 @@
+private_seller_constants:
+ standard_salesvolume: 1500
+ verified_bonus: 7000
+ trusted_bonus: 1500
+ good_factor: 2
+ bad_salesvolume: 750
+
+commercial_seller_constants:
+ bad_salesvolume: 750
+ standard_salesvolume: 1500
+ verified_bonus: 48500
+ good_factor: 2

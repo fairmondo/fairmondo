@@ -263,31 +263,31 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 17
+              private_seller.sales_volume.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if trusted" do
             it "should have a salesvolume of 17" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 17
+              private_seller.sales_volume.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if verified" do
             it "should have a salesvolume of 17" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 17
+              private_seller.sales_volume.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if trusted and verified" do
             it "should have a salesvolume of 17" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 17
+              private_seller.sales_volume.should eq $private_seller_constants['bad_salesvolume']
             end
           end
         end
@@ -307,31 +307,31 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 35" do
+            it "should have a salesvolume of standard_salesvolume" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 35
+              private_seller.sales_volume.should eq $private_seller_constants['standard_salesvolume']
             end
           end
           context "if trusted" do
-            it "should have a salesvolume of 55" do
+            it "should have a salesvolume of standard_salesvolume + trusted_bonus" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 55
+              private_seller.sales_volume.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 45" do
+            it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 45
+              private_seller.sales_volume.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
             end
           end
           context "if trusted and verified" do
-            it "should have a salesvolume of 65" do
+            it "should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 65
+              private_seller.sales_volume.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -351,41 +351,41 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 70" do
+            it "should have a salesvolume of standard_salesvolume * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 70
+              private_seller.sales_volume.should eq ( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted" do
-            it "should have a salesvolume of 110" do
+            it "should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 110
+              private_seller.sales_volume.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 90" do
+            it "should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 90
+              private_seller.sales_volume.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted and verified" do
-            it "should have a salesvolume of 130" do
+            it "should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 130
+              private_seller.sales_volume.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
             end
           end
         end
 
         it "should have valid private_seller_constants" do
-          private_seller.private_seller_constants[:standard_salesvolume].should eq 35
-          private_seller.private_seller_constants[:verified_bonus].should eq 10
-          private_seller.private_seller_constants[:trusted_bonus].should eq 20
-          private_seller.private_seller_constants[:good_factor].should eq 2
-          private_seller.private_seller_constants[:bad_factor].should eq 2
+          private_seller.private_seller_constants[:standard_salesvolume].should eq $private_seller_constants['standard_salesvolume']
+          private_seller.private_seller_constants[:verified_bonus].should eq $private_seller_constants['verified_bonus']
+          private_seller.private_seller_constants[:trusted_bonus].should eq $private_seller_constants['trusted_bonus']
+          private_seller.private_seller_constants[:good_factor].should eq $private_seller_constants['good_factor']
+          private_seller.private_seller_constants[:bad_salesvolume].should eq $private_seller_constants['bad_salesvolume']
         end
       end
 
@@ -419,15 +419,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 17
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['bad_salesvolume']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 17
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['bad_salesvolume']
             end
           end
         end
@@ -459,15 +459,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 35" do
+            it "should have a salesvolume of standard_salesvolume" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 35
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['standard_salesvolume']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 85" do
+            it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 85
+              commercial_seller.sales_volume.should eq ( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -499,15 +499,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 70" do
+            it "should have a salesvolume of standard_salesvolume * good_factor" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 70
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['standard_salesvolume'] * $commercial_seller_constants['good_factor']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 170" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 170
+              commercial_seller.sales_volume.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
             end
           end
         end
@@ -539,15 +539,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 140" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^2" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 140
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**2 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 340" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 340
+              commercial_seller.sales_volume.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
             end
           end
         end
@@ -579,15 +579,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 280" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^3" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 280
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**3 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 680" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 680
+              commercial_seller.sales_volume.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
             end
           end
         end
@@ -619,24 +619,24 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 560" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^4" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 560
+              commercial_seller.sales_volume.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 1360" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 1360
+              commercial_seller.sales_volume.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
             end
           end
         end
 
         it "should have valid commercial_seller_constants" do
-          commercial_seller.commercial_seller_constants[:standard_salesvolume].should eq 35
-          commercial_seller.commercial_seller_constants[:verified_bonus].should eq 50
-          commercial_seller.commercial_seller_constants[:good_factor].should eq 2
-          commercial_seller.commercial_seller_constants[:bad_factor].should eq 2
+          commercial_seller.commercial_seller_constants[:standard_salesvolume].should eq $commercial_seller_constants['standard_salesvolume']
+          commercial_seller.commercial_seller_constants[:verified_bonus].should eq $commercial_seller_constants['verified_bonus']
+          commercial_seller.commercial_seller_constants[:good_factor].should eq $commercial_seller_constants['good_factor']
+          commercial_seller.commercial_seller_constants[:bad_salesvolume].should eq $commercial_seller_constants['bad_salesvolume']
         end
       end
     end
@@ -657,15 +657,15 @@ describe User do
         end
 
         context "if not trusted" do
-          it "should have a purchasevolume of 2" do
+          it "should have a purchasevolume of 6" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 2
+            user.purchase_volume.should eq 6
           end
         end
         context "if trusted" do
-          it "should have a purchasevolume of 2" do
+          it "should have a purchasevolume of 6" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 2
+            user.purchase_volume.should eq 6
           end
         end
       end
@@ -687,13 +687,13 @@ describe User do
         context "if not trusted" do
           it "should have a purchasevolume of 12" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 12
+            user.purchase_volume.should eq 12
           end
         end
         context "if trusted" do
           it "should have a purchasevolume of 24" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 24
+            user.purchase_volume.should eq 24
           end
         end
       end
@@ -716,13 +716,13 @@ describe User do
         context "if not trusted" do
           it "should have a purchasevolume of 24" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 24
+            user.purchase_volume.should eq 24
           end
         end
         context "if trusted" do
           it "should have a purchasevolume of 48" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 48
+            user.purchase_volume.should eq 48
           end
         end
       end
@@ -732,7 +732,7 @@ describe User do
         user.buyer_constants[:standard_purchasevolume].should eq 12
         user.buyer_constants[:trusted_bonus].should eq 12
         user.buyer_constants[:good_factor].should eq 2
-        user.buyer_constants[:bad_factor].should eq 6
+        user.buyer_constants[:bad_purchasevolume].should eq 6
       end
     end
   end
