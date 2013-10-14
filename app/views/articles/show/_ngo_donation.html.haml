@@ -19,6 +19,6 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if article.seller.ngo
+- if article.seller_ngo
   %p.Article-ngodonation
-    = t('article.show.donate_ngo_short_html', ngo:(link_to article.seller.nickname, article.seller) )
+    = t('article.show.donate_ngo_short_html', ngo:(link_to article.seller_nickname, article.seller) )
