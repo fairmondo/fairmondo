@@ -40,6 +40,7 @@ Fairnopoly::Application.routes.draw do
   namespace :toolbox do
     get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
     get 'confirm' , constraints: {format: 'js'}
+    get 'rss'
   end
 
   namespace :bank_details do
@@ -61,7 +62,7 @@ Fairnopoly::Application.routes.draw do
       put 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
       get 'print_order_buyer'
-      get 'print_order_seller'
+      #get 'print_order_seller'
     end
   end
 
@@ -90,7 +91,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :categories, :only => [:show]
 
-  get 'settings/update', as: 'update_settings'
+  resources :exhibits, :only => [:create,:update]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 

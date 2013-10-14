@@ -309,13 +309,13 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.pioneer_article_id = article.id
+      FactoryGirl.create(:exhibit, :article => article)
       visit root_path
       page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should not show the users city" do
-      Settings.pioneer_article_id = article.id
+      FactoryGirl.create(:exhibit, :article => article)
       visit root_path
       page.should_not have_css '.DoubleTeaser-link', text: user.city
     end
@@ -326,13 +326,13 @@ describe "Pioneer of the day" do
     let (:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
-      Settings.pioneer_article_id = article.id
+      FactoryGirl.create(:exhibit, :article => article)
       visit root_path
       page.should have_css '.DoubleTeaser-link', text: user.nickname
     end
 
     it "should show the users city" do
-      Settings.pioneer_article_id = article.id
+      FactoryGirl.create(:exhibit, :article => article)
       visit root_path
       page.should have_css '.DoubleTeaser-link', text: user.city
     end

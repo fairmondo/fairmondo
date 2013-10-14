@@ -120,6 +120,8 @@ FactoryGirl.define do
       transport_type2_price 10
       transport_type1_provider 'DHL'
       transport_type2_provider 'Hermes'
+      transport_type1_number { rand(1..10) }
+      transport_type2_number { rand(1..10) }
       transport_details { Faker::Lorem.paragraph(rand(2..5)) }
     end
 
@@ -131,6 +133,8 @@ FactoryGirl.define do
       payment_cash_on_delivery_price 5
       payment_invoice true
       payment_details { Faker::Lorem.paragraph(rand(2..5)) }
+
+      seller { FactoryGirl.create :seller, :paypal_data }
     end
 
     trait :with_private_user do

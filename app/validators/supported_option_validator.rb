@@ -31,7 +31,7 @@ class SupportedOptionValidator < ActiveModel::EachValidator
     if type
       attribute_core = attribute[9..-1] #no 'selected_'
       unless record.article.send "#{attribute_core}_#{type}?"
-        record.errors[attribute] << I18n.t("transaction.notices.#{attribute_core}_not_supported")
+        record.errors[attribute] << I18n.t("transaction.errors.#{attribute_core}_not_supported")
       end
     end
   end

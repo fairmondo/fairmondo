@@ -62,6 +62,7 @@ describe TransactionMailerHelper do
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
 			helper.order_details( @transaction ).should have_content( article_path( @transaction.article ) )
 			helper.order_details( @transaction ).should have_content( @transaction.article_title )
+			helper.order_details( @transaction ).should have_content( @transaction.id)
 		end
 	end
 

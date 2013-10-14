@@ -52,6 +52,11 @@ class MultipleFixedPriceTransaction < Transaction
     super && children.empty?
   end
 
+  #has_many :buyer, through: :transaction, class_name: 'User', foreign_key: 'buyer_id', source: :article
+  def buyers
+     self.children.map { |e| e.buyer }
+  end
+
   # The field 'quantity_available' isn't accessible directly and should only be decreased after sales with this function
   # @api public
   # @param number [Integer]

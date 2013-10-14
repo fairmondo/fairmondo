@@ -11,11 +11,6 @@
   list-style: circle inside;
 }
 
-.donation {
-  font-size: 13px;
-  padding: 3px;
-}
-
 .small-image-left{
   float: right;
   width: 140px;
@@ -28,13 +23,16 @@
   }
 }
 
-.gray-border{
+.Gray-border-display{
   border: 2px solid #B4B4B4;
   border-radius: 0.5em 0.5em 0.5em 0.5em;
   color: #2E2E2E;
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   figcaption{
     text-overflow: ellipsis;

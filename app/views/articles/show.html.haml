@@ -36,18 +36,28 @@
 
 .Article.Article--detail
   = render "/articles/show/article_contents", :article => resource
-
+  - if User.is_admin? current_user
+    .Admin-controls
+      %h2 Administration:
+      - if resource.active?
+        = button_to '*Pionier*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :pioneer}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Neues auf Fairnopoly*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :newest}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Fairnopoly mag*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fairnopoly_likes}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & fair*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fair_highlights}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & öko*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :ecologic_highlights}), class: "Btn Btn--redSmall", method: :post
+        = button_to '*Besonders & edel*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :small_and_precious_highlights}), class: "Btn Btn--redSmall", method: :post
+        = button_to 'Neues Dreamteam', exhibits_path(exhibit: {article_id: resource.id, queue: :dream_team}), class: "Btn Btn--redSmall", method: :post
+        %hr
+        - Exhibit.where(:queue => :dream_team).where(:related_article_id => nil).each do |dreamteam|
+          = form_tag exhibit_path(dreamteam), method: :put do
+            = hidden_field_tag 'exhibit[related_article_id]', resource.id
+            = submit_tag "Dreamteam mit #{truncate(dreamteam.article.title,:length => 15)}", class: "Btn Btn--redSmall"
+            = link_to "#{truncate(dreamteam.article.title,:length => 15)} ansehen", dreamteam.article
+            %hr
 - unless resource.owned_by? current_user
   = render "/articles/show/user_teaser", :article => resource
+
 - if resource.active?
   = render "/articles/show/active", :article => resource
-  - if User.is_admin? current_user
-    %p= link_to '> (Admin) Set this as dream team article', update_settings_path(var: 'dream_team_article_id', value: resource.id)
-    %p= link_to '> (Admin) Set this as dream team article 2', update_settings_path(var: 'dream_team_article2_id', value: resource.id)
-    %p= link_to '> (Admin) Set this as newest article', update_settings_path(var: 'newest_article_id', value: resource.id)
-    %p= link_to '> (Admin) Set this as newest article 2', update_settings_path(var: 'newest_article2_id', value: resource.id)
-    %p= link_to '> (Admin) Set this as pioneer article', update_settings_path(var: 'pioneer_article_id', value: resource.id)
-    %p= link_to '> (Admin) Set this as pioneer article 2', update_settings_path(var: 'pioneer_article2_id', value: resource.id)
-
 - elsif resource.owned_by? current_user
   = render "/articles/show/inactive", :article => resource

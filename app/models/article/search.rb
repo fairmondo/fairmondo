@@ -24,6 +24,24 @@ module Article::Search
 
   included do
 
+    attr_accessor :search_in_content, :search_for_zip, :search_order_by
+
+    def search_in_content= value
+      if value == "1"
+        @search_in_content = true
+      else
+        @search_in_content = false
+      end
+    end
+
+    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
+
+    alias :search_in_content? :search_in_content
+
+    def self.search_attrs
+      [:search_in_content,:search_for_zip,:search_order_by]
+    end
+
     searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
       text :title, :as => 'title_text_ngram', :stored => true
@@ -74,19 +92,41 @@ module Article::Search
 
   def find_like_this page
     Article.search(:include => [:seller, :images]) do
-      fulltext self.title
+      fulltext self.title do
+        if self.search_in_content?
+          fields(:content,:title => 2.0)
+        else
+          fields(:title)
+        end
+      end
       paginate :page => page, :per_page => Kaminari.config.default_per_page
       with :fair, true if self.fair
       with :ecologic, true if self.ecologic
       with :small_and_precious, true if self.small_and_precious
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
-      order_by(:created_at, :desc)
+      with :zip, self.search_for_zip if search_for_zip.present?
+      case self.search_order_by
+      when "newest"
+        order_by(:created_at, :desc)
+      when "cheapest"
+        order_by(:price_cents, :asc)
+      when "most_expensive"
+        order_by(:price_cents, :desc)
+      else
+        order_by(:created_at, :desc)
+      end
     end
   end
 
+  # Index the zip for sellers
   def zip
-    self.seller.zip
+    #only for products which have pickup transport
+    if self.transport_pickup
+      self.seller.zip
+    else
+      nil
+    end
   end
 
 

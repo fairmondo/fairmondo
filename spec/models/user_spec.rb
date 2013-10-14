@@ -253,6 +253,21 @@ describe User do
       it "should return the same model_name as User" do
         LegalEntity.model_name.should eq User.model_name
       end
+
+      describe "validations" do
+        context "if LegalEntity wants to sell" do
+
+          before :each do
+            user.wants_to_sell = true
+          end
+
+          it { should validate_presence_of :terms }
+          it { should validate_presence_of :cancellation }
+          it {should validate_presence_of :about }
+
+        end
+      end
+
     end
   end
 

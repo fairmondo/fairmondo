@@ -27,7 +27,7 @@
         = f.input :name
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Btn"}
-  .Accordion--containsArticles.Accordion--activated
+  .Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     - @libraries.each do |library|
       - unless library.new_record?
         = accordion_item "library"+library.id.to_s , :title => library.name  do

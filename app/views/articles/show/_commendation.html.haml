@@ -27,7 +27,7 @@
     -# FAIR
     - if resource.fair
       %dt
-        =get_features_label(t("formtastic.labels.article.fair"), "Btn Btn-tagBig Btn-tag--blue", article)
+        = commendation_label :fair,:big
         - case resource.fair_kind
         - when "social_producer"
           - if resource.social_producer_questionnaire
@@ -56,7 +56,7 @@
     -# ECOLOGIC
     - if resource.ecologic
       %dt
-        =get_features_label(t("formtastic.labels.article.ecologic"), "Btn Btn-tagBig Btn-tag--green", article)
+        = commendation_label :ecologic,:big
         %h3= t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
         - if resource.ecologic_kind == "ecologic_seal"
           %p
@@ -68,7 +68,7 @@
     -# SMALL AND PRECIOUS
     - if resource.small_and_precious
       %dt
-        =get_features_label(t("formtastic.labels.article.small_and_precious"), "Btn Btn-tagBig Btn-tag--orange", article)
+        = commendation_label :small_and_precious,:big
         %p
           %b= t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
         %p= resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')

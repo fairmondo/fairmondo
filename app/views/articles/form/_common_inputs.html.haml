@@ -71,12 +71,15 @@
       = f.inputs :id => 'transport_type1-checked', :class => "transport_type1" do
         = f.input :transport_type1_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type1_provider') }
         = f.input :transport_type1_price, :required => true
+        = f.input :transport_type1_number, input_html: { min: 1, step: 1 }, tooltip: true
       = f.input :transport_type2, :as => :plain_check_box, :js_toggle => true
       = f.inputs :id => 'transport_type2-checked', :class => "transport_type2" do
         = f.input :transport_type2_provider, :required => true, :input_html => {:placeholder => t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, :required => true
+        = f.input :transport_type2_number, input_html: { min: 1, step: 1 }, tooltip: true
       %li.input
-      = f.input :transport_details, :input_html => {:rows => 7}
+        %br
+        = f.input :transport_details, :input_html => {:rows => 7}
   .Accordion-step
     %p
     = f.inputs :tooltip => t('formtastic.tooltips.article.payment') do
@@ -105,7 +108,9 @@
         = f.input :payment_cash_on_delivery_price, :required => true
 
       = f.input :payment_invoice, :as => :plain_check_box
-      = f.input :payment_details, :input_html => {:rows => 7}
+      %li.input
+        %br
+        = f.input :payment_details, :input_html => {:rows => 7}
 
 
 = f.input_step :commendation, :tooltip => true do
@@ -139,4 +144,3 @@
   -# f.inputs do
     -# f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}
     -# f.input :friendly_percent_organisation, :as => :select
-

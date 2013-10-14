@@ -46,7 +46,7 @@ class Feedback < ActiveRecord::Base
   validates :feedback_subject, presence: true, if: lambda { self.variety == 'send_feedback' }
   validates :help_subject, presence: true, if: lambda { self.variety == 'get_help' }
   validates :subject, presence: true, unless: :is_report_article
-
+  validates :subject, length: { maximum: 254 }
   #Relations
   belongs_to :user
   belongs_to :article

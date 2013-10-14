@@ -31,7 +31,7 @@
         %br
         Fairnopoly
       %p
-        Der Online-Marktplatz für alle
+        dem Online-Marktplatz für alle.
     %p
       Ab sofort kannst Du hier alles kaufen und verkaufen, was Du möchtest.
       %br
@@ -46,68 +46,30 @@
     %h2.Teaser-header
       DREAM TEAM DES TAGES
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-
-
-    - if @dream_team_article
-      .DoubleTeaser-article
-        = link_to image_tag(@dream_team_article.title_image_url(:thumb), alt: @dream_team_article.title), article_path(@dream_team_article), class: 'DoubleTeaser-image'
-        = link_to @dream_team_article.title, article_path(@dream_team_article), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @dream_team_article.profile_name, user_path(@dream_team_article.seller), class: 'DoubleTeaser-link'
-    - if @dream_team_article2
-      .DoubleTeaser-article.DoubleTeaser-article--right
-        = link_to image_tag(@dream_team_article2.title_image_url(:thumb), alt: @dream_team_article2.title), article_path(@dream_team_article2), class: 'DoubleTeaser-image'
-        = link_to @dream_team_article2.title, article_path(@dream_team_article2), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @dream_team_article2.profile_name, user_path(@dream_team_article2.seller), class: 'DoubleTeaser-link'
-
+    = render "exhibition", articles: @dream_team
 
   .Teaser.DoubleTeaser.DoubleTeaser--alwaysdouble
     = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
     %h2.Teaser-header
       UNSERE PIONIERE
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-    - if @pioneer_article
-      .DoubleTeaser-article
-        = link_to image_tag(@pioneer_article.title_image_url(:thumb), alt: @pioneer_article.title), article_path(@pioneer_article), class: 'DoubleTeaser-image'
-        = link_to @pioneer_article.title, article_path(@pioneer_article), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @pioneer_article.profile_name, user_path(@pioneer_article.seller), class: 'DoubleTeaser-link'
-    - if @pioneer_article2
-      .DoubleTeaser-article.DoubleTeaser-article--right
-        = link_to image_tag(@pioneer_article2.title_image_url(:thumb), alt: @pioneer_article2.title), article_path(@pioneer_article2), class: 'DoubleTeaser-image'
-        = link_to @pioneer_article2.title, article_path(@pioneer_article2), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @pioneer_article2.profile_name, user_path(@pioneer_article2.seller), class: 'DoubleTeaser-link'
+    = render "exhibition", articles: @pioneer
 
   .Teaser.DoubleTeaser
     = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
     %h2.Teaser-header
       NEU BEI FAIRNOPOLY
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-    - if @newest_article
-      .DoubleTeaser-article
-        = link_to image_tag(@newest_article.title_image_url(:thumb), alt: @newest_article.title), article_path(@newest_article), class: 'DoubleTeaser-image'
-        = link_to @newest_article.title, article_path(@newest_article), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @newest_article.profile_name, user_path(@newest_article.seller), class: 'DoubleTeaser-link'
-    - if @newest_article2
-      .DoubleTeaser-article.DoubleTeaser-article--right
-        = link_to image_tag(@newest_article2.title_image_url(:thumb), alt: @newest_article2.title), article_path(@newest_article2), class: 'DoubleTeaser-image'
-        = link_to @newest_article2.title, article_path(@newest_article2), class: 'DoubleTeaser-link' #Kreidetier
-        = " von "
-        = link_to @newest_article2.profile_name, user_path(@newest_article2.seller), class: 'DoubleTeaser-link'
-
-
+    = render "exhibition", articles: @newest
 
   .Teaser
-    %h2.Teaser-header GEZEICHNETE ANTEILE IM SEPTEMBER
+    %h2.Teaser-header GEZEICHNETE ANTEILE IM OKTOBER
 
     %p
       .goal-container
-        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 200000.0
+        - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
         - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
-        - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 50000.0
+        - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
         .goal{ :style => "width: 100%; height: 50px;"}
           - unless goal == 0
             .reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; height: 48px;" }
@@ -117,7 +79,7 @@
           = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents( all_this_year + reached)}€ gezeichnet."
         %p
           %a{ :href => "/anteile-zeichnen" }
-            Weitere Informationen zum Anteile zeichnen.
+            Als Mitglied gehört Fairnopoly auch Dir!
 
   .Teaser.Teaser--total
     .Teaser-totalheader
@@ -127,4 +89,13 @@
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
 
+  .Teaser.DoubleTeaser
+    .Teaser-totalheader
+      %h2.Teaser-header AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
+        Held*in werden
 
+  .Teaser.DoubleTeaser.NewsTeaser.DoubleTeaser--alwaysdouble#Feed-placeholder

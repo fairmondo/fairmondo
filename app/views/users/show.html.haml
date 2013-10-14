@@ -21,8 +21,8 @@
 -#
 
 - if resource.is? current_user
-  .User-additional.Accordion--containsArticles.Accordion--activated
-    = render 'article_box', item_name: 'active', sub_items: active_articles
+  .User-additional.Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
+    = render 'article_box', item_name: 'active', item_link: new_article_path, sub_items: active_articles
     = render 'article_box', item_name: 'inactive', sub_items: inactive_articles
     = render 'article_box', item_name: 'sold', sub_items: sold_transactions
     = render 'article_box', item_name: 'bought', sub_items: bought_transactions
