@@ -53,7 +53,7 @@ class Transaction < ActiveRecord::Base
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo,
            to: :article_seller, prefix: true
-  delegate :rating, to: :rating, prefix: true
+  delegate :value, to: :rating, prefix: true
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
