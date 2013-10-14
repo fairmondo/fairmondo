@@ -5,7 +5,7 @@ class Rating < ActiveRecord::Base
     [:rating, :rated_user_id, :text, :transaction_id]
   end
 
-  alias :value, :rating # to avoid structure 'rating_rating' in shared/show_transaction
+  alias :value :rating # to avoid structure 'rating_rating' in shared/show_transaction
 
   belongs_to :transaction
   belongs_to :rated_user, class_name: 'User', inverse_of: :ratings

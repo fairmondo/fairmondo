@@ -36,6 +36,24 @@ class LegalEntity < User
     seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
   end
 
+
+
+  state_machine :seller_state, :initial => :standard_seller do
+
+    event :rate_up_to_good1_seller do
+      transition :standard_seller => :good1_seller
+    end
+    event :rate_up_to_good2_seller do
+      transition :good1_seller => :good2_seller
+    end
+    event :rate_up_to_good3_seller do
+      transition :good2_seller => :good3_seller
+    end
+    event :rate_up_to_good4_seller do
+      transition :good3_seller => :good4_seller
+    end
+  end
+
   def upgrade_seller_state
     if self.seller_state == "standard_seller"
        self.rate_up_to_good1_seller
@@ -61,23 +79,6 @@ class LegalEntity < User
     end
   end
 
-
-  state_machine :seller_state, :initial => :standard_seller do
-
-    event :rate_up_to_good1_seller do
-      transition :standard_seller => :good1_seller
-    end
-    event :rate_up_to_good2_seller do
-      transition :good1_seller => :good2_seller
-    end
-    event :rate_up_to_good3_seller do
-      transition :good2_seller => :good3_seller
-    end
-    event :rate_up_to_good4_seller do
-      transition :good3_seller => :good4_seller
-    end
-  end
-
   def commercial_seller_constants
     commercial_seller_constants = {
       :standard_salesvolume => $commercial_seller_constants['standard_salesvolume'],
@@ -96,6 +97,8 @@ class LegalEntity < User
     ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
     ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 ))
   end
+
+
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
