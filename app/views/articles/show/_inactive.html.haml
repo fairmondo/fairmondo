@@ -49,15 +49,16 @@
       = "* " << t('article.preview.fees_and_donations.netto')
       = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
 
-    %dt
-      / = t('article.preview.fees_and_donations.quarter_fee')
-      Zzgl. der
-      %a{:href => "/faq#geb1"}
-        Quartalsgebühr
-      von 1,- Euro (inkl. 19% MwSt).
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
+    - if !resource.seller.ngo
+      %dt
+        / = t('article.preview.fees_and_donations.quarter_fee')
+        Zzgl. der
+        %a{:href => "/faq#geb1"}
+          Quartalsgebühr
+        von 1,- Euro (inkl. 19% MwSt).
+        %i.icon-helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
 
   - if resource.is_available?
-    %a= button_to "Artikel zum Wiedereinstellen bearbeiten", article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    %a= link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
   - else
-    %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    %a= button_to (resource.seller.ngo ? t("article.labels.submit_free") : t("article.labels.submit")), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put

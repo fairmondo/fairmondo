@@ -1,6 +1,10 @@
-class SettingsPolicy < Struct.new(:user, :library)
+class ExhibitPolicy < Struct.new(:user, :exhibit)
 
   def update?
+    admin?
+  end
+
+  def create?
     admin?
   end
 

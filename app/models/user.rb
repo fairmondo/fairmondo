@@ -86,32 +86,23 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :image
   ##
 
-
-
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
-
-  # validations
+  #Registration validations
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
-
-  #validates :forename, presence: true, on: :update
-  #validates :surname, presence: true, on: :update
-
   validates :nickname , :presence => true, :uniqueness => true
-
-  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  validates :address_suffix, length: { maximum: 150 }
-  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
-
-
   validates :recaptcha, presence: true, acceptance: true, on: :create
-
   validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
 
 
+  # validations
+
+  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
+  validates :address_suffix, length: { maximum: 150 }
+  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
 
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
@@ -128,6 +119,7 @@ class User < ActiveRecord::Base
 
   validates :about_me, :length => { :maximum => 2500 }
 
+  validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
 
   # Return forename plus surname
@@ -166,6 +158,12 @@ class User < ActiveRecord::Base
     user && user.admin?
   end
 
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
+  end
+
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number
@@ -186,7 +184,7 @@ class User < ActiveRecord::Base
   # @return [String]
   def address
     string = ""
-    string += "#{self.address_suffix}, " if self.address_suffix
+    string += "#{self.address_suffix}, " if self.address_suffix.present?
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
   end

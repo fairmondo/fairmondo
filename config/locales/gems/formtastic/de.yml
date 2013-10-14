@@ -92,23 +92,25 @@ de:
         transport_type1: Versand
         transport_type1_provider: Versandart
         transport_type1_price: Versandkosten (€)
+        transport_type1_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_type2: Alternativer Versand
         transport_type2_provider: Versandart
         transport_type2_price: Versandkosten (€)
+        transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
-        transport_details: "Weitere Angaben:"
+        transport_details: "Weitere Angaben zu den Versandoptionen:"
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
         payment_cash: Barzahlung bei Abholung
         payment_paypal: PayPal
         payment_cash_on_delivery: Nachnahme
-        payment_cash_on_delivery_price: Nachnahmezuschlag (€)
+        payment_cash_on_delivery_price: Nachnahmezuschlag pro Sendung (€)
         payment_invoice: Rechnung
 
         payment_methods: Bezahloptionen
 
-        payment_details: "Weitere Angaben:"
+        payment_details: "Weitere Angaben zu den Bezahloptionen:"
 
         basic_price: "Grundpreis (€)"
         basic_price_simple: "Grundpreis:"
@@ -119,6 +121,8 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
+        search_in_content: "suche in Artikelbeschreibung"
+        search_for_zip: "PLZ"
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -242,6 +246,8 @@ de:
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         payment: >
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+        transport_type1_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
+        transport_type2_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
         payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
@@ -253,7 +259,6 @@ de:
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
-
 
     actions:
       create: "%{model} erstellen"

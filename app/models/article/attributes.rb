@@ -94,8 +94,8 @@ module Article::Attributes
     #! attr_accessible :custom_seller_identifier
     #! attr_accessible :gtin
 
-    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true
-    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true
+    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true, allow_blank: true
+    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
@@ -105,8 +105,10 @@ module Article::Attributes
       [:transport_pickup,
       :transport_type1, :transport_type1_price_cents,
       :transport_type1_price, :transport_type1_provider,
+      :transport_type1_number,
       :transport_type2, :transport_type2_price_cents,
       :transport_type2_price, :transport_type2_provider,
+      :transport_type2_number,
       :transport_details]
     end
     #! attr_accessible *transport_attributes
@@ -119,6 +121,10 @@ module Article::Attributes
 
     validates :transport_type1_price, :transport_type1_provider, :presence => true ,:if => :transport_type1
     validates :transport_type2_price, :transport_type2_provider, :presence => true ,:if => :transport_type2
+
+    validates :transport_type1_number, numericality: { greater_than: 0 }
+    validates :transport_type2_number, numericality: { greater_than: 0 }
+
     validates :transport_details, :length => { :maximum => 2500 }
 
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
@@ -190,13 +196,13 @@ module Article::Attributes
   # @api public
   # @param selected_transport [String] Transport type
   # @param selected_payment [String] Payment type
-  # @param selected_payment [Integer] Amount of articles bought
+  # @param quantity [Integer, nil] Amount of articles bought
   # @return [Money] Total billed price
   def total_price selected_transport, selected_payment, quantity
     quantity ||= 1
-    total = self.price + self.transport_price(selected_transport)
-    total += self.payment_cash_on_delivery_price if selected_payment == "cash_on_delivery"
-    total * quantity
+    total = self.price * quantity
+    total += self.transport_price(selected_transport)
+    total += cash_on_delivery_price selected_transport, selected_payment, quantity
   end
 
   # Gives the shipping cost for a specified transport type
@@ -206,14 +212,26 @@ module Article::Attributes
   # @param quantity [Integer]
   # @return [Money] The shipping price
   def transport_price transport_type, quantity = 1
-    case transport_type
-    when "type1"
-      transport_type1_price * quantity
-    when "type2"
-      transport_type2_price * quantity
+    if ["type1", "type2"].include? transport_type
+      send("transport_#{transport_type}_price")  * number_of_shipments(transport_type, quantity)
     else
       Money.new 0
     end
+  end
+
+  # Calculated total cash_on_delivery_price, including quantity and selected_transport
+  def cash_on_delivery_price selected_transport, selected_payment, quantity = 1
+    if selected_payment == 'cash_on_delivery'
+      self.payment_cash_on_delivery_price * number_of_shipments(selected_transport, quantity)
+    else
+      Money.new 0
+    end
+  end
+
+  # For CombiTransport: costs are increased every [number] quantity_boughts
+  # @api public
+  def number_of_shipments selected_transport, quantity
+    (quantity.to_f / send("transport_#{selected_transport}_number")).ceil
   end
 
   # Gives the shipping provider for a specified transport type
@@ -275,8 +293,6 @@ module Article::Attributes
       end
       output
     end
-
-
 
     def bank_account_exists
       unless self.seller.bank_account_exists?

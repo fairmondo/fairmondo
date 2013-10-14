@@ -45,10 +45,12 @@ $layout-small: em($breakpoint-small) lt-ie9;
 $layout-medium: em($breakpoint-medium) lt-ie9;
 $layout-large: em($breakpoint-large) lt-ie9;
 $layout-huge: em($breakpoint-huge) lt-ie9;
+$layout-small-to-large: em($breakpoint-small) em($breakpoint-large);
 
 // Colors
 $blue: #3a80c2;
 $red: #a14d3f;
+$warningred: #cc0000;
 $orange: #f56900;
 $lightgreen: #a6b40a;
 $lightblue: #4a9bff;

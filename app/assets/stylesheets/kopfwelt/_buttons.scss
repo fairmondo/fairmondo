@@ -158,11 +158,15 @@ a.Btn {
 		background-color: lighten($btn--gray, 5%);
 	}
 }
-.Btn--red {
+.Btn--red,.Btn--redSmall {
 	background-color: $btn--red;
 	&:hover {
 		background-color: lighten($btn--red, 5%);
 	}
+}
+.Btn--redSmall {
+  font-size: 14px;
+  @include rem(padding, 8px 15px);
 }
 
 
@@ -170,6 +174,7 @@ a.Btn {
 // -----------------------------------
 
 .Btn-tag {
+  vertical-align:baseline;
 	border-radius: 3px;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -178,15 +183,14 @@ a.Btn {
 	@include rem(margin-right, 4px);
 }
 
-.Btn-tagBig {
-  border-radius: 3px;
-  text-transform: uppercase;
-  font-weight: 600;
-  @include rem(font-size, 30px);
-  @include rem(padding, 0 6px);
-  @include rem(margin-right, 4px);
+.Btn-tag--medium {
+  @include rem(font-size, 25px);
+
 }
 
+.Btn-tag--big {
+  @include rem(font-size, 30px);
+}
 
 // Color variations (tag)
 

@@ -45,12 +45,12 @@ class Transaction < ActiveRecord::Base
            :basic_price, :basic_price_amount, :basic_price_amount_text, :price, :vat, :vat_price,
            :price_without_vat, :total_price, :quantity, :quantity_left,
            :transport_type1_provider, :transport_type2_provider, :calculated_fair,
-           :custom_seller_identifier,
+           :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
-           :about, :terms, :cancellation, :paypal_account,
+           :about, :terms, :cancellation, :paypal_account,:ngo,
            to: :article_seller, prefix: true
 
   # CREATE
@@ -64,7 +64,7 @@ class Transaction < ActiveRecord::Base
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
-    transaction.validates :selected_payment, supported_option: true, presence: true
+    transaction.validates :selected_payment, supported_option: true, common_sense: true, presence: true
 
     transaction.validates :forename, presence: true
     transaction.validates :surname, presence: true
@@ -170,6 +170,16 @@ class Transaction < ActiveRecord::Base
   # @return [Array] Array in 2 levels with option name and it's localization
   def selected_payments
     selected "payment"
+  end
+
+  # Find out if a specifictransport/payment type was selected by the seller
+  # @api public
+  # @param attribute [String] "transport" or "payment"
+  # @param type [String] enumerize type to check
+  # @return [Boolean]
+  def selected? attribute, type
+    filtered_array = selected(attribute).select {|a| a[1] == type }
+    !filtered_array.empty?
   end
 
   # Shortcut for article_total_price working with saved data

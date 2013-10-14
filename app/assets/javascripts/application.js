@@ -35,7 +35,6 @@
 
 
 //= require vendor/jquery.complexify
-//= require vendor/jquery.hashchange
 //= require vendor/jquery.socialshareprivacy
 //= require vendor/jquery.selectBoxIt
 //= require vendor/jquery.icheck
@@ -67,3 +66,5 @@
 //= require inputs/bank_details
 
 //= require customize/rails-confirm
+
+//= require lazy/feed

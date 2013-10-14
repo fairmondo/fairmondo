@@ -32,6 +32,9 @@ class ArticlesController < InheritedResources::Base
   before_filter :ensure_complete_profile , :only => [:new, :create]
   #before_filter :authorize_resource, :only => [:edit, :show]
 
+  #search_cache
+  before_filter :build_search_cache, :only => :index
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
@@ -53,8 +56,6 @@ class ArticlesController < InheritedResources::Base
     @article = Article.find params[:id]
     authorize resource
 
-    redirect_to transaction_path(resource) if resource.closed? # Achtung, Seite existiert nicht!
-
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
@@ -73,8 +74,11 @@ class ArticlesController < InheritedResources::Base
     elsif permitted_new_params[:edit_as_new]
       @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
       @article = @old_article.amoeba_dup
-      #if the old article has errors we still want to remove it from the marketplace
-      @old_article.close_without_validation
+      if !@old_article.sold?
+        #do not remove sold articles, we want to keep them
+        #if the old article has errors we still want to remove it from the marketplace
+        @old_article.close_without_validation
+      end
     end
     new!
   end
@@ -122,14 +126,6 @@ class ArticlesController < InheritedResources::Base
 
 
   private
-
-    def ensure_complete_profile
-      # Check if the user has filled all fields
-      if !current_user.can_sell?
-        flash[:error] = t('article.notices.incomplete_profile')
-        redirect_to edit_user_registration_path(:incomplete_profile => true)
-      end
-    end
 
     def change_state!
 
@@ -190,10 +186,16 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for Article.new(permitted_params[:article])
+      @articles ||= search_for @search_cache
     end
 
     def begin_of_association_chain
       current_user
     end
+
+    def build_search_cache
+     @search_cache = Article.new(permitted_params[:article])
+    end
+
+
 end

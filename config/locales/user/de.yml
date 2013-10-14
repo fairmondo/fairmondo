@@ -7,9 +7,11 @@ de:
       edit:
         legal_entity: "Gewerbliche(r) Anbieter*in oder juristische Person"
         private_user: "Privatperson"
+        ngo: "Gemeinnützige Organisation"
       show:
         legal_entity: "Firmenprofil"
         private_user: "Privatprofil"
+        ngo: "Gemeinnützige Organisation"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
     legal: "Allgemeinen Geschäftsbedingungen."
@@ -47,7 +49,8 @@ de:
       invited_people: "Eingeladene Benutzer"
     text:
       no_active_old: "Keine vorhanden"
-      no_active: "Keine Angebote eingestellt"
+      no_active: "Stelle hier Deinen ersten Artikel ein"
+      no_active_html: "%{href}"
       no_inactive: "Keine Artikel vorhanden"
       no_sold: "Keine verkauften Artikel vorhanden"
       no_bought: "Keine gekauften Artikel vorhanden"

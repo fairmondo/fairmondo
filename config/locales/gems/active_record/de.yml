@@ -293,7 +293,9 @@ de:
       transaction:
         one: Transaktionsobjekt
         other: Transaktionsobjekte
-
+      exhibit:
+        one: Startseitenartikel
+        other: Startseitenartikel
     attributes:
       transaction:
         tos_accepted: "Die AGB und die Widerrufserklärung"
