@@ -80,21 +80,21 @@ class LegalEntity < User
 
   def commercial_seller_constants
     commercial_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 50,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $commercial_seller_constants['standard_salesvolume'],
+      :verified_bonus => $commercial_seller_constants['verified_bonus'],
+      :good_factor => $commercial_seller_constants['good_factor'],
+      :bad_salesvolume => $commercial_seller_constants['bad_salesvolume']
     }
   end
 
   def sales_volume
-    bad_seller? ? ( commercial_seller_constants[:standard_salesvolume] / commercial_seller_constants[:bad_factor] ) :
-    ( commercial_seller_constants[:standard_salesvolume] +
+    bad_seller? ? commercial_seller_constants[:bad_salesvolume] :
+    (( commercial_seller_constants[:standard_salesvolume] +
     ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 ) ) *
     ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
     ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
     ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
-    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 )
+    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 ))
   end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails

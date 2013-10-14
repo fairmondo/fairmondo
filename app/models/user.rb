@@ -280,12 +280,12 @@ class User < ActiveRecord::Base
       :standard_purchasevolume => 12,
       :trusted_bonus => 12,
       :good_factor => 2,
-      :bad_factor => 6
+      :bad_purchasevolume => 6
     }
   end
 
   def purchase_volume
-    ( bad_buyer? ? ( buyer_constants[:standard_purchasevolume] / buyer_constants[:bad_factor] ) :
+    ( bad_buyer? ? ( buyer_constants[:bad_purchasevolume] ) :
     ( buyer_constants[:standard_purchasevolume] +
     ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
     ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )

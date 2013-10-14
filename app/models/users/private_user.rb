@@ -36,17 +36,17 @@ class PrivateUser < User
 
   def private_seller_constants
     private_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 10,
-      :trusted_bonus => 20,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
+      :verified_bonus => $private_seller_constants['verified_bonus'],
+      :trusted_bonus => $private_seller_constants['trusted_bonus'],
+      :good_factor => $private_seller_constants['good_factor'],
+      :bad_salesvolume => $private_seller_constants['bad_salesvolume']
     }
   end
 
   def sales_volume
-    ( bad_seller? ? ( private_seller_constants[:standard_salesvolume] / private_seller_constants[:bad_factor] ) :
-    ( private_seller_constants[:standard_salesvolume] +
+    bad_seller? ? private_seller_constants[:bad_salesvolume] :
+    (( private_seller_constants[:standard_salesvolume] +
     ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +
     ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
     ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
