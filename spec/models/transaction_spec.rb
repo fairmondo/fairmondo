@@ -155,12 +155,6 @@ describe MultipleFixedPriceTransaction do
   end
 
   describe "methods" do
-    describe "#buyers" do
-        it "should return a buyers array" do
-           mfpt.send(:buyers).should eq []
-        end
-
-    end
     describe "#buy_multiple_transaction" do
 
       context "when quantity_bought is greater than the available quantity" do
