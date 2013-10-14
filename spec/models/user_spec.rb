@@ -796,6 +796,19 @@ describe User do
         end
       end
 
+       context "with negative ratings over 50%" do
+        before :each do
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(10)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(25)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(55)
+        end
+
+        it "should mark the user as banned" do
+          private_seller.update_rating_counter
+          private_seller.banned.should eq true
+        end
+      end
+
       context "with positive ratings over 75%" do
         before :each do
           private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(80)
@@ -891,6 +904,19 @@ describe User do
           commercial_seller.seller_state = "bad_seller"
           commercial_seller.update_rating_counter
           commercial_seller.seller_state.should eq "bad_seller"
+        end
+      end
+
+      context "with negative ratings over 50%" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(10)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(25)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(55)
+        end
+
+        it "should mark the user as banned" do
+          commercial_seller.update_rating_counter
+          commercial_seller.banned.should eq true
         end
       end
 
