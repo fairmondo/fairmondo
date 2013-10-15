@@ -13,7 +13,7 @@ de:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein"
       wrong_file_size: "Aktuell können maximal 100 Artikel pro Datei hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."
       missing_file: "Bitte wähle eine CSV-Datei aus"
-      wrong_header: 'Die ersten Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten (inkl. der exakten Reihenfolge), z.B. "title" in Spalte A).'
+      wrong_header: 'Die erste Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten.'
       wrong_article: "Zeile %{index}: %{message}"
       wrong_article_message: "Content muss ausgefüllt werden"
       wrong_external_title_image_url: "external_title_image_url ist keine gültige Url"
