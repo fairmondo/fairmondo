@@ -81,8 +81,8 @@ module MassUpload::Checks
   private
     CP1252_EURO = "\x80"
     MAC_EURO = "\xDB"
-    DOS_EURO = '?' #"\x7F"
-    ISO_8859_1_EURO = "\x1A"
+    DOS_EURO = '\?' #"\x7F"
+    #ISO_8859_1_EURO = "\x1A"
     ISO_8859_15_EURO = "\xA4"
     #UNICODE_EURO = "\xE2\x82\xAC"
 
@@ -96,8 +96,6 @@ module MassUpload::Checks
         'MacRoman'
       elsif match_euro_sign DOS_EURO, binary_header_line
         'IBM437'
-      elsif match_euro_sign ISO_8859_1_EURO, binary_header_line
-        'ISO-8859-1'
       elsif match_euro_sign ISO_8859_15_EURO, binary_header_line
         'ISO-8859-15'
       else
