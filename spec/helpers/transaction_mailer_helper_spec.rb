@@ -36,14 +36,16 @@ describe TransactionMailerHelper do
 
 	describe "#show_contact_info_seller( seller )" do
 		it "should return the right address for the seller" do
-			show_contact_info_seller = helper.show_contact_info_seller( @transaction.article_seller )
-			show_contact_info_seller.should have_content( @transaction.article_seller.forename )
-			show_contact_info_seller.should have_content( @transaction.article_seller.surname )
-			show_contact_info_seller.should have_content( @transaction.article_seller.street )
-			show_contact_info_seller.should have_content( @transaction.article_seller.address_suffix )
-			show_contact_info_seller.should have_content( @transaction.article_seller.city )
-			show_contact_info_seller.should have_content( @transaction.article_seller.zip )
-			show_contact_info_seller.should have_content( @transaction.article_seller.country )
+		  [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity)].each do |user|
+  			show_contact_info_seller = helper.show_contact_info_seller( user )
+  			show_contact_info_seller.should have_content( user.forename )
+  			show_contact_info_seller.should have_content( user.surname )
+  			show_contact_info_seller.should have_content( user.street )
+  			show_contact_info_seller.should have_content( user.address_suffix )
+  			show_contact_info_seller.should have_content( user.city )
+  			show_contact_info_seller.should have_content( user.zip )
+  			show_contact_info_seller.should have_content( user.country )
+  			end
 		end
 	end
 
@@ -75,6 +77,10 @@ describe TransactionMailerHelper do
     it "should return a transport type 2 provider if it is set" do
       @transaction = FactoryGirl.create :transaction_with_buyer, :transport_type_2_selected
       helper.order_details( @transaction ).should have_content( @transaction.article.transport_type2_provider )
+    end
+    it "should return a custom_seller_identifier if it is set" do
+      @transaction = FactoryGirl.create :transaction_with_buyer, :article => FactoryGirl.create(:article, :with_custom_seller_identifier)
+      helper.order_details( @transaction ).should have_content( @transaction.article.custom_seller_identifier )
     end
 	end
 

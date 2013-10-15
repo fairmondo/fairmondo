@@ -43,6 +43,7 @@ FactoryGirl.define do
     payment_cash true
 
     payment_details "payment_details"
+
     after(:build) do |article|
       article.images << FactoryGirl.build(:image)
       article.activate
@@ -183,5 +184,10 @@ FactoryGirl.define do
     trait :without_build_transaction do
       skip_build_transaction true
     end
+
+    trait :with_custom_seller_identifier do
+      custom_seller_identifier {Faker::Lorem.words(rand(3..5))}
+    end
+
   end
 end
