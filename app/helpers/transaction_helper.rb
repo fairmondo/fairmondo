@@ -91,6 +91,11 @@ module TransactionHelper
     end
   end
 
+  def display_article_link article
+    tablerow(
+      t('transaction.edit.article_link'), (link_to article.title, article)
+    )
+  end
 
   def display_quantity_bought quantity
     tablerow(
