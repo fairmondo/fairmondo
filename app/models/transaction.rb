@@ -19,6 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
@@ -26,6 +27,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
+  belongs_to :invoice, class_name: 'Invoice', foreign_key: 'invoice_id' # INVOICE
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,

@@ -264,6 +264,10 @@ class User < ActiveRecord::Base
     Invoice.find_by_user_id_and_state( self.id, "open" ).present?
   end
 
+  def is_a_ngo?
+    self.ngo
+  end
+
   def has_paid_quarterly_fee?
     self.quarterly_fee?
   end

@@ -7,7 +7,6 @@ FactoryGirl.define do
     updated_at "2013-08-14 11:15:26"
     due_date 30.days.from_now
     state "open"
-    article_id 1
     total_fee_cents 0
   end
 end
