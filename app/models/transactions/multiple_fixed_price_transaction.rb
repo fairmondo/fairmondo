@@ -30,7 +30,7 @@ class MultipleFixedPriceTransaction < Transaction
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
   validates :quantity_available, presence: true, numericality: true
-  validates :quantity_bought, quantity_bought: true, if: :updating_state
+  validates :quantity_bought, quantity_bought: true
 
   # Allow quantity_available field for this transaction type
   def quantity_available

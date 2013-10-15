@@ -21,49 +21,61 @@ describe TransactionMailerHelper do
 
 	describe "#fairnopoly_email_footer" do
 		it "should return proper email footer" do
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.intro') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.footer_contact') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.registered') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.board') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.supervisory_board') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.brand') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.claim') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.facebook') )
-			helper.fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.buy_shares') )
+			fairnopoly_email_footer = helper.fairnopoly_email_footer
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.intro') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.footer_contact') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.registered') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.board') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.supervisory_board') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.brand') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.claim') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.facebook') )
+			fairnopoly_email_footer.should have_content( I18n.t('common.fn_legal_footer.buy_shares') )
 		end
 	end
 
 	describe "#show_contact_info_seller( seller )" do
 		it "should return the right address for the seller" do
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.forename )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.surname )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.street )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.address_suffix )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.city )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.zip )
-			helper.show_contact_info_seller( @transaction.article_seller ).should have_content( @transaction.article_seller.country )
+			show_contact_info_seller = helper.show_contact_info_seller( @transaction.article_seller )
+			show_contact_info_seller.should have_content( @transaction.article_seller.forename )
+			show_contact_info_seller.should have_content( @transaction.article_seller.surname )
+			show_contact_info_seller.should have_content( @transaction.article_seller.street )
+			show_contact_info_seller.should have_content( @transaction.article_seller.address_suffix )
+			show_contact_info_seller.should have_content( @transaction.article_seller.city )
+			show_contact_info_seller.should have_content( @transaction.article_seller.zip )
+			show_contact_info_seller.should have_content( @transaction.article_seller.country )
 		end
 	end
 
 	describe "#show_buyer_address( transaction )" do
 		it "should return the right address for the buyer" do
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.forename )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.surname )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.address_suffix )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.street )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.city )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.zip )
-			helper.show_buyer_address( @transaction ).should have_content( @transaction.country )
+			address = helper.show_buyer_address( @transaction )
+			address.should have_content( @transaction.forename )
+			address.should have_content( @transaction.surname )
+			address.should have_content( @transaction.address_suffix )
+			address.should have_content( @transaction.street )
+			address.should have_content( @transaction.city )
+			address.should have_content( @transaction.zip )
+			address.should have_content( @transaction.country )
 		end
 	end
 
 	describe "#order_details( transaction )" do
 		it "should return the right details for the order" do
-			helper.order_details( @transaction ).should have_content( @transaction.article_title )
-			helper.order_details( @transaction ).should have_content( article_path( @transaction.article ) )
-			helper.order_details( @transaction ).should have_content( @transaction.article_title )
-			helper.order_details( @transaction ).should have_content( @transaction.id)
+			details = helper.order_details( @transaction )
+			details.should have_content( @transaction.article_title )
+			details.should have_content( article_path( @transaction.article ) )
+			details.should have_content( @transaction.article_title )
+			details.should have_content( @transaction.id)
 		end
+		it "should return a transport type 1 provider if it is set" do
+      @transaction = FactoryGirl.create :transaction_with_buyer, :transport_type_1_selected
+      helper.order_details( @transaction ).should have_content( @transaction.article.transport_type1_provider )
+    end
+    it "should return a transport type 2 provider if it is set" do
+      @transaction = FactoryGirl.create :transaction_with_buyer, :transport_type_2_selected
+      helper.order_details( @transaction ).should have_content( @transaction.article.transport_type2_provider )
+    end
 	end
 
 	describe "#article_payment_info( transaction, role )" do
@@ -71,6 +83,10 @@ describe TransactionMailerHelper do
 			pending "test not yet implemented"
 			helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.fair_percent') )
 		end
+		it "should return the right details for article payment if user is the buyer and cash on delivery is selected" do
+      @transaction = FactoryGirl.create :transaction_with_buyer, :cash_on_delivery_selected
+      helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.edit.cash_on_delivery') )
+    end
 	end
 
 	describe "#payment_method_info( transaction )" do
@@ -83,13 +99,13 @@ describe TransactionMailerHelper do
 
 			it "for 'bank_transfer'" do
 				@transaction.selected_payment = 'bank_transfer'
-
-				helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.bank_transfer') )
-       	helper.payment_method_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.please_pay') )
-				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_owner )
-				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_account_number )
-				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_code )
-				helper.payment_method_info( @transaction, :buyer ).should_not have_content( @transaction.article_seller.bank_name )
+        payment_method = helper.payment_method_info( @transaction, :buyer )
+				payment_method.should have_content( I18n.t('transaction.notifications.buyer.bank_transfer') )
+       	payment_method.should have_content( I18n.t('transaction.notifications.buyer.please_pay') )
+				payment_method.should_not have_content( @transaction.article_seller.bank_account_owner )
+				payment_method.should_not have_content( @transaction.article_seller.bank_account_number )
+				payment_method.should_not have_content( @transaction.article_seller.bank_code )
+				payment_method.should_not have_content( @transaction.article_seller.bank_name )
 			end
 
 			it "for 'paypal'" do
@@ -112,7 +128,7 @@ describe TransactionMailerHelper do
 		end
 	end
 
-	# Diese Methode wird erstmal nicht mehr genutzt
+	# this method is not in use
 	#
 	# describe "#seller_bank_account( seller )" do
 	# 	it "should return the right string for seller bank account" do
@@ -131,11 +147,12 @@ describe TransactionMailerHelper do
 			@transaction.article.calculate_fees_and_donations
 			@transaction.quantity_bought = 2
 
-			helper.fees_and_donations( @transaction ).should have_content( I18n.t('transaction.notifications.seller.fees') )
-			helper.fees_and_donations( @transaction ).should have_content( "#{humanized_money_with_symbol( @transaction.article.calculated_fee * @transaction.quantity_bought )}" )
+			fees_and_donations = helper.fees_and_donations( @transaction )
+			fees_and_donations.should have_content( I18n.t('transaction.notifications.seller.fees') )
+			fees_and_donations.should have_content( "#{humanized_money_with_symbol( @transaction.article.calculated_fee * @transaction.quantity_bought )}" )
 
-			helper.fees_and_donations( @transaction ).should have_content( I18n.t('transaction.notifications.seller.donations') )
-			helper.fees_and_donations( @transaction ).should have_content( "#{humanized_money_with_symbol( @transaction.article.calculated_fair * @transaction.quantity_bought )}" )
+			fees_and_donations.should have_content( I18n.t('transaction.notifications.seller.donations') )
+			fees_and_donations.should have_content( "#{humanized_money_with_symbol( @transaction.article.calculated_fair * @transaction.quantity_bought )}" )
 		end
 	end
 end
