@@ -9,20 +9,19 @@ describe Invoice do
 # end
 
   it "has a valid Factory" do
-    should be_valid
+    FactoryGirl.build(:invoice).should be_valid
   end
 
   describe "model attributes" do
   	it { should respond_to :due_date }
   	it { should respond_to :state }
-  	it { should respond_to :user_id }
   	it { should respond_to :total_fee_cents }
+    it { should respond_to :user_id }
   end
 
   describe "associations" do
   	it { should belong_to :user }
-  	it { should have_many :invoice_items }
-  	it { should have_many :articles }
+  	it { should have_many :transactions}
   end
 
   describe "validations" do
@@ -112,6 +111,7 @@ describe Invoice do
         end
 
         it "not add the quarterly fee to invoice if invoice is not the last of this quarter" do
+          pending
         end
       end
 
@@ -149,6 +149,16 @@ describe Invoice do
           invoice.total_fee_cents = 675
           invoice.set_due_date
           invoice.due_date.should eq 30.days.from_now.at_end_of_quarter
+        end
+      end
+
+      context "add to invoice dependent on due date of invoice" do
+        it 'should add transaction to invoice if next due date is more than 30d away' do
+          pending
+        end
+
+        it 'should create a new invoice and add transaction to that invoice if due date of open invoice is less than 30d away' do
+          pending
         end
       end
   	end

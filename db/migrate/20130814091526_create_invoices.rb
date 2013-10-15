@@ -7,5 +7,6 @@ class CreateInvoices < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :invoices, :user_id
   end
 end
