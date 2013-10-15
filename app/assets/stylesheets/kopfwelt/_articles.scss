@@ -130,7 +130,8 @@ span.Article-price {
 .Article-vat,
 .Article-basicprice,
 .Article-transportprice,
-.Article-basicset {
+.Article-basicset,
+.Article-ngodonation {
 	@include rem(font-size, 10px);
 	line-height: 1;
 	margin-bottom: .2em;
@@ -144,9 +145,13 @@ span.Article-price {
 		@include rem(margin-top, -7px);
 	}
 }
-.Article-basicprice {
+.Article-basicprice,
+.Article-ngodonation {
 	width: 100% !important;
 	@include span-columns(1 omega, 2);
+}
+.Article-ngodonation {
+  margin-top: 0.6em !important;
 }
 .Article-basicset {
 	@include span-columns(1, 2);
