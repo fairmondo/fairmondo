@@ -16,6 +16,7 @@ de:
       address: "Deine Rechnungs- und Lieferadresse:"
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       # step 2
+      article_link: "Dein Artikel mit Artikeldetails:"
       purchase_data: "Deine Bestellangaben: "
       quantity_bought: "Artikelanzahl: "
       payment_type: "Bezahlmethode: "
