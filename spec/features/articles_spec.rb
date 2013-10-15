@@ -148,6 +148,7 @@ describe 'Article management' do
     describe "article search", search: true do
       before do
         article = FactoryGirl.create :article, title: 'chunky bacon'
+        #FactoryGirl.create :article
         Sunspot.commit
         visit root_path
       end
