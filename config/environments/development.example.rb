@@ -84,7 +84,7 @@ Fairnopoly::Application.configure do
   # bullet - n+1 detection
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
+    Bullet.add_footer = true
     Bullet.console = true
     Bullet.bullet_logger = true
     Bullet.rails_logger = true

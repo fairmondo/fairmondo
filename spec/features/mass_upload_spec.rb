@@ -5,8 +5,8 @@ include CategorySeedData
 
 describe "Mass-upload" do
 
-  let (:private_user) { FactoryGirl.create :private_user }
-  let (:legal_entity_user) { FactoryGirl.create :legal_entity }
+  let(:private_user) { FactoryGirl.create :private_user }
+  let(:legal_entity_user) { FactoryGirl.create :legal_entity }
 
   subject { page }
 
@@ -19,7 +19,7 @@ describe "Mass-upload" do
   end
 
   context "for signed-in private users" do
-    let (:legal_entity_user) { FactoryGirl.create :legal_entity,
+    let(:legal_entity_user) { FactoryGirl.create :legal_entity,
                               :missing_bank_data }
     before do
       login_as private_user
@@ -52,7 +52,7 @@ describe "Mass-upload" do
       end
 
       describe "as a user missing paypal data -" do
-        let (:legal_entity_user) { FactoryGirl.create :legal_entity }
+        let(:legal_entity_user) { FactoryGirl.create :legal_entity }
 
         before do
           attach_file('mass_upload_file',
@@ -72,7 +72,7 @@ describe "Mass-upload" do
       end
 
       context "as a user with complete payment data" do
-        let (:legal_entity_user) { FactoryGirl.create :legal_entity,
+        let(:legal_entity_user) { FactoryGirl.create :legal_entity,
                                     :paypal_data }
 
         context "and a valid csv file" do

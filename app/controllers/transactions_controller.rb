@@ -22,7 +22,7 @@
 class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
-  custom_actions :resource => [:already_sold, :print_order_buyer, :print_order_seller]
+  custom_actions :resource => [:already_sold, :print_order_buyer]#, :print_order_seller]
 
   before_filter :redirect_if_already_sold, only: [:edit, :update]
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
@@ -50,13 +50,13 @@ class TransactionsController < InheritedResources::Base
     end
   end
 
-  def print_order_seller
-    show! do |format|
-      format.html do
-        render 'transactions/print_order_seller', layout: false, locals: { t: resource }
-      end
-    end
-  end
+  #def print_order_seller
+  #  show! do |format|
+  #    format.html do
+  #      render 'transactions/print_order_seller', layout: false, locals: { t: resource }
+  #    end
+  #  end
+  #end
 
   def update
     resource.buyer_id = current_user.id
