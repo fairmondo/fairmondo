@@ -140,7 +140,9 @@
         = f.input :small_and_precious_reason, :tooltip => true, :required => true
         = f.input :small_and_precious_handmade, :as => :radio, :tooltip => true, :required => true
 
--# f.input_step :friendly_percent, :tooltip => true do
-  -# f.inputs do
-    -# f.input :friendly_percent, :input_html => {:value => number_with_precision(f.object.friendly_percent, precision: 0)}
-    -# f.input :friendly_percent_organisation, :as => :select
+= f.input_step :friendly_percent, :tooltip => true do
+  = f.inputs do
+    .Accordion-step
+      = f.input :friendly_percent, :as => :select, :collection => [5,10,25,35,50,75,100]
+      = f.input :friendly_percent_organisation, :as => :select, :collection => User.sorted_ngo
+
