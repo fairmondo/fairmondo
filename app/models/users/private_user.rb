@@ -45,7 +45,7 @@ class PrivateUser < User
     }
   end
 
-  def sales_volume
+  def max_value_of_goods_cents
     bad_seller? ? private_seller_constants[:bad_salesvolume] :
     (( private_seller_constants[:standard_salesvolume] +
     ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +

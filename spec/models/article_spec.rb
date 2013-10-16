@@ -74,6 +74,14 @@ describe Article do
         end
       end
 
+      # describe "#count_value_of_goods" do
+      #   it "count up the value of active goods of this user" do
+      #     second_article = FactoryGirl.create :article, seller: db_article.seller
+      #     db_article.count_value_of_goods
+      #     db_article.seller.value_of_goods_cents.should eq (db_article.price_cents + second_article.price_cents)
+      #   end
+      # end
+
     end
   end
 
@@ -94,7 +102,7 @@ describe Article do
     before do
       article.seller = User.new
     end
-    #at the moment we do not have friendly percentece any more
+    #at the moment we do not have friendly percent any more
     #describe "friendly_percent_calculated" do
       #it "should call friendly_percent_result" do
         #article.should_receive :friendly_percent_result

@@ -88,10 +88,10 @@ class LegalEntity < User
     }
   end
 
-  def sales_volume
+  def max_value_of_goods_cents
     bad_seller? ? commercial_seller_constants[:bad_salesvolume] :
     (( commercial_seller_constants[:standard_salesvolume] +
-    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 ) ) *
+    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 )) *
     ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
     ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
     ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *

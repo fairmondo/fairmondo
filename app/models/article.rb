@@ -51,6 +51,10 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
+  after_save :count_value_of_goods
+
+
+
   # Misc mixins
   extend Sanitization
   # Article module concerns
@@ -125,5 +129,12 @@ class Article < ActiveRecord::Base
     self.transaction_quantity_available == 0
   end
 
+  def count_value_of_goods
+    value_of_goods_cents = 0
+    self.seller.articles.each do |article|
+      value_of_goods_cents += article.price_cents * article.quantity
+    end
+    self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
 
 end

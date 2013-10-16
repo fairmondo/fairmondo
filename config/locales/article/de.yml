@@ -94,6 +94,7 @@ de:
       inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
       locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
       deactivated: "Artikel wurde erfolgreich vom Marktplatz genommen!"
+      max_limit: "Der maximale Warenwert wurde überschritten. Um weitere Artikel einstellen zu können, musst Du andere Artikel vom Marktplatz nehmen."
     image:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"

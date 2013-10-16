@@ -142,6 +142,39 @@ describe 'Article management' do
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
 
+        context "for private users" do
+          let (:user) { FactoryGirl.create :private_user }
+
+          it "should have the default maximum for value of goods" do
+            user.max_value_of_goods_cents.should eq 500000
+          end
+
+          it "should fail to create an article, if the value of goods crosses its max limit" do
+            article = FactoryGirl.create :article, :user_id => user.id
+            article.update_attribute(:price_cents, 600000)
+            article2 = FactoryGirl.create :article, :user_id => user.id
+            Capybara.current_session.driver.header 'Referer', root_url
+            visit new_article_path
+            page.should have_content I18n.t('article.notices.max_limit')
+          end
+        end
+
+        context "for legal entities" do
+          let (:user) { FactoryGirl.create :legal_entity }
+
+          it "should have the default maximum for value of goods" do
+            user.max_value_of_goods_cents.should eq 2000000
+          end
+
+          it "should fail to create an article, if the value of goods crosses its max limit" do
+            article = FactoryGirl.create :article, :user_id => user.id
+            article.update_attribute(:price_cents, 2100000)
+            article2 = FactoryGirl.create :article, :user_id => user.id
+            Capybara.current_session.driver.header 'Referer', root_url
+            visit new_article_path
+            page.should have_content I18n.t('article.notices.max_limit')
+          end
+        end
       end
     end
 
