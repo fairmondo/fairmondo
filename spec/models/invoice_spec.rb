@@ -169,14 +169,14 @@ describe Invoice do
       end
 
       describe ""
-        context "ad to invoice dependent on due date of invoice" do
-          it 'should add transaction to invoice if next due date is more than 30d away' do
+        context "" do
+          it '' do
             pending
           end
         end
         
         context "" do
-          it 'should create a new invoice and add transaction to that invoice if due date of open invoice is less than 30d away' do
+          it '' do
             pending
           end
         end

@@ -21,7 +21,15 @@
 #
 
 class TransactionObserver < ActiveRecord::Observer
+  def after_buy transaction, transition
+    unless transaction.multiple?
+      # Start the invoice action chain, to create invoices and add items to invoice
+      Invoice.invoice_action_chain( transaction )
+    end
+  end
+
   def after_update transaction
+    # kann auch zu after-buy gemacht werden (eventuell)
     if transaction.sold? && !transaction.multiple? && !transaction.purchase_emails_sent
       # Send an email to the seller
       TransactionMailer.seller_notification(transaction).deliver
@@ -32,8 +40,4 @@ class TransactionObserver < ActiveRecord::Observer
       transaction.update_attribute :purchase_emails_sent, true
     end
   end
-	
-	def after_buy( transaction, transition )
-		Invoice.invoice_action_chain( transaction )
-	end
 end
