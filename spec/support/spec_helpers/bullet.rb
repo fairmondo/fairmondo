@@ -21,26 +21,18 @@
 #
 # Check for n+1 queries and other slow stuff
 RSpec.configure do |config|
-  $bullet_log = "#{Rails.root.to_s}/log/bullet.log"
 
-  config.before :suite do
-    # Empty out the bullet log
-    File.open($bullet_log, 'w') {|f| f.truncate(0) }
+  config.before(:each) do
+    Bullet.start_request if Bullet.enable?
   end
-end
 
-after_suite do
-  unless $skip_audits
-    puts "\n\n[Bullet] Checking for performance drains:\n".underline
-    bullet_warnings = File.open($bullet_log, "rb").read
-
-    if bullet_warnings.empty?
-      puts "No issues found. Very good.".green
-    else
-      puts bullet_warnings.yellow
-      puts "Performance issues exist.".red.underline
-      $suite_failing = true
+  config.after(:each) do
+    if Bullet.enable? && Bullet.notification?
+      Bullet.perform_out_of_channel_notifications
     end
+    Bullet.end_request if Bullet.enable?
   end
+
 end
+
 

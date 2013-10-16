@@ -23,9 +23,10 @@ require 'faker'
 
 FactoryGirl.define do
   factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
-    article { FactoryGirl.create :article, :without_build_transaction }
+    article { FactoryGirl.create :article, :without_build_transaction,:with_all_transports }
     seller { article.seller }
-
+    selected_transport 'pickup'
+    selected_payment 'cash'
     forename { Faker::Name.first_name }
     surname  { Faker::Name.last_name }
     street   { Faker::Address.street_address }
@@ -58,9 +59,6 @@ FactoryGirl.define do
       buyer
       parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
       quantity_bought 1
-      selected_transport 'pickup'
-      selected_payment 'cash'
-
       forename { Faker::Name.first_name }
       surname  { Faker::Name.last_name }
       street   { Faker::Address.street_address }
@@ -72,8 +70,6 @@ FactoryGirl.define do
     trait :sold do
       buyer
       state 'sold'
-      selected_transport 'pickup'
-      selected_payment 'cash'
       sold_at { Time.now }
     end
 
@@ -91,8 +87,28 @@ FactoryGirl.define do
 
     factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
       buyer { FactoryGirl.create :buyer }
+      quantity_bought 1
     end
 
+    trait :incomplete do
+       forename {nil}
+    end
+
+    trait :bought_nothing do
+       quantity_bought 0
+    end
+
+    trait :transport_type_1_selected do
+      selected_transport :type1
+    end
+
+    trait :transport_type_2_selected do
+      selected_transport :type2
+    end
+
+    trait :cash_on_delivery_selected do
+      selected_payment :cash_on_delivery
+    end
 
   end
 end
