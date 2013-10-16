@@ -27,6 +27,27 @@
 }
 
 //
+// Known From Box
+//
+.Knownfrom {
+  @include rem(padding, 10px 20px);
+  text-align: center;
+  background: #fff;
+
+}
+.Knownfrom--inner {
+  width: 70%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+.Knownfrom--title {
+
+  float: left;
+  top: 0px;
+}
+
+//
 // Teaser variants
 //
 
@@ -53,7 +74,7 @@
 }
 
 .Teaser--smallimage {
-  height: 45px;
+  height: 35px;
   padding: 5px;
   //width: 50px;
 }
