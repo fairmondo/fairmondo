@@ -38,7 +38,7 @@ module MassUpload::Checks
     if ALLOWED_MIME_TYPES.include? file.content_type
       return true
     else
-      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_mime_type'))
       return false
     end
   end
