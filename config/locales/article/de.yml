@@ -35,6 +35,7 @@ de:
       will_be: " werden an "
       donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairnopoly-Gebühren an."
+      donate_ngo_short_html: "100% gehen an %{ngo}"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
@@ -60,12 +61,12 @@ de:
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
-        invalid_transport_option: "Bitte gib mindestens eine Versandoption an."
-        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an."
-        paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein."
-        bank_details_missing: "Bitte gib Deine Bankdaten an."
+        invalid_transport_option: "Bitte gib mindestens eine Versandoption an"
+        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
+        paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein"
+        bank_details_missing: "Bitte gib Deine Bankdaten an"
         social_producer_questionnaire:
-          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
+          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'"
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"
     labels:
       shipping_options: "Versandoptionen:"

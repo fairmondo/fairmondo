@@ -25,10 +25,10 @@ include Warden::Test::Helpers
 
 describe 'Article management' do
   include CategorySeedData
-  let (:article) { FactoryGirl.create :article }
-  let (:article_active) { FactoryGirl.create :article, :user_id => user.id }
-  let (:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
-  let (:user) { FactoryGirl.create :user }
+  let(:article) { FactoryGirl.create :article }
+  let(:article_active) { FactoryGirl.create :article, :user_id => user.id }
+  let(:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
+  let(:user) { FactoryGirl.create :user }
 
   context "for signed-in users" do
 
@@ -181,6 +181,7 @@ describe 'Article management' do
     describe "article search", search: true do
       before do
         article = FactoryGirl.create :article, title: 'chunky bacon'
+        #FactoryGirl.create :article
         Sunspot.commit
         visit root_path
       end
