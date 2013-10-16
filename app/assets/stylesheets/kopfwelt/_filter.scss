@@ -120,6 +120,7 @@
     width: 5em;
     margin-left:1em;
     height: 2em;
+    padding: 0 em(10px);
     @include rem(margin-top, 7px);
   }
 

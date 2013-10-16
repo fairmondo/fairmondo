@@ -83,7 +83,7 @@ module Article::Attributes
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
-    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents > 0 }
+    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents && obj.basic_price_cents > 0 }
 
     # legal entity attributes
 
