@@ -108,6 +108,13 @@
         = yield
       / .container
     / #main
+
+    .Knownfrom.QuadTeaser
+      -#%p= "Bekannt aus:"
+      .Knownfrom--inner
+        .Knownfrom--title= "Bekannt aus"
+        = render "known_from"
+
     %footer.l-Footer
       .Footer--top
         .l-Inner
