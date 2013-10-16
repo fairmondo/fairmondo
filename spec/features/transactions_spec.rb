@@ -262,8 +262,8 @@ describe 'Transaction' do
             end
 
             context "for MultipleFixedPriceTransactions" do
-              let (:article) { FactoryGirl.create :article, :with_larger_quantity }
-              let (:transaction) { article.transaction }
+              let(:article) { FactoryGirl.create :article, :with_larger_quantity }
+              let(:transaction) { article.transaction }
 
               it "should reduce the number of items" do
                 visit edit_transaction_path transaction

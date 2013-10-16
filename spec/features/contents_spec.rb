@@ -120,7 +120,7 @@ describe "Contents" do
       it "should delete the requested content" do
         content
         visit contents_path
-        expect { click_link 'Destroy' }.to change(Content, :count).by -1
+        expect { click_link 'Destroy' }.to change(Content, :count).by(-1)
       end
     end
   end
