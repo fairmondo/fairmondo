@@ -6,7 +6,6 @@ describe Invoice do
 #   let(:seller) { transaction.article.seller }
 #   let(:user) { FactoryGirl.create :user }
 #   let(:invoice) { FactoryGirl.create :invoice, :user_id => user.id }
-# end
 
   it "has a valid Factory" do
     FactoryGirl.build(:invoice).should be_valid
@@ -105,62 +104,82 @@ describe Invoice do
         pending
       end
 
-      context "'add_quarterly_fee' should" do
-        it "add the quarterly fee to invoice if invoice is the last of this quarter" do
-          pending
+      describe "#add_quarterly_fee" do
+        context 'invoice is last of this quarter' do
+          it "should  add quarterly fee" do
+            invoice.due_date = Time.now.at_end_of_quarter
+            invoice.add_quarterly_fee
+          end
         end
 
-        it "not add the quarterly fee to invoice if invoice is not the last of this quarter" do
-          pending
-        end
-      end
-
-      context "create_invoice should" do
-        it "create invoice if user has no open invoice" do
-          pending
-        end
-
-        it "not create invoice if user has open invoice" do
-          pending
-          # invoice.user_id = user.id
+        context 'invoice is not last of this quarter' do
+          it "should not add quarterly fee" do
+            pending
+          end
         end
       end
 
-      context "is the invoice billable? dependent on 'total_fee_cents" do
-        it "'invoice_billable?' should  return 'true' if total_fee_cents is 1000 or bigger" do
-          invoice.total_fee_cents = 1000
-          invoice.invoice_billable?.should be_true
+      describe '::create_new_invoice_and_add_item' do
+        context "when user has an open invoice" do
+          it "should not create a new invoice" do
+            pending
+          end
         end
-
-        it "'invoice_billable?' should  return 'false' if total_fee_cents is between 0 and 999" do
-          invoice.total_fee_cents = 657
-          invoice.invoice_billable?.should be_false
-        end
-      end
-
-      context "set due date dependent on invoice_billable?" do
-        it "due date should be at end of month if invoice is billable" do
-          invoice.total_fee_cents = 1001
-          invoice.set_due_date
-          invoice.due_date.should eq 30.days.from_now.at_end_of_month
-        end
-
-        it "due date should be at end of quarter if invoice is not billable" do
-          invoice.total_fee_cents = 675
-          invoice.set_due_date
-          invoice.due_date.should eq 30.days.from_now.at_end_of_quarter
+        
+        context 'when user has not an open invoice' do
+          it "should create a new invoice" do
+            pending
+            # invoice.user_id = user.id
+          end
         end
       end
 
-      context "add to invoice dependent on due date of invoice" do
-        it 'should add transaction to invoice if next due date is more than 30d away' do
-          pending
+      describe '#invoice_billable?' do
+        context "invoice.total_fee_cents >= 1000" do
+          it "should return true" do
+            invoice.total_fee_cents = 1000
+            invoice.invoice_billable?.should be_true
+          end
         end
 
-        it 'should create a new invoice and add transaction to that invoice if due date of open invoice is less than 30d away' do
-          pending
+        context "invoice.total_fee_cents < 1000" do
+          it "should return false" do
+            invoice.total_fee_cents = 657
+            invoice.invoice_billable?.should be_false
+          end
+        end
+      end
+
+      describe "#set_due_date" do
+        context "invoice.total_fee_cents >= 1000" do
+          it "due date should be at end of month" do
+            invoice.total_fee_cents = 1001
+            invoice.set_due_date
+            invoice.due_date.should eq 30.days.from_now.at_end_of_month
+          end
+        end
+        
+        context "invoice.total_fee_cents < 1000" do
+          it "due date should be at end of quarter" do
+            invoice.total_fee_cents = 675
+            invoice.set_due_date
+            invoice.due_date.should eq 30.days.from_now.at_end_of_quarter
+          end
+        end
+      end
+
+      describe ""
+        context "ad to invoice dependent on due date of invoice" do
+          it 'should add transaction to invoice if next due date is more than 30d away' do
+            pending
+          end
+        end
+        
+        context "" do
+          it 'should create a new invoice and add transaction to that invoice if due date of open invoice is less than 30d away' do
+            pending
+          end
         end
       end
   	end
   end
-end
