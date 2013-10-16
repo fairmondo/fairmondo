@@ -31,14 +31,16 @@ class Exhibit < ActiveRecord::Base
 
   def set_exhibition_date
     if self.exhibition_date == nil
-       self.update_attribute(:exhibition_date,DateTime.now)
+       # Because of the join the exhibition is readonly
+       # As this should only happen the first time an article is exhibited we can find it again
+       Exhibit.find(self.id).update_attribute(:exhibition_date,DateTime.now)
     end
   end
 
   scope :one_day_exhibited, lambda {where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
   scope :oldest_first, order("exhibits.created_at ASC")
 
-  scope :article_active, where(" articles.state = 'active' ").includes(:article => [:images,:seller])
-  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").includes(:related_article => [:images,:seller])
+  scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
+  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
 
 end

@@ -5,11 +5,11 @@ include CategorySeedData
 
 describe "Export" do
 
-  let (:private_user)       { FactoryGirl.create :private_user }
-  let (:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
+  let(:private_user)       { FactoryGirl.create :private_user }
+  let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
   # legal_entity = FactoryGirl.create :legal_entity, :paypal_data
 
-  let (:legal_entity_buyer) { FactoryGirl.create :legal_entity }
+  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity }
 
   subject { page }
 
