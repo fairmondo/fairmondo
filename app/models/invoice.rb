@@ -55,13 +55,11 @@ class Invoice < ActiveRecord::Base
   ################ Methods ################
   # triggered by transaction_observer, transaction state_machine event: 'buy'
   def self.invoice_action_chain( transaction )
-    seller = transaction.seller
-    unless seller.is_a_ngo?
-      if seller.has_open_invoice?
-        invoice = Invoice.find_by_user_id_and_state( seller.id, "open" ) #TODO sort by due_date
-        invoice.add_item_to_open_invoice( transaction )
+    unless transaction.seller.is_ngo?
+      if transaction.seller.has_open_invoice?
+        invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) #TODO sort by due_date
+        add_item( transaction, invoice )
         invoice.set_due_date
-        invoice.calculate_total_fee
       else
         create_new_invoice_and_add_item( transaction )
       end
@@ -76,19 +74,14 @@ class Invoice < ActiveRecord::Base
                           :state => 'open'
 
     invoice.set_due_date
-    invoice.add_item_to_open_invoice( transaction )
-    invoice.add_quarterly_fee
+    add_item( transaction, invoice )
+    # invoice.add_quarterly_fee
     invoice.save
   end
 
-  def add_item_to_open_invoice( transaction )
-    tr = Transaction.find( transaction.id )
-    if self.due_date > 30.days.from_now
-      tr.invoice_id = self.id
-      tr.save
-    else
-      create_new_invoice_and_add_item( transaction )
-    end
+  def self.add_item( transaction, invoice )
+    transaction.invoice_id = invoice.id
+    transaction.save
   end
 
   # this method adds the quarterly fee to the invoice if invoice is the last of this quarter
@@ -100,11 +93,15 @@ class Invoice < ActiveRecord::Base
   end
 
   # calculates the total fee for the invoice, sums up all calculated values for each corresponding invoice item
-  def calculate_total_fee
-    self.transactions.each do |transaction|
-      self.total_fee_cents += transaction.article.calculated_fair_cents + transaction.article.calculated_fee_cents # + transaction.calculated_friendly_cents 
+  # dies sollte die Standard ausgabe fuer total fee werden, der wert soll raus aus der tabelle
+  def total_fee
+    total_fee = 0
+    self.transactions.each do |tr|
+      if tr.quantity_bought && tr.article.calculated_fair_cents && tr.article.calculated_fee_cents
+        total_fee += tr.quantity_bought * (tr.article.calculated_fair_cents + tr.article.calculated_fee_cents)
+      end
     end
-    self.save
+    total_fee
   end
 
   # checks if the invoice is billable this month or if will be billed at the end of the quarter
