@@ -143,7 +143,7 @@ group :development, :test do
   gem 'thin'
 
   # Notify about n+1 queries
-  gem 'bullet'
+  gem 'bullet', :git => 'git@github.com:flyerhzm/bullet.git'
 end
 
 group :development do

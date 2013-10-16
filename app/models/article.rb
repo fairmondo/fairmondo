@@ -33,7 +33,7 @@ class Article < ActiveRecord::Base
     !template?
   end
 
-  delegate :terms, :cancellation, :about, :country , :to => :seller, :prefix => true
+  delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
   delegate :deletable?,:buyer, to: :transaction, prefix: false
 

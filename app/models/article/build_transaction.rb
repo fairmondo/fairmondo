@@ -53,8 +53,11 @@ module Article::BuildTransaction
         if self.quantity == 1 and self.transaction.is_a? MultipleFixedPriceTransaction
           self.transaction.transform_to_single
         elsif self.quantity > 1 and self.transaction.is_a? SingleFixedPriceTransaction
-          self.transaction.transform_to_multiple self.quantity
+            self.transaction.transform_to_multiple self.quantity
+        elsif self.quantity > 1 and self.transaction.is_a? MultipleFixedPriceTransaction
+            self.transaction.update_attribute :quantity_available, self.quantity
         end
       end
     end
+
 end
