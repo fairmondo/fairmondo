@@ -120,7 +120,6 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
-
   # Return forename plus surname
   # @api public
   # @return [String]
@@ -186,6 +185,11 @@ class User < ActiveRecord::Base
     string += "#{self.address_suffix}, " if self.address_suffix.present?
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
+  end
+
+
+  def self.sorted_ngo
+    self.order(:nickname).where(:ngo => true)
   end
 
 
