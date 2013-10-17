@@ -65,10 +65,11 @@ Fairnopoly::Application.configure do
   config.assets.prefix = "assets_test"    # place test assets in public/assets_test directory
   config.action_controller.asset_host = "file://#{::Rails.root}/public"
 
-
+  # commented out till next bullet release
   # bullet - n+1 detection
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.bullet_logger = true
-  end
+  #config.after_initialize do
+  #  Bullet.enable = true
+  #  Bullet.bullet_logger = true
+  #  Bullet.raise = true
+  #end
 end

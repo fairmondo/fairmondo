@@ -73,6 +73,7 @@ describe Article do
           db_article.owned_by?(db_article.seller).should be_true
         end
       end
+
     end
   end
 
@@ -90,7 +91,9 @@ describe Article do
   end
 
   describe "::FeesAndDonations" do
-
+    before do
+      article.seller = User.new
+    end
     #at the moment we do not have friendly percentece any more
     #describe "friendly_percent_calculated" do
       #it "should call friendly_percent_result" do
@@ -108,6 +111,12 @@ describe Article do
       it "should return the default percentage when !article.fair" do
         article.send('fee_percentage').should == 0.06
       end
+
+      it "should return 0 percentage when article.seller.ngo" do
+        article.seller.ngo = true
+        article.send('fee_percentage').should == 0
+      end
+
     end
 
     describe "#calculate_fees_and_donations" do
@@ -138,6 +147,15 @@ describe Article do
         article.fair = false
         article.calculate_fees_and_donations
         article.calculated_fair.should eq Money.new(790)
+      end
+
+      it "should be no fees for ngo" do
+        article.seller.ngo = true
+        article.price = 999
+
+        article.calculate_fees_and_donations
+        article.calculated_fair.should eq 0
+        article.calculated_fee.should eq 0
       end
 
     end
@@ -187,7 +205,7 @@ describe Article do
       end
 
       describe "#transport_provider" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'
@@ -203,7 +221,7 @@ describe Article do
       end
 
       describe "#total_price" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return the correct price for cash_on_delivery payments" do
           expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price

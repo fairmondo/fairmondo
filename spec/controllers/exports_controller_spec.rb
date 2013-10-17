@@ -17,7 +17,7 @@ describe ExportsController do
       it "should be successful" do
         time = Time.now
         Time.stub(:now).and_return(time)
-        get :show, :kind_of_article => "preview", :format => "csv"
+        get :show, :kind_of_article => "active", :format => "csv"
         response.content_type.should eq("text/csv")
         response.headers["Content-Disposition"].should eq("attachment; filename=\"Fairnopoly_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
         response.should be_success

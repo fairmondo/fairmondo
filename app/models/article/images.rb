@@ -45,14 +45,7 @@ module Article::Images
     # @api public
     # @return [Image, nil]
     def title_image
-      images.each do |image|
-        return image if image.is_title
-      end
-      if images.empty?
-        return nil
-      else
-        return images[0]
-      end
+      images.title_image || images[0]
     end
 
     def title_image_url type = nil
@@ -89,6 +82,7 @@ module Article::Images
     end
 
     def add_image(image_url, is_title)
+      # bugbug refactor asap
       if image_url && image_url =~ URI::regexp
         image = Image.new(:image => URI.parse(image_url))
         image.is_title = is_title

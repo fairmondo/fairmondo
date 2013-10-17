@@ -25,10 +25,10 @@ include Warden::Test::Helpers
 
 describe 'Article management' do
   include CategorySeedData
-  let (:article) { FactoryGirl.create :article }
-  let (:article_active) { FactoryGirl.create :article, :user_id => user.id }
-  let (:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
-  let (:user) { FactoryGirl.create :user }
+  let(:article) { FactoryGirl.create :article }
+  let(:article_active) { FactoryGirl.create :article, :user_id => user.id }
+  let(:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
+  let(:user) { FactoryGirl.create :user }
 
   context "for signed-in users" do
 
@@ -148,6 +148,7 @@ describe 'Article management' do
     describe "article search", search: true do
       before do
         article = FactoryGirl.create :article, title: 'chunky bacon'
+        #FactoryGirl.create :article
         Sunspot.commit
         visit root_path
       end
@@ -342,10 +343,9 @@ describe "Article feature label buttons" do
   end
 
   describe "on the user show page" do
-    it "should not have a ecological feature label link" do
+    it "should have a ecological feature label link" do
       visit user_path(@seller)
-      page.should have_content(I18n.t 'formtastic.labels.article.ecologic')
-      page.should_not have_link(I18n.t 'formtastic.labels.article.ecologic')
+      page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
     end
   end
 end

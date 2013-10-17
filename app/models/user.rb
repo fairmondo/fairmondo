@@ -118,6 +118,7 @@ class User < ActiveRecord::Base
 
   validates :about_me, :length => { :maximum => 2500 }
 
+  validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
 
   # Return forename plus surname
@@ -156,6 +157,12 @@ class User < ActiveRecord::Base
     user && user.admin?
   end
 
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
+  end
+
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number
@@ -176,7 +183,7 @@ class User < ActiveRecord::Base
   # @return [String]
   def address
     string = ""
-    string += "#{self.address_suffix}, " if self.address_suffix
+    string += "#{self.address_suffix}, " if self.address_suffix.present?
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
   end

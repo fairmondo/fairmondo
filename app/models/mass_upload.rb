@@ -25,267 +25,153 @@ class MassUpload
   # Required dependency for ActiveModel::Errors
   extend ActiveModel::Naming
 
-  def initialize(user, attributes = nil)
+  include Checks, Questionnaire, FeesAndDonations
+
+  def self.mass_upload_attrs
+    [:file]
+  end
+
+  def self.header_row
+   ["title", "categories", "condition", "condition_extra",
+    "content", "quantity", "price_cents", "basic_price_cents",
+    "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
+    "transport_pickup", "transport_type1",
+    "transport_type1_provider", "transport_type1_price_cents",
+    "transport_type2", "transport_type2_provider",
+    "transport_type2_price_cents", "transport_details",
+    "payment_bank_transfer", "payment_cash", "payment_paypal",
+    "payment_cash_on_delivery",
+    "payment_cash_on_delivery_price_cents", "payment_invoice",
+    "payment_details", "fair_kind", "fair_seal", "support",
+    "support_checkboxes", "support_other", "support_explanation",
+    "labor_conditions", "labor_conditions_checkboxes",
+    "labor_conditions_other", "labor_conditions_explanation",
+    "environment_protection", "environment_protection_checkboxes",
+    "environment_protection_other",
+    "environment_protection_explanation", "controlling",
+    "controlling_checkboxes", "controlling_other",
+    "controlling_explanation", "awareness_raising",
+    "awareness_raising_checkboxes", "awareness_raising_other",
+    "awareness_raising_explanation", "nonprofit_association",
+    "nonprofit_association_checkboxes",
+    "social_businesses_muhammad_yunus",
+    "social_businesses_muhammad_yunus_checkboxes",
+    "social_entrepreneur", "social_entrepreneur_checkboxes",
+    "social_entrepreneur_explanation", "ecologic_seal",
+    "upcycling_reason", "small_and_precious_eu_small_enterprise",
+    "small_and_precious_reason", "small_and_precious_handmade",
+    "gtin", "custom_seller_identifier"]
+  end
+
+
+  def initialize(attributes = nil)
     @errors = ActiveModel::Errors.new(self)
-    # To check if there are attributes at all (for rendering the new view) and
-    # to check if any file was selected
+
     if attributes && attributes[:file]
-      @raw_articles = build_raw_articles(user, attributes[:file])
+      self.file = attributes[:file]
     end
   end
 
   attr_accessor :file
-  attr_reader   :errors, :raw_articles
+  attr_reader   :errors, :articles
 
-  def validate_input(file)
-    # Needed for the 'stand alone' validation since we don't know if
-    # params[:mass_upload] == nil or not and therefore can't use
-    # params[:mass_upload][:file]
-    if file.class == ActiveSupport::HashWithIndifferentAccess
-      file = file[:file]
-    end
+  def parse_csv_for user
 
-    unless csv_format?(file)
-      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
+    unless file_selected?
       return false
     end
 
-    begin
-      CSV.read(file.path, :encoding => 'utf-8', :col_sep => ";", :quote_char => '"')
-    rescue ArgumentError
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
-      return false
-    rescue CSV::MalformedCSVError
-      errors.add(:file, I18n.t('mass_upload.errors.illegal_quoting'))
+    unless csv_format?
       return false
     end
 
-    unless correct_file_size?(file)
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_file_size'))
+    unless open_csv
       return false
     end
 
-    unless correct_header?(file)
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
+    unless correct_article_count?
       return false
     end
+
+    unless correct_header?
+      return false
+    end
+
+    build_articles_for user
+
+    unless articles_valid?
+      return false
+    end
+
+    save_articles!
+
     true
   end
 
-  def validate_articles(articles)
-    # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+
+  def build_articles_for user
+    @articles = []
+    @csv.each do |row|
+      row_hash = row.to_hash
+      categories = Category.find_imported_categories(row_hash['categories'])
+      row_hash.delete("categories")
+      row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+      article = Article.new(row_hash)
+      article.user_id = user.id
+      Questionnaire.add_commendation!(article)
+      revise_prices(article)
+      article.categories = categories if categories
+      @articles << article
+    end
+  end
+
+  def articles_valid?
     valid = true
-    raw_articles.each_with_index do |raw_article, index|
-      image_errors = false
-
-      if raw_article.errors.full_messages.any?
-        valid = add_article_error_messages(raw_article, index, image_errors)
-        image_errors = true
+    @articles.each_with_index do |article, index|
+      # +bugbug Why is this repetition necessary? -K
+      if article.errors.full_messages.any?
+        add_article_error_messages(article, index)
+        valid = false
       end
 
-      if raw_article.invalid?
-        valid = add_article_error_messages(raw_article, index, image_errors)
+      if article.invalid?
+        add_article_error_messages(article, index)
+        valid = false
       end
     end
-    valid
+    return valid
   end
 
-  def add_article_error_messages(raw_article, index, image_errors)
-    raw_article.errors.full_messages.each do |message|
-      if raw_article.errors.full_messages[0] == message && index > 0 && image_errors == false
-        errors.add(:file, "<br><br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
-      else
-        errors.add(:file, "<br> #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+  def add_article_error_messages(article, index)
+    # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+    article.errors.full_messages.each do |message|
+      first_line_break = ""
+      if article.errors.full_messages[0] == message && index > 0 # && image_errors == false
+        first_line_break = "<br/>"
       end
-    end
-    false
-  end
-
-  def csv_format?(file)
-    file.content_type == "text/csv" ? true : false
-  end
-
-  def file_selected?(file)
-    unless file
-      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
-      return false
+      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
     end
   end
 
-  def correct_header?(file)
-    header_row = ["title;categories;condition;condition_extra;content;quantity;price_cents;basic_price_cents;basic_price_amount;vat;external_title_image_url;image_2_url;transport_pickup;transport_type1;transport_type1_provider;transport_type1_price_cents;transport_type2;transport_type2_provider;transport_type2_price_cents;transport_details;payment_bank_transfer;payment_cash;payment_paypal;payment_cash_on_delivery;payment_cash_on_delivery_price_cents;payment_invoice;payment_details;fair_kind;fair_seal;support;support_checkboxes;support_other;support_explanation;labor_conditions;labor_conditions_checkboxes;labor_conditions_other;labor_conditions_explanation;environment_protection;environment_protection_checkboxes;environment_protection_other;environment_protection_explanation;controlling;controlling_checkboxes;controlling_other;controlling_explanation;awareness_raising;awareness_raising_checkboxes;awareness_raising_other;awareness_raising_explanation;nonprofit_association;nonprofit_association_checkboxes;social_businesses_muhammad_yunus;social_businesses_muhammad_yunus_checkboxes;social_entrepreneur;social_entrepreneur_checkboxes;social_entrepreneur_explanation;ecologic_seal;upcycling_reason;small_and_precious_eu_small_enterprise;small_and_precious_reason;small_and_precious_handmade;gtin;custom_seller_identifier"]
-
-    CSV.foreach(file.path, headers: false) do |row|
-      if row == header_row
-        return true
-      else
-        return false
-      end
-    end
-  end
-
-  def correct_file_size?(file)
-    if CSV.read(file.path, :col_sep => ";", :quote_char => '"').size < 102
-      return true
-    else
-      return false
-    end
-  end
-
-  def missing_bank_details_errors?
-    self.errors[:file].grep(/Payment bank transfer/).any? || self.errors[:file].grep(/Payment paypal/).any?
-  end
-
-  def add_missing_bank_details_errors_notice
-    if self.errors[:file].grep(/Payment bank transfer/).any? && self.errors[:file].grep(/Payment paypal/).any?
-      error_message = I18n.t('mass_upload.errors.missing_payment_details',
-                        link: '#payment_step',
-                        missing_payment: I18n.t('formtastic.labels.user.paypal_and_bank_account'))
-    elsif self.errors[:file].grep(/Payment bank transfer/).any?
-      error_message = I18n.t('mass_upload.errors.missing_payment_details',
-                        link: '#payment_step',
-                        missing_payment: I18n.t('formtastic.labels.user.bank_account'))
-    elsif self.errors[:file].grep(/Payment paypal/).any?
-      error_message = I18n.t('mass_upload.errors.missing_payment_details',
-                        link: '#payment_step',
-                        missing_payment: I18n.t('formtastic.labels.user.paypal_account'))
-    end
-  end
-
-  def build_raw_articles(user, file)
-
-    if validate_input(file)
-      raw_article_array = []
-      rows_array = []
-      user_id = user.id
-      CSV.foreach(file.path, headers: true, col_sep: ";") do |row|
-        rows_array << row.to_hash
-      end
-
-      rows_array.each do |row|
-        categories = Category.find_imported_categories(row['categories'])
-        row.delete("categories")
-        row = include_fair_social_questionnaires(row)
-        article = Article.new(row)
-        article.user_id = user_id
-        article.currency = "EUR"
-        check_commendation(article)
-        revise_prices(article)
-        article.categories = categories if categories
-        raw_article_array << article
-      end
-    end
-    raw_article_array
-  end
-
-  def save
-    if validate_articles(raw_articles)
-      raw_articles.each do |raw_article|
-        raw_article.calculate_fees_and_donations
-        raw_article.save
-      end
-    end
-  end
-
-  def self.calculate_total_fees(articles)
-    total_fee = Money.new(0)
-    articles.each do |article|
-      total_fee += article.calculated_fee * article.quantity
-    end
-    total_fee
-  end
-
-  def self.calculate_total_fair(articles)
-    total_fair = Money.new(0)
-    articles.each do |article|
-      total_fair += article.calculated_fair * article.quantity
-    end
-    total_fair
-  end
-
-  def self.calculate_total_fees_and_donations(articles)
-    self.calculate_total_fees(articles) + self.calculate_total_fair(articles)
-  end
-
-  def self.calculate_total_fees_and_donations_netto(articles)
-    total_netto = Money.new(0)
-    articles.each do |article|
-      total_netto += article.calculated_fees_and_donations_netto_with_quantity
-    end
-    total_netto
-  end
-
-  def include_fair_social_questionnaires(row)
-    # bugbug Refactor asap
-    row = row.to_a
-    fair_trust_questionnaire_attributes_array = row[28..47]
-    social_producer_questionnaire_attributes_array = row[48..54]
-    fair_trust_questionnaire_attributes = {}
-    social_producer_questionnaire_attributes = {}
-    row = row - fair_trust_questionnaire_attributes_array - social_producer_questionnaire_attributes_array
-    if row[26][1] == "fair_trust"
-      key = "fair_trust_questionnaire_attributes"
-      row = inject_questionnaire(fair_trust_questionnaire_attributes_array, fair_trust_questionnaire_attributes, row, key)
-    elsif row[26][1] == "social_producer"
-      key = "social_producer_questionnaire_attributes"
-      row = inject_questionnaire(social_producer_questionnaire_attributes_array, social_producer_questionnaire_attributes, row, key)
-    else
-      row = Hash[row]
-    end
-    row
-  end
-
-  def inject_questionnaire (attributes_array, attributes_hash, row, key)
-    attributes_array.each do |pair|
-      if pair[0].include?("checkboxes") && pair[1..-1].first && pair[1..-1].first.split(',').length == 1
-        attributes_hash[pair.first] = [""] + pair[1].split
-      elsif pair[1..-1].first && pair[1..-1].first.split(',').length > 1
-        attributes_hash[pair.first] = [""] + pair[1..-1].join.delete(' ').split(',')
-      else
-        attributes_hash[pair.first] = pair[1..-1].first || [""]
-      end
-    end
-    row = Hash[row]
-    row[key] = attributes_hash
-    row
-  end
-
-  def check_commendation(article)
-    if article.fair_kind
-      article.fair = true
-    end
-    if article.ecologic_seal
-      article.ecologic = true
-      article.ecologic_kind = "ecologic_seal"
-    elsif article.upcycling_reason
-      article.ecologic = true
-      article.ecologic_kind = "upcycling"
-    end
-    if article.small_and_precious_eu_small_enterprise
-      article.small_and_precious = true
+  def save_articles!
+    @articles.each do |article|
+      article.calculate_fees_and_donations
+      article.save!
     end
   end
 
   def revise_prices(article)
-    unless article.basic_price
-      article.basic_price = 0
-    end
-    unless article.transport_type1_price_cents
-      article.transport_type1_price_cents = 0
-    end
-    unless article.transport_type2_price_cents
-      article.transport_type2_price_cents = 0
-    end
-    unless article.payment_cash_on_delivery_price_cents
-      article.payment_cash_on_delivery_price_cents = 0
-    end
+    article.basic_price ||= 0
+    article.transport_type1_price_cents ||= 0
+    article.transport_type2_price_cents ||= 0
+    article.payment_cash_on_delivery_price_cents ||= 0
   end
 
   # The following 3 methods are needed for Active Model Errors
 
-  def MassUpload.human_attribute_name(attr, options = {})
-   attr
-  end
+  # def MassUpload.human_attribute_name(attr, options = {})
+  #  attr
+  # end
 
   # The following 2 are not currently used but might be needed because of Active
   # Model Errors in the future. They are commented out to make sure the test
@@ -302,5 +188,4 @@ class MassUpload
   def persisted?
     false
   end
-
 end

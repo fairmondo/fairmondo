@@ -121,6 +121,8 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
+        search_in_content: "suche in Artikelbeschreibung"
+        search_for_zip: "PLZ"
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -215,7 +217,7 @@ de:
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
       article:
         title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
-        categories_and_ancestors: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt Wird"
+        categories_and_ancestors: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird."
         category_proposal: 'Wir nehmen gerne Kategorievorschläge entgegen und werden diese entsprechend ihrer Häufigkeit hinzufügen.'
         ecologic: 'Unter diesen Filter fallen Artikel, die ökologisch nachhaltig produziert wurden. Als solche gelten Produkte mit einem entsprechenden Siegel, oder Produkte, die durch Upcycling entstanden sind.'
         ecologic_seal: 'Qualifiziert für diesen Filter sind alle Artikel mit Siegeln, die von der VERBRAUCHER INITIATIVE e.V.  im ökologischen Bereich als "empfehlenswert" eingestuft werden.'
@@ -257,7 +259,6 @@ de:
 
         date: "Datum (Tag/Monat/Jahr)"
         time: "Zeit (Stunden/Minuten)"
-
 
     actions:
       create: "%{model} erstellen"
