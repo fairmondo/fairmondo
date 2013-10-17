@@ -81,14 +81,15 @@
           = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", :style => "margin:5px;"
 
   .Article-info--left
+    .Thumbnail-container
+      - resource.thumbnails.each do |image|
+        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
+
     - if resource.seller.ngo
       .Article-friendly
         %p
           =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
     -else
-      .Thumbnail-container
-        - resource.thumbnails.each do |image|
-          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
       .Article-friendly
         %p.Highlight
 
