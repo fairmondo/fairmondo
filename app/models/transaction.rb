@@ -63,6 +63,8 @@ class Transaction < ActiveRecord::Base
   validates :tos_accepted, acceptance: { accept: true }, on: :update
   #validates :message, allow_blank: true, on: :update
 
+  validates :invoice_id, presence: :true, on: :buy
+
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |transaction|
     transaction.validates :selected_transport, supported_option: true, presence: true
@@ -118,6 +120,7 @@ class Transaction < ActiveRecord::Base
 
     before_transition on: :buy do |transaction, transition|
       transaction.sold_at = Time.now
+      Invoice.invoice_action_chain transaction # somehow this does not work in the observer, that's why it's here
     end
   end
 
