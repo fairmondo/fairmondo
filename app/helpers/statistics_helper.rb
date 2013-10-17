@@ -27,10 +27,6 @@ module StatisticsHelper
     0
   end
 
-  def statistics_category_sold c
-     Transaction.joins(:article => :categories).where("transactions.state = ? AND transactions.sold_at > ? AND categories.id = ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00"), c.id.to_s).count
-  end
-
   def statistics_articles
     result = {}
     result[:sum]= Money.new(0)
