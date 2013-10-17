@@ -21,12 +21,12 @@
 #
 
 class TransactionObserver < ActiveRecord::Observer
-  def after_buy transaction, transition
-    unless transaction.multiple?
-      # Start the invoice action chain, to create invoices and add items to invoice
-      Invoice.invoice_action_chain( transaction )
-    end
-  end
+  # def after_buy transaction, transition
+  #   unless transaction.multiple?
+  #     # Start the invoice action chain, to create invoices and add items to invoice
+  #     Invoice.invoice_action_chain( transaction )
+  #   end
+  # end
 
   def after_update transaction
     # kann auch zu after-buy gemacht werden (eventuell)
