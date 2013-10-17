@@ -97,6 +97,9 @@
           %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
         %p
           =t('article.show.donate_html')
+    - if resource.has_friendly_percent?
+      %p= humanized_money_with_symbol(resource.calculated_friendly) + " werden gespendet an " + resource.friendly_percent_organisation
+
     %p
       -#Accordion--activated.Article-tags
       = commendation_labels_for resource
