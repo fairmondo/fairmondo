@@ -25,15 +25,15 @@
       = render '/shared/profile_img', user: resource.transaction.seller, show_title: true
 
     .Rating-middle
-      %h4 Deine Bewertung:
+      %h4= t('rating.create.head')
       = f.inputs do
         = f.input :transaction_id, :as => :hidden
         = f.input :rating, :as => :plain_radio, :label => false, :collection => {  image_tag("thumbs/positive.jpg") => "positive", image_tag("thumbs/neutral.jpg") => "neutral",  image_tag("thumbs/negative.jpg") => "negative"}
-        = f.input :text, :label => 'Kommentar'
+        = f.input :text, :label => t('rating.create.comment')
 
       .Rating-save
         = f.actions do
-          = f.action :submit , :button_html => {:class => "Btn" }, :label => 'Bewertung speichern'
+          = f.action :submit , :button_html => {:class => "Btn" }, :label => t('rating.create.save')
 
     .Rating-right.Article--teaser
       = render '/shared/show_article', :article=> resource.transaction.article

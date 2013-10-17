@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 .User-rating
-  %span.text-left Bewertungen gesamt:
+  %span.text-left= link_to t('rating.show.nr_of_ratings'), user_ratings_path(user)
   %span.text-right= user.ratings.count
   %br/
   - if user.ratings.count > 0

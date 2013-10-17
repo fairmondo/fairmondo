@@ -132,7 +132,9 @@ class Article < ActiveRecord::Base
   def count_value_of_goods
     value_of_goods_cents = 0
     self.seller.articles.each do |article|
-      value_of_goods_cents += article.price_cents * article.quantity
+      if article.state == 'active'
+        value_of_goods_cents += article.price_cents * article.quantity
+      end
     end
     self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
   end
