@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
 
 
   def self.sorted_ngo
-    self.order(:nickname).where(:ngo => true)
+    self.order(:nickname).where(:ngo => true).collect(&:nickname)
   end
 
 

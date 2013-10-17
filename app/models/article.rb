@@ -112,7 +112,7 @@ class Article < ActiveRecord::Base
       Article.common_attrs + Article.money_attrs + Article.payment_attrs +
       Article.basic_price_attrs + Article.transport_attrs +
       Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-      Article.image_attrs + Article.legal_entity_attrs +
+     Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
       Article.template_attrs(with_nested_template)
     )
   end
