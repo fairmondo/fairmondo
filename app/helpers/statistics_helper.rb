@@ -27,6 +27,10 @@ module StatisticsHelper
     0
   end
 
+  def statistics_category_sold c
+     Transaction.joins(:article => :categories).where("transactions.state = ? AND transactions.sold_at > ? AND categories.id = ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00"), c.id.to_s).count
+  end
+
   def statistics_articles
     result = {}
     result[:sum]= Money.new(0)
@@ -73,7 +77,7 @@ module StatisticsHelper
     result_sold[:sold_fee]= Money.new(0)
     result_sold[:sold_fair]= Money.new(0)
 
-    Transaction.where("state = ? AND sold_at > ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00")).find_each do |transaction|
+    Transaction.joins(:article).includes(:article).where("transactions.state = ? AND transactions.sold_at > ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00")).find_each do |transaction|
       result_sold[:amount_unique] += 1
       result_sold[:amount_total] += transaction.quantity_bought
       result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
