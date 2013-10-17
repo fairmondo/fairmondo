@@ -25,19 +25,19 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where("state = ?", :active).includes(:images,:seller).page(params[:active_articles_page])
+    resource.articles.where("state = ?", :active).joins(:images).includes(:seller).page(params[:active_articles_page])
   end
 
   def inactive_articles
-    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
+    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).joins(:images).includes(:seller).page(params[:inactive_articles_page])
   end
 
   def sold_transactions
-    resource.articles.joins(:transaction).where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'").includes(:images).page(params[:sold_articles_page])
+    resource.articles.joins(:transaction, :images).includes(:seller).where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'").page(params[:sold_articles_page])
   end
 
   def bought_transactions
-    resource.bought_transactions.joins(:article).includes(:buyer, :seller, :article => [:images, :seller]).page(params[:bought_articles_page])
+    resource.bought_transactions.joins(:article => [:images]).includes(:buyer, :seller, :article => [:seller]).page(params[:bought_articles_page])
   end
 
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link
