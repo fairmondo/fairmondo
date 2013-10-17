@@ -50,6 +50,11 @@ class Invoice < ActiveRecord::Base
       # dritte Mahnung
     end
 
+    # Rechnung wird verschickt und wartet auf Bezahlung
+    event :send do
+      transition :open => :pending
+    end
+
     # Abmahnen
     event :remind do
       transition :open => :first_reminder, :first_reminder => :second_reminder, :second_reminder => :third_reminder
