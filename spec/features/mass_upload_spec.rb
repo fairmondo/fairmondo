@@ -158,7 +158,7 @@ describe "Mass-upload" do
                           'spec/fixtures/mass_upload_wrong_format.html')
               click_button I18n.t('mass_upload.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.missing_file'))
+                text: I18n.t('mass_upload.errors.wrong_mime_type'))
             end
           end
 
