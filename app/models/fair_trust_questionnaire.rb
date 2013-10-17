@@ -42,6 +42,10 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     ]
   end
 
+  # def self.questionnaire_keys
+  #   self.questionnaire_attrs.map { |key| key.is_a?(Hash) ? key.keys.first : key }
+  # end
+
 
   auto_sanitize :support_explanation, :support_other,
                 :labor_conditions_explanation, :labor_conditions_other,

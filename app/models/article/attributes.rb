@@ -83,7 +83,7 @@ module Article::Attributes
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
-    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents > 0 }
+    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents && obj.basic_price_cents > 0 }
 
     # legal entity attributes
 
@@ -94,8 +94,8 @@ module Article::Attributes
     #! attr_accessible :custom_seller_identifier
     #! attr_accessible :gtin
 
-    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true
-    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true
+    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true, allow_blank: true
+    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]

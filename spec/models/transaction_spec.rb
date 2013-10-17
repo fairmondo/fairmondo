@@ -47,7 +47,7 @@ describe Transaction do
   end
 
   describe "methods" do
-    let (:transaction) { FactoryGirl.create :super_transaction }
+    let(:transaction) { FactoryGirl.create :super_transaction }
 
     describe "that are public" do
 
@@ -94,6 +94,16 @@ describe Transaction do
           transaction.selected_payments
         end
       end
+
+      describe "#selected?" do
+        it "should return true when the seller selected a specific transport/payment type" do
+          transaction.selected?('transport', 'pickup').should be_true
+        end
+
+        it "should return false when the seller didn't select spcified type" do
+          transaction.selected?('payment', 'paypal').should be_false
+        end
+      end
     end
 
     describe "that are protected" do
@@ -113,7 +123,9 @@ describe Transaction do
         end
 
         it "should return an Array with selected attributes and their localizations" do
-          transaction.selected_transports.should eq [[I18n.t("enumerize.transaction.selected_transport.pickup"), "pickup"]]
+          transaction.selected_transports.should eq [[I18n.t("enumerize.transaction.selected_transport.pickup"), "pickup"],
+                                                      [I18n.t("enumerize.transaction.selected_transport.type1"),"type1"],
+                                                      [I18n.t("enumerize.transaction.selected_transport.type2"),"type2"]]
         end
       end
     end
@@ -121,7 +133,7 @@ describe Transaction do
 end
 
 describe MultipleFixedPriceTransaction do
-  let (:mfpt) { MultipleFixedPriceTransaction.new }
+  let(:mfpt) { MultipleFixedPriceTransaction.new }
 
   it "should have a valid factory" do
     expect {
@@ -196,7 +208,7 @@ describe MultipleFixedPriceTransaction do
 end
 
 describe SingleFixedPriceTransaction do
-  let (:fpt) { SingleFixedPriceTransaction.new }
+  let(:fpt) { SingleFixedPriceTransaction.new }
 
   it "should have a valid factory" do
     expect {

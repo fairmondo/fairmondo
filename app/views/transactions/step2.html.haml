@@ -137,19 +137,20 @@
               = display_selected_transport selected_transport
 
               = display_transport_provider_for selected_transport
+
+            = display_optional_warning selected_transport, selected_payment
             %br
             %h3
               = I18n.t 'transaction.edit.price_heading'
-
 
             %table#Article-price-table
               %colgroup
                 %col{width: 220}
                 %col{width: 300}
+
+              = display_article_link @transaction.article
               = display_quantity_bought quantity
-
               = display_price_per_unit
-
               = display_sales_price quantity
 
               - if resource.article_seller.is_a? LegalEntity
@@ -158,9 +159,11 @@
 
               = display_basic_price
 
-            %small{ :class => 'donation'}
-              = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-
+            %small{ :class => 'SmallText' }
+              - if resource.article_seller.ngo
+                = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
+              - else
+                = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
 
           %hr
           %table#Transpay-price-table

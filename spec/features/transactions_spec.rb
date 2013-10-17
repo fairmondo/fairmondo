@@ -262,8 +262,8 @@ describe 'Transaction' do
             end
 
             context "for MultipleFixedPriceTransactions" do
-              let (:article) { FactoryGirl.create :article, :with_larger_quantity }
-              let (:transaction) { article.transaction }
+              let(:article) { FactoryGirl.create :article, :with_larger_quantity }
+              let(:transaction) { article.transaction }
 
               it "should reduce the number of items" do
                 visit edit_transaction_path transaction
@@ -328,10 +328,11 @@ describe 'Transaction' do
             context "without cash_on_delivery" do
               context "for SingleFixedPriceTransactions" do
                 it "should show the correct price for type1 transports" do
-                  t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'DHL')
+                  t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, payment_invoice: true, price: 1000, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'DHL')
 
                   visit edit_transaction_path t
                   select I18n.t 'enumerize.transaction.selected_transport.type1', from: 'transaction_selected_transport'
+                  select I18n.t 'enumerize.transaction.selected_payment.invoice', from: 'transaction_selected_payment'
                   click_button I18n.t 'common.actions.continue'
 
                   page.should_not have_content I18n.t 'transaction.edit.payment_cash_on_delivery_price' # could be put in a separate test
@@ -339,10 +340,11 @@ describe 'Transaction' do
                 end
 
                 it "should show the correct price for type2 transports" do
-                  t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, price: 1000, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'DHL')
+                  t = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, payment_invoice: true, price: 1000, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'DHL')
 
                   visit edit_transaction_path t
                   select I18n.t 'enumerize.transaction.selected_transport.type2', from: 'transaction_selected_transport'
+                  select I18n.t 'enumerize.transaction.selected_payment.invoice', from: 'transaction_selected_payment'
                   click_button I18n.t 'common.actions.continue'
 
                   page.should have_content '1.005,99'
@@ -413,10 +415,11 @@ describe 'Transaction' do
 
           context "when testing the displayed purchase data" do
             it "should show the correct shipping provider for type1 transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'Foobar')
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_invoice: true, transport_type1: true, transport_type1_price: '10,99', transport_type1_provider: 'Foobar')
 
               visit edit_transaction_path t
               select I18n.t 'enumerize.transaction.selected_transport.type1', from: 'transaction_selected_transport'
+              select I18n.t 'enumerize.transaction.selected_payment.invoice', from: 'transaction_selected_payment'
               click_button I18n.t 'common.actions.continue'
 
               page.should have_content I18n.t('transaction.edit.transport_provider')
@@ -424,10 +427,11 @@ describe 'Transaction' do
             end
 
             it "should show the correct shipping provider for type2 transports" do
-              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'Bazfuz')
+              t = FactoryGirl.create :transaction, article: FactoryGirl.create(:article, payment_invoice: true, transport_type2: true, transport_type2_price: '5,99', transport_type2_provider: 'Bazfuz')
 
               visit edit_transaction_path t
               select I18n.t 'enumerize.transaction.selected_transport.type2', from: 'transaction_selected_transport'
+              select I18n.t 'enumerize.transaction.selected_payment.invoice', from: 'transaction_selected_payment'
               click_button I18n.t 'common.actions.continue'
 
               page.should have_content I18n.t('transaction.edit.transport_provider')
@@ -449,14 +453,14 @@ describe 'Transaction' do
           #     click_button I18n.t 'common.actions.continue'
 
           #     page.should_not have_button I18n.t 'transaction.actions.purchase'
-          #     page.should have_content I18n.t 'transaction.notices.transport_not_supported'
+          #     page.should have_content I18n.t 'transaction.errors.transport_not_supported'
           #   end
 
           #   it "should not render with an unsupported payment type" do
           #     visit edit_transaction_path transaction, transaction: {"selected_transport" => "pickup", "selected_payment" => "paypal"}
 
           #     page.should_not have_button I18n.t 'transaction.actions.purchase'
-          #     page.should have_content I18n.t 'transaction.notices.payment_not_supported'
+          #     page.should have_content I18n.t 'transaction.errors.payment_not_supported'
           #   end
 
           it "should not render with invalid address fields" do
@@ -511,8 +515,10 @@ describe 'Transaction' do
   describe "#show" do
     context "for a logged-in user" do
       context "when the transaction is sold" do
-        let (:transaction) { FactoryGirl.create :single_transaction, :sold }
-        let (:buyer)       { transaction.buyer }
+        let(:transaction) { FactoryGirl.create :single_transaction, :sold }
+        let(:buyer)       { transaction.buyer }
+        let(:seller)      { transaction.seller }
+
 
         context "and the user is the buyer" do
           before do
@@ -533,6 +539,12 @@ describe 'Transaction' do
             page.should have_link transaction.article.title
             page.should have_link transaction.article_seller_nickname
           end
+
+          it "should be possible to see the printed version of the order details" do
+            click_link I18n.t("transaction.actions.print_order.buyer")
+            page.should have_content I18n.t('transaction.notifications.buyer.buyer_text')
+          end
+
         end
 
         context "but the current user isn't the one who bought" do

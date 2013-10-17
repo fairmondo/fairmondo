@@ -35,4 +35,27 @@ describe ToolboxController do
     end
   end
 
+  describe "GET 'rss'" do
+    before(:each) do
+      RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
+    end
+
+    context "as html" do
+      it "should be successful" do
+        get :rss
+        response.should be_success
+      end
+    end
+
+    context "as json" do
+      it "should fail" do
+        get :rss, format: :json
+        response.should_not be_success
+      end
+    end
+
+
+
+  end
+
 end
