@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:flyerhzm/bullet.git
+  remote: git://github.com/flyerhzm/bullet.git
   revision: c60f0b8fe9136fe96d3429de0f3b77cdbf1de552
   specs:
     bullet (4.7.0)
