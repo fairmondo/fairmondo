@@ -1,7 +1,9 @@
 class Invoice < ActiveRecord::Base
+  INVOICE_THRESHOLD = 1000
 
   invoice_attributes =  [ :due_date,
                           :state,
+                          :total_fee_cents,
                           :user_id ]
   # # attr_accessible *invoice_attributes
   # # attr_accessible *invoice_attributes, :as => :admin
@@ -9,6 +11,7 @@ class Invoice < ActiveRecord::Base
   # def self.invoice_attrs
   #   [ :due_date,
   #     :state,
+  #     :total_fee_cents,
   #     :user_id ]
   # end
 
@@ -19,12 +22,17 @@ class Invoice < ActiveRecord::Base
   # delegate :attr1, :attr2, :to => :article, :prefix => true
 
   validates_presence_of *invoice_attributes
+  validates_numericality_of :total_fee_cents, :only_integer => true, :greater_than_or_equal_to => 0
 
   ################ State machine for states of invoice ################
   state_machine :initial => :open do
   	state :open do
       # initial state for all new invoices
   	end
+
+    state :pending do
+      # state when invoice is delivered but not paid
+    end
 
   	state :closed do
       # state when invoice is paid
@@ -37,15 +45,19 @@ class Invoice < ActiveRecord::Base
   	state :second_reminder do
       # zweite Mahnung
   	end
+    
+    state :third_reminder do
+      # dritte Mahnung
+    end
 
     # Abmahnen
     event :remind do
-      transition :open => :first_reminder, :first_reminder => :second_reminder
+      transition :open => :first_reminder, :first_reminder => :second_reminder, :second_reminder => :third_reminder
     end
 
     # Rechnung ist beglichen und wird geschlossen
     event :close do
-      transition [ :open, :first_reminder, :second_reminder ] => :closed
+      transition [ :open, :first_reminder, :second_reminder, :third_reminder ] => :closed
     end
   end
   ################ State machine for states of invoice ################
@@ -67,7 +79,10 @@ class Invoice < ActiveRecord::Base
   # handle_asynchronously :invoice_action_chain
 
   def self.create_new_invoice_and_add_item( transaction )
-    invoice = Invoice.new :user_id => transaction.seller_id
+    invoice = Invoice.new :user_id => transaction.seller_id,
+                          :total_fee_cents => 0,
+                          :state => 'open'
+
     invoice.set_due_date
     add_item( transaction, invoice )
     # invoice.add_quarterly_fee
@@ -103,10 +118,17 @@ class Invoice < ActiveRecord::Base
     end
     total_fee
   end
+  
+  def calculate_total_fee_cents( transaction )
+    if tr.quantity_bought && tr.article.calculated_fair_cents && tr.article.calculated_fee_cents
+      self.total_fee_cents += tr.quantity_bought * (tr.article.calculated_fair_cents + tr.article.calculated_fee_cents)
+      self.save
+    end
+  end
 
   # checks if the invoice is billable this month or if will be billed at the end of the quarter
   def invoice_billable?
-    self.total_fee >= 1000
+    self.total_fee_cents >= INVOICE_THRESHOLD
   end
 
   # sets the due date for the invoice depending on the billable state
