@@ -26,7 +26,7 @@ class WelcomeController < ApplicationController
   def index
     @dream_team = Exhibit.relation_queue :dream_team
     @pioneer = Exhibit.independent_queue :pioneer
-    @newest = Exhibit.independent_queue :newest
+    @old = Exhibit.independent_queue :old
   end
 
   # Rss Feed
