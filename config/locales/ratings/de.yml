@@ -1,0 +1,9 @@
+de:
+# Rating System
+  rating:
+    create:
+      head: 'Deine Bewertung'
+      comment: 'Kommentar'
+      save: 'Bewertung speichern'
+    show:
+      nr_of_ratings: 'Bewertungen:'

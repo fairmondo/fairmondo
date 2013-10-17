@@ -153,7 +153,7 @@ describe 'Article management' do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 600000)
             article2 = FactoryGirl.create :article, :user_id => user.id
-            Capybara.current_session.driver.header 'Referer', root_url
+            # Capybara.current_session.driver.header 'Referer', root_url
             visit new_article_path
             page.should have_content I18n.t('article.notices.max_limit')
           end
@@ -170,7 +170,7 @@ describe 'Article management' do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 2100000)
             article2 = FactoryGirl.create :article, :user_id => user.id
-            Capybara.current_session.driver.header 'Referer', root_url
+            # Capybara.current_session.driver.header 'Referer', root_url
             visit new_article_path
             page.should have_content I18n.t('article.notices.max_limit')
           end
