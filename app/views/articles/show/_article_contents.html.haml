@@ -36,8 +36,8 @@
 %figure.Article-image
   - if resource.title_image
     / The next line is for providing the proper title image to facebook
-    - provide( :title_image, resource.title_image.image.url(:medium) )
-    = link_to image_tag(resource.title_image.image.url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image.image.url(:original) , {:class => "colorbox", :rel => "gallery"}
+    - provide( :title_image, resource.title_image_url(:medium) )
+    = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
   - else
     = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .Article-info

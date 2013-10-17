@@ -37,7 +37,7 @@ module UsersHelper
   end
 
   def bought_transactions
-    resource.bought_transactions.joins(:article).includes(:article => [:images]).page(params[:bought_articles_page])
+    resource.bought_transactions.joins(:article).includes(:buyer, :seller, :article => [:images, :seller]).page(params[:bought_articles_page])
   end
 
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link

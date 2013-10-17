@@ -1,5 +1,5 @@
 - articles.each_with_index do |article,index|
-  .DoubleTeaser-article{:class => (index==1)?"DoubleTeaser-article--right":"" }
+  .DoubleTeaser-article{:class => (index==1) ? "DoubleTeaser-article--right" : "" }
     = link_to image_tag(article.title_image_url(:thumb), alt: article.title), article_path(article), class: 'DoubleTeaser-image'
     = link_to article.title, article_path(article), class: 'DoubleTeaser-link' #Kreidetier
     = " von "
