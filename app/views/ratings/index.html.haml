@@ -20,4 +20,6 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-
+- if user_signed_in?
+  - @ratings.each do |rating|
+    %p= rating.text

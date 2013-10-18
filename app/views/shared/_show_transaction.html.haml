@@ -31,7 +31,7 @@
     %p
     = link_to t('transaction.completed.show_bought'), transaction_path(transaction)
     - if transaction.rating
-      %p.rating-icon
+      %p.Rating-icon
         %img{ :src => image_path('thumbs/'+transaction.rating_value+'.jpg'), :alt => "thumb" }
     - else
       %p
