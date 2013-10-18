@@ -22,4 +22,7 @@
 
 - if user_signed_in?
   - @ratings.each do |rating|
-    %p= rating.text
+    %p.Rating-index
+      %img{ :src => image_path('thumbs/'+rating.value+'.jpg'), :alt => "thumb" }
+      %p= rating.text
+      %br

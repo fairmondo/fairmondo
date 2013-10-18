@@ -4,8 +4,8 @@ FactoryGirl.define do
   factory :rating do
     rating { ["positive", "neutral", "negative"].sample }
     text "MyText"
-    transaction_id 1
-    rated_user_id 1
+    transaction
+    rated_user { transaction.seller }
 
     factory :positive_rating do
       rating "positive"

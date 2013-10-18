@@ -65,8 +65,7 @@ describe 'Rating' do
       it "should fail when saving without a selected rating" do
         visit transaction_new_user_rating_path(transaction.seller, transaction)
         click_button 'Bewertung speichern'
-        current_path.should eq user_path(buyer)
-        page.should have_content 'Deine Bewertung wurde nicht gespeichert'
+        page.should have_button 'Bewertung speichern' # test if still on same page
       end
 
       it "should succeed when saving with a selected rating" do
@@ -75,6 +74,13 @@ describe 'Rating' do
         click_button 'Bewertung speichern'
         current_path.should eq user_path(buyer)
         page.should have_content 'Deine Bewertung wurde gespeichert'
+      end
+
+      it "should disallow rating the same transaction twice" do
+        rating = FactoryGirl.create(:positive_rating)
+        expect do
+          visit transaction_new_user_rating_path(rating.rated_user, rating.transaction)
+        end.to raise_error Pundit::NotAuthorizedError
       end
     end
 
