@@ -22,7 +22,7 @@
 
 class TransactionObserver < ActiveRecord::Observer
   def after_buy transaction, transition
-    unless transaction.multiple?
+    if !transaction.multiple? && transaction.sold?
       # Start the invoice action chain, to create invoices and add items to invoice
       Invoice.invoice_action_chain( transaction )
     end

@@ -70,38 +70,32 @@ class Invoice < ActiveRecord::Base
   ################ Methods ################
   # triggered by transaction_observer, transaction state_machine event: 'buy'
   def self.invoice_action_chain( transaction )
-    unless transaction.seller.is_ngo?
-      if transaction.seller.has_open_invoice?
-        invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) #TODO sort by due_date
-        add_item( transaction, invoice )
-        invoice.set_due_date
-      else
-        create_new_invoice_and_add_item( transaction )
+    begin
+      unless transaction.seller.is_ngo? #TODO keine Gebuehren statt NGO, Methode fuer NGOs im Usermodel
+        if transaction.seller.has_open_invoice? # zusammenfassen mit naechster zeile
+          @invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) #TODO sort by due_date
+        else
+          @invoice = Invoice.new :user_id => transaction.seller_id,
+                                :total_fee_cents => 0,
+                                :state => 'open'
+        end
       end
+      add_item( transaction, @invoice )
+      @invoice.set_due_date
+      @invoice.save!
+    rescue
+      raise "Error"
     end
-  end
-  # Funzt aus irgendeinem Grund nicht
-  # handle_asynchronously :invoice_action_chain
-
-  def self.create_new_invoice_and_add_item( transaction )
-    invoice = Invoice.new :user_id => transaction.seller_id,
-                          :total_fee_cents => 0,
-                          :state => 'open'
-
-    invoice.set_due_date
-    add_item( transaction, invoice )
-    # invoice.add_quarterly_fee
-    invoice.save
   end
 
   def self.add_item( transaction, invoice )
     transaction.invoice_id = invoice.id
-    transaction.save
+    transaction.save!
   end
 
   def self.remove_item( transaction )
     transaction.invoice_id = nil
-    transition.save
+    transition.save!
   end
 
   # this method adds the quarterly fee to the invoice if invoice is the last of this quarter

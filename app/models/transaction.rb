@@ -120,7 +120,6 @@ class Transaction < ActiveRecord::Base
 
     before_transition on: :buy do |transaction, transition|
       transaction.sold_at = Time.now
-      Invoice.invoice_action_chain transaction # somehow this does not work in the observer, that's why it's here
     end
   end
 
