@@ -36,7 +36,6 @@ class RatingsController < InheritedResources::Base
     build_resource.rated_user = build_resource.transaction.seller
     create! do |success,failure|
       success.html { redirect_to user_path(current_user, :anchor => :bought), :notice => t('rating.notice.saved') }
-      failure.html { render :new }
     end
   end
 
