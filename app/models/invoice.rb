@@ -21,8 +21,13 @@ class Invoice < ActiveRecord::Base
   # try to refactor to use immediate associations
   # delegate :attr1, :attr2, :to => :article, :prefix => true
 
-  validates_presence_of *invoice_attributes
-  validates_numericality_of :total_fee_cents, :only_integer => true, :greater_than_or_equal_to => 0
+  # validates_presence_of *invoice_attribut
+  # validates :due_date, presence: true
+  # validates :state, presence: true
+  # validates :user_id, presence: true
+  # validates :total_fee_cents, presence: true
+  
+  # validates_numericality_of :total_fee_cents, :only_integer => true, :greater_than_or_equal_to => 0
 
   ################ State machine for states of invoice ################
   state_machine :initial => :open do
@@ -71,31 +76,34 @@ class Invoice < ActiveRecord::Base
   # triggered by transaction_observer, transaction state_machine event: 'buy'
   def self.invoice_action_chain( transaction )
     begin
+      debugger
       unless transaction.seller.is_ngo? #TODO keine Gebuehren statt NGO, Methode fuer NGOs im Usermodel
         if transaction.seller.has_open_invoice? # zusammenfassen mit naechster zeile
-          @invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) #TODO sort by due_date
+          invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" )#TODO sort by due_date
         else
-          @invoice = Invoice.new :user_id => transaction.seller_id,
-                                :total_fee_cents => 0,
-                                :state => 'open'
+          invoice = Invoice.create :user_id => transaction.seller_id,
+                                :due_date => 30.days.from_now.at_end_of_quarter,
+                                :total_fee_cents => 0
         end
       end
-      add_item( transaction, @invoice )
-      @invoice.set_due_date
-      @invoice.save!
+      invoice.add_item( transaction )
+      invoice.set_due_date
+      # invoice.calculate_total_fee_cents
+      invoice.save!
     rescue
-      raise "Error"
+      # raise "Error"
     end
   end
 
-  def self.add_item( transaction, invoice )
-    transaction.invoice_id = invoice.id
+  def add_item( transaction ) 
+    transaction.invoice_id = self.id
+    # raise "Halt!"
     transaction.save!
   end
 
-  def self.remove_item( transaction )
+  def remove_item( transaction )
     transaction.invoice_id = nil
-    transition.save!
+    transaction.save!
   end
 
   # this method adds the quarterly fee to the invoice if invoice is the last of this quarter
