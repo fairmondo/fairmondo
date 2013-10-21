@@ -76,7 +76,6 @@ class Invoice < ActiveRecord::Base
   # triggered by transaction_observer, transaction state_machine event: 'buy'
   def self.invoice_action_chain( transaction )
     begin
-      debugger
       unless transaction.seller.is_ngo? #TODO keine Gebuehren statt NGO, Methode fuer NGOs im Usermodel
         if transaction.seller.has_open_invoice? # zusammenfassen mit naechster zeile
           invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" )#TODO sort by due_date
