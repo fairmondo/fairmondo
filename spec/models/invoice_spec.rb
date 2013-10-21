@@ -28,6 +28,7 @@ describe Invoice do
   	it { should validate_presence_of 'due_date' }
 		it { should validate_presence_of 'state' }
 		it { should validate_presence_of 'user_id' }
+    it { should validate_presence_of 'total_fee_cents' }
   end
 
   describe "state machine" do
