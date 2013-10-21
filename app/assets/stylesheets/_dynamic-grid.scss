@@ -81,6 +81,28 @@ $large-from: 800px;
 }
 
 //
+// Quad Teaser
+//
+
+.QuadTeaser {
+   @media (min-width: em($small-from)) {
+    width: columns(2,$small-columns);
+  }
+  // @media (min-width: em($sm-from)) {
+  //  width: columns(1,$sm-columns);
+  // }
+  @media (min-width: em($medium-from)) {
+    width: columns(3,$medium-columns);
+  }
+  // @media (min-width: em($ml-from)) {
+  //  width: columns(1,$ml-columns);
+  // }
+  @media (min-width: em($large-from)) {
+    width: columns(4,$large-columns);
+  }
+}
+
+//
 // Double Teaser
 //
 .DoubleTeaser {

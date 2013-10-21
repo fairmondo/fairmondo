@@ -52,6 +52,11 @@
   width: 100%;
 }
 
+.Teaser--smallimage {
+  height: 35px;
+  padding: 5px;
+  //width: 50px;
+}
 
 .Teaser--bottombar {
   margin-bottom: 2em;
@@ -191,10 +196,10 @@
 }
 
 .Teaser-header {
-    @include rem(font-size, 25px);
-    color:$lightgray;
-    margin-bottom: 0;
-    font-weight: normal;
+  @include rem(font-size, 25px);
+  color:$lightgray;
+  margin-bottom: 0;
+  font-weight: normal;
 }
 
 .DoubleTeaser-image {
