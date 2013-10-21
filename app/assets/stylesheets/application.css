@@ -29,7 +29,7 @@
 
  *= require jquery.ui.autocomplete
  *= require jquery.ui.tooltip
- *= require kopfwelt/main
+ *= require main
  *= require vendor/socialshareprivacy
  *= require vendor/jquery.selectBoxIt
  *= require vendor/font_awesome
