@@ -5,7 +5,7 @@ class Exhibit < ActiveRecord::Base
     [:article, :queue, :related_article,:article_id,:related_article_id]
   end
 
-  enumerize :queue, in: [:pioneer,:dream_team,:newest,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights]
+  enumerize :queue, in: [:pioneer,:dream_team,:old,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights]
 
   belongs_to :article
   belongs_to :related_article, class_name: "Article"
@@ -33,7 +33,7 @@ class Exhibit < ActiveRecord::Base
     if self.exhibition_date == nil
        # Because of the join the exhibition is readonly
        # As this should only happen the first time an article is exhibited we can find it again
-       Exhibit.find(self.id).update_attribute(:exhibition_date,DateTime.now)
+       Exhibit.find(self.id).update_attribute(:exhibition_date, DateTime.now)
     end
   end
 

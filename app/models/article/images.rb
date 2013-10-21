@@ -45,14 +45,7 @@ module Article::Images
     # @api public
     # @return [Image, nil]
     def title_image
-      images.each do |image|
-        return image if image.is_title
-      end
-      if images.empty?
-        return nil
-      else
-        return images[0]
-      end
+      images.title_image || images[0]
     end
 
     def title_image_url type = nil

@@ -23,6 +23,7 @@ module MassUpload::Checks
   extend ActiveSupport::Concern
 
   MAX_ARTICLES = 100
+  ALLOWED_MIME_TYPES = ['text/csv', 'application/vnd.ms-excel'] # more allowed for windows users
 
   def file_selected?
     if file
@@ -34,10 +35,10 @@ module MassUpload::Checks
   end
 
   def csv_format?
-    if file.content_type == "text/csv"
+    if ALLOWED_MIME_TYPES.include? file.content_type
       return true
     else
-      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
+      errors.add(:file, I18n.t('mass_upload.errors.wrong_mime_type'))
       return false
     end
   end
@@ -104,7 +105,7 @@ module MassUpload::Checks
     end
 
     def match_euro_sign binary_representation, csv_header_line
-      regex = Regexp.new(";#{binary_representation}\n$".force_encoding("binary"), Regexp::FIXEDENCODING)
+      regex = Regexp.new(";#{binary_representation}(\r)?\n$".force_encoding("binary"), Regexp::FIXEDENCODING)
       regex.match csv_header_line
     end
 end
