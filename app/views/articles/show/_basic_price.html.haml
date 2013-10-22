@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if article.seller.is_a?(LegalEntity) && article.basic_price_amount? && article.basic_price
+- if article.show_basic_price?
   %p.Article-basicprice
     %span= t('formtastic.labels.article.basic_price_simple')
     = humanized_money_with_symbol article.basic_price
