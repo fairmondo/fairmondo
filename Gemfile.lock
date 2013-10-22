@@ -118,13 +118,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    css_parser (1.2.6)
-      addressable
-      rdoc
     daemons (1.1.9)
-    deadweight (0.2.2)
-      css_parser (~> 1.2.6)
-      nokogiri
     debug_inspector (0.0.2)
     debugger (1.6.2)
       columnize (>= 0.3.1)
@@ -420,13 +414,11 @@ DEPENDENCIES
   capistrano (~> 2.15.5)
   capybara
   coffee-rails
-  colored
   colorize
   compass (~> 0.13.alpha.4)
   compass-rails
   coveralls
   daemons
-  deadweight
   debugger
   delayed_job_active_record
   devise
