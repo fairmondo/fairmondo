@@ -48,7 +48,9 @@
     %noscript
       = stylesheet_link_tag 'noscript'
     = javascript_include_tag :application
-
+    :javascript
+      I18n.defaultLocale = "#{I18n.default_locale}";
+      I18n.locale = "#{I18n.locale}";
     / Icons for iOS Devices (iPhone, iPad)
     %link{ rel: 'apple-touch-icon', href: image_path('apple_touch_icon.png'), type: "image/png"  }
     %link{ rel: 'apple-touch-icon', sizes: '72x72', href: image_path('touch_icon_ipad.png'), type: "image/png"  }
