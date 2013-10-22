@@ -47,7 +47,7 @@
     = render "exhibition", articles: @pioneer
 
 
-.Teaser-right
+.Teaser-right.Teaser-clear
   .Teaser
     = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
     %h2.Teaser-header
@@ -62,14 +62,6 @@
       GEBRAUCHT BEI FAIRNOPOLY
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
     = render "exhibition", articles: @old
-  .Teaser
-    %h2.Teaser-header.Teaser-header--nacked  AKTIV MITWIRKEN
-    %p
-      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
-        Held*in werden
-.Teaser-left
   .Teaser.Teaser--single
     %h2.Teaser-header GEZEICHNETE ANTEILE IM OKTOBER
     - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
@@ -92,5 +84,14 @@
     .Teaser--total-number= number_with_delimiter(Article.counting.count, delimiter: ".")
     %p So viele Nutzer*innen haben sich bisher registriert:
     .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
+
+.Teaser-left
+  .Teaser
+    %h2.Teaser-header.Teaser-header--nacked  AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
+        Held*in werden
 .Teaser-right.Teaser-last
-  .Teaser.Teaser-news.Teaser-last.Teaser-hide#Teaser-news-placeholder
+  .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
