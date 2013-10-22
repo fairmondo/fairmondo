@@ -33,7 +33,7 @@
                 .Library-ArticleList.Libraries-settings-clear
                   %section.l-ArticleList
                     - library.library_elements.each do |library_element|
-                      %Article{:class => 'Article Article--teaser'}
+                      %Article{:class => 'Grid Article Article--teaser'}
                         = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
     = paginate @libraries
   - else

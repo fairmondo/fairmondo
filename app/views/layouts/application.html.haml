@@ -42,10 +42,13 @@
     = stylesheet_link_tag 'application'
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
-    = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
+    %noscript
+      = stylesheet_link_tag 'noscript'
+    = javascript_include_tag :application
+
     / Icons for iOS Devices (iPhone, iPad)
     %link{ rel: 'apple-touch-icon', href: image_path('apple_touch_icon.png'), type: "image/png"  }
     %link{ rel: 'apple-touch-icon', sizes: '72x72', href: image_path('touch_icon_ipad.png'), type: "image/png"  }
@@ -53,6 +56,7 @@
     %link{ rel: 'apple-touch-icon', sizes: '144x144', href: image_path('touch_icon_ipad_retina.png'), type: "image/png"  }
     / provides proper Article-Image for Facebook
     %link{ rel: 'image_src', href: yield(:title_image) }
+
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
@@ -69,6 +73,7 @@
       })();
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
+
     .Notice
       - if !flash.empty?
         - flash.each do |type, msg|
