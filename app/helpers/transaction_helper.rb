@@ -145,8 +145,8 @@ module TransactionHelper
   #
   # @return [String, nil] Display HTML if there is something to display
   def display_basic_price
-    if resource.show_basic_price?
-      price = resource.article_basic_price
+    price = resource.article_basic_price
+    if price && price > 0
       tablerow(
         t('transaction.edit.basic_price'),
         (
