@@ -77,7 +77,7 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
-    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000
+    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000, if: lambda {|obj| obj.basic_price_cents }
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
