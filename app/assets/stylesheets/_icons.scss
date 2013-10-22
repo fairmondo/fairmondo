@@ -142,3 +142,36 @@ $icon: sprite-map("icon/*.png");
   left: -4px;
   @include transform(rotate(90deg));
 }
+
+// Known-From Icons
+// ------------------------------------
+
+.icon-arte {
+  height: icon-sprite-height(arte);
+  width: icon-sprite-width(arte);
+}
+
+.icon-deutschlandfunk {
+  height: icon-sprite-height(deutschlandfunk);
+  width: icon-sprite-width(deutschlandfunk);
+}
+
+.icon-hochschulanzeiger {
+  height: icon-sprite-height(hochschulanzeiger);
+  width: icon-sprite-width(hochschulanzeiger);
+}
+
+.icon-sueddeutsche {
+  height: icon-sprite-height(sueddeutsche);
+  width: icon-sprite-width(sueddeutsche);
+}
+
+.icon-tagesspiegel {
+  height: icon-sprite-height(tagesspiegel);
+  width: icon-sprite-width(tagesspiegel);
+}
+
+.icon-taz {
+  height: icon-sprite-height(taz);
+  width: icon-sprite-width(taz);
+}
