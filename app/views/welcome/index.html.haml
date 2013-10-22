@@ -63,15 +63,15 @@
     = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
     = render "exhibition", articles: @old
   .Teaser.Teaser--single
-    %h2.Teaser-header GEZEICHNETE ANTEILE IM OKTOBER
+    %h2.Teaser-header.Teaser-header--nacked GEZEICHNETE ANTEILE IM OKTOBER
     - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
     - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
-    - goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
-    .Teaser-goal
-      - unless goal == 0
-        .Teaser-goal--reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; " }
+    -# goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
+    -#.Teaser-goal
+      -# unless goal == 0
+        -#.Teaser-goal--reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; " }
     %strong
-      = "#{money_without_cents(reached)}€ von #{money_without_cents(goal)}€ diesen Monat erreicht!"
+      = "Diesen Monat wurden #{money_without_cents(reached)}€ erreicht!"
     %p
       = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents( all_this_year + reached)}€ gezeichnet."
     %p
