@@ -79,7 +79,7 @@ class ArticlePolicy < Struct.new(:user, :article)
 
   class Scope < Struct.new(:user, :scope)
     def resolve
-      scope.where(:state => "active")
+      scope.where(:state => "active").includes(:images,:seller)
     end
   end
 end

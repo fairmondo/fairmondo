@@ -40,11 +40,11 @@ describe ArticlesHelper do
      end
 
     it "should return 'kostenfrei'" do
-      helper.options_format_for("transport","pickup","").should match /(kostenfrei)/
+      helper.options_format_for("transport","pickup","").should match(/(kostenfrei)/)
     end
 
     it "should return 'zzgl.'" do
-      helper.options_format_for("transport","type2","").should match /zzgl. /
+      helper.options_format_for("transport","type2","").should match(/zzgl. /)
     end
 
   end

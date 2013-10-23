@@ -23,5 +23,5 @@
 %section{ class: list_class }
 	- items.each do |item|
 		- if item.sold? || :dashboard
-			%Article{ class: 'Article Article--teaser' }
+			%Article{ class: 'Grid Article Article--teaser' }
 				= render partial: '/shared/show_transaction', locals: { transaction: item }

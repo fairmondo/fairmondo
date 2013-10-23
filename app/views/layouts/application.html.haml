@@ -42,6 +42,8 @@
     = stylesheet_link_tag 'application'
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %noscript
+      = stylesheet_link_tag 'noscript'
     = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
@@ -53,6 +55,7 @@
     %link{ rel: 'apple-touch-icon', sizes: '144x144', href: image_path('touch_icon_ipad_retina.png'), type: "image/png"  }
     / provides proper Article-Image for Facebook
     %link{ rel: 'image_src', href: yield(:title_image) }
+
     / Google Analytics
     :javascript
       var _gaq = _gaq || [];
@@ -69,6 +72,7 @@
       })();
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
+
     .Notice
       - if !flash.empty?
         - flash.each do |type, msg|
@@ -108,6 +112,10 @@
         = yield
       / .container
     / #main
+
+    - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+      = render "welcome/known_from"
+
     %footer.l-Footer
       .Footer--top
         .l-Inner

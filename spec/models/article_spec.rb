@@ -73,6 +73,7 @@ describe Article do
           db_article.owned_by?(db_article.seller).should be_true
         end
       end
+
     end
   end
 
@@ -204,7 +205,7 @@ describe Article do
       end
 
       describe "#transport_provider" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'
@@ -220,7 +221,7 @@ describe Article do
       end
 
       describe "#total_price" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return the correct price for cash_on_delivery payments" do
           expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price

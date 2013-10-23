@@ -78,7 +78,7 @@
           = f.inputs do
             %legend.Filter-title
               Einstellungen
-              %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.<br/>Die PLZ-Suche ermöglicht Dir, über die Postleizahl nach Artikeln in Deiner Nähe suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
+              %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.\n Die PLZ-Suche ermöglicht Dir, über die Postleitzahl nach Artikeln in Deiner Nähe zu suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
             = f.input :search_in_content, :as => :boolean
             = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
 

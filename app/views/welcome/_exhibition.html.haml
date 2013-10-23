@@ -1,6 +1,6 @@
 - articles.each_with_index do |article,index|
-  .DoubleTeaser-article{:class => (index==1)?"DoubleTeaser-article--right":"" }
-    = link_to image_tag(article.title_image_url(:thumb), alt: article.title), article_path(article), class: 'DoubleTeaser-image'
-    = link_to article.title, article_path(article), class: 'DoubleTeaser-link' #Kreidetier
+  .Teaser-article{:class => (index==1) ? "Teaser-article--right" : "" }
+    = link_to image_tag(article.title_image_url(:thumb), alt: article.title), article_path(article), class: 'Teaser-image'
+    = link_to article.title, article_path(article), class: 'Teaser-link' #Kreidetier
     = " von "
-    = link_to article.profile_name, user_path(article.seller), class: 'DoubleTeaser-link'
+    = link_to article.profile_name, user_path(article.seller), class: 'Teaser-link'
