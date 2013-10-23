@@ -77,13 +77,13 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
-    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000
+    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000, if: lambda {|obj| obj.basic_price_cents }
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
-    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents > 0 }
+    validates :basic_price_amount, presence: true, if: lambda {|obj| obj.basic_price_cents && obj.basic_price_cents > 0 }
 
     # legal entity attributes
 
@@ -266,6 +266,14 @@ module Article::Attributes
   # @return [Array] An array with selected payment types.
   def selectable_payments
     selectable "payment"
+  end
+
+  # Returns true if the basic price should be shown to users
+  #
+  # @api public
+  # @return Boolean
+  def show_basic_price?
+    self.seller.is_a?(LegalEntity) && self.basic_price_amount? && self.basic_price && self.basic_price_cents > 0
   end
 
   private

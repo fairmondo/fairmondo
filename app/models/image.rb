@@ -61,4 +61,8 @@ class Image < ActiveRecord::Base
      Paperclip::Geometry.from_file(self.image.path(style))
   end
 
+  def self.title_image
+    where(is_title: true).first
+  end
+
 end

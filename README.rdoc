@@ -1,5 +1,6 @@
 = Welcome to the Fairnopoly repository
-*Current Version: 1.0.1*
+
+{Burndown}[http://radekstepan.com/github-burndown-chart/#!/fairnopoly/fairnopoly]
 
 {<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=master] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly]
 

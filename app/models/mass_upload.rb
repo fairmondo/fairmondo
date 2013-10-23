@@ -27,6 +27,10 @@ class MassUpload
 
   include Checks, Questionnaire, FeesAndDonations
 
+  def self.mass_upload_attrs
+    [:file]
+  end
+
   def self.header_row
    ["title", "categories", "condition", "condition_extra",
     "content", "quantity", "price_cents", "basic_price_cents",
@@ -71,7 +75,7 @@ class MassUpload
   attr_accessor :file
   attr_reader   :errors, :articles
 
-  def parse_csv_for(user)
+  def parse_csv_for user
 
     unless file_selected?
       return false
@@ -93,7 +97,7 @@ class MassUpload
       return false
     end
 
-    build_articles_for(user)
+    build_articles_for user
 
     unless articles_valid?
       return false
@@ -109,7 +113,7 @@ class MassUpload
   end
 
 
-  def build_articles_for(user)
+  def build_articles_for user
     @articles = []
     @csv.each do |row|
       row_hash = row.to_hash
@@ -128,6 +132,7 @@ class MassUpload
   def articles_valid?
     valid = true
     @articles.each_with_index do |article, index|
+      # +bugbug Why is this repetition necessary? -K
       if article.errors.full_messages.any?
         add_article_error_messages(article, index)
         valid = false
@@ -160,18 +165,10 @@ class MassUpload
   end
 
   def revise_prices(article)
-    unless article.basic_price
-      article.basic_price = 0
-    end
-    unless article.transport_type1_price_cents
-      article.transport_type1_price_cents = 0
-    end
-    unless article.transport_type2_price_cents
-      article.transport_type2_price_cents = 0
-    end
-    unless article.payment_cash_on_delivery_price_cents
-      article.payment_cash_on_delivery_price_cents = 0
-    end
+    article.basic_price ||= 0
+    article.transport_type1_price_cents ||= 0
+    article.transport_type2_price_cents ||= 0
+    article.payment_cash_on_delivery_price_cents ||= 0
   end
 
   # The following 3 methods are needed for Active Model Errors
