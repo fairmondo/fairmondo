@@ -1,19 +1,14 @@
 class Invoice < ActiveRecord::Base
+  require 'fastbill-automatic'
+
   INVOICE_THRESHOLD = 1000
 
-  invoice_attributes =  [ :due_date,
-                          :state,
-                          :total_fee_cents,
-                          :user_id ]
-  # # attr_accessible *invoice_attributes
-  # # attr_accessible *invoice_attributes, :as => :admin
-  
-  # def self.invoice_attrs
-  #   [ :due_date,
-  #     :state,
-  #     :total_fee_cents,
-  #     :user_id ]
-  # end
+  def self.invoice_attrs
+    [ :due_date,
+      :state,
+      :total_fee_cents,
+      :user_id ]
+  end
 
   belongs_to :user
   has_many :transactions
@@ -21,12 +16,7 @@ class Invoice < ActiveRecord::Base
   # try to refactor to use immediate associations
   # delegate :attr1, :attr2, :to => :article, :prefix => true
 
-  # validates_presence_of *invoice_attribut
-  # validates :due_date, presence: true
-  # validates :state, presence: true
-  # validates :user_id, presence: true
-  # validates :total_fee_cents, presence: true
-  
+  validates_presence_of *Invoice.invoice_attrs
   # validates_numericality_of :total_fee_cents, :only_integer => true, :greater_than_or_equal_to => 0
 
   ################ State machine for states of invoice ################
@@ -56,7 +46,7 @@ class Invoice < ActiveRecord::Base
     end
 
     # Rechnung wird verschickt und wartet auf Bezahlung
-    event :send do
+    event :send_invoice do
       transition :open => :pending
     end
 
@@ -77,13 +67,7 @@ class Invoice < ActiveRecord::Base
   def self.invoice_action_chain( transaction )
     begin
       unless transaction.seller.is_ngo? #TODO keine Gebuehren statt NGO, Methode fuer NGOs im Usermodel
-        if transaction.seller.has_open_invoice? # zusammenfassen mit naechster zeile
-          invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" )#TODO sort by due_date
-        else
-          invoice = Invoice.create :user_id => transaction.seller_id,
-                                :due_date => 30.days.from_now.at_end_of_quarter,
-                                :total_fee_cents => 0
-        end
+        invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) || Invoice.create( :user_id => transaction.seller_id, :due_date => 30.days.from_now.at_end_of_quarter, :total_fee_cents => 0 )
       end
       invoice.add_item( transaction )
       invoice.set_due_date
@@ -97,11 +81,6 @@ class Invoice < ActiveRecord::Base
   def add_item( transaction ) 
     transaction.invoice_id = self.id
     # raise "Halt!"
-    transaction.save!
-  end
-
-  def remove_item( transaction )
-    transaction.invoice_id = nil
     transaction.save!
   end
 

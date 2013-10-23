@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe Invoice do
-# 	let(:transaction) { FactoryGirl.create :single_transaction }
-#   let(:article) { transaction.article }
-#   let(:seller) { transaction.article.seller }
-#   let(:user) { FactoryGirl.create :user }
-#   let(:invoice) { FactoryGirl.create :invoice, :user_id => user.id }
-
   it "has a valid Factory" do
     FactoryGirl.build(:invoice).should be_valid
   end
@@ -33,11 +27,16 @@ describe Invoice do
 
   describe "state machine" do
 		let ( :invoice ) { FactoryGirl.create :invoice }
+    let ( :transaction ) { FactoryGirl.create :single_transaction }
 
   	describe "states" do
   		it "should have state 'open'" do
   			invoice.should respond_to :open?
   		end
+      
+      it "should have state 'pending'" do
+        invoice.should respond_to :pending?
+      end
 
   		it "should have state 'first_reminder'" do
   			invoice.should respond_to :first_reminder?
@@ -46,6 +45,10 @@ describe Invoice do
   		it "should have state 'second_reminder'" do
   			invoice.should respond_to :second_reminder?
   		end
+
+      it "should have state 'third_reminder'" do
+        invoice.should respond_to :third_reminder?
+      end
 
   		it "should have state 'closed'" do
   			invoice.should respond_to :closed?
@@ -58,6 +61,10 @@ describe Invoice do
 	  		invoice.state.should eq 'closed'
 	  	end
 
+	  	it "send_invoice should set state from 'open' to 'pending'" do
+	  		invoice.send_invoice
+	  		invoice.state.should eq 'pending'
+	  	end
 	  	it "close should set state from 'first_reminder' to 'closed'" do
 	  		invoice.state = "first_reminder"
 	  		invoice.close
@@ -66,6 +73,12 @@ describe Invoice do
 
 	  	it "close should set state from 'second_reminder' to 'closed'" do
 	  		invoice.state = "second_reminder"
+	  		invoice.close
+	  		invoice.state.should eq 'closed'
+	  	end
+
+	  	it "close should set state from 'third_reminder' to 'closed'" do
+	  		invoice.state = "third_reminder"
 	  		invoice.close
 	  		invoice.state.should eq 'closed'
 	  	end
@@ -81,17 +94,23 @@ describe Invoice do
 	  		invoice.remind
 	  		invoice.state.should eq 'second_reminder'
 	  	end
+
+	  	it "remind should set state from 'second_reminder' to 'third_reminder'" do
+	  		invoice.state = "second_reminder"
+	  		invoice.remind
+	  		invoice.state.should eq 'third_reminder'
+	  	end
 	  end
 	end
 
   describe "methods" do
   	let ( :invoice ) { FactoryGirl.create :invoice }
     let ( :user ) { FactoryGirl.create :user }
+    let ( :transaction ) { FactoryGirl.create :single_transaction }
 
   	describe "that are public:" do
   		before do
   			article = FactoryGirl.create :article
-  			transaction = article.transaction
   		end
 
   		# This is maybe not necessary
@@ -101,6 +120,21 @@ describe Invoice do
 
       it "'calculate_total_fee' should calculate total_fee" do
         pending
+      end
+
+      describe "::invoice_action_chain" do
+        context "when user has an open invoice" do
+          it "should not create a new invoice" do
+            pending
+          end
+        end
+        
+        context 'when user has not an open invoice' do
+          it "should create a new invoice" do
+            pending
+            # invoice.user_id = user.id
+          end
+        end
       end
 
       describe "#add_quarterly_fee" do
@@ -118,18 +152,11 @@ describe Invoice do
         end
       end
 
-      describe '::create_new_invoice_and_add_item' do
-        context "when user has an open invoice" do
-          it "should not create a new invoice" do
-            pending
-          end
-        end
-        
-        context 'when user has not an open invoice' do
-          it "should create a new invoice" do
-            pending
-            # invoice.user_id = user.id
-          end
+      describe '#add_item' do
+        it "should set transaction.invoice_id to invoice.id" do
+          transaction.invoice_id = 0
+          invoice.add_item( transaction )
+          transaction.invoice_id.should eq invoice.id
         end
       end
 
@@ -181,4 +208,6 @@ describe Invoice do
         end
       end
   	end
+
+
   end
