@@ -62,10 +62,6 @@ FactoryGirl.define do
       bank_name ""
    end
 
-    trait :paypal_data do
-      paypal_account Faker::Internet.email
-    end
-
     seller_state "standard_seller"
     buyer_state "standard_buyer"
 
