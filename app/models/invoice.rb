@@ -70,8 +70,8 @@ class Invoice < ActiveRecord::Base
         invoice = Invoice.find_by_user_id_and_state( transaction.seller.id, "open" ) || Invoice.create( :user_id => transaction.seller_id, :due_date => 30.days.from_now.at_end_of_quarter, :total_fee_cents => 0 )
       end
       invoice.add_item( transaction )
+      invoice.calculate_total_fee_cents( transaction )
       invoice.set_due_date
-      # invoice.calculate_total_fee_cents
       invoice.save!
     rescue
       # raise "Error"
@@ -105,10 +105,8 @@ class Invoice < ActiveRecord::Base
   end
   
   def calculate_total_fee_cents( transaction )
-    if tr.quantity_bought && tr.article.calculated_fair_cents && tr.article.calculated_fee_cents
-      self.total_fee_cents += tr.quantity_bought * (tr.article.calculated_fair_cents + tr.article.calculated_fee_cents)
-      self.save
-    end
+    self.total_fee_cents += transaction.quantity_bought * (transaction.article.calculated_fair_cents + transaction.article.calculated_fee_cents)
+    self.save
   end
 
   # checks if the invoice is billable this month or if will be billed at the end of the quarter
