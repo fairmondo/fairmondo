@@ -113,13 +113,26 @@ describe Invoice do
   			article = FactoryGirl.create :article
   		end
 
+      describe "::invoice_action_chain" do
+        it "should respond to invoice_action_chain" do
+          Invoice.should respond_to :invoice_action_chain?
+        end
+      end
+
   		# This is maybe not necessary
     #   it "'invoice_action_chain' should be triggered when 'transaction.buy' is executed" do
     #     pending
   		# end
 
-      it "'calculate_total_fee' should calculate total_fee" do
-        pending
+      describe "#calculate_total_fee_cents" do
+        before do
+          transaction.article.price_cents = 1000
+          transaction.article.calculate_fees_and_donations
+        end
+
+        it "should calculate the right value" do
+          pending
+        end
       end
 
       describe "::invoice_action_chain" do
