@@ -58,16 +58,16 @@ describe "Mass-upload" do
           attach_file('mass_upload_file',
                       'spec/fixtures/mass_upload_correct.csv')
           click_button I18n.t('mass_upload.labels.upload_article')
+        end
 
-          it "should show the correct error notice" do
-            should have_css(".Notice--error")
-            html.should include(
-              I18n.t('mass_upload.errors.missing_payment_details',
-                      link: '#payment_step',
-                      missing_payment: I18n.t('formtastic.labels.user.paypal_account')
-              )
+        it "should show the correct error notice" do
+          should have_css(".Notice--error")
+          html.should include(
+            I18n.t('mass_upload.errors.missing_payment_details',
+                    link: '#payment_step',
+                    missing_payment: I18n.t('formtastic.labels.user.paypal_account')
             )
-          end
+          )
         end
       end
 
@@ -76,42 +76,91 @@ describe "Mass-upload" do
                                     :paypal_data }
 
         context "and a valid csv file" do
-          before do
-            attach_file('mass_upload_file',
-                       'spec/fixtures/mass_upload_correct.csv')
-            click_button I18n.t('mass_upload.labels.upload_article')
-          end
-
-          it "should redirect to the mass_uploads#show" do
-            should have_content('Name von Artikel 1')
-            should have_selector('input.Btn.Btn--blue.Btn--blueBig',
-                          I18n.t('mass_upload.labels.mass_activate_articles'))
-          end
-
-          it "should create new articles" do
-            visit new_mass_upload_path
-            attach_file('mass_upload_file',
-                        'spec/fixtures/mass_upload_correct.csv')
-            expect { click_button I18n.t('mass_upload.labels.upload_article') }
-                      .to change(Article, :count).by(3)
-          end
-
-          describe "activate articles" do
-
-            it "should redirect to user#offers when activating all articles" do
-              click_button I18n.t('mass_upload.labels.mass_activate_articles')
-              should_not have_selector('h1',
-                          text: I18n.t('mass_upload.titles.uploaded_articles'))
-              should have_selector('a', text: Article.last.title)
+          context "when action is create" do
+            before do
+              attach_file('mass_upload_file',
+                         'spec/fixtures/mass_upload_correct.csv')
             end
 
-            it "going back to mass_uploads#show it should show changed buttons" do
-              secret_mass_uploads_number = current_path.delete "/mass_uploads/"
+            it "should redirect to the mass_uploads#show" do
+              click_button I18n.t('mass_upload.labels.upload_article')
+              should have_content('Name von Artikel 1')
+              should have_selector('input.Btn.Btn--blue.Btn--blueBig',
+                            I18n.t('mass_upload.labels.mass_activate_articles'))
+            end
+
+            it "should create new articles" do
+              expect { click_button I18n.t('mass_upload.labels.upload_article') }
+                        .to change(Article, :count).by(3)
+            end
+
+            describe "activate articles" do
+
+              it "should redirect to user#offers when activating all articles" do
+                click_button I18n.t('mass_upload.labels.mass_activate_articles')
+                should_not have_selector('h1',
+                            text: I18n.t('mass_upload.titles.uploaded_articles'))
+                should have_selector('a', text: Article.last.title)
+              end
+
+              it "going back to mass_uploads#show it should show changed buttons" do
+                secret_mass_uploads_number = current_path.delete "/mass_uploads/"
+                click_button I18n.t('mass_upload.labels.mass_activate_articles')
+                visit mass_upload_path(secret_mass_uploads_number)
+                should_not have_selector('input.Btn.Btn--green.Btn--greenSmall')
+                should have_content I18n.t(
+                                    'mass_upload.labels.all_articles_activated')
+              end
+            end
+          end
+
+          context "when action is update" do
+            it "should update all requested articles" do
+              pending 'coming soon'
+              # create articles
+              attach_file('mass_upload_file',
+                         'spec/fixtures/mass_upload_correct.csv')
+              click_button I18n.t('mass_upload.labels.upload_article')
               click_button I18n.t('mass_upload.labels.mass_activate_articles')
-              visit mass_upload_path(secret_mass_uploads_number)
-              should_not have_selector('input.Btn.Btn--green.Btn--greenSmall')
-              should have_content I18n.t(
-                                  'mass_upload.labels.all_articles_activated')
+
+              # change them
+              visit new_mass_upload_path
+              attach_file('mass_upload_file', 'spec/fixtures/mass_update.csv')
+              click_button I18n.t('mass_upload.labels.upload_article')
+
+              # validate changes
+              article1 = Article.find(1)
+              article2 = Article.find(2)
+              article1.content.should eq 'Andere Beschreibung'
+              article1.condition.should eq 'old'
+              article2.title.should eq 'Anderer Name'
+              article2.gtin.should eq 999
+            end
+          end
+
+          context "when action is delete" do
+            it "should show a deletion warning" do
+              pending 'coming soon'
+            end
+
+            it "should delete all requested articles" do
+              pending 'coming soon'
+            end
+          end
+
+          context "when action is empty" do
+            it "should create an article when no ID was given" do
+              pending 'coming soon'
+            end
+
+            it "should update the article when an ID was given" do
+              pending 'coming soon'
+            end
+          end
+
+          context "when different actions were given" do
+            it "should create, update, or delete the respective article" do
+              pending 'coming soon'
             end
           end
         end
@@ -172,7 +221,7 @@ describe "Mass-upload" do
             end
           end
 
-          describe "to many articles)" do
+          describe "too many articles)" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',
                           'spec/fixtures/mass_upload_to_many_articles.csv')
