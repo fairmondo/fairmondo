@@ -1,21 +1,22 @@
-# encoding: utf-8
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class MassUpload
 
@@ -61,6 +62,11 @@ class MassUpload
     "upcycling_reason", "small_and_precious_eu_small_enterprise",
     "small_and_precious_reason", "small_and_precious_handmade",
     "gtin", "custom_seller_identifier"]
+  end
+
+  # Gives header row that is needed for updates and deletes
+  def self.expanded_header_row
+    ['id'] + header_row + ['action']
   end
 
 
@@ -112,7 +118,7 @@ class MassUpload
   def build_articles_for user
     @articles = []
     @csv.each do |row|
-      row_hash = row.to_hash
+      row_hash = sanitize_fields row.to_hash
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
       row_hash = Questionnaire.include_fair_questionnaires(row_hash)
@@ -188,4 +194,13 @@ class MassUpload
   def persisted?
     false
   end
+
+  private
+    # Throw away additional fields
+    def sanitize_fields row_hash
+      row_hash.keys.each do |key|
+        row_hash.delete key unless MassUpload.expanded_header_row.include? key
+      end
+      row_hash
+    end
 end
