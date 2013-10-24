@@ -144,6 +144,8 @@
   = f.inputs do
     .Accordion-step
       = f.input :friendly_percent, :as => :select, :collection => [5,10,25,35,50,75,100]
-      = f.input :friendly_percent_organisation, :as => :select, :collection => User.sorted_ngo
-
-
+      = f.input :friendly_percent_organisation, :as => :select, :collection => User.sorted_ngo, :input_html => {:class => "Friendly_percent_select"}
+      .Friendly_percent_ngo_label
+        = t('formtastic.labels.article.friendly_percent_ngo_info')
+        .Friendly_percent_ngo_label_link
+        %br
