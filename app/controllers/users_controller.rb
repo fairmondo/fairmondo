@@ -20,13 +20,15 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UsersController < InheritedResources::Base
-
+  include NoticeHelper
   respond_to :html
   actions :show
   custom_actions :resource => :profile, :collection => :login
 
-  before_filter :authorize_resource, :except => :login
-  before_filter :dont_cache, only: [ :show ]
+
+  before_filter :show_notice, only: [:show]
+  before_filter :authorize_resource, except: [:login]
+  before_filter :dont_cache, only: [:show]
   skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
   skip_after_filter :verify_authorized_with_exceptions, only: [:login]
 
@@ -43,6 +45,13 @@ class UsersController < InheritedResources::Base
           render '/users/print', layout: false, locals: { field: permitted_profile_params[:print] }
         end
       end
+    end
+  end
+
+  def show_notice
+    if user_signed_in?
+      notice = current_user.next_notice
+      flash[notice.color] = render_open_notice notice if notice.present?
     end
   end
 

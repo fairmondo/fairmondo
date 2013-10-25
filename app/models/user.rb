@@ -80,6 +80,8 @@ class User < ActiveRecord::Base
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
+  has_many :notices
+
   ##
   has_one :image, as: :imageable
   accepts_nested_attributes_for :image
@@ -254,6 +256,22 @@ class User < ActiveRecord::Base
     can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
+  end
+
+  # Notify the user of an asynchron event
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def notify message, path , color=:notice
+    self.notices.create :message => message, :open => true, :path => path, :color => color
+  end
+
+  # Returns the next open notice of this user
+  # @api public
+  # @return [Notice] the notice
+  def next_notice
+    self.notices.where(:open => true).first
   end
 
   private
