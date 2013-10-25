@@ -268,6 +268,14 @@ module Article::Attributes
     selectable "payment"
   end
 
+  # Returns true if the basic price should be shown to users
+  #
+  # @api public
+  # @return Boolean
+  def show_basic_price?
+    self.seller.is_a?(LegalEntity) && self.basic_price_amount? && self.basic_price && self.basic_price_cents > 0
+  end
+
   private
     def transport_method_checked
       unless self.transport_pickup || self.transport_type1 || self.transport_type2
