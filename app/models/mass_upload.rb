@@ -122,7 +122,7 @@ class MassUpload
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
       row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-      article = Article.new(row_hash)
+      article = Article.create_or_find_according_to_action row_hash, user
       article.user_id = user.id
       Questionnaire.add_commendation!(article)
       revise_prices(article)
@@ -162,7 +162,7 @@ class MassUpload
   def save_articles!
     @articles.each do |article|
       article.calculate_fees_and_donations
-      article.save!
+      article.process!
     end
   end
 
@@ -196,7 +196,7 @@ class MassUpload
   end
 
   private
-    # Throw away additional fields
+    # Throw away additional fields that are not needed
     def sanitize_fields row_hash
       row_hash.keys.each do |key|
         row_hash.delete key unless MassUpload.expanded_header_row.include? key

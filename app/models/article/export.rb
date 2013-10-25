@@ -22,11 +22,6 @@
 module Article::Export
   extend ActiveSupport::Concern
 
-  included do
-    # Action attribute: c/create/u/update/d/delete - for export and csv upload
-    attr_accessor :action
-  end
-
   def self.export_articles(user, params = nil)
     header_row = MassUpload.expanded_header_row + ['€'] # Euro as UTF-8 identifier
     articles = determine_articles_to_export(user, params)
@@ -35,9 +30,9 @@ module Article::Export
       line << header_row
       articles.each do |article|
         row = Hash.new
-        row.merge!(article.attributes)
         row.merge!(article.provide_fair_attributes)
-        row["categories"] = article.categories.map { |a| a.id }.join(",")
+        row.merge!(article.attributes)
+        row["categories"] = article.categories.map { |c| c.id }.join(",")
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
         line << header_row.map { |element| row[element] }

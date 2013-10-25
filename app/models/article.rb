@@ -28,11 +28,6 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug unless :template?
 
-  #only generate friendly slug if we dont have a template
-  def should_generate_new_friendly_id?
-    !template?
-  end
-
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
   delegate :deletable?,:buyer, to: :transaction, prefix: false
@@ -54,7 +49,18 @@ class Article < ActiveRecord::Base
   # Misc mixins
   extend Sanitization
   # Article module concerns
-  include Categories, Commendation, Export, FeesAndDonations, Images, BuildTransaction, Attributes, Search, Template, State, Scopes
+  include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
+    Images, BuildTransaction, Attributes, Search, Template, State, Scopes, Checks
+
+  def self.article_attrs with_nested_template = true
+    (
+      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+      Article.basic_price_attrs + Article.transport_attrs +
+      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
+      Article.image_attrs + Article.legal_entity_attrs +
+      Article.template_attrs(with_nested_template)
+    )
+  end
 
   def images_attributes=(attributes)
     self.images.clear
@@ -91,13 +97,6 @@ class Article < ActiveRecord::Base
     }
   end
 
-  # Does this article belong to user X?
-  # @api public
-  # param user [User] usually current_user
-  def owned_by? user
-    user && self.seller.id == user.id
-  end
-
   # for featured article
   def profile_name
     if self.seller.type == "PrivateUser"
@@ -106,24 +105,4 @@ class Article < ActiveRecord::Base
       "#{self.seller.nickname}, #{self.seller.city}"
     end
   end
-
-  def self.article_attrs with_nested_template = true
-    (
-      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-      Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-      Article.image_attrs + Article.legal_entity_attrs +
-      Article.template_attrs(with_nested_template)
-    )
-  end
-
-  def is_conventional?
-    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
-  end
-
-  def is_available?
-    self.transaction_quantity_available == 0
-  end
-
-
 end
