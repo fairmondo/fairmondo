@@ -36,6 +36,7 @@ module Article::Images
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 
+    delegate :external_url, to: :title_image, :prefix => true
 
     accepts_nested_attributes_for :images, allow_destroy: true
 
@@ -60,6 +61,10 @@ module Article::Images
       title_image && title_image.image.present?
     end
 
+    def title_image_pending?
+      title_image && title_image.pending?
+    end
+
     IMAGE_COUNT.times do |number|
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
                           add_image(image_url, false)})
@@ -69,6 +74,13 @@ module Article::Images
       thumbnails = self.images.where(:is_title => false)
       thumbnails.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
+    end
+
+    def images_pending?
+      self.images.each do |image|
+        return true if image.pending?
+      end
+      false
     end
 
     def only_one_title_image
