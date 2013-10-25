@@ -3,13 +3,12 @@
 //
 
 $(function(){
-
-	var $container = $('#js-masonry');
+	var $container = $('.Grid-mansory');
 	if ($container.length > 0) {
 		$container.prepend('<div class="gutter-sizer"></div><div class="grid-sizer"></div>');
 		$container.imagesLoaded( function() {
 			$container.masonry({
-				itemSelector: '.Teaser',
+				itemSelector: '.Grid',
 				gutter: '.gutter-sizer',
 				columnWidth: '.grid-sizer'
 			});
@@ -21,7 +20,7 @@ $(function(){
 		$articles.prepend('<div class="gutter-sizer"></div><div class="grid-sizer"></div>');
 		$articles.imagesLoaded( function() {
 			$articles.masonry({
-				itemSelector: '.Article',
+				itemSelector: '.Grid',
 				gutter: '.gutter-sizer',
 				columnWidth: '.grid-sizer'
 			});

@@ -1,0 +1,65 @@
+
+.grid-sizer,
+.Grid
+{
+  width: 100%;
+  float:left;
+
+  @include at-breakpoint($layout-small-to-medium) {
+    width: columns(1,$small-columns);
+  }
+  @include at-breakpoint($layout-medium-to-large) {
+    width: columns(1,$medium-columns);
+  }
+  @include at-breakpoint($layout-large) {
+    width: columns(1,$large-columns);
+  }
+}
+
+
+//
+// Grid horizontal gutter
+//
+.gutter-sizer {
+  @include at-breakpoint($layout-small-to-medium) {
+    width: gutter($small-columns);
+  }
+  @include at-breakpoint($layout-medium-to-large) {
+    width: gutter($medium-columns);
+  }
+  @include at-breakpoint($layout-large) {
+    width: gutter($large-columns);
+  }
+}
+
+
+//
+// Grid vertical gutter
+//
+.Grid {
+  margin-bottom: em(38);
+  float:left;
+  @include at-breakpoint($layout-small-to-medium) {
+    margin-right:  gutter($small-columns);
+    &:nth-child(2n) {
+      @include omega;
+    }
+  }
+
+  @include at-breakpoint($layout-medium-to-large) {
+    margin-right:  gutter($medium-columns);
+    &:nth-child(3n) {
+      @include omega;
+    }
+  }
+  @include at-breakpoint($layout-large) {
+    margin-right:  gutter($large-columns);
+    &:nth-child(4n) {
+      @include omega;
+    }
+  }
+
+}
+
+
+
