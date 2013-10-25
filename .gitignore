@@ -69,6 +69,8 @@ Gemfile.local
 
 # vim fragments / vim swap-files
 *.swp
+# other fragments
+*.~lock.*
 
 .ruby-version
 
