@@ -40,7 +40,7 @@
 <%= fees_and_donations @transaction %>
 <% if @transaction.article.has_friendly_percent? && @transaction.article.donated_ngo %>
 <%= t('transaction.notifications.seller.seller_friendly_fee_text',
-	friendly_percent: @transaction.article.friendly_percent,
+	friendly_percent: @transaction.article_friendly_percent,
 	ngo: @transaction.article.donated_ngo.nickname ,
 	friendly_percent_amount: humanized_money_with_symbol(@transaction.article.calculated_friendly)) %>
 <%end %>
