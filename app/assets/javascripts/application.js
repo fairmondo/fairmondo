@@ -20,6 +20,7 @@
  * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
