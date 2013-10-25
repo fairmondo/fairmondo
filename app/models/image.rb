@@ -65,4 +65,8 @@ class Image < ActiveRecord::Base
     where(is_title: true).first
   end
 
+  def pending?
+    !self.image.present? && self.external_url.present?
+  end
+
 end

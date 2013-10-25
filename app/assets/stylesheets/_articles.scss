@@ -82,6 +82,10 @@
 		@include rem(padding-bottom, 7px);
 }
 
+.Thunbnail-pending {
+  color: $red;
+}
+
 .Article-info--left {
 	@include span-columns(2, 2);
 	position: relative;
