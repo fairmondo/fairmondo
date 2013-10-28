@@ -1,5 +1,6 @@
 require "spec_helper"
 require "money-rails/test_helpers"
+require "money"
 
 describe TransactionMailerHelper do
 	before( :each ) do
@@ -7,7 +8,6 @@ describe TransactionMailerHelper do
 	end
 
 	describe "#transaction_mail_greeting( transaction, role )" do
-		# pending "needs to be fixed"
 		context "dependent on role it should return the right greeting" do
 			it "if role is buyer it should return buyer greeting" do
 				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + @transaction.buyer_forename + ','
@@ -133,17 +133,6 @@ describe TransactionMailerHelper do
 			end
 		end
 	end
-
-	# this method is not in use
-	#
-	# describe "#seller_bank_account( seller )" do
-	# 	it "should return the right string for seller bank account" do
-	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_owner )
-	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_account_number )
-	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_code )
-	# 		helper.seller_bank_account( @transaction.article_seller ).should have_content( @transaction.article_seller.bank_name )
-	# 	end
-	# end
 
 	describe "#fees_and_donations( transaction )" do
 		include MoneyRails::TestHelpers

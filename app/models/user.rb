@@ -260,6 +260,15 @@ class User < ActiveRecord::Base
     can_sell
   end
 
+  # hashes the ip-addresses which are stored by devise :trackable
+  def last_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+
+  def current_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+  
   private
 
   # @api private
