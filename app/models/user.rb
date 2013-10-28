@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
   def current_sign_in_ip= value
     super Digest::MD5.hexdigest(value)
   end
-  
+
   private
 
   # @api private
