@@ -29,7 +29,7 @@ class ToolboxController < ApplicationController
   def notice
     notice = Notice.find params[:id]
     notice.update_attribute(:open,false)
-    redirect_to notice.path
+    redirect_to URI.parse(notice.path).path
   end
 
 end
