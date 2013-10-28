@@ -188,8 +188,8 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.sorted_ngo
-    self.order(:nickname).where(:ngo => true)
+  def self.sorted_ngo_without_current current_user
+    self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
   end
 
 
