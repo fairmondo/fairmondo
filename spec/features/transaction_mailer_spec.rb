@@ -50,4 +50,96 @@ describe TransactionMailer do
       subject.should have_body_text(transaction.buyer.email)
     end
   end
+
+  context "buyer notification" do
+    let ( :transaction ) { FactoryGirl.create :transaction_with_buyer }
+    let ( :buyer_notitfication ) { TransactionMailer.buyer_notification( transaction ) }
+    subject { buyer_notitfication }
+
+    it "should be delivererd to buyer email" do
+      subject.should deliver_to( transaction.buyer_email )
+    end
+
+    it "should have the right subject" do
+      subject.should have_subject("[Fairnopoly] " + I18n.t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})")
+    end
+
+    it "should contain email intro" do
+      subject.should have_body_text(I18n.t('transaction.notifications.buyer.intro'))
+    end
+
+    it "should show begin of email line" do
+      subject.should have_body_text(I18n.t('transaction.notifications.begin'))
+    end
+
+    it "should have greeting with buyer name" do
+      subject.should have_body_text(I18n.t('transaction.notifications.greeting') + transaction.buyer_forename + ',')
+    end
+
+    it "should have text for seller (Vielen Dank...)" do
+      subject.should have_body_text(I18n.t('transaction.notifications.buyer.buyer_text'))
+    end
+
+    it "should have security warning" do
+      subject.should have_body_text(I18n.t('transaction.notifications.buyer.security_warning'))
+    end
+
+    it "should have string: Angaben zu Deiner Bestellung" do
+      subject.should have_body_text(I18n.t('transaction.notifications.buyer.order_infos'))
+    end
+
+    it "should contain seller's email address" do
+      subject.should have_body_text( transaction.seller.email )
+    end
+
+    it "should contain title of article" do
+      subject.should have_body_text( transaction.article_title )
+    end
+
+    # it "should contain link to article" do
+    #   subject.should have_body_text( article_url( transaction.article ) )
+    # end
+
+    # it "should contain link to transaction" do
+    #   subject.should have_body_text( transaction_url( transaction ) )
+    # end
+    
+    # it "should contain string: Bitte gib bei..." do
+    #   subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.transaction_id_info', id: transaction.id ) )
+    # end
+
+    # it "should contain transaction id" do
+    #   subject.should have_body_text( transaction.id )
+    # end
+
+    context "pickup" do
+      before do
+        transaction.selected_transport = "pickup"
+      end
+
+      it "should have string: Selbstabholung" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.transport.pickup' ) )
+      end
+    end
+
+    context "PayPal" do
+      before do
+        transaction.selected_payment = "paypal"
+      end
+
+      it "should contain string: PayPal" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.paypal' ) )
+      end
+    end
+
+    context "cash" do
+      before do
+        transaction.selected_payment = "cash"
+      end
+
+      it "should contain string: Nachnahme" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.cash' ) )
+      end
+    end
+  end
 end
