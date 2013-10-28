@@ -197,6 +197,24 @@ describe User do
         u.address.should eq 'c/o Cookie Monster, Sesame Street 1, 12345 Utopia'
       end
     end
+
+    describe "#notify" do
+      it "should be possible to notify a user" do
+        lambda do
+          user.notify "test","test/test"
+        end.should change(Notice.unscoped, :count).by 1
+      end
+    end
+
+    describe "#unique_notify" do
+      it "should be possible to notify a user only once" do
+        lambda do
+          user.unique_notify "test","test/test"
+          user.unique_notify "test","test/test"
+        end.should change(Notice.unscoped, :count).by 1
+      end
+    end
+
   end
 
 

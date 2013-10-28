@@ -278,3 +278,7 @@ span.Article-price {
 		@include span-columns(2, 4);
 	}
 }
+
+.Import-errors {
+  color:$red;
+}

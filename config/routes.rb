@@ -29,7 +29,11 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
-  resources :mass_uploads, :only => [:new, :create, :show, :update]
+  resources :mass_uploads, :only => [:new, :create, :show, :update] do
+    collection do
+      get 'image_errors'
+    end
+  end
 
   get 'exports/show'
 

@@ -1,0 +1,16 @@
+.Content
+  %h1
+    = t('mass_upload.titles.error_articles')
+
+  .Content-inner
+    %ul
+      - @error_articles.each do |article|
+        %li
+          = (link_to article.title, article_path(article), target: "_blank")
+          %ul.Import-errors
+            - article.images.each do |image|
+              - if image.failing_reason
+                %li
+                  = truncate(image.external_url.reverse).reverse + ":"
+                  = image.failing_reason
+

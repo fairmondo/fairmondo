@@ -115,11 +115,20 @@ module Article::Images
     def extract_external_image!
       self.images.each do |image|
         begin
-        image.update_attributes(:image => URI.parse(image.external_url))
+          unless image.update_attributes(:image => URI.parse(image.external_url))
+             image_error image, image.errors.messages[:image].join(" ")
+          end
         rescue
+         image_error image, I18n.t('mass_upload.errors.load_error')
         end
       end
     end
     handle_asynchronously :extract_external_image!
   end
+
+  def image_error image , message
+    image.update_column(:failing_reason, message)
+    self.seller.unique_notify I18n.t('mass_upload.errors.image_errors'),Rails.application.routes.url_helpers.image_errors_mass_uploads_path, :error
+  end
+
 end

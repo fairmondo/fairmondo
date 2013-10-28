@@ -267,6 +267,18 @@ class User < ActiveRecord::Base
     self.notices.create :message => message, :open => true, :path => path, :color => color
   end
 
+  # Notify the user of an asynchron event
+  # Do not notify twice
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def unique_notify message, path , color=:notice
+    unless Notice.where(:message => message).where(:open => true).any?
+      self.notices.create :message => message, :open => true, :path => path, :color => color
+    end
+  end
+
   # Returns the next open notice of this user
   # @api public
   # @return [Notice] the notice
