@@ -22,7 +22,7 @@
 module MassUpload::Checks
   extend ActiveSupport::Concern
 
-  MAX_ARTICLES = 100
+  MAX_ARTICLES = 1000
   ALLOWED_MIME_TYPES = ['text/csv']
   AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream']
 
