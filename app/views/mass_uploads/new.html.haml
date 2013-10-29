@@ -15,7 +15,7 @@
   %a{ :href => "kundenservice@fairnopoly.de." } kundenservice@fairnopoly.de.
 %p
   Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
-  1000 pro Datei begrenzt!
+  10000 pro Datei begrenzt!
 
 - if current_user.is_a?(LegalEntity)
   = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => ::Fairtastic::FormBuilder) do |f|
