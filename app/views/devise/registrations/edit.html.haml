@@ -24,7 +24,7 @@
 %h1 Profil bearbeiten
 
 .Accordion.Accordion--activated.User-edit
-  = semantic_form_for(@user,  :html => {multipart: true, autocomplete: "off", class: 'js-visual-submit'},:as => resource_name, :url => registration_path(resource_name), :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@user,  :html => {multipart: true, autocomplete: "off", class: 'js-visual-submit'},:as => resource_name, :url => registration_path(resource_name), :builder => ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, :default_step => true do
 
