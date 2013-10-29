@@ -46,8 +46,8 @@ module Article::FeesAndDonations
 
     #validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 100, :only_integer => true
     #enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
-    validates_presence_of :friendly_percent_organisation, :if => :has_friendly_percent?
-    validates_presence_of :friendly_percent
+    #validates_presence_of :friendly_percent_organisation, :if => :has_friendly_percent?
+    #validates_presence_of :friendly_percent
     #validates :friendly_percent_organisation, :length => { :maximum => 500 }
 
   end
