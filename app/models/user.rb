@@ -195,15 +195,15 @@ class User < ActiveRecord::Base
   end
 
   # get all users with ngo status the current user has donated to
-  def donated_ngos
-    donated_ngos = []
-    self.sold_transactions.each do |t|
-      if t.article.has_friendly_percent? && !donated_ngos.include?(fpo = t.article.donated_ngo)
-        donated_ngos.push fpo
-      end
-    end
-    donated_ngos
-  end
+  #def donated_ngos
+  #  donated_ngos = []
+  #  self.sold_transactions.each do |t|
+  #    if t.article.has_friendly_percent? && !donated_ngos.include?(fpo = t.article.donated_ngo)
+  #      donated_ngos.push fpo
+  #    end
+  #  end
+  #  donated_ngos
+  #end
 
 
   state_machine :seller_state, :initial => :standard_seller do
