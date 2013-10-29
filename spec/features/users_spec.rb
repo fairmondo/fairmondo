@@ -311,13 +311,13 @@ describe "Pioneer of the day" do
     it "should show the users nickname" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.nickname
+      page.should have_css '.Teaser-link', text: user.nickname
     end
 
     it "should not show the users city" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should_not have_css '.DoubleTeaser-link', text: user.city
+      page.should_not have_css '.Teaser-link', text: user.city
     end
   end
 
@@ -328,13 +328,13 @@ describe "Pioneer of the day" do
     it "should show the users nickname" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.nickname
+      page.should have_css '.Teaser-link', text: user.nickname
     end
 
     it "should show the users city" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.city
+      page.should have_css '.Teaser-link', text: user.city
     end
   end
 end

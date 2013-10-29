@@ -20,18 +20,20 @@
  * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * This is the application.css that requires our custom styles
- *
- * PLEASE DO NOT PUT ANY CSS CODE IN HERE !!!
- *
- *= require_self
+$(document).ready(function(){
 
- *= require jquery.ui.autocomplete
- *= require jquery.ui.tooltip
- *= require main
- *= require vendor/socialshareprivacy
- *= require vendor/jquery.selectBoxIt
- *= require vendor/font_awesome
- *
-*/
+  $('.Friendly_percent_ngo_label').hide();
+
+  $(".Friendly_percent_select").on("change", function(event) {
+    var valueSelected = this.value;
+    var textSelected = $('option:selected', this).html();
+    $(".Friendly_percent_ngo_label_link").html( "<a href=\"..\\..\\users\\" + valueSelected + "\" target=\"_blank\">" + textSelected + "</a>" );
+    if(textSelected && textSelected.length != 0){
+      $('.Friendly_percent_ngo_label').show();
+    }
+    else {
+      $('.Friendly_percent_ngo_label').hide();
+    }
+  })
+   ;
+});

@@ -215,6 +215,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.sorted_ngo
+    self.order(:nickname).where(:ngo => true)
+  end
+
   # Calculates percentage of positive and negative ratings of seller
   # @api public
   # @param bias [String] positive or negative
@@ -239,6 +243,14 @@ class User < ActiveRecord::Base
 
     event :rate_down_to_bad_seller do
       transition all => :bad_seller
+    end
+
+    event :block do
+      transition all => :blocked
+    end
+
+    event :unblock do
+      transition :blocked => :standard_seller
     end
 
   end
@@ -294,8 +306,6 @@ class User < ActiveRecord::Base
     ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
   end
 
-
-
   def bank_account_exists?
     ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
   end
@@ -311,6 +321,14 @@ class User < ActiveRecord::Base
     can_sell
   end
 
+  # hashes the ip-addresses which are stored by devise :trackable
+  def last_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+
+  def current_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
 
   private
 
