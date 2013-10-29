@@ -13,4 +13,4 @@
                 %li
                   = truncate(image.external_url.reverse).reverse + ":"
                   = image.failing_reason
-
+    = link_to t("articles.export.error_articles"), exports_show_path(kind_of_article: "error_articles", format: "csv"), :class => "Btn Btn--blue"
