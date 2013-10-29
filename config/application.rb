@@ -26,6 +26,8 @@ require 'rails/all'
 
 require 'net/http'
 
+
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -43,6 +45,7 @@ module Fairnopoly
     config.autoload_paths += %W(#{config.root}/lib/autoload)
     # Custom model loads
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
