@@ -10,7 +10,7 @@ describe ExportsController do
       setup_categories
       @user = FactoryGirl.create :legal_entity, :paypal_data
       article = FactoryGirl.create :article, seller: @user
-      sign_in user
+      sign_in @user
     end
 
     describe "GET 'show'" do
