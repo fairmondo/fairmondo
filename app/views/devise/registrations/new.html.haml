@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-= semantic_form_for(resource, :as => resource_name, :html => {:class => "form-vertical"}, :url => registration_path(resource_name) , :builder => Fairtastic::FormBuilder) do |f|
+= semantic_form_for(resource, :as => resource_name, :html => {:class => "form-vertical"}, :url => registration_path(resource_name) , :builder => ::Fairtastic::FormBuilder) do |f|
   = f.semantic_errors
   .User-registration
     .User-registration-input

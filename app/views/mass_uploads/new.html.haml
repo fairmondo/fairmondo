@@ -18,7 +18,7 @@
   1000 pro Datei begrenzt!
 
 - if current_user.is_a?(LegalEntity)
-  = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => ::Fairtastic::FormBuilder) do |f|
     = f.input_step :upload_csv, :default_step => true do
       = f.inputs do
         .Accordion-step
