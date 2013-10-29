@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :image
   ##
 
+  #belongs_to :articles_with_donation, class_name: 'Article', inverse_of: :donated_ngo
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   #Registration validations
@@ -156,12 +157,6 @@ class User < ActiveRecord::Base
     user && user.admin?
   end
 
-  # get ngo status
-  # @api public
-  def is_ngo?
-    self.ngo
-  end
-
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number
@@ -188,8 +183,26 @@ class User < ActiveRecord::Base
   end
 
 
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
+  end
+
+  # get all users with ngo status but not current
   def self.sorted_ngo_without_current current_user
     self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
+  end
+
+  # get all users with ngo status the current user has donated to
+  def donated_ngos
+    donated_ngos = []
+    self.sold_transactions.each do |t|
+      if t.article.has_friendly_percent? && !donated_ngos.include?(fpo = t.article.donated_ngo)
+        donated_ngos.push fpo
+      end
+    end
+    donated_ngos
   end
 
 

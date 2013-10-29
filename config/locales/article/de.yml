@@ -35,7 +35,7 @@ de:
       will_be: " werden an "
       donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairnopoly-Gebühren an."
-      donate_ngo_short_html: "100% gehen an %{ngo}"
+      donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
       friendly_percent_html: "%{percent}% werden an %{ngo} gespendet"
       agree: "Ja"
       non_agree: "Nein"
