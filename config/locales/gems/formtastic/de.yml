@@ -117,6 +117,7 @@ de:
         per: "pro"
         basic_price_amount: "Mengeneinheit"
 
+        friendly_percent_ngo_info: "Mehr Informationen zu dieser gemeinnützigen Organisation: "
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"

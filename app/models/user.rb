@@ -122,7 +122,6 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
-
   # Return forename plus surname
   # @api public
   # @return [String]
@@ -188,6 +187,11 @@ class User < ActiveRecord::Base
     string += "#{self.address_suffix}, " if self.address_suffix.present?
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
+  end
+
+
+  def self.sorted_ngo
+    self.order(:nickname).where(:ngo => true)
   end
 
 
@@ -284,6 +288,15 @@ class User < ActiveRecord::Base
   # @return [Notice] the notice
   def next_notice
     self.notices.where(:open => true).first
+  end
+
+  # hashes the ip-addresses which are stored by devise :trackable
+  def last_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+
+  def current_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
   end
 
   private
