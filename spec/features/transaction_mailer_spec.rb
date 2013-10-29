@@ -96,13 +96,13 @@ describe TransactionMailer do
       subject.should have_body_text( transaction.article_title )
     end
 
-    # it "should contain link to article" do
-    #   subject.should have_body_text( article_url( transaction.article ) )
-    # end
+    it "should contain link to article" do
+      subject.should have_body_text( "/articles/#{transaction.article.slug}" )
+    end
 
-    # it "should contain link to transaction" do
-    #   subject.should have_body_text( transaction_url( transaction ) )
-    # end
+    it "should contain link to transaction" do
+      subject.should have_body_text( "transactions/#{transaction.id}" )
+    end
     
     # it "should contain string: Bitte gib bei..." do
     #   subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.transaction_id_info', id: transaction.id ) )
@@ -137,8 +137,38 @@ describe TransactionMailer do
         transaction.selected_payment = "cash"
       end
 
-      it "should contain string: Nachnahme" do
+      it "should contain string: Barzahlung bei Abholung" do
         subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.cash' ) )
+      end
+    end
+
+    context "invoice" do
+      before do
+        transaction.selected_payment = "invoice"
+      end
+
+      it "should contain string: Rechnung" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.invoice' ) )
+      end
+    end
+
+    context "cash_on_delivery" do
+      before do
+        transaction.selected_payment = "cash_on_delivery"
+      end
+
+      it "should contain string: Nachnahme" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.invoice' ) )
+      end
+    end
+
+    context "bank_transfer" do
+      before do
+        transaction.selected_payment = "bank_transfer"
+      end
+
+      it "should contain string: Ueberweisung" do
+        subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.bank_transfer' ) )
       end
     end
   end
