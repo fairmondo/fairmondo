@@ -8,8 +8,8 @@ describe ExportsController do
   describe "mass-upload creation" do
     before do
       setup_categories
-      user = FactoryGirl.create :legal_entity, :paypal_data
-      article = FactoryGirl.create :article, seller: user
+      @user = FactoryGirl.create :legal_entity, :paypal_data
+      article = FactoryGirl.create :article, seller: @user
       sign_in user
     end
 
@@ -26,7 +26,7 @@ describe ExportsController do
 
     describe "GET 'show' the errored articles" do
       before do
-        article2 = FactoryGirl.create :article, seller: user
+        article2 = FactoryGirl.create :article, seller: @user
         article2.images.first.update_attribute(:failing_reason => "test")
       end
       it "should be successful" do
