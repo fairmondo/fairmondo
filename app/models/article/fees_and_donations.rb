@@ -59,7 +59,7 @@ module Article::FeesAndDonations
   # end
 
   def has_friendly_percent?
-     self.friendly_percent > 0
+     self.friendly_percent.present? && self.friendly_percent > 0
   end
 
   def calculated_fees_and_donations
