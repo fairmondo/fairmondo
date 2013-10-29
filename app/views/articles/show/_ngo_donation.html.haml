@@ -21,4 +21,7 @@
 -#
 - if article.seller_ngo
   %p.Article-ngodonation
-    = t('article.show.donate_ngo_short_html', ngo:(link_to article.seller_nickname, article.seller) )
+    = t('article.show.donate_ngo_short_html', percent: '100',ngo:(link_to article.seller_nickname, article.seller) )
+- elsif article.has_friendly_percent?
+  %p.Article-ngodonation
+    = t('article.show.donate_ngo_short_html', percent: article.friendly_percent , ngo:(link_to article.donated_ngo.nickname, article.donated_ngo) )

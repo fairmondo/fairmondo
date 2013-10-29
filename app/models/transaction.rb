@@ -44,7 +44,7 @@ class Transaction < ActiveRecord::Base
            :transport_provider, :transport_price, :payment_cash_on_delivery_price,
            :basic_price, :basic_price_amount, :basic_price_amount_text, :price, :vat, :vat_price,
            :price_without_vat, :total_price, :quantity, :quantity_left,
-           :transport_type1_provider, :transport_type2_provider, :calculated_fair, :friendly_percent,
+           :transport_type1_provider, :transport_type2_provider, :calculated_fair, :friendly_percent, :friendly_percent_organisation,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
