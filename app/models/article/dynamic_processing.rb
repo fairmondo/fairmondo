@@ -33,7 +33,7 @@ module Article::DynamicProcessing
 
 
     # When an action is set, modify the save call to reflect what should be done
-    # @return [Article] Article ready to save or state changed
+    # @return [Article] Article ready to save or containing an error
     def self.create_or_find_according_to_action attribute_hash, user
       case attribute_hash['action']
       when 'c', 'create'
@@ -93,9 +93,12 @@ module Article::DynamicProcessing
         attribute_hash['id'] ? 'update' : 'create'
       end
 
-      # Get article with error message for display in mass upload list
+      # Get article with error message for display in MassUpload#new error list
+      # @param error_message [String] Message to display
+      # @return [Article] Article containing error field
       def self.create_error_article error_message
         article = Article.new
+        # doesn't work yet...
         article.errors.add error_message
         article
       end
