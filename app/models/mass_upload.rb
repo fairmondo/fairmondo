@@ -136,9 +136,9 @@ class MassUpload
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
       row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+      row_hash = Questionnaire.add_commendation(row_hash)
       article = Article.create_or_find_according_to_action row_hash, user
       article.user_id = user.id
-      Questionnaire.add_commendation!(article)
       revise_prices(article)
       article.categories = categories if categories
       @articles << article

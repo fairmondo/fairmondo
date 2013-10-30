@@ -1,35 +1,34 @@
 %h1
   = t('mass_uploads.titles.upload_report')
-.Accordion--activated.Accordion--scrollToActive
-  - unless @mass_upload[:create].empty?
-    = accordion_item "created" do
-      .Import-detail.Article-info
+.Import-detail
+  .Accordion--activated.Accordion--scrollToActive
+    - unless @mass_upload[:create].empty?
+      = accordion_item "created" do
         %ul
           - @mass_upload[:create].each do |article|
             = render "article_digest", :article => article
+    - unless @mass_upload[:update].empty?
+      = accordion_item "updated" do
+        %ul
+          - @mass_upload[:update].each do |article|
+            = render "article_digest", :article => article
 
-      = render "mass_activation", :articles => @mass_upload[:create]
+    - unless @mass_upload[:activate].empty?
+      = accordion_item "activated" do
+        %ul
+          - @mass_upload[:activate].each do |article|
+            = render "article_digest", :article => article
 
-  - unless @mass_upload[:update].empty?
-    = accordion_item "updated" do
-      %ul
-        - @mass_upload[:update].each do |article|
-          = render "article_digest", :article => article
+    - unless @mass_upload[:deactivate].empty?
+      = accordion_item "deactivated" do
+        %ul
+          - @mass_upload[:deactivate].each do |article|
+            = render "article_digest", :article => article
 
-  - unless @mass_upload[:activate].empty?
-    = accordion_item "activated" do
-      %ul
-        - @mass_upload[:activate].each do |article|
-          = render "article_digest", :article => article
+    - unless @mass_upload[:delete].empty?
+      = accordion_item "deleted" do
+        %ul
+          - @mass_upload[:delete].each do |article|
+            = render "article_digest", :article => article
 
-  - unless @mass_upload[:deactivate].empty?
-    = accordion_item "deactivated" do
-      %ul
-        - @mass_upload[:deactivate].each do |article|
-          = render "article_digest", :article => article
-
-  - unless @mass_upload[:delete].empty?
-    = accordion_item "deleted" do
-      %ul
-        - @mass_upload[:delete].each do |article|
-          = render "article_digest", :article => article
+= render "mass_activation", :articles => @activate_articles

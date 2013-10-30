@@ -79,6 +79,16 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.edit_as_new article
+      new_article = article.amoeba_dup
+      if !article.sold?
+        #do not remove sold articles, we want to keep them
+        #if the old article has errors we still want to remove it from the marketplace
+        article.close_without_validation
+      end
+      new_article
+  end
+
   amoeba do
     enable
     include_field :fair_trust_questionnaire
@@ -91,6 +101,7 @@ class Article < ActiveRecord::Base
         copyimage = Image.new
         copyimage.image = image.image
         copyimage.is_title = image.is_title
+        copyimage.external_url = image.external_url
         new_article.images << copyimage
         copyimage.save
       end
