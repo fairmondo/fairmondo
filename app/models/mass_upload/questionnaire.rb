@@ -51,19 +51,20 @@ module MassUpload::Questionnaire
     attributes
   end
 
-  def self.add_commendation!(article)
-    if article.fair_kind
-      article.fair = true
+  def self.add_commendation(attributes)
+    if attributes[:fair_kind]
+      attributes[:fair] = true
     end
-    if article.ecologic_seal
-      article.ecologic = true
-      article.ecologic_kind = "ecologic_seal"
-    elsif article.upcycling_reason
-      article.ecologic = true
-      article.ecologic_kind = "upcycling"
+    if attributes[:ecologic_seal]
+      attributes[:ecologic] = true
+      attributes[:ecologic_kind] = "ecologic_seal"
+    elsif attributes[:upcycling_reason]
+      attributes[:ecologic] = true
+      attributes[:ecologic_kind] = "upcycling"
     end
-    if article.small_and_precious_eu_small_enterprise
-      article.small_and_precious = true
+    if attributes[:small_and_precious_eu_small_enterprise]
+      attributes[:small_and_precious] = true
     end
+    return attributes
   end
 end

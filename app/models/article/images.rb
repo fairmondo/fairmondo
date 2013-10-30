@@ -41,6 +41,10 @@ module Article::Images
 
     validate :only_one_title_image
 
+    validates :images, :size => {
+      :in => 0..5 # lower to 3 if the old 5 article pics are all gone
+    }
+
     # Gives first image if there is one
     # @api public
     # @return [Image, nil]
@@ -82,10 +86,16 @@ module Article::Images
     end
 
     def add_image(image_url, is_title)
+      if self.external_url_present? image_url || self.images.size > 3
+        #image already exists and we probably do an update or delete so do nothing
+        # if we have too much images we also dont do anything
+
+        return
+      end
       # bugbug refactor asap
       if image_url && image_url =~ URI::regexp
         image = Image.new(:image => URI.parse(image_url))
-        image.is_title = is_title
+        image.is_title = is_title unless self.title_image_present?
         image.external_url = image_url
         image.save
         self.images << image
@@ -95,5 +105,24 @@ module Article::Images
         self.errors.add(:base, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
+
+    # use this method only on non saved objects
+    # can't be refactored to scopes since the objects we query for may not be saved already
+    def external_url_present? url
+      self.images.each do |image|
+        return true if image.external_url == url
+      end
+      return false
+    end
+
+     # use this method only on non saved objects
+    # can't be refactored to scopes since the objects we query for may not be saved already
+    def title_image_present?
+      self.images.each do |image|
+        return true if image.title_image
+      end
+      return false
+    end
+
   end
 end

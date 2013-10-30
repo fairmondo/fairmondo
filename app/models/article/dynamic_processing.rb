@@ -43,6 +43,8 @@ module Article::DynamicProcessing
       when nil
         attribute_hash['action'] = Article.get_processing_default attribute_hash
         Article.create_or_find_according_to_action attribute_hash, user #recursion happens once
+      when 'nothing'
+        # Keep article as is. We could update it, but this restricts on locked articles
       else
         Article.create_error_article 'Unknown action'
       end
@@ -74,6 +76,7 @@ module Article::DynamicProcessing
 
         case attribute_hash['action']
         when 'u', 'update'
+          article = Article.edit_as_new article unless article.preview?
           article.attributes = attribute_hash
           article.action = :update
         when 'x', 'delete'
@@ -87,10 +90,10 @@ module Article::DynamicProcessing
         article
       end
 
-      # Defaults: create when no ID is set, update when an ID exists
+      # Defaults: create when no ID is set, does nothing when an ID exists
       # @return [String]
       def self.get_processing_default attribute_hash
-        attribute_hash['id'] ? 'update' : 'create'
+        attribute_hash['id'] ? 'nothing' : 'create'
       end
 
       # Get article with error message for display in MassUpload#new error list
@@ -111,7 +114,7 @@ module Article::DynamicProcessing
       self.deactivate
       self.close
     when :activate
-      self.activate
+      # we activate them later
     when :deactivate
       self.deactivate
     else
