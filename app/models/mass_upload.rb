@@ -69,6 +69,20 @@ class MassUpload
     ['id'] + header_row + ['action']
   end
 
+  # Provide basic hash that gets filled in the controller with article IDs
+  # @return [Hash]
+  def self.prepare_session_hash
+    Hash[ Article.actions.map { |action| [action, []] } ]
+  end
+  # Compile a list of articles in a hash; keys indicate what has been done with them
+  def self.compile_report_for session_hash
+    Hash[
+      Article.actions.map do |action|
+        [action, Article.find_all_by_id(session_hash[action]).sort_by(&:created_at)]
+      end
+    ]
+  end
+
 
   def initialize(attributes = nil)
     @errors = ActiveModel::Errors.new(self)
@@ -155,7 +169,7 @@ class MassUpload
       if article.errors.full_messages[0] == message && index > 0 # && image_errors == false
         first_line_break = "<br/>"
       end
-      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_uploads.errors.wrong_article', message: message, index: (index + 2))}")
     end
   end
 

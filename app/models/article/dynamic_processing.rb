@@ -26,9 +26,10 @@ module Article::DynamicProcessing
   included do
     # Action attribute: c/create/u/update/d/delete - for export and csv upload
     attr_accessor :action
-
-    # Will be set according to action and used to modify the "save!" command
-    attr_accessor :requested_state
+    # List of base actions (without one letter shortcuts)
+    def self.actions
+      [:create, :update, :activate, :deactivate, :delete]
+    end
 
 
     # When an action is set, modify the save call to reflect what should be done
@@ -36,7 +37,7 @@ module Article::DynamicProcessing
     def self.create_or_find_according_to_action attribute_hash, user
       case attribute_hash['action']
       when 'c', 'create'
-        Article.new attribute_hash
+        Article.new( attribute_hash + { action: :create } )
       when 'u', 'update', 'x', 'delete', 'a', 'activate', 'd', 'deactivate'
         Article.process_dynamic_update attribute_hash, user
       when nil
@@ -74,12 +75,13 @@ module Article::DynamicProcessing
         case attribute_hash['action']
         when 'u', 'update'
           article.attributes = attribute_hash
+          article.action = :update
         when 'x', 'delete'
-          article.requested_state = :closed
+          article.action = :delete
         when 'a', 'activate'
-          article.requested_state = :activated
+          article.action = :activate
         when 'd', 'deactivate'
-          article.requested_state = :deactivated
+          article.action = :deactivate
         end
 
         article
@@ -99,15 +101,15 @@ module Article::DynamicProcessing
       end
   end
 
-  # Replacement for save! method - Does different things based on the requested_state attribute
+  # Replacement for save! method - Does different things based on the action attribute
   def process!
-    case self.requested_state
-    when :closed
+    case self.action
+    when :delete
       self.deactivate
       self.close
-    when :activated
+    when :activate
       self.activate
-    when :deactivated
+    when :deactivate
       self.deactivate
     else
       self.save!

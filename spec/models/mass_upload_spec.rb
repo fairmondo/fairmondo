@@ -33,7 +33,7 @@ describe MassUpload do
         end
 
         # it "should add the correct error message" do
-        #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_upload.errors.missing_file'))
+        #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_uploads.errors.missing_file'))
         # end
       end
 
@@ -46,7 +46,7 @@ describe MassUpload do
         end
 
         # it "should add the correct error message" do
-        #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_upload.errors.wrong_header'))
+        #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_uploads.errors.wrong_header'))
         # end
       end
 
@@ -62,8 +62,8 @@ describe MassUpload do
         #   it "should add the correct error message" do
         #     incorrect_format_file_mass_upload.save
         #     incorrect_format_file_mass_upload.errors.full_messages[4].should
-        #     include(I18n.t('mass_upload.errors.wrong_article',
-        #       message: I18n.t('mass_upload.errors.wrong_article_message'),
+        #     include(I18n.t('mass_uploads.errors.wrong_article',
+        #       message: I18n.t('mass_uploads.errors.wrong_article_message'),
         #       index: 2))
         #   end
         # end

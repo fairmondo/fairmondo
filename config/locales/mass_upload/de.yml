@@ -1,7 +1,7 @@
 de:
-  mass_upload:
+  mass_uploads:
     titles:
-      uploaded_articles: "Hochgeladene Artikel"
+      upload_report: "CSV-Upload Report"
     labels:
       upload_article_via_csv: "Artikel per CSV-Datei importieren"
       upload_article: "Artikel hochladen"
@@ -23,3 +23,9 @@ de:
       illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach US-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschem Standard („“).'
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
+    boxes:
+      created: 'Hochgeladene Artikel'
+      updated: 'Editierte Artikel'
+      activated: 'Aktivierte Artikel'
+      deactivated: 'Deaktivierte Artikel'
+      deleted: 'Gelöschte Artikel'
