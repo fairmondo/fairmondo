@@ -48,8 +48,7 @@ class User < ActiveRecord::Base
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
-  #! attr_accessible *user_attributes
-  #! attr_accessible *user_attributes, :as => :admin
+
 
   auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
@@ -59,9 +58,7 @@ class User < ActiveRecord::Base
   def self.attributes_protected_by_default
     ["id"] # default is ["id","type"]
   end
-  #! attr_accessible :type
-  #! attr_accessible :type, :as => :admin
-  #! attr_protected :admin
+
 
 
   attr_accessor :recaptcha, :wants_to_sell
@@ -74,18 +71,20 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-  # has_many :bids, :dependent => :destroy
-  # has_many :invitations, :dependent => :destroy
+
 
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
+
+  has_many :notices
 
   ##
   has_one :image, as: :imageable
   accepts_nested_attributes_for :image
   ##
 
-  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+  scope :sorted_ngo, order(:nickname).where(:ngo => true)
+
 
   #Registration validations
 
@@ -119,7 +118,6 @@ class User < ActiveRecord::Base
   validates :about_me, :length => { :maximum => 2500 }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
-
 
   # Return forename plus surname
   # @api public
@@ -188,7 +186,6 @@ class User < ActiveRecord::Base
     string
   end
 
-
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_standard_seller do
@@ -254,6 +251,43 @@ class User < ActiveRecord::Base
     can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
+  end
+
+  # Notify the user of an asynchron event
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def notify message, path , color=:notice
+    self.notices.create :message => message, :open => true, :path => path, :color => color
+  end
+
+  # Notify the user of an asynchron event
+  # Do not notify twice
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def unique_notify message, path , color=:notice
+    unless Notice.where(:message => message).where(:open => true).any?
+      self.notices.create :message => message, :open => true, :path => path, :color => color
+    end
+  end
+
+  # Returns the next open notice of this user
+  # @api public
+  # @return [Notice] the notice
+  def next_notice
+    self.notices.where(:open => true).first
+  end
+
+  # hashes the ip-addresses which are stored by devise :trackable
+  def last_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+
+  def current_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
   end
 
   private

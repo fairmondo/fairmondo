@@ -40,6 +40,8 @@ module Article::Export
     end
   end
 
+
+
   def self.determine_articles_to_export(user, params)
     if params == "active"
       articles = user.articles.where(:state => "active")
@@ -53,6 +55,9 @@ module Article::Export
       articles.reverse_order
     elsif params == "bought"
       articles = user.bought_articles
+      articles.reverse_order
+    elsif params == "error_articles"
+      articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
       articles.reverse_order
       # bugbug Something needed in case no params are given?
     end

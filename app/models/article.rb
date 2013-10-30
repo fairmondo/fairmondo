@@ -42,6 +42,7 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
   validates_presence_of :user_id
 
   belongs_to :article_template
@@ -116,4 +117,5 @@ class Article < ActiveRecord::Base
       "#{self.seller.nickname}, #{self.seller.city}"
     end
   end
+
 end
