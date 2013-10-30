@@ -48,8 +48,7 @@ class User < ActiveRecord::Base
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
-  #! attr_accessible *user_attributes
-  #! attr_accessible *user_attributes, :as => :admin
+
 
   auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
@@ -59,9 +58,7 @@ class User < ActiveRecord::Base
   def self.attributes_protected_by_default
     ["id"] # default is ["id","type"]
   end
-  #! attr_accessible :type
-  #! attr_accessible :type, :as => :admin
-  #! attr_protected :admin
+
 
 
   attr_accessor :recaptcha, :wants_to_sell
@@ -74,8 +71,7 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-  # has_many :bids, :dependent => :destroy
-  # has_many :invitations, :dependent => :destroy
+
 
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
@@ -87,7 +83,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :image
   ##
 
-  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+  scope :sorted_ngo, order(:nickname).where(:ngo => true)
+
 
   #Registration validations
 
@@ -188,12 +185,6 @@ class User < ActiveRecord::Base
     string += "#{self.street}, #{self.zip} #{self.city}"
     string
   end
-
-
-  def self.sorted_ngo
-    self.order(:nickname).where(:ngo => true)
-  end
-
 
   state_machine :seller_state, :initial => :standard_seller do
 
