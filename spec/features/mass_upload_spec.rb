@@ -116,37 +116,67 @@ describe "Mass-upload" do
             end
           end
 
-          context "when action is update" do
-            it "should update all requested articles" do
-              pending 'coming soon'
-              # create articles
-              attach_file('mass_upload_file',
-                         'spec/fixtures/mass_upload_correct.csv')
-              click_button I18n.t('mass_uploads.labels.upload_article')
-              click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+          context "when the action updates an article" do
+            context "with a valid request" do
+              context "via 'update'" do
+                it "should update all requested articles" do
+                  pending 'coming soon'
+                  # create articles
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_upload_correct.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
-              # change them
-              visit new_mass_upload_path
-              attach_file('mass_upload_file', 'spec/fixtures/mass_update.csv')
-              click_button I18n.t('mass_uploads.labels.upload_article')
+                  # change them
+                  visit new_mass_upload_path
+                  attach_file('mass_upload_file', 'spec/fixtures/mass_update.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
 
-              # validate changes
-              article1 = Article.find(1)
-              article2 = Article.find(2)
-              article1.content.should eq 'Andere Beschreibung'
-              article1.condition.should eq 'old'
-              article2.title.should eq 'Anderer Name'
-              article2.gtin.should eq 999
+                  # validate changes
+                  article1 = Article.find(1)
+                  article2 = Article.find(2)
+                  article1.content.should eq 'Andere Beschreibung'
+                  article1.condition.should eq 'old'
+                  article2.title.should eq 'Anderer Name'
+                  article2.gtin.should eq 999
+                end
+              end
+
+              context "via 'delete'" do
+                it "should delete requested articles" do
+                  pending 'coming soon'
+                end
+              end
+
+              context "via 'activate'" do
+                it "should activate requested articles" do
+                  pending 'coming soon'
+                end
+              end
+
+              context "via 'deactivate'" do
+                it "should deactivate requested articles" do
+                  pending 'coming soon'
+                end
+              end
             end
-          end
 
-          context "when action is delete" do
-            it "should show a deletion warning" do
-              pending 'coming soon'
-            end
+            context "with an invalid request" do
+              it "should throw an error when the requested ID doesn't belong to the current user" do
+                pending 'coming soon'
+              end
 
-            it "should delete all requested articles" do
-              pending 'coming soon'
+              it "should throw an error when the requested ID is already deleted" do
+                pending 'coming soon'
+              end
+
+              it "should throw an error when the requested ID doesn't exist" do
+                pending 'coming soon'
+              end
+
+              it "should throw an error when no ID or custom_seller_id was given" do
+                pending 'coming soon'
+              end
             end
           end
 
@@ -160,8 +190,14 @@ describe "Mass-upload" do
             end
           end
 
-          context "when different actions were given" do
+          context "when different existing actions were given" do
             it "should create, update, or delete the respective article" do
+              pending 'coming soon'
+            end
+          end
+
+          context "when a non-existant action was given" do
+            it "should throw an error" do
               pending 'coming soon'
             end
           end

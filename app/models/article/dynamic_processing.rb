@@ -49,7 +49,7 @@ module Article::DynamicProcessing
     end
 
     private
-      # We alloy sellers to use their custom field as an identifier but we need the ID internally
+      # We allow sellers to use their custom field as an identifier but we need the ID internally
       def self.find_by_id_or_custom_seller_identifier attribute_hash, user
         if attribute_hash['id']
           article = user.articles.where(id: attribute_hash['id']).first
