@@ -57,14 +57,14 @@ describe "Mass-upload" do
         before do
           attach_file('mass_upload_file',
                       'spec/fixtures/mass_upload_correct.csv')
-          click_button I18n.t('mass_upload.labels.upload_article')
+          click_button I18n.t('mass_uploads.labels.upload_article')
         end
 
         it "should show the correct error notice" do
           pending "*Basti*: I'm not sure what the expected behavior is here. Test fails for me. -K"
           should have_css(".Notice--error")
           html.should include(
-            I18n.t('mass_upload.errors.missing_payment_details',
+            I18n.t('mass_uploads.errors.missing_payment_details',
                     link: '#payment_step',
                     missing_payment: I18n.t('formtastic.labels.user.paypal_account')
             )
@@ -84,34 +84,34 @@ describe "Mass-upload" do
             end
 
             it "should redirect to the mass_uploads#show" do
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_content('Name von Artikel 1')
               should have_selector('input.Btn.Btn--blue.Btn--blueBig',
-                            I18n.t('mass_upload.labels.mass_activate_articles'))
+                            I18n.t('mass_uploads.labels.mass_activate_articles'))
             end
 
             it "should create new articles" do
-              expect { click_button I18n.t('mass_upload.labels.upload_article') }
+              expect { click_button I18n.t('mass_uploads.labels.upload_article') }
                         .to change(Article, :count).by(3)
             end
 
             describe "activate articles" do
-              before { click_button I18n.t('mass_upload.labels.upload_article') }
+              before { click_button I18n.t('mass_uploads.labels.upload_article') }
 
               it "should redirect to user#offers when activating all articles" do
-                click_button I18n.t('mass_upload.labels.mass_activate_articles')
+                click_button I18n.t('mass_uploads.labels.mass_activate_articles')
                 should_not have_selector('h1',
-                            text: I18n.t('mass_upload.titles.uploaded_articles'))
+                            text: I18n.t('mass_uploads.titles.uploaded_articles'))
                 should have_selector('a', text: Article.last.title)
               end
 
               it "going back to mass_uploads#show it should show changed buttons" do
                 secret_mass_uploads_number = current_path.delete "/mass_uploads/"
-                click_button I18n.t('mass_upload.labels.mass_activate_articles')
+                click_button I18n.t('mass_uploads.labels.mass_activate_articles')
                 visit mass_upload_path(secret_mass_uploads_number)
                 should_not have_selector('input.Btn.Btn--green.Btn--greenSmall')
                 should have_content I18n.t(
-                                    'mass_upload.labels.all_articles_activated')
+                                    'mass_uploads.labels.all_articles_activated')
               end
             end
           end
@@ -122,13 +122,13 @@ describe "Mass-upload" do
               # create articles
               attach_file('mass_upload_file',
                          'spec/fixtures/mass_upload_correct.csv')
-              click_button I18n.t('mass_upload.labels.upload_article')
-              click_button I18n.t('mass_upload.labels.mass_activate_articles')
+              click_button I18n.t('mass_uploads.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
               # change them
               visit new_mass_upload_path
               attach_file('mass_upload_file', 'spec/fixtures/mass_update.csv')
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
 
               # validate changes
               article1 = Article.find(1)
@@ -174,13 +174,13 @@ describe "Mass-upload" do
                                  'spec/fixtures/mass_upload_wrong_header.csv') }
 
             it "should show correct error messages" do
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.wrong_header'))
+                text: I18n.t('mass_uploads.errors.wrong_header'))
             end
 
             it "should not create new articles" do
-              expect { click_button I18n.t('mass_upload.labels.upload_article') }
+              expect { click_button I18n.t('mass_uploads.labels.upload_article') }
                       .not_to change(Article, :count)
             end
           end
@@ -190,15 +190,15 @@ describe "Mass-upload" do
                         'spec/fixtures/mass_upload_wrong_article.csv') }
 
             it "should show correct error messages" do
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.wrong_article',
-                  message: I18n.t('mass_upload.errors.wrong_article_message'),
+                text: I18n.t('mass_uploads.errors.wrong_article',
+                  message: I18n.t('mass_uploads.errors.wrong_article_message'),
                   index: 3))
             end
 
             it "should not create new articles" do
-              expect { click_button I18n.t('mass_upload.labels.upload_article') }
+              expect { click_button I18n.t('mass_uploads.labels.upload_article') }
                       .not_to change(Article, :count)
             end
           end
@@ -207,9 +207,9 @@ describe "Mass-upload" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',
                           'spec/fixtures/mass_upload_wrong_format.html')
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.wrong_mime_type'))
+                text: I18n.t('mass_uploads.errors.wrong_mime_type'))
             end
           end
 
@@ -217,9 +217,9 @@ describe "Mass-upload" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',
                           'spec/fixtures/mass_upload_wrong_encoding.csv')
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.wrong_encoding'))
+                text: I18n.t('mass_uploads.errors.wrong_encoding'))
             end
           end
 
@@ -227,9 +227,9 @@ describe "Mass-upload" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',
                           'spec/fixtures/mass_upload_to_many_articles.csv')
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.wrong_file_size'))
+                text: I18n.t('mass_uploads.errors.wrong_file_size'))
             end
           end
 
@@ -237,17 +237,17 @@ describe "Mass-upload" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',
                           'spec/fixtures/mass_upload_illegal_quoting.csv')
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.illegal_quoting'))
+                text: I18n.t('mass_uploads.errors.illegal_quoting'))
             end
           end
 
           describe "no file selected)" do
             it "should show correct error messages" do
-              click_button I18n.t('mass_upload.labels.upload_article')
+              click_button I18n.t('mass_uploads.labels.upload_article')
               should have_selector('p.inline-errors',
-                text: I18n.t('mass_upload.errors.missing_file'))
+                text: I18n.t('mass_uploads.errors.missing_file'))
             end
           end
         end

@@ -90,9 +90,9 @@ module Article::Images
         image.save
         self.images << image
       elsif image_url !=~ URI::regexp && is_title == true
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_external_title_image_url'))
+        self.errors.add(:base, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
       elsif image_url !=~ URI::regexp && is_title == false
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
+        self.errors.add(:base, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
   end
