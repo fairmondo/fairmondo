@@ -74,7 +74,10 @@ Fairnopoly::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'www.fairnopoly.de' ,:protocol => 'https' }
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
+
+  config.eager_load_paths += %W(#{config.root}/lib/autoload)
+  config.eager_load_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

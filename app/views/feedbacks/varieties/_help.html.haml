@@ -1,5 +1,5 @@
 %h1= t('feedback.title.get_help')
-= semantic_form_for resource, url: feedbacks_path, html: {multipart: true}, builder: Fairtastic::FormBuilder do |f|
+= semantic_form_for resource, url: feedbacks_path, html: {multipart: true}, builder: ::Fairtastic::FormBuilder do |f|
   = f.inputs do
     -# hidden
     = f.input :variety, as: :hidden, input_html: { value: 'get_help' }
