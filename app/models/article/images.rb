@@ -36,6 +36,7 @@ module Article::Images
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 
+    delegate :external_url, to: :title_image, :prefix => true
 
     accepts_nested_attributes_for :images, allow_destroy: true
 
@@ -56,6 +57,14 @@ module Article::Images
       end
     end
 
+    def title_image_present?
+      title_image && title_image.image.present?
+    end
+
+    def title_image_pending?
+      title_image && title_image.pending?
+    end
+
     IMAGE_COUNT.times do |number|
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
                           add_image(image_url, false)})
@@ -65,6 +74,13 @@ module Article::Images
       thumbnails = self.images.where(:is_title => false)
       thumbnails.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
+    end
+
+    def images_pending?
+      self.images.each do |image|
+        return true if image.pending?
+      end
+      false
     end
 
     def only_one_title_image
@@ -84,7 +100,7 @@ module Article::Images
     def add_image(image_url, is_title)
       # bugbug refactor asap
       if image_url && image_url =~ URI::regexp
-        image = Image.new(:image => URI.parse(image_url))
+        image = Image.new
         image.is_title = is_title
         image.external_url = image_url
         image.save
@@ -95,5 +111,24 @@ module Article::Images
         self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
       end
     end
+
+    def extract_external_image!
+      self.images.each do |image|
+        begin
+          unless image.update_attributes(:image => URI.parse(image.external_url))
+             image_error image, image.errors.messages[:image].join(" ")
+          end
+        rescue
+         image_error image, I18n.t('mass_upload.errors.load_error')
+        end
+      end
+    end
+    handle_asynchronously :extract_external_image!
   end
+
+  def image_error image , message
+    image.update_column(:failing_reason, message)
+    self.seller.unique_notify I18n.t('mass_upload.errors.image_errors'),Rails.application.routes.url_helpers.image_errors_mass_uploads_path, :error
+  end
+
 end

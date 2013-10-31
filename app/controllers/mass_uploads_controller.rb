@@ -35,6 +35,10 @@ class MassUploadsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def image_errors
+    @error_articles = current_user.articles.joins(:images).includes(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
+  end
+
   private
     def authorize_with_article_create
       # Needed because of pundit
