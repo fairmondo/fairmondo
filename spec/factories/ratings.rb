@@ -3,9 +3,10 @@
 FactoryGirl.define do
   factory :rating do
     rating { ["positive", "neutral", "negative"].sample }
-    text "MyText"
-    transaction
+    text "Die ist eine Bewertung!"
+    transaction { FactoryGirl.create :transaction_with_buyer }
     rated_user { transaction.seller }
+    rating_user { transaction.buyer }
 
     factory :positive_rating do
       rating "positive"

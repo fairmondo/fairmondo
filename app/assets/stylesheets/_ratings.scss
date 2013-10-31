@@ -1,0 +1,91 @@
+.Rating {
+  padding-top: 3em;
+}
+
+.Rating-left{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(1,4);
+  }
+}
+.Rating-middle{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(2,4);
+  }
+}
+
+.Rating-middle--white {
+  background: white;
+  padding: 1em 1em 1em 1em;
+  @include border-radius(.8em);
+}
+
+.Rating-right{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(1 omega,4);
+  }
+}
+.Rating-control-container {
+  display: inline;
+  margin-top: 3em;
+}
+.Rating-control-container li.choice{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(2,7);
+  }
+}
+.Rating-choice .iradio{
+  display: inline;
+  margin-top: 1.6em;
+}
+
+.Rating-title {
+	@extend %Semibold;
+	@include rem(font-size, 16px);
+	text-align: center;
+}
+.Rating-textarea{
+  height: 170px;
+}
+.Rating-form img{
+  width: 35px;
+}
+.Rating-index img{
+  width: 30px;
+  background: #fff;
+}
+.Rating-save{
+  float: right;
+}
+
+.Rating-show {
+  @include clearfix;
+  border-radius: 0.9em;
+  background: white;
+  margin-bottom: 1em;
+  padding: 1em 1em 1em 1em;
+}
+
+.Rating-icon img {
+  height: 3em;
+  float: left;
+}
+.Rating-text {
+  @include clearfix;
+  padding-left: 2em;
+}
+
+.Rating-user {
+	width: 5em;
+  height: 5em;
+  float: right;
+}
+
+.Rating-user-image {
+  @include border-radius(.8em);
+  width: 100%;
+  height: 100%;
+}

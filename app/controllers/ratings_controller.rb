@@ -25,10 +25,7 @@ class RatingsController < InheritedResources::Base
 
   before_filter :get_user
   before_filter :authorize_new_with_transaction, only: :new
-
-  # def index
-  #   rating = @user.ratings.build if user_signed_in? && @user
-  # end
+  skip_before_filter :authenticate_user!, only: :index
 
   def create
     authorize build_resource
@@ -38,6 +35,16 @@ class RatingsController < InheritedResources::Base
       success.html { redirect_to user_path(current_user, :anchor => :bought), :notice => t('rating.notice.saved') }
     end
   end
+
+  protected
+
+    def collection
+      @ratings ||= end_of_association_chain.page(params[:page])
+    end
+
+    def begin_of_association_chain
+      @user
+    end
 
   private
 
