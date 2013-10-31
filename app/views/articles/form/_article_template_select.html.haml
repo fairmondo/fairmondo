@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if current_user.article_templates.any?
-  = semantic_form_for(:template_select, :url => new_article_path, :html => { :method => :get}, :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(:template_select, :url => new_article_path, :html => { :method => :get}, :builder => ::Fairtastic::FormBuilder) do |f|
     = f.input_step :apply do
       .Accordion-step
         - if block_given?

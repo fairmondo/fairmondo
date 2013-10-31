@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Article-form.Accordion--activated
-  = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, :builder => Fairtastic::FormBuilder do |f|
+  = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, :builder => ::Fairtastic::FormBuilder do |f|
     = f.input_step "template" do
       .Accordion-step
         = f.inputs do

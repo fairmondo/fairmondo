@@ -17,6 +17,7 @@ de:
       inactive: "Alle nicht eingestellten Artikel als CSV Datei exportieren"
       sold: "Alle verkauften Artikel als CSV exportiernen"
       bought: "Alle gekauften Artikel als CSV exportieren"
+      error_articles: "Fehlerhafte Artikel als CSV exportieren"
   article:
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
@@ -43,6 +44,7 @@ de:
       title_addition: " zu kaufen bei Fairnopoly"
       alternative: "Faire Alternative"
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
+      images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -86,8 +88,8 @@ de:
     list:
       header: "Ergebnisse"
     notices:
-      mass_upload_create_html: "Die Artikel wurden erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
-      create_html: "Artikel wurde erfolgreich eingestellt! Wir würden uns freuen, wenn Du nun <a href='http://de.surveymonkey.com/s/TJ69GDD' target='_blank'>an unserer Umfrage teilnehmen</a> würdest. Damit hilfst Du uns, den Marktplatz noch besser zu machen!"
+      mass_upload_create_html: "Die Artikel wurden erfolgreich eingestellt!"
+      create_html: "Artikel wurde erfolgreich eingestellt!"
       confirm_to_buy: "Artikel wurde erfolgreich zum Verkauf eingestellt!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
