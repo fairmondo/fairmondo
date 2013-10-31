@@ -83,8 +83,30 @@ describe 'Rating' do
         end.to raise_error Pundit::NotAuthorizedError
       end
     end
-
   end
+  
+  describe "Ratings index" do
+    before do
+      30.times do
+        FactoryGirl.create :rating, rated_user: transaction.seller, rating_user: transaction.buyer
+      end
+      visit user_ratings_path(:user_id => transaction.seller.id)
+    end
 
+    it "should show pagination" do
+      page.should have_selector('div.pagination')
+    end
+    
+    it "should show rated user info" do
+      page.should have_selector('div.User-info')
+    end
 
+    it "should show ratings" do
+      page.should have_selector('div.Rating-show')
+    end
+
+    it "should show rating user's name" do
+      page.should have_content(transaction.buyer.nickname)
+    end
+  end
 end

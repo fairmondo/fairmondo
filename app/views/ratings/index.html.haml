@@ -20,9 +20,22 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-- if user_signed_in?
-  - @ratings.each do |rating|
-    %p.Rating-index
-      %img{ :src => image_path('thumbs/'+rating.value+'.jpg'), :alt => "thumb" }
-      %p= rating.text
-      %br
+.Rating
+  .Rating-left
+    = render 'shared/profile_img', user: @user
+  .Rating-middle
+    - @ratings.each do |rating|
+      .Rating-show
+        .Rating-icon
+          %img{ :src => image_path('thumbs/'+rating.value+'.jpg'), :alt => "thumb" }
+        .Rating-user
+          %a{:href => user_path(rating.rating_user)}
+            = image_tag(rating.rating_user.image_url(:profile), :class => "Rating-user-image")
+        %p.Rating-text
+          %a{:href => user_path(rating.rating_user)}
+            = rating.rating_user.nickname
+          = " schrieb am " + rating.created_at.strftime("%d.%m.%Y") + ":"
+        %p.Rating-text
+          %q
+            = rating.text
+    = paginate @ratings

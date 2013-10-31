@@ -21,21 +21,22 @@
 -#
 .Rating
   = semantic_form_for resource, url: user_ratings_path, builder: Fairtastic::FormBuilder do |f|
-    .Rating-user
+    .Rating-left
       = render '/shared/profile_img', user: resource.transaction.seller, show_title: true
 
-    .Rating-form
-      %h4= t('rating.create.head')
+    .Rating-middle.Rating-middle--white
+      %h3.Rating-title= t('rating.create.head')
       = f.inputs do
-        = f.input :transaction_id, :as => :hidden
-        = f.semantic_errors :transaction_id
-        = f.input :rating, :as => :plain_radio, :label => false, :collection => {  image_tag("thumbs/positive.jpg") => "positive", image_tag("thumbs/neutral.jpg") => "neutral",  image_tag("thumbs/negative.jpg") => "negative"}
+        .Rating-control-container
+          = f.input :transaction_id, :as => :hidden
+          = f.semantic_errors :transaction_id
+          = f.input :rating, :as => :plain_radio, :wrapper_html => {:class => "Rating-choice"}, :label => false, :collection => {  image_tag("thumbs/positive.jpg") => "positive", image_tag("thumbs/neutral.jpg") => "neutral",  image_tag("thumbs/negative.jpg") => "negative"}
         = f.input :text, :label => t('rating.create.comment'), :input_html => { :class => 'Rating-textarea' }
 
       .Rating-save
         = f.actions do
           = f.action :submit , :button_html => {:class => "Btn" }, :label => t('rating.create.save')
 
-    .Rating-article.Article--teaser
+    .Rating-right.Article--teaser
       = render '/shared/show_article', :article=> resource.transaction.article
 
