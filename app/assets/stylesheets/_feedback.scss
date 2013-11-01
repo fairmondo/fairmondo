@@ -33,6 +33,7 @@
   &.Btn {
     &:hover {
       @include rem(top, -2px);
+      text-decoration: none;
     }
     @include rem(font-size, 13px);
     color: #434343;

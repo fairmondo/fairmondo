@@ -192,6 +192,7 @@ describe "Mass-upload" do
             end
           end
 
+
           describe "no file selected)" do
             it "should show correct error messages" do
               click_button I18n.t('mass_upload.labels.upload_article')

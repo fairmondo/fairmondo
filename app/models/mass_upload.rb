@@ -97,9 +97,7 @@ class MassUpload
       return false
     end
 
-    build_articles_for user
-
-    unless articles_valid?
+    unless build_articles_for user
       return false
     end
 
@@ -111,7 +109,8 @@ class MassUpload
 
   def build_articles_for user
     @articles = []
-    @csv.each do |row|
+    valid = true
+    @csv.each_with_index do |row,index|
       row_hash = row.to_hash
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
@@ -121,32 +120,21 @@ class MassUpload
       Questionnaire.add_commendation!(article)
       revise_prices(article)
       article.categories = categories if categories
-      @articles << article
-    end
-  end
-
-  def articles_valid?
-    valid = true
-    @articles.each_with_index do |article, index|
-      # +bugbug Why is this repetition necessary? -K
-      if article.errors.full_messages.any?
-        add_article_error_messages(article, index)
-        valid = false
-      end
-
       if article.invalid?
         add_article_error_messages(article, index)
         valid = false
       end
+      @articles << article
     end
     return valid
   end
+
 
   def add_article_error_messages(article, index)
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
       first_line_break = ""
-      if article.errors.full_messages[0] == message && index > 0 # && image_errors == false
+      if article.errors.full_messages[0] == message && index > 0
         first_line_break = "<br/>"
       end
       errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
@@ -157,6 +145,7 @@ class MassUpload
     @articles.each do |article|
       article.calculate_fees_and_donations
       article.save!
+      article.extract_external_image!
     end
   end
 
