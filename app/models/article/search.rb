@@ -34,7 +34,7 @@ module Article::Search
       end
     end
 
-    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
+    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive, :most_donated] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
 
     alias :search_in_content? :search_in_content
 
@@ -65,6 +65,8 @@ module Article::Search
       integer :basic_price_cents, :stored => true
       integer :basic_price_amount, :stored => true
       integer :vat, :stored => true
+
+       integer :friendly_percent, :stored => true
 
       # Possible future local search
 
@@ -113,6 +115,8 @@ module Article::Search
         order_by(:price_cents, :asc)
       when "most_expensive"
         order_by(:price_cents, :desc)
+      when "most_donated"
+        order_by(:friendly_percent, :desc)
       else
         order_by(:created_at, :desc)
       end
