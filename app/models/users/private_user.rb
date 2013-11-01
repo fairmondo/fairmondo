@@ -22,17 +22,14 @@
 class PrivateUser < User
   extend STI
 
-
-
   state_machine :seller_state, :initial => :standard_seller do
-
-    event :rate_up_to_good_seller do
+    event :rate_up do
       transition :standard_seller => :good_seller
     end
   end
 
   def upgrade_seller_state
-    self.rate_up_to_good_seller
+    self.rate_up
   end
 
   def private_seller_constants

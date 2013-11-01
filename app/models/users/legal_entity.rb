@@ -36,41 +36,29 @@ class LegalEntity < User
     seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
   end
 
-
-
   state_machine :seller_state, :initial => :standard_seller do
-
-    event :rate_up_to_good1_seller do
-      transition :standard_seller => :good1_seller
-    end
-    event :rate_up_to_good2_seller do
-      transition :good1_seller => :good2_seller
-    end
-    event :rate_up_to_good3_seller do
-      transition :good2_seller => :good3_seller
-    end
-    event :rate_up_to_good4_seller do
-      transition :good3_seller => :good4_seller
+    event :rate_up do
+      transition standard_seller: :good1_seller, good1_seller: :good2_seller, good2_seller: :good3_seller, good3_seller: :good4_seller
     end
   end
 
   def upgrade_seller_state
-    if self.seller_state == "standard_seller"
-       self.rate_up_to_good1_seller
-    elsif (self.seller_state == "good1_seller") || (self.seller_state == "good2_seller") ||  (self.seller_state == "good3_seller")
+    if self.standard_seller?
+       self.rate_up
+    elsif self.good1_seller? || self.good2_seller? || self.good3_seller?
       percentage_of_positive_ratings_in_last_100 = calculate_percentage_of_biased_ratings 'positive', 100
       if percentage_of_positive_ratings_in_last_100 > 90
-        if self.seller_state == "good1_seller"
-          self.rate_up_to_good2_seller
+        if self.good1_seller?
+          self.rate_up
         else
           percentage_of_positive_ratings_in_last_500 = calculate_percentage_of_biased_ratings 'positive', 500
           if percentage_of_positive_ratings_in_last_500 > 90
-            if self.seller_state == "good2_seller"
-              self.rate_up_to_good3_seller
+            if self.good2_seller?
+              self.rate_up
             else
               percentage_of_positive_ratings_in_last_1000 = calculate_percentage_of_biased_ratings 'positive', 1000
               if percentage_of_positive_ratings_in_last_1000 > 90
-                self.rate_up_to_good4_seller
+                self.rate_up
               end
             end
           end
@@ -104,6 +92,4 @@ class LegalEntity < User
   def self.model_name
     User.model_name
   end
-
-
 end
