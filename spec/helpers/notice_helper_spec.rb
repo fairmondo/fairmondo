@@ -60,4 +60,11 @@ describe NoticeHelper do
       helper.render_data_confirm.should be_a String
     end
   end
+
+  describe "#render_open_notice" do
+    it "should render an open notice " do
+      notice =  FactoryGirl.create :notice
+      render_open_notice(notice).should be_a String
+    end
+  end
 end
