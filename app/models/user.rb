@@ -48,8 +48,7 @@ class User < ActiveRecord::Base
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
-  #! attr_accessible *user_attributes
-  #! attr_accessible *user_attributes, :as => :admin
+
 
   auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
@@ -59,9 +58,7 @@ class User < ActiveRecord::Base
   def self.attributes_protected_by_default
     ["id"] # default is ["id","type"]
   end
-  #! attr_accessible :type
-  #! attr_accessible :type, :as => :admin
-  #! attr_protected :admin
+
 
 
   attr_accessor :recaptcha, :wants_to_sell
@@ -74,17 +71,19 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-  # has_many :bids, :dependent => :destroy
-  # has_many :invitations, :dependent => :destroy
+
 
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
+
+  has_many :notices
 
   ##
   has_one :image, as: :imageable
   accepts_nested_attributes_for :image
   ##
 
+  scope :sorted_ngo, order(:nickname).where(:ngo => true)
 
   has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
@@ -124,7 +123,6 @@ class User < ActiveRecord::Base
   validates :about_me, :length => { :maximum => 2500 }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
-
 
   # Return forename plus surname
   # @api public
@@ -198,16 +196,12 @@ class User < ActiveRecord::Base
   # @return [undefined]
   def update_rating_counter
     number_of_ratings = self.ratings.count
-    percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 50
-    percentage_of_neutral_ratings = calculate_percentage_of_biased_ratings 'neutral', 50
-    percentage_of_negative_ratings = calculate_percentage_of_biased_ratings 'negative', 50
 
-    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
-      :percentage_of_neutral_ratings => percentage_of_neutral_ratings,
-      :percentage_of_negative_ratings => percentage_of_negative_ratings)
-    self.save
+    self.update_attributes( percentage_of_positive_ratings: calculate_percentage_of_biased_ratings( 'positive', 50 ),
+                            percentage_of_neutral_ratings:  calculate_percentage_of_biased_ratings( 'neutral', 50 ),
+                            percentage_of_negative_ratings: calculate_percentage_of_biased_ratings( 'negative', 50 ) )
 
-    if ( ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 ) )
+    if ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 )
       if percentage_of_negative_ratings > 50
         self.banned = true
       end
@@ -215,9 +209,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.sorted_ngo
-    self.order(:nickname).where(:ngo => true)
-  end
 
   # Calculates percentage of positive and negative ratings of seller
   # @api public
@@ -234,11 +225,10 @@ class User < ActiveRecord::Base
 
 
   state_machine :seller_state, :initial => :standard_seller do
-
     after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
 
-    event :rate_up_to_standard_seller do
-      transition :bad_seller => :standard_seller
+    event :rate_up do
+      transition bad_seller: :standard_seller
     end
 
     event :rate_down_to_bad_seller do
@@ -252,17 +242,12 @@ class User < ActiveRecord::Base
     event :unblock do
       transition :blocked => :standard_seller
     end
-
   end
 
   state_machine :buyer_state, :initial => :standard_buyer do
 
-    event :rate_up_to_good_buyer do
-      transition :standard_buyer => :good_buyer
-    end
-
-    event :rate_up_to_standard_buyer do
-      transition :bad_buyer => :standard_buyer
+    event :rate_up_buyer do
+      transition standard_buyer: :good_buyer, bad_buyer: :standard_buyer
     end
 
     event :rate_down_to_bad_buyer do
@@ -282,7 +267,7 @@ class User < ActiveRecord::Base
       if self.percentage_of_positive_ratings > 90
         upgrade_seller_state
       else
-        self.rate_up_to_standard_seller
+        self.rate_up
       end
     elsif self.percentage_of_negative_ratings > 25
       self.rate_down_to_bad_seller
@@ -292,26 +277,38 @@ class User < ActiveRecord::Base
   def buyer_constants
     buyer_constants = {
       :not_registered_purchasevolume => 4,
+      :bad_purchasevolume => 6,
       :standard_purchasevolume => 12,
       :trusted_bonus => 12,
       :good_factor => 2,
-      :bad_purchasevolume => 6
+      :bad_factor => 6
     }
   end
 
   def purchase_volume
-    ( bad_buyer? ? ( buyer_constants[:bad_purchasevolume] ) :
-    ( buyer_constants[:standard_purchasevolume] +
-    ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
-    ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
+    purchase_vol = 0
+
+    if bad_buyer?
+      purchase_vol = buyer_constants[:bad_purchasevolume]
+    elsif self.trustcommunity
+      purchase_vol = buyer_constants[:standard_purchasevolume] + buyer_constants[:trusted_bonus]
+    else
+      purchase_vol = buyer_constants[:standard_purchasevolume]
+    end
+
+    if good_buyer?
+      purchase_vol *= buyer_constants[:good_factor]
+    end
+    
+    purchase_vol
   end
 
   def bank_account_exists?
-    ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
+    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner?
   end
 
   def paypal_account_exists?
-    ( self.paypal_account.to_s != '' )
+    self.paypal_account?
   end
 
   def can_sell?
@@ -319,6 +316,34 @@ class User < ActiveRecord::Base
     can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
+  end
+
+  # Notify the user of an asynchron event
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def notify message, path , color=:notice
+    self.notices.create :message => message, :open => true, :path => path, :color => color
+  end
+
+  # Notify the user of an asynchron event
+  # Do not notify twice
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def unique_notify message, path , color=:notice
+    unless Notice.where(:message => message).where(:open => true).any?
+      self.notices.create :message => message, :open => true, :path => path, :color => color
+    end
+  end
+
+  # Returns the next open notice of this user
+  # @api public
+  # @return [Notice] the notice
+  def next_notice
+    self.notices.where(:open => true).first
   end
 
   # hashes the ip-addresses which are stored by devise :trackable
@@ -331,16 +356,14 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    # @api private
+    def create_default_library
+      if self.libraries.empty?
+        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+      end
     end
-  end
 
-  def wants_to_sell?
-    self.wants_to_sell
-  end
-
+    def wants_to_sell?
+      self.wants_to_sell
+    end
 end

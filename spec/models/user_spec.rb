@@ -254,11 +254,11 @@ describe User do
           end
 
           it "should be able to rate to standard seller" do
-            private_seller.rate_up_to_standard_seller
+            private_seller.rate_up
             private_seller.should be_standard_seller
           end
           it "should not be able to rate to good seller" do
-            private_seller.rate_up_to_good_seller
+            private_seller.rate_up
             private_seller.should be_bad_seller
           end
 
@@ -302,7 +302,7 @@ describe User do
             private_seller.should be_bad_seller
           end
           it "should be able to rate to good seller" do
-            private_seller.rate_up_to_good_seller
+            private_seller.rate_up
             private_seller.should be_good_seller
           end
 
@@ -346,7 +346,7 @@ describe User do
             private_seller.should be_bad_seller
           end
           it "should not be able to rate to standard seller" do
-            private_seller.rate_up_to_standard_seller
+            private_seller.rate_up
             private_seller.should be_good_seller
           end
 
@@ -398,23 +398,23 @@ describe User do
           end
 
           it "should be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.rate_up
             commercial_seller.should be_standard_seller
           end
           it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.rate_up
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.rate_up
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.rate_up
             commercial_seller.should be_bad_seller
           end
 
@@ -442,19 +442,19 @@ describe User do
             commercial_seller.should be_bad_seller
           end
           it "should be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good1_seller
           end
           it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.rate_up
             commercial_seller.should be_standard_seller
           end
           it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_standard_seller
           end
           it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.rate_up
             commercial_seller.should be_standard_seller
           end
 
@@ -482,19 +482,19 @@ describe User do
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good1_seller
           end
           it "should be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good2_seller
           end
           it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good1_seller
           end
           it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good1_seller
           end
 
@@ -522,19 +522,19 @@ describe User do
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good2_seller
           end
           it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good2_seller
           end
           it "should be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good3_seller
           end
           it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good2_seller
           end
 
@@ -562,19 +562,19 @@ describe User do
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good3_seller
           end
           it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good3_seller
           end
           it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good3_seller
           end
           it "should be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
 
@@ -602,19 +602,19 @@ describe User do
             commercial_seller.should be_bad_seller
           end
           it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
           it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
           it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
           it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
 
@@ -732,6 +732,7 @@ describe User do
         user.buyer_constants[:standard_purchasevolume].should eq 12
         user.buyer_constants[:trusted_bonus].should eq 12
         user.buyer_constants[:good_factor].should eq 2
+        user.buyer_constants[:bad_factor].should eq 6
         user.buyer_constants[:bad_purchasevolume].should eq 6
       end
     end
