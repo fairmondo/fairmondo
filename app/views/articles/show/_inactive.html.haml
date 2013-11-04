@@ -36,9 +36,10 @@
     %dd
       = humanized_money_with_symbol resource.calculated_fair
 
-    -#%dt
-      -#= t('article.preview.fees_and_donations.friendly_percent')
-    -#%dd= humanized_money_with_symbol resource.calculated_friendly
+    %dt
+      = t('article.preview.fees_and_donations.friendly_percent')
+    %dd= humanized_money_with_symbol resource.calculated_friendly
+
     %dt.is-green
       = t('article.preview.fees_and_donations.total')
       %i.icon-helper{title: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen."}

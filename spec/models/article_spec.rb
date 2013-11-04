@@ -74,6 +74,23 @@ describe Article do
         end
       end
 
+      describe "#count_value_of_goods" do
+        it "should count up the value of active goods of this user" do
+          second_article = FactoryGirl.create :article, seller: db_article.seller
+          db_article.seller.articles.reload
+          db_article.count_value_of_goods
+          second_article.seller.value_of_goods_cents.should eq (db_article.price_cents + second_article.price_cents)
+        end
+
+        it " should not count up the value of active goods of this user" do
+          second_article = FactoryGirl.create :article, seller: db_article.seller
+          third_article = FactoryGirl.create :preview_article, seller: db_article.seller
+          db_article.seller.articles.reload
+          db_article.count_value_of_goods
+          second_article.seller.value_of_goods_cents.should eq (db_article.price_cents + second_article.price_cents)
+        end
+      end
+
     end
   end
 
@@ -94,7 +111,7 @@ describe Article do
     before do
       article.seller = User.new
     end
-    #at the moment we do not have friendly percentece any more
+    #at the moment we do not have friendly percent any more
     #describe "friendly_percent_calculated" do
       #it "should call friendly_percent_result" do
         #article.should_receive :friendly_percent_result
@@ -299,6 +316,26 @@ describe Article do
           end
           article.save
           article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
+        end
+
+      end
+      describe "#extract_external_image!" do
+        let(:article) { FactoryGirl.create :article,:without_image}
+        before do
+          @image = Image.create(:external_url => "http://www.test.com/test.png")
+          article.images << @image
+        end
+        it "should save failure reasons for asynchronous images" do
+          URI.should_receive(:parse).and_raise(IOError)
+          article.extract_external_image!
+          @image.reload.failing_reason.should_not be nil
+        end
+
+        it "should save failure reasons for asynchronous images 2" do
+          @image.should_receive(:update_attributes).and_return(false)
+          URI.should_receive(:parse).and_return("lala") #just to stub out the call to IO
+          article.extract_external_image!
+          @image.reload.failing_reason.should_not be nil
         end
 
       end

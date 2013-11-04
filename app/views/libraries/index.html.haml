@@ -63,7 +63,7 @@
               %section.l-ArticleList
                 - library.library_elements.each do |library_element|
                   - if policy(library_element).show?
-                    %Article{:class => 'Article Article--teaser'}
+                    %Article{:class => 'Grid Article Article--teaser'}
                       = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
                       .Article-actions
                         - if policy(library_element).destroy?

@@ -2,6 +2,7 @@ de:
   mass_upload:
     titles:
       uploaded_articles: "Hochgeladene Artikel"
+      error_articles: "Artikel mit fehlerhaften Bilddateien"
     labels:
       upload_article_via_csv: "Artikel per CSV-Datei importieren"
       upload_article: "Artikel hochladen"
@@ -21,5 +22,7 @@ de:
       wrong_image_2_url: "image_2_url ist keine gültige Url"
       missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungsoptionen (%{missing_payment})</a>.'
       illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach US-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschem Standard („“).'
+      load_error: "Bilddatei konnte nicht herruntergeladen werden."
+      image_errors: "Ein oder mehrere Bilder von Artikeln die Du per CSV hochgeladen hast konnten nicht verarbeitet werden. Klicke auf Weiter um diese Artikel anzusehen."
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."

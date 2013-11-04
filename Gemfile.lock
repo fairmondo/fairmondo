@@ -138,6 +138,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.4)
+    email_spec (1.5.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     enumerize (0.7.0)
       activesupport (>= 3.2)
     erb2haml (0.1.5)
@@ -422,6 +425,7 @@ DEPENDENCIES
   debugger
   delayed_job_active_record
   devise
+  email_spec
   enumerize (>= 0.5.1)
   erb2haml
   factory_girl_rails

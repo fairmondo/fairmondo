@@ -22,8 +22,9 @@
 module MassUpload::Checks
   extend ActiveSupport::Concern
 
-  MAX_ARTICLES = 100
-  ALLOWED_MIME_TYPES = ['text/csv', 'application/vnd.ms-excel'] # more allowed for windows users
+  MAX_ARTICLES = 10000
+  ALLOWED_MIME_TYPES = ['text/csv']
+  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream']
 
   def file_selected?
     if file
@@ -35,7 +36,9 @@ module MassUpload::Checks
   end
 
   def csv_format?
-    if ALLOWED_MIME_TYPES.include? file.content_type
+    if ALLOWED_MIME_TYPES.include?(file.content_type) or
+      (AlLOWED_WINDOWS_MIME_TYPES.include?(file.content_type) and
+      file.original_filename[-4..-1] == '.csv')
       return true
     else
       errors.add(:file, I18n.t('mass_upload.errors.wrong_mime_type'))

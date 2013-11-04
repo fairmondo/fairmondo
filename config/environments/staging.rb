@@ -67,13 +67,17 @@ Fairnopoly::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( noscript.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'development.fairnopoly.de'}
+
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
+
+  config.eager_load_paths += %W(#{config.root}/lib/autoload)
+  config.eager_load_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

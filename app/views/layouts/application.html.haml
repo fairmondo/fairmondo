@@ -1,3 +1,4 @@
+
 -#
 -#
 -# == License:
@@ -41,6 +42,8 @@
     = stylesheet_link_tag 'application'
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %noscript
+      = stylesheet_link_tag 'noscript'
     = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
@@ -93,6 +96,10 @@
         = yield
       / .container
     / #main
+
+    - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+      = render "welcome/known_from"
+
     %footer.l-Footer
       .Footer--top
         .l-Inner

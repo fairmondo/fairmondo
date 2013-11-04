@@ -47,9 +47,14 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
   validates_presence_of :user_id
 
   belongs_to :article_template
+
+  after_save :count_value_of_goods
+
+
 
   # Misc mixins
   extend Sanitization
@@ -112,7 +117,7 @@ class Article < ActiveRecord::Base
       Article.common_attrs + Article.money_attrs + Article.payment_attrs +
       Article.basic_price_attrs + Article.transport_attrs +
       Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-      Article.image_attrs + Article.legal_entity_attrs +
+     Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
       Article.template_attrs(with_nested_template)
     )
   end
@@ -125,5 +130,14 @@ class Article < ActiveRecord::Base
     self.transaction_quantity_available == 0
   end
 
+  def count_value_of_goods
+    value_of_goods_cents = 0
+    self.seller.articles.each do |article|
+      if article.state == 'active'
+        value_of_goods_cents += article.price_cents * article.quantity
+      end
+    end
+    self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
 
 end
