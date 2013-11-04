@@ -87,6 +87,7 @@ class Article < ActiveRecord::Base
         #if the old article has errors we still want to remove it from the marketplace
         article.close_without_validation
       end
+      new_article.state = "preview"
       new_article
   end
 

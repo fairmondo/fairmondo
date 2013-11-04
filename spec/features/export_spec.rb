@@ -36,7 +36,7 @@ describe "Export" do
 
       before do
         attach_file('mass_upload_file',
-                    'spec/fixtures/mass_upload_correct_export_test.csv')
+                    'spec/fixtures/mass_upload_correct_upload_export_test.csv')
         click_button I18n.t('mass_uploads.labels.upload_article')
       end
 
@@ -113,7 +113,7 @@ describe "Export" do
 
       before do
         attach_file('mass_upload_file',
-                    'spec/fixtures/export_social_producer.csv')
+                    'spec/fixtures/export_upload_social_producer.csv')
         click_button I18n.t('mass_uploads.labels.upload_article')
       end
 

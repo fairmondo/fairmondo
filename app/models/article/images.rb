@@ -102,29 +102,29 @@ module Article::Images
     end
 
     def add_image(image_url, is_title)
-      if self.external_url_present? image_url || self.images.size > 3
-        #image already exists and we probably do an update or delete so do nothing
+      if self.unsaved_external_url_present? image_url || self.images.size > 3
+        # image already exists and we probably do an update or delete so do nothing
         # if we have too much images we also dont do anything
 
         return
       end
-      # bugbug refactor asap
+      # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
         image = Image.new
-        image.is_title = is_title unless self.title_image_present?
+        image.is_title = is_title unless self.unsaved_title_image_present?
         image.external_url = image_url
         image.save
         self.images << image
       elsif image_url !=~ URI::regexp && is_title == true
-        self.errors.add(:base, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
+        self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
       elsif image_url !=~ URI::regexp && is_title == false
-        self.errors.add(:base, I18n.t('mass_uploads.errors.wrong_image_2_url'))
+        self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
 
     # use this method only on non saved objects
     # can't be refactored to scopes since the objects we query for may not be saved already
-    def external_url_present? url
+    def unsaved_external_url_present? url
       self.images.each do |image|
         return true if image.external_url == url
       end
@@ -134,9 +134,9 @@ module Article::Images
 
      # use this method only on non saved objects
     # can't be refactored to scopes since the objects we query for may not be saved already
-    def title_image_present?
+    def unsaved_title_image_present?
       self.images.each do |image|
-        return true if image.title_image
+        return true if image.is_title
       end
       return false
     end
@@ -144,7 +144,7 @@ module Article::Images
 
     def extract_external_image!
       self.images.each do |image|
-        unless image.image # don't do anything if image is already present
+        unless image.image.present? # don't do anything if image is already present
           begin
             unless image.update_attributes(:image => URI.parse(image.external_url))
                image_error image, image.errors.messages[:image].join(" ")

@@ -305,7 +305,7 @@ describe Article do
       describe "#extract_external_image!" do
         let(:article) { FactoryGirl.create :article,:without_image}
         before do
-          @image = Image.create(:external_url => "http://www.test.com/test.png")
+          @image = Image.create(:external_url => "http://www.test.com/test.png", :image => nil)
           article.images << @image
         end
         it "should save failure reasons for asynchronous images" do

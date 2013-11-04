@@ -37,17 +37,30 @@ module Article::DynamicProcessing
     def self.create_or_find_according_to_action attribute_hash, user
       case attribute_hash['action']
       when 'c', 'create'
-        Article.new( attribute_hash + { action: :create } )
+        Article.new attribute_hash.merge({ action: :create })
       when 'u', 'update', 'x', 'delete', 'a', 'activate', 'd', 'deactivate'
         Article.process_dynamic_update attribute_hash, user
       when nil
         attribute_hash['action'] = Article.get_processing_default attribute_hash
         Article.create_or_find_according_to_action attribute_hash, user #recursion happens once
       when 'nothing'
-        # Keep article as is. We could update it, but this restricts on locked articles
+        # Keep article as is. We could update it, but this conflicts with locked articles
       else
-        Article.create_error_article 'Unknown action'
+        Article.create_error_article I18n.t("mass_uploads.errors.unknown_action")
       end
+    end
+
+    # Perform Validations without clearing the base errors on this object.
+    # Need this for setting things in create_error_article
+    def was_invalid_before?
+      unless self.errors[:base].any? # If there are base errors something went wrong in general and we can skip the other validations
+        base_errors = self.errors.dup # save errors before .valid? call because it clears errors
+        self.valid? # preform validation
+        base_errors.each do |key,error| # readd old error msgs
+          self.errors.add(key,error)
+        end
+      end
+      self.errors.any?
     end
 
     private
@@ -60,11 +73,11 @@ module Article::DynamicProcessing
             where(custom_seller_identifier: attribute_hash['custom_seller_identifier']).
             limit(1).first
         else
-          article = Article.create_error_article 'No unique identifier'
+          article = Article.create_error_article  I18n.t("mass_uploads.errors.no_identifier")
         end
 
         unless article
-          article = Article.create_error_article 'Couldnt be found'
+          article = Article.create_error_article  I18n.t("mass_uploads.errors.article_not_found")
         end
 
         article
@@ -86,7 +99,6 @@ module Article::DynamicProcessing
         when 'd', 'deactivate'
           article.action = :deactivate
         end
-
         article
       end
 
@@ -101,8 +113,7 @@ module Article::DynamicProcessing
       # @return [Article] Article containing error field
       def self.create_error_article error_message
         article = Article.new
-        # doesn't work yet...
-        article.errors.add error_message
+        article.errors[:base] = error_message
         article
       end
   end
