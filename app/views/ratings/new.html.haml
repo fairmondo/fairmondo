@@ -30,7 +30,7 @@
         .Rating-control-container
           = f.input :transaction_id, :as => :hidden
           = f.semantic_errors :transaction_id
-          = f.input :rating, :as => :plain_radio, :wrapper_html => {:class => "Rating-choice"}, :label => false, :collection => {  image_tag("thumbs/positive.jpg") => "positive", image_tag("thumbs/neutral.jpg") => "neutral",  image_tag("thumbs/negative.jpg") => "negative"}
+          = f.input :rating, :as => :plain_radio, :wrapper_html => {:class => "Rating-choice"}, :label => false, :collection => {  image_tag("thumbs/positive.png") => "positive", image_tag("thumbs/neutral.png") => "neutral",  image_tag("thumbs/negative.png") => "negative"}
         = f.input :text, :label => t('rating.create.comment'), :input_html => { :class => 'Rating-textarea' }
 
       .Rating-save

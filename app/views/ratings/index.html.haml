@@ -27,7 +27,7 @@
     - @ratings.each do |rating|
       .Rating-show
         .Rating-icon
-          %img{ :src => image_path('thumbs/'+rating.value+'.jpg'), :alt => "thumb" }
+          %img{ :src => image_path('thumbs/'+rating.value+'.png'), :alt => "thumb" }
         .Rating-user
           %a{:href => user_path(rating.rating_user)}
             = image_tag(rating.rating_user.image_url(:profile), :class => "Rating-user-image")
