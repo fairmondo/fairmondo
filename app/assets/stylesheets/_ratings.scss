@@ -19,6 +19,7 @@
   background: white;
   padding: 1em 1em 1em 1em;
   @include border-radius(.8em);
+  text-align: center;
 }
 
 .Rating-right{
@@ -28,8 +29,11 @@
   }
 }
 .Rating-control-container {
-  display: inline;
-  margin-top: 3em;
+  display: block-inline;
+  position: relative;
+  width: 24em;
+  margin: 2em auto 0 auto;
+  text-align: center;
 }
 .Rating-control-container li.choice{
   @include at-breakpoint($layout-small)
@@ -38,7 +42,7 @@
   }
 }
 .Rating-choice .iradio{
-  display: inline;
+  display: inline-block;
   margin-top: 1.6em;
 }
 
