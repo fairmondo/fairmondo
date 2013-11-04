@@ -36,7 +36,7 @@ class ChangeIntegerToBigInt < ActiveRecord::Migration
 
   change_table :library_elements do |t|
     t.change :article_id, :integer, limit: 8
-    t.change :library_id, :integer, limit:8
+    t.change :library_id, :integer, limit: 8
   end
 
   change_table :ratings do |t|
