@@ -123,25 +123,6 @@ class Article < ActiveRecord::Base
     end
   end
 
-
-  def self.article_attrs with_nested_template = true
-    (
-      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-      Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-     Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
-      Article.template_attrs(with_nested_template)
-    )
-  end
-
-  def is_conventional?
-    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
-  end
-
-  def is_available?
-    self.transaction_quantity_available == 0
-  end
-
   def count_value_of_goods
     value_of_goods_cents = 0
     self.seller.articles.each do |article|
