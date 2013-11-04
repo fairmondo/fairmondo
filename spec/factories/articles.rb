@@ -147,6 +147,11 @@ FactoryGirl.define do
       seller { FactoryGirl.create :legal_entity, :paypal_data }
     end
 
+    trait :with_ngo do
+      vat { [7, 19].sample }
+      seller { FactoryGirl.create :legal_entity, :paypal_data, :ngo => true }
+    end
+
     ## These might be helpful but tend to create double articles and users
     # trait :with_single_transaction do
     #   after(:create) do |a|

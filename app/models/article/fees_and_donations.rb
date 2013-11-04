@@ -40,7 +40,7 @@ module Article::FeesAndDonations
     end
 
     # Fees and donations
-    monetize :calculated_fair_cents, :allow_nil => true
+     monetize :calculated_fair_cents, :allow_nil => true
     monetize :calculated_friendly_cents, :allow_nil => true
     monetize :calculated_fee_cents, :allow_nil => true
 
