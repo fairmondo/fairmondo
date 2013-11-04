@@ -12,7 +12,7 @@
   Umständen Fehler auftreten können. Wir empfehlen, zunächst testweise nur kleinere
   Artikelmengen einzustellen, und die eingestellten Artikel zu überprüfen.
   Bei Problemen kontaktiere uns einfach unter
-  %a{ :href => "kundenservice@fairnopoly.de." } kundenservice@fairnopoly.de.
+  %a{ :href => "mailto:kundenservice@fairnopoly.de" } kundenservice@fairnopoly.de.
 %p
   Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
   10000 pro Datei begrenzt!
@@ -27,4 +27,4 @@
           / statement doesn't work although it shows up and looks correctly when
           / I render the page and look at the html
         = f.actions do
-          = f.action :submit, :label => t('mass_upload.labels.upload_article'), :button_html => { :class => "Btn" }
+          = f.action :submit, :label => t('mass_uploads.labels.upload_article'), :button_html => { :class => "Btn" }
