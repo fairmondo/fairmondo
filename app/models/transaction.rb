@@ -26,6 +26,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
+  has_one :rating
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
@@ -52,6 +53,7 @@ class Transaction < ActiveRecord::Base
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo,
            to: :article_seller, prefix: true
+  delegate :value, to: :rating, prefix: true
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]

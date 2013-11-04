@@ -326,3 +326,7 @@ de:
               too_long: "Der Name der Sammlung darf nicht länger als %{count} Zeichen sein."
               taken: "Eine Sammlung mit diesem Namen existiert bereits."
               blank: "Eine Sammlung benötigt einen Namen."
+        rating:
+          attributes:
+            transaction_id:
+              taken: "Diese Bewertung wurde bereits abgegeben."
