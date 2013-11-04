@@ -25,10 +25,11 @@
   .Teaser
     %h2.Teaser-header
       =  tinycms_content "heading_features"
-    - [@queue1,@queue2,@queue3,@queue4].each_with_index do |queue,index|
-      .Teaser--withlink
-        = render "exhibition", articles: queue, layout: :single
-        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path
+    .Teaser--container
+      - [@queue1,@queue2,@queue3,@queue4].each_with_index do |queue,index|
+        .Teaser--withlink
+          = render "exhibition", articles: queue, layout: :single
+          = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path, :class => "Btn"
 .l-Teaser--double.l-Teaser--collapsible.l-Teaser--old
   .Teaser
     %h2.Teaser-header
