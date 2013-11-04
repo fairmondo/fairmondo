@@ -106,9 +106,9 @@ describe "Mass-upload" do
               end
 
               it "going back to mass_uploads#show it should show changed buttons" do
-                secret_mass_uploads_number = current_path.delete "/mass_uploads/"
+                last_path = current_path.dup
                 click_button I18n.t('mass_uploads.labels.mass_activate_articles')
-                visit mass_upload_path(secret_mass_uploads_number)
+                visit last_path
                 should_not have_selector('input.Btn.Btn--green.Btn--greenSmall')
                 should have_content I18n.t(
                                     'mass_uploads.labels.all_articles_activated')
@@ -116,11 +116,10 @@ describe "Mass-upload" do
             end
           end
 
-          context "when the action updates an article" do
+          context "when the action updates an article",visual:true do
             context "with a valid request" do
               context "via 'update'" do
                 it "should update all requested articles" do
-                  pending 'coming soon'
                   # create articles
                   attach_file('mass_upload_file',
                              'spec/fixtures/mass_upload_correct.csv')
@@ -129,34 +128,58 @@ describe "Mass-upload" do
 
                   # change them
                   visit new_mass_upload_path
-                  attach_file('mass_upload_file', 'spec/fixtures/mass_update.csv')
+                  attach_file('mass_upload_file', 'spec/fixtures/mass_update_correct.csv')
                   click_button I18n.t('mass_uploads.labels.upload_article')
+                  click_button I18n.t('mass_uploads.labels.mass_activate_articles')
 
                   # validate changes
-                  article1 = Article.find(1)
-                  article2 = Article.find(2)
+                  article1 = Article.find(4) # as it will edit them both as new
+                  article2 = Article.find(5)
                   article1.content.should eq 'Andere Beschreibung'
                   article1.condition.should eq 'old'
                   article2.title.should eq 'Anderer Name'
-                  article2.gtin.should eq 999
+                  article2.gtin.should eq "9999999999"
+                  article1.active?.should eq true
+                  article2.active?.should eq true
+                  Article.find(1).closed?.should eq true
+                  Article.find(2).closed?.should eq true
                 end
               end
 
               context "via 'delete'" do
                 it "should delete requested articles" do
-                  pending 'coming soon'
+                  FactoryGirl.create :article, :seller => legal_entity_user
+                  FactoryGirl.create :article, :custom_seller_identifier => "abc123", :seller => legal_entity_user
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_delete.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  Article.find(1).closed?.should eq true
+                  Article.find(2).closed?.should eq true
                 end
               end
 
               context "via 'activate'" do
                 it "should activate requested articles" do
-                  pending 'coming soon'
+                  FactoryGirl.create :preview_article, :seller => legal_entity_user
+                  FactoryGirl.create :preview_article, :custom_seller_identifier => "abc123", :seller => legal_entity_user
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_activate.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+                  Article.find(1).active?.should eq true
+                  Article.find(2).active?.should eq true
                 end
               end
 
               context "via 'deactivate'" do
                 it "should deactivate requested articles" do
-                  pending 'coming soon'
+                  FactoryGirl.create :article, :seller => legal_entity_user
+                  FactoryGirl.create :article, :custom_seller_identifier => "abc123", :seller => legal_entity_user
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_deactivate.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  Article.find(1).locked?.should eq true
+                  Article.find(2).locked?.should eq true
                 end
               end
             end
@@ -171,28 +194,56 @@ describe "Mass-upload" do
               end
 
               it "should throw an error when the requested ID doesn't exist" do
-                pending 'coming soon'
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_deactivate.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  should have_content(I18n.t('mass_uploads.errors.article_not_found'))
               end
 
               it "should throw an error when no ID or custom_seller_id was given" do
-                pending 'coming soon'
+                attach_file('mass_upload_file',
+                             'spec/fixtures/mass_activate_without_id.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  should have_content(I18n.t('mass_uploads.errors.no_identifier'))
               end
             end
           end
 
           context "when action is empty" do
-            it "should create an article when no ID was given" do
-              pending 'coming soon'
-            end
 
-            it "should update the article when an ID was given" do
-              pending 'coming soon'
+            # The standard mass_upload test case fixes this already
+            #it "should create an article when no ID was given" do
+            #  pending 'coming soon'
+            #end
+
+            it "should do nothing with the article when an ID was given" do
+              FactoryGirl.create :article, :seller => legal_entity_user
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_upload_without_action.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  Article.unscoped.size.should be 1
             end
           end
 
           context "when different existing actions were given" do
             it "should create, update, or delete the respective article" do
-              pending 'coming soon'
+              a1 = FactoryGirl.create :article, :seller => legal_entity_user
+              a2 = FactoryGirl.create :preview_article, :seller => legal_entity_user
+              a3 = FactoryGirl.create :article, :seller => legal_entity_user
+              a4 = FactoryGirl.create :article, :without_image, :seller => legal_entity_user # problems with dup and images while testing
+              a5 = FactoryGirl.create :preview_article, :seller => legal_entity_user
+                  attach_file('mass_upload_file',
+                             'spec/fixtures/mass_upload_correct_multiple_action.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+                  save_and_open_page
+                  click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+                  a1.reload.closed?.should be true
+                  a2.reload.active?.should be true
+                  a3.reload.locked?.should be true
+                  a4.reload.closed?.should be true # because of edit as new
+                  a5.reload.active?.should be true # because this was a preview article
+                  Article.unscoped.size.should be 9 # 5 created by factory, 3 createdby csv
+                  Article.unscoped.where(:title => "neuer titel").size.should be 2 # the closed one and the open one
             end
           end
 
@@ -205,21 +256,21 @@ describe "Mass-upload" do
 
         context "(invalid file:" do
 
-          describe "csv, wrong header)" do
-            before { attach_file('mass_upload_file',
-                                 'spec/fixtures/mass_upload_wrong_header.csv') }
-
-            it "should show correct error messages" do
-              click_button I18n.t('mass_uploads.labels.upload_article')
-              should have_selector('p.inline-errors',
-                text: I18n.t('mass_uploads.errors.wrong_header'))
-            end
-
-            it "should not create new articles" do
-              expect { click_button I18n.t('mass_uploads.labels.upload_article') }
-                      .not_to change(Article, :count)
-            end
-          end
+          #describe "csv, wrong header)" do
+          #  before { attach_file('mass_upload_file',
+          #                       'spec/fixtures/mass_upload_wrong_header.csv') }
+          #
+          #  it "should show correct error messages" do
+          #    click_button I18n.t('mass_uploads.labels.upload_article')
+          #    should have_selector('p.inline-errors',
+          #      text: I18n.t('mass_uploads.errors.wrong_header'))
+          #  end
+          #
+          #  it "should not create new articles" do
+          #    expect { click_button I18n.t('mass_uploads.labels.upload_article') }
+          #            .not_to change(Article, :count)
+          #  end
+          #end
 
           describe "csv, wrong articles)" do
             before { attach_file('mass_upload_file',

@@ -113,9 +113,9 @@ class MassUpload
       return false
     end
 
-    unless correct_header?
-      return false
-    end
+    #unless correct_header?
+    #  return false
+    #end
 
     unless build_articles_for user
       return false
@@ -138,14 +138,20 @@ class MassUpload
       row_hash = Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = Questionnaire.add_commendation(row_hash)
       article = Article.create_or_find_according_to_action row_hash, user
-      article.user_id = user.id
-      revise_prices(article)
-      article.categories = categories if categories
-      if article.invalid?
-        add_article_error_messages(article, index)
-        valid = false
+
+      if article # so we can ignore rows when reimporting
+        article.user_id = user.id
+        revise_prices(article)
+        article.categories = categories if categories
+
+        if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                       # fix this by generating the base errors with proper validations
+                                       # may be hard for dynamic update model
+          add_article_error_messages(article, index)
+          valid = false
+        end
+        @articles << article
       end
-      @articles << article
     end
     return valid
   end

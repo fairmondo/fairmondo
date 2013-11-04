@@ -9,9 +9,9 @@ class MassUploadsController < ApplicationController
   end
 
   def show
-    secret_mass_uploads_number = params[:id]
-    @mass_upload = MassUpload.compile_report_for session[secret_mass_uploads_number]
-    @activate_articles = activate_articles secret_mass_uploads_number
+    upload_id = params[:id]
+    @mass_upload = MassUpload.compile_report_for session[upload_id]
+    @activate_articles = activate_articles upload_id
   end
 
   def create
@@ -25,8 +25,8 @@ class MassUploadsController < ApplicationController
   end
 
   def update
-    secret_mass_uploads_number = params[:id]
-    articles = Article.find_all_by_id(activate_articles)
+    upload_id = params[:id]
+    articles = Article.find_all_by_id(activate_articles(upload_id))
     articles.each do |article|
       #Skip validation in favor of performance
       article.update_column :state, 'active'
@@ -47,18 +47,18 @@ class MassUploadsController < ApplicationController
     end
 
     def generate_session_for(uploaded_articles)
-      secret_mass_uploads_number = SecureRandom.urlsafe_base64
-      session[secret_mass_uploads_number] = MassUpload.prepare_session_hash
+      upload_id = SecureRandom.urlsafe_base64
+      session[upload_id] = MassUpload.prepare_session_hash
       uploaded_articles.each do |article|
-        session[secret_mass_uploads_number][article.action] << article.id
+        session[upload_id][article.action] << article.id
       end
-      secret_mass_uploads_number
+      upload_id
     end
 
-    def activate_articles secret
+    def activate_articles upload_id
       articles = []
       [:create,:update,:activate].each do |action|
-        articles += session[secret][action]
+        articles += session[upload_id][action]
       end
       Article.find_all_by_id(articles)
     end

@@ -25,6 +25,9 @@ de:
       illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach US-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschem Standard („“).'
       load_error: "Bilddatei konnte nicht herruntergeladen werden."
       image_errors: "Ein oder mehrere Bilder von Artikeln die Du per CSV hochgeladen hast konnten nicht verarbeitet werden. Klicke auf Weiter um diese Artikel anzusehen."
+      unknown_action: "Die für diesen Artikel angegebene Aktion (Spalte 'action') ist nicht bekannt."
+      no_identifier: "Keine Identifikationsnummer (Spalte 'id' oder Spalte 'custom_seller_identifier') wurde für diesen Artikel angegeben obwohl die angegebene Aktion darauf hinweist, das sich der Artikel bereits im System befindet."
+      article_not_found: "Unter der angegebenen Identifikationsnummer  (Spalte 'id' oder Spalte 'custom_seller_identifier') konnte kein Artikel gefunden werden."
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
     boxes:

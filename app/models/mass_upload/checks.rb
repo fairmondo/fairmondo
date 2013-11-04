@@ -72,15 +72,15 @@ module MassUpload::Checks
     end
   end
 
-  def correct_header?
-    # Ensure all fields defined in header_row are present. Order and additional fields don't matter.
-    if (MassUpload.header_row - @csv[0].headers).empty?
-      return true
-    else
-      errors.add(:file, I18n.t('mass_uploads.errors.wrong_header'))
-      return false
-    end
-  end
+  #def correct_header?
+  #  # Ensure all fields defined in header_row are present. Order and additional fields don't matter.
+  #  if (MassUpload.header_row - @csv[0].headers).empty?
+  #    return true
+  #  else
+  #    errors.add(:file, I18n.t('mass_uploads.errors.wrong_header'))
+  #    return false
+  #  end
+  #end
 
   private
     CP1252_EURO = "\x80"

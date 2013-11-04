@@ -30,5 +30,5 @@
         %ul
           - @mass_upload[:delete].each do |article|
             = render "article_digest", :article => article
-
-= render "mass_activation", :articles => @activate_articles
+- unless @activate_articles.empty?
+  = render "mass_activation", :articles => @activate_articles
