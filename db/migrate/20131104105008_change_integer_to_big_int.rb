@@ -13,7 +13,7 @@ class ChangeIntegerToBigInt < ActiveRecord::Migration
   change_column :articles_categories, :article_id, :integer, limit: 8
 
   change_table :bids do |t|
-    t.change :user_id, :intger, limit: 8
+    t.change :user_id, :integer, limit: 8
     t.change :price_cents, :integer, limit: 8
     t.change :auction_transaction_id, :integer, limit: 8
   end
