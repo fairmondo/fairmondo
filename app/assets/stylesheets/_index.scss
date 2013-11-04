@@ -2,53 +2,10 @@
 // index
 //
 
-/*
-
-# Explantation of widths. We have a four-col grid.
-1 cols = 23.5%
-2 cols = 49%
-
-*/
-
-
-//
-// Items with double-size
-//
-.Teaser-left {
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns (2,$medium-columns);
-  }
-  @include at-breakpoint($layout-large) {
-    @include span-columns (2,$large-columns);
-  }
-}
-.Teaser-clear {
-  @include clearfix;
-}
-
-.Teaser-right {
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns (1,$medium-columns);
-    @include omega;
-  }
-  @include at-breakpoint($layout-large) {
-    @include span-columns (2,$large-columns);
-    @include omega;
-  }
-}
-
-.Teaser-last {
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(2,3);
-  }
-}
-
-
 // General
 // -----------------------------------
 .Teaser {
 	@include rem(padding, 10px 20px);
-	text-align: center;
 	color: #3c3c3c;
 	border-radius: 8px;
 	background: #fff;
@@ -60,52 +17,9 @@
   @include clearfix;
 }
 
-.Teaser--single {
-  @include at-breakpoint($layout-small-to-medium) {
-    @include span-columns(1,2);
-    &:nth-child(2n) {
-      @include omega;
-    }
-  }
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(2,2);
-  }
-  @include at-breakpoint($layout-large) {
-    @include span-columns(1,2);
-    &:nth-child(2n) {
-      @include omega;
-    }
-  }
+.Teaser--text {
+  text-align:center;
 }
-
-//
-// Teaser variants
-//
-
-.Teaser--topbar,
-.Teaser--bottombar,
-.Teaser--welcomeimage {
-  width: 100%;
-}
-
-.Teaser--smallimage {
-  height: 35px;
-  padding: 5px;
-  //width: 50px;
-}
-
-.Teaser--bottombar {
-  margin-bottom: 2em;
-}
-
-
-.Teaser-welcome {
-  color: $blue;
-  @include rem(font-size, 18px);
-  @include rem(font-size, $font-size-m);
-  padding-top: 2em;
-}
-
 
 .Teaser-counter {
 	// move padding from container to child els
@@ -119,89 +33,36 @@
 		@include rem(padding, 17px 36px);
 	}
 }
-.Teaser--total-number {
-	@include rem(font-size, 40px);
-	@include rem(padding, 8px);
-	@extend %Semibold;
-	background-color: $green;
-	color: #fff;
+
+.Teaser-total {
+  @include rem(font-size, 40px);
+  @include rem(padding, 8px);
+  @extend %Semibold;
+  background-color: $green;
+  color: #fff;
+}
+
+
+.Teaser-total--articles {
 	margin-bottom: 30px;
 }
 
-.Teaser--total-user {
-	@include rem(font-size, 40px);
-	@include rem(padding, 8px);
-	@extend %Semibold;
-	background-color: $green;
-	color: #fff;
+.Teaser-total--user {
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
 
 
-
-// Btn
-// -----------------------------------
-
 .Teaser .Btn {
 	@include rem(margin-top, 4px);
 }
 
-.Teaser-goal {
-	background-color: white;
-	margin-bottom: .4em;
-	border-style: solid;
-	border-width: 1px;
-	border-color: $lightgray;
-	width: 100%;
-	height: 50px;
-}
-
-.Teaser-goal--reached {
-	background-color: $green;
-	height: 48px;
-}
-
-
-
-.Teaser-article {
-   @include at-breakpoint($layout-small) {
-      @include span-columns(1,2);
-   }
-}
-
-.Teaser-article--right {
-   @include at-breakpoint($layout-small) {
-     @include omega;
-   }
-}
-
-.Teaser-right {
-  .Teaser-article {
-    @include at-breakpoint($layout-medium-to-large) {
-      @include span-columns(2,2);
-    }
-  }
-}
-
-
 .Teaser-header {
   @include rem(font-size, 25px);
   color:$lightgray;
-  margin-bottom: 0;
+  @include rem(padding, 10px 0px);
   font-weight: normal;
 }
-
-.Teaser-header--nacked {
- @include rem(padding, 10px 0px);
-}
-
-
-.Teaser-image {
-  img{width:100%;}
-}
-
-
 
 .Teaser-news {
   p {
@@ -210,10 +71,84 @@
   h2 {
     margin-bottom: em(10);
   }
-
 }
 
 .Teaser-hide {
   background: none ;
+}
+
+// Layouts
+// -----------------------------------
+
+// Generic Double View
+.l-Teaser--double{
+  @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(2,3);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(2,4);
+  }
+  @include at-breakpoint($layout-small) {
+    Article{
+      @include span-columns(1,2);
+      @include nth-omega(2n);
+    }
+  }
+}
+
+.l-Teaser--collapsible {
+   @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(1,3);
+    @include omega;
+    Article {
+      width:100%;
+    }
+  }
+
+}
+
+.l-Teaser--single {
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1,2);
+  }
+  @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(1,3);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(1,4);
+  }
+}
+
+// Specific
+
+.l-Teaser--queues {
+  @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(2,3);
+  }
+  .Teaser--withlink {
+      @include at-breakpoint($layout-small-to-large) {
+        @include span-columns(1,2);
+        @include nth-omega(2n);
+      }
+
+      @include at-breakpoint($layout-large){
+        @include span-columns(1,4);
+        @include nth-omega(4n);
+      }
+  }
+}
+
+.l-Teaser--counters{
+  @include at-breakpoint($layout-small-to-medium) {
+    @include omega;
+  }
+}
+
+
+
+.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+  @include at-breakpoint($layout-large) {
+    @include omega;
+  }
 }
 

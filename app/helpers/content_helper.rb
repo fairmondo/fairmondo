@@ -20,6 +20,20 @@
 module ContentHelper
 
   def tinycms_content(key)
-    render "contents/embed", :content => Content.find_or_create_by_key(key.to_s.parameterize)
+    render "contents/embed", :content => find_content(key)
   end
+
+  def tinycms_content_body(key)
+    content = find_content(key)
+    content.present? ? content.body : ""
+  end
+
+  def find_content key
+    Content.find_or_create_by_key(key.to_s.parameterize)
+  end
+
+  def tinycms_content_body_sanitized(key)
+     Sanitize.clean(tinycms_content_body(key))
+  end
+
 end
