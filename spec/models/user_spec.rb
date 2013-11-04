@@ -281,31 +281,31 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 17
+              private_seller.max_value_of_goods_cents.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if trusted" do
             it "should have a salesvolume of 17" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 17
+              private_seller.max_value_of_goods_cents.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if verified" do
             it "should have a salesvolume of 17" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 17
+              private_seller.max_value_of_goods_cents.should eq $private_seller_constants['bad_salesvolume']
             end
           end
           context "if trusted and verified" do
             it "should have a salesvolume of 17" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 17
+              private_seller.max_value_of_goods_cents.should eq $private_seller_constants['bad_salesvolume']
             end
           end
         end
@@ -325,31 +325,31 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 35" do
+            it "should have a salesvolume of standard_salesvolume" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 35
+              private_seller.max_value_of_goods_cents.should eq $private_seller_constants['standard_salesvolume']
             end
           end
           context "if trusted" do
-            it "should have a salesvolume of 55" do
+            it "should have a salesvolume of standard_salesvolume + trusted_bonus" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 55
+              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 45" do
+            it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 45
+              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
             end
           end
           context "if trusted and verified" do
-            it "should have a salesvolume of 65" do
+            it "should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 65
+              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -369,41 +369,41 @@ describe User do
           end
 
           context "if not trusted and not verified" do
-            it "should have a salesvolume of 70" do
+            it "should have a salesvolume of standard_salesvolume * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 70
+              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted" do
-            it "should have a salesvolume of 110" do
+            it "should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 110
+              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 90" do
+            it "should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.sales_volume. should eq 90
+              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted and verified" do
-            it "should have a salesvolume of 130" do
+            it "should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.sales_volume. should eq 130
+              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
             end
           end
         end
 
         it "should have valid private_seller_constants" do
-          private_seller.private_seller_constants[:standard_salesvolume].should eq 35
-          private_seller.private_seller_constants[:verified_bonus].should eq 10
-          private_seller.private_seller_constants[:trusted_bonus].should eq 20
-          private_seller.private_seller_constants[:good_factor].should eq 2
-          private_seller.private_seller_constants[:bad_factor].should eq 2
+          private_seller.private_seller_constants[:standard_salesvolume].should eq $private_seller_constants['standard_salesvolume']
+          private_seller.private_seller_constants[:verified_bonus].should eq $private_seller_constants['verified_bonus']
+          private_seller.private_seller_constants[:trusted_bonus].should eq $private_seller_constants['trusted_bonus']
+          private_seller.private_seller_constants[:good_factor].should eq $private_seller_constants['good_factor']
+          private_seller.private_seller_constants[:bad_salesvolume].should eq $private_seller_constants['bad_salesvolume']
         end
       end
 
@@ -437,15 +437,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 17
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['bad_salesvolume']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 17" do
+            it "should have a salesvolume of bad_salesvolume" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 17
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['bad_salesvolume']
             end
           end
         end
@@ -477,15 +477,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 35" do
+            it "should have a salesvolume of standard_salesvolume" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 35
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 85" do
+            it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 85
+              commercial_seller.max_value_of_goods_cents.should eq ( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -517,15 +517,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 70" do
+            it "should have a salesvolume of standard_salesvolume * good_factor" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 70
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume'] * $commercial_seller_constants['good_factor']
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 170" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 170
+              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
             end
           end
         end
@@ -557,15 +557,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 140" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^2" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 140
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**2 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 340" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 340
+              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
             end
           end
         end
@@ -597,15 +597,15 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 280" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^3" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 280
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**3 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 680" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 680
+              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
             end
           end
         end
@@ -637,24 +637,24 @@ describe User do
           end
 
           context "if not verified" do
-            it "should have a salesvolume of 560" do
+            it "should have a salesvolume of standard_salesvolume * good_factor^4" do
               commercial_seller.verified = false
-              commercial_seller.sales_volume. should eq 560
+              commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
             end
           end
           context "if verified" do
-            it "should have a salesvolume of 1360" do
+            it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4" do
               commercial_seller.verified = true
-              commercial_seller.sales_volume. should eq 1360
+              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
             end
           end
         end
 
         it "should have valid commercial_seller_constants" do
-          commercial_seller.commercial_seller_constants[:standard_salesvolume].should eq 35
-          commercial_seller.commercial_seller_constants[:verified_bonus].should eq 50
-          commercial_seller.commercial_seller_constants[:good_factor].should eq 2
-          commercial_seller.commercial_seller_constants[:bad_factor].should eq 2
+          commercial_seller.commercial_seller_constants[:standard_salesvolume].should eq $commercial_seller_constants['standard_salesvolume']
+          commercial_seller.commercial_seller_constants[:verified_bonus].should eq $commercial_seller_constants['verified_bonus']
+          commercial_seller.commercial_seller_constants[:good_factor].should eq $commercial_seller_constants['good_factor']
+          commercial_seller.commercial_seller_constants[:bad_salesvolume].should eq $commercial_seller_constants['bad_salesvolume']
         end
       end
     end
@@ -675,15 +675,15 @@ describe User do
         end
 
         context "if not trusted" do
-          it "should have a purchasevolume of 2" do
+          it "should have a purchasevolume of 6" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 2
+            user.purchase_volume.should eq 6
           end
         end
         context "if trusted" do
-          it "should have a purchasevolume of 2" do
+          it "should have a purchasevolume of 6" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 2
+            user.purchase_volume.should eq 6
           end
         end
       end
@@ -705,13 +705,13 @@ describe User do
         context "if not trusted" do
           it "should have a purchasevolume of 12" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 12
+            user.purchase_volume.should eq 12
           end
         end
         context "if trusted" do
           it "should have a purchasevolume of 24" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 24
+            user.purchase_volume.should eq 24
           end
         end
       end
@@ -734,13 +734,13 @@ describe User do
         context "if not trusted" do
           it "should have a purchasevolume of 24" do
             user.trustcommunity = false
-            user.purchase_volume. should eq 24
+            user.purchase_volume.should eq 24
           end
         end
         context "if trusted" do
           it "should have a purchasevolume of 48" do
             user.trustcommunity = true
-            user.purchase_volume. should eq 48
+            user.purchase_volume.should eq 48
           end
         end
       end
@@ -750,8 +750,399 @@ describe User do
         user.buyer_constants[:standard_purchasevolume].should eq 12
         user.buyer_constants[:trusted_bonus].should eq 12
         user.buyer_constants[:good_factor].should eq 2
-        user.buyer_constants[:bad_factor].should eq 6
+        user.buyer_constants[:bad_purchasevolume].should eq 6
       end
+    end
+  end
+
+  describe "seller rating" do
+    describe PrivateUser do
+      let(:private_seller) { FactoryGirl::create(:private_user) }
+      before :each do
+        private_seller.ratings.stub(:count){ 100 }
+      end
+
+      context "percentage of ratings" do
+        before :each do
+          7.times do
+            FactoryGirl.create( :positive_rating, :rated_user => private_seller )
+          end
+          2.times do
+            FactoryGirl.create( :neutral_rating, :rated_user => private_seller )
+          end
+          1.times do
+            FactoryGirl.create( :negative_rating, :rated_user => private_seller )
+          end
+        end
+
+        it "should be calculated correctly for positive ratings" do
+          private_seller.update_rating_counter
+          private_seller.calculate_percentage_of_biased_ratings('positive',10).should eq 70.0
+        end
+        it "should be calculated correctly for negative ratings" do
+          private_seller.update_rating_counter
+          private_seller.calculate_percentage_of_biased_ratings('negative',10).should eq 10.0
+        end
+
+      end
+
+      context "with negative ratings over 25%" do
+        before :each do
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(50)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(20)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(30)
+        end
+
+        it "should change percentage of negative ratings" do
+          private_seller.update_rating_counter
+          private_seller.percentage_of_negative_ratings.should eq 30.0
+        end
+        it "should change from good to bad seller" do
+          private_seller.seller_state = "good_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard to bad seller" do
+          private_seller.seller_state = "standard_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "bad_seller"
+        end
+         it "should stay bad seller" do
+          private_seller.seller_state = "bad_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "bad_seller"
+        end
+      end
+
+       context "with negative ratings over 50%" do
+        before :each do
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(10)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(25)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(55)
+        end
+
+        it "should mark the user as banned" do
+          private_seller.update_rating_counter
+          private_seller.banned.should eq true
+        end
+      end
+
+      context "with positive ratings over 75%" do
+        before :each do
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(80)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(10)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(10)
+        end
+
+        it "should change percentage of positive ratings" do
+          private_seller.update_rating_counter
+          private_seller.percentage_of_positive_ratings.should eq 80.0
+        end
+        it "should stay good seller" do
+          private_seller.seller_state = "good_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "good_seller"
+        end
+        it "should stay standard seller" do
+          private_seller.seller_state = "standard_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "standard_seller"
+        end
+         it "should change from bad to standard seller" do
+          private_seller.seller_state = "bad_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "standard_seller"
+        end
+      end
+
+      context "with positive ratings over 90%" do
+        before :each do
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(92)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(0)
+          private_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(8)
+        end
+
+        it "should stay good seller" do
+          private_seller.seller_state = "good_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "good_seller"
+        end
+        it "should change from standard to good seller" do
+          private_seller.seller_state = "standard_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "good_seller"
+        end
+        it "should stay bad seller" do
+          private_seller.seller_state = "bad_seller"
+          private_seller.update_rating_counter
+          private_seller.seller_state.should eq "bad_seller"
+        end
+      end
+    end
+
+    describe LegalEntity do
+      let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
+      before :each do
+        commercial_seller.ratings.stub(:count){ 1000 }
+      end
+
+      context "with negative ratings over 25%" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(50)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(20)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(30)
+        end
+
+        it "should change from good1 to bad seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good2 to bad seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good3 to bad seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from good4 to bad seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard to bad seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+      end
+
+      context "with negative ratings over 50%" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(10)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(25)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(55)
+        end
+
+        it "should mark the user as banned" do
+          commercial_seller.update_rating_counter
+          commercial_seller.banned.should eq true
+        end
+      end
+
+      context "with positive ratings over 75%" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(80)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(5)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(15)
+        end
+
+        it "should change from bad to standard seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "standard_seller"
+        end
+        it "should stay standard seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "standard_seller"
+        end
+        it "should stay good1 seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should stay good2 seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should stay good3 seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good4 seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+      end
+
+      context "with positive ratings over 90% in last 50 ratings" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(0)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(8)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(80)
+        end
+
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard to good1 seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should stay good1 seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should stay good2 seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should stay good3 seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good4 seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+      end
+
+      context "with additionally positive ratings over 90% in last 100 ratings" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(0)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(80)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(95)
+        end
+
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard_seller to good1 seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should change from good1 to good2 seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should stay good2 seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should stay good3 seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good4 seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+      end
+
+      context "with additionally positive ratings over 90% in last 500 ratings" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(0)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(80)
+        end
+
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard_seller to good1 seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should change from good1 to good2 seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should change from good2 to good3 seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good3 seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should stay good4 seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+      end
+
+      context "with additionally positive ratings over 90% in last 1000 ratings" do
+        before :each do
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 50).and_return(95)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('neutral', 50).and_return(0)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('negative', 50).and_return(5)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 500).and_return(92)
+          commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(92)
+        end
+
+        it "should stay bad seller" do
+          commercial_seller.seller_state = "bad_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "bad_seller"
+        end
+        it "should change from standard_seller to good1 seller" do
+          commercial_seller.seller_state = "standard_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good1_seller"
+        end
+        it "should change from good1 to good2 seller" do
+          commercial_seller.seller_state = "good1_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good2_seller"
+        end
+        it "should change from good2 to good3 seller" do
+          commercial_seller.seller_state = "good2_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good3_seller"
+        end
+        it "should change from good3 to good4 seller" do
+          commercial_seller.seller_state = "good3_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+        it "should stay good4 seller" do
+          commercial_seller.seller_state = "good4_seller"
+          commercial_seller.update_rating_counter
+          commercial_seller.seller_state.should eq "good4_seller"
+        end
+      end
+
     end
   end
 end
