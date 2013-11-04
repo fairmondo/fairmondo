@@ -235,7 +235,7 @@ describe "Mass-upload" do
                   attach_file('mass_upload_file',
                              'spec/fixtures/mass_upload_correct_multiple_action.csv')
                   click_button I18n.t('mass_uploads.labels.upload_article')
-                  save_and_open_page
+
                   click_button I18n.t('mass_uploads.labels.mass_activate_articles')
                   a1.reload.closed?.should be true
                   a2.reload.active?.should be true
