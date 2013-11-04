@@ -21,49 +21,33 @@
 -#
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
-.Teaser-left
+.l-Teaser--queues
   .Teaser
-    = image_tag "welcome/welcome.png", class: "Teaser--welcomeimage"
-    .Teaser-welcome
-      %p
-        bei
-        %br
-        Fairnopoly
-      %p
-        dem Online-Marktplatz für alle.
-    %p
-      Ab sofort kannst Du hier alles kaufen und verkaufen, was Du möchtest.
-      %br
-      Und das bei einem Marktplatz mit einem
-      %a{ :href => "https://www.fairnopoly.de/about_us"}
-        konsequent fairen Unternehmen
-      dahinter.
-    = link_to "Jetzt registrieren", new_user_registration_path, class: "Btn Btn--blue"
-  .Teaser
-    = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
     %h2.Teaser-header
-      UNSERE PIONIERE
-    = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-    = render "exhibition", articles: @pioneer
-
-
-.Teaser-right.Teaser-clear
+      =  tinycms_content "heading_features"
+    - [@queue1,@queue2,@queue3,@queue4].each_with_index do |queue,index|
+      .Teaser--withlink
+        = render "exhibition", articles: queue, layout: :single
+        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path
+.l-Teaser--double.l-Teaser--collapsible.l-Teaser--old
   .Teaser
-    = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
-    %h2.Teaser-header
-      DREAM-TEAM DES TAGES
-    = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-    = render "exhibition", articles: @dream_team
-
-
-  .Teaser
-    = image_tag "welcome/top_bar.png", class: "Teaser--topbar"
     %h2.Teaser-header
       GEBRAUCHT BEI FAIRNOPOLY
-    = image_tag "welcome/bottom_bar.png", class: "Teaser--bottombar"
-    = render "exhibition", articles: @old
-  .Teaser.Teaser--single
-    %h2.Teaser-header.Teaser-header--nacked GEZEICHNETE ANTEILE IM NOVEMBER
+    = render "exhibition", articles: @old, layout: :double
+.l-Teaser--double.l-Teaser--collapsible.l-Teaser--ecologic
+  .Teaser
+    %h2.Teaser-header
+      BESONDERS &
+      = commendation_label :ecologic, :medium
+    = render "exhibition", articles: @eco, layout: :double
+
+.l-Teaser--double.l-Teaser--slideshow
+  .Teaser
+    %h2.Teaser-header
+      SLIDESHOW
+.l-Teaser--single.l-Teaser--shares
+  .Teaser.Teaser--text
+    %h2.Teaser-header GEZEICHNETE ANTEILE IM NOVEMBER
     - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
     - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
     -# goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
@@ -77,21 +61,21 @@
     %p
       %a{ :href => "/anteile-zeichnen" }
         Als Mitglied gehört Fairnopoly auch Dir!
-
-  .Teaser.Teaser-counter.Teaser--single
-    %h2.Teaser-header.Teaser-header--nacked  FAIRNOPOLY WÄCHST!
+.l-Teaser--single.l-Teaser--counters
+  .Teaser.Teaser-counter.Teaser--text
+    %h2.Teaser-header  FAIRNOPOLY WÄCHST!
     %p So viele Artikel wurden bisher eingestellt:
-    .Teaser--total-number= number_with_delimiter(Article.counting.count, delimiter: ".")
+    .Teaser-total.Teaser-total--number= number_with_delimiter(Article.counting.count, delimiter: ".")
     %p So viele Nutzer*innen haben sich bisher registriert:
-    .Teaser--total-user= number_with_delimiter(User.count, delimiter: ".")
+    .Teaser-total.Teaser-total--user= number_with_delimiter(User.count, delimiter: ".")
 
-.Teaser-left
-  .Teaser
-    %h2.Teaser-header.Teaser-header--nacked  AKTIV MITWIRKEN
+.l-Teaser--double.l-Teaser--participate
+  .Teaser.Teaser--text
+    %h2.Teaser-header  AKTIV MITWIRKEN
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
       %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
         Held*in werden
-.Teaser-right.Teaser-last
+.l-Teaser--double.l-Teaser--news
   .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder

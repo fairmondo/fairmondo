@@ -19,26 +19,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class WelcomeController < ApplicationController
-
-  skip_before_filter :authenticate_user!, :only => [:index,:feed]
-
-  def index
-    @queue1 = Exhibit.independent_queue :queue1,1
-    @queue2 = Exhibit.independent_queue :queue2,1
-    @queue3 = Exhibit.independent_queue :queue3,1
-    @queue4 = Exhibit.independent_queue :queue4,1
-    @old = Exhibit.independent_queue :old
-    @eco = Exhibit.independent_queue :ecologic_highlights
+module WelcomeHelper
+  def teaser_layout layout
+     case layout
+     when :double
+       ["","Teaser-article--right"]
+     when :single
+       [""]
+     end
   end
-
-  # Rss Feed
-  def feed
-    @articles = Article.active.limit(20)
-
-    respond_to do |format|
-      format.rss { render :layout => false } #index.rss.builder
-    end
-  end
-
 end

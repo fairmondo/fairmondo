@@ -5,7 +5,7 @@ class Exhibit < ActiveRecord::Base
     [:article, :queue, :related_article,:article_id,:related_article_id]
   end
 
-  enumerize :queue, in: [:pioneer,:dream_team,:old,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights]
+  enumerize :queue, in: [:pioneer,:dream_team,:old,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights,:queue1,:queue2,:queue3,:queue4]
 
   belongs_to :article
   belongs_to :related_article, class_name: "Article"
