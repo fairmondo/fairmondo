@@ -35,6 +35,9 @@ class ArticlesController < InheritedResources::Base
   #search_cache
   before_filter :build_search_cache, :only => :index
 
+  # Calculate value of active goods
+  before_filter :check_value_of_goods, :only => [:new, :create]
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
@@ -166,6 +169,12 @@ class ArticlesController < InheritedResources::Base
     end
     def permitted_search_params
       params.permit :page, :keywords
+    end
+
+    def check_value_of_goods
+      if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
+        redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
+      end
     end
 
     ############ Save Images ################
