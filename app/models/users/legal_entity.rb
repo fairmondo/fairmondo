@@ -1,4 +1,3 @@
-
 #
 #
 # == License:
@@ -24,9 +23,11 @@ class LegalEntity < User
   extend STI
 
   def self.user_attrs
-    super + [:terms, :cancellation, :about]
+    super + [:terms, :cancellation,
+      :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
   end
   #! attr_accessible :terms, :cancellation, :about
+  #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
@@ -34,6 +35,8 @@ class LegalEntity < User
     seller.validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
     seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
   end
+
+
 
   state_machine :seller_state, :initial => :standard_seller do
 
@@ -51,24 +54,51 @@ class LegalEntity < User
     end
   end
 
+  def upgrade_seller_state
+    if self.seller_state == "standard_seller"
+       self.rate_up_to_good1_seller
+    elsif (self.seller_state == "good1_seller") || (self.seller_state == "good2_seller") ||  (self.seller_state == "good3_seller")
+      percentage_of_positive_ratings_in_last_100 = calculate_percentage_of_biased_ratings 'positive', 100
+      if percentage_of_positive_ratings_in_last_100 > 90
+        if self.seller_state == "good1_seller"
+          self.rate_up_to_good2_seller
+        else
+          percentage_of_positive_ratings_in_last_500 = calculate_percentage_of_biased_ratings 'positive', 500
+          if percentage_of_positive_ratings_in_last_500 > 90
+            if self.seller_state == "good2_seller"
+              self.rate_up_to_good3_seller
+            else
+              percentage_of_positive_ratings_in_last_1000 = calculate_percentage_of_biased_ratings 'positive', 1000
+              if percentage_of_positive_ratings_in_last_1000 > 90
+                self.rate_up_to_good4_seller
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
   def commercial_seller_constants
     commercial_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 50,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $commercial_seller_constants['standard_salesvolume'],
+      :verified_bonus => $commercial_seller_constants['verified_bonus'],
+      :good_factor => $commercial_seller_constants['good_factor'],
+      :bad_salesvolume => $commercial_seller_constants['bad_salesvolume']
     }
   end
 
-  def sales_volume
-    bad_seller? ? ( commercial_seller_constants[:standard_salesvolume] / commercial_seller_constants[:bad_factor] ) :
-    ( commercial_seller_constants[:standard_salesvolume] +
-    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 ) ) *
+  def max_value_of_goods_cents
+    bad_seller? ? commercial_seller_constants[:bad_salesvolume] :
+    (( commercial_seller_constants[:standard_salesvolume] +
+    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 )) *
     ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
     ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
     ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
-    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 )
+    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 ))
   end
+
+
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
