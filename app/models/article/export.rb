@@ -31,8 +31,8 @@ module Article::Export
         line << header_row
         articles.each do |article|
           row = Hash.new
-          row.merge! (article.attributes)
-          row.merge! (article.provide_fair_attributes)
+          row.merge!(article.attributes)
+          row.merge!(article.provide_fair_attributes)
           row["categories"] = article.categories.map { |a| a.id }.join(",")
           row["external_title_image_url"] = article.images.first.external_url if article.images.first
           row["image_2_url"] = article.images[1].external_url if article.images[1]
@@ -55,6 +55,9 @@ module Article::Export
       elsif params == "bought"
         articles = user.bought_articles
         articles.reverse_order
+      elsif params == "error_articles"
+        articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
+        articles.reverse_order
         # bugbug Something needed in case no params are given?
       end
     end
@@ -62,11 +65,11 @@ module Article::Export
     def provide_fair_attributes
       attributes = Hash.new
       if self.fair_trust_questionnaire
-        attributes.merge! (self.fair_trust_questionnaire.attributes)
+        attributes.merge!(self.fair_trust_questionnaire.attributes)
       end
 
       if self.social_producer_questionnaire
-        attributes.merge! (self.social_producer_questionnaire.attributes)
+        attributes.merge!(self.social_producer_questionnaire.attributes)
       end
       serialize_checkboxes(attributes)
     end
