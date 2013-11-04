@@ -76,12 +76,7 @@ class ArticlesController < InheritedResources::Base
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif permitted_new_params[:edit_as_new]
       @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
-      @article = @old_article.amoeba_dup
-      if !@old_article.sold?
-        #do not remove sold articles, we want to keep them
-        #if the old article has errors we still want to remove it from the marketplace
-        @old_article.close_without_validation
-      end
+      @article = Article.edit_as_new @old_article
     end
     new!
   end
