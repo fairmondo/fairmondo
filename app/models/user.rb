@@ -85,6 +85,11 @@ class User < ActiveRecord::Base
 
   scope :sorted_ngo, order(:nickname).where(:ngo => true)
 
+  has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
+  has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
+
+
+  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   #Registration validations
 
@@ -186,7 +191,45 @@ class User < ActiveRecord::Base
     string
   end
 
+  # Update percentage of positive and negative ratings of seller
+  # @api public
+  # @return [undefined]
+  def update_rating_counter
+    number_of_ratings = self.ratings.count
+    percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 50
+    percentage_of_neutral_ratings = calculate_percentage_of_biased_ratings 'neutral', 50
+    percentage_of_negative_ratings = calculate_percentage_of_biased_ratings 'negative', 50
+
+    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
+      :percentage_of_neutral_ratings => percentage_of_neutral_ratings,
+      :percentage_of_negative_ratings => percentage_of_negative_ratings)
+    self.save
+
+    if ( ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 ) )
+      if percentage_of_negative_ratings > 50
+        self.banned = true
+      end
+      update_seller_state
+    end
+  end
+
+  # Calculates percentage of positive and negative ratings of seller
+  # @api public
+  # @param bias [String] positive or negative
+  # @param limit [Integer]
+  # @return [Float]
+  def calculate_percentage_of_biased_ratings bias, limit
+    newest_ratings = self.ratings.limit(limit)
+    number_of_newest_ratings = [newest_ratings.count, 1].max.to_f
+    number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
+    number_of_biased_ratings / number_of_newest_ratings * 100
+  end
+
+
+
   state_machine :seller_state, :initial => :standard_seller do
+
+    after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
 
     event :rate_up_to_standard_seller do
       transition :bad_seller => :standard_seller
@@ -221,18 +264,37 @@ class User < ActiveRecord::Base
     end
   end
 
+  def send_bad_seller_notification
+    RatingMailer.bad_seller_notification(self).deliver
+  end
+
+  # Changes seller state depending on positive and negative ratings
+  # @api public
+  # @return [undefined]
+  def update_seller_state
+    if self.percentage_of_positive_ratings > 75
+      if self.percentage_of_positive_ratings > 90
+        upgrade_seller_state
+      else
+        self.rate_up_to_standard_seller
+      end
+    elsif self.percentage_of_negative_ratings > 25
+      self.rate_down_to_bad_seller
+    end
+  end
+
   def buyer_constants
     buyer_constants = {
       :not_registered_purchasevolume => 4,
       :standard_purchasevolume => 12,
       :trusted_bonus => 12,
       :good_factor => 2,
-      :bad_factor => 6
+      :bad_purchasevolume => 6
     }
   end
 
   def purchase_volume
-    ( bad_buyer? ? ( buyer_constants[:standard_purchasevolume] / buyer_constants[:bad_factor] ) :
+    ( bad_buyer? ? ( buyer_constants[:bad_purchasevolume] ) :
     ( buyer_constants[:standard_purchasevolume] +
     ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
     ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )

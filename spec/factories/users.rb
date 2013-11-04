@@ -22,7 +22,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
+  factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }

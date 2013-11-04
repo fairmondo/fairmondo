@@ -20,10 +20,10 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .User.User--teaser
-  = render partial: '/shared/profile_img', locals: {user: resource.seller, show_title: true}
+  = render '/shared/profile_img', user: resource.seller, show_title: true
   .User-accordion.Accordion
     = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
-      = render :partial=>'/shared/list_articles_small', :locals=>{ :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"}
+      = render '/shared/list_articles_small', :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"
 
   - if resource.libraries.find_all_by_public(true).count > 0
     .Accordion.Accordion--full
