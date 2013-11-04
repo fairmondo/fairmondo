@@ -68,7 +68,7 @@
         <filter class="solr.DictionaryCompoundWordTokenFilterFactory" dictionary="german-common-nouns.txt"
            		minWordSize="5" minSubwordSize="4" maxSubwordSize="15" onlyLongestMatch="false"/>
 		<filter class="solr.GermanStemFilterFactory"/>
-
+		<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" side="front"/>
       </analyzer>
       <analyzer type="query">
 		<tokenizer class="solr.StandardTokenizerFactory"/>
@@ -77,15 +77,7 @@
 		<filter class="solr.GermanStemFilterFactory"/>
 	  </analyzer>
     </fieldType>
-     <fieldType name="text_ngram" class="solr.TextField" omitNorms="false">
-      <analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
-        <filter class="solr.StandardFilterFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="6" side="front"/>
-      </analyzer>
-    </fieldType>
+
 
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>
@@ -257,8 +249,6 @@
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
 
-	<!-- NGram Autocomplete -->
-	<dynamicField name="*_text_ngram" type="text_ngram" stored="true" multiValued="true" indexed="true"/>
 
   </fields>
   <!-- Field to use to determine and enforce document uniqueness.
