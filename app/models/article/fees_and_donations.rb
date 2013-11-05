@@ -33,9 +33,9 @@ module Article::FeesAndDonations
   included do
     #! attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
-    def self.fees_and_donation_attrs
-    [:friendly_percent, :friendly_percent_organisation]
-    end
+    #def self.fees_and_donation_attrs
+    #[:friendly_percent, :friendly_percent_organisation]
+    #end
 
     # Fees and donations
     monetize :calculated_fair_cents, :allow_nil => true

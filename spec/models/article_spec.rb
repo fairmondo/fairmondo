@@ -339,6 +339,24 @@ describe Article do
         end
 
       end
+      describe "#add_image" do
+        let(:article) { FactoryGirl.create :article,:without_image}
+        before do
+          @url = "http://www.test.com/test.png"
+          @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
+          article.images << @image
+        end
+        it "should do nothing if the url is already present" do
+          expect {
+            article.add_image @url, true
+          }.to change(Image, :count).by(0)
+        end
+        it "should delete a title image if an other external url is given" do
+          @image.update_attribute(:external_url, nil)
+          @image.should_receive :delete
+          article.add_image @url, true
+        end
+      end
     end
   end
 
