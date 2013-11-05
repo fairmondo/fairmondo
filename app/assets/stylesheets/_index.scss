@@ -15,22 +15,119 @@
 		@include rem(margin, 20px auto);
 	}
   @include clearfix;
+
+  .Article {
+    margin-bottom: 1em;
+  }
+
 }
+
+.Teaser-header {
+  @include at-breakpoint($layout-huge) {
+    @include rem(font-size, 25px);
+  }
+  .Btn-tag--medium {
+    font-size: 0.9em;
+    margin:0px;
+  }
+  color:$lightgray;
+  @include rem(padding, 10px 0px);
+  font-weight: normal;
+}
+
+// Layouts
+// -----------------------------------
+
+// Generic Double View
+.l-Teaser--double{
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(2,4);
+  }
+  @include at-breakpoint($layout-small) {
+    Article{
+      @include span-columns(1,2);
+      @include nth-omega(2n);
+    }
+  }
+}
+
+.l-Teaser--collapsible {
+   @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+    @include omega;
+    Article {
+      width:100%;
+    }
+  }
+
+}
+
+.l-Teaser--single {
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1,2);
+  }
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(1,4);
+  }
+}
+
+
+
+// Specific Layouts
+//------------------------------------------------
+
+.l-Teaser--queues {
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+}
+
+.l-Teaser--counters{
+  @include at-breakpoint($layout-small-to-large) {
+    @include omega;
+  }
+}
+
+.l-Teaser--participate {
+  @include at-breakpoint($layout-small-to-large) {
+    clear:both;
+  }
+  @include at-breakpoint($layout-huge) {
+    clear:both;
+  }
+}
+
+.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+  @include at-breakpoint($layout-huge) {
+    @include omega;
+  }
+}
+
+// Text teasers
+// ------------------------------------
 
 .Teaser--text {
   text-align:center;
 }
 
-.Teaser-counter {
+.Teaser .Btn {
+  @include rem(margin-top, 4px);
+}
+
+// Counters --------------------------------------
+//
+
+.Teaser--counter {
 	// move padding from container to child els
 	padding: 0;
-	> .Teaser-title,
-	> .Teaser-total--number {
-		@include rem(padding, 10px 20px);
-	}
-	.Teaser-title {
-		// @include rem(font-size, $base-font-size);
-		@include rem(padding, 17px 36px);
+	p {
+	  @include rem(padding, 0px 20px);
 	}
 }
 
@@ -42,6 +139,10 @@
   color: #fff;
 }
 
+.Teaser-total--number {
+    @include rem(padding, 10px 20px);
+    @include rem(margin-bottom,10px)
+}
 
 .Teaser-total--articles {
 	margin-bottom: 30px;
@@ -53,16 +154,8 @@
 }
 
 
-.Teaser .Btn {
-	@include rem(margin-top, 4px);
-}
-
-.Teaser-header {
-  @include rem(font-size, 25px);
-  color:$lightgray;
-  @include rem(padding, 10px 0px);
-  font-weight: normal;
-}
+// News Teaser
+//-------------------------------------------------
 
 .Teaser-news {
   p {
@@ -77,88 +170,43 @@
   background: none ;
 }
 
-// Layouts
-// -----------------------------------
+// Top Queue Teaser
+//----------------------------------
 
-// Generic Double View
-.l-Teaser--double{
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(2,3);
-  }
-  @include at-breakpoint($layout-large) {
-    @include span-columns(2,4);
-  }
-  @include at-breakpoint($layout-small) {
-    Article{
-      @include span-columns(1,2);
-      @include nth-omega(2n);
-    }
-  }
-}
-
-.l-Teaser--collapsible {
-   @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(1,3);
-    @include omega;
-    Article {
-      width:100%;
-    }
-  }
-
-}
-
-.l-Teaser--single {
-  @include at-breakpoint($layout-small) {
+.Teaser-queue {
+  @include at-breakpoint($layout-small-to-huge) {
     @include span-columns(1,2);
+    @include nth-omega(2n);
   }
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(1,3);
-  }
-  @include at-breakpoint($layout-large) {
+
+  @include at-breakpoint($layout-huge){
     @include span-columns(1,4);
+    @include nth-omega(4n);
   }
 }
 
-// Specific
-
-.l-Teaser--queues {
-  @include at-breakpoint($layout-medium-to-large) {
-    @include span-columns(2,3);
-  }
-  .Teaser--withlink {
-      @include at-breakpoint($layout-small-to-large) {
-        @include span-columns(1,2);
-        @include nth-omega(2n);
-      }
-
-      @include at-breakpoint($layout-large){
-        @include span-columns(1,4);
-        @include nth-omega(4n);
-      }
-      > a.Btn {
-        margin-top:1em;
-      }
+.Teaser-more {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  text-align: center;
+  > a.Btn {
+    width:90%;
+    font-size: 1.1em;
   }
 }
 
-.l-Teaser--counters{
-  @include at-breakpoint($layout-small-to-medium) {
-    @include omega;
-  }
+// Welcome Teaser
+// -------------------------------------
+
+.l-Teaser--welcome {
+  color: $blue;
+  @include rem(font-size, 18px);
+  @include rem(font-size, $font-size-m);
+  padding-top: 2em;
 }
 
-.l-Teaser--participate {
-  @include at-breakpoint($layout-small-to-medium) {
-    clear:both;
-  }
-  @include at-breakpoint($layout-large) {
-    clear:both;
-  }
-}
-
-.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
-  @include at-breakpoint($layout-large) {
-    @include omega;
-  }
+.Teaser-image {
+  margin-bottom: 1.5em;
+  width: 80%;
 }
 

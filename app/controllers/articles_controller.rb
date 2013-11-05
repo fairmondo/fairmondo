@@ -175,6 +175,9 @@ class ArticlesController < InheritedResources::Base
     def permitted_search_params
       params.permit :page, :keywords
     end
+    def permitted_queue_params
+      params.permit :page, :queue
+    end
 
     def check_value_of_goods
       if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
@@ -195,7 +198,11 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for @search_cache
+      if params[:queue]
+        @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
+      else
+        @articles ||= search_for @search_cache
+      end
     end
 
     def begin_of_association_chain

@@ -30,6 +30,7 @@ class WelcomeController < ApplicationController
     @queue4 = Exhibit.independent_queue :queue4,1
     @old = Exhibit.independent_queue :old
     @eco = Exhibit.independent_queue :ecologic_highlights
+    @pioneer = Exhibit.independent_queue :pioneer
   end
 
   # Rss Feed

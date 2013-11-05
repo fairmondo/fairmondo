@@ -5,6 +5,7 @@
     = button_to 'Queue2', exhibits_path(exhibit: {article_id: resource.id, queue: :queue2}), class: "Btn Btn--redSmall", method: :post
     = button_to 'Queue3', exhibits_path(exhibit: {article_id: resource.id, queue: :queue3}), class: "Btn Btn--redSmall", method: :post
     = button_to 'Queue4', exhibits_path(exhibit: {article_id: resource.id, queue: :queue4}), class: "Btn Btn--redSmall", method: :post
+    = button_to '*Pionier*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :pioneer}), class: "Btn Btn--redSmall", method: :post
     = button_to '*Gebraucht bei Fairnopoly*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :old}), class: "Btn Btn--redSmall", method: :post
     = button_to '*Fairnopoly mag*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fairnopoly_likes}), class: "Btn Btn--redSmall", method: :post
     = button_to '*Besonders & fair*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fair_highlights}), class: "Btn Btn--redSmall", method: :post
