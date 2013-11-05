@@ -25,7 +25,7 @@ module ContentHelper
 
   def tinycms_content_body(key)
     content = find_content(key)
-    content.present? ? content.body : ""
+    content && content.body ? content.body : ""
   end
 
   def find_content key
@@ -33,7 +33,8 @@ module ContentHelper
   end
 
   def tinycms_content_body_sanitized(key)
-     Sanitize.clean(tinycms_content_body(key))
+     content = tinycms_content_body(key)
+     Sanitize.clean(content)
   end
 
 end

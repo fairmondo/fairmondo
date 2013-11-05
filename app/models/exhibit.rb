@@ -29,6 +29,11 @@ class Exhibit < ActiveRecord::Base
     articles
   end
 
+  # Currentlyonly works for independent queues
+  def self.all_from queue,page
+    Article.joins(:exhibits).where("exhibits.queue = ?", queue).where(" articles.state = 'active' ").page page
+  end
+
   def set_exhibition_date
     if self.exhibition_date == nil
        # Because of the join the exhibition is readonly
