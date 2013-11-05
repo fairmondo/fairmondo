@@ -19,27 +19,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class WelcomeController < ApplicationController
+require 'spec_helper'
 
-  skip_before_filter :authenticate_user!, :only => [:index,:feed]
+include Warden::Test::Helpers
 
-  def index
-    @queue1 = Exhibit.independent_queue :queue1,1
-    @queue2 = Exhibit.independent_queue :queue2,1
-    @queue3 = Exhibit.independent_queue :queue3,1
-    @queue4 = Exhibit.independent_queue :queue4,1
-    @old = Exhibit.independent_queue :old
-    @eco = Exhibit.independent_queue :ecologic_highlights
-    @pioneer = Exhibit.independent_queue :pioneer
-  end
-
-  # Rss Feed
-  def feed
-    @articles = Article.active.limit(20)
-
-    respond_to do |format|
-      format.rss { render :layout => false } #index.rss.builder
+describe 'Exhibit' do
+    before :each do
+      @exhibit = FactoryGirl.create(:exhibit,:queue => :queue1 )
+      @exhibit2 = FactoryGirl.create(:exhibit,:queue => :queue1 )
+      @content = FactoryGirl.create(:content, :key => "heading_queue1", :body => "More")
     end
-  end
+
+    it "should render a queued article" do
+      visit root_path
+      page.should have_selector '.Article--teaser'
+
+    end
+
+    it "should show more items if you visit the more link" do
+      visit root_path
+      click_link "More"
+      page.should have_selector '.Article--teaser'
+
+    end
 
 end
