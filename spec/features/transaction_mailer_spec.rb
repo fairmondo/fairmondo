@@ -57,6 +57,11 @@ describe TransactionMailer do
     let ( :seller_notification_with_fp ) { TransactionMailer.seller_notification( transaction_with_fp ) }
     subject  { seller_notification_with_fp }
 
+
+    it "should be delivered to seller email" do
+      subject.should deliver_to( transaction_with_fp.seller.email )
+    end
+
     it "should have right subject with fp" do
       subject.should have_subject("[Fairnopoly] " + I18n.t('transaction.notifications.seller.seller_subject') + " (#{transaction_with_fp.article_title})" +
       I18n.t('transaction.notifications.seller.with_donation_to') + "#{transaction_with_fp.article.donated_ngo.nickname}")
