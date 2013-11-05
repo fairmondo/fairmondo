@@ -353,9 +353,8 @@ describe Article do
         end
         it "should delete a title image if an other external url is given" do
           @image.update_attribute(:external_url, nil)
-          expect {
-            article.add_image @url, true
-          }.to change(Image, :count).by(0)
+          @image.should_receive :delete
+          article.add_image @url, true
         end
       end
     end
