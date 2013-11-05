@@ -116,7 +116,7 @@ describe "Mass-upload" do
             end
           end
 
-          context "when the action updates an article",visual:true do
+          context "when the action updates an article" do
             context "with a valid request" do
               context "via 'update'" do
                 it "should update all requested articles" do
@@ -156,6 +156,17 @@ describe "Mass-upload" do
                   Article.find(1).closed?.should eq true
                   Article.find(2).closed?.should eq true
                 end
+
+                it "should throw an error when the requested ID is already deleted" do
+                  article = FactoryGirl.create :closed_article, :seller => legal_entity_user
+
+                  attach_file('mass_upload_file',
+                               'spec/fixtures/mass_upload_single_delete.csv')
+                  click_button I18n.t('mass_uploads.labels.upload_article')
+
+                  page.should have_content I18n.t('mass_uploads.boxes.deleted')
+                  page.should have_content article.title
+                end
               end
 
               context "via 'activate'" do
@@ -185,12 +196,15 @@ describe "Mass-upload" do
             end
 
             context "with an invalid request" do
-              it "should throw an error when the requested ID doesn't belong to the current user" do
-                pending 'coming soon'
-              end
+              it "should throw an 'article not found' error when the requested ID doesn't belong to the current user" do
+                FactoryGirl.create :article
 
-              it "should throw an error when the requested ID is already deleted" do
-                pending 'coming soon'
+                attach_file('mass_upload_file',
+                             'spec/fixtures/mass_upload_single_delete.csv')
+                click_button I18n.t('mass_uploads.labels.upload_article')
+
+                page.should have_content I18n.t('mass_uploads.errors.article_not_found')
+                Article.find(1).closed?.should eq false
               end
 
               it "should throw an error when the requested ID doesn't exist" do
@@ -249,7 +263,13 @@ describe "Mass-upload" do
 
           context "when a non-existant action was given" do
             it "should throw an error" do
-              pending 'coming soon'
+              FactoryGirl.create :article, :seller => legal_entity_user
+
+              attach_file('mass_upload_file',
+                         'spec/fixtures/mass_upload_wrong_action.csv')
+              click_button I18n.t('mass_uploads.labels.upload_article')
+
+              page.should have_content I18n.t('mass_uploads.errors.unknown_action')
             end
           end
         end

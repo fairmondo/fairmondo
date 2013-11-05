@@ -101,44 +101,31 @@ module Article::Images
       add_image(image_url, true)
     end
 
-    def add_image(image_url, is_title)
-      if self.unsaved_external_url_present? image_url || self.images.size > 3
-        # image already exists and we probably do an update or delete so do nothing
-        # if we have too much images we also dont do anything
+    def add_image(image_url, should_be_title)
+      return unless image_url
 
-        return
+      self.images.each do |image|
+        if image.is_title == should_be_title
+          if image.external_url == image_url
+            return
+          else
+            image.delete
+          end
+        end
       end
+
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
         image = Image.new
-        image.is_title = is_title unless self.unsaved_title_image_present?
+        image.is_title = should_be_title
         image.external_url = image_url
         image.save
         self.images << image
-      elsif image_url !=~ URI::regexp && is_title == true
+      elsif image_url !=~ URI::regexp && should_be_title == true
         self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
-      elsif image_url !=~ URI::regexp && is_title == false
+      elsif image_url !=~ URI::regexp && should_be_title == false
         self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
-    end
-
-    # use this method only on non saved objects
-    # can't be refactored to scopes since the objects we query for may not be saved already
-    def unsaved_external_url_present? url
-      self.images.each do |image|
-        return true if image.external_url == url
-      end
-      return false
-    end
-
-
-     # use this method only on non saved objects
-    # can't be refactored to scopes since the objects we query for may not be saved already
-    def unsaved_title_image_present?
-      self.images.each do |image|
-        return true if image.is_title
-      end
-      return false
     end
 
 
