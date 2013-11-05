@@ -32,7 +32,7 @@ de:
       sales_price: "Verkaufspreis gesamt: "
       total_price: "Gesamt: "
       fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}."
-      friendly_percent: " Zusätzlich werden %{percent}% an %{ngo} gespendet."
+      friendly_percent: "Zusätzlich werden %{percent}% an %{ngo} gespendet."
       ngo_percent: "100% des Erlöses gehen an %{ngo}."
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "

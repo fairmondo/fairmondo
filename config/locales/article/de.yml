@@ -82,6 +82,7 @@ de:
       type: "Angebotsart"
       submit: "Angebot gebührenpflichtig einstellen"
       submit_free: "Angebot gebührenfrei einstellen"
+      submit_with_fp: "Angebot gebührenpflichtig und mit freundlichem Prozent einstellen"
       continue_to_preview: "Weiter zur Artikelvorschau"
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
@@ -138,10 +139,12 @@ de:
       double_check:
         title: Alle Angaben überprüft?
       tooltips:
+        fp_fee_info: >
+          %{percent}% des Artikelendpreises werden bei erfolgreichem Verkauf von Dir an %{ngo} gespendet. Auf den Spendenanteil fallen keine Verkaufsgebühren an. Informationen zur Spendenabwicklung findest Du <a href='https://www.fairnopoly.de/faq' target='_blank'>hier</a> und in der Bestätigungsmail bei erfolgreichem Verkauf.
         fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,- Euro fällig (inkl. 19% MwSt)."
         fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
         fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf durch uns automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet."
-        friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den Verkäufer an die gemeinnützige Organisation %{ngo} gespendet."
+        friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den Verkäufer an %{ngo} gespendet."
         fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >
