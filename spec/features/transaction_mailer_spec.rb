@@ -7,7 +7,7 @@ describe TransactionMailer do
 
   context "seller notification" do
     let ( :transaction ) { FactoryGirl.create :transaction_with_buyer }
-    let ( :seller_notification ) { TransactionMailer.seller_notification( transaction ) } 
+    let ( :seller_notification ) { TransactionMailer.seller_notification( transaction ) }
     subject  { seller_notification }
 
     it "should be delivered to seller email" do
@@ -49,6 +49,19 @@ describe TransactionMailer do
     it "should contain the buyer's email address" do
       subject.should have_body_text(transaction.buyer.email)
     end
+  end
+
+  context "seller notification with friendly_percent" do
+
+    let ( :transaction_with_fp ) { FactoryGirl.create :transaction_with_friendly_percent_and_buyer }
+    let ( :seller_notification_with_fp ) { TransactionMailer.seller_notification( transaction_with_fp ) }
+    subject  { seller_notification_with_fp }
+
+    it "should have right subject with fp" do
+      subject.should have_subject("[Fairnopoly] " + I18n.t('transaction.notifications.seller.seller_subject') + " (#{transaction_with_fp.article_title})" +
+      I18n.t('transaction.notifications.seller.with_donation_to') + "#{transaction_with_fp.article.donated_ngo.nickname}")
+    end
+
   end
 
   context "buyer notification" do
@@ -103,7 +116,7 @@ describe TransactionMailer do
     # it "should contain link to transaction" do
     #   subject.should have_body_text( transaction_url( transaction ) )
     # end
-    
+
     # it "should contain string: Bitte gib bei..." do
     #   subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.transaction_id_info', id: transaction.id ) )
     # end
