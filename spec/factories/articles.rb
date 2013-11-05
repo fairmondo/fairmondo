@@ -64,6 +64,12 @@ FactoryGirl.define do
       end
     end
 
+    factory :closed_article do
+      after(:build) do |article|
+        article.state = "closed"
+      end
+    end
+
     factory :social_production do
       fair true
       fair_kind :social_producer
@@ -188,6 +194,5 @@ FactoryGirl.define do
     trait :with_custom_seller_identifier do
       custom_seller_identifier {Faker::Lorem.words(rand(3..5))}
     end
-
   end
 end
