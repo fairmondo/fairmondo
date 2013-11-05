@@ -254,8 +254,9 @@ de:
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 2 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >
-          Ein Prozent des Verkaufspreises auf dem Marktplatz wird automatisch für Kampagnen gegen Korruption gespendet. Optional kannst Du einen weiteren Prozentsatz des Verkaufspreises spenden, - das freundliche Prozent - wobei ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten, Spenden erhalten können. Mehr erfährst Du <a href="http://beta.fairnopoly.de/faq#fa3">hier</a>.
-
+          Du kannst optional einen weiteren Prozentsatz des Verkaufspreises spenden - das freundliche Prozent. Für die Weiterleitung des Spendenanteils an die Empfängerorganisation bist Du selbst verantwortlich. Es können ausschließlich Organisationen, die sich zu besonderer Transparenz verpflichten und von uns akkreditiert sind, Spenden erhalten. Mehr Informationen zum Ablauf und zum freundlichen Prozent findest Du <a href="https://www.fairnopoly.de/faq#fp1" target= "_blank">hier</a>.
+        friendly_percent_organisation: >
+          Du kannst hier aus Empfängerorganisationen wählen, die von Fairnopoly akkreditiert sind. Mehr Informationen dazu findest Du <a href="https://www.fairnopoly.de/faq#fp1" target= "_blank">hier</a>.Wenn Du eine Organisation anwählst, erhältst Du einen weiterführenden Link mit mehr Informationen zu der entsprechenden Organisation.
         article_template: "Speichere Deine Eingaben als Vorlage - so gelingt das Einstellen ähnlicher Artikel im Handumdrehen."
 
         date: "Datum (Tag/Monat/Jahr)"
