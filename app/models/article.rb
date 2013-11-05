@@ -41,6 +41,8 @@ class Article < ActiveRecord::Base
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
+  has_many :exhibits
+
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
   belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
   validates_presence_of :user_id
@@ -114,14 +116,14 @@ class Article < ActiveRecord::Base
     }
   end
 
-  # for featured article
-  def profile_name
-    if self.seller.type == "PrivateUser"
-      self.seller.nickname
-    else
-      "#{self.seller.nickname}, #{self.seller.city}"
-    end
+
+  # Does this article belong to user X?
+  # @api public
+  # param user [User] usually current_user
+  def owned_by? user
+    user && self.seller.id == user.id
   end
+
 
   def count_value_of_goods
     value_of_goods_cents = 0
