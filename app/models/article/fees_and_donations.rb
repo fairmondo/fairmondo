@@ -61,7 +61,10 @@ module Article::FeesAndDonations
   # end
 
   def has_friendly_percent?
-     self.friendly_percent.present? && self.friendly_percent > 0
+     self.friendly_percent.present? &&
+     self.friendly_percent > 0 &&
+     self.donated_ngo &&
+      !is_ngo_seller?
   end
 
   def is_ngo_seller?
