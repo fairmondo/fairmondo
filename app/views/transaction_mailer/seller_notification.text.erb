@@ -48,7 +48,7 @@
 <% if @transaction.article.has_friendly_percent? %>
 <% ngo = @transaction.article.donated_ngo
 fp = @transaction.article_friendly_percent
-amount = humanized_money_with_symbol(@transaction.article.calculated_friendly * @transaction.quantity_bought) %>
+amount = humanized_money_with_symbol(friendly_percent_with_quantity @transaction) %>
 
 <%= t('transaction.notifications.seller.friendly_percent') %>
 

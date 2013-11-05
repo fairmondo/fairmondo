@@ -113,6 +113,7 @@ de:
         transaction_id_info: "Bitte gib bei Überweisungen oder anderer Kommunikation mit der*dem Verkäufer*in folgende Transaktionsnummer an: %{id}"
         payment_type: "Deine Bezahlmethode: "
         fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von: "
+        friendly_percent: "Spendenanteil an %{ngo} in Höhe von %{percent}% des Verkaufserlöses, also %{amount} wird vom \nVerkäufer übernommen"
         please_pay: "Bitte überweise den Gesamtbetrag umgehend auf das bei Fairnopoly hinterlegte Bankkonto. Die Kontodaten findest Du hier: "
         buyer_message: "Deine Nachricht an die Verkäufer*in:"
         bank_transfer: "Überweisung (Vorkasse)"
