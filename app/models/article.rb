@@ -105,14 +105,6 @@ class Article < ActiveRecord::Base
     user && self.seller.id == user.id
   end
 
-  # for featured article
-  def profile_name
-    if self.seller.type == "PrivateUser"
-      self.seller.nickname
-    else
-      "#{self.seller.nickname}, #{self.seller.city}"
-    end
-  end
 
   def self.article_attrs with_nested_template = true
     (
