@@ -94,6 +94,14 @@ module TransactionMailerHelper
 
     if role == :buyer && !transaction.article_seller_ngo
       string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
+
+      if transaction.article.has_friendly_percent?
+        ngo = transaction.article.donated_ngo
+        fp = transaction.article_friendly_percent
+        amount = humanized_money_with_symbol(friendly_percent_with_quantity transaction)
+        string += "#{ t('transaction.notifications.buyer.friendly_percent', ngo: ngo.nickname, percent: fp, amount: amount)}\n"
+      end
+
     end
 
     string += "----------------------------------------------\n"
@@ -192,7 +200,12 @@ module TransactionMailerHelper
      "#{ t('transaction.notifications.seller.bank_code') }: #{ user.bank_code }\n" +
      "#{ t('transaction.notifications.seller.bank_name') }: #{ user.bank_name }"
      else
-      "#{ t('transaction.notifications.seller.no_bank_acount') }: #{ user.email }"
+      "#{ t('transaction.notifications.seller.no_bank_acount') } #{ user.email }"
      end
    end
+
+   def friendly_percent_with_quantity transaction
+      transaction.article.calculated_friendly * transaction.quantity_bought
+   end
+
 end
