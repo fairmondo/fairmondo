@@ -217,12 +217,11 @@ class User < ActiveRecord::Base
   # @return [Float]
   def calculate_percentage_of_biased_ratings bias, limit
     newest_ratings = self.ratings.limit(limit)
-    number_of_newest_ratings = [newest_ratings.count, 1].max.to_f
+    return 0 if newest_ratings == []
+    number_of_newest_ratings = newest_ratings.count
     number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
-    number_of_biased_ratings / number_of_newest_ratings * 100
+    number_of_biased_ratings.fdiv(number_of_newest_ratings) * 100
   end
-
-
 
   state_machine :seller_state, :initial => :standard_seller do
     after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
@@ -245,7 +244,6 @@ class User < ActiveRecord::Base
   end
 
   state_machine :buyer_state, :initial => :standard_buyer do
-
     event :rate_up_buyer do
       transition standard_buyer: :good_buyer, bad_buyer: :standard_buyer
     end
@@ -286,21 +284,13 @@ class User < ActiveRecord::Base
   end
 
   def purchase_volume
-    purchase_vol = 0
+    purchase_volume = buyer_constants[:standard_purchasevolume]
 
-    if bad_buyer?
-      purchase_vol = buyer_constants[:bad_purchasevolume]
-    elsif self.trustcommunity
-      purchase_vol = buyer_constants[:standard_purchasevolume] + buyer_constants[:trusted_bonus]
-    else
-      purchase_vol = buyer_constants[:standard_purchasevolume]
-    end
-
-    if good_buyer?
-      purchase_vol *= buyer_constants[:good_factor]
-    end
+    purchase_volume += buyer_constants[:trusted_bonus]      if self.trustcommunity
+    purchase_volume *= buyer_constants[:good_factor]        if good_buyer?
+    purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
     
-    purchase_vol
+    purchase_volume
   end
 
   def bank_account_exists?
