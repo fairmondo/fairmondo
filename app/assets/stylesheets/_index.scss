@@ -202,7 +202,6 @@
   color: $blue;
   @include rem(font-size, 18px);
   @include rem(font-size, $font-size-m);
-  padding-top: 2em;
 }
 
 .Teaser-image {
