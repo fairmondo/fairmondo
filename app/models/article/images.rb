@@ -102,6 +102,7 @@ module Article::Images
     end
 
     def add_image(image_url, should_be_title)
+      return unless image_url
 
       self.images.each do |image|
         if image.is_title == should_be_title
@@ -120,9 +121,9 @@ module Article::Images
         image.external_url = image_url
         image.save
         self.images << image
-      elsif image_url !=~ URI::regexp && is_title == true
+      elsif image_url !=~ URI::regexp && should_be_title == true
         self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
-      elsif image_url !=~ URI::regexp && is_title == false
+      elsif image_url !=~ URI::regexp && should_be_title == false
         self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
