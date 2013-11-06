@@ -42,6 +42,10 @@ module Article::Images
 
     validate :only_one_title_image
 
+    validates :images, :size => {
+      :in => 0..5 # lower to 3 if the old 5 article pics are all gone
+    }
+
     # Gives first image if there is one
     # @api public
     # @return [Image, nil]
@@ -97,33 +101,49 @@ module Article::Images
       add_image(image_url, true)
     end
 
-    def add_image(image_url, is_title)
-      # bugbug refactor asap
+    def add_image(image_url, should_be_title)
+      return unless image_url
+
+      self.images.each do |image|
+        if image.is_title == should_be_title
+          if image.external_url == image_url
+            return
+          else
+            image.delete
+          end
+        end
+      end
+
+      # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
         image = Image.new
-        image.is_title = is_title
+        image.is_title = should_be_title
         image.external_url = image_url
         image.save
         self.images << image
-      elsif image_url !=~ URI::regexp && is_title == true
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_external_title_image_url'))
-      elsif image_url !=~ URI::regexp && is_title == false
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
+      elsif image_url !=~ URI::regexp && should_be_title == true
+        self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
+      elsif image_url !=~ URI::regexp && should_be_title == false
+        self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
 
+
     def extract_external_image!
       self.images.each do |image|
-        begin
-          unless image.update_attributes(:image => URI.parse(image.external_url))
-             image_error image, image.errors.messages[:image].join(" ")
+        unless image.image.present? # don't do anything if image is already present
+          begin
+            unless image.update_attributes(:image => URI.parse(image.external_url))
+               image_error image, image.errors.messages[:image].join(" ")
+            end
+          rescue
+           image_error image, I18n.t('mass_upload.errors.load_error')
           end
-        rescue
-         image_error image, I18n.t('mass_upload.errors.load_error')
         end
       end
     end
     handle_asynchronously :extract_external_image!
+
   end
 
   def image_error image , message

@@ -595,6 +595,7 @@ RailsAdmin.config do |config|
        field :address_suffix
 
        field :ngo
+       field :max_value_of_goods_cents_bonus
 
   #   # Cross-section configuration:
 

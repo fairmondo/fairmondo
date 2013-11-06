@@ -30,7 +30,7 @@ module MassUpload::Checks
     if file
       return true
     else
-      errors.add(:file, I18n.t('mass_upload.errors.missing_file'))
+      errors.add(:file, I18n.t('mass_uploads.errors.missing_file'))
       return false
     end
   end
@@ -41,7 +41,7 @@ module MassUpload::Checks
       file.original_filename[-4..-1] == '.csv')
       return true
     else
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_mime_type'))
+      errors.add(:file, I18n.t('mass_uploads.errors.wrong_mime_type'))
       return false
     end
   end
@@ -54,10 +54,10 @@ module MassUpload::Checks
         @csv << row
       end
     rescue ArgumentError
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_encoding'))
+      errors.add(:file, I18n.t('mass_uploads.errors.wrong_encoding'))
       return false
     rescue CSV::MalformedCSVError
-      errors.add(:file, I18n.t('mass_upload.errors.illegal_quoting'))
+      errors.add(:file, I18n.t('mass_uploads.errors.illegal_quoting'))
       return false
     end
     return true
@@ -67,20 +67,20 @@ module MassUpload::Checks
     if @csv.size <= MAX_ARTICLES
       return true
     else
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_file_size'))
+      errors.add(:file, I18n.t('mass_uploads.errors.wrong_file_size'))
       return false
     end
   end
 
-  def correct_header?
-    # Ensure all fields defined in header_row are present. Order and additional fields don't matter.
-    if (MassUpload.header_row - @csv[0].headers).empty?
-      return true
-    else
-      errors.add(:file, I18n.t('mass_upload.errors.wrong_header'))
-      return false
-    end
-  end
+  #def correct_header?
+  #  # Ensure all fields defined in header_row are present. Order and additional fields don't matter.
+  #  if (MassUpload.header_row - @csv[0].headers).empty?
+  #    return true
+  #  else
+  #    errors.add(:file, I18n.t('mass_uploads.errors.wrong_header'))
+  #    return false
+  #  end
+  #end
 
   private
     CP1252_EURO = "\x80"

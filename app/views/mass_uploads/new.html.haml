@@ -12,10 +12,42 @@
   Umständen Fehler auftreten können. Wir empfehlen, zunächst testweise nur kleinere
   Artikelmengen einzustellen, und die eingestellten Artikel zu überprüfen.
   Bei Problemen kontaktiere uns einfach unter
-  %a{ :href => "kundenservice@fairnopoly.de." } kundenservice@fairnopoly.de.
+  %a{ :href => "mailto:kundenservice@fairnopoly.de" } kundenservice@fairnopoly.de.
 %p
   Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
   10000 pro Datei begrenzt!
+
+%br
+%h2 Neu: Artikel per CSV-Datei bearbeiten und löschen
+
+%p
+  Bereits erstellte Artikel können nun auch bearbeitet werden. Nutze dafür das neue "action"
+  Feld. Wenn Du deine Artikel in deinem Profil exportierst, wird dieses Feld mit angelegt. Außerdem werden nun auch die IDs der Artikel mit im Export ausgegeben.
+
+%p
+  %strong Artikel einstellen:
+  Nicht eingestellte Artikel können mit der action "a" oder "activate" aktiviert werden.
+
+%p
+  %strong Artikel vom Marktplatz nehmen:
+  Bereits eingestellte Artikel können mit der action "d" oder "deactivate" wieder vom Marktplatz genommen werden. Sie werden dabei nicht komplett gelöscht.
+
+%p
+  %strong Artikel löschen:
+  Um beliebige Artikel komplett zu löschen, gebe als action "x" oder "delete" ein. Achtung: Du wirst nicht noch einmal nach Bestätigung gefragt.
+
+%p
+  %strong Artikel bearbeiten:
+  Verändere von einem exportierten Artikel die entsprechenden Felder in der CSV-Datei und gib als action "u" oder "update" an. Achte darauf, dass bereits auf dem Marktplatz eingestellte Artikel dadurch wie bei manueller Bearbeitung automatisch vom Marktplatz genommen, bearbeitet, und wieder neu eingestellt werden. Durch diesen Vorgang werden Artikel auch beispielsweise aus Sammlungen verschwinden.
+
+%p
+  %strong Artikel neu eintellen:
+  Eine CSV Datei nach dem alten Schema ohne existierendes "ID" und "action" Feld wird weiterhin automatisch neue Artikel erstellen. Existiert eine ID und es soll trotzdem ein neuer Artikel daraus entstehen, kann als action "c" oder "create" eingegeben werden.
+
+%p
+  %strong Sonstiges:
+  Um bearbeitende Aktionen auf Artikeln ausführen zu können, ist eine ID notwendig. Es kann jedoch auch das custom_seller_identification Feld als ID benutzt werden. Dafür muss das ID Feld jedoch leer sein. Weiterhin bist Du in diesem Fall selbst dafür verantwortlich, dieses Feld einzigartig zu halten. Sie sollte sich auch nicht mit der custom_seller_identification von bereits gelöschten Artikeln doppeln. Hast Du zwei Artikeln die gleiche custom_seller_identification gegeben, ist nicht vorhersehbar, welcher der zutreffenden Artikel verändert wird.
+%br
 
 - if current_user.is_a?(LegalEntity)
   = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => ::Fairtastic::FormBuilder) do |f|
@@ -27,4 +59,4 @@
           / statement doesn't work although it shows up and looks correctly when
           / I render the page and look at the html
         = f.actions do
-          = f.action :submit, :label => t('mass_upload.labels.upload_article'), :button_html => { :class => "Btn" }
+          = f.action :submit, :label => t('mass_uploads.labels.upload_article'), :button_html => { :class => "Btn" }

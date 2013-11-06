@@ -22,7 +22,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user, aliases: [:seller, :buyer, :sender] , class: ["PrivateUser", "LegalEntity"].sample do
+  factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ["PrivateUser", "LegalEntity"].sample do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
@@ -61,10 +61,6 @@ FactoryGirl.define do
       bank_account_owner ""
       bank_name ""
    end
-
-    trait :paypal_data do
-      paypal_account Faker::Internet.email
-    end
 
     seller_state "standard_seller"
     buyer_state "standard_buyer"

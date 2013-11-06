@@ -270,7 +270,7 @@ span.Article-price {
 }
 
 .Import-detail {
-	@include border-radius(7px);
+
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
 	}
