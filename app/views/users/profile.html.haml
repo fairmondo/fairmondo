@@ -28,8 +28,13 @@
       %h3
         - if resource.title?
           = resource.title + " "
-        - if resource.forename && resource.surname
-          = resource.forename + " " + resource.surname
+
+      - if resource.forename && resource.surname
+        %p
+          = t('formtastic.labels.user.contact_person')
+          \:
+          %strong= resource.forename + " " + resource.surname
+
       - if resource.address_suffix
         %p
           = t('formtastic.labels.user.address_suffix')
