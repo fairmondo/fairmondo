@@ -58,6 +58,9 @@ $layout-small-to-medium: em($breakpoint-small) em($breakpoint-medium) lt-ie9;
 $layout-medium-to-large: em($breakpoint-medium) em($breakpoint-large) lt-ie9;
 $layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
 $layout-small-to-large: em($breakpoint-small) em($breakpoint-large) lt-ie9;
+$layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-small-to-huge: em($breakpoint-small) em($breakpoint-huge) lt-ie9;
+$layout-medium-to-huge: em($breakpoint-medium) em($breakpoint-huge) lt-ie9;
 
 // Colors
 $blue: #3a80c2;

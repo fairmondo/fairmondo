@@ -9,6 +9,8 @@ config/initializers/secret_token.rb
 .settings
 *.sublime-project
 *.sublime-workspace
+.bundle/
+vendor/bundle
 
 # Autotest configuration file
 .autotest
@@ -69,6 +71,8 @@ Gemfile.local
 
 # vim fragments / vim swap-files
 *.swp
+# other fragments
+*.~lock.*
 
 .ruby-version
 

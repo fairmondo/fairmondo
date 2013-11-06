@@ -118,6 +118,11 @@ de:
         fair_trade_concept: "Maßnahmen zur Verbreitung des Konzepts 'Fairer Handel'"
         other: 'Sonstiges:'
 
+    rating:
+      positive: 'positiv'
+      neutral: 'neutral'
+      negative: 'negativ'
+
     social_producer_questionnaire:
       nonprofit_association_checkboxes:
         youth_and_elderly: Förderung der Jugend- und Altenhilfe

@@ -4,13 +4,8 @@
       %strong= t("users.text.no_#{item_name}_html", :href => link_to(t("users.text.no_#{item_name}"), item_link ))
     - else
       %strong= t("users.text.no_#{item_name}")
-  - elsif sub_items[0].is_a? Article
-    = render :partial=>'/shared/list_articles', locals:{ items: sub_items, list_class: "l-ArticleList", dashboard: true }
-    - if current_user.type == "LegalEntity"
-      = link_to t("articles.export.#{item_name}"), exports_show_path(kind_of_article: item_name, format: "csv"), :class => "Btn Btn--blue"
-    = paginate sub_items, params: { anchor: item_name } , param_name: "#{item_name}_articles_page"
   - else
-    = render :partial=>'/shared/list_transactions', locals: { items: sub_items, list_class: "l-ArticleList" }
+    = render :partial=>'/shared/list_articles', locals:{ items: sub_items, list_class: "l-ArticleList", dashboard: true }
     - if current_user.type == "LegalEntity"
       = link_to t("articles.export.#{item_name}"), exports_show_path(kind_of_article: item_name, format: "csv"), :class => "Btn Btn--blue"
     = paginate sub_items, params: { anchor: item_name } , param_name: "#{item_name}_articles_page"
