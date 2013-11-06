@@ -53,7 +53,10 @@ de:
         subject: "Betreff"
         feedback_subject: "Thema"
         help_subject: "Thema"
-
+        forename: "Vorname"
+        lastname: "Nachname"
+        organisation: "Name der Organisation"
+        phone: "Telefon"
 
       article:
         title: "Artikelbezeichnung"
