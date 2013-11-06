@@ -90,7 +90,7 @@ describe TransactionMailerHelper do
 			helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.fair_percent') )
 		end
 		it "should return the right details for article payment if user is the buyer and cash on delivery is selected" do
-      @transaction = FactoryGirl.create :transaction_with_buyer, :cash_on_delivery_selected
+      @transaction = FactoryGirl.create :transaction_with_friendly_percent_and_buyer, :cash_on_delivery_selected
       helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.edit.cash_on_delivery') )
     end
 	end

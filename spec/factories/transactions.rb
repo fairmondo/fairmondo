@@ -96,6 +96,12 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_friendly_percent}
     end
 
+    factory :transaction_with_friendly_percent_missing_bank_data_and_buyer, class: 'SingleFixedPriceTransaction'  do
+      buyer { FactoryGirl.create :buyer }
+       quantity_bought 1
+      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data}
+    end
+
     trait :incomplete do
        forename {nil}
     end

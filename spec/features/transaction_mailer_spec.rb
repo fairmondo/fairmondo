@@ -67,6 +67,22 @@ describe TransactionMailer do
       I18n.t('transaction.notifications.seller.with_donation_to') + "#{transaction_with_fp.article.donated_ngo.nickname}")
     end
 
+    it "should have ngo contact when ngo has no bank data" do
+
+    end
+
+  end
+
+  context "seller notification with friendly_percent and no bank data" do
+
+    let ( :transaction_with_fp ) { FactoryGirl.create :transaction_with_friendly_percent_missing_bank_data_and_buyer }
+    let ( :seller_notification_with_fp ) { TransactionMailer.seller_notification( transaction_with_fp ) }
+    subject  { seller_notification_with_fp }
+
+    it "should have ngo contact when ngo has no bank data" do
+      subject.should have_body_text(I18n.t('transaction.notifications.seller.no_bank_acount'))
+    end
+
   end
 
   context "buyer notification" do
