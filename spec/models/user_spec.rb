@@ -293,10 +293,6 @@ describe User do
             private_seller.seller_state = "standard_seller"
           end
 
-          it "should become bad seller" do
-            private_seller.rate_down_to_bad_seller
-            private_seller.should be_bad_seller
-          end
           it "should become good seller" do
             private_seller.rate_up
             private_seller.should be_good_seller
@@ -335,11 +331,6 @@ describe User do
         context "good seller" do
           before :each do
             private_seller.seller_state = "good_seller"
-          end
-
-          it "should become bad seller" do
-            private_seller.rate_down_to_bad_seller
-            private_seller.should be_bad_seller
           end
 
           context "if not trusted and not verified" do
@@ -413,10 +404,6 @@ describe User do
             commercial_seller.seller_state = "standard_seller"
           end
 
-          it "should becomeo bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
           it "should become good1 seller" do
             commercial_seller.rate_up
             commercial_seller.should be_good1_seller
@@ -441,10 +428,6 @@ describe User do
             commercial_seller.seller_state = "good1_seller"
           end
 
-          it "should become bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
           it "should become good2 seller" do
             commercial_seller.rate_up
             commercial_seller.should be_good2_seller
@@ -469,10 +452,6 @@ describe User do
             commercial_seller.seller_state = "good2_seller"
           end
 
-          it "should become bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
           it "should be able to rate to good3 seller" do
             commercial_seller.rate_up
             commercial_seller.should be_good3_seller
@@ -497,10 +476,6 @@ describe User do
             commercial_seller.seller_state = "good3_seller"
           end
 
-          it "should become bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
           it "should become good4 seller" do
             commercial_seller.rate_up
             commercial_seller.should be_good4_seller
@@ -525,10 +500,6 @@ describe User do
             commercial_seller.seller_state = "good4_seller"
           end
 
-          it "should become bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
 
           context "if not verified" do
             it "should have a salesvolume of standard_salesvolume * good_factor^4" do
@@ -759,10 +730,10 @@ describe User do
           private_seller.update_rating_counter
           private_seller.seller_state.should eq "good_seller"
         end
-        it "should stay bad seller" do
+        it "should change from bad_seller to standard_seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_rating_counter
-          private_seller.seller_state.should eq "bad_seller"
+          private_seller.seller_state.should eq "standard_seller"
         end
       end
     end
@@ -872,11 +843,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(80)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -914,11 +880,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(95)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -956,11 +917,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(80)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -998,11 +954,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(92)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
