@@ -25,7 +25,7 @@
 
 .Article-info
 
-  %h3.Articles-title= link_to truncate(item.title, :length => 25), article_path(item), :title => article.title
+  %h3.Articles-title= link_to truncate(item.title, :length => 25), article_path(item), :title => item.title
   %p.Article-price= humanized_money_with_symbol item.price
   = render 'articles/show/vat', :article => item
   = render '/articles/show/basic_price', :article => item
