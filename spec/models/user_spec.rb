@@ -335,14 +335,14 @@ describe User do
             it "should have a salesvolume of standard_salesvolume + trusted_bonus" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] )
+              private_seller.max_value_of_goods_cents.should eq($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'])
             end
           end
           context "if verified" do
             it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
+              private_seller.max_value_of_goods_cents.should eq( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
             end
           end
           context "if trusted and verified" do

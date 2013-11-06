@@ -6,8 +6,8 @@ describe TransactionMailer do
   include EmailSpec::Matchers
 
   context "seller notification" do
-    let ( :transaction ) { FactoryGirl.create :transaction_with_buyer }
-    let ( :seller_notification ) { TransactionMailer.seller_notification( transaction ) } 
+    let( :transaction ) { FactoryGirl.create :transaction_with_buyer }
+    let( :seller_notification ) { TransactionMailer.seller_notification( transaction ) }
     subject  { seller_notification }
 
     it "should be delivered to seller email" do
@@ -52,8 +52,8 @@ describe TransactionMailer do
   end
 
   context "buyer notification" do
-    let ( :transaction ) { FactoryGirl.create :transaction_with_buyer }
-    let ( :buyer_notitfication ) { TransactionMailer.buyer_notification( transaction ) }
+    let( :transaction ) { FactoryGirl.create :transaction_with_buyer }
+    let( :buyer_notitfication ) { TransactionMailer.buyer_notification( transaction ) }
     subject { buyer_notitfication }
 
     it "should be delivererd to buyer email" do
@@ -103,7 +103,7 @@ describe TransactionMailer do
     it "should contain link to transaction" do
       subject.should have_body_text( "transactions/#{transaction.id}" )
     end
-    
+
     # it "should contain string: Bitte gib bei..." do
     #   subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.transaction_id_info', id: transaction.id ) )
     # end
