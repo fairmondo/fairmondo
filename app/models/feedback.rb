@@ -27,7 +27,7 @@ class Feedback < ActiveRecord::Base
   end
   #! attr_accessible ...
 
-  enumerize :variety, in: [ :report_article, :get_help, :send_feedback ]
+  enumerize :variety, in: [ :report_article, :get_help, :send_feedback, :become_donation_partner ]
 
   enumerize :feedback_subject, in: [ :dealer, :technics, :other]
                                      #, :private, :buyer, :seller,:event, :cooperative, :hero, :ngo, :honor, :trust_community
@@ -37,21 +37,21 @@ class Feedback < ActiveRecord::Base
                                   #:comm_deal_fair, :comm_deal, :private_deal, :buy,:ngo, :honor, :trust_community
 
   # Validations
-  validates :text, presence: true
+  validates_presence_of :text
+  validates_presence_of :variety
+  validates_presence_of :from, if: :need_from
+  validates_presence_of :feedback_subject, if: proc { self.variety == 'send_feedback' }
+  validates_presence_of :help_subject, if: proc { self.variety == 'get_help' }
+  validates_presence_of :subject, if: :need_subject
 
-  validates :variety, presence: true
-
-  validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ },
-                   allow_blank: true
-  validates :feedback_subject, presence: true, if: lambda { self.variety == 'send_feedback' }
-  validates :help_subject, presence: true, if: lambda { self.variety == 'get_help' }
-  validates :subject, presence: true, unless: :is_report_article
+  validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, allow_blank: true
   validates :subject, length: { maximum: 254 }
 
   # validations for donation_partner
-  validates :forename, presence: true, if: lambda { self.variety == 'become_donation_partner' }
-  validates :lastname, presence: true, if: lambda { self.variety == 'become_donation_partner' }
-  validates :organisation , presence: true, if: lambda { self.variety == 'become_donation_partner' }
+  validates_presence_of :forename, if: proc { self.variety == 'become_donation_partner' }
+  validates_presence_of :lastname, if: proc { self.variety == 'become_donation_partner' }
+  validates_presence_of :organisation , if: proc { self.variety == 'become_donation_partner' }
+  validates :text, length: { minimum: 100 }, if: proc { self.variety == 'become_donation_partner' }
 
   #Relations
   belongs_to :user
@@ -86,7 +86,14 @@ class Feedback < ActiveRecord::Base
   private
     # For validation
     # @api private
-    def is_report_article
-      self.variety == 'report_article'
+
+    def need_subject
+      self.variety == 'send_feedback' ||
+      self.variety == 'get_help'
     end
+    def need_from
+      self.variety == 'become_donation_partner' ||
+      self.variety == 'get_help'
+    end
+
 end

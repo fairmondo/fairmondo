@@ -5,13 +5,21 @@ de:
       report_article: ""
       get_help: "Hilfe"
       send_feedback: "Feedback"
+      donation_partner: 'Spendenpartner*in werden'
     actions:
       get_help: "Hilfe anfragen"
       send_feedback: "Feedback senden"
-      get_donation_partner: "Spendenpartner*in werden"
+      get_donation_partner: "Formular senden"
     details:
       details_for_tech_support: "Technische Details für den IT - Support"
       last_uploaded_article_id: "ID des zuletzt vom User eingestellten Artikels"
       no_article_existent: "Kein Artikel vorhanden"
       user_not_logged_in: "User war nicht eingeloggt"
+    donation_partner:
+      intro1: 'Fairnopoly ist der neue Online-Marktplatz für alle. Neben einem fairen Unternehmensmodell und der gezielten Förderung von verantwortungsvollem Konsum bietet Fairnopoly außerdem die Möglichkeit, mit jedem Verkauf eine Organisation zu unterstützen, die sich ebenfalls für Fairness und Transparenz einsetzt!'
+      intro2: 'Du bist Vertreter*in einer gemeinnützigen Organisation und auf der Suche nach einem neuen Spendenkanal? Deine Organisation ist Unterzeichnerin der Initiative Transparente Zivilgesellschaft? Du hast Lust, ein neues, faires Unternehmen als Spendenpartner*in zu begleiten und damit neue Zielgruppen zu erreichen?'
+      intro3: 'Melde Dich gerne bei uns, indem Du folgendes Formular ausfüllst. Wir werden Dich dann mit weiteren Informationen kontaktieren. Wir freuen uns, von Dir zu hören!'
+
+
+
 
