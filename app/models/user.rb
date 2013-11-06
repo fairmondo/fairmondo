@@ -224,14 +224,10 @@ class User < ActiveRecord::Base
   end
 
   state_machine :seller_state, :initial => :standard_seller do
-    after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
+    after_transition any => :bad_seller, :do => :send_bad_seller_notification
 
     event :rate_up do
       transition bad_seller: :standard_seller
-    end
-
-    event :rate_down_to_bad_seller do
-      transition all => :bad_seller
     end
 
     event :block do
@@ -257,21 +253,6 @@ class User < ActiveRecord::Base
     RatingMailer.bad_seller_notification(self).deliver
   end
 
-  # Changes seller state depending on positive and negative ratings
-  # @api public
-  # @return [undefined]
-  def update_seller_state
-    if self.percentage_of_positive_ratings > 75
-      if self.percentage_of_positive_ratings > 90
-        upgrade_seller_state
-      else
-        self.rate_up
-      end
-    elsif self.percentage_of_negative_ratings > 25
-      self.rate_down_to_bad_seller
-    end
-  end
-
   def buyer_constants
     buyer_constants = {
       :not_registered_purchasevolume => 4,
@@ -288,8 +269,7 @@ class User < ActiveRecord::Base
 
     purchase_volume += buyer_constants[:trusted_bonus]      if self.trustcommunity
     purchase_volume *= buyer_constants[:good_factor]        if good_buyer?
-    purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
-    
+    purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer? 
     purchase_volume
   end
 
@@ -301,6 +281,7 @@ class User < ActiveRecord::Base
     self.paypal_account?
   end
 
+  # checks if user passes all neccessary validations before he can sell
   def can_sell?
     self.wants_to_sell = true
     can_sell = self.valid?

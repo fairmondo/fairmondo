@@ -26,10 +26,13 @@ class PrivateUser < User
     event :rate_up do
       transition :standard_seller => :good_seller
     end
-  end
 
-  def upgrade_seller_state
-    self.rate_up
+    event :update_seller_state do
+      transition all => :bad_seller, if: lambda { |user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
+    end
+
   end
 
   def private_seller_constants
