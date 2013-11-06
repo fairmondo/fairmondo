@@ -23,7 +23,7 @@ class Feedback < ActiveRecord::Base
 
   def self.feedback_attrs
     [:from, :subject, :text, :variety, :article_id, :feedback_subject,
-    :help_subject]
+    :help_subject, :forename, :lastname, :organisation, :phone]
   end
   #! attr_accessible ...
 
@@ -47,6 +47,12 @@ class Feedback < ActiveRecord::Base
   validates :help_subject, presence: true, if: lambda { self.variety == 'get_help' }
   validates :subject, presence: true, unless: :is_report_article
   validates :subject, length: { maximum: 254 }
+
+  # validations for donation_partner
+  validates :forename, presence: true, if: lambda { self.variety == 'become_donation_partner' }
+  validates :lastname, presence: true, if: lambda { self.variety == 'become_donation_partner' }
+  validates :organisation , presence: true, if: lambda { self.variety == 'become_donation_partner' }
+
   #Relations
   belongs_to :user
   belongs_to :article
