@@ -126,6 +126,12 @@ class Transaction < ActiveRecord::Base
     true
   end
 
+  # Should this Transaction be shown in the List
+  # Ducktyping see /models/article/state.rb
+  def show_in_list? is_dashboard=false
+    sold?
+  end
+
   def deletable?
     available?
   end

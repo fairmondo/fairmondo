@@ -36,4 +36,4 @@
         = f.actions do
           = f.action :submit , :button_html => {:class => "Btn" }, :label => t('rating.create.save')
     .Rating-right.Article--teaser
-      = render '/shared/show_article', :article=> resource.transaction.article
+      = render '/shared/show_article', :item => resource.transaction.article

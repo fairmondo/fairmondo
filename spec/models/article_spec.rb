@@ -79,7 +79,7 @@ describe Article do
           second_article = FactoryGirl.create :article, seller: db_article.seller
           db_article.seller.articles.reload
           db_article.count_value_of_goods
-          second_article.seller.value_of_goods_cents.should eq (db_article.price_cents + second_article.price_cents)
+          second_article.seller.value_of_goods_cents.should eq(db_article.price_cents + second_article.price_cents)
         end
 
         it " should not count up the value of active goods of this user" do
@@ -87,7 +87,7 @@ describe Article do
           third_article = FactoryGirl.create :preview_article, seller: db_article.seller
           db_article.seller.articles.reload
           db_article.count_value_of_goods
-          second_article.seller.value_of_goods_cents.should eq (db_article.price_cents + second_article.price_cents)
+          second_article.seller.value_of_goods_cents.should eq(db_article.price_cents + second_article.price_cents)
         end
       end
 

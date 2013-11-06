@@ -34,7 +34,7 @@
                   %section.l-ArticleList
                     - library.library_elements.each do |library_element|
                       %Article{:class => 'Grid Article Article--teaser'}
-                        = render :partial=>'/shared/show_article', :locals=>{ :article=> library_element.article}
+                        = render '/shared/show_article', :item=> library_element.article
     = paginate @libraries
   - else
     = t('libraries.no_library')
