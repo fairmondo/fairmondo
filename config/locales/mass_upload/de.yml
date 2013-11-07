@@ -5,6 +5,7 @@ de:
       uploaded_articles: "Hochgeladene Artikel"
       error_articles: "Artikel mit fehlerhaften Bilddateien"
     labels:
+      update_articles_via_csv: "Artikel per CSV-Datei bearbeiten"
       upload_article_via_csv: "Artikel per CSV-Datei importieren"
       upload_article: "Artikel hochladen"
       mass_activate_articles: "Alle Angebote gebührenpflichtig einstellen"
