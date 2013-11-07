@@ -46,6 +46,9 @@
   }
   .Accordion-content {
     display: block !important;
+    a {
+      color: $anchor-link; // Fixes ui
+    }
   }
 }
 

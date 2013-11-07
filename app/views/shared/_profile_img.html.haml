@@ -26,12 +26,12 @@
     - if user.is_pioneer?
       = image_tag "pionierbutton.png", :class => "pioneer-button"
     %a{:href => user_path(user)}
-      = image_tag(user.image_url(:profile), :class => "profile-pic")
+      = image_tag(user.image_url(:profile), :class => "User-profile-image")
   %p.User-name
     = user.name
     %br/
-    - if user.is_a?(LegalEntity)
-      = user.fullname
+    -# if user.is_a?(LegalEntity)
+    -#  = user.fullname
 
   %p.User-legal
 
@@ -47,3 +47,5 @@
       %a.Icon{:href => ""}
         %i.icon-user
         = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))
+
+  = render '/shared/ratings', user: user

@@ -27,7 +27,7 @@ describe ExportsController do
     describe "GET 'show' the errored articles" do
       before do
         article2 = FactoryGirl.create :article, seller: @user
-        article2.images.first.update_attribute(:failing_reason => "test")
+        article2.images.first.update_attribute(:failing_reason,"test")
       end
       it "should be successful" do
         time = Time.now

@@ -80,7 +80,6 @@ module Article::Commendation
     validates :small_and_precious_reason, :length => { :minimum => 150, :maximum => 2500 }, :if => :small_and_precious?
     #validates_presence_of :small_and_precious_handmade, :if => :small_and_precious?  # this allows only value true, but not false
     validates_inclusion_of :small_and_precious_handmade, :in => [true, false], :if => :small_and_precious?
-
   end
 
   def has_commendation?
@@ -88,17 +87,15 @@ module Article::Commendation
   end
 
   private
+    def remove_fair_trust_questionnaire_unless_required
+      self.fair_trust_questionnaire = nil unless self.fair_kind == "fair_trust"
+    end
 
-  def remove_fair_trust_questionnaire_unless_required
-    self.fair_trust_questionnaire = nil unless self.fair_kind == "fair_trust"
-  end
+    def remove_social_producer_questionnaire_unless_required
+      self.social_producer_questionnaire = nil unless self.fair_kind == "social_producer"
+    end
 
-  def remove_social_producer_questionnaire_unless_required
-    self.social_producer_questionnaire = nil unless self.fair_kind == "social_producer"
-  end
-
-  def delete_fair_kind_unless_fair
-    self.fair_kind = nil unless fair?
-  end
-
+    def delete_fair_kind_unless_fair
+      self.fair_kind = nil unless fair?
+    end
 end
