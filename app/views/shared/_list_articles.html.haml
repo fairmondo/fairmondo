@@ -22,6 +22,6 @@
 - list_class = "" if local_assigns[:list_class].nil?
 %section{ class: list_class }
 	- items.each do |item|
-		- if item.active? || dashboard
+		- if item.show_in_list? dashboard
 			%Article{ class: 'Grid Article Article--teaser' }
-				= render partial: '/shared/show_article', locals: { article: item }
+				= render (item.is_a?(Article) ? '/shared/show_article' : '/shared/show_transaction'), item: item

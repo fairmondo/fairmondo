@@ -10,6 +10,7 @@ de:
         explanations: Erläuterungen
         purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
       user:
+        contact_person: Ansprechperson
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername

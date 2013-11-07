@@ -19,9 +19,23 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- list_class = "" if local_assigns[:list_class].nil?
-%section{ class: list_class }
-	- items.each do |item|
-		- if item.sold? || :dashboard
-			%Article{ class: 'Grid Article Article--teaser' }
-				= render partial: '/shared/show_transaction', locals: { transaction: item }
+
+.Rating
+  .Rating-left
+    = render 'shared/profile_img', user: @user
+  .Rating-middle
+    - @ratings.each do |rating|
+      .Rating-show
+        .Rating-icon
+          %img{ :src => image_path('thumbs/'+rating.value+'.png'), :alt => "thumb" }
+        .Rating-user
+          %a{:href => user_path(rating.rating_user)}
+            = image_tag(rating.rating_user.image_url(:profile), :class => "Rating-user-image")
+        %p.Rating-text
+          %a{:href => user_path(rating.rating_user)}
+            = rating.rating_user.nickname
+          = " schrieb am " + rating.created_at.strftime("%d.%m.%Y") + ":"
+        %p.Rating-text
+          %q
+            = rating.text
+    = paginate @ratings
