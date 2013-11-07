@@ -25,19 +25,19 @@ module UsersHelper
   end
 
   def active_articles
-    resource.articles.where("state = ?", :active).includes(:seller, :images).page(params[:active_articles_page])
+    resource.articles.where("state = ?", :active).includes(:images,:seller).page(params[:active_articles_page])
   end
 
   def inactive_articles
-    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:seller,:images).page(params[:inactive_articles_page])
+    resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
   end
 
   def sold_transactions
-    resource.sold_transactions.includes(:buyer, :seller, :article).page(params[:sold_articles_page])
+    resource.articles.joins(:transaction).where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'").includes(:images,:seller).page(params[:sold_articles_page])
   end
 
   def bought_transactions
-    resource.bought_transactions.includes(:buyer, :seller, article: [:seller, :images]).page(params[:bought_articles_page])
+    resource.bought_transactions.joins(:article).includes(:buyer,:rating,:seller,:article => [:images]).page(params[:bought_articles_page])
   end
 
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link

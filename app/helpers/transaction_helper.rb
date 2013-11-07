@@ -91,6 +91,11 @@ module TransactionHelper
     end
   end
 
+  def display_article_link article
+    tablerow(
+      t('transaction.edit.article_link'), (link_to article.title, article)
+    )
+  end
 
   def display_quantity_bought quantity
     tablerow(
@@ -140,7 +145,8 @@ module TransactionHelper
   #
   # @return [String, nil] Display HTML if there is something to display
   def display_basic_price
-    if (price = resource.article_basic_price) > 0
+    price = resource.article_basic_price
+    if price && price > 0
       tablerow(
         t('transaction.edit.basic_price'),
         (

@@ -1,0 +1,211 @@
+//
+// index
+//
+
+// General
+// -----------------------------------
+.Teaser {
+	@include rem(padding, 10px 20px);
+	color: #3c3c3c;
+	border-radius: 8px;
+	background: #fff;
+  margin-bottom: em(38);
+	.Icon [class^="icon-"] {
+		display: block;
+		@include rem(margin, 20px auto);
+	}
+  @include clearfix;
+
+  .Article {
+    margin-bottom: 1em;
+  }
+
+}
+
+.Teaser-header {
+  @include at-breakpoint($layout-huge) {
+    @include rem(font-size, 25px);
+  }
+  .Btn-tag--medium {
+    font-size: 0.9em;
+    margin:0px;
+  }
+  color:$lightgray;
+  @include rem(padding, 10px 0px);
+  font-weight: normal;
+}
+
+// Layouts
+// -----------------------------------
+
+// Generic Double View
+.l-Teaser--double{
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(2,4);
+  }
+  @include at-breakpoint($layout-small) {
+    Article{
+      @include span-columns(1,2);
+      @include nth-omega(2n);
+    }
+  }
+}
+
+.l-Teaser--collapsible {
+   @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+    @include omega;
+    Article {
+      width:100%;
+    }
+  }
+
+}
+
+.l-Teaser--single {
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1,2);
+  }
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(1,4);
+  }
+}
+
+
+
+// Specific Layouts
+//------------------------------------------------
+
+.l-Teaser--queues {
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+}
+
+.l-Teaser--counters{
+  @include at-breakpoint($layout-small-to-large) {
+    @include omega;
+  }
+}
+
+.l-Teaser--participate {
+  @include at-breakpoint($layout-small-to-large) {
+    clear:both;
+  }
+  @include at-breakpoint($layout-huge) {
+    clear:both;
+  }
+}
+
+.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+  @include at-breakpoint($layout-huge) {
+    @include omega;
+  }
+}
+
+// Text teasers
+// ------------------------------------
+
+.Teaser--text {
+  text-align:center;
+}
+
+.Teaser .Btn {
+  @include rem(margin-top, 4px);
+}
+
+// Counters --------------------------------------
+//
+
+.Teaser--counter {
+	// move padding from container to child els
+	padding: 0;
+	p {
+	  @include rem(padding, 0px 20px);
+	}
+}
+
+.Teaser-total {
+  @include rem(font-size, 40px);
+  @include rem(padding, 8px);
+  @extend %Semibold;
+  background-color: $green;
+  color: #fff;
+}
+
+.Teaser-total--number {
+    @include rem(padding, 10px 20px);
+    @include rem(margin-bottom,10px)
+}
+
+.Teaser-total--articles {
+	margin-bottom: 30px;
+}
+
+.Teaser-total--user {
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+
+// News Teaser
+//-------------------------------------------------
+
+.Teaser-news {
+  p {
+    text-align:left;
+  }
+  h2 {
+    margin-bottom: em(10);
+  }
+}
+
+.Teaser-hide {
+  background: none ;
+}
+
+// Top Queue Teaser
+//----------------------------------
+
+.Teaser-queue {
+  @include at-breakpoint($layout-small-to-huge) {
+    @include span-columns(1,2);
+    @include nth-omega(2n);
+  }
+
+  @include at-breakpoint($layout-huge){
+    @include span-columns(1,4);
+    @include nth-omega(4n);
+  }
+}
+
+.Teaser-more {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  text-align: center;
+  > a.Btn {
+    width:90%;
+    font-size: 1.1em;
+  }
+}
+
+// Welcome Teaser
+// -------------------------------------
+
+.l-Teaser--welcome {
+  color: $blue;
+  @include rem(font-size, 18px);
+  @include rem(font-size, $font-size-m);
+}
+
+.Teaser-image {
+  margin-bottom: 1.5em;
+  width: 80%;
+}
+

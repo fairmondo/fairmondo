@@ -36,23 +36,21 @@ module Article::Images
 
     has_many :images, as: :imageable #has_and_belongs_to_many :images
 
+    delegate :external_url, to: :title_image, :prefix => true
 
     accepts_nested_attributes_for :images, allow_destroy: true
 
     validate :only_one_title_image
 
+    validates :images, :size => {
+      :in => 0..5 # lower to 3 if the old 5 article pics are all gone
+    }
+
     # Gives first image if there is one
     # @api public
     # @return [Image, nil]
     def title_image
-      images.each do |image|
-        return image if image.is_title
-      end
-      if images.empty?
-        return nil
-      else
-        return images[0]
-      end
+      images.title_image || images[0]
     end
 
     def title_image_url type = nil
@@ -61,6 +59,14 @@ module Article::Images
       else
         "missing.png"
       end
+    end
+
+    def title_image_present?
+      title_image && title_image.image.present?
+    end
+
+    def title_image_pending?
+      title_image && title_image.pending?
     end
 
     IMAGE_COUNT.times do |number|
@@ -72,6 +78,13 @@ module Article::Images
       thumbnails = self.images.where(:is_title => false)
       thumbnails.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
+    end
+
+    def images_pending?
+      self.images.each do |image|
+        return true if image.pending?
+      end
+      false
     end
 
     def only_one_title_image
@@ -88,19 +101,54 @@ module Article::Images
       add_image(image_url, true)
     end
 
-    def add_image(image_url, is_title)
-      # bugbug refactor asap
+    def add_image(image_url, should_be_title)
+      return unless image_url
+
+      self.images.each do |image|
+        if image.is_title == should_be_title
+          if image.external_url == image_url
+            return
+          else
+            image.delete
+          end
+        end
+      end
+
+      # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        image = Image.new(:image => URI.parse(image_url))
-        image.is_title = is_title
+        image = Image.new
+        image.is_title = should_be_title
         image.external_url = image_url
         image.save
         self.images << image
-      elsif image_url !=~ URI::regexp && is_title == true
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_external_title_image_url'))
-      elsif image_url !=~ URI::regexp && is_title == false
-        self.errors.add(:base, I18n.t('mass_upload.errors.wrong_image_2_url'))
+      elsif image_url !=~ URI::regexp && should_be_title == true
+        self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
+      elsif image_url !=~ URI::regexp && should_be_title == false
+        self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
+
+
+    def extract_external_image!
+      self.images.each do |image|
+        unless image.image.present? # don't do anything if image is already present
+          begin
+            unless image.update_attributes(:image => URI.parse(image.external_url))
+               image_error image, image.errors.messages[:image].join(" ")
+            end
+          rescue
+           image_error image, I18n.t('mass_upload.errors.load_error')
+          end
+        end
+      end
+    end
+    handle_asynchronously :extract_external_image!
+
   end
+
+  def image_error image , message
+    image.update_column(:failing_reason, message)
+    self.seller.unique_notify I18n.t('mass_upload.errors.image_errors'),Rails.application.routes.url_helpers.image_errors_mass_uploads_path, :error
+  end
+
 end

@@ -1,0 +1,90 @@
+//
+// Config
+//
+
+// Compass settings
+$support-for-original-webkit-gradients: false;
+
+// $legacy-support-for-ie: false; // IE6 & IE7
+$legacy-support-for-ie6: false; // Don't waste bits on IE6
+$legacy-support-for-ie7: false; // Don't waste bits on IE7
+$experimental-support-for-opera: false; // Because they've switched to Webkit
+
+// Typography
+$base-font-size: 14px;
+$base-font-size-unitless: 14;
+$base-line-height-unitless: 1.3;
+$pBottomMargin: 0.78em;
+//$base-line-height: $base-font-size * $base-line-height-unitless;
+
+$font-header: Georgia, serif;
+$font-body: "Open Sans", Helvetica, sans-serif;
+
+$font-size-xxl: 40px;
+$font-size-xl: 30px;
+$font-size-l: 25px;
+$font-size-m: 14px;
+$font-size-s: 13px;
+$font-size-xs: 10.5px;
+
+
+// Layout with Susy
+$total-columns: 4;
+$column-width: em(245);
+$gutter-width: em(40);
+$grid-padding: em(40);
+
+// Small version
+$small-columns: 2;
+// Medium version
+$medium-columns: 3;
+// Large version
+$large-columns: 4;
+
+// Breakpoints
+$breakpoint-small: 460;
+$breakpoint-medium: 680;
+$breakpoint-large: 960;
+$breakpoint-huge: 1200;
+
+//$container-width: em($breakpoint-large);
+$layout-small: em($breakpoint-small) lt-ie9;
+$layout-medium: em($breakpoint-medium) lt-ie9;
+$layout-large: em($breakpoint-large) lt-ie9;
+$layout-huge: em($breakpoint-huge) lt-ie9;
+
+// From - To - Breakpoints
+$layout-small-to-medium: em($breakpoint-small) em($breakpoint-medium) lt-ie9;
+$layout-medium-to-large: em($breakpoint-medium) em($breakpoint-large) lt-ie9;
+$layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-small-to-large: em($breakpoint-small) em($breakpoint-large) lt-ie9;
+$layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-small-to-huge: em($breakpoint-small) em($breakpoint-huge) lt-ie9;
+$layout-medium-to-huge: em($breakpoint-medium) em($breakpoint-huge) lt-ie9;
+
+// Colors
+$blue: #3a80c2;
+$red: #a14d3f;
+$warningred: #cc0000;
+$orange: #f56900;
+$lightgreen: #a6b40a;
+$lightblue: #4a9bff;
+$green: #718b46;
+$lightgreen: #1bb531;
+
+$white: #ffffff;
+$black: #2e2e2e;
+$gray: #959595;
+$lightgray: #b4b4b4;
+$darkgray: #525252;
+
+$beige: #ede8e2;
+$lightbeige: #f4f1ee;
+$darkbeige: #e2d9d0;
+
+$anchor-link: $blue;
+$anchor-visited: darken($blue, 10);
+$anchor-hover: $blue;
+$anchor-active: $blue;
+
+$text-color: $black;

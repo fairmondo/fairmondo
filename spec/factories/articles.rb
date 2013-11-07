@@ -29,7 +29,7 @@ FactoryGirl.define do
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
     condition_extra {[:as_good_as_new, :as_good_as_warranted, :used_very_good, :used_good, :used_satisfying, :broken].sample}
-    price_cents { Random.new.rand(500000)+1 }
+    price_cents { Random.new.rand(40000)+1 }
     vat {[0,7,19].sample}
     quantity 1
     state "active"
@@ -43,6 +43,7 @@ FactoryGirl.define do
     payment_cash true
 
     payment_details "payment_details"
+
     after(:build) do |article|
       article.images << FactoryGirl.build(:image)
       article.activate
@@ -58,9 +59,15 @@ FactoryGirl.define do
     end
 
     factory :preview_article do
-       after(:build) do |article|
-         article.state = "preview"
-       end
+      after(:build) do |article|
+        article.state = "preview"
+      end
+    end
+
+    factory :closed_article do
+      after(:build) do |article|
+        article.state = "closed"
+      end
     end
 
     factory :social_production do
@@ -182,6 +189,10 @@ FactoryGirl.define do
 
     trait :without_build_transaction do
       skip_build_transaction true
+    end
+
+    trait :with_custom_seller_identifier do
+      custom_seller_identifier {Faker::Lorem.words(rand(3..5))}
     end
   end
 end

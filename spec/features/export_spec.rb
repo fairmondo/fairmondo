@@ -5,11 +5,11 @@ include CategorySeedData
 
 describe "Export" do
 
-  let (:private_user)       { FactoryGirl.create :private_user }
-  let (:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
+  let(:private_user)       { FactoryGirl.create :private_user }
+  let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
   # legal_entity = FactoryGirl.create :legal_entity, :paypal_data
 
-  let (:legal_entity_buyer) { FactoryGirl.create :legal_entity }
+  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity }
 
   subject { page }
 
@@ -36,8 +36,8 @@ describe "Export" do
 
       before do
         attach_file('mass_upload_file',
-                    'spec/fixtures/mass_upload_correct_export_test.csv')
-        click_button I18n.t('mass_upload.labels.upload_article')
+                    'spec/fixtures/mass_upload_correct_upload_export_test.csv')
+        click_button I18n.t('mass_uploads.labels.upload_article')
       end
 
       describe "visting the new_article_path" do
@@ -60,7 +60,7 @@ describe "Export" do
 
       describe "when exporting active articles" do
         before do
-          click_button I18n.t('mass_upload.labels.mass_activate_articles')
+          click_button I18n.t('mass_uploads.labels.mass_activate_articles')
         end
 
         it "should be equal to the uploaded file" do
@@ -71,7 +71,7 @@ describe "Export" do
 
       describe "when exporting (fair_trust)" do
         before do
-          click_button I18n.t('mass_upload.labels.mass_activate_articles')
+          click_button I18n.t('mass_uploads.labels.mass_activate_articles')
           @transaction = FactoryGirl.create :single_transaction, :sold, article: legal_entity.articles.last, :buyer => legal_entity_buyer
           @article = legal_entity.articles.last
           @article.update_attribute :state, 'sold'
@@ -113,8 +113,8 @@ describe "Export" do
 
       before do
         attach_file('mass_upload_file',
-                    'spec/fixtures/export_social_producer.csv')
-        click_button I18n.t('mass_upload.labels.upload_article')
+                    'spec/fixtures/export_upload_social_producer.csv')
+        click_button I18n.t('mass_uploads.labels.upload_article')
       end
 
       describe "when exporting inactive articles" do

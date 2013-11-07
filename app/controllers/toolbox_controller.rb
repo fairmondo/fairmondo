@@ -1,7 +1,9 @@
+require 'rss'
+
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_filter :authenticate_user!, only: [ :session,:confirm ]
+  skip_before_filter :authenticate_user!, only: [ :session,:confirm,:rss ]
 
   def session
     respond_to do |format|
@@ -14,6 +16,20 @@ class ToolboxController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def rss
+    rss = RSS::Parser.parse(open('http://info.fairnopoly.de/?feed=rss').read,false)
+    @items = rss.items.first(3)
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
+
+  def notice
+    notice = Notice.find params[:id]
+    notice.update_attribute(:open,false)
+    redirect_to URI.parse(notice.path).path
   end
 
 end

@@ -5,7 +5,7 @@ class Exhibit < ActiveRecord::Base
     [:article, :queue, :related_article,:article_id,:related_article_id]
   end
 
-  enumerize :queue, in: [:pioneer,:dream_team,:newest,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights]
+  enumerize :queue, in: [:pioneer,:dream_team,:old,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights,:queue1,:queue2,:queue3,:queue4]
 
   belongs_to :article
   belongs_to :related_article, class_name: "Article"
@@ -29,16 +29,23 @@ class Exhibit < ActiveRecord::Base
     articles
   end
 
+  # Currentlyonly works for independent queues
+  def self.all_from queue,page
+    Article.joins(:exhibits).where("exhibits.queue = ?", queue).where(" articles.state = 'active' ").page page
+  end
+
   def set_exhibition_date
     if self.exhibition_date == nil
-       self.update_attribute(:exhibition_date,DateTime.now)
+       # Because of the join the exhibition is readonly
+       # As this should only happen the first time an article is exhibited we can find it again
+       Exhibit.find(self.id).update_attribute(:exhibition_date, DateTime.now)
     end
   end
 
   scope :one_day_exhibited, lambda {where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
   scope :oldest_first, order("exhibits.created_at ASC")
 
-  scope :article_active, where(" articles.state = 'active' ").includes(:article => [:images,:seller])
-  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").includes(:related_article => [:images,:seller])
+  scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
+  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
 
 end

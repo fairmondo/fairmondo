@@ -16,6 +16,7 @@ de:
       address: "Deine Rechnungs- und Lieferadresse:"
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       # step 2
+      article_link: "Dein Artikel mit Artikeldetails:"
       purchase_data: "Deine Bestellangaben: "
       quantity_bought: "Artikelanzahl: "
       payment_type: "Bezahlmethode: "
@@ -30,7 +31,9 @@ de:
       price_per_unit: "Verkaufspreis pro Stück: "
       sales_price: "Verkaufspreis gesamt: "
       total_price: "Gesamt: "
-      fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}!"
+      fair_percent: "Durch Deinen Kauf ermöglichst Du eine Spende von %{donation}."
+      friendly_percent: " Zusätzlich werden %{percent}% an %{ngo} gespendet."
+      ngo_percent: "100% des Erlöses gehen an %{ngo}."
       net: "Nettopreis: "
       vat: "(zzgl. %{percent} % MwSt.): "
       number_of_shipments: "Anzahl von Sendungen*: "
@@ -54,6 +57,10 @@ de:
         congratulation: "Herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly.de verkauft. Wir haben Dir bereits eine Email mit allen Daten zur Bestellung zugeschickt."
         congratulation_invoice: "Bitte füge dem Artikel eine Rechnung mit detailierten Zahlungsanweisungen hinzu."
         cash_questions: "Der*die Käufer*in wird sich mit Dir in Verbindung setzen um einen Übergabetermin zu vereinbaren. Alternativ kannst Du den*die Käufer*in auch kontaktieren."
+    completed:
+      show_bought: "Deine Bestellung anschauen"
+      rate: "Verkäufer bewerten"
+      show_sold: "Deinen Verkauf anschauen"
     errors:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
@@ -62,6 +69,8 @@ de:
       combination_invalid: 'Bei der Versandmethode "%{selected_transport}" kann die Bezahloption "%{selected_payment}" nicht ausgewählt werden.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"
+      print_order:
+        buyer: 'Deine Bestellung drucken'
   #   bid:
   #     smaller-than-prev: "Ihr Gebot ist geringer oder identisch mit einem existierenden Gebot. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
   #     smaller-than-init:  "Ihr Gebot ist geringer als der geforderte Preis. Bitte versuchen Sie es erneut mit einem höheren Gebot!"
@@ -75,6 +84,7 @@ de:
         seller_subject: "Artikel auf Fairnopoly verkauft"
         seller_text: "herzlichen Glückwunsch, Du hast einen Artikel auf Fairnopoly verkauft! \nAlle Bestelldaten der Käufer*in sind unten für Dich zusammengefasst.\n\nDein Fairnopoly Team"
         seller_fee_text: "Deine Verkaufsgebühren und Spenden, welche zum nächsten Abrechnungstermin durch die Fairnopoly eG von Deinem Konto eingezogen werden: "
+        seller_friendly_fee_text: "Du hast dich dafür entschieden %{friendly_percent}% an %{ngo} zu spenden. Dies entspricht einem Betrag von %{friendly_percent_amount}. Für alle Deine zusätzlichen Spenden, bekommst du eine weitere Zahlungsaufforderung von der Fairnopoly eG."
         order_infos: "Angaben zum verkauften Artikel: "
         transaction_id_info: "Bitte gib bei Kommunikation mit der*dem Käufer*in folgende Transaktionsnummer an: %{id}"
         shipping_request: "Bitte versende den/die gekauften Artikel umgehend an: "

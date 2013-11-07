@@ -29,7 +29,11 @@ Fairnopoly::Application.routes.draw do
 
   resources :article_templates, :except => [:show, :index]
 
-  resources :mass_uploads, :only => [:new, :create, :show, :update]
+  resources :mass_uploads, :only => [:new, :create, :show, :update] do
+    collection do
+      get 'image_errors'
+    end
+  end
 
   get 'exports/show'
 
@@ -40,6 +44,8 @@ Fairnopoly::Application.routes.draw do
   namespace :toolbox do
     get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
     get 'confirm' , constraints: {format: 'js'}
+    get 'rss'
+    get 'notice/:id', action: "notice", as: 'notice'
   end
 
   namespace :bank_details do
@@ -61,7 +67,7 @@ Fairnopoly::Application.routes.draw do
       put 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
       get 'print_order_buyer'
-      get 'print_order_seller'
+      #get 'print_order_seller'
     end
   end
 
@@ -78,6 +84,9 @@ Fairnopoly::Application.routes.draw do
   resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
+    resources :ratings, :only => [:create, :index] do
+      get '/:transaction_id', to: 'ratings#new', as: 'transaction', on: :new
+    end
     collection do
       get 'login'
     end

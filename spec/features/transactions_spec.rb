@@ -262,8 +262,8 @@ describe 'Transaction' do
             end
 
             context "for MultipleFixedPriceTransactions" do
-              let (:article) { FactoryGirl.create :article, :with_larger_quantity }
-              let (:transaction) { article.transaction }
+              let(:article) { FactoryGirl.create :article, :with_larger_quantity }
+              let(:transaction) { article.transaction }
 
               it "should reduce the number of items" do
                 visit edit_transaction_path transaction
@@ -515,8 +515,10 @@ describe 'Transaction' do
   describe "#show" do
     context "for a logged-in user" do
       context "when the transaction is sold" do
-        let (:transaction) { FactoryGirl.create :single_transaction, :sold }
-        let (:buyer)       { transaction.buyer }
+        let(:transaction) { FactoryGirl.create :single_transaction, :sold }
+        let(:buyer)       { transaction.buyer }
+        let(:seller)      { transaction.seller }
+
 
         context "and the user is the buyer" do
           before do
@@ -537,6 +539,12 @@ describe 'Transaction' do
             page.should have_link transaction.article.title
             page.should have_link transaction.article_seller_nickname
           end
+
+          it "should be possible to see the printed version of the order details" do
+            click_link I18n.t("transaction.actions.print_order.buyer")
+            page.should have_content I18n.t('transaction.notifications.buyer.buyer_text')
+          end
+
         end
 
         context "but the current user isn't the one who bought" do

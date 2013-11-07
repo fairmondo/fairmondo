@@ -33,7 +33,7 @@ describe ArticlesController do
       before :each do
         setup_categories
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
-        @article  = FactoryGirl.create(:second_hand_article, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) )
+        @article  = FactoryGirl.create(:second_hand_article, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) , :content => "muscheln am meer")
         Sunspot.commit
       end
 
@@ -45,6 +45,29 @@ describe ArticlesController do
       it "should find the article with title 'muscheln' when searching for muschel" do
         get :index, :article => {:title => "muschel" }
         controller.instance_variable_get(:@articles).should == [@article]
+      end
+
+      it "should find the article with content 'meer' when searching for meer" do
+        get :index, :article => {:title => "meer" , :search_in_content => "1"}
+        controller.instance_variable_get(:@articles).should == [@article]
+      end
+
+      context "when try a different search order" do
+        before :each do
+          @article2  = FactoryGirl.create(:article, :price_cents => (@article.price_cents + 2))
+          Sunspot.commit
+        end
+
+        it "order by price asc" do
+          get :index, :article => {:search_order_by => "cheapest"}
+          controller.instance_variable_get(:@articles).should == [@article,@article2]
+        end
+
+        it "order by price desc" do
+          get :index, :article => {:search_order_by => "most_expensive"}
+          controller.instance_variable_get(:@articles).should == [@article2,@article]
+        end
+
       end
 
       context "when filtering by categories" do
@@ -168,18 +191,18 @@ describe ArticlesController do
 
     before :each do
       @article  = FactoryGirl.create :article
-      @article_social_production = FactoryGirl.create :social_production
-      @article_fair_trust = FactoryGirl.create :fair_trust
     end
 
     describe "for all users" do
 
       it "should be successful" do
+        @article_fair_trust = FactoryGirl.create :fair_trust
         get :show, id: @article_fair_trust
         response.should be_success
       end
 
       it "should be successful" do
+        @article_social_production = FactoryGirl.create :social_production
         get :show, id: @article_social_production
         response.should be_success
       end
@@ -194,13 +217,13 @@ describe ArticlesController do
         response.should render_template :show
       end
 
-      # it "should render the :show view" do
-      #   @article.deactivate
-      #   @article.close
-      #   expect {
-      #   get :show, id: @article
-      #   }.to raise_error ActiveRecord::RecordNotFound
-      # end
+      it "should render 404 on closed article" do
+        @article.deactivate
+        @article.close
+        expect { get :show, id: @article}.to raise_error ActiveRecord::RecordNotFound
+
+      end
+
     end
 
     # describe "for signed-in users" do
@@ -275,8 +298,6 @@ describe ArticlesController do
       context 'his articles' do
         before :each do
           @article = FactoryGirl.create :preview_article, seller: user
-
-
         end
 
         it "should be successful for the seller" do

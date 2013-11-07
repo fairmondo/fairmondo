@@ -1,0 +1,42 @@
+.Rating-user{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(1,4);
+  }
+}
+.Rating-form{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(2,4);
+/*    padding: 10px 40px;*/
+  }
+}
+.Rating-article{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(1 omega,4);
+  }
+}
+
+.Rating-form li.choice{
+  @include at-breakpoint($layout-small)
+  {
+    @include span-columns(2,7);
+  }
+}
+.Rating-textarea{
+  height: 170px;
+}
+.Rating-form img{
+  width: 35px;
+}
+.Rating-index img{
+  width: 30px;
+}
+.Rating-save{
+  float: right;
+}
+.Rating-icon img{
+  width: 18%;
+  float: right;
+}

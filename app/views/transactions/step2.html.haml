@@ -143,15 +143,14 @@
             %h3
               = I18n.t 'transaction.edit.price_heading'
 
-
             %table#Article-price-table
               %colgroup
                 %col{width: 220}
                 %col{width: 300}
+
+              = display_article_link @transaction.article
               = display_quantity_bought quantity
-
               = display_price_per_unit
-
               = display_sales_price quantity
 
               - if resource.article_seller.is_a? LegalEntity
@@ -161,7 +160,12 @@
               = display_basic_price
 
             %small{ :class => 'SmallText' }
-              = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+              - if resource.article_seller.ngo
+                = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
+              - else
+                = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+              - if resource.article.has_friendly_percent? && resource.article.donated_ngo
+                = t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
 
 
           %hr
