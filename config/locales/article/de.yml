@@ -17,6 +17,7 @@ de:
       inactive: "Alle nicht eingestellten Artikel als CSV Datei exportieren"
       sold: "Alle verkauften Artikel als CSV exportiernen"
       bought: "Alle gekauften Artikel als CSV exportieren"
+      error_articles: "Fehlerhafte Artikel als CSV exportieren"
   article:
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
@@ -35,12 +36,15 @@ de:
       will_be: " werden an "
       donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairnopoly-Gebühren an."
+      donate_ngo_short_html: "100% gehen an %{ngo}"
+      friendly_percent_html: "%{percent}% werden an %{ngo} gespendet"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
       title_addition: " zu kaufen bei Fairnopoly"
       alternative: "Faire Alternative"
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
+      images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -60,12 +64,12 @@ de:
         fixed_price: "Festpreis"
         preview: "Vorschau - wird bei Launch freigeschaltet"
       errors:
-        invalid_transport_option: "Bitte gib mindestens eine Versandoption an."
-        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an."
-        paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein."
-        bank_details_missing: "Bitte gib Deine Bankdaten an."
+        invalid_transport_option: "Bitte gib mindestens eine Versandoption an"
+        invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
+        paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein"
+        bank_details_missing: "Bitte gib Deine Bankdaten an"
         social_producer_questionnaire:
-          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'."
+          no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'"
         only_one_title_image: "Nur ein Bild kann Titelbild sein!"
     labels:
       shipping_options: "Versandoptionen:"
@@ -99,7 +103,7 @@ de:
       upload: "Hochladen"
     titles:
       new: "Artikel einstellen"
-      edit: "Artikel editieren"
+      edit: "Artikel bearbeiten"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
       sunspot_failure: "Suche nicht verfügbar"
@@ -121,7 +125,7 @@ de:
         mass_upload_title: "Deine Gebühren und Spenden bei Verkauf <b>aller</b> Artikel"
         fair_percent: "Das faire Prozent (1%):"
         mass_upload_fair_percent: "Das faire Prozent (1%) bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl):"
-        friendly_percent: "Das faire Prozent:"
+        friendly_percent: "Deine Spende:"
         fee: "Gebühr bei Verkauf   (%{fee} - max. %{max}, min. € 0,10):"
         total_fee_mass_upload: "Gebühr bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl)"
         total: "Gesamt bei Verkauf, inkl. 19% MwSt:"

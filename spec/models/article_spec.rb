@@ -205,7 +205,7 @@ describe Article do
       end
 
       describe "#transport_provider" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return an article's type1 transport provider" do
           article.transport_provider("type1").should eq 'DHL'
@@ -221,7 +221,7 @@ describe Article do
       end
 
       describe "#total_price" do
-        let (:article) { FactoryGirl.create :article, :with_all_transports }
+        let(:article) { FactoryGirl.create :article, :with_all_transports }
 
         it "should return the correct price for cash_on_delivery payments" do
           expected = article.price + article.transport_type1_price + article.payment_cash_on_delivery_price
@@ -299,6 +299,26 @@ describe Article do
           end
           article.save
           article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
+        end
+
+      end
+      describe "#extract_external_image!" do
+        let(:article) { FactoryGirl.create :article,:without_image}
+        before do
+          @image = Image.create(:external_url => "http://www.test.com/test.png")
+          article.images << @image
+        end
+        it "should save failure reasons for asynchronous images" do
+          URI.should_receive(:parse).and_raise(IOError)
+          article.extract_external_image!
+          @image.reload.failing_reason.should_not be nil
+        end
+
+        it "should save failure reasons for asynchronous images 2" do
+          @image.should_receive(:update_attributes).and_return(false)
+          URI.should_receive(:parse).and_return("lala") #just to stub out the call to IO
+          article.extract_external_image!
+          @image.reload.failing_reason.should_not be nil
         end
 
       end
