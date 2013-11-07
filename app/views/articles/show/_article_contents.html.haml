@@ -36,8 +36,10 @@
 %figure.Article-image
   - if resource.title_image_present?
     / The next line is for providing the proper title image to facebook
-    - provide( :title_image, resource.title_image.image.url(:medium) )
-    = link_to image_tag(resource.title_image.image.url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image.image.url(:original) , {:class => "colorbox", :rel => "gallery"}
+    - provide( :title_image, resource.title_image_url(:medium) )
+    = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
+  - elsif resource.title_image_pending?
+    = link_to image_tag("pending.png", :class=> "title_image") , resource.title_image_external_url, {:class => "colorbox", :rel => "gallery"}
   - else
     = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .Article-info
@@ -81,14 +83,22 @@
           = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", :style => "margin:5px;"
 
   .Article-info--left
+    - if resource.images_pending?
+      %p.Thunbnail-pending= t('article.show.images_pending')
+    .Thumbnail-container
+      - resource.thumbnails.each do |image|
+        - if image.pending?
+          = link_to image_tag("pending.png"), image.external_url , :class => "colorbox Thumbnail", :rel => "gallery"
+        - else
+          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.image.url(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
     - if resource.seller.ngo
       .Article-friendly
         %p
           =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
+        - if resource.has_friendly_percent? && resource.donated_ngo
+          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+
     -else
-      .Thumbnail-container
-        - resource.thumbnails.each do |image|
-          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png"), :class=> "title_image"), image ? image.image.url(:original) : "/assets/missing.png", {:class => "colorbox Thumbnail", :rel => "gallery"}
       .Article-friendly
         %p.Highlight
 
@@ -96,6 +106,10 @@
           %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
         %p
           =t('article.show.donate_html')
+
+        - if resource.has_friendly_percent? && resource.donated_ngo
+          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+
     %p
       -#Accordion--activated.Article-tags
       = commendation_labels_for resource

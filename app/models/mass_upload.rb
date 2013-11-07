@@ -27,6 +27,10 @@ class MassUpload
 
   include Checks, Questionnaire, FeesAndDonations
 
+  def self.mass_upload_attrs
+    [:file]
+  end
+
   def self.header_row
    ["title", "categories", "condition", "condition_extra",
     "content", "quantity", "price_cents", "basic_price_cents",
@@ -71,7 +75,7 @@ class MassUpload
   attr_accessor :file
   attr_reader   :errors, :articles
 
-  def parse_csv_for(user)
+  def parse_csv_for user
 
     unless file_selected?
       return false
@@ -93,25 +97,20 @@ class MassUpload
       return false
     end
 
-    build_articles_for(user)
-
-    unless articles_valid?
+    unless build_articles_for user
       return false
     end
 
     save_articles!
 
-    @articles.each do |article|
-      article.extract_external_image!
-    end
-
     true
   end
 
 
-  def build_articles_for(user)
+  def build_articles_for user
     @articles = []
-    @csv.each do |row|
+    valid = true
+    @csv.each_with_index do |row,index|
       row_hash = row.to_hash
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
@@ -121,25 +120,15 @@ class MassUpload
       Questionnaire.add_commendation!(article)
       revise_prices(article)
       article.categories = categories if categories
-      @articles << article
-    end
-  end
-
-  def articles_valid?
-    valid = true
-    @articles.each_with_index do |article, index|
-      if article.errors.full_messages.any?
-        add_article_error_messages(article, index)
-        valid = false
-      end
-
       if article.invalid?
         add_article_error_messages(article, index)
         valid = false
       end
+      @articles << article
     end
     return valid
   end
+
 
   def add_article_error_messages(article, index)
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
@@ -156,22 +145,15 @@ class MassUpload
     @articles.each do |article|
       article.calculate_fees_and_donations
       article.save!
+      article.extract_external_image!
     end
   end
 
   def revise_prices(article)
-    unless article.basic_price
-      article.basic_price = 0
-    end
-    unless article.transport_type1_price_cents
-      article.transport_type1_price_cents = 0
-    end
-    unless article.transport_type2_price_cents
-      article.transport_type2_price_cents = 0
-    end
-    unless article.payment_cash_on_delivery_price_cents
-      article.payment_cash_on_delivery_price_cents = 0
-    end
+    article.basic_price ||= 0
+    article.transport_type1_price_cents ||= 0
+    article.transport_type2_price_cents ||= 0
+    article.payment_cash_on_delivery_price_cents ||= 0
   end
 
   # The following 3 methods are needed for Active Model Errors

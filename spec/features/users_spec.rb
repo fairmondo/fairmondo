@@ -282,7 +282,7 @@ describe 'User management' do
       end
 
       context "for private users" do
-        let (:user) { FactoryGirl.create :private_user }
+        let(:user) { FactoryGirl.create :private_user }
         it "should not show the legal_user's specific data and fields" do
           login_as user
           visit edit_user_registration_path user
@@ -305,36 +305,36 @@ end
 describe "Pioneer of the day" do
 
   context "is a private user" do
-    let (:user) { FactoryGirl.create :private_user }
-    let (:article) { FactoryGirl.create :article, :user_id => user.id }
+    let(:user) { FactoryGirl.create :private_user }
+    let(:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.nickname
+      page.should have_css '.Teaser-link', text: user.nickname
     end
 
     it "should not show the users city" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should_not have_css '.DoubleTeaser-link', text: user.city
+      page.should_not have_css '.Teaser-link', text: user.city
     end
   end
 
   context "is a legal entity" do
-    let (:user) { FactoryGirl.create :legal_entity, city: "Berlin", company_name: "Fairnopoly eG" }
-    let (:article) { FactoryGirl.create :article, :user_id => user.id }
+    let(:user) { FactoryGirl.create :legal_entity, city: "Berlin", company_name: "Fairnopoly eG" }
+    let(:article) { FactoryGirl.create :article, :user_id => user.id }
 
     it "should show the users nickname" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.nickname
+      page.should have_css '.Teaser-link', text: user.nickname
     end
 
     it "should show the users city" do
       FactoryGirl.create(:exhibit, :article => article)
       visit root_path
-      page.should have_css '.DoubleTeaser-link', text: user.city
+      page.should have_css '.Teaser-link', text: user.city
     end
   end
 end

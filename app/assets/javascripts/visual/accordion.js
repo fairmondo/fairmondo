@@ -31,9 +31,11 @@ $(function() {
 	$(".Accordion--containsArticles").on("accordionactivate", function(event,ui) { $('.l-ArticleList').masonry(); });
 
 	$(".Accordion--scrollToActive").on("accordionactivate", function(event,ui) {
-    	$('html, body').animate({
-        scrollTop: ui.newHeader.offset().top
-    }, 100);
+		if(ui.newHeader.length != 0) {
+	    	$('html, body').animate({
+	        	scrollTop: ui.newHeader.offset().top
+	    	}, 100);
+    	}
      });
 	$(".Accordion").removeClass("ui-accordion ui-widget ui-helper-reset");
 	$(".Accordion-header").removeClass("ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-corner-top ui-accordion-icons ui-state-focus");

@@ -80,6 +80,8 @@ class User < ActiveRecord::Base
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
+  has_many :notices
+
   ##
   has_one :image, as: :imageable
   accepts_nested_attributes_for :image
@@ -119,7 +121,6 @@ class User < ActiveRecord::Base
   validates :about_me, :length => { :maximum => 2500 }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
-
 
   # Return forename plus surname
   # @api public
@@ -189,6 +190,11 @@ class User < ActiveRecord::Base
   end
 
 
+  def self.sorted_ngo
+    self.order(:nickname).where(:ngo => true)
+  end
+
+
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_standard_seller do
@@ -254,6 +260,43 @@ class User < ActiveRecord::Base
     can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
+  end
+
+  # Notify the user of an asynchron event
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def notify message, path , color=:notice
+    self.notices.create :message => message, :open => true, :path => path, :color => color
+  end
+
+  # Notify the user of an asynchron event
+  # Do not notify twice
+  # @api public
+  # @param message [String] Message that is shown to a user
+  # @param color [Symbol] see NoticeHelper for the different types of flash notices
+  # @param path [String] the Path (relative URL) to which the message should lead the user
+  def unique_notify message, path , color=:notice
+    unless Notice.where(:message => message).where(:open => true).any?
+      self.notices.create :message => message, :open => true, :path => path, :color => color
+    end
+  end
+
+  # Returns the next open notice of this user
+  # @api public
+  # @return [Notice] the notice
+  def next_notice
+    self.notices.where(:open => true).first
+  end
+
+  # hashes the ip-addresses which are stored by devise :trackable
+  def last_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
+  end
+
+  def current_sign_in_ip= value
+    super Digest::MD5.hexdigest(value)
   end
 
   private

@@ -118,6 +118,9 @@ group :development, :test do
   gem 'capybara'
   gem "ZenTest"
 
+  # Gem for testing emails
+  gem "email_spec"
+
   # Code Coverage
   gem 'simplecov'
   gem 'coveralls', require: false
@@ -141,7 +144,7 @@ group :development, :test do
   gem 'thin'
 
   # Notify about n+1 queries
-  gem 'bullet'
+  gem 'bullet', github: 'flyerhzm/bullet'
 end
 
 group :development do
