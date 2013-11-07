@@ -20,19 +20,25 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %figure.Article-image
-  = link_to image_tag(transaction.article.title_image_url(:thumb)), article_path(transaction.article)
+  = link_to image_tag(item.article.title_image_url(:thumb)), article_path(item.article)
 
 .Article-info
-  %h3.Articles-title= link_to truncate( transaction.article_title, :length => 25), article_path( transaction.article )
-  %p.Article-price= humanized_money_with_symbol transaction.article.price
-  = render 'articles/show/vat', :article => transaction.article
-  = render '/articles/show/basic_price', :article => transaction.article
-  - if user_signed_in? && transaction.buyer == current_user
+  %h3.Articles-title= link_to truncate( item.article_title, :length => 25), article_path( item.article )
+  %p.Article-price= humanized_money_with_symbol item.article.price
+  = render 'articles/show/vat', :article => item.article
+  = render '/articles/show/basic_price', :article => item.article
+  - if user_signed_in? && item.buyer == current_user
     %p
-    = link_to "Deine Bestellung anschauen", transaction_path(transaction)
-  - if user_signed_in? && transaction.seller == current_user
+    = link_to t('transaction.completed.show_bought'), transaction_path(item)
+    - if item.rating
+      %p.Rating-icon
+        %img{ :src => image_path('thumbs/'+item.rating_value+'.png'), :alt => "thumb" }
+    - else
+      %p
+      = link_to t('transaction.completed.rate'), transaction_new_user_rating_path(item.seller, item)
+  - if user_signed_in? && item.seller == current_user
     %p
-    = link_to "Deinen Verkauf anschauen", transaction_path(transaction)
+    = link_to t('transaction.completed.show_sold'), transaction_path(item)
 .Article-tags
-  = condition_label transaction.article
-  = commendation_labels_for transaction.article
+  = condition_label item.article
+  = commendation_labels_for item.article

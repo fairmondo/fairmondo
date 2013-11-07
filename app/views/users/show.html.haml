@@ -37,5 +37,5 @@
       = render "article_templates/table", :article_templates => resource.article_templates.includes(:article)
 - else
   .User-articles
-    = render '/shared/list_articles', items: active_articles
+    = render '/shared/list_articles', items: active_articles, dashboard: false
   = paginate active_articles, param_name: "active_articles_page"

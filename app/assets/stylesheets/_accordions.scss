@@ -1,0 +1,138 @@
+//
+// Accordions.scss
+//
+
+.Accordion {
+	float: left;
+	width: 100%;
+}
+.Accordion-header {
+	@extend .Btn;
+	@extend .Btn-accordion;
+	@include pie-clearfix;
+	@include rem(font-size, $font-size-s);
+	margin-bottom: -0.2em;
+	outline: 0;
+	background: $btn--blue !important;
+	border: 0px solid !important;
+	&:hover {
+		background-color: lighten($tag--blue, 5%) !important;
+	}
+	.icon-arrow {
+		float: left;
+	}
+	.content {
+		@include rem(line-height, 15px);
+	}
+	.number {
+		@include rem(font-size, $font-size-l);
+		display: inline-block;
+		padding: 0;
+		@include rem(margin-top, -6px);
+	}
+	.icon-helper {
+		float: right;
+		// this is to fix the size of the accardio that was
+		// bigger when the icon-helper was in (that when in
+		// was not)
+		@include rem(margin-bottom, -3px);
+		@include rem(margin-top, -3px);
+	}
+}
+
+.Accordion-item--errors {
+  .Accordion-header {
+    background: $red !important;
+  }
+  .Accordion-content {
+    display: block !important;
+    a {
+      color: $anchor-link; // Fixes ui
+    }
+  }
+}
+
+.Accordion-header.Btn-accordion--number {
+	.content {
+		display: inline-block;
+		width: 80%;
+	}
+}
+
+.Accordion-content {
+	@include border-bottom-radius(.9em);
+	padding: ($gutter-width / 2);
+	overflow: auto;
+	background-color: $white;
+	border: 0px solid !important;
+	.Articles--list li {
+		@include span-columns(2, 2);
+	}
+}
+.Accordion-box {
+	@include span-columns(1, 2);
+	&:last-child {
+		@include span-columns(1 omega, 2);
+	}
+	.Accordion-box {
+		@include span-columns(1, 2);
+		&:last-child {
+			@include span-columns(1 omega, 2);
+		}
+	}
+}
+.Accordion-item {
+	margin-bottom: 25px;
+	outline: 0;
+}
+.Accordion-step {
+	border-bottom: solid 2px $beige;
+	margin-bottom: em(15);
+	overflow: auto;
+}
+
+// Remove the last border
+.Accordion-content .input:last-of-type .Accordion-step:last-of-type {
+	border-bottom: 0;
+	margin-bottom: 0;
+
+	// dirty exception
+	.plain_check_box {
+		padding-bottom: em(15);
+	}
+}
+
+
+//
+// Media Queries
+//
+.Accordion-content {
+	@include at-breakpoint($layout-small) {
+		.Articles--list li {
+			@include span-columns(1, 2);
+			&:nth-child(2n) { @include omega; }
+		}
+	}
+}
+.Accordion {
+	@include at-breakpoint($layout-large) {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.Btn-accordion--number .Accordion-header .content {
+	@include at-breakpoint($layout-large) {
+		white-space: normal;
+		width: 58%;
+	}
+}
+
+.User-additional .Accordion-item .Article--teaser,.Libraries .Accordion-item .Article--teaser  {
+	@include at-breakpoint($layout-large) {
+		@include span-columns(1, 4);
+		&:nth-child(4n) {
+			@include omega;
+		}
+	}
+}

@@ -24,9 +24,13 @@ class WelcomeController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index,:feed]
 
   def index
-    @dream_team = Exhibit.relation_queue :dream_team
+    @queue1 = Exhibit.independent_queue :queue1,1
+    @queue2 = Exhibit.independent_queue :queue2,1
+    @queue3 = Exhibit.independent_queue :queue3,1
+    @queue4 = Exhibit.independent_queue :queue4,1
+    @old = Exhibit.independent_queue :old
+    @eco = Exhibit.independent_queue :ecologic_highlights
     @pioneer = Exhibit.independent_queue :pioneer
-    @newest = Exhibit.independent_queue :newest
   end
 
   # Rss Feed

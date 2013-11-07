@@ -20,6 +20,7 @@
  * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
@@ -47,6 +48,7 @@
 //= require models/article/search_input
 //= require models/article/toggle
 //= require models/article/titleimage
+//= require models/article/friendly_percent
 //= require models/library/libraries
 //= require models/user/login
 
@@ -66,3 +68,5 @@
 //= require inputs/bank_details
 
 //= require customize/rails-confirm
+
+//= require lazy/feed

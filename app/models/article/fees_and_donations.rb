@@ -33,6 +33,10 @@ module Article::FeesAndDonations
   included do
     #! attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
+    #def self.fees_and_donation_attrs
+    #[:friendly_percent, :friendly_percent_organisation]
+    #end
+
     # Fees and donations
     monetize :calculated_fair_cents, :allow_nil => true
     monetize :calculated_friendly_cents, :allow_nil => true
@@ -40,10 +44,11 @@ module Article::FeesAndDonations
 
      ## friendly percent
 
-    validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 100, :only_integer => true
-    enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
-    validates_presence_of :friendly_percent_organisation, :if => :friendly_percent
-    validates :friendly_percent_organisation, :length => { :maximum => 500 }
+    #validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 100, :only_integer => true
+    #enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
+    #validates_presence_of :friendly_percent_organisation, :if => :has_friendly_percent?
+    #validates_presence_of :friendly_percent
+    #validates :friendly_percent_organisation, :length => { :maximum => 500 }
 
   end
 
@@ -52,6 +57,10 @@ module Article::FeesAndDonations
   # def friendly_percent_calculated
   #   Money.new(friendly_percent_result_cents)
   # end
+
+  def has_friendly_percent?
+     self.friendly_percent.present? && self.friendly_percent > 0
+  end
 
   def calculated_fees_and_donations
     self.calculated_fair + self.calculated_friendly + self.calculated_fee
@@ -89,8 +98,8 @@ private
     # At the moment there is no friendly percent
     # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
     #(self.price_cents * (self.friendly_percent / 100.0)).ceil
-    # Set for NGO to 0 !!
-    0
+    # NGOs are allowed to give donation to other NGO
+    (self.price_cents * (self.friendly_percent / 100.0)).ceil
   end
 
   ## fees and donations

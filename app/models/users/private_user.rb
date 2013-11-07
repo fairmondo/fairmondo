@@ -23,6 +23,7 @@ class PrivateUser < User
   extend STI
 
 
+
   state_machine :seller_state, :initial => :standard_seller do
 
     event :rate_up_to_good_seller do
@@ -30,23 +31,29 @@ class PrivateUser < User
     end
   end
 
+  def upgrade_seller_state
+    self.rate_up_to_good_seller
+  end
+
   def private_seller_constants
     private_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 10,
-      :trusted_bonus => 20,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
+      :verified_bonus => $private_seller_constants['verified_bonus'],
+      :trusted_bonus => $private_seller_constants['trusted_bonus'],
+      :good_factor => $private_seller_constants['good_factor'],
+      :bad_salesvolume => $private_seller_constants['bad_salesvolume']
     }
   end
 
-  def sales_volume
-    ( bad_seller? ? ( private_seller_constants[:standard_salesvolume] / private_seller_constants[:bad_factor] ) :
-    ( private_seller_constants[:standard_salesvolume] +
+  def max_value_of_goods_cents
+    bad_seller? ? private_seller_constants[:bad_salesvolume] :
+    (( private_seller_constants[:standard_salesvolume] +
     ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +
     ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
     ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
   end
+
+
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name

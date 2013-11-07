@@ -25,10 +25,10 @@ include Warden::Test::Helpers
 
 describe 'Article management' do
   include CategorySeedData
-  let (:article) { FactoryGirl.create :article }
-  let (:article_active) { FactoryGirl.create :article, :user_id => user.id }
-  let (:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
-  let (:user) { FactoryGirl.create :user }
+  let(:article) { FactoryGirl.create :article }
+  let(:article_active) { FactoryGirl.create :article, :user_id => user.id }
+  let(:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
+  let(:user) { FactoryGirl.create :user }
 
   context "for signed-in users" do
 
@@ -142,12 +142,59 @@ describe 'Article management' do
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
         end
 
+        context "for private users" do
+          let(:user) { FactoryGirl.create :private_user }
+
+          it "should have the default maximum for value of goods" do
+            user.max_value_of_goods_cents.should eq 500000
+          end
+
+          it "should add the bonus to the maximum for value of goods" do
+
+            user.max_value_of_goods_cents.should eq 500000
+          end
+
+          it "should fail to create an article, if the value of goods crosses its max value of goods" do
+            article = FactoryGirl.create :article, :user_id => user.id
+            article.update_attribute(:price_cents, 600000)
+            article2 = FactoryGirl.create :article, :user_id => user.id
+            visit new_article_path
+            page.should have_content I18n.t('article.notices.max_limit')
+          end
+
+          it "should add bonus to max value of goods" do
+            user.update_attribute(:max_value_of_goods_cents_bonus, 200000)
+            article = FactoryGirl.create :article, :user_id => user.id
+            article.update_attribute(:price_cents, 600000)
+            article2 = FactoryGirl.create :article, :user_id => user.id
+            visit new_article_path
+            page.should_not have_content I18n.t('article.notices.max_limit')
+          end
+        end
+
+        context "for legal entities" do
+          let(:user) { FactoryGirl.create :legal_entity }
+
+          it "should have the default maximum for value of goods" do
+            user.max_value_of_goods_cents.should eq 500000
+          end
+
+          it "should fail to create an article, if the value of goods crosses its max limit" do
+            article = FactoryGirl.create :article, :user_id => user.id
+            article.update_attribute(:price_cents, 510000)
+            article2 = FactoryGirl.create :article, :user_id => user.id
+            # Capybara.current_session.driver.header 'Referer', root_url
+            visit new_article_path
+            page.should have_content I18n.t('article.notices.max_limit')
+          end
+        end
       end
     end
 
     describe "article search", search: true do
       before do
         article = FactoryGirl.create :article, title: 'chunky bacon'
+        #FactoryGirl.create :article
         Sunspot.commit
         visit root_path
       end

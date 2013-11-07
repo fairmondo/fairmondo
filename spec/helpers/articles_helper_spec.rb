@@ -40,11 +40,11 @@ describe ArticlesHelper do
      end
 
     it "should return 'kostenfrei'" do
-      helper.options_format_for("transport","pickup","").should match /(kostenfrei)/
+      helper.options_format_for("transport","pickup","").should match(/(kostenfrei)/)
     end
 
     it "should return 'zzgl.'" do
-      helper.options_format_for("transport","type2","").should match /zzgl. /
+      helper.options_format_for("transport","type2","").should match(/zzgl. /)
     end
 
   end
@@ -86,7 +86,8 @@ describe ArticlesHelper do
       end
       context "dont find fair alternative in categories with misc content" do
         before do
-          @other_category  = FactoryGirl.create(:category,:name => "Sonstiges")
+
+          @other_category  = Category.other_category || FactoryGirl.create(:category,:name => "Sonstiges")
           @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories_and_ancestors => [@other_category,FactoryGirl.create(:category)]
           @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories_and_ancestors => [@other_category]
 

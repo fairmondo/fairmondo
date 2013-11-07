@@ -1,0 +1,62 @@
+//
+// Feedback
+//
+
+
+// form
+// -----------------------------------
+
+.Feedback-form {
+  @include span-columns(4, 4);
+  @include at-breakpoint($layout-small) {
+    @include span-columns(2, 4);
+  }
+}
+
+
+// buttons
+// -----------------------------------
+
+.l-Feedback {
+  @include at-breakpoint(30em) {
+    display: inline-block;
+    position: fixed;
+    top: 50%;
+    @include rem(right, -196px);
+    z-index: 99;
+    @include transform(rotate(-90deg));
+    @include transition(right 100ms ease-in);
+  }
+}
+
+.Feedback {
+  &.Btn {
+    &:hover {
+      @include rem(top, -2px);
+      text-decoration: none;
+    }
+    @include rem(font-size, 13px);
+    color: #434343;
+    margin: 0;
+    background-color: transparent;
+    padding: 0 em(15,17) 0 0;
+    i {
+      display: none;
+    }
+    @include at-breakpoint(30em) {
+      padding: em(0,17) em(15,17) em(9,17);
+      background-color: $blue;
+      color: white;
+      @include rem(font-size, 17px);
+      i {
+        display: inline-block;
+      }
+    }
+  }
+  &.Btn--green{
+    @include at-breakpoint(30em) {
+      background-color: $green;
+    }
+
+  }
+}

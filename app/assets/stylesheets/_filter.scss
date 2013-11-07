@@ -1,0 +1,127 @@
+//
+// Filter
+//
+
+
+.Filter {
+	@include pie-clearfix;
+	clear: both;
+	position: relative;
+	> .Filter-inner {
+		max-height: 0px;
+		overflow: hidden;
+		background-color: $darkbeige;
+		.Filter-btn {
+      display:none;
+    }
+	}
+
+}
+.Filter.is-active {
+	> .Filter-inner {
+		@include transition(max-height 1s);
+		max-height: 999px;
+		.Filter-btn {
+			display:block;
+		}
+	}
+	.Btn-accordion .icon-arrow-down {
+		@include rotate(180deg);
+	}
+}
+
+.Filter-inner {
+   padding-top: 1em;
+}
+
+
+.Filter-title {
+	@include rem(font-size, 17px);
+	@extend %Semibold;
+	position: relative;
+	margin-top: 1em;
+	@include rem(margin-bottom, 12px !important);
+	.icon-helper {
+		position: absolute;
+		top: 0em;
+		right: -2em;
+	}
+}
+.Filter .Btn-accordion {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: $lightgray;
+	color: #fff;
+	text-align: center;
+	.icon-arrow-down {
+		display: block;
+		margin: 0 auto;
+		height: 8px;
+		@include transition(all 200ms);
+	}
+}
+
+.Filter-col {
+  margin-bottom: 2em;
+  //border-right: 1px solid black;
+  // Clear Formtastic
+  input {
+    float: left;
+    clear: left;
+    width: auto;
+    margin-bottom: 0;
+    }
+  label , label.label {
+    width: auto;
+    color: $black;
+    @include rem(margin-top, 13px);
+    }
+
+  // 2 Columns on small to large layout
+	@include at-breakpoint($layout-small-to-large) {
+		@include span-columns(1,2);
+		&:nth-child(2n) {
+			@include span-columns(1 omega,2);
+		}
+	}
+
+	// 6 columns on large layout
+	@include at-breakpoint($layout-large) {
+		@include span-columns(2,12);
+		padding-right: em(40);
+
+    &:nth-child(3)
+    {
+      @include span-columns(3,12);
+
+    }
+
+    &:nth-child(4) {
+       @include span-columns(3,12);
+    }
+
+    &:nth-child(5) {
+      @include omega;
+      padding-right:0em;
+    }
+
+	}
+}
+
+// Special for ZIPs
+
+#article_search_for_zip_input {
+  label.label {
+    float:left !important;
+  }
+  input {
+    display:inline;
+    float:none;
+    width: 5em;
+    margin-left:1em;
+    height: 2em;
+    padding: 0 em(10px);
+    @include rem(margin-top, 7px);
+  }
+
+}

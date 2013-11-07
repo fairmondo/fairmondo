@@ -36,9 +36,10 @@
     %dd
       = humanized_money_with_symbol resource.calculated_fair
 
-    -#%dt
-      -#= t('article.preview.fees_and_donations.friendly_percent')
-    -#%dd= humanized_money_with_symbol resource.calculated_friendly
+    %dt
+      = t('article.preview.fees_and_donations.friendly_percent')
+    %dd= humanized_money_with_symbol resource.calculated_friendly
+
     %dt.is-green
       = t('article.preview.fees_and_donations.total')
       %i.icon-helper{title: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen."}
@@ -61,4 +62,4 @@
   - if resource.is_available?
     %a= link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
   - else
-    %a= button_to t("article.labels.submit"), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    %a= button_to (resource.seller.ngo ? t("article.labels.submit_free") : t("article.labels.submit")), article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put

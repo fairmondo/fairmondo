@@ -1,7 +1,9 @@
 de:
-  mass_upload:
+  mass_uploads:
     titles:
+      upload_report: "CSV-Upload Ergebnis"
       uploaded_articles: "Hochgeladene Artikel"
+      error_articles: "Artikel mit fehlerhaften Bilddateien"
     labels:
       upload_article_via_csv: "Artikel per CSV-Datei importieren"
       upload_article: "Artikel hochladen"
@@ -12,13 +14,25 @@ de:
     errors:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein"
       wrong_file_size: "Aktuell können maximal 100 Artikel pro Datei hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."
-      missing_file: "Bitte wähle eine CSV-Datei aus"
-      wrong_header: 'Die ersten Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten (inkl. der exakten Reihenfolge), z.B. "title" in Spalte A).'
+      missing_file: "Bitte wähle eine CSV-Datei aus."
+      wrong_mime_type: 'Die Datei ist keine CSV-Datei. Bitte überprüfe auch, ob sie die Endung ".csv" trägt.'
+      wrong_header: 'Die erste Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten.'
       wrong_article: "Zeile %{index}: %{message}"
       wrong_article_message: "Content muss ausgefüllt werden"
       wrong_external_title_image_url: "external_title_image_url ist keine gültige Url"
       wrong_image_2_url: "image_2_url ist keine gültige Url"
       missing_payment_details: 'Bitte ergänze Deine <a href="%{link}" class="accordion-anchor">Zahlungsoptionen (%{missing_payment})</a>.'
       illegal_quoting: 'Es wurden in der Datei scheinbar Anführungszeichen nach US-amerikanischem Standard genutzt (""). Da diese auch zum auskommentieren der Trennzeichen benutzt werden, können sie nicht richtig verabreitet werden. Bitte ersetze sie durch Anführungszeichen nach deutschem Standard („“).'
+      load_error: "Bilddatei konnte nicht herruntergeladen werden."
+      image_errors: "Ein oder mehrere Bilder von Artikeln die Du per CSV hochgeladen hast konnten nicht verarbeitet werden. Klicke auf Weiter um diese Artikel anzusehen."
+      unknown_action: "Die für diesen Artikel angegebene Aktion (Spalte 'action') ist nicht bekannt."
+      no_identifier: "Keine Identifikationsnummer (Spalte 'id' oder Spalte 'custom_seller_identifier') wurde für diesen Artikel angegeben obwohl die angegebene Aktion darauf hinweist, das sich der Artikel bereits im System befindet."
+      article_not_found: "Unter der angegebenen Identifikationsnummer  (Spalte 'id' oder Spalte 'custom_seller_identifier') konnte kein Artikel gefunden werden."
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
+    boxes:
+      created: 'Hochgeladene Artikel'
+      updated: 'Editierte Artikel'
+      activated: 'Aktivierte Artikel'
+      deactivated: 'Deaktivierte Artikel'
+      deleted: 'Gelöschte Artikel'
