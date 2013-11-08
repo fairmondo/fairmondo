@@ -340,3 +340,24 @@
   padding-left: 10px;
 }
 
+.pioneer-button{
+  position: absolute;
+}
+
+.User-image .pioneer-button{
+  height: 60px;
+  left: -20px;
+  top: 120px;
+  width: 60px;
+}
+
+
+.User-image{
+  position: relative;
+}
+
+.User-profile-image{
+  @include border-radius(.8em);
+}
+
+
