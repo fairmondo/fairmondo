@@ -42,6 +42,7 @@
     = stylesheet_link_tag 'application'
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+
     %noscript
       = stylesheet_link_tag 'noscript'
     = javascript_include_tag :application
@@ -190,3 +191,23 @@
       %p
         %img{ src: "http://kiwi.fairnopoly.de/piwik.php?idsite=1", style: "border:0", alt: " " }
     / End Piwik Code
+
+    / Slideshow
+    :css
+      /* Prevents slides from flashing */
+      #slides {
+        display:none;
+      }
+
+    %script{ :src => "http://code.jquery.com/jquery-1.9.1.min.js" }
+    = javascript_include_tag 'jquery.slides.min.js'
+
+    :javascript
+      $(function() {
+        $("#slides").slidesjs({
+          width: 940,
+          height: 528,
+        });
+      });
+
+    / End Slideshow
