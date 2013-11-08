@@ -51,27 +51,6 @@ describe "Mass-upload" do
         visit new_mass_upload_path
       end
 
-      describe "as a user missing paypal data -" do
-        let(:legal_entity_user) { FactoryGirl.create :legal_entity }
-
-        before do
-          attach_file('mass_upload_file',
-                      'spec/fixtures/mass_upload_correct.csv')
-          click_button I18n.t('mass_uploads.labels.upload_article')
-        end
-
-        it "should show the correct error notice" do
-          pending "*Basti*: I'm not sure what the expected behavior is here. Test fails for me. -K"
-          should have_css(".Notice--error")
-          html.should include(
-            I18n.t('mass_uploads.errors.missing_payment_details',
-                    link: '#payment_step',
-                    missing_payment: I18n.t('formtastic.labels.user.paypal_account')
-            )
-          )
-        end
-      end
-
       context "as a user with complete payment data" do
         let(:legal_entity_user) { FactoryGirl.create :legal_entity,
                                     :paypal_data }

@@ -134,6 +134,7 @@ de:
         total_all_articles: "Gesamt bei Verkauf aller Artikel (gemäß der angegebenen Stückzahl) inkl 19% MwSt:"
         quarter_fee: "Zzgl. der Quartalsgebühr von 1,- Euro (inkl. 19% MwSt)."
         netto: "Nettobetrag:"
+        total_fee_all_articles: "Deine Gebühren und Spenden beim Verkauf aller Artikel belaufen sich inkl. Mwst. auf:"
 
       double_check:
         title: Alle Angaben überprüft?
