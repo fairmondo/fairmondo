@@ -29,7 +29,7 @@ de:
       unknown_action: "Die für diesen Artikel angegebene Aktion (Spalte 'action') ist nicht bekannt."
       no_identifier: "Keine Identifikationsnummer (Spalte 'id' oder Spalte 'custom_seller_identifier') wurde für diesen Artikel angegeben obwohl die angegebene Aktion darauf hinweist, das sich der Artikel bereits im System befindet."
       article_not_found: "Unter der angegebenen Identifikationsnummer  (Spalte 'id' oder Spalte 'custom_seller_identifier') konnte kein Artikel gefunden werden."
-      no_activate_content: 'Es wurden keine Artikel geändert. Bitte nutzen sie die Spalte "activate" um die Artikel vom Marktplatz zu nehmen, zu bearbeiten, einzustellen oder zu löschen.'
+      no_activate_content: 'Es wurden keine Artikel geändert. Bitte nutze die Spalte "action" um Artikel vom Marktplatz zu nehmen, zu bearbeiten, einzustellen oder zu löschen.'
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
     boxes:
