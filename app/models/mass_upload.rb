@@ -83,7 +83,6 @@ class MassUpload
     ]
   end
 
-
   def initialize(attributes = nil)
     @errors = ActiveModel::Errors.new(self)
 
@@ -126,7 +125,6 @@ class MassUpload
     true
   end
 
-
   def build_articles_for user
     @articles = []
     valid = true
@@ -154,7 +152,6 @@ class MassUpload
     end
     return valid
   end
-
 
   def add_article_error_messages(article, index)
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
