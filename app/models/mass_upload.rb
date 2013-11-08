@@ -143,7 +143,6 @@ class MassUpload
         article.user_id = user.id
         revise_prices(article)
         article.categories = categories if categories
-
         if article.was_invalid_before? # invalid? call would clear our previous base errors
                                        # fix this by generating the base errors with proper validations
                                        # may be hard for dynamic update model

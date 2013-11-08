@@ -69,7 +69,6 @@ class ArticlesController < InheritedResources::Base
 
   def new
     authorize build_resource
-
     ############### From Template ################
     if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
       @article = @applied_template.article.amoeba_dup
