@@ -1,4 +1,4 @@
-#
+# See http://rails-bestpractices.com/posts/19-use-observer
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,32 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Library < ActiveRecord::Base
-  extend Sanitization
 
-  def self.library_attrs
-    [:name, :public, :user, :user_id]
+class LibraryElementObserver < ActiveRecord::Observer
+
+  # A new Element updates the Library in general
+  def after_save(library_element)
+    library_element.library.update_attribute(:updated_at, Time.now) if library_element.library
   end
-  auto_sanitize :name
-  #! attr_accessible *library_attributes
-  #! attr_accessible *library_attributes, :as => :admin
-
-  delegate :nickname, :to => :user, :prefix => true
-
-  validates :name,:user, :presence => true
-
-  validates :name, :uniqueness => {:scope => :user_id}, length: { :maximum => 25}
-
-
-
-  #Relations
-
-  belongs_to :user
-
-  has_many :library_elements, dependent: :destroy
-  has_many :articles, through: :library_elements
-
-  scope :public, where(public: true)
-  default_scope order('updated_at DESC')
 
 end

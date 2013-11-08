@@ -31,7 +31,7 @@ class LibrariesController < InheritedResources::Base
 
   def index
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new( current_user, @user, end_of_association_chain.includes(library_elements: [:library, :article]) ).resolve.page(params[:page])
+    @libraries = LibraryPolicy::Scope.new( current_user, @user, end_of_association_chain.includes(:user => [:image],:library_elements => [:article => [:images,:seller]] )).resolve.page(params[:page])
 
     render :global_index unless user_focused?
   end

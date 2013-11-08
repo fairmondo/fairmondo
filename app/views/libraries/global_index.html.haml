@@ -23,9 +23,7 @@
       - @libraries.each do |library|
         - unless library.new_record?
           - unless library.library_elements.empty?
-            = accordion_item "library"+library.id.to_s , :title => library.name  do
-              = t('common.text.glue.from') + " "
-              = link_to( library.user_nickname, user_path(library.user))
+            = accordion_item "library"+library.id.to_s , :title => library_header_layout(library), :arrow => false, :number => library.library_elements.count  do
               %p
                 .Library-ArticleList.Libraries-settings-clear
                   %section.l-ArticleList
