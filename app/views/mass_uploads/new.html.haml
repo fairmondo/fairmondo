@@ -1,52 +1,28 @@
-%h1 Beta-Funktion: Artikel per CSV-Datei importieren oder bearbeiten
+%h1 Jetzt neu: Artikel per CSV-Datei importieren oder bearbeiten
 
 %p
-  Bevor Du dieses Feature nutzt, lies bitte aufmerksam die aktuelle Version der
+  Bevor Du dieses Feature nutzt, lies bitte aufmerksam die
+  %b aktuelle Version
+  der
   %a{ :href => '/csv-upload-documentation.pdf', target: "_blank" } Dokumentation
-  und orientiere Dich an der aktuellen Version der
-  %a{ :href => '/csv_upload_sample_06.csv', target: "_blank" } Musterdatei.
-  Die aktuellen Versionen dieser Dateien tragen die Versionsnummer 0.6.
+  und orientiere Dich an der
+  %b aktuellen Version
+  der
+  %a{ :href => '/csv_upload_sample_07.csv', target: "_blank" } Musterdatei.
+  Die aktuellen Versionen dieser Dateien tragen die
+  %b Versionsnummer 0.7.
 
 %p
-  Bitte beachte, dass sich die CSV-Upload-Funktion noch im Beta-Stadium befindet, d.h. unter
-  Umständen Fehler auftreten können. Wir empfehlen, zunächst testweise nur kleinere
-  Artikelmengen einzustellen, und die eingestellten Artikel zu überprüfen.
-  Bei Problemen kontaktiere uns einfach unter
+  Bitte beachte, dass sich die CSV-Upload-Funktion noch im Beta-Stadium
+  befindet, d.h. unter   Umständen Fehler auftreten können. Wir empfehlen,
+  zunächst testweise nur kleinere   Artikelmengen einzustellen, und die
+  eingestellten Artikel zu überprüfen. Bei Problemen kontaktiere uns einfach unter
   %a{ :href => "mailto:kundenservice@fairnopoly.de" } kundenservice@fairnopoly.de.
 %p
-  Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
-  10000 pro Datei begrenzt!
-
-%br
-%h2 Neu: Artikel per CSV-Datei bearbeiten und löschen
-
-%p
-  Bereits erstellte Artikel können nun auch bearbeitet werden. Nutze dafür das neue "action"
-  Feld. Wenn Du deine Artikel in deinem Profil exportierst, wird dieses Feld mit angelegt. Außerdem werden nun auch die IDs der Artikel mit im Export ausgegeben.
-
-%p
-  %strong Artikel einstellen:
-  Nicht eingestellte Artikel können mit der action "a" oder "activate" aktiviert werden.
-
-%p
-  %strong Artikel vom Marktplatz nehmen:
-  Bereits eingestellte Artikel können mit der action "d" oder "deactivate" wieder vom Marktplatz genommen werden. Sie werden dabei nicht komplett gelöscht.
-
-%p
-  %strong Artikel löschen:
-  Um beliebige Artikel komplett zu löschen, gebe als action "x" oder "delete" ein. Achtung: Du wirst nicht noch einmal nach Bestätigung gefragt.
-
-%p
-  %strong Artikel bearbeiten:
-  Verändere von einem exportierten Artikel die entsprechenden Felder in der CSV-Datei und gib als action "u" oder "update" an. Achte darauf, dass bereits auf dem Marktplatz eingestellte Artikel dadurch wie bei manueller Bearbeitung automatisch vom Marktplatz genommen, bearbeitet, und wieder neu eingestellt werden. Durch diesen Vorgang werden Artikel auch beispielsweise aus Sammlungen verschwinden.
-
-%p
-  %strong Artikel neu eintellen:
-  Eine CSV Datei nach dem alten Schema ohne existierendes "ID" und "action" Feld wird weiterhin automatisch neue Artikel erstellen. Existiert eine ID und es soll trotzdem ein neuer Artikel daraus entstehen, kann als action "c" oder "create" eingegeben werden.
-
-%p
-  %strong Sonstiges:
-  Um bearbeitende Aktionen auf Artikeln ausführen zu können, ist eine ID notwendig. Es kann jedoch auch das custom_seller_identification Feld als ID benutzt werden. Dafür muss das ID Feld jedoch leer sein. Weiterhin bist Du in diesem Fall selbst dafür verantwortlich, dieses Feld einzigartig zu halten. Sie sollte sich auch nicht mit der custom_seller_identification von bereits gelöschten Artikeln doppeln. Hast Du zwei Artikeln die gleiche custom_seller_identification gegeben, ist nicht vorhersehbar, welcher der zutreffenden Artikel verändert wird.
+  Die Anzahl der Artikel, die über eine einzelne CSV-Datei hochgeladen
+  werden können, wurde auf
+  %b 10.000 pro Datei
+  erweitert!
 %br
 
 - if current_user.is_a?(LegalEntity)
