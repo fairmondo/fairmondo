@@ -11,10 +11,10 @@ class Rating < ActiveRecord::Base
   enumerize :rating, in: [:positive, :neutral, :negative]
   delegate :update_rating_counter, to: :rated_user
 
-  validates :rating, :rated_user_id, :transaction_id, :presence => true
+  validates :rating, :rated_user_id, :transaction_id, presence: true
   validates :text, :length => { :maximum => 2500 }
   # auto_sanitize :text
-  validates :transaction_id, :uniqueness => true
+  validates :transaction_id, :uniqueness => true, presence: true
 
   after_save :update_rating_counter
   alias :value :rating # to avoid structure 'rating_rating' in shared/show_transaction

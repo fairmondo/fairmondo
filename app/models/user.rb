@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
       :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name,
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
@@ -196,16 +196,12 @@ class User < ActiveRecord::Base
   # @return [undefined]
   def update_rating_counter
     number_of_ratings = self.ratings.count
-    percentage_of_positive_ratings = calculate_percentage_of_biased_ratings 'positive', 50
-    percentage_of_neutral_ratings = calculate_percentage_of_biased_ratings 'neutral', 50
-    percentage_of_negative_ratings = calculate_percentage_of_biased_ratings 'negative', 50
 
-    self.update_attributes(:percentage_of_positive_ratings => percentage_of_positive_ratings,
-      :percentage_of_neutral_ratings => percentage_of_neutral_ratings,
-      :percentage_of_negative_ratings => percentage_of_negative_ratings)
-    self.save
+    self.update_attributes( percentage_of_positive_ratings: calculate_percentage_of_biased_ratings( 'positive', 50 ),
+                            percentage_of_neutral_ratings:  calculate_percentage_of_biased_ratings( 'neutral', 50 ),
+                            percentage_of_negative_ratings: calculate_percentage_of_biased_ratings( 'negative', 50 ) )
 
-    if ( ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 ) )
+    if ( self.is_a?(LegalEntity) && number_of_ratings > 50 ) || ( self.is_a?(PrivateUser) && number_of_ratings > 20 )
       if percentage_of_negative_ratings > 50
         self.banned = true
       end
@@ -220,22 +216,20 @@ class User < ActiveRecord::Base
   # @return [Float]
   def calculate_percentage_of_biased_ratings bias, limit
     newest_ratings = self.ratings.limit(limit)
-    number_of_newest_ratings = [newest_ratings.count, 1].max.to_f
+    return 0 if newest_ratings == []
+    number_of_newest_ratings = newest_ratings.count
     number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
-    number_of_biased_ratings / number_of_newest_ratings * 100
+    number_of_biased_ratings.fdiv(number_of_newest_ratings) * 100
   end
 
-
-
   state_machine :seller_state, :initial => :standard_seller do
+    after_transition any => :bad_seller, :do => :send_bad_seller_notification
 
-    after_transition :on => :rate_down_to_bad_seller, :do => :send_bad_seller_notification
-
-    event :rate_up_to_standard_seller do
-      transition :bad_seller => :standard_seller
+    event :rate_up do
+      transition bad_seller: :standard_seller
     end
-
-    event :rate_down_to_bad_seller do
+    
+		event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
 
@@ -246,17 +240,11 @@ class User < ActiveRecord::Base
     event :unblock do
       transition :blocked => :standard_seller
     end
-
   end
 
   state_machine :buyer_state, :initial => :standard_buyer do
-
-    event :rate_up_to_good_buyer do
-      transition :standard_buyer => :good_buyer
-    end
-
-    event :rate_up_to_standard_buyer do
-      transition :bad_buyer => :standard_buyer
+    event :rate_up_buyer do
+      transition standard_buyer: :good_buyer, bad_buyer: :standard_buyer
     end
 
     event :rate_down_to_bad_buyer do
@@ -266,21 +254,6 @@ class User < ActiveRecord::Base
 
   def send_bad_seller_notification
     RatingMailer.bad_seller_notification(self).deliver
-  end
-
-  # Changes seller state depending on positive and negative ratings
-  # @api public
-  # @return [undefined]
-  def update_seller_state
-    if self.percentage_of_positive_ratings > 75
-      if self.percentage_of_positive_ratings > 90
-        upgrade_seller_state
-      else
-        self.rate_up_to_standard_seller
-      end
-    elsif self.percentage_of_negative_ratings > 25
-      self.rate_down_to_bad_seller
-    end
   end
 
   def buyer_constants
@@ -294,20 +267,23 @@ class User < ActiveRecord::Base
   end
 
   def purchase_volume
-    ( bad_buyer? ? ( buyer_constants[:bad_purchasevolume] ) :
-    ( buyer_constants[:standard_purchasevolume] +
-    ( self.trustcommunity ? buyer_constants[:trusted_bonus] : 0 ) ) *
-    ( good_buyer? ? buyer_constants[:good_factor] : 1 ) )
+    purchase_volume = buyer_constants[:standard_purchasevolume]
+
+    purchase_volume += buyer_constants[:trusted_bonus]      if self.trustcommunity
+    purchase_volume *= buyer_constants[:good_factor]        if good_buyer?
+    purchase_volume = buyer_constants[:bad_purchasevolume]  if bad_buyer?
+    purchase_volume
   end
 
   def bank_account_exists?
-    ( self.bank_code.to_s != '' ) && ( self.bank_name.to_s != '' ) && ( self.bank_account_number.to_s != '' ) && ( self.bank_account_owner.to_s != '' )
+    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner?
   end
 
   def paypal_account_exists?
-    ( self.paypal_account.to_s != '' )
+    self.paypal_account?
   end
 
+  # checks if user passes all neccessary validations before he can sell
   def can_sell?
     self.wants_to_sell = true
     can_sell = self.valid?
@@ -353,16 +329,14 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    # @api private
+    def create_default_library
+      if self.libraries.empty?
+        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+      end
     end
-  end
 
-  def wants_to_sell?
-    self.wants_to_sell
-  end
-
+		def wants_to_sell?
+		  self.wants_to_sell
+		end
 end
