@@ -279,19 +279,30 @@ describe 'Article management' do
 
     describe 'contacting sellers' do
       before do
-        visit article_path article
+        visit article_path FactoryGirl.create :article, :with_private_user
       end
 
       it "should send an email when fields are filled correctly" do
-        fill_in 'contact_'
+        fill_in 'contact[text]', with: 'foobar'
+        check 'contact[email_transfer_accepted]'
+        click_button I18n.t('article.show.contact.action')
+
+        page.should have_content I18n.t 'article.show.contact.success_notice'
       end
 
       it "should fail when transmitting the user's email wasn't accepted" do
+        fill_in 'contact[text]', with: 'foobar'
+        click_button I18n.t('article.show.contact.action')
 
+        page.should have_content I18n.t 'article.show.contact.acceptance_error'
       end
 
       it "should fail when the text is empty" do
+        fill_in 'contact[text]', with: ''
+        check 'contact[email_transfer_accepted]'
+        click_button I18n.t('article.show.contact.action')
 
+        page.should have_content I18n.t 'article.show.contact.empty_error'
       end
     end
 

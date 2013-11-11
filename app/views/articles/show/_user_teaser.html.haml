@@ -42,23 +42,6 @@
               = link_to( library.user_nickname, user_path(library.user))
         = paginate libraries, :params => {:anchor => "library" }
 
-  - if current_user && resource.seller.is_a?(PrivateUser)
-    -# Contact Box
-    .Accordion.Accorion--full
-      = accordion_item 'contact_private_user' do
-        = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
-          = t('article.show.contact')
-          = f.inputs do
-            -# hidden
-            = f.input :article_id, as: :hidden, input_html: { value: resource.id }
-            -# user input
-            = f.input :email_transfer_accepted, label: t('article.labels.email_transfer_accepted'), as: :boolean, required: true
-            = f.input :text, as: :text, input_html: { rows: 4 }
-
-          = f.actions do
-            = f.action :submit, label: t('article.actions.contact'), button_html: {class: "Btn"}
-
-
   -# Feedback Box
   .Accordion.Accordion--full
     - if policy(resource).report?
