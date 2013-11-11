@@ -21,7 +21,7 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => [:index,:feed]
+  skip_before_filter :authenticate_user!, :only => [:index,:feed, :landing]
 
   def index
     @queue1 = Exhibit.independent_queue :queue1,1
@@ -40,6 +40,10 @@ class WelcomeController < ApplicationController
     respond_to do |format|
       format.rss { render :layout => false } #index.rss.builder
     end
+  end
+
+  def landing
+    render layout: "landing"
   end
 
 end
