@@ -34,18 +34,33 @@ $column-width: em(245);
 $gutter-width: em(40);
 $grid-padding: em(40);
 
+// Small version
+$small-columns: 2;
+// Medium version
+$medium-columns: 3;
+// Large version
+$large-columns: 4;
+
 // Breakpoints
-$breakpoint-small: 680;
-$breakpoint-medium: 800;
+$breakpoint-small: 460;
+$breakpoint-medium: 680;
 $breakpoint-large: 960;
-$breakpoint-huge: 1600;
+$breakpoint-huge: 1200;
 
 //$container-width: em($breakpoint-large);
 $layout-small: em($breakpoint-small) lt-ie9;
 $layout-medium: em($breakpoint-medium) lt-ie9;
 $layout-large: em($breakpoint-large) lt-ie9;
 $layout-huge: em($breakpoint-huge) lt-ie9;
-$layout-small-to-large: em($breakpoint-small) em($breakpoint-large);
+
+// From - To - Breakpoints
+$layout-small-to-medium: em($breakpoint-small) em($breakpoint-medium) lt-ie9;
+$layout-medium-to-large: em($breakpoint-medium) em($breakpoint-large) lt-ie9;
+$layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-small-to-large: em($breakpoint-small) em($breakpoint-large) lt-ie9;
+$layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-small-to-huge: em($breakpoint-small) em($breakpoint-huge) lt-ie9;
+$layout-medium-to-huge: em($breakpoint-medium) em($breakpoint-huge) lt-ie9;
 
 // Colors
 $blue: #3a80c2;

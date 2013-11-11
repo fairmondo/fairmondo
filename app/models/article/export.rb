@@ -1,4 +1,4 @@
-#
+# encoding: UTF-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -23,64 +23,68 @@ module Article::Export
   extend ActiveSupport::Concern
 
   def self.export_articles(user, params = nil)
+    header_row = MassUpload.expanded_header_row + ['€'] # Euro as UTF-8 identifier
+    articles = determine_articles_to_export(user, params)
 
-      header_row = MassUpload.header_row
-      articles = determine_articles_to_export(user, params)
+    CSV.generate(:col_sep => ";") do |line|
+      line << header_row
+      articles.each do |article|
+        row = Hash.new
+        row.merge!(article.provide_fair_attributes)
+        row.merge!(article.attributes)
+        row["categories"] = article.categories.map { |c| c.id }.join(",")
+        row["external_title_image_url"] = article.images.first.external_url if article.images.first
+        row["image_2_url"] = article.images[1].external_url if article.images[1]
+        line << header_row.map { |element| row[element] }
+      end
+    end
+  end
 
-      CSV.generate(:col_sep => ";") do |line|
-        line << header_row
-        articles.each do |article|
-          row = Hash.new
-          row.merge! (article.attributes)
-          row.merge! (article.provide_fair_attributes)
-          row["categories"] = article.categories.map { |a| a.id }.join(",")
-          row["external_title_image_url"] = article.images.first.external_url if article.images.first
-          row["image_2_url"] = article.images[1].external_url if article.images[1]
-          line << header_row.map { |element| row[element] }
+
+
+  def self.determine_articles_to_export(user, params)
+    if params == "active"
+      articles = user.articles.where(:state => "active")
+      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
+      articles.reverse_order
+    elsif params == "inactive"
+      articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
+      articles.reverse
+    elsif params == "sold"
+      articles = user.articles.where(:state => "sold")
+      articles.reverse_order
+    elsif params == "bought"
+      articles = user.bought_articles
+      articles.reverse_order
+    elsif params == "error_articles"
+      articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
+      articles.reverse_order
+      # bugbug Something needed in case no params are given?
+    end
+  end
+
+  def provide_fair_attributes
+    attributes = Hash.new
+    if self.fair_trust_questionnaire
+      attributes.merge!(self.fair_trust_questionnaire.attributes)
+    end
+
+    if self.social_producer_questionnaire
+      attributes.merge!(self.social_producer_questionnaire.attributes)
+    end
+    serialize_checkboxes(attributes)
+  end
+
+  def serialize_checkboxes(attributes)
+    attributes.each do |k, v|
+      if k.include?("checkboxes")
+        if v.any?
+          attributes[k] = v.join(',')
+        else
+          attributes[k] = nil
         end
       end
     end
-
-    def self.determine_articles_to_export(user, params)
-      if params == "active"
-        articles = user.articles.where(:state => "active")
-        # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
-        articles.reverse_order
-      elsif params == "inactive"
-        articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
-        articles.reverse
-      elsif params == "sold"
-        articles = user.articles.where(:state => "sold")
-        articles.reverse_order
-      elsif params == "bought"
-        articles = user.bought_articles
-        articles.reverse_order
-        # bugbug Something needed in case no params are given?
-      end
-    end
-
-    def provide_fair_attributes
-      attributes = Hash.new
-      if self.fair_trust_questionnaire
-        attributes.merge! (self.fair_trust_questionnaire.attributes)
-      end
-
-      if self.social_producer_questionnaire
-        attributes.merge! (self.social_producer_questionnaire.attributes)
-      end
-      serialize_checkboxes(attributes)
-    end
-
-    def serialize_checkboxes(attributes)
-      attributes.each do |k, v|
-        if k.include?("checkboxes")
-          if v.any?
-            attributes[k] = v.join(',')
-          else
-            attributes[k] = nil
-          end
-        end
-      end
-      attributes
-    end
+    attributes
+  end
 end

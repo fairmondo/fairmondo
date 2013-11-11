@@ -117,7 +117,7 @@
 .User-primary {
 	@include rem(font-size, $font-size-m);
 	@include clearfix;
-	text-transform: capitalize;
+	/*	text-transform: capitalize; */
 	font-weight: 700;
 	.User-image {
 		@include rem(margin-top, 17px);
@@ -310,4 +310,54 @@
 	width: 98%;
 	margin-bottom: .5em;
 }
+
+.User-rating{
+  font-size: 13px;
+  line-height: 2;
+  margin-bottom: 0;
+  padding-top: 15px;
+  text-align: center;
+  color: #959595;
+}
+
+.User-rating img{
+  padding-left: 5px;
+  width: 30px;
+  vertical-align: middle;
+}
+
+.User-rating span{
+  vertical-align: middle;
+}
+
+.User-rating .text-right{
+  float: right;
+  padding-right: 10px;
+}
+
+.User-rating .text-left{
+  float: left;
+  padding-left: 10px;
+}
+
+.pioneer-button{
+  position: absolute;
+}
+
+.User-image .pioneer-button{
+  height: 60px;
+  left: -20px;
+  top: 120px;
+  width: 60px;
+}
+
+
+.User-image{
+  position: relative;
+}
+
+.User-profile-image{
+  @include border-radius(.8em);
+}
+
 

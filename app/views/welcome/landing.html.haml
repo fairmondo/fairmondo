@@ -1,0 +1,10 @@
+.Landing
+  .Landing-title
+    = image_tag("landing/title.png")
+  .Landing-questions
+    = render "option", option: "yes", url: "http://www.startnext.de/fairnopoly2" , colorbox: false
+    = render "option", option: "no", url: "landing_no", colorbox: true
+    = render "option", option: "perhaps", url: "landing_perhaps", colorbox: true
+  .Landing-logo
+    = link_to root_path do
+      = image_tag("landing/logo.png")

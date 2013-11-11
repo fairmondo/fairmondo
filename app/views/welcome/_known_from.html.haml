@@ -1,11 +1,12 @@
+- target = 'http://info.fairnopoly.de/fairnopoly-in-der-presse/'
 .Knownfrom
   .l-Inner
     .Knownfrom-element.Knownfrom-element--title
       = "BEKANNT AUS"
     .Knownfrom-icons
-      .Knownfrom-element.icon-hochschulanzeiger
-      .Knownfrom-element.icon-taz
-      .Knownfrom-element.icon-tagesspiegel
-      .Knownfrom-element.icon-sueddeutsche
-      .Knownfrom-element.icon-arte
-      .Knownfrom-element.Knownfrom-element--last.icon-deutschlandfunk
+      = link_to "<i class='Knownfrom-element icon icon-hochschulanzeiger'></i> ".html_safe, target, target: '_blank'
+      = link_to "<i class='Knownfrom-element icon icon-taz'></i> ".html_safe, target, target: '_blank'
+      = link_to "<i class='Knownfrom-element icon icon-tagesspiegel'></i> ".html_safe, target, target: '_blank'
+      = link_to "<i class='Knownfrom-element icon icon-sueddeutsche'></i> ".html_safe, target, target: '_blank'
+      = link_to "<i class='Knownfrom-element icon icon-arte'></i> ".html_safe, target, target: '_blank'
+      = link_to "<i class='Knownfrom-element icon icon-deutschlandfunk'></i> ".html_safe, target, target: '_blank'

@@ -298,8 +298,6 @@ describe ArticlesController do
       context 'his articles' do
         before :each do
           @article = FactoryGirl.create :preview_article, seller: user
-
-
         end
 
         it "should be successful for the seller" do

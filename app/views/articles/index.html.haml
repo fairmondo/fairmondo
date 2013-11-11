@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if !params[:article] && !params[:page]
+- if !params[:article] && !params[:page] && !params[:queue]
   .Highlight
     %h2 FAIRNOPOLY MAG
     = render "/articles/show/highlight" , :articles => Exhibit.independent_queue(:fairnopoly_likes, 4)

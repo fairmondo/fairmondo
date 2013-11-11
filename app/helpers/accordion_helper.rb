@@ -37,7 +37,8 @@ module AccordionHelper
         accordion_title: options[:title] || t(accordion_name, :scope => "#{controller_name}.boxes"),
         accordion_number: options[:number],
         accordion_tooltip: options[:tooltip],
-        accordion_header_class: header_class
+        accordion_header_class: header_class,
+        accordion_arrow: options[:arrow]==false ? false : true
       }, &block
   end
 end

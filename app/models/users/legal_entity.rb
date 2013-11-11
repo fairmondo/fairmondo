@@ -1,4 +1,3 @@
-
 #
 #
 # == License:
@@ -24,9 +23,11 @@ class LegalEntity < User
   extend STI
 
   def self.user_attrs
-    super + [:terms, :cancellation, :about]
+    super + [:terms, :cancellation,
+      :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
   end
   #! attr_accessible :terms, :cancellation, :about
+  #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
@@ -36,44 +37,52 @@ class LegalEntity < User
   end
 
   state_machine :seller_state, :initial => :standard_seller do
+    event :rate_up do
+      transition standard_seller: :good1_seller, good1_seller: :good2_seller, good2_seller: :good3_seller, good3_seller: :good4_seller
+    end
 
-    event :rate_up_to_good1_seller do
-      transition :standard_seller => :good1_seller
-    end
-    event :rate_up_to_good2_seller do
-      transition :good1_seller => :good2_seller
-    end
-    event :rate_up_to_good3_seller do
-      transition :good2_seller => :good3_seller
-    end
-    event :rate_up_to_good4_seller do
-      transition :good3_seller => :good4_seller
+    event :update_seller_state do
+      transition all => :bad_seller, if: lambda {|user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good1_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90) }
+      transition good1_seller: :good2_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100])) }
+      transition good2_seller: :good3_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500])) }
+      transition good3_seller: :good4_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500, 1000])) }
     end
   end
 
   def commercial_seller_constants
     commercial_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 50,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $commercial_seller_constants['standard_salesvolume'],
+      :verified_bonus => $commercial_seller_constants['verified_bonus'],
+      :good_factor => $commercial_seller_constants['good_factor'],
+      :bad_salesvolume => $commercial_seller_constants['bad_salesvolume']
     }
   end
 
-  def sales_volume
-    bad_seller? ? ( commercial_seller_constants[:standard_salesvolume] / commercial_seller_constants[:bad_factor] ) :
-    ( commercial_seller_constants[:standard_salesvolume] +
-    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 ) ) *
-    ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
-    ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
-    ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
-    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 )
+  def max_value_of_goods_cents
+    salesvolume = commercial_seller_constants[:standard_salesvolume]
+
+    salesvolume += commercial_seller_constants[:verified_bonus]  if self.verified
+    salesvolume *= commercial_seller_constants[:good_factor]     if good1_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**2  if good2_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**3  if good3_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**4  if good4_seller?
+    salesvolume = commercial_seller_constants[:bad_salesvolume]  if bad_seller?
+
+    salesvolume
+  end
+
+  def has_enough_positive_ratings_in last_ratings
+    value = true
+    last_ratings.each do |rating|
+      value = value && calculate_percentage_of_biased_ratings( "positive", rating ) > 90
+    end
+    value
   end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
     User.model_name
   end
-
-
 end

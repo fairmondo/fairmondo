@@ -42,6 +42,8 @@
     = stylesheet_link_tag 'application'
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
+    %noscript
+      = stylesheet_link_tag 'noscript'
     = javascript_include_tag :application
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
@@ -53,64 +55,54 @@
     %link{ rel: 'apple-touch-icon', sizes: '144x144', href: image_path('touch_icon_ipad_retina.png'), type: "image/png"  }
     / provides proper Article-Image for Facebook
     %link{ rel: 'image_src', href: yield(:title_image) }
-    / Google Analytics
-    :javascript
-      var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-37465097-1']);
-        _gaq.push (['_gat._anonymizeIp']);
-        _gaq.push(['_setDomainName', 'fairnopoly.de']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
-    .Notice
-      - if !flash.empty?
-        - flash.each do |type, msg|
-          - if msg && type != :timedout && !msg.empty?
-            = render_notice :type => type do
-              %p
-                = msg
-    %header.l-Header
-      .l-Inner
-        .Logo
-          %h1
-            %a{:href => "/"}
-              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
-        %nav.Nav.Nav--primary
-          %ul
-            %li
-              = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
-            %li
-              = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
-
-            - if user_signed_in?
+    .l-Wrap
+      .Notice
+        - if !flash.empty?
+          - flash.each do |type, msg|
+            - if msg && type != :timedout && !msg.empty?
+              = render_notice :type => type do
+                %p
+                  = msg
+      %header.l-Header
+        .Message-row-background
+          .Message-row-foreground
+            = tinycms_content_body("nachrichtenzeile")
+        .l-Inner
+          .Logo
+            %h1
+              %a{:href => "/"}
+                %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
+          %nav.Nav.Nav--primary
+            %ul
               %li
-                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
-              %li.last
-                = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
+                = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+              %li
+                = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
 
-            - else
-              %li.last
-                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
-        / row
-      / container
+              - if user_signed_in?
+                %li
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+                %li.last
+                  = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
-    .l-Hero
-      = hero
-    .l-Main{:role => "main"}
-      .l-Inner
-        = yield
-      / .container
-    / #main
+              - else
+                %li.last
+                  = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
+          / row
+        / container
 
-    - if controller.controller_name == 'welcome' && controller.action_name == 'index'
-      = render "welcome/known_from"
+      .l-Hero
+        = hero
+      .l-Main{:role => "main"}
+        .l-Inner
+          = yield
+        / .container
+      / #main
+
+      - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+        = render "welcome/known_from"
 
     %footer.l-Footer
       .Footer--top
@@ -186,3 +178,19 @@
     -# When logged in, count down until session expires (needs to be reloaded on page change!)
     = javascript_include_tag "session_expire" if current_user
 
+    / Piwik
+    :javascript
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://kiwi.fairnopoly.de//";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 1]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    %noscript
+      %p
+        %img{ src: "http://kiwi.fairnopoly.de/piwik.php?idsite=1", style: "border:0", alt: " " }
+    / End Piwik Code

@@ -2,215 +2,162 @@
 // index
 //
 
-/*
-
-# Explantation of widths. We have a four-col grid.
-1 cols = 23.5%
-2 cols = 49%
-
-*/
-
 // General
 // -----------------------------------
 .Teaser {
 	@include rem(padding, 10px 20px);
-	text-align: center;
 	color: #3c3c3c;
 	border-radius: 8px;
 	background: #fff;
-
+  margin-bottom: em(38);
 	.Icon [class^="icon-"] {
 		display: block;
 		@include rem(margin, 20px auto);
 	}
+  @include clearfix;
+
+  .Article {
+    margin-bottom: 1em;
+  }
 
 }
 
-//
-// Teaser variants
-//
-
-
-.Teaser--video {
-	padding: 0 0 30.25% 0;
-	position: relative;
-	min-width: 20.2857em;
-	min-height: 14.2857em;
-	iframe,
-	embed {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
+.Teaser-header {
+  @include at-breakpoint($layout-huge) {
+    @include rem(font-size, 25px);
+  }
+  .Btn-tag--medium {
+    font-size: 0.9em;
+    margin:0px;
+  }
+  color:$lightgray;
+  @include rem(padding, 10px 0px);
+  font-weight: normal;
 }
 
-.Teaser--topbar,
-.Teaser--bottombar,
-.Teaser--welcomeimage {
-  width: 100%;
+// Layouts
+// -----------------------------------
+
+// Generic Double View
+.l-Teaser--double{
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(2,4);
+  }
+  @include at-breakpoint($layout-small) {
+    Article{
+      @include span-columns(1,2);
+      @include nth-omega(2n);
+    }
+  }
 }
 
-.Teaser--smallimage {
-  height: 35px;
-  padding: 5px;
-  //width: 50px;
-}
-
-.Teaser--bottombar {
-  margin-bottom: 2em;
-}
-
-
-.Teaser--welcome {
-  color: $blue;
-  @include rem(font-size, 18px);
+.l-Teaser--collapsible {
+   @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+    @include omega;
+    Article {
+      width:100%;
+    }
+  }
 
 }
+
+.l-Teaser--single {
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1,2);
+  }
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1,3);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(1,4);
+  }
+}
+
+
+
+// Specific Layouts
+//------------------------------------------------
+
+.l-Teaser--queues {
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(2,3);
+  }
+}
+
+.l-Teaser--counters{
+  @include at-breakpoint($layout-small-to-large) {
+    @include omega;
+  }
+}
+
+.l-Teaser--participate {
+  @include at-breakpoint($layout-small-to-large) {
+    clear:both;
+  }
+  @include at-breakpoint($layout-huge) {
+    clear:both;
+  }
+}
+
+.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+  @include at-breakpoint($layout-huge) {
+    @include omega;
+  }
+}
+
+// Text teasers
+// ------------------------------------
 
 .Teaser--text {
-	@include rem(font-size, $font-size-m);
-	padding-top: 2em;
-}
-.Teaser-title {
-	@include rem(font-size, 22px);
-	@extend %Bold;
-	color: black;
+  text-align:center;
 }
 
-.Profile {
-	position: relative;
-}
-.Profile-container {
-	// support one or two lines of text, fix height to 2 lines
-	background-color: $green;
-	overflow: hidden;
-	height: 3.1em;
-}
-.Profile-name {
-	@include rem(font-size, 14px);
-	color: #fff;
-	padding: em(5,14) em(5,14) em(3,14) em(70,14);
-
-	// vertical align
-	height: 3.1em;
-	display: table-cell;
-	vertical-align: middle;
-}
-.Profile-avatar {
-	@include border-radius(.8em);
-	position: absolute;
-	width: 72px;
-	height: 72px;
-	top: -14px;
-	left: -8px;
+.Teaser .Btn {
+  @include rem(margin-top, 4px);
 }
 
-.Teaser--total {
+// Counters --------------------------------------
+//
+
+.Teaser--counter {
 	// move padding from container to child els
 	padding: 0;
-	> .Teaser-title,
-	> .Teaser-total--number {
-		@include rem(padding, 10px 20px);
-	}
-	.Teaser-title {
-		// @include rem(font-size, $base-font-size);
-		@include rem(padding, 17px 36px);
+	p {
+	  @include rem(padding, 0px 20px);
 	}
 }
-.Teaser--total-number {
-	@include rem(font-size, 40px);
-	@include rem(padding, 8px);
-	@extend %Semibold;
-	background-color: $green;
-	color: #fff;
+
+.Teaser-total {
+  @include rem(font-size, 40px);
+  @include rem(padding, 8px);
+  @extend %Semibold;
+  background-color: $green;
+  color: #fff;
+}
+
+.Teaser-total--number {
+    @include rem(padding, 10px 20px);
+    @include rem(margin-bottom,10px)
+}
+
+.Teaser-total--articles {
 	margin-bottom: 30px;
 }
 
-.Teaser--total-user {
-	@include rem(font-size, 40px);
-	@include rem(padding, 8px);
-	@extend %Semibold;
-	background-color: $green;
-	color: #fff;
+.Teaser-total--user {
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
 
 
+// News Teaser
+//-------------------------------------------------
 
-// Btn
-// -----------------------------------
-
-.Teaser .Btn {
-	@include rem(margin-top, 4px);
-}
-
-.goal {
-	background-color: white;
-	margin-bottom: .4em;
-	border-style: solid;
-	border-width: 1px;
-	border-color: $lightgray;
-}
-
-.reached {
-	background-color: $green;
-}
-
-
-
-.DoubleTeaser-article {
-  @media (min-width: em($small-from)) {
-      @include span-columns(1,2);
-    }
-   @media (min-width: em($medium-from)) {
-      @include span-columns(2,2);
-    }
-  @media (min-width: em($large-from)) {
-      @include span-columns(1,2);
-    }
-}
-
-.DoubleTeaser-article--right {
-   @media (min-width: em($small-from)) {
-      @include omega;
-    }
-  @media (min-width: em($large-from)) {
-      @include omega;
-    }
-}
-
-.DoubleTeaser--alwaysdouble {
-  .DoubleTeaser-article {
-    @media (min-width: em($medium-from)) {
-        @include span-columns(1,2);
-      }
-    }
-    .DoubleTeaser-article--right {
-      @media (min-width: em($medium-from)) {
-        @include omega;
-      }
-    }
-}
-
-.Teaser-header {
-  @include rem(font-size, 25px);
-  color:$lightgray;
-  margin-bottom: 0;
-  font-weight: normal;
-}
-
-.DoubleTeaser-image {
-  img{width:100%;}
-}
-
-.Teaser-totalheader {
- @include rem(padding, 10px 20px);
-}
-
-.NewsTeaser {
+.Teaser-news {
   p {
     text-align:left;
   }
@@ -219,6 +166,46 @@
   }
 }
 
-#Feed-placeholder {
-  display:none;
+.Teaser-hide {
+  background: none ;
 }
+
+// Top Queue Teaser
+//----------------------------------
+
+.Teaser-queue {
+  @include at-breakpoint($layout-small-to-huge) {
+    @include span-columns(1,2);
+    @include nth-omega(2n);
+  }
+
+  @include at-breakpoint($layout-huge){
+    @include span-columns(1,4);
+    @include nth-omega(4n);
+  }
+}
+
+.Teaser-more {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  text-align: center;
+  > a.Btn {
+    width:90%;
+    font-size: 1.1em;
+  }
+}
+
+// Welcome Teaser
+// -------------------------------------
+
+.l-Teaser--welcome {
+  color: $blue;
+  @include rem(font-size, 18px);
+  @include rem(font-size, $font-size-m);
+}
+
+.Teaser-image {
+  margin-bottom: 1.5em;
+  width: 80%;
+}
+

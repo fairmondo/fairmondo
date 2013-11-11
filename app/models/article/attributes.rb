@@ -77,7 +77,7 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
-    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000
+    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000, if: lambda {|obj| obj.basic_price_cents }
 
     monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
 
@@ -94,8 +94,8 @@ module Article::Attributes
     #! attr_accessible :custom_seller_identifier
     #! attr_accessible :gtin
 
-    validates_length_of :custom_seller_identifier, :maximum => 65, allow_nil: true, allow_blank: true
-    validates_length_of :gtin, :minimum => 8, :maximum => 14, allow_nil: true, allow_blank: true
+    validates_length_of :custom_seller_identifier, maximum: 65, allow_nil: true, allow_blank: true
+    validates_length_of :gtin, minimum: 8, maximum: 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
@@ -266,6 +266,14 @@ module Article::Attributes
   # @return [Array] An array with selected payment types.
   def selectable_payments
     selectable "payment"
+  end
+
+  # Returns true if the basic price should be shown to users
+  #
+  # @api public
+  # @return Boolean
+  def show_basic_price?
+    self.seller.is_a?(LegalEntity) && self.basic_price_amount? && self.basic_price && self.basic_price_cents > 0
   end
 
   private
