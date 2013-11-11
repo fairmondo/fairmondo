@@ -13,20 +13,6 @@ module TransactionMailerHelper
     end
   end
 
-  def fairnopoly_email_footer
-    "#{ t('common.fn_legal_footer.intro')}\n" +
-    "******************************************************************\n" +
-    "#{t('common.fn_legal_footer.footer_contact')}\n\n" +
-    "#{t('common.fn_legal_footer.registered')}\n" +
-    "#{t('common.fn_legal_footer.board')}\n" +
-    "#{t('common.fn_legal_footer.supervisory_board')}\n\n" +
-    "#{t('common.brand')}\n" +
-    "#{t('common.claim')}\n\n" +
-    "#{t('common.fn_legal_footer.facebook')}\n" +
-    "#{t('common.fn_legal_footer.buy_shares')}\n" +
-    "******************************************************************"
-  end
-
   def show_contact_info_seller seller
     string = ""
     if seller.is_a? LegalEntity
