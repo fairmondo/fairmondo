@@ -47,7 +47,14 @@ de:
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
-      contact: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem Verkäufer eine Nachricht zu senden.'
+      contact:
+        description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem Verkäufer eine Nachricht zu senden.'
+        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den Verkäufer als Rücksendeadresse übermittelt wird."
+        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der Verkäufer die Möglichkeit hat, dir zu antworten.'
+        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den Verkäufer zu kontaktieren.'
+        success_notice: 'Deine Nachricht wurde an den Verkäufer übermittelt.'
+        action: 'Nachricht senden'
+        mail_subject: "Nutzer-Rückfrage zu deinem Artikel auf Fairnopoly"
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -88,7 +95,6 @@ de:
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
       edit_or_delete: "Bearbeiten oder löschen"
-      email_transfer_accepted: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den Verkäufer als Rücksendeadresse übermittelt wird."
     list:
       header: "Ergebnisse"
     notices:
@@ -119,7 +125,6 @@ de:
       report: "Feedback senden"
       reported: "Dein Feedback wurde erfolgreich gesendet."
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
-      contact: 'Verkäufer kontaktieren'
     categories:
       proposal:
         question: "Kategorie vorschlagen:"

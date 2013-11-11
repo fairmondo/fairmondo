@@ -32,13 +32,13 @@ class ToolboxController < ApplicationController
     redirect_to URI.parse(notice.path).path
   end
 
-  # Send a single email to a private user
+  # Send a single email to a private user, should be refactored when we have a real messaging system
   def contact
-    return redirect_to :back, flash: { error: 'Bla' } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
-    return redirect_to :back, flash: { error: 'Keks' } unless params[:contact][:text].length > 0 #manual validation: message is present
+    return redirect_to :back, flash: { error: I18n.t('article.show.contact.acceptance_error') } unless params[:contact][:email_transfer_accepted] == "1" # manual validation: transfer of email was accepted
+    return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 #manual validation: message is present
     article = Article.find params[:contact][:article_id]
-    return redirect_to :back, flash: { error: 'Nee' } unless article.seller.is_a? PrivateUser #manual validation: seller is a private user
-    ArticleMailer.contact current_user.email, article.seller_email, params[:contact][:text]
-    redirect_to article, notice: 'Yeah'
+    raise Pundit::NotAuthorizedError unless current_user || article.seller.is_a?(PrivateUser) #manual authorize
+    ArticleMailer.contact current_user.email, article.seller_email, params[:contact][:text], article
+    redirect_to article, notice: I18n.t('article.show.contact.success_notice')
   end
 end
