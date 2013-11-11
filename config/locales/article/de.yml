@@ -10,6 +10,7 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback zu dem Artikel"
+      contact_private_user: 'Rückfragen an den Verkäufer'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -45,6 +46,8 @@ de:
       alternative: "Faire Alternative"
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
+      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
+      contact: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem Verkäufer eine Nachricht zu senden.'
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -85,6 +88,7 @@ de:
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
       edit_or_delete: "Bearbeiten oder löschen"
+      email_transfer_accepted: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den Verkäufer als Rücksendeadresse übermittelt wird."
     list:
       header: "Ergebnisse"
     notices:
@@ -93,7 +97,6 @@ de:
       confirm_to_buy: "Artikel wurde erfolgreich zum Verkauf eingestellt!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
       incomplete_profile: 'Um Artikel anbieten zu können, musst Du zunächst die Pflichtfelder in Deinem Profil ausfüllen. Du wirst auf die "Profil bearbeiten"-Seite weitergleitet.'
       inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
       locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
@@ -116,6 +119,7 @@ de:
       report: "Feedback senden"
       reported: "Dein Feedback wurde erfolgreich gesendet."
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
+      contact: 'Verkäufer kontaktieren'
     categories:
       proposal:
         question: "Kategorie vorschlagen:"
