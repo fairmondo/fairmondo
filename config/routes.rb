@@ -75,6 +75,8 @@ Fairnopoly::Application.routes.draw do
   post "welcome/reconfirm_terms"
 
   get "welcome/index"
+  get "mitunsgehen", to: 'welcome#landing'
+
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
   resources :feedbacks, :only => [:create,:new]
