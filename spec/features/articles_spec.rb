@@ -277,6 +277,24 @@ describe 'Article management' do
       end
     end
 
+    describe 'contacting sellers' do
+      before do
+        visit article_path article
+      end
+
+      it "should send an email when fields are filled correctly" do
+        fill_in 'contact_'
+      end
+
+      it "should fail when transmitting the user's email wasn't accepted" do
+
+      end
+
+      it "should fail when the text is empty" do
+
+      end
+    end
+
     describe "the article view" do
       it "should show a buy button that immediately forwards to the transaction page" do
         visit article_path article

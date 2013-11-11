@@ -34,4 +34,8 @@ class ArticleMailer < ActionMailer::Base
     mail(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: #{category_proposal}")
   end
 
+  def contact_seller_of from, to, text
+    @text = text
+    mail to: to, from: from, subject: I18n.t('something.somewhere')
+  end
 end
