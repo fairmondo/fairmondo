@@ -3,18 +3,22 @@
 
 // Config
 @import "_config.scss";
+@import "compass/reset";
 
 // Susy (for robust layout math)
 // also applies * { box-sizing: border-box; }
 @import "susy";
 @import "_colorbox.scss";
 @import "_colorbox_changes.scss";
+@import "compass/css3/user-interface";
 
 body {
   background-image: url(asset-path("landing/back.png",image));
 }
 
 .Landing {
+
+  @include user-select("none");
   text-align: center;
   max-width: 1200px;
   margin-left:auto;
@@ -44,6 +48,10 @@ body {
 .Landing-checkbox {
   @include span-columns(1,4);
   text-align: right;
+    a {
+        @include reset-focus;
+    }
+
 }
 
 .Landing-label {
