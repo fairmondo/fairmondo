@@ -83,7 +83,6 @@ class MassUpload
     ]
   end
 
-
   def initialize(attributes = nil)
     @errors = ActiveModel::Errors.new(self)
 
@@ -126,7 +125,6 @@ class MassUpload
     true
   end
 
-
   def build_articles_for user
     @articles = []
     valid = true
@@ -143,7 +141,6 @@ class MassUpload
         article.user_id = user.id
         revise_prices(article)
         article.categories = categories if categories
-
         if article.was_invalid_before? # invalid? call would clear our previous base errors
                                        # fix this by generating the base errors with proper validations
                                        # may be hard for dynamic update model
@@ -155,7 +152,6 @@ class MassUpload
     end
     return valid
   end
-
 
   def add_article_error_messages(article, index)
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)

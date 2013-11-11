@@ -36,46 +36,18 @@ class LegalEntity < User
     seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
   end
 
-
-
   state_machine :seller_state, :initial => :standard_seller do
+    event :rate_up do
+      transition standard_seller: :good1_seller, good1_seller: :good2_seller, good2_seller: :good3_seller, good3_seller: :good4_seller
+    end
 
-    event :rate_up_to_good1_seller do
-      transition :standard_seller => :good1_seller
-    end
-    event :rate_up_to_good2_seller do
-      transition :good1_seller => :good2_seller
-    end
-    event :rate_up_to_good3_seller do
-      transition :good2_seller => :good3_seller
-    end
-    event :rate_up_to_good4_seller do
-      transition :good3_seller => :good4_seller
-    end
-  end
-
-  def upgrade_seller_state
-    if self.seller_state == "standard_seller"
-       self.rate_up_to_good1_seller
-    elsif (self.seller_state == "good1_seller") || (self.seller_state == "good2_seller") ||  (self.seller_state == "good3_seller")
-      percentage_of_positive_ratings_in_last_100 = calculate_percentage_of_biased_ratings 'positive', 100
-      if percentage_of_positive_ratings_in_last_100 > 90
-        if self.seller_state == "good1_seller"
-          self.rate_up_to_good2_seller
-        else
-          percentage_of_positive_ratings_in_last_500 = calculate_percentage_of_biased_ratings 'positive', 500
-          if percentage_of_positive_ratings_in_last_500 > 90
-            if self.seller_state == "good2_seller"
-              self.rate_up_to_good3_seller
-            else
-              percentage_of_positive_ratings_in_last_1000 = calculate_percentage_of_biased_ratings 'positive', 1000
-              if percentage_of_positive_ratings_in_last_1000 > 90
-                self.rate_up_to_good4_seller
-              end
-            end
-          end
-        end
-      end
+    event :update_seller_state do
+      transition all => :bad_seller, if: lambda {|user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good1_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90) }
+      transition good1_seller: :good2_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100])) }
+      transition good2_seller: :good3_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500])) }
+      transition good3_seller: :good4_seller, if: lambda {|user| (user.percentage_of_positive_ratings > 90 && user.has_enough_positive_ratings_in([100, 500, 1000])) }
     end
   end
 
@@ -89,21 +61,28 @@ class LegalEntity < User
   end
 
   def max_value_of_goods_cents
-    bad_seller? ? commercial_seller_constants[:bad_salesvolume] :
-    (( commercial_seller_constants[:standard_salesvolume] +
-    ( self.verified ? commercial_seller_constants[:verified_bonus] : 0 )) *
-    ( good1_seller? ? commercial_seller_constants[:good_factor] : 1 ) *
-    ( good2_seller? ? commercial_seller_constants[:good_factor]**2 : 1 ) *
-    ( good3_seller? ? commercial_seller_constants[:good_factor]**3 : 1 ) *
-    ( good4_seller? ? commercial_seller_constants[:good_factor]**4 : 1 ))
+    salesvolume = commercial_seller_constants[:standard_salesvolume]
+
+    salesvolume += commercial_seller_constants[:verified_bonus]  if self.verified
+    salesvolume *= commercial_seller_constants[:good_factor]     if good1_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**2  if good2_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**3  if good3_seller?
+    salesvolume *= commercial_seller_constants[:good_factor]**4  if good4_seller?
+    salesvolume = commercial_seller_constants[:bad_salesvolume]  if bad_seller?
+
+    salesvolume
   end
 
-
+  def has_enough_positive_ratings_in last_ratings
+    value = true
+    last_ratings.each do |rating|
+      value = value && calculate_percentage_of_biased_ratings( "positive", rating ) > 90
+    end
+    value
+  end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
     User.model_name
   end
-
-
 end
