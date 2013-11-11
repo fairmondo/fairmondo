@@ -68,6 +68,7 @@ Fairnopoly::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( noscript.css )
+  config.assets.precompile += %w( landing.css )
   # config.assets.precompile += %w( font-awesome-ie7.min.css )
 
   # Disable delivery errors, bad email addresses will be ignored
