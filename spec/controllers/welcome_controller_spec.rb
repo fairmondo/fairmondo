@@ -34,6 +34,11 @@ describe WelcomeController do
       end
 
       it "should be successful" do
+        get :landing
+        response.should be_success
+      end
+
+      it "should be successful" do
         get :feed, :format => "rss"
         response.should be_success
         response.content_type.should eq("application/rss+xml")
