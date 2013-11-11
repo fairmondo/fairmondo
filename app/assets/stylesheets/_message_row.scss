@@ -1,0 +1,16 @@
+.Message-row-background {
+  background-color: $darkgray;
+  height: 2em;
+}
+.Message-row-foreground {
+  @include container;
+  color: $beige;
+  padding-top: 0.3em;
+  a:active a:hover a:focus {
+    color: $white;
+    text-decoration: underline;
+  }
+  a:visited {
+    color: $darkbeige;
+  }
+}
