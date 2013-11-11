@@ -38,7 +38,7 @@ class ToolboxController < ApplicationController
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.empty_error') } unless params[:contact][:text].length > 0 #manual validation: message is present
     article = Article.find params[:contact][:article_id]
     raise Pundit::NotAuthorizedError unless current_user || article.seller.is_a?(PrivateUser) #manual authorize
-    ArticleMailer.contact current_user.email, article.seller_email, params[:contact][:text], article
+    ArticleMailer.contact(current_user.email, article.seller_email, params[:contact][:text], article).deliver
     redirect_to article, notice: I18n.t('article.show.contact.success_notice')
   end
 end

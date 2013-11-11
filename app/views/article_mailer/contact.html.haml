@@ -14,11 +14,11 @@
 %p
   Bitte sende Deine Antwort an
   = @from
-  .
 %p
   Den Artikel zu der Rückfrage findest Du unter
-  = article_url @article
+  = link_to article_url(@article), article_url(@article)
 
+%hr
 %p
   = t('common.fn_legal_footer.intro')
   = t('common.fn_legal_footer.contact')
