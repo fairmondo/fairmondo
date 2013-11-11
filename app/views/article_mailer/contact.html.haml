@@ -6,7 +6,7 @@
 %hr
 %br
 %p
-  = @text
+  = simple_format @text
 %br
 %hr
 %br
@@ -18,6 +18,5 @@
   Den Artikel zu der Rückfrage findest Du unter
   = link_to article_url(@article), article_url(@article)
 %br
-%hr
 %br
 = render '/shared/email_footer'
