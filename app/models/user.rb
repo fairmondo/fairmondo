@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
     event :rate_up do
       transition bad_seller: :standard_seller
     end
-    
+
 		event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
