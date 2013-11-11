@@ -2,14 +2,14 @@
   Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "
   = @article.title
   " gesandt:
-
+%br
 %hr
-
+%br
 %p
   = @text
-
+%br
 %hr
-
+%br
 
 %p
   Bitte sende Deine Antwort an
@@ -17,12 +17,7 @@
 %p
   Den Artikel zu der Rückfrage findest Du unter
   = link_to article_url(@article), article_url(@article)
-
+%br
 %hr
-%p
-  = t('common.fn_legal_footer.intro')
-  = t('common.fn_legal_footer.contact')
-  = t('common.fn_legal_footer.registered')
-  = t('common.fn_legal_footer.board')
-  = t('common.fn_legal_footer.ceo')
-  = t('common.fn_legal_footer.supervisory_board')
+%br
+= render '/shared/email_footer'
