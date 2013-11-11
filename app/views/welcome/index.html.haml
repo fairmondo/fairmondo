@@ -22,16 +22,12 @@
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
 
-#slides
-  =image_tag "http://upload.wikimedia.org/wikipedia/commons/0/01/Diamond-39513.jpg"
-  =image_tag "http://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Diamond_-_South_Africa_-_Finsch_Mine.jpg/800px-Diamond_-_South_Africa_-_Finsch_Mine.jpg"
-
 .l-Teaser--queues
   .Teaser
     %h2.Teaser-header
       = tinycms_content_body_sanitized("heading_features").upcase
     .Teaser-queues
-      - [@queue1,@queue2,@queue3,@queue4].each_with_index do |queue,index|
+      - [@queue1, @queue2, @queue3, @queue4].each_with_index do |queue,index|
         .Teaser-queue
           = render "exhibition", articles: queue, layout: :single
           %p.Teaser-more
@@ -47,17 +43,15 @@
       UNSERE PIONIERE
     = render "exhibition", articles: @pioneer, layout: :double
 
-.l-Teaser--double.l-Teaser--welcome
+.l-Teaser--double.l-Teaser--slides
   .Teaser.Teaser--text
-    = image_tag "welcome/welcome.png", class: "Teaser-image"
-    .Teaser-welcome
-      %p
-        Ab sofort kannst Du bei Fairnopoly alles kaufen und verkaufen, was Du möchtest.
-        Und das bei einem Marktplatz mit einem
-        %a{ :href => "https://www.fairnopoly.de/about_us"}
-          konsequent fairen Unternehmen
-        dahinter.
-    = link_to "Jetzt registrieren", new_user_registration_path, class: "Btn Btn--blue"
+    #slides
+      - 6.times do |i|
+        = image_tag "slides/#{i}.png"
+      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+        %i.icon-left_arrow
+      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+        %i.icon-right_arrow
 .l-Teaser--single.l-Teaser--shares
   .Teaser.Teaser--text
     %h2.Teaser-header GEZEICHNETE ANTEILE IM NOVEMBER

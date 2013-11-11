@@ -65,6 +65,16 @@ $icon: sprite-map("icon/*.png");
 	height: icon-sprite-height(arrow);
 }
 
+.icon-left_arrow {
+  width: icon-sprite-width(left_arrow);
+  height: icon-sprite-height(left_arrow);
+}
+
+.icon-right_arrow {
+  width: icon-sprite-width(right_arrow);
+  height: icon-sprite-height(right_arrow);
+}
+
 .icon-box {
 	display: inline-block;
 	width: icon-sprite-width(box);
