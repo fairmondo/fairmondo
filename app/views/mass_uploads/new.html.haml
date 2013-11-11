@@ -1,24 +1,32 @@
-%h1 Beta-Funktion: Artikel per CSV-Datei importieren
+%h1 Jetzt neu: Artikel per CSV-Datei importieren oder bearbeiten
 
 %p
-  Bevor Du dieses Feature nutzt, lies bitte aufmerksam die aktuelle Version der
+  Bevor Du dieses Feature nutzt, lies bitte aufmerksam die
+  %b aktuelle Version
+  der
   %a{ :href => '/csv-upload-documentation.pdf', target: "_blank" } Dokumentation
-  und orientiere Dich an der aktuellen Version der
-  %a{ :href => '/csv_upload_sample_06.csv', target: "_blank" } Musterdatei.
-  Die aktuellen Versionen dieser Dateien tragen die Versionsnummer 0.6.
+  und orientiere Dich an der
+  %b aktuellen Version
+  der
+  %a{ :href => '/csv_upload_sample_07.csv', target: "_blank" } Musterdatei.
+  Die aktuellen Versionen dieser Dateien tragen die
+  %b Versionsnummer 0.7.
 
 %p
-  Bitte beachte, dass sich die CSV-Upload-Funktion noch im Beta-Stadium befindet, d.h. unter
-  Umständen Fehler auftreten können. Wir empfehlen, zunächst testweise nur kleinere
-  Artikelmengen einzustellen, und die eingestellten Artikel zu überprüfen.
-  Bei Problemen kontaktiere uns einfach unter
-  %a{ :href => "kundenservice@fairnopoly.de." } kundenservice@fairnopoly.de.
+  Bitte beachte, dass sich die CSV-Upload-Funktion noch im Beta-Stadium
+  befindet, d.h. unter   Umständen Fehler auftreten können. Wir empfehlen,
+  zunächst testweise nur kleinere   Artikelmengen einzustellen, und die
+  eingestellten Artikel zu überprüfen. Bei Problemen kontaktiere uns einfach unter
+  %a{ :href => "mailto:kundenservice@fairnopoly.de" } kundenservice@fairnopoly.de.
 %p
-  Zur Zeit ist die Anzahl der Artikel, die über eine CSV-Datei hochgeladen werden können, auf
-  100 pro Datei begrenzt!
+  Die Anzahl der Artikel, die über eine einzelne CSV-Datei hochgeladen
+  werden können, wurde auf
+  %b 10.000 pro Datei
+  erweitert!
+%br
 
 - if current_user.is_a?(LegalEntity)
-  = semantic_form_for(@mass_upload, url: mass_uploads_path, :builder => Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => ::Fairtastic::FormBuilder) do |f|
     = f.input_step :upload_csv, :default_step => true do
       = f.inputs do
         .Accordion-step
@@ -27,4 +35,4 @@
           / statement doesn't work although it shows up and looks correctly when
           / I render the page and look at the html
         = f.actions do
-          = f.action :submit, :label => t('mass_upload.labels.upload_article'), :button_html => { :class => "Btn" }
+          = f.action :submit, :label => t('mass_uploads.labels.upload_article'), :button_html => { :class => "Btn" }

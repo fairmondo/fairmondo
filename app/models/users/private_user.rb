@@ -22,31 +22,41 @@
 class PrivateUser < User
   extend STI
 
-
   state_machine :seller_state, :initial => :standard_seller do
-
-    event :rate_up_to_good_seller do
+    event :rate_up do
       transition :standard_seller => :good_seller
     end
+
+    event :update_seller_state do
+      transition all => :bad_seller, if: lambda { |user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
+    end
+
   end
 
   def private_seller_constants
     private_seller_constants = {
-      :standard_salesvolume => 35,
-      :verified_bonus => 10,
-      :trusted_bonus => 20,
-      :good_factor => 2,
-      :bad_factor => 2
+      :standard_salesvolume => $private_seller_constants['standard_salesvolume'],
+      :verified_bonus => $private_seller_constants['verified_bonus'],
+      :trusted_bonus => $private_seller_constants['trusted_bonus'],
+      :good_factor => $private_seller_constants['good_factor'],
+      :bad_salesvolume => $private_seller_constants['bad_salesvolume']
     }
   end
 
-  def sales_volume
-    ( bad_seller? ? ( private_seller_constants[:standard_salesvolume] / private_seller_constants[:bad_factor] ) :
-    ( private_seller_constants[:standard_salesvolume] +
-    ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +
-    ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
-    ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
+  def max_value_of_goods_cents
+    salesvolume = private_seller_constants[:standard_salesvolume]
+
+    salesvolume += private_seller_constants[:trusted_bonus]   if self.trustcommunity
+    salesvolume += private_seller_constants[:verified_bonus]  if self.verified
+    salesvolume *= private_seller_constants[:good_factor]     if good_seller?
+    salesvolume = private_seller_constants[:bad_salesvolume]  if bad_seller?
+
+    salesvolume
   end
+
+
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name

@@ -122,6 +122,9 @@ group :development, :test do
   gem 'capybara'
   gem "ZenTest"
 
+  # Gem for testing emails
+  gem "email_spec"
+
   # Code Coverage
   gem 'simplecov'
   gem 'coveralls', require: false

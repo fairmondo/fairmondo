@@ -26,6 +26,8 @@ require 'rails/all'
 
 require 'net/http'
 
+
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -44,13 +46,14 @@ module Fairnopoly
     # Custom model loads
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
 
-    config.active_record.observers = :article_observer, :feedback_observer, :transaction_observer,:user_observer
+    config.active_record.observers = [:article_observer,:feedback_observer,:transaction_observer,:user_observer,:library_element_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

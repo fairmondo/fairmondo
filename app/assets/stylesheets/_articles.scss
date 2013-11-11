@@ -82,6 +82,10 @@
 		@include rem(padding-bottom, 7px);
 }
 
+.Thunbnail-pending {
+  color: $red;
+}
+
 .Article-info--left {
 	@include span-columns(2, 2);
 	position: relative;
@@ -266,11 +270,15 @@ span.Article-price {
 }
 
 .Import-detail {
-	@include border-radius(7px);
+
 	@include at-breakpoint($layout-medium) {
 		@include span-columns(4, 4);
 	}
 	@include at-breakpoint($layout-large) {
 		@include span-columns(2, 4);
 	}
+}
+
+.Import-errors {
+  color:$red;
 }

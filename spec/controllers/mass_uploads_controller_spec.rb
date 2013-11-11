@@ -28,6 +28,21 @@ describe MassUploadsController do
     end
   end
 
+
+  describe "GET 'image_errors'" do
+
+    context "for signed-in users" do
+      let(:user) { FactoryGirl.create :user }
+      before { sign_in user }
+
+      it "should render the :new view" do
+        get :image_errors
+        response.should render_template :image_errors
+      end
+    end
+  end
+
+
   describe "mass-upload creation" do
     let(:user) { FactoryGirl.create(:legal_entity, :paypal_data) }
     let(:attributes) { create_attributes('/mass_upload_correct.csv', 'text/csv') }

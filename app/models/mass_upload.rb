@@ -1,21 +1,22 @@
-# encoding: utf-8
-# Farinopoly - Fairnopoly is an open-source online marketplace.
+#
+# == License:
+# Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
 #
-# This file is part of Farinopoly.
+# This file is part of Fairnopoly.
 #
-# Farinopoly is free software: you can redistribute it and/or modify
+# Fairnopoly is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# Farinopoly is distributed in the hope that it will be useful,
+# Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class MassUpload
 
@@ -63,6 +64,24 @@ class MassUpload
     "gtin", "custom_seller_identifier"]
   end
 
+  # Gives header row that is needed for updates and deletes
+  def self.expanded_header_row
+    ['id'] + header_row + ['action']
+  end
+
+  # Provide basic hash that gets filled in the controller with article IDs
+  # @return [Hash]
+  def self.prepare_session_hash
+    Hash[ Article.actions.map { |action| [action, []] } ]
+  end
+  # Compile a list of articles in a hash; keys indicate what has been done with them
+  def self.compile_report_for session_hash
+    Hash[
+      Article.actions.map do |action|
+        [action, Article.find_all_by_id(session_hash[action]).sort_by(&:created_at)]
+      end
+    ]
+  end
 
   def initialize(attributes = nil)
     @errors = ActiveModel::Errors.new(self)
@@ -93,13 +112,11 @@ class MassUpload
       return false
     end
 
-    unless correct_header?
-      return false
-    end
+    #unless correct_header?
+    #  return false
+    #end
 
-    build_articles_for user
-
-    unless articles_valid?
+    unless build_articles_for user
       return false
     end
 
@@ -108,35 +125,29 @@ class MassUpload
     true
   end
 
-
   def build_articles_for user
     @articles = []
-    @csv.each do |row|
-      row_hash = row.to_hash
+    valid = true
+
+    @csv.each_with_index do |row,index|
+      row_hash = sanitize_fields row.to_hash
       categories = Category.find_imported_categories(row_hash['categories'])
       row_hash.delete("categories")
       row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-      article = Article.new(row_hash)
-      article.user_id = user.id
-      Questionnaire.add_commendation!(article)
-      revise_prices(article)
-      article.categories = categories if categories
-      @articles << article
-    end
-  end
+      row_hash = Questionnaire.add_commendation(row_hash)
+      article = Article.create_or_find_according_to_action row_hash, user
 
-  def articles_valid?
-    valid = true
-    @articles.each_with_index do |article, index|
-      # +bugbug Why is this repetition necessary? -K
-      if article.errors.full_messages.any?
-        add_article_error_messages(article, index)
-        valid = false
-      end
-
-      if article.invalid?
-        add_article_error_messages(article, index)
-        valid = false
+      if article # so we can ignore rows when reimporting
+        article.user_id = user.id
+        revise_prices(article)
+        article.categories = categories if categories
+        if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                       # fix this by generating the base errors with proper validations
+                                       # may be hard for dynamic update model
+          add_article_error_messages(article, index)
+          valid = false
+        end
+        @articles << article
       end
     end
     return valid
@@ -146,17 +157,18 @@ class MassUpload
     # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
       first_line_break = ""
-      if article.errors.full_messages[0] == message && index > 0 # && image_errors == false
+      if article.errors.full_messages[0] == message && index > 0
         first_line_break = "<br/>"
       end
-      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_upload.errors.wrong_article', message: message, index: (index + 2))}")
+      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_uploads.errors.wrong_article', message: message, index: (index + 2))}")
     end
   end
 
   def save_articles!
     @articles.each do |article|
       article.calculate_fees_and_donations
-      article.save!
+      article.process!
+      article.extract_external_image!
     end
   end
 
@@ -188,4 +200,13 @@ class MassUpload
   def persisted?
     false
   end
+
+  private
+    # Throw away additional fields that are not needed
+    def sanitize_fields row_hash
+      row_hash.keys.each do |key|
+        row_hash.delete key unless MassUpload.expanded_header_row.include? key
+      end
+      row_hash
+    end
 end

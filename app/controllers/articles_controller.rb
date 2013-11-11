@@ -35,6 +35,9 @@ class ArticlesController < InheritedResources::Base
   #search_cache
   before_filter :build_search_cache, :only => :index
 
+  # Calculate value of active goods
+  before_filter :check_value_of_goods, :only => [:new, :create]
+
   #Sunspot Autocomplete
   def autocomplete
     search = Sunspot.search(Article) do
@@ -66,19 +69,13 @@ class ArticlesController < InheritedResources::Base
 
   def new
     authorize build_resource
-
     ############### From Template ################
     if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
     elsif permitted_new_params[:edit_as_new]
       @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
-      @article = @old_article.amoeba_dup
-      if !@old_article.sold?
-        #do not remove sold articles, we want to keep them
-        #if the old article has errors we still want to remove it from the marketplace
-        @old_article.close_without_validation
-      end
+      @article = Article.edit_as_new @old_article
     end
     new!
   end
@@ -172,6 +169,15 @@ class ArticlesController < InheritedResources::Base
     def permitted_search_params
       params.permit :page, :keywords
     end
+    def permitted_queue_params
+      params.permit :page, :queue
+    end
+
+    def check_value_of_goods
+      if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
+        redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
+      end
+    end
 
     ############ Save Images ################
 
@@ -186,7 +192,11 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= search_for @search_cache
+      if params[:queue]
+        @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
+      else
+        @articles ||= search_for @search_cache
+      end
     end
 
     def begin_of_association_chain

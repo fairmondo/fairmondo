@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe ToolboxController do
+
+  let(:user) { FactoryGirl.create :user }
+
   #render_views
 
   describe "GET 'session'" do
@@ -55,6 +58,20 @@ describe ToolboxController do
     end
 
 
+
+  end
+
+  describe "GET 'notice'" do
+    before(:each) do
+      @notice = FactoryGirl.create :notice
+      sign_in user
+    end
+
+    it "should redirect to the notice path and close it" do
+      get :notice, :id => @notice.id
+      response.should redirect_to(@notice.path)
+      @notice.reload.open.should be false
+    end
 
   end
 

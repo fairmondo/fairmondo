@@ -21,10 +21,9 @@
 // Project styles
 @import "_mixins.scss";
 @import "_base.scss";
-@import "_mixins.scss";
 @import "_icons.scss";
 @import "_layout.scss";
-@import "_pioneer.scss";
+
 
 
 // forms
@@ -52,13 +51,14 @@
 @import "_categories.scss";
 @import "_filter.scss";
 @import "_tooltip.scss";
-@import "_progressbar.scss";
 @import "_libraries.scss";
 @import "_table.scss";
 @import "_commendation.scss";
 @import "_transactions.scss";
+@import "_message_row.scss";
 
 // cms
 @import "_content.scss";
 
-
+// ratings
+@import "_ratings.scss";

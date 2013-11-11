@@ -28,11 +28,6 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   validates_presence_of :slug unless :template?
 
-  #only generate friendly slug if we dont have a template
-  def should_generate_new_friendly_id?
-    !template?
-  end
-
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
   delegate :deletable?,:buyer, to: :transaction, prefix: false
@@ -46,15 +41,33 @@ class Article < ActiveRecord::Base
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
+  has_many :exhibits
+
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
   validates_presence_of :user_id
 
   belongs_to :article_template
 
+  after_save :count_value_of_goods
+
+
+
   # Misc mixins
   extend Sanitization
   # Article module concerns
-  include Categories, Commendation, Export, FeesAndDonations, Images, BuildTransaction, Attributes, Search, Template, State, Scopes
+  include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
+    Images, BuildTransaction, Attributes, Search, Template, State, Scopes, Checks
+
+  def self.article_attrs with_nested_template = true
+    (
+      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+      Article.basic_price_attrs + Article.transport_attrs +
+      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
+      Article.image_attrs + Article.legal_entity_attrs +
+      Article.template_attrs(with_nested_template)
+    )
+  end
 
   def images_attributes=(attributes)
     self.images.clear
@@ -73,6 +86,17 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.edit_as_new article
+      new_article = article.amoeba_dup
+      if !article.sold?
+        #do not remove sold articles, we want to keep them
+        #if the old article has errors we still want to remove it from the marketplace
+        article.close_without_validation
+      end
+      new_article.state = "preview"
+      new_article
+  end
+
   amoeba do
     enable
     include_field :fair_trust_questionnaire
@@ -85,44 +109,23 @@ class Article < ActiveRecord::Base
         copyimage = Image.new
         copyimage.image = image.image
         copyimage.is_title = image.is_title
+        copyimage.external_url = image.external_url
         new_article.images << copyimage
         copyimage.save
       end
     }
   end
 
-  # Does this article belong to user X?
-  # @api public
-  # param user [User] usually current_user
-  def owned_by? user
-    user && self.seller.id == user.id
-  end
 
-  # for featured article
-  def profile_name
-    if self.seller.type == "PrivateUser"
-      self.seller.nickname
-    else
-      "#{self.seller.nickname}, #{self.seller.city}"
+
+  def count_value_of_goods
+    value_of_goods_cents = 0
+    self.seller.articles.each do |article|
+      if article.state == 'active'
+        value_of_goods_cents += article.price_cents * article.quantity
+      end
     end
-  end
-
-  def self.article_attrs with_nested_template = true
-    (
-      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-      Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-      Article.image_attrs + Article.legal_entity_attrs +
-      Article.template_attrs(with_nested_template)
-    )
-  end
-
-  def is_conventional?
-    self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
-  end
-
-  def is_available?
-    self.transaction_quantity_available == 0
+    self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
   end
 
 

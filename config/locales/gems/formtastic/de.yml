@@ -10,6 +10,7 @@ de:
         explanations: Erläuterungen
         purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
       user:
+        contact_person: Ansprechperson
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
@@ -117,6 +118,7 @@ de:
         per: "pro"
         basic_price_amount: "Mengeneinheit"
 
+        friendly_percent_ngo_info: "Mehr Informationen zu dieser gemeinnützigen Organisation: "
         friendly_percent: "Spendenanteil - das freundliche Prozent"
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
