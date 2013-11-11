@@ -1,12 +1,11 @@
 %p
-  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "
-  = @article.title
-  " gesandt:
+  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
+  = "\"#{@article.title}\""
+  gesandt:
 %br
 %hr
 %br
-%p
-  = simple_format @text
+= simple_format @text
 %br
 %hr
 %br
