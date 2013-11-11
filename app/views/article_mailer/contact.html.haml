@@ -1,0 +1,28 @@
+%p
+  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "
+  = @article.title
+  " gesandt:
+
+%hr
+
+%p
+  = @text
+
+%hr
+
+
+%p
+  Bitte sende Deine Antwort an
+  = @from
+  .
+%p
+  Den Artikel zu der Rückfrage findest Du unter
+  = article_url @article
+
+%p
+  = t('common.fn_legal_footer.intro')
+  = t('common.fn_legal_footer.contact')
+  = t('common.fn_legal_footer.registered')
+  = t('common.fn_legal_footer.board')
+  = t('common.fn_legal_footer.ceo')
+  = t('common.fn_legal_footer.supervisory_board')
