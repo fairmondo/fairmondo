@@ -394,7 +394,7 @@ describe 'Article management' do
       end
       # it "should have a different title image with an additional param" do
       #   new_img = FactoryGirl.create :image
-      #   @article.images << new_img
+      #   @article.images << 
       #   @article.save
 
       #   Image.should_receive(:find).with(new_img.id.to_s)

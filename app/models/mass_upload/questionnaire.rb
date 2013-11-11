@@ -42,7 +42,7 @@ module MassUpload::Questionnaire
     attributes.each do |k, v|
       if k.include?("checkboxes")
         if v
-          attributes[k] = v.split(',')
+          attributes[k] = v.split(',').map{|i| i.strip} # strip needed to inculde not just the first element because of white space
         else
           attributes[k] = []
         end

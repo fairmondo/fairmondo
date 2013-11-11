@@ -19,32 +19,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Library < ActiveRecord::Base
-  extend Sanitization
+require "spec_helper"
 
-  def self.library_attrs
-    [:name, :public, :user, :user_id]
+describe LibraryHelper do
+  describe "#library_header_layout(library)" do
+    it "should render a library header with elements" do
+      @library = FactoryGirl.create(:library_with_elements)
+      helper.library_header_layout(@library).should be_a String
+      # TODO: More checks
+    end
   end
-  auto_sanitize :name
-  #! attr_accessible *library_attributes
-  #! attr_accessible *library_attributes, :as => :admin
-
-  delegate :nickname, :to => :user, :prefix => true
-
-  validates :name,:user, :presence => true
-
-  validates :name, :uniqueness => {:scope => :user_id}, length: { :maximum => 25}
-
-
-
-  #Relations
-
-  belongs_to :user
-
-  has_many :library_elements, dependent: :destroy
-  has_many :articles, through: :library_elements
-
-  scope :public, where(public: true)
-  default_scope order('updated_at DESC')
-
 end
