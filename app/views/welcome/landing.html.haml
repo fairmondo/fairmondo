@@ -6,4 +6,5 @@
     = render "option", option: "no", url: "landing_no", colorbox: true
     = render "option", option: "perhaps", url: "landing_perhaps", colorbox: true
   .Landing-logo
-    = image_tag("landing/logo.png")
+    = link_to root_path do
+      = image_tag("landing/logo.png")
