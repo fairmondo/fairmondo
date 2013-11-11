@@ -34,3 +34,4 @@ Addresses:
       honor: "test26@example.com"
       other: "test27@example.com"
       trust_community: "test28@example.com"
+  	become_donation_partner: "test29@example.com"

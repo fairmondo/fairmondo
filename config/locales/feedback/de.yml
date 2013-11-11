@@ -9,7 +9,7 @@ de:
     actions:
       get_help: "Hilfe anfragen"
       send_feedback: "Feedback senden"
-      get_donation_partner: "Formular senden"
+      become_donation_partner: "Formular senden"
     details:
       details_for_tech_support: "Technische Details für den IT - Support"
       last_uploaded_article_id: "ID des zuletzt vom User eingestellten Artikels"

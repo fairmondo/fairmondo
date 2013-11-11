@@ -34,7 +34,7 @@ class FeedbackObserver < ActiveRecord::Observer
         feedback.subject.prepend("[Hilfe] ")
         FeedbackMailer.feedback_and_help( feedback, feedback.help_subject ).deliver
       when "become_donation_partner" then
-
+        FeedbackMailer.donation_partner(feedback).deliver
     end
 
   end
