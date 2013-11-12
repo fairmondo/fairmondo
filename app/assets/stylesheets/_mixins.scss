@@ -13,10 +13,10 @@
 	font-weight: 700;
 }
 
-@mixin blacklink() {
-  color: $black;
+@mixin colorlink($color) {
+  color: $color;
   &:visited{
-    color: $black;
+    color: $color;
   }
   &:hover {
     text-decoration:none;

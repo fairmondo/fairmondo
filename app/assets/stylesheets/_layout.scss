@@ -15,7 +15,6 @@ body {
 }
 .l-Header {
 	background-image: url(asset-path("back3.gif", image));
-  box-shadow: inset 0px -5px 5px 2px $darkbeige;
 }
 .l-Hero {
 	 background-color: $darkbeige;
@@ -25,11 +24,11 @@ body {
 		padding: .2em 0;
 	}
 	.l-Inner {
-		@include rem(padding-top, 16px);
+		@include rem(padding-top, 0px);
 	}
 	.Hero-search, .l-User {
 		background-color: $darkbeige;
-		position: relative;
+		padding-top:0.75em;
 	}
 	.Filter-inner {
 		@include container;

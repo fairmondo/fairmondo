@@ -24,8 +24,9 @@
 .l-Left,.l-Right  {
   .Btn {
     width:100%;
-    @include rem(padding, 0.6em 4px 0.8em);
-    height: em(40);
+    @include rem(font-size, 14px);
+    @include rem(padding, 0.4em 4px);
+    height: em(41);
   }
 }
 
@@ -49,25 +50,15 @@
 
 }
 .Search .Search-input input { // extra specificity
-	@include rem(font-size, 17px);
+	@include rem(font-size, 14px);
 	width: 100%;
 }
 
 .Search-button {
 	position: absolute;
-	top: em(13);
+	top: em(7);
 	right: em(11);
 }
 
 
 
-
-
-
-// .Search {
-// 	@include at-breakpoint($layout-small) {
-// 		@include span-columns(2, 4);
-// 		float: left;
-// 		//width: columns(2,4);
-// 	}
-// }
