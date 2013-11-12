@@ -20,21 +20,48 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
--variety = @variety || resource.variety
--case variety
+='***'
 
--when "report_article" then
-  .Feedback-form
-    = render 'feedbacks/varieties/report', feedback: resource
+%p
+  Vorname:
+  = @feedback.forename
 
--when "get_help" then
-  .Feedback-form
-    = render 'feedbacks/varieties/help'
+%p
+  Nachname:
+  = @feedback.lastname
 
--when "send_feedback"
-  .Feedback-form
-    = render 'feedbacks/varieties/feedback'
+%p
+  Name der Organisation:
+  = @feedback.organisation
 
--when "become_donation_partner"
-  .Feedback-form
-    = render 'feedbacks/varieties/donation_partner'
+- if @feedback.phone?
+  %p
+    Telefon:
+    = @feedback.phone
+
+='***'
+
+%p
+  = @feedback.text
+
+='***'
+
+%p
+  = t('feedback.details.details_for_tech_support')
+
+%p
+  User-Agent:
+  = @feedback.user_agent
+
+%p
+  Source-Page:
+  = @feedback.source_page
+
+%p
+  Feedback-ID:
+  = @feedback.id
+
+%p
+  = t('feedback.details.last_uploaded_article_id')
+  = @last_article_id
+

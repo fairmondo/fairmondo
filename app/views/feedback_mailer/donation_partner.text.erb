@@ -1,0 +1,27 @@
+***
+
+Vorname:	<%= @feedback.forename %>
+
+Nachname:	 <%= @feedback.lastname %>
+
+Name der Organisation:	 <%= @feedback.organisation %>
+
+<% if @feedback.phone? %>
+Telefon:	 <%= @feedback.phone %>
+<% end %>
+
+***
+
+<%= @feedback.text %>
+
+***
+
+<%=  t('feedback.details.details_for_tech_support') %>
+User-Agent: <%= @feedback.user_agent %>
+
+Source-Page: <%= @feedback.source_page %>
+
+Feedback-ID: <%= @feedback.id %>
+
+<%= t('feedback.details.last_uploaded_article_id') %>:
+  <%= @last_article_id %>
