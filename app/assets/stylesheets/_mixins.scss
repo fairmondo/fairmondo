@@ -12,3 +12,14 @@
 %Bold {
 	font-weight: 700;
 }
+
+@mixin blacklink() {
+  color: $black;
+  &:visited{
+    color: $black;
+  }
+  &:hover {
+    text-decoration:none;
+    color: $blue;
+  }
+}

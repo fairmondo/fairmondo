@@ -2,6 +2,7 @@
 // Layout
 //
 
+
 body {
 	background-color: $beige;
 }
@@ -14,9 +15,10 @@ body {
 }
 .l-Header {
 	background-image: url(asset-path("back3.gif", image));
+  box-shadow: inset 0px -5px 5px 2px $darkbeige;
 }
 .l-Hero {
-	background-color: $beige;
+	 background-color: $darkbeige;
 
 	.first {
 		@include pie-clearfix;
@@ -27,6 +29,7 @@ body {
 	}
 	.Hero-search, .l-User {
 		background-color: $darkbeige;
+		position: relative;
 	}
 	.Filter-inner {
 		@include container;
@@ -51,15 +54,3 @@ body {
 		padding-bottom: em(20);
 	}
 }
-
-// .pages-feedbacks {
-// 	.l-Main > .l-Inner {
-// 		width: columns(4,4);
-// 		@include pie-clearfix;
-
-// 		@include at-breakpoint($layout-large) {
-// 			width: columns(2,4);
-// 			margin-left: 0;
-// 		}
-// 	}
-// }

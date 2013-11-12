@@ -62,6 +62,7 @@
 //= require visual/filter
 //= require visual/truncator
 //= require visual/wait_for_submit
+//= require visual/category
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy

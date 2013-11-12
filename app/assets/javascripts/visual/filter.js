@@ -8,7 +8,7 @@ var toggleFilter = function(event){
 		var $filter = $('.Filter');
 		$filter.toggleClass('is-active');
 		$filter.find(".Filter-inner").css("overflow","hidden");
-}
+};
 
 $(function() {
 	var $filterToggle = $('#js-filter-toggle');
@@ -19,4 +19,6 @@ $(function() {
 		var $filter = $('.Filter');
 		$filter.addClass('is-active');
 	});
+
 });
+
