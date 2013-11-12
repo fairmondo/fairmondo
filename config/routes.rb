@@ -99,7 +99,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :libraries, :only => [:index]
 
-  resources :categories, :only => [:show]
+  resources :categories, :only => [:show,:index]
 
   resources :exhibits, :only => [:create,:update]
 

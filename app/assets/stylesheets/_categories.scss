@@ -51,8 +51,6 @@
   background-color: #717171;
   color: $white;
   display: inline-block;
-
-
   &:hover {
     background-color: $darkgray;
   }
@@ -78,9 +76,11 @@
 .Hero-category {
   float:left;
   text-align:center;
-  padding:0em 1em 0.5em 1em;
-  @include blacklink;
-  margin-bottom:1em;
+  padding:0.5em 1em;
+  margin-bottom: 0.5em;
+  a {
+    @include colorlink($darkgray);
+  }
   position:relative;
   &:hover {
     background: white;
@@ -110,8 +110,9 @@
 }
 
 .Hero-morecategories {
+  padding:0.5em 0em;
   a {
-    @include blacklink;
+    @include colorlink($darkgray);
   }
   @include at-breakpoint($layout-small-to-medium) {
     @include span-columns(1 omega,3);
@@ -129,20 +130,25 @@
 
 .Category-dropdown {
   padding: 1em;
-  float:left;
   position:absolute;
+  width:12em;
   left:-999em; /* Hides the drop down */
-  margin:4px auto;
   text-align:left;
-  width:15em;
   background: white;
-  z-index:5;
-  ul {
-    list-style:none;
+  z-index:2;
+  @include border-bottom-radius(5px);
+  @include border-top-right-radius(5px);
+  @include single-box-shadow($gray,1px,1px,3px,0px)
+}
+
+.Category-dropdown-children {
+   list-style:none;
     padding:0;
     margin:0;
-  }
-  border-bottom-radius: 5px;
+    li {
+      display:block;
+      word-wrap: break-word;
+    }
 }
 
 .Hero-category:hover .Category-dropdown{
@@ -151,8 +157,8 @@
 }
 
 .Hero-presearch {
+  padding:0.75em 0 0;
   display:none;
-  padding:0.5em 0em 0em 0em;
   @include container;
   @media (max-width: 25em) {
     padding-left: $gutter-width / 2;
@@ -160,5 +166,28 @@
   }
   @include at-breakpoint($layout-medium) {
     display:block;
+  }
+}
+
+.Hero-search { // Ensure our dropdown is over the other things
+  position: relative;
+}
+
+
+//________________________________
+//
+// Index
+//
+//________________________________
+
+.Category-index-parent {
+  @include span-columns(1,3);
+  @include nth-omega(3n);
+  background:white;
+  @include rem(padding, 10px 20px);
+  @include border-radius(8px);
+  margin-bottom: 2em;
+  &:nth-child(3n+1) {
+    clear:both;
   }
 }
