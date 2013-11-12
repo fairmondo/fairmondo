@@ -188,7 +188,6 @@ class User < ActiveRecord::Base
     string
   end
 
-<<<<<<< HEAD
   # Update percentage of positive and negative ratings of seller
   # @api public
   # @return [undefined]
@@ -224,7 +223,6 @@ class User < ActiveRecord::Base
   end
 
 
-=======
   # get ngo status
   # @api public
   def is_ngo?
@@ -246,7 +244,7 @@ class User < ActiveRecord::Base
   #  end
   #  donated_ngos
   #end
->>>>>>> feature-friendly-percent
+
 
   state_machine :seller_state, :initial => :standard_seller do
 
