@@ -160,4 +160,21 @@
       = resource.seller_about.html_safe
 
 
+- if current_user
+  -# Contact Box (refactor when we have a real messaging system)
+  .Accordion.Accorion--full.Accordion--scrollToActive
+    = accordion_item 'contact_private_user' do
+      = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
+        %p= t('article.show.contact.description')
+        %br
+        = f.inputs do
+          -# hidden
+          = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+          -# user input
+          = f.input :email_transfer_accepted, label: t('article.show.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
+          %br
+          - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
+          = f.input :text, as: :text, input_html: { rows: 4, value: text }
 
+        = f.actions do
+          = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Btn"}

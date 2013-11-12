@@ -30,7 +30,8 @@ class Article < ActiveRecord::Base
 
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
-  delegate :deletable?,:buyer, to: :transaction, prefix: false
+  delegate :deletable?, :buyer, to: :transaction, prefix: false
+  delegate :email, to: :seller, prefix: true
 
   # Relations
   has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
