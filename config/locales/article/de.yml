@@ -50,11 +50,12 @@ de:
       contact:
         description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Verkäufer*in eine Nachricht zu senden.'
         email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Verkäufer*in als Rücksendeadresse übermittelt wird."
-        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Verkäufer*in die Möglichkeit hat, dir zu antworten.'
+        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Verkäufer*in die Möglichkeit hat, Dir zu antworten.'
         empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Verkäufer*in zu kontaktieren.'
+        long_error: 'Bitte benutze für Deine Rückfrage nicht mehr als 2000 Zeichen.'
         success_notice: 'Deine Nachricht wurde an den*die Verkäufer*in übermittelt.'
         action: 'Nachricht senden'
-        mail_subject: "Nutzer*innen-Rückfrage zu deinem Artikel auf Fairnopoly"
+        mail_subject: "Nutzer*innen-Rückfrage zu Deinem Artikel auf Fairnopoly"
     hero:
       search: "Suche nach"
       filter: "Filter nach"
