@@ -10,6 +10,7 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback zu dem Artikel"
+      contact_private_user: 'Rückfragen an den*die Verkäufer*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -45,6 +46,16 @@ de:
       alternative: "Faire Alternative"
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
+      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
+      contact:
+        description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Verkäufer*in eine Nachricht zu senden.'
+        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Verkäufer*in als Rücksendeadresse übermittelt wird."
+        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Verkäufer*in die Möglichkeit hat, Dir zu antworten.'
+        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Verkäufer*in zu kontaktieren.'
+        long_error: 'Bitte benutze für Deine Rückfrage nicht mehr als 2000 Zeichen.'
+        success_notice: 'Deine Nachricht wurde an den*die Verkäufer*in übermittelt.'
+        action: 'Nachricht senden'
+        mail_subject: "Nutzer*innen-Rückfrage zu Deinem Artikel auf Fairnopoly"
     hero:
       search: "Suche nach"
       filter: "Filter nach"
@@ -93,7 +104,6 @@ de:
       confirm_to_buy: "Artikel wurde erfolgreich zum Verkauf eingestellt!"
       update: "Artikel wurde erfolgreich aktualisiert."
       image: "Bild wurde erfolgreich hochgeladen."
-      report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
       incomplete_profile: 'Um Artikel anbieten zu können, musst Du zunächst die Pflichtfelder in Deinem Profil ausfüllen. Du wirst auf die "Profil bearbeiten"-Seite weitergleitet.'
       inactive: "Der aufgerufene Artikel wurde leider vom Marktplatz genommen!"
       locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
