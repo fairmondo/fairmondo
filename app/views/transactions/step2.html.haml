@@ -165,8 +165,7 @@
               - else
                 = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
               - if resource.article.has_friendly_percent? && resource.article.donated_ngo
-                = t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
-
+                %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
 
           %hr
           %table#Transpay-price-table

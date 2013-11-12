@@ -85,6 +85,9 @@ class User < ActiveRecord::Base
 
   scope :sorted_ngo, order(:nickname).where(:ngo => true).take(5)
 
+  #belongs_to :articles_with_donation, class_name: 'Article', inverse_of: :donated_ngo
+  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+
   has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
 
@@ -160,12 +163,6 @@ class User < ActiveRecord::Base
     user && user.admin?
   end
 
-  # get ngo status
-  # @api public
-  def is_ngo?
-    self.ngo
-  end
-
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number
@@ -191,6 +188,7 @@ class User < ActiveRecord::Base
     string
   end
 
+<<<<<<< HEAD
   # Update percentage of positive and negative ratings of seller
   # @api public
   # @return [undefined]
@@ -226,6 +224,29 @@ class User < ActiveRecord::Base
   end
 
 
+=======
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
+  end
+
+  # get all users with ngo status but not current
+  def self.sorted_ngo_without_current current_user
+    self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
+  end
+
+  # get all users with ngo status the current user has donated to
+  #def donated_ngos
+  #  donated_ngos = []
+  #  self.sold_transactions.each do |t|
+  #    if t.article.has_friendly_percent? && !donated_ngos.include?(fpo = t.article.donated_ngo)
+  #      donated_ngos.push fpo
+  #    end
+  #  end
+  #  donated_ngos
+  #end
+>>>>>>> feature-friendly-percent
 
   state_machine :seller_state, :initial => :standard_seller do
 
