@@ -30,8 +30,12 @@ module TransactionMailerHelper
   def show_contact_info_seller seller
     string = ""
     if seller.is_a? LegalEntity
-      string += "#{seller.company_name}\n" if seller.company_name
-      string += "#{seller.forename} #{seller.surname}\n"
+      if seller.company_name.present?
+        string += "#{seller.company_name}\n"
+       else
+        string += "#{seller.nickname}\n"
+       end
+      string += "#{t('transaction.notifications.seller.contact_person')}: #{seller.forename} #{seller.surname}\n"
     else
       string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
