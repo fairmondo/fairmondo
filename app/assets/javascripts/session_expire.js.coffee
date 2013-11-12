@@ -16,7 +16,7 @@ checkIfExpired = ->
         expireTime = calculateExpireTime()
 
 checkIfExpiredOnServer = (callback) ->
-  $.get '/toolbox/session.json', (result) ->
+  $.get '/toolbox/session_expired.json', (result) ->
     callback result.expired
 
 displayWarning = ->
@@ -31,7 +31,7 @@ trackMouseClicks = ->
   $(window).on 'click.trackmouse', ->
      $(window).off('click.trackmouse')
      notify = window.setTimeout trackMouseClicks, ((devise_expire*4)/6)
-     $.get '/toolbox/session.json'
+     $.get '/toolbox/session_expired.json'
 
 
 
