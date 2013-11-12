@@ -19,6 +19,23 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+.Hero-presearch
+  %ul.Hero-categories
+    - croots = Category.sorted_roots
+    - croots.each do |category|
+      %li.Hero-category
+        %a{:href => articles_path({:article => Article.new(:categories => [category])})}
+          = category.name
+        .Category-dropdown
+          .Category-dropdown-children
+          - category.children.each do |child|
+            %ul
+              %li
+                %a{:href => articles_path(:article => Article.new(:categories => [child]))}
+                  = child.name
+  .Hero-morecategories
+    %a#show-all-categories{:href => "#"}
+      Alle Kategorien
 = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
   .Hero-search
     .l-Inner

@@ -1,4 +1,5 @@
-// This file
+@import "compass/css3/border-radius";
+
 
 .Article-form {
   #article_categories_and_ancestors_input {
@@ -71,5 +72,93 @@
     margin-right: 0;
     @include rem(margin-bottom, 13px);
 
+  }
+}
+
+.Hero-category {
+  float:left;
+  text-align:center;
+  padding:0em 1em 0.5em 1em;
+  @include blacklink;
+  margin-bottom:1em;
+  position:relative;
+  &:hover {
+    background: white;
+  }
+  border-radius: 5px;
+}
+
+.Hero-categories {
+  list-style:none;
+  //overflow-y:hidden;
+  height:2em;
+  margin:0;
+  padding:0;
+  @include at-breakpoint($layout-small-to-medium) {
+    @include span-columns(2,3);
+  }
+  @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(3,4);
+  }
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(5,6);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(7,8);
+  }
+
+}
+
+.Hero-morecategories {
+  a {
+    @include blacklink;
+  }
+  @include at-breakpoint($layout-small-to-medium) {
+    @include span-columns(1 omega,3);
+  }
+  @include at-breakpoint($layout-medium-to-large) {
+    @include span-columns(1 omega,4);
+  }
+  @include at-breakpoint($layout-large-to-huge) {
+    @include span-columns(1 omega,6);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(1 omega,8);
+  }
+}
+
+.Category-dropdown {
+  padding: 1em;
+  float:left;
+  position:absolute;
+  left:-999em; /* Hides the drop down */
+  margin:4px auto;
+  text-align:left;
+  width:15em;
+  background: white;
+  z-index:5;
+  ul {
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  border-bottom-radius: 5px;
+}
+
+.Hero-category:hover .Category-dropdown{
+  left:0px;
+  top:auto;
+}
+
+.Hero-presearch {
+  display:none;
+  padding:0.5em 0em 0em 0em;
+  @include container;
+  @media (max-width: 25em) {
+    padding-left: $gutter-width / 2;
+    padding-right: $gutter-width / 2;
+  }
+  @include at-breakpoint($layout-medium) {
+    display:block;
   }
 }
