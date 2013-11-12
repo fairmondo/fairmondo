@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :image
   ##
 
-  scope :sorted_ngo, order(:nickname).where(:ngo => true)
+  scope :sorted_ngo, order(:nickname).where(:ngo => true).take(5)
 
   has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
