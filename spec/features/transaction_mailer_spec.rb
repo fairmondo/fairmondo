@@ -140,13 +140,6 @@ describe TransactionMailer do
       subject.should have_body_text( "transactions/#{transaction.id}" )
     end
 
-<<<<<<< HEAD
-=======
-    # it "should contain link to transaction" do
-    #   subject.should have_body_text( transaction_url( transaction ) )
-    # end
-
->>>>>>> feature-friendly-percent
     # it "should contain string: Bitte gib bei..." do
     #   subject.should have_body_text( I18n.t( 'transaction.notifications.buyer.transaction_id_info', id: transaction.id ) )
     # end
