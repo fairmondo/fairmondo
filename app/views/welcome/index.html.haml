@@ -47,7 +47,7 @@
   .Teaser.Teaser--text
     #slides
       - 6.times do |i|
-        = image_tag "slides/#{i}.png"
+        = image_tag "slides/cards/#{i}.png"
       %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
         %i.icon-left_arrow
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
@@ -79,7 +79,7 @@
 
 .l-Teaser--double.l-Teaser--participate
   .Teaser.Teaser--text
-    %h2.Teaser-header  AKTIV MITWIRKEN
+    %h2.Teaser-header AKTIV MITWIRKEN
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
@@ -87,3 +87,16 @@
         Held*in werden
 .l-Teaser--double.l-Teaser--news
   .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
+
+.Teaser--user-slides
+  .Teaser.Teaser--text
+    %h2.Teaser-header NUTZER*INNEN STIMMEN
+    %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+      %i.icon-left_arrow
+    = image_tag "slides/users/0.jpg"
+    %p
+      %span.Teaser--fatquote &bdquo;
+      %span.Teaser--quote Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
+      %span.Teaser--fatquote &bdquo;
+    %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      %i.icon-right_arrow
