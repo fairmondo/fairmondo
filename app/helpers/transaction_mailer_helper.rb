@@ -199,10 +199,10 @@ module TransactionMailerHelper
   #
    def show_bank_account_or_contact user
      if user.bank_account_exists?
-     "#{ t('transaction.notifications.seller.bank_account_owner') }: #{ user.bank_account_owner }\n" +
-     "#{ t('transaction.notifications.seller.bank_account_number') }: #{ user.bank_account_number }\n" +
-     "#{ t('transaction.notifications.seller.bank_code') }: #{ user.bank_code }\n" +
-     "#{ t('transaction.notifications.seller.bank_name') }: #{ user.bank_name }"
+     "#{ t('transaction.notifications.seller.bank_account_owner') } #{ user.bank_account_owner }\n" +
+     "#{ t('transaction.notifications.seller.bank_account_number') } #{ user.bank_account_number }\n" +
+     "#{ t('transaction.notifications.seller.bank_code') } #{ user.bank_code }\n" +
+     "#{ t('transaction.notifications.seller.bank_name') } #{ user.bank_name }"
      else
       "#{ t('transaction.notifications.seller.no_bank_acount') } #{ user.email }"
      end
