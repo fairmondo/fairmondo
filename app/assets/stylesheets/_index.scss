@@ -5,15 +5,15 @@
 // General
 // -----------------------------------
 .Teaser {
-	@include rem(padding, 10px 20px);
-	color: #3c3c3c;
-	border-radius: 8px;
-	background: #fff;
+  @include rem(padding, 10px 20px);
+  color: #3c3c3c;
+  border-radius: 8px;
+  background: #fff;
   margin-bottom: em(38);
-	.Icon [class^="icon-"] {
-		display: block;
-		@include rem(margin, 20px auto);
-	}
+  .Icon [class^="icon-"] {
+    display: block;
+    @include rem(margin, 20px auto);
+  }
   @include clearfix;
 
   .Article {
@@ -47,7 +47,7 @@
     @include span-columns(2,4);
   }
   @include at-breakpoint($layout-small) {
-    Article{
+    Article {
       @include span-columns(1,2);
       @include nth-omega(2n);
     }
@@ -124,11 +124,11 @@
 //
 
 .Teaser--counter {
-	// move padding from container to child els
-	padding: 0;
-	p {
-	  @include rem(padding, 0px 20px);
-	}
+  // move padding from container to child els
+  padding: 0;
+  p {
+    @include rem(padding, 0px 20px);
+  }
 }
 
 .Teaser-total {
@@ -145,12 +145,12 @@
 }
 
 .Teaser-total--articles {
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .Teaser-total--user {
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 
@@ -179,7 +179,7 @@
     @include nth-omega(2n);
   }
 
-  @include at-breakpoint($layout-huge){
+  @include at-breakpoint($layout-huge) {
     @include span-columns(1,4);
     @include nth-omega(4n);
   }
@@ -198,10 +198,23 @@
 // Welcome Teaser
 // -------------------------------------
 
-.l-Teaser--welcome {
-  color: $blue;
-  @include rem(font-size, 18px);
-  @include rem(font-size, $font-size-m);
+.l-Teaser--slides #slides {
+  display: none; /* Prevents slides from flashing */
+  position: relative;
+  width: 356px;
+  margin: auto;
+  overflow: visible !important; /* overwrite js settings so arrows are visible */
+}
+.l-Teaser--slides i {
+  display: block;
+  position: absolute;
+  top: 165px;
+}
+.l-Teaser--slides i.icon-left_arrow {
+  right: -13px;
+}
+.l-Teaser--slides i.icon-right_arrow {
+  left: -13px;
 }
 
 .Teaser-image {
