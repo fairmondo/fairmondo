@@ -66,9 +66,10 @@
                 %p
                   = msg
       %header.l-Header
-        .Message-row-background
-          .Message-row-foreground
-            = tinycms_content_body("nachrichtenzeile")
+        - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+          .Message-row-background
+            .Message-row-foreground
+              = tinycms_content_body("nachrichtenzeile")
         .l-Inner
           .Logo
             %h1
