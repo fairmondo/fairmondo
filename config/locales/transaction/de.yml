@@ -80,6 +80,7 @@ de:
       begin: "--------- Beginn der Nachricht ---------"
       transaction_link: "Details zur Bestellung: "
       seller:
+        contact_person: "Ansprechperson"
         intro: "Diese Email wurde automatisch generiert. Die Email-Adresse der Käufer*in findest Du weiter unten."
         seller_subject: "Artikel auf Fairnopoly verkauft"
         with_donation_to: " mit Spendenanteil an "
