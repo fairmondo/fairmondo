@@ -20,11 +20,10 @@
   }
 }
 .Donationpartner-button {
-  //height: 90px;
   float: left;
-  width: 130px;
-  margin-top: 5px;
-  margin-left: 30px;
+  @include rem(width, 130px);
+  @include rem(margin-top, 5px);
+  @include rem(margin-left, 30px);
 }
 
 .Donationpartner-element--title {
