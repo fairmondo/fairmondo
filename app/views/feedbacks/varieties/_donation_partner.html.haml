@@ -1,7 +1,7 @@
 %h1= t('feedback.title.donation_partner')
 
 %p= t('feedback.donation_partner.intro1')
-%p= t('feedback.donation_partner.intro2')
+%p= t('feedback.donation_partner.intro2_html')
 %p= t('feedback.donation_partner.intro3')
 
 = semantic_form_for resource, url: feedbacks_path do |f|
@@ -15,7 +15,7 @@
     = f.input :organisation, required: true
     = f.input :phone, required: false
 
-    = tinycms_content 'faq-teaser'
+    -#= tinycms_content 'faq-teaser'
     %p= 'Bitte beschreibe in einigen Sätzen, was die thematischen und Arbeitsschwerpunkte Deiner Organisation sind:'
     %br
     = f.input :text, label: false, required: true
