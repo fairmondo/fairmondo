@@ -39,7 +39,8 @@ describe CategoriesController do
       end
 
       it "should show a category" do
-        get :show, :id => Category.last.id, :format => :json
+        c = FactoryGirl.create :category
+        get :show, :id => c.id, :format => :json
         response.should be_success
         # continue checking
       end
