@@ -7,6 +7,10 @@
   padding-bottom: 0;
   background: #fff;
   @include rem(min-height, 50px);
+  margin-bottom: 22em;
+  @include at-breakpoint($layout-large) {
+    margin-bottom: 16em;
+  }
 }
 .Knownfrom-element {
   float: left;
