@@ -91,13 +91,6 @@
 	max-width: em(540);
 }
 
-
-.Highlight {
-	@include rem(font-size, $font-size-m);
-	color: gray;
-	margin-bottom: .5em;
-}
-
 .l-Hero .l-Inner h1 {
 	margin-top: 0.5em;
 }
