@@ -22,17 +22,17 @@
 class PrivateUser < User
   extend STI
 
-
-
   state_machine :seller_state, :initial => :standard_seller do
-
-    event :rate_up_to_good_seller do
+    event :rate_up do
       transition :standard_seller => :good_seller
     end
-  end
 
-  def upgrade_seller_state
-    self.rate_up_to_good_seller
+    event :update_seller_state do
+      transition all => :bad_seller, if: lambda { |user| (user.percentage_of_negative_ratings > 25) }
+      transition bad_seller: :standard_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 75) }
+      transition standard_seller: :good_seller, if: lambda { |user| (user.percentage_of_positive_ratings > 90) }
+    end
+
   end
 
   def private_seller_constants
@@ -46,11 +46,14 @@ class PrivateUser < User
   end
 
   def max_value_of_goods_cents
-    bad_seller? ? private_seller_constants[:bad_salesvolume] :
-    (( private_seller_constants[:standard_salesvolume] +
-    ( self.trustcommunity ? private_seller_constants[:trusted_bonus] : 0 ) +
-    ( self.verified ? private_seller_constants[:verified_bonus] : 0) ) *
-    ( good_seller? ? private_seller_constants[:good_factor] : 1  ))
+    salesvolume = private_seller_constants[:standard_salesvolume]
+
+    salesvolume += private_seller_constants[:trusted_bonus]   if self.trustcommunity
+    salesvolume += private_seller_constants[:verified_bonus]  if self.verified
+    salesvolume *= private_seller_constants[:good_factor]     if good_seller?
+    salesvolume = private_seller_constants[:bad_salesvolume]  if bad_seller?
+
+    salesvolume
   end
 
 

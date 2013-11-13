@@ -1,7 +1,11 @@
 %h1
   = t('mass_uploads.titles.upload_report')
-.Import-detail
-  .Accordion--activated.Accordion--scrollToActive
+
+- if @mass_upload.all? {|k,v| v.empty?}
+  = t('mass_uploads.errors.no_activate_content')
+- else
+  .Import-detail
+    .Accordion--activated.Accordion--scrollToActive
     - unless @mass_upload[:create].empty?
       = accordion_item "created" do
         %ul
@@ -30,5 +34,6 @@
         %ul
           - @mass_upload[:delete].each do |article|
             = render "article_digest", :article => article
+
 - unless @activate_articles.empty?
   = render "mass_activation", :articles => @activate_articles

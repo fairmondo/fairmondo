@@ -116,7 +116,7 @@ If you want to help out with programming new features or fixing bugs, please con
 
 * If you do no have direct access to our github repository, you can fork it, make changes on your forked repo, and then submit a pull request
 
-* Branch management: "master" is the currently deployed version. New features are developed on the branch "develop" or feature branches that branch from develop. Bugfixes are currently done on "release-lizzie". Please send merge requests to the appropriate branches (develop or release-lizzie).
+* Branch management: "master" is the currently deployed version. New features are developed on the branch "develop" or feature branches that branch from develop. Bugfixes are currently done on "develop". Please send merge requests to the appropriate branch (develop).
 
 * If you have access to our repository, please create a new git branch before making changes when coding a larger feature
     git checkout -b feature-[featurename]

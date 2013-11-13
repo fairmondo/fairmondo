@@ -26,6 +26,7 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.accordion
 //= require jquery.ui.tooltip
+//= require jquery.slides.min.js
 //= require modernizr
 //= require selectivizr
 //= require tinymce
@@ -62,6 +63,8 @@
 //= require visual/filter
 //= require visual/truncator
 //= require visual/wait_for_submit
+//= require visual/category
+//= require visual/slides
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy

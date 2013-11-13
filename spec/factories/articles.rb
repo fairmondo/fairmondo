@@ -153,6 +153,21 @@ FactoryGirl.define do
       seller { FactoryGirl.create :legal_entity, :paypal_data }
     end
 
+    trait :with_ngo do
+      vat { [7, 19].sample }
+      seller { FactoryGirl.create :legal_entity, :paypal_data, :ngo => true }
+    end
+
+    trait :with_friendly_percent do
+      friendly_percent 75
+       donated_ngo { FactoryGirl.create :legal_entity, :ngo => true }
+    end
+
+    trait :with_friendly_percent_and_missing_bank_data do
+      friendly_percent 75
+       donated_ngo { FactoryGirl.create :legal_entity, :missing_bank_data, :ngo => true }
+    end
+
     ## These might be helpful but tend to create double articles and users
     # trait :with_single_transaction do
     #   after(:create) do |a|

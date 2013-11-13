@@ -26,18 +26,19 @@ FactoryGirl.define do
     sequence(:name) {|n| "LibraryName#{n}" }
     public false
     user
-     factory :library_with_elements do
-        ignore do
-          element_count 5
-        end
 
-       after(:create) do |library, evaluator|
+    factory :library_with_elements do
+      ignore do
+        element_count 5
+      end
+
+      after(:create) do |library, evaluator|
         FactoryGirl.create_list(:library_element, evaluator.element_count, library: library)
       end
-     end
-  end
+    end
 
-  trait :public do
-    public true
+    trait :public do
+      public true
+    end
   end
 end

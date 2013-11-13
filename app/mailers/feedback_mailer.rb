@@ -26,9 +26,17 @@ class FeedbackMailer < ActionMailer::Base
     @feedback_subject = @feedback.translate_subject
     @last_article_id = @feedback.last_article_id
     from = feedback.from? ? feedback.from : $email_addresses['ArticleMailer']['default_from']
-
     if $email_addresses
       mail(to: $email_addresses['FeedbackMailer'][@feedback.variety][topic], from: from, subject: @feedback.subject)
     end
   end
+
+  def donation_partner(feedback)
+    @feedback = feedback
+    @last_article_id = @feedback.last_article_id
+    if $email_addresses
+      mail(to: $email_addresses['FeedbackMailer'][@feedback.variety], from: @feedback.from, subject: 'Spendenpartner*in Anfrage' )
+    end
+  end
+
 end
