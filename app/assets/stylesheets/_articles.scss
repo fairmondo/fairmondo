@@ -75,6 +75,14 @@
   }
 }
 
+
+.Article--highlight {
+  @include rem(font-size, $font-size-m);
+  color: gray;
+  margin-bottom: .5em;
+}
+
+
 .Thumbnail {
   width: 50%;
   float: left;

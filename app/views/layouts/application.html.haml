@@ -67,9 +67,10 @@
                 %p
                   = msg
       %header.l-Header
-        .Message-row-background
-          .Message-row-foreground
-            = tinycms_content_body("nachrichtenzeile")
+        - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+          .Message-row-background
+            .Message-row-foreground
+              = tinycms_content_body("nachrichtenzeile")
         .l-Inner
           .Logo
             %h1
@@ -103,6 +104,8 @@
       / #main
 
       - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+        = render "welcome/ngo_logobox"
+        %br
         = render "welcome/known_from"
 
     %footer.l-Footer

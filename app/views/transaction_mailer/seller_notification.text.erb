@@ -5,6 +5,10 @@
 <%= transaction_mail_greeting @transaction, :seller %>
 
 <%= t('transaction.notifications.seller.seller_text') %>
+<% if @transaction.article.has_friendly_percent? %>
+<%= t('transaction.notifications.seller.seller_text_fp') %>
+<%end%>
+<%= t('transaction.notifications.seller.your_team') %>
 
 ***
 
@@ -38,13 +42,30 @@
 
 <%= t('transaction.notifications.seller.seller_fee_text') %>
 <%= fees_and_donations @transaction %>
-<% if @transaction.article.has_friendly_percent? && @transaction.article.donated_ngo %>
-<%= t('transaction.notifications.seller.seller_friendly_fee_text',
-	friendly_percent: @transaction.article_friendly_percent,
-	ngo: @transaction.article.donated_ngo.nickname ,
-	friendly_percent_amount: humanized_money_with_symbol(@transaction.article.calculated_friendly)) %>
-<%end %>
 
 ***
 
+<% if @transaction.article.has_friendly_percent? %>
+<% ngo = @transaction.article.donated_ngo
+fp = @transaction.article_friendly_percent
+amount = humanized_money_with_symbol(friendly_percent_with_quantity @transaction) %>
+
+<%= t('transaction.notifications.seller.friendly_percent') %>
+
+<%= t('transaction.notifications.seller.fp_intro', ngo: ngo.nickname,
+		percent: fp , amount: amount) %>
+
+<%= t('transaction.notifications.seller.fp_donate', ngo: ngo.nickname,
+		month: Time.now.strftime("%B") ,amount: amount  ) %>
+
+<%= show_bank_account_or_contact ngo %>
+
+<%= t('transaction.notifications.seller.fp_donate_info') %>
+
+<%= t('transaction.notifications.seller.fp_merci') %>
+
+***
+
+<%end %>
 <%= render '/shared/email_footer' %>
+
