@@ -84,6 +84,7 @@
   bottom: -20px;
   right: 10px;
   color:$gray;
+  z-index:1;
   @include rem(font-size, 12px);
   cursor:pointer;
   &:hover {
