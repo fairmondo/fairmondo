@@ -129,7 +129,7 @@
 }
 
 .Category-dropdown {
-  padding: 1em;
+  //padding: 1em;
   position:absolute;
   width:12em;
   left:-999em; /* Hides the drop down */
@@ -148,12 +148,25 @@
     li {
       display:block;
       word-wrap: break-word;
+      a {
+        padding: 1em;
+        display:block;
+      }
+      &:hover {
+        background: $blue;
+        a {
+          color:white;
+        }
+      }
+      &:last-child{
+        @include border-bottom-radius(5px);
+      }
     }
 }
 
 .Hero-category:hover .Category-dropdown{
   left:0px;
-  top:auto;
+  top:2em;
 }
 
 .Hero-presearch {

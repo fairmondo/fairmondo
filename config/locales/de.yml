@@ -82,6 +82,7 @@ de:
       product: "Produkt"
       libraries: "Sammlungen"
       about_terms: "AGB / Widerrufserklärung / Impressum"
+      extended_search: "Erweiterte Suche"
       glue:
         from: "von"
         and: " und "

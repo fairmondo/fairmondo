@@ -3,39 +3,58 @@
 //
 
 
-.l-Left {
-  display:none;
-  @include at-breakpoint($layout-large) {
-    display:block;
-    @include span-columns(2,12);
-  }
-}
 
-.l-Right {
-  @include at-breakpoint($layout-small-to-large) {
-     @include span-columns(1 omega,4);
-  }
-
-  @include at-breakpoint($layout-large) {
-   @include span-columns(2 omega,12);
-   }
-}
 
 .l-Left,.l-Right  {
+
+
+  @include at-breakpoint($layout-small-to-medium) {
+     @include span-columns(2,5);
+  }
+
+  @include at-breakpoint($layout-medium-to-large) {
+     @include span-columns(2,6);
+  }
+
+  @include at-breakpoint($layout-large) {
+    @include span-columns(2,12);
+  }
+
+
   .Btn {
     width:100%;
     @include rem(font-size, 14px);
     @include rem(padding, 0.4em 4px);
     height: em(41);
+    margin: 0px;
+  }
+}
+
+.l-Left {
+  display:none;
+  @include at-breakpoint($layout-medium) {
+    display:block;
+  }
+}
+
+.l-Right {
+  display:none;
+  @include at-breakpoint($layout-large) {
+    display:block;
+    @include omega;
   }
 }
 
 .l-Middle {
-  @include at-breakpoint($layout-large) {
-    @include span-columns(6,12);
+  width:100%;
+
+  @include at-breakpoint($layout-medium-to-large) {
+     @include span-columns(4,6);
+     @include omega;
   }
-   @include at-breakpoint($layout-small-to-large) {
-     @include span-columns(3,4);
+
+  @include at-breakpoint($layout-large) {
+    @include span-columns(8,12);
   }
 }
 
@@ -60,5 +79,17 @@
 	right: em(11);
 }
 
+.Search-extend {
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  z-index:3;
+  color:$gray;
+  @include rem(font-size, 12px);
+  cursor:pointer;
+  &:hover {
+    color: $blue;
+  }
+}
 
 
