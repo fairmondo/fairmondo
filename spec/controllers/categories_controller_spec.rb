@@ -38,6 +38,12 @@ describe CategoriesController do
         # continue checking
       end
 
+      it "should show a category" do
+        get :show, :id => Category.last.id, :format => :json
+        response.should be_success
+        # continue checking
+      end
+
     end
 
 

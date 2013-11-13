@@ -66,7 +66,6 @@
 //= require visual/category
 //= require visual/slides
 
-
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
 //= require inputs/bank_details
