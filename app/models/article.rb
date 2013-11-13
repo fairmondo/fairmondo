@@ -30,8 +30,11 @@ class Article < ActiveRecord::Base
 
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
   delegate :quantity_available, to: :transaction, prefix: true
+
   delegate :deletable?, :buyer, to: :transaction, prefix: false
   delegate :email, to: :seller, prefix: true
+  delegate :nickname, to: :donated_ngo, :prefix => true
+
 
   # Relations
   has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
@@ -46,6 +49,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
   belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
+
   validates_presence_of :user_id
 
   belongs_to :article_template
@@ -65,7 +69,7 @@ class Article < ActiveRecord::Base
       Article.common_attrs + Article.money_attrs + Article.payment_attrs +
       Article.basic_price_attrs + Article.transport_attrs +
       Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
-      Article.image_attrs + Article.legal_entity_attrs +
+      Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
       Article.template_attrs(with_nested_template)
     )
   end

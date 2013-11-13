@@ -72,6 +72,7 @@ de:
         newest: "Neueste Artikel zuerst"
         cheapest: "Verkaufspreis aufsteigend"
         most_expensive: "Verkaufspreis absteigend"
+        most_donated: "Spendenanteil absteigend"
     fair_trust_questionnaire:
       support_checkboxes:
         prefinance: 'Vorfinanzierung der Produktion'
