@@ -71,7 +71,7 @@
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
             .library
               = f.inputs do
-                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false, input_html: { class: 'ArticleViewLibrarySelector' }
                 = f.input :article_id, :as => :hidden
               %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
               = f.button t('common.actions.collect'), :class => "Btn Btn--blue", :style => "margin:5px;padding:8px;"

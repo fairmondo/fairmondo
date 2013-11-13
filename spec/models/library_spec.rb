@@ -40,7 +40,7 @@ describe Library do
     context "for name" do
       it { should validate_presence_of(:name) }
       it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
-      it { should ensure_length_of(:name).is_at_most(25) } #pending "No idea why this fails... it shouldn't";
+      it { should ensure_length_of(:name).is_at_most(70) }
     end
 
     context "for user" do
