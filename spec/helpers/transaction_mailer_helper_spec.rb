@@ -36,8 +36,12 @@ describe TransactionMailerHelper do
 
 	describe "#show_contact_info_seller( seller )" do
 		it "should return the right address for the seller" do
-		  [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity)].each do |user|
+		  [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity), FactoryGirl.create(:legal_entity_without_company_name)].each do |user|
   			show_contact_info_seller = helper.show_contact_info_seller( user )
+        if user.class == 'LegalEntity'
+          show_contact_info_seller.should have_content( user.nickname ) ||
+          have_content( user.company_name )
+        end
   			show_contact_info_seller.should have_content( user.forename )
   			show_contact_info_seller.should have_content( user.surname )
   			show_contact_info_seller.should have_content( user.street )

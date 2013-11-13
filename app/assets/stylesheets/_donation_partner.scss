@@ -6,7 +6,7 @@
   @include rem(padding, 10px 20px);
   padding-bottom: 10px;
   background: #fff;
-  @include rem(min-height, 50px);
+  @include rem(min-height, 100px);
 }
 .Donationpartner-element {
   float: left;
@@ -15,26 +15,34 @@
   @include rem(height, 30px);
 }
 .Donationpartner-icons {
+  //float: left;
+  //@include rem(width, 90%);
   @include at-breakpoint($layout-small) {
-    @include span-columns(17 omega, 18);
+    @include span-columns(12 , 15);
   }
-}
-.Donationpartner-button {
-  float: left;
-  @include rem(width, 130px);
-  @include rem(margin-top, 5px);
-  @include rem(margin-left, 30px);
 }
 
 .Donationpartner-element--title {
   @include rem(font-size, 11px);
   @include at-breakpoint($layout-small) {
-    @include span-columns(1, 18);
+    @include span-columns(1, 15);
   }
   color:$lightgray;
   margin-left: 0;
 
   // preventing overlap on really small screens
-  position: relative;
+
+  z-index: 1;
+}
+
+.Donationpartner-element--tail {
+  @include rem( padding-top, 10px);
+  @include rem(font-size, 11px);
+
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1 omega, 15);
+  }
+  // preventing overlap on really small screens
+
   z-index: 1;
 }
