@@ -1,16 +1,22 @@
 .Message-row-background {
+  @include at-breakpoint($layout-medium) {
+    height: 2em;
+  }
+  height: auto;
   background-color: $darkgray;
-  height: 2em;
 }
 .Message-row-foreground {
   @include container;
   color: $beige;
   padding-top: 0.3em;
-  a:active a:hover a:focus {
-    color: $white;
-    text-decoration: underline;
-  }
-  a:visited {
-    color: $darkbeige;
+  a {
+    color: $beige;
+    &:active, &:hover, &:focus {
+      color: $white;
+      text-decoration: underline;
+    }
+    &:visited {
+      color: $darkbeige;
+    }
   }
 }

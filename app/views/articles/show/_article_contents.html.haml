@@ -95,19 +95,18 @@
       .Article-friendly
         %p
           =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
-        - if resource.has_friendly_percent? && resource.donated_ngo
-          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
-
     -else
       .Article-friendly
-        %p.Highlight
-
-          =t('article.show.friendly_percent')
+        %p.Article--highlight
+          =t('article.show.fair_percent')
           %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
         %p
           =t('article.show.donate_html')
 
         - if resource.has_friendly_percent? && resource.donated_ngo
+          %p.Article--highlight
+            =t('article.show.friendly_percent')
+            %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
           %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
 
     %p
