@@ -81,6 +81,7 @@ de:
       seller: "Händler*in"
       product: "Produkt"
       libraries: "Sammlungen"
+      article: "Artikel"
       about_terms: "AGB / Widerrufserklärung / Impressum"
       glue:
         from: "von"

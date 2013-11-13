@@ -3,59 +3,66 @@ require "money-rails/test_helpers"
 require "money"
 
 describe TransactionMailerHelper do
-  before( :each ) do
-    @transaction = FactoryGirl.create :transaction_with_buyer
-  end
 
-  describe "#transaction_mail_greeting( transaction, role )" do
-    context "dependent on role it should return the right greeting" do
-      it "if role is buyer it should return buyer greeting" do
-        helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + @transaction.buyer_forename + ','
-      end
+	before( :each ) do
+		@transaction = FactoryGirl.create :transaction_with_buyer
+	end
 
-      it "if role is seller it should return seller greeting" do
-        helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + @transaction.article_seller_forename + ','
-      end
-    end
-  end
+	describe "#transaction_mail_greeting( transaction, role )" do
+		context "dependent on role it should return the right greeting" do
+			it "if role is buyer it should return buyer greeting" do
+				helper.transaction_mail_greeting( @transaction, :buyer ).should eq I18n.t('transaction.notifications.greeting') + @transaction.buyer_forename + ','
+			end
 
-  describe "#show_contact_info_seller( seller )" do
-    it "should return the right address for the seller" do
-      [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity)].each do |user|
-        show_contact_info_seller = helper.show_contact_info_seller( user )
-        show_contact_info_seller.should have_content( user.forename )
-        show_contact_info_seller.should have_content( user.surname )
-        show_contact_info_seller.should have_content( user.street )
-        show_contact_info_seller.should have_content( user.address_suffix )
-        show_contact_info_seller.should have_content( user.city )
-        show_contact_info_seller.should have_content( user.zip )
-        show_contact_info_seller.should have_content( user.country )
+			it "if role is seller it should return seller greeting" do
+				helper.transaction_mail_greeting( @transaction, :seller ).should eq I18n.t('transaction.notifications.greeting') + @transaction.article_seller_forename + ','
+			end
+		end
+	end
+
+
+	describe "#show_contact_info_seller( seller )" do
+		it "should return the right address for the seller" do
+		  [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity), FactoryGirl.create(:legal_entity_without_company_name)].each do |user|
+  			show_contact_info_seller = helper.show_contact_info_seller( user )
+        if user.class == 'LegalEntity'
+          show_contact_info_seller.should have_content( user.nickname ) ||
+          have_content( user.company_name )
         end
-    end
-  end
+  			show_contact_info_seller.should have_content( user.forename )
+  			show_contact_info_seller.should have_content( user.surname )
+  			show_contact_info_seller.should have_content( user.street )
+  			show_contact_info_seller.should have_content( user.address_suffix )
+  			show_contact_info_seller.should have_content( user.city )
+  			show_contact_info_seller.should have_content( user.zip )
+  			show_contact_info_seller.should have_content( user.country )
+  			end
+		end
+	end
 
-  describe "#show_buyer_address( transaction )" do
-    it "should return the right address for the buyer" do
-      address = helper.show_buyer_address( @transaction )
-      address.should have_content( @transaction.forename )
-      address.should have_content( @transaction.surname )
-      address.should have_content( @transaction.address_suffix )
-      address.should have_content( @transaction.street )
-      address.should have_content( @transaction.city )
-      address.should have_content( @transaction.zip )
-      address.should have_content( @transaction.country )
-    end
-  end
+	describe "#show_buyer_address( transaction )" do
+		it "should return the right address for the buyer" do
+			address = helper.show_buyer_address( @transaction )
+			address.should have_content( @transaction.forename )
+			address.should have_content( @transaction.surname )
+			address.should have_content( @transaction.address_suffix )
+			address.should have_content( @transaction.street )
+			address.should have_content( @transaction.city )
+			address.should have_content( @transaction.zip )
+			address.should have_content( @transaction.country )
+		end
+	end
 
-  describe "#order_details( transaction )" do
-    it "should return the right details for the order" do
-      details = helper.order_details( @transaction )
-      details.should have_content( @transaction.article_title )
-      details.should have_content( article_path( @transaction.article ) )
-      details.should have_content( @transaction.article_title )
-      details.should have_content( @transaction.id)
-    end
-    it "should return a transport type 1 provider if it is set" do
+	describe "#order_details( transaction )" do
+		it "should return the right details for the order" do
+			details = helper.order_details( @transaction )
+			details.should have_content( @transaction.article_title )
+			details.should have_content( article_path( @transaction.article ) )
+			details.should have_content( @transaction.article_title )
+			details.should have_content( @transaction.id)
+		end
+		it "should return a transport type 1 provider if it is set" do
+
       @transaction = FactoryGirl.create :transaction_with_buyer, :transport_type_1_selected
       helper.order_details( @transaction ).should have_content( @transaction.article.transport_type1_provider )
     end
@@ -67,15 +74,16 @@ describe TransactionMailerHelper do
       @transaction = FactoryGirl.create :transaction_with_buyer, :article => FactoryGirl.create(:article, :with_custom_seller_identifier)
       helper.order_details( @transaction ).should have_content( @transaction.article.custom_seller_identifier )
     end
-  end
 
-  describe "#article_payment_info( transaction, role )" do
-    it "should return the right details for article payment if user is the buyer" do
-      pending "test not yet implemented"
-      helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.fair_percent') )
-    end
-    it "should return the right details for article payment if user is the buyer and cash on delivery is selected" do
-      @transaction = FactoryGirl.create :transaction_with_buyer, :cash_on_delivery_selected
+	end
+
+	describe "#article_payment_info( transaction, role )" do
+		it "should return the right details for article payment if user is the buyer" do
+			pending "test not yet implemented"
+			helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.fair_percent') )
+		end
+		it "should return the right details for article payment if user is the buyer and cash on delivery is selected" do
+      @transaction = FactoryGirl.create :transaction_with_friendly_percent_and_buyer, :cash_on_delivery_selected
       helper.article_payment_info( @transaction, :buyer ).should have_content( I18n.t('transaction.edit.cash_on_delivery') )
     end
   end

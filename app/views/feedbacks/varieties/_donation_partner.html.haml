@@ -1,0 +1,24 @@
+%h1= t('feedback.title.donation_partner')
+
+%p= t('feedback.donation_partner.intro1')
+%p= t('feedback.donation_partner.intro2_html')
+%p= t('feedback.donation_partner.intro3')
+
+= semantic_form_for resource, url: feedbacks_path do |f|
+  = f.inputs do
+    -# hidden
+    = f.input :variety, as: :hidden, input_html: { value: 'become_donation_partner' }
+    -# user-input
+    = f.input :forename, required: true
+    = f.input :lastname, required: true
+    = f.input :from, required: true
+    = f.input :organisation, required: true
+    = f.input :phone, required: false
+
+    -#= tinycms_content 'faq-teaser'
+    %p= 'Bitte beschreibe in einigen Sätzen, was die thematischen und Arbeitsschwerpunkte Deiner Organisation sind:'
+    %br
+    = f.input :text, label: false, required: true
+
+  = f.actions do
+    = f.action :submit, label: t('feedback.actions.become_donation_partner'), button_html: {class: "Btn"}
