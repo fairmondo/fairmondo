@@ -25,7 +25,7 @@ describe ArticlesController do
   render_views
   include CategorySeedData
 
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   describe "GET 'index'" do
 
@@ -372,7 +372,7 @@ describe ArticlesController do
         lambda do
           put :destroy, :id => @article.id
           response.should redirect_to(user_path(user))
-        end.should change(Article.unscoped, :count).by -1
+        end.should change(Article.unscoped, :count).by(-1)
       end
 
       it "should softdelete the locked article" do
