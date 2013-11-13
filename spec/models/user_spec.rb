@@ -266,18 +266,14 @@ describe User do
       describe PrivateUser do
         let(:private_seller) { FactoryGirl::create(:private_user) }
         subject { private_seller }
-        context "being a bad seller" do
+        context "bad seller" do
           before :each do
             private_seller.seller_state = "bad_seller"
           end
 
-          it "should be able to rate to standard seller" do
-            private_seller.rate_up_to_standard_seller
+          it "should become standard seller" do
+            private_seller.rate_up
             private_seller.should be_standard_seller
-          end
-          it "should not be able to rate to good seller" do
-            private_seller.rate_up_to_good_seller
-            private_seller.should be_bad_seller
           end
 
           context "if not trusted and not verified" do
@@ -310,17 +306,13 @@ describe User do
           end
         end
 
-        context "being a standard seller" do
+        context "standard seller" do
           before :each do
             private_seller.seller_state = "standard_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            private_seller.rate_down_to_bad_seller
-            private_seller.should be_bad_seller
-          end
-          it "should be able to rate to good seller" do
-            private_seller.rate_up_to_good_seller
+          it "should become good seller" do
+            private_seller.rate_up
             private_seller.should be_good_seller
           end
 
@@ -354,18 +346,9 @@ describe User do
           end
         end
 
-        context "being a good seller" do
+        context "good seller" do
           before :each do
             private_seller.seller_state = "good_seller"
-          end
-
-          it "should be able to rate to bad seller" do
-            private_seller.rate_down_to_bad_seller
-            private_seller.should be_bad_seller
-          end
-          it "should not be able to rate to standard seller" do
-            private_seller.rate_up_to_standard_seller
-            private_seller.should be_good_seller
           end
 
           context "if not trusted and not verified" do
@@ -410,30 +393,14 @@ describe User do
       describe LegalEntity do
         let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
         subject { commercial_seller }
-        context "being a bad seller" do
+        context "bad seller" do
           before :each do
             commercial_seller.seller_state = "bad_seller"
           end
 
-          it "should be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
+          it "should become standard seller" do
+            commercial_seller.rate_up
             commercial_seller.should be_standard_seller
-          end
-          it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
-            commercial_seller.should be_bad_seller
           end
 
           context "if not verified" do
@@ -450,30 +417,14 @@ describe User do
           end
         end
 
-         context "being a standard seller" do
+         context "standard seller" do
           before :each do
             commercial_seller.seller_state = "standard_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
+          it "should become good1 seller" do
+            commercial_seller.rate_up
             commercial_seller.should be_good1_seller
-          end
-          it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
-            commercial_seller.should be_standard_seller
-          end
-          it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
-            commercial_seller.should be_standard_seller
-          end
-          it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
-            commercial_seller.should be_standard_seller
           end
 
           context "if not verified" do
@@ -490,30 +441,14 @@ describe User do
           end
         end
 
-        context "being a good1 seller" do
+        context "good1 seller" do
           before :each do
             commercial_seller.seller_state = "good1_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
-            commercial_seller.should be_good1_seller
-          end
-          it "should be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
+          it "should become good2 seller" do
+            commercial_seller.rate_up
             commercial_seller.should be_good2_seller
-          end
-          it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
-            commercial_seller.should be_good1_seller
-          end
-          it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
-            commercial_seller.should be_good1_seller
           end
 
           context "if not verified" do
@@ -530,30 +465,14 @@ describe User do
           end
         end
 
-        context "being a good2 seller" do
+        context "good2 seller" do
           before :each do
             commercial_seller.seller_state = "good2_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
-            commercial_seller.should be_good2_seller
-          end
-          it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
-            commercial_seller.should be_good2_seller
-          end
           it "should be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
+            commercial_seller.rate_up
             commercial_seller.should be_good3_seller
-          end
-          it "should not be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
-            commercial_seller.should be_good2_seller
           end
 
           context "if not verified" do
@@ -570,29 +489,13 @@ describe User do
           end
         end
 
-        context "being a good3 seller" do
+        context "good3 seller" do
           before :each do
             commercial_seller.seller_state = "good3_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
-            commercial_seller.should be_good3_seller
-          end
-          it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
-            commercial_seller.should be_good3_seller
-          end
-          it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
-            commercial_seller.should be_good3_seller
-          end
-          it "should be able to rate to good4 seller" do
-            commercial_seller.rate_up_to_good4_seller
+          it "should become good4 seller" do
+            commercial_seller.rate_up
             commercial_seller.should be_good4_seller
           end
 
@@ -610,31 +513,11 @@ describe User do
           end
         end
 
-        context "being a good4 seller" do
+        context "good4 seller" do
           before :each do
             commercial_seller.seller_state = "good4_seller"
           end
 
-          it "should be able to rate to bad seller" do
-            commercial_seller.rate_down_to_bad_seller
-            commercial_seller.should be_bad_seller
-          end
-          it "should not be able to rate to standard seller" do
-            commercial_seller.rate_up_to_standard_seller
-            commercial_seller.should be_good4_seller
-          end
-          it "should not be able to rate to good1 seller" do
-            commercial_seller.rate_up_to_good1_seller
-            commercial_seller.should be_good4_seller
-          end
-          it "should not be able to rate to good2 seller" do
-            commercial_seller.rate_up_to_good2_seller
-            commercial_seller.should be_good4_seller
-          end
-          it "should not be able to rate to good3 seller" do
-            commercial_seller.rate_up_to_good3_seller
-            commercial_seller.should be_good4_seller
-          end
 
           context "if not verified" do
             it "should have a salesvolume of standard_salesvolume * good_factor^4" do
@@ -642,6 +525,7 @@ describe User do
               commercial_seller.max_value_of_goods_cents.should eq $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
             end
           end
+
           context "if verified" do
             it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4" do
               commercial_seller.verified = true
@@ -660,18 +544,14 @@ describe User do
     end
 
     describe "buyer_states" do
-      context "user being a bad buyer" do
+      context "bad buyer" do
         before :each do
           user.buyer_state = "bad_buyer"
         end
 
-        it "should be able to rate to standard buyer" do
-          user.rate_up_to_standard_buyer
+        it "should become standard buyer" do
+          user.rate_up_buyer
           user.should be_standard_buyer
-        end
-        it "should not be able to rate to good buyer" do
-          user.rate_up_to_good_buyer
-          user.should be_bad_buyer
         end
 
         context "if not trusted" do
@@ -688,17 +568,17 @@ describe User do
         end
       end
 
-      context "user being a standard buyer" do
+      context "standard buyer" do
         before :each do
           user.buyer_state = "standard_buyer"
         end
 
-        it "should be able to rate to bad buyer" do
+        it "should become bad buyer" do
           user.rate_down_to_bad_buyer
           user.should be_bad_buyer
         end
-        it "should be able to rate to good buyer" do
-          user.rate_up_to_good_buyer
+        it "should become good buyer" do
+          user.rate_up_buyer
           user.should be_good_buyer
         end
 
@@ -716,19 +596,14 @@ describe User do
         end
       end
 
-      context "user being a good buyer" do
+      context "good buyer" do
         before :each do
           user.buyer_state = "good_buyer"
         end
 
-        it "should be able to rate to bad buyer" do
+        it "should become bad buyer" do
           user.rate_down_to_bad_buyer
           user.should be_bad_buyer
-        end
-
-        it "should not be able to rate to standard buyer" do
-          user.rate_up_to_standard_buyer
-          user.should be_good_buyer
         end
 
         context "if not trusted" do
@@ -748,9 +623,9 @@ describe User do
       it "should have valid buyer_constants" do
         user.buyer_constants[:not_registered_purchasevolume].should eq 4
         user.buyer_constants[:standard_purchasevolume].should eq 12
+        user.buyer_constants[:bad_purchasevolume].should eq 6
         user.buyer_constants[:trusted_bonus].should eq 12
         user.buyer_constants[:good_factor].should eq 2
-        user.buyer_constants[:bad_purchasevolume].should eq 6
       end
     end
   end
@@ -872,10 +747,10 @@ describe User do
           private_seller.update_rating_counter
           private_seller.seller_state.should eq "good_seller"
         end
-        it "should stay bad seller" do
+        it "should change from bad_seller to standard_seller" do
           private_seller.seller_state = "bad_seller"
           private_seller.update_rating_counter
-          private_seller.seller_state.should eq "bad_seller"
+          private_seller.seller_state.should eq "standard_seller"
         end
       end
     end
@@ -985,11 +860,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 100).and_return(80)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -1027,11 +897,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(95)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -1069,11 +934,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(80)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter
@@ -1111,11 +971,6 @@ describe User do
           commercial_seller.stub(:calculate_percentage_of_biased_ratings).with('positive', 1000).and_return(92)
         end
 
-        it "should stay bad seller" do
-          commercial_seller.seller_state = "bad_seller"
-          commercial_seller.update_rating_counter
-          commercial_seller.seller_state.should eq "bad_seller"
-        end
         it "should change from standard_seller to good1 seller" do
           commercial_seller.seller_state = "standard_seller"
           commercial_seller.update_rating_counter

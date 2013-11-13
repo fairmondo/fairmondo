@@ -1,0 +1,11 @@
+.Category-index
+  - collection.each do |category|
+    .Category-index-parent
+      %h2
+        %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
+          = category.name
+      %ul
+        -category.children.each do |child|
+          %li
+            %a{href: articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids })}
+              = child.name

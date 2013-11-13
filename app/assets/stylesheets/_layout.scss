@@ -2,8 +2,9 @@
 // Layout
 //
 
-body {
+html, body {
 	background-color: $beige;
+  height: 100%;
 }
 .l-Inner {
 	@include container;
@@ -16,29 +17,37 @@ body {
 	background-image: url(asset-path("back3.gif", image));
 }
 .l-Hero {
-	background-color: $beige;
+	 background-color: $darkbeige;
 
 	.first {
 		@include pie-clearfix;
 		padding: .2em 0;
 	}
 	.l-Inner {
-		@include rem(padding-top, 16px);
+		@include rem(padding-top, 0px);
 	}
 	.Hero-search, .l-User {
 		background-color: $darkbeige;
+		padding-top:0.75em;
 	}
 	.Filter-inner {
 		@include container;
 		position: relative;
 	}
 }
-
+.l-Wrap {
+  min-height: 100%;
+}
 .l-Main {
 	& > .l-Inner {
 		@include rem(padding-top, 21px);
-		padding-bottom: 7em;
+		@include rem(padding-bottom, 21px);
 	}
+  @include at-breakpoint($layout-large) {
+    padding-bottom: 16em;
+  }
+	padding-bottom: 22em;
+  overflow: auto;
 }
 .l-Footer {
 	background-image: url(asset-path("back3.gif", image));
@@ -48,18 +57,14 @@ body {
 		}
 	}
 	.Footer--bottom {
-		padding-bottom: em(20);
+		// padding-bottom: em(20);
 	}
+  @include at-breakpoint($layout-large){
+    margin-top: -16em;
+    height: 16em;
+  }
+  position: relative;
+  margin-top: -22em;
+  height: 22em;
+  clear: both;
 }
-
-// .pages-feedbacks {
-// 	.l-Main > .l-Inner {
-// 		width: columns(4,4);
-// 		@include pie-clearfix;
-
-// 		@include at-breakpoint($layout-large) {
-// 			width: columns(2,4);
-// 			margin-left: 0;
-// 		}
-// 	}
-// }

@@ -42,10 +42,11 @@ Fairnopoly::Application.routes.draw do
   devise_for :user, controllers: { registrations: 'registrations', sessions: 'sessions' }
 
   namespace :toolbox do
-    get 'session', as: 'session', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
+    get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
     get 'confirm' , constraints: {format: 'js'}
     get 'rss'
     get 'notice/:id', action: "notice", as: 'notice'
+    get 'contact', as: 'contact'
   end
 
   namespace :bank_details do
@@ -75,6 +76,8 @@ Fairnopoly::Application.routes.draw do
   post "welcome/reconfirm_terms"
 
   get "welcome/index"
+  get "mitunsgehen", to: 'welcome#landing'
+
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
   resources :feedbacks, :only => [:create,:new]
@@ -97,7 +100,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :libraries, :only => [:index]
 
-  resources :categories, :only => [:show]
+  resources :categories, :only => [:show,:index]
 
   resources :exhibits, :only => [:create,:update]
 

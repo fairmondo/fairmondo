@@ -4,9 +4,4 @@ Article reported with ID <%= @article.id %> :  <%= @text %>
 Article link: <%= polymorphic_url(@article) %>
 Admin link: <%= polymorphic_url([:admin, @article]) %>
 
-<%= t('common.fn_legal_footer.intro')%>
-<%= t('common.fn_legal_footer.contact')%>
-<%= t('common.fn_legal_footer.registered')%>
-<%= t('common.fn_legal_footer.board')%>
-<%= t('common.fn_legal_footer.ceo')%>
-<%= t('common.fn_legal_footer.supervisory_board')%>
+<%= render '/shared/email_footer' %>

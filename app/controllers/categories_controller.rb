@@ -1,9 +1,10 @@
 class CategoriesController < InheritedResources::Base
 
-  actions :show
+  actions :show,:index
 
-  before_filter :authorize_resource
   skip_before_filter :authenticate_user!
+  respond_to :json,:js, :only => :show
+  respond_to :html, :only => :index
 
   def show
     show! do |format|
@@ -14,5 +15,9 @@ class CategoriesController < InheritedResources::Base
     end
   end
 
-  respond_to :json,:js
+  def collection
+    @categories ||= Category.sorted_roots.includes(:children)
+  end
+
+
 end

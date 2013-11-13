@@ -20,18 +20,15 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Accordion-item{:id => accordion_name}
-	%a{:href => "##{accordion_name}", :class => "Accordion-header #{accordion_header_class}"}
-		%i.icon-arrow
-
-		%span.content
-			= accordion_title
-
-		-if accordion_number
-			%span.number
-				= accordion_number
-
-		-if accordion_tooltip
-			%i.icon-helper{:title => accordion_tooltip}
-
-	.Accordion-content
-		= yield
+  %a{:href => "##{accordion_name}", :class => "Accordion-header #{accordion_header_class}"}
+    -if accordion_arrow
+      %i.icon-arrow
+    %span.content
+      = accordion_title
+    -if accordion_number
+      %span.number
+        = accordion_number
+    -if accordion_tooltip
+      %i.icon-helper{:title => accordion_tooltip}
+  .Accordion-content
+    = yield

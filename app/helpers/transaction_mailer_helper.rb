@@ -13,25 +13,15 @@ module TransactionMailerHelper
     end
   end
 
-  def fairnopoly_email_footer
-    "#{ t('common.fn_legal_footer.intro')}\n" +
-    "******************************************************************\n" +
-    "#{t('common.fn_legal_footer.footer_contact')}\n\n" +
-    "#{t('common.fn_legal_footer.registered')}\n" +
-    "#{t('common.fn_legal_footer.board')}\n" +
-    "#{t('common.fn_legal_footer.supervisory_board')}\n\n" +
-    "#{t('common.brand')}\n" +
-    "#{t('common.claim')}\n\n" +
-    "#{t('common.fn_legal_footer.facebook')}\n" +
-    "#{t('common.fn_legal_footer.buy_shares')}\n" +
-    "******************************************************************"
-  end
-
   def show_contact_info_seller seller
     string = ""
     if seller.is_a? LegalEntity
-      string += "#{seller.company_name}\n" if seller.company_name
-      string += "#{seller.forename} #{seller.surname}\n"
+      if seller.company_name.present?
+        string += "#{seller.company_name}\n"
+       else
+        string += "#{seller.nickname}\n"
+       end
+      string += "#{t('transaction.notifications.seller.contact_person')}: #{seller.forename} #{seller.surname}\n"
     else
       string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
@@ -94,6 +84,14 @@ module TransactionMailerHelper
 
     if role == :buyer && !transaction.article_seller_ngo
       string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
+
+      if transaction.article.has_friendly_percent?
+        ngo = transaction.article.donated_ngo
+        fp = transaction.article_friendly_percent
+        amount = humanized_money_with_symbol(friendly_percent_with_quantity transaction)
+        string += "#{ t('transaction.notifications.buyer.friendly_percent', ngo: ngo.nickname, percent: fp, amount: amount)}\n"
+      end
+
     end
 
     string += "----------------------------------------------\n"
@@ -185,10 +183,19 @@ module TransactionMailerHelper
 
   # wird erstmal nicht mehr verwendet
   #
-  # def seller_bank_account seller
-  #   "#{ t('transaction.notifications.seller.bank_account_owner') }: #{ seller.bank_account_owner }\n" +
-  #   "#{ t('transaction.notifications.seller.bank_account_number') }: #{ seller.bank_account_number }\n" +
-  #   "#{ t('transaction.notifications.seller.bank_code') }: #{ seller.bank_code }\n" +
-  #   "#{ t('transaction.notifications.seller.bank_name') }: #{ seller.bank_name }"
-  # end
+   def show_bank_account_or_contact user
+     if user.bank_account_exists?
+     "#{ t('transaction.notifications.seller.bank_account_owner') } #{ user.bank_account_owner }\n" +
+     "#{ t('transaction.notifications.seller.bank_account_number') } #{ user.bank_account_number }\n" +
+     "#{ t('transaction.notifications.seller.bank_code') } #{ user.bank_code }\n" +
+     "#{ t('transaction.notifications.seller.bank_name') } #{ user.bank_name }"
+     else
+      "#{ t('transaction.notifications.seller.no_bank_acount') } #{ user.email }"
+     end
+   end
+
+   def friendly_percent_with_quantity transaction
+      transaction.article.calculated_friendly * transaction.quantity_bought
+   end
+
 end
