@@ -3,76 +3,76 @@
 //
 
 .Article-info {
-	@include pie-clearfix;
-	@include rem(padding, 7px 19px);
-	padding-bottom: .5em;
-	min-height: 10em;
-	background-color: $white;
-	h2 {
-		@include rem(font-size, 17px);
-		word-break: break-word;
-	}
-	form.library_element .library .inputs {
-	  float: left;
-  	#library_element_library_input {
-  	  .selectboxit-container {
-  	    width:100%;
-  	  }
-  	}
-	}
-	border-bottom-left-radius: 0.9em;
-	border-bottom-right-radius: 0.9em;
-	.Article--teaser & {
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-	.Btn-tag--blue, .Btn-tag--green {
-		@include rem(margin-right, 4px);
-	}
+  @include pie-clearfix;
+  @include rem(padding, 7px 19px);
+  padding-bottom: .5em;
+  min-height: 10em;
+  background-color: $white;
+  h2 {
+    @include rem(font-size, 17px);
+    word-break: break-word;
+  }
+  form.library_element .library .inputs {
+    float: left;
+    #library_element_library_input {
+      .selectboxit-container {
+        width:100%;
+      }
+    }
+  }
+  @include border-bottom-left-radius(0.9em);
+  @include border-bottom-right-radius(0.9em);
+  .Article--teaser & {
+    @include border-bottom-left-radius(0);
+    @include border-bottom-right-radius(0);
+  }
+  .Btn-tag--blue, .Btn-tag--green {
+    @include rem(margin-right, 4px);
+  }
 }
 .Article-image {
-	overflow: hidden;
-	border-top-left-radius: 0.9em;
-	border-top-right-radius: 0.9em;
-	background-color: white;
+  overflow: hidden;
+  @include border-top-left-radius(0.9em);
+  @include border-top-right-radius(0.9em);
+  background-color: white;
 
 
-	img {
-		width: 100%;
+  img {
+    width: 100%;
 
-		height: auto;
-		margin-left: auto;
+    height: auto;
+    margin-left: auto;
     margin-right: auto;
     display: block;
-	}
+  }
 }
 .Article-friendly {
   clear:both;
-	margin-top: 1em;
+  margin-top: 1em;
 }
 .l-ArticleList {
-	@include pie-clearfix;
+  @include pie-clearfix;
 }
 .Article--teaser .Article-tags {
-	border-bottom-left-radius: 0.9em;
-	border-bottom-right-radius: 0.9em;
+  @include border-bottom-left-radius(0.9em);
+  @include border-bottom-right-radius(0.9em);
 }
 .Article--detail {
-	.Article-controls {
-		overflow: auto;
-		width: 100%;
+  .Article-controls {
+    overflow: auto;
+    width: 100%;
 
-		i.icon-helper {
-			float: left;
-			margin: 10px;
-		}
+    i.icon-helper {
+      float: left;
+      margin: 10px;
+    }
 
-		@include at-breakpoint($layout-small) {
-			a {float: left}
-			form {float: right}
-			i.icon-helper {float: right}
-		}
-	}
+    @include at-breakpoint($layout-small) {
+      a {float: left}
+      form {float: right}
+      i.icon-helper {float: right}
+    }
+  }
 }
 
 
@@ -84,10 +84,10 @@
 
 
 .Thumbnail {
-		width: 50%;
-		float: left;
-		@include rem(padding-right, 7px);
-		@include rem(padding-bottom, 7px);
+  width: 50%;
+  float: left;
+  @include rem(padding-right, 7px);
+  @include rem(padding-bottom, 7px);
 }
 
 .Thunbnail-pending {
@@ -95,31 +95,31 @@
 }
 
 .Article-info--left {
-	@include span-columns(2, 2);
-	position: relative;
-	min-height: 19.5em;
+  @include span-columns(2, 2);
+  position: relative;
+  min-height: 19.5em;
 }
 .Article-info--right {
-	@include span-columns(2, 2);
-	@include rem(margin-top, 11px);
-	.Article-vat,
-	.Article-basicprice {
-		@include span-columns(2, 2);
-		margin-bottom: .3em;
-	}
-	.Btn {
-		float: right;
-	}
+  @include span-columns(2, 2);
+  @include rem(margin-top, 11px);
+  .Article-vat,
+  .Article-basicprice {
+    @include span-columns(2, 2);
+    margin-bottom: .3em;
+  }
+  .Btn {
+    float: right;
+  }
 }
 .Article-tags {
-	@include pie-clearfix;
-	background-color: $white;
-	padding: .5em .6em 0em;
-	border-top: $beige 0.15em solid;
-	.Article--teaser  {
-		padding: .5em .6em 0em;
-		border-top: $beige 0.15em solid;
-	}
+  @include pie-clearfix;
+  background-color: $white;
+  padding: .5em .6em 0em;
+  border-top: $beige 0.15em solid;
+  .Article--teaser  {
+    padding: .5em .6em 0em;
+    border-top: $beige 0.15em solid;
+  }
 }
 .Article-actions {
   padding: .5em .6em 0em;
@@ -127,81 +127,81 @@
 }
 
 .Articles-title {
-	@include rem(font-size, $font-size-m);
-	margin-bottom: 0;
-	word-break: break-word;
+  @include rem(font-size, $font-size-m);
+  margin-bottom: 0;
+  word-break: break-word;
 }
 p.Article-price,
 span.Article-price {
-	@include rem(font-size, $font-size-xl);
-	@extend %Semibold;
-	display: block;
-	margin-bottom: .3em;
-	word-break: break-word;
+  @include rem(font-size, $font-size-xl);
+  @extend %Semibold;
+  display: block;
+  margin-bottom: .3em;
+  word-break: break-word;
 }
 .Article-vat,
 .Article-basicprice,
 .Article-transportprice,
 .Article-basicset,
 .Article-ngodonation {
-	@include rem(font-size, 10px);
-	line-height: 1;
-	margin-bottom: .2em;
+  @include rem(font-size, 10px);
+  line-height: 1;
+  margin-bottom: .2em;
 }
 .Article-vat {
-	width: 100% !important;
-	margin-bottom: 0.3em !important;
-	@include span-columns(1 alpha, 2);
-	@include rem(margin-bottom, 13px);
-	.Article--teaser & {
-		@include rem(margin-top, -7px);
-	}
+  width: 100% !important;
+  margin-bottom: 0.3em !important;
+  @include span-columns(1 alpha, 2);
+  @include rem(margin-bottom, 13px);
+  .Article--teaser & {
+    @include rem(margin-top, -7px);
+  }
 }
 .Article-basicprice,
 .Article-ngodonation {
-	width: 100% !important;
-	@include span-columns(1 omega, 2);
+  width: 100% !important;
+  @include span-columns(1 omega, 2);
 }
 .Article-ngodonation {
   margin-top: 0.6em !important;
 }
 .Article-basicset {
-	@include span-columns(1, 2);
+  @include span-columns(1, 2);
 }
 .Article-quantity {
-	@include span-columns(2, 2);
+  @include span-columns(2, 2);
 }
 .Article-accordion {
-	margin-top: 2em;
+  margin-top: 2em;
 }
 .Article--related {
-	border-radius: 0.9em;
-	position: relative;
-	margin-bottom: 1em;
-	background-color: $white;
-	overflow: hidden;
-	@include rem(padding, 14px);
-	.icon-helper {
-		top: 0;
-		right: 0;
-	}
-	.Article-title {
-		@extend %Semibold;
-		@include rem(font-size, 16px);
-		text-align: center;
-	}
+  border-radius: 0.9em;
+  position: relative;
+  margin-bottom: 1em;
+  background-color: $white;
+  overflow: hidden;
+  @include rem(padding, 14px);
+  .icon-helper {
+    top: 0;
+    right: 0;
+  }
+  .Article-title {
+    @extend %Semibold;
+    @include rem(font-size, 16px);
+    text-align: center;
+  }
 }
 .Article-form {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(3, 4);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(3, 4);
+  }
 }
 
 .Article--detail,
 .User--teaser,
 .Related,
 .Article-form {
-	@include transition(width 200ms ease-in);
+  @include transition(width 200ms ease-in);
 }
 
 
@@ -209,49 +209,49 @@ span.Article-price {
 // Responsive layout
 //
 // @include at-breakpoint(950px lt-ie9) {
-// 	.Article-form {
-// 		@include span-columns(3, 4);
-// 	}
+//  .Article-form {
+//    @include span-columns(3, 4);
+//  }
 // }
 
 .Article--detail {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(4, 4);
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(2, 4);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(4, 4);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(2, 4);
+  }
 }
 .User.User--teaser {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(2, 4);
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(1, 4);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(2, 4);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(1, 4);
+  }
 }
 .Related {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(2 omega, 4);
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(1 omega, 4);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(2 omega, 4);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(1 omega, 4);
+  }
 }
 .Article-info--right {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(1 omega, 2);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(1 omega, 2);
+  }
 }
 .Article-info--left {
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(1 alpha, 2);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(1 alpha, 2);
+  }
 }
 
 .Article--teaser {
   border: 1px solid $beige;
-  border-radius: 0.9em;
+  @include border-radius(0.9em);
 }
 
 .Import-banner {
@@ -279,14 +279,23 @@ span.Article-price {
 
 .Import-detail {
 
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(4, 4);
-	}
-	@include at-breakpoint($layout-large) {
-		@include span-columns(2, 4);
-	}
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(4, 4);
+  }
+  @include at-breakpoint($layout-large) {
+    @include span-columns(2, 4);
+  }
 }
 
 .Import-errors {
   color:$red;
+}
+
+// Article #show
+// -------------
+
+.ArticleViewLibrarySelector {
+  @include at-breakpoint($layout-large) {
+    max-width: 185px !important;
+  }
 }
