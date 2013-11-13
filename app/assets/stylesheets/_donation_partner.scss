@@ -1,0 +1,48 @@
+//
+// Donationpartner Logobox
+//
+
+.Donationpartner {
+  @include rem(padding, 10px 20px);
+  padding-bottom: 10px;
+  background: #fff;
+  @include rem(min-height, 100px);
+}
+.Donationpartner-element {
+  float: left;
+  @include rem(margin-left, 31px);
+  @include rem(margin-bottom, 10px);
+  @include rem(height, 30px);
+}
+.Donationpartner-icons {
+  //float: left;
+  //@include rem(width, 90%);
+  @include at-breakpoint($layout-small) {
+    @include span-columns(12 , 15);
+  }
+}
+
+.Donationpartner-element--title {
+  @include rem(font-size, 11px);
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1, 15);
+  }
+  color:$lightgray;
+  margin-left: 0;
+
+  // preventing overlap on really small screens
+
+  z-index: 1;
+}
+
+.Donationpartner-element--tail {
+  @include rem( padding-top, 10px);
+  @include rem(font-size, 11px);
+
+  @include at-breakpoint($layout-small) {
+    @include span-columns(1 omega, 15);
+  }
+  // preventing overlap on really small screens
+
+  z-index: 1;
+}

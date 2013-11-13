@@ -25,6 +25,8 @@ describe Article do
 
   let(:article) { Article.new }
   let(:db_article) { FactoryGirl.create(:article) }
+  let(:ngo_article) { FactoryGirl.create :article, :with_ngo }
+
   subject { article }
 
   describe "::Base" do
@@ -110,8 +112,10 @@ describe Article do
   describe "::FeesAndDonations" do
     before do
       article.seller = User.new
+
     end
     #at the moment we do not have friendly percent any more
+
     #describe "friendly_percent_calculated" do
       #it "should call friendly_percent_result" do
         #article.should_receive :friendly_percent_result
@@ -137,6 +141,11 @@ describe Article do
     end
 
     describe "#calculate_fees_and_donations" do
+
+      it "should have 100 % friendly_percent for ngo" do
+         ngo_article.friendly_percent.should eq 100
+       end
+
       #expand these unit tests!
       it "should return zeros on fee and fair cents with a friendly_percent of gt 100" do
         article.friendly_percent = 101
