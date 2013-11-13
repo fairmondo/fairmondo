@@ -77,6 +77,11 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
+      company_name Faker::Company.name
+    end
+
+    factory :legal_entity_without_company_name, class: 'LegalEntity' do
+      company_name nil
     end
 
     factory :incomplete_user do

@@ -54,7 +54,7 @@ describe ArticlesController do
 
       context "when try a different search order" do
         before :each do
-          @article2  = FactoryGirl.create(:article, :price_cents => (@article.price_cents + 2))
+          @article2  = FactoryGirl.create(:article,:with_ngo, :price_cents => (@article.price_cents + 2) )
           Sunspot.commit
         end
 
@@ -66,6 +66,11 @@ describe ArticlesController do
         it "order by price desc" do
           get :index, :article => {:search_order_by => "most_expensive"}
           controller.instance_variable_get(:@articles).should == [@article2,@article]
+        end
+
+        it "order by friendly_percent desc" do
+           get :index, :article => {:search_order_by => "most_donated"}
+           controller.instance_variable_get(:@articles).should == [@article2,@article]
         end
 
       end

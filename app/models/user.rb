@@ -84,6 +84,10 @@ class User < ActiveRecord::Base
   ##
 
   scope :sorted_ngo, order(:nickname).where(:ngo => true)
+  scope :ngo_with_profile_image, where(:ngo => true ).joins(:image).limit(5)
+
+  #belongs_to :articles_with_donation, class_name: 'Article', inverse_of: :donated_ngo
+  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
@@ -160,12 +164,6 @@ class User < ActiveRecord::Base
     user && user.admin?
   end
 
-  # get ngo status
-  # @api public
-  def is_ngo?
-    self.ngo
-  end
-
   # Get generated customer number
   # @api public
   # @return [String] 8-digit number
@@ -221,6 +219,18 @@ class User < ActiveRecord::Base
     number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
     number_of_biased_ratings.fdiv(number_of_newest_ratings) * 100
   end
+
+  # get ngo status
+  # @api public
+  def is_ngo?
+    self.ngo
+  end
+
+  # get all users with ngo status but not current
+  def self.sorted_ngo_without_current current_user
+    self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
+  end
+
 
   state_machine :seller_state, :initial => :standard_seller do
     after_transition any => :bad_seller, :do => :send_bad_seller_notification

@@ -104,6 +104,8 @@
       / #main
 
       - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+        = render "welcome/ngo_logobox"
+        %br
         = render "welcome/known_from"
 
     %footer.l-Footer
