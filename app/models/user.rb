@@ -84,6 +84,7 @@ class User < ActiveRecord::Base
   ##
 
   scope :sorted_ngo, order(:nickname).where(:ngo => true)
+  scope :ngo_with_profile_image, where(:ngo => true ).joins(:image).limit(5)
 
   #belongs_to :articles_with_donation, class_name: 'Article', inverse_of: :donated_ngo
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
@@ -232,17 +233,6 @@ class User < ActiveRecord::Base
   # get all users with ngo status but not current
   def self.sorted_ngo_without_current current_user
     self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
-  end
-
-  # get number of ngos with profile image
-  def self.ngo_with_img count
-    ngos = []
-    self.sorted_ngo.each do |ngo|
-      if ngos.count < count
-        ngos.push ngo if ngo.image.present?
-      end
-    end
-    ngos
   end
 
   # get all users with ngo status the current user has donated to

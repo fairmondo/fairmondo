@@ -1,18 +1,18 @@
+
 .Donationpartner
   .l-Inner
+
     .Donationpartner-element.Donationpartner-element--title
       = "SPENDEN"
       = "PARTNER"
       = "*INNEN\n"
-      %hr
+
+    .Donationpartner-icons
+      - User.ngo_with_profile_image.each do |ngo|
+        = link_to image_tag(ngo.image_url(:thumb), :class => "User-profile-image User-profile-logobox"), user_path(ngo)
+
+    .Donationpartner-element.Donationpartner-element--tail
       %a{:href => new_feedback_path(:variety => :become_donation_partner) }
         = "SPENDEN"
         ="PARTNER*IN"
         = "WERDEN"
-
-    .Donationpartner-icons
-      - User.ngo_with_img(5).each do |ngo|
-        %a{:href => user_path(ngo)}
-          = image_tag(ngo.image_url(:thumb), :class => "User-profile-image User-profile-logobox")
-
-
