@@ -47,7 +47,7 @@ module Article::Commendation
     enumerize :fair_kind, :in => [:fair_seal, :fair_trust, :social_producer]
 
     validates_presence_of :fair_seal, :if => lambda {|obj| obj.fair_kind == "fair_seal" && obj.fair?}
-    enumerize :fair_seal, :in => [:trans_fair, :weltladen, :wtfo]
+    enumerize :fair_seal, :in => [:trans_fair, :gots_fwf, :weltladen, :wtfo]
 
     ### fair trust questionnaire
     has_one :fair_trust_questionnaire, :dependent => :destroy
