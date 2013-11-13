@@ -42,10 +42,10 @@ $medium-columns: 3;
 $large-columns: 4;
 
 // Breakpoints
-$breakpoint-small: 460;
-$breakpoint-medium: 680;
-$breakpoint-large: 960;
-$breakpoint-huge: 1200;
+$breakpoint-small: 460px;
+$breakpoint-medium: 680px;
+$breakpoint-large: 960px;
+$breakpoint-huge: 1200px;
 
 //$container-width: em($breakpoint-large);
 $layout-small: em($breakpoint-small) lt-ie9;
