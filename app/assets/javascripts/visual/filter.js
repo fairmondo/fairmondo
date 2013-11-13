@@ -11,7 +11,7 @@ var toggleFilter = function(event){
 };
 
 $(function() {
-	var $filterToggle = $('#js-filter-toggle');
+	var $filterToggle = $('.js-filter-toggle');
 	var $inputToggle = $('#search_input');
 
 	$filterToggle.click(toggleFilter);

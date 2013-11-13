@@ -1,0 +1,12 @@
+Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel "<%= @article.title %>" gesandt:
+
+----------
+
+<%= @text %>
+
+----------
+
+Bitte sende Deine Antwort an <%= @from %>.
+Den Artikel zu der Rückfrage findest Du unter <%= article_url @article %>
+
+<%= render '/shared/email_footer' %>

@@ -40,10 +40,6 @@
   .Hero-search
     .l-Inner
       .l-Left
-        %a.Btn.Btn--gray{:href => articles_path}
-          %i.icon-box--open
-          Stöbern
-      .l-Left
         %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
           %i.icon-box
           Sammlungen
@@ -51,7 +47,8 @@
         = f.inputs :class => "Search" do
           .Search-input
             = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
-
+          .Search-extend.js-filter-toggle
+            = t('common.text.extended_search')
           .Search-button
             = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
       .l-Right
@@ -99,5 +96,5 @@
             = f.input :search_in_content, :as => :boolean
             = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
 
-      %button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
+      %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 

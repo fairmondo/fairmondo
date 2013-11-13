@@ -149,7 +149,7 @@ describe ArticleTemplatesController do
     it "destroys the requested article_template" do
       expect {
         delete :destroy, id: @article_template.to_param
-      }.to change(ArticleTemplate, :count).by -1
+      }.to change(ArticleTemplate, :count).by(-1)
     end
 
     it "redirects to the article_templates list" do
