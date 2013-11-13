@@ -41,6 +41,7 @@ html, body {
 .l-Main {
 	& > .l-Inner {
 		@include rem(padding-top, 21px);
+		@include rem(padding-bottom, 21px);
 	}
   @include at-breakpoint($layout-large) {
     padding-bottom: 16em;
