@@ -13,7 +13,8 @@ $(document).ready ->
       active: false
 
   $("#UserSlides").slidesjs
+    height: 120
     pagination:
       active: false
     navigation:
-      active: true
+      active: false
