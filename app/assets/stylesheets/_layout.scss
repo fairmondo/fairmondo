@@ -18,6 +18,7 @@ html, body {
 }
 .l-Hero {
 	 background-color: $darkbeige;
+   overflow: hidden;
 
 	.first {
 		@include pie-clearfix;
