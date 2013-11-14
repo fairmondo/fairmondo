@@ -52,30 +52,21 @@
         %i.icon-left_arrow
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
         %i.icon-right_arrow
-.l-Teaser--single.l-Teaser--shares
+
+.l-Teaser--double.l-Teaser--cfk
   .Teaser.Teaser--text
-    %h2.Teaser-header GEZEICHNETE ANTEILE IM NOVEMBER
-    - all_this_year = Sanitize.clean( tinycms_content "bisherige_einlagen" ).strip.to_f || 300000.0
-    - reached = Sanitize.clean( tinycms_content "monatsanteile" ).strip.to_f || 50.0
-    -# goal = Sanitize.clean( tinycms_content "monatsziel" ).strip.to_f || 750000.0
-    -#.Teaser-goal
-      -# unless goal == 0
-        -#.Teaser-goal--reached{ :style => "width: #{ ((reached / goal) * 100).floor }%; " }
-    %strong
-      = "Diesen Monat wurden #{money_without_cents(reached)}€ erreicht!"
     %p
-      = "Insgesamt wurden Genossenschaftsanteile im Wert von #{money_without_cents(all_this_year + reached)}€ gezeichnet."
+      .cfk-teaser-image-long
+        = image_tag "cfk/willst_du_mit_mir_gehen_long.jpg"
+      .cfk-teaser-image-short
+        = image_tag "cfk/willst_du_mit_mir_gehen_short.jpg"
     %p
-      Als Mitglied gehört Fairnopoly auch Dir!
-    %a.Btn{ :href => "http://www.startnext.de/fairnopoly2" }
-      Mehr erfahren
-.l-Teaser--single.l-Teaser--counters
-  .Teaser.Teaser--counter.Teaser--text
-    %h2.Teaser-header  FAIRNOPOLY WÄCHST!
-    %p So viele Artikel wurden bisher eingestellt:
-    .Teaser-total.Teaser-total--number= number_with_delimiter(Article.counting.count, delimiter: ".")
-    %p So viele Nutzer*innen haben sich bisher registriert:
-    .Teaser-total.Teaser-total--user= number_with_delimiter(User.count, delimiter: ".")
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+      Klicke auf den Button und werde direkt zur Startnext-Kampagne weiter
+      geleitet
+    %p
+      %a{ :href => "http://www.startnext.de/fairnopoly2", :class => "Btn Btn--blue", :target => "_blank" }
+        Mitgehen
 
 .l-Teaser--double.l-Teaser--participate
   .Teaser.Teaser--text
