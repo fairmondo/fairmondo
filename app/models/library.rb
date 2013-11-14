@@ -29,11 +29,11 @@ class Library < ActiveRecord::Base
   #! attr_accessible *library_attributes
   #! attr_accessible *library_attributes, :as => :admin
 
-  delegate :nickname, :to => :user, :prefix => true
+  delegate :nickname, to: :user, prefix: true
 
-  validates :name,:user, :presence => true
+  validates :name, :user, presence: true
 
-  validates :name, :uniqueness => {:scope => :user_id}, length: { :maximum => 25}
+  validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
 
 
 
