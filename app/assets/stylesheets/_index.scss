@@ -218,6 +218,14 @@
   margin: auto;
   overflow: visible !important; /* overwrite js settings so arrows are visible */
 }
+
+.Teaser--user-slides #UserSlides {
+  display: none; /* Prevents slides from flashing */
+  position: relative;
+  margin: auto;
+  overflow: visible !important; /* overwrite js settings so arrows are visible */
+}
+
 .l-Teaser--slides i {
   display: block;
   position: absolute;
@@ -238,7 +246,12 @@
 // User Quote Teaser
 // -------------------------------------
 .Teaser--user-slides {
+  @include span-columns(1,1);
   position: relative;
+}
+
+.User-slides-container {
+  @include rem(padding, 15px 60px);
 }
 
 .Teaser--user-slides .Teaser {
@@ -249,6 +262,10 @@
   float: left;
   @include border-radius(0.5em);
   margin-right: 20px;
+}
+
+.Teaser-quote-alignment {
+  text-align: justify;
 }
 
 .Teaser--quote {

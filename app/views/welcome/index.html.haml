@@ -79,10 +79,9 @@
 .l-Teaser--double.l-Teaser--news
   .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
 
+
 .Teaser--user-slides
-  #UserSlides.Teaser
-    %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-      %i.icon-left_arrow
+  #UserSlides.Teaser.Teaser-quote-alignment.User-slides-container
     .Slide
       = image_tag "slides/users/0.jpg"
       %p
@@ -90,6 +89,10 @@
         %span.Teaser--quote Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
         %span.Teaser--fatquote &bdquo;
         .Teaser--quotesource JORGE INOSTROZA, GEPA
+    %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      .icon-right_arrow
+    %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+      .icon-left_arrow
     .Slide
       = image_tag "slides/users/1.jpg"
       %p
@@ -111,5 +114,3 @@
         %span.Teaser--quote Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab das Team auch kennengelernt und ich sehe das die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir sehen darin eine Chance, faire und bio Produkte weiter zu verbreiten.
         %span.Teaser--fatquote &bdquo;
         .Teaser--quotesource THOMAS KAPPAUF, BLACK STAR
-    %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-      %i.icon-right_arrow
