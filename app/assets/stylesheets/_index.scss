@@ -225,15 +225,34 @@
 // User Quote Teaser
 // -------------------------------------
 .Teaser--user-slides {
-  color: gray;
+  position: relative;
+}
+
+.Teaser--user-slides .Teaser {
+  color: $lightgray;
+}
+
+.Teaser--user-slides img {
+  float: left;
+  @include border-radius(0.5em);
+  margin-right: 20px;
 }
 
 .Teaser--quote {
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .Teaser--fatquote {
   font-size: 30px;
   font-weight: 800;
+  font-style: italic;
   line-height: 14px;
+}
+
+.Teaser--quotesource {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
 }
