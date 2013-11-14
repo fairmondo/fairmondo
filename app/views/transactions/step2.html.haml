@@ -38,7 +38,7 @@
         %h1
           = t 'transaction.edit.heading'
 
-        = semantic_form_for @transaction do |f|
+        = semantic_form_for @transaction, html: { class: 'js-visual-submit' } do |f|
           = f.inputs do
             = f.hidden_field :selected_transport, value: selected_transport
             = f.hidden_field :selected_payment, value: selected_payment
