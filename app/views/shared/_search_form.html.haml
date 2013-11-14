@@ -19,13 +19,26 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+.Hero-presearch
+  %ul.Hero-categories
+    - croots = Category.sorted_roots.includes(:children)
+    - croots.each do |category|
+      %li.Hero-category
+        %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
+          = category.name
+        - if category.children.present?
+          .Category-dropdown
+            %ul.Category-dropdown-children
+              - category.children.each do |child|
+                %li
+                  %a{href: articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids })}
+                    = child.name
+  .Hero-morecategories
+    %a#show-all-categories{:href => categories_path}
+      Alle Kategorien
 = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
   .Hero-search
     .l-Inner
-      .l-Left
-        %a.Btn.Btn--gray{:href => articles_path}
-          %i.icon-box--open
-          Stöbern
       .l-Left
         %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
           %i.icon-box
@@ -34,12 +47,13 @@
         = f.inputs :class => "Search" do
           .Search-input
             = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
-
+          .Search-extend.js-filter-toggle
+            = t('common.text.extended_search')
           .Search-button
             = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
       .l-Right
         %button.Btn.Filter-btn Suche starten
-    .Filter{:class => filter_class}
+    .Filter
       .Filter-inner
         .Filter-col
           %legend.Filter-title
@@ -82,5 +96,5 @@
             = f.input :search_in_content, :as => :boolean
             = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
 
-      %button#js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
+      %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 

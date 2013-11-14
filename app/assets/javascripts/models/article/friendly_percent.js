@@ -27,7 +27,7 @@ $(document).ready(function(){
   $(".Friendly_percent_select").on("change", function(event) {
     var valueSelected = this.value;
     var textSelected = $('option:selected', this).html();
-    $(".Friendly_percent_ngo_label_link").html( "<a href=\"..\\..\\users\\" + valueSelected + "\" target=\"_blank\">" + textSelected + "</a>" );
+    $(".Friendly_percent_ngo_label_link").html( "<a href=\"/users/" + valueSelected + "\" target=\"_blank\">" + textSelected + "</a>" );
     if(textSelected && textSelected.length != 0){
       $('.Friendly_percent_ngo_label').show();
     }

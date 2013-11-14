@@ -32,7 +32,7 @@
 
 .Nav--primary {
 	clear: left;
-	margin: 22px auto 10px;
+	margin: em(15px) auto em(5px);
 	text-align: center;
 
 	li {
@@ -66,7 +66,6 @@
 	@include at-breakpoint(40em lt-ie9) {
 		float: right;
 		clear: none;
-		margin-bottom: 0;
 		.last { margin-right: 0; }
 	}
 }

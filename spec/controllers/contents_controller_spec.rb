@@ -125,7 +125,7 @@ describe ContentsController do
         content
         expect {
           delete :destroy, id: content.to_param
-        }.to change(Content, :count).by -1
+        }.to change(Content, :count).by(-1)
       end
 
       it "should redirect to the contents list" do

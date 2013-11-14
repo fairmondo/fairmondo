@@ -19,9 +19,49 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if article.seller_ngo
-  %p.Article-ngodonation
-    = t('article.show.donate_ngo_short_html', percent: '100',ngo:(link_to article.seller_nickname, article.seller) )
-- elsif article.has_friendly_percent?
-  %p.Article-ngodonation
-    = t('article.show.donate_ngo_short_html', percent: article.friendly_percent , ngo:(link_to article.donated_ngo_nickname, article.donated_ngo) )
+
+='***'
+
+%p
+  Vorname:
+  = @feedback.forename
+
+%p
+  Nachname:
+  = @feedback.lastname
+
+%p
+  Name der Organisation:
+  = @feedback.organisation
+
+- if @feedback.phone?
+  %p
+    Telefon:
+    = @feedback.phone
+
+='***'
+
+%p
+  = @feedback.text
+
+='***'
+
+%p
+  = t('feedback.details.details_for_tech_support')
+
+%p
+  User-Agent:
+  = @feedback.user_agent
+
+%p
+  Source-Page:
+  = @feedback.source_page
+
+%p
+  Feedback-ID:
+  = @feedback.id
+
+%p
+  = t('feedback.details.last_uploaded_article_id')
+  = @last_article_id
+

@@ -19,24 +19,34 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FeedbackMailer < ActionMailer::Base
+require 'spec_helper'
 
-  def feedback_and_help( feedback, topic )
-    @feedback = feedback
-    @feedback_subject = @feedback.translate_subject
-    @last_article_id = @feedback.last_article_id
-    from = feedback.from? ? feedback.from : $email_addresses['ArticleMailer']['default_from']
-    if $email_addresses
-      mail(to: $email_addresses['FeedbackMailer'][@feedback.variety][topic], from: from, subject: @feedback.subject)
+describe CategoriesController do
+  render_views
+
+  describe "GET 'index" do
+
+    describe "for non-signed-in users" do
+
+      it "should be a guest" do
+        controller.should_not be_signed_in
+      end
+
+      it "should allow access and show some categories" do
+        get :index
+        response.should be_success
+        # continue checking
+      end
+
+      it "should show a category" do
+        c = FactoryGirl.create :category
+        get :show, :id => c.id, :format => :json
+        response.should be_success
+        # continue checking
+      end
+
     end
-  end
 
-  def donation_partner(feedback)
-    @feedback = feedback
-    @last_article_id = @feedback.last_article_id
-    if $email_addresses
-      mail(to: $email_addresses['FeedbackMailer'][@feedback.variety], from: @feedback.from, subject: 'Spendenpartner*in Anfrage' )
-    end
-  end
 
+  end
 end

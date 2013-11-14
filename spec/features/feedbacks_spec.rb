@@ -60,4 +60,25 @@ describe "Feedback" do
       page.should have_content I18n.t 'article.actions.reported'
     end
   end
+
+  describe "become_donation_partner" do
+    it "should work" do
+      @user = FactoryGirl.create :user
+      login_as @user
+
+      visit new_feedback_path(:variety => "become_donation_partner")
+
+      fill_in 'feedback_forename', with: 'test'
+      fill_in 'feedback_lastname', with: 'test'
+      fill_in 'feedback_from', with: 'test@test.de'
+      fill_in 'feedback_organisation', with: 'test'
+      fill_in 'feedback_text', with: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
+
+      FeedbackMailer.any_instance.should_receive(:mail)
+      click_button I18n.t 'feedback.actions.become_donation_partner'
+      page.should have_content I18n.t 'article.actions.reported'
+
+    end
+  end
+
 end

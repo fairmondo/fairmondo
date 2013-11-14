@@ -26,16 +26,18 @@ describe Feedback do
     it { should_not allow_value('test.com').for :from }
     it { should allow_value('test@test.museum').for :from }
     it { should allow_value('test@test.co.uk').for :from }
-    it { should validate_presence_of :subject }
+
 
     context "when validating send_feedback" do
       before { subject.variety = 'send_feedback' }
       it { should validate_presence_of :feedback_subject }
+      it { should validate_presence_of :subject }
     end
 
     context "when validating get_help" do
       before { subject.variety = 'get_help' }
       it { should validate_presence_of :help_subject }
+      it { should validate_presence_of :subject }
     end
   end
 

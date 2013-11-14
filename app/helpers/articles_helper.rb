@@ -134,14 +134,6 @@ module ArticlesHelper
     end
   end
 
-  def filter_class
-    if params[:controller] == "articles" && params[:action] == "index"
-      "is-active"
-    else
-      ""
-    end
-  end
-
   def categories_for_filter form
     if form.object.categories.length > 0
       tree = get_category_tree(form.object.categories.first)
