@@ -72,6 +72,7 @@ describe MassUpload do
 
     describe "#get_csv_encoding" do
       it "should detect a Windows-1252 encoding" do
+        pending "Until we find a way to create a file with this encoding"
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_cp1252.csv').should eq 'Windows-1252'
       end
 
@@ -81,10 +82,12 @@ describe MassUpload do
 
       it "should detect a DOS encoding" do
         # still not sure if this actually works. Does DOS have the euro sign? What about ISO-8859-1?
+        pending "Until we find a way to create a file with this encoding"
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_ibm437.csv').should eq 'IBM437'
       end
 
       it "should detect an ISO-8859-15 encoding" do
+        pending "Until we find a way to create a file with this encoding"
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_iso15.csv').should eq 'ISO-8859-15'
       end
 

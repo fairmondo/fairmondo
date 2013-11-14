@@ -103,9 +103,22 @@
   }
 }
 
-.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news,.l-Teaser--cfk {
   @include at-breakpoint($layout-huge) {
     @include omega;
+  }
+}
+
+.cfk-teaser-image-long {
+  display: none;
+  @include at-breakpoint($layout-small) {
+    display: block;
+  }
+}
+
+.cfk-teaser-image-short {
+  @include at-breakpoint($layout-small) {
+    display: none;
   }
 }
 
