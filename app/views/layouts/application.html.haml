@@ -58,48 +58,51 @@
     %link{ rel: 'image_src', href: yield(:title_image) }
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
-    .Notice
-      - if !flash.empty?
-        - flash.each do |type, msg|
-          - if msg && type != :timedout && !msg.empty?
-            = render_notice :type => type do
-              %p
-                = msg
-    %header.l-Header
-      .l-Inner
-        .Logo
-          %h1
-            %a{:href => "/"}
-              %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
-        %nav.Nav.Nav--primary
-          %ul
-            %li
-              = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
-            %li
-              = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
+    .l-Wrap
+      .Notice
+        - if !flash.empty?
+          - flash.each do |type, msg|
+            - if msg && type != :timedout && !msg.empty?
+              = render_notice :type => type do
+                %p
+                  = msg
+      .HeaderArea
+        %header.l-Header
+          - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+            .Message-row-background
+              .Message-row-foreground
+                = tinycms_content_body("nachrichtenzeile")
+          .l-Inner
+            .Logo
+              %h1
+                %a{:href => "/"}
+                  %img{:src => image_path('logo.png'), :alt => "Fairnopoly Logo"}
+            %nav.Nav.Nav--primary
+              %ul
+                %li
+                  = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+                %li
+                  = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
 
-            - if user_signed_in?
-              %li
-                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
-              %li.last
-                = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
+                - if user_signed_in?
+                  %li
+                    = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+                  %li.last
+                    = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
 
-            - else
-              %li.last
-                = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
-        / row
-      / container
+                - else
+                  %li.last
+                    = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
+        .l-Hero
+          = hero
+      .l-Main{:role => "main"}
+        .l-Inner
+          = yield
 
-    .l-Hero
-      = hero
-    .l-Main{:role => "main"}
-      .l-Inner
-        = yield
-      / .container
-    / #main
-
-    - if controller.controller_name == 'welcome' && controller.action_name == 'index'
-      = render "welcome/known_from"
+        - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+          = render "welcome/ngo_logobox"
+          %br
+          = render "welcome/known_from"
 
     %footer.l-Footer
       .Footer--top
@@ -118,7 +121,7 @@
                   %a.Btn.Feedback{:href=>new_feedback_path(:variety => :send_feedback)}
                     %i.icon-feedback
                     = t('common.text.feedback')
-                  %a.Btn.Btn--green.Feedback{href: '/anteile-zeichnen'}
+                  %a.Btn.Btn--green.Feedback{href: 'http://www.startnext.de/fairnopoly2'}
                     %i.icon-shares
                     = t('common.text.shares')
 

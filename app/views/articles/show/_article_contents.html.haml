@@ -71,7 +71,7 @@
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
             .library
               = f.inputs do
-                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false
+                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false, input_html: { class: 'ArticleViewLibrarySelector' }
                 = f.input :article_id, :as => :hidden
               %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
               = f.button t('common.actions.collect'), :class => "Btn Btn--blue", :style => "margin:5px;padding:8px;"
@@ -95,19 +95,18 @@
       .Article-friendly
         %p
           =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
-        - if resource.has_friendly_percent? && resource.donated_ngo
-          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
-
     -else
       .Article-friendly
-        %p.Highlight
-
-          =t('article.show.friendly_percent')
+        %p.Article--highlight
+          =t('article.show.fair_percent')
           %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
         %p
           =t('article.show.donate_html')
 
         - if resource.has_friendly_percent? && resource.donated_ngo
+          %p.Article--highlight
+            =t('article.show.friendly_percent')
+            %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
           %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
 
     %p
@@ -161,3 +160,26 @@
 
 
 
+-# Contact Box (refactor when we have a real messaging system)
+.Accordion.Accorion--full.Accordion--scrollToActive
+  = accordion_item 'contact_private_user' do
+    - if current_user
+      = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
+        %p= t('article.show.contact.description')
+        %br
+        = f.inputs do
+          -# hidden
+          = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+          -# user input
+          = f.input :email_transfer_accepted, label: t('article.show.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
+          %br
+          - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
+          = f.input :text, as: :text, input_html: { rows: 4, value: text }
+
+        = f.actions do
+          = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Btn"}
+    - else
+      Um eine Rückfrage stellen zu können, musst Du dich bei Fairnopoly
+      = link_to 'registrieren', new_user_registration_path
+      und
+      = link_to('einloggen', new_user_session_path) + '.'

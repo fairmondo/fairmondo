@@ -3,38 +3,58 @@
 //
 
 
+
+
+.l-Left,.l-Right  {
+
+
+  @include at-breakpoint($layout-small-to-medium) {
+     @include span-columns(2,5);
+  }
+
+  @include at-breakpoint($layout-medium-to-large) {
+     @include span-columns(2,6);
+  }
+
+  @include at-breakpoint($layout-large) {
+    @include span-columns(2,12);
+  }
+
+
+  .Btn {
+    width:100%;
+    @include rem(font-size, 14px);
+    @include rem(padding, 0.4em 4px);
+    height: em(41);
+    margin: 0px;
+  }
+}
+
 .l-Left {
   display:none;
-  @include at-breakpoint($layout-large) {
+  @include at-breakpoint($layout-medium) {
     display:block;
-    @include span-columns(2,12);
   }
 }
 
 .l-Right {
-  @include at-breakpoint($layout-small-to-large) {
-     @include span-columns(1 omega,4);
-  }
-
+  display:none;
   @include at-breakpoint($layout-large) {
-   @include span-columns(2 omega,12);
-   }
-}
-
-.l-Left,.l-Right  {
-  .Btn {
-    width:100%;
-    @include rem(padding, 0.6em 4px 0.8em);
-    height: em(40);
+    display:block;
+    @include omega;
   }
 }
 
 .l-Middle {
-  @include at-breakpoint($layout-large) {
-    @include span-columns(6,12);
+  width:100%;
+
+  @include at-breakpoint($layout-medium-to-large) {
+     @include span-columns(4,6);
+     @include omega;
   }
-   @include at-breakpoint($layout-small-to-large) {
-     @include span-columns(3,4);
+
+  @include at-breakpoint($layout-large) {
+    @include span-columns(8,12);
   }
 }
 
@@ -49,25 +69,27 @@
 
 }
 .Search .Search-input input { // extra specificity
-	@include rem(font-size, 17px);
+	@include rem(font-size, 14px);
 	width: 100%;
 }
 
 .Search-button {
 	position: absolute;
-	top: em(13);
+	top: em(7);
 	right: em(11);
 }
 
+.Search-extend {
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  color:$gray;
+  z-index:1;
+  @include rem(font-size, 12px);
+  cursor:pointer;
+  &:hover {
+    color: $blue;
+  }
+}
 
 
-
-
-
-// .Search {
-// 	@include at-breakpoint($layout-small) {
-// 		@include span-columns(2, 4);
-// 		float: left;
-// 		//width: columns(2,4);
-// 	}
-// }
