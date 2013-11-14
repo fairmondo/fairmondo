@@ -120,8 +120,8 @@ module MassUpload::Checks
       # end
     end
 
-    def match_euro_sign binary_representation, csv_header_line
-      regex = Regexp.new(";#{binary_representation}(\r)?\n$".force_encoding("binary"), Regexp::FIXEDENCODING)
-      regex.match csv_header_line
-    end
+    # def match_euro_sign binary_representation, csv_header_line
+    #   regex = Regexp.new(";#{binary_representation}(\r)?\n$".force_encoding("binary"), Regexp::FIXEDENCODING)
+    #   regex.match csv_header_line
+    # end
 end
