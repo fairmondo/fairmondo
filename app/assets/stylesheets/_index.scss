@@ -113,7 +113,7 @@
   display: none;
   @include at-breakpoint($layout-small) {
     display: block;
-    @include rem(padding, 15px 0 20px);
+    @include rem(padding, 8px 0 20px);
   }
 }
 
@@ -124,7 +124,7 @@
 }
 
 .cfk-teaser-text {
-  @include rem(padding, 15px 0 20px);
+  @include rem(padding, 0 0 15px);
 }
 
 // Text teasers
