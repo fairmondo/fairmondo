@@ -277,6 +277,38 @@ describe 'Article management' do
       end
     end
 
+    describe 'contacting sellers' do
+      before do
+        visit article_path FactoryGirl.create :article, :with_private_user
+      end
+
+      it "should send an email when fields are filled correctly" do
+        fill_in 'contact[text]', with: 'foobar'
+        click_button I18n.t('article.show.contact.action')
+
+        page.should have_content I18n.t 'article.show.contact.success_notice'
+      end
+
+      it "should fail when transmitting the user's email wasn't accepted" do
+        fill_in 'contact[text]', with: 'foobar'
+        uncheck 'contact[email_transfer_accepted]'
+        click_button I18n.t('article.show.contact.action')
+
+        page.should have_content I18n.t 'article.show.contact.acceptance_error'
+      end
+
+      it "should fail when the text is empty" do
+        fill_in 'contact[text]', with: ''
+        click_button I18n.t('article.show.contact.action')
+
+        page.should have_content I18n.t 'article.show.contact.empty_error'
+      end
+
+      # should also fail when more than 2000 characters are entered in text
+
+      # should save text in session
+    end
+
     describe "the article view" do
       it "should show a buy button that immediately forwards to the transaction page" do
         visit article_path article
@@ -365,7 +397,7 @@ describe 'Article management' do
       end
       # it "should have a different title image with an additional param" do
       #   new_img = FactoryGirl.create :image
-      #   @article.images << 
+      #   @article.images <<
       #   @article.save
 
       #   Image.should_receive(:find).with(new_img.id.to_s)

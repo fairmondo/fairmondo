@@ -29,7 +29,6 @@ class FeedbacksController < InheritedResources::Base
     resource.user_agent = request.env["HTTP_USER_AGENT"]
     create! do |success,failure|
       success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
-      failure.html { render :new }
     end
   end
 
