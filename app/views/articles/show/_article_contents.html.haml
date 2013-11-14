@@ -159,10 +159,11 @@
       = resource.seller_about.html_safe
 
 
-- if current_user
-  -# Contact Box (refactor when we have a real messaging system)
-  .Accordion.Accorion--full.Accordion--scrollToActive
-    = accordion_item 'contact_private_user' do
+
+-# Contact Box (refactor when we have a real messaging system)
+.Accordion.Accorion--full.Accordion--scrollToActive
+  = accordion_item 'contact_private_user' do
+    - if current_user
       = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
         %p= t('article.show.contact.description')
         %br
@@ -177,3 +178,8 @@
 
         = f.actions do
           = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Btn"}
+    - else
+      Um eine Rückfrage stellen zu können, musst Du dich bei Fairnopoly
+      = link_to 'registrieren', new_user_registration_path
+      und
+      = link_to('einloggen', new_user_session_path) + '.'
