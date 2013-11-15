@@ -19,15 +19,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class MassUpload
+class MassUpload < ActiveRecord::Base
 
   # Required for Active Model Conversion which is required by Formtastic
-  include ActiveModel::Conversion
+  # include ActiveModel::Conversion
 
-  # Required dependency for ActiveModel::Errors
-  extend ActiveModel::Naming
+  # # Required dependency for ActiveModel::Errors
+  # extend ActiveModel::Naming
 
   include Checks, Questionnaire, FeesAndDonations
+
+  has_many :articles
 
   def self.mass_upload_attrs
     [:file]
@@ -198,9 +200,9 @@ class MassUpload
   # end
 
   # The following method is needed for Active Model Conversions
-  def persisted?
-    false
-  end
+  # def persisted?
+  #   false
+  # end
 
   private
     # Throw away additional fields that are not needed
