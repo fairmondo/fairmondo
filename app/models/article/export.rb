@@ -59,7 +59,6 @@ module Article::Export
     elsif params == "error_articles"
       articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
       articles.reverse_order
-      # bugbug Something needed in case no params are given?
     end
   end
 
