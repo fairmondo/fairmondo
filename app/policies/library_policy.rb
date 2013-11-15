@@ -33,6 +33,10 @@ class LibraryPolicy < Struct.new(:user, :library)
     own?
   end
 
+  def show?
+    library.public? || own?
+  end
+
   private
   def own?
     user && user.id == library.user_id

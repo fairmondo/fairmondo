@@ -21,14 +21,17 @@
   - if !@libraries.blank?
     .Accordion.Accordion--containsArticles.Accordion--scrollToActive
       - @libraries.each do |library|
-        - unless library.new_record? || library.library_elements.empty?
+        - unless library.library_elements.empty?
           = accordion_item "library"+library.id.to_s, :title => library_header_layout(library), :arrow => false, :number => library.library_elements.count do
-            %p
-              .Library-ArticleList.Libraries-settings-clear
-                %section.l-ArticleList
-                  - library.library_elements.each do |library_element|
-                    %Article{:class => 'Grid Article Article--teaser'}
-                      = render '/shared/show_article', :item=> library_element.article
+            .Library-actions
+              = link_to user_path(library.user), :class => "Btn" do
+                = t('users.actions.show_account')
+                = t('common.text.glue.from')
+                = library.user_nickname
+              = link_to library_path(library), :class => "Btn" do
+                = t('library.show')
+            = render "library", :library => library
+
     = paginate @libraries
   - else
     = t('libraries.no_library')
