@@ -61,3 +61,7 @@
   @include rem(margin-right, 3px);
   @include border-radius(0.6em);
 }
+
+.Library-actions {
+  .Btn {margin-right: 1em;}
+}
