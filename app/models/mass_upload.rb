@@ -155,7 +155,7 @@ class MassUpload
   end
 
   def add_article_error_messages(article, index)
-    # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+    # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
       first_line_break = ""
       if article.errors.full_messages[0] == message && index > 0
