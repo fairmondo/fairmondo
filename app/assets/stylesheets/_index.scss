@@ -103,28 +103,17 @@
   }
 }
 
-.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news,.l-Teaser--cfk {
+.l-Teaser--ecologic, .l-Teaser--counters,.l-Teaser--news, .l-Teaser--cfk {
   @include at-breakpoint($layout-huge) {
     @include omega;
   }
 }
 
-.cfk-teaser-image-long {
-  display: none;
-  @include at-breakpoint($layout-small) {
-    display: block;
-    @include rem(padding, 8px 0 20px);
+.l-Teaser--cfk img {
+  @include rem(margin, 8px 0 8px);
+  @include at-breakpoint($layout-huge) {
+    @include rem(margin, 8px 0 33px);
   }
-}
-
-.cfk-teaser-image-short {
-  @include at-breakpoint($layout-small) {
-    display: none;
-  }
-}
-
-.cfk-teaser-text {
-  @include rem(padding, 0 0 15px);
 }
 
 // Text teasers
