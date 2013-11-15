@@ -87,7 +87,7 @@ module Sanitization
     # @param field [String] The content to sanitize
     # @return [String] The sanitized content
     def self.sanitize_clean field
-      # bugbug Needed because of the inject_questionnaire method in the mass_upload model (else statement)
+      # Needed because of the inject_questionnaire method in the mass_upload model (else statement)
       field = field.first if field.class == Array
       reverse_encoding modify Sanitize.clean(field)
     end
