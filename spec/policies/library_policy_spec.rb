@@ -29,6 +29,7 @@ describe LibraryPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
+    it { should deny(:show) }
     it { should deny(:create)  }
     it { should deny(:update)  }
     it { should deny(:destroy) }
@@ -36,6 +37,7 @@ describe LibraryPolicy do
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
+    it { should deny(:show) }
     it { should deny(:create)             }
     it { should deny(:update)             }
     it { should deny(:destroy)            }
@@ -43,6 +45,7 @@ describe LibraryPolicy do
 
   context "for the library owning user" do
     let(:user) { library.user    }
+    it { should permit(:show) }
     it { should permit(:create)  }
     it { should permit(:update)  }
     it { should permit(:destroy) }

@@ -21,19 +21,27 @@
 #
 class LibrariesController < InheritedResources::Base
   respond_to :html
-  actions :index, :create, :update, :destroy
+  actions :index, :create, :update, :destroy,:show
 
   before_filter :render_users_hero , :if =>  :user_focused?
   before_filter :get_user, :if => :user_focused?
 
   # Authorization
-  skip_before_filter :authenticate_user!, :only => [:index]
+  skip_before_filter :authenticate_user!, :only => [:index,:show]
 
   def index
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new( current_user, @user, end_of_association_chain.includes(:user => [:image],:library_elements => [:article => [:images,:seller]] )).resolve.page(params[:page])
+    @libraries = LibraryPolicy::Scope.new( current_user, @user, end_of_association_chain.includes(:user => [:image] )).resolve.page(params[:page])
 
     render :global_index unless user_focused?
+  end
+
+  def show
+    authorize resource
+    show! do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

@@ -47,7 +47,7 @@
   .Teaser.Teaser--text
     #slides
       - 6.times do |i|
-        = image_tag "slides/#{i}.png"
+        = image_tag "slides/cards/#{i}.png"
       %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
         %i.icon-left_arrow
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
@@ -56,23 +56,20 @@
 .l-Teaser--double.l-Teaser--cfk
   .Teaser.Teaser--text
     %p
-      .cfk-teaser-image-long
-        = image_tag "cfk/willst_du_mit_mir_gehen_long.jpg"
-      .cfk-teaser-image-short
-        = image_tag "cfk/willst_du_mit_mir_gehen_short.jpg"
-    .cfk-teaser-text
-      %p
-        Um eine echte und faire Alternative zu den konventionellen Marktplätzen zu
-        werden, brauchen wir noch viele weitere Weggefährt*innen.
-      %p
-        Willst auch Du mit uns diesen Weg gehen?
+      = image_tag "cfk/box_grafik.png"
+    %p
+      Mit Fairnopoly möchten wir neue Wege gehen und eine konsequent faire
+      Alternative zu den großen Online-Marktplätzen aufbauen.
+      Über 1.000 Menschen haben uns bereits unterstützt.
+      %br
+      Willst auch du mit uns gehen?
     %p
       %a{ :href => "http://www.startnext.de/fairnopoly2", :class => "Btn Btn--blue", :target => "_blank" }
         Mitgehen
 
 .l-Teaser--double.l-Teaser--participate
   .Teaser.Teaser--text
-    %h2.Teaser-header  AKTIV MITWIRKEN
+    %h2.Teaser-header AKTIV MITWIRKEN
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
@@ -80,3 +77,38 @@
         Held*in werden
 .l-Teaser--double.l-Teaser--news
   .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
+
+.Teaser--user-slides
+  #UserSlides.Teaser.User-slides-container
+    %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+      %i.icon-right_arrow
+    %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+      %i.icon-left_arrow
+    #Slide1
+      = image_tag "slides/users/0.jpg"
+      %p
+        %span.Teaser--fatquote> &bdquo;
+        %span.Teaser--quote> Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
+        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
+        .Teaser--quotesource JORGE INOSTROZA, GEPA
+    #Slide2
+      = image_tag "slides/users/1.jpg"
+      %p
+        %span.Teaser--fatquote> &bdquo;
+        %span.Teaser--quote> Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht Fairnopoly mitzuentwickeln. Für ist Fairnopoly eine super Plattform um unsere ethisch produzierten Produkte zu vermarkten.
+        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
+        .Teaser--quotesource ISABELLE DECHAMPS, BE ABLE
+    #Slide3
+      = image_tag "slides/users/2.jpg"
+      %p
+        %span.Teaser--fatquote> &bdquo;
+        %span.Teaser--quote> Bei Fairnopoly finde ich genial das die Struktur eine Genossenschaft ist. Das heißt ich bin Genosse dort, ich kann da miteintscheiden was da passiert und was mit der Firma passiert.
+        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
+        .Teaser--quotesource VAN BO LE-MENTZEL, ARCHITEKT
+    #Slide4
+      = image_tag "slides/users/3.jpg"
+      %p
+        %span.Teaser--fatquote> &bdquo;
+        %span.Teaser--quote> Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab das Team auch kennengelernt und ich sehe das die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir sehen darin eine Chance, faire und bio Produkte weiter zu verbreiten.
+        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
+        .Teaser--quotesource THOMAS KAPPAUF, BLACK STAR

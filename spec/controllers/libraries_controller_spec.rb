@@ -60,6 +60,11 @@ describe LibrariesController do
         response.should be_success
       end
 
+      it "should be successful" do
+        get :show, :user_id => @library.user, :id => @library.id
+        response.should be_success
+      end
+
     end
 
   end
