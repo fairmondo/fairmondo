@@ -228,7 +228,20 @@
   display: none; /* Prevents slides from flashing */
   position: relative;
   margin: auto;
-  overflow: visible !important; /* overwrite js settings so arrows are visible */
+}
+
+#UserSlides i.icon-right_arrow {
+  position: absolute;
+  left: 20px;
+  top: 60px;
+  display: inline-block;
+}
+
+#UserSlides i.icon-left_arrow {
+  position: absolute;
+  right: 15px;
+  top: 60px;
+  display: inline-block;
 }
 
 .l-Teaser--slides i {
@@ -252,6 +265,7 @@
 // -------------------------------------
 .Teaser--user-slides {
   @include span-columns(1,1);
+
   position: relative;
 }
 
@@ -290,4 +304,17 @@
   font-size: 12px;
   font-weight: 600;
   text-align: right;
+}
+
+#UserSlides .slidesjs-container {
+  height: 520px !important;
+  @include at-breakpoint($layout-small) {
+    height: 360px !important;
+  }
+  @include at-breakpoint($layout-medium) {
+    height: 240px !important;
+  }
+  @include at-breakpoint($layout-large) {
+    height: 120px !important;
+  }
 }
