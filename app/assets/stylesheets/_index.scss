@@ -219,7 +219,8 @@
 .l-Teaser--slides #slides {
   display: none; /* Prevents slides from flashing */
   position: relative;
-  width: 356px;
+  max-width: 490px;
+  width: 100%;
   margin: auto;
   overflow: visible !important; /* overwrite js settings so arrows are visible */
 }
@@ -234,7 +235,13 @@
 .l-Teaser--slides i {
   display: block;
   position: absolute;
-  top: 165px;
+  top: 45%;
+  @include at-breakpoint($layout-small) {
+    top: 46%;
+  }
+  @include at-breakpoint(em(620px) lt-ie9) { // custom breakpoint for actual slide width
+    top: 231px;
+  }
 }
 .l-Teaser--slides i.icon-left_arrow {
   right: -13px;
