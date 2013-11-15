@@ -6,7 +6,7 @@ $(document).ready ->
     play:
       active: false
       auto: true
-      interval: 7000
+      interval: 10000
     pagination:
       active: false
     navigation:
