@@ -23,5 +23,7 @@ $(document).ready ->
         $("#Slide#{n}").css('position', 'static')
       complete: (n) ->
         m = if (n-1) == 0 then 4 else (n-1)
+        o = if (n+1) == 5 then 1 else (n+1)
         $("#Slide#{m}").css('position', 'absolute')
         $("#Slide#{n}").css('position', 'static')
+        $("#Slide#{o}").css('position', 'absolute')
