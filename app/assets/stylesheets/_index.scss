@@ -5,15 +5,15 @@
 // General
 // -----------------------------------
 .Teaser {
-	@include rem(padding, 10px 20px);
-	color: #3c3c3c;
-	border-radius: 8px;
-	background: #fff;
+  @include rem(padding, 10px 20px);
+  color: #3c3c3c;
+  border-radius: 8px;
+  background: #fff;
   margin-bottom: em(38);
-	.Icon [class^="icon-"] {
-		display: block;
-		@include rem(margin, 20px auto);
-	}
+  .Icon [class^="icon-"] {
+    display: block;
+    @include rem(margin, 20px auto);
+  }
   @include clearfix;
 
   .Article {
@@ -47,7 +47,7 @@
     @include span-columns(2,4);
   }
   @include at-breakpoint($layout-small) {
-    Article{
+    Article {
       @include span-columns(1,2);
       @include nth-omega(2n);
     }
@@ -55,7 +55,7 @@
 }
 
 .l-Teaser--collapsible {
-   @include at-breakpoint($layout-large-to-huge) {
+  @include at-breakpoint($layout-large-to-huge) {
     @include span-columns(1,3);
     @include omega;
     Article {
@@ -67,13 +67,13 @@
 
 .l-Teaser--single {
   @include at-breakpoint($layout-small) {
-    @include span-columns(1,2);
+    @include span-columns(1,1);
   }
   @include at-breakpoint($layout-large-to-huge) {
-    @include span-columns(1,3);
+    @include span-columns(1,1);
   }
   @include at-breakpoint($layout-huge) {
-    @include span-columns(1,4);
+    @include span-columns(1,1);
   }
 }
 
@@ -103,9 +103,16 @@
   }
 }
 
-.l-Teaser--ecologic,.l-Teaser--counters,.l-Teaser--news {
+.l-Teaser--ecologic, .l-Teaser--counters,.l-Teaser--news, .l-Teaser--cfk {
   @include at-breakpoint($layout-huge) {
     @include omega;
+  }
+}
+
+.l-Teaser--cfk img {
+  @include rem(margin, 8px 0 8px);
+  @include at-breakpoint($layout-huge) {
+    @include rem(margin, 8px 0 33px);
   }
 }
 
@@ -124,11 +131,11 @@
 //
 
 .Teaser--counter {
-	// move padding from container to child els
-	padding: 0;
-	p {
-	  @include rem(padding, 0px 20px);
-	}
+  // move padding from container to child els
+  padding: 0;
+  p {
+    @include rem(padding, 0px 20px);
+  }
 }
 
 .Teaser-total {
@@ -145,12 +152,12 @@
 }
 
 .Teaser-total--articles {
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .Teaser-total--user {
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 
@@ -179,7 +186,7 @@
     @include nth-omega(2n);
   }
 
-  @include at-breakpoint($layout-huge){
+  @include at-breakpoint($layout-huge) {
     @include span-columns(1,4);
     @include nth-omega(4n);
   }
@@ -198,10 +205,31 @@
 // Welcome Teaser
 // -------------------------------------
 
-.l-Teaser--welcome {
-  color: $blue;
-  @include rem(font-size, 18px);
-  @include rem(font-size, $font-size-m);
+.l-Teaser--slides #slides {
+  display: none; /* Prevents slides from flashing */
+  position: relative;
+  max-width: 490px;
+  width: 100%;
+  margin: auto;
+  overflow: visible !important; /* overwrite js settings so arrows are visible */
+}
+
+.l-Teaser--slides i {
+  display: block;
+  position: absolute;
+  top: 45%;
+  @include at-breakpoint($layout-small) {
+    top: 46%;
+  }
+  @include at-breakpoint(em(620px) lt-ie9) { // custom breakpoint for actual slide width
+    top: 231px;
+  }
+}
+.l-Teaser--slides i.icon-left_arrow {
+  right: -13px;
+}
+.l-Teaser--slides i.icon-right_arrow {
+  left: -13px;
 }
 
 .Teaser-image {
@@ -209,3 +237,82 @@
   width: 80%;
 }
 
+// User Quote Teaser
+// -------------------------------------
+.Teaser--user-slides {
+  @include span-columns(1,1);
+}
+
+ #UserSlides {
+  display: none; /* Prevents slides from flashing */
+  position: relative;
+  margin: auto;
+  text-align: center;
+}
+
+#UserSlides p {
+  text-align: justify;
+}
+
+#UserSlides i.icon-right_arrow {
+  position: absolute;
+  left: 20px;
+  top: 60px;
+  display: inline-block;
+}
+
+#UserSlides i.icon-left_arrow {
+  position: absolute;
+  right: 15px;
+  top: 60px;
+  display: inline-block;
+}
+
+.User-slides-container {
+  @include rem(padding, 15px 60px);
+}
+
+.Teaser--user-slides .Teaser {
+  color: $lightgray;
+}
+
+.Teaser--user-slides img {
+  @include border-radius(0.5em);
+  margin-bottom: 20px;
+
+  @include at-breakpoint($layout-small) {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+.Teaser--quote {
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.Teaser--fatquote {
+  font-size: 30px;
+  font-weight: 800;
+  font-style: italic;
+  line-height: 10px;
+  margin-right: 3px;
+}
+.Teaser--fatquote-lower {
+  position: relative;
+  top: 8px;
+  margin-left: 3px;
+  margin-right: 0;
+}
+
+.Teaser--quotesource {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+}
+
+#UserSlides .slidesjs-container, #UserSlides .slidesjs-control {
+  height: auto !important;
+}

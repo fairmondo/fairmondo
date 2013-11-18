@@ -38,7 +38,7 @@
         %h1
           = t 'transaction.edit.heading'
 
-        = semantic_form_for @transaction do |f|
+        = semantic_form_for @transaction, html: { class: 'js-visual-submit' } do |f|
           = f.inputs do
             = f.hidden_field :selected_transport, value: selected_transport
             = f.hidden_field :selected_payment, value: selected_payment
@@ -79,7 +79,7 @@
 
                 %p
                   %i
-                    = resource.article_seller.fullname
+                    = resource.article_seller.ngo ? resource.article_seller.nickname : resource.article_seller.fullname
 
                 #about
                   .Gray-border-display
@@ -165,8 +165,7 @@
               - else
                 = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
               - if resource.article.has_friendly_percent? && resource.article.donated_ngo
-                = t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
-
+                %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
 
           %hr
           %table#Transpay-price-table

@@ -20,12 +20,15 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .User.User--teaser
+  -# User Box
   = render '/shared/profile_img', user: resource.seller, show_title: true
+  -# Other articles by seller Box
   .User-accordion.Accordion
     = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
       = render '/shared/list_articles_small', :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"
 
   - if resource.libraries.find_all_by_public(true).count > 0
+    -# Libraries Box
     .Accordion.Accordion--full
       = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
         - libraries.each do |library|
@@ -35,10 +38,11 @@
             %p.User-library--title
               = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
             %p.User-library--user
-              = t('common.text.from') + " "
+              = t('common.text.glue.from') + " "
               = link_to( library.user_nickname, user_path(library.user))
         = paginate libraries, :params => {:anchor => "library" }
 
+  -# Feedback Box
   .Accordion.Accordion--full
     - if policy(resource).report?
       = accordion_item "report" do

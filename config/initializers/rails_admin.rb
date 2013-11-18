@@ -293,7 +293,7 @@ RailsAdmin.config do |config|
 
   ###  Exhibit  ###
 
-  # config.model 'Exhibit' do
+   config.model 'Exhibit' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your exhibit.rb model definition
 
@@ -305,12 +305,12 @@ RailsAdmin.config do |config|
   #   # Found columns:
 
   #     configure :id, :integer
-  #     configure :article_id, :integer         # Hidden
-  #     configure :queue, :enum
-  #     configure :related_article_id, :integer         # Hidden
-  #     configure :created_at, :datetime
-  #     configure :updated_at, :datetime
-  #     configure :exhibition_date, :datetime
+       configure :article_id, :integer         # Hidden
+       configure :queue, :enum
+       configure :related_article_id, :integer         # Hidden
+       configure :created_at, :datetime
+       configure :updated_at, :datetime
+       configure :exhibition_date, :datetime
 
   #   # Cross-section configuration:
 
@@ -335,7 +335,7 @@ RailsAdmin.config do |config|
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  # end
+   end
 
 
   ###  FairTrustQuestionnaire  ###

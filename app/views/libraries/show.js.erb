@@ -1,0 +1,2 @@
+$("<%= "#library#{resource.id.to_s} .Library-ArticleList" %>").html('<%= escape_javascript render "library", :library => resource  %>');
+$('html,body').animate({scrollTop: $("<%= "#library#{resource.id.to_s}" %>").offset().top},'slow');

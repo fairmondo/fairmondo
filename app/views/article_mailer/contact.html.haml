@@ -1,0 +1,21 @@
+%p
+  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
+  = "\"#{@article.title}\""
+  gesandt:
+%br
+%hr
+%br
+= simple_format @text
+%br
+%hr
+%br
+
+%p
+  Bitte sende Deine Antwort an
+  = @from
+%p
+  Den Artikel zu der Rückfrage findest Du unter
+  = link_to article_url(@article), article_url(@article)
+%br
+%br
+= render '/shared/email_footer'

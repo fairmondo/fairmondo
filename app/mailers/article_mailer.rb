@@ -34,4 +34,10 @@ class ArticleMailer < ActionMailer::Base
     mail(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: #{category_proposal}")
   end
 
+  def contact from, to, text, article
+    @text = text
+    @article = article
+    @from = from
+    mail to: to, from: 'noreply@fairnopoly.de', subject: I18n.t('article.show.contact.mail_subject')
+  end
 end
