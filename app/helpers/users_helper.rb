@@ -33,7 +33,7 @@ module UsersHelper
   end
 
   def sold_transactions
-    resource.transactions.joins(:article).where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'").includes(:seller,:article => [:seller,:images]).page(params[:sold_articles_page])
+    resource.sold_transactions.joins(:article).where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'").includes(:seller,:article => [:seller,:images]).page(params[:sold_articles_page])
   end
 
   def bought_transactions

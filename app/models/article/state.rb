@@ -87,11 +87,5 @@ module Article::State
     self.save(:validate => false) # do it anyways
   end
 
-  # Should this Article be shown in the List of Articles ?
-  # Ducktyping see /models/transaction.rb
-  def show_in_list? is_dashboard=false
-    active? || is_dashboard
-  end
-
 
 end
