@@ -28,7 +28,7 @@
         = t('article.show.alternative')
         %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
       - if alternative.present?
-        = render '/articles/shared/show_article', item: alternative
+        = render '/articles/shared/show_article', article: alternative
       - else
         %p.Helper-text
           = t('article.show.no_alternative')
