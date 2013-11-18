@@ -171,7 +171,29 @@
   h2 {
     margin-bottom: em(10);
   }
+
+
 }
+
+.News-rss {
+  img {
+    float:left;
+    @include border-radius(0.9em);
+    width:5em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+
+  }
+  &:nth-child(2n+1) {
+    img{
+      margin-left: 1em;
+      margin-right: 0em;
+      float:right;
+    }
+  }
+  @include pie-clearfix;
+}
+
 
 .Teaser-hide {
   background: none ;
