@@ -1,0 +1,3 @@
+= accordion_item "library"+resource.id.to_s, :title => library_header_layout(resource), :arrow => false, :number => resource.library_elements.count do
+  %p
+    = render "library", :library => resource

@@ -5,6 +5,7 @@ de:
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"
+    show: "Zur Sammlung"
     no_products: "Diese Sammlung enthält im Moment keine Artikel."
     create: "Sammlung anlegen"
     delete_confirm: "Soll die Sammlung '%{name}' wirklich gelöscht werden?"

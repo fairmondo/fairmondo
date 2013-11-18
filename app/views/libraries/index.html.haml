@@ -61,11 +61,8 @@
           - else
             .Library-ArticleList.Libraries-settings-clear
               %section.l-ArticleList
-                - library.library_elements.each do |library_element|
-                  - if policy(library_element).show?
-                    %Article{:class => 'Grid Article Article--teaser'}
-                      = render '/shared/show_article',  :item => library_element.article
-                      .Article-actions
-                        - if policy(library_element).destroy?
-                          = link_to t('common.actions.destroy'), user_library_element_path(@user,library_element) ,:method => :delete, :class => "Btn Btn--red", :style => "float:right;"
+                - library_elements = library.library_elements.includes(:article => [:images,:seller]).includes(:library).page(params[:library_page]).per(12)
+                - library_elements.each do |library_element|
+                  = render "library_element", :library_element => library_element
+              = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
     = paginate @libraries

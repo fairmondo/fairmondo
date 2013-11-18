@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -33,7 +34,7 @@ class MassUpload
   end
 
   def self.header_row
-   ["title", "categories", "condition", "condition_extra",
+   ["€", "id", "title", "categories", "condition", "condition_extra",
     "content", "quantity", "price_cents", "basic_price_cents",
     "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
     "transport_pickup", "transport_type1",
@@ -61,13 +62,13 @@ class MassUpload
     "social_entrepreneur_explanation", "ecologic_seal",
     "upcycling_reason", "small_and_precious_eu_small_enterprise",
     "small_and_precious_reason", "small_and_precious_handmade",
-    "gtin", "custom_seller_identifier"]
+    "gtin", "custom_seller_identifier", "action"]
   end
 
   # Gives header row that is needed for updates and deletes
-  def self.expanded_header_row
-    ['id'] + header_row + ['action']
-  end
+  # def self.expanded_header_row
+  #   ['id'] + header_row + ['action']
+  # end
 
   # Provide basic hash that gets filled in the controller with article IDs
   # @return [Hash]
@@ -154,7 +155,7 @@ class MassUpload
   end
 
   def add_article_error_messages(article, index)
-    # bugbugb Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+    # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
       first_line_break = ""
       if article.errors.full_messages[0] == message && index > 0
@@ -205,7 +206,7 @@ class MassUpload
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
       row_hash.keys.each do |key|
-        row_hash.delete key unless MassUpload.expanded_header_row.include? key
+        row_hash.delete key unless MassUpload.header_row.include? key
       end
       row_hash
     end

@@ -23,7 +23,7 @@ module Article::Export
   extend ActiveSupport::Concern
 
   def self.export_articles(user, params = nil)
-    header_row = MassUpload.expanded_header_row + ['€'] # Euro as UTF-8 identifier
+    header_row = MassUpload.header_row
     articles = determine_articles_to_export(user, params)
 
     CSV.generate(:col_sep => ";") do |line|
@@ -59,7 +59,6 @@ module Article::Export
     elsif params == "error_articles"
       articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
       articles.reverse_order
-      # bugbug Something needed in case no params are given?
     end
   end
 

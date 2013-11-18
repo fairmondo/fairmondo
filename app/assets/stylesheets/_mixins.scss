@@ -12,3 +12,14 @@
 %Bold {
 	font-weight: 700;
 }
+
+@mixin colorlink($color) {
+  color: $color;
+  &:visited{
+    color: $color;
+  }
+  &:hover {
+    text-decoration:none;
+    color: $blue;
+  }
+}

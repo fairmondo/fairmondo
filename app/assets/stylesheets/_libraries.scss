@@ -21,6 +21,9 @@
   margin-bottom: 10px;
 }
 
+.Libraries .Accordion-header.Btn-accordion--number .content {
+  width: 93%;
+}
 // shared/library_header
 
 .Library-userimage {
@@ -54,5 +57,11 @@
 }
 
 .Library-thumb {
- height: 5em;
+  height: 5em;
+  @include rem(margin-right, 3px);
+  @include border-radius(0.6em);
+}
+
+.Library-actions {
+  .Btn {margin-right: 1em;}
 }

@@ -4,7 +4,7 @@
   Bevor Du dieses Feature nutzt, lies bitte aufmerksam die
   %b aktuelle Version
   der
-  %a{ :href => '/csv-upload-documentation.pdf', target: "_blank" } Dokumentation
+  %a{ :href => '/csv_upload_documentation.pdf', target: "_blank" } Dokumentation
   und orientiere Dich an der
   %b aktuellen Version
   der
@@ -22,7 +22,9 @@
   Die Anzahl der Artikel, die über eine einzelne CSV-Datei hochgeladen
   werden können, wurde auf
   %b 10.000 pro Datei
-  erweitert!
+  erweitert! Beachte jedoch, dass es zu langen Ladezeiten kommen kann, wenn Du
+  dieses Limit ausreizt. Wir empfehlen daher anfänglich noch mit kleineren
+  Dateien zu arbeiten.
 %br
 
 - if current_user.is_a?(LegalEntity)
@@ -31,7 +33,7 @@
       = f.inputs do
         .Accordion-step
           = f.input :file, :label => "Datei", :as => :file, :required => true
-          / bugbug I offer a beer for someone to explain me why the required
+          / TODO I offer a beer for someone to explain me why the required
           / statement doesn't work although it shows up and looks correctly when
           / I render the page and look at the html
         = f.actions do
