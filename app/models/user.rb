@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   has_many :articles, :dependent => :destroy # As seller
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
-  has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "state = 'sold' AND type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
+  has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
 
 
   has_many :article_templates, :dependent => :destroy

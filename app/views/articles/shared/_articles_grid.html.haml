@@ -19,9 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- list_class = "" if local_assigns[:list_class].nil?
-%section{ class: list_class }
-	- items.each do |item|
-		- if item.show_in_list? dashboard
+%section.l-ArticleList
+	- articles.each do |article|
+		- if article.active?
 			%Article{ class: 'Grid Article Article--teaser' }
-				= render (item.is_a?(Article) ? '/shared/show_article' : '/shared/show_transaction'), item: item
+				= render '/articles/shared/show_article' , article: article

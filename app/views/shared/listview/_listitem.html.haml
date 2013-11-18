@@ -1,0 +1,46 @@
+-#
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+
+%figure.ListItem-image
+  = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+  - if transaction && transaction.rating
+    .ListItem-rating
+      %img{ :src => image_path('thumbs/'+transaction.rating_value+'.png'), :alt => "thumb" }
+.ListItem-info
+  .ListItem-title
+    %h3.Articles-title= link_to truncate(article.title, :length => 25), article_path(article), :title => article.title
+    %p.Article-price= humanized_money_with_symbol article.price
+  .ListItem-detail
+    = render 'articles/show/vat', :article => article
+    = render '/articles/show/basic_price', :article => article
+    = render '/articles/show/ngo_donation', :article => article
+  .ListItem-tags
+    = condition_label article
+    = commendation_labels_for article
+.ListItem-actions
+  - if transaction
+    - if transaction.buyer == current_user
+      = link_to t('transaction.completed.show_bought'), transaction_path(transaction), :class => "Btn Btn--small"
+      - unless transaction.rating
+        = link_to t('transaction.completed.rate'), transaction_new_user_rating_path(transaction.seller, transaction), :class => "Btn Btn--small"
+    - if transaction.seller == current_user
+      = link_to t('transaction.completed.show_sold'), transaction_path(transaction), :class => "Btn Btn--small"
