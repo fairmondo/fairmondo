@@ -136,7 +136,18 @@ describe 'Article management' do
           Article.find('article-title').transaction.should be_a MultipleFixedPriceTransaction
         end
 
-        it "should create an article from a template" do
+         it "should validate the friendly_percent_organisation if the article has friendly_percent" do
+            lambda do
+              fill_form_with_valid_article
+              # choose friendly_percent
+              select('35', :from => 'article_friendly_percent')
+
+           find(".double_check-step-inputs").find(".action").find("input").click
+            end.should change(Article, :count).by 0
+
+         end
+
+         it "should create an article from a template" do
           template = FactoryGirl.create :article_template, :without_image, user: user
           visit new_article_path template_select: { article_template: template.id }
           page.should have_content I18n.t('template_select.notices.applied', name: template.name)
