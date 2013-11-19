@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
       :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
+      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus, :has_fastbill_profile,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
@@ -347,6 +347,32 @@ class User < ActiveRecord::Base
   #   self.quarterly_fee?
   # end
   ####################### Invoice stuff ###################
+  
+  # Here be FastBill stuff
+  # def fastbill_update_user
+  #   customer = Fastbill::Automatic::Customer.get( customer_id: self.id ).first
+  #   customer.update_attributes( customer_id: self.id,
+  #                                         customer_type: "#{ self.is_a?(LegalEntity) ? 'business' : 'consumer' }",
+  #                                         organization: "#{ self.company_name if self.is_a?(LegalEntity) }",
+  #                                         salutation: self.title,
+  #                                         first_name: self.forename,
+  #                                         last_name: self.surname,
+  #                                         address: self.street,
+  #                                         address_2: self.address_suffix,
+  #                                         zipcode: self.zip,
+  #                                         city: self.city,
+  #                                         country_code: 'DE',
+  #                                         language_code: 'DE',
+  #                                         email: self.email,
+  #                                         currency_code: 'EUR',
+  #                                         payment_type: '2',
+  #                                         show_payment_notice: '1',
+  #                                         bank_name: self.bank_name,
+  #                                         bank_code: self.bank_code,
+  #                                         bank_account_number: self.bank_account_number,
+  #                                         bank_account_owner: self.bank_account_owner
+  #                                       )
+  # end
 
   private
   # @api private
