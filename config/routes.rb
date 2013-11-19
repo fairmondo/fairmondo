@@ -102,7 +102,11 @@ Fairnopoly::Application.routes.draw do
 
   resources :categories, :only => [:show,:index]
 
-  resources :exhibits, :only => [:create,:update]
+  resources :exhibits, :only => [:create,:update] do
+    collection do
+      post 'create_multiple'
+    end
+  end
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 

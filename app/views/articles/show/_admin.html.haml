@@ -1,13 +1,9 @@
 .Admin-controls
   %h2 Administration:
   - if resource.active?
-    = button_to 'Queue1', exhibits_path(exhibit: {article_id: resource.id, queue: :queue1}), class: "Btn Btn--redSmall", method: :post
-    = button_to 'Queue2', exhibits_path(exhibit: {article_id: resource.id, queue: :queue2}), class: "Btn Btn--redSmall", method: :post
-    = button_to 'Queue3', exhibits_path(exhibit: {article_id: resource.id, queue: :queue3}), class: "Btn Btn--redSmall", method: :post
-    = button_to 'Queue4', exhibits_path(exhibit: {article_id: resource.id, queue: :queue4}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Pionier*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :pioneer}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Gebraucht bei Fairnopoly*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :old}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Fairnopoly mag*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fairnopoly_likes}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Besonders & fair*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :fair_highlights}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Besonders & öko*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :ecologic_highlights}), class: "Btn Btn--redSmall", method: :post
-    = button_to '*Besonders & edel*-Artikel', exhibits_path(exhibit: {article_id: resource.id, queue: :small_and_precious_highlights}), class: "Btn Btn--redSmall", method: :post
+    = semantic_form_for :exhibit, url: exhibits_path, method: :post do |f|
+      = f.inputs do
+        = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+        = f.input :queue, :as => :select, :collection => Exhibit.queue.options
+      = f.actions do
+        = f.action :submit, label: 'speichern' , button_html: {class: "Btn"}
