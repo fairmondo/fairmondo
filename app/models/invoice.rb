@@ -122,4 +122,96 @@ class Invoice < ActiveRecord::Base
       self.due_date = 30.days.from_now.at_end_of_quarter
     end
   end
+
+  #Here be FastBill stuff
+  #TODO verhindern, dass je Nutzer zwei Kontos angelegt werden, schauen warum das mt den Abos nicht hinhaut
+
+  def self.fastbill_chain transaction
+    seller = User.find(transaction.seller_id)
+
+    if !seller.ngo?
+      if !seller.has_fastbill_profile?
+        fastbill_create_customer seller
+        seller.has_fastbill_profile = true
+        seller.save
+        fastbill_create_subscription seller
+      end
+      fastbill_setusagedata seller, transaction, :fair
+      fastbill_setusagedata seller, transaction, :fee
+    end
+  end
+
+  def self.fastbill_create_customer seller
+    Fastbill::Automatic::Customer.create( customer_number: seller.id,
+                                          customer_type: seller.is_a?(LegalEntity) ? 'business' : 'consumer',
+                                          organization: seller.company_name? ? seller.company_name : seller.nickname,
+                                          salutation: seller.title,
+                                          first_name: seller.forename,
+                                          last_name: seller.surname,
+                                          address: seller.street,
+                                          address_2: seller.address_suffix,
+                                          zipcode: seller.zip,
+                                          city: seller.city,
+                                          country_code: 'DE',
+                                          language_code: 'DE',
+                                          email: seller.email,
+                                          currency_code: 'EUR',
+                                          payment_type: '2',
+                                          show_payment_notice: '1',
+                                          bank_name: seller.bank_name,
+                                          bank_code: seller.bank_code,
+                                          bank_account_number: seller.bank_account_number,
+                                          bank_account_owner: seller.bank_account_owner
+                                        )
+  end
+  
+  def self.fastbill_update_user user
+    customer = Fastbill::Automatic::Customer.get( customer_number: user.id ).first
+    customer.update_attributes( customer_id: user.id,
+                                customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
+                                organization: "#{ user.company_name if user.is_a?(LegalEntity) }",
+                                salutation: user.title,
+                                first_name: user.forename,
+                                last_name: user.surname,
+                                address: user.street,
+                                address_2: user.address_suffix,
+                                zipcode: user.zip,
+                                city: user.city,
+                                country_code: 'DE',
+                                language_code: 'DE',
+                                email: user.email,
+                                currency_code: 'EUR',
+                                payment_type: '2',
+                                show_payment_notice: '1',
+                                bank_name: user.bank_name,
+                                bank_code: user.bank_code,
+                                bank_account_number: user.bank_account_number,
+                                bank_account_owner: user.bank_account_owner
+                              )
+  end
+
+  def self.fastbill_create_subscription seller
+    Fastbill::Automatic::Subscription.create( article_number: '2013',
+                                              customer_id: seller.id
+                                            )
+  end
+    
+  def self.fastbill_setusagedata seller, transaction, fee_type
+    article = transaction.article
+    subscription = Fastbill::Automatic::Subscription.get( customer_number: seller.id ).first
+
+    Fastbill::Automatic::Subscription.setusagedata( subscription_id: '49552',
+                                                    article_number: '2013',
+                                                    quantity: transaction.quantity_bought,
+                                                    unit_price: fee_type == :fair ? (article.price_cents / 100) : (article.calculated_fair_cents / 100),
+                                                    description: article.title + " (#{ fee_type == :fair ? 'Faires Prozent' : 'Verkaufsgebuehr'})",
+                                                    usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
+                                                  )
+  end
+
+  def self.get_subscription_id subscription
+    part = subscription.grep(/sub(.*)/)
+    part[0].sub!(/(.*)=/, "")
+    part[0]
+  end
 end

@@ -27,6 +27,13 @@ class UserObserver < ActiveRecord::Observer
     end
   end
 
+  # this should update the users data with fastbill after the user edits his data
+  def after_save(user)
+    if user.has_fastbill_profile?
+      Invoice.fastbill_update_user user
+    end
+  end
+
   #handle_asynchronously :check_bank_details
 
   def check_bank_details(id, bank_account_number, bank_code)
