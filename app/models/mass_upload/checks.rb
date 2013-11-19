@@ -26,23 +26,13 @@ module MassUpload::Checks
   ALLOWED_MIME_TYPES = ['text/csv']
   AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream']
 
-  def file_selected?
-    if file
-      return true
-    else
-      errors.add(:file, I18n.t('mass_uploads.errors.missing_file'))
-      return false
-    end
-  end
 
-  def csv_format?
+  def csv_format
     if ALLOWED_MIME_TYPES.include?(file.content_type) or
       (AlLOWED_WINDOWS_MIME_TYPES.include?(file.content_type) and
       file.original_filename[-4..-1] == '.csv')
-      return true
     else
       errors.add(:file, I18n.t('mass_uploads.errors.wrong_mime_type'))
-      return false
     end
   end
 
