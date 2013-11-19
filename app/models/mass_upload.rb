@@ -26,8 +26,16 @@ class MassUpload < ActiveRecord::Base
       transition :pending => :processing
     end
 
+    event :error do
+      transition :processing => :failed
+    end
+
     event :finish do
       transition :processing => :finished
+    end
+
+    after_transition :to => :failed do |transition|
+      self.failure_reason = transition.args.first
     end
   end
 
@@ -36,8 +44,10 @@ class MassUpload < ActiveRecord::Base
   has_many :articles
   has_many :erroneous_articles
   has_attached_file :file
+  belongs_to :user
 
-  validates_attachment :file, presence: true
+  validates_attachment :file, presence: true,
+    :size => { :in => 0..20.megabytes }
   validate :csv_format
 
   def self.mass_upload_attrs
@@ -96,80 +106,50 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
-
+    begin
+      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        row.delete '€'
+        process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+      end
+    rescue ArgumentError
+      self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
+    rescue CSV::MalformedCSVError
+      self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
+    end
   end
 
-  def parse_csv_for user
+  def process_row row, index
+    row_hash = sanitize_fields row.to_hash
+    categories = Category.find_imported_categories(row_hash['categories'])
+    row_hash.delete("categories")
+    row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+    row_hash = Questionnaire.add_commendation(row_hash)
+    article = Article.create_or_find_according_to_action row_hash, user
 
-    unless csv_format?
-      return false
-    end
-
-    unless open_csv
-      return false
-    end
-
-    unless correct_article_count?
-      return false
-    end
-
-    #unless correct_header?
-    #  return false
-    #end
-
-    unless build_articles_for user
-      return false
-    end
-
-    save_articles!
-
-    true
-  end
-
-  def build_articles_for user
-    @articles = []
-    valid = true
-
-    @csv.each_with_index do |row,index|
-      row_hash = sanitize_fields row.to_hash
-      categories = Category.find_imported_categories(row_hash['categories'])
-      row_hash.delete("categories")
-      row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-      row_hash = Questionnaire.add_commendation(row_hash)
-      article = Article.create_or_find_according_to_action row_hash, user
-
-      if article # so we can ignore rows when reimporting
-        article.user_id = user.id
-        revise_prices(article)
-        article.categories = categories if categories
-        if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                       # fix this by generating the base errors with proper validations
-                                       # may be hard for dynamic update model
-          add_article_error_messages(article, index)
-          valid = false
-        end
-        @articles << article
+    if article # so we can ignore rows when reimporting
+      article.user_id = self.user_id
+      revise_prices(article)
+      article.categories = categories if categories
+      if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                     # fix this by generating the base errors with proper validations
+                                     # may be hard for dynamic update model
+        add_article_error_messages(article, index, row)
+      else
+        article.calculate_fees_and_donations
+        article.mass_upload = self
+        article.process!
       end
     end
-    return valid
   end
 
-  def add_article_error_messages(article, index)
+  def add_article_error_messages(article, index, row)
     # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     article.errors.full_messages.each do |message|
-      first_line_break = ""
-      if article.errors.full_messages[0] == message && index > 0
-        first_line_break = "<br/>"
-      end
-      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_uploads.errors.wrong_article', message: message, index: (index + 2))}")
-    end
-  end
 
-  def save_articles!
-    @articles.each do |article|
-      article.calculate_fees_and_donations
-      article.process!
-      article.extract_external_image!
+      ErroneousArticle.create(
+        validation_errors: I18n.t('mass_uploads.errors.wrong_article', message: message, index: index),
+        mass_upload: self, article_csv: row
+      )
     end
   end
 
