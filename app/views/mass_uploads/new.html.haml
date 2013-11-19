@@ -4,7 +4,7 @@
   Bevor Du dieses Feature nutzt, lies bitte aufmerksam die
   %b aktuelle Version
   der
-  %a{ :href => '/csv_upload_documentation.pdf', target: "_blank" } Dokumentation
+  %a{ :href => '/csv_upload_documentation_v08.pdf', target: "_blank" } Dokumentation
   und orientiere Dich an der
   %b aktuellen Version
   der
@@ -26,6 +26,8 @@
   dieses Limit ausreizt. Wir empfehlen daher anfänglich noch mit kleineren
   Dateien zu arbeiten.
 %br
+
+- debugger
 
 - if current_user.is_a?(LegalEntity)
   = semantic_form_for(@mass_upload, html: {class: 'js-visual-submit'}, url: mass_uploads_path, :builder => ::Fairtastic::FormBuilder) do |f|
