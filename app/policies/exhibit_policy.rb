@@ -8,6 +8,10 @@ class ExhibitPolicy < Struct.new(:user, :exhibit)
     admin?
   end
 
+  def create_multiple?
+    admin?
+  end
+
   private
   def admin?
     User.is_admin? user

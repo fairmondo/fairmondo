@@ -20,7 +20,25 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %section.l-ArticleList
-	- articles.each do |article|
-		- if article.active?
-			%Article{ class: 'Grid Article Article--teaser' }
-				= render '/articles/shared/show_article' , article: article
+
+
+
+  - articles.each do |article|
+    - if article.active?
+      %Article{ class: 'Grid Article Article--teaser' }
+        = render '/articles/shared/show_article' , article: article
+
+-# it doesn' look like there is a better way to send an array with a form.
+-# like this we have to split the array elements in the controller!
+
+-# http://stackoverflow.com/questions/10197303/rails-form-how-to-send-in-the-input-an-array
+
+-#= semantic_form_for :exhibit, url: create_multiple_exhibits_path, method: :post do |f|
+-#  = f.inputs do
+-#    = f.input :articles, as: :hidden, input_html: { value: articles.map{|a| a.id.to_s} }
+-#    = f.input :queue, :as => :select, :collection => Exhibit.queue.options
+-#  = f.actions do
+-#    = f.action :submit, label: 'speichern' , button_html: {class: "Btn"}
+
+= button_to 'Queue1', create_multiple_exhibits_path(articles: articles.map{|a| a.id.to_s}, queue: :queue3), class: "Btn Btn--redSmall", method: :post
+
