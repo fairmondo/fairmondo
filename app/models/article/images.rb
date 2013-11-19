@@ -116,7 +116,7 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        image = Image.new
+        image = Image.new(:image => URI.parse(image_url))
         image.is_title = should_be_title
         image.external_url = image_url
         image.save
@@ -127,28 +127,5 @@ module Article::Images
         self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
-
-
-    def extract_external_image!
-      self.images.each do |image|
-        unless image.image.present? # don't do anything if image is already present
-          begin
-            unless image.update_attributes(:image => URI.parse(image.external_url))
-               image_error image, image.errors.messages[:image].join(" ")
-            end
-          rescue
-           image_error image, I18n.t('mass_upload.errors.load_error')
-          end
-        end
-      end
-    end
-    handle_asynchronously :extract_external_image!
-
   end
-
-  def image_error image , message
-    image.update_column(:failing_reason, message)
-    self.seller.unique_notify I18n.t('mass_upload.errors.image_errors'),Rails.application.routes.url_helpers.image_errors_mass_uploads_path, :error
-  end
-
 end

@@ -120,11 +120,13 @@ module Article::DynamicProcessing
 
   # Replacement for save! method - Does different things based on the action attribute
   def process!
+    if [:activate, :create, :update].include?(self.action)
+      self.activation_action = self.action.to_s
+    end
     case self.action
     when :delete
       self.deactivate
       self.close
-    when :activate
       # we activate them later
     when :deactivate
       self.deactivate

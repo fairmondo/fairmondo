@@ -5,37 +5,45 @@ class MassUploadsController < InheritedResources::Base
   before_filter :ensure_complete_profile , :only => [:new, :create]
   before_filter :authorize_with_article_create
 
-  # def show
-  #   upload_id = params[:id]
-  #   @mass_upload = MassUpload.compile_report_for session[upload_id]
-  #   @activate_articles = activate_articles upload_id
-  # end
+  def show
+    @created_articles = resource.articles.where(:activation_action => "create")
+    @updated_articles = resource.articles.where(:activation_action => "update")
+    @deleted_articles = resource.articles.where(:state => "closed")
+    @deactivated_articles = resource.articles.where(:state => "locked")
+    @activated_articles = resource.articles.where(:activation_action => "activate")
+    @mass_activation = @created_articles + @updated_articles + @activated_articles
+    show!
+  end
 
-  # def create
-  #   @mass_upload = MassUpload.new(permitted_params[:mass_upload])
+  def create
+    create! do |success, failure|
+      success.html do
+        resource.process
+        redirect_to mass_upload_path(resource)
+      end
+    end
+  end
 
-  #   if @mass_upload.parse_csv_for current_user
-  #     redirect_to mass_upload_path generate_session_for @mass_upload.articles
-  #   else
-  #     render :new
-  #   end
-  # end
+  def update
+    articles = resource.articles.where("activation_action IS NOT NULL")
 
-  # def update
-  #   upload_id = params[:id]
-  #   articles = Article.find_all_by_id(activate_articles(upload_id))
-  #   articles.each do |article|
-  #     #Skip validation in favor of performance
-  #     article.update_column :state, 'active'
-  #     article.solr_index!
-  #   end
-  #   flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
-  #   redirect_to user_path(current_user)
-  # end
+    articles.each do |article|
+      #Skip validation in favor of performance
+      article.update_column :state, 'active'
+      article.solr_index!
+    end
+    flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
+    redirect_to user_path(current_user)
+  end
 
   # def image_errors
   #   @error_articles = current_user.articles.joins(:images).includes(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
   # end
+
+  protected
+    def begin_of_association_chain
+      current_user
+    end
 
   private
     def authorize_with_article_create
