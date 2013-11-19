@@ -21,15 +21,24 @@
 #
 class MassUpload < ActiveRecord::Base
 
-  # Required for Active Model Conversion which is required by Formtastic
-  # include ActiveModel::Conversion
+  state_machine :initial => :pending do
+    event :start do
+      transition :pending => :processing
+    end
 
-  # # Required dependency for ActiveModel::Errors
-  # extend ActiveModel::Naming
+    event :finish do
+      transition :processing => :finished
+    end
+  end
 
   include Checks, Questionnaire, FeesAndDonations
 
   has_many :articles
+  has_many :erroneous_articles
+  has_attached_file :file
+
+  validates_attachment :file, presence: true
+  validate :csv_format
 
   def self.mass_upload_attrs
     [:file]
@@ -86,22 +95,11 @@ class MassUpload < ActiveRecord::Base
     ]
   end
 
-  def initialize(attributes = nil)
-    @errors = ActiveModel::Errors.new(self)
+  def process
 
-    if attributes && attributes[:file]
-      self.file = attributes[:file]
-    end
   end
 
-  attr_accessor :file
-  attr_reader   :errors, :articles
-
   def parse_csv_for user
-
-    unless file_selected?
-      return false
-    end
 
     unless csv_format?
       return false

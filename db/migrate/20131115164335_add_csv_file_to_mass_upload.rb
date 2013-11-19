@@ -1,5 +1,5 @@
 class AddCsvFileToMassUpload < ActiveRecord::Migration
   def change
-    add_column :mass_uploads, :csv_file, :attachment
+    add_attachment :mass_uploads, :file
   end
 end
