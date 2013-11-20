@@ -25,7 +25,7 @@ class TransactionObserver < ActiveRecord::Observer
     if !transaction.multiple? && transaction.sold?
       # Start the invoice action chain, to create invoices and add items to invoice
       # Invoice.invoice_action_chain( transaction )
-      Invoice.fastbill_chain( transaction )
+      FastbillAPI.fastbill_chain( transaction )
     end
   end
 

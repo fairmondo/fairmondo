@@ -30,7 +30,7 @@ class UserObserver < ActiveRecord::Observer
   # this should update the users data with fastbill after the user edits his data
   def after_save(user)
     if user.has_fastbill_profile?
-      Invoice.fastbill_update_user user
+      FastbillAPI.fastbill_update_user user
     end
   end
 
