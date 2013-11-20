@@ -19,21 +19,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module WelcomeHelper
-  def teaser_layout layout
-     case layout
-     when :double
-       ["","Teaser-article--right"]
-     when :single
-       [""]
-     end
+require "spec_helper"
+
+describe WelcomeHelper do
+
+
+  describe "#rss_image_extractor" do
+    it "returns an image when there is one" do
+      content = "<img src=\"test.png\">"
+      additional = " test test"
+      helper.rss_image_extractor(content + additional).should eq content
+    end
+    it "returns empty string with no image present" do
+      content = "<p> testt test</p>"
+      helper.rss_image_extractor(content).should eq ''
+    end
+
   end
 
-  def rss_image_extractor content
-    if content.start_with? "<img"
-      Sanitize.clean(content[0..(content.index ">")], elements: ['img'] ,attributes: {'img' => ['src', 'alt']}).html_safe
-    else
-      ""
-    end
-  end
+
 end

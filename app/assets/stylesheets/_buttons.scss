@@ -169,6 +169,11 @@ a.Btn {
   @include rem(padding, 8px 15px);
 }
 
+.Btn--small {
+  font-size: 14px;
+  @include rem(padding, 8px 7px);
+}
+
 
 // Button Tag
 // -----------------------------------

@@ -23,14 +23,10 @@
 .Meta
   .Meta--block
     %h2= resource.nickname
-
     - if resource.valid? && resource.is_a?(LegalEntity)
-      %h3
-        - if resource.title?
-          = resource.title + " "
-
       - if resource.forename && resource.surname
         %p
+          = resource.title + " " if resource.title?
           = t('formtastic.labels.user.contact_person')
           \:
           %strong= resource.forename + " " + resource.surname

@@ -30,6 +30,9 @@
   display:none;
   float:left;
   margin-right:1em;
+  padding:0.5em;
+  background-color:white;
+  @include border-radius(0.6em);
   img {
     height:7em;
     width:7em;
@@ -52,14 +55,17 @@
 }
 
 .Library-thumbnails {
-  height: 5em;
+  height: 6em;
   overflow: hidden;
 }
 
 .Library-thumb {
-  height: 5em;
+  height: 6em;
+  padding: 0.5em;
+  display:inline-block;
   @include rem(margin-right, 3px);
   @include border-radius(0.6em);
+  background-color:white;
 }
 
 .Library-actions {

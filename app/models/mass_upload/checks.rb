@@ -58,8 +58,6 @@ module MassUpload::Checks
   private
 
     def get_csv_encoding path_to_csv
-      # binary_header_line = File.new(path_to_csv, "r") #.gets.force_encoding("binary")
-
       match_euro_sign = File.new(path_to_csv, "r").getc
       case match_euro_sign
       when "\xDB"
@@ -75,8 +73,4 @@ module MassUpload::Checks
       end
     end
 
-    # def match_euro_sign binary_representation, csv_header_line
-    #   regex = Regexp.new(";#{binary_representation}(\r)?\n$".force_encoding("binary"), Regexp::FIXEDENCODING)
-    #   regex.match csv_header_line
-    # end
 end

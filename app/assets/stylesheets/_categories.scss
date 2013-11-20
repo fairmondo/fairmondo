@@ -16,6 +16,8 @@
   }
 
   .Category-delete, #Category-selectbutton,.Category-selected {
+
+    color: $white !important;
     @include at-breakpoint($layout-large) {
       margin-right: 10px;
       width: columns(1,4);
