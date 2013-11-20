@@ -22,7 +22,7 @@
 .Rating
   = semantic_form_for resource, url: user_ratings_path, builder: Fairtastic::FormBuilder do |f|
     .Rating-left
-      = render '/shared/profile_img', user: resource.transaction.seller, show_title: true
+      = render '/users/profile_img', user: resource.transaction.seller, show_title: true
     .Rating-middle.Rating-middle--white
       %h3.Rating-title= t('rating.create.head')
       = f.inputs do
@@ -36,4 +36,4 @@
         = f.actions do
           = f.action :submit , :button_html => {:class => "Btn" }, :label => t('rating.create.save')
     .Rating-right.Article--teaser
-      = render '/shared/show_article', :item => resource.transaction.article
+      = render '/articles/shared/show_article', :article => resource.transaction.article

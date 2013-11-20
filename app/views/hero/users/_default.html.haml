@@ -23,7 +23,7 @@
   .l-Inner
     .User.User--detail{:class => "#{"closed-container-hero" unless params[:action]== "show"}"}
       .User-primary
-        = render :partial=>'/shared/profile_img', :locals=>{:user => user_resource}
+        = render :partial=>'/users/profile_img', :locals=>{:user => user_resource}
         - if user_resource.is? current_user
           %p.align-center
             %a.Icon{:href =>  edit_user_registration_path}
@@ -54,4 +54,4 @@
             %a.Btn.Btn-icon{:href => profile_user_path(user_resource)}
               %i.icon-paper
               = t 'common.text.about_terms'
-    = render '/shared/take_part'
+      = render '/shared/take_part'
