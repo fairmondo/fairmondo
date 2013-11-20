@@ -10,8 +10,8 @@ class FastbillAPI
   def self.fastbill_chain transaction
     seller = User.find(transaction.seller_id)
 
-    if !seller.ngo?
-      if !seller.has_fastbill_profile?
+    unless seller.ngo?
+      unless seller.has_fastbill_profile?
         fastbill_create_customer seller
         fastbill_create_subscription seller
       end
@@ -76,9 +76,11 @@ class FastbillAPI
     end
 
     def self.fastbill_create_subscription seller
-      Fastbill::Automatic::Subscription.create( article_number: '2013',
+      subscription = Fastbill::Automatic::Subscription.create( article_number: '2013',
                                                 customer_id: seller.fastbill_id
                                               )
+      seller.fastbill_subscription_id = subscription.subscription_id
+      seller.save
     end
       
     def self.fastbill_setusagedata seller, transaction, fee_type

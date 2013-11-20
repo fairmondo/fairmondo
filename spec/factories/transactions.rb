@@ -122,5 +122,8 @@ FactoryGirl.define do
       selected_payment :cash_on_delivery
     end
 
+    trait :fastbill_profile do
+      seller { FactoryGirl.create :seller, :has_fastbill_profile => true }
+    end
   end
 end
