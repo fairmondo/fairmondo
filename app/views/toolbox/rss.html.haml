@@ -1,10 +1,12 @@
 %h2.Teaser-header
   FAIRNOPOLY SCHREIBT
 - @items.each do |item|
-  %p
-    %b
-      = item.title
-    = " - "
-    = truncate(Sanitize.clean( item.description), :length => 80,:separator => " ")
-    = link_to "(mehr lesen)", item.link
+  .News-rss
+    = rss_image_extractor item.description
+    %p
+      %b
+        = item.title
+      = " - "
+      = truncate(Sanitize.clean(item.description), :length => 150,:separator => " ")
+      = link_to "(mehr lesen)", item.link
 = link_to "Zu unserem Blog", "http://info.fairnopoly.de/"

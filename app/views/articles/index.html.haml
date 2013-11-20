@@ -33,6 +33,6 @@
   %h3= t("common.text.no_search_result")
   = t("common.text.no_search_result_text")
 - else
-  = render partial: '/shared/list_articles', locals:{ items: @articles, list_class: "l-ArticleList", dashboard: false }
+  = render partial: '/articles/shared/articles_grid', locals:{ articles: @articles }
   = paginate @articles
 

@@ -58,9 +58,9 @@ de:
         congratulation_invoice: "Bitte füge dem Artikel eine Rechnung mit detailierten Zahlungsanweisungen hinzu."
         cash_questions: "Der*die Käufer*in wird sich mit Dir in Verbindung setzen um einen Übergabetermin zu vereinbaren. Alternativ kannst Du den*die Käufer*in auch kontaktieren."
     completed:
-      show_bought: "Deine Bestellung anschauen"
+      show_bought: "Bestellung anschauen"
       rate: "Verkäufer bewerten"
-      show_sold: "Deinen Verkauf anschauen"
+      show_sold: "Verkauf anschauen"
     errors:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."

@@ -17,6 +17,6 @@ class Rating < ActiveRecord::Base
   validates :transaction_id, :uniqueness => true, presence: true
 
   after_save :update_rating_counter
-  alias :value :rating # to avoid structure 'rating_rating' in shared/show_transaction
+  alias :value :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
 
 end
