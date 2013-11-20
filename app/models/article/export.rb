@@ -40,6 +40,15 @@ module Article::Export
     end
   end
 
+  def self.export_erroneous_articles(erroneous_articles)
+    csv = CSV.generate_line(MassUpload.header_row, :col_sep => ";")
+    erroneous_articles.each do |article|
+      csv += article.article_csv
+    end
+    debugger
+    csv
+  end
+
 
 
   def self.determine_articles_to_export(user, params)

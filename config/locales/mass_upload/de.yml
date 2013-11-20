@@ -18,7 +18,6 @@ de:
       missing_file: "Bitte wähle eine CSV-Datei aus."
       wrong_mime_type: 'Die Datei ist keine CSV-Datei. Bitte überprüfe auch, ob sie die Endung ".csv" trägt.'
       wrong_header: 'Die erste Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten.'
-      wrong_article: "Zeile %{index}: %{message}"
       wrong_article_message: "Content muss ausgefüllt werden"
       wrong_external_title_image_url: "external_title_image_url ist keine gültige Url"
       wrong_image_2_url: "image_2_url ist keine gültige Url"

@@ -1,39 +1,10 @@
-%h1
-  = t('mass_uploads.titles.upload_report')
-
-- if @mass_upload.articles.empty?
-  = t('mass_uploads.errors.no_activate_content')
-- else
-  .Import-detail
-    .Accordion--activated.Accordion--scrollToActive
-    - unless @created_articles.empty?
-      = accordion_item "created" do
-        %ul
-          - @created_articles.each do |article|
-            = render "article_digest", :article => article
-    - unless @updated_articles.empty?
-      = accordion_item "updated" do
-        %ul
-          - @updated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless @activated_articles.empty?
-      = accordion_item "activated" do
-        %ul
-          - @activated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless @deactivated_articles.empty?
-      = accordion_item "deactivated" do
-        %ul
-          - @deactivated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless @deleted_articles.empty?
-      = accordion_item "deleted" do
-        %ul
-          - @deleted_articles.each do |article|
-            = render "article_digest", :article => article
-
-- unless @mass_activation.empty?
-  = render "mass_activation", :articles => @mass_activation
+- if resource.pending?
+  = "Pending" #TODO better text
+- elsif resource.processing?
+  = "Processing"
+  %p
+    = "Mindestens #{resource.article_count} bearbeitet"
+- elsif resource.finished?
+  = render 'report'
+- elsif resource.failed?
+  = resource.failure_reason

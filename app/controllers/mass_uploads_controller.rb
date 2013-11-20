@@ -11,8 +11,12 @@ class MassUploadsController < InheritedResources::Base
     @deleted_articles = resource.articles.where(:state => "closed")
     @deactivated_articles = resource.articles.where(:state => "locked")
     @activated_articles = resource.articles.where(:activation_action => "activate")
+    @failed_articles = resource.erroneous_articles
     @mass_activation = @created_articles + @updated_articles + @activated_articles
-    show!
+    show! do |format|
+      format.csv { send_data Article::Export.export_erroneous_articles(@failed_articles),
+                   {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
+      end
   end
 
   def create

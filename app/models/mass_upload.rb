@@ -34,8 +34,9 @@ class MassUpload < ActiveRecord::Base
       transition :processing => :finished
     end
 
-    after_transition :to => :failed do |transition|
-      self.failure_reason = transition.args.first
+    after_transition :to => :failed do |mass_upload, transition|
+      mass_upload.failure_reason = transition.args.first
+      mass_upload.save
     end
   end
 
@@ -106,16 +107,25 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
+    self.start
     begin
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row.delete '€'
         process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+        set_progress $. if $. % 100 == 0
       end
+    self.finish
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
+  end
+  handle_asynchronously :process
+
+  def set_progress count
+    self.article_count = count
+    self.save
   end
 
   def process_row row, index
@@ -144,13 +154,17 @@ class MassUpload < ActiveRecord::Base
 
   def add_article_error_messages(article, index, row)
     # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+    validation_errors = ""
     article.errors.full_messages.each do |message|
-
-      ErroneousArticle.create(
-        validation_errors: I18n.t('mass_uploads.errors.wrong_article', message: message, index: index),
-        mass_upload: self, article_csv: row
-      )
+      validation_errors += message + "\n"
     end
+      ErroneousArticle.create(
+        validation_errors: validation_errors,
+        row_index: index,
+        mass_upload: self,
+        article_csv: row.to_csv(:col_sep => ";")
+      )
+      # TODO Check if the original row number can be given as well
   end
 
   def revise_prices(article)

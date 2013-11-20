@@ -134,4 +134,9 @@ module Article::DynamicProcessing
       self.save!
     end
   end
+
+  def remove_activation_action
+    self.activation_action = nil
+    self.save
+  end
 end
