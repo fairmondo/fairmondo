@@ -184,6 +184,8 @@ describe 'Transaction' do
           end
 
           it "should submit the data successfully with accepted terms" do
+            FastbillAPI.stub(:fastbill_chain)
+
             visit edit_transaction_path legal_transaction
             click_button I18n.t 'common.actions.continue'
 
@@ -205,6 +207,9 @@ describe 'Transaction' do
           end
 
           context "when testing the effects of the purchase" do
+            before do
+              FastbillAPI.stub(:fastbill_chain)
+            end
             context "for SingleFixedPriceTransaction" do
               it "should set the states of article and transaction" do
                 visit edit_transaction_path transaction

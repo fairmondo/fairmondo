@@ -1,5 +1,3 @@
-#
-#
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
@@ -45,7 +43,6 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
-      :has_fastbill_profile, :fastbill_id,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
@@ -72,7 +69,7 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-h	has_many :invoices
+  # has_many :invoices  
 
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
@@ -128,6 +125,7 @@ h	has_many :invoices
   validates :about_me, :length => { :maximum => 2500 }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
+
 
   # Return forename plus surname
   # @api public
@@ -240,7 +238,7 @@ h	has_many :invoices
       transition bad_seller: :standard_seller
     end
 
-		event :rate_down_to_bad_seller do
+    event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
 
@@ -340,22 +338,51 @@ h	has_many :invoices
   end
 
   ####################### Invoice stuff ###################
-  def has_open_invoice?
-    Invoice.find_by_user_id_and_state( self.id, "open" ).present?
-  end
+  # def has_open_invoice?
+  #   Invoice.find_by_user_id_and_state( self.id, "open" ).present?
+  # end
 
-
+  # seems not necessary, as the quarterly fee will be billed at end of quarter
+  # def has_paid_quarterly_fee?
+  #   self.quarterly_fee?
+  # end
+  ####################### Invoice stuff ###################
+  
+  # Here be FastBill stuff
+  # def fastbill_update_user
+  #   customer = Fastbill::Automatic::Customer.get( customer_id: self.id ).first
+  #   customer.update_attributes( customer_id: self.id,
+  #                                         customer_type: "#{ self.is_a?(LegalEntity) ? 'business' : 'consumer' }",
+  #                                         organization: "#{ self.company_name if self.is_a?(LegalEntity) }",
+  #                                         salutation: self.title,
+  #                                         first_name: self.forename,
+  #                                         last_name: self.surname,
+  #                                         address: self.street,
+  #                                         address_2: self.address_suffix,
+  #                                         zipcode: self.zip,
+  #                                         city: self.city,
+  #                                         country_code: 'DE',
+  #                                         language_code: 'DE',
+  #                                         email: self.email,
+  #                                         currency_code: 'EUR',
+  #                                         payment_type: '2',
+  #                                         show_payment_notice: '1',
+  #                                         bank_name: self.bank_name,
+  #                                         bank_code: self.bank_code,
+  #                                         bank_account_number: self.bank_account_number,
+  #                                         bank_account_owner: self.bank_account_owner
+  #                                       )
+  # end
 
   private
-    # @api private
-    def create_default_library
-      if self.libraries.empty?
-        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
-      end
+  # @api private
+  def create_default_library
+    if self.libraries.empty?
+      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
     end
- 
+  end
 
-		def wants_to_sell?
-		  self.wants_to_sell
-		end
+  def wants_to_sell?
+    self.wants_to_sell
+  end
 end
