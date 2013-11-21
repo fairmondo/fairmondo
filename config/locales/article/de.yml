@@ -39,7 +39,7 @@ de:
       donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairnopoly-Gebühren an."
       donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
-      friendly_percent_html: "Diese*r Händer*in spendet %{percent}% an %{ngo}"
+      friendly_percent_html: "Diese*r Verkäufer*in spendet %{percent}% an %{ngo}"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
