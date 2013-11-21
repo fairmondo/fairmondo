@@ -38,6 +38,7 @@ module AccordionHelper
         accordion_number: options[:number],
         accordion_tooltip: options[:tooltip],
         accordion_header_class: header_class,
+        accordion_item_class: options[:item_class] || '',
         accordion_arrow: options[:arrow]==false ? false : true
       }, &block
   end

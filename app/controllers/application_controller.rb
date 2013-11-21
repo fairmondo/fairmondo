@@ -98,6 +98,10 @@ class ApplicationController < ActionController::Base
       authorize resource
     end
 
+    def authorize_build_resource
+      authorize build_resource
+    end
+
 
     # Caching security: Set response headers to prevent caching
     # @api semipublic

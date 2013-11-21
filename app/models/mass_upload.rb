@@ -109,9 +109,12 @@ class MassUpload < ActiveRecord::Base
   def process
     self.start
     begin
+      # TODO Decide if and how to user character_count
+      character_count = 0
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row.delete '€'
         process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+        character_count += row.values_at.join.size
         set_progress $. if $. % 100 == 0
       end
     self.finish
@@ -121,7 +124,7 @@ class MassUpload < ActiveRecord::Base
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
   end
-  handle_asynchronously :process
+  # handle_asynchronously :process
 
   def set_progress count
     self.article_count = count
