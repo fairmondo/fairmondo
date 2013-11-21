@@ -23,6 +23,6 @@
   %tr
     %td= article_template.name
     %td= article_template.article_title
-    %td= link_to t('formtastic.actions.template_select.submit'), new_article_path(:template_select => {:article_template => article_template.id} )
-    %td= link_to t('common.actions.edit'), edit_article_template_path(article_template), :class => 'Btn Btn--blue icon-pencil--white', :title => t('common.actions.edit')
-    %td= link_to t('common.actions.destroy'), article_template, method: :delete, data: { confirm: t('common.actions.confirm') }, :class => 'Btn Btn--red', :title => t('common.actions.destroy')
+    %td= link_to t('formtastic.actions.template_select.submit'), new_article_path(:template_select => {:article_template => article_template.id} ), :class => 'action'
+    %td= link_to t('common.actions.edit'), edit_article_template_path(article_template), :class => 'Btn Btn--blue icon-pencil--white Btn--table-icon Btn--table-icon-edit', :title => t('common.actions.edit')
+    %td= link_to t('common.actions.destroy'), article_template, method: :delete, data: { confirm: t('common.actions.confirm') }, :class => 'Btn Btn--red Btn--table-icon Btn--table-icon-delete', :title => t('common.actions.destroy')
