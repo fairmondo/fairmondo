@@ -29,7 +29,6 @@
 //= require jquery.slides.min.js
 //= require modernizr
 //= require selectivizr
-//= require tinymce
 //= require tinymce-jquery
 
 //= require i18n
