@@ -169,7 +169,7 @@ describe User do
       end
 
       it "should use the user_id" do
-        user.customer_nr.should eq "0000000#{user.id}"
+        user.customer_nr.should eq user.id.to_s.rjust 8, "0"
       end
     end
 
