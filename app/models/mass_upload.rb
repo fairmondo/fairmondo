@@ -87,35 +87,15 @@ class MassUpload < ActiveRecord::Base
     "gtin", "custom_seller_identifier", "action"]
   end
 
-  # Gives header row that is needed for updates and deletes
-  # def self.expanded_header_row
-  #   ['id'] + header_row + ['action']
-  # end
-
-  # Provide basic hash that gets filled in the controller with article IDs
-  # @return [Hash]
-  def self.prepare_session_hash
-    Hash[ Article.actions.map { |action| [action, []] } ]
-  end
-  # Compile a list of articles in a hash; keys indicate what has been done with them
-  def self.compile_report_for session_hash
-    Hash[
-      Article.actions.map do |action|
-        [action, Article.find_all_by_id(session_hash[action]).sort_by(&:created_at)]
-      end
-    ]
-  end
-
   def process
     self.start
     begin
-      # TODO Decide if and how to user character_count
       character_count = 0
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row.delete '€'
         process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
-        character_count += row.values_at.join.size
-        set_progress $. if $. % 100 == 0
+        character_count += row.to_s.bytesize
+        set_progress($., character_count, row) if $. % 100 == 0
       end
     self.finish
     rescue ArgumentError
@@ -124,10 +104,11 @@ class MassUpload < ActiveRecord::Base
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
   end
-  # handle_asynchronously :process
+  handle_asynchronously :process
 
-  def set_progress count
-    self.article_count = count
+  def set_progress article_count, character_count, row
+    self.article_count = article_count
+    self.character_count = character_count + row.headers.to_csv.bytesize
     self.save
   end
 

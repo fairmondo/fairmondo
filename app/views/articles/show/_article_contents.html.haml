@@ -83,7 +83,7 @@
   .Article-info--left
     .Thumbnail-container
       - resource.thumbnails.each do |image|
-          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.image.url(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
+        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.image.url(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
     - if resource.seller.ngo
       .Article-friendly
         %p

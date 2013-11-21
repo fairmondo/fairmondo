@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include MassUploadCreator
+# include MassUploadCreator
 include CategorySeedData
 
 describe ExportsController do

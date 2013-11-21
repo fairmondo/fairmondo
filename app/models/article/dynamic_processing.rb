@@ -26,11 +26,6 @@ module Article::DynamicProcessing
   included do
     # Action attribute: c/create/u/update/d/delete - for export and csv upload
     attr_accessor :action
-    # List of base actions (without one letter shortcuts)
-    def self.actions
-      [:create, :update, :activate, :deactivate, :delete]
-    end
-
 
     # When an action is set, modify the save call to reflect what should be done
     # @return [Article] Article ready to save or containing an error
@@ -130,9 +125,8 @@ module Article::DynamicProcessing
       # we activate them later
     when :deactivate
       self.deactivate
-    else
-      self.save!
     end
+    self.save!
   end
 
   def remove_activation_action
