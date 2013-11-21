@@ -65,9 +65,6 @@ module Article::Images
       title_image && title_image.image.present?
     end
 
-    def title_image_pending?
-      title_image && title_image.pending?
-    end
 
     IMAGE_COUNT.times do |number|
       define_method("image_#{number+2}_url=".to_sym, Proc.new{ |image_url|
@@ -80,12 +77,6 @@ module Article::Images
       thumbnails
     end
 
-    def images_pending?
-      self.images.each do |image|
-        return true if image.pending?
-      end
-      false
-    end
 
     def only_one_title_image
       count_images = 0
