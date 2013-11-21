@@ -60,6 +60,7 @@ describe "Export" do
 
       describe "when exporting active articles" do
         before do
+          click_link I18n.t('mass_uploads.labels.show_report')
           click_button I18n.t('mass_uploads.labels.mass_activate_articles')
         end
 
@@ -71,6 +72,7 @@ describe "Export" do
 
       describe "when exporting (fair_trust)" do
         before do
+          click_link I18n.t('mass_uploads.labels.show_report')
           click_button I18n.t('mass_uploads.labels.mass_activate_articles')
           @transaction = FactoryGirl.create :single_transaction, :sold, article: legal_entity.articles.last, :buyer => legal_entity_buyer
           @article = legal_entity.articles.last
