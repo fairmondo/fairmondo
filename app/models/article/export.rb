@@ -65,9 +65,6 @@ module Article::Export
     elsif params == "bought"
       articles = user.bought_articles
       articles.reverse_order
-    elsif params == "error_articles"
-      articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
-      articles.reverse_order
     end
   end
 
