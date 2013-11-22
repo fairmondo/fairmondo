@@ -59,7 +59,7 @@ describe "Mass-upload" do
           context "when action is create" do
             before do
               attach_file('mass_upload_file',
-                         'spec/fixtures/mass_upload_correct.csv')
+                         'spec/fixtures/mass_upload_correct_101_articles.csv')
             end
 
             it "should redirect to the mass_uploads#show" do
@@ -73,7 +73,7 @@ describe "Mass-upload" do
 
             it "should create new articles" do
               expect { click_button I18n.t('mass_uploads.labels.upload_article') }
-                        .to change(Article, :count).by(3)
+                        .to change(Article, :count).by(100)
             end
 
             describe "activate articles" do

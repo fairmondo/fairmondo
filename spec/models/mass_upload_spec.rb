@@ -32,65 +32,21 @@ describe MassUpload do
       it "should default to a utf-8 encoding" do
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_correct.csv').should eq 'utf-8'
       end
+
+      describe "#set_progress" do
+        before do
+          row = CSV::Row.new(["123"], [nil])
+          mass_upload.set_progress(100,1000, row)
+        end
+
+        it "should set the character_count to 1004" do
+          mass_upload.character_count.should eq 1004
+        end
+
+        it "should set the mass_upload article_count to 100" do
+          mass_upload.article_count.should eq 100
+        end
+      end
     end
-
-#     describe "process" do
-
-#       context "with valid input file format" do
-#         let(:correct_mass_upload)   { FactoryGirl.create :mass_upload, :user => legal_entity_user }
-
-#         # it "should return true" do
-#         #   correct_mass_upload.process.should be_true
-#         # end
-#       end
-
-#       context "with invalid input file format" do
-#         let(:incorrect_format_file_mass_upload) do
-#           create_mass_upload('/mass_upload_wrong_format.html', 'text/html')
-#         end
-
-#         it "should return false" do
-#           incorrect_format_file_mass_upload.parse_csv_for(legal_entity_user).should be_false
-#         end
-
-#         # it "should add the correct error message" do
-#         #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_uploads.errors.missing_file'))
-#         # end
-#       end
-
-#       context "with input file containing a wrong header" do
-#         let(:incorrect_format_file_mass_upload) { create_mass_upload('/mass_upload_wrong_header.csv', 'text/csv') }
-#         let(:incorrect_format_file_attributes) { create_attributes('/mass_upload_wrong_header.csv', 'text/csv') }
-
-#         it "should return false" do
-#           incorrect_format_file_mass_upload.parse_csv_for(legal_entity_user).should be_false
-#         end
-
-#         # it "should add the correct error message" do
-#         #   incorrect_format_file_mass_upload.errors.full_messages.first.should include(I18n.t('mass_uploads.errors.wrong_header'))
-#         # end
-#       end
-
-#       context "with input file containing a wrong article" do
-#         let(:incorrect_format_file_mass_upload) { create_mass_upload('/mass_upload_wrong_article.csv', 'text/csv') }
-#         let(:incorrect_format_file_attributes) { create_attributes('/mass_upload_wrong_article.csv', 'text/csv') }
-
-#         it "should return false" do
-#           incorrect_format_file_mass_upload.parse_csv_for(legal_entity_user).should be_false
-#         end
-
-#         # describe "#save" do
-#         #   it "should add the correct error message" do
-#         #     incorrect_format_file_mass_upload.save
-#         #     incorrect_format_file_mass_upload.errors.full_messages[4].should
-#         #     include(I18n.t('mass_uploads.errors.wrong_article',
-#         #       message: I18n.t('mass_uploads.errors.wrong_article_message'),
-#         #       index: 2))
-#         #   end
-#         # end
-#       end
-#     end
-
-
   end
 end
