@@ -53,7 +53,7 @@
             = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
       .l-Right
         %button.Btn.Filter-btn Suche starten
-    .Filter
+    .Filter{ class: (is_search_result? ? 'is-active' : '') }
       .Filter-inner
         .Filter-col
           %legend.Filter-title
