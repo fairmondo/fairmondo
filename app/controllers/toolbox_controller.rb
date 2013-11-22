@@ -3,7 +3,7 @@ require 'rss'
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_filter :authenticate_user!, only: [ :session_expired,:confirm,:rss ]
+  skip_before_filter :authenticate_user!, only: [ :session_expired, :confirm, :rss, :reload ]
 
   def session_expired
     respond_to do |format|
@@ -30,6 +30,11 @@ class ToolboxController < ApplicationController
     notice = Notice.find params[:id]
     notice.update_attribute :open, false
     redirect_to URI.parse(notice.path).path
+  end
+
+  # A site that's sole purpose is to reload the browser. Only useful for AJAX requests
+  def reload
+    render layout: false
   end
 
   # Send a single email to a private user, should be refactored when we have a real messaging system

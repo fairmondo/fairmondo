@@ -46,6 +46,7 @@ Fairnopoly::Application.routes.draw do
     get 'confirm' , constraints: {format: 'js'}
     get 'rss'
     get 'notice/:id', action: "notice", as: 'notice'
+    get 'reload', as: 'reload'
     get 'contact', as: 'contact'
   end
 
