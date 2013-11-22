@@ -127,5 +127,22 @@ describe "Export" do
         end
       end
     end
+
+    describe "dealing with wrong articles" do
+
+      before do
+        attach_file('mass_upload_file',
+                    'spec/fixtures/mass_upload_wrong_article.csv')
+        click_button I18n.t('mass_uploads.labels.upload_article')
+      end
+
+      describe "when exporting failed articles" do
+
+        it "should be equal to the uploaded file" do
+          @csv = Article::Export.export_erroneous_articles(MassUpload.last.erroneous_articles)
+          @csv.should == File.read('spec/fixtures/mass_upload_wrong_article.csv')
+        end
+      end
+    end
   end
 end

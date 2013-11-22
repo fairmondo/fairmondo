@@ -137,8 +137,10 @@ class MassUpload < ActiveRecord::Base
   end
 
   def add_article_error_messages(article, index, row)
-    # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
     validation_errors = ""
+    expanded_row = ";" + row.to_csv(:col_sep => ";") # Because the "€" column has been deleted before
+                                                     #we have to prepend the csv with a ";" because
+                                                     # otherwise the content wouldn't match withe the header_row anymore
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
@@ -146,7 +148,7 @@ class MassUpload < ActiveRecord::Base
         validation_errors: validation_errors,
         row_index: index,
         mass_upload: self,
-        article_csv: row.to_csv(:col_sep => ";")
+        article_csv: expanded_row
       )
       # TODO Check if the original row number can be given as well
   end
