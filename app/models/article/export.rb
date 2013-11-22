@@ -45,11 +45,8 @@ module Article::Export
     erroneous_articles.each do |article|
       csv += article.article_csv
     end
-    debugger
     csv
   end
-
-
 
   def self.determine_articles_to_export(user, params)
     if params == "active"
