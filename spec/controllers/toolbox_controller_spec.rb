@@ -56,9 +56,18 @@ describe ToolboxController do
         response.should_not be_success
       end
     end
+  end
 
+  describe "GET 'rss'" do
+    it "should be successful" do
+      get :reload
+      response.should be_success
+    end
 
-
+    it "should not render a layout" do
+      get :reload
+      response.should_not render_template("layouts/application")
+    end
   end
 
   describe "GET 'notice'" do
