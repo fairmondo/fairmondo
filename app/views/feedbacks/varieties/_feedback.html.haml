@@ -1,4 +1,5 @@
 %h1= t('feedback.title.send_feedback')
+= tinycms_content 'faq-teaser'
 = semantic_form_for resource, url: feedbacks_path do |f|
   = f.inputs do
     -# hidden
@@ -6,7 +7,6 @@
     -# user-input
 
     = f.input :from, required: false
-    = tinycms_content 'faq-teaser'
     = f.input :subject, required: true
     = f.input :text, label: false, required: true
     = f.input :feedback_subject, as: :select, required: true, include_blank: true

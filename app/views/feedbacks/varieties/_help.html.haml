@@ -1,11 +1,11 @@
 %h1= t('feedback.title.get_help')
+= tinycms_content 'faq-teaser'
 = semantic_form_for resource, url: feedbacks_path, html: {multipart: true}, builder: ::Fairtastic::FormBuilder do |f|
   = f.inputs do
     -# hidden
     = f.input :variety, as: :hidden, input_html: { value: 'get_help' }
     -# user-input
     = f.input :from, required: true
-    = tinycms_content 'faq-teaser'
     = f.input :subject, required: true
     = f.input :text, label: false, required: true
 
