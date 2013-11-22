@@ -158,28 +158,6 @@ class MassUpload < ActiveRecord::Base
     article.payment_cash_on_delivery_price_cents ||= 0
   end
 
-  # The following 3 methods are needed for Active Model Errors
-
-  # def MassUpload.human_attribute_name(attr, options = {})
-  #  attr
-  # end
-
-  # The following 2 are not currently used but might be needed because of Active
-  # Model Errors in the future. They are commented out to make sure the test
-  # coverage can reach 100%
-  # def read_attribute_for_validation(attr)
-  #  send(attr)
-  # end
-
-  # def MassUpload.lookup_ancestors
-  #  [self]
-  # end
-
-  # The following method is needed for Active Model Conversions
-  # def persisted?
-  #   false
-  # end
-
   private
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
