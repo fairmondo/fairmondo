@@ -1,0 +1,15 @@
+
+
+.ProcessingBox {
+  border-style: solid;
+  border-width: 2px;
+  border-color: $darkgray;
+}
+
+.ProcessingProgress {
+  background-color: $green;
+  height: 2em;
+  line-height: 2em;
+  color: $darkgray;
+  text-align: center;
+}
