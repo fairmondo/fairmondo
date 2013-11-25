@@ -28,9 +28,6 @@ class Image < ActiveRecord::Base
   #! attr_accessible *image_attributes
   #! attr_accessible *image_attributes, :as => :admin
 
-  after_update do |image|
-    image.update_column(:failing_reason,nil)
-  end
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "260x180#", profile: "300x300#" },
@@ -67,10 +64,6 @@ class Image < ActiveRecord::Base
 
   def self.title_image
     where(is_title: true).first
-  end
-
-  def pending?
-    !self.image.present? && self.external_url.present?
   end
 
 end

@@ -36,6 +36,7 @@ de:
     founder: "Gründer"
     boxes:
       my_article_templates: Meine Vorlagen
+      my_mass_uploads: Meine hochgeladenen CSV-Dateien
       active: "Eingestellte Artikel"
       inactive: "Nicht eingestellte Artikel"
       sold: "Verkaufte Artikel"

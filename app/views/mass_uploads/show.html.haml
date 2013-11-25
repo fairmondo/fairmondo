@@ -1,39 +1,51 @@
 %h1
   = t('mass_uploads.titles.upload_report')
 
-- if @mass_upload.all? {|k,v| v.empty?}
+- if resource.empty?
   = t('mass_uploads.errors.no_activate_content')
 - else
   .Import-detail
     .Accordion--activated.Accordion--scrollToActive
-    - unless @mass_upload[:create].empty?
+    - unless resource.created_articles.empty?
       = accordion_item "created" do
         %ul
-          - @mass_upload[:create].each do |article|
+          - resource.created_articles.each do |article|
             = render "article_digest", :article => article
-    - unless @mass_upload[:update].empty?
+    - unless resource.updated_articles.empty?
       = accordion_item "updated" do
         %ul
-          - @mass_upload[:update].each do |article|
+          - resource.updated_articles.each do |article|
             = render "article_digest", :article => article
 
-    - unless @mass_upload[:activate].empty?
+    - unless resource.activated_articles.empty?
       = accordion_item "activated" do
         %ul
-          - @mass_upload[:activate].each do |article|
+          - resource.activated_articles.each do |article|
             = render "article_digest", :article => article
 
-    - unless @mass_upload[:deactivate].empty?
+    - unless resource.deactivated_articles.empty?
       = accordion_item "deactivated" do
         %ul
-          - @mass_upload[:deactivate].each do |article|
+          - resource.deactivated_articles.each do |article|
             = render "article_digest", :article => article
 
-    - unless @mass_upload[:delete].empty?
+    - unless resource.deleted_articles.empty?
       = accordion_item "deleted" do
         %ul
-          - @mass_upload[:delete].each do |article|
+          - resource.deleted_articles.each do |article|
             = render "article_digest", :article => article
 
-- unless @activate_articles.empty?
-  = render "mass_activation", :articles => @activate_articles
+    - unless resource.erroneous_articles.empty?
+      = accordion_item "failed", :item_class => "Accordion-item--errors" do
+        %ul
+          - resource.erroneous_articles.each do |article|
+            %li
+              %h4
+                Zeile:
+                = article.row_index
+              = simple_format(article.validation_errors)
+        = link_to "Fehlerhaften Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Btn Btn--blue Btn--overwrite"
+
+
+- unless resource.articles_for_mass_activation.empty?
+  = render "mass_activation", :articles => resource.articles_for_mass_activation

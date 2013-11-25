@@ -29,12 +29,14 @@
 
 
     = accordion_item "my_article_templates" do
-      .private-links
-        %ul.nav.nav-pills
-          %li
-            = link_to t('article_templates.actions.new'), new_article_template_path, class: 'Btn Btn--blue'
-            %i.icon-helper{title: "Wenn Du einen neuen Artikel einstellst, kannst Du alle Angaben als Vorlage speichen."}
+      = link_to t('article_templates.actions.new'), new_article_template_path, class: 'Btn Btn--blue'
+      %i.icon-helper{title: "Wenn Du einen neuen Artikel einstellst, kannst Du alle Angaben als Vorlage speichen."}
       = render "article_templates/table", :article_templates => resource.article_templates.includes(:article)
+    - if resource.mass_uploads.any?
+      = accordion_item "my_mass_uploads" do
+        = render "mass_uploads/table"
+
+
 - else
   .User-articles
     = render '/articles/shared/articles_grid', articles: active_articles
