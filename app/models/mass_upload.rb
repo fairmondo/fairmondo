@@ -106,11 +106,13 @@ class MassUpload < ActiveRecord::Base
     self.start
     begin
       character_count = 0
+      article_count = 0
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        article_count += 1
         row.delete '€'
-        process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+        process_row row, article_count
         character_count += row.to_s.bytesize
-        set_progress($., character_count, row) if $. % 20 == 0
+        set_progress(article_count, character_count, row) if article_count % 50 == 0
       end
     self.finish
     rescue ArgumentError
