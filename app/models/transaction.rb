@@ -27,12 +27,14 @@ class Transaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
-  belongs_to :invoice, class_name: 'Invoice', foreign_key: 'invoice_id' # INVOICE
+#  belongs_to :invoice, class_name: 'Invoice', foreign_key: 'invoice_id' # INVOICE
 	has_one :rating
+  has_one :refund
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country]
+    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country,
+    :refund_reason, :refund_explanation]
   end
   attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
@@ -56,6 +58,9 @@ class Transaction < ActiveRecord::Base
            :about, :terms, :cancellation, :paypal_account,:ngo,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
+
+  #fields of refund model, that should be available through transaction
+  delegate :refund_description, :refund_reason, to: :refund, prefix: false
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
@@ -205,6 +210,11 @@ class Transaction < ActiveRecord::Base
   # Default behavior for associations in subclasses
   def parent; nil; end
   def children; []; end
+
+  # checks if user has requested refund for this transaction
+  def requested_refund?
+    true if self.refund_reason && self.refund_explanation
+  end
 
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
