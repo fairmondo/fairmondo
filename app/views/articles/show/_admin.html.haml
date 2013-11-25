@@ -9,7 +9,7 @@
         = f.input :article_id, as: :hidden, input_html: { value: resource.id }
         = f.input :queue, :as => :select, :collection => Exhibit.queue.options
       = f.actions do
-        = f.action :submit, label: 'hinzufügen' , button_html: {class: "Btn"}
+        = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Btn"}
 
     %h3 Aus Warteschlange löschen
     - resource.exhibits.each do |exhibit|

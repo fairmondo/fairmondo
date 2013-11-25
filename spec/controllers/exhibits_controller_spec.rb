@@ -27,9 +27,15 @@ describe ExhibitsController do
       sign_in @user
     end
 
-    it "should throw a pundit error" do
+    it "should throw a pundit error for create" do
       expect {
           post :create
+        }.to raise_error(Pundit::NotAuthorizedError)
+    end
+
+    it "should throw a pundit error for create_multiple" do
+      expect {
+          post :create_multiple
         }.to raise_error(Pundit::NotAuthorizedError)
     end
 
@@ -38,9 +44,22 @@ describe ExhibitsController do
   context "admin users" do
 
     before :each do
+
       @user = FactoryGirl.create(:admin_user)
       sign_in @user
 
+    end
+
+    it "should be able to create multiple exhibitions" do
+      #@exhibit_attrs = FactoryGirl.attributes_for :exhibit
+       #@exhibit_attrs = FactoryGirl.attributes_for :exhibit
+       #@exhibit_attrs[:queue] = :queue2
+      articles = FactoryGirl.create_list(:article,3)
+      article_ids = articles.map{|a| a.id.to_s }
+
+      lambda do
+        post :create_multiple, {:exhibit => {:queue => :queue2, :articles => article_ids}}
+      end.should change(Exhibit.unscoped, :count).by 3
     end
 
     it "should be able to set new exhebitions" do
@@ -49,6 +68,14 @@ describe ExhibitsController do
       lambda do
           post :create, exhibit: @exhibit_attrs
         end.should change(Exhibit.unscoped, :count).by 1
+    end
+
+    it "should destroy a exhibition" do
+      @exhibit = FactoryGirl.create(:exhibit)
+
+        expect {
+          delete :destroy, :id => @exhibit
+        }.to change(Exhibit, :count).by(-1)
     end
 
     it "should be able to set a dreamteam" do
