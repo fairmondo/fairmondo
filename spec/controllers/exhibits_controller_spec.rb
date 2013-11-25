@@ -51,9 +51,6 @@ describe ExhibitsController do
     end
 
     it "should be able to create multiple exhibitions" do
-      #@exhibit_attrs = FactoryGirl.attributes_for :exhibit
-       #@exhibit_attrs = FactoryGirl.attributes_for :exhibit
-       #@exhibit_attrs[:queue] = :queue2
       articles = FactoryGirl.create_list(:article,3)
       article_ids = articles.map{|a| a.id.to_s }
 
