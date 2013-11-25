@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Accordion-item{:id => accordion_name}
+.Accordion-item{:id => accordion_name, :class => "#{accordion_item_class}" }
   %a{:href => "##{accordion_name}", :class => "Accordion-header #{accordion_header_class}"}
     -if accordion_arrow
       %i.icon-arrow

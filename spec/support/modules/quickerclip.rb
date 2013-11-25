@@ -45,15 +45,15 @@ module Paperclip
     def post_process
     end
   end
-  module Storage
-    module Filesystem
-      def flush_writes
-        @queued_for_write.each{|style, file| file.close}
-        @queued_for_write = {}
-      end
-      def flush_deletes
-        @queue_for_delete = []
-      end
-    end
-  end
+  # module Storage
+  #   module Filesystem
+  #     def flush_writes
+  #       @queued_for_write.each{|style, file| file.close}
+  #       @queued_for_write = {}
+  #     end
+  #     def flush_deletes
+  #       @queue_for_delete = []
+  #     end
+  #   end
+  # end
 end

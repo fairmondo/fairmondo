@@ -19,15 +19,44 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class MassUpload
+class MassUpload < ActiveRecord::Base
 
-  # Required for Active Model Conversion which is required by Formtastic
-  include ActiveModel::Conversion
+  state_machine :initial => :pending do
+    event :start do
+      transition :pending => :processing
+    end
 
-  # Required dependency for ActiveModel::Errors
-  extend ActiveModel::Naming
+    event :error do
+      transition :processing => :failed
+    end
+
+    event :finish do
+      transition :processing => :finished
+    end
+
+    after_transition :to => :failed do |mass_upload, transition|
+      mass_upload.failure_reason = transition.args.first
+      mass_upload.save
+    end
+  end
 
   include Checks, Questionnaire, FeesAndDonations
+
+  has_many :articles
+
+  has_many :created_articles, :class_name => 'Article', :conditions => {:activation_action => "create"}
+  has_many :updated_articles, :class_name => 'Article', :conditions => {:activation_action => "update"}
+  has_many :deleted_articles, :class_name => 'Article', :conditions => {:state => "closed"}
+  has_many :deactivated_articles, :class_name => 'Article', :conditions => {:state => "locked"}
+  has_many :activated_articles, :class_name => 'Article', :conditions => {:activation_action => "activate"}
+
+  has_many :erroneous_articles
+  has_attached_file :file
+  belongs_to :user
+
+  validates_attachment :file, presence: true,
+    :size => { :in => 0..20.megabytes }
+  validate :csv_format
 
   def self.mass_upload_attrs
     [:file]
@@ -65,112 +94,78 @@ class MassUpload
     "gtin", "custom_seller_identifier", "action"]
   end
 
-  # Gives header row that is needed for updates and deletes
-  # def self.expanded_header_row
-  #   ['id'] + header_row + ['action']
-  # end
-
-  # Provide basic hash that gets filled in the controller with article IDs
-  # @return [Hash]
-  def self.prepare_session_hash
-    Hash[ Article.actions.map { |action| [action, []] } ]
+  def articles_for_mass_activation
+     self.created_articles + self.updated_articles + self.activated_articles
   end
-  # Compile a list of articles in a hash; keys indicate what has been done with them
-  def self.compile_report_for session_hash
-    Hash[
-      Article.actions.map do |action|
-        [action, Article.find_all_by_id(session_hash[action]).sort_by(&:created_at)]
+
+  def empty?
+    self.articles.empty? && self.erroneous_articles.empty?
+  end
+
+  def process
+    self.start
+    begin
+      character_count = 0
+      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        row.delete '€'
+        process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+        character_count += row.to_s.bytesize
+        set_progress($., character_count, row) if $. % 100 == 0
       end
-    ]
-  end
-
-  def initialize(attributes = nil)
-    @errors = ActiveModel::Errors.new(self)
-
-    if attributes && attributes[:file]
-      self.file = attributes[:file]
+    self.finish
+    rescue ArgumentError
+      self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
+    rescue CSV::MalformedCSVError
+      self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
   end
+  handle_asynchronously :process
 
-  attr_accessor :file
-  attr_reader   :errors, :articles
-
-  def parse_csv_for user
-
-    unless file_selected?
-      return false
-    end
-
-    unless csv_format?
-      return false
-    end
-
-    unless open_csv
-      return false
-    end
-
-    unless correct_article_count?
-      return false
-    end
-
-    #unless correct_header?
-    #  return false
-    #end
-
-    unless build_articles_for user
-      return false
-    end
-
-    save_articles!
-
-    true
+  def set_progress article_count, character_count, row
+    self.article_count = article_count
+    self.character_count = character_count + row.headers.to_csv.bytesize
+    self.save
   end
 
-  def build_articles_for user
-    @articles = []
-    valid = true
+  def process_row row, index
+    row_hash = sanitize_fields row.to_hash
+    categories = Category.find_imported_categories(row_hash['categories'])
+    row_hash.delete("categories")
+    row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+    row_hash = Questionnaire.add_commendation(row_hash)
+    article = Article.create_or_find_according_to_action row_hash, user
 
-    @csv.each_with_index do |row,index|
-      row_hash = sanitize_fields row.to_hash
-      categories = Category.find_imported_categories(row_hash['categories'])
-      row_hash.delete("categories")
-      row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-      row_hash = Questionnaire.add_commendation(row_hash)
-      article = Article.create_or_find_according_to_action row_hash, user
-
-      if article # so we can ignore rows when reimporting
-        article.user_id = user.id
-        revise_prices(article)
-        article.categories = categories if categories
-        if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                       # fix this by generating the base errors with proper validations
-                                       # may be hard for dynamic update model
-          add_article_error_messages(article, index)
-          valid = false
-        end
-        @articles << article
+    if article # so we can ignore rows when reimporting
+      article.user_id = self.user_id
+      revise_prices(article)
+      article.categories = categories if categories
+      if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                     # fix this by generating the base errors with proper validations
+                                     # may be hard for dynamic update model
+        add_article_error_messages(article, index, row)
+      else
+        article.calculate_fees_and_donations
+        article.mass_upload = self
+        article.process!
       end
     end
-    return valid
   end
 
-  def add_article_error_messages(article, index)
-    # TODO Needs refactoring (the error messages should be styled elsewhere -> no <br>s)
+  def add_article_error_messages(article, index, row)
+    validation_errors = ""
+    expanded_row = ";" + row.to_csv(:col_sep => ";") # Because the "€" column has been deleted before
+                                                     #we have to prepend the csv with a ";" because
+                                                     # otherwise the content wouldn't match withe the header_row anymore
     article.errors.full_messages.each do |message|
-      first_line_break = ""
-      if article.errors.full_messages[0] == message && index > 0
-        first_line_break = "<br/>"
-      end
-      errors.add(:file, "<br/>#{first_line_break} #{I18n.t('mass_uploads.errors.wrong_article', message: message, index: (index + 2))}")
+      validation_errors += message + "\n"
     end
-  end
-
-  def save_articles!
-    @articles.each do |article|
-      article.calculate_fees_and_donations
-      article.process!
-      article.extract_external_image!
-    end
+      ErroneousArticle.create(
+        validation_errors: validation_errors,
+        row_index: index,
+        mass_upload: self,
+        article_csv: expanded_row
+      )
+      # TODO Check if the original row number can be given as well
   end
 
   def revise_prices(article)
@@ -178,28 +173,6 @@ class MassUpload
     article.transport_type1_price_cents ||= 0
     article.transport_type2_price_cents ||= 0
     article.payment_cash_on_delivery_price_cents ||= 0
-  end
-
-  # The following 3 methods are needed for Active Model Errors
-
-  # def MassUpload.human_attribute_name(attr, options = {})
-  #  attr
-  # end
-
-  # The following 2 are not currently used but might be needed because of Active
-  # Model Errors in the future. They are commented out to make sure the test
-  # coverage can reach 100%
-  # def read_attribute_for_validation(attr)
-  #  send(attr)
-  # end
-
-  # def MassUpload.lookup_ancestors
-  #  [self]
-  # end
-
-  # The following method is needed for Active Model Conversions
-  def persisted?
-    false
   end
 
   private
