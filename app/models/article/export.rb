@@ -40,7 +40,13 @@ module Article::Export
     end
   end
 
-
+  def self.export_erroneous_articles(erroneous_articles)
+    csv = CSV.generate_line(MassUpload.header_row, :col_sep => ";")
+    erroneous_articles.each do |article|
+      csv += article.article_csv
+    end
+    csv
+  end
 
   def self.determine_articles_to_export(user, params)
     if params == "active"
@@ -55,9 +61,6 @@ module Article::Export
       articles.reverse_order
     elsif params == "bought"
       articles = user.bought_articles
-      articles.reverse_order
-    elsif params == "error_articles"
-      articles = user.articles.joins(:images).where("images.failing_reason is not null AND articles.state is not 'closed' ")
       articles.reverse_order
     end
   end

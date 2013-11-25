@@ -45,7 +45,7 @@ end
 
 user_legal = User.find_by_email("le@le.com")
 unless user_legal
-  user_legal = FactoryGirl.create(:legal_entity, :email => "le@le.com", :password => "password", :password_confirmation => "password")
+  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :email => "le@le.com", :password => "password", :password_confirmation => "password")
 end
 
 c1 = Category.create(:name => "Technik")

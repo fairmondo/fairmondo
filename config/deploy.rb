@@ -48,6 +48,9 @@ set :repository, "git://github.com/fairnopoly/fairnopoly.git"
 #set :deploy_via, :remote_cache
 set :ssh_options, { :forward_agent => true }
 
+# Delayed Workers
+set :delayed_job_args, "-n 2" # Start 2 worker jobs per app
+
 #### Roles #####
 # See Stages
 

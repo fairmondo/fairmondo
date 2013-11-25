@@ -60,6 +60,7 @@ describe "Export" do
 
       describe "when exporting active articles" do
         before do
+          click_link I18n.t('mass_uploads.labels.show_report')
           click_button I18n.t('mass_uploads.labels.mass_activate_articles')
         end
 
@@ -71,6 +72,7 @@ describe "Export" do
 
       describe "when exporting (fair_trust)" do
         before do
+          click_link I18n.t('mass_uploads.labels.show_report')
           click_button I18n.t('mass_uploads.labels.mass_activate_articles')
           @transaction = FactoryGirl.create :single_transaction, :sold, article: legal_entity.articles.last, :buyer => legal_entity_buyer
           @article = legal_entity.articles.last
@@ -122,6 +124,23 @@ describe "Export" do
         it "should be equal to the uploaded file" do
           @csv = Article::Export.export_articles(legal_entity, "inactive")
           @csv.should == File.read('spec/fixtures/export_social_producer.csv')
+        end
+      end
+    end
+
+    describe "dealing with wrong articles" do
+
+      before do
+        attach_file('mass_upload_file',
+                    'spec/fixtures/mass_upload_wrong_article.csv')
+        click_button I18n.t('mass_uploads.labels.upload_article')
+      end
+
+      describe "when exporting failed articles" do
+
+        it "should be equal to the uploaded file" do
+          @csv = Article::Export.export_erroneous_articles(MassUpload.last.erroneous_articles)
+          @csv.should == File.read('spec/fixtures/mass_upload_wrong_article.csv')
         end
       end
     end
