@@ -175,6 +175,13 @@ class MassUpload < ActiveRecord::Base
     article.payment_cash_on_delivery_price_cents ||= 0
   end
 
+  def update_solr_index_for article_ids
+    articles = Article.find article_ids
+    Sunspot.index articles
+    Sunspot.commit
+  end
+  handle_asynchronously :update_solr_index_for
+
   private
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
