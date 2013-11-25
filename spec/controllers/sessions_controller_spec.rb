@@ -14,9 +14,21 @@ describe SessionsController do
     end
 
     context "when format is AJAX" do
-      it "should use no layout" do
-        xhr :get, :new
-        response.should_not render_template("layouts/application")
+      context "and the user is logged out" do
+        it "should use no layout" do
+          xhr :get, :new
+          response.should_not render_template("layouts/application")
+        end
+      end
+
+      context "and the user is logged in" do
+        let(:user) { FactoryGirl.create :user }
+        before { sign_in user }
+
+        it "should render the reload site" do
+          xhr :get, :new, format: 'html'
+          response.should redirect_to toolbox_reload_path
+        end
       end
     end
   end
