@@ -40,6 +40,8 @@ class ApplicationController < ActionController::Base
       sign_out resource_or_scope
       flash.discard
       "/banned"
+    elsif request.xhr? # AJAX request
+      toolbox_reload_path
     else
       stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
