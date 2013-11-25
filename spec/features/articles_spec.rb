@@ -447,9 +447,12 @@ describe "Pioneer of the day" do
     page.should_not have_link 'Foobar'
 
     visit article_path FactoryGirl.create :article, title: 'Foobar'
-    click_on '*Pionier*-Artikel'
+    #click_on '*Pionier*-Artikel'
+    select('*Pionier*-Artikel', :from => 'exhibit_queue')
+    click_button I18n.t 'article.show.add_as_exhibit'
 
     visit root_path
     page.should have_link 'Foobar'
   end
+
 end
