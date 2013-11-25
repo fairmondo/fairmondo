@@ -24,6 +24,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Exhibit' do
+
     before :each do
       @exhibit = FactoryGirl.create(:exhibit,:queue => :queue1 )
       @exhibit2 = FactoryGirl.create(:exhibit,:queue => :queue1 )

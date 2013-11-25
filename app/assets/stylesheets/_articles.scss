@@ -262,3 +262,11 @@ span.Article-price {
     max-width: 185px !important;
   }
 }
+
+.Article-admin {
+  color: $red;
+  background-color: $white;
+  padding: .5em;
+  border-top: $beige 0.15em solid;
+  @include border-radius(0.9em);
+}
