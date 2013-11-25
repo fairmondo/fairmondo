@@ -110,7 +110,7 @@ class MassUpload < ActiveRecord::Base
         row.delete '€'
         process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
         character_count += row.to_s.bytesize
-        set_progress($., character_count, row) if $. % 100 == 0
+        set_progress($., character_count, row) if $. % 20 == 0
       end
     self.finish
     rescue ArgumentError
