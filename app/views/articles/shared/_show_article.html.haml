@@ -33,3 +33,10 @@
 .Article-tags
   = condition_label article
   = commendation_labels_for article
+
+- if User.is_admin?(current_user) && article.exhibits.present?
+  .Article-admin
+    %p= 'löschen aus:'
+    - article.exhibits.each do |exhibit|
+      = (link_to t('enumerize.exhibit.queue.'+exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
+
