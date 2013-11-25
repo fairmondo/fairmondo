@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include MassUploadCreator
+# include MassUploadCreator
 include CategorySeedData
 
 describe MassUploadsController do
@@ -18,7 +18,7 @@ describe MassUploadsController do
     end
 
     context "for signed-in users" do
-      let(:user) { FactoryGirl.create :user }
+      let(:user) { FactoryGirl.create :legal_entity }
       before { sign_in user }
 
       it "should render the :new view" do
@@ -28,44 +28,27 @@ describe MassUploadsController do
     end
   end
 
-
-  describe "GET 'image_errors'" do
-
-    context "for signed-in users" do
-      let(:user) { FactoryGirl.create :user }
-      before { sign_in user }
-
-      it "should render the :new view" do
-        get :image_errors
-        response.should render_template :image_errors
-      end
-    end
-  end
-
-
   describe "mass-upload creation" do
     let(:user) { FactoryGirl.create(:legal_entity, :paypal_data) }
-    let(:attributes) { create_attributes('/mass_upload_correct.csv', 'text/csv') }
+    let(:attributes) { FactoryGirl.attributes_for(:mass_upload, :user => user) }
 
     before do
       setup_categories
       sign_in user
-      post :create, mass_upload: attributes
     end
 
     describe "POST 'create'" do
       it "should create a mass-upload object" do
-        secret_mass_uploads_number = response.redirect_url.dup
-        secret_mass_uploads_number.slice!("http://test.host/mass_uploads/")
-        response.should redirect_to mass_upload_path(secret_mass_uploads_number)
+        expect { post :create, mass_upload: attributes }
+                  .to change(MassUpload, :count).by(1)
+        response.should redirect_to user_path(user, :anchor => 'my_mass_uploads')
       end
     end
 
     describe "PUT 'update'" do
       it "should description" do
-        secret_mass_uploads_number = response.redirect_url.dup
-        secret_mass_uploads_number.slice!("http://test.host/mass_uploads/")
-        post :update, :id => secret_mass_uploads_number
+        post :create, mass_upload: attributes
+        post :update, :id => MassUpload.last.id
         response.should redirect_to user_path(user)
       end
     end

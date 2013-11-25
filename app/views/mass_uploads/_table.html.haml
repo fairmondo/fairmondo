@@ -1,0 +1,53 @@
+-#
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+.User-table
+  %table
+    %tr
+      %th Dateiname
+      %th Hochgeladen vor
+      %th Status
+      %th
+    - resource.mass_uploads.order("created_at DESC").limit(20).each do |mass_upload|
+      %tr
+        %td= mass_upload.file_file_name
+        %td= distance_of_time_in_words_to_now mass_upload.created_at
+        %td
+          - if mass_upload.pending?
+            = "Wartet auf Bearbeitung" #TODO better text
+          - elsif mass_upload.processing?
+            = "Wird bearbeitet"
+            %p{ :style => "margin-right: 1em"}
+              - if mass_upload.article_count
+                = "Bereits mehr als #{mass_upload.article_count} Artikel bearbeitet"
+              - else
+                = "Noch keine Artikel bearbeitet"
+          - elsif mass_upload.finished?
+            Abgeschlossen
+          - elsif mass_upload.failed?
+            = mass_upload.failure_reason
+        %td
+          - if mass_upload.processing?
+            .ProcessingBox
+              .ProcessingProgress{ :style => "width: #{mass_upload.character_count.to_f/ mass_upload.file_file_size.to_f*100}%;" }
+                = "#{(mass_upload.character_count.to_f/ mass_upload.file_file_size.to_f*100).round(2)}%"
+          - elsif mass_upload.finished?
+            = link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), :class => 'Btn'
