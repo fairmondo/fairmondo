@@ -76,7 +76,7 @@ class FastbillAPI
     end
 
     def self.fastbill_create_subscription seller
-      subscription = Fastbill::Automatic::Subscription.create( article_number: '2013',
+      subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
                                                 customer_id: seller.fastbill_id
                                               )
       seller.fastbill_subscription_id = subscription.subscription_id
@@ -85,14 +85,25 @@ class FastbillAPI
       
     def self.fastbill_setusagedata seller, transaction, fee_type
       article = transaction.article
-      subscription = Fastbill::Automatic::Subscription.get( customer_id: seller.fastbill_id ).first
 
-      Fastbill::Automatic::Subscription.setusagedata( subscription_id: subscription.subscription_id,
-                                                      article_number: '2013',
+      Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
+                                                      article_number: fee_type == :fair ? '11' : '12',
                                                       quantity: transaction.quantity_bought,
-                                                      unit_price: fee_type == :fair ? (article.calculated_fair_cents / 100) : (article.calculated_fee_cents / 100),
+                                                      unit_price: fee_type == :fair ? (article.calculated_fair_cents / 100.0) : (article.calculated_fee_cents / 100.0),
                                                       description: article.title + " (#{ fee_type == :fair ? 'Faires Prozent' : 'Verkaufsgebuehr'})",
-                                                      usage_date: transaction.sold_at.strftime("%d.%m.%Y %H:%M:%S")
+                                                      usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
+                                                    )
+    end
+
+    def self.fastbill_refund seller, transaction, fee_type
+      article = transaction.article
+
+      Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
+                                                      article_number: fee_type == :fair ? '11' : '12',
+                                                      quantity: transaction.quantity_bought,
+                                                      unit_price: fee_type == :fair ? ( 0 - article.calculated_fair_cents / 100.0 ) : ( 0 - article.calculated_fee_cents / 100.0 ),
+                                                      description: article.title + " (#{ fee_type == :fair ? 'Rueckerstattung Faires Prozent' : 'Rueckerstattung Verkaufsgebuehr'})",
+                                                      usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
                                                     )
     end
 end

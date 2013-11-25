@@ -44,3 +44,6 @@
         = link_to t('transaction.completed.rate'), transaction_new_user_rating_path(transaction.seller, transaction), :class => "Btn Btn--small"
     - if transaction.seller == current_user
       = link_to t('transaction.completed.show_sold'), transaction_path(transaction), :class => "Btn Btn--small"
+    - if transaction.seller == current_user
+      - unless transaction.requested_refund?
+        = link_to "Rückerstattung", refund_path(transaction), :class => "Btn Btn--small"

@@ -66,6 +66,7 @@ Fairnopoly::Application.routes.draw do
   resources :transactions, only: [:show, :edit, :update] do
     member do
       put 'edit' => 'transactions#edit', as: :step2
+      put 'request_refund' => 'transactions#request_refund', as: :request_refund
       get 'already_sold'
       get 'print_order_buyer'
       #get 'print_order_seller'
@@ -103,6 +104,8 @@ Fairnopoly::Application.routes.draw do
   resources :categories, :only => [:show,:index]
 
   resources :exhibits, :only => [:create,:update]
+
+  resources :refund, :only => [:show, :create]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
