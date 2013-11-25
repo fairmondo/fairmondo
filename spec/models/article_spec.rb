@@ -335,6 +335,7 @@ describe Article do
           @url = "http://www.test.com/test.png"
           @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
           article.images << @image
+          URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
         end
         it "should do nothing if the url is already present" do
           expect {

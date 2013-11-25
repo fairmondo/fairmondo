@@ -43,6 +43,13 @@ class MassUpload < ActiveRecord::Base
   include Checks, Questionnaire, FeesAndDonations
 
   has_many :articles
+
+  has_many :created_articles, :class_name => 'Article', :conditions => {:activation_action => "create"}
+  has_many :updated_articles, :class_name => 'Article', :conditions => {:activation_action => "update"}
+  has_many :deleted_articles, :class_name => 'Article', :conditions => {:state => "closed"}
+  has_many :deactivated_articles, :class_name => 'Article', :conditions => {:state => "locked"}
+  has_many :activated_articles, :class_name => 'Article', :conditions => {:activation_action => "activate"}
+
   has_many :erroneous_articles
   has_attached_file :file
   belongs_to :user
@@ -85,6 +92,14 @@ class MassUpload < ActiveRecord::Base
     "upcycling_reason", "small_and_precious_eu_small_enterprise",
     "small_and_precious_reason", "small_and_precious_handmade",
     "gtin", "custom_seller_identifier", "action"]
+  end
+
+  def articles_for_mass_activation
+     self.created_articles + self.updated_articles + self.activated_articles
+  end
+
+  def empty?
+    self.articles.empty? && self.erroneous_articles.empty?
   end
 
   def process

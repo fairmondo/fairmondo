@@ -7,15 +7,8 @@ class MassUploadsController < InheritedResources::Base
   before_filter :authorize_build_resource, only: [:new, :create]
 
   def show
-    @created_articles = resource.articles.where(:activation_action => "create")
-    @updated_articles = resource.articles.where(:activation_action => "update")
-    @deleted_articles = resource.articles.where(:state => "closed")
-    @deactivated_articles = resource.articles.where(:state => "locked")
-    @activated_articles = resource.articles.where(:activation_action => "activate")
-    @failed_articles = resource.erroneous_articles
-    @mass_activation = @created_articles + @updated_articles + @activated_articles
     show! do |format|
-      format.csv { send_data Article::Export.export_erroneous_articles(@failed_articles),
+      format.csv { send_data Article::Export.export_erroneous_articles(resource.erroneous_articles),
                    {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
       end
   end
