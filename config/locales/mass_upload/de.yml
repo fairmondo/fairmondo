@@ -12,7 +12,8 @@ de:
       article_activated: "Artikel bereits eingestellt"
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
-      show_report: "Anzeigen & bearbeiten"
+      show_report: "Anzeigen"
+      show_report_activate: "Anzeigen & aktivieren"
     errors:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein. Bitte achte auch darauf, dass Du in der ersten Zeile in der ersten Spalte Deiner CSV-Datei ein Eurozeichen ('€') eingetragen hast (siehe Dokumentation)."
       wrong_file_size: "Aktuell können maximal 100 Artikel pro Datei hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."

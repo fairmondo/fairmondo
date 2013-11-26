@@ -120,11 +120,11 @@ module Article::DynamicProcessing
     end
     case self.action
     when :delete
-      self.deactivate
-      self.close
-      # we activate them later
+      self.state = "closed"
+      self.activation_action = nil
     when :deactivate
-      self.deactivate
+      self.state = "locked"
+      self.activation_action = nil
     end
     self.save!
   end

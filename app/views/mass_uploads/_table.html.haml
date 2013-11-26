@@ -50,4 +50,7 @@
               .ProcessingProgress{ :style => "width: #{mass_upload.character_count.to_f/ mass_upload.file_file_size.to_f*100}%;" }
                 = "#{(mass_upload.character_count.to_f/ mass_upload.file_file_size.to_f*100).round(2)}%"
           - elsif mass_upload.finished?
-            = link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), :class => 'Btn'
+            - if mass_upload.articles_for_mass_activation.empty?
+              =  link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), :class => 'Btn'
+            - else
+              = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), :class => 'Btn'
