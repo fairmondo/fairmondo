@@ -18,7 +18,6 @@ de:
     errors:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein. Bitte achte auch darauf, dass Du in der ersten Zeile in der ersten Spalte Deiner CSV-Datei ein Eurozeichen ('€') eingetragen hast (siehe Dokumentation)."
       wrong_file_size: "Aktuell können maximal 100 Artikel pro Datei hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."
-      unknown_error: "Unbekannter Fehler. Wende dich bitte an den technischen Support."
       missing_file: "Bitte wähle eine CSV-Datei aus."
       wrong_mime_type: 'Die Datei ist keine CSV-Datei. Bitte überprüfe auch, ob sie die Endung ".csv" trägt.'
       wrong_header: 'Die erste Zeile der CSV-Datei muss die Spaltennamen gemäß der Musterdatei enthalten.'
