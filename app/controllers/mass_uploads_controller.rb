@@ -5,6 +5,7 @@ class MassUploadsController < InheritedResources::Base
   before_filter :ensure_complete_profile , :only => [:new, :create]
   before_filter :authorize_resource, only: [:show, :update]
   before_filter :authorize_build_resource, only: [:new, :create]
+  before_filter :check_value_of_goods, :only => [:update]
 
   def show
     show! do |format|
