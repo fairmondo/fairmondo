@@ -31,7 +31,7 @@
     %h3 Warteschlange befüllen
     = semantic_form_for :exhibit, url: create_multiple_exhibits_path, method: :post do |f|
       = f.inputs do
-        = f.input :articles, as: :check_boxes, multiple: true,  :collection => Hash[ articles.map{|a| [ a.title, a.id.to_s ]} ], :input_html => { :checked => true }
+        = f.input :articles, as: :check_boxes, multiple: true,  :collection => Hash[ articles.map{|a| [ a.slug, a.id.to_s ]} ], :input_html => { :checked => true }
         = f.input :queue, :as => :select, :collection => Exhibit.queue.options
       = f.actions do
         = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Btn"}
