@@ -1,6 +1,9 @@
 %li
   = t('formtastic.labels.article.title') + ": "
-  = (link_to article.title, article_path(article), target: "_blank") + "."
+  - if article.closed?
+    = article.title
+  - else
+    = (link_to article.title, article_path(article), target: "_blank") + "."
   = t('article.preview.fees_and_donations.title')
   = t('article.preview.fees_and_donations.total_mass_upload',
     fee: (article.fair ? "3% + 1%" : "6% + 1%")  )
