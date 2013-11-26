@@ -115,11 +115,15 @@ class MassUpload < ActiveRecord::Base
         set_progress(article_count, character_count, row) if article_count % 50 == 0
       end
     self.finish
+
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
+    rescue
+      self.error(I18n.t('mass_uploads.errors.unknown_error'))
     end
+    self.user.notify I18n.t('mass_uploads.labels.finished'), Rails.application.routes.url_helpers.mass_upload_path(self)
   end
   handle_asynchronously :process
 
