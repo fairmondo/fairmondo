@@ -120,8 +120,6 @@ class MassUpload < ActiveRecord::Base
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
-    rescue
-      self.error(I18n.t('mass_uploads.errors.unknown_error'))
     end
     self.user.notify I18n.t('mass_uploads.labels.finished'), Rails.application.routes.url_helpers.mass_upload_path(self)
   end

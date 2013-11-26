@@ -55,7 +55,7 @@ module NoticeHelper
   end
 
   def render_open_notice notice
-    continue_text = I18n.t('common.actions.show')
+    continue_text = I18n.t('common.actions.continue')
     message = "<p class=\"confirmation_message\">#{notice.message}</p>".html_safe
     message += "<a class=\"Btn\" href=\"#{toolbox_notice_path(:id => notice.id)}\">#{continue_text}</a>".html_safe
   end
