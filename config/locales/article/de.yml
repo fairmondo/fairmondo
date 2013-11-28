@@ -34,6 +34,8 @@ de:
         type2_provider: "z.B. DHL Päckchen"
     show:
       add_as_exhibit: "hinzufügen"
+      reindex: "Artikel-Suchindex aktualisieren"
+      reindexed: "Der Artikel wird in Kürze aktualisiert."
       fair_percent: "Das faire Prozent"
       friendly_percent: "Spendenanteil"
       will_be: " werden an "
