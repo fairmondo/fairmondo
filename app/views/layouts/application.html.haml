@@ -66,12 +66,23 @@
               = render_notice :type => type do
                 %p
                   = msg
+
       .HeaderArea
         %header.l-Header
-          - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+          - unless cookies["cfk-header-disabled"]
             .Message-row-background
               .Message-row-foreground
                 = tinycms_content_body("nachrichtenzeile")
+                .Cfk-header
+                  %a{:href => "#"}
+                    ×
+
+          / = javascript_include_tag 'cfk_teaser.js'
+          / - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+
+
+
+
           .l-Inner
             .Logo
               %h1
@@ -101,7 +112,8 @@
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
           = render "welcome/ngo_logobox"
-          %br
+          .l-Teaser--socialshare
+            .Articles-social#socialshareprivacy
           = render "welcome/known_from"
 
     %footer.l-Footer

@@ -94,3 +94,8 @@
 .l-Hero .l-Inner h1 {
 	padding-top: 0.5em;
 }
+
+
+.Whitebox {
+  @include whitebox;
+}
