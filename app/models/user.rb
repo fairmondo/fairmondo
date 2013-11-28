@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   # Friendly_id for beautiful links
   extend FriendlyId
-  friendly_id :nickname, :use => :slugged
+  friendly_id :nickname, use: :slugged
   validates_presence_of :slug
 
   extend Sanitization
@@ -338,52 +338,15 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
 
-  ####################### Invoice stuff ###################
-  # def has_open_invoice?
-  #   Invoice.find_by_user_id_and_state( self.id, "open" ).present?
-  # end
-
-  # seems not necessary, as the quarterly fee will be billed at end of quarter
-  # def has_paid_quarterly_fee?
-  #   self.quarterly_fee?
-  # end
-  ####################### Invoice stuff ###################
-  
-  # Here be FastBill stuff
-  # def fastbill_update_user
-  #   customer = Fastbill::Automatic::Customer.get( customer_id: self.id ).first
-  #   customer.update_attributes( customer_id: self.id,
-  #                                         customer_type: "#{ self.is_a?(LegalEntity) ? 'business' : 'consumer' }",
-  #                                         organization: "#{ self.company_name if self.is_a?(LegalEntity) }",
-  #                                         salutation: self.title,
-  #                                         first_name: self.forename,
-  #                                         last_name: self.surname,
-  #                                         address: self.street,
-  #                                         address_2: self.address_suffix,
-  #                                         zipcode: self.zip,
-  #                                         city: self.city,
-  #                                         country_code: 'DE',
-  #                                         language_code: 'DE',
-  #                                         email: self.email,
-  #                                         currency_code: 'EUR',
-  #                                         payment_type: '2',
-  #                                         show_payment_notice: '1',
-  #                                         bank_name: self.bank_name,
-  #                                         bank_code: self.bank_code,
-  #                                         bank_account_number: self.bank_account_number,
-  #                                         bank_account_owner: self.bank_account_owner
-  #                                       )
-  # end
-
   private
-  # @api private
-  def create_default_library
-    if self.libraries.empty?
-      Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+    # @api private
+    def create_default_library
+      if self.libraries.empty?
+        Library.create(name: I18n.t('library.default'), public: false, user_id: self.id)
+      end
     end
-  end
 
-  def wants_to_sell?
-    self.wants_to_sell
-  end
+    def wants_to_sell?
+      self.wants_to_sell
+    end
 end

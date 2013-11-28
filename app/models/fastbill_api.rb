@@ -83,6 +83,7 @@ class FastbillAPI
       seller.save
     end
       
+    #TODO NETTOPREISE müssen übertragen werden.
     def self.fastbill_setusagedata seller, transaction, fee_type
       article = transaction.article
 
@@ -90,19 +91,20 @@ class FastbillAPI
                                                       article_number: fee_type == :fair ? '11' : '12',
                                                       quantity: transaction.quantity_bought,
                                                       unit_price: fee_type == :fair ? (article.calculated_fair_cents / 100.0) : (article.calculated_fee_cents / 100.0),
-                                                      description: article.title + " (#{ fee_type == :fair ? 'Faires Prozent' : 'Verkaufsgebuehr'})",
+                                                      description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
                                                       usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
                                                     )
     end
 
-    def self.fastbill_refund seller, transaction, fee_type
+    def self.fastbill_refund transaction, fee_type
       article = transaction.article
+      seller = transaction.seller
 
       Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                       article_number: fee_type == :fair ? '11' : '12',
                                                       quantity: transaction.quantity_bought,
-                                                      unit_price: fee_type == :fair ? ( 0 - article.calculated_fair_cents / 100.0 ) : ( 0 - article.calculated_fee_cents / 100.0 ),
-                                                      description: article.title + " (#{ fee_type == :fair ? 'Rueckerstattung Faires Prozent' : 'Rueckerstattung Verkaufsgebuehr'})",
+                                                      unit_price: fee_type == :fair ? -( article.calculated_fair_cents / 100.0 ) : -( article.calculated_fee_cents / 100.0 ),
+                                                      description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? 'Rueckerstattung Faires Prozent' : 'Rueckerstattung Verkaufsgebuehr'})",
                                                       usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
                                                     )
     end

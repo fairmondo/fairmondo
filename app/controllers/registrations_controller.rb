@@ -23,7 +23,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   before_filter :dont_cache, only: [ :edit ]
   before_filter :configure_permitted_parameters
-  skip_before_filter :authenticate_user!, :only => [ :create, :new ]
+  skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
   #before_filter :check_recaptcha, only: :create
 

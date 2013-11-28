@@ -88,6 +88,8 @@ FactoryGirl.define do
     factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
       buyer { FactoryGirl.create :buyer }
       quantity_bought 1
+      state 'sold'
+      sold_at { Time.now }
     end
 
     factory :transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
@@ -96,6 +98,7 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_friendly_percent}
     end
 
+    #TODO please use transaction_with_buyer
     factory :transaction_with_friendly_percent_missing_bank_data_and_buyer, class: 'SingleFixedPriceTransaction'  do
       buyer { FactoryGirl.create :buyer }
        quantity_bought 1
@@ -125,5 +128,10 @@ FactoryGirl.define do
     trait :fastbill_profile do
       seller { FactoryGirl.create :seller, :has_fastbill_profile => true }
     end
+
+    trait :old do
+      sold_at 17.days.ago
+    end
+
   end
 end

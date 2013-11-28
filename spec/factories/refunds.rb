@@ -1,8 +1,11 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :refund do
-    refund_reason "MyString"
-    refund_explanation "MyString"
+    reason "Gutschein"
+    description 'a' * 160
+    transaction { FactoryGirl.create :single_transaction, :sold }
+
+    trait :not_sold_transaction do
+      transaction { FactoryGirl.create :single_transaction }
+    end
   end
 end

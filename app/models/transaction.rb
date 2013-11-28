@@ -29,7 +29,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
 #  belongs_to :invoice, class_name: 'Invoice', foreign_key: 'invoice_id' # INVOICE
 	has_one :rating
-  has_one :refund
+  has_one :refund, inverse_of: :transaction
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
@@ -60,7 +60,7 @@ class Transaction < ActiveRecord::Base
   delegate :value, to: :rating, prefix: true
 
   #fields of refund model, that should be available through transaction
-  delegate :refund_description, :refund_reason, to: :refund, prefix: false
+  delegate :description, :reason, to: :refund, prefix: true
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
@@ -213,7 +213,11 @@ class Transaction < ActiveRecord::Base
 
   # checks if user has requested refund for this transaction
   def requested_refund?
-    true if self.refund_reason && self.refund_explanation
+    !!( refund && refund_reason && refund_description )
+  end
+
+  def refundable?
+    self.seller.can_refund? self
   end
 
   protected
