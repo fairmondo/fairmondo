@@ -38,5 +38,9 @@
   .Article-admin
     %p= 'löschen aus:'
     - article.exhibits.each do |exhibit|
+      - Rails.logger.info article.id
+      - Rails.logger.info article.slug
+      - Rails.logger.info exhibit.id
+      - Rails.logger.info exhibit.queue
       = (link_to t('enumerize.exhibit.queue.'+exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
 
