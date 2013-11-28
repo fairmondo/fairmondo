@@ -1,10 +1,4 @@
 .Message-row-background {
-<<<<<<< HEAD
-  @include at-breakpoint($layout-medium) {
-    height: 4em;
-  }
-=======
->>>>>>> c65c97a27430ed83921a6cc3646007307c0abfa3
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   height: auto;
   background-color: #ffcc00;
@@ -42,6 +36,9 @@
     }
   }
 }
+
+
+
 
 
 
