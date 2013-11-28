@@ -34,7 +34,7 @@ de:
       no_activate_content: 'Es wurden keine Artikel geändert. Bitte nutze die Spalte "action" um Artikel vom Marktplatz zu nehmen, zu bearbeiten, einzustellen oder zu löschen.'
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
-      table_header: Hier kannst du den Status deiner CSV-Dateien sehen. Du brauchst nicht auf dieser Seite zu bleiben während deine Dateien vom System verarbeitet werden. Um diese Anzeige zu aktivieren musst du die Seite neu laden.
+      table_header: Hier kannst Du den Status Deiner CSV-Dateien sehen. Du brauchst nicht auf dieser Seite zu bleiben während Deine Dateien vom System verarbeitet werden. Um diese Anzeige zu aktivieren musst Du die Seite neu laden.
       table_header2:  Wenn deine CSV-Datei bearbeitet wurde kannst du hier die Ergebnisse abrufen und neue Artikel für den Marktplatz aktivieren.
     boxes:
       created: 'Hochgeladene Artikel'
