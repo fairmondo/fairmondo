@@ -13,8 +13,9 @@
   color: $darkgray;
   padding-top: 0.9em;
   text-align: center;
-  .Cfk-header {
+  .Cfk-header-close {
     float: right;
+    cursor: pointer;
     position: relative;
     bottom: 1.65em;
     right: 0.2em;
