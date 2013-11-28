@@ -1,7 +1,10 @@
 .Message-row-background {
+<<<<<<< HEAD
   @include at-breakpoint($layout-medium) {
     height: 4em;
   }
+=======
+>>>>>>> c65c97a27430ed83921a6cc3646007307c0abfa3
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   height: auto;
   background-color: #ffcc00;
@@ -9,6 +12,7 @@
 }
 
 .Message-row-foreground {
+  position: relative;
   @include container;
   color: $darkgray;
   padding-top: 0.9em;
@@ -16,9 +20,9 @@
   .Cfk-header-close {
     float: right;
     cursor: pointer;
-    position: relative;
-    bottom: 1.65em;
-    right: 0.2em;
+    position: absolute;
+    @include rem(top, 15px);
+    right: 0.5em;
     color: $darkgray;
     @include rem(font-size, $font-size-l);
     a {
@@ -32,7 +36,10 @@
     color: $darkgray;
     &:active, &:hover, &:focus {
       color: $darkgray;
+<<<<<<< HEAD
       text-decoration: underline;
+=======
+>>>>>>> c65c97a27430ed83921a6cc3646007307c0abfa3
     }
     &:visited {
       color: $darkgray;
