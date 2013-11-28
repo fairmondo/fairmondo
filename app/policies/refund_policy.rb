@@ -1,14 +1,14 @@
-class RefundPolicy < Struct.new(:user, :transaction)
-  def show?
-    own? && transaction.sold?
-  end
-
+class RefundPolicy < Struct.new(:user, :refund)
   def create?
-    own? && transaction.sold?
+    own? && refund.transaction.sold? && !refund.transaction.requested_refund? 
+  end
+  
+  def new?
+    create?
   end
 
   private
     def own?
-      user.id == transaction.seller_id
+      user.id == refund.transaction_seller.id
     end
 end

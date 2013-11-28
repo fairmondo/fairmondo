@@ -1,28 +1,17 @@
 require 'spec_helper'
 
-describe 'Refund' do
+describe Refund do
   describe 'associations' do
     it { should belong_to :transaction }
   end
 
   describe 'attributes' do
-    it { should respond_to :refund_reason }
-    it { should respond_to :refund_explanation }
-    it { should validate_presence_of :refund_reason }
-    it { should validate_presence_of :refund_explanation }
-  end
-
-  describe 'methods' do
-    desribe '#has_requested_refund' do
-      context 'when refund_reason and refund_explnation are nil' do
-        it 'should return true' do
-
-        end
-      end
-      context 'when refund_reason and refund_explanation are not nil' do
-        it 'should return false' do
-        end
-      end
-    end
+    it { should respond_to :reason }
+    it { should respond_to :description }
+    it { should respond_to :transaction_id }
+    it { should validate_presence_of :reason }
+    it { should validate_presence_of :description }
+    it { should validate_presence_of :transaction_id }
+    it { should validate_uniqueness_of :transaction_id }
   end
 end

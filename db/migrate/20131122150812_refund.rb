@@ -1,8 +1,9 @@
 class Refund < ActiveRecord::Migration
   def change
     create_table :refunds do |t|
-      t.string :refund_reason
-      t.text :refund_description
+      t.integer :transaction_id
+      t.string :reason
+      t.text :description
  
       t.timestamps
     end

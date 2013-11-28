@@ -23,3 +23,12 @@
     color: $blue;
   }
 }
+
+@mixin whitebox {
+  word-break: break-word;
+  color: #3c3c3c;
+  border-radius: 0.8em;
+  background: #fff;
+  padding: 1em;
+  margin-bottom: 1.5em;
+}

@@ -31,9 +31,9 @@ class LegalEntity < User
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
-    seller.validates :terms , :presence => true , :length => { :maximum => 20000 } , :on => :update
-    seller.validates :cancellation , :presence => true , :length => { :maximum => 10000 } , :on => :update
-    seller.validates :about , :presence => true , :length => { :maximum => 10000 } , :on => :update
+    seller.validates :terms , presence: true , length: { maximum: 20000 } , on: :update
+    seller.validates :about , presence: true , length: { maximum: 10000 } , on: :update
+    seller.validates :cancellation , presence: true , length: { maximum: 10000 } , on: :update
   end
 
   state_machine :seller_state, :initial => :standard_seller do
@@ -53,10 +53,10 @@ class LegalEntity < User
 
   def commercial_seller_constants
     commercial_seller_constants = {
-      :standard_salesvolume => $commercial_seller_constants['standard_salesvolume'],
-      :verified_bonus => $commercial_seller_constants['verified_bonus'],
-      :good_factor => $commercial_seller_constants['good_factor'],
-      :bad_salesvolume => $commercial_seller_constants['bad_salesvolume']
+      standard_salesvolume: $commercial_seller_constants['standard_salesvolume'],
+      verified_bonus: $commercial_seller_constants['verified_bonus'],
+      good_factor: $commercial_seller_constants['good_factor'],
+      bad_salesvolume: $commercial_seller_constants['bad_salesvolume']
     }
   end
 
@@ -79,6 +79,10 @@ class LegalEntity < User
       value = value && calculate_percentage_of_biased_ratings( "positive", rating ) > 90
     end
     value
+  end
+
+  def can_refund? transaction
+    Time.now >= transaction.sold_at + 14.days && Time.now <= transaction.sold_at + 45.days
   end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails

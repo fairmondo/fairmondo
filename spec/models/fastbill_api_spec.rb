@@ -1,12 +1,10 @@
 require 'spec_helper'
+include FastBillStubber
 
 describe FastbillAPI do
   describe "methods" do
     before do
-      Fastbill::Automatic::Customer.stub( :create ).and_return(Fastbill::Automatic::Customer.new(customer_id: 1))
-      Fastbill::Automatic::Subscription.stub(:create).and_return(Fastbill::Automatic::Subscription.new(subscription_id: 1))
-      Fastbill::Automatic::Subscription.stub(:setusagedata)
-      Fastbill::Automatic::Subscription.stub(:get).and_return([Fastbill::Automatic::Subscription.new(subscription_id: 1)])
+      stub_fastbill
     end
 
     let( :transaction ) { Transaction.new }
@@ -28,8 +26,8 @@ describe FastbillAPI do
 
       context "seller is not an NGO" do
         context "and has Fastbill profile" do
+          let( :db_transaction ) { FactoryGirl.create :transaction_with_buyer, :fastbill_profile }
           it "should not create new Fastbill profile" do
-            seller.has_fastbill_profile = true
             FastbillAPI.should_not_receive( :fastbill_create_customer )
             FastbillAPI.should_not_receive( :fastbill_create_subscription )
             FastbillAPI.fastbill_chain( db_transaction )

@@ -42,6 +42,7 @@ de:
       to_cart: "Kaufen"
       collect: "Sammeln"
       move: "Verschieben"
+      send: 'Absenden'
     title:
       man: "Herr"
       woman: "Frau"
