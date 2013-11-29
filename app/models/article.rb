@@ -63,7 +63,8 @@ class Article < ActiveRecord::Base
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
-    Images, BuildTransaction, Attributes, Search, Template, State, Scopes, Checks
+          Images, BuildTransaction, Attributes, Search, Template, State, Scopes, 
+          Checks, Discountable
 
   def self.article_attrs with_nested_template = true
     (

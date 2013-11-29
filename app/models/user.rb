@@ -77,6 +77,8 @@ class User < ActiveRecord::Base
   has_many :notices
   has_many :mass_uploads
 
+  has_many :discount_cards
+
   ##
   has_one :image, as: :imageable
   accepts_nested_attributes_for :image

@@ -54,7 +54,6 @@ class FastbillAPI
         customer.update_attributes( customer_id: user.fastbill_id,
                                   customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
                                   organization: "#{ user.company_name if user.is_a?(LegalEntity) }",
-                                  salutation: user.title,
                                   first_name: user.forename,
                                   last_name: user.surname,
                                   address: user.street,
@@ -65,7 +64,7 @@ class FastbillAPI
                                   language_code: 'DE',
                                   email: user.email,
                                   currency_code: 'EUR',
-                                  payment_type: '2',
+                                  payment_type: user.direct_debit ? '2' : '1',
                                   show_payment_notice: '1',
                                   bank_name: user.bank_name,
                                   bank_code: user.bank_code,
@@ -90,9 +89,9 @@ class FastbillAPI
       Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                       article_number: fee_type == :fair ? '11' : '12',
                                                       quantity: transaction.quantity_bought,
-                                                      unit_price: fee_type == :fair ? (article.calculated_fair_cents / 100.0) : (article.calculated_fee_cents / 100.0),
+                                                      unit_price: fee_type == :fair ? (article.calculated_fair_cents / 100.0 / 1.19) : (article.calculated_fee_cents / 100.0 / 1.19),
                                                       description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
-                                                      usage_date: transaction.sold_at.strftime("%H:%M:%S %Y-%m-%d")
+                                                      usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                     )
     end
 
