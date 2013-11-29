@@ -23,25 +23,28 @@ module Article::Export
   extend ActiveSupport::Concern
 
   def self.export_articles(user, params = nil)
-    header_row = MassUpload.header_row
+    article_attributes = MassUpload.article_attributes
+    buyer_attributes = MassUpload.buyer_attributes
     articles = determine_articles_to_export(user, params)
 
     CSV.generate(:col_sep => ";") do |line|
-      line << header_row
+      line << article_attributes + buyer_attributes
       articles.each do |article|
         row = Hash.new
         row.merge!(article.provide_fair_attributes)
         row.merge!(article.attributes)
+        buyer_information = article.transaction.attributes.slice(*buyer_attributes)
+        row.merge!(buyer_information)
         row["categories"] = article.categories.map { |c| c.id }.join(",")
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
-        line << header_row.map { |element| row[element] }
+        line << article_attributes.map { |element| row[element] } + buyer_attributes.map { |element| buyer_information[element]}
       end
     end
   end
 
   def self.export_erroneous_articles(erroneous_articles)
-    csv = CSV.generate_line(MassUpload.header_row, :col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes, :col_sep => ";")
     erroneous_articles.each do |article|
       csv += article.article_csv
     end
