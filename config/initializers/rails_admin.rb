@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  config.excluded_models = [ 'LegalEntity', 'PrivateUser']
+  config.excluded_models = [ 'LegalEntity', 'PrivateUser', 'DiscountCard']
 
   # Include specific models (exclude the others):
   # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'Transaction', 'User']
@@ -125,6 +125,7 @@ RailsAdmin.config do |config|
        field :gtin
        field :transport_type1_number
        field :transport_type2_number
+       field :discount_id
 
   #   # Cross-section configuration:
 

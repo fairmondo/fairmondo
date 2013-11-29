@@ -23,8 +23,8 @@
 class TransactionObserver < ActiveRecord::Observer
   def after_buy transaction, transition
     if !transaction.multiple? && transaction.sold?
-      # Start the invoice action chain, to create invoices and add items to invoice
-      # Invoice.invoice_action_chain( transaction )
+      Discount.create_or_update_discount_card( transaction ) if transaction.article.discount_id
+      # Start the fastbill chain, to create invoices and add items to invoice
       FastbillAPI.fastbill_chain( transaction )
     end
   end
