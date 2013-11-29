@@ -62,7 +62,7 @@ class MassUpload < ActiveRecord::Base
     [:file]
   end
 
-  def self.header_row
+  def self.article_attributes
    ["€", "id", "title", "categories", "condition", "condition_extra",
     "content", "quantity", "price_cents", "basic_price_cents",
     "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
@@ -92,6 +92,11 @@ class MassUpload < ActiveRecord::Base
     "upcycling_reason", "small_and_precious_eu_small_enterprise",
     "small_and_precious_reason", "small_and_precious_handmade",
     "gtin", "custom_seller_identifier", "action"]
+  end
+
+  def self.buyer_attributes
+    ["selected_transport", "selected_payment", "message", "quantity_bought",
+      "forename", "surname", "street", "city", "zip", "country", "sold_at"]
   end
 
   def articles_for_mass_activation
@@ -159,7 +164,7 @@ class MassUpload < ActiveRecord::Base
     validation_errors = ""
     expanded_row = ";" + row.to_csv(:col_sep => ";") # Because the "€" column has been deleted before
                                                      #we have to prepend the csv with a ";" because
-                                                     # otherwise the content wouldn't match withe the header_row anymore
+                                                     # otherwise the content wouldn't match withe the article_attributes anymore
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
@@ -190,7 +195,7 @@ class MassUpload < ActiveRecord::Base
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
       row_hash.keys.each do |key|
-        row_hash.delete key unless MassUpload.header_row.include? key
+        row_hash.delete key unless MassUpload.article_attributes.include? key
       end
       row_hash
     end
