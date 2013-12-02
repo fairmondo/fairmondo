@@ -45,7 +45,7 @@
     %h2.Teaser-header
       MIT SPENDENANTEIL
     = render "exhibition", articles: @pioneer, layout: :double
-
+    = link_to t('common.actions.more'), articles_path(:article => {:search_order_by => :most_donated }), :class => "Btn"
 .l-Teaser--double.l-Teaser--slides
   .Teaser.Teaser--text
     #slides
