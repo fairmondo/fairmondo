@@ -7,10 +7,11 @@ class CategoriesController < InheritedResources::Base
   respond_to :html, :only => :index
 
   def show
+    @children = resource.children
+    @children = @children.delete_if { |child| child.children.empty? && child.active_articles.empty? } if params[:hide_empty]
     show! do |format|
       format.json do
-        return_hash = resource.children.map { |child| {id: child.id, name: child.name} }
-        render :json => return_hash.to_json()
+        render :json => @children.map { |child| {id: child.id, name: child.name} }.to_json
       end
     end
   end
