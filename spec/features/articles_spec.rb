@@ -448,7 +448,7 @@ describe "Pioneer of the day" do
 
     visit article_path FactoryGirl.create :article, title: 'Foobar'
     #click_on '*Pionier*-Artikel'
-    select('*Pionier*-Artikel', :from => 'exhibit_queue')
+    select(I18n.t('enumerize.exhibit.queue.donation_articles'), from: 'exhibit_queue')
     click_button I18n.t 'article.show.add_as_exhibit'
 
     visit root_path
