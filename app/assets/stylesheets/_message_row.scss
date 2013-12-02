@@ -1,22 +1,40 @@
 .Message-row-background {
-  @include at-breakpoint($layout-medium) {
-    height: 2em;
-  }
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   height: auto;
-  background-color: $darkgray;
+  background-color: #ffcc00;
+  margin-bottom: 1em;
 }
+
 .Message-row-foreground {
+  position: relative;
   @include container;
-  color: $beige;
-  padding-top: 0.3em;
+  color: $darkgray;
+  padding-top: 0.9em;
+  text-align: center;
+  .Cfk-header {
+    float: right;
+    position: absolute;
+    @include rem(top, 15px);
+    right: 0.5em;
+    color: $darkgray;
+    @include rem(font-size, $font-size-l);
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
   a {
-    color: $beige;
+    @include rem(font-size, 25px);
+    color: $darkgray;
     &:active, &:hover, &:focus {
-      color: $white;
-      text-decoration: underline;
+      color: $darkgray;
     }
     &:visited {
-      color: $darkbeige;
+      color: $darkgray;
     }
   }
 }
+
+
+
