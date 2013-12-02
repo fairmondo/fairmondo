@@ -27,7 +27,7 @@
       %img{ :src => image_path('thumbs/'+transaction.rating_value+'.png'), :alt => "thumb" }
 .ListItem-info
   .ListItem-title
-    %h3.Articles-title= link_to truncate(article.title, :length => 25), article_path(article), :title => article.title
+    %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
     %p.Article-price= humanized_money_with_symbol article.price
   .ListItem-detail
     = render 'articles/show/vat', :article => article
@@ -44,3 +44,5 @@
         = link_to t('transaction.completed.rate'), transaction_new_user_rating_path(transaction.seller, transaction), :class => "Btn Btn--small"
     - if transaction.seller == current_user
       = link_to t('transaction.completed.show_sold'), transaction_path(transaction), :class => "Btn Btn--small"
+  - else
+    = link_to t('common.actions.show'), article_path(article), :class => "Btn Btn--small"

@@ -38,7 +38,7 @@ module Article::Attributes
     #title
 
     validates_presence_of :title , :content
-    validates_length_of :title, :minimum => 6, :maximum => 65
+    validates_length_of :title, :minimum => 6, :maximum => 200
     validates_length_of :content, :maximum => 10000
 
 
