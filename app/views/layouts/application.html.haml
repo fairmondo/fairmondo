@@ -66,12 +66,17 @@
               = render_notice :type => type do
                 %p
                   = msg
+
       .HeaderArea
         %header.l-Header
-          - if controller.controller_name == 'welcome' && controller.action_name == 'index'
+          - unless cookies["cfk-header-disabled"]
             .Message-row-background
               .Message-row-foreground
                 = tinycms_content_body("nachrichtenzeile")
+                .Cfk-header
+                  %a{:href => "#"}
+                    ×
+
           .l-Inner
             .Logo
               %h1
