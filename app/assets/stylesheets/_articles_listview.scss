@@ -8,7 +8,9 @@
 
 .ListItem-image {
   position:relative;
-  float:left;
+  @include at-breakpoint($layout-small){
+    float:left;
+  }
   max-width:10em;
   margin-bottom: $pBottomMargin;
   @include at-breakpoint($layout-small-to-medium) {
@@ -81,6 +83,7 @@
 
 
 .ListItem-title {
+  word-break: break-all;
    @include at-breakpoint($layout-large) {
       @include span-columns(2 ,4);
    }
