@@ -19,29 +19,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'spec_helper'
+class ProcessMassUploadJob < Struct.new(:mass_upload_id)
+  def perform
+    mass_upload = MassUpload.find mass_upload_id
+    mass_upload.process_with_delay
+  end
 
-include Warden::Test::Helpers
-
-describe 'Exhibit' do
-
-    before :each do
-      @exhibit = FactoryGirl.create(:exhibit,:queue => :queue2 )
-      @exhibit2 = FactoryGirl.create(:exhibit,:queue => :queue2 )
-      @content = FactoryGirl.create(:content, :key => "heading_queue2", :body => "More")
-    end
-
-    it "should render a queued article" do
-      visit root_path
-      page.should have_selector '.Article--teaser'
-
-    end
-
-    it "should show more items if you visit the more link" do
-      visit root_path
-      click_link "More"
-      page.should have_selector '.Article--teaser'
-
-    end
-
+  def max_attempts
+    1
+  end
 end
