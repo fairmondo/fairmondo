@@ -27,6 +27,7 @@ de:
       continue: "Weiter"
       back: "Zurück"
       show: "Anzeigen"
+      show_article: "Zum Artikel"
       edit: "Bearbeiten"
       destroy: "Löschen"
       confirm: "Bist Du sicher?"
