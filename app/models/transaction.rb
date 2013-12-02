@@ -62,6 +62,9 @@ class Transaction < ActiveRecord::Base
   #fields of refund model, that should be available through transaction
   delegate :description, :reason, to: :refund, prefix: true
 
+  #fields for discounts
+  delegate :discount_id, to: :article, prefix: true
+
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
   validates :article, presence: true
