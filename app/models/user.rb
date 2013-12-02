@@ -339,6 +339,18 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
 
+  # should the fair alternative be shown for the seller
+  def show_fair_alternative_for_seller
+    if $no_fair_alternative && $no_fair_alternative['user_ids']
+        $no_fair_alternative['user_ids'].each do |user_id|
+        if self.id == user_id
+          return false
+        end
+      end
+    end
+    true
+  end
+
   private
     # @api private
     def create_default_library
