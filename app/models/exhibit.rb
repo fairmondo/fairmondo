@@ -5,10 +5,17 @@ class Exhibit < ActiveRecord::Base
     [:article, :queue, :related_article,:article_id,:related_article_id]
   end
 
-  enumerize :queue, in: [:pioneer,:dream_team,:old,:fairnopoly_likes,:fair_highlights,:ecologic_highlights,:small_and_precious_highlights,:queue1,:queue2,:queue3,:queue4]
+  enumerize :queue, in: [:pioneer, :dream_team, :old, :fairnopoly_likes,
+    :fair_highlights, :ecologic_highlights, :small_and_precious_highlights,
+    :queue1, :queue2, :queue3, :queue4]
 
   belongs_to :article
   belongs_to :related_article, class_name: "Article"
+
+  scope :one_day_exhibited, lambda {where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
+  scope :oldest_first, order("exhibits.created_at ASC")
+  scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
+  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
 
   def self.independent_queue queue, count = 2
     exhibits = Exhibit.where(:queue => queue).one_day_exhibited.article_active.oldest_first.limit count
@@ -41,11 +48,5 @@ class Exhibit < ActiveRecord::Base
        Exhibit.find(self.id).update_attribute(:exhibition_date, DateTime.now)
     end
   end
-
-  scope :one_day_exhibited, lambda {where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
-  scope :oldest_first, order("exhibits.created_at ASC")
-
-  scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
-  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
 
 end
