@@ -120,8 +120,8 @@
                   %img{:src => image_path('missing.png'), :alt => "missing"}
                 - else
                   %img{:src => @transaction.article.title_image_url(:thumb)}
-                %figcaption
-                  = link_to truncate( @transaction.article_title, :length => 25), article_path( @transaction.article )
+                %figcaption.Article-title
+                  = link_to truncate( @transaction.article_title, :length => 20), article_path( @transaction.article )
 
             %br
             %h3
