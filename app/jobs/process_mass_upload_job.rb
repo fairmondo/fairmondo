@@ -22,7 +22,7 @@
 class ProcessMassUploadJob < Struct.new(:mass_upload_id)
   def perform
     mass_upload = MassUpload.find mass_upload_id
-    mass_upload.process_with_delay
+    mass_upload.process_without_delay
   end
 
   def max_attempts
