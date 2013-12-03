@@ -31,6 +31,7 @@ module Article::Categories
 
     # categories refs #154
     has_and_belongs_to_many :categories
+
     validates :categories, :size => {
       :in => 1..2,
       :add_errors_to => [:categories, :categories_and_ancestors]
