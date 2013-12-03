@@ -31,7 +31,10 @@
         .Teaser-queue
           = render "exhibition", articles: queue, layout: :single
           %p.Teaser-more
-            = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
+            - if index == 0
+              = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), 'https://info.fairnopoly.de/category/adventskalender/', :class => "Btn", target: '_blank'
+            - else
+              = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
 .l-Teaser--double.l-Teaser--collapsible.l-Teaser--old
   .Teaser
     %h2.Teaser-header
@@ -41,7 +44,7 @@
   .Teaser
     %h2.Teaser-header
       MIT SPENDENANTEIL
-    = render "exhibition", articles: @pioneer, layout: :double
+    = render "exhibition", articles: @donation_articles, layout: :double
 
 .l-Teaser--double.l-Teaser--slides
   .Teaser.Teaser--text

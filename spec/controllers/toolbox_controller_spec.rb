@@ -71,7 +71,7 @@ describe ToolboxController do
   end
 
   describe "GET 'notice'" do
-    before(:each) do
+    before do
       @notice = FactoryGirl.create :notice
       sign_in user
     end
@@ -81,7 +81,28 @@ describe ToolboxController do
       response.should redirect_to(@notice.path)
       @notice.reload.open.should be false
     end
-
   end
 
+  describe "PUT reindex" do
+    before do
+      sign_in user
+    end
+
+    context "for normal users" do
+      it "should not be allowed" do
+        expect { put :reindex, article_id: 1 }.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
+    context "for admin users" do
+      let(:user) { FactoryGirl.create :admin_user }
+      it "should do something" do
+        article = FactoryGirl.create :article
+        Article.any_instance.should_receive(:index)
+
+        request.env["HTTP_REFERER"] = '/'
+        put :reindex, article_id: article.id
+      end
+    end
+  end
 end

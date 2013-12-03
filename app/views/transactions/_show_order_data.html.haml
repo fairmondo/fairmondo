@@ -5,7 +5,7 @@
 
 %h1
   = t 'transaction.edit.heading'
-%h3
+%h3.Article-title
   = link_to "#{transaction.article_title}", article_path( transaction.article )
 = "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
 %br
@@ -21,7 +21,7 @@
 
 %h4= t('transaction.notifications.seller.order_infos')
 
-= simple_format order_details transaction
+= simple_format(order_details(transaction), :class => "Article-title")
 
 = simple_format article_payment_info transaction, :seller
 
