@@ -30,14 +30,12 @@ class Category < ActiveRecord::Base
   #! attr_accessible :name, :parent, :desc, :parent_id, :article_ids, :child_ids, :created_at, :updated_at, as: :admin
 
   has_and_belongs_to_many :articles
+  has_and_belongs_to_many :active_articles, :class_name => 'Article', :conditions => {:state => "active"}
+  # There is no possible way to keep a counter cache here
 
-  belongs_to :parent , :class_name => 'Category'
-
-  # Doesn't work with our category tree
-  #validates :name, :uniqueness => true
+  belongs_to :parent , :class_name => 'Category', :counter_cache => :children_count
 
   acts_as_nested_set
-
 
   def self_and_ancestors_ids
     self_and_ancestors = [ self.id ]

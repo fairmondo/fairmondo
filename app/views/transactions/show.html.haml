@@ -10,7 +10,7 @@
         - if resource.buyer == current_user
           %h1
             = t 'transaction.edit.heading'
-          %h2
+          %h2.Article-title
             = link_to "#{resource.article.title}", article_path( resource.article )
           %h3
             = "Gekauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
