@@ -26,9 +26,9 @@ include Warden::Test::Helpers
 describe 'Exhibit' do
 
     before :each do
-      @exhibit = FactoryGirl.create(:exhibit,:queue => :queue1 )
-      @exhibit2 = FactoryGirl.create(:exhibit,:queue => :queue1 )
-      @content = FactoryGirl.create(:content, :key => "heading_queue1", :body => "More")
+      @exhibit = FactoryGirl.create(:exhibit,:queue => :queue2 )
+      @exhibit2 = FactoryGirl.create(:exhibit,:queue => :queue2 )
+      @content = FactoryGirl.create(:content, :key => "heading_queue2", :body => "More")
     end
 
     it "should render a queued article" do

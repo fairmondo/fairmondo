@@ -21,6 +21,11 @@
 #
 
 class ArticleObserver < ActiveRecord::Observer
+  # ATTENTION !!!
+  # The MassUploader Model won't trigger any callbacks in this file
+  # If you write callbacks that need to be triggert on a mass upload as well
+  # make sure to trigger them manually there
+
   def after_save(article)
     # Send a Category Proposal
     if article.category_proposal.present?
