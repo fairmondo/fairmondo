@@ -107,7 +107,7 @@ class MassUpload < ActiveRecord::Base
     self.articles.empty? && self.erroneous_articles.empty?
   end
 
-  def process_with_delay
+  def process_without_delay
     self.start
     begin
       character_count = 0
