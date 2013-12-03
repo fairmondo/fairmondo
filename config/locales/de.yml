@@ -27,6 +27,7 @@ de:
       continue: "Weiter"
       back: "Zurück"
       show: "Anzeigen"
+      show_article: "Zum Artikel"
       edit: "Bearbeiten"
       destroy: "Löschen"
       confirm: "Bist Du sicher?"
@@ -43,6 +44,7 @@ de:
       to_cart: "Kaufen"
       collect: "Sammeln"
       move: "Verschieben"
+      more: "mehr"
     title:
       man: "Herr"
       woman: "Frau"

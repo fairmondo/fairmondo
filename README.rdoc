@@ -24,15 +24,15 @@ Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.
 Note: the automated process won't work under Windows.
 To run Fairnopoly locally in development mode, install ruby and rails. Then open up a console and <em>copy & paste</em> in the following line:
 
-    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout release && ruby setup.rb
+    git clone git@github.com:fairnopoly/fairnopoly.git && cd fairnopoly/ && git checkout develop && ruby setup.rb
 
 What this does:
 * It sets up a local git repository,
     git clone git@github.com:fairnopoly/fairnopoly.git
 * switches to the fairnopoly root path,
     cd fairnopoly/
-* switches the git branch to "release" (which is the branch we currently use for the beta version)
-    git checkout release
+* switches the git branch to "develop" 
+    git checkout develop
 * runs the Fairnopoly setup script
     ruby setup.rb
 

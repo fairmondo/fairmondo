@@ -1,7 +1,6 @@
-.article-display
-	%p
-		%h3
-			= link_to resource.article_title, resource.article
+.Article
+	%h3.Article-title
+		= link_to resource.article_title, resource.article
 	%p
 		= t 'transaction.edit.sold_by'
 		= link_to resource.article_seller_nickname, resource.article_seller

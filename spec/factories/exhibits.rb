@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :exhibit do
     article
-    queue "pioneer"
-    trait :old do
+    queue "old"
+    trait :expired do
       exhibition_date DateTime.now - 25.hours
     end
 
@@ -12,8 +12,5 @@ FactoryGirl.define do
       related_article {FactoryGirl.create(:article)}
       queue "dream_team"
     end
-
   end
-
-
 end

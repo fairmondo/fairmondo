@@ -27,6 +27,7 @@
 //= require jquery.ui.accordion
 //= require jquery.ui.tooltip
 //= require jquery.slides.min.js
+//= require jquery.cfk_teaser.js
 //= require modernizr
 //= require selectivizr
 //= require tinymce-jquery
