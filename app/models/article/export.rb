@@ -23,14 +23,18 @@ module Article::Export
   extend ActiveSupport::Concern
 
   def self.export_articles(user, params = nil)
-    article_attributes = MassUpload.article_attributes
-    buyer_attributes = MassUpload.buyer_attributes
+    export_attributes = MassUpload.article_attributes
     items = determine_articles_to_export(user, params)
+    transactions = false
+    if items.first.present? && items.first.is_a?(Transaction)
+      export_attributes += MassUpload.buyer_attributes
+      transactions = true
+    end
     CSV.generate(:col_sep => ";") do |line|
-      line << article_attributes + buyer_attributes
+      line << export_attributes
       items.each do |item|
         article = item
-        if item.is_a? Transaction
+        if transactions
           article = item.article
         end
         row = Hash.new
@@ -39,13 +43,11 @@ module Article::Export
         row["categories"] = article.categories.map { |c| c.id }.join(",")
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
-        if params == "sold"
-          buyer_information = item.attributes.slice(*buyer_attributes)
+        if transactions
+          buyer_information = item.attributes.slice(*MassUpload.buyer_attributes)
           row.merge!(buyer_information)
-          line << article_attributes.map { |element| row[element] } + buyer_attributes.map { |element| buyer_information[element]}
-        else
-          line << article_attributes.map { |element| row[element] }
         end
+        line << export_attributes.map { |element| row[element] }
       end
     end
   end
