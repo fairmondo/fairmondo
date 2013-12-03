@@ -321,6 +321,19 @@ describe 'Article management' do
     end
 
     describe "the article view" do
+
+      it "should show fair-alternativebox if seller is not on the whitelist" do
+          $no_fair_alternative['user_ids'] = []
+          visit article_path article_active
+          page.assert_selector('div.Related')
+       end
+
+      it  "should not show fair-alternativebox if seller is on the whitelist" do
+          $no_fair_alternative['user_ids'] = [article_active.seller.id]
+          visit article_path article_active
+          page.assert_no_selector('div.Related')
+      end
+
       it "should show a buy button that immediately forwards to the transaction page" do
         visit article_path article
         click_link I18n.t 'common.actions.to_cart'
@@ -364,6 +377,7 @@ describe 'Article management' do
 
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
+        $no_fair_alternative['user_ids'] = []
         visit article_path article
         if article.is_conventional?
           page.should have_content I18n.t 'article.show.no_alternative'
