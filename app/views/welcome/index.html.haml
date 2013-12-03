@@ -22,12 +22,12 @@
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
 
-.l-Teaser--queues
+.l-Teaser--queue
   .Teaser
     %h2.Teaser-header
       = tinycms_content_body_sanitized("heading_features").upcase
     .Teaser-queues
-      - [@queue1, @queue2, @queue3, @queue4].each_with_index do |queue,index|
+      - [@queue1, @queue2].each_with_index do |queue,index|
         .Teaser-queue
           = render "exhibition", articles: queue, layout: :single
           %p.Teaser-more
@@ -35,7 +35,17 @@
               = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), 'https://info.fairnopoly.de/category/adventskalender/', :class => "Btn", target: '_blank'
             - else
               = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
-.l-Teaser--double.l-Teaser--collapsible.l-Teaser--old
+.l-Teaser--queue.l-Teaser--collapsiblequeue
+  .Teaser
+    %h2.Teaser-header
+      = tinycms_content_body_sanitized("heading_features2").upcase
+    .Teaser-queues
+      - [@queue3, @queue4].each_with_index do |queue,index|
+        .Teaser-queue
+          = render "exhibition", articles: queue, layout: :single
+          %p.Teaser-more
+            = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Btn"
+.l-Teaser--double.l-Teaser--old
   .Teaser
     %h2.Teaser-header
       GEBRAUCHT BEI FAIRNOPOLY
