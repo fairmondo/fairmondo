@@ -25,20 +25,27 @@ module Article::Export
   def self.export_articles(user, params = nil)
     article_attributes = MassUpload.article_attributes
     buyer_attributes = MassUpload.buyer_attributes
-    articles = determine_articles_to_export(user, params)
-
+    items = determine_articles_to_export(user, params)
     CSV.generate(:col_sep => ";") do |line|
       line << article_attributes + buyer_attributes
-      articles.each do |article|
+      items.each do |item|
+        article = item
+        if item.is_a? Transaction
+          article = item.article
+        end
         row = Hash.new
         row.merge!(article.provide_fair_attributes)
         row.merge!(article.attributes)
-        buyer_information = article.transaction.attributes.slice(*buyer_attributes)
-        row.merge!(buyer_information)
         row["categories"] = article.categories.map { |c| c.id }.join(",")
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
-        line << article_attributes.map { |element| row[element] } + buyer_attributes.map { |element| buyer_information[element]}
+        if params == "sold"
+          buyer_information = item.attributes.slice(*buyer_attributes)
+          row.merge!(buyer_information)
+          line << article_attributes.map { |element| row[element] } + buyer_attributes.map { |element| buyer_information[element]}
+        else
+          line << article_attributes.map { |element| row[element] }
+        end
       end
     end
   end
@@ -60,11 +67,9 @@ module Article::Export
       articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
       articles.reverse
     elsif params == "sold"
-      articles = user.articles.where(:state => "sold")
-      articles.reverse_order
+      articles = user.sold_transactions.joins(:article)
     elsif params == "bought"
       articles = user.bought_articles
-      articles.reverse_order
     end
   end
 
