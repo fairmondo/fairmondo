@@ -51,6 +51,8 @@ class Article < ActiveRecord::Base
   belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
   belongs_to :mass_upload
 
+  has_one :discount
+
   validates_presence_of :user_id
 
   belongs_to :article_template

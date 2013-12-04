@@ -1,11 +1,8 @@
 class Discount < ActiveRecord::Base
   extend Sanitization
 
-  def self.discount_attrs
-    []
-  end
-
-  has_many :discount_cards
+  has_many :transactions
+  has_many :articles
 
   validates :title, presence: true
   validates :description, presence: true
@@ -18,4 +15,18 @@ class Discount < ActiveRecord::Base
   auto_sanitize :title, :description
 
   scope :current, where( "start_time < ? AND end_time > ?", Time.now, Time.now )
+
+  def self.discount_chain transaction
+    @transaction = transaction
+    if @transaction.discountable?
+      @transaction.discount_id = @transaction.article_discount_id
+
+      if @transaction.calculated_discount > @transaction.remaining_discount
+        @transaction.discount_value_cents = @transaction.remaining_discount
+      else
+        @transaction.discount_value_cents = @transaction.calculated_discount
+      end
+    end
+    @transaction.save
+  end
 end
