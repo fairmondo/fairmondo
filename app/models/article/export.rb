@@ -27,7 +27,7 @@ module Article::Export
     items = determine_articles_to_export(user, params)
     transactions = false
     if items.first.present? && items.first.is_a?(Transaction)
-      export_attributes += MassUpload.buyer_attributes
+      export_attributes += MassUpload.transaction_attributes
       transactions = true
     end
     CSV.generate(:col_sep => ";") do |line|
@@ -44,7 +44,21 @@ module Article::Export
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
         if transactions
-          buyer_information = item.attributes.slice(*MassUpload.buyer_attributes)
+          fee = article.calculated_fee * item.quantity_bought
+          donation = article.calculated_fair * item.quantity_bought
+          transaction_information = { "transport_provider" => item.selected_transport_provider,
+                                      "sales_price_cents" => item.article_price * item.quantity_bought * 100,
+                                      "price_without_vat_cents" => article.price_without_vat * 100,
+                                      "vat_cents" => article.vat_price * 100,
+                                      "shipping_and_handling_cents" => item.article_transport_price(item.selected_transport, item.quantity_bought) * 100,
+                                      "buyer_email" => item.buyer_email,
+                                      "fee_cents" => fee * 100,
+                                      "donation_cents" => donation * 100,
+                                      "total_fee_cents" => (fee + donation) * 100,
+                                      "net_total_fee_cents" => ((fee + donation) - (fee + donation) * 0.19) * 100,
+                                      "vat_total_fee_cents" => (fee + donation) * 0.19 * 100}
+          row.merge!(transaction_information)
+          buyer_information = item.attributes.slice(*MassUpload.transaction_attributes)
           row.merge!(buyer_information)
         end
         line << export_attributes.map { |element| row[element] }

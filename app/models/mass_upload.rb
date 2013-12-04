@@ -94,9 +94,13 @@ class MassUpload < ActiveRecord::Base
     "gtin", "custom_seller_identifier", "action"]
   end
 
-  def self.buyer_attributes
-    ["selected_transport", "selected_payment", "message", "quantity_bought",
-      "forename", "surname", "street", "city", "zip", "country", "sold_at"]
+  def self.transaction_attributes
+    ["sales_price_cents", "price_without_vat_cents", "vat_cents",
+      "selected_transport", "transport_provider", "shipping_and_handling_cents",
+      "selected_payment", "message", "quantity_bought", "forename", "surname",
+      "address_suffix", "street", "city", "zip", "country", "buyer_email",
+      "fee_cents", "donation_cents", "total_fee_cents", "net_total_fee_cents",
+      "vat_total_fee_cents", "sold_at"]
   end
 
   def articles_for_mass_activation
