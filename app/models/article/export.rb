@@ -44,19 +44,19 @@ module Article::Export
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
         if transactions
-          fee = article.calculated_fee * item.quantity_bought
-          donation = article.calculated_fair * item.quantity_bought
+          fee = article.calculated_fee_cents * item.quantity_bought
+          donation = article.calculated_fair_cents * item.quantity_bought
           transaction_information = { "transport_provider" => item.selected_transport_provider,
-                                      "sales_price_cents" => item.article_price * item.quantity_bought * 100,
-                                      "price_without_vat_cents" => article.price_without_vat * 100,
-                                      "vat_cents" => article.vat_price * 100,
-                                      "shipping_and_handling_cents" => item.article_transport_price(item.selected_transport, item.quantity_bought) * 100,
+                                      "sales_price_cents" => article.price_cents * item.quantity_bought,
+                                      "price_without_vat_cents" => (article.price_without_vat.to_d * 100).to_i,
+                                      "vat_cents" => (article.vat_price.to_d * 100).to_i,
+                                      "shipping_and_handling_cents" => (item.article_transport_price(item.selected_transport, item.quantity_bought).to_d * 100).to_i,
                                       "buyer_email" => item.buyer_email,
-                                      "fee_cents" => fee * 100,
-                                      "donation_cents" => donation * 100,
-                                      "total_fee_cents" => (fee + donation) * 100,
-                                      "net_total_fee_cents" => ((fee + donation) - (fee + donation) * 0.19) * 100,
-                                      "vat_total_fee_cents" => (fee + donation) * 0.19 * 100}
+                                      "fee_cents" => fee,
+                                      "donation_cents" => donation,
+                                      "total_fee_cents" => (fee + donation),
+                                      "net_total_fee_cents" => ((fee + donation) / 1.19).round(0),
+                                      "vat_total_fee_cents" => ((fee + donation) * 0.19).round(0)}
           row.merge!(transaction_information)
           buyer_information = item.attributes.slice(*MassUpload.transaction_attributes)
           row.merge!(buyer_information)
