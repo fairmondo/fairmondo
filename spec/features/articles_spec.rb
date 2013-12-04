@@ -321,6 +321,7 @@ describe 'Article management' do
     end
 
     describe "the article view" do
+
       it "should show a buy button that immediately forwards to the transaction page" do
         visit article_path article
         click_link I18n.t 'common.actions.to_cart'
@@ -357,6 +358,24 @@ describe 'Article management' do
 
     describe "the article view" do
 
+      before do
+        @seller = FactoryGirl.create :user
+         @article_conventional = FactoryGirl.create :no_second_hand_article, :seller => @seller
+      end
+
+      it "should show fair-alternativebox if seller is not on the whitelist" do
+          $no_fair_alternative['user_ids'] = []
+          visit article_path @article_conventional
+           page.assert_selector('div.Related')
+
+       end
+
+     it  "should not show fair-alternativebox if seller is on the whitelist" do
+          $no_fair_alternative['user_ids'] = [@seller.id]
+          visit article_path @article_conventional
+          page.assert_no_selector('div.Related')
+      end
+
       it "should be accessible" do
         visit article_path article
         page.status_code.should be 200
@@ -364,6 +383,7 @@ describe 'Article management' do
 
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
+        $no_fair_alternative['user_ids'] = []
         visit article_path article
         if article.is_conventional?
           page.should have_content I18n.t 'article.show.no_alternative'
