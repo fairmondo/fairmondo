@@ -107,10 +107,10 @@ describe "Export" do
             should have_link I18n.t('articles.export.bought')
           end
 
-          # it "should be equal to the uploaded file" do
-          #   @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
-          #   @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test.csv')
-          # end
+          it "should be equal to the uploaded file" do
+            @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
+            @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test.csv')
+          end
         end
       end
     end
@@ -123,13 +123,13 @@ describe "Export" do
         click_button I18n.t('mass_uploads.labels.upload_article')
       end
 
-      # describe "when exporting inactive articles" do
+      describe "when exporting inactive articles" do
 
-      #   it "should be equal to the uploaded file" do
-      #     @csv = Article::Export.export_articles(legal_entity, "inactive")
-      #     @csv.should == File.read('spec/fixtures/export_social_producer.csv')
-      #   end
-      # end
+        it "should be equal to the uploaded file" do
+          @csv = Article::Export.export_articles(legal_entity, "inactive")
+          @csv.should == File.read('spec/fixtures/export_social_producer.csv')
+        end
+      end
     end
 
     describe "dealing with wrong articles" do
