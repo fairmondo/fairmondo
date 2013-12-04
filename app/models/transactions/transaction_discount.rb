@@ -34,7 +34,7 @@ module TransactionDiscount
   end
 
   def calculated_discount
-    self.article_calculated_fee_cents - self.article_calculated_fee_cents / 100.0 * self.discount.percent 
+    self.quantity_bought * ( self.article_calculated_fee_cents / 100.0 * self.discount.percent )
   end
 
   def remaining_discount
