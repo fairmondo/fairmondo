@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Discount do
   describe 'associations' do
-    it { should have_many :discount_cards }
+    it { should have_many :transactions }
   end
 
   describe 'attributes' do
@@ -13,5 +13,10 @@ describe Discount do
     it { should respond_to :percent }
     it { should respond_to :max_discounted_value_cents }
     it { should respond_to :num_of_discountable_articles }
+  end
+
+  describe 'methods' do
+    describe '::discount_chain' do
+    end
   end
 end

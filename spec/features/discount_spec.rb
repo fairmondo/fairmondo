@@ -11,11 +11,5 @@ describe Discount do
       click_button buy
       FastbillAPI.should not_receive setusage_data
     end
-
-    it 'should generate discount card for user' do
-      visit transaction_path( transaction )
-      click_button buy
-      seller.should have discount_card
-    end
   end
 end

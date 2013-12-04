@@ -24,12 +24,12 @@ class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
+  include TransactionRefund, TransactionDiscount
+
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
-#  belongs_to :invoice, class_name: 'Invoice', foreign_key: 'invoice_id' # INVOICE
 	has_one :rating
-  has_one :refund, inverse_of: :transaction
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
@@ -37,8 +37,6 @@ class Transaction < ActiveRecord::Base
     :refund_reason, :refund_explanation]
   end
   attr_accessor :updating_state, :updating_multiple
-  #attr_accessible *transaction_attributes
-  #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
   auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
 
@@ -49,7 +47,9 @@ class Transaction < ActiveRecord::Base
            :transport_provider, :transport_price, :payment_cash_on_delivery_price,
            :basic_price, :basic_price_amount, :basic_price_amount_text, :price, :vat, :vat_price,
            :price_without_vat, :total_price, :quantity, :quantity_left,
-           :transport_type1_provider, :transport_type2_provider, :calculated_fair, :friendly_percent, :friendly_percent_organisation,
+           :transport_type1_provider, :transport_type2_provider, :calculated_fair,
+           :calculated_fair_cents, :calculated_fee, :calculated_fee_cents,
+           :friendly_percent, :friendly_percent_organisation,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
@@ -59,12 +59,6 @@ class Transaction < ActiveRecord::Base
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
 
-  #fields of refund model, that should be available through transaction
-  delegate :description, :reason, to: :refund, prefix: true
-
-  #fields for discounts
-  delegate :discount_id, to: :article, prefix: true
-
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceTransaction", "PartialFixedPriceTransaction", "SingleFixedPriceTransaction", "PreviewTransaction"]
   validates :article, presence: true
@@ -72,8 +66,6 @@ class Transaction < ActiveRecord::Base
   # UPDATE
   validates :tos_accepted, acceptance: { accept: true }, on: :update
   #validates :message, allow_blank: true, on: :update
-
-  validates :invoice_id, presence: :true, on: :buy
 
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |transaction|
@@ -213,15 +205,6 @@ class Transaction < ActiveRecord::Base
   # Default behavior for associations in subclasses
   def parent; nil; end
   def children; []; end
-
-  # checks if user has requested refund for this transaction
-  def requested_refund?
-    !!( refund && refund_reason && refund_description )
-  end
-
-  def refundable?
-    self.seller.can_refund? self
-  end
 
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.

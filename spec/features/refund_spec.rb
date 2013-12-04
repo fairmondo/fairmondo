@@ -32,6 +32,13 @@ describe Refund do
     end
   end
 
-  context 'logged out user' do
+  context 'visitor' do
+    visit new_transaction_refund_path( transaction )
+    page.should_not have_content( I18n.t( 'refund.heading' ) )
+    page.should_not have_content( I18n.t( 'formtastic.labels.refund.reason' ) )
+    page.should_not have_content( I18n.t( 'formtastic.labels.refund.description' ) )
+    page.should_not have_selector( '#refund_reason' )
+    page.should_not have_selector( '#refund_description' )
+    page.should_not have_button( I18n.t( 'common.actions.send' ) )
   end
 end
