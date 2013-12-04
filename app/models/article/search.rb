@@ -77,6 +77,7 @@ module Article::Search
     handle_asynchronously :solr_index, queue: 'indexing', priority: 50
     handle_asynchronously :solr_index!, queue: 'indexing', priority: 50
 
+    skip_callback :save, :after, :perform_index_tasks, :if => lambda { self.preview? }
 
     alias_method_chain :remove_from_index, :delayed
     alias :solr_remove_from_index :remove_from_index

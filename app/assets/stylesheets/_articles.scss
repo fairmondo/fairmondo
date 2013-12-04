@@ -185,7 +185,7 @@ span.Article-price {
     top: 0;
     right: 0;
   }
-  .Article-title {
+  h3 {
     @extend %Semibold;
     @include rem(font-size, 16px);
     text-align: center;
@@ -204,6 +204,9 @@ span.Article-price {
   @include transition(width 200ms ease-in);
 }
 
+.Article-title {
+  word-break: break-all;
+}
 
 //
 // Responsive layout
@@ -260,5 +263,22 @@ span.Article-price {
 .ArticleViewLibrarySelector {
   @include at-breakpoint($layout-large) {
     max-width: 185px !important;
+  }
+}
+
+.Article-admin {
+  color: $red;
+  background-color: $white;
+  padding: .5em;
+  border-top: $beige 0.15em solid;
+  @include border-radius(0.9em);
+}
+
+// Transactions
+
+#Article-price-table {
+  width:100%;
+  td {
+    word-break: break-all;
   }
 }

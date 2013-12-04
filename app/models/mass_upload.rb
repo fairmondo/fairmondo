@@ -68,8 +68,8 @@ class MassUpload < ActiveRecord::Base
     "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
     "transport_pickup", "transport_type1",
     "transport_type1_provider", "transport_type1_price_cents",
-    "transport_type2", "transport_type2_provider",
-    "transport_type2_price_cents", "transport_details",
+    "transport_type1_number", "transport_type2", "transport_type2_provider",
+    "transport_type2_price_cents", "transport_type2_number", "transport_details",
     "payment_bank_transfer", "payment_cash", "payment_paypal",
     "payment_cash_on_delivery",
     "payment_cash_on_delivery_price_cents", "payment_invoice",
@@ -102,24 +102,31 @@ class MassUpload < ActiveRecord::Base
     self.articles.empty? && self.erroneous_articles.empty?
   end
 
-  def process
+  def process_without_delay
     self.start
     begin
       character_count = 0
+      article_count = 0
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        article_count += 1
         row.delete '€'
-        process_row row, $. # $. gives current line number (see: http://stackoverflow.com/questions/12407035/ruby-csv-get-current-line-row-number)
+        process_row row, article_count
         character_count += row.to_s.bytesize
-        set_progress($., character_count, row) if $. % 100 == 0
+        set_progress(article_count, character_count, row) if article_count % 50 == 0
       end
     self.finish
+
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
+    self.user.notify I18n.t('mass_uploads.labels.finished'), self.finished? ? Rails.application.routes.url_helpers.mass_upload_path(self) : Rails.application.routes.url_helpers.user_path(self.user)
   end
-  handle_asynchronously :process
+
+  def process
+    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id)
+  end
 
   def set_progress article_count, character_count, row
     self.article_count = article_count
@@ -174,6 +181,13 @@ class MassUpload < ActiveRecord::Base
     article.transport_type2_price_cents ||= 0
     article.payment_cash_on_delivery_price_cents ||= 0
   end
+
+  def update_solr_index_for article_ids
+    articles = Article.find article_ids
+    Sunspot.index articles
+    Sunspot.commit
+  end
+  handle_asynchronously :update_solr_index_for
 
   private
     # Throw away additional fields that are not needed

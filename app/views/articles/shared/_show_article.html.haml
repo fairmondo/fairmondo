@@ -25,7 +25,7 @@
 
 .Article-info
 
-  %h3.Articles-title= link_to article.title, article_path(article), :title => article.title
+  %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
   %p.Article-price= humanized_money_with_symbol article.price
   = render 'articles/show/vat', :article => article
   = render '/articles/show/basic_price', :article => article
@@ -33,3 +33,10 @@
 .Article-tags
   = condition_label article
   = commendation_labels_for article
+
+- if User.is_admin?(current_user) && article.exhibits.present?
+  .Article-admin
+    %p= 'löschen aus:'
+    - article.exhibits.each do |exhibit|
+      = (link_to t('enumerize.exhibit.queue.'+exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
+

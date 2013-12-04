@@ -5,6 +5,7 @@ class MassUploadsController < InheritedResources::Base
   before_filter :ensure_complete_profile , :only => [:new, :create]
   before_filter :authorize_resource, only: [:show, :update]
   before_filter :authorize_build_resource, only: [:new, :create]
+  before_filter :check_value_of_goods, :only => [:update]
 
   def show
     show! do |format|
@@ -23,13 +24,10 @@ class MassUploadsController < InheritedResources::Base
   end
 
   def update
-    articles = resource.articles.where("activation_action IS NOT NULL")
-
-    articles.each do |article|
-      #Skip validation in favor of performance
-      article.update_column :state, 'active'
-      article.solr_index!
-    end
+    articles_to_activate = resource.articles.where("activation_action IS NOT NULL")
+    activation_ids = articles_to_activate.map{|article| article.id }
+    articles_to_activate.update_all({:state => 'active'})
+    resource.update_solr_index_for activation_ids
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
     redirect_to user_path(resource.user)
   end

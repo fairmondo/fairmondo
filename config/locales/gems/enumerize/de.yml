@@ -176,6 +176,19 @@ de:
         cash_on_delivery: Nachnahme
         invoice: Rechnung
 
+    exhibit:
+      queue:
+        donation_articles: '*Spendenanteil*-Artikel'
+        dream_team: '(Dream Team)'
+        old: '*Gebraucht bei Fairnopoly*-Artikel'
+        fairnopoly_likes: '*Fairnopoly mag*-Artikel'
+        fair_highlights: '*Besonders & fair*-Artikel'
+        ecologic_highlights: '*Besonders & öko*-Artikel'
+        small_and_precious_highlights: '*Besonders & edel*-Artikel'
+        queue1: 'Queue1'
+        queue2: 'Queue2'
+        queue3: 'Queue3'
+        queue4: 'Queue4'
 
     feedback:
       feedback_subject:

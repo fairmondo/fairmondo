@@ -12,6 +12,7 @@ de:
     claim: "dreh' das Spiel um"
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
+      crowd_funding: "Fairnopoly braucht 500.000 Euro! Hier geht es zu unserer Crowdfunding-Kampagne:\nhttp://www.startnext.de/fairnopoly2"
       spacer: "----------"
       intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
@@ -26,6 +27,7 @@ de:
       continue: "Weiter"
       back: "Zurück"
       show: "Anzeigen"
+      show_article: "Zum Artikel"
       edit: "Bearbeiten"
       destroy: "Löschen"
       confirm: "Bist Du sicher?"
@@ -43,6 +45,7 @@ de:
       collect: "Sammeln"
       move: "Verschieben"
       send: 'Absenden'
+      more: "mehr"
     title:
       man: "Herr"
       woman: "Frau"

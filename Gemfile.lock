@@ -431,6 +431,7 @@ DEPENDENCIES
   coveralls
   daemons
   debugger
+  debugger-linecache
   delayed_job_active_record
   devise
   email_spec

@@ -42,7 +42,7 @@
     = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .Article-info
   .Article-info--right
-    %h2
+    %h2.Article-title
       = resource.title
     %p.Article-price= humanized_money_with_symbol resource.price
     %p.Article-vat= t('formtastic.labels.article.price')
@@ -90,11 +90,13 @@
           =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
     -else
       .Article-friendly
-        %p.Article--highlight
-          =t('article.show.fair_percent')
-          %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
-        %p
-          =t('article.show.donate_html')
+
+        - if !resource.has_100_fp?
+          %p.Article--highlight
+            =t('article.show.fair_percent')
+            %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
+          %p
+            =t('article.show.donate_html')
 
         - if resource.has_friendly_percent? && resource.donated_ngo
           %p.Article--highlight
