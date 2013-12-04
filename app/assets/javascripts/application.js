@@ -65,6 +65,7 @@
 //= require visual/wait_for_submit
 //= require visual/category
 //= require visual/slides
+//= require visual/iframe
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
