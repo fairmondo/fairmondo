@@ -19,13 +19,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ProcessMassUploadJob < Struct.new(:mass_upload_id)
-  def perform
-    mass_upload = MassUpload.find mass_upload_id
-    mass_upload.process_without_delay
-  end
-
-  def max_attempts
-    1
-  end
+begin
+  # Loading no_fair_alternative.yml
+  $no_fair_alternative = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'no_fair_alternative.yml'))))
+rescue
+  puts 'no_fair_alternative.yml not found'
 end

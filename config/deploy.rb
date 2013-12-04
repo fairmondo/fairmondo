@@ -120,6 +120,6 @@ after "deploy:restart", "deploy:cleanup"
 after 'deploy:update_code', 'deploy:needs_migrations'
 
 # Delayed Jobs Hooks
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+#after "deploy:stop",    "delayed_job:stop"
+#after "deploy:start",   "delayed_job:start"
+#after "deploy:restart", "delayed_job:restart"

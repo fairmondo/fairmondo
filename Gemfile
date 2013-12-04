@@ -14,6 +14,8 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
+  gem 'debugger'
+  gem 'debugger-linecache'
 
 end
 
@@ -22,8 +24,6 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
-gem 'debugger'
-gem 'debugger-linecache'
 
 # Tool Libs
 
@@ -163,6 +163,8 @@ group :development do
 
   # activerecord-import for batch-writing into the databse
   gem 'activerecord-import'
+
+  gem 'method_profiler'
 end
 
 group :test do

@@ -170,6 +170,7 @@ GEM
       activesupport (>= 3.2, < 5)
     highline (1.6.19)
     hike (1.2.3)
+    hirb (0.7.1)
     hpricot (0.8.6)
     html2haml (1.0.1)
       erubis (~> 2.7.0)
@@ -204,6 +205,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     memoist (0.9.1)
+    method_profiler (2.0.1)
+      hirb (>= 0.6.0)
     mime-types (1.25)
     mini_portile (0.5.1)
     modernizr-rails (2.6.2.3)
@@ -448,6 +451,7 @@ DEPENDENCIES
   launchy
   less
   memoist
+  method_profiler
   modernizr-rails
   money-rails
   newrelic_rpm
