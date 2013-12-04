@@ -7,7 +7,7 @@ describe "Export" do
 
   let(:private_user)       { FactoryGirl.create :private_user }
   let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
-  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity }
+  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity, :email => "hans@dampf.de" }
 
   subject { page }
 
@@ -79,6 +79,7 @@ describe "Export" do
                                             street: "In allen Gassen 1",
                                             city: "Berlin", zip: "10999",
                                             sold_at: "2013-12-03 17:50:15"
+
           @article = legal_entity.articles.last
           @article.update_attribute :state, 'sold'
           visit user_path(legal_entity)
