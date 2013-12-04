@@ -15,11 +15,6 @@ platforms :ruby do
     gem 'pg'
   end
 
-  group :debug do
-    gem 'debugger'
-    gem 'debugger-linecache'
-  end
-
 end
 
 # Forms & Upload
@@ -27,6 +22,8 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
+gem 'debugger'
+gem 'debugger-linecache'
 
 # Tool Libs
 
@@ -88,6 +85,7 @@ group :assets do
   gem "susy", "~> 1.0.8"
   gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
+  gem 'less'
 
   # JS
   gem 'jquery-ui-rails'

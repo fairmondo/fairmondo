@@ -106,6 +106,7 @@ GEM
     colored (1.2)
     colorize (0.6.0)
     columnize (0.3.6)
+    commonjs (0.2.7)
     compass (0.13.alpha.4)
       chunky_png (~> 1.2)
       listen (<= 0.9.9)
@@ -195,6 +196,8 @@ GEM
       yajl-ruby
     launchy (2.3.0)
       addressable (~> 2.3)
+    less (2.4.0)
+      commonjs (~> 0.2.7)
     libv8 (3.16.14.3)
     listen (0.7.3)
     mail (2.5.4)
@@ -443,6 +446,7 @@ DEPENDENCIES
   json
   kontoapi-ruby
   launchy
+  less
   memoist
   modernizr-rails
   money-rails
