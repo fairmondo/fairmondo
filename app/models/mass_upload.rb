@@ -102,7 +102,7 @@ class MassUpload < ActiveRecord::Base
     self.articles.empty? && self.erroneous_articles.empty?
   end
 
-  def process
+  def process_without_delay
     self.start
     begin
       character_count = 0
@@ -121,9 +121,12 @@ class MassUpload < ActiveRecord::Base
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
     end
-    self.user.notify I18n.t('mass_uploads.labels.finished'), Rails.application.routes.url_helpers.mass_upload_path(self)
+    self.user.notify I18n.t('mass_uploads.labels.finished'), self.finished? ? Rails.application.routes.url_helpers.mass_upload_path(self) : Rails.application.routes.url_helpers.user_path(self.user)
   end
-  handle_asynchronously :process
+
+  def process
+    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id)
+  end
 
   def set_progress article_count, character_count, row
     self.article_count = article_count
