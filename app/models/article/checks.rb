@@ -33,6 +33,18 @@ module Article::Checks
     self.condition == "new" && !self.fair && !self.small_and_precious && !self.ecologic
   end
 
+  # should the fair alternative be shown for the seller
+  def show_fair_alternative_for_seller
+    if $no_fair_alternative && $no_fair_alternative['user_ids']
+        $no_fair_alternative['user_ids'].each do |user_id|
+        if self.seller.id == user_id
+          return false
+        end
+      end
+    end
+    true
+  end
+
   def is_available?
     self.transaction_quantity_available == 0
   end

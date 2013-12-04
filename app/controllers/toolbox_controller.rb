@@ -37,6 +37,12 @@ class ToolboxController < ApplicationController
     render layout: false
   end
 
+  def reindex
+    raise Pundit::NotAuthorizedError unless current_user.admin?
+    Article.find(params[:article_id]).index
+    redirect_to :back, notice: I18n.t('article.show.reindexed')
+  end
+
   # Send a single email to a private user, should be refactored when we have a real messaging system
   def contact
     session[:seller_message] = {} unless session[:seller_message]

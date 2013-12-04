@@ -14,7 +14,11 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  gem 'debugger', :group => [:development, :test]
+
+  group :debug do
+    gem 'debugger'
+    gem 'debugger-linecache'
+  end
 
 end
 

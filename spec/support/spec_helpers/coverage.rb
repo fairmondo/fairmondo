@@ -33,6 +33,7 @@ SimpleCov.start 'rails' do
   add_filter "app/mailers/notification.rb"
   add_filter "gems/*"
   add_filter "lib/tasks/*"
+  add_filter "app/jobs/process_mass_upload_job.rb"
   add_filter "app/helpers/statistics_helper.rb"
   minimum_coverage 100
 end

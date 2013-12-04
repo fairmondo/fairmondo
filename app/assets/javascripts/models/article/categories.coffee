@@ -22,7 +22,11 @@ changed_select_box = (event) ->
 add_new_selectbox = (selected_category_id,selected_value = null) ->
   is_multiselect = $(selected_categories_input).length > 0
   unless selected_category_id is "-1" |selected_category_id is ""
-    $.getJSON "/categories/" + selected_category_id, (data) ->
+    params_extra = "?"
+    hideEmpty = $(native_select_categories).data("hide-empty")
+    if hideEmpty
+      params_extra += "hide_empty=true"
+    $.getJSON "/categories/" + selected_category_id + params_extra, (data) ->
 
       if data.length > 0 # only if we have any children in this category
 

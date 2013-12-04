@@ -12,7 +12,9 @@ de:
       article_activated: "Artikel bereits eingestellt"
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
-      show_report: "Anzeigen & bearbeiten"
+      finished: "Deine CSV-Datei wurde vom System verarbeitet. Klicke hier um das Ergenbnis anzuzeigen und gegebenenfalls deine Artikel für den Marktplatz zu aktivieren."
+      show_report: "Anzeigen"
+      show_report_activate: "Anzeigen & aktivieren"
     errors:
       wrong_encoding: "Die CSV-Datei muss in UTF-8 kodiert sein. Bitte achte auch darauf, dass Du in der ersten Zeile in der ersten Spalte Deiner CSV-Datei ein Eurozeichen ('€') eingetragen hast (siehe Dokumentation)."
       wrong_file_size: "Aktuell können maximal 100 Artikel pro Datei hochgeladen werden. Wir arbeiten daran dieses Limit künftig zu erhöhen."
@@ -32,6 +34,8 @@ de:
       no_activate_content: 'Es wurden keine Artikel geändert. Bitte nutze die Spalte "action" um Artikel vom Marktplatz zu nehmen, zu bearbeiten, einzustellen oder zu löschen.'
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
+      table_header: Hier kannst Du den Status Deiner CSV-Dateien sehen. Du brauchst nicht auf dieser Seite zu bleiben während Deine Dateien vom System verarbeitet werden. Um diese Anzeige zu aktivieren musst Du die Seite neu laden.
+      table_header2:  Wenn deine CSV-Datei bearbeitet wurde kannst du hier die Ergebnisse abrufen und neue Artikel für den Marktplatz aktivieren.
     boxes:
       created: 'Hochgeladene Artikel'
       updated: 'Editierte Artikel'
