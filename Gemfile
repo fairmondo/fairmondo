@@ -15,11 +15,8 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-
-  group :debug do
-    gem 'debugger'
-    gem 'debugger-linecache'
-  end
+  gem 'debugger'
+  gem 'debugger-linecache'
 
 end
 
@@ -166,6 +163,8 @@ group :development do
 
   # activerecord-import for batch-writing into the databse
   gem 'activerecord-import'
+
+  gem 'method_profiler'
 end
 
 group :test do

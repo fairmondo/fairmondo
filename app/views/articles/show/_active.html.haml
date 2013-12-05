@@ -20,13 +20,14 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-- if resource.is_conventional?
+- if resource.is_conventional? && resource.show_fair_alternative_for_seller
   .Related
     - alternative = find_fair_alternative_to resource
     .Article.Article--related
       %h3
         = t('article.show.alternative')
         %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
+
       - if alternative.present?
         = render '/articles/shared/show_article', article: alternative
       - else
