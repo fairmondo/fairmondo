@@ -28,15 +28,21 @@ class MassUpload < ActiveRecord::Base
 
     event :error do
       transition :processing => :failed
+      transition :failed => :failed # maybe another worker calls it
     end
 
     event :finish do
-      transition :processing => :finished
+      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.processed_articles_count >= mass_upload.row_count }
     end
 
-    after_transition :to => :failed do |mass_upload, transition|
+    after_transition :to => :finished do |mass_upload,transition|
+      mass_upload.user.notify I18n.t('mass_uploads.labels.finished'),  Rails.application.routes.url_helpers.mass_upload_path(mass_upload)
+    end
+
+    after_transition :processing => :failed do |mass_upload, transition|
       mass_upload.failure_reason = transition.args.first
       mass_upload.save
+      mass_upload.user.notify I18n.t('mass_uploads.labels.failed'), Rails.application.routes.url_helpers.user_path(mass_upload.user, anchor: "my_mass_uploads"), :error
     end
   end
 
@@ -111,36 +117,63 @@ class MassUpload < ActiveRecord::Base
     self.articles.empty? && self.erroneous_articles.empty?
   end
 
+  def processed_articles_count
+    self.erroneous_articles.size + self.articles.size
+  end
+
   def process_without_delay
     self.start
     begin
-      character_count = 0
-      article_count = 0
-      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
-        article_count += 1
-        row.delete '€'
-        process_row row, article_count
-        character_count += row.to_s.bytesize
-        set_progress(article_count, character_count, row) if article_count % 50 == 0
-      end
-    self.finish
+      row_count = 0
+      row_buffer = {}
 
+      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        row_count += 1
+        row.delete '€' # delete encoding column
+        row_buffer[row_count] = row
+        if row_buffer.size >= 50
+          process_rows row_buffer # handles the buffer asynchronously
+          row_buffer = {}
+        end
+      end
+      unless row_buffer.empty? # handle the rest
+        process_rows row_buffer
+      end
+      self.update_attribute(:row_count, row_count)
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
+    rescue => e
+      log_exception e
+      self.error(I18n.t('mass_uploads.errors.unknown_error'))
     end
-    self.user.notify I18n.t('mass_uploads.labels.finished'), self.finished? ? Rails.application.routes.url_helpers.mass_upload_path(self) : Rails.application.routes.url_helpers.user_path(self.user)
+
   end
 
   def process
     Delayed::Job.enqueue ProcessMassUploadJob.new(self.id)
   end
 
-  def set_progress article_count, character_count, row
-    self.article_count = article_count
-    self.character_count = character_count + row.headers.to_csv.bytesize
-    self.save
+  def process_rows rows
+    if self.processing?
+     begin
+       rows.each do |index,row|
+         process_row row,index
+       end
+     rescue => e
+       log_exception e
+       return self.error(I18n.t('mass_uploads.errors.unknown_error'))
+     end
+    end
+    self.finish
+  end
+  handle_asynchronously :process_rows
+
+  def log_exception e
+       message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
+       Delayed::Worker.logger.add Logger::INFO, message
+       puts message
   end
 
   def process_row row, index

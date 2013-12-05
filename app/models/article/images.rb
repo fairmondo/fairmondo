@@ -107,11 +107,16 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        image = Image.new(:image => URI.parse(image_url))
-        image.is_title = should_be_title
-        image.external_url = image_url
-        image.save
-        self.images << image
+        begin
+          image = Image.new(:image => URI.parse(image_url))
+        rescue
+          self.errors.add(should_be_title ? :external_title_image_url : :image_2_url,  I18n.t('mass_uploads.errors.image_not_available') )
+          return
+        end
+          image.is_title = should_be_title
+          image.external_url = image_url
+          image.save
+          self.images << image
       elsif image_url !=~ URI::regexp && should_be_title == true
         self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
       elsif image_url !=~ URI::regexp && should_be_title == false
