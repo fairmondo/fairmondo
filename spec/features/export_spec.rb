@@ -52,7 +52,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Article::Export.export_articles(legal_entity, "inactive")
-          @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test.csv')
+          @csv.should == File.read('spec/fixtures/mass_upload_export.csv')
         end
       end
 
@@ -64,57 +64,78 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Article::Export.export_articles(legal_entity, "active")
-          @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test.csv')
+          @csv.should == File.read('spec/fixtures/mass_upload_export.csv')
         end
       end
+    end
 
-      describe "when exporting (fair_trust)" do
-        before do
-          click_link I18n.t('mass_uploads.labels.show_report')
-          click_button I18n.t('mass_uploads.labels.mass_activate_articles')
-          @transaction = FactoryGirl.create :single_transaction, :sold,
-                                            article: legal_entity.articles.last,
+    describe "when exporting multiple (fair_trust)" do
+      before do
+        attach_file('mass_upload_file',
+                    'spec/fixtures/mass_upload_multiple.csv')
+        click_button I18n.t('mass_uploads.labels.upload_article')
+        click_link I18n.t('mass_uploads.labels.show_report')
+        click_button I18n.t('mass_uploads.labels.mass_activate_articles')
+        @transaction1 = FactoryGirl.create :single_transaction, :sold,
+                                          article: legal_entity.articles.last,
+                                          :buyer => legal_entity_buyer,
+                                          forename: "Hans", surname: "Dampf",
+                                          street: "In allen Gassen 1",
+                                          city: "Berlin", zip: "10999",
+                                          sold_at: "2013-12-03 17:50:15"
+
+        legal_entity.articles.last.update_attribute :state, 'sold'
+        visit user_path(legal_entity)
+      end
+
+      describe "sold articles" do
+        before { visit user_path(legal_entity) }
+
+        it "should have a export link" do
+          should have_link I18n.t('articles.export.sold')
+        end
+
+        it "should be equal to the test file" do
+
+          @transaction2 = FactoryGirl.create :single_transaction, :sold,
+                                            article: legal_entity.articles[1],
+                                            selected_transport: 'type2',
                                             :buyer => legal_entity_buyer,
                                             forename: "Hans", surname: "Dampf",
                                             street: "In allen Gassen 1",
                                             city: "Berlin", zip: "10999",
                                             sold_at: "2013-12-03 17:50:15"
+          @transaction3 = FactoryGirl.create :single_transaction, :sold,
+                                            article: legal_entity.articles.first,
+                                            selected_transport: 'type1',
+                                            :buyer => legal_entity_buyer,
+                                            forename: "Hans", surname: "Dampf",
+                                            street: "In allen Gassen 1",
+                                            city: "Berlin", zip: "10999",
+                                            sold_at: "2013-12-03 17:50:15"
+          legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
+          @csv = Article::Export.export_articles(legal_entity, "sold")
+          @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
+        end
+      end
 
-          @article = legal_entity.articles.last
-          @article.update_attribute :state, 'sold'
-          visit user_path(legal_entity)
+      describe "a bought article" do
+        before do
+          login_as legal_entity_buyer
+          visit user_path(legal_entity_buyer)
         end
 
-        describe "a sold article" do
-          before { visit user_path(legal_entity) }
-
-          it "should have a export link" do
-            should have_link I18n.t('articles.export.sold')
-          end
-
-          it "should be equal to the uploaded file" do
-            @csv = Article::Export.export_articles(legal_entity, "sold")
-            @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
-          end
+        it "should have a export link" do
+          should have_link I18n.t('articles.export.bought')
         end
 
-        describe "a bought article" do
-          before do
-            login_as legal_entity_buyer
-            visit user_path(legal_entity_buyer)
-          end
-
-          it "should have a export link" do
-            should have_link I18n.t('articles.export.bought')
-          end
-
-          it "should be equal to the uploaded file" do
-            @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
-            @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test.csv')
-          end
+        it "should be equal to the uploaded file" do
+          @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
+          @csv.should == File.read('spec/fixtures/mass_upload_export_bought.csv')
         end
       end
     end
+
 
     describe "dealing with a fair_trust article" do
 
