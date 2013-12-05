@@ -207,11 +207,9 @@ class Transaction < ActiveRecord::Base
     if self.selected_transport == "pickup"
       "pickup"
     elsif self.selected_transport == "type1"
-      self.article_transport_type1_provider
+      self.article.transport_type1_provider
     elsif self.selected_transport == "type2"
-      self.article_transport_type2_provider
-    else
-      ""
+      self.article.transport_type2_provider
     end
   end
 
