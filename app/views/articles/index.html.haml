@@ -33,7 +33,7 @@
   .NoResultBox
     %h2= t("common.text.no_search_result")
     %p= t("common.text.no_search_result_text")
-  %iframe{src: "http://test.wegreen.de/widget/1.0/products.html?appId=2394&q=#{CGI::escape(params[:article][:title])}", style: 'width:100%;border:0', scrolling: 'no', onload: 'loadIframe(this)'}
+  %iframe{src: "http://widget.wegreen.de/1.0/products.html?appId=2394&q=#{CGI::escape(params[:article][:title])}", style: 'width:100%;border:0', scrolling: 'no', onload: 'loadIframe(this)'}
   //%iframe{src: 'http://localhost:3000/welcome/wegreentest', style: 'width:100%;border:0', scrolling: 'no', onload: 'loadIframe(this)'}
 - else
   = render partial: '/articles/shared/articles_grid', locals:{ articles: @articles }
