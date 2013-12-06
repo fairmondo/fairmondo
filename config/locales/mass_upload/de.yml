@@ -13,6 +13,7 @@ de:
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
       finished: "Deine CSV-Datei wurde vom System verarbeitet. Klicke hier um das Ergenbnis anzuzeigen und gegebenenfalls deine Artikel für den Marktplatz zu aktivieren."
+      failed: "Bei der Verarbeitung deiner CSV Datei durch das System ist ein Fehler aufgetreten. Klicke hier um den Fehler anzuzeigen."
       show_report: "Anzeigen"
       show_report_activate: "Anzeigen & aktivieren"
     errors:
@@ -32,6 +33,8 @@ de:
       no_identifier: "Keine Identifikationsnummer (Spalte 'id' oder Spalte 'custom_seller_identifier') wurde für diesen Artikel angegeben obwohl die angegebene Aktion darauf hinweist, das sich der Artikel bereits im System befindet."
       article_not_found: "Unter der angegebenen Identifikationsnummer  (Spalte 'id' oder Spalte 'custom_seller_identifier') konnte kein Artikel gefunden werden."
       no_activate_content: 'Es wurden keine Artikel geändert. Bitte nutze die Spalte "action" um Artikel vom Marktplatz zu nehmen, zu bearbeiten, einzustellen oder zu löschen.'
+      unknown_error: 'Ein unbekannter Fehler ist bei der Verarbeitung der CSV-Datei aufgetreten. Wende Dich an den Kundensupport.'
+      image_not_available: 'Der Server konnte nicht auf die angegebene URL dieses Bildes zugreifen. Überprüfe die URL.'
     tooltips:
       total_fees_and_donations: "Die Gesamtgebühr setzt sich aus den beiden obigen Komponenten zusammen. Da die MwSt. für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als der ausgewiesene Nettobetrag vermuten lässt."
       table_header: Hier kannst Du den Status Deiner CSV-Dateien sehen. Du brauchst nicht auf dieser Seite zu bleiben während Deine Dateien vom System verarbeitet werden. Um diese Anzeige zu aktivieren musst Du die Seite neu laden.

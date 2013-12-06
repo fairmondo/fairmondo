@@ -28,15 +28,21 @@ class MassUpload < ActiveRecord::Base
 
     event :error do
       transition :processing => :failed
+      transition :failed => :failed # maybe another worker calls it
     end
 
     event :finish do
-      transition :processing => :finished
+      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.processed_articles_count >= mass_upload.row_count }
     end
 
-    after_transition :to => :failed do |mass_upload, transition|
+    after_transition :to => :finished do |mass_upload,transition|
+      mass_upload.user.notify I18n.t('mass_uploads.labels.finished'),  Rails.application.routes.url_helpers.mass_upload_path(mass_upload)
+    end
+
+    after_transition :processing => :failed do |mass_upload, transition|
       mass_upload.failure_reason = transition.args.first
       mass_upload.save
+      mass_upload.user.notify I18n.t('mass_uploads.labels.failed'), Rails.application.routes.url_helpers.user_path(mass_upload.user, anchor: "my_mass_uploads"), :error
     end
   end
 
@@ -102,40 +108,67 @@ class MassUpload < ActiveRecord::Base
     self.articles.empty? && self.erroneous_articles.empty?
   end
 
+  def processed_articles_count
+    self.erroneous_articles.size + self.articles.size
+  end
+
   def process_without_delay
     self.start
     begin
-      character_count = 0
-      article_count = 0
-      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
-        article_count += 1
-        row.delete '€'
-        process_row row, article_count
-        character_count += row.to_s.bytesize
-        set_progress(article_count, character_count, row) if article_count % 50 == 0
-      end
-    self.finish
+      row_count = 0
+      row_buffer = {}
 
+      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
+        row_count += 1
+        row.delete '€' # delete encoding column
+        row_buffer[row_count] = row.to_hash
+        if row_buffer.size >= 50
+          Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json)
+          row_buffer = {}
+        end
+      end
+      unless row_buffer.empty? # handle the rest
+        Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json)
+      end
+      self.update_attribute(:row_count, row_count)
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
+    rescue => e
+      log_exception e
+      self.error(I18n.t('mass_uploads.errors.unknown_error'))
     end
-    self.user.notify I18n.t('mass_uploads.labels.finished'), self.finished? ? Rails.application.routes.url_helpers.mass_upload_path(self) : Rails.application.routes.url_helpers.user_path(self.user)
+
   end
 
   def process
     Delayed::Job.enqueue ProcessMassUploadJob.new(self.id)
   end
 
-  def set_progress article_count, character_count, row
-    self.article_count = article_count
-    self.character_count = character_count + row.headers.to_csv.bytesize
-    self.save
+  def process_rows_without_delay json_rows
+    rows = JSON.parse json_rows
+    if self.processing?
+     begin
+       rows.each do |index,row|
+         process_row row,index
+       end
+     rescue => e
+       log_exception e
+       return self.error(I18n.t('mass_uploads.errors.unknown_error'))
+     end
+     self.finish
+    end
   end
 
-  def process_row row, index
-    row_hash = sanitize_fields row.to_hash
+  def log_exception e
+       message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
+       Delayed::Worker.logger.add Logger::INFO, message
+       puts message
+  end
+
+  def process_row unsanitized_row_hash, index
+    row_hash = sanitize_fields unsanitized_row_hash
     categories = Category.find_imported_categories(row_hash['categories'])
     row_hash.delete("categories")
     row_hash = Questionnaire.include_fair_questionnaires(row_hash)
@@ -149,7 +182,7 @@ class MassUpload < ActiveRecord::Base
       if article.was_invalid_before? # invalid? call would clear our previous base errors
                                      # fix this by generating the base errors with proper validations
                                      # may be hard for dynamic update model
-        add_article_error_messages(article, index, row)
+        add_article_error_messages(article, index, unsanitized_row_hash)
       else
         article.calculate_fees_and_donations
         article.mass_upload = self
@@ -158,20 +191,18 @@ class MassUpload < ActiveRecord::Base
     end
   end
 
-  def add_article_error_messages(article, index, row)
+  def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    expanded_row = ";" + row.to_csv(:col_sep => ";") # Because the "€" column has been deleted before
-                                                     #we have to prepend the csv with a ";" because
-                                                     # otherwise the content wouldn't match withe the header_row anymore
+    csv = CSV.generate_line(MassUpload.header_row.map{ |column| row_hash[column] },:col_sep => ";")
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
-      ErroneousArticle.create(
-        validation_errors: validation_errors,
-        row_index: index,
-        mass_upload: self,
-        article_csv: expanded_row
-      )
+    ErroneousArticle.create(
+      validation_errors: validation_errors,
+      row_index: index,
+      mass_upload: self,
+      article_csv: csv
+    )
       # TODO Check if the original row number can be given as well
   end
 
