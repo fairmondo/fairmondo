@@ -1,0 +1,6 @@
+= javascript_include_tag 'http://widget.wegreen.de/js/easyXDM.min.js'
+
+#WeGreen-iframe
+
+:javascript
+  document.Fairnopoly.placeIframe("http://widget.wegreen.de/1.0/products.html?appId=2394&q=#{CGI::escape(params[:article][:title] || '')}");
