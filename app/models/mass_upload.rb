@@ -163,7 +163,7 @@ class MassUpload < ActiveRecord::Base
 
   def log_exception e
        message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-       Delayed::Worker.logger.add Logger::INFO, message
+       Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
        puts message
   end
 
