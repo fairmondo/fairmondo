@@ -157,14 +157,14 @@ class MassUpload < ActiveRecord::Base
 
   def process_rows rows
     if self.processing?
-     begin
-       rows.each do |index,row|
-         process_row row,index
-       end
-     rescue => e
-       log_exception e
-       return self.error(I18n.t('mass_uploads.errors.unknown_error'))
-     end
+      begin
+        rows.each do |index,row|
+          process_row row,index
+        end
+      rescue => e
+        log_exception e
+        return self.error(I18n.t('mass_uploads.errors.unknown_error'))
+      end
     end
     self.finish
   end
