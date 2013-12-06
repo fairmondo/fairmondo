@@ -130,14 +130,14 @@ class MassUpload < ActiveRecord::Base
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        row_buffer[row_count] = row
+        row_buffer[row_count] = row.to_hash
         if row_buffer.size >= 50
-          process_rows row_buffer # handles the buffer asynchronously
+          Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
           row_buffer = {}
         end
       end
       unless row_buffer.empty? # handle the rest
-        process_rows row_buffer
+        Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
       end
       self.update_attribute(:row_count, row_count)
     rescue ArgumentError
@@ -152,10 +152,11 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
-    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id)
+    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id), :queue => "mass_upload"
   end
 
-  def process_rows rows
+  def process_rows_without_delay json_rows
+    rows = JSON.parse json_rows
     if self.processing?
       begin
         rows.each do |index,row|
@@ -166,18 +167,16 @@ class MassUpload < ActiveRecord::Base
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
     end
-    self.finish
   end
-  handle_asynchronously :process_rows
 
   def log_exception e
        message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-       Delayed::Worker.logger.add Logger::INFO, message
+       Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
        puts message
   end
 
-  def process_row row, index
-    row_hash = sanitize_fields row.to_hash
+  def process_row unsanitized_row_hash, index
+    row_hash = sanitize_fields unsanitized_row_hash
     categories = Category.find_imported_categories(row_hash['categories'])
     row_hash.delete("categories")
     row_hash = Questionnaire.include_fair_questionnaires(row_hash)
@@ -191,7 +190,7 @@ class MassUpload < ActiveRecord::Base
       if article.was_invalid_before? # invalid? call would clear our previous base errors
                                      # fix this by generating the base errors with proper validations
                                      # may be hard for dynamic update model
-        add_article_error_messages(article, index, row)
+        add_article_error_messages(article, index, unsanitized_row_hash)
       else
         article.calculate_fees_and_donations
         article.mass_upload = self
@@ -200,20 +199,18 @@ class MassUpload < ActiveRecord::Base
     end
   end
 
-  def add_article_error_messages(article, index, row)
+  def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    expanded_row = ";" + row.to_csv(:col_sep => ";") # Because the "€" column has been deleted before
-                                                     #we have to prepend the csv with a ";" because
-                                                     # otherwise the content wouldn't match withe the article_attributes anymore
+    csv = CSV.generate_line(MassUpload.header_row.map{ |column| row_hash[column] },:col_sep => ";")
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
-      ErroneousArticle.create(
-        validation_errors: validation_errors,
-        row_index: index,
-        mass_upload: self,
-        article_csv: expanded_row
-      )
+    ErroneousArticle.create(
+      validation_errors: validation_errors,
+      row_index: index,
+      mass_upload: self,
+      article_csv: csv
+    )
       # TODO Check if the original row number can be given as well
   end
 
@@ -229,7 +226,7 @@ class MassUpload < ActiveRecord::Base
     Sunspot.index articles
     Sunspot.commit
   end
-  handle_asynchronously :update_solr_index_for
+  handle_asynchronously :update_solr_index_for,  :queue => "indexing"
 
   private
     # Throw away additional fields that are not needed
