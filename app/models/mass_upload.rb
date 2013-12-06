@@ -137,6 +137,9 @@ class MassUpload < ActiveRecord::Base
         end
       end
       unless row_buffer.empty? # handle the rest
+        self.update_attribute(:row_count, row_count) # Just added for the test because the next line doesn't set the
+                                                     # row_count during the tests (why should it anyway) but does so
+                                                     # on the 'real' server
         Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
       end
       self.update_attribute(:row_count, row_count)
@@ -166,6 +169,7 @@ class MassUpload < ActiveRecord::Base
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
+      self.finish
     end
   end
 
@@ -176,7 +180,7 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process_row unsanitized_row_hash, index
-    row_hash = sanitize_fields unsanitized_row_hash
+    row_hash = sanitize_fields unsanitized_row_hash.dup
     categories = Category.find_imported_categories(row_hash['categories'])
     row_hash.delete("categories")
     row_hash = Questionnaire.include_fair_questionnaires(row_hash)
@@ -201,7 +205,7 @@ class MassUpload < ActiveRecord::Base
 
   def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    csv = CSV.generate_line(MassUpload.header_row.map{ |column| row_hash[column] },:col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] },:col_sep => ";")
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end

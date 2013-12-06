@@ -33,20 +33,20 @@ describe MassUpload do
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_correct.csv').should eq 'utf-8'
       end
 
-      describe "#set_progress" do
-        before do
-          row = CSV::Row.new(["123"], [nil])
-          mass_upload.set_progress(100,1000, row)
-        end
+      # describe "#set_progress" do
+      #   before do
+      #     row = CSV::Row.new(["123"], [nil])
+      #     mass_upload.set_progress(100,1000, row)
+      #   end
 
-        it "should set the character_count to 1004" do
-          mass_upload.character_count.should eq 1004
-        end
+      #   it "should set the character_count to 1004" do
+      #     mass_upload.character_count.should eq 1004
+      #   end
 
-        it "should set the mass_upload article_count to 100" do
-          mass_upload.article_count.should eq 100
-        end
-      end
+      #   it "should set the mass_upload article_count to 100" do
+      #     mass_upload.article_count.should eq 100
+      #   end
+      # end
     end
   end
 end
