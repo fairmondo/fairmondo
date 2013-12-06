@@ -18,5 +18,6 @@ document.Fairnopoly.placeIframe = (url) ->
         scrolling: 'no'
         width: '100%'
         border: '0'
+        overflow: 'hidden'
     onMessage: (message) ->
       this.container.getElementsByTagName("iframe")[0].style.height = message + "px"
