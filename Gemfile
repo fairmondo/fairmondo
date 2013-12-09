@@ -15,7 +15,6 @@ platforms :ruby do
     gem 'pg'
   end
   gem 'debugger'
-  gem 'debugger-linecache'
 
 end
 

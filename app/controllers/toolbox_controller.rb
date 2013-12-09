@@ -19,7 +19,8 @@ class ToolboxController < ApplicationController
   end
 
   def rss
-    rss = RSS::Parser.parse(open('http://info.fairnopoly.de/?feed=rss').read, false)
+    feed = open('https://info.fairnopoly.de/?feed=rss')
+    rss = RSS::Parser.parse(feed.read, false)
     @items = rss.items.first(3)
     respond_to do |format|
       format.html { render :layout => false }
