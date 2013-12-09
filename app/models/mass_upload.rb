@@ -187,7 +187,7 @@ class MassUpload < ActiveRecord::Base
     row_hash = Questionnaire.add_commendation(row_hash)
     article = Article.create_or_find_according_to_action row_hash, user
 
-    if article # so we can ignore rows when reimporting
+    if article.action != :nothing # so we can ignore rows when reimporting
       article.user_id = self.user_id
       revise_prices(article)
       article.categories = categories if categories
@@ -195,12 +195,12 @@ class MassUpload < ActiveRecord::Base
                                      # fix this by generating the base errors with proper validations
                                      # may be hard for dynamic update model
         add_article_error_messages(article, index, unsanitized_row_hash)
-      else
+      elsif article.action != :delete && article.action != :deactivate # check for performance reasons
         article.calculate_fees_and_donations
-        article.mass_upload = self
-        article.process!
       end
     end
+    article.mass_upload = self
+    article.process!
   end
 
   def add_article_error_messages(article, index, row_hash)

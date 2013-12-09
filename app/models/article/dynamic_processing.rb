@@ -40,6 +40,8 @@ module Article::DynamicProcessing
         Article.create_or_find_according_to_action attribute_hash, user #recursion happens once
       when 'nothing'
         # Keep article as is. We could update it, but this conflicts with locked articles
+        article = Article.find_by_id_or_custom_seller_identifier attribute_hash, user
+        article.action = :nothing
       else
         Article.create_error_article I18n.t("mass_uploads.errors.unknown_action")
       end
@@ -100,7 +102,7 @@ module Article::DynamicProcessing
       # Defaults: create when no ID is set, does nothing when an ID exists
       # @return [String]
       def self.get_processing_default attribute_hash
-        attribute_hash['id'] ? 'nothing' : 'create'
+        (attribute_hash['id'] || attribute_hash['custom_seller_identifier']) ? 'nothing' : 'create'
       end
 
       # Get article with error message for display in MassUpload#new error list
