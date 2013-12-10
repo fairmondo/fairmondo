@@ -14,7 +14,12 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  gem 'debugger'
+  unless ENV["CI"]
+    group :development, :test do
+      gem 'debugger'
+      gem 'debugger-linecache'
+    end
+  end
 
 end
 
