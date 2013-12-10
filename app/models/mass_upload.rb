@@ -123,12 +123,12 @@ class MassUpload < ActiveRecord::Base
         row.delete '€' # delete encoding column
         row_buffer[row_count] = row.to_hash
         if row_buffer.size >= 50
-          Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
+          ProcessRowsMassUploadWorker.perform_async(self.id,row_buffer)
           row_buffer = {}
         end
       end
       unless row_buffer.empty? # handle the rest
-        Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
+        ProcessRowsMassUploadWorker.perform_async(self.id,row_buffer)
       end
       self.update_attribute(:row_count, row_count)
     rescue ArgumentError
@@ -143,11 +143,11 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
-    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id), :queue => "mass_upload"
+    ProcessMassUploadWorker.perform_async(self.id)
   end
 
-  def process_rows_without_delay json_rows
-    rows = JSON.parse json_rows
+  def process_rows_without_delay rows
+
     if self.processing?
      begin
        rows.each do |index,row|
@@ -163,7 +163,7 @@ class MassUpload < ActiveRecord::Base
 
   def log_exception e
        message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-       Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
+       # Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
        puts message
   end
 
@@ -213,12 +213,11 @@ class MassUpload < ActiveRecord::Base
     article.payment_cash_on_delivery_price_cents ||= 0
   end
 
-  def update_solr_index_for article_ids
+  def self.update_solr_index_for article_ids
     articles = Article.find article_ids
     Sunspot.index articles
     Sunspot.commit
   end
-  handle_asynchronously :update_solr_index_for,  :queue => "indexing"
 
   private
     # Throw away additional fields that are not needed

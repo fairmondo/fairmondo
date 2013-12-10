@@ -42,6 +42,7 @@ module Article::DynamicProcessing
         # Keep article as is. We could update it, but this conflicts with locked articles
         article = Article.find_by_id_or_custom_seller_identifier attribute_hash, user
         article.action = :nothing
+        article
       else
         Article.create_error_article I18n.t("mass_uploads.errors.unknown_action")
       end
