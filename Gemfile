@@ -117,7 +117,6 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem "ZenTest"
 
   # Gem for testing emails
   gem "email_spec"
@@ -169,6 +168,7 @@ end
 group :test do
   gem 'rake'
   gem 'colorize'
+  gem "ZenTest"
 end
 
 # Adding Staging-server Embedded Solr
