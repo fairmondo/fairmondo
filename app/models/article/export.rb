@@ -23,25 +23,51 @@ module Article::Export
   extend ActiveSupport::Concern
 
   def self.export_articles(user, params = nil)
-    header_row = MassUpload.header_row
-    articles = determine_articles_to_export(user, params)
-
+    export_attributes = MassUpload.article_attributes
+    items = determine_articles_to_export(user, params)
+    transactions = false
+    if items.first.present? && items.first.is_a?(Transaction)
+      export_attributes += MassUpload.transaction_attributes
+      transactions = true
+    end
     CSV.generate(:col_sep => ";") do |line|
-      line << header_row
-      articles.each do |article|
+      line << export_attributes
+      items.each do |item|
+        article = item
+        if transactions
+          article = item.article
+        end
         row = Hash.new
         row.merge!(article.provide_fair_attributes)
         row.merge!(article.attributes)
         row["categories"] = article.categories.map { |c| c.id }.join(",")
         row["external_title_image_url"] = article.images.first.external_url if article.images.first
         row["image_2_url"] = article.images[1].external_url if article.images[1]
-        line << header_row.map { |element| row[element] }
+        if transactions
+          fee = article.calculated_fee_cents * item.quantity_bought
+          donation = article.calculated_fair_cents * item.quantity_bought
+          transaction_information = { "transport_provider" => item.selected_transport_provider,
+                                      "sales_price_cents" => article.price_cents * item.quantity_bought,
+                                      "price_without_vat_cents" => (article.price_without_vat.to_d * 100).to_i,
+                                      "vat_cents" => (article.vat_price.to_d * 100).to_i,
+                                      "shipping_and_handling_cents" => (item.article_transport_price(item.selected_transport, item.quantity_bought).to_d * 100).to_i,
+                                      "buyer_email" => item.buyer_email,
+                                      "fee_cents" => fee,
+                                      "donation_cents" => donation,
+                                      "total_fee_cents" => (fee + donation),
+                                      "net_total_fee_cents" => ((fee + donation) / 1.19).round(0),
+                                      "vat_total_fee_cents" => ((fee + donation) * 0.19).round(0)}
+          row.merge!(transaction_information)
+          buyer_information = item.attributes.slice(*MassUpload.transaction_attributes)
+          row.merge!(buyer_information)
+        end
+        line << export_attributes.map { |element| row[element] }
       end
     end
   end
 
   def self.export_erroneous_articles(erroneous_articles)
-    csv = CSV.generate_line(MassUpload.header_row, :col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes, :col_sep => ";")
     erroneous_articles.each do |article|
       csv += article.article_csv
     end
@@ -57,11 +83,9 @@ module Article::Export
       articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
       articles.reverse
     elsif params == "sold"
-      articles = user.articles.where(:state => "sold")
-      articles.reverse_order
+      articles = user.sold_transactions.joins(:article)
     elsif params == "bought"
       articles = user.bought_articles
-      articles.reverse_order
     end
   end
 
