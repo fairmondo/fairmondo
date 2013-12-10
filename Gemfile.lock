@@ -441,6 +441,7 @@ DEPENDENCIES
   compass-rails
   coveralls
   debugger
+  debugger-linecache
   devise
   email_spec
   enumerize (>= 0.5.1)

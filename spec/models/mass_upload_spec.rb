@@ -33,7 +33,6 @@ describe MassUpload do
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_correct.csv').should eq 'utf-8'
       end
 
-
     end
   end
 end

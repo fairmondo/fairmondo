@@ -202,6 +202,17 @@ class Transaction < ActiveRecord::Base
   def parent; nil; end
   def children; []; end
 
+  # TODO Check if there is a better way -> only used in export model
+  def selected_transport_provider
+    if self.selected_transport == "pickup"
+      "pickup"
+    elsif self.selected_transport == "type1"
+      self.article.transport_type1_provider
+    elsif self.selected_transport == "type2"
+      self.article.transport_type2_provider
+    end
+  end
+
   protected
     # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
     def quantity_available; raise NoMethodError; end
