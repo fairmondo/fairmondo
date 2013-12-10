@@ -62,9 +62,10 @@ describe "Mass-upload" do
                          'spec/fixtures/mass_upload_correct.csv')
             end
 
-            it "should redirect to the mass_uploads#show" do
+            it "should redirect to the mass_uploads#show", visual: true do
               click_button I18n.t('mass_uploads.labels.upload_article')
               should have_content I18n.t('users.boxes.my_mass_uploads')
+              save_and_open_page
               click_link I18n.t('mass_uploads.labels.show_report')
               should have_content('Name von Artikel 1')
               should have_selector('input.Btn.Btn--blue.Btn--blueBig',
