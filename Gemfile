@@ -42,10 +42,11 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 # Indexing /Searching
 gem 'sunspot_rails'
+gem "sunspot-queue" # sidekiq
 
-# Delayed_Jobs & Daemons
-gem "daemons"
-gem 'delayed_job_active_record'
+# Sidekiq
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 
 # Controller Gems

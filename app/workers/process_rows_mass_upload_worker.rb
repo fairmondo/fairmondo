@@ -19,13 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ProcessMassUploadJob < Struct.new(:mass_upload_id)
-  def perform
-    mass_upload = MassUpload.find mass_upload_id
-    mass_upload.process_without_delay
-  end
+class ProcessRowsMassUploadWorker
+  include Sidekiq::Worker
+  sidekiq_options :queue => :mass_upload, :retry => false, :backtrace => true
 
-  def max_attempts
-    1
+  def perform mass_upload_id, rows
+    mass_upload = MassUpload.find mass_upload_id
+    mass_upload.process_rows_without_delay rows
   end
 end

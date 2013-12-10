@@ -87,6 +87,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
     choice (0.1.6)
     chunky_png (1.2.8)
     climate_control (0.0.3)
@@ -112,6 +114,7 @@ GEM
       sass (~> 3.2.5)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    connection_pool (1.2.0)
     coveralls (0.7.0)
       multi_json (~> 1.3)
       rest-client
@@ -126,11 +129,6 @@ GEM
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
-    delayed_job (4.0.0)
-      activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0)
-      activerecord (>= 3.0, < 4.1)
-      delayed_job (>= 3.0, < 4.1)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -245,6 +243,8 @@ GEM
     rack-pjax (0.7.0)
       nokogiri (~> 1.5)
       rack (~> 1.3)
+    rack-protection (1.5.1)
+      rack
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -297,6 +297,9 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
+    redis (3.0.6)
+    redis-namespace (1.4.1)
+      redis (~> 3.0.4)
     ref (1.0.5)
     remotipart (1.2.1)
     require_all (1.3.1)
@@ -337,10 +340,20 @@ GEM
     sexp_processor (4.3.0)
     shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
+    sidekiq (2.17.0)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0.4)
+      redis-namespace (>= 1.3.1)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slim (1.3.9)
       temple (~> 0.6.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -358,6 +371,8 @@ GEM
     sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
+    sunspot-queue (0.10.2)
+      sunspot_rails (>= 1.3.0)
     sunspot_rails (2.0.0)
       nokogiri
       sunspot (= 2.0.0)
@@ -385,6 +400,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timers (1.1.0)
     tins (0.11.0)
     tinymce-rails (4.0.7)
       railties (>= 3.1.1)
@@ -424,9 +440,7 @@ DEPENDENCIES
   compass (~> 0.13.alpha.4)
   compass-rails
   coveralls
-  daemons
   debugger
-  delayed_job_active_record
   devise
   email_spec
   enumerize (>= 0.5.1)
@@ -466,10 +480,13 @@ DEPENDENCIES
   sass-rails (~> 3.2)
   selectivizr-rails
   shoulda-matchers
+  sidekiq
   simplecov
+  sinatra (>= 1.3.0)
   sqlite3
   state_machine
   strong_parameters
+  sunspot-queue
   sunspot_rails
   sunspot_solr
   sunspot_test
