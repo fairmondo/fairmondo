@@ -65,12 +65,15 @@ module Article::Search
       integer :basic_price_amount, :stored => true
       integer :vat, :stored => true
 
+     # Friendly Percent
        integer :friendly_percent, :stored => true
+      text :friendly_percent_organisation
 
       # Possible future local search
 
       boolean :transport_pickup
       string :zip
+
     end
 
     skip_callback :save, :after, :perform_index_tasks, :if => lambda { self.preview? }
@@ -92,7 +95,7 @@ module Article::Search
         if self.search_in_content?
           fields(:content,:title => 2.0)
         else
-          fields(:title)
+          fields(:title, :friendly_percent_organisation)
         end
       end
       paginate :page => page, :per_page => Kaminari.config.default_per_page
@@ -102,6 +105,7 @@ module Article::Search
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
       with :zip, self.search_for_zip if search_for_zip.present?
+
       case self.search_order_by
       when "newest"
         order_by(:created_at, :desc)
@@ -122,6 +126,15 @@ module Article::Search
     #only for products which have pickup transport
     if self.transport_pickup
       self.seller.zip
+    else
+      nil
+    end
+  end
+
+  # Index the nickname of ngos if friendly_percent_organisation is present
+  def friendly_percent_organisation
+    if self.donated_ngo
+      self.donated_ngo.nickname
     else
       nil
     end
