@@ -129,6 +129,7 @@ describe "Mass-upload" do
                   article2.active?.should eq true
                   Article.find(1).closed?.should eq true
                   Article.find(2).closed?.should eq true
+                  Article.find(3).title.should eq "Name von Artikel 3"
                 end
               end
 
@@ -328,6 +329,8 @@ describe "Mass-upload" do
               should have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
             end
           end
+
+
         end
       end
     end
