@@ -257,17 +257,6 @@ span.Article-price {
   @include border-radius(0.9em);
 }
 
-.NoResultBox {
-  background: $white;
-  @include border-radius(0.5em);
-  @include rem(padding, 20px);
-  @include rem(margin-bottom, 50px);
-
-  p {
-    margin-bottom:0;
-  }
-}
-
 // Article #show
 // -------------
 
