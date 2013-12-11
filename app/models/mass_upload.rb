@@ -196,10 +196,13 @@ class MassUpload < ActiveRecord::Base
         add_article_error_messages(article, index, unsanitized_row_hash)
       elsif article.action != :delete && article.action != :deactivate # check for performance reasons
         article.calculate_fees_and_donations
+        article.mass_upload = self
+        article.process!
       end
+    else
+      article.update_attribute(:mass_upload_id,self.id)
     end
-    article.mass_upload = self
-    article.process!
+
   end
 
   def add_article_error_messages(article, index, row_hash)
