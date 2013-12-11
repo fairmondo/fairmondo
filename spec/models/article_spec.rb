@@ -333,8 +333,6 @@ describe Article do
         let(:article) { FactoryGirl.create :article,:without_image}
         before do
           @url = "http://www.test.com/test.png"
-
-
         end
         it "should do nothing if the url is already present" do
           URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
@@ -353,7 +351,7 @@ describe Article do
         it "should add an error when the image can't be downloaded" do
           URI.stub(:parse).and_raise(IOError)
           article.add_image @url, true
-          article.errors[:external_title_image_url].should eq I18n.t('mass_uploads.errors.image_not_available')
+          article.errors[:external_title_image_url].should eq [I18n.t('mass_uploads.errors.image_not_available')]
         end
 
       end
