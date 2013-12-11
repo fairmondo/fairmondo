@@ -22,7 +22,7 @@
 ##### Requirement's #####
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
-require "delayed/recipes"  # Delayed Jobs
+require "sidekiq/capistrano"
 
 #### Use the asset-pipeline
 load 'deploy/assets'
@@ -48,8 +48,8 @@ set :repository, "git://github.com/fairnopoly/fairnopoly.git"
 #set :deploy_via, :remote_cache
 set :ssh_options, { :forward_agent => true }
 
-# Delayed Workers
-set :delayed_job_args, "-n 2" # Start 2 worker jobs per app
+# Sidekiq Workers
+set :sidekiq_role, :sidekiq
 
 #### Roles #####
 # See Stages
@@ -119,7 +119,3 @@ after "deploy", "deploy:additional_rake"
 after "deploy:restart", "deploy:cleanup"
 after 'deploy:update_code', 'deploy:needs_migrations'
 
-# Delayed Jobs Hooks
-#after "deploy:stop",    "delayed_job:stop"
-#after "deploy:start",   "delayed_job:start"
-#after "deploy:restart", "delayed_job:restart"
