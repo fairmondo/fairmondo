@@ -89,6 +89,7 @@ group :assets do
   gem "susy", "~> 1.0.8"
   gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
+  gem 'less'
 
   # JS
   gem 'jquery-ui-rails'
