@@ -30,9 +30,7 @@
         = commendation_label label.to_sym, :medium
       = render "/articles/show/highlight" , :articles =>  Exhibit.independent_queue("#{label}_highlights".to_sym, 4)
 - if @articles.empty?
-  .NoResultBox
-    %h2= t("common.text.no_search_result")
-    %p= t("common.text.no_search_result_text")
+  %h2= t("common.text.no_search_result_text")
   = render "/articles/shared/iframe"
 - else
   = render partial: '/articles/shared/articles_grid', locals:{ articles: @articles }
