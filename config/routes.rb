@@ -113,7 +113,13 @@ Fairnopoly::Application.routes.draw do
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+
+  constraint = lambda { |request| request.env["warden"].authenticate? and
+                      request.env['warden'].user.admin?}
+
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|

@@ -126,21 +126,14 @@ class MassUpload < ActiveRecord::Base
     self.start
     begin
       row_count = 0
-      row_buffer = {}
 
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        row_buffer[row_count] = row.to_hash
-        if row_buffer.size >= 50
-          ProcessRowsMassUploadWorker.perform_async(self.id,row_buffer)
-          row_buffer = {}
-        end
+        ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
       end
       self.update_attribute(:row_count, row_count)
-      unless row_buffer.empty? # handle the rest
-        ProcessRowsMassUploadWorker.perform_async(self.id,row_buffer)
-      end
+
       self.finish
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
@@ -157,52 +150,45 @@ class MassUpload < ActiveRecord::Base
     ProcessMassUploadWorker.perform_async(self.id)
   end
 
-  def process_rows_without_delay rows
 
+  def log_exception e
+    message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
+    logger.debug{ message } if logger
+  end
+
+  def process_row unsanitized_row_hash, index
     if self.processing?
       begin
-        rows.each do |index,row|
-          process_row row,index
+        row_hash = sanitize_fields unsanitized_row_hash.dup
+        categories = Category.find_imported_categories(row_hash['categories'])
+        row_hash.delete("categories")
+        row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+        row_hash = Questionnaire.add_commendation(row_hash)
+        article = Article.create_or_find_according_to_action row_hash, user
+
+        if article.action != :nothing # so we can ignore rows when reimporting
+          article.user_id = self.user_id
+          revise_prices(article)
+          article.categories = categories if categories
+          if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                         # fix this by generating the base errors with proper validations
+                                         # may be hard for dynamic update model
+            add_article_error_messages(article, index, unsanitized_row_hash)
+          else
+            article.calculate_fees_and_donations if article.action != :delete && article.action != :deactivate # check for performance reasons
+            article.mass_upload = self
+            article.process!
+          end
+        else
+          article.update_attribute(:mass_upload_id,self.id)
         end
+
       rescue => e
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
       self.finish
     end
-  end
-
-  def log_exception e
-       message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-       # Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
-       puts message
-  end
-
-  def process_row unsanitized_row_hash, index
-    row_hash = sanitize_fields unsanitized_row_hash.dup
-    categories = Category.find_imported_categories(row_hash['categories'])
-    row_hash.delete("categories")
-    row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-    row_hash = Questionnaire.add_commendation(row_hash)
-    article = Article.create_or_find_according_to_action row_hash, user
-
-    if article.action != :nothing # so we can ignore rows when reimporting
-      article.user_id = self.user_id
-      revise_prices(article)
-      article.categories = categories if categories
-      if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                     # fix this by generating the base errors with proper validations
-                                     # may be hard for dynamic update model
-        add_article_error_messages(article, index, unsanitized_row_hash)
-      elsif article.action != :delete && article.action != :deactivate # check for performance reasons
-        article.calculate_fees_and_donations
-        article.mass_upload = self
-        article.process!
-      end
-    else
-      article.update_attribute(:mass_upload_id,self.id)
-    end
-
   end
 
   def add_article_error_messages(article, index, row_hash)

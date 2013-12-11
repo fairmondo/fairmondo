@@ -1,0 +1,11 @@
+---
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 50
+:queues:
+  - [sunspot, 7]
+  - [default, 5]
+  - [mass_upload, 3]
