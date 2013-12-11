@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+//= require setup
 
 //= require jquery
 //= require jquery_ujs
@@ -65,6 +65,7 @@
 //= require visual/wait_for_submit
 //= require visual/category
 //= require visual/slides
+//= require visual/iframe
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
