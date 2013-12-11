@@ -28,9 +28,6 @@ role :sidekiq, "5.22.150.182"
 
 set(:sidekiq_processes) { 2 }
 
-set :default_environment, {
-  'REDIS_PROVIDER' => 'redis://10.0.2.181:6379'
-}
 
 set :rails_env, "production"
 set :branch, fetch(:branch, "master")
