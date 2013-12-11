@@ -79,3 +79,6 @@ Gemfile.local
 
 # compass sprites
 app/assets/images/icon-*.png
+
+# Redis
+dump.rdb

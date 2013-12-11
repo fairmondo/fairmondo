@@ -48,6 +48,7 @@ Fairnopoly::Application.routes.draw do
     get 'notice/:id', action: "notice", as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
+    get 'csv_documentation'
     put 'reindex/:article_id', action: 'reindex', as: 'reindex'
   end
 
