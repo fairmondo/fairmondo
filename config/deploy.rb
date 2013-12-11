@@ -72,7 +72,7 @@ namespace :deploy do
   end
 
   desc "Additional Symlinks"
-  task :additional_symlink, :roles => :app do
+  task :additional_symlink, :roles => [:app,:sidekiq]  do
     run "ln -nfs #{shared_path}/data/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/data/config/newrelic.yml #{release_path}/config/newrelic.yml"
     run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
