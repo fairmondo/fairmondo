@@ -32,7 +32,8 @@ class MassUpload < ActiveRecord::Base
     end
 
     event :finish do
-      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.processed_articles_count >= mass_upload.row_count }
+      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.row_count && mass_upload.processed_articles_count >= mass_upload.row_count }
+      transition :finished => :finished
     end
 
     after_transition :to => :finished do |mass_upload,transition|
@@ -68,7 +69,7 @@ class MassUpload < ActiveRecord::Base
     [:file]
   end
 
-  def self.header_row
+  def self.article_attributes
    ["€", "id", "title", "categories", "condition", "condition_extra",
     "content", "quantity", "price_cents", "basic_price_cents",
     "basic_price_amount", "vat", "external_title_image_url", "image_2_url",
@@ -100,6 +101,15 @@ class MassUpload < ActiveRecord::Base
     "gtin", "custom_seller_identifier", "action"]
   end
 
+  def self.transaction_attributes
+    ["sales_price_cents", "price_without_vat_cents", "vat_cents",
+      "selected_transport", "transport_provider", "shipping_and_handling_cents",
+      "selected_payment", "message", "quantity_bought", "forename", "surname",
+      "address_suffix", "street", "city", "zip", "country", "buyer_email",
+      "fee_cents", "donation_cents", "total_fee_cents", "net_total_fee_cents",
+      "vat_total_fee_cents", "sold_at"]
+  end
+
   def articles_for_mass_activation
      self.created_articles + self.updated_articles + self.activated_articles
   end
@@ -116,21 +126,15 @@ class MassUpload < ActiveRecord::Base
     self.start
     begin
       row_count = 0
-      row_buffer = {}
 
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        row_buffer[row_count] = row.to_hash
-        if row_buffer.size >= 50
-          Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
-          row_buffer = {}
-        end
-      end
-      unless row_buffer.empty? # handle the rest
-        Delayed::Job.enqueue ProcessRowsMassUploadJob.new(self.id,row_buffer.to_json), :queue => "mass_upload"
+        ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
       end
       self.update_attribute(:row_count, row_count)
+
+      self.finish
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
@@ -143,57 +147,53 @@ class MassUpload < ActiveRecord::Base
   end
 
   def process
-    Delayed::Job.enqueue ProcessMassUploadJob.new(self.id), :queue => "mass_upload"
+    ProcessMassUploadWorker.perform_async(self.id)
   end
 
-  def process_rows_without_delay json_rows
-    rows = JSON.parse json_rows
-    if self.processing?
-     begin
-       rows.each do |index,row|
-         process_row row,index
-       end
-     rescue => e
-       log_exception e
-       return self.error(I18n.t('mass_uploads.errors.unknown_error'))
-     end
-     self.finish
-    end
-  end
 
   def log_exception e
-       message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-       Delayed::Worker.logger.add Logger::INFO, message if Delayed::Worker.logger
-       puts message
+    message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
+    logger.debug{ message } if logger
   end
 
   def process_row unsanitized_row_hash, index
-    row_hash = sanitize_fields unsanitized_row_hash
-    categories = Category.find_imported_categories(row_hash['categories'])
-    row_hash.delete("categories")
-    row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-    row_hash = Questionnaire.add_commendation(row_hash)
-    article = Article.create_or_find_according_to_action row_hash, user
+    if self.processing?
+      begin
+        row_hash = sanitize_fields unsanitized_row_hash.dup
+        categories = Category.find_imported_categories(row_hash['categories'])
+        row_hash.delete("categories")
+        row_hash = Questionnaire.include_fair_questionnaires(row_hash)
+        row_hash = Questionnaire.add_commendation(row_hash)
+        article = Article.create_or_find_according_to_action row_hash, user
 
-    if article # so we can ignore rows when reimporting
-      article.user_id = self.user_id
-      revise_prices(article)
-      article.categories = categories if categories
-      if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                     # fix this by generating the base errors with proper validations
-                                     # may be hard for dynamic update model
-        add_article_error_messages(article, index, unsanitized_row_hash)
-      else
-        article.calculate_fees_and_donations
-        article.mass_upload = self
-        article.process!
+        if article.action != :nothing # so we can ignore rows when reimporting
+          article.user_id = self.user_id
+          revise_prices(article)
+          article.categories = categories if categories
+          if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                         # fix this by generating the base errors with proper validations
+                                         # may be hard for dynamic update model
+            add_article_error_messages(article, index, unsanitized_row_hash)
+          else
+            article.calculate_fees_and_donations if article.action != :delete && article.action != :deactivate # check for performance reasons
+            article.mass_upload = self
+            article.process!
+          end
+        else
+          article.update_attribute(:mass_upload_id,self.id)
+        end
+
+      rescue => e
+        log_exception e
+        return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
+      self.finish
     end
   end
 
   def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    csv = CSV.generate_line(MassUpload.header_row.map{ |column| row_hash[column] },:col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] },:col_sep => ";")
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
@@ -213,18 +213,17 @@ class MassUpload < ActiveRecord::Base
     article.payment_cash_on_delivery_price_cents ||= 0
   end
 
-  def update_solr_index_for article_ids
+  def self.update_solr_index_for article_ids
     articles = Article.find article_ids
     Sunspot.index articles
     Sunspot.commit
   end
-  handle_asynchronously :update_solr_index_for,  :queue => "indexing"
 
   private
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
       row_hash.keys.each do |key|
-        row_hash.delete key unless MassUpload.header_row.include? key
+        row_hash.delete key unless MassUpload.article_attributes.include? key
       end
       row_hash
     end

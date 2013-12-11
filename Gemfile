@@ -14,8 +14,12 @@ platforms :ruby do
   group :production do
     gem 'pg'
   end
-  gem 'debugger'
-  gem 'debugger-linecache'
+  unless ENV["CI"]
+    group :development, :test do
+      gem 'debugger'
+      gem 'debugger-linecache'
+    end
+  end
 
 end
 
@@ -43,10 +47,11 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 # Indexing /Searching
 gem 'sunspot_rails'
+gem "sunspot-queue" # sidekiq
 
-# Delayed_Jobs & Daemons
-gem "daemons"
-gem 'delayed_job_active_record'
+# Sidekiq
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 
 # Controller Gems
@@ -86,6 +91,7 @@ group :assets do
   gem "compass", "~> 0.13.alpha.4"
   gem 'compass-rails'
 
+
   # JS
   gem 'jquery-ui-rails'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'
@@ -117,7 +123,6 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem "ZenTest"
 
   # Gem for testing emails
   gem "email_spec"
@@ -169,6 +174,7 @@ end
 group :test do
   gem 'rake'
   gem 'colorize'
+  gem "ZenTest"
 end
 
 # Adding Staging-server Embedded Solr

@@ -65,22 +65,19 @@ module Article::Search
       integer :basic_price_amount, :stored => true
       integer :vat, :stored => true
 
+     # Friendly Percent
        integer :friendly_percent, :stored => true
+      text :friendly_percent_organisation
 
       # Possible future local search
 
       boolean :transport_pickup
       string :zip
-    end
 
-    # Indexing via Delayed Job Daemon
-    handle_asynchronously :solr_index, queue: 'indexing', priority: 50
-    handle_asynchronously :solr_index!, queue: 'indexing', priority: 50
+    end
 
     skip_callback :save, :after, :perform_index_tasks, :if => lambda { self.preview? }
 
-    alias_method_chain :remove_from_index, :delayed
-    alias :solr_remove_from_index :remove_from_index
 
   end
 
@@ -88,17 +85,13 @@ module Article::Search
      title_image.image(:thumb) if title_image
   end
 
-  def remove_from_index_with_delayed
-    Delayed::Job.enqueue RemoveIndexJob.new(record_class: self.class.to_s, attributes: self.attributes), queue: 'indexing', priority: 50
-  end
-
-  def find_like_this page
+ def find_like_this page
     Article.search(:include => [:seller, :images]) do
       fulltext self.title do
         if self.search_in_content?
           fields(:content,:title => 2.0)
         else
-          fields(:title)
+          fields(:title, :friendly_percent_organisation)
         end
       end
       paginate :page => page, :per_page => Kaminari.config.default_per_page
@@ -108,6 +101,7 @@ module Article::Search
       with :condition, self.condition if self.condition
       with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
       with :zip, self.search_for_zip if search_for_zip.present?
+
       case self.search_order_by
       when "newest"
         order_by(:created_at, :desc)
@@ -128,6 +122,15 @@ module Article::Search
     #only for products which have pickup transport
     if self.transport_pickup
       self.seller.zip
+    else
+      nil
+    end
+  end
+
+  # Index the nickname of ngos if friendly_percent_organisation is present
+  def friendly_percent_organisation
+    if self.donated_ngo
+      self.donated_ngo.nickname
     else
       nil
     end

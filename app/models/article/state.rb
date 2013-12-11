@@ -67,7 +67,7 @@ module Article::State
 
       before_transition :on => :activate, :do => :calculate_fees_and_donations
       after_transition :on => :deactivate, :do => :remove_from_libraries
-      after_transition :on => :activate, :do => :remove_activation_action
+      before_transition :on => :activate, :do => :remove_activation_action
     end
 
   end
