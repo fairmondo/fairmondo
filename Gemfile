@@ -9,7 +9,6 @@ gem 'rails', '~> 3.2.14'
 # Ruby Deps
 platforms :ruby do
   gem 'sqlite3'
-  gem 'debugger'
   # gem 'activerecord-postgresql-adapter'
   gem 'therubyracer'
   group :production do
