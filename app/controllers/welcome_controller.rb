@@ -45,8 +45,5 @@ class WelcomeController < ApplicationController
     render layout: "landing"
   end
 
-  def wegreentest
-    render layout: false
-  end
 
 end

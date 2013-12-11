@@ -79,7 +79,6 @@ Fairnopoly::Application.routes.draw do
 
   get "welcome/index"
   get "mitunsgehen", to: 'welcome#landing'
-  get "welcome/wegreentest"
 
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
