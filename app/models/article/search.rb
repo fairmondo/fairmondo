@@ -85,11 +85,7 @@ module Article::Search
      title_image.image(:thumb) if title_image
   end
 
-  def remove_from_index_with_delayed
-    Delayed::Job.enqueue RemoveIndexJob.new(record_class: self.class.to_s, attributes: self.attributes), queue: 'indexing', priority: 50
-  end
-
-  def find_like_this page
+ def find_like_this page
     Article.search(:include => [:seller, :images]) do
       fulltext self.title do
         if self.search_in_content?
