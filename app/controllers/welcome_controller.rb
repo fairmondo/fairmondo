@@ -21,7 +21,7 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => [:index,:feed, :landing]
+  skip_before_filter :authenticate_user!, :only => [:index,:feed, :landing, :wegreentest]
 
   def index
     @queue1 = Exhibit.independent_queue :queue1, 1
@@ -43,6 +43,10 @@ class WelcomeController < ApplicationController
 
   def landing
     render layout: "landing"
+  end
+
+  def wegreentest
+    render layout: false
   end
 
 end
