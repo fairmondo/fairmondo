@@ -36,10 +36,13 @@ module Article::DynamicProcessing
       when 'u', 'update', 'x', 'delete', 'a', 'activate', 'd', 'deactivate'
         Article.process_dynamic_update attribute_hash, user
       when nil
-        attribute_hash['action'] = Article.get_processing_default attribute_hash
+        attribute_hash['action'] = Article.get_processing_default attribute_hash, user
         Article.create_or_find_according_to_action attribute_hash, user #recursion happens once
       when 'nothing'
         # Keep article as is. We could update it, but this conflicts with locked articles
+        article = Article.find_by_id_or_custom_seller_identifier attribute_hash, user
+        article.action = :nothing
+        article
       else
         Article.create_error_article I18n.t("mass_uploads.errors.unknown_action")
       end
@@ -64,9 +67,7 @@ module Article::DynamicProcessing
         if attribute_hash['id']
           article = user.articles.where(id: attribute_hash['id']).first
         elsif attribute_hash['custom_seller_identifier']
-          article = user.articles.
-            where(custom_seller_identifier: attribute_hash['custom_seller_identifier']).
-            limit(1).first
+          article = Article.find_article_by_custom_seller_identifier attribute_hash['custom_seller_identifier'], user
         else
           article = Article.create_error_article  I18n.t("mass_uploads.errors.no_identifier")
         end
@@ -99,8 +100,18 @@ module Article::DynamicProcessing
 
       # Defaults: create when no ID is set, does nothing when an ID exists
       # @return [String]
-      def self.get_processing_default attribute_hash
-        attribute_hash['id'] ? 'nothing' : 'create'
+      def self.get_processing_default attribute_hash, user
+        if attribute_hash['id']
+          'nothing'
+        elsif attribute_hash['custom_seller_identifier']
+            if Article.find_article_by_custom_seller_identifier(attribute_hash['custom_seller_identifier'], user).present?
+              'nothing'
+            else
+              'create'
+            end
+        else
+          'create'
+        end
       end
 
       # Get article with error message for display in MassUpload#new error list
@@ -111,9 +122,14 @@ module Article::DynamicProcessing
         article.errors[:base] = error_message
         article
       end
+
+      def self.find_article_by_custom_seller_identifier custom_seller_identifier, user
+        user.articles.where(custom_seller_identifier: custom_seller_identifier).limit(1).first
+      end
   end
 
   # Replacement for save! method - Does different things based on the action attribute
+
   def process!
     if [:activate, :create, :update].include?(self.action)
       self.activation_action = self.action.to_s
@@ -131,6 +147,5 @@ module Article::DynamicProcessing
 
   def remove_activation_action
     self.activation_action = nil
-    self.save
   end
 end

@@ -62,7 +62,7 @@ describe "Mass-upload" do
                          'spec/fixtures/mass_upload_correct.csv')
             end
 
-            it "should redirect to the mass_uploads#show" do
+            it "should redirect to the mass_uploads#show", visual: true do
               click_button I18n.t('mass_uploads.labels.upload_article')
               should have_content I18n.t('users.boxes.my_mass_uploads')
               click_link I18n.t('mass_uploads.labels.show_report')
@@ -129,6 +129,7 @@ describe "Mass-upload" do
                   article2.active?.should eq true
                   Article.find(1).closed?.should eq true
                   Article.find(2).closed?.should eq true
+                  Article.find(3).title.should eq "Name von Artikel 3"
                 end
               end
 
@@ -328,6 +329,8 @@ describe "Mass-upload" do
               should have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
             end
           end
+
+
         end
       end
     end
