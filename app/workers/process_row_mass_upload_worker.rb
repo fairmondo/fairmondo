@@ -19,15 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RemoveIndexJob < Struct.new(:options)
-  def perform
-    return if options.nil?
-    options.symbolize_keys!
-    record = options[:record_class].constantize.new
-    options[:attributes].except("id").each do |k,v|
-      record[k] = v
-    end
-    record.id = options[:attributes]["id"]
-    record.remove_from_index_without_delayed
+class ProcessRowMassUploadWorker
+  include Sidekiq::Worker
+  sidekiq_options :queue => :mass_upload, :retry => false, :backtrace => true
+
+  def perform mass_upload_id, row, index
+    mass_upload = MassUpload.find mass_upload_id
+    mass_upload.process_row row,index
   end
 end

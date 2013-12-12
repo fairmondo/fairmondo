@@ -9,7 +9,8 @@ describe MassUpload do
 
    describe "methods" do
     let(:legal_entity_user) { FactoryGirl.create :legal_entity, :paypal_data }
-    let(:mass_upload)   { FactoryGirl.create :mass_upload, :user => legal_entity_user }
+    let(:db_mass_upload)    { FactoryGirl.create :mass_upload, :user => legal_entity_user }
+    let(:mass_upload)       { MassUpload.new }
 
     describe "#get_csv_encoding" do
       it "should detect a Windows-1252 encoding" do
@@ -33,19 +34,21 @@ describe MassUpload do
         mass_upload.send(:get_csv_encoding, 'spec/fixtures/mass_upload_correct.csv').should eq 'utf-8'
       end
 
-      describe "#set_progress" do
-        before do
-          row = CSV::Row.new(["123"], [nil])
-          mass_upload.set_progress(100,1000, row)
-        end
-
-        it "should set the character_count to 1004" do
-          mass_upload.character_count.should eq 1004
-        end
-
-        it "should set the mass_upload article_count to 100" do
-          mass_upload.article_count.should eq 100
-        end
+    end
+    describe "#process_without_delay" do
+      it "should output the backtrace on unknown errors" do
+        db_mass_upload.stub(:get_csv_encoding)
+        CSV.stub(:foreach).and_raise(NoMethodError)
+        db_mass_upload.process_without_delay
+        db_mass_upload.failed?.should be_true
+      end
+    end
+    describe "#process_row" do
+      it "should output the backtrace on unknown errors" do
+        Category.stub(:find_imported_categories).and_raise(NoMethodError)
+        db_mass_upload.start
+        db_mass_upload.process_row Hash.new, 1
+        db_mass_upload.failed?.should be_true
       end
     end
   end

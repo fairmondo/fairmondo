@@ -333,20 +333,27 @@ describe Article do
         let(:article) { FactoryGirl.create :article,:without_image}
         before do
           @url = "http://www.test.com/test.png"
-          @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
-          article.images << @image
-          URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
         end
         it "should do nothing if the url is already present" do
+          URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
           expect {
             article.add_image @url, true
           }.to change(Image, :count).by(0)
         end
         it "should delete a title image if an other external url is given" do
+          URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
+          @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
+          article.images << @image
           @image.update_attribute(:external_url, nil)
           @image.should_receive :delete
           article.add_image @url, true
         end
+        it "should add an error when the image can't be downloaded" do
+          URI.stub(:parse).and_raise(IOError)
+          article.add_image @url, true
+          article.errors[:external_title_image_url].should eq [I18n.t('mass_uploads.errors.image_not_available')]
+        end
+
       end
     end
   end
