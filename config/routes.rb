@@ -100,11 +100,15 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, :only => [:index,:show]
+  resources :libraries, :only => [:index, :show]
 
-  resources :categories, :only => [:show,:index]
+  resources :categories , :only => [:show, :index] do
+    collection do
+      get '/id_index', to: 'categories#id_index'
+    end
+  end
 
-  resources :exhibits, :only => [:create,:update, :destroy] do
+  resources :exhibits, :only => [:create, :update, :destroy] do
     collection do
       post 'create_multiple'
     end
@@ -112,11 +116,22 @@ Fairnopoly::Application.routes.draw do
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
+  require 'sidekiq/web'
+
+  constraint = lambda { |request| request.env["warden"].authenticate? and
+                      request.env['warden'].user.admin?}
+
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
     match "/*id" => 'contents#show'
   end
+
+
 
 end
