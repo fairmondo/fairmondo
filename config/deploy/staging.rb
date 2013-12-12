@@ -28,8 +28,6 @@ role :sidekiq, "78.109.61.137"
 set :rails_env, "staging"
 set :branch, fetch(:branch, "develop")
 
-
-
 namespace :solr do
   desc "start solr"
   task :start, :roles => :app, :except => { :no_release => true } do
