@@ -1,0 +1,23 @@
+.Whitebox
+  %h1
+    Ids für die Auszeichnung von Kategorien im Rahmen des CSV-Uploads
+  %p
+    Gibt man in der CSV eine der eingerückten Unterkategorien an, so werden
+    automatisch auch die in der Hierachie darüber liegenden Kategorien ergänzt.
+    Gibt man also z.B. die Kategorie mit der ID 2 (Elektronik) an, so wir der Artikel
+    auch unter der Kategorie mit der ID 1 (Technik) zu finden sein. Wählt man die Kategorie
+    mit der ID 24 (DVD), so wird der Artikel auch unter der Kategorien mit der ID
+    21 (Filme) sowie der Kategorie mit der ID 4 (Medien) zu finden sein.
+  %ul
+    - @categories.each do |category|
+      - unless category.parent_id
+        %p
+          %li ID: #{category.id}, Name: #{category.name}
+          - if category.children_count > 0
+            %ul
+              - Category.find_all_by_parent_id(category.id).each do |child_category|
+                %li ID: #{child_category.id}, Name: #{child_category.name}
+                - if child_category.children_count > 0
+                  %ul
+                    - Category.find_all_by_parent_id(child_category.id).each do |grandchild_category|
+                      %li ID: #{grandchild_category.id}, Name: #{grandchild_category.name}

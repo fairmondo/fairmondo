@@ -40,6 +40,7 @@ describe ToolboxController do
 
   describe "GET 'rss'" do
     before(:each) do
+      URI.stub_chain(:parse,:open,:read)
       RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
     end
 
