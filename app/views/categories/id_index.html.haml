@@ -9,7 +9,7 @@
     mit der ID 24 (DVD), so wird der Artikel auch unter der Kategorien mit der ID
     21 (Filme) sowie der Kategorie mit der ID 4 (Medien) zu finden sein.
   %ul
-    - Category.all.each do |category|
+    - @categories.each do |category|
       - unless category.parent_id
         %p
           %li ID: #{category.id}, Name: #{category.name}
