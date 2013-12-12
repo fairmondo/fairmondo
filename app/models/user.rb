@@ -339,6 +339,12 @@ class User < ActiveRecord::Base
   def current_sign_in_ip= value
     super Digest::MD5.hexdigest(value)
   end
+  
+  # FastBill: this method checks if a user aready has fastbill profile
+  def has_fastbill_profile?
+    fastbill_id && fastbill_subscription_id
+  end
+  
 
   private
     # @api private

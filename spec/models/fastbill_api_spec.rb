@@ -44,6 +44,8 @@ describe FastbillAPI do
 
         it "should set usage data for subscription" do
           FastbillAPI.should_receive( :fastbill_setusagedata ).twice
+          FastbillAPI.should_receive( :fee_wo_vat )
+          FastbillAPI.should_receive( :fee_wo_vat )
           FastbillAPI.fastbill_chain( db_transaction )
         end
       end

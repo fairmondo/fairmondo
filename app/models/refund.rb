@@ -22,7 +22,8 @@ class Refund < ActiveRecord::Base
 
   private
     def fastbill_refund
-      FastbillAPI.fastbill_refund( self.transaction, :fair )
-      FastbillAPI.fastbill_refund( self.transaction, :fee )
+      [ :fair, :fee ].each do | fee_type |
+        FastbillAPI.fastbill_refund( self.transaction, fee_type )
+      end
     end
 end
