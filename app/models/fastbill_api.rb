@@ -1,7 +1,6 @@
 class FastbillAPI
   require 'fastbill-automatic'
 
-  
   #Here be FastBill stuff
   #TODO verhindern, dass je Nutzer zwei Kontos angelegt werden, schauen warum das mt den Abos nicht hinhaut
   #TODO Logger für fehlerhandling
@@ -48,7 +47,6 @@ class FastbillAPI
                                             bank_account_owner: seller.bank_account_owner
                                           )
       seller.fastbill_id = customer.customer_id
-      seller.has_fastbill_profile = true
       seller.save
     end
     
@@ -80,13 +78,14 @@ class FastbillAPI
 
     def self.fastbill_create_subscription seller
       subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
-                                                customer_id: seller.fastbill_id
+                                                customer_id: seller.fastbill_id,
+                                                next_event: Time.now.end_of_month.strftime("%Y-%m-%d %H:%M:%S")
                                               )
       seller.fastbill_subscription_id = subscription.subscription_id
       seller.save
     end
       
-    #TODO NETTOPREISE müssen übertragen werden.
+    # This method adds articles and their according fee type to the invoice
     def self.fastbill_setusagedata seller, transaction, fee_type
       article = transaction.article
 
@@ -99,6 +98,7 @@ class FastbillAPI
                                                     )
     end
     
+    # This method adds an discount (if discount is given for transaction)
     def self.fastbill_discount seller, transaction
       article = transaction.article
 
@@ -110,6 +110,7 @@ class FastbillAPI
                                                     )
     end
 
+    # This method adds an refund to the invoice is refund is requested for an article
     def self.fastbill_refund transaction, fee_type
       article = transaction.article
       seller = transaction.seller
@@ -118,16 +119,17 @@ class FastbillAPI
                                                       article_number: fee_type == :fair ? '11' : '12',
                                                       quantity: transaction.quantity_bought,
                                                       unit_price: fee_type == :fair ? -( fair_wo_vat article ) : -( fee_wo_vat article ),
-                                                      description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? 'Rueckerstattung Faires Prozent' : 'Rueckerstattung Verkaufsgebuehr'})",
+                                                      description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.refund_fair' ) : I18n.t( 'invoice.refund_fee' ) })",
                                                       usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                     )
     end
 
-    def fair_wo_vat article
+    # This methods calculate the fee without vat
+    def self.fair_wo_vat article
       article.calculated_fair_cents.to_f / 100 / 1.19
     end
 
-    def fee_wo_vat article
+    def self.fee_wo_vat article
       article.calculated_fee_cents.to_f / 100 / 1.19
     end
 end

@@ -35,14 +35,14 @@ describe RefundPolicy do
       context 'that is not sold' do
         let( :refund ) { FactoryGirl.create :refund, :not_sold_transaction }
         it { should deny( :create ) }
-        it { should deny(:new) }
+        it { should deny( :new ) }
       end
     end
 
     context 'who does not own transaction' do
       let( :user ) { FactoryGirl.create :user }
       it { should deny( :create ) }
-      it { should deny(:new) }
+      it { should deny( :new ) }
     end
   end
 end

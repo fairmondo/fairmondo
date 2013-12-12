@@ -126,7 +126,7 @@ FactoryGirl.define do
     end
 
     trait :fastbill_profile do
-      seller { FactoryGirl.create :seller, :has_fastbill_profile => true }
+      seller { FactoryGirl.create :seller, fastbill_id: rand(1...1000), fastbill_subscription_id: rand(1...1000) }
     end
 
     trait :old do

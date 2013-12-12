@@ -12,6 +12,5 @@ describe Refund do
     it { should validate_presence_of :reason }
     it { should validate_presence_of :description }
     it { should validate_presence_of :transaction_id }
-    it { should validate_uniqueness_of :transaction_id }
   end
 end
