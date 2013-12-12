@@ -28,6 +28,7 @@ role :sidekiq, "5.22.150.182"
 
 set(:sidekiq_processes) { 2 }
 
+
 set :rails_env, "production"
 set :branch, fetch(:branch, "master")
 
