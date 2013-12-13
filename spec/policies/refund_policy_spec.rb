@@ -7,8 +7,8 @@ describe RefundPolicy do
     stub_fastbill
   end
 
+  let( :refund ){ FactoryGirl.create :refund }
   subject { RefundPolicy.new( user, refund ) }
-  let( :refund ) { FactoryGirl.build :refund }
 
   context "for a visitor" do
     let( :user ) { nil }
@@ -22,6 +22,7 @@ describe RefundPolicy do
 
       context 'that is sold' do
         context 'and is not refunded' do
+          let( :refund ) { Refund.new transaction: FactoryGirl.create( :transaction_with_buyer, :old ) }
           it { should permit( :create ) }
           it { should permit( :new ) }
         end

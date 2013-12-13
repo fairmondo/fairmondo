@@ -30,7 +30,7 @@ module TransactionDiscount
 
   # returns the value of discounts granted for specific discount
   def value_discounted_articles
-    discounted.sum( "discount_given_cents * quantity_bought" ).to_i
+    discounted.sum( "discount_value_cents * quantity_bought" ).to_i
   end
 
   def calculated_discount

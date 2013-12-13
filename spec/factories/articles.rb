@@ -209,5 +209,9 @@ FactoryGirl.define do
     trait :with_custom_seller_identifier do
       custom_seller_identifier {Faker::Lorem.words(rand(3..5))}
     end
+
+    trait :with_discount do
+      discount { FactoryGirl.create :discount }
+    end
   end
 end

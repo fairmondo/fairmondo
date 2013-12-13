@@ -7,13 +7,14 @@ describe Refund do
   let( :transaction ){ FactoryGirl.create :transaction_with_buyer, :old, seller: user }
 
   context 'logged in user' do
-    before { login_as user }
+    before { login_as( user ) }
 
     context 'LegalEntity' do
       context 'is transaction seller and time is between 14 and 45 days after transaction was set to sold' do
-        it 'transaction item vie on user page should show refund button' do
+        it 'transaction item view on user page should show refund button' do
+          transaction
           visit user_path( user )
-          page.should have_button( I18n.t( 'invoice.refund_button' ) )
+          page.should have_selector( :link_or_button, I18n.t( 'invoice.refund_button' ) )
         end
         
         it 'should show right elements' do
@@ -30,9 +31,10 @@ describe Refund do
 
     context 'PrivateUser' do
       context 'is transaction seller and time is between 14 and 28 days after transaction was set to sold' do
-        it 'transaction item vie on user page should show refund button' do
+        it 'transaction item view on user page should show refund button' do
+          transaction
           visit user_path( user )
-          page.should have_button( I18n.t( 'invoice.refund_button' ) )
+          page.should have_selector( :link_or_button, I18n.t( 'invoice.refund_button' ) )
         end
         
         it 'should show refund_request page' do
