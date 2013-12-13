@@ -23,6 +23,7 @@ class ToolboxController < ApplicationController
                                                                      # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
     feed = open 'https://info.fairnopoly.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
     OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
+
     rss = RSS::Parser.parse(feed.read, false)
     @items = rss.items.first(3)
     respond_to do |format|
