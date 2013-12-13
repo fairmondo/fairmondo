@@ -19,7 +19,6 @@ class ToolboxController < ApplicationController
   end
 
   def rss
-    debugger
     OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv3' # See comment to http://stackoverflow.com/q/20169301/409087
                                                                      # TODO Set /etc/ssl/certs as sll_ca_folder to remove this hack
     feed = open 'https://info.fairnopoly.de/?feed=rss', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
