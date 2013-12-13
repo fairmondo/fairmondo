@@ -26,5 +26,7 @@ describe Image do
     FactoryGirl.create(:image).should be_valid
   end
 
-  it { should belong_to :imageable }
+  describe "associations" do
+    it { should belong_to :imageable }
+  end
 end
