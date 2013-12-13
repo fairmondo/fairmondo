@@ -12,7 +12,7 @@ module TransactionRefund
   #
   # checks if user has requested refund for this transaction
   def requested_refund?
-    !!( refund && refund_reason && refund_description )
+    ( self.refund && self.refund_reason && self.refund_description ) ? true : false
   end
 
   def refundable?

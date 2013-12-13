@@ -50,31 +50,33 @@ class FastbillAPI
       seller.save
     end
     
-    def self.fastbill_update_user user
-      customer = Fastbill::Automatic::Customer.get( customer_number: user.fastbill_id ).first
-      if customer
-        customer.update_attributes( customer_id: user.fastbill_id,
-                                  customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
-                                  organization: "#{ user.company_name if user.is_a?(LegalEntity) }",
-                                  first_name: user.forename,
-                                  last_name: user.surname,
-                                  address: user.street,
-                                  address_2: user.address_suffix,
-                                  zipcode: user.zip,
-                                  city: user.city,
-                                  country_code: 'DE',
-                                  language_code: 'DE',
-                                  email: user.email,
-                                  currency_code: 'EUR',
-                                  payment_type: user.direct_debit ? '2' : '1',
-                                  show_payment_notice: '1',
-                                  bank_name: user.bank_name,
-                                  bank_code: user.bank_code,
-                                  bank_account_number: user.bank_account_number,
-                                  bank_account_owner: user.bank_account_owner
-                                )
-      end
-    end
+    # not used yet, but it will be
+    #
+    # def self.fastbill_update_user user
+    #   customer = Fastbill::Automatic::Customer.get( customer_number: user.fastbill_id ).first
+    #   if customer
+    #     customer.update_attributes( customer_id: user.fastbill_id,
+    #                               customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
+    #                               organization: "#{ user.company_name if user.is_a?(LegalEntity) }",
+    #                               first_name: user.forename,
+    #                               last_name: user.surname,
+    #                               address: user.street,
+    #                               address_2: user.address_suffix,
+    #                               zipcode: user.zip,
+    #                               city: user.city,
+    #                               country_code: 'DE',
+    #                               language_code: 'DE',
+    #                               email: user.email,
+    #                               currency_code: 'EUR',
+    #                               payment_type: user.direct_debit ? '2' : '1',
+    #                               show_payment_notice: '1',
+    #                               bank_name: user.bank_name,
+    #                               bank_code: user.bank_code,
+    #                               bank_account_number: user.bank_account_number,
+    #                               bank_account_owner: user.bank_account_owner
+    #                             )
+    #   end
+    # end
 
     def self.fastbill_create_subscription seller
       subscription = Fastbill::Automatic::Subscription.create( article_number: '10',

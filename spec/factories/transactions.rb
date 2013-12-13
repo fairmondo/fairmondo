@@ -90,11 +90,12 @@ FactoryGirl.define do
       quantity_bought 1
       state 'sold'
       sold_at { Time.now }
+      article { FactoryGirl.create :article, :without_build_transaction,:with_all_transports, state: "sold" }
     end
 
     factory :transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
       buyer { FactoryGirl.create :buyer }
-       quantity_bought 1
+      quantity_bought 1
       article { FactoryGirl.create :article, :with_friendly_percent}
     end
 
@@ -130,7 +131,7 @@ FactoryGirl.define do
     end
 
     trait :old do
-      sold_at 17.days.ago
+      sold_at { 17.days.ago }
     end
 
   end
