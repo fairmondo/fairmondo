@@ -6,6 +6,7 @@ module Article::Scopes
 
     scope :active, where(state: :active)
     scope :counting, where("articles.state = 'active' OR articles.state = 'sold'")
+    scope :latest_without_closed , where("state != 'closed'").order("created_at DESC").limit(1)
 
   end
 end
