@@ -124,7 +124,7 @@ module Article::DynamicProcessing
       end
 
       def self.find_article_by_custom_seller_identifier custom_seller_identifier, user
-        user.articles.where(custom_seller_identifier: custom_seller_identifier).limit(1).first
+        user.articles.where(custom_seller_identifier: custom_seller_identifier).latest_without_closed.first
       end
   end
 
