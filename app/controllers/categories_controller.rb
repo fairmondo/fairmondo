@@ -20,5 +20,7 @@ class CategoriesController < InheritedResources::Base
     @categories ||= Category.sorted_roots.includes(:children)
   end
 
-
+  def id_index
+    @categories = Category.all_by_id
+  end
 end
