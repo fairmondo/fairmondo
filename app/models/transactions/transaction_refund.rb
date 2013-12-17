@@ -9,13 +9,6 @@ module TransactionRefund
     delegate :description, :reason, to: :refund, prefix: true
   end
 
-  enumerize :reason, in: [
-    :sent_back,
-    :not_paid,
-    :not_in_stock,
-    :voucher
-  ]
-  
   # Methods
   #
   # checks if user has requested refund for this transaction
