@@ -1,6 +1,5 @@
 module TransactionRefund
   extend ActiveSupport::Concern
-  extend Enumerize
 
   included do
     has_one :refund, inverse_of: :transaction
