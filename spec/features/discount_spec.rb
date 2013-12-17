@@ -24,11 +24,10 @@ describe Discount do
       login_as user
     end
 
-    it 'should apply discount', visible: true do
+    it 'should apply discount' do
       discount
       article = FactoryGirl.create :article
       visit transaction_path( article.transaction )
-      save_and_open_page
       click_button 'Weiter'
       click_button I18n.t('transaction.actions.purchase')
       FastbillAPI.should receive( :fastbill_discount )
