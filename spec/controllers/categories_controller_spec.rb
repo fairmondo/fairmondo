@@ -47,6 +47,13 @@ describe CategoriesController do
 
     end
 
+    describe "GET 'id_index'" do
+      it "should allow access and show some categories" do
+        get :id_index
+        response.should be_success
+      end
+    end
+
 
   end
 end
