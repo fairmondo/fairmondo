@@ -1,5 +1,6 @@
 module TransactionRefund
   extend ActiveSupport::Concern
+  extend Enumerize
 
   included do
     has_one :refund, inverse_of: :transaction
@@ -7,6 +8,13 @@ module TransactionRefund
     #fields of refund model, that should be available through transaction
     delegate :description, :reason, to: :refund, prefix: true
   end
+
+  enumerize :reason, in: [
+    :sent_back,
+    :not_paid,
+    :not_in_stock,
+    :voucher
+  ]
   
   # Methods
   #
