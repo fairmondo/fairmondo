@@ -35,6 +35,8 @@ class Category < ActiveRecord::Base
 
   belongs_to :parent , :class_name => 'Category', :counter_cache => :children_count
 
+  scope :all_by_id, order("id ASC")
+
   acts_as_nested_set
 
   def self_and_ancestors_ids

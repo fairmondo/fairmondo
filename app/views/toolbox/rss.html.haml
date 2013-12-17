@@ -8,5 +8,5 @@
         = item.title
       = " - "
       = truncate(Sanitize.clean(item.description), :length => 150,:separator => " ")
-      = link_to "(mehr lesen)", item.link
-= link_to "Zu unserem Blog", "http://info.fairnopoly.de/"
+      = link_to "(mehr lesen)", item.link, target: '_blank'
+= link_to "Zu unserem Blog", "http://info.fairnopoly.de/", target: '_blank'
