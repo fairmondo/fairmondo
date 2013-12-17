@@ -18,14 +18,15 @@
   //float: left;
   //@include rem(width, 90%);
   @include at-breakpoint($layout-small) {
-    @include span-columns(12 , 15);
+    @include span-columns(13 , 16);
   }
 }
 
 .Donationpartner-element--title {
   @include rem(font-size, 11px);
   @include at-breakpoint($layout-small) {
-    @include span-columns(1, 15);
+    @include span-columns(1, 16);
+    margin-right: 25px;
   }
   color:$lightgray;
   margin-left: 0;
@@ -40,7 +41,7 @@
   @include rem(font-size, 11px);
 
   @include at-breakpoint($layout-small) {
-    @include span-columns(1 omega, 15);
+    @include span-columns(1 omega, 16);
   }
   // preventing overlap on really small screens
 
