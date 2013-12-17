@@ -14,7 +14,12 @@ class Refund < ActiveRecord::Base
 
   delegate :seller, to: :transaction, prefix: true
 
-  enumerize :reason, in: ['Gutschein', 'Kaufer hat nicht bezahlt']
+  enumerize :reason, in: [
+    :sent_back,
+    :not_paid,
+    :not_in_stock,
+    :voucher
+  ], default: :sent_back
 
   auto_sanitize :description
 
