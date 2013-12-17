@@ -128,10 +128,10 @@ class FastbillAPI
 
     # This methods calculate the fee without vat
     def self.fair_wo_vat article
-      article.calculated_fair_cents.to_f / 100 / 1.19
+      (article.calculated_fair_cents.to_f / 100 / 1.19).round(2)
     end
 
     def self.fee_wo_vat article
-      article.calculated_fee_cents.to_f / 100 / 1.19
+      (article.calculated_fee_cents.to_f / 100 / 1.19).round(2)
     end
 end
