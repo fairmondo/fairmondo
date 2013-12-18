@@ -65,6 +65,9 @@ a.Btn {
 	-moz-hyphens: auto;
 	hyphens: auto; // with hyphens
 	white-space: normal;
+	&.avoid-click {
+		pointer-events: none;
+	}
 }
 
 .Btn {
