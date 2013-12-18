@@ -130,22 +130,17 @@ module Article::DynamicProcessing
 
   # Replacement for save! method - Does different things based on the action attribute
 
-  def process!
-    if [:activate, :create, :update].include?(self.action)
-      self.activation_action = self.action.to_s
-    end
-    case self.action
+  def process! mass_upload
+    mu_article = MassUploadArticle.create :mass_upload => mass_upload, :article => self, :action => self.action
+
+    case mu_article.action
+    when :activate, :create, :update
+      self.calculate_fees_and_donations
     when :delete
       self.state = "closed"
-      self.activation_action = nil
     when :deactivate
       self.state = "locked"
-      self.activation_action = nil
     end
     self.save!
-  end
-
-  def remove_activation_action
-    self.activation_action = nil
   end
 end
