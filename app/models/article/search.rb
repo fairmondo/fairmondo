@@ -45,6 +45,7 @@ module Article::Search
     searchable :unless => :template?, :if => :active? do
       text :title, :boost => 5.0, :stored => true
       text :content
+      text :gtin
 
       # filters
       boolean :fair
@@ -89,9 +90,9 @@ module Article::Search
     Article.search(:include => [:seller, :images]) do
       fulltext self.title do
         if self.search_in_content?
-          fields(:content, :friendly_percent_organisation, :title => 2.0)
+          fields(:content, :friendly_percent_organisation, :gtin, :title => 2.0)
         else
-          fields(:title, :friendly_percent_organisation)
+          fields(:title, :gtin, :friendly_percent_organisation)
         end
       end
       paginate :page => page, :per_page => Kaminari.config.default_per_page
