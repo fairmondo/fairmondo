@@ -89,7 +89,7 @@ module Article::Search
     Article.search(:include => [:seller, :images]) do
       fulltext self.title do
         if self.search_in_content?
-          fields(:content,:title => 2.0)
+          fields(:content, :friendly_percent_organisation, :title => 2.0)
         else
           fields(:title, :friendly_percent_organisation)
         end
