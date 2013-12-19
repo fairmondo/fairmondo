@@ -49,20 +49,23 @@ class MassUpload < ActiveRecord::Base
 
   include Checks, Questionnaire, FeesAndDonations
 
-  has_many :articles
+  has_many :mass_upload_articles
+  has_many :articles, through: :mass_upload_articles
 
-  has_many :created_articles, :class_name => 'Article', :conditions => {:activation_action => "create"}
-  has_many :updated_articles, :class_name => 'Article', :conditions => {:activation_action => "update"}
-  has_many :deleted_articles, :class_name => 'Article', :conditions => {:state => "closed"}
-  has_many :deactivated_articles, :class_name => 'Article', :conditions => {:state => "locked"}
-  has_many :activated_articles, :class_name => 'Article', :conditions => {:activation_action => "activate"}
+  has_many :created_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "create"}
+  has_many :updated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "update"}
+  has_many :deleted_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "delete"}
+  has_many :deactivated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "deactivate"}
+  has_many :activated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "activate"}
+  has_many :articles_for_mass_activation, through: :mass_upload_articles, source: :article,
+            conditions: "mass_upload_articles.action IN ('create', 'update', 'activate')"
 
   has_many :erroneous_articles
   has_attached_file :file
   belongs_to :user
 
   validates_attachment :file, presence: true,
-    :size => { :in => 0..20.megabytes }
+    size: { in: 0..20.megabytes }
   validate :csv_format
 
   def self.mass_upload_attrs
@@ -108,10 +111,6 @@ class MassUpload < ActiveRecord::Base
       "address_suffix", "street", "city", "zip", "country", "buyer_email",
       "fee_cents", "donation_cents", "total_fee_cents", "net_total_fee_cents",
       "vat_total_fee_cents", "sold_at"]
-  end
-
-  def articles_for_mass_activation
-     self.created_articles + self.updated_articles + self.activated_articles
   end
 
   def empty?
@@ -170,18 +169,16 @@ class MassUpload < ActiveRecord::Base
           article.user_id = self.user_id
           revise_prices(article)
           article.categories = categories if categories
-          if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                         # fix this by generating the base errors with proper validations
-                                         # may be hard for dynamic update model
-            add_article_error_messages(article, index, unsanitized_row_hash)
-          else
-            article.calculate_fees_and_donations if article.action != :delete && article.action != :deactivate # check for performance reasons
-            article.mass_upload = self
-            article.process!
-          end
-        else
-          article.update_attribute(:mass_upload_id,self.id)
         end
+        if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                       # fix this by generating the base errors with proper validations
+                                       # may be hard for dynamic update model
+          add_article_error_messages(article, index, unsanitized_row_hash)
+        else
+          article.process! self
+        end
+
+
 
       rescue => e
         log_exception e
