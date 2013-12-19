@@ -14,19 +14,18 @@ class Discount < ActiveRecord::Base
 
   auto_sanitize :title, :description
 
-  scope :current, where( "start_time < ? AND end_time > ?", Time.now, Time.now )
+  scope :current, lambda { where( "start_time < ? AND end_time > ?", Time.now, Time.now ) }
 
   def self.discount_chain transaction
-    @transaction = transaction
-    if @transaction.discountable?
-      @transaction.discount_id = @transaction.article_discount_id
+    if transaction.discountable?
+      transaction.discount_id = transaction.article_discount_id
 
-      if @transaction.calculated_discount > @transaction.remaining_discount
-        @transaction.discount_value_cents = @transaction.remaining_discount
+      if transaction.calculated_discount > transaction.remaining_discount
+        transaction.discount_value_cents = transaction.remaining_discount
       else
-        @transaction.discount_value_cents = @transaction.calculated_discount
+        transaction.discount_value_cents = transaction.calculated_discount
       end
     end
-    @transaction.save
+    transaction.save
   end
 end

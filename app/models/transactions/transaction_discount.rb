@@ -40,4 +40,17 @@ module TransactionDiscount
   def remaining_discount
     self.discount.max_discounted_value_cents - self.value_discounted_articles
   end
+
+  def discount_chain
+    if discountable?
+      discount_id = article_discount_id
+
+      if calculated_discount > remaining_discount
+        discount_value_cents = remaining_discount
+      else
+        discount_value_cents = calculated_discount
+      end
+    end
+    save
+  end
 end

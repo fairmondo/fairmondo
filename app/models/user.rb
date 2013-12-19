@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
+  
+  # after_save :update_fastbill_profile
 
   # Setup accessible (or protected) attributes for your model
 
@@ -340,12 +342,18 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
   
-  # FastBill: this method checks if a user aready has fastbill profile
+  # FastBill: this method checks if a user already has fastbill profile
   def has_fastbill_profile?
     fastbill_id && fastbill_subscription_id
   end
-  
 
+  # FastBill
+  def update_fastbill_profile
+    if self.has_fastbill_profile?
+      FastbillAPI.update_profile self
+    end
+  end
+  
   private
     # @api private
     def create_default_library
