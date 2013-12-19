@@ -161,4 +161,3 @@ Regarding the source, there are two ways to contribute.
    * Have a look at our issue list and work on whatever you like. Mainly look at [Milestone] Backlog [Label] free4all
    * Send us an email at {email@fairnopoly.de}[mailto:email@fairnopoly.de] and work with us to make the world a better place
    * or make a github account and click on the button called "Fork" in the upper right corner of {our repository}[https://github.com/fairnopoly/fairnopoly]. Then code a few cool features, commit and push your changes, and submit a "Pull Request" so we can implement your work.
-
