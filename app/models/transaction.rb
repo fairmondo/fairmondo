@@ -23,6 +23,8 @@ class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
+  include TransactionRefund
+
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions

@@ -217,3 +217,11 @@ de:
         honor: "Fairnopoly Auszeichnungen"
         other: "Anderes"
         trust_community: "Trust Community"
+    refund:
+      reason:
+       not_paid: 'Käufer*in hat nicht gezahlt'
+       voucher: 'Gutschein'
+       not_in_stock: 'Artikel ist nicht lieferbar'
+       sent_back: 'Artikel wurde zurück geschickt'
+
+
