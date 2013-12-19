@@ -35,3 +35,6 @@
 - else
   = render partial: '/articles/shared/articles_grid', locals:{ articles: @articles }
   = paginate @articles
+  - if params[:queue]
+    .align-center
+      = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
