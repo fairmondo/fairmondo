@@ -82,4 +82,22 @@ module StatisticsHelper
     end
     result_sold
   end
+
+  def weekly_statistics_sold_articles
+    weekly_result_sold = {}
+    weekly_result_sold[:amount_unique] = 0
+    weekly_result_sold[:amount_total] = 0
+    weekly_result_sold[:sold_value]= Money.new(0)
+    weekly_result_sold[:sold_fee]= Money.new(0)
+    weekly_result_sold[:sold_fair]= Money.new(0)
+
+    Transaction.joins(:article).includes(:article).where("transactions.state = ? AND transactions.sold_at > ?", :sold, 1.week.ago).find_each do |transaction|
+      weekly_result_sold[:amount_unique] += 1
+      weekly_result_sold[:amount_total] += transaction.quantity_bought
+      weekly_result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
+      weekly_result_sold[:sold_fee] += transaction.article.calculated_fee * transaction.quantity_bought
+      weekly_result_sold[:sold_fair] += transaction.article.calculated_fair * transaction.quantity_bought
+    end
+    weekly_result_sold
+  end
 end
