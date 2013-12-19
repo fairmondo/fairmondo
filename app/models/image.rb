@@ -30,8 +30,8 @@ class Image < ActiveRecord::Base
 
 
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
-  has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "260x180#", profile: "300x300#" },
-                            convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip", profile: "-quality 75 -strip" },
+  has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "280x200>", profile: "300x300#" },
+                            convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip -gravity center -extent 260x180", profile: "-quality 75 -strip" },
                             default_url: "/assets/missing.png",
                             url: "/system/:attachment/:id_partition/:style/:filename",
                             path: "public/system/:attachment/:id_partition/:style/:filename"
