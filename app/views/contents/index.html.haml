@@ -103,7 +103,6 @@
       = statistics_category(c)
 
 %hr
-%hr
 - result_sold = statistics_sold_articles
 
 %p
@@ -121,3 +120,26 @@
 %p
   %h2 Bisher eingenommene Spenden (faires Prozent)
   = humanized_money_with_symbol result_sold[:sold_fair]
+
+%hr
+Letzte Woche verkaufte Artikel und so...
+/ TODO Wording and formatting
+
+
+- weekly_result_sold = weekly_statistics_sold_articles
+
+%p
+  %h2 Verkaufte Artikel (Anzahl ohne Stückzahlen)
+  = weekly_result_sold[:amount_unique]
+%p
+  %h2 Verkaufte Artikel (Anzahl mit Stückzahlen)
+  = weekly_result_sold[:amount_total]
+%p
+  %h2 Wert der verkauften Artikel
+  = humanized_money_with_symbol weekly_result_sold[:sold_value]
+%p
+  %h2 Bisher eingenommene Gebühren
+  = humanized_money_with_symbol weekly_result_sold[:sold_fee]
+%p
+  %h2 Bisher eingenommene Spenden (faires Prozent)
+  = humanized_money_with_symbol weekly_result_sold[:sold_fair]
