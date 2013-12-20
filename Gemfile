@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.14'
+gem 'rails', '~> 3.2.16'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -46,7 +46,7 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
-gem 'sunspot_rails'
+gem 'sunspot_rails' , '~> 2.0.0'
 gem "sunspot-queue" # sidekiq
 
 # Sidekiq
@@ -89,7 +89,7 @@ group :assets do
   gem "font-awesome-rails"
   gem "susy", "~> 1.0.8"
   gem "compass", "~> 0.13.alpha.4"
-  gem 'compass-rails'
+  gem 'compass-rails', "~> 1.0.3"
 
 
   # JS
@@ -137,7 +137,7 @@ group :development, :test do
   gem "rails-erd"
 
    #solr gem
-  gem 'sunspot_solr'
+  gem 'sunspot_solr' , '~> 2.0.0'
   gem "sunspot_test"
 
   # test suite additions
@@ -179,7 +179,7 @@ end
 
 # Adding Staging-server Embedded Solr
 group :staging do
-  gem 'sunspot_solr'
+  gem 'sunspot_solr' , '~> 2.0.0'
 
   #for testing search
   gem 'activerecord-import'
