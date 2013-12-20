@@ -23,7 +23,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
-    article { FactoryGirl.create :article, :without_build_transaction,:with_all_transports }
+    article { FactoryGirl.create :article, :without_build_transaction, :with_all_transports }
     seller { article.seller }
     selected_transport 'pickup'
     selected_payment 'cash'
@@ -88,6 +88,7 @@ FactoryGirl.define do
     factory :transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
       buyer { FactoryGirl.create :buyer }
       quantity_bought 1
+      state 'sold'
     end
 
     factory :transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
@@ -121,6 +122,9 @@ FactoryGirl.define do
     trait :cash_on_delivery_selected do
       selected_payment :cash_on_delivery
     end
-
+    
+    trait :old do
+      sold_at { 17.days.ago }
+    end
   end
 end
