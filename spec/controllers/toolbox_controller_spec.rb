@@ -40,8 +40,8 @@ describe ToolboxController do
 
   describe "GET 'rss'" do
     before(:each) do
-      URI.stub_chain(:parse,:open,:read)
-      RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
+      URI.stub_chain(:parse,:open,:read).and_return("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
+      #RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
     end
 
     context "as html" do
