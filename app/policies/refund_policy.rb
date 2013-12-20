@@ -1,6 +1,7 @@
 class RefundPolicy < Struct.new(:user, :refund)
   def create?
-    own? && refund.transaction.sold? && !refund.transaction.requested_refund?
+                #t = Transaction.find(refund.transaction.id)
+    own? && refund.transaction.sold? && !refund.transaction.reload.requested_refund?
   end
 
   def new?

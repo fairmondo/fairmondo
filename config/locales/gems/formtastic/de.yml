@@ -173,6 +173,9 @@ de:
         city: "Ort:"
         zip: "Postleitzahl:"
         country: "Land:"
+      refund:
+        reason: 'Bitte wähle einen Grund für Deinen Rückerstattungsantrag aus:'
+        description: 'Bitte beschreibe welche Schritte Du unternommen hast, um den Vorfall zu klären:'
     input_steps:
       user:
         account: Benutzerkonto
