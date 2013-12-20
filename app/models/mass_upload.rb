@@ -131,9 +131,12 @@ class MassUpload < ActiveRecord::Base
         row.delete '€' # delete encoding column
         ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
       end
-      self.update_attribute(:row_count, row_count)
 
-      self.finish
+      mutex_lock do
+        self.update_attribute(:row_count, row_count)
+        self.finish
+      end
+
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
@@ -177,14 +180,11 @@ class MassUpload < ActiveRecord::Base
         else
           article.process! self
         end
-
-
-
       rescue => e
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
-      self.finish
+      mutex_lock { self.finish }
     end
   end
 
@@ -214,6 +214,14 @@ class MassUpload < ActiveRecord::Base
     articles = Article.find article_ids
     Sunspot.index articles
     Sunspot.commit
+  end
+
+  def mutex_lock &block
+    s = Redis::Semaphore.new "mass_upload_#{self.id}".to_sym, redis: SidekiqRedisConnectionWrapper.new
+    s.lock block
+    #Sidekiq.redis do |redis|
+    #  Redis::Semaphore.new("mass_upload_#{self.id}".to_sym, redis: redis).lock block
+    #end
   end
 
   private

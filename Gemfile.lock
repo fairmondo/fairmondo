@@ -300,6 +300,8 @@ GEM
     redis (3.0.6)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
+    redis-semaphore (0.2.1)
+      redis
     ref (1.0.5)
     remotipart (1.2.1)
     require_all (1.3.1)
@@ -475,6 +477,7 @@ DEPENDENCIES
   rails_best_practices
   rake
   recaptcha
+  redis-semaphore
   rspec-instafail
   rspec-rails
   sanitize
