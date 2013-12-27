@@ -31,10 +31,7 @@
         .Teaser-queue
           = render "exhibition", articles: queue, layout: :single
           %p.Teaser-more
-            - if index == 0
-              = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), 'https://info.fairnopoly.de/category/adventskalender/', :class => "Btn", target: '_blank'
-            - else
-              = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
+            = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
 .l-Teaser--queue.l-Teaser--collapsiblequeue
   .Teaser
     %h2.Teaser-header
