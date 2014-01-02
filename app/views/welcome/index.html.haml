@@ -32,61 +32,10 @@
           = render "exhibition", articles: queue, layout: :single
           %p.Teaser-more
             = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
-.l-Teaser--queue.l-Teaser--collapsiblequeue
-  .Teaser
-    %h2.Teaser-header
-      = tinycms_content_body_sanitized("heading_features2").upcase
-    .Teaser-queues
-      - [@queue3, @queue4].each_with_index do |queue,index|
-        .Teaser-queue
-          = render "exhibition", articles: queue, layout: :single
-          %p.Teaser-more
-            = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Btn"
-.l-Teaser--double.l-Teaser--old
-  .Teaser
-    %h2.Teaser-header
-      GEBRAUCHT BEI FAIRNOPOLY
-    = render "exhibition", articles: @old, layout: :double
-.l-Teaser--double.l-Teaser--collapsible.l-Teaser--ecologic
-  .Teaser
-    %h2.Teaser-header
-      MIT SPENDENANTEIL
-    = render "exhibition", articles: @donation_articles, layout: :double
 
-.l-Teaser--double.l-Teaser--slides
+.l-Teaser--double.l-Teaser--cfk.l-Teaser--collapsiblebox
   .Teaser.Teaser--text
-    #slides
-      - 5.times do |i|
-        = image_tag "slides/cards/#{i}.png"
-      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-        %i.icon-left_arrow
-      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-        %i.icon-right_arrow
-
-.l-Teaser--double.l-Teaser--cfk
-  .Teaser.Teaser--text
-    %p
-      = link_to image_tag("cfk/box_grafik.png"), '/mitunsgehen'
-    %p
-      Mit Fairnopoly möchten wir neue Wege gehen und eine konsequent faire
-      Alternative zu den großen Online-Marktplätzen aufbauen.
-      Über 1.000 Menschen haben uns bereits unterstützt.
-      %br
-      Willst auch du mit uns gehen?
-    %p
-      %a{ :href => "http://www.startnext.de/fairnopoly2", :class => "Btn Btn--blue", :target => "_blank" }
-        Zur Crowdfundingkampagne
-
-.l-Teaser--double.l-Teaser--participate
-  .Teaser.Teaser--text
-    %h2.Teaser-header AKTIV MITWIRKEN
-    %p
-      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
-        Held*in werden
-.l-Teaser--double.l-Teaser--news
-  .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
+    = tinycms_content 'cfk_box'
 
 .Teaser--user-slides
   #UserSlides.Teaser.User-slides-container
@@ -129,3 +78,47 @@
         %span.Teaser--quote> Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
         %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
         .Teaser--quotesource THOMAS KAPPAUF, BLACK STAR
+
+.l-Teaser--double.l-Teaser--old
+  .Teaser
+    %h2.Teaser-header
+      GEBRAUCHT BEI FAIRNOPOLY
+    = render "exhibition", articles: @old, layout: :double
+
+.l-Teaser--double.l-Teaser--collapsible.l-Teaser--ecologic
+  .Teaser
+    %h2.Teaser-header
+      MIT SPENDENANTEIL
+    = render "exhibition", articles: @donation_articles, layout: :double
+
+.l-Teaser--double.l-Teaser--slides
+  .Teaser.Teaser--text
+    #slides
+      - 5.times do |i|
+        = image_tag "slides/cards/#{i}.png"
+      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+        %i.icon-left_arrow
+      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+        %i.icon-right_arrow
+
+.l-Teaser--queue.l-Teaser--collapsiblequeue
+  .Teaser
+    %h2.Teaser-header
+      = tinycms_content_body_sanitized("heading_features2").upcase
+    .Teaser-queues
+      - [@queue3, @queue4].each_with_index do |queue,index|
+        .Teaser-queue
+          = render "exhibition", articles: queue, layout: :single
+          %p.Teaser-more
+            = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Btn"
+
+.l-Teaser--double.l-Teaser--participate
+  .Teaser.Teaser--text
+    %h2.Teaser-header AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Btn Btn--blue", :target => "_blank" }
+        Held*in werden
+.l-Teaser--double.l-Teaser--news
+  .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
