@@ -22,6 +22,7 @@
 require 'spec_helper'
 
 describe Image do
+
   it "has a valid Factory" do
     FactoryGirl.create(:image).should be_valid
   end
@@ -29,4 +30,15 @@ describe Image do
   describe "associations" do
     it { should belong_to :imageable }
   end
+
+  describe "methods" do
+    describe "::reprocess" do
+
+      it "should call reprocess on image Object" do
+        Image.stub_chain(:find,:image,:reprocess!) # for coverage / flush_errors with should_receive
+        Image.reprocess 1
+      end
+    end
+  end
+
 end
