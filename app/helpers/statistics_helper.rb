@@ -91,6 +91,7 @@ module StatisticsHelper
     weekly_result_sold[:sold_fee]= Money.new(0)
     weekly_result_sold[:sold_fair]= Money.new(0)
 
+    # TODO Would a join like in line 76 bring any benefits?
     Transaction.where("state = ? AND sold_at > ? AND sold_at < ?",
       :sold, monday_one_week_ago, last_monday)
     .find_each do |transaction|
