@@ -8,11 +8,7 @@
 
 .Feedback-form {
   @include span-columns(4, 4);
-  @include at-breakpoint($layout-small) {
-    @include span-columns(2, 4);
-  }
 }
-
 
 // buttons
 // -----------------------------------

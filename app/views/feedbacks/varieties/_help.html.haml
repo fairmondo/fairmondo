@@ -11,5 +11,7 @@
 
     = f.input :help_subject, as: :select, required: true, include_blank: true
 
+    = render '/shared/recaptcha'
+
   = f.actions do
     = f.action :submit , label: t('feedback.actions.get_help'), button_html: {class: "Btn"}

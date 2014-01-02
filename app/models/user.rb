@@ -98,12 +98,12 @@ class User < ActiveRecord::Base
 
   #Registration validations
 
-  validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
-  validates :nickname , :presence => true, :uniqueness => true
+  validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
+  validates :nickname , presence: true, uniqueness: true
   validates :recaptcha, presence: true, acceptance: true, on: :create
-  validates :privacy, :acceptance => true, :on => :create
-  validates :legal, :acceptance => true, :on => :create
-  validates :agecheck, :acceptance => true , :on => :create
+  validates :privacy, acceptance: true, on: :create
+  validates :legal, acceptance: true, on: :create
+  validates :agecheck, acceptance: true , on: :create
 
 
   # validations
