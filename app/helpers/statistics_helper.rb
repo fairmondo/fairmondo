@@ -91,7 +91,9 @@ module StatisticsHelper
     weekly_result_sold[:sold_fee]= Money.new(0)
     weekly_result_sold[:sold_fair]= Money.new(0)
 
-    Transaction.joins(:article).includes(:article).where("transactions.state = ? AND transactions.sold_at > ?", :sold, 1.week.ago).find_each do |transaction|
+    Transaction.where("state = ? AND sold_at > ? AND sold_at < ?",
+      :sold, monday_one_week_ago, last_monday)
+    .find_each do |transaction|
       weekly_result_sold[:amount_unique] += 1
       weekly_result_sold[:amount_total] += transaction.quantity_bought
       weekly_result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
@@ -109,7 +111,10 @@ module StatisticsHelper
     biweekly_result_sold[:sold_fee]= Money.new(0)
     biweekly_result_sold[:sold_fair]= Money.new(0)
 
-    Transaction.joins(:article).includes(:article).where("transactions.state = ? AND transactions.sold_at > ?", :sold, 2.weeks.ago).find_each do |transaction|
+    Transaction.where(
+      "state = ? AND sold_at > ? AND sold_at < ?",
+      :sold, monday_two_weeks_ago, monday_one_week_ago)
+    .find_each do |transaction|
       biweekly_result_sold[:amount_unique] += 1
       biweekly_result_sold[:amount_total] += transaction.quantity_bought
       biweekly_result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
@@ -117,5 +122,17 @@ module StatisticsHelper
       biweekly_result_sold[:sold_fair] += transaction.article.calculated_fair * transaction.quantity_bought
     end
     biweekly_result_sold
+  end
+
+  def last_monday
+    Time.new.beginning_of_week
+  end
+
+  def monday_one_week_ago
+    Time.new.beginning_of_week - 1.week
+  end
+
+  def monday_two_weeks_ago
+    Time.new.beginning_of_week - 2.weeks
   end
 end
