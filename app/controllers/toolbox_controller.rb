@@ -57,7 +57,7 @@ class ToolboxController < ApplicationController
     return redirect_to :back, flash: { error: I18n.t('article.show.contact.long_error') } unless params[:contact][:text].length < 2000 # manual validation: message is shorter than 2000 characters
     article = Article.find params[:contact][:article_id]
     ArticleMailer.contact(current_user.email, article.seller_email, params[:contact][:text], article).deliver
-    session[:seller_message][params[:contact][:article_id]] = nil # delöete from session
+    session[:seller_message][params[:contact][:article_id]] = nil # delete from session
     redirect_to article, notice: I18n.t('article.show.contact.success_notice')
   end
 
