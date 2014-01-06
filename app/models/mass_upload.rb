@@ -182,13 +182,12 @@ class MassUpload < ActiveRecord::Base
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
-      self.finish
     end
   end
 
   def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] },:col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
