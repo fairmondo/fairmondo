@@ -81,6 +81,10 @@ class LegalEntity < User
     value
   end
 
+  def can_refund? transaction
+    Time.now >= transaction.sold_at + 14.days && Time.now <= transaction.sold_at + 45.days
+  end
+
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails
   def self.model_name
     User.model_name

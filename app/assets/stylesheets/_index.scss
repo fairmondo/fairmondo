@@ -96,7 +96,7 @@
   }
 }
 
-.l-Teaser--collapsiblequeue {
+.l-Teaser--collapsiblequeue, .l-Teaser--collapsiblebox {
   @include at-breakpoint($layout-large-to-huge) {
     @include span-columns(1,3);
     @include omega;
@@ -107,7 +107,12 @@
   @include at-breakpoint($layout-huge) {
     @include omega;
   }
+}
 
+.l-Teaser--collapsiblebox p {
+  @include at-breakpoint($layout-large-to-huge) {
+    margin: 41px 0;
+  }
 }
 
 
@@ -233,7 +238,7 @@
 
 .Teaser-more {
   margin-top: 0.5em;
-  margin-bottom: 2em;
+  margin-bottom: 1.1em;
   text-align: center;
   > a.Btn {
     width:90%;
@@ -280,6 +285,7 @@
 // -------------------------------------
 .Teaser--user-slides {
   @include span-columns(1,1);
+  @include rem(margin-bottom, 38px);
 }
 
  #UserSlides {
