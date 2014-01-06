@@ -3,7 +3,7 @@ require 'rss'
 class ToolboxController < ApplicationController
   respond_to :js, :json
 
-  skip_before_filter :authenticate_user!, only: [ :session_expired, :confirm, :rss, :reload ]
+  skip_before_filter :authenticate_user!, only: [ :session_expired, :confirm, :rss, :reload, :healthcheck ]
 
   def session_expired
     respond_to do |format|
@@ -59,5 +59,9 @@ class ToolboxController < ApplicationController
     ArticleMailer.contact(current_user.email, article.seller_email, params[:contact][:text], article).deliver
     session[:seller_message][params[:contact][:article_id]] = nil # delöete from session
     redirect_to article, notice: I18n.t('article.show.contact.success_notice')
+  end
+
+  def healthcheck
+    render layout: false
   end
 end
