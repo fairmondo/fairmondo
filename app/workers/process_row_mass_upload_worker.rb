@@ -24,7 +24,13 @@ class ProcessRowMassUploadWorker
   sidekiq_options queue: :mass_upload,
                   retry: false,
                   backtrace: true,
-                  unique: true
+                  unique: true,
+                  unique_args: :unique_args
+
+  def self.unique_args(name, id, options)
+    debugger
+    [ name, options[:type] ]
+  end
 
   def perform mass_upload_id, row, index
     mass_upload = MassUpload.find mass_upload_id

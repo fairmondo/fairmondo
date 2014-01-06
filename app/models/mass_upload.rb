@@ -129,13 +129,11 @@ class MassUpload < ActiveRecord::Base
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
+        ProcessRowMassUploadWorker.perform_async(self.id, row.to_hash, row_count)
       end
 
-      #mutex_lock do
-        self.update_attribute(:row_count, row_count)
-        self.finish
-      #end
+      self.update_attribute(:row_count, row_count)
+      self.finish
 
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
@@ -200,7 +198,7 @@ class MassUpload < ActiveRecord::Base
       mass_upload: self,
       article_csv: csv
     )
-      # TODO Check if the original row number can be given as well
+    # TODO Check if the original row number can be given as well
   end
 
   def revise_prices(article)
@@ -214,14 +212,6 @@ class MassUpload < ActiveRecord::Base
     articles = Article.find article_ids
     Sunspot.index articles
     Sunspot.commit
-  end
-
-  def mutex_lock &block
-    s = Redis::Semaphore.new "mass_upload_#{self.id}".to_sym, redis: SidekiqRedisConnectionWrapper.new
-    s.lock -1, &block
-    #Sidekiq.redis do |redis|
-    #  Redis::Semaphore.new("mass_upload_#{self.id}".to_sym, redis: redis).lock block
-    #end
   end
 
   private
