@@ -21,7 +21,10 @@
 #
 class ProcessRowMassUploadWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :mass_upload, :retry => false, :backtrace => true
+  sidekiq_options queue: :mass_upload,
+                  retry: false,
+                  backtrace: true,
+                  unique: true
 
   def perform mass_upload_id, row, index
     mass_upload = MassUpload.find mass_upload_id

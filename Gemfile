@@ -53,6 +53,7 @@ gem "sunspot-queue" # sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'redis-semaphore'
+gem 'sidekiq-unique-jobs'
 
 # Controller Gems
 gem 'devise' # authentication
