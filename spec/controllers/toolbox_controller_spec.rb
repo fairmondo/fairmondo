@@ -71,6 +71,18 @@ describe ToolboxController do
     end
   end
 
+  describe "GET 'healthcheck'" do
+    it "should be successful" do
+      get :healthcheck
+      response.should be_success
+    end
+
+    it "should not render a layout" do
+      get :healthcheck
+      response.should_not render_template("layouts/application")
+    end
+  end
+
   describe "GET 'notice'" do
     before do
       @notice = FactoryGirl.create :notice
