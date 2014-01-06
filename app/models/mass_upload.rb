@@ -132,10 +132,10 @@ class MassUpload < ActiveRecord::Base
         ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
       end
 
-      mutex_lock do
+      #mutex_lock do
         self.update_attribute(:row_count, row_count)
         self.finish
-      end
+      #end
 
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
@@ -184,7 +184,7 @@ class MassUpload < ActiveRecord::Base
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
-      mutex_lock { self.finish }
+      self.finish
     end
   end
 
@@ -218,7 +218,7 @@ class MassUpload < ActiveRecord::Base
 
   def mutex_lock &block
     s = Redis::Semaphore.new "mass_upload_#{self.id}".to_sym, redis: SidekiqRedisConnectionWrapper.new
-    s.lock block
+    s.lock -1, &block
     #Sidekiq.redis do |redis|
     #  Redis::Semaphore.new("mass_upload_#{self.id}".to_sym, redis: redis).lock block
     #end
