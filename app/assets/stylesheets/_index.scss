@@ -144,6 +144,15 @@
   }
 }
 
+.l-Teaser--cfk iframe {
+  @include at-breakpoint($layout-large-to-huge) {
+    height: 100%;
+  }
+  @include at-breakpoint($layout-huge) {
+    height: 285px;
+  }
+}
+
 .l-Teaser--socialshare {
   @include container;
 }
