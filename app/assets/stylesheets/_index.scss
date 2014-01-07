@@ -216,13 +216,6 @@
     margin-bottom: 1em;
 
   }
-  &:nth-child(2n+1) {
-    img{
-      margin-left: 1em;
-      margin-right: 0em;
-      float:right;
-    }
-  }
   @include pie-clearfix;
 }
 
