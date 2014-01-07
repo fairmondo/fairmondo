@@ -140,7 +140,7 @@
 .l-Teaser--cfk img, .l-Teaser--cfk iframe {
   @include rem(margin, 8px 0 8px);
   @include at-breakpoint($layout-huge) {
-    @include rem(margin, 8px 0 33px);
+    @include rem(margin, 14px 0 33px);
   }
 }
 
@@ -149,7 +149,7 @@
     height: 100%;
   }
   @include at-breakpoint($layout-huge) {
-    height: 285px;
+    height: 276px;
   }
 }
 
