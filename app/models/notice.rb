@@ -1,9 +1,4 @@
 class Notice < ActiveRecord::Base
-
-  #def self.notification_attrs
-  #  [:user,:message,:open]
-  #end
-
   belongs_to :user
 
   def color
@@ -14,6 +9,4 @@ class Notice < ActiveRecord::Base
     super(value.to_sym)
     color
   end
-
-
 end
