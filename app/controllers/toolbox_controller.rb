@@ -1,4 +1,5 @@
 require 'rss'
+require 'timeout'
 
 class ToolboxController < ApplicationController
   respond_to :js, :json
@@ -72,7 +73,7 @@ class ToolboxController < ApplicationController
           return rss.items.first(3)
         end
       rescue Timeout::Error
-        return []
+        return nil
       end
     end
 end
