@@ -70,10 +70,10 @@ class ToolboxController < ApplicationController
           OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = 'SSLv23'
 
           rss = RSS::Parser.parse(feed.read, false)
-          return rss.items.first(3)
+          rss.items.first(3)
         end
       rescue Timeout::Error
-        return nil
+        nil
       end
     end
 end
