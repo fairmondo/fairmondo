@@ -199,18 +199,10 @@ describe User do
     end
 
     describe "#notify" do
-      it "should be possible to notify a user" do
+      it "should be possible to notify a user (only once)" do
         lambda do
           user.notify "test","test/test"
-        end.should change(Notice.unscoped, :count).by 1
-      end
-    end
-
-    describe "#unique_notify" do
-      it "should be possible to notify a user only once" do
-        lambda do
-          user.unique_notify "test","test/test"
-          user.unique_notify "test","test/test"
+          user.notify "test","test/test"
         end.should change(Notice.unscoped, :count).by 1
       end
     end
