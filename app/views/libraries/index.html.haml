@@ -25,8 +25,10 @@
     = semantic_form_for(@library,:url => user_libraries_path(current_user),:html => { :class => "form-vertical"}) do |f|
       = f.inputs do
         = f.input :name
+        = f.input :public, :label => false
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Btn"}
+  %p
   .Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     - @libraries.each do |library|
       - unless library.new_record?
@@ -43,9 +45,6 @@
               %p= t 'library.visibility.public'
             - else
               %p= t 'library.visibility.private'
-
-
-
 
           - if policy(library).update?
             .Libraries-settings-clear
