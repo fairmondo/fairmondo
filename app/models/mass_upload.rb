@@ -129,11 +129,12 @@ class MassUpload < ActiveRecord::Base
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
+        ProcessRowMassUploadWorker.perform_async(self.id, row.to_hash, row_count)
       end
-      self.update_attribute(:row_count, row_count)
 
+      self.update_attribute(:row_count, row_count)
       self.finish
+
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
@@ -177,20 +178,16 @@ class MassUpload < ActiveRecord::Base
         else
           article.process! self
         end
-
-
-
       rescue => e
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
-      self.finish
     end
   end
 
   def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] },:col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
@@ -200,7 +197,7 @@ class MassUpload < ActiveRecord::Base
       mass_upload: self,
       article_csv: csv
     )
-      # TODO Check if the original row number can be given as well
+    # TODO Check if the original row number can be given as well
   end
 
   def revise_prices(article)

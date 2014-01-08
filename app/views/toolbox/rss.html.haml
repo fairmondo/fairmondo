@@ -1,12 +1,13 @@
-%h2.Teaser-header
-  FAIRNOPOLY SCHREIBT
-- @items.each do |item|
-  .News-rss
-    = rss_image_extractor item.description
-    %p
-      %b
-        = item.title
-      = " - "
-      = truncate(Sanitize.clean(item.description), :length => 150,:separator => " ")
-      = link_to "(mehr lesen)", item.link, target: '_blank'
-= link_to "Zu unserem Blog", "http://info.fairnopoly.de/", target: '_blank'
+-if @items
+  %h2.Teaser-header
+    FAIRNOPOLY SCHREIBT
+  - @items.each do |item|
+    .News-rss
+      = rss_image_extractor item.description
+      %p
+        %b
+          = item.title
+        = " - "
+        = truncate(Sanitize.clean(item.description), :length => 150,:separator => " ")
+        = link_to "(mehr lesen)", item.link, target: '_blank'
+  = link_to "Zu unserem Blog", "http://info.fairnopoly.de/", target: '_blank'
