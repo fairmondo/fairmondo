@@ -32,6 +32,7 @@ module MassUpload::Checks
       file.original_filename[-4..-1] == '.csv')
     else
       errors.add(:file, I18n.t('mass_uploads.errors.wrong_mime_type'))
+      logger.info "MIME Error: Uploaded \"#{file.original_filename}\" as \"#{file.content_type}\""
     end
   end
 
