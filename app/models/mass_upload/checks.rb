@@ -23,7 +23,7 @@ module MassUpload::Checks
   extend ActiveSupport::Concern
 
   ALLOWED_MIME_TYPES = ['text/csv']
-  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream']
+  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream', 'application/force-download']
 
 
   def csv_format
