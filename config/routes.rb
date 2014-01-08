@@ -49,6 +49,7 @@ Fairnopoly::Application.routes.draw do
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
     put 'reindex/:article_id', action: 'reindex', as: 'reindex'
+    get 'healthcheck'
   end
 
   namespace :bank_details do

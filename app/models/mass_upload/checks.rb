@@ -23,7 +23,7 @@ module MassUpload::Checks
   extend ActiveSupport::Concern
 
   ALLOWED_MIME_TYPES = ['text/csv']
-  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream']
+  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream', 'application/force-download']
 
 
   def csv_format
@@ -32,6 +32,7 @@ module MassUpload::Checks
       file.original_filename[-4..-1] == '.csv')
     else
       errors.add(:file, I18n.t('mass_uploads.errors.wrong_mime_type'))
+      logger.info "MIME Error: Uploaded \"#{file.original_filename}\" as \"#{file.content_type}\""
     end
   end
 
