@@ -201,7 +201,7 @@ module Article::Attributes
   def total_price selected_transport, selected_payment, quantity
     quantity ||= 1
     total = self.price * quantity
-    total += self.transport_price(selected_transport)
+    total += self.transport_price selected_transport, quantity
     total += cash_on_delivery_price selected_transport, selected_payment, quantity
   end
 
