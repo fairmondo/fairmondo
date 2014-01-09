@@ -61,94 +61,99 @@ RailsAdmin.config do |config|
 
   ###  Article  ###
 
-   config.model 'Article' do
+  config.model 'Article' do
+    field :id do
+      read_only true
+    end
+    field :seller do
+      read_only true
+    end
+    field :transaction do
+      read_only true
+    end
+    field :title
+    field :content
+    field :created_at
+    field :updated_at
+    field :condition
+    field :price_cents
+    field :fair
+    field :fair_kind
+    field :fair_seal
+    field :ecologic
+    field :ecologic_seal
+    field :small_and_precious
+    field :small_and_precious_reason
+    field :small_and_precious_handmade
+    field :quantity
+    field :transport_details
+    field :payment_details
+    field :friendly_percent
+    field :friendly_percent_organisation
+    #     field :article_template_id, :integer         # Hidden
+    field :calculated_fair_cents do
+      read_only true
+    end
+    field :calculated_friendly_cents do
+      read_only true
+    end
+    field :calculated_fee_cents do
+      read_only true
+    end
+    field :condition_extra
+    field :small_and_precious_eu_small_enterprise
+    field :ecologic_kind
+    field :upcycling_reason
+    field :slug do
+      read_only true
+    end
+    field :transport_pickup
+    field :transport_type1
+    field :transport_type2
+    field :transport_type1_provider
+    field :transport_type2_provider
+    field :transport_type1_price_cents
+    field :transport_type2_price_cents
+    field :payment_bank_transfer
+    field :payment_cash
+    field :payment_paypal
+    field :payment_cash_on_delivery
+    field :payment_invoice
+    field :payment_cash_on_delivery_price_cents
+    field :basic_price_cents
+    field :basic_price_amount
+    field :state do
+      read_only true
+    end
+    field :vat
+    field :custom_seller_identifier
+    field :gtin
+    field :transport_type1_number
+    field :transport_type2_number
 
-       field :id do
-          read_only true
-        end
-       field :title
-       field :content
-       field :created_at
-       field :updated_at
-       field :condition
-       field :price_cents
-       field :fair
-       field :fair_kind
-       field :fair_seal
-       field :ecologic
-       field :ecologic_seal
-       field :small_and_precious
-       field :small_and_precious_reason
-       field :small_and_precious_handmade
-       field :quantity
-       field :transport_details
-       field :payment_details
-       field :friendly_percent
-       field :friendly_percent_organisation
-  #     field :article_template_id, :integer         # Hidden
-       field :calculated_fair_cents do
-          read_only true
-        end
-       field :calculated_friendly_cents do
-          read_only true
-        end
-       field :calculated_fee_cents do
-          read_only true
-        end
-       field :condition_extra
-       field :small_and_precious_eu_small_enterprise
-       field :ecologic_kind
-       field :upcycling_reason
-       field :slug do
-          read_only true
-        end
-       field :transport_pickup
-       field :transport_type1
-       field :transport_type2
-       field :transport_type1_provider
-       field :transport_type2_provider
-       field :transport_type1_price_cents
-       field :transport_type2_price_cents
-       field :payment_bank_transfer
-       field :payment_cash
-       field :payment_paypal
-       field :payment_cash_on_delivery
-       field :payment_invoice
-       field :payment_cash_on_delivery_price_cents
-       field :basic_price_cents
-       field :basic_price_amount
-       field :state do
-          read_only true
-        end
-       field :vat
-       field :custom_seller_identifier
-       field :gtin
-       field :transport_type1_number
-       field :transport_type2_number
+    # Cross-section configuration:
 
-  #   # Cross-section configuration:
+    # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+    # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+    # label_plural 'My models'      # Same, plural
+    # weight 0                      # Navigation priority. Bigger is higher.
+    # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+    # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
-  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
-  #     # label_plural 'My models'      # Same, plural
-  #     # weight 0                      # Navigation priority. Bigger is higher.
-  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
-  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+    # Section specific configuration:
 
-  #   # Section specific configuration:
-
-  #     list do
-  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
-  #       # items_per_page 100    # Override default_items_per_page
-  #       # sort_by :id           # Sort column (default is primary key)
-  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-  #     end
-  #     show do; end
-  #     edit do; end
-  #     export do; end
-  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
-  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
-  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+    #     list do
+    # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+    # items_per_page 100    # Override default_items_per_page
+    # sort_by :id           # Sort column (default is primary key)
+    # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+    #     end
+    #     show do; end
+    #     edit do; end
+    #     export do; end
+    # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+    # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+    # using `field` instead of `configure` will exclude all other fields and force the ordering
   end
 
 
@@ -507,120 +512,124 @@ RailsAdmin.config do |config|
   ###  User  ###
 
   config.model 'User' do
+    field :id do
+     read_only true
+    end
+    field :email
+    field :password
+    field :password_confirmation
+    #field :reset_password_token, :string         # Hidden
+    field :reset_password_sent_at do
+     read_only true
+    end
+    field :sign_in_count do
+     read_only true
+    end
+    field :current_sign_in_at do
+     read_only true
+    end
+    field :last_sign_in_at do
+     read_only true
+    end
+    field :current_sign_in_ip do
+     read_only true
+    end
+    field :last_sign_in_ip do
+     read_only true
+    end
+    field :created_at
+    field :updated_at
+    field :forename
+    field :surname
+    field :admin
+    #field :invitor_id, :integer
+    #field :trustcommunity, :boolean
+    field :confirmation_token do
+     read_only true
+    end
+    field :confirmed_at
+    field :confirmation_sent_at do
+     read_only true
+    end
+    field :unconfirmed_email
+    field :banned
+    field :nickname
+    field :about_me
+    field :terms
+    field :cancellation
+    field :about
+    field :title
+    field :country
+    field :street
+    field :city
+    field :zip
+    field :phone
+    field :mobile
+    field :fax
+    field :slug do
+     read_only true
+    end
+    field :type do
+     read_only true
+    end
+    field :bank_code
+    field :bank_name
+    field :bank_account_owner
+    field :bank_account_number
+    field :paypal_account
+    field :company_name
+    field :bankaccount_warning do
+     read_only true
+    end
+    field :seller_state do
+     read_only true
+    end
+    field :buyer_state do
+     read_only true
+    end
+    field :verified
+    field :direct_debit
+    field :address_suffix
 
-  #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
+    field :ngo
+    field :max_value_of_goods_cents_bonus
+    field :articles do
+      read_only true
+    end
+    field :bought_articles do
+      read_only true
+    end
+    field :bought_transactions do
+      read_only true
+    end
+    field :sold_transactions do
+      read_only true
+    end
 
-  #   # Found associations:
+    # Cross-section configuration:
 
+    # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+    # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+    # label_plural 'My models'      # Same, plural
+    # weight 0                      # Navigation priority. Bigger is higher.
+    # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+    # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
 
-  #   # Found columns:
+    # Section specific configuration:
 
-       field :id do
-         read_only true
-       end
-       field :email
-       field :password
-       field :password_confirmation
-       #field :reset_password_token, :string         # Hidden
-       field :reset_password_sent_at do
-         read_only true
-       end
-       field :sign_in_count do
-         read_only true
-       end
-       field :current_sign_in_at do
-         read_only true
-       end
-       field :last_sign_in_at do
-         read_only true
-       end
-       field :current_sign_in_ip do
-         read_only true
-       end
-       field :last_sign_in_ip do
-         read_only true
-       end
-       field :created_at
-       field :updated_at
-       field :forename
-       field :surname
-       field :admin
-       #field :invitor_id, :integer
-       #field :trustcommunity, :boolean
-       field :confirmation_token do
-         read_only true
-       end
-       field :confirmed_at
-       field :confirmation_sent_at do
-         read_only true
-       end
-       field :unconfirmed_email
-       field :banned
-       field :nickname
-       field :about_me
-       field :terms
-       field :cancellation
-       field :about
-       field :title
-       field :country
-       field :street
-       field :city
-       field :zip
-       field :phone
-       field :mobile
-       field :fax
-       field :slug do
-         read_only true
-       end
-       field :type do
-         read_only true
-       end
-       field :bank_code
-       field :bank_name
-       field :bank_account_owner
-       field :bank_account_number
-       field :paypal_account
-       field :company_name
-       field :bankaccount_warning do
-         read_only true
-       end
-       field :seller_state do
-         read_only true
-       end
-       field :buyer_state do
-         read_only true
-       end
-       field :verified
-       field :direct_debit
-       field :address_suffix
-
-       field :ngo
-       field :max_value_of_goods_cents_bonus
-
-  #   # Cross-section configuration:
-
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
-  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
-  #     # label_plural 'My models'      # Same, plural
-  #     # weight 0                      # Navigation priority. Bigger is higher.
-  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
-  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
-
-  #   # Section specific configuration:
-
-  #     list do
-  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
-  #       # items_per_page 100    # Override default_items_per_page
-  #       # sort_by :id           # Sort column (default is primary key)
-  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-  #     end
-  #     show do; end
-  #     edit do; end
-  #     export do; end
-  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
-  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
-  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-   end
+    # list do
+    #   filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+    #   items_per_page 100    # Override default_items_per_page
+    #   sort_by :id           # Sort column (default is primary key)
+    #   sort_reverse true     # Sort direction (default is true for primary key, last created first)
+    # end
+    # show do; end
+    # edit do; end
+    # export do; end
+    # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+    # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+    # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
 
 
   ###  Library  ###
