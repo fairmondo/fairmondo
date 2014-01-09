@@ -131,15 +131,15 @@ module Article::DynamicProcessing
   # Replacement for save! method - Does different things based on the action attribute
 
   def process! mass_upload
-    mu_article = MassUploadArticle.create :mass_upload => mass_upload, :article => self, :action => self.action
+    mu_article = MassUploadArticle.create mass_upload: mass_upload, article: self, action: self.action
 
     case mu_article.action
     when :activate, :create, :update
       self.calculate_fees_and_donations
     when :delete
-      self.state = "closed"
+      self.state = 'closed'
     when :deactivate
-      self.state = "locked"
+      self.state = 'locked'
     end
     self.save!
   end
