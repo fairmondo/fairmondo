@@ -32,7 +32,7 @@ class MassUpload < ActiveRecord::Base
     end
 
     event :finish do
-      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.row_count && mass_upload.processed_articles_count >= mass_upload.row_count }
+      transition :processing => :finished, :if => :can_finish?
       transition :finished => :finished
     end
 
@@ -118,7 +118,7 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
-    self.erroneous_articles.size + self.articles.size
+    self.erroneous_articles.size + self.handled_articles.size
   end
 
   def process_without_delay
@@ -213,6 +213,27 @@ class MassUpload < ActiveRecord::Base
     Sunspot.commit
   end
 
+  # Articles that were processed according to action
+  def handled_articles
+    self.articles.select do |article|
+      # Before I was checking things for all different actions, but that was
+      # not safe for  instances, where different CSVs try to do different stuff
+      # with the same article. Delete is actually the only on that is not
+      # reversible so I'm just checking that. It was also the one having troubles.
+      # This might be an improvable quick fix.
+      if article.state != 'closed' && self.connector_to(article).action == 'delete'
+        false # trying not to call connector_to when it's not necessary
+      else
+        true
+      end
+    end
+  end
+
+  # Get mass_upload_articles connector between this mass_upload and a specific article
+  def connector_to article
+    mass_upload_articles.where(article_id: article.id).first
+  end
+
   private
     # Throw away additional fields that are not needed
     def sanitize_fields row_hash
@@ -220,5 +241,11 @@ class MassUpload < ActiveRecord::Base
         row_hash.delete key unless MassUpload.article_attributes.include? key
       end
       row_hash
+    end
+
+    # Check if finish conditions are met
+    def can_finish?
+      self.row_count and
+      self.processed_articles_count >= self.row_count
     end
 end
