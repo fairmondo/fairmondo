@@ -165,6 +165,10 @@ fieldset.choices {
   margin-bottom: 1em;
   clear: both;
 }
+.controls .help-inline {
+  color: $warningred;
+  font-weight: 400;
+}
 .formtastic li.check_boxes .choices-group .choice label {
   position:relative;
   margin-left: 1.5em;
