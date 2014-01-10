@@ -4,7 +4,7 @@
 staging:
   :concurrency: 10
 production:
-  :concurrency: 2
+  :concurrency: 3
   :timeout: 30
 :queues:
   - [sunspot, 7]
