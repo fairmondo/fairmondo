@@ -21,7 +21,7 @@
 -#
 %section.l-ArticleList
   - articles.each do |article|
-    - if article.active? && article != nil
+    - if article.active?
       %Article{ class: 'Grid Article Article--teaser' }
         = render '/articles/shared/show_article' , article: article
 
@@ -35,4 +35,3 @@
         = f.input :queue, :as => :select, :collection => Exhibit.queue.options
       = f.actions do
         = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Btn"}
-
