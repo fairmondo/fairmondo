@@ -73,6 +73,8 @@ Gemfile.local
 *.swp
 # other fragments
 *.~lock.*
+*.swo
+*.swn
 
 .ruby-version
 .ruby-gemset

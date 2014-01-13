@@ -131,3 +131,12 @@ Content.create key:'about_us', body: '<h1>About</h1><p>Dummy Site</p>'
 Content.create key:'monatsziel', body: '<p>50000</p>'
 Content.create key:'monatsanteile', body: '<p>2150</p>'
 Content.create key:'bisherige_einlagen', body: '<p>288550</p>'
+# Startseite
+Content.create key:'heading_features', body: '<p>TOLLE DINGE</p>'
+Content.create key:'heading_features2', body: '<p>BÜCHERBOX</p>'
+Content.create key:'heading_queue1', body: '<p>Mehr 1</p>'
+Content.create key:'heading_queue2', body: '<p>Mehr 2</p>'
+Content.create key:'heading_queue3', body: '<p>Mehr 3</p>'
+Content.create key:'heading_queue4', body: '<p>Mehr 4</p>'
+Content.create key:'cfk_box', body: '<p><a href="/mitunsgehen"><img alt="Box_grafik" src="/assets/cfk/box_grafik.png"></a></p><p>Mit Fairnopoly bauen wir eine konsequent faire Alternative zu den großen Online-Marktplätzen auf. Über 1.000 Menschen haben bereits in unsere Genossenschaft investiert.<br>Mit 50 Euro bist auch Du dabei.</p><p><a class="Btn Btn--blue" href="http://www.startnext.de/fairnopoly2" target="_blank">Zum Crowdfunding</a></p>'
+#<p><iframe src="https://player.vimeo.com/video/83495049?badge=0&byline=0&title=0&portrait=0" width="490" height="276" frameborder="0" allowfullscreen="1" webkitallowfullscreen="1" mozallowfullscreen="1"></iframe></p><p>Mit Fairnopoly bauen wir eine konsequent faire Alternative zu den gro&szlig;en Online-Marktpl&auml;tzen auf. &Uuml;ber 1.000 Menschen haben bereits in unsere Genossenschaft investiert.<br>Mit 50 Euro kannst auch Du dabei sein:</p><p><a class="Btn Btn--blue" href="http://www.startnext.de/fairnopoly2" target="_blank">Zum Crowdfunding</a></p>

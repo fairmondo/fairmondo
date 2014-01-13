@@ -19,15 +19,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ProcessRowMassUploadWorker
+class FinishMassUploadWorker
   include Sidekiq::Worker
   sidekiq_options queue: :mass_upload,
                   retry: false,
                   backtrace: true
 
-  def perform mass_upload_id, row, index
-    mass_upload = MassUpload.find mass_upload_id
-    mass_upload.process_row row, index
-    FinishMassUploadWorker.perform_async mass_upload_id
+  def perform mass_upload_id
+    MassUpload.find(mass_upload_id).finish
   end
 end

@@ -49,20 +49,23 @@ class MassUpload < ActiveRecord::Base
 
   include Checks, Questionnaire, FeesAndDonations
 
-  has_many :articles
+  has_many :mass_upload_articles
+  has_many :articles, through: :mass_upload_articles
 
-  has_many :created_articles, :class_name => 'Article', :conditions => {:activation_action => "create"}
-  has_many :updated_articles, :class_name => 'Article', :conditions => {:activation_action => "update"}
-  has_many :deleted_articles, :class_name => 'Article', :conditions => {:state => "closed"}
-  has_many :deactivated_articles, :class_name => 'Article', :conditions => {:state => "locked"}
-  has_many :activated_articles, :class_name => 'Article', :conditions => {:activation_action => "activate"}
+  has_many :created_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "create"}
+  has_many :updated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "update"}
+  has_many :deleted_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "delete"}
+  has_many :deactivated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "deactivate"}
+  has_many :activated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "activate"}
+  has_many :articles_for_mass_activation, through: :mass_upload_articles, source: :article,
+            conditions: "mass_upload_articles.action IN ('create', 'update', 'activate')"
 
   has_many :erroneous_articles
   has_attached_file :file
   belongs_to :user
 
   validates_attachment :file, presence: true,
-    :size => { :in => 0..20.megabytes }
+    size: { in: 0..20.megabytes }
   validate :csv_format
 
   def self.mass_upload_attrs
@@ -110,10 +113,6 @@ class MassUpload < ActiveRecord::Base
       "vat_total_fee_cents", "sold_at"]
   end
 
-  def articles_for_mass_activation
-     self.created_articles + self.updated_articles + self.activated_articles
-  end
-
   def empty?
     self.articles.empty? && self.erroneous_articles.empty?
   end
@@ -130,11 +129,12 @@ class MassUpload < ActiveRecord::Base
       CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
         row.delete '€' # delete encoding column
-        ProcessRowMassUploadWorker.perform_async(self.id,row.to_hash,row_count)
+        ProcessRowMassUploadWorker.perform_async(self.id, row.to_hash, row_count)
       end
-      self.update_attribute(:row_count, row_count)
 
+      self.update_attribute(:row_count, row_count)
       self.finish
+
     rescue ArgumentError
       self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
@@ -170,30 +170,24 @@ class MassUpload < ActiveRecord::Base
           article.user_id = self.user_id
           revise_prices(article)
           article.categories = categories if categories
-          if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                         # fix this by generating the base errors with proper validations
-                                         # may be hard for dynamic update model
-            add_article_error_messages(article, index, unsanitized_row_hash)
-          else
-            article.calculate_fees_and_donations if article.action != :delete && article.action != :deactivate # check for performance reasons
-            article.mass_upload = self
-            article.process!
-          end
-        else
-          article.update_attribute(:mass_upload_id,self.id)
         end
-
+        if article.was_invalid_before? # invalid? call would clear our previous base errors
+                                       # fix this by generating the base errors with proper validations
+                                       # may be hard for dynamic update model
+          add_article_error_messages(article, index, unsanitized_row_hash)
+        else
+          article.process! self
+        end
       rescue => e
         log_exception e
         return self.error(I18n.t('mass_uploads.errors.unknown_error'))
       end
-      self.finish
     end
   end
 
   def add_article_error_messages(article, index, row_hash)
     validation_errors = ""
-    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] },:col_sep => ";")
+    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
     article.errors.full_messages.each do |message|
       validation_errors += message + "\n"
     end
@@ -203,7 +197,7 @@ class MassUpload < ActiveRecord::Base
       mass_upload: self,
       article_csv: csv
     )
-      # TODO Check if the original row number can be given as well
+    # TODO Check if the original row number can be given as well
   end
 
   def revise_prices(article)

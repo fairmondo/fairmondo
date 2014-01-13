@@ -24,8 +24,8 @@ class MassUploadsController < InheritedResources::Base
   end
 
   def update
-    articles_to_activate = resource.articles.where("activation_action IS NOT NULL")
-    activation_ids = articles_to_activate.map{|article| article.id }
+    articles_to_activate = resource.articles_for_mass_activation
+    activation_ids = articles_to_activate.map{ |article| article.id }
     articles_to_activate.update_all({:state => 'active'})
     MassUpload.delay.update_solr_index_for activation_ids
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe

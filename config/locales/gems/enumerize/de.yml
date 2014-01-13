@@ -189,6 +189,7 @@ de:
         queue2: 'Queue2'
         queue3: 'Queue3'
         queue4: 'Queue4'
+        more_articles: 'Weitere passende Artikel findest Du über die Suche'
 
     feedback:
       feedback_subject:
