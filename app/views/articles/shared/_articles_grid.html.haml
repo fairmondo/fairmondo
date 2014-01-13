@@ -21,7 +21,7 @@
 -#
 %section.l-ArticleList
   - articles.each do |article|
-    - if article.active?
+    - if article.active? && article != nil
       %Article{ class: 'Grid Article Article--teaser' }
         = render '/articles/shared/show_article' , article: article
 
