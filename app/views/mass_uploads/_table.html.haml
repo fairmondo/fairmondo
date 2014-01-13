@@ -51,8 +51,8 @@
         %td
           - if mass_upload.processing?
             .ProcessingBox
-              .ProcessingProgress{ :style => "width: #{mass_upload.processed_articles_count.to_f/ mass_upload.row_count.to_f*100}%;" }
-                = "#{(mass_upload.processed_articles_count.to_f/ mass_upload.row_count.to_f*100).round(2)}%"
+              .ProcessingProgress{ :style => "width: #{process_percentage_of(mass_upload)}%;" }
+                = "#{process_percentage_of(mass_upload).round(2)}%"
           - elsif mass_upload.finished?
             - if mass_upload.articles_for_mass_activation.empty?
               =  link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), :class => 'Btn'

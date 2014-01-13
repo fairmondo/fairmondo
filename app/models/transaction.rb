@@ -29,7 +29,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
-	has_one :rating
+  has_one :rating
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
@@ -37,6 +37,8 @@ class Transaction < ActiveRecord::Base
     :refund_reason, :refund_explanation]
   end
   attr_accessor :updating_state, :updating_multiple
+  #attr_accessible *transaction_attributes
+  #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
 
   auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
 

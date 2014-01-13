@@ -27,6 +27,7 @@
 $(document).ready(function(){
   $(".Cfk-header-close").click(function() {
     $(".Message-row-background").slideUp();
-    document.cookie = "cfk-header-disabled=true; path=/; expires=Wed, 08 Jan 2014 23:59:59 GMT"
+    var date = new Date(Date.now() + (24 * 60 * 60 * 1000)); // set date to one day from now
+    document.cookie = "new-cfk-header-disabled=true; path=/; expires=" + date.toGMTString();
   } );
 });

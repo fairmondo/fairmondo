@@ -2,3 +2,4 @@ de:
   refund:
     heading: 'Rückerstattung beantragen'
     notice: 'Du hast erfolgreich eine Rückerstattung beantragt. Diese wird nun von uns bearbeitet.'
+    button: 'Rückerstattung beantragen'

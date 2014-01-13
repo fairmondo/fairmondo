@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   ##
 
   scope :sorted_ngo, order(:nickname).where(:ngo => true)
-  scope :ngo_with_profile_image, where(:ngo => true ).joins(:image).limit(5)
+  scope :ngo_with_profile_image, where(:ngo => true ).joins(:image).limit(6)
 
   #belongs_to :articles_with_donation, class_name: 'Article', inverse_of: :donated_ngo
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
@@ -310,19 +310,9 @@ class User < ActiveRecord::Base
   # @param message [String] Message that is shown to a user
   # @param color [Symbol] see NoticeHelper for the different types of flash notices
   # @param path [String] the Path (relative URL) to which the message should lead the user
-  def notify message, path , color=:notice
-    self.notices.create :message => message, :open => true, :path => path, :color => color
-  end
-
-  # Notify the user of an asynchron event
-  # Do not notify twice
-  # @api public
-  # @param message [String] Message that is shown to a user
-  # @param color [Symbol] see NoticeHelper for the different types of flash notices
-  # @param path [String] the Path (relative URL) to which the message should lead the user
-  def unique_notify message, path , color=:notice
-    unless Notice.where(:message => message).where(:open => true).any?
-      self.notices.create :message => message, :open => true, :path => path, :color => color
+  def notify message, path , color = :notice
+    unless self.notices.where(message: message, path: path, open: true).any?
+      self.notices.create message: message, open: true, path: path, color: color
     end
   end
 
