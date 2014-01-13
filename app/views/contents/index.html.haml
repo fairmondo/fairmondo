@@ -134,7 +134,7 @@
   (wöchentliche Wachstumsrate:
   - if (biweekly_result_sold[:amount_unique] - weekly_result_sold[:amount_unique]) == 0
     0
-  - else
+  - elsif biweekly_result_sold[:amount_unique] > 1
     = ((weekly_result_sold[:amount_unique] / biweekly_result_sold[:amount_unique] - 1) * 100).round(2)
   = "%)"
 %p
@@ -143,7 +143,7 @@
   (wöchentliche Wachstumsrate:
   - if (biweekly_result_sold[:amount_total] - weekly_result_sold[:amount_total]) == 0
     0
-  - else
+  - elsif biweekly_result_sold[:amount_total] > 1
     = ((weekly_result_sold[:amount_total].to_f / biweekly_result_sold[:amount_total] - 1) * 100).round(2)
   = "%)"
 %p
@@ -152,16 +152,16 @@
   (wöchentliche Wachstumsrate:
   - if (biweekly_result_sold[:sold_value] - weekly_result_sold[:sold_value]) == 0
     0
-  - else
+  - elsif biweekly_result_sold[:sold_value] > 1
     = ((weekly_result_sold[:sold_value] / biweekly_result_sold[:sold_value] - 1) * 100).round(2)
-    = "%)"
+  = "%)"
 %p
   %h2 Letzte Woche eingenommene Gebühren
   = humanized_money_with_symbol weekly_result_sold[:sold_fee]
   (wöchentliche Wachstumsrate:
   - if (biweekly_result_sold[:sold_fee] - weekly_result_sold[:sold_fee]) == 0
     k.A. - in der Vorwoche wurden keine Gebühren eingenommen).
-  - else
+  - elsif biweekly_result_sold[:sold_fee] > 1
     = ((weekly_result_sold[:sold_fee] / biweekly_result_sold[:sold_fee] - 1) * 100).round(2)
     = "%)"
 %p
@@ -170,6 +170,6 @@
   (wöchentliche Wachstumsrate:
   - if (biweekly_result_sold[:sold_fair] - weekly_result_sold[:sold_fair]) == 0
     k.A. - in der Vorwoche wurden keine Spenden eingenommen).
-  - else
+  - elsif biweekly_result_sold[:sold_fair] > 1
     = ((weekly_result_sold[:sold_fair] / biweekly_result_sold[:sold_fair] - 1) * 100).round(2)
     = "%)"
