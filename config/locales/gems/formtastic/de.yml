@@ -41,6 +41,8 @@ de:
         bank_name: "Name der Bank"
         bank_account_number: "Kontonummer"
         bank_account_owner: "Kontoinhaber"
+        iban: "IBAN"
+        bic: "BIC"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_and_bank_account: "PayPal- und Bankkonto"
         paypal_account: "Paypal ID"
