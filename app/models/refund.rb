@@ -23,21 +23,12 @@ class Refund < ActiveRecord::Base
 
   auto_sanitize :description
 
-  after_create :send_email_to_customer_support
 	after_create :fastbill_refund
 
   private
-    def send_email_to_customer_support
-      RefundMailer.refund_notification(self).deliver
+    def fastbill_refund
+      [ :fair, :fee ].each do | fee_type |
+        FastbillAPI.fastbill_refund( self.transaction, fee_type )
+      end
     end
-
-  # This must be reenabled when fastbill stuff comes online
-  # after_create :fastbill_refund
-
- #  private
- #    def fastbill_refund
- #      [ :fair, :fee ].each do | fee_type |
- #        FastbillAPI.fastbill_refund( self.transaction, fee_type )
- #      end
- #    end
 end

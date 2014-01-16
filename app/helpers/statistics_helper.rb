@@ -82,4 +82,58 @@ module StatisticsHelper
     end
     result_sold
   end
+
+  def weekly_statistics_sold_articles
+    weekly_result_sold = {}
+    weekly_result_sold[:amount_unique] = 0
+    weekly_result_sold[:amount_total] = 0
+    weekly_result_sold[:sold_value]= Money.new(0)
+    weekly_result_sold[:sold_fee]= Money.new(0)
+    weekly_result_sold[:sold_fair]= Money.new(0)
+
+    # TODO Would a join like in line 76 bring any benefits?
+    Transaction.where("state = ? AND sold_at > ? AND sold_at < ?",
+      :sold, monday_one_week_ago, last_monday)
+    .find_each do |transaction|
+      weekly_result_sold[:amount_unique] += 1
+      weekly_result_sold[:amount_total] += transaction.quantity_bought
+      weekly_result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
+      weekly_result_sold[:sold_fee] += transaction.article.calculated_fee * transaction.quantity_bought
+      weekly_result_sold[:sold_fair] += transaction.article.calculated_fair * transaction.quantity_bought
+    end
+    weekly_result_sold
+  end
+
+  def biweekly_statistics_sold_articles
+    biweekly_result_sold = {}
+    biweekly_result_sold[:amount_unique] = 0
+    biweekly_result_sold[:amount_total] = 0
+    biweekly_result_sold[:sold_value]= Money.new(0)
+    biweekly_result_sold[:sold_fee]= Money.new(0)
+    biweekly_result_sold[:sold_fair]= Money.new(0)
+
+    Transaction.where(
+      "state = ? AND sold_at > ? AND sold_at < ?",
+      :sold, monday_two_weeks_ago, monday_one_week_ago)
+    .find_each do |transaction|
+      biweekly_result_sold[:amount_unique] += 1
+      biweekly_result_sold[:amount_total] += transaction.quantity_bought
+      biweekly_result_sold[:sold_value] += transaction.article_price * transaction.quantity_bought
+      biweekly_result_sold[:sold_fee] += transaction.article.calculated_fee * transaction.quantity_bought
+      biweekly_result_sold[:sold_fair] += transaction.article.calculated_fair * transaction.quantity_bought
+    end
+    biweekly_result_sold
+  end
+
+  def last_monday
+    Time.new.beginning_of_week
+  end
+
+  def monday_one_week_ago
+    Time.new.beginning_of_week - 1.week
+  end
+
+  def monday_two_weeks_ago
+    Time.new.beginning_of_week - 2.weeks
+  end
 end
