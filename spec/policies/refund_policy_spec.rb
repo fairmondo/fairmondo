@@ -12,8 +12,8 @@ describe RefundPolicy do
 
   context "for a visitor" do
     let( :user ) { nil }
-    it 'should deny refund reate for visitors' do
-      should_not permit(user, Refund.new)
+    it 'should deny refund create for visitors' do
+      should deny(:create)
     end
 
     # it { should deny( :create ) }

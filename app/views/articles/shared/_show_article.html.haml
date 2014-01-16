@@ -38,4 +38,5 @@
   .Article-admin
     %p= 'löschen aus:'
     - article.exhibits.each do |exhibit|
-      = (link_to t('enumerize.exhibit.queue.'+exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
+      - if exhibit.queue
+        = (link_to t('enumerize.exhibit.queue.' + exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
