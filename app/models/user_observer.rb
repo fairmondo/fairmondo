@@ -22,9 +22,14 @@
 
 class UserObserver < ActiveRecord::Observer
   def before_save(user)
+
     if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
       check_bank_details( user.id, user.bank_account_number, user.bank_code )
     end
+    if ( user.iban_changed? ||  user.bic_changed? )
+      check_iban_bic( user.id, user.iban, user.bic )
+    end
+
   end
 
   #handle_asynchronously :check_bank_details
@@ -32,8 +37,17 @@ class UserObserver < ActiveRecord::Observer
   def check_bank_details(id, bank_account_number, bank_code)
     begin
       user = User.find_by_id(id)
-      user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
+       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
     rescue
     end
   end
+
+  def check_iban_bic(id,iban,bic)
+    begin
+      user = User.find_by_id(id)
+       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :iban => iban, :bic => bic ) )
+    rescue
+    end
+  end
+
 end
