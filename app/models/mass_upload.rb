@@ -118,7 +118,7 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
-    self.erroneous_articles.size + self.handled_articles.size
+    self.erroneous_articles.size + self.mass_upload_articles.count
   end
 
   def process_without_delay
@@ -213,26 +213,6 @@ class MassUpload < ActiveRecord::Base
     Sunspot.commit
   end
 
-  # Articles that were processed according to action
-  def handled_articles
-    self.articles.select do |article|
-      # Before I was checking things for all different actions, but that was
-      # not safe for  instances, where different CSVs try to do different stuff
-      # with the same article. Delete is actually the only on that is not
-      # reversible so I'm just checking that. It was also the one having troubles.
-      # This might be an improvable quick fix.
-      if article.state != 'closed' && self.connector_to(article).action == 'delete'
-        false # trying not to call connector_to when it's not necessary
-      else
-        true
-      end
-    end
-  end
-
-  # Get mass_upload_articles connector between this mass_upload and a specific article
-  def connector_to article
-    mass_upload_articles.where(article_id: article.id).first
-  end
 
   private
     # Throw away additional fields that are not needed
