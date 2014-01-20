@@ -14,6 +14,7 @@ class BankDetailsController < ApplicationController
     end
   end
 
+  # The Konto-API does not support bank_name for bic / iban
   def get_bank_name
     @result = KontoAPI::bank_name( permitted_params[:bank_code] )
     respond_to do |format|
@@ -22,7 +23,9 @@ class BankDetailsController < ApplicationController
   end
 
   private
-    def permitted_params
-      params.permit(:bank_account_number, :bank_code, :iban, :bic)
-    end
+
+  def permitted_params
+    params.permit(:bank_account_number, :bank_code, :iban, :bic)
+  end
+
 end
