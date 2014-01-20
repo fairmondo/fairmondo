@@ -28,6 +28,6 @@ class ProcessRowMassUploadWorker
   def perform mass_upload_id, row, index
     mass_upload = MassUpload.find mass_upload_id
     mass_upload.process_row row, index
-    FinishMassUploadWorker.perform_async mass_upload_id
+    mass_upload.finish
   end
 end
