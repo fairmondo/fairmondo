@@ -49,7 +49,7 @@
           - elsif mass_upload.failed?
             = mass_upload.failure_reason
         %td
-          - if mass_upload.processing?
+          - if mass_upload.processing? && mass_upload.row_count
             .ProcessingBox
               .ProcessingProgress{ :style => "width: #{process_percentage_of(mass_upload)}%;" }
                 = "#{process_percentage_of(mass_upload).round(2)}%"
