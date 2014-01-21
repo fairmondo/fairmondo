@@ -53,6 +53,7 @@ gem "sunspot-queue" # sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+
 # Controller Gems
 gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
