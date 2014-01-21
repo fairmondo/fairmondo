@@ -322,6 +322,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-graphviz (1.0.9)
+    ruby-prof (0.14.2)
     ruby-progressbar (1.2.0)
     ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
@@ -477,6 +478,7 @@ DEPENDENCIES
   recaptcha
   rspec-instafail
   rspec-rails
+  ruby-prof
   sanitize
   sass-rails (~> 3.2)
   selectivizr-rails
