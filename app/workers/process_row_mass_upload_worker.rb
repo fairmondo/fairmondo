@@ -35,6 +35,7 @@ class ProcessRowMassUploadWorker
       row_hash.delete("categories")
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
+      article = nil
       create_time=Benchmark.ms do
         article = Article.create_or_find_according_to_action row_hash, mass_upload.user
       end
