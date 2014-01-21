@@ -34,7 +34,7 @@ class ProcessRowMassUploadWorker
       row_hash.delete("categories")
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
-      article = Article.create_or_find_according_to_action row_hash, user
+      article = Article.create_or_find_according_to_action row_hash, mass_upload.user
 
       if article.action != :nothing # so we can ignore rows when reimporting
         article.user_id = mass_upload.user_id
@@ -62,7 +62,7 @@ class ProcessRowMassUploadWorker
       row_hash
     end
 
-   def self.revise_prices(article)
+   def revise_prices(article)
     article.basic_price ||= 0
     article.transport_type1_price_cents ||= 0
     article.transport_type2_price_cents ||= 0
