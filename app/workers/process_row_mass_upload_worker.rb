@@ -26,7 +26,7 @@ class ProcessRowMassUploadWorker
                   backtrace: true
 
   def perform mass_upload_id, unsanitized_row_hash, index
-    RubyProf.start
+    RubyProf.start if index == 1
     mass_upload = MassUpload.find mass_upload_id
 
     if mass_upload.processing?
@@ -52,9 +52,9 @@ class ProcessRowMassUploadWorker
     end
 
     mass_upload.finish
-    result = RubyProf.stop
-    printer = RubyProf::FlatPrinter.new(result)
-    printer.print(File.new("/home/deploy/out.txt_#{Time.now.to_s}_#{index}",'w+'))
+    result = RubyProf.stop if index == 1
+    printer = RubyProf::GraphHtmlPrinter.new(result) if index == 1
+    printer.print(File.new("/home/deploy/out.txt_#{Time.now.to_s}_#{index}",'w+')) if index == 1
   end
 
   private
