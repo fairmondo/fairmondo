@@ -7,3 +7,5 @@ if Rails.env.production?
     config.redis = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' }
   end
 end
+
+Redis.current = SidekiqRedisConnectionWrapper.new

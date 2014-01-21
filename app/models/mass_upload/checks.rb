@@ -36,22 +36,20 @@ module MassUpload::Checks
     end
   end
 
-  private
-
-    def get_csv_encoding path_to_csv
-      match_euro_sign = File.new(path_to_csv, "r").getc
-      case match_euro_sign
-      when "\xDB"
-        'MacRoman'
-      when "\x80"
-        'Windows-1252'
-      when "\?"
-        'IBM437'
-      when "\xA4"
-        'ISO-8859-15'
-      else
-        'utf-8'
-      end
+  def self.get_csv_encoding path_to_csv
+    match_euro_sign = File.new(path_to_csv, "r").getc
+    case match_euro_sign
+    when "\xDB"
+      'MacRoman'
+    when "\x80"
+      'Windows-1252'
+    when "\?"
+      'IBM437'
+    when "\xA4"
+      'ISO-8859-15'
+    else
+      'utf-8'
     end
+  end
 
 end
