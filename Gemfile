@@ -78,6 +78,8 @@ gem 'jquery-rails'
 
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
+#KntNr to IBAN
+gem 'ibanomat'
 
 # Gems used only for assets and not required
 # in production environments by default.
