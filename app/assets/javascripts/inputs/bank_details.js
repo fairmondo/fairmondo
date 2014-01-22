@@ -19,6 +19,14 @@ $(document.body).ready(function(){
     }
   })
 
+  $('#iban').focusout({
+	iban = this.value
+
+  })
+  $('#bic').focusout({
+	bic = this.value
+  })
+
   $('#bank_name').focusout(function(){
     bank_name = this.value
     if(bank_name != '') $('#user_bank_name_input .inline-errors').remove()
@@ -55,16 +63,6 @@ addInvalidBicWarning = function(){
   $("<p>").appendTo('#user_bic_input').addClass('inline-errors').html('Bitte BIC überprüfen.')
   $('#user_bankaccount_warning').checked = true
 }
-removeInvalidIbanWarning = function(){
-  $('#user_iban_input .inline-errors').remove()
-  $('#user_bankaccount_warning').checked = false
-}
-removeInvalidBicWarning = function(){
-  $('#user_bic_input .inline-errors').remove()
-  $('#user_bankaccount_warning').checked = false
-}
-
-
 addInvalidBankCodeWarning = function(){
   $("<p>").appendTo('#user_bank_code_input').addClass('inline-errors').html('Bitte Bankleitzahl überprüfen.')
   $('#user_bankaccount_warning').checked = true
@@ -74,6 +72,7 @@ addInvalidAccountNumberWarning = function(){
   $("<p>").appendTo('#user_bank_account_number_input').addClass('inline-errors').html('Bitte Kontonummer überprüfen.')
   $('#user_bankaccount_warning').checked = true
 }
+
 addAccountValidationNotPossibleWarning = function(){
   $('#user_bank_account_number_input .inline-errors').remove()
   $("<p>").appendTo('#user_bank_account_number_input').addClass('inline-errors').html('Die Kontonummer kann ohne gültige BLZ nicht überprüft werden.')
@@ -85,5 +84,13 @@ removeInvalidBankCodeWarning = function(){
 }
 removeInvalidAccountNumberWarning = function(){
   $('#user_bank_account_number_input .inline-errors').remove()
+  $('#user_bankaccount_warning').checked = false
+}
+removeInvalidIbanWarning = function(){
+  $('#user_iban_input .inline-errors').remove()
+  $('#user_bankaccount_warning').checked = false
+}
+removeInvalidBicWarning = function(){
+  $('#user_bic_input .inline-errors').remove()
   $('#user_bankaccount_warning').checked = false
 }
