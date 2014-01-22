@@ -107,14 +107,25 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        begin
-          image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
-            Image.new(image: URI.parse(image_url))
-          end
-        rescue
+
+        response = Typhoeus.get(image_url)
+        if response.timed_out?
           self.errors.add(should_be_title ? :external_title_image_url : :image_2_url,  I18n.t('mass_uploads.errors.image_not_available') )
           return
         end
+
+        file = StringIO.new(response.response_body)
+
+        # we need to redefine stringIO so it looks like a file
+        # source: http://stackoverflow.com/questions/5166782/write-stream-to-paperclip
+        metaclass = class << file; self; end
+        metaclass.class_eval do
+          define_method(:original_filename) { File.basename(image_url) }
+          define_method(:content_type) { response.response_headers.scan(/(Content-Type: )(.*)(\r)/)[1] } #regexed the content type
+        end
+
+        image = Image.new(image: file)
+
         image.is_title = should_be_title
         image.external_url = image_url
         image.save
