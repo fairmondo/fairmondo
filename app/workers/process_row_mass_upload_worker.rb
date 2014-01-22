@@ -35,11 +35,9 @@ class ProcessRowMassUploadWorker
       row_hash.delete("categories")
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
-      article = nil
-      create_time=Benchmark.ms do
-        article = Article.create_or_find_according_to_action row_hash, mass_upload.user
-      end
-      Sidekiq.logger.warn "#{index} #create_time: #{create_time} "
+
+      article = Article.create_or_find_according_to_action row_hash, mass_upload.user
+
       if article.action != :nothing # so we can ignore rows when reimporting
         article.user_id = mass_upload.user_id
         revise_prices(article)
@@ -50,16 +48,13 @@ class ProcessRowMassUploadWorker
                                      # may be hard for dynamic update model
         mass_upload.add_article_error_messages(article, index, unsanitized_row_hash)
       else
-        proc_time=Benchmark.ms do
-          article.process! mass_upload
-        end
-        Sidekiq.logger.warn "#{index} #proc_time: #{proc_time} "
+        article.process! mass_upload
       end
     end
 
     mass_upload.finish
     end
-    Sidekiq.logger.warn "#{index} #completed: #{all_time}"
+
   end
 
   private

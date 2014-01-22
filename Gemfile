@@ -41,6 +41,7 @@ gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'strong_parameters' # Rails 4-like mass-assignment protection
+gem "typhoeus" #curl wrapper
 
 #gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
@@ -187,4 +188,3 @@ end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-gem "ruby-prof"

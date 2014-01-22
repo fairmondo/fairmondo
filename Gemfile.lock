@@ -144,6 +144,9 @@ GEM
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
+    ethon (0.6.2)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     eventmachine (1.0.3)
     execjs (2.0.2)
     factory_girl (4.2.0)
@@ -154,6 +157,7 @@ GEM
     faker (1.2.0)
       i18n (~> 0.5)
     fastercsv (1.5.5)
+    ffi (1.9.3)
     font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
     formtastic (2.2.1)
@@ -322,7 +326,6 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-graphviz (1.0.9)
-    ruby-prof (0.14.2)
     ruby-progressbar (1.2.0)
     ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
@@ -410,6 +413,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.7)
+      ethon (~> 0.6.2)
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -478,7 +483,6 @@ DEPENDENCIES
   recaptcha
   rspec-instafail
   rspec-rails
-  ruby-prof
   sanitize
   sass-rails (~> 3.2)
   selectivizr-rails
@@ -499,5 +503,6 @@ DEPENDENCIES
   thin
   tinymce-rails
   tinymce-rails-langs
+  typhoeus
   uglifier (>= 1.0.3)
   zipruby
