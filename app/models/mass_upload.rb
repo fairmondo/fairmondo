@@ -126,12 +126,8 @@ class MassUpload < ActiveRecord::Base
     ProcessMassUploadWorker.perform_async(self.id)
   end
 
-  def add_article_error_messages(article, index, row_hash)
-    validation_errors = ""
+  def add_article_error_messages(validation_errors, index, row_hash)
     csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-    article.errors.full_messages.each do |message|
-      validation_errors += message + "\n"
-    end
     ErroneousArticle.create(
       validation_errors: validation_errors,
       row_index: index,
@@ -140,6 +136,8 @@ class MassUpload < ActiveRecord::Base
     )
     # TODO Check if the original row number can be given as well
   end
+
+
 
 
   def self.update_solr_index_for article_ids

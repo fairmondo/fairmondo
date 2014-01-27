@@ -43,7 +43,6 @@ class ProcessMassUploadWorker
         end
       end
 
-      mass_upload.finish
       mass_upload.update_attribute(:row_count, row_count)
 
     rescue ArgumentError
