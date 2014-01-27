@@ -21,8 +21,10 @@
 #
 role :app, "78.109.61.168", :primary => true
 role :app, "78.109.61.169"
+role :app, "78.109.59.254"
 role :web, "78.109.61.168", :primary => true
 role :web, "78.109.61.169"
+role :web, "78.109.59.254"
 role :db, "78.109.61.168", :primary => true
 role :sidekiq, "5.22.150.182"
 
