@@ -26,7 +26,6 @@ class ProcessRowMassUploadWorker
                   backtrace: true
 
   def perform mass_upload_id, unsanitized_row_hash, index
-    all_time = Benchmark.ms do
     mass_upload = MassUpload.find mass_upload_id
 
     if mass_upload.processing?
@@ -53,7 +52,6 @@ class ProcessRowMassUploadWorker
     end
 
     mass_upload.finish
-    end
 
   end
 
