@@ -1,0 +1,6 @@
+- unless result.empty?
+  = accordion_item result_name do
+    %ul
+      - result.each do |article|
+        = render "article_digest", :article => article
+    = paginate result, param_name: "#{result_name}_articles_page"

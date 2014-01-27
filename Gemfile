@@ -42,17 +42,21 @@ gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
+
 #gem "acts_as_paranoid", "~>0.4.0" # for softdelete
 #gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
 gem 'sunspot_rails'
-gem "sunspot-queue" # sidekiq
 
 # Sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq-failures'
 
+# Sidekiq Integrations
+gem "sunspot-queue" # sidekiq
+gem 'delayed_paperclip'
 
 # Controller Gems
 gem 'devise' # authentication
