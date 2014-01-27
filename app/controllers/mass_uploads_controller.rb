@@ -8,10 +8,16 @@ class MassUploadsController < InheritedResources::Base
   before_filter :check_value_of_goods, :only => [:update]
 
   def show
+    @created_articles = resource.created_articles.page(params[:created_articles_page])
+    @updated_articles = resource.updated_articles.page(params[:updated_articles_page])
+    @activated_articles = resource.activated_articles.page(params[:activated_articles_page])
+    @deactivated_articles = resource.deactivated_articles.page(params[:deactiated_articles_page])
+    @deleted_articles = resource.deleted_articles.page(params[:deleted_articles_page])
+    @erroneous_articles = resource.erroneous_articles.page(params[:erroneous_articles_page])
     show! do |format|
       format.csv { send_data Article::Export.export_erroneous_articles(resource.erroneous_articles),
                    {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
-      end
+    end
   end
 
   def create

@@ -1,5 +1,5 @@
 ---
-:concurrency: 5
+:concurrency: 40
 :pidfile: tmp/pids/sidekiq.pid
 staging:
   :concurrency: 10
@@ -10,3 +10,4 @@ production:
   - [sunspot, 7]
   - [default, 5]
   - [mass_upload, 3]
+  - [paperclip,2]
