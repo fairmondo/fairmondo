@@ -25,9 +25,15 @@ class ProcessRowMassUploadWorker
                   retry: 5,
                   backtrace: true
 
+  sidekiq_retries_exhausted do |msg|
+     Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+     mass_upload = MassUpload.find msg['args'].first
+     mass_upload.add_article_error_messages(I18n.t('mass_uploads.errors.unknown_error'), msg['args'].last, msg['args'][1])
+     #see method call args order of perform method for msg array explanation
+  end
+
   def perform mass_upload_id, unsanitized_row_hash, index
     mass_upload = MassUpload.find mass_upload_id
-
     if mass_upload.processing?
       row_hash = sanitize_fields unsanitized_row_hash.dup
       categories = Category.find_imported_categories(row_hash['categories'])
@@ -45,14 +51,11 @@ class ProcessRowMassUploadWorker
       if article.was_invalid_before? # invalid? call would clear our previous base errors
                                      # fix this by generating the base errors with proper validations
                                      # may be hard for dynamic update model
-        mass_upload.add_article_error_messages(article, index, unsanitized_row_hash)
+        mass_upload.add_article_error_messages(article.validation_errors_for_erroneous_articles, index, unsanitized_row_hash)
       else
         article.process! mass_upload
       end
     end
-
-    mass_upload.finish
-
   end
 
   private
