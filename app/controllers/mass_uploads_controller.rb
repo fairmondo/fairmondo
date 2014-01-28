@@ -43,4 +43,5 @@ class MassUploadsController < InheritedResources::Base
       current_user
     end
 
+
 end

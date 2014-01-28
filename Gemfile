@@ -179,6 +179,7 @@ group :test do
   gem 'rake'
   gem 'colorize'
   gem "ZenTest"
+  gem "fakeredis", :require => "fakeredis/rspec"
 end
 
 # Adding Staging-server Embedded Solr
