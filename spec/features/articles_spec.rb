@@ -168,8 +168,10 @@ describe 'Article management' do
           it "should fail to create an article, if the value of goods crosses its max value of goods" do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 600000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should have_content I18n.t('article.notices.max_limit')
           end
 
@@ -177,8 +179,10 @@ describe 'Article management' do
             user.update_attribute(:max_value_of_goods_cents_bonus, 200000)
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 600000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should_not have_content I18n.t('article.notices.max_limit')
           end
         end
@@ -190,12 +194,13 @@ describe 'Article management' do
             user.max_value_of_goods_cents.should eq 500000
           end
 
-          it "should fail to create an article, if the value of goods crosses its max limit" do
+          it "should fail to activate an article, if the value of goods crosses its max limit" do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 510000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            # Capybara.current_session.driver.header 'Referer', root_url
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should have_content I18n.t('article.notices.max_limit')
           end
         end
@@ -266,7 +271,6 @@ describe 'Article management' do
         @article.reload.title.should eq old_title
       end
     end
-
     describe "article reporting" do
       before do
         visit article_path article

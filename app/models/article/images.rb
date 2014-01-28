@@ -111,14 +111,9 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        #begin
-          image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
-            Image.new(image: URI.parse(image_url))
-          end
-        ##rescue
-          #self.errors.add(should_be_title ? :external_title_image_url : :image_2_url,  I18n.t('mass_uploads.errors.image_not_available') )
-          #return
-        #end
+        image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
+          Image.new(image: URI.parse(image_url))
+        end
         image.is_title = should_be_title
         image.external_url = image_url
         #image.save

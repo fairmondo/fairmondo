@@ -57,10 +57,6 @@ class Article < ActiveRecord::Base
 
   belongs_to :article_template
 
-  after_save :count_value_of_goods
-
-
-
   # Misc mixins
   extend Sanitization
   # Article module concerns
@@ -122,13 +118,6 @@ class Article < ActiveRecord::Base
         copyimage.save
       end
     }
-  end
-
-
-
-  def count_value_of_goods
-    value_of_goods_cents = self.seller.articles.active.sum("price_cents * quantity")
-    self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
   end
 
 

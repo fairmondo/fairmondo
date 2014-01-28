@@ -1,4 +1,4 @@
-module TransactionRefund
+module Transaction::Refundable
   extend ActiveSupport::Concern
 
   included do
@@ -16,6 +16,6 @@ module TransactionRefund
   end
 
   def refundable?
-    self.seller.can_refund? self
+    ( self.seller.can_refund? self ) && ( !self.requested_refund? )
   end
 end

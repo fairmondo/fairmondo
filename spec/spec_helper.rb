@@ -52,6 +52,10 @@ require 'sunspot_test/rspec'
 # For Sidekiq
 Sidekiq::Testing.inline!
 
+# Redis
+Redis.current = Redis.new
+
+
 # For fixtures:
 include ActionDispatch::TestProcess
 require Rails.root.join('db/fixtures/category_seed_data.rb')

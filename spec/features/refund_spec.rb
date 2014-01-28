@@ -3,8 +3,8 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe Refund do
-  let( :luser ){ FactoryGirl.create :user, type: 'LegalEntity' }
-  let( :puser ){ FactoryGirl.create :user, type: 'PrivateUser' }
+  let( :luser ){ FactoryGirl.create :private_user }
+  let( :puser ){ FactoryGirl.create :legal_entity}
   let( :particle ){ FactoryGirl.create :article, :without_build_transaction, :with_all_transports, state: 'sold', seller: puser }
   let( :larticle ){ FactoryGirl.create :article, :without_build_transaction, :with_all_transports, state: 'sold', seller: luser }
   let( :ptransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: particle, seller: puser }
@@ -20,7 +20,7 @@ describe Refund do
           visit user_path( luser )
           page.should have_selector( :link_or_button, I18n.t( 'refund.button' ) )
         end
-        
+
         it 'should show right elements' do
           visit new_transaction_refund_path( ltransaction )
           page.should have_content( I18n.t( 'refund.heading' ) )
@@ -41,7 +41,7 @@ describe Refund do
           visit user_path( puser )
           page.should have_selector( :link_or_button, I18n.t( 'refund.button' ) )
         end
-        
+
         it 'should show refund_request page' do
           visit new_transaction_refund_path( ptransaction )
           page.should have_content( I18n.t( 'refund.heading' ) )
@@ -54,8 +54,9 @@ describe Refund do
 
         it 'should create new refund' do
           visit new_transaction_refund_path( ptransaction )
+          fill_in 'refund_description', :with => 'a' * 160
           click_button I18n.t( 'common.actions.send' )
-          page.should have_selector('User-info')
+          page.should have_content(I18n.t('refund.notice' ))
         end
       end
     end
