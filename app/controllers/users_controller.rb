@@ -57,8 +57,10 @@ class UsersController < InheritedResources::Base
   end
 
   def check_for_complete_mass_uploads
-    current_user.mass_uploads.where(:state => :processing).each do |mu|
-      mu.finish
+    if user_signed_in?
+      current_user.mass_uploads.where(:state => :processing).each do |mu|
+        mu.finish
+      end
     end
   end
 
