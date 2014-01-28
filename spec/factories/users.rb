@@ -53,6 +53,9 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
+    iban {Faker::Lorem.characters(2)+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
+    bic {Faker::Lorem.characters(6) + rand(99).to_s.center(2, rand(9).to_s)}
+
     direct_debit '1'
 
     trait :missing_bank_data do
@@ -60,6 +63,8 @@ FactoryGirl.define do
       bank_account_number ""
       bank_account_owner ""
       bank_name ""
+      iban ""
+      bic ""
    end
 
     seller_state "standard_seller"
@@ -91,6 +96,8 @@ FactoryGirl.define do
     trait :no_bank_data do
       bank_code ""
       bank_account_number ""
+      iban ""
+      bic ""
     end
 
     trait :paypal_data do
