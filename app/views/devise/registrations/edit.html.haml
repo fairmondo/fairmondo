@@ -123,8 +123,8 @@
           = f.input :bank_name, :required => true, :input_html => {:id => "bank_name"}, :label => t('formtastic.labels.user.bank_name')
           = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :maxlength => 10}, :label => t('formtastic.labels.user.bank_account_number')
 
-          = f.input :iban, :required => true, :input_html => {:id => "iban"}, :label => t('formtastic.labels.user.iban')
-          = f.input :bic, :required => true, :input_html => {:id => "bic"}, :label => t('formtastic.labels.user.bic')
+          = f.input :iban, :required => true, :input_html => {:id => "iban"}, :label => t('formtastic.labels.user.iban'), tooltip: true
+          = f.input :bic, :required => true, :input_html => {:id => "bic"}, :label => t('formtastic.labels.user.bic'), tooltip: true
 
         .User--step
           - direct_debit__link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", :target => "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
