@@ -41,7 +41,6 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 # Indexing /Searching
 gem 'sunspot_rails' , '~> 2.0.0'
-gem "sunspot-queue" # sidekiq
 
 # Sidekiq
 gem 'sidekiq'
