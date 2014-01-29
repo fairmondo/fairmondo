@@ -1,4 +1,4 @@
-module TransactionDiscount
+module Transaction::Discountable
   extend ActiveSupport::Concern
 
   included do

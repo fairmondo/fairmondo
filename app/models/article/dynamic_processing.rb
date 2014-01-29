@@ -128,6 +128,14 @@ module Article::DynamicProcessing
       end
   end
 
+  def validation_errors_for_erroneous_articles
+    validation_errors = ""
+    self.errors.full_messages.each do |message|
+      validation_errors += message + "\n"
+    end
+    validation_errors
+  end
+
   # Replacement for save! method - Does different things based on the action attribute
 
   def process! mass_upload

@@ -136,6 +136,7 @@ class ApplicationController < ActionController::Base
     end
 
     def check_value_of_goods
+      current_user.count_value_of_goods
       if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
         redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
       end

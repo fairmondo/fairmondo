@@ -25,6 +25,8 @@ class ProcessMassUploadWorker
                   retry: 5,
                   backtrace: true
 
+  sidekiq_options :failures => true
+
   sidekiq_retries_exhausted do |msg|
     Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
   end
@@ -43,7 +45,6 @@ class ProcessMassUploadWorker
         end
       end
 
-      mass_upload.finish
       mass_upload.update_attribute(:row_count, row_count)
 
     rescue ArgumentError

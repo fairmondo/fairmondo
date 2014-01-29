@@ -62,10 +62,10 @@
         %i.icon-helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
 
   - if resource.is_available?
-    %a= link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
+    = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
   - else
     - btn_text = resource.seller.ngo ? t("article.labels.submit_free") : (resource.has_friendly_percent? ? t("article.labels.submit_with_fp") : t("article.labels.submit"))
-    %a= button_to btn_text, article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    = button_to btn_text, article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
 
 
 

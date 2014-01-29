@@ -1,3 +1,5 @@
+#
+#
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
@@ -22,7 +24,7 @@ class User < ActiveRecord::Base
 
   # Friendly_id for beautiful links
   extend FriendlyId
-  friendly_id :nickname, use: :slugged
+  friendly_id :nickname, :use => :slugged
   validates_presence_of :slug
 
   extend Sanitization
@@ -33,8 +35,6 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable, :confirmable
 
   after_create :create_default_library
-  
-  # after_save :update_fastbill_profile
 
   # Setup accessible (or protected) attributes for your model
 
@@ -71,15 +71,13 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_transactions, source: :article
   has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_transactions, class_name: 'Transaction', foreign_key: 'seller_id', conditions: "transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'", inverse_of: :seller
-  # has_many :invoices  
+
 
   has_many :article_templates, :dependent => :destroy
   has_many :libraries, :dependent => :destroy
 
   has_many :notices
   has_many :mass_uploads
-
-  has_many :discount_cards
 
   ##
   has_one :image, as: :imageable
@@ -130,7 +128,6 @@ class User < ActiveRecord::Base
   validates :about_me, :length => { :maximum => 2500 }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
-
 
   # Return forename plus surname
   # @api public
@@ -343,7 +340,12 @@ class User < ActiveRecord::Base
       FastbillAPI.update_profile self
     end
   end
-  
+
+  def count_value_of_goods
+    value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
+    self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
+
   private
     # @api private
     def create_default_library
