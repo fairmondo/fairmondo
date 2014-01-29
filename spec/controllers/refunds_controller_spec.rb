@@ -24,7 +24,6 @@ describe RefundsController do
       it 'should render "new" view ' do
         sign_in user
         get :new, transaction_id: transaction.id
-        debugger
         response.should be_success
       end
     end

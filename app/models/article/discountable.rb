@@ -9,7 +9,7 @@ module Article::Discountable
     end
 
     def set_discount_id
-      self.discount_id = Discount.current.last.id 
+      self.discount_id = Discount.current.last.id
     end
   end
 end

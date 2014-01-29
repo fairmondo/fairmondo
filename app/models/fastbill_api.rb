@@ -25,34 +25,34 @@ class FastbillAPI
 
   private
     def self.fastbill_create_customer seller
-      customer = Fastbill::Automatic::Customer.create( customer_number: seller.id,
-                                            customer_type: seller.is_a?(LegalEntity) ? 'business' : 'consumer',
-                                            organization: seller.company_name? ? seller.company_name : seller.nickname,
-                                            salutation: seller.title,
-                                            first_name: seller.forename,
-                                            last_name: seller.surname,
-                                            address: seller.street,
-                                            address_2: seller.address_suffix,
-                                            zipcode: seller.zip,
-                                            city: seller.city,
-                                            country_code: 'DE',
-                                            language_code: 'DE',
-                                            email: seller.email,
-                                            currency_code: 'EUR',
-                                            payment_type: '1', # Ueberweisung
-                                            # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
-                                            show_payment_notice: '1',
-                                            bank_name: seller.bank_name,
-                                            bank_code: seller.bank_code,
-                                            bank_account_number: seller.bank_account_number,
-                                            bank_account_owner: seller.bank_account_owner
-                                          )
-      seller.fastbill_id = customer.customer_id
-      seller.save
+      User.observers.disable :user_observer do
+        customer = Fastbill::Automatic::Customer.create( customer_number: seller.id,
+                                              customer_type: seller.is_a?(LegalEntity) ? 'business' : 'consumer',
+                                              organization: seller.company_name? ? seller.company_name : seller.nickname,
+                                              salutation: seller.title,
+                                              first_name: seller.forename,
+                                              last_name: seller.surname,
+                                              address: seller.street,
+                                              address_2: seller.address_suffix,
+                                              zipcode: seller.zip,
+                                              city: seller.city,
+                                              country_code: 'DE',
+                                              language_code: 'DE',
+                                              email: seller.email,
+                                              currency_code: 'EUR',
+                                              payment_type: '1', # Ueberweisung
+                                              # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
+                                              show_payment_notice: '1',
+                                              bank_name: seller.bank_name,
+                                              bank_code: seller.bank_code,
+                                              bank_account_number: seller.bank_account_number,
+                                              bank_account_owner: seller.bank_account_owner
+                                            )
+        seller.fastbill_id = customer.customer_id
+        seller.save
+      end
     end
-    
-    # not used yet, but it will be
-    #
+
     def self.update_profile user
       customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
       if customer
@@ -81,14 +81,16 @@ class FastbillAPI
     end
 
     def self.fastbill_create_subscription seller
-      subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
-                                                customer_id: seller.fastbill_id,
-                                                next_event: Time.now.end_of_month.strftime("%Y-%m-%d %H:%M:%S")
-                                              )
-      seller.fastbill_subscription_id = subscription.subscription_id
-      seller.save
+      User.observers.disable :user_observer do
+        subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
+                                                  customer_id: seller.fastbill_id,
+                                                  next_event: Time.now.end_of_month.strftime("%Y-%m-%d %H:%M:%S")
+                                                )
+        seller.fastbill_subscription_id = subscription.subscription_id
+        seller.save
+      end
     end
-      
+
     # This method adds articles and their according fee type to the invoice
     def self.fastbill_setusagedata seller, transaction, fee_type
       article = transaction.article
@@ -101,7 +103,7 @@ class FastbillAPI
                                                       usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                     )
     end
-    
+
     # This method adds an discount (if discount is given for transaction)
     def self.fastbill_discount seller, transaction
       article = transaction.article

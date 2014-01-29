@@ -40,8 +40,7 @@ describe ToolboxController do
 
   describe "GET 'rss'" do
     before(:each) do
-      URI.stub_chain(:parse,:open,:read)
-      RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
+      FakeWeb.register_uri(:get, 'https://info.fairnopoly.de/?feed=rss', :body => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
     end
 
     context "as html" do

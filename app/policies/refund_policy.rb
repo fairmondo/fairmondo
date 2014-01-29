@@ -1,6 +1,6 @@
 class RefundPolicy < Struct.new( :user, :refund )
   def create?
-    own? && refund_possible? 
+    own? && refund_possible?
   end
 
   def new?
