@@ -141,6 +141,23 @@ describe User do
   end
 
   describe "methods" do
+
+    describe "#count_value_of_goods" do
+      it "should sum the value of active goods" do
+        article = FactoryGirl.create :article, seller: user
+        second_article = FactoryGirl.create :article, seller: user
+        user.articles.reload
+        user.count_value_of_goods
+        user.value_of_goods_cents.should eq(article.price_cents + second_article.price_cents)
+      end
+
+      it "should not sum the value of inactive goods" do
+        FactoryGirl.create :preview_article, seller: user
+        user.count_value_of_goods
+        user.value_of_goods_cents.should eq(0)
+      end
+    end
+
     describe "#fullname" do
       it "returns correct fullname" do
         user.fullname.should eq "#{user.forename} #{user.surname}"
