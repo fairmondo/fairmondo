@@ -23,7 +23,6 @@ class Refund < ActiveRecord::Base
 
   auto_sanitize :description
 
-	after_create :fastbill_refund
 
   private
     def fastbill_refund
