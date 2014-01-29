@@ -57,9 +57,17 @@ describe ToolboxController do
         response.should_not be_success
       end
     end
+
+    context "on timeout" do
+      it "should be sucessful and return nothing" do
+        Timeout.stub(:timeout).and_raise(Timeout::Error)
+        get :rss
+        response.should be_success
+      end
+    end
   end
 
-  describe "GET 'rss'" do
+  describe "GET 'reload'" do
     it "should be successful" do
       get :reload
       response.should be_success
