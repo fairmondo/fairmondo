@@ -1,4 +1,4 @@
-#
+# See http://rails-bestpractices.com/posts/19-use-observer
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,21 +19,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-include ActionDispatch::TestProcess
 
-FactoryGirl.define do
-  factory :image do
-    sequence(:image_file_name) {|n| "image#{n}"}
-    image_content_type    "image/png"
-    image_file_size       { Random.new.rand(0..5) }
+class RefundObserver < ActiveRecord::Observer
 
-    factory :fixture_image do
-      image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
-    end
-
-    trait :processing do
-      image_processing true
-    end
-
+  def after_create(refund)
+      RefundMailer.refund_notification(refund).deliver
   end
+
 end

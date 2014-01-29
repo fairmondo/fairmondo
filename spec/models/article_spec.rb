@@ -311,6 +311,18 @@ describe Article do
           article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
         end
 
+        it "should return the processing image while processing when requested a thumb" do
+          title_image = FactoryGirl.build(:image,:processing)
+          article.images = [title_image]
+          article.title_image_url(:thumb).should == title_image.image.url(:thumb)
+        end
+
+        it "should return the original image while processing when requested a medium image" do
+          title_image = FactoryGirl.build(:image,:processing)
+          article.images = [title_image]
+          article.title_image_url(:medium).should == title_image.original_image_url_while_processing
+        end
+
       end
 
       describe "#add_image" do
