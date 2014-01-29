@@ -20,6 +20,6 @@ class RefundPolicy < Struct.new( :user, :refund )
     # instance
     #
     def refund_possible?
-      refund.transaction.sold? && !refund.transaction.requested_refund?
+      refund.transaction.sold? && refund.transaction.refundable?
     end
 end
