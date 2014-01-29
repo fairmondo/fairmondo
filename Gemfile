@@ -116,13 +116,6 @@ group :production, :staging do
   # gem 'whenever' # cron jobs
 end
 
-# for generating *.war file
-#group :development do
- # gem "warbler", "~> 1.3.2"
- # gem "jruby-rack", "~> 1.1.10"
-
-#end
-
 # Testing using RSpec
 group :development, :test do
 
@@ -145,7 +138,6 @@ group :development, :test do
   gem "rails-erd"
 
    #solr gem
-  gem 'sunspot_solr'
   gem "sunspot_test"
 
   # test suite additions
@@ -170,30 +162,15 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-
-  #zipruby for icecat catalog download
-  gem "zipruby"
-
-  # activerecord-import for batch-writing into the databse
-  gem 'activerecord-import'
-
-  gem 'method_profiler'
 end
 
 group :test do
   gem 'rake'
   gem 'colorize'
-  gem "ZenTest"
   gem "fakeredis", :require => "fakeredis/rspec"
 end
 
-# Adding Staging-server Embedded Solr
-group :staging do
-  gem 'sunspot_solr'
-
-  #for testing search
-  gem 'activerecord-import'
+group :development,:test,:staging do
+  gem 'sunspot_solr' # Embedded Solr
 end
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
