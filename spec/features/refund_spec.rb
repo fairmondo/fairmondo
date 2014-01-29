@@ -29,6 +29,13 @@ describe Refund do
           page.should have_selector( '#refund_description' )
           page.should have_button( I18n.t( 'common.actions.send' ) )
         end
+
+        it 'should create new refund' do
+          visit new_transaction_refund_path( ltransaction )
+          fill_in 'refund_description', :with => 'a' * 160
+          click_button I18n.t( 'common.actions.send' )
+          page.should have_content(I18n.t('refund.notice' ))
+        end
       end
     end
 
