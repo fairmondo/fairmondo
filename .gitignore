@@ -75,6 +75,8 @@ Gemfile.local
 *.~lock.*
 *.swo
 *.swn
+*.swm
+
 
 .ruby-version
 .ruby-gemset
