@@ -12,22 +12,22 @@ class AddFieldsAndTablesForInvoice < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     create_table :refunds do |t|
       t.string :reason
       t.text :description
       t.integer :transaction_id
-      
+
       t.timestamps
     end
-    
+
     # add columns
     add_column :articles, :discount_id, :integer
     add_column :transactions, :discount_id, :integer
     add_column :transactions, :discount_value_cents, :integer
     add_column :users, :fastbill_subscription_id, :integer
     add_column :users, :fastbill_id, :integer
-    
+
     # add indices
     add_index :articles, :discount_id
     add_index :transactions, :discount_id

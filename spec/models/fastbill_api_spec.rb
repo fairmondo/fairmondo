@@ -17,14 +17,14 @@ describe FastbillAPI do
         FastbillAPI.fastbill_chain( db_transaction )
       end
 
-      context "seller is an NGO" do
+      context "when seller is an NGO" do
         it "should not contact Fastbill" do
           Fastbill::Automatic::Base.should_not_receive( :perform )
           FastbillAPI.fastbill_chain( db_transaction )
         end
       end
 
-      context "seller is not an NGO" do
+      context "when seller is not an NGO" do
         context "and has Fastbill profile" do
           let( :db_transaction ) { FactoryGirl.create :transaction_with_buyer, :fastbill_profile }
           it "should not create new Fastbill profile" do
@@ -44,8 +44,6 @@ describe FastbillAPI do
 
         it "should set usage data for subscription" do
           FastbillAPI.should_receive( :fastbill_setusagedata ).twice
-          FastbillAPI.should_receive( :fee_wo_vat )
-          FastbillAPI.should_receive( :fee_wo_vat )
           FastbillAPI.fastbill_chain( db_transaction )
         end
       end

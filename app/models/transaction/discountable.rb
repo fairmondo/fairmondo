@@ -19,7 +19,7 @@ module Transaction::Discountable
   end
 
   # finds all transactions that where discounted by specific discount
-  def discounted  
+  def discounted
     Transaction.where( "seller_id = ? AND discount_id = ?", self.seller, self.discount )
   end
 

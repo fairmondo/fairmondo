@@ -8,7 +8,12 @@ $support-for-original-webkit-gradients: false;
 // $legacy-support-for-ie: false; // IE6 & IE7
 $legacy-support-for-ie6: false; // Don't waste bits on IE6
 $legacy-support-for-ie7: false; // Don't waste bits on IE7
+$legacy-support-for-ie8: false;
 $experimental-support-for-opera: false; // Because they've switched to Webkit
+$experimental-support-for-mozilla: false;
+$experimental-support-for-webkit:false;
+$experimental-support-for-microsoft:false;
+$experimental-support-for-khtml:false;
 
 // Typography
 $base-font-size: 14px;

@@ -8,13 +8,11 @@ describe Discount do
   end
 
   let( :user ) { FactoryGirl.create :user }
-  let( :transaction ) { FactoryGirl.create :single_transaction }
   let( :discount ) { FactoryGirl.create :discount }
+  let( :article ){ FactoryGirl.create :article, seller: FactoryGirl.create( :private_user ), discount: discount }
 
   describe 'when creating an article and an discount is active' do
     it 'it should be applied to article' do
-      discount
-      article = FactoryGirl.create :article
       article.discount_id.should eq discount.id
     end
   end
@@ -25,10 +23,8 @@ describe Discount do
     end
 
     it 'should apply discount' do
-      discount
-      article = FactoryGirl.create :article
       visit transaction_path( article.transaction )
-      click_button 'Weiter'
+      click_button I18n.t('common.actions.continue')
       click_button I18n.t('transaction.actions.purchase')
       FastbillAPI.should receive( :fastbill_discount )
     end
