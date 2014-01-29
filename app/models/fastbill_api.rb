@@ -39,7 +39,8 @@ class FastbillAPI
                                             language_code: 'DE',
                                             email: seller.email,
                                             currency_code: 'EUR',
-                                            payment_type: '2',
+                                            payment_type: '1', # Ueberweisung
+                                            # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
                                             show_payment_notice: '1',
                                             bank_name: seller.bank_name,
                                             bank_code: seller.bank_code,
@@ -68,7 +69,8 @@ class FastbillAPI
                                   language_code: 'DE',
                                   email: user.email,
                                   currency_code: 'EUR',
-                                  payment_type: user.direct_debit ? '2' : '1',
+                                  payment_type: '1', # Ueberweisung
+                                  # payment_type: user.direct_debit ? '2' : '1', # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
                                   show_payment_notice: '1',
                                   bank_name: user.bank_name,
                                   bank_code: user.bank_code,
