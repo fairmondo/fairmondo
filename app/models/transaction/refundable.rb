@@ -12,7 +12,7 @@ module Transaction::Refundable
   #
   # checks if user has requested refund for this transaction
   def requested_refund?
-    ( self.refund && self.refund_reason && self.refund_description ) ? true : false
+    Refund.where( transaction_id: self.id ).any?
   end
 
   def refundable?
