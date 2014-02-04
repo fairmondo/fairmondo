@@ -67,7 +67,7 @@ gem 'factory_girl_rails'
 gem 'faker'
 
 # Rails Admin
-gem 'rails_admin'
+gem 'rails_admin' , "0.4.9"
 
 # Assets that need to be toplevel
 gem 'tinymce-rails'
