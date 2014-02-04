@@ -76,9 +76,9 @@ module Article::Export
 
   def self.determine_articles_to_export(user, params)
     if params == "active"
-      articles = user.articles.where(:state => "active").order("created_at ASC")
+      articles = user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
-      articles = user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC")
+      articles = user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "sold"
       articles = user.sold_transactions.joins(:article)
     elsif params == "bought"
