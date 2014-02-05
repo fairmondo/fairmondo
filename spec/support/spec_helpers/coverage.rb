@@ -35,6 +35,7 @@ SimpleCov.start 'rails' do
   add_filter "lib/tasks/*"
   add_filter "app/jobs/process_mass_upload_job.rb"
   add_filter "app/helpers/statistics_helper.rb"
+  add_filter "lib/autoload/sidekiq_redis_connection_wrapper.rb"
   minimum_coverage 100
 end
 

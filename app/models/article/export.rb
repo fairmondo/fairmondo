@@ -76,12 +76,9 @@ module Article::Export
 
   def self.determine_articles_to_export(user, params)
     if params == "active"
-      articles = user.articles.where(:state => "active")
-      # Different reverse methods needed because adding two ActiveRecord::Relation objects leads to an Array
-      articles.reverse_order
+      articles = user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
-      articles = user.articles.where(:state => "preview") + user.articles.where(:state => "locked")
-      articles.reverse
+      articles = user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "sold"
       articles = user.sold_transactions.joins(:article)
     elsif params == "bought"

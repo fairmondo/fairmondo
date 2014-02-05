@@ -36,7 +36,7 @@ class ArticlesController < InheritedResources::Base
   before_filter :build_search_cache, :only => :index
 
   # Calculate value of active goods
-  before_filter :check_value_of_goods, :only => [:new, :create]
+  before_filter :check_value_of_goods, :only => [:update], :if => :activate_params_present?
 
   #Sunspot Autocomplete
   def autocomplete
@@ -147,6 +147,10 @@ class ArticlesController < InheritedResources::Base
 
     def state_params_present?
       permitted_state_params[:activate] || permitted_state_params[:deactivate]
+    end
+
+    def activate_params_present?
+      !!permitted_state_params[:activate]
     end
 
 
