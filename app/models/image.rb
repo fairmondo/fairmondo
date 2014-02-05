@@ -36,6 +36,7 @@ class Image < ActiveRecord::Base
                             url: "/system/:attachment/:id_partition/:style/:filename",
                             path: "public/system/:attachment/:id_partition/:style/:filename"
 
+  process_in_background :image, :only_process => [:original,:medium,:thumb], :processing_image_url => "/assets/pending.png"
   default_scope order('created_at ASC')
 
   validates_attachment_presence :image, :unless => :external_url
@@ -69,5 +70,10 @@ class Image < ActiveRecord::Base
   def self.reprocess image_id, style=:thumb
     image = Image.find(image_id).image.reprocess! style
   end
+
+  def original_image_url_while_processing
+    Paperclip::Interpolations.interpolate Image.paperclip_definitions[:image][:url] , self.image, :original
+  end
+
 
 end

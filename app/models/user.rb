@@ -335,6 +335,11 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
 
+  def count_value_of_goods
+    value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
+    self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
+
   private
     # @api private
     def create_default_library

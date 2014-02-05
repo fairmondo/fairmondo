@@ -23,12 +23,6 @@ class Refund < ActiveRecord::Base
 
   auto_sanitize :description
 
-  after_create :send_email_to_customer_support
-
-  private
-    def send_email_to_customer_support
-      RefundMailer.refund_notification(self).deliver
-    end
 
   # This must be reenabled when fastbill stuff comes online
   # after_create :fastbill_refund

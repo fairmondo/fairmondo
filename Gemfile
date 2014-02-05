@@ -1,10 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.14'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '~> 3.2.16'
 
 # Ruby Deps
 platforms :ruby do
@@ -28,13 +25,12 @@ gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 
-
 # Tool Libs
 
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
-gem 'money-rails' # Deal with Money
+gem 'money-rails', "~> 0.8.1" # Deal with Money
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
@@ -42,16 +38,18 @@ gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
-#gem "acts_as_paranoid", "~>0.4.0" # for softdelete
-#gem "acts_as_follower" # Follow Users and Articles not used for the moment
 
 # Indexing /Searching
-gem 'sunspot_rails'
-gem "sunspot-queue" # sidekiq
+gem 'sunspot_rails' , '~> 2.0.0'
 
 # Sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq-failures'
+
+# Sidekiq Integrations
+gem "sunspot-queue" # sidekiq
+gem 'delayed_paperclip'
 
 # Controller Gems
 gem 'devise' # authentication
@@ -68,8 +66,8 @@ gem 'capistrano', '~> 2.15.5'
 gem 'factory_girl_rails'
 gem 'faker'
 
-#Rails Adminrails
-gem 'rails_admin'
+# Rails Admin
+gem 'rails_admin' , "0.4.9"
 
 # Assets that need to be toplevel
 gem 'tinymce-rails'
@@ -86,10 +84,10 @@ gem 'ibanomat'
 group :assets do
 
    # CSS
-  gem 'sass-rails', '~> 3.2'
+  gem 'sass-rails'
   gem "font-awesome-rails"
-  gem "susy", "~> 1.0.8"
-  gem "compass", "~> 0.13.alpha.4"
+  gem "susy"
+  gem "compass", "~> 0.13.alpha.12"
   gem 'compass-rails'
 
 
@@ -99,7 +97,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'therubyrhino'
   gem 'selectivizr-rails'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
   gem 'modernizr-rails'
   # gem 'turbolinks'
   # gem 'jquery-turbolinks'
@@ -108,13 +106,6 @@ end
 group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service
 end
-
-# for generating *.war file
-#group :development do
- # gem "warbler", "~> 1.3.2"
- # gem "jruby-rack", "~> 1.1.10"
-
-#end
 
 # Testing using RSpec
 group :development, :test do
@@ -134,11 +125,10 @@ group :development, :test do
   # Mutation Coverage
   # gem 'mutant-rails' ... check back to see if they got it working: https://github.com/mockdeep/mutant-rails
 
-  #er diagramm generation
+  # er diagramm generation
   gem "rails-erd"
 
-   #solr gem
-  gem 'sunspot_solr'
+  # sunspot solr test gem
   gem "sunspot_test"
 
   # test suite additions
@@ -162,29 +152,15 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
-
-  #zipruby for icecat catalog download
-  gem "zipruby"
-
-  # activerecord-import for batch-writing into the databse
-  gem 'activerecord-import'
-
-  gem 'method_profiler'
 end
 
 group :test do
   gem 'rake'
   gem 'colorize'
-  gem "ZenTest"
+  gem "fakeredis", :require => "fakeredis/rspec"
+  gem "fakeweb", "~> 1.3"
 end
 
-# Adding Staging-server Embedded Solr
-group :staging do
-  gem 'sunspot_solr'
-
-  #for testing search
-  gem 'activerecord-import'
+group :development,:test,:staging do
+  gem 'sunspot_solr' , '~> 2.0.0'
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'

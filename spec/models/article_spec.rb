@@ -76,23 +76,6 @@ describe Article do
         end
       end
 
-      describe "#count_value_of_goods" do
-        it "should count up the value of active goods of this user" do
-          second_article = FactoryGirl.create :article, seller: db_article.seller
-          db_article.seller.articles.reload
-          db_article.count_value_of_goods
-          second_article.seller.value_of_goods_cents.should eq(db_article.price_cents + second_article.price_cents)
-        end
-
-        it " should not count up the value of active goods of this user" do
-          second_article = FactoryGirl.create :article, seller: db_article.seller
-          third_article = FactoryGirl.create :preview_article, seller: db_article.seller
-          db_article.seller.articles.reload
-          db_article.count_value_of_goods
-          second_article.seller.value_of_goods_cents.should eq(db_article.price_cents + second_article.price_cents)
-        end
-      end
-
     end
   end
 
@@ -260,6 +243,7 @@ describe Article do
         end
 
         it "should return a multiplied price when a quantity is given" do
+          article.transport_type2_number = 3
           expected = article.price * 3 + article.transport_type2_price
           article.total_price("type2", "cash", 3).should eq expected
         end
@@ -327,6 +311,18 @@ describe Article do
           article.errors[:images].should == [I18n.t("article.form.errors.only_one_title_image")]
         end
 
+        it "should return the processing image while processing when requested a thumb" do
+          title_image = FactoryGirl.build(:image,:processing)
+          article.images = [title_image]
+          article.title_image_url(:thumb).should == title_image.image.url(:thumb)
+        end
+
+        it "should return the original image while processing when requested a medium image" do
+          title_image = FactoryGirl.build(:image,:processing)
+          article.images = [title_image]
+          article.title_image_url(:medium).should == title_image.original_image_url_while_processing
+        end
+
       end
 
       describe "#add_image" do
@@ -357,11 +353,6 @@ describe Article do
           article.add_image @url, true
         end
 
-        it "should add an error when the image can't be downloaded" do
-          URI.stub(:parse).and_raise(IOError)
-          article.add_image @url, true
-          article.errors[:external_title_image_url].should eq [I18n.t('mass_uploads.errors.image_not_available')]
-        end
       end
     end
   end

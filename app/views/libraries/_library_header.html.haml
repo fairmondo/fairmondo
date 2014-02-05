@@ -9,5 +9,5 @@
       = library.user_nickname
   .Library-thumbnails
     - library.library_elements.first(10).each do |library_element|
-      - if library_elements.article.title_image_url
+      - if library_element.article
         = image_tag(library_element.article.title_image_url(:thumb), :class => "Library-thumb")

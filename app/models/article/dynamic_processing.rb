@@ -128,9 +128,18 @@ module Article::DynamicProcessing
       end
   end
 
+  def validation_errors_for_erroneous_articles
+    validation_errors = ""
+    self.errors.full_messages.each do |message|
+      validation_errors += message + "\n"
+    end
+    validation_errors
+  end
+
   # Replacement for save! method - Does different things based on the action attribute
 
   def process! mass_upload
+    Article.skip_callback(:save, :after, :count_value_of_goods)
     mu_article = MassUploadArticle.create mass_upload: mass_upload, article: self, action: self.action
 
     case mu_article.action

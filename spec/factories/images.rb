@@ -30,5 +30,10 @@ FactoryGirl.define do
     factory :fixture_image do
       image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
     end
+
+    trait :processing do
+      image_processing true
+    end
+
   end
 end
