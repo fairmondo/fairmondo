@@ -53,7 +53,7 @@ class Article < ActiveRecord::Base
   has_many :mass_upload_articles
   has_many :mass_uploads, through: :mass_upload_articles
 
-  has_one :discount
+  belongs_to :discount
 
   validates_presence_of :user_id
 

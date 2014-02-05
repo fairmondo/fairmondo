@@ -23,7 +23,10 @@
 class RefundObserver < ActiveRecord::Observer
 
   def after_create(refund)
-      RefundMailer.refund_notification(refund).deliver
+    [ :fair, :fee ].each do | fee_type |
+      FastbillAPI.fastbill_refund( refund.transaction, fee_type )
+    end
+    RefundMailer.refund_notification(refund).deliver
   end
 
 end

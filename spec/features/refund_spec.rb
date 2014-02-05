@@ -1,5 +1,5 @@
 require 'spec_helper'
-#include FastBillStubber
+include FastBillStubber
 include Warden::Test::Helpers
 
 describe Refund do
@@ -9,6 +9,10 @@ describe Refund do
   let( :larticle ){ FactoryGirl.create :article, :without_build_transaction, :with_all_transports, state: 'sold', seller: luser }
   let( :ptransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: particle, seller: puser }
   let( :ltransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: larticle, seller: luser }
+
+  before do
+    stub_fastbill
+  end
 
   context 'logged in user' do
     context 'LegalEntity' do

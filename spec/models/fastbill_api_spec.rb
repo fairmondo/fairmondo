@@ -48,5 +48,13 @@ describe FastbillAPI do
         end
       end
     end
+
+    describe '::fastbill_discount' do
+      it 'should call setusagedata' do
+        Fastbill::Automatic::Subscription.should_receive( :setusagedata )
+        db_transaction.discount = FactoryGirl.create :discount
+        FastbillAPI.fastbill_discount(seller, db_transaction)
+      end
+    end
   end
 end
