@@ -19,7 +19,7 @@ class FastbillAPI
         fastbill_setusagedata seller, transaction, type
       end
 
-      fastbill_discount seller, transaction if transaction.discount_value_cents
+      fastbill_discount seller, transaction if transaction.discount
     end
   end
 

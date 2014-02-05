@@ -208,33 +208,16 @@ describe User do
       end
     end
 
-    # describe "has_open_invoice?" do
-    #   before do
-    #     @invoice = FactoryGirl.create( :invoice, :user_id => user.id )
-    #   end
+    describe '#update_fastbill_profile' do
+      let(:user) {FactoryGirl.create :user, :fastbill}
 
-    #   it "should be true if user has open invoice" do
-    #     @invoice.state = "open"
-    #     @invoice.save
-    #     user.has_open_invoice?.should be_true
-    #   end
-
-    #   it "should be false if user has no open invoice" do
-    #     @invoice.state = "closed"
-    #     @invoice.save
-    #     user.has_open_invoice?.should be_false
-    #   end
-    # end
-
-    describe "has_paid_quarterly_fee?" do
-      it "should return true if user has paid quarterly fee" do
-        pending
+      it 'should call FastBillAPI.update_profile if user has fastbill profile' do
+        # FastbillAPI.should receive(:update_profile).with(user)
+        Fastbill::Automatic::Customer.should receive(:get).and_return([Fastbill::Automatic::Customer.new])
+        Fastbill::Automatic::Customer.any_instance.stub(:update_attributes)
+        user.update_fastbill_profile
       end
-
-      it "should return false if user has not paid quarterly fee" do
-        pending
-      end
-    end
+    end 
 
     describe "#address" do
       it "should return a string with street, address suffix, zip and city" do
@@ -1037,4 +1020,5 @@ describe User do
 
     end
   end
+
 end

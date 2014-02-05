@@ -7,5 +7,9 @@ FactoryGirl.define do
     percent { rand(1..100) }
     max_discounted_value_cents { rand(1000..10000) }
     num_of_discountable_articles { rand(1..20) }
+
+    trait :small do
+      max_discounted_value_cents 1
+    end
   end
 end

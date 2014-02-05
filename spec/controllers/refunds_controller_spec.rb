@@ -1,8 +1,13 @@
 require 'spec_helper'
+include FastBillStubber
 
 describe RefundsController do
   let( :user ){ FactoryGirl.create :user }
   let( :transaction ){ FactoryGirl.create :transaction_with_buyer, :old, :seller => user }
+
+  before do
+    stub_fastbill
+  end
   
   describe 'POST ::create' do
     before do

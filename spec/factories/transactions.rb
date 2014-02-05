@@ -34,6 +34,8 @@ FactoryGirl.define do
     zip      { Faker::Address.postcode }
     country  "Deutschland"
     sold_at { Time.now }
+    discount_value_cents 0
+    
     factory :super_transaction, class: 'Transaction' do
     end
 
@@ -132,6 +134,10 @@ FactoryGirl.define do
 
     trait :old do
       sold_at { 17.days.ago }
+    end
+
+    trait :discountable do
+      article { FactoryGirl.create :article, :with_discount } 
     end
   end
 end
