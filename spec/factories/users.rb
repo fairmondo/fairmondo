@@ -53,8 +53,8 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
-    iban {Faker::Lorem.characters(2)+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
-    bic {Faker::Lorem.characters(6) + rand(99).to_s.center(2, rand(9).to_s)}
+    iban {["DE","AT","CH"].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
+    bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
 
     direct_debit '1'
 
