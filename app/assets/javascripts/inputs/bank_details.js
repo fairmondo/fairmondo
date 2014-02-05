@@ -19,11 +19,11 @@ $(document.body).ready(function(){
     }
   })
 
-  $('#iban').focusout({
+  $('#iban').focusout(function(){
 	iban = this.value
 
   })
-  $('#bic').focusout({
+  $('#bic').focusout(function(){
 	bic = this.value
   })
 
@@ -42,7 +42,9 @@ $(document.body).ready(function(){
     bank_account_owner = this.value
     if(bank_account_owner != '') $('#user_bank_account_owner_input .inline-errors').remove()
   })
+
 })
+
 
 checkBankDetails = function(account, bank_code){
   if(account != '' && bank_code != ''){
