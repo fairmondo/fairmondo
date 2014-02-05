@@ -55,6 +55,7 @@ Fairnopoly::Application.routes.draw do
   namespace :bank_details do
     get 'check', constraints: {format: 'json'}
     get 'get_bank_name', constraints: {format: 'json'}
+    get 'check_iban_and_bic', constraints: {format: 'json'}
   end
 
   resources :articles do

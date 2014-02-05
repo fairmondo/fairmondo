@@ -7,20 +7,47 @@ describe BankDetailsController do
     sign_in @user
   end
 
-  describe "GET 'check'" do
-
+  describe "GET 'check_iban_and_bic'" do
     context "as ajax" do
       context "if parameter validation was successful" do
         before :each do
           KontoAPI.stub(:valid?).and_return(true)
         end
         it "should return true" do
+          get :check_iban_and_bic, format: :json
+          response.body.should eq "true"
+        end
+      end
+      context "if parameter validation failed" do
+        before :each do
+          KontoAPI.stub(:valid?).and_return(false)
+        end
+        it "should return false" do
+          get :check_iban_and_bic, format: :json
+          response.body.should eq "false"
+        end
+      end
+    end
+    context "as html" do
+      it "should fail" do
+        get :check_iban_and_bic
+        response.should_not be_success
+      end
+    end
+  end
 
+
+  describe "GET 'check'" do
+    context "as ajax" do
+      context "if parameter validation was successful" do
+        before :each do
+          KontoAPI.stub(:valid?).and_return(true)
+        end
+        it "should return true" do
           get :check, format: :json
           response.body.should eq "true"
         end
       end
-
       context "if parameter validation failed" do
         before :each do
           KontoAPI.stub(:valid?).and_return(false)
@@ -31,7 +58,6 @@ describe BankDetailsController do
         end
       end
     end
-
     context "as html" do
       it "should fail" do
         get :check

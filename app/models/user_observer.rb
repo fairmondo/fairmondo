@@ -26,9 +26,9 @@ class UserObserver < ActiveRecord::Observer
     if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
       check_bank_details( user.id, user.bank_account_number, user.bank_code )
     end
-    #if ( user.iban_changed? ||  user.bic_changed? )
-     # check_iban_bic( user.id, user.iban, user.bic )
-     #end
+    if ( user.iban_changed? ||  user.bic_changed? )
+      check_iban_bic( user.id, user.iban, user.bic )
+     end
   end
 
   #handle_asynchronously :check_bank_details
