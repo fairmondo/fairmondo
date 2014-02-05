@@ -25,8 +25,7 @@ class TransactionObserver < ActiveRecord::Observer
     if !transaction.multiple? && transaction.sold?
       # check if this article is discountable and reply accordingly
       Discount.discount_chain( transaction ) if transaction.article_discount_id
-      # Start the fastbill chain, to create invoices and add items to invoice
-      FastbillAPI.fastbill_chain( transaction )
+      FastbillWorker.perform_async(transaction.id)
     end
   end
 

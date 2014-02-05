@@ -13,7 +13,6 @@ describe FastbillAPI do
 
     describe "::fastbill_chain" do
       it "should find seller of transaction" do
-        User.should_receive( :find ).with( seller.id ).and_return( seller )
         FastbillAPI.fastbill_chain( db_transaction )
       end
 
@@ -54,6 +53,28 @@ describe FastbillAPI do
         Fastbill::Automatic::Subscription.should_receive( :setusagedata )
         db_transaction.discount = FactoryGirl.create :discount
         FastbillAPI.fastbill_discount(seller, db_transaction)
+      end
+    end
+
+    describe '::fastbill_refund' do
+      it 'should call setusagedata' do
+        Fastbill::Automatic::Subscription.should_receive( :setusagedata ).twice
+        FastbillAPI.fastbill_refund( db_transaction, :fair )
+        FastbillAPI.fastbill_refund( db_transaction, :fee )
+      end
+    end
+
+    # describe '::update_profile' do
+    #   it 'should call setusagedata' do
+    #     Fastbill::Automatic::Customer.should_receive( :get )
+    #     FastbillAPI.update_profile( seller )
+    #   end
+    # end
+
+    describe '::discount_wo_vat' do
+      it 'should receive call' do
+        FastbillAPI.should_receive( :discount_wo_vat )
+        FastbillAPI.discount_wo_vat( db_transaction )
       end
     end
   end
