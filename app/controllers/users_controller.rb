@@ -25,7 +25,6 @@ class UsersController < InheritedResources::Base
   actions :show
   custom_actions :resource => :profile, :collection => :login
 
-
   before_filter :show_notice, only: [:show]
   before_filter :check_for_complete_mass_uploads, only: [:show]
   before_filter :authorize_resource, except: [:login]

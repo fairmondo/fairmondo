@@ -34,6 +34,8 @@ FactoryGirl.define do
     zip      { Faker::Address.postcode }
     country  "Deutschland"
     sold_at { Time.now }
+    discount_value_cents 0
+    
     factory :super_transaction, class: 'Transaction' do
     end
 
@@ -89,6 +91,8 @@ FactoryGirl.define do
       buyer { FactoryGirl.create :buyer }
       quantity_bought 1
       state 'sold'
+      sold_at { Time.now }
+      article { FactoryGirl.create :article, :without_build_transaction,:with_all_transports, state: "sold" }
     end
 
     factory :transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
@@ -97,6 +101,7 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_friendly_percent}
     end
 
+    #TODO please use transaction_with_buyer
     factory :transaction_with_friendly_percent_missing_bank_data_and_buyer, class: 'SingleFixedPriceTransaction'  do
       buyer { FactoryGirl.create :buyer }
        quantity_bought 1
@@ -122,9 +127,17 @@ FactoryGirl.define do
     trait :cash_on_delivery_selected do
       selected_payment :cash_on_delivery
     end
-    
+
+    trait :fastbill_profile do
+      seller { FactoryGirl.create :seller, fastbill_id: rand(1...1000), fastbill_subscription_id: rand(1...1000) }
+    end
+
     trait :old do
       sold_at { 17.days.ago }
+    end
+
+    trait :discountable do
+      article { FactoryGirl.create :article, :with_discount } 
     end
   end
 end

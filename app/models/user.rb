@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
+      :fastbill_profile_update,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
@@ -63,6 +64,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :recaptcha, :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
+  attr_accessor :fastbill_profile_update
 
 
   #Relations
@@ -240,7 +242,7 @@ class User < ActiveRecord::Base
       transition bad_seller: :standard_seller
     end
 
-		event :rate_down_to_bad_seller do
+    event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
 
@@ -329,6 +331,18 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
 
+  # FastBill: this method checks if a user already has fastbill profile
+  def has_fastbill_profile?
+    fastbill_id && fastbill_subscription_id
+  end
+
+  # FastBill
+  def update_fastbill_profile
+    if self.has_fastbill_profile?
+      FastbillAPI.update_profile self
+    end
+  end
+
   def count_value_of_goods
     value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
     self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
@@ -342,7 +356,7 @@ class User < ActiveRecord::Base
       end
     end
 
-		def wants_to_sell?
-		  self.wants_to_sell
-		end
+    def wants_to_sell?
+      self.wants_to_sell
+    end
 end

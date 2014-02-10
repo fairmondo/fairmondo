@@ -33,6 +33,9 @@ begin
   KontoAPI::api_key = api['kontoapi']['key']
   KontoAPI::timeout = 10
 
+  # FastBill Automatic API
+  FastBill::Automatic.api_key = api['fastbill']['email']
+  FastBill::Automatic.email   = api['fastbill']['api_key']
 
 rescue
   puts 'api.yml not found'

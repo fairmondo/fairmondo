@@ -96,6 +96,11 @@ FactoryGirl.define do
     trait :paypal_data do
       paypal_account Faker::Internet.email
     end
+
+    trait :fastbill do
+      fastbill_id '1223'
+      fastbill_subscription_id '76543'
+    end
   end
 
 end

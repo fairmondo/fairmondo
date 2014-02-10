@@ -200,6 +200,7 @@ de:
         apply: Deine Vorlagen
       article_template:
         template: Name der Vorlage
+
     hints:
       user:
         edit: &edit_user
