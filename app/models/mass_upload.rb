@@ -65,8 +65,9 @@ class MassUpload < ActiveRecord::Base
   belongs_to :user
 
   validates_attachment :file, presence: true,
-    size: { in: 0..20.megabytes }
-  validate :csv_format
+    size: { in: 0..20.megabytes },
+    content_type: { :content_type => ['text/csv','application/excel','application/vnd.msexcel','text/anytext','application/vnd.ms-excel', 'application/octet-stream', 'application/force-download', 'text/comma-separated-values'] }
+
 
   def self.mass_upload_attrs
     [:file]

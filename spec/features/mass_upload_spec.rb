@@ -314,16 +314,6 @@ describe "Mass-upload" do
             end
           end
 
-          describe "wrong format)" do
-            it "should show correct error messages" do
-              attach_file('mass_upload_file',
-                          'spec/fixtures/mass_upload_wrong_format.html')
-              click_button I18n.t('mass_uploads.labels.upload_article')
-              should have_selector('p.inline-errors',
-                text: I18n.t('mass_uploads.errors.wrong_mime_type'))
-            end
-          end
-
           describe "wrong encoding)" do
             it "should show correct error messages" do
               attach_file('mass_upload_file',

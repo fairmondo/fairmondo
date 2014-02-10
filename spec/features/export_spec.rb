@@ -166,7 +166,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Article::Export.export_erroneous_articles(MassUpload.last.erroneous_articles)
-          IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_wrong_article.csv')
+          @csv.should == IO.read('spec/fixtures/mass_upload_wrong_article.csv')
         end
       end
     end
