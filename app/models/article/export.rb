@@ -22,10 +22,7 @@
 module Article::Export
   extend ActiveSupport::Concern
 
-  def self.export_articles(user, params = nil)
-
-    # Generate a Tempfile for the download
-    csv = Tempfile.new "export"
+  def self.export_articles(csv,user, params = nil)
 
     # Paginate the Export into chuncks of 10000
     page = 0
@@ -84,7 +81,6 @@ module Article::Export
       items = items.page(page)
     end
     csv.flush
-    csv
   end
 
   def self.export_erroneous_articles(erroneous_articles)

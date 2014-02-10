@@ -20,11 +20,16 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
+include FastBillStubber
 
 include Warden::Test::Helpers
 
 describe 'User management' do
   let(:user) { FactoryGirl.create :user }
+
+  before do
+    stub_fastbill #for user update calls
+  end
 
   context "for signed-out users" do
     it "should show a login button" do
