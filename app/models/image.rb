@@ -28,15 +28,21 @@ class Image < ActiveRecord::Base
   #! attr_accessible *image_attributes
   #! attr_accessible *image_attributes, :as => :admin
 
-
   belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
   has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "280x200>", profile: "300x300#" },
                             convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip -background white -gravity center -extent 260x180", profile: "-quality 75 -strip" },
                             default_url: "/assets/missing.png",
                             url: "/system/:attachment/:id_partition/:style/:filename",
-                            path: "public/system/:attachment/:id_partition/:style/:filename"
+                            path: "public/system/:attachment/:id_partition/:style/:filename",
+                            only_process: [:profile]
+
+
 
   process_in_background :image, :only_process => [:original,:medium,:thumb], :processing_image_url => "/assets/pending.png"
+
+  skip_callback :commit,:after, :enqueue_delayed_processing , if: -> { imageable.is_a?(User) }
+  # This is a hack because delayed_paperclip is not working correctly for now
+
   default_scope order('created_at ASC')
 
   validates_attachment_presence :image, :unless => :external_url
