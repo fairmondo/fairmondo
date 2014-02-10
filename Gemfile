@@ -49,7 +49,7 @@ gem 'sidekiq-failures'
 
 # Sidekiq Integrations
 gem "sunspot-queue" # sidekiq
-gem 'delayed_paperclip'
+gem 'delayed_paperclip', :github => 'fairnopoly/delayed_paperclip'
 
 # Controller Gems
 gem 'devise' # authentication
