@@ -119,7 +119,7 @@ class FastbillAPI
         Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                         article_number: '12',
                                                         unit_price: -( discount_wo_vat transaction ),
-                                                        description: transaction.id.to_s + "  " + article.title + " (" + transaction.discount.title + ")",
+                                                        description: transaction.id.to_s + "  " + article.title + " (" + transaction.discount_title + ")",
                                                         usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
         transaction.update_attribute(:billed_for_discount, true)

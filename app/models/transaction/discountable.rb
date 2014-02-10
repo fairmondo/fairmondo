@@ -5,7 +5,7 @@ module Transaction::Discountable
     belongs_to :discount, foreign_key: 'discount_id'
     #fields for discounts
     delegate :discount_id, to: :article, prefix: true
-    delegate :max_discounted_value_cents, :num_of_discountable_articles, to: :discount, prefix: true
+    delegate :max_discounted_value_cents, :num_of_discountable_articles, :title, to: :discount, prefix: true
   end
 
   # Methods
