@@ -51,7 +51,8 @@ describe "Export" do
       describe "when exporting inactive articles" do
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "inactive")
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "inactive")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
@@ -63,7 +64,8 @@ describe "Export" do
         end
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "active")
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "active")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
@@ -114,7 +116,8 @@ describe "Export" do
                                             city: "Berlin", zip: "10999",
                                             sold_at: "2013-12-03 17:50:15"
           legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
-          @csv = Article::Export.export_articles(legal_entity, "sold")
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "sold")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
         end
       end
@@ -130,7 +133,8 @@ describe "Export" do
         end
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity_buyer, "bought")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export_bought.csv')
         end
       end
@@ -148,7 +152,8 @@ describe "Export" do
       describe "when exporting inactive articles" do
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "inactive")
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "inactive")
           IO.read(@csv).should == IO.read('spec/fixtures/export_social_producer.csv')
         end
       end
