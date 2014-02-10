@@ -42,7 +42,7 @@ module Paperclip
     end
   end
   class Attachment
-    def post_process image
+    def post_process image=nil
     end
   end
   # module Storage
