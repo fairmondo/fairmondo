@@ -5,7 +5,7 @@ class FastbillRefundWorker
                   retry: 20,
                   backtrace: true,
                   failures: true
-  def perform transaction_id
+  def perform transaction_id, fee_type
     transaction = Transaction.find(transaction_id)
     # Start the fastbill chain, to create invoices and add items to invoice
     FastbillAPI.fastbill_refund( transaction, fee_type )
