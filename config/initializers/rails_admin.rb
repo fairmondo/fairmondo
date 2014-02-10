@@ -130,6 +130,7 @@ RailsAdmin.config do |config|
     field :gtin
     field :transport_type1_number
     field :transport_type2_number
+    field :discount_id
 
     # Cross-section configuration:
 

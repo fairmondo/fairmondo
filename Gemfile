@@ -77,6 +77,9 @@ gem 'jquery-rails'
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
 
+# Gem for connecting to FastBill Automatic
+gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -103,6 +106,7 @@ end
 
 group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service
+  # gem 'whenever' # cron jobs
 end
 
 # Testing using RSpec
@@ -134,6 +138,7 @@ group :development, :test do
   gem "brakeman" # security test: execute with 'brakeman'
   gem 'parallel_tests'
   gem 'rspec-instafail'
+  #gem 'timecop' #for faking test time/date
 
   # Replace Webrick
   gem 'thin'

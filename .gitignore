@@ -74,6 +74,9 @@ Gemfile.local
 # other fragments
 *.~lock.*
 *.swo
+*.swn
+*.swm
+
 
 .ruby-version
 .ruby-gemset
