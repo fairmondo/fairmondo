@@ -96,7 +96,4 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
-  API_KEYS = YAML::load_file("#{Rails.root}/config/api.yml")
-  Fastbill::Automatic.email = API_KEYS['fastbill']['email']
-  Fastbill::Automatic.api_key = API_KEYS['fastbill']['api_key']
 end
