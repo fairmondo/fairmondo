@@ -582,7 +582,7 @@ RailsAdmin.config do |config|
     field :bankaccount_warning do
      read_only true
     end
-    field :fastbill_profile do
+    field :fastbill_id do
       read_only true
     end
     field :fastbill_subscription_id do
