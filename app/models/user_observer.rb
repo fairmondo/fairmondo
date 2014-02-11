@@ -29,7 +29,7 @@ class UserObserver < ActiveRecord::Observer
 
   # this should update the users data with fastbill after the user edits his data
   def after_update(user)
-    if user.fastbill_profile_update
+    if user.fastbill_profile_update && user.has_fastbill_profile?
       FastbillUpdateUserWorker.perform_async( user.id )
     end
   end
