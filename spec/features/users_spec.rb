@@ -25,7 +25,7 @@ include FastBillStubber
 include Warden::Test::Helpers
 
 describe 'User management' do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.create :user, :fastbill }
 
   before do
     stub_fastbill #for user update calls
