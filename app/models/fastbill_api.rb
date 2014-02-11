@@ -62,6 +62,7 @@ class FastbillAPI
                                   customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
                                   organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
                                   first_name: user.forename,
+                                  last_name: user.surname,
                                   address: user.street,
                                   address_2: user.address_suffix,
                                   zipcode: user.zip,
@@ -103,7 +104,6 @@ class FastbillAPI
                                                         article_number: fee_type == :fair ? '11' : '12',
                                                         quantity: transaction.quantity_bought,
                                                         unit_price: fee_type == :fair ? ( fair_wo_vat article ) : ( fee_wo_vat article ),
-                                                        last_name: user.surname,
                                                         description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
                                                         usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
