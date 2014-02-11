@@ -29,7 +29,7 @@ class FastbillAPI
         User.observers.disable :user_observer do
           customer = Fastbill::Automatic::Customer.create( customer_number: seller.id,
                                               customer_type: seller.is_a?(LegalEntity) ? 'business' : 'consumer',
-                                              organization: seller.company_name? ? seller.company_name : seller.nickname,
+                                              organization: (seller.company_name? && seller.is_a?(LegalEntity)) ? seller.company_name : seller.nickname,
                                               salutation: seller.title,
                                               first_name: seller.forename,
                                               last_name: seller.surname,
@@ -60,9 +60,8 @@ class FastbillAPI
       if customer
         customer.update_attributes( customer_id: user.fastbill_id,
                                   customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
-                                  organization: "#{ user.company_name if user.is_a?(LegalEntity) }",
+                                  organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
                                   first_name: user.forename,
-                                  last_name: user.surname,
                                   address: user.street,
                                   address_2: user.address_suffix,
                                   zipcode: user.zip,
@@ -104,6 +103,7 @@ class FastbillAPI
                                                         article_number: fee_type == :fair ? '11' : '12',
                                                         quantity: transaction.quantity_bought,
                                                         unit_price: fee_type == :fair ? ( fair_wo_vat article ) : ( fee_wo_vat article ),
+                                                        last_name: user.surname,
                                                         description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
                                                         usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
