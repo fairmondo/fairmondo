@@ -30,6 +30,7 @@ module Article::DynamicProcessing
     # When an action is set, modify the save call to reflect what should be done
     # @return [Article] Article ready to save or containing an error
     def self.create_or_find_according_to_action attribute_hash, user
+      attribute_hash['action'].strip!
       case attribute_hash['action']
       when 'c', 'create'
         Article.new attribute_hash.merge({ action: :create })
