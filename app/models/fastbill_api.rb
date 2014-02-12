@@ -2,10 +2,10 @@ class FastbillAPI
   require 'fastbill-automatic'
 
   #Here be FastBill stuff
-  #TODO verhindern, dass je Nutzer zwei Kontos angelegt werden, schauen warum das mt den Abos nicht hinhaut
-  #TODO Logger für fehlerhandling
-  #TODO asynchron
-
+  #
+  # The fastbill_chain takes control of all the necessary steps to handle
+  # fastbill customer creation and adding transactions fees to a user's
+  # fastbill account
   def self.fastbill_chain transaction
     seller = transaction.seller
     seller.with_lock do
