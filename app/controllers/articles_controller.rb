@@ -183,7 +183,12 @@ class ArticlesController < InheritedResources::Base
 
     def save_images
       #At least try to save the images -> not persisted in browser
-      resource.images.each do |image|
+      resource.images.each_with_index do |image,index|
+        if image.new_record?
+          # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
+          # if you find aout a way to break out a running transaction please refactor to images_attributes
+          image.image = params[:article][:images_attributes][index.to_s][:image]
+        end
         image.save
       end
     end

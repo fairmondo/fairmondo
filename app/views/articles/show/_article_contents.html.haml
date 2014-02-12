@@ -91,7 +91,7 @@
     -else
       .Article-friendly
 
-        - if !resource.has_100_fp?
+        - if resource.shows_fair_percent?
           %p.Article--highlight
             =t('article.show.fair_percent')
             %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
