@@ -8,18 +8,19 @@ class FastbillAPI
   # fastbill account
   def self.fastbill_chain transaction
     seller = transaction.seller
+    seller.with_lock do
+      unless seller.ngo?
+        unless seller.has_fastbill_profile?
+          fastbill_create_customer seller
+          fastbill_create_subscription seller
+        end
 
-    unless seller.ngo?
-      unless seller.has_fastbill_profile?
-        fastbill_create_customer seller
-        fastbill_create_subscription seller
+        [ :fair, :fee ].each do | type |
+          fastbill_setusagedata seller, transaction, type
+        end
+
+        fastbill_discount seller, transaction if transaction.discount
       end
-
-      [ :fair, :fee ].each do | type |
-        fastbill_setusagedata seller, transaction, type
-      end
-
-      fastbill_discount seller, transaction if transaction.discount
     end
   end
 
