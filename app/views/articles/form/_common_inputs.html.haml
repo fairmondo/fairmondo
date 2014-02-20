@@ -55,7 +55,7 @@
         - if image.object.new_record?
           = image.input :image, :input_html =>  { :class => "Image-upload-extend-columns"}
         - else
-          = link_to( image_tag(image.object.image.url(:thumb)), image.object.image.url(:original) , target: "_blank")
+          = link_to( image_tag(image.object.url_or_original_while_processing(:thumb)), image.object.url_or_original_while_processing(:original) , target: "_blank")
           = image.input :_destroy, :as => :boolean , :label => false
         = image.input :is_title, :input_html =>  { :class => "Image-titleinput"}
 

@@ -62,6 +62,11 @@ class ArticlesController < InheritedResources::Base
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
+
+    if resource.owned_by?(current_user) && at_least_one_image_processing?
+      flash.now[:notice] = t('article.notices.image_processing')
+    end
+
     show!
   rescue Pundit::NotAuthorizedError
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
@@ -179,7 +184,7 @@ class ArticlesController < InheritedResources::Base
 
 
 
-    ############ Save Images ################
+    ############ Images ################
 
     def save_images
       #At least try to save the images -> not persisted in browser
@@ -191,6 +196,11 @@ class ArticlesController < InheritedResources::Base
         end
         image.save
       end
+    end
+
+    def at_least_one_image_processing?
+      processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
+      !processing_thumbs.empty? || resource.title_image.image.processing?
     end
 
   ################## Inherited Resources
