@@ -73,7 +73,7 @@ class Image < ActiveRecord::Base
     where(is_title: true).first
   end
 
-  def self.reprocess image_id, style=:thumb
+  def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
 
@@ -81,5 +81,11 @@ class Image < ActiveRecord::Base
     Paperclip::Interpolations.interpolate Image.paperclip_definitions[:image][:url] , self.image, :original
   end
 
-
+  def url_or_original_while_processing style = :thumb
+    if image.processing?
+      original_image_url_while_processing
+    else
+      url(style)
+    end
+  end
 end
