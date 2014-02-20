@@ -1,5 +1,5 @@
 require 'spec_helper'
-#include FastBillStubber
+include FastBillStubber
 include Warden::Test::Helpers
 
 describe Refund do
@@ -10,8 +10,11 @@ describe Refund do
   let( :ptransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: particle, seller: puser }
   let( :ltransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: larticle, seller: luser }
 
-  context 'logged in user' do
+  before do
+    stub_fastbill
+  end
 
+  context 'logged in user' do
     context 'LegalEntity' do
       before { login_as( luser ) }
       context 'is transaction seller and time is between 14 and 45 days after transaction was set to sold' do
@@ -29,6 +32,13 @@ describe Refund do
           page.should have_selector( '#refund_reason' )
           page.should have_selector( '#refund_description' )
           page.should have_button( I18n.t( 'common.actions.send' ) )
+        end
+
+        it 'should create new refund' do
+          visit new_transaction_refund_path( ltransaction )
+          fill_in 'refund_description', :with => 'a' * 160
+          click_button I18n.t( 'common.actions.send' )
+          page.should have_content(I18n.t('refund.notice' ))
         end
       end
     end

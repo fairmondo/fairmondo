@@ -62,6 +62,11 @@ class ArticlesController < InheritedResources::Base
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
+
+    if !flash.now[:notice] && resource.owned_by?(current_user) && at_least_one_image_processing?
+      flash.now[:notice] = t('article.notices.image_processing')
+    end
+
     show!
   rescue Pundit::NotAuthorizedError
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
@@ -179,13 +184,23 @@ class ArticlesController < InheritedResources::Base
 
 
 
-    ############ Save Images ################
+    ############ Images ################
 
     def save_images
       #At least try to save the images -> not persisted in browser
-      resource.images.each do |image|
+      resource.images.each_with_index do |image,index|
+        if image.new_record?
+          # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
+          # if you find aout a way to break out a running transaction please refactor to images_attributes
+          image.image = params[:article][:images_attributes][index.to_s][:image]
+        end
         image.save
       end
+    end
+
+    def at_least_one_image_processing?
+      processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
+      !processing_thumbs.empty? || resource.title_image.image.processing?
     end
 
   ################## Inherited Resources

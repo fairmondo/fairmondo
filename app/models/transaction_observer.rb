@@ -21,7 +21,16 @@
 #
 
 class TransactionObserver < ActiveRecord::Observer
+  def after_buy transaction, transition
+    if !transaction.multiple? && transaction.sold?
+      # check if this article is discountable and reply accordingly
+      Discount.discount_chain( transaction ) if transaction.article_discount_id
+      FastbillWorker.perform_async(transaction.id)
+    end
+  end
+
   def after_update transaction
+    # kann auch zu after-buy gemacht werden (eventuell)
     if transaction.sold? && !transaction.multiple? && !transaction.purchase_emails_sent
       # Send an email to the seller
       TransactionMailer.seller_notification(transaction).deliver

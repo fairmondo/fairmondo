@@ -32,7 +32,6 @@
     - if policy(resource).destroy?
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn"
 
-
 %figure.Article-image
   - if resource.title_image_present?
     / The next line is for providing the proper title image to facebook
@@ -83,7 +82,8 @@
   .Article-info--left
     .Thumbnail-container
       - resource.thumbnails.each do |image|
-        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.image.url(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
+        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
+
     - if resource.seller.ngo
       .Article-friendly
         %p
@@ -91,7 +91,7 @@
     -else
       .Article-friendly
 
-        - if !resource.has_100_fp?
+        - if resource.shows_fair_percent?
           %p.Article--highlight
             =t('article.show.fair_percent')
             %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}

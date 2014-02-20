@@ -114,6 +114,7 @@ de:
       locked: "Da der Artikel bereits zum Verkauf stand kann er nicht mehr bearbeitet werden!"
       deactivated: "Artikel wurde erfolgreich vom Marktplatz genommen!"
       max_limit: "Der maximale Warenwert wurde überschritten. Um weitere Artikel einstellen zu können, musst Du andere Artikel vom Marktplatz nehmen."
+      image_processing: "Bitte beachte, dass einige der Bilder dieses Artikels noch darauf warten, von unserem System bearbeitet zu werden. Das kann einige Zeit dauern. Der Artikel kann trotzdem schon auf der Plattform angezeigt werden. Noch nicht bearbeitete Bilder werden temporär durch ein Sanduhr-Symbol ersetzt."
     image:
       title: "Lade ein Bild hoch"
       upload: "Hochladen"

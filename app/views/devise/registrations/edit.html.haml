@@ -133,5 +133,6 @@
           %h3= t('users.form_titles.payment_paypal')
           /%p= t('formtastic.labels.user.paypal_notification')
           = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account'), tooltip: true
+          = f.input :fastbill_profile_update, as: :hidden, input_html: { value: true }
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}

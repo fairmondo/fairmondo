@@ -23,7 +23,7 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :image do
-    sequence(:image_file_name) {|n| "image#{n}"}
+    image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test2.png'), 'image/png') }
     image_content_type    "image/png"
     image_file_size       { Random.new.rand(0..5) }
 
