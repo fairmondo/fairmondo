@@ -39,7 +39,7 @@ class RatingsController < InheritedResources::Base
   protected
 
     def collection
-      @ratings ||= end_of_association_chain.page(params[:page])
+      @ratings ||= end_of_association_chain.order("created_at DESC").page(params[:page])
     end
 
     def begin_of_association_chain
