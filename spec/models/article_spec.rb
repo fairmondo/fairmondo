@@ -293,7 +293,7 @@ describe Article do
     describe "methods" do
       describe "#title_image_url" do
         it "should return the first image's URL when one exists" do
-          db_article.title_image_url.should match %r#/system/images/000/000/001/original/image#
+          db_article.title_image_url.should match %r#/system/images/000/000/001/original/test2.png#
         end
 
         it "should return the missing-image-url when no image is set" do

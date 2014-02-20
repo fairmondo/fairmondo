@@ -64,9 +64,10 @@ Fairnopoly::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  #config.action_controller.asset_host = "assets%d.fairnopoly.de"
+  config.action_controller.asset_host = "assets%d.fairnopoly.de"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  config.assets.precompile += %w( session_expire.js )
   config.assets.precompile += %w( noscript.css )
   config.assets.precompile += %w( landing.css )
   # config.assets.precompile += %w( font-awesome-ie7.min.css )
@@ -94,5 +95,4 @@ Fairnopoly::Application.configure do
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
-
 end

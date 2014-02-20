@@ -37,5 +37,5 @@
   - if params[:queue]
     .align-center
       = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
--if @articles.count <= 4
+-if @articles.total_count <= 4
   = render "/articles/shared/iframe"

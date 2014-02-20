@@ -130,6 +130,7 @@ RailsAdmin.config do |config|
     field :gtin
     field :transport_type1_number
     field :transport_type2_number
+    field :discount_id
 
     # Cross-section configuration:
 
@@ -580,6 +581,12 @@ RailsAdmin.config do |config|
     field :company_name
     field :bankaccount_warning do
      read_only true
+    end
+    field :fastbill_id do
+      read_only true
+    end
+    field :fastbill_subscription_id do
+      read_only true
     end
     field :seller_state do
      read_only true

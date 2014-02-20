@@ -60,6 +60,20 @@ module Article::FeesAndDonations
   #   Money.new(friendly_percent_result_cents)
   # end
 
+  def shows_fair_percent?
+    # for german book price agreement
+    # we can't be sure if the book is german
+    # so we dont show fair percent on all new books
+    # book category is written in exceptions.yml
+    !self.could_be_book_price_agreement? && !self.has_100_fp?
+  end
+
+  def could_be_book_price_agreement?
+    book_category_id = $exceptions_on_fairnopoly['book_price_agreement']['category'].to_i
+    is_a_book = self.categories_and_ancestors.map{ |c| c.id }.include? book_category_id
+    is_a_book && self.condition == "new"
+  end
+
   def has_friendly_percent?
      friendly_percent_gt_0? &&
      self.donated_ngo &&

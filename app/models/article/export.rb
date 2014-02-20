@@ -22,21 +22,34 @@
 module Article::Export
   extend ActiveSupport::Concern
 
-  def self.export_articles(user, params = nil)
+  def self.export_articles(csv,user, params = nil)
+
+    # Paginate the Export into chuncks of 10000
+    page = 0
+    items = determine_articles_to_export(user, params).page(page).per(10000) # This is needed for the scoped access ... we dont want to resolve this
+    remaining = items.total_count
+
+    # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
-    items = determine_articles_to_export(user, params)
     transactions = false
     if items.first.present? && items.first.is_a?(Transaction)
       export_attributes += MassUpload.transaction_attributes
       transactions = true
     end
-    CSV.generate(:col_sep => ";") do |line|
-      line << export_attributes
+
+    #write the headers and set options for csv generation
+    options = { :col_sep => ";" }
+    csv.puts CSV.generate_line export_attributes, options
+
+    while remaining > 0
+
       items.each do |item|
         article = item
+
         if transactions
           article = item.article
         end
+
         row = Hash.new
         row.merge!(article.provide_fair_attributes)
         row.merge!(article.attributes)
@@ -61,9 +74,13 @@ module Article::Export
           buyer_information = item.attributes.slice(*MassUpload.transaction_attributes)
           row.merge!(buyer_information)
         end
-        line << export_attributes.map { |element| row[element] }
+        csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, options
       end
+      remaining -= items.count
+      page += 1
+      items = items.page(page)
     end
+    csv.flush
   end
 
   def self.export_erroneous_articles(erroneous_articles)
@@ -76,13 +93,13 @@ module Article::Export
 
   def self.determine_articles_to_export(user, params)
     if params == "active"
-      articles = user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+      user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
-      articles = user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
+      user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "sold"
-      articles = user.sold_transactions.joins(:article)
+      user.sold_transactions.joins(:article)
     elsif params == "bought"
-      articles = user.bought_articles
+      user.bought_articles
     end
   end
 

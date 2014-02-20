@@ -22,15 +22,4 @@ class Refund < ActiveRecord::Base
   ], default: :sent_back
 
   auto_sanitize :description
-
-
-  # This must be reenabled when fastbill stuff comes online
-  # after_create :fastbill_refund
-
- #  private
- #    def fastbill_refund
- #      [ :fair, :fee ].each do | fee_type |
- #        FastbillAPI.fastbill_refund( self.transaction, fee_type )
- #      end
- #    end
 end

@@ -208,6 +208,17 @@ describe User do
       end
     end
 
+    describe '#update_fastbill_profile' do
+      let(:user) {FactoryGirl.create :user, :fastbill}
+
+      it 'should call FastBillAPI.update_profile if user has fastbill profile' do
+        # FastbillAPI.should receive(:update_profile).with(user)
+        Fastbill::Automatic::Customer.should receive(:get).and_return([Fastbill::Automatic::Customer.new])
+        Fastbill::Automatic::Customer.any_instance.stub(:update_attributes)
+        user.update_fastbill_profile
+      end
+    end 
+
     describe "#address" do
       it "should return a string with street, address suffix, zip and city" do
         u = User.new street: 'Sesame Street 1', address_suffix: 'c/o Cookie Monster', zip: '12345', city: 'Utopia'
@@ -1009,4 +1020,5 @@ describe User do
 
     end
   end
+
 end

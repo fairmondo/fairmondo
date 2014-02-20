@@ -1,6 +1,10 @@
 recaptcha:
  public: my_public_key
  private: my_private_key
- 
+
 kontoapi:
  key: the_kontoapi_key
+
+fastbill:
+  email: my_email
+  api_key: my_fastbill_api_key

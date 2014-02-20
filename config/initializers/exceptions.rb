@@ -19,9 +19,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+
+$exceptions_on_fairnopoly = {}
 begin
-  # Loading no_fair_alternative.yml
-  $no_fair_alternative = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'no_fair_alternative.yml'))))
+  # Loading Exceptions
+  $exceptions_on_fairnopoly = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'exceptions.yml'))))
+
 rescue
-  puts 'no_fair_alternative.yml not found'
+  puts 'exceptions.yml not found'
 end
+
+
