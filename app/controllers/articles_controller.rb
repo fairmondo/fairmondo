@@ -63,7 +63,7 @@ class ArticlesController < InheritedResources::Base
       resource.calculate_fees_and_donations
     end
 
-    if resource.owned_by?(current_user) && at_least_one_image_processing?
+    if !flash.now[:notice] && resource.owned_by?(current_user) && at_least_one_image_processing?
       flash.now[:notice] = t('article.notices.image_processing')
     end
 
