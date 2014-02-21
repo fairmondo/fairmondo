@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
       :fastbill_profile_update,
+      :iban,:bic,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
@@ -117,14 +118,19 @@ class User < ActiveRecord::Base
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
-    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
+    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
   end
+
+  # TODO: Language spezific validators
+  # german validator for iban
+  validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, :unless => Proc.new {|c| c.iban.blank?}, if: :is_german?
+  validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, :unless => Proc.new {|c| c.bic.blank?}
 
   validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :unless => Proc.new {|c| c.bank_code.blank?}
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10}, :unless => Proc.new {|c| c.bank_account_number.blank?}
   validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, :unless => Proc.new {|c| c.paypal_account.blank?}
   validates :paypal_account, presence: true, if: :paypal_validation
-  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true, if: :bank_account_validation
+  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
 
   validates :about_me, :length => { :maximum => 2500 }
@@ -289,7 +295,7 @@ class User < ActiveRecord::Base
   end
 
   def bank_account_exists?
-    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner?
+    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner? && self.iban? && self.bic?
   end
 
   def paypal_account_exists?
@@ -358,5 +364,9 @@ class User < ActiveRecord::Base
 
     def wants_to_sell?
       self.wants_to_sell
+    end
+
+    def is_german?
+      self.country == "Deutschland"
     end
 end

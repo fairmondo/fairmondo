@@ -95,6 +95,10 @@
             = user.input :bank_name, :required => true, :input_html => {:id => "bank_name", :value => current_user.bank_name, :disabled => true }, :label => t('formtastic.labels.user.bank_name')
             = user.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :value => current_user.bank_account_number, :disabled => true }, :label => t('formtastic.labels.user.bank_account_number')
 
+            = user.input :iban, :required => true, :input_html => {:id => "iban", :value => current_user.iban, :disabled => true }, :label => t('formtastic.labels.user.iban')
+            = user.input :bic, :required => true, :input_html => {:id => "bic", :value => current_user.bic, :disabled => true }, :label => t('formtastic.labels.user.bic')
+
+
       = f.input :payment_cash, :as => :plain_check_box
 
       = f.input :payment_paypal, :as => :plain_check_box, :tooltip => true, :js_toggle => true

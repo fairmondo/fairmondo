@@ -58,7 +58,7 @@ class Transaction < ActiveRecord::Base
   delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
-           :about, :terms, :cancellation, :paypal_account,:ngo,
+           :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
 

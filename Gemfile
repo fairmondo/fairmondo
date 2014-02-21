@@ -76,6 +76,8 @@ gem 'jquery-rails'
 
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
+#KntNr to IBAN
+gem 'ibanomat'
 
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
