@@ -85,7 +85,7 @@ class Image < ActiveRecord::Base
     if image.processing?
       original_image_url_while_processing
     else
-      url(style)
+      image.url(style)
     end
   end
 end

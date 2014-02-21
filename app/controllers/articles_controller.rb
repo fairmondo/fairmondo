@@ -200,7 +200,7 @@ class ArticlesController < InheritedResources::Base
 
     def at_least_one_image_processing?
       processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
-      !processing_thumbs.empty? || resource.title_image.image.processing?
+      !processing_thumbs.empty? || (resource.title_image and resource.title_image.image.processing?)
     end
 
   ################## Inherited Resources
