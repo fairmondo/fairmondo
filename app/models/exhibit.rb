@@ -13,7 +13,7 @@ class Exhibit < ActiveRecord::Base
   belongs_to :related_article, class_name: "Article"
 
   scope :one_day_exhibited, lambda { where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
-  scope :older_exhibited, lambda { where("exhibits.exhibition_date IS NOT NULL AND exhibits.exhibition_date < ?", DateTime.now - 1.day).order("exhibits.exhibition_date DESC") }
+  scope :older_exhibited, lambda { where("exhibits.exhibition_date IS NOT NULL").order("RANDOM()") }
   scope :oldest_first, order("exhibits.created_at ASC")
   scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
   scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
@@ -46,9 +46,8 @@ class Exhibit < ActiveRecord::Base
   end
 
   def set_exhibition_date
-    if self.exhibition_date == nil
-       # Because of the join the exhibition is readonly
-       # As this should only happen the first time an article is exhibited we can find it again
+    if self.exhibition_date == nil #or self.exhibition_date < (DateTime.now - 1.day) - maybe later. potentially removable. - KK
+       # Because of the join the exhibition is readonly. We have to find it again.
        Exhibit.find(self.id).update_attribute(:exhibition_date, DateTime.now)
     end
   end
