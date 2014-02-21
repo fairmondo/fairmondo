@@ -15,13 +15,13 @@ module Sanitization
     # @return [undefined]
     def auto_sanitize *fields
       options = {} unless (options = fields.last).is_a? Hash
-      options.reverse_merge! method: 'clean', admin: false
+      options.reverse_merge! method: 'clean', admin: false, remove_all_spaces: false
 
       # For each field: define a new method, then register a callback to that method
       fields.each do |field|
         if field.is_a? Symbol
           method_name = "sanitize_#{options[:method]}_#{field}"
-          define_method method_name, send("#{options[:method]}_sanitization", field, options[:admin])
+          define_method method_name, send("#{options[:method]}_sanitization", field, options[:admin], options[:remove_all_spaces])
           before_validation method_name.to_sym, options
 
 
@@ -43,15 +43,15 @@ module Sanitization
     # Method content for sanitize_clean_X callbacks
     # @api private
     # @return [Proc]
-
-    def clean_sanitization field, admin_mode # admin_mode not used
-      Proc.new { self.send("#{field}=", Sanitization.sanitize_clean(self.send(field))) }
+    def clean_sanitization field, admin_mode, remove_spaces_mode # admin_mode not used
+      Proc.new { self.send("#{field}=", Sanitization.sanitize_clean(self.send(field), remove_spaces_mode)) }
     end
 
     # Method content for sanitize_tiny_mce_X callbacks
     # @api private
-    def tiny_mce_sanitization field, admin_mode
-      Proc.new { self.send("#{field}=", Sanitization.sanitize_tiny_mce(self.send(field), admin_mode)) }
+    # @return [Proc]
+    def tiny_mce_sanitization field, admin_mode, remove_spaces_mode
+      Proc.new { self.send("#{field}=", Sanitization.sanitize_tiny_mce(self.send(field), admin_mode, remove_spaces_mode)) }
     end
 
     # Sanitization specifically for tiny mce fields which allow certain HTML elements
@@ -60,7 +60,7 @@ module Sanitization
     # @param field [String] The content to sanitize
     # @param admin_mode [Boolean] When true more tags are allowed
     # @return [String] The sanitized content
-    def self.sanitize_tiny_mce field, admin_mode = false
+    def self.sanitize_tiny_mce field, admin_mode = false, remove_spaces = false
       modify Sanitize.clean(
         field,
         elements: admin_mode ?
@@ -80,31 +80,32 @@ module Sanitization
           'a' => { 'href' => ['http', 'https', 'mailto', :relative] },
           'img' => { 'src' => ['http', 'https', :relative] }
         }
-      )
+      ), remove_spaces
     end
 
     # Clean sanitization with further string modification
     #
     # @api private
     # @param field [String] The content to sanitize
+    # @param remove_spaces [Boolean] for stricter modification
     # @return [String] The sanitized content
-    def self.sanitize_clean field
+    def self.sanitize_clean field, remove_spaces
       # Needed because of the inject_questionnaire method in the mass_upload model (else statement)
       field = field.first if field.class == Array
-      reverse_encoding modify Sanitize.clean(field)
+      reverse_encoding modify Sanitize.clean(field), remove_spaces
     end
 
     # Modify sanitized strings even further
     # @api private
     # @param string [String, nil] The string to modify
     # @return [String] The modified string
-    def self.modify string
+    def self.modify string, remove_spaces
       if string.is_a? String
         string.
           strip(). # Remove leading and trailing white space
           gsub(
-          /\s+/, ' ' # Multiple whitespaces become one
-        )
+            /\s+/, (remove_spaces ? '' : ' ') # Either multiple whitespaces become one, or all whitespaces are removed
+          )
       else
         string
       end
