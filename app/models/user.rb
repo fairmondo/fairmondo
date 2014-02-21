@@ -365,4 +365,8 @@ class User < ActiveRecord::Base
     def wants_to_sell?
       self.wants_to_sell
     end
+
+    def is_german?
+      self.country == "Deutschland"
+    end
 end
