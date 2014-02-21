@@ -100,6 +100,8 @@ de:
         bank_account_number: "Kontonummer: "
         bank_code: "Bankleitzahl: "
         bank_name: "Name der Bank: "
+        iban: "IBAN: "
+        bic: "BIC: "
         custom_seller_identifier: "Artikelnummer: "
         buyer_email: "Email-Adresse der Käufer*in:"
         canceled_transaction: "Bitte beachte: Fairnopoly erhebt keine Gebühren, falls der Kauf nicht zustande kommt, z.B. wenn die Käufer*in innerhalb der gesetzlichen Frist vom Kauf zurücktritt. Bitte wende Dich in diesem Fall rechtzeitig an unseren Kundenservice: kundenservice@fairnopoly.de. Bitte schicke uns dazu den Link zu dem Kaufvorgang. Diesen findest Du in der Box 'Verkaufte Artikel' in Deinem Profil, wenn Du auf 'Deinen Verkauf anschauen' klickst. Der Link endet mit /transactions/xxxx, wobei xxxx die Nummer des Kaufvorgangs ist."
