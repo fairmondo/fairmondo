@@ -9,6 +9,6 @@ production:
 :queues:
   - [sunspot, 7]
   - [default, 5]
- # - [mass_upload, 3]
+  - [mass_upload, 3]
   - [paperclip,2]
   - [fastbill, 5]
