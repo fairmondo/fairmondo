@@ -81,8 +81,10 @@ unless gets.chomp === "abort"
   puts "Preparing test database..."
   %x( rake db:test:prepare )
 
+  puts "Running local sidekiq..."
+  %x( bundle exec sidekiq --daemon --logfile log/sidekiq.log )
+
   puts "Running local Solr server..."
-  %x( script/delayed_job start )
   %x( rake sunspot:solr:start )
 
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
