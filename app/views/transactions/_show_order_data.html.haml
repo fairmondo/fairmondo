@@ -34,8 +34,13 @@
 
 = simple_format show_buyer_address transaction
 
-= t('transaction.notifications.seller.buyer_email')
-= transaction.buyer_email
+%p
+  = t('transaction.notifications.seller.buyer_email')
+  = transaction.buyer_email
+
+%p
+  = t('transaction.notifications.seller.nickname')
+  = link_to transaction.buyer_nickname, profile_user_path(transaction.buyer)
 
 = simple_format payment_method_info transaction, :seller
 

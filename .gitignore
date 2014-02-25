@@ -50,6 +50,9 @@ erd.pdf
 public/assets/*
 public/assets_test/*
 
+# Precompiled gems - remove if we decide to run production bundler with --local
+vendor/cache
+
 # Mac .DS_Stores
 .DS_Store
 */.DS_Store
