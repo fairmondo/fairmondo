@@ -29,8 +29,12 @@
 <% end %>
 <%= show_buyer_address @transaction %>
 
-<%= "#{t('transaction.notifications.seller.buyer_email')}" %>
+<%= t('transaction.notifications.seller.buyer_email') %>
 <%= @transaction.buyer_email %>
+
+<%= t('transaction.notifications.seller.nickname') %>
+<%= @transaction.buyer_nickname %>
+<%= user_url @transaction.buyer %>
 
 ***
 

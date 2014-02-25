@@ -39,7 +39,7 @@
 
 <%= t('transaction.notifications.buyer.buyer_message') %>
 
-<%= @transaction.message %>
+<%= sanitize @transaction.message %>
 
 <% end %>
 ***
