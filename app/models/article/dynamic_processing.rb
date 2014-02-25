@@ -140,17 +140,17 @@ module Article::DynamicProcessing
   # Replacement for save! method - Does different things based on the action attribute
 
   def process! mass_upload
-    Article.skip_callback(:save, :after, :count_value_of_goods)
     mu_article = MassUploadArticle.create mass_upload: mass_upload, article: self, action: self.action
 
     case mu_article.action
     when :activate, :create, :update
       self.calculate_fees_and_donations
+      self.save!
     when :delete
-      self.state = 'closed'
+      self.close_without_validation
     when :deactivate
-      self.state = 'locked'
+      self.deactivate_without_validation
     end
-    self.save!
+    
   end
 end
