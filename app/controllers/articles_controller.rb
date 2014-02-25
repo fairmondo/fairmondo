@@ -144,7 +144,7 @@ class ArticlesController < InheritedResources::Base
         end
       elsif permitted_state_params[:deactivate]
         authorize resource, :deactivate?
-        resource.change_state_without_validation_to :locked
+        resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
         redirect_to resource
       end
