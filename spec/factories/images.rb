@@ -26,13 +26,15 @@ FactoryGirl.define do
     image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test2.png'), 'image/png') }
     image_content_type    "image/png"
     image_file_size       { Random.new.rand(0..5) }
+    after(:create) { |image| image.image_processing = false }
 
     factory :fixture_image do
       image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
     end
 
     trait :processing do
-      image_processing true
+      image_processing true # for build()
+      after(:create) { |image| image.image_processing = true } # for create()
     end
 
   end
