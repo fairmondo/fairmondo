@@ -32,18 +32,18 @@ class ArticleObserver < ActiveRecord::Observer
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
   end
-  
+
   def before_activate(article, transition)
     article.calculate_fees_and_donations
   end
-  
+
   # before_deactivate and before_close will only work on state_changes
   # without validation when you implement it in article/state.rb
-  
+
   def after_deactivate(article, transition)
      article.remove_from_libraries
   end
-  
+
   def after_close(article, transition)
     article.remove_from_libraries
     article.cleanup_images
