@@ -151,6 +151,6 @@ module Article::DynamicProcessing
     when :deactivate
       self.deactivate_without_validation
     end
-    
+
   end
 end
