@@ -19,10 +19,16 @@
 #
 module StatisticsHelper
 
-  def statistics_category c
+  def statistics_category_articles c
     a = Article.new(:categories_and_ancestors => [c])
     articles = a.find_like_this(1)
     articles.total
+  rescue
+    0
+  end
+
+  def statistics_category_sales c
+    Transaction.includes(article: [:categories]).where(categories: {id: c.id}).where("transactions.state != 'available'").count
   rescue
     0
   end
