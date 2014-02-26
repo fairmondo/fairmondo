@@ -28,7 +28,7 @@
         = f.input :public, :label => false
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Btn"}
-  %p
+
   .Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     - @libraries.each do |library|
       - unless library.new_record?

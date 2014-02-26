@@ -64,7 +64,7 @@
         %p.Article-quantity
           %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
       %p
-        - if user_signed_in? && !current_user.libraries.blank?
+        - if policy(mock_library_element).create?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
             .library
               = f.inputs do
