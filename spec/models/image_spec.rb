@@ -22,9 +22,11 @@
 require 'spec_helper'
 
 describe Image do
+  subject { image }
+  let(:image) { FactoryGirl.create(:image) }
 
   it "has a valid Factory" do
-    FactoryGirl.create(:image).should be_valid
+    should be_valid
   end
 
   describe "associations" do
@@ -37,6 +39,18 @@ describe Image do
       it "should call reprocess on image Object" do
         Image.stub_chain(:find,:image,:reprocess!) # for coverage / flush_errors with should_receive
         Image.reprocess 1
+      end
+    end
+
+    describe "#url_or_original_while_processing" do
+      it "should return the original url when processing" do
+        image = FactoryGirl.create :image, :processing
+        image.url_or_original_while_processing.should eq image.original_image_url_while_processing
+      end
+
+      it "should return the normal url when not processing" do
+        #image.image_processing = false
+        image.url_or_original_while_processing.should eq image.image.url(:thumb)
       end
     end
   end
