@@ -43,10 +43,11 @@ describe Exhibit do
       @articles.should eq [@exhibit.article]
     end
 
-    it "should fill empty queues with articles shown longer than 24 h " do
+    it "should fill empty queues with articles shown longer than 24 h (randomly)" do
       @exhibit2 = FactoryGirl.create(:exhibit, :expired)
       @articles = Exhibit.independent_queue :old, 2
-      @articles.should eq [@exhibit.article, @exhibit2.article]
+      @articles.should include @exhibit.article
+      @articles.should include @exhibit2.article
     end
 
     it "should work off the queue sequentially" do
