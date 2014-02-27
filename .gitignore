@@ -5,6 +5,7 @@ public/system
 config/initializers/secret_token.rb
 
 # Project files
+.redcar
 .project
 .settings
 *.sublime-project

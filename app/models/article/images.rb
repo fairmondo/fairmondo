@@ -124,5 +124,10 @@ module Article::Images
         self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
+    
+    def cleanup_images
+      self.images.each{ |i| i.destroy }
+    end
+    
   end
 end
