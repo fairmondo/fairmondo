@@ -1,9 +1,11 @@
 class StatisticsController < ApplicationController
   def general
-    authorize Statistic.new
+    @statistics = Statistic.new
+    authorize @statistics
   end
 
   def category_sales
-    authorize Statistic.new
+    @statistics = Statistic.new
+    authorize @statistics
   end
 end
