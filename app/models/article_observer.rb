@@ -49,4 +49,8 @@ class ArticleObserver < ActiveRecord::Observer
     article.cleanup_images
   end
 
+  def after_sold_out(article, transition)
+    article.remove_from_libraries
+  end
+
 end
