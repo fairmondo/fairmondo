@@ -57,6 +57,6 @@ class Exhibit < ActiveRecord::Base
     # @return [Array] exhibits plus older ones to fill empty spaces
     def self.fill_exhibits exhibits, queue, count
       filler_count = count - exhibits.length
-      exhibits + Exhibit.where(queue: queue).older_exhibited.article_active.limit(filler_count)
+      exhibits + Exhibit.where(queue: queue).where("exhibits.id NOT IN (?)", exhibits.map{|e| e.id } + [0] ).older_exhibited.article_active.limit(filler_count)
     end
 end

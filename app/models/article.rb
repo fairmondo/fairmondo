@@ -109,9 +109,9 @@ class Article < ActiveRecord::Base
     include_field :fair_trust_questionnaire
     include_field :social_producer_questionnaire
     include_field :categories
-    nullify :slug
     nullify :article_template_id
     customize lambda { |original_article, new_article|
+
       original_article.images.each do |image|
         copyimage = Image.new
         copyimage.image = image.image
@@ -120,8 +120,22 @@ class Article < ActiveRecord::Base
         new_article.images << copyimage
         copyimage.save
       end
+
+      if original_article.template? || original_article.save_as_template?
+        new_article.slug = nil
+      else
+        old_slug = original_article.slug
+        original_article.slug = old_slug + original_article.id.to_s
+        new_article.slug = old_slug
+      end
+
     }
   end
+
+  def should_generate_new_friendly_id?
+    super && slug == nil
+  end
+
 
 
 end
