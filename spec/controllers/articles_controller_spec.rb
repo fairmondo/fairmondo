@@ -26,6 +26,7 @@ describe ArticlesController do
   include CategorySeedData
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:article) { FactoryGirl.create(:article, seller: user) }
 
   describe "GET 'index'" do
 
@@ -194,58 +195,60 @@ describe ArticlesController do
 
   describe "GET 'show" do
 
-    before :each do
-      @article  = FactoryGirl.create :article
-    end
-
     describe "for all users" do
 
       it "should be successful" do
-        @article_fair_trust = FactoryGirl.create :fair_trust
-        get :show, id: @article_fair_trust
+        article_fair_trust = FactoryGirl.create :fair_trust
+        get :show, id: article_fair_trust
         response.should be_success
       end
 
       it "should be successful" do
-        @article_social_production = FactoryGirl.create :social_production
-        get :show, id: @article_social_production
+        article_social_production = FactoryGirl.create :social_production
+        get :show, id: article_social_production
         response.should be_success
       end
 
       it "should be successful" do
-        get :show, id: @article
+        get :show, id: article
         response.should be_success
       end
 
       it "should render the :show view" do
-        get :show, id: @article
+        get :show, id: article
         response.should render_template :show
       end
 
       it "should render 404 on closed article" do
-        @article.deactivate
-        @article.close
-        expect { get :show, id: @article}.to raise_error ActiveRecord::RecordNotFound
+        article.deactivate
+        article.close
+        expect { get :show, id: article}.to raise_error ActiveRecord::RecordNotFound
 
       end
 
     end
 
-    # describe "for signed-in users" do
-    #   before do
-    #     sign_in @user
-    #   end
+    describe "for signed-in users" do
+      before do
+        sign_in user
+      end
 
-    #   it "should be successful" do
-    #     get :show, id: @article
-    #     response.should be_success
-    #   end
+      it "should be successful" do
+        get :show, id: article
+        response.should be_success
+      end
 
-    #   it "should render the :show view" do
-    #     get :show, id: @article
-    #     response.should render_template :show
-    #   end
-    # end
+      it "should render the :show view" do
+        get :show, id: article
+        response.should render_template :show
+      end
+
+      it "should render a flash message for the owner when it still has a processing image" do
+        ArticlesController.any_instance.should_receive(:at_least_one_image_processing?).and_return true
+        get :show, id: article
+        flash.now[:notice].should eq I18n.t('article.notices.image_processing')
+      end
+    end
   end
 
   describe "GET 'new'" do
