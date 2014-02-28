@@ -8,7 +8,7 @@ describe RefundsController do
   before do
     stub_fastbill
   end
-  
+
   describe 'POST ::create' do
     before do
       @refund_attrs = FactoryGirl.attributes_for :refund
