@@ -577,6 +577,8 @@ RailsAdmin.config do |config|
     field :bank_name
     field :bank_account_owner
     field :bank_account_number
+    field :bic
+    field :iban
     field :paypal_account
     field :company_name
     field :bankaccount_warning do
