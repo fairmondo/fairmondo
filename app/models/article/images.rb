@@ -34,7 +34,7 @@ module Article::Images
       attrs
     end
 
-    has_many :images, as: :imageable #has_and_belongs_to_many :images
+    has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true
 
@@ -112,7 +112,7 @@ module Article::Images
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
         image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
-          Image.new(image: URI.parse(image_url))
+          ArticleImage.new(image: URI.parse(image_url))
         end
         image.is_title = should_be_title
         image.external_url = image_url
