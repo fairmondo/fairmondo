@@ -88,7 +88,7 @@ class Article < ActiveRecord::Base
         end
 
       else
-        self.images << Image.new(attributes[key]) if attributes[key][:image] != nil
+        self.images << ArticleImage.new(attributes[key]) if attributes[key][:image] != nil
       end
     end
   end
@@ -113,7 +113,7 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
 
       original_article.images.each do |image|
-        copyimage = Image.new
+        copyimage = ArticleImage.new
         copyimage.image = image.image
         copyimage.is_title = image.is_title
         copyimage.external_url = image.external_url
