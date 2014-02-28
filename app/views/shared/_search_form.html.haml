@@ -21,7 +21,7 @@
 -#
 .Hero-presearch
   %ul.Hero-categories
-    - croots = Category.sorted_roots.includes(:children)
+    - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
     - croots.each do |category|
       %li.Hero-category
         %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}

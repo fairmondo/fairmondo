@@ -36,6 +36,9 @@ class Category < ActiveRecord::Base
   belongs_to :parent , :class_name => 'Category', :counter_cache => :children_count
 
   scope :all_by_id, order("id ASC")
+  scope :other_category_last, order("CASE WHEN name = 'Sonstiges' THEN 1 ELSE 0 END") #internationalize!
+  scope :weighted, order("weight DESC NULLS LAST")
+  scope :sorted_roots, order(:name).where(parent_id: nil)
 
   acts_as_nested_set
 
@@ -45,24 +48,6 @@ class Category < ActiveRecord::Base
       self_and_ancestors << ancestor.id
     end
     self_and_ancestors
-  end
-
-  # Display all categories, sorted by name, other being last
-  # @api public
-  # @return [Array]
-  def self.sorted_roots
-    other = self.other_category
-    roots = self.order(:name).where(:parent_id => nil)
-
-    if roots.include? other
-      roots.delete_at roots.index other
-      roots.push(other)
-    end
-    roots
-  end
-
-  def self.other_category
-     self.where(:parent_id => nil).find_by_name("Sonstiges") #internationalize!
   end
 
   def self.find_imported_categories(categories)
