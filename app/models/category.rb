@@ -37,8 +37,9 @@ class Category < ActiveRecord::Base
 
   scope :all_by_id, order("id ASC")
   scope :other_category_last, order("CASE WHEN name = 'Sonstiges' THEN 1 ELSE 0 END") #internationalize!
-  scope :weighted, order("weight DESC NULLS LAST")
+  scope :weighted, order("weight IS NULL, weight desc")
   scope :sorted_roots, order(:name).where(parent_id: nil)
+  scope :other_category, where(parent_id: nil, name: 'Sonstiges') #internationalize!
 
   acts_as_nested_set
 
