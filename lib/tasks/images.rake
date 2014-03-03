@@ -1,3 +1,6 @@
+require_dependency File.join(Rails.root,"app","models", "image.rb")
+    # Why the fuck II ?  Doesn't work without this on staging/production'
+
 namespace :images do
   desc "Refresh Image styles"
   task :refresh => :environment do
@@ -28,6 +31,7 @@ namespace :images do
   # Source: https://gist.github.com/jlecour/1276437
   desc "Destroy paperclip attachment files that are not attached to any record"
   task :clean_orphan_files => :environment do
+
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
     @styles = ["original","medium","thumb","profile"]
