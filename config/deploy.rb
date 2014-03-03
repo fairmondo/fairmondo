@@ -62,23 +62,22 @@ end
 namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
-    on roles(:console), :primary => true do |host| #does it for each host, bad.
+    on roles(:console), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails console #{rails_env}"
+      execute_interactively "ruby #{current_path}/script/rails console #{rails_env}",host
     end
   end
 
   desc "Open the rails dbconsole on each of the remote servers"
   task :dbconsole do
-    on roles(:db), :primary => true do |host| #does it for each host, bad.
+    on roles(:db), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails dbconsole #{rails_env}"
+      execute_interactively "ruby #{current_path}/script/rails dbconsole #{rails_env}",host
     end
   end
 
-  def execute_interactively(command)
-    user = fetch(:user)
-    port = fetch(:port) || 22
-    exec "ssh -l #{user} #{host} -p #{port} -t 'cd #{deploy_to}/current && #{command}'"
+  def execute_interactively(command,host)
+    puts "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    exec "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
   end
 end
