@@ -7,7 +7,7 @@ set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to,   "/var/www/#{application}"
+set :deploy_to,   "/var/www/fairnopoly"
 
 # Default value for :scm is :git
 set :scm, :git
