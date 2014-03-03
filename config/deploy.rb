@@ -33,10 +33,6 @@ set :ssh_options, {
 # Sidekiq
 set :sidekiq_role, :sidekiq
 
-# Bundler
-SSHKit.config.command_map[:rake]  = "bundle exec rake"
-SSHKit.config.command_map[:rails] = "bundle exec rails"
-
 namespace :deploy do
 
   desc 'Restart application'
