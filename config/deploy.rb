@@ -1,123 +1,83 @@
-#
-#
-# == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
-#
-# This file is part of Fairnopoly.
-#
-# Fairnopoly is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# Fairnopoly is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
-#
-##### Requirement's #####
-require 'bundler/capistrano'
-require 'capistrano/ext/multistage'
-require "sidekiq/capistrano"
+# config valid only for Capistrano 3.1
+lock '3.1.0'
 
-#### Use the asset-pipeline
-load 'deploy/assets'
+set :application, 'fairnopoly'
+set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
 
-##### Stages #####
-set :stages, %w(production staging)
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-##### Constant variables #####
-set :application, "fairnopoly"
-set :deploy_to,   "/var/www/#{application}"
-set :user, "deploy"
-set :use_sudo, false
+set :deploy_to,   "/var/www/fairnopoly"
 
+# Default value for :scm is :git
+set :scm, :git
 
-##### Default variables #####
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+# set :log_level, :debug
+
+# Default value for :linked_files is []
+set :linked_files, %w{config/database.yml config/newrelic.yml config/actionmailer.yml config/api.yml config/email_addresses.yml config/initializers/secret_token.rb}
+
+# Default value for linked_dirs is []
+set :linked_dirs, %w{log tmp/pids public/system}
+
 set :keep_releases, 10
 
-##### Repository Settings #####
-set :scm,        :git
-set :repository, "git://github.com/fairnopoly/fairnopoly.git"
+set :ssh_options, {
+  forward_agent: true
+}
 
-##### Additional Settings #####
-#set :deploy_via, :remote_cache
-set :ssh_options, { :forward_agent => true }
-
-# Sidekiq Workers
+# Sidekiq
 set :sidekiq_role, :sidekiq
 
-
-
-#### Roles #####
-# See Stages
-
-desc "tail log files"
-task :log, :roles => :app do
-  run "tail -f #{shared_path}/log/#{rails_env}.log" do |channel, stream, data|
-    puts "#{channel[:host]}: #{data}"
-    break if stream == :err
-  end
-end
-
-##### Overwritten and changed default capistrano tasks #####
 namespace :deploy do
 
-  # Restart Application
-  desc "Restart RailsApp"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-
-  desc "Additional Symlinks"
-  task :additional_symlink, :roles => [:app,:sidekiq]  do
-    run "ln -nfs #{shared_path}/data/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/data/config/newrelic.yml #{release_path}/config/newrelic.yml"
-    run "ln -nfs #{shared_path}/data/config/actionmailer.yml #{release_path}/config/actionmailer.yml"
-    run "ln -nfs #{shared_path}/data/config/api.yml #{release_path}/config/api.yml"
-    run "ln -nfs #{shared_path}/data/config/email_addresses.yml #{release_path}/config/email_addresses.yml"
-    run "ln -nfs #{shared_path}/data/config/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
-    run "ln -nfs #{shared_path}/data/system #{release_path}/public/system"
-    run "ln -nfs #{shared_path}/data/solr/data #{release_path}/solr/data"
-  end
-
-  desc "Addtional Rake Tasks"
-  task :additional_rake, :roles => :app, :only => {:primary => true} do
-
-  end
-
-  desc 'Prompts if new migrations are available and runs them if you want to'
-  task :needs_migrations, :roles => :db, :only => {:primary => true} do
-    migrations_changed = if previous_release.nil?
-      true # propably first deploy, so no migrations to compare
-    else
-      old_rev = capture("cd #{previous_release} && git log --pretty=format:'%H' -n 1 | cat").strip
-      new_rev = capture("cd #{latest_release} && git log --pretty=format:'%H' -n 1 | cat").strip
-      capture("cd #{latest_release} && git diff #{old_rev} #{new_rev} --name-only | cat").include?('db/migrate')
-    end
-    if migrations_changed && Capistrano::CLI.ui.ask("New migrations pending. Enter 'yes' to run db:migrate") == 'yes'
-      migrate
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
+  after :finishing, "deploy:cleanup"
+
 end
 
-namespace :import do
-  desc "Import content"
-  task :content do
-    run "mkdir -p #{shared_path}/uploads"
-    file_name = Time.now.utc.strftime("%Y%m%d%H%M%S")
-    upload "#{ARGV[2]}", "#{shared_path}/uploads/#{file_name}.csv"
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake import:content #{shared_path}/uploads/#{file_name}.csv"
+
+namespace :rails do
+  desc "Open the rails console on each of the remote servers"
+  task :console do
+    on roles(:console), :primary => true do |host|
+      rails_env = fetch(:stage)
+      execute_interactively "ruby #{current_path}/script/rails console #{rails_env}",host
+    end
+  end
+
+  desc "Open the rails dbconsole on each of the remote servers"
+  task :dbconsole do
+    on roles(:db), :primary => true do |host|
+      rails_env = fetch(:stage)
+      execute_interactively "ruby #{current_path}/script/rails dbconsole #{rails_env}",host
+    end
+  end
+
+  def execute_interactively(command,host)
+    puts "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    exec "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
   end
 end
-
-##### After and Before Tasks #####
-before "deploy:assets:precompile", "deploy:additional_symlink"
-after "deploy", "deploy:additional_rake"
-after "deploy:restart", "deploy:cleanup"
-after 'deploy:update_code', 'deploy:needs_migrations'
-
