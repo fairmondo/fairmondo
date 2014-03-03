@@ -262,7 +262,7 @@ de:
         transport_type1_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         transport_type2_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
-        payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
+        payment_paypal:  "Deine PayPal-Daten kannst Du nur im Profil ändern. Die PayPal-Gebühren werden grundsätzlich von Dir als Händler*in getragen."
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."
         upload_images_input_step: "Du kannst Bilder bis zu einer maximalen Größe von 2 MB pro Bild hochladen. Wir verwenden in der Kachelansicht die Maße 260x180 Pixel, und in der Artikelansicht 520x360 Pixel. Wenn Dein Bild von diesem Maßen abweicht, wird es beschnitten dargestellt."
         friendly_percent_input_step: >

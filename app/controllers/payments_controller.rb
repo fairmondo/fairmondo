@@ -19,13 +19,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingPolicy < Struct.new(:user, :rating)
+class PaymentsController < InheritedResources::Base
+  respond_to :html
+  actions :create
 
-  def new?
-    ( user.is? rating.transaction.buyer ) && (user.given_ratings.select {|r| r.transaction == rating.transaction } ).empty?
+  def create
+    authorize resource_with_transaction
+    paypal_response = resource.paypal_request
+    asdf
+    create! { redirect_to paypal_response.redirect_uri }
   end
 
-  def create?
-    new?
-  end
+  private
+    def resource_with_transaction
+      build_resource.transaction = Transaction.find(params[:transaction_id])
+      resource
+    end
 end

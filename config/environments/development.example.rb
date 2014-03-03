@@ -96,4 +96,6 @@ Fairnopoly::Application.configure do
     # Bullet.airbrake = true
   end
 
+  # Set host by default
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

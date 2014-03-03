@@ -22,6 +22,8 @@
 class SingleFixedPriceTransaction < Transaction
   extend STI
 
+  has_one :payment, inverse_of: :transaction
+
   # Validations for buyer address
   # validates :forename, presence: true, on: :update
   # validates :surname, presence: true, on: :update

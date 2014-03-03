@@ -82,6 +82,9 @@ gem 'ibanomat'
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
 
+# Paypal integration
+gem 'paypal_adaptive'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
