@@ -59,9 +59,6 @@ gem "pundit" # authorization
 # Support for memoization
 gem 'memoist'
 
-# Deploy with Capistrano
-gem 'capistrano', '~> 2.15.5'
-
 # Should be only in development but else migration fails
 gem 'factory_girl_rails'
 gem 'faker'
@@ -114,6 +111,7 @@ end
 # Testing using RSpec
 group :development, :test do
 
+  gem 'capistrano-rails', '~> 1.0.0'
   # Main Test Tools
   gem 'rspec-rails'
   gem 'launchy'
