@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   has_many :mass_uploads
 
   ##
-  has_one :image, as: :imageable
+  has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
   ##
 
@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
   # @param symbol [Symbol] which type
   # @return [String] URL
   def image_url symbol
-    (img = image) ? img.image.url(symbol) : "/assets/missing.png"
+    image ? image.image.url(symbol) : "/assets/missing.png"
   end
 
   # Return a formatted address

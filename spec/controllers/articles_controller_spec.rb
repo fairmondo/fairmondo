@@ -352,6 +352,14 @@ describe ArticlesController do
         end.should change(Article.unscoped, :count).by 1
       end
 
+      it "should save images even if article is invalid" do
+        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories_and_ancestors: [FactoryGirl.create(:category).id]
+        @article_attrs[:images_attributes] = { "0" => { :image => fixture_file_upload("/test.png", 'image/png') }}
+        lambda do
+          post :create, article: @article_attrs
+        end.should change(Image.unscoped, :count).by 1
+      end
+
       it "should not raise an error for very high quantity values" do
         post :create, :article => @article_attrs.merge(quantity: "100000000000000000000000")
         response.should render_template :new
