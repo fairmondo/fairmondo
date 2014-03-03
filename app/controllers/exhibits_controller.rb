@@ -35,14 +35,14 @@ class ExhibitsController < InheritedResources::Base
   def update
     authorize resource
     update! do |format|
-      format.html {redirect_to resource.article}
+      format.html { redirect_to resource.article }
     end
   end
 
   def destroy
     authorize resource
      destroy! do |format|
-       format.html {  redirect_to root_path }
+       format.html { redirect_to root_path }
      end
   end
 

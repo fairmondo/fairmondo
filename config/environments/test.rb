@@ -72,4 +72,7 @@ Fairnopoly::Application.configure do
   #  Bullet.bullet_logger = true
   #  Bullet.raise = true
   #end
+
+  # Set host by default
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

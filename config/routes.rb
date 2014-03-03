@@ -27,9 +27,9 @@ Fairnopoly::Application.routes.draw do
     resources :article
   end
 
-  resources :article_templates, :except => [:show, :index]
+  resources :article_templates, except: [:show, :index]
 
-  resources :mass_uploads, :only => [:new, :create, :show, :update] do
+  resources :mass_uploads, only: [:new, :create, :show, :update] do
     collection do
       get 'image_errors'
     end
@@ -91,14 +91,14 @@ Fairnopoly::Application.routes.draw do
 
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
-  resources :feedbacks, :only => [:create,:new]
+  resources :feedbacks, only: [:create,:new]
 
   #the user routes
 
-  resources :users, :only => [:show] do
-    resources :libraries, :except => [:new,:edit]
-    resources :library_elements, :except => [:new, :edit]
-    resources :ratings, :only => [:create, :index] do
+  resources :users, only: [:show] do
+    resources :libraries, except: [:new,:edit]
+    resources :library_elements, except: [:new, :edit]
+    resources :ratings, only: [:create, :index] do
       get '/:transaction_id', to: 'ratings#new', as: 'transaction', on: :new
     end
     collection do
@@ -109,19 +109,23 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, :only => [:index, :show]
+  resources :libraries, only: [:index, :show]
 
-  resources :categories , :only => [:show, :index] do
+  resources :categories , only: [:show, :index] do
     collection do
       get '/id_index', to: 'categories#id_index'
     end
   end
 
-  resources :exhibits, :only => [:create, :update, :destroy] do
+  resources :exhibits, only: [:create, :update, :destroy] do
     collection do
       post 'create_multiple'
     end
   end
+
+  #resources :payments do
+  post '/payments/:transaction_id', to: 'payments#create', as: 'payments'#, on: :create
+  #end
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
@@ -135,7 +139,7 @@ Fairnopoly::Application.routes.draw do
   end
 
   # TinyCMS Routes Catchup
-  scope :constraints => lambda {|request|
+  scope constraints: lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
     match "/*id" => 'contents#show'

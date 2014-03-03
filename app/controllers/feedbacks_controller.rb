@@ -28,7 +28,7 @@ class FeedbacksController < InheritedResources::Base
     resource.source_page = session[:source_page]
     resource.user_agent = request.env["HTTP_USER_AGENT"]
     create! do |success,failure|
-      success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
+      success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported') }
     end
   end
 
@@ -43,7 +43,7 @@ class FeedbacksController < InheritedResources::Base
 
     def redirect_path
       if @feedback.variety == "report_article"
-        article_path(Article.find(@feedback.article_id))
+        article_path Article.find @feedback.article_id
       else
         root_path
       end

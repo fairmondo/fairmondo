@@ -3,6 +3,9 @@
 - quantity = resource.quantity_bought
 
 %p
+  = button_to "Pay with PayPal", payments_path(resource), method: :POST
+
+%p
   Bitte schicke den Gesamtbetrag von
   %strong= humanized_money_with_symbol resource.article_total_price selected_transport, selected_payment, quantity
   über PayPal an die folgende Email-Addresse:
