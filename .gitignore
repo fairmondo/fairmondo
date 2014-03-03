@@ -37,6 +37,7 @@ coverage
 rails_best_practices_output.html
 #api keys
 config/api.yml
+config/paypal_adaptive.yml
 #email addresses
 config/email_addresses.yml
 
