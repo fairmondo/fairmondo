@@ -111,7 +111,11 @@ end
 # Testing using RSpec
 group :development, :test do
 
+  # Capistrano
   gem 'capistrano-rails', '~> 1.0.0'
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+
   # Main Test Tools
   gem 'rspec-rails'
   gem 'launchy'
