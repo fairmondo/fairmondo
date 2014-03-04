@@ -16,7 +16,7 @@ set :scm, :git
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+set :log_level, :info
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/newrelic.yml config/actionmailer.yml config/api.yml config/email_addresses.yml config/initializers/secret_token.rb}
@@ -32,6 +32,7 @@ set :ssh_options, {
 
 # Sidekiq
 set :sidekiq_role, :sidekiq
+set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
 
 namespace :deploy do
 
