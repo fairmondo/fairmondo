@@ -1,4 +1,5 @@
 require_dependency File.join(Rails.root,"app","models", "image.rb")
+require_dependency File.join(Rails.root,"lib","autoload", "paperclip_orphan_file_cleaner.rb")
     # Why the fuck II ?  Doesn't work without this on staging/production'
 
 namespace :images do
