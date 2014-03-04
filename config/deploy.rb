@@ -32,6 +32,7 @@ set :ssh_options, {
 
 # Sidekiq
 set :sidekiq_role, :sidekiq
+set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
 
 namespace :deploy do
 
