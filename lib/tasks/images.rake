@@ -34,7 +34,10 @@ namespace :images do
 
     @last_path = nil
     @dry_run = %w(true 1).include? ENV['DRY_RUN']
+    @start_id = 0
+    @start_id = ENV['START_ID'].to_s if ENV['START_ID']
     @styles = ["original","medium","thumb","profile"]
+    @root_dir = Pathname.new(Rails.root + 'public/system/images')
 
     Signal.trap('USR1') do
       puts "#{Time.now.strftime('%Y-%m-%d %H:%M:%S')} #{@last_path}"
@@ -89,17 +92,19 @@ namespace :images do
         move_dir_if_orphan(start_dir, model)
       else
         start_dir.children.sort.each do |entry|
-          full_path = (start_dir + entry)
-          if full_path.directory?
-            verify_directory(full_path, model)
+          if @root_dir != start_dir || @start_id <= entry.basename.to_s.to_i
+            full_path = (start_dir + entry)
+            if full_path.directory?
+              verify_directory(full_path, model)
+            end
           end
         end
         delete_dir_if_empty(start_dir)
       end
     end
 
-    start_dir = Pathname.new(Rails.root + 'public/system/images')
-    verify_directory(start_dir, Image)
+
+    verify_directory(@root_dir, Image)
   end
 
 
