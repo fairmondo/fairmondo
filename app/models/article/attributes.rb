@@ -23,6 +23,7 @@ module Article::Attributes
   extend ActiveSupport::Concern
 
   included do
+    extend Tokenize
 
     #common fields
     def self.common_attrs
@@ -39,7 +40,7 @@ module Article::Attributes
 
     validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 200
-    validates_length_of :content, :maximum => 10000
+    validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }
 
 
     #conditions
@@ -155,7 +156,7 @@ module Article::Attributes
 
     monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
-    validates :payment_details, :length => { :maximum => 2500 }
+    validates :payment_details, length: { :maximum => 2500 }
 
     validate :bank_account_exists, :if => :payment_bank_transfer
     validate :paypal_account_exists, :if => :payment_paypal
