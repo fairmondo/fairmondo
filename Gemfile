@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.16'
+gem 'rails', '~> 3.2.17'
 
 # Ruby Deps
 platforms :ruby do
