@@ -21,6 +21,7 @@
 #
 class User < ActiveRecord::Base
   extend Memoist
+  extend Tokenize
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -135,7 +136,7 @@ class User < ActiveRecord::Base
   validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
 
-  validates :about_me, :length => { :maximum => 2500 }
+  validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
