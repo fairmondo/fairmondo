@@ -77,6 +77,8 @@ Fairnopoly::Application.configure do
   config.action_mailer.default_url_options = { :host => 'www.fairnopoly.de' ,:protocol => 'https' }
   # Enable threaded mode
   config.threadsafe!
+  config.dependency_loading = true if $rails_rake_task
+  #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
