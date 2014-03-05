@@ -80,7 +80,7 @@
           = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", style: "margin:5px;"
       -elsif resource.seller_vacationing?
         %p
-          .Btn.Btn--grayedOut{style: "margin:10px;"}= t 'common.actions.to_cart'
+          .Btn.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'
         %strong= t 'users.states.vacationing'
 
   .Article-info--left
