@@ -573,10 +573,12 @@ RailsAdmin.config do |config|
     field :type do
      read_only true
     end
-    field :bank_code
-    field :bank_name
     field :bank_account_owner
     field :bank_account_number
+    field :bank_code
+    field :bank_name
+    field :iban
+    field :bic
     field :paypal_account
     field :company_name
     field :bankaccount_warning do

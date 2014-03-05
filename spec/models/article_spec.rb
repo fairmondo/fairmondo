@@ -302,7 +302,7 @@ describe Article do
         end
 
          it "should return the first image's URL when one exists" do
-          article.images = [FactoryGirl.build(:fixture_image),FactoryGirl.build(:fixture_image)]
+          article.images = [FactoryGirl.build(:article_fixture_image),FactoryGirl.build(:article_fixture_image)]
           article.images.each do |image|
             image.is_title = true
             image.save
@@ -312,13 +312,13 @@ describe Article do
         end
 
         it "should return the processing image while processing when requested a thumb" do
-          title_image = FactoryGirl.build(:image, :processing)
+          title_image = FactoryGirl.build(:article_image, :processing)
           article.images = [title_image]
           article.title_image_url(:thumb).should == title_image.image.url(:thumb)
         end
 
         it "should return the original image while processing when requested a medium image" do
-          title_image = FactoryGirl.build(:image, :processing)
+          title_image = FactoryGirl.build(:article_image, :processing)
           article.images = [title_image]
           article.title_image_url(:medium).should == title_image.original_image_url_while_processing
         end
@@ -338,7 +338,7 @@ describe Article do
 
         it "should delete a title image if another external url is given" do
           URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
-          @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
+          @image = ArticleImage.create(:external_url => @url, :image => nil, :is_title => true)
           article.images << @image
           @image.update_attribute(:external_url, nil)
           @image.should_receive :delete
@@ -347,7 +347,7 @@ describe Article do
 
         it "should not delete a title image if the same external url is given" do
           URI.stub(:parse).and_return( fixture_file_upload('/test.png') )
-          @image = Image.create(:external_url => @url, :image => nil, :is_title => true)
+          @image = ArticleImage.create(:external_url => @url, :image => nil, :is_title => true)
           article.images << @image
           @image.should_not_receive :delete
           article.add_image @url, true
