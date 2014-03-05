@@ -319,13 +319,16 @@
 	margin-bottom: .5em;
 }
 
-.User-rating{
+.User-rating, .User-stateInfo {
   font-size: 13px;
-  line-height: 2;
   margin-bottom: 0;
-  padding-top: 15px;
+  margin-top: 15px;
   text-align: center;
   color: #959595;
+}
+
+.User-rating {
+  line-height: 2;
 }
 
 .User-rating img{
