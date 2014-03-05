@@ -59,11 +59,9 @@ module Article::Attributes
     #! attr_accessible *money_attributes
     #! attr_accessible *money_attributes, :as => :admin
 
-    validates_presence_of :price_cents
-    validates_numericality_of :price_cents, :less_than_or_equal_to => 1000000
-    validates_numericality_of :price, greater_than_or_equal_to: 0
+    validates :price_cents, presence: true, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 }
 
-    monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
+    monetize :price_cents
 
 
     # vat (Value Added Tax)
@@ -78,9 +76,9 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
-    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000, if: lambda {|obj| obj.basic_price_cents }
+    validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => true
 
-    monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
+    monetize :basic_price_cents
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
