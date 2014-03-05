@@ -19,24 +19,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PaymentsController < InheritedResources::Base
-  respond_to :html
-  actions :create
-  before_filter :authorize_resource, only: [:show]
+require 'spec_helper'
 
-  def show
-    return redirect_to resource.paypal_checkout_url
+describe PaymentPolicy do
+  include PunditMatcher
+
+  subject { PaymentPolicy.new(user, payment)  }
+  let(:payment) { Payment.new(transaction: FactoryGirl.create(:transaction_with_buyer)) }
+  let(:user) { nil }
+
+  context "for a visitor" do
+    it { should deny(:show)   }
+    it { should deny(:create) }
   end
 
-  def create
-    authorize create_or_update_target
-    create!
+  context "for a random logged-in user" do
+    let(:user) { FactoryGirl.create :user }
+    it { should deny(:show)               }
+    it { should deny(:create)             }
   end
 
-  private
-    def create_or_update_target
-      @payment = Payment.find_or_initialize_by_transaction_id(
-        Transaction.find(params[:transaction_id]).id
-      ) # Rails 4: find_or_initialize(transaction_id: ...)
-    end
+  context "for the buying user" do
+    let(:user) { payment.transaction.buyer }
+    it { should permit(:show)              }
+    it { should permit(:create)            }
+  end
 end

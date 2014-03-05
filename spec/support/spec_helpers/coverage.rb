@@ -37,6 +37,7 @@ SimpleCov.start 'rails' do
   add_filter "app/models/statistic.rb"
   add_filter "app/helpers/statistic_helper.rb"
   add_filter "lib/autoload/sidekiq_redis_connection_wrapper.rb"
+  add_filter "lib/autoload/paypal_ipn.rb"
   minimum_coverage 100
 end
 

@@ -69,6 +69,7 @@ de:
       combination_invalid: 'Bei der Versandmethode "%{selected_transport}" kann die Bezahloption "%{selected_payment}" nicht ausgewählt werden.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"
+      paypal_process: "PayPal-Bezahlung abwickeln"
       print_order:
         buyer: 'Deine Bestellung drucken'
   #   bid:
@@ -138,3 +139,6 @@ de:
         shipments: " (%{count} Sendungen)"
       transport:
         pickup: "Selbstabholung"
+    notice:
+      paypal_success: "Vielen Dank, die Zahlung wurde ausgeführt."
+      paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es noch einmal."

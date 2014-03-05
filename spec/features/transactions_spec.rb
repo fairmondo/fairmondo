@@ -526,30 +526,46 @@ describe 'Transaction' do
 
 
         context "and the user is the buyer" do
-          before do
-            login_as buyer
-            visit transaction_path transaction
+          before { login_as buyer }
+
+          context "(standard request)" do
+            before do
+              visit transaction_path transaction
+            end
+
+            it "should not redirect" do
+              current_path.should eq transaction_path transaction
+            end
+
+            it "should show the correct data and fields" do
+              pending "Not yet implemented."
+              page.should have_content "Alles moegliche"
+            end
+
+            it "should have links to article and user profile" do
+              page.should have_link transaction.article.title
+              page.should have_link transaction.article_seller_nickname
+            end
+
+            it "should be possible to see the printed version of the order details" do
+              click_link I18n.t("transaction.actions.print_order.buyer")
+              page.should have_content I18n.t('transaction.notifications.buyer.buyer_text')
+            end
           end
 
-          it "should not redirect" do
-            current_path.should eq transaction_path transaction
-          end
+          context 'being redirected from a paypal payment process' do
+            let(:transaction) { FactoryGirl.create :single_transaction, :sold, selected_payment: :paypal }
 
-          it "should show the correct data and fields" do
-            pending "Not yet implemented."
-            page.should have_content "Alles moegliche"
-          end
+            it "should display a success message" do
+              visit transaction_path(transaction, paid: true)
+              page.should have_content I18n.t('transaction.notice.paypal_success')
+            end
 
-          it "should have links to article and user profile" do
-            page.should have_link transaction.article.title
-            page.should have_link transaction.article_seller_nickname
+            it "should display a failure message" do
+              visit transaction_path(transaction, paid: false)
+              page.should have_content I18n.t('transaction.notice.paypal_cancel')
+            end
           end
-
-          it "should be possible to see the printed version of the order details" do
-            click_link I18n.t("transaction.actions.print_order.buyer")
-            page.should have_content I18n.t('transaction.notifications.buyer.buyer_text')
-          end
-
         end
 
         context "but the current user isn't the one who bought" do

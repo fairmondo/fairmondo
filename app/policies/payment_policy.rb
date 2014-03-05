@@ -21,6 +21,10 @@
 #
 class PaymentPolicy < Struct.new(:user, :payment)
   def create?
-    true
+    user && payment.transaction_buyer_id == user.id && payment.transaction_sold?
+  end
+
+  def show?
+    create?
   end
 end
