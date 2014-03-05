@@ -70,12 +70,14 @@
       .HeaderArea
         %header.l-Header
           - unless cookies["new-cfk-header-disabled"]
-            .Message-row-background
-              .Message-row-foreground
-                = tinycms_content_body("nachrichtenzeile")
-                .Cfk-header-close
-                  %a
-                    ×
+            - infobar = tinycms_content_body("newsheader")
+            - unless infobar.empty?
+              .Message-row-background
+                .Message-row-foreground
+                  = infobar
+                  .Cfk-header-close
+                    %a
+                      ×
 
           .l-Inner
             .Logo
