@@ -142,11 +142,15 @@ describe 'User management' do
           page.should have_content I18n.t 'formtastic.labels.user.image'
 
           # Account Fields
-          page.should have_css 'h3', text: I18n.t('users.login.title')
+          page.should have_css 'h3', text: I18n.t('users.title.login')
           page.should have_content I18n.t 'formtastic.labels.user.email'
           page.should have_content I18n.t 'users.change_password'
           page.should have_content I18n.t 'formtastic.labels.user.password'
           page.should have_content I18n.t 'formtastic.labels.user.current_password'
+
+          # State Fields
+          page.should have_css 'h3', text: I18n.t('users.title.state')
+          page.should have_content I18n.t 'formtastic.labels.user.vacationing'
 
           # Contact Info Fields
           page.should have_content I18n.t 'formtastic.labels.user.title'

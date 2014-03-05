@@ -54,12 +54,14 @@ class Transaction < ActiveRecord::Base
            :calculated_fair_cents, :calculated_fee, :calculated_fee_cents,
            :friendly_percent, :friendly_percent_organisation, :vat_price, :vat,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
+           :active?,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, :nickname,
            to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
+           :vacationing?,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
 

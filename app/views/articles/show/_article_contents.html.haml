@@ -75,9 +75,13 @@
         - elsif user_signed_in?
           %br
           = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
-      - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
+      - if policy(resource.transaction).edit?
         %p
-          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", :style => "margin:5px;"
+          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", style: "margin:5px;"
+      -elsif resource.seller_vacationing?
+        %p
+          .Btn.Btn--grayedOut{style: "margin:10px;"}= t 'common.actions.to_cart'
+        %strong= t 'users.states.vacationing'
 
   .Article-info--left
     .Thumbnail-container

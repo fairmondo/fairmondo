@@ -23,8 +23,9 @@ de:
     visibility:
       public: "Öffentlich"
       private: "Privat"
-    login:
-      title: "Deine Login-Daten"
+    title:
+      login: "Deine Login-Daten"
+      state: "Dein Status"
     change_password: "Passwort ändern (optional)"
     form_titles:
       contact_person: "Ansprechpartner*in"
@@ -80,5 +81,7 @@ de:
     print:
       terms: "AGB von %{name}"
       cancellation: "Widerrufsbelehrung und Rücknahmeerklärung von %{name}"
+    states:
+      vacationing: "Diese*r Anbieter*in ist derzeit im Urlaub."
 
 
