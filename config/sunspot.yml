@@ -8,6 +8,7 @@ production:
 
 development:
   solr:
+    solr_home:  <%=File.join(::Rails.root, 'solr') %>
     hostname: localhost
     port: 8982
     log_level: INFO
@@ -23,6 +24,7 @@ staging:
 
 test:
   solr:
+    solr_home: <%=File.join(::Rails.root, 'solr') %>
     hostname: localhost
     port: <%= 8981 + ENV['TEST_ENV_NUMBER'].to_i %>
     log_level: WARNING
