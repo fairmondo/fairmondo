@@ -156,10 +156,12 @@ de:
         article_title: Artikel
       template_select:
         article_template: Vorlage
-      image:
+      article_image:
         image: Bild
         _destroy: Löschen
         is_title: Titelbild
+      user_image:
+        image: Bild
       library:
         name: Name
         public: Öffentlich

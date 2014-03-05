@@ -59,11 +59,11 @@
         %p
           %span.User--rightside= t('users.visibility.public')
           %strong.Meta--highlight= t('formtastic.labels.user.image') + ":"
-          = image_tag(@user.image_url(:thumb), :class => "img-polaroid ")
+          = image_tag(@user.image_url(:original), :class => "img-polaroid ")
           - f.object.build_image unless f.object.image # Build the Image object for the form
           = f.semantic_fields_for :image do |image|
             = f.inputs do
-              = image.input :image, label: false, as: :file, tooltip: true
+              = image.input :image, label: false, as: :file, tooltip: true, required: false
 
       .User--step
         %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')

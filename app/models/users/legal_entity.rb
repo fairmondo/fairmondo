@@ -21,6 +21,7 @@
 #
 class LegalEntity < User
   extend STI
+  extend Tokenize
 
   def self.user_attrs
     super + [:terms, :cancellation,
@@ -29,11 +30,16 @@ class LegalEntity < User
   #! attr_accessible :terms, :cancellation, :about
   #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 
+
+  validates :terms, length: { maximum: 20000, tokenizer: tokenizer_without_html }
+  validates :about, length: { maximum: 10000, tokenizer: tokenizer_without_html }
+  validates :cancellation, length: { maximum: 10000, tokenizer: tokenizer_without_html }
+
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity
-    seller.validates :terms , presence: true , length: { maximum: 20000 } , on: :update
-    seller.validates :about , presence: true , length: { maximum: 10000 } , on: :update
-    seller.validates :cancellation , presence: true , length: { maximum: 10000 } , on: :update
+    seller.validates :terms , presence: true , on: :update
+    seller.validates :about , presence: true , on: :update
+    seller.validates :cancellation , presence: true , on: :update
   end
 
   state_machine :seller_state, :initial => :standard_seller do

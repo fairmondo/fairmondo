@@ -39,7 +39,11 @@ module Formtastic
       module Wrapping
         def input_wrapping(&block)
           template.content_tag(:li,
-            [tooltip , template.capture(&block), error_html, hint_html].join("\n").html_safe,
+
+            [tooltip ,
+              template.capture(&block),
+              error_html,
+              hint_html].join("\n").html_safe,
             wrapper_html_options
           )
         end

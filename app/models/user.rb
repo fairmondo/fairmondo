@@ -21,6 +21,7 @@
 #
 class User < ActiveRecord::Base
   extend Memoist
+  extend Tokenize
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -85,7 +86,7 @@ class User < ActiveRecord::Base
   has_many :mass_uploads
 
   ##
-  has_one :image, as: :imageable
+  has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
   ##
 
@@ -135,7 +136,7 @@ class User < ActiveRecord::Base
   validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
 
-  validates :about_me, :length => { :maximum => 2500 }
+  validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
@@ -187,7 +188,7 @@ class User < ActiveRecord::Base
   # @param symbol [Symbol] which type
   # @return [String] URL
   def image_url symbol
-    (img = image) ? img.image.url(symbol) : "/assets/missing.png"
+    image ? image.image.url(symbol) : "/assets/missing.png"
   end
 
   # Return a formatted address

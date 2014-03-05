@@ -47,7 +47,7 @@ FactoryGirl.define do
     discount
 
     after(:build) do |article|
-      article.images << FactoryGirl.build(:image)
+      article.images << FactoryGirl.build(:article_image)
       article.activate
     end
 
@@ -118,7 +118,7 @@ FactoryGirl.define do
 
     trait :with_fixture_image do
       after(:build) do |article|
-        article.images = [FactoryGirl.build(:fixture_image)]
+        article.images = [FactoryGirl.build(:article_fixture_image)]
       end
     end
 
@@ -214,6 +214,10 @@ FactoryGirl.define do
 
     trait :with_discount do
       discount { FactoryGirl.create :discount }
+    end
+
+    trait :invalid do
+      title ""
     end
   end
 end
