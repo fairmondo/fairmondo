@@ -108,6 +108,10 @@ FactoryGirl.define do
       fastbill_id '1223'
       fastbill_subscription_id '76543'
     end
+
+    trait :ngo do
+      ngo true
+    end
   end
 
 end
