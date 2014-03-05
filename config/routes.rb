@@ -123,9 +123,9 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  #resources :payments do
-  post '/payments/:transaction_id', to: 'payments#create', as: 'payments'#, on: :create
-  #end
+  resources :payments, only: [:show]
+  post '/payments/:transaction_id', to: 'payments#create', as: 'payments'
+  match '/paypal/ipn_notification' => PaypalIpn, as: 'ipn_notification'
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 

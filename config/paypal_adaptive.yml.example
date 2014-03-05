@@ -3,13 +3,11 @@ development:
   username: "sandbox_username"
   password: "sandbox_password"
   signature: "sandbox_signature"
-  application_id: "sandbox_app_id"
-  #api_cert_file:
+  application_id: "APP-80W284485P519543T"
 
 test:
   environment: "sandbox"
   username: "sandbox_username"
   password: "sandbox_password"
   signature: "sandbox_signature"
-  application_id: "sandbox_app_id"
-  api_cert_file: "/path/to_cert"
+  application_id: "APP-80W284485P519543T"

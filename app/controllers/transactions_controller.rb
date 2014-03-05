@@ -26,6 +26,7 @@ class TransactionsController < InheritedResources::Base
 
   before_filter :redirect_if_already_sold, only: [:edit, :update]
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
+  before_filter :paypal_message, only: :show, unless: :multiple?
   before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :authorize_resource
   before_filter :dont_cache
@@ -85,6 +86,16 @@ class TransactionsController < InheritedResources::Base
         child_transactions = resource.children.select { |c| c.buyer == current_user }
         unless child_transactions.empty?
           redirect_to transaction_path child_transactions[-1]
+        end
+      end
+    end
+
+    def paypal_message
+      if resource.selected_payment == 'paypal'
+        if params[:paid] == 'true'
+          flash.now[:notice] = t 'transaction.notice.paypal_success'
+        elsif params[:paid] == 'false'
+          flash.now[:error] = t 'transaction.notice.paypal_cancel'
         end
       end
     end
