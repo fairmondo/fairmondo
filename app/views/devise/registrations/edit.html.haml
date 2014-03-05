@@ -68,7 +68,7 @@
       .User--step
         %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
-        %h3= t('users.login.title')
+        %h3= t('users.title.login')
         = f.inputs do
           = f.input :email
 
@@ -77,6 +77,12 @@
         = f.input :password_confirmation
         = render :partial => "/devise/password_complexity"
         = f.input :current_password
+
+      .User--step
+        %span.User--rightside
+          = t('users.visibility.public')
+        %h3= t('users.title.state')
+        = f.input :vacationing, tooltip: true
 
 
 
