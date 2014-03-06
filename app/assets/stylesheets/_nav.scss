@@ -74,19 +74,18 @@
 	color: #434343;
 }
 .Nav--meta {
-	@include rem(font-size, 13px);
 	@include rem(margin-top, 25px);
 	li {
 		@include rem(margin-right, 15px);
 	}
 }
 .Nav--legal  {
-	@include rem(font-size, 13px);
 	@include rem(margin-top, 7px);
 }
 
 .Nav--meta,
 .Nav--legal {
+	@include rem(font-size, 14px);
 	@include at-breakpoint(30em lt-ie9) {
 		float: right;
 	}
