@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
-include CategorySeedData
+
 
 describe "Mass-upload" do
 
@@ -59,7 +59,6 @@ describe "Mass-upload" do
 
     describe "when uploading" do
       before do
-        setup_categories
         visit new_mass_upload_path
       end
 

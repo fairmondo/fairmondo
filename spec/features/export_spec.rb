@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
-include CategorySeedData
 
 describe "Export" do
 
@@ -25,7 +24,6 @@ describe "Export" do
   describe "for signed-in legal entity users" do
 
     before do
-      setup_categories
       login_as legal_entity
       visit new_mass_upload_path
     end

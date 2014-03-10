@@ -23,121 +23,99 @@ require 'spec_helper'
 
 describe ArticlesController do
   render_views
-  include CategorySeedData
 
   let(:user) { FactoryGirl.create(:user) }
   let(:article) { FactoryGirl.create(:article, seller: user) }
 
-  describe "GET 'index'" do
 
-    describe "search", :search => true do
-      before :each do
-        setup_categories
+   describe "GET 'index'" do
+
+    describe "search", :search => true, :setup => true do
+      before(:all) do
+        setup
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
-        @article  = FactoryGirl.create(:second_hand_article, :title => "muscheln", :categories_and_ancestors => @vehicle_category.self_and_ancestors.map(&:id) , :content => "muscheln am meer")
+        @hardware_category = Category.find_by_name!("Hardware")
+        @electronic_category = Category.find_by_name!("Elektronik")
+        @software_category = Category.find_by_name!("Software")
+
+        @ngo_article = FactoryGirl.create(:article,price_cents: 1)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
+        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ]
+
         Sunspot.commit
       end
 
+
+
       it "should find the article with title 'muscheln' when searching for muscheln" do
         get :index, :article => {:title => "muscheln" }
-        controller.instance_variable_get(:@articles).should == [@article]
+        controller.instance_variable_get(:@articles).map(&:id).should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
       end
 
       it "should find the article with title 'muscheln' when searching for muschel" do
         get :index, :article => {:title => "muschel" }
-        controller.instance_variable_get(:@articles).should == [@article]
+        controller.instance_variable_get(:@articles).map(&:id).should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
       end
 
       it "should find the article with content 'meer' when searching for meer" do
-        get :index, :article => {:title => "meer" , :search_in_content => "1"}
-        controller.instance_variable_get(:@articles).should == [@article]
+       get :index, :article => {:title => "meer" , :search_in_content => "1"}
+       controller.instance_variable_get(:@articles).map(&:id).should == [@second_hand_article].map(&:id)
       end
 
-      context "when try a different search order" do
-        before :each do
-          @article2  = FactoryGirl.create(:article,:with_ngo, :price_cents => (@article.price_cents + 2) )
-          Sunspot.commit
-        end
+      context "when trying a different search order" do
 
         it "order by price asc" do
           get :index, :article => {:search_order_by => "cheapest"}
-          controller.instance_variable_get(:@articles).should == [@article,@article2]
+          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "order by price desc" do
           get :index, :article => {:search_order_by => "most_expensive"}
-          controller.instance_variable_get(:@articles).should == [@article2,@article]
+          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
         end
 
         it "order by friendly_percent desc" do
-           get :index, :article => {:search_order_by => "most_donated"}
-           controller.instance_variable_get(:@articles).should == [@article2,@article]
+           get :index, :article => {:search_order_by => "most_donated",:categories_and_ancestors => [@hardware_category]}
+           controller.instance_variable_get(:@articles).map(&:id).should == [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
       end
 
       context "when filtering by categories" do
-        before :each do
-          @hardware_category = Category.find_by_name!("Hardware")
-          @hardware_article  = FactoryGirl.create(:second_hand_article, :title => "muscheln 2", :categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id))
-          Sunspot.commit
-        end
 
         it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
-          @electronic_category = Category.find_by_name!("Elektronik")
-          get :index, :article => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id)}
-          controller.instance_variable_get(:@articles).should == [@hardware_article]
+          get :index, :article => {:categories_and_ancestors => [@hardware_category] }
+          controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
-          @electronic_category = Category.find_by_name!("Elektronik")
-          get :index, :article => {:categories_and_ancestors => @electronic_category.self_and_ancestors.map(&:id)}
-          controller.instance_variable_get(:@articles).should == [@hardware_article]
+          get :index, :article => {:categories_and_ancestors => [@electronic_category] }
+          controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should not find the article in category 'Hardware' when filtering for 'Software'" do
-          @software_category = Category.find_by_name!("Software")
-          get :index, :article => {:categories_and_ancestors => @software_category.self_and_ancestors.map(&:id)}
-          controller.instance_variable_get(:@articles).should == []
+          get :index, :article => {:categories_and_ancestors => [@software_category] }
+          controller.instance_variable_get(:@articles).map(&:id).should == []
         end
-
-#        context "#categories_with_ancestors" do
-#          context "when passing a category_id without its ancestors" do
-#            it "should remove the orphan descendants from the passed subtree" do
-#              @audio_category = Category.find_by_name!("Audio & HiFi")
-#              get :index, :article => {:categories_and_ancestors => @audio_category.self_and_ancestors.map(&:id) + [@hardware_category.id] }
-#              controller.instance_variable_get(:@articles).should == []
-#            end
-#          end
-#        end
 
         context "and searching for 'muscheln'" do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
             get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should =~ [@hardware_article,@article]
+            controller.instance_variable_get(:@articles).map(&:id).should =~ [@no_second_hand_article,@hardware_article,@second_hand_article].map(&:id)
           end
 
           it "should chain both filters" do
-            get :index, :article => {:categories_and_ancestors => @hardware_category.self_and_ancestors.map(&:id), :title => "muscheln"}
-            controller.instance_variable_get(:@articles).should == [@hardware_article]
+            get :index, :article => {:categories_and_ancestors => [ @hardware_category ], :title => "muscheln"}
+            controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
           end
 
           context "and filtering for condition" do
 
-            before :each do
-              @no_second_hand_article = FactoryGirl.create :no_second_hand_article, title: "muscheln 3", categories_and_ancestors: @hardware_category.self_and_ancestors.map(&:id)
-              Sunspot.commit
-            end
-
-            it "should find all articles with title 'muscheln' with empty condition and category filter" do
-              get :index, article: {categories_and_ancestors: [], title: "muscheln"}
-              controller.instance_variable_get(:@articles).should =~ [ @no_second_hand_article,@hardware_article,@article]
-            end
-
             it "should chain all filters" do
-              get :index, article: {categories_and_ancestors: @hardware_category.self_and_ancestors.map(&:id), title: "muscheln", condition: "old"}
-              controller.instance_variable_get(:@articles).should == [@hardware_article]
+              get :index, article: {categories_and_ancestors: [ @hardware_category ], title: "muscheln", condition: "old"}
+              controller.instance_variable_get(:@articles).map(&:id).should == [@hardware_article].map(&:id)
             end
 
           end
@@ -147,7 +125,6 @@ describe ArticlesController do
       end
 
     end
-
     describe "for signed-out users" do
       it "should be successful" do
         get :index
@@ -481,5 +458,7 @@ describe ArticlesController do
       response.should redirect_to @article
       @article.reload.locked?.should == true
     end
+
   end
+
 end

@@ -1,13 +1,9 @@
 require 'spec_helper'
 
-# include MassUploadCreator
-include CategorySeedData
-
 describe ExportsController do
 
   describe "mass-upload creation" do
     before do
-      setup_categories
       @user = FactoryGirl.create :legal_entity, :paypal_data
       article = FactoryGirl.create :article, seller: @user
       sign_in @user
