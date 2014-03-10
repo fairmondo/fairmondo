@@ -215,7 +215,7 @@ de:
     tooltips:
       user:
         new: &new_user
-          type: "Wenn Du Dir nicht sicher bist, ob Du unter gewerblichen Handel fällst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein privates Konto aber auch später in ein gewerbliches umwandeln lassen. Mehr dazu in unserer FAQ."
+          type: 'Wenn Du Dir nicht sicher bist, ob Du unter gewerblichen Handel fällst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein privates Konto aber auch später in ein gewerbliches umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairnopoly.de/faq#r6" target= "_blank">FAQ</a>.'
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
