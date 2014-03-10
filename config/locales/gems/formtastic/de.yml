@@ -21,6 +21,7 @@ de:
         agecheck: "Ich bin mindestens 18 Jahre alt."
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
+        vacationing: "Ich bin derzeit im Urlaub"
         title: "Anrede"
         forename: "Vorname"
         surname:  "Nachname"
@@ -214,6 +215,7 @@ de:
     tooltips:
       user:
         new: &new_user
+          type: "Wenn Du Dir nicht sicher bist, ob Du unter gewerblichen Handel fällst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein privates Konto aber auch später in ein gewerbliches umwandeln lassen. Mehr dazu in unserer FAQ."
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
@@ -221,6 +223,7 @@ de:
         create: *new_user
         edit: &edit_user
           image: "Lade ein Foto(max. 2MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
+          vacationing: "Wenn Du die Urlaubsfunktion aktivierst, verbleiben Deine eingestellten Artikel auf dem Marktplatz, der Kaufen-Button wird aber inaktiv. Die Artikel sind mit dem Hinweis versehen, dass Du derzeit in Urlaub bist."
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."

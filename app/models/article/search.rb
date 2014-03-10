@@ -67,7 +67,7 @@ module Article::Search
       integer :vat, :stored => true
 
      # Friendly Percent
-       integer :friendly_percent, :stored => true
+      integer :friendly_percent, :stored => true
       text :friendly_percent_organisation
 
       # Possible future local search

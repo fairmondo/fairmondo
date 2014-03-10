@@ -31,6 +31,7 @@
   }
 }
 .Article-image {
+  width:100%;
   overflow: hidden;
   @include border-top-left-radius(0.9em);
   @include border-top-right-radius(0.9em);
