@@ -79,7 +79,6 @@ describe RegistrationsController do
           email:    "jdoe@example.com",
           password: "password",
           password_confirmation: "password",
-          privacy:  "1",
           legal:    "1",
           agecheck: "1",
           type:     "PrivateUser"
@@ -88,13 +87,13 @@ describe RegistrationsController do
     end
 
     describe "given invalid data" do
-      it "should not create a user wih an invalid recaptcha" do
-        controller.stub(:verify_recaptcha) { false }
+      # it "should not create a user wih an invalid recaptcha" do
+      #   controller.stub(:verify_recaptcha) { false }
 
-        lambda do
-          post :create, @valid_params
-        end.should_not change(User.all, :count)
-      end
+      #   lambda do
+      #     post :create, @valid_params
+      #   end.should_not change(User.all, :count)
+      # end
     end
   end
 
