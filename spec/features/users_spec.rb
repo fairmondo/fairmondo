@@ -38,21 +38,16 @@ describe 'User management' do
     end
 
     it "registers a new user" do
-      Recaptcha.with_configuration(:public_key => '12345') do
-        visit new_user_registration_path
-      end
-      expect do
-        fill_in 'user_nickname',              with: 'nickname'
-        fill_in 'user_email',                 with: 'email@example.com'
-        fill_in 'user_password',              with: 'password'
-        fill_in 'user_password_confirmation', with: 'password'
-        choose 'user_type_legalentity'
-        check 'user_legal'
-        check 'user_privacy'
-        check 'user_agecheck'
-        click_button 'sign_up'
-        User.find_by_email('email@example.com').confirm!
-      end.to change(User, :count).by 1
+      visit new_user_registration_path
+
+      fill_in 'user_nickname',              with: 'nickname'
+      fill_in 'user_email',                 with: 'email@example.com'
+      fill_in 'user_password',              with: 'password'
+      fill_in 'user_password_confirmation', with: 'password'
+      choose 'user_type_legalentity'
+      check 'user_legal'
+      check 'user_agecheck'
+      expect {click_button 'sign_up'}.to change(User, :count).by 1
     end
 
     it "should sign in a valid user" do
