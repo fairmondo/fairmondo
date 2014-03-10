@@ -42,11 +42,11 @@ class User < ActiveRecord::Base
   def self.user_attrs
     [
       :email, :password, :password_confirmation, :remember_me, :type,
-      :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
+      :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
-      :fastbill_profile_update,
+      :fastbill_profile_update, :vacationing,
       :iban,:bic,
       { image_attributes: Image.image_attrs + [:id] }
     ]
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
 
 
 
-  attr_accessor :recaptcha, :wants_to_sell
+  attr_accessor :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
   attr_accessor :fastbill_profile_update
 
@@ -106,8 +106,6 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
   validates :nickname , :presence => true, :uniqueness => true
-  validates :recaptcha, presence: true, acceptance: true, on: :create
-  validates :privacy, :acceptance => true, :on => :create
   validates :legal, :acceptance => true, :on => :create
   validates :agecheck, :acceptance => true , :on => :create
 

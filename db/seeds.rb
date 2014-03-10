@@ -48,74 +48,21 @@ unless user_legal
   user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :email => "le@le.com", :password => "password", :password_confirmation => "password")
 end
 
-c1 = Category.create(:name => "Technik")
-c2 = Category.create(:name => "Elektronik",:parent_id => c1.id)
-c3 = Category.create(:name => "Fahrzeuge",:parent_id => c1.id)
-c4 = Category.create(:name => "Medien")
-c5 = Category.create(:name => "Bekleidung")
-c6 = Category.create(:name => "Möbel & Haushalt")
-c7 = Category.create(:name => "Freizeit & Sport")
-c8 = Category.create(:name => "Lebensmittel")
-c9 = Category.create(:name => "Gesundheit & Pflege")
-c10 = Category.create(:name => "Kunst & Sammeln")
-c11 = Category.create(:name => "Sonstiges")
-c12 = Category.create(:name => "Kinder & Baby")
-c13 = Category.create(:name => "Auto", :parent_id => c3.id)
-c14 = Category.create(:name => "Motorrad", :parent_id => c3.id)
-c15 = Category.create(:name => "weitere/sonstige Fahrzeuge", :parent_id => c3.id)
-c16 = Category.create(:name => "Foto & Kamera", :parent_id => c2.id)
-c17 = Category.create(:name => "TV & Video", :parent_id => c2.id)
-c18 = Category.create(:name => "Audio & HiFi", :parent_id => c2.id)
-c19 = Category.create(:name => "Pc, Netzwerk, Software", :parent_id => c2.id)
-c20 = Category.create(:name => "Handy & Telefon", :parent_id => c2.id)
-c21 = Category.create(:name => "Filme", :parent_id => c4.id)
-c22 = Category.create(:name => "Musik", :parent_id => c4.id)
-c23 = Category.create(:name => "Kasette", :parent_id => c21.id)
-Category.create(:name => "DVD", :parent_id => c21.id)
-Category.create(:name => "Blu-ray", :parent_id => c21.id)
-Category.create(:name => "Vinyl", :parent_id => c22.id)
-Category.create(:name => "CD", :parent_id => c22.id)
-Category.create(:name => "weitere Formate", :parent_id => c22.id)
-Category.create(:name => "Konsole", :parent_id => c23.id)
-Category.create(:name => "Pc", :parent_id => c23.id)
-Category.create(:name => "Mann", :parent_id => c5.id)
-Category.create(:name => "Frau", :parent_id => c5.id)
-Category.create(:name => "Accessoires", :parent_id => c5.id)
-Category.create(:name => "Schuhe", :parent_id => c5.id)
-Category.create(:name => "Möbel", :parent_id => c6.id)
-Category.create(:name => "Elektrogroß- und Haushaltsgeräte", :parent_id => c6.id)
-Category.create(:name => "Bekleidung", :parent_id => c12.id)
-Category.create(:name => "Spielzeug", :parent_id => c12.id)
-Category.create(:name => "Ausrüstung", :parent_id => c12.id)
-Category.create(:name => "Reise", :parent_id => c7.id)
-Category.create(:name => "Sport", :parent_id => c7.id)
-Category.create(:name => "Essen", :parent_id => c8.id)
-Category.create(:name => "Getränke", :parent_id => c8.id)
-Category.create(:name => "Kaffee & Tee", :parent_id => c8.id)
-Category.create(:name => "Körperpflege", :parent_id => c9.id)
-Category.create(:name => "Kosmetik", :parent_id => c9.id)
-Category.create(:name => "Sonstiges", :parent_id => c9.id)
-Category.create(:name => "Duschen & Baden", :parent_id => c9.id)
-Category.create(:name => "Antiquitäten & Kunst", :parent_id => c10.id)
-Category.create(:name => "Sammeln & Seltenes", :parent_id => c10.id)
-Category.create(:name => "Schmuck & Uhren", :parent_id => c10.id)
-Category.create(:name => "Outdoor", :parent_id => c7.id)
-Category.create(:name => "Textilien", :parent_id => c6.id)
-Category.create(:name => "Süßigkeiten", :parent_id => c8.id)
-Category.create(:name => "Schuhe", :parent_id => c12.id)
-Category.create(:name => "Bücher", :parent_id => c4.id)
+require_relative 'fixtures/category_seed_data.rb'
+include CategorySeedData
+setup_categories
 
 15.times do
-  FactoryGirl.create(:article, :without_image, :categories_and_ancestors => [c1.id])
+  FactoryGirl.create :article, :without_image, :categories_and_ancestors => [@categories.sample.id]
 end
 15.times do
-  FactoryGirl.create(:article, :without_image, :with_larger_quantity, :categories_and_ancestors => [c2.id,c3.id])
+  FactoryGirl.create :article, :without_image, :with_larger_quantity, :categories_and_ancestors => [@categories.sample.id]
 end
 # Different articles to test transactions
 FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
-                   :with_all_payments, :with_private_user, title: 'Tester By Private User', :categories_and_ancestors => [c4.id,c5.id]
+                   :with_all_payments, :with_private_user, title: 'Tester By Private User', :categories_and_ancestors => [@categories.sample.id]
 FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
-                   :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories_and_ancestors => [c6.id,c7.id]
+                   :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories_and_ancestors => [@categories.sample.id]
 
 
 # TinyCMS pages
@@ -139,4 +86,5 @@ Content.create key:'heading_queue2', body: '<p>Mehr 2</p>'
 Content.create key:'heading_queue3', body: '<p>Mehr 3</p>'
 Content.create key:'heading_queue4', body: '<p>Mehr 4</p>'
 Content.create key:'cfk_box', body: '<p><a href="/mitunsgehen"><img alt="Box_grafik" src="/assets/cfk/box_grafik.png"></a></p><p>Mit Fairnopoly bauen wir eine konsequent faire Alternative zu den großen Online-Marktplätzen auf. Über 1.000 Menschen haben bereits in unsere Genossenschaft investiert.<br>Mit 50 Euro bist auch Du dabei.</p><p><a class="Btn Btn--blue" href="http://www.startnext.de/fairnopoly2" target="_blank">Zum Crowdfunding</a></p>'
+Content.create key:'newsheader', body: '<p>Important <a href="http://info.fairnopoly.de">News</a>!</p>'
 #<p><iframe src="https://player.vimeo.com/video/83495049?badge=0&byline=0&title=0&portrait=0" width="490" height="276" frameborder="0" allowfullscreen="1" webkitallowfullscreen="1" mozallowfullscreen="1"></iframe></p><p>Mit Fairnopoly bauen wir eine konsequent faire Alternative zu den gro&szlig;en Online-Marktpl&auml;tzen auf. &Uuml;ber 1.000 Menschen haben bereits in unsere Genossenschaft investiert.<br>Mit 50 Euro kannst auch Du dabei sein:</p><p><a class="Btn Btn--blue" href="http://www.startnext.de/fairnopoly2" target="_blank">Zum Crowdfunding</a></p>

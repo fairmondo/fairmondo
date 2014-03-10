@@ -227,6 +227,9 @@
 }
 .User-registration {
 	@include span-columns(4, 4);
+  @include at-breakpoint($layout-large) {
+    @include span-columns(3, 4);
+  }
 	.stringish {
 		@include span-columns(4, 4);
 		position: relative;
@@ -236,6 +239,7 @@
 		position: absolute;
 		top: 2.2em;
 		right: -.6em;
+    z-index: 1;
 	}
 	.User-registration-input {
 		@include span-columns(4, 4);
@@ -243,7 +247,7 @@
 		padding: $gutter-width / 2;
 		border-radius: 0.9em;
 		background: $white;
-		@include at-breakpoint($layout-medium) {
+		@include at-breakpoint($layout-huge) {
 			@include span-columns(2, 3);
 		}
 	}
@@ -264,13 +268,28 @@
 		}
 		#user_password_confirmation_input {@include omega;}
 	}
-	@include at-breakpoint($layout-medium) {
-		@include span-columns(3, 4);
-	}
-
 }
 .User-registration-checkbox .input {
 	margin-bottom: em(10);
+}
+
+// Password jquery-complexify
+#password_complexity_progress, #password_complexity_progress .bar {
+  height: 2em;
+}
+#password_complexity_progress, #password_complexity_label {
+  display: none;
+}
+#password_complexity_progress {
+  @include border-radius(.8em);
+  border: 1px solid $gray;
+  overflow: hidden;
+}
+#password_complexity_progress .bar.bar-danger {
+  background: $red;
+}
+#password_complexity_progress .bar.bar-success {
+  background: $green;
 }
 
 // Login in a color box
@@ -319,13 +338,16 @@
 	margin-bottom: .5em;
 }
 
-.User-rating{
+.User-rating, .User-stateInfo {
   font-size: 13px;
-  line-height: 2;
   margin-bottom: 0;
-  padding-top: 15px;
+  margin-top: 15px;
   text-align: center;
   color: #959595;
+}
+
+.User-rating {
+  line-height: 2;
 }
 
 .User-rating img{

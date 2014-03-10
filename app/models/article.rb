@@ -32,7 +32,7 @@ class Article < ActiveRecord::Base
   delegate :quantity_available, to: :transaction, prefix: true
 
   delegate :deletable?, :buyer, to: :transaction, prefix: false
-  delegate :email, to: :seller, prefix: true
+  delegate :email, :vacationing?, to: :seller, prefix: true
   delegate :nickname, to: :donated_ngo, :prefix => true
 
 

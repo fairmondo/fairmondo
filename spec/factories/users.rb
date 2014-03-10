@@ -28,10 +28,8 @@ FactoryGirl.define do
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
-    privacy     "1"
     legal       "1"
     agecheck    "1"
-    recaptcha   '1'
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -107,6 +105,10 @@ FactoryGirl.define do
     trait :fastbill do
       fastbill_id '1223'
       fastbill_subscription_id '76543'
+    end
+
+    trait :ngo do
+      ngo true
     end
   end
 

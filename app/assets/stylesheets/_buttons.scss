@@ -8,25 +8,25 @@
 
 
 .Btn === the classic blue button with a padding of 15x15, font size 17px
-	&.Btn--green === classic blue but green btn
-	&.Btn--greenSmall === green but font size 14px instead of 17px
-	&.Btn--gray === same as blue but gray
+  &.Btn--green === classic blue but green btn
+  &.Btn--greenSmall === green but font size 14px instead of 17px
+  &.Btn--gray === same as blue but gray
 
-	&.Btn-tag === a tag button and its colors variations
-		&.Btn-tag--gray
-		&.Btn-tag--blue
-		&.Btn-tag--green
-		&.Btn-tag--orange
+  &.Btn-tag === a tag button and its colors variations
+    &.Btn-tag--gray
+    &.Btn-tag--blue
+    &.Btn-tag--green
+    &.Btn-tag--orange
 
-	&.Btn-accordion === the accordion button with an arrow only
-		&.accordion-is-active === same as above but gray and arrow down because active
+  &.Btn-accordion === the accordion button with an arrow only
+    &.accordion-is-active === same as above but gray and arrow down because active
 
-	&.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
-		&.icon-arrow
-		&.icon-arrow--active
-		&.icon-box
-		&.icon-box--open
-		&.icon-paper
+  &.Btn-icon === close to Btn-accordion but an other left icon instead of the arrow
+    &.icon-arrow
+    &.icon-arrow--active
+    &.icon-box
+    &.icon-box--open
+    &.icon-paper
 
 
 
@@ -54,54 +54,54 @@ $accordion: $btn--blue;
 // -----------------------------------
 
 a.Btn {
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 
-	// word break for long words
-	-ms-word-break: break-word;
-	-webkit-word-break: break-word;	// Non standard for webkit
-	word-break: break-word;
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto; // with hyphens
-	white-space: normal;
-	&.avoid-click {
-		pointer-events: none;
-	}
+  // word break for long words
+  -ms-word-break: break-word;
+  -webkit-word-break: break-word; // Non standard for webkit
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto; // with hyphens
+  white-space: normal;
+  &.avoid-click {
+    pointer-events: none;
+  }
 }
 
 .Btn {
-	@include rem(font-size, 17px);
-	vertical-align: middle;
-	display: inline-block;
-	position: relative;
-	margin: 0 0 $pBottomMargin;
-	padding: em(10,17) em(15,17) em(9,17);
-	line-height: normal;
-	border: 0 solid;
-	border-radius: 5px;
-	background-color: $btn--blue;
-	color: white;
-	text-decoration: none;
-	text-align: center;
-	cursor: pointer;
+  @include rem(font-size, 17px);
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  margin: 0 0 $pBottomMargin;
+  padding: em(10,17) em(15,17) em(9,17);
+  line-height: normal;
+  border: 0 solid;
+  border-radius: 5px;
+  background-color: $btn--blue;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
 
-	// user cannot select .Btn to not disturb its copy/paste actions
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-webkit-user-select: none;
-	user-select: none; /* 6 */
-	white-space: nowrap; /* 7 */
-	-webkit-appearance: none; /* 1 */
+  // user cannot select .Btn to not disturb its copy/paste actions
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; /* 6 */
+  white-space: nowrap; /* 7 */
+  -webkit-appearance: none; /* 1 */
 
-	&:hover {
-		background-color: lighten($btn--blue, 5%);
-	}
-	.number {
-		@include rem(font-size, $font-size-l);
-		display: inline-block;
-		padding: 0;
-	}
+  &:hover {
+    background-color: lighten($btn--blue, 5%);
+  }
+  .number {
+    @include rem(font-size, $font-size-l);
+    display: inline-block;
+    padding: 0;
+  }
 }
 
 
@@ -113,22 +113,23 @@ a.Btn {
 .Btn--greenSmall,
 .Btn--blueBig
 .Btn--gray,
+.Btn--grayedOut,
 .Btn--red {
-	//@include rem(width, 200px);
-	width: auto;
+  //@include rem(width, 200px);
+  width: auto;
 }
 
 .Btn--green,
 .Btn--greenSmall {
-	background-color: $btn--green;
-	white-space: normal;
-	&:hover {
-		background-color: lighten($btn--green, 5%);
-	}
+  background-color: $btn--green;
+  white-space: normal;
+  &:hover {
+    background-color: lighten($btn--green, 5%);
+  }
 }
 .Btn--greenSmall {
-	font-size: 14px;
-	@include rem(padding, 8px 15px);
+  font-size: 14px;
+  @include rem(padding, 8px 15px);
 }
 
 .Btn--blueBig {
@@ -147,25 +148,31 @@ a.Btn {
   margin-left:15px;
 }
 
-.Btn--gray {
-	background-color: $btn--gray;
-	&:hover {
-		background-color: lighten($btn--gray, 5%);
-	}
+.Btn--grayedOut, .Btn--gray {
+  background-color: $btn--gray;
+}
+.Btn--gray:hover {
+  background-color: lighten($btn--gray, 5%);
+}
+.Btn--grayedOut {
+  cursor: default;
+  &:hover {
+    background-color: $btn--gray; // no change
+  }
 }
 
 .Btn--graySmaller {
-	background-color: $btn--gray;
-	font-size: 13px;
-	&:hover {
-		background-color: lighten($btn--gray, 5%);
-	}
+  background-color: $btn--gray;
+  font-size: 13px;
+  &:hover {
+    background-color: lighten($btn--gray, 5%);
+  }
 }
 .Btn--red,.Btn--redSmall {
-	background-color: $btn--red;
-	&:hover {
-		background-color: lighten($btn--red, 5%);
-	}
+  background-color: $btn--red;
+  &:hover {
+    background-color: lighten($btn--red, 5%);
+  }
 }
 .Btn--redSmall {
   font-size: 14px;
@@ -183,12 +190,12 @@ a.Btn {
 
 .Btn-tag {
   vertical-align:baseline;
-	border-radius: 3px;
-	text-transform: uppercase;
-	font-weight: 600;
-	@include rem(font-size, 13px);
-	@include rem(padding, 0 6px);
-	@include rem(margin-right, 4px);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  @include rem(font-size, 13px);
+  @include rem(padding, 0 6px);
+  @include rem(margin-right, 4px);
 }
 
 .Btn-tag--medium {
@@ -203,28 +210,28 @@ a.Btn {
 // Color variations (tag)
 
 .Btn-tag--gray {
-	background-color: $tag--gray;
-	&:hover {
-		background-color: lighten($tag--gray, 5%);
-	}
+  background-color: $tag--gray;
+  &:hover {
+    background-color: lighten($tag--gray, 5%);
+  }
 }
 .Btn-tag--blue {
-	background-color: $tag--blue;
-	&:hover {
-		background-color: lighten($tag--blue, 5%);
-	}
+  background-color: $tag--blue;
+  &:hover {
+    background-color: lighten($tag--blue, 5%);
+  }
 }
 .Btn-tag--green {
-	background-color: $tag--green;
-	&:hover {
-		background-color: lighten($tag--green, 5%);
-	}
+  background-color: $tag--green;
+  &:hover {
+    background-color: lighten($tag--green, 5%);
+  }
 }
 .Btn-tag--orange {
-	background-color: $tag--orange;
-	&:hover {
-		background-color: lighten($tag--orange, 5%);
-	}
+  background-color: $tag--orange;
+  &:hover {
+    background-color: lighten($tag--orange, 5%);
+  }
 }
 
 // Accordion & Icons
@@ -234,82 +241,82 @@ a.Btn {
 }
 .Btn-accordion,
 .Btn-icon {
-	@include rem(font-size, 17px);
-	padding: em(6,14) em(15,14) em(13,14);
-	font-weight: 400;
-	width: 100%;
-	text-align: left;
+  @include rem(font-size, 17px);
+  padding: em(6,14) em(15,14) em(13,14);
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
 
-	&:hover {
-		background-color: lighten($tag--blue, 5%);
-	}
+  &:hover {
+    background-color: lighten($tag--blue, 5%);
+  }
 }
 
 .Accordion-header.ui-state-active {
 
-	background-color: $accordion--active !important;
-	&:hover {
-		background-color: lighten($accordion--active, 5%);
-	}
+  background-color: $accordion--active !important;
+  &:hover {
+    background-color: lighten($accordion--active, 5%);
+  }
 
-	> .icon-arrow {
-		@extend .icon-arrow-down;
-		//background-position: sprite-position($icon, arrow-down);
-		top: 5px;
-		left: -7px;
-	}
+  > .icon-arrow {
+    @extend .icon-arrow-down;
+    //background-position: sprite-position($icon, arrow-down);
+    top: 5px;
+    left: -7px;
+  }
 }
 
 
 .Btn-accordion {
-	background-color: $accordion;
-	padding-top: em(7, 14);
-	padding-bottom: em(6, 14);
+  background-color: $accordion;
+  padding-top: em(7, 14);
+  padding-bottom: em(6, 14);
 }
 
 // Btn with Icon
 
 .Btn [class^="icon"] {
-	display: inline-block;
-	position: relative;
+  display: inline-block;
+  position: relative;
 }
 
 .icon-arrow {
-	top: 2px;
-	left: -4px;
+  top: 2px;
+  left: -4px;
 }
 
 .icon-box {
-	position: relative;
-	top: 5px;
-	left: -5px;
+  position: relative;
+  top: 5px;
+  left: -5px;
 }
 .icon-helper {
-	display: inline-block;
-	position: relative;
+  display: inline-block;
+  position: relative;
 }
 
 .icon-box--open {
-	top: 4px;
-	left: -5px;
+  top: 4px;
+  left: -5px;
 }
 
 .icon-paper {
-	top: 3px;
-	left: -5px;
+  top: 3px;
+  left: -5px;
 }
 
 // Btn with Icon and number on the right edge
 
 .Btn [class="number"] {
-	@include rem(font-size, $font-size-l);
-	display: inline-block;
-	padding: 0;
-	float: right;
+  @include rem(font-size, $font-size-l);
+  display: inline-block;
+  padding: 0;
+  float: right;
 }
 
 // TODO
 
 .Btn--overwrite {
-	color: white !important;
+  color: white !important;
 }

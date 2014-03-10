@@ -1,11 +1,21 @@
-.Category-index
+.Category-index.Grid-mansory
   - collection.each do |category|
-    .Category-index-parent
+    .Category-index-parent.Grid
       %h2
         %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
           = category.name
       %ul
-        -category.children.each do |child|
+        -category.children.each do |child1|
           %li
-            %a{href: articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids })}
-              = child.name
+            %a{href: articles_path(article: {categories_and_ancestors: child1.self_and_ancestors_ids })}
+              = child1.name
+            %ul
+              -child1.children.each do |child2|
+                %li
+                  %a{href: articles_path(article: {categories_and_ancestors: child2.self_and_ancestors_ids })}
+                    = child2.name
+                  %ul
+                    -child2.children.each do |child3|
+                      %li
+                        %a{href: articles_path(article: {categories_and_ancestors: child3.self_and_ancestors_ids })}
+                          = child3.name

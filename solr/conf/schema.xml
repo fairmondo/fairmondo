@@ -65,25 +65,25 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
         <filter class="solr.HyphenatedWordsFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-		<!-- *** Filter for ß and umlauts -->
-		<charFilter class="solr.MappingCharFilterFactory"
-        mapping="mapping-ISOLatin1Accent.txt" />
+    		<!-- *** Filter for ß and umlauts -->
+    		<charFilter class="solr.MappingCharFilterFactory"
+            mapping="mapping-ISOLatin1Accent.txt" />
         <filter class="solr.DictionaryCompoundWordTokenFilterFactory" dictionary="german-common-nouns.txt"
-           		minWordSize="5" minSubwordSize="3" maxSubwordSize="15" onlyLongestMatch="false"/>
-		<!-- *** The StemFilter-Factory takes sometimes to much (e.g. pullover -> pullov)
-				 shouldn t be before CompoundWordTokenFilterFactory! -->
+               		minWordSize="5" minSubwordSize="3" maxSubwordSize="15" onlyLongestMatch="false"/>
+    		<!-- *** The StemFilter-Factory takes sometimes to much (e.g. pullover -> pullov)
+    				 shouldn t be before CompoundWordTokenFilterFactory! -->
         <filter class="solr.GermanStemFilterFactory"/>
-		<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" side="front"/>
+    		<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" side="front"/>
       </analyzer>
       <analyzer type="query">
-		<tokenizer class="solr.StandardTokenizerFactory"/>
-		<filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
-		<filter class="solr.LowerCaseFilterFactory"/>
-		<!-- *** Filter for ß and umlauts -->
-		<charFilter class="solr.MappingCharFilterFactory"
-        mapping="mapping-ISOLatin1Accent.txt" />
-		<filter class="solr.GermanStemFilterFactory"/>
-	  </analyzer>
+    		<tokenizer class="solr.StandardTokenizerFactory"/>
+    		<filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
+    		<filter class="solr.LowerCaseFilterFactory"/>
+    		<!-- *** Filter for ß and umlauts -->
+    		<charFilter class="solr.MappingCharFilterFactory"
+            mapping="mapping-ISOLatin1Accent.txt" />
+    		<filter class="solr.GermanStemFilterFactory"/>
+	    </analyzer>
     </fieldType>
 
 
