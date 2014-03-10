@@ -2,8 +2,8 @@ de:
   users:
     legal_status:
       new:
-        legal_entity: "Ich bin gewerbliche(r) Anbieter*in oder juristische Person"
-        private_user: "Ich bin Privatperson"
+        legal_entity: "Ich möchte gewerblich verkaufen oder bin eine Spendenpartnerorganisation"
+        private_user: "Ich möchte privat kaufen oder verkaufen."
       edit:
         legal_entity: "Gewerbliche(r) Anbieter*in oder juristische Person"
         private_user: "Privatperson"
@@ -14,11 +14,12 @@ de:
         ngo: "Gemeinnützige Organisation"
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
-    legal: "Allgemeinen Geschäftsbedingungen."
+    legal: "Allgemeinen Geschäftsbedingungen"
     legal_new: "Allgemeinen Geschäftsbedingungen."
+    i_accept_both: "Ich akzeptiere die %{legal} und die %{privacy}."
     terms_new_info: "die Allgemeinen Geschäftsbedingungen und Datenschutzerklährung haben sich geändert. Diese müssen akzeptiert werden, bevor du weiter machen kannst."
     activate_all_articles: "Du kannst in diesem Schritt alle bisher eingestellten Artikel zum Verkauf auf Fairnopoly freischalten."
-    privacy: "Datenschutzerklärung."
+    privacy: "Datenschutzerklärung"
     complexify: Passwortstärke
     visibility:
       public: "Öffentlich"
