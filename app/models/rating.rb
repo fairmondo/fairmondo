@@ -17,6 +17,9 @@ class Rating < ActiveRecord::Base
   validates :transaction_id, :uniqueness => true, presence: true
 
   after_save :update_rating_counter
+
+  default_scope order("created_at DESC")
+
   alias :value :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
 
 end

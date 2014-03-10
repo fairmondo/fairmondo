@@ -140,9 +140,7 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem "brakeman" # security test: execute with 'brakeman'
-  gem 'parallel_tests'
   gem 'rspec-instafail'
-  #gem 'timecop' #for faking test time/date
 
   # Replace Webrick
   gem 'thin'
@@ -163,6 +161,7 @@ end
 
 group :test do
   gem 'rake'
+  gem 'database_cleaner'
   gem 'colorize'
   gem "fakeredis", :require => "fakeredis/rspec"
   gem "fakeweb", "~> 1.3"
