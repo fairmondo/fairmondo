@@ -233,6 +233,22 @@ describe User do
       end
     end
 
+    describe "#calculate_percentage_of_biased_ratings" do
+
+      before :each do
+        user.stub_chain(:ratings,:limit) { Rating }
+        Rating.should_receive(:count).and_return({ "positive" => 7, "negative" => 1, "neutral" => 2})
+      end
+
+      it "should be calculated correctly for positive ratings" do
+        user.calculate_percentage_of_biased_ratings('positive',10).should eq 70.0
+      end
+      it "should be calculated correctly for negative ratings" do
+        user.calculate_percentage_of_biased_ratings('negative',10).should eq 10.0
+      end
+
+    end
+
   end
 
 
@@ -651,32 +667,9 @@ describe User do
   describe "seller rating" do
     describe PrivateUser do
       let(:private_seller) { FactoryGirl::create(:private_user) }
+
       before :each do
-        private_seller.ratings.stub(:count){ 100 }
-      end
-
-      context "percentage of ratings" do
-        before :each do
-          7.times do
-            FactoryGirl.create( :positive_rating, :rated_user => private_seller )
-          end
-          2.times do
-            FactoryGirl.create( :neutral_rating, :rated_user => private_seller )
-          end
-          1.times do
-            FactoryGirl.create( :negative_rating, :rated_user => private_seller )
-          end
-        end
-
-        it "should be calculated correctly for positive ratings" do
-          private_seller.update_rating_counter
-          private_seller.calculate_percentage_of_biased_ratings('positive',10).should eq 70.0
-        end
-        it "should be calculated correctly for negative ratings" do
-          private_seller.update_rating_counter
-          private_seller.calculate_percentage_of_biased_ratings('negative',10).should eq 10.0
-        end
-
+        private_seller.ratings.stub(:count) { 21 }
       end
 
       context "with negative ratings over 25%" do

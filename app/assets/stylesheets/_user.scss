@@ -253,9 +253,6 @@
 	}
 	.User-registration-checkbox {
 		@include span-columns(4, 4);
-		@include at-breakpoint($layout-medium) {
-			@include span-columns(2, 3);
-		}
 	}
 	@include at-breakpoint($layout-small) {
 		.stringish {

@@ -50,7 +50,7 @@ end
 
 require_relative 'fixtures/category_seed_data.rb'
 include CategorySeedData
-setup_categories
+seed_categories
 
 15.times do
   FactoryGirl.create :article, :without_image, :categories_and_ancestors => [@categories.sample.id]

@@ -22,7 +22,6 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Article Template management' do
-  include CategorySeedData
 
   context "for signed-in users" do
 
