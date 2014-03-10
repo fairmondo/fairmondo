@@ -195,14 +195,19 @@
 //
 //________________________________
 
-// .Category-index-parent {
-//   @include span-columns(1,3);
-//   @include nth-omega(3n);
-//   background:white;
-//   @include rem(padding, 10px 20px);
-//   @include border-radius(8px);
-//   margin-bottom: 2em;
-//   &:nth-child(3n+1) {
-//     clear:both;
-//   }
-// }
+.Category-index-parent {
+  background:white;
+  @include rem(padding, 10px 20px);
+  @include border-radius(8px);
+}
+.Category-index-parent ul {
+  padding-left: 15px;
+}
+.Category-index-parent li {
+  list-style-type: none;
+  word-wrap:break-word;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+}
