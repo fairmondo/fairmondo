@@ -103,10 +103,8 @@ describe User do
 
     context "on create" do
       subject { User.new }
-      it { should validate_acceptance_of :privacy }
-      it { should validate_acceptance_of :legal }
       it { should validate_acceptance_of :agecheck }
-      it { should validate_presence_of :recaptcha }
+      it { should validate_acceptance_of :legal }
     end
 
     context "on update" do

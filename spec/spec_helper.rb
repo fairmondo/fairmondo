@@ -96,16 +96,7 @@ RSpec.configure do |config|
 
      # Initialize some Categories
 
-    Category.find_or_create_by_name("Fahrzeuge")
-    electronic = Category.find_or_create_by_name("Elektronik")
-    Category.find_or_create_by_name("Haus & Garten")
-    Category.find_or_create_by_name("Freizeit & Hobby")
-    Category.find_or_create_by_name("Sonstiges")
-    computer = Category.find_or_create_by_name("Computer", :parent => electronic)
-    Category.find_or_create_by_name("Audio & HiFi", :parent => electronic)
-    Category.find_or_create_by_name("Hardware", :parent => computer)
-    Category.find_or_create_by_name("Software", :parent => computer)
-    Category.rebuild!
+    setup_categories
 
 
   end
