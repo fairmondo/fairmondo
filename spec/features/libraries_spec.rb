@@ -56,22 +56,6 @@ describe 'Library' do
     end
   end
 
-  describe "Global Libraries" do
-    it "should show selector div.pagination" do
-      30.times do FactoryGirl.create :library, :public end
-      visit libraries_path
-      page.should have_selector('div.pagination')
-    end
-  end
-
-  describe "User's library index" do
-    it "should show selector div.pagination" do
-      30.times do FactoryGirl.create :library, :user_id => @user.id end
-      visit user_libraries_path @user
-      page.should have_selector('div.pagination')
-    end
-  end
-
   context "with an existing library" do
     before do
       @lib = FactoryGirl.create :library, name: 'foobar', user: @user
