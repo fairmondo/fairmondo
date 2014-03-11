@@ -27,7 +27,6 @@ require 'spec_helper'
 
 include Warden::Test::Helpers
 include BulletMatcher
-include CategorySeedData
 
 describe 'Performance' do
   before { Bullet.start_request }

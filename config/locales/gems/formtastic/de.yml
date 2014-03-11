@@ -46,7 +46,7 @@ de:
         bic: "BIC"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
         paypal_and_bank_account: "PayPal- und Bankkonto"
-        paypal_account: "Paypal ID"
+        paypal_account: "Deine Paypal E-Mail-Adresse"
         customer_number: "Kundennummer"
         direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
         direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
@@ -227,7 +227,7 @@ de:
           terms: "Trage hier Deine AGB ein."
           cancellation: "Trage hier Deine Widerrufsbelehrung und Rücknahmekonditionen ein."
           about: "Trage hier Dein Impressum und Deine Kontaktdaten ein."
-          paypal_account: "Deine PayPal ID ist Deine für PayPal genutzte E-Mail-Adresse."
+          paypal_account: "Trage hier Deine für PayPal genutzte E-Mail-Adresse ein (auch PayPal ID genannt)."
           iban: "Trage hier die IBAN ohne Leerzeichen ein."
           bic: "Trage hier den BIC ohne Leerzeichen ein."
         update: *edit_user

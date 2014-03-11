@@ -25,14 +25,7 @@
 
 - resource.categories.each do |leaf|
   .Breadcrumb
-    - category_tree = get_category_tree leaf
-    - category_tree.each do |category|
-      - last = category_tree.last == category
-      %span
-        %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids }),
-           class: (last ? 'last' : nil )}
-          = category.name
-      = '>' unless last
+    = breadcrumbs_for(leaf).html_safe
 
 .Article.Article--detail
   = render "/articles/show/article_contents", :article => resource

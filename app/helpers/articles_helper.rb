@@ -1,4 +1,4 @@
-#
+# encoding: utf-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -26,6 +26,50 @@ module ArticlesHelper
   def condition_label article
     # bclass=condition_badge_class(article.condition)
     '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
+  end
+
+  def breadcrumbs_for category_leaf
+    category_tree = get_category_tree category_leaf
+    output = ''
+    category_tree.each do |category|
+      last = category_tree.last == category
+      output += '<span>'
+      output += "<a href='#{articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}' class='#{(last ? 'last' : nil )}'>"
+      output += category.name
+      output += '</a>'
+      output += '</span>'
+      output += ' > ' unless last
+    end
+
+    output
+  end
+
+  # Build title string
+  # @TODO internationalize
+  def index_title_for search_article
+    output = ''
+    attribute_list = []
+
+    attribute_list << 'neue' if search_article.condition == 'new'
+    attribute_list << 'gebrauchte' if search_article.condition == 'old'
+    attribute_list << 'fair produzierte' if search_article.fair
+    attribute_list << 'ökologische' if search_article.ecologic
+    attribute_list << 'klein&edle' if search_article.small_and_precious
+
+    attribute_count = attribute_list.count
+    prelast_index = attribute_count - 2
+    attribute_list.each_with_index do |attribute, index|
+      attribute = attribute.titleize if index == 0
+      output += attribute
+      output += ', ' if attribute_count > 2 && index < prelast_index
+      output += ' und ' if attribute_count > 1 && index == prelast_index
+      output += ' ' if index > prelast_index
+    end
+
+    if search_article.categories[0]
+      output += search_article.categories[0].name
+    end
+    output += ' Artikel'
   end
 
   def get_category_tree category

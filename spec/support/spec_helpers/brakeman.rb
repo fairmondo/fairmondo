@@ -22,7 +22,7 @@
 require 'json'
 
 # Check security
-after_suite do
+def brakeman
   unless $skip_audits
     puts "\n\n[Brakeman] Security Audit:\n".underline
     result = JSON.parse %x( bundle exec rake test:brakeman )
