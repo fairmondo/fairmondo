@@ -19,6 +19,12 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+- title index_title_for @search_cache
+
+- if @search_cache.categories[0]
+  %h1.CategorySearchBreadcrumb
+    = breadcrumbs_for(@search_cache.categories[0]).html_safe
+
 - if !params[:article] && !params[:page] && !params[:queue]
   .Highlight
     %h2 FAIRNOPOLY MAG
