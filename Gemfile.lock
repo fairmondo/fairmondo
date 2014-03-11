@@ -253,6 +253,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    paypal_adaptive (0.3.7)
+      json (~> 1.0)
+      jsonschema (~> 2.0.0)
     pg (0.17.1)
     polyglot (0.3.4)
     pr_geohash (1.0.0)
@@ -506,6 +509,7 @@ DEPENDENCIES
   money-rails (~> 0.8.1)
   newrelic_rpm
   paperclip (>= 3.0)
+  paypal_adaptive
   pg
   pundit
   rails (~> 3.2.17)
