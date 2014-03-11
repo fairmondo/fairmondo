@@ -57,6 +57,12 @@ Rails.logger.level = 4
 File.open(Rails.root.join('log/test.log'), 'w') {|f| f.truncate(0) } # clear test log
 
 
+silence_warnings do
+  BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
+end
+
+
+
 ### RSpec Configurations ###
 
 RSpec.configure do |config|
@@ -106,7 +112,7 @@ RSpec.configure do |config|
     brakeman
   end
 
-  config.before(:each) do
+  config.before(:each) do |x|
     DatabaseCleaner.start
   end
 
@@ -121,6 +127,7 @@ RSpec.configure do |config|
   end
 
 
+
 end
 
 
@@ -130,4 +137,8 @@ def setup
     DatabaseCleaner.start
     DatabaseCleaner.strategy = nil
 end
+
+
+
+
 
