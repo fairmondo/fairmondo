@@ -25,10 +25,8 @@
 
 # describe "ArticleTemplates" do
 #   describe "GET /article_templates/new" do
-#     include CategorySeedData
 
 #     before :each do
-#       setup_categories
 #       @user = FactoryGirl.create(:user)
 #       login_as @user
 #     end

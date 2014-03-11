@@ -22,11 +22,12 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe "Feedback" do
-
+  before(:all) do
+     @user = FactoryGirl.create :user
+     login_as @user
+  end
   describe "get_help" do
-    it "should work" do
-      @user = FactoryGirl.create :user
-      login_as @user
+    it "should send an email" do
 
       visit new_feedback_path(:variety => "get_help")
 
@@ -43,9 +44,7 @@ describe "Feedback" do
   end
 
   describe "send_feedback" do
-    it "should work" do
-      @user = FactoryGirl.create :user
-      login_as @user
+    it "should send an email" do
 
       visit new_feedback_path(:variety => "send_feedback")
 
@@ -62,9 +61,7 @@ describe "Feedback" do
   end
 
   describe "become_donation_partner" do
-    it "should work" do
-      @user = FactoryGirl.create :user
-      login_as @user
+    it "should send an email" do
 
       visit new_feedback_path(:variety => "become_donation_partner")
 

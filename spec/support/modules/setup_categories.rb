@@ -1,4 +1,4 @@
-#
+# encoding: utf-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,21 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Check for best practices
-def rails_best_practices
-  unless $skip_audits
-    puts "\n\n[RailsBestPractices] Testing:\n".underline
-    bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
-    bp_analyzer.analyze
 
-    # Console output:
-    bp_analyzer.output
 
-    # Generate HTML as well:
-    options = bp_analyzer.instance_variable_get :@options
-    bp_analyzer.instance_variable_set :@options, options.merge({'format' => 'html'})
-    bp_analyzer.output
-
-    exit 1 if bp_analyzer.runner.errors.size > 0
-  end
+def setup_categories
+  Category.find_or_create_by_name("Fahrzeuge")
+  electronic = Category.find_or_create_by_name("Elektronik")
+  Category.find_or_create_by_name("Haus & Garten")
+  Category.find_or_create_by_name("Freizeit & Hobby")
+  Category.find_or_create_by_name("Sonstiges")
+  computer = Category.find_or_create_by_name("Computer", :parent => electronic)
+  Category.find_or_create_by_name("Audio & HiFi", :parent => electronic)
+  Category.find_or_create_by_name("Hardware", :parent => computer)
+  Category.find_or_create_by_name("Software", :parent => computer)
+  Category.rebuild!
 end
+
+
