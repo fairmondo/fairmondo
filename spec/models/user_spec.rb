@@ -30,6 +30,68 @@ describe User do
     should be_valid
   end
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :slug }
+    it { should respond_to :email }
+    it { should respond_to :encrypted_password }
+    it { should respond_to :reset_password_token }
+    it { should respond_to :sign_in_count }
+    it { should respond_to :reset_password_sent_at }
+    it { should respond_to :current_sign_in_at }
+    it { should respond_to :last_sign_in_ip }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :forename }
+    it { should respond_to :surname }
+    it { should respond_to :nickname }
+    it { should respond_to :invitor_id }
+    it { should respond_to :trustcommunity }
+    it { should respond_to :confirmation_token }
+    it { should respond_to :confirmed_at }
+    it { should respond_to :confirmation_sent_at }
+    it { should respond_to :unconfirmed_email }
+    it { should respond_to :banned }
+    it { should respond_to :about_me }
+    it { should respond_to :terms }
+    it { should respond_to :cancellation }
+    it { should respond_to :about }
+    it { should respond_to :title }
+    it { should respond_to :country }
+    it { should respond_to :street }
+    it { should respond_to :city }
+    it { should respond_to :zip }
+    it { should respond_to :phone }
+    it { should respond_to :mobile }
+    it { should respond_to :fax }
+    it { should respond_to :type }
+    it { should respond_to :ngo }
+    it { should respond_to :bank_account_owner }
+    it { should respond_to :bank_account_number }
+    it { should respond_to :bank_code }
+    it { should respond_to :bank_name }
+    it { should respond_to :iban }
+    it { should respond_to :bic }
+    it { should respond_to :paypal_account }
+    it { should respond_to :company_name }
+    it { should respond_to :seller_state }
+    it { should respond_to :buyer_state }
+    it { should respond_to :verified }
+    it { should respond_to :bankaccount_warning }
+    it { should respond_to :percentage_of_positive_ratings }
+    it { should respond_to :percentage_of_negative_ratings }
+    it { should respond_to :percentage_of_neutral_ratings }
+    it { should respond_to :direct_debit }
+    it { should respond_to :address_suffix }
+    it { should respond_to :value_of_goods_cents }
+    it { should respond_to :max_value_of_goods_cents }
+    it { should respond_to :max_value_of_goods_cents_bonus }
+    it { should respond_to :fastbill_subscription_id }
+    it { should respond_to :fastbill_id }
+    it { should respond_to :vacationing }
+    it { should respond_to :admin }
+
+  end
   describe "associations" do
     it { should have_many(:articles).dependent(:destroy) }
     #it { should have_many(:bids).dependent(:destroy) }
@@ -131,7 +193,7 @@ describe User do
       end
       it { should validate_presence_of :forename }
       it { should validate_presence_of :surname }
-      it {should validate_presence_of :zip}
+      it { should validate_presence_of :zip}
       it { should validate_presence_of :country }
       it { should validate_presence_of :street }
       it { should validate_presence_of :city }
