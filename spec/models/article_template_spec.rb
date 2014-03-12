@@ -30,6 +30,14 @@ describe ArticleTemplate do
     should be_valid
   end
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :name }
+    it { should respond_to :user_id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+  end
+
   describe "associations" do
     it {should belong_to :user}
     it {should have_one(:article).dependent(:destroy)}

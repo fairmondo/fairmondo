@@ -21,6 +21,18 @@
 #
 require 'spec_helper'
 
+describe MultipleFixedPriceTransaction do
+  describe "attributes" do
+    it { should respond_to :quantity_available }
+  end
+end
+
+describe PartialFixedPriceTransaction do
+  describe "attributes" do
+    it { should respond_to :quantity_bought }
+  end
+end
+
 describe Transaction do
   describe "attributes" do
     it { should respond_to :selected_transport }
@@ -34,8 +46,6 @@ describe Transaction do
     it { should respond_to :expire }
     it { should respond_to :buyer_id }
     it { should respond_to :state }
-    it { should respond_to :quantity_available }
-    it { should respond_to :quantity_bought }
     it { should respond_to :parent_id }
     it { should respond_to :article_id }
     it { should respond_to :forename }
@@ -58,13 +68,6 @@ describe Transaction do
   describe "associations" do
     it { should belong_to :article }
     it { should belong_to :buyer  }
-  end
-
-  describe "model attributes" do
-    it { should respond_to :type }
-    it { should respond_to :selected_transport }
-    it { should respond_to :selected_payment }
-    it { should respond_to :tos_accepted }
   end
 
   describe "enumerization" do

@@ -2,15 +2,24 @@ require 'spec_helper'
 
 describe Feedback do
   describe "attributes" do
-    it { should respond_to 'from' }
-    it { should respond_to 'subject' }
-    it { should respond_to 'text' }
-    it { should respond_to 'to' }
-    it { should respond_to 'variety' }
-    it { should respond_to 'user_id' }
-    it { should respond_to 'article_id' }
-    it { should respond_to 'feedback_subject' }
-    it { should respond_to 'help_subject' }
+    it { should respond_to :id }
+    it { should respond_to :from }
+    it { should respond_to :subject }
+    it { should respond_to :text }
+    it { should respond_to :to }
+    it { should respond_to :variety }
+    it { should respond_to :user_id }
+    it { should respond_to :article_id }
+    it { should respond_to :feedback_subject }
+    it { should respond_to :help_subject }
+    it { should respond_to :source_page }
+    it { should respond_to :user_agent }
+    it { should respond_to :forename }
+    it { should respond_to :lastname }
+    it { should respond_to :organisation }
+    it { should respond_to :phone }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
   end
 
   describe "associations" do
