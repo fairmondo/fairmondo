@@ -82,7 +82,6 @@ Gemfile.local
 *.swm
 
 
-.ruby-version
 .ruby-gemset
 
 # compass sprites
