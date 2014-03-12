@@ -5,7 +5,8 @@ describe FairTrustQuestionnaire do
     it { should respond_to :id }
     it { should respond_to :article_id }
     it { should respond_to :support }
-    it { should respond_to :support_checkboxes } it { should respond_to :support_explanation }
+    it { should respond_to :support_checkboxes }
+    it { should respond_to :support_explanation }
     it { should respond_to :support_other }
     it { should respond_to :labor_conditions }
     it { should respond_to :labor_conditions_checkboxes }
