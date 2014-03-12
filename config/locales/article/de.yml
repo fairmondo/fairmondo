@@ -60,6 +60,13 @@ de:
         success_notice: 'Deine Nachricht wurde an den*die Verkäufer*in übermittelt.'
         action: 'Nachricht senden'
         mail_subject: "Nutzer*innen-Rückfrage zu Deinem Artikel auf Fairnopoly"
+      title:
+        new: 'neue'
+        old: 'gebrauchte'
+        fair: 'fair produzierte'
+        ecologic: 'ökologische'
+        small_and_precious: 'klein&edle'
+        article: 'Artikel'
     hero:
       search: "Suche nach"
       filter: "Filter nach"
