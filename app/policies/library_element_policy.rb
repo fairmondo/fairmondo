@@ -43,6 +43,6 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
     end
 
     def active?
-      library_element.article.active?
+      library_element.article && library_element.article.active?
     end
 end
