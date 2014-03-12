@@ -28,6 +28,23 @@ module ArticlesHelper
     '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
   end
 
+  # Build title string
+  def index_title_for search_article
+    attribute_list = ::HumanLanguageList.new
+    attribute_list << t('article.show.title.new') if search_article.condition == 'new'
+    attribute_list << t('article.show.title.old') if search_article.condition == 'old'
+    attribute_list << t('article.show.title.fair') if search_article.fair
+    attribute_list << t('article.show.title.ecologic') if search_article.ecologic
+    attribute_list << t('article.show.title.small_and_precious') if search_article.small_and_precious
+
+    output = attribute_list.concatenate.capitalize + ' '
+
+    if search_article.categories[0]
+      output += search_article.categories[0].name + ' '
+    end
+    output += t('article.show.title.article')
+  end
+
   def breadcrumbs_for category_leaf
     category_tree = get_category_tree category_leaf
     output = ''
@@ -42,34 +59,6 @@ module ArticlesHelper
     end
 
     output
-  end
-
-  # Build title string
-  # @TODO internationalize
-  def index_title_for search_article
-    output = ''
-    attribute_list = []
-
-    attribute_list << 'neue' if search_article.condition == 'new'
-    attribute_list << 'gebrauchte' if search_article.condition == 'old'
-    attribute_list << 'fair produzierte' if search_article.fair
-    attribute_list << 'ökologische' if search_article.ecologic
-    attribute_list << 'klein&edle' if search_article.small_and_precious
-
-    attribute_count = attribute_list.count
-    prelast_index = attribute_count - 2
-    attribute_list.each_with_index do |attribute, index|
-      attribute = attribute.titleize if index == 0
-      output += attribute
-      output += ', ' if attribute_count > 2 && index < prelast_index
-      output += ' und ' if attribute_count > 1 && index == prelast_index
-      output += ' ' if index > prelast_index
-    end
-
-    if search_article.categories[0]
-      output += search_article.categories[0].name
-    end
-    output += ' Artikel'
   end
 
   def get_category_tree category
