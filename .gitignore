@@ -28,7 +28,6 @@ vendor/bundle
 # Ignore default SQLite database
 db/*.sqlite3
 db/*.sqlite3-journal
-db/schema.rb
 
 # Ignore codecoverage report
 coverage

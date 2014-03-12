@@ -140,6 +140,7 @@ GEM
       term-ansicolor
       thor
     daemons (1.1.9)
+    dalli (2.7.0)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger (1.6.6)
@@ -475,6 +476,7 @@ DEPENDENCIES
   compass (~> 0.13.alpha.12)
   compass-rails
   coveralls
+  dalli
   database_cleaner
   debugger
   debugger-linecache

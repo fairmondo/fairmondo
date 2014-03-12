@@ -81,5 +81,15 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  # Rails 4 included feature
+  def cache_if (condition, name = {}, &block)
+    if condition
+      cache(name, &block)
+    else
+      yield
+    end
+  end
+
+
 
 end
