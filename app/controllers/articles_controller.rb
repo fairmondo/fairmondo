@@ -219,7 +219,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def build_search_cache
-     @search_cache = Article.new(permitted_params[:article])
+      @search_cache = Article.new(permitted_params[:article])
     end
 
 
