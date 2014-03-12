@@ -50,10 +50,10 @@ describe "Mass-upload" do
 
     before do
       login_as legal_entity_user
-      visit new_article_path
     end
 
     it "should have a csv upload link" do
+      visit new_article_path
       should have_link(I18n.t('users.boxes.import'))
     end
 
@@ -280,22 +280,6 @@ describe "Mass-upload" do
         end
 
         context "(invalid file:" do
-
-          #describe "csv, wrong header)" do
-          #  before { attach_file('mass_upload_file',
-          #                       'spec/fixtures/mass_upload_wrong_header.csv') }
-          #
-          #  it "should show correct error messages" do
-          #    click_button I18n.t('mass_uploads.labels.upload_article')
-          #    should have_selector('p.inline-errors',
-          #      text: I18n.t('mass_uploads.errors.wrong_header'))
-          #  end
-          #
-          #  it "should not create new articles" do
-          #    expect { click_button I18n.t('mass_uploads.labels.upload_article') }
-          #            .not_to change(Article, :count)
-          #  end
-          #end
 
           describe "csv, wrong articles)" do
             before { attach_file('mass_upload_file',

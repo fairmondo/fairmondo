@@ -34,7 +34,7 @@ module Article::Search
       end
     end
 
-    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive, :most_donated] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
+    enumerize :search_order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated] #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
 
     alias :search_in_content? :search_in_content
 
@@ -110,6 +110,16 @@ module Article::Search
         order_by(:price_cents, :asc)
       when "most_expensive"
         order_by(:price_cents, :desc)
+      when "old"
+        order_by(:condition, :desc)
+      when "new"
+        order_by(:condition, :asc)
+      when "fair"
+        order_by(:fair, :desc)
+      when "ecologic"
+        order_by(:ecologic, :desc)
+      when "small_and_precious"
+        order_by(:small_and_precious, :desc)
       when "most_donated"
         order_by(:friendly_percent, :desc)
       else

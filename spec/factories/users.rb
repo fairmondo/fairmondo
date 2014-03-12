@@ -54,7 +54,7 @@ FactoryGirl.define do
     iban {["DE","AT","CH"].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
     bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
 
-    direct_debit '1'
+    direct_debit true
 
     trait :missing_bank_data do
       bank_code ""

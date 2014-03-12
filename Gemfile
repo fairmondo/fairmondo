@@ -150,6 +150,7 @@ group :development, :test do
 
   # Notify about n+1 queries
   gem 'bullet', github: 'flyerhzm/bullet'
+
 end
 
 group :development do
@@ -163,6 +164,9 @@ group :development do
 end
 
 group :test do
+  # Sqlite inmemory fix
+  gem 'memory_test_fix'
+
   gem 'rake'
   gem 'database_cleaner'
   gem 'colorize'
