@@ -47,6 +47,9 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq-failures'
 
+# Memcached
+gem 'dalli'
+
 # Sidekiq Integrations
 gem "sunspot-queue" # sidekiq
 gem 'delayed_paperclip', :github => 'fairnopoly/delayed_paperclip'
