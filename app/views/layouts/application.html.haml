@@ -107,7 +107,7 @@
           = yield
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
-          - cache "ngo_logosand_known_from"
+          - cache "ngo_logosand_known_from" do
             = render "welcome/ngo_logobox"
             .l-Teaser--socialshare
               .Articles-social#socialshareprivacy
