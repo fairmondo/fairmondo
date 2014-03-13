@@ -62,10 +62,6 @@ gem "pundit" # authorization
 # Support for memoization
 gem 'memoist'
 
-# Should be only in development but else migration fails
-gem 'factory_girl_rails'
-gem 'faker'
-
 # Rails Admin
 gem 'rails_admin' , "0.4.9"
 
@@ -176,4 +172,6 @@ end
 
 group :development,:test,:staging do
   gem 'sunspot_solr' , '~> 2.0.0'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end

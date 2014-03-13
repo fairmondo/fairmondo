@@ -24,30 +24,30 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
-    t.text     "content",                                :limit => 255
-    t.datetime "created_at",                                                               :null => false
-    t.datetime "updated_at",                                                               :null => false
+    t.text     "content"
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
     t.integer  "user_id",                                :limit => 8
     t.string   "condition"
-    t.integer  "price_cents",                            :limit => 8,   :default => 100
+    t.integer  "price_cents",                            :limit => 8, :default => 100
     t.string   "currency"
-    t.boolean  "fair",                                                  :default => false
+    t.boolean  "fair",                                                :default => false
     t.string   "fair_kind"
     t.string   "fair_seal"
-    t.boolean  "ecologic",                                              :default => false
+    t.boolean  "ecologic",                                            :default => false
     t.string   "ecologic_seal"
-    t.boolean  "small_and_precious",                                    :default => false
+    t.boolean  "small_and_precious",                                  :default => false
     t.text     "small_and_precious_reason"
-    t.boolean  "small_and_precious_handmade",                           :default => false
-    t.integer  "quantity",                                              :default => 1
+    t.boolean  "small_and_precious_handmade",                         :default => false
+    t.integer  "quantity",                                            :default => 1
     t.text     "transport_details"
     t.text     "payment_details"
-    t.integer  "friendly_percent",                       :limit => 3,   :default => 0
+    t.integer  "friendly_percent",                                    :default => 0
     t.text     "friendly_percent_organisation"
     t.integer  "article_template_id",                    :limit => 8
-    t.integer  "calculated_fair_cents",                  :limit => 8,   :default => 0,     :null => false
-    t.integer  "calculated_friendly_cents",              :limit => 8,   :default => 0,     :null => false
-    t.integer  "calculated_fee_cents",                   :limit => 8,   :default => 0,     :null => false
+    t.integer  "calculated_fair_cents",                  :limit => 8, :default => 0,     :null => false
+    t.integer  "calculated_friendly_cents",              :limit => 8, :default => 0,     :null => false
+    t.integer  "calculated_fee_cents",                   :limit => 8, :default => 0,     :null => false
     t.string   "condition_extra"
     t.boolean  "small_and_precious_eu_small_enterprise"
     t.string   "ecologic_kind"
@@ -58,22 +58,22 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
     t.boolean  "transport_type2"
     t.string   "transport_type1_provider"
     t.string   "transport_type2_provider"
-    t.integer  "transport_type1_price_cents",                           :default => 0,     :null => false
-    t.integer  "transport_type2_price_cents",                           :default => 0,     :null => false
+    t.integer  "transport_type1_price_cents",                         :default => 0,     :null => false
+    t.integer  "transport_type2_price_cents",                         :default => 0,     :null => false
     t.boolean  "payment_bank_transfer"
     t.boolean  "payment_cash"
     t.boolean  "payment_paypal"
     t.boolean  "payment_cash_on_delivery"
     t.boolean  "payment_invoice"
-    t.integer  "payment_cash_on_delivery_price_cents",                  :default => 0,     :null => false
-    t.integer  "basic_price_cents",                                     :default => 0
+    t.integer  "payment_cash_on_delivery_price_cents",                :default => 0,     :null => false
+    t.integer  "basic_price_cents",                                   :default => 0
     t.string   "basic_price_amount"
     t.string   "state"
-    t.integer  "vat",                                                   :default => 0
+    t.integer  "vat",                                                 :default => 0
     t.string   "custom_seller_identifier"
     t.string   "gtin"
-    t.integer  "transport_type1_number",                                :default => 1
-    t.integer  "transport_type2_number",                                :default => 1
+    t.integer  "transport_type1_number",                              :default => 1
+    t.integer  "transport_type2_number",                              :default => 1
     t.integer  "discount_id"
   end
 
@@ -120,9 +120,9 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
 
   create_table "contents", :force => true do |t|
     t.string   "key"
-    t.text     "body",       :limit => 255
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "contents", ["key"], :name => "index_tinycms_contents_on_key", :unique => true
@@ -194,13 +194,13 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
     t.string   "from"
     t.string   "to"
     t.string   "variety"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "user_id",          :limit => 8
     t.integer  "article_id",       :limit => 8
     t.string   "feedback_subject"
     t.string   "help_subject"
-    t.text     "source_page",      :limit => 255
+    t.text     "source_page"
     t.string   "user_agent"
     t.string   "forename"
     t.string   "lastname"
@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
+    t.integer  "year",       :limit => 8
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
@@ -346,15 +346,15 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
 
   create_table "transactions", :force => true do |t|
     t.string   "type"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                        :default => false
+    t.boolean  "tos_accepted",                      :default => false
     t.integer  "buyer_id",             :limit => 8
     t.string   "state"
-    t.text     "message",              :limit => 255
+    t.text     "message"
     t.integer  "quantity_available"
     t.integer  "quantity_bought"
     t.integer  "parent_id",            :limit => 8
@@ -367,13 +367,13 @@ ActiveRecord::Schema.define(:version => 20140305043823) do
     t.string   "country"
     t.integer  "seller_id",            :limit => 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",                :default => false
+    t.boolean  "purchase_emails_sent",              :default => false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                     :default => false
-    t.boolean  "billed_for_fee",                      :default => false
-    t.boolean  "billed_for_discount",                 :default => false
+    t.boolean  "billed_for_fair",                   :default => false
+    t.boolean  "billed_for_fee",                    :default => false
+    t.boolean  "billed_for_discount",               :default => false
   end
 
   add_index "transactions", ["article_id"], :name => "index_transactions_on_article_id"
