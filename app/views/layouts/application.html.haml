@@ -107,10 +107,11 @@
           = yield
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
-          = render "welcome/ngo_logobox"
-          .l-Teaser--socialshare
-            .Articles-social#socialshareprivacy
-          = render "welcome/known_from"
+          - cache "ngo_logosand_known_from"
+            = render "welcome/ngo_logobox"
+            .l-Teaser--socialshare
+              .Articles-social#socialshareprivacy
+            = render "welcome/known_from"
     - cache "footer" do
       %footer.l-Footer
         .Footer--top
