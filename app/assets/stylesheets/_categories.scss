@@ -151,7 +151,8 @@
       display:block;
       word-wrap: break-word;
       a {
-        padding: 1em;
+        @include rem(padding, 6px 14px);
+        border-bottom: 1px solid #efefef;
         display:block;
       }
       &:hover {
