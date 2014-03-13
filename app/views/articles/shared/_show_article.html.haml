@@ -19,24 +19,24 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+- cache [article, "thumbnail"] do
+  %figure.Article-image
+    = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
 
-%figure.Article-image
-  = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+  .Article-info
 
-.Article-info
+    %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
+    %p.Article-price= humanized_money_with_symbol article.price
+    = render 'articles/show/vat', :article => article
+    = render '/articles/show/basic_price', :article => article
+    = render '/articles/show/ngo_donation', :article => article
+  .Article-tags
+    = condition_label article
+    = commendation_labels_for article
 
-  %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
-  %p.Article-price= humanized_money_with_symbol article.price
-  = render 'articles/show/vat', :article => article
-  = render '/articles/show/basic_price', :article => article
-  = render '/articles/show/ngo_donation', :article => article
-.Article-tags
-  = condition_label article
-  = commendation_labels_for article
-
-- if User.is_admin?(current_user) && article.exhibits.present?
-  .Article-admin
-    %p= 'löschen aus:'
-    - article.exhibits.each do |exhibit|
-      - if exhibit.queue
-        = (link_to t('enumerize.exhibit.queue.' + exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"
+  - if User.is_admin?(current_user) && article.exhibits.present?
+    .Article-admin
+      %p= 'löschen aus:'
+      - article.exhibits.each do |exhibit|
+        - if exhibit.queue
+          = (link_to t('enumerize.exhibit.queue.' + exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"

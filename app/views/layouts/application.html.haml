@@ -111,75 +111,75 @@
           .l-Teaser--socialshare
             .Articles-social#socialshareprivacy
           = render "welcome/known_from"
+    - cache "footer" do
+      %footer.l-Footer
+        .Footer--top
+          .l-Inner
+            .Logo
+              %h4
+                %a{:href => "/"}
+                  %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
+            %nav.Nav.Nav--meta
+              %ul
+                %li
+                  .l-Feedback
+                    %a.Btn.Feedback{:href=>new_feedback_path(:variety => :get_help)}
+                      %i.icon-help
+                      = t('common.text.help')
+                    %a.Btn.Feedback{:href=>new_feedback_path(:variety => :send_feedback)}
+                      %i.icon-feedback
+                      = t('common.text.feedback')
+                    %a.Btn.Btn--green.Feedback{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
+                      %i.icon-shares
+                      = t('common.text.shares')
 
-    %footer.l-Footer
-      .Footer--top
-        .l-Inner
-          .Logo
-            %h4
-              %a{:href => "/"}
-                %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
-          %nav.Nav.Nav--meta
-            %ul
-              %li
-                .l-Feedback
-                  %a.Btn.Feedback{:href=>new_feedback_path(:variety => :get_help)}
-                    %i.icon-help
-                    = t('common.text.help')
-                  %a.Btn.Feedback{:href=>new_feedback_path(:variety => :send_feedback)}
-                    %i.icon-feedback
-                    = t('common.text.feedback')
-                  %a.Btn.Btn--green.Feedback{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
-                    %i.icon-shares
-                    = t('common.text.shares')
-
-              %li
-                %a{:href => "/faq"}
-                  = t('footer.faq')
-              %li
-                %a{:href => "http://info.fairnopoly.de/forum/"}
-                  = t('footer.forum')
-              %li
-                %a{:href => "/contact"}
-                  = t('footer.contact')
-              %li
-                %a{:href => "/about_us"}
-                  = t('footer.about_us')
-              %li
-                %a{:href => "/philosophy"}
-                  = t('footer.philosophy')
-              %li
-                %a{:href => "http://info.fairnopoly.de/pressekit/"}
-                  = t('footer.press')
-              %li
-                %a{:href => "http://info.fairnopoly.de/team/"}
-                  = t('footer.team')
-              - if User.is_admin? current_user
                 %li
-                  = link_to t('users.menu.admin'), "/admin"
+                  %a{:href => "/faq"}
+                    = t('footer.faq')
                 %li
-                  = link_to 'Manage Pages', "/contents"
+                  %a{:href => "http://info.fairnopoly.de/forum/"}
+                    = t('footer.forum')
                 %li
-                  = link_to 'Statistics', "/statistics/general"
-              %li.last
-                %a{:href => "http://info.fairnopoly.de"}
-                  = t('footer.blog')
-          .Social
-      .Footer--bottom
-        .l-Inner
-          .Copyright
-            %p &copy; Copyright 2014 Fairnopoly eG
-          .Nav.Nav--legal
-            %ul
-              %li
-                %a{:href => "/agb"}
-                  = t('footer.agb')
-              %li
-                %a{:href => "/privacy"}
-                  = t('footer.privacy')
-              %li.last
-                %a{:href => "/imprint"}
-                  = t('footer.imprint')
+                  %a{:href => "/contact"}
+                    = t('footer.contact')
+                %li
+                  %a{:href => "/about_us"}
+                    = t('footer.about_us')
+                %li
+                  %a{:href => "/philosophy"}
+                    = t('footer.philosophy')
+                %li
+                  %a{:href => "http://info.fairnopoly.de/pressekit/"}
+                    = t('footer.press')
+                %li
+                  %a{:href => "http://info.fairnopoly.de/team/"}
+                    = t('footer.team')
+                - if User.is_admin? current_user
+                  %li
+                    = link_to t('users.menu.admin'), "/admin"
+                  %li
+                    = link_to 'Manage Pages', "/contents"
+                  %li
+                    = link_to 'Statistics', "/statistics/general"
+                %li.last
+                  %a{:href => "http://info.fairnopoly.de"}
+                    = t('footer.blog')
+            .Social
+        .Footer--bottom
+          .l-Inner
+            .Copyright
+              %p &copy; Copyright 2014 Fairnopoly eG
+            .Nav.Nav--legal
+              %ul
+                %li
+                  %a{:href => "/agb"}
+                    = t('footer.agb')
+                %li
+                  %a{:href => "/privacy"}
+                    = t('footer.privacy')
+                %li.last
+                  %a{:href => "/imprint"}
+                    = t('footer.imprint')
 
 
     -#--------------- Addittional Assets -----------------
