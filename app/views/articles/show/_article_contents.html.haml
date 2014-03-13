@@ -35,12 +35,13 @@
 
 
 %figure.Article-image
-  - if resource.title_image_present?
-    / The next line is for providing the proper title image to facebook
-    - provide( :title_image, resource.title_image_url(:medium) )
-    = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
-  - else
-    = link_to image_tag("missing.png", :class=> "title_image") , "#"
+  - cache [resource, "article_image"] do
+    - if resource.title_image_present?
+      / The next line is for providing the proper title image to facebook
+      - provide( :title_image, resource.title_image_url(:medium) )
+      = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
+    - else
+      = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .Article-info
   .Article-info--right
     - cache [resource,"basic_information"] do
@@ -87,34 +88,35 @@
         %strong= t 'users.states.vacationing'
 
   .Article-info--left
-    .Thumbnail-container
-      - resource.thumbnails.each do |image|
-        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
+    - cache [resource,resource.seller,"thumbnails_and_donations"] do
+      .Thumbnail-container
+        - resource.thumbnails.each do |image|
+          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
 
-    - if resource.seller.ngo
-      .Article-friendly
-        %p
-          =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
-    -else
-      .Article-friendly
-
-        - if resource.shows_fair_percent?
-          %p.Article--highlight
-            =t('article.show.fair_percent')
-            %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
+      - if resource.seller.ngo
+        .Article-friendly
           %p
-            =t('article.show.donate_html')
+            =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
+      -else
+        .Article-friendly
 
-        - if resource.has_friendly_percent? && resource.donated_ngo
-          %p.Article--highlight
-            =t('article.show.friendly_percent')
-            %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
-          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+          - if resource.shows_fair_percent?
+            %p.Article--highlight
+              =t('article.show.fair_percent')
+              %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
+            %p
+              =t('article.show.donate_html')
 
-    %p
-      -#Accordion--activated.Article-tags
-      = commendation_labels_for resource
-      = condition_label resource
+          - if resource.has_friendly_percent? && resource.donated_ngo
+            %p.Article--highlight
+              =t('article.show.friendly_percent')
+              %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
+            %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+
+      %p
+        -#Accordion--activated.Article-tags
+        = commendation_labels_for resource
+        = condition_label resource
 .Articles-social#socialshareprivacy
 .Article-accordion.Accordion--activated.Accordion--scrollToActive
   - cache [resource, "contents"] do
