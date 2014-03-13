@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
   # @param limit [Integer]
   # @return [Float]
   def calculate_percentage_of_biased_ratings bias, limit
-    biased_ratings = self.ratings.limit(limit).count(:group => :rating)
+    biased_ratings = self.ratings.order(:rating).limit(limit).count(:group => :rating)
     number_of_considered_ratings = biased_ratings.values.sum
     number_of_biased_ratings = biased_ratings[bias] || 0
     number_of_biased_ratings.fdiv(number_of_considered_ratings) * 100
