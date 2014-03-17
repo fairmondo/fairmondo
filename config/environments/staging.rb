@@ -95,4 +95,7 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
+  #Memcached
+  config.cache_store = :dalli_store, 'localhost', { :namespace => "fairnopoly", :expires_in => 1.day, :compress => true }
+
 end

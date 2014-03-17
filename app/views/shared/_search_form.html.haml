@@ -19,79 +19,80 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Hero-presearch
-  %ul.Hero-categories
-    - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
-    - croots.each do |category|
-      %li.Hero-category
-        %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
-          = category.name
-        - if category.children.present?
-          .Category-dropdown
-            = build_category_table(category.children).html_safe
-
-  .Hero-morecategories
-    %a#show-all-categories{:href => categories_path}
-      Alle Kategorien
-= semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
-  .Hero-search
-    .l-Inner
-      .l-Left
-        %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
-          %i.icon-box
-          Sammlungen
-      .l-Middle
-        = f.inputs :class => "Search" do
-          .Search-input
-            = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
-          .Search-extend.js-filter-toggle
-            = t('common.text.extended_search')
-          .Search-button
-            = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
-      .l-Right
-        %button.Btn.Filter-btn Suche starten
-    .Filter{ class: (is_search_result? ? 'is-active' : '') }
-      .Filter-inner
-        .Filter-col
-          %legend.Filter-title
-            Zustand
-            %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
-          %fieldset
-            - ( Article.condition.options.reverse + [["egal","all"]]).each do |option|
-              = f.label :condition , :value => option.last do
-                = f.radio_button(:condition, option.last) + option.first
-
-        .Filter-col
-          %legend.Filter-title
-            Filter
-            %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&EDEL = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
-
-          %fieldset
-            = f.label :fair do
-              = f.check_box(:fair) + t('formtastic.labels.article.fair')
-
-            = f.label :ecologic do
-              = f.check_box(:ecologic) + t('formtastic.labels.article.ecologic')
-
-            = f.label :small_and_precious do
-              = f.check_box(:small_and_precious) + t('formtastic.labels.article.small_and_precious')
-
-        .Filter-col
-          = f.inputs do
-            %legend.Filter-title Kategorien
-            = f.input :categories_and_ancestors, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f), :hide_empty => true }}
-
-        .Filter-col
-          = f.inputs do
-            %legend.Filter-title Sortierung
-            = f.input :search_order_by, :label => false, :as => :select, :include_blank => false
-        .Filter-col
-          = f.inputs do
+- cache 'category_navigation' do
+  .Hero-presearch
+    %ul.Hero-categories
+      - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
+      - croots.each do |category|
+        %li.Hero-category
+          %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
+            = category.name
+          - if category.children.present?
+            .Category-dropdown
+              = build_category_table(category.children).html_safe
+    .Hero-morecategories
+      %a#show-all-categories{:href => categories_path}
+        Alle Kategorien
+- cache_if params[:article]==nil, 'article_search_form' do
+  = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
+    .Hero-search
+      .l-Inner
+        .l-Left
+          %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
+            %i.icon-box
+            Sammlungen
+        .l-Middle
+          = f.inputs :class => "Search" do
+            .Search-input
+              = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
+            .Search-extend.js-filter-toggle
+              = t('common.text.extended_search')
+            .Search-button
+              = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+        .l-Right
+          %button.Btn.Filter-btn Suche starten
+      .Filter{ class: (is_search_result? ? 'is-active' : '') }
+        .Filter-inner
+          .Filter-col
             %legend.Filter-title
-              Einstellungen
-              %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.\n Die PLZ-Suche ermöglicht Dir, über die Postleitzahl nach Artikeln in Deiner Nähe zu suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
-            = f.input :search_in_content, :as => :boolean
-            = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
+              Zustand
+              %i.icon-helper{ :title => "Wähle aus, welchen Artikelzustand Du suchst: nur gebraucht, nur neu, oder beides" }
+            %fieldset
+              - ( Article.condition.options.reverse + [["egal","all"]]).each do |option|
+                = f.label :condition , :value => option.last do
+                  = f.radio_button(:condition, option.last) + option.first
 
-      %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
+          .Filter-col
+            %legend.Filter-title
+              Filter
+              %i.icon-helper{ :title => "Mit den Filtern kannst Du Dir ausschließlich bestimmte Artikel anzeigen lassen.&#xA;Die Filter sind:&#xA;FAIR = Fair gehandelte bzw. sozial produzierte Artikel.&#xA;ÖKO = Nachhaltig produzierte bzw. durch „Upcycling“ von gebrauchten Materialien entstandene Artikel.&#xA;KLEIN&EDEL = Artikel von kleineren Anbietern, mit besonders guter Qualität.".html_safe }
+
+            %fieldset
+              = f.label :fair do
+                = f.check_box(:fair) + t('formtastic.labels.article.fair')
+
+              = f.label :ecologic do
+                = f.check_box(:ecologic) + t('formtastic.labels.article.ecologic')
+
+              = f.label :small_and_precious do
+                = f.check_box(:small_and_precious) + t('formtastic.labels.article.small_and_precious')
+
+          .Filter-col
+            = f.inputs do
+              %legend.Filter-title Kategorien
+              = f.input :categories_and_ancestors, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f), :hide_empty => true }}
+
+          .Filter-col
+            = f.inputs do
+              %legend.Filter-title Sortierung
+              = f.input :search_order_by, :label => false, :as => :select, :include_blank => false
+          .Filter-col
+            = f.inputs do
+              %legend.Filter-title
+                Einstellungen
+                %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.\n Die PLZ-Suche ermöglicht Dir, über die Postleitzahl nach Artikeln in Deiner Nähe zu suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
+              = f.input :search_in_content, :as => :boolean
+              = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
+
+        %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 
