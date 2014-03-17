@@ -65,6 +65,16 @@ gem 'memoist'
 # Rails Admin
 gem 'rails_admin' , "0.4.9"
 
+#Monitoring
+gem 'peek'
+gem 'peek-git'
+gem 'peek-gc'
+gem 'peek-dalli'
+gem 'peek-performance_bar'
+gem 'peek-pg'
+gem 'peek-sidekiq'
+gem 'peek-rblineprof'
+
 # Assets that need to be toplevel
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
@@ -74,6 +84,7 @@ gem 'jquery-rails'
 gem 'kontoapi-ruby'
 #KntNr to IBAN
 gem 'ibanomat'
+
 
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
