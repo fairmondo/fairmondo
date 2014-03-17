@@ -67,7 +67,9 @@ namespace :rails do
   task :console do
     on roles(:console), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails console #{rails_env}",host
+      within current_path do
+        execute_interactively "bundle exec rails console #{rails_env}",host
+      end
     end
   end
 
@@ -75,7 +77,9 @@ namespace :rails do
   task :dbconsole do
     on roles(:db), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails dbconsole #{rails_env}",host
+      within current_path do
+        execute_interactively "bundle exec rails dbconsole #{rails_env}",host
+      end
     end
   end
 
