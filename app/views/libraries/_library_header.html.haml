@@ -1,13 +1,14 @@
-.Library-userimage
-  = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
-.Library-info
-  .Library-text
-    %span.Library-title
-      = library.name
-    %span.Library-user
-      = t('common.text.glue.from')
-      = library.user_nickname
-  .Library-thumbnails
-    - library.library_elements.first(10).each do |library_element|
-      - if library_element.article
-        = image_tag(library_element.article.title_image_url(:thumb), :class => "Library-thumb")
+- cache [library,library.user,"library_header"] do
+  .Library-userimage
+    = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
+  .Library-info
+    .Library-text
+      %span.Library-title
+        = library.name
+      %span.Library-user
+        = t('common.text.glue.from')
+        = library.user_nickname
+    .Library-thumbnails
+      - library.library_elements.first(10).each do |library_element|
+        - if library_element.article
+          = image_tag(library_element.article.title_image_url(:thumb), :class => "Library-thumb")
