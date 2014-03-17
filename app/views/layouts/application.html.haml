@@ -112,7 +112,7 @@
             .l-Teaser--socialshare
               .Articles-social#socialshareprivacy
             = render "welcome/known_from"
-    - cache "footer" do
+    - cache_if (!(User.is_admin? current_user)),"footer" do
       %footer.l-Footer
         .Footer--top
           .l-Inner
