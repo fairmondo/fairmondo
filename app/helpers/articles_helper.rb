@@ -175,4 +175,20 @@ module ArticlesHelper
     return [].to_json
   end
 
+  def build_category_table children, columns = 2
+    last = children.count - 1
+    last_in_column = columns - 1
+
+    output = '<table class="Category-dropdown-children">'
+    children.each_with_index do |child, index|
+      output += '<tr>' if index % columns == 0
+      output +=   '<td>'
+      output +=     "<a href='#{articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids})}'>"
+      output +=       child.name
+      output +=     '</a>'
+      output +=   '</td>'
+      output += '</tr>' if (index % columns) == last_in_column or index == last
+    end
+    output += '</table>'
+  end
 end

@@ -28,11 +28,8 @@
           = category.name
         - if category.children.present?
           .Category-dropdown
-            %ul.Category-dropdown-children
-              - category.children.each do |child|
-                %li
-                  %a{href: articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids })}
-                    = child.name
+            = build_category_table(category.children).html_safe
+
   .Hero-morecategories
     %a#show-all-categories{:href => categories_path}
       Alle Kategorien
