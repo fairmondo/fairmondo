@@ -81,5 +81,25 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  ### Forms
 
+  # Default input field value -> param or current_user.*
+  # @api public
+  # @param field [Symbol]
+  # @return [String, nil]
+  def default_form_value field, target = current_user
+    default_value(field) || target.send(field)
+  end
+
+  # Default input field value -> param or nil
+  # @api public
+  # @param field [Symbol]
+  # @return [String, nil]
+  def default_value field
+    if params['transaction'] && params['transaction'][field]
+      params['transaction'][field]
+    else
+      nil
+    end
+  end
 end

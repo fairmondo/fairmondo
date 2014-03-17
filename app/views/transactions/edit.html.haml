@@ -53,13 +53,13 @@
                 = t 'transaction.edit.address'
               %br
               %p
-                = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
-                = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
-                = f.input :address_suffix, input_html: { value: default_address_value(:address_suffix) }
-                = f.input :street, required: true, input_html: { value: default_address_value(:street) }
-                = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
-                = f.input :city, required: true, input_html: { value: default_address_value(:city) }
-                = f.input :country, required: true, input_html: { value: default_address_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
+                = f.input :forename, required: true, input_html: { value: default_form_value(:forename) }
+                = f.input :surname, required: true, input_html: { value: default_form_value(:surname) }
+                = f.input :address_suffix, input_html: { value: default_form_value(:address_suffix) }
+                = f.input :street, required: true, input_html: { value: default_form_value(:street) }
+                = f.input :zip, required: true, input_html: { value: default_form_value(:zip) }
+                = f.input :city, required: true, input_html: { value: default_form_value(:city) }
+                = f.input :country, required: true, input_html: { value: default_form_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
 
             %hr
             %br
