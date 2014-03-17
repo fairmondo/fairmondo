@@ -21,24 +21,53 @@
 #
 require 'spec_helper'
 
+describe MultipleFixedPriceTransaction do
+  describe "attributes" do
+    it { should respond_to :quantity_available }
+  end
+end
+
+describe PartialFixedPriceTransaction do
+  describe "attributes" do
+    it { should respond_to :quantity_bought }
+  end
+end
+
 describe Transaction do
   describe "attributes" do
-    it { should respond_to 'selected_transport' }
-    it { should respond_to 'selected_payment' }
-    it { should respond_to 'tos_accepted' }
-    it { should respond_to 'message' }
+    it { should respond_to :selected_transport }
+    it { should respond_to :selected_payment }
+    it { should respond_to :tos_accepted }
+    it { should respond_to :message }
+    it { should respond_to :id }
+    it { should respond_to :type }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :expire }
+    it { should respond_to :buyer_id }
+    it { should respond_to :state }
+    it { should respond_to :parent_id }
+    it { should respond_to :article_id }
+    it { should respond_to :forename }
+    it { should respond_to :surname }
+    it { should respond_to :street }
+    it { should respond_to :address_suffix }
+    it { should respond_to :city }
+    it { should respond_to :zip }
+    it { should respond_to :country }
+    it { should respond_to :seller_id }
+    it { should respond_to :sold_at }
+    it { should respond_to :purchase_emails_sent }
+    it { should respond_to :discount_id }
+    it { should respond_to :discount_value_cents }
+    it { should respond_to :billed_for_fair }
+    it { should respond_to :billed_for_fee }
+    it { should respond_to :billed_for_discount }
   end
 
   describe "associations" do
     it { should belong_to :article }
     it { should belong_to :buyer  }
-  end
-
-  describe "model attributes" do
-    it { should respond_to :type }
-    it { should respond_to :selected_transport }
-    it { should respond_to :selected_payment }
-    it { should respond_to :tos_accepted }
   end
 
   describe "enumerization" do

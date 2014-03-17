@@ -29,6 +29,21 @@ describe Image do
     should be_valid
   end
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :image_file_name }
+    it { should respond_to :image_content_type }
+    it { should respond_to :image_file_size }
+    it { should respond_to :image_updated_at }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :imageable_id }
+    it { should respond_to :type }
+    it { should respond_to :is_title }
+    it { should respond_to :external_url }
+    it { should respond_to :image_processing }
+  end
+
   describe "associations" do
     it { should belong_to :article }
   end

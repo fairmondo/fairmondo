@@ -47,6 +47,9 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq-failures'
 
+# Memcached
+gem 'dalli'
+
 # Sidekiq Integrations
 gem "sunspot-queue" # sidekiq
 gem 'delayed_paperclip', :github => 'fairnopoly/delayed_paperclip'
@@ -58,10 +61,6 @@ gem "pundit" # authorization
 
 # Support for memoization
 gem 'memoist'
-
-# Should be only in development but else migration fails
-gem 'factory_girl_rails'
-gem 'faker'
 
 # Rails Admin
 gem 'rails_admin' , "0.4.9"
@@ -112,7 +111,7 @@ end
 group :development, :test do
 
   # Capistrano
-  gem 'capistrano-rails', '~> 1.0.0'
+  gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1.2'
 
@@ -173,4 +172,6 @@ end
 
 group :development,:test,:staging do
   gem 'sunspot_solr' , '~> 2.0.0'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end

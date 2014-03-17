@@ -17,6 +17,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-= content.body && content.body.html_safe
-- if policy(Content).admin?
-  = link_to "Edit", edit_content_url(content)
+- cache content do
+  = content.body && content.body.html_safe
+  - if policy(Content).admin?
+    = link_to "Edit", edit_content_url(content)

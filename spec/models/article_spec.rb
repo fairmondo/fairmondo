@@ -29,6 +29,61 @@ describe Article do
 
   subject { article }
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :title }
+    it { should respond_to :content }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :user_id }
+    it { should respond_to :condition }
+    it { should respond_to :price_cents }
+    it { should respond_to :currency }
+    it { should respond_to :fair }
+    it { should respond_to :fair_kind }
+    it { should respond_to :fair_seal }
+    it { should respond_to :ecologic }
+    it { should respond_to :ecologic_seal }
+    it { should respond_to :small_and_precious }
+    it { should respond_to :small_and_precious_reason }
+    it { should respond_to :small_and_precious_handmade }
+    it { should respond_to :quantity }
+    it { should respond_to :transport_details }
+    it { should respond_to :payment_details }
+    it { should respond_to :friendly_percent }
+    it { should respond_to :friendly_percent_organisation }
+    it { should respond_to :article_template_id }
+    it { should respond_to :calculated_fair_cents }
+    it { should respond_to :calculated_friendly_cents }
+    it { should respond_to :calculated_fee_cents }
+    it { should respond_to :condition_extra }
+    it { should respond_to :small_and_precious_eu_small_enterprise }
+    it { should respond_to :ecologic_kind }
+    it { should respond_to :upcycling_reason }
+    it { should respond_to :slug }
+    it { should respond_to :transport_pickup }
+    it { should respond_to :transport_type1 }
+    it { should respond_to :transport_type2 }
+    it { should respond_to :transport_type1_provider }
+    it { should respond_to :transport_type2_provider }
+    it { should respond_to :transport_type1_price_cents }
+    it { should respond_to :transport_type2_price_cents }
+    it { should respond_to :payment_bank_transfer }
+    it { should respond_to :payment_cash }
+    it { should respond_to :payment_paypal }
+    it { should respond_to :payment_invoice }
+    it { should respond_to :payment_cash_on_delivery_price_cents }
+    it { should respond_to :basic_price_cents }
+    it { should respond_to :basic_price_amount }
+    it { should respond_to :state }
+    it { should respond_to :vat }
+    it { should respond_to :custom_seller_identifier }
+    it { should respond_to :gtin }
+    it { should respond_to :transport_type1_number }
+    it { should respond_to :transport_type2_number }
+    it { should respond_to :discount_id }
+  end
+
   describe "::Base" do
     describe "associations" do
       it {should have_many :images}
