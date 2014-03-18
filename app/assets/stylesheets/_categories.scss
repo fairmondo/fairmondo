@@ -151,7 +151,9 @@
   tr:last-child td:first-child {
     @include border-bottom-left-radius(5px);
   }
-  tr:last-child td:nth-child(2n) {
+  &.Category-dropdown-children--columns-1 tr:last-child td:first-child,
+  &.Category-dropdown-children--columns-2 tr:last-child td:nth-child(2n),
+  &.Category-dropdown-children--columns-3 tr:last-child td:nth-child(3n) {
     @include border-bottom-right-radius(5px);
   }
 
@@ -160,16 +162,11 @@
     word-wrap: break-word;
     a {
       display:block;
-      @include rem(padding, 4px 14px);
+      @include rem(padding, 4px 6px);
     }
-
     &:first-child a {
-      @include rem(padding-right, 6px);
+      @include rem(padding-left, 14px);
     }
-    &:nth-child(2n) a {
-      @include rem(padding-left, 6px);
-    }
-
     &:hover {
       background: $blue;
       a {
