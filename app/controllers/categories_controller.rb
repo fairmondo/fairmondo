@@ -4,7 +4,7 @@ class CategoriesController < InheritedResources::Base
 
   skip_before_filter :authenticate_user!
   respond_to :json,:js, :only => :show
-  respond_to :html, :only => :index
+  respond_to :html, :only => [:index, :show]
 
   def show
     @children = resource.children

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318044446) do
+ActiveRecord::Schema.define(:version => 20140318072015) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -115,9 +115,11 @@ ActiveRecord::Schema.define(:version => 20140318044446) do
     t.integer  "children_count", :default => 0
     t.integer  "weight"
     t.integer  "view_columns",   :default => 2
+    t.string   "slug"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "contents", :force => true do |t|
     t.string   "key"
