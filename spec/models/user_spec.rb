@@ -298,8 +298,12 @@ describe User do
     describe "#calculate_percentage_of_biased_ratings" do
 
       before :each do
-        user.stub_chain(:ratings,:order,:limit) { Rating }
-        Rating.should_receive(:count).and_return({ "positive" => 7, "negative" => 1, "neutral" => 2})
+        last_ratings = []
+        7.times{ last_ratings << Rating.new(:rating =>"positive") }
+        1.times{ last_ratings << Rating.new(:rating =>"negative") }
+        2.times{ last_ratings << Rating.new(:rating =>"neutral") }
+
+        user.stub_chain(:ratings,:select,:limit) { last_ratings }
       end
 
       it "should be calculated correctly for positive ratings" do
