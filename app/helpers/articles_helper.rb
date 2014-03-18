@@ -179,7 +179,7 @@ module ArticlesHelper
     last = children.count - 1
     last_in_column = columns - 1
 
-    output = '<table class="Category-dropdown-children">'
+    output = "<table class='Category-dropdown-children Category-dropdown-children--columns-#{columns}'>"
     children.each_with_index do |child, index|
       output += '<tr>' if index % columns == 0
       output +=   '<td>'
