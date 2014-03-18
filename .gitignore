@@ -42,6 +42,9 @@ config/email_addresses.yml
 #Solr Development
 solr/data/**/*
 solr/pids/**/*
+solr/default/**
+solr/development/**
+solr/test/**
 
 #ER-Diagram
 erd.pdf

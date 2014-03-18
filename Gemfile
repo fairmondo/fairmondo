@@ -40,7 +40,7 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 
 # Indexing /Searching
-gem 'sunspot_rails' , '~> 2.0.0'
+gem 'sunspot_rails' , '~> 2.1.0'
 
 # Sidekiq
 gem 'sidekiq'
@@ -121,6 +121,8 @@ end
 # Testing using RSpec
 group :development, :test do
 
+  gem 'sunspot_solr' , '~> 2.1.0'
+
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano', '~> 3.1'
@@ -182,7 +184,6 @@ group :test do
 end
 
 group :development,:test,:staging do
-  gem 'sunspot_solr' , '~> 2.0.0'
   gem 'factory_girl_rails'
   gem 'faker'
 end
