@@ -16,7 +16,8 @@ development:
 staging:
   solr:
     hostname: localhost
-    port: 8080
+    port: 8983
+    path: '/core0'
     log_level: INFO
 
 test:
