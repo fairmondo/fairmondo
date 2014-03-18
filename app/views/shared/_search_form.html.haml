@@ -29,7 +29,7 @@
             = category.name
           - if category.children.present?
             .Category-dropdown
-              = build_category_table(category.children).html_safe
+              = build_category_table(category.children, category.view_columns).html_safe
     .Hero-morecategories
       %a#show-all-categories{:href => categories_path}
         Alle Kategorien
