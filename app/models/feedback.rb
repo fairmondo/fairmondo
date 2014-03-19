@@ -23,7 +23,7 @@ class Feedback < ActiveRecord::Base
 
   def self.feedback_attrs
     [:from, :subject, :text, :variety, :article_id, :feedback_subject,
-    :help_subject, :forename, :lastname, :organisation, :phone]
+    :help_subject, :forename, :lastname, :organisation, :phone, :recaptcha]
   end
   #! attr_accessible ...
 

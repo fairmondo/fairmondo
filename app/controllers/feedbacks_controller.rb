@@ -23,6 +23,7 @@ class FeedbacksController < InheritedResources::Base
   skip_before_filter :authenticate_user!
 
   def create
+    handle_recaptcha
     authorize build_resource
     resource.set_user_id current_user
     resource.source_page = session[:source_page]
@@ -48,7 +49,17 @@ class FeedbacksController < InheritedResources::Base
         root_path
       end
     end
+
     def permitted_new_params
       params.permit :variety
+    end
+
+    def handle_recaptcha
+      params[:feedback]["recaptcha"] = '0'
+      if verify_recaptcha
+        params[:feedback]["recaptcha"] = '1'
+      else
+        flash.delete :recaptcha_error
+      end
     end
 end
