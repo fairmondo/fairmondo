@@ -105,7 +105,7 @@
           = hero
       .l-Main{:role => "main"}
         .l-Inner
-          = yield
+          = yield # <-----------------------------------------
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
           - cache "ngo_logosand_known_from" do
