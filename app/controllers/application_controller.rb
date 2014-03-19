@@ -65,6 +65,12 @@ class ApplicationController < ActionController::Base
   #   all_filters.map { :filter }
   # end
 
+  # PeekInto Access Controll
+  def peek_enabled?
+    current_user && current_user.admin?
+  end
+
+
   protected
 
     def render_users_hero
@@ -92,7 +98,7 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_classes
-      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController]
+      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController,Peek::ResultsController]
     end
 
     # To be inherited and used in a before_filter
@@ -136,6 +142,7 @@ class ApplicationController < ActionController::Base
     end
 
     def check_value_of_goods
+      current_user.count_value_of_goods
       if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
         redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
       end

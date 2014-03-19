@@ -22,36 +22,20 @@
 module MassUpload::Checks
   extend ActiveSupport::Concern
 
-  ALLOWED_MIME_TYPES = ['text/csv']
-  AlLOWED_WINDOWS_MIME_TYPES = ['application/vnd.ms-excel', 'application/octet-stream', 'application/force-download']
-
-
-  def csv_format
-    if ALLOWED_MIME_TYPES.include?(file.content_type) or
-      (AlLOWED_WINDOWS_MIME_TYPES.include?(file.content_type) and
-      file.original_filename[-4..-1] == '.csv')
+  def self.get_csv_encoding path_to_csv
+    match_euro_sign = File.new(path_to_csv, "r").getc
+    case match_euro_sign
+    when "\xDB"
+      'MacRoman'
+    when "\x80"
+      'Windows-1252'
+    when "\?"
+      'IBM437'
+    when "\xA4"
+      'ISO-8859-15'
     else
-      errors.add(:file, I18n.t('mass_uploads.errors.wrong_mime_type'))
-      logger.info "MIME Error: Uploaded \"#{file.original_filename}\" as \"#{file.content_type}\""
+      'utf-8'
     end
   end
-
-  private
-
-    def get_csv_encoding path_to_csv
-      match_euro_sign = File.new(path_to_csv, "r").getc
-      case match_euro_sign
-      when "\xDB"
-        'MacRoman'
-      when "\x80"
-        'Windows-1252'
-      when "\?"
-        'IBM437'
-      when "\xA4"
-        'ISO-8859-15'
-      else
-        'utf-8'
-      end
-    end
 
 end

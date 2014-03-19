@@ -22,8 +22,8 @@
 
 class ArticleObserver < ActiveRecord::Observer
   # ATTENTION !!!
-  # The MassUploader Model won't trigger any callbacks in this file
-  # If you write callbacks that need to be triggert on a mass upload as well
+  # The MassUploader Model won't trigger the after_save callback on article activation.
+  # If you write callbacks that need to be triggered on a mass upload as well
   # make sure to trigger them manually there
 
   def after_save(article)
@@ -31,6 +31,26 @@ class ArticleObserver < ActiveRecord::Observer
     if article.category_proposal.present?
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
+  end
+
+  def before_activate(article, transition)
+    article.calculate_fees_and_donations
+  end
+
+  # before_deactivate and before_close will only work on state_changes
+  # without validation when you implement it in article/state.rb
+
+  def after_deactivate(article, transition)
+     article.remove_from_libraries
+  end
+
+  def after_close(article, transition)
+    article.remove_from_libraries
+    article.cleanup_images
+  end
+
+  def after_sold_out(article, transition)
+    article.remove_from_libraries
   end
 
 end

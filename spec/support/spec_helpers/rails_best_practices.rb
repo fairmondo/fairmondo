@@ -20,7 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Check for best practices
-after_suite do
+def rails_best_practices
   unless $skip_audits
     puts "\n\n[RailsBestPractices] Testing:\n".underline
     bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})

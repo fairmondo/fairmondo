@@ -30,6 +30,7 @@ module Article::DynamicProcessing
     # When an action is set, modify the save call to reflect what should be done
     # @return [Article] Article ready to save or containing an error
     def self.create_or_find_according_to_action attribute_hash, user
+      attribute_hash['action'].strip! if attribute_hash['action']
       case attribute_hash['action']
       when 'c', 'create'
         Article.new attribute_hash.merge({ action: :create })
@@ -128,19 +129,28 @@ module Article::DynamicProcessing
       end
   end
 
+  def validation_errors_for_erroneous_articles
+    validation_errors = ""
+    self.errors.full_messages.each do |message|
+      validation_errors += message + "\n"
+    end
+    validation_errors
+  end
+
   # Replacement for save! method - Does different things based on the action attribute
 
   def process! mass_upload
-    mu_article = MassUploadArticle.create :mass_upload => mass_upload, :article => self, :action => self.action
+    mu_article = MassUploadArticle.create mass_upload: mass_upload, article: self, action: self.action
 
     case mu_article.action
     when :activate, :create, :update
       self.calculate_fees_and_donations
+      self.save!
     when :delete
-      self.state = "closed"
+      self.close_without_validation
     when :deactivate
-      self.state = "locked"
+      self.deactivate_without_validation
     end
-    self.save!
+
   end
 end

@@ -21,6 +21,7 @@
 #
 class User < ActiveRecord::Base
   extend Memoist
+  extend Tokenize
 
   # Friendly_id for beautiful links
   extend FriendlyId
@@ -41,16 +42,20 @@ class User < ActiveRecord::Base
   def self.user_attrs
     [
       :email, :password, :password_confirmation, :remember_me, :type,
-      :nickname, :forename, :surname, :privacy, :legal, :agecheck, :paypal_account,
+      :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
       :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
       :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
+      :fastbill_profile_update, :vacationing,
+      :iban,:bic,
       { image_attributes: Image.image_attrs + [:id] }
     ]
   end
 
 
-  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city
+  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city,
+                :bank_name
+  auto_sanitize :iban, :bic, :zip, remove_all_spaces: true
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
@@ -61,8 +66,9 @@ class User < ActiveRecord::Base
 
 
 
-  attr_accessor :recaptcha, :wants_to_sell
+  attr_accessor :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
+  attr_accessor :fastbill_profile_update
 
 
   #Relations
@@ -80,7 +86,7 @@ class User < ActiveRecord::Base
   has_many :mass_uploads
 
   ##
-  has_one :image, as: :imageable
+  has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
   ##
 
@@ -98,12 +104,10 @@ class User < ActiveRecord::Base
 
   #Registration validations
 
-  validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
-  validates :nickname , presence: true, uniqueness: true
-  validates :recaptcha, presence: true, acceptance: true, on: :create
-  validates :privacy, acceptance: true, on: :create
-  validates :legal, acceptance: true, on: :create
-  validates :agecheck, acceptance: true , on: :create
+  validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
+  validates :nickname , :presence => true, :uniqueness => true
+  validates :legal, :acceptance => true, :on => :create
+  validates :agecheck, :acceptance => true , :on => :create
 
 
   # validations
@@ -115,17 +119,22 @@ class User < ActiveRecord::Base
   with_options if: :wants_to_sell? do |seller|
     seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
-    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true
+    seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
   end
+
+  # TODO: Language spezific validators
+  # german validator for iban
+  validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, :unless => Proc.new {|c| c.iban.blank?}, if: :is_german?
+  validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, :unless => Proc.new {|c| c.bic.blank?}
 
   validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :unless => Proc.new {|c| c.bank_code.blank?}
   validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10}, :unless => Proc.new {|c| c.bank_account_number.blank?}
   validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, :unless => Proc.new {|c| c.paypal_account.blank?}
   validates :paypal_account, presence: true, if: :paypal_validation
-  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, presence: true, if: :bank_account_validation
+  validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
 
-  validates :about_me, :length => { :maximum => 2500 }
+  validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
 
@@ -177,7 +186,7 @@ class User < ActiveRecord::Base
   # @param symbol [Symbol] which type
   # @return [String] URL
   def image_url symbol
-    (img = image) ? img.image.url(symbol) : "/assets/missing.png"
+    image ? image.image.url(symbol) : "/assets/missing.png"
   end
 
   # Return a formatted address
@@ -214,11 +223,13 @@ class User < ActiveRecord::Base
   # @param limit [Integer]
   # @return [Float]
   def calculate_percentage_of_biased_ratings bias, limit
-    newest_ratings = self.ratings.limit(limit)
-    return 0 if newest_ratings == []
-    number_of_newest_ratings = newest_ratings.count
-    number_of_biased_ratings = newest_ratings.select { |rates| rates.rating == bias }.count
-    number_of_biased_ratings.fdiv(number_of_newest_ratings) * 100
+    biased_ratings = { "positive" => 0, "negative" => 0, "neutral" => 0}
+    self.ratings.select(:rating).limit(limit).each do |rating|
+      biased_ratings[rating.value] += 1
+    end
+    number_of_considered_ratings = biased_ratings.values.sum
+    number_of_biased_ratings = biased_ratings[bias] || 0
+    number_of_biased_ratings.fdiv(number_of_considered_ratings) * 100
   end
 
   # get ngo status
@@ -240,7 +251,7 @@ class User < ActiveRecord::Base
       transition bad_seller: :standard_seller
     end
 
-		event :rate_down_to_bad_seller do
+    event :rate_down_to_bad_seller do
       transition all => :bad_seller
     end
 
@@ -287,7 +298,7 @@ class User < ActiveRecord::Base
   end
 
   def bank_account_exists?
-    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner?
+    self.bank_code? && self.bank_name? && self.bank_account_number? && self.bank_account_owner? && self.iban? && self.bic?
   end
 
   def paypal_account_exists?
@@ -329,6 +340,23 @@ class User < ActiveRecord::Base
     super Digest::MD5.hexdigest(value)
   end
 
+  # FastBill: this method checks if a user already has fastbill profile
+  def has_fastbill_profile?
+    fastbill_id && fastbill_subscription_id
+  end
+
+  # FastBill
+  def update_fastbill_profile
+    if self.has_fastbill_profile?
+      FastbillAPI.update_profile self
+    end
+  end
+
+  def count_value_of_goods
+    value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
+    self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
+
   private
     # @api private
     def create_default_library
@@ -337,7 +365,11 @@ class User < ActiveRecord::Base
       end
     end
 
-		def wants_to_sell?
-		  self.wants_to_sell
-		end
+    def wants_to_sell?
+      self.wants_to_sell
+    end
+
+    def is_german?
+      self.country == "Deutschland"
+    end
 end

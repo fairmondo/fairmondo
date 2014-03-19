@@ -65,8 +65,6 @@ module Article::State
         transition :active => :sold
       end
 
-      before_transition :on => :activate, :do => :calculate_fees_and_donations
-      after_transition :on => :deactivate, :do => :remove_from_libraries
     end
 
   end
@@ -78,12 +76,13 @@ module Article::State
 
   def deactivate_without_validation
     self.state = "locked"
-    self.remove_from_libraries
+    ArticleObserver.instance.send("after_deactivate",self,nil)
     self.save(:validate => false) # do it anyways
   end
 
   def close_without_validation
     self.state = "closed"
+    ArticleObserver.instance.send("after_close",self,nil)
     self.save(:validate => false) # do it anyways
   end
 

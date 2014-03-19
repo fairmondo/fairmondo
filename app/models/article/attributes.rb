@@ -23,6 +23,7 @@ module Article::Attributes
   extend ActiveSupport::Concern
 
   included do
+    extend Tokenize
 
     #common fields
     def self.common_attrs
@@ -39,7 +40,7 @@ module Article::Attributes
 
     validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 200
-    validates_length_of :content, :maximum => 10000
+    validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }
 
 
     #conditions
@@ -58,11 +59,9 @@ module Article::Attributes
     #! attr_accessible *money_attributes
     #! attr_accessible *money_attributes, :as => :admin
 
-    validates_presence_of :price_cents
-    validates_numericality_of :price_cents, :less_than_or_equal_to => 1000000
-    validates_numericality_of :price, greater_than_or_equal_to: 0
+    validates :price_cents, presence: true, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 }
 
-    monetize :price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }
+    monetize :price_cents
 
 
     # vat (Value Added Tax)
@@ -77,9 +76,9 @@ module Article::Attributes
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
-    validates_numericality_of :basic_price_cents, :less_than_or_equal_to => 1000000, if: lambda {|obj| obj.basic_price_cents }
+    validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => true
 
-    monetize :basic_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000 }, :allow_nil => true
+    monetize :basic_price_cents
 
     enumerize :basic_price_amount, in: [:kilogram, :gram, :liter, :milliliter, :cubicmeter, :meter, :squaremeter, :portion ]
 
@@ -155,7 +154,7 @@ module Article::Attributes
 
     monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
 
-    validates :payment_details, :length => { :maximum => 2500 }
+    validates :payment_details, length: { :maximum => 2500 }
 
     validate :bank_account_exists, :if => :payment_bank_transfer
     validate :paypal_account_exists, :if => :payment_paypal

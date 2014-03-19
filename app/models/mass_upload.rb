@@ -32,7 +32,7 @@ class MassUpload < ActiveRecord::Base
     end
 
     event :finish do
-      transition :processing => :finished, :if => lambda {|mass_upload| mass_upload.row_count && mass_upload.processed_articles_count >= mass_upload.row_count }
+      transition :processing => :finished, :if => :can_finish?
       transition :finished => :finished
     end
 
@@ -65,8 +65,9 @@ class MassUpload < ActiveRecord::Base
   belongs_to :user
 
   validates_attachment :file, presence: true,
-    size: { in: 0..20.megabytes }
-  validate :csv_format
+    size: { in: 0..20.megabytes },
+    content_type: { :content_type => ['text/csv','application/excel','application/vnd.msexcel','text/anytext','application/vnd.ms-excel', 'application/octet-stream', 'application/force-download', 'text/comma-separated-values'] }
+
 
   def self.mass_upload_attrs
     [:file]
@@ -118,79 +119,16 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
-    self.erroneous_articles.size + self.articles.size
+    self.erroneous_articles.size + self.mass_upload_articles.count
   end
 
-  def process_without_delay
-    self.start
-    begin
-      row_count = 0
-
-      CSV.foreach(self.file.path, encoding: get_csv_encoding(self.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
-        row_count += 1
-        row.delete '€' # delete encoding column
-        ProcessRowMassUploadWorker.perform_async(self.id, row.to_hash, row_count)
-      end
-
-      self.update_attribute(:row_count, row_count)
-      self.finish
-
-    rescue ArgumentError
-      self.error(I18n.t('mass_uploads.errors.wrong_encoding'))
-    rescue CSV::MalformedCSVError
-      self.error(I18n.t('mass_uploads.errors.illegal_quoting'))
-    rescue => e
-      log_exception e
-      self.error(I18n.t('mass_uploads.errors.unknown_error'))
-    end
-
-  end
 
   def process
     ProcessMassUploadWorker.perform_async(self.id)
   end
 
-
-  def log_exception e
-    message = "#{Time.now.strftime('%FT%T%z')}: #{e} \nbacktrace: #{e.backtrace}"
-    logger.debug{ message } if logger
-  end
-
-  def process_row unsanitized_row_hash, index
-    if self.processing?
-      begin
-        row_hash = sanitize_fields unsanitized_row_hash.dup
-        categories = Category.find_imported_categories(row_hash['categories'])
-        row_hash.delete("categories")
-        row_hash = Questionnaire.include_fair_questionnaires(row_hash)
-        row_hash = Questionnaire.add_commendation(row_hash)
-        article = Article.create_or_find_according_to_action row_hash, user
-
-        if article.action != :nothing # so we can ignore rows when reimporting
-          article.user_id = self.user_id
-          revise_prices(article)
-          article.categories = categories if categories
-        end
-        if article.was_invalid_before? # invalid? call would clear our previous base errors
-                                       # fix this by generating the base errors with proper validations
-                                       # may be hard for dynamic update model
-          add_article_error_messages(article, index, unsanitized_row_hash)
-        else
-          article.process! self
-        end
-      rescue => e
-        log_exception e
-        return self.error(I18n.t('mass_uploads.errors.unknown_error'))
-      end
-    end
-  end
-
-  def add_article_error_messages(article, index, row_hash)
-    validation_errors = ""
+  def add_article_error_messages(validation_errors, index, row_hash)
     csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-    article.errors.full_messages.each do |message|
-      validation_errors += message + "\n"
-    end
     ErroneousArticle.create(
       validation_errors: validation_errors,
       row_index: index,
@@ -200,12 +138,8 @@ class MassUpload < ActiveRecord::Base
     # TODO Check if the original row number can be given as well
   end
 
-  def revise_prices(article)
-    article.basic_price ||= 0
-    article.transport_type1_price_cents ||= 0
-    article.transport_type2_price_cents ||= 0
-    article.payment_cash_on_delivery_price_cents ||= 0
-  end
+
+
 
   def self.update_solr_index_for article_ids
     articles = Article.find article_ids
@@ -213,12 +147,12 @@ class MassUpload < ActiveRecord::Base
     Sunspot.commit
   end
 
+
   private
-    # Throw away additional fields that are not needed
-    def sanitize_fields row_hash
-      row_hash.keys.each do |key|
-        row_hash.delete key unless MassUpload.article_attributes.include? key
-      end
-      row_hash
+
+    # Check if finish conditions are met
+    def can_finish?
+      self.row_count and
+      self.processed_articles_count >= self.row_count
     end
 end

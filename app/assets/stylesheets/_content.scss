@@ -1,11 +1,17 @@
 
 
 .Content {
-   padding-top: 3em;
-   @include at-breakpoint($layout-medium) {
+  padding-top: 3em;
+  @include at-breakpoint($layout-medium) {
     @include span-columns(3, 4);
   }
   margin-bottom:1em;
+}
+
+.Content--wide {
+  @include at-breakpoint($layout-medium) {
+    @include span-columns(4, 4);
+  }
 }
 
 .Content-navigation {

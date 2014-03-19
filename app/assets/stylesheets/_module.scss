@@ -18,7 +18,7 @@
 	}
 }
 .Copyright {
-	@include rem(font-size, 15px);
+	@include rem(font-size, 13px);
 	p {
 		margin-top: .4em;
 	}
@@ -53,9 +53,8 @@
 //
 // Breadcrumb
 //
-.Breadcrumb {
-	@include span-columns(4, 4);
-	@include rem(margin-bottom, 27px);
+.Breadcrumb, .CategorySearchBreadcrumb {
+	@include rem(margin-bottom, 20px);
 
 	ul {margin: 0; padding: 0}
 	li {
@@ -75,11 +74,17 @@
 			color: $lightgray;
 		}
 	}
+}
+.Breadcrumb {
+	@include span-columns(4, 4);
+
 	&+.Breadcrumb {
 		@include rem(margin-top, -13px);
 	}
 }
-
+.CategorySearchBreadcrumb {
+	@include rem(font-size, 14px);
+}
 
 //
 // A module to seperate paragraphs

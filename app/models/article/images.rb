@@ -34,7 +34,7 @@ module Article::Images
       attrs
     end
 
-    has_many :images, as: :imageable #has_and_belongs_to_many :images
+    has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true
 
@@ -53,9 +53,13 @@ module Article::Images
       images.title_image || images[0]
     end
 
-    def title_image_url type = nil
+    def title_image_url style = nil
       if title_image
-        title_image.image.url(type)
+        if title_image.image.processing? && style != :thumb
+          title_image.original_image_url_while_processing
+        else
+          title_image.image.url(style)
+        end
       else
         "missing.png"
       end
@@ -107,17 +111,12 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        begin
-          image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
-            Image.new(image: URI.parse(image_url))
-          end
-        rescue
-          self.errors.add(should_be_title ? :external_title_image_url : :image_2_url,  I18n.t('mass_uploads.errors.image_not_available') )
-          return
+        image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
+          ArticleImage.new(image: URI.parse(image_url))
         end
         image.is_title = should_be_title
         image.external_url = image_url
-        image.save
+        #image.save
         self.images << image
       elsif image_url !=~ URI::regexp && should_be_title == true
         self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
@@ -125,5 +124,10 @@ module Article::Images
         self.errors.add(:image_2_url, I18n.t('mass_uploads.errors.wrong_image_2_url'))
       end
     end
+
+    def cleanup_images
+      self.images.each{ |i| i.destroy }
+    end
+
   end
 end

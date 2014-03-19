@@ -64,9 +64,10 @@ Fairnopoly::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  #config.action_controller.asset_host = "assets%d.fairnopoly.de"
+  config.action_controller.asset_host = "assets%d.fairnopoly.de"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  config.assets.precompile += %w( session_expire.js )
   config.assets.precompile += %w( noscript.css )
   config.assets.precompile += %w( landing.css )
   # config.assets.precompile += %w( font-awesome-ie7.min.css )
@@ -76,9 +77,8 @@ Fairnopoly::Application.configure do
   config.action_mailer.default_url_options = { :host => 'www.fairnopoly.de' ,:protocol => 'https' }
   # Enable threaded mode
   config.threadsafe!
-
-  config.eager_load_paths += %W(#{config.root}/lib/autoload)
-  config.eager_load_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+  config.dependency_loading = true if $rails_rake_task
+  #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -94,5 +94,8 @@ Fairnopoly::Application.configure do
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
+
+  #Memcached
+  config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairnopoly", :expires_in => 1.day, :compress => true }
 
 end

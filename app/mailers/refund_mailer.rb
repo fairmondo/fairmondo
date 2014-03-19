@@ -8,4 +8,4 @@ class RefundMailer < ActionMailer::Base
           format.text
     end
   end
-end 
+end

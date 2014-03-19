@@ -15,13 +15,16 @@ module TransactionMailerHelper
 
   def show_contact_info_seller seller
     string = ""
+    string += t('transaction.notifications.seller.nickname')
+    string += "#{seller.nickname}\n"
+    string += "#{user_url seller}\n\n"
     if seller.is_a? LegalEntity
       if seller.company_name.present?
+        string += t('transaction.notifications.seller.company_name')
         string += "#{seller.company_name}\n"
-       else
-        string += "#{seller.nickname}\n"
-       end
-      string += "#{t('transaction.notifications.seller.contact_person')}: #{seller.forename} #{seller.surname}\n"
+      end
+      string += t('transaction.notifications.seller.contact_person')
+      string += "#{seller.forename} #{seller.surname}\n"
     else
       string += "#{seller.title}\n" if seller.title
       string += "#{seller.forename} #{seller.surname}\n"
@@ -83,8 +86,9 @@ module TransactionMailerHelper
     end
 
     if role == :buyer && !transaction.article_seller_ngo
-      string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
-
+      if transaction.article.shows_fair_percent?
+        string += "#{ t('transaction.notifications.buyer.fair_percent')}" + "#{humanized_money_with_symbol(transaction.article.calculated_fair * transaction.quantity_bought)}\n"
+      end
       if transaction.article.has_friendly_percent?
         ngo = transaction.article.donated_ngo
         fp = transaction.article_friendly_percent
@@ -185,10 +189,12 @@ module TransactionMailerHelper
   #
    def show_bank_account_or_contact user
      if user.bank_account_exists?
-     "#{ t('transaction.notifications.seller.bank_account_owner') } #{ user.bank_account_owner }\n" +
+      "#{ t('transaction.notifications.seller.bank_account_owner') } #{ user.bank_account_owner }\n" +
      "#{ t('transaction.notifications.seller.bank_account_number') } #{ user.bank_account_number }\n" +
      "#{ t('transaction.notifications.seller.bank_code') } #{ user.bank_code }\n" +
-     "#{ t('transaction.notifications.seller.bank_name') } #{ user.bank_name }"
+     "#{ t('transaction.notifications.seller.bank_name') } #{ user.bank_name }" +
+     "#{ t('transaction.notifications.seller.iban') } #{ user.iban }" +
+     "#{ t('transaction.notifications.seller.bic') } #{ user.bic }"
      else
       "#{ t('transaction.notifications.seller.no_bank_acount') } #{ user.email }"
      end

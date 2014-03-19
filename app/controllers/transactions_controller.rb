@@ -22,7 +22,7 @@
 class TransactionsController < InheritedResources::Base
   respond_to :html
   actions :show, :edit, :update
-  custom_actions :resource => [:already_sold, :print_order_buyer]#, :print_order_seller]
+  custom_actions :resource => [:already_sold, :print_order_buyer, :request_refund]#, :print_order_seller]
 
   before_filter :redirect_if_already_sold, only: [:edit, :update]
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?

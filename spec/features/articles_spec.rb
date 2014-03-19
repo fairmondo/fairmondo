@@ -24,7 +24,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Article management' do
-  include CategorySeedData
+
   let(:article) { FactoryGirl.create :article }
   let(:article_active) { FactoryGirl.create :article, :user_id => user.id }
   let(:article_locked) { FactoryGirl.create :preview_article, :user_id => user.id }
@@ -168,8 +168,10 @@ describe 'Article management' do
           it "should fail to create an article, if the value of goods crosses its max value of goods" do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 600000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should have_content I18n.t('article.notices.max_limit')
           end
 
@@ -177,8 +179,10 @@ describe 'Article management' do
             user.update_attribute(:max_value_of_goods_cents_bonus, 200000)
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 600000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should_not have_content I18n.t('article.notices.max_limit')
           end
         end
@@ -190,12 +194,13 @@ describe 'Article management' do
             user.max_value_of_goods_cents.should eq 500000
           end
 
-          it "should fail to create an article, if the value of goods crosses its max limit" do
+          it "should fail to activate an article, if the value of goods crosses its max limit" do
             article = FactoryGirl.create :article, :user_id => user.id
             article.update_attribute(:price_cents, 510000)
-            article2 = FactoryGirl.create :article, :user_id => user.id
-            # Capybara.current_session.driver.header 'Referer', root_url
-            visit new_article_path
+            article2 = FactoryGirl.create :preview_article, :user_id => user.id
+            login_as user
+            visit article_path(article2)
+            click_button I18n.t("article.labels.submit")
             page.should have_content I18n.t('article.notices.max_limit')
           end
         end
@@ -266,7 +271,6 @@ describe 'Article management' do
         @article.reload.title.should eq old_title
       end
     end
-
     describe "article reporting" do
       before do
         visit article_path article
@@ -364,14 +368,14 @@ describe 'Article management' do
       end
 
       it "should show fair-alternativebox if seller is not on the whitelist" do
-          $no_fair_alternative['user_ids'] = []
+          $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = []
           visit article_path @article_conventional
            page.assert_selector('div.Related')
 
        end
 
      it  "should not show fair-alternativebox if seller is on the whitelist" do
-          $no_fair_alternative['user_ids'] = [@seller.id]
+          $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = [@seller.id]
           visit article_path @article_conventional
           page.assert_no_selector('div.Related')
       end
@@ -383,7 +387,7 @@ describe 'Article management' do
 
       it "should rescue ECONNREFUSED errors" do
         Article.stub(:search).and_raise(Errno::ECONNREFUSED)
-        $no_fair_alternative['user_ids'] = []
+        $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = []
         visit article_path article
         if article.is_conventional?
           page.should have_content I18n.t 'article.show.no_alternative'

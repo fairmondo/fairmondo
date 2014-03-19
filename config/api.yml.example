@@ -4,3 +4,7 @@ recaptcha:
 
 kontoapi:
  key: the_kontoapi_key
+
+fastbill:
+  email: my_email
+  api_key: my_fastbill_api_key

@@ -1,4 +1,4 @@
-module TransactionRefund
+module Transaction::Refundable
   extend ActiveSupport::Concern
 
   included do
@@ -12,10 +12,10 @@ module TransactionRefund
   #
   # checks if user has requested refund for this transaction
   def requested_refund?
-    ( self.refund && self.refund_reason && self.refund_description ) ? true : false
+    Refund.where( transaction_id: self.id ).any?
   end
 
   def refundable?
-    self.seller.can_refund? self
+    ( self.seller.can_refund? self ) && ( !self.requested_refund? )
   end
 end

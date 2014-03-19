@@ -22,15 +22,15 @@
 class LibraryElementPolicy < Struct.new(:user, :library_element)
 
   def show?
-    own? || library_element.article.active?
+    own? || active?
   end
 
   def create?
-    own?
+    own? && active? && user.libraries.count != 0
   end
 
   def update?
-    own?
+    own? && active?
   end
 
   def destroy?
@@ -38,7 +38,11 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
   end
 
   private
-  def own?
-    user && user.id == library_element.library_user_id
-  end
+    def own?
+      user && user.id == library_element.library_user_id
+    end
+
+    def active?
+      library_element.article && library_element.article.active?
+    end
 end

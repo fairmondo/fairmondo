@@ -1,4 +1,4 @@
-#
+# encoding: utf-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,13 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FinishMassUploadWorker
-  include Sidekiq::Worker
-  sidekiq_options queue: :mass_upload,
-                  retry: false,
-                  backtrace: true
 
-  def perform mass_upload_id
-    MassUpload.find(mass_upload_id).finish
-  end
+
+def setup_categories
+  Category.find_or_create_by_name("Fahrzeuge")
+  electronic = Category.find_or_create_by_name("Elektronik")
+  Category.find_or_create_by_name("Haus & Garten")
+  Category.find_or_create_by_name("Freizeit & Hobby")
+  Category.find_or_create_by_name("Sonstiges")
+  computer = Category.find_or_create_by_name("Computer", :parent => electronic)
+  Category.find_or_create_by_name("Audio & HiFi", :parent => electronic)
+  Category.find_or_create_by_name("Hardware", :parent => computer)
+  Category.find_or_create_by_name("Software", :parent => computer)
+  Category.rebuild!
 end
+
+

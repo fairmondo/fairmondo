@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
-include CategorySeedData
 
 describe "Export" do
 
@@ -25,7 +24,6 @@ describe "Export" do
   describe "for signed-in legal entity users" do
 
     before do
-      setup_categories
       login_as legal_entity
       visit new_mass_upload_path
     end
@@ -51,8 +49,9 @@ describe "Export" do
       describe "when exporting inactive articles" do
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "inactive")
-          @csv.should == File.read('spec/fixtures/mass_upload_export.csv')
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "inactive")
+          IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
 
@@ -63,8 +62,9 @@ describe "Export" do
         end
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "active")
-          @csv.should == File.read('spec/fixtures/mass_upload_export.csv')
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "active")
+          IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
     end
@@ -114,8 +114,9 @@ describe "Export" do
                                             city: "Berlin", zip: "10999",
                                             sold_at: "2013-12-03 17:50:15"
           legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
-          @csv = Article::Export.export_articles(legal_entity, "sold")
-          @csv.should == File.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "sold")
+          IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
         end
       end
 
@@ -130,8 +131,9 @@ describe "Export" do
         end
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity_buyer, "bought")
-          @csv.should == File.read('spec/fixtures/mass_upload_export_bought.csv')
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity_buyer, "bought")
+          IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export_bought.csv')
         end
       end
     end
@@ -148,8 +150,9 @@ describe "Export" do
       describe "when exporting inactive articles" do
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_articles(legal_entity, "inactive")
-          @csv.should == File.read('spec/fixtures/export_social_producer.csv')
+          @csv = Tempfile.new "export"
+          Article::Export.export_articles(@csv,legal_entity, "inactive")
+          IO.read(@csv).should == IO.read('spec/fixtures/export_social_producer.csv')
         end
       end
     end
@@ -166,7 +169,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Article::Export.export_erroneous_articles(MassUpload.last.erroneous_articles)
-          @csv.should == File.read('spec/fixtures/mass_upload_wrong_article.csv')
+          @csv.should == IO.read('spec/fixtures/mass_upload_wrong_article.csv')
         end
       end
     end

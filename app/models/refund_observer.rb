@@ -1,4 +1,4 @@
-#
+# See http://rails-bestpractices.com/posts/19-use-observer
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,9 +19,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-begin
-  # Loading no_fair_alternative.yml
-  $no_fair_alternative = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'no_fair_alternative.yml'))))
-rescue
-  puts 'no_fair_alternative.yml not found'
+
+class RefundObserver < ActiveRecord::Observer
+
+  def after_create(refund)
+    [ :fair, :fee ].each do | fee_type |
+      FastbillRefundWorker.perform_async( refund.transaction.id, fee_type ) if refund.transaction.send("billed_for_#{fee_type.to_s}")
+    end
+    RefundMailer.refund_notification(refund).deliver
+  end
+
 end

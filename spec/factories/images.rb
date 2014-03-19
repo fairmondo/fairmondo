@@ -23,12 +23,23 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :image do
-    sequence(:image_file_name) {|n| "image#{n}"}
+    image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test2.png'), 'image/png') }
     image_content_type    "image/png"
     image_file_size       { Random.new.rand(0..5) }
+    after(:create) { |image| image.image_processing = false }
 
-    factory :fixture_image do
+    factory :article_fixture_image, class: "ArticleImage" do
       image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'test.png'), 'image/png') }
     end
+
+    factory :article_image, class: "ArticleImage"
+
+    factory :user_image, class: "UserImage"
+
+    trait :processing do
+      image_processing true # for build()
+      after(:create) { |image| image.image_processing = true } # for create()
+    end
+
   end
 end

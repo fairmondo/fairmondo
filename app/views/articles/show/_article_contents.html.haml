@@ -33,30 +33,33 @@
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn"
 
 
+
 %figure.Article-image
-  - if resource.title_image_present?
-    / The next line is for providing the proper title image to facebook
-    - provide( :title_image, resource.title_image_url(:medium) )
-    = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
-  - else
-    = link_to image_tag("missing.png", :class=> "title_image") , "#"
+  - cache [resource, "article_image"] do
+    - if resource.title_image_present?
+      / The next line is for providing the proper title image to facebook
+      - provide( :title_image, resource.title_image_url(:medium) )
+      = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
+    - else
+      = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .Article-info
   .Article-info--right
-    %h2.Article-title
-      = resource.title
-    %p.Article-price= humanized_money_with_symbol resource.price
-    %p.Article-vat= t('formtastic.labels.article.price')
-    - unless article.vat == 0
-      %p.Article-vat= t('article.vat_included', :mwst => article.vat)
+    - cache [resource,"basic_information"] do
+      %h2.Article-title
+        = resource.title
+      %p.Article-price= humanized_money_with_symbol resource.price
+      %p.Article-vat= t('formtastic.labels.article.price')
+      - unless article.vat == 0
+        %p.Article-vat= t('article.vat_included', :mwst => article.vat)
+        %br
       %br
-    %br
-    %p.Article-transportprice
-      = t('formtastic.labels.article.transport_method')+" :"
-      %ul.Article-transportmethods
-        = transport_format_for "pickup","Article-transportprice"
-        = transport_format_for "type1","Article-transportprice"
-        = transport_format_for "type2","Article-transportprice"
-    = render 'articles/show/basic_price', :article => resource
+      %p.Article-transportprice
+        = t('formtastic.labels.article.transport_method')+" :"
+        %ul.Article-transportmethods
+          = transport_format_for "pickup","Article-transportprice"
+          = transport_format_for "type1","Article-transportprice"
+          = transport_format_for "type2","Article-transportprice"
+      = render 'articles/show/basic_price', :article => resource
     - if resource.is_available?
       %p.Article-quantity
         %span Dieser Artikel ist bereits ausverkauft
@@ -65,93 +68,101 @@
         %p.Article-quantity
           %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
       %p
-        - if user_signed_in? && !current_user.libraries.blank?
+        - if policy(mock_library_element).create?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
             .library
               = f.inputs do
                 = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false, input_html: { class: 'ArticleViewLibrarySelector' }
                 = f.input :article_id, :as => :hidden
               %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-              = f.button t('common.actions.collect'), :class => "Btn Btn--blue", :style => "margin:5px;padding:8px;"
+              = f.button t('common.actions.collect'), :class => "Btn Btn--gray", :style => "margin:5px;padding:8px;"
         - elsif user_signed_in?
           %br
           = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
-      - if resource.active? && (current_user ? !resource.owned_by?(current_user) : true)
+      - if policy(resource.transaction).edit?
         %p
-          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", :style => "margin:5px;"
+          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", style: "margin:5px;"
+      -elsif resource.seller_vacationing?
+        %p
+          .Btn.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'
+        %strong= t 'users.states.vacationing'
 
   .Article-info--left
-    .Thumbnail-container
-      - resource.thumbnails.each do |image|
-        = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.image.url(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
-    - if resource.seller.ngo
-      .Article-friendly
-        %p
-          =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
-    -else
-      .Article-friendly
+    - cache [resource,resource.seller,"thumbnails_and_donations"] do
+      .Thumbnail-container
+        - resource.thumbnails.each do |image|
+          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
 
-        - if !resource.has_100_fp?
-          %p.Article--highlight
-            =t('article.show.fair_percent')
-            %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
+      - if resource.seller.ngo
+        .Article-friendly
           %p
-            =t('article.show.donate_html')
+            =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
+      -else
+        .Article-friendly
 
-        - if resource.has_friendly_percent? && resource.donated_ngo
-          %p.Article--highlight
-            =t('article.show.friendly_percent')
-            %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
-          %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+          - if resource.shows_fair_percent?
+            %p.Article--highlight
+              =t('article.show.fair_percent')
+              %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
+            %p
+              =t('article.show.donate_html')
 
-    %p
-      -#Accordion--activated.Article-tags
-      = commendation_labels_for resource
-      = condition_label resource
+          - if resource.has_friendly_percent? && resource.donated_ngo
+            %p.Article--highlight
+              =t('article.show.friendly_percent')
+              %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
+            %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+
+      %p
+        -#Accordion--activated.Article-tags
+        = commendation_labels_for resource
+        = condition_label resource
 .Articles-social#socialshareprivacy
 .Article-accordion.Accordion--activated.Accordion--scrollToActive
-  / Artikelbeschreibung
-  = accordion_item "content" do
-    .Accordion-step
-      = resource.content.html_safe
-    - if resource.condition.old?
-      %strong
-        = "#{t("formtastic.labels.article.condition")}:"
-      = resource.condition_extra_text
+  - cache [resource, "contents"] do
+    / Artikelbeschreibung
+    = accordion_item "content" do
+      .Accordion-step
+        = resource.content.html_safe
+      - if resource.condition.old?
+        %strong
+          = "#{t("formtastic.labels.article.condition")}:"
+        = resource.condition_extra_text
 
 
-  = accordion_item "payment" do
-    .Article-box
-      %p
-        %b
-          = t('formtastic.labels.article.payment_methods')+':'
-        %ul
-          = payment_format_for "bank_transfer"
-          = payment_format_for "cash"
-          = payment_format_for "paypal"
-          = payment_format_for "cash_on_delivery"
-          = payment_format_for "invoice"
-      = simple_format(resource.payment_details).html_safe
-    .Article-box
-      %p
-        %b
-          = t('formtastic.labels.article.transport_method') + ':'
-        %ul
-          = transport_format_for "pickup"
-          = transport_format_for "type1"
-          = transport_format_for "type2"
-      = simple_format(resource.transport_details).html_safe
-  - if resource.has_commendation?
-    = accordion_item "commendation" do
-      = render 'articles/show/commendation', :article => resource
-  / Only legal sellers
-  - if resource.seller.is_a?(LegalEntity)
-    = accordion_item "terms" do
-      = resource.seller_terms.html_safe
-    = accordion_item "cancellation" do
-      = resource.seller_cancellation.html_safe
-    = accordion_item "about" do
-      = resource.seller_about.html_safe
+    = accordion_item "payment" do
+      .Article-box
+        %p
+          %b
+            = t('formtastic.labels.article.payment_methods')+':'
+          %ul
+            = payment_format_for "bank_transfer"
+            = payment_format_for "cash"
+            = payment_format_for "paypal"
+            = payment_format_for "cash_on_delivery"
+            = payment_format_for "invoice"
+        = simple_format(resource.payment_details).html_safe
+      .Article-box
+        %p
+          %b
+            = t('formtastic.labels.article.transport_method') + ':'
+          %ul
+            = transport_format_for "pickup"
+            = transport_format_for "type1"
+            = transport_format_for "type2"
+        = simple_format(resource.transport_details).html_safe
+    - if resource.has_commendation?
+      = accordion_item "commendation" do
+        = render 'articles/show/commendation', :article => resource
+  - cache [resource.seller,"legal_info"] do
+    / Only legal sellers
+    - if resource.seller.is_a?(LegalEntity)
+      = accordion_item "terms" do
+        = resource.seller_terms.html_safe
+      = accordion_item "cancellation" do
+        = resource.seller_cancellation.html_safe
+      = accordion_item "about" do
+        = resource.seller_about.html_safe
 
 
 

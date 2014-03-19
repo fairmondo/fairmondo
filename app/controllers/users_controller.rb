@@ -25,8 +25,8 @@ class UsersController < InheritedResources::Base
   actions :show
   custom_actions :resource => :profile, :collection => :login
 
-
   before_filter :show_notice, only: [:show]
+  before_filter :check_for_complete_mass_uploads, only: [:show]
   before_filter :authorize_resource, except: [:login]
   before_filter :dont_cache, only: [:show]
   skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
@@ -52,6 +52,14 @@ class UsersController < InheritedResources::Base
     if user_signed_in?
       notice = current_user.next_notice
       flash[notice.color] = render_open_notice notice if notice.present?
+    end
+  end
+
+  def check_for_complete_mass_uploads
+    if user_signed_in?
+      current_user.mass_uploads.where(:state => :processing).each do |mu|
+        mu.finish
+      end
     end
   end
 

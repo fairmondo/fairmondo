@@ -20,11 +20,16 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'spec_helper'
+include FastBillStubber
 
 include Warden::Test::Helpers
 
 describe 'User management' do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.create :user, :fastbill }
+
+  before do
+    stub_fastbill #for user update calls
+  end
 
   context "for signed-out users" do
     it "should show a login button" do
@@ -33,21 +38,16 @@ describe 'User management' do
     end
 
     it "registers a new user" do
-      Recaptcha.with_configuration(:public_key => '12345') do
-        visit new_user_registration_path
-      end
-      expect do
-        fill_in 'user_nickname',              with: 'nickname'
-        fill_in 'user_email',                 with: 'email@example.com'
-        fill_in 'user_password',              with: 'password'
-        fill_in 'user_password_confirmation', with: 'password'
-        choose 'user_type_legalentity'
-        check 'user_legal'
-        check 'user_privacy'
-        check 'user_agecheck'
-        click_button 'sign_up'
-        User.find_by_email('email@example.com').confirm!
-      end.to change(User, :count).by 1
+      visit new_user_registration_path
+
+      fill_in 'user_nickname',              with: 'nickname'
+      fill_in 'user_email',                 with: 'email@example.com'
+      fill_in 'user_password',              with: 'password'
+      fill_in 'user_password_confirmation', with: 'password'
+      choose 'user_type_legalentity'
+      check 'user_legal'
+      check 'user_agecheck'
+      expect {click_button 'sign_up'}.to change(User, :count).by 1
     end
 
     it "should sign in a valid user" do
@@ -137,11 +137,15 @@ describe 'User management' do
           page.should have_content I18n.t 'formtastic.labels.user.image'
 
           # Account Fields
-          page.should have_css 'h3', text: I18n.t('users.login.title')
+          page.should have_css 'h3', text: I18n.t('users.title.login')
           page.should have_content I18n.t 'formtastic.labels.user.email'
           page.should have_content I18n.t 'users.change_password'
           page.should have_content I18n.t 'formtastic.labels.user.password'
           page.should have_content I18n.t 'formtastic.labels.user.current_password'
+
+          # State Fields
+          page.should have_css 'h3', text: I18n.t('users.title.state')
+          page.should have_content I18n.t 'formtastic.labels.user.vacationing'
 
           # Contact Info Fields
           page.should have_content I18n.t 'formtastic.labels.user.title'

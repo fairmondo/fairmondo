@@ -2,30 +2,28 @@ require 'spec_helper'
 
 describe FairTrustQuestionnaire do
   describe "attributes" do
-    it { should respond_to 'support' }
-    it { should respond_to 'support_checkboxes' }
-    it { should respond_to 'support_explanation' }
-    it { should respond_to 'support_other' }
-
-    it { should respond_to 'labor_conditions' }
-    it { should respond_to 'labor_conditions_checkboxes' }
-    it { should respond_to 'labor_conditions_explanation' }
-    it { should respond_to 'labor_conditions_other' }
-
-    it { should respond_to 'environment_protection' }
-    it { should respond_to 'environment_protection_checkboxes' }
-    it { should respond_to 'environment_protection_explanation' }
-    it { should respond_to 'environment_protection_other' }
-
-    it { should respond_to 'controlling' }
-    it { should respond_to 'controlling_checkboxes' }
-    it { should respond_to 'controlling_explanation' }
-    it { should respond_to 'controlling_other' }
-
-    it { should respond_to 'awareness_raising' }
-    it { should respond_to 'awareness_raising_checkboxes' }
-    it { should respond_to 'awareness_raising_explanation' }
-    it { should respond_to 'awareness_raising_other' }
+    it { should respond_to :id }
+    it { should respond_to :article_id }
+    it { should respond_to :support }
+    it { should respond_to :support_checkboxes }
+    it { should respond_to :support_explanation }
+    it { should respond_to :support_other }
+    it { should respond_to :labor_conditions }
+    it { should respond_to :labor_conditions_checkboxes }
+    it { should respond_to :labor_conditions_explanation }
+    it { should respond_to :labor_conditions_other }
+    it { should respond_to :environment_protection }
+    it { should respond_to :environment_protection_checkboxes }
+    it { should respond_to :environment_protection_explanation }
+    it { should respond_to :environment_protection_other }
+    it { should respond_to :controlling }
+    it { should respond_to :controlling_checkboxes }
+    it { should respond_to :controlling_explanation }
+    it { should respond_to :controlling_other }
+    it { should respond_to :awareness_raising }
+    it { should respond_to :awareness_raising_checkboxes }
+    it { should respond_to :awareness_raising_explanation }
+    it { should respond_to :awareness_raising_other }
   end
 
   describe "associations" do

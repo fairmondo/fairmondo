@@ -40,8 +40,7 @@ describe ToolboxController do
 
   describe "GET 'rss'" do
     before(:each) do
-      URI.stub_chain(:parse,:open,:read)
-      RSS::Parser.stub_chain(:parse,:items,:first).and_return([])
+      FakeWeb.register_uri(:get, 'https://info.fairnopoly.de/?feed=rss', :body => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
     end
 
     context "as html" do
@@ -57,9 +56,17 @@ describe ToolboxController do
         response.should_not be_success
       end
     end
+
+    context "on timeout" do
+      it "should be sucessful and return nothing" do
+        Timeout.stub(:timeout).and_raise(Timeout::Error)
+        get :rss
+        response.should be_success
+      end
+    end
   end
 
-  describe "GET 'rss'" do
+  describe "GET 'reload'" do
     it "should be successful" do
       get :reload
       response.should be_success

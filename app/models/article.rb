@@ -32,7 +32,7 @@ class Article < ActiveRecord::Base
   delegate :quantity_available, to: :transaction, prefix: true
 
   delegate :deletable?, :buyer, to: :transaction, prefix: false
-  delegate :email, to: :seller, prefix: true
+  delegate :email, :vacationing?, to: :seller, prefix: true
   delegate :nickname, to: :donated_ngo, :prefix => true
 
 
@@ -53,19 +53,18 @@ class Article < ActiveRecord::Base
   has_many :mass_upload_articles
   has_many :mass_uploads, through: :mass_upload_articles
 
+  belongs_to :discount
+
   validates_presence_of :user_id
 
   belongs_to :article_template
-
-  after_save :count_value_of_goods
-
-
 
   # Misc mixins
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
-    Images, BuildTransaction, Attributes, Search, Template, State, Scopes, Checks
+          Images, BuildTransaction, Attributes, Search, Template, State, Scopes,
+          Checks, Discountable
 
   def self.article_attrs with_nested_template = true
     (
@@ -89,7 +88,7 @@ class Article < ActiveRecord::Base
         end
 
       else
-        self.images << Image.new(attributes[key]) if attributes[key][:image] != nil
+        self.images << ArticleImage.new(attributes[key]) if attributes[key][:image] != nil
       end
     end
   end
@@ -110,31 +109,36 @@ class Article < ActiveRecord::Base
     include_field :fair_trust_questionnaire
     include_field :social_producer_questionnaire
     include_field :categories
-    nullify :slug
     nullify :article_template_id
     customize lambda { |original_article, new_article|
+
       original_article.images.each do |image|
-        copyimage = Image.new
-        copyimage.image = image.image
-        copyimage.is_title = image.is_title
-        copyimage.external_url = image.external_url
-        new_article.images << copyimage
-        copyimage.save
+        begin
+          copyimage = ArticleImage.new
+          copyimage.image = image.image
+          copyimage.is_title = image.is_title
+          copyimage.external_url = image.external_url
+          new_article.images << copyimage
+          copyimage.save
+        rescue
+        end
       end
+
+      if original_article.template? || original_article.save_as_template?
+        new_article.slug = nil
+      else
+        old_slug = original_article.slug
+        original_article.slug = old_slug + original_article.id.to_s
+        new_article.slug = old_slug
+      end
+
     }
   end
 
-
-
-  def count_value_of_goods
-    value_of_goods_cents = 0
-    self.seller.articles.each do |article|
-      if article.state == 'active'
-        value_of_goods_cents += article.price_cents * article.quantity
-      end
-    end
-    self.seller.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  def should_generate_new_friendly_id?
+    super && slug == nil
   end
+
 
 
 end

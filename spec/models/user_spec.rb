@@ -30,6 +30,68 @@ describe User do
     should be_valid
   end
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :slug }
+    it { should respond_to :email }
+    it { should respond_to :encrypted_password }
+    it { should respond_to :reset_password_token }
+    it { should respond_to :sign_in_count }
+    it { should respond_to :reset_password_sent_at }
+    it { should respond_to :current_sign_in_at }
+    it { should respond_to :last_sign_in_ip }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :forename }
+    it { should respond_to :surname }
+    it { should respond_to :nickname }
+    it { should respond_to :invitor_id }
+    it { should respond_to :trustcommunity }
+    it { should respond_to :confirmation_token }
+    it { should respond_to :confirmed_at }
+    it { should respond_to :confirmation_sent_at }
+    it { should respond_to :unconfirmed_email }
+    it { should respond_to :banned }
+    it { should respond_to :about_me }
+    it { should respond_to :terms }
+    it { should respond_to :cancellation }
+    it { should respond_to :about }
+    it { should respond_to :title }
+    it { should respond_to :country }
+    it { should respond_to :street }
+    it { should respond_to :city }
+    it { should respond_to :zip }
+    it { should respond_to :phone }
+    it { should respond_to :mobile }
+    it { should respond_to :fax }
+    it { should respond_to :type }
+    it { should respond_to :ngo }
+    it { should respond_to :bank_account_owner }
+    it { should respond_to :bank_account_number }
+    it { should respond_to :bank_code }
+    it { should respond_to :bank_name }
+    it { should respond_to :iban }
+    it { should respond_to :bic }
+    it { should respond_to :paypal_account }
+    it { should respond_to :company_name }
+    it { should respond_to :seller_state }
+    it { should respond_to :buyer_state }
+    it { should respond_to :verified }
+    it { should respond_to :bankaccount_warning }
+    it { should respond_to :percentage_of_positive_ratings }
+    it { should respond_to :percentage_of_negative_ratings }
+    it { should respond_to :percentage_of_neutral_ratings }
+    it { should respond_to :direct_debit }
+    it { should respond_to :address_suffix }
+    it { should respond_to :value_of_goods_cents }
+    it { should respond_to :max_value_of_goods_cents }
+    it { should respond_to :max_value_of_goods_cents_bonus }
+    it { should respond_to :fastbill_subscription_id }
+    it { should respond_to :fastbill_id }
+    it { should respond_to :vacationing }
+    it { should respond_to :admin }
+
+  end
   describe "associations" do
     it { should have_many(:articles).dependent(:destroy) }
     #it { should have_many(:bids).dependent(:destroy) }
@@ -103,10 +165,8 @@ describe User do
 
     context "on create" do
       subject { User.new }
-      it { should validate_acceptance_of :privacy }
-      it { should validate_acceptance_of :legal }
       it { should validate_acceptance_of :agecheck }
-      it { should validate_presence_of :recaptcha }
+      it { should validate_acceptance_of :legal }
     end
 
     context "on update" do
@@ -133,7 +193,7 @@ describe User do
       end
       it { should validate_presence_of :forename }
       it { should validate_presence_of :surname }
-      it {should validate_presence_of :zip}
+      it { should validate_presence_of :zip}
       it { should validate_presence_of :country }
       it { should validate_presence_of :street }
       it { should validate_presence_of :city }
@@ -141,6 +201,23 @@ describe User do
   end
 
   describe "methods" do
+
+    describe "#count_value_of_goods" do
+      it "should sum the value of active goods" do
+        article = FactoryGirl.create :article, seller: user
+        second_article = FactoryGirl.create :article, seller: user
+        user.articles.reload
+        user.count_value_of_goods
+        user.value_of_goods_cents.should eq(article.price_cents + second_article.price_cents)
+      end
+
+      it "should not sum the value of inactive goods" do
+        FactoryGirl.create :preview_article, seller: user
+        user.count_value_of_goods
+        user.value_of_goods_cents.should eq(0)
+      end
+    end
+
     describe "#fullname" do
       it "returns correct fullname" do
         user.fullname.should eq "#{user.forename} #{user.surname}"
@@ -191,6 +268,17 @@ describe User do
       end
     end
 
+    describe '#update_fastbill_profile' do
+      let(:user) {FactoryGirl.create :user, :fastbill}
+
+      it 'should call FastBillAPI.update_profile if user has fastbill profile' do
+        # FastbillAPI.should receive(:update_profile).with(user)
+        Fastbill::Automatic::Customer.should receive(:get).and_return([Fastbill::Automatic::Customer.new])
+        Fastbill::Automatic::Customer.any_instance.stub(:update_attributes)
+        user.update_fastbill_profile
+      end
+    end
+
     describe "#address" do
       it "should return a string with street, address suffix, zip and city" do
         u = User.new street: 'Sesame Street 1', address_suffix: 'c/o Cookie Monster', zip: '12345', city: 'Utopia'
@@ -205,6 +293,26 @@ describe User do
           user.notify "test","test/test"
         end.should change(Notice.unscoped, :count).by 1
       end
+    end
+
+    describe "#calculate_percentage_of_biased_ratings" do
+
+      before :each do
+        last_ratings = []
+        7.times{ last_ratings << Rating.new(:rating =>"positive") }
+        1.times{ last_ratings << Rating.new(:rating =>"negative") }
+        2.times{ last_ratings << Rating.new(:rating =>"neutral") }
+
+        user.stub_chain(:ratings,:select,:limit) { last_ratings }
+      end
+
+      it "should be calculated correctly for positive ratings" do
+        user.calculate_percentage_of_biased_ratings('positive',10).should eq 70.0
+      end
+      it "should be calculated correctly for negative ratings" do
+        user.calculate_percentage_of_biased_ratings('negative',10).should eq 10.0
+      end
+
     end
 
   end
@@ -625,32 +733,9 @@ describe User do
   describe "seller rating" do
     describe PrivateUser do
       let(:private_seller) { FactoryGirl::create(:private_user) }
+
       before :each do
-        private_seller.ratings.stub(:count){ 100 }
-      end
-
-      context "percentage of ratings" do
-        before :each do
-          7.times do
-            FactoryGirl.create( :positive_rating, :rated_user => private_seller )
-          end
-          2.times do
-            FactoryGirl.create( :neutral_rating, :rated_user => private_seller )
-          end
-          1.times do
-            FactoryGirl.create( :negative_rating, :rated_user => private_seller )
-          end
-        end
-
-        it "should be calculated correctly for positive ratings" do
-          private_seller.update_rating_counter
-          private_seller.calculate_percentage_of_biased_ratings('positive',10).should eq 70.0
-        end
-        it "should be calculated correctly for negative ratings" do
-          private_seller.update_rating_counter
-          private_seller.calculate_percentage_of_biased_ratings('negative',10).should eq 10.0
-        end
-
+        private_seller.ratings.stub(:count) { 21 }
       end
 
       context "with negative ratings over 25%" do
@@ -992,4 +1077,5 @@ describe User do
 
     end
   end
+
 end
