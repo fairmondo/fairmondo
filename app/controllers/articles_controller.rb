@@ -56,7 +56,6 @@ class ArticlesController < InheritedResources::Base
   end
 
   def show
-    @article = Article.find params[:id]
     authorize resource
 
     if !resource.active? && policy(resource).activate?
@@ -215,7 +214,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def begin_of_association_chain
-      current_user
+      params[:action] == "show" ? super : current_user
     end
 
     def build_search_cache

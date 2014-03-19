@@ -58,6 +58,7 @@
     %link{ rel: 'image_src', href: yield(:title_image) }
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
+    = render 'peek/bar'
     .l-Wrap
       .Notice
         - if !flash.empty?
@@ -104,7 +105,7 @@
           = hero
       .l-Main{:role => "main"}
         .l-Inner
-          = yield
+          = yield # <-----------------------------------------
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
           - cache "ngo_logosand_known_from" do

@@ -113,12 +113,15 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
 
       original_article.images.each do |image|
-        copyimage = ArticleImage.new
-        copyimage.image = image.image
-        copyimage.is_title = image.is_title
-        copyimage.external_url = image.external_url
-        new_article.images << copyimage
-        copyimage.save
+        begin
+          copyimage = ArticleImage.new
+          copyimage.image = image.image
+          copyimage.is_title = image.is_title
+          copyimage.external_url = image.external_url
+          new_article.images << copyimage
+          copyimage.save
+        rescue
+        end
       end
 
       if original_article.template? || original_article.save_as_template?

@@ -65,6 +65,12 @@ class ApplicationController < ActionController::Base
   #   all_filters.map { :filter }
   # end
 
+  # PeekInto Access Controll
+  def peek_enabled?
+    current_user && current_user.admin?
+  end
+
+
   protected
 
     def render_users_hero
@@ -92,7 +98,7 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_classes
-      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController]
+      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController,Peek::ResultsController]
     end
 
     # To be inherited and used in a before_filter
