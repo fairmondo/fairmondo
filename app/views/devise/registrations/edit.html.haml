@@ -59,16 +59,16 @@
         %p
           %span.User--rightside= t('users.visibility.public')
           %strong.Meta--highlight= t('formtastic.labels.user.image') + ":"
-          = image_tag(@user.image_url(:thumb), :class => "img-polaroid ")
+          = image_tag(@user.image_url(:original), :class => "img-polaroid ")
           - f.object.build_image unless f.object.image # Build the Image object for the form
           = f.semantic_fields_for :image do |image|
             = f.inputs do
-              = image.input :image, label: false, as: :file, tooltip: true
+              = image.input :image, label: false, as: :file, tooltip: true, required: false
 
       .User--step
         %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
-        %h3= t('users.login.title')
+        %h3= t('users.title.login')
         = f.inputs do
           = f.input :email
 
@@ -77,6 +77,12 @@
         = f.input :password_confirmation
         = render :partial => "/devise/password_complexity"
         = f.input :current_password
+
+      .User--step
+        %span.User--rightside
+          = t('users.visibility.public')
+        %h3= t('users.title.state')
+        = f.input :vacationing, tooltip: true
 
 
 
@@ -122,6 +128,10 @@
           = f.input :bank_code, :required => true, :input_html => {:id => "bank_code", :maxlength => 8}, :label => t('formtastic.labels.user.bank_code')
           = f.input :bank_name, :required => true, :input_html => {:id => "bank_name"}, :label => t('formtastic.labels.user.bank_name')
           = f.input :bank_account_number, :required => true, :input_html => {:id => "bank_account_number", :maxlength => 10}, :label => t('formtastic.labels.user.bank_account_number')
+
+          = f.input :iban, :required => true, :input_html => {:id => "iban"}, :label => t('formtastic.labels.user.iban'), tooltip: true
+          = f.input :bic, :required => true, :input_html => {:id => "bic"}, :label => t('formtastic.labels.user.bic'), tooltip: true
+
         .User--step
           - direct_debit__link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", :target => "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
           = f.input :direct_debit, :required => true, :label => t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit__link + t('formtastic.labels.user.direct_debit2_html').html_safe
@@ -129,5 +139,6 @@
           %h3= t('users.form_titles.payment_paypal')
           /%p= t('formtastic.labels.user.paypal_notification')
           = f.input :paypal_account, :label => t('formtastic.labels.user.paypal_account'), tooltip: true
+          = f.input :fastbill_profile_update, as: :hidden, input_html: { value: true }
     = f.actions do
       = f.action :submit, :button_html => {:class => "Btn"}

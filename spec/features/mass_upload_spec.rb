@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 include Warden::Test::Helpers
-include CategorySeedData
+
 
 describe "Mass-upload" do
 
@@ -9,6 +9,18 @@ describe "Mass-upload" do
   let(:legal_entity_user) { FactoryGirl.create :legal_entity }
 
   subject { page }
+
+  describe "for code-coverage purposes of sidekiq retries" do
+    it "should cover exhausted upload workers" do
+      Sidekiq.logger.stub(:warn)
+      ProcessMassUploadWorker.sidekiq_retries_exhausted_block.call({"class" => Object.class , "args" => {}, "error_message" => ""})
+    end
+    it "should cover exhausted row workers" do
+      Sidekiq.logger.stub(:warn)
+      mu = FactoryGirl.create :mass_upload
+      ProcessRowMassUploadWorker.sidekiq_retries_exhausted_block.call({"class" => Object.class , "args" => [mu.id,"lala",3], "error_message" => "snafu"})
+    end
+  end
 
   context "for non signed-in users" do
     it "should rediret to login page" do
@@ -38,16 +50,15 @@ describe "Mass-upload" do
 
     before do
       login_as legal_entity_user
-      visit new_article_path
     end
 
     it "should have a csv upload link" do
+      visit new_article_path
       should have_link(I18n.t('users.boxes.import'))
     end
 
     describe "when uploading" do
       before do
-        setup_categories
         visit new_mass_upload_path
       end
 
@@ -270,22 +281,6 @@ describe "Mass-upload" do
 
         context "(invalid file:" do
 
-          #describe "csv, wrong header)" do
-          #  before { attach_file('mass_upload_file',
-          #                       'spec/fixtures/mass_upload_wrong_header.csv') }
-          #
-          #  it "should show correct error messages" do
-          #    click_button I18n.t('mass_uploads.labels.upload_article')
-          #    should have_selector('p.inline-errors',
-          #      text: I18n.t('mass_uploads.errors.wrong_header'))
-          #  end
-          #
-          #  it "should not create new articles" do
-          #    expect { click_button I18n.t('mass_uploads.labels.upload_article') }
-          #            .not_to change(Article, :count)
-          #  end
-          #end
-
           describe "csv, wrong articles)" do
             before { attach_file('mass_upload_file',
                         'spec/fixtures/mass_upload_wrong_article.csv') }
@@ -299,16 +294,6 @@ describe "Mass-upload" do
             it "should not create new articles" do
               expect { click_button I18n.t('mass_uploads.labels.upload_article') }
                       .not_to change(Article, :count)
-            end
-          end
-
-          describe "wrong format)" do
-            it "should show correct error messages" do
-              attach_file('mass_upload_file',
-                          'spec/fixtures/mass_upload_wrong_format.html')
-              click_button I18n.t('mass_uploads.labels.upload_article')
-              should have_selector('p.inline-errors',
-                text: I18n.t('mass_uploads.errors.wrong_mime_type'))
             end
           end
 

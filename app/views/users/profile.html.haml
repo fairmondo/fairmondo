@@ -26,9 +26,9 @@
     - if resource.valid? && resource.is_a?(LegalEntity)
       - if resource.forename && resource.surname
         %p
-          = resource.title + " " if resource.title?
           = t('formtastic.labels.user.contact_person')
           \:
+          %strong= resource.title + " " if resource.title?
           %strong= resource.forename + " " + resource.surname
 
       - if resource.address_suffix

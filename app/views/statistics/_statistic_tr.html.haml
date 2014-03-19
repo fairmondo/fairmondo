@@ -1,0 +1,12 @@
+%tr
+  %td
+    = name
+  %td
+    - if value.is_a?(Money)
+      = humanized_money_with_symbol value
+    - else
+      = value
+  %td
+    - if growth
+      = growth
+      = "%"

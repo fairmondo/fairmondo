@@ -46,11 +46,11 @@ class TransactionPolicy < Struct.new(:user, :transaction)
   end
 
   private
-  def own?
-    user ? user.articles.include?(transaction.article) : false
-  end
+    def own?
+      user ? user.articles.include?(transaction.article) : false
+    end
 
-  def purchasable?
-    transaction.article.active?
-  end
+    def purchasable?
+      transaction.article_active? && !transaction.article_seller_vacationing?
+    end
 end

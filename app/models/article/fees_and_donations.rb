@@ -60,6 +60,20 @@ module Article::FeesAndDonations
   #   Money.new(friendly_percent_result_cents)
   # end
 
+  def shows_fair_percent?
+    # for german book price agreement
+    # we can't be sure if the book is german
+    # so we dont show fair percent on all new books
+    # book category is written in exceptions.yml
+    !self.could_be_book_price_agreement? && !self.has_100_fp?
+  end
+
+  def could_be_book_price_agreement?
+    book_category_id = $exceptions_on_fairnopoly['book_price_agreement']['category'].to_i
+    is_a_book = self.categories_and_ancestors.map{ |c| c.id }.include? book_category_id
+    is_a_book && self.condition == "new"
+  end
+
   def has_friendly_percent?
      friendly_percent_gt_0? &&
      self.donated_ngo &&
@@ -103,62 +117,60 @@ module Article::FeesAndDonations
     end
   end
 
+  private
 
-private
-
-  def friendly_percent_gt_0?
-    self.friendly_percent.present? &&
-    self.friendly_percent > 0
-  end
-
-  def set_friendly_percent_for_ngo
-    if self.seller.ngo
-       self.friendly_percent = 100
-       self.friendly_percent_organisation = self.seller.id
+    def friendly_percent_gt_0?
+      self.friendly_percent.present? &&
+      self.friendly_percent > 0
     end
-  end
 
-  def friendly_percent_result_cents
-    # At the moment there is no friendly percent
-    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-    #(self.price_cents * (self.friendly_percent / 100.0)).ceil
-    # NGOs are not allowed to give donation to other NGO
-    self.seller.ngo ? 0 : (self.price_cents * (self.friendly_percent / 100.0)).ceil
-  end
-
-  ## fees and donations
-
-  def fair_percentage
-    self.seller.ngo ? 0 : 0.01
-  end
-
-  def fair_percent_result
-    # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-    Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
-  end
-
-  def fee_percentage
-    if self.seller.ngo
-      0
-    elsif fair?
-      AUCTION_FEES[:fair]
-    else
-      AUCTION_FEES[:default]
+    def set_friendly_percent_for_ngo
+      if self.seller.ngo
+         self.friendly_percent = 100
+         self.friendly_percent_organisation = self.seller.id
+      end
     end
-  end
 
-  def fee_result
-    if self.seller.ngo
-      0
-    else
+    def friendly_percent_result_cents
+      # At the moment there is no friendly percent
       # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
-      r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
-      max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
-      min = Money.new(AUCTION_FEES[:min]*100)
-      r = min if r < min
-      r = max if r > max
-      r
+      #(self.price_cents * (self.friendly_percent / 100.0)).ceil
+      # NGOs are not allowed to give donation to other NGO
+      self.seller.ngo ? 0 : (self.price_cents * (self.friendly_percent / 100.0)).ceil
     end
-  end
 
+    ## fees and donations
+
+    def fair_percentage
+      self.seller.ngo ? 0 : 0.01
+    end
+
+    def fair_percent_result
+      # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+      Money.new(((self.price_cents - friendly_percent_result_cents) * fair_percentage).ceil)
+    end
+
+    def fee_percentage
+      if self.seller.ngo
+        0
+      elsif fair?
+        AUCTION_FEES[:fair]
+      else
+        AUCTION_FEES[:default]
+      end
+    end
+
+    def fee_result
+      if self.seller.ngo
+        0
+      else
+        # for rounding -> always round up (e.g. 900,1 cents are 901 cents)
+        r = Money.new(((self.price_cents - friendly_percent_result_cents) * fee_percentage).ceil)
+        max = fair? ? Money.new(AUCTION_FEES[:max_fair]*100) : Money.new(AUCTION_FEES[:max_default]*100)
+        min = Money.new(AUCTION_FEES[:min]*100)
+        r = min if r < min
+        r = max if r > max
+        r
+      end
+    end
 end

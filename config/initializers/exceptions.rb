@@ -19,11 +19,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module MassUploadsHelper
-  def process_percentage_of mass_upload
-    result = mass_upload.processed_articles_count.to_f / mass_upload.row_count.to_f * 100
-    result = 0 unless result > 0 # Mainly transforms "NaN" => 0.0 / 0.0
-    result = 100 if result >= 100 # Mainly transforms "Infinity" => 1.0 / 0.0
-    return result
-  end
+
+$exceptions_on_fairnopoly = {}
+begin
+  # Loading Exceptions
+  $exceptions_on_fairnopoly = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'exceptions.yml'))))
+
+rescue
+  puts 'exceptions.yml not found'
 end
+
+

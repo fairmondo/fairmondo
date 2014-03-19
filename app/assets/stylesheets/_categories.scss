@@ -131,39 +131,49 @@
 }
 
 .Category-dropdown {
-  //padding: 1em;
   position:absolute;
-  width:12em;
   left:-999em; /* Hides the drop down */
-  text-align:left;
+  text-align: left;
   background: white;
-  z-index:2;
+  z-index: 2;
   @include border-bottom-radius(5px);
   @include border-top-right-radius(5px);
   @include single-box-shadow($gray,1px,1px,3px,0px)
 }
 
 .Category-dropdown-children {
-   list-style:none;
-    padding:0;
-    margin:0;
-    li {
+  padding:0;
+  margin:0;
+
+  tr:first-child td:last-child {
+    @include border-top-right-radius(5px);
+  }
+  tr:last-child td:first-child {
+    @include border-bottom-left-radius(5px);
+  }
+  &.Category-dropdown-children--columns-1 tr:last-child td:first-child,
+  &.Category-dropdown-children--columns-2 tr:last-child td:nth-child(2n),
+  &.Category-dropdown-children--columns-3 tr:last-child td:nth-child(3n) {
+    @include border-bottom-right-radius(5px);
+  }
+
+  td {
+    min-width: 8em;
+    word-wrap: break-word;
+    a {
       display:block;
-      word-wrap: break-word;
+      @include rem(padding, 4px 6px);
+    }
+    &:first-child a {
+      @include rem(padding-left, 14px);
+    }
+    &:hover {
+      background: $blue;
       a {
-        padding: 1em;
-        display:block;
-      }
-      &:hover {
-        background: $blue;
-        a {
-          color:white;
-        }
-      }
-      &:last-child{
-        @include border-bottom-radius(5px);
+        color:white;
       }
     }
+  }
 }
 
 .Hero-category:hover .Category-dropdown{
@@ -196,13 +206,18 @@
 //________________________________
 
 .Category-index-parent {
-  @include span-columns(1,3);
-  @include nth-omega(3n);
   background:white;
   @include rem(padding, 10px 20px);
   @include border-radius(8px);
-  margin-bottom: 2em;
-  &:nth-child(3n+1) {
-    clear:both;
-  }
+}
+.Category-index-parent ul {
+  padding-left: 15px;
+}
+.Category-index-parent li {
+  list-style-type: none;
+  word-wrap:break-word;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
 }

@@ -34,7 +34,7 @@ module Paperclip
   end
   class Thumbnail
     def make
-      src = fixture_file_upload('spec/fixtures/test.png')
+      src = fixture_file_upload('spec/fixtures/test2.png')
       dst = Tempfile.new([@basename, @format].compact.join("."))
       dst.binmode
       FileUtils.cp(src.path, dst.path)
@@ -42,7 +42,7 @@ module Paperclip
     end
   end
   class Attachment
-    def post_process
+    def post_process image=nil
     end
   end
   # module Storage

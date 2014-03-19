@@ -28,26 +28,9 @@ class Image < ActiveRecord::Base
   #! attr_accessible *image_attributes
   #! attr_accessible *image_attributes, :as => :admin
 
-
-  belongs_to :imageable, polymorphic: true #has_and_belongs_to_many :articles
-  has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "280x200>", profile: "300x300#" },
-                            convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip -background white -gravity center -extent 260x180", profile: "-quality 75 -strip" },
-                            default_url: "/assets/missing.png",
-                            url: "/system/:attachment/:id_partition/:style/:filename",
-                            path: "public/system/:attachment/:id_partition/:style/:filename"
+  # This is a hack because delayed_paperclip is not working correctly for now
 
   default_scope order('created_at ASC')
-
-  validates_attachment_presence :image, :unless => :external_url
-  validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates_attachment_size :image, :in => 0..2.megabytes
-
-
-  # Using polymorphy with STI (User) is tricky: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#label-Polymorphic+Associations
-  # @api public
-  def imageable_type=(sType)
-    super(sType.to_s.classify.constantize.base_class.to_s)
-  end
 
   # Get The Geometry of a image
   #
@@ -59,15 +42,13 @@ class Image < ActiveRecord::Base
   # param style [Symbol] style of the image you want the dimensions of
   # return [Paperclip Geometry Object]
   def geometry style
-     Paperclip::Geometry.from_file(self.image.path(style))
+    Paperclip::Geometry.from_file(self.image.path(style))
   end
 
-  def self.title_image
-    where(is_title: true).first
-  end
-
-  def self.reprocess image_id, style=:thumb
+  def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
+
+
 
 end

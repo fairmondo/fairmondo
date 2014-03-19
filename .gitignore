@@ -5,6 +5,7 @@ public/system
 config/initializers/secret_token.rb
 
 # Project files
+.redcar
 .project
 .settings
 *.sublime-project
@@ -27,7 +28,6 @@ vendor/bundle
 # Ignore default SQLite database
 db/*.sqlite3
 db/*.sqlite3-journal
-db/schema.rb
 
 # Ignore codecoverage report
 coverage
@@ -42,6 +42,9 @@ config/email_addresses.yml
 #Solr Development
 solr/data/**/*
 solr/pids/**/*
+solr/default/**
+solr/development/**
+solr/test/**
 
 #ER-Diagram
 erd.pdf
@@ -49,6 +52,9 @@ erd.pdf
 # Precompiled assets
 public/assets/*
 public/assets_test/*
+
+# Precompiled gems - remove if we decide to run production bundler with --local
+vendor/cache
 
 # Mac .DS_Stores
 .DS_Store
@@ -74,8 +80,10 @@ Gemfile.local
 # other fragments
 *.~lock.*
 *.swo
+*.swn
+*.swm
 
-.ruby-version
+
 .ruby-gemset
 
 # compass sprites

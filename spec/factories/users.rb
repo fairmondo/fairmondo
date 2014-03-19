@@ -28,10 +28,8 @@ FactoryGirl.define do
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
     surname     { Faker::Name.last_name }
     forename    { Faker::Name.first_name }
-    privacy     "1"
     legal       "1"
     agecheck    "1"
-    recaptcha   '1'
 
     about_me    { Faker::Lorem.paragraph( rand(7)+1 ) }
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
@@ -53,13 +51,18 @@ FactoryGirl.define do
     bank_account_owner Faker::Name.name
     bank_name Faker::Name.name
 
-    direct_debit '1'
+    iban {["DE","AT","CH"].sample+rand(99999999999999999999).to_s.center(20, rand(9).to_s)}
+    bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
+
+    direct_debit true
 
     trait :missing_bank_data do
       bank_code ""
       bank_account_number ""
       bank_account_owner ""
       bank_name ""
+      iban ""
+      bic ""
    end
 
     seller_state "standard_seller"
@@ -91,10 +94,21 @@ FactoryGirl.define do
     trait :no_bank_data do
       bank_code ""
       bank_account_number ""
+      iban ""
+      bic ""
     end
 
     trait :paypal_data do
       paypal_account Faker::Internet.email
+    end
+
+    trait :fastbill do
+      fastbill_id '1223'
+      fastbill_subscription_id '76543'
+    end
+
+    trait :ngo do
+      ngo true
     end
   end
 

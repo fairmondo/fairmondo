@@ -2,16 +2,19 @@ class MassUploadsController < InheritedResources::Base
   actions :update, :show, :new, :create
 
   # Layout Requirements
-  before_filter :ensure_complete_profile , :only => [:new, :create]
-  before_filter :authorize_resource, only: [:show, :update]
-  before_filter :authorize_build_resource, only: [:new, :create]
-  before_filter :check_value_of_goods, :only => [:update]
+          before_filter :ensure_complete_profile , :only => [:new, :create]
+          before_filter :authorize_resource, only: [:show, :update]
+          before_filter :authorize_build_resource, only: [:new, :create]
+          before_filter :check_value_of_goods, :only => [:update]
 
   def show
+
+    @erroneous_articles = resource.erroneous_articles.page(params[:erroneous_articles_page])
+
     show! do |format|
       format.csv { send_data Article::Export.export_erroneous_articles(resource.erroneous_articles),
                    {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
-      end
+    end
   end
 
   def create
@@ -36,5 +39,6 @@ class MassUploadsController < InheritedResources::Base
     def begin_of_association_chain
       current_user
     end
+
 
 end

@@ -1,4 +1,4 @@
-#
+# encoding: utf-8
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -26,6 +26,39 @@ module ArticlesHelper
   def condition_label article
     # bclass=condition_badge_class(article.condition)
     '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
+  end
+
+  # Build title string
+  def index_title_for search_article
+    attribute_list = ::HumanLanguageList.new
+    attribute_list << t('article.show.title.new') if search_article.condition == 'new'
+    attribute_list << t('article.show.title.old') if search_article.condition == 'old'
+    attribute_list << t('article.show.title.fair') if search_article.fair
+    attribute_list << t('article.show.title.ecologic') if search_article.ecologic
+    attribute_list << t('article.show.title.small_and_precious') if search_article.small_and_precious
+
+    output = attribute_list.concatenate.capitalize + ' '
+
+    if search_article.categories[0]
+      output += search_article.categories[0].name + ' '
+    end
+    output += t('article.show.title.article')
+  end
+
+  def breadcrumbs_for category_leaf
+    category_tree = get_category_tree category_leaf
+    output = ''
+    category_tree.each do |category|
+      last = category_tree.last == category
+      output += '<span>'
+      output += "<a href='#{articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}' class='#{(last ? 'last' : nil )}'>"
+      output += category.name
+      output += '</a>'
+      output += '</span>'
+      output += ' > ' unless last
+    end
+
+    output
   end
 
   def get_category_tree category
@@ -142,4 +175,30 @@ module ArticlesHelper
     return [].to_json
   end
 
+  def build_category_table children, columns = 2
+    last = children.count - 1
+    last_in_column = columns - 1
+
+    output = "<table class='Category-dropdown-children Category-dropdown-children--columns-#{columns}'>"
+    children.each_with_index do |child, index|
+      output += '<tr>' if index % columns == 0
+      output +=   '<td>'
+      output +=     "<a href='#{articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids})}'>"
+      output +=       child.name
+      output +=     '</a>'
+      output +=   '</td>'
+      output += '</tr>' if (index % columns) == last_in_column or index == last
+    end
+    output += '</table>'
+  end
+
+  def default_organisation_from organisation_list
+    begin
+      organisation_name = default_form_value('friendly_percent_organisation', resource)
+      default_organisation = organisation_list.select { |o| o.nickname == organisation_name }
+      default_organisation[0] ? default_organisation[0].id : nil
+    rescue
+      nil
+    end
+  end
 end

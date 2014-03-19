@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :refund do
-    reason 'Artikel ist nicht lieferbar'
+    reason :not_in_stock
     description 'a' * 160
     transaction { FactoryGirl.create :transaction_with_buyer, :old }
 

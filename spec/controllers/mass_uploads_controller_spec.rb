@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-# include MassUploadCreator
-include CategorySeedData
-
 describe MassUploadsController do
 
   # Strictly speaking not necessary since already tested in the feature tests
@@ -33,7 +30,6 @@ describe MassUploadsController do
     let(:attributes) { FactoryGirl.attributes_for(:mass_upload, :user => user) }
 
     before do
-      setup_categories
       sign_in user
     end
 

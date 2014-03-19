@@ -12,7 +12,7 @@ de:
     claim: "dreh' das Spiel um"
     fn_footer_greeting: "Dein Fairnopoly-Team"
     fn_legal_footer:
-      crowd_funding: "Fairnopoly braucht Dich! Hier geht es zu unserer Crowdfunding-Kampagne:\nhttp://www.startnext.de/fairnopoly2"
+      crowd_funding: "Fairnopoly braucht Dich! Jetzt Anteile zeichnen:\nhttp://info.fairnopoly.de/anteile-zeichnen/"
       spacer: "----------"
       intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
@@ -22,7 +22,7 @@ de:
       ceo: "Vorstandsvorsitzender: Felix Weth"
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
       facebook: "Facebook: www.facebook.com/fairnopoly"
-      buy_shares: "Anteile zeichnen: http://www.startnext.de/fairnopoly2"
+      buy_shares: "Anteile zeichnen: http://info.fairnopoly.de/anteile-zeichnen/"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -44,6 +44,7 @@ de:
       to_cart: "Kaufen"
       collect: "Sammeln"
       move: "Verschieben"
+      send: 'Absenden'
       more: "mehr"
       send: 'Absenden'
     title:
@@ -70,7 +71,6 @@ de:
       relation: "Beziehung"
       profile: "Profil"
       inserted: "Artikel wurden bereits eingestellt"
-      i_accept_the: "Ich akzeptiere die "
       no_search_result_text: "Keine Suchergebnisse unter den Fairnopoly-Artikeln"
       libraries: "Meine Sammlungen"
       about_terms: "Meine Firmendaten"

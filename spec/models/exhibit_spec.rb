@@ -4,6 +4,16 @@ describe Exhibit do
   let(:exhibit) { Exhibit.new }
 
   describe "::Base" do
+    describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :article_id }
+    it { should respond_to :queue }
+    it { should respond_to :related_article_id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :exhibition_date }
+    end
+
     describe "associations" do
       it {should belong_to :article}
       it {should belong_to :related_article}
@@ -43,10 +53,11 @@ describe Exhibit do
       @articles.should eq [@exhibit.article]
     end
 
-    it "should fill empty queues with articles shown longer than 24 h " do
+    it "should fill empty queues with articles shown longer than 24 h (randomly)" do
       @exhibit2 = FactoryGirl.create(:exhibit, :expired)
       @articles = Exhibit.independent_queue :old, 2
-      @articles.should eq [@exhibit.article, @exhibit2.article]
+      @articles.should include @exhibit.article
+      @articles.should include @exhibit2.article
     end
 
     it "should work off the queue sequentially" do

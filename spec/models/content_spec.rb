@@ -22,6 +22,14 @@
 require 'spec_helper'
 
 describe Content do
+  describe 'attributes' do
+    it { should respond_to :key }
+    it { should respond_to :body }
+    it { should respond_to :id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+  end
+
   describe "fields" do
     describe "friendly_id" do
       # see https://github.com/norman/friendly_id/issues/332
@@ -31,8 +39,6 @@ describe Content do
       end
     end
 
-    it { should respond_to :key }
-    it { should respond_to :body }
   end
 
   describe "validations" do

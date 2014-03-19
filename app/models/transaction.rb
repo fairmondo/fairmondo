@@ -1,4 +1,4 @@
-# A transaction handles the purchase process of an artucle.
+# A transaction handles the purchase process of an article.
 #
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
@@ -19,11 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
-  include TransactionRefund
+  include Transaction::Refundable, Transaction::Discountable, Transaction::Scopes
 
   belongs_to :article, inverse_of: :transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
@@ -32,7 +33,9 @@ class Transaction < ActiveRecord::Base
 
   def self.transaction_attrs
     [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country]
+    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country,
+    :refund_reason, :refund_explanation, :billed_for_fair, :billed_for_fee, :billed_for_discount]
+    # billed_for are booleans for checking if this transaction is already billed
   end
   attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
@@ -45,15 +48,20 @@ class Transaction < ActiveRecord::Base
 
   delegate :title, :seller, :selectable_transports, :selectable_payments,
            :transport_provider, :transport_price, :payment_cash_on_delivery_price,
-           :basic_price, :basic_price_amount, :basic_price_amount_text, :price, :vat, :vat_price,
+           :basic_price, :basic_price_amount, :basic_price_amount_text, :price,
            :price_without_vat, :total_price, :quantity, :quantity_left,
-           :transport_type1_provider, :transport_type2_provider, :calculated_fair, :friendly_percent, :friendly_percent_organisation,
+           :transport_type1_provider, :transport_type2_provider, :calculated_fair,
+           :calculated_fair_cents, :calculated_fee, :calculated_fee_cents,
+           :friendly_percent, :friendly_percent_organisation, :vat_price, :vat,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
+           :active?,
            to: :article, prefix: true
-  delegate :email, :forename, :surname, :fullname, to: :buyer, prefix: true
+  delegate :email, :forename, :surname, :fullname, :nickname,
+           to: :buyer, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
-           :about, :terms, :cancellation, :paypal_account,:ngo,
+           :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
+           :vacationing?,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
 

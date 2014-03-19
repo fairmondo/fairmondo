@@ -72,6 +72,11 @@ de:
         newest: "Neueste Artikel zuerst"
         cheapest: "Verkaufspreis aufsteigend"
         most_expensive: "Verkaufspreis absteigend"
+        old: 'Zustand: Gebraucht zuerst'
+        new: 'Zustand: Neu zuerst'
+        fair: 'Filter: fair zuerst'
+        ecologic: 'Filter: öko zuerst'
+        small_and_precious: 'Filter: klein&edel zuerst'
         most_donated: "Spendenanteil absteigend"
     fair_trust_questionnaire:
       support_checkboxes:
@@ -224,5 +229,3 @@ de:
        voucher: 'Gutschein'
        not_in_stock: 'Artikel ist nicht lieferbar'
        sent_back: 'Artikel wurde zurück geschickt'
-
-

@@ -1,0 +1,10 @@
+de:
+  invoice:
+    fee: 'Verkaufsgebühr'
+    fair: 'Faires Prozent'
+    refund: 'Rückerstattung'
+    refund_fair: 'Rückerstattung Faires Prozent'
+    refund_fee: 'Rückerstattung Verkaufsgebühr'
+    refund_button: 'Rückerstattung beantragen'
+    
+    

@@ -6,45 +6,22 @@
 - else
   .Import-detail
     .Accordion--activated.Accordion--scrollToActive
-    - unless resource.created_articles.empty?
-      = accordion_item "created" do
-        %ul
-          - resource.created_articles.each do |article|
-            = render "article_digest", :article => article
-    - unless resource.updated_articles.empty?
-      = accordion_item "updated" do
-        %ul
-          - resource.updated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless resource.activated_articles.empty?
-      = accordion_item "activated" do
-        %ul
-          - resource.activated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless resource.deactivated_articles.empty?
-      = accordion_item "deactivated" do
-        %ul
-          - resource.deactivated_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless resource.deleted_articles.empty?
-      = accordion_item "deleted" do
-        %ul
-          - resource.deleted_articles.each do |article|
-            = render "article_digest", :article => article
-
-    - unless resource.erroneous_articles.empty?
-      = accordion_item "failed", :item_class => "Accordion-item--errors" do
-        %ul
-          - resource.erroneous_articles.each do |article|
-            %li
-              %h4
-                Zeile:
-                = article.row_index
-              = simple_format(article.validation_errors)
-        = link_to "Fehlerhaften Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Btn Btn--blue Btn--overwrite"
+      = render "result", :result => resource.created_articles.page(params[:created_articles_page]), :result_name => "created"
+      = render "result", :result => resource.updated_articles.page(params[:updated_articles_page]), :result_name => "updated"
+      = render "result", :result => resource.activated_articles.page(params[:activated_articles_page]), :result_name => "activated"
+      = render "result", :result => resource.deactivated_articles.page(params[:deactiated_articles_page]), :result_name => "deactivated"
+      = render "result", :result => resource.deleted_articles.page(params[:deleted_articles_page]), :result_name => "deleted"
+      - unless @erroneous_articles.empty?
+        = accordion_item "failed", :item_class => "Accordion-item--errors" do
+          %ul
+            - @erroneous_articles.each do |article|
+              %li
+                %h4
+                  Zeile:
+                  = article.row_index
+                = simple_format(article.validation_errors)
+          = paginate @erroneous_articles, param_name: "erroneous_articles_page"
+          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Btn Btn--blue Btn--overwrite"
 
 
 - unless resource.articles_for_mass_activation.empty?

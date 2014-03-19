@@ -71,3 +71,36 @@
 		left: -4.4em;
 	}
 }
+
+
+.Statistic-table {
+  border-width: 1px;
+	border-spacing: 0px;
+	border-color: gray;
+  border-style: outset;
+	border-collapse: collapse;
+	background-color: white;
+  tr {
+    border-width: 1px;
+  	border-spacing: 0px;
+  	border-color: gray;
+    border-style: outset;
+  	border-collapse: collapse;
+  	
+  }
+  td, th {
+    padding:0.5em;
+    border-width: 1px;
+  	border-spacing: 0px;
+  	border-color: gray;
+    border-style: outset;
+  	border-collapse: collapse;
+  	
+  }
+  
+  th {
+    background-color: #AAAAAA;
+  }
+  
+  
+}
