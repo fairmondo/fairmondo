@@ -38,10 +38,10 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:no_second_hand_article,price_cents: 1)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
-        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
         @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ]
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
+        @ngo_article = FactoryGirl.create(:no_second_hand_article,price_cents: 1)
+        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
         @fair_article = FactoryGirl.create :no_second_hand_article, :simple_fair, price_cents: 5
         @ecologic_article = FactoryGirl.create :no_second_hand_article, :simple_ecologic, price_cents: 6
         @small_and_precious_article = FactoryGirl.create :no_second_hand_article, :simple_small_and_precious, price_cents: 7
@@ -84,7 +84,7 @@ describe ArticlesController do
 
         it "by condition 'old'" do
           get :index, :article => {:search_order_by => "old"}
-          controller.instance_variable_get(:@articles).first.id.should == @second_hand_article.id
+          controller.instance_variable_get(:@articles).first.id.should ==  @second_hand_article.id
         end
 
         it "by condition 'new'" do
