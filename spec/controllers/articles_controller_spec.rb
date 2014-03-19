@@ -38,11 +38,13 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article,price_cents: 1)
+        @ngo_article = FactoryGirl.create(:no_second_hand_article,price_cents: 1)
         @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
         @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
         @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ]
-
+        @fair_article = FactoryGirl.create :no_second_hand_article, :simple_fair, price_cents: 5
+        @ecologic_article = FactoryGirl.create :no_second_hand_article, :simple_ecologic, price_cents: 6
+        @small_and_precious_article = FactoryGirl.create :no_second_hand_article, :simple_small_and_precious, price_cents: 7
         Sunspot.commit
       end
 
@@ -63,23 +65,47 @@ describe ArticlesController do
        controller.instance_variable_get(:@articles).map(&:id).should == [@second_hand_article].map(&:id)
       end
 
-      context "when trying a different search order" do
+      context "search order" do
 
-        it "order by price asc" do
+        it "by price asc" do
           get :index, :article => {:search_order_by => "cheapest"}
-          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+          controller.instance_variable_get(:@articles).map(&:id).should =~ [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article,@fair_article,@ecologic_article,@small_and_precious_article].map(&:id)
         end
 
-        it "order by price desc" do
+        it "by price desc" do
           get :index, :article => {:search_order_by => "most_expensive"}
-          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
+          controller.instance_variable_get(:@articles).map(&:id).should =~ [@small_and_precious_article,@ecologic_article,@fair_article,@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
         end
 
-        it "order by friendly_percent desc" do
+        it "by friendly_percent desc" do
            get :index, :article => {:search_order_by => "most_donated",:categories_and_ancestors => [@hardware_category]}
-           controller.instance_variable_get(:@articles).map(&:id).should == [@hardware_article,@no_second_hand_article].map(&:id)
+           controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
+        it "by condition 'old'" do
+          get :index, :article => {:search_order_by => "old"}
+          controller.instance_variable_get(:@articles).first.id.should == @second_hand_article.id
+        end
+
+        it "by condition 'new'" do
+          get :index, :article => {:search_order_by => "new"}
+          controller.instance_variable_get(:@articles).first.id.should == @no_second_hand_article.id
+        end
+
+        it "by fair" do
+          get :index, :article => {:search_order_by => "fair"}
+          controller.instance_variable_get(:@articles).first.id.should == @fair_article.id
+        end
+
+        it "by ecologic" do
+          get :index, :article => {:search_order_by => "ecologic"}
+          controller.instance_variable_get(:@articles).first.id.should == @ecologic_article.id
+        end
+
+        it "by small_and_precious" do
+          get :index, :article => {:search_order_by => "small_and_precious"}
+          controller.instance_variable_get(:@articles).first.id.should == @small_and_precious_article.id
+        end
       end
 
       context "when filtering by categories" do
