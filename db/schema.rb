@@ -287,18 +287,6 @@ ActiveRecord::Schema.define(:version => 20140318044446) do
 
   add_index "notices", ["user_id"], :name => "index_notices_on_user_id"
 
-  create_table "payments", :force => true do |t|
-    t.string   "pay_key"
-    t.string   "state"
-    t.text     "error"
-    t.text     "last_ipn"
-    t.integer  "transaction_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
-
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
     t.string   "username"
