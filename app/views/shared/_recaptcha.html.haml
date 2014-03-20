@@ -1,0 +1,7 @@
+- recaptcha_error = resource.errors && resource.errors.has_key?(:recaptcha)
+.controls
+  Bitte gib die beiden Worte oder Zahlen unten im Feld ein.
+  #recaptcha-view{class: " #{'error' if recaptcha_error}"}
+    = recaptcha_tags display: { theme: 'clean' }, ajax: true
+    - if recaptcha_error
+      %span.help-inline= t('users.captcha.error')

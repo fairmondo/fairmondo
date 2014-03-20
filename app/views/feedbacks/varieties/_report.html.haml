@@ -7,5 +7,7 @@
     -# user input
     = f.input :text, input_html: { rows: 4 }
 
+    = render '/shared/recaptcha'
+
   = f.actions do
     = f.action :submit , label: t('article.actions.report'), button_html: {class: "Btn"}
