@@ -31,7 +31,7 @@ What this does:
     git clone git@github.com:fairnopoly/fairnopoly.git
 * switches to the fairnopoly root path,
     cd fairnopoly/
-* switches the git branch to "develop" 
+* switches the git branch to "develop"
     git checkout develop
 * runs the Fairnopoly setup script
     ruby setup.rb
@@ -138,12 +138,12 @@ If you want to help out with programming new features or fixing bugs, please con
 Hint: When a vim window opened after you typed "git commit" without a commit message, you can save the default message by simply typing ":wq" and pressing enter.
 
 
-=== Run Solr Server
+=== Run Elastic Search Server
 
 To avoid having the search not available in your local environment, run
 
-    script/delayed_job start
-    rake sunspot:solr:start
+TODO: https://github.com/karmi/retire
+
 
 For more information visit our wiki.
 

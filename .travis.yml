@@ -10,3 +10,5 @@ script:
 notifications:
   email:
     - devel-team@fairnopoly.de
+services:
+  - elasticsearch

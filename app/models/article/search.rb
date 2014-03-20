@@ -45,13 +45,21 @@ module Article::Search
 
   end
 
+ def perform_indexing
+   # indexing
+    if self.active? && !self.template?
+      SearchIndexWorker.perform_async(:article,self.id,:store)
+    else
+      SearchIndexWorker.perform_async(:article,self.id,:delete) unless self.preview?
+    end
+ end
 
 
  def find_like_this page
     query = self
     fields = [:title, :friendly_percent_organisation_nickname, :gtin]
     fields << :content if query.search_in_content
-    articles = Article.search(:page => page) do
+    articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
       if query.title && !query.title.empty?
         query do
           match fields, query.title
@@ -68,9 +76,9 @@ module Article::Search
       when "newest"
         sort { by :created_at, :desc  }
       when "cheapest"
-        sort { by :price_cents, :asc }
+        sort { by :price, :asc }
       when "most_expensive"
-        sort { by :price_cents, :desc }
+        sort { by :price, :desc }
       when "old"
         sort { by :condition, :desc }
       when "new"

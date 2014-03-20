@@ -21,11 +21,15 @@
 #
 
 class TransactionMailer < ActionMailer::Base
+  include ArticlesHelper #As we want to use this in here!
+
 	helper TransactionHelper
 	helper TransactionMailerHelper
   helper ArticlesHelper
 
   default from: $email_addresses['ArticleMailer']['default_from']
+
+
 
   def buyer_notification transaction
   	@transaction 	= transaction

@@ -208,27 +208,25 @@ describe 'Article management' do
     end
 
     describe "article search", search: true do
-      before do
-        article = FactoryGirl.create :article, title: 'chunky bacon'
-        #FactoryGirl.create :article
-        Sunspot.commit
+      before(:each) do
         visit root_path
+        fill_in 'search_input', with: 'chunky bacon'
       end
 
-      context "when submitting" do
-        before { fill_in 'search_input', with: 'chunky bacon' }
+      it "should show the page with search results" do
+        FactoryGirl.create :article, title: 'chunky bacon'
+        Article.index.refresh
 
-        it "should show the page with search results" do
-          click_button 'Suche'
-          page.should have_link 'chunky bacon'
-        end
-
-        it "should rescue an Errno::ECONNREFUSED" do
-          Article.stub(:search).and_raise(Errno::ECONNREFUSED)
-          click_button 'Suche'
-          page.should have_content I18n.t 'article.titles.sunspot_failure'
-        end
+        click_button 'Suche'
+        page.should have_link 'chunky bacon'
       end
+
+      it "should rescue an Errno::ECONNREFUSED" do
+        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
+        click_button 'Suche'
+        page.should have_content I18n.t 'article.titles.search_failure'
+      end
+
     end
 
     describe "article update", slow: true do
