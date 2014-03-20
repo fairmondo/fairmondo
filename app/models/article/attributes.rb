@@ -66,7 +66,7 @@ module Article::Attributes
 
     # vat (Value Added Tax)
 
-    validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :has_legal_entity_seller?
+    validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :belongs_to_legal_entity?
 
 
     # basic price
@@ -169,7 +169,7 @@ module Article::Attributes
     seller.paypal_validation = true if payment_paypal
   end
 
-  def has_legal_entity_seller?
+  def belongs_to_legal_entity?
     self.seller.is_a?(LegalEntity)
   end
 
@@ -265,14 +265,6 @@ module Article::Attributes
   # @return [Array] An array with selected payment types.
   def selectable_payments
     selectable "payment"
-  end
-
-  # Returns true if the basic price should be shown to users
-  #
-  # @api public
-  # @return Boolean
-  def show_basic_price?
-    self.seller.is_a?(LegalEntity) && self.basic_price_amount? && self.basic_price && self.basic_price_cents > 0
   end
 
   private

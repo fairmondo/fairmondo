@@ -7,8 +7,8 @@ production:
   :concurrency: 20
   :timeout: 30
 :queues:
-  - [sunspot, 7]
   - [default, 5]
   - [mass_upload, 3]
   - [paperclip,2]
   - [fastbill, 5]
+  - [indexing,4]

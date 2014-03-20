@@ -23,6 +23,7 @@
 class TransactionMailer < ActionMailer::Base
 	helper TransactionHelper
 	helper TransactionMailerHelper
+  helper ArticlesHelper
 
   default from: $email_addresses['ArticleMailer']['default_from']
 
@@ -44,9 +45,8 @@ class TransactionMailer < ActionMailer::Base
 
   	subj = "[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})"
 
-  	if transaction.article.has_friendly_percent?
-  	   @donated_ngo = transaction.article.donated_ngo
-       subj += ( t('transaction.notifications.seller.with_donation_to') + @donated_ngo.nickname )
+  	if show_friendly_percent_for? transaction.article
+       subj += ( t('transaction.notifications.seller.with_donation_to') + transaction.article_friendly_percent_organisation.nickname )
     end
 
     mail( to: @seller.email, subject: subj )  do |format|

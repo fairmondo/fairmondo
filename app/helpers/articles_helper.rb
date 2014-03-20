@@ -24,8 +24,8 @@ module ArticlesHelper
 
   # Conditions
   def condition_label article
-    # bclass=condition_badge_class(article.condition)
-    '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
+    condition_text = t("enumerize.article.condition.#{article.condition}")
+    "<span class=\"Btn Btn-tag Btn-tag--gray\">#{condition_text}</span>".html_safe
   end
 
   # Build title string
@@ -201,4 +201,27 @@ module ArticlesHelper
       nil
     end
   end
+
+  # Returns true if the basic price should be shown to users
+  #
+  # @return Boolean
+  def show_basic_price_for? article
+    article.belongs_to_legal_entity? && article.basic_price_amount && article.basic_price && article.basic_price > 0
+  end
+
+  # Returns true if the friendly_percent should be shown
+  #
+  # @return Boolean
+  def show_friendly_percent_for? article
+    article.friendly_percent && article.friendly_percent > 0 && article.friendly_percent_organisation && !article.seller_ngo
+  end
+
+  def show_fair_percent_for? article
+    # for german book price agreement
+    # we can't be sure if the book is german
+    # so we dont show fair percent on all new books
+    # book category is written in exceptions.yml
+    !article.could_be_book_price_agreement? && article.friendly_percent == 100
+  end
+
 end

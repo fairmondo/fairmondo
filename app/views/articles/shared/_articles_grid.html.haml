@@ -21,9 +21,8 @@
 -#
 %section.l-ArticleList
   - articles.each do |article|
-    - if article.active?
-      %Article{ class: 'Grid Article Article--teaser' }
-        = render '/articles/shared/show_article' , article: article
+    %Article{ class: 'Grid Article Article--teaser' }
+      = render '/articles/shared/show_article' , article: article
 
 - if User.is_admin?(current_user)
   .Admin-controls
