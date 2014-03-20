@@ -141,10 +141,9 @@ class MassUpload < ActiveRecord::Base
 
 
 
-  def self.update_solr_index_for article_ids
+  def self.update_index_for article_ids
     articles = Article.find article_ids
-    Sunspot.index articles
-    Sunspot.commit
+    Article.index.import articles
   end
 
 

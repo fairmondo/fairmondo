@@ -38,11 +38,11 @@ class ArticlesController < InheritedResources::Base
   # Calculate value of active goods
   before_filter :check_value_of_goods, :only => [:update], :if => :activate_params_present?
 
-  #Sunspot Autocomplete
+  #Autocomplete
   def autocomplete
     search = Article.search "title:#{permitted_search_params[:keywords]}"
 
-    render :json => search.map{ |a| { :value => a.id, :label => a.title  } }
+    render :json => search.map{ |a| a.title }
   rescue Errno::ECONNREFUSED
     render :json => []
   end
@@ -156,7 +156,7 @@ class ArticlesController < InheritedResources::Base
         return search
       ########
       rescue Errno::ECONNREFUSED
-        render_hero :action => "sunspot_failure"
+        render_hero :action => "search_failure"
         return policy_scope(Article).page permitted_search_params[:page]
     end
 

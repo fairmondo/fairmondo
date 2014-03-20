@@ -58,14 +58,14 @@ describe ArticlesHelper do
           @not_related_article = FactoryGirl.create :article,:category1 , :title => "schuhcreme"
           @fair_article = FactoryGirl.create :article, :simple_fair ,:category1 , :title => "schwarze fairtrade schockolade"
           @other_fair_article = FactoryGirl.create :article, :simple_fair ,:category2 , :title => "weisse schockolade"
-          Sunspot.commit
+          Article.index.refresh
         end
 
         it "should find a fair alternative in with the similar title and category" do
           (helper.find_fair_alternative_to @normal_article).should eq @fair_article
         end
 
-        it "should raise sunspot error" do
+        it "should raise search error" do
           Article.stub(:search).and_raise(Errno::ECONNREFUSED)
           (helper.find_fair_alternative_to @normal_article).should eq nil
         end
@@ -90,7 +90,7 @@ describe ArticlesHelper do
           @other_category  = Category.other_category.first || FactoryGirl.create(:category,:name => "Sonstiges")
           @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories_and_ancestors => [@other_category,FactoryGirl.create(:category)]
           @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories_and_ancestors => [@other_category]
-          Sunspot.commit
+          Article.index.refresh
         end
 
         it "sould not find the other article" do

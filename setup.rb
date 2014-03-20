@@ -84,9 +84,6 @@ unless gets.chomp === "abort"
   puts "Running local sidekiq..."
   %x( bundle exec sidekiq --daemon --logfile log/sidekiq.log )
 
-  puts "Running local Solr server..."
-  %x( rake sunspot:solr:start )
-
   puts "\n\n\nDo you want to set up reCAPTCHA support? Without it you won't be able to access certain pages like the user registration. But you will need to set up a Google account."
   puts "Press enter to continue (or type \"abort\" to skip the reCAPTCHA setup)."
   unless gets.chomp === "abort"

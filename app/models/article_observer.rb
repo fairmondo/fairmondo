@@ -32,12 +32,7 @@ class ArticleObserver < ActiveRecord::Observer
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
 
-    # indexing
-    if article.active? && !article.template?
-      SearchIndexWorker.perform_async(:article,article.id,:store)
-    else
-      SearchIndexWorker.perform_async(:article,article.id,:delete)
-    end
+    article.perform_indexing
 
   end
 

@@ -52,7 +52,7 @@
 ***
 
 <% if show_friendly_percent_for? @transaction.article %>
-<% ngo = @transaction.article.friendly_percent_organisation_nickname
+<% ngo = @transaction.article.friendly_percent_organisation
 fp = @transaction.article_friendly_percent
 amount = humanized_money_with_symbol(friendly_percent_with_quantity @transaction) %>
 

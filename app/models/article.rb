@@ -70,47 +70,57 @@ class Article < ActiveRecord::Base
 
   include Tire::Model::Search
 
-  mapping do
-    indexes :id,           :index    => :not_analyzed
-    indexes :title,        :analyzer => 'snowball', :boost => 100
-    indexes :content,      :analyzer => 'snowball'
-    indexes :gtin
+  settings :index => {
 
-    # filters
+    :store => {
 
-    indexes :fair
-    indexes :ecologic
-    indexes :small_and_precious
-    indexes :condition
-    indexes :categories, :as => Proc.new { self.categories.map{ |c| c.id }  }
+      :type => Rails.env.test? ? :memory : :niofs
 
+    }
 
-    # sorting
-    indexes :created_at, :type => 'date'
+  } do
+    mapping do
+      indexes :id,           :index    => :not_analyzed
+      indexes :title,        :analyzer => 'snowball', :boost => 100
+      indexes :content,      :analyzer => 'snowball'
+      indexes :gtin
 
-    # stored attributes
+      # filters
 
-    indexes :slug
-    indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
-    indexes :price, :as => 'price_cents'
-    indexes :basic_price, :as => 'basic_price_cents'
-    indexes :basic_price_amount
-    indexes :vat
-
-    indexes :friendly_percent
-    indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
-    indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
-
-    indexes :transport_pickup
-    indexes :zip, :as => 'zip'
-
-    # seller attributes
-    indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
-    indexes :seller_ngo, :as => 'seller_ngo'
-    indexes :seller_nickname, :as => 'seller_nickname'
-    indexes :seller, :as => 'seller.id'
+      indexes :fair
+      indexes :ecologic
+      indexes :small_and_precious
+      indexes :condition
+      indexes :categories, :as => Proc.new { self.categories.map{ |c| c.id }  }
 
 
+      # sorting
+      indexes :created_at, :type => 'date'
+
+      # stored attributes
+
+      indexes :slug
+      indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
+      indexes :price, :as => 'price_cents'
+      indexes :basic_price, :as => 'basic_price_cents'
+      indexes :basic_price_amount
+      indexes :vat
+
+      indexes :friendly_percent
+      indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
+      indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
+
+      indexes :transport_pickup
+      indexes :zip, :as => 'zip'
+
+      # seller attributes
+      indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
+      indexes :seller_ngo, :as => 'seller_ngo'
+      indexes :seller_nickname, :as => 'seller_nickname'
+      indexes :seller, :as => 'seller.id'
+
+
+    end
   end
 
   def self.article_attrs with_nested_template = true
