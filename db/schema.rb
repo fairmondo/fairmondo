@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318044446) do
+ActiveRecord::Schema.define(:version => 20140319142030) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20140318044446) do
     t.text     "transport_details"
     t.text     "payment_details"
     t.integer  "friendly_percent",                                    :default => 0
-    t.text     "friendly_percent_organisation"
     t.integer  "article_template_id",                    :limit => 8
     t.integer  "calculated_fair_cents",                  :limit => 8, :default => 0,     :null => false
     t.integer  "calculated_friendly_cents",              :limit => 8, :default => 0,     :null => false
@@ -75,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20140318044446) do
     t.integer  "transport_type1_number",                              :default => 1
     t.integer  "transport_type2_number",                              :default => 1
     t.integer  "discount_id"
+    t.integer  "friendly_percent_organisation_id",       :limit => 8
   end
 
   add_index "articles", ["article_template_id"], :name => "index_articles_on_article_template_id"

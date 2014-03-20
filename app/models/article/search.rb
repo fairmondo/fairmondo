@@ -22,6 +22,7 @@
 module Article::Search
   extend ActiveSupport::Concern
 
+
   included do
 
     attr_accessor :search_in_content, :search_for_zip, :search_order_by
@@ -42,88 +43,48 @@ module Article::Search
       [:search_in_content,:search_for_zip,:search_order_by]
     end
 
-    searchable :unless => :template?, :if => :active? do
-      text :title, :boost => 5.0, :stored => true
-      text :content
-      text :gtin
-
-      # filters
-      boolean :fair
-      boolean :ecologic
-      boolean :small_and_precious
-      string :condition
-
-      # for category filters
-      integer :category_ids, :references => Category, :multiple => true
-
-      # for sorting
-      time :created_at
-
-      # don't hit AR and store fields in solr
-      string :title_image, :using => :title_image_thumb_path, :stored => true
-      integer :price_cents, :stored => true
-      integer :basic_price_cents, :stored => true
-      integer :basic_price_amount, :stored => true
-      integer :vat, :stored => true
-
-     # Friendly Percent
-      integer :friendly_percent, :stored => true
-      text :friendly_percent_organisation
-
-      # Possible future local search
-
-      boolean :transport_pickup
-      string :zip
-
-    end
-
-    skip_callback :save, :after, :perform_index_tasks, :if => lambda { self.preview? }
-
-
   end
 
-  def title_image_thumb_path
-     title_image.image(:thumb) if title_image
-  end
+
 
  def find_like_this page
-    Article.search(:include => [:seller, :images]) do
-      fulltext self.title do
-        if self.search_in_content?
-          fields(:content, :friendly_percent_organisation, :gtin, :title => 2.0)
-        else
-          fields(:title, :gtin, :friendly_percent_organisation)
+    query = self
+    fields = [:title, :friendly_percent_organisation_nickname, :gtin]
+    fields << :content if query.search_in_content
+    articles = Article.search(:page => page) do
+      if query.title && !query.title.empty?
+        query do
+          match fields, query.title
         end
       end
-      paginate :page => page, :per_page => Kaminari.config.default_per_page
-      with :fair, true if self.fair
-      with :ecologic, true if self.ecologic
-      with :small_and_precious, true if self.small_and_precious
-      with :condition, self.condition if self.condition
-      with :category_ids, Article::Categories.search_categories(self.categories) if self.categories.present?
-      with :zip, self.search_for_zip if search_for_zip.present?
+      filter :term, :fair => true if query.fair
+      filter :term, :ecologic => true if query.ecologic
+      filter :term, :small_and_precious => true  if query.small_and_precious
+      filter :term, :condition => query.condition  if query.condition
+      filter :terms, :categories => Article::Categories.search_categories(query.categories) if query.categories.present?
+      filter :term, :zip => query.search_for_zip if query.search_for_zip.present?
 
-      case self.search_order_by
+      case query.search_order_by
       when "newest"
-        order_by(:created_at, :desc)
+        sort { by :created_at, :desc  }
       when "cheapest"
-        order_by(:price_cents, :asc)
+        sort { by :price_cents, :asc }
       when "most_expensive"
-        order_by(:price_cents, :desc)
+        sort { by :price_cents, :desc }
       when "old"
-        order_by(:condition, :desc)
+        sort { by :condition, :desc }
       when "new"
-        order_by(:condition, :asc)
+        sort { by :condition, :asc }
       when "fair"
-        order_by(:fair, :desc)
+        sort { by :fair, :desc }
       when "ecologic"
-        order_by(:ecologic, :desc)
+        sort { by :ecologic, :desc }
       when "small_and_precious"
-        order_by(:small_and_precious, :desc)
+        sort { by :small_and_precious, :desc }
       when "most_donated"
-        order_by(:friendly_percent, :desc)
+        sort { by :friendly_percent, :desc }
       else
-        order_by(:created_at, :desc)
+        sort { by :created_at, :desc }
       end
     end
   end
@@ -138,14 +99,7 @@ module Article::Search
     end
   end
 
-  # Index the nickname of ngos if friendly_percent_organisation is present
-  def friendly_percent_organisation
-    if self.donated_ngo
-      self.donated_ngo.nickname
-    else
-      nil
-    end
-  end
+
 
 
 end

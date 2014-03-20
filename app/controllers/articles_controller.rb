@@ -40,17 +40,9 @@ class ArticlesController < InheritedResources::Base
 
   #Sunspot Autocomplete
   def autocomplete
-    search = Sunspot.search(Article) do
-      fulltext permitted_search_params[:keywords] do
-        fields(:title)
-      end
-    end
-    @titles = []
-    search.hits.each do |hit|
-      title = hit.stored(:title).first
-      @titles.push(title)
-    end
-    render :json => @titles
+    search = Article.search "title:#{permitted_search_params[:keywords]}"
+
+    render :json => search.map{ |a| { :value => a.id, :label => a.title  } }
   rescue Errno::ECONNREFUSED
     render :json => []
   end
@@ -161,7 +153,7 @@ class ArticlesController < InheritedResources::Base
     def search_for query
       ######## Solr
         search = query.find_like_this permitted_search_params[:page]
-        return search.results
+        return search
       ########
       rescue Errno::ECONNREFUSED
         render_hero :action => "sunspot_failure"

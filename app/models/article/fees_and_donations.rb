@@ -31,61 +31,30 @@ module Article::FeesAndDonations
   }
 
   included do
-    #! attr_accessible :calculated_fair_cents, :calculated_friendly_cents, :calculated_fee_cents,:friendly_percent, :friendly_percent_organisation
 
-    before_create :set_friendly_percent_for_ngo, if: :is_ngo_seller?
+    before_create :set_friendly_percent_for_ngo, if: :seller_ngo
 
     def self.fees_and_donation_attrs
-    [:friendly_percent, :friendly_percent_organisation]
+    [:friendly_percent, :friendly_percent_organisation_id]
     end
 
     # Fees and donations
-     monetize :calculated_fair_cents, :allow_nil => true
+    monetize :calculated_fair_cents, :allow_nil => true
     monetize :calculated_friendly_cents, :allow_nil => true
     monetize :calculated_fee_cents, :allow_nil => true
 
      ## friendly percent
-
-    #validates_numericality_of :friendly_percent, :greater_than_or_equal_to => 0.0, :less_than_or_equal_to => 100, :only_integer => true
-    #enumerize :friendly_percent_organisation, :in => [:transparency_international], :default => :transparency_international
-    validates_presence_of :friendly_percent_organisation, :if => :friendly_percent_gt_0?
+    validates_presence_of :friendly_percent_organisation_id, :if => :friendly_percent_gt_0?
     validates_presence_of :friendly_percent
-    #validates :friendly_percent_organisation, :length => { :maximum => 500 }
 
   end
 
    ## -------------- Calculate Fees And Donations ---------------
 
-  # def friendly_percent_calculated
-  #   Money.new(friendly_percent_result_cents)
-  # end
-
-  def shows_fair_percent?
-    # for german book price agreement
-    # we can't be sure if the book is german
-    # so we dont show fair percent on all new books
-    # book category is written in exceptions.yml
-    !self.could_be_book_price_agreement? && !self.has_100_fp?
-  end
-
   def could_be_book_price_agreement?
     book_category_id = $exceptions_on_fairnopoly['book_price_agreement']['category'].to_i
     is_a_book = self.categories_and_ancestors.map{ |c| c.id }.include? book_category_id
     is_a_book && self.condition == "new"
-  end
-
-  def has_friendly_percent?
-     friendly_percent_gt_0? &&
-     self.donated_ngo &&
-      !is_ngo_seller?
-  end
-
-  def has_100_fp?
-    has_friendly_percent? && self.friendly_percent == 100
-  end
-
-  def is_ngo_seller?
-    self.seller.ngo
   end
 
   def calculated_fees_and_donations
@@ -112,7 +81,7 @@ module Article::FeesAndDonations
       self.calculated_fair  = fair_percent_result
       self.calculated_fee = fee_result
     else
-      self.calculated_fair  = 0
+      self.calculated_fair = 0
       self.calculated_fee = 0
     end
   end
@@ -127,7 +96,7 @@ module Article::FeesAndDonations
     def set_friendly_percent_for_ngo
       if self.seller.ngo
          self.friendly_percent = 100
-         self.friendly_percent_organisation = self.seller.id
+         self.friendly_percent_organisation_id = self.seller.id
       end
     end
 

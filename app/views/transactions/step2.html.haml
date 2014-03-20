@@ -162,10 +162,10 @@
             %small{ :class => 'SmallText' }
               - if resource.article_seller.ngo
                 = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
-              - elsif resource.article.shows_fair_percent?
+              - elsif show_fair_percent_for? resource.article
                 = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-              - if resource.article.has_friendly_percent? && resource.article.donated_ngo
-                %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
+              - if show_friendly_percent_for? resource.article
+                %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.friendly_percent_organisation_nickname)
 
           %hr
           %table#Transpay-price-table
