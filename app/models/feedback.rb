@@ -23,7 +23,7 @@ class Feedback < ActiveRecord::Base
 
   def self.feedback_attrs
     [:from, :subject, :text, :variety, :article_id, :feedback_subject,
-    :help_subject, :forename, :lastname, :organisation, :phone]
+    :help_subject, :forename, :lastname, :organisation, :phone, :recaptcha]
   end
   #! attr_accessible ...
 
@@ -39,19 +39,21 @@ class Feedback < ActiveRecord::Base
   # Validations
   validates_presence_of :text
   validates_presence_of :variety
-  validates_presence_of :from, if: :need_from
+  validates_presence_of :from, if: :needs_from?
   validates_presence_of :feedback_subject, if: proc { self.variety == 'send_feedback' }
   validates_presence_of :help_subject, if: proc { self.variety == 'get_help' }
-  validates_presence_of :subject, if: :need_subject
+  validates_presence_of :subject, if: :needs_subject?
 
   validates :from, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, allow_blank: true
   validates :subject, length: { maximum: 254 }
 
+  validates :recaptcha, presence: true, acceptance: true, on: :create, unless: :donation_partner_application?
+
   # validations for donation_partner
-  validates_presence_of :forename, if: proc { self.variety == 'become_donation_partner' }
-  validates_presence_of :lastname, if: proc { self.variety == 'become_donation_partner' }
-  validates_presence_of :organisation , if: proc { self.variety == 'become_donation_partner' }
-  validates :text, length: { minimum: 100 }, if: proc { self.variety == 'become_donation_partner' }
+  validates_presence_of :forename, if: :donation_partner_application?
+  validates_presence_of :lastname, if: :donation_partner_application?
+  validates_presence_of :organisation , if: :donation_partner_application?
+  validates :text, length: { minimum: 100 }, if: :donation_partner_application?
 
   #Relations
   belongs_to :user
@@ -87,13 +89,15 @@ class Feedback < ActiveRecord::Base
     # For validation
     # @api private
 
-    def need_subject
+    def needs_subject?
       self.variety == 'send_feedback' ||
       self.variety == 'get_help'
     end
-    def need_from
+    def needs_from?
       self.variety == 'become_donation_partner' ||
       self.variety == 'get_help'
     end
-
+    def donation_partner_application?
+      self.variety == 'become_donation_partner'
+    end
 end

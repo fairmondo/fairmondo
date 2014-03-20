@@ -31,164 +31,162 @@
 - zip      = params["transaction"]["zip"]
 - country  = params["transaction"]["country"]
 
-.l-Main
-  .l-Inner
-    .Content
-      .Content-inner
-        %h1
-          = t 'transaction.edit.heading'
+.Content
+  .Content-inner
+    %h1
+      = t 'transaction.edit.heading'
 
-        = semantic_form_for @transaction, html: { class: 'js-visual-submit' } do |f|
-          = f.inputs do
-            = f.hidden_field :selected_transport, value: selected_transport
-            = f.hidden_field :selected_payment, value: selected_payment
-            = f.hidden_field :quantity_bought, value: quantity
+    = semantic_form_for @transaction, html: { class: 'js-visual-submit' } do |f|
+      = f.inputs do
+        = f.hidden_field :selected_transport, value: selected_transport
+        = f.hidden_field :selected_payment, value: selected_payment
+        = f.hidden_field :quantity_bought, value: quantity
 
-            = f.hidden_field :forename, value: forename
-            = f.hidden_field :surname, value: surname
-            = f.hidden_field :address_suffix, value: address_suffix
-            = f.hidden_field :street, value: street
-            = f.hidden_field :city, value: city
-            = f.hidden_field :zip, value: zip
-            = f.hidden_field :country, value: country
+        = f.hidden_field :forename, value: forename
+        = f.hidden_field :surname, value: surname
+        = f.hidden_field :address_suffix, value: address_suffix
+        = f.hidden_field :street, value: street
+        = f.hidden_field :city, value: city
+        = f.hidden_field :zip, value: zip
+        = f.hidden_field :country, value: country
 
-            = render 'article_display'
-            %hr
-            %p
-              %br
-              %h3
-                = t 'transaction.edit.address'
-              = forename + ' ' + surname
-              %br
-              - if address_suffix != ""
-                = address_suffix
-                %br
-              = street
-              %br
-              = zip
-              = city
-              %br
-              = country
-
-            - if @transaction.article_seller.is_a?(LegalEntity)
-              .about_terms_cancellation
-                %hr
-                %br
-                %h3
-                  = t 'transaction.edit.seller_data'
-
-                %p
-                  %i
-                    = resource.article_seller.ngo ? resource.article_seller.nickname : resource.article_seller.fullname
-
-                #about
-                  .Gray-border-display
-                    %strong
-                      = t 'transaction.edit.imprint'
-                    .Scrollbox
-                      = @transaction.article_seller_about
-
-                #terms
-                  .Gray-border-display
-                    %strong
-                      = t 'transaction.edit.terms'
-                    .Scrollbox
-                      = @transaction.article_seller_terms
-                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
-
-                #cancellation
-                  .Gray-border-display
-                    %strong
-                      = I18n.t 'transaction.edit.cancellation'
-                    .Scrollbox
-                      = @transaction.article_seller_cancellation
-                  = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
-
-                %p
-                  = f.input :tos_accepted
-            %hr
+        = render 'article_display'
+        %hr
+        %p
+          %br
+          %h3
+            = t 'transaction.edit.address'
+          = forename + ' ' + surname
+          %br
+          - if address_suffix != ""
+            = address_suffix
             %br
-            %h5
-              = I18n.t 'transaction.edit.message'
-            %p
-              = f.input :message, label: false, input_html: { rows: 3 }
+          = street
+          %br
+          = zip
+          = city
+          %br
+          = country
 
+        - if @transaction.article_seller.is_a?(LegalEntity)
+          .about_terms_cancellation
             %hr
-            .small-image-left
-              .gray-border
-                - if @transaction.article.title_image == nil
-                  %img{:src => image_path('missing.png'), :alt => "missing"}
-                - else
-                  %img{:src => @transaction.article.title_image_url(:thumb)}
-                %figcaption.Article-title
-                  = link_to truncate( @transaction.article_title, :length => 20), article_path( @transaction.article )
-
             %br
             %h3
-              = I18n.t 'transaction.edit.purchase_data'
+              = t 'transaction.edit.seller_data'
+
+            %p
+              %i
+                = resource.article_seller.ngo ? resource.article_seller.nickname : resource.article_seller.fullname
+
+            #about
+              .Gray-border-display
+                %strong
+                  = t 'transaction.edit.imprint'
+                .Scrollbox
+                  = @transaction.article_seller_about
+
+            #terms
+              .Gray-border-display
+                %strong
+                  = t 'transaction.edit.terms'
+                .Scrollbox
+                  = @transaction.article_seller_terms
+              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
+
+            #cancellation
+              .Gray-border-display
+                %strong
+                  = I18n.t 'transaction.edit.cancellation'
+                .Scrollbox
+                  = @transaction.article_seller_cancellation
+              = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
+
+            %p
+              = f.input :tos_accepted
+        %hr
+        %br
+        %h5
+          = I18n.t 'transaction.edit.message'
+        %p
+          = f.input :message, label: false, input_html: { rows: 3 }
+
+        %hr
+        .small-image-left
+          .gray-border
+            - if @transaction.article.title_image == nil
+              %img{:src => image_path('missing.png'), :alt => "missing"}
+            - else
+              %img{:src => @transaction.article.title_image_url(:thumb)}
+            %figcaption.Article-title
+              = link_to truncate( @transaction.article_title, :length => 20), article_path( @transaction.article )
+
+        %br
+        %h3
+          = I18n.t 'transaction.edit.purchase_data'
 
 
-            %table#Purchase-data-table
-              %colgroup
-                %col{width: 150}
-                %col{width: 300}
-              = display_selected_payment selected_payment
+        %table#Purchase-data-table
+          %colgroup
+            %col{width: 150}
+            %col{width: 300}
+          = display_selected_payment selected_payment
 
-              = display_selected_transport selected_transport
+          = display_selected_transport selected_transport
 
-              = display_transport_provider_for selected_transport
+          = display_transport_provider_for selected_transport
 
-            = display_optional_warning selected_transport, selected_payment
-            %br
-            %h3
-              = I18n.t 'transaction.edit.price_heading'
+        = display_optional_warning selected_transport, selected_payment
+        %br
+        %h3
+          = I18n.t 'transaction.edit.price_heading'
 
-            %table#Article-price-table
-              %colgroup
-                %col{width: 220}
-                %col{width: 300}
+        %table#Article-price-table
+          %colgroup
+            %col{width: 220}
+            %col{width: 300}
 
-              = display_article_link @transaction.article
-              = display_quantity_bought quantity
-              = display_price_per_unit
-              = display_sales_price quantity
+          = display_article_link @transaction.article
+          = display_quantity_bought quantity
+          = display_price_per_unit
+          = display_sales_price quantity
 
-              - if resource.article_seller.is_a? LegalEntity
-                = display_net_price quantity
-                = display_vat_price quantity
+          - if resource.article_seller.is_a? LegalEntity
+            = display_net_price quantity
+            = display_vat_price quantity
 
-              = display_basic_price
+          = display_basic_price
 
-            %small{ :class => 'SmallText' }
-              - if resource.article_seller.ngo
-                = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
-              - elsif resource.article.shows_fair_percent?
-                = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
-              - if resource.article.has_friendly_percent? && resource.article.donated_ngo
-                %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
+        %small{ :class => 'SmallText' }
+          - if resource.article_seller.ngo
+            = t('transaction.edit.ngo_percent', ngo: resource.article_seller.nickname )
+          - elsif resource.article.shows_fair_percent?
+            = t ('transaction.edit.fair_percent'), donation: humanized_money_with_symbol(resource.article_calculated_fair * quantity)
+          - if resource.article.has_friendly_percent? && resource.article.donated_ngo
+            %p= t('transaction.edit.friendly_percent', percent: resource.article.friendly_percent , ngo: resource.article.donated_ngo.nickname)
 
-          %hr
-          %table#Transpay-price-table
-            %colgroup
-              %col{width: 220}
-              %col{width: 300}
-            = display_number_of_shipments selected_transport, quantity
+      %hr
+      %table#Transpay-price-table
+        %colgroup
+          %col{width: 220}
+          %col{width: 300}
+        = display_number_of_shipments selected_transport, quantity
 
-            = display_transport_price selected_transport, quantity
+        = display_transport_price selected_transport, quantity
 
-            = display_cash_on_delivery_price selected_transport, selected_payment, quantity
+        = display_cash_on_delivery_price selected_transport, selected_payment, quantity
 
 
-          %hr
-          %br
-          %h2
-            = display_total_price selected_transport, selected_payment, quantity
+      %hr
+      %br
+      %h2
+        = display_total_price selected_transport, selected_payment, quantity
 
-          %br
-          = f.actions do
-            = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
-            = back_link quantity, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
+      %br
+      = f.actions do
+        = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
+        = back_link quantity, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
 
-          - if ['type1', 'type2'].include? selected_transport
-            %br
-            = t('transaction.edit.number_of_shipments_info')
+      - if ['type1', 'type2'].include? selected_transport
+        %br
+        = t('transaction.edit.number_of_shipments_info')
