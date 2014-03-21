@@ -79,27 +79,28 @@ module ArticlesHelper
 
   def find_fair_alternative_to article
     search = Article.search do
-      fulltext article.title do
-        boost(3.0) { with(:fair, true) }
-        boost(2.0) { with(:ecologic, true) }
-        boost(1.0) { with(:condition, :old) }
-        minimum_match 1
-        exclude_fields(:content)
-        fields(:title)
+      query do
+        boolean do
+          must { match :title, article.title, fuzziness: 0.8}
+          must do
+            boolean :minimum_number_should_match => 1 do
+              should { term :fair, true, boost: 10.0  }
+              should { term :ecologic, true, boost: 5.0 }
+              should { term :condition, "old", boost: 1.0 }
+            end
+          end
+        end
       end
-      without(article)
-      with :category_ids, Article::Categories.specific_search_categories(article.categories)
-      any_of do
-        with :fair,true
-        with :ecologic,true
-        with :condition, :old
-      end
+      filter :terms, :categories => Article::Categories.specific_search_categories(article.categories)
+      size 1
     end
-    alternative = search.results.first
+    alternative = search.first
+
     if rate_article(article) < rate_article(alternative)
       return alternative
     else
       return nil
+
     end
   rescue # Rescue all Errors by not showing an alternative
     return nil
@@ -115,7 +116,7 @@ module ArticlesHelper
     if article.ecologic
       return 2
     end
-    if article.condition.old?
+    if article.condition == "old"
       return 1
     end
     return 0

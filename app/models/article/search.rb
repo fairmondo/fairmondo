@@ -57,14 +57,19 @@ module Article::Search
 
  def find_like_this page
     query = self
-    fields = [:title, :friendly_percent_organisation_nickname, :gtin]
-    fields << :content if query.search_in_content
     articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
-      if query.title && !query.title.empty?
+      if query.title
         query do
-          match fields, query.title
+          boolean do
+            should { match :title, query.title, fuzziness: 0.6 , :boost => 20, :zero_terms_query => 'all'}
+            should { match :content,  query.title  } if query.search_in_content
+            should { match :friendly_percent_organisation_nickname,  query.title, :fuzziness => 0.7, :boost => 50}
+            should { match :gtin, query.title , :boost => 100}
+
+          end
         end
       end
+
       filter :term, :fair => true if query.fair
       filter :term, :ecologic => true if query.ecologic
       filter :term, :small_and_precious => true  if query.small_and_precious
@@ -92,7 +97,8 @@ module Article::Search
       when "most_donated"
         sort { by :friendly_percent, :desc }
       else
-        sort { by :created_at, :desc }
+        # Sort by score
+        sort { by :created_at, :desc  } unless query.title && !query.title.empty?
       end
     end
   end

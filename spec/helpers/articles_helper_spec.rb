@@ -62,7 +62,7 @@ describe ArticlesHelper do
         end
 
         it "should find a fair alternative in with the similar title and category" do
-          (helper.find_fair_alternative_to @normal_article).should eq @fair_article
+          (helper.find_fair_alternative_to(@normal_article).id).should eq @fair_article.id.to_s
         end
 
         it "should raise search error" do
@@ -72,11 +72,11 @@ describe ArticlesHelper do
 
 
         it "should not find a fair alternative with a similar title and an other category" do
-          (helper.find_fair_alternative_to @other_normal_article).should_not eq @fair_article
+          (helper.find_fair_alternative_to(@other_normal_article.id)).should_not eq @fair_article.id.to_s
         end
 
         it "should prefer the same category over matches in the title" do
-          (helper.find_fair_alternative_to @other_normal_article).should eq @other_fair_article
+          (helper.find_fair_alternative_to(@other_normal_article).id).should eq @other_fair_article.id.to_s
         end
 
         it "should not find an unrelated article" do
