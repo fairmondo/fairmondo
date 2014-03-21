@@ -38,10 +38,10 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article,price_cents: 1)
+        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing")
         @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
-        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ]
+        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ], content: "abc")
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ], content: "cde"
         Article.index.refresh
       end
 

@@ -78,12 +78,54 @@ class Article < ActiveRecord::Base
 
     }
 
-  } do
+  }, analysis: {
+      filter: {
+        german_stemming: {
+          type: 'snowball',
+          language: 'German2'
+        },
+        ngram_filter: {
+          type: "nGram",
+          min_gram: 4,
+          max_gram: 20,
+          token_chars: [
+                  "letter",
+                  "digit",
+                  "punctuation",
+                  "symbol"
+               ]
+            }
+      },
+
+      analyzer: {
+          ngram_analyzer: {
+            filter: [
+               'lowercase',
+               'german_stemming',
+               'ngram_filter',
+               'asciifolding'
+            ],
+            type: "custom",
+            tokenizer: "whitespace"
+         },
+         whitespace_analyzer: {
+          type: "custom",
+          tokenizer: "whitespace",
+          filter: [
+                  'lowercase',
+                  'german_stemming',
+                  'asciifolding'
+                  ]
+            }
+      }
+
+
+    } do
     mapping do
-      indexes :id,           :index    => :not_analyzed
-      indexes :title,        :analyzer => 'snowball', :boost => 100
-      indexes :content,      :analyzer => 'snowball'
-      indexes :gtin
+      indexes :id,           :index => :not_analyzed
+      indexes :title,        index_analyzer: "ngram_analyzer", search_analyzer: "whitespace_analyzer"
+      indexes :content,      analyzer: "whitespace_analyzer"
+      indexes :gtin,         :index    => :not_analyzed
 
       # filters
 
