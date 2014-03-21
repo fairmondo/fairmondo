@@ -160,6 +160,8 @@ group :development, :test do
   # Notify about n+1 queries
   gem 'bullet', github: 'flyerhzm/bullet'
 
+  # Guard test automation
+  gem 'guard-rspec'
 end
 
 group :development do
