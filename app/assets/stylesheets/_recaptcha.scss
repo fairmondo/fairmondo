@@ -21,7 +21,7 @@
 #recaptcha_whatsthis,
 #recaptcha_switch_img {
 	width: 45px;
-	@include at-breakpoint ($layout-large) {
-		width: auto;
-	}
+	@include at-breakpoint ($layout-small) {
+    width: auto;
+  }
 }
