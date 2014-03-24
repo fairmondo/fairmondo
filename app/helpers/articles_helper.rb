@@ -81,7 +81,7 @@ module ArticlesHelper
     search = Article.search do
       query do
         boolean do
-          must { match :title, article.title, fuzziness: 0.8}
+          must { match "title.search", article.title, fuzziness: 0.8}
           must do
             boolean :minimum_number_should_match => 1 do
               should { term :fair, true, boost: 10.0  }

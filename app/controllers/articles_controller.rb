@@ -40,9 +40,7 @@ class ArticlesController < InheritedResources::Base
 
   #Autocomplete
   def autocomplete
-    search = Article.search "title:#{permitted_search_params[:keywords]}"
-
-    render :json => search.map{ |a| a.title }
+    render :json => Article.autocomplete(permitted_search_params[:keywords])
   rescue Errno::ECONNREFUSED
     render :json => []
   end
