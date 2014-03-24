@@ -140,10 +140,30 @@ Hint: When a vim window opened after you typed "git commit" without a commit mes
 
 === Run Elastic Search Server
 
-To avoid having the search not available in your local environment, run
+To avoid having the search not available in your local environment you have to install elastic search:
 
-TODO: https://github.com/karmi/retire
+curl -k -L -o elasticsearch.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
+    tar -zxvf elasticsearch.tar.gz
+    ./elasticsearch/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
+    ./elasticsearch/bin/elasticsearch -f
 
+Links for elasticsearch:
+http://www.elasticsearch.org/downloads/0-90-3/
+Plugin we use:
+https://github.com/jprante/elasticsearch-analysis-decompound
+
+=== Background Processing with sidekiq
+To use our Background processing you have to setup a redis instance locally:
+
+  On Ubuntu/Debian:
+    sudo apt-get install redis-server
+
+  For other systems try
+    http://redis.io/
+
+Aftwerwards start sidekiq with:
+
+    sidekiq -C config/sidekiq.yml
 
 For more information visit our wiki.
 
