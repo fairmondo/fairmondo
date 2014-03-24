@@ -61,7 +61,7 @@ module Article::Search
       if query.title
         query do
           boolean do
-            should { match "title.search", query.title, fuzziness: 0.6 , :boost => 20, :zero_terms_query => 'all'}
+            should { match "title.search", query.title, fuzziness: 0.7 , :boost => 20, :zero_terms_query => 'all'}
             should { match :content,  query.title  } if query.search_in_content
             should { match :friendly_percent_organisation_nickname,  query.title, :fuzziness => 0.7, :boost => 50}
             should { match :gtin, query.title , :boost => 100}
