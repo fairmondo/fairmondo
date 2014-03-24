@@ -1,4 +1,6 @@
-%h1= t('feedback.title.donation_partner')
+%h1
+  = t('feedback.title.donation_partner')
+  (inaktiv)
 
 %p= t('feedback.donation_partner.intro1')
 %p= t('feedback.donation_partner.intro2_html')
@@ -21,4 +23,5 @@
     = f.input :text, label: false, required: true
 
   = f.actions do
-    = f.action :submit, label: t('feedback.actions.become_donation_partner'), button_html: {class: "Btn"}
+    -#= f.action :submit, label: t('feedback.actions.become_donation_partner'), button_html: {class: "Btn"}
+    .Btn.Btn--grayedOut Es werden derzeit keine neuen Spendenpartner*innen aufgenommen.
