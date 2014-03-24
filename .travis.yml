@@ -6,7 +6,7 @@ env:
 bundler_args: --without development debug
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
-  - RAILS_ENV=test bundle exec rspec
+  - RAILS_ENV=test bundle exec rspec --tag ~search
 notifications:
   email:
     - devel-team@fairnopoly.de
