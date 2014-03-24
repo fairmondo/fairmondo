@@ -19,53 +19,51 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.l-Main
-  .l-Inner
-    .Content
-      .Content-inner
-        %h1
-          = t 'transaction.edit.heading'
-        = semantic_form_for @transaction, url: step2_transaction_path(@transaction) do |f|
-          = f.inputs do
-            = render 'article_display'
+.Content
+  .Content-inner
+    %h1
+      = t 'transaction.edit.heading'
+    = semantic_form_for @transaction, url: step2_transaction_path(@transaction) do |f|
+      = f.inputs do
+        = render 'article_display'
 
-            %hr
+        %hr
 
-            %h3
-              %br
-              = t 'transaction.edit.choose_purchase_data'
+        %h3
+          %br
+          = t 'transaction.edit.choose_purchase_data'
 
-            - if @transaction.is_a? MultipleFixedPriceTransaction
-              = f.input :quantity_bought, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:quantity_bought) || 1 }
+        - if @transaction.is_a? MultipleFixedPriceTransaction
+          = f.input :quantity_bought, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:quantity_bought) || 1 }
 
-            = f.input :selected_transport, include_blank: false, collection: resource.selected_transports, selected: default_value(:selected_transport)
-            %ul.Price-list
-              = display_price_list_item :transport, :type1
-              = display_price_list_item :transport, :type2
+        = f.input :selected_transport, include_blank: false, collection: resource.selected_transports, selected: default_value(:selected_transport)
+        %ul.Price-list
+          = display_price_list_item :transport, :type1
+          = display_price_list_item :transport, :type2
 
-            = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
-            %ul.Price-list
-              = display_price_list_item :payment, :cash_on_delivery
+        = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
+        %ul.Price-list
+          = display_price_list_item :payment, :cash_on_delivery
 
-            %p
-              %br
-              %h3
-                = t 'transaction.edit.address'
-              %br
-              %p
-                = f.input :forename, required: true, input_html: { value: default_address_value(:forename) }
-                = f.input :surname, required: true, input_html: { value: default_address_value(:surname) }
-                = f.input :address_suffix, input_html: { value: default_address_value(:address_suffix) }
-                = f.input :street, required: true, input_html: { value: default_address_value(:street) }
-                = f.input :zip, required: true, input_html: { value: default_address_value(:zip) }
-                = f.input :city, required: true, input_html: { value: default_address_value(:city) }
-                = f.input :country, required: true, input_html: { value: default_address_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
-
-            %hr
-            %br
-            %p
-              = t 'transaction.edit.next_step_explanation'
+        %p
+          %br
+          %h3
+            = t 'transaction.edit.address'
+          %br
           %p
-            %br
-            = f.actions do
-              = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}
+            = f.input :forename, required: true, input_html: { value: default_form_value(:forename) }
+            = f.input :surname, required: true, input_html: { value: default_form_value(:surname) }
+            = f.input :address_suffix, input_html: { value: default_form_value(:address_suffix) }
+            = f.input :street, required: true, input_html: { value: default_form_value(:street) }
+            = f.input :zip, required: true, input_html: { value: default_form_value(:zip) }
+            = f.input :city, required: true, input_html: { value: default_form_value(:city) }
+            = f.input :country, required: true, input_html: { value: default_form_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
+
+        %hr
+        %br
+        %p
+          = t 'transaction.edit.next_step_explanation'
+      %p
+        %br
+        = f.actions do
+          = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}

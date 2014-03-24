@@ -6,9 +6,8 @@ include Warden::Test::Helpers
 describe 'User Mailer' do
   describe 'on registration' do
     it "should send a registration email" do
-      Recaptcha.with_configuration(:public_key => '12345') do
-        visit new_user_registration_path
-      end
+      visit new_user_registration_path
+
       expect do
         fill_in 'user_nickname',              with: 'nickname'
         fill_in 'user_email',                 with: 'email@example.com'
@@ -26,9 +25,8 @@ describe 'User Mailer' do
     end
 
     it "should send a password reset email" do
-      Recaptcha.with_configuration(:public_key => '12345') do
-        visit new_user_password_path
-      end
+      visit new_user_password_path
+
       expect do
         fill_in 'user_email',                 with: 'email@example.com'
         click_button 'sign_up'
@@ -39,9 +37,7 @@ describe 'User Mailer' do
     end
 
     it "should send a new confirmation email" do
-      Recaptcha.with_configuration(:public_key => '12345') do
-        visit new_user_confirmation_path
-      end
+      visit new_user_confirmation_path
 
       expect do
         fill_in 'user_email',                 with: 'email@example.com'

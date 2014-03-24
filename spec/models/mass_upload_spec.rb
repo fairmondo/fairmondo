@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe MassUpload do
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :row_count }
+    it { should respond_to :failure_reason }
+    it { should respond_to :user_id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :file_file_name }
+    it { should respond_to :file_content_type }
+    it { should respond_to :file_file_size }
+    it { should respond_to :file_updated_at }
+    it { should respond_to :state }
+  end
 
    describe "methods" do
     #let(:legal_entity_user) { FactoryGirl.create :legal_entity, :paypal_data }

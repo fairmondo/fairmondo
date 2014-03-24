@@ -97,4 +97,7 @@ Fairnopoly::Application.configure do
 
   # Set host by default
   Rails.application.routes.default_url_options[:host] = 'http://development.fairnopoly.de'
+  #Memcached
+  config.cache_store = :dalli_store, 'localhost', { :namespace => "fairnopoly", :expires_in => 1.day, :compress => true }
+
 end

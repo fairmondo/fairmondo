@@ -135,6 +135,7 @@ Fairnopoly::Application.routes.draw do
                       request.env['warden'].user.admin?}
 
   constraints constraint do
+    mount Peek::Railtie => '/peek'
     mount Sidekiq::Web => '/sidekiq'
   end
 

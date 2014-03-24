@@ -28,7 +28,6 @@ vendor/bundle
 # Ignore default SQLite database
 db/*.sqlite3
 db/*.sqlite3-journal
-db/schema.rb
 
 # Ignore codecoverage report
 coverage
@@ -44,6 +43,9 @@ config/email_addresses.yml
 #Solr Development
 solr/data/**/*
 solr/pids/**/*
+solr/default/**
+solr/development/**
+solr/test/**
 
 #ER-Diagram
 erd.pdf
@@ -83,7 +85,6 @@ Gemfile.local
 *.swm
 
 
-.ruby-version
 .ruby-gemset
 
 # compass sprites

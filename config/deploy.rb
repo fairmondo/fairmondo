@@ -48,10 +48,11 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+       within release_path do
+         with rails_env: fetch(:rails_env) do
+            execute :rake, 'memcached:flush'
+         end
+       end
     end
   end
 
@@ -60,12 +61,15 @@ namespace :deploy do
 end
 
 
+
 namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
     on roles(:console), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails console #{rails_env}",host
+      within current_path do
+        execute_interactively "bundle exec rails console #{rails_env}",host
+      end
     end
   end
 
@@ -73,7 +77,9 @@ namespace :rails do
   task :dbconsole do
     on roles(:db), :primary => true do |host|
       rails_env = fetch(:stage)
-      execute_interactively "ruby #{current_path}/script/rails dbconsole #{rails_env}",host
+      within current_path do
+        execute_interactively "bundle exec rails dbconsole #{rails_env}",host
+      end
     end
   end
 

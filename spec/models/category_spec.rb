@@ -23,6 +23,20 @@ require 'spec_helper'
 
 describe Category do
 
+  describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :name }
+    it { should respond_to :desc }
+    it { should respond_to :parent_id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :lft }
+    it { should respond_to :rgt }
+    it { should respond_to :depth }
+    it { should respond_to :children_count }
+    it { should respond_to :weight }
+  end
+
   let(:category) { FactoryGirl::create(:category)}
 
   it "has a valid Factory" do
