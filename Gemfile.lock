@@ -256,6 +256,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    paypal_adaptive (0.3.7)
+      json (~> 1.0)
+      jsonschema (~> 2.0.0)
     peek (0.1.8)
       atomic (>= 1.0.0)
       rails (>= 3.0.0)
@@ -538,6 +541,7 @@ DEPENDENCIES
   money-rails (~> 0.8.1)
   newrelic_rpm
   paperclip (>= 3.0)
+  paypal_adaptive
   peek
   peek-dalli
   peek-gc
