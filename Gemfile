@@ -40,12 +40,15 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 
 # Indexing /Searching
-gem 'sunspot_rails' , '~> 2.0.0'
+gem 'sunspot_rails' , '~> 2.1.0'
 
 # Sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq-failures'
+
+# Memcached
+gem 'dalli'
 
 # Sidekiq Integrations
 gem "sunspot-queue" # sidekiq
@@ -59,12 +62,18 @@ gem "pundit" # authorization
 # Support for memoization
 gem 'memoist'
 
-# Should be only in development but else migration fails
-gem 'factory_girl_rails'
-gem 'faker'
-
 # Rails Admin
 gem 'rails_admin' , "0.4.9"
+
+#Monitoring
+gem 'peek'
+gem 'peek-git'
+gem 'peek-gc'
+gem 'peek-dalli'
+gem 'peek-performance_bar'
+gem 'peek-pg'
+gem 'peek-sidekiq'
+gem 'peek-rblineprof'
 
 # Assets that need to be toplevel
 gem 'tinymce-rails'
@@ -75,6 +84,7 @@ gem 'jquery-rails'
 gem 'kontoapi-ruby'
 #KntNr to IBAN
 gem 'ibanomat'
+
 
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
@@ -114,8 +124,10 @@ end
 # Testing using RSpec
 group :development, :test do
 
+  gem 'sunspot_solr' , '~> 2.1.0'
+
   # Capistrano
-  gem 'capistrano-rails', '~> 1.0.0'
+  gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1.2'
 
@@ -175,5 +187,6 @@ group :test do
 end
 
 group :development,:test,:staging do
-  gem 'sunspot_solr' , '~> 2.0.0'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end

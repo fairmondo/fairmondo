@@ -18,9 +18,6 @@ staging:
     hostname: localhost
     port: 8983
     log_level: INFO
-    pid_dir: <%= File.join('var','www','fairnopoly' , 'shared', 'pids') %>
-    data_path: <%= File.join('var','www','fairnopoly','shared', 'solr', 'data') %>
-    solr_home:  <%=File.join(::Rails.root, 'solr') %>
 
 test:
   solr:

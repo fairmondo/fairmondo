@@ -4,6 +4,16 @@ describe Exhibit do
   let(:exhibit) { Exhibit.new }
 
   describe "::Base" do
+    describe 'attributes' do
+    it { should respond_to :id }
+    it { should respond_to :article_id }
+    it { should respond_to :queue }
+    it { should respond_to :related_article_id }
+    it { should respond_to :created_at }
+    it { should respond_to :updated_at }
+    it { should respond_to :exhibition_date }
+    end
+
     describe "associations" do
       it {should belong_to :article}
       it {should belong_to :related_article}

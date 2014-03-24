@@ -60,6 +60,7 @@ de:
         lastname: "Nachname"
         organisation: "Name der Organisation"
         phone: "Telefon"
+        image: "Screenshot"
 
       article:
         title: "Artikelbezeichnung"

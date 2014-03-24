@@ -205,26 +205,6 @@ module TransactionHelper
     )
   end
 
-  # Default input field value -> param or current_user.*
-  # @api public
-  # @param field [Symbol]
-  # @return [String, nil]
-  def default_address_value field
-    default_value(field) || current_user.send(field)
-  end
-
-  # Default input field value -> param or nil
-  # @api public
-  # @param field [Symbol]
-  # @return [String, nil]
-  def default_value field
-    if params['transaction'] && params['transaction'][field]
-      params['transaction'][field]
-    else
-      nil
-    end
-  end
-
   def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
     link_to t('common.actions.back'),
       edit_transaction_path(@transaction,
