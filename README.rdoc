@@ -142,10 +142,10 @@ Hint: When a vim window opened after you typed "git commit" without a commit mes
 
 To avoid having the search not available in your local environment you have to install elastic search:
 
-    curl -k -L -o elasticsearch.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
-    tar -zxvf elasticsearch.tar.gz
-    ./elasticsearch/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
-    ./elasticsearch/bin/elasticsearch -f
+    curl -k -L -o elasticsearch-0.90.3.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
+    tar -zxvf elasticsearch-0.90.3.tar.gz
+    ./elasticsearch-0.90.3/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
+    ./elasticsearch-0.90.3/bin/elasticsearch -f
 
 Links for elasticsearch:
 http://www.elasticsearch.org/downloads/0-90-3/
