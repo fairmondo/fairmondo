@@ -79,41 +79,39 @@ class Article < ActiveRecord::Base
     }
 
   }, analysis: {
-      filter: {
+     filter: {
+        decomp:{
+          type: "decompound"
+          },
         german_stemming: {
           type: 'snowball',
           language: 'German2'
         },
         ngram_filter: {
-          type: "nGram",
-          min_gram: 4,
+          type: "ngram",
+          min_gram: 2,
           max_gram: 20,
-          token_chars: [
-                  "letter",
-                  "digit",
-                  "punctuation",
-                  "symbol"
-               ]
-            }
+          }
       },
 
       analyzer: {
-          ngram_analyzer: {
-            filter: [
-               'lowercase',
-               'german_stemming',
-               'ngram_filter',
-               'asciifolding'
-            ],
-            type: "custom",
-            tokenizer: "whitespace"
-         },
-         whitespace_analyzer: {
+
+         decomp_stem_analyzer: {
           type: "custom",
-          tokenizer: "whitespace",
+          tokenizer: "letter",
           filter: [
                   'lowercase',
+                  'decomp',
                   'german_stemming',
+                  'asciifolding'
+                  ]
+            },
+          decomp_analyzer: {
+          type: "custom",
+          tokenizer: "letter",
+          filter: [
+                  'lowercase',
+                  'decomp',
                   'asciifolding'
                   ]
             }
@@ -123,8 +121,11 @@ class Article < ActiveRecord::Base
     } do
     mapping do
       indexes :id,           :index => :not_analyzed
-      indexes :title,        index_analyzer: "ngram_analyzer", search_analyzer: "whitespace_analyzer"
-      indexes :content,      analyzer: "whitespace_analyzer"
+      indexes :title,  type: 'multi_field'  , :fields => {
+         :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
+         :decomp => { type:'string', analyzer: "decomp_analyzer"},
+      }
+      indexes :content,      analyzer: "decomp_stem_analyzer"
       indexes :gtin,         :index    => :not_analyzed
 
       # filters
@@ -163,6 +164,23 @@ class Article < ActiveRecord::Base
 
 
     end
+  end
+
+  def self.autocomplete keywords
+    search = Article.search do
+      query do
+        match "title.decomp", keywords, fuzziness: 0.9
+      end
+      highlight "title.decomp", :options => { number_of_fragments: 0, pre_tags: ["<b>"], post_tags: ["</b>"]}
+      suggest :typos do
+        text keywords
+        term "title.decomp", :suggest_mode => 'popular', :sort => 'frequency' , :analyzer => :simple, size: 3
+      end
+    end
+    suggestions = search.suggestions.texts.map { |suggest| {:label => suggest , :value => suggest }}
+    suggestions += search.results.map{ |result| { :label => result.highlight["title.decomp"].first, :value => result.title} }
+
+
   end
 
   def self.article_attrs with_nested_template = true

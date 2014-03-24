@@ -404,7 +404,7 @@ describe ArticlesController do
     it "should be successful" do
       get :autocomplete, keywords: 'chunky'
       response.status.should be 200
-      response.body.should eq ["chunky bacon"].to_json
+      response.body.should eq [{label:"<b>chunky</b> bacon",value:"chunky bacon"}].to_json
     end
 
     it "should rescue an ECONNREFUSED error" do
