@@ -1,0 +1,6 @@
+%h2
+  %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
+    = category.name
+%ul
+  -category.children.each do |child|
+    = render '/shared/category_tree_leaf', child: child

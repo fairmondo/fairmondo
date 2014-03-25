@@ -1,17 +1,127 @@
+//
+// ----- ARTICLE GRID -----
+//
 
-.grid-sizer,
-.Grid
+.Search-GridContainer {
+  max-width: 750px;
+  margin: 0 auto;
+
+  @include at-breakpoint($layout-large) {
+    max-width: $breakpoint-large;
+  }
+  @include at-breakpoint($layout-huge) {
+    max-width: $breakpoint-huge;
+  }
+}
+
+
+//
+// Search grid separation
+//
+.Search-Leftbar {
+  display: none;
+  @include at-breakpoint($layout-large) {
+    display: inherit;
+    @include span-columns(1, $medium-columns);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(1, $large-columns);
+  }
+}
+.Search-ArticleContainer {
+  @include at-breakpoint($layout-large) {
+    @include span-columns(($medium-columns - 1) omega, $medium-columns);
+  }
+  @include at-breakpoint($layout-huge) {
+    @include span-columns(($large-columns - 1) omega, $large-columns);
+  }
+}
+
+.Search-GridSizer,
+.Search-Grid
 {
-  width: 100%;
-  float:left;
+  // float:left;
+  width: columns(1,$tiny-columns);
 
-  @include at-breakpoint($layout-small-to-medium) {
+  @include at-breakpoint($layout-small) {
     width: columns(1,$small-columns);
   }
-  @include at-breakpoint($layout-medium-to-large) {
-    width: columns(1,$medium-columns);
+  @include at-breakpoint($layout-large) {
+    width: columns(1,$medium-columns - 1);
+  }
+  @include at-breakpoint($layout-huge) {
+    width: columns(1,$large-columns - 1);
+  }
+}
+
+
+//
+// Grid horizontal gutter
+//
+.Search-GutterSizer {
+  width: gutter($tiny-columns);
+
+  @include at-breakpoint($layout-small) {
+    width: gutter($small-columns);
   }
   @include at-breakpoint($layout-large) {
+    width: gutter($medium-columns - 1);
+  }
+  @include at-breakpoint($layout-huge) {
+    width: gutter($large-columns - 1);
+  }
+}
+
+
+//
+// Grid vertical gutter
+//
+.Search-Grid {
+  margin-bottom: em(8);
+  margin-right: gutter($tiny-columns);
+  &:nth-child(2n) {
+    @include omega;
+  }
+
+  @include at-breakpoint($layout-small) {
+    margin-right: gutter($small-columns);
+    &:nth-child(3n) {
+      @include omega;
+    }
+  }
+
+  @include at-breakpoint($layout-large) {
+    margin-right: gutter($medium-columns - 1);
+    &:nth-child(4n) {
+      @include omega;
+    }
+  }
+  @include at-breakpoint($layout-huge) {
+    margin-right: gutter($large-columns - 1);
+    &:nth-child(5n) {
+      @include omega;
+    }
+  }
+}
+
+
+//
+// ----- CATEGORY GRID -----
+//
+
+.Category-GridSizer,
+.Category-Grid
+{
+  // float:left;
+  width: columns(1,$tiny-columns);
+
+  @include at-breakpoint($layout-small) {
+    width: columns(1,$small-columns);
+  }
+  @include at-breakpoint($layout-large) {
+    width: columns(1,$medium-columns);
+  }
+  @include at-breakpoint($layout-huge) {
     width: columns(1,$large-columns);
   }
 }
@@ -20,14 +130,16 @@
 //
 // Grid horizontal gutter
 //
-.gutter-sizer {
-  @include at-breakpoint($layout-small-to-medium) {
+.Category-GutterSizer {
+  width: gutter($tiny-columns);
+
+  @include at-breakpoint($layout-small) {
     width: gutter($small-columns);
   }
-  @include at-breakpoint($layout-medium-to-large) {
+  @include at-breakpoint($layout-large) {
     width: gutter($medium-columns);
   }
-  @include at-breakpoint($layout-large) {
+  @include at-breakpoint($layout-huge) {
     width: gutter($large-columns);
   }
 }
@@ -36,30 +148,61 @@
 //
 // Grid vertical gutter
 //
-.Grid {
-  margin-bottom: em(38);
-  float:left;
-  @include at-breakpoint($layout-small-to-medium) {
-    margin-right:  gutter($small-columns);
-    &:nth-child(2n) {
-      @include omega;
-    }
+.Category-Grid {
+  margin-bottom: em(8);
+  margin-right: gutter($tiny-columns);
+  &:nth-child(2n) {
+    @include omega;
   }
 
-  @include at-breakpoint($layout-medium-to-large) {
-    margin-right:  gutter($medium-columns);
+  @include at-breakpoint($layout-small) {
+    margin-right:  gutter($small-columns);
     &:nth-child(3n) {
       @include omega;
     }
   }
+
   @include at-breakpoint($layout-large) {
-    margin-right:  gutter($large-columns);
+    margin-right:  gutter($medium-columns);
     &:nth-child(4n) {
       @include omega;
     }
   }
-
+  @include at-breakpoint($layout-huge) {
+    margin-right:  gutter($large-columns);
+    &:nth-child(5n) {
+      @include omega;
+    }
+  }
 }
 
+//
+// Grid vertical gutter
+//
+.Category-Grid {
+  margin-bottom: em(8);
+  margin-right: gutter($tiny-columns);
+  &:nth-child(2n) {
+    @include omega;
+  }
 
+  @include at-breakpoint($layout-small) {
+    margin-right:  gutter($small-columns);
+    &:nth-child(3n) {
+      @include omega;
+    }
+  }
 
+  @include at-breakpoint($layout-large) {
+    margin-right:  gutter($medium-columns);
+    &:nth-child(4n) {
+      @include omega;
+    }
+  }
+  @include at-breakpoint($layout-huge) {
+    margin-right:  gutter($large-columns);
+    &:nth-child(5n) {
+      @include omega;
+    }
+  }
+}

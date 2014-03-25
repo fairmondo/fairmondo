@@ -19,11 +19,16 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-%section.l-ArticleList
-  - articles.each do |article|
-    - if article.active?
-      %Article{ class: 'Grid Article Article--teaser' }
-        = render '/articles/shared/show_article' , article: article
+%section.l-GridContainer
+  .Search-Leftbar
+    .Category-index-parent
+      = render '/shared/category_tree', category: Category.find(9)
+  .Search-ArticleContainer
+    .l-ArticleList
+      - articles.each do |article|
+        - if article.active?
+          %Article.Search-Grid.Article.Article--teaser
+            = render '/articles/shared/show_article' , article: article
 
 - if User.is_admin?(current_user)
   .Admin-controls

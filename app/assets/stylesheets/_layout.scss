@@ -11,7 +11,9 @@ html, body {
 	@media (max-width: 25em) {
 		padding-left: $gutter-width / 2;
 		padding-right: $gutter-width / 2;
-	}
+	};
+
+  //@include rem(max-width, $breakpoint-huge);
 }
 .l-Header {
 	background-image: url(asset-path("back3.gif", image));
@@ -61,7 +63,7 @@ html, body {
 	.Footer--bottom {
 		// padding-bottom: em(20);
 	}
-  @include at-breakpoint($layout-large){
+  @include at-breakpoint($layout-large) {
     margin-top: -16em;
     height: 16em;
   }

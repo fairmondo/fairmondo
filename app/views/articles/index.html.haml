@@ -25,16 +25,6 @@
   %h1.CategorySearchBreadcrumb
     = breadcrumbs_for(@search_cache.categories[0]).html_safe
 
-- if !params[:article] && !params[:page] && !params[:queue]
-  .Highlight
-    %h2 FAIRNOPOLY MAG
-    = render "/articles/show/highlight", articles: Exhibit.independent_queue(:fairnopoly_likes, 4)
-  - ["fair" , "ecologic", "small_and_precious"].each do |label|
-    .Highlight
-      %h2
-        BESONDERS &
-        = commendation_label label.to_sym, :medium
-      = render "/articles/show/highlight" , articles: Exhibit.independent_queue("#{label}_highlights".to_sym, 4)
 - if @articles.empty?
   %h2= t("common.text.no_search_result_text")
 - else

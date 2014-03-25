@@ -35,16 +35,19 @@ $font-size-xs: 10.5px;
 
 // Layout with Susy
 $total-columns: 4;
+$container-width: em(1200);
 $column-width: em(245);
-$gutter-width: em(40);
-$grid-padding: em(40);
+$gutter-width: em(10);
+$grid-padding: em(10);
 
+// Tiny version
+$tiny-columns: 2;
 // Small version
-$small-columns: 2;
+$small-columns: 3;
 // Medium version
-$medium-columns: 3;
+$medium-columns: 4;
 // Large version
-$large-columns: 4;
+$large-columns: 5;
 
 // Breakpoints
 $breakpoint-small: 460px;
