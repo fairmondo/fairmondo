@@ -1,1 +1,7 @@
-= render "categories/show/#{resource.slug}" rescue ActionView::MissingTemplate; nil
+- begin
+  = render "categories/show/#{resource.slug}"
+- rescue ActionView::MissingTemplate
+  - # insert elements that should only appear when there is nothing specific here
+
+- # Elements that always get displayed
+= render '/shared/search_view'

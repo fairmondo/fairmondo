@@ -13,6 +13,10 @@ class CategoriesController < InheritedResources::Base
       format.json do
         render :json => @children.map { |child| {id: child.id, name: child.name} }.to_json
       end
+      format.html do
+        @search_cache = SearchCache.new(permitted_search_params)
+        @articles = @search_cache.articles
+      end
     end
   end
 
@@ -23,4 +27,9 @@ class CategoriesController < InheritedResources::Base
   def id_index
     @categories = Category.all_by_id
   end
+
+  private
+    def permitted_search_params
+      params.permit :page, :keywords, article: Article.article_attrs
+    end
 end
