@@ -5,6 +5,8 @@
 
 .pagination {
 	text-align: center;
+  clear: both;
+
 	li {
 		list-style-type: none;
 		display: inline-block;
@@ -18,7 +20,6 @@
 		}
 	}
 	.active {
-
 	    @extend .Btn;
       @extend .Btn-tag;
 		  @extend .Btn-tag--green;
