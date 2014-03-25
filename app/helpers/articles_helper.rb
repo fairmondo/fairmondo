@@ -51,7 +51,7 @@ module ArticlesHelper
     category_tree.each do |category|
       last = category_tree.last == category
       output += '<span>'
-      output += "<a href='#{articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}' class='#{(last ? 'last' : nil )}'>"
+      output += "<a href='#{articles_path(article: {category_ids: [category.id] })}' class='#{(last ? 'last' : nil )}'>"
       output += category.name
       output += '</a>'
       output += '</span>'
@@ -184,7 +184,7 @@ module ArticlesHelper
     children.each_with_index do |child, index|
       output += '<tr>' if index % columns == 0
       output +=   '<td>'
-      output +=     "<a href='#{articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids})}'>"
+      output +=     "<a href='#{articles_path(article: {category_ids: [child.id]})}'>"
       output +=       child.name
       output +=     '</a>'
       output +=   '</td>'

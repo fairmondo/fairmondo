@@ -51,7 +51,7 @@ describe 'Article management' do
       context "with a valid user", slow: true do
         def fill_form_with_valid_article
           fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-          select Category.root.name, from: 'article_categories_and_ancestors'
+          select Category.root.name, from: 'article_category_ids'
           within("#article_condition_input") do
             choose "article_condition_new"
           end

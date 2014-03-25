@@ -24,6 +24,7 @@ end
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
+gem 'virtus'
 
 # Tool Libs
 

@@ -88,8 +88,8 @@ describe ArticlesHelper do
         before(:all) do
           setup
           @other_category  = Category.other_category.first || FactoryGirl.create(:category,:name => "Sonstiges")
-          @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories_and_ancestors => [@other_category,FactoryGirl.create(:category)]
-          @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories_and_ancestors => [@other_category]
+          @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories => [@other_category,FactoryGirl.create(:category)]
+          @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories => [@other_category]
           Article.index.refresh
         end
 

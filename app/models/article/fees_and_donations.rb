@@ -53,7 +53,7 @@ module Article::FeesAndDonations
 
   def could_be_book_price_agreement?
     book_category_id = $exceptions_on_fairnopoly['book_price_agreement']['category'].to_i
-    is_a_book = self.categories_and_ancestors.map{ |c| c.id }.include? book_category_id
+    is_a_book = self.categories.map{|c| c.self_and_ancestors.map(&:id)}.flatten.include? book_category_id
     is_a_book && self.condition == "new"
   end
 

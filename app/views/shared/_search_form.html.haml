@@ -25,7 +25,7 @@
       - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
       - croots.each do |category|
         %li.Hero-category
-          %a{href: articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}
+          %a{href: articles_path(article: {categories: [category.id] })}
             = category.name
           - if category.children.present?
             .Category-dropdown
@@ -80,7 +80,7 @@
           .Filter-col
             = f.inputs do
               %legend.Filter-title Kategorien
-              = f.input :categories_and_ancestors, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f), :hide_empty => true }}
+              = f.input :category_ids, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f), :hide_empty => true }}
 
           .Filter-col
             = f.inputs do
