@@ -40,7 +40,8 @@ class ArticlesController < InheritedResources::Base
 
   #Autocomplete
   def autocomplete
-    render :json => Article.autocomplete(permitted_search_params[:keywords])
+    @form = ArticleSearchForm.new(:q => permitted_search_params[:q])
+    render :json => @form.autocomplete
   rescue Errno::ECONNREFUSED
     render :json => []
   end
@@ -147,17 +148,6 @@ class ArticlesController < InheritedResources::Base
       !!permitted_state_params[:activate]
     end
 
-
-    def search_for query
-      ######## Solr
-        search = query.find_like_this permitted_search_params[:page]
-        return search
-      ########
-      rescue Errno::ECONNREFUSED
-        render_hero :action => "search_failure"
-        return policy_scope(Article).page permitted_search_params[:page]
-    end
-
     def permitted_state_params
       params.permit :activate, :deactivate, :confirm_to_buy
     end
@@ -165,7 +155,7 @@ class ArticlesController < InheritedResources::Base
       params.permit :edit_as_new, template_select: [:article_template]
     end
     def permitted_search_params
-      params.permit :page, :keywords
+       params.permit(:page,:q, :article_search_form => ArticleSearchForm.article_search_form_attrs)
     end
     def permitted_queue_params
       params.permit :page, :queue
@@ -199,8 +189,11 @@ class ArticlesController < InheritedResources::Base
       if params[:queue]
         @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
       else
-        @articles ||= search_for @search_cache
+        @articles ||= @search_cache.search(permitted_search_params[:page])
       end
+    rescue Errno::ECONNREFUSED
+      render_hero :action => "search_failure"
+      @articles ||= policy_scope(Article).page permitted_search_params[:page]
     end
 
     def begin_of_association_chain
@@ -208,7 +201,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def build_search_cache
-      @search_cache = Article.new(permitted_params[:article])
+      @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
     end
 
 

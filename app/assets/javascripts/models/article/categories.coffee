@@ -14,7 +14,7 @@ changed_select_box = (event) ->
   selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
   if !is_multiselect and selected_category_id != "-1"
     placeholder = "<div id=category-select-placeholder-"+selected_category_id+"></div>"
-    $("#article_category_ids_input").append $(placeholder)
+    $("#article_search_form_category_id_input").append $(placeholder)
   # Append select box to old box
   add_new_selectbox selected_category_id
 
@@ -60,7 +60,7 @@ add_new_selectbox = (selected_category_id,selected_value = null) ->
 
   # Selected nothing so we have to get the old id back
   if selected_category_id is "-1" and !is_multiselect
-    last_selectbox = $("#article_category_ids_input select:last")
+    last_selectbox = $("#article_category_id_input select:last")
     previous_selectbox = last_selectbox.prevAll("select").first()
     old_selected_id = $("option:selected", previous_selectbox).attr("value")
     append_hidden_form_tag old_selected_id
@@ -75,7 +75,7 @@ append_hidden_form_tag = (selected_category_id) ->
   hidden_tag = $(native_select_categories).siblings("input[type=hidden]")
   hidden_tag.remove()
   if selected_category_id != "-1"
-    $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article[category_ids][]\" value=\""+selected_category_id+"\"></input>")
+    $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\"article_search_form[category_id]\" value=\""+selected_category_id+"\"></input>")
 
 # Get the selected category values for a multiselect
 get_selected_values = ->
@@ -94,7 +94,7 @@ get_selected_values = ->
 auto_append_selected_category = ->
   selected_values = get_selected_values()
   selected_category_id = selected_values[selected_values.length - 1]
-  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\""+$(selected_categories_input).data("object-name")+"[categories][]\" value=\""+selected_category_id+"\"></input>")
+  $(native_select_categories).parent().prepend("<input type=\"hidden\" name=\""+$(selected_categories_input).data("object-name")+"[category_ids][]\" value=\""+selected_category_id+"\"></input>")
 
 # Category Add event of a multiselect
 select_category = ->
@@ -164,7 +164,7 @@ $(document).ready ->
         $(category_ids).each (index,element) ->
 
           placeholder = "<div id=category-select-placeholder-"+element+"></div>"
-          $("#article_category_ids_input").append $(placeholder)
+          $("#article_search_form_category_id_input").append $(placeholder)
           if $(category_ids).length > index+1
             add_new_selectbox element,  $(category_ids).get(index+1)
           else

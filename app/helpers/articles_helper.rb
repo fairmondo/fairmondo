@@ -29,48 +29,33 @@ module ArticlesHelper
   end
 
   # Build title string
-  def index_title_for search_article
+  def index_title_for search_cache
     attribute_list = ::HumanLanguageList.new
-    attribute_list << t('article.show.title.new') if search_article.condition == 'new'
-    attribute_list << t('article.show.title.old') if search_article.condition == 'old'
-    attribute_list << t('article.show.title.fair') if search_article.fair
-    attribute_list << t('article.show.title.ecologic') if search_article.ecologic
-    attribute_list << t('article.show.title.small_and_precious') if search_article.small_and_precious
+    attribute_list << t('article.show.title.new') if search_cache.condition == 'new'
+    attribute_list << t('article.show.title.old') if search_cache.condition == 'old'
+    attribute_list << t('article.show.title.fair') if search_cache.fair
+    attribute_list << t('article.show.title.ecologic') if search_cache.ecologic
+    attribute_list << t('article.show.title.small_and_precious') if search_cache.small_and_precious
 
     output = attribute_list.concatenate.capitalize + ' '
+    output += search_cache.searched_category.name + ' ' if search_cache.searched_category
 
-    if search_article.categories[0]
-      output += search_article.categories[0].name + ' '
-    end
     output += t('article.show.title.article')
   end
 
-  def breadcrumbs_for category_leaf
-    category_tree = get_category_tree category_leaf
+  def breadcrumbs_for category
     output = ''
-    category_tree.each do |category|
-      last = category_tree.last == category
+    category.self_and_ancestors.each do |c|
+      last = c == category
       output += '<span>'
-      output += "<a href='#{articles_path(article: {category_ids: [category.id] })}' class='#{(last ? 'last' : nil )}'>"
-      output += category.name
+      output += "<a href='#{articles_path(article_search_form: {category_id: c.id })}' class='#{(last ? 'last' : nil )}'>"
+      output += c.name
       output += '</a>'
       output += '</span>'
       output += ' > ' unless last
     end
 
     output
-  end
-
-  def get_category_tree category
-    tree = []
-    cat = category
-    tree.unshift(cat)
-
-    while parent_cat = parent_category(cat)
-      tree.unshift(parent_cat)
-      cat = parent_cat
-    end
-    return tree
   end
 
   def parent_category cat
@@ -168,14 +153,6 @@ module ArticlesHelper
     end
   end
 
-  def categories_for_filter form
-    if form.object.categories.length > 0
-      tree = get_category_tree(form.object.categories.first)
-      return tree.map { |category| category.id}.to_json
-    end
-    return [].to_json
-  end
-
   def build_category_table children, columns = 2
     last = children.count - 1
     last_in_column = columns - 1
@@ -184,7 +161,7 @@ module ArticlesHelper
     children.each_with_index do |child, index|
       output += '<tr>' if index % columns == 0
       output +=   '<td>'
-      output +=     "<a href='#{articles_path(article: {category_ids: [child.id]})}'>"
+      output +=     "<a href='#{articles_path(article_search_form: {category_id: child.id})}'>"
       output +=       child.name
       output +=     '</a>'
       output +=   '</td>'

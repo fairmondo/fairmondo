@@ -25,7 +25,7 @@
       - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
       - croots.each do |category|
         %li.Hero-category
-          %a{href: articles_path(article: {categories: [category.id] })}
+          %a{href: articles_path(article_search_form: {category_id: category.id })}
             = category.name
           - if category.children.present?
             .Category-dropdown
@@ -44,7 +44,7 @@
         .l-Middle
           = f.inputs :class => "Search" do
             .Search-input
-              = f.input :title, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
+              = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
             .Search-extend.js-filter-toggle
               = t('common.text.extended_search')
             .Search-button
@@ -80,19 +80,19 @@
           .Filter-col
             = f.inputs do
               %legend.Filter-title Kategorien
-              = f.input :category_ids, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :multiple => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => categories_for_filter(f), :hide_empty => true }}
+              = f.input :category_id, :as => :select, :collection => Category.other_category_last.sorted_roots, :required => true, :include_blank => "Alle Kategorien", :tooltip => false, :label => false ,:input_html => {:class => "Category-nativeselect", :data => { :categories => ArticleSearchForm.categories_for_filter(f), :hide_empty => true }}
 
           .Filter-col
             = f.inputs do
               %legend.Filter-title Sortierung
-              = f.input :search_order_by, :label => false, :as => :select, :include_blank => "Relevanz"
+              = f.input :order_by, :label => false, :as => :select, :include_blank => "Relevanz"
           .Filter-col
             = f.inputs do
               %legend.Filter-title
                 Einstellungen
                 %i.icon-helper{ :title => "Hier kannst Du auswählen, ob neben dem Artikeltitel auch die Artikelbeschreibung durchsucht werden soll.\n Die PLZ-Suche ermöglicht Dir, über die Postleitzahl nach Artikeln in Deiner Nähe zu suchen. Bitte gib dazu alle fünf Ziffern der PLZ an.".html_safe }
               = f.input :search_in_content, :as => :boolean
-              = f.input :search_for_zip, :as => :string, :input_html => { :maxlength => 5 }
+              = f.input :zip, :as => :string, :input_html => { :maxlength => 5 }
 
         %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
 

@@ -22,7 +22,7 @@
 
 $(function() {
     function sources(request, response){
-	  	var params = {keywords: request.term};
+	  	var params = {q: request.term};
 	  	return $.get(jQuery("#search_input").attr('data-autocomplete'), params, function(data){ response(data); }, "json");
 	}
   if ($( "#search_input" ).length != 0) {
