@@ -20,6 +20,8 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Category < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, :use => :slugged
 
   def self.category_attrs
     [:name, :parent, :desc, :parent_id]

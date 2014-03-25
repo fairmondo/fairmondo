@@ -23,7 +23,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'csv'
 require 'rails/all'
-
 require 'net/http'
 
 
@@ -91,5 +90,8 @@ module Fairnopoly
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
 
+    # Rack-Rewrite paths
+    require "#{config.root}/config/rewrites.rb"
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
   end
 end
