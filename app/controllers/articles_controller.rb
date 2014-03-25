@@ -157,17 +157,6 @@ class ArticlesController < InheritedResources::Base
       !!permitted_state_params[:activate]
     end
 
-
-    def search_for query
-      ######## Solr
-        search = query.find_like_this permitted_search_params[:page]
-        return search.results
-      ########
-      rescue Errno::ECONNREFUSED
-        render_hero :action => "sunspot_failure"
-        return policy_scope(Article).page permitted_search_params[:page]
-    end
-
     def permitted_state_params
       params.permit :activate, :deactivate, :confirm_to_buy
     end
@@ -175,7 +164,7 @@ class ArticlesController < InheritedResources::Base
       params.permit :edit_as_new, template_select: [:article_template]
     end
     def permitted_search_params
-      params.permit :page, :keywords
+      params.permit :page, :keywords, article: Article.article_attrs
     end
     def permitted_queue_params
       params.permit :page, :queue
@@ -209,7 +198,9 @@ class ArticlesController < InheritedResources::Base
       if params[:queue]
         @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
       else
-        @articles ||= search_for @search_cache
+        @articles ||= @search_cache.articles do
+          render_hero :action => "sunspot_failure"
+        end
       end
     end
 
@@ -218,8 +209,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def build_search_cache
-      @search_cache = Article.new(permitted_params[:article])
+      @search_cache = SearchCache.new(permitted_search_params)
     end
-
 
 end
