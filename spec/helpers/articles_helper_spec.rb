@@ -23,17 +23,6 @@ require "spec_helper"
 
 describe ArticlesHelper do
 
-  describe "#get_category_tree(leaf_category)" do
-    it "should return an array with parent categories of a given child category " do
-      parent_category = FactoryGirl.create :category
-      child_category = FactoryGirl.create :category, parent: parent_category
-
-      helper.get_category_tree(child_category).should eq [parent_category, child_category]
-    end
-  end
-
-
-
   describe "options_format_for (type, method, css_classname)" do
      before do
       helper.stub(:resource).and_return FactoryGirl.create :article, :transport_type2 => true, :transport_type2_price => 3, :transport_type2_provider => "test"

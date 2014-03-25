@@ -154,7 +154,7 @@ class Article < ActiveRecord::Base
       indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
 
       indexes :transport_pickup
-      indexes :zip, :as => 'zip'
+      indexes :zip, :as => Proc.new {self.transport_pickup ? self.seller.zip : nil}
 
       # seller attributes
       indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
@@ -166,28 +166,11 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def self.autocomplete keywords
-    search = Article.search do
-      query do
-        match "title.decomp", keywords, fuzziness: 0.9
-      end
-      highlight "title.decomp", :options => { number_of_fragments: 0, pre_tags: ["<b>"], post_tags: ["</b>"]}
-      suggest :typos do
-        text keywords
-        term "title.decomp", :suggest_mode => 'popular', :sort => 'frequency' , :analyzer => :simple, size: 3
-      end
-    end
-    suggestions = search.suggestions.texts.map { |suggest| {:label => suggest , :value => suggest }}
-    suggestions += search.results.map{ |result| { :label => result.highlight["title.decomp"].first, :value => result.title} }
-
-
-  end
-
   def self.article_attrs with_nested_template = true
     (
       Article.common_attrs + Article.money_attrs + Article.payment_attrs +
       Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
+      Article.category_attrs + Article.commendation_attrs  +
       Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
       Article.template_attrs(with_nested_template)
     )

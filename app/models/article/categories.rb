@@ -46,21 +46,10 @@ module Article::Categories
   end
   private :ensure_no_redundant_categories
 
-  # For Solr searching we need category ids
-  def self.search_categories(categories)
-    ids = []
-    categories.each do |category|
-     category.self_and_descendants.each do |fullcategories|
-        ids << fullcategories.id
-      end
-    end
-    ids
-  end
 
   # Only allow categories that are not "Other"
   def self.specific_search_categories(categories)
-
-    ids = self.search_categories(categories)
+    ids = categories.map(&:id)
     other = Category.other_category.first
     ids.map! { |id| id == other.id ? 0 : id} if other  #set the other category to 0 because solr throws exceptions if categories are empty
     ids

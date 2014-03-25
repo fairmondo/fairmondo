@@ -129,8 +129,6 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
-        search_in_content: "suche in Artikelbeschreibung"
-        search_for_zip: "PLZ"
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -181,6 +179,9 @@ de:
       refund:
         reason: 'Bitte wähle einen Grund für Deinen Rückerstattungsantrag aus:'
         description: 'Bitte beschreibe welche Schritte Du unternommen hast, um den Vorfall zu klären:'
+      article_search_form:
+        search_in_content: "suche in Artikelbeschreibung"
+        zip: "PLZ"
     input_steps:
       user:
         account: Benutzerkonto
