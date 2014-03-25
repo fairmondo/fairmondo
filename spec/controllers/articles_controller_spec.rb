@@ -39,9 +39,9 @@ describe ArticlesController do
         @software_category = Category.find_by_name!("Software")
 
         @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing")
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
-        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ], content: "abc")
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ], content: "cde"
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer")
+        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc")
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
         Article.index.refresh
       end
 
@@ -75,7 +75,7 @@ describe ArticlesController do
         end
 
         it "order by friendly_percent desc" do
-           get :index, :article => {:search_order_by => "most_donated",:categories_and_ancestors => [@hardware_category]}
+           get :index, :article => {:search_order_by => "most_donated",:category_ids => [@hardware_category.id]}
            controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
@@ -84,36 +84,36 @@ describe ArticlesController do
       context "when filtering by categories" do
 
         it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
-          get :index, :article => {:categories_and_ancestors => [@hardware_category] }
+          get :index, :article => {:category_ids => [@hardware_category.id] }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
-          get :index, :article => {:categories_and_ancestors => [@electronic_category] }
+          get :index, :article => {:category_ids => [@electronic_category.id] }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should not find the article in category 'Hardware' when filtering for 'Software'" do
-          get :index, :article => {:categories_and_ancestors => [@software_category] }
+          get :index, :article => {:category_ids => [@software_category.id] }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == []
         end
 
         context "and searching for 'muscheln'" do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
-            get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
+            get :index, :article => {:category_ids => [], :title => "muscheln"}
             controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@no_second_hand_article,@hardware_article,@second_hand_article].map(&:id)
           end
 
           it "should chain both filters" do
-            get :index, :article => {:categories_and_ancestors => [ @hardware_category ], :title => "muscheln"}
+            get :index, :article => {:category_ids => [ @hardware_category.id ], :title => "muscheln"}
             controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
           end
 
           context "and filtering for condition" do
 
             it "should chain all filters" do
-              get :index, article: {categories_and_ancestors: [ @hardware_category ], title: "muscheln", condition: "old"}
+              get :index, article: {category_ids: [ @hardware_category.id ], title: "muscheln", condition: "old"}
               controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article].map(&:id)
             end
 
@@ -305,7 +305,7 @@ describe ArticlesController do
   describe "POST 'create'" do
 
     before :each do
-      @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category).id]
+      @article_attrs = FactoryGirl.attributes_for :article, category_ids: [FactoryGirl.create(:category).id]
     end
 
     describe "for non-signed-in users" do
@@ -329,7 +329,7 @@ describe ArticlesController do
       end
 
       it "should save images even if article is invalid" do
-        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories_and_ancestors: [FactoryGirl.create(:category).id]
+        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories: [FactoryGirl.create(:category).id]
         @article_attrs[:images_attributes] = { "0" => { :image => fixture_file_upload("/test.png", 'image/png') }}
         lambda do
           post :create, article: @article_attrs
@@ -350,7 +350,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -377,7 +377,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end

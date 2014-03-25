@@ -134,7 +134,7 @@ class Article < ActiveRecord::Base
       indexes :ecologic
       indexes :small_and_precious
       indexes :condition
-      indexes :categories, :as => Proc.new { self.categories.map{ |c| c.id }  }
+      indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
 
 
       # sorting

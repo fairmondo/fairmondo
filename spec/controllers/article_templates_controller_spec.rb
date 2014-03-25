@@ -29,7 +29,7 @@ describe ArticleTemplatesController do
   end
 
   def valid_attributes
-    article_attributes = FactoryGirl::attributes_for(:article, :categories_and_ancestors => [FactoryGirl.create(:category)])
+    article_attributes = FactoryGirl::attributes_for(:article, :category_ids => [FactoryGirl.create(:category).id])
     template_attributes = FactoryGirl.attributes_for(:article_template)
     template_attributes[:article_attributes] = article_attributes
     template_attributes

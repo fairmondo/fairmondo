@@ -24,7 +24,7 @@ require 'faker'
 FactoryGirl.define do
   factory :article, aliases: [:appended_object] do
     seller      # alias for User -> see spec/factories/users.rb
-    categories_and_ancestors {|c| [c.association(:category)] }
+    categories {|c| [c.association(:category)] }
     title     { Faker::Lorem.words(rand(3..5)).join(' ').titleize }
     content   { Faker::Lorem.paragraph(rand(7)+1) }
     condition { ["new", "old"].sample }
@@ -103,11 +103,11 @@ FactoryGirl.define do
     end
 
     trait :with_child_category do
-      categories_and_ancestors {|c| [c.association(:category), c.association(:child_category)] }
+      categories {|c| [c.association(:category), c.association(:child_category)] }
     end
 
     trait :with_3_categories do # This should fail validation, so only use with FactoryGirl.build
-      categories_and_ancestors {|c| [c.association(:category), c.association(:category), c.association(:category)] }
+      categories {|c| [c.association(:category), c.association(:category), c.association(:category)] }
     end
 
     trait :without_image do
