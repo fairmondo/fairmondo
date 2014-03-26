@@ -118,20 +118,8 @@ class MassUpload < ActiveRecord::Base
     self.erroneous_articles.size + self.mass_upload_articles.count
   end
 
-
   def process
     ProcessMassUploadWorker.perform_async(self.id)
-  end
-
-  def add_article_error_messages(validation_errors, index, row_hash)
-    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-    ErroneousArticle.create(
-      validation_errors: validation_errors,
-      row_index: index,
-      mass_upload: self,
-      article_csv: csv
-    )
-    # TODO Check if the original row number can be given as well
   end
 
 
