@@ -5,10 +5,10 @@ class ArticleSearchForm
   include ActiveModel::Conversion
 
   def self.article_search_form_attrs
-    [:q,:fair,:ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
+    [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
   end
 
-  attribute :q,String
+  attribute :q, String
   attribute :fair, Boolean
   attribute :ecologic, Boolean
   attribute :small_and_precious, Boolean
@@ -25,8 +25,8 @@ class ArticleSearchForm
     false
   end
 
-  def searched_category
-    Category.find(self.category_id)
+  def searched_category category_id = self.category_id
+    Category.find(category_id)
   rescue
     nil
   end

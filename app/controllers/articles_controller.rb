@@ -25,18 +25,18 @@ class ArticlesController < InheritedResources::Base
   actions :all # inherited methods
 
   # Authorization
-  skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]
   skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_filter :ensure_complete_profile , :only => [:new, :create]
-  #before_filter :authorize_resource, :only => [:edit, :show]
+  before_filter :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :build_search_cache, :only => :index
+  before_filter :category_specific_search, only: :index
+  before_filter :build_search_cache, only: :index
 
   # Calculate value of active goods
-  before_filter :check_value_of_goods, :only => [:update], :if => :activate_params_present?
+  before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
 
   #Autocomplete
   def autocomplete
@@ -187,12 +187,12 @@ class ArticlesController < InheritedResources::Base
 
     def collection
       if params[:queue]
-        @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
+        @articles ||= Exhibit.all_from permitted_queue_params
       else
-        @articles ||= @search_cache.search(permitted_search_params[:page])
+        @articles ||= @search_cache.search permitted_search_params[:page]
       end
     rescue Errno::ECONNREFUSED
-      render_hero :action => "search_failure"
+      render_hero action: "search_failure"
       @articles ||= policy_scope(Article).page permitted_search_params[:page]
     end
 
@@ -202,6 +202,12 @@ class ArticlesController < InheritedResources::Base
 
     def build_search_cache
       @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
+    end
+
+    def category_specific_search
+      if params[:article_search_form] && params[:article_search_form][:category_id]
+        redirect_to category_path(params[:article_search_form][:category_id])
+      end
     end
 
 end
