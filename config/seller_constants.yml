@@ -7,6 +7,6 @@ private_seller_constants:
 
 commercial_seller_constants:
   bad_salesvolume: 75000
-  standard_salesvolume: 500000
+  standard_salesvolume: 5000000
   verified_bonus: 100000000
   good_factor: 2
