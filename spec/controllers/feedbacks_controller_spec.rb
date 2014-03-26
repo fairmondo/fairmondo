@@ -40,7 +40,7 @@ describe FeedbacksController do
         controller.stub(:verify_recaptcha).and_return(false)
         expect {
           post :create, feedback: @attributes
-        }.should_not change(Feedback.all, :count)
+        }.not_to change(Feedback.all, :count)
       end
 
     end
