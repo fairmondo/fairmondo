@@ -26,6 +26,10 @@ class Article < ActiveRecord::Base
   # Friendly_id for beautiful links
   extend FriendlyId
   friendly_id :title, :use => :slugged
+
+  # Action attribute: c/create/u/update/d/delete - for export and csv upload
+  attr_accessor :action
+
   validates_presence_of :slug unless :template?
 
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
@@ -62,7 +66,7 @@ class Article < ActiveRecord::Base
   # Misc mixins
   extend Sanitization
   # Article module concerns
-  include Categories, Commendation, DynamicProcessing, FeesAndDonations,
+  include Categories, Commendation, FeesAndDonations,
           Images, BuildTransaction, Attributes, Template, State, Scopes,
           Checks, Discountable
 
