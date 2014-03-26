@@ -14,5 +14,5 @@ before_install:
   - curl -k -L -o elasticsearch-0.90.3.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
   - tar -zxvf elasticsearch-0.90.3.tar.gz
   - ./elasticsearch-0.90.3/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
-  - ./elasticsearch-0.90.3/bin/elasticsearch -f & 1> /dev/null 2> /dev/null
+  - ./elasticsearch-0.90.3/bin/elasticsearch
 
