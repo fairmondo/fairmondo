@@ -50,7 +50,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Tempfile.new "export"
-          Article::Export.export_articles(@csv,legal_entity, "inactive")
+          ArticleExporter.export(@csv,legal_entity, "inactive")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
@@ -63,7 +63,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Tempfile.new "export"
-          Article::Export.export_articles(@csv,legal_entity, "active")
+          ArticleExporter.export(@csv,legal_entity, "active")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export.csv')
         end
       end
@@ -115,7 +115,7 @@ describe "Export" do
                                             sold_at: "2013-12-03 17:50:15"
           legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
           @csv = Tempfile.new "export"
-          Article::Export.export_articles(@csv,legal_entity, "sold")
+          ArticleExporter.export(@csv,legal_entity, "sold")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_correct_export_test_sold.csv')
         end
       end
@@ -132,7 +132,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Tempfile.new "export"
-          Article::Export.export_articles(@csv,legal_entity_buyer, "bought")
+          ArticleExporter.export(@csv,legal_entity_buyer, "bought")
           IO.read(@csv).should == IO.read('spec/fixtures/mass_upload_export_bought.csv')
         end
       end
@@ -151,7 +151,7 @@ describe "Export" do
 
         it "should be equal to the uploaded file" do
           @csv = Tempfile.new "export"
-          Article::Export.export_articles(@csv,legal_entity, "inactive")
+          ArticleExporter.export(@csv,legal_entity, "inactive")
           IO.read(@csv).should == IO.read('spec/fixtures/export_social_producer.csv')
         end
       end
@@ -168,7 +168,7 @@ describe "Export" do
       describe "when exporting failed articles" do
 
         it "should be equal to the uploaded file" do
-          @csv = Article::Export.export_erroneous_articles(MassUpload.last.erroneous_articles)
+          @csv = ArticleExporter.export_erroneous_articles(MassUpload.last.erroneous_articles)
           @csv.should == IO.read('spec/fixtures/mass_upload_wrong_article.csv')
         end
       end

@@ -9,6 +9,11 @@ class Indexer
     end
   end
 
+  def self.index_articles article_ids
+    articles = Article.find article_ids
+    Article.index.import articles
+  end
+
   def self.settings
     {
       index: {
