@@ -15,8 +15,8 @@ class CategoriesController < InheritedResources::Base
       end
       format.html do
         begin
-          @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
-          @articles ||= @search_cache.search(permitted_search_params[:page])
+          @search_cache = ArticleSearchForm.new permitted_search_params[:article_search_form]
+          @articles ||= @search_cache.search permitted_search_params[:page]
         rescue Errno::ECONNREFUSED
           @articles ||= policy_scope(Article).page permitted_search_params[:page]
         end
@@ -34,6 +34,7 @@ class CategoriesController < InheritedResources::Base
 
   private
     def permitted_search_params
-      params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
+      hash = params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
+      hash.merge article_search_form: { category_id: resource.id }
     end
 end

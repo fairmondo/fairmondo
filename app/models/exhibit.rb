@@ -41,7 +41,11 @@ class Exhibit < ActiveRecord::Base
   # --------------------------------------------------------------------------
 
   # Currently only works for independent queues
-  def self.all_from queue, page
+  def self.all_from queue, page = 1
+    if queue.is_a? Array
+      page = queue[:page]
+      queue = queue[:queue]
+    end
     Article.joins(:exhibits).where("exhibits.queue = ?", queue).where(" articles.state = 'active' ").page page
   end
 
