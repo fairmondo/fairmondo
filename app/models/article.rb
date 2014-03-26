@@ -63,62 +63,14 @@ class Article < ActiveRecord::Base
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
-          Images, BuildTransaction, Attributes, Search, Template, State, Scopes,
+          Images, BuildTransaction, Attributes, Template, State, Scopes,
           Checks, Discountable
 
   # Elastic
 
   include Tire::Model::Search
 
-  settings :index => {
-
-    :store => {
-
-      :type => Rails.env.test? ? :memory : :niofs
-
-    }
-
-  }, analysis: {
-     filter: {
-        decomp:{
-          type: "decompound"
-          },
-        german_stemming: {
-          type: 'snowball',
-          language: 'German2'
-        },
-        ngram_filter: {
-          type: "ngram",
-          min_gram: 2,
-          max_gram: 20,
-          }
-      },
-
-      analyzer: {
-
-         decomp_stem_analyzer: {
-          type: "custom",
-          tokenizer: "letter",
-          filter: [
-                  'lowercase',
-                  'decomp',
-                  'german_stemming',
-                  'asciifolding'
-                  ]
-            },
-          decomp_analyzer: {
-          type: "custom",
-          tokenizer: "letter",
-          filter: [
-                  'lowercase',
-                  'decomp',
-                  'asciifolding'
-                  ]
-            }
-      }
-
-
-    } do
+  settings Indexer.settings do
     mapping do
       indexes :id,           :index => :not_analyzed
       indexes :title,  type: 'multi_field'  , :fields => {
