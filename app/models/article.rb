@@ -62,7 +62,7 @@ class Article < ActiveRecord::Base
   # Misc mixins
   extend Sanitization
   # Article module concerns
-  include Categories, Commendation, DynamicProcessing, Export, FeesAndDonations,
+  include Categories, Commendation, DynamicProcessing, FeesAndDonations,
           Images, BuildTransaction, Attributes, Template, State, Scopes,
           Checks, Discountable
 

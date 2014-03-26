@@ -114,10 +114,6 @@ class MassUpload < ActiveRecord::Base
       "vat_total_fee_cents", "sold_at"]
   end
 
-  def empty?
-    self.articles.empty? && self.erroneous_articles.empty?
-  end
-
   def processed_articles_count
     self.erroneous_articles.size + self.mass_upload_articles.count
   end
@@ -136,14 +132,6 @@ class MassUpload < ActiveRecord::Base
       article_csv: csv
     )
     # TODO Check if the original row number can be given as well
-  end
-
-
-
-
-  def self.update_index_for article_ids
-    articles = Article.find article_ids
-    Article.index.import articles
   end
 
 

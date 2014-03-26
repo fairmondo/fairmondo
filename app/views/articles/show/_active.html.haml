@@ -22,7 +22,7 @@
 
 - if resource.is_conventional? && resource.show_fair_alternative_for_seller
   .Related
-    - alternative = find_fair_alternative_to resource
+    - alternative = FairAlternative.find_for resource
     .Article.Article--related
       %h3
         = t('article.show.alternative')
