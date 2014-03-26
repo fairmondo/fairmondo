@@ -58,11 +58,6 @@ module ArticlesHelper
     output
   end
 
-  def parent_category cat
-    Category.where(:id => cat.parent_id).first
-  end
-
-
   def libraries
     resource.libraries.where(:public => true).page(params[:page]).per(10)
   end
