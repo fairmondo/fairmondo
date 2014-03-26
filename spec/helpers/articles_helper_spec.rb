@@ -23,17 +23,6 @@ require "spec_helper"
 
 describe ArticlesHelper do
 
-  describe "#get_category_tree(leaf_category)" do
-    it "should return an array with parent categories of a given child category " do
-      parent_category = FactoryGirl.create :category
-      child_category = FactoryGirl.create :category, parent: parent_category
-
-      helper.get_category_tree(child_category).should eq [parent_category, child_category]
-    end
-  end
-
-
-
   describe "options_format_for (type, method, css_classname)" do
      before do
       helper.stub(:resource).and_return FactoryGirl.create :article, :transport_type2 => true, :transport_type2_price => 3, :transport_type2_provider => "test"
@@ -58,25 +47,25 @@ describe ArticlesHelper do
           @not_related_article = FactoryGirl.create :article,:category1 , :title => "schuhcreme"
           @fair_article = FactoryGirl.create :article, :simple_fair ,:category1 , :title => "schwarze fairtrade schockolade"
           @other_fair_article = FactoryGirl.create :article, :simple_fair ,:category2 , :title => "weisse schockolade"
-          Sunspot.commit
+          Article.index.refresh
         end
 
         it "should find a fair alternative in with the similar title and category" do
-          (helper.find_fair_alternative_to @normal_article).should eq @fair_article
+          (helper.find_fair_alternative_to(@normal_article).id).should eq @fair_article.id.to_s
         end
 
-        it "should raise sunspot error" do
+        it "should raise search error" do
           Article.stub(:search).and_raise(Errno::ECONNREFUSED)
           (helper.find_fair_alternative_to @normal_article).should eq nil
         end
 
 
         it "should not find a fair alternative with a similar title and an other category" do
-          (helper.find_fair_alternative_to @other_normal_article).should_not eq @fair_article
+          (helper.find_fair_alternative_to(@other_normal_article.id)).should_not eq @fair_article.id.to_s
         end
 
         it "should prefer the same category over matches in the title" do
-          (helper.find_fair_alternative_to @other_normal_article).should eq @other_fair_article
+          (helper.find_fair_alternative_to(@other_normal_article).id).should eq @other_fair_article.id.to_s
         end
 
         it "should not find an unrelated article" do
@@ -88,9 +77,9 @@ describe ArticlesHelper do
         before(:all) do
           setup
           @other_category  = Category.other_category.first || FactoryGirl.create(:category,:name => "Sonstiges")
-          @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories_and_ancestors => [@other_category,FactoryGirl.create(:category)]
-          @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories_and_ancestors => [@other_category]
-          Sunspot.commit
+          @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories => [@other_category,FactoryGirl.create(:category)]
+          @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories => [@other_category]
+          Article.index.refresh
         end
 
         it "sould not find the other article" do

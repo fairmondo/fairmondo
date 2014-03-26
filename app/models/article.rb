@@ -33,7 +33,7 @@ class Article < ActiveRecord::Base
 
   delegate :deletable?, :buyer, to: :transaction, prefix: false
   delegate :email, :vacationing?, to: :seller, prefix: true
-  delegate :nickname, to: :donated_ngo, :prefix => true
+  delegate :nickname, to: :friendly_percent_organisation, :prefix => true
 
 
   # Relations
@@ -48,7 +48,7 @@ class Article < ActiveRecord::Base
   has_many :exhibits
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
-  belongs_to :donated_ngo, class_name: 'User', foreign_key: 'friendly_percent_organisation'
+  belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
 
   has_many :mass_upload_articles
   has_many :mass_uploads, through: :mass_upload_articles
@@ -66,11 +66,111 @@ class Article < ActiveRecord::Base
           Images, BuildTransaction, Attributes, Search, Template, State, Scopes,
           Checks, Discountable
 
+  # Elastic
+
+  include Tire::Model::Search
+
+  settings :index => {
+
+    :store => {
+
+      :type => Rails.env.test? ? :memory : :niofs
+
+    }
+
+  }, analysis: {
+     filter: {
+        decomp:{
+          type: "decompound"
+          },
+        german_stemming: {
+          type: 'snowball',
+          language: 'German2'
+        },
+        ngram_filter: {
+          type: "ngram",
+          min_gram: 2,
+          max_gram: 20,
+          }
+      },
+
+      analyzer: {
+
+         decomp_stem_analyzer: {
+          type: "custom",
+          tokenizer: "letter",
+          filter: [
+                  'lowercase',
+                  'decomp',
+                  'german_stemming',
+                  'asciifolding'
+                  ]
+            },
+          decomp_analyzer: {
+          type: "custom",
+          tokenizer: "letter",
+          filter: [
+                  'lowercase',
+                  'decomp',
+                  'asciifolding'
+                  ]
+            }
+      }
+
+
+    } do
+    mapping do
+      indexes :id,           :index => :not_analyzed
+      indexes :title,  type: 'multi_field'  , :fields => {
+         :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
+         :decomp => { type:'string', analyzer: "decomp_analyzer"},
+      }
+      indexes :content,      analyzer: "decomp_stem_analyzer"
+      indexes :gtin,         :index    => :not_analyzed
+
+      # filters
+
+      indexes :fair
+      indexes :ecologic
+      indexes :small_and_precious
+      indexes :condition
+      indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
+
+
+      # sorting
+      indexes :created_at, :type => 'date'
+
+      # stored attributes
+
+      indexes :slug
+      indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
+      indexes :price, :as => 'price_cents'
+      indexes :basic_price, :as => 'basic_price_cents'
+      indexes :basic_price_amount
+      indexes :vat
+
+      indexes :friendly_percent
+      indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
+      indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
+
+      indexes :transport_pickup
+      indexes :zip, :as => Proc.new {self.transport_pickup ? self.seller.zip : nil}
+
+      # seller attributes
+      indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
+      indexes :seller_ngo, :as => 'seller_ngo'
+      indexes :seller_nickname, :as => 'seller_nickname'
+      indexes :seller, :as => 'seller.id'
+
+
+    end
+  end
+
   def self.article_attrs with_nested_template = true
     (
       Article.common_attrs + Article.money_attrs + Article.payment_attrs +
       Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs + Article.search_attrs +
+      Article.category_attrs + Article.commendation_attrs  +
       Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
       Article.template_attrs(with_nested_template)
     )

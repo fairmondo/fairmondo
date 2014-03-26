@@ -26,9 +26,8 @@
   .Search-ArticleContainer
     .l-ArticleList
       - articles.each do |article|
-        - if article.active?
-          %Article.Search-Grid.Article.Article--teaser
-            = render '/articles/shared/show_article' , article: article
+        %Article.Search-Grid.Article.Article--teaser
+          = render '/articles/shared/show_article' , article: article
 
 - if User.is_admin?(current_user)
   .Admin-controls

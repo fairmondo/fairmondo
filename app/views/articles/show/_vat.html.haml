@@ -20,9 +20,8 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-- unless article.vat == 0
-  - if article.seller.is_a?(LegalEntity) |
-    && article.seller_country == "Deutschland" |
+- if article.belongs_to_legal_entity?
+  - unless article.vat == 0
     %p.Article-vat
       %span= t('article.included_short') + " " + article.vat.to_s + "% " |
       + t('article.vat') |

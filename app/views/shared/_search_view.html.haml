@@ -1,8 +1,8 @@
 - title index_title_for @search_cache
 
-- if @search_cache.categories[0]
+- if @search_cache.searched_category
   %h1.CategorySearchBreadcrumb
-    = breadcrumbs_for(@search_cache.categories[0]).html_safe
+    = breadcrumbs_for(@search_cache.searched_category).html_safe
 
 - if @articles.empty?
   %h2= t("common.text.no_search_result_text")

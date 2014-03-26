@@ -72,7 +72,7 @@ de:
       filter: "Filter nach"
       category: "Kategorie wählen"
       remove_filter: "Zustands-Filter entfernen"
-      sunspot_failure: "Leider ist die Suche im Moment nicht verfügbar. Das Fairnopoly-Team arbeitet bereits an einer Lösung. Solange die Suche nicht verfügbar ist, kannst Du hier alle Artikel selbst durchsuchen."
+      search_failure: "Leider ist die Suche im Moment nicht verfügbar. Das Fairnopoly-Team arbeitet bereits an einer Lösung. Solange die Suche nicht verfügbar ist, kannst Du hier alle Artikel selbst durchsuchen."
     form:
       missing_terms: "Bevor Du einen Artikel einstellen kannst, muss Folgendes im Profil angegeben werden:"
       edit_terms: "AGB, Widerrufserklärung und Impressum bearbeiten"
@@ -130,7 +130,7 @@ de:
       edit: "Artikel bearbeiten"
       other-products: "Alle Artikel dieses Verkäufers"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
-      sunspot_failure: "Suche nicht verfügbar"
+      search_failure: "Suche nicht verfügbar"
       preview: "Dein Artikel"
 
     actions:

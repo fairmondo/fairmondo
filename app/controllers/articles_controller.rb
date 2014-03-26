@@ -38,19 +38,10 @@ class ArticlesController < InheritedResources::Base
   # Calculate value of active goods
   before_filter :check_value_of_goods, :only => [:update], :if => :activate_params_present?
 
-  #Sunspot Autocomplete
+  #Autocomplete
   def autocomplete
-    search = Sunspot.search(Article) do
-      fulltext permitted_search_params[:keywords] do
-        fields(:title)
-      end
-    end
-    @titles = []
-    search.hits.each do |hit|
-      title = hit.stored(:title).first
-      @titles.push(title)
-    end
-    render :json => @titles
+    @form = ArticleSearchForm.new(:q => permitted_search_params[:q])
+    render :json => @form.autocomplete
   rescue Errno::ECONNREFUSED
     render :json => []
   end
@@ -164,7 +155,7 @@ class ArticlesController < InheritedResources::Base
       params.permit :edit_as_new, template_select: [:article_template]
     end
     def permitted_search_params
-      params.permit :page, :keywords, article: Article.article_attrs
+      params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
     end
     def permitted_queue_params
       params.permit :page, :queue
@@ -198,10 +189,11 @@ class ArticlesController < InheritedResources::Base
       if params[:queue]
         @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
       else
-        @articles ||= @search_cache.articles do
-          render_hero :action => "sunspot_failure"
-        end
+        @articles ||= @search_cache.search(permitted_search_params[:page])
       end
+    rescue Errno::ECONNREFUSED
+      render_hero :action => "search_failure"
+      @articles ||= policy_scope(Article).page permitted_search_params[:page]
     end
 
     def begin_of_association_chain
@@ -209,7 +201,7 @@ class ArticlesController < InheritedResources::Base
     end
 
     def build_search_cache
-      @search_cache = SearchCache.new(permitted_search_params)
+      @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
     end
 
 end

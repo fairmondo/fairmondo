@@ -34,9 +34,6 @@ require 'sidekiq/testing'
 require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# For starting the solr engine:
-require 'sunspot_test/rspec'
-
 # For Sidekiq
 Sidekiq::Testing.inline!
 
@@ -61,7 +58,7 @@ silence_warnings do
   BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
 end
 
-
+tire_off
 
 ### RSpec Configurations ###
 
@@ -97,6 +94,11 @@ RSpec.configure do |config|
   # Expanded Test Suite Setup
   config.before :suite do
 
+
+    Article.index.delete
+    Article.create_elasticsearch_index
+
+
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
@@ -122,10 +124,19 @@ RSpec.configure do |config|
 
   config.after(:all, :setup => :true) do
     DatabaseCleaner.strategy = :transaction # reset to transactional fixtures
-    Sunspot.commit
     DatabaseCleaner.clean
   end
 
+  config.before(:all, :search => :true) do
+    tire_on
+    Article.index.delete
+    Article.create_elasticsearch_index
+
+  end
+
+  config.after(:all, :search => :true) do
+   tire_off
+  end
 
 
 end

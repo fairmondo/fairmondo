@@ -31,10 +31,9 @@ include BulletMatcher
 describe 'Performance' do
   before { Bullet.start_request }
 
-  describe "Article#index", search: true do
+  describe "Article#index" do
     before do
       2.times { FactoryGirl.create(:article, :with_fixture_image) }
-      Sunspot.commit
     end
 
     it "should not show bullet warnings" do

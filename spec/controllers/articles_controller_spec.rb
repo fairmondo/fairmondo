@@ -38,46 +38,45 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article,price_cents: 1)
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories_and_ancestors: [ @vehicle_category ], content: "muscheln am meer")
-        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories_and_ancestors: [ @hardware_category ])
-        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories_and_ancestors: [ @hardware_category ]
-
-        Sunspot.commit
+        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing")
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer")
+        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc")
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
+        Article.index.refresh
       end
 
 
 
       it "should find the article with title 'muscheln' when searching for muscheln" do
-        get :index, :article => {:title => "muscheln" }
-        controller.instance_variable_get(:@articles).map(&:id).should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+        get :index, :article_search_form => {:q => "muscheln" }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
       end
 
       it "should find the article with title 'muscheln' when searching for muschel" do
-        get :index, :article => {:title => "muschel" }
-        controller.instance_variable_get(:@articles).map(&:id).should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+        get :index, :article_search_form => {:q => "muschel" }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
       end
 
       it "should find the article with content 'meer' when searching for meer" do
-       get :index, :article => {:title => "meer" , :search_in_content => "1"}
-       controller.instance_variable_get(:@articles).map(&:id).should == [@second_hand_article].map(&:id)
+       get :index, :article_search_form => {:q => "meer" , :search_in_content => "1"}
+       controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@second_hand_article].map(&:id)
       end
 
       context "when trying a different search order" do
 
         it "order by price asc" do
-          get :index, :article => {:search_order_by => "cheapest"}
-          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+          get :index, :article_search_form => {:order_by => "cheapest"}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "order by price desc" do
-          get :index, :article => {:search_order_by => "most_expensive"}
-          controller.instance_variable_get(:@articles).map(&:id).should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
+          get :index, :article_search_form => {:order_by => "most_expensive"}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
         end
 
         it "order by friendly_percent desc" do
-           get :index, :article => {:search_order_by => "most_donated",:categories_and_ancestors => [@hardware_category]}
-           controller.instance_variable_get(:@articles).map(&:id).should == [@hardware_article,@no_second_hand_article].map(&:id)
+           get :index, :article_search_form => {:order_by => "most_donated",:category_id => @hardware_category.id}
+           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
       end
@@ -85,37 +84,37 @@ describe ArticlesController do
       context "when filtering by categories" do
 
         it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
-          get :index, :article => {:categories_and_ancestors => [@hardware_category] }
-          controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
+          get :index, :article_search_form => {:category_id => @hardware_category.id }
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
-          get :index, :article => {:categories_and_ancestors => [@electronic_category] }
-          controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
+          get :index, :article_search_form => {:category_id => @electronic_category.id }
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "should not find the article in category 'Hardware' when filtering for 'Software'" do
-          get :index, :article => {:categories_and_ancestors => [@software_category] }
-          controller.instance_variable_get(:@articles).map(&:id).should == []
+          get :index, :article_search_form => {:category_id => @software_category.id }
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == []
         end
 
         context "and searching for 'muscheln'" do
 
           it "should find all articles with title 'muscheln' with an empty categories filter" do
-            get :index, :article => {:categories_and_ancestors => [], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).map(&:id).should =~ [@no_second_hand_article,@hardware_article,@second_hand_article].map(&:id)
+            get :index, :article_search_form => {:category_id => "", :q => "muscheln"}
+            controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@no_second_hand_article,@hardware_article,@second_hand_article].map(&:id)
           end
 
           it "should chain both filters" do
-            get :index, :article => {:categories_and_ancestors => [ @hardware_category ], :title => "muscheln"}
-            controller.instance_variable_get(:@articles).map(&:id).should =~ [@hardware_article,@no_second_hand_article].map(&:id)
+            get :index, :article_search_form => {:category_id =>  @hardware_category.id , :title => "muscheln"}
+            controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
           end
 
           context "and filtering for condition" do
 
             it "should chain all filters" do
-              get :index, article: {categories_and_ancestors: [ @hardware_category ], title: "muscheln", condition: "old"}
-              controller.instance_variable_get(:@articles).map(&:id).should == [@hardware_article].map(&:id)
+              get :index, article_search_form: {category_id:  @hardware_category.id , title: "muscheln", condition: "old"}
+              controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article].map(&:id)
             end
 
           end
@@ -306,7 +305,7 @@ describe ArticlesController do
   describe "POST 'create'" do
 
     before :each do
-      @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category).id]
+      @article_attrs = FactoryGirl.attributes_for :article, category_ids: [FactoryGirl.create(:category).id]
     end
 
     describe "for non-signed-in users" do
@@ -330,7 +329,7 @@ describe ArticlesController do
       end
 
       it "should save images even if article is invalid" do
-        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories_and_ancestors: [FactoryGirl.create(:category).id]
+        @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories: [FactoryGirl.create(:category).id]
         @article_attrs[:images_attributes] = { "0" => { :image => fixture_file_upload("/test.png", 'image/png') }}
         lambda do
           post :create, article: @article_attrs
@@ -351,7 +350,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -378,7 +377,7 @@ describe ArticlesController do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
-        @article_attrs = FactoryGirl.attributes_for :article, categories_and_ancestors: [FactoryGirl.create(:category)]
+        @article_attrs = FactoryGirl.attributes_for :article, categories: [FactoryGirl.create(:category)]
         @article_attrs.delete :seller
         sign_in user
       end
@@ -399,17 +398,17 @@ describe ArticlesController do
   describe "GET 'autocomplete'", search: true do
     before do
       @article = FactoryGirl.create :article, title: 'chunky bacon'
-      Sunspot.commit
+      Article.index.refresh
     end
 
     it "should be successful" do
-      get :autocomplete, keywords: 'chunky'
+      get :autocomplete, q: 'chunky'
       response.status.should be 200
-      response.body.should eq ["chunky bacon"].to_json
+      response.body.should eq [{label:"<b>chunky</b> bacon",value:"chunky bacon"}].to_json
     end
 
     it "should rescue an ECONNREFUSED error" do
-      Sunspot.stub(:search).and_raise(Errno::ECONNREFUSED)
+      Article.stub(:search).and_raise(Errno::ECONNREFUSED)
       get :autocomplete, keywords: 'chunky'
       response.status.should be 200
       response.body.should eq [].to_json

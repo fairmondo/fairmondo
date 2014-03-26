@@ -1,7 +1,7 @@
 # Non-ActiveRecord Placeholder
 class Statistic
   def statistics_category_articles c
-    a = Article.new(:categories_and_ancestors => [c])
+    a = Article.new(:categories => [c])
     articles = a.find_like_this(1)
     articles.total
   rescue

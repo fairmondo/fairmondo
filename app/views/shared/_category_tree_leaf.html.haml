@@ -1,5 +1,5 @@
 %li
-  %a{href: articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids })}
+  %a{href: articles_path(article: {categories: child.id })}
     = child.name
   %ul
     -child.children.each do |child1|

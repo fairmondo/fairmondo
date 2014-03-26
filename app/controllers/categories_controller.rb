@@ -14,8 +14,12 @@ class CategoriesController < InheritedResources::Base
         render :json => @children.map { |child| {id: child.id, name: child.name} }.to_json
       end
       format.html do
-        @search_cache = SearchCache.new(permitted_search_params)
-        @articles = @search_cache.articles
+        begin
+          @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
+          @articles ||= @search_cache.search(permitted_search_params[:page])
+        rescue Errno::ECONNREFUSED
+          @articles ||= policy_scope(Article).page permitted_search_params[:page]
+        end
       end
     end
   end
@@ -30,6 +34,6 @@ class CategoriesController < InheritedResources::Base
 
   private
     def permitted_search_params
-      params.permit :page, :keywords, article: Article.article_attrs
+      params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
     end
 end
