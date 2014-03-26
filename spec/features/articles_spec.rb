@@ -191,12 +191,12 @@ describe 'Article management' do
           let(:user) { FactoryGirl.create :legal_entity }
 
           it "should have the default maximum for value of goods" do
-            user.max_value_of_goods_cents.should eq 500000
+            user.max_value_of_goods_cents.should eq 5000000
           end
 
           it "should fail to activate an article, if the value of goods crosses its max limit" do
             article = FactoryGirl.create :article, :user_id => user.id
-            article.update_attribute(:price_cents, 510000)
+            article.update_attribute(:price_cents, 5100000)
             article2 = FactoryGirl.create :preview_article, :user_id => user.id
             login_as user
             visit article_path(article2)
