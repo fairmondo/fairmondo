@@ -65,6 +65,10 @@ module Article::Images
       end
     end
 
+    def title_image_url_thumb
+      title_image_url :thumb
+    end
+
     def title_image_present?
       title_image && title_image.image.present?
     end

@@ -24,6 +24,7 @@ end
 gem "paperclip", ">= 3.0"
 gem 'formtastic'
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
+gem 'virtus'
 
 # Tool Libs
 
@@ -40,7 +41,7 @@ gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 
 # Indexing /Searching
-gem 'sunspot_rails' , '~> 2.1.0'
+gem "tire"
 
 # Sidekiq
 gem 'sidekiq'
@@ -51,7 +52,6 @@ gem 'sidekiq-failures'
 gem 'dalli'
 
 # Sidekiq Integrations
-gem "sunspot-queue" # sidekiq
 gem 'delayed_paperclip', :github => 'fairnopoly/delayed_paperclip'
 
 # Controller Gems
@@ -124,8 +124,6 @@ end
 # Testing using RSpec
 group :development, :test do
 
-  gem 'sunspot_solr' , '~> 2.1.0'
-
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano', '~> 3.1'
@@ -148,9 +146,6 @@ group :development, :test do
 
   # er diagramm generation
   gem "rails-erd"
-
-  # sunspot solr test gem
-  gem "sunspot_test"
 
   # test suite additions
   gem "rails_best_practices"

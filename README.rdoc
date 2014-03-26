@@ -31,7 +31,7 @@ What this does:
     git clone git@github.com:fairnopoly/fairnopoly.git
 * switches to the fairnopoly root path,
     cd fairnopoly/
-* switches the git branch to "develop" 
+* switches the git branch to "develop"
     git checkout develop
 * runs the Fairnopoly setup script
     ruby setup.rb
@@ -138,14 +138,33 @@ If you want to help out with programming new features or fixing bugs, please con
 Hint: When a vim window opened after you typed "git commit" without a commit message, you can save the default message by simply typing ":wq" and pressing enter.
 
 
-=== Run Solr Server
+=== Run Elastic Search Server
 
-To avoid having the search not available in your local environment, run
+To avoid having the search not available in your local environment you have to install elastic search:
 
-    script/delayed_job start
-    rake sunspot:solr:start
+    curl -k -L -o elasticsearch-0.90.3.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
+    tar -zxvf elasticsearch-0.90.3.tar.gz
+    ./elasticsearch-0.90.3/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
+    ./elasticsearch-0.90.3/bin/elasticsearch -f
 
-For more information visit our wiki.
+Links for elasticsearch:
+http://www.elasticsearch.org/downloads/0-90-3/
+
+Plugin we use:
+https://github.com/jprante/elasticsearch-analysis-decompound
+
+=== Background Processing with sidekiq
+To use our Background processing you have to setup a redis instance locally:
+
+  On Ubuntu/Debian:
+    sudo apt-get install redis-server
+
+  For other systems try
+    http://redis.io/
+
+Aftwerwards start sidekiq with:
+
+    sidekiq -C config/sidekiq.yml
 
 == Contributing
 

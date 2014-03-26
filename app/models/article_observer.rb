@@ -31,6 +31,9 @@ class ArticleObserver < ActiveRecord::Observer
     if article.category_proposal.present?
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
+
+    article.perform_indexing
+
   end
 
   def before_activate(article, transition)

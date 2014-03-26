@@ -381,8 +381,11 @@ describe Article do
       end
 
       describe "#add_image" do
-        let(:article) { FactoryGirl.create :article,:without_image}
-        before { @url = "http://www.test.com/test.png" }
+        let(:article) { FactoryGirl.create :article,:without_image }
+        before {
+          @url = "http://www.test.com/test.png"
+          article # We need to call it nowbecause else URI.stub :parse will Conflict with Fakeweb/Tire
+        }
 
         it "should do nothing if the url is already present" do
           URI.stub(:parse).and_return( fixture_file_upload('/test.png') )

@@ -19,16 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-module Article::Search
-  extend ActiveSupport::Concern
-
-  def perform_indexing
-   # indexing
-    if self.active? && !self.template?
-      SearchIndexWorker.perform_async(:article,self.id,:store)
-    else
-      SearchIndexWorker.perform_async(:article,self.id,:delete) unless self.preview?
-    end
+module SearchHelper
+  def humanize_money_or_cents money_or_cents
+    money_or_cents = Money.new(money_or_cents) unless money_or_cents.is_a?(Money)
+    humanized_money_with_symbol money_or_cents
   end
 
 end
+
+

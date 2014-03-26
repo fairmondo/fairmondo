@@ -68,7 +68,7 @@ module ApplicationHelper
   end
 
   def search_cache
-    @search_cache || Article.new
+    @search_cache || ArticleSearchForm.new
   end
 
   # Switch for specific page
