@@ -39,7 +39,7 @@ class ToolboxController < ApplicationController
 
   def reindex
     raise Pundit::NotAuthorizedError unless current_user.admin?
-    Article.find(params[:article_id]).index
+    Indexer.index_article Article.find(params[:article_id])
     redirect_to :back, notice: I18n.t('article.show.reindexed')
   end
 
