@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318072015) do
+ActiveRecord::Schema.define(:version => 20140326133621) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20140318072015) do
     t.text     "transport_details"
     t.text     "payment_details"
     t.integer  "friendly_percent",                                    :default => 0
-    t.text     "friendly_percent_organisation"
     t.integer  "article_template_id",                    :limit => 8
     t.integer  "calculated_fair_cents",                  :limit => 8, :default => 0,     :null => false
     t.integer  "calculated_friendly_cents",              :limit => 8, :default => 0,     :null => false
@@ -75,10 +74,12 @@ ActiveRecord::Schema.define(:version => 20140318072015) do
     t.integer  "transport_type1_number",                              :default => 1
     t.integer  "transport_type2_number",                              :default => 1
     t.integer  "discount_id"
+    t.integer  "friendly_percent_organisation_id",       :limit => 8
   end
 
   add_index "articles", ["article_template_id"], :name => "index_articles_on_article_template_id"
   add_index "articles", ["discount_id"], :name => "index_articles_on_discount_id"
+  add_index "articles", ["friendly_percent_organisation_id"], :name => "index_articles_on_friendly_percent_organisation_id"
   add_index "articles", ["id", "article_template_id"], :name => "index_articles_on_id_and_article_template_id", :unique => true
   add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
   add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
@@ -115,11 +116,9 @@ ActiveRecord::Schema.define(:version => 20140318072015) do
     t.integer  "children_count", :default => 0
     t.integer  "weight"
     t.integer  "view_columns",   :default => 2
-    t.string   "slug"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
-  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "contents", :force => true do |t|
     t.string   "key"
@@ -288,18 +287,6 @@ ActiveRecord::Schema.define(:version => 20140318072015) do
   end
 
   add_index "notices", ["user_id"], :name => "index_notices_on_user_id"
-
-  create_table "payments", :force => true do |t|
-    t.string   "pay_key"
-    t.string   "state"
-    t.text     "error"
-    t.text     "last_ipn"
-    t.integer  "transaction_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"

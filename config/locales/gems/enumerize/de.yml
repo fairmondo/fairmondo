@@ -68,16 +68,6 @@ de:
         portion: 1 Portion
       friendly_percent_organisation:
         transparency_international: Transparency International
-      search_order_by:
-        newest: "Neueste Artikel zuerst"
-        cheapest: "Verkaufspreis aufsteigend"
-        most_expensive: "Verkaufspreis absteigend"
-        old: 'Zustand: Gebraucht zuerst'
-        new: 'Zustand: Neu zuerst'
-        fair: 'Filter: fair zuerst'
-        ecologic: 'Filter: öko zuerst'
-        small_and_precious: 'Filter: klein&edel zuerst'
-        most_donated: "Spendenanteil absteigend"
     fair_trust_questionnaire:
       support_checkboxes:
         prefinance: 'Vorfinanzierung der Produktion'
@@ -124,6 +114,8 @@ de:
         global_market_education: 'Bildungsmaßnahmen zur unfairen Weltmarktsituation'
         fair_trade_concept: "Maßnahmen zur Verbreitung des Konzepts 'Fairer Handel'"
         other: 'Sonstiges:'
+
+
 
     rating:
       positive: 'positiv'
@@ -229,3 +221,15 @@ de:
        voucher: 'Gutschein'
        not_in_stock: 'Artikel ist nicht lieferbar'
        sent_back: 'Artikel wurde zurück geschickt'
+    article_search_form:
+      order_by:
+        newest: "Neueste Artikel zuerst"
+        cheapest: "Verkaufspreis aufsteigend"
+        most_expensive: "Verkaufspreis absteigend"
+        old: 'Zustand: Gebraucht zuerst'
+        new: 'Zustand: Neu zuerst'
+        fair: 'Filter: fair zuerst'
+        ecologic: 'Filter: öko zuerst'
+        small_and_precious: 'Filter: klein&edel zuerst'
+        most_donated: "Spendenanteil absteigend"
+

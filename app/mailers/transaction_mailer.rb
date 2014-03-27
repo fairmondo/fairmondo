@@ -21,20 +21,22 @@
 #
 
 class TransactionMailer < ActionMailer::Base
+  include ArticlesHelper #As we want to use this in here!
+
 	helper TransactionHelper
 	helper TransactionMailerHelper
+  helper ArticlesHelper
 
   default from: $email_addresses['ArticleMailer']['default_from']
+
+
 
   def buyer_notification transaction
   	@transaction 	= transaction
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
-
-    mail(	to: 			@buyer.email,
-    			subject: 	"[Fairnopoly] " + t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})") do |format|
-          format.text
-    end
+    @subject = "[Fairnopoly] #{t 'transaction.notifications.buyer.buyer_subject' } (#{transaction.article_title})"
+    mail to: @buyer.email, subject: @subject
   end
 
   def seller_notification transaction
@@ -42,15 +44,13 @@ class TransactionMailer < ActionMailer::Base
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
-  	subj = "[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})"
+  	@subject = "[Fairnopoly] #{t 'transaction.notifications.seller.seller_subject' } (#{transaction.article_title})"
 
-  	if transaction.article.has_friendly_percent?
-  	   @donated_ngo = transaction.article.donated_ngo
-       subj += ( t('transaction.notifications.seller.with_donation_to') + @donated_ngo.nickname )
+  	if show_friendly_percent_for? transaction.article
+       @subject += t('transaction.notifications.seller.with_donation_to')
+       @subject += transaction.article_friendly_percent_organisation.nickname
     end
 
-    mail( to: @seller.email, subject: subj )  do |format|
-            format.text
-      end
+    mail to: @seller.email, subject: @subject
   end
 end

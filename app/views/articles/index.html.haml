@@ -21,11 +21,11 @@
 -#
 - title index_title_for @search_cache
 
-- if @search_cache.categories[0]
+- if @search_cache.searched_category
   %h1.CategorySearchBreadcrumb
-    = breadcrumbs_for(@search_cache.categories[0]).html_safe
+    = breadcrumbs_for(@search_cache.searched_category).html_safe
 
-- if !params[:article] && !params[:page] && !params[:queue]
+- if !params[:article_search_form] && !params[:page] && !params[:queue]
   .Highlight
     %h2 FAIRNOPOLY MAG
     = render "/articles/show/highlight", articles: Exhibit.independent_queue(:fairnopoly_likes, 4)

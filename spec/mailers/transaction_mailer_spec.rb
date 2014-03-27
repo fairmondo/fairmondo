@@ -66,11 +66,7 @@ describe TransactionMailer do
 
     it "should have right subject with fp" do
       subject.should have_subject("[Fairnopoly] " + I18n.t('transaction.notifications.seller.seller_subject') + " (#{transaction_with_fp.article_title})" +
-      I18n.t('transaction.notifications.seller.with_donation_to') + "#{transaction_with_fp.article.donated_ngo.nickname}")
-    end
-
-    it "should have ngo contact when ngo has no bank data" do
-
+      I18n.t('transaction.notifications.seller.with_donation_to') + "#{transaction_with_fp.article.friendly_percent_organisation_nickname}")
     end
 
   end

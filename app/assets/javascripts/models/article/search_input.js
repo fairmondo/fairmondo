@@ -22,12 +22,15 @@
 
 $(function() {
     function sources(request, response){
-	  	var params = {keywords: request.term};
+	  	var params = {q: request.term};
 	  	return $.get(jQuery("#search_input").attr('data-autocomplete'), params, function(data){ response(data); }, "json");
 	}
-
-	$( "#search_input" ).autocomplete({
-	      source: sources
-	});
+  if ($( "#search_input" ).length != 0) {
+  	$( "#search_input" ).autocomplete({ source: sources }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        return $( "<li class=\"ui-menu-item\">" )
+          .append( "<a class=\"ui-corner-all\">" +  item.label + "</a>")
+          .appendTo( ul );
+      };
+  }
 
  });

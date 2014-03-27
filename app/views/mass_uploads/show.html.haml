@@ -1,7 +1,7 @@
 %h1
   = t('mass_uploads.titles.upload_report')
 
-- if resource.empty?
+- if resource.processed_articles_count == 0
   = t('mass_uploads.errors.no_activate_content')
 - else
   .Import-detail

@@ -38,8 +38,8 @@
 
     %dt
       = t('article.preview.fees_and_donations.friendly_percent')
-      - if resource.has_friendly_percent?
-        %i.icon-helper{:title => t("article.preview.tooltips.fp_fee_info",percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
+      - if show_friendly_percent_for? resource
+        %i.icon-helper{:title => t("article.preview.tooltips.fp_fee_info",percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
     %dd= humanized_money_with_symbol resource.calculated_friendly
 
     %dt.is-green
@@ -64,7 +64,10 @@
   - if resource.is_available?
     = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
   - else
-    - btn_text = resource.seller.ngo ? t("article.labels.submit_free") : (resource.has_friendly_percent? ? t("article.labels.submit_with_fp") : t("article.labels.submit"))
+    - if resource.seller.ngo
+      - btn_text = t("article.labels.submit_free")
+    - else
+      - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
     = button_to btn_text, article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
 
 

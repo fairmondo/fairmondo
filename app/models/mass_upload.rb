@@ -114,37 +114,12 @@ class MassUpload < ActiveRecord::Base
       "vat_total_fee_cents", "sold_at"]
   end
 
-  def empty?
-    self.articles.empty? && self.erroneous_articles.empty?
-  end
-
   def processed_articles_count
     self.erroneous_articles.size + self.mass_upload_articles.count
   end
 
-
   def process
     ProcessMassUploadWorker.perform_async(self.id)
-  end
-
-  def add_article_error_messages(validation_errors, index, row_hash)
-    csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-    ErroneousArticle.create(
-      validation_errors: validation_errors,
-      row_index: index,
-      mass_upload: self,
-      article_csv: csv
-    )
-    # TODO Check if the original row number can be given as well
-  end
-
-
-
-
-  def self.update_solr_index_for article_ids
-    articles = Article.find article_ids
-    Sunspot.index articles
-    Sunspot.commit
   end
 
 
