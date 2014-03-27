@@ -118,7 +118,7 @@ describe ToolboxController do
       let(:user) { FactoryGirl.create :admin_user }
       it "should do something" do
         article = FactoryGirl.create :article
-        Article.any_instance.should_receive(:index)
+        Indexer.should_receive(:index_article).with(article)
 
         request.env["HTTP_REFERER"] = '/'
         put :reindex, article_id: article.id
