@@ -61,7 +61,7 @@
 
 .Accordion-content {
 	@include border-bottom-radius(.9em);
-	padding: ($gutter-width / 2);
+	padding: $gutter-width;
 	overflow: auto;
 	background-color: $white;
 	border: 0px solid !important;

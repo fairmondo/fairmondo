@@ -1,5 +1,5 @@
 %h2
-  %a{href: articles_path(article: {categories: category.id })}
+  %a{href: category_path(category)}
     = category.name
 %ul
   -category.children.each do |child|
