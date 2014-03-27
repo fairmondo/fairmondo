@@ -22,7 +22,10 @@
 %section.l-GridContainer
   .Search-Leftbar
     .Category-index-parent
-      = render '/shared/category_tree', category: Category.find(9)
+      - if @search_cache.searched_category
+        = render '/shared/category_tree', category: @search_cache.searched_category
+      - else
+        -# TODO implement general category tree
   .Search-ArticleContainer
     .l-ArticleList
       - articles.each do |article|

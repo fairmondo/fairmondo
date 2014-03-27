@@ -205,11 +205,11 @@ fieldset.choices {
 // Article form
 .Article-form {
   .Accordion-content {
-    padding: ($gutter-width / 2) 0 0;
+    padding: $gutter-width 0 0;
   }
   .Accordion-step {
-    padding-left: ($gutter-width / 2);
-    padding-right: ($gutter-width / 2);
+    padding-left: $gutter-width;
+    padding-right: $gutter-width;
   }
 }
 

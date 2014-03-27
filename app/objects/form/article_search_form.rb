@@ -41,7 +41,6 @@ class ArticleSearchForm
             should { match :content,  query.q  } if query.search_in_content
             should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7, :boost => 50}
             should { match :gtin, query.q , :boost => 100}
-
           end
         end
       end

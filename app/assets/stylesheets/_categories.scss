@@ -186,8 +186,8 @@
   display:none;
   @include container;
   @media (max-width: 25em) {
-    padding-left: $gutter-width / 2;
-    padding-right: $gutter-width / 2;
+    padding-left: $gutter-width;
+    padding-right: $gutter-width;
   }
   @include at-breakpoint($layout-medium) {
     display:block;

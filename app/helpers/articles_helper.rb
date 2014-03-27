@@ -48,7 +48,7 @@ module ArticlesHelper
     category.self_and_ancestors.each do |c|
       last = c == category
       output += '<span>'
-      output += "<a href='#{articles_path(article_search_form: {category_id: c.id })}' class='#{(last ? 'last' : nil )}'>"
+      output += "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil )}'>"
       output += c.name
       output += '</a>'
       output += '</span>'
