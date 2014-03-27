@@ -38,9 +38,9 @@ describe ArticlesController do
         @electronic_category = Category.find_by_name!("Elektronik")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing")
-        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer")
-        @hardware_article = FactoryGirl.create(:second_hand_article,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc")
+        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @vehicle_category ], content: "muscheln am meer", created_at: 3.days.ago)
+        @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
         @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
         Article.index.refresh
       end
@@ -67,6 +67,36 @@ describe ArticlesController do
         it "order by price asc" do
           get :index, :article_search_form => {:order_by => "cheapest"}
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+        end
+
+        it "order by newest" do
+          get :index, :article_search_form => {:order_by => "newest"}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article,@second_hand_article,@ngo_article].map(&:id)
+        end
+
+        it "order by condition old" do
+          get :index, :article_search_form => {:order_by => "old", :category_id => @hardware_category.id}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
+        end
+
+        it "order by condition new" do
+          get :index, :article_search_form => {:order_by => "new", :category_id => @hardware_category.id}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article].map(&:id)
+        end
+
+        it "order by fair" do
+          get :index, :article_search_form => {:order_by => "fair", :category_id => @hardware_category.id}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
+        end
+
+        it "order by ecologic" do
+          get :index, :article_search_form => {:order_by => "ecologic", :category_id => @hardware_category.id}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
+        end
+
+        it "order by small_and_precious" do
+          get :index, :article_search_form => {:order_by => "small_and_precious", :category_id => @hardware_category.id}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "order by price desc" do

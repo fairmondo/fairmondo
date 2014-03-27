@@ -32,7 +32,7 @@ class ArticleObserver < ActiveRecord::Observer
       ArticleMailer.category_proposal(article.category_proposal).deliver
     end
 
-    article.perform_indexing
+    Indexer.index_article article
 
   end
 

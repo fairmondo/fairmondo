@@ -1,28 +1,6 @@
-# encoding: UTF-8
-#
-# == License:
-# Fairnopoly - Fairnopoly is an open-source online marketplace.
-# Copyright (C) 2013 Fairnopoly eG
-#
-# This file is part of Fairnopoly.
-#
-# Fairnopoly is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# Fairnopoly is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
-#
-module Article::Export
-  extend ActiveSupport::Concern
+class ArticleExporter
 
-  def self.export_articles(csv,user, params = nil)
+  def self.export(csv,user, params = nil)
 
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
@@ -46,7 +24,7 @@ module Article::Export
       end
 
       row = Hash.new
-      row.merge!(article.provide_fair_attributes)
+      row.merge!(provide_fair_attributes_for article)
       row.merge!(article.attributes)
       row["categories"] = article.categories.map { |c| c.id }.join(",")
       row["external_title_image_url"] = article.images.first.external_url if article.images.first
@@ -95,19 +73,19 @@ module Article::Export
     end
   end
 
-  def provide_fair_attributes
+  def self.provide_fair_attributes_for article
     attributes = Hash.new
-    if self.fair_trust_questionnaire
-      attributes.merge!(self.fair_trust_questionnaire.attributes)
+    if article.fair_trust_questionnaire
+      attributes.merge!(article.fair_trust_questionnaire.attributes)
     end
 
-    if self.social_producer_questionnaire
-      attributes.merge!(self.social_producer_questionnaire.attributes)
+    if article.social_producer_questionnaire
+      attributes.merge!(article.social_producer_questionnaire.attributes)
     end
-    serialize_checkboxes(attributes)
+    serialize_checkboxes_in attributes
   end
 
-  def serialize_checkboxes(attributes)
+  def self.serialize_checkboxes_in attributes
     attributes.each do |k, v|
       if k.include?("checkboxes")
         if v.any?

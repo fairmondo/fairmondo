@@ -35,11 +35,8 @@ class TransactionMailer < ActionMailer::Base
   	@transaction 	= transaction
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
-
-    mail(	to: 			@buyer.email,
-    			subject: 	"[Fairnopoly] " + t('transaction.notifications.buyer.buyer_subject') + " (#{transaction.article_title})") do |format|
-          format.text
-    end
+    @subject = "[Fairnopoly] #{t 'transaction.notifications.buyer.buyer_subject' } (#{transaction.article_title})"
+    mail to: @buyer.email, subject: @subject
   end
 
   def seller_notification transaction
@@ -47,14 +44,13 @@ class TransactionMailer < ActionMailer::Base
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
 
-  	subj = "[Fairnopoly] " + t('transaction.notifications.seller.seller_subject') + " (#{transaction.article_title})"
+  	@subject = "[Fairnopoly] #{t 'transaction.notifications.seller.seller_subject' } (#{transaction.article_title})"
 
   	if show_friendly_percent_for? transaction.article
-       subj += ( t('transaction.notifications.seller.with_donation_to') + transaction.article_friendly_percent_organisation.nickname )
+       @subject += t('transaction.notifications.seller.with_donation_to')
+       @subject += transaction.article_friendly_percent_organisation.nickname
     end
 
-    mail( to: @seller.email, subject: subj )  do |format|
-            format.text
-      end
+    mail to: @seller.email, subject: @subject
   end
 end

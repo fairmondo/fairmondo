@@ -1,0 +1,49 @@
+= t('transaction.notifications.seller.intro')
+= t('transaction.notifications.begin')
+= transaction_mail_greeting @transaction, :seller
+= t('transaction.notifications.seller.seller_text')
+- if show_friendly_percent_for? @transaction.article
+  = t('transaction.notifications.seller.seller_text_fp')
+= t('transaction.notifications.seller.your_team')
+***
+= t('common.fn_legal_footer.crowd_funding')
+***
+
+= t('transaction.notifications.seller.order_infos')
+= order_details @transaction, :seller
+= article_payment_info @transaction, :seller
+
+***
+- if @transaction.selected_transport == 'pickup'
+  = t('transaction.notifications.seller.pickup_info')
+- else
+  = t('transaction.notifications.seller.shipping_request')
+= show_buyer_address @transaction
+= t('transaction.notifications.seller.buyer_email')
+= @transaction.buyer_email
+= t('transaction.notifications.seller.nickname')
+= @transaction.buyer_nickname
+= user_url @transaction.buyer
+***
+
+= t('transaction.notifications.seller.buyer_message')
+- unless @transaction.message == nil
+  = @transaction.message
+***
+
+= t('transaction.notifications.seller.seller_fee_text')
+= fees_and_donations @transaction
+
+***
+- if show_friendly_percent_for? @transaction.article
+  - ngo = @transaction.article.friendly_percent_organisation
+  - fp = @transaction.article_friendly_percent
+  - amount = humanized_money_with_symbol(friendly_percent_with_quantity @transaction)
+  = t('transaction.notifications.seller.friendly_percent')
+  = t('transaction.notifications.seller.fp_intro', ngo: ngo.nickname, percent: fp , amount: amount)
+  = t('transaction.notifications.seller.fp_donate', ngo: ngo.nickname, month: Time.now.strftime("%B") ,amount: amount  )
+  = show_bank_account_or_contact ngo
+  = t('transaction.notifications.seller.fp_donate_info')
+  = t('transaction.notifications.seller.fp_merci')
+  ***
+= render '/shared/email_footer'
