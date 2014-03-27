@@ -25,7 +25,7 @@
       - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
       - croots.each do |category|
         %li.Hero-category
-          %a{href: articles_path(article_search_form: {category_id: category.id })}
+          %a{href: category_path(category)}
             = category.name
           - if category.children.present?
             .Category-dropdown

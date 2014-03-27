@@ -19,9 +19,9 @@
 // Search grid separation
 //
 .Search-Leftbar {
-  display: none;
+  margin-bottom: $gutter-width;
+
   @include at-breakpoint($layout-large) {
-    display: inherit;
     @include span-columns(1, $medium-columns);
   }
   @include at-breakpoint($layout-huge) {
@@ -34,6 +34,18 @@
   }
   @include at-breakpoint($layout-huge) {
     @include span-columns(($large-columns - 1) omega, $large-columns);
+  }
+}
+
+.Search-CategoryDropdown {
+  @include at-breakpoint($layout-large) {
+    display: none;
+  }
+}
+.Search-CategorySidelist {
+  display: none;
+  @include at-breakpoint($layout-large) {
+    display: inherit;
   }
 }
 

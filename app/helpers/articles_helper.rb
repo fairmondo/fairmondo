@@ -92,7 +92,7 @@ module ArticlesHelper
         html << "zzgl. "
         html << humanized_money_with_symbol(resource.send(attach_price))
       else
-         html << "(kostenfrei)"
+        html << "(kostenfrei)"
       end
 
       if type == "transport" && method == "pickup"
@@ -112,7 +112,7 @@ module ArticlesHelper
     children.each_with_index do |child, index|
       output += '<tr>' if index % columns == 0
       output +=   '<td>'
-      output +=     "<a href='#{articles_path(article_search_form: {category_id: child.id})}'>"
+      output +=     "<a href='#{category_path(child)}'>"
       output +=       child.name
       output +=     '</a>'
       output +=   '</td>'
