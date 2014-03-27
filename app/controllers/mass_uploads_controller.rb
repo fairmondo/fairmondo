@@ -12,7 +12,7 @@ class MassUploadsController < InheritedResources::Base
     @erroneous_articles = resource.erroneous_articles.page(params[:erroneous_articles_page])
 
     show! do |format|
-      format.csv { send_data Article::Export.export_erroneous_articles(resource.erroneous_articles),
+      format.csv { send_data ArticleExporter.export_erroneous_articles(resource.erroneous_articles),
                    {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
     end
   end
@@ -30,7 +30,7 @@ class MassUploadsController < InheritedResources::Base
     articles_to_activate = resource.articles_for_mass_activation
     activation_ids = articles_to_activate.map{ |article| article.id }
     articles_to_activate.update_all({:state => 'active'})
-    MassUpload.delay.update_index_for activation_ids
+    Indexer.delay.index_articles activation_ids
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
     redirect_to user_path(resource.user)
   end

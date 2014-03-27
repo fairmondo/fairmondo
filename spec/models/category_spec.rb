@@ -66,11 +66,5 @@ describe Category do
       end
     end
 
-    describe "#self_and_ancestors_ids" do
-      it "should return self_and_ancestors_ids" do
-        childCategory = FactoryGirl.create(:category, parent: category)
-        childCategory.self_and_ancestors_ids.should eq [childCategory.id, category.id]
-      end
-    end
   end
 end

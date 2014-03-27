@@ -45,17 +45,4 @@ class Category < ActiveRecord::Base
 
   acts_as_nested_set
 
-  def self_and_ancestors_ids
-    self_and_ancestors = [ self.id ]
-    self.ancestors.each do |ancestor|
-      self_and_ancestors << ancestor.id
-    end
-    self_and_ancestors
-  end
-
-  def self.find_imported_categories(categories)
-    if categories
-      self.find_all_by_id(categories.split(",").map { |s| s.to_i })
-    end
-  end
 end
