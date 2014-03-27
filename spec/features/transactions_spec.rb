@@ -230,8 +230,7 @@ describe 'Transaction' do
               describe "on search", search: true do
                 it "should remove the article from the search result list" do
                   transaction = FactoryGirl.create :single_transaction, article: FactoryGirl.create(:article, title: 'foobar')
-                  Sunspot.commit
-
+                  Article.index.refresh
                   visit articles_path
                   page.should have_link 'foobar'
 
@@ -241,7 +240,7 @@ describe 'Transaction' do
                     check 'transaction_tos_accepted'
                   end
                   click_button I18n.t 'transaction.actions.purchase'
-
+                  Article.index.refresh
                   visit articles_path
                   page.should_not have_link 'foobar'
                 end
@@ -291,9 +290,8 @@ describe 'Transaction' do
                     check 'transaction_tos_accepted'
                   end
                   click_button I18n.t 'transaction.actions.purchase'
-
+                  Article.index.refresh
                   article.reload.should be_sold
-                  Sunspot.commit
                   visit articles_path
                   page.should_not have_content Regexp.new article.title[0..20]
                 end

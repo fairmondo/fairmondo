@@ -35,7 +35,7 @@
 
 
 %figure.Article-image
-  - cache [resource, "article_image"] do
+  - cache [resource, resource.title_image] do
     - if resource.title_image_present?
       / The next line is for providing the proper title image to facebook
       - provide( :title_image, resource.title_image_url(:medium) )
@@ -88,11 +88,11 @@
         %strong= t 'users.states.vacationing'
 
   .Article-info--left
-    - cache [resource,resource.seller,"thumbnails_and_donations"] do
-      .Thumbnail-container
-        - resource.thumbnails.each do |image|
+    .Thumbnail-container
+      - resource.thumbnails.each do |image|
+        - cache [resource,image,"thumbnail"] do
           = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
-
+    - cache [resource,resource.seller,"donations"] do
       - if resource.seller.ngo
         .Article-friendly
           %p
@@ -100,18 +100,18 @@
       -else
         .Article-friendly
 
-          - if resource.shows_fair_percent?
+          - if show_fair_percent_for? resource
             %p.Article--highlight
               =t('article.show.fair_percent')
               %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
             %p
               =t('article.show.donate_html')
 
-          - if resource.has_friendly_percent? && resource.donated_ngo
+          - if show_friendly_percent_for? resource
             %p.Article--highlight
               =t('article.show.friendly_percent')
-              %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.donated_ngo.nickname)}
-            %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.donated_ngo.nickname, resource.donated_ngo))
+              %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
+            %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
 
       %p
         -#Accordion--activated.Article-tags

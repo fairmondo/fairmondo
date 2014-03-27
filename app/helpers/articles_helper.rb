@@ -24,101 +24,38 @@ module ArticlesHelper
 
   # Conditions
   def condition_label article
-    # bclass=condition_badge_class(article.condition)
-    '<span class="Btn Btn-tag Btn-tag--gray">'.html_safe + article.condition_text + "</span>".html_safe
+    condition_text = t("enumerize.article.condition.#{article.condition}")
+    "<span class=\"Btn Btn-tag Btn-tag--gray\">#{condition_text}</span>".html_safe
   end
 
   # Build title string
-  def index_title_for search_article
+  def index_title_for search_cache
     attribute_list = ::HumanLanguageList.new
-    attribute_list << t('article.show.title.new') if search_article.condition == 'new'
-    attribute_list << t('article.show.title.old') if search_article.condition == 'old'
-    attribute_list << t('article.show.title.fair') if search_article.fair
-    attribute_list << t('article.show.title.ecologic') if search_article.ecologic
-    attribute_list << t('article.show.title.small_and_precious') if search_article.small_and_precious
+    attribute_list << t('article.show.title.new') if search_cache.condition == 'new'
+    attribute_list << t('article.show.title.old') if search_cache.condition == 'old'
+    attribute_list << t('article.show.title.fair') if search_cache.fair
+    attribute_list << t('article.show.title.ecologic') if search_cache.ecologic
+    attribute_list << t('article.show.title.small_and_precious') if search_cache.small_and_precious
 
     output = attribute_list.concatenate.capitalize + ' '
+    output += search_cache.searched_category.name + ' ' if search_cache.searched_category
 
-    if search_article.categories[0]
-      output += search_article.categories[0].name + ' '
-    end
     output += t('article.show.title.article')
   end
 
-  def breadcrumbs_for category_leaf
-    category_tree = get_category_tree category_leaf
+  def breadcrumbs_for category
     output = ''
-    category_tree.each do |category|
-      last = category_tree.last == category
+    category.self_and_ancestors.each do |c|
+      last = c == category
       output += '<span>'
-      output += "<a href='#{articles_path(article: {categories_and_ancestors: category.self_and_ancestors_ids })}' class='#{(last ? 'last' : nil )}'>"
-      output += category.name
+      output += "<a href='#{articles_path(article_search_form: {category_id: c.id })}' class='#{(last ? 'last' : nil )}'>"
+      output += c.name
       output += '</a>'
       output += '</span>'
       output += ' > ' unless last
     end
 
     output
-  end
-
-  def get_category_tree category
-    tree = []
-    cat = category
-    tree.unshift(cat)
-
-    while parent_cat = parent_category(cat)
-      tree.unshift(parent_cat)
-      cat = parent_cat
-    end
-    return tree
-  end
-
-  def parent_category cat
-    Category.where(:id => cat.parent_id).first
-  end
-
-  def find_fair_alternative_to article
-    search = Article.search do
-      fulltext article.title do
-        boost(3.0) { with(:fair, true) }
-        boost(2.0) { with(:ecologic, true) }
-        boost(1.0) { with(:condition, :old) }
-        minimum_match 1
-        exclude_fields(:content)
-        fields(:title)
-      end
-      without(article)
-      with :category_ids, Article::Categories.specific_search_categories(article.categories)
-      any_of do
-        with :fair,true
-        with :ecologic,true
-        with :condition, :old
-      end
-    end
-    alternative = search.results.first
-    if rate_article(article) < rate_article(alternative)
-      return alternative
-    else
-      return nil
-    end
-  rescue # Rescue all Errors by not showing an alternative
-    return nil
-  end
-
-  def rate_article article
-    if article == nil
-      return 0
-    end
-    if article.fair
-      return 3
-    end
-    if article.ecologic
-      return 2
-    end
-    if article.condition.old?
-      return 1
-    end
-    return 0
   end
 
   def libraries
@@ -167,14 +104,6 @@ module ArticlesHelper
     end
   end
 
-  def categories_for_filter form
-    if form.object.categories.length > 0
-      tree = get_category_tree(form.object.categories.first)
-      return tree.map { |category| category.id}.to_json
-    end
-    return [].to_json
-  end
-
   def build_category_table children, columns = 2
     last = children.count - 1
     last_in_column = columns - 1
@@ -183,7 +112,7 @@ module ArticlesHelper
     children.each_with_index do |child, index|
       output += '<tr>' if index % columns == 0
       output +=   '<td>'
-      output +=     "<a href='#{articles_path(article: {categories_and_ancestors: child.self_and_ancestors_ids})}'>"
+      output +=     "<a href='#{articles_path(article_search_form: {category_id: child.id})}'>"
       output +=       child.name
       output +=     '</a>'
       output +=   '</td>'
@@ -201,4 +130,27 @@ module ArticlesHelper
       nil
     end
   end
+
+  # Returns true if the basic price should be shown to users
+  #
+  # @return Boolean
+  def show_basic_price_for? article
+    article.belongs_to_legal_entity? && article.basic_price_amount && article.basic_price && article.basic_price > 0
+  end
+
+  # Returns true if the friendly_percent should be shown
+  #
+  # @return Boolean
+  def show_friendly_percent_for? article
+    article.friendly_percent && article.friendly_percent > 0 && article.friendly_percent_organisation && !article.seller_ngo
+  end
+
+  def show_fair_percent_for? article
+    # for german book price agreement
+    # we can't be sure if the book is german
+    # so we dont show fair percent on all new books
+    # book category is written in exceptions.yml
+    !article.could_be_book_price_agreement? && article.friendly_percent != 100
+  end
+
 end

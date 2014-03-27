@@ -35,6 +35,14 @@ describe FeedbacksController do
           post :create, feedback: @attributes
         }.to change(Feedback , :count).by 1
       end
+
+      it "should create a feedback with variety report_article" do
+        controller.stub(:verify_recaptcha).and_return(false)
+        expect {
+          post :create, feedback: @attributes
+        }.not_to change(Feedback.all, :count)
+      end
+
     end
 
 

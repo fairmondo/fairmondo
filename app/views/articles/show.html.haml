@@ -21,7 +21,7 @@
 -#
 - title truncate_and_sanitize_without_linebreaks resource.title, 70
 - meta_description truncate_and_sanitize_without_linebreaks resource.content, 160
-- meta_keywords resource.categories_and_ancestors.collect{ |c| c.name }.join(",")
+- meta_keywords resource.categories.map{|c| c.self_and_ancestors.map(&:name) }.flatten.join(",")
 
 - resource.categories.each do |leaf|
   .Breadcrumb
