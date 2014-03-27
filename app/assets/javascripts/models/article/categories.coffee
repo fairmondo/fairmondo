@@ -60,7 +60,7 @@ add_new_selectbox = (selected_category_id,selected_value = null) ->
 
   # Selected nothing so we have to get the old id back
   if selected_category_id is "-1" and !is_multiselect
-    last_selectbox = $("#article_category_id_input select:last")
+    last_selectbox = $("#article_search_form_category_id_input select:last")
     previous_selectbox = last_selectbox.prevAll("select").first()
     old_selected_id = $("option:selected", previous_selectbox).attr("value")
     append_hidden_form_tag old_selected_id

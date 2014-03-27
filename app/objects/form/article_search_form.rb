@@ -44,6 +44,9 @@ class ArticleSearchForm
 
           end
         end
+
+      else
+        query { all }
       end
 
       filter :term, :fair => true if query.fair
