@@ -1,6 +1,15 @@
-%h2
-  %a{href: category_path(category)}
-    = category.name
-%ul
-  -category.children.each do |child|
-    = render '/shared/category_tree_leaf', child: child
+.Search-CategorySidelist
+  %h2
+    %a{href: category_path(category)}
+      = category.name
+  %ul
+    -category.children.each do |child|
+      = render '/shared/category_tree_leaf', child: child
+
+.Search-CategoryDropdown
+  - cat_select = CategorySelectForm.new(category)
+  = semantic_form_for cat_select, url: category_path(1), :builder => ::Fairtastic::FormBuilder do |f|
+    = f.inputs do
+      = f.input :category_id, label: false, as: :select, collection: cat_select.collection, include_blank: category.name
+    = f.actions do
+      = f.submit 'Los', class: 'Btn'
