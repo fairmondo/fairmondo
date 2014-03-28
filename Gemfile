@@ -96,7 +96,7 @@ group :assets do
    # CSS
   gem 'sass-rails'
   gem "font-awesome-rails"
-  gem "susy"
+  gem "susy" , "~>1.0.9"
   gem "compass", "~> 0.13.alpha.12"
   gem 'compass-rails'
 

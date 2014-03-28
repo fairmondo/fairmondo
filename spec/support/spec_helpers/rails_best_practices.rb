@@ -23,7 +23,7 @@
 def rails_best_practices
   unless $skip_audits
     puts "\n\n[RailsBestPractices] Testing:\n".underline
-    bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root, {})
+    bp_analyzer = RailsBestPractices::Analyzer.new(Rails.root)
     bp_analyzer.analyze
 
     # Console output:
