@@ -13,8 +13,7 @@ platforms :ruby do
   end
   unless ENV["CI"]
     group :development, :test do
-      gem 'debugger'
-      gem 'debugger-linecache'
+      gem 'byebug'
     end
   end
 
