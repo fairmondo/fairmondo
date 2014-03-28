@@ -23,22 +23,22 @@
 class TransactionObserver < ActiveRecord::Observer
   def after_buy transaction, transition
     if !transaction.multiple? && transaction.sold?
+
+      if !transaction.purchase_emails_sent
+        # Send an email to the seller
+        TransactionMailerWorker.perform_in 5.seconds, transaction.id, :seller
+
+        # Send a confirmation email to the buyer
+        TransactionMailerWorker.perform_in 5.seconds, transaction.id, :buyer
+
+        transaction.update_attribute :purchase_emails_sent, true
+      end
+
       # check if this article is discountable and reply accordingly
       Discount.discount_chain( transaction ) if transaction.article_discount_id
-      FastbillWorker.perform_async(transaction.id)
+      FastbillWorker.perform_in 5.seconds, transaction.id
+
     end
   end
 
-  def after_update transaction
-    # kann auch zu after-buy gemacht werden (eventuell)
-    if transaction.sold? && !transaction.multiple? && !transaction.purchase_emails_sent
-      # Send an email to the seller
-      TransactionMailer.seller_notification(transaction).deliver
-
-      # Send a confirmation email to the buyer
-      TransactionMailer.buyer_notification(transaction).deliver
-
-      transaction.update_attribute :purchase_emails_sent, true
-    end
-  end
 end
