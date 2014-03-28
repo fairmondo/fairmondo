@@ -12,10 +12,10 @@
             %ul
               -child1.children.each do |child2|
                 %li
-                  %a{href: articles_path(article: {article_search_form: child2.id })}
+                  %a{href: articles_path(article_search_form: {categories: child2.id })}
                     = child2.name
                   %ul
                     -child2.children.each do |child3|
                       %li
-                        %a{href: articles_path(article: {article_search_form: child3.id })}
+                        %a{href: articles_path(article_search_form: {categories: child3.id })}
                           = child3.name
