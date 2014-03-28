@@ -167,6 +167,7 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
+  gem 'letter_opener'
 end
 
 group :test do
