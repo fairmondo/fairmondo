@@ -1,8 +1,8 @@
 %small
   = t('transaction.notifications.seller.intro')
-%p 
+%p
   = transaction_mail_greeting @transaction, :seller
-%p 
+%p
   = simple_format t('transaction.notifications.seller.seller_text')
 
 - if show_friendly_percent_for? @transaction.article

@@ -1,10 +1,10 @@
-%small 
+%small
   = t('transaction.notifications.buyer.intro')
 %p
   = transaction_mail_greeting @transaction, :buyer
 %p
   = simple_format t('transaction.notifications.buyer.buyer_text')
-%hr  
+%hr
 %p
   = t('common.fn_legal_footer.crowd_funding')
 %hr
@@ -13,7 +13,7 @@
     = simple_format t 'transaction.notifications.buyer.security_warning'
 %hr
 
-%h4 
+%h4
   = t('transaction.notifications.buyer.order_infos')
 %p
   = simple_format order_details @transaction
