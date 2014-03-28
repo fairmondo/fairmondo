@@ -37,13 +37,14 @@ class ArticleSearchForm
       if query.search_by_term?
         query do
           boolean do
-            should { match "title.search", query.q, fuzziness: 0.7 , :boost => 20, :zero_terms_query => 'all'}
+            should { match "title.search", query.q, fuzziness: 0.8 , :zero_terms_query => 'all'}
             should { match :content,  query.q  } if query.search_in_content
-            should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7, :boost => 50}
-            should { match :gtin, query.q , :boost => 100}
-
+            should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7}
+            should { term :gtin, query.q , :boost => 100}
           end
         end
+      else
+        query { all }
       end
 
       filter :term, :fair => true if query.fair
