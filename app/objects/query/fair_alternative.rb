@@ -1,4 +1,5 @@
 class FairAlternative
+
   def self.find_for article
     search = Article.search do
       query do
@@ -28,6 +29,7 @@ class FairAlternative
     return nil
   end
 
+
   # Only allow categories that are not "Other"
   def self.without_other_category(categories)
     ids = categories.map(&:id)
@@ -36,9 +38,8 @@ class FairAlternative
     ids
   end
 
+
   private
-
-
 
     # Rating to not have worse alternatives than the article
     def self.rate_article article
