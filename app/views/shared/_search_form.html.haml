@@ -35,7 +35,7 @@
         Alle Kategorien
 - cache_if params[:article_search_form]==nil, 'article_search_form' do
   = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
-    .Hero-search
+    .Hero-search.js-visual-toggle--container
       .l-Inner
         .l-Left
           %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
@@ -45,13 +45,13 @@
           = f.inputs :class => "Search" do
             .Search-input
               = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
-            .Search-extend.js-filter-toggle
+            .Search-extend.js-visual-toggle--trigger
               = t('common.text.extended_search')
             .Search-button
               = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
         .l-Right
           %button.Btn.Filter-btn Suche starten
-      .Filter{ class: (is_search_result? ? 'is-active' : '') }
+      .Filter.js-visual-toggle--target{ class: (is_search_result? ? 'is-active' : '') }
         .Filter-inner
           .Filter-col
             %legend.Filter-title
@@ -94,5 +94,6 @@
               = f.input :search_in_content, :as => :boolean
               = f.input :zip, :as => :string, :input_html => { :maxlength => 5 }
 
-        %a.js-filter-toggle.Btn.Btn-accordion <i class="icon-arrow-down"></i>
+        %a.js-visual-toggle--trigger.Btn.Btn-accordion
+          %i.icon-arrow-down
 

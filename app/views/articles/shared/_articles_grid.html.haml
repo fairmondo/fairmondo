@@ -22,7 +22,7 @@
 %section.l-GridContainer
   .Search-Leftbar
     .Category-index-parent
-      = render '/shared/category_tree', category: (@search_cache.searched_category || ParentCategoryTree.new)
+      = render '/shared/category_tree', category: ParentCategoryTree.new(@search_cache.searched_category)
   .Search-ArticleContainer
     .l-ArticleList
       - articles.each do |article|

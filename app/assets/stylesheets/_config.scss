@@ -62,11 +62,14 @@ $layout-large: em($breakpoint-large) lt-ie9;
 $layout-huge: em($breakpoint-huge) lt-ie9;
 
 // From - To - Breakpoints
+$layout-zero-to-medium: 0 em($breakpoint-medium) lt-ie9;
 $layout-small-to-medium: em($breakpoint-small) em($breakpoint-medium) lt-ie9;
 $layout-medium-to-large: em($breakpoint-medium) em($breakpoint-large) lt-ie9;
 $layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-zero-to-large: 0 em($breakpoint-large) lt-ie9;
 $layout-small-to-large: em($breakpoint-small) em($breakpoint-large) lt-ie9;
 $layout-large-to-huge: em($breakpoint-large) em($breakpoint-huge) lt-ie9;
+$layout-zero-to-huge: 0 em($breakpoint-huge) lt-ie9;
 $layout-small-to-huge: em($breakpoint-small) em($breakpoint-huge) lt-ie9;
 $layout-medium-to-huge: em($breakpoint-medium) em($breakpoint-huge) lt-ie9;
 
@@ -83,8 +86,10 @@ $lightgreen: #1bb531;
 $white: #ffffff;
 $black: #2e2e2e;
 $gray: #959595;
-$lightgray: #b4b4b4;
 $darkgray: #525252;
+$lightgray: #b4b4b4;
+$lightergray: #c6c6c6;
+$lightestgray: #f8f8f8;
 
 $beige: #ede8e2;
 $lightbeige: #f4f1ee;

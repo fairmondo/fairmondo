@@ -1,6 +1,6 @@
 %li
   %a{href: category_path(child)}
     = child.name
-  %ul
+  %ul.Search-CategoryTreeLevel2
     -child.children.each do |child1|
       = render '/shared/category_tree_leaf', child: child1

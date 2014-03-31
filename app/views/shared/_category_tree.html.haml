@@ -1,15 +1,9 @@
-.Search-CategorySidelist
-  %h2
+.Search-CategorySidelist.js-visual-toggle--container
+  %h2.Search-CategoryTreeHeading.js-visual-toggle--trigger{ :'data-maxsize' => "960" }
     %a{href: category_path(category)}
       = category.name
-  %ul
+    %i.Icon.icon-down_arrow.js-visual-toggle--target
+    %i.Icon.icon-up_arrow.js-visual-toggle--target
+  %ul.Search-CategoryTreeLevel1.js-visual-toggle--target
     -category.children.each do |child|
       = render '/shared/category_tree_leaf', child: child
-
-.Search-CategoryDropdown
-  - cat_select = CategorySelectForm.new(category)
-  = semantic_form_for cat_select, url: category_path(1), :builder => ::Fairtastic::FormBuilder do |f|
-    = f.inputs do
-      = f.input :category_id, label: false, as: :select, collection: cat_select.collection, include_blank: category.name
-    = f.actions do
-      = f.submit 'Los', class: 'Btn'
