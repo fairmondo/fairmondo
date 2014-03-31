@@ -16,7 +16,6 @@
   @include transition(max-height 1s);
   max-height: 999px;
 
-
 	.Btn-accordion .icon-arrow-down {
 		@include rotate(180deg);
 	}
@@ -24,6 +23,9 @@
 
 .Filter-inner {
   background-color: $darkbeige;
+}
+.Filter.is-active .Filter-inner {
+  overflow: hidden;
 }
 
 .Filter-title {

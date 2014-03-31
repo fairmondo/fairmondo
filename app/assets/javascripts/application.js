@@ -64,12 +64,12 @@
 //= require visual/noticeClose
 //= require visual/colorbox
 //= require visual/selectbox
-//= require visual/filter
 //= require visual/truncator
 //= require visual/wait_for_submit
 //= require visual/category
 //= require visual/slides
 //= require visual/iframe
+//= require visual/visibility_toggle
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
