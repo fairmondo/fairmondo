@@ -4,9 +4,11 @@ class ArticleSearchForm
   include Virtus.model
   include ActiveModel::Conversion
 
+
   def self.article_search_form_attrs
     [:q,:fair,:ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
   end
+
 
   attribute :q,String
   attribute :fair, Boolean
@@ -21,15 +23,18 @@ class ArticleSearchForm
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
 
+
   def persisted?
     false
   end
+
 
   def searched_category
     Category.find(self.category_id)
   rescue
     nil
   end
+
 
   def search page
     query = self
@@ -79,6 +84,7 @@ class ArticleSearchForm
       end
     end
   end
+
 
   def autocomplete
     query = self

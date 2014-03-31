@@ -24,18 +24,31 @@ class FastbillAPI
     end
   end
 
+
   private
+
     def self.fastbill_create_customer seller
       unless seller.fastbill_id
         User.observers.disable :user_observer do
           attributes = attributes_for(seller)
-          attributes[:customer_number] =  seller.id
+          attributes[:customer_number] = seller.id
           customer = Fastbill::Automatic::Customer.create(attributes)
           seller.fastbill_id = customer.customer_id
           seller.save
         end
       end
     end
+
+
+    def self.update_profile user
+      customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
+      if customer
+        attributes = attributes_for user
+        attributes[:customer_id] = user.fastbill_id
+        customer.update_attributes( attributes )
+      end
+    end
+
 
     def self.attributes_for user
       {
@@ -62,14 +75,6 @@ class FastbillAPI
       }
     end
 
-    def self.update_profile user
-      customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
-      if customer
-        attributes = attributes_for user
-        attributes[:customer_id] = user.fastbill_id
-        customer.update_attributes( attributes )
-      end
-    end
 
     def self.fastbill_create_subscription seller
       unless seller.fastbill_subscription_id
