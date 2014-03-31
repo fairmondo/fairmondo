@@ -9,6 +9,7 @@ production:
 :queues:
   - [default, 5]
   - [mass_upload, 3]
-  - [paperclip,2]
+  - [paperclip, 2]
   - [fastbill, 5]
-  - [indexing,4]
+  - [indexing, 4]
+  - [transaction_mails, 6]
