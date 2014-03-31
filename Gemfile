@@ -13,8 +13,7 @@ platforms :ruby do
   end
   unless ENV["CI"]
     group :development, :test do
-      gem 'debugger'
-      gem 'debugger-linecache'
+      gem 'byebug'
     end
   end
 
@@ -99,7 +98,7 @@ group :assets do
    # CSS
   gem 'sass-rails'
   gem "font-awesome-rails"
-  gem "susy"
+  gem "susy" , "~>1.0.9"
   gem "compass", "~> 0.13.alpha.12"
   gem 'compass-rails'
 
@@ -158,6 +157,8 @@ group :development, :test do
   # Notify about n+1 queries
   gem 'bullet', github: 'flyerhzm/bullet'
 
+  # Guard test automation
+  gem 'guard-rspec'
 end
 
 group :development do
@@ -168,6 +169,7 @@ group :development do
   # HAML Conversion tools
   gem "erb2haml"
   gem "html2haml"
+  gem 'letter_opener'
 end
 
 group :test do

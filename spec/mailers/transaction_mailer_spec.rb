@@ -24,16 +24,8 @@ describe TransactionMailer do
      should have_body_text(I18n.t('transaction.notifications.seller.intro'))
     end
 
-    it "should show begin of email line" do
-      should have_body_text(I18n.t('transaction.notifications.begin'))
-    end
-
     it "should have greeting with seller name" do
       should have_body_text(I18n.t('transaction.notifications.greeting') + transaction.article_seller_forename + ',')
-    end
-
-    it "should have text for seller (herzlichen Glueckwunsch...)" do
-      should have_body_text(I18n.t('transaction.notifications.seller.seller_text'))
     end
 
     it "should have string: Angaben zum verkauften Artikel" do
@@ -100,16 +92,8 @@ describe TransactionMailer do
       should have_body_text(I18n.t('transaction.notifications.buyer.intro'))
     end
 
-    it "should show begin of email line" do
-      should have_body_text(I18n.t('transaction.notifications.begin'))
-    end
-
     it "should have greeting with buyer name" do
       should have_body_text(I18n.t('transaction.notifications.greeting') + transaction.buyer_forename + ',')
-    end
-
-    it "should have text for seller (Vielen Dank...)" do
-      should have_body_text(I18n.t('transaction.notifications.buyer.buyer_text'))
     end
 
     it "should have security warning" do

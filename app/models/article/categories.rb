@@ -39,6 +39,15 @@ module Article::Categories
     before_validation :ensure_no_redundant_categories # just store the leafs to avoid inconsistencies
   end
 
+  def category_ids= category_ids
+    self.categories = []
+    category_ids.each do |category_id|
+      if category_id.to_s.match(/\A\d+\Z/)
+        self.categories << Category.find(category_id.to_i)
+      end
+    end
+  end
+
 
   def ensure_no_redundant_categories
     self.category_ids =  categories.reject{|c| categories.any? {|other| c!=nil && other.is_descendant_of?(c) } }.uniq{|c| c.id}.map(&:id) if self.categories
