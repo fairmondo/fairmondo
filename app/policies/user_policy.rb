@@ -19,14 +19,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class UserPolicy < Struct.new(:user, :resource)
+class UserPolicy < Struct.new( :user, :resource )
 
   def profile?
-    true
+    true unless banned?
   end
 
   def show?
-    true
+    true unless banned?
+  end
+
+  private
+
+  def banned?
+    resource.banned?
   end
 
 end
