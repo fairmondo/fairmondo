@@ -86,9 +86,9 @@ class Article < ActiveRecord::Base
 
       # filters
 
-      indexes :fair
-      indexes :ecologic
-      indexes :small_and_precious
+      indexes :fair, :type => 'boolean'
+      indexes :ecologic, :type => 'boolean'
+      indexes :small_and_precious, :type => 'boolean'
       indexes :condition
       indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
 
@@ -100,12 +100,12 @@ class Article < ActiveRecord::Base
 
       indexes :slug
       indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
-      indexes :price, :as => 'price_cents'
-      indexes :basic_price, :as => 'basic_price_cents'
+      indexes :price, :as => 'price_cents', :type => 'long'
+      indexes :basic_price, :as => 'basic_price_cents', :type => 'long'
       indexes :basic_price_amount
-      indexes :vat
+      indexes :vat, :type => 'long'
 
-      indexes :friendly_percent
+      indexes :friendly_percent, :type => 'long'
       indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
       indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
 
