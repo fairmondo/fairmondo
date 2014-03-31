@@ -1,27 +1,20 @@
 class ArticleExporter
 
-  def self.export(csv,user, params = nil)
+  @@csv_options = { col_sep: ";" }
+
+  def self.export( csv, user, params = nil )
 
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
-    transactions = false
-
-    if params == "sold"
-      export_attributes += MassUpload.transaction_attributes
-      transactions = true
-    end
+    export_attributes += MassUpload.transaction_attributes if params == "sold"
 
     #write the headers and set options for csv generation
-    options = { :col_sep => ";" }
-    csv.puts CSV.generate_line export_attributes, options
+    csv.puts CSV.generate_line export_attributes, @@csv_options
 
 
-    determine_articles_to_export(user, params).find_each do |item|
-      article = item
+    determine_articles_to_export( user, params ).find_each do |item|
 
-      if item.is_a? Transaction
-        article = item.article
-      end
+      article = item.is_a?( Transaction ) ? item.article : item
 
       row = Hash.new
       row.merge!(provide_fair_attributes_for article)
@@ -47,21 +40,23 @@ class ArticleExporter
         buyer_information = item.attributes.slice(*MassUpload.transaction_attributes)
         row.merge!(buyer_information)
       end
-      csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, options
+      csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, @@csv_options
 
     end
     csv.flush
   end
 
-  def self.export_erroneous_articles(erroneous_articles)
-    csv = CSV.generate_line(MassUpload.article_attributes, :col_sep => ";")
+
+  def self.export_erroneous_articles erroneous_articles
+    csv = CSV.generate_line( MassUpload.article_attributes, @@csv_options )
     erroneous_articles.each do |article|
       csv += article.article_csv
     end
     csv
   end
 
-  def self.determine_articles_to_export(user, params)
+
+  def self.determine_articles_to_export user, params
     if params == "active"
       user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
@@ -72,6 +67,7 @@ class ArticleExporter
       user.bought_articles
     end
   end
+
 
   def self.provide_fair_attributes_for article
     attributes = Hash.new
@@ -85,6 +81,7 @@ class ArticleExporter
     serialize_checkboxes_in attributes
   end
 
+
   def self.serialize_checkboxes_in attributes
     attributes.each do |k, v|
       if k.include?("checkboxes")
@@ -97,4 +94,5 @@ class ArticleExporter
     end
     attributes
   end
+
 end

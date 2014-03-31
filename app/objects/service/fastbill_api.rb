@@ -28,58 +28,46 @@ class FastbillAPI
     def self.fastbill_create_customer seller
       unless seller.fastbill_id
         User.observers.disable :user_observer do
-          customer = Fastbill::Automatic::Customer.create( customer_number: seller.id,
-                                              customer_type: seller.is_a?(LegalEntity) ? 'business' : 'consumer',
-                                              organization: (seller.company_name? && seller.is_a?(LegalEntity)) ? seller.company_name : seller.nickname,
-                                              salutation: seller.title,
-                                              first_name: seller.forename,
-                                              last_name: seller.surname,
-                                              address: seller.street,
-                                              address_2: seller.address_suffix,
-                                              zipcode: seller.zip,
-                                              city: seller.city,
-                                              country_code: 'DE',
-                                              language_code: 'DE',
-                                              email: seller.email,
-                                              currency_code: 'EUR',
-                                              payment_type: '1', # Ueberweisung
-                                              # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
-                                              show_payment_notice: '1',
-                                              bank_name: seller.bank_name,
-                                              bank_code: seller.bank_code,
-                                              bank_account_number: seller.bank_account_number,
-                                              bank_account_owner: seller.bank_account_owner
-                                            )
+          attributes = attributes_for(seller)
+          attributes[:customer_number] =  seller.id
+          customer = Fastbill::Automatic::Customer.create(attributes)
           seller.fastbill_id = customer.customer_id
           seller.save
         end
       end
     end
 
+    def self.attributes_for user
+      {
+        customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
+        organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
+        salutation: user.title,
+        first_name: user.forename,
+        last_name: user.surname,
+        address: user.street,
+        address_2: user.address_suffix,
+        zipcode: user.zip,
+        city: user.city,
+        country_code: 'DE',
+        language_code: 'DE',
+        email: user.email,
+        currency_code: 'EUR',
+        payment_type: '1', # Ueberweisung
+        # payment_type: '2', # Bankeinzug # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
+        show_payment_notice: '1',
+        bank_name: user.bank_name,
+        bank_code: user.bank_code,
+        bank_account_number: user.bank_account_number,
+        bank_account_owner: user.bank_account_owner
+      }
+    end
+
     def self.update_profile user
       customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
       if customer
-        customer.update_attributes( customer_id: user.fastbill_id,
-                                  customer_type: "#{ user.is_a?(LegalEntity) ? 'business' : 'consumer' }",
-                                  organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
-                                  first_name: user.forename,
-                                  last_name: user.surname,
-                                  address: user.street,
-                                  address_2: user.address_suffix,
-                                  zipcode: user.zip,
-                                  city: user.city,
-                                  country_code: 'DE',
-                                  language_code: 'DE',
-                                  email: user.email,
-                                  currency_code: 'EUR',
-                                  payment_type: '1', # Ueberweisung
-                                  # payment_type: user.direct_debit ? '2' : '1', # Bitte aktivieren, wenn Genehmigung der Bank vorliegt
-                                  show_payment_notice: '1',
-                                  bank_name: user.bank_name,
-                                  bank_code: user.bank_code,
-                                  bank_account_number: user.bank_account_number,
-                                  bank_account_owner: user.bank_account_owner
-                                )
+        attributes = attributes_for user
+        attributes[:customer_id] = user.fastbill_id
+        customer.update_attributes( attributes )
       end
     end
 

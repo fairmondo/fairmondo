@@ -33,7 +33,7 @@
     .Hero-morecategories
       %a#show-all-categories{:href => categories_path}
         Alle Kategorien
-- cache_if params[:article]==nil, 'article_search_form' do
+- cache_if params[:article_search_form]==nil, 'article_search_form' do
   = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
     .Hero-search
       .l-Inner
