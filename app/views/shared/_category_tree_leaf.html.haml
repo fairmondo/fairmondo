@@ -1,6 +1,6 @@
-%li
-  %a{href: category_path(child)}
-    = child.name
-  %ul.Search-CategoryTreeLevel2
-    -child.children.each do |child1|
-      = render '/shared/category_tree_leaf', child: child1
+- if params[:article_search_form]
+  %a{href: category_path(category, article_search_form: params[:article_search_form])}
+    = category.name
+- else
+  %a{href: category_path(category)}
+    = category.name

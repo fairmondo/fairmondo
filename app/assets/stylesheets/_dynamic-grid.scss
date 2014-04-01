@@ -81,6 +81,13 @@
       }
     }
   }
+
+  .Search-CategoryTreeParentHeading {
+    @include at-breakpoint($layout-zero-to-large) {
+      display:none;
+    }
+  }
+
   .Search-CategoryTreeLevel1 {
     @include at-breakpoint($layout-zero-to-large) {
       display: none;
@@ -96,20 +103,37 @@
       }
     }
     @include at-breakpoint($layout-medium-to-large) {
-      li {
+      > li {
         display: inline-block;
-        width:49.66%;
+        @include span-columns(2,4);
+        &:nth-child(2n+1) {
+          @include omega;
+        }
+        &:first-child {
+          width:100%;
+        }
       }
+
     }
   }
+
+  .Search-CategoryTreeLevel2{
+    @include at-breakpoint($layout-medium-to-large) {
+      > li {
+        display: inline-block;
+        @include span-columns(2,4);
+        &:nth-child(2n) {
+          @include omega;
+        }
+      }
+    }
+
+  }
+
   .Category-index-parent ul.Search-CategoryTreeLevel1 {
     padding-left: 0;
   }
-  .Search-CategoryTreeLevel2 {
-    @include at-breakpoint($layout-zero-to-large) {
-      display: none;
-    }
-  }
+
 }
 //////////// </REFACTOR> /////////////
 
