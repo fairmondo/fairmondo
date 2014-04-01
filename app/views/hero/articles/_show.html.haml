@@ -20,8 +20,6 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-- if resource.active?
-  = render "/shared/search_form"
-- else
+- unless resource.active?
   .l-Inner
     %h1= t('article.titles.preview')

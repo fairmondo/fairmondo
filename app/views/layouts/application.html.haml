@@ -102,6 +102,36 @@
                   %li.last
                     = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
         .l-Hero
+          - cache 'category_navigation' do
+            .Hero-presearch
+              %ul.Hero-categories
+                - croots = Category.other_category_last.weighted.includes(:children).sorted_roots
+                - croots.each do |category|
+                  %li.Hero-category
+                    %a{href: category_path(category)}
+                      = category.name
+                    - if category.children.present?
+                      .Category-dropdown
+                        = build_category_table(category.children, category.view_columns).html_safe
+              .Hero-morecategories
+                %a#show-all-categories{:href => categories_path}
+                  Alle Kategorien
+          - cache_if params[:article_search_form]==nil, 'article_search_form' do
+            = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => "search-form"}, :builder => ::Fairtastic::FormBuilder do |f|
+              .Hero-search.js-visual-toggle--container
+                .l-Inner
+                  .l-Left
+                    %a.Btn.Btn--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
+                      %i.icon-box
+                      Sammlungen
+                  .l-Middle
+                    = f.inputs :class => "Search" do
+                      .Search-input
+                        = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
+                      .Search-button
+                        = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
+                  .l-Right
+                    %button.Btn Suche starten
           = hero
       .l-Main{:role => "main"}
         .l-Inner

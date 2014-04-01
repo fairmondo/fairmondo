@@ -4,9 +4,11 @@ document.Fairnopoly.toggleVisibility = (e) ->
 
   container = $(@).closest '.js-visual-toggle--container' # for scoping
   container.find(".js-visual-toggle--target").toggleClass('is-active')
-
-  e.preventDefault()
-  false
+  if $(@).attr('data-clickable') == undefined
+    e.preventDefault()
+    false
+  else
+    true
 
 
 $ ->
@@ -14,12 +16,4 @@ $ ->
   ## GENERAL
   $(".js-visual-toggle--trigger").click document.Fairnopoly.toggleVisibility
 
-
-  ## FILTER
-  $('#search_input').focus ->
-    $('.Filter').addClass('is-active')
-
-  # disable defaultly displayed advanced search box for mobile width
-  if ($(window).width() < 680)
-    $('.Hero-search .Filter').removeClass('is-active')
 

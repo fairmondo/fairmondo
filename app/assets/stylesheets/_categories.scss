@@ -60,20 +60,7 @@
 
 
 }
-.Filter {
-  .selectboxit-container,
-  .selectboxit-options {
-    .selectboxit {
-      background-color: $white;
-    }
-  }
-  .selectboxit-container {
-    width: 100%;
-    margin-right: 0;
-    @include rem(margin-bottom, 13px);
 
-  }
-}
 
 .Hero-category {
   float:left;

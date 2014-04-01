@@ -20,11 +20,10 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.Search-ArticleContainer
-  .l-ArticleList
-    - articles.each do |article|
-      %Article.Search-Grid.Article.Article--teaser
-        = render '/articles/shared/show_article' , article: article
+.l-ArticleList
+  - articles.each do |article|
+    %Article.Search-Grid.Article.Article--teaser
+      = render '/articles/shared/show_article' , article: article
 
 - if User.is_admin?(current_user)
   .Admin-controls
