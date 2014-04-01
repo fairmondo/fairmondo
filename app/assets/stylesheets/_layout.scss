@@ -30,11 +30,9 @@ html, body {
 	}
 	.Hero-search, .l-User {
 		background-color: $darkbeige;
-		padding-top:0.75em;
 	}
-	.Filter-inner {
-		@include container;
-		position: relative;
+	.Hero-search {
+	  padding: 0.75em 0em;
 	}
 }
 .l-Wrap {

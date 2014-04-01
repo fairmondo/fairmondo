@@ -1,5 +1,5 @@
 .Search-CategorySidelist.js-visual-toggle--container
-  %h2.Search-CategoryTreeHeading.js-visual-toggle--trigger{ :'data-maxsize' => "960" }
+  %h2.Search-CategoryTreeHeading.js-visual-toggle--trigger{ :data => {:maxsize => "960" }}
     - if category
       = category.name
     - else
