@@ -1,4 +1,24 @@
 .Category-index.Grid-mansory
   - collection.each do |category|
+
     .Category-index-parent.Category-Grid
-      = render '/shared/category_tree', category: category
+
+      %h2
+        %a{href: articles_path(article_search_form: {category_id: category.id })}
+          = category.name
+      %ul
+        -category.children.each do |child1|
+          %li
+            %a{href: articles_path(article_search_form: {category_id: child1.id })}
+              = child1.name
+            %ul
+              -child1.children.each do |child2|
+                %li
+                  %a{href: articles_path(article_search_form: {category_id: child2.id })}
+                    = child2.name
+                  %ul
+                    -child2.children.each do |child3|
+                      %li
+                        %a{href: articles_path(article_search_form: {category_id: child3.id })}
+                          = child3.name
+

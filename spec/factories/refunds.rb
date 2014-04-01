@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :refund do
     reason :not_in_stock
-    description 'a' * 160
+    description 'ab' * 80
     transaction { FactoryGirl.create :transaction_with_buyer, :old }
 
     trait :not_sold_transaction do

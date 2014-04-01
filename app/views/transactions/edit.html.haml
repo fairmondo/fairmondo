@@ -44,6 +44,8 @@
         = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
         %ul.Price-list
           = display_price_list_item :payment, :cash_on_delivery
+        %p.label
+          = t 'transaction.edit.security_warning'
 
         %p
           %br
