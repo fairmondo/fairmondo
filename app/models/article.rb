@@ -79,7 +79,7 @@ class Article < ActiveRecord::Base
       indexes :id,           :index => :not_analyzed
       indexes :title,  type: 'multi_field'  , :fields => {
          :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
-         :decomp => { type:'string', analyzer: "decomp_analyzer"},
+         :decomp => { type: 'string', analyzer: "decomp_analyzer"},
       }
       indexes :content,      analyzer: "decomp_stem_analyzer"
       indexes :gtin,         :index    => :not_analyzed
