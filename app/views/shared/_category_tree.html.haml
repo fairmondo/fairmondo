@@ -1,9 +1,35 @@
 .Search-CategorySidelist.js-visual-toggle--container
   %h2.Search-CategoryTreeHeading.js-visual-toggle--trigger{ :'data-maxsize' => "960" }
-    %a{href: category_path(category)}
+    - if category
       = category.name
+    - else
+      Alle Kategorien
     %i.Icon.icon-down_arrow.js-visual-toggle--target
     %i.Icon.icon-up_arrow.js-visual-toggle--target
+  - if category && category.parent
+    %h3.Search-CategoryTreeParentHeading
+      %a{href: category_path(category.parent)}
+        = category.parent.name
   %ul.Search-CategoryTreeLevel1.js-visual-toggle--target
-    -category.children.each do |child|
-      = render '/shared/category_tree_leaf', child: child
+    - if category
+      - if category.children.empty? && category.parent
+        %li
+          = render '/shared/category_tree_leaf', category: category.parent
+          %ul.Search-CategoryTreeLevel2
+            %li
+              %b= category.name
+            - category.siblings.each do |sibling|
+              %li= render '/shared/category_tree_leaf', category: sibling
+        - category.parent.siblings.each do |sibling|
+          %li= render '/shared/category_tree_leaf', category: sibling
+      - else
+        %li
+          %b= category.name
+          %ul.Search-CategoryTreeLevel2
+            - category.children.each do |child|
+              %li= render '/shared/category_tree_leaf', category: child
+        - category.siblings.each do |sibling|
+          %li= render '/shared/category_tree_leaf', category: sibling
+    - else
+      - Category.other_category_last.sorted_roots.all.each do |child|
+        %li= render '/shared/category_tree_leaf', category: child

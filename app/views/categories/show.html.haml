@@ -1,5 +1,5 @@
 - begin
-  = render "categories/show/#{resource.slug}"
+  = render "categories/show/#{resource.slug}" if resource.slug
 - rescue ActionView::MissingTemplate
   - # insert elements that should only appear when there is nothing specific here
 
