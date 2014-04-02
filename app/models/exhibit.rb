@@ -42,7 +42,7 @@ class Exhibit < ActiveRecord::Base
 
   # Currently only works for independent queues
   def self.all_from queue, page = 1
-    if queue.is_a? Array
+    if queue.is_a? Hash
       page = queue[:page]
       queue = queue[:queue]
     end

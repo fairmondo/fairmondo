@@ -9,7 +9,7 @@
   - if category && category.parent
     %h3.Search-CategoryTreeParentHeading
       %a{href: category_path(category.parent)}
-        = category.parent.name
+        = category.parent_name
   %ul.Search-CategoryTreeLevel1.js-active-toggle--target
     - if category
       - if category.children.empty? && category.parent
