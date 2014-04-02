@@ -4,4 +4,4 @@
   - # insert elements that should only appear when there is nothing specific here
 
 - # Elements that always get displayed
-= render '/shared/search_view'
+= render '/shared/search_view', search_cache: @search_cache, articles: @articles
