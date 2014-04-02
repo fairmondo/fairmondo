@@ -97,11 +97,11 @@ group :assets do
 
    # CSS
   gem 'sass-rails'
-  gem "font-awesome-rails"
-  gem "susy" , "~>1.0.9"
-  gem "compass", "~> 0.13.alpha.12"
-  gem 'compass-rails'
-
+  gem 'susy' ,'~> 2.1.1' # Grid framework is susy
+  gem 'bourbon' # easy ccs3
+  gem 'font-awesome-sass' # icons
+  gem 'sprite-factory'
+  gem 'chunky_png'
 
   # JS
   gem 'jquery-ui-rails'

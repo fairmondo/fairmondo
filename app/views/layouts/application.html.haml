@@ -59,7 +59,7 @@
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
     = render 'peek/bar'
-    .l-Wrap
+    .l-wrapper  -#l-Wrap
       .Notice
         - if !flash.empty?
           - flash.each do |type, msg|
