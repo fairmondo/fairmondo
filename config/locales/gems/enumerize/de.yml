@@ -232,4 +232,10 @@ de:
         ecologic: 'Filter: öko zuerst'
         small_and_precious: 'Filter: klein&edel zuerst'
         most_donated: "Spendenanteil absteigend"
-
+      condition:
+        old: 'gebraucht'
+        new: 'neu'
+      filter:
+        fair: 'fair'
+        ecologic: 'öko'
+        small_and_precious: 'klein&edel'

@@ -1,0 +1,12 @@
+.Filter.js-active-toggle--container
+  .Filter-button.js-active-toggle--trigger{data: {clickable: true}}
+    = title
+    %ul.js-active-toggle--target
+      - parameters.each do |parameter|
+        %li
+          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => @search_cache.send(parameter) ? 0 : 1))}
+            - if @search_cache && @search_cache.send(parameter) == true
+              = image_tag "icheck/checkbox_active.png"
+            - else
+              = image_tag "icheck/checkbox.png"
+            = t "enumerize.article_search_form.filter.#{parameter}"
