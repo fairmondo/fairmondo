@@ -116,8 +116,8 @@ module CommendationHelper
      css << case size
      when :small
        ""
-     when :medium
-       " Btn-tag--medium"
+     # when :medium # not used anymore. was used before for exhibit in article#index (BESONDERS & X). If needed again, uncomment.
+     #   " Btn-tag--medium"
      when :big
        " Btn-tag--big"
      end
