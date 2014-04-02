@@ -69,7 +69,7 @@
 //= require visual/category
 //= require visual/slides
 //= require visual/iframe
-//= require visual/visibility_toggle
+//= require visual/active_toggle
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
