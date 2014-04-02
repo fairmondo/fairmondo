@@ -33,6 +33,7 @@
 .Nav--primary {
 	clear: left;
 	margin: em(15px) auto em(5px);
+  padding-top: 0.7em;
 	text-align: center;
 
 	li {
@@ -41,9 +42,10 @@
 	}
 	a {
 		@include rem(min-width, 70px); // prevent jump
-		color: #000;
+		color: $darkgray;
 		&:hover {
-			color: #000;
+			color: $lightgray;
+      text-decoration: none;
 			// @extend %Bold;
 		}
 	}
