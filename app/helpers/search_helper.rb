@@ -27,6 +27,8 @@ module SearchHelper
 
   # returns a merged object
   def search_params_merged_with object
+    # TODO Memoize
+    object.merge! :category_id => params[:id] if params[:controller] == 'categories'
     (params[:article_search_form] || {}).merge object
   end
 end
