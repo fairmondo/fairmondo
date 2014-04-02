@@ -1,16 +1,16 @@
-.Search-CategorySidelist.js-visual-toggle--container
-  %h2.Search-CategoryTreeHeading.js-visual-toggle--trigger{ :data => {:maxsize => "960" }}
+.Search-CategorySidelist.js-active-toggle--container
+  %h2.Search-CategoryTreeHeading.js-active-toggle--trigger{ data: {maxsize: "960" }}
     - if category
       = category.name
     - else
       Alle Kategorien
-    %i.Icon.icon-down_arrow.js-visual-toggle--target
-    %i.Icon.icon-up_arrow.js-visual-toggle--target
+    %i.Icon.icon-down_arrow.js-active-toggle--target
+    %i.Icon.icon-up_arrow.js-active-toggle--target
   - if category && category.parent
     %h3.Search-CategoryTreeParentHeading
       %a{href: category_path(category.parent)}
         = category.parent.name
-  %ul.Search-CategoryTreeLevel1.js-visual-toggle--target
+  %ul.Search-CategoryTreeLevel1.js-active-toggle--target
     - if category
       - if category.children.empty? && category.parent
         %li

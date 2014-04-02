@@ -25,6 +25,10 @@ module SearchHelper
     humanized_money_with_symbol money_or_cents
   end
 
+  # returns a merged object
+  def search_params_merged_with object
+    (params[:article_search_form] || {}).merge object
+  end
 end
 
 

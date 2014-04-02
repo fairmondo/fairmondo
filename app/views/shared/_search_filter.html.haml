@@ -20,22 +20,22 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Filters
-  .Filter.js-visual-toggle--container
-    .Filter-button.js-visual-toggle--trigger{:data => {:clickable => true}}
+  .Filter.js-active-toggle--container
+    .Filter-button.js-active-toggle--trigger{data: {clickable: true}}
       Zustand
-      %ul.js-visual-toggle--target
+      %ul.js-active-toggle--target
         %li
-          %a{:href => articles_path(:article_search_form => params[:article_search_form].merge(:condition => "new"))}
+          %a{href: articles_path(article_search_form: search_params_merged_with(condition: "new"))}
             = image_tag "icheck/radio.png"
             neu
         %li
-          %a{:href => articles_path(:article_search_form => params[:article_search_form].merge(:condition => "old"))}
+          %a{:href => articles_path(article_search_form: search_params_merged_with(condition: "old"))}
             = image_tag "icheck/radio.png"
             gebraucht
-  .Filter.js-visual-toggle--container
-    .Filter-button.js-visual-toggle--trigger
+  .Filter.js-active-toggle--container
+    .Filter-button.js-active-toggle--trigger
       Filter
-  .Filter.js-visual-toggle--container
-    .Filter-button.js-visual-toggle--trigger
+  .Filter.js-active-toggle--container
+    .Filter-button.js-active-toggle--trigger
       Sortierung
   .Filter-clear
