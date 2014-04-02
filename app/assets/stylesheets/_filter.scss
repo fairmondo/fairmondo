@@ -1,5 +1,9 @@
 @import "compass/css3/user-interface";
 
+.Filters {
+  margin-bottom:3em;
+}
+
 .Filter {
   @include user-select(none);
   border-radius: 0.4em;
@@ -38,14 +42,8 @@
       }
     }
   }
-
 }
 
 .Filter-clear {
   clear:both;
-}
-
-.Filters {
-  margin-bottom:1em;
-
 }
