@@ -37,6 +37,8 @@ class Category < ActiveRecord::Base
 
   belongs_to :parent , :class_name => 'Category', :counter_cache => :children_count
 
+  delegate :name, to: :parent, prefix: true
+
   scope :all_by_id, order("id ASC")
   scope :other_category_last, order("CASE WHEN name = 'Sonstiges' THEN 1 ELSE 0 END") #internationalize!
   scope :weighted, order("weight IS NULL, weight desc")

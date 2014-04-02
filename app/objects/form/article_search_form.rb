@@ -97,13 +97,14 @@ class ArticleSearchForm
   end
 
 
-  def self.categories_for_filter form
-    if form.object.category_id.present?
-      Category.find(form.object.category_id).self_and_ancestors.map(&:id).to_json
-    else
-      [].to_json
-    end
-  end
+  ## Is this still used??
+  # def self.categories_for_filter form
+  #   if form.object.category_id.present?
+  #     Category.find(form.object.category_id).self_and_ancestors.map(&:id).to_json
+  #   else
+  #     [].to_json
+  #   end
+  # end
 
 
   def search_by_term?
