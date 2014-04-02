@@ -88,19 +88,24 @@
             %nav.Nav.Nav--primary
               %ul
                 %li
-                  = link_to "<i class='icon icon-buy'></i> ".html_safe + t('common.text.buy') , articles_path
+                  %h2
+                    = link_to t('common.text.buy'), articles_path
                 %li
-                  = link_to "<i class='icon icon-sell'></i> ".html_safe + t('common.text.sell') , new_article_path
+                  %h2
+                    = link_to t('common.text.sell'), new_article_path
 
                 - if user_signed_in?
                   %li
-                    = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.text.profile') , user_path(current_user)
+                    %h2
+                      = link_to t('common.text.profile'), user_path(current_user)
                   %li.last
-                    = link_to "<i class='icon icon-logout'></i> ".html_safe + t('common.actions.logout') , destroy_user_session_path
+                    %h2
+                      = link_to t('common.actions.logout'), destroy_user_session_path
 
                 - else
                   %li.last
-                    = link_to "<i class='icon icon-account'></i> ".html_safe + t('common.actions.login') , new_user_session_path, :id => "login-link"
+                    %h2
+                      = link_to t('common.actions.login'), new_user_session_path, :id => "login-link"
         .l-Hero
           - cache 'category_navigation' do
             .Hero-presearch

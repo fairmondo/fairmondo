@@ -16,7 +16,7 @@ html, body {
   //@include rem(max-width, $breakpoint-huge);
 }
 .l-Header {
-	background-image: url(asset-path("back3.gif", image));
+	background-color: $beige;
 }
 .l-Hero {
 	 background-color: $darkbeige;
@@ -52,7 +52,7 @@ html, body {
   background-color: $beige;
 }
 .l-Footer {
-	background-image: url(asset-path("back3.gif", image));
+	background-color: $darkbeige;
 	.Footer--top {
 		@include at-breakpoint(30em lt-ie9) {
 			margin-bottom: em(103);
