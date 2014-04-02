@@ -71,10 +71,11 @@ module ApplicationHelper
     @search_cache || ArticleSearchForm.new
   end
 
-  # Switch for specific page
-  def is_search_result?
-    controller.controller_name == 'articles' && controller.action_name == 'index'
-  end
+  ## Is this still used?
+  # # Switch for specific page
+  # def is_search_result?
+  #   controller.controller_name == 'articles' && controller.action_name == 'index'
+  # end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
   def devise_mapping
