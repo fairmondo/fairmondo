@@ -25,9 +25,7 @@ describe CategoriesController do
   render_views
 
   describe "GET 'index" do
-
     describe "for non-signed-in users" do
-
       it "should be a guest" do
         controller.should_not be_signed_in
       end
@@ -37,14 +35,6 @@ describe CategoriesController do
         response.should be_success
         # continue checking
       end
-
-      it "should show a category" do
-        c = FactoryGirl.create :category
-        get :show, :id => c.id, :format => :json
-        response.should be_success
-        # continue checking
-      end
-
     end
 
     describe "GET 'id_index'" do
@@ -53,7 +43,75 @@ describe CategoriesController do
         response.should be_success
       end
     end
+  end
+
+  describe "GET 'show'" do
+    it "should show a category when format is html" do
+      get :show, id: FactoryGirl.create(:category).id
+      response.should be_success
+    end
+
+    it "shouldn't show a category when format is json" do
+      get :show, id: FactoryGirl.create(:category).id, format: :json
+      response.should_not be_success
+    end
+
+    it "should rescue an ECONNREFUSED error" do
+      ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+      get :show, id: FactoryGirl.create(:category).id, article_search_form: { q: 'foobar' }
+      response.status.should be 200
+    end
+
+    describe "search", search: true, setup: true do
+      before(:all) do
+        setup
+        @electronic_category = Category.find_by_name!("Elektronik")
+        @hardware_category = Category.find_by_name!("Hardware")
+        @software_category = Category.find_by_name!("Software")
+
+        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
+        @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @software_category ], content: "muscheln am meer", created_at: 3.days.ago)
+        @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
+        @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
+        Article.index.refresh
+      end
 
 
+      it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
+        get :show, id: @hardware_category.id
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
+      end
+
+      it "should find the article in category 'Hardware' when filtering for the ancestor 'Elektronik'" do
+        get :show, id: @electronic_category.id
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
+      end
+
+      it "should ignore the category_id field and always search in the given category" do
+        get :show, id: @hardware_category.id, article_search_form: {category_id: @software_category.id }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article].map(&:id)
+      end
+
+      context "and searching for 'muscheln'" do
+        it "should chain both filters" do
+          get :show, id: @hardware_category.id, article_search_form: {title: "muscheln"}
+          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
+        end
+
+        context "and filtering for condition" do
+          it "should chain all filters" do
+            get :show, id: @hardware_category.id, article_search_form: {title: "muscheln", condition: "old"}
+            controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article].map(&:id)
+          end
+        end
+      end
+    end
+  end
+
+  describe "GET 'show_json'" do
+    it "should show a category" do
+      get :show_json, id: FactoryGirl.create(:category).id, format: :json
+      response.should be_success
+    end
   end
 end
