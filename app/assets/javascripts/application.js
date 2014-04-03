@@ -70,6 +70,7 @@
 //= require visual/slides
 //= require visual/iframe
 //= require visual/active_toggle
+//= require visual/filter_dropdown
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
