@@ -23,6 +23,7 @@ class ArticlesController < InheritedResources::Base
 
   # Inherited Resources
   respond_to :html
+  respond_to :js, only: :index
   actions :all # inherited methods
 
   # Authorization
@@ -123,7 +124,7 @@ class ArticlesController < InheritedResources::Base
   end
 
 
-  ##### Private Helpers
+##### Private Helpers
 
   private
 

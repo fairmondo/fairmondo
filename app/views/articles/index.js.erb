@@ -1,0 +1,11 @@
+$(".l-ArticleList").replaceWith("<%= j( render '/articles/shared/articles_grid', search_cache: @search_cache, articles: @articles) %>");
+$(".pagination").replaceWith("<%= j(paginate @articles) %>")
+  var $articles = $('.l-ArticleList');
+  if ($articles.length > 0) {
+    $articles.prepend('<div class="Search-GutterSizer"></div><div class="Search-GridSizer"></div>');
+      $articles.masonry({
+        itemSelector: '.Search-Grid',
+        gutter: '.Search-GutterSizer',
+        columnWidth: '.Search-GridSizer'
+      });
+  }
