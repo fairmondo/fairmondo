@@ -11,7 +11,7 @@
             Werte löschen
       - values.each do |value|
         %li
-          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => value))}
+          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => value)), 'data-remote'.to_sym => 'true', method: :index }
             - if @search_cache && @search_cache.send(parameter) == value
               = image_tag "icheck/radio_active.png"
             - else
