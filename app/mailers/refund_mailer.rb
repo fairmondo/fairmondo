@@ -3,7 +3,7 @@ class RefundMailer < ActionMailer::Base
 
   def refund_notification refund
     @refund = refund
-    mail( to: 'kundenservice@fairnopoly.de',
+    mail( to: 'storno@fairnopoly.de',
           subject: '[Fairnopoly] ' + 'Rueckerstattung: Transationsnummer: ' + "#{refund.transaction.id}" ) do |format|
           format.text
     end
