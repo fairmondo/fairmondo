@@ -20,6 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < InheritedResources::Base
+
   # Inherited Resources
   respond_to :html
   actions :all # inherited methods
@@ -38,6 +39,7 @@ class ArticlesController < InheritedResources::Base
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
 
+
   #Autocomplete
   def autocomplete
     @form = ArticleSearchForm.new(:q => permitted_search_params[:q])
@@ -45,6 +47,7 @@ class ArticlesController < InheritedResources::Base
   rescue Errno::ECONNREFUSED
     render :json => []
   end
+
 
   def show
     authorize resource
@@ -62,6 +65,7 @@ class ArticlesController < InheritedResources::Base
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
   end
 
+
   def new
     authorize build_resource
     ############### From Template ################
@@ -75,10 +79,12 @@ class ArticlesController < InheritedResources::Base
     new!
   end
 
+
   def edit
     authorize resource
     edit!
   end
+
 
   def create
     authorize build_resource
@@ -88,6 +94,7 @@ class ArticlesController < InheritedResources::Base
                      render :new }
     end
   end
+
 
   def update # Still needs Refactoring
     if state_params_present?
@@ -103,6 +110,7 @@ class ArticlesController < InheritedResources::Base
 
   end
 
+
   def destroy
     authorize resource
     if resource.preview?
@@ -114,8 +122,8 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-  ##### Private Helpers
 
+  ##### Private Helpers
 
   private
 
@@ -140,27 +148,35 @@ class ArticlesController < InheritedResources::Base
       end
     end
 
+
     def state_params_present?
       permitted_state_params[:activate] || permitted_state_params[:deactivate]
     end
+
 
     def activate_params_present?
       !!permitted_state_params[:activate]
     end
 
+
     def permitted_state_params
       params.permit :activate, :deactivate, :confirm_to_buy
     end
+
+
     def permitted_new_params
       params.permit :edit_as_new, template_select: [:article_template]
     end
+
+
     def permitted_search_params
       params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
     end
+
+
     def permitted_queue_params
       params.permit :page, :queue
     end
-
 
 
     ############ Images ################
@@ -177,12 +193,15 @@ class ArticlesController < InheritedResources::Base
       end
     end
 
+
     def at_least_one_image_processing?
       processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
       !processing_thumbs.empty? || (resource.title_image and resource.title_image.image.processing?)
     end
 
+
   ################## Inherited Resources
+
   protected
 
     def collection
@@ -196,13 +215,16 @@ class ArticlesController < InheritedResources::Base
       @articles ||= policy_scope(Article).page permitted_search_params[:page]
     end
 
+
     def begin_of_association_chain
       params[:action] == "show" ? super : current_user
     end
 
+
     def build_search_cache
       @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
     end
+
 
     def category_specific_search
       if params[:article_search_form] && params[:article_search_form][:category_id]
