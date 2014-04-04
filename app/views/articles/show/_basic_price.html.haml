@@ -20,8 +20,8 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if show_basic_price_for? article
-  %p.Article-basicprice
-    %span= t('formtastic.labels.article.basic_price_simple')
+  .Article-basicprice
+    = t('formtastic.labels.article.basic_price_simple')
     = humanize_money_or_cents article.basic_price
-    = t('formtastic.labels.article.per') + " " |
-    + t('enumerize.article.basic_price_amount.'+ article.basic_price_amount) |
+    = t('formtastic.labels.article.per')
+    = t('enumerize.article.basic_price_amount.'+ article.basic_price_amount)

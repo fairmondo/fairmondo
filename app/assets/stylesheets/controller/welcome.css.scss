@@ -1,0 +1,52 @@
+@import "mixins/all";
+
+.teaser {
+  margin-bottom:1em;
+}
+
+.teaser-inner {
+  @include whitebox;
+}
+
+.teaser--double {
+
+  @include span(4 of 8);
+
+  .teaser-inner {
+    @include clearfix;
+  }
+
+  .teaser-queue {
+    @include span(2 of 4);
+    &:last-child {
+      @include omega;
+    }
+  }
+
+}
+
+.teaser--collapsible {
+  @include span(4 of 8);
+  @include omega;
+}
+
+.teaser--userslides {
+  overflow: hidden;
+  clear: both;
+  width: 100%;
+  position: relative;
+
+  img {
+    float: left;
+    border-radius: 0.5em;
+  }
+
+  #slides {
+    display: none; // Prevents slides from flashing
+  }
+
+  .slidesjs-container,.slidesjs-control {
+     height: auto !important;
+  }
+
+}

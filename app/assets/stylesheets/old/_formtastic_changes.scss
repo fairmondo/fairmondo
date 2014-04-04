@@ -54,17 +54,11 @@ textarea {
   }
   &:hover {}
 
-
-  // Fix for the firefox placeholders not coloring correctly
-  // refs #168
-
-  &:-moz-placeholder { /* Firefox 18- */
+  @include placeholder {
     color: #888;
   }
 
-  &::-moz-placeholder {  /* Firefox 19+ */
-    color: #888;
-  }
+
 
 }
 

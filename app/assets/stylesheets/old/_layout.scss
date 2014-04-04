@@ -35,9 +35,7 @@ html, body {
 	  padding: 0.75em 0em;
 	}
 }
-.l-Wrap {
-  min-height: 100%;
-}
+
 .l-Main {
 	& > .l-Inner {
 		@include rem(padding-top, 21px);

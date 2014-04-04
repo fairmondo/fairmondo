@@ -1,0 +1,74 @@
+/*
+ *
+ * == License:
+ * Fairnopoly - Fairnopoly is an open-source online marketplace.
+ * Copyright (C) 2013 Fairnopoly eG
+ *
+ * This file is part of Fairnopoly.
+ *
+ * Fairnopoly is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Fairnopoly is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This is the application.css that requires our custom styles
+ *
+ * PLEASE DO NOT PUT ANY CSS CODE IN HERE !!!
+ *
+ *= require_self
+ *= require peek
+ *= require peek/views/performance_bar
+ *= require peek/views/rblineprof
+ *= require peek/views/rblineprof/pygments
+
+ *
+ */
+
+// Import Css
+
+@import "font-awesome";
+
+// jquery gem stylesheets
+@import "jquery.ui.autocomplete";
+@import "jquery.ui.tooltip";
+
+// vendor stylesheets
+@import "vendor/formtastic";
+@import "vendor/jquery.selectBoxIt";
+@import "vendor/colorbox";
+
+// Mixins to be available in everywhere
+
+@import "mixins/all";
+
+// App Layouts and Base definitions
+
+@import "layout/base";
+@import "layout/header";
+@import "layout/header_categories";
+@import "layout/header_search";
+@import "layout/main";
+@import "layout/footer";
+
+// Modules
+@import "modules/notice";
+@import "modules/button";
+@import "modules/tag";
+@import "modules/news_header";
+@import "modules/article";
+
+// vendor changes
+@import "vendor/formtastic_changes";
+@import "vendor/selectboxit_changes";
+@import "vendor/colorbox_changes";
+
+// Auto-Generated sprite file
+@import "sprites"

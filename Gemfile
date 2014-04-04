@@ -91,18 +91,18 @@ gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git
 # Redirects
 gem 'rack-rewrite'
 
+
+ # CSS
+gem 'sass-rails'
+gem 'susy' ,'~> 2.1.1' # Grid framework is susy
+gem 'bourbon' # easy ccs3
+gem 'font-awesome-sass' # icons
+gem 'sprite-factory'
+gem 'chunky_png'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-
-   # CSS
-  gem 'sass-rails'
-  gem 'susy' ,'~> 2.1.1' # Grid framework is susy
-  gem 'bourbon' # easy ccs3
-  gem 'font-awesome-sass' # icons
-  gem 'sprite-factory'
-  gem 'chunky_png'
-
   # JS
   gem 'jquery-ui-rails'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'

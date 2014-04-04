@@ -1,0 +1,86 @@
+
+.l-header-search {
+  @include container($screen-width);
+  padding: 0 $screen-padding;
+}
+
+.l-header-search-libraries, .l-header-search-button {
+
+  @include till-breakpoint($bp-tablet) {
+    @include span(1 of 4 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(1 of 5 0.1);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(1 of 7 0.1);
+  }
+
+}
+
+.l-header-search-libraries {
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    display:none;
+  }
+
+  .Button {
+     display:block;
+  }
+}
+
+.l-header-search-button {
+  .Button {
+    @include till-breakpoint($bp-tablet) {
+      min-height: 5em;
+    }
+    width:100%;
+  }
+}
+
+.l-header-search-query {
+  @include till-breakpoint($bp-tablet) {
+     @include span(3 of 4 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(4 of 5 0.1);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(5 of 7 0.1);
+  }
+}
+
+.l-header-search-query > fieldset > ol > li.input {
+  margin-top: 0.1em;
+  margin-bottom: 0.5em;
+  padding: 0;
+
+  @include at-breakpoint($bp-tablet) {
+    margin-bottom: 0.1em;
+    &:first-child {
+      @include span(3 of 5 0.1);
+    }
+    &:last-child {
+      @include span(2 of 5 0.1);
+      @include omega;
+    }
+
+  }
+
+  .selectboxit-container,.selectboxit-options, input ,select {
+    width:100%;
+
+  }
+  .selectboxit-text {
+    text-indent: 1em;
+  }
+
+}
+
+.l-header-search-button {
+  @include omega;
+}

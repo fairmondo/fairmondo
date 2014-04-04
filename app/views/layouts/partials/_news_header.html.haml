@@ -1,0 +1,7 @@
+- news_header = tinycms_content_body("newsheader")
+- unless news_header.empty? || cookies["news-header-disabled"]
+  .NewsHeader
+    .NewsHeader-inner
+      = news_header
+    %a.NewsHeader-close
+      ×

@@ -66,12 +66,6 @@ Fairnopoly::Application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "assets%d.fairnopoly.de"
 
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( session_expire.js )
-  config.assets.precompile += %w( noscript.css )
-  config.assets.precompile += %w( landing.css )
-  # config.assets.precompile += %w( font-awesome-ie7.min.css )
-
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'www.fairnopoly.de' ,:protocol => 'https' }

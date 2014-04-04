@@ -22,23 +22,6 @@
 module ApplicationHelper
 
 
-  def hero
-    hero = ""
-    begin
-      if @rendered_hero
-        hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
-      else
-        hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
-      end
-    rescue ActionView::MissingTemplate
-      begin
-        hero += render :partial => "/hero/#{params[:controller]}/default"
-      rescue ActionView::MissingTemplate
-      end
-    end
-    return hero.html_safe
-  end
-
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -70,12 +53,6 @@ module ApplicationHelper
   def search_cache
     @search_cache || ArticleSearchForm.new
   end
-
-  ## Is this still used?
-  # # Switch for specific page
-  # def is_search_result?
-  #   controller.controller_name == 'articles' && controller.action_name == 'index'
-  # end
 
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
   def devise_mapping
@@ -112,4 +89,7 @@ module ApplicationHelper
       nil
     end
   end
+
+
+
 end

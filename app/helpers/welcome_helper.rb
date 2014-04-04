@@ -20,14 +20,6 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 module WelcomeHelper
-  def teaser_layout layout
-     case layout
-     when :double
-       ["","Teaser-article--right"]
-     when :single
-       [""]
-     end
-  end
 
   def rss_image_extractor content
     if content.start_with? "<img"

@@ -26,6 +26,7 @@ require 'rails/all'
 require 'net/http'
 
 
+require 'susy'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -87,6 +88,16 @@ module Fairnopoly
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # controller based assets
+    config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( session_expire.js )
+    config.assets.precompile += %w( noscript.css )
+    config.assets.precompile += %w( landing.css )
+
+    config.generators.assets :controller_based_assets
+
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
 

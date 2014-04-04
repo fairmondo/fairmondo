@@ -27,7 +27,7 @@
 //= require jquery.ui.accordion
 //= require jquery.ui.tooltip
 //= require jquery.slides.min.js
-//= require jquery.cfk_teaser.js
+
 //= require modernizr
 //= require selectivizr
 //= require tinymce-jquery
@@ -61,12 +61,12 @@
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
-//= require visual/noticeClose
+//= require visual/notice_close
+//= require visual/news_header_close
 //= require visual/colorbox
 //= require visual/selectbox
 //= require visual/truncator
 //= require visual/wait_for_submit
-//= require visual/category
 //= require visual/slides
 //= require visual/iframe
 //= require visual/active_toggle

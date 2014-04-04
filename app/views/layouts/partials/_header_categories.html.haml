@@ -1,0 +1,12 @@
+- cache 'category_navigation' do
+  %ul
+    - Category.other_category_last.weighted.includes(:children).sorted_roots.each do |category|
+      %li
+        %a{href: category_path(category)}
+          = category.name
+        - if category.children.present?
+          %ul.l-header-categories-children
+            - category.children.each_slice(category.view_columns) do |children|
+              %li
+                - children.each do |child|
+                  %a{ :href => category_path(child)}= child.name

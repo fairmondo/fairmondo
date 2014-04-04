@@ -18,17 +18,16 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
- *
- * This is the application.css that requires our custom styles
- *
- * PLEASE DO NOT PUT ANY CSS CODE IN HERE !!!
- *
- *= require_self
- *= require jquery.ui.autocomplete
- *= require jquery.ui.tooltip
- *= require peek
- *= require peek/views/performance_bar
- *= require peek/views/rblineprof
- *= require peek/views/rblineprof/pygments
- *
  */
+
+//= require jquery
+//= require jquery_ujs
+//= require vendor/jquery.colorbox
+
+$(document).ready(function(){
+  $(".NewsHeader-close").click(function() {
+    $(".NewsHeader").slideUp();
+    var date = new Date(Date.now() + (24 * 60 * 60 * 1000)); // set date to one day from now
+    document.cookie = "news-header-disabled=true; path=/; expires=" + date.toGMTString();
+  } );
+});

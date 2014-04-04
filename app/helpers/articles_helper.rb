@@ -25,7 +25,7 @@ module ArticlesHelper
   # Conditions
   def condition_label article
     condition_text = t("enumerize.article.condition.#{article.condition}")
-    "<span class=\"Btn Btn-tag Btn-tag--gray\">#{condition_text}</span>".html_safe
+    "<span class=\"Tag Tag--gray\">#{condition_text}</span>".html_safe
   end
 
   # Build title string
@@ -104,22 +104,7 @@ module ArticlesHelper
     end
   end
 
-  def build_category_table children, columns = 2
-    last = children.count - 1
-    last_in_column = columns - 1
 
-    output = "<table class='Category-dropdown-children Category-dropdown-children--columns-#{columns}'>"
-    children.each_with_index do |child, index|
-      output += '<tr>' if index % columns == 0
-      output +=   '<td>'
-      output +=     "<a href='#{category_path(child)}'>"
-      output +=       child.name
-      output +=     '</a>'
-      output +=   '</td>'
-      output += '</tr>' if (index % columns) == last_in_column or index == last
-    end
-    output += '</table>'
-  end
 
   def default_organisation_from organisation_list
     begin

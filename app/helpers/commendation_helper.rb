@@ -96,7 +96,7 @@ module CommendationHelper
     html << "target=\"_blank\" " if new_window
     html << "class=\"#{commendation_label_classes label,size} accordion-anchor\">"
     html << t("formtastic.labels.article.#{label.to_s}")
-    html << "</a>"
+    html << "</a> "
     html.html_safe
   end
 
@@ -104,22 +104,20 @@ module CommendationHelper
   # @param label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
   # @param size [Symbol] Optional label size `:small` ,`:medium`, `:big`
   def commendation_label_classes label, size
-     css = "Btn Btn-tag"
+     css = "Tag"
      css << case label
      when :fair
-       " Btn-tag--blue"
+       " Tag--blue"
      when :ecologic
-       " Btn-tag--green"
+       " Tag--green"
      when :small_and_precious
-       " Btn-tag--orange"
+       " Tag--orange"
      end
      css << case size
      when :small
        ""
-     # when :medium # not used anymore. was used before for exhibit in article#index (BESONDERS & X). If needed again, uncomment.
-     #   " Btn-tag--medium"
      when :big
-       " Btn-tag--big"
+       " Tag--big"
      end
      css
   end
