@@ -34,7 +34,7 @@ class ArticlesController < InheritedResources::Base
   before_filter :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :category_specific_search, only: :index
+  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
   before_filter :build_search_cache, only: :index
 
   # Calculate value of active goods
@@ -108,7 +108,6 @@ class ArticlesController < InheritedResources::Base
                        render :edit }
       end
     end
-
   end
 
 
