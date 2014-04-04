@@ -1,0 +1,21 @@
+$bp-mobile: 320px;
+$bp-mobile-horizontal: 480px;
+$bp-tablet: 768px;
+$bp-tablet-horizontal: 1024px;
+$bp-desktop: 1280px;
+$bp-desktop-wide: 1500px;
+
+
+@mixin at-breakpoint($value) {
+   @media (min-width: $value) { @content; }
+}
+
+@mixin till-breakpoint($value) {
+   @media (max-width: $value) { @content; }
+}
+
+@mixin between-breakpoints($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}

@@ -1,0 +1,8 @@
+
+// main container
+.l-main {
+  @include container($screen-width);
+  padding: 1em $screen-padding 0;
+  @include color-links($blue,$blue);
+  @include clear-links-with-hover;
+}

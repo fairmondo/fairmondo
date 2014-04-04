@@ -1,0 +1,13 @@
+%ul
+  %li
+    = link_to t('common.text.sell'), new_article_path
+
+  - if user_signed_in?
+    %li
+      = link_to t('common.text.profile'), user_path(current_user)
+    %li
+      = link_to t('common.actions.logout'), destroy_user_session_path
+
+  - else
+    %li
+      = link_to t('common.actions.login'), new_user_session_path, :id => "login-link"

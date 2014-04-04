@@ -1,0 +1,42 @@
+
+$header-highlight-color: $lightest-gray;
+$header-nav-link-color-hover: $blue;
+
+// Peek fix
+#peek .wrapper {
+  width: $screen-width !important;
+}
+
+.l-header-top {
+  @include container($screen-width);
+  padding: 0.5em $screen-padding 0.3em;
+}
+
+.l-header-bottom {
+  background: $header-highlight-color;
+  padding: 0.5em 0;
+}
+
+
+.l-header-logo,.l-header-nav  {
+  display: inline-block;
+  float:left;
+  span.sprite_logo {
+    display:block;
+    margin-right:2em;
+  }
+}
+
+.l-header-nav > ul {
+  list-style: none;
+  margin:0;
+  padding:0;
+  @include clear-links;
+  @include color-links($black,$header-nav-link-color-hover);
+  > li {
+    display: inline-block;
+    line-height:3em;
+    margin-right:1.5em;
+  }
+
+}

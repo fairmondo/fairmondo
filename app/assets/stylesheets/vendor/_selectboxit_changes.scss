@@ -1,0 +1,63 @@
+.selectboxit-option-icon-container{
+  display:none;
+}
+
+
+.selectboxit-container * {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.selectboxit-container,
+.selectboxit-options
+ {
+  min-width: 15em;
+}
+// Make it wider
+.selectboxit-container ul.selectboxit-options {
+  min-width: 15em;
+}
+.selectboxit-container .selectboxit-text,
+.selectboxit-container .selectboxit-arrow-container {
+  height: em(33,$base-font-size-unitless);
+  line-height: em(33,$base-font-size-unitless);
+  background: white;
+}
+.selectboxit-btn {
+  border-radius: 0.5em;
+}
+
+.selectboxit .selectboxit-arrow-container {
+  width: 10%;
+}
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus,
+.selectboxit-btn.selectboxit-enabled:active {}
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus {
+  text-decoration: none;
+  background-position: 0 -15px;
+}
+.selectboxit-default-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid #000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.selectboxit-list {
+  background-color: white;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.selectboxit-list .selectboxit-option-anchor {
+  color: #333;
+}
+.selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor {
+  background-color: $blue;
+  color: white;
+}
+.selectboxit-list > .selectboxit-disabled > .selectboxit-option-anchor {
+  color: #999;
+}

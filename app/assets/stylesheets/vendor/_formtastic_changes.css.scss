@@ -1,0 +1,31 @@
+.formtastic button.Button {
+   @include buttonize;
+   @include bubbleize;
+}
+
+
+
+input[type='search'] {
+  -webkit-appearance: none;
+}
+
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+textarea {
+  @include box-sizing(border-box);
+  @include bubbleize;
+  @include placeholder {
+    color: black;
+  }
+  font-size: inherit;
+  font-family: inherit;
+  color: black;
+  &:focus {
+    outline: 0;
+  }
+
+}

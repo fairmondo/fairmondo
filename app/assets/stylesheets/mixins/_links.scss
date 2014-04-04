@@ -1,0 +1,31 @@
+
+@mixin clear-links {
+  a {
+    text-decoration:none;
+  }
+}
+
+@mixin clear-links-with-hover {
+  a {
+    text-decoration:none;
+    &:hover {
+      text-decoration:underline;
+    }
+  }
+}
+
+
+@mixin color-links($color,$hover) {
+  a {
+    color: $color;
+    &:visited{
+      color: $color;
+    }
+    &:hover {
+      color: $hover;
+    }
+  }
+}
+
+
+

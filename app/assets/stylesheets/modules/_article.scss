@@ -1,0 +1,46 @@
+.Article {
+  border: 1px solid $lighter-gray;
+  border-radius:1em;
+  padding:0;
+  margin-bottom: 1em;
+}
+
+.Article-image {
+  margin:0;
+  img {
+    width:100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-top-left-radius: 0.9em;
+    border-top-right-radius: 0.9em;
+  }
+}
+
+.Article-info {
+  padding: em(7) em(19);
+  min-height: 9em;
+
+  h3 {
+    margin:0;
+    word-break: break-word;
+    min-height: 2.5em;
+  }
+}
+.Article-price {
+  font-weight: 600;
+  font-size: 2rem;
+}
+.Article-donation, .Article-basicprice, .Article-vat {
+  font-size: 0.7rem;
+}
+
+
+.Article-tags,.Article-admin {
+  padding: em(7) em(19);
+  border-top: 1px solid $lighter-gray;
+}
+
+.Article-admin {
+  color: $red;
+}

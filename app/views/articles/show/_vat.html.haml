@@ -22,7 +22,6 @@
 
 - if article.belongs_to_legal_entity?
   - unless article.vat == 0
-    %p.Article-vat
-      %span= t('article.included_short') + " " + article.vat.to_s + "% " |
-      + t('article.vat') |
+    .Article-vat
+      = "#{t('article.included_short')} #{article.vat.to_s}% #{t('article.vat')}"
 

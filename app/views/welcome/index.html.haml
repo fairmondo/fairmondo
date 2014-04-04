@@ -22,74 +22,73 @@
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
 
-.l-Teaser--queue
-  .Teaser
-    %h2.Teaser-header
+.teaser.teaser--double
+  .teaser-inner
+    %h2
       = tinycms_content_body_sanitized("heading_features").upcase
-    .Teaser-queues
-      - [@queue1, @queue2].each_with_index do |queue,index|
-        .Teaser-queue
-          = render "exhibition", articles: queue, layout: :single
-          %p.Teaser-more
-            = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
 
-.l-Teaser--double.l-Teaser--cfk.l-Teaser--collapsiblebox
-  .Teaser.Teaser--text
+    - [@queue1, @queue2].each_with_index do |queue,index|
+      .teaser-queue
+        - queue.each do |article|
+          = render "/articles/shared/show_article", article: article
+        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Button"
+
+.teaser.teaser--collapsible
+  .teaser-inner
     = tinycms_content 'cfk_box'
 
-.Teaser--user-slides
-  #UserSlides.Teaser.User-slides-container
-    %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-      %i.icon-right_arrow
-    %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-      %i.icon-left_arrow
-    #Slide1
-      = image_tag "slides/users/0.jpg"
-      %p
-        %span.Teaser--fatquote> &bdquo;
-        %span.Teaser--quote> Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
-        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
-        .Teaser--quotesource JORGE INOSTROZA, GEPA
-    #Slide2
-      = image_tag "slides/users/1.jpg"
-      %p
-        %span.Teaser--fatquote> &bdquo;
-        %span.Teaser--quote> Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.
-        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
-        .Teaser--quotesource ISABELLE DECHAMPS, BE ABLE
-    #Slide3
-      = image_tag "slides/users/2.jpg"
-      %p
-        %span.Teaser--fatquote> &bdquo;
-        %span.Teaser--quote> Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert - und was mit der Firma passiert.
-        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
-        .Teaser--quotesource VAN BO LE-MENTZEL, ARCHITEKT
-    #Slide4
-      = image_tag "slides/users/3.jpg"
-      %p
-        %span.Teaser--fatquote> &bdquo;
-        %span.Teaser--quote> Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu - und deswegen bin ich gerne ein Teil davon.
-        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
-        .Teaser--quotesource MARIA GROSS, SOCIAL IMPACT LAB
-    #Slide5
-      = image_tag "slides/users/4.jpg"
-      %p
-        %span.Teaser--fatquote> &bdquo;
-        %span.Teaser--quote> Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
-        %span.Teaser--fatquote.Teaser--fatquote-lower &ldquo;
-        .Teaser--quotesource THOMAS KAPPAUF, BLACK STAR
+.teaser.teaser--userslides
+  .teaser-inner
+    #js-userslides
+      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+        %i.icon-right_arrow
+      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+        %i.icon-left_arrow
+      #slide1
+        = image_tag "slides/users/0.jpg"
+        %p.teaser-quatation
+        %span.teaser-quote> &bdquo;
+        Für Veränderungen in der Gesellschaft benötigt es mehr Mut – bei Fairnopoly erleben wir viele junge mutige Menschen. Wir freuen uns auf die Zusammenarbeit mit Fairnopoly, wünschen der Genossenschaft einen erfolgreichen Start, viele Mitglieder und viel Erfolg auf dem Weg zu mehr Transparenz in Onlinehandel und Gesellschaft!
+        %span.teaser-quote> &ldquo;
+        .teaser-quotesource JORGE INOSTROZA, GEPA
+      #slide2
+        = image_tag "slides/users/1.jpg"
+        %span.teaser-quote> &bdquo;
+        Ich bin Genossenschafts-Mitglied bei Fairnopoly, weil es uns Spaß macht, Fairnopoly mitzuentwickeln. Für uns ist Fairnopoly eine super Plattform, um unsere ethisch produzierten Produkte zu vermarkten.
+        %span.teaser-quote> &ldquo;
+        .teaser-quotesource ISABELLE DECHAMPS, BE ABLE
+      #slide3
+        = image_tag "slides/users/2.jpg"
+        %span.teaser-quote> &bdquo;
+        Bei Fairnopoly finde ich genial, dass die Struktur eine Genossenschaft ist. Das heißt, ich bin Genosse dort, ich kann mitentscheiden, was da passiert - und was mit der Firma passiert.
+        %span.teaser-quote> &ldquo;
+        .teaser-quotesource VAN BO LE-MENTZEL, ARCHITEKT
+      #slide4
+        = image_tag "slides/users/3.jpg"
+        %span.teaser-quote> &bdquo;
+        Ich bin Genossin bei Fairnopoly, weil ich glaube, dass wir alle bewusster konsumieren sollten. Fairnopoly gibt uns online die Chance dazu - und deswegen bin ich gerne ein Teil davon.
+        %span.teaser-quote> &ldquo;
+        .teaser-quotesource MARIA GROSS, SOCIAL IMPACT LAB
+      #slide5
+        = image_tag "slides/users/4.jpg"
+        %span.teaser-quote> &bdquo;
+        Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
+        %span.teaser-quote> &ldquo;
+        .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
 
 .l-Teaser--double.l-Teaser--old
   .Teaser
     %h2.Teaser-header
       GEBRAUCHT BEI FAIRNOPOLY
-    = render "exhibition", articles: @old, layout: :double
+    - @old.each do |article|
+      = render "/articles/shared/show_article", article: article
 
 .l-Teaser--double.l-Teaser--collapsible.l-Teaser--ecologic
   .Teaser
     %h2.Teaser-header
       MIT SPENDENANTEIL
-    = render "exhibition", articles: @donation_articles, layout: :double
+    - @donation_articles.each do |article|
+      = render "/articles/shared/show_article", article: article
 
 .l-Teaser--double.l-Teaser--slides
   .Teaser.Teaser--text
@@ -108,7 +107,8 @@
     .Teaser-queues
       - [@queue3, @queue4].each_with_index do |queue,index|
         .Teaser-queue
-          = render "exhibition", articles: queue, layout: :single
+          - queue.each do |article|
+            = render "/articles/shared/show_article", article: article
           %p.Teaser-more
             = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Btn"
 
@@ -122,3 +122,9 @@
         Held*in werden
 .l-Teaser--double.l-Teaser--news
   .Teaser.Teaser-news.Teaser-hide#Teaser-news-placeholder
+
+- cache "ngo_logosand_known_from" do
+  = render "welcome/ngo_logobox"
+  .l-Teaser--socialshare
+    .Articles-social#socialshareprivacy
+  = render "welcome/known_from"
