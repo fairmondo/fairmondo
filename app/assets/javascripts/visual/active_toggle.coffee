@@ -1,4 +1,5 @@
 $ ->
+  ## GENERAL
   $('body').on('click', '.js-active-toggle--trigger', (e) ->
     if (max = $(@).attr('data-maxsize')) and $(window).width() > max
       return true
@@ -10,4 +11,4 @@ $ ->
       false
     else
       true
-  )
+)

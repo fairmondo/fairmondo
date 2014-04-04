@@ -2,6 +2,9 @@ class CategoriesController < InheritedResources::Base
   actions :show, :index
   custom_actions resource: :show_json
 
+  respond_to :html
+  respond_to :js, only: :show, if: lambda { request.xhr? }
+
   skip_before_filter :authenticate_user!
 
   def show

@@ -1,9 +1,6 @@
 - title index_title_for search_cache
 
 - if search_cache.searched_category
-  %h1.CategorySearchBreadcrumb
-    = breadcrumbs_for(search_cache.searched_category).html_safe
-%section.l-GridContainer
   .Search-Leftbar
     .Category-index-parent
       = render '/shared/category_tree', category: search_cache.searched_category
