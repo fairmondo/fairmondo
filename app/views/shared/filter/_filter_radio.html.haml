@@ -1,5 +1,5 @@
 .Filter.js-active-toggle--container
-  .Filter-button.js-active-toggle--trigger{data: {clickable: true}}
+  .Filter-button.js-active-toggle--trigger{data: {clickable: 'true'}}
     - if @search_cache && @search_cache.send(parameter)
       = t "enumerize.article_search_form.#{parameter}.#{@search_cache.send(parameter)}"
     - else
@@ -11,7 +11,7 @@
             Werte löschen
       - values.each do |value|
         %li
-          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => value)), 'data-remote'.to_sym => 'true', method: :index }
+          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => value)), data: { remote: 'true' }, method: :index }
             - if @search_cache && @search_cache.send(parameter) == value
               = image_tag "icheck/radio_active.png"
             - else
