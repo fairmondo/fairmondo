@@ -1,21 +1,23 @@
 - title index_title_for search_cache
 
 - if search_cache.searched_category
-  %h1.CategorySearchBreadcrumb
-    = breadcrumbs_for(search_cache.searched_category).html_safe
-%section.l-GridContainer
   .Search-Leftbar
     .Category-index-parent
       = render '/shared/category_tree', category: search_cache.searched_category
-  .Search-ArticleContainer
-    = render '/shared/search_filter'
-    - if articles.empty?
-      %h2= t("common.text.no_search_result_text")
-    - else
-      = render '/articles/shared/articles_grid', articles: articles
-      = paginate articles
-      - if params[:queue]
-        .align-center
-          = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
+- else
+  .Search-Leftbar
+    .Category-index-parent
+      = render '/shared/category_tree', category: nil
+
+.Search-ArticleContainer
+  = render '/shared/search_filter', search_cache: search_cache
+  - if articles.empty?
+    %h2= t("common.text.no_search_result_text")
+  - else
+    = render '/articles/shared/articles_grid', articles: articles
+    = paginate articles
+    - if params[:queue]
+      .align-center
+        = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
 -if articles.total_count <= 4
   = render "/articles/shared/iframe"
