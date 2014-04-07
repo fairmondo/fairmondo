@@ -35,8 +35,6 @@ class Library < ActiveRecord::Base
 
   validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
 
-
-
   #Relations
 
   belongs_to :user

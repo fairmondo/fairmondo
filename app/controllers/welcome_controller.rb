@@ -21,15 +21,15 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => [:index,:feed, :landing, :wegreentest]
+  skip_before_filter :authenticate_user!, :only => [:index, :feed, :landing]
 
   def index
-    @queue1 = Exhibit.independent_queue :queue1, 1
-    @queue2 = Exhibit.independent_queue :queue2, 1
-    @queue3 = Exhibit.independent_queue :queue3, 1
-    @queue4 = Exhibit.independent_queue :queue4, 1
-    @old = Exhibit.independent_queue :old
-    @donation_articles = Exhibit.independent_queue :donation_articles
+    @queue1 = Exhibrary.new.find 51, 1
+    @queue2 = []
+    @queue3 = []
+    @queue4 = []
+    @old = []#Exhibit.independent_queue :old
+    @donation_articles = []#Exhibit.independent_queue :donation_articles
   end
 
   # Rss Feed
