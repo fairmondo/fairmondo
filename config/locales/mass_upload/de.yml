@@ -12,7 +12,7 @@ de:
       article_activated: "Artikel bereits eingestellt"
       all_articles_activated: "Alle Artikel sind bereits aktiviert"
       bank_account: "Bankkonto"
-      finished: "Deine CSV-Datei wurde vom System verarbeitet. Klicke hier um das Ergenbnis anzuzeigen und gegebenenfalls deine Artikel für den Marktplatz zu aktivieren."
+      finished: 'Deine CSV-Datei wurde vom System verarbeitet. Klicke auf "Weiter" um das Ergebnis anzuzeigen und Deine Artikel für den Marktplatz zu aktivieren.'
       failed: "Bei der Verarbeitung Deiner CSV Datei durch das System ist ein Fehler aufgetreten. Klicke hier um den Fehler anzuzeigen."
       show_report: "Anzeigen"
       show_report_activate: "Anzeigen & aktivieren"
