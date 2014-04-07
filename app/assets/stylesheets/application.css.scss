@@ -44,6 +44,7 @@
 @import "vendor/formtastic";
 @import "vendor/jquery.selectBoxIt";
 @import "vendor/colorbox";
+@import "vendor/icheck";
 
 // Mixins to be available in everywhere
 
@@ -64,6 +65,7 @@
 @import "modules/tag";
 @import "modules/news_header";
 @import "modules/article";
+@import "modules/feedback";
 
 // vendor changes
 @import "vendor/formtastic_changes";

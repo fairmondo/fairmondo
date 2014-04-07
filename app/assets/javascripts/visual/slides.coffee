@@ -1,5 +1,5 @@
 $(document).ready ->
-  $("#slides").slidesjs
+  $("#js-cardslides").slidesjs
     width: 490
     height: 490
     start: Math.floor(Math.random() * 5)+1 # random number between 1 and 5

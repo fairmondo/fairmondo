@@ -32,6 +32,7 @@
 }
 
 .l-header-search-button {
+  @include omega;
   .Button {
     @include till-breakpoint($bp-tablet) {
       min-height: 5em;
@@ -79,8 +80,4 @@
     text-indent: 1em;
   }
 
-}
-
-.l-header-search-button {
-  @include omega;
 }

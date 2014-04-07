@@ -2,29 +2,43 @@
 
         Creating a sprite from following images:
         
-        app/assets/images/sprites/logo.png (229x46)
+        app/assets/images/sprites/sueddeutsche.png (200x30)
+        app/assets/images/sprites/taz.png (195x30)
+        app/assets/images/sprites/logo.png (170x33)
+        app/assets/images/sprites/hochschulanzeiger.png (154x30)
+        app/assets/images/sprites/logo_small.png (120x23)
+        app/assets/images/sprites/tagesspiegel.png (116x30)
+        app/assets/images/sprites/deutschlandfunk.png (90x30)
+        app/assets/images/sprites/arte.png (90x30)
         app/assets/images/sprites/neutral.png (60x60)
         app/assets/images/sprites/positive.png (60x60)
         app/assets/images/sprites/negative.png (60x60)
-        app/assets/images/sprites/left_arrow.png (21x28)
-        app/assets/images/sprites/left_arrow_hover.png (21x28)
         app/assets/images/sprites/right_arrow.png (21x28)
-        app/assets/images/sprites/right_arrow_hover.png (21x28)
+        app/assets/images/sprites/left_arrow--hover.png (21x28)
+        app/assets/images/sprites/left_arrow.png (21x28)
+        app/assets/images/sprites/right_arrow--hover.png (21x28)
 
         Output files:
           app/assets/images/sprites.png
           app/assets/stylesheets/sprites.css.scss
 
         Output size:
-          229x106
+          290x236
 
 
 */
-span.sprite_logo { width: 229px; height: 46px; background: image-url('sprites.png') 0px 0px no-repeat; }
-span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') 0px -46px no-repeat; }
-span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') -60px -46px no-repeat; }
-span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') -120px -46px no-repeat; }
-span.sprite_left_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -180px -46px no-repeat; }
-span.sprite_left_arrow_hover { width: 21px; height: 28px; background: image-url('sprites.png') -201px -46px no-repeat; }
-span.sprite_right_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -180px -74px no-repeat; }
-span.sprite_right_arrow_hover { width: 21px; height: 28px; background: image-url('sprites.png') -201px -74px no-repeat; }
+span.sprite_sueddeutsche { width: 200px; height: 30px; background: image-url('sprites.png') 0px 0px no-repeat; }
+span.sprite_taz { width: 195px; height: 30px; background: image-url('sprites.png') 0px -30px no-repeat; }
+span.sprite_logo { width: 170px; height: 33px; background: image-url('sprites.png') 0px -60px no-repeat; }
+span.sprite_hochschulanzeiger { width: 154px; height: 30px; background: image-url('sprites.png') 0px -93px no-repeat; }
+span.sprite_logo_small { width: 120px; height: 23px; background: image-url('sprites.png') 0px -123px no-repeat; }
+span.sprite_tagesspiegel { width: 116px; height: 30px; background: image-url('sprites.png') 0px -146px no-repeat; }
+span.sprite_deutschlandfunk { width: 90px; height: 30px; background: image-url('sprites.png') -200px 0px no-repeat; }
+span.sprite_arte { width: 90px; height: 30px; background: image-url('sprites.png') -200px -30px no-repeat; }
+span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') -200px -60px no-repeat; }
+span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') 0px -176px no-repeat; }
+span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') -60px -176px no-repeat; }
+span.sprite_right_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -260px -60px no-repeat; }
+span.sprite_left_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -260px -88px no-repeat; }
+span.sprite_left_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -200px -120px no-repeat; }
+span.sprite_right_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -221px -120px no-repeat; }
