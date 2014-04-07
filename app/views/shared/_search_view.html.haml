@@ -10,7 +10,7 @@
       = render '/shared/category_tree', category: nil
 
 .Search-ArticleContainer
-  = render '/shared/search_filter'
+  = render '/shared/search_filter', search_cache: search_cache
   - if articles.empty?
     %h2= t("common.text.no_search_result_text")
   - else

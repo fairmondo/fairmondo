@@ -20,6 +20,6 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .Filters
-  = render 'shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
-  = render 'shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious]
-  = render 'shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values
+  = render 'shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values, search_cache: search_cache
+  = render 'shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious], search_cache: search_cache
+  = render 'shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values, search_cache: search_cache

@@ -3,8 +3,8 @@
     %b
       = category.name
   - else
-    %a{href: category_path(category, article_search_form: search_params_merged_with( category => category )), data: { remote: 'true' }}
+    %a{href: category_path(category, article_search_form: search_params_merged_with( :category => category.id )), data: { remote: 'true' }}
       = category.name
 - else
-  %a{href: category_path(category), data: { remote: 'true' }}
+  %a{href: category_path(category, article_search_form: search_params_merged_with( :category => category.id )), data: { remote: 'true' }}
     = category.name
