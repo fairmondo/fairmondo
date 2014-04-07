@@ -1,0 +1,14 @@
+$(".Search-CategorySidelist").replaceWith("<%= j( render 'shared/category_tree', category: @search_cache.searched_category, search_cache: @search_cache ) %>");
+$(".Filters").replaceWith("<%= j( render 'shared/search_filter', search_cache: @search_cache, params: params ) %>");
+$(".l-ArticleList").replaceWith("<%= j( render '/articles/shared/articles_grid', search_cache: @search_cache, articles: @articles) %>");
+$(".pagination").replaceWith("<%= j(paginate @articles) %>");
+
+var $articles = $('.l-ArticleList');
+if ($articles.length > 0) {
+  $articles.prepend('<div class="Search-GutterSizer"></div><div class="Search-GridSizer"></div>');
+    $articles.masonry({
+      itemSelector: '.Search-Grid',
+      gutter: '.Search-GutterSizer',
+      columnWidth: '.Search-GridSizer'
+    });
+}
