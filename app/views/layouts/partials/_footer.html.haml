@@ -1,19 +1,18 @@
 .l-footer-top
-  %h4.l-footer-logo
+  .l-footer-logo
     %a{:href => "/"}
-      %img{:src => image_path('logo-small.png'), :alt => "Fairnopoly Logo"}
+      %span.sprite_logo_small
   %ul.l-footer-nav
-    %li
-      .Feedback
-        %a.Feedback-button{:href=>new_feedback_path(:variety => :get_help)}
-          %i.icon-help
-          = t('common.text.help')
-        %a.Feedback-button{:href=>new_feedback_path(:variety => :send_feedback)}
-          %i.icon-feedback
-          = t('common.text.feedback')
-        %a.Feedback-button{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
-          %i.icon-shares
-          = t('common.text.shares')
+    %li.Feedback
+      %a.Feedback-button{:href=>new_feedback_path(:variety => :get_help)}
+        %i.icon-help
+        = t('common.text.help')
+      %a.Feedback-button{:href=>new_feedback_path(:variety => :send_feedback)}
+        %i.icon-feedback
+        = t('common.text.feedback')
+      %a.Feedback-button.Feedback-button--green{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
+        %i.icon-shares
+        = t('common.text.shares')
     %li
       %a{:href => "/faq"}
         = t('footer.faq')
@@ -47,15 +46,14 @@
         = t('footer.blog')
 .l-footer-bottom
   .l-footer-copyright
-    %p &copy; Copyright 2014 Fairnopoly eG
-  .l-footer-nav
-    %ul
-      %li
-        %a{:href => "/agb"}
-          = t('footer.agb')
-      %li
-        %a{:href => "/privacy"}
-          = t('footer.privacy')
-      %li
-        %a{:href => "/imprint"}
-          = t('footer.imprint')
+    &copy; Copyright 2014 Fairnopoly eG
+  %ul.l-footer-nav
+    %li
+      %a{:href => "/agb"}
+        = t('footer.agb')
+    %li
+      %a{:href => "/privacy"}
+        = t('footer.privacy')
+    %li
+      %a{:href => "/imprint"}
+        = t('footer.imprint')

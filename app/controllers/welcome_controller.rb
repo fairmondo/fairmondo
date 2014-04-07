@@ -41,7 +41,4 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def landing
-    render layout: "landing"
-  end
 end

@@ -8,6 +8,14 @@
   margin-bottom: 0.5em;
 }
 
+.l-header-categories > ul {
+  list-style:none;
+  padding: 0em 0;
+  margin:0;
+  @include clear-links;
+  @include color-links($blue,$blue)
+}
+
 .l-header-categories > ul > li {
   display: inline-block;
   text-align: center;
@@ -21,13 +29,7 @@
   border-radius: 5px;
 }
 
-.l-header-categories > ul {
-  list-style:none;
-  padding: 0em 0;
-  margin:0;
-  @include clear-links;
-  @include color-links($blue,$blue)
-}
+
 
 .l-header-categories-children {
   padding:0;

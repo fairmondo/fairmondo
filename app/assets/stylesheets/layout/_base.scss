@@ -7,6 +7,8 @@ html,body {
   margin:0;
   padding:0;
   color: $black;
+  @include color-links($blue,$blue);
+  @include clear-links-with-hover;
 }
 
 h1,

@@ -7,6 +7,9 @@
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;
+  &:hover {
+    text-decoration:none;
+  }
 }
 
 @mixin bubbleize {

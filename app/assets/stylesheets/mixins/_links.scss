@@ -2,6 +2,9 @@
 @mixin clear-links {
   a {
     text-decoration:none;
+    &:hover {
+      text-decoration:none;
+    }
   }
 }
 
@@ -26,6 +29,3 @@
     }
   }
 }
-
-
-
