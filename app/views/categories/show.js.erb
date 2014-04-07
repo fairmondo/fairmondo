@@ -1,1 +1,2 @@
 $(".Search-CategorySidelist").replaceWith("<%= j( render 'shared/category_tree', category: @search_cache.searched_category ) %>");
+<%= render 'shared/article_grid_ajax.js.erb', search_cache: @search_cache, articles: @articles %>

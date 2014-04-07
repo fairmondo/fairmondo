@@ -2,22 +2,25 @@
   %h2.Search-CategoryTreeHeading.js-active-toggle--trigger{ data: {maxsize: "960" }}
     %i.Icon.icon-down_arrow.js-active-toggle--target
     %i.Icon.icon-up_arrow.js-active-toggle--target
-    - var = category
-    - var = category.parent if category.children.empty? && category.parent
-    - var.ancestors.each do |c|
-      %h3.Search-CategoryTreeParentHeading
-        %a{href: category_path(c), data: { remote: 'true' }}
-          = c.name
+    - cat = category ? category : nil
+    - cat = category.parent if category && category.children.empty? && category.parent
+    - if cat
+      - cat.ancestors.each do |c|
+        %h3.Search-CategoryTreeParentHeading
+          %a{href: category_path(c), data: { remote: 'true' }}
+            = c.name
   %ul.Search-CategoryTreeLevel1.js-active-toggle--target
     - if category
       - if category.children.empty? && category.parent
         %li
           = render '/shared/category_tree_leaf', category: category.parent
           %ul.Search-CategoryTreeLevel2
-            %li
-              %b= category.name
-            - category.siblings.each do |sibling|
-              %li= render '/shared/category_tree_leaf', category: sibling
+            - category.self_and_siblings.each do |sibling|
+              - if sibling == category
+                %b
+                  %li= render '/shared/category_tree_leaf', category: sibling
+              -else
+                %li= render '/shared/category_tree_leaf', category: sibling
         - category.parent.siblings.each do |sibling|
           %li= render '/shared/category_tree_leaf', category: sibling
       - else
