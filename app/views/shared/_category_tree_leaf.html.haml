@@ -1,6 +1,10 @@
 - if @search_cache
-  %a{href: category_path(category, article_search_form: params[:article_search_form]), data: { remote: 'true' }}
-    = category.name
+  - if @search_cache.searched_category == category && category.children.empty?
+    %b
+      = category.name
+  - else
+    %a{href: category_path(category, article_search_form: search_params_merged_with( category => category )), data: { remote: 'true' }}
+      = category.name
 - else
   %a{href: category_path(category), data: { remote: 'true' }}
     = category.name
