@@ -330,3 +330,8 @@ de:
           attributes:
             transaction_id:
               taken: "Diese Bewertung wurde bereits abgegeben."
+        mass_upload:
+          attributes:
+            file_file_size: &mu
+              in_between: "Das CSV-Datei ist zu groß. Maximal 20 MB."
+            file: *mu
