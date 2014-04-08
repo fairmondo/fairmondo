@@ -1,7 +1,8 @@
 $(".Search-CategorySidelist").replaceWith("<%= j( render 'shared/category_tree', category: @search_cache.searched_category, search_cache: @search_cache ) %>");
-$(".Filters").replaceWith("<%= j( render 'shared/search_filter', search_cache: @search_cache, params: params ) %>");
+$(".Filters").replaceWith("<%= j( render 'shared/search_filter', search_cache: @search_cache ) %>");
 $(".l-ArticleList").replaceWith("<%= j( render '/articles/shared/articles_grid', search_cache: @search_cache, articles: @articles) %>");
 $(".pagination").replaceWith("<%= j(paginate @articles) %>");
+$(".Hidden-search_cache").replaceWith("<%= j( render 'shared/hidden_params', article_search_form: params[:article_search_form]) %>");
 
 var $articles = $('.l-ArticleList');
 if ($articles.length > 0) {
