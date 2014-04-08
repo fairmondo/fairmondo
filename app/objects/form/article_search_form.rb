@@ -9,9 +9,9 @@ class ArticleSearchForm
   end
 
   attribute :q, String
-  attribute :fair, Boolean
-  attribute :ecologic, Boolean
-  attribute :small_and_precious, Boolean
+  attribute :fair, BooleanFromParams
+  attribute :ecologic, BooleanFromParams
+  attribute :small_and_precious, BooleanFromParams
   attribute :condition, String
   enumerize :condition, in: [:new, :old]
   attribute :category_id, Integer
