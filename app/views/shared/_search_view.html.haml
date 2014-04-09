@@ -4,15 +4,24 @@
   .Search-Leftbar
     .Category-index-parent
       = render '/shared/category_tree', category: search_cache.searched_category
-  .Search-ArticleContainer
-    = render '/shared/search_filter'
-    - if articles.empty?
-      %h2= t("common.text.no_search_result_text")
-    - else
-      = render '/articles/shared/articles_grid', articles: articles
-      = paginate articles
-      - if params[:queue]
-        .align-center
-          = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
+- elsif params[:article_search_form] && params[:article_search_form][:category] != ''
+  .Search-Leftbar
+    .Category-index-parent
+      = render '/shared/category_tree', category: Category.find(params[:article_search_form][:category])
+- else
+  .Search-Leftbar
+    .Category-index-parent
+      = render '/shared/category_tree', category: nil
+
+.Search-ArticleContainer
+  = render '/shared/search_filter', search_cache: search_cache
+  - if articles.empty?
+    %h2= t("common.text.no_search_result_text")
+  - else
+    = render '/articles/shared/articles_grid', articles: articles
+    = paginate articles
+    - if params[:queue]
+      .align-center
+        = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
 -if articles.total_count <= 4
   = render "/articles/shared/iframe"

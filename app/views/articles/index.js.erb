@@ -1,13 +1,1 @@
-$(".l-ArticleList").replaceWith("<%= j( render '/articles/shared/articles_grid', search_cache: @search_cache, articles: @articles) %>");
-$(".pagination").replaceWith("<%= j(paginate @articles) %>");
-$(".Filters").replaceWith("<%= j( render 'shared/search_filter', search_cache: @search_cache, params: params ) %>");
-
-var $articles = $('.l-ArticleList');
-if ($articles.length > 0) {
-  $articles.prepend('<div class="Search-GutterSizer"></div><div class="Search-GridSizer"></div>');
-    $articles.masonry({
-      itemSelector: '.Search-Grid',
-      gutter: '.Search-GutterSizer',
-      columnWidth: '.Search-GridSizer'
-    });
-}
+<%= render 'shared/article_grid_ajax.js.erb', search_cache: @search_cache, articles: @articles %>
