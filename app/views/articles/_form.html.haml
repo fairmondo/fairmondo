@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.Article-form.Accordion--activated.Accordion--scrollToActive
+.article-form.Accordion.Accordion--activated.Accordion--scrollToActive
   = render :partial => "articles/form/article_template_select"
   = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, builder: ::Fairtastic::FormBuilder do |f|
     = f.semantic_errors
@@ -33,7 +33,7 @@
           = f.semantic_fields_for :article_template do |template_form|
             = template_form.input :name, :required => false
       = f.actions do
-        = f.action :submit , :label => t("article.labels.continue_to_preview"), :button_html => { :class => 'Btn'}, :wrapper_html => {:class => 'Accordion-step'}
+        = f.action :submit , :label => t("article.labels.continue_to_preview"), :button_html => { :class => 'Button'}, :wrapper_html => {:class => 'Accordion-step'}
 - if current_user.is_a?(LegalEntity)
   = render :partial => "articles/form/import_articles_banner"
 

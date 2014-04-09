@@ -1,0 +1,67 @@
+
+@import "mixins/all";
+
+
+.formtastic .stringish input {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
+
+.article-form {
+  @include at-breakpoint($bp-tablet) {
+    @include span(3 of 4 0.1);
+  } 
+}
+
+.imports {
+  
+  .imports-inner {
+    @include whitebox;
+  }
+  
+  @include at-breakpoint($bp-tablet) {
+     @include span(1 of 4 0.1);
+     @include omega;
+  }
+}
+
+ul.category-selected-list {
+  display: table;
+  border-spacing: 0em 1em;
+  li {
+    display: table-row;
+    
+  }
+  .category-selected {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: $lightest-gray;
+    border-top-left-radius: 0.9em;
+    border-bottom-left-radius: 0.9em;
+  }
+  .Button {
+    display: table-cell;
+  }
+}
+
+#category-selectbutton {
+  padding: 0.65em 1em;
+  margin-left:0.5em;
+}
+
+.category-selected-tree-node {
+  &:first-of-type {
+    margin-left:1em;
+  }
+  &:after {
+    content: ">";
+    color: $gray;
+  }
+  &:last-of-type {
+    margin-right:2em;
+    &:after {
+      content: "";
+    }
+  }
+}

@@ -22,15 +22,15 @@
 - if resource.owned_by? current_user
   %div.Article-controls
     - if policy(resource).edit?
-      = link_to t('article.titles.edit') , edit_article_path , :class => "Btn"
+      = link_to t('article.titles.edit') , edit_article_path , :class => "Button"
     - if resource.locked? && policy(resource).new?
-      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Btn"
+      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Button"
     - if policy(resource).deactivate?
       %i.icon-helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
-      = link_to t('article.labels.edit_or_delete') , article_path(:deactivate => true), :confirm => t('article.deactivate_confirm') , :class => "Btn", :method => :put
-      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Btn", :method => :put
+      = link_to t('article.labels.edit_or_delete') , article_path(:deactivate => true), :confirm => t('article.deactivate_confirm') , :class => "Button", :method => :put
+      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Button", :method => :put
     - if policy(resource).destroy?
-      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Btn"
+      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Button"
 
 
 
@@ -78,13 +78,13 @@
               = f.button t('common.actions.collect'), :class => "Btn Btn--gray", :style => "margin:5px;padding:8px;"
         - elsif user_signed_in?
           %br
-          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Btn")
+          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button")
       - if policy(resource.transaction).edit?
         %p
-          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Btn Btn-primary Btn-fill", style: "margin:5px;"
+          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Button Btn-fill", style: "margin:5px;"
       -elsif resource.seller_vacationing?
         %p
-          .Btn.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'
+          .Button.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'
         %strong= t 'users.states.vacationing'
 
   .Article-info--left

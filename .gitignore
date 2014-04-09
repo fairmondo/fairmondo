@@ -12,7 +12,7 @@ config/initializers/secret_token.rb
 *.sublime-workspace
 .bundle/
 vendor/bundle
-
+*.komodoproject
 # Autotest configuration file
 .autotest
 

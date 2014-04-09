@@ -111,13 +111,12 @@ Fairnopoly::Application.routes.draw do
 
   resources :libraries, :only => [:index, :show]
 
-  resources :categories , only: [:index] do
+  resources :categories , only: [:index,:show] do
     member do
-      get '', to: 'categories#show', as: '', constraints: {format: 'html'} # has to be in this order for some reason
-      get '', to: 'categories#show_json', constraints: {format: /(js|json)/}
+      get 'select_category'
     end
     collection do
-      get '/id_index', to: 'categories#id_index'
+      get 'id_index', to: 'categories#id_index'
     end
   end
 

@@ -22,15 +22,15 @@
 
 
 $(document).ready(function(){
-  $("#user_password").complexify( {strengthScaleFactor: 0.5} , function (valid, complexity) {
-    $("#password_complexity_progress").show();
-    $("#password_complexity_label").show();
-    var bar = $("#password_complexity_progress .bar");
+  $("#user_password").complexify( {strengthScaleFactor: 0.8} , function (valid, complexity) {
+    $("#js-password_complexity_progress").show();
+    $("#js-password_complexity_label").show();
+    var bar = $("#js-password_complexity_progress .bar");
     bar.width( complexity + "%" );
     if(valid) {
-      bar.addClass("bar-success").removeClass("bar-danger");
+      bar.addClass("bar--green").removeClass("bar--red");
     } else {
-      bar.addClass("bar-danger").removeClass("bar-success");
+      bar.addClass("bar--red").removeClass("bar--green");
     }
   });
 });

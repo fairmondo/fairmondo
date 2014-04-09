@@ -26,7 +26,7 @@
       = t('article.preview.fees_and_donations.quarter_fee')
 
   - if articles.all? { |article| article.state ==  "active" }
-    %a.Btn.avoid-click.Btn--red.Btn--redBig
+    %a.Button.avoid-click.Button--red.Btn--redBig
       = t("mass_uploads.labels.all_articles_activated")
   - else
-    %a= button_to t("mass_uploads.labels.mass_activate_articles"), mass_upload_path(params[:id]), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    %a= button_to t("mass_uploads.labels.mass_activate_articles"), mass_upload_path(params[:id]), :class=>"Button Btn--blueBig", :method => :put

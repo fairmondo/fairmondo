@@ -33,4 +33,4 @@
         = f.input :articles, as: :check_boxes, multiple: true,  :collection => Hash[ articles.map{|a| [ a.slug, a.id.to_s ]} ], :input_html => { :checked => true }
         = f.input :queue, :as => :select, :collection => Exhibit.queue.options
       = f.actions do
-        = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Btn"}
+        = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Button"}
