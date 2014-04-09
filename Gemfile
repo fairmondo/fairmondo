@@ -37,6 +37,7 @@ gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'strong_parameters' # Rails 4-like mass-assignment protection
+gem 'canonical-rails' # canonical view links
 
 
 # Indexing /Searching
@@ -83,7 +84,6 @@ gem 'jquery-rails'
 gem 'kontoapi-ruby'
 #KntNr to IBAN
 gem 'ibanomat'
-
 
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
