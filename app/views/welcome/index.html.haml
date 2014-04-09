@@ -26,7 +26,6 @@
   .teaser-inner
     %h2
       = tinycms_content_body_sanitized("heading_features").upcase
-
     - [@queue1, @queue2].each_with_index do |queue,index|
       .teaser-queue
         - queue.each do |article|
@@ -88,6 +87,7 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
+
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
@@ -95,6 +95,7 @@
     - @donation_articles.each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
+
 
 .teaser.teaser--double.teaser--cardslides
   .teaser-inner
@@ -114,7 +115,6 @@
   .teaser-inner
     %h2
       = tinycms_content_body_sanitized("heading_features2").upcase
-
     - [@queue3, @queue4].each_with_index do |queue,index|
       .teaser-queue
         - queue.each do |article|
