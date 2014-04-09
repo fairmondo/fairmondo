@@ -21,7 +21,7 @@
                   = article.row_index
                 = simple_format(article.validation_errors)
           = paginate @erroneous_articles, param_name: "erroneous_articles_page"
-          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Btn Btn--blue Btn--overwrite"
+          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Button Btn--overwrite"
 
 
 - unless resource.articles_for_mass_activation.empty?

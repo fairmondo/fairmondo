@@ -4,6 +4,7 @@
   padding: 0 $screen-padding;
 }
 
+
 .l-header-search-libraries, .l-header-search-button {
 
   @include till-breakpoint($bp-tablet) {
@@ -74,10 +75,14 @@
 
   .selectboxit-container,.selectboxit-options, input ,select {
     width:100%;
+    border: 0px;
 
   }
   .selectboxit-text {
     text-indent: 1em;
+  }
+  .selectboxit-btn {
+    border: 0px;
   }
 
 }

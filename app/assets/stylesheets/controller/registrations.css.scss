@@ -1,0 +1,47 @@
+
+@import "mixins/all";
+
+.registrations-form {
+  @include at-breakpoint($bp-tablet) {
+		@include span(3 of 4);
+	}
+	@include at-breakpoint($bp-tablet-horizontal) {
+		@include span(2 of 4);
+	}
+  @include whitebox;
+  margin-bottom: 3em;
+  
+}
+
+.registrations-grid > ol > li {
+    @include at-breakpoint($bp-tablet-horizontal) {
+      @include span(2 of 4);
+      &:nth-child(2n) {
+      @include omega;
+      }
+    }
+    
+}
+
+// Password jquery-complexify
+.formtastic {
+  .pw-complexify {
+    label.label, .progress {
+      display: none;
+    }
+    .bar {
+      height: 2em;
+    }
+    .progress {
+      border-radius: 0.9em;
+      border: 1px solid $light-gray;
+      overflow: hidden;
+    }
+    .bar--red {
+      background: $red;
+    }
+    .bar--green {
+      background: $green;
+    }
+  }
+}

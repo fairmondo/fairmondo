@@ -1,6 +1,0 @@
-%li{ :data => {:category => category.id, :ancestors => category.ancestors.map{|c| c.id.to_s}}}
-  %input{:name => object_name+"[category_ids][]", :type => "hidden" , :value => category.id.to_s}
-  - category.self_and_ancestors.each do |category|
-    %span.Category-selected
-      = category.name
-

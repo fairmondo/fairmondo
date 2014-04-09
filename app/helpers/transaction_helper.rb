@@ -221,7 +221,7 @@ module TransactionHelper
           country: country
         }
       ),
-      class: 'Btn Btn--graySmaller'
+      class: 'Button Button--gray'
   end
 
   private

@@ -19,9 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
-.User-login
-  = semantic_form_for(User.new, :as => :user,:html => {:class => 'form-vertical'},  :url => session_path(:user)) do |f|
+.sessions-form
+  = semantic_form_for(User.new, :as => :user,  :url => session_path(:user)) do |f|
     = f.semantic_errors
     = f.inputs do
       = f.input :email, :tooltip => false
@@ -29,6 +28,6 @@
       - if devise_mapping.rememberable?
         = f.input :remember_me, :as => :boolean , :label => false
     = f.actions do
-      = f.action :submit, :button_html => {:class => "Btn"} , :label => :login
+      = f.action :submit, :button_html => {:class => "Button"} , :label => :login
   = render "/devise/links"
 

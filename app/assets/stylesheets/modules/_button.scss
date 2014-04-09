@@ -26,6 +26,13 @@ a.Button {
   }
 }
 
+.Button--red {
+  background-color: $red;
+  &:hover {
+    background-color: lighten($red, 5%);
+  }
+}
+
 .Button--gray {
   background-color: $gray;
   &:hover {

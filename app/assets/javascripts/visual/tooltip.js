@@ -20,7 +20,7 @@
 */
 
 $(document).ready(function(){
-  $("i.icon-helper").tooltip
+  $("span.sprite_helper").tooltip
   (
   {
     tooltipClass: "bottom", // class for the arrow/pointer
@@ -44,14 +44,14 @@ $(document).ready(function(){
 
 
 
-  $("i.icon-helper").on( "mouseleave", function( e ) {
+  $("span.sprite_helper").on( "mouseleave", function( e ) {
     e.stopImmediatePropagation();
   });
-  $("i.icon-helper").on('click',function(e) {
+  $("span.sprite_helper").on('click',function(e) {
     e.stopPropagation();
 
     alreadyopen = $(e.target).data("opened");
-    $("i.icon-helper").tooltip('close'); //Close all open tooltips
+    $("span.sprite_helper").tooltip('close'); //Close all open tooltips
     if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
     	$(e.target).tooltip('open');
     }
@@ -61,7 +61,7 @@ $(document).ready(function(){
     e.stopPropagation();
   });
   $('html').click(function(e) {
-    $("i.icon-helper").tooltip('close');
+    $("span.sprite_helper").tooltip('close');
   });
 
 });

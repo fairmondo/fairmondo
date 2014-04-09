@@ -25,7 +25,7 @@ module Formtastic
     module Base
       module Html
         def tooltip
-          template.content_tag(:i, "" ,:class => "icon-helper",:title => tooltip_text.html_safe ) if tooltip?
+          template.content_tag(:span, "" ,:class => "sprite_helper",:title => tooltip_text.html_safe ) if tooltip?
         end
 
         def tooltip?
