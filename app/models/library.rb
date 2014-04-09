@@ -20,7 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Library < ActiveRecord::Base
-  extend Sanitization
+  extend Sanitization, Enumerize
 
   def self.library_attrs
     [:name, :public, :user, :user_id]
@@ -32,8 +32,11 @@ class Library < ActiveRecord::Base
   delegate :nickname, to: :user, prefix: true
 
   validates :name, :user, presence: true
-
   validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
+
+  enumerize :exhibition_name, in: [:donation_articles, :old, :queue1, :queue2,
+    :queue3, :queue4, :book1, :book2, :book3, :book4, :book5, :book6, :book7,
+    :book8]
 
   #Relations
 

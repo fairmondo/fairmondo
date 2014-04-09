@@ -29,7 +29,7 @@
     .Teaser-queues
       - [@queue1, @queue2].each_with_index do |queue,index|
         .Teaser-queue
-          = render "exhibition", articles: queue, layout: :single
+          = render "/shared/exhibition", articles: queue, layout: :single
           %p.Teaser-more
             = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Btn"
 
@@ -83,13 +83,13 @@
   .Teaser
     %h2.Teaser-header
       GEBRAUCHT BEI FAIRNOPOLY
-    = render "exhibition", articles: @old, layout: :double
+    = render "/shared/exhibition", articles: @old, layout: :double
 
 .l-Teaser--double.l-Teaser--collapsible.l-Teaser--ecologic
   .Teaser
     %h2.Teaser-header
       MIT SPENDENANTEIL
-    = render "exhibition", articles: @donation_articles, layout: :double
+    = render "/shared/exhibition", articles: @donation_articles, layout: :double
 
 .l-Teaser--double.l-Teaser--slides
   .Teaser.Teaser--text
@@ -108,7 +108,7 @@
     .Teaser-queues
       - [@queue3, @queue4].each_with_index do |queue,index|
         .Teaser-queue
-          = render "exhibition", articles: queue, layout: :single
+          = render "/shared/exhibition", articles: queue, layout: :single
           %p.Teaser-more
             = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Btn"
 
