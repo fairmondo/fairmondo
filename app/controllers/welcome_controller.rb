@@ -24,12 +24,12 @@ class WelcomeController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index, :feed, :landing]
 
   def index
-    @queue1 = Exhibrary.new.find 51, 1
-    @queue2 = []
-    @queue3 = []
-    @queue4 = []
-    @old = []#Exhibit.independent_queue :old
-    @donation_articles = []#Exhibit.independent_queue :donation_articles
+    @queue1 = ExhibraryQuery.new(:queue1).find 1
+    @queue2 = ExhibraryQuery.new(:queue2).find 1
+    @queue3 = ExhibraryQuery.new(:queue3).find 1
+    @queue4 = ExhibraryQuery.new(:queue4).find 1
+    @old = ExhibraryQuery.new(:old).find 1
+    @donation_articles = ExhibraryQuery.new(:donation_articles).find 1
   end
 
   # Rss Feed

@@ -1,1 +1,42 @@
-%h1 BOOK SPECIFIC STUFF
+- content_for :category_specific_content do
+  .Teaser
+    %h2.Teaser-header
+      BESTSELLER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book1).find(4), layout: :quadruple
+
+  .Teaser
+    %h2.Teaser-header
+      NEUIGKEITEN
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book2).find(4), layout: :quadruple
+
+  -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
+
+  .Teaser
+    %h2.Teaser-header
+      HÖRBÜCHER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book3).find(4), layout: :double
+
+  .Teaser
+    %h2.Teaser-header
+      GEBRAUCHTE BÜCHER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book4).find(4), layout: :double
+
+  .Teaser
+    %h2.Teaser-header
+      KRIMIS
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book5).find(4), layout: :double
+
+  .Teaser
+    %h2.Teaser-header
+      KINDERBÜCHER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book6).find(4), layout: :double
+
+  .Teaser
+    %h2.Teaser-header
+      KOCHBÜCHER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book7).find(4), layout: :double
+
+  .Teaser
+    %h2.Teaser-header
+      SACHBÜCHER
+    = render "/shared/exhibition", articles: ExhibraryQuery.new(:book8).find(4), layout: :double
