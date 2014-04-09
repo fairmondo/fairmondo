@@ -34,6 +34,7 @@
     %title= title
     %meta{ name: 'keywords', content: meta_keywords }
     %meta{ name: 'description', content: meta_description }
+    = canonical_tag # for SEO - canonical URL from gem
 
     %meta{:content => "width=device-width", :name => "viewport"}
 
@@ -132,6 +133,7 @@
                   .l-Middle
                     = f.inputs :class => "Search" do
                       .Search-input
+                        = render 'shared/hidden_params', article_search_form: search_params_merged_with( condition: nil )
                         = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
                       .Search-button
                         = image_submit_tag("icon/search.png", :alt => t('common.actions.search'), :title => t('common.actions.search'))
@@ -140,7 +142,7 @@
           -#= hero
       .l-Main{:role => "main"}
         .l-Inner
-          = yield # <-----------------------------------------
+          = yield
 
         - if controller.controller_name == 'welcome' && controller.action_name == 'index'
           - cache "ngo_logosand_known_from" do

@@ -23,7 +23,7 @@ class ArticlesController < InheritedResources::Base
 
   # Inherited Resources
   respond_to :html
-  respond_to :js, only: :index
+  respond_to :js, only: :index, if: lambda { request.xhr? }
   actions :all # inherited methods
 
   # Authorization
