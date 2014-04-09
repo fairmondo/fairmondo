@@ -7,7 +7,7 @@
     - if cat
       - cat.ancestors.each do |c|
         %h3.Search-CategoryTreeParentHeading
-          %a{href: category_path(c, article_search_form: search_params_merged_with( :category => category.id )), data: { remote: 'true' }}
+          %a{href: category_path(c, article_search_form: search_params_merged_with( :category => c.id )), data: { remote: 'true' }}
             = c.name
   %ul.Search-CategoryTreeLevel1.js-active-toggle--target
     - if category

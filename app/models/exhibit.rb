@@ -12,11 +12,6 @@ class Exhibit < ActiveRecord::Base
   belongs_to :article
   belongs_to :related_article, class_name: "Article"
 
-  scope :one_day_exhibited, lambda { where("exhibits.exhibition_date IS NULL OR exhibits.exhibition_date >= ?", DateTime.now - 1.day) }
-  scope :older_exhibited, lambda { where("exhibits.exhibition_date IS NOT NULL AND exhibits.exhibition_date < ?", DateTime.now - 1.day).order("RANDOM()") }
-  scope :oldest_first, order("exhibits.created_at ASC")
-  scope :article_active, where(" articles.state = 'active' ").joins(:article).includes(:article => [:images,:seller])
-  scope :related_article_active, where("related_articles_exhibits.state = 'active' ").joins(:related_article).includes(:related_article => [:images,:seller])
 
   def self.independent_queue queue, count = 2
     exhibits = Exhibit.where(queue: queue).one_day_exhibited.article_active.oldest_first.limit count

@@ -27,12 +27,12 @@ class LibraryElement < ActiveRecord::Base
   #! attr_accessible *library_element_attributes
   #! attr_accessible *library_element_attributes, :as => :admin
 
-  delegate :name, :user_id , :to => :library , :prefix => true
-  delegate :title, :to => :article, :prefix => true
+  delegate :name, :user_id , to: :library , prefix: true
+  delegate :title, to: :article, prefix: true
 
   # Validations
-  validates :library_id, :uniqueness => {:scope => :article_id  }
-  validates :library_id , :presence => true
+  validates :library_id, uniqueness: { scope: :article_id }
+  validates :library_id, presence: true
 
   # Relations
   belongs_to :article
