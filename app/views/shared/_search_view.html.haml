@@ -1,28 +1,29 @@
 - title index_title_for search_cache
 
-- if search_cache.searched_category
-  .Search-Leftbar
-    .Category-index-parent
-      = render '/shared/category_tree', category: search_cache.searched_category
-- elsif params[:article_search_form] && params[:article_search_form][:category] != ''
-  .Search-Leftbar
-    .Category-index-parent
-      = render '/shared/category_tree', category: Category.find(params[:article_search_form][:category])
-- else
-  .Search-Leftbar
-    .Category-index-parent
-      = render '/shared/category_tree', category: nil
-
-.Search-ArticleContainer
-  = content_for :category_specific_content
-  = render '/shared/search_filter', search_cache: search_cache
-  - if articles.empty?
-    %h2= t("common.text.no_search_result_text")
+.SearchView
+  - if search_cache.searched_category
+    .Search-Leftbar
+      .Category-index-parent
+        = render '/shared/category_tree', category: search_cache.searched_category
+  - elsif params[:article_search_form] && params[:article_search_form][:category] != ''
+    .Search-Leftbar
+      .Category-index-parent
+        = render '/shared/category_tree', category: Category.find(params[:article_search_form][:category])
   - else
-    = render '/articles/shared/articles_grid', articles: articles
-    = paginate articles
-    - if params[:queue]
-      .align-center
-        = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
--if articles.total_count <= 4
-  = render "/articles/shared/iframe"
+    .Search-Leftbar
+      .Category-index-parent
+        = render '/shared/category_tree', category: nil
+
+  .Search-ArticleContainer
+    = content_for :category_specific_content
+    = render '/shared/search_filter', search_cache: search_cache
+    - if articles.empty?
+      %h2= t("common.text.no_search_result_text")
+    - else
+      = render '/articles/shared/articles_grid', articles: articles
+      = paginate articles
+      - if params[:queue]
+        .align-center
+          = link_to t("enumerize.exhibit.queue.more_articles"), articles_path
+  -if articles.total_count <= 4
+    = render "/articles/shared/iframe"
