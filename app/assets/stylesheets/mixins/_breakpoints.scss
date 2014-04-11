@@ -11,11 +11,11 @@ $bp-desktop-wide: 1500px;
 }
 
 @mixin till-breakpoint($value) {
-   @media (max-width: $value) { @content; }
+   @media (max-width: $value - 1px) { @content; }
 }
 
 @mixin between-breakpoints($min, $max) {
-  @media (min-width: $min) and (max-width: $max) {
+  @media (min-width: $min) and (max-width: $max - 1px) {
     @content;
   }
 }

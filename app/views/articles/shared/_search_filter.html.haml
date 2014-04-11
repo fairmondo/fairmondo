@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Filters
-  = render 'shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
-  = render 'shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious]
-  = render 'shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values
+.Search-filters
+  = render 'articles/shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
+  = render 'articles/shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious]
+  = render 'articles/shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values

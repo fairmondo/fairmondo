@@ -26,7 +26,7 @@ class ArticleSearchForm
   end
 
   def searched_category category_id = self.category_id
-    Category.find(category_id)
+    Category.includes(:children).find(category_id)
   rescue
     nil
   end
