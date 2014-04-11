@@ -8,26 +8,37 @@
         app/assets/images/sprites/hochschulanzeiger.png (154x30)
         app/assets/images/sprites/logo_small.png (120x23)
         app/assets/images/sprites/tagesspiegel.png (116x30)
-        app/assets/images/sprites/arte.png (90x30)
+        app/assets/images/sprites/get_share.png (96x96)
+        app/assets/images/sprites/pioneerbutton.png (96x95)
         app/assets/images/sprites/deutschlandfunk.png (90x30)
-        app/assets/images/sprites/positive.png (60x60)
+        app/assets/images/sprites/arte.png (90x30)
         app/assets/images/sprites/negative.png (60x60)
+        app/assets/images/sprites/positive.png (60x60)
         app/assets/images/sprites/neutral.png (60x60)
-        app/assets/images/sprites/left_arrow--hover.png (21x28)
+        app/assets/images/sprites/positive_small.png (30x30)
+        app/assets/images/sprites/negative_small.png (30x30)
+        app/assets/images/sprites/neutral_small.png (30x30)
         app/assets/images/sprites/left_arrow.png (21x28)
         app/assets/images/sprites/right_arrow--hover.png (21x28)
         app/assets/images/sprites/right_arrow.png (21x28)
+        app/assets/images/sprites/left_arrow--hover.png (21x28)
         app/assets/images/sprites/up_arrow.png (28x21)
         app/assets/images/sprites/down_arrow.png (28x21)
+        app/assets/images/sprites/openbox.png (23x21)
+        app/assets/images/sprites/box.png (23x20)
+        app/assets/images/sprites/paper.png (22x18)
         app/assets/images/sprites/helper--hover.png (20x20)
         app/assets/images/sprites/helper.png (20x20)
+        app/assets/images/sprites/pencil.png (17x17)
+        app/assets/images/sprites/briefcase.png (14x12)
+        app/assets/images/sprites/user.png (13x12)
 
         Output files:
           app/assets/images/sprites.png
           app/assets/stylesheets/sprites.css.scss
 
         Output size:
-          290x236
+          296x271
 
 
 */
@@ -37,16 +48,27 @@ span.sprite_logo { width: 170px; height: 33px; background: image-url('sprites.pn
 span.sprite_hochschulanzeiger { width: 154px; height: 30px; background: image-url('sprites.png') 0px -93px no-repeat; }
 span.sprite_logo_small { width: 120px; height: 23px; background: image-url('sprites.png') 0px -123px no-repeat; }
 span.sprite_tagesspiegel { width: 116px; height: 30px; background: image-url('sprites.png') 0px -146px no-repeat; }
-span.sprite_arte { width: 90px; height: 30px; background: image-url('sprites.png') -200px 0px no-repeat; }
-span.sprite_deutschlandfunk { width: 90px; height: 30px; background: image-url('sprites.png') -200px -30px no-repeat; }
-span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') -200px -60px no-repeat; }
-span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') 0px -176px no-repeat; }
-span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') -60px -176px no-repeat; }
-span.sprite_left_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -260px -60px no-repeat; }
-span.sprite_left_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -260px -88px no-repeat; }
-span.sprite_right_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -200px -120px no-repeat; }
-span.sprite_right_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -221px -120px no-repeat; }
-span.sprite_up_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -242px -120px no-repeat; }
-span.sprite_down_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -200px -148px no-repeat; }
-span.sprite_helper:hover { width: 20px; height: 20px; background: image-url('sprites.png') -270px -120px no-repeat; }
-span.sprite_helper { width: 20px; height: 20px; background: image-url('sprites.png') -228px -148px no-repeat; }
+span.sprite_get_share { width: 96px; height: 96px; background: image-url('sprites.png') -200px 0px no-repeat; }
+span.sprite_pioneerbutton { width: 96px; height: 95px; background: image-url('sprites.png') 0px -176px no-repeat; }
+span.sprite_deutschlandfunk { width: 90px; height: 30px; background: image-url('sprites.png') -200px -96px no-repeat; }
+span.sprite_arte { width: 90px; height: 30px; background: image-url('sprites.png') -200px -126px no-repeat; }
+span.sprite_negative { width: 60px; height: 60px; background: image-url('sprites.png') -96px -176px no-repeat; }
+span.sprite_positive { width: 60px; height: 60px; background: image-url('sprites.png') -156px -176px no-repeat; }
+span.sprite_neutral { width: 60px; height: 60px; background: image-url('sprites.png') -216px -176px no-repeat; }
+span.sprite_positive_small { width: 30px; height: 30px; background: image-url('sprites.png') -170px -60px no-repeat; }
+span.sprite_negative_small { width: 30px; height: 30px; background: image-url('sprites.png') -154px -93px no-repeat; }
+span.sprite_neutral_small { width: 30px; height: 30px; background: image-url('sprites.png') -116px -146px no-repeat; }
+span.sprite_left_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -146px -146px no-repeat; }
+span.sprite_right_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -167px -146px no-repeat; }
+span.sprite_right_arrow { width: 21px; height: 28px; background: image-url('sprites.png') -96px -236px no-repeat; }
+span.sprite_left_arrow:hover { width: 21px; height: 28px; background: image-url('sprites.png') -117px -236px no-repeat; }
+span.sprite_up_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -120px -123px no-repeat; }
+span.sprite_down_arrow { width: 28px; height: 21px; background: image-url('sprites.png') -148px -123px no-repeat; }
+span.sprite_openbox { width: 23px; height: 21px; background: image-url('sprites.png') -176px -123px no-repeat; }
+span.sprite_box { width: 23px; height: 20px; background: image-url('sprites.png') -200px -156px no-repeat; }
+span.sprite_paper { width: 22px; height: 18px; background: image-url('sprites.png') -223px -156px no-repeat; }
+span.sprite_helper:hover { width: 20px; height: 20px; background: image-url('sprites.png') -276px -176px no-repeat; }
+span.sprite_helper { width: 20px; height: 20px; background: image-url('sprites.png') -276px -196px no-repeat; }
+span.sprite_pencil { width: 17px; height: 17px; background: image-url('sprites.png') -245px -156px no-repeat; }
+span.sprite_briefcase { width: 14px; height: 12px; background: image-url('sprites.png') -262px -156px no-repeat; }
+span.sprite_user { width: 13px; height: 12px; background: image-url('sprites.png') -276px -156px no-repeat; }

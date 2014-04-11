@@ -1,3 +1,7 @@
+// Common Breakpoints
+
+// Use them wherever possible
+
 $bp-mobile: 320px;
 $bp-mobile-horizontal: 480px;
 $bp-tablet: 768px;
@@ -5,6 +9,10 @@ $bp-tablet-horizontal: 1024px;
 $bp-desktop: 1280px;
 $bp-desktop-wide: 1500px;
 
+// Uncommon Special Brreakpoints
+// Try to avoid these as much as possible
+
+$bp-mobile-horizontal-big: 564px;
 
 @mixin at-breakpoint($value) {
    @media (min-width: $value) { @content; }

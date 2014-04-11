@@ -19,37 +19,28 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.User-info
+.User
   - if defined?(show_title) && show_title
     %h3.User-title Anbieter*in
   .User-image
     - if user.is_pioneer?
-      = image_tag "pionierbutton.png", :class => "pioneer-button"
+      %span.sprite_pioneerbutton
     %a{:href => user_path(user)}
-      = image_tag(user.image_url(:profile), :class => "User-profile-image")
-  %p.User-name
+      = image_tag(user.image_url(:profile))
+  .User-name
     = user.name
-    %br/
-    -# if user.is_a?(LegalEntity)
-    -#  = user.fullname
-
-  %p.User-legal
-
+  .User-type
     - if user.is_a?(LegalEntity) && !user.ngo
-      %a.Icon{:href => "#"}
-        %i.icon-briefcase
-        = link_to(t('users.legal_status.show.legal_entity'), profile_user_path(user))
+      %span.sprite_briefcase
+      = link_to(t('users.legal_status.show.legal_entity'), profile_user_path(user))
     - elsif user.ngo
-      %a.Icon{:href => "#"}
-        %i.icon-briefcase
-        = link_to(t('users.legal_status.show.ngo'), profile_user_path(user))
+      %span.sprite_briefcase
+      = link_to(t('users.legal_status.show.ngo'), profile_user_path(user))
     - else
-      %a.Icon{:href => ""}
-        %i.icon-user
-        = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))
-
-  -if user.vacationing?
-    .User-stateInfo
-      %p= t 'users.states.vacationing'
+      %span.sprite_user
+      = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))
+  - if user.vacationing?
+    .User-vacation
+      = t 'users.states.vacationing'
 
   = render '/users/ratings', user: user
