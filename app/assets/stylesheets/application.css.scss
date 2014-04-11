@@ -60,16 +60,18 @@
 @import "layout/footer";
 
 // Modules
-@import "modules/notice";
-@import "modules/button";
-@import "modules/tag";
-@import "modules/news_header";
-@import "modules/article";
-@import "modules/feedback";
-@import "modules/tooltip";
-@import "modules/accordion";
-@import "modules/search";
-@import "modules/grid";
+@import "modules/notice"; // Notice boxes
+@import "modules/button"; // Buttons
+@import "modules/tag"; // small eco/fair/s&p tags
+@import "modules/news_header"; // header for news
+@import "modules/article"; // an article tile
+@import "modules/feedback"; // feedback sidelabels
+@import "modules/tooltip"; // tooltip format
+@import "modules/accordion"; // accordions
+@import "modules/search"; // search result, filters, categories
+@import "modules/grid"; // anonymos grid
+@import "modules/user"; // user profile tile
+@import "modules/content"; // helper for cms
 
 // vendor changes
 @import "vendor/formtastic_changes";

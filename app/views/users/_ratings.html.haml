@@ -20,15 +20,17 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 .User-rating
-  %span.text-left= link_to t('rating.show.nr_of_ratings'), user_ratings_path(user)
-  %span.text-right= user.ratings.count
-  %br/
-  - if user.ratings.count > 0
-    %img{ :src => image_path('thumbs/positive.png'), :alt => "positive rating" }
-    %span= number_with_precision( user.percentage_of_positive_ratings, :precision => 1 ).to_s+"%"
-    %img{ :src => image_path('thumbs/neutral.png'), :alt => "neutral rating" }
-    %span= number_with_precision( user.percentage_of_neutral_ratings, :precision => 1 ).to_s+"%"
-    %img{ :src => image_path('thumbs/negative.png'), :alt => "negative rating" }
-    %span= number_with_precision( user.percentage_of_negative_ratings, :precision => 1 ).to_s+"%"
-
-
+  = link_to  user_ratings_path(user) do
+    = t('rating.show.nr_of_ratings')
+    = user.ratings.count
+  .User-rating-images
+    - if user.ratings.count > 0
+      .User-rating-image
+        %span.sprite_positive_small
+        = number_with_precision( user.percentage_of_positive_ratings, :precision => 1 ).to_s+"%"
+      .User-rating-image
+        %span.sprite_neutral_small
+        = number_with_precision( user.percentage_of_neutral_ratings, :precision => 1 ).to_s+"%"
+      .User-rating-image
+        %span.sprite_negative_small
+        = number_with_precision( user.percentage_of_negative_ratings, :precision => 1 ).to_s+"%"

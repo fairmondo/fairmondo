@@ -28,8 +28,6 @@ $(function() {
 		active: target
 	});
 
-	$(".Accordion--containsArticles").on("accordionactivate", function(event,ui) { $('.l-ArticleList').masonry(); });
-
 	$(".Accordion--scrollToActive").on("accordionactivate", function(event,ui) {
 		if(ui.newHeader.length != 0) {
 	    	$('html, body').animate({

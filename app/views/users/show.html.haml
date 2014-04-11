@@ -19,7 +19,7 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
+= render "header"
 - if resource.is? current_user
   .User-additional.Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     = render '/shared/listview/listview_accordion', item_name: 'active', item_link: new_article_path, items: active_articles

@@ -32,3 +32,10 @@ h3 {
 h4 {
   font-weight: 700;
 }
+
+
+// Sprites
+
+span[class^="sprite_"] {
+  display: inline-block;
+}
