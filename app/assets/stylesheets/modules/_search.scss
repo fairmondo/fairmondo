@@ -1,0 +1,175 @@
+
+
+// Search Result Layout
+
+// Sidebar left / Results right in desktop
+
+@include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+  .Search-sidebar {
+    @include span(1 of 3 0.1);
+  }
+  .Search-results {
+    @include span(2 of 3 0.1);
+    @include omega;
+  }
+}
+
+
+@include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+  .Search-sidebar {
+    @include span(1 of 4 0.1);
+  }
+  .Search-results {
+    @include span(3 of 4 0.1);
+    @include omega;
+  }
+}
+
+@include at-breakpoint($bp-desktop) {
+  .Search-sidebar {
+    @include span(1 of 5 0.1);
+  }
+  .Search-results {
+    @include span(4 of 5 0.1);
+    @include omega;
+  }
+}
+
+// Sidebar Categories
+
+.Search-categories {
+  @include whitebox;
+  margin-bottom: 1em;
+}
+
+.Search-categories > .Search-heading {
+
+  margin:0;
+  //font-size: 1rem; would be an option
+  @include at-breakpoint($bp-tablet) {
+    display: none;
+  }
+}
+
+.Search-categories > .Search-heading > .Search-arrow {
+  float: right;
+  &.sprite_down_arrow {
+    display: inline-block;
+    &.is-active {
+      display: none;
+    }
+  }
+  &.sprite_up_arrow {
+    display:none;
+    &.is-active {
+      display: inline-block;
+    }
+  }
+
+
+}
+
+.Search-categories > .Search-tree {
+  margin:  0;
+  padding: 0;
+  list-style-type: none;
+
+  @include till-breakpoint($bp-tablet) {
+    padding:1em;
+    display: none;
+    &.is-active{
+      display:block;
+    }
+  }
+}
+
+// List node
+
+.Search-categories .Search-tree > li {
+  padding: 0.5em 0em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width:100%;
+  @include till-breakpoint($bp-tablet) {
+
+    border-bottom: 1px dashed $lighter-gray;
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+}
+
+// Ancestors
+
+.Search-categories > .Search-tree > li > .Search-ancestor {
+  margin: 0 0 1em;
+  @include till-breakpoint($bp-tablet) {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+// Second  level
+
+.Search-categories > .Search-tree > li > .Search-tree {
+  list-style-type: none;
+  margin-left: 1em;
+  padding:0;
+}
+
+
+// Search filters
+
+.Search-filters {
+  margin-bottom: 2em;
+  @include clearfix;
+}
+
+.Search-filters > .Search-filter {
+  position: relative;
+  @include span(1 of 3 0.1);
+  &:nth-child(3) {
+    @include omega;
+  }
+}
+
+.Search-dropdown {
+  @include whitebox;
+  padding: 0.3em;
+  @include user-select(none);
+}
+
+.Search-dropdown > ul {
+  display:none;
+  width:100%;
+  padding:0;
+  background: white;
+  box-shadow: $lightest-gray 0px 0px 2px 2px;
+  list-style: none;
+
+  &.is-active {
+
+    top: 1.2em;
+    left: 0em;
+    display: block;
+    position: absolute;
+    z-index: 1;
+
+  }
+}
+
+.Search-dropdown > ul > li > a {
+  padding: 0.5em;
+  display:block;
+  text-decoration:none;
+  img {
+    float:left;
+    margin-right: 0.5em;
+  }
+  &:hover {
+    background: $blue;
+    color:white;
+  }
+}
+

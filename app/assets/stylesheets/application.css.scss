@@ -68,11 +68,14 @@
 @import "modules/feedback";
 @import "modules/tooltip";
 @import "modules/accordion";
+@import "modules/search";
+@import "modules/grid";
 
 // vendor changes
 @import "vendor/formtastic_changes";
 @import "vendor/selectboxit_changes";
 @import "vendor/colorbox_changes";
+@import "vendor/kaminari";
 
 // Auto-Generated sprite file
 @import "sprites"

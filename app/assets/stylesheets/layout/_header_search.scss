@@ -35,9 +35,6 @@
 .l-header-search-button {
   @include omega;
   .Button {
-    @include till-breakpoint($bp-tablet) {
-      min-height: 5em;
-    }
     width:100%;
   }
 }
@@ -71,6 +68,12 @@
       @include omega;
     }
 
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    &:last-child {
+      display:none;
+    }
   }
 
   .selectboxit-container,.selectboxit-options, input ,select {

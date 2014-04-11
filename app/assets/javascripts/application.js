@@ -46,7 +46,6 @@
 //= require vendor/jquery.icheck
 //= require vendor/jquery.colorbox
 //= require vendor/jquery.truncator
-//= require vendor/masonry.pkgd.min
 //= require vendor/imagesloaded.pkgd
 
 //= require models/article/categories
@@ -57,7 +56,6 @@
 //= require models/library/libraries
 //= require models/user/login
 
-//= require visual/masonry
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
@@ -70,7 +68,6 @@
 //= require visual/slides
 //= require visual/iframe
 //= require visual/active_toggle
-//= require visual/filter_dropdown
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy

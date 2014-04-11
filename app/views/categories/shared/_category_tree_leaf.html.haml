@@ -1,0 +1,7 @@
+- if search_cache && search_cache.searched_category == category
+  %span{title: category.name}
+    %b
+      = category.name
+- else
+  %a{href: category_path(category, article_search_form: search_params_merged_with( :category => category.id )), title: category.name, data: { remote: 'true' }}
+    = category.name

@@ -1,5 +1,5 @@
-.Filter.js-active-toggle--container
-  .Filter-button.js-active-toggle--trigger{data: {clickable: true}}
+.Search-filter.js-active-toggle--container
+  .Search-dropdown.js-active-toggle--trigger{data: {clickable: true}}
     = title
     - parameters.each do |parameter|
       - if @search_cache && @search_cache.send(parameter)

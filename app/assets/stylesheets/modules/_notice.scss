@@ -11,7 +11,7 @@
 .Notice-inner {
   @include container($screen-width);
   @include color-links(white,$lighter-gray);
-  padding: 1em 0;
+  padding: 1em $screen-padding;
 }
 
 .Notice--info,.Notice--confirmation {

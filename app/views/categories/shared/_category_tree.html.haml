@@ -1,0 +1,40 @@
+- category = search_cache.searched_category
+.Search-categories.js-active-toggle--container
+  %h3.Search-heading.js-active-toggle--trigger{ data: {maxsize: "960" }}
+    - if category
+      = category.name
+    - else
+      Alle Kategorien
+    %span.Search-arrow.sprite_down_arrow.js-active-toggle--target
+    %span.Search-arrow.sprite_up_arrow.js-active-toggle--target
+  %ul.Search-tree.js-active-toggle--target
+    - ancestor = (category && category.children.empty? && category.parent) ? category.parent : category
+    - if ancestor
+      - ancestor.ancestors.each do |c|
+        %li
+          %h3.Search-ancestor
+            %a{href: category_path(c, article_search_form: search_params_merged_with( :category => c.id )), data: { remote: 'true' }}
+              = c.name
+    - if category
+      - if category.children.empty? && category.parent
+        %li
+          = render 'categories/shared/category_tree_leaf', category: category.parent
+          %ul.Search-tree
+            - category.self_and_siblings.each do |sibling|
+              - if sibling == category
+                %li= render 'categories/shared/category_tree_leaf', category: sibling
+              -else
+                %li= render 'categories/shared/category_tree_leaf', category: sibling
+        - category.parent.siblings.each do |sibling|
+          %li= render 'categories/shared/category_tree_leaf', category: sibling
+      - else
+        %li
+          = render 'categories/shared/category_tree_leaf', category: category
+          %ul.Search-tree
+            - category.children.each do |child|
+              %li= render 'categories/shared/category_tree_leaf', category: child
+        - category.siblings.each do |sibling|
+          %li= render 'categories/shared/category_tree_leaf', category: sibling
+    - else
+      - Category.other_category_last.sorted_roots.all.each do |child|
+        %li= render 'categories/shared/category_tree_leaf', category: child

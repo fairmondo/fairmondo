@@ -227,7 +227,7 @@ class ArticlesController < InheritedResources::Base
 
 
     def category_specific_search
-      if params[:article_search_form] && params[:article_search_form][:category_id]
+      if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
         redirect_to category_path params[:article_search_form][:category_id], permitted_search_params
       end
     end

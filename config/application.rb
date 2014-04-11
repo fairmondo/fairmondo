@@ -93,8 +93,6 @@ module Fairnopoly
     config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w( session_expire.js )
-    config.assets.precompile += %w( noscript.css )
-    config.assets.precompile += %w( landing.css )
 
     config.generators.assets :controller_based_assets
 

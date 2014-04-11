@@ -20,12 +20,13 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.l-ArticleList
+.Grid
   - articles.each do |article|
-    = render '/articles/shared/show_article' , article: article
+    .Grid-item
+      = render '/articles/shared/show_article', article: article
 
 - if User.is_admin?(current_user)
-  .Admin-controls
+  .Grid-admin
     %h2 Administration:
     %h3 Warteschlange befüllen
     = semantic_form_for :exhibit, url: create_multiple_exhibits_path, method: :post do |f|
