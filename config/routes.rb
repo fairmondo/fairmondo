@@ -109,7 +109,12 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, :only => [:index, :show]
+  resources :libraries, :only => [:index, :show] do
+    collection do
+      post 'admin_add', as: 'admin_add_to'
+      delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
+    end
+  end
 
   resources :categories , only: [:index] do
     member do
@@ -118,12 +123,6 @@ Fairnopoly::Application.routes.draw do
     end
     collection do
       get '/id_index', to: 'categories#id_index'
-    end
-  end
-
-  resources :exhibits, :only => [:create, :update, :destroy] do
-    collection do
-      post 'create_multiple'
     end
   end
 

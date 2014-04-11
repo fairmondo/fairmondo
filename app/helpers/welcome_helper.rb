@@ -22,10 +22,12 @@
 module WelcomeHelper
   def teaser_layout layout
      case layout
-     when :double
-       ["","Teaser-article--right"]
      when :single
        [""]
+     when :double
+       ["","Teaser-article--right"]
+      when :quadruple
+       ['','','','']
      end
   end
 
