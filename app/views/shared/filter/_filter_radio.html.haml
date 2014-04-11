@@ -7,11 +7,11 @@
     %ul.js-active-toggle--target
       %li
         - if @search_cache && @search_cache.send(parameter)
-          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => nil)), data: { remote: 'true' }}
+          %a{href: @search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => nil)) : articles_path(article_search_form: search_params_merged_with(parameter => nil)), data: { remote: 'true' }}
             Werte löschen
       - values.each do |value|
         %li
-          %a{href: articles_path(article_search_form: search_params_merged_with(parameter => value)), data: { remote: 'true' }}
+          %a{href: @search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => value)) : articles_path(article_search_form: search_params_merged_with(parameter => value)), data: { remote: 'true' }}
             - if @search_cache && @search_cache.send(parameter) == value
               = image_tag "icheck/radio_active.png"
             - else
