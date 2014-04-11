@@ -26,7 +26,7 @@ class LibraryPolicy < Struct.new(:user, :library)
   end
 
   def update?
-    own?
+    own? || admin?
   end
 
   def destroy?
@@ -34,12 +34,24 @@ class LibraryPolicy < Struct.new(:user, :library)
   end
 
   def show?
-    library.public? || own?
+    library.public? || own? || admin?
+  end
+
+  def admin_add?
+    admin?
+  end
+
+  def admin_remove?
+    admin?
   end
 
   private
   def own?
     user && user.id == library.user_id
+  end
+
+  def admin?
+    user.admin?
   end
 
   class Scope < Struct.new(:current_user, :user, :scope)

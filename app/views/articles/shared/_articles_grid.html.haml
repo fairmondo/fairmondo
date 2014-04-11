@@ -28,10 +28,10 @@
 - if User.is_admin?(current_user)
   .Admin-controls
     %h2 Administration:
-    %h3 Warteschlange befüllen
-    = semantic_form_for :exhibit, url: create_multiple_exhibits_path, method: :post do |f|
+    %h3 Sammlung befüllen
+    = semantic_form_for :library, url: admin_add_to_libraries_path, method: :post do |f|
       = f.inputs do
         = f.input :articles, as: :check_boxes, multiple: true,  :collection => Hash[ articles.map{|a| [ a.slug, a.id.to_s ]} ], :input_html => { :checked => true }
-        = f.input :queue, :as => :select, :collection => Exhibit.queue.options
+        = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
       = f.actions do
         = f.action :submit, label: t('article.show.add_as_exhibit') , button_html: {class: "Btn"}

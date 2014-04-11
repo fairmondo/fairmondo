@@ -174,11 +174,6 @@ class ArticlesController < InheritedResources::Base
     end
 
 
-    def permitted_queue_params
-      params.permit :page, :queue
-    end
-
-
     ############ Images ################
 
     def save_images
@@ -205,11 +200,7 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      if params[:queue]
-        @articles ||= Exhibit.all_from permitted_queue_params
-      else
-        @articles ||= @search_cache.search permitted_search_params[:page]
-      end
+      @articles ||= @search_cache.search permitted_search_params[:page]
     rescue Errno::ECONNREFUSED
       render_hero action: "search_failure"
       @articles ||= policy_scope(Article).page permitted_search_params[:page]
