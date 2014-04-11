@@ -5,5 +5,8 @@
       &:nth-child(#{$number}n) {
         @include omega;
       }
+      &:nth-child(#{$number}n+1) {
+        clear:both;
+      }
 
 }
