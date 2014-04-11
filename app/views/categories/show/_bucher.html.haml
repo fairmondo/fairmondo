@@ -1,42 +1,66 @@
 - content_for :category_specific_content do
-  .Teaser
-    %h2.Teaser-header
-      BESTSELLER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book1).find(4), layout: :quadruple
+  - # should be shown when no search parameters where sent
+  - unless @search_cache.search_request?
+    - exlib = ExhibraryQuery.new(:book1)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "BESTSELLER", library_path(exlib.library)
+        - exlib.find(4).each do |article|
+          = render "/articles/shared/show_article", article: article
 
-  .Teaser
-    %h2.Teaser-header
-      NEUIGKEITEN
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book2).find(4), layout: :quadruple
+    - exlib = ExhibraryQuery.new(:book2)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "NEUIGKEITEN", library_path(exlib.library)
+        - exlib.find(4).each do |article|
+          = render "/articles/shared/show_article", article: article
+    -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
 
-  -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
+    - exlib = ExhibraryQuery.new(:book3)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "HÖRBÜCHER", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article
+    - exlib = ExhibraryQuery.new(:book4)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "GEBRAUCHTE BÜCHER", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article
 
-  .Teaser
-    %h2.Teaser-header
-      HÖRBÜCHER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book3).find(4), layout: :double
+    - exlib = ExhibraryQuery.new(:book5)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "KRIMIS", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article
 
-  .Teaser
-    %h2.Teaser-header
-      GEBRAUCHTE BÜCHER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book4).find(4), layout: :double
+    - exlib = ExhibraryQuery.new(:book6)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "KINDERBÜCHER", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article
 
-  .Teaser
-    %h2.Teaser-header
-      KRIMIS
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book5).find(4), layout: :double
+    - exlib = ExhibraryQuery.new(:book7)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "KOCHBÜCHER", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article
 
-  .Teaser
-    %h2.Teaser-header
-      KINDERBÜCHER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book6).find(4), layout: :double
-
-  .Teaser
-    %h2.Teaser-header
-      KOCHBÜCHER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book7).find(4), layout: :double
-
-  .Teaser
-    %h2.Teaser-header
-      SACHBÜCHER
-    -#= render "/shared/exhibition", articles: ExhibraryQuery.new(:book8).find(4), layout: :double
+    - exlib = ExhibraryQuery.new(:book8)
+    - if exlib.library
+      .Teaser
+        %h2.Teaser-header
+          = link_to "SACHBÜCHER", library_path(exlib.library)
+        - exlib.find(2).each do |article|
+          = render "/articles/shared/show_article", article: article

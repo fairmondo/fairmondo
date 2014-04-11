@@ -21,7 +21,6 @@
 #
 module ApplicationHelper
 
-
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -89,7 +88,5 @@ module ApplicationHelper
       nil
     end
   end
-
-
 
 end

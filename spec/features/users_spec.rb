@@ -305,16 +305,3 @@ describe 'User management' do
     end
   end
 end
-
-describe "Pioneer of the day" do
-
-    let(:user) { FactoryGirl.create :private_user }
-    let(:article) { FactoryGirl.create :article, :user_id => user.id }
-
-    it "should show the article if exhibited" do
-      FactoryGirl.create(:exhibit, :article => article)
-      visit root_path
-      page.should have_css '.Articles-title'
-    end
-
-end
