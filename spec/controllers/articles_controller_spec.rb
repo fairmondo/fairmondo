@@ -63,12 +63,12 @@ describe ArticlesController do
       context "when trying a different search order" do
 
         it "order by price asc" do
-          get :index, article_search_form: {order_by: "cheapest"}
+          get :index, article_search_form: { order_by: "cheapest" }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         it "order by newest" do
-          get :index, article_search_form: {order_by: "newest"}
+          get :index, article_search_form: { order_by: "newest" }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article,@second_hand_article,@ngo_article].map(&:id)
         end
 

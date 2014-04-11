@@ -24,6 +24,7 @@ module ApplicationHelper
 
   def hero
     hero = ""
+    debugger
     begin
       if @rendered_hero
         hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"

@@ -33,6 +33,6 @@ class ContentPolicy < Struct.new(:user, :category)
   end
 
   def admin?
-    user && user.admin?
+    User.is_admin? user
   end
 end
