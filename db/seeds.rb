@@ -64,6 +64,12 @@ FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_tr
 FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories => [@categories.sample]
 
+# Fill Exhibitions
+max_offset = Article.count - 4
+[:queue1,:queue2,:queue3,:queue4,:old,:donation_articles,:book1,:book2,:book3,:book4,:book5,:book6,:book7,:book8].each do |queue|
+  lib = FactoryGirl.create :library, :public, exhibition_name: queue
+  lib.articles << Article.offset(rand(0..max_offset)).first(4)
+end
 
 # TinyCMS pages
 Content.create key:'start-left', body:  '<h1>Willkommen!</h1><p>Dies ist die Beta-Testplattform f&uuml;r den Fairnopoly Online-Marktplatz.</p><p>Du kannst Dich hier gerne umschauen und frei herumspielen, solange Du untenstehende Datenschutzbestimmungen beachtest.</p><p>Die Funktionen sind noch eingeschr&auml;nkt und das Design muss noch weiter angepasst werden. Bitte teile uns alle Fehler, Ideen, Anregungen etc. mit, die Dir w&auml;hrend des Testens auffallen:</p><p><a href="http://info.fairnopoly.de/forum/?mingleforumaction=vforum&amp;g=2.0" target="_blank">Kommentieren &uuml;bers Forum</a></p><p>Oder per Email: bugs@fairnopoly.de</p><p>&nbsp;</p><p><strong>Datenschutzbestimmungen:</strong></p><p>1. Dies ist eine reine Testversion, Fairnopoly &uuml;bernimmt keine Garantie oder Haftung f&uuml;r auf dieser Testversion eingegebene Daten. Falls Du keine eigene Emailadresse f&uuml;r die Registrierung verwenden m&ouml;chtest, kannst Du einen der bei denen Logindaten verwenden:</p><p>Login: testerin@fairnopoly.de</p><p>Passwort: testerin</p><p>oder&nbsp;</p><p>Login: tester@fairnopoly.de</p><p>Passwort: tester &nbsp; &nbsp;</p><p>&nbsp;</p><p>2. Bitte lade nur Bilddateien hoch, zu deren Verwendung Du berechtigt bist. Fairnopoly &uuml;bernimmt keine Haftung f&uuml;r auf diese Testversion hochgeladene Inhalte.&nbsp; &nbsp; &nbsp;</p><p>&nbsp;</p><p>3.&nbsp;Nach Ablauf der Testphase (voraussichtlich am Freitag, 30.11.2012) werden s&auml;mtliche Daten gel&ouml;scht.</p>'

@@ -67,14 +67,14 @@ class ApplicationController < ActionController::Base
 
   # PeekInto Access Controll
   def peek_enabled?
-    current_user && current_user.admin?
+    User.is_admin? current_user
   end
 
 
   protected
 
     def render_users_hero
-      render_hero :controller => "users"
+      render_hero controller: "users"
     end
 
     def render_hero options

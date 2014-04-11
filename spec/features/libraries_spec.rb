@@ -131,3 +131,28 @@ describe "Library Elements" do
     end
   end
 end
+
+describe "Featured (exhibited) libraries" do
+  it "should show the exhibited library on the front page" do
+    lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
+    lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+    visit root_path
+    page.should have_content 'exhibit-article'
+  end
+
+  it "should be updatable by an admin" do
+    login_as FactoryGirl.create :admin_user
+
+    visit root_path
+    page.should_not have_link 'Foobar'
+
+    FactoryGirl.create :library, :public, exhibition_name: 'donation_articles'
+    visit article_path FactoryGirl.create :article, title: 'Foobar'
+    select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+    click_button I18n.t 'article.show.add_as_exhibit'
+
+    visit root_path
+    save_and_open_page
+    page.should have_link 'Foobar'
+  end
+end

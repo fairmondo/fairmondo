@@ -28,7 +28,7 @@
       = tinycms_content_body_sanitized("heading_features").upcase
     - [@queue1, @queue2].each_with_index do |queue,index|
       .teaser-queue
-        - queue.each do |article|
+        - queue.find(1).each do |article|
           = render "/articles/shared/show_article", article: article
         = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Button"
 
@@ -83,19 +83,17 @@
   .teaser-inner
     %h2
       GEBRAUCHT BEI FAIRNOPOLY
-    - @old.each do |article|
+    - @old.find(2).each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
-
 
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
       MIT SPENDENANTEIL
-    - @donation_articles.each do |article|
+    - @donation_articles.find(2).each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
-
 
 .teaser.teaser--double.teaser--cardslides
   .teaser-inner
@@ -117,7 +115,7 @@
       = tinycms_content_body_sanitized("heading_features2").upcase
     - [@queue3, @queue4].each_with_index do |queue,index|
       .teaser-queue
-        - queue.each do |article|
+        - queue.find(1).each do |article|
           = render "/articles/shared/show_article", article: article
           = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Button"
 

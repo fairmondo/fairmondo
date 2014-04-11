@@ -25,7 +25,6 @@
       = link_to image_tag(article.title_image_url_thumb), article_path(article.slug)
 
     .Article-info
-
       %h3= link_to truncate(article.title, :length => 65), article_path(article.slug), :title => article.title
       .Article-price= humanize_money_or_cents article.price
       = render '/articles/show/vat', :article => article
@@ -35,11 +34,3 @@
       = condition_label article
       = commendation_labels_for article
 
-  - if User.is_admin?(current_user)
-    - article = article.load if article.is_a?(Tire::Results::Item)
-    - if article.exhibits.present?
-      .Article-admin
-        löschen aus:
-        - article.exhibits.each do |exhibit|
-          - if exhibit.queue
-            = (link_to t('enumerize.exhibit.queue.' + exhibit.queue), exhibit_path(exhibit.id), method: :delete) + "|"

@@ -20,6 +20,7 @@ class ArticleSearchForm
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
+  attr_accessor :page
 
   def persisted?
     false
@@ -32,6 +33,7 @@ class ArticleSearchForm
   end
 
   def search page
+    @page = page
     query = self
     articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
       if query.search_by_term?
@@ -109,6 +111,12 @@ class ArticleSearchForm
 
   def search_by_term?
     self.q && !self.q.empty?
+  end
+
+  # Did this form get request parameters or is this an empty search where someone just wants to look around?
+  # (category doesn't count)
+  def search_request?
+    q || fair || ecologic || small_and_precious || condition || zip || order_by || @page
   end
 
 end
