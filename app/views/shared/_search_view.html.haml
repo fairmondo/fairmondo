@@ -5,7 +5,7 @@
     .Search-Leftbar
       .Category-index-parent
         = render '/shared/category_tree', category: search_cache.searched_category
-  - elsif params[:article_search_form] && params[:article_search_form][:category] != ''
+  - elsif params[:article_search_form] && !params[:article_search_form][:category].blank?
     .Search-Leftbar
       .Category-index-parent
         = render '/shared/category_tree', category: Category.find(params[:article_search_form][:category])
