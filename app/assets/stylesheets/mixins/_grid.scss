@@ -1,6 +1,6 @@
 
 @mixin grid-with-columns($number) {
-  @include span(1 of $number 0.2);
+  @include span(1 of $number 0.1);
       margin-bottom: 1em;
       &:nth-child(#{$number}n) {
         @include omega;
