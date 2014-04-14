@@ -28,4 +28,8 @@ module WelcomeHelper
       ""
     end
   end
+
+  def featured_library_path library
+    library ? library_path(library) : '#'
+  end
 end

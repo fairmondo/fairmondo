@@ -123,7 +123,11 @@ class ApplicationController < ActionController::Base
     # Strong_parameters default params permitter
     def permitted_params
       klass = controller_name.classify
-      manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
+      underscored = klass.underscore
+      constantized = klass.constantize
+      permitted_attrs = constantized.send "#{underscored}_attrs"
+      permitted_attrs = constantized.send "admin_#{underscored}_attrs" if User.is_admin?(current_user) rescue permitted_attrs
+      manual_params params.permit underscored.to_sym => permitted_attrs
     end
 
     # modify params, does nothing unless overwritten in specific controller

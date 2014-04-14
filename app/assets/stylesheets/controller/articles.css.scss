@@ -1,6 +1,4 @@
-
 @import "mixins/all";
-
 
 .formtastic .stringish input {
   @include at-breakpoint($bp-tablet) {
@@ -11,18 +9,17 @@
 .article-form {
   @include at-breakpoint($bp-tablet) {
     @include span(3 of 4 0.1);
-  } 
+  }
 }
 
 .imports {
-  
   .imports-inner {
     @include whitebox;
   }
-  
+
   @include at-breakpoint($bp-tablet) {
-     @include span(1 of 4 0.1);
-     @include omega;
+    @include span(1 of 4 0.1);
+    @include omega;
   }
 }
 
@@ -31,7 +28,7 @@ ul.category-selected-list {
   border-spacing: 0em 1em;
   li {
     display: table-row;
-    
+
   }
   .category-selected {
     display: table-cell;

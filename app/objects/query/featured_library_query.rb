@@ -1,32 +1,26 @@
 # What used to be Exhibitions are now Libraries
-class ExhibraryQuery
-  attr_reader :library
+class FeaturedLibraryQuery
+  def initialize exhibition_name = nil
+    set exhibition_name if exhibition_name
+  end
 
-  def initialize exhibition_name
+  def set exhibition_name
     @exhibition_name = exhibition_name
     @library = Library.where(exhibition_name: exhibition_name).first
     @relation = LibraryElement.scoped.where(library_id: @library.id).includes(article: [:images,:seller]).joins(:article).where("articles.state = 'active'") if @library
+    self
   end
 
   def find count = 2
-    return [] unless @library
+    return { library: nil, exhibits: [] } unless @library
 
     exhibits = ordered_active_one_day_exhibited count
     exhibits.each do |exhibit|
       set_exhibition_date_of exhibit
     end
     exhibits = fill_exhibits_randomly( exhibits, count ) unless exhibits.length >= count
-    exhibits.map{ |exhibit| exhibit.article }
-  end
 
-  # OK maybe this doesn't belong here ... but it keeps that logic conveniently close
-  # TODO relocate
-  def library_path
-    if @library
-      Rails.application.routes.url_helpers.library_path @library
-    else
-      '#'
-    end
+    { library: @library, exhibits: exhibits.map{ |exhibit| exhibit.article } }
   end
 
   private

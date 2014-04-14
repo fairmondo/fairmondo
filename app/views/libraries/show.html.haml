@@ -8,7 +8,7 @@
   .Admin-controls
     %h2 Administration:
     %h3 Sammlung featuren
-    = semantic_form_for :library, url: user_library_path(resource.user, resource), method: :put do |f|
+    = semantic_form_for resource, url: user_library_path(resource.user, resource) do |f| #, method: :put
       = f.inputs do
         = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
       = f.actions do

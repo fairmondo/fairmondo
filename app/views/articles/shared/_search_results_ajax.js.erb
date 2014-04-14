@@ -1,2 +1,2 @@
-$(".Search").replaceWith("<%= j(render 'articles/shared/search_results', articles: @articles, search_cache: @search_cache) %>")
+$(".Search").replaceWith("<%= j(render 'articles/shared/search_results', articles: articles, search_cache: search_cache) %>")
 $("#js-hidden-search-params").html("<%= j( render 'articles/shared/hidden_params', article_search_form: params[:article_search_form]) %>");

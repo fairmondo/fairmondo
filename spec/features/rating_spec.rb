@@ -87,13 +87,13 @@ describe 'Rating' do
 
   describe "Ratings index" do
     before do
-      FactoryGirl.create :rating, rated_user: transaction.seller, rating_user: transaction.buyer
+      @rating = FactoryGirl.create :rating, rated_user: transaction.seller, rating_user: transaction.buyer
       visit user_ratings_path(:user_id => transaction.seller.id)
     end
 
     it "should show rated user info, rating and rating user" do
-      page.should have_selector('div.User-info')
-      page.should have_selector('div.Rating-show')
+      page.should have_content(transaction.seller.nickname)
+      page.should have_content(@rating.text)
       page.should have_content(transaction.buyer.nickname)
     end
 

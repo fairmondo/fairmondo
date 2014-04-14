@@ -26,28 +26,40 @@ describe LibraryPolicy do
 
   subject { LibraryPolicy.new(user, library)  }
   let(:library) { FactoryGirl.create :library }
-  let(:user) { nil }
+  let(:user)    { nil                         }
 
   context "for a visitor" do
-    it { should deny(:show) }
-    it { should deny(:create)  }
-    it { should deny(:update)  }
-    it { should deny(:destroy) }
+    it { should deny(:show)         }
+    it { should deny(:create)       }
+    it { should deny(:update)       }
+    it { should deny(:destroy)      }
+    it { should deny(:admin_add)    }
+    it { should deny(:admin_remove) }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
-    it { should deny(:show) }
+    it { should deny(:show)               }
     it { should deny(:create)             }
     it { should deny(:update)             }
     it { should deny(:destroy)            }
+    it { should deny(:admin_add)          }
+    it { should deny(:admin_remove)       }
   end
 
   context "for the library owning user" do
-    let(:user) { library.user    }
-    it { should permit(:show) }
-    it { should permit(:create)  }
-    it { should permit(:update)  }
-    it { should permit(:destroy) }
+    let(:user) { library.user       }
+    it { should permit(:show)       }
+    it { should permit(:create)     }
+    it { should permit(:update)     }
+    it { should permit(:destroy)    }
+    it { should deny(:admin_add)    }
+    it { should deny(:admin_remove) }
+  end
+
+  context "for an admin" do
+    let(:user) { FactoryGirl.create :admin_user }
+    it { should permit(:admin_add)              }
+    it { should permit(:admin_remove)           }
   end
 end

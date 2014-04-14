@@ -78,8 +78,7 @@ describe "Mass-upload" do
               should have_content I18n.t('users.boxes.my_mass_uploads')
               click_link I18n.t('mass_uploads.labels.show_report')
               should have_content('Name von Artikel 1')
-              should have_selector('input.Btn.Btn--blue.Btn--blueBig',
-                            I18n.t('mass_uploads.labels.mass_activate_articles'))
+              should have_button I18n.t('mass_uploads.labels.mass_activate_articles')
             end
 
             it "should create new articles" do

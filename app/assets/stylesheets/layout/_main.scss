@@ -1,7 +1,5 @@
-
 // main container
 .l-main {
   @include container($screen-width);
   padding: 1rem $screen-padding ($footer-height + 1rem);
-
 }

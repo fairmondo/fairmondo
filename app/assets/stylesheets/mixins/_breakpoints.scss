@@ -15,11 +15,11 @@ $bp-desktop-wide: 1500px;
 $bp-mobile-horizontal-big: 564px;
 
 @mixin at-breakpoint($value) {
-   @media (min-width: $value) { @content; }
+  @media (min-width: $value) { @content; }
 }
 
 @mixin till-breakpoint($value) {
-   @media (max-width: $value - 1px) { @content; }
+  @media (max-width: $value - 1px) { @content; }
 }
 
 @mixin between-breakpoints($min, $max) {

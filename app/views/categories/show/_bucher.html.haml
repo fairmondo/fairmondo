@@ -1,66 +1,66 @@
 - content_for :category_specific_content do
   - # should be shown when no search parameters where sent
-  - unless @search_cache.search_request?
-    - exlib = ExhibraryQuery.new(:book1)
-    - if exlib.library
+  - unless search_cache.search_request?
+    - lib = FeaturedLibraryQuery.new(:book1).find(4)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "BESTSELLER", library_path(exlib.library)
-        - exlib.find(4).each do |article|
+          = link_to "BESTSELLER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
 
-    - exlib = ExhibraryQuery.new(:book2)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book2).find(4)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "NEUIGKEITEN", library_path(exlib.library)
-        - exlib.find(4).each do |article|
+          = link_to "NEUIGKEITEN", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
     -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
 
-    - exlib = ExhibraryQuery.new(:book3)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book3).find(2)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "HÖRBÜCHER", library_path(exlib.library)
-        - exlib.find(2).each do |article|
+          = link_to "HÖRBÜCHER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
-    - exlib = ExhibraryQuery.new(:book4)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book4).find(2)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "GEBRAUCHTE BÜCHER", library_path(exlib.library)
-        - exlib.find(2).each do |article|
-          = render "/articles/shared/show_article", article: article
-
-    - exlib = ExhibraryQuery.new(:book5)
-    - if exlib.library
-      .Teaser
-        %h2.Teaser-header
-          = link_to "KRIMIS", library_path(exlib.library)
-        - exlib.find(2).each do |article|
+          = link_to "GEBRAUCHTE BÜCHER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
 
-    - exlib = ExhibraryQuery.new(:book6)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book5).find(2)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "KINDERBÜCHER", library_path(exlib.library)
-        - exlib.find(2).each do |article|
+          = link_to "KRIMIS", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
 
-    - exlib = ExhibraryQuery.new(:book7)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book6).find(2)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "KOCHBÜCHER", library_path(exlib.library)
-        - exlib.find(2).each do |article|
+          = link_to "KINDERBÜCHER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
 
-    - exlib = ExhibraryQuery.new(:book8)
-    - if exlib.library
+    - lib = FeaturedLibraryQuery.new(:book7).find(2)
+    - if lib[:library]
       .Teaser
         %h2.Teaser-header
-          = link_to "SACHBÜCHER", library_path(exlib.library)
-        - exlib.find(2).each do |article|
+          = link_to "KOCHBÜCHER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
+          = render "/articles/shared/show_article", article: article
+
+    - lib = FeaturedLibraryQuery.new(:book8).find(2)
+    - if lib[:library]
+      .Teaser
+        %h2.Teaser-header
+          = link_to "SACHBÜCHER", library_path(lib[:library])
+        - lib[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article

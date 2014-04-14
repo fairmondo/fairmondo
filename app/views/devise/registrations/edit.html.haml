@@ -19,6 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+%h1= t('common.actions.edit_profile')
+
 .Accordion.Accordion--activated.User-edit
   = semantic_form_for(@user,  :html => {multipart: true, autocomplete: "off", class: 'js-visual-submit'},:as => resource_name, :url => registration_path(resource_name), :builder => ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
@@ -75,7 +77,7 @@
       .User--step.User-edit-pw
         = f.input :password,  :label=> t('users.change_password'), :input_html => { :autocomplete => "off"}
         = f.input :password_confirmation
-        = render :partial => "/devise/password_complexity"
+        = render partial: '/devise/registrations/password_complexity'
         = f.input :current_password
 
       .User--step

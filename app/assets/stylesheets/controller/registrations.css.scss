@@ -10,17 +10,17 @@
 	}
   @include whitebox;
   margin-bottom: 3em;
-  
+
 }
 
 .registrations-grid > ol > li {
-    @include at-breakpoint($bp-tablet-horizontal) {
-      @include span(2 of 4);
-      &:nth-child(2n) {
-      @include omega;
-      }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(2 of 4);
+    &:nth-child(2n) {
+    @include omega;
     }
-    
+  }
+
 }
 
 // Password jquery-complexify

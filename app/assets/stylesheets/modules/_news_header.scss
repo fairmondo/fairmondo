@@ -17,11 +17,11 @@
 }
 
 .NewsHeader-close {
-    cursor: pointer;
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    color: $dark-gray;
-    @include clear-links;
-    @include user-select(none);
+  cursor: pointer;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  color: $dark-gray;
+  @include clear-links;
+  @include user-select(none);
 }
