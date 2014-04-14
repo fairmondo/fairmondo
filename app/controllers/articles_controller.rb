@@ -202,7 +202,6 @@ class ArticlesController < InheritedResources::Base
     def collection
       @articles ||= @search_cache.search permitted_search_params[:page]
     rescue Errno::ECONNREFUSED
-      render_hero action: "search_failure"
       @articles ||= policy_scope(Article).page permitted_search_params[:page]
     end
 

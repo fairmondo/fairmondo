@@ -1,5 +1,3 @@
-
-
 .ui-tooltip {
   background-image: none !important;
   background-color: $light-gray !important;
@@ -14,22 +12,22 @@
   width: 270px !important;
 }
 .ui-tooltip-content {
-    position: relative;
-    padding: 1em;
-    background-color: #fff;
-    border-radius: 8px !important;
+  position: relative;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 8px !important;
 }
 .ui-tooltip-content::after {
-    content: '';
-    position: absolute;
-    border-style: outset outset solid solid;
-    display: block;
-    width: 0;
+  content: '';
+  position: absolute;
+  border-style: outset outset solid solid;
+  display: block;
+  width: 0;
 }
 .bottom .ui-tooltip-content::after {
-    top: -20px;
-    left: 50%;
-    margin-left: -(em(20,$base-font-size-unitless));
-    border-color: $light-gray transparent;
-    border-width: 0 20px 20px;
+  top: -20px;
+  left: 50%;
+  margin-left: -(em(20,$base-font-size-unitless));
+  border-color: $light-gray transparent;
+  border-width: 0 20px 20px;
 }

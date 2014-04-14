@@ -51,9 +51,9 @@ describe CategoriesController do
       response.should be_success
     end
 
-    it "shouldn't show a category when format is json" do
+    it "should show a category when format is json" do
       get :show, id: FactoryGirl.create(:category).id, format: :json
-      response.should_not be_success
+      response.should be_success
     end
 
     it "should rescue an ECONNREFUSED error" do
@@ -105,13 +105,6 @@ describe CategoriesController do
           end
         end
       end
-    end
-  end
-
-  describe "GET 'show_json'" do
-    it "should show a category" do
-      get :show_json, id: FactoryGirl.create(:category).id, format: :json
-      response.should be_success
     end
   end
 end

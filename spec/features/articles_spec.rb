@@ -222,9 +222,8 @@ describe 'Article management' do
       end
 
       it "should rescue an Errno::ECONNREFUSED" do
-        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
-        click_button 'Suche'
-        page.should have_content I18n.t 'article.titles.search_failure'
+        ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+        expect { click_button 'Suche' }.to_not raise_error
       end
 
     end

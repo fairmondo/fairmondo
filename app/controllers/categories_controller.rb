@@ -10,11 +10,11 @@ class CategoriesController < InheritedResources::Base
   def show
     show! do |format|
       format.html { get_articles }
-      format.js { get_articles }
-      format.json { as_json }
+      format.js   { get_articles }
+      format.json { as_json      }
     end
   end
-  
+
   def collection
     @categories ||= Category.other_category_last.sorted_roots.includes(children: {children: :children})
   end
@@ -28,14 +28,14 @@ class CategoriesController < InheritedResources::Base
         @articles ||= policy_scope(Article).page permitted_search_params[:page]
       end
     end
-    
+
     def permitted_search_params
       hash = params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
       hash[:article_search_form] ||= {}
       hash[:article_search_form][:category_id] = resource.id
       hash
     end
-    
+
     def as_json
       @children = resource.children
       @children = @children.delete_if { |child| child.children.empty? && child.active_articles.empty? } if params[:hide_empty]

@@ -26,11 +26,11 @@
   .teaser-inner
     %h2
       = tinycms_content_body_sanitized("heading_features").upcase
-    - [@queue1, @queue2].each_with_index do |queue,index|
+    - [@queue1, @queue2].each_with_index do |queue, index|
       .teaser-queue
-        - queue.find(1).each do |article|
+        - queue[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
-        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), articles_path(:queue => "queue#{index+1}"), :class => "Button"
+        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), featured_library_path(queue[:library]), class: "Button"
 
 .teaser.teaser--collapsible.teaser--center
   .teaser-inner
@@ -83,7 +83,7 @@
   .teaser-inner
     %h2
       GEBRAUCHT BEI FAIRNOPOLY
-    - @old.find(2).each do |article|
+    - @old[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
@@ -91,7 +91,7 @@
   .teaser-inner
     %h2
       MIT SPENDENANTEIL
-    - @donation_articles.find(2).each do |article|
+    - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
@@ -113,11 +113,11 @@
   .teaser-inner
     %h2
       = tinycms_content_body_sanitized("heading_features2").upcase
-    - [@queue3, @queue4].each_with_index do |queue,index|
+    - [@queue3, @queue4].each_with_index do |queue, index|
       .teaser-queue
-        - queue.find(1).each do |article|
+        - queue[:exhibits].each do |article|
           = render "/articles/shared/show_article", article: article
-          = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), articles_path(:queue => "queue#{index+3}"), :class => "Button"
+          = link_to tinycms_content_body_sanitized("heading_queue#{index+3}"), featured_library_path(queue[:library]), class: "Button"
 
 .teaser.teaser--double
   .teaser-inner.teaser--center
@@ -125,7 +125,7 @@
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
-      %a{ :href => "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", :class => "Button", :target => "_blank" }
+      %a{ href: "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", class: "Button", target: "_blank" }
         Held*in werden
 .teaser.teaser--double.teaser--news
   .teaser-inner.teaser--hide#js-teaser-news-placeholder

@@ -124,7 +124,6 @@ describe 'User management' do
 
         it "should show the correct data and fields" do
           visit edit_user_registration_path user
-
           # Heading
           page.should have_css "h1", text: I18n.t('common.actions.edit_profile')
 

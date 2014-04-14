@@ -65,8 +65,6 @@
       display: inline-block;
     }
   }
-
-
 }
 
 .Search-categories > .Search-tree {
@@ -149,13 +147,11 @@
   list-style: none;
 
   &.is-active {
-
     top: 1.2em;
     left: 0em;
     display: block;
     position: absolute;
     z-index: 1;
-
   }
 }
 
