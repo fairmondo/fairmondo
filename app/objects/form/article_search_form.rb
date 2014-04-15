@@ -4,14 +4,17 @@ class ArticleSearchForm
   include Virtus.model
   include ActiveModel::Conversion
 
+
   def self.article_search_form_attrs
     [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
   end
+
 
   attribute :q, String
   attribute :fair, BooleanFromParams
   attribute :ecologic, BooleanFromParams
   attribute :small_and_precious, BooleanFromParams
+
   attribute :condition, String
   enumerize :condition, in: [:new, :old]
   attribute :category_id, Integer
@@ -22,15 +25,18 @@ class ArticleSearchForm
   attribute :search_in_content, Boolean
   attr_accessor :page
 
+
   def persisted?
     false
   end
+
 
   def searched_category category_id = self.category_id
     Category.find(category_id)
   rescue
     nil
   end
+
 
   def search page
     @page = page
@@ -82,6 +88,7 @@ class ArticleSearchForm
     end
   end
 
+
   def autocomplete
     query = self
     search = Article.search do
@@ -113,10 +120,12 @@ class ArticleSearchForm
     self.q && !self.q.empty?
   end
 
+
   # Did this form get request parameters or is this an empty search where someone just wants to look around?
   # (category doesn't count)
   def search_request?
     q || fair || ecologic || small_and_precious || condition || zip || order_by || @page
   end
+
 
 end

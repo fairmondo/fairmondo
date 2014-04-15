@@ -23,8 +23,7 @@ class ProcessMassUploadWorker
   include Sidekiq::Worker
   sidekiq_options queue: :mass_upload,
                   retry: 5,
-                  backtrace: true,
-                  failures: true
+                  backtrace: true
 
   sidekiq_retries_exhausted do |msg|
     Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
