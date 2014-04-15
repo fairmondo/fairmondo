@@ -56,10 +56,6 @@ namespace :deploy do
   end
 
   after :finishing, "deploy:cleanup"
-
-  after :stop, 'bluepill:stop'
-  after :start, 'bluepill:start'
-  before :restart, 'bluepill:restart'
 end
 
 
@@ -97,13 +93,12 @@ namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit do
     on roles(:sidekiq) do
-      args = options || ""
       begin
-        exec "bluepill stop #{args} --no-provileged"
+        exec "bluepill stop --no-privileged"
       rescue
-        puts "Bluepill was unable to finish all the processes gracefully"
+        puts "Bluepill was unable to finish all processes gracefully"
       ensure
-        exec "bluepill quit --no-provileged"
+        exec "bluepill quit --no-privileged"
       end
     end
   end
@@ -111,39 +106,38 @@ namespace :bluepill do
   desc "Load the pill from config/blue.pill"
   task :init do
     on roles(:sidekiq) do
-      exec "bluepill load #{current_path}/config/blue.pill --no-provileged"
+      exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
     end
   end
 
   desc "Starts the previously stopped pill"
   task :start do
     on roles(:sidekiq) do
-      args = options || ""
-      exec "bluepill start #{args} --no-provileged"
+      exec "bluepill start --no-privileged"
     end
   end
 
   desc "Stops one or more bluepill monitored processes"
   task :stop do
     on roles(:sidekiq) do
-      args = options || ""
-      exec "bluepill stop #{args} --no-provileged"
+      exec "bluepill stop --no-privileged"
     end
   end
 
   desc "Restarts the pill from config/blue.pill"
   task :restart do
     on roles(:sidekiq) do
-      args = options || ""
-      exec "bluepill restart #{args} --no-provileged"
+      exec "bluepill restart --no-privileged"
     end
   end
 
   desc "Prints bluepill's process stati"
   task :status do
     on roles(:sidekiq) do
-      args = options || ""
-      exec "bluepill status #{args} --no-provileged"
+      exec "bluepill status --no-privileged"
     end
   end
 end
+
+after 'deploy:update', 'bluepill:quit', 'bluepill:init', 'bluepill:start'
+#before 'deploy:restart', 'bluepill:restart'
