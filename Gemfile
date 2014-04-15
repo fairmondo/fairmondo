@@ -148,7 +148,7 @@ group :development, :test do
 
   # test suite additions
   gem "rails_best_practices"
-  gem "brakeman" # security test: execute with 'brakeman'
+  gem 'brakeman' ,  '~> 2.4.3' # security test: execute with 'brakeman'
   gem 'rspec-instafail'
 
   # Replace Webrick
@@ -167,8 +167,8 @@ group :development do
   gem 'binding_of_caller'
 
   # HAML Conversion tools
-  gem "erb2haml"
-  gem "html2haml"
+  #gem "erb2haml" see html2haml
+  #gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
   gem 'letter_opener'
 end
 
