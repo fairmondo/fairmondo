@@ -28,15 +28,15 @@ describe UserPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:show)    }
-    it { should permit(:profile) }
+    it { should grant_permission(:show)    }
+    it { should grant_permission(:profile) }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
 
-    it { should permit(:show)             }
-    it { should permit(:profile)          }
+    it { should grant_permission(:show)             }
+    it { should grant_permission(:profile)          }
   end
 
 

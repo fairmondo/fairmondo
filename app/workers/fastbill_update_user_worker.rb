@@ -3,8 +3,7 @@ class FastbillUpdateUserWorker
 
   sidekiq_options queue: :fastbill,
                   retry: 20,
-                  backtrace: true,
-                  failures: true
+                  backtrace: true
 
   def perform user_id
     user = User.find(user_id)

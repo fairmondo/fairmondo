@@ -28,7 +28,8 @@ class Article < ActiveRecord::Base
   friendly_id :title, :use => :slugged
 
   # Action attribute: c/create/u/update/d/delete - for export and csv upload
-  attr_accessor :action
+  # keep_images attribute: see edit_as_new
+  attr_accessor :action, :keep_images
 
   validates_presence_of :slug unless :template?
 
@@ -79,16 +80,16 @@ class Article < ActiveRecord::Base
       indexes :id,           :index => :not_analyzed
       indexes :title,  type: 'multi_field'  , :fields => {
          :search => { type: 'string', analyzer: "decomp_stem_analyzer"},
-         :decomp => { type:'string', analyzer: "decomp_analyzer"},
+         :decomp => { type: 'string', analyzer: "decomp_analyzer"},
       }
       indexes :content,      analyzer: "decomp_stem_analyzer"
       indexes :gtin,         :index    => :not_analyzed
 
       # filters
 
-      indexes :fair
-      indexes :ecologic
-      indexes :small_and_precious
+      indexes :fair, :type => 'boolean'
+      indexes :ecologic, :type => 'boolean'
+      indexes :small_and_precious, :type => 'boolean'
       indexes :condition
       indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
 
@@ -100,12 +101,12 @@ class Article < ActiveRecord::Base
 
       indexes :slug
       indexes :title_image_url_thumb, :as => 'title_image_url_thumb'
-      indexes :price, :as => 'price_cents'
-      indexes :basic_price, :as => 'basic_price_cents'
+      indexes :price, :as => 'price_cents', :type => 'long'
+      indexes :basic_price, :as => 'basic_price_cents', :type => 'long'
       indexes :basic_price_amount
-      indexes :vat
+      indexes :vat, :type => 'long'
 
-      indexes :friendly_percent
+      indexes :friendly_percent, :type => 'long'
       indexes :friendly_percent_organisation , :as => 'friendly_percent_organisation_id'
       indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
 
@@ -150,12 +151,15 @@ class Article < ActiveRecord::Base
   end
 
   def self.edit_as_new article
+
+      article.keep_images = true if !article.sold?
+
       new_article = article.amoeba_dup
-      if !article.sold?
-        #do not remove sold articles, we want to keep them
-        #if the old article has errors we still want to remove it from the marketplace
-        article.close_without_validation
-      end
+
+      #do not remove sold articles, we want to keep them
+      #if the old article has errors we still want to remove it from the marketplace
+      article.close_without_validation if !article.sold?
+
       new_article.state = "preview"
       new_article
   end
@@ -169,14 +173,20 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
 
       original_article.images.each do |image|
-        begin
-          copyimage = ArticleImage.new
-          copyimage.image = image.image
-          copyimage.is_title = image.is_title
-          copyimage.external_url = image.external_url
-          new_article.images << copyimage
-          copyimage.save
-        rescue
+        if original_article.keep_images
+          image.imageable_id = nil
+          new_article.images << image
+          image.save
+        else
+          begin
+            copyimage = ArticleImage.new
+            copyimage.image = image.image
+            copyimage.is_title = image.is_title
+            copyimage.external_url = image.external_url
+            new_article.images << copyimage
+            copyimage.save
+          rescue
+          end
         end
       end
 

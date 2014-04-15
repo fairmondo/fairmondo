@@ -137,6 +137,8 @@
           = display_transport_provider_for selected_transport
 
         = display_optional_warning selected_transport, selected_payment
+        .SmallText.label
+          = link_to( t( 'transaction.edit.sec_warning_link' ), anchor: 'security_warning' )
         %br
         %h3
           = I18n.t 'transaction.edit.price_heading'
@@ -186,7 +188,10 @@
       = f.actions do
         = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Btn'}
         = back_link quantity, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
+      %br
+      %p.label#security_warning
+        = t 'transaction.edit.long_security_warning'
 
-      - if ['type1', 'type2'].include? selected_transport
+      - if ['type1', 'type2'].include?( selected_transport ) && quantity > 1
         %br
         = t('transaction.edit.number_of_shipments_info')
