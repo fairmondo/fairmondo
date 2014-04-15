@@ -26,10 +26,10 @@ describe ExhibitPolicy do
   context "for an admin user" do
     let(:user) { FactoryGirl.create :admin_user }
 
-    it { should permit(:create)      }
-    it { should permit(:create_multiple)      }
-    it { should permit(:update)      }
-    it { should permit(:destroy)     }
+    it { should grant_permission(:create)      }
+    it { should grant_permission(:create_multiple)      }
+    it { should grant_permission(:update)      }
+    it { should grant_permission(:destroy)     }
 
   end
 end

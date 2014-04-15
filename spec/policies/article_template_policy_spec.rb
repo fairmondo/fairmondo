@@ -47,10 +47,10 @@ describe ArticleTemplatePolicy do
 
   context "for the template owning user" do
     let(:user) { article_template.user }
-    it { should permit(:new)           }
-    it { should permit(:create)        }
-    it { should permit(:edit)          }
-    it { should permit(:update)        }
-    it { should permit(:destroy)       }
+    it { should grant_permission(:new)           }
+    it { should grant_permission(:create)        }
+    it { should grant_permission(:edit)          }
+    it { should grant_permission(:update)        }
+    it { should grant_permission(:destroy)       }
   end
 end
