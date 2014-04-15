@@ -93,12 +93,14 @@ namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit do
     on roles(:sidekiq) do
-      unless test "bluepill stop --no-privileged"
-        puts "Bluepill was unable to finish all processes gracefully"
-      end
+      within release_path do
+        unless test "bluepill stop --no-privileged"
+          puts "Bluepill was unable to finish all processes gracefully"
+        end
 
-      unless test "bluepill quit --no-privileged"
-        puts "Couldn't quit bluepill."
+        unless test "bluepill quit --no-privileged"
+          puts "Couldn't quit bluepill."
+        end
       end
     end
   end
@@ -106,39 +108,49 @@ namespace :bluepill do
   desc "Load the pill from config/blue.pill"
   task :init do
     on roles(:sidekiq) do
-      exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
-      puts "Initialized bluepill."
+      within release_path do
+        exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
+        puts "Initialized bluepill."
+      end
     end
   end
 
   desc "Starts the previously stopped pill"
   task :start do
     on roles(:sidekiq) do
-      exec "bluepill start --no-privileged"
-      puts "Initialized bluepill."
+      within release_path do
+        exec "bluepill start --no-privileged"
+        puts "Initialized bluepill."
+      end
     end
   end
 
   desc "Stops one or more bluepill monitored processes"
   task :stop do
     on roles(:sidekiq) do
-      exec "bluepill stop --no-privileged"
-      puts "Stopped bluepill."
+      within release_path do
+        exec "bluepill stop --no-privileged"
+        puts "Stopped bluepill."
+      end
     end
   end
 
   desc "Restarts the pill from config/blue.pill"
   task :restart do
     on roles(:sidekiq) do
-      exec "bluepill restart --no-privileged"
-      puts "Restarted bluepill."
+      within release_path do
+        exec "bluepill restart --no-privileged"
+        puts "Restarted bluepill."
+      end
     end
   end
 
   desc "Prints bluepill's process stati"
   task :status do
     on roles(:sidekiq) do
-      puts capture "bluepill status --no-privileged"
+      within release_path do
+        puts capture "bluepill status --no-privileged"
+      end
     end
   end
 end
