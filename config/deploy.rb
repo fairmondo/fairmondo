@@ -7,7 +7,7 @@ set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to,   "/var/www/fairnopoly"
+set :deploy_to, "/var/www/fairnopoly"
 
 # Default value for :scm is :git
 set :scm, :git
@@ -56,6 +56,10 @@ namespace :deploy do
   end
 
   after :finishing, "deploy:cleanup"
+
+  after :stop, 'bluepill:stop'
+  after :start, 'bluepill:start'
+  before :restart, 'bluepill:restart'
 end
 
 
@@ -89,49 +93,57 @@ namespace :rails do
 end
 
 
-after 'deploy:stop', 'bluepill:stop'
-after 'deploy:start', 'bluepill:start'
-before 'deploy:restart', 'bluepill:restart'
-
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
-  task :quit, roles: [:sidekiq] do
-    args = options || ""
-    begin
-      exec "bluepill stop #{args} --no-provileged"
-    rescue
-      puts "Bluepill was unable to finish all the processes gracefully"
-    ensure
-      exec "bluepill quit --no-provileged"
+  task :quit do
+    on roles(:sidekiq) do
+      args = options || ""
+      begin
+        exec "bluepill stop #{args} --no-provileged"
+      rescue
+        puts "Bluepill was unable to finish all the processes gracefully"
+      ensure
+        exec "bluepill quit --no-provileged"
+      end
     end
   end
 
   desc "Load the pill from config/blue.pill"
-  task :init, roles:[:sidekiq] do
-    exec "bluepill load #{current_path}/config/blue.pill --no-provileged"
+  task :init do
+    on roles(:sidekiq) do
+      exec "bluepill load #{current_path}/config/blue.pill --no-provileged"
+    end
   end
 
   desc "Starts the previously stopped pill"
-  task :start, roles:[:sidekiq] do
-    args = options || ""
-    exec "bluepill start #{args} --no-provileged"
+  task :start do
+    on roles(:sidekiq) do
+      args = options || ""
+      exec "bluepill start #{args} --no-provileged"
+    end
   end
 
   desc "Stops one or more bluepill monitored processes"
-  task :stop, roles:[:sidekiq] do
-    args = options || ""
-    exec "bluepill stop #{args} --no-provileged"
+  task :stop do
+    on roles(:sidekiq) do
+      args = options || ""
+      exec "bluepill stop #{args} --no-provileged"
+    end
   end
 
   desc "Restarts the pill from config/blue.pill"
-  task :restart, roles:[:sidekiq] do
-    args = options || ""
-    exec "bluepill restart #{args} --no-provileged"
+  task :restart do
+    on roles(:sidekiq) do
+      args = options || ""
+      exec "bluepill restart #{args} --no-provileged"
+    end
   end
 
   desc "Prints bluepill's process stati"
-  task :status, roles: [:sidekiq] do
-    args = options || ""
-    exec "bluepill status #{args} --no-provileged"
+  task :status do
+    on roles(:sidekiq) do
+      args = options || ""
+      exec "bluepill status #{args} --no-provileged"
+    end
   end
 end
