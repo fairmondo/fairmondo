@@ -148,7 +148,7 @@ group :development, :test do
 
   # test suite additions
   gem "rails_best_practices"
-  gem 'brakeman' ,  '~> 2.4.3' # security test: execute with 'brakeman'
+  gem 'brakeman'  # security test: execute with 'brakeman'
   gem 'rspec-instafail'
 
   # Replace Webrick
