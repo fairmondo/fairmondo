@@ -31,11 +31,10 @@ set :ssh_options, {
 }
 
 # Sidekiq
-set :sidekiq_role, :sidekiq
-set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
+#set :sidekiq_role, :sidekiq
+#set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
 
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -57,7 +56,6 @@ namespace :deploy do
   end
 
   after :finishing, "deploy:cleanup"
-
 end
 
 
@@ -84,7 +82,56 @@ namespace :rails do
   end
 
   def execute_interactively(command,host)
-    puts "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
-    exec "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    command_string = "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    puts command_string
+    exec command_string
+  end
+end
+
+
+after 'deploy:stop', 'bluepill:stop'
+after 'deploy:start', 'bluepill:start'
+before 'deploy:restart', 'bluepill:restart'
+
+namespace :bluepill do
+  desc "Stop processes that bluepill is monitoring and quit bluepill"
+  task :quit, roles: [:sidekiq] do
+    args = options || ""
+    begin
+      exec "bluepill stop #{args} --no-provileged"
+    rescue
+      puts "Bluepill was unable to finish all the processes gracefully"
+    ensure
+      exec "bluepill quit --no-provileged"
+    end
+  end
+
+  desc "Load the pill from config/blue.pill"
+  task :init, roles:[:sidekiq] do
+    exec "bluepill load #{current_path}/config/blue.pill --no-provileged"
+  end
+
+  desc "Starts the previously stopped pill"
+  task :start, roles:[:sidekiq] do
+    args = options || ""
+    exec "bluepill start #{args} --no-provileged"
+  end
+
+  desc "Stops one or more bluepill monitored processes"
+  task :stop, roles:[:sidekiq] do
+    args = options || ""
+    exec "bluepill stop #{args} --no-provileged"
+  end
+
+  desc "Restarts the pill from config/blue.pill"
+  task :restart, roles:[:sidekiq] do
+    args = options || ""
+    exec "bluepill restart #{args} --no-provileged"
+  end
+
+  desc "Prints bluepill's process stati"
+  task :status, roles: [:sidekiq] do
+    args = options || ""
+    exec "bluepill status #{args} --no-provileged"
   end
 end

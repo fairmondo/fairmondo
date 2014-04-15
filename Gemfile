@@ -46,6 +46,7 @@ gem "tire"
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq-failures'
+gem 'bluepill' #sidekiq process monitoring
 
 # Memcached
 gem 'dalli'
