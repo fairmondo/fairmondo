@@ -92,23 +92,13 @@ describe ArticlePolicy do
       end
       it { should deny(:edit)        }
       it { should deny(:update)      }
-<<<<<<< HEAD
-      it { should permit(:destroy)   }
-    end
-
-    context "on an unlocked article" do
-      it { should permit(:edit)       }
-      it { should permit(:update)     }
-      it { should permit(:destroy)    }
-=======
-      it { should grant_permission(:destroy)      }
+      it { should grant_permission(:destroy)   }
     end
 
     context "on an unlocked article" do
       it { should grant_permission(:edit)       }
       it { should grant_permission(:update)     }
       it { should grant_permission(:destroy)      }
->>>>>>> develop
     end
   end
 end
