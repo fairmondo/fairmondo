@@ -29,8 +29,8 @@ describe TransactionPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:edit)                        }
-    it { should permit(:update)                      }
+    it { should grant_permission(:edit)                        }
+    it { should grant_permission(:update)                      }
     it { should ultimately_deny(:show)               }
     it { should ultimately_deny(:print_order_seller) }
     it { should ultimately_deny(:print_order_buyer)  }
@@ -38,8 +38,8 @@ describe TransactionPolicy do
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
-    it { should permit(:edit)             }
-    it { should permit(:update)           }
+    it { should grant_permission(:edit)             }
+    it { should grant_permission(:update)           }
     it { should deny(:show)               }
     it { should deny(:print_order_seller) }
     it { should deny(:print_order_buyer)  }
@@ -49,13 +49,13 @@ describe TransactionPolicy do
     let(:user) { transaction.article_seller }
     it { should deny(:edit)                 }
     it { should deny(:update)               }
-    it { should permit(:show)               }
-    it { should permit(:print_order_seller) }
+    it { should grant_permission(:show)               }
+    it { should grant_permission(:print_order_seller) }
   end
 
   context "for the transaction buyer" do
     let(:user) { transaction.buyer          }
-    it { should permit(:show)               }
-    it { should permit(:print_order_buyer)  }
+    it { should grant_permission(:show)               }
+    it { should grant_permission(:print_order_buyer)  }
   end
 end
