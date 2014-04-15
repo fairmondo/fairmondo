@@ -93,12 +93,12 @@ namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill stop --no-privileged"
-      rescue
+      unless test "bluepill stop --no-privileged"
         puts "Bluepill was unable to finish all processes gracefully"
-      ensure
-        exec "bluepill quit --no-privileged" rescue puts "Couldn't quit bluepill."
+      end
+
+      unless test "bluepill quit --no-privileged"
+        puts "Couldn't quit bluepill."
       end
     end
   end
@@ -106,58 +106,42 @@ namespace :bluepill do
   desc "Load the pill from config/blue.pill"
   task :init do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
-      rescue => e
-        puts "Initiation failed: #{e.to_s}"
-      end
+      exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
+      puts "Initialized bluepill."
     end
   end
 
   desc "Starts the previously stopped pill"
   task :start do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill start --no-privileged"
-      rescue => e
-        puts "Starting failed: #{e.to_s}"
-      end
+      exec "bluepill start --no-privileged"
+      puts "Initialized bluepill."
     end
   end
 
   desc "Stops one or more bluepill monitored processes"
   task :stop do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill stop --no-privileged"
-      rescue => e
-        puts "Stopping failed: #{e.to_s}"
-      end
+      exec "bluepill stop --no-privileged"
+      puts "Stopped bluepill."
     end
   end
 
   desc "Restarts the pill from config/blue.pill"
   task :restart do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill restart --no-privileged"
-      rescue => e
-        puts "Restart failed: #{e.to_s}"
-      end
+      exec "bluepill restart --no-privileged"
+      puts "Restarted bluepill."
     end
   end
 
   desc "Prints bluepill's process stati"
   task :status do
     on roles(:sidekiq) do
-      begin
-        exec "bluepill status --no-privileged"
-      rescue => e
-        puts "Requesting status failed: #{e.to_s}"
-      end
+      puts capture "bluepill status --no-privileged"
     end
   end
 end
 
-after 'deploy:restart', 'bluepill:quit', 'bluepill:init', 'bluepill:start'
+after 'deploy:published', 'bluepill:quit', 'bluepill:init', 'bluepill:start'
 #before 'deploy:restart', 'bluepill:restart'
