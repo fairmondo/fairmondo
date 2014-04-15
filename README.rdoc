@@ -17,7 +17,7 @@ The development currently is in beta state. Please help us out by contributing c
 
 If you are not sure how to <em>install Ruby and the Ruby on Rails framework</em> on your computer, have a look at Michael Hartl's excellent {tutorial}[http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#sec-rubygems] on the subject.
 
-Make sure you install <em>ruby 1.9.3-p392</em> and not 2.0.0.
+Make sure you install <em>2.1</em>. and not <em>ruby 1.9.3-p392</em>.
 
 === Fairnopoly Project Setup (automated)
 
