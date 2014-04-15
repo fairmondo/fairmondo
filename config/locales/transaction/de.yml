@@ -41,6 +41,14 @@ de:
       shipping_and_handling: "Versandkosten: "
       payment_cash_on_delivery_price: "Zusatzkosten Nachnahme: "
       basic_price: "Grundpreis: "
+      sec_warning_link: "Sicherheitshinweis"
+      security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairnopoly eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
+      long_security_warning: >
+        "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem/der Verkäufer*in zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin.
+
+        Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly insbesondere bei Artikeln ab 100 Euro eine sichere Bezahlmethode wie PayPal (da PayPal einen Käuferschutz beinhaltet) oder Barzahlung bei Abholung.
+
+        Zudem empfehlen wir Dir die Daten des/der Verkäufer*in bestätigen zu lassen, z.B. durch Übersendung einer Kopie des Personalausweises. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen."
     show:
       payment_title_bank_transfer: "Bezahlabwicklung per Vorkasse"
       payment_title_cash: "Bezahlabwicklung als Barzahlung bei Abholung"

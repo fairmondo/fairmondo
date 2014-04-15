@@ -3,8 +3,7 @@ class SearchIndexWorker
 
   sidekiq_options queue: :indexing,
                   retry: 20, # this means approx 6 days
-                  backtrace: true,
-                  failures: true
+                  backtrace: true
 
   def perform type, id, action
 

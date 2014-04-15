@@ -44,8 +44,11 @@ gem "tire"
 
 # Sidekiq
 gem 'sidekiq'
+
 gem 'sinatra', '>= 1.3.0', :require => nil
-gem 'sidekiq-failures'
+
+gem 'bluepill' #sidekiq process monitoring
+
 
 # Memcached
 gem 'dalli'
@@ -102,7 +105,7 @@ group :assets do
 
   # JS
   gem 'jquery-ui-rails'
-  gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git', :branch => 'master'
+  gem 'i18n-js'
   gem 'coffee-rails'
   gem 'therubyrhino'
   gem 'selectivizr-rails'

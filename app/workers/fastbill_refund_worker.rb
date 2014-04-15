@@ -3,8 +3,7 @@ class FastbillRefundWorker
 
   sidekiq_options queue: :fastbill,
                   retry: 20,
-                  backtrace: true,
-                  failures: true
+                  backtrace: true
   def perform transaction_id, fee_type
     transaction = Transaction.find(transaction_id)
     # Start the fastbill chain, to create invoices and add items to invoice

@@ -280,7 +280,7 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        @article = FactoryGirl.create :article, :without_image , :seller => user
+        @article = FactoryGirl.create :article , :seller => user
         get :new, :edit_as_new => @article.id
         response.should render_template :new
         @draftarticle= controller.instance_variable_get(:@article)

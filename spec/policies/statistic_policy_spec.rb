@@ -20,7 +20,7 @@ describe StatisticPolicy do
 
   context "for an admin user" do
     let(:user) { FactoryGirl.create :admin_user }
-    it { should permit(:general)                }
-    it { should permit(:category_sales)         }
+    it { should grant_permission(:general)                }
+    it { should grant_permission(:category_sales)         }
   end
 end

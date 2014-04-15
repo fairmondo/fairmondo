@@ -91,3 +91,6 @@ app/assets/images/icon-*.png
 
 # Redis
 dump.rdb
+
+# nohup
+nohup.out

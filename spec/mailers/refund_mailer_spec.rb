@@ -16,8 +16,8 @@ describe RefundMailer do
 
     subject { refund_notification }
 
-    it 'should be delivered to kundenservice@fairnopoly.de' do
-      should deliver_to( 'kundenservice@fairnopoly.de' )
+    it 'should be delivered to storno@fairnopoly.de' do
+      should deliver_to( 'storno@fairnopoly.de' )
     end
 
     it 'should have right subject' do
