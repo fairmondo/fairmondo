@@ -1,3 +1,5 @@
+
+
 namespace :bluepill do
   SSHKit.config.command_map[:bluepill] = "bundle exec bluepill"
 
@@ -5,21 +7,21 @@ namespace :bluepill do
   task :quit do
     on roles(:sidekiq) do
       within release_path do
-      	with rails_env: fetch(:rails_env) do
-	        puts "Shutting down bluepill."
-	        begin
-	          execute :bluepill, :stop, "--no-privileged"
-	        rescue SSHKit::Command::Failed
-	          puts "Bluepill was unable to finish all processes gracefully"
-	        end
-	
-	        begin
-	          execute :bluepill, :quit, "--no-privileged"
-	        rescue SSHKit::Command::Failed
-	          puts "Couldn't quit bluepill."
-	        end
-	      end
+      	
+        puts "Shutting down bluepill."
+        begin
+          execute :bluepill, :stop, "--no-privileged"
+        rescue SSHKit::Command::Failed
+          puts "Bluepill was unable to finish all processes gracefully"
+        end
+
+        begin
+          execute :bluepill, :quit, "--no-privileged"
+        rescue SSHKit::Command::Failed
+          puts "Couldn't quit bluepill."
+        end
       end
+   
     end
   end
 
@@ -27,10 +29,10 @@ namespace :bluepill do
   task :init do
     on roles(:sidekiq) do
       within release_path do
-      	with rails_env: fetch(:rails_env) do
-	      execute :bluepill, :load, "#{current_path}/config/blue.pill", "--no-privileged"
-	      puts "Initialized bluepill."
-	    end
+      
+	    execute :bluepill, :load, "#{current_path}/config/#{fetch(:stage)}.pill", "--no-privileged"
+	    puts "Initialized bluepill."
+	  
       end
     end
   end
@@ -39,10 +41,10 @@ namespace :bluepill do
   task :start do
     on roles(:sidekiq) do
       within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :bluepill, :start, "--no-privileged"
-          puts "Started bluepill."
-        end
+       
+        execute :bluepill, :start, "--no-privileged"
+        puts "Started bluepill."
+        
       end
     end
   end
@@ -51,10 +53,10 @@ namespace :bluepill do
   task :stop do
     on roles(:sidekiq) do
       within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :bluepill, :stop, "--no-privileged"
-          puts "Stopped bluepill."
-        end
+       
+        execute :bluepill, :stop, "--no-privileged"
+        puts "Stopped bluepill."
+       
       end
     end
   end
@@ -63,10 +65,10 @@ namespace :bluepill do
   task :restart do
     on roles(:sidekiq) do
       within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :bluepill, :restart, "--no-privileged"
-          puts "Restarted bluepill."
-        end
+       
+        execute :bluepill, :restart, "--no-privileged"
+        puts "Restarted bluepill."
+       
       end
     end
   end
