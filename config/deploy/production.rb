@@ -7,4 +7,4 @@ server '5.22.150.182', user: 'deploy', roles: %w{sidekiq console}
 
 set :branch, ENV["BRANCH_NAME"] || "master"
 
-set :sidekiq_processes, ->{ 2 }
+#set :sidekiq_processes, ->{ 2 }
