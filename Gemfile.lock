@@ -513,7 +513,7 @@ DEPENDENCIES
   binding_of_caller
   bluepill
   bourbon
-  brakeman (~> 2.4.3)
+  brakeman
   bullet!
   byebug
   canonical-rails
