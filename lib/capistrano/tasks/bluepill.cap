@@ -1,0 +1,91 @@
+namespace :bluepill do
+  SSHKit.config.command_map[:bluepill] = "bundle exec bluepill"
+
+  desc "Stop processes that bluepill is monitoring and quit bluepill"
+  task :quit do
+    on roles(:sidekiq) do
+      within release_path do
+        puts "Shutting down bluepill."
+        begin
+          execute :bluepill, :stop, "--no-privileged"
+        rescue SSHKit::Command::Failed
+          puts "Bluepill was unable to finish all processes gracefully"
+        end
+
+        begin
+          execute :bluepill, :quit, "--no-privileged"
+        rescue SSHKit::Command::Failed
+          puts "Couldn't quit bluepill."
+        end
+      end
+    end
+  end
+
+  desc "Load the pill from config/blue.pill"
+  task :init do
+    on roles(:sidekiq) do
+      within release_path do
+        execute :bluepill, :load, "#{current_path}/config/blue.pill", "--no-privileged"
+        puts "Initialized bluepill."
+      end
+    end
+  end
+
+  desc "Starts the previously stopped pill"
+  task :start do
+    on roles(:sidekiq) do
+      within release_path do
+        execute :bluepill, :start, "--no-privileged"
+        puts "Started bluepill."
+      end
+    end
+  end
+
+  desc "Stops one or more bluepill monitored processes"
+  task :stop do
+    on roles(:sidekiq) do
+      within release_path do
+        execute :bluepill, :stop, "--no-privileged"
+        puts "Stopped bluepill."
+      end
+    end
+  end
+
+  desc "Restarts the pill from config/blue.pill"
+  task :restart do
+    on roles(:sidekiq) do
+      within release_path do
+        execute :bluepill, :restart, "--no-privileged"
+        puts "Restarted bluepill."
+      end
+    end
+  end
+
+  desc "Prints bluepill's process stati"
+  task :status do
+    on roles(:sidekiq) do
+      within release_path do
+        puts capture :bluepill, :status, "--no-privileged"
+      end
+    end
+  end
+
+  desc "Quiet the sidekiq instances (circumvents bluepill cli)"
+  task :quiet do
+    on roles(:sidekiq) do
+      within release_path do
+        begin
+          2.times do |i|
+            rails_root  = ENV['RAILS_ROOT'] || File.expand_path(".")
+            puts rails_root
+            pid_file = "#{rails_root}/tmp/pids/sidekiq#{i}.pid"
+            execute :bundle, :exec, :sidekiqctl, 'quiet', pid_file
+          end
+        rescue SSHKit::Command::Failed
+          # If gems are not installed eq(first deploy) and sidekiq_default_hooks as active
+          warn 'sidekiqctl not found (ignore if this is the first deploy)'
+        end
+      end
+    end
+  end
+end

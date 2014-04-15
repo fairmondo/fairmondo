@@ -45,13 +45,19 @@ namespace :deploy do
 
   after :publishing, :restart
 
+
+  before :updated, 'bluepill:quiet'
+  after :published, 'bluepill:quit'
+  after :published, 'bluepill:init'
+  after :published, 'bluepill:start'
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-       within release_path do
-         with rails_env: fetch(:rails_env) do
-            execute :rake, 'memcached:flush'
-         end
-       end
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'memcached:flush'
+        end
+      end
     end
   end
 
@@ -87,73 +93,3 @@ namespace :rails do
     exec command_string
   end
 end
-
-
-namespace :bluepill do
-  desc "Stop processes that bluepill is monitoring and quit bluepill"
-  task :quit do
-    on roles(:sidekiq) do
-      within release_path do
-        unless test "bluepill stop --no-privileged"
-          puts "Bluepill was unable to finish all processes gracefully"
-        end
-
-        unless test "bluepill quit --no-privileged"
-          puts "Couldn't quit bluepill."
-        end
-      end
-    end
-  end
-
-  desc "Load the pill from config/blue.pill"
-  task :init do
-    on roles(:sidekiq) do
-      within release_path do
-        exec "bluepill load #{current_path}/config/blue.pill --no-privileged"
-        puts "Initialized bluepill."
-      end
-    end
-  end
-
-  desc "Starts the previously stopped pill"
-  task :start do
-    on roles(:sidekiq) do
-      within release_path do
-        exec "bluepill start --no-privileged"
-        puts "Initialized bluepill."
-      end
-    end
-  end
-
-  desc "Stops one or more bluepill monitored processes"
-  task :stop do
-    on roles(:sidekiq) do
-      within release_path do
-        exec "bluepill stop --no-privileged"
-        puts "Stopped bluepill."
-      end
-    end
-  end
-
-  desc "Restarts the pill from config/blue.pill"
-  task :restart do
-    on roles(:sidekiq) do
-      within release_path do
-        exec "bluepill restart --no-privileged"
-        puts "Restarted bluepill."
-      end
-    end
-  end
-
-  desc "Prints bluepill's process stati"
-  task :status do
-    on roles(:sidekiq) do
-      within release_path do
-        puts capture "bluepill status --no-privileged"
-      end
-    end
-  end
-end
-
-after 'deploy:published', 'bluepill:quit', 'bluepill:init', 'bluepill:start'
-#before 'deploy:restart', 'bluepill:restart'
