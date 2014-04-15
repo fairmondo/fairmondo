@@ -27,8 +27,8 @@ describe RefundPolicy do
       context 'that is sold' do
         context 'and is not refunded' do
           let( :refund ) { Refund.new transaction: FactoryGirl.create( :transaction_with_buyer, :old ) }
-          it { should permit( :create ) }
-          it { should permit( :new ) }
+          it { should grant_permission( :create ) }
+          it { should grant_permission( :new ) }
         end
 
         context 'and is refunded' do

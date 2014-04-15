@@ -130,7 +130,7 @@ module Article::Images
     end
 
     def cleanup_images
-      self.images.each{ |i| i.destroy }
+      self.images.each{ |i| i.destroy } unless self.keep_images
     end
 
   end

@@ -45,9 +45,9 @@ describe LibraryPolicy do
 
   context "for the library owning user" do
     let(:user) { library.user    }
-    it { should permit(:show) }
-    it { should permit(:create)  }
-    it { should permit(:update)  }
-    it { should permit(:destroy) }
+    it { should grant_permission(:show) }
+    it { should grant_permission(:create)  }
+    it { should grant_permission(:update)  }
+    it { should grant_permission(:destroy) }
   end
 end

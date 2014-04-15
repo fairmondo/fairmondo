@@ -29,6 +29,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'sidekiq/testing'
+require "pundit/rspec"
 
 
 require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
