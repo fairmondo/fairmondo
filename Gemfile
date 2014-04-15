@@ -47,6 +47,8 @@ gem 'sidekiq'
 
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+gem 'bluepill' #sidekiq process monitoring
+
 
 # Memcached
 gem 'dalli'

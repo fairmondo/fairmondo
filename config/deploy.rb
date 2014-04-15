@@ -7,7 +7,7 @@ set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to,   "/var/www/fairnopoly"
+set :deploy_to, "/var/www/fairnopoly"
 
 # Default value for :scm is :git
 set :scm, :git
@@ -31,11 +31,10 @@ set :ssh_options, {
 }
 
 # Sidekiq
-set :sidekiq_role, :sidekiq
-set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
+#set :sidekiq_role, :sidekiq
+#set :sidekiq_pid, ->{ "tmp/pids/sidekiq.pid" }
 
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -46,18 +45,23 @@ namespace :deploy do
 
   after :publishing, :restart
 
+
+  before :updated, 'bluepill:quiet'
+  after :published, 'bluepill:quit'
+  after :published, 'bluepill:init'
+  after :published, 'bluepill:start'
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-       within release_path do
-         with rails_env: fetch(:rails_env) do
-            execute :rake, 'memcached:flush'
-         end
-       end
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'memcached:flush'
+        end
+      end
     end
   end
 
   after :finishing, "deploy:cleanup"
-
 end
 
 
@@ -84,7 +88,8 @@ namespace :rails do
   end
 
   def execute_interactively(command,host)
-    puts "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
-    exec "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    command_string = "ssh -l #{host.user} #{host} -p 22 -t 'cd #{deploy_to}/current && #{command}'"
+    puts command_string
+    exec command_string
   end
 end
