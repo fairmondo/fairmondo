@@ -21,14 +21,6 @@ GIT
     fastbill-automatic (0.0.3)
       json
 
-GIT
-  remote: https://github.com/fnando/i18n-js.git
-  revision: 12fe8ec2133dc162087eef2b1639309a01cbb414
-  branch: master
-  specs:
-    i18n-js (3.0.0.rc5)
-      i18n
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -224,6 +216,8 @@ GEM
       hpricot (~> 0.8.6)
       ruby_parser (~> 3.1.1)
     i18n (0.6.9)
+    i18n-js (2.1.2)
+      i18n
     ibanomat (0.0.5)
       json
       rest-client
@@ -556,7 +550,7 @@ DEPENDENCIES
   guard-rspec
   haml
   html2haml
-  i18n-js!
+  i18n-js
   ibanomat
   inherited_resources
   jquery-rails
