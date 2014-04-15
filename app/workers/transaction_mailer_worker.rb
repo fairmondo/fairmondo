@@ -3,8 +3,8 @@ class TransactionMailerWorker
 
   sidekiq_options queue: :transaction_mails,
                   retry: 5,
-                  backtrace: true,
-                  failures: true
+                  backtrace: true
+
 
   def perform transaction_id, type
 

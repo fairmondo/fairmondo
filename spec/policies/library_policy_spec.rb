@@ -48,18 +48,20 @@ describe LibraryPolicy do
   end
 
   context "for the library owning user" do
+
     let(:user) { library.user       }
-    it { should permit(:show)       }
-    it { should permit(:create)     }
-    it { should permit(:update)     }
-    it { should permit(:destroy)    }
+    it { should grant_permission(:show)       }
+    it { should grant_permission(:create)     }
+    it { should grant_permission(:update)     }
+    it { should grant_permission(:destroy)    }
     it { should deny(:admin_add)    }
     it { should deny(:admin_remove) }
   end
 
   context "for an admin" do
     let(:user) { FactoryGirl.create :admin_user }
-    it { should permit(:admin_add)              }
-    it { should permit(:admin_remove)           }
+    it { should grant_permission(:admin_add)              }
+    it { should grant_permission(:admin_remove)           }
+
   end
 end

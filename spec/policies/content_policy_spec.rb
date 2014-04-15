@@ -8,8 +8,8 @@ describe ContentPolicy do
   let(:user) { nil }
 
   context "for a visitor" do
-    it { should permit(:show)      }
-    it { should permit(:not_found) }
+    it { should grant_permission(:show)      }
+    it { should grant_permission(:not_found) }
     it { should deny(:new)         }
     it { should deny(:create)      }
     it { should deny(:edit)        }
@@ -28,10 +28,10 @@ describe ContentPolicy do
 
   context "for an admin user" do
     let(:user) { FactoryGirl.create :admin_user }
-    it { should permit(:new)                    }
-    it { should permit(:create)                 }
-    it { should permit(:edit)                   }
-    it { should permit(:update)                 }
-    it { should permit(:destroy)                }
+    it { should grant_permission(:new)                    }
+    it { should grant_permission(:create)                 }
+    it { should grant_permission(:edit)                   }
+    it { should grant_permission(:update)                 }
+    it { should grant_permission(:destroy)                }
   end
 end

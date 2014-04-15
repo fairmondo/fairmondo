@@ -22,7 +22,7 @@
 module PunditMatcher
   extend RSpec::Matchers::DSL
 
-  matcher :permit do |action|
+  matcher :grant_permission do |action|
     match do |policy|
       get_return_of_send policy, action
     end
