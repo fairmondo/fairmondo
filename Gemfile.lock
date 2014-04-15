@@ -512,7 +512,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bluepill
-  brakeman (~> 2.4.3)
+  brakeman
   bullet!
   byebug
   capistrano (~> 3.1)
