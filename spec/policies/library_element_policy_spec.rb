@@ -43,8 +43,8 @@ describe LibraryElementPolicy do
 
   context "for the template owning user" do
     let(:user) { library_element.library.user }
-    it { should permit(:create)               }
-    it { should permit(:update)               }
-    it { should permit(:destroy)              }
+    it { should grant_permission(:create)               }
+    it { should grant_permission(:update)               }
+    it { should grant_permission(:destroy)              }
   end
 end
