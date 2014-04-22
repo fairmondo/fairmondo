@@ -12,7 +12,7 @@
 	outline: 0;
 	background:none;
 	&:hover {
-		background-color: $lightest-gray;
+		background-color: $sand;
 	}
 
 }
@@ -48,7 +48,7 @@
 
 
 .Accordion-step {
-	border-bottom: solid 2px $lightest-gray;
+	border-bottom: solid 2px $sand;
 	margin-bottom: 1em;
 	overflow: auto;
 }

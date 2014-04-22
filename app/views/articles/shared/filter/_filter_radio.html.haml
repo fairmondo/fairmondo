@@ -1,17 +1,17 @@
-.Search-filter.js-active-toggle--container
-  .Search-dropdown.js-active-toggle--trigger{data: {clickable: 'true'}}
+.Search-filter.JS-active-toggle--container
+  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: 'true'}}
     - if search_cache && search_cache.send(parameter)
       = title + ': ' + t("enumerize.article_search_form.#{parameter}.#{search_cache.send(parameter)}")
     - else
       = title
-    %ul.js-active-toggle--target
+    %ul.JS-active-toggle--target
       %li
         - if search_cache && search_cache.send(parameter)
-          %a{href: search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => nil)) : articles_path(article_search_form: search_params_merged_with(parameter => nil)), data: { remote: 'true' }}
+          %a.Search-colored-link{href: search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => nil)) : articles_path(article_search_form: search_params_merged_with(parameter => nil)), data: { remote: 'true' }}
             Werte löschen
       - values.each do |value|
         %li
-          %a{href: search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => value)) : articles_path(article_search_form: search_params_merged_with(parameter => value)), data: { remote: 'true' }}
+          %a.Search-colored-link{href: search_cache.searched_category ? category_path(article_search_form: search_params_merged_with(parameter => value)) : articles_path(article_search_form: search_params_merged_with(parameter => value)), data: { remote: 'true' }}
             - if search_cache && search_cache.send(parameter) == value
               = image_tag "icheck/radio_active.png"
             - else

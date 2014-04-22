@@ -1,11 +1,11 @@
 $ ->
   ## GENERAL
-  $('body').on('click', '.js-active-toggle--trigger', (e) ->
+  $('body').on('click', '.JS-active-toggle--trigger', (e) ->
     if (max = $(@).attr('data-maxsize')) and $(window).width() > max
       return true
 
-    container = $(@).closest '.js-active-toggle--container' # for scoping
-    container.find(".js-active-toggle--target").toggleClass('is-active')
+    container = $(@).closest '.JS-active-toggle--container' # for scoping
+    container.find(".JS-active-toggle--target").toggleClass('is-active')
     if $(@).attr('data-clickable') == undefined
       e.preventDefault()
       false
