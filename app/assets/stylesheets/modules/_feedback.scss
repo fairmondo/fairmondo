@@ -2,7 +2,7 @@
   @include transform(rotate(-90deg));
   @include transition(right 100ms ease-in);
   @include clear-links;
-  @include color-links(white,$lightest-gray);
+  @include color-links(white, $sand);
   top: 50%;
   position: fixed;
   display:none;

@@ -1,0 +1,26 @@
+@import "mixins/all";
+
+.feature-inner {
+  @include whitebox;
+  @include clearfix;
+}
+
+.feature-inner > h2 {
+  margin: em(6) 0 em(11) 0;
+}
+
+.feature--quadruple {
+  @include grid-with-columns(1);
+}
+
+.feature--quadruple .feature-articles > .Article {
+  @include grid-with-columns(4);
+}
+
+.feature--double {
+  @include grid-with-columns(2);
+}
+
+.feature--double .feature-articles > .Article {
+  @include grid-with-columns(2);
+}

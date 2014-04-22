@@ -39,12 +39,16 @@
 
 .Search-categories {
   @include whitebox;
+  padding: 0; // counteract whitebox
   margin-bottom: 1em;
 }
 
 .Search-categories > .Search-heading {
-
   margin:0;
+  padding: em(8) em(18);
+  &:hover {
+    background: $lightest-gray;
+  }
   //font-size: 1rem; would be an option
   @include at-breakpoint($bp-tablet) {
     display: none;
@@ -69,7 +73,7 @@
 
 .Search-categories > .Search-tree {
   margin:  0;
-  padding: 0;
+  padding: em(10) 0;
   list-style-type: none;
 
   @include till-breakpoint($bp-tablet) {
@@ -84,7 +88,7 @@
 // List node
 
 .Search-categories .Search-tree > li {
-  padding: 0.5em 0em;
+  padding: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -98,10 +102,21 @@
   }
 }
 
+.Search-categories .Search-tree > li > a,
+.Search-categories .Search-tree > li > span {
+  padding-left: em(20);
+  padding-right: em(20);
+}
+.Search-categories .Search-tree > li > span {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  display:block;
+}
+
 // Ancestors
 
 .Search-categories > .Search-tree > li > .Search-ancestor {
-  margin: 0 0 1em;
+  margin: 0;// 0 1em;
   @include till-breakpoint($bp-tablet) {
     font-size: 1rem;
     margin-bottom: 0;
@@ -122,6 +137,7 @@
 .Search-filters {
   margin-bottom: 2em;
   @include clearfix;
+  clear: both;
 }
 
 .Search-filters > .Search-filter {
@@ -136,6 +152,9 @@
   @include whitebox;
   padding: 0.3em;
   @include user-select(none);
+  &:hover {
+    background: $lightest-gray;
+  }
 }
 
 .Search-dropdown > ul {
@@ -143,7 +162,7 @@
   width:100%;
   padding:0;
   background: white;
-  box-shadow: $lightest-gray 0px 0px 2px 2px;
+  box-shadow: $sand 0px 0px 2px 2px;
   list-style: none;
 
   &.is-active {
@@ -155,10 +174,10 @@
   }
 }
 
-.Search-dropdown > ul > li > a {
+a.Search-colored-link {
   padding: 0.5em;
   display:block;
-  text-decoration:none;
+  text-decoration:none !important;
   img {
     float:left;
     margin-right: 0.5em;
