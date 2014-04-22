@@ -4,15 +4,15 @@
 
 // Sidebar left / Results right in desktop
 
-@include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-  .Search-sidebar {
-    @include span(1 of 3 0.1);
-  }
-  .Search-results {
-    @include span(2 of 3 0.1);
-    @include omega;
-  }
-}
+// @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+//   .Search-sidebar {
+//     @include span(1 of 3 0.1);
+//   }
+//   .Search-results {
+//     @include span(2 of 3 0.1);
+//     @include omega;
+//   }
+// }
 
 
 @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
@@ -50,7 +50,7 @@
     background: $lightest-gray;
   }
   //font-size: 1rem; would be an option
-  @include at-breakpoint($bp-tablet) {
+  @include at-breakpoint($bp-tablet-horizontal) {
     display: none;
   }
 }
@@ -76,7 +76,7 @@
   padding: em(10) 0;
   list-style-type: none;
 
-  @include till-breakpoint($bp-tablet) {
+  @include till-breakpoint($bp-tablet-horizontal) {
     padding:1em;
     display: none;
     &.is-active{
@@ -93,7 +93,7 @@
   white-space: nowrap;
   overflow: hidden;
   width:100%;
-  @include till-breakpoint($bp-tablet) {
+  @include till-breakpoint($bp-tablet-horizontal) {
 
     border-bottom: 1px dashed $lighter-gray;
     &:last-child {
@@ -117,7 +117,7 @@
 
 .Search-categories > .Search-tree > li > .Search-ancestor {
   margin: 0;// 0 1em;
-  @include till-breakpoint($bp-tablet) {
+  @include till-breakpoint($bp-tablet-horizontal) {
     font-size: 1rem;
     margin-bottom: 0;
   }

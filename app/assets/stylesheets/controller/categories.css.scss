@@ -13,14 +13,21 @@
   @include grid-with-columns(1);
 }
 
-.feature--quadruple .feature-articles > .Article {
-  @include grid-with-columns(4);
+.feature--quadruple .Grid-item {
+  @include between-breakpoints($bp-mobile-horizontal, $bp-desktop) {
+    &:last-child {
+      display: none
+    }
+  }
+}
+.feature--double .Grid-item {
+  @include till-breakpoint($bp-tablet-horizontal) {
+    &:last-child {
+      display: none
+    }
+  }
 }
 
 .feature--double {
-  @include grid-with-columns(2);
-}
-
-.feature--double .feature-articles > .Article {
   @include grid-with-columns(2);
 }
