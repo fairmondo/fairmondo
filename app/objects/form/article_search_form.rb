@@ -124,7 +124,7 @@ class ArticleSearchForm
   # Did this form get request parameters or is this an empty search where someone just wants to look around?
   # (category doesn't count)
   def search_request?
-    q || fair || ecologic || small_and_precious || condition || zip || order_by || @page
+    !q.blank? || fair || ecologic || small_and_precious || condition || !zip.blank? || order_by || @page
   end
 
 
