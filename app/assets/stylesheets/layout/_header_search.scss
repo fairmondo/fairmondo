@@ -1,7 +1,12 @@
 
 .l-header-search {
   @include container($screen-width);
-  padding: 0 $screen-padding;
+  padding: 0 1rem;
+
+  @include at-breakpoint($bp-tablet) {
+    padding-left: $screen-padding;
+    padding-right: $screen-padding;
+  }
 }
 
 
@@ -55,11 +60,10 @@
 
 .l-header-search-query > fieldset > ol > li.input {
   margin-top: 0.1em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
   padding: 0;
 
   @include at-breakpoint($bp-tablet) {
-    margin-bottom: 0.1em;
     &:first-child {
       @include span(3 of 5 0.1);
     }

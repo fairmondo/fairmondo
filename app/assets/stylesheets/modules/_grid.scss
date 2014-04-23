@@ -4,11 +4,11 @@
     @include grid-with-columns(2);
   }
 
-  @include between-breakpoints($bp-mobile-horizontal, $bp-desktop) {
+  @include between-breakpoints($bp-mobile-horizontal, $screen-width) {
     @include grid-with-columns(3);
   }
 
-  @include at-breakpoint($bp-desktop) {
+  @include at-breakpoint($screen-width) {
     @include grid-with-columns(4);
   }
 }

@@ -25,11 +25,19 @@
     margin:0;
     word-break: break-word;
     min-height: 2.5em;
+    font-size: 1.0rem;
+
+    @include at-breakpoint($bp-tablet) {
+      font-size: 1.1rem;
+    }
   }
 }
 .Article-price {
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  @include at-breakpoint($bp-tablet) {
+    font-size: 1.3em;
+  }
 }
 .Article-donation, .Article-basicprice, .Article-vat {
   font-size: 0.7rem;
