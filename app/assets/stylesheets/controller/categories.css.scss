@@ -14,7 +14,7 @@
 }
 
 .feature--quadruple .Grid-item {
-  @include between-breakpoints($bp-mobile-horizontal, $bp-desktop) {
+  @include between-breakpoints($bp-mobile-horizontal, $screen-width) {
     &:last-child {
       display: none
     }

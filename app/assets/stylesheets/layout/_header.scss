@@ -9,7 +9,12 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-top {
   @include container($screen-width);
-  padding: 0.5em $screen-padding 0.3em;
+  padding: 0.5em 1rem 0.3em;
+
+  @include at-breakpoint($bp-tablet) {
+    padding-left: $screen-padding;
+    padding-right: $screen-padding;
+  }
 }
 
 .l-header-bottom {
