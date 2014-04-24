@@ -1,6 +1,6 @@
 - cache 'category_navigation' do
   %ul
-    - Category.other_category_last.weighted.includes(:children).sorted_roots.each do |category|
+    - Category.other_category_last.weighted.includes(:children).sorted.roots.each do |category|
       %li
         %a{href: category_path(category)}
           = category.name

@@ -52,7 +52,7 @@
 %p
   %h2 Eingestellte Artikel pro Oberkategorie
   %ul
-    - Category.sorted_roots.each do |c|
+    - Category.sorted.roots.each do |c|
       %li
         = c.name
         = ":"

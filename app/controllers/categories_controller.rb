@@ -16,7 +16,7 @@ class CategoriesController < InheritedResources::Base
   end
 
   def collection
-    @categories ||= Category.other_category_last.sorted_roots.includes(children: {children: :children})
+    @categories ||= Category.other_category_last.sorted.roots.includes(children: {children: :children})
   end
 
   private
@@ -37,8 +37,7 @@ class CategoriesController < InheritedResources::Base
     end
 
     def as_json
-      @children = resource.children
-      @children = @children.delete_if { |child| child.children.empty? && child.active_articles.empty? } if params[:hide_empty]
+      @children = params[:hide_empty] ? resource.children_with_active_articles : resource.children
       render json: @children.map { |child| {id: child.id, name: child.name} }.to_json
     end
 end

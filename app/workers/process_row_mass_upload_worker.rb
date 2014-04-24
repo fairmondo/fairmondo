@@ -27,10 +27,10 @@ class ProcessRowMassUploadWorker
 
 
   sidekiq_retries_exhausted do |msg|
-     Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
-     mass_upload = MassUpload.find msg['args'].first
-     ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, I18n.t( 'mass_uploads.errors.unknown_error' ), msg['args'].last, msg['args'][1])
-     #see method call args order of perform method for msg array explanation
+    Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+    mass_upload = MassUpload.find msg['args'].first
+    ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, I18n.t( 'mass_uploads.errors.unknown_error' ), msg['args'].last, msg['args'][1])
+    #see method call args order of perform method for msg array explanation
   end
 
   def perform mass_upload_id, unsanitized_row_hash, index
