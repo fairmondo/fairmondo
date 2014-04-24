@@ -9,7 +9,7 @@
     = render '/articles/shared/search_filter', search_cache: search_cache
     - if articles.empty?
       %h2= t("common.text.no_search_result_text")
-    - elsif !@exclusive
+    - elsif content_for(:is_exclusive) != "true"
       = render '/articles/shared/articles_grid', articles: articles
       = paginate articles
       - if params[:queue]

@@ -1,7 +1,7 @@
 = stylesheet_link_tag asset_path("controller/welcome.css")
 
 - content_for :category_specific_content do
-  - @exclusive = true
+  - content_for(:is_exclusive, true)
   - # should be shown when no search parameters where sent
   - unless search_cache.search_request?
     .features
