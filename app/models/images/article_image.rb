@@ -12,7 +12,7 @@ class ArticleImage < Image
 
     validates_attachment_presence :image, :unless => :external_url
     validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']
-    validates_attachment_size :image, :in => 0..2.megabytes
+    validates_attachment_size :image, :in => 1..2.megabytes # the 1 means one byte, not one megabyte
 
     belongs_to :article, foreign_key: "imageable_id"
 
