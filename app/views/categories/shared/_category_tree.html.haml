@@ -13,7 +13,7 @@
       - ancestor.ancestors.each do |c|
         %li
           %h3.Search-ancestor
-            %a.Search-colored-link{href: category_path(c, article_search_form: search_params_merged_with( :category => c.id )), data: { remote: 'true' }}
+            %a.Search-colored-link{href: category_path(c, article_search_form: search_params_merged_with( category: c.id )), data: { remote: 'true' }}
               = c.name
     - if category
       - if category.children.empty? && category.parent
@@ -31,10 +31,10 @@
         %li
           = render 'categories/shared/category_tree_leaf', category: category
           %ul.Search-tree
-            - category.children.each do |child|
+            - category.children_with_active_articles.each do |child|
               %li= render 'categories/shared/category_tree_leaf', category: child
-        - category.siblings.each do |sibling|
+        - category.siblings_with_active_articles.each do |sibling|
           %li= render 'categories/shared/category_tree_leaf', category: sibling
     - else
-      - Category.other_category_last.sorted_roots.all.each do |child|
+      - Category.other_category_last.sorted.roots.each do |child|
         %li= render 'categories/shared/category_tree_leaf', category: child

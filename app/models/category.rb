@@ -42,9 +42,22 @@ class Category < ActiveRecord::Base
   scope :all_by_id, order("id ASC")
   scope :other_category_last, order("CASE WHEN name = 'Sonstiges' THEN 1 ELSE 0 END") #internationalize!
   scope :weighted, order("weight IS NULL, weight desc")
-  scope :sorted_roots, order(:name).where(parent_id: nil)
+  scope :sorted, order(:name)
+  scope :roots, where(parent_id: nil)
   scope :other_category, where(parent_id: nil, name: 'Sonstiges') #internationalize!
 
   acts_as_nested_set
 
+  def children_with_active_articles
+    delete_if_no_active_articles self.children.includes(:children)
+  end
+  def siblings_with_active_articles #filter = nil
+    siblings = self.siblings.except(:order).other_category_last.sorted.includes(:children)
+    #siblings = siblings.send filter if filter
+    delete_if_no_active_articles siblings
+  end
+  private
+    def delete_if_no_active_articles array
+      array.delete_if { |node| node.children.empty? && node.active_articles.empty? }
+    end
 end
