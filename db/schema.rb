@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20140409043158) do
-=======
 ActiveRecord::Schema.define(:version => 20140423111400) do
->>>>>>> develop
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
