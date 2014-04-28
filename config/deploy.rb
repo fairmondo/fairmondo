@@ -3,6 +3,7 @@ lock '3.1.0'
 
 set :application, 'fairnopoly'
 set :repo_url, 'git://github.com/fairnopoly/fairnopoly.git'
+set :rbenv_ruby, '2.1.0'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
