@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140423111400) do
+ActiveRecord::Schema.define(:version => 20140428123855) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20140423111400) do
   add_index "articles", ["friendly_percent_organisation_id"], :name => "index_articles_on_friendly_percent_organisation_id"
   add_index "articles", ["id", "article_template_id"], :name => "index_articles_on_id_and_article_template_id", :unique => true
   add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
+  add_index "articles", ["slug"], :name => "text_pattern_index_on_slug"
   add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
 
   create_table "articles_categories", :force => true do |t|
@@ -117,9 +118,11 @@ ActiveRecord::Schema.define(:version => 20140423111400) do
     t.integer  "children_count", :default => 0
     t.integer  "weight"
     t.integer  "view_columns",   :default => 2
+    t.string   "slug"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "contents", :force => true do |t|
     t.string   "key"
@@ -237,15 +240,17 @@ ActiveRecord::Schema.define(:version => 20140423111400) do
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
     t.integer  "library_elements_count",              :default => 0
+    t.string   "exhibition_name"
   end
 
   add_index "libraries", ["user_id"], :name => "index_libraries_on_user_id"
 
   create_table "library_elements", :force => true do |t|
-    t.integer  "article_id", :limit => 8
-    t.integer  "library_id", :limit => 8
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.integer  "article_id",      :limit => 8
+    t.integer  "library_id",      :limit => 8
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.datetime "exhibition_date"
   end
 
   add_index "library_elements", ["article_id"], :name => "index_library_elements_on_article_id"
