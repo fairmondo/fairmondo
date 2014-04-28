@@ -1,4 +1,5 @@
 class TextPatterOpsIndexOnSlug < ActiveRecord::Migration
+  # https://github.com/norman/friendly_id/issues/369
   def up
     sql = ActiveRecord::Base.connection();
     if sql.is_a? ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
