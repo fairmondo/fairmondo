@@ -54,7 +54,7 @@ gem 'bluepill' #sidekiq process monitoring
 gem 'dalli'
 
 # Sidekiq Integrations
-gem 'delayed_paperclip', :github => 'fairnopoly/delayed_paperclip'
+gem 'delayed_paperclip'
 
 # Controller Gems
 gem 'devise' # authentication
