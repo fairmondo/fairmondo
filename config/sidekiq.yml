@@ -8,6 +8,7 @@ production:
 :queues:
   - [default, 5]
   - [mass_upload, 3]
+  - [mass_upload_rows, 3]
   - [paperclip_background, 2]
   - [paperclip_foreground, 4]
   - [fastbill, 5]
