@@ -22,25 +22,18 @@
 class ProcessMassUploadWorker
   include Sidekiq::Worker
   sidekiq_options queue: :mass_upload,
-                  retry: 5,
+                  retry: false,
                   backtrace: true
-
-  sidekiq_retries_exhausted do |msg|
-    Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
-  end
 
   def perform mass_upload_id
     mass_upload = MassUpload.find mass_upload_id
     mass_upload.start
-    stored_row_count = Redis.current.get("mass_upload#{mass_upload_id}_row_count").to_i
     row_count = 0
     begin
       CSV.foreach(mass_upload.file.path, encoding: MassUpload::Checks.get_csv_encoding(mass_upload.file.path), col_sep: ';', quote_char: '"', headers: true) do |row|
         row_count += 1
-        unless stored_row_count && row_count < stored_row_count
-          row.delete '€' # delete encoding column
-          ProcessRowMassUploadWorker.perform_async(mass_upload_id, row.to_hash, row_count)
-        end
+        row.delete '€' # delete encoding column
+        ProcessRowMassUploadWorker.perform_async(mass_upload_id, row.to_hash, row_count)
       end
 
       mass_upload.update_attribute(:row_count, row_count)
@@ -49,8 +42,8 @@ class ProcessMassUploadWorker
       mass_upload.error(I18n.t('mass_uploads.errors.wrong_encoding'))
     rescue CSV::MalformedCSVError
       mass_upload.error(I18n.t('mass_uploads.errors.illegal_quoting'))
-    ensure
-      Redis.current.set("mass_upload#{mass_upload_id}_row_count", row_count)
+    rescue
+      mass_upload.error(I18n.t('mass_uploads.errors.unknown_error'))
     end
   end
 end
