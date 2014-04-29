@@ -21,7 +21,7 @@
 #
 class ProcessRowMassUploadWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :mass_upload,
+  sidekiq_options queue: :mass_upload_rows,
                   retry: 20,
                   backtrace: true
 
