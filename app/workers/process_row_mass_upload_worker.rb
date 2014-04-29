@@ -184,9 +184,7 @@ class ProcessRowMassUploadWorker
     # Replacement for save! method - Does different things based on the action attribute
 
     def process mass_upload, article
-      mu_article = MassUploadArticle.create mass_upload: mass_upload, article: article, action: article.action
-
-      case mu_article.action
+      case article.action
       when :activate, :create, :update
         article.calculate_fees_and_donations
         article.save!
@@ -195,6 +193,7 @@ class ProcessRowMassUploadWorker
       when :deactivate
         article.deactivate_without_validation
       end
+      MassUploadArticle.create mass_upload: mass_upload, article: article, action: article.action
     end
 
     def self.add_article_error_messages_to( mass_upload, validation_errors, index, row_hash )

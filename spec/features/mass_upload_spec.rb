@@ -11,10 +11,6 @@ describe "Mass-upload" do
   subject { page }
 
   describe "for code-coverage purposes of sidekiq retries" do
-    it "should cover exhausted upload workers" do
-      Sidekiq.logger.stub(:warn)
-      ProcessMassUploadWorker.sidekiq_retries_exhausted_block.call({"class" => Object.class , "args" => {}, "error_message" => ""})
-    end
     it "should cover exhausted row workers" do
       Sidekiq.logger.stub(:warn)
       mu = FactoryGirl.create :mass_upload
