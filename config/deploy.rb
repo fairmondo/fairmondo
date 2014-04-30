@@ -94,4 +94,8 @@ namespace :rails do
   end
 end
 
-
+# set up the environment for rbenv since Capistrano
+# doesn't execute .profile (so it needs rbenv's $PATH)
+set :default_environment, {
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
