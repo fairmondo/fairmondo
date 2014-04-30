@@ -94,20 +94,14 @@ RSpec.configure do |config|
 
   # Expanded Test Suite Setup
   config.before :suite do
-
-
     Article.index.delete
     Article.create_elasticsearch_index
-
 
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
      # Initialize some Categories
-
     setup_categories
-
-
   end
 
   config.after :suite do
@@ -146,8 +140,8 @@ end
 # See config.after(:all,:setup => true)
 # With this you can define a setup block in a describe block that gets cleaned after all specs in this block
 def setup
-    DatabaseCleaner.start
-    DatabaseCleaner.strategy = nil
+  DatabaseCleaner.start
+  DatabaseCleaner.strategy = nil
 end
 
 

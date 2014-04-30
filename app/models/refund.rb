@@ -3,9 +3,9 @@ class Refund < ActiveRecord::Base
   extend Sanitization
   extend Tokenize
 
-  def self.refund_attrs
-    [ :reason, :description ]
-  end
+  # def self.refund_attrs
+  #   [ :reason, :description ]
+  # end
 
   belongs_to :transaction, class_name: 'Transaction', foreign_key: 'transaction_id', inverse_of: :refund
 

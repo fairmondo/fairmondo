@@ -26,9 +26,9 @@ module Article::Attributes
     extend Tokenize
 
     #common fields
-    def self.common_attrs
-      [:title, :content, :condition, :condition_extra, :quantity, :transaction_attributes]
-    end
+    # def self.common_attrs
+    #   [:title, :content, :condition, :condition_extra, :quantity, :transaction_attributes]
+    # end
     #! attr_accessible *common_attributes
     #! attr_accessible *common_attributes, :as => :admin
 
@@ -53,9 +53,9 @@ module Article::Attributes
 
     #money_rails and price
 
-    def self.money_attrs
-      [:price_cents, :price, :vat]
-    end
+    # def self.money_attrs
+    #   [:price_cents, :price, :vat]
+    # end
     #! attr_accessible *money_attributes
     #! attr_accessible *money_attributes, :as => :admin
 
@@ -70,9 +70,9 @@ module Article::Attributes
 
 
     # basic price
-    def self.basic_price_attrs
-      [:basic_price, :basic_price_cents, :basic_price_amount]
-    end
+    # def self.basic_price_attrs
+    #   [:basic_price, :basic_price_cents, :basic_price_amount]
+    # end
     #! attr_accessible *basic_price_attributes
     #! attr_accessible *basic_price_attributes, :as => :admin
 
@@ -86,9 +86,9 @@ module Article::Attributes
 
     # legal entity attributes
 
-    def self.legal_entity_attrs
-      [:custom_seller_identifier, :gtin]
-    end
+    # def self.legal_entity_attrs
+    #   [:custom_seller_identifier, :gtin]
+    # end
 
     #! attr_accessible :custom_seller_identifier
     #! attr_accessible :gtin
@@ -100,16 +100,16 @@ module Article::Attributes
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     #transport
-    def self.transport_attrs
-      [:transport_pickup,
-      :transport_type1, :transport_type1_price_cents,
-      :transport_type1_price, :transport_type1_provider,
-      :transport_type1_number,
-      :transport_type2, :transport_type2_price_cents,
-      :transport_type2_price, :transport_type2_provider,
-      :transport_type2_number,
-      :transport_details]
-    end
+    # def self.transport_attrs
+    #   [:transport_pickup,
+    #   :transport_type1, :transport_type1_price_cents,
+    #   :transport_type1_price, :transport_type1_provider,
+    #   :transport_type1_number,
+    #   :transport_type2, :transport_type2_price_cents,
+    #   :transport_type2_price, :transport_type2_provider,
+    #   :transport_type2_number,
+    #   :transport_details]
+    # end
     #! attr_accessible *transport_attributes
     #! attr_accessible *transport_attributes, :as => :admin
 
@@ -135,14 +135,14 @@ module Article::Attributes
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
-    def self.payment_attrs
-      [:payment_details,
-      :payment_bank_transfer,
-      :payment_cash,
-      :payment_paypal,
-      :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-      :payment_invoice]
-    end
+    # def self.payment_attrs
+    #   [:payment_details,
+    #   :payment_bank_transfer,
+    #   :payment_cash,
+    #   :payment_paypal,
+    #   :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
+    #   :payment_invoice]
+    # end
     #! attr_accessible *payment_attributes
     #! attr_accessible *payment_attributes, :as => :admin
 

@@ -39,18 +39,18 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
 
-  def self.user_attrs
-    [
-      :email, :password, :password_confirmation, :remember_me, :type,
-      :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
-      :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
-      :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
-      :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
-      :fastbill_profile_update, :vacationing,
-      :iban,:bic,
-      { image_attributes: Image.image_attrs + [:id] }
-    ]
-  end
+  # def self.user_attrs
+  #   [
+  #     :email, :password, :password_confirmation, :remember_me, :type,
+  #     :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
+  #     :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
+  #     :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
+  #     :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
+  #     :fastbill_profile_update, :vacationing,
+  #     :iban,:bic,
+  #     { image_attributes: Image.image_attrs + [:id] }
+  #   ]
+  # end
 
 
   auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city,
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
   end
 
-  # TODO: Language spezific validators
+  # TODO: Language specific validators
   # german validator for iban
   validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, :unless => Proc.new {|c| c.iban.blank?}, if: :is_german?
   validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, :unless => Proc.new {|c| c.bic.blank?}

@@ -23,9 +23,9 @@ module Article::Categories
   extend ActiveSupport::Concern
 
   included do
-    def self.category_attrs
-      [category_ids: []]
-    end
+    # def self.category_attrs
+    #   [category_ids: []]
+    # end
 
     attr_accessor :category_proposal
 

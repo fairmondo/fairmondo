@@ -41,8 +41,8 @@ class UsersController < InheritedResources::Base
   def profile
     profile! do |format|
       format.html do
-        if ['terms', 'cancellation'].include? permitted_profile_params[:print]
-          render '/users/print', layout: false, locals: { field: permitted_profile_params[:print] }
+        if ['terms', 'cancellation'].include? refined_params[:print]
+          render '/users/print', layout: false, locals: { field: refined_params[:print] }
         end
       end
     end
@@ -62,9 +62,4 @@ class UsersController < InheritedResources::Base
       end
     end
   end
-
-  private
-    def permitted_profile_params
-      params.permit :print
-    end
 end

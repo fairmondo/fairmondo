@@ -49,11 +49,7 @@ class RatingsController < InheritedResources::Base
   private
 
     def get_user
-      @user = User.find(permitted_id_params[:user_id])
-    end
-
-    def permitted_id_params
-      params.permit :user_id
+      @user = User.find(params[:user_id])
     end
 
     def authorize_new_with_transaction

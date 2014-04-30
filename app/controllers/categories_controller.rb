@@ -22,22 +22,21 @@ class CategoriesController < InheritedResources::Base
   private
     def get_articles
       begin
-        @search_cache = ArticleSearchForm.new permitted_search_params[:article_search_form]
-        @articles ||= @search_cache.search permitted_search_params[:page]
+        @search_cache = ArticleSearchForm.new refined_params
+        @articles ||= @search_cache.search params[:page]
       rescue Errno::ECONNREFUSED
-        @articles ||= policy_scope(Article).page permitted_search_params[:page]
+        @articles ||= policy_scope(Article).page params[:page]
       end
-    end
-
-    def permitted_search_params
-      hash = params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
-      hash[:article_search_form] ||= {}
-      hash[:article_search_form][:category_id] = resource.id
-      hash
     end
 
     def as_json
       @children = params[:hide_empty] ? resource.children_with_active_articles : resource.children
       render json: @children.map { |child| {id: child.id, name: child.name} }.to_json
+    end
+
+    def refined_params
+      hash = super
+      hash[:category_id] = resource.id
+      hash
     end
 end

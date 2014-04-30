@@ -42,8 +42,9 @@ module Fairnopoly
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.eager_load_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/)
     config.eager_load_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/objects/coercers/ #{config.root}/app/observers)
+    config.eager_load_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/)
+    require "#{config.root}/lib/autoload/inherited_resources.rb"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

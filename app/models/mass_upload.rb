@@ -69,9 +69,9 @@ class MassUpload < ActiveRecord::Base
     content_type: { :content_type => ['text/csv','application/excel','application/vnd.msexcel','text/anytext','application/vnd.ms-excel', 'application/octet-stream', 'application/force-download', 'text/comma-separated-values'] }
 
 
-  def self.mass_upload_attrs
-    [:file]
-  end
+  # def self.mass_upload_attrs
+  #   [:file]
+  # end
 
   def self.article_attributes
    ["€", "id", "title", "categories", "condition", "condition_extra",

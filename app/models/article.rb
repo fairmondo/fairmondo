@@ -30,6 +30,7 @@ class Article < ActiveRecord::Base
   # Action attribute: c/create/u/update/d/delete - for export and csv upload
   # keep_images attribute: see edit_as_new
   attr_accessor :action, :keep_images
+  attr_writer :article_search_form #find a way to remove this! arcane won't like it
 
   validates_presence_of :slug unless :template?
 
@@ -121,15 +122,15 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def self.article_attrs with_nested_template = true
-    (
-      Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-      Article.basic_price_attrs + Article.transport_attrs +
-      Article.category_attrs + Article.commendation_attrs  +
-      Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
-      Article.template_attrs(with_nested_template)
-    )
-  end
+  # def self.article_attrs with_nested_template = true
+  #   (
+  #     Article.common_attrs + Article.money_attrs + Article.payment_attrs +
+  #     Article.basic_price_attrs + Article.transport_attrs +
+  #     Article.category_attrs + Article.commendation_attrs  +
+  #     Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
+  #     Article.template_attrs(with_nested_template)
+  #   )
+  # end
 
   def images_attributes=(attributes)
     self.images.clear

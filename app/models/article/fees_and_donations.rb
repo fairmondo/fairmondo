@@ -34,9 +34,9 @@ module Article::FeesAndDonations
 
     before_create :set_friendly_percent_for_ngo, if: :seller_ngo
 
-    def self.fees_and_donation_attrs
-    [:friendly_percent, :friendly_percent_organisation_id]
-    end
+    # def self.fees_and_donation_attrs
+    # [:friendly_percent, :friendly_percent_organisation_id]
+    # end
 
     # Fees and donations
     monetize :calculated_fair_cents, :allow_nil => true
