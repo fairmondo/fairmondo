@@ -115,7 +115,7 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
-    self.erroneous_articles.size + self.mass_upload_articles.count
+    self.erroneous_articles.count + self.mass_upload_articles.count
   end
 
   def process
