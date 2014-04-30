@@ -6,20 +6,20 @@ class FastbillAPI
   # The fastbill_chain takes control of all the necessary steps to handle
   # fastbill customer creation and adding transactions fees to a user's
   # fastbill account
-  def self.fastbill_chain transaction
+  def self.fastbill_chain(transaction)
     seller = transaction.seller
     seller.with_lock do
       unless seller.ngo?
         unless seller.has_fastbill_profile?
-          fastbill_create_customer seller
-          fastbill_create_subscription seller
+          fastbill_create_customer(seller)
+          fastbill_create_subscription(seller)
         end
 
-        [ :fair, :fee ].each do | type |
-          fastbill_setusagedata seller, transaction, type
+        [:fair, :fee].each do |type|
+          fastbill_setusagedata(seller, transaction, type)
         end
 
-        fastbill_discount seller, transaction if transaction.discount
+        fastbill_discount(seller, transaction) if transaction.discount
       end
     end
   end
@@ -27,7 +27,7 @@ class FastbillAPI
 
   private
 
-    def self.fastbill_create_customer seller
+    def self.fastbill_create_customer(seller)
       unless seller.fastbill_id
         User.observers.disable :user_observer do
           attributes = attributes_for(seller)
@@ -41,16 +41,16 @@ class FastbillAPI
 
 
     def self.update_profile user
-      customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
+      customer = Fastbill::Automatic::Customer.get(customer_id: user.fastbill_id).first
       if customer
-        attributes = attributes_for user
+        attributes = attributes_for(user)
         attributes[:customer_id] = user.fastbill_id
-        customer.update_attributes( attributes )
+        customer.update_attributes(attributes)
       end
     end
 
 
-    def self.attributes_for user
+    def self.attributes_for(user)
       {
         customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
         organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
@@ -76,7 +76,7 @@ class FastbillAPI
     end
 
 
-    def self.fastbill_create_subscription seller
+    def self.fastbill_create_subscription(seller)
       unless seller.fastbill_subscription_id
         User.observers.disable :user_observer do
           subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
