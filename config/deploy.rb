@@ -94,8 +94,8 @@ namespace :rails do
   end
 end
 
-# set up the environment for rbenv since Capistrano
-# doesn't execute .profile (so it needs rbenv's $PATH)
-set :default_environment, {
-  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
-}
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.1.0'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
