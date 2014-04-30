@@ -1,9 +1,9 @@
 class Rating < ActiveRecord::Base
   extend Enumerize
 
-  def self.rating_attrs
-    [:rating, :rated_user_id, :text, :transaction_id]
-  end
+  # def self.rating_attrs
+  #   [:rating, :rated_user_id, :text, :transaction_id]
+  # end
 
   belongs_to :transaction
   belongs_to :rated_user, class_name: 'User', inverse_of: :ratings

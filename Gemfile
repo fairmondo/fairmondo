@@ -37,6 +37,7 @@ gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 gem 'strong_parameters' # Rails 4-like mass-assignment protection
+gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
 
 

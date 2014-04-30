@@ -43,7 +43,7 @@ class ArticlesController < InheritedResources::Base
 
   #Autocomplete
   def autocomplete
-    @form = ArticleSearchForm.new(:q => permitted_search_params[:q])
+    @form = ArticleSearchForm.new(q: params[:q])
     render :json => @form.autocomplete
   rescue Errno::ECONNREFUSED
     render :json => []
@@ -69,12 +69,13 @@ class ArticlesController < InheritedResources::Base
 
   def new
     authorize build_resource
+
     ############### From Template ################
-    if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
+    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
-    elsif permitted_new_params[:edit_as_new]
-      @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
+    elsif params[:edit_as_new]
+      @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
     end
     new!
@@ -131,7 +132,7 @@ class ArticlesController < InheritedResources::Base
 
       # For changing the state of an article
       # Refer to Article::State
-      if permitted_state_params[:activate]
+      if state_params[:activate]
         authorize resource, :activate?
         if resource.activate
           flash[:notice] = I18n.t('article.notices.create_html').html_safe
@@ -140,7 +141,7 @@ class ArticlesController < InheritedResources::Base
           # The article became invalid so please try a new one
           redirect_to new_article_path(:edit_as_new => resource.id)
         end
-      elsif permitted_state_params[:deactivate]
+      elsif state_params[:deactivate]
         authorize resource, :deactivate?
         resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
@@ -150,27 +151,16 @@ class ArticlesController < InheritedResources::Base
 
 
     def state_params_present?
-      permitted_state_params[:activate] || permitted_state_params[:deactivate]
+      state_params[:activate] || state_params[:deactivate]
     end
 
 
     def activate_params_present?
-      !!permitted_state_params[:activate]
+      !!state_params[:activate]
     end
 
-
-    def permitted_state_params
-      params.permit :activate, :deactivate, :confirm_to_buy
-    end
-
-
-    def permitted_new_params
-      params.permit :edit_as_new, template_select: [:article_template]
-    end
-
-
-    def permitted_search_params
-      params.permit(:page, :q, article_search_form: ArticleSearchForm.article_search_form_attrs)
+    def state_params
+      @state_params ||= params.for(resource).on(:state_change).refine
     end
 
 
@@ -200,9 +190,9 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= @search_cache.search permitted_search_params[:page]
+      @articles ||= @search_cache.search refined_params[:page]
     rescue Errno::ECONNREFUSED
-      @articles ||= policy_scope(Article).page permitted_search_params[:page]
+      @articles ||= policy_scope(Article).page refined_params[:page]
     end
 
 
@@ -212,13 +202,13 @@ class ArticlesController < InheritedResources::Base
 
 
     def build_search_cache
-      @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
+      @search_cache = ArticleSearchForm.new(refined_params[:article_search_form])
     end
 
 
     def category_specific_search
       if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
-        redirect_to category_path params[:article_search_form][:category_id], permitted_search_params
+        redirect_to category_path params[:article_search_form][:category_id], refined_params
       end
     end
 

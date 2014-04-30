@@ -5,9 +5,9 @@ class ArticleSearchForm
   include ActiveModel::Conversion
 
 
-  def self.article_search_form_attrs
-    [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
-  end
+  # def self.article_search_form_attrs
+  #   [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
+  # end
 
 
   attribute :q, String

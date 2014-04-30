@@ -32,19 +32,19 @@ class ContentsController < InheritedResources::Base
     if policy(build_resource).admin?
       authorize build_resource
       begin
-        @content = Content.find(permitted_show_params[:id])
+        @content = Content.find(refined_params[:id])
       rescue ActiveRecord::RecordNotFound
-        return redirect_to new_content_path key: permitted_show_params[:id]
+        return redirect_to new_content_path key: refined_params[:id]
       end
     else
-      @content = Content.find(permitted_show_params[:id])
+      @content = Content.find(refined_params[:id])
       authorize @content
     end
   end
 
   def new
     authorize build_resource
-    build_resource.key = permitted_new_params[:key] if permitted_new_params[:key]
+    build_resource.key = refined_params[:key] if refined_params[:key]
     new!
   end
 
@@ -58,12 +58,4 @@ class ContentsController < InheritedResources::Base
       return_to_path(@content, clear: true)
     end
   end
-
-  private
-    def permitted_new_params
-      params.permit :key
-    end
-    def permitted_show_params
-      params.permit :id
-    end
 end
