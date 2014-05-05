@@ -88,19 +88,19 @@ describe CategoriesController do
       end
 
       it "should ignore the category_id field and always search in the given category" do
-        get :show, id: @hardware_category.id, article_search_form: {category_id: @software_category.id }
+        get :show, id: @hardware_category.id, article_search_form: { category_id: @software_category.id }
         controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article].map(&:id)
       end
 
       context "and searching for 'muscheln'" do
         it "should chain both filters" do
-          get :show, id: @hardware_category.id, article_search_form: {title: "muscheln"}
+          get :show, id: @hardware_category.id, article_search_form: { q: "muscheln" }
           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@hardware_article,@no_second_hand_article].map(&:id)
         end
 
         context "and filtering for condition" do
           it "should chain all filters" do
-            get :show, id: @hardware_category.id, article_search_form: {title: "muscheln", condition: "old"}
+            get :show, id: @hardware_category.id, article_search_form: { q: "muscheln", condition: :old }
             controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article].map(&:id)
           end
         end

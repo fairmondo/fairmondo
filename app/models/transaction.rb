@@ -19,7 +19,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 class Transaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
@@ -31,12 +30,12 @@ class Transaction < ActiveRecord::Base
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_transactions
   has_one :rating
 
-  def self.transaction_attrs
-    [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country,
-    :refund_reason, :refund_explanation, :billed_for_fair, :billed_for_fee, :billed_for_discount]
-    # billed_for are booleans for checking if this transaction is already billed
-  end
+  # def self.transaction_attrs
+  #   [:selected_transport, :selected_payment, :tos_accepted, :message,
+  #   :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country,
+  #   :refund_reason, :refund_explanation, :billed_for_fair, :billed_for_fee, :billed_for_discount]
+  #   # billed_for are booleans for checking if this transaction is already billed
+  # end
   attr_accessor :updating_state, :updating_multiple
   #attr_accessible *transaction_attributes
   #attr_accessible *(transaction_attributes + [:quantity_available]), as: :admin
@@ -159,8 +158,7 @@ class Transaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
-    return false unless params['transaction']
-    validator_instance = create_validator_transaction params['transaction']
+    validator_instance = create_validator_transaction params
     if validator_instance.valid?
       true
     else
