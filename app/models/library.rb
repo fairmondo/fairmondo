@@ -22,15 +22,7 @@
 class Library < ActiveRecord::Base
   extend Sanitization, Enumerize
 
-  # def self.library_attrs
-  #   [:name, :public, :user, :user_id]
-  # end
-  # def self.admin_library_attrs
-  #   library_attrs + [:exhibition_name]
-  # end
   auto_sanitize :name
-  #! attr_accessible *library_attributes
-  #! attr_accessible *library_attributes, :as => :admin
 
   delegate :nickname, to: :user, prefix: true
 

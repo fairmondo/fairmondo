@@ -24,13 +24,6 @@ module Article::Template
 
   included do
 
-    # def self.template_attrs with_nested = true
-    #   output = [:save_as_template]
-    #   output.push(:id) unless with_nested # Article.id needed for article_template update
-    #   output.push(article_template_attributes: ArticleTemplate.article_template_attrs) if with_nested
-    #   output
-    # end
-    #! attr_accessible :article_template_attributes, :save_as_template
     attr_accessor :save_as_template, :backup_template_id
 
     # Make the original article loose template status
