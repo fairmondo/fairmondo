@@ -24,11 +24,11 @@ class LibrariesController < InheritedResources::Base
   actions :index, :create, :update, :destroy, :show
   custom_actions collection: :admin_add
 
-  before_filter :render_users_hero , :if =>  :user_focused?
-  before_filter :get_user, :if => :user_focused?
+  before_filter :render_users_hero , if: :user_focused?
+  before_filter :get_user, if: :user_focused?
 
   # Authorization
-  skip_before_filter :authenticate_user!, :only => [:index,:show]
+  skip_before_filter :authenticate_user!, only: [:index, :show]
 
   def index
     @library = @user.libraries.build if user_signed_in? && @user
@@ -48,16 +48,16 @@ class LibrariesController < InheritedResources::Base
   def create
     authorize build_resource
     create! do |success, failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
+      success.html { redirect_to user_libraries_path(@user, anchor: "library#{resource.id}") }
+      failure.html { redirect_to user_libraries_path(@user), alert: resource.errors.values.first.first }
     end
   end
 
   def update
     authorize resource
     update! do |success, failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library#{@library.id}") }
-      failure.html { redirect_to user_libraries_path(@user), :alert => @library.errors.values.first.first }
+      success.html { redirect_to user_libraries_path(@user, anchor: "library#{resource.id}") }
+      failure.html { redirect_to user_libraries_path(@user), alert: resource.errors.values.first.first }
     end
   end
 
@@ -100,7 +100,6 @@ class LibrariesController < InheritedResources::Base
   end
 
   private
-
     def begin_of_association_chain
       @user if user_focused?
     end
@@ -110,14 +109,11 @@ class LibrariesController < InheritedResources::Base
     # end
 
     def get_user
-      @user = User.find(permitted_id_params[:user_id])
+      @user = User.find(params.for(Library.new).as(current_user).on(:user_focused).refine[:user_id])
+      @user
     end
 
     def user_focused?
-      permitted_id_params.has_key? :user_id
-    end
-
-    def permitted_id_params
-      params.permit :user_id
+      params.has_key? :user_id
     end
 end

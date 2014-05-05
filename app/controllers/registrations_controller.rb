@@ -99,13 +99,10 @@ class RegistrationsController < Devise::RegistrationsController
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit(
-          :nickname, :type, :agecheck, :legal, :privacy, :recaptcha, # <- custom fields
-          :email, :password, :password_confirmation, :new_terms_confirmed
-        )
+        u.for(User.new).as(resource).on(:create).refine
       end
       devise_parameter_sanitizer.for(:account_update) do |u|
-        u.permit(*resource.class.user_attrs, :current_password)
+        u.for(User.new).as(resource).on(:update).refine# permit(*UserRefinery.new(resource).default, :current_password)
       end
     end
 end

@@ -48,12 +48,6 @@ describe Category do
   end
 
   describe "methods" do
-    describe "#self.category_attrs" do
-      it "should return an array" do
-        Category.category_attrs.should be_an Array
-      end
-    end
-
     describe "#parent" do
       it "should have the correct parent_id" do
         @anotherCategory = FactoryGirl.create(:category, :parent => category)

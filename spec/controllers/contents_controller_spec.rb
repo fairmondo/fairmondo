@@ -85,7 +85,7 @@ describe ContentsController do
       it "should assign a newly created but unsaved content as @content" do
         # Trigger the behavior that occurs when invalid params are submitted
         Content.any_instance.stub(:save).and_return(false)
-        post :create, content: {}
+        post :create, content: { body: '' }
         assigns(:content).should be_a_new Content
       end
     end

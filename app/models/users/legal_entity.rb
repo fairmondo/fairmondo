@@ -23,10 +23,10 @@ class LegalEntity < User
   extend STI
   extend Tokenize
 
-  def self.user_attrs
-    super + [:terms, :cancellation,
-      :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
-  end
+  # def self.user_attrs
+  #   super + [:terms, :cancellation,
+  #     :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
+  # end
   #! attr_accessible :terms, :cancellation, :about
   #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
 

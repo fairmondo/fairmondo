@@ -22,9 +22,9 @@ require 'friendly_id'
 class Content < ActiveRecord::Base
   extend Sanitization
 
-  def self.content_attrs
-    [:body, :key]
-  end
+  # def self.content_attrs
+  #   [:body, :key]
+  # end
   #! attr_accessible :body, :key
   #! attr_accessible :body, :key, as: :admin
 

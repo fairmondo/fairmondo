@@ -22,9 +22,10 @@
 class ApplicationController < ActionController::Base
 
   ## Global security
-
   before_filter :authenticate_user!
 
+  # Arcane
+  include Arcane
 
   # Pundit
   include Pundit
@@ -46,7 +47,6 @@ class ApplicationController < ActionController::Base
       stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
-
 
   # Return path with fallback
   # @api public
@@ -110,6 +110,25 @@ class ApplicationController < ActionController::Base
       authorize build_resource
     end
 
+    def refined_params
+      @refined_params ||= params.for(appropriate_resource).as(current_user).refine
+    end
+    def params
+      manual_params super
+    end
+    # modify params, does nothing unless overwritten in specific controller
+    # @return [Hash] params
+    def manual_params input
+      input
+    end
+
+    # resource or build_resource, whatever succeeds first. to be used in functions
+    # that are used in different actions and sometimes need one or the other
+    def appropriate_resource #merge_options = {}
+      resource rescue build_resource
+      # resource.update_attributes merge_options
+      # resource
+    end
 
     # Caching security: Set response headers to prevent caching
     # @api semipublic
@@ -118,22 +137,6 @@ class ApplicationController < ActionController::Base
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
       response.headers["Pragma"] = "no-cache"
       response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-    end
-
-    # Strong_parameters default params permitter
-    def permitted_params
-      klass = controller_name.classify
-      underscored = klass.underscore
-      constantized = klass.constantize
-      permitted_attrs = constantized.send "#{underscored}_attrs"
-      permitted_attrs = constantized.send "admin_#{underscored}_attrs" if User.is_admin?(current_user) rescue permitted_attrs
-      manual_params params.permit underscored.to_sym => permitted_attrs
-    end
-
-    # modify params, does nothing unless overwritten in specific controller
-    # @return [Hash] params
-    def manual_params allowed_params
-      allowed_params
     end
 
     # If user wants to sell

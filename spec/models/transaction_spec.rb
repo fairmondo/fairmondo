@@ -95,17 +95,17 @@ describe Transaction do
         end
 
         it "should return true with valid params" do
-          r = transaction.edit_params_valid? "transaction" => valid_params
+          r = transaction.edit_params_valid? valid_params
           r.should be_true
         end
 
         it "should return false with invalid transport" do
-          r = transaction.edit_params_valid? "transaction" => valid_params.merge({"selected_transport" => "type1"})
+          r = transaction.edit_params_valid? valid_params.merge({"selected_transport" => "type1"})
           r.should be_false
         end
 
         it "should return false with invalid payment" do
-          r = transaction.edit_params_valid? "transaction" => valid_params.merge({"selected_payment" => "paypal"})
+          r = transaction.edit_params_valid? valid_params.merge({"selected_payment" => "paypal"})
           r.should be_false
         end
       end
