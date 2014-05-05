@@ -8,7 +8,7 @@ class ArticleImage < Image
                             url: "/system/images/:id_partition/:style/:filename",
                             path: "public/system/images/:id_partition/:style/:filename"
 
-    process_in_background :image, :only_process => [:original,:medium,:thumb], :processing_image_url => PROCESSING_IMAGE_URL
+    process_in_background :image, :processing_image_url => PROCESSING_IMAGE_URL
 
     validates_attachment_presence :image, :unless => :external_url
     validates_attachment_content_type :image,:content_type => ['image/jpeg', 'image/png', 'image/gif']

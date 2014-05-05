@@ -1,7 +1,7 @@
 
 
 namespace :bluepill do
-  SSHKit.config.command_map[:bluepill] = "bundle exec bluepill"
+  SSHKit.config.command_map[:bluepill] = "~/.rbenv/bin/rbenv exec bundle exec bluepill" #dynamic rbenv path doesnt work
 
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit do

@@ -10,3 +10,29 @@ module Paperclip
     end
   end
 end
+
+
+# Modifications on delayed_paperclip
+module DelayedPaperclip
+  module Jobs
+    class Sidekiq
+
+      def self.enqueue_delayed_paperclip(instance_klass, instance_id, attachment_name)
+        queue =  Thread.current.celluloid? ? 'paperclip_background' : 'paperclip_foreground'
+        ::Sidekiq::Client.push({ 'class' => self ,'queue' => queue,'args'  => [instance_klass, instance_id, attachment_name]})
+      end
+
+      def perform(instance_klass, instance_id, attachment_name)
+        instance = instance_klass.constantize.find instance_id
+        DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name)
+        if instance.is_a? ArticleImage
+           article = instance.article
+           ::Indexer.index_article article if instance.id == article.title_image.id
+        end
+      rescue ActiveRecord::RecordNotFound
+        # it's probably already deleted so just finish the job
+      end
+
+    end
+  end
+end
