@@ -11,10 +11,6 @@ describe "Mass-upload" do
   subject { page }
 
   describe "for code-coverage purposes of sidekiq retries" do
-    it "should cover exhausted upload workers" do
-      Sidekiq.logger.stub(:warn)
-      ProcessMassUploadWorker.sidekiq_retries_exhausted_block.call({"class" => Object.class , "args" => {}, "error_message" => ""})
-    end
     it "should cover exhausted row workers" do
       Sidekiq.logger.stub(:warn)
       mu = FactoryGirl.create :mass_upload
@@ -311,6 +307,16 @@ describe "Mass-upload" do
                           'spec/fixtures/mass_upload_illegal_quoting.csv')
               click_button I18n.t('mass_uploads.labels.upload_article')
               should have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
+            end
+          end
+
+          describe "unknown error)" do
+            it "should show a unknown error message" do
+               attach_file('mass_upload_file',
+                          'spec/fixtures/mass_deactivate.csv')
+               ProcessRowMassUploadWorker.stub(:perform_async).and_raise(NoMethodError.new)
+               click_button I18n.t('mass_uploads.labels.upload_article')
+               should have_content(I18n.t('mass_uploads.errors.unknown_error'))
             end
           end
 

@@ -151,13 +151,13 @@ class Article < ActiveRecord::Base
 
   def self.edit_as_new article
 
-      article.keep_images = true if !article.sold?
+      article.keep_images = true unless article.sold?
 
       new_article = article.amoeba_dup
 
       #do not remove sold articles, we want to keep them
       #if the old article has errors we still want to remove it from the marketplace
-      article.close_without_validation if !article.sold?
+      article.close_without_validation unless article.sold?
 
       new_article.state = "preview"
       new_article
