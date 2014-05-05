@@ -124,8 +124,10 @@ class ApplicationController < ActionController::Base
 
     # resource or build_resource, whatever succeeds first. to be used in functions
     # that are used in different actions and sometimes need one or the other
-    def appropriate_resource
+    def appropriate_resource #merge_options = {}
       resource rescue build_resource
+      # resource.update_attributes merge_options
+      # resource
     end
 
     # Caching security: Set response headers to prevent caching

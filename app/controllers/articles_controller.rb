@@ -132,7 +132,7 @@ class ArticlesController < InheritedResources::Base
 
       # For changing the state of an article
       # Refer to Article::State
-      if state_params[:activate]
+      if params[:activate]
         authorize resource, :activate?
         if resource.activate
           flash[:notice] = I18n.t('article.notices.create_html').html_safe
@@ -141,7 +141,7 @@ class ArticlesController < InheritedResources::Base
           # The article became invalid so please try a new one
           redirect_to new_article_path(:edit_as_new => resource.id)
         end
-      elsif state_params[:deactivate]
+      elsif params[:deactivate]
         authorize resource, :deactivate?
         resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
@@ -151,18 +151,13 @@ class ArticlesController < InheritedResources::Base
 
 
     def state_params_present?
-      state_params[:activate] || state_params[:deactivate]
+      params[:activate] || params[:deactivate]
     end
 
 
     def activate_params_present?
-      !!state_params[:activate]
+      !!params[:activate]
     end
-
-    def state_params
-      @state_params ||= params.for(resource).on(:state_change).refine
-    end
-
 
     ############ Images ################
 
