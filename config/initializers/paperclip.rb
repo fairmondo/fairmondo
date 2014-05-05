@@ -28,7 +28,7 @@ module DelayedPaperclip
         DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name)
         if instance.is_a? ArticleImage
            article = instance.article
-           ::Indexer.index_article article if instance.id == article.title_image.id
+           ::Indexer.index_article article if article && instance.id == article.title_image.id
         end
       rescue ActiveRecord::RecordNotFound
         # it's probably already deleted so just finish the job
