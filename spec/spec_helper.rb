@@ -33,7 +33,11 @@ require "pundit/rspec"
 
 
 require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+# First matchers, then modules, then helpers. Helpers need to come after modules due to interdependencies.
+Dir[Rails.root.join("spec/support/matchers/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/modules/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/spec_helpers/*.rb")].each {|f| require f}
 
 # For Sidekiq
 Sidekiq::Testing.inline!
