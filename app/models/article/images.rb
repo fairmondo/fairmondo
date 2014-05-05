@@ -26,14 +26,6 @@ module Article::Images
     # ---- IMAGES ------
     IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
-    # def self.image_attrs
-    #   attrs = [ images_attributes: Image.image_attrs(true) ]
-    #   IMAGE_COUNT.times do |number|
-    #     attrs.push "image_#{number+2}_url".to_sym
-    #   end
-    #   attrs
-    # end
-
     has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
 
     delegate :external_url, to: :title_image, :prefix => true

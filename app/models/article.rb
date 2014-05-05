@@ -21,7 +21,6 @@
 #
 class Article < ActiveRecord::Base
   extend Enumerize
-  #! attr_accessible
 
   # Friendly_id for beautiful links
   extend FriendlyId

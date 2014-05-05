@@ -77,8 +77,4 @@ class ArticleRefinery < ApplicationRefinery
   def update
     create
   end
-
-  def autocomplete
-    [ :q ]
-  end
 end

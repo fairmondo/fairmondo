@@ -37,22 +37,6 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-  # Setup accessible (or protected) attributes for your model
-
-  # def self.user_attrs
-  #   [
-  #     :email, :password, :password_confirmation, :remember_me, :type,
-  #     :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
-  #     :invitor_id, :banned, :about_me, :bank_code, #:trustcommunity,
-  #     :title, :country, :street, :address_suffix, :city, :zip, :phone, :mobile, :fax, :direct_debit,
-  #     :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
-  #     :fastbill_profile_update, :vacationing,
-  #     :iban,:bic,
-  #     { image_attributes: Image.image_attrs + [:id] }
-  #   ]
-  # end
-
-
   auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city,
                 :bank_name
   auto_sanitize :iban, :bic, :zip, remove_all_spaces: true

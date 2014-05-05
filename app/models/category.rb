@@ -23,13 +23,7 @@ class Category < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
-  # def self.category_attrs
-  #   [:name, :parent, :desc, :parent_id]
-  # end
-
   attr_protected :lft, :rgt, :depth, as: :admin
-  #! attr_accessible :name, :parent, :desc, :parent_id
-  #! attr_accessible :name, :parent, :desc, :parent_id, :article_ids, :child_ids, :created_at, :updated_at, as: :admin
 
   has_and_belongs_to_many :articles
   has_and_belongs_to_many :active_articles, :class_name => 'Article', :conditions => {:state => "active"}
