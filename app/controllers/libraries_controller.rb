@@ -109,7 +109,8 @@ class LibrariesController < InheritedResources::Base
     # end
 
     def get_user
-      @user = User.find(params.for(appropriate_resource).as(current_user).on(:user_focused).refine[:user_id])
+      @user = User.find(params.for(Library.new).as(current_user).on(:user_focused).refine[:user_id])
+      @user
     end
 
     def user_focused?

@@ -8,7 +8,15 @@ module InheritedResources
     def build_resource_params
       object = controller_name.classify.constantize.new rescue nil
       user = current_user rescue User.new
-      [params.for(object).as(user).refine]
+      rparams = [params.for(object).as(user).refine]
+
+      if without_protection_given?
+        rparams << without_protection
+      else
+        rparams << as_role if role_given?
+      end
+
+      rparams
     end
   end
 end

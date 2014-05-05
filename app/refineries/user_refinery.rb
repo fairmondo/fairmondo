@@ -9,7 +9,7 @@ class UserRefinery < ApplicationRefinery
   end
 
   def update
-    [
+    permitted = [
       :current_password, #<- update specific
       :email, :password, :password_confirmation, :remember_me, :type,
       :nickname, :forename, :surname, :legal, :agecheck, :paypal_account,
@@ -20,6 +20,8 @@ class UserRefinery < ApplicationRefinery
       :iban,:bic,
       { image_attributes: ImageRefinery.new(Image.new, user).default }
     ]
+    permitted += [ :terms, :cancellation, :about ] if user.is_a? LegalEntity
+    permitted
   end
 
   def profile

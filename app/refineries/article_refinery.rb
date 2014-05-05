@@ -78,10 +78,6 @@ class ArticleRefinery < ApplicationRefinery
     create
   end
 
-  def state_change
-    [ :activate, :deactivate, :confirm_to_buy ]
-  end
-
   def autocomplete
     [ :q ]
   end
