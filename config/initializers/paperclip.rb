@@ -18,7 +18,8 @@ module DelayedPaperclip
     class Sidekiq
 
       def self.enqueue_delayed_paperclip(instance_klass, instance_id, attachment_name)
-        queue = (Thread.current.respond_to? :celluloid? && Thread.current.celluloid?) ? 'paperclip_background' : 'paperclip_foreground'
+        queue = 'paperclip_foreground'
+        queue = Thread.current.celluloid? ? 'paperclip_background' : queue if Thread.current.respond_to? :celluloid?
         ::Sidekiq::Client.push({ 'class' => self ,'queue' => queue,'args'  => [instance_klass, instance_id, attachment_name]})
       end
 
