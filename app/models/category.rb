@@ -50,6 +50,9 @@ class Category < ActiveRecord::Base
     #siblings = siblings.send filter if filter
     delete_if_no_active_articles siblings
   end
+  def self_and_siblings_with_active_articles
+    [self] + siblings_with_active_articles
+  end
   private
     def delete_if_no_active_articles array
       array.delete_if { |node| node.children.empty? && node.active_articles.empty? }
