@@ -411,6 +411,11 @@ describe Article do
           article.add_image @url, true
         end
 
+        it "should add an error if a timeout happens" do
+          Timeout.should_receive(:timeout).and_raise(Timeout::Error)
+          article.add_image @url, true
+        end
+
       end
     end
   end
