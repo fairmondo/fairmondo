@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140428123855) do
+ActiveRecord::Schema.define(:version => 20140430135412) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -145,17 +145,6 @@ ActiveRecord::Schema.define(:version => 20140428123855) do
     t.datetime "updated_at",                   :null => false
   end
 
-  create_table "erroneous_articles", :force => true do |t|
-    t.integer  "mass_upload_id"
-    t.integer  "row_index"
-    t.text     "validation_errors"
-    t.text     "article_csv"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  add_index "erroneous_articles", ["mass_upload_id"], :name => "index_erroneous_articles_on_mass_upload_id"
-
   create_table "exhibits", :force => true do |t|
     t.integer  "article_id",         :limit => 8
     t.string   "queue"
@@ -260,12 +249,18 @@ ActiveRecord::Schema.define(:version => 20140428123855) do
     t.integer  "mass_upload_id"
     t.integer  "article_id"
     t.string   "action"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "row_index"
+    t.text     "validation_errors"
+    t.text     "article_csv"
+    t.string   "process_identifier"
   end
 
   add_index "mass_upload_articles", ["article_id"], :name => "index_mass_upload_articles_on_article_id"
   add_index "mass_upload_articles", ["mass_upload_id"], :name => "index_mass_upload_articles_on_mass_upload_id"
+  add_index "mass_upload_articles", ["row_index", "mass_upload_id"], :name => "index_mass_upload_articles_on_row_index_and_mass_upload_id"
+  add_index "mass_upload_articles", ["row_index"], :name => "index_mass_upload_articles_on_row_index"
 
   create_table "mass_uploads", :force => true do |t|
     t.integer  "row_count"
