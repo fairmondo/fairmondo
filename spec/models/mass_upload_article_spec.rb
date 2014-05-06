@@ -14,10 +14,15 @@ describe MassUploadArticle do
     it { should respond_to :process_identifier }
   end
   describe "methods" do
-    describe "#still_working_or_done?" do
+    describe "#done?" do
       it do
-        Sidekiq::Status.stub(:status).and_return(:working)
-        MassUploadArticle.new(:process_identifier => "test").still_working_or_done?.should be_true
+        MassUploadArticle.new(:process_identifier => "test").done?.should be_false
+      end
+      it do
+        MassUploadArticle.new(:process_identifier => "test", :validation_errors => "lala").done?.should be_true
+      end
+      it do
+        MassUploadArticle.new(:process_identifier => "test", :article => Article.new).done?.should be_true
       end
     end
   end
