@@ -40,8 +40,9 @@
           - elsif mass_upload.processing?
             = "Wird bearbeitet"
             %p{ :style => "margin-right: 1em"}
-              - if mass_upload.mass_upload_articles.count > 0
-                = "Bereits #{mass_upload.processed_articles_count} Artikel bearbeitet"
+              - processed_articles = mass_upload.processed_articles_count
+              - if processed_articles > 0
+                = "Bereits #{processed_articles} Artikel bearbeitet"
               - else
                 = "Noch keine Artikel bearbeitet"
           - elsif mass_upload.finished?
