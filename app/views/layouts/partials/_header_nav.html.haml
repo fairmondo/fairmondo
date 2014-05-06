@@ -1,17 +1,17 @@
 %ul
   %li
-    = link_to t('common.text.sell'), new_article_path
+    = link_to t('header.sell'), new_article_path
   %li.JS-active-toggle--container
-    = link_to t('common.text.community'), 'https://info.fairnopoly.de/forum/', class: 'JS-active-toggle--trigger'
+    = link_to t('header.community'), 'https://info.fairnopoly.de/forum/', class: 'JS-active-toggle--trigger'
     %ul.l-header-nav-dropdown.JS-active-toggle--target
-      %li= link_to 'Nutzer*innen-Forum', 'https://info.fairnopoly.de/forum/'
-      %li= link_to 'Aktiv als Held*in', 'https://helden.fairnopoly.de/'
-      %li= link_to 'Wir auf Facebook', 'https://www.facebook.com/fairnopoly'
-      %li= link_to 'Aktiv als Entwickler*in', 'https://github.com/fairnopoly/fairnopoly'
+      %li= link_to t('header.forum'), 'https://info.fairnopoly.de/forum/'
+      %li= link_to t('header.hero'), 'https://helden.fairnopoly.de/'
+      %li= link_to t('header.facebook'), 'https://www.facebook.com/fairnopoly'
+      %li= link_to t('header.developer'), 'https://github.com/fairnopoly/fairnopoly'
 
   - if user_signed_in?
     %li
-      = link_to t('common.text.profile'), user_path(current_user)
+      = link_to t('header.profile'), user_path(current_user)
     %li
       = link_to t('common.actions.logout'), destroy_user_session_path
 
