@@ -96,6 +96,10 @@ gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git
 # in production environments by default.
 group :assets do
 
+  #speed up assets for rails 3
+  # kick this on rails 4
+  gem 'turbo-sprockets-rails3'
+
    # CSS
   gem 'sass-rails'
   gem "font-awesome-rails"
