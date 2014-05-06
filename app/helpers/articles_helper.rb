@@ -68,6 +68,8 @@ module ArticlesHelper
       query { all }
       filter :term, :seller => seller.id
     end
+  rescue
+    seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
   end
 
    def transport_format_for method, css_classname=""
