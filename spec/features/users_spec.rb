@@ -109,7 +109,7 @@ describe 'User management' do
 
       it 'should show the dashboard' do
         visit user_path user
-        page.should have_content I18n.t("common.text.profile")
+        page.should have_content I18n.t("header.profile")
       end
 
       it 'should not show the link to community' do
