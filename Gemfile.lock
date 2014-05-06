@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/RaVbaker/sidekiq-status.git
+  revision: 3cd16c08f2752a002fd8847d997ac01eaa646ca6
+  ref: 3cd16c08f2752a002fd8847d997ac01eaa646ca6
+  specs:
+    sidekiq-status (0.4.0)
+      sidekiq (>= 2.7, < 3.1)
+
+GIT
   remote: git://github.com/flyerhzm/bullet.git
   revision: a74bdc74861dc61c3f9c5e9019dbf1f132148177
   specs:
@@ -587,6 +595,7 @@ DEPENDENCIES
   selectivizr-rails
   shoulda-matchers
   sidekiq
+  sidekiq-status!
   simplecov
   sinatra (>= 1.3.0)
   sprite-factory

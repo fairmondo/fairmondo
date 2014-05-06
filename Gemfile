@@ -46,6 +46,7 @@ gem "tire"
 
 # Sidekiq
 gem 'sidekiq'
+gem 'sidekiq-status', :github => "RaVbaker/sidekiq-status", :ref => "3cd16c08f2752a002fd8847d997ac01eaa646ca6"
 
 gem 'sinatra', '>= 1.3.0', :require => nil
 
