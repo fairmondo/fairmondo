@@ -43,5 +43,18 @@ $header-nav-link-color-hover: $blue;
     line-height:3em;
     margin-right:1.5em;
   }
+}
 
+.l-header-nav-dropdown {
+  display: none;
+  position: absolute;
+  background: white;
+  z-index: 1;
+  @include whitebox;
+}
+.l-header-nav-dropdown > li {
+  list-style-type: none;
+}
+.l-header-nav-dropdown.is-active {
+  display: block;
 }
