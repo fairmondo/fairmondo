@@ -1,10 +1,11 @@
 @import "mixins/all";
 
-.formtastic .stringish input {
-  @include at-breakpoint($bp-tablet) {
-    width:30%;
-  }
-}
+// Why was this overwritten? It scews with the login form. -KK
+// .formtastic .stringish input {
+//   @include at-breakpoint($bp-tablet) {
+//     width:30%;
+//   }
+// }
 
 .article-form {
   @include at-breakpoint($bp-tablet) {
