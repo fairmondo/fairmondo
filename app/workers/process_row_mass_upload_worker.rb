@@ -36,12 +36,16 @@ class ProcessRowMassUploadWorker
 
   def perform mass_upload_id, unsanitized_row_hash, index
     mass_upload = MassUpload.find mass_upload_id
-    mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => index).first
-
-    # Check if we are the right job for this mass_upload_article
-    return unless mass_upload_article.present? && mass_upload_article.process_identifier == jid
 
     if mass_upload.processing?
+
+      mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => index).first
+
+      # Check the work is already done by a different process
+      return if mass_upload_article.present? && mass_upload_article.article.present?
+
+      mass_upload_article = mass_upload.mass_upload_articles.create!(:row_index => index) unless mass_upload_article.present?
+
       row_hash = sanitize_fields unsanitized_row_hash.dup
       categories = Category.find_all_by_id(row_hash['categories'].split(",").map { |s| s.to_i }) if row_hash['categories']
       row_hash.delete("categories")
