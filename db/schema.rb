@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506131339) do
+ActiveRecord::Schema.define(:version => 20140506141148) do
 
   create_table "article_templates", :force => true do |t|
     t.string   "name"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20140506131339) do
     t.integer  "friendly_percent_organisation_id",       :limit => 8
   end
 
-  add_index "articles", ["article_template_id", "user_id", "state"], :name => "index_articles_on_state_and_article_template_id_and_user_id"
   add_index "articles", ["article_template_id"], :name => "index_articles_on_article_template_id"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
   add_index "articles", ["custom_seller_identifier", "user_id"], :name => "index_articles_on_custom_seller_identifier_and_user_id"
   add_index "articles", ["discount_id"], :name => "index_articles_on_discount_id"
   add_index "articles", ["friendly_percent_organisation_id"], :name => "index_articles_on_friendly_percent_organisation_id"
