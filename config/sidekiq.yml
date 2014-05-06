@@ -4,6 +4,7 @@ staging:
   :concurrency: 10
 production:
   :concurrency: 15
+  :timeout: 550
 :queues:
   - [default, 5]
   - [mass_upload, 3]
