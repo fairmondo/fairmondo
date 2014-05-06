@@ -1,0 +1,11 @@
+.l-ajax-spinner {
+  background: image-url('spinner.gif');
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  top: 49%;
+  left: 49%;
+  z-index: 99;
+  opacity: 0.2;
+  display: none;
+}
