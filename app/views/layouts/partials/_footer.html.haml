@@ -17,7 +17,7 @@
       %a{:href => "/faq"}
         = t('footer.faq')
     %li
-      %a{:href => "http://info.fairnopoly.de/forum/"}
+      %a{:href => "https://info.fairnopoly.de/forum/"}
         = t('footer.forum')
     %li
       %a{:href => "/contact"}
@@ -29,11 +29,17 @@
       %a{:href => "/philosophy"}
         = t('footer.philosophy')
     %li
-      %a{:href => "http://info.fairnopoly.de/pressekit/"}
+      %a{:href => "https://transparenz.fairnopoly.de/"}
+        = t('footer.transparency')
+    %li
+      %a{:href => "https://info.fairnopoly.de/pressekit/"}
         = t('footer.press')
     %li
-      %a{:href => "http://info.fairnopoly.de/team/"}
+      %a{:href => "https://info.fairnopoly.de/team/"}
         = t('footer.team')
+    %li
+      %a{:href => "https://info.fairnopoly.de/stellenausschreibungen/"}
+        = t('footer.jobs')
     - if User.is_admin? current_user
       %li
         = link_to t('users.menu.admin'), "/admin"
@@ -42,7 +48,7 @@
       %li
         = link_to 'Statistics', "/statistics/general"
     %li
-      %a{:href => "http://info.fairnopoly.de"}
+      %a{:href => "https://info.fairnopoly.de"}
         = t('footer.blog')
 .l-footer-bottom
   .l-footer-copyright
