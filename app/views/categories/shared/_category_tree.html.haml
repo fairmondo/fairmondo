@@ -20,12 +20,9 @@
         %li
           = render 'categories/shared/category_tree_leaf', category: category.parent
           %ul.Search-tree
-            - category.self_and_siblings.each do |sibling|
-              - if sibling == category
-                %li= render 'categories/shared/category_tree_leaf', category: sibling
-              -else
-                %li= render 'categories/shared/category_tree_leaf', category: sibling
-        - category.parent.siblings.each do |sibling|
+            - category.self_and_siblings_with_active_articles.each do |sibling|
+              %li= render 'categories/shared/category_tree_leaf', category: sibling
+        - category.parent.siblings_with_active_articles.each do |sibling|
           %li= render 'categories/shared/category_tree_leaf', category: sibling
       - else
         %li
