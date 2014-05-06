@@ -60,7 +60,7 @@ class MassUpload < ActiveRecord::Base
   has_many :articles_for_mass_activation, through: :mass_upload_articles, source: :article,
             conditions: "mass_upload_articles.action IN ('create', 'update', 'activate')"
 
-  has_many :erroneous_articles
+  has_many :erroneous_articles, class_name: 'MassUploadArticle' , conditions: "validation_errors IS NOT NULL"
   has_attached_file :file
   belongs_to :user
 
@@ -115,7 +115,7 @@ class MassUpload < ActiveRecord::Base
   end
 
   def processed_articles_count
-    self.erroneous_articles.count + self.mass_upload_articles.count
+    self.mass_upload_articles.where("article_id IS NOT NULL").count + self.erroneous_articles.count
   end
 
   def process
