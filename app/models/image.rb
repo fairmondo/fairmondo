@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
 
   # This is a hack because delayed_paperclip is not working correctly for now
 
-  default_scope order('created_at ASC')
+  default_scope -> { order('created_at ASC') }
 
   # Get The Geometry of a image
   #

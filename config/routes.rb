@@ -48,7 +48,7 @@ Fairnopoly::Application.routes.draw do
     get 'notice/:id', action: "notice", as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
-    put 'reindex/:article_id', action: 'reindex', as: 'reindex'
+    patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
   end
 
@@ -76,7 +76,7 @@ Fairnopoly::Application.routes.draw do
   resources :transactions, only: [:show, :edit, :update] do
     resources :refunds, only: [ :new, :create ]
     member do
-      put 'edit' => 'transactions#edit', as: :step2
+      patch 'edit' => 'transactions#edit', as: :step2
       get 'already_sold'
       get 'print_order_buyer'
       #get 'print_order_seller'

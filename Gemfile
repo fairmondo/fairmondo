@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.17'
+gem 'rails', '~> 4.1.1'
+gem 'rails-observers'
 
 # Ruby Deps
 platforms :ruby do
@@ -30,13 +31,12 @@ gem 'virtus'
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
-gem 'money-rails', "~> 0.8.1" # Deal with Money
+gem 'money-rails'
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' # tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 
 # Indexing /Searching
@@ -44,7 +44,6 @@ gem "tire"
 
 # Sidekiq
 gem 'sidekiq'
-gem 'sidekiq-status', :github => "RaVbaker/sidekiq-status", :ref => "3cd16c08f2752a002fd8847d997ac01eaa646ca6"
 
 gem 'sinatra', '>= 1.3.0', :require => nil
 
@@ -66,7 +65,7 @@ gem "pundit" # authorization
 gem 'memoist'
 
 # Rails Admin
-gem 'rails_admin' , "0.4.9"
+gem 'rails_admin'
 
 #Monitoring
 gem 'peek'
@@ -78,10 +77,8 @@ gem 'peek-pg'
 gem 'peek-sidekiq'
 gem 'peek-rblineprof'
 
-# Assets that need to be toplevel
-gem 'tinymce-rails'
-gem 'tinymce-rails-langs'
-gem 'jquery-rails'
+
+
 
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
@@ -94,26 +91,29 @@ gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-   # CSS
-  gem 'sass-rails'
-  gem "font-awesome-rails"
-  gem "susy" , "~>1.0.9"
-  gem "compass", "~> 0.13.alpha.12"
-  gem 'compass-rails'
+
+ # CSS
+gem 'sass-rails'
+gem "font-awesome-rails"
+gem "susy" , "~>1.0.9"
+gem "compass", "~> 0.13.alpha.12"
+gem 'compass-rails'
 
 
-  # JS
-  gem 'jquery-ui-rails'
-  gem 'i18n-js'
-  gem 'coffee-rails'
-  gem 'therubyrhino'
-  gem 'selectivizr-rails'
-  gem 'uglifier'
-  gem 'modernizr-rails'
-  # gem 'turbolinks'
-  # gem 'jquery-turbolinks'
-end
+# JS
+gem 'jquery-ui-rails'
+gem 'i18n-js'
+gem 'coffee-rails'
+gem 'therubyrhino'
+gem 'selectivizr-rails'
+gem 'uglifier'
+gem 'modernizr-rails'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+gem 'jquery-rails'
+
 
 group :production, :staging do
   gem 'newrelic_rpm' #Monitoring service

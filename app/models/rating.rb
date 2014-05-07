@@ -18,7 +18,7 @@ class Rating < ActiveRecord::Base
 
   after_save :update_rating_counter
 
-  default_scope order("created_at DESC")
+  default_scope -> { order("created_at DESC") }
 
   alias :value :rating # to avoid structure 'rating_rating' in shared/show_article_listitem
 
