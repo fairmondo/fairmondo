@@ -15,9 +15,9 @@
           %li ID: #{category.id}, Name: #{category.name}
           - if category.children_count > 0
             %ul
-              - Category.find_all_by_parent_id(category.id).each do |child_category|
+              - Category.where(:parent_id => category.id).each do |child_category|
                 %li ID: #{child_category.id}, Name: #{child_category.name}
                 - if child_category.children_count > 0
                   %ul
-                    - Category.find_all_by_parent_id(child_category.id).each do |grandchild_category|
+                    - Category.where(:parent_id => child_category.id).each do |grandchild_category|
                       %li ID: #{grandchild_category.id}, Name: #{grandchild_category.name}

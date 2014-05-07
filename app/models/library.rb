@@ -44,7 +44,7 @@ class Library < ActiveRecord::Base
   has_many :library_elements, dependent: :destroy
   has_many :articles, through: :library_elements
 
-  scope :public, where(public: true)
-  default_scope order('updated_at DESC')
+  scope :public, -> { where(public: true) }
+  default_scope -> { order('updated_at DESC') }
 
 end

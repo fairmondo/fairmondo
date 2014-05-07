@@ -42,8 +42,8 @@ class Article < ActiveRecord::Base
 
 
   # Relations
-  has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
-  has_many :partial_transactions, class_name: 'PartialFixedPriceTransaction', conditions: "type = 'PartialFixedPriceTransaction'", inverse_of: :article
+  has_one :transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
+  has_many :partial_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction' , inverse_of: :article
   accepts_nested_attributes_for :transaction
   # validates_presence_of :transaction
 
