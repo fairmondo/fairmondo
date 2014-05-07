@@ -1,4 +1,3 @@
-
 $header-highlight-color: $sand;
 $header-nav-link-color-hover: $blue;
 
@@ -27,7 +26,7 @@ $header-nav-link-color-hover: $blue;
   display: inline-block;
   float:left;
   span.sprite_logo {
-    display:block;
+    display: block;
     margin-right:2em;
   }
 }
@@ -37,23 +36,49 @@ $header-nav-link-color-hover: $blue;
   margin:0;
   padding:0;
   @include clear-links;
-  @include color-links($black,$header-nav-link-color-hover);
   > li {
+    position: relative;
     display: inline-block;
-    line-height:3em;
-    margin-right:1.5em;
+    line-height: 2.5em;
+    margin-right: 0.5em;
+  }
+}
+
+.l-header-nav > ul > li > a {
+  color: $black;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  &:hover, &.is-active {
+    background: $lighter-gray;
+  }
+  &.is-active {
+    border-radius: 0.5em 0.5em 0 0;
   }
 }
 
 .l-header-nav-dropdown {
   display: none;
+  @include color-links($black, $header-nav-link-color-hover);
   position: absolute;
   background: white;
+  border: 3px solid $lighter-gray;
   z-index: 1;
-  @include whitebox;
+  min-width: 11em;
+  top: 2.3em;
+  padding: 0.4em 1.4em;
+  border-radius: 0 0.4em 0.4em;
+  line-height: 1.5em;
+}
+.l-header-nav-dropdown--login {
+  right: 0;
+  width: 17em;
+  @include at-breakpoint($bp-tablet) {
+    left: 0;
+  }
 }
 .l-header-nav-dropdown > li {
   list-style-type: none;
+  line-height: 2em;
 }
 .l-header-nav-dropdown.is-active {
   display: block;
