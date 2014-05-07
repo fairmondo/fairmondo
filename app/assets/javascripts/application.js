@@ -54,7 +54,7 @@
 //= require models/article/titleimage
 //= require models/article/friendly_percent
 //= require models/library/libraries
-//= require models/user/login
+//= require models/user/colorbox_links
 
 //= require visual/accordion
 //= require visual/tooltip
