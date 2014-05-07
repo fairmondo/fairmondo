@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/RaVbaker/sidekiq-status.git
+  revision: 3cd16c08f2752a002fd8847d997ac01eaa646ca6
+  ref: 3cd16c08f2752a002fd8847d997ac01eaa646ca6
+  specs:
+    sidekiq-status (0.4.0)
+      sidekiq (>= 2.7, < 3.1)
+
+GIT
   remote: git://github.com/flyerhzm/bullet.git
   revision: 738eff9ab537ccaaec950bc4cd4fa3569b2c160e
   specs:
@@ -577,6 +585,7 @@ DEPENDENCIES
   selectivizr-rails
   shoulda-matchers
   sidekiq
+  sidekiq-status!
   simplecov
   sinatra (>= 1.3.0)
   sqlite3

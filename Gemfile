@@ -44,6 +44,7 @@ gem "tire"
 
 # Sidekiq
 gem 'sidekiq'
+gem 'sidekiq-status', :github => "RaVbaker/sidekiq-status", :ref => "3cd16c08f2752a002fd8847d997ac01eaa646ca6"
 
 gem 'sinatra', '>= 1.3.0', :require => nil
 
@@ -94,7 +95,6 @@ gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-
    # CSS
   gem 'sass-rails'
   gem "font-awesome-rails"
