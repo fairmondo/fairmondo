@@ -31,7 +31,7 @@
 
     = f.inputs do
       = f.input :type, label: false, as: :radio, required: true, tooltip: true, collection: [[t('users.legal_status.new.private_user'),"PrivateUser"], [t('users.legal_status.new.legal_entity'),"LegalEntity"]]
-    = f.inputs :class => "registrations-grid" do
+    = f.inputs class: "registrations-grid" do
       = f.input :nickname,  tooltip: true, required: true
       = f.input :email,  tooltip: true, required: true
       = f.input :password, tooltip: true
@@ -42,8 +42,9 @@
       -# onclick javascript because icheck causes click on link to fail
       - legal_link = link_to t('users.legal'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
       - privacy_link = link_to t('users.privacy'), "/privacy", target: "_blank", onclick: on_click_open_link_in_label('/privacy')
-      = f.input :agecheck,  as: :boolean, required: true
-      = f.input :legal,  as: :boolean,required: true , label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
+      = f.input :agecheck, as: :boolean, required: true
+      = f.input :newsletter, as: :boolean, tooltip: true
+      = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
 
     = f.actions do
       = f.action :submit, button_html: {class: "Button", id: "sign_up"}, label: :sign_up

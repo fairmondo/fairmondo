@@ -19,6 +19,7 @@ de:
         password: "Passwort"
         password_confirmation: "Passwort bestätigen"
         agecheck: "Ich bin mindestens 18 Jahre alt."
+        newsletter: "Ich möchte mich für den Newsletter anmelden."
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
@@ -221,6 +222,7 @@ de:
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
+          newsletter: "Den Text hierfür liefert Anna noch nach."
         create: *new_user
         edit: &edit_user
           image: "Lade ein Foto(max. 2MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
@@ -231,6 +233,7 @@ de:
           paypal_account: "Trage hier Deine für PayPal genutzte E-Mail-Adresse ein (auch PayPal ID genannt)."
           iban: "Trage hier die IBAN ohne Leerzeichen ein."
           bic: "Trage hier den BIC ohne Leerzeichen ein."
+          newsletter: "Den Text hierfür liefert Anna noch nach."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
