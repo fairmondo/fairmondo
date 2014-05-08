@@ -57,8 +57,8 @@ class PrivateUser < User
   end
 
 
-  def can_refund? transaction
-    Time.now >= transaction.sold_at + 14.days && Time.now <= transaction.sold_at + 28.days
+  def can_refund? business_transaction
+    Time.now >= business_transaction.sold_at + 14.days && Time.now <= business_transaction.sold_at + 28.days
   end
 
   # see http://stackoverflow.com/questions/6146317/is-subclassing-a-user-model-really-bad-to-do-in-rails

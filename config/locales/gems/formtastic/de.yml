@@ -9,7 +9,7 @@ de:
         explanation: Erläuterung
         explanations: Erläuterungen
         purpose: "Wenn ja, gib zusätzlich noch folgende Angaben an:"
-      user:
+      user: &user
         contact_person: Ansprechperson
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
@@ -51,6 +51,10 @@ de:
         direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
         direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
         seller_fees: "Verkaufsgebühren"
+      private_user:
+        <<: *user
+      legal_entity:
+        <<: *user
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"
@@ -164,7 +168,7 @@ de:
       library:
         name: Name
         public: Öffentlich
-      transaction:
+      business_transaction: &business_transaction
         tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Bitte wähle eine Versandmethode aus:"
@@ -176,6 +180,12 @@ de:
         city: "Ort:"
         zip: "Postleitzahl:"
         country: "Land:"
+      multiple_fixed_price_transaction:
+        <<: *business_transaction
+      single_fixed_price_transaction:
+        <<: *business_transaction
+      partial_fixed_price_transaction:
+        <<: *business_transaction
       refund:
         reason: 'Bitte wähle einen Grund für Deinen Rückerstattungsantrag aus:'
         description: 'Bitte beschreibe welche Schritte Du unternommen hast, um den Vorfall zu klären:'
@@ -183,12 +193,16 @@ de:
         search_in_content: "suche in Artikelbeschreibung"
         zip: "PLZ"
     input_steps:
-      user:
+      user: &input_step_user
         account: Benutzerkonto
         contact: Kontaktinformationen
         profile: Profil
         payment: Zahlungsoptionen
         terms: Rechtliches
+      private_user:
+        <<: *input_step_user
+      legal_entity:
+        <<: *input_step_user
       article:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
@@ -208,13 +222,17 @@ de:
         template: Name der Vorlage
 
     hints:
-      user:
+      user: &hints_user
         edit: &edit_user
           current_password: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
           password: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
         update: *edit_user
+      private_user:
+        <<: *hints_user
+      legal_entity:
+        <<: *hints_user
     tooltips:
-      user:
+      user: &tooltips_user
         new: &new_user
           type: 'Wenn Du Dir nicht sicher bist, ob Du unter gewerblichen Handel fällst, frage am Besten bei Deinem Finanzamt nach. Du kannst Dein privates Konto aber auch später in ein gewerbliches umwandeln lassen. Mehr dazu in unserer <a href="https://www.fairnopoly.de/faq#r6" target= "_blank">FAQ</a>.'
           email:  "An diese Adresse verschicken wir die Anmeldebestätigung."
@@ -234,6 +252,10 @@ de:
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
+      private_user:
+        <<: *tooltips_user
+      legal_entity:
+        <<: *tooltips_user
       article:
         title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
         category_ids: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird."

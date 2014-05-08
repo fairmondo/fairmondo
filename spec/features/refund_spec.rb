@@ -5,10 +5,10 @@ include Warden::Test::Helpers
 describe Refund do
   let( :luser ){ FactoryGirl.create :private_user }
   let( :puser ){ FactoryGirl.create :legal_entity}
-  let( :particle ){ FactoryGirl.create :article, :without_build_transaction, :with_all_transports, state: 'sold', seller: puser }
-  let( :larticle ){ FactoryGirl.create :article, :without_build_transaction, :with_all_transports, state: 'sold', seller: luser }
-  let( :ptransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: particle, seller: puser }
-  let( :ltransaction ){ FactoryGirl.create :transaction_with_buyer, :old, article: larticle, seller: luser }
+  let( :particle ){ FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports, state: 'sold', seller: puser }
+  let( :larticle ){ FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports, state: 'sold', seller: luser }
+  let( :ptransaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, article: particle, seller: puser }
+  let( :ltransaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, article: larticle, seller: luser }
 
   before do
     stub_fastbill
@@ -25,7 +25,7 @@ describe Refund do
         end
 
         it 'should show right elements' do
-          visit new_transaction_refund_path( ltransaction )
+          visit new_business_transaction_refund_path( ltransaction )
           page.should have_content( I18n.t( 'refund.heading' ) )
           page.should have_content( I18n.t( 'formtastic.labels.refund.reason' ) )
           page.should have_content( I18n.t( 'formtastic.labels.refund.description' ) )
@@ -35,7 +35,7 @@ describe Refund do
         end
 
         it 'should create new refund' do
-          visit new_transaction_refund_path( ltransaction )
+          visit new_business_transaction_refund_path( ltransaction )
           fill_in 'refund_description', :with => 'a' * 160
           click_button I18n.t( 'common.actions.send' )
           page.should have_content(I18n.t('refund.notice' ))
@@ -53,7 +53,7 @@ describe Refund do
         end
 
         it 'should show refund_request page' do
-          visit new_transaction_refund_path( ptransaction )
+          visit new_business_transaction_refund_path( ptransaction )
           page.should have_content( I18n.t( 'refund.heading' ) )
           page.should have_content( I18n.t( 'formtastic.labels.refund.reason' ) )
           page.should have_content( I18n.t( 'formtastic.labels.refund.description' ) )
@@ -63,7 +63,7 @@ describe Refund do
         end
 
         it 'should create new refund' do
-          visit new_transaction_refund_path( ptransaction )
+          visit new_business_transaction_refund_path( ptransaction )
           fill_in 'refund_description', :with => 'a' * 160
           click_button I18n.t( 'common.actions.send' )
           page.should have_content(I18n.t('refund.notice' ))
@@ -74,7 +74,7 @@ describe Refund do
 
   context 'visitor' do
     it 'should not show request refund page' do
-      visit new_transaction_refund_path( ltransaction )
+      visit new_business_transaction_refund_path( ltransaction )
       page.should_not have_content( I18n.t( 'refund.heading' ) )
       page.should_not have_content( I18n.t( 'formtastic.labels.refund.reason' ) )
       page.should_not have_content( I18n.t( 'formtastic.labels.refund.description' ) )

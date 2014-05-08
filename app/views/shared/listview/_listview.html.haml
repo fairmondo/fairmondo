@@ -22,4 +22,4 @@
 %section
   - items.each do |item|
     %Article.ListItem
-      = render '/shared/listview/listitem' , article: (item.is_a?(Article) ?  item : item.article), transaction: (item.is_a?(Transaction) ? item : nil)
+      = render '/shared/listview/listitem' , article: (item.is_a?(Article) ?  item : item.article), business_transaction: (item.is_a?(BusinessTransaction) ? item : nil)

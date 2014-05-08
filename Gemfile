@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 #Rails
 gem 'rails', '~> 4.1.1'
 gem 'rails-observers'
+gem 'activerecord-session_store'
 
 # Ruby Deps
 platforms :ruby do
@@ -22,7 +23,7 @@ end
 
 # Forms & Upload
 gem "paperclip", ">= 3.0"
-gem 'formtastic'
+gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'virtus'
 
@@ -34,7 +35,7 @@ gem 'enumerize', '>= 0.5.1'
 gem 'money-rails'
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
-gem 'awesome_nested_set' # tree structure for categories
+gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
 
@@ -98,7 +99,7 @@ gem "font-awesome-rails"
 gem "susy" , "~>1.0.9"
 gem "compass", "~> 0.13.alpha.12"
 gem 'compass-rails'
-
+gem 'sprockets', "2.11.0"
 
 # JS
 gem 'jquery-ui-rails'

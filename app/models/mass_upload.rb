@@ -52,15 +52,15 @@ class MassUpload < ActiveRecord::Base
   has_many :mass_upload_articles
   has_many :articles, through: :mass_upload_articles
 
-  has_many :created_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "create"}
-  has_many :updated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "update"}
-  has_many :deleted_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "delete"}
-  has_many :deactivated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "deactivate"}
-  has_many :activated_articles, through: :mass_upload_articles, source: :article, conditions: {"mass_upload_articles.action" => "activate"}
-  has_many :articles_for_mass_activation, through: :mass_upload_articles, source: :article,
-            conditions: "mass_upload_articles.action IN ('create', 'update', 'activate')"
+  has_many :created_articles, -> { where("mass_upload_articles.action" => "create") }, through: :mass_upload_articles, source: :article
+  has_many :updated_articles, -> { where("mass_upload_articles.action" => "update") }, through: :mass_upload_articles, source: :article
+  has_many :deleted_articles, -> { where("mass_upload_articles.action" => "delete") }, through: :mass_upload_articles, source: :article
+  has_many :deactivated_articles, -> { where("mass_upload_articles.action" => "deactivate") }, through: :mass_upload_articles, source: :article
+  has_many :activated_articles, -> { where("mass_upload_articles.action" => "activate") }, through: :mass_upload_articles, source: :article
+  has_many :articles_for_mass_activation, -> { where("mass_upload_articles.action IN ('create', 'update', 'activate')") } , through: :mass_upload_articles, source: :article
 
-  has_many :erroneous_articles, class_name: 'MassUploadArticle' , conditions: "validation_errors IS NOT NULL"
+
+  has_many :erroneous_articles, -> { where("validation_errors IS NOT NULL") }, class_name: 'MassUploadArticle'
   has_attached_file :file
   belongs_to :user
 
@@ -105,7 +105,7 @@ class MassUpload < ActiveRecord::Base
     "gtin", "custom_seller_identifier", "action"]
   end
 
-  def self.transaction_attributes
+  def self.business_transaction_attributes
     ["sales_price_cents", "price_without_vat_cents", "vat_cents",
       "selected_transport", "transport_provider", "shipping_and_handling_cents",
       "selected_payment", "message", "quantity_bought", "forename", "surname",

@@ -47,7 +47,7 @@ class ProcessRowMassUploadWorker
       mass_upload_article = mass_upload.mass_upload_articles.create!(:row_index => index) unless mass_upload_article.present?
 
       row_hash = sanitize_fields unsanitized_row_hash.dup
-      categories = Category.find(row_hash['categories'].split(",").map { |s| s.to_i }) if row_hash['categories']
+      categories = Category.where(:id => row_hash['categories'].split(",").map { |s| s.to_i }) if row_hash['categories']
       row_hash.delete("categories")
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
@@ -117,6 +117,7 @@ class ProcessRowMassUploadWorker
       case attribute_hash['action']
       when 'u', 'update'
         article = Article.edit_as_new article unless article.preview?
+        attribute_hash.delete("id")
         article.attributes = attribute_hash
         article.action = :update
       when 'x', 'delete'

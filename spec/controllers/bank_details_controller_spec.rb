@@ -30,8 +30,7 @@ describe BankDetailsController do
     end
     context "as html" do
       it "should fail" do
-        get :check_iban
-        response.should_not be_success
+        expect { get :check_iban }.to raise_error
       end
     end
   end
@@ -58,8 +57,7 @@ describe BankDetailsController do
     end
     context "as html" do
       it "should fail" do
-        get :check_bic
-        response.should_not be_success
+        expect { get :check_bic }.to raise_error
       end
     end
   end
@@ -88,8 +86,7 @@ describe BankDetailsController do
     end
     context "as html" do
       it "should fail" do
-        get :check
-        response.should_not be_success
+        expect { get :check }.to raise_error
       end
     end
   end
@@ -116,8 +113,7 @@ describe BankDetailsController do
 
     context "as html" do
       it "should fail" do
-        get :get_bank_name
-        response.should_not be_success
+        expect { get :get_bank_name }.to raise_error
       end
     end
   end

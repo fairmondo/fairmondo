@@ -22,7 +22,7 @@
 class RatingPolicy < Struct.new(:user, :rating)
 
   def new?
-    ( user.is? rating.transaction.buyer ) && (user.given_ratings.select {|r| r.transaction == rating.transaction } ).empty?
+    ( user.is? rating.business_transaction.buyer ) && (user.given_ratings.select {|r| r.business_transaction == rating.business_transaction } ).empty?
   end
 
   def create?
