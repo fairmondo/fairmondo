@@ -170,18 +170,6 @@ FactoryGirl.define do
       friendly_percent_organisation { FactoryGirl.create :legal_entity, :missing_bank_data, :ngo => true }
     end
 
-    ## These might be helpful but tend to create double articles and users
-    # trait :with_single_transaction do
-    #   after(:create) do |a|
-    #     FactoryGirl.create :single_transaction, article: a
-    #   end
-    #   #association :transaction, factory: :single_transaction
-    # end
-
-    # trait :with_multiple_transaction do
-    #   #association :transaction, factory: :multiple_transaction
-    # end
-
     trait :simple_fair do
       fair true
       fair_kind :fair_seal
@@ -204,12 +192,12 @@ FactoryGirl.define do
       quantity { (rand(100)+2) }
     end
 
-    trait :without_build_transaction do
-      skip_build_transaction true
+    trait :without_build_business_transaction do
+      skip_build_business_transaction true
     end
 
     trait :with_custom_seller_identifier do
-      custom_seller_identifier {Faker::Lorem.words(rand(3..5))}
+      custom_seller_identifier {Faker::Lorem.characters(10)}
     end
 
     trait :with_discount do

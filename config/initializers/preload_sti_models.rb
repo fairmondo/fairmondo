@@ -23,8 +23,8 @@ if Rails.env.development?
   Dir.entries("#{Rails.root}/app/models/users").each do |c|
     require_dependency File.join("app","models", "users", "#{c}") if c =~ /.rb$/
   end
-  Dir.entries("#{Rails.root}/app/models/transactions").each do |c|
-    require_dependency File.join("app","models", "transactions", "#{c}") if c =~ /.rb$/
+  Dir.entries("#{Rails.root}/app/models/business_transactions").each do |c|
+    require_dependency File.join("app","models", "business_transactions", "#{c}") if c =~ /.rb$/
   end
   Dir.entries("#{Rails.root}/app/models/images").each do |c|
     require_dependency File.join("app","models", "images", "#{c}") if c =~ /.rb$/
@@ -33,8 +33,8 @@ if Rails.env.development?
     Dir.entries("#{Rails.root}/app/models/users").each do |c|
       require_dependency File.join("app","models", "users", "#{c}") if c =~ /.rb$/
     end
-    Dir.entries("#{Rails.root}/app/models/transactions").each do |c|
-      require_dependency File.join("app","models", "transactions", "#{c}") if c =~ /.rb$/
+    Dir.entries("#{Rails.root}/app/models/business_transactions").each do |c|
+      require_dependency File.join("app","models", "business_transactions", "#{c}") if c =~ /.rb$/
     end
     Dir.entries("#{Rails.root}/app/models/images").each do |c|
       require_dependency File.join("app","models", "images", "#{c}") if c =~ /.rb$/

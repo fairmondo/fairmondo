@@ -116,7 +116,7 @@ describe 'Article management' do
           end.should change(Article.unscoped, :count).by 2
 
           current_path.should eq article_path Article.unscoped.first
-          Article.find('article-title').transaction.should be_a SingleFixedPriceTransaction
+          Article.find('article-title').business_transaction.should be_a SingleFixedPriceTransaction
         end
 
         it "should create an article with a MultipleFixedPriceTransaction" do
@@ -131,9 +131,9 @@ describe 'Article management' do
             fill_in 'article_article_template_attributes_name', with: 'template'
 
             find(".double_check-step-inputs").find(".action").find("input").click
-          end.should change(Transaction, :count).by 1
+          end.should change(BusinessTransaction, :count).by 1
 
-          Article.find('article-title').transaction.should be_a MultipleFixedPriceTransaction
+          Article.find('article-title').business_transaction.should be_a MultipleFixedPriceTransaction
         end
 
          it "should validate the friendly_percent_organisation if the article has friendly_percent" do
@@ -244,18 +244,18 @@ describe 'Article management' do
       end
 
       it "should change the transaction when quantity was changes from one to many" do
-        @article.transaction.should be_a SingleFixedPriceTransaction
+        @article.business_transaction.should be_a SingleFixedPriceTransaction
 
         fill_in 'article_quantity', with: 2
         click_button I18n.t 'article.labels.continue_to_preview'
 
-        @article.reload.transaction.should be_a MultipleFixedPriceTransaction
+        @article.reload.business_transaction.should be_a MultipleFixedPriceTransaction
 
         visit edit_article_path @article
         fill_in 'article_quantity', with: 1
         click_button I18n.t 'article.labels.continue_to_preview'
 
-        @article.reload.transaction.should be_a SingleFixedPriceTransaction
+        @article.reload.business_transaction.should be_a SingleFixedPriceTransaction
       end
 
       it "should fail given invalid data but still try to save images" do
@@ -327,7 +327,7 @@ describe 'Article management' do
       it "should show a buy button that immediately forwards to the transaction page" do
         visit article_path article
         click_link I18n.t 'common.actions.to_cart'
-        current_path.should eq edit_transaction_path article.transaction
+        current_path.should eq edit_business_transaction_path article.business_transaction
       end
 
       it "should not show a deleted LibraryElement after article deactivation" do

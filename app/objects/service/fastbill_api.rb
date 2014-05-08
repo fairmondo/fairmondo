@@ -4,10 +4,10 @@ class FastbillAPI
   #Here be FastBill stuff
   #
   # The fastbill_chain takes control of all the necessary steps to handle
-  # fastbill customer creation and adding transactions fees to a user's
+  # fastbill customer creation and adding business_transactions fees to a user's
   # fastbill account
-  def self.fastbill_chain transaction
-    seller = transaction.seller
+  def self.fastbill_chain business_transaction
+    seller = business_transaction.seller
     seller.with_lock do
       unless seller.ngo?
         unless seller.has_fastbill_profile?
@@ -16,10 +16,10 @@ class FastbillAPI
         end
 
         [ :fair, :fee ].each do | type |
-          fastbill_setusagedata seller, transaction, type
+          fastbill_setusagedata seller, business_transaction, type
         end
 
-        fastbill_discount seller, transaction if transaction.discount
+        fastbill_discount seller, business_transaction if business_transaction.discount
       end
     end
   end
@@ -90,49 +90,49 @@ class FastbillAPI
     end
 
     # This method adds articles and their according fee type to the invoice
-    def self.fastbill_setusagedata seller, transaction, fee_type
-      unless (fee_type == :fair && transaction.billed_for_fair) || (fee_type == :fee && transaction.billed_for_fee)
-        article = transaction.article
+    def self.fastbill_setusagedata seller, business_transaction, fee_type
+      unless (fee_type == :fair && business_transaction.billed_for_fair) || (fee_type == :fee && business_transaction.billed_for_fee)
+        article = business_transaction.article
 
         Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                         article_number: fee_type == :fair ? '11' : '12',
-                                                        quantity: transaction.quantity_bought,
+                                                        quantity: business_transaction.quantity_bought,
                                                         unit_price: fee_type == :fair ? ( fair_wo_vat article ) : ( fee_wo_vat article ),
-                                                        description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
-                                                        usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
+                                                        description: business_transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
+                                                        usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
-        transaction.update_attribute("billed_for_#{fee_type}".to_sym, true)
+        business_transaction.update_attribute("billed_for_#{fee_type}".to_sym, true)
       end
     end
 
-    # This method adds an discount (if discount is given for transaction)
-    def self.fastbill_discount seller, transaction
-      unless transaction.billed_for_discount
-        article = transaction.article
+    # This method adds an discount (if discount is given for business_transaction)
+    def self.fastbill_discount seller, business_transaction
+      unless business_transaction.billed_for_discount
+        article = business_transaction.article
 
         Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                         article_number: '12',
-                                                        unit_price: -( discount_wo_vat transaction ),
-                                                        description: transaction.id.to_s + "  " + article.title + " (" + transaction.discount_title + ")",
-                                                        usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
+                                                        unit_price: -( discount_wo_vat business_transaction ),
+                                                        description: business_transaction.id.to_s + "  " + article.title + " (" + business_transaction.discount_title + ")",
+                                                        usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
-        transaction.update_attribute(:billed_for_discount, true)
+        business_transaction.update_attribute(:billed_for_discount, true)
       end
     end
 
     # This method adds an refund to the invoice is refund is requested for an article
-    def self.fastbill_refund transaction, fee_type
-      article = transaction.article
-      seller = transaction.seller
+    def self.fastbill_refund business_transaction, fee_type
+      article = business_transaction.article
+      seller = business_transaction.seller
 
       Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
                                                       article_number: fee_type == :fair ? '11' : '12',
-                                                      quantity: transaction.quantity_bought,
-                                                      unit_price: fee_type == :fair ? -( fair_wo_vat article ) : -( actual_fee_wo_vat transaction ),
-                                                      description: transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.refund_fair' ) : I18n.t( 'invoice.refund_fee' ) })",
-                                                      usage_date: transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
+                                                      quantity: business_transaction.quantity_bought,
+                                                      unit_price: fee_type == :fair ? -( fair_wo_vat article ) : -( actual_fee_wo_vat business_transaction ),
+                                                      description: business_transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.refund_fair' ) : I18n.t( 'invoice.refund_fee' ) })",
+                                                      usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                     )
-        transaction.update_attribute("billed_for_#{fee_type}".to_sym, false)
+        business_transaction.update_attribute("billed_for_#{fee_type}".to_sym, false)
     end
 
     # This methods calculate the fee without vat
@@ -144,13 +144,13 @@ class FastbillAPI
       (article.calculated_fee_cents.to_f / 100 / 1.19).round(2)
     end
 
-    def self.discount_wo_vat transaction
-      (transaction.discount_value_cents.to_f / 100 / 1.19).round(2)
+    def self.discount_wo_vat business_transaction
+      (business_transaction.discount_value_cents.to_f / 100 / 1.19).round(2)
     end
 
-    def self.actual_fee_wo_vat transaction
-      fee = fee_wo_vat( transaction.article )
-      fee -= discount_wo_vat( transaction ) if transaction.discount
+    def self.actual_fee_wo_vat business_transaction
+      fee = fee_wo_vat( business_transaction.article )
+      fee -= discount_wo_vat( business_transaction ) if business_transaction.discount
       fee
     end
 end

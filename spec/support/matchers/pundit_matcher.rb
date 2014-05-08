@@ -63,23 +63,6 @@ module PunditMatcher
     end
   end
 
-  # matcher :ultimately_permit do |action|
-  #   match do |policy|
-  #     if check_devise_auth_on policy, action
-  #       false
-  #     else
-  #       get_return_of_send policy, action
-  #     end
-  #   end
-
-  #   failure_message_for_should do |policy|
-  #     "#{policy.class} does not ultimately permit '#{action}' for user: #{policy.user.inspect}."
-  #   end
-  # end
-
-
-
-  protected
 
   def get_return_of_send policy, action
     allow_message_expectations_on_nil
@@ -98,13 +81,13 @@ module PunditMatcher
     # This is the method we want on a controller for testing purposes:
     has_before_filter_of_type = proc do |filter, action_name|
       all_filters = _process_action_callbacks
-      filter_hash = all_filters.select{ |f| f.kind == :before && f.filter == filter }[0].per_key
+      filter_hash = all_filters.select{ |f| f.kind == :before && f.filter == filter }[0]
 
       if filter_hash && action_name
-        if filter_hash[:unless] && !filter_hash[:unless].empty?
-          !eval(filter_hash[:unless][0]) # these describe actions excluded from the filter. returns true => action doesnt have filter
-        elsif filter_hash[:if] && !filter_hash[:if].empty?
-          eval(filter_hash[:if][0]) # these describe actions including the filter. returns true => action has filter
+        if filter_hash.instance_variable_get(:@unless) && !filter_hash.instance_variable_get(:@unless).empty?
+          !eval(filter_hash.instance_variable_get(:@unless)[0]) # these describe actions excluded from the filter. returns true => action doesnt have filter
+        elsif filter_hash.instance_variable_get(:@if) && !filter_hash.instance_variable_get(:@if).empty?
+          eval(filter_hash.instance_variable_get(:@if)[0]) # these describe actions including the filter. returns true => action has filter
         else
           true # every action gets the before filter
         end

@@ -1,7 +1,7 @@
 class Discount < ActiveRecord::Base
   extend Sanitization
 
-  has_many :transactions
+  has_many :business_transactions
   has_many :articles
 
   validates :title, presence: true
@@ -16,16 +16,16 @@ class Discount < ActiveRecord::Base
 
   scope :current, lambda { where( "start_time < ? AND end_time > ?", Time.now, Time.now ) }
 
-  def self.discount_chain transaction
-    if transaction.discountable?
-      transaction.discount_id = transaction.article_discount_id
+  def self.discount_chain business_transaction
+    if business_transaction.discountable?
+      business_transaction.discount_id = business_transaction.article_discount_id
 
-      if transaction.calculated_discount > transaction.remaining_discount
-        transaction.discount_value_cents = transaction.remaining_discount
+      if business_transaction.calculated_discount > business_transaction.remaining_discount
+        business_transaction.discount_value_cents = business_transaction.remaining_discount
       else
-        transaction.discount_value_cents = transaction.calculated_discount
+        business_transaction.discount_value_cents = business_transaction.calculated_discount
       end
     end
-    transaction.save
+    business_transaction.save
   end
 end

@@ -1,6 +1,6 @@
 .Refund-main
   %h1= t( 'refund.heading' )
-  = semantic_form_for resource, url: transaction_refunds_path, builder: Fairtastic::FormBuilder do |f|
+  = semantic_form_for resource, url: business_transaction_refunds_path, builder: Fairtastic::FormBuilder do |f|
     = f.inputs do
       = f.input :reason, as: :select
       = f.input :description, as: :text, input_html: { class: 'Refund-textarea' }
