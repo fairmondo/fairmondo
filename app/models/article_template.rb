@@ -27,8 +27,7 @@ class ArticleTemplate < ActiveRecord::Base
   def self.article_template_attrs
     [:name, :article, article_attributes: Article.article_attrs(false)]
   end
-  #! attr_accessible *template_attributes
-  #! attr_accessible *template_attributes, :as => :admin
+
   auto_sanitize :name
 
   validates :name, uniqueness: { scope: :user_id }

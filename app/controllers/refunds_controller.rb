@@ -1,7 +1,7 @@
 class RefundsController < InheritedResources::Base
   respond_to :html
   actions :create, :new
-  before_filter :authorize_with_transaction, only: [ :new, :create ]
+  before_filter :authorize_with_business_transaction, only: [ :new, :create ]
 
   def create
     create! do | success, failure |
@@ -10,9 +10,9 @@ class RefundsController < InheritedResources::Base
   end
 
   private
-    def authorize_with_transaction
+    def authorize_with_business_transaction
       refund = build_resource
-      refund.transaction = Transaction.find( params[ :transaction_id ] )
+      refund.business_transaction = BusinessTransaction.find( params[ :business_transaction_id ] )
       authorize refund
     end
 end

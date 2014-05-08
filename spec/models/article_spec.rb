@@ -89,7 +89,7 @@ describe Article do
       it {should have_many :images}
       it {should have_and_belong_to_many :categories}
       it {should belong_to :seller}
-      it {should have_one(:transaction).dependent(:destroy)}
+      it {should have_one(:business_transaction).dependent(:destroy)}
     end
 
     describe "validations" do
@@ -135,15 +135,15 @@ describe Article do
   end
 
 
-  describe "::BuildTransaction" do
+  describe "::BuildBusinessTransaction" do
     it "should build a SFPT when article quantity is one" do
       article.quantity = 1
-      article.send(:build_specific_transaction).should be_a SingleFixedPriceTransaction
+      article.send(:build_specific_business_transaction).should be_a SingleFixedPriceTransaction
     end
 
     it "should build a MFPT when article quantity is greater than one" do
       article.quantity = 2
-      article.send(:build_specific_transaction).should be_a MultipleFixedPriceTransaction
+      article.send(:build_specific_business_transaction).should be_a MultipleFixedPriceTransaction
     end
   end
 

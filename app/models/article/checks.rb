@@ -46,7 +46,7 @@ module Article::Checks
   end
 
   def is_available?
-    self.transaction_quantity_available == 0
+    self.business_transaction_quantity_available == 0
   end
 
   #only generate friendly slug if we dont have a template

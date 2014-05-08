@@ -17,6 +17,6 @@ def get_recursive_sold_count category
   category.children.each do |c|
     count += get_recursive_sold_count c
   end
-  count += Transaction.joins(:article => :categories).where("transactions.state = ? AND transactions.sold_at > ? AND categories.id = ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00"), category.id).count
+  count += BusinessTransaction.joins(:article => :categories).where("business_transactions.state = ? AND business_transactions.sold_at > ? AND categories.id = ?", :sold, Time.parse("2013-09-23 23:25:00.000000 +02:00"), category.id).count
   count
 end

@@ -102,10 +102,10 @@ describe User do
     it { should have_one(:image) }
 
     describe "sold_transactions" do
-      it "should return an array of sold transactions" do
+      it "should return an array of sold business_transactions" do
         # sollte gefunden werden
         sold_single = FactoryGirl.create(:single_transaction, :sold,
-          article: (FactoryGirl.create :article, :without_build_transaction,
+          article: (FactoryGirl.create :article, :without_build_business_transaction,
             seller: user
           )
         )
@@ -115,7 +115,7 @@ describe User do
             FactoryGirl.create(:multiple_transaction,
               seller: user,
               article: (
-                FactoryGirl.create(:article, :without_build_transaction,
+                FactoryGirl.create(:article, :without_build_business_transaction,
                   quantity: 50,
                   seller: user
                 )
@@ -127,7 +127,7 @@ describe User do
         open_single = FactoryGirl.create(:single_transaction,
           seller: user,
           article: (
-            FactoryGirl.create(:article, :without_build_transaction,
+            FactoryGirl.create(:article, :without_build_business_transaction,
               seller: user
             )
           )
@@ -135,7 +135,7 @@ describe User do
         open_multiple = FactoryGirl.create(:multiple_transaction,
           seller: user,
           article: (
-            FactoryGirl.create(:article, :without_build_transaction,
+            FactoryGirl.create(:article, :without_build_business_transaction,
               quantity: 50,
               seller: user
             )
@@ -145,7 +145,7 @@ describe User do
           seller: user
         )
 
-        arr = user.sold_transactions
+        arr = user.sold_business_transactions
         arr.length.should eq 2
         arr.should include(sold_single)
         arr.should include(sold_partial)
@@ -441,7 +441,7 @@ describe User do
             it "should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
+              private_seller.max_value_of_goods_cents.should eq( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -455,28 +455,28 @@ describe User do
             it "should have a salesvolume of standard_salesvolume * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = false
-              private_seller.max_value_of_goods_cents.should eq ( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
+              private_seller.max_value_of_goods_cents.should eq( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted" do
             it "should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor" do
               private_seller.verified = false
               private_seller.trustcommunity = true
-              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
+              private_seller.max_value_of_goods_cents.should eq(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if verified" do
             it "should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = false
-              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
+              private_seller.max_value_of_goods_cents.should eq(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
             end
           end
           context "if trusted and verified" do
             it "should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor" do
               private_seller.verified = true
               private_seller.trustcommunity = true
-              private_seller.max_value_of_goods_cents.should eq (( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
+              private_seller.max_value_of_goods_cents.should eq(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
             end
           end
         end
@@ -536,7 +536,7 @@ describe User do
           context "if verified" do
             it "should have a salesvolume of standard_salesvolume + verified_bonus" do
               commercial_seller.verified = true
-              commercial_seller.max_value_of_goods_cents.should eq ( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
+              commercial_seller.max_value_of_goods_cents.should eq( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
             end
           end
         end
@@ -560,7 +560,7 @@ describe User do
           context "if verified" do
             it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor" do
               commercial_seller.verified = true
-              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
+              commercial_seller.max_value_of_goods_cents.should eq(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
             end
           end
         end
@@ -584,7 +584,7 @@ describe User do
           context "if verified" do
             it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2" do
               commercial_seller.verified = true
-              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
+              commercial_seller.max_value_of_goods_cents.should eq(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
             end
           end
         end
@@ -608,7 +608,7 @@ describe User do
           context "if verified" do
             it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3" do
               commercial_seller.verified = true
-              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
+              commercial_seller.max_value_of_goods_cents.should eq(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
             end
           end
         end
@@ -629,7 +629,7 @@ describe User do
           context "if verified" do
             it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4" do
               commercial_seller.verified = true
-              commercial_seller.max_value_of_goods_cents.should eq (( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
+              commercial_seller.max_value_of_goods_cents.should eq(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
             end
           end
         end
