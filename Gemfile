@@ -157,7 +157,7 @@ group :development, :test do
   gem 'thin'
 
   # Notify about n+1 queries
-  gem 'bullet', github: 'flyerhzm/bullet'
+  gem 'bullet'
 
   # Guard test automation
   gem 'guard-rspec'
