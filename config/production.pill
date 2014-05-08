@@ -11,12 +11,12 @@ Bluepill.application("fairnopoly", log_file: "#{rails_root}/log/bluepill.log") d
       pidfile = "#{rails_root}/tmp/pids/sidekiq#{i}.pid"
       process.pid_file = pidfile
 
-      process.start_command = "sidekiq -e #{rails_env} -P #{pidfile} -d -L #{rails_root}/log/sidekiq.log -C #{rails_root}/config/sidekiq.yml"
+      process.start_command = "sidekiq -e #{rails_env} -P #{pidfile} -d -L #{rails_root}/log/sidekiq.log -C #{rails_root}/config/sidekiq.yml -i #{i}"
       process.stop_command = "sidekiqctl stop #{pidfile}"
 
-      process.start_grace_time = 30.seconds
-      process.stop_grace_time = 90.seconds
-      process.restart_grace_time = 120.seconds
+      process.start_grace_time = 60.seconds
+      process.stop_grace_time = 10.minutes
+      process.restart_grace_time = 11.minutes
 
       #process.checks :cpu_usage, every: 10.seconds, below: 5, times: 3
       process.checks :mem_usage, every: 10.seconds, below: 500.megabytes, :times => [2,3]

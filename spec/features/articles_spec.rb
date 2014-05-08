@@ -403,8 +403,11 @@ describe 'Article management' do
         page.should have_link("Transparency International", :href => "http://www.transparency.de/")
       end
 
-      describe "-> 'other articles of this seller'-box" do
-        before { visit article_path article_active }
+      describe "-> 'other articles of this seller'-box", :search => true do
+        before do
+           Article.stub(:search).and_return( Kaminari.paginate_array([article_active]).page(1))
+           visit article_path article_active
+        end
 
         it "should show an active article" do
           page.should have_link('', href: article_path(article_active))

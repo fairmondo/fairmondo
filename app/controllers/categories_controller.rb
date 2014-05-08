@@ -16,7 +16,7 @@ class CategoriesController < InheritedResources::Base
   end
 
   def collection
-    @categories ||= Category.other_category_last.sorted.roots.includes(children: {children: {children: :children}})
+    @categories ||= Category.other_category_last.sorted_roots.includes(children: {children: {children: :children}})
   end
 
   private
