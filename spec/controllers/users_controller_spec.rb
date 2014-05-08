@@ -62,7 +62,7 @@ describe UsersController do
     end
   end
 
-  describe "sign in" do
+  describe "sign in" do # Why do we even have this?? -KK
     it "should be sucessful" do
       get :login
       response.should be_success

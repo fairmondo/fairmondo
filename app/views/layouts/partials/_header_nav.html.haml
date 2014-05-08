@@ -15,7 +15,7 @@
     %li
       = link_to t('common.actions.logout'), destroy_user_session_path
 
-  - else
+  - elsif controller_name != "sessions"
     %li.JS-active-toggle--container
       = link_to t('common.actions.login'), new_user_session_path, :id => "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
       .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target

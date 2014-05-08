@@ -40,13 +40,15 @@ describe 'User management' do
     it "registers a new user" do
       visit new_user_registration_path
 
-      fill_in 'user_nickname',              with: 'nickname'
-      fill_in 'user_email',                 with: 'email@example.com'
-      fill_in 'user_password',              with: 'password'
-      fill_in 'user_password_confirmation', with: 'password'
-      choose 'user_type_legalentity'
-      check 'user_legal'
-      check 'user_agecheck'
+      within '.registrations-form' do
+        fill_in 'user_nickname',              with: 'nickname'
+        fill_in 'user_email',                 with: 'email@example.com'
+        fill_in 'user_password',              with: 'password'
+        fill_in 'user_password_confirmation', with: 'password'
+        choose 'user_type_legalentity'
+        check 'user_legal'
+        check 'user_agecheck'
+      end
       expect {click_button 'sign_up'}.to change(User, :count).by 1
     end
 
