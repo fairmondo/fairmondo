@@ -63,7 +63,13 @@ module ArticlesHelper
   end
 
   def active_seller_articles
-    resource.seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
+    seller = resource.seller
+    articles = Article.search(:page => params[:page],:per_page => 18) do
+      query { all }
+      filter :term, :seller => seller.id
+    end
+  rescue
+    seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
   end
 
    def transport_format_for method, css_classname=""

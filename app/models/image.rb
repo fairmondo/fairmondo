@@ -40,7 +40,4 @@ class Image < ActiveRecord::Base
   def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
-
-
-
 end
