@@ -135,15 +135,15 @@
 // Search filters
 
 .Search-filters {
-  margin-bottom: 2em;
   @include clearfix;
   clear: both;
 }
 
 .Search-filters > .Search-filter {
   position: relative;
-  @include span(1 of 3 0.1);
-  &:nth-child(3) {
+  margin-bottom: 1em;
+  @include span(1 of 6 0.05);
+  &:nth-child(6) {
     @include omega;
   }
 }
@@ -157,16 +157,17 @@
   }
 }
 
-.Search-dropdown > ul {
+.Search-dropdown > ul, .Search-filter > form {
   display:none;
   width:100%;
   padding:0;
+  margin: 0;
   background: white;
   box-shadow: $sand 0px 0px 2px 2px;
   list-style: none;
 
   &.is-active {
-    top: 1.2em;
+    top: 2.2em;
     left: 0em;
     display: block;
     position: absolute;
