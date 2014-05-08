@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Discount do
   describe 'associations' do
-    it { should have_many :transactions }
+    it { should have_many :business_transactions }
   end
 
   describe 'attributes' do
@@ -22,13 +22,13 @@ describe Discount do
     describe '::discount_chain' do
       context 'calculated discount is bigger than remaining discount' do
         let(:discount){ FactoryGirl.create :discount, :small }
-        let(:transaction){ FactoryGirl.create :transaction_with_buyer, article: FactoryGirl.create( :article, discount: discount) }
+        let(:business_transaction){ FactoryGirl.create :business_transaction_with_buyer, article: FactoryGirl.create( :article, discount: discount) }
 
         it 'should set discount value to remaining discount' do
-          transaction.article.calculate_fees_and_donations
-          Discount.discount_chain( transaction )
-          transaction.discount_id.should eq discount.id
-          transaction.discount_value_cents.should eq discount.max_discounted_value_cents
+          business_transaction.article.calculate_fees_and_donations
+          Discount.discount_chain( business_transaction )
+          business_transaction.discount_id.should eq discount.id
+          business_transaction.discount_value_cents.should eq discount.max_discounted_value_cents
         end
       end
     end

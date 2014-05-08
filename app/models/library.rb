@@ -26,8 +26,6 @@ class Library < ActiveRecord::Base
     [:name, :public, :user, :user_id]
   end
   auto_sanitize :name
-  #! attr_accessible *library_attributes
-  #! attr_accessible *library_attributes, :as => :admin
 
   delegate :nickname, to: :user, prefix: true
 
@@ -44,7 +42,7 @@ class Library < ActiveRecord::Base
   has_many :library_elements, dependent: :destroy
   has_many :articles, through: :library_elements
 
-  scope :public, -> { where(public: true) }
+  scope :published, -> { where(public: true) }
   default_scope -> { order('updated_at DESC') }
 
 end

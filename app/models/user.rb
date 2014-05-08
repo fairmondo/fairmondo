@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
 
   # Friendly_id for beautiful links
   extend FriendlyId
-  friendly_id :nickname, :use => :slugged
+
+  friendly_id :nickname, :use => [:slugged, :finders]
+
   validates_presence_of :slug
 
   extend Sanitization
@@ -59,24 +61,17 @@ class User < ActiveRecord::Base
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
-  # @api public
-  def self.attributes_protected_by_default
-    ["id"] # default is ["id","type"]
-  end
-
-
-
   attr_accessor :wants_to_sell
   attr_accessor :bank_account_validation , :paypal_validation
   attr_accessor :fastbill_profile_update
 
 
   #Relations
-  has_many :transactions, through: :articles
+  has_many :business_transactions, through: :articles
   has_many :articles, :dependent => :destroy # As seller
-  has_many :bought_articles, through: :bought_transactions, source: :article
-  has_many :bought_transactions, class_name: 'Transaction', foreign_key: 'buyer_id' # As buyer
-  has_many :sold_transactions, -> { where("transactions.state = 'sold' AND transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'Transaction', foreign_key: 'seller_id', inverse_of: :seller
+  has_many :bought_articles, through: :bought_business_transactions, source: :article
+  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
+  has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
 
 
   has_many :article_templates, :dependent => :destroy
@@ -96,7 +91,7 @@ class User < ActiveRecord::Base
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
 
   has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
-  has_many :given_ratings, through: :bought_transactions, source: :rating, inverse_of: :rating_user
+  has_many :given_ratings, through: :bought_business_transactions, source: :rating, inverse_of: :rating_user
 
 
   #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
@@ -357,6 +352,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
     # @api private
     def create_default_library
       if self.libraries.empty?

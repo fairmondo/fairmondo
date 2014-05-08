@@ -25,8 +25,6 @@ class Image < ActiveRecord::Base
     output.push(:_destroy, :id) if nested_attrs
     output
   end
-  #! attr_accessible *image_attributes
-  #! attr_accessible *image_attributes, :as => :admin
 
   # This is a hack because delayed_paperclip is not working correctly for now
 
