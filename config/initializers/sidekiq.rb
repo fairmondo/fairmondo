@@ -11,6 +11,3 @@ if Rails.env.production?
 end
 
 Redis.current = SidekiqRedisConnectionWrapper.new
-
-# New Relic
-GC::Profiler.enable
