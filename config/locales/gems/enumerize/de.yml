@@ -161,7 +161,7 @@ de:
         generally_charitable_old: Arbeitet das Unternehmen primär gewinnorientiert?
         potential_social_advancement_old: Besteht durch die Initiative das Potential, einen gesellschaftlichen Wandel zu bewirken?
         social_sensitization_old: Werden weitere Menschen für soziales Engagement sensibilisiert oder aktiviert ?
-    transaction:
+    business_transaction:
       selected_transport:
         pickup: Selbstabholung
         type1: Versand

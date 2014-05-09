@@ -24,8 +24,8 @@
   .User-additional.Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     = render '/shared/listview/listview_accordion', item_name: 'active', item_link: new_article_path, items: active_articles
     = render '/shared/listview/listview_accordion', item_name: 'inactive', items: inactive_articles
-    = render '/shared/listview/listview_accordion', item_name: 'sold', items: sold_transactions
-    = render '/shared/listview/listview_accordion', item_name: 'bought', items: bought_transactions
+    = render '/shared/listview/listview_accordion', item_name: 'sold', items: sold_business_transactions
+    = render '/shared/listview/listview_accordion', item_name: 'bought', items: bought_business_transactions
 
 
     = accordion_item "my_article_templates" do

@@ -37,13 +37,14 @@ end
 
 module Fairnopoly
   class Application < Rails::Application
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
+    config.eager_load_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/)
     config.eager_load_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/objects/coercers/ #{config.root}/app/observers)
-    config.eager_load_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/)
     require "#{config.root}/lib/autoload/inherited_resources.rb"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -52,11 +53,13 @@ module Fairnopoly
 
     # Activate observers that should always be running.
 
-    config.active_record.observers = [:article_observer,:feedback_observer,:transaction_observer,:user_observer,:library_element_observer,:refund_observer]
+    config.active_record.observers = [:article_observer,:feedback_observer,:business_transaction_observer,:user_observer,:library_element_observer,:refund_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Berlin'
+
+    I18n.config.enforce_available_locales = false
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -66,6 +69,8 @@ module Fairnopoly
 
     #Workaround
     I18n.locale = config.i18n.locale = config.i18n.default_locale
+
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -77,15 +82,9 @@ module Fairnopoly
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    # Enforce whitelist mode for mass assignment.
-    # This will create an empty whitelist of attributes available for mass-assignment for all models
-    # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
-    # parameters by using an attr_accessible or attr_protected declaration.
-    # DISABLED! We're using strong_parameters instead -KK
-    config.active_record.whitelist_attributes = false
-
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.assets.initialize_on_precompile = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

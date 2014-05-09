@@ -66,7 +66,7 @@
     - else
       - if resource.quantity > 1
         %p.Article-quantity
-          %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.transaction_quantity_available)
+          %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.business_transaction_quantity_available)
       %p
         - if policy(mock_library_element).create?
           = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
@@ -79,9 +79,9 @@
         - elsif user_signed_in?
           %br
           = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button")
-      - if policy(resource.transaction).edit?
+      - if policy(resource.business_transaction).edit?
         %p
-          = link_to t('common.actions.to_cart'), edit_transaction_path(resource.transaction), class: "Button Btn-fill", style: "margin:5px;"
+          = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button Btn-fill", style: "margin:5px;"
       -elsif resource.seller_vacationing?
         %p
           .Button.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'

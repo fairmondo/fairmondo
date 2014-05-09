@@ -24,13 +24,13 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe 'Rating' do
-  let(:transaction) { FactoryGirl.create :single_transaction, :sold }
-  let(:buyer) { transaction.buyer }
+  let(:business_transaction) { FactoryGirl.create :single_transaction, :sold }
+  let(:buyer) { business_transaction.buyer }
   let(:user) { FactoryGirl.create :user }
 
   context "for a logged-out user" do
     it "should not yet be accessible" do
-      visit transaction_new_user_rating_path(transaction.seller, transaction)
+      visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
       current_path.should eq new_user_session_path
     end
   end
@@ -41,7 +41,7 @@ describe 'Rating' do
     describe "with user not as transaction buyer" do
       it "should not show the correct data and fields" do
         expect do
-          visit transaction_new_user_rating_path(transaction.seller, transaction)
+          visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
         end.to raise_error Pundit::NotAuthorizedError
       end
     end
@@ -52,7 +52,7 @@ describe 'Rating' do
 
     describe "with user as transaction buyer" do
       it "should show the correct data and fields" do
-        visit transaction_new_user_rating_path(transaction.seller, transaction)
+        visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
         page.should have_css 'form'
         page.should have_css "input#rating_rating_positive[@value='positive']"
         page.should have_css "input#rating_rating_neutral[@value='neutral']"
@@ -63,13 +63,13 @@ describe 'Rating' do
       end
 
       it "should fail when saving without a selected rating" do
-        visit transaction_new_user_rating_path(transaction.seller, transaction)
+        visit business_transaction_new_user_rating_path(business_transaction.seller,business_transaction)
         click_button 'Bewertung speichern'
         page.should have_button 'Bewertung speichern' # test if still on same page
       end
 
       it "should succeed when saving with a selected rating" do
-        visit transaction_new_user_rating_path(transaction.seller, transaction)
+        visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
         choose 'rating_rating_positive'
         click_button 'Bewertung speichern'
         current_path.should eq user_path(buyer)
@@ -79,7 +79,7 @@ describe 'Rating' do
       it "should disallow rating the same transaction twice" do
         rating = FactoryGirl.create(:positive_rating)
         expect do
-          visit transaction_new_user_rating_path(rating.rated_user, rating.transaction)
+          visit business_transaction_new_user_rating_path(rating.rated_user, rating.business_transaction)
         end.to raise_error Pundit::NotAuthorizedError
       end
     end
@@ -87,14 +87,14 @@ describe 'Rating' do
 
   describe "Ratings index" do
     before do
-      @rating = FactoryGirl.create :rating, rated_user: transaction.seller, rating_user: transaction.buyer
-      visit user_ratings_path(:user_id => transaction.seller.id)
+      @rating = FactoryGirl.create :rating, rated_user: business_transaction.seller, rating_user: business_transaction.buyer
+      visit user_ratings_path(:user_id => business_transaction.seller.id)
     end
 
     it "should show rated user info, rating and rating user" do
-      page.should have_content(transaction.seller.nickname)
+      page.should have_content(business_transaction.seller.nickname)
       page.should have_content(@rating.text)
-      page.should have_content(transaction.buyer.nickname)
+      page.should have_content(business_transaction.buyer.nickname)
     end
 
   end

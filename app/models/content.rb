@@ -31,5 +31,5 @@ class Content < ActiveRecord::Base
   validates :body, presence: true
 
   extend FriendlyId
-  friendly_id :key
+  friendly_id :key, use: :finders
 end

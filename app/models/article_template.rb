@@ -35,8 +35,6 @@ class ArticleTemplate < ActiveRecord::Base
 
   accepts_nested_attributes_for :article
 
-
-
   # refs #128 avoid default scope
   def article
     Article.unscoped{super}

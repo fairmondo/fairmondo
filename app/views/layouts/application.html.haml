@@ -59,10 +59,11 @@
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
     = render 'peek/bar'
+
     .l-wrapper
       - if !flash.empty?
         - flash.each do |type, msg|
-          - if msg && type != :timedout && !msg.empty?
+          - if msg && type != "timedout" && !msg.empty?
             = render layout: "notice_layout", locals: { :type => type }  do
               = msg
       = render "/layouts/partials/news_header"
@@ -80,6 +81,7 @@
             = render "/layouts/partials/header_search"
       .l-main{:role => "main"}
         = yield
+
     - cache_if (!(User.is_admin? current_user)),"footer" do
       .l-footer
         = render "/layouts/partials/footer"

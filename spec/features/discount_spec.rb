@@ -23,7 +23,7 @@ describe Discount do
     end
 
     it 'should apply discount' do
-      visit transaction_path( article.transaction )
+      visit business_transaction_path( article.business_transaction )
       click_button I18n.t('common.actions.continue')
       FastbillAPI.should receive( :fastbill_discount )
       click_button I18n.t('transaction.actions.purchase')

@@ -24,13 +24,13 @@ class RatingsController < InheritedResources::Base
   actions :index, :create, :new
 
   before_filter :get_user
-  before_filter :authorize_new_with_transaction, only: :new
+  before_filter :authorize_new_with_business_transaction, only: :new
   skip_before_filter :authenticate_user!, only: :index
 
   def create
     authorize build_resource
     build_resource.rating_user = current_user
-    build_resource.rated_user = build_resource.transaction.seller
+    build_resource.rated_user = build_resource.business_transaction.seller
     create! do |success,failure|
       success.html { redirect_to user_path(current_user, :anchor => :bought), :notice => t('rating.notice.saved') }
     end
@@ -52,9 +52,9 @@ class RatingsController < InheritedResources::Base
       @user = User.find(params[:user_id])
     end
 
-    def authorize_new_with_transaction
+    def authorize_new_with_business_transaction
       rating = build_resource
-      rating.transaction = Transaction.find(params[:transaction_id])
+      rating.business_transaction = BusinessTransaction.find(params[:business_transaction_id])
       authorize rating
     end
 end

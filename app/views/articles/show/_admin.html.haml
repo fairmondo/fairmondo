@@ -1,7 +1,7 @@
 .Admin-controls
 
   %h2 Administration:
-  = link_to t('article.show.reindex'), toolbox_reindex_path(resource), method: 'PUT', class: 'Button Button--red'
+  = link_to t('article.show.reindex'), toolbox_reindex_path(resource), method: :patch, class: 'Button Button--red'
 
   - if resource.active?
     %h3 Warteschlange befüllen
