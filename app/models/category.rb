@@ -21,7 +21,7 @@
 #
 class Category < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, :use => :slugged
+  friendly_id :name, :use => [:slugged, :finders]
 
   has_and_belongs_to_many :articles
   has_and_belongs_to_many :active_articles, :class_name => 'Article', :conditions => {:state => "active"}
@@ -41,10 +41,10 @@ class Category < ActiveRecord::Base
   acts_as_nested_set
 
   def children_with_active_articles
-    delete_if_no_active_articles self.children.includes(:children)
+    delete_if_no_active_articles self.children.includes(:children).to_a
   end
   def siblings_with_active_articles #filter = nil
-    siblings = self.siblings.except(:order).other_category_last.sorted.includes(:children)
+    siblings = self.siblings.except(:order).other_category_last.sorted.includes(:children).to_a
     #siblings = siblings.send filter if filter
     delete_if_no_active_articles siblings
   end

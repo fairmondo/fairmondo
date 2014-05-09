@@ -197,7 +197,7 @@ class ArticlesController < InheritedResources::Base
 
 
     def build_search_cache
-      @search_cache = ArticleSearchForm.new(refined_params[:article_search_form])
+      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
     end
 
 

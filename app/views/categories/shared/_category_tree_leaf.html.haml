@@ -3,5 +3,5 @@
     %b
       = category.name
 - else
-  %a.Search-colored-link{href: category_path(category, article_search_form: search_params_merged_with( :category => category.id )), title: category.name, data: { remote: 'true' }}
+  %a.Search-colored-link{href: category_path(category, article_search_form: search_cache.change(category_id: category.id)), title: category.name, data: { remote: 'true' }}
     = category.name

@@ -1,5 +1,4 @@
-- cache_if params[:article_search_form]==nil, 'article_search_form' do
-
+- cache_if search_cache.fresh?, 'article_search_form' do
   = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => ".l-header-search-form" }, :builder => ::Fairtastic::FormBuilder do |f|
     #js-hidden-search-params
     .l-header-search-libraries

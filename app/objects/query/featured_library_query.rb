@@ -7,7 +7,7 @@ class FeaturedLibraryQuery
   def set exhibition_name
     @exhibition_name = exhibition_name
     @library = Library.where(exhibition_name: exhibition_name).first
-    @relation = LibraryElement.scoped.where(library_id: @library.id).includes(article: [:images,:seller]).joins(:article).where("articles.state = 'active'") if @library
+    @relation = LibraryElement.where(library_id: @library.id).includes(article: [:images,:seller]).joins(:article).where("articles.state = 'active'") if @library
     self
   end
 

@@ -22,10 +22,10 @@ class CategoriesController < InheritedResources::Base
   private
     def get_articles
       begin
-        @search_cache = ArticleSearchForm.new refined_params[:article_search_form]
-        @articles ||= @search_cache.search params[:page]
+        @search_cache = ArticleSearchForm.new(refined_params[:article_search_form])
+        @articles ||= @search_cache.search refined_params[:page]
       rescue Errno::ECONNREFUSED
-        @articles ||= policy_scope(Article).page params[:page]
+        @articles ||= policy_scope(Article).page refined_params[:page]
       end
     end
 
@@ -37,6 +37,8 @@ class CategoriesController < InheritedResources::Base
     def refined_params
       super
       @refined_params[:article_search_form] ||= {}
+      search_params = params.for(ArticleSearchForm)[:article_search_form]
+      @refined_params[:article_search_form].merge search_params if search_params
       @refined_params[:article_search_form][:category_id] = resource.id
       @refined_params
     end
