@@ -16,8 +16,7 @@ describe ToolboxController do
 
     context "as html" do
       it "should fail" do
-        get :session_expired
-        response.should_not be_success
+        expect { get :session_expired }.to raise_error
       end
     end
   end
@@ -25,15 +24,14 @@ describe ToolboxController do
    describe "GET 'confirm'" do
     context "as js" do
       it "should be successful" do
-        get :confirm, format: :js
+        xhr :get, :confirm, format: :js
         response.should be_success
       end
     end
 
     context "as html" do
       it "should fail" do
-        get :confirm
-        response.should_not be_success
+        expect { get :confirm }.to raise_error
       end
     end
   end
@@ -52,8 +50,7 @@ describe ToolboxController do
 
     context "as json" do
       it "should fail" do
-        get :rss, format: :json
-        response.should_not be_success
+        expect { get :rss, format: :json }.to raise_error
       end
     end
 

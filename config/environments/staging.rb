@@ -24,6 +24,7 @@ Fairnopoly::Application.configure do
 
 # Code is not reloaded between requests
   config.cache_classes = true
+  config.eager_load = true
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = true
@@ -33,7 +34,7 @@ Fairnopoly::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = false
+  config.assets.js_compressor = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
@@ -75,8 +76,6 @@ Fairnopoly::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'development.fairnopoly.de'}
 
-  # Enable threaded mode
-  config.threadsafe!
   config.dependency_loading = true if $rails_rake_task
   #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
 
@@ -87,9 +86,6 @@ Fairnopoly::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/bin"
 
   ActionMailer::Base.delivery_method = :smtp

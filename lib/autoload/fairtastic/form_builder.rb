@@ -48,7 +48,7 @@ module Fairtastic
     # Make Accordions red if contains errors
     def semantic_fields_for(record_or_name_or_array, *args, &block)
       relation = @object.send(record_or_name_or_array)
-      if relation.kind_of?(Array)
+      if relation.kind_of?(ActiveRecord::Relation) || relation.kind_of?(Array)
         relation.each do |item|
            @input_step_with_errors ||=item.errors.present?
         end

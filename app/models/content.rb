@@ -25,8 +25,6 @@ class Content < ActiveRecord::Base
   def self.content_attrs
     [:body, :key]
   end
-  #! attr_accessible :body, :key
-  #! attr_accessible :body, :key, as: :admin
 
   auto_sanitize :key
   auto_sanitize :body, method: 'tiny_mce', admin: true
@@ -37,5 +35,5 @@ class Content < ActiveRecord::Base
   validates :body, presence: true
 
   extend FriendlyId
-  friendly_id :key
+  friendly_id :key, use: :finders
 end

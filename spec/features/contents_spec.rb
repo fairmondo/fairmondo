@@ -68,7 +68,7 @@ describe "Contents" do
         fill_in 'content_body', with: 'Bazfuz'
 
         expect do
-          click_button I18n.t 'helpers.submit.create', model: 'Content'
+          click_button I18n.t 'helpers.submit.create', model: (I18n.t 'activerecord.models.content.one')
         end.to change(Content, :count).by 1
 
         page.should have_content 'Content was successfully created.'
@@ -98,7 +98,7 @@ describe "Contents" do
 
         fill_in 'content_key', with: 'foobar'
         fill_in 'content_body', with: 'Bazfuz'
-        click_button I18n.t 'helpers.submit.update', model: 'Content'
+        click_button I18n.t 'helpers.submit.update', model: (I18n.t 'activerecord.models.content.one')
 
         page.should have_content 'Content was successfully updated.'
         page.should have_content 'Bazfuz'
