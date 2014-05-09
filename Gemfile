@@ -117,7 +117,7 @@ gem 'jquery-rails'
 
 
 group :production, :staging do
-  gem 'newrelic_rpm' #Monitoring service
+  #gem 'newrelic_rpm' #Monitoring service
   # gem 'whenever' # cron jobs
 end
 
