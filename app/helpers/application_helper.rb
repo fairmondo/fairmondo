@@ -49,10 +49,6 @@ module ApplicationHelper
       truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission ).gsub("\n", ' ')
   end
 
-  def search_cache
-    @search_cache || ArticleSearchForm.new
-  end
-
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]

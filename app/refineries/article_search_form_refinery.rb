@@ -1,4 +1,4 @@
-class SearchRefinery < ApplicationRefinery
+class ArticleSearchFormRefinery < ApplicationRefinery
   def default
     [
       :q, :fair, :ecologic, :small_and_precious, :condition,

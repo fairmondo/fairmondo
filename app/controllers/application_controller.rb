@@ -70,6 +70,10 @@ class ApplicationController < ActionController::Base
     User.is_admin? current_user
   end
 
+  def params
+      manual_params super
+  end
+
 
   protected
 
@@ -113,9 +117,7 @@ class ApplicationController < ActionController::Base
     def refined_params
       @refined_params ||= params.for(appropriate_resource).as(current_user).refine
     end
-    def params
-      manual_params super
-    end
+
     # modify params, does nothing unless overwritten in specific controller
     # @return [Hash] params
     def manual_params input

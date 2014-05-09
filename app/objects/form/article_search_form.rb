@@ -127,5 +127,26 @@ class ArticleSearchForm
     !q.blank? || fair || ecologic || small_and_precious || condition || !zip.blank? || order_by || @page
   end
 
+  def fresh?
+    self.attributes.empty?
+  end
+
+  def change changes
+    changed = self.attributes.merge(changes)
+    clean_hash changed
+  end
+
+  def flip parameter
+    self.change(parameter => !self.send(parameter))
+  end
+
+  private
+
+    def clean_hash(hash)
+      # clean nil values and throw out false boolean attributes that result in filter not being attached
+      hash.select do |k,v|
+        v!= nil && !([:fair,:ecologic,:small_and_precious].include? k && !v )
+      end
+    end
 
 end

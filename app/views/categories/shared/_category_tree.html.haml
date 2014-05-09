@@ -13,7 +13,7 @@
       - ancestor.ancestors.each do |c|
         %li
           %h3.Search-ancestor
-            %a.Search-colored-link{href: category_path(c, article_search_form: search_params_merged_with( category: c.id )), data: { remote: 'true' }}
+            %a.Search-colored-link{href: category_path(c, article_search_form: search_cache.change( category_id: c.id )), data: { remote: 'true' }}
               = c.name
     - if category
       - if category.children.empty? && category.parent

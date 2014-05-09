@@ -98,6 +98,7 @@ gem 'bourbon' # easy ccs3
 gem "font-awesome-rails"
 gem 'sprite-factory'
 gem 'chunky_png'
+gem 'sprockets', '2.11.0' #https://github.com/sstephenson/sprockets/issues/537
 
 # JS
 gem 'jquery-ui-rails'

@@ -1,9 +1,5 @@
 class ArticleRefinery < ApplicationRefinery
 
-  def index #search
-    [ :page, :q, article_search_form: SearchRefinery.new(nil, user).default ]
-  end
-
   def create with_nested_template = true
     use_root
     [
