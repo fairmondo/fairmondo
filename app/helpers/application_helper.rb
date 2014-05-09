@@ -105,8 +105,8 @@ module ApplicationHelper
   # @param field [Symbol]
   # @return [String, nil]
   def default_value field
-    if params['transaction'] && params['transaction'][field]
-      params['transaction'][field]
+    if params['business_transaction'] && params['business_transaction'][field]
+      params['business_transaction'][field]
     else
       nil
     end

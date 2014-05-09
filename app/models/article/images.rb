@@ -80,7 +80,7 @@ module Article::Images
     end
 
     def thumbnails
-      thumbnails = self.images.where(:is_title => false)
+      thumbnails = self.images.where(:is_title => false).to_a
       thumbnails.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
     end

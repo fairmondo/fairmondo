@@ -48,7 +48,7 @@ Fairnopoly::Application.routes.draw do
     get 'notice/:id', action: "notice", as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
-    put 'reindex/:article_id', action: 'reindex', as: 'reindex'
+    patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
   end
 
@@ -73,10 +73,10 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :transactions, only: [:show, :edit, :update] do
+  resources :business_transactions, only: [:show, :edit, :update] do
     resources :refunds, only: [ :new, :create ]
     member do
-      put 'edit' => 'transactions#edit', as: :step2
+      patch 'edit' => 'business_transactions#edit', as: :step2
       get 'already_sold'
       get 'print_order_buyer'
       #get 'print_order_seller'
@@ -99,7 +99,7 @@ Fairnopoly::Application.routes.draw do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, :except => [:new, :edit]
     resources :ratings, :only => [:create, :index] do
-      get '/:transaction_id', to: 'ratings#new', as: 'transaction', on: :new
+      get '/:business_transaction_id', to: 'ratings#new', as: 'business_transaction', on: :new
     end
     collection do
       get 'login'
@@ -139,7 +139,7 @@ Fairnopoly::Application.routes.draw do
   scope :constraints => lambda {|request|
     request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
-    match "/*id" => 'contents#show'
+    get "/*id" => 'contents#show'
   end
 
 

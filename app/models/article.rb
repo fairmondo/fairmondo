@@ -21,11 +21,18 @@
 #
 class Article < ActiveRecord::Base
   extend Enumerize
-  #! attr_accessible
+  extend FriendlyId
 
   # Friendly_id for beautiful links
-  extend FriendlyId
-  friendly_id :title, :use => :slugged
+  def slug_candidates
+    [
+      :title,
+      [:title, :seller_nickname],
+      [:title, :seller_nickname, :created_at ]
+    ]
+  end
+
+  friendly_id :slug_candidates, :use => [:slugged, :finders]
 
   # Action attribute: c/create/u/update/d/delete - for export and csv upload
   # keep_images attribute: see edit_as_new
@@ -34,18 +41,18 @@ class Article < ActiveRecord::Base
   validates_presence_of :slug unless :template?
 
   delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
-  delegate :quantity_available, to: :transaction, prefix: true
+  delegate :quantity_available, to: :business_transaction, prefix: true
 
-  delegate :deletable?, :buyer, to: :transaction, prefix: false
+  delegate :deletable?, :buyer, to: :business_transaction, prefix: false
   delegate :email, :vacationing?, to: :seller, prefix: true
   delegate :nickname, to: :friendly_percent_organisation, :prefix => true
 
 
   # Relations
-  has_one :transaction, conditions: "type != 'PartialFixedPriceTransaction'", dependent: :destroy, inverse_of: :article
-  has_many :partial_transactions, class_name: 'PartialFixedPriceTransaction', conditions: "type = 'PartialFixedPriceTransaction'", inverse_of: :article
-  accepts_nested_attributes_for :transaction
-  # validates_presence_of :transaction
+  has_one :business_transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
+  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction' , inverse_of: :article
+  accepts_nested_attributes_for :business_transaction
+  # validates_presence_of :business_transaction
 
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
@@ -68,7 +75,7 @@ class Article < ActiveRecord::Base
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, FeesAndDonations,
-          Images, BuildTransaction, Attributes, Template, State, Scopes,
+          Images, BuildBusinessTransaction, Attributes, Template, State, Scopes,
           Checks, Discountable
 
   # Elastic
@@ -168,9 +175,9 @@ class Article < ActiveRecord::Base
     enable
     include_field :fair_trust_questionnaire
     include_field :social_producer_questionnaire
-    include_field :categories
     nullify :article_template_id
     customize lambda { |original_article, new_article|
+      new_article.categories = original_article.categories
 
       original_article.images.each do |image|
         if original_article.keep_images

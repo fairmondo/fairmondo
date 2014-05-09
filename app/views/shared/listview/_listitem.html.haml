@@ -22,9 +22,9 @@
 
 %figure.ListItem-image
   = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-  - if transaction && transaction.rating
+  - if business_transaction && business_transaction.rating
     .ListItem-rating
-      %img{ :src => image_path('thumbs/'+transaction.rating_value+'.png'), :alt => "thumb" }
+      %img{ :src => image_path("thumbs/#{business_transaction.rating_value}.png"), :alt => "thumb" }
 .ListItem-info
   .ListItem-title
     %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
@@ -37,14 +37,14 @@
     = condition_label article
     = commendation_labels_for article
 .ListItem-actions
-  - if transaction
-    - if transaction.buyer == current_user
-      = link_to t('transaction.completed.show_bought'), transaction_path(transaction), :class => "Btn Btn--small"
-      - unless transaction.rating
-        = link_to t('transaction.completed.rate'), transaction_new_user_rating_path(transaction.seller, transaction), :class => "Btn Btn--small"
-    - if transaction.seller == current_user
-      = link_to t('transaction.completed.show_sold'), transaction_path(transaction), :class => "Btn Btn--small"
-      - if transaction.refundable?
-        = link_to t( 'refund.button' ), new_transaction_refund_path(transaction), :class => "Btn Btn--small"
+  - if business_transaction
+    - if business_transaction.buyer == current_user
+      = link_to t('transaction.completed.show_bought'), business_transaction_path(business_transaction), :class => "Btn Btn--small"
+      - unless business_transaction.rating
+        = link_to t('transaction.completed.rate'), business_transaction_new_user_rating_path(business_transaction.seller, business_transaction), :class => "Btn Btn--small"
+    - if business_transaction.seller == current_user
+      = link_to t('transaction.completed.show_sold'), business_transaction_path(business_transaction), :class => "Btn Btn--small"
+      - if business_transaction.refundable?
+        = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Btn Btn--small"
     - else
       = link_to t('common.actions.show_article'), article_path(article), :class => "Btn Btn--small"

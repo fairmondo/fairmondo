@@ -1,0 +1,61 @@
+- selected_payment    = business_transaction.selected_payment
+- selected_transport  = business_transaction.selected_transport
+- quantity            = business_transaction.quantity_bought
+- time                = business_transaction.sold_at
+
+%h1
+  = t 'transaction.edit.heading'
+%h3.Article-title
+  = link_to "#{business_transaction.article_title}", article_path( business_transaction.article )
+= "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
+%br
+%p
+%h3
+  = t "transaction.show.seller.heading"
+
+%p
+  = t "transaction.show.seller.congratulation"
+  = t "transaction.show.seller.congratulation_invoice" if selected_payment == 'invoice'
+
+%hr
+
+%h4= t('transaction.notifications.seller.order_infos')
+
+= simple_format(order_details(business_transaction), :class => "Article-title")
+
+= simple_format article_payment_info business_transaction, :seller
+
+%hr
+
+-if business_transaction.selected_transport == 'pickup'
+  %h4= t('transaction.notifications.seller.pickup_info')
+-else
+  %h4= t('transaction.notifications.seller.shipping_request')
+
+= simple_format show_buyer_address business_transaction
+
+%p
+  = t('transaction.notifications.seller.buyer_email')
+  = business_transaction.buyer_email
+
+%p
+  = t('transaction.notifications.seller.nickname')
+  = link_to business_transaction.buyer_nickname, profile_user_path(business_transaction.buyer)
+
+= simple_format payment_method_info business_transaction, :seller
+
+-if business_transaction.message && !business_transaction.message.empty?
+  %hr
+  %h4= t('transaction.notifications.seller.buyer_message')
+  %p= business_transaction.message
+
+%hr
+
+%h4= t('transaction.notifications.seller.seller_fee_text')
+= simple_format fees_and_donations business_transaction
+
+
+%br
+%br
+%p
+  =# link_to 'Lieferschein drucken', print_order_seller_business_transaction_path( business_transaction ), class: 'Btn', target: '_blank'

@@ -1,0 +1,71 @@
+-#
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+.Content
+  .Content-inner
+    %h1
+      = t 'transaction.edit.heading'
+    = semantic_form_for resource, url: step2_business_transaction_path(resource) do |f|
+      = f.inputs do
+        = render 'article_display'
+
+        %hr
+
+        %h3
+          %br
+          = t 'transaction.edit.choose_purchase_data'
+
+        - if resource.is_a? MultipleFixedPriceTransaction
+          = f.input :quantity_bought, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:quantity_bought) || 1 }
+
+        = f.input :selected_transport, include_blank: false, collection: resource.selected_transports, selected: default_value(:selected_transport)
+        %ul.Price-list
+          = display_price_list_item :transport, :type1
+          = display_price_list_item :transport, :type2
+
+        = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
+        %ul.Price-list
+          = display_price_list_item :payment, :cash_on_delivery
+        %p.label
+          = t 'transaction.edit.security_warning'
+
+        %p
+          %br
+          %h3
+            = t 'transaction.edit.address'
+          %br
+          %p
+            = f.input :forename, required: true, input_html: { value: default_form_value(:forename) }
+            = f.input :surname, required: true, input_html: { value: default_form_value(:surname) }
+            = f.input :address_suffix, input_html: { value: default_form_value(:address_suffix) }
+            = f.input :street, required: true, input_html: { value: default_form_value(:street) }
+            = f.input :zip, required: true, input_html: { value: default_form_value(:zip) }
+            = f.input :city, required: true, input_html: { value: default_form_value(:city) }
+            = f.input :country, required: true, input_html: { value: default_form_value(:country) }, include_blank: false, :as => :select, :collection => [t('users.countries.germany')]
+
+        %hr
+        %br
+        %p
+          = t 'transaction.edit.next_step_explanation'
+      %p
+        %br
+        = f.actions do
+          = f.action :submit, label: t('common.actions.continue'), button_html: { class: 'Btn'}
