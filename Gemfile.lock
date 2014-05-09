@@ -257,7 +257,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.0)
-    newrelic_rpm (3.8.0.218)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -547,7 +546,6 @@ DEPENDENCIES
   memory_test_fix
   modernizr-rails
   money-rails
-  newrelic_rpm
   paperclip (>= 3.0)
   peek
   peek-dalli
