@@ -41,8 +41,8 @@ class Library < ActiveRecord::Base
   has_many :library_elements, dependent: :destroy
   has_many :articles, through: :library_elements
 
-  scope :public, where(public: true)
-  default_scope order('updated_at DESC')
+  scope :published, -> { where(public: true) }
+  default_scope -> { order('updated_at DESC') }
 
   private
     # when an exhibition name is set to a library, remove the same exhibition

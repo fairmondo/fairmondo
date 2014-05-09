@@ -44,7 +44,6 @@ module Article::Attributes
 
 
     #money_rails and price
-
     validates :price_cents, presence: true, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 }
 
     monetize :price_cents
@@ -53,6 +52,7 @@ module Article::Attributes
     # vat (Value Added Tax)
 
     validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :belongs_to_legal_entity?
+
 
     validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => true
 

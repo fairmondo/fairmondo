@@ -9,8 +9,6 @@ RailsAdmin.config do |config|
   # Set the admin name here (optional second array element will appear in red). For example:
   config.main_app_name = ['Fairnopoly', 'Admin']
 
-  config.attr_accessible_role { :admin }
-
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -34,10 +32,10 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  config.excluded_models = [ 'LegalEntity', 'PrivateUser']
+  config.excluded_models = [ 'Image','Images::FeedbackImage','Images::ArticleImage','Images::UserImage','Users::LegalEntity', 'Users::PrivateUser', 'BusinessTransactions::SingleFixedPriceTransaction','BusinessTransactions::MultipleFixedPriceTransaction', 'BusinessTransactions::PartialFixedPriceTransaction', 'BusinessTransactions::PreviewTransaction' ]
 
   # Include specific models (exclude the others):
-  # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'Transaction', 'User']
+  # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'BusinessTransaction', 'User']
 
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
@@ -68,7 +66,7 @@ RailsAdmin.config do |config|
     field :seller do
       read_only true
     end
-    field :transaction do
+    field :business_transaction do
       read_only true
     end
     field :title
@@ -608,10 +606,10 @@ RailsAdmin.config do |config|
     field :bought_articles do
       read_only true
     end
-    field :bought_transactions do
+    field :bought_business_transactions do
       read_only true
     end
-    field :sold_transactions do
+    field :sold_business_transactions do
       read_only true
     end
 
@@ -736,7 +734,7 @@ RailsAdmin.config do |config|
 
   ###  Transaction  ###
 
-  # config.model 'Transaction' do
+  # config.model 'BusinessTransaction' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your transaction.rb model definition
 
