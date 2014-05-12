@@ -50,7 +50,11 @@ html, body {
   background-color: $beige;
 }
 .l-Footer {
+<<<<<<< HEAD:app/assets/stylesheets/old/_layout.scss
 	background-color: $darkbeige;
+=======
+	background-image: url(asset-path("back3.gif"));
+>>>>>>> develop:app/assets/stylesheets/_layout.scss
 	.Footer--top {
 		@include at-breakpoint(30em lt-ie9) {
 			margin-bottom: em(103);
