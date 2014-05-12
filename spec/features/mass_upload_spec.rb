@@ -22,7 +22,7 @@ describe "Mass-upload" do
     it "should rediret to login page" do
       visit new_mass_upload_path
       current_path.should eq new_user_session_path
-      should have_selector(:link_or_button, 'Login')
+      should have_selector :link_or_button, I18n.t('formtastic.actions.login')
     end
   end
 

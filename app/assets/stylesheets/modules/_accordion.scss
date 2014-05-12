@@ -2,11 +2,11 @@
 // Accordions.scss
 //
 
-.Accordion-item {
+.Accordion .Accordion-item {
 	margin-bottom: 1em;
 }
 
-.Accordion-header {
+.Accordion .Accordion-item > .Accordion-header {
 	@include whitebox;
 	display:block;
 	outline: 0;
@@ -17,27 +17,27 @@
 
 }
 
-.Accordion-header.ui-state-active {
+.Accordion .Accordion-item > .Accordion-header.ui-state-active {
 	background-color: $blue;
 	color: white;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-.Accordion-item--errors {
-  .Accordion-header {
+.Accordion .Accordion-item--errors > .Accordion-header {
     background: $red;
 		color: white;
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
-  }
-	.Accordion-content {
+}
+
+.Accordion .Accordion-item--errors > .Accordion-content {
 		display:block !important; // show content anyways
-	}
+
 }
 
 
-.Accordion-content {
+.Accordion .Accordion-item > .Accordion-content {
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
 	overflow: auto;
@@ -47,14 +47,14 @@
 }
 
 
-.Accordion-step {
+.Accordion .Accordion-item > .Accordion-content > .Accordion-step {
 	border-bottom: solid 2px $sand;
 	margin-bottom: 1em;
 	overflow: auto;
 }
 
 // Remove the last border
-.Accordion-content .Accordion-step:last-of-type {
+.Accordion .Accordion-item >.Accordion-content > .Accordion-step:last-of-type {
 	border-bottom: 0;
 	margin-bottom: 0;
 }

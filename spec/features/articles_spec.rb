@@ -394,7 +394,7 @@ describe 'Article management' do
       it "should display a buy button that forces a login" do #! will change after sprint
         visit article_path article
         click_link I18n.t 'common.actions.to_cart'
-        page.should have_content I18n.t 'common.actions.login'
+        page.should have_button I18n.t 'formtastic.actions.login'
       end
 
 

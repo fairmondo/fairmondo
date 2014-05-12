@@ -94,11 +94,8 @@ describe User do
   end
   describe "associations" do
     it { should have_many(:articles).dependent(:destroy) }
-    #it { should have_many(:bids).dependent(:destroy) }
-    #it { should have_many(:invitations).dependent(:destroy) }
     it { should have_many(:article_templates).dependent(:destroy) }
     it { should have_many(:libraries).dependent(:destroy) }
-    #it { should belong_to :invitor}
     it { should have_one(:image) }
 
     describe "sold_transactions" do

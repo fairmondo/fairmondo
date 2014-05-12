@@ -161,7 +161,7 @@ describe ArticlesController do
         it "should redirect to the category specific search" do
           search_params = { article_search_form: { category_id: @hardware_category.id } }
           get :index, search_params
-          response.should redirect_to category_path @hardware_category.id, search_params
+          response.should redirect_to category_path @hardware_category.id
         end
       end
     end

@@ -96,23 +96,14 @@ describe ContentsController do
 
     context "with valid params" do
       it "should assign the requested content as @content" do
-        put :update, id: content.to_param, content: {body: 'Foobar'}
+        patch :update, id: content.to_param, content: {body: 'Foobar'}
         assigns(:content).key.should eq content.to_param
         assigns(:content).body.should eq 'Foobar'
       end
 
       it "should redirect to the content" do
-        put :update, id: content.to_param, content: {body: 'Barbaz'}
+        patch :update, id: content.to_param, content: {body: 'Barbaz'}
         response.should redirect_to content
-      end
-    end
-
-    context "with invalid params" do
-      it "should assign the content as @content" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Content.any_instance.stub(:save).and_return(false)
-        put :update, id: content.to_param, content: {}
-        assigns(:content).should eq content
       end
     end
   end

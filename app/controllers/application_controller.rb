@@ -70,11 +70,6 @@ class ApplicationController < ActionController::Base
     User.is_admin? current_user
   end
 
-  def params
-      manual_params super
-  end
-
-
   protected
 
     def render_users_hero
@@ -118,18 +113,16 @@ class ApplicationController < ActionController::Base
       @refined_params ||= params.for(appropriate_resource).as(current_user).refine
     end
 
-    # modify params, does nothing unless overwritten in specific controller
-    # @return [Hash] params
-    def manual_params input
-      input
-    end
-
     # resource or build_resource, whatever succeeds first. to be used in functions
     # that are used in different actions and sometimes need one or the other
     def appropriate_resource #merge_options = {}
       resource rescue build_resource
       # resource.update_attributes merge_options
       # resource
+    end
+
+    def build_search_cache
+      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
     end
 
     # Caching security: Set response headers to prevent caching

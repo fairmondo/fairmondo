@@ -185,21 +185,15 @@ class ArticlesController < InheritedResources::Base
   protected
 
     def collection
-      @articles ||= @search_cache.search refined_params[:page]
+      @articles ||= @search_cache.search params[:page]
     rescue Errno::ECONNREFUSED
-      @articles ||= policy_scope(Article).page refined_params[:page]
+      @articles ||= policy_scope(Article).page params[:page]
     end
 
 
     def begin_of_association_chain
       params[:action] == "show" ? super : current_user
     end
-
-
-    def build_search_cache
-      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
-    end
-
 
     def category_specific_search
       if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?

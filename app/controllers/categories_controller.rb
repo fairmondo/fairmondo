@@ -5,6 +5,7 @@ class CategoriesController < InheritedResources::Base
   respond_to :html
   respond_to :js, :json, only: :show, if: lambda { request.xhr? }
 
+  before_filter :build_category_search_cache, only: :show
   skip_before_filter :authenticate_user!
 
   def show
@@ -21,12 +22,9 @@ class CategoriesController < InheritedResources::Base
 
   private
     def get_articles
-      begin
-        @search_cache = ArticleSearchForm.new(refined_params[:article_search_form])
-        @articles ||= @search_cache.search refined_params[:page]
-      rescue Errno::ECONNREFUSED
-        @articles ||= policy_scope(Article).page refined_params[:page]
-      end
+      @articles ||= @search_cache.search params[:page]
+    rescue Errno::ECONNREFUSED
+      @articles ||= policy_scope(Article).page params[:page]
     end
 
     def as_json
@@ -34,12 +32,8 @@ class CategoriesController < InheritedResources::Base
       render json: @children.map { |child| {id: child.id, name: child.name} }.to_json
     end
 
-    def refined_params
-      super
-      @refined_params[:article_search_form] ||= {}
-      search_params = params.for(ArticleSearchForm)[:article_search_form]
-      @refined_params[:article_search_form].merge search_params if search_params
-      @refined_params[:article_search_form][:category_id] = resource.id
-      @refined_params
+    def build_category_search_cache
+      build_search_cache
+      @search_cache.category_id = resource.id
     end
 end
