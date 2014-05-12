@@ -8,7 +8,4 @@ class ContentRefinery < ApplicationRefinery
     [ :key ]
   end
 
-  def show
-    [ :id ]
-  end
 end
