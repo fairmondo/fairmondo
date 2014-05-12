@@ -10,6 +10,11 @@
     = t('transaction.notifications.seller.seller_text_fp')
 %p
   = t('transaction.notifications.seller.your_team')
+
+- if @transaction.message
+  %hr
+  %h5= t('transaction.notifications.seller.buyer_message')
+  %p= simple_format @transaction.message
 %hr
 %p
   = t('common.fn_legal_footer.crowd_funding')
@@ -33,10 +38,6 @@
 %p= @transaction.buyer_nickname
 %p= user_url @transaction.buyer
 
-- if @transaction.message
-  %hr
-  %h5= t('transaction.notifications.seller.buyer_message')
-  %p= simple_format @transaction.message
 %hr
 
 %h5= t('transaction.notifications.seller.seller_fee_text')

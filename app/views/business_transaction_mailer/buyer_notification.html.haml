@@ -4,6 +4,13 @@
   = transaction_mail_greeting @transaction, :buyer
 %p
   = simple_format t('transaction.notifications.buyer.buyer_text')
+
+- if @transaction.message && !@transaction.message.empty?
+  %hr
+  %h5
+    = t('transaction.notifications.buyer.buyer_message')
+  %p
+    = simple_format sanitize(@transaction.message)
 %hr
 %p
   = t('common.fn_legal_footer.crowd_funding')
@@ -32,12 +39,6 @@
   = t('transaction.edit.address')
 %p
   = simple_format show_buyer_address( @transaction )
-- if @transaction.message && !@transaction.message.empty?
-  %hr
-  %h5
-    = t('transaction.notifications.buyer.buyer_message')
-  %p
-    = simple_format sanitize(@transaction.message)
 
 - if @transaction.article_seller.is_a? LegalEntity
   %hr
