@@ -6,6 +6,15 @@
 
 <%= t('transaction.notifications.buyer.buyer_text') %>
 
+<% if @transaction.message && !@transaction.message.empty? %>
+***
+
+<%= t('transaction.notifications.buyer.buyer_message') %>
+
+<%= sanitize @transaction.message %>
+
+<% end %>
+
 ***
 <%= t('common.fn_legal_footer.crowd_funding') %>
 ***
@@ -34,14 +43,6 @@
 
 <%= show_buyer_address @transaction %>
 
-<% if @transaction.message && !@transaction.message.empty? %>
-***
-
-<%= t('transaction.notifications.buyer.buyer_message') %>
-
-<%= sanitize @transaction.message %>
-
-<% end %>
 ***
 
 <% if @transaction.article_seller.is_a? LegalEntity %>

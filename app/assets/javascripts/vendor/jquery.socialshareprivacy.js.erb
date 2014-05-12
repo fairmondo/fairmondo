@@ -59,7 +59,7 @@
         var canonical = $("link[rel=canonical]").attr("href");
 
         if (canonical && canonical.length > 0) {
-            if (canonical.indexOf("http") < 0) {
+            if (canonical.indexOf("https") < 0) {
                 canonical = document.location.protocol + "//" + document.location.host + canonical;
             }
             uri = canonical;
@@ -76,7 +76,7 @@
             'services' : {
                 'facebook' : {
                     'status'            : 'on',
-                    'dummy_img'         :  '<%= asset_path 'socialshareprivacy/images/dummy_facebook.png' %>',
+                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_facebook.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_fb_off'        : 'nicht mit Facebook verbunden',
                     'txt_fb_on'         : 'mit Facebook verbunden',
@@ -88,7 +88,7 @@
                 },
                 'twitter' : {
                     'status'            : 'on',
-                    'dummy_img'         : '<%= asset_path 'socialshareprivacy/images/dummy_twitter.png' %>',
+                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_twitter.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_twitter_off'   : 'nicht mit Twitter verbunden',
                     'txt_twitter_on'    : 'mit Twitter verbunden',
@@ -100,7 +100,7 @@
                 },
                 'gplus' : {
                     'status'            : 'on',
-                    'dummy_img'         : '<%= asset_path 'socialshareprivacy/images/dummy_gplus.png' %>',
+                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_gplus.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_gplus_off'     : 'nicht mit Google+ verbunden',
                     'txt_gplus_on'      : 'mit Google+ verbunden',
@@ -256,7 +256,7 @@
                 var pinterest_dummy_btn = '<i class="awesome-icon-pinterest-sign awesome-icon-large" id="pintrest-dummy"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
-				pinterest_script.src='http://assets.pinterest.com/js/pinit.js';
+				pinterest_script.src='https://assets.pinterest.com/js/pinit.js';
 				pinterest_script.async = true;
 
 

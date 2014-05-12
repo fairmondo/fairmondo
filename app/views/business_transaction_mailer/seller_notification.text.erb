@@ -11,6 +11,13 @@
 <%= t('transaction.notifications.seller.your_team') %>
 
 ***
+<%= t('transaction.notifications.seller.buyer_message') %>
+
+<% unless @transaction.message == nil %>
+<%= @transaction.message %>
+<% end %>
+
+***
 <%= t('common.fn_legal_footer.crowd_funding') %>
 ***
 
@@ -35,14 +42,6 @@
 <%= t('transaction.notifications.seller.nickname') %>
 <%= @transaction.buyer_nickname %>
 <%= user_url @transaction.buyer %>
-
-***
-
-<%= t('transaction.notifications.seller.buyer_message') %>
-
-<% unless @transaction.message == nil %>
-<%= @transaction.message %>
-<% end %>
 
 ***
 
