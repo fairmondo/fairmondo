@@ -20,9 +20,9 @@
 
 	width: 18px;
 	height: 18px;
-	background: url(asset-path("icheck/checkbox.png", image)) no-repeat;
+	background: url(asset-path("icheck/checkbox.png")) no-repeat;
 	&.checked {
-		background: url(asset-path("icheck/checkbox_active.png", image)) no-repeat;
+		background: url(asset-path("icheck/checkbox_active.png")) no-repeat;
 		z-index: 50;
 	}
 }
@@ -30,9 +30,9 @@
 
 	width: 20px;
 	height: 20px;
-	background: url(asset-path("icheck/radio.png", image)) no-repeat;
+	background: url(asset-path("icheck/radio.png")) no-repeat;
 	&.checked {
-		background: url(asset-path("icheck/radio_active.png", image)) no-repeat;
+		background: url(asset-path("icheck/radio_active.png")) no-repeat;
 		z-index: 50;
 	}
   top: -2px;
