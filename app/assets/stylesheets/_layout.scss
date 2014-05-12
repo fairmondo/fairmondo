@@ -14,7 +14,7 @@ html, body {
 	}
 }
 .l-Header {
-	background-image: url(asset-path("back3.gif", image));
+	background-image: url(asset-path("back3.gif"));
 }
 .l-Hero {
 	 background-color: $darkbeige;
@@ -52,7 +52,7 @@ html, body {
   background-color: $beige;
 }
 .l-Footer {
-	background-image: url(asset-path("back3.gif", image));
+	background-image: url(asset-path("back3.gif"));
 	.Footer--top {
 		@include at-breakpoint(30em lt-ie9) {
 			margin-bottom: em(103);
