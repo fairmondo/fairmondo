@@ -11,15 +11,15 @@ class FastbillAPI
     seller.with_lock do
       unless seller.ngo?
         unless seller.has_fastbill_profile?
-          fastbill_create_customer seller
-          fastbill_create_subscription seller
+          fastbill_create_customer(seller)
+          fastbill_create_subscription(seller)
         end
 
-        [ :fair, :fee ].each do | type |
-          fastbill_setusagedata seller, business_transaction, type
+        [:fair, :fee].each do |type|
+          fastbill_setusagedata(seller, business_transaction, type)
         end
 
-        fastbill_discount seller, business_transaction if business_transaction.discount
+        fastbill_discount(seller, business_transaction) if business_transaction.discount
       end
     end
   end
@@ -27,7 +27,7 @@ class FastbillAPI
 
   private
 
-    def self.fastbill_create_customer seller
+    def self.fastbill_create_customer(seller)
       unless seller.fastbill_id
         User.observers.disable :user_observer do
           attributes = attributes_for(seller)
@@ -41,16 +41,16 @@ class FastbillAPI
 
 
     def self.update_profile user
-      customer = Fastbill::Automatic::Customer.get( customer_id: user.fastbill_id ).first
+      customer = Fastbill::Automatic::Customer.get(customer_id: user.fastbill_id).first
       if customer
-        attributes = attributes_for user
+        attributes = attributes_for(user)
         attributes[:customer_id] = user.fastbill_id
-        customer.update_attributes( attributes )
+        customer.update_attributes(attributes)
       end
     end
 
 
-    def self.attributes_for user
+    def self.attributes_for(user)
       {
         customer_type: user.is_a?(LegalEntity) ? 'business' : 'consumer',
         organization: (user.company_name? && user.is_a?(LegalEntity)) ? user.company_name : user.nickname,
@@ -76,7 +76,7 @@ class FastbillAPI
     end
 
 
-    def self.fastbill_create_subscription seller
+    def self.fastbill_create_subscription(seller)
       unless seller.fastbill_subscription_id
         User.observers.disable :user_observer do
           subscription = Fastbill::Automatic::Subscription.create( article_number: '10',
@@ -121,7 +121,7 @@ class FastbillAPI
     end
 
     # This method adds an refund to the invoice is refund is requested for an article
-    def self.fastbill_refund business_transaction, fee_type
+    def self.fastbill_refund(business_transaction, fee_type)
       article = business_transaction.article
       seller = business_transaction.seller
 
@@ -136,21 +136,21 @@ class FastbillAPI
     end
 
     # This methods calculate the fee without vat
-    def self.fair_wo_vat article
+    def self.fair_wo_vat(article)
       (article.calculated_fair_cents.to_f / 100 / 1.19).round(2)
     end
 
-    def self.fee_wo_vat article
+    def self.fee_wo_vat(article)
       (article.calculated_fee_cents.to_f / 100 / 1.19).round(2)
     end
 
-    def self.discount_wo_vat business_transaction
+    def self.discount_wo_vat(business_transaction)
       (business_transaction.discount_value_cents.to_f / 100 / 1.19).round(2)
     end
 
-    def self.actual_fee_wo_vat business_transaction
-      fee = fee_wo_vat( business_transaction.article )
-      fee -= discount_wo_vat( business_transaction ) if business_transaction.discount
+    def self.actual_fee_wo_vat(business_transaction)
+      fee = fee_wo_vat(business_transaction.article)
+      fee -= discount_wo_vat(business_transaction) if business_transaction.discount
       fee
     end
 end

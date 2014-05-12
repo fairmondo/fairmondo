@@ -83,6 +83,8 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
+  get '/transactions/:id', to: 'business_transactions#show'
+
   get "welcome/reconfirm_terms"
   post "welcome/reconfirm_terms"
 
