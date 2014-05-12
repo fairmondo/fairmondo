@@ -145,7 +145,7 @@ class ArticleSearchForm
     def clean_hash(hash)
       # clean nil values and throw out false boolean attributes that result in filter not being attached
       hash.select do |k,v|
-        v!= nil && !([:fair,:ecologic,:small_and_precious].include? k && !v )
+        v != nil && !([:fair,:ecologic,:small_and_precious].include? k && !v)
       end
     end
 

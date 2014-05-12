@@ -148,7 +148,7 @@ class BusinessTransaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
-    validator_instance = create_validator_business_transaction params
+    validator_instance = create_business_transaction_validator params
     if validator_instance.valid?
       true
     else

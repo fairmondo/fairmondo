@@ -311,5 +311,5 @@ de:
       template_select:
         submit: "Vorlage übernehmen"
       # Login
-      login: "Login"
+      login: "Anmelden"
       sign_up: "Registrieren"

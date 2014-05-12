@@ -22,7 +22,6 @@ RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
 RemoveUnusedMethodsInControllersCheck: { except_methods: ["*#*" ]} # as rbb is not working correctly atm
-  #  "*#manual_params",
   #  "ApplicationController#after_sign_in_path_for",
   #  "ApplicationController#render_users_hero",
   #  "Tinycms::ApplicationController#authenticate_tinycms_user",

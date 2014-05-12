@@ -57,7 +57,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      click_button I18n.t('formtastic.actions.login')
 
       page.should have_content I18n.t 'devise.sessions.signed_in'
     end
@@ -69,7 +69,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      click_button I18n.t('formtastic.actions.login')
 
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'

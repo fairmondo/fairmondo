@@ -29,22 +29,16 @@ class ContentsController < InheritedResources::Base
   end
 
   def show
-    if policy(build_resource).admin?
-      authorize build_resource
-      begin
-        @content = Content.find(refined_params[:id])
-      rescue ActiveRecord::RecordNotFound
-        return redirect_to new_content_path key: refined_params[:id]
-      end
-    else
-      @content = Content.find(refined_params[:id])
-      authorize @content
-    end
+    authorize resource
+  rescue ActiveRecord::RecordNotFound => e
+    raise e unless User.is_admin? current_user
+    authorize(build_resource, :new?)
+    redirect_to new_content_path key: params[:id]
   end
 
   def new
     authorize build_resource
-    build_resource.key = refined_params[:key] if refined_params[:key]
+    resource.key = refined_params[:key] if refined_params[:key]
     new!
   end
 
