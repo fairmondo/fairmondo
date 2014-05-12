@@ -59,7 +59,7 @@
         var canonical = $("link[rel=canonical]").attr("href");
 
         if (canonical && canonical.length > 0) {
-            if (canonical.indexOf("http") < 0) {
+            if (canonical.indexOf("https") < 0) {
                 canonical = document.location.protocol + "//" + document.location.host + canonical;
             }
             uri = canonical;
@@ -256,7 +256,7 @@
                 var pinterest_dummy_btn = '<i class="awesome-icon-pinterest-sign awesome-icon-large" id="pintrest-dummy"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
-				pinterest_script.src='http://assets.pinterest.com/js/pinit.js';
+				pinterest_script.src='https://assets.pinterest.com/js/pinit.js';
 				pinterest_script.async = true;
 
 
