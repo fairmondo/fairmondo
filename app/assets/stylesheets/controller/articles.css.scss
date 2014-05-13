@@ -1,11 +1,19 @@
+
+
+/* ==============================================================
+ *
+ *   Article new/edit
+ *
+ * ==============================================================
+ */
+
 @import "mixins/all";
 
-// Why was this overwritten? It scews with the login form. -KK
-// .formtastic .stringish input {
-//   @include at-breakpoint($bp-tablet) {
-//     width:30%;
-//   }
-// }
+.article-form > .formtastic .stringish input {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
 
 .article-form {
   @include at-breakpoint($bp-tablet) {
@@ -63,3 +71,34 @@ ul.category-selected-list {
     }
   }
 }
+
+
+
+
+/* ==============================================================
+ *
+ *   Article show
+ *
+ * ==============================================================
+ */
+
+.breadcrumbs {
+  margin-bottom: 1em;
+}
+
+@include at-breakpoint($bp-tablet) {
+
+  .contents {
+    @include span(2 of 4 0.1);
+  }
+
+  .seller,.sidebar {
+    @include span(1 of 4 0.1);
+  }
+
+  .sidebar {
+    @include omega;
+  }
+}
+
+

@@ -23,18 +23,18 @@
 - meta_description truncate_and_sanitize_without_linebreaks resource.content, 160
 - meta_keywords resource.categories.map{|c| c.self_and_ancestors.map(&:name) }.flatten.join(",")
 
-- resource.categories.each do |leaf|
-  .Breadcrumb
+.breadcrumbs
+  - resource.categories.each do |leaf|
     = breadcrumbs_for(leaf).html_safe
-
-.Article.Article--detail
-  = render "/articles/show/article_contents", :article => resource
+.contents
+  = render "articles/show/article_contents", :article => resource
   - if User.is_admin? current_user
-    = render "/articles/show/admin"
-- unless resource.owned_by? current_user
-  = render "/articles/show/user_teaser", :article => resource
-
-- if resource.active?
-  = render "/articles/show/active", :article => resource
-- elsif resource.owned_by? current_user
-  = render "/articles/show/inactive", :article => resource
+    = render "articles/show/admin"
+.seller
+  - unless resource.owned_by? current_user
+    = render "articles/show/seller", :article => resource
+.sidebar
+  - if resource.active?
+    = render "articles/show/fair_alternative", :article => resource
+  - elsif resource.owned_by? current_user
+    = render "articles/show/activation_links", :article => resource

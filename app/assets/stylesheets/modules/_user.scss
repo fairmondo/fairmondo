@@ -1,6 +1,7 @@
 .User {
   @include whitebox;
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .User > .User-image {

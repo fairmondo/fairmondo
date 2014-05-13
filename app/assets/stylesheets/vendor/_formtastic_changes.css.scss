@@ -59,12 +59,16 @@ textarea {
 
 // Checkboxes and  Radios
 
-.formtastic .boolean label, .formtastic .choices-group {
+.formtastic .boolean label, .formtastic .choices-group label,  {
    width:90%;
    padding-left:2em;
    position: relative;
    .icheckbox {
       position:absolute !important;
+      left: 0;
+   }
+   .iradio {
+     position:absolute !important;
       left: 0;
    }
 }

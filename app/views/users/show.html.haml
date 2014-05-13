@@ -21,7 +21,7 @@
 -#
 = render "header"
 - if resource.is? current_user
-  .User-additional.Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
+  .User-additional.Accordion.Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
     = render '/shared/listview/listview_accordion', item_name: 'active', item_link: new_article_path, items: active_articles
     = render '/shared/listview/listview_accordion', item_name: 'inactive', items: inactive_articles
     = render '/shared/listview/listview_accordion', item_name: 'sold', items: sold_business_transactions
