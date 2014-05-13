@@ -43,13 +43,14 @@ Fairnopoly::Application.routes.draw do
 
   namespace :toolbox do
     get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
-    get 'confirm' , constraints: {format: 'js'}
+    get 'confirm', constraints: {format: 'js'}
     get 'rss'
     get 'notice/:id', action: "notice", as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
+    get 'newsletter_status', as: 'newsletter_status', constraints: {format: 'json'}
   end
 
   namespace :statistics do

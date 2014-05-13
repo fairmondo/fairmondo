@@ -8,3 +8,7 @@ kontoapi:
 fastbill:
   email: my_email
   api_key: my_fastbill_api_key
+
+cleverreach:
+  key: cleverreach_key
+  list_ID: group_number_as_integer
