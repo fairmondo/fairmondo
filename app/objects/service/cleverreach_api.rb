@@ -24,7 +24,7 @@ class CleverreachAPI
     end
 
     def self.message_with hash
-      { apiKey: API_KEY, listId: LIST_ID }.merge hash
+      { apiKey: API_KEY, listId: LIST_ID }.merge hash rescue hash # in case api key wasn't defined
     end
 
     def self.call function, message
