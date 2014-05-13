@@ -27,9 +27,20 @@
     .Article-info
       %h3= link_to truncate(article.title, :length => 65), article_path(article.slug), :title => article.title
       .Article-price= humanize_money_or_cents article.price
-      = render '/articles/show/vat', :article => article
-      = render '/articles/show/basic_price', :article => article
-      = render '/articles/show/ngo_donation', :article => article
+
+      - if article.belongs_to_legal_entity? && article.vat != 0
+        .Article-vat
+          = "#{t('article.included_short')} #{article.vat.to_s}% #{t('article.vat')}"
+
+      = render "articles/show/basic_price", article: article
+
+      - if article.seller_ngo
+        .Article-donation
+          = t('article.show.donate_ngo_short_html', percent: '100', ngo:(link_to article.seller_nickname, user_path(article.seller) ))
+      - elsif show_friendly_percent_for? article
+        .Article-donation
+          = t('article.show.donate_ngo_short_html', percent: article.friendly_percent , ngo:(link_to article.friendly_percent_organisation_nickname, user_path(article.friendly_percent_organisation)) )
+
     .Article-tags
       = condition_label article
       = commendation_labels_for article

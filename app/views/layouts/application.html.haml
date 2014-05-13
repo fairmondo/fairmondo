@@ -41,7 +41,7 @@
     = csrf_meta_tags
     = favicon_link_tag "favicon.ico" , :rel => "shortcut icon", :type => "image/x-icon"
     = stylesheet_link_tag 'application'
-    = stylesheet_link_tag asset_path("controller/#{controller_name}.css")
+    = stylesheet_link_tag asset_path(controller_specific_css_path)
 
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
 

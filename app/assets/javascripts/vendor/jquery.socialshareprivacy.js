@@ -76,7 +76,6 @@
             'services' : {
                 'facebook' : {
                     'status'            : 'on',
-                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_facebook.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_fb_off'        : 'nicht mit Facebook verbunden',
                     'txt_fb_on'         : 'mit Facebook verbunden',
@@ -88,7 +87,6 @@
                 },
                 'twitter' : {
                     'status'            : 'on',
-                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_twitter.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_twitter_off'   : 'nicht mit Twitter verbunden',
                     'txt_twitter_on'    : 'mit Twitter verbunden',
@@ -100,7 +98,6 @@
                 },
                 'gplus' : {
                     'status'            : 'on',
-                    'dummy_img'         : '<%= asset_path('socialshareprivacy/images/dummy_gplus.png') %>',
                     'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_gplus_off'     : 'nicht mit Google+ verbunden',
                     'txt_gplus_on'      : 'mit Google+ verbunden',
@@ -164,7 +161,7 @@
             if (facebook_on) {
                 var fb_enc_uri = encodeURIComponent(uri + options.services.facebook.referrer_track);
                 var fb_code = '<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
-                var fb_dummy_btn = '<i class="awesome-icon-facebook-sign awesome-icon-large" id="facebook-dummy"></i>';
+                var fb_dummy_btn = '<i class="fa fa-facebook-square fa-lg" id="facebook-dummy"></i>';
 
                 context.append('<li class="facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
 
@@ -197,7 +194,7 @@
                 var twitter_enc_uri = encodeURIComponent(uri + options.services.twitter.referrer_track);
                 var twitter_count_url = encodeURIComponent(uri);
                 var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
-                var twitter_dummy_btn = '<i class="awesome-icon-twitter-sign awesome-icon-large" id="twitter-dummy"></i>';
+                var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-lg" id="twitter-dummy"></i>';
 
                 context.append('<li class="twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
@@ -225,7 +222,7 @@
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-                var gplus_dummy_btn = '<i class="awesome-icon-google-plus-sign awesome-icon-large" id="gplusone-dummy"></i>';
+                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-lg" id="gplusone-dummy"></i>';
 
                 context.append('<li class="gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
@@ -253,7 +250,7 @@
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var pinterest_code = '<div class="pintrest"><a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>';
-                var pinterest_dummy_btn = '<i class="awesome-icon-pinterest-sign awesome-icon-large" id="pintrest-dummy"></i>';
+                var pinterest_dummy_btn = '<i class="fa fa-pinterest-square fa-lg" id="pintrest-dummy"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
 				pinterest_script.src='https://assets.pinterest.com/js/pinit.js';

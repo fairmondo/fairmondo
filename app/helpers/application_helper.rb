@@ -63,6 +63,14 @@ module ApplicationHelper
     end
   end
 
+  # CSS Layout helper
+  # By default will render css from controller/NAME_OF_THE_CONTROLLER.css
+  # overwrite if you need somehing else
+  def controller_specific_css_path
+    @controller_specific_css ||= controller_name
+    "controller/#{@controller_specific_css}.css"
+  end
+
   ### Forms
 
   # Default input field value -> param or current_user.*

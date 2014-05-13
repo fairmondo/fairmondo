@@ -118,7 +118,7 @@
         = commendation_labels_for resource
         = condition_label resource
 .Articles-social#socialshareprivacy
-.Article-accordion.Accordion--activated.Accordion--scrollToActive
+.Accordion.Accordion--activated.Accordion--scrollToActive
   - cache [resource, "contents"] do
     / Artikelbeschreibung
     = accordion_item "content" do
@@ -166,8 +166,7 @@
 
 
 
--# Contact Box (refactor when we have a real messaging system)
-.Accordion.Accorion--full.Accordion--scrollToActive
+  -# Contact Box (refactor when we have a real messaging system)
   = accordion_item 'contact_private_user' do
     - if current_user
       = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
