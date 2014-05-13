@@ -46,6 +46,7 @@
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600", :rel => "stylesheet", :type => "text/css"}
 
     = javascript_include_tag :application
+    = content_for :view_specific_scripts
     :javascript
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
