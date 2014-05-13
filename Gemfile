@@ -87,6 +87,8 @@ gem 'ibanomat'
 
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
+# interacing with other SOAP apis:
+gem 'savon'
 
 # Redirects
 gem 'rack-rewrite'
