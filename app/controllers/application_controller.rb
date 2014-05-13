@@ -97,7 +97,11 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_classes
-      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController,Peek::ResultsController]
+      [
+        ::RegistrationsController, ::SessionsController, ::ToolboxController,
+        ::BankDetailsController, ::ExportsController, ::WelcomeController,
+        ::CategoriesController, ::Peek::ResultsController
+      ]
     end
 
     # To be inherited and used in a before_filter
