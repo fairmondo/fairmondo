@@ -94,3 +94,6 @@ dump.rdb
 
 # nohup
 nohup.out
+
+# RVM
+.rvmrc
