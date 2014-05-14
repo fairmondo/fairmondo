@@ -201,6 +201,29 @@ describe 'User management' do
 
             current_path.should eq user_path user
           end
+
+          it "should add the user to the newsletter both locally and remotely" do
+            fixture = File.read("spec/fixtures/cleverreach_add_success.xml")
+            savon.expects(:receiver_add).with(message: :any).returns(fixture)
+
+            visit edit_user_registration_path user
+            check 'user_newsletter'
+            click_button I18n.t 'formtastic.actions.update'
+
+            user.reload.newsletter.should be_true
+          end
+
+          it "should remove the user from the newsletter both locally and remotely" do
+            fixture = File.read("spec/fixtures/cleverreach_remove_success.xml")
+            savon.expects(:receiver_delete).with(message: :any).returns(fixture)
+
+            user.update_column :newsletter, true
+            visit edit_user_registration_path user
+            uncheck 'user_newsletter'
+            click_button I18n.t 'formtastic.actions.update'
+
+            user.reload.newsletter.should be_false
+          end
         end
 
         context "updating sensitive data" do
