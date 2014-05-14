@@ -129,8 +129,8 @@ module ArticlesHelper
 
   def default_organisation_from organisation_list
     begin
-      organisation_name = default_form_value('friendly_percent_organisation', resource)
-      default_organisation = organisation_list.select { |o| o.nickname == organisation_name }
+      organisation = default_form_value('friendly_percent_organisation', resource)
+      default_organisation = organisation_list.select { |o| o.nickname == organisation.nickname }
       default_organisation[0] ? default_organisation[0].id : nil
     rescue
       nil
