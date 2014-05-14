@@ -29,7 +29,7 @@ module ContentHelper
   end
 
   def find_content key
-    Content.find_or_create_by_key(key.to_s.parameterize)
+    Content.find_or_create_by(:key => key.to_s.parameterize)
   end
 
   def tinycms_content_body_sanitized(key)

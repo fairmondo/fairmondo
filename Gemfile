@@ -1,7 +1,9 @@
 source 'http://rubygems.org'
 
 #Rails
-gem 'rails', '~> 3.2.17'
+gem 'rails', '~> 4.1.1'
+gem 'rails-observers'
+gem 'activerecord-session_store'
 
 # Ruby Deps
 platforms :ruby do
@@ -21,7 +23,7 @@ end
 
 # Forms & Upload
 gem "paperclip", ">= 3.0"
-gem 'formtastic'
+gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'virtus'
 
@@ -30,13 +32,12 @@ gem 'virtus'
 gem 'haml'
 gem 'json'
 gem 'enumerize', '>= 0.5.1'
-gem 'money-rails', "~> 0.8.1" # Deal with Money
+gem 'money-rails'
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
-gem 'awesome_nested_set' # tree structure for categories
+gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-gem 'strong_parameters' # Rails 4-like mass-assignment protection
 
 
 # Indexing /Searching
@@ -65,7 +66,7 @@ gem "pundit" # authorization
 gem 'memoist'
 
 # Rails Admin
-gem 'rails_admin' , "0.4.9"
+gem 'rails_admin'
 
 #Monitoring
 gem 'peek'
@@ -77,10 +78,8 @@ gem 'peek-pg'
 gem 'peek-sidekiq'
 gem 'peek-rblineprof'
 
-# Assets that need to be toplevel
-gem 'tinymce-rails'
-gem 'tinymce-rails-langs'
-gem 'jquery-rails'
+
+
 
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
@@ -93,30 +92,32 @@ gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
 
-   # CSS
-  gem 'sass-rails'
-  gem "font-awesome-rails"
-  gem "susy" , "~>1.0.9"
-  gem "compass", "~> 0.13.alpha.12"
-  gem 'compass-rails'
+ # CSS
+gem 'sass-rails'
+gem "font-awesome-rails"
+gem "susy" , "~>1.0.9"
+gem "compass", "~> 0.13.alpha.12"
+gem 'compass-rails'
+gem 'sprockets', "2.11.0"
 
+# JS
+gem 'jquery-ui-rails'
+gem 'i18n-js'
+gem 'coffee-rails'
+gem 'therubyrhino'
+gem 'selectivizr-rails'
+gem 'uglifier'
+gem 'modernizr-rails'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+gem 'jquery-rails'
 
-  # JS
-  gem 'jquery-ui-rails'
-  gem 'i18n-js'
-  gem 'coffee-rails'
-  gem 'therubyrhino'
-  gem 'selectivizr-rails'
-  gem 'uglifier'
-  gem 'modernizr-rails'
-  # gem 'turbolinks'
-  # gem 'jquery-turbolinks'
-end
 
 group :production, :staging do
-  gem 'newrelic_rpm' #Monitoring service
+  #gem 'newrelic_rpm' #Monitoring service
   # gem 'whenever' # cron jobs
 end
 
@@ -156,13 +157,18 @@ group :development, :test do
   gem 'thin'
 
   # Notify about n+1 queries
-  gem 'bullet', github: 'flyerhzm/bullet'
+  gem 'bullet'
 
   # Guard test automation
   gem 'guard-rspec'
+
+  # MetaRequest for usage with RailsPanel Chrome Extension
+  gem 'meta_request'
 end
 
 group :development do
+  gem 'spring'
+
   # Better error messages
   gem 'better_errors'
   gem 'binding_of_caller'

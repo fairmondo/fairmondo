@@ -7,13 +7,13 @@ class Refund < ActiveRecord::Base
     [ :reason, :description ]
   end
 
-  belongs_to :transaction, class_name: 'Transaction', foreign_key: 'transaction_id', inverse_of: :refund
+  belongs_to :business_transaction
 
   validates :reason, presence: true
   validates :description, presence: true, length: { minimum: 150 }, length: { maximum: 1000, tokenizer: tokenizer_without_html }
-  validates :transaction_id, presence: true, uniqueness: true
+  validates :business_transaction_id, presence: true, uniqueness: true
 
-  delegate :seller, to: :transaction, prefix: true
+  delegate :seller, to: :business_transaction, prefix: true
 
   enumerize :reason, in: [
     :sent_back,

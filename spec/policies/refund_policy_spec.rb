@@ -21,12 +21,12 @@ describe RefundPolicy do
   end
 
   context 'for a logged in user' do
-    context 'who owns transaction' do
-      let( :user ) { refund.transaction_seller }
+    context 'who owns business_transaction' do
+      let( :user ) { refund.business_transaction_seller }
 
       context 'that is sold' do
         context 'and is not refunded' do
-          let( :refund ) { Refund.new transaction: FactoryGirl.create( :transaction_with_buyer, :old ) }
+          let( :refund ) { Refund.new business_transaction: FactoryGirl.create( :business_transaction_with_buyer, :old ) }
           it { should grant_permission( :create ) }
           it { should grant_permission( :new ) }
         end
@@ -38,13 +38,13 @@ describe RefundPolicy do
       end
 
       context 'that is not sold' do
-        let( :refund ) { FactoryGirl.create :refund, :not_sold_transaction }
+        let( :refund ) { FactoryGirl.create :refund, :not_sold_business_transaction }
         it { should deny( :create ) }
         it { should deny( :new ) }
       end
     end
 
-    context 'who does not own transaction' do
+    context 'who does not own business_transaction' do
       let( :user ) { FactoryGirl.create :user }
       it { should deny( :create ) }
       it { should deny( :new ) }

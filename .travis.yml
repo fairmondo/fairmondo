@@ -1,12 +1,14 @@
 language: ruby
 rvm:
-  - 2.1.0
+  - 2.1.1
 env:
   - DB=sqlite
 bundler_args: --without development debug
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
   - RAILS_ENV=test bundle exec rspec
+services:
+  - redis-server
 notifications:
   email:
     - devel-team@fairnopoly.de

@@ -24,8 +24,7 @@ class LibraryElement < ActiveRecord::Base
   def self.library_element_attrs
     [:article, :library, :library_id, :article_id]
   end
-  #! attr_accessible *library_element_attributes
-  #! attr_accessible *library_element_attributes, :as => :admin
+
 
   delegate :name, :user_id , :to => :library , :prefix => true
   delegate :title, :to => :article, :prefix => true
