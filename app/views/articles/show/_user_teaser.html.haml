@@ -24,13 +24,13 @@
   = render '/users/profile_img', user: resource.seller, show_title: true
   -# Other articles by seller Box
   .User-accordion.Accordion
-    = accordion_item "other_products", :number => active_seller_articles.total_count, :title => t('article.titles.other-products') do
+    = accordion_item "other_products", :title => t('article.titles.other-products') do
       = render '/articles/shared/articles_thumbnails', :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"
 
-  - if resource.libraries.find_all_by_public(true).count > 0
+  - if resource.libraries.where(:public => true).count > 0
     -# Libraries Box
     .Accordion.Accordion--full
-      = accordion_item "library", :number => resource.libraries.includes(:user => :image).find_all_by_public(true).count, :title => t('article.titles.libraries') do
+      = accordion_item "library", :number => resource.libraries.includes(:user => :image).where(:public => true).count, :title => t('article.titles.libraries') do
         - libraries.each do |library|
           .User-library-small
             .User-image

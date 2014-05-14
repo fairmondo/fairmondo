@@ -1,4 +1,8 @@
 class SwitchArticleTransactionAssociation < ActiveRecord::Migration
+
+  class Transaction < ActiveRecord::Base
+  end
+
   def up
     add_column :transactions, :article_id, :integer
     add_index "transactions", ["article_id"], :name => "index_transactions_on_article_id"

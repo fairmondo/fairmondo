@@ -29,15 +29,25 @@ class ProcessRowMassUploadWorker
   sidekiq_retries_exhausted do |msg|
      Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
      mass_upload = MassUpload.find msg['args'].first
-     ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, I18n.t( 'mass_uploads.errors.unknown_error' ), msg['args'].last, msg['args'][1])
+     mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => msg['args'].last).first
+     ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, I18n.t( 'mass_uploads.errors.unknown_error' ), mass_upload_article , msg['args'][1]) if mass_upload_article
      #see method call args order of perform method for msg array explanation
   end
 
   def perform mass_upload_id, unsanitized_row_hash, index
     mass_upload = MassUpload.find mass_upload_id
+
     if mass_upload.processing?
+
+      mass_upload_article = mass_upload.mass_upload_articles.where(:row_index => index).first
+
+      # Check the work is already done by a different process
+      return if mass_upload_article.present? && mass_upload_article.article.present?
+
+      mass_upload_article = mass_upload.mass_upload_articles.create!(:row_index => index) unless mass_upload_article.present?
+
       row_hash = sanitize_fields unsanitized_row_hash.dup
-      categories = Category.find_all_by_id(row_hash['categories'].split(",").map { |s| s.to_i }) if row_hash['categories']
+      categories = Category.where(:id => row_hash['categories'].split(",").map { |s| s.to_i }) if row_hash['categories']
       row_hash.delete("categories")
       row_hash = MassUpload::Questionnaire.include_fair_questionnaires(row_hash)
       row_hash = MassUpload::Questionnaire.add_commendation(row_hash)
@@ -52,9 +62,9 @@ class ProcessRowMassUploadWorker
       if errors_exist_in? article # invalid? call would clear our previous base errors
                                      # fix this by generating the base errors with proper validations
                                      # may be hard for dynamic update model
-        ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, validation_errors_as_text_for(article), index, unsanitized_row_hash )
+        ProcessRowMassUploadWorker.add_article_error_messages_to( mass_upload, validation_errors_as_text_for(article), mass_upload_article, unsanitized_row_hash )
       else
-        process mass_upload, article
+        process article, mass_upload_article
       end
     end
   end
@@ -107,6 +117,7 @@ class ProcessRowMassUploadWorker
       case attribute_hash['action']
       when 'u', 'update'
         article = Article.edit_as_new article unless article.preview?
+        attribute_hash.delete("id")
         article.attributes = attribute_hash
         article.action = :update
       when 'x', 'delete'
@@ -183,7 +194,7 @@ class ProcessRowMassUploadWorker
 
     # Replacement for save! method - Does different things based on the action attribute
 
-    def process mass_upload, article
+    def process  article, mass_upload_article
       case article.action
       when :activate, :create, :update
         article.calculate_fees_and_donations
@@ -193,18 +204,12 @@ class ProcessRowMassUploadWorker
       when :deactivate
         article.deactivate_without_validation
       end
-      MassUploadArticle.create mass_upload: mass_upload, article: article, action: article.action
+      mass_upload_article.update_attributes(article: article, action: article.action)
     end
 
-    def self.add_article_error_messages_to( mass_upload, validation_errors, index, row_hash )
+    def self.add_article_error_messages_to( mass_upload, validation_errors, mass_upload_article, row_hash )
       csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
-      ErroneousArticle.create(
-        validation_errors: validation_errors,
-        row_index: index,
-        mass_upload: mass_upload,
-        article_csv: csv
-      )
-      # TODO Check if the original row number can be given as well
+      mass_upload_article.update_attributes!(validation_errors: validation_errors,article_csv: csv)
     end
 
 end

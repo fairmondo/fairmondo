@@ -80,7 +80,7 @@ module Article::Images
     end
 
     def thumbnails
-      thumbnails = self.images.where(:is_title => false)
+      thumbnails = self.images.where(:is_title => false).to_a
       thumbnails.reject! {|image| image.id == title_image.id if title_image}
       thumbnails
     end
@@ -115,13 +115,17 @@ module Article::Images
 
       # TODO needs refactoring to be more dynamic
       if image_url && image_url =~ URI::regexp
-        image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
-          ArticleImage.new(image: URI.parse(image_url))
+        begin
+          image = Timeout::timeout(60) do # 1 minute timeout (should even cover very large images)
+            ArticleImage.new(image: URI.parse(image_url))
+          end
+          image.is_title = should_be_title
+          image.external_url = image_url
+          #image.save
+          self.images << image
+        rescue
+          self.errors.add((should_be_title ? :external_title_image_url : :image_2_url), I18n.t('mass_uploads.errors.image_not_available'))
         end
-        image.is_title = should_be_title
-        image.external_url = image_url
-        #image.save
-        self.images << image
       elsif image_url !=~ URI::regexp && should_be_title == true
         self.errors.add(:external_title_image_url, I18n.t('mass_uploads.errors.wrong_external_title_image_url'))
       elsif image_url !=~ URI::regexp && should_be_title == false

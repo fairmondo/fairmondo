@@ -23,8 +23,6 @@ module Article::State
   extend ActiveSupport::Concern
 
   included do
-    # market place state
-    attr_protected :state
 
     state_machine :initial => :preview do
 
