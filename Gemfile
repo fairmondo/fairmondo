@@ -161,6 +161,9 @@ group :development, :test do
 
   # Guard test automation
   gem 'guard-rspec'
+
+  # MetaRequest for usage with RailsPanel Chrome Extension
+  gem 'meta_request'
 end
 
 group :development do
