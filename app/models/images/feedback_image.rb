@@ -2,7 +2,7 @@ class FeedbackImage < Image
   extend STI
 
   has_attached_file :image, styles: { original: "300>x300>" },
-                          default_url: "/assets/missing.png",
+                          default_url: ':default_image_url' ,
                           url: "/system/images/:id_partition/:style/:filename",
                           path: "public/system/images/:id_partition/:style/:filename"
   belongs_to :feedback, foreign_key: "imageable_id"
