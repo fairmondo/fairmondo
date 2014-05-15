@@ -31,6 +31,7 @@ gem 'virtus'
 
 gem 'haml'
 gem 'json'
+gem 'nokogiri'
 gem 'enumerize', '>= 0.5.1'
 gem 'money-rails'
 gem 'state_machine' # State Machines in Rails
