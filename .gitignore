@@ -95,3 +95,7 @@ dump.rdb
 
 # nohup
 nohup.out
+
+# ctags
+tags
+gems.tags
