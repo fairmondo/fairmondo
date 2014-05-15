@@ -3,6 +3,7 @@ class UserImage < Image
   has_attached_file :image, styles: { original: "300>x300>", profile: "300x300>" },
                           convert_options: { profile: "-quality 75 -strip -background white -gravity center -extent 300x300" },
                           default_url: "/assets/missing.png",
+                          url: "/system/images/:id_partition/:style/:filename",
                           path: "public/system/images/:id_partition/:style/:filename",
                           only_process: [:profile]
   belongs_to :user, foreign_key: "imageable_id"
