@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507144137) do
+ActiveRecord::Schema.define(version: 20140508061307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,9 +149,11 @@ ActiveRecord::Schema.define(version: 20140507144137) do
     t.integer  "children_count", default: 0
     t.integer  "weight"
     t.integer  "view_columns",   default: 2
+    t.string   "slug"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
   create_table "contents", force: true do |t|
     t.string   "key"
@@ -258,15 +260,17 @@ ActiveRecord::Schema.define(version: 20140507144137) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "library_elements_count",           default: 0
+    t.string   "exhibition_name"
   end
 
   add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
 
   create_table "library_elements", force: true do |t|
-    t.integer  "article_id", limit: 8
-    t.integer  "library_id", limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "article_id",      limit: 8
+    t.integer  "library_id",      limit: 8
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.datetime "exhibition_date"
   end
 
   add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree
@@ -434,6 +438,7 @@ ActiveRecord::Schema.define(version: 20140507144137) do
     t.string   "iban"
     t.string   "bic"
     t.boolean  "vacationing",                              default: false
+    t.boolean  "newsletter",                               default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
