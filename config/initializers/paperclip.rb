@@ -11,6 +11,12 @@ module Paperclip
   end
 end
 
+# Default Url Monkey.
+# https://github.com/thoughtbot/paperclip/issues/1335https://github.com/thoughtbot/paperclip/issues/1335
+Paperclip.interpolates :default_image_url do |attachment, style|
+  ActionController::Base.helpers.asset_path('missing.png')
+end
+
 
 # Modifications on delayed_paperclip
 module DelayedPaperclip
