@@ -87,6 +87,32 @@ describe ToolboxController do
     end
   end
 
+  describe "GET 'newsletter_status'" do
+    context "when logged in" do
+      before do
+        sign_in user
+      end
+      it "should be successful" do
+        fixture = File.read("spec/fixtures/cleverreach_get_by_mail_success.xml")
+        savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
+        get :newsletter_status, format: :json
+        response.should be_success
+      end
+
+      it "should not render a layout" do
+        fixture = File.read("spec/fixtures/cleverreach_get_by_mail_success.xml")
+        savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
+        get :newsletter_status, format: :json
+        response.should_not render_template("layouts/application")
+      end
+
+      it "should call the Cleverreach API with the logged in user" do
+        CleverreachAPI.should_receive(:get_status).with(user)
+        get :newsletter_status, format: :json
+      end
+    end
+  end
+
   describe "GET 'notice'" do
     before do
       @notice = FactoryGirl.create :notice

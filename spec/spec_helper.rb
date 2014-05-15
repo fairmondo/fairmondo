@@ -109,8 +109,12 @@ RSpec.configure do |config|
   end
 
   config.after :suite do
-    rails_best_practices
-    brakeman
+    if RSpec.configuration.reporter.instance_variable_get(:@failure_count) > 0
+      puts "\n\nErrors occured. Not running additional tests.".red
+    else
+      rails_best_practices
+      brakeman
+    end
   end
 
   config.before(:each) do |x|
