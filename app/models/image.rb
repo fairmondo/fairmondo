@@ -46,4 +46,9 @@ class Image < ActiveRecord::Base
   def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
+  
+  def default_url_digest
+    ActionController::Base.helpers.asset_path('missing.png')
+  end
+  
 end
