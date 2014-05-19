@@ -22,7 +22,7 @@
     .Accordion.Accordion--containsArticles.Accordion--scrollToActive
       - @libraries.each do |library|
         - unless library.library_elements.empty?
-          = accordion_item "library"+library.id.to_s, :title => library_header_layout(library), :arrow => false, :number => library.library_elements.count do
+          = accordion_item "library"+library.id.to_s, :title => library_header_layout(library), :arrow => false do
             .Library-actions
               = link_to user_path(library.user), :class => "Btn" do
                 = t('users.actions.show_account')

@@ -1,6 +1,7 @@
 .Grid > .Grid-item {
 
-  @include till-breakpoint($bp-mobile-horizontal) {
+
+  @include between-breakpoints($bp-mobile,$bp-mobile-horizontal) {
     @include grid-with-columns(2);
   }
 

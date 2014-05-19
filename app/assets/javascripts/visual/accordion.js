@@ -1,7 +1,7 @@
 $(function() {
 	target = 0;
 	if(window.location.hash){
-	  target = $(window.location.hash).index('.Accordion-item');
+	  target = $(window.location.hash).siblings().andSelf().index($(window.location.hash));
 	}
 	$(".accordion-anchor").click(function() {
 	  link = $(event.target).attr('href');

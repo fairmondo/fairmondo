@@ -13,7 +13,7 @@
       font-weight: 600;
       font-size: 0.74rem;
       padding: 0 0.5em;
-      color: white;
+      color: white !important;
       text-decoration: none !important;
       &:hover {
         color: $lightest-gray;

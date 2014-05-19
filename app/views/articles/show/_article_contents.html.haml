@@ -20,21 +20,21 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if resource.owned_by? current_user
-  %div.Article-controls
+  .seller-controls
     - if policy(resource).edit?
       = link_to t('article.titles.edit') , edit_article_path , :class => "Button"
     - if resource.locked? && policy(resource).new?
       = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Button"
     - if policy(resource).deactivate?
-      %i.icon-helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
       = link_to t('article.labels.edit_or_delete') , article_path(:deactivate => true), :confirm => t('article.deactivate_confirm') , :class => "Button", :method => :put
       = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Button", :method => :put
+      %span.sprite_helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
     - if policy(resource).destroy?
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Button"
 
 
 
-%figure.Article-image
+%figure.image
   - cache [resource, resource.title_image] do
     - if resource.title_image_present?
       / The next line is for providing the proper title image to facebook
@@ -42,88 +42,83 @@
       = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
     - else
       = link_to image_tag("missing.png", :class=> "title_image") , "#"
-.Article-info
-  .Article-info--right
-    - cache [resource,"basic_information"] do
-      %h2.Article-title
-        = resource.title
-      %p.Article-price= humanized_money_with_symbol resource.price
-      %p.Article-vat= t('formtastic.labels.article.price')
-      - unless article.vat == 0
-        %p.Article-vat= t('article.vat_included', :mwst => article.vat)
-        %br
-      %br
-      %p.Article-transportprice
-        = t('formtastic.labels.article.transport_method')+" :"
-        %ul.Article-transportmethods
-          = transport_format_for "pickup","Article-transportprice"
-          = transport_format_for "type1","Article-transportprice"
-          = transport_format_for "type2","Article-transportprice"
-      = render 'articles/show/basic_price', :article => resource
-    - if resource.is_available?
-      %p.Article-quantity
-        %span Dieser Artikel ist bereits ausverkauft
-    - else
-      - if resource.quantity > 1
-        %p.Article-quantity
-          %span= t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.business_transaction_quantity_available)
-      %p
-        - if policy(mock_library_element).create?
-          = semantic_form_for(resource.library_elements.build,:html => {} ,:url => user_library_elements_path(:user_id => current_user)) do |f|
-            .library
-              = f.inputs do
-                = f.input :library, :collection => current_user.libraries,  :include_blank => false , :label => false, input_html: { class: 'ArticleViewLibrarySelector' }
-                = f.input :article_id, :as => :hidden
-              %i.icon-helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-              = f.button t('common.actions.collect'), :class => "Btn Btn--gray", :style => "margin:5px;padding:8px;"
-        - elsif user_signed_in?
-          %br
-          = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button")
-      - if policy(resource.business_transaction).edit?
-        %p
-          = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button Btn-fill", style: "margin:5px;"
-      -elsif resource.seller_vacationing?
-        %p
-          .Button.Btn--grayedOut{style: "margin:5px;padding:8px"}= t 'common.actions.to_cart'
-        %strong= t 'users.states.vacationing'
-
-  .Article-info--left
-    .Thumbnail-container
+.info
+  .left
+    .thumbnails
       - resource.thumbnails.each do |image|
         - cache [resource,image,"thumbnail"] do
-          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox Thumbnail", :rel => "gallery"
+          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox thumbnail", :rel => "gallery"
     - cache [resource,resource.seller,"donations"] do
       - if resource.seller.ngo
-        .Article-friendly
-          %p
-            =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
-      -else
-        .Article-friendly
+        =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
+      - else
+        - if show_fair_percent_for? resource
+          %h4.fair_percent
+            = t('article.show.fair_percent')
+            %span.sprite_helper{:title => t('article.preview.tooltips.fees_and_donations')}
+          =t('article.show.donate_html')
+        - if show_friendly_percent_for? resource
+          
+          =t('article.show.friendly_percent')
+          %span.sprite_helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
+          = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
+        .tags
+          = commendation_labels_for resource
+          = condition_label resource
+  .right
+    - cache [resource,"basic_information"] do
+      %h2.title
+        = resource.title
+      
+      .details
+        %h3.price= humanized_money_with_symbol resource.price
+        = t('formtastic.labels.article.price')
+        .vat
+          - unless article.vat == 0
+            = t('article.vat_included', :mwst => article.vat)
+        .transport
+          = t('formtastic.labels.article.transport_method')+" :"
+          %ul
+            = transport_format_for "pickup"
+            = transport_format_for "type1"
+            = transport_format_for "type2"
+        = render 'articles/show/basic_price', :article => resource
+        .quantity
+          - if resource.is_available?
+            Dieser Artikel ist bereits ausverkauft
+          - elsif resource.quantity > 1
+            = t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.business_transaction_quantity_available)
+    .buyer-controls
+      - if policy(mock_library_element).create?
+        .collect.JS-active-toggle--container
+          .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
+            = t('common.actions.collect')
+          .libraries.JS-active-toggle--target
+            in Sammlung:
+            %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
+            %ul
+              - current_user.libraries.each do |library|
+                %li
+                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
+           
+      - elsif user_signed_in? && resource.active?
+        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
+      - if policy(resource.business_transaction).edit?
+        = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
+      - elsif resource.seller_vacationing?
+        .Button.Button-gray= t 'common.actions.to_cart'
+        %strong= t 'users.states.vacationing'
 
-          - if show_fair_percent_for? resource
-            %p.Article--highlight
-              =t('article.show.fair_percent')
-              %i.icon-helper{:title => t('article.preview.tooltips.fees_and_donations')}
-            %p
-              =t('article.show.donate_html')
+  
+.social#socialshareprivacy
 
-          - if show_friendly_percent_for? resource
-            %p.Article--highlight
-              =t('article.show.friendly_percent')
-              %i.icon-helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
-            %p= t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
-
-      %p
-        -#Accordion--activated.Article-tags
-        = commendation_labels_for resource
-        = condition_label resource
-.Articles-social#socialshareprivacy
 .Accordion.Accordion--activated.Accordion--scrollToActive
   - cache [resource, "contents"] do
     / Artikelbeschreibung
     = accordion_item "content" do
       .Accordion-step
-        = resource.content.html_safe
+        %p
+          = resource.content.html_safe
       - if resource.condition.old?
         %strong
           = "#{t("formtastic.labels.article.condition")}:"
@@ -131,29 +126,30 @@
 
 
     = accordion_item "payment" do
-      .Article-box
-        %p
-          %b
-            = t('formtastic.labels.article.payment_methods')+':'
-          %ul
-            = payment_format_for "bank_transfer"
-            = payment_format_for "cash"
-            = payment_format_for "paypal"
-            = payment_format_for "cash_on_delivery"
-            = payment_format_for "invoice"
-        = simple_format(resource.payment_details).html_safe
-      .Article-box
-        %p
-          %b
-            = t('formtastic.labels.article.transport_method') + ':'
-          %ul
-            = transport_format_for "pickup"
-            = transport_format_for "type1"
-            = transport_format_for "type2"
-        = simple_format(resource.transport_details).html_safe
+      
+      %h4
+        = t('formtastic.labels.article.payment_methods')+':'
+      %ul
+        = payment_format_for "bank_transfer"
+        = payment_format_for "cash"
+        = payment_format_for "paypal"
+        = payment_format_for "cash_on_delivery"
+        = payment_format_for "invoice"
+       
+      = simple_format(resource.payment_details).html_safe
+      %h4
+        = t('formtastic.labels.article.transport_method') + ':'
+      %ul
+        = transport_format_for "pickup"
+        = transport_format_for "type1"
+        = transport_format_for "type2"
+      
+      = simple_format(resource.transport_details).html_safe
+        
     - if resource.has_commendation?
       = accordion_item "commendation" do
         = render 'articles/show/commendation', :article => resource
+        
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers
     - if resource.seller.is_a?(LegalEntity)
@@ -164,25 +160,20 @@
       = accordion_item "about" do
         = resource.seller_about.html_safe
 
-
-
   -# Contact Box (refactor when we have a real messaging system)
   = accordion_item 'contact_private_user' do
     - if current_user
+      %p
+        = t('article.show.contact.description')
       = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
-        %p= t('article.show.contact.description')
-        %br
         = f.inputs do
-          -# hidden
           = f.input :article_id, as: :hidden, input_html: { value: resource.id }
-          -# user input
           = f.input :email_transfer_accepted, label: t('article.show.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
-          %br
           - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
           = f.input :text, as: :text, input_html: { rows: 4, value: text }
 
         = f.actions do
-          = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Btn"}
+          = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Button"}
     - else
       Um eine Rückfrage stellen zu können, musst Du dich bei Fairnopoly
       = link_to 'registrieren', new_user_registration_path

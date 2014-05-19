@@ -30,9 +30,10 @@
     %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
     %p.Article-price= humanized_money_with_symbol article.price
   .ListItem-detail
-    = render 'articles/show/vat', :article => article
+    - unless article.vat == 0
+      = t('article.vat_included', :mwst => article.vat)
     = render '/articles/show/basic_price', :article => article
-    = render '/articles/show/ngo_donation', :article => article
+    =# render '/articles/show/ngo_donation', :article => article
   .ListItem-tags
     = condition_label article
     = commendation_labels_for article
