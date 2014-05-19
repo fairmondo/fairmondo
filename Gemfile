@@ -44,6 +44,7 @@ gem 'sanitize' # Parser based sanitization
 gem "tire"
 
 # Sidekiq
+
 gem 'sidekiq'
 
 gem 'sinatra', '>= 1.3.0', :require => nil
@@ -75,8 +76,8 @@ gem 'peek-gc'
 gem 'peek-dalli'
 gem 'peek-performance_bar'
 gem 'peek-pg'
-gem 'peek-sidekiq'
 gem 'peek-rblineprof'
+gem 'peek-sidekiq'
 
 
 
@@ -161,8 +162,6 @@ group :development, :test do
 
   # Guard test automation
   gem 'guard-rspec'
-  gem 'guard'
-  gem 'guard-ctags-bundler'
 
   # MetaRequest for usage with RailsPanel Chrome Extension
   gem 'meta_request'
