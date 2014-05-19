@@ -11,7 +11,6 @@ module Paperclip
   end
 end
 
-
 # Modifications on delayed_paperclip
 module DelayedPaperclip
   module Jobs
