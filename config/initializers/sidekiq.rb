@@ -1,7 +1,6 @@
 # Config Redis
 
-#dir = File.dirname '/home/paul/.rvm/gems/ruby-2.1.1/gems/sidekiq-pro-1.7.1/lib/*'
-dir = File.dirname ("#{ ENV['GEM_HOME'] }/gems/sidekiq-pro-1.7.1/lib/*")
+dir = File.dirname('/home/deploy/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sidekiq-pro-1.7.1/lib/*')
 $LOAD_PATH.unshift(dir)
 begin
   require 'sidekiq-pro'
