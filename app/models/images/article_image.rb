@@ -4,7 +4,7 @@ class ArticleImage < Image
 
     has_attached_file :image, styles: { original: "900>x600>", medium: "520>x360>", thumb: "280x200>"},
                             convert_options: { medium: "-quality 75 -strip", thumb: "-quality 75 -strip -background white -gravity center -extent 260x180" },
-                            default_url: ':default_image_url' ,
+                            default_url: "/assets/missing.png",
                             url: "/system/images/:id_partition/:style/:filename",
                             path: "public/system/images/:id_partition/:style/:filename"
 
