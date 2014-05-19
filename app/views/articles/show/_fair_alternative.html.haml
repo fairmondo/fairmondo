@@ -21,15 +21,13 @@
 -#
 
 - if resource.is_conventional? && resource.show_fair_alternative_for_seller
-  .Related
+  .fair_alternative
     - alternative = FairAlternative.find_for resource
-    .Article.Article--related
-      %h3
-        = t('article.show.alternative')
-        %i.icon-helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
-
-      - if alternative.present?
-        = render '/articles/shared/show_article', article: alternative
-      - else
-        %p.Helper-text
-          = t('article.show.no_alternative')
+    %h3
+      = t('article.show.alternative')
+      %span.sprite_helper{title: 'Hier kannst Du eine faire Alternative zu Deinem gewünschten Artikel sehen.'}
+    - if alternative.present?
+      = render '/articles/shared/show_article', article: alternative
+    - else
+      %p
+        = t('article.show.no_alternative')

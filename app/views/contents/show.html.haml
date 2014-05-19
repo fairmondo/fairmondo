@@ -17,34 +17,36 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Content
-  .Content-inner
+.content
+  .Content
     = resource.body && resource.body.html_safe
     - if policy(resource).admin?
       = link_to "Edit", edit_content_url(resource)
       = link_to 'Overview', contents_path
-= render '/shared/take_part'
-.Content-navigation
-  %ul
-    %li
-      %a{:href => "/faq"}
-        = t('footer.faq')
-    %li
-      %a{:href => "http://info.fairnopoly.de/forum/"}
-        = t('footer.forum')
-    %li
-      %a{:href => "/contact"}
-        = t('footer.contact')
-    %li
-      %a{:href => "/about_us"}
-        = t('footer.about_us')
-    %li
-      %a{:href => "/philosophy"}
-        = t('footer.philosophy')
-    %li
-      %a{:href => "http://info.fairnopoly.de/team/"}
-        = t('footer.team')
-    %li
-      %a{:href => "http://info.fairnopoly.de"}
-        = t('footer.blog')
+.content-share
+  = render '/shared/take_part'
+.content-nav
+  .Content
+    %ul
+      %li
+        %a{:href => "/faq"}
+          = t('footer.faq')
+      %li
+        %a{:href => "http://info.fairnopoly.de/forum/"}
+          = t('footer.forum')
+      %li
+        %a{:href => "/contact"}
+          = t('footer.contact')
+      %li
+        %a{:href => "/about_us"}
+          = t('footer.about_us')
+      %li
+        %a{:href => "/philosophy"}
+          = t('footer.philosophy')
+      %li
+        %a{:href => "http://info.fairnopoly.de/team/"}
+          = t('footer.team')
+      %li
+        %a{:href => "http://info.fairnopoly.de"}
+          = t('footer.blog')
 

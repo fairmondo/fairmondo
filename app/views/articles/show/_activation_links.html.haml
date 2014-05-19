@@ -27,24 +27,24 @@
   %dl
     %dt
       = t('article.preview.fees_and_donations.fee', :fee => (resource.fair ? "3%" : "6%"), :max => (resource.fair ? "€15" : "€30")  )
-      %i.icon-helper{title: "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."}
+      %span.sprite_helper{title: "Bei erfolgreichem Verkauf gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an."}
     %dd
       = humanized_money_with_symbol resource.calculated_fee
     %dt
       = t('article.preview.fees_and_donations.fair_percent')
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations")}
+      %span.sprite_helper{:title => t("article.preview.tooltips.fees_and_donations")}
     %dd
       = humanized_money_with_symbol resource.calculated_fair
 
     %dt
       = t('article.preview.fees_and_donations.friendly_percent')
       - if show_friendly_percent_for? resource
-        %i.icon-helper{:title => t("article.preview.tooltips.fp_fee_info",percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
+        %span.sprite_helper{:title => t("article.preview.tooltips.fp_fee_info",percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
     %dd= humanized_money_with_symbol resource.calculated_friendly
 
     %dt.is-green
       = t('article.preview.fees_and_donations.total')
-      %i.icon-helper{title: "Die Gesamtgebühr setzt sich aus den obigen Komponenten zusammen."}
+      %span.sprite_helper{title: "Die Gesamtgebühr setzt sich aus den obigen Komponenten zusammen."}
     %dd.is-green
       = humanized_money_with_symbol resource.calculated_fees_and_donations
       = "*"
@@ -59,16 +59,16 @@
         %a{:href => "/faq#geb1"}
           Quartalsgebühr
         von 1,- Euro (inkl. 19% MwSt).
-        %i.icon-helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
+        %span.sprite_helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
 
   - if resource.is_available?
-    = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Btn Btn--blue Btn--blueBig"
+    = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Button"
   - else
     - if resource.seller.ngo
       - btn_text = t("article.labels.submit_free")
     - else
       - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
-    = button_to btn_text, article_path(:activate => true), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+    = button_to btn_text, article_path(:activate => true), :class=>"Button", :method => :put
 
 
 

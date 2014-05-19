@@ -43,6 +43,11 @@
     width:100%;
   }
 }
+.l-header-search-button-text {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
+  }
+}
 
 .l-header-search-query {
   @include till-breakpoint($bp-tablet) {

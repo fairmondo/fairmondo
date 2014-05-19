@@ -10,4 +10,8 @@
         = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
         = f.input :category_id, :label => false, :as => :select, :collection => Category.other_category_last.sorted.roots, :include_blank => "Alle Kategorien"
     .l-header-search-button
-      %button.Button Suche starten
+      %button.Button
+        %i.fa.fa-search 
+        %span.l-header-search-button-text 
+          Suche starten
+        
