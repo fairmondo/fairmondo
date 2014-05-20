@@ -72,7 +72,7 @@ gem 'rails_admin'
 #Monitoring
 gem 'peek'
 gem 'peek-git'
-gem 'peek-gc'
+#gem 'peek-gc'
 gem 'peek-dalli'
 gem 'peek-performance_bar'
 gem 'peek-pg'
@@ -118,7 +118,7 @@ gem 'jquery-rails'
 
 
 group :production, :staging do
-  #gem 'newrelic_rpm' #Monitoring service
+  gem 'newrelic_rpm' #Monitoring service
   # gem 'whenever' # cron jobs
 end
 
