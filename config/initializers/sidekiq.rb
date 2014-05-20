@@ -1,12 +1,13 @@
 # Config Redis
-file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
-path = file['path']
-$LOAD_PATH.unshift(path)
 
 begin
+  file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
+  path = file['path']
+  $LOAD_PATH.unshift(path)
+
   require 'sidekiq-pro'
   require 'sidekiq/pro/reliable_push'
-rescue LoadError
+rescue Exception
 end
 
 if Rails.env.production?
