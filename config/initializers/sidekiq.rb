@@ -1,7 +1,7 @@
 # Config Redis
+gem_dir_file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
+$LOAD_PATH.unshift(gem_dir_file['path'])
 
-dir = File.dirname('/home/deploy/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sidekiq-pro-1.7.1/lib/*')
-$LOAD_PATH.unshift(dir)
 begin
   require 'sidekiq-pro'
   require 'sidekiq/pro/reliable_push'
