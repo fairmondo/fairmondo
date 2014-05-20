@@ -25,19 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
-  #before_filter :check_recaptcha, only: :create
-
-  # Recaptcha eliminated
-  # def create
-  #   params[:user]["recaptcha"] = '0'
-  #   if verify_recaptcha
-  #     params[:user]["recaptcha"] = '1'
-  #   else
-  #     flash.delete :recaptcha_error
-  #   end
-  #   super
-  # end
-
   def edit
     @user = User.find current_user.id
     check_incomplete_profile! @user

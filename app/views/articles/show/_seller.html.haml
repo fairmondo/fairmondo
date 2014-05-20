@@ -22,23 +22,27 @@
 -# User Box
 = render '/users/profile_img', user: resource.seller, show_title: true
 -# Other articles by seller Box
-.Accordion
-  = accordion_item "other_products", :title => t('article.titles.other-products') do
-    = render '/articles/shared/articles_thumbnails', :articles=> active_seller_articles, :paginate => true, :anchor=> "other_products"
-
-  - if resource.libraries.where(:public => true).count > 0
+.Accordion.Accordion--scrollToActive.Accordion--activated
+  = accordion_item "other_articles", :title => t('article.titles.other-products') do
+    .other_articles
+      - @other_articles.each do |other_article|
+        .other_article
+          = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug)
+    - unless @other_articles.count < 10
+      = link_to t('common.text.more'), resource.seller, :class => "Button Button--gray"
+  - if @libraries.count > 0
     -# Libraries Box
-    = accordion_item "library", :number => resource.libraries.includes(:user => :image).where(:public => true).count, :title => t('article.titles.libraries') do
-      - libraries.each do |library|
-        .User-library-small
-          .User-image
-            = link_to image_tag(library.user.image_url(:profile)), user_path(:id => library.user.id)
-          %p.User-library--title
-            = link_to library.name, user_libraries_path(:user_id => library.user , :anchor => "library"+library.id.to_s)
-          %p.User-library--user
-            = t('common.text.glue.from') + " "
-            = link_to( library.user_nickname, user_path(library.user))
-      = paginate libraries, :params => {:anchor => "library" }
+    = accordion_item "libraries", :title => t('article.titles.libraries') do
+      .related_libraries
+        - @libraries.each do |library|
+          .related_library
+            .profile_image 
+              = link_to image_tag(library.user.image_url(:profile)), library
+            .details
+              = link_to library.name, library
+              = t('common.text.glue.from') + " "
+              = link_to(library.user_nickname, library.user)
+      = paginate @libraries, params: {anchor: "libraries" }, param_name: :library_page
 
   -# Feedback Box
   - if policy(resource).report?

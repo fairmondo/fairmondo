@@ -75,7 +75,7 @@ module Fairtastic
           tooltip_text = options[:tooltip]
           tooltip_text = localized_string(method, nil, "tooltips") if options[:tooltip] == true
           if tooltip_text
-            template.content_tag(:i, "" ,:class => "icon-helper" ,:title => tooltip_text)
+            template.content_tag(:span, "" ,:class => "sprite_helper" ,:title => tooltip_text)
           else
             ""
           end

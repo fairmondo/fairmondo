@@ -1,7 +1,7 @@
 
 .teaser.teaser--full.teaser--ngos
   .teaser-inner
-    %h2
+    %h5
       = "SPENDENPARTNER*INNEN"
     - User.ngo_with_profile_image.each do |ngo|
       = link_to image_tag(ngo.image_url(:profile)), user_path(ngo)
