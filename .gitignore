@@ -99,3 +99,5 @@ nohup.out
 # ctags
 tags
 gems.tags
+
+sidekiq_pro_path.yml
