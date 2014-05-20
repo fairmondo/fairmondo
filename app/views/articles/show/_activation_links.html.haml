@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.Fees
+.activation_links
   %h3
     = t('article.preview.fees_and_donations.title')
 
@@ -42,16 +42,16 @@
         %span.sprite_helper{:title => t("article.preview.tooltips.fp_fee_info",percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
     %dd= humanized_money_with_symbol resource.calculated_friendly
 
-    %dt.is-green
+    %dt.total
       = t('article.preview.fees_and_donations.total')
       %span.sprite_helper{title: "Die Gesamtgebühr setzt sich aus den obigen Komponenten zusammen."}
-    %dd.is-green
+    %dd.total
       = humanized_money_with_symbol resource.calculated_fees_and_donations
       = "*"
     %dt
       = "* " << t('article.preview.fees_and_donations.netto')
       = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
-
+    
     - if !resource.seller.ngo
       %dt
         / = t('article.preview.fees_and_donations.quarter_fee')
@@ -60,15 +60,15 @@
           Quartalsgebühr
         von 1,- Euro (inkl. 19% MwSt).
         %span.sprite_helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
-
-  - if resource.is_available?
-    = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Button"
-  - else
-    - if resource.seller.ngo
-      - btn_text = t("article.labels.submit_free")
+  .activation
+    - if resource.is_available?
+      = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Button Button--large"
     - else
-      - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
-    = button_to btn_text, article_path(:activate => true), :class=>"Button", :method => :put
+      - if resource.seller.ngo
+        - btn_text = t("article.labels.submit_free")
+      - else
+        - btn_text = show_friendly_percent_for?(resource) ? t("article.labels.submit_with_fp") : t("article.labels.submit")
+      = button_to btn_text, article_path(:activate => true), :class=> "Button Button--large", :method => :put
 
 
 
