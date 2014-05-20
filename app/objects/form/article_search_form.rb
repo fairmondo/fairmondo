@@ -23,7 +23,8 @@ class ArticleSearchForm
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
-  attribute :price, Integer
+  attribute :price_from, Integer
+  attribute :price_to, Integer
   attr_accessor :page
 
 
@@ -46,10 +47,10 @@ class ArticleSearchForm
       if query.search_by_term?
         query do
           boolean do
-            should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all'}
-            should { match :content,  query.q  } if query.search_in_content
-            should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7}
-            should { term :gtin, query.q , :boost => 100}
+            should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all' }
+            should { match :content,  query.q } if query.search_in_content
+            should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7 }
+            should { term :gtin, query.q , :boost => 100 }
           end
         end
       else
@@ -62,6 +63,8 @@ class ArticleSearchForm
       filter :term, :condition => query.condition  if query.condition
       filter :terms, :categories => [query.category_id] if query.category_id.present?
       filter :term, :zip => query.zip if query.zip.present?
+      filter :range, price: { gte: query.price_from, lte: query.price_to } if query.price_from || query.price_to
+
 
       case query.order_by
       when "newest"
