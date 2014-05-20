@@ -31,10 +31,12 @@
   - if User.is_admin? current_user
     = render "articles/show/admin"
 .seller
-  - unless resource.owned_by? current_user
+  - if resource.owned_by? current_user
+    = render "articles/show/activation_links", :article => resource unless resource.active?
+  - else
     = render "articles/show/seller", :article => resource
-.sidebar
-  - if resource.active?
+- if resource.active? 
+  .sidebar
     = render "articles/show/fair_alternative", :article => resource
-  - elsif resource.owned_by? current_user
-    = render "articles/show/activation_links", :article => resource
+
+   

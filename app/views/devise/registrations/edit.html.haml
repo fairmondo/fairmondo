@@ -30,7 +30,7 @@
         %p
           %span.User--rightside
             = t('users.visibility.public')
-            %i.icon-helper.no-float{title: "Für Dich und andere Nutzer*innen sichtbar." }
+            %span.sprite_helper{title: "Für Dich und andere Nutzer*innen sichtbar." }
           %strong.Meta--highlight
             = t('formtastic.labels.user.legal_entity') + ":"
 
@@ -52,7 +52,7 @@
 
           %span.User--rightside
             = t('users.visibility.private')
-            %i.icon-helper.no-float{title: "Nur für Dich sichtbar." }
+            %span.sprite_helper{title: "Nur für Dich sichtbar." }
           %strong.Meta--highlight
             = t('formtastic.labels.user.customer_number') + ":"
           = current_user.customer_nr

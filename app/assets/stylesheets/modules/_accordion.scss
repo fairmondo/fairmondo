@@ -43,7 +43,7 @@
 	overflow: auto;
 	background-color: white;
 	border: 1px solid $lighter-gray;
-	padding:2em;
+	padding: 1em 2em;
 }
 
 
@@ -59,6 +59,10 @@
 	margin-bottom: 0;
 }
 
+.Accordion .Accordion-item > .Accordion-header > .sprite_helper {
+  position:static;
+  float:right;
+} 
 
 
 

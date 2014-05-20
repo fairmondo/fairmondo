@@ -41,6 +41,16 @@
   @include omega;
   .Button {
     width:100%;
+    @include at-breakpoint($bp-tablet) {
+      .fa-search{
+        display:none;
+      }
+    }
+  }
+}
+.l-header-search-button-text {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
   }
 }
 

@@ -52,7 +52,10 @@ class ArticlesController < InheritedResources::Base
 
   def show
     authorize resource
-
+    
+    @other_articles = ActiveUserArticles.new(resource.seller).find_some
+    @libraries = resource.libraries.where(:public => true).page(params[:library_page]).per(10)
+    
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
@@ -197,7 +200,7 @@ class ArticlesController < InheritedResources::Base
 
     def category_specific_search
       if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
-        redirect_to category_path params[:article_search_form][:category_id], refined_params
+        redirect_to category_path params[:article_search_form][:category_id], params
       end
     end
 

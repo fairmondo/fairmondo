@@ -58,59 +58,42 @@ module ArticlesHelper
     output
   end
 
-  def libraries
-    resource.libraries.where(:public => true).page(params[:page]).per(10)
-  end
-
-  def active_seller_articles
-    seller = resource.seller
-    articles = Article.search(:page => params[:page],:per_page => 18) do
-      query { all }
-      filter :term, :seller => seller.id
-    end
-  rescue
-    seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
-  end
-
-   def transport_format_for method, css_classname=""
+  def transport_format_for method
     type = "transport"
-    options_format_for type, method, css_classname
+    options_format_for type, method
   end
 
-  def payment_format_for method, css_classname=""
+  def payment_format_for method
     type = "payment"
-    options_format_for type, method, css_classname
+    options_format_for type, method
   end
 
-  def options_format_for type, method, css_classname
-    if resource.send(type + "_" + method)
-      html = "<li class= "+ css_classname +" >"
-
-      if method == "type1" || method == "type2"
-        html << resource.send(type + "_" + method + "_provider" ) + " "
+ def options_format_for type, method
+    if resource.send("#{type}_#{method}")
+      html = '<li>'
+      
+      if method == 'type1' || method == 'type2'
+        html << resource.send("#{type}_#{method}_provider")
       else
-        html << t('formtastic.labels.article.'+ type +'_'+ method)+ " "
+        html << t("formtastic.labels.article.#{type}_#{method}") 
+      end
+      
+      price_method = "#{type}_#{method}_price"
+      
+      if resource.respond_to?(price_method.to_sym)
+        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
+      else
+        html << ' (kostenfrei)'
       end
 
-      attach_price = type + "_" + method+"_price"
-
-      if resource.respond_to?(attach_price.to_sym)
-        html << "zzgl. "
-        html << humanized_money_with_symbol(resource.send(attach_price))
-      else
-        html << "(kostenfrei)"
-      end
-
-      if type == "transport" && method == "pickup"
+      if type == 'transport' && method == 'pickup'
         html << ", <br/>PLZ: #{resource.seller.zip}"
       end
 
-      html <<"</li>"
+      html << '</li>'
       html.html_safe
     end
   end
-
-
 
   def default_organisation_from organisation_list
     begin

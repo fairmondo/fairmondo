@@ -25,10 +25,7 @@
       %i.icon-arrow
     %span.content
       = accordion_title
-    -if accordion_number
-      %span.number
-        = accordion_number
     -if accordion_tooltip
-      %i.icon-helper{:title => accordion_tooltip}
+      %span.sprite_helper{:title => accordion_tooltip}
   .Accordion-content
     = yield
