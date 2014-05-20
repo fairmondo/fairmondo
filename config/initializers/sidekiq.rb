@@ -1,13 +1,20 @@
 # Config Redis
 
+
+# This code is responsible for loading the sidekiq-pro gem, which is NOT installed
+# via bundler
 begin
   file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
   path = file['path']
   $LOAD_PATH.unshift(path)
+rescue
+  puts 'sidekiq_pro_path.yml not found'
+end
 
+begin
   require 'sidekiq-pro'
   require 'sidekiq/pro/reliable_push'
-rescue Exception
+rescue LoadError
 end
 
 if Rails.env.production?
