@@ -20,9 +20,9 @@ You should have received a copy of the GNU Affero General Public License
 along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
 $(document).ready ->
-  $('.Library-settings').hide()
-  $('.Library-showsettings').click (e) =>
-    $(e.target).parent().parent().find('.Library-settings').show()
+  $('.js-library-settings').hide()
+  $('.js-library-show-settings').click (e) =>
+    $(e.target).parent().parent().find('.js-library-settings').show()
     $(e.target).hide()
 
 

@@ -1,0 +1,66 @@
+@import "mixins/all";
+
+
+// index
+
+.library-form {
+  @include whitebox;
+  margin-bottom: 1em;
+}
+
+.library-settings-actions {
+  float:right;
+}
+
+.visibility {
+  font-weight: 600;
+}
+
+
+// global_index
+
+.library-userimage {
+  display:none;
+  float:left;
+  margin-right: 1em;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 0.6em;
+  img {
+    height:7em;
+    width:7em;
+  }
+  @include at-breakpoint($bp-tablet) {
+    display:block;
+  }
+
+}
+
+.library-text {
+  margin-bottom:0.5em;
+}
+
+.library-title {
+  font-size:1.5em;
+}
+.library-user {
+  font-weight: 600;
+}
+
+.library-thumbnails {
+  height: 6em;
+  overflow: hidden;
+}
+
+.library-thumbnail {
+  height: 5em;
+  padding: 0.5em;
+  display: inline-block;
+  maring-right: 0.2em;
+  border-radius: 0.6em;
+  background-color: white;
+}
+
+.library-actions {
+  margin-bottom: 1em;
+}

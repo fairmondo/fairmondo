@@ -17,18 +17,18 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Libraries
+.libraries
   - if !@libraries.blank?
-    .Accordion.Accordion--containsArticles.Accordion--scrollToActive
+    .Accordion.Accordion--scrollToActive
       - @libraries.each do |library|
         - unless library.library_elements.empty?
           = accordion_item "library"+library.id.to_s, :title => library_header_layout(library), :arrow => false do
-            .Library-actions
-              = link_to user_path(library.user), :class => "Btn" do
+            .library-actions
+              = link_to user_path(library.user), :class => "Button" do
                 = t('users.actions.show_account')
                 = t('common.text.glue.from')
                 = library.user_nickname
-              = link_to library_path(library), :class => "Btn" do
+              = link_to library_path(library), :class => "Button" do
                 = t('library.show')
             = render "library", :library => library
 
