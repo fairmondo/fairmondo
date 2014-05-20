@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
   # @param symbol [Symbol] which type
   # @return [String] URL
   def image_url symbol
-    image ? image.image.url(symbol) : "/assets/missing.png"
+    image ? image.image.url(symbol) : ActionController::Base.helpers.asset_path('missing.png')
   end
 
   # Return a formatted address
