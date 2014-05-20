@@ -1,9 +1,9 @@
 # Config Redis
+file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
+path = file['path']
+$LOAD_PATH.unshift(path)
 
 begin
-  gem_dir_file = YAML.load_file("#{Rails.root}/config/sidekiq_pro_path.yml")
-  $LOAD_PATH.unshift(gem_dir_file['path'])
-
   require 'sidekiq-pro'
   require 'sidekiq/pro/reliable_push'
 rescue LoadError
