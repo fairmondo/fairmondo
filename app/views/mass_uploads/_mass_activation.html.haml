@@ -5,17 +5,17 @@
   %dl
     %dt
       = t('article.preview.fees_and_donations.total_fee_mass_upload')
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_mass_upload")}
+      %span.sprite_helper{:title => t("article.preview.tooltips.fees_mass_upload")}
     %dd
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees(articles)
     %dt
       = raw t('article.preview.fees_and_donations.mass_upload_fair_percent')
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
+      %span.sprite_helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
     %dd
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fair(articles)
     %dt.is-green
       = t('article.preview.fees_and_donations.total_all_articles')
-      %i.icon-helper{title: t("mass_uploads.tooltips.total_fees_and_donations")}
+      %span.sprite_helper{title: t("mass_uploads.tooltips.total_fees_and_donations")}
     %dd.is-green
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations(articles)
       = "*"
