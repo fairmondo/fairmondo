@@ -23,6 +23,7 @@ class ArticleSearchForm
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
+  attribute :price, Integer
   attr_accessor :page
 
 
