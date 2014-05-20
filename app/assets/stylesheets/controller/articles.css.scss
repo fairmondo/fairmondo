@@ -191,7 +191,9 @@ ul.category-selected-list {
 }
 
 // article title
-
+.contents > .info > .right > .title {
+  word-wrap: break-word;
+}
 
 // article price, transport, vat & quantity
 

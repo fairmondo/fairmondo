@@ -52,3 +52,8 @@
 .Article-admin {
   color: $red;
 }
+
+.Article-extra {
+  border-top: 1px solid $lighter-gray;
+  padding: em(7) em(19);
+}
