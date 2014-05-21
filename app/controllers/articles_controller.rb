@@ -151,12 +151,15 @@ class ArticlesController < InheritedResources::Base
     def permitted_state_params
       params.permit :activate, :deactivate, :confirm_to_buy
     end
+
     def permitted_new_params
       params.permit :edit_as_new, template_select: [:article_template]
     end
+
     def permitted_search_params
        params.permit(:page,:q, :article_search_form => ArticleSearchForm.article_search_form_attrs)
     end
+
     def permitted_queue_params
       params.permit :page, :queue
     end
