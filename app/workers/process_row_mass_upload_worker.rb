@@ -195,16 +195,21 @@ class ProcessRowMassUploadWorker
     # Replacement for save! method - Does different things based on the action attribute
 
     def process  article, mass_upload_article
-      case article.action
-      when :activate, :create, :update
-        article.calculate_fees_and_donations
-        article.save!
-      when :delete
-        article.close_without_validation
-      when :deactivate
-        article.deactivate_without_validation
+      Article.transaction do
+        MassUploadArticle.transaction do
+      
+          case article.action
+          when :activate, :create, :update
+            article.calculate_fees_and_donations
+            article.save!
+          when :delete
+            article.close_without_validation
+          when :deactivate
+            article.deactivate_without_validation
+          end
+          mass_upload_article.update_attributes(article: article, action: article.action)
+        end
       end
-      mass_upload_article.update_attributes(article: article, action: article.action)
     end
 
     def self.add_article_error_messages_to( mass_upload, validation_errors, mass_upload_article, row_hash )
