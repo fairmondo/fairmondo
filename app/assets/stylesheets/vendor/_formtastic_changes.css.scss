@@ -47,7 +47,14 @@ textarea {
   &:focus {
     outline: 0;
   }
+  @include placeholder {
+    color: $gray;
+  }
 
+}
+
+.formtastic textarea {
+  padding: 0.5em;
 }
 
 // Stringish inputs
@@ -111,3 +118,6 @@ span.sprite_helper {
    margin-right: 1px !important;
 }
 
+.formtastic .input .inline-hints {
+  margin: 0.5em 0 0 0;
+}

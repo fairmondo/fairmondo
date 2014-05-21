@@ -38,7 +38,7 @@
       = link_to(t('users.legal_status.show.ngo'), profile_user_path(user))
     - else
       %span.sprite_user
-      = link_to(t('users.legal_status.show.private_user'), profile_user_path(user))
+      = t('users.legal_status.show.private_user')
   - if user.vacationing?
     .User-vacation
       = t 'users.states.vacationing'
