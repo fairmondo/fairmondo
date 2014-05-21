@@ -117,7 +117,7 @@ class Article < ActiveRecord::Base
       indexes :friendly_percent_organisation_nickname, :as => Proc.new { friendly_percent_organisation ? self.friendly_percent_organisation_nickname : nil }
 
       indexes :transport_pickup
-      indexes :zip, :as => Proc.new {self.transport_pickup ? self.seller.zip : nil}
+      indexes :zip, :as => Proc.new { self.seller.zip }
 
       # seller attributes
       indexes :belongs_to_legal_entity? , :as => 'belongs_to_legal_entity?'
