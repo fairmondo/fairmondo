@@ -19,7 +19,6 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-%section
+.Listview
   - items.each do |item|
-    %Article.ListItem
-      = render '/shared/listview/listitem' , article: (item.is_a?(Article) ?  item : item.article), business_transaction: (item.is_a?(BusinessTransaction) ? item : nil)
+    = render '/shared/listview/listitem' , article: (item.is_a?(Article) ?  item : item.article), business_transaction: (item.is_a?(BusinessTransaction) ? item : nil)

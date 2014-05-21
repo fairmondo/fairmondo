@@ -21,19 +21,18 @@
 -#
 %h1= t('common.actions.edit_profile')
 
-.Accordion.Accordion--activated.User-edit
+.Accordion.Accordion--activated.user-edit
   = semantic_form_for(@user, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, default_step: true do
 
-      .User--step
+      .Accordion-step
+        .visibility
+          = t('users.visibility.public')
+        %span.sprite_helper{title: "Für Dich und andere Nutzer*innen sichtbar." }
+        %h4
+          = "#{ t('formtastic.labels.user.legal_entity') }:"
         %p
-          %span.User--rightside
-            = t('users.visibility.public')
-            %span.sprite_helper{title: "Für Dich und andere Nutzer*innen sichtbar." }
-          %strong.Meta--highlight
-            = t('formtastic.labels.user.legal_entity') + ":"
-
           - if current_user.is_a?(LegalEntity) && !current_user.ngo
             = t('users.legal_status.edit.legal_entity')
           - elsif current_user.ngo
@@ -41,68 +40,78 @@
           -else
             = t('users.legal_status.edit.private_user')
 
-      .User--step
+      .Accordion-step
+        .visibility
+          = t('users.visibility.public')
+        %h4
+          = t('formtastic.labels.user.nickname') + ":"
         %p
-          %span.User--rightside= t('users.visibility.public')
-          %strong.Meta--highlight
-            = t('formtastic.labels.user.nickname') + ":"
           = current_user.nickname
-      .User--step
+      .Accordion-step
+        .visibility
+          = t('users.visibility.private')
+          %span.sprite_helper{title: "Nur für Dich sichtbar." }
+        %h4
+          = t('formtastic.labels.user.customer_number') + ":"
         %p
-
-          %span.User--rightside
-            = t('users.visibility.private')
-            %span.sprite_helper{title: "Nur für Dich sichtbar." }
-          %strong.Meta--highlight
-            = t('formtastic.labels.user.customer_number') + ":"
           = current_user.customer_nr
-      .User--step
+      .Accordion-step
+        .visibility
+          = t('users.visibility.public')
+        %h4
+          = "#{t('formtastic.labels.user.image')}: "
         %p
-          %span.User--rightside= t('users.visibility.public')
-          %strong.Meta--highlight= t('formtastic.labels.user.image') + ":"
           = image_tag(@user.image_url(:original), class: "img-polaroid ")
-          - f.object.build_image unless f.object.image # Build the Image object for the form
-          = f.semantic_fields_for :image do |image|
-            = f.inputs do
-              = image.input :image, label: false, as: :file, tooltip: true, required: false
+        - f.object.build_image unless f.object.image # Build the Image object for the form
+        = f.semantic_fields_for :image do |image|
+          = f.inputs do
+            = image.input :image, label: false, as: :file, tooltip: true, required: false
 
-      .User--step
-        %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+      .Accordion-step
+        .visibility
+          = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
         %h3= t('users.title.login')
         = f.inputs do
           = f.input :email
 
-      .User--step.User-edit-pw
+      .Accordion-step
         = f.input :password,  label: t('users.change_password'), input_html: { autocomplete: "off"}
         = f.input :password_confirmation
         = render partial: '/devise/registrations/password_complexity'
         = f.input :current_password
 
-      .User--step
-        %span.User--rightside
+      .Accordion-step
+        .visibility
           = t('users.visibility.public')
-        %h3= t('users.title.state')
+        %h3
+          = t('users.title.state')
         = f.input :vacationing, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
-
-
 
     = f.input_step :contact do
       = f.inputs do
 
-        .User--step
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+        .Accordion-step
+          .visibility
+            = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+            
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
+            
           = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
           = f.input :forename, required: true
           = f.input :surname, required: true
+          
           - if current_user.is_a?(LegalEntity)
             = f.input :company_name
-        .User--step
-          %span.User--rightside= current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+            
+        .Accordion-step
+          .visibility
+            = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
+            
           %h3= t('users.form_titles.address')
+          
           = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
           = f.input :address_suffix
           = f.input :street, required: true
@@ -114,18 +123,21 @@
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do
-        .User--step
-          %span.User--rightside= t('users.visibility.public')
+        .Accordion-step
+          .visibility
+            = t('users.visibility.public')
+            
           = f.input :about_me, as: :text, limit: 2500, input_html: {class: "tinymce"}
           = tinymce
+          
     - if current_user.is_a?(LegalEntity)
       = render partial: '/devise/registrations/edit_legal', locals: {f: f}
 
     = f.input_step :payment, tooltip: true do
       = f.inputs do
-        .User--step
+        .Accordion-step
           %h3= t('users.form_titles.payment_bank_account')
-          /%p= t('formtastic.labels.user.bank_account_notification')
+          
           = f.input :bank_account_owner, required: true, label: t('formtastic.labels.user.bank_account_owner')
           = f.input :bank_code, required: true, input_html: {id: "bank_code", maxlength: 8}, label: t('formtastic.labels.user.bank_code')
           = f.input :bank_name, required: true, input_html: {id: "bank_name"}, label: t('formtastic.labels.user.bank_name')
@@ -134,16 +146,19 @@
           = f.input :iban, required: true, input_html: {id: "iban"}, label: t('formtastic.labels.user.iban'), tooltip: true
           = f.input :bic, required: true, input_html: {id: "bic"}, label: t('formtastic.labels.user.bic'), tooltip: true
 
-        .User--step
-          - direct_debit__link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", target: "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
-          = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit__link + t('formtastic.labels.user.direct_debit2_html').html_safe
-        .User--step
+        .Accordion-step
+          - direct_debit_link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", target: "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
+          = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
+        
+        .Accordion-step
+        
           %h3= t('users.form_titles.payment_paypal')
-          /%p= t('formtastic.labels.user.paypal_notification')
+          
           = f.input :paypal_account, label: t('formtastic.labels.user.paypal_account'), tooltip: true
           = f.input :fastbill_profile_update, as: :hidden, input_html: { value: true }
+          
     = f.actions do
-      = f.action :submit, button_html: {class: "Btn"}
+      = f.action :submit, button_html: {class: "Button"}
 
 - content_for :view_specific_scripts do
   = javascript_include_tag 'inputs/bank_details'

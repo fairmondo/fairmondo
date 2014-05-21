@@ -44,4 +44,7 @@
     .Article-tags
       = condition_label article
       = commendation_labels_for article
+    - if defined?(extra) && extra
+      .Article-extra 
+        = yield
 

@@ -1,6 +1,8 @@
 
 @import "mixins/all";
 
+// Login and registration form
+
 .registrations-form {
   @include at-breakpoint($bp-tablet) {
 		@include span(3 of 4);
@@ -43,5 +45,23 @@
     .bar--green {
       background: $green;
     }
+  }
+}
+
+
+// edit user
+
+.visibility {
+  float:right;
+}
+
+.Accordion-step > p {
+  margin-bottom: 1em;
+}
+
+
+.user-edit > .formtastic .stringish input, .user-edit > .formtastic .pw-complexify {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
   }
 }
