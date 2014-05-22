@@ -95,11 +95,14 @@ class ArticleSearchForm
 
   def price_range
     hash = {}
+    price_from = Money.new(self.price_from) * 100.0
+    price_to   = Money.new(self.price_to) * 100.0
+
     if self.price_from && self.price_from != ''
-      hash[:gte] = self.price_from * 100
+      hash[:gte] = price_from.cents
     end
     if self.price_to && self.price_to != ''
-      hash[:lte] = self.price_to * 100
+      hash[:lte] = price_to.cents
     end
     hash
   end
