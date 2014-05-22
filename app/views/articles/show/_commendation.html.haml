@@ -22,60 +22,65 @@
 
 
 -# Be careful, between case and when should not be a empty line
-.Commendation
-  %dl
-    -# FAIR
-    - if resource.fair
-      %dt
-        = commendation_label :fair,:big
-        - case resource.fair_kind
-        - when "social_producer"
-          - if resource.social_producer_questionnaire
-            %h3= t('enumerize.article.fair_kind.social_producer')
-            = get_social_producer_questionaire_for :nonprofit_association, resource
-            = get_social_producer_questionaire_for :social_businesses_muhammad_yunus, resource
-            = get_social_producer_questionaire_for :social_entrepreneur, resource
-            -if !resource.social_producer_questionnaire.social_entrepreneur_explanation.blank?
-              %p
-                %b= t('formtastic.labels.social_producer_questionnaire.social_entrepreneur_explanation')
-              .small
-                %p= resource.social_producer_questionnaire.social_entrepreneur_explanation
-        - when "fair_trust"
-          - if resource.fair_trust_questionnaire
-            %h3= t('enumerize.article.fair_kind.fair_trust')
-            = get_fair_trust_questionaire_for :support, resource
-            = get_fair_trust_questionaire_for :labor_conditions, resource
-            = get_fair_trust_questionaire_for :environment_protection, resource
-            = get_fair_trust_questionaire_for :controlling, resource
-            = get_fair_trust_questionaire_for :awareness_raising, resource
-        - when "fair_seal"
-          %h3= t('enumerize.article.fair_kind.fair_seal')
+.commendation
+  
+  -# FAIR
+  - if resource.fair
+    %h3
+      = commendation_label :fair,:big
+    - case resource.fair_kind
+    - when "social_producer"
+      - if resource.social_producer_questionnaire
+        %h4= t('enumerize.article.fair_kind.social_producer')
+        = get_social_producer_questionaire_for :nonprofit_association, resource
+        = get_social_producer_questionaire_for :social_businesses_muhammad_yunus, resource
+        = get_social_producer_questionaire_for :social_entrepreneur, resource
+        - unless resource.social_producer_questionnaire.social_entrepreneur_explanation.blank?
+          %h5
+            = t('formtastic.labels.social_producer_questionnaire.social_entrepreneur_explanation')
           %p
-            %strong= t('enumerize.article.fair_seal.' + resource.fair_seal)
+            = resource.social_producer_questionnaire.social_entrepreneur_explanation
+    - when "fair_trust"
+      - if resource.fair_trust_questionnaire
+        %h4= t('enumerize.article.fair_kind.fair_trust')
+        = get_fair_trust_questionaire_for :support, resource
+        = get_fair_trust_questionaire_for :labor_conditions, resource
+        = get_fair_trust_questionaire_for :environment_protection, resource
+        = get_fair_trust_questionaire_for :controlling, resource
+        = get_fair_trust_questionaire_for :awareness_raising, resource
+    - when "fair_seal"
+      %h4
+        = t('enumerize.article.fair_kind.fair_seal')
+      %p
+        = t('enumerize.article.fair_seal.' + resource.fair_seal)
 
-    -# ECOLOGIC
-    - if resource.ecologic
-      %dt
-        = commendation_label :ecologic,:big
-        %h3= t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
-        - if resource.ecologic_kind == "ecologic_seal"
-          %p
-            %b= t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
-        - if resource.ecologic_kind == "upcycling"
-          .small
-            %p= resource.upcycling_reason
+  -# ECOLOGIC
+  - if resource.ecologic
 
-    -# SMALL AND PRECIOUS
-    - if resource.small_and_precious
-      %dt
-        = commendation_label :small_and_precious,:big
-        %p
-          %b= t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
-        %p= resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')
-        %p
-          %b= t('formtastic.labels.article.small_and_precious_reason')
-        .small
-          %p= resource.small_and_precious_reason
-        %p
-          %b= t('formtastic.labels.article.small_and_precious_handmade')
-        %p= resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')
+    %h3
+      = commendation_label :ecologic,:big
+    %h4
+      = t('enumerize.article.ecologic_kind.' + resource.ecologic_kind)
+    - if resource.ecologic_kind == "ecologic_seal"
+      %p
+        = t('enumerize.article.ecologic_seal.' + resource.ecologic_seal)
+    - if resource.ecologic_kind == "upcycling"
+      %p
+        = resource.upcycling_reason
+
+  -# SMALL AND PRECIOUS
+  - if resource.small_and_precious
+    %h3
+      = commendation_label :small_and_precious,:big
+    %h4
+      = t('formtastic.labels.article.small_and_precious_eu_small_enterprise')
+    %p
+      = resource.small_and_precious_eu_small_enterprise ? t('article.show.agree') : t('article.show.non_agree')
+    %h4
+      = t('formtastic.labels.article.small_and_precious_reason')
+    %p
+      = resource.small_and_precious_reason
+    %h4
+      = t('formtastic.labels.article.small_and_precious_handmade')
+    %p
+      = resource.small_and_precious_handmade ? t('article.show.agree') : t('article.show.non_agree')
