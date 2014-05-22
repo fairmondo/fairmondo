@@ -159,12 +159,6 @@ group :development, :test do
 
   # Notify about n+1 queries
   gem 'bullet'
-
-  # Guard test automation
-  gem 'guard-rspec'
-
-  # MetaRequest for usage with RailsPanel Chrome Extension
-  gem 'meta_request'
 end
 
 group :development do
