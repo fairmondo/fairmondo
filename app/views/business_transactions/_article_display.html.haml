@@ -1,8 +1,10 @@
-.Article
-	%h3.Article-title
-		= link_to resource.article_title, resource.article
-	%p
-		= t 'transaction.edit.sold_by'
-		= link_to resource.article_seller_nickname, resource.article_seller
-	%p
-		= display_preliminary_price
+%h1.your_article
+  = t 'transaction.edit.heading'
+.article-display
+  %h3.article-title
+    = link_to resource.article_title, resource.article
+  %p
+    = t 'transaction.edit.sold_by'
+    = link_to resource.article_seller_nickname, resource.article_seller
+  %p
+    = display_preliminary_price
