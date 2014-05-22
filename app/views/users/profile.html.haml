@@ -19,89 +19,69 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
-.Meta
-  .Meta--block
-    %h2= resource.nickname
-    - if resource.valid? && resource.is_a?(LegalEntity)
-      - if resource.forename && resource.surname
-        %p
-          = t('formtastic.labels.user.contact_person')
-          \:
-          %strong= resource.title + " " if resource.title?
-          %strong= resource.forename + " " + resource.surname
-
-      - if resource.address_suffix
-        %p
-          = t('formtastic.labels.user.address_suffix')
-          \:
-          %strong= resource.address_suffix
-
-      - if resource.street
-        %p
-          = t('formtastic.labels.user.street')
-          \:
-          %strong= resource.street
-
-      - if resource.zip && resource.city
-        %p
-          = t('formtastic.labels.user.city')
-          \:
-          %strong= resource.zip + " " + resource.city
-
-      - if resource.country
-        %p
-          = t('formtastic.labels.user.country')
-          \:
-          %strong= resource.country
-
-      - if resource.email
-        %p
-          = t('formtastic.labels.user.mail')
-          \:
-          %strong
-            %a{:href => "mailto:#{resource.email}"}= resource.email
-
-      - if resource.fax
-        %p
-          = t('formtastic.labels.user.fax')
-          \:
-          %strong= resource.fax
-
-      - if resource.phone
-        %p
-          = t('formtastic.labels.user.phone')
-          \:
-          %strong= resource.phone
-
-      - if resource.mobile
-        %p
-          = t('formtastic.labels.user.mobile')
-          \:
-          %strong= resource.mobile
-
+= render "header"
+.Content
+  %h1= resource.nickname
   - if resource.valid? && resource.is_a?(LegalEntity)
-
+    %h3
+      = "#{t('formtastic.labels.user.contact_person')}:"
+    .vcard
+      %p.fn
+        %a{ :href => "mailto:#{resource.email}" } 
+      
+          = "#{resource.title} " if resource.title
+          = "#{resource.forename} #{resource.surname}" if resource.surname && resource.forename
+  
+      %p.adr 
+        - if resource.address_suffix && resource.street
+          %span.street-adress 
+            = "#{resource.address_suffix}"
+            %br
+            = "#{resource.street}"
+            %br
+        - if resource.zip && resource.city
+          %span.postal-code 
+            = resource.zip
+          %span.locality
+            = resource.city
+          %br 
+          %span.country-name
+            = resource.country
+    - if resource.email
+      %h3
+        = "#{t('formtastic.labels.user.email')}:"
+      %p
+        %a{:href => "mailto:#{resource.email}"}= resource.email
+  
+    - if resource.fax
+      %h3
+        = "#{t('formtastic.labels.user.fax')}:"
+      %p
+        = resource.fax
+  
+    - if resource.phone
+      %h3
+        = "#{t('formtastic.labels.user.phone')}:"
+      %p
+        = resource.phone
+  
+    - if resource.mobile
+      %h3
+        = "#{t('formtastic.labels.user.mobile')}:"
+      %p
+        = resource.mobile
+  
     - if resource.terms
-      .Meta--block
-        %p
-          %span.Meta--highlight
-            = t('formtastic.labels.user.terms')
-            \:
-          = raw resource.terms
-
+      %h3
+        = "#{t('formtastic.labels.user.terms')}:"
+      = raw resource.terms
+  
     - if resource.cancellation
-      .Meta--block
-        %p
-          %span.Meta--highlight
-            = t('formtastic.labels.user.cancellation')
-            \:
-          = raw resource.cancellation
-
+      %h3       
+        = "#{t('formtastic.labels.user.cancellation')}:"
+      = raw resource.cancellation
+  
     - if resource.about
-      .Meta--block
-        %p
-          %span.Meta--highlight
-            = t('formtastic.labels.user.about')
-            \:
-          = raw resource.about
+      %h3  
+        = "#{t('formtastic.labels.user.about')}:"
+      = raw resource.about

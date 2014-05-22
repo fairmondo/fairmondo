@@ -28,12 +28,12 @@ module CommendationHelper
     html = ""
     if article.social_producer_questionnaire.send(question)
 
-      html << "<p><b>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<h5>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</h5>"
       html << "<p>" + t('article.show.agree')+ "</p>"
 
       value = article.social_producer_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul class=\"small\">"
+        html << "<ul>"
         value.each do |purpose|
           html << "<li>" + t('enumerize.social_producer_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
         end
@@ -47,12 +47,12 @@ module CommendationHelper
     html = ""
     if article.fair_trust_questionnaire.send(question)
 
-      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<h5>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</h5>"
       html << "<p>" + t('article.show.agree')+ "</p>"
 
       value = article.fair_trust_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul class=\"small\">"
+        html << "<ul>"
         value.each do |purpose|
           html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose)
           if purpose == "other" && article.fair_trust_questionnaire.send(question.to_s + "_other")

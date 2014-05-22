@@ -55,7 +55,7 @@ module BusinessTransactionMailerHelper
     end
     string += article_url(transaction.article) + "\n"
     string += t('transaction.notifications.transaction_link')
-    string += business_transaction_url(transaction) + "\n"
+    string += business_transaction_url(transaction) + "\n\n"
     if ['bank_transfer', 'paypal', 'cash', 'cash_on_delivery', 'invoice'].include? transaction.selected_payment
       string += t('transaction.edit.payment_type')
       string += t("transaction.notifications.buyer.#{transaction.selected_payment}") + "\n"
@@ -76,8 +76,8 @@ module BusinessTransactionMailerHelper
 
     string = ""
     string += "#{ t('transaction.edit.quantity_bought') }" + "#{transaction.quantity_bought}\n"
-    string += "#{ t('transaction.edit.preliminary_price') }" + "#{humanized_money_with_symbol(transaction.article_price)}\n"
-    string += "-------------------------------\n"
+    string += "#{ t('transaction.edit.preliminary_price') }: " + "#{humanized_money_with_symbol(transaction.article_price)}\n"
+    string += "----------------------------------------------\n"
     string += "#{ t('transaction.edit.sales_price') }" + "#{humanized_money_with_symbol(transaction.article_price * transaction.quantity_bought)}\n"
 
     if transaction.seller.is_a?(LegalEntity)
@@ -144,7 +144,7 @@ module BusinessTransactionMailerHelper
 
     "#{ t('transaction.notifications.seller.fees') }" + "#{ humanized_money_with_symbol( calc_fee ) }\n" +
     "#{ t('transaction.notifications.seller.donations') }" + "#{ humanized_money_with_symbol( calc_fair ) }\n" +
-    "-------------------------------\n" +
+    "----------------------------------------------\n" +
     "#{ t('transaction.edit.total_price') }" + "#{humanized_money_with_symbol( calc_total ) }" + "*\n" +
     "#{ t('transaction.edit.net') }" + "#{ humanized_money_with_symbol( net( calc_total)) }\n" +
     "#{ t('transaction.edit.vat', percent: vat_value) }" + "#{ humanized_money_with_symbol( vat(calc_total)) }\n\n\n" +
