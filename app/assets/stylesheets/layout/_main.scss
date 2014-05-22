@@ -1,21 +1,6 @@
 // main container
 .l-main {
-  padding: 1rem 1rem ($footer-height + 1rem);
+  @include container($screen-width);
+  padding: 1rem $screen-padding ($footer-height + 1rem);
 
-  @include at-breakpoint($bp-tablet) {
-    padding-left: $screen-padding;
-    padding-right: $screen-padding;
-  }
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    @include container($screen-width);
-  }
-
-  @include between-breakpoints($bp-tablet-horizontal, $screen-width) {
-    @include container($bp-tablet-horizontal);
-  }
-
-  @include at-breakpoint($screen-width) {
-    @include container($screen-width);
-  }
 }

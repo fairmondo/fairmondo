@@ -5,8 +5,8 @@
     - else
       = title
     %ul.JS-active-toggle--target
-      %li
-        - if search_cache && search_cache.send(parameter)
+      - if search_cache && search_cache.send(parameter)
+        %li
           %a.Search-colored-link{href:  articles_path(article_search_form: search_cache.change(parameter => nil)), data: { remote: 'true' }}
             Werte löschen
       - values.each do |value|

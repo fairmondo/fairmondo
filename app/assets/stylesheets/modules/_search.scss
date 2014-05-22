@@ -139,18 +139,38 @@
   clear: both;
 }
 
-.Search-filters > .Search-filter {
+.Search-filter-container {
   position: relative;
-  margin-bottom: 1em;
-  @include span(1 of 6 0.05);
-  &:nth-child(6) {
+  margin-right: 2.5em;
+}
+
+.Search-filters > .Search-filter {
+  
+  @include span(1 of 5 0.05);
+  &:nth-child(5) {
     @include omega;
   }
+}
+
+.Search-filter {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.Search-additional {
+  width: 2em;
+  position: absolute;
+  top:0;
+  right:-2.5em;
 }
 
 .Search-dropdown {
   @include whitebox;
   padding: 0.3em;
+  height: 1.3em;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   @include user-select(none);
   &:hover {
     background: $lightest-gray;
@@ -158,14 +178,14 @@
 }
 
 .Search-dropdown > ul, .Search-filter > form {
-  display:none;
-  width:100%;
-  padding:0;
+  display: none;
+  width: auto;
+  min-width: 100%;
+  padding: 0;
   margin: 0;
   background: white;
   box-shadow: $sand 0px 0px 2px 2px;
-  list-style: none;
-
+  
   &.is-active {
     top: 2.2em;
     left: 0em;
@@ -174,18 +194,36 @@
     z-index: 1;
   }
 }
+.Search-filter > form {
+  padding: 1em;
+}
+
+.Search-dropdown > ul {
+  list-style: none;
+}
+
+.Search-dropdown > ul > li {
+  white-space:nowrap; 
+  padding: 0.5em;
+  &:hover {
+    background: $blue;
+    a {color:white;}
+  }
+}
+
+.Search-additional > .Search-filter > form.is-active, .Search-filters > .Search-filter:last-child .is-active {
+  right: 0em;
+  left: inherit;
+}
 
 a.Search-colored-link {
-  padding: 0.5em;
+  padding: 0;
   display:block;
   text-decoration:none !important;
   img {
-    float:left;
+    vertical-align: middle;
     margin-right: 0.5em;
   }
-  &:hover {
-    background: $blue;
-    color:white;
-  }
+  
 }
 
