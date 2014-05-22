@@ -160,9 +160,6 @@ group :development, :test do
 
   # Notify about n+1 queries
   gem 'bullet'
-
-  # Guard test automation
-  gem 'guard-rspec'
 end
 
 group :development do
