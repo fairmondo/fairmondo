@@ -9,25 +9,73 @@
   margin: em(6) 0 em(11) 0;
 }
 
-.feature--quadruple {
-  @include grid-with-columns(1);
-}
-
 .feature--quadruple .Grid-item {
-  @include between-breakpoints($bp-mobile-horizontal, $screen-width) {
+
+  @include till-breakpoint( $bp-tablet) {
+    &:nth-last-child(2), &:last-child {
+      display: none;
+    }
+  }
+  @include between-breakpoints($bp-tablet, $bp-desktop) {
     &:last-child {
-      display: none
+      display: none;
     }
   }
 }
-.feature--double .Grid-item {
-  @include till-breakpoint($bp-tablet-horizontal) {
-    &:last-child {
-      display: none
-    }
-  }
+//.feature--double .Grid-item {
+//  @include till-breakpoint($bp-tablet-horizontal) {
+//    &:last-child {
+//      display: none
+//    }
+//  }
+//}
+
+.feature {
+  margin-bottom: 1em;
 }
 
 .feature--double {
-  @include grid-with-columns(2);
+  clear:both;
+}
+
+@include between-breakpoints($bp-tablet, $bp-desktop) {
+  .feature--double { 
+    @include span(2 of 3 0.05);
+  }
+  .feature--collapsible {
+    @include span(1 of 3 0.05);
+    @include omega;
+  }
+}
+
+@include at-breakpoint($bp-desktop) {
+  .feature--double { 
+    @include span(1 of 2 0.05);
+  }
+  .feature--collapsible {
+    @include span(1 of 2 0.05);
+    @include omega;
+  }
+}
+
+
+.feature--double .Grid > .Grid-item {
+  @include at-breakpoint($bp-mobile) {
+    @include grid-with-columns(2); 
+  }
+}
+
+.feature--collapsible .Grid > .Grid-item {
+  @include between-breakpoints($bp-mobile,$bp-tablet) {
+    @include grid-with-columns(2); 
+  }
+  @include between-breakpoints($bp-tablet,$bp-desktop) {
+    @include grid-with-columns(1);
+    &:last-child {
+      display: none
+    }
+  }
+  @include at-breakpoint($bp-desktop) {
+    @include grid-with-columns(2); 
+  }
 }
