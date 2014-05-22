@@ -95,8 +95,8 @@ class ArticleSearchForm
 
   def price_range
     hash = {}
-    price_from = Money.new(self.price_from) * 100.0
-    price_to   = Money.new(self.price_to) * 100.0
+    price_from = Money.new(self.price_from) * 100
+    price_to   = Money.new(self.price_to) * 100
 
     if self.price_from && self.price_from != ''
       hash[:gte] = price_from.cents
@@ -158,12 +158,28 @@ class ArticleSearchForm
     self.change(parameter => !self.send(parameter))
   end
 
+  def keep
+    clean_hash self.attributes
+  end
+
+  def search_form_attributes
+    ret = {}
+    hash = clean_hash(self.attributes.reject { |k, v| [:q, :category_id].include?(k) })
+    ret[:article_search_form] = hash unless hash.empty?
+    ret
+  end
+
+  def category_collection
+    categories = Category.other_category_last.sorted.roots.to_a
+    categories.push(Category.find(self.category_id)) if self.category_id && self.category_id != ''
+  end
+
   private
 
     def clean_hash(hash)
       # clean nil values and throw out false boolean attributes that result in filter not being attached
       hash.select do |k,v|
-        v != nil && !([:fair,:ecologic,:small_and_precious].include? k && !v)
+        v != nil && !([:fair,:ecologic,:small_and_precious].include?(k) && !v)
       end
     end
 

@@ -1,11 +1,8 @@
 .Search-filter.JS-active-toggle--container
   .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}}
     = title
-  = semantic_form_for search_cache, url: articles_path, html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" },remote: true, builder: ::Fairtastic::FormBuilder do |f|
-    %ul
-      = f.inputs do
-        %li
-          = f.input :zip, tooltip: false, input_html: { maxlength: 5 }
-      = f.actions do
-        %li
-          %button.Button Anwenden
+  = semantic_form_for search_cache, url: articles_path(article_search_form: search_cache.keep), html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, remote: true, builder: ::Fairtastic::FormBuilder do |f|
+    = f.inputs do
+      = f.input :zip, tooltip: false, input_html: { maxlength: 5 }
+    = f.actions do
+      = f.action :submit, label: :filter, button_html: { class: 'Button' }

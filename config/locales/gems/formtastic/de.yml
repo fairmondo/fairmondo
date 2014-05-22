@@ -193,6 +193,8 @@ de:
       article_search_form:
         search_in_content: "suche in Artikelbeschreibung"
         zip: "PLZ"
+        price_from: 'Startpreis'
+        price_to: 'Endpreis'
     input_steps:
       user: &input_step_user
         account: Benutzerkonto
@@ -313,3 +315,4 @@ de:
       # Login
       login: "Anmelden"
       sign_up: "Registrieren"
+      filter: 'Übernehmen'
