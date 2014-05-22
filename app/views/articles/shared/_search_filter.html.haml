@@ -22,7 +22,7 @@
 .Search-filters
   = render 'articles/shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values, search_cache: search_cache
   = render 'articles/shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious], search_cache: search_cache
-  = render 'articles/shared/filter/filter_text', title: 'Preis', parameter: :order_by, values: [], search_cache: search_cache
-  = render 'articles/shared/filter/filter_text', title: 'Standort', parameter: :zip, values: [], search_cache: search_cache
+  = render 'articles/shared/filter/filter_price_range', title: 'Preis', parameter: :order_by, values: [], search_cache: search_cache
+  = render 'articles/shared/filter/filter_zip', title: 'Standort', parameter: :zip, values: [], search_cache: search_cache
   = render 'articles/shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values, search_cache: search_cache
   = render 'articles/shared/filter/filter_text', title: fa_icon('cogs'), parameter: :order_by, values: [], search_cache: search_cache

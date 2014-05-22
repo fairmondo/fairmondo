@@ -23,6 +23,8 @@ class ArticleSearchForm
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
+  attribute :price_from, Integer
+  attribute :price_to, Integer
   attr_accessor :page
 
 
@@ -41,14 +43,15 @@ class ArticleSearchForm
   def search page
     @page = page
     query = self
+
     articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
       if query.search_by_term?
         query do
           boolean do
-            should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all'}
-            should { match :content,  query.q  } if query.search_in_content
-            should { match :friendly_percent_organisation_nickname,  query.q, :fuzziness => 0.7}
-            should { term :gtin, query.q , :boost => 100}
+            should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all' }
+            should { match :content, query.q } if query.search_in_content
+            should { match :friendly_percent_organisation_nickname, query.q, :fuzziness => 0.7 }
+            should { term :gtin, query.q, :boost => 100 }
           end
         end
       else
@@ -60,11 +63,13 @@ class ArticleSearchForm
       filter :term, :small_and_precious => true  if query.small_and_precious
       filter :term, :condition => query.condition  if query.condition
       filter :terms, :categories => [query.category_id] if query.category_id.present?
-      filter :term, :zip => query.zip if query.zip.present?
+      filter :prefix, :zip => query.zip if query.zip.present?
+      filter :range, price: query.price_range
+
 
       case query.order_by
       when "newest"
-        sort { by :created_at, :desc  }
+        sort { by :created_at, :desc }
       when "cheapest"
         sort { by :price, :asc }
       when "most_expensive"
@@ -88,6 +93,16 @@ class ArticleSearchForm
     end
   end
 
+  def price_range
+    hash = {}
+    if self.price_from && self.price_from != ''
+      hash[:gte] = self.price_from * 100
+    end
+    if self.price_to && self.price_to != ''
+      hash[:lte] = self.price_to * 100
+    end
+    hash
+  end
 
   def autocomplete
     query = self
