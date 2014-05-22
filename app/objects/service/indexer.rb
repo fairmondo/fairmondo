@@ -10,8 +10,9 @@ class Indexer
   end
 
   def self.index_articles article_ids
-    articles = Article.find article_ids
-    Article.index.import articles
+    article_ids.each do |article_id|
+      SearchIndexWorker.perform_async(:article,article_id,:store)
+    end
   end
 
   def self.settings
