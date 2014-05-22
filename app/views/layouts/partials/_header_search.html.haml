@@ -1,6 +1,5 @@
 - cache_if search_cache.fresh?, 'article_search_form' do
-  = semantic_form_for search_cache, :url => articles_path, :html => { :method => 'get', :class => ".l-header-search-form" }, :builder => ::Fairtastic::FormBuilder do |f|
-    #js-hidden-search-params
+  = semantic_form_for search_cache, :url => articles_path(search_cache.search_form_attributes), :html => { :method => 'get', :class => ".l-header-search-form", id: 'js-search-params' }, remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show'), :builder => ::Fairtastic::FormBuilder do |f|
     .l-header-search-libraries
       %a.Button.Button--gray{:href => libraries_path, :title => "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken." }
         Sammlungen
@@ -8,10 +7,10 @@
       = f.inputs do
 
         = f.input :q, :label => false, :tooltip => false ,:input_html => { :id => "search_input", :placeholder =>  t('welcome.search_fair'),  "data-autocomplete" => autocomplete_articles_path }
-        = f.input :category_id, :label => false, :as => :select, :collection => Category.other_category_last.sorted.roots, :include_blank => "Alle Kategorien"
+        = f.input :category_id, :label => false, :as => :select, :collection => search_cache.category_collection, :include_blank => "Alle Kategorien"
     .l-header-search-button
       %button.Button
-        %i.fa.fa-search 
-        %span.l-header-search-button-text 
+        %i.fa.fa-search
+        %span.l-header-search-button-text
           Suche starten
-        
+
