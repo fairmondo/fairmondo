@@ -1,25 +1,16 @@
 .Grid > .Grid-item {
+  margin-bottom: 1em;
 
-
-  @include between-breakpoints($bp-mobile,$bp-mobile-horizontal) {
+  @include between-breakpoints($bp-mobile,$bp-tablet) {
     @include grid-with-columns(2);
   }
 
-  @include between-breakpoints($bp-mobile-horizontal, $screen-width) {
+  @include between-breakpoints($bp-tablet, $bp-desktop) {
     @include grid-with-columns(3);
   }
 
-  @include at-breakpoint($screen-width) {
+  @include at-breakpoint($bp-desktop) {
     @include grid-with-columns(4);
-  }
-}
-
-.Grid.Grid--double > .Grid-item {
-  @include till-breakpoint($bp-tablet-horizontal) {
-    @include grid-with-columns(1);
-  }
-  @include at-breakpoint($bp-tablet-horizontal) {
-    @include grid-with-columns(2);
   }
 }
 
