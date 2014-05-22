@@ -153,5 +153,11 @@ class ApplicationController < ActionController::Base
         redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
       end
     end
+    
+    def render_css_from_controller controller
+      @controller_specific_css = controller 
+    end
+    
+  
 
 end

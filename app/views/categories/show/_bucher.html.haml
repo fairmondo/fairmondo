@@ -1,4 +1,3 @@
-= stylesheet_link_tag asset_path("controller/welcome.css")
 
 - content_for :category_specific_content do
   - content_for(:is_exclusive, true)
@@ -34,17 +33,17 @@
           .feature-inner
             %h2
               = link_to "HÖRBÜCHER", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
       - lib = FeaturedLibraryQuery.new(:book4).find(2)
       - if lib[:library]
-        .feature.feature--double
+        .feature.feature--collapsible
           .feature-inner
             %h2
               = link_to "GEBRAUCHTE BÜCHER", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
@@ -55,18 +54,18 @@
           .feature-inner
             %h2
               = link_to "KRIMIS", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
 
       - lib = FeaturedLibraryQuery.new(:book6).find(2)
       - if lib[:library]
-        .feature.feature--double
+        .feature.feature--collapsible
           .feature-inner
             %h2
               = link_to "KINDERBÜCHER", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
@@ -77,18 +76,18 @@
           .feature-inner
             %h2
               = link_to "KOCHBÜCHER", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
 
       - lib = FeaturedLibraryQuery.new(:book8).find(2)
       - if lib[:library]
-        .feature.feature--double
+        .feature.feature--collapsible
           .feature-inner
             %h2
               = link_to "SACHBÜCHER", library_path(lib[:library])
-            .Grid.Grid--double
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article

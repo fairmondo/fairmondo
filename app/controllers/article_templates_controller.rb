@@ -24,7 +24,7 @@ class ArticleTemplatesController < InheritedResources::Base
   before_filter :build_resource, only: [:new, :create]
   before_filter :build_article, only: [:new,:create]
   before_filter :authorize_resource, except: [:create]
-  before_filter :render_css_from_articles_controller, except: [:destroy]
+  before_filter -> { render_css_from_controller('articles') } , except: [:destroy]
 
   actions :all, :except => [:show,:index]
 
@@ -79,7 +79,5 @@ class ArticleTemplatesController < InheritedResources::Base
       end
     end
 
-    def render_css_from_articles_controller
-      @controller_specific_css = 'articles'
-    end
+   
 end

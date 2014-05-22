@@ -4,7 +4,6 @@ class CategoriesController < InheritedResources::Base
   layout false, :only => :select_category
   respond_to :html
   respond_to :js, :json, only: :show, if: lambda { request.xhr? }
-
   before_filter :build_category_search_cache, only: :show
   skip_before_filter :authenticate_user!
 
