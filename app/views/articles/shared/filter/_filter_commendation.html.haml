@@ -1,9 +1,10 @@
+- params_active = parameters.map { |p| search_cache.send(p) }.include?(true)
 .Search-filter.JS-active-toggle--container
-  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}}
-    = title
+  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}, class: params_active ? 'Search-dropdown--commendation' : ''}
+    = title unless params_active
     - parameters.each do |parameter|
       - if search_cache && search_cache.send(parameter)
-        = '> ' + t("enumerize.article_search_form.filter.#{parameter}")
+        = commendation_label parameter, :small, false
     %ul.JS-active-toggle--target
       - parameters.each do |parameter|
         %li

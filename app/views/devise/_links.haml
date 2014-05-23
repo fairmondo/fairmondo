@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 - if devise_mapping.registerable? && controller_name != 'registrations'
-  = link_to t('devise.links.sign_up'), new_registration_path(:user), class: 'remote-link'
+  = link_to t('devise.links.sign_up'), new_registration_path(:user)
   %br/
 - if controller_name != 'registrations'
   = link_to t('footer.newsletter'), 'http://50856.seu1.cleverreach.com/f/50856-127432/', target: '_blank'

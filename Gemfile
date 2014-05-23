@@ -34,6 +34,7 @@ gem 'json'
 gem 'nokogiri'
 gem 'enumerize', '>= 0.5.1'
 gem 'money-rails'
+gem 'monetize'
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories

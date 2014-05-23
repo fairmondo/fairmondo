@@ -261,6 +261,8 @@ de:
         <<: *tooltips_user
       legal_entity:
         <<: *tooltips_user
+      article_search_form:
+        zip: 'Trage hier eine Postleitzahl ein um regional zu suchen. Du kannst auch nur den ersten Teil einer PLZ eingeben.'
       article:
         title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
         category_ids: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird."

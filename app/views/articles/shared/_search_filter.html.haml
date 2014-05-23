@@ -21,10 +21,10 @@
 -#
 .Search-filter-container
   .Search-filters
-    = render 'articles/shared/filter/filter_radio', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
-    = render 'articles/shared/filter/filter_checkbox', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious]
+    = render 'articles/shared/filter/filter_condition', title: 'Zustand', parameter: :condition, values: ArticleSearchForm.enumerized_attributes[:condition].values
+    = render 'articles/shared/filter/filter_commendation', title: 'Filter', parameters: [:fair, :ecologic, :small_and_precious]
     = render 'articles/shared/filter/filter_price_range', title: 'Preis', parameter: :order_by, values: []
-    = render 'articles/shared/filter/filter_zip', title: 'Standort', parameter: :zip, values: []
-    = render 'articles/shared/filter/filter_radio', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values
+    = render 'articles/shared/filter/filter_zip', title: 'Standort', parameter: :zip
+    = render 'articles/shared/filter/filter_order', title: 'Sortierung', parameter: :order_by, values: ArticleSearchForm.enumerized_attributes[:order_by].values
   .Search-additional
-    = render 'articles/shared/filter/filter_text', title: fa_icon('cogs'), parameter: :order_by, values: []
+    = render 'articles/shared/filter/filter_additional', title: fa_icon('cogs')

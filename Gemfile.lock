@@ -546,6 +546,7 @@ DEPENDENCIES
   memoist
   memory_test_fix
   modernizr-rails
+  monetize
   money-rails
   nokogiri
   paperclip (>= 3.0)
