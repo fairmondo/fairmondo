@@ -251,7 +251,7 @@ ActiveRecord::Schema.define(version: 20140508061307) do
     t.boolean  "image_processing"
   end
 
-  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_type", using: :btree
+  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "libraries", force: true do |t|
     t.string   "name"

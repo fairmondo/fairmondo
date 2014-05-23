@@ -29,7 +29,7 @@
       .Accordion-step
         .visibility
           = t('users.visibility.public')
-        %span.sprite_helper{title: "Für Dich und andere Nutzer*innen sichtbar." }
+          %span.sprite_helper{title: "Für Dich und andere Nutzer*innen sichtbar." }
         %h4
           = "#{ t('formtastic.labels.user.legal_entity') }:"
         %p
@@ -95,23 +95,23 @@
         .Accordion-step
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
-            
+
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-            
+
           = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
           = f.input :forename, required: true
           = f.input :surname, required: true
-          
+
           - if current_user.is_a?(LegalEntity)
             = f.input :company_name
-            
+
         .Accordion-step
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
-            
+
           %h3= t('users.form_titles.address')
-          
+
           = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
           = f.input :address_suffix
           = f.input :street, required: true
@@ -126,10 +126,10 @@
         .Accordion-step
           .visibility
             = t('users.visibility.public')
-            
+
           = f.input :about_me, as: :text, limit: 2500, input_html: {class: "tinymce"}
           = tinymce
-          
+
     - if current_user.is_a?(LegalEntity)
       = render partial: '/devise/registrations/edit_legal', locals: {f: f}
 
@@ -137,7 +137,7 @@
       = f.inputs do
         .Accordion-step
           %h3= t('users.form_titles.payment_bank_account')
-          
+
           = f.input :bank_account_owner, required: true, label: t('formtastic.labels.user.bank_account_owner')
           = f.input :bank_code, required: true, input_html: {id: "bank_code", maxlength: 8}, label: t('formtastic.labels.user.bank_code')
           = f.input :bank_name, required: true, input_html: {id: "bank_name"}, label: t('formtastic.labels.user.bank_name')
@@ -149,14 +149,14 @@
         .Accordion-step
           - direct_debit_link = link_to t('formtastic.labels.user.seller_fees'), "/faq#geb1", target: "_blank", onclick: on_click_open_link_in_label('/faq#geb1')
           = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
-        
+
         .Accordion-step
-        
+
           %h3= t('users.form_titles.payment_paypal')
-          
+
           = f.input :paypal_account, label: t('formtastic.labels.user.paypal_account'), tooltip: true
           = f.input :fastbill_profile_update, as: :hidden, input_html: { value: true }
-          
+
     = f.actions do
       = f.action :submit, button_html: {class: "Button"}
 
