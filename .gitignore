@@ -98,3 +98,7 @@ nohup.out
 
 # RVM
 .rvmrc
+
+# tags
+tags
+gem.tags
