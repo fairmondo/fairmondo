@@ -86,14 +86,15 @@ module CommendationHelper
   # Get Labels for the commendations
   #
   # @param label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
-  # @param size [Symbol] label size `:small`,`:medium`, `:big`
+  # @param size [Symbol] label size `:small`, `:big`
   # @param link [String] Optional string url where the label should link to
   # @param new_window [Boolean] Optional url in new window?
   #
   def commendation_label label, size , link = nil, new_window = true
-    link = commendation_explanation_link label unless link
-    html = "<a href=\"#{link}\" "
-    html << "target=\"_blank\" " if new_window
+    link = commendation_explanation_link label unless link != nil
+    html = "<a "
+    html << "href=\"#{link}\" " if link
+    html << "target=\"_blank\" " if new_window && link
     html << "class=\"#{commendation_label_classes label,size} accordion-anchor\">"
     html << t("formtastic.labels.article.#{label.to_s}")
     html << "</a> "

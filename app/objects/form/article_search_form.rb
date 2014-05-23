@@ -23,8 +23,8 @@ class ArticleSearchForm
   enumerize :order_by, in: [:newest,:cheapest,:most_expensive,:old,:new,:fair,:ecologic,:small_and_precious,:most_donated]
   #   => :newest,"Preis aufsteigend" => :cheapest,"Preis absteigend" => :most_expensive
   attribute :search_in_content, Boolean
-  attribute :price_from, Integer
-  attribute :price_to, Integer
+  attribute :price_from, String
+  attribute :price_to, String
   attr_accessor :page
 
 
@@ -95,14 +95,17 @@ class ArticleSearchForm
 
   def price_range
     hash = {}
-    price_from = Money.new(self.price_from) * 100
-    price_to   = Money.new(self.price_to) * 100
+    from = Monetize.parse(self.price_from)
+    to   = Monetize.parse(self.price_to)
 
-    if self.price_from && self.price_from != ''
-      hash[:gte] = price_from.cents
+    if from && from.cents != 0
+      self.price_from = from.format
+      hash[:gte] = from.cents
     end
-    if self.price_to && self.price_to != ''
-      hash[:lte] = price_to.cents
+
+    if to && to.cents != 0
+      self.price_to = to.format
+      hash[:lte] = to.cents
     end
     hash
   end
@@ -174,6 +177,22 @@ class ArticleSearchForm
     categories.push(Category.find(self.category_id)) if self.category_id && self.category_id != ''
   end
 
+  def format_price_range
+    if price_given?(:from) && price_given?(:to)
+      "#{self.price_from} - #{self.price_to}"
+    elsif price_given?(:from)
+      "> #{self.price_from}"
+    elsif price_given?(:to)
+      "< #{self.price_to}"
+    else
+      nil
+    end
+  end
+
+  def price_given?(price)
+    value = self.send("price_#{price.to_s}")
+    value && !value.empty?
+  end
   private
 
     def clean_hash(hash)

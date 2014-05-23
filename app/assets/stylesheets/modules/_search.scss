@@ -145,7 +145,7 @@
 }
 
 .Search-filters > .Search-filter {
-  
+
   @include span(1 of 5 0.05);
   &:nth-child(5) {
     @include omega;
@@ -168,6 +168,7 @@
   @include whitebox;
   padding: 0.3em;
   height: 1.3em;
+  line-height:1.3em;
   overflow:hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -185,7 +186,7 @@
   margin: 0;
   background: white;
   box-shadow: $sand 0px 0px 2px 2px;
-  
+
   &.is-active {
     top: 2.2em;
     left: 0em;
@@ -203,7 +204,7 @@
 }
 
 .Search-dropdown > ul > li {
-  white-space:nowrap; 
+  white-space:nowrap;
   padding: 0.5em;
   &:hover {
     background: $blue;
@@ -211,7 +212,7 @@
   }
 }
 
-.Search-additional > .Search-filter > form.is-active, .Search-filters > .Search-filter:last-child .is-active {
+.Search-additional > .Search-filter .is-active, .Search-filters > .Search-filter:last-child .is-active {
   right: 0em;
   left: inherit;
 }
@@ -224,6 +225,9 @@ a.Search-colored-link {
     vertical-align: middle;
     margin-right: 0.5em;
   }
-  
+
 }
 
+.Search-dropdown--commendation {
+  color: white;
+}
