@@ -96,9 +96,14 @@ dump.rdb
 # nohup
 nohup.out
 
-# RVM
-.rvmrc
-
-# tags
+# ctags
 tags
-gem.tags
+gems.tags
+
+# guard
+Guardfile
+
+# path to custom gem dir for sidekiq-pro dir
+sidekiq_pro_path.yml
+
+.rvmrc
