@@ -49,7 +49,6 @@ class ArticlesController < InheritedResources::Base
     render :json => []
   end
 
-
   def show
     authorize resource
     
@@ -69,7 +68,6 @@ class ArticlesController < InheritedResources::Base
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
   end
 
-
   def new
     authorize build_resource
 
@@ -84,12 +82,10 @@ class ArticlesController < InheritedResources::Base
     new!
   end
 
-
   def edit
     authorize resource
     edit!
   end
-
 
   def create
     authorize build_resource
@@ -99,7 +95,6 @@ class ArticlesController < InheritedResources::Base
                      render :new }
     end
   end
-
 
   def update # Still needs Refactoring
     if state_params_present?
@@ -114,7 +109,6 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-
   def destroy
     authorize resource
     if resource.preview?
@@ -126,8 +120,7 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
-
-##### Private Helpers
+  ##### Private Helpers
 
   private
 
@@ -152,11 +145,9 @@ class ArticlesController < InheritedResources::Base
       end
     end
 
-
     def state_params_present?
       params[:activate] || params[:deactivate]
     end
-
 
     def activate_params_present?
       !!params[:activate]
@@ -176,12 +167,10 @@ class ArticlesController < InheritedResources::Base
       end
     end
 
-
     def at_least_one_image_processing?
       processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
       !processing_thumbs.empty? || (resource.title_image and resource.title_image.image.processing?)
     end
-
 
   ################## Inherited Resources
 
@@ -192,7 +181,6 @@ class ArticlesController < InheritedResources::Base
     rescue Errno::ECONNREFUSED
       @articles ||= policy_scope(Article).page params[:page]
     end
-
 
     def begin_of_association_chain
       params[:action] == "show" ? super : current_user

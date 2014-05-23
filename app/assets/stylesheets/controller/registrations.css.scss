@@ -52,7 +52,13 @@
 // edit user
 
 .visibility {
+  position: relative;
+  margin-right: 2em;
   float:right;
+  > span.sprite_helper {
+    top: 0;
+    right: -2em;
+  }
 }
 
 .Accordion-step > p {
