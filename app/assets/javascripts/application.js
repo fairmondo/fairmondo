@@ -25,7 +25,8 @@
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
 //= require jquery.ui.accordion
-//= require jquery.ui.tooltip
+
+//= require qtip2-jquery-rails
 //= require jquery.slides.min.js
 
 //= require modernizr

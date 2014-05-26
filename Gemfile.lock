@@ -286,6 +286,8 @@ GEM
     polyglot (0.3.4)
     pundit (0.2.3)
       activesupport (>= 3.0.0)
+    qtip2-jquery-rails (2.1.107)
+      railties (>= 3.1)
     rack (1.5.2)
     rack-pjax (0.7.0)
       nokogiri (~> 1.5)
@@ -559,6 +561,7 @@ DEPENDENCIES
   peek-sidekiq
   pg
   pundit
+  qtip2-jquery-rails (~> 2.1.107)
   rack-rewrite
   rails (~> 4.1.1)
   rails-erd
