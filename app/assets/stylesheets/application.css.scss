@@ -28,7 +28,7 @@
  *= require peek/views/performance_bar
  *= require peek/views/rblineprof
  *= require peek/views/rblineprof/pygments
-
+ *= require qtip2-jquery-rails
  *
  */
 
@@ -38,7 +38,6 @@
 
 // jquery gem stylesheets
 @import "jquery.ui.autocomplete";
-@import "jquery.ui.tooltip";
 
 // vendor stylesheets
 @import "vendor/formtastic";
@@ -46,6 +45,7 @@
 @import "vendor/colorbox";
 @import "vendor/icheck";
 @import "vendor/socialshareprivacy";
+
 
 // Mixins to be available in everywhere
 
@@ -68,7 +68,6 @@
 @import "modules/news_header"; // header for news
 @import "modules/article"; // an article tile
 @import "modules/feedback"; // feedback sidelabels
-@import "modules/tooltip"; // tooltip format
 @import "modules/accordion"; // accordions
 @import "modules/search"; // search result, filters, categories
 @import "modules/grid"; // anonymos grid
@@ -81,6 +80,7 @@
 @import "vendor/formtastic_changes";
 @import "vendor/selectboxit_changes";
 @import "vendor/colorbox_changes";
+@import "vendor/qtip2_changes";
 @import "vendor/kaminari";
 
 // Auto-Generated sprite file

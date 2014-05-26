@@ -107,6 +107,7 @@ gem 'sprockets', '2.11.0' #https://github.com/sstephenson/sprockets/issues/537
 
 # JS
 gem 'jquery-ui-rails'
+gem 'qtip2-jquery-rails', '~> 2.1.107'
 gem 'i18n-js'
 gem 'coffee-rails'
 gem 'therubyrhino'

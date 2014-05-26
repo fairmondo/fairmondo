@@ -19,50 +19,21 @@
  * You should have received a copy of the GNU Affero General Public License
 */
 
-$(document).ready(function(){
-  $("span.sprite_helper").tooltip
-  (
-  {
-    tooltipClass: "bottom", // class for the arrow/pointer
-    position:
-    {
-      my: "center top",
-      at: "center bottom+20"
+tooltip = function() {
+	$("span.sprite_helper").qtip({
+  	content: { text: false },
+  	style: { 
+      classes: 'qtip-light'
     },
-    open: function( e, ui ) {
-    	$(e.target).data("opened",true);
+    position: {
+        viewport: $(window)
     },
-    close: function( e, ui ) {
-    	$(e.target).data("opened",false);
-    },
-    content: function()
-    {
-      return $(this).attr('title').split('\n').join('<br/>');  // this allows line breaks
-    }
-  }
-  ).off('mouseover');
-
-
-
-  $("span.sprite_helper").on( "mouseleave", function( e ) {
-    e.stopImmediatePropagation();
+  	show: 'click',
+  	hide: 'unfocus'
+  	
   });
-  $("span.sprite_helper").on('click',function(e) {
-    e.stopPropagation();
+};
 
-    alreadyopen = $(e.target).data("opened");
-    $("span.sprite_helper").tooltip('close'); //Close all open tooltips
-    if(!alreadyopen) { //Only reopen tooltip if it was in closed state before
-    	$(e.target).tooltip('open');
-    }
-  });
+$(document).ready(tooltip);
 
-  $('html').delegate('.ui-tooltip-content' ,'click',function(e){
-    e.stopPropagation();
-  });
-  $('html').click(function(e) {
-    $("span.sprite_helper").tooltip('close');
-  });
-
-});
-
+$(document).ajaxStop(tooltip);
