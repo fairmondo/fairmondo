@@ -45,6 +45,9 @@ $header-nav-link-color-hover: $blue;
 }
 
 .l-header-nav > ul > li > a {
+  @include till-breakpoint($bp-mobile) {
+    font-size: 0.9em;
+  }
   color: $black;
   padding: 0.5em;
   border-radius: 0.5em;
