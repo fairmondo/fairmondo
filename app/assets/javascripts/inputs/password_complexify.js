@@ -22,7 +22,7 @@
 
 
 $(document).ready(function(){
-  $("#user_password").complexify( {strengthScaleFactor: 0.8} , function (valid, complexity) {
+  $(".registrations-form #user_password").complexify( {strengthScaleFactor: 0.8} , function (valid, complexity) {
     $("#js-password_complexity_progress").show();
     $("#js-password_complexity_label").show();
     var bar = $("#js-password_complexity_progress .bar");
