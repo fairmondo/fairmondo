@@ -36,9 +36,6 @@
 
 @import "font-awesome";
 
-// jquery gem stylesheets
-@import "jquery.ui.autocomplete";
-
 // vendor stylesheets
 @import "vendor/formtastic";
 @import "vendor/jquery.selectBoxIt";
@@ -82,6 +79,7 @@
 @import "vendor/colorbox_changes";
 @import "vendor/qtip2_changes";
 @import "vendor/kaminari";
+@import "vendor/autocomplete";
 
 // Auto-Generated sprite file
 @import "sprites"

@@ -73,7 +73,7 @@
 
 .Search-categories > .Search-tree {
   margin:  0;
-  padding: em(10) 0;
+  padding: em(10) em(10);
   list-style-type: none;
 
   @include till-breakpoint($bp-tablet-horizontal) {

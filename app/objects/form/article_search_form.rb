@@ -122,8 +122,9 @@ class ArticleSearchForm
         term "title.decomp", :suggest_mode => 'popular', :sort => 'frequency' , :analyzer => :simple, size: 3
       end
     end
-    suggestions = search.suggestions.texts.map { |suggest| {:label => suggest , :value => suggest }}
-    suggestions += search.results.map{ |result| { :label => result.highlight["title.decomp"].first, :value => result.title} }
+    suggestions = search.suggestions.texts.map { |suggest|  suggest }
+    suggestions += search.results.map{ |result|  result.title }
+    return { query: query.q, suggestions: suggestions }
   end
 
 

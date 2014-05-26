@@ -23,7 +23,7 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.autocomplete
+
 //= require jquery.ui.accordion
 
 //= require qtip2-jquery-rails
@@ -47,7 +47,8 @@
 //= require vendor/jquery.icheck
 //= require vendor/jquery.colorbox
 //= require vendor/jquery.truncator
-//= require vendor/imagesloaded.pkgd
+//= require vendor/jquery.autocomplete
+
 
 //= require models/article/categories
 //= require models/article/search_input
