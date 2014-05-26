@@ -175,6 +175,7 @@ class ArticleSearchForm
   def category_collection
     categories = Category.other_category_last.sorted.roots.to_a
     categories.push(Category.find(self.category_id)) if self.category_id && self.category_id != ''
+    categories
   end
 
   def format_price_range
