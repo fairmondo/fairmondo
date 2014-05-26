@@ -1,3 +1,3 @@
 $(".Search").replaceWith("<%= j(render 'articles/shared/search_results', articles: articles) %>")
 $("#js-search-params").replaceWith("<%= j(render("/layouts/partials/header_search")) %>")
-if ( history.pushState ) history.pushState( {}, document.title, "<%=request.original_url.html_safe %>");
+if ( history.pushState ) history.pushState( {}, document.title, "<%= articles_path(article_search_form: search_cache.keep) %>");
