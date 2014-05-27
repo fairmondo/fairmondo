@@ -242,7 +242,7 @@ de:
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
-          newsletter: "Den Text hierfür liefert Anna noch nach."
+          newsletter: "Mit unserem Newsletter erhältst Du Produktempfehlungen und Informationen zu Themen wie Nachhaltigkeit und bewusstem Konsum. Der Newsletter erscheint einmal im Monat."
         create: *new_user
         edit: &edit_user
           image: "Lade ein Foto(max. 2MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
