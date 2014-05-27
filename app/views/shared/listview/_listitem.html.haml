@@ -24,7 +24,7 @@
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
     - if business_transaction && business_transaction.rating
       .Listview-rating
-        %img{ :src => image_path("thumbs/#{business_transaction.rating_value}.png"), :alt => "thumb" }
+        %span{class: "sprite_#{business_transaction.rating_value}_small" }
   .Listview-details
     .Listview-title
       = link_to  article_path(article), :title => article.title do
