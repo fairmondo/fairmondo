@@ -16,8 +16,8 @@
         = image.input :image, as: :file, required: false
 
     = f.input :feedback_subject, as: :select, required: true, include_blank: true
-
+  .captacha
     = render '/shared/recaptcha'
 
   = f.actions do
-    = f.action :submit, label: t('feedback.actions.send_feedback'), button_html: {class: "Btn"}
+    = f.action :submit, label: t('feedback.actions.send_feedback'), button_html: {class: "Button"}

@@ -84,14 +84,14 @@
             = t 'transaction.edit.terms'
           .scrollbox
             = resource.article_seller_terms
-          = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Btn', target: '_blank'
+          = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'terms'), class: 'Button', target: '_blank'
 
         #cancellation
           %h4
             = t 'transaction.edit.cancellation'
           .scrollbox
             = resource.article_seller_cancellation
-          = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Btn', target: '_blank'
+          = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Button', target: '_blank'
 
         = f.inputs do  
           = f.input :tos_accepted

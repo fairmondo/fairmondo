@@ -48,3 +48,7 @@ a.Button {
   float:left;
 }
 
+.Button--disabled {
+  cursor: default;
+  background-color: $gray;
+}
