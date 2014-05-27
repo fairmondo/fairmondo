@@ -23,6 +23,8 @@
 - meta_description truncate_and_sanitize_without_linebreaks resource.content, 160
 - meta_keywords resource.categories.map{|c| c.self_and_ancestors.map(&:name) }.flatten.join(",")
 
+- unless resource.active?
+  %h1= t('article.titles.preview')
 .breadcrumbs
   - resource.categories.each do |leaf|
     = breadcrumbs_for(leaf).html_safe

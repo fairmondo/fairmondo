@@ -86,7 +86,7 @@
             %td
               = resource.article_seller_phone
     %p
-      = link_to t("transaction.actions.print_order.buyer"), print_order_buyer_business_transaction_path( resource ), class: 'Btn', target: '_blank', locals: { t: resource }
+      = link_to t("transaction.actions.print_order.buyer"), print_order_buyer_business_transaction_path( resource ), class: 'Button', target: '_blank', locals: { t: resource }
 
   - else
     = render 'show_order_data', business_transaction: resource
