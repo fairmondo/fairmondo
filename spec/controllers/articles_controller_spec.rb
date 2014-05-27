@@ -59,6 +59,21 @@ describe ArticlesController do
        get :index, article_search_form: {q: "meer" , :search_in_content => "1"}
        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@second_hand_article].map(&:id)
       end
+      
+      it "should find the article with price 1 when filtering <= 1" do
+        get :index, article_search_form: { price_to: "0,01" }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article].map(&:id)
+      end
+      
+      it "should find the article with price 4 when filtering >= 4" do
+        get :index, article_search_form: { price_from: "0,04" }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article].map(&:id)
+      end
+      
+      it "should find the article with price 2 and 3 when filtering >= 2 <= 3" do
+        get :index, article_search_form: { price_to: "0,03" , price_from: "0,02" }
+        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article].map(&:id)
+      end
 
       context "when trying a different search order" do
 
@@ -108,52 +123,7 @@ describe ArticlesController do
         end
 
 
-        # it "order by condition old" do
-        #   search_params = { article_search_form: {order_by: "old", category_id: @hardware_category.id} }
-        #   get :index, search_params
-        #   response.should redirect_to category_path @hardware_category.id, search_params
-        #   #controller.instance_variable_get(:@category).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
-        # end
-
-        # it "order by condition new" do
-        #   search_params = { article_search_form: {order_by: "new", category_id: @hardware_category.id} }
-        #   get :index, search_params
-        #   response.should redirect_to category_path @hardware_category.id, search_params
-        #   # controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article].map(&:id)
-        # end
-
-        # it "order by fair" do
-        #   search_params = { article_search_form: {order_by: "fair", category_id: @hardware_category.id} }
-        #   get :index, search_params
-        #   response.should redirect_to category_path @hardware_category.id, search_params
-        #   # controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
-        # end
-
-        # it "order by ecologic" do
-        #   search_params = { article_search_form: {order_by: "ecologic", category_id: @hardware_category.id} }
-        #   get :index, search_params
-        #   response.should redirect_to category_path @hardware_category.id, search_params
-        #   # controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
-        # end
-
-        # it "order by small_and_precious" do
-        #   search_params = { article_search_form: {order_by: "small_and_precious", category_id: @hardware_category.id} }
-        #   get :index, search_params
-        #   response.should redirect_to category_path @hardware_category.id, search_params
-        #   # controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
-        # end
-
-        # it "order by price desc" do
-        #   get :index, article_search_form: {order_by: "most_expensive"}
-        #   controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].reverse.map(&:id)
-        # end
-
-        # it "order by friendly_percent desc" do
-        #   search_params = { article_search_form: {order_by: "most_donated", category_id: @hardware_category.id} }
-        #    get :index, search_params
-        #    response.should redirect_to category_path @hardware_category.id, search_params
-        #    # controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article,@no_second_hand_article].map(&:id)
-        # end
+       
       end
 
       context "when filtering by categories" do
