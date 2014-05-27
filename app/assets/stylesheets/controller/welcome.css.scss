@@ -22,6 +22,7 @@
   }
 
   .teaser-queue {
+    margin-bottom:1em;
     @include at-breakpoint($bp-mobile-horizontal) {
       @include span(2 of 4);
       &:last-child {
