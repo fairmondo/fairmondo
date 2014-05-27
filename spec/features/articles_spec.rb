@@ -367,14 +367,14 @@ describe 'Article management' do
       it "should show fair-alternativebox if seller is not on the whitelist" do
           $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = []
           visit article_path @article_conventional
-           page.assert_selector('div.Related')
+           page.assert_selector('div.fair_alternative')
 
        end
 
      it  "should not show fair-alternativebox if seller is on the whitelist" do
           $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = [@seller.id]
           visit article_path @article_conventional
-          page.assert_no_selector('div.Related')
+          page.assert_no_selector('div.fair_alternative')
       end
 
       it "should be accessible" do
@@ -418,26 +418,7 @@ describe 'Article management' do
         end
       end
 
-      describe "-> pagination for libraries"  do
-        it "should show selector div.pagination" do
-          30.times do
-            lib = FactoryGirl.create :library, :user => user, :public => true
-            FactoryGirl.create :library_element, :article => article_active, :library => lib
-          end
-
-          visit article_path article_active
-
-          page.assert_selector('div.pagination')
-        end
-      end
-      # it "should have a different title image with an additional param" do
-      #   new_img = FactoryGirl.create :image
-      #   @article.images <<
-      #   @article.save
-
-      #   Image.should_receive(:find).with(new_img.id.to_s)
-      #   visit article_path @article, image: new_img
-      # end
+     
     end
   end
 end

@@ -123,7 +123,7 @@ describe "Library Elements" do
       article = FactoryGirl.create :article
       visit article_path(article)
 
-      click_button I18n.t 'common.actions.collect'
+      click_link I18n.t 'library.default'
       page.should have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
 
       visit user_libraries_path @user
