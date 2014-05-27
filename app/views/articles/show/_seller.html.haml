@@ -29,7 +29,7 @@
         .other_article
           = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug)
     
-      = link_to t('common.text.more'), resource.seller, :class => "Button"
+    = link_to t('article.actions.show_user'), resource.seller, :class => "Button"
   - if @libraries.count > 0
     -# Libraries Box
     = accordion_item "libraries", :title => t('article.titles.libraries') do
