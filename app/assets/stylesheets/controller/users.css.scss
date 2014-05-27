@@ -88,12 +88,15 @@
   text-align: center;
 }
 
-.article_templates {
+.article_templates,.mass_uploads-table {
   th {
     border-bottom: lightgray solid 1px;
+    padding:0.5em;
   }
   
   td {
     padding:0.5em;
   }
 }
+
+
