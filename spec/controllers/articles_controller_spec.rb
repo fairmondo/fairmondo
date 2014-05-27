@@ -161,7 +161,7 @@ describe ArticlesController do
         it "should redirect to the category specific search" do
           search_params = { article_search_form: { category_id: @hardware_category.id } }
           get :index, search_params
-          response.should redirect_to category_path @hardware_category.id
+          response.should redirect_to category_path(@hardware_category.id, article_search_form: {})
         end
       end
     end
@@ -445,7 +445,7 @@ describe ArticlesController do
     it "should be successful" do
       get :autocomplete, q: 'chunky'
       response.status.should be 200
-      response.body.should eq [{label:"<b>chunky</b> bacon",value:"chunky bacon"}].to_json
+      response.body.should eq({ query: 'chunky', suggestions: ['chunky bacon'] }.to_json)
     end
 
     it "should rescue an ECONNREFUSED error" do

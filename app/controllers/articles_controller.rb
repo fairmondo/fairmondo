@@ -188,7 +188,8 @@ class ArticlesController < InheritedResources::Base
 
     def category_specific_search
       if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
-        redirect_to category_path params[:article_search_form][:category_id], params
+        category_id = params[:article_search_form].delete(:category_id)
+        redirect_to category_path(category_id, params)
       end
     end
 
