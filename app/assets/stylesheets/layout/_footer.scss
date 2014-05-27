@@ -4,12 +4,16 @@
   margin-bottom: -($footer-height);
 }
 
-
 .l-footer {
   background: $sand;
   height: $footer-height;
   margin-top: -$footer-height;
   clear:both;
+}
+
+@include till-breakpoint($bp-mobile) {
+  .l-wrapper {margin-bottom: 0;}
+  .l-footer { height:auto; margin-top:0; padding-bottom: 1em;}
 }
 
 .l-footer-top, .l-footer-bottom {
