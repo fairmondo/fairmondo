@@ -35,27 +35,18 @@
   }
 }
 
-// Sidebar Categories
+// smartphone dropdowns
 
-.Search-categories {
-  @include whitebox;
-  padding: 0; // counteract whitebox
-  margin-bottom: 1em;
-}
-
-.Search-categories > .Search-heading {
+.Search-heading {
   margin:0;
   padding: em(8) em(18);
   &:hover {
     background: $lightest-gray;
   }
   //font-size: 1rem; would be an option
-  @include at-breakpoint($bp-tablet-horizontal) {
-    display: none;
-  }
 }
 
-.Search-categories > .Search-heading > .Search-arrow {
+.Search-heading > .Search-arrow {
   float: right;
   &.sprite_down_arrow {
     display: inline-block;
@@ -68,6 +59,21 @@
     &.is-active {
       display: inline-block;
     }
+  }
+}
+
+
+// Sidebar Categories
+
+.Search-categories {
+  @include whitebox;
+  padding: 0; // counteract whitebox
+  margin-bottom: 1em;
+}
+
+.Search-categories > .Search-heading {
+  @include at-breakpoint($bp-tablet-horizontal) {
+    display: none;
   }
 }
 
@@ -144,11 +150,46 @@
   margin-right: 2.5em;
 }
 
-.Search-filters > .Search-filter {
+.Search-filter-button {
+  @include whitebox;
+  padding:0;
+  margin-bottom:1em;
+}
 
-  @include span(1 of 5 0.05);
-  &:nth-child(5) {
-    @include omega;
+.Search-filter-wrapper > .Search-filter-button {
+  @include at-breakpoint($bp-mobile-horizontal) {
+    display: none;
+  }
+}
+
+.Search-filter-container {
+  @include till-breakpoint($bp-mobile-horizontal) {
+    display: none;
+    &.is-active {
+      display:block;
+    }
+  }
+}
+
+.Search-filters > .Search-filter {
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
+    @include grid-with-columns(3);
+    &:nth-child(3) .is-active{
+      right: 0em;
+      left: inherit;
+      
+    }
+  }
+  @include at-breakpoint($bp-tablet) {
+    @include span(1 of 5 0.05);
+    &:nth-child(5) {
+      @include omega;
+      .is-active {
+        right: 0em;
+        left: inherit;
+      }
+    }
+    
   }
 }
 
@@ -156,6 +197,8 @@
   position: relative;
   margin-bottom: 1em;
 }
+
+
 
 .Search-additional {
   width: 2em;
@@ -212,9 +255,9 @@
   }
 }
 
-.Search-additional > .Search-filter .is-active, .Search-filters > .Search-filter:last-child .is-active {
-  right: 0em;
-  left: inherit;
+.Search-additional > .Search-filter .is-active, {
+    right: 0em;
+    left: inherit;
 }
 
 a.Search-colored-link {
