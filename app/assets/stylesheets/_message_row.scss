@@ -26,7 +26,6 @@
     }
   }
   a {
-    @include rem(font-size, 25px);
     color: $darkgray;
     &:active, &:hover, &:focus {
       color: $darkgray;
@@ -36,9 +35,3 @@
     }
   }
 }
-
-
-
-
-
-
