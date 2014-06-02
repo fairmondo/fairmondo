@@ -27,7 +27,7 @@
     .other_articles
       - ActiveUserArticles.new(resource.seller).find_some.each do |other_article|
         .other_article
-          = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug)
+          = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug),title: other_article.title
 
     = link_to t('article.actions.show_user'), resource.seller, :class => "Button"
   - if resource.libraries.where(:public => true).any?
