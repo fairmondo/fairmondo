@@ -10,7 +10,7 @@
           .feature-inner
             %h2
               = link_to "BESTSELLER", library_path(lib[:library])
-            .Grid.Grid--quadruple
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
@@ -21,7 +21,7 @@
           .feature-inner
             %h2
               = link_to "NEUIGKEITEN", library_path(lib[:library])
-            .Grid.Grid--quadruple
+            .Grid
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
