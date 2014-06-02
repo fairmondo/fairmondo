@@ -197,7 +197,6 @@ class ProcessRowMassUploadWorker
     def process  article, mass_upload_article
       Article.transaction do
         MassUploadArticle.transaction do
-      
           case article.action
           when :activate, :create, :update
             article.calculate_fees_and_donations

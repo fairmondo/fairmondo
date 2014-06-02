@@ -19,12 +19,12 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.fairnopoly-well
+.Content
   %h2= t('devise.reset.title')
   = semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
     = f.semantic_errors
     = f.inputs do
       = f.input :email
     = f.actions do
-      = f.action :submit, :button_html => {:class => "Btn Btn-primary", :value => t('devise.reset.request')}
+      = f.action :submit, :button_html => {:class => "Button", :value => t('devise.reset.request')}
   = render "links"
