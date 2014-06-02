@@ -34,7 +34,7 @@
         = f.input :rating, :as => :plain_radio, :wrapper_html => {:class => "rating-choice"}, :label => false, :collection => { content_tag(:span, class: "sprite_positive"){} => "positive", content_tag(:span, class: "sprite_neutral"){} => "neutral",  content_tag(:span, class: "sprite_negative"){} => "negative" }
       = f.inputs do
         = f.input :text, :label => t('rating.create.comment')
-    
+
       = f.actions do
         = f.action :submit , :button_html => {:class => "Button" }, :label => t('rating.create.save')
 .article

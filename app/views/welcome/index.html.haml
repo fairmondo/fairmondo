@@ -115,11 +115,11 @@
   .teaser-inner
     %h2
       = tinycms_content_body_sanitized("heading_features2").upcase
-    
+
     - @queue3[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
-       
+
 
 .teaser.teaser--double
   .teaser-inner.teaser--center

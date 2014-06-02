@@ -71,15 +71,15 @@ module ArticlesHelper
  def options_format_for type, method
     if resource.send("#{type}_#{method}")
       html = '<li>'
-      
+
       if method == 'type1' || method == 'type2'
         html << resource.send("#{type}_#{method}_provider")
       else
-        html << t("formtastic.labels.article.#{type}_#{method}") 
+        html << t("formtastic.labels.article.#{type}_#{method}")
       end
-      
+
       price_method = "#{type}_#{method}_price"
-      
+
       if resource.respond_to?(price_method.to_sym)
         html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
       else

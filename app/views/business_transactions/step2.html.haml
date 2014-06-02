@@ -32,9 +32,9 @@
 - country  = params["business_transaction"]["country"]
 
 .Content
- 
+
   = render 'article_display'
-  
+
   = semantic_form_for resource, html: { class: 'transactions-form js-visual-submit' } do |f|
     = f.inputs do
       = f.hidden_field :selected_transport, value: selected_transport
@@ -49,8 +49,8 @@
       = f.hidden_field :zip, value: zip
       = f.hidden_field :country, value: country
 
-    
-     
+
+
     %h3
       = t 'transaction.edit.address'
     %p.address
@@ -93,13 +93,13 @@
             = resource.article_seller_cancellation
           = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Button', target: '_blank'
 
-        = f.inputs do  
+        = f.inputs do
           = f.input :tos_accepted
 
     .message
       %h4
         = t 'transaction.edit.message'
-      = f.inputs do  
+      = f.inputs do
         = f.input :message, label: false, input_html: { rows: 3 }
 
     .purchase_data
@@ -112,7 +112,7 @@
 
       %h3
         = I18n.t 'transaction.edit.purchase_data'
-      
+
       %table
         %colgroup
           %col{width: 150}
@@ -124,9 +124,9 @@
         = display_transport_provider_for selected_transport
 
       = display_optional_warning selected_transport, selected_payment
-      
+
       = link_to( t( 'transaction.edit.sec_warning_link' ), anchor: 'security_warning' )
-    .price_data 
+    .price_data
       %h3
         = I18n.t 'transaction.edit.price_heading'
 
@@ -162,9 +162,9 @@
           %col{width: 220}
           %col{width: 300}
         = display_number_of_shipments selected_transport, quantity
-  
+
         = display_transport_price selected_transport, quantity
-  
+
         = display_cash_on_delivery_price selected_transport, selected_payment, quantity
 
     %h2
@@ -172,9 +172,9 @@
     = f.actions do
       = f.action :submit, label: t('transaction.actions.purchase'), button_html: { class: 'Button'}
       = back_link quantity, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
-    
-    
-    
+
+
+
     = simple_format t('transaction.edit.long_security_warning'), class: "warning warning--small", id: "security_warning"
 
     - if ['type1', 'type2'].include?( selected_transport ) && quantity > 1

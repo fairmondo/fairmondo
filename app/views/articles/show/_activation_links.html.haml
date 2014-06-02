@@ -51,7 +51,7 @@
     %dt
       = "* " << t('article.preview.fees_and_donations.netto')
       = humanized_money_with_symbol resource.calculated_fees_and_donations_netto
-    
+
     - if !resource.seller.ngo
       %dt
         / = t('article.preview.fees_and_donations.quarter_fee')

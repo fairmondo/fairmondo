@@ -21,5 +21,5 @@ class ActiveUserArticles
     rescue
       @user.articles.includes(:images).where(:state => 'active').page(page).per(per)
     end
-    
+
 end
