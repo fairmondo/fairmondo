@@ -202,3 +202,10 @@
   }
 
 }
+
+.category-dropdown { 
+  @include at-breakpoint($bp-tablet-horizontal) {
+    display:none; 
+  }
+}
+  

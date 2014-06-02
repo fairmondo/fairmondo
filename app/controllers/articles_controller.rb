@@ -51,10 +51,7 @@ class ArticlesController < InheritedResources::Base
 
   def show
     authorize resource
-    
-    @other_articles = ActiveUserArticles.new(resource.seller).find_some
-    @libraries = resource.libraries.where(:public => true).limit(10)
-    
+
     if !resource.active? && policy(resource).activate?
       resource.calculate_fees_and_donations
     end
