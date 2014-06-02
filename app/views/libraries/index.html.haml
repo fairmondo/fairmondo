@@ -41,7 +41,7 @@
           - if policy(library).destroy?
             = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Button Button--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
         .visibility
-          - if policy(library).update? 
+          - if policy(library).update?
             - if library.public?
               = t 'library.visibility.public'
             - else

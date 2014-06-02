@@ -25,18 +25,18 @@
 .Accordion.Accordion--scrollToActive
   = accordion_item "other_articles", :title => t('article.titles.other-products') do
     .other_articles
-      - @other_articles.each do |other_article|
+      - ActiveUserArticles.new(resource.seller).find_some.each do |other_article|
         .other_article
           = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug)
-    
+
     = link_to t('article.actions.show_user'), resource.seller, :class => "Button"
-  - if @libraries.count > 0
+  - if resource.libraries.where(:public => true).any?
     -# Libraries Box
     = accordion_item "libraries", :title => t('article.titles.libraries') do
       .related_libraries
-        - @libraries.each do |library|
+        - resource.libraries.where(:public => true).limit(10).each do |library|
           .related_library
-            .profile_image 
+            .profile_image
               = link_to image_tag(library.user.image_url(:profile)), library
             .details
               = link_to library.name, library
