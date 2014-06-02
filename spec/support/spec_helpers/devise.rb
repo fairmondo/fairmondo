@@ -20,5 +20,11 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 RSpec.configure do |config|
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
+  config.include ControllerHelpers, type: :controller
+
+  config.before(:each, type: :controller) do
+    allow_message_expectations_on_nil
+    sign_in nil #logout by default
+  end
 end

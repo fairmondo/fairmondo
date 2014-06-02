@@ -19,6 +19,7 @@ de:
         password: "Passwort"
         password_confirmation: "Passwort bestätigen"
         agecheck: "Ich bin mindestens 18 Jahre alt."
+        newsletter: "Ich möchte mich für den Newsletter anmelden."
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
@@ -192,6 +193,8 @@ de:
       article_search_form:
         search_in_content: "suche in Artikelbeschreibung"
         zip: "PLZ"
+        price_from: 'Startpreis'
+        price_to: 'Endpreis'
     input_steps:
       user: &input_step_user
         account: Benutzerkonto
@@ -239,6 +242,7 @@ de:
           nickname: "Diesen Namen sehen auch andere Nutzer*innen."
           password: "Für die Sicherheit Deines Accounts ist es sicherer Zahlen und Großbuchstaben im Passwort zu integrieren."
           password_confirmation: "Wiederhole Dein gewünschtes Passwort."
+          newsletter: "Mit unserem Newsletter erhältst Du Produktempfehlungen und Informationen zu Themen wie Nachhaltigkeit und bewusstem Konsum. Der Newsletter erscheint einmal im Monat."
         create: *new_user
         edit: &edit_user
           image: "Lade ein Foto(max. 2MB) von Deinem Computer hoch, das dann für alle Nutzer*innen sichtbar ist."
@@ -249,6 +253,7 @@ de:
           paypal_account: "Trage hier Deine für PayPal genutzte E-Mail-Adresse ein (auch PayPal ID genannt)."
           iban: "Trage hier die IBAN ohne Leerzeichen ein."
           bic: "Trage hier den BIC ohne Leerzeichen ein."
+          newsletter: "Den Text hierfür liefert Anna noch nach."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
@@ -256,6 +261,8 @@ de:
         <<: *tooltips_user
       legal_entity:
         <<: *tooltips_user
+      article_search_form:
+        zip: 'Trage hier eine Postleitzahl ein um regional zu suchen. Du kannst auch nur den ersten Teil einer PLZ eingeben.'
       article:
         title:  "Wähle eine Bezeichnung, die es anderen Nutzer*innen leicht macht, Deinen Artikel zu finden."
         category_ids: "Bitte wähle bis zu 2 Kategorien, in die Dein Artikel eingestellt wird."
@@ -267,7 +274,7 @@ de:
         small_and_precious: "Unter diesen Filter fallen Artikel von kleineren Anbietern/Produzenten, die mit Fokus auf besondere Qualität hergestellt wurden. Dafür sind detaillierte Angaben erforderlich, die ggf. von uns oder den Nutzer*innen geprüft werden. Mehr dazu in den %{href}"
         small_and_precious_href: "FAQ"
         small_and_precious_eu_small_enterprise: 'Die EU-Kommission klassifiziert als Kleinst- oder Klein-Unternehmen: <50 Mitarbeiter*innen, max. 10 Millionen € Umsatzerlöse bzw. Bilanzsumme. Werden die Artikel nicht durch den*die Produzent*in selbst vertrieben, müssen sowohl Produzent*innen als auch Anbieter*innen ein Kleinst- oder Klein-Unternehmen sein.'
-        fair_trust_questionnaire: 'fairtrust richtet sich an Verkäufer*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
+        fair_trust_questionnaire: 'fairtrust richtet sich an Anbieter*innen fair produzierter Artikel, die über kein Siegel verfügen. Durch das Ausfüllen eines Fragenkatalogs kannst Du den Filter "fair" erhalten.'
         save_as_template: "Vorlagen sind jederzeit im Profil abrufbar und erleichtern das Einstellen gleicher oder ähnlicher Artikel. "
         social_producer_questionnaire: >
                     Es muss mindestens eine der Fragen 1-3 mit ja beantwortet werden und dann mit zusätzlichen Angaben ergänzt werden.
@@ -284,9 +291,9 @@ de:
         basic_price_amount: Gib hier die Mengeneinheit des Grundpreises an.
 
         transport: >
-          Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+          Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein*e gewerbliche(r) Anbieter*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         payment: >
-          Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein gewerbliche(r) Verkäufer*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
+          Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein*e gewerbliche(r) Anbieter*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         transport_type1_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         transport_type2_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
@@ -308,5 +315,6 @@ de:
       template_select:
         submit: "Vorlage übernehmen"
       # Login
-      login: "Login"
+      login: "Anmelden"
       sign_up: "Registrieren"
+      filter: 'Übernehmen'

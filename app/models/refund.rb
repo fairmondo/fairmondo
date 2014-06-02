@@ -3,10 +3,6 @@ class Refund < ActiveRecord::Base
   extend Sanitization
   extend Tokenize
 
-  def self.refund_attrs
-    [ :reason, :description ]
-  end
-
   belongs_to :business_transaction
 
   validates :reason, presence: true

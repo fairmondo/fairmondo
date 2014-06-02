@@ -31,20 +31,22 @@ gem 'virtus'
 
 gem 'haml'
 gem 'json'
+gem 'nokogiri'
 gem 'enumerize', '>= 0.5.1'
 gem 'money-rails'
+gem 'monetize'
 gem 'state_machine' # State Machines in Rails
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem 'amoeba'
 gem 'sanitize' # Parser based sanitization
-
+gem 'arcane' # Parameter management for strong_parameters
+gem 'canonical-rails' # canonical view links
 
 # Indexing /Searching
 gem "tire"
 
 # Sidekiq
-
 gem 'sidekiq'
 
 gem 'sinatra', '>= 1.3.0', :require => nil
@@ -61,7 +63,8 @@ gem 'delayed_paperclip'
 # Controller Gems
 gem 'devise' # authentication
 gem 'inherited_resources' # dry controllers
-gem "pundit" # authorization
+gem 'pundit' # authorization
+gem 'kaminari'
 
 # Support for memoization
 gem 'memoist'
@@ -80,30 +83,31 @@ gem 'peek-rblineprof'
 gem 'peek-sidekiq'
 
 
-
-
 # KontoAPI checks bank data
 gem 'kontoapi-ruby'
 #KntNr to IBAN
 gem 'ibanomat'
 
-
 # Gem for connecting to FastBill Automatic
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
+# interacing with other SOAP apis:
+gem 'savon'
 
-# Gems used only for assets and not required
-# in production environments by default.
+# Redirects
+gem 'rack-rewrite'
+
 
  # CSS
-gem 'sass-rails'
+gem 'susy' ,'~> 2.1.1' # Grid framework is susy
+gem 'bourbon' # easy ccs3
 gem "font-awesome-rails"
-gem "susy" , "~>1.0.9"
-gem "compass", "~> 0.13.alpha.12"
-gem 'compass-rails'
-gem 'sprockets', "2.11.0"
+gem 'sprite-factory'
+gem 'chunky_png'
+gem 'sprockets', '2.11.0' #https://github.com/sstephenson/sprockets/issues/537
 
 # JS
 gem 'jquery-ui-rails'
+gem 'qtip2-jquery-rails', '~> 2.1.107'
 gem 'i18n-js'
 gem 'coffee-rails'
 gem 'therubyrhino'

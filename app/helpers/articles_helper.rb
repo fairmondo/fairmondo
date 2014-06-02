@@ -25,7 +25,7 @@ module ArticlesHelper
   # Conditions
   def condition_label article
     condition_text = t("enumerize.article.condition.#{article.condition}")
-    "<span class=\"Btn Btn-tag Btn-tag--gray\">#{condition_text}</span>".html_safe
+    "<span class=\"Tag Tag--gray\">#{condition_text}</span>".html_safe
   end
 
   # Build title string
@@ -48,7 +48,7 @@ module ArticlesHelper
     category.self_and_ancestors.each do |c|
       last = c == category
       output += '<span>'
-      output += "<a href=\"#{articles_path(article_search_form: {category_id: c.id })}\" class=\"#{(last ? 'last' : nil )}\">"
+      output += "<a href='#{category_path(c)}' class='#{(last ? 'last' : nil )}'>"
       output += c.name
       output += '</a>'
       output += '</span>'
@@ -58,73 +58,41 @@ module ArticlesHelper
     output
   end
 
-  def libraries
-    resource.libraries.where(:public => true).page(params[:page]).per(10)
-  end
-
-  def active_seller_articles
-    seller = resource.seller
-    articles = Article.search(:page => params[:page],:per_page => 18) do
-      query { all }
-      filter :term, :seller => seller.id
-    end
-  rescue
-    seller.articles.includes(:images).where(:state => "active").page(params[:page]).per(18)
-  end
-
-   def transport_format_for method, css_classname=""
+  def transport_format_for method
     type = "transport"
-    options_format_for type, method, css_classname
+    options_format_for type, method
   end
 
-  def payment_format_for method, css_classname=""
+  def payment_format_for method
     type = "payment"
-    options_format_for type, method, css_classname
+    options_format_for type, method
   end
 
-  def options_format_for type, method, css_classname
-    if resource.send(type + "_" + method)
-      html = "<li class= "+ css_classname +" >"
-
-      if method == "type1" || method == "type2"
-        html << resource.send(type + "_" + method + "_provider" ) + " "
+ def options_format_for type, method
+    if resource.send("#{type}_#{method}")
+      html = '<li>'
+      
+      if method == 'type1' || method == 'type2'
+        html << resource.send("#{type}_#{method}_provider")
       else
-        html << t('formtastic.labels.article.'+ type +'_'+ method)+ " "
+        html << t("formtastic.labels.article.#{type}_#{method}") 
+      end
+      
+      price_method = "#{type}_#{method}_price"
+      
+      if resource.respond_to?(price_method.to_sym)
+        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
+      else
+        html << ' (kostenfrei)'
       end
 
-      attach_price = type + "_" + method+"_price"
-
-      if resource.respond_to?(attach_price.to_sym)
-        html << "zzgl. "
-        html << humanized_money_with_symbol(resource.send(attach_price))
-      else
-         html << "(kostenfrei)"
-      end
-
-      if type == "transport" && method == "pickup"
+      if type == 'transport' && method == 'pickup'
         html << ", <br/>PLZ: #{resource.seller.zip}"
       end
 
-      html <<"</li>"
+      html << '</li>'
       html.html_safe
     end
-  end
-
-  def build_category_table children, columns = 2
-    last = children.count - 1
-    last_in_column = columns - 1
-
-    output = "<table class='Category-dropdown-children Category-dropdown-children--columns-#{columns}'>"
-    children.each_with_index do |child, index|
-      output += '<tr>' if index % columns == 0
-      output +=   '<td>'
-      output +=     "<a href='#{articles_path(article_search_form: {category_id: child.id})}'>"
-      output +=       child.name
-      output +=     '</a>'
-      output +=   '</td>'
-      output += '</tr>' if (index % columns) == last_in_column or index == last
-    end
-    output += '</table>'
   end
 
   def default_organisation_from organisation_list

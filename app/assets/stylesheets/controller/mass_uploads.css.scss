@@ -1,0 +1,66 @@
+@import "mixins/all";
+
+.mass_upload_form {
+  margin-top:1em;
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .results { @include span(3 of 4 0.1); }
+  .mass_activation { @include span(1 of 4 0.1);
+                      @include omega; }
+}
+
+@include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+  .results { @include span(2 of 3 0.1); }
+  .mass_activation { @include span(1 of 3 0.1);
+                      @include omega; }
+}
+
+// activation links
+
+.activation_links {
+  @include whitebox;
+  text-align: center;
+  padding:0;
+  
+  h3 {
+    padding:0.5em 3em;
+  }
+  
+  dl {
+    margin:0;
+  }
+  
+  dt {
+    color: $gray;
+    position: relative;
+    border-top: 1px solid $lighter-gray;
+    padding:0.5em 2.5em 0.5em;
+  }
+
+  dt,
+  dd {
+    margin:0;
+  }
+  
+  dd {
+    font-size:1.5em;
+    font-weight:600;
+    padding:0em 2.5em 0.5em;
+  }
+  
+  .total {
+    background-color: $green;
+    color: white;
+  }
+  
+  .sprite_helper{
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+  }
+}
+
+.activation_links > .activation {
+  padding: 0.5em 1.5em 1em;
+}

@@ -20,8 +20,9 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-%div{:class => "Notice--#{main_notice_mapper(type)}"}
-  .l-Inner
-    %a.Notice-close ×
+.Notice{:class => "Notice--#{main_notice_mapper(type)}"}
+  .Notice-inner
     = yield
+  %a.Notice-close
+    ×
 

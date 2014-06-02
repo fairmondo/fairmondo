@@ -1,0 +1,27 @@
+.NewsHeader {
+  background-color: $yellow;
+  box-shadow: 0 1px 1px $gray;
+  position: relative;
+}
+
+.NewsHeader-inner {
+  @include container($screen-width);
+  padding: 1em 0;
+  color: $dark-gray;
+  @include color-links($dark-gray,$black);
+  text-align: center;
+  p {
+    margin:0;
+    padding:0;
+  }
+}
+
+.NewsHeader-close {
+  cursor: pointer;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  color: $dark-gray;
+  @include clear-links;
+  @include user-select(none);
+}

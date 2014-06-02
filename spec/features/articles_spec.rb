@@ -222,9 +222,8 @@ describe 'Article management' do
       end
 
       it "should rescue an Errno::ECONNREFUSED" do
-        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
-        click_button 'Suche'
-        page.should have_content I18n.t 'article.titles.search_failure'
+        ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+        expect { click_button 'Suche' }.to_not raise_error
       end
 
     end
@@ -368,14 +367,14 @@ describe 'Article management' do
       it "should show fair-alternativebox if seller is not on the whitelist" do
           $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = []
           visit article_path @article_conventional
-           page.assert_selector('div.Related')
+           page.assert_selector('div.fair_alternative')
 
        end
 
      it  "should not show fair-alternativebox if seller is on the whitelist" do
           $exceptions_on_fairnopoly['no_fair_alternative']['user_ids'] = [@seller.id]
           visit article_path @article_conventional
-          page.assert_no_selector('div.Related')
+          page.assert_no_selector('div.fair_alternative')
       end
 
       it "should be accessible" do
@@ -395,7 +394,7 @@ describe 'Article management' do
       it "should display a buy button that forces a login" do #! will change after sprint
         visit article_path article
         click_link I18n.t 'common.actions.to_cart'
-        page.should have_content I18n.t 'common.actions.login'
+        page.should have_button I18n.t 'formtastic.actions.login'
       end
 
 
@@ -419,26 +418,7 @@ describe 'Article management' do
         end
       end
 
-      describe "-> pagination for libraries"  do
-        it "should show selector div.pagination" do
-          30.times do
-            lib = FactoryGirl.create :library, :user => user, :public => true
-            FactoryGirl.create :library_element, :article => article_active, :library => lib
-          end
-
-          visit article_path article_active
-
-          page.assert_selector('div.pagination')
-        end
-      end
-      # it "should have a different title image with an additional param" do
-      #   new_img = FactoryGirl.create :image
-      #   @article.images <<
-      #   @article.save
-
-      #   Image.should_receive(:find).with(new_img.id.to_s)
-      #   visit article_path @article, image: new_img
-      # end
+     
     end
   end
 end
@@ -462,22 +442,4 @@ describe "Article feature label buttons" do
       page.should have_link(I18n.t 'formtastic.labels.article.ecologic')
     end
   end
-end
-
-describe "Pioneer of the day" do
-  it "should be updatable by an admin" do
-    login_as FactoryGirl.create :admin_user
-
-    visit root_path
-    page.should_not have_link 'Foobar'
-
-    visit article_path FactoryGirl.create :article, title: 'Foobar'
-    #click_on '*Pionier*-Artikel'
-    select(I18n.t('enumerize.exhibit.queue.donation_articles'), from: 'exhibit_queue')
-    click_button I18n.t 'article.show.add_as_exhibit'
-
-    visit root_path
-    page.should have_link 'Foobar'
-  end
-
 end

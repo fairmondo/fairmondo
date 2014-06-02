@@ -1,0 +1,40 @@
+.l-footer-nav > .Feedback {
+  @include transform(rotate(-90deg));
+  @include transition(right 100ms ease-in);
+  @include clear-links;
+  @include color-links(white, $sand);
+  top: 50%;
+  position: fixed;
+  display:none;
+  height: 5rem;
+  @include at-breakpoint($bp-tablet) {
+    display: inline-block;
+
+    right: -12.3rem;
+    z-index: 99;
+
+  }
+}
+
+.Feedback-button {
+
+  &:hover {
+    margin-top: -2px;
+  }
+
+  &:hover {
+    background-color: lighten($blue, 5%);
+  }
+
+  background-color: $blue;
+  @include bubbleize;
+  @include buttonize;
+}
+
+.Feedback-button--green {
+  background-color: $green;
+  &:hover {
+    background-color: lighten($green, 5%);
+  }
+
+}

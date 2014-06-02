@@ -1,0 +1,68 @@
+@import "mixins/all";
+
+// rating #new
+
+.rating_form > .rating_form-inner {
+  @include whitebox;
+}
+
+.rating_form .rating-choice span{
+  vertical-align: middle;
+  
+}
+
+// rating #index
+
+.ratings > .rating > .profile {
+  img {width:100%;}
+}
+
+.ratings > .rating {
+  @include whitebox;
+  @include clearfix;
+  margin-bottom:1em;
+}
+
+// layouts and responsiveness
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .user { @include span(1 of 4 0.1); }
+  .rating_form { @include span(2 of 4 0.1); }
+  .article { @include span(1 of 4 0.1);
+             @include omega; }
+  .ratings { @include span(3 of 4 0.1);
+             @include omega; }
+}
+
+@include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+  .user { @include span(1 of 3 0.1); }
+  .rating_form { @include span(2 of 3 0.1); 
+                 @include omega; }
+  .article { @include span(1 of 3 0.1); }
+  .ratings { @include span(2 of 3 0.1);
+             @include omega; }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .rating_form .rating-choice .choice {
+    display:inline; 
+    margin-right:2em;
+  }
+}
+
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  .ratings > .rating > .image {
+    @include span(1 of 5 0.1);
+  }
+  
+  .ratings > .rating > .quote{
+    @include span(3 of 5 0.1);
+  }
+  
+  .ratings > .rating > .profile {
+    @include span(1 of 5 0.1);
+    @include omega;
+    
+  }
+}

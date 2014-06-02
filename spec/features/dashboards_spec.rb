@@ -49,13 +49,8 @@ describe 'Dashboard' do
       page.should have_content("Profil bearbeiten")
     end
 
-    it 'Buy link shows the Buy page' do
-      click_link I18n.t('common.text.buy')
-      page.should have_content I18n.t('enumerize.article.condition.new')
-    end
-
     it 'Sell link shows the Sell page', slow: true do
-      click_link I18n.t('common.text.sell')
+      click_link I18n.t('header.sell')
       page.should have_content I18n.t('formtastic.labels.article.title')
     end
 
@@ -69,7 +64,7 @@ describe 'Dashboard' do
     end
 
     it 'Profile link shows the profile page' do
-      click_link I18n.t('common.text.profile')
+      click_link I18n.t('header.profile')
       page.should have_content("Sammlungen")
     end
 

@@ -1,0 +1,88 @@
+$header-highlight-color: $sand;
+$header-nav-link-color-hover: $blue;
+
+// Peek fix
+#peek .wrapper {
+  width: $screen-width !important;
+}
+
+.l-header-top {
+  @include container($screen-width);
+  padding: 0.5em 1rem 0.3em;
+
+  @include at-breakpoint($bp-tablet) {
+    padding-left: $screen-padding;
+    padding-right: $screen-padding;
+  }
+}
+
+.l-header-bottom {
+  background: $header-highlight-color;
+  padding: 0.5em 0;
+}
+
+
+.l-header-logo,.l-header-nav  {
+  display: inline-block;
+  float:left;
+  span.sprite_logo {
+    display: block;
+    margin-right:2em;
+  }
+}
+
+.l-header-nav > ul {
+  list-style: none;
+  margin:0;
+  padding:0;
+  @include clear-links;
+  > li {
+    position: relative;
+    display: inline-block;
+    line-height: 2.5em;
+    margin-right: 0.5em;
+  }
+}
+
+.l-header-nav > ul > li > a {
+  @include till-breakpoint($bp-mobile) {
+    font-size: 0.9em;
+  }
+  color: $black;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  &:hover, &.is-active {
+    background: $lighter-gray;
+  }
+  &.is-active {
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+
+.l-header-nav-dropdown {
+  display: none;
+  @include color-links($black, $header-nav-link-color-hover);
+  position: absolute;
+  background: white;
+  border: 3px solid $lighter-gray;
+  z-index: 101;
+  min-width: 11em;
+  top: 2.3em;
+  padding: 0.4em 1.4em;
+  border-radius: 0 0.4em 0.4em;
+  line-height: 1.5em;
+}
+.l-header-nav-dropdown--login {
+  right: 0;
+  width: 17em;
+  @include at-breakpoint($bp-tablet) {
+    left: 0;
+  }
+}
+.l-header-nav-dropdown > li {
+  list-style-type: none;
+  line-height: 2em;
+}
+.l-header-nav-dropdown.is-active {
+  display: block;
+}

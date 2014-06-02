@@ -1,22 +1,22 @@
-.Fees.Import-fees
+.activation_links
   %h3
     = t('article.preview.fees_and_donations.mass_upload_title').html_safe
 
   %dl
     %dt
       = t('article.preview.fees_and_donations.total_fee_mass_upload')
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_mass_upload")}
+      %span.sprite_helper{:title => t("article.preview.tooltips.fees_mass_upload")}
     %dd
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees(articles)
     %dt
       = raw t('article.preview.fees_and_donations.mass_upload_fair_percent')
-      %i.icon-helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
+      %span.sprite_helper{:title => t("article.preview.tooltips.fees_and_donations_mass_upload")}
     %dd
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fair(articles)
-    %dt.is-green
+    %dt.total
       = t('article.preview.fees_and_donations.total_all_articles')
-      %i.icon-helper{title: t("mass_uploads.tooltips.total_fees_and_donations")}
-    %dd.is-green
+      %span.sprite_helper{title: t("mass_uploads.tooltips.total_fees_and_donations")}
+    %dd.total
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations(articles)
       = "*"
     %dt
@@ -24,9 +24,9 @@
       = humanized_money_with_symbol MassUpload::FeesAndDonations.calculate_total_fees_and_donations_netto(articles)
     %dt
       = t('article.preview.fees_and_donations.quarter_fee')
-
-  - if articles.all? { |article| article.state ==  "active" }
-    %a.Btn.avoid-click.Btn--red.Btn--redBig
-      = t("mass_uploads.labels.all_articles_activated")
-  - else
-    %a= button_to t("mass_uploads.labels.mass_activate_articles"), mass_upload_path(params[:id]), :class=>"Btn Btn--blue Btn--blueBig", :method => :put
+  .activation
+    - if articles.all? { |article| article.state ==  "active" }
+      %a.Button.Button--large.Button--disabled.Button--red
+        = t("mass_uploads.labels.all_articles_activated")
+    - else
+      %a= button_to t("mass_uploads.labels.mass_activate_articles"), mass_upload_path(params[:id]), :class=>"Button Button--large", :method => :put

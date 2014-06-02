@@ -21,16 +21,13 @@
  */
 
 $(function() {
-    function sources(request, response){
-	  	var params = {q: request.term};
-	  	return $.get(jQuery("#search_input").attr('data-autocomplete'), params, function(data){ response(data); }, "json");
-	}
+
   if ($( "#search_input" ).length != 0) {
-  	$( "#search_input" ).autocomplete({ source: sources }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        return $( "<li class=\"ui-menu-item\">" )
-          .append( "<a class=\"ui-corner-all\">" +  item.label + "</a>")
-          .appendTo( ul );
-      };
+  	$( "#search_input" ).autocomplete({
+  		serviceUrl: $("#search_input").data('autocomplete'),
+  		 paramName: 'q'
+  	});
+  		
   }
 
  });

@@ -1,0 +1,124 @@
+
+// Make all Buttons with the Button style stylish
+
+.formtastic button.Button, .formtastic input.Button, .formtastic input[type='submit']{
+   @include buttonize;
+   @include bubbleize;
+}
+
+// Have the labels on top
+
+.formtastic .input .label {
+   float: none;
+   width:auto;
+   margin-bottom: em(3,13);
+   color: $gray;
+}
+
+// No ident for form actions
+
+.formtastic .actions {
+  padding-left: 0;
+  margin-bottom: 1em;
+}
+
+
+// general input styles for stringish things
+
+input[type='search'] {
+  -webkit-appearance: none;
+}
+
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+textarea {
+  @include box-sizing(border-box);
+  @include bubbleize;
+  @include placeholder {
+    color: black;
+  }
+  border: 2px solid $light-gray;
+  font-size: inherit;
+  font-family: inherit;
+  color: black;
+  &:focus {
+    outline: 0;
+  }
+  @include placeholder {
+    color: $gray;
+  }
+
+}
+
+.formtastic textarea {
+  padding: 0.5em;
+}
+
+// Stringish inputs
+
+.formtastic .stringish input {
+  width:100%;
+}
+
+
+// Checkboxes and  Radios
+
+.formtastic .boolean label, .formtastic .choices-group label,  {
+   width:90%;
+   padding-left:2em;
+   position: relative;
+   .icheckbox {
+      position:absolute !important;
+      left: 0;
+   }
+   .iradio {
+     position:absolute !important;
+      left: 0;
+   }
+}
+
+.formtastic .choices .label {
+   position: static;
+   label {
+      position: static;
+   }
+}
+
+.formtastic .choices-group {
+   padding-left:0;
+}
+
+.formtastic .inline-errors {
+   margin:0.5em;
+}
+
+// Helper tooltip
+
+.formtastic .input{
+   position:relative;
+}
+
+span.sprite_helper {
+   display:inline-block;
+}
+
+.formtastic span.sprite_helper {
+   position: absolute;
+   top: 0.5em;
+   right:0.1em;
+   z-index: 100;
+}
+
+// TinyMce Fix {
+.mce-tinymce {
+   width:auto !important;
+   margin-right: 1px !important;
+}
+
+.formtastic .input .inline-hints {
+  margin: 0.5em 0 0 0;
+}

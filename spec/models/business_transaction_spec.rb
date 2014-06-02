@@ -95,17 +95,17 @@ describe BusinessTransaction do
         end
 
         it "should return true with valid params" do
-          r = business_transaction.edit_params_valid? "business_transaction" => valid_params
+          r = business_transaction.edit_params_valid? valid_params
           r.should be_true
         end
 
         it "should return false with invalid transport" do
-          r = business_transaction.edit_params_valid? "business_transaction" => valid_params.merge({"selected_transport" => "type1"})
+          r = business_transaction.edit_params_valid? valid_params.merge({"selected_transport" => "type1"})
           r.should be_false
         end
 
         it "should return false with invalid payment" do
-          r = business_transaction.edit_params_valid? "business_transaction" => valid_params.merge({"selected_payment" => "paypal"})
+          r = business_transaction.edit_params_valid? valid_params.merge({"selected_payment" => "paypal"})
           r.should be_false
         end
       end

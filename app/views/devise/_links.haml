@@ -26,15 +26,15 @@
   = link_to t('footer.newsletter'), 'http://50856.seu1.cleverreach.com/f/50856-127432/', target: '_blank'
   %br/
 - if devise_mapping.recoverable? && controller_name != 'passwords'
-  = link_to t('devise.links.forgot_password'), new_password_path(:user)
+  = link_to t('devise.links.forgot_password'), new_password_path(:user), class: 'remote-link'
   %br/
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
-  = link_to t('devise.links.confirmation_instruction'), new_confirmation_path(:user)
+  = link_to t('devise.links.confirmation_instruction'), new_confirmation_path(:user), class: 'remote-link'
   %br/
 - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-  = link_to t('devise.links.unlock_instruction'), new_unlock_path(:user)
+  = link_to t('devise.links.unlock_instruction'), new_unlock_path(:user), class: 'remote-link'
   %br/
 - if devise_mapping.omniauthable?
   - resource_class.omniauth_providers.each do |provider|
-    = link_to t('devise.links.sign_in_with'), omniauth_authorize_path(:user, provider)
+    = link_to t('devise.links.sign_in_with'), omniauth_authorize_path(:user, provider), class: 'remote-link'
     %br/

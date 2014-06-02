@@ -40,13 +40,15 @@ describe 'User management' do
     it "registers a new user" do
       visit new_user_registration_path
 
-      fill_in 'user_nickname',              with: 'nickname'
-      fill_in 'user_email',                 with: 'email@example.com'
-      fill_in 'user_password',              with: 'password'
-      fill_in 'user_password_confirmation', with: 'password'
-      choose 'user_type_legalentity'
-      check 'user_legal'
-      check 'user_agecheck'
+      within '.registrations-form' do
+        fill_in 'user_nickname',              with: 'nickname'
+        fill_in 'user_email',                 with: 'email@example.com'
+        fill_in 'user_password',              with: 'password'
+        fill_in 'user_password_confirmation', with: 'password'
+        choose 'user_type_legalentity'
+        check 'user_legal'
+        check 'user_agecheck'
+      end
       expect {click_button 'sign_up'}.to change(User, :count).by 1
     end
 
@@ -55,7 +57,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      click_button I18n.t('formtastic.actions.login')
 
       page.should have_content I18n.t 'devise.sessions.signed_in'
     end
@@ -67,7 +69,7 @@ describe 'User management' do
 
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Login'
+      click_button I18n.t('formtastic.actions.login')
 
       page.should have_content 'You are banned.'
       page.should_not have_content I18n.t 'devise.sessions.signed_in'
@@ -109,7 +111,7 @@ describe 'User management' do
 
       it 'should show the dashboard' do
         visit user_path user
-        page.should have_content I18n.t("common.text.profile")
+        page.should have_content I18n.t("header.profile")
       end
 
       it 'should not show the link to community' do
@@ -124,7 +126,6 @@ describe 'User management' do
 
         it "should show the correct data and fields" do
           visit edit_user_registration_path user
-
           # Heading
           page.should have_css "h1", text: I18n.t('common.actions.edit_profile')
 
@@ -199,6 +200,29 @@ describe 'User management' do
             user.about_me.should eq 'Foobar Bazfuz stuff and junk.'
 
             current_path.should eq user_path user
+          end
+
+          it "should add the user to the newsletter both locally and remotely" do
+            fixture = File.read("spec/fixtures/cleverreach_add_success.xml")
+            savon.expects(:receiver_add).with(message: :any).returns(fixture)
+
+            visit edit_user_registration_path user
+            check 'user_newsletter'
+            click_button I18n.t 'formtastic.actions.update'
+
+            user.reload.newsletter.should be_true
+          end
+
+          it "should remove the user from the newsletter both locally and remotely" do
+            fixture = File.read("spec/fixtures/cleverreach_remove_success.xml")
+            savon.expects(:receiver_delete).with(message: :any).returns(fixture)
+
+            user.update_column :newsletter, true
+            visit edit_user_registration_path user
+            uncheck 'user_newsletter'
+            click_button I18n.t 'formtastic.actions.update'
+
+            user.reload.newsletter.should be_false
           end
         end
 
@@ -304,17 +328,4 @@ describe 'User management' do
       end
     end
   end
-end
-
-describe "Pioneer of the day" do
-
-    let(:user) { FactoryGirl.create :private_user }
-    let(:article) { FactoryGirl.create :article, :user_id => user.id }
-
-    it "should show the article if exhibited" do
-      FactoryGirl.create(:exhibit, :article => article)
-      visit root_path
-      page.should have_css '.Articles-title'
-    end
-
 end

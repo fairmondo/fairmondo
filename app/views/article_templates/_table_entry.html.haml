@@ -19,10 +19,12 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+
 - if article_template && article_template.article
   %tr
     %td= article_template.name
+    
     %td= truncate(article_template.article_title, :length => 65)
     %td= link_to t('formtastic.actions.template_select.submit'), new_article_path(:template_select => {:article_template => article_template.id} ), :class => 'action'
-    %td= link_to t('common.actions.edit'), edit_article_template_path(article_template), :class => 'Btn Btn--blue icon-pencil--white Btn--table-icon Btn--table-icon-edit', :title => t('common.actions.edit')
-    %td= link_to t('common.actions.destroy'), article_template, method: :delete, data: { confirm: t('common.actions.confirm') }, :class => 'Btn Btn--red Btn--table-icon Btn--table-icon-delete', :title => t('common.actions.destroy')
+    %td= link_to t('common.actions.edit'), edit_article_template_path(article_template), :class => 'Button', :title => t('common.actions.edit')
+    %td= link_to t('common.actions.destroy'), article_template, method: :delete, data: { confirm: t('common.actions.confirm') }, :class => 'Button Button--red', :title => t('common.actions.destroy')

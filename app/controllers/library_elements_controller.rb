@@ -43,7 +43,6 @@ class LibraryElementsController < InheritedResources::Base
   def destroy
     authorize resource
     destroy! { user_libraries_path(@user , :anchor => "library"+resource.library.id.to_s )}
-
   end
 
   private

@@ -1,0 +1,197 @@
+@import "mixins/all";
+
+.teaser {
+  margin-bottom:1em;
+}
+
+.teaser-inner {
+  @include whitebox;
+}
+
+.teaser--double {
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(4 of 6);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(4 of 8);
+  }
+  .teaser-inner {
+    @include clearfix;
+  }
+
+  .teaser-queue {
+    margin-bottom:1em;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      @include span(2 of 4);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
+
+}
+
+.teaser--collapsible {
+ @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(2 of 6);
+    @include omega;
+
+    .teaser-queue {
+      margin:0;
+      width:100%;
+      float:none;
+      margin-bottom:1em;
+    }
+
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(4 of 8);
+    @include omega;
+  }
+
+
+}
+
+.teaser-queue > .Button {
+  margin:0.5em;
+}
+
+.teaser--full {
+  clear: both;
+  width: 100%;
+}
+
+// Arrows for slides
+
+.teaser-arrow {
+  display: block;
+  position: absolute;
+  margin-top: -14px; //half height of the arrows
+  top: 50%;
+  z-index: 100;
+}
+
+.teaser-arrow--left {
+  left:1em;
+}
+
+.teaser-arrow--right {
+  right:1em;
+}
+
+
+// Videos
+
+.teaser-inner {
+  iframe {
+   max-width:100%;
+  }
+}
+
+// User quotes slides
+
+.teaser--userslides {
+  overflow: hidden;
+  position: relative;
+
+  .teaser-inner {
+    padding: 1em 4em;
+  }
+
+  .teaser-quotation {
+    margin:0;
+		font-weight: 600;
+		font-style: italic;
+		font-size: 1.1rem;
+  }
+
+	.teaser-quotesource {
+		text-align: right;
+	}
+
+	.teaser-quote {
+		font-weight: 800;
+		font-size: 1.5em;
+		line-height: 0.8rem;
+  }
+
+  img {
+    float: left;
+    margin-right: 1em;
+    border-radius: 0.5em;
+  }
+
+  .slidesjs-container,.slidesjs-control {
+     height: auto !important;
+  }
+
+}
+
+// Card slides
+
+.teaser--cardslides {
+  position: relative;
+
+}
+
+// Rss Blog
+
+.teaser--hide {
+  border: none;
+  box-shadow:none;
+}
+
+.teaser-rss {
+  p {
+    margin:0 0 0.5em 0;
+  }
+  @include clearfix;
+  img {
+    float:left;
+    border-radius: 0.9em;
+    width:4em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+
+  }
+  &:nth-child(2n+1) {
+    img{
+      margin-left: 1em;
+      margin-right: 0em;
+      float:right;
+    }
+  }
+
+
+}
+
+// Others
+
+.teaser--center {
+  text-align:center;
+}
+
+.teaser--ngos {
+  img {
+    height:6em;
+    width: 6em;
+    margin-left: 1em;
+    border-radius: 0.9em;
+  }
+}
+
+.teaser--known_from {
+  span {
+    display:inline-block;
+    margin: 1em;
+  }
+}
+
+.teaser--news {
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include omega;
+  }
+
+}
