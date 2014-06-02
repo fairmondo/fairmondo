@@ -58,7 +58,7 @@
             %span.sprite_helper{:title => t('article.preview.tooltips.fees_and_donations')}
           =t('article.show.donate_html')
         - if show_friendly_percent_for? resource
-          
+
           =t('article.show.friendly_percent')
           %span.sprite_helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
           = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
@@ -69,7 +69,7 @@
     - cache [resource,"basic_information"] do
       %h2.title
         = resource.title
-      
+
       .details
         %h3.price= humanized_money_with_symbol resource.price
         = t('formtastic.labels.article.price')
@@ -100,7 +100,7 @@
               - current_user.libraries.each do |library|
                 %li
                   = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
-           
+
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
       - if policy(resource.business_transaction).edit?
@@ -109,7 +109,7 @@
         .Button.Button-gray= t 'common.actions.to_cart'
         %strong= t 'users.states.vacationing'
 
-  
+
 .social#socialshareprivacy
 
 .Accordion.Accordion--activated
@@ -126,7 +126,7 @@
 
 
     = accordion_item "payment" do
-      
+
       %h4
         = t('formtastic.labels.article.payment_methods')+':'
       %ul
@@ -135,7 +135,7 @@
         = payment_format_for "paypal"
         = payment_format_for "cash_on_delivery"
         = payment_format_for "invoice"
-       
+
       = simple_format(resource.payment_details).html_safe
       %h4
         = t('formtastic.labels.article.transport_method') + ':'
@@ -143,13 +143,13 @@
         = transport_format_for "pickup"
         = transport_format_for "type1"
         = transport_format_for "type2"
-      
+
       = simple_format(resource.transport_details).html_safe
-        
+
     - if resource.has_commendation?
       = accordion_item "commendation" do
         = render 'articles/show/commendation', :article => resource
-        
+
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers
     - if resource.seller.is_a?(LegalEntity)
@@ -160,9 +160,8 @@
       = accordion_item "about" do
         = resource.seller_about.html_safe
 
-  
+
   -# Feedback Box
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
-  

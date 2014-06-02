@@ -27,24 +27,24 @@
       = "#{t('formtastic.labels.user.contact_person')}:"
     .vcard
       %p.fn
-        %a{ :href => "mailto:#{resource.email}" } 
-      
+        %a{ :href => "mailto:#{resource.email}" }
+
           = "#{resource.title} " if resource.title
           = "#{resource.forename} #{resource.surname}" if resource.surname && resource.forename
-  
-      %p.adr 
+
+      %p.adr
         - if resource.address_suffix && resource.street
-          %span.street-adress 
+          %span.street-adress
             = "#{resource.address_suffix}"
             %br
             = "#{resource.street}"
             %br
         - if resource.zip && resource.city
-          %span.postal-code 
+          %span.postal-code
             = resource.zip
           %span.locality
             = resource.city
-          %br 
+          %br
           %span.country-name
             = resource.country
     - if resource.email
@@ -52,36 +52,36 @@
         = "#{t('formtastic.labels.user.email')}:"
       %p
         %a{:href => "mailto:#{resource.email}"}= resource.email
-  
+
     - if resource.fax
       %h3
         = "#{t('formtastic.labels.user.fax')}:"
       %p
         = resource.fax
-  
+
     - if resource.phone
       %h3
         = "#{t('formtastic.labels.user.phone')}:"
       %p
         = resource.phone
-  
+
     - if resource.mobile
       %h3
         = "#{t('formtastic.labels.user.mobile')}:"
       %p
         = resource.mobile
-  
+
     - if resource.terms
       %h3
         = "#{t('formtastic.labels.user.terms')}:"
       = raw resource.terms
-  
+
     - if resource.cancellation
-      %h3       
+      %h3
         = "#{t('formtastic.labels.user.cancellation')}:"
       = raw resource.cancellation
-  
+
     - if resource.about
-      %h3  
+      %h3
         = "#{t('formtastic.labels.user.about')}:"
       = raw resource.about

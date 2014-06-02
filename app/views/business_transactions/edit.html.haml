@@ -21,9 +21,9 @@
 -#
 .Content
   = semantic_form_for resource, url: step2_business_transaction_path(resource), :html => {:class => 'transactions-form'} do |f|
- 
+
     = render 'article_display'
-    
+
     %h3
       = t 'transaction.edit.choose_purchase_data'
     = f.inputs do
@@ -43,7 +43,7 @@
 
     %h3
       = t 'transaction.edit.address'
-    = f.inputs do    
+    = f.inputs do
       = f.input :forename, required: true, input_html: { value: default_form_value(:forename) }
       = f.input :surname, required: true, input_html: { value: default_form_value(:surname) }
       = f.input :address_suffix, input_html: { value: default_form_value(:address_suffix) }

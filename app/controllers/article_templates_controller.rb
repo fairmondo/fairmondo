@@ -79,5 +79,5 @@ class ArticleTemplatesController < InheritedResources::Base
       end
     end
 
-   
+
 end

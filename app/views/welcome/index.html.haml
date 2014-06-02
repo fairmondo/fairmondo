@@ -21,7 +21,9 @@
 -#
 / The next line is for providing the proper title image to facebook
 - provide( :title_image, image_path('fairnopoly_social_media.png') )
-
+- cache 'category-dropdown-welcome' do
+  .category-dropdown
+    = render 'categories/shared/category_tree'
 .teaser.teaser--double
   .teaser-inner
     %h2

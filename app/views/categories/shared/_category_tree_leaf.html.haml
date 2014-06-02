@@ -3,5 +3,5 @@
     %b
       = category.name
 - else
-  %a.Search-colored-link{href: category_path(category, article_search_form: search_cache.change(category_id: category.id)), title: category.name, data: { remote: 'true' }}
+  = link_to category_path(category, article_search_form: search_cache.change(category_id: category.id)), class: 'Search-colored-link', title: category.name, remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show') do
     = category.name
