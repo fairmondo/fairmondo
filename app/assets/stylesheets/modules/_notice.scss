@@ -1,0 +1,34 @@
+//
+// Green/red notice bar
+//
+
+.Notice {
+  color: white;
+  box-shadow: 0 1px 1px $gray;
+  position: relative;
+}
+
+.Notice-inner {
+  @include container($screen-width);
+  @include color-links(white,$lighter-gray);
+  padding: 1em $screen-padding;
+}
+
+.Notice--info,.Notice--confirmation {
+  background-color: $green;
+}
+
+.Notice--error {
+  background-color: $red;
+}
+
+// The close button
+.Notice-close {
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  @include clear-links;
+  @include user-select(none);
+}

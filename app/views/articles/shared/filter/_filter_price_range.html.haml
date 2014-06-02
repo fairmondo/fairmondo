@@ -1,0 +1,10 @@
+.Search-filter.JS-active-toggle--container
+  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}}
+    - val = search_cache.format_price_range
+    = val ? val : title
+  = semantic_form_for search_cache, url: articles_path(article_search_form: search_cache.keep), html: { method: 'get', class: "l-header-search-form JS-active-toggle--target" }, remote: true, builder: ::Fairtastic::FormBuilder do |f|
+    = f.inputs do
+      = f.input :price_from, tooltip: false, required: false
+      = f.input :price_to, tooltip: false, required: false
+    = f.actions do
+      = f.action :submit, label: :filter, button_html: { class: 'Button' , name: nil}

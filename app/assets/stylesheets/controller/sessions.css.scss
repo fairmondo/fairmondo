@@ -1,0 +1,11 @@
+@import "mixins/all";
+
+.sessions-form{
+  @include at-breakpoint($bp-tablet) {
+		@include span(2 of 4);
+	}
+	@include at-breakpoint($bp-tablet-horizontal) {
+		@include span(1 of 4);
+	}
+
+}

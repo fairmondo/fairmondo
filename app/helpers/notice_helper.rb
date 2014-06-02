@@ -36,28 +36,21 @@ module NoticeHelper
     end
   end
 
-  # Choose between :alert, :error, :notice for type
-  def render_notice options = {}, &block
-    render layout: "notice_layout",
-      locals: {
-        type: options[:type],
-      }, &block
-  end
 
   def render_data_confirm
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')
     render layout: "/application/notice_layout", locals: { type: :confirm} do
       concat("<p class=\"confirmation_message\"></p>".html_safe)
-      concat("<a class=\"Btn Btn--red confirm\" >  #{confirm_text} </a> ".html_safe)
-      concat("<a class=\"Btn cancel\"  > #{cancel_text} </a>".html_safe)
+      concat("<a class=\"Button Button--red confirm\" >  #{confirm_text} </a> ".html_safe)
+      concat("<a class=\"Button cancel\"  > #{cancel_text} </a>".html_safe)
     end
   end
 
   def render_open_notice notice
     continue_text = I18n.t('common.actions.continue')
     message = "<p class=\"confirmation_message\">#{notice.message}</p>".html_safe
-    message += "<a class=\"Btn\" href=\"#{toolbox_notice_path(:id => notice.id)}\">#{continue_text}</a>".html_safe
+    message += "<a class=\"Button\" href=\"#{toolbox_notice_path(:id => notice.id)}\">#{continue_text}</a>".html_safe
   end
 
 end

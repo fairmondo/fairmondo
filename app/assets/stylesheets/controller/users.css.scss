@@ -1,0 +1,102 @@
+@import "mixins/all";
+
+.user-header {
+  @include clearfix;
+  margin-bottom:2em;
+}
+
+.user-header > .user-profile {
+  @include between-breakpoints($bp-mobile-horizontal-big,$bp-tablet) {
+    @include span(1 of 2 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(2 of 5 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(2 of 7 0.1);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(1 of 4 0.1);
+  }
+}
+
+.user-header > .user-middle {
+
+  @include between-breakpoints($bp-mobile-horizontal-big,$bp-tablet) {
+    @include span(1 of 2 0.1);
+    @include omega;
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(3 of 5 0.1);
+    @include omega;
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(3 of 7 0.1);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(2 of 4 0.1);
+  }
+
+}
+
+.user-header > .user-extra {
+
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    display:none;
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    @include span(2 of 7 0.1);
+    @include omega;
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include span(1 of 4 0.1);
+    @include omega;
+  }
+}
+
+.user-header > .user-extra > .Content  {
+  span {
+    margin-top:1em;
+  }
+  .Button{
+    margin-bottom:1em;
+  }
+}
+
+.user-middle > .user-menu {
+  max-width: 20em;
+  clear:both;
+  margin-top:2em;
+}
+
+.user-middle > .user-menu > .Button {
+  margin:0.5em;
+
+  display:block;
+}
+
+.user-edit {
+  text-align: center;
+}
+
+.article_templates,.mass_uploads-table {
+  th {
+    border-bottom: lightgray solid 1px;
+    padding:0.5em;
+  }
+  
+  td {
+    padding:0.5em;
+  }
+}
+
+

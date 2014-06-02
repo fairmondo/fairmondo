@@ -25,15 +25,8 @@ module Article::Attributes
   included do
     extend Tokenize
 
-    #common fields
-    def self.common_attrs
-      [:title, :content, :condition, :condition_extra, :quantity, :business_transaction_attributes]
-    end
-
-
     auto_sanitize :content, method: 'tiny_mce'
     auto_sanitize :title
-
 
     #title
 
@@ -51,12 +44,6 @@ module Article::Attributes
 
 
     #money_rails and price
-
-    def self.money_attrs
-      [:price_cents, :price, :vat]
-    end
-
-
     validates :price_cents, presence: true, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 }
 
     monetize :price_cents
@@ -65,12 +52,6 @@ module Article::Attributes
     # vat (Value Added Tax)
 
     validates :vat , presence: true , inclusion: { in: [0,7,19] },  if: :belongs_to_legal_entity?
-
-
-    # basic price
-    def self.basic_price_attrs
-      [:basic_price, :basic_price_cents, :basic_price_amount]
-    end
 
 
     validates :basic_price_cents, :numericality => { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000 } , :allow_nil => true
@@ -83,30 +64,11 @@ module Article::Attributes
 
     # legal entity attributes
 
-    def self.legal_entity_attrs
-      [:custom_seller_identifier, :gtin]
-    end
-
-
-
     validates_length_of :custom_seller_identifier, maximum: 65, allow_nil: true, allow_blank: true
     validates_length_of :gtin, minimum: 8, maximum: 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
     TRANSPORT_TYPES = [:pickup, :type1, :type2]
-
-    #transport
-    def self.transport_attrs
-      [:transport_pickup,
-      :transport_type1, :transport_type1_price_cents,
-      :transport_type1_price, :transport_type1_provider,
-      :transport_type1_number,
-      :transport_type2, :transport_type2_price_cents,
-      :transport_type2_price, :transport_type2_provider,
-      :transport_type2_number,
-      :transport_details]
-    end
-
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
 
@@ -130,15 +92,6 @@ module Article::Attributes
     PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
-    def self.payment_attrs
-      [:payment_details,
-      :payment_bank_transfer,
-      :payment_cash,
-      :payment_paypal,
-      :payment_cash_on_delivery, :payment_cash_on_delivery_price , :payment_cash_on_delivery_price_cents,
-      :payment_invoice]
-    end
-
 
     auto_sanitize :payment_details
 

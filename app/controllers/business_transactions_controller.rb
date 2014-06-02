@@ -31,7 +31,7 @@ class BusinessTransactionsController < InheritedResources::Base
   before_filter :dont_cache
 
   def edit
-    edit! { return render :step2 if request.patch? && resource.edit_params_valid?(permitted_params) }
+    edit! { return render :step2 if request.patch? && resource.edit_params_valid?(refined_params) }
   end
 
   # def show
@@ -55,7 +55,7 @@ class BusinessTransactionsController < InheritedResources::Base
     update! do |success, failure|
       resource.buy if success.class # using .class was the only way I could find to get a true or false value
       failure.html do
-        if resource.edit_params_valid? permitted_params
+        if resource.edit_params_valid? refined_params
           return render :step2
         else
           return render :edit

@@ -173,8 +173,8 @@ de:
         cash_on_delivery: Nachnahme
         invoice: Rechnung
 
-    exhibit:
-      queue:
+    library:
+      exhibition_name:
         donation_articles: '*Spendenanteil*-Artikel'
         dream_team: '(Dream Team)'
         old: '*Gebraucht bei Fairnopoly*-Artikel'
@@ -187,13 +187,21 @@ de:
         queue3: 'Queue3'
         queue4: 'Queue4'
         more_articles: 'Weitere passende Artikel findest Du über die Suche'
+        book1: 'Book1'
+        book2: 'Book2'
+        book3: 'Book3'
+        book4: 'Book4'
+        book5: 'Book5'
+        book6: 'Book6'
+        book7: 'Book7'
+        book8: 'Book8'
 
     feedback:
       feedback_subject:
         dealer: "Händler*in"
         private: "Privatperson"
         buyer: "Käufer*in"
-        seller: "Verkäufer*in"
+        seller: "Anbieter*in"
         technics: "Technik und Datenschutz"
         event: "Veranstaltungen & Aktionen"
         cooperative: "Genossenschaft"
@@ -232,4 +240,11 @@ de:
         ecologic: 'Filter: öko zuerst'
         small_and_precious: 'Filter: klein&edel zuerst'
         most_donated: "Spendenanteil absteigend"
-
+      condition:
+        old: 'gebraucht'
+        new: 'neu'
+      filter:
+        fair: 'fair'
+        ecologic: 'öko'
+        small_and_precious: 'klein&edel'
+        search_in_content: 'In Artikelbeschreibung suchen'

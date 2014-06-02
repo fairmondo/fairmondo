@@ -1,0 +1,65 @@
+-#
+-#
+-# == License:
+-# Fairnopoly - Fairnopoly is an open-source online marketplace.
+-# Copyright (C) 2013 Fairnopoly eG
+-#
+-# This file is part of Fairnopoly.
+-#
+-# Fairnopoly is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU Affero General Public License as
+-# published by the Free Software Foundation, either version 3 of the
+-# License, or (at your option) any later version.
+-#
+-# Fairnopoly is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU Affero General Public License for more details.
+-#
+-# You should have received a copy of the GNU Affero General Public License
+-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+-#
+-# User Box
+= render '/users/profile_img', user: resource.seller, show_title: true
+-# Other articles by seller Box
+.Accordion.Accordion--scrollToActive
+  = accordion_item "other_articles", :title => t('article.titles.other-products') do
+    .other_articles
+      - @other_articles.each do |other_article|
+        .other_article
+          = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug)
+    
+    = link_to t('article.actions.show_user'), resource.seller, :class => "Button"
+  - if @libraries.count > 0
+    -# Libraries Box
+    = accordion_item "libraries", :title => t('article.titles.libraries') do
+      .related_libraries
+        - @libraries.each do |library|
+          .related_library
+            .profile_image 
+              = link_to image_tag(library.user.image_url(:profile)), library
+            .details
+              = link_to library.name, library
+              = t('common.text.glue.from') + " "
+              = link_to(library.user_nickname, library.user)
+  -# Contact Box (refactor when we have a real messaging system)
+  = accordion_item 'contact_private_user' do
+    - if current_user
+      %p
+        = t('article.show.contact.description')
+      = semantic_form_for :contact, url: toolbox_contact_path, method: :get do |f|
+        = f.inputs do
+          = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+          = f.input :email_transfer_accepted, label: t('article.show.contact.email_transfer_accepted_label'), as: :boolean, required: true, input_html: { checked: true }
+          - text = (session[:seller_message]) ? session[:seller_message][resource.id.to_s] : nil
+          = f.input :text, as: :text, input_html: { rows: 4, value: text }
+
+        = f.actions do
+          = f.action :submit, label: t('article.show.contact.action'), button_html: {class: "Button"}
+    - else
+      Um eine Rückfrage stellen zu können, musst Du dich bei Fairnopoly
+      = link_to 'registrieren', new_user_registration_path
+      und
+      = link_to('einloggen', new_user_session_path) + '.'
+
+

@@ -1,7 +1,7 @@
 de:
   devise:
     links:
-      sign_in: "Login"
+      sign_in: "Anmelden"
       sign_up: "Registrieren"
       forgot_password: "Passwort vergessen?"
       confirmation_instruction: "Keine Bestätigungsanweisung erhalten?"

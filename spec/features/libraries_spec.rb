@@ -123,11 +123,81 @@ describe "Library Elements" do
       article = FactoryGirl.create :article
       visit article_path(article)
 
-      click_button I18n.t 'common.actions.collect'
+      click_link I18n.t 'library.default'
       page.should have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
 
       visit user_libraries_path @user
       page.should have_content article.title[0..10] # characters get cut off on page as well
+    end
+  end
+end
+
+describe "Featured (exhibited) libraries" do
+  context "for all users" do
+    it "should show the exhibited library on the front page" do
+      lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
+      lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+      visit root_path
+      page.should have_content 'exhibit-article'
+    end
+
+    it "should show book-specific libraries in the book-category's show view" do
+      lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
+      lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+      visit category_path FactoryGirl.create :category, name: 'bucher'
+      page.should have_content 'exhibit-article'
+    end
+  end
+
+  context "for admins" do
+    let(:featured_library) { FactoryGirl.create :library, :public, exhibition_name: 'donation_articles' }
+    let(:article) { FactoryGirl.create :article, title: 'Foobar' }
+    before do
+      login_as FactoryGirl.create :admin_user
+    end
+
+    it "should be updatable" do
+      visit root_path
+      page.should_not have_link 'Foobar'
+
+      featured_library
+      visit article_path article
+      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+      click_button I18n.t 'article.show.add_as_exhibit'
+
+      visit root_path
+      page.should have_link 'Foobar'
+    end
+
+    it "should ignore updates that have already been done" do
+      featured_library.articles << article
+      visit article_path article
+      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+      click_button I18n.t 'article.show.add_as_exhibit'
+
+      featured_library.articles.count.should eq 1
+    end
+
+    it "should be have article removal functionality" do
+      featured_library.articles << article
+      visit article_path article
+
+      click_button 'aus *Spendenanteil*-Artikel löschen'
+      visit root_path
+
+      page.should_not have_link 'Foobar'
+    end
+
+    it "should have functionality that can easily set a library as featured" do
+      featured_library
+      other_library = FactoryGirl.create :library, :public
+
+      visit library_path other_library
+      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+      click_button I18n.t 'formtastic.actions.update'
+
+      other_library.reload.exhibition_name.should eq 'donation_articles'
+      featured_library.reload.exhibition_name.should be_nil
     end
   end
 end

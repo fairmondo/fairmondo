@@ -4,8 +4,8 @@
 - if resource.processed_articles_count == 0
   = t('mass_uploads.errors.no_activate_content')
 - else
-  .Import-detail
-    .Accordion--activated.Accordion--scrollToActive
+  .results
+    .Accordion.Accordion--activated.Accordion--scrollToActive
       = render "result", :result => resource.created_articles.page(params[:created_articles_page]), :result_name => "created"
       = render "result", :result => resource.updated_articles.page(params[:updated_articles_page]), :result_name => "updated"
       = render "result", :result => resource.activated_articles.page(params[:activated_articles_page]), :result_name => "activated"
@@ -21,8 +21,9 @@
                   = article.row_index
                 = simple_format(article.validation_errors)
           = paginate @erroneous_articles, param_name: "erroneous_articles_page"
-          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Btn Btn--blue Btn--overwrite"
+          = link_to "Fehlerhafte Artikel exportieren", mass_upload_path(resource, format: "csv"), :class => "Button Btn--overwrite"
 
 
 - unless resource.articles_for_mass_activation.empty?
-  = render "mass_activation", :articles => resource.articles_for_mass_activation
+  .mass_activation
+    = render "mass_activation", :articles => resource.articles_for_mass_activation

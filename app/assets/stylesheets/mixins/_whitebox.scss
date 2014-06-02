@@ -1,0 +1,7 @@
+
+@mixin whitebox {
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  box-shadow: $sand 0px 0px 2px 1px;
+  padding: em(10) em(20);
+}

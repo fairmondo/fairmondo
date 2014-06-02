@@ -20,20 +20,19 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Library < ActiveRecord::Base
-  extend Sanitization
+  extend Sanitization, Enumerize
 
-  def self.library_attrs
-    [:name, :public, :user, :user_id]
-  end
   auto_sanitize :name
 
   delegate :nickname, to: :user, prefix: true
 
   validates :name, :user, presence: true
-
   validates :name, uniqueness: {scope: :user_id}, length: {maximum: 70}
 
-
+  enumerize :exhibition_name, in: [:donation_articles, :old, :queue1, :queue2,
+    :queue3, :queue4, :book1, :book2, :book3, :book4, :book5, :book6, :book7,
+    :book8]
+  before_update :uniquify_exhibition_name
 
   #Relations
 
@@ -45,4 +44,15 @@ class Library < ActiveRecord::Base
   scope :published, -> { where(public: true) }
   default_scope -> { order('updated_at DESC') }
 
+  private
+    # when an exhibition name is set to a library, remove the same exhibition
+    # name from all other libraries.
+    def uniquify_exhibition_name
+      if self.exhibition_name
+        Library.where(exhibition_name: self.exhibition_name).where("id != ?", self.id).each do |library|
+          library.update_attribute(:exhibition_name, nil)
+        end
+      end
+      true
+    end
 end

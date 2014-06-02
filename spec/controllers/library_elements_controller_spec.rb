@@ -30,7 +30,7 @@ describe LibraryElementsController do
 
       before :each do
         @user = FactoryGirl.create(:user)
-        @library_element= FactoryGirl.create(:library_element)
+        @library_element = FactoryGirl.create(:library_element)
       end
 
       it "should be a guest" do
@@ -57,7 +57,6 @@ describe LibraryElementsController do
     describe "for signed-in users" do
 
       before :each do
-
         @library_element= FactoryGirl.create(:library_element)
         @library = FactoryGirl.create(:library)
         @user = @library_element.library.user
@@ -83,7 +82,6 @@ describe LibraryElementsController do
       end
 
       it "shouldnt be possible to delete another users elements" do
-
         @user.id.should_not eq @different_user.id #by design
 
         expect {

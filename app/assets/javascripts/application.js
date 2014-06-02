@@ -23,11 +23,12 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.autocomplete
+
 //= require jquery.ui.accordion
-//= require jquery.ui.tooltip
+
+//= require qtip2-jquery-rails
 //= require jquery.slides.min.js
-//= require jquery.cfk_teaser.js
+
 //= require modernizr
 //= require selectivizr
 //= require tinymce-jquery
@@ -46,8 +47,8 @@
 //= require vendor/jquery.icheck
 //= require vendor/jquery.colorbox
 //= require vendor/jquery.truncator
-//= require vendor/masonry.pkgd.min
-//= require vendor/imagesloaded.pkgd
+//= require vendor/jquery.autocomplete
+
 
 //= require models/article/categories
 //= require models/article/search_input
@@ -55,25 +56,24 @@
 //= require models/article/titleimage
 //= require models/article/friendly_percent
 //= require models/library/libraries
-//= require models/user/login
+//= require models/user/colorbox_links
 
-//= require visual/masonry
 //= require visual/accordion
 //= require visual/tooltip
 //= require visual/button
-//= require visual/noticeClose
+//= require visual/notice_close
+//= require visual/news_header_close
 //= require visual/colorbox
 //= require visual/selectbox
-//= require visual/filter
 //= require visual/truncator
 //= require visual/wait_for_submit
-//= require visual/category
 //= require visual/slides
 //= require visual/iframe
+//= require visual/active_toggle
+//= require visual/ajax_spinner
 
 //= require inputs/password_complexify
 //= require inputs/socialshareprivacy
-//= require inputs/bank_details
 
 //= require customize/rails-confirm
 

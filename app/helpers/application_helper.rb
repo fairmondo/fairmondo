@@ -21,24 +21,6 @@
 #
 module ApplicationHelper
 
-
-  def hero
-    hero = ""
-    begin
-      if @rendered_hero
-        hero += render :partial => "/hero/#{@rendered_hero[:controller]}/#{@rendered_hero[:action]}"
-      else
-        hero += render :partial => "/hero/#{params[:controller]}/#{params[:action]}"
-      end
-    rescue ActionView::MissingTemplate
-      begin
-        hero += render :partial => "/hero/#{params[:controller]}/default"
-      rescue ActionView::MissingTemplate
-      end
-    end
-    return hero.html_safe
-  end
-
   def title(title = nil)
     if title.present?
       content_for :title, title
@@ -67,15 +49,6 @@ module ApplicationHelper
       truncate(Sanitize.clean(text), length: length, separator: separator, omission: omission ).gsub("\n", ' ')
   end
 
-  def search_cache
-    @search_cache || ArticleSearchForm.new
-  end
-
-  # Switch for specific page
-  def is_search_result?
-    controller.controller_name == 'articles' && controller.action_name == 'index'
-  end
-
   # Login form anywhere - https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
@@ -88,6 +61,14 @@ module ApplicationHelper
     else
       yield
     end
+  end
+
+  # CSS Layout helper
+  # By default will render css from controller/NAME_OF_THE_CONTROLLER.css
+  # overwrite if you need somehing else
+  def controller_specific_css_path
+    @controller_specific_css ||= controller_name 
+    "controller/#{@controller_specific_css}.css"
   end
 
   ### Forms
@@ -111,4 +92,5 @@ module ApplicationHelper
       nil
     end
   end
+
 end

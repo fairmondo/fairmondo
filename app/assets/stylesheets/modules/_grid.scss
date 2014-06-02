@@ -1,0 +1,19 @@
+.Grid > .Grid-item {
+  margin-bottom: 1em;
+
+  @include between-breakpoints($bp-mobile,$bp-tablet) {
+    @include grid-with-columns(2);
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-desktop) {
+    @include grid-with-columns(3);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include grid-with-columns(4);
+  }
+}
+
+.Grid {
+  @include clearfix;
+}

@@ -1,0 +1,19 @@
+@mixin buttonize {
+  margin: 0.1em;
+  @include user-select(none);
+  white-space: normal;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  &:hover {
+    text-decoration:none;
+  }
+}
+
+@mixin bubbleize {
+  border: 0px;
+  padding: em(8,17) em(17,17);
+  border-radius: 0.5em;
+}

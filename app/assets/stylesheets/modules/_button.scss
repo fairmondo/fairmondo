@@ -1,0 +1,54 @@
+
+.Button {
+
+  @include buttonize;
+  @include bubbleize;
+
+  text-align:center;
+  color: white !important; // we want it to be readable
+  background-color: $blue;
+
+  &:hover {
+    background-color: lighten($blue, 5%);
+  }
+
+}
+
+.Button--large {
+  font-size: 1.2em;
+}
+
+a.Button {
+  display: inline-block;
+  text-decoration:none;
+}
+
+.Button--green {
+  background-color: $green;
+  &:hover {
+    background-color: lighten($green, 5%);
+  }
+}
+
+.Button--red {
+  background-color: $red;
+  &:hover {
+    background-color: lighten($red, 5%);
+  }
+}
+
+.Button--gray {
+  background-color: $gray;
+  &:hover {
+    background-color: lighten($gray, 5%);
+  }
+}
+
+.Button span[class^="sprite_"] {
+  float:left;
+}
+
+.Button--disabled {
+  cursor: default;
+  background-color: $gray;
+}

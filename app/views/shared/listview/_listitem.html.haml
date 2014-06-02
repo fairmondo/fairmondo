@@ -19,32 +19,34 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
-%figure.ListItem-image
-  = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-  - if business_transaction && business_transaction.rating
-    .ListItem-rating
-      %img{ :src => image_path("thumbs/#{business_transaction.rating_value}.png"), :alt => "thumb" }
-.ListItem-info
-  .ListItem-title
-    %h3.Articles-title= link_to truncate(article.title, :length => 65), article_path(article), :title => article.title
-    %p.Article-price= humanized_money_with_symbol article.price
-  .ListItem-detail
-    = render 'articles/show/vat', :article => article
-    = render '/articles/show/basic_price', :article => article
-    = render '/articles/show/ngo_donation', :article => article
-  .ListItem-tags
-    = condition_label article
-    = commendation_labels_for article
-.ListItem-actions
-  - if business_transaction
-    - if business_transaction.buyer == current_user
-      = link_to t('transaction.completed.show_bought'), business_transaction_path(business_transaction), :class => "Btn Btn--small"
-      - unless business_transaction.rating
-        = link_to t('transaction.completed.rate'), business_transaction_new_user_rating_path(business_transaction.seller, business_transaction), :class => "Btn Btn--small"
-    - if business_transaction.seller == current_user
-      = link_to t('transaction.completed.show_sold'), business_transaction_path(business_transaction), :class => "Btn Btn--small"
-      - if business_transaction.refundable?
-        = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Btn Btn--small"
-    - else
-      = link_to t('common.actions.show_article'), article_path(article), :class => "Btn Btn--small"
+.Listview-item
+  .Listview-image
+    = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+    - if business_transaction && business_transaction.rating
+      .Listview-rating
+        %span{class: "sprite_#{business_transaction.rating_value}_small" }
+  .Listview-details
+    .Listview-title
+      = link_to  article_path(article), :title => article.title do
+        %h3
+          = truncate(article.title, :length => 65)
+    .Listview-price_detail
+      = humanized_money_with_symbol article.price
+      - unless article.vat == 0
+        = t('article.vat_included', :mwst => article.vat)
+      = render '/articles/show/basic_price', :article => article
+    .Listview-tags
+      = condition_label article
+      = commendation_labels_for article
+  .Listview-actions
+    - if business_transaction
+      - if business_transaction.buyer == current_user
+        = link_to t('transaction.completed.show_bought'), business_transaction_path(business_transaction), :class => "Button"
+        - unless business_transaction.rating
+          = link_to t('transaction.completed.rate'), business_transaction_new_user_rating_path(business_transaction.seller, business_transaction), :class => "Button"
+      - if business_transaction.seller == current_user
+        = link_to t('transaction.completed.show_sold'), business_transaction_path(business_transaction), :class => "Button"
+        - if business_transaction.refundable?
+          = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
+      - else
+        = link_to t('common.actions.show_article'), article_path(article), :class => "Button"

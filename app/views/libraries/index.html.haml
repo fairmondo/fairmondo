@@ -19,49 +19,51 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Libraries
+
+.library-form
   - if user_signed_in? && @library && policy(@library).create?
     %h3= t('library.new')
-    = semantic_form_for(@library,:url => user_libraries_path(current_user),:html => { :class => "form-vertical"}) do |f|
+    = semantic_form_for @library,:url => user_libraries_path(current_user) do |f|
       = f.inputs do
         = f.input :name
         = f.input :public, :label => false
       = f.actions do
-        = f.action :submit , :value => t('library.create'), :button_html => {:class => "Btn"}
+        = f.action :submit , :value => t('library.create'), :button_html => {:class => "Button"}
 
-  .Accordion--containsArticles.Accordion--activated.Accordion--scrollToActive
-    - @libraries.each do |library|
-      - unless library.new_record?
-        = accordion_item "library"+library.id.to_s , :title => library.name  do
-          %p.Libraries-settings-right
-            - if policy(library).update?
-              %a.Btn.Library-showsettings
-                = t('common.actions.edit')
-            - if policy(library).destroy?
-              = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Btn Btn--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
-
-          - if policy(library).update? || policy(library).destroy?
-            - if library.public?
-              %p= t 'library.visibility.public'
-            - else
-              %p= t 'library.visibility.private'
-
+.Accordion.Accordion--activated.Accordion--scrollToActive
+  - @libraries.each do |library|
+    - unless library.new_record?
+      = accordion_item "library"+library.id.to_s , :title => library.name  do
+        .library-settings-actions
           - if policy(library).update?
-            .Libraries-settings-clear
-              = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s), :html => {:class => "Library-settings"}) do |f|
-                .Accordion-step
-                  = f.inputs do
-                    = f.input :name
-                    = f.input :public, :label => false
-                  = f.actions do
-                    = f.action :submit, :label => :update, :button_html => {:class => "Btn"}
+            %a.Button.js-library-show-settings
+              = t('common.actions.edit')
+          - if policy(library).destroy?
+            = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Button Button--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+        .visibility
+          - if policy(library).update? 
+            - if library.public?
+              = t 'library.visibility.public'
+            - else
+              = t 'library.visibility.private'
+
+        - if policy(library).update?
+          .library-settings.js-library-settings
+            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s)) do |f|
+              .Accordion-step
+                = f.inputs do
+                  = f.input :name
+                  = f.input :public, :label => false
+                = f.actions do
+                  = f.action :submit, :label => :update, :button_html => {:class => "Button"}
+        .library-elements
           - if library.library_elements.empty?
-            %p.Libraries-settings-clear= t('library.no_products')
+            = t('library.no_products')
           - else
-            .Library-ArticleList.Libraries-settings-clear
-              %section.l-ArticleList
-                - library_elements = library.library_elements.includes(:article => [:images,:seller]).includes(:library).page(params[:library_page]).per(12)
-                - library_elements.each do |library_element|
+            .Grid
+              - library_elements = library.library_elements.includes(:article => [:images,:seller]).includes(:library).page(params[:library_page]).per(12)
+              - library_elements.each do |library_element|
+                .Grid-item
                   = render "library_element", :library_element => library_element
-              = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
-    = paginate @libraries
+            = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
+  = paginate @libraries

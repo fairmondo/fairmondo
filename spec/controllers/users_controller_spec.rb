@@ -22,6 +22,7 @@
 require 'spec_helper'
 
 describe UsersController do
+
   render_views
 
   describe "GET 'show'" do
@@ -40,13 +41,6 @@ describe UsersController do
         get :show , :id => @user
         response.should be_success
       end
-
-      it "should be sucessful" do
-        get :login
-        response.should be_success
-      end
-
-
     end
 
     describe "for signed-in users" do
@@ -65,9 +59,13 @@ describe UsersController do
         get :show, :id => @user
         response.should be_success
       end
+    end
+  end
 
-
-
+  describe "sign in" do # Why do we even have this?? -KK
+    it "should be sucessful" do
+      get :login
+      response.should be_success
     end
   end
 

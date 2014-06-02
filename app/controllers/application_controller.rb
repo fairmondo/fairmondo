@@ -22,9 +22,10 @@
 class ApplicationController < ActionController::Base
 
   ## Global security
-
   before_filter :authenticate_user!
 
+  # Arcane
+  include Arcane
 
   # Pundit
   include Pundit
@@ -47,7 +48,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   # Return path with fallback
   # @api public
   # @param fallback [String] path
@@ -67,14 +67,13 @@ class ApplicationController < ActionController::Base
 
   # PeekInto Access Controll
   def peek_enabled?
-    current_user && current_user.admin?
+    User.is_admin? current_user
   end
-
 
   protected
 
     def render_users_hero
-      render_hero :controller => "users"
+      render_hero controller: "users"
     end
 
     def render_hero options
@@ -98,7 +97,11 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_classes
-      [RegistrationsController, SessionsController, ToolboxController, BankDetailsController, ExportsController, WelcomeController,CategoriesController,Peek::ResultsController]
+      [
+        ::RegistrationsController, ::SessionsController, ::ToolboxController,
+        ::BankDetailsController, ::ExportsController, ::WelcomeController,
+        ::CategoriesController, ::Peek::ResultsController
+      ]
     end
 
     # To be inherited and used in a before_filter
@@ -110,6 +113,21 @@ class ApplicationController < ActionController::Base
       authorize build_resource
     end
 
+    def refined_params
+      @refined_params ||= params.for(appropriate_resource).as(current_user).refine
+    end
+
+    # resource or build_resource, whatever succeeds first. to be used in functions
+    # that are used in different actions and sometimes need one or the other
+    def appropriate_resource #merge_options = {}
+      resource rescue build_resource
+      # resource.update_attributes merge_options
+      # resource
+    end
+
+    def build_search_cache
+      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
+    end
 
     # Caching security: Set response headers to prevent caching
     # @api semipublic
@@ -118,18 +136,6 @@ class ApplicationController < ActionController::Base
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
       response.headers["Pragma"] = "no-cache"
       response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-    end
-
-    # Strong_parameters default params permitter
-    def permitted_params
-      klass = controller_name.classify
-      manual_params params.permit klass.underscore.to_sym => klass.constantize.send("#{klass.underscore}_attrs")
-    end
-
-    # modify params, does nothing unless overwritten in specific controller
-    # @return [Hash] params
-    def manual_params allowed_params
-      allowed_params
     end
 
     # If user wants to sell
@@ -147,5 +153,11 @@ class ApplicationController < ActionController::Base
         redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
       end
     end
+    
+    def render_css_from_controller controller
+      @controller_specific_css = controller 
+    end
+    
+  
 
 end

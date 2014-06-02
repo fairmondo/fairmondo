@@ -21,11 +21,11 @@
 -#
 = f.input_step :terms do
   = f.inputs do
-    .User--step
+    .Accordion-step
       = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
-  = f.inputs do
-    .User--step
+  
+    .Accordion-step
       = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
-  = f.inputs do
-    .User--step
+  
+    .Accordion-step
       = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true

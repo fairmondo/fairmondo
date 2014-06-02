@@ -22,10 +22,6 @@ require 'friendly_id'
 class Content < ActiveRecord::Base
   extend Sanitization
 
-  def self.content_attrs
-    [:body, :key]
-  end
-
   auto_sanitize :key
   auto_sanitize :body, method: 'tiny_mce', admin: true
 

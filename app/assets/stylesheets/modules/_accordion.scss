@@ -1,0 +1,68 @@
+//
+// Accordions.scss
+//
+
+.Accordion .Accordion-item {
+	margin-bottom: 1em;
+}
+
+.Accordion .Accordion-item > .Accordion-header {
+	@include whitebox;
+	display:block;
+	outline: 0;
+	background:none;
+	&:hover {
+		background-color: $sand;
+	}
+
+}
+
+.Accordion .Accordion-item > .Accordion-header.ui-state-active {
+	background-color: $blue;
+	color: white;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.Accordion .Accordion-item--errors > .Accordion-header {
+    background: $red;
+		color: white;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+}
+
+.Accordion .Accordion-item--errors > .Accordion-content {
+		display:block !important; // show content anyways
+
+}
+
+
+.Accordion .Accordion-item > .Accordion-content {
+	border-bottom-left-radius: 0.9em;
+	border-bottom-right-radius: 0.9em;
+	overflow: auto;
+	background-color: white;
+	border: 1px solid $lighter-gray;
+	padding: 1em 2em;
+}
+
+
+.Accordion .Accordion-item > .Accordion-content .Accordion-step {
+	border-bottom: solid 2px $sand;
+	margin-bottom: 1em;
+	overflow: auto;
+}
+
+// Remove the last border
+.Accordion .Accordion-item >.Accordion-content .Accordion-step:last-of-type {
+	border-bottom: 0;
+	margin-bottom: 0;
+}
+
+.Accordion .Accordion-item > .Accordion-header > .sprite_helper {
+  position:static;
+  float:right;
+} 
+
+
+

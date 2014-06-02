@@ -1,8 +1,8 @@
 -if @items
-  %h2.Teaser-header
+  %h2
     FAIRNOPOLY SCHREIBT
   - @items.each do |item|
-    .News-rss
+    .teaser-rss
       = rss_image_extractor item.description
       %p
         %b

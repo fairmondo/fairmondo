@@ -1,0 +1,11 @@
+.Search-filter.JS-active-toggle--container
+  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: true}}
+    = title
+    %ul.JS-active-toggle--target
+      %li
+        %a.Search-colored-link{href: articles_path(article_search_form: search_cache.flip(:search_in_content) ), data: { remote: 'true' }}
+          - if search_cache && search_cache.send(:search_in_content)
+            = image_tag "icheck/checkbox_active.png"
+          - else
+            = image_tag "icheck/checkbox.png"
+          = t "enumerize.article_search_form.filter.#{:search_in_content}"

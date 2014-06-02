@@ -22,21 +22,40 @@
 begin
   # Loading api.yml
   api = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'api.yml'))))
+rescue
+  puts 'api.yml not found'
+end
 
+begin
   # recaptcha-api
   Recaptcha.configure do |config|
     config.public_key  = api['recaptcha']['public']
     config.private_key = api['recaptcha']['private']
   end
+rescue
+  puts "Recaptcha API key(s) couldn't be found."
+end
 
+begin
   # konto-api
   KontoAPI::api_key = api['kontoapi']['key']
   KontoAPI::timeout = 10
+rescue
+  puts "KontoAPI key couldn't be found."
+end
 
+begin
   # FastBill Automatic API
   Fastbill::Automatic.api_key = api['fastbill']['api_key']
   Fastbill::Automatic.email   = api['fastbill']['email']
-
 rescue
-  puts 'api.yml not found'
+  puts "FastBill API key(s) couldn't be found."
+end
+
+begin
+  # Cleverreach API
+  CleverreachAPI::API_KEY = api['cleverreach']['key']
+  CleverreachAPI::LIST_ID = api['cleverreach']['list']
+rescue
+  puts "Cleverreach API key(s) couldn't be found."
 end

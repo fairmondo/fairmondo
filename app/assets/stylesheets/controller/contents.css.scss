@@ -1,0 +1,32 @@
+@import "mixins/all";
+
+.content {
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+    @include span(2 of 3 0.1) ;
+  }
+  
+  @include at-breakpoint($bp-tablet-horizontal) {
+   @include span(3 of 4 0.1) ;
+  }
+  margin-bottom: 1em;
+}
+
+.content-nav, .content-share{
+  @include at-breakpoint($bp-tablet-horizontal) {
+   @include span(1 of 4 0.1) ;
+   @include omega;
+  }
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+   @include span(1 of 3 0.1) ;
+   @include omega;
+  }
+  
+  margin-bottom: 1em;
+}
+ 
+.content-nav {
+  ul {
+    list-style:none;
+    padding:0;
+  }
+}

@@ -21,15 +21,16 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => [:index,:feed, :landing, :wegreentest]
+  skip_before_filter :authenticate_user!, :only => [:index, :feed, :landing]
 
   def index
-    @queue1 = Exhibit.independent_queue :queue1, 1
-    @queue2 = Exhibit.independent_queue :queue2, 1
-    @queue3 = Exhibit.independent_queue :queue3, 1
-    @queue4 = Exhibit.independent_queue :queue4, 1
-    @old = Exhibit.independent_queue :old
-    @donation_articles = Exhibit.independent_queue :donation_articles
+    query_object = FeaturedLibraryQuery.new
+    @queue1 = query_object.set(:queue1).find(1)
+    @queue2 = query_object.set(:queue2).find(1)
+    @queue3 = query_object.set(:queue3).find(1)
+    @queue4 = query_object.set(:queue4).find(1)
+    @old = query_object.set(:old).find(2)
+    @donation_articles = query_object.set(:donation_articles).find(2)
   end
 
   # Rss Feed
@@ -39,9 +40,5 @@ class WelcomeController < ApplicationController
     respond_to do |format|
       format.rss { render :layout => false } #index.rss.builder
     end
-  end
-
-  def landing
-    render layout: "landing"
   end
 end

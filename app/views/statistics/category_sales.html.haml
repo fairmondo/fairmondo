@@ -4,7 +4,7 @@
 %p
   Anzeige von Artikelanzahl/Transaktionsanzahl. Artikel/Transaktionen in Überkategorien werden nicht mit denen in Kindkategorien zusammengerechnet. Beachte: Ein Artikel kann in mehreren Kategorien eingestellt sein. Ein Artikel kann also mehrfach in der Liste aufgeführt sein, aber nur einmal je Kategorie.
 %ul
-  - Category.sorted_roots.includes(:children).each do |parent|
+  - Category.sorted.roots.includes(:children).each do |parent|
     %li
       %h3
         = parent.name
