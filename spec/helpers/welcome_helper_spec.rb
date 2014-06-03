@@ -26,9 +26,10 @@ describe WelcomeHelper do
 
   describe "#rss_image_extractor" do
     it "returns an image when there is one" do
-      content = "<img src=\"test.png\">"
+      content = "<p><img src=\"test.png\"/>"
+      result = ' <img src="test.png"> '
       additional = " test test"
-      helper.rss_image_extractor(content + additional).should eq content
+      helper.rss_image_extractor(content + additional).should eq result
     end
     it "returns empty string with no image present" do
       content = "<p> testt test</p>"
