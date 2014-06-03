@@ -135,19 +135,22 @@ class FastbillAPI
         business_transaction.update_attribute("billed_for_#{fee_type}".to_sym, false)
     end
 
-    # This methods calculate the fee without vat
+    # This method calculates the fair percent fee without vat
     def self.fair_wo_vat(article)
       (article.calculated_fair_cents.to_f / 100 / 1.19).round(2)
     end
 
+    # This method calculates the fee without vat
     def self.fee_wo_vat(article)
       (article.calculated_fee_cents.to_f / 100 / 1.19).round(2)
     end
 
+    # This method calculates the discount without vat
     def self.discount_wo_vat(business_transaction)
       (business_transaction.discount_value_cents.to_f / 100 / 1.19).round(2)
     end
 
+    # This method calculates the fee withohut the discount (without vat)
     def self.actual_fee_wo_vat(business_transaction)
       fee = fee_wo_vat(business_transaction.article)
       fee -= discount_wo_vat(business_transaction) if business_transaction.discount
