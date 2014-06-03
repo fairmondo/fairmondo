@@ -25,6 +25,8 @@
 
 - unless resource.active?
   %h1= t('article.titles.preview')
+  -content_for :view_specific_scripts do
+    =javascript_include_tag 'models/article/unactivated_article_warning'
 .breadcrumbs
   - resource.categories.each do |leaf|
     = breadcrumbs_for(leaf).html_safe
