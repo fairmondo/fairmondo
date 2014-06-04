@@ -1,0 +1,30 @@
+
+.sg-body  .sg-example > h3 a{
+  display:inline;
+  width:auto;
+  height:auto;
+  margin:0;
+  font-size: 1.3em;
+  float:none;
+  border: 0px;
+
+}
+
+.sg-body pre code {
+  border:1px dashed #E1E1E1;
+  color:#333344;
+  background:#FAFAFA;
+  font-family:monospace;
+  overflow:auto;
+  font-size:11px;
+  padding:0.5em;
+
+}
+
+.sg-body pre {
+  margin:2em !important;
+}
+
+.sg-canvas > div > * {
+  margin-bottom: 1em !important;
+}

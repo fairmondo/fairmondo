@@ -1,0 +1,27 @@
+= kss_block 'Article' do |modifier|
+  %h2 Articles inside a Grid
+
+
+  %p There is a partial ready for you to use everywhere:
+  %pre
+    %code
+      :plain
+        = render '/articles/shared/show_article', article: @article
+
+  .Grid
+    - 4.times do
+      .Grid-item
+        = render "/articles/shared/show_article", article: Article.first
+  %h2 Article with an extra Button
+  %p The partial can take an extra block when renderd as a layout to attach additional content to the bottom:
+  %pre
+    %code
+      :plain
+        = render layout: "/articles/shared/show_article", locals: { article: @article, extra: true } do
+          more content
+  .Grid
+    .Grid-item
+      = render layout: "/articles/shared/show_article", locals: { article: Article.first, extra: true } do
+        %a.Button test
+  %h2 Single Article can span as wide as you like
+  = render "/articles/shared/show_article", article: Article.first

@@ -24,10 +24,6 @@
  * PLEASE DO NOT PUT ANY CSS CODE IN HERE !!!
  *
  *= require_self
- *= require peek
- *= require peek/views/performance_bar
- *= require peek/views/rblineprof
- *= require peek/views/rblineprof/pygments
  *= require qtip2-jquery-rails
  *
  */
@@ -57,6 +53,7 @@
 @import "layout/main";
 @import "layout/footer";
 @import "layout/ajax";
+@import "layout/feedback"; // feedback sidelabels
 
 // Modules
 @import "modules/notice"; // Notice boxes
@@ -64,7 +61,6 @@
 @import "modules/tag"; // small eco/fair/s&p tags
 @import "modules/news_header"; // header for news
 @import "modules/article"; // an article tile
-@import "modules/feedback"; // feedback sidelabels
 @import "modules/accordion"; // accordions
 @import "modules/search"; // search result, filters, categories
 @import "modules/grid"; // anonymos grid

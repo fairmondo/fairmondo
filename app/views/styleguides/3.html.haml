@@ -1,0 +1,8 @@
+= kss_block 'Accordion' do |modifier|
+  %div{class: "Accordion #{modifier}"}
+    = accordion_item "Heading 1" do
+      Content 1
+    = accordion_item "Heading 2 " do
+      Content 2
+    = accordion_item "Heading 3 " do
+      Content 3
