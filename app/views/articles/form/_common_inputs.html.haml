@@ -25,7 +25,7 @@
       = f.input :title, :tooltip => true, :required => true
     .Accordion-step
       = render '/categories/select_categories/selected_categories', :f => f
-      = f.input :category_ids, :as => :select, :collection => Category.other_category_last.sorted.roots, :tooltip => true, :required => true, :multiple => true, :include_blank => true, :input_html => {:class => "category-nativeselect"}
+      = f.input :category_ids, :as => :select, :collection => Category.other_category_last.sorted.roots, :tooltip => true, :required => true, :multiple => false, :include_blank => true, :input_html => {:class => "category-nativeselect"}
 = f.input_step :article do
   = f.inputs do
     .Accordion-step
