@@ -58,18 +58,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] || fallback
   end
 
-  ## programmatically get controller's filters
-  # def self.filters(kind = nil)
-  #   all_filters = _process_action_callbacks
-  #   all_filters = all_filters.select{|f| f.kind == kind} if kind
-  #   all_filters.map { :filter }
-  # end
-
-  # PeekInto Access Controll
-  def peek_enabled?
-    User.is_admin? current_user
-  end
-
   protected
 
     def render_users_hero
@@ -89,7 +77,7 @@ class ApplicationController < ActionController::Base
     end
 
     def pundit_unverified_controller
-      (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class)
+      (pundit_unverified_modules.include? self.class.name.split("::").first) || (pundit_unverified_classes.include? self.class.name)
     end
 
     def pundit_unverified_modules
@@ -98,9 +86,9 @@ class ApplicationController < ActionController::Base
 
     def pundit_unverified_classes
       [
-        ::RegistrationsController, ::SessionsController, ::ToolboxController,
-        ::BankDetailsController, ::ExportsController, ::WelcomeController,
-        ::CategoriesController, ::Peek::ResultsController
+       "RegistrationsController", "SessionsController", "ToolboxController",
+       "BankDetailsController", "ExportsController", "WelcomeController",
+       "CategoriesController", "Peek::ResultsController", "StyleguidesController"
       ]
     end
 

@@ -21,6 +21,7 @@
 #
 Fairnopoly::Application.routes.draw do
 
+  mount Nkss::Engine => '/styleguides' if Rails.env.development?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   namespace :admin do
@@ -136,9 +137,9 @@ Fairnopoly::Application.routes.draw do
                       request.env['warden'].user.admin?}
 
   constraints constraint do
-    mount Peek::Railtie => '/peek'
     mount Sidekiq::Web => '/sidekiq'
   end
+
 
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|
