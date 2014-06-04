@@ -1,7 +1,7 @@
 - cache 'category_navigation' do
   %ul
     - Category.other_category_last.weighted.includes(:children).sorted.roots.each do |category|
-      %li
+      %li.JS-touch-hover
         %a{href: category_path(category)}
           = category.name
         - if category.children.present?

@@ -24,19 +24,17 @@
 // refs #151
 
 $(document).ready(function(){
-	$("input[data-select-toggle][type=checkbox]")
-		.on('ifCreated ifToggled', function () {
-			box = $(this);
-			area_id = box.attr("data-select-toggle");
-			$("#" + area_id).parent().toggle(this.checked);
-		});
-
-	$("input[data-select-toggle][type=radio]")
-			.on('ifCreated ifToggled',function (e) {
-				box = $(this);
-				area_id = box.attr("data-select-toggle");
-				$("#" + area_id).parent().toggle(this.checked);
-			});
-
-
+  $("input[data-select-toggle][type=checkbox]")
+  .on('ifCreated ifToggled', function () {
+    box = $(this);
+    area_id = box.attr("data-select-toggle");
+    $("#" + area_id).parent().toggle(this.checked);
+  });
+  
+  $("input[data-select-toggle][type=radio]")
+  .on('ifCreated ifToggled',function (e) {
+    box = $(this);
+    area_id = box.attr("data-select-toggle");
+    $("#" + area_id).parent().toggle(this.checked);
+  });
 });
