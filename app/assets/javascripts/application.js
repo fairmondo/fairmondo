@@ -32,10 +32,6 @@
 //= require modernizr
 //= require selectivizr
 //= require tinymce-jquery
-//= require peek
-//= require peek/views/dalli
-//= require peek/views/performance_bar
-//= require peek/views/rblineprof
 
 //= require i18n
 //= require i18n/translations

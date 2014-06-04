@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'faker'
+require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
@@ -29,9 +29,9 @@ FactoryGirl.define do
     selected_payment 'cash'
     forename { Faker::Name.first_name }
     surname  { Faker::Name.last_name }
-    street   { Faker::Address.street_address }
-    city     { Faker::Address.city }
-    zip      { Faker::Address.postcode }
+    street   { Faker::AddressDE.street_address }
+    city     { Faker::AddressDE.city }
+    zip      { Faker::AddressDE.zip_code }
     country  "Deutschland"
     sold_at { Time.now }
     discount_value_cents 0
@@ -45,9 +45,9 @@ FactoryGirl.define do
     factory :single_transaction, class: 'SingleFixedPriceTransaction' do
       forename { Faker::Name.first_name }
       surname  { Faker::Name.last_name }
-      street   { Faker::Address.street_address }
-      city     { Faker::Address.city }
-      zip      { Faker::Address.postcode }
+      street   { Faker::AddressDE.street_address }
+      city     { Faker::AddressDE.city }
+      zip      { Faker::AddressDE.zip_code }
       country  "Deutschland"
       quantity_bought 1
     end
@@ -63,9 +63,9 @@ FactoryGirl.define do
       quantity_bought 1
       forename { Faker::Name.first_name }
       surname  { Faker::Name.last_name }
-      street   { Faker::Address.street_address }
-      city     { Faker::Address.city }
-      zip      { Faker::Address.postcode }
+      street   { Faker::AddressDE.street_address }
+      city     { Faker::AddressDE.city }
+      zip      { Faker::AddressDE.zip_code }
       country  "Deutschland"
     end
 
