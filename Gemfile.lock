@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/nadarei/nkss-rails.git
+  revision: bcf315d1804d4d634879ad4f57b68e73e2b78849
+  specs:
+    nkss-rails (0.0.2)
+      bluecloth
+      ffaker
+      haml
+      kss
+      rails (>= 3.2.0)
+
+GIT
   remote: git://github.com/reputami/fastbill-automatic.git
   revision: cb93c161ea9ae27c0485aca381ea90d0f7d04225
   tag: v0.0.3
@@ -64,6 +75,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bluecloth (2.2.0)
     bluepill (0.0.64)
       activesupport (>= 3.0.0)
       daemons (~> 1.1.4)
@@ -173,12 +185,11 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faker (1.3.0)
-      i18n (~> 0.5)
     fakeredis (0.4.3)
       redis (~> 3.0.0)
     fakeweb (1.3.0)
     fastercsv (1.5.5)
+    ffaker (1.24.0)
     font-awesome-rails (4.0.3.2)
       railties (>= 3.2, < 5.0)
     formtastic (2.3.0.rc3)
@@ -220,6 +231,7 @@ GEM
     kontoapi-ruby (0.2.0)
       addressable
       yajl-ruby
+    kss (0.5.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     letter_opener (1.2.0)
@@ -526,10 +538,10 @@ DEPENDENCIES
   email_spec
   enumerize (>= 0.5.1)
   factory_girl_rails
-  faker
   fakeredis
   fakeweb (~> 1.3)
   fastbill-automatic!
+  ffaker
   font-awesome-rails
   formtastic (~> 2.3.0.rc3)
   friendly_id (>= 4.0.9)
@@ -550,6 +562,7 @@ DEPENDENCIES
   monetize
   money-rails
   newrelic_rpm
+  nkss-rails!
   nokogiri
   paperclip (>= 3.0)
   peek

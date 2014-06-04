@@ -1,6 +1,14 @@
-//
-// Accordions.scss
-//
+/*
+Accodion with items
+
+There is a helper called `accordion-item` available to help you with the html markup.
+
+
+Accordion--activated    -  Accordion with activated first tab
+Accordion--scrollToActive    -  Allow scrolling to activated tab
+
+Styleguide Accordion
+*/
 
 .Accordion .Accordion-item {
 	margin-bottom: 1em;
@@ -10,7 +18,7 @@
 	@include whitebox;
 	display:block;
 	outline: 0;
-	background:none;
+	background-color: white;
 	&:hover {
 		background-color: $sand;
 	}
@@ -62,7 +70,7 @@
 .Accordion .Accordion-item > .Accordion-header > .sprite_helper {
   position:static;
   float:right;
-} 
+}
 
 
 
