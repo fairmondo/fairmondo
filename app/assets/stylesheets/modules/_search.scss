@@ -1,20 +1,11 @@
+/*
+Search Result Layout
+Search Filters, Categories and the results-page
 
-
-// Search Result Layout
+cannot be in controller specific code because it is used by multiple controllers
+*/
 
 // Sidebar left / Results right in desktop
-
-// @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-//   .Search-sidebar {
-//     @include span(1 of 3 0.1);
-//   }
-//   .Search-results {
-//     @include span(2 of 3 0.1);
-//     @include omega;
-//   }
-// }
-
-
 @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
   .Search-sidebar {
     @include span(1 of 4 0.1);
@@ -177,7 +168,7 @@
     &:nth-child(3) .is-active{
       right: 0em;
       left: inherit;
-      
+
     }
   }
   @include at-breakpoint($bp-tablet) {
@@ -189,7 +180,7 @@
         left: inherit;
       }
     }
-    
+
   }
 }
 

@@ -1,14 +1,15 @@
 /*
-Basic typography for Fairnopoly
-
-* styled links
-* styled headings
-* font-size
-* font-family (OpenSans)
-* sprite helpers (refer to gem sprite_factory for more information)
+basic typography
 
 Styleguide Typography
 */
+
+/*
+basic link style
+
+Styleguide Links
+*/
+
 
 html,body {
   height: 100%;
@@ -21,6 +22,12 @@ html,body {
   @include color-links($blue,$blue);
   @include clear-links-with-hover;
 }
+
+/*
+h-tags
+
+Styleguide Headings
+*/
 
 h1,
 h2,
@@ -44,7 +51,12 @@ h4 {
 }
 
 
-// Sprites
+/*
+allow you to handle sprite images
+refer to gem `sprite_factory` for more information
+
+Styleguide Sprites
+*/
 
 span[class^="sprite_"] {
   display: inline-block;
