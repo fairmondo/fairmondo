@@ -1,4 +1,5 @@
-.l-footer-nav > .Feedback {
+
+.l-footer-nav > .l-feedback {
   @include transform(rotate(-90deg));
   @include transition(right 100ms ease-in);
   @include clear-links;
@@ -16,7 +17,7 @@
   }
 }
 
-.Feedback-button {
+.l-feedback-button {
 
   &:hover {
     margin-top: -2px;
@@ -31,7 +32,7 @@
   @include buttonize;
 }
 
-.Feedback-button--green {
+.l-feedback-button--green {
   background-color: $green;
   &:hover {
     background-color: lighten($green, 5%);
