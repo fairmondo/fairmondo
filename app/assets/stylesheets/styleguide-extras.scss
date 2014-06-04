@@ -28,3 +28,20 @@
 .sg-canvas > div > * {
   margin-bottom: 1em !important;
 }
+
+.sg-body .markdown-beautify h2 {
+  color: #0f58ce;
+}
+
+.sg-body .markdown-beautify code {
+  background: #eeeeee;
+  padding: 4px 4px;
+  border-radius: 2px;
+  margin: 0 2px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  line-height:2em;
+}
+
+.sg-body .markdown-beautify ul > li {
+   line-height:2em;
+}

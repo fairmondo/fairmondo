@@ -27,3 +27,9 @@
       = render layout: "/articles/shared/show_article", locals: { article: Article.first, extra: true } do
         %a.Button test
 
+= kss_block 'Listview', background: "white" do |modifier|
+  %p
+    This is optimized for 100% width so it will not be shown properlyon small widths in here
+  %p
+    There are partials in "shared/listview" ready for you to use.
+  = render "shared/listview/listview" , items: Article.all.limit(5)

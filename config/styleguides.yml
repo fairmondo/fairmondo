@@ -1,7 +1,11 @@
 title: "Fairnopoly"
 sections:
-  1: Button
+  1: General
   2: Typography
   3: Accordion
   4: Articles and Grids
   5: Contents
+  6: User
+  7: Notices
+  8: Buttons and Tags
+  9: Responsive
