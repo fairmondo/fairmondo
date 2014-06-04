@@ -14,31 +14,31 @@
         %i.icon-shares
         = t('common.text.shares')
     %li
-      %a{href: "/faq"}
+      %a{href: "/faq", target: 'blank'}
         = t('footer.faq')
     %li
-      %a{href: "https://info.fairnopoly.de/forum/"}
+      %a{href: "https://info.fairnopoly.de/forum/", target: 'blank'}
         = t('footer.forum')
     %li
-      %a{href: "/contact"}
+      %a{href: "/contact", target: 'blank'}
         = t('footer.contact')
     %li
-      %a{href: "/about_us"}
+      %a{href: "/about_us", target: 'blank'}
         = t('footer.about_us')
     %li
-      %a{href: "/philosophy"}
+      %a{href: "/philosophy", target: 'blank'}
         = t('footer.philosophy')
     %li
-      %a{href: "https://transparenz.fairnopoly.de/"}
+      %a{href: "https://transparenz.fairnopoly.de/", target: 'blank'}
         = t('footer.transparency')
     %li
-      %a{href: "https://info.fairnopoly.de/pressekit/"}
+      %a{href: "https://info.fairnopoly.de/pressekit/", target: 'blank'}
         = t('footer.press')
     %li
-      %a{href: "https://info.fairnopoly.de/team/"}
+      %a{href: "https://info.fairnopoly.de/team/", target: 'blank'}
         = t('footer.team')
     %li
-      %a{href: "https://info.fairnopoly.de/stellenausschreibungen/"}
+      %a{href: "https://info.fairnopoly.de/stellenausschreibungen/", target: 'blank'}
         = t('footer.jobs')
     - if User.is_admin? current_user
       %li
@@ -48,7 +48,7 @@
       %li
         = link_to 'Statistics', "/statistics/general"
     %li
-      %a{:href => "https://info.fairnopoly.de"}
+      %a{:href => "https://info.fairnopoly.de", target: 'blank'}
         = t('footer.blog')
     %li
       %a{:href => "http://50856.seu1.cleverreach.com/f/50856-127432/", target: '_blank'}
@@ -57,13 +57,13 @@
 
   %ul.l-footer-nav
     %li
-      %a{href: "/agb"}
+      %a{href: "/agb", target: 'blank'}
         = t('footer.agb')
     %li
-      %a{href: "/privacy"}
+      %a{href: "/privacy", target: 'blank'}
         = t('footer.privacy')
     %li
-      %a{href: "/imprint"}
+      %a{href: "/imprint", target: 'blank'}
         = t('footer.imprint')
   .l-footer-copyright
     &copy; Copyright 2014 Fairnopoly eG

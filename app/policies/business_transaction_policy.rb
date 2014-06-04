@@ -45,6 +45,10 @@ class BusinessTransactionPolicy < Struct.new(:user, :business_transaction)
     user.is?(business_transaction.article_seller)
   end
 
+  def show_vacationing?
+    !own? && business_transaction.article_active?
+  end
+
   private
     def own?
       user ? user.articles.include?(business_transaction.article) : false
