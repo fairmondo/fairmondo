@@ -6,7 +6,7 @@ $ ->
 
     container = $(@).closest '.JS-active-toggle--container' # for scoping
     container.toggleClass 'is-active' if container.hasClass('JS-active-toggle--target')
-    container.find(".JS-active-toggle--target").each (i,element) -> 
+    container.find(".JS-active-toggle--target").each (i,element) ->
       if $(element).closest('.JS-active-toggle--container')[0] == container[0]
         $(element).toggleClass('is-active')
 
