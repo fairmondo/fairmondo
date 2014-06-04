@@ -15,7 +15,7 @@ changed_select_box = (event) ->
 
 # Add a new selectbox after selector with categories that are children of selected_category_id
 add_new_selectbox = (selected_category_id,selected_value = null) ->
- 
+
   unless selected_category_id is "-1" |selected_category_id is ""
     params_extra = ".json?"
     hideEmpty = $(native_select_categories).data("hide-empty")
@@ -38,17 +38,18 @@ add_new_selectbox = (selected_category_id,selected_value = null) ->
         jq_selecttag = $(select_tag)
 
         #Append the selectbox
-        
+
         jq_selecttag.insertBefore $('#'+select_button_html_id)
-        
+
         # Add style and preselect a value
-        jq_selecttag.selectBoxIt({autoWidth:false});
+        #jq_selecttag.selectBoxIt({autoWidth:false});
+        document.Fairnopoly.selectboxit()
 
         # add handler
         jq_selecttag.change changed_select_box
 
       # For sigle selects we have to instantly add form ids of the selected category and remove the old one
- 
+
 
 # Get the selected category values for a multiselect
 get_selected_values = ->
@@ -106,13 +107,13 @@ $(document).ready ->
   native_category_input = $(native_select_categories)
   selected_categories_list = $(selected_categories_input)
   if native_category_input.length > 0
-   
+
     #Create the select category button
     select_button_html = "<a class='Button' id='"+ select_button_html_id + "' title='" + I18n.t('javascript.common.actions.select_another_category') + "'>"+I18n.t("javascript.common.actions.add_category_picker")+"</a>"
     select_button = $(select_button_html)
     native_category_input.parent().append select_button
     # Event for select button
-    select_button.click select_category # On select action
+    select_button.on 'click', select_category # On select action
 
 
     #Create remove buttons
@@ -125,7 +126,7 @@ $(document).ready ->
     # for form autosubmit
     $(".js-category-add").submit ->
       auto_append_selected_category()
-    
+
     #event handler
     native_category_input.change changed_select_box
 
