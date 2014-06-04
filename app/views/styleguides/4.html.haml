@@ -1,12 +1,15 @@
-= kss_block 'Article' do |modifier|
-  %h2 Articles inside a Grid
-
-
+= kss_block 'Article', width: '400', align: 'left' do |modifier|
   %p There is a partial ready for you to use everywhere:
   %pre
     %code
       :plain
         = render '/articles/shared/show_article', article: @article
+
+  = render "/articles/shared/show_article", article: Article.first
+
+= kss_block 'Grid' do |modifier|
+  %h2 Articles inside a Grid
+
 
   .Grid
     - 4.times do
@@ -23,5 +26,4 @@
     .Grid-item
       = render layout: "/articles/shared/show_article", locals: { article: Article.first, extra: true } do
         %a.Button test
-  %h2 Single Article can span as wide as you like
-  = render "/articles/shared/show_article", article: Article.first
+

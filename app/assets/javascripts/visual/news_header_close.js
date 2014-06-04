@@ -25,8 +25,8 @@
 //= require vendor/jquery.colorbox
 
 $(document).ready(function(){
-  $(".NewsHeader-close").click(function() {
-    $(".NewsHeader").slideUp();
+  $(".l-news-header-close").click(function() {
+    $(".l-news-header").slideUp();
     var date = new Date(Date.now() + (24 * 60 * 60 * 1000)); // set date to one day from now
     document.cookie = "news-header-disabled=true; path=/; expires=" + date.toGMTString();
   } );
