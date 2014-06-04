@@ -22,15 +22,15 @@
 tooltip = function() {
 	$("span.sprite_helper").qtip({
   	content: { text: false },
-  	style: { 
+  	style: {
       classes: 'qtip-light'
     },
     position: {
-        viewport: $(window)
+      viewport: $(window)
     },
   	show: 'click',
   	hide: 'unfocus'
-  	
+
   });
 };
 
