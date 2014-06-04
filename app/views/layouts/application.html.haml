@@ -59,7 +59,6 @@
     %link{ rel: 'image_src', href: yield(:title_image) }
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
-    = render 'peek/bar'
 
     .l-wrapper
       - if !flash.empty?
