@@ -66,6 +66,7 @@
 //= require visual/slides
 //= require visual/iframe
 //= require visual/active_toggle
+//= require visual/touch_hover
 //= require visual/ajax_spinner
 
 //= require inputs/password_complexify

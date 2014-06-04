@@ -22,8 +22,8 @@
 module WelcomeHelper
 
   def rss_image_extractor content
-    if content.start_with? "<img"
-      Sanitize.clean(content[0..(content.index ">")], elements: ['img'] ,attributes: {'img' => ['src', 'alt']}).html_safe
+    if content.start_with? "<p><img"
+      Sanitize.clean(content[0..(content.index "/>")], elements: ['img'] ,attributes: {'img' => ['src', 'alt']}).html_safe
     else
       ""
     end
