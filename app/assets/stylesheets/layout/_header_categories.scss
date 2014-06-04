@@ -23,7 +23,7 @@
   position: relative;
   font-size: 0.9em;
   line-height: 0.9em;
-  &:hover {
+  &:hover, &.touch-hover {
     background: white;
   }
   border-radius: 5px;
@@ -57,13 +57,13 @@
     padding: 1em;
     min-width: 6em;
     display: table-cell;
-    &:hover {
+    &:hover, &.touch-hover {
       color:$black;
     }
   }
 }
 
-.l-header-categories > ul > li:hover .l-header-categories-children{
+.l-header-categories > ul > li:hover .l-header-categories-children, .l-header-categories > ul > li.touch-hover .l-header-categories-children{
   left:0;
   top:1.8em;
 }
