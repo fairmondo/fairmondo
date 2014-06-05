@@ -1,0 +1,12 @@
+= kss_block 'Buttons' do |modifier|
+  %a{class: "Button #{modifier}"}
+    Example button
+  %button{class: "Button #{modifier}"}
+    Example button
+  %a{class: "Button #{modifier}"}
+    %span.sprite_paper
+    Example button
+
+= kss_block 'Tags', background: "white" do |modifier|
+  %span{class: "Tag #{modifier}"}
+    test

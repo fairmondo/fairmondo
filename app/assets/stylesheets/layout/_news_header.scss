@@ -1,10 +1,10 @@
-.NewsHeader {
+.l-news-header {
   background-color: $yellow;
   box-shadow: 0 1px 1px $gray;
   position: relative;
 }
 
-.NewsHeader-inner {
+.l-news-header-inner {
   @include container($screen-width);
   padding: 1em 0;
   color: $dark-gray;
@@ -16,7 +16,7 @@
   }
 }
 
-.NewsHeader-close {
+.l-news-header-close {
   cursor: pointer;
   position: absolute;
   top: 0.5em;
