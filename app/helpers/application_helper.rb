@@ -93,5 +93,8 @@ module ApplicationHelper
     end
   end
 
+  def resource
+    instance_variable_get("@#{controller_name.classify.underscore}")
+  end
 
 end

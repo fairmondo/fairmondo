@@ -26,6 +26,15 @@ class ArticleObserver < ActiveRecord::Observer
   # If you write callbacks that need to be triggered on a mass upload as well
   # make sure to trigger them manually there
 
+  def before_save(article)
+    if article.save_as_template?
+      cloned_article = self.amoeba_dup #duplicate the article
+      cloned_article.save_as_template = "0" #no loops
+      cloned_article.templatify
+      cloned_article.save #save the cloned article
+    end
+  end
+
   def after_save(article)
     # Send a Category Proposal
     if article.category_proposal.present?
@@ -33,7 +42,6 @@ class ArticleObserver < ActiveRecord::Observer
     end
 
     Indexer.index_article article
-
   end
 
   def before_activate(article, transition)

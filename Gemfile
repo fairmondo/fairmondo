@@ -67,9 +67,9 @@ gem 'virtus'
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
 gem 'devise' # authentication
-gem 'inherited_resources' # dry controllers
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
+gem 'responders'
 
 # ---------- Background Processing ----------
 

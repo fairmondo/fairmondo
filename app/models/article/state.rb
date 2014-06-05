@@ -46,6 +46,10 @@ module Article::State
         # Sold
       end
 
+      state :template do
+        # Template
+      end
+
       event :activate do
         transition [:preview,:locked] => :active
       end
@@ -61,6 +65,10 @@ module Article::State
 
       event :sold_out do
         transition :active => :sold
+      end
+
+      event :templatify do
+        transition :preview => :template
       end
 
     end

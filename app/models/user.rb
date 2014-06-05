@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
 
 
-  has_many :article_templates, :dependent => :destroy
+  has_many :article_templates, -> { where('template_name IS NOT NULL') }, class_name: 'Article'
   has_many :libraries, :dependent => :destroy
 
   has_many :notices
