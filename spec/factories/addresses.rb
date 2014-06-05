@@ -1,4 +1,4 @@
-require 'faker'
+require 'ffaker'
 
 FactoryGirl.define do
   factory :address do
