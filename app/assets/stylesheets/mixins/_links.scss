@@ -1,4 +1,4 @@
-
+// Clears link underline
 @mixin clear-links {
   a {
     text-decoration:none;
@@ -8,6 +8,7 @@
   }
 }
 
+// clears link underline but keeps hover (revert clear-links)
 @mixin clear-links-with-hover {
   a {
     text-decoration:none;
@@ -17,7 +18,10 @@
   }
 }
 
-
+// Colorize links
+//
+// $color - color
+// $hover - hover color
 @mixin color-links($color,$hover) {
   a {
     color: $color;

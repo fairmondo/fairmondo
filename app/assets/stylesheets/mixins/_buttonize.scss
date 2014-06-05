@@ -1,3 +1,5 @@
+
+// Makes a Button like thing out of an element. Works for `<button>` and `<a>`
 @mixin buttonize {
   margin: 0.1em;
   @include user-select(none);
@@ -12,6 +14,7 @@
   }
 }
 
+// Clears `<button>` borders and makes a bubble like thing out of an element (round edges, padding)
 @mixin bubbleize {
   border: 0px;
   padding: em(8,17) em(17,17);
