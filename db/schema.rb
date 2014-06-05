@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "article_templates", ["user_id"], name: "index_article_templates_on_user_id", using: :btree
+  add_index "article_templates", ["user_id"], name: "index_article_templates_on_user_id"
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -91,24 +91,24 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.integer  "friendly_percent_organisation_id",       limit: 8
   end
 
-  add_index "articles", ["article_template_id"], name: "index_articles_on_article_template_id", using: :btree
-  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
-  add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
-  add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
-  add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
-  add_index "articles", ["id", "article_template_id"], name: "index_articles_on_id_and_article_template_id", unique: true, using: :btree
-  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
-  add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
+  add_index "articles", ["article_template_id"], name: "index_articles_on_article_template_id"
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at"
+  add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id"
+  add_index "articles", ["discount_id"], name: "index_articles_on_discount_id"
+  add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id"
+  add_index "articles", ["id", "article_template_id"], name: "index_articles_on_id_and_article_template_id", unique: true
+  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true
+  add_index "articles", ["slug"], name: "text_pattern_index_on_slug"
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id"
 
   create_table "articles_categories", force: true do |t|
     t.integer "category_id"
     t.integer "article_id",  limit: 8
   end
 
-  add_index "articles_categories", ["article_id", "category_id"], name: "articles_category_index", using: :btree
-  add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
-  add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
+  add_index "articles_categories", ["article_id", "category_id"], name: "articles_category_index"
+  add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id"
+  add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id"
 
   create_table "business_transactions", force: true do |t|
     t.string   "type"
@@ -142,11 +142,11 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.boolean  "billed_for_discount",            default: false
   end
 
-  add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
-  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id", using: :btree
-  add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
-  add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
-  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
+  add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id"
+  add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id"
+  add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id"
+  add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id"
+  add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id"
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string   "slug"
   end
 
-  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
-  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true
 
   create_table "contents", force: true do |t|
     t.string   "key"
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true, using: :btree
+  add_index "contents", ["key"], name: "index_tinycms_contents_on_key", unique: true
 
   create_table "discounts", force: true do |t|
     t.string   "title"
@@ -183,21 +183,21 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.integer  "percent"
     t.integer  "max_discounted_value_cents"
     t.integer  "num_of_discountable_articles"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "exhibits", force: true do |t|
     t.integer  "article_id",         limit: 8
     t.string   "queue"
     t.integer  "related_article_id", limit: 8
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.datetime "exhibition_date"
   end
 
-  add_index "exhibits", ["article_id"], name: "index_exhibits_on_article_id", using: :btree
-  add_index "exhibits", ["related_article_id"], name: "index_exhibits_on_related_article_id", using: :btree
+  add_index "exhibits", ["article_id"], name: "index_exhibits_on_article_id"
+  add_index "exhibits", ["related_article_id"], name: "index_exhibits_on_related_article_id"
 
   create_table "fair_trust_questionnaires", force: true do |t|
     t.integer "article_id",                         limit: 8
@@ -223,7 +223,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string  "awareness_raising_other"
   end
 
-  add_index "fair_trust_questionnaires", ["article_id"], name: "index_fair_trust_questionnaires_on_article_id", using: :btree
+  add_index "fair_trust_questionnaires", ["article_id"], name: "index_fair_trust_questionnaires_on_article_id"
 
   create_table "feedbacks", force: true do |t|
     t.text     "text"
@@ -245,8 +245,8 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string   "phone"
   end
 
-  add_index "feedbacks", ["article_id"], name: "index_feedbacks_on_article_id", using: :btree
-  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
+  add_index "feedbacks", ["article_id"], name: "index_feedbacks_on_article_id"
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
 
   create_table "images", force: true do |t|
     t.string   "image_file_name"
@@ -262,7 +262,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.boolean  "image_processing"
   end
 
-  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_type", using: :btree
+  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_imageable_type"
 
   create_table "libraries", force: true do |t|
     t.string   "name"
@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string   "exhibition_name"
   end
 
-  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
+  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id"
 
   create_table "library_elements", force: true do |t|
     t.integer  "article_id",      limit: 8
@@ -284,32 +284,32 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.datetime "exhibition_date"
   end
 
-  add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree
-  add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id", using: :btree
+  add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id"
+  add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id"
 
   create_table "mass_upload_articles", force: true do |t|
     t.integer  "mass_upload_id"
     t.integer  "article_id"
     t.string   "action"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "row_index"
     t.text     "validation_errors"
     t.text     "article_csv"
     t.string   "process_identifier"
   end
 
-  add_index "mass_upload_articles", ["article_id"], name: "index_mass_upload_articles_on_article_id", using: :btree
-  add_index "mass_upload_articles", ["mass_upload_id"], name: "index_mass_upload_articles_on_mass_upload_id", using: :btree
-  add_index "mass_upload_articles", ["row_index", "mass_upload_id"], name: "index_mass_upload_articles_on_row_index_and_mass_upload_id", using: :btree
-  add_index "mass_upload_articles", ["row_index"], name: "index_mass_upload_articles_on_row_index", using: :btree
+  add_index "mass_upload_articles", ["article_id"], name: "index_mass_upload_articles_on_article_id"
+  add_index "mass_upload_articles", ["mass_upload_id"], name: "index_mass_upload_articles_on_mass_upload_id"
+  add_index "mass_upload_articles", ["row_index", "mass_upload_id"], name: "index_mass_upload_articles_on_row_index_and_mass_upload_id"
+  add_index "mass_upload_articles", ["row_index"], name: "index_mass_upload_articles_on_row_index"
 
   create_table "mass_uploads", force: true do |t|
     t.integer  "row_count"
     t.text     "failure_reason"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
@@ -317,7 +317,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string   "state"
   end
 
-  add_index "mass_uploads", ["user_id"], name: "index_mass_uploads_on_user_id", using: :btree
+  add_index "mass_uploads", ["user_id"], name: "index_mass_uploads_on_user_id"
 
   create_table "notices", force: true do |t|
     t.text     "message"
@@ -325,11 +325,11 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.integer  "user_id"
     t.string   "path"
     t.string   "color"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+  add_index "notices", ["user_id"], name: "index_notices_on_user_id"
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -342,29 +342,29 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
 
   create_table "ratings", force: true do |t|
     t.string   "rating"
     t.text     "text"
     t.integer  "business_transaction_id", limit: 8
     t.integer  "rated_user_id",           limit: 8
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
-  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
-  add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
+  add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id"
+  add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id"
 
   create_table "refunds", force: true do |t|
     t.string   "reason"
     t.text     "description"
     t.integer  "business_transaction_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "refunds", ["business_transaction_id"], name: "index_refunds_on_business_transaction_id", using: :btree
+  add_index "refunds", ["business_transaction_id"], name: "index_refunds_on_business_transaction_id"
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -373,8 +373,8 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
 
   create_table "social_producer_questionnaires", force: true do |t|
     t.integer "article_id",                                  limit: 8
@@ -387,7 +387,7 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.text    "social_entrepreneur_explanation"
   end
 
-  add_index "social_producer_questionnaires", ["article_id"], name: "index_social_producer_questionnaires_on_article_id", using: :btree
+  add_index "social_producer_questionnaires", ["article_id"], name: "index_social_producer_questionnaires_on_article_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                                    default: "",    null: false
@@ -452,9 +452,9 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.boolean  "newsletter",                               default: false
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
 
 end

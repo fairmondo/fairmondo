@@ -1,0 +1,65 @@
+.markdown-beautify
+  :markdown
+    #SCSS Code Conventions
+
+    The SCSS Code of fairnopoly is divided into multiple folders that ensure better readability and help you
+    to find the classes you want to create:
+
+    * **mixins** - SASS Mixins and Variables
+    * **modules** - Modules that are available on every site of the plattform
+    * **layout** - The base layout definition for everything that is referenced in the application.html.haml and its sub-partials
+    * **controller** - Per Controller SASS Code that is only available inside one controller
+
+    The class names and file names in the folders reflect their location and have per folder naming conventions:
+
+    ## mixins
+    * file names should reflect all contained mixins
+    * mixins and variables start with lower case letters
+    * breakpoints start with `$bp-*` and live in _breakpoints.scss
+      * Example: `$bp-tablet`
+
+    ## modules
+    * module names start with *capital letters*
+    * file names should always be the same as the module name
+    * class-names are build like this: `Module[-child][-grandchild][--modifier]`
+      * Examples: `Button`, `Button--green`, `List-item`, `List-item-image`, `List-item-image--small`
+    * Definition of submodules should always be namespaced with the parent selector
+      * Example:
+          `List > List-item > List-item-image {}`
+    Only create a new Module if it fullfills the following criteria *[R]=required*:
+    * the SCSS Code you want to write is written for something that is NOT in application.html.haml or its subpartials (see layout) [R]
+    * the Code is used by pages across multiple controllers (or at least will be used in the future) [R]
+    * it feels like a thing that you can present in this style guide
+
+    ## layout
+    * file names should reflect the partial-names for application.html.haml (if possible)
+    * class names should start with a `l-*` and lower case letters and are build like this `l-name[-childname][--modifier]`
+      * Examples: `l-header`, `l-footer`, `l-header-search` , `l-feedback-button--green`
+    * if posible try to only use names of the partials in class names if they can be matched
+
+    ## controller
+    * file name is always the controller name (no exceptionshere because they are included automatically)
+    * all class names should start with lower case letters and should reflect their content ( exception: dont use `l-*` here for obvious reasons)
+      * Examples: `breadcrumb`, `article` , `user`
+
+    ## javascript
+    There are some cases where you have to define class names for JQuery finders. Naming Conventions for this are the following:
+
+    * if it is a module you want to have js-functions defined on just use the Module name, or a Module modifier *(depending on the usecase)*
+      * Examples: `Accordion` , `Accordion--activated`
+    * if it is for js only purposes start with `JS-*`
+      * Examples: `JS-toggle-trigger`
+
+    # General Style and Tipps
+    Try to user the CSS-child selector as much as you can instead of normal selection to avoid confusions with inner elements:
+
+    * Good - `List > List-item {}`
+    * Bad - `List List-item {}`
+
+    Dont use more than one level of child element css.
+    Try to break it up into multiple statements if you want to write cleaner code.
+
+    * Good - ` List > List-item { ...; }  List > List-item > h3 { ...; } `
+    * Bad: - ` List { List-item { ...; h3 { ...; } } } `
+
+    # CSS 3 and Bourbon

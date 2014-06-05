@@ -30,6 +30,7 @@
 .breadcrumbs
   - resource.categories.each do |leaf|
     = breadcrumbs_for(leaf).html_safe
+    %br
 .contents
   = render "articles/show/article_contents", :article => resource
   - if User.is_admin? current_user
