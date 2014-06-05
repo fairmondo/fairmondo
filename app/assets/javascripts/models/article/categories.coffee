@@ -8,8 +8,13 @@ select_button_html_id = "category-selectbutton" # the select button class
 #
 changed_select_box = (event) ->
   selected_categories_list = $(selected_categories_input)
-  $(event.target).nextAll("select").remove() # Remove all selectboxes after this one
-  selected_category_id = $("option:selected", $(this)).attr("value") # retrieve the category_id from the changed box
+  # Remove all selectboxes after this one
+  subcategory_selects = $(event.target).closest('li').find("select.JS-subcategory").toArray() # find all subcategory selects (get rendered differently on mobile and on desktop)
+  position = subcategory_selects.indexOf(event.target)
+  removable_selects = subcategory_selects.splice position+1 # removable are all selects after event.target
+  $(removable_selects).remove()
+  # retrieve the category_id from the changed box
+  selected_category_id = $("option:selected", $(this)).attr("value")
   # Append select box to old box
   add_new_selectbox selected_category_id
 
@@ -26,19 +31,17 @@ add_new_selectbox = (selected_category_id,selected_value = null) ->
       if data.length > 0 # only if we have any children in this category
 
         # Build Select Box
-        select_tag = "<select><option value=\"-1\">Alle Unterkategorien</option>" # Add empty option
+        select_tag = "<select class='JS-subcategory'><option value='-1'>Alle Unterkategorien</option>" # Add empty option
         $.each data, (index, child) ->
-          select_tag += "<option value=\"" + child.id + "\""
-          if child.id == selected_value
-            select_tag += " selected"
-          select_tag += ">" + child.name + "</option>"
+          select_tag += "<option value='#{child.id}'"
+          if child.id is selected_value then select_tag += " selected"
+          select_tag += ">#{child.name}</option>"
 
         select_tag += "</select>"
 
         jq_selecttag = $(select_tag)
 
         #Append the selectbox
-
         jq_selecttag.insertBefore $('#'+select_button_html_id)
 
         # Add style and preselect a value
