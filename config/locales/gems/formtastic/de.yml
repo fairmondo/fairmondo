@@ -134,6 +134,7 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
+        template_name: Vorlage
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -155,9 +156,6 @@ de:
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
         social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
-      article_template:
-        name: Vorlage
-        article_title: Artikel
       template_select:
         article_template: Vorlage
       article_image:
@@ -210,6 +208,7 @@ de:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Filter (optional)"
+        template: Name der Vorlage
         article: "Dein Artikel"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
@@ -221,8 +220,6 @@ de:
       template_select:
         prefix: ""
         apply: Deine Vorlagen
-      article_template:
-        template: Name der Vorlage
 
     hints:
       user: &hints_user

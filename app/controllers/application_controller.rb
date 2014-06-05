@@ -92,15 +92,6 @@ class ApplicationController < ActionController::Base
       ]
     end
 
-    # To be inherited and used in a before_filter
-    def authorize_resource
-      authorize resource
-    end
-
-    def authorize_build_resource
-      authorize build_resource
-    end
-
     def refined_params
       @refined_params ||= params.for(appropriate_resource).as(current_user).refine
     end
