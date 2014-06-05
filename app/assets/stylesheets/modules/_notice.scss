@@ -1,9 +1,17 @@
-//
-// Green/red notice bar
-//
+/*
+Notices
+Messages for the user
+
+Notice--error   -  Error Messages
+Notice--info    -  Information Message
+Notice--confirmation - Confirmation Dialog
+
+Styleguide Notice
+*/
 
 .Notice {
   color: white;
+  background-color: $blue;
   box-shadow: 0 1px 1px $gray;
   position: relative;
 }

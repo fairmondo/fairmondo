@@ -14,14 +14,24 @@ $bp-desktop-wide: 1500px;
 
 $bp-mobile-horizontal-big: 564px;
 
+// Adds media tags that will start from given value
+//
+// $value - minimum window width
 @mixin at-breakpoint($value) {
   @media (min-width: $value) { @content; }
 }
 
+// Adds media tags that will be there until the given value
+//
+// $value - maximum window width
 @mixin till-breakpoint($value) {
   @media (max-width: $value - 1px) { @content; }
 }
 
+// Adds media tags that will start from given minimum and end at the maximum
+//
+// $min - minimum window width
+// $max - maximum window width
 @mixin between-breakpoints($min, $max) {
   @media (min-width: $min) and (max-width: $max - 1px) {
     @content;
