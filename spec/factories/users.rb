@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'faker'
+require 'ffaker'
 
 FactoryGirl.define do
   factory :user, aliases: [:seller, :buyer, :sender, :rated_user] , class: ["PrivateUser", "LegalEntity"].sample do
@@ -37,10 +37,10 @@ FactoryGirl.define do
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
     title { Faker::Name.prefix }
     country "Deutschland"
-    street { Faker::Address.street_address }
+    street { Faker::AddressDE.street_address }
     address_suffix { Faker::Name.last_name }
-    city { Faker::Address.city }
-    zip { Faker::Address.postcode }
+    city { Faker::AddressDE.city }
+    zip { Faker::AddressDE.zip_code }
 
     company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
 

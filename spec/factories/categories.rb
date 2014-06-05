@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'faker'
+require 'ffaker'
 
 FactoryGirl.define do
   factory :category do

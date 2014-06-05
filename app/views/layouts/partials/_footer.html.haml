@@ -3,14 +3,14 @@
     %a{href: "/"}
       %span.sprite_logo_small
   %ul.l-footer-nav
-    %li.Feedback
-      %a.Feedback-button{:href=>new_feedback_path(:variety => :get_help)}
+    %li.l-feedback
+      %a.l-feedback-button{:href=>new_feedback_path(:variety => :get_help)}
         %i.icon-help
         = t('common.text.help')
-      %a.Feedback-button{:href=>new_feedback_path(:variety => :send_feedback)}
+      %a.l-feedback-button{:href=>new_feedback_path(:variety => :send_feedback)}
         %i.icon-feedback
         = t('common.text.feedback')
-      %a.Feedback-button.Feedback-button--green{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
+      %a.l-feedback-button.l-feedback-button--green{href: 'http://info.fairnopoly.de/anteile-zeichnen/', :target => '_blank'}
         %i.icon-shares
         = t('common.text.shares')
     %li

@@ -1,3 +1,16 @@
+/*
+Tags
+Badgets for various things
+
+Tag--gray   - gray tag
+Tag--blue   - blue tag
+Tag--green  - green tag
+Tag--orange - orange tag
+Tag--big    - big tag
+
+Styleguide Tags
+*/
+
 .Tag{
   border-radius: 0.3em;
   text-transform: uppercase;
@@ -6,6 +19,7 @@
   padding: 0 0.5em;
   color: white !important;
   text-decoration: none !important;
+  background-color: $black;
 }
 
 // Color variations
