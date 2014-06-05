@@ -90,9 +90,12 @@ describe User do
     it { should respond_to :fastbill_id }
     it { should respond_to :vacationing }
     it { should respond_to :admin }
-
+    it { should respond_to :standard_billing_address }
+    it { should respond_to :standard_shipping_address }
   end
+
   describe "associations" do
+    it { should have_many(:addresses).dependent(:destroy) }
     it { should have_many(:articles).dependent(:destroy) }
     it { should have_many(:article_templates).dependent(:destroy) }
     it { should have_many(:libraries).dependent(:destroy) }

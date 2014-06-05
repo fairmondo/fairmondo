@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
 
   #Relations
   has_many :business_transactions, through: :articles
+  has_many :addresses, dependent: :destroy
   has_many :articles, :dependent => :destroy # As seller
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
