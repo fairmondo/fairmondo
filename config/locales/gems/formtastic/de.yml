@@ -156,8 +156,8 @@ de:
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
         social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
-      template_select:
-        article_template: Vorlage
+      template:
+        article_id: Vorlage
       article_image:
         image: Bild
         _destroy: Löschen
@@ -217,7 +217,7 @@ de:
         upload_images: "Bilder hochladen"
       mass_upload:
         upload_csv: "Artikel per CSV-Datei importieren"
-      template_select:
+      template:
         prefix: ""
         apply: Deine Vorlagen
 
@@ -309,7 +309,7 @@ de:
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
-      template_select:
+      template:
         submit: "Vorlage übernehmen"
       # Login
       login: "Anmelden"

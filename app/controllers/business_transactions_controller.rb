@@ -19,62 +19,57 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class BusinessTransactionsController < InheritedResources::Base
+class BusinessTransactionsController < ApplicationController
   respond_to :html
-  actions :show, :edit, :update
-  custom_actions :resource => [:already_sold, :print_order_buyer, :request_refund]#, :print_order_seller]
 
+  before_filter :set_business_transaction
   before_filter :redirect_if_already_sold, only: [:edit, :update]
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
   before_filter :redirect_to_child_show, only: :show, if: :multiple?
-  before_filter :authorize_resource
   before_filter :dont_cache
 
   def edit
-    edit! { return render :step2 if request.patch? && resource.edit_params_valid?(refined_params) }
+    authorize @business_transaction
+    render :step2 if request.patch? && @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
   end
 
-  # def show
-  #   if resource.available? # if available actually pundit should forbid this action
-  #     redirect_to edit_business_transaction_path resource
-  #   else
-  #     show!
-  #   end
-  # end
+  def show
+    authorize @business_transaction
+  end
+
+  def already_sold
+    authorize @business_transaction
+  end
 
   def print_order_buyer
-    show! do |format|
-      format.html do
-        render :print_order_buyer, layout: false
-      end
-    end
+    authorize @business_transaction
+    render :print_order_buyer, layout: false
   end
 
   def update
-    resource.buyer_id = current_user.id
-    update! do |success, failure|
-      resource.buy if success.class # using .class was the only way I could find to get a true or false value
-      failure.html do
-        if resource.edit_params_valid? refined_params
-          return render :step2
-        else
-          return render :edit
-        end
-      end
+    @business_transaction.assign_attributes(params.for(@business_transaction).refine)
+    @business_transaction.buyer_id = current_user.id
+    authorize @business_transaction
+    if @business_transaction.valid? && @business_transaction.buy
+      respond_with @business_transaction
+    elsif @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
+      render :step2
+    else
+      render :edit
     end
   end
 
   private
     ## show ##
     def redirect_if_not_yet_sold
-      if resource.available? && ( !resource.buyer || !resource.buyer.is?(current_user) )
-        redirect_to edit_business_transaction_path(resource)
+      if @business_transaction.available? && ( !@business_transaction.buyer || !@business_transaction.buyer.is?(current_user) )
+        redirect_to edit_business_transaction_path(@business_transaction)
       end
     end
 
     def redirect_to_child_show
-      if resource.children
-        child_transactions = resource.children.select { |c| c.buyer == current_user }
+      if @business_transaction.children
+        child_transactions = @business_transaction.children.select { |c| c.buyer == current_user }
         unless child_transactions.empty?
           redirect_to business_transaction_path child_transactions[-1]
         end
@@ -83,11 +78,15 @@ class BusinessTransactionsController < InheritedResources::Base
 
     ## edit, update ##
     def redirect_if_already_sold
-      redirect_to already_sold_business_transaction_path(resource) unless resource.available?
+      redirect_to already_sold_business_transaction_path(@business_transaction) unless @business_transaction.available?
     end
 
     ## other ##
     def multiple?
-      resource.multiple?
+      @business_transaction.multiple?
+    end
+
+    def set_business_transaction
+      @business_transaction = BusinessTransaction.find(params[:id])
     end
 end

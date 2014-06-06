@@ -80,7 +80,7 @@ describe 'Article management' do
         end
 
         it "should show the create article page when selecting no template" do
-          visit new_article_path template_select: { article_template: "" }
+          visit new_article_path template: { article_id: "" }
           current_path.should == new_article_path
         end
 
@@ -149,8 +149,8 @@ describe 'Article management' do
 
          it "should create an article from a template" do
           template = FactoryGirl.create :article_template, :without_image, user: user
-          visit new_article_path template_select: { article_template: template.id }
-          page.should have_content I18n.t('template_select.notices.applied', name: template.name)
+          visit new_article_path template: { article_id: template.id }
+          page.should have_content I18n.t('template.notices.applied', name: template.name)
         end
 
         context "for private users" do
@@ -418,7 +418,7 @@ describe 'Article management' do
         end
       end
 
-     
+
     end
   end
 end
