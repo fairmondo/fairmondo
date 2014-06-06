@@ -51,7 +51,7 @@ class Article < ActiveRecord::Base
 
   # Relations
   has_one :business_transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
-  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction' , inverse_of: :article
+  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction', inverse_of: :article
   accepts_nested_attributes_for :business_transaction
   # validates_presence_of :business_transaction
 
@@ -167,7 +167,6 @@ class Article < ActiveRecord::Base
     enable
     include_field :fair_trust_questionnaire
     include_field :social_producer_questionnaire
-    nullify :article_template_id
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
 

@@ -105,9 +105,6 @@ Fairnopoly::Application.routes.draw do
     resources :ratings, :only => [:create, :index] do
       get '/:business_transaction_id', to: 'ratings#new', as: 'business_transaction', on: :new
     end
-    collection do
-      get 'login'
-    end
     member do
       get 'profile'
     end

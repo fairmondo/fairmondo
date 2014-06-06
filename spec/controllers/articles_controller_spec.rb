@@ -59,17 +59,17 @@ describe ArticlesController do
        get :index, article_search_form: {q: "meer" , :search_in_content => "1"}
        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@second_hand_article].map(&:id)
       end
-      
+
       it "should find the article with price 1 when filtering <= 1" do
         get :index, article_search_form: { price_to: "0,01" }
         controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article].map(&:id)
       end
-      
+
       it "should find the article with price 4 when filtering >= 4" do
         get :index, article_search_form: { price_from: "0,04" }
         controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article].map(&:id)
       end
-      
+
       it "should find the article with price 2 and 3 when filtering >= 2 <= 3" do
         get :index, article_search_form: { price_to: "0,03" , price_from: "0,02" }
         controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article].map(&:id)
@@ -123,7 +123,7 @@ describe ArticlesController do
         end
 
 
-       
+
       end
 
       context "when filtering by categories" do
@@ -306,7 +306,7 @@ describe ArticlesController do
 
         expect do
           get :edit, :id => @article
-        end.to raise_error ActiveRecord::RecordNotFound # fails before pundit because of method chain
+        end.to raise_error Pundit::NotAuthorizedError
       end
     end
   end

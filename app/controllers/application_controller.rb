@@ -1,5 +1,4 @@
 #
-#
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
@@ -92,18 +91,6 @@ class ApplicationController < ActionController::Base
       ]
     end
 
-    def refined_params
-      @refined_params ||= params.for(appropriate_resource).as(current_user).refine
-    end
-
-    # resource or build_resource, whatever succeeds first. to be used in functions
-    # that are used in different actions and sometimes need one or the other
-    def appropriate_resource #merge_options = {}
-      resource rescue build_resource
-      # resource.update_attributes merge_options
-      # resource
-    end
-
     def build_search_cache
       @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
     end
@@ -129,7 +116,7 @@ class ApplicationController < ActionController::Base
     def check_value_of_goods
       current_user.count_value_of_goods
       if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
-        redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
+        redirect_to user_path(current_user), error: I18n.t('article.notices.max_limit')
       end
     end
 

@@ -21,9 +21,10 @@
 #
 class ArticleTemplatesController < ApplicationController
   respond_to :html
+  responders :location, :flash
 
   before_filter -> { render_css_from_controller('articles') }, except: [:destroy]
-  before_filter :get_article, only: [:edit, :update, :destroy]
+  before_filter :set_article_template, only: [:edit, :update, :destroy]
 
   def new
     @article_template = current_user.articles.build
@@ -37,35 +38,28 @@ class ArticleTemplatesController < ApplicationController
   def update
     authorize @article_template
 
-    respond_with(@article_template) do |format|
-      if @article_template.update_attributes(params.for(@article_template).refine)
-        redirect_to collection_url
-        return
-      else
-        save_images
-        format.html
-      end
-    end
+    save_images unless @article_template.update_attributes(params.for(@article_template).refine)
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   def create
     @article_template = current_user.articles.build(params.for(Article).refine)
     authorize @article_template
-    @article_template.templatify
+    @article_template.state = :template
 
-    save_images unless @article_template.valid?
-    respond_with(@article_template, location: collection_url)
+    save_images unless @article_template.save
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   def destroy
     authorize @article_template
     @article_template.destroy
-    redirect_to collection_url
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   private
 
-    def get_article
+    def set_article_template
       @article_template = Article.unscoped.find(params[:id])
     end
 

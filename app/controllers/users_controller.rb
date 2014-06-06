@@ -19,47 +19,49 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class UsersController < InheritedResources::Base
+class UsersController < ApplicationController
   include NoticeHelper
   respond_to :html
-  actions :show
-  custom_actions :resource => :profile, :collection => :login
 
-  before_filter :show_notice, only: [:show]
   before_filter :check_for_complete_mass_uploads, only: [:show]
-  before_filter :authorize_resource, except: [:login]
+  before_filter :show_notice, only: [:show]
+  before_filter :set_user
   before_filter :dont_cache, only: [:show]
-  skip_before_filter :authenticate_user!, only: [:show, :profile, :login]
-  skip_after_filter :verify_authorized_with_exceptions, only: [:login]
-
-  def login
-    login! do |format|
-      format.html {render "/devise/sessions/new" , :layout => false}
-    end
-  end
+  skip_before_filter :authenticate_user!, only: [:show, :profile]
 
   def profile
-    profile! do |format|
+    authorize @user
+    respond_to do |format|
       format.html do
-        if ['terms', 'cancellation'].include? refined_params[:print]
-          render '/users/print', layout: false, locals: { field: refined_params[:print] }
+        if ['terms', 'cancellation'].include?(params[:print])
+          render '/users/print', layout: false, locals: { field: params[:print] }
         end
       end
     end
   end
 
-  def show_notice
-    if user_signed_in?
-      notice = current_user.next_notice
-      flash[notice.color] = render_open_notice notice if notice.present?
-    end
+  def show
+    authorize @user
   end
 
-  def check_for_complete_mass_uploads
-    if user_signed_in?
-      current_user.mass_uploads.where(:state => :processing).each do |mu|
-        mu.finish
+  private
+
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def show_notice
+      if user_signed_in?
+        notice = current_user.next_notice
+        flash[notice.color] = render_open_notice notice if notice.present?
       end
     end
-  end
+
+    def check_for_complete_mass_uploads
+      if user_signed_in?
+        current_user.mass_uploads.where(:state => :processing).each do |mu|
+          mu.finish
+        end
+      end
+    end
 end
