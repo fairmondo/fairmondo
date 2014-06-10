@@ -55,20 +55,15 @@ a.Button {
     background-color: lighten($gray, 5%);
   }
 }
-.Button--inactive {
+.Button--disabled {
   background-color: $light-gray;
+  cursor: default;
   &:hover {
     background-color: $light-gray;
-    cursor: default;
   }
 }
 
 .Button span[class^="sprite_"] {
   float:left;
   margin-right:0.5em;
-}
-
-.Button--disabled {
-  cursor: default;
-  background-color: $gray;
 }
