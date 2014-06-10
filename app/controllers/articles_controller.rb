@@ -34,8 +34,8 @@ class ArticlesController < InheritedResources::Base
   before_filter :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
   before_filter :build_search_cache, only: :index
+  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
 
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
@@ -184,9 +184,10 @@ class ArticlesController < InheritedResources::Base
     end
 
     def category_specific_search
-      if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
-        category_id = params[:article_search_form].delete(:category_id)
-        redirect_to category_path(category_id, params)
+      if @search_cache.category_id.present?
+        params[:article_search_form].delete(:category_id)
+        params.delete(:article_search_form) if params[:article_search_form].empty?
+        redirect_to category_path(@search_cache.category_id, params)
       end
     end
 
