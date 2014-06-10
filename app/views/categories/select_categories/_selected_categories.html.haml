@@ -1,0 +1,3 @@
+%ul.category-selected-list#selected_categories_input{:data => {:object_name => f.object_name}}
+  - f.object.categories.each do |category|
+    = render "/categories/select_categories/selected_category", :category => category, :object_name => f.object_name

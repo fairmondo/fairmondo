@@ -64,21 +64,14 @@ de:
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"
-      send_invitation: "Einladung schicken"
     menu:
       edit: "Profil bearbeiten"
       community: "Vertrauensgemeinschaft"
     article:
       create: "Auktion wurde erstellt"
       update: "Auktion wurde aktualisiert"
-    invitation:
-      send: "Einladung wurde verschickt"
     search_users:
       head: "Suche nach Benutzern"
-    community:
-      new_invitation: "Lade jemanden in die Vertrauensgemeinschaft ein"
-      existing_invitation: "Lade einen registrierten Benutzer in die Vertrauensgemeinschaft ein"
-      no_invited: "Du hast noch Niemand in die Vertrauensgemeinschaft eingeladen"
     print:
       terms: "AGB von %{name}"
       cancellation: "Widerrufsbelehrung und Rücknahmeerklärung von %{name}"

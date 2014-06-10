@@ -19,9 +19,8 @@
 
     -#= tinycms_content 'faq-teaser'
     %p= 'Bitte beschreibe in einigen Sätzen, was die thematischen und Arbeitsschwerpunkte Deiner Organisation sind:'
-    %br
     = f.input :text, label: false, required: true
 
   = f.actions do
-    -#= f.action :submit, label: t('feedback.actions.become_donation_partner'), button_html: {class: "Btn"}
-    .Btn.Btn--grayedOut Es werden derzeit keine neuen Spendenpartner*innen aufgenommen.
+    -#= f.action :submit, label: t('feedback.actions.become_donation_partner'), button_html: {class: "Button"}
+    .Button.Button--disabled Es werden derzeit keine neuen Spendenpartner*innen aufgenommen.

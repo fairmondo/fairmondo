@@ -20,27 +20,30 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticlesController < InheritedResources::Base
+
   # Inherited Resources
   respond_to :html
+  respond_to :js, only: :index, if: lambda { request.xhr? }
   actions :all # inherited methods
 
   # Authorization
-  skip_before_filter :authenticate_user!, :only => [:show, :index, :autocomplete]
+  skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]
   skip_after_filter :verify_authorized_with_exceptions, only: [:autocomplete]
 
   # Layout Requirements
-  before_filter :ensure_complete_profile , :only => [:new, :create]
-  #before_filter :authorize_resource, :only => [:edit, :show]
+  before_filter :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :build_search_cache, :only => :index
+  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
+  before_filter :build_search_cache, only: :index
 
   # Calculate value of active goods
-  before_filter :check_value_of_goods, :only => [:update], :if => :activate_params_present?
+  before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
+
 
   #Autocomplete
   def autocomplete
-    @form = ArticleSearchForm.new(:q => permitted_search_params[:q])
+    @form = ArticleSearchForm.new(q: params[:q])
     render :json => @form.autocomplete
   rescue Errno::ECONNREFUSED
     render :json => []
@@ -64,12 +67,13 @@ class ArticlesController < InheritedResources::Base
 
   def new
     authorize build_resource
+
     ############### From Template ################
-    if @applied_template = ArticleTemplate.template_request_by(current_user, permitted_new_params[:template_select])
+    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
       @article = @applied_template.article.amoeba_dup
       flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
-    elsif permitted_new_params[:edit_as_new]
-      @old_article = current_user.articles.find(permitted_new_params[:edit_as_new])
+    elsif params[:edit_as_new]
+      @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
     end
     new!
@@ -100,7 +104,6 @@ class ArticlesController < InheritedResources::Base
                        render :edit }
       end
     end
-
   end
 
   def destroy
@@ -116,14 +119,13 @@ class ArticlesController < InheritedResources::Base
 
   ##### Private Helpers
 
-
   private
 
     def change_state!
 
       # For changing the state of an article
       # Refer to Article::State
-      if permitted_state_params[:activate]
+      if params[:activate]
         authorize resource, :activate?
         if resource.activate
           flash[:notice] = I18n.t('article.notices.create_html').html_safe
@@ -132,7 +134,7 @@ class ArticlesController < InheritedResources::Base
           # The article became invalid so please try a new one
           redirect_to new_article_path(:edit_as_new => resource.id)
         end
-      elsif permitted_state_params[:deactivate]
+      elsif params[:deactivate]
         authorize resource, :deactivate?
         resource.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
@@ -141,30 +143,12 @@ class ArticlesController < InheritedResources::Base
     end
 
     def state_params_present?
-      permitted_state_params[:activate] || permitted_state_params[:deactivate]
+      params[:activate] || params[:deactivate]
     end
 
     def activate_params_present?
-      !!permitted_state_params[:activate]
+      !!params[:activate]
     end
-
-    def permitted_state_params
-      params.permit :activate, :deactivate, :confirm_to_buy
-    end
-
-    def permitted_new_params
-      params.permit :edit_as_new, template_select: [:article_template]
-    end
-
-    def permitted_search_params
-       params.permit(:page,:q, :article_search_form => ArticleSearchForm.article_search_form_attrs)
-    end
-
-    def permitted_queue_params
-      params.permit :page, :queue
-    end
-
-
 
     ############ Images ################
 
@@ -186,26 +170,24 @@ class ArticlesController < InheritedResources::Base
     end
 
   ################## Inherited Resources
+
   protected
 
     def collection
-      if params[:queue]
-        @articles ||= Exhibit.all_from permitted_queue_params[:queue],permitted_queue_params[:page]
-      else
-        @articles ||= @search_cache.search(permitted_search_params[:page])
-      end
+      @articles ||= @search_cache.search params[:page]
     rescue Errno::ECONNREFUSED
-      render_hero :action => "search_failure"
-      @articles ||= policy_scope(Article).page permitted_search_params[:page]
+      @articles ||= policy_scope(Article).page params[:page]
     end
 
     def begin_of_association_chain
       params[:action] == "show" ? super : current_user
     end
 
-    def build_search_cache
-      @search_cache = ArticleSearchForm.new(permitted_search_params[:article_search_form])
+    def category_specific_search
+      if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
+        category_id = params[:article_search_form].delete(:category_id)
+        redirect_to category_path(category_id, params)
+      end
     end
-
 
 end

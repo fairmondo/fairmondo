@@ -61,7 +61,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def deactivate?
-     user && own? && article.active?
+    user && own? && article.active?
   end
 
   def report?

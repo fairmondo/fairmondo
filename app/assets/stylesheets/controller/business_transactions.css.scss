@@ -1,0 +1,127 @@
+@import "mixins/all";
+
+// responsive
+
+.transactions-form.formtastic .stringish input {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
+
+.Content {
+  @include at-breakpoint($bp-tablet-horizontal) {
+    width:80%;
+  }
+}
+
+// borders
+
+.article-display, .address,.about_terms_cancellation, 
+.message, .purchase_data , .price_data, .transport_data {
+  border-bottom: solid 2px $sand;
+  padding-bottom: 1.5em;
+}
+
+h1.your_article {
+  margin-bottom:0em;
+}
+
+.article-title {
+  word-break: break-word;
+}
+
+// transaction#edit transport price options label
+
+.transactions-form  ul.price-list {
+   list-style: disc; 
+   margin-left:3em;
+   margin-bottom:1em;
+}
+
+// security notices
+
+.transactions-form .warning {
+  color: $gray;
+  margin-bottom:0.5em;
+}
+
+.transactions-form .warning--small {
+  font-size: 0.95em;
+}
+
+.transactions-form .warning--red {
+  color: $red;
+}
+
+// agb, cancelation , about
+
+.transactions-form .scrollbox{
+  border: 2px solid $light-gray;
+  border-radius: 0.5em;
+  margin: 0.5em 0;
+  padding: 1em;
+  max-height: 5em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+// Layout fixes
+
+.transactions-form #cancellation {
+  margin-bottom:2em;
+}
+
+.transactions-form .next_step,
+.payment_data {
+  margin-bottom: 1em;
+}
+
+.transactions-form .address {
+  padding-bottom: 1em;
+}
+
+.transactions-form .transport_data {
+  margin-top: 1em;
+}
+
+// tables
+
+.purchase_data ,.price_data  ,.transport_data, 
+.payment_data , .further_questions {
+  overflow-x:auto;
+  td,th {
+    text-align: left;
+    vertical-align: top;
+  }
+  
+  td {
+    min-width:15em;
+    word-break: break-all;
+  }
+}
+
+.purchase_data {
+  @include clearfix;
+}
+
+.price_data  ,.transport_data  {
+  table {width: 100%;}
+}
+
+// thumbnail image step2
+
+.article-thumbnail {
+  
+  @include at-breakpoint($bp-tablet) {
+    float: right;
+  }
+  width: 10em;
+  margin: 0.5em;
+  padding: 0.5em;
+  text-align: center;
+  word-break: break-word;
+  img {
+    width:100%;
+    border-radius: 0.9em;
+  }
+}

@@ -1,0 +1,102 @@
+/*
+Listview for articles and transactions
+responsive table-like style
+
+Styleguide Listview
+*/
+
+
+.Listview > .Listview-item {
+   margin-bottom:1em;
+   @include whitebox;
+   @include clearfix;
+   padding: 0.5em;
+}
+
+// layout responsive
+.Listview {
+
+  @include till-breakpoint($bp-mobile-horizontal) {
+    .Listview-image { display:none; }
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+    .Listview-image { @include span(1 of 5 0.1); }
+    .Listview-details { @include span(4 of 5 0.1);
+                        @include omega; }
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    .Listview-image { @include span(1 of 7 0.1); }
+    .Listview-details { @include span(4 of 7 0.1); }
+    .Listview-actions { @include span(2 of 7 0.1);
+                        @include omega;}
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    .Listview-image { @include span(1 of 9 0.1); }
+    .Listview-details { @include span(5 of 9 0.1); }
+    .Listview-actions { @include span(3 of 9 0.1);
+                        @include omega; }
+  }
+
+  @include at-breakpoint($bp-mobile-horizontal) {
+    .Listview-title { @include span(2 of 4 0.1); }
+    .Listview-price_detail {
+      display: block; // show this only in tablet apps
+      @include span(2 of 4 0.1);
+      @include omega; }
+  }
+
+}
+
+.Listview > .Listview-item > .Listview-image {
+  position: relative;
+  img {
+    width:100%;
+    border-radius: 0.9em;
+  }
+
+}
+
+.Listview > .Listview-item > .Listview-image .Listview-rating {
+  position:absolute;
+  left:0.5em;
+  bottom:0.5em;
+  width:2em;
+}
+
+// article title
+
+.Listview > .Listview-item .Listview-title {
+
+  h3 {
+    @include till-breakpoint($bp-mobile) {
+      word-break: break-all;
+      max-height:3.5em;
+      overflow:hidden;
+    }
+    @include between-breakpoints($bp-mobile,$bp-tablet-horizontal) {
+      text-overflow: ellipsis;
+      overflow:hidden;
+    }
+    @include at-breakpoint($bp-tablet-horizontal) {
+      word-break: break-all;
+    }
+    margin:0;
+
+  }
+}
+
+//actions
+
+.Listview > .Listview-item .Listview-actions {
+  @include till-breakpoint($bp-tablet) {
+    clear:both;
+  }
+}
+
+.Listview > .Listview-item .Listview-actions > a.Button{
+  margin:0.3em 0;
+  font-size: 0.9em;
+}

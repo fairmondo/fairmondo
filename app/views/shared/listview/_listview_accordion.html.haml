@@ -12,6 +12,6 @@
   - if current_user.type == "LegalEntity"
     %p
       - unless items.empty?
-        = link_to t('mass_uploads.labels.update_articles_via_csv'), new_mass_upload_path, :class => "Btn Btn--small"
-        = link_to t("articles.export.#{item_name}"), exports_show_path(kind_of_article: item_name, format: "csv"), :class => "Btn Btn--small"
+        = link_to t('mass_uploads.labels.update_articles_via_csv'), new_mass_upload_path, :class => "Button"
+        = link_to t("articles.export.#{item_name}"), exports_show_path(kind_of_article: item_name, format: "csv"), :class => "Button"
 

@@ -11,7 +11,7 @@ MoveCodeIntoControllerCheck: { }
 MoveCodeIntoHelperCheck: { array_count: 3 }
 MoveCodeIntoModelCheck: { use_count: 2 }
 MoveFinderToNamedScopeCheck: { }
-MoveModelLogicIntoModelCheck: { use_count: 4 , except_methods: ["RegistrationsController#update"] }
+MoveModelLogicIntoModelCheck: { use_count: 4 , ignored_files: ['app/controllers/welcome_controller.rb'] } #welcome controller doesn't use a model
 NeedlessDeepNestingCheck: { nested_count: 2 }
 NotRescueExceptionCheck: { }
 NotUseDefaultRouteCheck: { }
@@ -22,7 +22,6 @@ RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
 RemoveUnusedMethodsInControllersCheck: { except_methods: ["*#*" ]} # as rbb is not working correctly atm
-  #  "*#manual_params",
   #  "ApplicationController#after_sign_in_path_for",
   #  "ApplicationController#render_users_hero",
   #  "Tinycms::ApplicationController#authenticate_tinycms_user",

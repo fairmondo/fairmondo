@@ -1,0 +1,93 @@
+
+- content_for :category_specific_content do
+  - content_for(:is_exclusive, true)
+  - # should be shown when no search parameters where sent
+  - unless search_cache.search_request?
+    .features
+      - lib = FeaturedLibraryQuery.new(:book1).find(4)
+      - if lib[:library]
+        .feature.feature--quadruple
+          .feature-inner
+            %h2
+              = link_to "BESTSELLER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+
+      - lib = FeaturedLibraryQuery.new(:book2).find(4)
+      - if lib[:library]
+        .feature.feature--quadruple
+          .feature-inner
+            %h2
+              = link_to "NEUIGKEITEN", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+      -# Individuelle Buchempfehlungen ++ Fairnopolys Bücherblog
+
+      - lib = FeaturedLibraryQuery.new(:book3).find(2)
+      - if lib[:library]
+        .feature.feature--double
+          .feature-inner
+            %h2
+              = link_to "HÖRBÜCHER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+      - lib = FeaturedLibraryQuery.new(:book4).find(2)
+      - if lib[:library]
+        .feature.feature--collapsible
+          .feature-inner
+            %h2
+              = link_to "GEBRAUCHTE BÜCHER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+
+      - lib = FeaturedLibraryQuery.new(:book5).find(2)
+      - if lib[:library]
+        .feature.feature--double
+          .feature-inner
+            %h2
+              = link_to "KRIMIS", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+
+      - lib = FeaturedLibraryQuery.new(:book6).find(2)
+      - if lib[:library]
+        .feature.feature--collapsible
+          .feature-inner
+            %h2
+              = link_to "KINDERBÜCHER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+
+      - lib = FeaturedLibraryQuery.new(:book7).find(2)
+      - if lib[:library]
+        .feature.feature--double
+          .feature-inner
+            %h2
+              = link_to "KOCHBÜCHER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article
+
+      - lib = FeaturedLibraryQuery.new(:book8).find(2)
+      - if lib[:library]
+        .feature.feature--collapsible
+          .feature-inner
+            %h2
+              = link_to "SACHBÜCHER", library_path(lib[:library])
+            .Grid
+              - lib[:exhibits].each do |article|
+                .Grid-item
+                  = render "/articles/shared/show_article", article: article

@@ -23,7 +23,7 @@ describe SessionsController do
 
       context "and the user is logged in" do
         let(:user) { FactoryGirl.create :user }
-        before { sign_in user }
+        before { sign_in user, false }
 
         it "should render the reload site" do
           xhr :get, :new, format: 'html'

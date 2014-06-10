@@ -24,15 +24,7 @@ module Article::Images
 
   included do
     # ---- IMAGES ------
-    IMAGE_COUNT = 1
-
-    def self.image_attrs
-      attrs = [ images_attributes: Image.image_attrs(true) ]
-      IMAGE_COUNT.times do |number|
-        attrs.push "image_#{number+2}_url".to_sym
-      end
-      attrs
-    end
+    IMAGE_COUNT = 1 # when changing, remember to change article_refinery as well
 
     has_many :images, :class_name => "ArticleImage", foreign_key: "imageable_id"
 

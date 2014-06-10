@@ -1,0 +1,15 @@
+/*
+Content module for all CMS-Contents
+
+Content--center  - Centered Content
+
+Styleguide Contents
+*/
+
+
+.Content {
+    @include whitebox;
+}
+.Content--center {
+    text-align:center;
+}

@@ -21,17 +21,12 @@
 #
 class LibraryElement < ActiveRecord::Base
 
-  def self.library_element_attrs
-    [:article, :library, :library_id, :article_id]
-  end
-
-
-  delegate :name, :user_id , :to => :library , :prefix => true
-  delegate :title, :to => :article, :prefix => true
+  delegate :name, :user_id , to: :library , prefix: true
+  delegate :title, to: :article, prefix: true
 
   # Validations
-  validates :library_id, :uniqueness => {:scope => :article_id  }
-  validates :library_id , :presence => true
+  validates :library_id, uniqueness: { scope: :article_id }
+  validates :library_id, presence: true
 
   # Relations
   belongs_to :article

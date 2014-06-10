@@ -1,0 +1,16 @@
+= kss_block 'Headings', background: "white" do |modifier|
+  %h1 h1
+  %h2 h2
+  %h3 h3
+  %h4 h4
+  %h5 h5
+= kss_block 'Links', background: "white" do |modifier|
+  %p
+    = link_to "This is a link", "www.fairnopoly.de"
+= kss_block 'Typography', background: "white" do |modifier|
+  = kss_specimen
+= kss_block 'Sprites', background: "white" do |modifier|
+  %p
+    %span.sprite_logo
+
+

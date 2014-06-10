@@ -1,0 +1,7 @@
+
+.teaser.teaser--full.teaser--known_from
+  .teaser-inner
+    %h5 BEKANNT AUS
+    - ['hochschulanzeiger','taz','tagesspiegel','sueddeutsche','arte','deutschlandfunk'].each do |element|
+      = link_to 'http://info.fairnopoly.de/fairnopoly-in-der-presse/', target: '_blank' do
+        %span{:class => "sprite_#{element}"}

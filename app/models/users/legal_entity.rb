@@ -23,14 +23,6 @@ class LegalEntity < User
   extend STI
   extend Tokenize
 
-  def self.user_attrs
-    super + [:terms, :cancellation,
-      :about, :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings]
-  end
-  #! attr_accessible :terms, :cancellation, :about
-  #! attr_accessible :percentage_of_positive_ratings, :percentage_of_neutral_ratings, :percentage_of_negative_ratings
-
-
   validates :terms, length: { maximum: 20000, tokenizer: tokenizer_without_html }
   validates :about, length: { maximum: 10000, tokenizer: tokenizer_without_html }
   validates :cancellation, length: { maximum: 10000, tokenizer: tokenizer_without_html }

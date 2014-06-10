@@ -1,0 +1,346 @@
+
+
+/* ==============================================================
+ *
+ *   Article new/edit
+ *
+ * ==============================================================
+ */
+
+@import "mixins/all";
+
+.article-form > .formtastic .stringish input {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
+
+.article-form {
+  @include at-breakpoint($bp-tablet) {
+    @include span(3 of 4 0.1);
+  }
+}
+
+.banner {
+  margin-bottom: 1em;
+  .banner-inner {
+    @include whitebox;
+  }
+
+  @include at-breakpoint($bp-tablet) {
+    @include span(1 of 4 0.1);
+    @include omega;
+  }
+}
+
+ul.category-selected-list {
+  display: table;
+  border-spacing: 0em 1em;
+  li {
+    display: table-row;
+
+  }
+  .category-selected {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: $sand;
+    border-top-left-radius: 0.9em;
+    border-bottom-left-radius: 0.9em;
+  }
+  .Button {
+    display: table-cell;
+  }
+}
+
+#category-selectbutton {
+  padding: 0.65em 1em;
+  margin-left:0.5em;
+}
+
+.category-selected-tree-node {
+  &:first-of-type {
+    margin-left:1em;
+  }
+  &:after {
+    content: ">";
+    color: $gray;
+  }
+  &:last-of-type {
+    margin-right:2em;
+    &:after {
+      content: "";
+    }
+  }
+}
+
+
+
+
+/* ==============================================================
+ *
+ *   Article show
+ *
+ * ==============================================================
+ */
+
+// breadcrumbs
+
+.breadcrumbs {
+  margin-bottom: 1em;
+}
+
+// layout
+
+@include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
+
+
+ .seller,.sidebar {
+    @include span(1 of 2 0.1);
+  }
+
+  .sidebar {
+    @include omega;
+  }
+
+}
+
+
+@include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+
+  .contents {
+    @include span(2 of 3 0.1);
+  }
+
+  .seller,.sidebar {
+    @include span(1 of 3 0.1);
+    @include omega;
+  }
+
+
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+
+  .contents {
+    @include span(2 of 4 0.1);
+  }
+
+  .seller,.sidebar {
+    @include span(1 of 4 0.1);
+  }
+
+  .sidebar {
+    @include omega;
+  }
+}
+
+// article controls (activation, delete, edit ...)
+
+.contents > .seller-controls {
+  margin-bottom: 1em;
+}
+
+.contents > .seller-controls > form.button_to {
+  display: inline-block;
+}
+
+// article title image
+
+.contents >.image {
+  margin: 0;
+}
+
+.contents > .image img {
+  width:100%;
+  border-radius: 0.5em;
+}
+
+.contents > .info {
+  @include clearfix;
+}
+
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  // artilce infos
+  .contents > .info > .left {
+    @include span(1 of 2 0.1);
+  }
+
+  .contents > .info > .right {
+    @include span(1 of 2 0.1);
+    @include omega;
+  }
+}
+
+
+// Thumbnails and fair percent
+
+.contents > .info > .left > .thumbnails > .thumbnail {
+  width:50%;
+  img { max-width :100%; }
+  float:left;
+}
+
+.contents > .info > .left > .thumbnails {
+  @include clearfix;
+}
+
+.contents > .info > .left > h4.fair_percent {
+  color: $gray;
+  font-weight: 300;
+  margin: 0.5em 0em;
+}
+
+// article title
+.contents > .info > .right > .title {
+  word-wrap: break-word;
+}
+
+// article price, transport, vat & quantity
+
+.contents > .info > .right > .details {
+  font-size: 0.7em;
+  margin-bottom: 0.5em;
+}
+
+.contents > .info > .right > .details > .price {
+  margin: 0.5em 0;
+  font-size: 1.5rem;
+}
+
+.contents > .info > .right > .details > .transport {
+  ul { padding-left: 2em; }
+}
+
+.buyer-controls {
+  padding: 0.5em 0;
+}
+
+.buyer-controls > .collect {
+  position: relative;
+  display: inline-block;
+}
+
+.buyer-controls > .collect > .libraries {
+  display:none;
+  background-color:white;
+  box-shadow: $sand 0px 0px 2px 2px;
+  padding: 0.5em;
+  &.is-active {
+    top: 2.5em;
+    left: 0em;
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.buyer-controls > .collect > .libraries > ul {
+  list-style: none;
+  padding: 0em;
+  margin: 0em;
+}
+
+.buyer-controls > .collect > .libraries > ul > li {
+
+  padding: 0.5em 0;
+}
+
+// social buttons
+
+.contents > .social {
+  margin: 0.5em 0 2em;
+  @include clearfix;
+  @include till-breakpoint($bp-mobile-horizontal) {
+    display:none;
+  }
+}
+
+// other articles of the seller
+
+.other_article {
+  @include span(1 of 2 0.1);
+  &:nth-child(2n) {
+    @include omega;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+//libraries that contain the article
+.related_libraries {
+  @include clearfix;
+}
+.related_libraries > .related_library  {
+  .profile_image, .details {
+    @include span(1 of 2 0.1);
+  }
+  .profile_image img {
+    width:100%;
+  }
+  .details {
+    @include omega;
+  }
+}
+
+// fair alternative
+
+.fair_alternative {
+  @include whitebox;
+}
+
+// activation links
+
+.activation_links {
+  @include whitebox;
+  text-align: center;
+  padding:0;
+
+  h3 {
+    padding:0.5em 3em;
+  }
+
+  dl {
+    margin:0;
+  }
+
+  dt {
+    color: $gray;
+    position: relative;
+    border-top: 1px solid $lighter-gray;
+    padding:0.5em 2.5em 0.5em;
+  }
+
+  dt,
+  dd {
+    margin:0;
+  }
+
+  dd {
+    font-size:1.5em;
+    font-weight:600;
+    padding:0em 2.5em 0.5em;
+  }
+
+  .total {
+    background-color: $green;
+    color: white;
+  }
+
+  .sprite_helper{
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+  }
+}
+
+.activation_links > .activation {
+  padding: 0.5em 1.5em 1em;
+}
+
+// details
+
+#payment h4 {
+  margin: 0.1em;
+}

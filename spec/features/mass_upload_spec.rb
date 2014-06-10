@@ -22,7 +22,7 @@ describe "Mass-upload" do
     it "should rediret to login page" do
       visit new_mass_upload_path
       current_path.should eq new_user_session_path
-      should have_selector(:link_or_button, 'Login')
+      should have_selector :link_or_button, I18n.t('formtastic.actions.login')
     end
   end
 
@@ -74,8 +74,7 @@ describe "Mass-upload" do
               should have_content I18n.t('users.boxes.my_mass_uploads')
               click_link I18n.t('mass_uploads.labels.show_report')
               should have_content('Name von Artikel 1')
-              should have_selector('input.Btn.Btn--blue.Btn--blueBig',
-                            I18n.t('mass_uploads.labels.mass_activate_articles'))
+              should have_button I18n.t('mass_uploads.labels.mass_activate_articles')
             end
 
             it "should create new articles" do

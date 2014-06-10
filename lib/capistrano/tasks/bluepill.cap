@@ -7,7 +7,7 @@ namespace :bluepill do
   task :quit do
     on roles(:sidekiq) do
       within release_path do
-      	
+
         puts "Shutting down bluepill."
         begin
           execute :bluepill, :stop, "--no-privileged"
@@ -21,7 +21,7 @@ namespace :bluepill do
           puts "Couldn't quit bluepill."
         end
       end
-   
+
     end
   end
 
@@ -29,10 +29,10 @@ namespace :bluepill do
   task :init do
     on roles(:sidekiq) do
       within release_path do
-      
+
 	    execute :bluepill, :load, "#{current_path}/config/#{fetch(:stage)}.pill", "--no-privileged"
 	    puts "Initialized bluepill."
-	  
+
       end
     end
   end
@@ -41,10 +41,10 @@ namespace :bluepill do
   task :start do
     on roles(:sidekiq) do
       within release_path do
-       
+
         execute :bluepill, :start, "--no-privileged"
         puts "Started bluepill."
-        
+
       end
     end
   end
@@ -53,10 +53,10 @@ namespace :bluepill do
   task :stop do
     on roles(:sidekiq) do
       within release_path do
-       
+
         execute :bluepill, :stop, "--no-privileged"
         puts "Stopped bluepill."
-       
+
       end
     end
   end
@@ -65,10 +65,10 @@ namespace :bluepill do
   task :restart do
     on roles(:sidekiq) do
       within release_path do
-       
+
         execute :bluepill, :restart, "--no-privileged"
         puts "Restarted bluepill."
-       
+
       end
     end
   end

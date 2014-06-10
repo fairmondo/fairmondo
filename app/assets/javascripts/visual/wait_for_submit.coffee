@@ -2,7 +2,7 @@ $(document).ready ->
   $(".js-visual-submit").submit ->
     btn = $("input[type=submit][data-clicked=true]")
     btn.attr "disabled", "disabled"
-    btn.attr "class", btn.attr("class") + " Btn--gray"
+    btn.attr "class", btn.attr("class") + " Button--disabled"
     btn.attr "value", I18n.t('javascript.common.actions.submitting')
     true
 

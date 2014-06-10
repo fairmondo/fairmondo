@@ -1,17 +1,20 @@
 de:
   # Footer
   footer:
-    legal_details: "Rechtliches"
-    agb: "AGB"
-    privacy: "Datenschutzerklärung"
-    imprint: "Impressum"
-    about_us: "Über Uns"
-    philosophy: "Philosophie"
-    press: "Presse"
-    team: "Team"
-    contact: "Kontakt"
-    faq: "FAQ"
-    forum: "Forum"
-    help: "Hilfe"
-    blog: "Blog"
-    newsletter: "Newsletter"
+    legal_details: 'Rechtliches'
+    agb: 'AGB'
+    privacy: 'Datenschutzerklärung'
+    imprint: 'Impressum'
+    about_us: 'Über Uns'
+    philosophy: 'Philosophie'
+    transparency: 'Transparenz'
+    press: 'Presse'
+    team: 'Team'
+    jobs: 'Jobs'
+    contact: 'Kontakt'
+    faq: 'FAQ'
+    forum: 'Forum'
+    help: 'Hilfe'
+    blog: 'Blog'
+    newsletter: 'Newsletter'
+    pr_material: 'Werbematerial'

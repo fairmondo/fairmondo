@@ -1,0 +1,11 @@
+@import "mixins/all";
+
+.feedback-form .formtastic .stringish input {
+  @include at-breakpoint($bp-tablet) {
+    width:30%;
+  }
+}
+
+.feedback-form .captacha {
+  margin-bottom: 1em;
+}

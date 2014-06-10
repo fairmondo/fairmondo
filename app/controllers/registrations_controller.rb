@@ -25,19 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
-  #before_filter :check_recaptcha, only: :create
-
-  # Recaptcha eliminated
-  # def create
-  #   params[:user]["recaptcha"] = '0'
-  #   if verify_recaptcha
-  #     params[:user]["recaptcha"] = '1'
-  #   else
-  #     flash.delete :recaptcha_error
-  #   end
-  #   super
-  # end
-
   def edit
     @user = User.find current_user.id
     check_incomplete_profile! @user
@@ -99,13 +86,10 @@ class RegistrationsController < Devise::RegistrationsController
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit(
-          :nickname, :type, :agecheck, :legal, :privacy, :recaptcha, # <- custom fields
-          :email, :password, :password_confirmation, :new_terms_confirmed
-        )
+        u.for(User.new).as(resource).on(:create).refine
       end
       devise_parameter_sanitizer.for(:account_update) do |u|
-        u.permit(*resource.class.user_attrs, :current_password)
+        u.for(User.new).as(resource).on(:update).refine# permit(*UserRefinery.new(resource).default, :current_password)
       end
     end
 end

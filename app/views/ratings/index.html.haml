@@ -20,22 +20,23 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.Rating
-  .Rating-left
-    = render '/users/profile_img', user: @user
-  .Rating-middle
-    - @ratings.each do |rating|
-      .Rating-show
-        .Rating-icon
-          %img{ :src => image_path('thumbs/'+rating.value+'.png'), :alt => "thumb" }
-        .Rating-user
-          %a{:href => user_path(rating.rating_user)}
-            = image_tag(rating.rating_user.image_url(:profile), :class => "Rating-user-image")
-        %p.Rating-text
+.user
+  = render '/users/profile_img', user: @user
+.ratings
+  - @ratings.each do |rating|
+    .rating
+      .image
+        %span{class: "sprite_#{rating.value}" }
+      .quote
+
+        %p
           %a{:href => user_path(rating.rating_user)}
             = rating.rating_user.nickname
-          = " schrieb am " + rating.created_at.strftime("%d.%m.%Y") + ":"
-        %p.Rating-text
+          = " schrieb am #{l rating.created_at, format: :short}:"
+        %p
           %q
             = rating.text
-    = paginate @ratings
+      .profile
+        %a{:href => user_path(rating.rating_user)}
+          = image_tag(rating.rating_user.image_url(:profile))
+  = paginate @ratings
