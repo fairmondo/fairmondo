@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
   has_many :notices
   has_many :mass_uploads
 
+  has_many :library_elements, through: :libraries
+
   ##
   has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image

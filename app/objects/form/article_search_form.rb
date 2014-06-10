@@ -41,7 +41,6 @@ class ArticleSearchForm
 
 
   def search page
-    @page = page
     query = self
 
     articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
@@ -91,6 +90,9 @@ class ArticleSearchForm
         sort { by :created_at, :desc  } unless query.search_by_term?
       end
     end
+
+  rescue Errno::ECONNREFUSED
+    articles = ArticlePolicy::Scope.new(nil, Article).page(page)
   end
 
   def price_range

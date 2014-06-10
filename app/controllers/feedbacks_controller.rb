@@ -17,27 +17,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class FeedbacksController < InheritedResources::Base
+class FeedbacksController < ApplicationController
+  responders :location
   respond_to :html
-  actions :create, :new
   skip_before_filter :authenticate_user!
 
   def create
     handle_recaptcha
-    authorize build_resource
-    resource.set_user_id current_user
-    resource.source_page = session[:source_page]
-    resource.user_agent = request.env["HTTP_USER_AGENT"]
-    create! do |success,failure|
-      success.html { redirect_to redirect_path, notice: (I18n.t 'article.actions.reported')  }
-    end
+    @feedback = Feedback.new(params.for(Feedback).refine)
+    authorize @feedback
+    @feedback.set_user_id current_user
+    @feedback.source_page = session[:source_page]
+    @feedback.user_agent = request.env["HTTP_USER_AGENT"]
+    flash[:notice] = I18n.t('article.actions.reported') if @feedback.save
+    respond_with @feedback, location: -> { redirect_path }
   end
 
   def new
-    @variety = params.for(build_resource).refine[:variety] || "send_feedback"
+    @feedback = Feedback.new
+    @variety = params.for(@feedback).refine[:variety] || "send_feedback"
     session[:source_page] = request.env["HTTP_REFERER"]
-    authorize build_resource
-    new!
+    authorize @feedback
+    respond_with @feedback
   end
 
   private

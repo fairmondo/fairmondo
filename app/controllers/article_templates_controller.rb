@@ -38,7 +38,7 @@ class ArticleTemplatesController < ApplicationController
   def update
     authorize @article_template
 
-    save_images unless @article_template.update_attributes(params.for(@article_template).refine)
+    save_images unless @article_template.update(params.for(@article_template).refine)
     respond_with(@article_template, location: -> { collection_url })
   end
 

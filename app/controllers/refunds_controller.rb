@@ -1,18 +1,18 @@
-class RefundsController < InheritedResources::Base
+class RefundsController < ApplicationController
+  responders :location
   respond_to :html
-  actions :create, :new
-  before_filter :authorize_with_business_transaction, only: [ :new, :create ]
 
-  def create
-    create! do | success, failure |
-      success.html { return redirect_to user_path( current_user ), notice: t( 'refund.notice' ) }
-    end
+  def new
+    @refund = Refund.new(business_transaction_id: params[:business_transaction_id])
+    authorize @refund
+    respond_with @refund
   end
 
-  private
-    def authorize_with_business_transaction
-      refund = build_resource
-      refund.business_transaction = BusinessTransaction.find( params[ :business_transaction_id ] )
-      authorize refund
-    end
+  def create
+    @refund = Refund.new(params.for(Refund).refine)
+    @refund.business_transaction = BusinessTransaction.find(params[:business_transaction_id])
+    authorize @refund
+    @refund.save
+    respond_with @refund, location: -> { user_path(current_user) }
+  end
 end
