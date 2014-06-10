@@ -30,12 +30,10 @@ module AccordionHelper
   # @return [String] The compiled HTML of the box element
   def accordion_item(accordion_name, options = {}, &block)
     header_class = options[:header_class] || ""
-    header_class += "Btn-accordion--number" if options.has_key? :number
     render layout: "accordion_layout",
       locals: {
         accordion_name: accordion_name,
         accordion_title: options[:title] || t(accordion_name, :scope => "#{controller_name}.boxes"),
-        accordion_number: options[:number],
         accordion_tooltip: options[:tooltip],
         accordion_header_class: header_class,
         accordion_item_class: options[:item_class] || '',

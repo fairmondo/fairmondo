@@ -23,10 +23,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'csv'
 require 'rails/all'
-
 require 'net/http'
 
 
+require 'susy'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -44,7 +44,8 @@ module Fairnopoly
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths += %W(#{config.root}/lib/autoload/ #{config.root}/app/models/business_transactions/ #{config.root}/app/models/images/ #{config.root}/app/models/users/)
-    config.eager_load_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/observers)
+    config.eager_load_paths += %W(#{config.root}/app/objects/decorator/ #{config.root}/app/objects/form/ #{config.root}/app/objects/query/ #{config.root}/app/objects/service/ #{config.root}/app/objects/value/ #{config.root}/app/objects/view/ #{config.root}/app/objects/coercers/ #{config.root}/app/observers)
+    require "#{config.root}/lib/autoload/inherited_resources.rb"
 
     config.autoload_paths += %W(#{config.root}/config/initializers/sidekiq_pro.rb)
 
@@ -91,7 +92,18 @@ module Fairnopoly
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # controller based assets
+    config.assets.precompile += Dir["app/assets/stylesheets/controller/*.scss"].map{|file| "controller/#{File.basename file,'.scss'}" }
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( session_expire.js )
+
+    config.generators.assets :controller_based_assets
+
+
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
 
+    # Rack-Rewrite paths
+    require "#{config.root}/config/rewrites.rb"
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
   end
 end

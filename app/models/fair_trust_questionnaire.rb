@@ -23,30 +23,6 @@ class FairTrustQuestionnaire < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
 
-  def self.questionnaire_attrs
-    [
-      # Question 1: supports marginalized workers (req)
-      :support, :support_explanation, :support_other, {support_checkboxes:[]},
-      # Question 2: labor conditions acceptable? (req)
-      :labor_conditions, {labor_conditions_checkboxes:[]},
-      :labor_conditions_explanation, :labor_conditions_other,
-      # Question 3: is production environmentally friendly (opt)
-      :environment_protection, {environment_protection_checkboxes:[]},
-      :environment_protection_explanation, :environment_protection_other,
-      # Question 4: does controlling of these standards exist (req)
-      :controlling, {controlling_checkboxes:[]}, :controlling_explanation,
-      :controlling_other,
-      # Question 5: awareness raising programs supported? (opt)
-      :awareness_raising, {awareness_raising_checkboxes:[]},
-      :awareness_raising_explanation, :awareness_raising_other
-    ]
-  end
-
-  # def self.questionnaire_keys
-  #   self.questionnaire_attrs.map { |key| key.is_a?(Hash) ? key.keys.first : key }
-  # end
-
-
   auto_sanitize :support_explanation, :support_other,
                 :labor_conditions_explanation, :labor_conditions_other,
                 :environment_protection_explanation, :environment_protection_other,
@@ -65,7 +41,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
     super
   end
 
-  # Q1
+  # Question 1: supports marginalized workers (req)
 
   serialize :support_checkboxes, Array
   enumerize :support_checkboxes, in: [
@@ -91,7 +67,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                             length: {minimum: 5, maximum: 100},
                             if: lambda { |i| i.other_selected?("support") }
 
-  # Q2
+  # Question 2: labor conditions acceptable? (req)
 
   serialize :labor_conditions_checkboxes, Array
   enumerize :labor_conditions_checkboxes, in: [
@@ -118,7 +94,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                      length: {minimum: 5, maximum: 100},
                                      if: lambda { |i| i.other_selected?("labor_conditions") }
 
-  # Q3
+  # Question 3: is production environmentally friendly (opt)
 
   serialize :environment_protection_checkboxes, Array
   enumerize :environment_protection_checkboxes, in: [
@@ -141,7 +117,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                            length: {minimum: 5, maximum: 100},
                                            if: lambda { |i| i.other_selected?("environment_protection") }
 
-  # Q4
+  # Question 4: does controlling of these standards exist (req)
 
   serialize :controlling_checkboxes, Array
   enumerize :controlling_checkboxes, in: [
@@ -164,7 +140,7 @@ class FairTrustQuestionnaire < ActiveRecord::Base
                                 length: {minimum: 5, maximum: 100},
                                 if: lambda { |i| i.other_selected?("controlling") }
 
-  # Q5
+  # Question 5: awareness raising programs supported? (opt)
 
   serialize :awareness_raising_checkboxes, Array
   enumerize :awareness_raising_checkboxes, in: [

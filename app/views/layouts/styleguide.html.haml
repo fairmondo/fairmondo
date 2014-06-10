@@ -1,0 +1,20 @@
+-# This is the layout that the styleguide uses.
+-# The actual body is stored in `:body`, and Styleguide stylesheets
+-# are in `:head`.
+-#
+-# You may customize this by adding your own scripts and styles.
+
+!!! 5
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %title Styleguides
+    = stylesheet_link_tag 'application'
+
+    /[if lt IE 9]
+      %script{src: 'http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js'}
+    = yield :head  if content_for?(:head)
+
+%body
+  = yield :body  if content_for?(:body)
+  = javascript_include_tag :application

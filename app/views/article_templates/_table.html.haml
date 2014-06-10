@@ -19,12 +19,12 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.User-table
-  %table
-    %tr
-      %th= t('formtastic.labels.article_template.name')
-      %th= t('formtastic.labels.article_template.article_title')
-      %th
-      %th
-      %th
-    = render :partial => "article_templates/table_entry", :collection => article_templates, :as => :article_template
+
+%table.article_templates
+  %tr
+    %th= t('formtastic.labels.article_template.name')
+    %th= t('formtastic.labels.article_template.article_title')
+    %th
+    %th
+    %th
+  = render :partial => "article_templates/table_entry", :collection => article_templates, :as => :article_template

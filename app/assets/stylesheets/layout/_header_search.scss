@@ -1,0 +1,106 @@
+
+.l-header-search {
+  @include container($screen-width);
+  padding: 0 1rem;
+
+  @include at-breakpoint($bp-tablet) {
+    padding-left: $screen-padding;
+    padding-right: $screen-padding;
+  }
+}
+
+
+.l-header-search-libraries, .l-header-search-button {
+
+  @include till-breakpoint($bp-tablet) {
+    @include span(1 of 4 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(1 of 5 0.1);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(1 of 7 0.1);
+  }
+
+}
+
+.l-header-search-libraries {
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    display:none;
+  }
+
+  .Button {
+     display:block;
+  }
+}
+
+.l-header-search-button {
+  @include omega;
+  .Button {
+    width:100%;
+    @include at-breakpoint($bp-tablet) {
+      .fa-search{
+        display:none;
+      }
+    }
+  }
+}
+.l-header-search-button-text {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
+  }
+}
+
+.l-header-search-query {
+  @include till-breakpoint($bp-tablet) {
+     @include span(3 of 4 0.1);
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(4 of 5 0.1);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(5 of 7 0.1);
+  }
+}
+
+.l-header-search-query > fieldset > ol > li.input {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  padding: 0;
+  input { background-color: white;}
+
+  @include at-breakpoint($bp-tablet) {
+    &:first-child {
+      @include span(3 of 5 0.1);
+    }
+    &:last-child {
+      @include span(2 of 5 0.1);
+      @include omega;
+    }
+
+  }
+
+  @include till-breakpoint($bp-tablet) {
+    &:last-child {
+      display:none;
+    }
+  }
+
+  .selectboxit-container,.selectboxit-options, input ,select {
+    width:100%;
+    border: 0px;
+
+  }
+  .selectboxit-text {
+    text-indent: 1em;
+  }
+  .selectboxit-btn {
+    border: 0px;
+  }
+
+}

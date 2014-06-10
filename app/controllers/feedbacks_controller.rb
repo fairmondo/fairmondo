@@ -34,7 +34,7 @@ class FeedbacksController < InheritedResources::Base
   end
 
   def new
-    @variety = permitted_new_params[:variety] || "send_feedback"
+    @variety = params.for(build_resource).refine[:variety] || "send_feedback"
     session[:source_page] = request.env["HTTP_REFERER"]
     authorize build_resource
     new!
@@ -48,10 +48,6 @@ class FeedbacksController < InheritedResources::Base
       else
         root_path
       end
-    end
-
-    def permitted_new_params
-      params.permit :variety
     end
 
     def handle_recaptcha

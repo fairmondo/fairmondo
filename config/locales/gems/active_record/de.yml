@@ -266,9 +266,6 @@ de:
       image:
         one: "Bild"
         other: "Bilder"
-      invitation:
-        one: "Trust-Community Einladung"
-        other: "Trust-Community Einladungen"
       legal_entity:
         one: "Firmenprofil"
         other: "Firmenprofile"

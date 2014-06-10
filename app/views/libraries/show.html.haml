@@ -1,3 +1,15 @@
-= accordion_item "library"+resource.id.to_s, :title => library_header_layout(resource), :arrow => false, :number => resource.library_elements.count do
+= accordion_item "library"+resource.id.to_s, :title => library_header_layout(resource), :arrow => false do
   %p
     = render "library", :library => resource
+
+
+-# Admin controls
+- if User.is_admin?(current_user) && resource.public?
+  .Admin-controls
+    %h2 Administration:
+    %h3 Sammlung featuren
+    = semantic_form_for resource, url: user_library_path(resource.user, resource) do |f| #, method: :put
+      = f.inputs do
+        = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
+      = f.actions do
+        = f.action :submit, button_html: {class: "Btn"}

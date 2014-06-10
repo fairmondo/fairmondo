@@ -60,6 +60,16 @@ class ToolboxController < ApplicationController
     render layout: false
   end
 
+  def newsletter_status
+    is_subscribed = CleverreachAPI.get_status(current_user)
+
+    if current_user.newsletter != is_subscribed
+      current_user.update_column :newsletter, is_subscribed
+    end
+
+    render json: { subscribed: is_subscribed }
+  end
+
   private
     def get_feed_items
       begin

@@ -19,7 +19,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 class BusinessTransaction < ActiveRecord::Base
   extend Enumerize
   extend Sanitization
@@ -31,12 +30,6 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
   has_one :rating
 
-  def self.business_transaction_attrs
-    [:selected_transport, :selected_payment, :tos_accepted, :message,
-    :quantity_bought, :forename, :surname, :street, :address_suffix, :city, :zip, :country,
-    :refund_reason, :refund_explanation, :billed_for_fair, :billed_for_fee, :billed_for_discount]
-    # billed_for are booleans for checking if this transaction is already billed
-  end
   attr_accessor :updating_state, :updating_multiple
 
   auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
@@ -134,7 +127,6 @@ class BusinessTransaction < ActiveRecord::Base
     true
   end
 
-
   def deletable?
     available?
   end
@@ -148,7 +140,6 @@ class BusinessTransaction < ActiveRecord::Base
   end
   attr_reader :tos_accepted
 
-
   # Edit can be called with GET params. If they are valid, it renders a different
   # view to show the final sales price. This method is called to validates if the
   # params are valid.
@@ -157,8 +148,7 @@ class BusinessTransaction < ActiveRecord::Base
   # @param params [Hash] The GET parameters
   # @return [Boolean]
   def edit_params_valid? params
-    return false unless params['business_transaction']
-    validator_instance = create_business_transaction_validator params['business_transaction']
+    validator_instance = create_business_transaction_validator params
     if validator_instance.valid?
       true
     else

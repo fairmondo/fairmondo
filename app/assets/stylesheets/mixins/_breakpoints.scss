@@ -1,0 +1,39 @@
+// Common Breakpoints
+
+// Use them wherever possible
+
+$bp-mobile: 320px;
+$bp-mobile-horizontal: 480px;
+$bp-tablet: 768px;
+$bp-tablet-horizontal: 1024px;
+$bp-desktop: 1280px;
+$bp-desktop-wide: 1500px;
+
+// Uncommon Special Brreakpoints
+// Try to avoid these as much as possible
+
+$bp-mobile-horizontal-big: 564px;
+
+// Adds media tags that will start from given value
+//
+// $value - minimum window width
+@mixin at-breakpoint($value) {
+  @media (min-width: $value) { @content; }
+}
+
+// Adds media tags that will be there until the given value
+//
+// $value - maximum window width
+@mixin till-breakpoint($value) {
+  @media (max-width: $value - 1px) { @content; }
+}
+
+// Adds media tags that will start from given minimum and end at the maximum
+//
+// $min - minimum window width
+// $max - maximum window width
+@mixin between-breakpoints($min, $max) {
+  @media (min-width: $min) and (max-width: $max - 1px) {
+    @content;
+  }
+}

@@ -1,0 +1,22 @@
+%ul.JS-active-toggle--exclusive-container
+  %li
+    = link_to t('header.sell'), new_article_path
+  %li.JS-active-toggle--container
+    = link_to t('header.community'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
+    %ul.l-header-nav-dropdown.JS-active-toggle--target
+      %li= link_to t('header.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
+      %li= link_to t('header.hero'), 'https://helden.fairnopoly.de/', target: '_blank'
+      %li= link_to t('header.facebook'), 'https://www.facebook.com/fairnopoly', target: '_blank'
+      %li= link_to t('header.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
+
+  - if user_signed_in?
+    %li
+      = link_to t('header.profile'), user_path(current_user)
+    %li
+      = link_to t('common.actions.logout'), destroy_user_session_path
+
+  - elsif controller_name != "sessions"
+    %li.JS-active-toggle--container
+      = link_to t('common.actions.login'), new_user_session_path, :id => "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
+      .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
+        = render "devise/sessions/shared"

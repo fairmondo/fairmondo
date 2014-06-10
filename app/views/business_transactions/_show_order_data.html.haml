@@ -3,27 +3,23 @@
 - quantity            = business_transaction.quantity_bought
 - time                = business_transaction.sold_at
 
-%h1
+%h1.your_article
   = t 'transaction.edit.heading'
-%h3.Article-title
-  = link_to "#{business_transaction.article_title}", article_path( business_transaction.article )
-= "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
-%br
-%p
-%h3
-  = t "transaction.show.seller.heading"
-
-%p
-  = t "transaction.show.seller.congratulation"
-  = t "transaction.show.seller.congratulation_invoice" if selected_payment == 'invoice'
-
-%hr
+.article-display
+  %h3.article-title
+    = link_to "#{business_transaction.article_title}", article_path( business_transaction.article )
+  = "Verkauft am " + time.strftime("%d.%m.%Y") + " um " + time.strftime("%H:%M")
+  %h3
+    = t "transaction.show.seller.heading"
+  %p
+    = t "transaction.show.seller.congratulation"
+    = t "transaction.show.seller.congratulation_invoice" if selected_payment == 'invoice'
 
 %h4= t('transaction.notifications.seller.order_infos')
 
-= simple_format(order_details(business_transaction), :class => "Article-title")
+= simple_format(order_details(business_transaction, :seller), :class => "article-title")
 
-= simple_format article_payment_info business_transaction, :seller
+= simple_format(article_payment_info(business_transaction, :seller))
 
 %hr
 
@@ -58,4 +54,4 @@
 %br
 %br
 %p
-  =# link_to 'Lieferschein drucken', print_order_seller_business_transaction_path( business_transaction ), class: 'Btn', target: '_blank'
+  =# link_to 'Lieferschein drucken', print_order_seller_business_transaction_path( business_transaction ), class: 'Button', target: '_blank'

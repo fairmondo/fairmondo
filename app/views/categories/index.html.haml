@@ -1,21 +1,23 @@
 .Category-index.Grid-mansory
   - collection.each do |category|
-    .Category-index-parent.Grid
+
+    .Category-index-parent.Category-Grid
+
       %h2
-        %a{href: articles_path(article_search_form: {category_id: category.id })}
+        %a{href: category_path(category)}
           = category.name
       %ul
         -category.children.each do |child1|
           %li
-            %a{href: articles_path(article_search_form: {category_id: child1.id })}
+            %a{href: category_path(child1)}
               = child1.name
             %ul
               -child1.children.each do |child2|
                 %li
-                  %a{href: articles_path(article_search_form: {category_id: child2.id })}
+                  %a{href: category_path(child2)}
                     = child2.name
                   %ul
                     -child2.children.each do |child3|
                       %li
-                        %a{href: articles_path(article_search_form: {category_id: child3.id })}
+                        %a{href: category_path(child3)}
                           = child3.name

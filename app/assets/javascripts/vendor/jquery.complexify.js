@@ -1,7 +1,7 @@
 /*
-*	http://github.com/danpalmer/jquery.complexify.js
-*	Copyright License
-*	This code is distributed under the WTFPL v2:
+	http://github.com/danpalmer/jquery.complexify.js
+
+	This code is distributed under the WTFPL v2:
 */
 (function ($) {
 
@@ -114,31 +114,33 @@
 			var defaults = {
 				minimumChars: 8,
 				strengthScaleFactor: 1,
-				bannedPasswords: [],
-				banmode: 'strict' // (strict|loose)
+        bannedPasswords: window.COMPLEXIFY_BANLIST || [],
+				banmode: 'strict', // (strict|loose)
+        evaluateOnInit: true
 			};
+
 			if($.isFunction(options) && !callback) {
 				callback = options;
 				options = {};
 			}
+
 			options = $.extend(defaults, options);
 
 			function additionalComplexityForCharset(str, charset) {
 				for (var i = str.length - 1; i >= 0; i--) {
 					if (charset[0] <= str.charCodeAt(i) && str.charCodeAt(i) <= charset[1]) {
 						return charset[1] - charset[0] + 1;
-					};
-				}; return 0;
-			};
-
+					}
+				}
+        return 0;
+			}
+			
 			function inBanlist(str) {
 				if (options.banmode === 'strict') {
-					for (var i = 1; i <= str.length; i++) {
-						if ($.inArray(str.substr(0, i), options.bannedPasswords) > -1) {
-							// Will return true if a word from the list appears at
-							// the beginning of the password
-							return true;
-						}
+					for (var i = 0; i < options.bannedPasswords.length; i++) {
+            if (options.bannedPasswords[i].indexOf(str) !== -1) {
+              return true;
+            }
 					}
 					return false;
 				} else {
@@ -146,36 +148,44 @@
 				}
 			}
 
+      function evaluateSecurity() {
+        var password = $(this).val();
+        var complexity = 0, valid = false;
+        
+        // Reset complexity to 0 when banned password is found
+        if (!inBanlist(password)) {
+        
+          // Add character complexity
+          for (var i = CHARSETS.length - 1; i >= 0; i--) {
+            complexity += additionalComplexityForCharset(password, CHARSETS[i]);
+          }
+          
+        } else {
+          complexity = 1;
+        }
+        
+        // Use natural log to produce linear scale
+        complexity = Math.log(Math.pow(complexity, password.length)) * (1/options.strengthScaleFactor);
+
+        valid = (complexity > MIN_COMPLEXITY && password.length >= options.minimumChars);
+
+        // Scale to percentage, so it can be used for a progress bar
+        complexity = (complexity / MAX_COMPLEXITY) * 100;
+        complexity = (complexity > 100) ? 100 : complexity;
+        
+        callback.call(this, valid, complexity);
+      }
+
+      if( options.evaluateOnInit ) {
+        this.each(function () {
+          evaluateSecurity.apply(this);
+        });
+      }
+
 			return this.each(function () {
-				$(this).keyup(function () {
-					var password = $(this).val();
-					var complexity = 0, valid = false;
-
-					// Reset complexity to 0 when banned password is found
-					if (!inBanlist(password)) {
-
-						// Add character complexity
-						for (var i = CHARSETS.length - 1; i >= 0; i--) {
-							complexity += additionalComplexityForCharset(password, CHARSETS[i]);
-						}
-
-					} else {
-						complexity = 1;
-					}
-
-					// Use natural log to produce linear scale
-					complexity = Math.log(Math.pow(complexity, password.length)) * (1/options.strengthScaleFactor);
-
-					valid = (complexity > MIN_COMPLEXITY && password.length >= options.minimumChars);
-
-					// Scale to percentage, so it can be used for a progress bar
-					complexity = (complexity / MAX_COMPLEXITY) * 100;
-					complexity = (complexity > 100) ? 100 : complexity;
-
-					callback.call(this, valid, complexity);
-				});
+        $(this).bind('keyup focus', evaluateSecurity);
 			});
-
+			
 		}
 	});
 

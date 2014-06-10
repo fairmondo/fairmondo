@@ -1,0 +1,32 @@
+.user-header
+  .user-profile
+    = render :partial=>'/users/profile_img', :locals=>{:user => user_resource}
+    - if user_resource.is? current_user
+      .user-edit
+        %a{:href =>  edit_user_registration_path}
+          %span.sprite_pencil
+          = t 'common.actions.edit_profile'
+  .user-middle
+    - if user_resource.about_me && !user_resource.about_me.empty?
+      .user-description{:data => {:truncate => 250}}
+        = user_resource.about_me.html_safe
+    - else
+      %h4
+        = t 'users.text.no_description'
+      - if user_resource.is? current_user
+        %a{:href => edit_user_registration_path}
+          = t 'users.text.add_desription'
+    .user-menu
+      - if user_resource.is? current_user
+        %a.Button{:href => user_path(current_user)}
+          %span.sprite_openbox
+          = t 'common.text.my_articles'
+      %a.Button{:href => user_libraries_path(user_resource)}
+        %span.sprite_box
+        = t 'common.text.libraries'
+      - if user_resource.is_a? LegalEntity
+        %a.Button{:href => profile_user_path(user_resource)}
+          %span.sprite_paper
+          = t 'common.text.about_terms'
+  .user-extra
+    = render '/shared/take_part'

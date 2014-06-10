@@ -10,7 +10,7 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback zu dem Artikel"
-      contact_private_user: 'Rückfragen an den*die Verkäufer*in'
+      contact_private_user: 'Rückfragen an den*die Anbieter*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -42,7 +42,7 @@ de:
       donate_html: "1% werden von uns an <a href='http://www.transparency.de/' target='_blank'>Transparency International</a> gespendet"
       donate_ngo_html: "100% des Erlöses gehen an %{ngo}. Es fallen keine Fairnopoly-Gebühren an."
       donate_ngo_short_html: "%{percent}% gehen an %{ngo}"
-      friendly_percent_html: "Diese*r Verkäufer*in spendet %{percent}% an %{ngo}"
+      friendly_percent_html: "Diese*r Anbieter*in spendet %{percent}% an %{ngo}"
       agree: "Ja"
       non_agree: "Nein"
       contributed: " gespendet."
@@ -52,12 +52,12 @@ de:
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
       contact:
-        description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Verkäufer*in eine Nachricht zu senden.'
-        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Verkäufer*in als Rücksendeadresse übermittelt wird."
-        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Verkäufer*in die Möglichkeit hat, Dir zu antworten.'
-        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Verkäufer*in zu kontaktieren.'
+        description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Anbieter*in eine Nachricht zu senden.'
+        email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."
+        acceptance_error: 'Es ist nötig, der Übermittlung Deiner E-Mail-Adresse zuzustimmen, damit der*die Anbieter*in die Möglichkeit hat, Dir zu antworten.'
+        empty_error: 'Bitte fülle das Nachrichtenfeld aus um den*die Anbieter*in zu kontaktieren.'
         long_error: 'Bitte benutze für Deine Rückfrage nicht mehr als 2000 Zeichen.'
-        success_notice: 'Deine Nachricht wurde an den*die Verkäufer*in übermittelt.'
+        success_notice: 'Deine Nachricht wurde an den*die Anbieter*in übermittelt.'
         action: 'Nachricht senden'
         mail_subject: "Nutzer*innen-Rückfrage zu Deinem Artikel auf Fairnopoly"
       title:
@@ -128,14 +128,15 @@ de:
     titles:
       new: "Artikel einstellen"
       edit: "Artikel bearbeiten"
-      other-products: "Alle Artikel dieses Verkäufers"
+      other-products: "Andere Artikel dieses Anbieters"
       libraries: "Öffentliche Sammlungen, die diesen Artikel enthalten"
       search_failure: "Suche nicht verfügbar"
       preview: "Dein Artikel"
 
     actions:
       edit: "Artikel bearbeiten"
-      profile: "Verkäufer*in ansehen"
+      profile: "Anbieter*in ansehen"
+      show_user: "Zum Anbieter"
       report: "Feedback senden"
       reported: "Erfolgreich gesendet."
       reported-error: "Du musst einen Text schreiben um ein Feedback zu senden."
@@ -167,7 +168,7 @@ de:
         fees_quarter_fee: "Zusätzlich zu den Verkaufsgebühren wird je Geschäftsquartal, in dem Du erfolgreich mindestens einmal verkauft hast, eine Quartalsgebühr von 1,- Euro fällig (inkl. 19% MwSt)."
         fees_mass_upload: "Bei erfolgreichem Verkauf jedes Artikels gehen 6% des Artikelendpreises an Fairnopoly. Bei Artikeln unter dem Filter fair fallen lediglich 3% an. Der hier aufgeführte Betrag bezieht auf die summierten Gebühren beim erfolgreichen Verkauf aller Artikel (gemäß der angegebenen Stückzahl)."
         fees_and_donations: "1% des Artikelendpreises wird bei erfolgreichem Verkauf durch uns automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet."
-        friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den Verkäufer an %{ngo} gespendet."
+        friendly_percent: "%{percent}% des Artikelendpreises wird bei erfolgreichem Verkauf durch den*dir Anbieter*in an %{ngo} gespendet."
         fees_and_donations_mass_upload: "1% des Artikelendpreises wird bei erfolgreichem Verkauf automatisch an Initiativen, die sich gegen Korruption einsetzen, gespendet. Da das 1% für jeden Artikel einzeln berechnet, eventuell aufgerundet und dann für alle hochgeladenen Artikel summiert wird, ist der hier ausgewiesene Betrag möglicherweise höher als 1%."
         fees: "Die Gebührentabelle findest Du <hier>."
         double_check: >

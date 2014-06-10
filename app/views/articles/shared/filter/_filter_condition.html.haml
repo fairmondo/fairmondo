@@ -1,0 +1,19 @@
+.Search-filter.JS-active-toggle--container
+  .Search-dropdown.JS-active-toggle--trigger{data: {clickable: 'true'}}
+    - if search_cache && search_cache.send(parameter)
+      = condition_label search_cache
+    - else
+      = title
+    %ul.JS-active-toggle--target
+      - if search_cache && search_cache.send(parameter)
+        %li
+          %a.Search-colored-link{href:  articles_path(article_search_form: search_cache.change(parameter => nil)), data: { remote: 'true' }}
+            Werte löschen
+      - values.each do |value|
+        %li
+          %a.Search-colored-link{href: articles_path(article_search_form: search_cache.change(parameter => value)), data: { remote: 'true' }}
+            - if search_cache && search_cache.send(parameter) == value
+              = image_tag "icheck/radio_active.png"
+            - else
+              = image_tag "icheck/radio.png"
+            = t "enumerize.article_search_form.#{parameter}.#{value}"

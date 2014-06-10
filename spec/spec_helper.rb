@@ -33,7 +33,11 @@ require "pundit/rspec"
 
 
 require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+# First matchers, then modules, then helpers. Helpers need to come after modules due to interdependencies.
+Dir[Rails.root.join("spec/support/matchers/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/modules/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/spec_helpers/*.rb")].each {|f| require f}
 
 # For Sidekiq
 Sidekiq::Testing.inline!
@@ -94,25 +98,23 @@ RSpec.configure do |config|
 
   # Expanded Test Suite Setup
   config.before :suite do
-
-
     Article.index.delete
     Article.create_elasticsearch_index
-
 
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
      # Initialize some Categories
-
     setup_categories
-
-
   end
 
   config.after :suite do
-    rails_best_practices
-    brakeman
+    if RSpec.configuration.reporter.instance_variable_get(:@failure_count) > 0
+      puts "\n\nErrors occured. Not running additional tests.".red
+    else
+      rails_best_practices
+      brakeman
+    end
   end
 
   config.before(:each) do |x|
@@ -146,8 +148,8 @@ end
 # See config.after(:all,:setup => true)
 # With this you can define a setup block in a describe block that gets cleaned after all specs in this block
 def setup
-    DatabaseCleaner.start
-    DatabaseCleaner.strategy = nil
+  DatabaseCleaner.start
+  DatabaseCleaner.strategy = nil
 end
 
 

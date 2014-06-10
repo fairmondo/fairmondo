@@ -1,0 +1,54 @@
+/*
+Tags
+Badgets for various things
+
+Tag--gray   - gray tag
+Tag--blue   - blue tag
+Tag--green  - green tag
+Tag--orange - orange tag
+Tag--big    - big tag
+
+Styleguide Tags
+*/
+
+.Tag{
+  border-radius: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.74rem;
+  padding: 0 0.5em;
+  color: white !important;
+  text-decoration: none !important;
+  background-color: $black;
+}
+
+// Color variations
+
+.Tag--gray {
+  background-color: $dark-gray;
+  &:hover {
+    background-color: lighten($dark-gray, 5%);
+  }
+}
+.Tag--blue {
+  background-color: $blue;
+  &:hover {
+    background-color: lighten($blue, 5%);
+  }
+}
+.Tag--green {
+  background-color: $green;
+  &:hover {
+    background-color: lighten($green, 5%);
+  }
+}
+.Tag--orange {
+  background-color: $orange;
+  &:hover {
+    background-color: lighten($orange, 5%);
+  }
+}
+
+.Tag--big {
+  font-size: 1.5em;
+}

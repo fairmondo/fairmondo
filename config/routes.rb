@@ -21,6 +21,7 @@
 #
 Fairnopoly::Application.routes.draw do
 
+  mount Nkss::Engine => '/styleguides' if Rails.env.development?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   namespace :admin do
@@ -43,13 +44,14 @@ Fairnopoly::Application.routes.draw do
 
   namespace :toolbox do
     get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
-    get 'confirm' , constraints: {format: 'js'}
+    get 'confirm', constraints: {format: 'js'}
     get 'rss'
     get 'notice/:id', action: "notice", as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
     get 'healthcheck'
+    get 'newsletter_status', as: 'newsletter_status', constraints: {format: 'json'}
   end
 
   namespace :statistics do
@@ -89,7 +91,7 @@ Fairnopoly::Application.routes.draw do
   post "welcome/reconfirm_terms"
 
   get "welcome/index"
-  get "mitunsgehen", to: 'welcome#landing'
+  get "mitunsgehen", to: 'welcome#index'
 
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
@@ -111,17 +113,19 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, :only => [:index, :show]
-
-  resources :categories , :only => [:show, :index] do
+  resources :libraries, :only => [:index, :show] do
     collection do
-      get '/id_index', to: 'categories#id_index'
+      post 'admin_add', as: 'admin_add_to'
+      delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
     end
   end
 
-  resources :exhibits, :only => [:create, :update, :destroy] do
+  resources :categories , only: [:index,:show] do
+    member do
+      get 'select_category'
+    end
     collection do
-      post 'create_multiple'
+      get 'id_index', to: 'categories#id_index'
     end
   end
 
@@ -133,9 +137,9 @@ Fairnopoly::Application.routes.draw do
                       request.env['warden'].user.admin?}
 
   constraints constraint do
-    mount Peek::Railtie => '/peek'
     mount Sidekiq::Web => '/sidekiq'
   end
+
 
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|

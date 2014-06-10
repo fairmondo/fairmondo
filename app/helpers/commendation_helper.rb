@@ -28,12 +28,12 @@ module CommendationHelper
     html = ""
     if article.social_producer_questionnaire.send(question)
 
-      html << "<p><b>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<h5>" + t('formtastic.labels.social_producer_questionnaire.' + question.to_s) + "</h5>"
       html << "<p>" + t('article.show.agree')+ "</p>"
 
       value = article.social_producer_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul class=\"small\">"
+        html << "<ul>"
         value.each do |purpose|
           html << "<li>" + t('enumerize.social_producer_questionnaire.' + question.to_s +  '_checkboxes.' + purpose) + "</li>"
         end
@@ -47,12 +47,12 @@ module CommendationHelper
     html = ""
     if article.fair_trust_questionnaire.send(question)
 
-      html << "<p><b>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</b></p>"
+      html << "<h5>" + t('formtastic.labels.fair_trust_questionnaire.' + question.to_s) + "</h5>"
       html << "<p>" + t('article.show.agree')+ "</p>"
 
       value = article.fair_trust_questionnaire.attributes[question.to_s + "_checkboxes"]
       if value
-        html << "<ul class=\"small\">"
+        html << "<ul>"
         value.each do |purpose|
           html << "<li>" + t('enumerize.fair_trust_questionnaire.' + question.to_s +  '_checkboxes.' + purpose)
           if purpose == "other" && article.fair_trust_questionnaire.send(question.to_s + "_other")
@@ -86,17 +86,18 @@ module CommendationHelper
   # Get Labels for the commendations
   #
   # @param label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
-  # @param size [Symbol] label size `:small`,`:medium`, `:big`
+  # @param size [Symbol] label size `:small`, `:big`
   # @param link [String] Optional string url where the label should link to
   # @param new_window [Boolean] Optional url in new window?
   #
   def commendation_label label, size , link = nil, new_window = true
-    link = commendation_explanation_link label unless link
-    html = "<a href=\"#{link}\" "
-    html << "target=\"_blank\" " if new_window
+    link = commendation_explanation_link label unless link != nil
+    html = "<a "
+    html << "href=\"#{link}\" " if link
+    html << "target=\"_blank\" " if new_window && link
     html << "class=\"#{commendation_label_classes label,size} accordion-anchor\">"
     html << t("formtastic.labels.article.#{label.to_s}")
-    html << "</a>"
+    html << "</a> "
     html.html_safe
   end
 
@@ -104,22 +105,20 @@ module CommendationHelper
   # @param label [Symbol] the type of label, `:fair`,`:ecologic`,`:small_and_precious`
   # @param size [Symbol] Optional label size `:small` ,`:medium`, `:big`
   def commendation_label_classes label, size
-     css = "Btn Btn-tag"
+     css = "Tag"
      css << case label
      when :fair
-       " Btn-tag--blue"
+       " Tag--blue"
      when :ecologic
-       " Btn-tag--green"
+       " Tag--green"
      when :small_and_precious
-       " Btn-tag--orange"
+       " Tag--orange"
      end
      css << case size
      when :small
        ""
-     when :medium
-       " Btn-tag--medium"
      when :big
-       " Btn-tag--big"
+       " Tag--big"
      end
      css
   end

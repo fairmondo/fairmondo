@@ -1,0 +1,56 @@
+// Sticky Footer
+.l-wrapper {
+  min-height: 100%;
+  margin-bottom: -($footer-height);
+}
+
+.l-footer {
+  background: $sand;
+  height: $footer-height;
+  margin-top: -$footer-height;
+  clear:both;
+}
+
+@include till-breakpoint($bp-mobile) {
+  .l-wrapper {margin-bottom: 0;}
+  .l-footer { height:auto; margin-top:0; padding-bottom: 1em;}
+}
+
+.l-footer-top, .l-footer-bottom {
+  @include container($screen-width);
+  padding: 1em 1em 0;
+}
+
+.l-footer-logo {
+  @include till-breakpoint($bp-tablet) {
+    display:none;
+  }
+}
+
+.l-footer-logo, .l-footer-copyright {
+  @include at-breakpoint($bp-tablet) {
+    float:left;
+  }
+  span {
+    display:block;
+  }
+}
+
+.l-footer-nav{
+  list-style: none;
+  margin:0;
+  padding:0;
+
+  @include at-breakpoint($bp-tablet) {
+    float:right;
+  }
+
+  li {
+    display:inline;
+    margin-right: 1em;
+    .Feedback {
+      margin-right: 0em;
+    }
+  }
+
+}

@@ -1,0 +1,7 @@
+- begin
+  = render "categories/show/#{resource.slug}", search_cache: @search_cache if resource.slug
+- rescue ActionView::MissingTemplate, ArgumentError
+  - # insert elements that should only appear when there is nothing specific here
+
+- # Elements that always get displayed
+= render '/articles/shared/search_results', articles: @articles, search_cache: @search_cache

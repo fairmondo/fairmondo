@@ -6,8 +6,8 @@
     = f.input :variety, as: :hidden, input_html: { value: 'report_article' }
     -# user input
     = f.input :text, input_html: { rows: 4 }
-
+  .captacha
     = render '/shared/recaptcha'
 
   = f.actions do
-    = f.action :submit , label: t('article.actions.report'), button_html: {class: "Btn"}
+    = f.action :submit , label: t('article.actions.report'), button_html: {class: "Button"}

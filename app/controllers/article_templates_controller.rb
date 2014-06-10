@@ -21,9 +21,11 @@
 #
 class ArticleTemplatesController < InheritedResources::Base
 
-  before_filter :build_resource, :only => [:new, :create]
-  before_filter :build_article, :only => [:new,:create]
+  before_filter :build_resource, only: [:new, :create]
+  before_filter :build_article, only: [:new,:create]
   before_filter :authorize_resource, except: [:create]
+  before_filter -> { render_css_from_controller('articles') } , except: [:destroy]
+
   actions :all, :except => [:show,:index]
 
   def update
@@ -77,11 +79,5 @@ class ArticleTemplatesController < InheritedResources::Base
       end
     end
 
-    def manual_params allowed_params
-      if allowed_params["article_template"]
-        allowed_params["article_template"]["user_id"] = current_user.id
-        allowed_params["article_template"]["article_attributes"]["user_id"] = current_user.id
-      end
-      allowed_params
-    end
+
 end

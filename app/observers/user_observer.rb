@@ -21,7 +21,7 @@
 #
 
 class UserObserver < ActiveRecord::Observer
-  def before_save(user)
+  def before_save user
 
     if ( user.bank_account_number_changed? ||  user.bank_code_changed? )
       check_bank_details( user.id, user.bank_account_number, user.bank_code )
@@ -31,14 +31,23 @@ class UserObserver < ActiveRecord::Observer
     end
   end
 
-  # this should update the users data with fastbill after the user edits his data
-  def after_update(user)
+  def after_update user
+    # this should update the users data with fastbill after the user edits his data
     if user.fastbill_profile_update && user.has_fastbill_profile?
-      FastbillUpdateUserWorker.perform_async( user.id )
+      FastbillUpdateUserWorker.perform_async user.id
+    end
+
+    if user.newsletter_changed?
+      cr = CleverreachAPI
+      user.newsletter? ? cr.add(user) : cr.remove(user)
     end
   end
 
-  def check_bank_details(id, bank_account_number, bank_code)
+  def after_create user
+    CleverreachAPI.add(user) if user.newsletter?
+  end
+
+  def check_bank_details id, bank_account_number, bank_code
     begin
       user = User.find_by_id(id)
       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :ktn => bank_account_number, :blz => bank_code ) )
@@ -46,7 +55,7 @@ class UserObserver < ActiveRecord::Observer
     end
   end
 
-  def check_iban_bic(id,iban,bic)
+  def check_iban_bic id, iban, bic
     begin
       user = User.find_by_id(id)
       user.update_column( :bankaccount_warning, !KontoAPI::valid?( :iban => iban, :bic => bic ) )
