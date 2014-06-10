@@ -66,9 +66,8 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles ||= @search_cache.search params[:page]
-  rescue Errno::ECONNREFUSED
-    @articles ||= policy_scope(Article).page params[:page]
+    @articles = @search_cache.search params[:page]
+    respond_with @articles
   end
 
   def new
@@ -101,7 +100,7 @@ class ArticlesController < ApplicationController
       change_state!
     else
       authorize @article
-      save_images unless @article.update_attributes(params.for(@article).refine)
+      save_images unless @article.update(params.for(@article).refine)
       respond_with @article
     end
   end

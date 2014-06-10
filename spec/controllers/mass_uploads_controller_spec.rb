@@ -33,19 +33,21 @@ describe MassUploadsController do
       sign_in user
     end
 
-    describe "POST 'create'" do
+    describe 'POST ::create' do
       it "should create a mass-upload object" do
         expect { post :create, mass_upload: attributes }
                   .to change(MassUpload, :count).by(1)
         response.should redirect_to user_path(user, :anchor => 'my_mass_uploads')
+        MassUpload.last.articles.count.should eq(3)
       end
     end
 
-    describe "PUT 'update'" do
-      it "should description" do
+    describe 'PUT ::update' do
+      it "should update description" do
         post :create, mass_upload: attributes
         post :update, :id => MassUpload.last.id
         response.should redirect_to user_path(user)
+        MassUpload.last.articles.first.active?.should be_true
       end
     end
   end

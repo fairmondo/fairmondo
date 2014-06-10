@@ -28,7 +28,7 @@ describe RefundsController do
     describe 'for signed in users' do
       it 'should render "new" view ' do
         sign_in user
-        get :new, business_transaction_id: business_transaction.id
+        get :new, user_id: seller.id
         response.should be_success
       end
     end

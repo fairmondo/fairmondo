@@ -1,4 +1,4 @@
-class RefundPolicy < Struct.new( :user, :refund )
+class RefundPolicy < Struct.new(:user, :refund)
   def create?
     own? && refund_possible?
   end

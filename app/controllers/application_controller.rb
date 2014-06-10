@@ -47,27 +47,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Return path with fallback
-  # @api public
-  # @param fallback [String] path
-  # @param options [Hash] (is this really needed?)
-  # @return [String] return path
-  def return_to_path fallback, options = {}
-    return session.delete(:return_to) || fallback if options[:clear]
-    session[:return_to] || fallback
-  end
-
   protected
-
-    def render_users_hero
-      render_hero controller: "users"
-    end
-
-    def render_hero options
-      options[:action] ||= "default"
-      options[:controller] ||= params.permit(:controller)[:controller]
-      @rendered_hero = options
-    end
 
     # Pundit checker
 
@@ -123,7 +103,4 @@ class ApplicationController < ActionController::Base
     def render_css_from_controller controller
       @controller_specific_css = controller
     end
-
-
-
 end

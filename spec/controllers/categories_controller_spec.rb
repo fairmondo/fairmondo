@@ -57,7 +57,7 @@ describe CategoriesController do
     end
 
     it "should rescue an ECONNREFUSED error" do
-      ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+      Article.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
       get :show, id: FactoryGirl.create(:category).id, article_search_form: { q: 'foobar' }
       response.status.should be 200
     end
