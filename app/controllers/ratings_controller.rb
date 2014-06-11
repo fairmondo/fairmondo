@@ -20,11 +20,11 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class RatingsController < ApplicationController
-  responders :location
+  responders :location, :flash
   respond_to :html
 
   before_filter :set_user
-  before_filter :set_business_transaction, except: :index
+  before_filter :set_business_transaction, only: :new
   skip_before_filter :authenticate_user!, only: :index
 
   def new
@@ -34,7 +34,7 @@ class RatingsController < ApplicationController
   end
 
   def create
-    @rating = @business_transaction.build_rating(params.for(Rating).refine)
+    @rating = Rating.new(params.for(Rating).refine)
     @rating.rating_user = current_user
     @rating.rated_user = @user
     authorize @rating

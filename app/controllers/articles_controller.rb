@@ -91,7 +91,6 @@ class ArticlesController < ApplicationController
     @article = current_user.articles.build(params.for(Article).refine)
     authorize @article
     save_images unless @article.save
-
     respond_with @article
   end
 

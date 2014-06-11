@@ -110,7 +110,7 @@ describe 'Article management' do
 
             # Template
             check 'article_save_as_template'
-            fill_in 'article_article_template_attributes_name', with: 'template'
+            fill_in 'article_template_name', with: 'template'
 
             find(".double_check-step-inputs").find(".action").find("input").click
           end.should change(Article.unscoped, :count).by 2
@@ -222,7 +222,7 @@ describe 'Article management' do
       end
 
       it "should rescue an Errno::ECONNREFUSED" do
-        ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+        Article.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
         expect { click_button 'Suche' }.to_not raise_error
       end
 
