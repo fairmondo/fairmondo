@@ -178,7 +178,7 @@ describe "Featured (exhibited) libraries" do
       featured_library.articles.count.should eq 1
     end
 
-    it "should be have article removal functionality" do
+    it "should have article removal functionality" do
       featured_library.articles << article
       visit article_path article
 

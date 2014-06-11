@@ -22,9 +22,8 @@
 class LibrariesController < ApplicationController
   respond_to :html
 
-  before_filter :render_users_hero , if: :user_focused?
   before_filter :set_user, if: :user_focused?, only: :index
-  before_filter :set_library, except: [:index, :admin_add]
+  before_filter :set_library, only: [:show, :update, :destroy]
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:index, :show]
@@ -42,21 +41,21 @@ class LibrariesController < ApplicationController
   end
 
   def create
-    @library = current_user.library.build(params.for(Library).refine)
+    @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
     if @library.save
-      redirect_to user_libraries_path(current_user, anchor: "library#{resource.id}")
+      redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
     else
-      redirect_to user_libraries_path(current_user), alert: resource.errors.values.first.first
+      redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
     end
   end
 
   def update
     authorize @library
     if @library.update(params.for(@library).refine)
-      redirect_to user_libraries_path(current_user, anchor: "library#{resource.id}")
+      redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
     else
-      redirect_to user_libraries_path(current_user), alert: resource.errors.values.first.first
+      redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
     end
   end
 

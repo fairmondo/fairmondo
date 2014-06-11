@@ -43,7 +43,7 @@ class RatingsController < ApplicationController
   end
 
   def index
-    @ratings = @user.ratings
+    @ratings = @user.ratings.page(params[:page])
     respond_with(@ratings)
   end
 

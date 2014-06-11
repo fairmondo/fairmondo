@@ -35,7 +35,7 @@ class FeedbacksController < ApplicationController
 
   def new
     @feedback = Feedback.new
-    @variety = params.for(@feedback).refine[:variety] || "send_feedback"
+    @variety = params[:variety] || "send_feedback"
     session[:source_page] = request.env["HTTP_REFERER"]
     authorize @feedback
     respond_with @feedback

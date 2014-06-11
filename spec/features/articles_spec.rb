@@ -128,7 +128,7 @@ describe 'Article management' do
 
             # Template -> should still only create one transaction
             check 'article_save_as_template'
-            fill_in 'article_article_template_attributes_name', with: 'template'
+            fill_in 'template_name', with: 'template'
 
             find(".double_check-step-inputs").find(".action").find("input").click
           end.should change(BusinessTransaction, :count).by 1
@@ -148,7 +148,7 @@ describe 'Article management' do
          end
 
          it "should create an article from a template" do
-          template = FactoryGirl.create :article_template, :without_image, user: user
+          template = FactoryGirl.create :article_template, :without_image, seller: user
           visit new_article_path template: { article_id: template.id }
           page.should have_content I18n.t('template.notices.applied', name: template.name)
         end

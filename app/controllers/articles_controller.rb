@@ -73,7 +73,7 @@ class ArticlesController < ApplicationController
   def new
     ############### From Template ################
     if params[:template] && params[:template][:article_id].present?
-      @article = current_user.articles.find(params[:template][:article_id]).amoeba_dup
+      @article = current_user.articles.unscoped.find(params[:template][:article_id]).amoeba_dup
       flash.now[:notice] = t('template.notices.applied', :name => @applied_template.name)
     elsif params[:edit_as_new]
       @old_article = current_user.articles.find(params[:edit_as_new])

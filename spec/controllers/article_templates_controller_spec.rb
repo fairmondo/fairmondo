@@ -64,7 +64,7 @@ describe ArticleTemplatesController do
       it "creates a new ArticleTemplate" do
         expect {
           post :create, article: valid_attributes
-        }.to change(Article, :count).by(1)
+        }.to change(Article.unscoped, :count).by(1)
       end
 
       it "assigns a newly created article_template as @article_template" do
@@ -144,7 +144,7 @@ describe ArticleTemplatesController do
     it "destroys the requested article_template" do
       expect {
         delete :destroy, id: @article_template.to_param
-      }.to change(Article, :count).by(-1)
+      }.to change(Article.unscoped, :count).by(-1)
     end
 
     it "redirects to the article_templates list" do

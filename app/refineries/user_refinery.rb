@@ -1,4 +1,7 @@
 class UserRefinery < ApplicationRefinery
+  def self.root
+    false
+  end
 
   def create
     [
