@@ -15,13 +15,13 @@ describe RatingsController do
 
   describe 'POST ::create' do
     before do
-      @rating_attrs = FactoryGirl.attributes_for(:rating)
+      @rating_attrs = FactoryGirl.attributes_for(:rating, business_transaction_id: business_transaction.id)
       sign_in buyer
     end
 
     it 'should create new rating' do
       lambda do
-        post(:create, rating: @rating_attrs, business_transaction_id: business_transaction.id, user_id: seller.id)
+        post(:create, rating: @rating_attrs, user_id: seller.id)
       end.should change(Rating, :count).by(1)
     end
 

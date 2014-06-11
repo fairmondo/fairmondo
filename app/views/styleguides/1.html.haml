@@ -63,3 +63,13 @@
     * Bad: - ` List { List-item { ...; h3 { ...; } } } `
 
     # CSS 3 and Bourbon
+    If you need CSS3 features that are not already implemented with cross-browser support and have to use vendor prefixes you can use [`bourbon`-mixins](http://bourbon.io/docs/)
+    that are helping you with this.
+
+    Example:
+
+    ` input { @include placeholder { color: red; }}`
+
+    will be
+
+    `input::-webkit-input-placeholder { color: red; } input:-moz-placeholder { color: red; } input::-moz-placeholder { color: red; } input:-ms-input-placeholder {  color: red; }`

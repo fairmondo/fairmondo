@@ -28,7 +28,7 @@ class ArticleObserver < ActiveRecord::Observer
 
   def before_save(article)
     if article.save_as_template?
-      cloned_article = self.amoeba_dup #duplicate the article
+      cloned_article = article.amoeba_dup #duplicate the article
       cloned_article.save_as_template = "0" #no loops
       cloned_article.templatify
       cloned_article.save #save the cloned article
