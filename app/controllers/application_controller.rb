@@ -114,7 +114,10 @@ class ApplicationController < ActionController::Base
     end
 
     def build_search_cache
-      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
+      search_params = {}
+      form_search_params = params.for(ArticleSearchForm)[:article_search_form]
+      search_params.merge!(form_search_params) if form_search_params.is_a?(Hash)
+      @search_cache = ArticleSearchForm.new(search_params)
     end
 
     # Caching security: Set response headers to prevent caching
