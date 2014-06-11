@@ -24,7 +24,7 @@
     = f.input_step 'template' do
       .Accordion-step
         = f.inputs do
-          = f.input :name
+          = f.input :template_name
     = render '/articles/form/common_inputs', f: f
     = f.actions do
       = f.action :submit , :button_html => {:class => "Button" }

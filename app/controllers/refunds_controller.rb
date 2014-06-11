@@ -1,5 +1,5 @@
 class RefundsController < ApplicationController
-  responders :location
+  responders :location, :flash
   respond_to :html
 
   def new

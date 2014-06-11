@@ -114,6 +114,12 @@ de:
     keywords: "Fairnopoly, Marktplatz, Fair, Genossenschaft"
 
   flash:
+    ratings:
+      create:
+        notice: "Deine Bewertung wurde gespeichert."
+    refunds:
+      create:
+        notice: 'Du hast erfolgreich eine Rückerstattung beantragt. Diese wird nun von uns bearbeitet.'
     actions:
       create:
         notice: "%{resource_name} wurde erstellt."
