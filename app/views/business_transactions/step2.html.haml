@@ -93,6 +93,9 @@
             = resource.article_seller_cancellation
           = link_to 'Drucken', profile_user_path(resource.article_seller, print: 'cancellation'), class: 'Button', target: '_blank'
 
+          - if resource.article_seller_cancellation_form.exists?
+            = link_to 'Widerrufsformular herunterladen', resource.article_seller_cancellation_form_url, class: 'Button', target: '_blank'
+
         = f.inputs do
           = f.input :tos_accepted
 

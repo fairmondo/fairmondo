@@ -36,6 +36,12 @@ class BusinessTransactionMailer < ActionMailer::Base
   	@seller 			= transaction.article_seller
   	@buyer 				= transaction.buyer
     @subject = "[Fairnopoly] #{t 'transaction.notifications.buyer.buyer_subject' } (#{transaction.article_title})"
+
+    if transaction.article_seller_cancellation_form.exists?
+      attachments['widerrufsformular.pdf'] =
+        File.read(Rails.root.join(transaction.article_seller_cancellation_form.path(:original)))
+    end
+
     mail to: @buyer.email, subject: @subject
   end
 
