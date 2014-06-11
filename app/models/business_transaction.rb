@@ -52,9 +52,10 @@ class BusinessTransaction < ActiveRecord::Base
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
-           :vacationing?,
+           :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
+  delegate :url, to: :article_seller_cancellation_form, prefix: true
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceBusinessTransaction", "PartialFixedPriceBusinessTransaction", "SingleFixedPriceBusinessTransaction", "PreviewBusinessTransaction"]

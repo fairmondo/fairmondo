@@ -26,6 +26,7 @@ class LegalEntity < User
   validates :terms, length: { maximum: 20000, tokenizer: tokenizer_without_html }
   validates :about, length: { maximum: 10000, tokenizer: tokenizer_without_html }
   validates :cancellation, length: { maximum: 10000, tokenizer: tokenizer_without_html }
+  validates_attachment :cancellation_form, size: { in: 1..2.megabytes }, file_name: {matches: [/pdf\Z/]}
 
   with_options if: :wants_to_sell? do |seller|
     # validates legal entity

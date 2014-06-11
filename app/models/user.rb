@@ -67,6 +67,8 @@ class User < ActiveRecord::Base
   ##
   has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
+
+  has_attached_file :cancellation_form
   ##
 
   scope :sorted_ngo, -> { order(:nickname).where(:ngo => true) }
