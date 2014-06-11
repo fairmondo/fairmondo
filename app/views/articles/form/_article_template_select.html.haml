@@ -19,13 +19,13 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-- if current_user.article_templates.any?
+- if current_user.article_templates.any? && !@template.present?
   = semantic_form_for(:template, :url => new_article_path, :html => { :method => :get}, :builder => ::Fairtastic::FormBuilder) do |f|
     = f.input_step :apply do
       .Accordion-step
         - if block_given?
           = yield
         = f.inputs do
-          = f.input :article_id, :collection => current_user.article_templates, :prompt => t('template_select.prompts.article_templates')
+          = f.input :article_id, :collection => current_user.article_templates, :prompt => t('template.prompts.article_id')
         = f.actions do
           = f.action :submit, :button_html => {:class => "Button Button--green"}

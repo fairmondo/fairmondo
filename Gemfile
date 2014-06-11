@@ -111,6 +111,9 @@ group :development do
   gem 'letter_opener' # emails in browser
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
 
+  # debugging in chrome with RailsPanel
+  gem 'meta_request'
+
   # HAML Conversion tools
   #gem "erb2haml" see html2haml
   #gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
