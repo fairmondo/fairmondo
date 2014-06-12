@@ -188,7 +188,7 @@ class Article < ActiveRecord::Base
         end
       end
 
-      if original_article.template? || original_article.save_as_template?
+      if original_article.state.to_sym == :template || original_article.save_as_template?
         new_article.slug = nil
       else
         old_slug = original_article.slug
