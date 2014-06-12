@@ -20,17 +20,17 @@
         %li
           = render 'categories/shared/category_tree_leaf', category: category.parent
           %ul.Search-tree
-            - category.self_and_siblings_with_active_articles.each do |sibling|
+            - category.self_and_sorted_siblings.each do |sibling|
               %li= render 'categories/shared/category_tree_leaf', category: sibling
-        - category.parent.siblings_with_active_articles.each do |sibling|
+        - category.parent.sorted_siblings.each do |sibling|
           %li= render 'categories/shared/category_tree_leaf', category: sibling
       - else
         %li
           = render 'categories/shared/category_tree_leaf', category: category
           %ul.Search-tree
-            - category.children_with_active_articles.each do |child|
+            - category.sorted_children.each do |child|
               %li= render 'categories/shared/category_tree_leaf', category: child
-        - category.siblings_with_active_articles.each do |sibling|
+        - category.sorted_siblings.each do |sibling|
           %li= render 'categories/shared/category_tree_leaf', category: sibling
     - else
       - Category.other_category_last.sorted.roots.each do |child|
