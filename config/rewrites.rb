@@ -36,7 +36,7 @@ module Rack
 
               logger.info('-----------------------')
               logger.info('Rack:')
-              logger.info(rack_env)
+              logger.info(rack_env['SERVER_NAME'])
               logger.info('Rule:')
               logger.info(rule)
               logger.info('Matches:')
