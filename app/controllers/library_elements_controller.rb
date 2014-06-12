@@ -33,15 +33,6 @@ class LibraryElementsController < ApplicationController
     redirect_to article_path(@library_element.article)
   end
 
-  def update
-    authorize @library_element
-    if @library_element.update(params.for(@library_element).refine)
-      redirect_to user_libraries_path(current_user, anchor: "library#{ @library_element.library.id }")
-    else
-      redirect_to user_libraries_path(current_user), alert: @library_element.errors.messages[:library_id].first
-    end
-  end
-
   def destroy
     authorize @library_element
     @library_element.destroy
