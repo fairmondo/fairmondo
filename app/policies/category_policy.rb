@@ -20,17 +20,11 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class CategoryPolicy < Struct.new(:user, :category)
-
   def show?
-    true
-  end
-
-  def edit?
     true
   end
 
   def select_category?
     true
   end
-
 end

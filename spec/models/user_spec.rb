@@ -94,7 +94,6 @@ describe User do
   end
   describe "associations" do
     it { should have_many(:articles).dependent(:destroy) }
-    it { should have_many(:article_templates) }
     it { should have_many(:libraries).dependent(:destroy) }
     it { should have_one(:image) }
 

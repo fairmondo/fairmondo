@@ -188,7 +188,7 @@ class Article < ActiveRecord::Base
         end
       end
 
-      if original_article.state.to_sym == :template || original_article.save_as_template?
+      if original_article.is_template? || original_article.save_as_template?
         new_article.slug = nil
       else
         old_slug = original_article.slug
@@ -200,9 +200,12 @@ class Article < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    super && slug == nil
+    super && slug == nil && !is_template?
   end
 
 
+  def is_template?
+    self.state.to_sym == :template
+  end
 
 end
