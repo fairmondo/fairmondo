@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   # Friendly_id for beautiful links
   extend FriendlyId
 
-  friendly_id :nickname, :use => [:slugged, :finders]
+  friendly_id :nickname, use: [:slugged, :finders]
 
   validates_presence_of :slug
 
@@ -52,40 +52,42 @@ class User < ActiveRecord::Base
 
   #Relations
   has_many :business_transactions, through: :articles
-  has_many :articles, :dependent => :destroy # As seller
+  has_many :articles, dependent: :destroy # As seller
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
 
 
-  has_many :article_templates, :dependent => :destroy
-  has_many :libraries, :dependent => :destroy
+  has_many :article_templates, dependent: :destroy
+  has_many :libraries, dependent: :destroy
 
   has_many :notices
   has_many :mass_uploads
 
   ##
-  has_one :image, :class_name => "UserImage", foreign_key: "imageable_id"
+  has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
+
+  has_attached_file :cancellation_form
   ##
 
-  scope :sorted_ngo, -> { order(:nickname).where(:ngo => true) }
-  scope :ngo_with_profile_image, -> { where(:ngo => true ).joins(:image).limit(6) }
+  scope :sorted_ngo, -> { order(:nickname).where(ngo: true) }
+  scope :ngo_with_profile_image, -> { where(ngo: true ).joins(:image).limit(6) }
 
-  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+  #belongs_to :invitor ,class_name: 'User', foreign_key: 'invitor_id'
 
-  has_many :ratings, foreign_key: 'rated_user_id', :dependent => :destroy, inverse_of: :rated_user
+  has_many :ratings, foreign_key: 'rated_user_id', dependent: :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_business_transactions, source: :rating, inverse_of: :rating_user
 
 
-  #belongs_to :invitor ,:class_name => 'User', :foreign_key => 'invitor_id'
+  #belongs_to :invitor ,class_name: 'User', foreign_key: 'invitor_id'
 
   #Registration validations
 
-  validates_inclusion_of :type, :in => ["PrivateUser", "LegalEntity"]
-  validates :nickname , :presence => true, :uniqueness => true
-  validates :legal, :acceptance => true, :on => :create
-  validates :agecheck, :acceptance => true , :on => :create
+  validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
+  validates :nickname , presence: true, uniqueness: true
+  validates :legal, acceptance: true, on: :create
+  validates :agecheck, acceptance: true , on: :create
 
 
   # validations
@@ -102,19 +104,19 @@ class User < ActiveRecord::Base
 
   # TODO: Language specific validators
   # german validator for iban
-  validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, :unless => Proc.new {|c| c.iban.blank?}, if: :is_german?
-  validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, :unless => Proc.new {|c| c.bic.blank?}
+  validates :iban, format: {with: /\A[A-Za-z]{2}[0-9]{2}[A-Za-z0-9]{18}\z/ }, unless: Proc.new {|c| c.iban.blank?}, if: :is_german?
+  validates :bic, format: {with: /\A[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9]{3}?\z/ }, unless: Proc.new {|c| c.bic.blank?}
 
-  validates :bank_code, :numericality => {:only_integer => true}, :length => { :is => 8 }, :unless => Proc.new {|c| c.bank_code.blank?}
-  validates :bank_account_number, :numericality => {:only_integer => true}, :length => { :maximum => 10}, :unless => Proc.new {|c| c.bank_account_number.blank?}
-  validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, :unless => Proc.new {|c| c.paypal_account.blank?}
+  validates :bank_code, numericality: {only_integer: true}, length: { is: 8 }, unless: Proc.new {|c| c.bank_code.blank?}
+  validates :bank_account_number, numericality: {only_integer: true}, length: { maximum: 10}, unless: Proc.new {|c| c.bank_account_number.blank?}
+  validates :paypal_account, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, unless: Proc.new {|c| c.paypal_account.blank?}
   validates :paypal_account, presence: true, if: :paypal_validation
   validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
 
   validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
-  validates_inclusion_of :type, :in => ["LegalEntity"], if: :is_ngo?
+  validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
 
   # Return forename plus surname
   # @api public
@@ -222,8 +224,8 @@ class User < ActiveRecord::Base
   end
 
 
-  state_machine :seller_state, :initial => :standard_seller do
-    after_transition any => :bad_seller, :do => :send_bad_seller_notification
+  state_machine :seller_state, initial: :standard_seller do
+    after_transition any => :bad_seller, do: :send_bad_seller_notification
 
     event :rate_up do
       transition bad_seller: :standard_seller
@@ -238,11 +240,11 @@ class User < ActiveRecord::Base
     end
 
     event :unblock do
-      transition :blocked => :standard_seller
+      transition blocked: :standard_seller
     end
   end
 
-  state_machine :buyer_state, :initial => :standard_buyer do
+  state_machine :buyer_state, initial: :standard_buyer do
     event :rate_up_buyer do
       transition standard_buyer: :good_buyer, bad_buyer: :standard_buyer
     end
@@ -258,11 +260,11 @@ class User < ActiveRecord::Base
 
   def buyer_constants
     buyer_constants = {
-      :not_registered_purchasevolume => 4,
-      :standard_purchasevolume => 12,
-      :trusted_bonus => 12,
-      :good_factor => 2,
-      :bad_purchasevolume => 6
+      not_registered_purchasevolume: 4,
+      standard_purchasevolume: 12,
+      trusted_bonus: 12,
+      good_factor: 2,
+      bad_purchasevolume: 6
     }
   end
 
@@ -306,7 +308,7 @@ class User < ActiveRecord::Base
   # @api public
   # @return [Notice] the notice
   def next_notice
-    self.notices.where(:open => true).first
+    self.notices.where(open: true).first
   end
 
   # hashes the ip-addresses which are stored by devise :trackable
