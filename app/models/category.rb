@@ -40,19 +40,34 @@ class Category < ActiveRecord::Base
 
   acts_as_nested_set
 
-  def children_with_active_articles
-    delete_if_no_active_articles self.children.except(:order).other_category_last.sorted.includes(:children).to_a
+  def sorted_children
+    self.children.except(:order).other_category_last.sorted.includes(:children)
   end
-  def siblings_with_active_articles #filter = nil
-    siblings = self.siblings.except(:order).other_category_last.sorted.includes(:children).to_a
-    #siblings = siblings.send filter if filter
+
+  def sorted_siblings
+    self.siblings.except(:order).other_category_last.sorted.includes(:children)
+  end
+
+  def self_and_sorted_siblings
+    [self] + sorted_siblings
+  end
+
+  def children_with_active_articles
+    delete_if_no_active_articles sorted_children.to_a
+  end
+
+  def siblings_with_active_articles
+    siblings = sorted_siblings.to_a
     delete_if_no_active_articles siblings
   end
+
   def self_and_siblings_with_active_articles
     [self] + siblings_with_active_articles
   end
+
   private
     def delete_if_no_active_articles array
       array.delete_if { |node| node.children.empty? && node.active_articles.empty? }
     end
+
 end

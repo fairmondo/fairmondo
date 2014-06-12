@@ -1,7 +1,10 @@
-- if search_cache && search_cache.searched_category == category
-  %span{title: category.name}
+- count = search_cache.category_article_count category.id rescue nil
+%span{title: category.name , class: (count == 0 ? "Search-categories-empty" : "" ) }
+  - if search_cache && search_cache.searched_category == category
     %b
       = category.name
-- else
-  = link_to category_path(category, article_search_form: search_cache.change(category_id: category.id)), class: 'Search-colored-link', title: category.name, remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show') do
-    = category.name
+  - else
+    = link_to category_path(category, article_search_form: search_cache.change(category_id: category.id)), title: category.name, remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show') do
+      = category.name
+  - if count
+    = "(#{count})"
