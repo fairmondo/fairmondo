@@ -21,9 +21,9 @@ module Rack
       attr_reader :rules
 
       def initialize(options)
-        @rules = RewriteConfig.list.map { |rule|
-          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new {|rack_env| rack_env['SERVER_NAME'] =~ rule[:if]}})
-        }
+        @rules = RewriteConfig.list.map do |rule|
+          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new {|rack_env| Rails.logger.info('-----------------------'); Rails.logger.info('Rack:'); Rails.logger.info(rack_env); Rails.logger.info('Rule:'); Rails.logger.info(rule); Rails.logger.info('Matches:'); rack_env['SERVER_NAME'] =~ rule[:if] ? Rails.logger.info('yes') : Rails.logger.info('no'); rack_env['SERVER_NAME'] =~ rule[:if]}})
+        end
       end
     end
   end
