@@ -15,16 +15,25 @@ class RewriteConfig
   end
 end
 
+class CustomLogger < Logger
+  def format_message(severity, timestamp, progname, msg)
+    "#{timestamp.to_formatted_s(:db)} #{severity} #{msg}\n"
+  end
+end
+
 module Rack
   class Rewrite
     class FairnopolyRuleSet
       attr_reader :rules
 
       def initialize(options)
-        logger = Logger.new("#{Rails.root}/log/rewrite.log").logger
         @rules = RewriteConfig.list.map do |rule|
           Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new do |rack_env|
             if rack_env['SERVER_NAME'] != "www.fairnopoly.de"
+              logfile = ::File.open("#{Rails.root}/log/rewrite.log", 'a')  # create log file
+              logfile.sync = true  # automatically flushes data to file
+              logger = CustomLogger.new(logfile)  # constant accessible anywhere
+
               logger.info('-----------------------')
               logger.info('Rack:')
               logger.info(rack_env)
