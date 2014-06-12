@@ -84,7 +84,7 @@ gem 'dalli' # Memcached Client
 gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
-gem 'rails_admin' # Administrative cackend
+gem 'rails_admin' # Administrative backend
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
