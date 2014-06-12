@@ -29,4 +29,8 @@ class CategoryPolicy < Struct.new(:user, :category)
     true
   end
 
+  def select_category?
+    true
+  end
+
 end
