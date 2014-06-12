@@ -73,6 +73,7 @@ describe 'Library' do
           page.should have_selector 'a', text: 'bazfuz'
         end
       end
+
       context "given invalid data" do
         it "should not work" do
           within "#edit_library_#{@lib.id}" do
@@ -116,19 +117,26 @@ end
 
 describe "Library Elements" do
   describe "create" do
-    it "should work" do
+    before do
       @user = FactoryGirl.create :user
       login_as @user.reload # reload to get library
 
-      article = FactoryGirl.create :article
-      visit article_path(article)
-
+      @article = FactoryGirl.create :article
+      visit article_path(@article)
       click_link I18n.t 'library.default'
-      page.should have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
-
-      visit user_libraries_path @user
-      page.should have_content article.title[0..10] # characters get cut off on page as well
     end
+
+    it "should work" do
+      page.should have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
+      visit user_libraries_path @user
+      page.should have_content @article.title[0..10] # characters get cut off on page as well
+    end
+
+   it 'should show error message if library_element is not valid' do
+     visit article_path(@article)
+     click_link I18n.t 'library.default'
+     page.should have_content I18n.t('library_element.notice.failure')
+   end
   end
 end
 
