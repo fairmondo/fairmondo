@@ -17,7 +17,6 @@ class CategoriesController < ApplicationController
 
   def select_category
     authorize @category
-
   end
 
   def show
