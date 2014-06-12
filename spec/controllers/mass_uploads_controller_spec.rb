@@ -47,7 +47,7 @@ describe MassUploadsController do
         post :create, mass_upload: attributes
         post :update, :id => MassUpload.last.id
         response.should redirect_to user_path(user)
-        MassUpload.last.articles.first.active?.should be_true
+        MassUpload.last.articles.first.active?.should be_truthy
       end
     end
   end

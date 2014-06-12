@@ -158,7 +158,7 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman'  # security test: execute with 'brakeman'
-  gem 'rspec-instafail'
+  gem "rspec-rerun"
 
   gem 'thin' # Replace Webrick
   gem 'bullet' # Notify about n+1 queries

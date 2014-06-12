@@ -1,5 +1,7 @@
 %h1= I18n.t "users.print.#{field}", name: resource.fullname
-= resource.send(field)
-
+- if field == 'terms'
+  = resource.terms
+- elsif field == 'cancellation'
+  = resource.cancellation
 :javascript
   print();
