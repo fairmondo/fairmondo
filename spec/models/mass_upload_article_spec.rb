@@ -16,13 +16,13 @@ describe MassUploadArticle do
   describe "methods" do
     describe "#done?" do
       it do
-        MassUploadArticle.new(:process_identifier => "test").done?.should be_false
+        MassUploadArticle.new(:process_identifier => "test").done?.should be_falsey
       end
       it do
-        MassUploadArticle.new(:process_identifier => "test", :validation_errors => "lala").done?.should be_true
+        MassUploadArticle.new(:process_identifier => "test", :validation_errors => "lala").done?.should be_truthy
       end
       it do
-        MassUploadArticle.new(:process_identifier => "test", :article => Article.new).done?.should be_true
+        MassUploadArticle.new(:process_identifier => "test", :article => Article.new).done?.should be_truthy
       end
     end
   end

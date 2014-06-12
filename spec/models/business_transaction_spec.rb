@@ -96,17 +96,17 @@ describe BusinessTransaction do
 
         it "should return true with valid params" do
           r = business_transaction.edit_params_valid? valid_params
-          r.should be_true
+          r.should be_truthy
         end
 
         it "should return false with invalid transport" do
           r = business_transaction.edit_params_valid? valid_params.merge({"selected_transport" => "type1"})
-          r.should be_false
+          r.should be_falsey
         end
 
         it "should return false with invalid payment" do
           r = business_transaction.edit_params_valid? valid_params.merge({"selected_payment" => "paypal"})
-          r.should be_false
+          r.should be_falsey
         end
       end
 
@@ -126,11 +126,11 @@ describe BusinessTransaction do
 
       describe "#selected?" do
         it "should return true when the seller selected a specific transport/payment type" do
-          business_transaction.selected?('transport', 'pickup').should be_true
+          business_transaction.selected?('transport', 'pickup').should be_truthy
         end
 
         it "should return false when the seller didn't select spcified type" do
-          business_transaction.selected?('payment', 'paypal').should be_false
+          business_transaction.selected?('payment', 'paypal').should be_falsey
         end
       end
     end

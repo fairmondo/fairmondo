@@ -29,7 +29,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'sidekiq/testing'
-require "pundit/rspec"
+#require "pundit/rspec"
 
 
 require 'support/spec_helpers/final.rb' # ensure this is the last rspec after-suite
@@ -75,8 +75,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false # We use Database cleaner for fine grained cleaning levels
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
-
-
+  config.infer_spec_type_from_file_location!
+  #config.raise_errors_for_deprecations!
   ## Custom configs ##
 
   # Add the "visual" tag to a test that uses save_and_open_page.
@@ -109,7 +109,7 @@ RSpec.configure do |config|
   end
 
   config.after :suite do
-    if RSpec.configuration.reporter.instance_variable_get(:@failure_count) > 0
+    if RSpec.configuration.reporter.instance_variable_get(:@failed_examples).size > 0
       puts "\n\nErrors occured. Not running additional tests.".red
     else
       rails_best_practices

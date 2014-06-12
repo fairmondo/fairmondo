@@ -79,7 +79,6 @@ describe BusinessTransactionMailerHelper do
 
 	describe "#article_payment_info( transaction, role )" do
 		it "should return the right details for article payment if user is the buyer" do
-			pending "test not yet implemented"
 			helper.article_payment_info( @business_transaction, :buyer ).should have_content( I18n.t('transaction.notifications.buyer.fair_percent') )
 		end
 		it "should return the right details for article payment if user is the buyer and cash on delivery is selected" do
