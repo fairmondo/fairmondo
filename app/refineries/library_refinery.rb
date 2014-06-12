@@ -5,8 +5,4 @@ class LibraryRefinery < ApplicationRefinery
     permitted += [ :exhibition_name ] if User.is_admin? user
     permitted
   end
-
-  def user_focused
-    [ :user_id ]
-  end
 end

@@ -26,10 +26,11 @@ class LibraryElementsController < ApplicationController
     @library_element = current_user.library_elements.build(params.for(LibraryElement).refine)
     authorize @library_element
     if @library_element.save
-      redirect_to article_path(@library_element.article), notice: I18n.t('library_element.notice.success', name: @library_element.library_name)
+      flash[:notice] = I18n.t('library_element.notice.success', name: @library_element.library_name)
     else
-      redirect_to article_path(@library_element.article), alert: @library_element.errors.messages[:library_id].first
+      flash[:alert] = @library_element.errors.messages[:library_id].first
     end
+    redirect_to article_path(@library_element.article)
   end
 
   def update
