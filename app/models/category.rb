@@ -41,7 +41,7 @@ class Category < ActiveRecord::Base
   acts_as_nested_set
 
   def children_with_active_articles
-    delete_if_no_active_articles self.children.includes(:children).to_a
+    delete_if_no_active_articles self.children.except(:order).other_category_last.sorted.includes(:children).to_a
   end
   def siblings_with_active_articles #filter = nil
     siblings = self.siblings.except(:order).other_category_last.sorted.includes(:children).to_a
