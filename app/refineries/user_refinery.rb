@@ -18,7 +18,7 @@ class UserRefinery < ApplicationRefinery
       :bank_account_number, :bank_name, :bank_account_owner, :company_name, :max_value_of_goods_cents_bonus,
       :fastbill_profile_update, :vacationing, :newsletter,
       :iban,:bic,
-      { image_attributes: ImageRefinery.new(Image.new, user).default }
+      { image_attributes: ImageRefinery.new(Image.new, user).default(true) }
     ]
     permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
     permitted
