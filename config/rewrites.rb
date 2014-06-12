@@ -21,8 +21,20 @@ module Rack
       attr_reader :rules
 
       def initialize(options)
+        logger = Logger.new("#{Rails.root}/log/rewrite.log").logger
         @rules = RewriteConfig.list.map do |rule|
-          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new {|rack_env| Rails.logger.info('-----------------------'); Rails.logger.info('Rack:'); Rails.logger.info(rack_env); Rails.logger.info('Rule:'); Rails.logger.info(rule); Rails.logger.info('Matches:'); rack_env['SERVER_NAME'] =~ rule[:if] ? Rails.logger.info('yes') : Rails.logger.info('no'); rack_env['SERVER_NAME'] =~ rule[:if]}})
+          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new do |rack_env|
+            if rack_env['SERVER_NAME'] != "www.fairnopoly.de"
+              logger.info('-----------------------')
+              logger.info('Rack:')
+              logger.info(rack_env)
+              logger.info('Rule:')
+              logger.info(rule)
+              logger.info('Matches:')
+              rack_env['SERVER_NAME'] =~ rule[:if] ? logger.info('yes') : logger.info('no')
+            end
+            rack_env['SERVER_NAME'] =~ rule[:if]
+          end})
         end
       end
     end
