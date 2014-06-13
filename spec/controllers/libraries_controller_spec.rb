@@ -25,9 +25,7 @@ describe LibrariesController do
   render_views
 
   describe "GET 'index" do
-
     describe "for non-signed-in users" do
-
       before :each do
         @user = FactoryGirl.create(:user)
       end
@@ -40,11 +38,9 @@ describe LibrariesController do
         get :index, :user_id => @user.id
         response.should be_success
       end
-
     end
 
     describe "for signed-in users" do
-
       before :each do
         @library = FactoryGirl.create(:library)
 
@@ -64,8 +60,13 @@ describe LibrariesController do
         get :show, :user_id => @library.user, :id => @library.id
         response.should be_success
       end
-
     end
 
+    describe '::focus' do
+      it 'should return Library if no user is focused' do
+        controller.stub(:user_focused?).and_return(false)
+        assert_equal(Library, controller.send(:focus))
+      end
+    end
   end
 end

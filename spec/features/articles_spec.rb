@@ -147,7 +147,6 @@ describe 'Article management' do
 
             click_button I18n.t("article.labels.continue_to_preview")
           end.should change(Article, :count).by 0
-
         end
 
          it "should create an article from a template" do
@@ -225,10 +224,9 @@ describe 'Article management' do
       end
 
       it "should rescue an Errno::ECONNREFUSED" do
-        Article.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         expect { click_button 'Suche' }.to_not raise_error
       end
-
     end
 
     describe "article update", slow: true do
