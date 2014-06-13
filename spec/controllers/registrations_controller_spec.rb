@@ -85,16 +85,6 @@ describe RegistrationsController do
         }
       }
     end
-
-    describe "given invalid data" do
-      # it "should not create a user wih an invalid recaptcha" do
-      #   controller.stub(:verify_recaptcha) { false }
-
-      #   lambda do
-      #     post :create, @valid_params
-      #   end.should_not change(User.all, :count)
-      # end
-    end
   end
 
   describe "PUT 'delete'" do

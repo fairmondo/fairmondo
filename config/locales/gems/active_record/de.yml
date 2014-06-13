@@ -302,6 +302,11 @@ de:
             image_file_size: &image
               in_between: "Das Bild ist zu groß. Maximal 2 MB."
             image: *image
+        user:
+          attributes:
+            cancellation_form_file_size: &cf
+              in_between: "Die Datei zu groß. Maximal 2 MB."
+            cancellation_form: *cf
         article:
           attributes:
             small_and_precious_eu_small_enterprise:

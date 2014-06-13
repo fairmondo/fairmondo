@@ -179,5 +179,13 @@ describe BusinessTransactionMailer do
         should have_body_text( I18n.t( 'transaction.notifications.buyer.bank_transfer' ) )
       end
     end
+
+    context "seller has cancellation form" do
+      it "should have the cancellation form as attachment" do
+        business_transaction.article_seller_cancellation_form.stub(:exists?).and_return(true)
+        business_transaction.article_seller_cancellation_form.stub(:path).and_return(Rails.root.join("spec/fixtures/test.pdf"))
+        should have_attachments
+      end
+    end
   end
 end

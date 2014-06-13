@@ -67,9 +67,9 @@ gem 'virtus'
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
 gem 'devise' # authentication
-gem 'inherited_resources' # dry controllers
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
+gem 'responders'
 
 # ---------- Background Processing ----------
 
@@ -84,7 +84,7 @@ gem 'dalli' # Memcached Client
 gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
-gem 'rails_admin' # Administrative cackend
+gem 'rails_admin' # Administrative backend
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -110,6 +110,9 @@ group :development do
 
   gem 'letter_opener' # emails in browser
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
+
+  # debugging in chrome with RailsPanel
+  gem 'meta_request'
 
   # HAML Conversion tools
   #gem "erb2haml" see html2haml

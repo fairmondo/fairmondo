@@ -1,7 +1,6 @@
 class ArticleRefinery < ApplicationRefinery
 
-  def create with_nested_template = true
-    use_root
+  def create
     [
       # Common attrs
       :title, :content, :condition, :condition_extra, :quantity,
@@ -62,12 +61,10 @@ class ArticleRefinery < ApplicationRefinery
       # Fees and Donations attrs
       :friendly_percent, :friendly_percent_organisation_id,
       # Template attrs
-      :save_as_template
-    ] + if (with_nested_template)
-      [article_template_attributes: ArticleTemplateRefinery.new(ArticleTemplate.new, user).default]
-    else
-      [:id] # Article.id needed for article_template update
-    end
+      :save_as_template,
+      :template_name
+
+    ]
   end
 
   def update

@@ -1,6 +1,6 @@
 class RefundRefinery < ApplicationRefinery
 
   def default
-    [ :reason, :description ]
+    [:reason, :description]
   end
 end

@@ -21,8 +21,9 @@
   }
 }
 
-.imports {
-  .imports-inner {
+.banner {
+  margin-bottom: 1em;
+  .banner-inner {
     @include whitebox;
   }
 
@@ -91,7 +92,7 @@ ul.category-selected-list {
 // layout
 
 @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
-  
+
 
  .seller,.sidebar {
     @include span(1 of 2 0.1);
@@ -100,12 +101,12 @@ ul.category-selected-list {
   .sidebar {
     @include omega;
   }
-  
+
 }
 
 
 @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-  
+
   .contents {
     @include span(2 of 3 0.1);
   }
@@ -115,7 +116,7 @@ ul.category-selected-list {
     @include omega;
   }
 
-  
+
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
@@ -164,7 +165,7 @@ ul.category-selected-list {
   .contents > .info > .left {
     @include span(1 of 2 0.1);
   }
-  
+
   .contents > .info > .right {
     @include span(1 of 2 0.1);
     @include omega;
@@ -187,7 +188,7 @@ ul.category-selected-list {
 .contents > .info > .left > h4.fair_percent {
   color: $gray;
   font-weight: 300;
-  margin: 0.5em 0em; 
+  margin: 0.5em 0em;
 }
 
 // article title
@@ -232,7 +233,7 @@ ul.category-selected-list {
     position: absolute;
     z-index: 1;
   }
-} 
+}
 
 .buyer-controls > .collect > .libraries > ul {
   list-style: none;
@@ -241,7 +242,7 @@ ul.category-selected-list {
 }
 
 .buyer-controls > .collect > .libraries > ul > li {
-  
+
   padding: 0.5em 0;
 }
 
@@ -295,15 +296,15 @@ ul.category-selected-list {
   @include whitebox;
   text-align: center;
   padding:0;
-  
+
   h3 {
     padding:0.5em 3em;
   }
-  
+
   dl {
     margin:0;
   }
-  
+
   dt {
     color: $gray;
     position: relative;
@@ -315,18 +316,18 @@ ul.category-selected-list {
   dd {
     margin:0;
   }
-  
+
   dd {
     font-size:1.5em;
     font-weight:600;
     padding:0em 2.5em 0.5em;
   }
-  
+
   .total {
     background-color: $green;
     color: white;
   }
-  
+
   .sprite_helper{
     position: absolute;
     top: 0.3em;

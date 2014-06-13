@@ -4,13 +4,13 @@ class RewriteConfig
     [{
       method: :r301,
       from: /(.*)/,
-      to: '/categories/buecher',
-      if: /b(ü|ue)cher\./i
+      to: '/categories/bucher',
+      if: /b(ü|u|ue)cher\./i
     },{
       method: :r301,
       from: /(.*)/,
-      to: '/categories/sonstiges',
-      if: /sonsties\./i
+      to: '/categories/weitere',
+      if: /weitere\./i
     }]
   end
 end

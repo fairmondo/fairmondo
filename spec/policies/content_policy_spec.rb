@@ -10,6 +10,7 @@ describe ContentPolicy do
   context "for a visitor" do
     it { should grant_permission(:show)      }
     it { should grant_permission(:not_found) }
+    it { should deny(:index)       }
     it { should deny(:new)         }
     it { should deny(:create)      }
     it { should deny(:edit)        }
@@ -19,6 +20,9 @@ describe ContentPolicy do
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
+    it { should grant_permission(:show)      }
+    it { should grant_permission(:not_found) }
+    it { should deny(:index)              }
     it { should deny(:new)                }
     it { should deny(:create)             }
     it { should deny(:edit)               }
@@ -28,6 +32,9 @@ describe ContentPolicy do
 
   context "for an admin user" do
     let(:user) { FactoryGirl.create :admin_user }
+    it { should grant_permission(:show)      }
+    it { should grant_permission(:not_found) }
+    it { should grant_permission(:index) }
     it { should grant_permission(:new)                    }
     it { should grant_permission(:create)                 }
     it { should grant_permission(:edit)                   }

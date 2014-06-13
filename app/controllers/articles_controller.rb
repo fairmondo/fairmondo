@@ -19,12 +19,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticlesController < InheritedResources::Base
+class ArticlesController < ApplicationController
 
-  # Inherited Resources
+  responders :location
   respond_to :html
   respond_to :js, only: :index, if: lambda { request.xhr? }
-  actions :all # inherited methods
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:show, :index, :autocomplete]
@@ -34,11 +33,13 @@ class ArticlesController < InheritedResources::Base
   before_filter :ensure_complete_profile , only: [:new, :create]
 
   #search_cache
-  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
   before_filter :build_search_cache, only: :index
+  before_filter :category_specific_search, only: :index, unless: lambda { request.xhr? }
 
   # Calculate value of active goods
   before_filter :check_value_of_goods, only: [:update], if: :activate_params_present?
+
+  before_filter :set_article, only: [:edit, :update, :show, :destroy]
 
 
   #Autocomplete
@@ -50,95 +51,98 @@ class ArticlesController < InheritedResources::Base
   end
 
   def show
-    authorize resource
+    authorize @article
 
-    if !resource.active? && policy(resource).activate?
-      resource.calculate_fees_and_donations
+    if !@article.active? && policy(@article).activate?
+      @article.calculate_fees_and_donations
     end
 
-    if !flash.now[:notice] && resource.owned_by?(current_user) && at_least_one_image_processing?
+    if !flash.now[:notice] && @article.owned_by?(current_user) && at_least_one_image_processing?
       flash.now[:notice] = t('article.notices.image_processing')
     end
 
-    show!
   rescue Pundit::NotAuthorizedError
     raise ActiveRecord::RecordNotFound # hide articles that can't be accessed to generate more friendly error messages
   end
 
-  def new
-    authorize build_resource
+  def index
+    @articles = @search_cache.search params[:page]
+    respond_with @articles
+  end
 
+  def new
     ############### From Template ################
-    if @applied_template = ArticleTemplate.template_request_by(current_user, params[:template_select])
-      @article = @applied_template.article.amoeba_dup
-      flash.now[:notice] = t('template_select.notices.applied', :name => @applied_template.name)
+    if params[:template] && params[:template][:article_id].present?
+      template = current_user.articles.unscoped.find(params[:template][:article_id])
+      @article = template.amoeba_dup
+      flash.now[:notice] = t('template.notices.applied', :name => template.template_name)
     elsif params[:edit_as_new]
       @old_article = current_user.articles.find(params[:edit_as_new])
       @article = Article.edit_as_new @old_article
+    else
+      @article = current_user.articles.build
     end
-    new!
+    authorize @article
   end
 
   def edit
-    authorize resource
-    edit!
+    authorize @article
   end
 
   def create
-    authorize build_resource
-    create! do |success, failure|
-      success.html { redirect_to resource }
-      failure.html { save_images
-                     render :new }
-    end
+    @article = current_user.articles.build(params.for(Article).refine)
+    authorize @article
+    save_images unless @article.save
+    respond_with @article
   end
 
   def update # Still needs Refactoring
     if state_params_present?
       change_state!
     else
-      authorize resource
-      update! do |success, failure|
-        success.html { redirect_to resource }
-        failure.html { save_images
-                       render :edit }
-      end
+      authorize @article
+      save_images unless @article.update(params.for(@article).refine)
+      respond_with @article
     end
   end
 
   def destroy
-    authorize resource
-    if resource.preview?
-      destroy! { user_path(current_user) }
-    elsif resource.locked?
-      resource.close_without_validation
+    authorize @article
 
-      redirect_to user_path(current_user)
+    if @article.preview?
+      @article.destroy
+    elsif @article.locked?
+      @article.close_without_validation
     end
+    respond_with @article, location: -> { user_path(current_user) }
   end
 
   ##### Private Helpers
 
   private
 
+    def set_article
+      @article = Article.find(params[:id])
+    end
+
     def change_state!
 
       # For changing the state of an article
       # Refer to Article::State
       if params[:activate]
-        authorize resource, :activate?
-        if resource.activate
-          flash[:notice] = I18n.t('article.notices.create_html').html_safe
-          redirect_to resource
+        authorize @article, :activate?
+        if @article.activate
+          flash[:notice] = I18n.t('article.notices.create_html')
+          redirect_to @article
         else
           # The article became invalid so please try a new one
-          redirect_to new_article_path(:edit_as_new => resource.id)
+          redirect_to new_article_path(:edit_as_new => @article.id)
         end
       elsif params[:deactivate]
-        authorize resource, :deactivate?
-        resource.deactivate_without_validation
+        authorize @article, :deactivate?
+        @article.deactivate_without_validation
         flash[:notice] = I18n.t('article.notices.deactivated')
-        redirect_to resource
+        redirect_to @article
       end
     end
 
@@ -154,7 +158,7 @@ class ArticlesController < InheritedResources::Base
 
     def save_images
       #At least try to save the images -> not persisted in browser
-      resource.images.each_with_index do |image,index|
+      @article.images.each_with_index do |image,index|
         if image.new_record?
           # strange HACK because paperclip will now rollback uploaded files and we want the file to be saved anyway
           # if you find aout a way to break out a running transaction please refactor to images_attributes
@@ -165,28 +169,20 @@ class ArticlesController < InheritedResources::Base
     end
 
     def at_least_one_image_processing?
-      processing_thumbs = resource.thumbnails.select { |thumb| thumb.image.processing? }
-      !processing_thumbs.empty? || (resource.title_image and resource.title_image.image.processing?)
+      processing_thumbs = @article.thumbnails.select { |thumb| thumb.image.processing? }
+      !processing_thumbs.empty? || (@article.title_image and @article.title_image.image.processing?)
     end
 
   ################## Inherited Resources
 
   protected
 
-    def collection
-      @articles ||= @search_cache.search params[:page]
-    rescue Errno::ECONNREFUSED
-      @articles ||= policy_scope(Article).page params[:page]
-    end
-
-    def begin_of_association_chain
-      params[:action] == "show" ? super : current_user
-    end
 
     def category_specific_search
-      if params[:article_search_form] && params[:article_search_form][:category_id] && !params[:article_search_form][:category_id].empty?
-        category_id = params[:article_search_form].delete(:category_id)
-        redirect_to category_path(category_id, params)
+      if @search_cache.category_id.present?
+        params[:article_search_form].delete(:category_id)
+        params.delete(:article_search_form) if params[:article_search_form].empty?
+        redirect_to category_path(@search_cache.category_id, params)
       end
     end
 

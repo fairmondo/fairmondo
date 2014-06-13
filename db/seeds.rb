@@ -35,17 +35,17 @@ end
 
 admin = User.find_by_email("admin@admin.com")
 unless admin
-  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :trustcommunity => true)
+  admin = FactoryGirl.create(:admin_user, :email => "admin@admin.com", :password => "password", :password_confirmation => "password", :trustcommunity => true, direct_debit: true)
 end
 
 user = User.find_by_email("user@user.com")
 unless user
-  user = FactoryGirl.create(:private_user, :email => "user@user.com", :password => "password", :password_confirmation => "password")
+  user = FactoryGirl.create(:private_user, :email => "user@user.com", :password => "password", :password_confirmation => "password", direct_debit: true)
 end
 
 user_legal = User.find_by_email("le@le.com")
 unless user_legal
-  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :email => "le@le.com", :password => "password", :password_confirmation => "password")
+  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :email => "le@le.com", :password => "password", :password_confirmation => "password", direct_debit: true)
 end
 
 require_relative 'fixtures/category_seed_data.rb'

@@ -23,11 +23,10 @@
 $(function() {
 
   if ($( "#search_input" ).length != 0) {
-  	$( "#search_input" ).autocomplete({
-  		serviceUrl: $("#search_input").data('autocomplete'),
-  		 paramName: 'q'
-  	});
-  		
+    $( "#search_input" ).autocomplete({
+      serviceUrl: $("#search_input").data('autocomplete'),
+       paramName: 'q'
+    });
   }
 
  });

@@ -101,12 +101,9 @@ Fairnopoly::Application.routes.draw do
 
   resources :users, :only => [:show] do
     resources :libraries, :except => [:new,:edit]
-    resources :library_elements, :except => [:new, :edit]
+    resources :library_elements, only: [:create, :destroy]
     resources :ratings, :only => [:create, :index] do
       get '/:business_transaction_id', to: 'ratings#new', as: 'business_transaction', on: :new
-    end
-    collection do
-      get 'login'
     end
     member do
       get 'profile'

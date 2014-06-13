@@ -20,8 +20,8 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-.library-form
-  - if user_signed_in? && @library && policy(@library).create?
+- if user_signed_in? && @library && policy(@library).create?
+  .library-form
     %h3= t('library.new')
     = semantic_form_for @library,:url => user_libraries_path(current_user) do |f|
       = f.inputs do

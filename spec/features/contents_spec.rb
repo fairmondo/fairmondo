@@ -71,7 +71,7 @@ describe "Contents" do
           click_button I18n.t 'helpers.submit.create', model: (I18n.t 'activerecord.models.content.one')
         end.to change(Content, :count).by 1
 
-        page.should have_content 'Content was successfully created.'
+        page.should have_content 'CMS-Seite wurde erstellt.'
         page.should have_content 'Bazfuz'
       end
     end
@@ -100,7 +100,7 @@ describe "Contents" do
         fill_in 'content_body', with: 'Bazfuz'
         click_button I18n.t 'helpers.submit.update', model: (I18n.t 'activerecord.models.content.one')
 
-        page.should have_content 'Content was successfully updated.'
+        page.should have_content 'CMS-Seite wurde aktualisiert.'
         page.should have_content 'Bazfuz'
       end
     end
