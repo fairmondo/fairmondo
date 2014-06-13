@@ -34,9 +34,9 @@ class Category < ActiveRecord::Base
   scope :sorted, -> { order(:name) }
   scope :roots, -> { where(parent_id: nil) }
   scope :all_by_id, -> { order("id ASC") }
-  scope :other_category_last, -> { order("CASE WHEN name = 'Sonstiges' THEN 1 ELSE 0 END") }#internationalize!
+  scope :other_category_last, -> { order("CASE WHEN name = 'Weitere' THEN 1 ELSE 0 END") }#internationalize!
   scope :weighted, -> { order("weight IS NULL, weight desc") }
-  scope :other_category, -> { where(parent_id: nil, name: 'Sonstiges') } #internationalize!
+  scope :other_category, -> { where(parent_id: nil, name: 'Weitere') } #internationalize!
 
   acts_as_nested_set
 

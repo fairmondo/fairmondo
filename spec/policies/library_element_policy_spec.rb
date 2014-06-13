@@ -30,21 +30,18 @@ describe LibraryElementPolicy do
 
   context "for a visitor" do
     it { should deny(:create)  }
-    it { should deny(:update)  }
     it { should deny(:destroy) }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
     it { should deny(:create)             }
-    it { should deny(:update)             }
     it { should deny(:destroy)            }
   end
 
   context "for the template owning user" do
     let(:user) { library_element.library.user }
     it { should grant_permission(:create)               }
-    it { should grant_permission(:update)               }
     it { should grant_permission(:destroy)              }
   end
 end

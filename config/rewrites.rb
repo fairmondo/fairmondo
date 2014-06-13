@@ -9,8 +9,8 @@ class RewriteConfig
     },{
       method: :r301,
       from: /(.*)/,
-      to: '/categories/sonstiges',
-      if: /sonstiges\./i
+      to: '/categories/weitere',
+      if: /weitere\./i
     }]
   end
 end

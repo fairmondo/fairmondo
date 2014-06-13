@@ -99,7 +99,7 @@ class ArticleSearchForm
     @category_facets = Hash[articles.facets['categories']['terms'].map(&:values)]
     articles
   rescue Errno::ECONNREFUSED
-    articles = ArticlePolicy::Scope.new(nil, Article).page(page)
+    articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
 
   # for the category tree to display wich categories have which counts

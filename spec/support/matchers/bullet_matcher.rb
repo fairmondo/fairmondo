@@ -25,8 +25,8 @@ module BulletMatcher
   matcher :throw_warnings do
     match do |bullet|
       bullet.perform_out_of_channel_notifications
-      bullet.end_request
       !bullet.warnings.empty?
+      bullet.end_request
     end
 
     failure_message_for_should_not do |bullet|

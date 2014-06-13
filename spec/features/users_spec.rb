@@ -210,7 +210,7 @@ describe 'User management' do
             check 'user_newsletter'
             click_button I18n.t 'formtastic.actions.update'
 
-            user.reload.newsletter.should be_true
+            user.reload.newsletter.should be_truthy
           end
 
           it "should remove the user from the newsletter both locally and remotely" do
@@ -222,7 +222,7 @@ describe 'User management' do
             uncheck 'user_newsletter'
             click_button I18n.t 'formtastic.actions.update'
 
-            user.reload.newsletter.should be_false
+            user.reload.newsletter.should be_falsey
           end
         end
 
@@ -260,7 +260,7 @@ describe 'User management' do
             it "should disallow editing critical data without a password" do
               click_button I18n.t 'formtastic.actions.update'
 
-              user.reload.valid_password?('changedpassword').should be_false
+              user.reload.valid_password?('changedpassword').should be_falsey
 
               within '#user_current_password_input' do
                 page.should have_css 'p.inline-errors', text: I18n.t('errors.messages.blank')
@@ -271,7 +271,7 @@ describe 'User management' do
               fill_in 'user_current_password', with: 'password'
               click_button I18n.t 'formtastic.actions.update'
 
-              user.reload.valid_password?('changedpassword').should be_true
+              user.reload.valid_password?('changedpassword').should be_truthy
 
               page.should have_content I18n.t 'devise.registrations.updated'
             end

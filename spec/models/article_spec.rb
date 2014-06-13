@@ -119,15 +119,15 @@ describe Article do
     describe "methods" do
       describe "#owned_by?(user)" do
         it "should return false when user is nil" do
-          article.owned_by?(nil).should be_false
+          article.owned_by?(nil).should be_falsey
         end
 
         it "should return false when article doesn't belong to user" do
-          db_article.owned_by?(FactoryGirl.create(:user)).should be_false
+          db_article.owned_by?(FactoryGirl.create(:user)).should be_falsey
         end
 
         it "should return true when article belongs to user" do
-          db_article.owned_by?(db_article.seller).should be_true
+          db_article.owned_by?(db_article.seller).should be_truthy
         end
       end
 
@@ -461,12 +461,12 @@ describe Article do
     describe "#save_as_template?" do
       it "should return true when the save_as_template attribute is 1" do
         @article.save_as_template = "1"
-        @article.save_as_template?.should be_true
+        @article.save_as_template?.should be_truthy
       end
 
       it "should return false when the save_as_template attribute is 0" do
         @article.save_as_template = "0"
-        @article.save_as_template?.should be_false
+        @article.save_as_template?.should be_falsey
       end
 
     end
