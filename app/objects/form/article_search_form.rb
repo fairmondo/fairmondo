@@ -34,9 +34,7 @@ class ArticleSearchForm
 
 
   def searched_category category_id = self.category_id
-    Category.includes(:children).find(category_id)
-  rescue
-    nil
+    @searched_category ||= Category.includes(:children).find(category_id) rescue nil
   end
 
 
@@ -195,6 +193,17 @@ class ArticleSearchForm
     value = self.send("price_#{price.to_s}")
     value && !value.empty?
   end
+
+  def wegreen_search_string
+    if search_by_term?
+      q
+    elsif searched_category
+      searched_category.name
+    else
+      nil
+    end
+  end
+
   private
 
     def clean_hash(hash)
