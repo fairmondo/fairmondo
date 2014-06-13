@@ -8,7 +8,7 @@ FactoryGirl.define do
     last_name       { Faker::Name.last_name }
     address_line_1  { Faker::Address.street_address }
     address_line_2  { Faker::Address.secondary_address }
-    zip             { Faker::Address.postcode }
+    zip             { Faker::AddressDE.zip_code }
     city            { Faker::Address.city }
     country         'Deutschland'
   end
