@@ -41,14 +41,15 @@ describe 'FairAlternative' do
     context "dont find fair alternative in categories with misc content", setup: true do
       before(:all) do
         setup
-        @other_category  = Category.other_category.first || FactoryGirl.create(:category,:name => "Sonstiges")
+        @other_category  = Category.other_category.first || FactoryGirl.create(:category,:name => "Weitere")
         @normal_article =  FactoryGirl.create :article , :title => "weisse schockolade",:categories => [@other_category,FactoryGirl.create(:category)]
         @fair_article = FactoryGirl.create :article, :simple_fair,:title => "weisse schockolade",:categories => [@other_category]
         Article.index.refresh
       end
 
       it "sould not find the other article" do
-        FairAlternative.find_for(@normal_article).should eq nil
+        @alternative = FairAlternative.find_for(@normal_article)
+        @alternative.should eq nil
       end
 
     end
