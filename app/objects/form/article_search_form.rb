@@ -96,7 +96,7 @@ class ArticleSearchForm
       end
 
     end
-    @category_facets = Hash[articles.facets['categories']['terms'].map(&:values)]
+    @category_facets = Hash[articles.facets['categories']['terms'].map(&:values)] if articles.facets
     articles
   rescue Errno::ECONNREFUSED
     articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
