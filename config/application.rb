@@ -98,7 +98,7 @@ module Fairnopoly
     config.assets.precompile += %w( session_expire.js )
 
     config.generators.assets :controller_based_assets
-
+    config.generators.test_framework :minitest, spec: true
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
 
