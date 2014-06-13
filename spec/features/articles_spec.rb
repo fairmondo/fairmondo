@@ -51,7 +51,10 @@ describe 'Article management' do
       context "with a valid user", slow: true do
         def fill_form_with_valid_article
           fill_in I18n.t('formtastic.labels.article.title'), with: 'Article title'
-          select Category.root.name, from: 'article_category_ids'
+
+          within("#article_category_ids_input") do
+            select Category.root.name, from: 'article_category_ids'
+          end
           within("#article_condition_input") do
             choose "article_condition_new"
           end
@@ -80,11 +83,11 @@ describe 'Article management' do
         end
 
         it "should show the create article page when selecting no template" do
-          visit new_article_path template_select: { article_template: "" }
+          visit new_article_path template: { article_id: "" }
           current_path.should == new_article_path
         end
 
-        it 'should create an article plus a template' do
+        it 'should create an article plus a template', visual: true do
           lambda do
             fill_form_with_valid_article
 
@@ -110,16 +113,16 @@ describe 'Article management' do
 
             # Template
             check 'article_save_as_template'
-            fill_in 'article_article_template_attributes_name', with: 'template'
+            fill_in 'article_template_name', with: 'template'
 
-            find(".double_check-step-inputs").find(".action").find("input").click
+            click_button I18n.t("article.labels.continue_to_preview")
           end.should change(Article.unscoped, :count).by 2
 
-          current_path.should eq article_path Article.unscoped.first
+          current_path.should eq article_path Article.first
           Article.find('article-title').business_transaction.should be_a SingleFixedPriceTransaction
         end
 
-        it "should create an article with a MultipleFixedPriceTransaction" do
+        it "should create an article with a MultipleFixedPriceTransaction", visual: true do
           lambda do
             fill_form_with_valid_article
 
@@ -128,29 +131,28 @@ describe 'Article management' do
 
             # Template -> should still only create one transaction
             check 'article_save_as_template'
-            fill_in 'article_article_template_attributes_name', with: 'template'
+            fill_in 'article_template_name', with: 'template'
 
-            find(".double_check-step-inputs").find(".action").find("input").click
+            click_button I18n.t("article.labels.continue_to_preview")
           end.should change(BusinessTransaction, :count).by 1
 
           Article.find('article-title').business_transaction.should be_a MultipleFixedPriceTransaction
         end
 
-         it "should validate the friendly_percent_organisation if the article has friendly_percent" do
-            lambda do
-              fill_form_with_valid_article
-              # choose friendly_percent
-              select('35', :from => 'article_friendly_percent')
+        it "should validate the friendly_percent_organisation if the article has friendly_percent" do
+          lambda do
+            fill_form_with_valid_article
+            # choose friendly_percent
+            select('35', :from => 'article_friendly_percent')
 
-           find(".double_check-step-inputs").find(".action").find("input").click
-            end.should change(Article, :count).by 0
-
-         end
+            click_button I18n.t("article.labels.continue_to_preview")
+          end.should change(Article, :count).by 0
+        end
 
          it "should create an article from a template" do
-          template = FactoryGirl.create :article_template, :without_image, user: user
-          visit new_article_path template_select: { article_template: template.id }
-          page.should have_content I18n.t('template_select.notices.applied', name: template.name)
+          template = FactoryGirl.create :article_template, :without_image, seller: user
+          visit new_article_path template: { article_id: template.id }
+          page.should have_content I18n.t('template.notices.applied', name: template.template_name)
         end
 
         context "for private users" do
@@ -222,10 +224,9 @@ describe 'Article management' do
       end
 
       it "should rescue an Errno::ECONNREFUSED" do
-        ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+        Article.stub(:search).and_raise(Errno::ECONNREFUSED)
         expect { click_button 'Suche' }.to_not raise_error
       end
-
     end
 
     describe "article update", slow: true do
@@ -418,7 +419,7 @@ describe 'Article management' do
         end
       end
 
-     
+
     end
   end
 end

@@ -28,7 +28,7 @@ describe LibraryPolicy do
   let(:library) { FactoryGirl.create :library }
   let(:user)    { nil                         }
 
-  context "for a visitor" do
+  context 'for a visitor' do
     it { should deny(:show)         }
     it { should deny(:create)       }
     it { should deny(:update)       }
@@ -37,7 +37,7 @@ describe LibraryPolicy do
     it { should deny(:admin_remove) }
   end
 
-  context "for a random logged-in user" do
+  context 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
     it { should deny(:show)               }
     it { should deny(:create)             }
@@ -47,7 +47,7 @@ describe LibraryPolicy do
     it { should deny(:admin_remove)       }
   end
 
-  context "for the library owning user" do
+  context 'for the library owning user' do
 
     let(:user) { library.user       }
     it { should grant_permission(:show)       }
@@ -58,10 +58,9 @@ describe LibraryPolicy do
     it { should deny(:admin_remove) }
   end
 
-  context "for an admin" do
+  context 'for an admin' do
     let(:user) { FactoryGirl.create :admin_user }
     it { should grant_permission(:admin_add)              }
     it { should grant_permission(:admin_remove)           }
-
   end
 end

@@ -106,7 +106,7 @@
       - if policy(resource.business_transaction).edit?
         = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
       - elsif policy(resource.business_transaction).show_vacationing?
-        .Button.Button--gray= t 'common.actions.to_cart'
+        .Button.Button--disabled= t 'common.actions.to_cart'
         %p
           %strong= t 'users.states.vacationing'
 

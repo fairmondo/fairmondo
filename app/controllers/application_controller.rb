@@ -1,5 +1,4 @@
 #
-#
 # == License:
 # Fairnopoly - Fairnopoly is an open-source online marketplace.
 # Copyright (C) 2013 Fairnopoly eG
@@ -48,27 +47,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Return path with fallback
-  # @api public
-  # @param fallback [String] path
-  # @param options [Hash] (is this really needed?)
-  # @return [String] return path
-  def return_to_path fallback, options = {}
-    return session.delete(:return_to) || fallback if options[:clear]
-    session[:return_to] || fallback
-  end
-
   protected
-
-    def render_users_hero
-      render_hero controller: "users"
-    end
-
-    def render_hero options
-      options[:action] ||= "default"
-      options[:controller] ||= params.permit(:controller)[:controller]
-      @rendered_hero = options
-    end
 
     # Pundit checker
 
@@ -92,29 +71,11 @@ class ApplicationController < ActionController::Base
       ]
     end
 
-    # To be inherited and used in a before_filter
-    def authorize_resource
-      authorize resource
-    end
-
-    def authorize_build_resource
-      authorize build_resource
-    end
-
-    def refined_params
-      @refined_params ||= params.for(appropriate_resource).as(current_user).refine
-    end
-
-    # resource or build_resource, whatever succeeds first. to be used in functions
-    # that are used in different actions and sometimes need one or the other
-    def appropriate_resource #merge_options = {}
-      resource rescue build_resource
-      # resource.update_attributes merge_options
-      # resource
-    end
-
     def build_search_cache
-      @search_cache = ArticleSearchForm.new(params.for(ArticleSearchForm)[:article_search_form])
+      search_params = {}
+      form_search_params = params.for(ArticleSearchForm)[:article_search_form]
+      search_params.merge!(form_search_params) if form_search_params.is_a?(Hash)
+      @search_cache = ArticleSearchForm.new(search_params)
     end
 
     # Caching security: Set response headers to prevent caching
@@ -138,14 +99,12 @@ class ApplicationController < ActionController::Base
     def check_value_of_goods
       current_user.count_value_of_goods
       if current_user.value_of_goods_cents > ( current_user.max_value_of_goods_cents + current_user.max_value_of_goods_cents_bonus )
-        redirect_to user_path(current_user), alert: I18n.t('article.notices.max_limit')
+        flash[:error] = I18n.t('article.notices.max_limit')
+        redirect_to user_path(current_user)
       end
     end
 
     def render_css_from_controller controller
       @controller_specific_css = controller
     end
-
-
-
 end

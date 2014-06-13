@@ -37,6 +37,7 @@ de:
         about_me: "über mich"
         terms: "AGB"
         cancellation: "Widerrufsbelehrung und Rücknahme"
+        cancellation_form: "Widerrufsformular (PDF-Datei)"
         about: "Impressum und Kontakt"
         bank_account_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption  \"Überweisung\" gewählt hast.)"
         bank_code: "Bankleitzahl"
@@ -134,6 +135,7 @@ de:
         friendly_percent_organisation: Organisation
         friendly_percent_calculated: "Das entspricht:"
         save_as_template: "Eingaben als Vorlage speichern"
+        template_name: Vorlage
       fair_trust_questionnaire:
         support: >
           1. Werden vom Weltmarkt marginalisierte Produzent*innen/Arbeiter*innen unterstützt und gefördert?
@@ -155,11 +157,8 @@ de:
         social_businesses_muhammad_yunus: "2. Ist der*die Anbieter*in ein Social Business nach dem Konzept von Muhammad Yunus?"
         social_entrepreneur: "3. Besteht das Unternehmensziel darin, ein gesellschaftliches Problem zu lösen?"
         social_entrepreneur_explanation: "Bitte beschreibe Dein Unternehmen und seine Ziele in einigen Sätzen genauer:"
-      article_template:
-        name: Vorlage
-        article_title: Artikel
-      template_select:
-        article_template: Vorlage
+      template:
+        article_id: Vorlage
       article_image:
         image: Bild
         _destroy: Löschen
@@ -210,6 +209,7 @@ de:
         prefix: "Schritt %{count}:"
         title_and_categories: "Artikelbezeichnung und Kategorien"
         commendation: "Filter (optional)"
+        template: Name der Vorlage
         article: "Dein Artikel"
         transport_and_payment: "Versand und Bezahlung"
         legal_issues: "Rechtliches"
@@ -218,11 +218,9 @@ de:
         upload_images: "Bilder hochladen"
       mass_upload:
         upload_csv: "Artikel per CSV-Datei importieren"
-      template_select:
+      template:
         prefix: ""
         apply: Deine Vorlagen
-      article_template:
-        template: Name der Vorlage
 
     hints:
       user: &hints_user
@@ -312,7 +310,7 @@ de:
     actions:
       create: "%{model} erstellen"
       update: "Änderungen speichern"
-      template_select:
+      template:
         submit: "Vorlage übernehmen"
       # Login
       login: "Anmelden"

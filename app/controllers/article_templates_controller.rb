@@ -19,65 +19,58 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class ArticleTemplatesController < InheritedResources::Base
+class ArticleTemplatesController < ApplicationController
+  respond_to :html
+  responders :location, :flash
 
-  before_filter :build_resource, only: [:new, :create]
-  before_filter :build_article, only: [:new,:create]
-  before_filter :authorize_resource, except: [:create]
-  before_filter -> { render_css_from_controller('articles') } , except: [:destroy]
+  before_filter -> { render_css_from_controller('articles') }, except: [:destroy]
+  before_filter :set_article_template, only: [:edit, :update, :destroy]
 
-  actions :all, :except => [:show,:index]
+  def new
+    @article_template = current_user.articles.build
+    authorize @article_template
+  end
+
+  def edit
+    authorize @article_template
+  end
 
   def update
-    update! do |success, failure|
-      success.html { redirect_to collection_url}
-      failure.html { save_images
-                     render :edit}
-    end
+    authorize @article_template
+
+    save_images unless @article_template.update(params.for(@article_template).refine)
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   def create
-    authorize build_resource
-    create! do |success, failure|
-      success.html { redirect_to collection_url}
-      failure.html { save_images
-                     render :new}
-    end
+    @article_template = current_user.articles.build(params.for(Article).refine)
+    authorize @article_template
+    @article_template.state = :template
+
+    save_images unless @article_template.save
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   def destroy
-    destroy! {collection_url}
+    authorize @article_template
+    @article_template.destroy
+    respond_with(@article_template, location: -> { collection_url })
   end
 
   private
 
-    def begin_of_association_chain
-      current_user
+    def set_article_template
+      @article_template = Article.unscoped.find(params[:id])
     end
 
     def collection_url
       user_path(current_user, :anchor => "my_article_templates")
     end
 
-    def build_article
-      resource.build_article unless resource.article
-      resource.article.seller = current_user
-    end
-
     def save_images
       #At least try to save the images -> not persisted in browser
-      if resource.article
-        resource.article.images.each do |image|
-          ## I tried for hours but couldn't figure out a way to write a test that transmit a wrong image.
-          ## If the image removal is ever needed, comment it back in. ArticlesController doesn't use it either. -KK
-          # if image.image
-            image.save
-          # else
-          #   @article.images.remove image
-          # end
-        end
+      @article_template.images.each do |image|
+        image.save
       end
     end
-
-
 end

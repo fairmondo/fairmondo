@@ -49,11 +49,11 @@ class ArticlePolicy < Struct.new(:user, :article)
     # Edititng an article is only allowed in preview state.
     # After this we should generate a new article on editing.
     # Refer to ArticlesController#new with params edit_as_new.
-    own? && article.preview?
+    own? && (article.preview? || article.template?)
   end
 
   def destroy?
-    owned_and_deactivated? && article.deletable?
+    owned_and_deactivated? && article.deletable? || own? && article.template?
   end
 
   def activate?

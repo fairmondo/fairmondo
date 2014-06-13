@@ -2,8 +2,8 @@ require 'spec_helper'
 include FastBillStubber
 
 describe RefundsController do
-  let( :user ){ FactoryGirl.create :user }
-  let( :business_transaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, :seller => user }
+  let( :seller ){ FactoryGirl.create :user }
+  let( :business_transaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, seller: seller }
 
   before do
     stub_fastbill
@@ -12,7 +12,7 @@ describe RefundsController do
   describe 'POST ::create' do
     before do
       @refund_attrs = FactoryGirl.attributes_for :refund
-      sign_in user
+      sign_in seller
     end
 
     describe 'for signed in users' do
@@ -27,8 +27,8 @@ describe RefundsController do
   describe 'GET ::new' do
     describe 'for signed in users' do
       it 'should render "new" view ' do
-        sign_in user
-        get :new, business_transaction_id: business_transaction.id
+        sign_in seller
+        get :new, user_id: seller.id, business_transaction_id: business_transaction.id
         response.should be_success
       end
     end

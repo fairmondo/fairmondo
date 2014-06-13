@@ -1,4 +1,7 @@
 class UserRefinery < ApplicationRefinery
+  def self.root
+    false
+  end
 
   def create
     [
@@ -20,11 +23,11 @@ class UserRefinery < ApplicationRefinery
       :iban,:bic,
       { image_attributes: ImageRefinery.new(Image.new, user).default }
     ]
-    permitted += [ :terms, :cancellation, :about ] if user.is_a? LegalEntity
+    permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
     permitted
   end
 
   def profile
-    [ :print ]
+    [:print]
   end
 end

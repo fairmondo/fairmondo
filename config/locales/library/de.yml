@@ -15,3 +15,4 @@ de:
   library_element:
     notice:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
+      failure: 'Der Artikel ist schon in Deiner Sammlung.'

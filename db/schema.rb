@@ -27,15 +27,6 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.integer "user_id"
   end
 
-  create_table "article_templates", force: true do |t|
-    t.string   "name"
-    t.integer  "user_id",    limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "article_templates", ["user_id"], name: "index_article_templates_on_user_id", using: :btree
-
   create_table "articles", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -57,7 +48,6 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.text     "transport_details"
     t.text     "payment_details"
     t.integer  "friendly_percent",                                 default: 0
-    t.integer  "article_template_id",                    limit: 8
     t.integer  "calculated_fair_cents",                  limit: 8, default: 0,     null: false
     t.integer  "calculated_friendly_cents",              limit: 8, default: 0,     null: false
     t.integer  "calculated_fee_cents",                   limit: 8, default: 0,     null: false
@@ -89,14 +79,13 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.integer  "transport_type2_number",                           default: 1
     t.integer  "discount_id"
     t.integer  "friendly_percent_organisation_id",       limit: 8
+    t.string   "template_name"
   end
 
-  add_index "articles", ["article_template_id"], name: "index_articles_on_article_template_id", using: :btree
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
   add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
   add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
-  add_index "articles", ["id", "article_template_id"], name: "index_articles_on_id_and_article_template_id", unique: true, using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
   add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
@@ -450,6 +439,10 @@ ActiveRecord::Schema.define(version: 20140604124555) do
     t.string   "bic"
     t.boolean  "vacationing",                              default: false
     t.boolean  "newsletter",                               default: false
+    t.string   "cancellation_form_file_name"
+    t.string   "cancellation_form_content_type"
+    t.integer  "cancellation_form_file_size"
+    t.datetime "cancellation_form_updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

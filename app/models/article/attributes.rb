@@ -33,6 +33,7 @@ module Article::Attributes
     validates_presence_of :title , :content
     validates_length_of :title, :minimum => 6, :maximum => 200
     validates :content, length: { maximum: 10000, tokenizer: tokenizer_without_html }
+    validates :template_name, uniqueness: { scope: [:seller, :state] }, presence: true, if: Proc.new { |a| a.is_template? || a.save_as_template? }
 
 
     #conditions

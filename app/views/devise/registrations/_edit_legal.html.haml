@@ -22,10 +22,16 @@
 = f.input_step :terms do
   = f.inputs do
     .Accordion-step
-      = f.input :terms,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+      = f.input :terms, required: true, as: :text, input_html: {class: "tinymce"}, tooltip: true
 
     .Accordion-step
-      = f.input :cancellation,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+      = f.input :cancellation, required: true, as: :text, input_html: {class: "tinymce"}, tooltip: true
 
     .Accordion-step
-      = f.input :about,:required => true, :as => :text, :input_html => {:class => "tinymce"}, :tooltip => true
+      = f.input :about, required: true, as: :text, input_html: {class: "tinymce"}, tooltip: true
+
+    .Accordion-step
+      = f.input :cancellation_form, as: :file#, tooltip: true
+      - if resource.cancellation_form.exists?
+        Hochgeladen:
+        = link_to resource.cancellation_form.original_filename, resource.cancellation_form.url, target: '_blank'

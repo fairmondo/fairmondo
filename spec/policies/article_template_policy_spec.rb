@@ -25,7 +25,7 @@ describe ArticleTemplatePolicy do
   include PunditMatcher
 
   subject { ArticleTemplatePolicy.new(user, article_template)   }
-  let(:article_template) { FactoryGirl.create :article_template }
+  let(:article_template) { FactoryGirl.create :article_template, :with_private_user }
   let(:user) { nil }
 
   context "for a visitor" do
@@ -46,7 +46,7 @@ describe ArticleTemplatePolicy do
   end
 
   context "for the template owning user" do
-    let(:user) { article_template.user }
+    let(:user) { article_template.seller }
     it { should grant_permission(:new)           }
     it { should grant_permission(:create)        }
     it { should grant_permission(:edit)          }

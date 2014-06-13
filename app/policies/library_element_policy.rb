@@ -29,10 +29,6 @@ class LibraryElementPolicy < Struct.new(:user, :library_element)
     own? && active? && user.libraries.count != 0
   end
 
-  def update?
-    own? && active?
-  end
-
   def destroy?
     own?
   end

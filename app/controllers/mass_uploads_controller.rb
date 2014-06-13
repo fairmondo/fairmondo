@@ -1,42 +1,48 @@
-class MassUploadsController < InheritedResources::Base
-  actions :update, :show, :new, :create
+class MassUploadsController < ApplicationController
+  responders :location
+  respond_to :html
+  respond_to :csv, only: :show
 
-  # Layout Requirements
-          before_filter :ensure_complete_profile , :only => [:new, :create]
-          before_filter :authorize_resource, only: [:show, :update]
-          before_filter :authorize_build_resource, only: [:new, :create]
-          before_filter :check_value_of_goods, :only => [:update]
+  before_filter :ensure_complete_profile , :only => [:new, :create]
+  before_filter :set_mass_upload, only: [:show, :update]
+  before_filter :check_value_of_goods, :only => [:update]
 
   def show
+    authorize @mass_upload
+    @erroneous_articles = @mass_upload.erroneous_articles.page(params[:erroneous_articles_page])
 
-    @erroneous_articles = resource.erroneous_articles.page(params[:erroneous_articles_page])
-
-    show! do |format|
-      format.csv { send_data ArticleExporter.export_erroneous_articles(resource.erroneous_articles),
+    respond_with @mass_upload do |format|
+      format.csv { send_data ArticleExporter.export_erroneous_articles(@mass_upload.erroneous_articles),
                    {filename: "Fairnopoly_export_errors_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
     end
   end
 
+  def new
+    @mass_upload = current_user.mass_uploads.build
+    authorize @mass_upload
+    respond_with @mass_upload
+  end
+
   def create
-    create! do |success, failure|
-      success.html do
-        resource.process
-        redirect_to user_path(resource.user, anchor: "my_mass_uploads")
-      end
-    end
+    @mass_upload = current_user.mass_uploads.build(params.for(MassUpload).refine)
+    authorize @mass_upload
+    @mass_upload.process if @mass_upload.save
+    respond_with @mass_upload, location: -> { user_path(@mass_upload.user, anchor: 'my_mass_uploads') }
   end
 
   def update
-    articles_to_activate = resource.articles_for_mass_activation
+    authorize @mass_upload
+    articles_to_activate = @mass_upload.articles_for_mass_activation
     activation_ids = articles_to_activate.map{ |article| article.id }
     articles_to_activate.update_all({:state => 'active'})
     Indexer.delay.index_articles activation_ids
     flash[:notice] = I18n.t('article.notices.mass_upload_create_html').html_safe
-    redirect_to user_path(resource.user)
+    redirect_to user_path(@mass_upload.user)
   end
 
-  protected
-    def begin_of_association_chain
-      current_user
+  private
+
+    def set_mass_upload
+      @mass_upload = current_user.mass_uploads.find(params[:id])
     end
 end

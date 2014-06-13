@@ -23,8 +23,9 @@ require 'spec_helper'
 
 describe CategoriesController do
   render_views
+  let(:category) { FactoryGirl.create(:category) }
 
-  describe "GET 'index" do
+  describe "GET ::index" do
     describe "for non-signed-in users" do
       it "should be a guest" do
         controller.should_not be_signed_in
@@ -45,20 +46,27 @@ describe CategoriesController do
     end
   end
 
+  describe 'GET select_category' do
+    it 'should allow to select a category' do
+      get :select_category, id: category.id, object_name: 'article'
+      response.should be_success
+    end
+  end
+
   describe "GET 'show'" do
     it "should show a category when format is html" do
-      get :show, id: FactoryGirl.create(:category).id
+      get :show, id: category.id
       response.should be_success
     end
 
     it "should show a category when format is json" do
-      get :show, id: FactoryGirl.create(:category).id, format: :json
+      get :show, id: category.id, format: :json
       response.should be_success
     end
 
     it "should rescue an ECONNREFUSED error" do
-      ArticleSearchForm.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
-      get :show, id: FactoryGirl.create(:category).id, article_search_form: { q: 'foobar' }
+      Article.any_instance.stub(:search).and_raise(Errno::ECONNREFUSED)
+      get :show, id: category.id, article_search_form: { q: 'foobar' }
       response.status.should be 200
     end
 
@@ -69,7 +77,7 @@ describe CategoriesController do
         @hardware_category = Category.find_by_name!("Hardware")
         @software_category = Category.find_by_name!("Software")
 
-        @ngo_article = FactoryGirl.create(:article,price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
+        @ngo_article = FactoryGirl.create(:article, price_cents: 1, title: "ngo article thing", content: "super thing", created_at: 4.days.ago)
         @second_hand_article = FactoryGirl.create(:second_hand_article, price_cents: 2, title: "muscheln", categories: [ @software_category ], content: "muscheln am meer", created_at: 3.days.ago)
         @hardware_article = FactoryGirl.create(:second_hand_article,:simple_fair,:simple_ecologic,:simple_small_and_precious,:with_ngo, price_cents: 3, title: "muscheln 2", categories: [ @hardware_category ], content: "abc" , created_at: 2.days.ago)
         @no_second_hand_article = FactoryGirl.create :no_second_hand_article, price_cents: 4, title: "muscheln 3", categories: [ @hardware_category ], content: "cde"
