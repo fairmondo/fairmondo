@@ -1,7 +1,7 @@
-- if search_cache.q.present?
+- if search_string = search_cache.wegreen_search_string
   = javascript_include_tag 'https://widget.wegreen.de/js/easyXDM.min.js'
 
   #WeGreen-iframe
 
   :javascript
-    document.Fairnopoly.placeIframe("https://widget.wegreen.de/1.0/products.html?appId=2394&q=#{CGI::escape(search_cache.q)}");
+    document.Fairnopoly.placeIframe("https://widget.wegreen.de/1.0/products.html?appId=2394&q=#{CGI::escape(search_string)}");
