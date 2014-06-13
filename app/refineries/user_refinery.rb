@@ -26,4 +26,8 @@ class UserRefinery < ApplicationRefinery
     permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
     permitted
   end
+
+  def profile
+    [:print]
+  end
 end
