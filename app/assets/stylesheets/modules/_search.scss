@@ -100,8 +100,8 @@ cannot be in controller specific code because it is used by multiple controllers
 }
 
 .Search-categories .Search-tree > li > span {
-  padding-left: em(20);
-  padding-right: em(20);
+  padding-left: em(10);
+  padding-right: em(5);
   text-overflow: ellipsis;
   overflow: hidden;
   padding-top: 0.5em;
