@@ -1,0 +1,12 @@
+.nested-fields
+  %h3= t('users.form_titles.address')
+  = f.inputs do
+    = f.input :title
+    = f.input :first_name, required: true
+    = f.input :last_name, required: true
+    = f.input :address_line_1, required: true
+    = f.input :address_line_2, required: true
+    = f.input :zip, required: true
+    = f.input :city, required: true
+    = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+    = link_to_remove_association 'Adresse löschen', f

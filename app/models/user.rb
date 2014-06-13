@@ -39,8 +39,7 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city,
-                :bank_name
+  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city, :bank_name
   auto_sanitize :iban, :bic, :zip, remove_all_spaces: true
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 

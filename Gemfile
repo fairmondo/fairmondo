@@ -60,6 +60,7 @@ gem 'jquery-rails'
 gem 'formtastic', "~> 2.3.0.rc3"
 gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'virtus'
+gem 'reform'
 
 
 # ---------- Contoller ----------
