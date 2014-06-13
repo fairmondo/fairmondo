@@ -62,6 +62,5 @@ describe LibraryPolicy do
     let(:user) { FactoryGirl.create :admin_user }
     it { should grant_permission(:admin_add)              }
     it { should grant_permission(:admin_remove)           }
-
   end
 end

@@ -228,11 +228,11 @@ describe User do
 
     describe "#is?" do
       it "should return true when users have the same ID" do
-        user.is?(user).should be_true
+        user.is?(user).should be_truthy
       end
 
       it "should return false when users don't have the same ID" do
-        user.is?(FactoryGirl.create(:user)).should be_false
+        user.is?(FactoryGirl.create(:user)).should be_falsey
       end
     end
 
@@ -248,19 +248,19 @@ describe User do
 
     describe "paypal_account_exists?" do
       it "should be true if user has paypal account" do
-        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_true
+        FactoryGirl.create(:user, :paypal_data).paypal_account_exists?.should be_truthy
       end
       it "should be false if user does not have paypal account" do
-        user.paypal_account_exists?.should be_false
+        user.paypal_account_exists?.should be_falsey
       end
     end
 
     describe "bank_account_exists?" do
       it "should be true if user has bank account" do
-        user.bank_account_exists?.should be_true
+        user.bank_account_exists?.should be_truthy
       end
       it "should be false if user does not have bank account" do
-        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_false
+        FactoryGirl.create(:user, :no_bank_data).bank_account_exists?.should be_falsey
       end
     end
 

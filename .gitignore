@@ -19,6 +19,8 @@ vendor/bundle
 
 #Respec
 .respec_failures
+# rspec rerun
+rspec.failures
 
 # Ignore all logfiles and tempfiles
 /log/*.log

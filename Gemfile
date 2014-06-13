@@ -84,7 +84,7 @@ gem 'dalli' # Memcached Client
 gem 'kontoapi-ruby' # KontoAPI checks bank data
 gem 'ibanomat' # accound number to IBAN
 gem 'memoist' # Support for memoization
-gem 'rails_admin' # Administrative cackend
+gem 'rails_admin' # Administrative backend
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
@@ -158,7 +158,7 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman'  # security test: execute with 'brakeman'
-  gem 'rspec-instafail'
+  gem "rspec-rerun"
 
   gem 'thin' # Replace Webrick
   gem 'bullet' # Notify about n+1 queries

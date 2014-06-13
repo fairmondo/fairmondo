@@ -33,8 +33,8 @@ class UsersController < ApplicationController
     authorize @user
     respond_to do |format|
       format.html do
-        if ['terms', 'cancellation'].include?(params[:print])
-          render '/users/print', layout: false, locals: { field: params[:print] }
+        if ['terms', 'cancellation'].include?(refined_params[:print])
+          render '/users/print', layout: false, locals: { field: refined_params[:print] }
         end
       end
     end
@@ -63,5 +63,9 @@ class UsersController < ApplicationController
           mu.finish
         end
       end
+    end
+
+    def refined_params
+      @refined_params ||= params.for(@user).as(current_user).refine
     end
 end

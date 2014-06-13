@@ -27,6 +27,7 @@ class DeviseMailer < Devise::Mailer
 
     attachments['AGB_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
+    attachments['Widerrufsformular_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Widerrufsformular.pdf'))
 
     @token = token
     devise_mail(record, :welcome_mail)
@@ -37,6 +38,7 @@ class DeviseMailer < Devise::Mailer
 
     attachments['AGB_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
+    attachments['Widerrufsformular_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Widerrufsformular.pdf'))
 
     super
   end

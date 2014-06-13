@@ -6,3 +6,5 @@ require File.expand_path('../config/application', __FILE__)
 ENV['SKIP_RAILS_ADMIN_INITIALIZER']='true' # supress RailsAdmin warnings
 
 Fairnopoly::Application.load_tasks
+require 'rspec-rerun'
+task :default => "rspec-rerun:spec"

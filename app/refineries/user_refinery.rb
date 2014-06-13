@@ -28,6 +28,6 @@ class UserRefinery < ApplicationRefinery
   end
 
   def profile
-    [ :print ]
+    [:print]
   end
 end
