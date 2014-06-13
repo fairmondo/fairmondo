@@ -92,7 +92,7 @@ class ArticleSearchForm
     end
 
   rescue Errno::ECONNREFUSED
-    articles = ArticlePolicy::Scope.new(nil, Article).page(page)
+    articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
   end
 
   def price_range
