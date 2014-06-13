@@ -1,36 +1,39 @@
-
-class UserEditForm
+class UserEditForm < Reform::Form
   extend ActiveModel::Naming
   extend Enumerize
-  include Virtus.model
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
 
 
-  # User attributes
-  attribute :email, String
-  attribute :forename, String
-  attribute :surname, String
-  attribute :nickname, String
-  attribute :about_me, Text
-  attribute :terms, Text
-  attribute :cancellation, Text
-  attribute :about, Text
-  attribute :title, String
-  attribute :phone, String
-  attribute :mobile, String
-  attribute :fax, String
+  # User properties
 
-  # Address attributes
-  attribute :title, String
-  attribute :first_name, String
-  attribute :last_name, String
-  attribute :address_line_1, String
-  attribute :address_line_2, String
-  attribute :zip, String
-  attribute :city, String
-  attribute :country, String
+  property :email, String
+  property :forename, String
+  property :surname, String
+  property :nickname, String
+  property :about_me, Text
+  property :terms, Text
+  property :cancellation, Text
+  property :about, Text
+  property :title, String
+  property :phone, String
+  property :mobile, String
+  property :fax, String
+
+
+  # Address properties
+
+  collection :addresses do
+    property :title, String
+    property :first_name, String
+    property :last_name, String
+    property :address_line_1, String
+    property :address_line_2, String
+    property :zip, String
+    property :city, String
+    property :country, String
+  end
 
 
   def persisted?
