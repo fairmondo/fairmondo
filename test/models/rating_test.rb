@@ -1,22 +1,24 @@
 require 'test_helper'
 
 describe Rating do
-   describe "model attributes" do
-    it { should respond_to :id }
-    it { should respond_to :created_at }
-    it { should respond_to :updated_at }
-    it { should respond_to :rating }
-    it { should respond_to :rated_user_id }
-    it { should respond_to :text }
-    it { should respond_to :business_transaction_id }
+  subject { Rating.new }
+
+  describe "model attributes" do
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
+    it { subject.must_respond_to :rating }
+    it { subject.must_respond_to :rated_user_id }
+    it { subject.must_respond_to :text }
+    it { subject.must_respond_to :business_transaction_id }
   end
 
   describe "associations" do
-    it { should belong_to :business_transaction }
-    it { should belong_to :rated_user  }
+    it { subject.must belong_to :business_transaction }
+    it { subject.must belong_to :rated_user  }
   end
 
-  describe "enumerization" do
-    it { should enumerize(:rating).in(:positive, :neutral, :negative) }
-  end
+  # describe "enumerization" do # see business_transaction_test
+  #   it { subject.must enumerize(:rating).in(:positive, :neutral, :negative) }
+  # end
 end

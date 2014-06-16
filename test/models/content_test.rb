@@ -22,12 +22,14 @@
 require 'test_helper'
 
 describe Content do
+  subject { Content.new }
+
   describe 'attributes' do
-    it { should respond_to :key }
-    it { should respond_to :body }
-    it { should respond_to :id }
-    it { should respond_to :created_at }
-    it { should respond_to :updated_at }
+    it { subject.must_respond_to :key }
+    it { subject.must_respond_to :body }
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
   end
 
   describe "fields" do
@@ -35,13 +37,13 @@ describe Content do
       # see https://github.com/norman/friendly_id/issues/332
       it "find by slug should work" do
         content = FactoryGirl.create :content
-        Content.find(content.key).should eq content
+        Content.find(content.key).must_equal content
       end
     end
 
   end
 
   describe "validations" do
-    it { should validate_presence_of :key }
+    it { subject.must validate_presence_of :key }
   end
 end

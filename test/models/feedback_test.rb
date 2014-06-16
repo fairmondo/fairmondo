@@ -1,52 +1,54 @@
 require 'test_helper'
 
 describe Feedback do
+  subject { Feedback.new }
+
   describe "attributes" do
-    it { should respond_to :id }
-    it { should respond_to :from }
-    it { should respond_to :subject }
-    it { should respond_to :text }
-    it { should respond_to :to }
-    it { should respond_to :variety }
-    it { should respond_to :user_id }
-    it { should respond_to :article_id }
-    it { should respond_to :feedback_subject }
-    it { should respond_to :help_subject }
-    it { should respond_to :source_page }
-    it { should respond_to :user_agent }
-    it { should respond_to :forename }
-    it { should respond_to :lastname }
-    it { should respond_to :organisation }
-    it { should respond_to :phone }
-    it { should respond_to :created_at }
-    it { should respond_to :updated_at }
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :from }
+    it { subject.must_respond_to :subject }
+    it { subject.must_respond_to :text }
+    it { subject.must_respond_to :to }
+    it { subject.must_respond_to :variety }
+    it { subject.must_respond_to :user_id }
+    it { subject.must_respond_to :article_id }
+    it { subject.must_respond_to :feedback_subject }
+    it { subject.must_respond_to :help_subject }
+    it { subject.must_respond_to :source_page }
+    it { subject.must_respond_to :user_agent }
+    it { subject.must_respond_to :forename }
+    it { subject.must_respond_to :lastname }
+    it { subject.must_respond_to :organisation }
+    it { subject.must_respond_to :phone }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
   end
 
   describe "associations" do
-    it { should belong_to :user }
-    it { should belong_to :article }
+    it { subject.must belong_to :user }
+    it { subject.must belong_to :article }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:text) }
-    it { should validate_presence_of :variety }
-    it { should_not allow_value('test@').for :from }
-    it { should_not allow_value('@test.').for :from }
-    it { should_not allow_value('test.com').for :from }
-    it { should allow_value('test@test.museum').for :from }
-    it { should allow_value('test@test.co.uk').for :from }
+    it { subject.must validate_presence_of(:text) }
+    it { subject.must validate_presence_of :variety }
+    it { subject.wont allow_value('test@').for :from }
+    it { subject.wont allow_value('@test.').for :from }
+    it { subject.wont allow_value('test.com').for :from }
+    it { subject.must allow_value('test@test.museum').for :from }
+    it { subject.must allow_value('test@test.co.uk').for :from }
 
 
-    context "when validating send_feedback" do
+    describe "when validating send_feedback" do
       before { subject.variety = 'send_feedback' }
-      it { should validate_presence_of :feedback_subject }
-      it { should validate_presence_of :subject }
+      it { subject.must validate_presence_of :feedback_subject }
+      it { subject.must validate_presence_of :subject }
     end
 
-    context "when validating get_help" do
+    describe "when validating get_help" do
       before { subject.variety = 'get_help' }
-      it { should validate_presence_of :help_subject }
-      it { should validate_presence_of :subject }
+      it { subject.must validate_presence_of :help_subject }
+      it { subject.must validate_presence_of :subject }
     end
   end
 
@@ -56,13 +58,13 @@ describe Feedback do
         user = FactoryGirl.create :user
         f = Feedback.new
         f.set_user_id user
-        f.user_id.should eq user.id
+        f.user_id.must_equal user.id
       end
 
       it "should not set the user_id when signed out" do
         f = Feedback.new
         f.set_user_id nil
-        f.user_id.should eq nil
+        f.user_id.must_equal nil
       end
     end
   end

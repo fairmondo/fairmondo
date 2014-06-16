@@ -16,33 +16,33 @@ describe FastbillAPI do
         FastbillAPI.fastbill_chain( db_business_transaction )
       end
 
-      context "when seller is an NGO" do
+      describe "when seller is an NGO" do
         it "should not contact Fastbill" do
-          Fastbill::Automatic::Base.should_not_receive( :perform )
+          Fastbill::Automatic::Base.expects( :perform ).never
           FastbillAPI.fastbill_chain( db_business_transaction )
         end
       end
 
-      context "when seller is not an NGO" do
-        context "and has Fastbill profile" do
+      describe "when seller is not an NGO" do
+        describe "and has Fastbill profile" do
           let( :db_business_transaction ) { FactoryGirl.create :business_transaction_with_buyer, :fastbill_profile }
           it "should not create new Fastbill profile" do
-            FastbillAPI.should_not_receive( :fastbill_create_customer )
-            FastbillAPI.should_not_receive( :fastbill_create_subscription )
+            FastbillAPI.expects( :fastbill_create_customer ).never
+            FastbillAPI.expects( :fastbill_create_subscription ).never
             FastbillAPI.fastbill_chain( db_business_transaction )
           end
         end
 
-        context "and has no Fastbill profile" do
+        describe "and has no Fastbill profile" do
           it "should create new Fastbill profile" do
-            FastbillAPI.should_receive( :fastbill_create_customer )
-            FastbillAPI.should_receive( :fastbill_create_subscription )
+            FastbillAPI.expects( :fastbill_create_customer )
+            FastbillAPI.expects( :fastbill_create_subscription )
             FastbillAPI.fastbill_chain( db_business_transaction )
           end
         end
 
         it "should set usage data for subscription" do
-          FastbillAPI.should_receive( :fastbill_setusagedata ).twice
+          FastbillAPI.expects( :fastbill_setusagedata ).twice
           FastbillAPI.fastbill_chain( db_business_transaction )
         end
       end
@@ -50,7 +50,7 @@ describe FastbillAPI do
 
     describe '::fastbill_discount' do
       it 'should call setusagedata' do
-        Fastbill::Automatic::Subscription.should_receive( :setusagedata )
+        Fastbill::Automatic::Subscription.expects( :setusagedata )
         db_business_transaction.discount = FactoryGirl.create :discount
         FastbillAPI.fastbill_discount(seller, db_business_transaction)
       end
@@ -58,7 +58,7 @@ describe FastbillAPI do
 
     describe '::fastbill_refund' do
       it 'should call setusagedata' do
-        Fastbill::Automatic::Subscription.should_receive( :setusagedata ).twice
+        Fastbill::Automatic::Subscription.expects( :setusagedata ).twice
         FastbillAPI.fastbill_refund( db_business_transaction, :fair )
         FastbillAPI.fastbill_refund( db_business_transaction, :fee )
       end
@@ -66,14 +66,14 @@ describe FastbillAPI do
 
     # describe '::update_profile' do
     #   it 'should call setusagedata' do
-    #     Fastbill::Automatic::Customer.should_receive( :get )
+    #     Fastbill::Automatic::Customer.expects( :get )
     #     FastbillAPI.update_profile( seller )
     #   end
     # end
 
     describe '::discount_wo_vat' do
       it 'should receive call' do
-        FastbillAPI.should_receive( :discount_wo_vat )
+        FastbillAPI.expects( :discount_wo_vat )
         FastbillAPI.discount_wo_vat( db_business_transaction )
       end
     end

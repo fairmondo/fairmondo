@@ -12,6 +12,7 @@ require File.expand_path("../../config/environment", __FILE__)
 
 require 'minitest/autorun'
 require 'minitest/spec'
+require 'minitest/mock'
 require "minitest-matchers"
 require 'sidekiq/testing'
 require 'fakeredis'
