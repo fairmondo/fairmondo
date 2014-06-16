@@ -29,9 +29,10 @@ describe ArticleObserver do
   describe "Category Proposals" do
     it "should send an email when a category_proposal was given" do
       article.category_proposal = 'foo'
-      ArticleMailer.should_receive(:category_proposal).with('foo').and_call_original
-      observer = ArticleObserver.instance
-      observer.after_save(article)
+      mock = MiniTest::Mock.new
+      mock.expect :deliver, true
+      ArticleMailer.expects(:category_proposal).with('foo').returns mock
+      ArticleObserver.instance.after_save article
     end
   end
 end

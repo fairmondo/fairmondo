@@ -22,30 +22,35 @@
 require 'test_helper'
 
 describe Image do
-  subject { image }
+  subject { Image.new }
   let(:image) { FactoryGirl.create(:article_image) }
 
   it "has a valid Factory" do
-    should be_valid
+    subject.valid?.must_equal true
   end
 
   describe 'attributes' do
-    it { should respond_to :id }
-    it { should respond_to :image_file_name }
-    it { should respond_to :image_content_type }
-    it { should respond_to :image_file_size }
-    it { should respond_to :image_updated_at }
-    it { should respond_to :created_at }
-    it { should respond_to :updated_at }
-    it { should respond_to :imageable_id }
-    it { should respond_to :type }
-    it { should respond_to :is_title }
-    it { should respond_to :external_url }
-    it { should respond_to :image_processing }
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :image_file_name }
+    it { subject.must_respond_to :image_content_type }
+    it { subject.must_respond_to :image_file_size }
+    it { subject.must_respond_to :image_updated_at }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
+    it { subject.must_respond_to :imageable_id }
+    it { subject.must_respond_to :type }
+    it { subject.must_respond_to :is_title }
+    it { subject.must_respond_to :external_url }
+    it { subject.must_respond_to :image_processing }
   end
 
   describe "associations" do
-    it { should belong_to :article }
+    let (:article_image) { ArticleImage.new }
+    let (:feedback_image) { FeedbackImage.new }
+    let (:user_image) { UserImage.new }
+    it { article_image.must belong_to :article }
+    it { feedback_image.must belong_to :feedback }
+    it { user_image.must belong_to :user }
   end
 
   describe "methods" do
@@ -60,12 +65,12 @@ describe Image do
     describe "#url_or_original_while_processing" do
       it "should return the original url when processing" do
         image = FactoryGirl.create :article_image, :processing
-        image.url_or_original_while_processing.should eq image.original_image_url_while_processing
+        image.url_or_original_while_processing.must_equal image.original_image_url_while_processing
       end
 
       it "should return the normal url when not processing" do
         #image.image_processing = false
-        image.url_or_original_while_processing.should eq image.image.url(:thumb)
+        image.url_or_original_while_processing.must_equal image.image.url(:thumb)
       end
     end
   end

@@ -22,41 +22,42 @@
 require 'test_helper'
 
 describe Category do
+  subject { Category.new }
 
   describe 'attributes' do
-    it { should respond_to :id }
-    it { should respond_to :name }
-    it { should respond_to :desc }
-    it { should respond_to :parent_id }
-    it { should respond_to :created_at }
-    it { should respond_to :updated_at }
-    it { should respond_to :lft }
-    it { should respond_to :rgt }
-    it { should respond_to :depth }
-    it { should respond_to :children_count }
-    it { should respond_to :weight }
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :name }
+    it { subject.must_respond_to :desc }
+    it { subject.must_respond_to :parent_id }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
+    it { subject.must_respond_to :lft }
+    it { subject.must_respond_to :rgt }
+    it { subject.must_respond_to :depth }
+    it { subject.must_respond_to :children_count }
+    it { subject.must_respond_to :weight }
   end
 
   let(:category) { FactoryGirl::create(:category)}
 
   it "has a valid Factory" do
-    category.should be_valid
+    category.valid?.must_equal true
   end
 
   describe "associations" do
-    it {should have_and_belong_to_many :articles}
+    it {subject.must have_and_belong_to_many :articles}
   end
 
   describe "methods" do
     describe "#parent" do
       it "should have the correct parent_id" do
         @anotherCategory = FactoryGirl.create(:category, :parent => category)
-        @anotherCategory.parent.should eq category
+        @anotherCategory.parent.must_equal category
       end
 
       it "should not have a parent_id without a parent" do
         @anotherCategory = FactoryGirl.create(:category)
-        @anotherCategory.parent.should_not eq category
+        @anotherCategory.parent.wont_equal category
       end
     end
 
