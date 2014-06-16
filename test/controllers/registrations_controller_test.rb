@@ -27,19 +27,15 @@ describe RegistrationsController do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
-  describe "GET 'index'" do
+  describe "user-management" do
     describe "for non-signed-in users" do
       before :each do
         @user = FactoryGirl.create(:user)
       end
 
-      it "should be a guest" do
-        controller.should_not be_signed_in
-      end
-
       it "should deny access" do
         get :edit
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
 
     end
@@ -51,13 +47,9 @@ describe RegistrationsController do
         sign_in @user
       end
 
-      it "should be logged in" do
-        controller.should be_signed_in
-      end
-
       it "should be successful" do
         get :edit
-        response.should be_success
+        assert_response :success
       end
 
       it "should sucessfully update a user" do
@@ -65,13 +57,13 @@ describe RegistrationsController do
 
         put :update, :user => @attr
 
-        response.should redirect_to @user.reload
-        controller.instance_variable_get(:@user).zip.should eq @attr[:zip]
+        assert_redirected_to @user.reload
+        @controller.instance_variable_get(:@user).zip.must_equal @attr[:zip]
       end
     end
   end
 
-  describe "POST 'create'" do
+  describe "#create" do
     before(:each) do
       @valid_params = {
         user: {
@@ -87,11 +79,11 @@ describe RegistrationsController do
     end
   end
 
-  describe "PUT 'delete'" do
+  describe "#update" do
     it "should still try to save the image on failed update" do
       user = FactoryGirl.create(:user)
       sign_in user
-      Image.any_instance.should_receive(:save)
+      Image.any_instance.expects(:save)
       put :update, user: {nickname: user.nickname, image_attributes: {}} # invalid params
     end
   end

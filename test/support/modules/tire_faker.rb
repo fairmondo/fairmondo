@@ -1,5 +1,5 @@
 
-module FakeTire
+module TireTest
   def self.on
     FakeWeb.clean_registry
   end

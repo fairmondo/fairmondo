@@ -55,8 +55,8 @@ describe LibrariesController do
 
     describe '::focus' do
       it 'should return Library if no user is focused' do
-        controller.stub(:user_focused?).and_return(false)
-        assert_equal(Library, controller.send(:focus))
+        @controller.stubs(:user_focused?).returns(false)
+        assert_equal(Library, @controller.send(:focus))
       end
     end
   end

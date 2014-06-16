@@ -5,22 +5,22 @@ describe MassUploadsController do
   # Strictly speaking not necessary since already tested in the feature tests
   describe "GET 'new'" do
 
-    context "for non-signed-in users" do
+    describe "for non-signed-in users" do
 
       it "should require login" do
         get :new
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
 
     end
 
-    context "for signed-in users" do
+    describe "for signed-in users" do
       let(:user) { FactoryGirl.create :legal_entity }
       before { sign_in user }
 
       it "should render the :new view" do
         get :new
-        response.should render_template :new
+        assert_template :new
       end
     end
   end
@@ -35,10 +35,11 @@ describe MassUploadsController do
 
     describe 'POST ::create' do
       it "should create a mass-upload object" do
-        expect { post :create, mass_upload: attributes }
-                  .to change(MassUpload, :count).by(1)
-        response.should redirect_to user_path(user, :anchor => 'my_mass_uploads')
-        MassUpload.last.articles.count.should eq(3)
+        assert_difference 'MassUpload.count', 1 do
+          post :create, mass_upload: attributes
+        end
+        assert_redirected_to user_path(user, :anchor => 'my_mass_uploads')
+        MassUpload.last.articles.count.must_equal(3)
       end
     end
 
@@ -46,8 +47,8 @@ describe MassUploadsController do
       it "should update description" do
         post :create, mass_upload: attributes
         post :update, :id => MassUpload.last.id
-        response.should redirect_to user_path(user)
-        MassUpload.last.articles.first.active?.should be_truthy
+        assert_redirected_to user_path(user)
+        MassUpload.last.articles.first.active?.must_equal true
       end
     end
   end

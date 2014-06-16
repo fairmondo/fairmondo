@@ -23,35 +23,18 @@ require 'test_helper'
 
 include Warden::Test::Helpers
 
-describe 'ActiveAdminPages' do
+feature 'AdminPages' do
 
-  describe 'for non-admin users' do
-
-    before :each do
-      @user = FactoryGirl.create(:user)
-      login_as @user
-    end
-
+  before do
+    @admin = FactoryGirl.create(:admin_user)
+    login_as @admin
+    visit root_path
   end
 
-  describe 'for admin users' do
-    before :each do
-      @admin = FactoryGirl.create(:admin_user)
-      login_as @admin
-      visit root_path
-    end
-
-    it 'shows the Admin link' do
-      page.should have_content('Admin')
-    end
-
-    before :each do
-      click_on 'Admin'
-    end
-
-    it 'gets redirected to Admin Dashboard' do
-      page.should have_content('Administration')
-    end
-
+  scenario 'gets redirected to Admin Dashboard' do
+    page.must_have_content('Admin')
+    click_on 'Admin'
+    page.must_have_content('Administration')
   end
+
 end

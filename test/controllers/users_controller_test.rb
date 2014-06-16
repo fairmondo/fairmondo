@@ -31,13 +31,9 @@ describe UsersController do
         @user = FactoryGirl.create(:user)
       end
 
-      it "should be a guest" do
-        controller.should_not be_signed_in
-      end
-
       it "should be successful" do
         get :show , :id => @user
-        response.should be_success
+        assert_response :success
       end
     end
 
@@ -45,17 +41,13 @@ describe UsersController do
 
       before :each do
         @user = FactoryGirl.create(:user)
-
         sign_in @user
       end
 
-      it "should be logged in" do
-        controller.should be_signed_in
-      end
 
       it "should be successful" do
         get :show, :id => @user
-        response.should be_success
+        assert_response :success
       end
     end
   end

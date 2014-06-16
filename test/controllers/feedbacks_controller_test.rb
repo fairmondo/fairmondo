@@ -29,16 +29,16 @@ describe FeedbacksController do
 
     describe "for non-signed-in users" do
       it "should create a feedback with variety report_article" do
-        expect {
+        assert_difference 'Feedback.count', 1 do
           post :create, feedback: @attributes
-        }.to change(Feedback , :count).by 1
+        end
       end
 
       it "should create a feedback with variety report_article" do
-        controller.stub(:verify_recaptcha).and_return(false)
-        expect {
+        @controller.stubs(:verify_recaptcha).returns(false)
+        assert_no_difference 'Feedback.count', 1 do
           post :create, feedback: @attributes
-        }.not_to change(Feedback.all, :count)
+        end
       end
 
     end
