@@ -30,18 +30,14 @@ describe LibraryElementsController do
         @library_element = FactoryGirl.create(:library_element)
       end
 
-      it 'should be a guest' do
-        controller.should_not be_signed_in
-      end
-
       it 'should deny access to create' do
         put :create, :user_id => @user
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
 
       it 'should deny access to destroy' do
         put :destroy, :user_id => @user, :id => @library_element
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
     end
 
@@ -55,29 +51,22 @@ describe LibraryElementsController do
         sign_in @user
       end
 
-      it 'should be logged in' do
-        controller.should be_signed_in
-      end
-
       it 'destroy a library element' do
-        expect {
+        assert_difference 'LibraryElement.count', -1 do
           delete :destroy,:user_id => @user, :id => @library_element
-        }.to change(LibraryElement, :count).by(-1)
+        end
       end
 
       it 'shouldnt be possible to delete another users elements' do
-        @user.id.should_not eq @different_user.id #by design
-
-        expect {
-          delete :destroy,:user_id => @different_user, :id => @different_library_element
-        }.to raise_error(Pundit::NotAuthorizedError)
+        @user.id.wont_be_same_as @different_user.id #by design
+        -> { delete :destroy,:user_id => @different_user, :id => @different_library_element }.must_raise(Pundit::NotAuthorizedError)
       end
 
       it 'shouldnt be possible to add elements to another users libraries' do
-        @user.id.should_not eq @different_user.id #by design
-        expect {
+        @user.id.wont_be_same_as @different_user.id #by design
+         -> {
           post :create ,:user_id => @different_user, :library_element => {:library_id => @different_library_element.library }
-        }.to raise_error(Pundit::NotAuthorizedError)
+        }.must_raise(Pundit::NotAuthorizedError)
       end
     end
   end

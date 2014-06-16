@@ -23,14 +23,14 @@ require 'test_helper'
 
 describe ArticlesController do
   let(:user) { FactoryGirl.create(:user) }
-  let(:article) { FactoryGirl.create(:article, seller: user) }
 
+   describe "#index" do
 
-   describe "GET 'index'" do
-
-    describe "search" do #search:true , setup: true
-      before(:all) do
-        setup
+    describe "searching" do
+      setup do
+        TireTest.on
+        Article.index.delete
+        Article.create_elasticsearch_index
         @vehicle_category = Category.find_by_name!("Fahrzeuge")
         @hardware_category = Category.find_by_name!("Hardware")
         @electronic_category = Category.find_by_name!("Elektronik")
@@ -43,84 +43,70 @@ describe ArticlesController do
         Article.index.refresh
       end
 
-      it "should find the article with title 'muscheln' when searching for muscheln" do
+      teardown do
+        TireTest.off
+      end
+
+      it "should work with all filters" do
+        #should find the article with title 'muscheln' when searching for muscheln
         get :index, article_search_form: {q: "muscheln" }
-        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
-      end
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
 
-      it "should find the article with title 'muscheln' when searching for muschel" do
+        #should find the article with title 'muscheln' when searching for muschel
         get :index, article_search_form: {q: "muschel" }
-        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
-      end
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id).sort
 
-      it "should find the article with content 'meer' when searching for meer" do
-       get :index, article_search_form: {q: "meer" , :search_in_content => "1"}
-       controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@second_hand_article].map(&:id)
-      end
+        #should find the article with content 'meer' when searching for meer
+        get :index, article_search_form: {q: "meer" , :search_in_content => "1"}
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article].map(&:id).sort
 
-      it "should find the article with price 1 when filtering <= 1" do
+        #should find the article with price 1 when filtering <= 1
         get :index, article_search_form: { price_to: "0,01" }
-        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article].map(&:id)
-      end
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@ngo_article].map(&:id).sort
 
-      it "should find the article with price 4 when filtering >= 4" do
+        #should find the article with price 4 when filtering >= 4
         get :index, article_search_form: { price_from: "0,04" }
-        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article].map(&:id)
-      end
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@no_second_hand_article].map(&:id).sort
 
-      it "should find the article with price 2 and 3 when filtering >= 2 <= 3" do
+        #should find the article with price 2 and 3 when filtering >= 2 <= 3
         get :index, article_search_form: { price_to: "0,03" , price_from: "0,02" }
-        controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should =~ [@second_hand_article,@hardware_article].map(&:id)
-      end
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.sort.must_equal [@second_hand_article,@hardware_article].map(&:id).sort
 
-      context "when trying a different search order" do
+        #order by price asc
+        get :index, article_search_form: { order_by: "cheapest" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
 
-        it "order by price asc" do
-          get :index, article_search_form: { order_by: "cheapest" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article,@second_hand_article,@hardware_article,@no_second_hand_article].map(&:id)
-        end
+        #order by newest
+        get :index, article_search_form: { order_by: "newest" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@no_second_hand_article,@hardware_article,@second_hand_article,@ngo_article].map(&:id)
 
-        it "order by newest" do
-          get :index, article_search_form: { order_by: "newest" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article,@hardware_article,@second_hand_article,@ngo_article].map(&:id)
-        end
+        # order by condition old
+        get :index, article_search_form: { order_by: "old", q: "muscheln" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id)
 
-        it "order by condition old" do
-          get :index, article_search_form: { order_by: "old", q: "muscheln" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@second_hand_article, @hardware_article, @no_second_hand_article].map(&:id)
-        end
+        # order by condition new"
+        get :index, article_search_form: { order_by: "new", q: "muscheln" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@no_second_hand_article, @second_hand_article, @hardware_article].map(&:id)
 
-        it "order by condition new" do
-          get :index, article_search_form: { order_by: "new", q: "muscheln" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@no_second_hand_article, @second_hand_article, @hardware_article].map(&:id)
-        end
+        # order by fair
+        get :index, article_search_form: { order_by: "fair" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
 
-        it "order by fair" do
-          get :index, article_search_form: { order_by: "fair" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
-        end
+        # order by ecologic
+        get :index, article_search_form: { order_by: "ecologic" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
 
-        it "order by ecologic" do
-          get :index, article_search_form: { order_by: "ecologic" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
-        end
+        # order by small_and_precious
+        get :index, article_search_form: { order_by: "small_and_precious" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
 
-        it "order by small_and_precious" do
-          get :index, article_search_form: { order_by: "small_and_precious" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
-        end
+        # order by price desc
+        get :index, article_search_form: { order_by: "most_expensive" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@ngo_article, @second_hand_article, @hardware_article, @no_second_hand_article].reverse.map(&:id)
 
-        it "order by price desc" do
-          get :index, article_search_form: { order_by: "most_expensive" }
-          controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@ngo_article, @second_hand_article, @hardware_article, @no_second_hand_article].reverse.map(&:id)
-        end
-
-        it "order by friendly_percent desc" do
-           get :index, article_search_form: { order_by: "most_donated" }
-           controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.should == [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
-        end
-
-
+        # order by friendly_percent desc
+        get :index, article_search_form: { order_by: "most_donated" }
+        @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
 
       end
 
@@ -129,19 +115,19 @@ describe ArticlesController do
         it "should redirect to the category specific search" do
           search_params = { article_search_form: { category_id: @hardware_category.id } }
           get :index, search_params
-          response.should redirect_to category_path(@hardware_category.id)
+          assert_redirected_to( category_path(@hardware_category.id) )
         end
       end
     end
     describe "for signed-out users" do
       it "should be successful" do
         get :index
-        response.should be_successful
+        assert_response :success
       end
 
       it "should render the :index view" do
         get :index
-        response.should render_template :index
+        assert_template(:index)
       end
     end
 
@@ -153,61 +139,42 @@ describe ArticlesController do
 
       it "should be successful" do
         get :index
-        response.should render_template :index
+        assert_template(:index)
       end
 
-      it "should render the :index view" do
-        get :index
-        response.should render_template :index
-      end
-
-      it "should be successful" do
-        get :index, condition: "true"
-        response.should be_success
-      end
-
-      it "should be successful" do
-        get :index, selected_category_id: Category.all.sample.id
-        response.should be_success
-      end
-
-      it "should be successful" do
-        get :index, article: {:title => "true" }
-        response.should be_success
-      end
     end
   end
 
-  describe "GET 'show" do
-
+  describe "#show" do
+    let(:article) { FactoryGirl.create(:article, seller: user) }
     describe "for all users" do
 
       it "should be successful" do
         article_fair_trust = FactoryGirl.create :fair_trust
         get :show, id: article_fair_trust
-        response.should be_success
+        assert_response :success
       end
 
       it "should be successful" do
         article_social_production = FactoryGirl.create :social_production
         get :show, id: article_social_production
-        response.should be_success
+        assert_response :success
       end
 
       it "should be successful" do
         get :show, id: article
-        response.should be_success
+        assert_response :success
       end
 
       it "should render the :show view" do
         get :show, id: article
-        response.should render_template :show
+        assert_template :show
       end
 
       it "should render 404 on closed article" do
         article.deactivate
         article.close
-        expect { get :show, id: article}.to raise_error ActiveRecord::RecordNotFound
+        -> { get :show, id: article}.must_raise ActiveRecord::RecordNotFound
 
       end
 
@@ -220,29 +187,29 @@ describe ArticlesController do
 
       it "should be successful" do
         get :show, id: article
-        response.should be_success
+        assert_response :success
       end
 
       it "should render the :show view" do
         get :show, id: article
-        response.should render_template :show
+        assert_template :show
       end
 
       it "should render a flash message for the owner when it still has a processing image" do
-        ArticlesController.any_instance.should_receive(:at_least_one_image_processing?).and_return true
+        @controller.expects(:at_least_one_image_processing?).returns true
         get :show, id: article
-        flash.now[:notice].should eq I18n.t('article.notices.image_processing')
+        flash.now[:notice].must_equal I18n.t('article.notices.image_processing')
       end
     end
   end
 
-  describe "GET 'new'" do
+  describe "#new" do
 
     describe "for non-signed-in users" do
 
       it "should require login" do
         get :new
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
 
     end
@@ -255,29 +222,29 @@ describe ArticlesController do
 
       it "should render the :new view" do
         get :new
-        response.should render_template :new
+        assert_template :new
       end
 
       it "should be possible to get a new article from an existing one" do
         @article = FactoryGirl.create :article , :seller => user
         get :new, :edit_as_new => @article.id
-        response.should render_template :new
-        @draftarticle= controller.instance_variable_get(:@article)
-        @draftarticle.new_record?.should be true
-        expect(@draftarticle.title).to eq(@article.title)
+        assert_template :new
+        @draftarticle= @controller.instance_variable_get(:@article)
+        @draftarticle.new_record?.must_equal true
+        @draftarticle.title.must_equal(@article.title)
       end
 
     end
   end
 
-  describe "GET 'edit'" do
+  describe "#edit" do
 
     describe "for non-signed-in users" do
 
       it "should deny access" do
         @article = FactoryGirl.create :article
         get :edit, id: @article.id
-        response.should redirect_to new_user_session_path
+        assert_redirected_to(new_user_session_path)
       end
 
     end
@@ -288,30 +255,23 @@ describe ArticlesController do
         sign_in user
       end
 
-      context 'his articles' do
-        before :each do
-          @article = FactoryGirl.create :preview_article, seller: user
-        end
 
-        it "should be successful for the seller" do
-          get :edit, id: @article.id
-          response.should be_success
-        end
+      it "should be successful for the seller" do
+        @article = FactoryGirl.create :preview_article, seller: user
+        get :edit, id: @article.id
+        assert_template :edit
       end
 
-      it "should not be able to edit other users articles" do
-        @article = FactoryGirl.create :preview_article
 
-        expect do
-          get :edit, :id => @article
-        end.to raise_error Pundit::NotAuthorizedError
+      it "should not be able to edit other users articles" do
+        @article = FactoryGirl.create :preview_article, seller: (FactoryGirl.create(:user))
+
+        -> { get :edit, :id => @article.id }.must_raise Pundit::NotAuthorizedError
       end
     end
   end
 
-
-
-  describe "POST 'create'" do
+  describe "#create" do
 
     before :each do
       @article_attrs = FactoryGirl.attributes_for :article, category_ids: [FactoryGirl.create(:category).id]
@@ -319,9 +279,9 @@ describe ArticlesController do
 
     describe "for non-signed-in users" do
       it "should not create an article" do
-        lambda do
+        assert_no_difference 'Article.count' do
           post :create, article: @article_attrs
-        end.should_not change(Article, :count)
+        end
       end
     end
 
@@ -332,30 +292,29 @@ describe ArticlesController do
       end
 
       it "should create an article" do
-        lambda do
+        assert_difference 'Article.count', 1 do
           post :create, article: @article_attrs
-        end.should change(Article.unscoped, :count).by 1
+        end
       end
 
       it "should save images even if article is invalid" do
         @article_attrs = FactoryGirl.attributes_for :article, :invalid, categories: [FactoryGirl.create(:category).id]
         @article_attrs[:images_attributes] = { "0" => { :image => fixture_file_upload("/test.png", 'image/png') }}
-        lambda do
+        assert_difference 'Image.count', 1 do
           post :create, article: @article_attrs
-        end.should change(Image.unscoped, :count).by 1
+        end
       end
 
       it "should not raise an error for very high quantity values" do
         post :create, :article => @article_attrs.merge(quantity: "100000000000000000000000")
-        response.should render_template :new
-        response.response_code.should == 200
+        assert_template :new
       end
 
     end
   end
 
   #TODO: add more tests for delete
-  describe "PUT 'destroy'" do
+  describe "#destroy" do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
@@ -365,24 +324,24 @@ describe ArticlesController do
       end
 
       it "should delete the preview article" do
-        lambda do
+        assert_difference 'Article.count', -1 do
           put :destroy, :id => @article.id
-          response.should redirect_to(user_path(user))
-        end.should change(Article.unscoped, :count).by(-1)
+          assert_redirected_to(user_path(user))
+        end
       end
 
       it "should softdelete the locked article" do
-        lambda do
+        assert_no_difference 'Article.count' do
           put :update, id: @article.id, :activate => true
           put :update, id: @article.id, :deactivate => true
           put :destroy, :id => @article.id
-        end.should change(Article.unscoped, :count).by 0
+        end
       end
 
     end
   end
 
-  describe "PUT 'update'" do
+  describe "#update" do
     describe "for signed-in users" do
       before :each do
         @article = FactoryGirl.create :preview_article, seller: user
@@ -393,80 +352,84 @@ describe ArticlesController do
 
       it "should update the article with new information" do
         put :update, id: @article.id, article: @article_attrs
-        response.should redirect_to @article.reload
+        assert_redirected_to @article.reload
       end
 
       it "changes the articles informations" do
         put :update, id: @article.id, article: @article_attrs
-        response.should redirect_to @article.reload
-        controller.instance_variable_get(:@article).title.should eq @article_attrs[:title]
+        assert_redirected_to @article.reload
+        @controller.instance_variable_get(:@article).title.must_equal @article_attrs[:title]
       end
     end
-  end
 
-  describe "GET 'autocomplete'" do #, search: true
-    before do
-      @article = FactoryGirl.create :article, title: 'chunky bacon'
-      Article.index.refresh
+    describe "activate article" do
+      before do
+        sign_in user
+        @article = FactoryGirl.create :preview_article, seller: user
+      end
+
+      it "should work" do
+        put :update, id: @article.id, :activate => true
+        assert_redirected_to @article
+        flash[:notice].must_equal I18n.t 'article.notices.create_html'
+      end
+
+      it "should work with an invalid article and set it as new article" do
+        @article.title = nil
+        @article.save validate: false
+        ## we now have an invalid record
+        put :update, id: @article.id, :activate => true
+        assert_redirected_to new_article_path(:edit_as_new => @article.id)
+      end
     end
 
+    describe "deactivate article" do
+      before do
+        sign_in user
+        @article = FactoryGirl.create :article, seller: user
+      end
+
+      it "should work" do
+        put :update, id: @article.id, :deactivate => true
+        assert_redirected_to  @article
+        flash[:notice].must_equal(I18n.t 'article.notices.deactivated')
+      end
+
+      it "should work with an invalid article" do
+        @article.title = nil
+        @article.save validate: false
+        ## we now have an invalid record
+         put :update, id: @article.id, :deactivate => true
+        assert_redirected_to @article
+        @article.reload.locked?.must_equal true
+      end
+
+    end
+
+  end
+
+  describe "#autocomplete" do #, search: true
+
     it "should be successful" do
+      TireTest.on
+      Article.index.delete
+      Article.create_elasticsearch_index
+      @article = FactoryGirl.create :article, title: 'chunky bacon'
+      Article.index.refresh
       get :autocomplete, q: 'chunky'
-      response.status.should be 200
-      response.body.should eq({ query: 'chunky', suggestions: ['chunky bacon'] }.to_json)
+      assert_response :success
+      response.body.must_equal({ query: 'chunky', suggestions: ['chunky bacon'] }.to_json)
+      TireTest.off
     end
 
     it "should rescue an ECONNREFUSED error" do
-      Article.stub(:search).and_raise(Errno::ECONNREFUSED)
+      Article.stubs(:search).raises(Errno::ECONNREFUSED)
       get :autocomplete, keywords: 'chunky'
-      response.status.should be 200
-      response.body.should eq [].to_json
+      assert_response :success
+      response.body.must_equal [].to_json
     end
   end
 
-  describe "GET 'activate'" do
-    before do
-      sign_in user
-      @article = FactoryGirl.create :preview_article, seller: user
-    end
 
-    it "should work" do
-      put :update, id: @article.id, :activate => true
-      response.should redirect_to @article
-      flash[:notice].should eq I18n.t 'article.notices.create_html'
-    end
-
-    it "should work with an invalid article and set it as new article" do
-      @article.title = nil
-      @article.save validate: false
-      ## we now have an invalid record
-      put :update, id: @article.id, :activate => true
-      response.should_not redirect_to @article
-      response.should redirect_to new_article_path(:edit_as_new => @article.id)
-    end
-  end
-
-  describe "GET 'deactivate'" do
-    before do
-      sign_in user
-      @article = FactoryGirl.create :article, seller: user
-    end
-
-    it "should work" do
-      put :update, id: @article.id, :deactivate => true
-      response.should redirect_to @article
-      flash[:notice].should eq I18n.t 'article.notices.deactivated'
-    end
-
-    it "should work with an invalid article" do
-      @article.title = nil
-      @article.save validate: false
-      ## we now have an invalid record
-       put :update, id: @article.id, :deactivate => true
-      response.should redirect_to @article
-      @article.reload.locked?.should == true
-    end
-
-  end
 
 end

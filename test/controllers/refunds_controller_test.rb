@@ -5,31 +5,28 @@ describe RefundsController do
   let( :seller ){ FactoryGirl.create :user }
   let( :business_transaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, seller: seller }
 
-  before do
-    stub_fastbill
-  end
 
-  describe 'POST ::create' do
-    before do
-      @refund_attrs = FactoryGirl.attributes_for :refund
-      sign_in seller
-    end
+  describe '#create' do
 
     describe 'for signed in users' do
       it 'should create refund request' do
-        lambda do
+        @refund_attrs = FactoryGirl.attributes_for :refund
+        sign_in seller
+        stub_fastbill
+        assert_difference 'Refund.count', 1 do
           post :create, refund: @refund_attrs, business_transaction_id: business_transaction.id
-        end.should change(Refund, :count).by 1
+        end
       end
     end
   end
 
-  describe 'GET ::new' do
+  describe '#new' do
     describe 'for signed in users' do
       it 'should render "new" view ' do
+        stub_fastbill
         sign_in seller
         get :new, user_id: seller.id, business_transaction_id: business_transaction.id
-        response.should be_success
+        assert_response :success
       end
     end
   end

@@ -29,13 +29,13 @@ describe WelcomeController do
 
       it "should be successful" do
         get :index
-        response.should be_success
+        assert_response :success
       end
 
       it "should be successful" do
         get :feed, :format => "rss"
-        response.should be_success
-        response.content_type.should eq("application/rss+xml")
+        assert_response :success
+        response.content_type.must_equal("application/rss+xml")
       end
 
     end

@@ -43,7 +43,7 @@ describe ArticleTemplatesController do
   describe "GET new" do
     before { get :new }
     it "renders template new" do
-      must { render_template(:new) }
+      assert_template(:new)
     end
   end
 
@@ -56,14 +56,14 @@ describe ArticleTemplatesController do
     it "assigns the requested article_template as @article_template" do
       get :edit, {:id => @article_template.to_param}
       assigns(:article_template).must_equal(@article_template)
-      must { render_template(:edit) }
+      assert_template(:edit)
     end
   end
 
   describe "POST create" do
     context "with valid params" do
       it "creates a new ArticleTemplate" do
-        assert_difference Article.unscoped.count, 1 do
+        assert_difference 'Article.unscoped.count', 1 do
           post :create, article: valid_attributes
         end
       end
@@ -71,7 +71,7 @@ describe ArticleTemplatesController do
       it "assigns a newly created article_template as @article_template" do
         post :create, article: valid_attributes
         assigns(:article_template).must_be_instance_of Article
-        assigns(:article_template).persisted?.must_be true
+        assigns(:article_template).persisted?.must_equal true
       end
 
       it "redirects to the collection" do
@@ -92,7 +92,7 @@ describe ArticleTemplatesController do
 
       it "should re-render the :new template" do
         post :create, article: invalid_attributes
-        must { render_template(:new) }
+        assert_template(:new)
       end
     end
   end
@@ -130,7 +130,7 @@ describe ArticleTemplatesController do
 
       it "should re-render the :edit template" do
         put :update, {id: @article_template.to_param, article: invalid_attributes}
-        must { render_template(:edit) }
+        assert_template(:edit)
       end
     end
   end
@@ -142,7 +142,7 @@ describe ArticleTemplatesController do
     end
 
     it "destroys the requested article_template" do
-      assert_difference Article.unscoped.count, -1 do
+      assert_difference 'Article.unscoped.count', -1 do
         delete :destroy, id: @article_template.to_param
       end
     end

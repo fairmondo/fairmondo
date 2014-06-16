@@ -46,7 +46,7 @@ silence_warnings do
   BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
 end
 
-FakeTire.off
+TireTest.off
 setup_categories
 
 ### RSpec Configurations ###

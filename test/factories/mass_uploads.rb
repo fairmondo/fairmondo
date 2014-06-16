@@ -23,7 +23,7 @@
 
 FactoryGirl.define do
   factory :mass_upload do
-    file { fixture_file_upload('spec/fixtures/mass_upload_correct.csv', 'text/csv') }
+    file { fixture_file_upload('test/fixtures/mass_upload_correct.csv', 'text/csv') }
     user { FactoryGirl.create :legal_entity }
   end
 end

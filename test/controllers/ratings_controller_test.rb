@@ -8,8 +8,8 @@ describe RatingsController do
   describe 'GET ::index' do
     it 'should render rating\'s index_template' do
       get(:index, user_id: seller.id)
-      response.should be_success
-      response.should render_template(:index)
+      assert_response :success
+      assert_template(:index)
     end
   end
 
@@ -20,14 +20,14 @@ describe RatingsController do
     end
 
     it 'should create new rating' do
-      lambda do
+      assert_difference 'Rating.count', 1 do
         post(:create, rating: @rating_attrs, user_id: seller.id)
-      end.should change(Rating, :count).by(1)
+      end
     end
 
     it 'should redirect to buyer\'s user profile' do
       post(:create, rating: @rating_attrs, business_transaction_id: business_transaction.id, user_id: seller.id)
-      response.should redirect_to(user_path(buyer))
+      assert_redirected_to(user_path(buyer))
     end
   end
 
@@ -36,14 +36,14 @@ describe RatingsController do
       it 'should render ratings/new view' do
         sign_in buyer
         get(:new, user_id: seller.id, business_transaction_id: business_transaction.id)
-        response.should be_success
+        assert_response :success
       end
     end
 
     context 'for guest user' do
       it 'should not render ratings/new view' do
         get(:new, user_id: seller.id, business_transaction_id: business_transaction.id)
-        response.should redirect_to(new_user_session_path)
+        assert_redirected_to(new_user_session_path)
       end
     end
   end

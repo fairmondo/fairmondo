@@ -9,7 +9,7 @@ describe SessionsController do
     context "when format is html" do
       it "should use application layout" do
         get :new
-        response.should render_template("layouts/application")
+        assert_template layout: true
       end
     end
 
@@ -17,7 +17,7 @@ describe SessionsController do
       context "and the user is logged out" do
         it "should use no layout" do
           xhr :get, :new
-          response.should_not render_template("layouts/application")
+          assert_template layout: false
         end
       end
 
@@ -27,7 +27,7 @@ describe SessionsController do
 
         it "should render the reload site" do
           xhr :get, :new, format: 'html'
-          response.should redirect_to toolbox_reload_path
+          assert_redirected_to toolbox_reload_path
         end
       end
     end

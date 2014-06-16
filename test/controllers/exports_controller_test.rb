@@ -12,11 +12,11 @@ describe ExportsController do
     describe "GET 'show'" do
       it "should be successful" do
         time = Time.now
-        Time.stub(:now).and_return(time)
+        Time.stubs(:now).returns(time)
         get :show, :kind_of_article => "active", :format => "csv"
-        response.content_type.should eq("text/csv")
-        response.headers["Content-Disposition"].should eq("attachment; filename=\"Fairnopoly_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
-        response.should be_success
+        response.content_type.must_equal("text/csv")
+        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairnopoly_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+        assert_response :success
       end
     end
 

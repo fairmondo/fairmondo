@@ -10,13 +10,13 @@ describe ToolboxController do
     context "as json" do
       it "should be successful" do
         get :session_expired, format: :json
-        response.should be_success
+        assert_response :success
       end
     end
 
     context "as html" do
       it "should fail" do
-        expect { get :session_expired }.to raise_error
+        ->{ get :session_expired }.must_raise ActionController::UnknownFormat
       end
     end
   end
@@ -25,13 +25,13 @@ describe ToolboxController do
     context "as js" do
       it "should be successful" do
         xhr :get, :confirm, format: :js
-        response.should be_success
+        assert_response :success
       end
     end
 
     context "as html" do
       it "should fail" do
-        expect { get :confirm }.to raise_error
+        -> { get :confirm }.must_raise ActionController::UnknownFormat
       end
     end
   end
@@ -44,21 +44,21 @@ describe ToolboxController do
     context "as html" do
       it "should be successful" do
         get :rss
-        response.should be_success
+        assert_response :success
       end
     end
 
     context "as json" do
       it "should fail" do
-        expect { get :rss, format: :json }.to raise_error
+        -> { get :rss, format: :json }.must_raise ActionController::UnknownFormat
       end
     end
 
     context "on timeout" do
       it "should be sucessful and return nothing" do
-        Timeout.stub(:timeout).and_raise(Timeout::Error)
+        Timeout.stubs(:timeout).raises(Timeout::Error)
         get :rss
-        response.should be_success
+        assert_response :success
       end
     end
   end
@@ -66,24 +66,24 @@ describe ToolboxController do
   describe "GET 'reload'" do
     it "should be successful" do
       get :reload
-      response.should be_success
+      assert_response :success
     end
 
     it "should not render a layout" do
       get :reload
-      response.should_not render_template("layouts/application")
+      assert_template layout: false
     end
   end
 
   describe "GET 'healthcheck'" do
     it "should be successful" do
       get :healthcheck
-      response.should be_success
+      assert_response :success
     end
 
     it "should not render a layout" do
       get :healthcheck
-      response.should_not render_template("layouts/application")
+      assert_template layout: false
     end
   end
 
@@ -93,21 +93,21 @@ describe ToolboxController do
         sign_in user
       end
       it "should be successful" do
-        fixture = File.read("spec/fixtures/cleverreach_get_by_mail_success.xml")
+        fixture = File.read("test/fixtures/cleverreach_get_by_mail_success.xml")
         savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
         get :newsletter_status, format: :json
-        response.should be_success
+        assert_response :success
       end
 
       it "should not render a layout" do
-        fixture = File.read("spec/fixtures/cleverreach_get_by_mail_success.xml")
+        fixture = File.read("test/fixtures/cleverreach_get_by_mail_success.xml")
         savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
         get :newsletter_status, format: :json
-        response.should_not render_template("layouts/application")
+        assert_template layout: false
       end
 
       it "should call the Cleverreach API with the logged in user" do
-        CleverreachAPI.should_receive(:get_status).with(user)
+        CleverreachAPI.expects(:get_status).with(user)
         get :newsletter_status, format: :json
       end
     end
@@ -121,8 +121,8 @@ describe ToolboxController do
 
     it "should redirect to the notice path and close it" do
       get :notice, :id => @notice.id
-      response.should redirect_to(@notice.path)
-      @notice.reload.open.should be false
+      assert_redirected_to(@notice.path)
+      @notice.reload.open.must_equal false
     end
   end
 
@@ -131,17 +131,17 @@ describe ToolboxController do
       sign_in user
     end
 
-    context "for normal users" do
+    describe "for normal users" do
       it "should not be allowed" do
-        expect { put :reindex, article_id: 1 }.to raise_error Pundit::NotAuthorizedError
+        -> { put :reindex, article_id: 1 }.must_raise Pundit::NotAuthorizedError
       end
     end
 
-    context "for admin users" do
+    describe "for admin users" do
       let(:user) { FactoryGirl.create :admin_user }
       it "should do something" do
         article = FactoryGirl.create :article
-        Indexer.should_receive(:index_article).with(article)
+        Indexer.expects(:index_article).with(article)
 
         request.env["HTTP_REFERER"] = '/'
         put :reindex, article_id: article.id

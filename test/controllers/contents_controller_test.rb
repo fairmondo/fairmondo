@@ -32,14 +32,15 @@ describe ContentsController do
       content
       login_admin
       get :index
-      assigns(:contents).should eq [content]
+      assigns(:contents).must_equal [content]
     end
   end
 
   describe "GET show" do
     it "should assign the requested content as @content" do
       get :show, id: content.to_param
-      assigns(:content).should eq content
+      assigns(:content).must_equal content
+      assert_template :show
     end
   end
 
@@ -47,7 +48,7 @@ describe ContentsController do
     it "should assign a new content as @content" do
       login_admin
       get :new
-      assigns(:content).should be_a_new Content
+      assert_template :new
     end
   end
 
@@ -55,7 +56,8 @@ describe ContentsController do
     it "should assign the requested content as @content" do
       login_admin
       get :edit, id: content.to_param
-      assigns(:content).should eq content
+      assigns(:content).must_equal content
+      assert_template :edit
     end
   end
 
@@ -64,29 +66,29 @@ describe ContentsController do
 
     describe "with valid params" do
       it "should create a new Content" do
-        expect {
+        assert_difference 'Content.count', 1 do
           post :create, content: content_attrs
-        }.to change(Content, :count).by 1
+        end
       end
 
       it "should assign a newly created content as @content" do
         post :create, content: content_attrs
-        assigns(:content).should be_a Content
-        assigns(:content).should be_persisted
+        assigns(:content).must_be_instance_of Content
+        assigns(:content).persisted?.must_equal true
       end
 
       it "should redirect to the created content" do
         post :create, content: content_attrs
-        response.should redirect_to Content.last
+        assert_redirected_to Content.last
       end
     end
 
     describe "with invalid params" do
       it "should assign a newly created but unsaved content as @content" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Content.any_instance.stub(:save).and_return(false)
+        Content.any_instance.stubs(:save).returns(false)
         post :create, content: { body: '' }
-        assigns(:content).should be_a_new Content
+        assigns(:content).persisted?.must_equal false
       end
     end
   end
@@ -97,40 +99,40 @@ describe ContentsController do
     context "with valid params" do
       it "should assign the requested content as @content" do
         patch :update, id: content.to_param, content: {body: 'Foobar'}
-        assigns(:content).key.should eq content.to_param
-        assigns(:content).body.should eq 'Foobar'
+        assigns(:content).key.must_equal content.to_param
+        assigns(:content).body.must_equal 'Foobar'
       end
 
       it "should redirect to the content" do
         patch :update, id: content.to_param, content: {body: 'Barbaz'}
-        response.should redirect_to content
+        assert_redirected_to content
       end
     end
   end
 
   describe "DELETE destroy" do
-    context "as admin" do
+    describe "as admin" do
       before { login_admin }
 
       it "should destroy the requested content" do
         content
-        expect {
+        assert_difference 'Content.count', -1 do
           delete :destroy, id: content.to_param
-        }.to change(Content, :count).by(-1)
+        end
       end
 
       it "should redirect to the contents list" do
         delete :destroy, id: content.to_param
-        response.should redirect_to contents_url
+        assert_redirected_to  contents_url
       end
     end
 
-    context "as random user" do
+    describe "as random user" do
       it "should not destroy the requested content" do
         content
-        expect {
+        assert_no_difference 'Content.count' do
           delete :destroy, id: content.to_param
-        }.to change(Content, :count).by 0
+        end
       end
     end
   end

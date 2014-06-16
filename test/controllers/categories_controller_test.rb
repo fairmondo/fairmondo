@@ -67,7 +67,7 @@ describe CategoriesController do
 
     describe "search" do
       setup do
-        FakeTire.on
+        TireTest.on
         @electronic_category = Category.find_by_name!("Elektronik")
         @hardware_category = Category.find_by_name!("Hardware")
         @software_category = Category.find_by_name!("Software")
@@ -79,7 +79,7 @@ describe CategoriesController do
         Article.index.refresh
       end
       teardown do
-        FakeTire.off
+        TireTest.off
       end
 
       it "should find the article in category 'Hardware' when filtering for 'Hardware'" do
