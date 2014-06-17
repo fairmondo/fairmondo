@@ -22,83 +22,82 @@
 require 'test_helper'
 
 describe ArticlePolicy do
-  include PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
   let(:article) { FactoryGirl.create :preview_article }
   let(:user) { nil }
 
-  context "for a visitor" do
-    it { should grant_permission(:index)           }
+  describe "for a visitor" do
+    it { subject.must_permit(:index)           }
 
-    it { should ultimately_deny(:new)    }
-    it { should ultimately_deny(:create) }
-    it { should deny(:edit)              }
-    it { should deny(:update)            }
-    it { should deny(:activate)          }
-    it { should deny(:deactivate)        }
-    it { should deny(:report)            }
-    it { should deny(:destroy)           }
-    # it { should deny(:show)              }
+    it { subject.must_ultimately_deny(:new)    }
+    it { subject.must_ultimately_deny(:create) }
+    it { subject.must_deny(:edit)              }
+    it { subject.must_deny(:update)            }
+    it { subject.must_deny(:activate)          }
+    it { subject.must_deny(:deactivate)        }
+    it { subject.must_deny(:report)            }
+    it { subject.must_deny(:destroy)           }
+    # it { subject.must_deny(:show)              }
 
-    context "on an active article" do
+    describe "on an active article" do
       before { article.activate          }
-      it { should grant_permission(:show)          }
-      it { should grant_permission(:report)            }
+      it { subject.must_permit(:show)          }
+      it { subject.must_permit(:report)            }
     end
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
 
-    it { should grant_permission(:index)           }
-    it { should grant_permission(:new)             }
-    it { should grant_permission(:create)          }
-    it { should deny(:edit)              }
-    it { should deny(:update)            }
-    it { should deny(:activate)          }
-    it { should deny(:deactivate)        }
-    it { should ultimately_deny(:report) }
-    it { should deny(:destroy)           }
+    it { subject.must_permit(:index)           }
+    it { subject.must_permit(:new)             }
+    it { subject.must_permit(:create)          }
+    it { subject.must_deny(:edit)              }
+    it { subject.must_deny(:update)            }
+    it { subject.must_deny(:activate)          }
+    it { subject.must_deny(:deactivate)        }
+    it { subject.must_ultimately_deny(:report) }
+    it { subject.must_deny(:destroy)           }
   end
 
-  context "for the article owning user" do
+  describe "for the article owning user" do
     let(:user) { article.seller       }
 
-    context "on all articles" do
-      it { should grant_permission(:index)      }
-      it { should grant_permission(:new)        }
-      it { should grant_permission(:create)     }
+    describe "on all articles" do
+      it { subject.must_permit(:index)      }
+      it { subject.must_permit(:new)        }
+      it { subject.must_permit(:create)     }
 
-      it { should deny(:report)       }
+      it { subject.must_deny(:report)       }
     end
 
-    context "on an active article" do
+    describe "on an active article" do
       before { article.activate  }
-      it { should grant_permission(:deactivate) }
-      it { should deny(:activate)     }
-      it { should deny(:destroy)      }
+      it { subject.must_permit(:deactivate) }
+      it { subject.must_deny(:activate)     }
+      it { subject.must_deny(:destroy)      }
     end
 
-    context "on an inactive article" do
-      it { should deny(:deactivate)   }
-      it { should grant_permission(:activate)   }
-      it { should grant_permission(:destroy)    }
+    describe "on an inactive article" do
+      it { subject.must_deny(:deactivate)   }
+      it { subject.must_permit(:activate)   }
+      it { subject.must_permit(:destroy)    }
     end
 
-    context "on a locked article" do
+    describe "on a locked article" do
       before do
         article.activate
         article.deactivate
       end
-      it { should deny(:edit)        }
-      it { should deny(:update)      }
-      it { should grant_permission(:destroy)   }
+      it { subject.must_deny(:edit)        }
+      it { subject.must_deny(:update)      }
+      it { subject.must_permit(:destroy)   }
     end
 
-    context "on an unlocked article" do
-      it { should grant_permission(:edit)       }
-      it { should grant_permission(:update)     }
-      it { should grant_permission(:destroy)      }
+    describe "on an unlocked article" do
+      it { subject.must_permit(:edit)       }
+      it { subject.must_permit(:update)     }
+      it { subject.must_permit(:destroy)      }
     end
   end
 end

@@ -104,6 +104,8 @@ class MiniTest::Spec
     savon.unmock!
   end
 
+  include ::PunditMatcher
+
   # Add more helper methods to be used by all tests here...
 end
 
