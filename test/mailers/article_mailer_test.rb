@@ -22,6 +22,8 @@
 require "test_helper"
 
 describe ArticleMailer do
+  include Rails.application.routes.url_helpers
+
   include EmailSpec::Helpers
   include EmailSpec::Matchers
 

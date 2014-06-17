@@ -6,28 +6,14 @@ describe RefundMailer do
   include EmailSpec::Matchers
   include FastBillStubber
 
-  describe 'refund notification' do
-    before do
-      stub_fastbill
-    end
-
-    let( :refund ) { FactoryGirl.create :refund, reason: "not_in_stock" }
-    let( :refund_notification ) { RefundMailer.refund_notification( refund ) }
-
-    subject { refund_notification }
-
-    it 'should be delivered to storno@fairnopoly.de' do
-      should deliver_to( 'storno@fairnopoly.de' )
-    end
-
-    it 'should have right subject' do
-      should have_subject('[Fairnopoly] Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}" )
-    end
-
-    it 'should contain all data in body' do
-      should have_body_text( refund.business_transaction.id.to_s )
-      should have_body_text( refund.reason )
-      should have_body_text( refund.description )
-    end
+  it '#refund_notification' do
+    stub_fastbill
+    refund = FactoryGirl.create :refund, reason: "not_in_stock"
+    mail =  RefundMailer.refund_notification( refund )
+    mail.must deliver_to( 'storno@fairnopoly.de' )
+    mail.must have_subject('[Fairnopoly] Rueckerstattung: Transationsnummer: ' + "#{refund.business_transaction.id}" )
+    mail.must have_body_text( refund.business_transaction.id.to_s )
+    mail.must have_body_text( refund.reason )
+    mail.must have_body_text( refund.description )
   end
 end
