@@ -24,31 +24,30 @@ require "test_helper"
 describe BusinessTransactionHelper do
   describe "#display_optional_warning" do
     it "should return nil when 'pickup' wasn't selected" do
-      helper.stub(:resource).and_return(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
-      helper.display_optional_warning('type1', 'paypal').should be_nil
+      helper.stubs(:resource).returns(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
+      helper.display_optional_warning('type1', 'paypal').must_be_nil
     end
 
     it "should return nil when 'pickup' and 'cash' were selected" do
-      helper.stub(:resource).and_return(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
-      helper.display_optional_warning('pickup', 'cash').should be_nil
+      helper.stubs(:resource).returns(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
+      helper.display_optional_warning('pickup', 'cash').must_be_nil
     end
 
     it "should return nil when 'cash' isn't selectable" do
-      helper.stub(:resource).and_return(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, payment_cash: false, payment_invoice: true)))
-      helper.display_optional_warning('pickup', 'bank_transfer').should be_nil
+      helper.stubs(:resource).returns(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, payment_cash: false, payment_invoice: true)))
+      helper.display_optional_warning('pickup', 'bank_transfer').must_be_nil
     end
 
     it "should return something when 'pickup' was selected but 'cash' wasn't (but is a possibility)" do
-      helper.stub(:resource).and_return(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
-      helper.display_optional_warning('pickup', 'bank_transfer').should be_a String
+      helper.stubs(:resource).returns(FactoryGirl.build(:business_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
+      helper.display_optional_warning('pickup', 'bank_transfer').must_be_kind_of String
     end
   end
 
   describe "#display_price_list_item" do
     it "should display transport per number on MultipleFixedPriceTransactions" do
-     helper.stub(:resource).and_return(FactoryGirl.build(:multiple_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
-     helper.display_price_list_item(:transport,:type1).should be_a String
-
+     helper.stubs(:resource).returns(FactoryGirl.build(:multiple_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
+     helper.display_price_list_item(:transport,:type1).must_be_kind_of String
     end
   end
 

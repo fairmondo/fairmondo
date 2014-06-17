@@ -22,11 +22,12 @@
 require "test_helper"
 
 describe LibraryHelper do
-  describe "#library_header_layout(library)" do
-    it "should render a library header with elements" do
-      @library = FactoryGirl.create(:library_with_elements)
-      helper.library_header_layout(@library).should be_a String
-      # TODO: More checks
-    end
-  end
+  # Do we need this?
+  # describe "#library_header_layout(library)" do
+  #   it "should render a library header with elements" do
+  #     library = FactoryGirl.create(:library_with_elements)
+  #     helper.library_header_layout(library).must_be_instance_of String
+  #     # TODO: More checks
+  #   end
+  # end
 end
