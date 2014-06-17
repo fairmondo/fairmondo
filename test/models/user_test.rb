@@ -84,7 +84,7 @@ describe User do
     it { subject.must_respond_to :direct_debit }
     it { subject.must_respond_to :address_suffix }
     it { subject.must_respond_to :value_of_goods_cents }
-    it { subject.must_respond_to :max_value_of_goods_cents }
+    it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
     it { subject.must_respond_to :fastbill_subscription_id }
     it { subject.must_respond_to :fastbill_id }
@@ -170,15 +170,16 @@ describe User do
         before :each do
           user.country = "Deutschland"
         end
-        it {subject.must allow_value('12345').for :zip}
-        it {subject.wont allow_value('a1b2c').for :zip}
-        it {subject.wont allow_value('123456').for :zip}
-        it {subject.wont allow_value('1234').for :zip}
+
+        it {user.must allow_value('12345').for :zip}
+        it {user.wont allow_value('a1b2c').for :zip}
+        it {user.wont allow_value('123456').for :zip}
+        it {user.wont allow_value('1234').for :zip}
       end
 
       describe "address validation" do
-        it {subject.must allow_value('Test Str. 1a').for :street}
-        it {subject.wont allow_value('Test Str.').for :street}
+        it {user.must allow_value('Test Str. 1a').for :street}
+        it {user.wont allow_value('Test Str.').for :street}
       end
     end
 
@@ -186,12 +187,12 @@ describe User do
       before :each do
         user.wants_to_sell = true
       end
-      it { subject.must validate_presence_of :forename }
-      it { subject.must validate_presence_of :surname }
-      it { subject.must validate_presence_of :zip}
-      it { subject.must validate_presence_of :country }
-      it { subject.must validate_presence_of :street }
-      it { subject.must validate_presence_of :city }
+      it { user.must validate_presence_of :forename }
+      it { user.must validate_presence_of :surname }
+      it { user.must validate_presence_of :zip}
+      it { user.must validate_presence_of :country }
+      it { user.must validate_presence_of :street }
+      it { user.must validate_presence_of :city }
     end
   end
 
@@ -268,10 +269,9 @@ describe User do
 
       it 'should call FastBillAPI.update_profile if user has fastbill profile' do
         # FastbillAPI.should receive(:update_profile).with(user)
-        Fastbill::Automatic::Customer.expect(:get, [Fastbill::Automatic::Customer.new])
+        Fastbill::Automatic::Customer.expects(:get).returns [Fastbill::Automatic::Customer.new]
         Fastbill::Automatic::Customer.any_instance.stubs(:update_attributes)
         user.update_fastbill_profile
-        Fastbill::Automatic::Customer.verify
       end
     end
 
@@ -329,7 +329,6 @@ describe User do
 
     describe LegalEntity do
       let(:db_user) { FactoryGirl::create(:legal_entity) }
-      let(:user) { LegalEntity.new }
 
       it "should have a valid factory" do
         db_user.valid?.must_equal true
@@ -343,12 +342,12 @@ describe User do
         describe "if LegalEntity wants to sell" do
 
           before :each do
-            user.wants_to_sell = true
+            db_user.wants_to_sell = true
           end
 
-          it { user.must validate_presence_of :terms }
-          it { user.must validate_presence_of :cancellation }
-          it { user.must validate_presence_of :about }
+          it { db_user.must validate_presence_of :terms }
+          it { db_user.must validate_presence_of :cancellation }
+          it { db_user.must validate_presence_of :about }
 
         end
       end
@@ -393,7 +392,7 @@ describe User do
           private_seller.trustcommunity = true
           private_seller.max_value_of_goods_cents.must_equal $private_seller_constants['bad_salesvolume']
         end
-      end
+      end #/bad seller
 
       describe "standard seller" do
         before :each do
@@ -405,70 +404,60 @@ describe User do
           private_seller.good_seller?.must_equal true
         end
 
-        describe "if not trusted and not verified" do
-          it "should have a salesvolume of standard_salesvolume" do
-            private_seller.verified = false
-            private_seller.trustcommunity = false
-            private_seller.max_value_of_goods_cents.must_equal $private_seller_constants['standard_salesvolume']
-          end
+        it "should have a salesvolume of standard_salesvolume if not trusted and not verified" do
+          private_seller.verified = false
+          private_seller.trustcommunity = false
+          private_seller.max_value_of_goods_cents.must_equal $private_seller_constants['standard_salesvolume']
         end
-        describe "if trusted" do
-          it "should have a salesvolume of standard_salesvolume + trusted_bonus" do
-            private_seller.verified = false
-            private_seller.trustcommunity = true
-            private_seller.max_value_of_goods_cents.must_equal($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'])
-          end
+
+        it "should have a salesvolume of standard_salesvolume + trusted_bonus if trusted" do
+          private_seller.verified = false
+          private_seller.trustcommunity = true
+          private_seller.max_value_of_goods_cents.must_equal($private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'])
         end
-        describe "if verified" do
-          it "should have a salesvolume of standard_salesvolume + verified_bonus" do
-            private_seller.verified = true
-            private_seller.trustcommunity = false
-            private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
-          end
+
+        it "should have a salesvolume of standard_salesvolume + verified_bonus if verified" do
+          private_seller.verified = true
+          private_seller.trustcommunity = false
+          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] )
         end
-        describe "if trusted and verified" do
-          it "should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus" do
-            private_seller.verified = true
-            private_seller.trustcommunity = true
-            private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
-          end
+
+        it "should have a salesvolume of standard_salesvolume + trusted_bonus + verified_bonus if trusted and verified" do
+          private_seller.verified = true
+          private_seller.trustcommunity = true
+          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )
         end
-      end
+      end #/standard seller
 
       describe "good seller" do
         before :each do
           private_seller.seller_state = "good_seller"
         end
 
-        describe "if not trusted and not verified" do
-          it "should have a salesvolume of standard_salesvolume * good_factor" do
-            private_seller.verified = false
-            private_seller.trustcommunity = false
-            private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
-          end
+        it "should have a salesvolume of standard_salesvolume * good_factor if not trusted and not verified" do
+          private_seller.verified = false
+          private_seller.trustcommunity = false
+          private_seller.max_value_of_goods_cents.must_equal( $private_seller_constants['standard_salesvolume'] * $private_seller_constants['good_factor'] )
         end
-        describe "if trusted" do
-          it "should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor" do
-            private_seller.verified = false
-            private_seller.trustcommunity = true
-            private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
-          end
+
+        it "should have a salesvolume of (standard_salesvolume + trusted_bonus ) * good_factor if trusted" do
+          private_seller.verified = false
+          private_seller.trustcommunity = true
+          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] ) * $private_seller_constants['good_factor'] )
         end
-        describe "if verified" do
-          it "should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor" do
-            private_seller.verified = true
-            private_seller.trustcommunity = false
-            private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
-          end
+
+        it "should have a salesvolume of (standard_salesvolume + verified_bonus ) * good_factor if verified" do
+          private_seller.verified = true
+          private_seller.trustcommunity = false
+          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['verified_bonus'] ) * $private_seller_constants['good_factor'] )
         end
-        describe "if trusted and verified" do
-          it "should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor" do
-            private_seller.verified = true
-            private_seller.trustcommunity = true
-            private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
-          end
+
+        it "should have a salesvolume of (standard_salesvolume + trusted_bonus + verified_bonus ) * good_factor if trusted and verified" do
+          private_seller.verified = true
+          private_seller.trustcommunity = true
+          private_seller.max_value_of_goods_cents.must_equal(( $private_seller_constants['standard_salesvolume'] + $private_seller_constants['trusted_bonus'] + $private_seller_constants['verified_bonus'] )* $private_seller_constants['good_factor'] )
         end
-      end
+      end #/good seller
 
       it "should have valid private_seller_constants" do
         private_seller.private_seller_constants[:standard_salesvolume].must_equal $private_seller_constants['standard_salesvolume']
@@ -482,6 +471,7 @@ describe User do
     describe LegalEntity do
       let(:commercial_seller) { FactoryGirl::create(:legal_entity) }
       subject { commercial_seller }
+
       describe "bad seller" do
         before :each do
           commercial_seller.seller_state = "bad_seller"
@@ -492,19 +482,16 @@ describe User do
           commercial_seller.standard_seller?.must_equal true
         end
 
-        describe "if not verified" do
-          it "should have a salesvolume of bad_salesvolume" do
-            commercial_seller.verified = false
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['bad_salesvolume']
-          end
+        it "should have a salesvolume of bad_salesvolume if not verified" do
+          commercial_seller.verified = false
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['bad_salesvolume']
         end
-        describe "if verified" do
-          it "should have a salesvolume of bad_salesvolume" do
-            commercial_seller.verified = true
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['bad_salesvolume']
-          end
+
+        it "should have a salesvolume of bad_salesvolume if verified" do
+          commercial_seller.verified = true
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['bad_salesvolume']
         end
-      end
+      end #/bad seller
 
        describe "standard seller" do
         before :each do
@@ -516,19 +503,16 @@ describe User do
           commercial_seller.good1_seller?.must_equal true
         end
 
-        describe "if not verified" do
-          it "should have a salesvolume of standard_salesvolume" do
-            commercial_seller.verified = false
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume']
-          end
+        it "should have a salesvolume of standard_salesvolume if not verified" do
+          commercial_seller.verified = false
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume']
         end
-        describe "if verified" do
-          it "should have a salesvolume of standard_salesvolume + verified_bonus" do
-            commercial_seller.verified = true
-            commercial_seller.max_value_of_goods_cents.must_equal( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
-          end
+
+        it "should have a salesvolume of standard_salesvolume + verified_bonus if verified" do
+          commercial_seller.verified = true
+          commercial_seller.max_value_of_goods_cents.must_equal( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] )
         end
-      end
+      end #/standard seller
 
       describe "good1 seller" do
         before :each do
@@ -549,7 +533,7 @@ describe User do
           commercial_seller.verified = true
           commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * $commercial_seller_constants['good_factor'] )
         end
-      end
+      end #/good1 seller
 
       describe "good2 seller" do
         before :each do
@@ -561,19 +545,16 @@ describe User do
           commercial_seller.good3_seller?.must_equal true
         end
 
-        describe "if not verified" do
-          it "should have a salesvolume of standard_salesvolume * good_factor^2" do
-            commercial_seller.verified = false
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**2 )
-          end
+        it "should have a salesvolume of standard_salesvolume * good_factor^2 if not verified" do
+          commercial_seller.verified = false
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**2 )
         end
-        describe "if verified" do
-          it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2" do
-            commercial_seller.verified = true
-            commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
-          end
+
+        it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^2 if verified" do
+          commercial_seller.verified = true
+          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**2 ) )
         end
-      end
+      end #/good2 seller
 
       describe "good3 seller" do
         before :each do
@@ -585,40 +566,32 @@ describe User do
           commercial_seller.good4_seller?.must_equal true
         end
 
-        describe "if not verified" do
-          it "should have a salesvolume of standard_salesvolume * good_factor^3" do
-            commercial_seller.verified = false
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**3 )
-          end
+        it "should have a salesvolume of standard_salesvolume * good_factor^3 if not verified" do
+          commercial_seller.verified = false
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**3 )
         end
-        describe "if verified" do
-          it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3" do
-            commercial_seller.verified = true
-            commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
-          end
+
+        it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^3 if verified" do
+          commercial_seller.verified = true
+          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**3 ) )
         end
-      end
+      end #/good3 seller
 
       describe "good4 seller" do
         before :each do
           commercial_seller.seller_state = "good4_seller"
         end
 
-
-        describe "if not verified" do
-          it "should have a salesvolume of standard_salesvolume * good_factor^4" do
-            commercial_seller.verified = false
-            commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
-          end
+        it "should have a salesvolume of standard_salesvolume * good_factor^4 if not verified" do
+          commercial_seller.verified = false
+          commercial_seller.max_value_of_goods_cents.must_equal $commercial_seller_constants['standard_salesvolume'] * ( $commercial_seller_constants['good_factor']**4 )
         end
 
-        describe "if verified" do
-          it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4" do
-            commercial_seller.verified = true
-            commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
-          end
+        it "should have a salesvolume of ( standard_salesvolume + verified_bonus ) * good_factor^4 if verified" do
+          commercial_seller.verified = true
+          commercial_seller.max_value_of_goods_cents.must_equal(( $commercial_seller_constants['standard_salesvolume'] + $commercial_seller_constants['verified_bonus'] ) * ( $commercial_seller_constants['good_factor']**4 ) )
         end
-      end
+      end #/good4 seller
 
       it "should have valid commercial_seller_constants" do
         commercial_seller.commercial_seller_constants[:standard_salesvolume].must_equal $commercial_seller_constants['standard_salesvolume']
@@ -640,17 +613,14 @@ describe User do
         user.standard_buyer?.must_equal true
       end
 
-      describe "if not trusted" do
-        it "should have a purchasevolume of 6" do
-          user.trustcommunity = false
-          user.purchase_volume.must_equal 6
-        end
+      it "should have a purchasevolume of 6 if not trusted" do
+        user.trustcommunity = false
+        user.purchase_volume.must_equal 6
       end
-      describe "if trusted" do
-        it "should have a purchasevolume of 6" do
-          user.trustcommunity = true
-          user.purchase_volume.must_equal 6
-        end
+
+      it "should have a purchasevolume of 6 if trusted" do
+        user.trustcommunity = true
+        user.purchase_volume.must_equal 6
       end
     end
 
@@ -663,23 +633,21 @@ describe User do
         user.rate_down_to_bad_buyer
         user.bad_buyer?.must_equal true
       end
+
       it "should become good buyer" do
         user.rate_up_buyer
         user.good_buyer?.must_equal true
       end
 
-      describe "if not trusted" do
-        it "should have a purchasevolume of 12" do
-          user.trustcommunity = false
-          user.purchase_volume.must_equal 12
-        end
+      it "should have a purchasevolume of 12 if not trusted" do
+        user.trustcommunity = false
+        user.purchase_volume.must_equal 12
       end
-      describe "if trusted" do
-        it "should have a purchasevolume of 24" do
-          user.trustcommunity = true
-          user.purchase_volume.must_equal 24
+
+      it "should have a purchasevolume of 24 if trusted" do
+        user.trustcommunity = true
+        user.purchase_volume.must_equal 24
         end
-      end
     end
 
     describe "good buyer" do
@@ -692,17 +660,14 @@ describe User do
         user.bad_buyer?.must_equal true
       end
 
-      describe "if not trusted" do
-        it "should have a purchasevolume of 24" do
-          user.trustcommunity = false
-          user.purchase_volume.must_equal 24
-        end
+      it "should have a purchasevolume of 24 if not trusted" do
+        user.trustcommunity = false
+        user.purchase_volume.must_equal 24
       end
-      describe "if trusted" do
-        it "should have a purchasevolume of 48" do
-          user.trustcommunity = true
-          user.purchase_volume.must_equal 48
-        end
+
+      it "should have a purchasevolume of 48 if trusted" do
+        user.trustcommunity = true
+        user.purchase_volume.must_equal 48
       end
     end
 
@@ -721,7 +686,7 @@ describe User do
 
       describe "with negative ratings over 25%" do
         before :each do
-          private_seller.ratings.stubs(:count) { 21 }
+          private_seller.ratings.stubs(:count).returns 21
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(50)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(20)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(30)
@@ -750,7 +715,7 @@ describe User do
 
       describe "with negative ratings over 50%" do
         before :each do
-          private_seller.ratings.stubs(:count) { 21 }
+          private_seller.ratings.stubs(:count).returns 21
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(10)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(25)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(55)
@@ -764,7 +729,7 @@ describe User do
 
       describe "with positive ratings over 75%" do
         before :each do
-          private_seller.ratings.stubs(:count) { 21 }
+          private_seller.ratings.stubs(:count).returns 21
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(80)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(10)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(10)
@@ -793,7 +758,7 @@ describe User do
 
       describe "with positive ratings over 90%" do
         before :each do
-          private_seller.ratings.stubs(:count) { 21 }
+          private_seller.ratings.stubs(:count).returns 21
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(92)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(0)
           private_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(8)
@@ -822,7 +787,7 @@ describe User do
 
       describe "with negative ratings over 25%" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(50)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(20)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(30)
@@ -862,7 +827,7 @@ describe User do
 
       describe "with negative ratings over 50%" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(10)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(25)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(55)
@@ -876,7 +841,7 @@ describe User do
 
       describe "with positive ratings over 75%" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(80)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(5)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(15)
@@ -916,7 +881,7 @@ describe User do
 
       describe "with positive ratings over 90% in last 50 ratings" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(92)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(0)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(8)
@@ -952,7 +917,7 @@ describe User do
 
       describe "with additionally positive ratings over 90% in last 100 ratings" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(95)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(0)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(5)
@@ -990,7 +955,7 @@ describe User do
 
       describe "with additionally positive ratings over 90% in last 500 ratings" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(95)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(0)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(5)
@@ -1028,7 +993,7 @@ describe User do
 
       describe "with additionally positive ratings over 90% in last 1000 ratings" do
         before :each do
-          commercial_seller.ratings.stubs(:count){ 1000 }
+          commercial_seller.ratings.stubs(:count).returns 1000
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('positive', 50).returns(95)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('neutral', 50).returns(0)
           commercial_seller.stubs(:calculate_percentage_of_biased_ratings).with('negative', 50).returns(5)

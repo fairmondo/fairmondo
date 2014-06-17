@@ -81,11 +81,19 @@ class ActionController::TestCase
 end
 
 class ActiveSupport::TestCase
-  include Savon::SpecHelper
   ActiveRecord::Migration.check_pending!
 
   require 'enumerize/integrations/rspec'
   extend Enumerize::Integrations::RSpec
+
+  fixtures :all
+
+end
+
+DatabaseCleaner.strategy = :transaction
+
+class MiniTest::Spec
+  include Savon::SpecHelper
   before :each do
     savon.mock!
     DatabaseCleaner.start
@@ -95,63 +103,9 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
     savon.unmock!
   end
-  fixtures :all
 
   # Add more helper methods to be used by all tests here...
 end
-
-
-
-#  # Deferred Garbage Collection for improved speed
-#  config.before(:all) do
-#    DeferredGarbageCollection.start
-#  end
-#
-#  config.after(:all) do
-#    DeferredGarbageCollection.reconsider
-#  end
-
-  # Expanded Test Suite Setup
-#  config.before :suite do
-#    Article.index.delete
-#    Article.create_elasticsearch_index
-#
-#    DatabaseCleaner.strategy = :transaction
-#    DatabaseCleaner.clean_with(:truncation)
-#
-#     # Initialize some Categories
-#    setup_categories
-#  end
-#
-#
-#
-#  config.after(:all, :setup => :true) do
-#    DatabaseCleaner.strategy = :transaction # reset to transactional fixtures
-#    DatabaseCleaner.clean
-#  end
-#
-#  config.before(:all, :search => :true) do
-#    tire_on
-#    Article.index.delete
-#    Article.create_elasticsearch_index
-#
-#  end
-#
-#  config.after(:all, :search => :true) do
-#   tire_off
-#  end
-#
-#
-#end
-
-
-# See config.after(:all,:setup => true)
-# With this you can define a setup block in a describe block that gets cleaned after all specs in this block
-def setup
-  DatabaseCleaner.start
-  DatabaseCleaner.strategy = nil
-end
-
 
 
 
