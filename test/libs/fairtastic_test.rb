@@ -31,6 +31,7 @@ describe 'Fairtastic' do
 
     describe "#input_step" do
       it "should return input step code with additional class codex" do
+        DummyClass.any_instance.stubs(:protect_against_forgery?).returns(false)
         @buffer.concat(
           helper.semantic_form_for(:template, :url => '', as: 'monster', :builder => Fairtastic::FormBuilder) do |f|
             f.input_step 'foo', class: 'bar'
