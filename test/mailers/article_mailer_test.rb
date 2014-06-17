@@ -28,36 +28,28 @@ describe ArticleMailer do
   let(:article) { FactoryGirl.create(:article) }
   let(:user) { FactoryGirl.create(:user) }
 
-  describe "#report_article" do
-    let(:mail) { ArticleMailer.report_article(article,user,"text") }
-
-    it "renders the subject" do
-      mail.subject.should have_content("Article reported")
-    end
-
-    it "contains the article id" do
-      mail.subject.should eq("Article reported with ID: " + article.id.to_s)
-    end
+  it "#report_article" do
+    mail =  ArticleMailer.report_article(article,user,"text")
+    mail.subject.must_include("Article reported")
+    mail.subject.must_equal("Article reported with ID: " + article.id.to_s)
   end
 
-  describe "#category_proposal" do
-    it "should call the mail function" do
-      a = ArticleMailer.send("new")
-      a.should_receive(:mail).with(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: foobar" ).and_return true
-      a.category_proposal("foobar")
-    end
+  it "#category_proposal" do
+    mail = ArticleMailer.category_proposal("foobar")
+    mail.must deliver_to $email_addresses['ArticleMailer']['category_proposal']
+    mail.must have_subject "Category proposal: foobar"
   end
 
-  describe "#contact" do
-    let(:mail) { ArticleMailer.contact(user.email, article.seller_email, 'foobar', article) }
-    subject { mail }
-    it { should have_subject I18n.t('article.show.contact.mail_subject') }
+  it "#contact" do
+    mail =  ArticleMailer.contact(user.email, article.seller_email, 'foobar', article)
 
-    it { should have_body_text 'foobar' }
-    it { should have_body_text user.email }
-    it { should have_body_text article.title }
-    it { should have_body_text article_url article }
+    mail.must have_subject I18n.t('article.show.contact.mail_subject')
 
-    it { should deliver_to article.seller_email }
+    mail.must have_body_text 'foobar'
+    mail.must have_body_text user.email
+    mail.must have_body_text article.title
+    mail.must have_body_text article_url article
+
+    mail.must deliver_to article.seller_email
   end
 end

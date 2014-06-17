@@ -24,12 +24,10 @@ require 'test_helper'
 include Warden::Test::Helpers
 
 feature 'User profile page' do
-  setup do
-    @user = FactoryGirl.create :user
-    login_as @user
-  end
 
   scenario "user visits his profile" do
+    @user = FactoryGirl.create :user
+    login_as @user
     visit user_path(@user)
     page.must_have_content("Profil bearbeiten")
     page.must_have_content("Sammlungen")
@@ -37,8 +35,26 @@ feature 'User profile page' do
   end
 
   scenario 'user looks at his profile' do
+    @user = FactoryGirl.create :user
+    login_as @user
     visit profile_user_path(@user)
     page.must_have_content @user.nickname
   end
+
+  scenario "guest visits another users profile through an article" do
+    article = FactoryGirl.create :article
+    visit article_path article
+    find('.User-image a').click
+    current_path.must_equal user_path article.seller
+  end
+
+  scenario "guests visits a legal entity's profile page" do
+    user = FactoryGirl.create :legal_entity
+    visit user_path user
+    click_link I18n.t 'common.text.about_terms'
+    current_path.must_equal profile_user_path user
+  end
+
+
 end
 

@@ -23,79 +23,56 @@ require 'test_helper'
 
 include Warden::Test::Helpers
 
-describe 'Rating' do
+feature 'User ratings' do
   let(:business_transaction) { FactoryGirl.create :single_transaction, :sold }
   let(:buyer) { business_transaction.buyer }
-  let(:user) { FactoryGirl.create :user }
 
-  context "for a logged-out user" do
-    it "should not yet be accessible" do
-      visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
-      current_path.should eq new_user_session_path
-    end
+  scenario "guest rates a transaction" do
+    visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
+    current_path.must_equal new_user_session_path
   end
 
-  context "for logged-in user who is not buyer" do
-    before { login_as user }
-
-    describe "with user not as transaction buyer" do
-      it "should not show the correct data and fields" do
-        expect do
-          visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
-        end.to raise_error Pundit::NotAuthorizedError
-      end
-    end
+  scenario "user rates a transaction he didn't make" do
+    login_as  FactoryGirl.create :user
+    -> { visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction) }.must_raise Pundit::NotAuthorizedError
   end
 
-  context "for a logged-in buyer" do
-    before { login_as buyer }
+  scenario "user gives a rating for a transaction he made" do
+    login_as buyer
+    visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
 
-    describe "with user as transaction buyer" do
-      it "should show the correct data and fields" do
-        visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
-        page.should have_css 'form'
-        page.should have_css "input#rating_rating_positive[@value='positive']"
-        page.should have_css "input#rating_rating_neutral[@value='neutral']"
-        page.should have_css "input#rating_rating_negative[@value='negative']"
-        page.should have_css "textarea"
+    page.must_have_selector "input#rating_rating_positive[@value='positive']"
+    page.must_have_selector "input#rating_rating_neutral[@value='neutral']"
+    page.must_have_selector "input#rating_rating_negative[@value='negative']"
 
-        page.should have_button 'Bewertung speichern'
-      end
-
-      it "should fail when saving without a selected rating" do
-        visit business_transaction_new_user_rating_path(business_transaction.seller,business_transaction)
-        click_button 'Bewertung speichern'
-        page.should have_button 'Bewertung speichern' # test if still on same page
-      end
-
-      it "should succeed when saving with a selected rating" do
-        visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
-        choose 'rating_rating_positive'
-        click_button 'Bewertung speichern'
-        current_path.should eq user_path(buyer)
-        page.should have_content 'Deine Bewertung wurde gespeichert'
-      end
-
-      it "should disallow rating the same transaction twice" do
-        rating = FactoryGirl.create(:positive_rating)
-        expect do
-          visit business_transaction_new_user_rating_path(rating.rated_user, rating.business_transaction)
-        end.to raise_error Pundit::NotAuthorizedError
-      end
-    end
+    page.must_have_button 'Bewertung speichern'
+    choose 'rating_rating_positive'
+    click_button 'Bewertung speichern'
+    current_path.must_equal user_path(buyer)
+    page.must_have_content 'Deine Bewertung wurde gespeichert'
   end
 
-  describe "Ratings index" do
-    before do
-      @rating = FactoryGirl.create :rating, rated_user: business_transaction.seller, rating_user: business_transaction.buyer
-      visit user_ratings_path(:user_id => business_transaction.seller.id)
-    end
+  scenario "user tries to give a rating without entering a value" do
+    login_as buyer
+    visit business_transaction_new_user_rating_path(business_transaction.seller,business_transaction)
+    click_button 'Bewertung speichern'
+    page.must_have_button 'Bewertung speichern' # test if still on same page
+  end
 
-    it "should show rated user info, rating and rating user" do
-      page.should have_content(business_transaction.seller.nickname)
-      page.should have_content(@rating.text)
-      page.should have_content(business_transaction.buyer.nickname)
-    end
+  scenario "user tries to rate a transaction a second time" do
+    login_as buyer
+    rating = FactoryGirl.create(:positive_rating)
+    -> { visit business_transaction_new_user_rating_path(rating.rated_user, rating.business_transaction) }.must_raise Pundit::NotAuthorizedError
+  end
+
+  scenario "user visits profile of another user and checks his ratings" do
+    login_as  FactoryGirl.create :user
+    @rating = FactoryGirl.create :rating, rated_user: business_transaction.seller, rating_user: business_transaction.buyer
+    visit user_ratings_path(:user_id => business_transaction.seller.id)
+
+    page.must_have_content(business_transaction.seller.nickname)
+    page.must_have_content(@rating.text)
+    page.must_have_content(business_transaction.buyer.nickname)
 
   end
 end
