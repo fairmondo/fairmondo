@@ -16,15 +16,6 @@ ActiveRecord::Schema.define(version: 20140611134449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "article_templates", force: true do |t|
-    t.string   "name"
-    t.integer  "user_id",    limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "article_templates", ["user_id"], name: "index_article_templates_on_user_id", using: :btree
-
   create_table "articles", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -46,7 +37,6 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.text     "transport_details"
     t.text     "payment_details"
     t.integer  "friendly_percent",                                 default: 0
-    t.integer  "article_template_id",                    limit: 8
     t.integer  "calculated_fair_cents",                  limit: 8, default: 0,     null: false
     t.integer  "calculated_friendly_cents",              limit: 8, default: 0,     null: false
     t.integer  "calculated_fee_cents",                   limit: 8, default: 0,     null: false
@@ -78,14 +68,13 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "transport_type2_number",                           default: 1
     t.integer  "discount_id"
     t.integer  "friendly_percent_organisation_id",       limit: 8
+    t.string   "template_name"
   end
 
-  add_index "articles", ["article_template_id"], name: "index_articles_on_article_template_id", using: :btree
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
   add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
   add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
-  add_index "articles", ["id", "article_template_id"], name: "index_articles_on_id_and_article_template_id", unique: true, using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
   add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
@@ -172,16 +161,16 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "percent"
     t.integer  "max_discounted_value_cents"
     t.integer  "num_of_discountable_articles"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "exhibits", force: true do |t|
     t.integer  "article_id",         limit: 8
     t.string   "queue"
     t.integer  "related_article_id", limit: 8
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "exhibition_date"
   end
 
@@ -251,7 +240,7 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.boolean  "image_processing"
   end
 
-  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
+  add_index "images", ["imageable_id", "type"], name: "index_images_on_imageable_id_and_type", using: :btree
 
   create_table "libraries", force: true do |t|
     t.string   "name"
@@ -280,8 +269,8 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "mass_upload_id"
     t.integer  "article_id"
     t.string   "action"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "row_index"
     t.text     "validation_errors"
     t.text     "article_csv"
@@ -297,8 +286,8 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "row_count"
     t.text     "failure_reason"
     t.integer  "user_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
@@ -314,8 +303,8 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "user_id"
     t.string   "path"
     t.string   "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
@@ -338,8 +327,8 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.text     "text"
     t.integer  "business_transaction_id", limit: 8
     t.integer  "rated_user_id",           limit: 8
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
@@ -349,8 +338,8 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.string   "reason"
     t.text     "description"
     t.integer  "business_transaction_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "refunds", ["business_transaction_id"], name: "index_refunds_on_business_transaction_id", using: :btree

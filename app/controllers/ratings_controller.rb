@@ -19,42 +19,42 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingsController < InheritedResources::Base
+class RatingsController < ApplicationController
+  responders :location, :flash
   respond_to :html
-  actions :index, :create, :new
 
-  before_filter :get_user
-  before_filter :authorize_new_with_business_transaction, only: :new
+  before_filter :set_user
+  before_filter :set_business_transaction, only: :new
   skip_before_filter :authenticate_user!, only: :index
 
-  def create
-    authorize build_resource
-    build_resource.rating_user = current_user
-    build_resource.rated_user = build_resource.business_transaction.seller
-    create! do |success,failure|
-      success.html { redirect_to user_path(current_user, :anchor => :bought), :notice => t('rating.notice.saved') }
-    end
+  def new
+    @rating = Rating.new(business_transaction_id: params[:business_transaction_id])
+    authorize @rating
+    respond_with @rating
   end
 
-  protected
+  def create
+    @rating = Rating.new(params.for(Rating).refine)
+    @rating.rating_user = current_user
+    @rating.rated_user = @user
+    authorize @rating
+    @rating.save
+    respond_with(@rating, location: -> { user_path(current_user) })
+  end
 
-    def collection
-      @ratings ||= end_of_association_chain.page(params[:page])
-    end
+  def index
+    @ratings = @user.ratings.page(params[:page])
+    respond_with(@ratings)
+  end
 
-    def begin_of_association_chain
-      @user
-    end
 
   private
 
-    def get_user
+    def set_user
       @user = User.find(params[:user_id])
     end
 
-    def authorize_new_with_business_transaction
-      rating = build_resource
-      rating.business_transaction = BusinessTransaction.find(params[:business_transaction_id])
-      authorize rating
+    def set_business_transaction
+      @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
     end
 end

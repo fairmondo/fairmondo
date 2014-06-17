@@ -20,5 +20,5 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 %h1= t('article_templates.titles.edit')
-= render 'form'
+= render 'form', form_path: article_template_path(resource.id), form_method: :put
 

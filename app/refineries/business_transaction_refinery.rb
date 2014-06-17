@@ -11,7 +11,6 @@ class BusinessTransactionRefinery < ApplicationRefinery
   end
 
   def edit
-    use_root
     default
   end
 end

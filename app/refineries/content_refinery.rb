@@ -4,8 +4,4 @@ class ContentRefinery < ApplicationRefinery
     [ :body, :key ]
   end
 
-  def new
-    [ :key ]
-  end
-
 end

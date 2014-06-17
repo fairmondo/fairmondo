@@ -7,5 +7,3 @@ de:
       save: 'Bewertung speichern'
     show:
       nr_of_ratings: 'Bewertungen:'
-    notice:
-      saved: 'Deine Bewertung wurde gespeichert.'

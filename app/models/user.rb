@@ -57,12 +57,12 @@ class User < ActiveRecord::Base
   has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
   has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
 
-
-  has_many :article_templates, dependent: :destroy
   has_many :libraries, dependent: :destroy
 
   has_many :notices
   has_many :mass_uploads
+
+  has_many :library_elements, through: :libraries
 
   ##
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
@@ -335,6 +335,12 @@ class User < ActiveRecord::Base
   def count_value_of_goods
     value_of_goods_cents = self.articles.active.sum("price_cents * quantity")
     self.update_attribute(:value_of_goods_cents, value_of_goods_cents)
+  end
+
+  # Should work with has_many :article_templates, -> { where(state: :template) }, class_name: 'Article'
+  # but it does not!
+  def article_templates
+    Article.unscoped.where(state: :template, seller: self.id)
   end
 
   private

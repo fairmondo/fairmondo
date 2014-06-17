@@ -19,34 +19,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryElementsController < InheritedResources::Base
-  respond_to :html
-  actions :create, :update, :destroy
-  before_filter :get_user
+class LibraryElementsController < ApplicationController
+  before_filter :set_library_element, except: :create
 
   def create
-    authorize build_resource
-    create! do |success,failure|
-      success.html { redirect_to article_path(@library_element.article), :notice => I18n.t('library_element.notice.success' , :name => @library_element.library_name) }
-      failure.html { redirect_to article_path(@library_element.article), :alert => @library_element.errors.messages[:library_id].first}
+    @library_element = current_user.library_elements.build(params.for(LibraryElement).refine)
+    authorize @library_element
+    if @library_element.save
+      flash[:notice] = I18n.t('library_element.notice.success', name: @library_element.library_name)
+    else
+      flash[:alert] = @library_element.errors.messages[:library_id].first
     end
-  end
-
-  def update
-    authorize resource
-    update! do |success,failure|
-      success.html { redirect_to user_libraries_path(@user, :anchor => "library"+@library_element.library.id.to_s)  }
-      failure.html { redirect_to user_libraries_path(@user) , :alert => @library_element.errors.messages[:library_id].first}
-    end
+    redirect_to article_path(@library_element.article)
   end
 
   def destroy
-    authorize resource
-    destroy! { user_libraries_path(@user , :anchor => "library"+resource.library.id.to_s )}
+    authorize @library_element
+    @library_element.destroy
+    redirect_to user_libraries_path(current_user, anchor: "library#{ @library_element.library.id }")
   end
 
   private
-    def get_user
-      @user = User.find params.permit(:user_id)[:user_id]
+
+    def set_library_element
+      @library_element = LibraryElement.find(params[:id])
     end
 end

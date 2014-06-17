@@ -39,31 +39,35 @@ class ArticleSearchForm
 
 
   def search page
-    @page = page
     query = self
 
     articles = Article.search(:page => page,:per_page => Kaminari.config.default_per_page) do
-      if query.search_by_term?
-        query do
-          boolean do
+
+      query do
+        boolean minimum_should_match: 1 do
+          if query.search_by_term?
+
+
             should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all' }
             should { match :content, query.q } if query.search_in_content
             should { match :friendly_percent_organisation_nickname, query.q, :fuzziness => 0.7 }
             should { term :gtin, query.q, :boost => 100 }
+
           end
+          must { term :fair,true } if query.fair
+          must { term :ecologic, true } if query.ecologic
+          must { term :small_and_precious, true } if query.small_and_precious
+          must { term :condition, query.condition}  if query.condition
+          must { term :zip,query.zip } if query.zip.present?
+          must { range :price, query.price_range }
         end
-      else
-        query { all }
       end
 
-      filter :term, :fair => true if query.fair
-      filter :term, :ecologic => true if query.ecologic
-      filter :term, :small_and_precious => true  if query.small_and_precious
-      filter :term, :condition => query.condition  if query.condition
       filter :terms, :categories => [query.category_id] if query.category_id.present?
-      filter :prefix, :zip => query.zip if query.zip.present?
-      filter :range, price: query.price_range
 
+      facet 'categories' do
+        terms :categories, size: 10000 # If we ever hit 10000 categories+ this has to be upgraded
+      end
 
       case query.order_by
       when "newest"
@@ -88,7 +92,17 @@ class ArticleSearchForm
         # Sort by score
         sort { by :created_at, :desc  } unless query.search_by_term?
       end
+
     end
+    @category_facets = Hash[articles.facets['categories']['terms'].map(&:values)] if articles.facets
+    articles
+  rescue Errno::ECONNREFUSED
+    articles = ArticlePolicy::Scope.new(nil, Article).resolve.page(page)
+  end
+
+  # for the category tree to display wich categories have which counts
+  def category_article_count category_id
+    @category_facets[category_id.to_s] || 0
   end
 
   def price_range
