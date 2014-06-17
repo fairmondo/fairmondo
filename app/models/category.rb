@@ -57,7 +57,6 @@ class Category < ActiveRecord::Base
   end
 
 #  def siblings_with_active_articles
-#    debugger
 #    siblings = sorted_siblings.to_a
 #    delete_if_no_active_articles siblings
 #  end
