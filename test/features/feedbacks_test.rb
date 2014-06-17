@@ -21,60 +21,53 @@ require 'test_helper'
 
 include Warden::Test::Helpers
 
-describe "Feedback" do
-  before(:all) do
+feature "Give Feedback" do
+  setup do
      @user = FactoryGirl.create :user
      login_as @user
   end
-  describe "get_help" do
-    it "should send an email" do
+  scenario "user wants help" do
+    visit new_feedback_path(:variety => "get_help")
 
-      visit new_feedback_path(:variety => "get_help")
+    fill_in 'feedback_from', with: 'test@test.de'
+    fill_in 'feedback_subject', with: 'test'
+    fill_in 'feedback_text', with: 'testtesttest'
 
-      fill_in 'feedback_from', with: 'test@test.de'
-      fill_in 'feedback_subject', with: 'test'
-      fill_in 'feedback_text', with: 'testtesttest'
+    select I18n.t("enumerize.feedback.help_subject.marketplace"), from: I18n.t('formtastic.labels.feedback.help_subject')
 
-      select I18n.t("enumerize.feedback.help_subject.marketplace"), from: I18n.t('formtastic.labels.feedback.help_subject')
-
-      FeedbackMailer.any_instance.should_receive(:mail)
-      click_button I18n.t 'feedback.actions.get_help'
-      page.should have_content I18n.t 'article.actions.reported'
-    end
+    FeedbackMailer.any_instance.expects(:mail)
+    click_button I18n.t 'feedback.actions.get_help'
+    page.must_have_content I18n.t 'article.actions.reported'
   end
 
-  describe "send_feedback" do
-    it "should send an email" do
+  scenario "user sends feedback" do
 
-      visit new_feedback_path(:variety => "send_feedback")
+    visit new_feedback_path(:variety => "send_feedback")
 
-      fill_in 'feedback_from', with: 'test@test.de'
-      fill_in 'feedback_subject', with: 'test'
-      fill_in 'feedback_text', with: 'testtesttest'
+    fill_in 'feedback_from', with: 'test@test.de'
+    fill_in 'feedback_subject', with: 'test'
+    fill_in 'feedback_text', with: 'testtesttest'
 
-      select I18n.t("enumerize.feedback.feedback_subject.dealer"), from: I18n.t('formtastic.labels.feedback.feedback_subject')
+    select I18n.t("enumerize.feedback.feedback_subject.dealer"), from: I18n.t('formtastic.labels.feedback.feedback_subject')
 
-      FeedbackMailer.any_instance.should_receive(:mail)
-      click_button I18n.t 'feedback.actions.send_feedback'
-      page.should have_content I18n.t 'article.actions.reported'
-    end
+    FeedbackMailer.any_instance.expects(:mail)
+    click_button I18n.t 'feedback.actions.send_feedback'
+    page.must_have_content I18n.t 'article.actions.reported'
   end
 
-  # describe "become_donation_partner" do
-  #   it "should send an email" do
+  # scenario "user wants to be donation_partner" do
+  #
+  #   visit new_feedback_path(:variety => "become_donation_partner")
 
-  #     visit new_feedback_path(:variety => "become_donation_partner")
-
-  #     fill_in 'feedback_forename', with: 'test'
-  #     fill_in 'feedback_lastname', with: 'test'
-  #     fill_in 'feedback_from', with: 'test@test.de'
-  #     fill_in 'feedback_organisation', with: 'test'
-  #     fill_in 'feedback_text', with: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
-
-  #     FeedbackMailer.any_instance.should_receive(:mail)
-  #     click_button I18n.t 'feedback.actions.become_donation_partner'
-  #     page.should have_content I18n.t 'article.actions.reported'
-  #   end
+  #   fill_in 'feedback_forename', with: 'test'
+  #   fill_in 'feedback_lastname', with: 'test'
+  #   fill_in 'feedback_from', with: 'test@test.de'
+  #   fill_in 'feedback_organisation', with: 'test'
+  #   fill_in 'feedback_text', with: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
+  #   FeedbackMailer.any_instance.expects(:mail)
+  #   click_button I18n.t 'feedback.actions.become_donation_partner'
+  #   page.must_have_content I18n.t 'article.actions.reported'
+  #
   # end
 
 end

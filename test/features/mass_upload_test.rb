@@ -3,22 +3,15 @@ require 'test_helper'
 include Warden::Test::Helpers
 
 
-describe "Mass-upload" do
+feature "Mass-upload" do
 
   let(:private_user) { FactoryGirl.create :private_user }
   let(:legal_entity_user) { FactoryGirl.create :legal_entity }
 
-  subject { page }
 
-  describe "for code-coverage purposes of sidekiq retries" do
-    it "should cover exhausted row workers" do
-      Sidekiq.logger.stub(:warn)
-      mu = FactoryGirl.create :mass_upload
-      ProcessRowMassUploadWorker.sidekiq_retries_exhausted_block.call({"class" => Object.class , "args" => [mu.id,"lala",3], "error_message" => "snafu"})
-    end
-  end
 
-  context "for non signed-in users" do
+
+  scenario "for non signed-in users" do
     it "should rediret to login page" do
       visit new_mass_upload_path
       current_path.should eq new_user_session_path

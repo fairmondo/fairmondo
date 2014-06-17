@@ -23,189 +23,181 @@ require 'test_helper'
 
 include Warden::Test::Helpers
 
-describe 'Library' do
-  before do
+feature 'Library management' do
+  setup do
     @user = FactoryGirl.create :user
-    login_as @user
+    login_as @user.reload # reload to get default library
   end
 
-  context "without existing libraries" do
-    describe "creation" do
-      before do
-        visit user_libraries_path @user
-      end
-      context "given valid data" do
-        it "should work" do
-          page.should have_content I18n.t 'library.new'
-
-          within '#new_library' do
-            fill_in 'library_name', with: 'foobar'
-            click_button 'Sammlung erstellen'
-          end
-
-          page.should have_selector 'a', text: 'foobar'
-        end
-      end
-
-      context "given invalid data" do
-        it "should not work" do
-          click_button 'Sammlung erstellen'
-          page.should have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
-        end
-      end
+  scenario "user creates new library" do
+    visit user_libraries_path @user
+    page.must_have_content I18n.t 'library.new'
+    within '#new_library' do
+      fill_in 'library_name', with: 'foobar'
+      click_button 'Sammlung erstellen'
     end
+    page.must_have_selector 'a', text: 'foobar'
   end
 
-  context "with an existing library" do
-    before do
-      @lib = FactoryGirl.create :library, name: 'foobar', user: @user
-      visit user_libraries_path @user
-    end
-
-    describe "update" do
-      context "given valid data" do
-        it "should work" do
-          within "#edit_library_#{@lib.id}" do
-            fill_in 'library_name', with: 'bazfuz'
-            click_button I18n.t 'formtastic.actions.update'
-          end
-
-          page.should have_selector 'a', text: 'bazfuz'
-        end
-      end
-
-      context "given invalid data" do
-        it "should not work" do
-          within "#edit_library_#{@lib.id}" do
-            fill_in 'library_name', with: ''
-            click_button I18n.t 'formtastic.actions.update'
-          end
-
-          page.should have_selector 'a', text: 'foobar'
-          page.should have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
-        end
-      end
-    end
-
-    describe "destroy" do
-      it "should destroy the library" do
-        expect do
-          within "#library#{@lib.id}" do
-            click_link I18n.t('common.actions.destroy')
-          end
-        end.to change(Library, :count).by(-1)
-
-        page.should_not have_content 'foobar'
-      end
-    end
+  scenario "user creates a library with a blank name" do
+    visit user_libraries_path @user
+    click_button 'Sammlung erstellen'
+    page.must_have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
   end
 
-  context "with another user's library" do
-    before do
-      user = FactoryGirl.create :user
-      @pub_lib = FactoryGirl.create :library, user: user, public: true
-      @priv_lib = FactoryGirl.create :library, user: user, public: false
-      visit user_libraries_path user
-    end
-
-    it "should show the users public library but not the private one" do
-      page.should have_content @pub_lib.name
-      page.should_not have_content @priv_lib.name
-    end
-  end
-end
-
-describe "Library Elements" do
-  describe "create" do
-    before do
-      @user = FactoryGirl.create :user
-      login_as @user.reload # reload to get library
-
-      @article = FactoryGirl.create :article
-      visit article_path(@article)
-      click_link I18n.t 'library.default'
-    end
-
-    it "should work" do
-      page.should have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
-      visit user_libraries_path @user
-      page.should have_content @article.title[0..10] # characters get cut off on page as well
-    end
-
-   it 'should show error message if library_element is not valid' do
-     visit article_path(@article)
-     click_link I18n.t 'library.default'
-     page.should have_content I18n.t('library_element.notice.failure')
-   end
-  end
-end
-
-describe "Featured (exhibited) libraries" do
-  context "for all users" do
-    it "should show the exhibited library on the front page" do
-      lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
-      lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
-      visit root_path
-      page.should have_content 'exhibit-article'
-    end
-
-    it "should show book-specific libraries in the book-category's show view" do
-      lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
-      lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
-      visit category_path FactoryGirl.create :category, name: 'bucher'
-      page.should have_content 'exhibit-article'
-    end
-  end
-
-  context "for admins" do
-    let(:featured_library) { FactoryGirl.create :library, :public, exhibition_name: 'donation_articles' }
-    let(:article) { FactoryGirl.create :article, title: 'Foobar' }
-    before do
-      login_as FactoryGirl.create :admin_user
-    end
-
-    it "should be updatable" do
-      visit root_path
-      page.should_not have_link 'Foobar'
-
-      featured_library
-      visit article_path article
-      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
-      click_button I18n.t 'article.show.add_as_exhibit'
-
-      visit root_path
-      page.should have_link 'Foobar'
-    end
-
-    it "should ignore updates that have already been done" do
-      featured_library.articles << article
-      visit article_path article
-      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
-      click_button I18n.t 'article.show.add_as_exhibit'
-
-      featured_library.articles.count.should eq 1
-    end
-
-    it "should have article removal functionality" do
-      featured_library.articles << article
-      visit article_path article
-
-      click_button 'aus *Spendenanteil*-Artikel löschen'
-      visit root_path
-
-      page.should_not have_link 'Foobar'
-    end
-
-    it "should have functionality that can easily set a library as featured" do
-      featured_library
-      other_library = FactoryGirl.create :library, :public
-
-      visit library_path other_library
-      select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+  scenario "user updates name of exsisting Library" do
+    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    visit user_libraries_path @user
+    within "#edit_library_#{library.id}" do
+      fill_in 'library_name', with: 'bazfuz'
       click_button I18n.t 'formtastic.actions.update'
+    end
+    page.must_have_selector 'a', text: 'bazfuz'
+  end
 
-      other_library.reload.exhibition_name.should eq 'donation_articles'
-      featured_library.reload.exhibition_name.should be_nil
+
+  scenario "user updates library with a blank name" do
+    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    visit user_libraries_path @user
+    within "#edit_library_#{library.id}" do
+      fill_in 'library_name', with: ''
+      click_button I18n.t 'formtastic.actions.update'
+    end
+
+    page.must_have_selector 'a', text: 'foobar'
+    page.must_have_content I18n.t('activerecord.errors.models.library.attributes.name.blank')
+
+  end
+
+  scenario "user deletes Library" do
+    library = FactoryGirl.create :library, name: 'foobar', user: @user
+    visit user_libraries_path @user
+    assert_difference 'Library.count', -1 do
+      within "#library#{library.id}" do
+        click_link I18n.t('common.actions.destroy')
+      end
+    end
+    page.wont_have_content 'foobar'
+  end
+
+  scenario "user adds an Article to his default Library" do
+    @article = FactoryGirl.create :article
+    visit article_path(@article)
+    click_link I18n.t 'library.default'
+    page.must_have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
+    visit user_libraries_path @user
+    page.must_have_content @article.title[0..10] # characters get cut off on page as well
+  end
+
+  scenario 'user adds a library element twice' do
+    @article = FactoryGirl.create :article
+    visit article_path(@article)
+    click_link I18n.t 'library.default'
+    click_link I18n.t 'library.default'
+    page.must_have_content I18n.t('library_element.notice.failure')
+  end
+
+  scenario "seller removes an article that buyer has in his library" do
+    seller = @user
+    article = FactoryGirl.create :article, seller: seller
+    buyer = FactoryGirl.create :buyer
+    library = FactoryGirl.create :library, :user => buyer, :public => true
+    FactoryGirl.create :library_element, :article => article, :library => library
+
+    login_as seller
+    visit article_path article
+    click_button I18n.t('article.labels.deactivate')
+
+    login_as buyer
+    visit user_libraries_path buyer
+    within("#library"+library.id.to_s) do
+      page.must_have_content I18n.t 'library.no_products'
     end
   end
+
 end
+
+feature 'Library visibility' do
+  scenario "user browses through libraries" do
+    user = FactoryGirl.create :user
+    pub_lib = FactoryGirl.create :library, user: user, public: true
+    priv_lib = FactoryGirl.create :library, user: user, public: false
+    visit user_libraries_path user
+    page.must_have_content pub_lib.name
+    page.wont_have_content priv_lib.name
+
+  end
+end
+
+
+feature "Featured (exhibited) libraries" do
+  scenario "user visits root path with exhibition" do
+    lib = FactoryGirl.create :library, :public, exhibition_name: 'queue1'
+    lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+    visit root_path
+    page.must_have_content 'exhibit-article'
+  end
+
+  scenario "user vistits book category front page" do
+    lib = FactoryGirl.create :library, :public, exhibition_name: 'book1'
+    lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
+    visit category_path FactoryGirl.create :category, name: 'bucher'
+    page.must_have_content 'exhibit-article'
+  end
+end
+
+feature "Admin management for featured (exhibited) Libraries" do
+  let(:featured_library) { FactoryGirl.create :library, :public, exhibition_name: 'donation_articles' }
+  let(:article) { FactoryGirl.create :article, title: 'Foobar' }
+  setup do
+    login_as FactoryGirl.create :admin_user
+  end
+
+  scenario "admin adds Article to a random Library" do
+    visit root_path
+    page.wont_have_link 'Foobar'
+
+    featured_library
+    visit article_path article
+    select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+    click_button I18n.t 'article.show.add_as_exhibit'
+
+    visit root_path
+    page.must_have_link 'Foobar'
+  end
+
+  scenario "admin add Article that is already in the library" do
+    featured_library.articles << article
+    visit article_path article
+    select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+
+    assert_no_difference 'featured_library.articles.count' do
+      click_button I18n.t 'article.show.add_as_exhibit'
+    end
+  end
+
+  scenario "admin removes an article" do
+    featured_library.articles << article
+    visit article_path article
+
+    click_button 'aus *Spendenanteil*-Artikel löschen'
+    visit root_path
+
+    page.wont_have_link 'Foobar'
+  end
+
+  scenario "admin sets a library as featured" do
+    featured_library
+    other_library = FactoryGirl.create :library, :public
+
+    visit library_path other_library
+    select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
+    click_button I18n.t 'formtastic.actions.update'
+
+    other_library.reload.exhibition_name.must_equal 'donation_articles'
+    featured_library.reload.exhibition_name.must_equal nil
+
+  end
+end
+
+
