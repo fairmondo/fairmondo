@@ -18,7 +18,7 @@ class DummyClass < ActionView::Base
   include UsersHelper
   include WelcomeHelper
 end
-Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options = { host: "example.com" }
+Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options = { host: "localhost:3000" }
 
 def helper
   @helper ||= DummyClass.new
