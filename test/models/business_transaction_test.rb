@@ -29,7 +29,7 @@ describe PartialFixedPriceTransaction do
   end
 end
 
-describe BusinessTransaction do
+class BusinessTransactionTest < ActiveSupport::TestCase
   subject { BusinessTransaction.new }
   describe "attributes" do
     it { subject.must_respond_to :selected_transport }
@@ -67,10 +67,10 @@ describe BusinessTransaction do
     it { subject.must belong_to :buyer  }
   end
 
-  # describe "enumerization" do # I asked for clarification on how to do this: https://github.com/brainspec/enumerize/issues/136 - maybe comment back in when we have a positive response.
-  #   it { subject.must enumerize(:selected_transport).in(:pickup, :type1, :type2) }
-  #   it { subject.must enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice) }
-  # end
+  describe "enumerization" do # I asked for clarification on how to do this: https://github.com/brainspec/enumerize/issues/136 - maybe comment back in when we have a positive response.
+    should enumerize(:selected_transport).in(:pickup, :type1, :type2)
+    should enumerize(:selected_payment).in(:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice)
+  end
 
   describe "methods" do
     let(:business_transaction) { FactoryGirl.create :super_transaction }

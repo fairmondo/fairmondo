@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe Rating do
+class RatingTest < ActiveSupport::TestCase
   subject { Rating.new }
 
   describe "model attributes" do
@@ -18,7 +18,7 @@ describe Rating do
     it { subject.must belong_to :rated_user  }
   end
 
-  # describe "enumerization" do # see business_transaction_test
-  #   it { subject.must enumerize(:rating).in(:positive, :neutral, :negative) }
-  # end
+  describe "enumerization" do # see business_transaction_test
+    should enumerize(:rating).in(:positive, :neutral, :negative)
+  end
 end
