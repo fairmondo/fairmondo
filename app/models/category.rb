@@ -56,15 +56,15 @@ class Category < ActiveRecord::Base
     delete_if_no_active_articles sorted_children.to_a
   end
 
-  def siblings_with_active_articles
-    debugger
-    siblings = sorted_siblings.to_a
-    delete_if_no_active_articles siblings
-  end
-
-  def self_and_siblings_with_active_articles
-    [self] + siblings_with_active_articles
-  end
+#  def siblings_with_active_articles
+#    debugger
+#    siblings = sorted_siblings.to_a
+#    delete_if_no_active_articles siblings
+#  end
+#
+#  def self_and_siblings_with_active_articles
+#    [self] + siblings_with_active_articles
+#  end
 
   private
     def delete_if_no_active_articles array
