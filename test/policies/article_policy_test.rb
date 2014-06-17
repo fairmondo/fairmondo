@@ -22,6 +22,7 @@
 require 'test_helper'
 
 describe ArticlePolicy do
+  include ::PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
   let(:article) { FactoryGirl.create :preview_article }
   let(:user) { nil }

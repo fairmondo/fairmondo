@@ -111,7 +111,7 @@ module PunditMatcher
 
 
 
-  def permit policy
+  def permit_ policy
     PunditMatcher::Permit.new policy
   end
   def deny policy
@@ -121,7 +121,7 @@ module PunditMatcher
     PunditMatcher::UltimatelyDeny.new policy
   end
 
-  MiniTest::Test.register_matcher :permit, :permit
+  MiniTest::Test.register_matcher :permit_, :permit
   MiniTest::Test.register_matcher :deny, :deny
   MiniTest::Test.register_matcher :ultimately_deny, :ultimately_deny
 end

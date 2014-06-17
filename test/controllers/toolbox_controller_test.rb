@@ -7,14 +7,14 @@ describe ToolboxController do
   #render_views
 
   describe "GET 'session_expired'" do
-    context "as json" do
+    describe "as json" do
       it "should be successful" do
         get :session_expired, format: :json
         assert_response :success
       end
     end
 
-    context "as html" do
+    describe "as html" do
       it "should fail" do
         ->{ get :session_expired }.must_raise ActionController::UnknownFormat
       end
@@ -22,14 +22,14 @@ describe ToolboxController do
   end
 
    describe "GET 'confirm'" do
-    context "as js" do
+    describe "as js" do
       it "should be successful" do
         xhr :get, :confirm, format: :js
         assert_response :success
       end
     end
 
-    context "as html" do
+    describe "as html" do
       it "should fail" do
         -> { get :confirm }.must_raise ActionController::UnknownFormat
       end
@@ -41,20 +41,20 @@ describe ToolboxController do
       FakeWeb.register_uri(:get, 'https://info.fairnopoly.de/?feed=rss', :body => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><rss version=\"2.0\"></rss>")
     end
 
-    context "as html" do
+    describe "as html" do
       it "should be successful" do
         get :rss
         assert_response :success
       end
     end
 
-    context "as json" do
+    describe "as json" do
       it "should fail" do
         -> { get :rss, format: :json }.must_raise ActionController::UnknownFormat
       end
     end
 
-    context "on timeout" do
+    describe "on timeout" do
       it "should be sucessful and return nothing" do
         Timeout.stubs(:timeout).raises(Timeout::Error)
         get :rss
@@ -87,30 +87,28 @@ describe ToolboxController do
     end
   end
 
-  describe "GET 'newsletter_status'" do
-    context "when logged in" do
-      before do
-        sign_in user
-      end
-      it "should be successful" do
-        fixture = File.read("test/fixtures/cleverreach_get_by_mail_success.xml")
-        savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
-        get :newsletter_status, format: :json
-        assert_response :success
-      end
+  describe "#newsletter_status " do
 
-      it "should not render a layout" do
-        fixture = File.read("test/fixtures/cleverreach_get_by_mail_success.xml")
-        savon.expects(:receiver_get_by_email).with(message: :any).returns(fixture)
-        get :newsletter_status, format: :json
-        assert_template layout: false
-      end
-
-      it "should call the Cleverreach API with the logged in user" do
-        CleverreachAPI.expects(:get_status).with(user)
-        get :newsletter_status, format: :json
-      end
+    before do
+      sign_in user
     end
+    it "should be successful" do
+      CleverreachAPI.expects(:get_status).with(user)
+      get :newsletter_status, format: :json
+      assert_response :success
+    end
+
+    it "should not render a layout" do
+      CleverreachAPI.expects(:get_status).with(user)
+      get :newsletter_status, format: :json
+      assert_template layout: false
+    end
+
+    it "should call the Cleverreach API with the logged in user" do
+      CleverreachAPI.expects(:get_status).with(user)
+      get :newsletter_status, format: :json
+    end
+
   end
 
   describe "GET 'notice'" do

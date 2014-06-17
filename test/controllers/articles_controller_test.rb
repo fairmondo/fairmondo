@@ -108,15 +108,10 @@ describe ArticlesController do
         get :index, article_search_form: { order_by: "most_donated" }
         @controller.instance_variable_get(:@articles).map{|a| a.id.to_i }.must_equal [@hardware_article, @ngo_article, @second_hand_article, @no_second_hand_article].map(&:id)
 
-      end
+        search_params = { article_search_form: { category_id: @hardware_category.id } }
+        get :index, search_params
+        assert_redirected_to( category_path(@hardware_category.id) )
 
-      context "when filtering by categories" do
-
-        it "should redirect to the category specific search" do
-          search_params = { article_search_form: { category_id: @hardware_category.id } }
-          get :index, search_params
-          assert_redirected_to( category_path(@hardware_category.id) )
-        end
       end
     end
     describe "for signed-out users" do
