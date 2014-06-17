@@ -28,39 +28,39 @@ describe LibraryPolicy do
   let(:library) { FactoryGirl.create :library }
   let(:user)    { nil                         }
 
-  context 'for a visitor' do
-    it { should deny(:show)         }
-    it { should deny(:create)       }
-    it { should deny(:update)       }
-    it { should deny(:destroy)      }
-    it { should deny(:admin_add)    }
-    it { should deny(:admin_remove) }
+  describe 'for a visitor' do
+    it { subject.must_deny(:show)         }
+    it { subject.must_deny(:create)       }
+    it { subject.must_deny(:update)       }
+    it { subject.must_deny(:destroy)      }
+    it { subject.must_deny(:admin_add)    }
+    it { subject.must_deny(:admin_remove) }
   end
 
-  context 'for a random logged-in user' do
+  describe 'for a random logged-in user' do
     let(:user) { FactoryGirl.create :user }
-    it { should deny(:show)               }
-    it { should deny(:create)             }
-    it { should deny(:update)             }
-    it { should deny(:destroy)            }
-    it { should deny(:admin_add)          }
-    it { should deny(:admin_remove)       }
+    it { subject.must_deny(:show)               }
+    it { subject.must_deny(:create)             }
+    it { subject.must_deny(:update)             }
+    it { subject.must_deny(:destroy)            }
+    it { subject.must_deny(:admin_add)          }
+    it { subject.must_deny(:admin_remove)       }
   end
 
-  context 'for the library owning user' do
+  describe 'for the library owning user' do
 
     let(:user) { library.user       }
-    it { should grant_permission(:show)       }
-    it { should grant_permission(:create)     }
-    it { should grant_permission(:update)     }
-    it { should grant_permission(:destroy)    }
-    it { should deny(:admin_add)    }
-    it { should deny(:admin_remove) }
+    it { subject.must_permit(:show)       }
+    it { subject.must_permit(:create)     }
+    it { subject.must_permit(:update)     }
+    it { subject.must_permit(:destroy)    }
+    it { subject.must_deny(:admin_add)    }
+    it { subject.must_deny(:admin_remove) }
   end
 
-  context 'for an admin' do
+  describe 'for an admin' do
     let(:user) { FactoryGirl.create :admin_user }
-    it { should grant_permission(:admin_add)              }
-    it { should grant_permission(:admin_remove)           }
+    it { subject.must_permit(:admin_add)              }
+    it { subject.must_permit(:admin_remove)           }
   end
 end
