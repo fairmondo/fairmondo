@@ -3,6 +3,6 @@ require 'test_helper'
 describe CategoryPolicy do
   include PunditMatcher
 
-  it { should grant_permission(:select_category) }
-  it { should grant_permission(:show) }
+  it { subject.must_permit(:select_category) }
+  it { subject.must_permit(:show) }
 end

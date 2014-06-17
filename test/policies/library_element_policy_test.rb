@@ -28,20 +28,20 @@ describe LibraryElementPolicy do
   let(:library_element) { FactoryGirl.create :library_element }
   let(:user) { nil }
 
-  context "for a visitor" do
-    it { should deny(:create)  }
-    it { should deny(:destroy) }
+  describe "for a visitor" do
+    it { subject.must_deny(:create)  }
+    it { subject.must_deny(:destroy) }
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
-    it { should deny(:create)             }
-    it { should deny(:destroy)            }
+    it { subject.must_deny(:create)             }
+    it { subject.must_deny(:destroy)            }
   end
 
-  context "for the template owning user" do
+  describe "for the template owning user" do
     let(:user) { library_element.library.user }
-    it { should grant_permission(:create)               }
-    it { should grant_permission(:destroy)              }
+    it { subject.must_permit(:create)               }
+    it { subject.must_permit(:destroy)              }
   end
 end

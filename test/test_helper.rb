@@ -105,6 +105,8 @@ class MiniTest::Spec
     DatabaseCleaner.clean
   end
 
+  include ::PunditMatcher
+
   # Add more helper methods to be used by all tests here...
 end
 

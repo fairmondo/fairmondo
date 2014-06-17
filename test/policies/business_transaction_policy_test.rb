@@ -28,34 +28,34 @@ describe BusinessTransactionPolicy do
   let(:business_transaction) { FactoryGirl.create :single_transaction, :sold }
   let(:user) { nil }
 
-  context "for a visitor" do
-    it { should grant_permission(:edit)                        }
-    it { should grant_permission(:update)                      }
-    it { should ultimately_deny(:show)               }
-    it { should ultimately_deny(:print_order_seller) }
-    it { should ultimately_deny(:print_order_buyer)  }
+  describe "for a visitor" do
+    it { subject.must_permit(:edit)                        }
+    it { subject.must_permit(:update)                      }
+    it { subject.must_ultimately_deny(:show)               }
+    it { subject.must_ultimately_deny(:print_order_seller) }
+    it { subject.must_ultimately_deny(:print_order_buyer)  }
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
-    it { should grant_permission(:edit)             }
-    it { should grant_permission(:update)           }
-    it { should deny(:show)               }
-    it { should deny(:print_order_seller) }
-    it { should deny(:print_order_buyer)  }
+    it { subject.must_permit(:edit)             }
+    it { subject.must_permit(:update)           }
+    it { subject.must_deny(:show)               }
+    it { subject.must_deny(:print_order_seller) }
+    it { subject.must_deny(:print_order_buyer)  }
   end
 
-  context "for the business_transaction seller" do
+  describe "for the business_transaction seller" do
     let(:user) { business_transaction.article_seller }
-    it { should deny(:edit)                 }
-    it { should deny(:update)               }
-    it { should grant_permission(:show)               }
-    it { should grant_permission(:print_order_seller) }
+    it { subject.must_deny(:edit)                 }
+    it { subject.must_deny(:update)               }
+    it { subject.must_permit(:show)               }
+    it { subject.must_permit(:print_order_seller) }
   end
 
-  context "for the transaction buyer" do
+  describe "for the transaction buyer" do
     let(:user) { business_transaction.buyer          }
-    it { should grant_permission(:show)               }
-    it { should grant_permission(:print_order_buyer)  }
+    it { subject.must_permit(:show)               }
+    it { subject.must_permit(:print_order_buyer)  }
   end
 end

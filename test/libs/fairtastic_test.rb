@@ -22,7 +22,7 @@
 require "test_helper"
 
 describe 'Fairtastic' do
-  include RSpec::Rails::HelperExampleGroup
+  #include RSpec::Rails::HelperExampleGroup
 
   describe "InputSteps" do
     before :each do
@@ -37,7 +37,7 @@ describe 'Fairtastic' do
           end
         )
 
-        @buffer.output.should =~ /fieldset class="bar foo-step-inputs/
+        @buffer.output.must_match(/fieldset class="bar foo-step-inputs/)
       end
     end
   end
