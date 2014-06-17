@@ -31,5 +31,6 @@ class LibraryElement < ActiveRecord::Base
   # Relations
   belongs_to :article
   belongs_to :library, counter_cache: true
+  has_one :user, through: :library
 
 end

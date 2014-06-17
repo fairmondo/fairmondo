@@ -67,9 +67,9 @@ gem 'virtus'
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
 gem 'devise' # authentication
-gem 'inherited_resources' # dry controllers
 gem 'pundit' # authorization
 gem 'kaminari' # pagination
+gem 'responders'
 
 # ---------- Background Processing ----------
 
@@ -125,7 +125,7 @@ group :test do
   gem 'rake'
   gem 'database_cleaner'
   gem 'colorize'
-  gem "fakeredis", :require => "fakeredis/rspec"
+  gem "fakeredis"
   gem "fakeweb", "~> 1.3"
 end
 
@@ -138,10 +138,12 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'rspec-rails' # Testing using RSpec
+  gem 'minitest' # Testing using Minitest
+  gem 'minitest-matchers'
   gem 'launchy' # save_and_open_page
-  gem 'shoulda-matchers'
-  gem 'capybara'
+  gem 'shoulda'
+  gem 'minitest-rails-capybara'
+  gem 'mocha'
 
   # Gem for testing emails
   gem "email_spec"
@@ -158,7 +160,6 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman'  # security test: execute with 'brakeman'
-  gem 'rspec-instafail'
 
   gem 'thin' # Replace Webrick
   gem 'bullet' # Notify about n+1 queries

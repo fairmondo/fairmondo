@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
 
   # Action attribute: c/create/u/update/d/delete - for export and csv upload
   # keep_images attribute: see edit_as_new
-  attr_accessor :action, :keep_images
+  attr_accessor :action, :keep_images, :save_as_template
   attr_writer :article_search_form #find a way to remove this! arcane won't like it
 
   validates_presence_of :slug unless :template?
@@ -51,7 +51,7 @@ class Article < ActiveRecord::Base
 
   # Relations
   has_one :business_transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
-  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction' , inverse_of: :article
+  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction', inverse_of: :article
   accepts_nested_attributes_for :business_transaction
   # validates_presence_of :business_transaction
 
@@ -68,13 +68,12 @@ class Article < ActiveRecord::Base
 
   validates_presence_of :user_id
 
-  belongs_to :article_template
 
   # Misc mixins
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, FeesAndDonations,
-          Images, BuildBusinessTransaction, Attributes, Template, State, Scopes,
+          Images, BuildBusinessTransaction, Attributes, State, Scopes,
           Checks, Discountable
 
   # Elastic
@@ -129,15 +128,9 @@ class Article < ActiveRecord::Base
     end
   end
 
-  # def self.article_attrs with_nested_template = true
-  #   (
-  #     Article.common_attrs + Article.money_attrs + Article.payment_attrs +
-  #     Article.basic_price_attrs + Article.transport_attrs +
-  #     Article.category_attrs + Article.commendation_attrs  +
-  #     Article.image_attrs + Article.legal_entity_attrs + Article.fees_and_donation_attrs +
-  #     Article.template_attrs(with_nested_template)
-  #   )
-  # end
+  def save_as_template?
+    self.save_as_template == "1"
+  end
 
   def images_attributes=(attributes)
     self.images.clear
@@ -174,7 +167,6 @@ class Article < ActiveRecord::Base
     enable
     include_field :fair_trust_questionnaire
     include_field :social_producer_questionnaire
-    nullify :article_template_id
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
 
@@ -196,7 +188,7 @@ class Article < ActiveRecord::Base
         end
       end
 
-      if original_article.template? || original_article.save_as_template?
+      if original_article.is_template? || original_article.save_as_template?
         new_article.slug = nil
       else
         old_slug = original_article.slug
@@ -208,9 +200,12 @@ class Article < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    super && slug == nil
+    super && slug == nil && !is_template?
   end
 
 
+  def is_template?
+    self.state.to_sym == :template
+  end
 
 end
