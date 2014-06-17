@@ -133,7 +133,11 @@ FactoryGirl.define do
     end
 
     trait :old do
-      sold_at { 17.days.ago }
+      sold_at { 27.days.ago }
+    end
+
+    trait :older do
+      sold_at { 44.days.ago }
     end
 
     trait :discountable do

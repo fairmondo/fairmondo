@@ -71,6 +71,10 @@ setup_categories
 #      %x[bundle exec rake assets:precompile]
 #    end
 #  end
+
+include Savon::SpecHelper
+savon.mock!
+
 Minitest.after_run do
   rails_best_practices
   brakeman
@@ -93,15 +97,12 @@ end
 DatabaseCleaner.strategy = :transaction
 
 class MiniTest::Spec
-  include Savon::SpecHelper
   before :each do
-    savon.mock!
     DatabaseCleaner.start
   end
 
   after :each do
     DatabaseCleaner.clean
-    savon.unmock!
   end
 
   # Add more helper methods to be used by all tests here...
