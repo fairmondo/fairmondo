@@ -7,38 +7,38 @@ describe ContentPolicy do
   let(:content) { FactoryGirl.create :content }
   let(:user) { nil }
 
-  context "for a visitor" do
-    it { should grant_permission(:show)      }
-    it { should grant_permission(:not_found) }
-    it { should deny(:index)       }
-    it { should deny(:new)         }
-    it { should deny(:create)      }
-    it { should deny(:edit)        }
-    it { should deny(:update)      }
-    it { should deny(:destroy)     }
+  describe "for a visitor" do
+    it { subject.must_permit(:show)      }
+    it { subject.must_permit(:not_found) }
+    it { subject.must_deny(:index)       }
+    it { subject.must_deny(:new)         }
+    it { subject.must_deny(:create)      }
+    it { subject.must_deny(:edit)        }
+    it { subject.must_deny(:update)      }
+    it { subject.must_deny(:destroy)     }
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
-    it { should grant_permission(:show)      }
-    it { should grant_permission(:not_found) }
-    it { should deny(:index)              }
-    it { should deny(:new)                }
-    it { should deny(:create)             }
-    it { should deny(:edit)               }
-    it { should deny(:update)             }
-    it { should deny(:destroy)            }
+    it { subject.must_permit(:show)      }
+    it { subject.must_permit(:not_found) }
+    it { subject.must_deny(:index)              }
+    it { subject.must_deny(:new)                }
+    it { subject.must_deny(:create)             }
+    it { subject.must_deny(:edit)               }
+    it { subject.must_deny(:update)             }
+    it { subject.must_deny(:destroy)            }
   end
 
-  context "for an admin user" do
+  describe "for an admin user" do
     let(:user) { FactoryGirl.create :admin_user }
-    it { should grant_permission(:show)      }
-    it { should grant_permission(:not_found) }
-    it { should grant_permission(:index) }
-    it { should grant_permission(:new)                    }
-    it { should grant_permission(:create)                 }
-    it { should grant_permission(:edit)                   }
-    it { should grant_permission(:update)                 }
-    it { should grant_permission(:destroy)                }
+    it { subject.must_permit(:show)      }
+    it { subject.must_permit(:not_found) }
+    it { subject.must_permit(:index) }
+    it { subject.must_permit(:new)                    }
+    it { subject.must_permit(:create)                 }
+    it { subject.must_permit(:edit)                   }
+    it { subject.must_permit(:update)                 }
+    it { subject.must_permit(:destroy)                }
   end
 end

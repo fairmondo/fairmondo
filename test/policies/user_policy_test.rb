@@ -27,17 +27,15 @@ describe UserPolicy do
   let(:resource) { FactoryGirl.create :user }
   let(:user) { nil }
 
-  context "for a visitor" do
-    it { should grant_permission(:show)    }
-    it { should grant_permission(:profile) }
+  describe "for a visitor" do
+    it { subject.must_permit(:show)    }
+    it { subject.must_permit(:profile) }
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
 
-    it { should grant_permission(:show)             }
-    it { should grant_permission(:profile)          }
+    it { subject.must_permit(:show)             }
+    it { subject.must_permit(:profile)          }
   end
-
-
 end
