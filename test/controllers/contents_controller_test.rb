@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Farinopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require 'test_helper'
+require_relative '../test_helper'
 
 describe ContentsController do
   def login_admin

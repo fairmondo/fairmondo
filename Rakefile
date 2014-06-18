@@ -7,6 +7,12 @@ ENV['SKIP_RAILS_ADMIN_INITIALIZER']='true' # supress RailsAdmin warnings
 
 Fairnopoly::Application.load_tasks
 
+require "rake/testtask"
+
+Rails::TestTask.new do |t|
+  t.pattern = "test/**/*_test.rb"
+end
+
 Rails::TestTask.new("test:features" => "test:prepare") do |t|
   t.pattern = "test/features/**/*_test.rb"
 end
