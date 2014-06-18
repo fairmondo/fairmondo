@@ -12,6 +12,7 @@ class RemoveArticleTemplates < ActiveRecord::Migration
 
     ArticleTemplate.all.each do |template|
       template.article.update_attribute(:template_name, template.name)
+      template.article.update_column(:state, "template")
     end
 
     remove_column :articles, :article_template_id
