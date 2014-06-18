@@ -16,7 +16,7 @@ class FeaturedLibraryQuery
 
     exhibits = ordered_active_one_day_exhibited count
     exhibits.each do |exhibit|
-      set_exhibition_date_of exhibit
+      set_exhibition_date_of exhibit unless exhibit.exhibition_date # fills nil
     end
     exhibits = fill_exhibits_randomly( exhibits, count ) unless exhibits.length >= count
 
@@ -29,7 +29,7 @@ class FeaturedLibraryQuery
     end
 
     def set_exhibition_date_of library_element
-      LibraryElement.find(library_element.id).update_attribute :exhibition_date, DateTime.now
+      library_element.update_column :exhibition_date, DateTime.now
     end
 
     # Conditional scope, used when one_day_exhibited doesn't return enough results
@@ -38,8 +38,10 @@ class FeaturedLibraryQuery
       max_offset = filler_query(exhibits).count - 1
       (count - exhibits.length).times do
         random_offset = rand 0..max_offset
-        filler_library_element = filler_query(exhibits).offset(random_offset).first
-        exhibits << filler_library_element if filler_library_element
+        if filler_library_element = filler_query(exhibits).offset(random_offset).first
+          set_exhibition_date_of filler_library_element
+          exhibits << filler_library_element
+        end
         max_offset -= 1
       end
       exhibits
