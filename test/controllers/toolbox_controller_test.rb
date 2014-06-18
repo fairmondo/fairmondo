@@ -93,7 +93,9 @@ describe ToolboxController do
       sign_in user
     end
     it "should be successful" do
-      CleverreachAPI.expects(:get_status).with(user)
+      #CleverreachAPI.expects(:get_status).with(user)
+      fixture = File.read("test/fixtures/cleverreach_get_by_mail_success.xml")
+      Savon::Client.any_instance.expects(:call).returns(fixture)
       get :newsletter_status, format: :json
       assert_response :success
     end

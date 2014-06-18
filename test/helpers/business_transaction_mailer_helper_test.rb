@@ -125,19 +125,19 @@ describe BusinessTransactionMailerHelper do
     end
   end
 
-  describe "#fees_and_donations( business_transaction )" do
+  # describe "#fees_and_donations( business_transaction )" do
 
-    it "should return the right fees and donations string for the business_transaction" do
-      skip "will be fixed when time comes"
-      @business_transaction.article.calculate_fees_and_donations
-      @business_transaction.quantity_bought = 2
+  #   it "should return the right fees and donations string for the business_transaction" do
+  #     skip "will be fixed when time comes"
+  #     @business_transaction.article.calculate_fees_and_donations
+  #     @business_transaction.quantity_bought = 2
 
-      fees_and_donations = helper.fees_and_donations( @business_transaction )
-      fees_and_donations.must_include( I18n.t('transaction.notifications.seller.fees') )
-      fees_and_donations.must_include( "#{humanized_money_with_symbol( @business_transaction.article.calculated_fee * @business_transaction.quantity_bought )}" )
+  #     fees_and_donations = helper.fees_and_donations( @business_transaction )
+  #     fees_and_donations.must_include( I18n.t('transaction.notifications.seller.fees') )
+  #     fees_and_donations.must_include( "#{humanized_money_with_symbol( @business_transaction.article.calculated_fee * @business_transaction.quantity_bought )}" )
 
-      fees_and_donations.must_include( I18n.t('transaction.notifications.seller.donations') )
-      fees_and_donations.must_include( "#{humanized_money_with_symbol( @business_transaction.article.calculated_fair * @business_transaction.quantity_bought )}" )
-    end
-  end
+  #     fees_and_donations.must_include( I18n.t('transaction.notifications.seller.donations') )
+  #     fees_and_donations.must_include( "#{humanized_money_with_symbol( @business_transaction.article.calculated_fair * @business_transaction.quantity_bought )}" )
+  #   end
+  # end
 end
