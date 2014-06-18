@@ -109,7 +109,6 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'letter_opener' # emails in browser
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
 
   # debugging in chrome with RailsPanel
   gem 'meta_request'
@@ -131,6 +130,9 @@ end
 
 
 group :development, :test do
+
+  # styleguides
+  gem 'nkss-rails', github: 'nadarei/nkss-rails'
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
