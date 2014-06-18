@@ -131,8 +131,6 @@ end
 
 group :development, :test do
 
-  # styleguides
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
@@ -173,4 +171,7 @@ end
 group :development,:test,:staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
+  # styleguides
+  gem 'nkss-rails', github: 'nadarei/nkss-rails'
+
 end
