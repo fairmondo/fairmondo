@@ -6,7 +6,7 @@ require "minitest/rails/capybara"
 require "minitest/pride"
 require "mocha/mini_test"
 
-require 'support/spec_helpers/coverage.rb'
+require Rails.root.join('test/support/spec_helpers/coverage.rb')
 
 require File.expand_path("../../config/environment", __FILE__)
 

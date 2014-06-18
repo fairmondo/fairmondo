@@ -142,6 +142,7 @@ group :development, :test do
 
   gem 'minitest' # Testing using Minitest
   gem 'minitest-matchers'
+  gem 'minitest-line'
   gem 'launchy' # save_and_open_page
   gem 'shoulda'
   gem 'minitest-rails-capybara'

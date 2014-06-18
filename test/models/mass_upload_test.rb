@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 describe MassUpload do
   subject { MassUpload.new }
