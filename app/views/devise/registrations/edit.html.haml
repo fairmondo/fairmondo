@@ -22,7 +22,7 @@
 %h1= t('common.actions.edit_profile')
 
 .Accordion.Accordion--activated.user-edit
-  = semantic_form_for(@user, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@user_edit_form, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, default_step: true do
 
@@ -62,10 +62,10 @@
           = "#{t('formtastic.labels.user.image')}: "
         %p
           = image_tag(@user.image_url(:original), class: "img-polaroid ")
-        - f.object.build_image unless f.object.image # Build the Image object for the form
-        = f.semantic_fields_for :image do |image|
-          = f.inputs do
-            = image.input :image, label: false, as: :file, tooltip: true, required: false
+          -# f.object.build_image unless f.object.image # Build the Image object for the form
+          = f.semantic_fields_for :image do |image|
+            = f.inputs do
+              = image.input :image, label: false, as: :file, tooltip: true, required: false
 
       .Accordion-step
         .visibility
@@ -86,7 +86,7 @@
           = t('users.visibility.public')
         %h3
           = t('users.title.state')
-        = f.input :vacationing, tooltip: true
+        = f.input :vacationing,as: :boolean, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
 
     = f.input_step :contact do
@@ -111,12 +111,16 @@
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
-
-          = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-          = f.input :address_suffix
-          = f.input :street, required: true
-          = f.input :zip, required: true
-          = f.input :city, required: true
+          = f.semantic_fields_for :addresses do |a|
+            .address
+              = a.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+              = a.input :first_name
+              = a.input :last_name
+              = a.input :address_line_1, required: true
+              = a.input :address_line_2
+              = a.input :zip, required: true
+              = a.input :city, required: true
+              = a.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
           = f.input :phone
           = f.input :mobile
           = f.input :fax
