@@ -1,2 +1,52 @@
 .markdown-beautify
   :markdown
+    # Breakpoint mixins
+    There are three Mixins ready for you to use in `mixins/breakpoints.scss`. You can use the variables in this file as arguments for the mixins.
+
+      * at-breakpoint
+        * Will start at the requested pixel width
+        * Example: `@include at-breakpoint($bp-tablet) { display: block; }`
+      * till-breakpoint
+        * Will end at the requested pixel width
+         * Example: `@include till-breakpoint($bp-tablet) { display: none; }`
+      * between-breakpoints
+        * Will start and end the requested pixel widths
+         * Example: `@include between-breakpoints($bp-mobile, $bp-tablet) { display: block; }`
+
+    Please only use the common breakpoints at the top of the file through the variables. If you really need other breakpoints place new variables in this file under uncommon breakpoints and name them accordingly.
+
+    # Susy
+    Fairnopoly SASS Code mostly uses the [shorthand syntax of Susy 2.0](http://susydocs.oddbird.net/en/latest/shorthand/):
+
+
+    Examples:
+
+      * 3 out of 12 columns: `@include span(3 of 12);`
+      * last column: `@include omega`
+      * a container (should already be in the main layout so try not to use this): `@include container(80em);`
+
+    If you only want to have a simple Grid refer to the Grid section:
+
+    Here is style example that should serve as a good basis for your responsive layouts:
+
+        @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+          .Search-sidebar {
+            @include span(1 of 4 0.1);
+          }
+          .Search-results {
+            @include span(3 of 4 0.1);
+            @include omega;
+          }
+        }
+
+        @include at-breakpoint($bp-desktop) {
+          .Search-sidebar {
+            @include span(1 of 5 0.1);
+          }
+          .Search-results {
+            @include span(4 of 5 0.1);
+            @include omega;
+          }
+        }
+
+
