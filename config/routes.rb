@@ -21,7 +21,7 @@
 #
 Fairnopoly::Application.routes.draw do
 
-  mount Nkss::Engine => '/styleguides' if Rails.env.development?
+  mount Nkss::Engine => '/styleguides' if Rails.env.development? || Rails.env.staging?
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   namespace :admin do
