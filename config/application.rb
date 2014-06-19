@@ -107,6 +107,6 @@ module Fairnopoly
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
 
     # experimental
-    config.tinymce.base = '/assets/tinymce'
+    config.tinymce.base = '/assets/tinymce' # WTF
   end
 end
