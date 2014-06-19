@@ -22,40 +22,35 @@
 class RegistrationsController < Devise::RegistrationsController
 
   before_filter :dont_cache, only: [ :edit ]
-  #before_filter :configure_permitted_parameters
+  before_filter :configure_permitted_parameters
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
   def edit
-    current_user.addresses.build unless current_user.addresses
-    @user_edit_form = UserEditForm.new(current_user)
-
-   #@user = User.find current_user.id
-   #check_incomplete_profile! @user
-   #@user.valid?
-   #super
+    @user = User.find current_user.id
+    check_incomplete_profile! @user
+    @user.valid?
+    super
   end
 
 
   def update
-    resource = current_user
-    @user_edit_form = UserEditForm.new(current_user)
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-    @user_edit_form.persist!(params, current_user)
-    #successfully_updated = update_account(account_update_params)
+    successfully_updated  = update_account(account_update_params)
 
-  # if successfully_updated
-  #   if is_navigational_format?
-  #     flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-  #        :changed_email : :updated
-  #     set_flash_message :notice, flash_key
-  #   end
-  #   sign_in resource_name, resource, :bypass => true
-  #   respond_with resource, :location => after_update_path_for(resource)
-  # else
-  #   clean_up_passwords resource
-  #   resource.image.save if resource.image
+    if successfully_updated
+      if is_navigational_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+           :changed_email : :updated
+        set_flash_message :notice, flash_key
+      end
+      sign_in resource_name, resource, :bypass => true
+      respond_with resource, :location => after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      resource.image.save if resource.image
       respond_with resource
-  # end
+    end
   end
 
   private
@@ -89,7 +84,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
   protected
-
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
         u.for(User.new).as(resource).on(:create).refine

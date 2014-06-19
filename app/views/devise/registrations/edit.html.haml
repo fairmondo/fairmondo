@@ -22,7 +22,7 @@
 %h1= t('common.actions.edit_profile')
 
 .Accordion.Accordion--activated.user-edit
-  = semantic_form_for(@user_edit_form, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
+  = semantic_form_for(@user, html: {multipart: true, autocomplete: "off", class: 'js-visual-submit'}, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder) do |f|
     = f.semantic_errors
     = f.input_step :account, default_step: true do
 
@@ -62,7 +62,7 @@
           = "#{t('formtastic.labels.user.image')}: "
         %p
           = image_tag(@user.image_url(:original), class: "img-polaroid ")
-          -# f.object.build_image unless f.object.image # Build the Image object for the form
+          - f.object.build_image unless f.object.image # Build the Image object for the form
           = f.semantic_fields_for :image do |image|
             = f.inputs do
               = image.input :image, label: false, as: :file, tooltip: true, required: false
@@ -111,16 +111,15 @@
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
-          = f.semantic_fields_for :addresses do |a|
-            .address
-              = a.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-              = a.input :first_name
-              = a.input :last_name
-              = a.input :address_line_1, required: true
-              = a.input :address_line_2
-              = a.input :zip, required: true
-              = a.input :city, required: true
-              = a.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+          - if @user.addresses.empty?
+            Du hast bisher keine Adresse angelegt
+          - else
+            %p
+              - @user.addresses.each do |a|
+                = render 'addresses/address', address: a
+          %p
+            = link_to 'Adresse hinzufügen', new_user_address_path(@user)#, { class: 'colorbox' }
+
           = f.input :phone
           = f.input :mobile
           = f.input :fax
