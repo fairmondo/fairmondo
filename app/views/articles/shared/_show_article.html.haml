@@ -19,8 +19,9 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+- show_extra = defined?(extra) && extra
 .Article
-  - cache_if (article.title_image_url_thumb != ArticleImage::PROCESSING_IMAGE_URL), ["articles", article.id, "tile"] do
+  - cache_if (article.title_image_url_thumb != ArticleImage::PROCESSING_IMAGE_URL && !show_extra), ["articles", article.id, "tile"] do
     %figure.Article-image
       = link_to image_tag(article.title_image_url_thumb), article_path(article.slug)
 
@@ -44,7 +45,7 @@
     .Article-tags
       = condition_label article
       = commendation_labels_for article
-    - if defined?(extra) && extra
+    - if show_extra
       .Article-extra
         = yield
 

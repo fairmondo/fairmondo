@@ -1,7 +1,11 @@
-- if search_cache && search_cache.searched_category == category
-  %span{title: category.name}
-    %b
-      = category.name
-- else
-  = link_to category_path(category, article_search_form: search_cache.change(category_id: category.id)), class: 'Search-colored-link', title: category.name, remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show') do
-    = category.name
+- count = search_cache.category_article_count category.id rescue nil
+- displayed_name = (!category.parent_id && count) ? "#{category.name} (#{count})" : category.name
+- if count != 0
+  %span{ title: displayed_name }
+    -# class: (count == 0 ? "Search-categories-empty" : "" )
+    - if search_cache && search_cache.searched_category == category
+      %b
+        = displayed_name
+    - else
+      = link_to displayed_name, category_path(category, article_search_form: search_cache.change(category_id: category.id)), remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show')
+      = "(#{count})" if current_user && current_user.admin? && count && category.parent_id

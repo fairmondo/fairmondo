@@ -33,7 +33,7 @@ describe Invoice do
   		it "should have state 'open'" do
   			invoice.should respond_to :open?
   		end
-      
+
       it "should have state 'pending'" do
         invoice.should respond_to :pending?
       end
@@ -141,7 +141,7 @@ describe Invoice do
             pending
           end
         end
-        
+
         context 'when user has not an open invoice' do
           it "should create a new invoice" do
             pending
@@ -177,14 +177,14 @@ describe Invoice do
         context "invoice.total_fee_cents >= 1000" do
           it "should return true" do
             invoice.total_fee_cents = 1000
-            invoice.invoice_billable?.should be_true
+            invoice.invoice_billable?.should be_truthy
           end
         end
 
         context "invoice.total_fee_cents < 1000" do
           it "should return false" do
             invoice.total_fee_cents = 657
-            invoice.invoice_billable?.should be_false
+            invoice.invoice_billable?.should be_falsey
           end
         end
       end
@@ -197,7 +197,7 @@ describe Invoice do
             invoice.due_date.should eq 30.days.from_now.at_end_of_month
           end
         end
-        
+
         context "invoice.total_fee_cents < 1000" do
           it "due date should be at end of quarter" do
             invoice.total_fee_cents = 675
@@ -213,7 +213,7 @@ describe Invoice do
             pending
           end
         end
-        
+
         context "" do
           it '' do
             pending

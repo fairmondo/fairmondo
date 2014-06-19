@@ -2,7 +2,7 @@
 
 {Burndown}[http://radekstepan.com/github-burndown-chart/#!/fairnopoly/fairnopoly]
 
-{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=master] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly] {<img src="https://gemnasium.com/fairnopoly/fairnopoly.svg" alt="Dependency Status" />}[https://gemnasium.com/fairnopoly/fairnopoly] {<img src="http://inch-pages.github.io/github/fairnopoly/fairnopoly.png" alt="Inline docs" />}[http://inch-pages.github.io/github/fairnopoly/fairnopoly]
+{<img src="https://travis-ci.org/fairnopoly/fairnopoly.png" />}[https://travis-ci.org/fairnopoly/fairnopoly] {<img src="https://coveralls.io/repos/fairnopoly/fairnopoly/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/fairnopoly/fairnopoly?branch=master] {<img src="https://codeclimate.com/github/fairnopoly/fairnopoly.png" />}[https://codeclimate.com/github/fairnopoly/fairnopoly] {<img src="https://gemnasium.com/fairnopoly/fairnopoly.svg" alt="Dependency Status" />}[https://gemnasium.com/fairnopoly/fairnopoly] {<img src="http://inch-ci.org/github/fairnopoly/fairnopoly.png" alt="Inline docs" />}[http://inch-ci.org/github/fairnopoly/fairnopoly]
 
 Fairnopoly is a free market place in the hand of the users.
 

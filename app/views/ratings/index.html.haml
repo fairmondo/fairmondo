@@ -28,14 +28,19 @@
       .image
         %span{class: "sprite_#{rating.value}" }
       .quote
-
-        %p
-          %a{:href => user_path(rating.rating_user)}
-            = rating.rating_user.nickname
-          = " schrieb am #{l rating.created_at, format: :short}:"
-        %p
-          %q
-            = rating.text
+        - if rating.text.empty?
+          %p
+            %a{:href => user_path(rating.rating_user)}
+              = rating.rating_user.nickname
+            = " am #{l rating.created_at, format: :short}"
+        - else
+          %p
+            %a{:href => user_path(rating.rating_user)}
+              = rating.rating_user.nickname
+            = " schrieb am #{l rating.created_at, format: :short}:"
+          %p
+            %q
+              = rating.text
       .profile
         %a{:href => user_path(rating.rating_user)}
           = image_tag(rating.rating_user.image_url(:profile))

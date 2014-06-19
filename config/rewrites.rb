@@ -4,12 +4,12 @@ class RewriteConfig
     [{
       method: :r301,
       from: /(.*)/,
-      to: '/categories/bucher',
+      to: 'https://www.fairnopoly.de/categories/bucher',
       if: /b(ü|u|ue)cher\./i
     },{
       method: :r301,
       from: /(.*)/,
-      to: '/categories/weitere',
+      to: 'https://www.fairnopoly.de/categories/weitere-abf793c9-d94b-423c-947d-0d8cb7bbe3b9',
       if: /weitere\./i
     }]
   end
@@ -21,9 +21,11 @@ module Rack
       attr_reader :rules
 
       def initialize(options)
-        @rules = RewriteConfig.list.map { |rule|
-          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new {|rack_env| rack_env['SERVER_NAME'] =~ rule[:if]}})
-        }
+        @rules = RewriteConfig.list.map do |rule|
+          Rule.new(rule[:method], rule[:from], rule[:to], {if: Proc.new do |rack_env|
+            rack_env['SERVER_NAME'] =~ rule[:if]
+          end})
+        end
       end
     end
   end
