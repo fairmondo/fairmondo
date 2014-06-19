@@ -109,7 +109,6 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'letter_opener' # emails in browser
-  gem 'nkss-rails', github: 'nadarei/nkss-rails'
 
   # debugging in chrome with RailsPanel
   gem 'meta_request'
@@ -128,12 +127,13 @@ group :test do
   gem 'rake'
   gem 'database_cleaner'
   gem 'colorize'
-  gem "fakeredis", :require => "fakeredis/rspec"
+  gem "fakeredis"
   gem "fakeweb", "~> 1.3"
 end
 
 
 group :development, :test do
+
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
@@ -141,10 +141,13 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv'
 
-  gem 'rspec-rails' # Testing using RSpec
+  gem 'minitest' # Testing using Minitest
+  gem 'minitest-matchers'
+  gem 'minitest-line'
   gem 'launchy' # save_and_open_page
-  gem 'shoulda-matchers'
-  gem 'capybara'
+  gem 'shoulda'
+  gem 'minitest-rails-capybara'
+  gem 'mocha'
 
   # Gem for testing emails
   gem "email_spec"
@@ -161,7 +164,6 @@ group :development, :test do
   # test suite additions
   gem "rails_best_practices"
   gem 'brakeman'  # security test: execute with 'brakeman'
-  gem 'rspec-instafail'
 
   gem 'thin' # Replace Webrick
   gem 'bullet' # Notify about n+1 queries
@@ -172,4 +174,7 @@ end
 group :development,:test,:staging do
   gem 'factory_girl_rails'
   gem 'ffaker'
+  # styleguides
+  gem 'nkss-rails', github: 'nadarei/nkss-rails'
+
 end
