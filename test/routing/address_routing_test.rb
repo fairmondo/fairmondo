@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../test_helper'
 
 describe AddressesController do
   describe 'routing' do

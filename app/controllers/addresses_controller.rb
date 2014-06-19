@@ -6,37 +6,41 @@ class AddressesController < ApplicationController
 
   def index
     @addresses = current_user.addresses.all
+    authorize @addresses
     respond_with @addresses
   end
 
   def new
-    @address = Address.new
+    @address = current_user.addresses.build
+    authorize @address
+    render layout: false
   end
 
   def create
-    @address = current_user.addresses.build(params.for(Addresse).refine)
+    @address = current_user.addresses.build(params.for(Address).refine)
     authorize @address
-    respond_with @address
+    respond_with [current_user, @address] if @address.save
   end
 
   def edit
     authorize @address
+    render layout: false
   end
 
   def update
     authorize @address
-    @address.update(params.for(@address).refine)
+    @address.update(params.for(Address).refine)
+    respond_with [current_user, @address]
+  end
+
+  def show
+    authorize @address
     respond_with @address
   end
 
   def destroy
     authorize @address
     @address.destroy
-  end
-
-  def show
-    authorize @address
-    respond_with @address
   end
 
   private

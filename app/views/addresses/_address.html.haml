@@ -1,0 +1,12 @@
+.Content
+  %p
+    %h2= "#{ address.title } #{ address.first_name } #{ address.last_name }"
+    %p= address.address_line_1
+    - unless address.address_line_2.empty?
+      %p= address.address_line_2
+    %p= "#{ address.zip } #{ address.city }"
+    %p= address.country
+    %br
+  %p
+    = link_to 'Adresse bearbeiten', edit_user_address_path(@user, address), { class: 'colorbox Button' }
+    = link_to 'Adresse löschen', user_address_path(@user, address), { method: :delete, class: 'Button Button--red'}

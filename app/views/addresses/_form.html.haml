@@ -1,0 +1,18 @@
+%h1 Neue Adresse anlegen
+
+= semantic_form_for address, url: user_addresses_path, builder: ::Fairtastic::FormBuilder do |f|
+  = f.semantic_errors
+
+  = f.inputs do
+    = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :address_line_1
+    = f.input :address_line_2
+    = f.input :zip
+    = f.input :city
+    = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+
+  = f.actions do
+    = f.action :submit
+
