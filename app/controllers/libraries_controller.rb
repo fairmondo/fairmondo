@@ -37,7 +37,9 @@ class LibrariesController < ApplicationController
 
   def show
     authorize @library
-    respond_with @library
+    respond_with @library do |format|
+      format.js
+    end
   end
 
   def create
