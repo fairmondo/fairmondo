@@ -243,7 +243,7 @@ GEM
     metaclass (0.0.4)
     mime-types (1.25.1)
     mini_portile (0.6.0)
-    minitest (5.3.4)
+    minitest (5.3.5)
     minitest-capybara (0.6.1)
       capybara (~> 2.1.0)
       minitest (~> 5.0)
