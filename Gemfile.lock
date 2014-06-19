@@ -169,9 +169,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    disposable (0.0.4)
-      representable (~> 1.8.1)
-      uber
     docile (1.1.3)
     email_spec (1.5.0)
       launchy (~> 2.1)
@@ -343,16 +340,7 @@ GEM
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
     ref (1.0.5)
-    reform (1.0.1)
-      activemodel
-      disposable (~> 0.0.4)
-      representable (~> 1.8.1)
-      uber (~> 0.0.4)
     remotipart (1.2.1)
-    representable (1.8.4)
-      multi_json
-      nokogiri
-      uber
     require_all (1.3.2)
     responders (1.1.0)
       railties (>= 3.2, < 5)
@@ -474,7 +462,6 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
-    uber (0.0.6)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -567,7 +554,6 @@ DEPENDENCIES
   rails_best_practices
   rake
   recaptcha
-  reform
   responders
   rspec-instafail
   rspec-rails
