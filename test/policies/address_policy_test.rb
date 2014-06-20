@@ -9,18 +9,17 @@ describe AddressPolicy do
   context 'for a visitor' do
     let(:user) { nil }
 
-    it { subject.must_deny(:index) }
-    it { subject.must_deny(:create) }
-    it { subject.must_deny(:new) }
-    it { subject.must_deny(:edit) }
-    it { subject.must_deny(:update) }
-    it { subject.must_deny(:show) }
-    it { subject.must_deny(:destroy) }
+    it { subject.must_ultimately_deny(:index) }
+    it { subject.must_ultimately_deny(:create) }
+    it { subject.must_ultimately_deny(:new) }
+    it { subject.must_ultimately_deny(:edit) }
+    it { subject.must_ultimately_deny(:update) }
+    it { subject.must_ultimately_deny(:show) }
+    it { subject.must_ultimately_deny(:destroy) }
   end
 
   context 'for a random logged in user' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:address) { address }
 
     it { subject.must_deny(:index) }
     it { subject.must_deny(:create) }

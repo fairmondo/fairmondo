@@ -37,4 +37,24 @@ describe AddressesController do
       assert_response :success
     end
   end
+
+  describe 'PATCH ::update' do
+    it 'should update address' do
+    end
+  end
+
+  describe 'GET ::show' do
+    it 'should render addresse\'s show_template' do
+    end
+  end
+
+  describe 'DELETE ::destroy' do
+    it 'should delete an address from the database' do
+      @address_attrs = FactoryGirl.attributes_for :address
+      sign_in user
+      assert_difference 'Address.count', -1 do
+        post :delete, user_id: user.id, address_id: address.id
+      end
+    end
+  end
 end
