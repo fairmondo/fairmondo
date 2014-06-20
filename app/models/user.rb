@@ -49,9 +49,12 @@ class User < ActiveRecord::Base
   attr_accessor :fastbill_profile_update
 
 
-  #Relations
+  # Relations
   has_many :business_transactions, through: :articles
+    # Addresses
   has_many :addresses, dependent: :destroy
+  has_one  :standard_address, class_name: 'Address'
+
   has_many :articles, dependent: :destroy # As seller
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer

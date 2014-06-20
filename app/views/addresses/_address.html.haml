@@ -8,5 +8,5 @@
     %p= address.country
     %br
   %p
-    = link_to 'Adresse bearbeiten', edit_user_address_path(@user, address), { class: 'colorbox Button' }
-    = link_to 'Adresse löschen', user_address_path(@user, address), { method: :delete, class: 'Button Button--red'}
+    = link_to 'Adresse bearbeiten', edit_user_address_path(current_user, address), { class: 'colorbox Button' }
+    = link_to 'Adresse löschen', user_address_path(current_user, address), { method: :delete, class: 'Button Button--red'}
