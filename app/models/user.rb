@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   has_many :mass_uploads
 
   has_many :library_elements, through: :libraries
+  has_many :carts
 
   ##
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"

@@ -29,6 +29,7 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
   has_one :rating
+  has_many :line_items
 
   attr_accessor :updating_state, :updating_multiple
 

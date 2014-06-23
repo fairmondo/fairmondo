@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611134449) do
+ActiveRecord::Schema.define(version: 20140623133659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,13 @@ ActiveRecord::Schema.define(version: 20140611134449) do
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
   add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
+
+  create_table "carts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",    limit: 8
+    t.boolean  "sold"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -264,6 +271,24 @@ ActiveRecord::Schema.define(version: 20140611134449) do
 
   add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree
   add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id", using: :btree
+
+  create_table "line_item_groups", force: true do |t|
+    t.text     "message"
+    t.integer  "cart_id",             limit: 8
+    t.boolean  "tos_accepted"
+    t.integer  "user_id",             limit: 8
+    t.integer  "master_line_item_id", limit: 8
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "line_items", force: true do |t|
+    t.integer  "line_item_group_id",      limit: 8
+    t.integer  "business_transaction_id", limit: 8
+    t.integer  "requested_quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "mass_upload_articles", force: true do |t|
     t.integer  "mass_upload_id"

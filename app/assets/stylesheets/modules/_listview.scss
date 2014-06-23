@@ -29,14 +29,14 @@ Styleguide Listview
   @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
     .Listview-image { @include span(1 of 7 0.1); }
     .Listview-details { @include span(4 of 7 0.1); }
-    .Listview-actions { @include span(2 of 7 0.1);
+    .Listview-actions, .Listview-quantity { @include span(2 of 7 0.1);
                         @include omega;}
   }
 
   @include at-breakpoint($bp-desktop) {
     .Listview-image { @include span(1 of 9 0.1); }
     .Listview-details { @include span(5 of 9 0.1); }
-    .Listview-actions { @include span(3 of 9 0.1);
+    .Listview-actions, .Listview-quantity { @include span(3 of 9 0.1);
                         @include omega; }
   }
 
@@ -90,7 +90,7 @@ Styleguide Listview
 
 //actions
 
-.Listview > .Listview-item .Listview-actions {
+.Listview > .Listview-item .Listview-actions, .Listview > .Listview-item  .Listview-quantity {
   @include till-breakpoint($bp-tablet) {
     clear:both;
   }

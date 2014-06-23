@@ -85,6 +85,9 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
+  resources :carts , only: [:show,:edit,:update]
+
+
   get '/transactions/:id', to: 'business_transactions#show'
 
   get "welcome/reconfirm_terms"

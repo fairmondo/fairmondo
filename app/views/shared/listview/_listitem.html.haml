@@ -25,19 +25,7 @@
     - if business_transaction && business_transaction.rating
       .Listview-rating
         %span{class: "sprite_#{business_transaction.rating_value}_small" }
-  .Listview-details
-    .Listview-title
-      = link_to  article_path(article), :title => article.title do
-        %h3
-          = truncate(article.title, :length => 65)
-    .Listview-price_detail
-      = humanized_money_with_symbol article.price
-      - unless article.vat == 0
-        = t('article.vat_included', :mwst => article.vat)
-      = render '/articles/show/basic_price', :article => article
-    .Listview-tags
-      = condition_label article
-      = commendation_labels_for article
+  = render "shared/listview/listview_detail", article: article
   .Listview-actions
     - if business_transaction
       - if business_transaction.buyer == current_user

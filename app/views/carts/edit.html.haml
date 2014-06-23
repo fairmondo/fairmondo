@@ -1,0 +1,5 @@
+.Content
+  = semantic_form_for :cart_checkout_form do
+    - @cart.line_item_groups.each do |group|
+      Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+      = render "line_items", line_items: group.line_items , editable: false
