@@ -13,9 +13,9 @@ class CartsController < ApplicationController
 
   def edit
     authorize @cart
-    @cart_form = CartCheckoutForm.new(session[:cart_data], @cart) #try the old session data
+    @cart_checkout_form = CartCheckoutForm.new(session[:cart_checkout], @cart) #try the old session data
 
-    if @cart_form.complete?
+    if @cart_checkout_form.complete?
       render :overview
     else
       render :edit
@@ -25,8 +25,8 @@ class CartsController < ApplicationController
 
   # buy cart
   def update
-    @cart_form = CartCheckoutForm.new(session[:cart_data], @cart)
-    @cart_form.update(params.for(@cart_form).refine)
+    @cart_checkout_form = CartCheckoutForm.new(session[:cart_checkout], @cart)
+    @cart_checkout_form.update(params.for(@cart_form).refine)
     respond_with @cart
   end
 

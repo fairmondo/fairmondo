@@ -10,4 +10,8 @@ class CartCheckoutForm
     false
   end
 
+  def update params
+
+  end
+
 end
