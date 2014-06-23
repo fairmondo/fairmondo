@@ -28,6 +28,8 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :business_transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
+  belongs_to :shipping_address, class_name: 'Address', foreign_key: 'shipping_address_id'
+  belongs_to :billing_address, class_name: 'Address', foreign_key: 'billing_address_id'
   has_one :rating
 
   attr_accessor :updating_state, :updating_multiple

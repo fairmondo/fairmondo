@@ -175,12 +175,12 @@ class User < ActiveRecord::Base
   # Return a formatted address
   # @api public
   # @return [String]
-  def address
-    string = ""
-    string += "#{self.address_suffix}, " if self.address_suffix.present?
-    string += "#{self.street}, #{self.zip} #{self.city}"
-    string
-  end
+  #def address
+  #  string = ""
+  #  string += "#{self.address_suffix}, " if self.address_suffix.present?
+  #  string += "#{self.street}, #{self.zip} #{self.city}"
+  #  string
+  #end
 
   # Update percentage of positive and negative ratings of seller
   # @api public
@@ -291,7 +291,7 @@ class User < ActiveRecord::Base
   # checks if user passes all neccessary validations before he can sell
   def can_sell?
     self.wants_to_sell = true
-    can_sell = self.valid?
+    can_sell = self.valid? && !self.addresses.empty? && self.standard_address.valid?
     self.wants_to_sell = false
     can_sell
   end

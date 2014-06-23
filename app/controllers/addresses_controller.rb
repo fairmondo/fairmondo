@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
   before_filter :set_address, except: [:index, :new, :create]
 
   def index
-    @addresses = current_user.addresses.all
+    @addresses = current_user.addresses
     authorize @addresses
     respond_with @addresses
   end
