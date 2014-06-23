@@ -5,7 +5,7 @@ describe Address do
 
   describe 'associations' do
     it { subject.must belong_to :user }
-    it { subject.must belong_to :business_transaction }
+    it { subject.must have_many :business_transactions }
   end
 
   describe 'attributes' do

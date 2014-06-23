@@ -1,6 +1,6 @@
 %h1 Neue Adresse anlegen
 
-= semantic_form_for address, url: user_addresses_path, builder: ::Fairtastic::FormBuilder do |f|
+= semantic_form_for address, url: edit_user_address_path(address), builder: ::Fairtastic::FormBuilder do |f|
   = f.semantic_errors
 
   = f.inputs do

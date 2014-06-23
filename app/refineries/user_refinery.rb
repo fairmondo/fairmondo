@@ -1,4 +1,8 @@
 class UserRefinery < ApplicationRefinery
+  def self.root
+    false
+  end
+
   def create
     [
       :email, :password, :password_confirmation, :new_terms_confirmed,
@@ -18,7 +22,6 @@ class UserRefinery < ApplicationRefinery
       :fastbill_profile_update, :vacationing, :newsletter,
       :iban,:bic,
       { image_attributes: ImageRefinery.new(Image.new, user).default },
-      { addresses_attributes: AddressRefinery.new(Address.new, user).default }
     ]
     permitted += [ :terms, :cancellation, :about, :cancellation_form ] if user.is_a? LegalEntity
     permitted

@@ -89,10 +89,12 @@ describe User do
     it { subject.must_respond_to :fastbill_subscription_id }
     it { subject.must_respond_to :fastbill_id }
     it { subject.must_respond_to :vacationing }
+    it { subject.must_respond_to :standard_address_id }
     it { subject.must_respond_to :admin }
 
   end
   describe "associations" do
+    it { subject.must have_many(:addresses).dependent(:destroy) }
     it { subject.must have_many(:articles).dependent(:destroy) }
     it { subject.must have_many(:libraries).dependent(:destroy) }
     it { subject.must have_one(:image) }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616122619) do
+ActiveRecord::Schema.define(version: 20140623090048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,13 +132,17 @@ ActiveRecord::Schema.define(version: 20140616122619) do
     t.boolean  "billed_for_fair",                default: false
     t.boolean  "billed_for_fee",                 default: false
     t.boolean  "billed_for_discount",            default: false
+    t.integer  "shipping_address_id",  limit: 8
+    t.integer  "billing_address_id",   limit: 8
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
+  add_index "business_transactions", ["billing_address_id"], name: "bt_billing_addresses", using: :btree
   add_index "business_transactions", ["buyer_id"], name: "index_business_transactions_on_buyer_id", using: :btree
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
   add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
+  add_index "business_transactions", ["shipping_address_id"], name: "bt_shipping_addresses", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -446,13 +450,13 @@ ActiveRecord::Schema.define(version: 20140616122619) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
-    t.integer  "billing_address_id",             limit: 8
-    t.integer  "shipping_address_id",            limit: 8
+    t.integer  "standard_address_id",            limit: 8
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index "users", ["standard_address_id"], name: "standard_user_address", using: :btree
 
 end

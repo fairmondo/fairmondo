@@ -102,27 +102,37 @@
           = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
           = f.input :forename, required: true
           = f.input :surname, required: true
-
           - if current_user.is_a?(LegalEntity)
             = f.input :company_name
+          = f.input :phone
+          = f.input :mobile
+          = f.input :fax
+
 
         .Accordion-step
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
-          - if @user.addresses.empty?
-            Du hast bisher keine Adresse angelegt
+          - if @address
+            -#Du hast bisher keine Adresse angelegt
+            = semantic_fields_for @address do |f|
+              = f.inputs do
+                = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+                = f.input :first_name
+                = f.input :last_name
+                = f.input :address_line_1
+                = f.input :address_line_2
+                = f.input :zip
+                = f.input :city
+                = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
           - else
             %p
-              - @user.addresses.each do |a|
-                = render 'addresses/address', address: a
+              - @user.addresses.each do |address|
+                = render 'addresses/address', address: address
           %p
-            = link_to 'Adresse hinzufügen', new_user_address_path(@user)#, { class: 'colorbox' }
+            = link_to 'Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
 
-          = f.input :phone
-          = f.input :mobile
-          = f.input :fax
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do

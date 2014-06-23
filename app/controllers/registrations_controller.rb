@@ -26,8 +26,14 @@ class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
   def edit
-    @user = User.find current_user.id
-    check_incomplete_profile! @user
+    @user = User.find(current_user.id)
+    @address = nil
+
+    if @user.addresses.empty?
+      @address = @user.addresses.build
+    end
+
+    check_incomplete_profile!(@user)
     @user.valid?
     super
   end
@@ -38,14 +44,17 @@ class RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     successfully_updated  = update_account(account_update_params)
 
+    address = resource.addresses.build(params.for(Address).refine)
+    save_standard_address(resource, address)
+
     if successfully_updated
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
            :changed_email : :updated
         set_flash_message :notice, flash_key
       end
-      sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => after_update_path_for(resource)
+      sign_in resource_name, resource, bypass: true
+      respond_with resource, location: after_update_path_for(resource)
     else
       clean_up_passwords resource
       resource.image.save if resource.image
@@ -64,15 +73,15 @@ class RegistrationsController < Devise::RegistrationsController
         !params[:user][:password].blank?
     end
 
-    def after_update_path_for resource_or_scope
+    def after_update_path_for(resource_or_scope)
       user_path(resource_or_scope)
     end
 
-    def check_incomplete_profile! user
+    def check_incomplete_profile!(user)
       user.wants_to_sell = true if params[:incomplete_profile]
     end
 
-    def update_account account_update_params
+    def update_account(account_update_params)
       if needs_password?(resource, params)
        resource.update_with_password(account_update_params)
       else
@@ -80,6 +89,13 @@ class RegistrationsController < Devise::RegistrationsController
         # doesn't know how to ignore it
         account_update_params.delete(:current_password) if account_update_params
         resource.update_without_password(account_update_params)
+      end
+    end
+
+    def save_standard_address(user, address)
+      if address && !address.persisted?
+        address.save
+        user.update(standard_address_id: address.id)
       end
     end
 
