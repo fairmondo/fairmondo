@@ -1,0 +1,6 @@
+.Content
+  - @cart.line_item_groups.each do |group|
+    Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+    = render "line_items", line_items: group.line_items , editable: true
+
+  = link_to "Zur Kasse", edit_cart_path(@cart), class: "Button"
