@@ -1,1 +1,11 @@
-Access-Control-Allow-Origin "*"
+# fixing FontAwesome - source http://tandamerah.wordpress.com/2014/04/25/fontawesome-not-working-on-firefox-and-internet-explorer/
+<FilesMatch "\.(ttf|otf|eot|woff)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
+
+# Do not process images or CSS files further
+RewriteRule \.(css|jpe?g|gif|png|js|ico|mp3|ogg|eot|svg|ttf|woff)$ - [L]
+
+AddType application/octet-stream .woff
