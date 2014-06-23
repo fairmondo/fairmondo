@@ -274,10 +274,11 @@ ActiveRecord::Schema.define(version: 20140623133659) do
 
   create_table "line_item_groups", force: true do |t|
     t.text     "message"
-    t.integer  "cart_id",             limit: 8
+    t.integer  "cart_id",           limit: 8
     t.boolean  "tos_accepted"
-    t.integer  "user_id",             limit: 8
-    t.integer  "master_line_item_id", limit: 8
+    t.integer  "user_id",           limit: 8
+    t.boolean  "unified_transport"
+    t.boolean  "unified_payment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
