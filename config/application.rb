@@ -105,8 +105,5 @@ module Fairnopoly
     # Rack-Rewrite paths
     require "#{config.root}/config/rewrites.rb"
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairnopolyRuleSet)
-
-    # experimental
-    config.tinymce.base = '/assets/tinymce' # WTF
   end
 end
