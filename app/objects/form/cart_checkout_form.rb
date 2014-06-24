@@ -4,6 +4,7 @@ class CartCheckoutForm
   def initialize session, cart
     self.session = session
     self.cart = cart
+    cart.line_item_groups.map{ |l| l.valid? }
   end
 
   def complete?
@@ -14,4 +15,7 @@ class CartCheckoutForm
 
   end
 
+  def persisted?
+    false
+  end
 end

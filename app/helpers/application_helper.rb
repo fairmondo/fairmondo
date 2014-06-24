@@ -97,4 +97,8 @@ module ApplicationHelper
     @controlled_resource ||= instance_variable_get("@#{controller_name.classify.underscore}")
   end
 
+  def semantic_relation_field_for form, key, relation, &block
+
+  end
+
 end
