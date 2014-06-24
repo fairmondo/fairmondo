@@ -13,6 +13,7 @@ describe Address do
     it { subject.must_respond_to :title }
     it { subject.must_respond_to :first_name }
     it { subject.must_respond_to :last_name }
+    it { subject.must_respond_to :company_name }
     it { subject.must_respond_to :address_line_1 }
     it { subject.must_respond_to :address_line_2 }
     it { subject.must_respond_to :zip }

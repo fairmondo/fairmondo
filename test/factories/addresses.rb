@@ -2,14 +2,18 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :address do
-    user
-    title           { Faker::Name.prefix }
+    title           { Faker::NameDE.prefix }
     first_name      { Faker::Name.first_name }
     last_name       { Faker::Name.last_name }
-    address_line_1  { Faker::Address.street_address }
-    address_line_2  { Faker::Address.secondary_address }
+    company_name    { Faker::Company.name }
+    address_line_1  { Faker::AddressDE.street_address }
+    address_line_2  { Faker::AddressDE.secondary_address }
     zip             { Faker::AddressDE.zip_code }
-    city            { Faker::Address.city }
+    city            { Faker::AddressDE.city }
     country         'Deutschland'
+  end
+
+  trait :with_user do
+    user
   end
 end

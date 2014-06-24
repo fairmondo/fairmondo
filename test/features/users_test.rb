@@ -101,14 +101,14 @@ feature "User account management" do
     page.must_have_content I18n.t 'formtastic.labels.user.vacationing'
 
     # Contact Info Fields
-    page.must_have_content I18n.t 'formtastic.labels.user.title'
-    page.must_have_content I18n.t 'formtastic.labels.user.forename'
-    page.must_have_content I18n.t 'formtastic.labels.user.surname'
-    page.must_have_content I18n.t 'formtastic.labels.user.country'
-    page.must_have_content I18n.t 'formtastic.labels.user.street'
-    page.must_have_content I18n.t 'formtastic.labels.user.address_suffix'
-    page.must_have_content I18n.t 'formtastic.labels.user.city'
-    page.must_have_content I18n.t 'formtastic.labels.user.zip'
+    page.must_have_content I18n.t 'formtastic.labels.address.title'
+    page.must_have_content I18n.t 'formtastic.labels.address.first_name'
+    page.must_have_content I18n.t 'formtastic.labels.address.last_name'
+    page.must_have_content I18n.t 'formtastic.labels.address.country'
+    page.must_have_content I18n.t 'formtastic.labels.address.address_line_1'
+    page.must_have_content I18n.t 'formtastic.labels.address.address_line_2'
+    page.must_have_content I18n.t 'formtastic.labels.address.city'
+    page.must_have_content I18n.t 'formtastic.labels.address.zip'
     page.must_have_content I18n.t 'formtastic.labels.user.phone'
     page.must_have_content I18n.t 'formtastic.labels.user.mobile'
     page.must_have_content I18n.t 'formtastic.labels.user.fax'
@@ -118,14 +118,14 @@ feature "User account management" do
 
     page.must_have_button I18n.t 'formtastic.actions.update'
 
-    select I18n.t('common.title.woman'), from: 'user_title'
-    fill_in 'user_forename', with: 'Forename'
-    fill_in 'user_surname', with: 'Surname'
-    select 'Deutschland', from: 'user_country'
-    fill_in 'user_street', with: 'User Street 1'
-    fill_in 'user_address_suffix', with: 'c/o Bruce Wayne'
-    fill_in 'user_city', with: 'Gotham City'
-    fill_in 'user_zip', with: '12345'
+    select I18n.t('common.title.woman'), from: 'address_title'
+    fill_in 'address_first_name', with: 'Forename'
+    fill_in 'address_last_name', with: 'Surname'
+    select 'Deutschland', from: 'address_country'
+    fill_in 'address_address_line_1', with: 'User Street 1'
+    fill_in 'address_address_line_2', with: 'c/o Bruce Wayne'
+    fill_in 'address_city', with: 'Gotham City'
+    fill_in 'address_zip', with: '12345'
     fill_in 'user_phone', with: '0123 4567890-1'
     fill_in 'user_mobile', with: '0123 456 78901'
     fill_in 'user_fax', with: '0123 4567890-2'
@@ -133,22 +133,22 @@ feature "User account management" do
 
     click_button I18n.t 'formtastic.actions.update'
 
-    user.reload.title.must_equal I18n.t('common.title.woman')
-    user.forename.must_equal 'Forename'
-    user.surname.must_equal 'Surname'
-    user.country.must_equal 'Deutschland'
-    user.street.must_equal 'User Street 1'
-    user.address_suffix.must_equal 'c/o Bruce Wayne'
-    user.city.must_equal 'Gotham City'
-    user.zip.must_equal '12345'
+    user.reload
+    user.standard_address.reload
+    user.standard_address_title.must_equal I18n.t('common.title.woman')
+    user.standard_address_first_name.must_equal 'Forename'
+    user.standard_address_last_name.must_equal 'Surname'
+    user.standard_address_country.must_equal 'Deutschland'
+    user.standard_address_address_line_1.must_equal 'User Street 1'
+    user.standard_address_address_line_2.must_equal 'c/o Bruce Wayne'
+    user.standard_address_city.must_equal 'Gotham City'
+    user.standard_address_zip.must_equal '12345'
     user.phone.must_equal '0123 4567890-1'
     user.mobile.must_equal '0123 456 78901'
     user.fax.must_equal '0123 4567890-2'
     user.about_me.must_equal 'Foobar Bazfuz stuff and junk.'
 
     current_path.must_equal user_path user
-
-
   end
 
   scenario "user wants to change the email for his account" do
@@ -156,7 +156,7 @@ feature "User account management" do
     login_as @user
     visit edit_user_registration_path @user
     select 'Herr', from: 'user_title'
-    select 'Deutschland', from: 'user_country'
+    select 'Deutschland', from: 'address_country'
     fill_in 'user_email', with: 'chunky@bacon.com'
     fill_in 'user_current_password', with: 'password'
     click_button I18n.t 'formtastic.actions.update'
@@ -181,7 +181,7 @@ feature "User account management" do
     login_as @user
     visit edit_user_registration_path @user
     select 'Herr', from: 'user_title'
-    select 'Deutschland', from: 'user_country'
+    select 'Deutschland', from: 'address_country'
     fill_in 'user_current_password', with: 'password'
     fill_in 'user_password', with: 'changedpassword'
     fill_in 'user_password_confirmation', with: 'changedpassword'

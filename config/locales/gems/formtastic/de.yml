@@ -23,14 +23,6 @@ de:
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
-        title: "Anrede"
-        forename: "Vorname"
-        surname:  "Nachname"
-        country: "Land"
-        street: "Straße und Hausnummer"
-        address_suffix: "Adresszusatz"
-        city: "Ort"
-        zip: "PLZ"
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
         fax: "Fax"
@@ -57,6 +49,16 @@ de:
         <<: *user
       legal_entity:
         <<: *user
+      address:
+        title: "Anrede"
+        first_name: "Vorname"
+        last_name:  "Nachname"
+        country: "Land"
+        address_line_1: "Straße und Hausnummer"
+        address_line_2: "Adresszusatz"
+        city: "Ort"
+        zip: "PLZ"
+
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"

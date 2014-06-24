@@ -218,7 +218,7 @@ describe User do
 
     describe "#fullname" do
       it "returns correct fullname" do
-        user.fullname.must_equal "#{user.forename} #{user.surname}"
+        user.fullname.must_equal "#{user.standard_address_first_name} #{user.standard_address_last_name}"
       end
     end
 
@@ -277,18 +277,19 @@ describe User do
       end
     end
 
-    describe "#address" do
-      it "should return a string with street, address suffix, zip and city" do
-        u = User.new street: 'Sesame Street 1', address_suffix: 'c/o Cookie Monster', zip: '12345', city: 'Utopia'
-        u.address.must_equal 'c/o Cookie Monster, Sesame Street 1, 12345 Utopia'
+    describe '#address' do
+      it 'should return a string with standard_addresse\'s address_line_1, address_line_2, zip and city' do
+        u = User.new
+        u.standard_address = Address.new(address_line_1: 'Sesame Street 1', address_line_2: 'c/o Cookie Monster', zip: '12345', city: 'Utopia')
+        u.address.must_equal 'Sesame Street 1, c/o Cookie Monster, 12345 Utopia'
       end
     end
 
-    describe "#notify" do
-      it "should be possible to notify a user (only once)" do
+    describe '#notify' do
+      it 'should be possible to notify a user (only once)' do
         assert_difference 'Notice.count', 1 do
-          user.notify "test","test/test"
-          user.notify "test","test/test"
+          user.notify 'test','test/test'
+          user.notify 'test','test/test'
         end
       end
     end

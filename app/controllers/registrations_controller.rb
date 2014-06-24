@@ -31,6 +31,8 @@ class RegistrationsController < Devise::RegistrationsController
 
     if @user.addresses.empty?
       @address = @user.addresses.build
+    else
+      @address = @user.standard_address
     end
 
     check_incomplete_profile!(@user)
@@ -44,8 +46,14 @@ class RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     successfully_updated  = update_account(account_update_params)
 
-    address = resource.addresses.build(params.for(Address).refine)
-    save_standard_address(resource, address)
+    address = nil
+    if resource.addresses.empty? && params[:address]
+      resource.standard_address = resource.addresses.build(params.for(Address).refine)
+      resource.standard_address.save
+      #save_standard_address(resource, address)
+    elsif resource.standard_address && params[:address]
+      resource.standard_address.update(params.for(Address).refine)
+    end
 
     if successfully_updated
       if is_navigational_format?
