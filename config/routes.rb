@@ -85,7 +85,12 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :carts , only: [:show,:edit,:update]
+  resources :carts, only: [:show,:edit,:update]
+  resources :line_items, only: [:create,:update,:destroy]# do
+    # collection do
+    #   post ':business_transaction_id', to: :create, as: '' #create with business_transaction_id
+    # end
+  # end
 
 
   get '/transactions/:id', to: 'business_transactions#show'

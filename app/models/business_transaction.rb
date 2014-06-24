@@ -26,10 +26,10 @@ class BusinessTransaction < ActiveRecord::Base
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 
   belongs_to :article, inverse_of: :business_transaction
-  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :bought_business_transactions
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
-  has_one :rating
-  has_many :line_items
+  has_one :rating, inverse_of: :business_transaction
+  has_many :line_items, inverse_of: :business_transaction
 
   attr_accessor :updating_state, :updating_multiple
 

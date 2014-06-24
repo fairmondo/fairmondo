@@ -22,15 +22,15 @@
 - if resource.owned_by? current_user
   .seller-controls
     - if policy(resource).edit?
-      = link_to t('article.titles.edit') , edit_article_path , :class => "Button"
+      = link_to t('article.titles.edit') , edit_article_path , class: "Button"
     - if resource.locked? && policy(resource).new?
-      = link_to t('article.labels.edit_as_new') , new_article_path(:edit_as_new => resource.id), :class => "Button"
+      = link_to t('article.labels.edit_as_new') , new_article_path(edit_as_new: resource.id), class: "Button"
     - if policy(resource).deactivate?
-      = link_to t('article.labels.edit_or_delete') , article_path(:deactivate => true), :confirm => t('article.deactivate_confirm') , :class => "Button", :method => :put
-      = button_to t('article.labels.deactivate') , article_path(:deactivate => true), :class => "Button", :method => :put
+      = link_to t('article.labels.edit_or_delete') , article_path(deactivate: true), confirm: t('article.deactivate_confirm') , class: "Button", method: :put
+      = button_to t('article.labels.deactivate') , article_path(deactivate: true), class: "Button", method: :put
       %span.sprite_helper{title: "Wenn Du Deinen Artikel vom Marktplatz nimmst, ist dieser nicht mehr aktiv und kann nicht mehr gefunden und gekauft werden. Du musst den Artikel vom Marktplatz nehmen, wenn Du ihn bearbeiten oder löschen willst. Du findest die nicht aktiven Artikel in Deinem Profil unter Nicht eingestellte Artikel." }
     - if policy(resource).destroy?
-      = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Button"
+      = button_to t('common.actions.destroy'),  article_path(resource) , confirm: t('article.delete_confirm', name: article.title) ,method: :delete, class: "Button"
 
 
 
@@ -39,7 +39,7 @@
     - if resource.title_image_present?
       / The next line is for providing the proper title image to facebook
       - provide( :title_image, resource.title_image_url(:medium) )
-      = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",:style => "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {:class => "colorbox", :rel => "gallery"}
+      = link_to image_tag(resource.title_image_url(:medium), :class=> "title_image",style: "max-width: #{resource.title_image.geometry(:original).width}px"), resource.title_image_url(:original) , {class: "colorbox", rel: "gallery"}
     - else
       = link_to image_tag("missing.png", :class=> "title_image") , "#"
 .info
@@ -47,7 +47,7 @@
     .thumbnails
       - resource.thumbnails.each do |image|
         - cache [resource,image,"thumbnail"] do
-          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", :class => "colorbox thumbnail", :rel => "gallery"
+          = link_to image_tag((image ? image.image.url(:thumb) : "missing.png")), image ? image.url_or_original_while_processing(:original) : "/assets/missing.png", class: "colorbox thumbnail", rel: "gallery"
     - cache [resource,resource.seller,"donations"] do
       - if resource.seller.ngo
         =t('article.show.donate_ngo_html', ngo: link_to(resource.seller.nickname, resource.seller))
@@ -55,12 +55,12 @@
         - if show_fair_percent_for? resource
           %h4.fair_percent
             = t('article.show.fair_percent')
-            %span.sprite_helper{:title => t('article.preview.tooltips.fees_and_donations')}
+            %span.sprite_helper{title: t('article.preview.tooltips.fees_and_donations')}
           =t('article.show.donate_html')
         - if show_friendly_percent_for? resource
 
           =t('article.show.friendly_percent')
-          %span.sprite_helper{:title => t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
+          %span.sprite_helper{title: t('article.preview.tooltips.friendly_percent', percent: resource.friendly_percent, ngo: resource.friendly_percent_organisation_nickname)}
           = t('article.show.friendly_percent_html', percent: resource.friendly_percent , ngo: link_to(resource.friendly_percent_organisation_nickname, resource.friendly_percent_organisation))
         .tags
           = commendation_labels_for resource
@@ -75,19 +75,19 @@
         = t('formtastic.labels.article.price')
         .vat
           - unless article.vat == 0
-            = t('article.vat_included', :mwst => article.vat)
+            = t('article.vat_included', mwst: article.vat)
         .transport
           = t('formtastic.labels.article.transport_method')+" :"
           %ul
             = transport_format_for "pickup"
             = transport_format_for "type1"
             = transport_format_for "type2"
-        = render 'articles/show/basic_price', :article => resource
+        = render 'articles/show/basic_price', article: resource
         .quantity
           - if resource.is_available?
             Dieser Artikel ist bereits ausverkauft
           - elsif resource.quantity > 1
-            = t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.business_transaction_quantity_available)
+            = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.business_transaction_quantity_available)
     .buyer-controls
       - if policy(mock_library_element).create?
         .collect.JS-active-toggle--container
@@ -102,11 +102,13 @@
                   = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
 
       - elsif user_signed_in? && resource.active?
-        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
+        = link_to('Sammlung erstellen', user_libraries_path(current_user), method: :post, class: "Button Button-gray")
       - if policy(resource.business_transaction).edit?
-        = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
+        = button_to t('common.actions.to_cart'), line_items_path, method: :post, class: "Button", params: {business_transaction_id: resource.business_transaction.id }
+        = link_to t('common.actions.buy_single'), edit_business_transaction_path(resource.business_transaction), class: "Button"
       - elsif policy(resource.business_transaction).show_vacationing?
         .Button.Button--disabled= t 'common.actions.to_cart'
+        .Button.Button--disabled= t 'common.actions.buy_single'
         %p
           %strong= t 'users.states.vacationing'
 
@@ -149,7 +151,7 @@
 
     - if resource.has_commendation?
       = accordion_item "commendation" do
-        = render 'articles/show/commendation', :article => resource
+        = render 'articles/show/commendation', article: resource
 
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers
