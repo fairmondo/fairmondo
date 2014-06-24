@@ -251,7 +251,7 @@ de:
           paypal_account: "Trage hier Deine für PayPal genutzte E-Mail-Adresse ein (auch PayPal ID genannt)."
           iban: "Trage hier die IBAN ohne Leerzeichen ein."
           bic: "Trage hier den BIC ohne Leerzeichen ein."
-          newsletter: "Den Text hierfür liefert Anna noch nach."
+          newsletter: "Mit unserem Newsletter erhältst Du Produktempfehlungen und Informationen zu Themen wie Nachhaltigkeit und bewusstem Konsum. Der Newsletter erscheint einmal im Monat."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
