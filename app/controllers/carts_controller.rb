@@ -25,6 +25,7 @@ class CartsController < ApplicationController
 
   # buy cart
   def update
+    debugger
     @cart_checkout_form = CartCheckoutForm.new(session[:cart_checkout], @cart)
     @cart_checkout_form.update(params.for(@cart_form).refine)
     respond_with @cart

@@ -1,16 +1,18 @@
 .Content
   - @cart.line_item_groups.each do |group|
     Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
-   - line_items.each do |line_item|
-     - article = line_item.business_transaction.article
-     .Listview
-       .Listview-item
-         .Listview-image
-           = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-         = render "shared/listview/listview_detail", article: article
-         - unless line_item.business_transaction.is_a? SingleFixedPriceTransaction
-          .Listview-quantity
-            Quantity Form + Delete Buttons
+    - line_items.each do |line_item|
+      - article = line_item.business_transaction.article
+      .Listview
+        .Listview-item
+          .Listview-image
+            = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+          = render "shared/listview/listview_detail", article: article
+          - unless line_item.business_transaction.is_a? SingleFixedPriceTransaction
+            .Listview-quantity
+              Quantity Form + Delete Buttons
+
+
 
 
 
