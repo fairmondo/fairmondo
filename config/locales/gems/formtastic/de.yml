@@ -111,7 +111,7 @@ de:
         transport_type2_price: Versandkosten (€)
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
-        transport_details: "Weitere Angaben zu den Versandoptionen:"
+        transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
