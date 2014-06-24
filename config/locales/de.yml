@@ -41,7 +41,8 @@ de:
       report: "Melden"
       take_part: "Mitmachen"
       buy: "Kaufen"
-      to_cart: "Kaufen"
+      to_cart: "In den Warenkorb"
+      buy_single: "Einzelkauf"
       collect: "Sammeln"
       move: "Verschieben"
       send: 'Absenden'

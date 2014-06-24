@@ -54,8 +54,10 @@ class User < ActiveRecord::Base
   has_many :business_transactions, through: :articles
   has_many :articles, dependent: :destroy # As seller
   has_many :bought_articles, through: :bought_business_transactions, source: :article
-  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
+  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id', inverse_of: :buyer # As buyer
   has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
+
+  has_many :line_item_groups, inverse_of: :seller
 
   has_many :libraries, dependent: :destroy
 

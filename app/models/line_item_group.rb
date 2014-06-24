@@ -1,11 +1,11 @@
 class LineItemGroup < ActiveRecord::Base
-  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
-  belongs_to :cart
-  has_many :line_items, dependent: :destroy
+  belongs_to :seller, class_name: 'User', foreign_key: 'user_id', inverse_of: :line_item_groups
+  belongs_to :cart, inverse_of: :line_item_groups
+  has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
 
   attr_accessor :selected_unified_transport, :selected_unified_payment
 
-  validates_presence_of :selected_unified_transport
+  # validates_presence_of :selected_unified_transport # this was only for testing purposes, right?
 
   def transport_can_be_unified?
     unified_transports_selectable.any?
