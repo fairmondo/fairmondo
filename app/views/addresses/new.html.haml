@@ -1,1 +1,3 @@
-= render 'addresses/form', address: @address
+%h1 Neue Adresse anlegen
+
+= render 'addresses/form', address: @address, path: 'new_user_address_path(current_user)'

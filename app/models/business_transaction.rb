@@ -59,6 +59,8 @@ class BusinessTransaction < ActiveRecord::Base
   delegate :value, to: :rating, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
 
+  delegate :title, :company_name, :first_name, :last_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :seller_standard_address, prefix: true
+
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceBusinessTransaction", "PartialFixedPriceBusinessTransaction", "SingleFixedPriceBusinessTransaction", "PreviewBusinessTransaction"]
   validates :article, presence: true

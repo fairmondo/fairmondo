@@ -1,1 +1,3 @@
-= render 'addresses/form', address: @address
+%h1 Adresse bearbeiten
+
+= render 'addresses/form', address: @address, path: 'edit_user_address_path(current_user, @address)'

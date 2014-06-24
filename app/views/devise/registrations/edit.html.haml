@@ -126,7 +126,7 @@
                 = f.input :zip
                 = f.input :city
                 = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-          - else
+          - elsif @user.addresses.length > 1
             %p
               - @user.addresses.each do |address|
                 = render 'addresses/address', address: address

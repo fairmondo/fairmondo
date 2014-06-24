@@ -56,6 +56,8 @@ FactoryGirl.define do
 
     direct_debit true
 
+    standard_address { FactoryGirl.create :address }
+
     trait :missing_bank_data do
       bank_code ""
       bank_account_number ""
