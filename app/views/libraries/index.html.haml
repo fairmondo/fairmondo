@@ -60,10 +60,5 @@
           - if library.library_elements.empty?
             = t('library.no_products')
           - else
-            .Grid
-              - library_elements = library.library_elements.includes(:article => [:images,:seller]).includes(:library).page(params[:library_page]).per(12)
-              - library_elements.each do |library_element|
-                .Grid-item
-                  = render "library_element", :library_element => library_element
-            = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
+            = render "library", library: library
   = paginate @libraries

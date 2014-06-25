@@ -131,6 +131,7 @@ end
 
 group :development, :test do
 
+  gem 'pry-rails' # pry is awsome
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'

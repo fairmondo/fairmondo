@@ -35,11 +35,15 @@
         = display_price_list_item :transport, :type1
         = display_price_list_item :transport, :type2
 
+      %p.warning
+        %small= link_to t('transaction.edit.transport_constraints'), article_path(resource.article, anchor: 'payment'), target: '_blank'
+
       = f.input :selected_payment, include_blank: false, collection: resource.selected_payments, selected: default_value(:selected_payment)
       %ul.price-list
         = display_price_list_item :payment, :cash_on_delivery
-    %p.warning
-      = t 'transaction.edit.security_warning'
+
+      %p.warning
+        %small= t 'transaction.edit.security_warning'
 
     %h3
       = t 'transaction.edit.address'
