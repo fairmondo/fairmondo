@@ -22,7 +22,7 @@
 
 .article-form.Accordion.Accordion--activated.Accordion--scrollToActive
   = render :partial => "articles/form/article_template_select"
-  = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, builder: ::Fairtastic::FormBuilder do |f|
+  = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add', novalidate: false}, builder: ::Fairtastic::FormBuilder do |f|
     = f.semantic_errors
     = render :partial => "articles/form/common_inputs", :locals => {:f => f}
     = f.input_step :double_check, :prefix => false do

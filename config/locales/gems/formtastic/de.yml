@@ -112,6 +112,7 @@ de:
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
+        transport_time: "Lieferzeit in Tagen:"
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
@@ -211,7 +212,7 @@ de:
         commendation: "Filter (optional)"
         template: Name der Vorlage
         article: "Dein Artikel"
-        transport_and_payment: "Versand und Bezahlung"
+        transport_and_payment: "Versand, Lieferbedingungen und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Dein Spendenanteil (optional)"
         double_check: "Artikel einstellen"

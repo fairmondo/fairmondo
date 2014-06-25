@@ -23,6 +23,7 @@ class ArticleRefinery < ApplicationRefinery
       :transport_type2_price, :transport_type2_provider,
       :transport_type2_number,
       :transport_details,
+      :transport_time,
       # Category attrs
       { category_ids: [] },
       # Commendation attrs
