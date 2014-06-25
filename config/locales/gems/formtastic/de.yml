@@ -111,7 +111,8 @@ de:
         transport_type2_price: Versandkosten (€)
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
-        transport_details: "Weitere Angaben zu den Versandoptionen:"
+        transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
+        transport_time: "Lieferzeit in Tagen:"
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
@@ -211,7 +212,7 @@ de:
         commendation: "Filter (optional)"
         template: Name der Vorlage
         article: "Dein Artikel"
-        transport_and_payment: "Versand und Bezahlung"
+        transport_and_payment: "Versand, Lieferbedingungen und Bezahlung"
         legal_issues: "Rechtliches"
         friendly_percent: "Dein Spendenanteil (optional)"
         double_check: "Artikel einstellen"
@@ -251,7 +252,7 @@ de:
           paypal_account: "Trage hier Deine für PayPal genutzte E-Mail-Adresse ein (auch PayPal ID genannt)."
           iban: "Trage hier die IBAN ohne Leerzeichen ein."
           bic: "Trage hier den BIC ohne Leerzeichen ein."
-          newsletter: "Den Text hierfür liefert Anna noch nach."
+          newsletter: "Mit unserem Newsletter erhältst Du Produktempfehlungen und Informationen zu Themen wie Nachhaltigkeit und bewusstem Konsum. Der Newsletter erscheint einmal im Monat."
         update: *edit_user
         profile_input_step: "Hier kannst Du Dich vorstellen. Diese Informationen erscheinen auf Deiner öffentlichen Seite."
         payment_input_step: "Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"Überweisung\" bzw. \"PayPal\" gewählt hast."
