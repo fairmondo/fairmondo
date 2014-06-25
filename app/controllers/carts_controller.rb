@@ -26,14 +26,21 @@ class CartsController < ApplicationController
   # buy cart
   def update
     @cart_checkout_form = CartCheckoutForm.new(session[:cart_checkout], @cart)
-    @cart_checkout_form.update(params.for(@cart_form).refine)
-    respond_with @cart
+    result = @cart_checkout_form.process(params[:cart_checkout_form])
+    case result
+    when :invalid
+      render :edit
+    when :saved_in_session
+      redirect_to edit_cart_path
+    when :checked_out
+      respond_with @cart
+    end
   end
 
   private
 
     def generate_session
-      session[:cart_data] ||= {}
+      session[:cart_checkout] ||= {}
     end
 
     def set_cart

@@ -3,9 +3,8 @@ class LineItemGroup < ActiveRecord::Base
   belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
 
-  attr_accessor :selected_unified_transport, :selected_unified_payment
-
-  # validates_presence_of :selected_unified_transport # this was only for testing purposes, right?
+  validates :unified_transport, inclusion: { in: -> { unified_transports_selectable } }, presence: true , if: :transport_can_be_unified?
+  validates :unified_payment, inclusion: { in: -> { unified_payments_selectable } }, presence: true, if: :payment_can_be_unified?
 
   def transport_can_be_unified?
     unified_transports_selectable.any?
@@ -22,5 +21,22 @@ class LineItemGroup < ActiveRecord::Base
   def unified_payments_selectable
     @unified_payments_selectable ||= self.line_items.map{|l| l.business_transaction.article.selectable_transports}.inject(:&) #intersection of selectable_payments
   end
+
+  def unified_transport= value
+    self.selected_unified_transport = value
+    #set this on all transactions as well
+    self.line_items.map(&:transaction).each do |t|
+      t.selected_transport = value
+    end
+  end
+
+  def unified_payment= value
+    self.selected_unified_payment = value
+    #set this on all transactions as well
+    self.line_items.map(&:transaction).each do |t|
+      t.selected_payment = value
+    end
+  end
+
 
 end
