@@ -98,6 +98,16 @@ module ApplicationHelper
   end
 
   def semantic_relation_field_for form, key, relation, &block
+    form.semantic_fields_for key do |fields|
+      res = relation.each do |item|
+        fields.semantic_fields_for item.id.to_s.to_sym , item do |item_fields|
+          capture(item, item_fields, &block)
+        end
+
+      end
+      debugger
+        res
+    end
 
   end
 
