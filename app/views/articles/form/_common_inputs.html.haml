@@ -82,6 +82,7 @@
         = f.input :transport_type2_price, required: true
         = f.input :transport_type2_number, input_html: { min: 1, step: 1 }, tooltip: true
       = f.input :transport_details, input_html: {rows: 7}
+      = f.input :transport_time, input_html: { pattern: '\d?\d?\s?-?\s?\d?\d?', title: "Eine Zahl, optional ein Bindestrich und eine weitere Zahl. Zahlen maximal zweistellig." }
   .Accordion-step
     %p
     = f.inputs tooltip: t('formtastic.tooltips.article.payment') do
