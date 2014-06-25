@@ -95,6 +95,7 @@ de:
         quantity: "Anzahl (verfügbar)"
 
         quantity_with_numbers: 'Anzahl: %{quantities} (verfügbar)'
+        transport_time_with_numbers: 'Lieferzeit: %{time} Tag(e)'
         price: "Verkaufspreis in €"
 
         price_currency: "Währung"
