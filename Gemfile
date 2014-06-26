@@ -120,6 +120,8 @@ group :development do
   # Quiet Assets to disable asset pipeline in log
   gem 'quiet_assets'
 
+  gem 'pry-rails'
+
 end
 
 group :test do

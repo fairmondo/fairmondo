@@ -1,7 +1,12 @@
 require_relative '../test_helper'
 
 describe Address do
+  let(:address) { FactoryGirl.create(:address) }
   subject { Address.new }
+
+  it 'has a valid factory' do
+    address.valid?.must_equal true
+  end
 
   describe 'associations' do
     it { subject.must belong_to :user }
