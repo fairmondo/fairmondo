@@ -184,8 +184,8 @@ feature 'Buying Process' do
     click_button I18n.t 'common.actions.continue'
     page.wont_have_selector('div.about_terms_cancellation')
     click_button I18n.t 'transaction.actions.purchase'
-
     visit article_path article
+
     page.must_have_content I18n.t('formtastic.labels.article.quantity_with_numbers', quantities: (transaction.article_quantity - 1 ))
 
     # ================ buy remainder ========
@@ -235,7 +235,6 @@ feature 'Buying Process' do
     visit edit_business_transaction_path transaction
 
     click_button I18n.t 'common.actions.continue'
-
     click_button I18n.t 'transaction.actions.purchase'
 
     page.must_have_selector 'input#business_transaction_tos_accepted[@type=checkbox]' # is still on step 2
@@ -362,14 +361,14 @@ feature 'Buying Process' do
     end
   end
 
-  scenario "user enters a quantity taht is larger than available" do
+  scenario "user enters a quantity that is larger than available" do
     transaction = FactoryGirl.create(:multiple_transaction)
     visit edit_business_transaction_path transaction
     fill_in 'business_transaction_quantity_bought', with: '9999999'
     click_button I18n.t 'common.actions.continue'
 
     within '#business_transaction_quantity_bought_input' do
-      page.must_have_content I18n.t('transaction.errors.too_many_bought', available: transaction.quantity_available)
+      page.must_have_content I18n.t('activerecord.errors.models.business_transaction.attributes.quantity_bought.less_than_or_equal_to', count: transaction.quantity_available)
     end
 
   end

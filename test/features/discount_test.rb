@@ -1,4 +1,5 @@
-require "test_helper"
+require_relative '../test_helper'
+
 include Warden::Test::Helpers
 include FastBillStubber
 

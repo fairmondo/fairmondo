@@ -297,6 +297,10 @@ de:
     errors:
       <<: *errors
       models:
+        business_transaction:
+          attributes:
+            quantity_bought:
+              less_than_or_equal_to: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{count} Artikel verfügbar."
         image:
           attributes:
             image_file_size: &image
