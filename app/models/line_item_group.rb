@@ -11,7 +11,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def unified_transports_selectable
-    @unified_transports_selectable ||= self.line_items.map{|l| l.business_transaction.article.selectable_transports}.inject(:&) #intersection of selectable_transports
+    @unified_transports_selectable ||= ( self.line_items.map{|l| l.business_transaction.article.selectable_transports}.inject(:&) || [] )#intersection of selectable_transports
   end
 
   def payment_can_be_unified?
@@ -19,23 +19,31 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def unified_payments_selectable
-    @unified_payments_selectable ||= self.line_items.map{|l| l.business_transaction.article.selectable_transports}.inject(:&) #intersection of selectable_payments
+    @unified_payments_selectable ||= ( self.line_items.map{|l| l.business_transaction.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
   end
 
   def unified_transport= value
-    self.selected_unified_transport = value
-    #set this on all transactions as well
-    self.line_items.map(&:transaction).each do |t|
+    super true
+    set this on all transactions as well
+    self.line_items.map(&:business_transaction).each do |t|
       t.selected_transport = value
     end
   end
 
+  def unified_transport
+    self.line_items.first.business_transaction.selected_transport if super && self.line_items.any?
+  end
+
   def unified_payment= value
-    self.selected_unified_payment = value
-    #set this on all transactions as well
-    self.line_items.map(&:transaction).each do |t|
+    super true
+    set this on all transactions as well
+    self.line_items.map(&:business_transaction).each do |t|
       t.selected_payment = value
     end
+  end
+
+  def unified_payment
+    self.line_items.first.business_transaction.selected_payment if super && self.line_items.any?
   end
 
 

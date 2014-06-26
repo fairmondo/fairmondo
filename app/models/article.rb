@@ -53,7 +53,7 @@ class Article < ActiveRecord::Base
   has_one :business_transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
   has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction', inverse_of: :article
   accepts_nested_attributes_for :business_transaction
-  has_many :line_items, through: :business_transactions, inverse_of: :article
+  has_many :line_items, through: :business_transaction, inverse_of: :article
   # validates_presence_of :business_transaction
 
   has_many :library_elements, :dependent => :destroy

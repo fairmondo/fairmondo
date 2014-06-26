@@ -8,8 +8,8 @@
           .Listview-image
             = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
           = render "shared/listview/listview_detail", article: article
-          - unless line_item.business_transaction.is_a? SingleFixedPriceTransaction
-            .Listview-quantity
+          .Listview-actions
+            - unless line_item.business_transaction.is_a? SingleFixedPriceTransaction
               Quantity Form + Delete Buttons
 
 

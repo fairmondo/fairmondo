@@ -69,7 +69,7 @@ module Article::Attributes
     validates_length_of :gtin, minimum: 8, maximum: 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
-    TRANSPORT_TYPES = [:pickup, :type1, :type2]
+    TRANSPORT_TYPES = ['pickup', 'type1', 'type2']
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details, :transport_time
 
@@ -92,7 +92,7 @@ module Article::Attributes
     validate :transport_method_checked
 
     # ================ Payment ====================
-    PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
+    PAYMENT_TYPES = ['bank_transfer', 'cash', 'paypal', 'cash_on_delivery', 'invoice']
 
     #payment
 
