@@ -109,12 +109,7 @@ class User < ActiveRecord::Base
   validates :legal, acceptance: true, on: :create
   validates :agecheck, acceptance: true , on: :create
 
-  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  validates :address_suffix, length: { maximum: 150 }
-  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
-
   with_options if: :wants_to_sell? do |seller|
-    seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
   end

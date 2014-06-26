@@ -28,11 +28,12 @@ end
 
 feature "Uploading a CSV" do
   setup do
-    @user = FactoryGirl.create :legal_entity,:paypal_data
+    @user = FactoryGirl.create :legal_entity, :paypal_data, direct_debit: true
     login_as @user
     visit new_mass_upload_path
   end
   scenario "legal entity uploads a CSV with new articles and activates them and checks report again" do
+    save_and_open_page
     attach_file('mass_upload_file', 'test/fixtures/mass_upload_correct.csv')
     assert_difference 'Article.count', 3 do
       click_button I18n.t('mass_uploads.labels.upload_article')

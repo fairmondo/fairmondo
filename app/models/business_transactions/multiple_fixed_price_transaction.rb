@@ -83,13 +83,8 @@ class MultipleFixedPriceTransaction < BusinessTransaction
       selected_transport: self.selected_transport,
       selected_payment: self.selected_payment,
       message: self.message,
-      forename: self.forename,
-      surname: self.surname,
-      address_suffix: self.address_suffix,
-      street: self.street,
-      city: self.city,
-      zip: self.zip,
-      country: self.country
+      shipping_address_id: self.shipping_address_id,
+      billing_address_id: self.billing_address_id
     })
 
     # protected attrs
@@ -108,13 +103,8 @@ class MultipleFixedPriceTransaction < BusinessTransaction
     self.selected_transport = nil
     self.selected_payment = nil
     self.message = nil
-    self.forename = nil
-    self.surname = nil
-    self.address_suffix = nil
-    self.street = nil
-    self.city = nil
-    self.zip = nil
-    self.country = nil
+    self.shipping_address_id = nil
+    self.billing_address_id = nil
 
     self.save!
   end

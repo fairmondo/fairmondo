@@ -197,20 +197,15 @@ module BusinessTransactionHelper
     )
   end
 
-  def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
+  def back_link quantity_bought, selected_transport, selected_payment, shipping_address_id, billing_address_id
     link_to t('common.actions.back'),
       edit_business_transaction_path(@business_transaction,
         business_transaction: {
           quantity_bought: quantity_bought,
           selected_transport: selected_transport,
           selected_payment: selected_payment,
-          forename: forename,
-          surname: surname,
-          street: street,
-          address_suffix: address_suffix,
-          city: city,
-          zip: zip,
-          country: country
+          shipping_address_id: shipping_address_id,
+          billing_address_id: billing_address_id
         }
       ),
       class: 'Button Button--gray'

@@ -34,7 +34,7 @@ class BusinessTransaction < ActiveRecord::Base
 
   attr_accessor :updating_state, :updating_multiple
 
-  auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
+  auto_sanitize :message
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -51,15 +51,13 @@ class BusinessTransaction < ActiveRecord::Base
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, :nickname,
            to: :buyer, prefix: true
-  delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
+  delegate :email, :fullname, :nickname, :phone, :mobile, :address,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
   delegate :value, to: :rating, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
-
-  delegate :title, :company_name, :first_name, :last_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :seller_standard_address, prefix: true
 
   # CREATE
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceBusinessTransaction", "PartialFixedPriceBusinessTransaction", "SingleFixedPriceBusinessTransaction", "PreviewBusinessTransaction"]
@@ -73,14 +71,8 @@ class BusinessTransaction < ActiveRecord::Base
   with_options if: :updating_state, unless: :updating_multiple do |t|
     t.validates :selected_transport, supported_option: true, presence: true
     t.validates :selected_payment, supported_option: true, common_sense: true, presence: true
-
-    t.validates :forename, presence: true
-    t.validates :surname, presence: true
-    t.validates :address_suffix, length: { maximum: 150 }
-    t.validates :street, format: /\A.+\d+.*\z/, presence: true
-    t.validates :city, presence: true
-    t.validates :zip, zip: true, presence: true
-    t.validates :country, presence: true
+    t.validates :shipping_address_id, presence: true
+    t.validates :billing_address_id, presence: true
   end
 
   state_machine initial: :available do

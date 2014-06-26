@@ -175,13 +175,6 @@ de:
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Bitte wähle eine Versandmethode aus:"
         selected_payment: "Bitte wähle eine Bezahloption aus:"
-        forename: "Vorname:"
-        surname: "Nachname:"
-        address_suffix: "Adresszusatz:"
-        street: "Straße und Hausnummer:"
-        city: "Ort:"
-        zip: "Postleitzahl:"
-        country: "Land:"
       multiple_fixed_price_transaction:
         <<: *business_transaction
       single_fixed_price_transaction:
@@ -203,6 +196,7 @@ de:
         profile: Profil
         payment: Zahlungsoptionen
         terms: Rechtliches
+        addresses: Versandadressen
       private_user:
         <<: *input_step_user
       legal_entity:

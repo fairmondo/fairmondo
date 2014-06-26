@@ -86,12 +86,8 @@ class BusinessTransactionTest < ActiveSupport::TestCase
           {
             "selected_transport" => "pickup",
             "selected_payment" => "cash",
-            "forename" => "Foo",
-            "surname" => "Bar",
-            "street" => "Baz Str. 1",
-            "city" => "Fuz",
-            "zip" => "12345",
-            "country" => "Deutschland"
+            "shipping_address_id" => "2",
+            "billing_address_id" => "4"
           }
         end
 

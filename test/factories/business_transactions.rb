@@ -27,12 +27,6 @@ FactoryGirl.define do
     seller { article.seller }
     selected_transport 'pickup'
     selected_payment 'cash'
-    forename { Faker::Name.first_name }
-    surname  { Faker::Name.last_name }
-    street   { Faker::AddressDE.street_address }
-    city     { Faker::AddressDE.city }
-    zip      { Faker::AddressDE.zip_code }
-    country  "Deutschland"
     sold_at { Time.now }
     discount_value_cents 0
 
@@ -43,12 +37,6 @@ FactoryGirl.define do
     end
 
     factory :single_transaction, class: 'SingleFixedPriceTransaction' do
-      forename { Faker::Name.first_name }
-      surname  { Faker::Name.last_name }
-      street   { Faker::AddressDE.street_address }
-      city     { Faker::AddressDE.city }
-      zip      { Faker::AddressDE.zip_code }
-      country  "Deutschland"
       quantity_bought 1
     end
 
@@ -61,12 +49,6 @@ FactoryGirl.define do
       buyer
       parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
       quantity_bought 1
-      forename { Faker::Name.first_name }
-      surname  { Faker::Name.last_name }
-      street   { Faker::AddressDE.street_address }
-      city     { Faker::AddressDE.city }
-      zip      { Faker::AddressDE.zip_code }
-      country  "Deutschland"
     end
 
     trait :sold do
