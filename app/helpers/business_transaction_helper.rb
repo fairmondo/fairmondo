@@ -23,17 +23,17 @@ module BusinessTransactionHelper
 
 
   def display_price_list_item transpay, type
-    if resource.send("article_selectable_#{transpay}s".to_sym).include?(type)
+    if resource.send("article_selectable_#{transpay}s").include?(type.to_s)
       output =
         '<li>'.html_safe +
           t("transaction.edit.#{type}")
       output +=
-          ( resource.article.send("#{transpay}_#{type}_provider".to_sym) + ' ' ) if transpay == :transport
+          ( resource.article.send("#{transpay}_#{type}_provider") + ' ' ) if transpay == :transport
       output +=
-          humanized_money_with_symbol(resource.article.send("#{transpay}_#{type}_price".to_sym))
+          humanized_money_with_symbol(resource.article.send("#{transpay}_#{type}_price"))
       if transpay == :transport && ( resource.is_a? MultipleFixedPriceTransaction )
           output +=
-            t("transaction.edit.per_transport_number", number: resource.article.send("transport_#{type}_number".to_sym))
+            t("transaction.edit.per_transport_number", number: resource.article.send("transport_#{type}_number"))
       else
         output +=
           t("transaction.edit.per_transport")

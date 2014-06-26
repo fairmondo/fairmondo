@@ -68,8 +68,8 @@ class BusinessTransaction < ActiveRecord::Base
 
   validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
   with_options if: :updating_state, unless: :updating_multiple do |t|
-    t.validates :selected_transport, supported_option: true, presence: true
-    t.validates :selected_payment, supported_option: true, common_sense: true, presence: true
+    t.validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
+    t.validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
     t.validates :forename, presence: true
     t.validates :surname, presence: true
@@ -226,7 +226,7 @@ class BusinessTransaction < ActiveRecord::Base
     # @return [Array] Array in 2 levels with enum option name and it's localization
     def selected attribute
       selectables = send("article_selectable_#{attribute}s")
-      BusinessTransaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1].to_sym }
+      BusinessTransaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1] }
     end
 
     # Create new instance to run validations on

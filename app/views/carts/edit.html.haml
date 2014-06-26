@@ -4,22 +4,22 @@
 
       Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
       .Listview
-        = semantic_relation_field_for group_fields, :line_items, group.line_items do |line_item, line_item_fields|
+        = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
           - article = line_item.business_transaction.article
           .Listview-item
             .Listview-image
               = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
             = render "shared/listview/listview_detail", article: article
             .Listview-quantity
-              Anzahl: line_item.quantity
-          - unless group.transport_can_be_unified?
-            = line_item_fields.semantic_fields_for :transaction, line_item.business_transaction do |t|
-              = t.input :selected_transport, include_blank: false, collection: line_item.transaction.selected_transports
-          - unless group.payment_can_be_unified?
-            = line_item_fields.semantic_fields_for :transaction, line_item.business_transaction do |t|
-              = t.input :selected_payments, include_blank: false, collection: line_item.transaction.selected_payments
-        = group_fields.input :unified_transport, include_blank: false, collection: group.unified_transports_selectable if group.transport_can_be_unified?
-        = group_fields.input :unified_payment, include_blank: false, collection: group.unified_payments_selectable if group.payment_can_be_unified?
+              -#Anzahl: #{line_item.quantity}
+              - unless group.transport_can_be_unified?
+                = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
+                  = t.input :selected_transport, include_blank: false, collection: line_item.business_transaction.selected_transports
+              - unless group.payment_can_be_unified?
+                = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
+                  = t.input :selected_payment, include_blank: false, collection: line_item.business_transaction.selected_payments
+        = group_fields.input :unified_transport, as: :select,  include_blank: false, collection: group.unified_transports_selectable if group.transport_can_be_unified?
+        = group_fields.input :unified_payment, as: :select, include_blank: false, collection: group.unified_payments_selectable if group.payment_can_be_unified?
     = f.actions do
       = f.submit
 

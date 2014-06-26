@@ -327,9 +327,9 @@ describe Article do
       describe "#selectable (private)" do
         it "should return an array with selected transport options, the default being first" do
           output = FactoryGirl.create(:article, :with_all_transports).send(:selectable, "transport")
-          output[0].must_equal :pickup
-          output.must_include :type1
-          output.must_include :type2
+          output[0].must_equal "pickup"
+          output.must_include "type1"
+          output.must_include "type2"
         end
       end
 
