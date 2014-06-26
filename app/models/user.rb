@@ -56,8 +56,8 @@ class User < ActiveRecord::Base
   has_many :business_transactions, through: :articles
 
     # Addresses
-  has_many :addresses, dependent: :destroy
-  has_one  :standard_address, class_name: 'Address'
+  has_many :addresses
+  has_one  :standard_address, class_name: 'Address', inverse_of: :user
   delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true
 
     # Profile image
@@ -112,6 +112,7 @@ class User < ActiveRecord::Base
   with_options if: :wants_to_sell? do |seller|
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
+    seller.validates_associated :standard_address, on: :update
   end
 
   # TODO: Language specific validators
@@ -128,6 +129,7 @@ class User < ActiveRecord::Base
   validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
+
 
 
   ####################################################
@@ -311,7 +313,7 @@ class User < ActiveRecord::Base
   # checks if user passes all neccessary validations before he can sell
   def can_sell?
     self.wants_to_sell = true
-    can_sell = self.valid? && !self.addresses.empty? && self.standard_address.valid?
+    can_sell = self.valid? && self.standard_address && self.standard_address.valid?
     self.wants_to_sell = false
     can_sell
   end

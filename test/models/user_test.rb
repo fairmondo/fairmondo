@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe User do
-
   let(:user) { FactoryGirl.create(:user) }
   subject { User.new }
 
@@ -154,7 +153,6 @@ describe User do
   end
 
   describe "validations" do
-
     describe "always" do
       it {user.must validate_presence_of :email}
       it {user.must validate_presence_of :nickname}
@@ -167,7 +165,6 @@ describe User do
     end
 
     describe "on update" do
-
       describe "zip code validation" do
         before :each do
           user.country = "Deutschland"

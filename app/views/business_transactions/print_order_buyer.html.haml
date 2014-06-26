@@ -1,59 +1,67 @@
 
-- buyer 				= resource.buyer
-- seller 				= resource.article_seller
+- buyer         = resource.buyer
+- seller        = resource.article_seller
 
 %h3 Bestelldetails
 %p
-	= simple_format( transaction_mail_greeting resource, :buyer )
+  = simple_format( transaction_mail_greeting resource, :buyer )
 
-	= simple_format( t('transaction.notifications.buyer.buyer_text') )
-
-%hr
-%p
-	%h4
-		= simple_format( t('transaction.notifications.buyer.order_infos') )
-	= simple_format( order_details resource )
-
-	%h4
-		= simple_format( t('transaction.edit.address') )
-	= simple_format( show_buyer_address resource )
+  = simple_format( t('transaction.notifications.buyer.buyer_text') )
 
 %hr
 %p
-	%h4 Deine Rechnungsdaten
-	= simple_format( article_payment_info resource, :buyer )
-	= simple_format( t('transaction.notifications.buyer.payment_type') + "#{payment_method_info resource, :buyer}" )
+  %h4
+    = simple_format( t('transaction.notifications.buyer.order_infos') )
+  = simple_format( order_details resource )
+
+- if resource.shipping_address == resource.billing_address
+  %h4
+    = simple_format( t('transaction.edit.addresses') )
+  = simple_format( show_buyer_address(resource.shipping_address))
+- else
+  %h4
+    = simple_format( t('transaction.edit.shipping_address') )
+  = simple_format( show_buyer_address(resource.shipping_address))
+  %h4
+    = simple_format( t('transaction.edit.billing_address') )
+  = simple_format( show_buyer_address(resource.billing_address))
 
 %hr
 %p
-	%h4
-		= simple_format( t('transaction.edit.seller_data') )
-	= simple_format(contact_info_for(seller))
+  %h4 Deine Rechnungsdaten
+  = simple_format( article_payment_info resource, :buyer )
+  = simple_format( t('transaction.notifications.buyer.payment_type') + "#{payment_method_info resource, :buyer}" )
 
 %hr
 %p
-	%h4
-		=	simple_format( t('transaction.notifications.buyer.buyer_message') )
-	= simple_format( resource.message )
+  %h4
+    = simple_format( t('transaction.edit.seller_data') )
+  = simple_format(contact_info_for(seller))
+
 %hr
 %p
-	- if resource.article_seller.is_a? LegalEntity
-		%h4
-			= simple_format( t('transaction.edit.imprint') )
-		= simple_format( seller.about )
-		%hr
+  %h4
+    = simple_format( t('transaction.notifications.buyer.buyer_message') )
+  = simple_format( resource.message )
+%hr
+%p
+  - if resource.article_seller.is_a? LegalEntity
+    %h4
+      = simple_format( t('transaction.edit.imprint') )
+    = simple_format( seller.about )
+    %hr
 
-		%h4
-			= simple_format( t('transaction.edit.terms') )
-		= simple_format( seller.terms )
-		%hr
+    %h4
+      = simple_format( t('transaction.edit.terms') )
+    = simple_format( seller.terms )
+    %hr
 
-		%h4
-			= simple_format( t('transaction.edit.cancellation') )
-		= simple_format( seller.cancellation )
-		%hr
+    %h4
+      = simple_format( t('transaction.edit.cancellation') )
+    = simple_format( seller.cancellation )
+    %hr
 
 = render '/shared/email_footer'
 
 :javascript
-	print();
+  print();

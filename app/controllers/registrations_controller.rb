@@ -30,9 +30,9 @@ class RegistrationsController < Devise::RegistrationsController
     @address = nil
 
     if @user.addresses.empty?
-      @address = @user.addresses.build
+      @standard_address = @user.addresses.build
     else
-      @address = @user.standard_address
+      @standard_address = @user.standard_address
     end
 
     check_incomplete_profile!(@user)
