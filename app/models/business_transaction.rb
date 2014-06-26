@@ -46,7 +46,7 @@ class BusinessTransaction < ActiveRecord::Base
            :calculated_fair_cents, :calculated_fee, :calculated_fee_cents,
            :friendly_percent, :friendly_percent_organisation, :vat_price, :vat,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
-           :active?,
+           :active?, :transport_time,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, :nickname,
            to: :buyer, prefix: true

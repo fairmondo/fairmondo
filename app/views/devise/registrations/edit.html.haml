@@ -76,7 +76,7 @@
           = f.input :email
 
       .Accordion-step
-        = f.input :password,  label: t('users.change_password'), input_html: { autocomplete: "off"}
+        = f.input :password,  label: t('users.change_password'), input_html: { autocomplete: "off"}, required: false
         = f.input :password_confirmation
         = render partial: '/devise/registrations/password_complexity'
         = f.input :current_password
