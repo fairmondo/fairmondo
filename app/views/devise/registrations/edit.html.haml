@@ -51,15 +51,13 @@
         .visibility
           = t('users.visibility.private')
           %span.sprite_helper{title: "Nur für Dich sichtbar." }
-        %h4
-          = t('formtastic.labels.user.customer_number') + ":"
+        %h4= t('formtastic.labels.user.customer_number') + ":"
         %p
           = current_user.customer_nr
       .Accordion-step
         .visibility
           = t('users.visibility.public')
-        %h4
-          = "#{t('formtastic.labels.user.image')}: "
+        %h4= "#{t('formtastic.labels.user.image')}: "
         %p
           = image_tag(@user.image_url(:original), class: "img-polaroid ")
           - f.object.build_image unless f.object.image # Build the Image object for the form
@@ -98,16 +96,12 @@
 
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-
-          = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-          = f.input :forename, required: true
-          = f.input :surname, required: true
-          - if current_user.is_a?(LegalEntity)
-            = f.input :company_name
-          = f.input :phone
-          = f.input :mobile
-          = f.input :fax
-
+          - if @address
+            = semantic_fields_for @address do |f|
+              = f.inputs do
+                = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+                = f.input :first_name, required: true
+                = f.input :last_name, required: true
 
         .Accordion-step
           .visibility
@@ -115,24 +109,19 @@
 
           %h3= t('users.form_titles.address')
           - if @address
-            -#Du hast bisher keine Adresse angelegt
             = semantic_fields_for @address do |f|
               = f.inputs do
-                = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-                = f.input :first_name
-                = f.input :last_name
-                = f.input :address_line_1
+                - if @user.is_a?(LegalEntity)
+                  = f.input :company_name
+                = f.input :address_line_1, required: true
                 = f.input :address_line_2
-                = f.input :zip
-                = f.input :city
+                = f.input :zip, required: true
+                = f.input :city, required: true
                 = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-          - elsif @user.addresses.length > 1
-            %p
-              - @user.addresses.each do |address|
-                = render 'addresses/address', address: address
-          %p
-            = link_to 'Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
 
+          = f.input :phone
+          = f.input :mobile
+          = f.input :fax
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do
@@ -164,11 +153,23 @@
           = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
 
         .Accordion-step
-
           %h3= t('users.form_titles.payment_paypal')
 
           = f.input :paypal_account, label: t('formtastic.labels.user.paypal_account'), tooltip: true
           = f.input :fastbill_profile_update, as: :hidden, input_html: { value: true }
+
+    = f.input_step :addresses, tooltip: true do
+      .Accordion-step
+        .visibility
+          = t('users.visibility.private')
+        %h3= 'Deine Versandaddressen'
+        = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
+
+        - addresses = @user.addresses.where.not(id: @user.standard_address.id)
+        - unless addresses.empty?
+          .Grid
+            - addresses.each do |a|
+              = render 'addresses/address', address: a
 
     = f.actions do
       = f.action :submit, button_html: {class: "Button"}

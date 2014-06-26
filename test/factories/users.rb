@@ -26,8 +26,6 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
-    surname     { Faker::Name.last_name }
-    forename    { Faker::Name.first_name }
     legal       "1"
     agecheck    "1"
 
@@ -35,12 +33,6 @@ FactoryGirl.define do
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
-    title { Faker::Name.prefix }
-    country "Deutschland"
-    street { Faker::AddressDE.street_address }
-    address_suffix { Faker::Name.last_name }
-    city { Faker::AddressDE.city }
-    zip { Faker::AddressDE.zip_code }
 
     company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
 

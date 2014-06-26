@@ -31,7 +31,12 @@
 - else
   %p
     = t('transaction.notifications.seller.shipping_request')
-%p= simple_format show_buyer_address @transaction
+%h4= t('transaction.notifications.shipping_address')
+%p= simple_format show_buyer_address @transaction.shipping_address
+%hr
+%h4= t('transaction.notifications.billing_address')
+%p= simple_format show_buyer_address @transaction.billing_address
+
 %h5= t('transaction.notifications.seller.buyer_email')
 %p= @transaction.buyer_email
 %h5= t('transaction.notifications.seller.nickname')

@@ -1,12 +1,14 @@
-.Content
-  %p
-    %h2= "#{ address.title } #{ address.first_name } #{ address.last_name }"
-    %p= address.address_line_1
-    - unless address.address_line_2.empty?
-      %p= address.address_line_2
-    %p= "#{ address.zip } #{ address.city }"
-    %p= address.country
-    %br
-  %p
-    = link_to 'bearbeiten', edit_user_address_path(current_user, address), class: 'colorbox Button'
-    = link_to 'löschen', user_address_path(current_user, address), method: :delete, class: 'Button Button--red'
+.Grid-item
+  .Address
+    %p
+      %h2= "#{ address.title } #{ address.first_name } #{ address.last_name }"
+      %p= address.address_line_1
+      - unless address.address_line_2.empty?
+        %p= address.address_line_2
+      %p= "#{ address.zip } #{ address.city }"
+      %p= address.country
+      %br
+    %p
+      - if params[:controller] == 'users'
+        = link_to 'bearbeiten', edit_user_address_path(current_user, address), class: 'colorbox Button'
+        = link_to 'löschen', user_address_path(current_user, address), method: :delete, class: 'Button Button--red'

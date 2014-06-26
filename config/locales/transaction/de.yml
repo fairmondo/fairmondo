@@ -13,7 +13,9 @@ de:
       cash_on_delivery: 'Nachnahmekosten: '
       per_transport_number: " (Kombiversand: maximal %{number} Stück in einer Sendung)"
       per_transport: " je Sendung"
-      address: "Deine Rechnungs- und Lieferadresse:"
+      addresses: "Deine Rechnungs- und Lieferadresse:"
+      shipping_address: 'Deine Lieferadresse'
+      billing_address: 'Deine Rechnungsadresse'
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       # step 2
       article_link: "Dein Artikel mit Artikeldetails:"
