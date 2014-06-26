@@ -30,7 +30,7 @@ class MultipleFixedPriceTransaction < BusinessTransaction
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
   validates :quantity_available, presence: true, numericality: true
-  validates :quantity_bought, quantity_bought: true
+  validates :quantity_bought, numericality: { greater_than: 0, less_than_or_equal_to: ->(record) { record.quantity_available } }, allow_nil: true
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -64,14 +64,12 @@ class MultipleFixedPriceTransaction < BusinessTransaction
   # The main transition handler (see class description)
   # @return [Boolean] not important
   def buy_multiple_business_transactions
-    self.updating_multiple = true
     self.quantity_bought ||= 1
-    if self.quantity_bought <= self.quantity_available
+    if self.quantity_bought <= self.quantity_available # should not be false
+      self.forwarding_data_to_partial = true
       fpt = self.forward_data_to_partial
       reduce_quantity_available_by self.quantity_bought if fpt.buy
-      clear_data_and_save
-    else
-      errors.add :quantity_bought, I18n.t('transaction.errors.too_many_bought', available: self.quantity_available)
+      clear_data
     end
     true
   end
@@ -102,7 +100,7 @@ class MultipleFixedPriceTransaction < BusinessTransaction
     return partial
   end
 
-  def clear_data_and_save
+  def clear_data
     self.buyer = nil
     self.quantity_bought = nil
     self.selected_transport = nil
@@ -115,15 +113,13 @@ class MultipleFixedPriceTransaction < BusinessTransaction
     self.city = nil
     self.zip = nil
     self.country = nil
-
-    self.save!
+    self.tos_accepted = nil
   end
 
   # This might be called on article update when quantity has changed to 1
   def transform_to_single
-    self.type = 'SingleFixedPriceTransaction'
-    self.save!
-    self.update_attribute :quantity_available, nil
+    self.update_column :quantity_available, nil
+    self.update_column :type, 'SingleFixedPriceTransaction'
   end
 
   private

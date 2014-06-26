@@ -95,6 +95,7 @@ de:
         quantity: "Anzahl (verfügbar)"
 
         quantity_with_numbers: 'Anzahl: %{quantities} (verfügbar)'
+        transport_time_with_numbers: 'Lieferzeit: %{time} Tag(e)'
         price: "Verkaufspreis in €"
 
         price_currency: "Währung"
@@ -112,7 +113,7 @@ de:
         transport_type2_number: "Diese Versandkosten gelten bis maximal soviel Stück pro Sendung (Kombiversand):"
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
-        transport_time: "Lieferzeit in Tagen:"
+        transport_time: "Lieferzeit in Tagen (z.B. 3 oder 7-12):"
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
@@ -295,6 +296,7 @@ de:
           Trage hier Deine akzeptierten Zahlungsoptionen ein. Falls Du ein*e gewerbliche(r) Anbieter*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
         transport_type1_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
         transport_type2_number: "Gib bitte an, wie viele Stück Du maximal zu diesen Versandkosten verschicken kannst, weil sie in dieselbe Sendung passen und keine zusätzlichen Kosten verursachen. Z.B.: Trage 3 ein, falls Folgendes gilt: Max. 3 Stück des Artikels können zu 5 € versendet werden; werden 4-6 Stück gekauft, fallen 2x 5€ Versandkosten an, usw."
+        transport_time: "Gib bitte als einfache Zahl an, wie viele Tage der Versand vorraussichtlich dauern wird. Um einen Zeitraum anzugeben, kannst Du auch optional eine Zahl, dann einen Bindestrich und eine weitere Zahl eingeben. Die Zahlen sollten maximal zweistellig sein."
         payment_bank_transfer:  Deine Bankdaten kannst Du nur im Profil ändern.
         payment_paypal:  Deine PayPal-Daten kannst Du nur im Profil ändern.
         commendation_input_step: "Bei Fairnopoly können alle rechtlich unbedenklichen Artikel eingestellt werden. Wenn Dein Artikel unter die Kriterien für einen oder mehrere unserer besonderen Filter fällt, kannst Du hier entsprechende Angaben zu Deinem Artikel machen. Dadurch wird Dein Artikel besonders ausgezeichnet. Nutzer*innen können gezielt nach solchen Artikeln suchen."

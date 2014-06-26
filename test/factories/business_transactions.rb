@@ -22,7 +22,7 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :business_transaction, class: ['PreviewTransaction', 'SingleFixedPriceTransaction'].sample do
+  factory :business_transaction, class: [ 'SingleFixedPriceTransaction'].sample do
     article { FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports }
     seller { article.seller }
     selected_transport 'pickup'
@@ -72,6 +72,7 @@ FactoryGirl.define do
     trait :sold do
       buyer
       state 'sold'
+      quantity_bought 1
       sold_at { Time.now }
     end
 

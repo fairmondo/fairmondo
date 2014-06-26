@@ -77,36 +77,6 @@ class BusinessTransactionTest < ActiveSupport::TestCase
 
     describe "that are public" do
 
-      describe "#edit_params_valid?" do
-        def valid_params
-          {
-            "selected_transport" => "pickup",
-            "selected_payment" => "cash",
-            "forename" => "Foo",
-            "surname" => "Bar",
-            "street" => "Baz Str. 1",
-            "city" => "Fuz",
-            "zip" => "12345",
-            "country" => "Deutschland"
-          }
-        end
-
-        it "should return true with valid params" do
-          r = business_transaction.edit_params_valid? valid_params
-          r.must_equal true
-        end
-
-        it "should return false with invalid transport" do
-          r = business_transaction.edit_params_valid? valid_params.merge({"selected_transport" => "type1"})
-          r.must_equal false
-        end
-
-        it "should return false with invalid payment" do
-          r = business_transaction.edit_params_valid? valid_params.merge({"selected_payment" => "paypal"})
-          r.must_equal false
-        end
-      end
-
       describe "#selected_transports" do
         it "should call the private #selected method" do
           business_transaction.expects(:selected).with("transport")

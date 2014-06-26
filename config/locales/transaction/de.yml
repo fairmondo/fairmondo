@@ -69,7 +69,6 @@ de:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
       no_pickup_cash_combination: 'Achtung: Wir empfehlen für Selbstabholung die Bezahlmethode "Barzahlung bei Abholung".'
-      too_many_bought: "Die Zahl ist zu hoch. Es ist/sind noch maximal %{available} Artikel verfügbar."
       combination_invalid: 'Bei der Versandmethode "%{selected_transport}" kann die Bezahloption "%{selected_payment}" nicht ausgewählt werden.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"

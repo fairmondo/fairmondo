@@ -27,10 +27,13 @@ class BusinessTransactionsController < ApplicationController
   before_filter :redirect_if_not_yet_sold, only: :show, unless: :multiple?
   before_filter :redirect_to_child_show, only: :show, if: :multiple?
   before_filter :dont_cache
+  before_filter :set_params_on_business_transaction, if: -> { request.patch? }, only: [:edit, :update]
 
   def edit
     authorize @business_transaction
-    render :step2 if request.patch? && @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
+    if request.patch?
+      render :step2 if @business_transaction.valid?
+    end
   end
 
   def show
@@ -47,12 +50,13 @@ class BusinessTransactionsController < ApplicationController
   end
 
   def update
-    @business_transaction.assign_attributes(params.for(@business_transaction).refine)
-    @business_transaction.buyer_id = current_user.id
+
     authorize @business_transaction
+    @business_transaction.checking_out = true
+
     if @business_transaction.valid? && @business_transaction.buy
-      respond_with @business_transaction
-    elsif @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
+      return respond_with @business_transaction
+    elsif tos_not_accepted?
       render :step2
     else
       render :edit
@@ -88,5 +92,14 @@ class BusinessTransactionsController < ApplicationController
 
     def set_business_transaction
       @business_transaction = BusinessTransaction.find(params[:id])
+    end
+
+    def set_params_on_business_transaction
+      @business_transaction.assign_attributes(params.for(@business_transaction).refine)
+      @business_transaction.buyer_id = current_user.id
+    end
+
+    def tos_not_accepted?
+      @business_transaction.errors.keys.size == 1 && @business_transaction.errors.has_key?(:tos_accepted)
     end
 end

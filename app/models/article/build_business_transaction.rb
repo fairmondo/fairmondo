@@ -55,7 +55,7 @@ module Article::BuildBusinessTransaction
         elsif self.quantity > 1 and self.business_transaction.is_a? SingleFixedPriceTransaction
             self.business_transaction.transform_to_multiple self.quantity
         elsif self.quantity > 1 and self.business_transaction.is_a? MultipleFixedPriceTransaction
-            self.business_transaction.update_attribute :quantity_available, self.quantity
+            self.business_transaction.update_column :quantity_available, self.quantity
         end
       end
     end

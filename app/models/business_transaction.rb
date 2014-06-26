@@ -25,13 +25,13 @@ class BusinessTransaction < ActiveRecord::Base
 
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 
+  attr_accessor :forwarding_data_to_partial, :checking_out
+
   belongs_to :article, inverse_of: :business_transaction
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :bought_business_transactions
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
   has_one :rating, inverse_of: :business_transaction
   has_many :line_items, inverse_of: :business_transaction
-
-  attr_accessor :updating_state, :updating_multiple
 
   auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
 
@@ -46,7 +46,7 @@ class BusinessTransaction < ActiveRecord::Base
            :calculated_fair_cents, :calculated_fee, :calculated_fee_cents,
            :friendly_percent, :friendly_percent_organisation, :vat_price, :vat,
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
-           :active?,
+           :active?, :transport_time,
            to: :article, prefix: true
   delegate :email, :forename, :surname, :fullname, :nickname,
            to: :buyer, prefix: true
@@ -62,15 +62,20 @@ class BusinessTransaction < ActiveRecord::Base
   #validates_inclusion_of :type, :in => ["MultipleFixedPriceBusinessTransaction", "PartialFixedPriceBusinessTransaction", "SingleFixedPriceBusinessTransaction", "PreviewBusinessTransaction"]
   validates :article, presence: true
 
-  # UPDATE
-  validates :tos_accepted, acceptance: { accept: true }, on: :update
-  #validates :message, allow_blank: true, on: :update
+  with_options if: Proc.new { |tr| tr.checking_out && tr.seller.is_a?(LegalEntity) } do |t|
+    t.validates :tos_accepted, acceptance: { accept: true }, presence: true
+  end
 
-  validates :buyer, presence: true, on: :update, if: :updating_state, unless: :multiple?
-  with_options if: :updating_state, unless: :updating_multiple do |t|
+  with_options if: Proc.new { |tr| tr.checking_out }, unless: Proc.new { |tr| tr.forwarding_data_to_partial } do |t|
+    t.validates :buyer, presence: true
+    t.validates :quantity_bought, presence: true
+  end
+
+
+
+  with_options unless: Proc.new { |tr| tr.new_record? || tr.forwarding_data_to_partial }  do |t|
     t.validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
     t.validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
-
     t.validates :forename, presence: true
     t.validates :surname, presence: true
     t.validates :address_suffix, length: { maximum: 150 }
@@ -85,16 +90,7 @@ class BusinessTransaction < ActiveRecord::Base
     state :available do
     end
 
-    state :sold do
-    end
-
-    state :paid do
-    end
-
-    state :sent do
-    end
-
-    state :completed do
+    state :sold, :paid, :sent, :completed do
     end
 
     event :buy do
@@ -112,11 +108,6 @@ class BusinessTransaction < ActiveRecord::Base
 
     event :receive do
       transition :sent => :completed
-    end
-
-    before_transition do |business_transaction, transition|
-      # To be able to differentiate between updates by article modifications or state changes
-      business_transaction.updating_state = true
     end
 
     before_transition on: :buy do |business_transaction, transition|
@@ -141,23 +132,6 @@ class BusinessTransaction < ActiveRecord::Base
     @tos_accepted = (value == "1")
   end
   attr_reader :tos_accepted
-
-  # Edit can be called with GET params. If they are valid, it renders a different
-  # view to show the final sales price. This method is called to validates if the
-  # params are valid.
-  #
-  # @api public
-  # @param params [Hash] The GET parameters
-  # @return [Boolean]
-  def edit_params_valid? params
-    validator_instance = create_business_transaction_validator params
-    if validator_instance.valid?
-      true
-    else
-      validator_instance.errors.each { |k,v| self.errors.add k, v }
-      false
-    end
-  end
 
   # Get transport options that were selected by seller
   #
@@ -229,12 +203,4 @@ class BusinessTransaction < ActiveRecord::Base
       BusinessTransaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1] }
     end
 
-    # Create new instance to run validations on
-    def create_business_transaction_validator params
-      validator = self.class.new params
-      validator.article = self.article
-      validator.quantity_available = self.quantity_available if self.is_a? MultipleFixedPriceTransaction
-      validator.updating_state = true
-      validator
-    end
 end

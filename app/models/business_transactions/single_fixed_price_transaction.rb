@@ -42,7 +42,6 @@ class SingleFixedPriceTransaction < BusinessTransaction
   def quantity_bought= number
     super 1
   end
-  validates :quantity_bought, presence: true, numericality: true, on: :update, if: :updating_state
 
   # for having a parallel structure to MultipleFPT
   def quantity_available
@@ -51,12 +50,12 @@ class SingleFixedPriceTransaction < BusinessTransaction
 
   # This might be called on article update when quantity has changed to more than 1
   def transform_to_multiple quantity
-    self.type = 'MultipleFixedPriceTransaction'
+
     self.class.send :define_method, :quantity_available do
       read_attribute :quantity_available
     end
-    self.quantity_available = quantity
-    self.save!
+    self.update_column(:quantity_available, quantity)
+    self.update_column(:type, 'MultipleFixedPriceTransaction')
   end
 
   private
