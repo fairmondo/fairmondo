@@ -62,7 +62,7 @@ feature 'Buying Process' do
     page.must_have_content I18n.t 'formtastic.labels.business_transaction.selected_payment'
     page.must_have_selector 'select', text: I18n.t('enumerize.business_transaction.selected_payment.cash')
     ## Should display buyer's address
-    page.must_have_content I18n.t 'transaction.edit.shipping_address'
+    page.must_have_content I18n.t 'transaction.edit.addresses'
 
     # Should display info text and button
     page.must_have_content I18n.t 'transaction.edit.next_step_explanation'
@@ -96,7 +96,7 @@ feature 'Buying Process' do
     page.must_have_content I18n.t 'enumerize.business_transaction.selected_transport.pickup'
 
     # Should display buyer's address
-    page.must_have_content I18n.t 'transaction.edit.address'
+    page.must_have_content I18n.t 'transaction.edit.addresses'
     page.must_have_content user.fullname
     page.must_have_content user.standard_address_address_line_1
     page.must_have_content user.standard_address_address_line_2

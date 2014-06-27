@@ -103,8 +103,14 @@ class MassUpload < ActiveRecord::Base
   def self.business_transaction_attributes
     ["sales_price_cents", "price_without_vat_cents", "vat_cents",
       "selected_transport", "transport_provider", "shipping_and_handling_cents",
-      "selected_payment", "message", "quantity_bought", "forename", "surname",
-      "address_suffix", "street", "city", "zip", "country", "buyer_email",
+      "selected_payment", "message", "quantity_bought",
+      "buyer_email", "buyer_nickname",
+      'shipping_address_title', 'shipping_address_first_name', 'shipping_address_last_name',
+      'shipping_address_company_name', 'shipping_address_address_line_1', 'shipping_address_address_address_line_2',
+      'shipping_address_zip', 'shipping_address_city', 'shipping_address_country',
+      'billing_address_title', 'billing_address_first_name', 'billing_address_last_name',
+      'billing_address_company_name', 'billing_address_address_line_1', 'billing_address_address_line_2',
+      'billing_address_zip', 'billing_address_city', 'billing_address_country',
       "fee_cents", "donation_cents", "total_fee_cents", "net_total_fee_cents",
       "vat_total_fee_cents", "sold_at"]
   end

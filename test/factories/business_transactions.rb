@@ -75,6 +75,8 @@ FactoryGirl.define do
       state 'sold'
       sold_at { Time.now }
       article { FactoryGirl.create :article, :without_build_business_transaction,:with_all_transports, state: "sold" }
+      shipping_address { buyer.standard_address }
+      billing_address { buyer.standard_address }
     end
 
     factory :business_transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do

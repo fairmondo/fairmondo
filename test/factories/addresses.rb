@@ -16,4 +16,16 @@ FactoryGirl.define do
   trait :with_user do
     user
   end
+
+  trait :fixture_address do
+    title 'Herr'
+    first_name 'Hans'
+    last_name 'Gutmut'
+    company_name 'Goldene Gans gGmbH'
+    address_line_1 'Dorfstr. 23'
+    address_line_2 'Am Brunnen'
+    zip '13747'
+    city 'Kleines Dorf'
+    country 'Deutschland'
+  end
 end

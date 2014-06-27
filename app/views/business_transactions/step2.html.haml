@@ -42,7 +42,7 @@
 
     - if shipping_address_id == billing_address_id
       %h3
-        = t 'transaction.edit.address'
+        = t 'transaction.edit.addresses'
       %p.address
         = render 'addresses/address', address: Address.find(shipping_address_id)
     - else

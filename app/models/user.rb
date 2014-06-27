@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   has_many :business_transactions, through: :articles
 
     # Addresses
-  has_many :addresses
+  has_many :addresses, dependent: :destroy
   has_one  :standard_address, class_name: 'Address', inverse_of: :user
   delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true
 

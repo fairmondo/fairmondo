@@ -49,8 +49,11 @@ class BusinessTransaction < ActiveRecord::Base
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            :active?,
            to: :article, prefix: true
-  delegate :email, :forename, :surname, :fullname, :nickname,
-           to: :buyer, prefix: true
+  delegate :email, :nickname, to: :buyer, prefix: true
+  delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
+           :zip, :city, :country, to: :shipping_address, prefix: true
+  delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
+           :zip, :city, :country, to: :billing_address, prefix: true
   delegate :email, :fullname, :nickname, :phone, :mobile, :address,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,

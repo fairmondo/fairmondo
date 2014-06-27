@@ -41,6 +41,7 @@ module BusinessTransactionMailerHelper
 
   def show_buyer_address(address)
     string = ""
+    string = "#{address.title}"
     string += "#{address.first_name} #{address.last_name}\n"
     string += "#{address.address_line_1}\n"
     string += "#{address.address_line_2}\n" if address.address_line_2
