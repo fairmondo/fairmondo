@@ -155,7 +155,7 @@ feature "User account management" do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
-    select 'Herr', from: 'user_title'
+    select 'Herr', from: 'address_title'
     select 'Deutschland', from: 'address_country'
     fill_in 'user_email', with: 'chunky@bacon.com'
     fill_in 'user_current_password', with: 'password'
@@ -180,7 +180,7 @@ feature "User account management" do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
-    select 'Herr', from: 'user_title'
+    select 'Herr', from: 'address_title'
     select 'Deutschland', from: 'address_country'
     fill_in 'user_current_password', with: 'password'
     fill_in 'user_password', with: 'changedpassword'

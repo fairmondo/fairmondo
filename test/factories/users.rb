@@ -74,7 +74,10 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
-      company_name Faker::Company.name
+    end
+
+    factory :legal_entity_with_fixture_address do
+      standard_address { FactoryGirl.create :address, :fixture_address }
     end
 
     factory :legal_entity_without_company_name, class: 'LegalEntity' do
@@ -82,7 +85,7 @@ FactoryGirl.define do
     end
 
     factory :incomplete_user do
-      country nil
+      standard_address nil
     end
 
     trait :no_bank_data do

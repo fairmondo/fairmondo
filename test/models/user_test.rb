@@ -170,15 +170,15 @@ describe User do
           user.country = "Deutschland"
         end
 
-        it {user.must allow_value('12345').for :zip}
-        it {user.wont allow_value('a1b2c').for :zip}
-        it {user.wont allow_value('123456').for :zip}
-        it {user.wont allow_value('1234').for :zip}
+        it {user.standard_address.must allow_value('12345').for :zip}
+        it {user.standard_address.wont allow_value('a1b2c').for :zip}
+        it {user.standard_address.wont allow_value('123456').for :zip}
+        it {user.standard_address.wont allow_value('1234').for :zip}
       end
 
       describe "address validation" do
-        it {user.must allow_value('Test Str. 1a').for :street}
-        it {user.wont allow_value('Test Str.').for :street}
+        it {user.standard_address.must allow_value('Test Str. 1a').for :address_line_1}
+        it {user.standard_address.wont allow_value('Test Str.').for :address_line_1}
       end
     end
 
@@ -186,12 +186,12 @@ describe User do
       before :each do
         user.wants_to_sell = true
       end
-      it { user.must validate_presence_of :forename }
-      it { user.must validate_presence_of :surname }
-      it { user.must validate_presence_of :zip}
-      it { user.must validate_presence_of :country }
-      it { user.must validate_presence_of :street }
-      it { user.must validate_presence_of :city }
+      it { user.standard_address.must validate_presence_of :first_name }
+      it { user.standard_address.must validate_presence_of :last_name }
+      it { user.standard_address.must validate_presence_of :address_line_1 }
+      it { user.standard_address.must validate_presence_of :zip}
+      it { user.standard_address.must validate_presence_of :city }
+      it { user.standard_address.must validate_presence_of :country }
     end
   end
 

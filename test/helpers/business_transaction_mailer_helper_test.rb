@@ -5,6 +5,9 @@ describe BusinessTransactionMailerHelper do
 
   before( :each ) do
     @business_transaction = FactoryGirl.create :business_transaction_with_buyer
+    buyer                 = @business_transaction.buyer
+    @business_transaction.shipping_address = buyer.standard_address
+    @business_transaction.billing_address  = buyer.standard_address
   end
 
   describe "#transaction_mail_greeting( transaction, role )" do

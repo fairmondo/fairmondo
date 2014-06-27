@@ -96,8 +96,8 @@
 
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          - if @address
-            = semantic_fields_for @address do |f|
+          - if @standard_address
+            = semantic_fields_for @standard_address do |f|
               = f.inputs do
                 = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
                 = f.input :first_name, required: true
@@ -108,8 +108,8 @@
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
-          - if @address
-            = semantic_fields_for @address do |f|
+          - if @standard_address
+            = semantic_fields_for @standard_address do |f|
               = f.inputs do
                 - if @user.is_a?(LegalEntity)
                   = f.input :company_name
