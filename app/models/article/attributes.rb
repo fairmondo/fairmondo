@@ -71,7 +71,8 @@ module Article::Attributes
     # =========== Transport =============
     TRANSPORT_TYPES = ['pickup', 'type1', 'type2']
 
-    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details, :transport_time
+    auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
+    auto_sanitize :transport_time, remove_all_spaces: true
 
     validates :transport_type1_provider, :length => { :maximum => 255 }
     validates :transport_type2_provider, :length => { :maximum => 255 }
@@ -84,7 +85,7 @@ module Article::Attributes
 
     validates :transport_details, :length => { :maximum => 2500 }
 
-    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{,2}\s?-?\s?\d{,2}\z/ }
+    validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
 
     monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
     monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
