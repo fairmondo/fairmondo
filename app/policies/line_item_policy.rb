@@ -21,11 +21,19 @@
 #
 class LineItemPolicy < Struct.new(:user, :line_item)
   def create?
-    active?
+    article_active?
+  end
+
+  def update?
+
+  end
+
+  def destroy?
+    line_item.cart.unique_hash == line_item.cart_hash
   end
 
   private
-    def active?
+    def article_active?
       line_item.article && line_item.article.active?
     end
 end

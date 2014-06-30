@@ -40,13 +40,16 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-
-  end
+    @line_item = LineItem.find(params[:id])
+    @line_item.cart_hash = cookies[:cart]
+    authorize @line_item
+    @line_item.destroy
+    redirect_to
 
   private
     def find_or_create_line_item_group
-      cart = Cart.find(cookies[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
-      cookies[:cart] = cart.id # set cookie anew
+      cart = Cart.find_by_unique_hash!(cookies[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
+      cookies[:cart] = cart.unique_hash # set cookie anew
       cart.line_item_group_for @line_item.business_transaction.seller # get the seller-unique LineItemGroup (or creates one)
     end
 end
