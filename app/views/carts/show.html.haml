@@ -10,7 +10,8 @@
           = render "shared/listview/listview_detail", article: article
           .Listview-actions
             - unless line_item.business_transaction.is_a? SingleFixedPriceTransaction
-              Quantity Form + Delete Buttons
+              Quantity Form
+            = link_to t('common.actions.destroy'), line_item_path(line_item.id), class: "Button Button--red", confirm: 'Sure?', method: :delete
 
 
 
