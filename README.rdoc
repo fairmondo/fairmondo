@@ -51,7 +51,7 @@ If the automated script doesn't work for you, try going through these steps one 
     cp config/environments/development.example.rb config/environments/development.rb
     cp config/initializers/secret_token.example config/initializers/secret_token.rb
     
-* [set up Postgres for develoment environment](wiki/postgres)
+* {set up Postgres for develoment environment}[wiki/postgres]
 
 * migrate and seed
     rake db:create && rake db:migrate && rake db:seed && rake db:test:prepare
