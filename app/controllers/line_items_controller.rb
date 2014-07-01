@@ -26,13 +26,18 @@ class LineItemsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
   def create
-    @line_item = LineItem.new params.for(LineItem).refine
-    @line_item.line_item_group = find_or_create_line_item_group
+    @line_item = LineItem.find_or_new params.for(LineItem).refine
+
+    if @line_item.new_record?
+      @line_item.line_item_group = find_or_create_line_item_group
+    else
+      @line_item.requested_quantity += 1
+    end
 
     authorize @line_item
-    @line_item.save
 
-    respond_with @line_item, location: @line_item.line_item_group.cart
+    flash[:notice] = 'Der Artikel wurde dem Warenkorb hinzugefügt' if @line_item.save
+    redirect_to @line_item.article
   end
 
   def update
@@ -44,7 +49,8 @@ class LineItemsController < ApplicationController
     @line_item.cart_hash = cookies[:cart]
     authorize @line_item
     @line_item.destroy
-    redirect_to
+    redirect_to Cart.find_by_unique_hash(cookies[:cart])
+  end
 
   private
     def find_or_create_line_item_group

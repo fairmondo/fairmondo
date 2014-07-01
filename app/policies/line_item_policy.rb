@@ -29,7 +29,7 @@ class LineItemPolicy < Struct.new(:user, :line_item)
   end
 
   def destroy?
-    line_item.cart.unique_hash == line_item.cart_hash
+    line_item.cart_unique_hash == line_item.cart_hash
   end
 
   private
