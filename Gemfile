@@ -52,6 +52,7 @@ gem 'modernizr-rails'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
+gem 'historyjs-rails'
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
 
