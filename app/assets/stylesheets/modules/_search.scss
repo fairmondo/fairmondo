@@ -243,7 +243,7 @@ cannot be in controller specific code because it is used by multiple controllers
 
 .Search-dropdown > ul > li {
   white-space:nowrap;
-  padding: 0.5em;
+  padding: 0;
   &:hover {
     background: $blue;
     a {color:white;}
@@ -256,7 +256,7 @@ cannot be in controller specific code because it is used by multiple controllers
 }
 
 a.Search-colored-link {
-  padding: 0;
+  padding: 0.5em;
   display:block;
   text-decoration:none !important;
   img {
