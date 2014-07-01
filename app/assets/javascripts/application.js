@@ -37,6 +37,7 @@
 //= require i18n
 //= require i18n/translations
 
+//= require history_jquery.min
 
 //= require vendor/jquery.complexify
 //= require vendor/jquery.socialshareprivacy
