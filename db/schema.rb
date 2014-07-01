@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627103324) do
+ActiveRecord::Schema.define(version: 20140701142359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -293,7 +293,7 @@ ActiveRecord::Schema.define(version: 20140627103324) do
   create_table "line_items", force: true do |t|
     t.integer  "line_item_group_id",      limit: 8
     t.integer  "business_transaction_id", limit: 8
-    t.integer  "requested_quantity"
+    t.integer  "requested_quantity",                default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
