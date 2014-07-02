@@ -36,7 +36,7 @@ class LineItemsController < ApplicationController
 
     authorize @line_item
 
-    flash[:notice] = 'Der Artikel wurde dem Warenkorb hinzugefügt' if @line_item.save
+    flash[:notice] = I18n.t('line_item.success_add') if @line_item.save
     redirect_to @line_item.article
   end
 
