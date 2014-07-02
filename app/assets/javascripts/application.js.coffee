@@ -60,6 +60,7 @@
 #= require visual/tooltip
 #= require visual/button
 #= require visual/notice_close
+#= require visual/notice_scroll
 #= require visual/news_header_close
 #= require visual/colorbox
 #= require visual/selectbox
