@@ -1,6 +1,8 @@
 class Cart < ActiveRecord::Base
   has_many :line_item_groups, dependent: :destroy, inverse_of: :cart
   has_many :line_items, through: :line_item_groups, inverse_of: :cart
+  has_many :articles, through: :line_item_groups
+
   belongs_to :user, inverse_of: :carts
 
   before_create :generate_unique_hash
