@@ -119,4 +119,7 @@ module ApplicationHelper
     end
   end
 
+  def current_cart
+    @current_cart ||= Cart.find_by_unique_hash cookies[:cart]
+  end
 end

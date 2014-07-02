@@ -20,3 +20,7 @@
       = link_to t('common.actions.login'), new_user_session_path, :id => "login-link", class: 'JS-active-toggle--trigger JS-active-toggle--target'
       .l-header-nav-dropdown.l-header-nav-dropdown--login.JS-active-toggle--target
         = render "devise/sessions/shared"
+
+  - if current_cart && policy(current_cart).show? && !current_cart.line_items.empty?
+    %li
+      = link_to t('header.cart'), current_cart
