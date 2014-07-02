@@ -14,7 +14,7 @@ class LineItemGroup < ActiveRecord::Base
     bt.validates :tos_accepted , acceptance: true
 
     bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
-      record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(attr)
+      record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
     end
   end
 
@@ -32,9 +32,9 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   private
-    def can_be_unified_for? type
-      transport_can_be_unified? if type == :unified_transport
-      payment_can_be_unified? if type == :unified_payment
+    def self.can_be_unified_for? record, type
+      record.transport_can_be_unified? if type == :unified_transport
+      record.payment_can_be_unified? if type == :unified_payment
     end
 
     def has_business_transactions?

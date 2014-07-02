@@ -1,25 +1,28 @@
-.Content
-  = semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
-    = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
 
-      Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
-      .Listview
-        = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
-          - article = line_item.business_transaction.article
-          .Listview-item
-            .Listview-image
-              = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-            = render "shared/listview/listview_detail", article: article
-            .Listview-quantity
-              -#Anzahl: #{line_item.quantity}
-              - unless group.transport_can_be_unified?
-                = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
-                  = t.input :selected_transport, include_blank: false, collection: line_item.business_transaction.selected_transports
-              - unless group.payment_can_be_unified?
-                = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
-                  = t.input :selected_payment, include_blank: false, collection: line_item.business_transaction.selected_payments
-        = group_fields.input :unified_transport, as: :select,  include_blank: false, collection: group.unified_transports_selectable if group.transport_can_be_unified?
-        = group_fields.input :unified_payment, as: :select, include_blank: false, collection: group.unified_payments_selectable if group.payment_can_be_unified?
-    = f.actions do
-      = f.submit
+= semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
+  = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
+
+    Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+    = group_fields.inputs do
+      = group_fields.input :unified_transport if group.transport_can_be_unified?
+      - if group.payment_can_be_unified?
+        = group_fields.input :unified_payment
+        = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: group.unified_payments_selectable
+    .Listview
+      = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
+        - article = line_item.business_transaction.article
+        .Listview-item
+          .Listview-image
+            = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+          = render "shared/listview/listview_detail", article: article
+          .Listview-quantity
+            -#Anzahl: #{line_item.quantity}
+
+            = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
+              = t.inputs do
+                = t.input :selected_transport, include_blank: false, collection: line_item.business_transaction.article.selectable_transports
+                = t.input :selected_payment, include_blank: false, collection: line_item.business_transaction.article.selectable_payments
+
+  = f.actions do
+    = f.submit
 
