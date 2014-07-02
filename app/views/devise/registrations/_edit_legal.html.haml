@@ -35,3 +35,10 @@
       - if resource.cancellation_form.exists?
         Hochgeladen:
         = link_to resource.cancellation_form.original_filename, resource.cancellation_form.url, target: '_blank'
+= f.input_step :unified_transport do
+  = f.inputs do
+    = f.input :unified_transport_maximum_articles
+    = f.input :unified_transport_provider
+    = f.input :unified_transport_price
+    = f.input :unified_transport_free
+    = f.input :unified_transport_free_at_price

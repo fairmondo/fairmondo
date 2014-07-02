@@ -1,0 +1,8 @@
+.Content
+  - @cart.line_item_groups.each do |group|
+    .seller
+      %p
+        Deine Bestellung bei #{link_to user_path(group.seller)}
+      .thumbnails
+        - group.line_items.map(&:article).each do |article|
+          = image_tag(article.title_image_url_thumb)

@@ -21,24 +21,27 @@
 #
 
 class BusinessTransactionObserver < ActiveRecord::Observer
-  def after_buy business_transaction, transition
-    if !business_transaction.multiple? && business_transaction.sold?
 
-      if !business_transaction.purchase_emails_sent
-        # Send an email to the seller
-        BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
+  def before_save business_transaction
+    business_transaction.sold_at = Time.now
+  end
 
-        # Send a confirmation email to the buyer
-        BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
+  def after_save business_transaction
 
-        business_transaction.update_attribute :purchase_emails_sent, true
-      end
+    if !business_transaction.purchase_emails_sent
+      # Send an email to the seller
+      BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
 
-      # check if this article is discountable and reply accordingly
-      Discount.discount_chain( business_transaction ) if business_transaction.article_discount_id
-      FastbillWorker.perform_in 5.seconds, business_transaction.id
+      # Send a confirmation email to the buyer
+      BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
 
+      business_transaction.update_attribute :purchase_emails_sent, true
     end
+
+    # check if this article is discountable and reply accordingly
+    Discount.discount_chain( business_transaction ) if business_transaction.article_discount_id
+    FastbillWorker.perform_in 5.seconds, business_transaction.id
+
   end
 
 end

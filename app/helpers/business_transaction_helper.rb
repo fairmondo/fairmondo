@@ -31,7 +31,7 @@ module BusinessTransactionHelper
           ( resource.article.send("#{transpay}_#{type}_provider") + ' ' ) if transpay == :transport
       output +=
           humanized_money_with_symbol(resource.article.send("#{transpay}_#{type}_price"))
-      if transpay == :transport && ( resource.is_a? MultipleFixedPriceTransaction )
+      if transpay == :transport && resource.article.quantity > 1
           output +=
             t("transaction.edit.per_transport_number", number: resource.article.send("transport_#{type}_number"))
       else

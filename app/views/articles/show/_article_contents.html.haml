@@ -106,10 +106,10 @@
 
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), method: :post, class: "Button Button-gray")
-      - if policy(resource.business_transaction).edit?
-        = button_to t('common.actions.to_cart'), line_items_path, method: :post, class: "Button", params: {business_transaction_id: resource.business_transaction.id }
-        = link_to t('common.actions.buy_single'), edit_business_transaction_path(resource.business_transaction), class: "Button"
-      - elsif policy(resource.business_transaction).show_vacationing?
+      - if policy(resource).purchasable?
+        = button_to t('common.actions.to_cart'), line_items_path, method: :post, class: "Button", params: {article_id: resource.id }
+        = link_to t('common.actions.buy_single'), single_checkout_carts_path, class: "Button"
+      - elsif policy(resource).purchasable_later?
         .Button.Button--disabled= t 'common.actions.to_cart'
         .Button.Button--disabled= t 'common.actions.buy_single'
         %p

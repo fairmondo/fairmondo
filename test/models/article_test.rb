@@ -135,18 +135,6 @@ describe Article do
   end
 
 
-  describe "::BuildBusinessTransaction" do
-    it "should build a SFPT when article quantity is one" do
-      article.quantity = 1
-      article.send(:build_specific_business_transaction).must_be_instance_of SingleFixedPriceTransaction
-    end
-
-    it "should build a MFPT when article quantity is greater than one" do
-      article.quantity = 2
-      article.send(:build_specific_business_transaction).must_be_instance_of MultipleFixedPriceTransaction
-    end
-  end
-
   describe "::FeesAndDonations" do
     before do
       article.seller = User.new

@@ -21,4 +21,15 @@ class Cart < ActiveRecord::Base
   def line_item_group_for seller
     line_item_groups.where(seller: seller).first || LineItemGroup.create(cart: self, seller: seller)
   end
+
+  def buy
+    Article.transaction do
+      # lock all articles that we want to buy
+
+      # buy all line_item_groups
+      return :checked_out
+      # return :checkout_failed if we couldn't buy something
+    end
+  end
+
 end

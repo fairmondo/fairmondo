@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   has_many :articles, dependent: :destroy # As seller
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id', inverse_of: :buyer # As buyer
-  has_many :sold_business_transactions, -> { where("business_transactions.state = 'sold' AND business_transactions.type != 'MultipleFixedPriceTransaction'") }, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
+  has_many :sold_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
 
   has_many :line_item_groups, inverse_of: :seller
 
@@ -120,6 +120,9 @@ class User < ActiveRecord::Base
   validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
+
+  monetize :unified_transport_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+  monetize :unified_transport_free_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
 
   # Return forename plus surname
   # @api public

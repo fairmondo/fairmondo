@@ -4,6 +4,6 @@ class LineItemRefinery < ApplicationRefinery
   end
 
   def create
-    [ :business_transaction_id ]
+    [ :article_id ]
   end
 end

@@ -22,7 +22,7 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :business_transaction, class: [ 'SingleFixedPriceTransaction'].sample do
+  factory :business_transaction do
     article { FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports }
     seller { article.seller }
     selected_transport 'pickup'
@@ -35,14 +35,11 @@ FactoryGirl.define do
     country  "Deutschland"
     sold_at { Time.now }
     discount_value_cents 0
+    quantity_bought 1
+    buyer
+    line_item_group
 
-    factory :super_transaction, class: 'BusinessTransaction' do
-    end
-
-    factory :preview_transaction, class: 'PreviewTransaction' do
-    end
-
-    factory :single_transaction, class: 'SingleFixedPriceTransaction' do
+    factory :single_transaction do
       forename { Faker::Name.first_name }
       surname  { Faker::Name.last_name }
       street   { Faker::AddressDE.street_address }
@@ -52,61 +49,21 @@ FactoryGirl.define do
       quantity_bought 1
     end
 
-    factory :multiple_transaction, class: 'MultipleFixedPriceTransaction' do
-      article { FactoryGirl.create :article, :without_build_business_transaction, quantity: 50 }
+    factory :multiple_transaction do
+      article { FactoryGirl.create :article, quantity: 50 }
       quantity_available 50
     end
 
-    factory :partial_transaction, class: 'PartialFixedPriceTransaction' do
-      buyer
-      parent { FactoryGirl.create :multiple_transaction, quantity_available: 49 }
-      quantity_bought 1
-      forename { Faker::Name.first_name }
-      surname  { Faker::Name.last_name }
-      street   { Faker::AddressDE.street_address }
-      city     { Faker::AddressDE.city }
-      zip      { Faker::AddressDE.zip_code }
-      country  "Deutschland"
-    end
-
-    trait :sold do
-      buyer
-      state 'sold'
-      quantity_bought 1
-      sold_at { Time.now }
-    end
-
-    #factory :auction_transaction, :class => 'AuctionTransaction' do
-    #   expire    { (rand(10) + 2).hours.from_now }
-    #end
-
     trait :legal_transaction do
-      article { FactoryGirl.create :article, :with_legal_entity, :without_build_business_transaction}
+      article { FactoryGirl.create :article, :with_legal_entity}
     end
 
     trait :private_transaction do
-      article { FactoryGirl.create :article, :with_private_user, :without_build_business_transaction}
+      article { FactoryGirl.create :article, :with_private_user}
     end
 
-    factory :business_transaction_with_buyer, class: 'SingleFixedPriceTransaction' do
-      buyer { FactoryGirl.create :buyer }
-      quantity_bought 1
-      state 'sold'
-      sold_at { Time.now }
-      article { FactoryGirl.create :article, :without_build_business_transaction,:with_all_transports, state: "sold" }
-    end
-
-    factory :business_transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
-      buyer { FactoryGirl.create :buyer }
-       quantity_bought 1
+    factory :business_transaction_with_friendly_percent, class: 'SingleFixedPriceTransaction'  do
       article { FactoryGirl.create :article, :with_friendly_percent}
-    end
-
-    #TODO please use business_transaction_with_buyer
-    factory :business_transaction_with_friendly_percent_missing_bank_data_and_buyer, class: 'SingleFixedPriceTransaction'  do
-      buyer { FactoryGirl.create :buyer }
-       quantity_bought 1
-      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data}
     end
 
     trait :incomplete do
