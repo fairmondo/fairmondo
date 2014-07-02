@@ -24,6 +24,10 @@ Styleguide Notice
 
 .Notice--info,.Notice--confirmation {
   background-color: $green;
+
+  // for JS manipulation
+  position: relative;
+  z-index: 15002; //tooltips have 15001
 }
 
 .Notice--error {
