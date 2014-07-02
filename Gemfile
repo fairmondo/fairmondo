@@ -133,6 +133,7 @@ end
 group :development, :test do
 
   gem 'pry-rails' # pry is awsome
+  gem 'hirb' # hirb makes pry output even more awesome
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
