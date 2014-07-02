@@ -9,7 +9,7 @@ class CartCheckoutForm
 
   def session_valid?
     build_form_objects_from session[:cart_checkout]
-    unless session.empty?
+    unless session[:cart_checkout].empty?
       valid?
     end
   end
