@@ -8,7 +8,7 @@ class LineItemGroup < ActiveRecord::Base
 
   auto_sanitize :message
 
-  with_options if: :has_business_transactions? |bt|
+  with_options if: :has_business_transactions? do |bt|
     bt.validates :unified_payment_method, inclusion: { in: proc { |record| record.unified_payments_selectable } }, common_sense: true, presence: true, if: :payment_can_be_unified?
 
     bt.validates :tos_accepted , acceptance: true
