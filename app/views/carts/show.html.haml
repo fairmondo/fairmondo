@@ -9,10 +9,6 @@
             = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
           = render "shared/listview/listview_detail", article: article
           .Listview-actions
-            Quantity Form + Delete Buttons
-
-
-
-
+            = link_to t('common.actions.destroy'), line_item_path(line_item.id), class: "Button Button--red", confirm: 'Sure?', method: :delete
 
   = link_to "Zur Kasse", edit_cart_path(@cart), class: "Button"

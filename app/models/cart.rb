@@ -3,6 +3,8 @@ class Cart < ActiveRecord::Base
   has_many :line_items, through: :line_item_groups, inverse_of: :cart
   belongs_to :user, inverse_of: :carts
 
+  before_create :generate_unique_hash
+
   scope :newest , -> { order(created_at: :desc) }
   scope :open , -> { where.not(sold: true) }
 
@@ -32,4 +34,9 @@ class Cart < ActiveRecord::Base
     end
   end
 
+
+  private
+    def generate_unique_hash
+      self.unique_hash = Digest::SHA1.hexdigest([Time.now, rand].join)
+    end
 end
