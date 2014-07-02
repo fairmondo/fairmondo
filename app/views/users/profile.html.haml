@@ -28,25 +28,27 @@
     .vcard
       %p.fn
         %a{ :href => "mailto:#{resource.email}" }
-
-          = "#{resource.title} " if resource.title
-          = "#{resource.forename} #{resource.surname}" if resource.surname && resource.forename
+          - if resource.standard_address && resource.standard_address_title
+            = "#{resource.standard_address_title} "
+          - if resource.standard_address && resource.standard_address_first_name && resource.standard_address_last_name
+            = "#{resource.standard_address_first_name} #{resource.standard_address_last_name}"
 
       %p.adr
-        - if resource.address_suffix && resource.street
+        - if resource.standard_address && resource.standard_address_address_line_1 && resource.standard_address_address_line_2
           %span.street-adress
-            = "#{resource.address_suffix}"
+            = "#{resource.standard_address_address_line_1}"
             %br
-            = "#{resource.street}"
+            - if resource.standard_address && resource.standard_address_address_line_2
+              = "#{resource.standard_address_address_line_2}"
             %br
-        - if resource.zip && resource.city
+        - if resource.standard_address && resource.standard_address_zip && resource.standard_address_city
           %span.postal-code
-            = resource.zip
+            = resource.standard_address_zip
           %span.locality
-            = resource.city
+            = resource.standard_address_city
           %br
           %span.country-name
-            = resource.country
+            = resource.standard_address_country
     - if resource.email
       %h3
         = "#{t('formtastic.labels.user.email')}:"

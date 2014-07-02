@@ -45,13 +45,6 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :state }
     it { subject.must_respond_to :parent_id }
     it { subject.must_respond_to :article_id }
-    it { subject.must_respond_to :forename }
-    it { subject.must_respond_to :surname }
-    it { subject.must_respond_to :street }
-    it { subject.must_respond_to :address_suffix }
-    it { subject.must_respond_to :city }
-    it { subject.must_respond_to :zip }
-    it { subject.must_respond_to :country }
     it { subject.must_respond_to :seller_id }
     it { subject.must_respond_to :sold_at }
     it { subject.must_respond_to :purchase_emails_sent }

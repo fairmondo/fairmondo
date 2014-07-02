@@ -29,13 +29,13 @@
       = t('rating.create.head')
     = semantic_form_for resource, url: user_ratings_path, builder: Fairtastic::FormBuilder do |f|
       = f.inputs do
-        = f.input :business_transaction_id, :as => :hidden
+        = f.input :business_transaction_id, as: :hidden
         = f.semantic_errors :business_transaction_id
-        = f.input :rating, :as => :plain_radio, :wrapper_html => {:class => "rating-choice"}, :label => false, :collection => { content_tag(:span, class: "sprite_positive"){} => "positive", content_tag(:span, class: "sprite_neutral"){} => "neutral",  content_tag(:span, class: "sprite_negative"){} => "negative" }
+        = f.input :rating, as: :plain_radio, wrapper_html: { class: "rating-choice"}, label: false, collection: { content_tag(:span, class: "sprite_positive"){} => "positive", content_tag(:span, class: "sprite_neutral"){} => "neutral",  content_tag(:span, class: "sprite_negative"){} => "negative" }
       = f.inputs do
         = f.input :text, :label => t('rating.create.comment')
 
       = f.actions do
-        = f.action :submit , :button_html => {:class => "Button" }, :label => t('rating.create.save')
+        = f.action :submit , button_html: {class: "Button" }, label: t('rating.create.save')
 .article
-  = render '/articles/shared/show_article', :article => resource.business_transaction.article
+  = render '/articles/shared/show_article', article: resource.business_transaction.article

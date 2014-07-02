@@ -7,7 +7,7 @@ module BusinessTransactionMailerHelper
   def transaction_mail_greeting transaction, role
     case role
       when :buyer
-        t('transaction.notifications.greeting') + (transaction.buyer.standard_address_first_name || transaction.forename) + ','
+        t('transaction.notifications.greeting') + (transaction.buyer.standard_address_first_name) + ','
       when :seller
         t('transaction.notifications.greeting') + transaction.article_seller.standard_address.first_name + ','
     end
@@ -21,7 +21,7 @@ module BusinessTransactionMailerHelper
     string += "#{seller.nickname}\n"
     string += "#{user_url seller}\n\n"
     if seller.is_a? LegalEntity
-      if address.company_name.present?
+      if address.company_name?
         string += t('transaction.notifications.seller.company_name')
         string += "#{address.company_name}\n"
       end

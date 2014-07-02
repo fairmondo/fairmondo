@@ -14,7 +14,6 @@ describe Address do
   end
 
   describe 'attributes' do
-    # fields
     it { subject.must_respond_to :title }
     it { subject.must_respond_to :first_name }
     it { subject.must_respond_to :last_name }
@@ -28,7 +27,6 @@ describe Address do
   end
 
   describe 'validations' do
-    # validations
     it { subject.must validate_presence_of :first_name }
     it { subject.must validate_presence_of :last_name }
     it { subject.must validate_presence_of :address_line_1 }

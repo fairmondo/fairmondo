@@ -166,7 +166,7 @@ feature "User account management" do
 
   end
 
-  scenario "user wants  to change the email for account without a password" do
+  scenario "user wants to change the email for account without a password" do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user

@@ -3,12 +3,12 @@
     %p
       %h2= "#{ address.title } #{ address.first_name } #{ address.last_name }"
       %p= address.address_line_1
-      - unless address.address_line_2.empty?
+      - if address.address_line_2?
         %p= address.address_line_2
       %p= "#{ address.zip } #{ address.city }"
       %p= address.country
       %br
     %p
-      - if params[:controller] == 'users'
-        = link_to 'bearbeiten', edit_user_address_path(current_user, address), class: 'colorbox Button'
-        = link_to 'löschen', user_address_path(current_user, address), method: :delete, class: 'Button Button--red'
+      - if controller.controller_name == 'registrations' || controller.controller_name == 'addresses'
+        = link_to 'bearbeiten', edit_user_address_path(current_user, address), class: 'colorbox Button edit-button'
+        = link_to 'löschen', user_address_path(current_user, address), method: :delete, class: 'Button Button--red', remote: true

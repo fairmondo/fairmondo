@@ -1,0 +1,5 @@
+- unless addresses.empty?
+  .Addresses
+    .Grid
+      - addresses.each do |a|
+        = render 'addresses/address', address: a
