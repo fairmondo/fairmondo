@@ -2,6 +2,8 @@ class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
 
   class BusinessTransaction < ActiveRecord::Base
     belongs_to :line_item_group
+    belongs_to :article
+    belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
   end
 
   class LineItemGroup < ActiveRecord::Base
@@ -14,13 +16,15 @@ class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
     change_column :line_item_groups, :unified_transport, :boolean, default: false
     change_column :line_item_groups, :unified_payment, :boolean, default: false
 
-    mfps = BusinessTransaction.where(type: 'MultipleFixedPriceTransaction')
+    rename_column :business_transactions, :type, :type_fix
+
+    mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
     mfps.find_each do |mfp|
       mfp.article.update_column(:quantity_available, mfp.quantity_available)
       mfp.destroy
     end
 
-    BusinessTransaction.where(type: 'PreviewTransaction').destroy_all
+    BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
     BusinessTransaction.where(state: 'available').find_each do |t|
       t.destroy
@@ -31,8 +35,8 @@ class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
       t.save!
     end
 
-    remove_column(:business_transactions,:quantity_available)
-    remove_column(:business_transactions, :type)
+    remove_column(:business_transactions, :quantity_available)
+    remove_column(:business_transactions, :type_fix)
     remove_column(:business_transactions, :expire) rescue nil
     remove_column(:business_transactions, :message)
     remove_column(:business_transactions, :tos_accepted)
