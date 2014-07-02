@@ -1,13 +1,13 @@
 class AddressesController < ApplicationController
   responders :location
-  respond_to :html, except: :delete
-  respond_to :js, only: :index, if: lambda { request.xhr? }
+  respond_to :html
+  respond_to :js, only: [:index, :show, :delete], if: lambda { request.xhr? }
   before_filter :set_address, except: [:index, :new, :create]
 
   def index
     @addresses = current_user.addresses
     authorize @addresses.first
-    respond_with @addresses
+    respond_with [current_user, @addresses]
   end
 
   def new
@@ -35,7 +35,7 @@ class AddressesController < ApplicationController
 
   def show
     authorize @address
-    respond_with @address
+    respond_with [current_user, @address]
   end
 
   def destroy

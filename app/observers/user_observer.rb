@@ -62,5 +62,4 @@ class UserObserver < ActiveRecord::Observer
     rescue
     end
   end
-
 end

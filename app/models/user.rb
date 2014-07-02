@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city, :bank_name
-  auto_sanitize :iban, :bic, :zip, remove_all_spaces: true
+  auto_sanitize :nickname, :bank_name
+  auto_sanitize :iban, :bic, remove_all_spaces: true
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
@@ -56,8 +56,8 @@ class User < ActiveRecord::Base
   has_many :business_transactions, through: :articles
 
     # Addresses
-  has_many :addresses, dependent: :destroy
-  has_one  :standard_address, class_name: 'Address', inverse_of: :user
+  has_many :addresses, dependent: :destroy, inverse_of: :user
+  belongs_to :standard_address, class_name: 'Address', foreign_key: :standard_address_id
   delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true
 
     # Profile image
@@ -382,6 +382,6 @@ class User < ActiveRecord::Base
     end
 
     def is_german?
-      self.country == "Deutschland"
+      self.standard_address && self.standard_address.country == "Deutschland"
     end
 end

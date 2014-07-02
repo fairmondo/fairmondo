@@ -34,8 +34,6 @@ FactoryGirl.define do
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
 
-    company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
-
     confirmed_at Time.now
 
     bank_code {rand(99999999).to_s.center(8, rand(9).to_s)}
@@ -48,6 +46,9 @@ FactoryGirl.define do
 
     direct_debit true
 
+    seller_state "standard_seller"
+    buyer_state "standard_buyer"
+
     standard_address { FactoryGirl.create :address }
 
     trait :missing_bank_data do
@@ -57,10 +58,8 @@ FactoryGirl.define do
       bank_name ""
       iban ""
       bic ""
-   end
+    end
 
-    seller_state "standard_seller"
-    buyer_state "standard_buyer"
 
     factory :admin_user do
       admin       true
@@ -81,7 +80,6 @@ FactoryGirl.define do
     end
 
     factory :legal_entity_without_company_name, class: 'LegalEntity' do
-      company_name nil
     end
 
     factory :incomplete_user do
@@ -108,5 +106,4 @@ FactoryGirl.define do
       ngo true
     end
   end
-
 end

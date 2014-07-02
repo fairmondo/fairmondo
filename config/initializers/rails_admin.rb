@@ -536,8 +536,6 @@ RailsAdmin.config do |config|
     end
     field :created_at
     field :updated_at
-    field :forename
-    field :surname
     field :admin
     #field :invitor_id, :integer
     #field :trustcommunity, :boolean
@@ -555,11 +553,6 @@ RailsAdmin.config do |config|
     field :terms
     field :cancellation
     field :about
-    field :title
-    field :country
-    field :street
-    field :city
-    field :zip
     field :phone
     field :mobile
     field :fax
@@ -760,16 +753,9 @@ RailsAdmin.config do |config|
   #     configure :quantity_bought, :integer
   #     configure :parent_id, :integer
   #     configure :article_id, :integer         # Hidden
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :country, :string
   #     configure :seller_id, :integer         # Hidden
   #     configure :sold_at, :datetime
   #     configure :purchase_emails_sent, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -827,16 +813,9 @@ RailsAdmin.config do |config|
   #     configure :quantity_bought, :integer
   #     configure :parent_id, :integer         # Hidden
   #     configure :article_id, :integer         # Hidden
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :country, :string
   #     configure :seller_id, :integer         # Hidden
   #     configure :sold_at, :datetime
   #     configure :purchase_emails_sent, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -893,16 +872,9 @@ RailsAdmin.config do |config|
   #     configure :quantity_bought, :integer
   #     configure :parent_id, :integer
   #     configure :article_id, :integer         # Hidden
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :country, :string
   #     configure :seller_id, :integer         # Hidden
   #     configure :sold_at, :datetime
   #     configure :purchase_emails_sent, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -962,8 +934,6 @@ RailsAdmin.config do |config|
   #     configure :last_sign_in_ip, :string
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime
-  #     configure :forename, :string
-  #     configure :surname, :string
   #     configure :admin, :boolean
   #     configure :invitor_id, :integer
   #     configure :trustcommunity, :boolean
@@ -977,11 +947,6 @@ RailsAdmin.config do |config|
   #     configure :terms, :text
   #     configure :cancellation, :text
   #     configure :about, :text
-  #     configure :title, :string
-  #     configure :country, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
   #     configure :phone, :string
   #     configure :mobile, :string
   #     configure :fax, :string
@@ -998,7 +963,6 @@ RailsAdmin.config do |config|
   #     configure :buyer_state, :string
   #     configure :verified, :boolean
   #     configure :direct_debit, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -1055,16 +1019,9 @@ RailsAdmin.config do |config|
   #     configure :quantity_bought, :integer
   #     configure :parent_id, :integer
   #     configure :article_id, :integer         # Hidden
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :country, :string
   #     configure :seller_id, :integer         # Hidden
   #     configure :sold_at, :datetime
   #     configure :purchase_emails_sent, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -1169,16 +1126,9 @@ RailsAdmin.config do |config|
   #     configure :quantity_bought, :integer
   #     configure :parent_id, :integer
   #     configure :article_id, :integer         # Hidden
-  #     configure :forename, :string
-  #     configure :surname, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
-  #     configure :country, :string
   #     configure :seller_id, :integer         # Hidden
   #     configure :sold_at, :datetime
   #     configure :purchase_emails_sent, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 
@@ -1238,8 +1188,6 @@ RailsAdmin.config do |config|
   #     configure :last_sign_in_ip, :string
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime
-  #     configure :forename, :string
-  #     configure :surname, :string
   #     configure :admin, :boolean
   #     configure :invitor_id, :integer
   #     configure :trustcommunity, :boolean
@@ -1253,11 +1201,6 @@ RailsAdmin.config do |config|
   #     configure :terms, :text
   #     configure :cancellation, :text
   #     configure :about, :text
-  #     configure :title, :string
-  #     configure :country, :string
-  #     configure :street, :string
-  #     configure :city, :string
-  #     configure :zip, :string
   #     configure :phone, :string
   #     configure :mobile, :string
   #     configure :fax, :string
@@ -1274,7 +1217,6 @@ RailsAdmin.config do |config|
   #     configure :buyer_state, :string
   #     configure :verified, :boolean
   #     configure :direct_debit, :boolean
-  #     configure :address_suffix, :string
 
   #   # Cross-section configuration:
 

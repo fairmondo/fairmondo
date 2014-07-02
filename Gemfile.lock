@@ -201,6 +201,7 @@ GEM
     hashr (0.0.22)
     highline (1.6.21)
     hike (1.2.3)
+    hirb (0.7.2)
     httpi (2.1.0)
       rack
       rubyntlm (~> 0.3.2)
@@ -541,6 +542,7 @@ DEPENDENCIES
   formtastic (~> 2.3.0.rc3)
   friendly_id (>= 4.0.9)
   haml
+  hirb
   i18n-js
   ibanomat
   jquery-rails

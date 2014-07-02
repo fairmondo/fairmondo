@@ -79,6 +79,16 @@ FactoryGirl.define do
       billing_address { buyer.standard_address }
     end
 
+    trait :fixture_address do
+      forename 'Hans'
+      surname 'Gutmut'
+      street 'Dorfstr. 23'
+      address_suffix 'Am Brunnen'
+      zip '13747'
+      city 'Kleines Dorf'
+      country 'Deutschland'
+    end
+
     factory :business_transaction_with_friendly_percent_and_buyer, class: 'SingleFixedPriceTransaction'  do
       buyer { FactoryGirl.create :buyer }
        quantity_bought 1
@@ -93,7 +103,7 @@ FactoryGirl.define do
     end
 
     trait :incomplete do
-       forename {nil}
+      shipping_address nil
     end
 
     trait :bought_nothing do

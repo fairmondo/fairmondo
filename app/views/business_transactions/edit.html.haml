@@ -43,18 +43,33 @@
     %h3
       = t 'transaction.edit.addresses'
 
-    - if current_user.standard_address
+    - if current_user.standard_address.valid?
       - resource.shipping_address = current_user.standard_address
       - resource.billing_address = current_user.standard_address
-    - elsif params && params[:business_transaction][:shipping_address_id]
+      .Grid
+        = render 'addresses/address', address: resource.billing_address
+    - elsif params && params[:business_transaction] && params[:business_transaction][:shipping_address_id]
       - resource.shipping_address = Address.find(params[:business_transaction][:shipping_address_id])
-      - resource.billing_address = Address.find(params[:business_transaction][:billing_address_id])
+    - else
+      = semantic_fields_for :billing_address do |f|
+        = f.inputs do
+          = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+          = f.input :first_name, required: true
+          = f.input :last_name, required: true
+          = f.input :company_name
+          = f.input :address_line_1, required: true
+          = f.input :address_line_2
+          = f.input :zip, required: true
+          = f.input :city, required: true
+          = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
 
     = f.inputs do
-      = f.input :shipping_address, as: :radio, required: true, collection: current_user.addresses, member_label: lambda { |address| render 'addresses/address', address: address }, wrapper_html: { class: 'address-list' }
+      = f.input :shipping_address_id, as: :hidden, default: current_user.standard_address_id
+      = f.input :billing_address_id, as: :hidden, default: current_user.standard_address_id
+      = f.input :shipping_address, as: :radio, default: nil, collection: current_user.addresses, member_label: lambda { |address| render 'addresses/address', address: address }, wrapper_html: { class: 'address-list' }
 
-    = f.inputs do
-      = f.input :billing_address, as: :radio, required: true, collection: current_user.addresses, member_label: lambda { |address| render 'addresses/address', address: address }, wrapper_html: { class: 'address-list' }
+    = link_to 'neue Adresse hinzufügen', new_user_address_path(current_user), { class: 'colorbox' }
+    %hr
 
     %p.next_step
       = t 'transaction.edit.next_step_explanation'

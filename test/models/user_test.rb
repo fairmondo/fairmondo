@@ -41,8 +41,6 @@ describe User do
     it { subject.must_respond_to :last_sign_in_ip }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :forename }
-    it { subject.must_respond_to :surname }
     it { subject.must_respond_to :nickname }
     it { subject.must_respond_to :invitor_id }
     it { subject.must_respond_to :trustcommunity }
@@ -55,11 +53,6 @@ describe User do
     it { subject.must_respond_to :terms }
     it { subject.must_respond_to :cancellation }
     it { subject.must_respond_to :about }
-    it { subject.must_respond_to :title }
-    it { subject.must_respond_to :country }
-    it { subject.must_respond_to :street }
-    it { subject.must_respond_to :city }
-    it { subject.must_respond_to :zip }
     it { subject.must_respond_to :phone }
     it { subject.must_respond_to :mobile }
     it { subject.must_respond_to :fax }
@@ -72,7 +65,6 @@ describe User do
     it { subject.must_respond_to :iban }
     it { subject.must_respond_to :bic }
     it { subject.must_respond_to :paypal_account }
-    it { subject.must_respond_to :company_name }
     it { subject.must_respond_to :seller_state }
     it { subject.must_respond_to :buyer_state }
     it { subject.must_respond_to :verified }
@@ -81,7 +73,6 @@ describe User do
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
     it { subject.must_respond_to :direct_debit }
-    it { subject.must_respond_to :address_suffix }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
@@ -94,6 +85,7 @@ describe User do
   end
   describe "associations" do
     it { subject.must have_many(:addresses).dependent(:destroy) }
+    it { subject.must belong_to(:standard_address) }
     it { subject.must have_many(:articles).dependent(:destroy) }
     it { subject.must have_many(:libraries).dependent(:destroy) }
     it { subject.must have_one(:image) }
@@ -167,7 +159,7 @@ describe User do
     describe "on update" do
       describe "zip code validation" do
         before :each do
-          user.country = "Deutschland"
+          user.standard_address.country = "Deutschland"
         end
 
         it {user.standard_address.must allow_value('12345').for :zip}

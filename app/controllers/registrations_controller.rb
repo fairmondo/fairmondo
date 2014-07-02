@@ -27,12 +27,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find(current_user.id)
-    @address = nil
+    @standard_address = nil
 
-    if @user.addresses.empty?
-      @standard_address = @user.addresses.build
-    else
+    if @user.standard_address
       @standard_address = @user.standard_address
+    else
+      @standard_address = @user.addresses.build
     end
 
     check_incomplete_profile!(@user)
@@ -46,11 +46,9 @@ class RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     successfully_updated  = update_account(account_update_params)
 
-    address = nil
     if resource.addresses.empty? && params[:address]
       resource.standard_address = resource.addresses.build(params.for(Address).refine)
       resource.standard_address.save
-      #save_standard_address(resource, address)
     elsif resource.standard_address && params[:address]
       resource.standard_address.update(params.for(Address).refine)
     end
@@ -97,13 +95,6 @@ class RegistrationsController < Devise::RegistrationsController
         # doesn't know how to ignore it
         account_update_params.delete(:current_password) if account_update_params
         resource.update_without_password(account_update_params)
-      end
-    end
-
-    def save_standard_address(user, address)
-      if address && !address.persisted?
-        address.save
-        user.update(standard_address_id: address.id)
       end
     end
 
