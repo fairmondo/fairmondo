@@ -37,44 +37,36 @@ class Article < ActiveRecord::Base
   # Action attribute: c/create/u/update/d/delete - for export and csv upload
   # keep_images attribute: see edit_as_new
   attr_accessor :action, :keep_images, :save_as_template
+
   attr_writer :article_search_form #find a way to remove this! arcane won't like it
 
   validates_presence_of :slug unless :template?
 
-  delegate :terms, :cancellation, :about, :country, :ngo, :nickname , :to => :seller, :prefix => true
-  delegate :quantity_available, to: :business_transaction, prefix: true
-
-  delegate :deletable?, :buyer, to: :business_transaction, prefix: false
-  delegate :email, :vacationing?, to: :seller, prefix: true
+  delegate :terms, :cancellation, :about, :country, :ngo, :nickname, :email, :vacationing?, :to => :seller, :prefix => true
   delegate :nickname, to: :friendly_percent_organisation, :prefix => true
 
 
   # Relations
-  has_one :business_transaction, -> { where("type != 'PartialFixedPriceTransaction'") }, dependent: :destroy, inverse_of: :article
-  has_many :partial_business_transactions, -> { where(type: 'PartialFixedPriceTransaction') }, class_name: 'PartialFixedPriceTransaction', inverse_of: :article
-
-  has_many :line_items, through: :business_transaction, inverse_of: :article
-  # validates_presence_of :business_transaction
+  has_many :business_transactions, inverse_of: :article
+  has_many :line_items, inverse_of: :article
 
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
-  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
-  belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
-
   has_many :mass_upload_articles
   has_many :mass_uploads, through: :mass_upload_articles
 
+  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
   belongs_to :discount
 
   validates_presence_of :user_id
-
 
   # Misc mixins
   extend Sanitization
   # Article module concerns
   include Categories, Commendation, FeesAndDonations,
-          Images, BuildBusinessTransaction, Attributes, State, Scopes,
+          Images, Attributes, State, Scopes,
           Checks, Discountable
 
   # Elastic
@@ -127,6 +119,10 @@ class Article < ActiveRecord::Base
 
 
     end
+  end
+
+  def quantity_available
+    super || self.quantity
   end
 
   def save_as_template?

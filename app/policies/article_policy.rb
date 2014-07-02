@@ -68,9 +68,21 @@ class ArticlePolicy < Struct.new(:user, :article)
     ((user && !own?) || !user)  && article.active?
   end
 
+  def purchasable?
+    not_owned_and_active? && !article.seller_vacationing?
+  end
+
+  def purchasable_later?
+    not_owned_and_active? && article.seller_vacationing?
+  end
+
   private
     def own?
       user && user.id == article.seller.id
+    end
+
+    def not_owned_and_active?
+      article.active? && !own?
     end
 
     def owned_and_deactivated?

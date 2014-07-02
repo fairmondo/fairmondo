@@ -1,17 +1,26 @@
 class LineItemGroup < ActiveRecord::Base
+  extend Sanitization
+
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id', inverse_of: :line_item_groups
   belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
+  has_many :business_transactions, inverse_of: :line_item_group
 
-  validates :unified_transport, inclusion: { in: -> { unified_transports_selectable } }, presence: true , if: :transport_can_be_unified?
-  validates :unified_payment, inclusion: { in: -> { unified_payments_selectable } }, presence: true, if: :payment_can_be_unified?
+  auto_sanitize :message
 
-  def transport_can_be_unified?
-    unified_transports_selectable.any?
+  with_options if: :has_business_transactions? |bt|
+    bt.validates :unified_payment_method, inclusion: { in: proc { |record| record.unified_payments_selectable } }, common_sense: true, presence: true, if: :payment_can_be_unified?
+
+    bt.validates :tos_accepted , acceptance: true
+
+    bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
+      record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(attr)
+    end
   end
 
-  def unified_transports_selectable
-    @unified_transports_selectable ||= ( self.line_items.map{|l| l.business_transaction.article.selectable_transports}.inject(:&) || [] )#intersection of selectable_transports
+  def transport_can_be_unified?
+    articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
+    @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
 
   def payment_can_be_unified?
@@ -19,32 +28,17 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def unified_payments_selectable
-    @unified_payments_selectable ||= ( self.line_items.map{|l| l.business_transaction.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
+    @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
   end
 
-  def unified_transport= value
-    super true
-    set this on all transactions as well
-    self.line_items.map(&:business_transaction).each do |t|
-      t.selected_transport = value
+  private
+    def can_be_unified_for? type
+      transport_can_be_unified? if type == :unified_transport
+      payment_can_be_unified? if type == :unified_payment
     end
-  end
 
-  def unified_transport
-    self.line_items.first.business_transaction.selected_transport if super && self.line_items.any?
-  end
-
-  def unified_payment= value
-    super true
-    set this on all transactions as well
-    self.line_items.map(&:business_transaction).each do |t|
-      t.selected_payment = value
+    def has_business_transactions?
+      self.business_transactions.any?
     end
-  end
-
-  def unified_payment
-    self.line_items.first.business_transaction.selected_payment if super && self.line_items.any?
-  end
-
 
 end

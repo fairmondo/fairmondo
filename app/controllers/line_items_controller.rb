@@ -47,6 +47,6 @@ class LineItemsController < ApplicationController
     def find_or_create_line_item_group
       cart = Cart.find(cookies[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
       cookies[:cart] = cart.id # set cookie anew
-      cart.line_item_group_for @line_item.business_transaction.seller # get the seller-unique LineItemGroup (or creates one)
+      cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
     end
 end

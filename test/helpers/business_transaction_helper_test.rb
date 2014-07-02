@@ -45,7 +45,7 @@ describe BusinessTransactionHelper do
   end
 
   describe "#display_price_list_item" do
-    it "should display transport per number on MultipleFixedPriceTransactions" do
+    it "should display transport per number on Transactions with more than one article" do
      helper.stubs(:resource).returns(FactoryGirl.build(:multiple_transaction, article: FactoryGirl.create(:article, :with_all_transports, :with_all_payments)))
      helper.display_price_list_item(:transport,:type1).must_be_kind_of String
     end

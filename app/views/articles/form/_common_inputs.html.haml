@@ -81,6 +81,8 @@
         = f.input :transport_type2_provider, required: true, input_html: {placeholder: t('article.transport.placeholders.type2_provider') }
         = f.input :transport_type2_price, required: true
         = f.input :transport_type2_number, input_html: { min: 1, step: 1 }, tooltip: true
+      = f.input :unified_transport if current_user.is_a? LegalEntity
+      -# should generate a warning if not set in the users profile
       = f.input :transport_details, input_html: {rows: 7}
       = f.input :transport_time, tooltip: true
   .Accordion-step

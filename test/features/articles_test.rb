@@ -87,13 +87,10 @@ feature 'Article creation' do
     check 'article_save_as_template'
     fill_in 'article_template_name', with: 'template'
     assert_difference 'Article.unscoped.count', 2 do
-      assert_difference 'BusinessTransaction.count', 1 do
-        click_button I18n.t("article.labels.continue_to_preview")
-      end
+      click_button I18n.t("article.labels.continue_to_preview")
     end
 
     current_path.must_equal article_path Article.first
-    Article.find('article-title').business_transaction.must_be_instance_of SingleFixedPriceTransaction
   end
 
   scenario "article creation with a quantity higher than 1" do
@@ -104,11 +101,8 @@ feature 'Article creation' do
     fill_in 'article_quantity', with: '2'
 
     assert_difference 'Article.unscoped.count' ,1 do
-      assert_difference 'BusinessTransaction.count', 1 do
-        click_button I18n.t("article.labels.continue_to_preview")
-        end
+      click_button I18n.t("article.labels.continue_to_preview")
     end
-    Article.find('article-title').business_transaction.must_be_instance_of MultipleFixedPriceTransaction
   end
 
   scenario "empty friendly_percent_organisation with friendly_percent" do

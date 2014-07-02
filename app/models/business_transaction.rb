@@ -27,13 +27,14 @@ class BusinessTransaction < ActiveRecord::Base
 
   attr_accessor :forwarding_data_to_partial, :checking_out
 
-  belongs_to :article, inverse_of: :business_transaction
+  belongs_to :article, inverse_of: :business_transactions
+  belongs_to :line_item_group, inverse_of: :business_transactions
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :bought_business_transactions
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
-  has_one :rating, inverse_of: :business_transaction
-  has_many :line_items, inverse_of: :business_transaction
 
-  auto_sanitize :message, :forename, :surname, :street, :address_suffix, :city, :zip, :country
+  has_one :rating, inverse_of: :business_transaction
+
+  auto_sanitize :forename, :surname, :street, :address_suffix, :city, :zip, :country
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -48,54 +49,38 @@ class BusinessTransaction < ActiveRecord::Base
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            :active?, :transport_time,
            to: :article, prefix: true
+
   delegate :email, :forename, :surname, :fullname, :nickname,
            to: :buyer, prefix: true
+
   delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
+
   delegate :value, to: :rating, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
 
-  # CREATE
-  #validates_inclusion_of :type, :in => ["MultipleFixedPriceBusinessTransaction", "PartialFixedPriceBusinessTransaction", "SingleFixedPriceBusinessTransaction", "PreviewBusinessTransaction"]
   validates :article, presence: true
 
-  with_options if: Proc.new { |tr| tr.checking_out && tr.seller.is_a?(LegalEntity) } do |t|
-    t.validates :tos_accepted, acceptance: { accept: true }, presence: true
-  end
 
-  with_options if: Proc.new { |tr| tr.checking_out }, unless: Proc.new { |tr| tr.forwarding_data_to_partial } do |t|
-    t.validates :buyer, presence: true
-    t.validates :quantity_bought, presence: true
-  end
+  #validates :buyer, presence: true
+  #validates :quantity_bought, presence: true
+  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
+  validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
+#  validates :forename, presence: true
+#  validates :surname, presence: true
+#  validates :address_suffix, length: { maximum: 150 }
+#  validates :street, format: /\A.+\d+.*\z/, presence: true
+#  validates :city, presence: true
+#  validates :zip, zip: true, presence: true
+#  validates :country, presence: true
 
 
-
-  with_options unless: Proc.new { |tr| tr.new_record? || tr.forwarding_data_to_partial }  do |t|
-    t.validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
-    t.validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
-    t.validates :forename, presence: true
-    t.validates :surname, presence: true
-    t.validates :address_suffix, length: { maximum: 150 }
-    t.validates :street, format: /\A.+\d+.*\z/, presence: true
-    t.validates :city, presence: true
-    t.validates :zip, zip: true, presence: true
-    t.validates :country, presence: true
-  end
-
-  state_machine initial: :available do
-
-    state :available do
-    end
+  state_machine initial: :sold do
 
     state :sold, :paid, :sent, :completed do
-    end
-
-    event :buy do
-      transition :available => :sold, if: :sold_out_after_buy?
-      transition :available => same
     end
 
     event :pay do
@@ -110,54 +95,8 @@ class BusinessTransaction < ActiveRecord::Base
       transition :sent => :completed
     end
 
-    before_transition on: :buy do |business_transaction, transition|
-      business_transaction.sold_at = Time.now
-    end
   end
 
-  # Per default a transaction automatically is sold out after the first buy event, except for MultipleFPT
-  def sold_out_after_buy?
-    true
-  end
-
-  def deletable?
-    available?
-  end
-
-  # Make virtual field validatable
-  # @api public
-  # @param value [String]
-  # @return [Boolean]
-  def tos_accepted= value
-    @tos_accepted = (value == "1")
-  end
-  attr_reader :tos_accepted
-
-  # Get transport options that were selected by seller
-  #
-  # @api public
-  # @return [Array] Array in 2 levels with option name and it's localization
-  def selected_transports
-    selected "transport"
-  end
-
-  # Get payment options that were selected by seller
-  #
-  # @api public
-  # @return [Array] Array in 2 levels with option name and it's localization
-  def selected_payments
-    selected "payment"
-  end
-
-  # Find out if a specifictransport/payment type was selected by the seller
-  # @api public
-  # @param attribute [String] "transport" or "payment"
-  # @param type [String] enumerize type to check
-  # @return [Boolean]
-  def selected? attribute, type
-    filtered_array = selected(attribute).select {|a| a[1] == type }
-    !filtered_array.empty?
-  end
 
   # Shortcut for article_total_price working with saved data
   def total_price
@@ -168,13 +107,6 @@ class BusinessTransaction < ActiveRecord::Base
     )
   end
 
-  def multiple?
-    is_a? MultipleFixedPriceTransaction
-  end
-
-  # Default behavior for associations in subclasses
-  def parent; nil; end
-  def children; []; end
 
   # TODO Check if there is a better way -> only used in export model
   def selected_transport_provider
@@ -187,20 +119,6 @@ class BusinessTransaction < ActiveRecord::Base
     end
   end
 
-  protected
-    # Disallow these fields in general. Will be overwritten for specific subclasses that need these fields.
-    def quantity_available; raise NoMethodError; end
-    def quantity_bought; raise NoMethodError; end
 
-  private
-    # Get attribute options that were selected on transaction's article
-    #
-    # @api private
-    # @param attribute [String] "transport" or "payment" (enums that have a counter part in the article model)
-    # @return [Array] Array in 2 levels with enum option name and it's localization
-    def selected attribute
-      selectables = send("article_selectable_#{attribute}s")
-      BusinessTransaction.send("selected_#{attribute}").options.select { |e| selectables.include? e[1] }
-    end
 
 end

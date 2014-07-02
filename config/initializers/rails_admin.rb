@@ -32,7 +32,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  config.excluded_models = [ 'Image','Images::FeedbackImage','Images::ArticleImage','Images::UserImage','Users::LegalEntity', 'Users::PrivateUser', 'BusinessTransactions::SingleFixedPriceTransaction','BusinessTransactions::MultipleFixedPriceTransaction', 'BusinessTransactions::PartialFixedPriceTransaction', 'BusinessTransactions::PreviewTransaction' ]
+  config.excluded_models = [ 'Image','Images::FeedbackImage','Images::ArticleImage','Images::UserImage','Users::LegalEntity', 'Users::PrivateUser' ]
 
   # Include specific models (exclude the others):
   # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'BusinessTransaction', 'User']

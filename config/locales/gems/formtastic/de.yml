@@ -53,6 +53,12 @@ de:
         direct_debit1_html: "Ich ermächtige die Fairnopoly eG widerruflich, die fälligen "
         direct_debit2_html: " im Einzugsermächtigungsverfahren einzuziehen."
         seller_fees: "Verkaufsgebühren"
+        unified_transport_maximum_articles: "Maximale Anzahl von Artikeln die zusammen versandt werden können"
+        unified_transport_provider: Versandart
+        unified_transport_price: Versandkosten (€)
+        unified_transport_free: Versandkostenfrei ab
+        unified_transport_free_at_price: Gesamtwarenwert (€)
+
       private_user:
         <<: *user
       legal_entity:
@@ -114,6 +120,7 @@ de:
         transport_method: "Versandmethode(n)"
         transport_details: "Weitere Angaben zu den Versandoptionen und Lieferbeschränkungen:"
         transport_time: "Lieferzeit in Tagen (z.B. 3 oder 7-12):"
+        unified_transport: Artikel kann mit anderen Artikeln zusammen versendet werden
 
         default_payment: "Bevorzugte Bezahlmethode"
         payment_bank_transfer: Überweisung (Vorkasse)
@@ -203,6 +210,7 @@ de:
         profile: Profil
         payment: Zahlungsoptionen
         terms: Rechtliches
+        unified_transport: Artikel zusammen versenden
       private_user:
         <<: *input_step_user
       legal_entity:
