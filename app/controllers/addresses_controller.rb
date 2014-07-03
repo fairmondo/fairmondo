@@ -1,14 +1,14 @@
 class AddressesController < ApplicationController
   responders :location
-  respond_to :html
-  respond_to :js, only: [:index, :show, :delete], if: lambda { request.xhr? }
+  respond_to :html, only: [:edit, :new]
+  respond_to :js, only: [:update, :create, :show, :delete], if: lambda { request.xhr? }
   before_filter :set_address, except: [:index, :new, :create]
 
-  def index
-    @addresses = current_user.addresses
-    authorize @addresses.first
-    respond_with [current_user, @addresses]
-  end
+  #def index
+  #  @addresses = current_user.addresses
+  #  authorize @addresses.first
+  #  respond_with [current_user, @addresses]
+  #end
 
   def new
     @address = current_user.addresses.build
@@ -19,7 +19,9 @@ class AddressesController < ApplicationController
   def create
     @address = current_user.addresses.build(params.for(Address).refine)
     authorize @address
-    respond_with [current_user, @address] if @address.save
+    if @address.save
+      redirect_to user_address_path current_user, @address
+    end
   end
 
   def edit
@@ -29,13 +31,14 @@ class AddressesController < ApplicationController
 
   def update
     authorize @address
-    @address.update(params.for(Address).refine)
-    respond_with [current_user, @address]
+    if @address.update(params.for(Address).refine)
+      redirect_to user_address_path current_user, @address
+    end
   end
 
   def show
     authorize @address
-    respond_with [current_user, @address]
+    respond_with current_user, @address
   end
 
   def destroy

@@ -43,11 +43,11 @@
     %h3
       = t 'transaction.edit.addresses'
 
-    - if current_user.standard_address.valid?
-      - resource.shipping_address = current_user.standard_address
-      - resource.billing_address = current_user.standard_address
+    - if @standard_address.valid?
+      - resource.shipping_address = @standard_address
+      - resource.billing_address = @standard_address
       .Grid
-        = render 'addresses/address', address: resource.billing_address
+        = render 'addresses/address', address: @standard_address
     - elsif params && params[:business_transaction] && params[:business_transaction][:shipping_address_id]
       - resource.shipping_address = Address.find(params[:business_transaction][:shipping_address_id])
     - else

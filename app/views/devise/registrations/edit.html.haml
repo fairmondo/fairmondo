@@ -87,7 +87,7 @@
         = f.input :vacationing,as: :boolean, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
 
-    = f.input_step :contact do
+    = f.input_step :contact, has_errors: @user.standard_address.errors.any? do
       = f.inputs do
 
         .Accordion-step
@@ -96,29 +96,26 @@
 
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-          -# debugger
-          - unless @standard_address
-            - @standard_address = @user.standard_address
-          = semantic_fields_for @standard_address do |f|
-            = f.inputs do
-              = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-              = f.input :first_name, required: true
-              = f.input :last_name, required: true
+          = semantic_fields_for @user.standard_address do |af|
+            = af.inputs do
+              = af.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+              = af.input :first_name, required: true
+              = af.input :last_name, required: true
 
         .Accordion-step
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
-          = semantic_fields_for @standard_address do |f|
-            = f.inputs do
+          = semantic_fields_for @user.standard_address do |af|
+            = af.inputs do
               - if @user.is_a?(LegalEntity)
-                = f.input :company_name
-              = f.input :address_line_1, required: true
-              = f.input :address_line_2
-              = f.input :zip, required: true
-              = f.input :city, required: true
-              = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+                = af.input :company_name
+              = af.input :address_line_1, required: true
+              = af.input :address_line_2
+              = af.input :zip, required: true
+              = af.input :city, required: true
+              = af.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
 
           = f.input :phone
           = f.input :mobile
@@ -130,11 +127,11 @@
           %h3= 'Deine Versandaddressen'
           = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
 
-          - if @user.standard_address
-            - addresses = @user.addresses.where.not(id: @user.standard_address.id)
-            - unless addresses.empty?
-              .Addresses
-                .Grid
+          .Addresses
+            .Grid
+              - if @user.standard_address
+                - addresses = @user.addresses.where.not(id: @user.standard_address.id)
+                - unless addresses.empty?
                   - addresses.each do |a|
                     = render 'addresses/address', user: @user, address: a
 
