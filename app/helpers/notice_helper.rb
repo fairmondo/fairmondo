@@ -23,16 +23,16 @@ module NoticeHelper
 
   def main_notice_mapper(type)
     case type
-    when :alert
-      "error"
-    when :error
-      "error"
-    when :notice
-      "info"
-    when :confirm
-      "confirmation"
+    when 'alert'
+      'error'
+    when 'error'
+      'error'
+    when 'notice'
+      'info'
+    when 'confirm'
+      'confirmation'
     else
-      "info"
+      'info'
     end
   end
 
@@ -40,7 +40,7 @@ module NoticeHelper
   def render_data_confirm
     confirm_text = I18n.t('common.text.confirm_yes')
     cancel_text  = I18n.t('common.text.confirm_no')
-    render layout: "/application/notice_layout", locals: { type: :confirm} do
+    render layout: '/application/notice_layout', locals: { type: :confirm} do
       concat("<p class=\"confirmation_message\"></p>".html_safe)
       concat("<a class=\"Button Button--red confirm\" >  #{confirm_text} </a> ".html_safe)
       concat("<a class=\"Button cancel\"  > #{cancel_text} </a>".html_safe)
@@ -50,7 +50,7 @@ module NoticeHelper
   def render_open_notice notice
     continue_text = I18n.t('common.actions.continue')
     message = "<p class=\"confirmation_message\">#{notice.message}</p>".html_safe
-    message += "<a class=\"Button\" href=\"#{toolbox_notice_path(:id => notice.id)}\">#{continue_text}</a>".html_safe
+    message += "<a class=\"Button\" href=\"#{toolbox_notice_path(id: notice.id)}\">#{continue_text}</a>".html_safe
   end
 
 end

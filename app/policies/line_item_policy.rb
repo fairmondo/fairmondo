@@ -25,7 +25,7 @@ class LineItemPolicy < Struct.new(:user, :line_item)
   end
 
   def update?
-
+    destroy?
   end
 
   def destroy?

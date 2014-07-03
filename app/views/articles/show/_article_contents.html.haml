@@ -84,10 +84,10 @@
             = transport_format_for "type2"
         = render 'articles/show/basic_price', article: resource
         .quantity
-          - if resource.is_available?
+          - if !resource.is_available?
             Dieser Artikel ist bereits ausverkauft
           - elsif resource.quantity > 1
-            = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.business_transaction_quantity_available)
+            = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.quantity_available)
         .transport_time
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
@@ -107,7 +107,12 @@
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), method: :post, class: "Button Button-gray")
       - if policy(resource).purchasable?
-        = button_to t('common.actions.to_cart'), line_items_path, method: :post, class: "Button", params: {article_id: resource.id }
+        = semantic_form_for LineItem.new do |f|
+          = f.inputs do
+            = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+            - if resource.quantity > 1
+              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1 }
+            = f.action :submit, label: t('common.actions.to_cart'), button_html: { class: "Button" }
         = link_to t('common.actions.buy_single'), single_checkout_carts_path, class: "Button"
       - elsif policy(resource).purchasable_later?
         .Button.Button--disabled= t 'common.actions.to_cart'

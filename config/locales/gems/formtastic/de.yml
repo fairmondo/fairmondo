@@ -74,6 +74,9 @@ de:
         phone: "Telefon"
         image: "Screenshot"
 
+      line_item:
+        requested_quantity: "Menge:"
+
       article:
         title: "Artikelbezeichnung"
         content: "Beschreibung"

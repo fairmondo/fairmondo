@@ -3,10 +3,8 @@ class Cart < ActiveRecord::Base
   has_many :line_items, through: :line_item_groups, inverse_of: :cart
   belongs_to :user, inverse_of: :carts
 
-  before_create :generate_unique_hash
-
-  scope :newest , -> { order(created_at: :desc) }
-  scope :open , -> { where.not(sold: true) }
+  scope :newest, -> { order(created_at: :desc) }
+  scope :open, -> { where.not(sold: true) }
 
   # Finds an existing cart for the logged in user or creates a new one
   # @param buyer [User, nil] logged in user or nil if user is not logged in
@@ -33,10 +31,4 @@ class Cart < ActiveRecord::Base
       # return :checkout_failed if we couldn't buy something
     end
   end
-
-
-  private
-    def generate_unique_hash
-      self.unique_hash = Digest::SHA1.hexdigest([Time.now, rand].join)
-    end
 end
