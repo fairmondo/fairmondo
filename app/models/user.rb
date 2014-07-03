@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
   with_options if: :wants_to_sell? do |seller|
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
-    seller.validates_associated :standard_address, on: :update
+    seller.validates :standard_address, presence: true
+    seller.validates_associated :standard_address
   end
 
   # TODO: Language specific validators
@@ -313,7 +314,7 @@ class User < ActiveRecord::Base
   # checks if user passes all neccessary validations before he can sell
   def can_sell?
     self.wants_to_sell = true
-    can_sell = self.valid? && self.standard_address && self.standard_address.valid?
+    can_sell = self.valid?
     self.wants_to_sell = false
     can_sell
   end

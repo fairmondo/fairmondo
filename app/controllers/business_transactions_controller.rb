@@ -30,6 +30,7 @@ class BusinessTransactionsController < ApplicationController
 
   def edit
     authorize @business_transaction
+    @standard_address = current_user.standard_address ? current_user.standard_address : Address.new
     render :step2 if request.patch? && @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
   end
 

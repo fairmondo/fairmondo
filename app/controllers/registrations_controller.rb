@@ -27,13 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = User.find(current_user.id)
-    @standard_address = nil
-
-    if @user.standard_address
-      @standard_address = @user.standard_address
-    else
-      @standard_address = @user.addresses.build
-    end
+    @user.standard_address ||= Address.new
 
     check_incomplete_profile!(@user)
     @user.valid?
@@ -45,11 +39,13 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     successfully_updated  = update_account(account_update_params)
+    standard_address = resource.standard_address
 
-    if resource.addresses.empty? && params[:address]
-      resource.standard_address = resource.addresses.build(params.for(Address).refine)
-      resource.standard_address.save
-    elsif resource.standard_address && params[:address]
+    unless standard_address
+      standard_address = resource.addresses.build(params.for(Address).refine)
+      standard_address.save!(validate: false) # Already validates with validates_associates in user model
+      resource.update_attribute(:standard_address_id, standard_address.id)
+    else
       resource.standard_address.update(params.for(Address).refine)
     end
 

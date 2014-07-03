@@ -44,16 +44,19 @@
       %h3
         = t 'transaction.edit.addresses'
       %p.address
-        = render 'addresses/address', address: Address.find(shipping_address_id)
+        .Grid
+          = render 'addresses/address', address: Address.find(shipping_address_id)
     - else
       %h3
         Deine Lieferadresse
       %p
-        = render 'addresses/address', address: Address.find(shipping_address_id)
+        .Grid
+          = render 'addresses/address', address: Address.find(shipping_address_id)
       %h3
         Deine Rechnungsadresse
       %p
-        = render 'addresses/address', address: Address.find(billing_address_id)
+        .Grid
+          = render 'addresses/address', address: Address.find(billing_address_id)
 
 
     - if resource.article_seller.is_a?(LegalEntity)
