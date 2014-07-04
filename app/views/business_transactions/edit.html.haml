@@ -48,10 +48,8 @@
       - resource.billing_address = @standard_address
       .Grid
         = render 'addresses/address', address: @standard_address
-    - elsif params && params[:business_transaction] && params[:business_transaction][:shipping_address_id]
-      - resource.shipping_address = Address.find(params[:business_transaction][:shipping_address_id])
     - else
-      = semantic_fields_for :billing_address do |f|
+      = f.semantic_fields_for :standard_address do |f|
         = f.inputs do
           = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
           = f.input :first_name, required: true
@@ -63,10 +61,16 @@
           = f.input :city, required: true
           = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
 
+    %h3
+      Eine andere Versandadresse verwenden
+
+    %fieldset.inputs#address_select
+      = render 'addresses/addresses', radio: true
+
     = f.inputs do
       = f.input :shipping_address_id, as: :hidden, default: current_user.standard_address_id
       = f.input :billing_address_id, as: :hidden, default: current_user.standard_address_id
-      = f.input :shipping_address, as: :radio, default: nil, collection: current_user.addresses, member_label: lambda { |address| render 'addresses/address', address: address }, wrapper_html: { class: 'address-list' }
+      -# f.input :shipping_address, as: :radio, default: nil, collection: current_user.addresses, member_label: lambda { |address| render 'addresses/address', address: address }, wrapper_html: { class: 'address-list' }
 
     = link_to 'neue Adresse hinzufügen', new_user_address_path(current_user), { class: 'colorbox' }
     %hr

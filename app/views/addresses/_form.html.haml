@@ -1,4 +1,4 @@
-= semantic_form_for [current_user, address], html: { id: 'address-form' }, remote: true do |f|
+= semantic_form_for([current_user, address], html: { id: 'address-form', class: 'js-visual-submit' }, remote: true) do |f|
   = f.semantic_errors
 
   = f.inputs do
