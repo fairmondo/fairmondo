@@ -52,6 +52,7 @@ gem 'modernizr-rails'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
+gem 'historyjs-rails'
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
 
@@ -131,6 +132,7 @@ end
 
 group :development, :test do
 
+  gem 'pry-rails' # pry is awsome
 
   # Capistrano
   gem 'capistrano-rails', '~> 1.1'
