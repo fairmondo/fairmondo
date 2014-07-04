@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611134449) do
+ActiveRecord::Schema.define(version: 20140625082650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140611134449) do
     t.integer  "discount_id"
     t.integer  "friendly_percent_organisation_id",       limit: 8
     t.string   "template_name"
+    t.string   "transport_time"
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree

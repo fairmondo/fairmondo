@@ -8,3 +8,7 @@
     = link_to resource.article_seller_nickname, resource.article_seller
   %p
     = display_preliminary_price
+
+  - if resource.article_transport_time && !resource.article_transport_time.empty?
+    %p
+      = t('formtastic.labels.article.transport_time_with_numbers', time: resource.article_transport_time)
