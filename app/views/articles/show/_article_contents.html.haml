@@ -87,7 +87,10 @@
           - if resource.is_available?
             Dieser Artikel ist bereits ausverkauft
           - elsif resource.quantity > 1
-            = t('formtastic.labels.article.quantity_with_numbers', :quantities => resource.business_transaction_quantity_available)
+            = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.business_transaction_quantity_available)
+        .transport_time
+          - if resource.transport_time && !resource.transport_time.empty?
+            = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
       - if policy(mock_library_element).create?
         .collect.JS-active-toggle--container
