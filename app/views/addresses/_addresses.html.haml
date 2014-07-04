@@ -1,5 +1,4 @@
-- unless addresses.empty?
-  .Addresses
-    .Grid
-      - addresses.each do |a|
-        = render 'addresses/address', address: a
+.Addresses
+  .Grid
+    - current_user.addresses.where.not(id: current_user.standard_address_id).each do |address|
+      = render 'addresses/address', address: address, radio: params[:radio] ? params[:radio] : radio

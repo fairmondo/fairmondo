@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
   responders :location
   respond_to :html, only: [:edit, :new]
-  respond_to :js, only: [:update, :create, :show, :delete], if: lambda { request.xhr? }
+  respond_to :js, if: lambda { request.xhr? }
   before_filter :set_address, except: [:index, :new, :create]
 
   #def index
@@ -20,7 +20,7 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.build(params.for(Address).refine)
     authorize @address
     if @address.save
-      redirect_to user_address_path current_user, @address
+      redirect_to user_address_path(current_user, @address)
     end
   end
 
@@ -32,7 +32,7 @@ class AddressesController < ApplicationController
   def update
     authorize @address
     if @address.update(params.for(Address).refine)
-      redirect_to user_address_path current_user, @address
+      redirect_to user_address_path(current_user, @address)
     end
   end
 

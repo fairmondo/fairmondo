@@ -127,13 +127,7 @@
           %h3= 'Deine Versandaddressen'
           = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
 
-          .Addresses
-            .Grid
-              - if @user.standard_address
-                - addresses = @user.addresses.where.not(id: @user.standard_address.id)
-                - unless addresses.empty?
-                  - addresses.each do |a|
-                    = render 'addresses/address', user: @user, address: a
+        = render 'addresses/addresses', radio: false
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do

@@ -1,7 +1,7 @@
+
 .Grid-item
   .Address
-    - radio = nil unless radio
-    - if radio
+    - if radio_button
       %p
         = radio_button_tag 'business_transaction[shipping_address_id]', "#{address.id}"
     %p
@@ -14,5 +14,5 @@
       %br
     %p
       -# if controller.controller_name == 'registrations' || controller.controller_name == 'addresses'
-      = link_to 'bearbeiten', edit_user_address_path(current_user, address, radio: radio), class: 'colorbox Button edit-button'
-      = link_to 'löschen', user_address_path(current_user, address, radio: radio), method: :delete, class: 'Button Button--red', remote: true
+      = link_to 'bearbeiten', edit_user_address_path(current_user, address), class: 'colorbox Button edit-button'
+      = link_to 'löschen', user_address_path(current_user, address), method: :delete, class: 'Button Button--red', remote: true

@@ -50,6 +50,7 @@ de:
       legal_entity:
         <<: *user
       address:
+        address: 'Adresse'
         title: "Anrede"
         first_name: "Vorname"
         last_name:  "Nachname"
@@ -308,6 +309,8 @@ de:
       update: "Änderungen speichern"
       template:
         submit: "Vorlage übernehmen"
+      address:
+        submit: 'Adresse erstellen'
       # Login
       login: "Anmelden"
       sign_up: "Registrieren"
