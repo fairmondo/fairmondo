@@ -25,7 +25,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def payment_can_be_unified?
-    unified_payments_selectable.any?
+     self.articles.count > 1 && unified_payments_selectable.any?
   end
 
   def unified_payments_selectable
