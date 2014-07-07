@@ -15,10 +15,14 @@ class Cart < ActiveRecord::Base
   # @return [Cart] found or created cart
   def self.current_or_new_for buyer
     if buyer
-      newest.open.where(user_id: buyer.id).first || create(user: buyer)
+      current_for(buyer) || create(user: buyer)
     else
       create
     end
+  end
+
+  def self.current_for buyer
+    newest.open.where(user_id: buyer.id).first
   end
 
   # In one cart there should only be one LIG per seller; this finds or creates it
