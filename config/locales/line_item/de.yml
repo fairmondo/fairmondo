@@ -1,0 +1,8 @@
+de:
+  line_item:
+    notices:
+      success_create: 'Der Artikel wurde dem Warenkorb hinzugefügt.'
+      error_update: 'Es sind leider nicht mehr so viele Einheiten des Artikels verfügbar.'
+
+    labels:
+      edit: 'Ändern'

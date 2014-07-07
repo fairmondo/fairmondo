@@ -1,9 +1,9 @@
 class LineItemRefinery < ApplicationRefinery
-  def root
-    false # LineItems don't have forms, they get controlled
+  def create
+    [ :article_id, :requested_quantity ]
   end
 
-  def create
-    [ :article_id ]
+  def update
+    [ :requested_quantity ]
   end
 end

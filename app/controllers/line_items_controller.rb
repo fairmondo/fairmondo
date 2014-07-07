@@ -31,31 +31,48 @@ class LineItemsController < ApplicationController
     if @line_item.new_record?
       @line_item.line_item_group = find_or_create_line_item_group
     else
-      @line_item.requested_quantity += 1
+      @line_item.requested_quantity = params['line_item']['requested_quantity']
     end
 
     authorize @line_item
 
-    flash[:notice] = 'Der Artikel wurde dem Warenkorb hinzugefügt' if @line_item.save
+    flash[:notice] = I18n.t('line_item.notices.success_create') if @line_item.save
     redirect_to @line_item.article
   end
 
   def update
+    @line_item = LineItem.find(params[:id])
+    @line_item.cart_hash = cookies.signed[:cart]
+    authorize @line_item
 
+    unless @line_item.update(params.for(@line_item).refine)
+      flash[:error] = I18n.t('line_item.notices.error_update')
+    end
+
+    cart = Cart.find(cookies.signed[:cart])
+    refresh_cookie cart
+    redirect_to cart
   end
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    @line_item.cart_hash = cookies[:cart]
+    @line_item.cart_hash = cookies.signed[:cart]
     authorize @line_item
     @line_item.destroy
-    redirect_to Cart.find_by_unique_hash(cookies[:cart])
+
+    cart = Cart.find(cookies.signed[:cart])
+    refresh_cookie cart
+    redirect_to cart
   end
 
   private
     def find_or_create_line_item_group
-      cart = Cart.find_by_unique_hash!(cookies[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
-      cookies[:cart] = cart.unique_hash # set cookie anew
+      cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
+      refresh_cookie cart # set cookie anew
       cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
+    end
+
+    def refresh_cookie cart
+      cookies.signed[:cart] = { value: cart.id, expires: 30.days.from_now }
     end
 end
