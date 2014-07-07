@@ -75,28 +75,10 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :business_transactions, only: [:show, :edit, :update] do
-    resources :refunds, only: [ :new, :create ]
-    member do
-      patch 'edit' => 'business_transactions#edit', as: :step2
-      get 'already_sold'
-      get 'print_order_buyer'
-      #get 'print_order_seller'
-    end
-  end
 
-  resources :carts, only: [:show,:edit,:update] do
-    collection do
-      post 'single_checkout'
-    end
-  end
+  resources :carts, only: [:show,:edit,:update]
 
-  resources :line_items, only: [:create,:update,:destroy]# do
-    # collection do
-    #   post ':business_transaction_id', to: :create, as: '' #create with business_transaction_id
-    # end
-  # end
-
+  resources :line_items, only: [:create,:update,:destroy]
 
   get '/transactions/:id', to: 'business_transactions#show'
 
