@@ -118,15 +118,7 @@ module Article::Attributes
     validate :payment_method_checked
   end
 
-  # ATTENTION DO NOT CALL THIS WITHOUT A TRANSACTION (See Cart#buy)
-  def buy! value
-    self.quantity_available -= value
-    if self.quantity_available < 1
-      article.remove_from_libraries
-      self.state = "sold"
-    end
-    self.save! # validation is performed on the attribute
-  end
+
 
   def set_sellers_nested_validations
     seller.bank_account_validation = true if payment_bank_transfer

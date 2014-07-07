@@ -4,7 +4,14 @@ class CartCheckoutForm
   def initialize session, cart, checkout
     self.session = session
     self.cart = cart
-    self.checkout = checkout
+    self.checkout = checkout # determines if we are checking out or not
+
+    # setting the default value for the fields to true if possible
+    # will be overwritten by any params or session params
+    cart.line_item_groups.each do |group|
+      group.unified_transport = group.transport_can_be_unified?
+      group.unified_payment = group.payment_can_be_unified?
+    end
   end
 
   def session_valid?
@@ -17,16 +24,17 @@ class CartCheckoutForm
   def process params
 
     build_form_objects_from checkout ? session[:cart_checkout] : params
-
     return :invalid unless valid?
     unless checkout
-      # save everything in session
-      session[:cart_checkout] = params
+
+      session[:cart_checkout] = params # save everything in session
       return :saved_in_session
+    else
+      return cart.buy
     end
-    return cart.buy
   end
 
+  # for formtastic
   def persisted?
     false
   end
