@@ -38,7 +38,7 @@ class Cart < ActiveRecord::Base
      end
 
     # we need to sort this by article
-    locked_article_ids_with_quantities.sort.each |k,v|
+    locked_article_ids_with_quantities.sort.each do |k,v|
       article = Article.lock.find(k) #we need to find it again anyways because of the locking
       article.reduce_quantity_available_by!(v)
     end
