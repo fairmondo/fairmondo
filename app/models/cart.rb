@@ -1,6 +1,8 @@
 class Cart < ActiveRecord::Base
   has_many :line_item_groups, dependent: :destroy, inverse_of: :cart
   has_many :line_items, through: :line_item_groups, inverse_of: :cart
+  has_many :articles, through: :line_item_groups
+
   belongs_to :user, inverse_of: :carts
 
   scope :newest, -> { order(created_at: :desc) }
@@ -26,11 +28,27 @@ class Cart < ActiveRecord::Base
 
   def buy
     Article.transaction do
-      # lock all articles that we want to buy
+
+      locked_article_ids_with_quantities = {}
+      self.line_item_groups.each do |line_item_group|
+
+        line_item_group.line_items.each do |line_item|
+          locked_article_ids_with_quantities[line_item.article.id] = line_item.requested_quantity
+          line_item.business_transaction.save
+        end
+        line_item_group.save
+     end
+
+    # we need to sort this by article
+    locked_article_ids_with_quantities.sort.each do |k,v|
+      article = Article.lock.find(k) #we need to find it again anyways because of the locking
+      article.reduce_quantity_available_by!(v)
+    end
 
       # buy all line_item_groups
-      return :checked_out
+
       # return :checkout_failed if we couldn't buy something
     end
+    return :checked_out
   end
 end
