@@ -4,10 +4,10 @@ class CartsController < ApplicationController
   before_filter :generate_session, only: :edit
   before_filter :set_cart
 
+  before_filter :authorize_and_authenticate_user_on_cart, only: :show
   skip_before_filter :authenticate_user!, only: :show
 
   def show
-    authorize @cart
     respond_with @cart
   end
 
@@ -54,6 +54,16 @@ class CartsController < ApplicationController
 
     def set_cart
       @cart = Cart.includes( line_item_groups: [ :seller, { line_items:  [:article] }]).find params[:id]
+    end
+
+    def authorize_and_authenticate_user_on_cart
+      if @cart.user_id # cart belongs to user
+        authenticate_user! # and can only be accessed by a logged in user
+      else # otherwise
+        @cart.cookie_content = cookies.signed[:cart] # we need the cookie content to authorize the cart
+      end
+
+      authorize @cart
     end
 
 end
