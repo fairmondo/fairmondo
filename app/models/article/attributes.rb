@@ -113,7 +113,7 @@ module Article::Attributes
     validates_presence_of :quantity
 
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
-    validates_numericality_of :quantity_available, :greater_than_or_equal_to: 0, :less_than_or_equal_to => 10000
+    validates_numericality_of :quantity_available, greater_than_or_equal_to: 0, less_than_or_equal_to: 10000
 
     validate :payment_method_checked
   end
