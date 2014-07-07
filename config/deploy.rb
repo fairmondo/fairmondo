@@ -23,7 +23,7 @@ set :log_level, :info
 set :linked_files, %w{config/database.yml config/newrelic.yml config/actionmailer.yml config/api.yml config/email_addresses.yml config/initializers/secret_token.rb config/sidekiq_pro_path.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{log tmp/pids public/system}
+set :linked_dirs, %w{log tmp/pids public/system public/assets}
 
 set :keep_releases, 10
 
