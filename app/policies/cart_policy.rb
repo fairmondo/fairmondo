@@ -19,18 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class CartPolicy < Struct.new(:user, :article)
+class CartPolicy < Struct.new(:user, :cart)
 
-  def show?
-    true
+  def show? cookie_id = nil
+    cart.cookie_content ||= cookie_id # to be able to call this method from view
+    cart.user ? user == cart.user : cart.id == cart.cookie_content
   end
 
   def edit?
-    true
+    true # TODO
   end
 
   def update?
-    true
+    true # TODO
   end
 
 end

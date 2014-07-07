@@ -34,7 +34,7 @@ module SearchHelper
     attributes[:category_id] = params[:id] if controller_name == 'categories'
 
     # build fresh search cache
-    @search_cache || ArticleSearchForm.new(attributes)
+    @search_cache || ::ArticleSearchForm.new(attributes)
   end
 
 end

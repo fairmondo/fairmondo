@@ -2,5 +2,9 @@
 
 FactoryGirl.define do
   factory :line_item do
+    article
+    line_item_group
+
+    requested_quantity 1
   end
 end

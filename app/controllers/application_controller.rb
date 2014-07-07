@@ -23,6 +23,9 @@ class ApplicationController < ActionController::Base
   ## Global security
   before_filter :authenticate_user!
 
+  ## Global actions
+  before_filter :unset_cart
+
   # Arcane
   include Arcane
 
@@ -106,5 +109,11 @@ class ApplicationController < ActionController::Base
 
     def render_css_from_controller controller
       @controller_specific_css = controller
+    end
+
+    def unset_cart
+      if !current_user && cookies[:cart] && !view_context.current_cart
+        cookies.delete :cart
+      end
     end
 end
