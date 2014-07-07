@@ -32,4 +32,16 @@ describe SessionsController do
       end
     end
   end
+
+  describe "POST 'create'" do
+    it "should set the user_id of an existing cart cookie" do
+      skip
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+    it "should delete the cart cookie" do
+      skip
+    end
+  end
 end
