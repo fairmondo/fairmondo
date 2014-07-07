@@ -10,7 +10,7 @@ push_left_if_necessary = (event) ->
   ul = li.children().filter('.l-header-categories-children')
   window_width = $(window).width()
 
-  if ul && ul.offset().left + ul.width() > window_width # if element would leave window
+  if ul?.offset()?.left + ul.width() > window_width # if element would leave window
     ul.css 'left', "#{window_width - (ul.offset().left + ul.width())}px" # give it a negative "left" css
 
     li.on 'mouseleave', null, ul, reset_push_left # turn off the event listener, reset "left" attr
