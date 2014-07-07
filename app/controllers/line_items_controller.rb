@@ -26,12 +26,12 @@ class LineItemsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
   def create
-    @line_item = LineItem.find_or_new params.for(LineItem).refine
+    @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
 
     if @line_item.new_record?
       @line_item.line_item_group = find_or_create_line_item_group
     else
-      @line_item.requested_quantity = params['line_item']['requested_quantity']
+      @line_item.update_attribute :requested_quantity, params['line_item']['requested_quantity']
     end
 
     authorize @line_item
@@ -42,7 +42,7 @@ class LineItemsController < ApplicationController
 
   def update
     @line_item = LineItem.find(params[:id])
-    @line_item.cart_hash = cookies.signed[:cart]
+    @line_item.cart_cookie = cookies.signed[:cart]
     authorize @line_item
 
     unless @line_item.update(params.for(@line_item).refine)
@@ -56,7 +56,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    @line_item.cart_hash = cookies.signed[:cart]
+    @line_item.cart_cookie = cookies.signed[:cart]
     authorize @line_item
     @line_item.destroy
 
@@ -66,10 +66,14 @@ class LineItemsController < ApplicationController
   end
 
   private
+    def find_or_create_cart
+      @cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
+      refresh_cookie @cart # set cookie anew
+      @cart
+    end
+
     def find_or_create_line_item_group
-      cart = Cart.find(cookies.signed[:cart]) rescue Cart.current_or_new_for(current_user) # find cart from cookie or get one
-      refresh_cookie cart # set cookie anew
-      cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
+      @cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
     end
 
     def refresh_cookie cart

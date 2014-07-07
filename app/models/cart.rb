@@ -6,6 +6,8 @@ class Cart < ActiveRecord::Base
   scope :newest, -> { order(created_at: :desc) }
   scope :open, -> { where.not(sold: true) }
 
+  attr_accessor :cookie_content # temp storage for pundit validation
+
   # Finds an existing cart for the logged in user or creates a new one
   # @param buyer [User, nil] logged in user or nil if user is not logged in
   # @return [Cart] found or created cart
