@@ -61,7 +61,7 @@
         von 1,- Euro (inkl. 19% MwSt).
         %span.sprite_helper{:title => t("article.preview.tooltips.fees_quarter_fee")}
   .activation
-    - if resource.is_available?
+    - if resource.sold?
       = link_to "Artikel zum Wiedereinstellen bearbeiten", new_article_path(:edit_as_new => resource.id), :class=>"Button Button--large"
     - else
       - if resource.seller.ngo

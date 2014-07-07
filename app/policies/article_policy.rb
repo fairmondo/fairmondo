@@ -53,7 +53,7 @@ class ArticlePolicy < Struct.new(:user, :article)
   end
 
   def destroy?
-    owned_and_deactivated? && !article.business_transactions.any? || own? && article.template?
+    owned_and_deactivated? && article.business_transactions.empty? || own? && article.template?
   end
 
   def activate?

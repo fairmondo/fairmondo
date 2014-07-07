@@ -45,12 +45,4 @@ module Article::Checks
     true
   end
 
-  def is_available?
-    !self.sold? && self.quantity_available > 0
-  end
-
-  #only generate friendly slug if we dont have a template
-  def should_generate_new_friendly_id?
-    !template?
-  end
 end

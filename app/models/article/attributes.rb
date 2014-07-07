@@ -118,8 +118,13 @@ module Article::Attributes
     validate :payment_method_checked
   end
 
-  def reduce_quantity_available_by! value
+  # ATTENTION DO NOT CALL THIS WITHOUT A TRANSACTION (See Cart#buy)
+  def buy! value
     self.quantity_available -= value
+    if self.quantity_available < 1
+      article.remove_from_libraries
+      self.state = "sold"
+    end
     self.save! # validation is performed on the attribute
   end
 

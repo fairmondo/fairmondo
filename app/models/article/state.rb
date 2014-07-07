@@ -63,10 +63,6 @@ module Article::State
         transition :locked => :closed
       end
 
-      event :sold_out do
-        transition :active => :sold
-      end
-
       event :templatify do
         transition :preview => :template
       end
