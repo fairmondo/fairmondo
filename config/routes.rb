@@ -80,7 +80,7 @@ Fairnopoly::Application.routes.draw do
 
   resources :line_items, only: [:create,:update,:destroy]
 
-  get '/transactions/:id', to: 'business_transactions#show'
+  get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
   get "welcome/reconfirm_terms"
   post "welcome/reconfirm_terms"

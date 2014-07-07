@@ -7,6 +7,9 @@ class SessionsController < Devise::SessionsController
 
     if cart = Cart.find_by_id(cookies.signed[:cart])
       cart.update_attribute :user_id, current_user.id unless cart.user_id
+    else # user probably doesn't have cart cookie set
+      @current_cart = Cart.current_for current_user
+      cookies.signed[:cart] = @current_cart.id if @current_cart
     end
   end
 
