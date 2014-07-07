@@ -86,6 +86,12 @@
       .l-footer
         = render "/layouts/partials/footer"
 
+    - # DELETE THIS BEFORE PRODUCTION DEPLOY ! =>
+    %div{style: "position:fixed;bottom:0;background:rgba(255,255,255,0.6);border:1px solid black;z-index:999999"}
+      Cart Cookie:
+      = cookies.signed[:cart] || "none"
+    - # <= DELETE THIS BEFORE PRODUCTION DEPLOY !
+
 
     -#--------------- Addittional Assets -----------------
 
