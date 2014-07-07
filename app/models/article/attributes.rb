@@ -111,8 +111,16 @@ module Article::Attributes
     validate :paypal_account_exists, :if => :payment_paypal
 
     validates_presence_of :quantity
+
     validates_numericality_of :quantity, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10000
+    validates_numericality_of :quantity_available, :greater_than_or_equal_to: 0, :less_than_or_equal_to => 10000
+
     validate :payment_method_checked
+  end
+
+  def reduce_quantity_available_by! value
+    self.quantity_available -= value
+    self.save! # validation is performed on the attribute
   end
 
   def set_sellers_nested_validations
