@@ -84,7 +84,7 @@
             = transport_format_for "type2"
         = render 'articles/show/basic_price', article: resource
         .quantity
-          - if !resource.is_available?
+          - if resource.sold?
             Dieser Artikel ist bereits ausverkauft
           - elsif resource.quantity > 1
             = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.quantity_available)
