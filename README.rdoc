@@ -8,7 +8,7 @@ Fairnopoly is a free market place in the hand of the users.
 
 Read more about it at: http://www.fairnopoly.de
 
-The development currently is in beta state. Please help us out by contributing code.
+Please help us out by contributing code.
 
 
 == Getting started
@@ -40,21 +40,22 @@ What this does:
 
 If the automated script doesn't work for you, try going through these steps one by one:
 
-* Set up a local git repository
+* Set up a local git repository and switch to branch "develop"
     git clone git@github.com:fairnopoly/fairnopoly.git
     cd fairnopoly/
+    git checkout develop
 
-* Install required gems (preface with rvmsudo if you are using rvm)
+* Install required gems
     bundle install
 
 * set up local files and change the setup data if you want
     cp config/environments/development.example.rb config/environments/development.rb
     cp config/initializers/secret_token.example config/initializers/secret_token.rb
     
-* {set up Postgres for develoment environment}[https://github.com/fairnopoly/fairnopoly/wiki/postgres]
+* {set up Postgres for development environment}[https://github.com/fairnopoly/fairnopoly/wiki/postgres]
 
-* migrate and seed
-    rake db:create && rake db:migrate && rake db:seed && rake db:test:prepare
+* set up database, load schema and seed
+    rake db:create && rake db:schema:load && rake db:seed
 
 * if you would like to test the mailer, please open the copied file and update it according to your testing mail server
 
@@ -63,7 +64,7 @@ If the automated script doesn't work for you, try going through these steps one 
 * to use the recaptcha you have to add your keys in the api.yml. You can get the keys at https://www.google.com/recaptcha/admin/list
 
 * start rails and have fun
-    rails s
+    rails server
 
 === Known Issues
 * Could not find pg-0.15.1 in any of the sources
@@ -116,7 +117,7 @@ If you update your branch from before, you may have to migrate the test database
 
 If you want to help out with programming new features or fixing bugs, please consider the following guidelines:
 
-* If you do no have direct access to our github repository, you can fork it, make changes on your forked repo, and then submit a pull request
+* If you do not have direct access to our github repository, you can fork it, make changes on your forked repo, and then submit a pull request
 
 * Branch management: "master" is the currently deployed version. New features are developed on the branch "develop" or feature branches that branch from develop. Bugfixes are currently done on "develop". Please send merge requests to the appropriate branch (develop).
 
@@ -140,16 +141,16 @@ If you want to help out with programming new features or fixing bugs, please con
 Hint: When a vim window opened after you typed "git commit" without a commit message, you can save the default message by simply typing ":wq" and pressing enter.
 
 
-=== Run Elastic Search Server
+=== Run Elasticsearch Server
 
-To avoid having the search not available in your local environment you have to install elastic search:
+To make the search available in your local environment you have to install Elasticsearch:
 
     curl -k -L -o elasticsearch-0.90.3.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz
     tar -zxvf elasticsearch-0.90.3.tar.gz
     ./elasticsearch-0.90.3/bin/plugin --install decompound --url http://bit.ly/1hmvN6Z
     ./elasticsearch-0.90.3/bin/elasticsearch -f
 
-Links for elasticsearch:
+Links for Elasticsearch:
 http://www.elasticsearch.org/downloads/0-90-3/
 
 Plugin we use:
