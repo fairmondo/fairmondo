@@ -34,8 +34,11 @@ class LineItemGroup < ActiveRecord::Base
 
   private
     def self.can_be_unified_for? record, type
-      record.transport_can_be_unified? if type == :unified_transport
-      record.payment_can_be_unified? if type == :unified_payment
+      if type == :unified_transport
+        record.transport_can_be_unified?
+      elsif type == :unified_payment
+        record.payment_can_be_unified?
+      end
     end
 
     def has_business_transactions?
