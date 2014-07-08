@@ -31,6 +31,7 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :shipping_address, class_name: 'Address', foreign_key: 'shipping_address_id'
   belongs_to :billing_address, class_name: 'Address', foreign_key: 'billing_address_id'
   accepts_nested_attributes_for :billing_address
+  validates_associated :billing_address
   has_one :rating
 
   attr_accessor :updating_state, :updating_multiple
@@ -75,8 +76,8 @@ class BusinessTransaction < ActiveRecord::Base
   with_options if: :updating_state, unless: :updating_multiple do |t|
     t.validates :selected_transport, supported_option: true, presence: true
     t.validates :selected_payment, supported_option: true, common_sense: true, presence: true
-    t.validates :shipping_address_id, presence: true
-    t.validates :billing_address_id, presence: true
+    t.validates :shipping_address, presence: true
+    t.validates :billing_address, presence: true
   end
 
   state_machine initial: :available do
@@ -154,6 +155,7 @@ class BusinessTransaction < ActiveRecord::Base
       true
     else
       validator_instance.errors.each { |k,v| self.errors.add k, v }
+      validator_instance.billing_address.errors.each { |k,v| self.billing_address.errors.add k, v }
       false
     end
   end
