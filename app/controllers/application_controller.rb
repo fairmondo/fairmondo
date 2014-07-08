@@ -70,7 +70,8 @@ class ApplicationController < ActionController::Base
       [
        "RegistrationsController", "SessionsController", "ToolboxController",
        "BankDetailsController", "ExportsController", "WelcomeController",
-       "CategoriesController", "Peek::ResultsController", "StyleguidesController"
+       "CategoriesController", "Peek::ResultsController", "StyleguidesController",
+       "RemoteValidationsController"
       ]
     end
 

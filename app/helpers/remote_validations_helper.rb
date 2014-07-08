@@ -1,0 +1,2 @@
+module RemoteValidationsHelper
+end
