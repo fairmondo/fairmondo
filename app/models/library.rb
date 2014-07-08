@@ -41,6 +41,8 @@ class Library < ActiveRecord::Base
   has_many :library_elements, dependent: :destroy
   has_many :articles, through: :library_elements
 
+  has_many :hearts, as: :heartable, counter_cache: true
+
   scope :published, -> { where(public: true) }
   default_scope -> { order('updated_at DESC') }
 
