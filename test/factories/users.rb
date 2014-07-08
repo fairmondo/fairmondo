@@ -26,8 +26,6 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    'password'
     sequence(:nickname) {|n| "#{Faker::Internet.user_name}#{n}" }
-    surname     { Faker::Name.last_name }
-    forename    { Faker::Name.first_name }
     legal       "1"
     agecheck    "1"
 
@@ -35,14 +33,6 @@ FactoryGirl.define do
     terms    { Faker::Lorem.paragraph( rand(7)+1 ) }
     cancellation    { Faker::Lorem.paragraph( rand(7)+1 ) }
     about    { Faker::Lorem.paragraph( rand(7)+1 ) }
-    title { Faker::Name.prefix }
-    country "Deutschland"
-    street { Faker::AddressDE.street_address }
-    address_suffix { Faker::Name.last_name }
-    city { Faker::AddressDE.city }
-    zip { Faker::AddressDE.zip_code }
-
-    company_name { self.class == "LegalEntity" ? Faker::Company.name : nil }
 
     confirmed_at Time.now
 
@@ -56,6 +46,11 @@ FactoryGirl.define do
 
     direct_debit true
 
+    seller_state "standard_seller"
+    buyer_state "standard_buyer"
+
+    standard_address { FactoryGirl.create :address }
+
     trait :missing_bank_data do
       bank_code ""
       bank_account_number ""
@@ -63,10 +58,8 @@ FactoryGirl.define do
       bank_name ""
       iban ""
       bic ""
-   end
+    end
 
-    seller_state "standard_seller"
-    buyer_state "standard_buyer"
 
     factory :admin_user do
       admin       true
@@ -80,15 +73,17 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
-      company_name Faker::Company.name
+    end
+
+    factory :legal_entity_with_fixture_address do
+      standard_address { FactoryGirl.create :address, :fixture_address }
     end
 
     factory :legal_entity_without_company_name, class: 'LegalEntity' do
-      company_name nil
     end
 
     factory :incomplete_user do
-      country nil
+      standard_address nil
     end
 
     trait :no_bank_data do
@@ -111,5 +106,4 @@ FactoryGirl.define do
       ngo true
     end
   end
-
 end

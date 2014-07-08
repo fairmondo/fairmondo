@@ -5,8 +5,8 @@ include Warden::Test::Helpers
 feature "Exports" do
 
   let(:private_user)       { FactoryGirl.create :private_user }
-  let(:legal_entity)       { FactoryGirl.create :legal_entity, :paypal_data }
-  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity, :email => "hans@dampf.de" }
+  let(:legal_entity)       { FactoryGirl.create :legal_entity_with_fixture_address, :paypal_data }
+  let(:legal_entity_buyer) { FactoryGirl.create :legal_entity_with_fixture_address, :email => "hans@dampf.de" }
 
   scenario 'private user is on his profile and should not see export link' do
     login_as private_user
@@ -51,16 +51,16 @@ feature "Exports" do
     # sell them
     @transaction1 = FactoryGirl.create :single_transaction, :sold,
                                       article: legal_entity.articles.last,
-                                      :buyer => legal_entity_buyer,
-                                      forename: "Hans", surname: "Dampf",
-                                      street: "In allen Gassen 1",
-                                      city: "Berlin", zip: "10999",
+                                      buyer: legal_entity_buyer,
+                                      transport_address: legal_entity_buyer.standard_address,
+                                      payment_address: legal_entity_buyer.standard_address,
                                       sold_at: "2013-12-03 17:50:15"
 
     legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
     visit user_path(legal_entity)
     click_link I18n.t('articles.export.sold')
     page.source.must_equal  IO.read('test/fixtures/mass_upload_correct_export_test_sold.csv', encoding: 'ascii-8bit')
+
 
     logout(:user)
     login_as legal_entity_buyer

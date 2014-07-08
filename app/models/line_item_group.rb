@@ -6,6 +6,8 @@ class LineItemGroup < ActiveRecord::Base
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   has_many :articles, through: :line_items
   has_many :business_transactions, inverse_of: :line_item_group
+  belongs_to :transport_address, class_name: 'Address', foreign_key: 'transport_address_id'
+  belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
 
   auto_sanitize :message
 
@@ -17,6 +19,7 @@ class LineItemGroup < ActiveRecord::Base
     bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
       record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
     end
+    bt.validates :transport_address, :payment_address, presence: true
   end
 
   def transport_can_be_unified?

@@ -31,9 +31,10 @@ class BusinessTransactionsController < ApplicationController
 
   def edit
     authorize @business_transaction
-    if request.patch?
-      render :step2 if @business_transaction.valid?
-    end
+    @business_transaction.billing_address = current_user.standard_address || Address.new
+    render :step2 if request.patch? && @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
+    debugger
+    nil
   end
 
   def show
@@ -50,13 +51,15 @@ class BusinessTransactionsController < ApplicationController
   end
 
   def update
-
+    @business_transaction.assign_attributes(params.for(@business_transaction).refine)
+    @business_transaction.shipping_address = @business_transaction.billing_address unless params[:shipping_address_id]
+    @business_transaction.buyer_id = current_user.id
     authorize @business_transaction
     @business_transaction.checking_out = true
 
     if @business_transaction.valid? && @business_transaction.buy
-      return respond_with @business_transaction
-    elsif tos_not_accepted?
+      respond_with @business_transaction
+    elsif @business_transaction.edit_params_valid?(params.for(@business_transaction).refine)
       render :step2
     else
       render :edit

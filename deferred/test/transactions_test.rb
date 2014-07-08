@@ -62,14 +62,7 @@ feature 'Buying Process' do
     page.must_have_content I18n.t 'formtastic.labels.business_transaction.selected_payment'
     page.must_have_selector 'select', text: I18n.t('enumerize.business_transaction.selected_payment.cash')
     ## Should display buyer's address
-    page.must_have_content I18n.t 'transaction.edit.address'
-    page.must_have_css "input#business_transaction_forename[@value='#{user.forename}']"
-    page.must_have_css "input#business_transaction_surname[@value='#{user.surname}']"
-    page.must_have_css "input#business_transaction_address_suffix[@value='#{user.address_suffix}']"
-    page.must_have_css "input#business_transaction_street[@value='#{user.street}']"
-    page.must_have_css "input#business_transaction_city[@value='#{user.city}']"
-    page.must_have_css "input#business_transaction_zip[@value='#{user.zip}']"
-    page.must_have_selector 'select', text: user.country
+    page.must_have_content I18n.t 'transaction.edit.addresses'
 
     # Should display info text and button
     page.must_have_content I18n.t 'transaction.edit.next_step_explanation'
@@ -103,13 +96,13 @@ feature 'Buying Process' do
     page.must_have_content I18n.t 'enumerize.business_transaction.selected_transport.pickup'
 
     # Should display buyer's address
-    page.must_have_content I18n.t 'transaction.edit.address'
+    page.must_have_content I18n.t 'transaction.edit.addresses'
     page.must_have_content user.fullname
-    page.must_have_content user.street
-    page.must_have_content user.address_suffix
-    page.must_have_content user.zip
-    page.must_have_content user.city
-    page.must_have_content user.country
+    page.must_have_content user.standard_address_address_line_1
+    page.must_have_content user.standard_address_address_line_2
+    page.must_have_content user.standard_address_city
+    page.must_have_content user.standard_address_zip
+    page.must_have_content user.standard_address_country
 
     # Should have optional message field
     page.must_have_content I18n.t 'transaction.edit.message'
@@ -334,31 +327,7 @@ feature 'Buying Process' do
 
 
   scenario "user enters invalid data while buying an Article" do
-    transaction = FactoryGirl.create :single_transaction, :legal_transaction
-    visit edit_business_transaction_path transaction
-    fill_in 'business_transaction_forename', with: ''
-    fill_in 'business_transaction_surname', with: ''
-    fill_in 'business_transaction_street', with: 'foobar' # no number
-    fill_in 'business_transaction_city', with: ''
-    fill_in 'business_transaction_zip', with: 'abc'
-    click_button I18n.t 'common.actions.continue'
-
-    page.wont_have_button I18n.t 'transaction.actions.purchase'
-    within '#business_transaction_forename_input' do
-      page.must_have_content I18n.t 'errors.messages.blank'
-    end
-    within '#business_transaction_surname_input' do
-      page.must_have_content I18n.t 'errors.messages.blank'
-    end
-    within '#business_transaction_street_input' do
-      page.must_have_content I18n.t 'errors.messages.invalid'
-    end
-    within '#business_transaction_city_input' do
-      page.must_have_content I18n.t 'errors.messages.blank'
-    end
-    within '#business_transaction_zip_input' do
-      page.must_have_content I18n.t 'errors.messages.zip_format'
-    end
+    skip('New feature test has to be written for address')
   end
 
   scenario "user enters a quantity that is larger than available" do

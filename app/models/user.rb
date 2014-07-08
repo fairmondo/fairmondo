@@ -39,9 +39,8 @@ class User < ActiveRecord::Base
 
   after_create :create_default_library
 
-  auto_sanitize :nickname, :forename, :surname, :street, :address_suffix, :city,
-                :bank_name
-  auto_sanitize :iban, :bic, :zip, remove_all_spaces: true
+  auto_sanitize :nickname, :bank_name
+  auto_sanitize :iban, :bic, remove_all_spaces: true
   auto_sanitize :about_me, :terms, :cancellation, :about, method: 'tiny_mce'
 
 
@@ -50,59 +49,72 @@ class User < ActiveRecord::Base
   attr_accessor :fastbill_profile_update
 
 
-  #Relations
-  has_many :business_transactions, through: :articles
-  has_many :articles, dependent: :destroy # As seller
-  has_many :bought_articles, through: :bought_business_transactions, source: :article
-  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id', inverse_of: :buyer # As buyer
+  ####################################################
+  # Relations
+  #
+  ####################################################
   has_many :sold_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
+  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id', inverse_of: :buyer
 
-  has_many :line_item_groups, inverse_of: :seller
 
-  has_many :libraries, dependent: :destroy
+    # Addresses
+  has_many :addresses, dependent: :destroy, inverse_of: :user
+  belongs_to :standard_address, class_name: 'Address', foreign_key: :standard_address_id
+  delegate :title, :first_name, :last_name, :company_name, :address_line_1, :address_line_2, :zip, :city, :country, to: :standard_address, prefix: true
 
-  has_many :notices
-  has_many :mass_uploads
-
-  has_many :library_elements, through: :libraries
-  has_many :carts
-
-  ##
+    # Profile image
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image
 
-  has_attached_file :cancellation_form
-  ##
+    # Articles and Mass uploads
+  has_many :articles, dependent: :destroy # As seller
+  has_many :bought_articles, through: :bought_business_transactions, source: :article
+  has_many :mass_uploads
 
-  scope :sorted_ngo, -> { order(:nickname).where(ngo: true) }
-  scope :ngo_with_profile_image, -> { where(ngo: true ).joins(:image).limit(6) }
+  # Cart related Models
+  has_many :carts # as buyer
+  has_many :line_item_groups, inverse_of: :seller # as seller
 
-  #belongs_to :invitor ,class_name: 'User', foreign_key: 'invitor_id'
+    # Libraries and Library Elements
+  has_many :libraries, dependent: :destroy
+  has_many :library_elements, through: :libraries
 
+    # Ratings
   has_many :ratings, foreign_key: 'rated_user_id', dependent: :destroy, inverse_of: :rated_user
   has_many :given_ratings, through: :bought_business_transactions, source: :rating, inverse_of: :rating_user
 
+    # Notices
+  has_many :notices
 
-  #belongs_to :invitor ,class_name: 'User', foreign_key: 'invitor_id'
+    # Cancellation form
+  has_attached_file :cancellation_form
 
-  #Registration validations
+
+  ####################################################
+  # Scopes
+  #
+  ####################################################
+  scope :sorted_ngo, -> { order(:nickname).where(ngo: true) }
+  scope :ngo_with_profile_image, -> { where(ngo: true ).joins(:image).limit(6) }
+
+
+  ####################################################
+  # validations
+  #
+  ####################################################
+
+  # Registration validations
 
   validates_inclusion_of :type, in: ["PrivateUser", "LegalEntity"]
   validates :nickname , presence: true, uniqueness: true
   validates :legal, acceptance: true, on: :create
   validates :agecheck, acceptance: true , on: :create
-
-
-  # validations
-
-  validates :street, format: /\A.+\d+.*\z/, on: :update, unless: Proc.new {|c| c.street.blank?} # format: ensure digit for house number
-  validates :address_suffix, length: { maximum: 150 }
-  validates :zip, zip: true, on: :update, unless: Proc.new {|c| c.zip.blank?}
+  validates_associated :standard_address
 
   with_options if: :wants_to_sell? do |seller|
-    seller.validates :country, :street, :city, :zip, :forename, :surname, presence: true, on: :update
     seller.validates :direct_debit, acceptance: {accept: true}, on: :update
     seller.validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic,  presence: true
+    seller.validates :standard_address, presence: true
   end
 
   # TODO: Language specific validators
@@ -116,7 +128,6 @@ class User < ActiveRecord::Base
   validates :paypal_account, presence: true, if: :paypal_validation
   validates :bank_code, :bank_account_number,:bank_name ,:bank_account_owner, :iban,:bic, presence: true, if: :bank_account_validation
 
-
   validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
   validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
@@ -124,11 +135,17 @@ class User < ActiveRecord::Base
   monetize :unified_transport_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
   monetize :unified_transport_free_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
 
-  # Return forename plus surname
+
+  ####################################################
+  # Methods
+  #
+  ####################################################
+
+  # Return first_name plus last_name
   # @api public
   # @return [String]
   def fullname
-    "#{self.forename} #{self.surname}"
+    "#{standard_address_first_name} #{standard_address_last_name}"
   end
   # memoize :fullname
 
@@ -136,13 +153,13 @@ class User < ActiveRecord::Base
   # @api return
   # @public [String]
   def name
-    name = "#{self.nickname}"
+    nickname
   end
 
   # Compare IDs of users
   # @api public
   # @param user [User] Usually current_user
-  def is? user
+  def is?(user)
     user && self.id == user.id
   end
 
@@ -156,7 +173,7 @@ class User < ActiveRecord::Base
   # Static method to get admin status even if current_user is nil
   # @api public
   # @param user [User, nil] Usually current_user
-  def self.is_admin? user
+  def self.is_admin?(user)
     user && user.admin?
   end
 
@@ -171,7 +188,7 @@ class User < ActiveRecord::Base
   # @api public
   # @param symbol [Symbol] which type
   # @return [String] URL
-  def image_url symbol
+  def image_url(symbol)
     image ? image.image.url(symbol) : ActionController::Base.helpers.asset_path('missing.png')
   end
 
@@ -180,8 +197,9 @@ class User < ActiveRecord::Base
   # @return [String]
   def address
     string = ""
-    string += "#{self.address_suffix}, " if self.address_suffix.present?
-    string += "#{self.street}, #{self.zip} #{self.city}"
+    string += "#{standard_address_address_line_1}, "
+    string += "#{standard_address_address_line_2}, " if standard_address_address_line_2.present?
+    string += "#{standard_address_zip} #{standard_address_city}"
     string
   end
 
@@ -208,7 +226,7 @@ class User < ActiveRecord::Base
   # @param bias [String] positive or negative
   # @param limit [Integer]
   # @return [Float]
-  def calculate_percentage_of_biased_ratings bias, limit
+  def calculate_percentage_of_biased_ratings(bias, limit)
     biased_ratings = { "positive" => 0, "negative" => 0, "neutral" => 0}
     self.ratings.select(:rating).limit(limit).each do |rating|
       biased_ratings[rating.value] += 1
@@ -225,10 +243,15 @@ class User < ActiveRecord::Base
   end
 
   # get all users with ngo status but not current
-  def self.sorted_ngo_without_current current_user
+  def self.sorted_ngo_without_current(current_user)
     self.order(:nickname).where("ngo = ? AND id != ?", true, current_user.id)
   end
 
+
+  ####################################################
+  # State Machine
+  #
+  ####################################################
 
   state_machine :seller_state, initial: :standard_seller do
     after_transition any => :bad_seller, do: :send_bad_seller_notification
@@ -363,6 +386,6 @@ class User < ActiveRecord::Base
     end
 
     def is_german?
-      self.country == "Deutschland"
+      self.standard_address && self.standard_address.country == "Deutschland"
     end
 end

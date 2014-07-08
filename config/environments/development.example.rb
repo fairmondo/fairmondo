@@ -84,4 +84,9 @@ Fairnopoly::Application.configure do
     # Bullet.airbrake = true
   end
 
+
+  # Configure Quiet Assets https://github.com/evrone/quiet_assets
+  # to turn asset pipeline logging back on, uncomment the following line
+  # config.quiet_assets = false
+
 end
