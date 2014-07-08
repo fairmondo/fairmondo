@@ -157,11 +157,11 @@
   - cache [resource.seller,"legal_info"] do
     / Only legal sellers
     - if resource.seller.is_a?(LegalEntity)
-      = accordion_item "terms" do
+      = accordion_item "terms", {content_class: "Accordion-content-maxsize"} do
         = resource.seller_terms.html_safe
-      = accordion_item "cancellation" do
+      = accordion_item "cancellation", {content_class: "Accordion-content-maxsize"} do
         = resource.seller_cancellation.html_safe
-      = accordion_item "about" do
+      = accordion_item "about", {content_class: "Accordion-content-maxsize"} do
         = resource.seller_about.html_safe
 
 
