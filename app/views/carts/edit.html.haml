@@ -23,6 +23,30 @@
                   = t.input :selected_transport, include_blank: false, wrapper_html: {class: 'js-unified-transport--target'}, collection: line_item.business_transaction.article.selectable_transports
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target'}, collection: line_item.business_transaction.article.selectable_payments
 
+  - unless @cart_checkout_form.needs_new_payment_address?
+    .Grid
+      = render 'addresses/address', address: @cart_checkout_form.payment_address, editable: false
+  - else
+    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
+      = baf.inputs do
+        = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+        = baf.input :first_name, required: true
+        = baf.input :last_name, required: true
+        = baf.input :company_name
+        = baf.input :address_line_1, required: true
+        = baf.input :address_line_2
+        = baf.input :zip, required: true
+        = baf.input :city, required: true
+        = baf.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+
+  %h3
+    Eine andere Versandadresse verwenden
+
+  %fieldset.inputs#address_select
+    = render 'addresses/addresses', radio: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
+
+  = link_to 'neue Adresse hinzufügen', new_user_address_path(current_user, radio: true), { class: 'colorbox' }
+
   = f.actions do
     = f.submit
 

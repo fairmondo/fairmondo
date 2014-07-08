@@ -63,7 +63,7 @@ gem "recaptcha", :require => "recaptcha/rails" #Captcha Gem
 gem 'virtus'
 
 
-# ---------- Contoller ----------
+# ---------- Controller ----------
 
 gem 'arcane' # Parameter management for strong_parameters
 gem 'canonical-rails' # canonical view links
@@ -117,6 +117,9 @@ group :development do
   # HAML Conversion tools
   #gem "erb2haml" see html2haml
   #gem "html2haml" need to wait for new release 2.0.0 is still in beta if you need it
+
+  # Quiet Assets to disable asset pipeline in log
+  gem 'quiet_assets'
 
 end
 

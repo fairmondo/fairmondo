@@ -31,7 +31,7 @@ feature 'Article creation' do
   end
 
   scenario "article creation with an invalid user should redirect with an error" do
-    @user.forename = nil
+    @user.standard_address.first_name = nil
     visit new_article_path
     current_path.must_equal edit_user_registration_path
     page.must_have_content I18n.t 'article.notices.incomplete_profile'
@@ -148,7 +148,7 @@ feature "Article activation for private users" do
   end
 end
 
-feature "Article activationfor legal entities" do
+feature "Article activation for legal entities" do
   scenario "legal entity adds goods for more than 5000000" do
     user = FactoryGirl.create :legal_entity
     6.times { FactoryGirl.create :article, seller: user , price_cents: 1000000 }

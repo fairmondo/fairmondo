@@ -28,7 +28,7 @@ end
 
 feature "Uploading a CSV" do
   setup do
-    @user = FactoryGirl.create :legal_entity,:paypal_data
+    @user = FactoryGirl.create :legal_entity, :paypal_data, direct_debit: true
     login_as @user
     visit new_mass_upload_path
   end

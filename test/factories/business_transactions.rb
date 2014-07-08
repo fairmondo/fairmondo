@@ -22,32 +22,19 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :business_transaction do
+  factory :business_transaction, aliases: [:single_transaction] do
     article { FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports }
     seller { article.seller }
     selected_transport 'pickup'
     selected_payment 'cash'
-    forename { Faker::Name.first_name }
-    surname  { Faker::Name.last_name }
-    street   { Faker::AddressDE.street_address }
-    city     { Faker::AddressDE.city }
-    zip      { Faker::AddressDE.zip_code }
-    country  "Deutschland"
     sold_at { Time.now }
     discount_value_cents 0
     quantity_bought 1
     buyer
     line_item_group
+	transport_address { buyer.standard_address }
+    payment_address { buyer.standard_address }
 
-    factory :single_transaction do
-      forename { Faker::Name.first_name }
-      surname  { Faker::Name.last_name }
-      street   { Faker::AddressDE.street_address }
-      city     { Faker::AddressDE.city }
-      zip      { Faker::AddressDE.zip_code }
-      country  "Deutschland"
-      quantity_bought 1
-    end
 
     factory :multiple_transaction do
       article { FactoryGirl.create :article, quantity: 50 }
@@ -62,12 +49,17 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_private_user}
     end
 
-    factory :business_transaction_with_friendly_percent, class: 'SingleFixedPriceTransaction'  do
+    factory :business_transaction_with_friendly_percent do
       article { FactoryGirl.create :article, :with_friendly_percent}
     end
 
+    #TODO please use business_transaction_with_buyer
+    factory :business_transaction_with_friendly_percent_missing_bank_data_and_buyer  do
+      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data}
+    end
+
     trait :incomplete do
-       forename {nil}
+      shipping_address nil
     end
 
     trait :bought_nothing do

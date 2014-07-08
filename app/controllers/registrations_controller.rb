@@ -26,9 +26,9 @@ class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :authenticate_user!, only: [ :create, :new ]
 
   def edit
-    @user = User.find current_user.id
-    check_incomplete_profile! @user
-    @user.valid?
+    @user = User.find(current_user.id)
+    @user.standard_address ||= Address.new
+    check_incomplete_profile!(@user)
     super
   end
 
@@ -36,16 +36,27 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-    successfully_updated  = update_account(account_update_params)
 
+    address_params = params.for(Address).refine
+    resource.standard_address = resource.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
+    resource.standard_address.assign_attributes(address_params) if resource.standard_address
+
+    successfully_updated  = update_account(account_update_params)
     if successfully_updated
+
+      if resource.standard_address
+        resource.standard_address.save!(validate: false) # Already validates with validates_associates in user model
+        resource.update_column(:standard_address_id, resource.standard_address.id)
+      end
+
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
            :changed_email : :updated
         set_flash_message :notice, flash_key
       end
-      sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => after_update_path_for(resource)
+
+      sign_in resource_name, resource, bypass: true
+      respond_with resource, location: after_update_path_for(resource)
     else
       clean_up_passwords resource
       resource.image.save if resource.image
@@ -64,15 +75,18 @@ class RegistrationsController < Devise::RegistrationsController
         !params[:user][:password].blank?
     end
 
-    def after_update_path_for resource_or_scope
+    def after_update_path_for(resource_or_scope)
       user_path(resource_or_scope)
     end
 
-    def check_incomplete_profile! user
-      user.wants_to_sell = true if params[:incomplete_profile]
+    def check_incomplete_profile!(user)
+      if params[:incomplete_profile]
+        user.wants_to_sell = true
+        user.valid?
+      end
     end
 
-    def update_account account_update_params
+    def update_account(account_update_params)
       if needs_password?(resource, params)
        resource.update_with_password(account_update_params)
       else

@@ -22,7 +22,6 @@
 require_relative '../test_helper'
 
 describe User do
-
   let(:user) { FactoryGirl.create(:user) }
   subject { User.new }
 
@@ -42,8 +41,6 @@ describe User do
     it { subject.must_respond_to :last_sign_in_ip }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :forename }
-    it { subject.must_respond_to :surname }
     it { subject.must_respond_to :nickname }
     it { subject.must_respond_to :invitor_id }
     it { subject.must_respond_to :trustcommunity }
@@ -56,11 +53,6 @@ describe User do
     it { subject.must_respond_to :terms }
     it { subject.must_respond_to :cancellation }
     it { subject.must_respond_to :about }
-    it { subject.must_respond_to :title }
-    it { subject.must_respond_to :country }
-    it { subject.must_respond_to :street }
-    it { subject.must_respond_to :city }
-    it { subject.must_respond_to :zip }
     it { subject.must_respond_to :phone }
     it { subject.must_respond_to :mobile }
     it { subject.must_respond_to :fax }
@@ -73,7 +65,6 @@ describe User do
     it { subject.must_respond_to :iban }
     it { subject.must_respond_to :bic }
     it { subject.must_respond_to :paypal_account }
-    it { subject.must_respond_to :company_name }
     it { subject.must_respond_to :seller_state }
     it { subject.must_respond_to :buyer_state }
     it { subject.must_respond_to :verified }
@@ -82,17 +73,19 @@ describe User do
     it { subject.must_respond_to :percentage_of_negative_ratings }
     it { subject.must_respond_to :percentage_of_neutral_ratings }
     it { subject.must_respond_to :direct_debit }
-    it { subject.must_respond_to :address_suffix }
     it { subject.must_respond_to :value_of_goods_cents }
     it {    user.must_respond_to :max_value_of_goods_cents } # implemented on all subclasses
     it { subject.must_respond_to :max_value_of_goods_cents_bonus }
     it { subject.must_respond_to :fastbill_subscription_id }
     it { subject.must_respond_to :fastbill_id }
     it { subject.must_respond_to :vacationing }
+    it { subject.must_respond_to :standard_address_id }
     it { subject.must_respond_to :admin }
 
   end
   describe "associations" do
+    it { subject.must have_many(:addresses).dependent(:destroy) }
+    it { subject.must belong_to(:standard_address) }
     it { subject.must have_many(:articles).dependent(:destroy) }
     it { subject.must have_many(:libraries).dependent(:destroy) }
     it { subject.must have_one(:image) }
@@ -152,7 +145,6 @@ describe User do
   end
 
   describe "validations" do
-
     describe "always" do
       it {user.must validate_presence_of :email}
       it {user.must validate_presence_of :nickname}
@@ -165,21 +157,20 @@ describe User do
     end
 
     describe "on update" do
-
       describe "zip code validation" do
         before :each do
-          user.country = "Deutschland"
+          user.standard_address.country = "Deutschland"
         end
 
-        it {user.must allow_value('12345').for :zip}
-        it {user.wont allow_value('a1b2c').for :zip}
-        it {user.wont allow_value('123456').for :zip}
-        it {user.wont allow_value('1234').for :zip}
+        it {user.standard_address.must allow_value('12345').for :zip}
+        it {user.standard_address.wont allow_value('a1b2c').for :zip}
+        it {user.standard_address.wont allow_value('123456').for :zip}
+        it {user.standard_address.wont allow_value('1234').for :zip}
       end
 
       describe "address validation" do
-        it {user.must allow_value('Test Str. 1a').for :street}
-        it {user.wont allow_value('Test Str.').for :street}
+        it {user.standard_address.must allow_value('Test Str. 1a').for :address_line_1}
+        it {user.standard_address.wont allow_value('Test Str.').for :address_line_1}
       end
     end
 
@@ -187,12 +178,12 @@ describe User do
       before :each do
         user.wants_to_sell = true
       end
-      it { user.must validate_presence_of :forename }
-      it { user.must validate_presence_of :surname }
-      it { user.must validate_presence_of :zip}
-      it { user.must validate_presence_of :country }
-      it { user.must validate_presence_of :street }
-      it { user.must validate_presence_of :city }
+      it { user.standard_address.must validate_presence_of :first_name }
+      it { user.standard_address.must validate_presence_of :last_name }
+      it { user.standard_address.must validate_presence_of :address_line_1 }
+      it { user.standard_address.must validate_presence_of :zip}
+      it { user.standard_address.must validate_presence_of :city }
+      it { user.standard_address.must validate_presence_of :country }
     end
   end
 
@@ -216,7 +207,7 @@ describe User do
 
     describe "#fullname" do
       it "returns correct fullname" do
-        user.fullname.must_equal "#{user.forename} #{user.surname}"
+        user.fullname.must_equal "#{user.standard_address_first_name} #{user.standard_address_last_name}"
       end
     end
 
@@ -275,18 +266,19 @@ describe User do
       end
     end
 
-    describe "#address" do
-      it "should return a string with street, address suffix, zip and city" do
-        u = User.new street: 'Sesame Street 1', address_suffix: 'c/o Cookie Monster', zip: '12345', city: 'Utopia'
-        u.address.must_equal 'c/o Cookie Monster, Sesame Street 1, 12345 Utopia'
+    describe '#address' do
+      it 'should return a string with standard_addresse\'s address_line_1, address_line_2, zip and city' do
+        u = User.new
+        u.standard_address = Address.new(address_line_1: 'Sesame Street 1', address_line_2: 'c/o Cookie Monster', zip: '12345', city: 'Utopia')
+        u.address.must_equal 'Sesame Street 1, c/o Cookie Monster, 12345 Utopia'
       end
     end
 
-    describe "#notify" do
-      it "should be possible to notify a user (only once)" do
+    describe '#notify' do
+      it 'should be possible to notify a user (only once)' do
         assert_difference 'Notice.count', 1 do
-          user.notify "test","test/test"
-          user.notify "test","test/test"
+          user.notify 'test','test/test'
+          user.notify 'test','test/test'
         end
       end
     end

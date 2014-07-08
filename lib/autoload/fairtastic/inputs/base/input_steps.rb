@@ -38,7 +38,7 @@ module Fairtastic
 
           #if we detect an error at an input we set the error class of input step
           #after setting reset the block error
-          if @input_step_with_errors
+          if @input_step_with_errors || options[:has_errors]
             css << " Accordion-item--errors"
             @input_step_with_errors = false
           end

@@ -1,0 +1,21 @@
+.Grid-item
+  .Address
+    - radio = nil unless radio
+    - if radio
+      .Address-radio
+        = radio_button_tag 'cart_checkout_form[transport_address_id]', "#{address.id}", checked
+    .Address-lines
+      %h2= "#{ address.title } #{ address.first_name } #{ address.last_name }"
+      %p
+        = address.address_line_1
+        - if address.address_line_2?
+          %br
+          = address.address_line_2
+        %br
+        = "#{ address.zip } #{ address.city }"
+        %br
+        = address.country
+    - if editable
+      .Address-controls
+        = link_to 'bearbeiten', edit_user_address_path(current_user, address, radio: radio), class: 'colorbox Button edit-button'
+        = link_to 'löschen', user_address_path(current_user, address, radio: radio), method: :delete, class: 'Button Button--red', remote: true

@@ -120,6 +120,6 @@ module ApplicationHelper
   end
 
   def current_cart
-    @current_cart ||= Cart.where(user_id: current_user ? current_user.id : nil).find_by_id cookies.signed[:cart]
+    @current_cart ||= ::Cart.where(user_id: current_user ? current_user.id : nil).find_by_id cookies.signed[:cart]
   end
 end

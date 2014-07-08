@@ -46,7 +46,7 @@ Fairnopoly::Application.routes.draw do
     get 'session_expired', as: 'session_expired', constraints: {format: 'json'} # JSON info about session expiration. Might be moved to a custom controller at some point.
     get 'confirm', constraints: {format: 'js'}
     get 'rss'
-    get 'notice/:id', action: "notice", as: 'notice'
+    get 'notice/:id', action: 'notice', as: 'notice'
     get 'reload', as: 'reload'
     get 'contact', as: 'contact'
     patch 'reindex/:article_id', action: 'reindex', as: 'reindex'
@@ -82,19 +82,20 @@ Fairnopoly::Application.routes.draw do
 
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
-  get "welcome/reconfirm_terms"
-  post "welcome/reconfirm_terms"
+  get 'welcome/reconfirm_terms'
+  post 'welcome/reconfirm_terms'
 
-  get "welcome/index"
-  get "mitunsgehen", to: 'welcome#index'
+  get 'welcome/index'
+  get 'mitunsgehen', to: 'welcome#index'
 
-  get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
+  get 'feed', to: 'welcome#feed', constraints: {format: 'rss'}
 
   resources :feedbacks, :only => [:create,:new]
 
   #the user routes
 
   resources :users, :only => [:show] do
+    resources :addresses, except: [:index]
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, only: [:create, :destroy]
     resources :ratings, :only => [:create, :index] do
@@ -112,7 +113,7 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :categories , only: [:index,:show] do
+  resources :categories, only: [:index,:show] do
     member do
       get 'select_category'
     end
@@ -125,7 +126,7 @@ Fairnopoly::Application.routes.draw do
 
   require 'sidekiq/web'
 
-  constraint = lambda { |request| request.env["warden"].authenticate? and
+  constraint = lambda { |request| request.env['warden'].authenticate? and
                       request.env['warden'].user.admin?}
 
   constraints constraint do
@@ -135,9 +136,9 @@ Fairnopoly::Application.routes.draw do
 
   # TinyCMS Routes Catchup
   scope :constraints => lambda {|request|
-    request.params[:id] && !["assets","system","admin","public","favicon.ico", "favicon"].any?{|url| request.params[:id].match(/^#{url}/)}
+    request.params[:id] && !['assets','system','admin','public','favicon.ico', 'favicon'].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
-    get "/*id" => 'contents#show'
+    get '/*id' => 'contents#show'
   end
 
 

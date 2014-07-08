@@ -39,7 +39,7 @@ class BusinessTransactionObserver < ActiveRecord::Observer
     end
 
     # check if this article is discountable and reply accordingly
-    Discount.discount_chain( business_transaction ) if business_transaction.article_discount_id
+    Discount.discount_chain(business_transaction) if business_transaction.article_discount_id
     FastbillWorker.perform_in 5.seconds, business_transaction.id
 
   end

@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707143018) do
+ActiveRecord::Schema.define(version: 20140708144002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: true do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "address_line_1"
+    t.string  "address_line_2"
+    t.string  "zip"
+    t.string  "city"
+    t.string  "country"
+    t.integer "user_id"
+    t.string  "title"
+    t.string  "company_name"
+  end
+
+  add_index "addresses", ["user_id"], name: "addresses_user_id_index", using: :btree
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -101,16 +116,9 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.integer  "quantity_bought"
     t.integer  "parent_id",                             limit: 8
     t.integer  "article_id",                            limit: 8
-    t.string   "forename"
-    t.string   "surname"
-    t.string   "street"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
     t.integer  "seller_id",                             limit: 8
     t.datetime "sold_at"
     t.boolean  "purchase_emails_sent",                            default: false
-    t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
     t.boolean  "billed_for_fair",                                 default: false
@@ -287,6 +295,8 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unified_payment_method"
+    t.integer  "transport_address_id",   limit: 8
+    t.integer  "payment_address_id",     limit: 8
   end
 
   add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
@@ -417,8 +427,6 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
-    t.string   "forename"
-    t.string   "surname"
     t.boolean  "admin",                                           default: false
     t.integer  "invitor_id"
     t.boolean  "trustcommunity"
@@ -432,11 +440,6 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.text     "terms"
     t.text     "cancellation"
     t.text     "about"
-    t.string   "title"
-    t.string   "country"
-    t.string   "street"
-    t.string   "city"
-    t.string   "zip"
     t.string   "phone"
     t.string   "mobile"
     t.string   "fax"
@@ -447,7 +450,6 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.string   "bank_account_owner"
     t.string   "bank_account_number"
     t.string   "paypal_account"
-    t.string   "company_name"
     t.string   "seller_state"
     t.string   "buyer_state"
     t.boolean  "verified"
@@ -455,7 +457,6 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.float    "percentage_of_positive_ratings",                  default: 0.0
     t.float    "percentage_of_negative_ratings",                  default: 0.0
     t.boolean  "direct_debit",                                    default: false
-    t.string   "address_suffix"
     t.float    "percentage_of_neutral_ratings",                   default: 0.0
     t.boolean  "ngo",                                             default: false
     t.integer  "value_of_goods_cents",                  limit: 8, default: 0
@@ -475,11 +476,13 @@ ActiveRecord::Schema.define(version: 20140707143018) do
     t.integer  "unified_transport_price_cents",         limit: 8, default: 0
     t.boolean  "unified_transport_free"
     t.integer  "unified_transport_free_at_price_cents", limit: 8, default: 0
+    t.integer  "standard_address_id",                   limit: 8
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index "users", ["standard_address_id"], name: "standard_user_address", using: :btree
 
 end

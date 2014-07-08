@@ -23,14 +23,6 @@ de:
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
-        title: "Anrede"
-        forename: "Vorname"
-        surname:  "Nachname"
-        country: "Land"
-        street: "Straße und Hausnummer"
-        address_suffix: "Adresszusatz"
-        city: "Ort"
-        zip: "PLZ"
         phone: "Telefonnummer (Festnetz)"
         mobile: "Telefonnummer (Mobil)"
         fax: "Fax"
@@ -63,6 +55,17 @@ de:
         <<: *user
       legal_entity:
         <<: *user
+      address:
+        address: 'Adresse'
+        title: "Anrede"
+        first_name: "Vorname"
+        last_name:  "Nachname"
+        country: "Land"
+        address_line_1: "Straße und Hausnummer"
+        address_line_2: "Adresszusatz"
+        city: "Ort"
+        zip: "PLZ"
+
       feedback:
         from: "Deine Email-Adresse"
         subject: "Betreff"
@@ -185,13 +188,6 @@ de:
         quantity_bought: "Artikelanzahl:"
         selected_transport: "Bitte wähle eine Versandmethode aus:"
         selected_payment: "Bitte wähle eine Bezahloption aus:"
-        forename: "Vorname:"
-        surname: "Nachname:"
-        address_suffix: "Adresszusatz:"
-        street: "Straße und Hausnummer:"
-        city: "Ort:"
-        zip: "Postleitzahl:"
-        country: "Land:"
       multiple_fixed_price_transaction:
         <<: *business_transaction
       single_fixed_price_transaction:
@@ -214,6 +210,7 @@ de:
         payment: Zahlungsoptionen
         terms: Rechtliches
         unified_transport: Artikel zusammen versenden
+        addresses: Versandadressen
       private_user:
         <<: *input_step_user
       legal_entity:
@@ -326,6 +323,8 @@ de:
       update: "Änderungen speichern"
       template:
         submit: "Vorlage übernehmen"
+      address:
+        submit: 'Adresse erstellen'
       # Login
       login: "Anmelden"
       sign_up: "Registrieren"
