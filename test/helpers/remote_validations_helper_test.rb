@@ -1,0 +1,9 @@
+require "test_helper"
+
+describe RemoteValidationsHelper do
+
+  it "must be a real test" do
+    flunk "Need real tests"
+  end
+
+end
