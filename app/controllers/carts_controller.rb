@@ -37,7 +37,7 @@ class CartsController < ApplicationController
       clear_session
       respond_with @cart
     when :checkout_failed
-      # failed becausesomething isnt available anymore
+      # failed because something isnt available anymore
       respond_with @cart
     end
   end

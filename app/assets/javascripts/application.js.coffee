@@ -55,6 +55,7 @@
 #= require models/article/friendly_percent
 #= require models/library/libraries
 #= require models/user/colorbox_links
+#= require models/cart/unified
 
 #= require visual/accordion
 #= require visual/tooltip
