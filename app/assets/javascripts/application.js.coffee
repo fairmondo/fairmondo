@@ -73,6 +73,8 @@
 #= require visual/touch_hover
 #= require visual/ajax_spinner
 #= require visual/category_dropdown_max_right
+#= require visual/remote_validation
+#= require visual/input_enforcement
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
