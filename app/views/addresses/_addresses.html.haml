@@ -1,4 +1,4 @@
 .Addresses
   .Grid
-    - current_user.addresses.where.not(id: current_user.standard_address_id).each do |address|
-      = render 'addresses/address', address: address, radio: params[:radio] ? params[:radio] : radio
+    - current_user.addresses.where.not(id: current_user.standard_address_id).order(:id).each do |address|
+      = render 'addresses/address', address: address, radio: radio

@@ -20,7 +20,7 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.build(params.for(Address).refine)
     authorize @address
     if @address.save
-      redirect_to user_address_path(current_user, @address)
+      redirect_to user_address_path(current_user, @address, radio: params[:radio])
     end
   end
 
@@ -32,7 +32,7 @@ class AddressesController < ApplicationController
   def update
     authorize @address
     if @address.update(params.for(Address).refine)
-      redirect_to user_address_path(current_user, @address)
+      redirect_to user_address_path(current_user, @address, radio: params[:radio])
     end
   end
 

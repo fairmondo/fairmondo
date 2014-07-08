@@ -10,6 +10,7 @@
     = f.input :zip, required: true
     = f.input :city, required: true
     = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+    = hidden_field_tag :radio, params[:radio]
 
   = f.actions do
     = f.action :submit
