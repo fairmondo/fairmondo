@@ -26,7 +26,6 @@ class CartCheckoutForm
     build_form_objects_from checkout ? session[:cart_checkout] : params
     return :invalid unless valid?
     unless checkout
-
       session[:cart_checkout] = params # save everything in session
       return :saved_in_session
     else
