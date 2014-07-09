@@ -176,12 +176,10 @@ feature "User account management" do
     @user.reload.unconfirmed_email.wont_equal 'chunky@bacon.com'
   end
 
-  scenario "user wants to change the password for his account" do
-    @user = FactoryGirl.create :user
+  scenario "user wants to change the password for his account without having address" do
+    @user = FactoryGirl.create :incomplete_user
     login_as @user
     visit edit_user_registration_path @user
-    select 'Herr', from: 'address_title'
-    select 'Deutschland', from: 'address_country'
     fill_in 'user_current_password', with: 'password'
     fill_in 'user_password', with: 'changedpassword'
     fill_in 'user_password_confirmation', with: 'changedpassword'
@@ -191,7 +189,7 @@ feature "User account management" do
 
   end
 
-  scenario "user wantsto change the password for account without current password" do
+  scenario "user wants to change the password for account without current password" do
     @user = FactoryGirl.create :user
     login_as @user
     visit edit_user_registration_path @user
