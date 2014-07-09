@@ -30,6 +30,8 @@
                 = library.user_nickname
               = link_to library_path(library), :class => "Button" do
                 = t('library.show')
+              = link_to library_hearts_path(library), class: "Button hearts-button", method: :post, remote: true do
+                = "Add Heart"
             = render "library", :library => library
 
     = paginate @libraries
