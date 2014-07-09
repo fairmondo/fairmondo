@@ -1,1 +1,3 @@
-= render 'addresses/addresses_ajax', radio: params[:radio] == 'true' ? true : false,  value: 0
+:plain
+  $("#address_#{@address.id}").remove();
+  $.colorbox.close();

@@ -1,5 +1,4 @@
 class AddressesController < ApplicationController
-  responders :location
   respond_to :html, only: [:edit, :new]
   respond_to :js, if: lambda { request.xhr? }
   before_filter :set_address, except: [ :new, :create]
@@ -14,7 +13,9 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.build(params.for(Address).refine)
     authorize @address
     if @address.save
-      redirect_to user_address_path(current_user, @address, radio: params[:radio])
+      render :create
+    else
+      render :new
     end
   end
 
@@ -25,19 +26,22 @@ class AddressesController < ApplicationController
 
   def update
     authorize @address
-    if @address.update(params.for(Address).refine)
-      redirect_to user_address_path(current_user, @address, radio: params[:radio])
+    @address.assign_attributes(params.for(Address).refine)
+    @address = @address.duplicate_if_referenced!
+    if @address.save
+      render :update
+    else
+      render :edit
     end
-  end
-
-  def show
-    authorize @address
-    respond_with current_user, @address
   end
 
   def destroy
     authorize @address
-    @address.destroy
+    if @address.is_referenced?
+      @address.stash!
+    else
+      @address.destroy
+    end
   end
 
   private
