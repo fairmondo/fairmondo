@@ -19,10 +19,11 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
+// Lieferzeit, preise? (auch le), DELETE CHROME PASSWORD
 = f.input_step :title_and_categories, default_step: true do
   = f.inputs do
     .Accordion-step
-      = f.input :title, tooltip: true, required: true
+      = f.input :title, tooltip: true, required: true, input_html: { class: 'JS-remote-validate-blur' }
     .Accordion-step
       = render '/categories/select_categories/selected_categories', f: f
       = f.input :category_ids, as: :select, collection: Category.other_category_last.sorted.roots, tooltip: true, required: true, multiple: true, include_blank: true, input_html: {class: "category-nativeselect"}
@@ -38,10 +39,10 @@
         = f.input :condition_extra, required: true
   = f.inputs do
     .Accordion-step
-      = f.input :content, as: :text, tooltip: true, required: true, input_html: {class: "tinymce"}
+      = f.input :content, as: :text, tooltip: true, required: true, input_html: { class: "tinymce" }
       = tinymce
     .Accordion-step
-      = f.input :quantity, tooltip: true
+      = f.input :quantity, tooltip: true, input_html: { class: 'JS-enforce-input-constraints' }
     .Accordion-step
       = f.input :price, tooltip: true, input_html: {value: number_with_precision(f.object.price, precision: 2) }, required: true
     - if current_user.is_a?(LegalEntity)
@@ -84,7 +85,7 @@
       = f.input :unified_transport if current_user.is_a? LegalEntity
       -# should generate a warning if not set in the users profile
       = f.input :transport_details, input_html: {rows: 7}
-      = f.input :transport_time, tooltip: true
+      = f.input :transport_time, tooltip: true, input_html: { class: 'JS-enforce-input-constraints JS-remote-validate-blur', data: { enforcement_pattern: '/^\d\d?\-?\d?\d?$/' } }
   .Accordion-step
     %p
     = f.inputs tooltip: t('formtastic.tooltips.article.payment') do
