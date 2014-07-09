@@ -8,6 +8,9 @@
       %span.library-user
         = t('common.text.glue.from')
         = library.user_nickname
+      %span.library-hearts
+        = "Hearts"
+        = library.hearts.count
     .library-thumbnails
       - library.library_elements.first(10).each do |library_element|
         - if library_element.article
