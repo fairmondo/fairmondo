@@ -5,50 +5,68 @@ describe BusinessTransactionMailerHelper do
 
   before( :each ) do
     @business_transaction = FactoryGirl.create :business_transaction_with_buyer
+    buyer                 = @business_transaction.buyer
+    @business_transaction.transport_address = buyer.standard_address
+    @business_transaction.payment_address  = buyer.standard_address
   end
 
   describe "#transaction_mail_greeting( transaction, role )" do
     context "dependent on role it should return the right greeting" do
       it "if role is buyer it should return buyer greeting" do
-        helper.transaction_mail_greeting( @business_transaction, :buyer ).must_equal I18n.t('transaction.notifications.greeting') + @business_transaction.buyer_forename + ','
+        helper.transaction_mail_greeting( @business_transaction, :buyer ).must_equal I18n.t('transaction.notifications.greeting') + @business_transaction.buyer.standard_address_first_name + ','
       end
 
       it "if role is seller it should return seller greeting" do
-        helper.transaction_mail_greeting( @business_transaction, :seller ).must_equal I18n.t('transaction.notifications.greeting') + @business_transaction.article_seller_forename + ','
+        helper.transaction_mail_greeting( @business_transaction, :seller ).must_equal I18n.t('transaction.notifications.greeting') + @business_transaction.article_seller.standard_address_first_name + ','
       end
     end
   end
 
 
-  describe "#show_contact_info_seller( seller )" do
+  describe "#contact_info_for( seller )" do
     it "should return the right address for the seller" do
       [FactoryGirl.create(:private_user), FactoryGirl.create(:legal_entity), FactoryGirl.create(:legal_entity_without_company_name)].each do |user|
-        show_contact_info_seller = helper.show_contact_info_seller( user )
+        contact_info = helper.contact_info_for( user )
         if user.class == 'LegalEntity'
-          show_contact_info_seller.must_include( user.nickname )
-          show_contact_info_seller.must_include( user.company_name )
+          contact_info.must_include( user.nickname )
+          contact_info.must_include( user.company_name )
         end
-        show_contact_info_seller.must_include( user.forename )
-        show_contact_info_seller.must_include( user.surname )
-        show_contact_info_seller.must_include( user.street )
-        show_contact_info_seller.must_include( user.address_suffix )
-        show_contact_info_seller.must_include( user.city )
-        show_contact_info_seller.must_include( user.zip )
-        show_contact_info_seller.must_include( user.country )
+        contact_info.must_include( user.standard_address.first_name )
+        contact_info.must_include( user.standard_address.last_name )
+        contact_info.must_include( user.standard_address.address_line_1 )
+        contact_info.must_include( user.standard_address.address_line_2 )
+        contact_info.must_include( user.standard_address.city )
+        contact_info.must_include( user.standard_address.zip )
+        contact_info.must_include( user.standard_address.country )
       end
     end
   end
 
   describe "#show_buyer_address( business_transaction )" do
-    it "should return the right address for the buyer" do
-      address = helper.show_buyer_address( @business_transaction )
-      address.must_contain( @business_transaction.forename )
-      address.must_contain( @business_transaction.surname )
-      address.must_contain( @business_transaction.address_suffix )
-      address.must_contain( @business_transaction.street )
-      address.must_contain( @business_transaction.city )
-      address.must_contain( @business_transaction.zip )
-      address.must_contain( @business_transaction.country )
+    it "should return the right transport_address for the buyer" do
+      address = helper.show_buyer_address( @business_transaction.transport_address )
+      address.must_contain( @business_transaction.transport_address.title )
+      address.must_contain( @business_transaction.transport_address.first_name )
+      address.must_contain( @business_transaction.transport_address.last_name )
+      address.must_contain( @business_transaction.transport_address.address_line_1 )
+      address.must_contain( @business_transaction.transport_address.address_line_2 )
+      address.must_contain( @business_transaction.transport_address.city )
+      address.must_contain( @business_transaction.transport_address.zip )
+      address.must_contain( @business_transaction.transport_address.country )
+    end
+  end
+
+  describe "#show_buyer_address( business_transaction )" do
+    it "should return the right payment_address for the buyer" do
+      address = helper.show_buyer_address( @business_transaction.payment_address )
+      address.must_contain( @business_transaction.payment_address.title )
+      address.must_contain( @business_transaction.payment_address.first_name )
+      address.must_contain( @business_transaction.payment_address.last_name )
+      address.must_contain( @business_transaction.payment_address.address_line_1 )
+      address.must_contain( @business_transaction.payment_address.address_line_2 )
+      address.must_contain( @business_transaction.payment_address.city )
+      address.must_contain( @business_transaction.payment_address.zip )
+      address.must_contain( @business_transaction.payment_address.country )
     end
   end
 

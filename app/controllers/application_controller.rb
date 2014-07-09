@@ -94,9 +94,9 @@ class ApplicationController < ActionController::Base
     # If user wants to sell
     def ensure_complete_profile
       # Check if the user has filled all fields
-      if !current_user.can_sell?
+      unless current_user.can_sell?
         flash[:error] = t('article.notices.incomplete_profile')
-        redirect_to edit_user_registration_path(:incomplete_profile => true)
+        redirect_to edit_user_registration_path(incomplete_profile: true)
       end
     end
 

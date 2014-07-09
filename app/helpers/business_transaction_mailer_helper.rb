@@ -7,47 +7,50 @@ module BusinessTransactionMailerHelper
   def transaction_mail_greeting transaction, role
     case role
       when :buyer
-        t('transaction.notifications.greeting') + (transaction.buyer_forename || transaction.forename) + ','
+        t('transaction.notifications.greeting') + (transaction.buyer.standard_address_first_name) + ','
       when :seller
-        t('transaction.notifications.greeting') + transaction.article_seller_forename + ','
+        t('transaction.notifications.greeting') + transaction.article_seller.standard_address.first_name + ','
     end
   end
 
-  def show_contact_info_seller seller
+  def contact_info_for(seller)
+    address = seller.standard_address
+
     string = ""
     string += t('transaction.notifications.seller.nickname')
     string += "#{seller.nickname}\n"
     string += "#{user_url seller}\n\n"
     if seller.is_a? LegalEntity
-      if seller.company_name.present?
+      if address.company_name?
         string += t('transaction.notifications.seller.company_name')
-        string += "#{seller.company_name}\n"
+        string += "#{address.company_name}\n"
       end
       string += t('transaction.notifications.seller.contact_person')
-      string += "#{seller.forename} #{seller.surname}\n"
+      string += "#{address.first_name} #{address.last_name}\n"
     else
-      string += "#{seller.title}\n" if seller.title
-      string += "#{seller.forename} #{seller.surname}\n"
+      string += "#{address.title}\n" if address.title
+      string += "#{address.first_name} #{address.last_name}\n"
     end
-    string += "#{seller.address_suffix}\n" if seller.address_suffix
-    string += "#{seller.street}\n"
-    string += "#{seller.zip} #{seller.city}\n"
-    string += "#{seller.country}\n\n"
+    string += "#{address.address_line_1}\n"
+    string += "#{address.address_line_2}\n" if address.address_line_2
+    string += "#{address.zip} #{address.city}\n"
+    string += "#{address.country}\n\n"
     string += "#{seller.email}"
     string
   end
 
-  def show_buyer_address transaction
+  def show_buyer_address(address)
     string = ""
-    string += "#{transaction.forename} #{transaction.surname}\n"
-    string += "#{transaction.address_suffix}\n" if transaction.address_suffix
-    string += "#{transaction.street}\n"
-    string += "#{transaction.zip} #{transaction.city}\n"
-    string += "#{transaction.country}"
+    string = "#{address.title}"
+    string += "#{address.first_name} #{address.last_name}\n"
+    string += "#{address.address_line_1}\n"
+    string += "#{address.address_line_2}\n" if address.address_line_2
+    string += "#{address.zip} #{address.city}\n"
+    string += "#{address.country}"
     string
   end
 
-  def order_details transaction, role = :buyer
+  def order_details(transaction, role = :buyer)
     string = ""
     string += transaction.article_title + "\n"
     if transaction.article_custom_seller_identifier
