@@ -51,21 +51,19 @@
         .visibility
           = t('users.visibility.private')
           %span.sprite_helper{title: "Nur für Dich sichtbar." }
-        %h4
-          = t('formtastic.labels.user.customer_number') + ":"
+        %h4= t('formtastic.labels.user.customer_number') + ":"
         %p
           = current_user.customer_nr
       .Accordion-step
         .visibility
           = t('users.visibility.public')
-        %h4
-          = "#{t('formtastic.labels.user.image')}: "
+        %h4= "#{t('formtastic.labels.user.image')}: "
         %p
           = image_tag(@user.image_url(:original), class: "img-polaroid ")
-        - f.object.build_image unless f.object.image # Build the Image object for the form
-        = f.semantic_fields_for :image do |image|
-          = f.inputs do
-            = image.input :image, label: false, as: :file, tooltip: true, required: false
+          - f.object.build_image unless f.object.image # Build the Image object for the form
+          = f.semantic_fields_for :image do |image|
+            = f.inputs do
+              = image.input :image, label: false, as: :file, tooltip: true, required: false
 
       .Accordion-step
         .visibility
@@ -86,10 +84,10 @@
           = t('users.visibility.public')
         %h3
           = t('users.title.state')
-        = f.input :vacationing, tooltip: true
+        = f.input :vacationing,as: :boolean, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
-
-    = f.input_step :contact do
+    - @user.standard_address ||= resource.addresses.build
+    = f.input_step :contact, has_errors: @user.standard_address.errors.any? do
       = f.inputs do
 
         .Accordion-step
@@ -98,28 +96,38 @@
 
           - if current_user.is_a?(LegalEntity)
             %h3= t('users.form_titles.contact_person')
-
-          = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-          = f.input :forename, required: true
-          = f.input :surname, required: true
-
-          - if current_user.is_a?(LegalEntity)
-            = f.input :company_name
+          = semantic_fields_for @user.standard_address do |af|
+            = af.inputs do
+              = af.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+              = af.input :first_name, required: true
+              = af.input :last_name, required: true
 
         .Accordion-step
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 
           %h3= t('users.form_titles.address')
+          = semantic_fields_for @user.standard_address do |af|
+            = af.inputs do
+              - if @user.is_a?(LegalEntity)
+                = af.input :company_name
+              = af.input :address_line_1, required: true
+              = af.input :address_line_2
+              = af.input :zip, required: true
+              = af.input :city, required: true
+              = af.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
 
-          = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-          = f.input :address_suffix
-          = f.input :street, required: true
-          = f.input :zip, required: true
-          = f.input :city, required: true
           = f.input :phone
           = f.input :mobile
           = f.input :fax
+
+        .Accordion-step
+          .visibility
+            = t('users.visibility.private')
+          %h3= 'Deine Versandaddressen'
+          = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
+
+        = render 'addresses/addresses', radio: false
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do
@@ -151,7 +159,6 @@
           = f.input :direct_debit, required: true, label: t('formtastic.labels.user.direct_debit1_html').html_safe + direct_debit_link + t('formtastic.labels.user.direct_debit2_html').html_safe
 
         .Accordion-step
-
           %h3= t('users.form_titles.payment_paypal')
 
           = f.input :paypal_account, label: t('formtastic.labels.user.paypal_account'), tooltip: true

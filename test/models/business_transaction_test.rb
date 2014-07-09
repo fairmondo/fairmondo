@@ -37,13 +37,6 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :state }
     it { subject.must_respond_to :parent_id }
     it { subject.must_respond_to :article_id }
-    it { subject.must_respond_to :forename }
-    it { subject.must_respond_to :surname }
-    it { subject.must_respond_to :street }
-    it { subject.must_respond_to :address_suffix }
-    it { subject.must_respond_to :city }
-    it { subject.must_respond_to :zip }
-    it { subject.must_respond_to :country }
     it { subject.must_respond_to :seller_id }
     it { subject.must_respond_to :sold_at }
     it { subject.must_respond_to :purchase_emails_sent }
@@ -52,11 +45,15 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :billed_for_fair }
     it { subject.must_respond_to :billed_for_fee }
     it { subject.must_respond_to :billed_for_discount }
+    it { subject.must_respond_to :transport_address_id }
+    it { subject.must_respond_to :payment_address_id }
   end
 
   describe "associations" do
     it { subject.must belong_to :article }
     it { subject.must belong_to :buyer  }
+    it { subject.must belong_to :payment_address }
+    it { subject.must belong_to :transport_address }
   end
 
   describe "enumerization" do # I asked for clarification on how to do this: https://github.com/brainspec/enumerize/issues/136 - maybe comment back in when we have a positive response.

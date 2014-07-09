@@ -35,13 +35,17 @@
 
 <%= t('transaction.edit.seller_data') %>
 
-<%= show_contact_info_seller @seller %>
+<%= contact_info_for @seller %>
 
 ***
 
-<%= t('transaction.edit.address') %>
+<%= t('transaction.edit.transport_address') %>
 
-<%= show_buyer_address @transaction %>
+<%= show_buyer_address @transaction.transport_address %>
+
+<%= t('transaction.edit.payment_address') %>
+
+<%= show_buyer_address @transaction.payment_address %>
 
 ***
 

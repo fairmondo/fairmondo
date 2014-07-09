@@ -33,12 +33,17 @@
 %h5
   = t('transaction.edit.seller_data')
 %p
-  = simple_format show_contact_info_seller( @seller )
+  = simple_format contact_info_for( @seller )
 %hr
 %h5
-  = t('transaction.edit.address')
+  = t('transaction.edit.transport_address')
 %p
-  = simple_format show_buyer_address( @transaction )
+  = simple_format show_buyer_address( @transaction.shipping_address)
+%hr
+%h5
+  = t('transaction.edit.payment_address')
+%p
+  = simple_format show_buyer_address( @transaction.billing_address )
 
 - if @transaction.article_seller.is_a? LegalEntity
   %hr

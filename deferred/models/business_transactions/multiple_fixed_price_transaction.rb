@@ -30,7 +30,7 @@ class MultipleFixedPriceTransaction < BusinessTransaction
   has_many :children, class_name: 'PartialFixedPriceTransaction', foreign_key: 'parent_id', inverse_of: :parent
 
   validates :quantity_available, presence: true, numericality: true
-  validates :quantity_bought, numericality: { greater_than: 0, less_than_or_equal_to: ->(record) { record.quantity_available } }, allow_nil: true
+  validates :quantity_bought, quantity_bought: true
 
   # Allow quantity_available field for this transaction type
   def quantity_available
@@ -64,6 +64,7 @@ class MultipleFixedPriceTransaction < BusinessTransaction
   # The main transition handler (see class description)
   # @return [Boolean] not important
   def buy_multiple_business_transactions
+    self.updating_multiple = true
     self.quantity_bought ||= 1
     if self.quantity_bought <= self.quantity_available # should not be false
       self.forwarding_data_to_partial = true
@@ -81,13 +82,8 @@ class MultipleFixedPriceTransaction < BusinessTransaction
       selected_transport: self.selected_transport,
       selected_payment: self.selected_payment,
       message: self.message,
-      forename: self.forename,
-      surname: self.surname,
-      address_suffix: self.address_suffix,
-      street: self.street,
-      city: self.city,
-      zip: self.zip,
-      country: self.country
+      shipping_address_id: self.shipping_address_id,
+      billing_address_id: self.billing_address_id
     })
 
     # protected attrs
@@ -100,20 +96,16 @@ class MultipleFixedPriceTransaction < BusinessTransaction
     return partial
   end
 
-  def clear_data
+  def clear_data_and_save
     self.buyer = nil
     self.quantity_bought = nil
     self.selected_transport = nil
     self.selected_payment = nil
     self.message = nil
-    self.forename = nil
-    self.surname = nil
-    self.address_suffix = nil
-    self.street = nil
-    self.city = nil
-    self.zip = nil
-    self.country = nil
-    self.tos_accepted = nil
+    self.shipping_address_id = nil
+    self.billing_address_id = nil
+
+    self.save!
   end
 
   # This might be called on article update when quantity has changed to 1

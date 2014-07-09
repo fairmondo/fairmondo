@@ -34,7 +34,7 @@
 <% else %>
 <%= t('transaction.notifications.seller.shipping_request') %>
 <% end %>
-<%= show_buyer_address @transaction %>
+<%= show_buyer_address @transaction.shipping_address%>
 
 <%= t('transaction.notifications.seller.buyer_email') %>
 <%= @transaction.buyer_email %>

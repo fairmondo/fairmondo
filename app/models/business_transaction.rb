@@ -25,16 +25,14 @@ class BusinessTransaction < ActiveRecord::Base
 
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 
-  attr_accessor :forwarding_data_to_partial, :checking_out
-
   belongs_to :article, inverse_of: :business_transactions
-  belongs_to :line_item_group, inverse_of: :business_transactions
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :bought_business_transactions
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
 
+  belongs_to :line_item_group
+
   has_one :rating, inverse_of: :business_transaction
 
-  auto_sanitize :forename, :surname, :street, :address_suffix, :city, :zip, :country
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -49,33 +47,28 @@ class BusinessTransaction < ActiveRecord::Base
            :custom_seller_identifier, :number_of_shipments, :cash_on_delivery_price,
            :active?, :transport_time,
            to: :article, prefix: true
-
-  delegate :email, :forename, :surname, :fullname, :nickname,
-           to: :buyer, prefix: true
-
-  delegate :email, :fullname, :nickname, :phone, :mobile, :address, :forename,
+  delegate :email, :nickname, to: :buyer, prefix: true
+  delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
+           :zip, :city, :country, to: :transport_address, prefix: true
+  delegate :title, :first_name, :last_name, :address_line_1, :address_line_2, :company_name,
+           :zip, :city, :country, to: :payment_address, prefix: true
+  delegate :email, :fullname, :nickname, :phone, :mobile, :address,
            :bank_account_owner, :bank_account_number, :bank_code, :bank_name,
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
-
   delegate :value, to: :rating, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
+  delegate :payment_address, :transport_address , to: :line_item_group
 
-  validates :article, presence: true
 
 
-  #validates :buyer, presence: true
-  #validates :quantity_bought, presence: true
   validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
-#  validates :forename, presence: true
-#  validates :surname, presence: true
-#  validates :address_suffix, length: { maximum: 150 }
-#  validates :street, format: /\A.+\d+.*\z/, presence: true
-#  validates :city, presence: true
-#  validates :zip, zip: true, presence: true
-#  validates :country, presence: true
+
+  validates :buyer, presence: true
+  validates :line_item_group, presence: true
+  validates :article, presence: true
 
 
   state_machine initial: :sold do
@@ -118,7 +111,5 @@ class BusinessTransaction < ActiveRecord::Base
       self.article.transport_type2_provider
     end
   end
-
-
 
 end

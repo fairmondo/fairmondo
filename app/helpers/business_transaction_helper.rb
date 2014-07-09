@@ -169,7 +169,7 @@ module BusinessTransactionHelper
     end
 
     tablerow(
-      t('transaction.edit.shipping_and_handling'),
+      t('transaction.edit.transport_and_handling'),
       output_data
     )
   end
@@ -197,20 +197,15 @@ module BusinessTransactionHelper
     )
   end
 
-  def back_link quantity_bought, selected_transport, selected_payment, forename, surname, street, address_suffix, city, zip, country
+  def back_link quantity_bought, selected_transport, selected_payment, transport_address_id, payment_address_id
     link_to t('common.actions.back'),
       edit_business_transaction_path(@business_transaction,
         business_transaction: {
           quantity_bought: quantity_bought,
           selected_transport: selected_transport,
           selected_payment: selected_payment,
-          forename: forename,
-          surname: surname,
-          street: street,
-          address_suffix: address_suffix,
-          city: city,
-          zip: zip,
-          country: country
+          transport_address_id: transport_address_id,
+          payment_address_id: payment_address_id
         }
       ),
       class: 'Button Button--gray'

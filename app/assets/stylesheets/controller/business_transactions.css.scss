@@ -16,7 +16,7 @@
 
 // borders
 
-.article-display, .address,.about_terms_cancellation, 
+.article-display, .address,.about_terms_cancellation,
 .message, .purchase_data , .price_data, .transport_data {
   border-bottom: solid 2px $sand;
   padding-bottom: 1.5em;
@@ -33,7 +33,7 @@ h1.your_article {
 // transaction#edit transport price options label
 
 .transactions-form  ul.price-list {
-   list-style: disc; 
+   list-style: disc;
    margin-left:3em;
    margin-bottom:1em;
 }
@@ -86,14 +86,14 @@ h1.your_article {
 
 // tables
 
-.purchase_data ,.price_data  ,.transport_data, 
+.purchase_data ,.price_data  ,.transport_data,
 .payment_data , .further_questions {
   overflow-x:auto;
   td,th {
     text-align: left;
     vertical-align: top;
   }
-  
+
   td {
     min-width:15em;
     word-break: break-all;
@@ -111,7 +111,7 @@ h1.your_article {
 // thumbnail image step2
 
 .article-thumbnail {
-  
+
   @include at-breakpoint($bp-tablet) {
     float: right;
   }
@@ -125,3 +125,25 @@ h1.your_article {
     border-radius: 0.9em;
   }
 }
+
+.address-list {
+  ol > li {
+    @include between-breakpoints($bp-mobile,$bp-tablet) {
+      @include grid-with-columns(2);
+    }
+
+    @include between-breakpoints($bp-tablet, $bp-desktop) {
+      @include grid-with-columns(3);
+    }
+
+    @include at-breakpoint($bp-desktop) {
+      @include grid-with-columns(4);
+    }
+  }
+}
+
+
+.address-list {
+    @include clearfix;
+  }
+

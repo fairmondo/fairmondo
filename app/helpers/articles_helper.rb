@@ -87,7 +87,7 @@ module ArticlesHelper
       end
 
       if type == 'transport' && method == 'pickup'
-        html << ", <br/>PLZ: #{resource.seller.zip}"
+        html << ", <br/>PLZ: #{resource.seller.standard_address_zip}"
       end
 
       html << '</li>'
