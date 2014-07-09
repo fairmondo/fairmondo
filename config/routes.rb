@@ -121,7 +121,7 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation'
+  post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: {format: 'json'}
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
