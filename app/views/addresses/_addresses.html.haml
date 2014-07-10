@@ -1,4 +1,4 @@
-.Addresses
-  .Grid
-    - current_user.addresses.where.not(id: current_user.reload.standard_address_id).order(:id).each do |address|
-      = render 'addresses/address', address: address, radio: radio, editable: true, checked: value == address.id
+- value = 0 unless value
+.Addresses.Grid
+  - current_user.addresses.where(stashed: false).where.not(id: current_user.reload.standard_address_id).order(:id).each do |address|
+    = render 'addresses/address', address: address, radio: radio, checked: value == address.id

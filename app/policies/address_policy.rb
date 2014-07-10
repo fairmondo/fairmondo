@@ -24,10 +24,14 @@ class AddressPolicy < Struct.new(:user, :address)
   end
 
   def destroy?
-    own?
+    own? && !standard_address?
   end
 
   private
+
+    def standard_address?
+      user.standard_address_id == address.id
+    end
 
     def own?
       user && user.id == address.user_id
