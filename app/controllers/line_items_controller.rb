@@ -24,6 +24,7 @@ class LineItemsController < ApplicationController
   responders :location
 
   skip_before_filter :authenticate_user!, only: [:create, :update, :destroy]
+  before_filter :quantity_zero_means_destroy, only: [:update]
 
   def create
     @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
@@ -41,28 +42,21 @@ class LineItemsController < ApplicationController
   end
 
   def update
-    @line_item = LineItem.find(params[:id])
-    @line_item.cart_cookie = cookies.signed[:cart]
-    authorize @line_item
+    find_and_authorize_line_item
 
     unless @line_item.update(params.for(@line_item).refine)
       flash[:error] = I18n.t('line_item.notices.error_update')
     end
 
-    cart = Cart.find(cookies.signed[:cart])
-    refresh_cookie cart
-    redirect_to cart
+    set_and_redirect_to_cart
   end
 
   def destroy
-    @line_item = LineItem.find(params[:id])
-    @line_item.cart_cookie = cookies.signed[:cart]
-    authorize @line_item
+    find_and_authorize_line_item
+
     @line_item.destroy
 
-    cart = Cart.find(cookies.signed[:cart])
-    refresh_cookie cart
-    redirect_to cart
+    set_and_redirect_to_cart
   end
 
   private
@@ -72,11 +66,30 @@ class LineItemsController < ApplicationController
       @cart
     end
 
+    def find_and_authorize_line_item
+      @line_item = LineItem.find(params[:id])
+      @line_item.cart_cookie = cookies.signed[:cart]
+      authorize @line_item
+    end
+
+    def set_and_redirect_to_cart
+      cart = Cart.find(cookies.signed[:cart])
+      refresh_cookie cart
+      redirect_to cart
+    end
+
     def find_or_create_line_item_group
       @cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
     end
 
     def refresh_cookie cart
       cookies.signed[:cart] = { value: cart.id, expires: 30.days.from_now }
+    end
+
+    # called before update
+    def quantity_zero_means_destroy
+      if params[:line_item] && params[:line_item][:requested_quantity] == '0'
+        destroy
+      end
     end
 end
