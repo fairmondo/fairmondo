@@ -112,7 +112,7 @@ class CartCheckoutForm
     end
 
     def assign_transport_address address_id
-      if address_id
+      if address_id && address_id != "0"
         self.transport_address = cart.user.addresses.find address_id
       else
         self.transport_address = self.payment_address

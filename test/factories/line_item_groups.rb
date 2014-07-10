@@ -3,10 +3,8 @@
 FactoryGirl.define do
   factory :line_item_group do
     cart
-    user
-
+    seller
     message "MyText"
     tos_accepted false
-    master_line_item_id 1
   end
 end

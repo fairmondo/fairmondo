@@ -1,4 +1,4 @@
-.Grid-item
+.Grid-item{ id: "address_#{address.id}" }
   .Address
     - radio = nil unless radio
     - if radio
@@ -15,7 +15,7 @@
         = "#{ address.zip } #{ address.city }"
         %br
         = address.country
-    - if editable
-      .Address-controls
-        = link_to 'bearbeiten', edit_user_address_path(current_user, address, radio: radio), class: 'colorbox Button edit-button'
+    .Address-controls
+      = link_to 'bearbeiten', edit_user_address_path(current_user, address, radio: radio), class: 'colorbox Button edit-button'
+      - if policy(address).destroy?
         = link_to 'löschen', user_address_path(current_user, address, radio: radio), method: :delete, class: 'Button Button--red', remote: true

@@ -46,6 +46,7 @@
 #= require vendor/jquery.colorbox
 #= require vendor/jquery.truncator
 #= require vendor/jquery.autocomplete
+#= require vendor/jquery.caret
 
 
 #= require models/article/categories
