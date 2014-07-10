@@ -1,11 +1,16 @@
 class MegaMigration < ActiveRecord::Migration
 
+  class Article < ActiveRecord::Base
+    has_many :business_transactions
+    belongs_to :seller, class_name: 'PseudoUser', foreign_key: 'user_id'
+  end
+
   # From "Make Ready for Battle"
   class BusinessTransaction < ActiveRecord::Base
     belongs_to :line_item_group
     belongs_to :article
-    belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
-    belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+    belongs_to :seller, class_name: 'PseudoUser', foreign_key: 'seller_id'
+    belongs_to :buyer, class_name: 'PseudoUser', foreign_key: 'buyer_id'
   end
 
   class LineItemGroup < ActiveRecord::Base
@@ -13,19 +18,16 @@ class MegaMigration < ActiveRecord::Migration
   end
 
   # From "MoveAddressesFromUserModelToAddressModel"
-  class User < ActiveRecord::Base
-    has_many :addresses
+  class PseudoUser < ActiveRecord::Base
+    self.table_name =  "users"
+    has_many :addresses, foreign_key: 'user_id'
     has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
   end
+
   class Address < ActiveRecord::Base
-    belongs_to :user
+    belongs_to :user, class_name: 'PseudoUser', foreign_key: 'user_id' # As buyer
   end
-  class LegalEntity < User
-    extend STI
-  end
-  class PrivateUser < User
-    extend STI
-  end
+
 
 
   def up
@@ -125,13 +127,22 @@ class MegaMigration < ActiveRecord::Migration
       mfp.destroy
     end
 
+
     BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
 
     BusinessTransaction.where(state: 'available').find_each do |t|
       t.destroy
     end
+
+    sfpt = BusinessTransaction.where(type_fix: 'SingleFixedPriceTransaction')
+    sfpt.find_each do |sfp|
+      sfp.article.update_column(:quantity_available, 0 )
+    end
+
+
     BusinessTransaction.all.find_each do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at)
+      lig.reload
       t.line_item_group_id = lig.id
       t.save!
     end
@@ -139,8 +150,9 @@ class MegaMigration < ActiveRecord::Migration
 
 
     # MoveAddressesFromUserModelToAddressModel
-    User.find_each do |user|
-      std_add = user.addresses.build(
+    PseudoUser.find_each do |user|
+      user = user.becomes(PseudoUser)
+      std_add = Address.create(
         title: user.title,
         first_name: user.forename,
         last_name: user.surname,
@@ -149,11 +161,11 @@ class MegaMigration < ActiveRecord::Migration
         address_line_2: user.address_suffix,
         zip: user.zip,
         city: user.city,
-        country: user.country
+        country: user.country,
+        user_id: user.id
       )
-      std_add.save
       std_add.reload
-      user.update_column standard_address_id: std_add.id
+      user.update_column :standard_address_id, std_add.id
 
       user.bought_business_transactions.find_each do |bt|
         new_address = true
