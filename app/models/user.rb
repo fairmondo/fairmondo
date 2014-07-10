@@ -70,9 +70,8 @@ class User < ActiveRecord::Base
 
   # Cart related Models
   has_many :carts # as buyer
-  has_many :line_item_groups, inverse_of: :seller # as seller
 
-    # Libraries and Library Elements
+  # Libraries and Library Elements
   has_many :libraries, dependent: :destroy
   has_many :library_elements, through: :libraries
 
