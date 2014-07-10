@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 describe HeartsController do
 
@@ -35,20 +35,20 @@ describe HeartsController do
         assert_response :success
       end
 
-      it 'change the heart count when posting' do
-        assert_difference '@library.hearts.count', 1 do
+      it "change the heart count when posting" do
+        assert_difference "@library.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
         end
       end
 
-      it 'adds maximally one heart even when posting multiple times' do
-        assert_difference '@library.hearts.count', 1 do
+      it "adds maximally one heart even when posting multiple times" do
+        assert_difference "@library.hearts.count", 1 do
           3.times { post :create, library_id: @library.id, format: :js }
         end
       end
 
-      it 'should allow hearting a second library' do
-        assert_difference '@library_2.hearts.count', 1 do
+      it "should allow hearting a second library" do
+        assert_difference "@library_2.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
           post :create, library_id: @library_2.id, format: :js
         end
@@ -68,20 +68,20 @@ describe HeartsController do
         assert_response :success
       end
 
-      it 'increases the heart count when posting' do
-        assert_difference '@library.hearts.count', 1 do
+      it "increases the heart count when posting" do
+        assert_difference "@library.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
         end
       end
 
-      it 'adds maximally one heart even when posting multiple times' do
-        assert_difference '@library.hearts.count', 1 do
+      it "adds maximally one heart even when posting multiple times" do
+        assert_difference "@library.hearts.count", 1 do
           3.times { post :create, library_id: @library.id, format: :js }
         end
       end
 
-      it 'should allow hearting a second library' do
-        assert_difference '@library_2.hearts.count', 1 do
+      it "should allow hearting a second library" do
+        assert_difference "@library_2.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
           post :create, library_id: @library_2.id, format: :js
         end
@@ -94,17 +94,18 @@ describe HeartsController do
         @library = FactoryGirl.create(:library)
         @user = FactoryGirl.create(:user)
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
-        @anonymous_heart = @library.hearts.create(heartable: @library, user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
+        @anonymous_heart = @library.hearts.create(heartable: @library,
+              user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
       end
 
       it "will not delete an owned heart" do
-        assert_difference '@library.hearts.count', 0 do
+        assert_difference "@library.hearts.count", 0 do
           delete :destroy, library_id: @library.id, id: @owned_heart.id
         end
       end
 
       it "will not delete an anonymous heart" do
-        assert_difference '@library.hearts.count', 0 do
+        assert_difference "@library.hearts.count", 0 do
           delete :destroy, library_id: @library.id, id: @anonymous_heart.id
         end
       end
@@ -119,23 +120,28 @@ describe HeartsController do
 
       it "will delete his own heart" do
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
-        assert_difference '@library.hearts.count', -1 do
-          delete :destroy, library_id: @library.id, id: @owned_heart.id, format: :js
+        assert_difference "@library.hearts.count", -1 do
+          delete :destroy, library_id: @library.id,
+            id: @owned_heart.id, format: :js
         end
       end
 
       it "will not delete an anonymous heart" do
-        @anonymous_heart = @library.hearts.create(heartable: @library, user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
+        @anonymous_heart = @library.hearts.create(heartable: @library,
+          user_token: "RandomUserTokenThiswouldActuallyBeRandomData")
         assert_raises Pundit::NotAuthorizedError do
-          delete :destroy, library_id: @library.id, id: @anonymous_heart.id, format: :js
+          delete :destroy, library_id: @library.id,
+            id: @anonymous_heart.id, format: :js
         end
       end
 
       it "will not delete someone else's heart" do
         @another_user = FactoryGirl.create(:user)
-        @another_users_heart = @library.hearts.create(heartable: @library, user: @another_user)
+        @another_users_heart = @library.hearts.create(heartable: @library,
+                                                      user: @another_user)
         assert_raises Pundit::NotAuthorizedError do
-          delete :destroy, library_id: @library.id, id: @another_users_heart.id, format: :js
+          delete :destroy, library_id: @library.id,
+            id: @another_users_heart.id, format: :js
         end
       end
 

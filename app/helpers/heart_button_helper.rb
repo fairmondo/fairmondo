@@ -24,7 +24,7 @@
 module HeartButtonHelper
   # Wraps the layout call and sanitizes the options
   #
-  # param heartable_resource: the resource that the user should be able to heart.
+  # param heartable_resource: the resource that the user can heart.
   # @return [String] The compiled HTML of the button element
   def heart_button(heartable_resource)
     if user_signed_in?

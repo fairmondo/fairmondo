@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class HeartTest < ActiveSupport::TestCase
   subject { Heart.new }
@@ -10,7 +10,7 @@ class HeartTest < ActiveSupport::TestCase
     it { subject.must_respond_to :heartable_id }
     it { subject.must_respond_to :heartable_type }
     it { subject.must_respond_to :user_id }
-    it { subject.must_respond_to :user_stamp }
+    it { subject.must_respond_to :user_token }
   end
 
   describe "associations" do
@@ -18,7 +18,7 @@ class HeartTest < ActiveSupport::TestCase
     it { subject.must belong_to :user  }
   end
 
-  let (:heart) { Heart.new() }
+  let (:heart) { Heart.new }
   let (:user) { FactoryGirl.create(:user) }
   let (:heartable) { FactoryGirl.create(:library) }
 
@@ -41,8 +41,7 @@ class HeartTest < ActiveSupport::TestCase
 
     it "barfs when trying to save a second heart" do
       heart.save
-      assert_raises(ActiveRecord::RecordNotUnique) { second_heart.save }
+      assert_raises(ActiveRecord::RecordInvalid) { second_heart.save! }
     end
   end
-
 end

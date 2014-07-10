@@ -4,11 +4,13 @@ class Heart < ActiveRecord::Base
 
   validates :heartable, presence: true
 
-  validates :user, presence: true,
-    uniqueness: { scope: [:heartable_id, :heartable_type] },
-    unless: -> { user_token.present? }
+  validates :user,
+            presence: true,
+            uniqueness: { scope: [:heartable_id, :heartable_type] },
+            unless: -> { user_token.present? }
 
-  validates :user_token, presence: true,
-    uniqueness: { scope: [:heartable_id, :heartable_type] },
-    unless: -> { user.present? }
+  validates :user_token,
+            presence: true,
+            uniqueness: { scope: [:heartable_id, :heartable_type] },
+            unless: -> { user.present? }
 end
