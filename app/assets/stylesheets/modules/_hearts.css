@@ -1,17 +1,22 @@
 div[class$="-hearts"] {
   float: right;
-  i.fa-heart {
+
+  > i.fa-heart {
     font-size: 1.2rem;
   }
+
 }
 
-.hearts-button {
+.Hearts-button {
   float: right;
   position: relative;
-  i.fa-heart {
+
+  > i.fa-heart {
     font-size: 1.4rem;
   }
-  i.fa-plus, i.fa-minus {
+
+  > i.fa-plus,
+  > i.fa-minus {
     position: absolute;
     color: white;
     z-index: 101;
@@ -19,4 +24,5 @@ div[class$="-hearts"] {
     left: 0.4rem;
     top: 0.35rem;
   }
+
 }

@@ -28,7 +28,7 @@ feature "Hearts for not-logged-in users" do
            "then likes a library and finds his heart" do
   library = FactoryGirl.create(:library_with_elements, public: true)
   visit libraries_path
-  page.must_have_selector(".hearts-button")
+  page.must_have_selector(".Hearts-button")
   page.must_have_selector(".library-hearts")
   within(".library-hearts") { page.must_have_content "0" }
 
@@ -47,7 +47,7 @@ feature "Hearts for logged-in users" do
   login_as user
 
   visit libraries_path
-  page.must_have_selector(".hearts-button")
+  page.must_have_selector(".Hearts-button")
   page.must_have_selector(".library-hearts")
   within(".library-hearts") { page.must_have_content "0" }
 
