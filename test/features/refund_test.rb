@@ -21,7 +21,7 @@ feature "Refunds" do
     stub_fastbill
     seller = FactoryGirl.create :legal_entity
     login_as seller
-    transaction = FactoryGirl.create :business_transaction_with_buyer, :older, seller: seller
+    transaction = FactoryGirl.create :business_transaction, :older, seller: seller
     visit user_path( seller )
     do_refund
   end
@@ -30,7 +30,7 @@ feature "Refunds" do
     stub_fastbill
     seller = FactoryGirl.create :private_user
     login_as seller
-    transaction = FactoryGirl.create :business_transaction_with_buyer, :old, seller: seller
+    transaction = FactoryGirl.create :business_transaction, :old, seller: seller
     visit user_path( seller )
     do_refund
   end
