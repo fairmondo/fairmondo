@@ -25,7 +25,7 @@ Fairnopoly::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   concern :heartable do
-    resources :hearts, :only => [:create, :destroy]
+    resources :hearts, only: [:create, :destroy]
   end
 
   namespace :admin do
@@ -114,7 +114,7 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, :only => [:index, :show], concerns: :heartable do
+  resources :libraries, only: [:index, :show], concerns: :heartable do
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'

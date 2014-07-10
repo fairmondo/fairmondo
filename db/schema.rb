@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20140708150110) do
   add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type", using: :btree
   add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true, using: :btree
   add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
+  add_index "hearts", ["user_token", "heartable_id", "heartable_type"], name: "index_hearts_on_user_token_and_heartable_id_and_heartable_type", unique: true, using: :btree
 
   create_table "images", force: true do |t|
     t.string   "image_file_name"

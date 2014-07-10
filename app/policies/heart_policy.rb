@@ -9,7 +9,7 @@ class HeartPolicy < Struct.new(:user, :heart)
 
   private
 
-    def own?
-      user && user.id == heart.user_id
-    end
+  def own?
+    user && user.id == heart.user_id
+  end
 end
