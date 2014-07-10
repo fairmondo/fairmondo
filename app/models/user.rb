@@ -71,9 +71,10 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :mass_uploads
 
-  # Cart related Models
+    # Cart related Models
   has_many :carts # as buyer
   has_many :line_item_groups, inverse_of: :seller # as seller
+  has_many :line_item_groups, inverse_of: :buyer  # as buyer
 
     # Libraries and Library Elements
   has_many :libraries, dependent: :destroy

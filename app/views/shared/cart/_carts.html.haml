@@ -1,0 +1,4 @@
+- carts.each do |cart|
+  - cart.line_item_groups.each do |line_item_group|
+    .Content
+      = render '/shared/cart/line_item_group', line_item_group: line_item_group

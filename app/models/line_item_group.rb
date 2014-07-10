@@ -1,7 +1,8 @@
 class LineItemGroup < ActiveRecord::Base
   extend Sanitization
 
-  belongs_to :seller, class_name: 'User', foreign_key: 'user_id', inverse_of: :line_item_groups
+  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :line_item_groups
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :line_item_groups
   belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   has_many :articles, through: :line_items
@@ -14,7 +15,7 @@ class LineItemGroup < ActiveRecord::Base
   with_options if: :has_business_transactions? do |bt|
     bt.validates :unified_payment_method, inclusion: { in: proc { |record| record.unified_payments_selectable } }, common_sense: true, presence: true, if: :payment_can_be_unified?
 
-    bt.validates :tos_accepted , acceptance: { allow_nil: false }
+    bt.validates :tos_accepted, acceptance: { allow_nil: false }
 
     bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
       record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
