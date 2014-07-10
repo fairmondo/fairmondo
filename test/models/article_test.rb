@@ -89,7 +89,7 @@ describe Article do
       it {subject.must have_many :images}
       it {subject.must have_and_belong_to_many :categories}
       it {subject.must belong_to :seller}
-      it {subject.must have_one(:business_transaction).dependent(:destroy)}
+      it {subject.must have_many(:business_transactions)}
     end
 
     describe "validations" do

@@ -84,7 +84,7 @@ describe RegistrationsController do
       user = FactoryGirl.create(:user)
       sign_in user
       Image.any_instance.expects(:save)
-      put :update, user: {nickname: user.nickname, image_attributes: {}} # invalid params
+      put :update, user: {nickname: user.nickname, image_attributes: {}, address: {}} # invalid params
     end
   end
 end

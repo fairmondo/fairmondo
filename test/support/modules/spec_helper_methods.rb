@@ -7,8 +7,6 @@ class DummyClass < ActionView::Base
   include AccordionHelper
   include ApplicationHelper
   include ArticlesHelper
-  include BusinessTransactionHelper
-  include BusinessTransactionMailerHelper
   include CommendationHelper
   include ContentHelper
   include LibraryHelper
