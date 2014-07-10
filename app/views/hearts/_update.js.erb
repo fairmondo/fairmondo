@@ -1,0 +1,13 @@
+$('<%= "#library#{@library.id}" %> .library-hearts').html('<i class="fa fa-heart"></i> <%= @library.hearts.count %>');
+$('<%= "#library#{@library.id}" %> .hearts-button').replaceWith('<%= j heart_button(@library) %>');
+<% if @message %>
+  $('<%= "#library#{@library.id}" %> .hearts-button').qtip({ // Grab some elements to apply the tooltip to
+    content: {
+        text: '<%= j @message %>'
+    },
+    style: {
+      classes: 'qtip-red'
+    },
+    show: true
+  });
+<% end %>
