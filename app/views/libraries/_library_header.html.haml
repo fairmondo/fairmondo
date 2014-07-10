@@ -3,14 +3,14 @@
     = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
   .library-info
     .library-text
+      .library-hearts
+        %i.fa.fa-heart
+        = library.hearts.count
       %span.library-title
         = library.name
       %span.library-user
         = t('common.text.glue.from')
         = library.user_nickname
-      %span.library-hearts
-        = "Hearts"
-        = library.hearts.count
     .library-thumbnails
       - library.library_elements.first(10).each do |library_element|
         - if library_element.article
