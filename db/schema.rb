@@ -471,12 +471,12 @@ ActiveRecord::Schema.define(version: 20140708144002) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
+    t.integer  "standard_address_id",                   limit: 8
     t.integer  "unified_transport_maximum_articles",              default: 1
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_price_cents",         limit: 8, default: 0
     t.boolean  "unified_transport_free"
     t.integer  "unified_transport_free_at_price_cents", limit: 8, default: 0
-    t.integer  "standard_address_id",                   limit: 8
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
