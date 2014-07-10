@@ -6,7 +6,7 @@
       - else
         %strong= t("users.text.no_#{item_name}")
   - else
-    = render :partial=>'/shared/listview/listview', locals:{ items: items }
+    = render '/shared/listview/listview', items: items
     = paginate items, params: { anchor: item_name } , param_name: "#{item_name}_articles_page"
 
   - if current_user.type == "LegalEntity"

@@ -1,0 +1,5 @@
+%h4
+  = "Deine Bestellung bei #{line_item_group.seller.nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y')}"
+  .Listview
+    - line_item_group.line_items.each do |line_item|
+      = render '/shared/cart/line_item', line_item: line_item
