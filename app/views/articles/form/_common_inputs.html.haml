@@ -44,10 +44,10 @@
     .Accordion-step
       = f.input :quantity, tooltip: true, input_html: { class: 'JS-enforce-input-constraints' }
     .Accordion-step
-      = f.input :price, tooltip: true, input_html: {value: number_with_precision(f.object.price, precision: 2) }, required: true
+      = f.input :price, tooltip: true, input_html: { value: number_with_precision(f.object.price, precision: 2), class: 'JS-remote-validate-blur' }, required: true
     - if current_user.is_a?(LegalEntity)
       .Accordion-step
-        = f.input :basic_price, tooltip: true, input_html: {value: number_with_precision(f.object.basic_price, precision: 2) }
+        = f.input :basic_price, tooltip: true, input_html: { value: number_with_precision(f.object.basic_price, precision: 2) }
         = f.input :basic_price_amount, as: :select, tooltip: true
         - if current_user.standard_address_country == "Deutschland"
           = f.input :vat, required: true, tooltip: true, as: :select, collection: [0,7,19]
@@ -85,7 +85,7 @@
       = f.input :unified_transport if current_user.is_a? LegalEntity
       -# should generate a warning if not set in the users profile
       = f.input :transport_details, input_html: {rows: 7}
-      = f.input :transport_time, tooltip: true, input_html: { class: 'JS-enforce-input-constraints JS-remote-validate-blur', data: { enforcement_pattern: '/^\d\d?\-?\d?\d?$/' } }
+      = f.input :transport_time, tooltip: true, input_html: { class: 'JS-enforce-input-constraints', data: { enforcement_pattern: '/^\d\d?\-?\d?\d?$/' } }
   .Accordion-step
     %p
     = f.inputs tooltip: t('formtastic.tooltips.article.payment') do

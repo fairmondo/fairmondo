@@ -3,7 +3,7 @@ class RemoteValidation < Struct.new(:model, :field, :value, :additional_params)
   # custom dependent enumerization
   PERMITTED_FIELDS = {
     'line_item' => [ 'requested_quantity' ],
-    'article' => [ 'title', 'quantity', 'transport_time' ]
+    'article' => [ 'title', 'quantity', 'transport_time', 'price' ]
   }
 
   def initialize model, field, value, additional_params
