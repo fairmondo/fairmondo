@@ -3,7 +3,7 @@ require_relative '../test_helper'
 describe RatingsController do
   let(:seller){ FactoryGirl.create :user }
   let(:buyer){ FactoryGirl.create :user }
-  let(:business_transaction){ FactoryGirl.create :business_transaction_with_buyer, seller: seller, buyer: buyer }
+  let(:business_transaction){ FactoryGirl.create :business_transaction, seller: seller, buyer: buyer }
 
   describe 'GET ::index' do
     it 'should render rating\'s index_template' do

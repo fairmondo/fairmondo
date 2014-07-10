@@ -1,17 +1,9 @@
 require_relative '../test_helper'
 
 describe AddressesController do
-  let(:address){ FactoryGirl.create :address, :with_user }
-  let(:user){ address.user }
-
-  describe 'GET ::index' do
-    it 'should render addresse\'s index_template' do
-      sign_in user
-      get(:index, user_id: user.id)
-      assert_response :success
-      assert_template(:index)
-    end
-  end
+  let(:address) { FactoryGirl.create :address }
+  let(:referenced_address) { FactoryGirl.create :address, :referenced }
+  let(:user) { address.user }
 
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
@@ -62,6 +54,13 @@ describe AddressesController do
       assert_difference('Address.count', -1) do
         delete :destroy, user_id: user.id, id: address.id
       end
+    end
+    it 'should stash a referenced address from the database' do
+      sign_in user
+      assert_difference('Address.count', 0) do
+        delete :destroy, user_id: referenced_address.user.id, id: referenced_address.id
+      end
+      referenced_address.reload.stashed?.must_equal true
     end
   end
 end

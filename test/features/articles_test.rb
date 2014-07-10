@@ -276,14 +276,14 @@ feature "Article buyer actions" do
     login_as user
 
     visit article_path @article
-    click_link I18n.t 'common.actions.buy_single'
-    current_path.must_equal edit_business_transaction_path @article.business_transaction
+    click_link I18n.t 'common.actions.to_cart'
+    current_path.must_equal article_path @article
   end
 
   scenario "guest clicks buy button" do
     visit article_path @article
-    click_link I18n.t 'common.actions.buy_single'
-    page.must_have_button I18n.t 'formtastic.actions.login'
+    click_link I18n.t 'common.actions.to_cart'
+    current_path.must_equal article_path @article
   end
   # add more
 end

@@ -197,10 +197,6 @@ FactoryGirl.define do
       quantity { (rand(100)+2) }
     end
 
-    trait :without_build_business_transaction do
-      skip_build_business_transaction true
-    end
-
     trait :with_custom_seller_identifier do
       custom_seller_identifier {Faker::Lorem.characters(10)}
     end
