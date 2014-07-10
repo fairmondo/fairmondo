@@ -1,5 +1,5 @@
 /*
-Accodion with items
+Accordion with items
 
 There is a helper called `accordion-item` available to help you with the html markup.
 
@@ -52,6 +52,11 @@ Styleguide Accordion
 	background-color: white;
 	border: 1px solid $lighter-gray;
 	padding: 1em 2em;
+}
+
+
+.Accordion .Accordion-item > .Accordion-content-maxsize {
+	max-height: 30em;
 }
 
 
