@@ -24,7 +24,7 @@ describe Discount do
     describe '::discount_chain' do
       describe 'calculated discount is bigger than remaining discount' do
         let(:discount){ FactoryGirl.create :discount, :small }
-        let(:business_transaction){ FactoryGirl.create :business_transaction_with_buyer, article: FactoryGirl.create( :article, discount: discount) }
+        let(:business_transaction){ FactoryGirl.create :business_transaction, article: FactoryGirl.create( :article, discount: discount) }
 
         it 'should set discount value to remaining discount' do
           business_transaction.article.calculate_fees_and_donations

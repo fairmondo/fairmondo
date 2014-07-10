@@ -26,8 +26,8 @@ class BusinessTransaction < ActiveRecord::Base
   include BusinessTransaction::Refundable, BusinessTransaction::Discountable, BusinessTransaction::Scopes
 
   belongs_to :article, inverse_of: :business_transactions
-  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :bought_business_transactions
-  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :sold_business_transactions
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
 
   belongs_to :line_item_group
 
@@ -61,12 +61,9 @@ class BusinessTransaction < ActiveRecord::Base
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address , to: :line_item_group
 
-
-
   validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
-  validates :buyer, presence: true
   validates :line_item_group, presence: true
   validates :article, presence: true
 
