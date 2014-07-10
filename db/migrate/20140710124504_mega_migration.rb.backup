@@ -1,0 +1,342 @@
+class MegaMigration < ActiveRecord::Migration
+  def change
+  end
+end
+
+class CreateAddresses < ActiveRecord::Migration
+  def change
+    create_table :addresses do |t|
+      t.string :first_name
+      t.string :last_name
+      t.string :address_line_1
+      t.string :address_line_2
+      t.string :zip
+      t.string :city
+      t.string :country
+    end
+  end
+end
+class AddUserIdToAddress < ActiveRecord::Migration
+  change_table :addresses do |t|
+    t.integer :user_id
+  end
+end
+class AddTitleToAddresses < ActiveRecord::Migration
+  def change
+    add_column :addresses, :title, :string
+  end
+end
+class AddUserIdIndexToAddresses < ActiveRecord::Migration
+  def change
+    add_index :addresses, :user_id, name: :addresses_user_id_index
+  end
+end
+class AddBillingAddressIdToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :billing_address_id, :bigint
+  end
+end
+class AddShippingAddressIdToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :shipping_address_id, :bigint
+  end
+end
+class CreateCarts < ActiveRecord::Migration
+  def change
+    create_table :carts do |t|
+
+      t.timestamps
+    end
+  end
+end
+class CreateLineItems < ActiveRecord::Migration
+  def change
+    create_table :line_items do |t|
+      t.integer  "cart_id",                                limit: 8
+      t.integer  "business_transaction_id",                limit: 8
+      t.integer  "requested_quantity"
+      t.timestamps
+    end
+  end
+end
+class AddStandardAddressIdToUsers < ActiveRecord::Migration
+  def change
+    remove_column :users, :billing_address_id
+    remove_column :users, :shipping_address_id
+    add_column :users, :standard_address_id, :bigint
+  end
+end
+class AddShippingAndBillingAddressToBusinessTransactions < ActiveRecord::Migration
+  def change
+    add_column :business_transactions, :shipping_address_id, :bigint
+    add_column :business_transactions, :billing_address_id, :bigint
+  end
+end
+class AddIndiceToUsersAndBusinessTransactions < ActiveRecord::Migration
+  def change
+    add_index :users, :standard_address_id, name: 'standard_user_address'
+    add_index :business_transactions, :shipping_address_id, name: 'bt_shipping_addresses'
+    add_index :business_transactions, :billing_address_id, name: 'bt_billing_addresses'
+  end
+end
+class AddStateAndUserIdToCart < ActiveRecord::Migration
+  def change
+    add_column :carts, :user_id, :integer,  limit: 8
+    add_column :carts, :sold, :boolean
+  end
+end
+class CreateLineItemGroups < ActiveRecord::Migration
+  def change
+    create_table :line_item_groups do |t|
+      t.text :message
+      t.integer :cart_id, limit:8
+      t.boolean :tos_accepted
+      t.integer :user_id, limit:8
+      t.boolean :unified_transport
+      t.boolean :unified_payment
+
+      t.timestamps
+    end
+  end
+end
+class ChangeCartIdToLineItemGroupId < ActiveRecord::Migration
+  def change
+    rename_column :line_items, :cart_id, :line_item_group_id
+  end
+end
+
+class AddCompanyNameToAddress < ActiveRecord::Migration
+  def change
+    add_column :addresses, :company_name, :string
+  end
+end
+
+class AddIndicesToCartsAndLineItems < ActiveRecord::Migration
+  def change
+    add_index :carts, ["user_id"], :name => "index_carts_on_user_id"
+    add_index :line_item_groups, ["cart_id"], :name => "index_line_item_groups_on_cart_id"
+    add_index :line_item_groups, ["user_id"], :name => "index_line_item_groups_on_user_id"
+    add_index :line_items, ["line_item_group_id"], :name => "index_line_items_on_line_item_group_id"
+    add_index :line_items, ["business_transaction_id"], :name => "index_line_items_on_business_transaction_id"
+  end
+end
+class AddUniqueHashToCart < ActiveRecord::Migration
+  def change
+    add_column :carts, :unique_hash, :string, limit: 40
+  end
+end
+class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
+
+  class BusinessTransaction < ActiveRecord::Base
+    belongs_to :line_item_group
+    belongs_to :article
+    belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
+  end
+
+  class LineItemGroup < ActiveRecord::Base
+    has_many :business_transactions
+  end
+
+  def up
+    add_column :articles, :quantity_available, :integer
+    add_column :business_transactions, :line_item_group_id, :integer, limit: 8
+    change_column :line_item_groups, :unified_transport, :boolean, default: false
+    change_column :line_item_groups, :unified_payment, :boolean, default: false
+
+    rename_column :business_transactions, :type, :type_fix
+
+    mfps = BusinessTransaction.where(type_fix: 'MultipleFixedPriceTransaction')
+    mfps.find_each do |mfp|
+      mfp.article.update_column(:quantity_available, mfp.quantity_available)
+      mfp.destroy
+    end
+
+    BusinessTransaction.where(type_fix: 'PreviewTransaction').destroy_all
+
+    BusinessTransaction.where(state: 'available').find_each do |t|
+      t.destroy
+    end
+    BusinessTransaction.all.find_each do |t|
+      lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, user_id: t.seller.id, created_at: t.created_at, updated_at: t.updated_at)
+      t.line_item_group_id = lig.id
+      t.save!
+    end
+
+    remove_column(:business_transactions, :quantity_available)
+    remove_column(:business_transactions, :type_fix)
+    remove_column(:business_transactions, :expire) rescue nil
+    remove_column(:business_transactions, :message)
+    remove_column(:business_transactions, :tos_accepted)
+  end
+  def down
+    raise ActiveRecord::IrreversibleMigration
+  end
+end
+class ChangeLineItemId < ActiveRecord::Migration
+  def change
+    rename_column :line_items, :business_transaction_id, :article_id
+  end
+end
+
+class MoveAddressesFromUserModelToAddressModel < ActiveRecord::Migration
+  class User < ActiveRecord::Base
+    has_many :addresses
+    has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id' # As buyer
+  end
+
+  class BusinessTransaction < ActiveRecord::Base
+    belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+  end
+
+  class Address < ActiveRecord::Base
+    belongs_to :user
+  end
+
+  class LegalEntity < User
+    extend STI
+  end
+
+  class PrivateUser < User
+    extend STI
+  end
+
+  def up
+    User.find_each do |user|
+      std_add = user.addresses.build(
+        title: user.title,
+        first_name: user.forename,
+        last_name: user.surname,
+        company_name: user.company_name,
+        address_line_1: user.street,
+        address_line_2: user.address_suffix,
+        zip: user.zip,
+        city: user.city,
+        country: user.country
+      )
+      std_add.save
+      std_add.reload
+      user.update(standard_address_id: std_add.id)
+
+      user.bought_business_transactions.find_each do |bt|
+        new_address = true
+        address = nil
+
+        user.addresses.find_each do |add|
+          if (add.first_name == bt.forename) &&
+              (add.last_name == bt.surname) &&
+                (add.address_line_1 == bt.street) &&
+                  (add.address_line_2 == bt.address_suffix) &&
+                    (add.zip == bt.zip) &&
+                      (add.city == bt.city) &&
+                        (add.country == bt.country)
+
+            new_address = false
+            address = add
+          end
+        end
+
+        if new_address
+          address = user.addresses.build(
+            first_name: bt.forename,
+            last_name: bt.surname,
+            address_line_1: bt.street,
+            address_line_2: bt.address_suffix,
+            zip: bt.zip,
+            city: bt.city,
+            country: bt.country
+          )
+          address.save
+          address.reload
+        end
+
+        bt.update_column(:shipping_address_id, address.id)
+        bt.update_column(:billing_address_id, address.id)
+      end
+    end
+
+    remove_column :users, :title
+    remove_column :users, :forename
+    remove_column :users, :surname
+    remove_column :users, :street
+    remove_column :users, :address_suffix
+    remove_column :users, :zip
+    remove_column :users, :company_name
+    remove_column :users, :city
+    remove_column :users, :country
+
+    remove_column :business_transactions, :forename
+    remove_column :business_transactions, :surname
+    remove_column :business_transactions, :street
+    remove_column :business_transactions, :address_suffix
+    remove_column :business_transactions, :zip
+    remove_column :business_transactions, :city
+    remove_column :business_transactions, :country
+  end
+end
+class UnifiedTransportMethod < ActiveRecord::Migration
+  def change
+    add_column :users, :unified_transport_maximum_articles, :integer, default: 1
+    add_column :users, :unified_transport_provider, :string
+    add_column :users, :unified_transport_price_cents, :integer, limit: 8, default: 0
+    add_column :users, :unified_transport_free, :boolean
+    add_column :users, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
+
+    add_column :business_transactions, :unified_transport_provider, :string
+    add_column :business_transactions, :unified_transport_maximum_articles, :integer
+    add_column :business_transactions, :unified_transport_price_cents, :integer, limit: 8, default: 0
+    add_column :business_transactions, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
+
+    add_column :articles, :unified_transport, :boolean
+  end
+end
+class ChangeRequestedQuantityDefaultInLineItems < ActiveRecord::Migration
+  def change
+    change_column :line_items, :requested_quantity, :integer, default: 1
+  end
+end
+class AddUnifiedPaymentMethodToLineItemGroups < ActiveRecord::Migration
+  def change
+    add_column :line_item_groups, :unified_payment_method, :string
+  end
+end
+class RemoveUniqueHashFromCart < ActiveRecord::Migration
+  def change
+    remove_column :carts, :unique_hash, :string # I found out we can just use cookies.signed
+  end
+end
+class ChangeDefaultSoldOfCarts < ActiveRecord::Migration
+  def change
+    change_column :carts, :sold, :boolean, default: false
+  end
+end
+class MoveBillingAndShippingAddressToLineItemGroup < ActiveRecord::Migration
+  class BusinessTransaction < ActiveRecord::Base
+    belongs_to :line_item_group
+  end
+
+  class LineItemGroup < ActiveRecord::Base
+    has_many :business_transactions
+  end
+
+  def up
+    add_column :line_item_groups, :shipping_address_id, :integer, limit:8
+    add_column :line_item_groups, :billing_address_id, :integer, limit:8
+    BusinessTransaction.find_each  do |bt|
+      bt.line_item_group.update_attribute :shipping_address_id, bt.shipping_address_id
+      bt.line_item_group.update_attribute :billing_address_id, bt.billing_address_id
+    end
+    remove_column :business_transactions,  :shipping_address_id
+    remove_column :business_transactions,  :billing_address_id
+  end
+end
+class RenameShippingAndBillingAddresses < ActiveRecord::Migration
+  def change
+    rename_column :line_item_groups, :shipping_address_id, :transport_address_id
+    rename_column :line_item_groups, :billing_address_id, :payment_address_id
+  end
+end
+class AddStashedToAddress < ActiveRecord::Migration
+  def change
+    add_column :addresses, :stashed, :boolean, default: false
+  end
+end
