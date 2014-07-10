@@ -38,20 +38,20 @@ describe NoticeHelper do
   # end
 
   describe "#main_notice_mapper" do
-    it "returns 'error' when given :alert" do
-      helper.main_notice_mapper(:alert).must_equal 'error'
+    it "returns 'error' when given 'alert'" do
+      helper.main_notice_mapper('alert').must_equal 'error'
     end
-    it "returns 'error' when given :error" do
-      helper.main_notice_mapper(:error).must_equal 'error'
+    it "returns 'error' when given 'error'" do
+      helper.main_notice_mapper('error').must_equal 'error'
     end
     it "returns 'info' when given :notice" do
-      helper.main_notice_mapper(:notice).must_equal 'info'
+      helper.main_notice_mapper('notice').must_equal 'info'
     end
     it "returns 'info confirmation' when given :confirm" do
-      helper.main_notice_mapper(:confirm).must_equal 'confirmation'
+      helper.main_notice_mapper('confirm').must_equal 'confirmation'
     end
     it "returns 'info' when given anything else" do
-      helper.main_notice_mapper(:thissymboldoesntexist).must_equal 'info'
+      helper.main_notice_mapper('thissttringdoesntexist').must_equal 'info'
     end
   end
 

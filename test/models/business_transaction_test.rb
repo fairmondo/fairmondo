@@ -23,21 +23,17 @@ require_relative '../test_helper'
 
 class BusinessTransactionTest < ActiveSupport::TestCase
   subject { BusinessTransaction.new }
+  let(:business_transaction) { FactoryGirl.create :business_transaction }
   describe "attributes" do
     it { subject.must_respond_to :selected_transport }
     it { subject.must_respond_to :selected_payment }
-    it { subject.must_respond_to :tos_accepted }
-    it { subject.must_respond_to :message }
     it { subject.must_respond_to :id }
-    it { subject.must_respond_to :type }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }
-    it { subject.must_respond_to :expire }
     it { subject.must_respond_to :buyer_id }
-    it { subject.must_respond_to :state }
-    it { subject.must_respond_to :parent_id }
     it { subject.must_respond_to :article_id }
-    it { subject.must_respond_to :seller_id }
+    it { subject.must_respond_to :state }
+
     it { subject.must_respond_to :sold_at }
     it { subject.must_respond_to :purchase_emails_sent }
     it { subject.must_respond_to :discount_id }
@@ -45,15 +41,13 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :billed_for_fair }
     it { subject.must_respond_to :billed_for_fee }
     it { subject.must_respond_to :billed_for_discount }
-    it { subject.must_respond_to :transport_address_id }
-    it { subject.must_respond_to :payment_address_id }
   end
 
   describe "associations" do
     it { subject.must belong_to :article }
     it { subject.must belong_to :buyer  }
-    it { subject.must belong_to :payment_address }
-    it { subject.must belong_to :transport_address }
+    it { subject.must belong_to :seller }
+    it { subject.must belong_to :line_item_group }
   end
 
   describe "enumerization" do # I asked for clarification on how to do this: https://github.com/brainspec/enumerize/issues/136 - maybe comment back in when we have a positive response.
@@ -62,58 +56,7 @@ class BusinessTransactionTest < ActiveSupport::TestCase
   end
 
   describe "methods" do
-    let(:business_transaction) { FactoryGirl.create :super_transaction }
 
-    describe "that are public" do
-
-      describe "#selected_transports" do
-        it "should call the private #selected method" do
-          business_transaction.expects(:selected).with("transport")
-          business_transaction.selected_transports
-        end
-      end
-
-      describe "#selected_payments" do
-        it "should call the private #selected method" do
-          business_transaction.expects(:selected).with("payment")
-          business_transaction.selected_payments
-        end
-      end
-
-      describe "#selected?" do
-        it "should return true when the seller selected a specific transport/payment type" do
-          business_transaction.selected?('transport', 'pickup').must_equal true
-        end
-
-        it "should return false when the seller didn't select spcified type" do
-          business_transaction.selected?('payment', 'paypal').must_equal false
-        end
-      end
-    end
-
-    describe "that are protected" do
-      it "should generally not allow quantity_available" do
-        proc { business_transaction.quantity_available }.must_raise NoMethodError
-      end
-      it "should generally not allow quantity_bought" do
-        proc { business_transaction.quantity_bought }.must_raise NoMethodError
-      end
-    end
-
-    describe "that are private" do
-      describe "#selected" do
-        it "should get the article's selectable attributes" do
-          business_transaction.article.expects(:selectable).with("transport").returns(["pickup"])
-          business_transaction.selected_transports
-        end
-
-        it "should return an Array with selected attributes and their localizations" do
-          business_transaction.selected_transports.must_equal [[I18n.t("enumerize.business_transaction.selected_transport.pickup"), "pickup"],
-                                                      [I18n.t("enumerize.business_transaction.selected_transport.type1"),"type1"],
-                                                      [I18n.t("enumerize.business_transaction.selected_transport.type2"),"type2"]]
-        end
-      end
-    end
   end
 end
 

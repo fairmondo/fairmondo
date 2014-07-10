@@ -49,7 +49,7 @@ FactoryGirl.define do
     seller_state "standard_seller"
     buyer_state "standard_buyer"
 
-    standard_address { FactoryGirl.create :address }
+    association :standard_address, factory: :address
 
     trait :missing_bank_data do
       bank_code ""
@@ -73,13 +73,6 @@ FactoryGirl.define do
     end
 
     factory :legal_entity, class: 'LegalEntity' do
-    end
-
-    factory :legal_entity_with_fixture_address do
-      standard_address { FactoryGirl.create :address, :fixture_address }
-    end
-
-    factory :legal_entity_without_company_name, class: 'LegalEntity' do
     end
 
     factory :incomplete_user do

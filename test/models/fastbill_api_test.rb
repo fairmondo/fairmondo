@@ -8,7 +8,7 @@ describe FastbillAPI do
     end
 
     let( :business_transaction ) { BusinessTransaction.new }
-    let( :db_business_transaction ) { FactoryGirl.create :business_transaction_with_buyer }
+    let( :db_business_transaction ) { FactoryGirl.create :business_transaction }
     let( :seller ) { db_business_transaction.seller }
 
     describe "::fastbill_chain" do
@@ -25,7 +25,7 @@ describe FastbillAPI do
 
       describe "when seller is not an NGO" do
         describe "and has Fastbill profile" do
-          let( :db_business_transaction ) { FactoryGirl.create :business_transaction_with_buyer, :fastbill_profile }
+          let( :db_business_transaction ) { FactoryGirl.create :business_transaction, :fastbill_profile }
           it "should not create new Fastbill profile" do
             FastbillAPI.expects( :fastbill_create_customer ).never
             FastbillAPI.expects( :fastbill_create_subscription ).never
