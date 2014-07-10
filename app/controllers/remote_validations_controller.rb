@@ -9,6 +9,6 @@ class RemoteValidationsController < ApplicationController
 
   private
     def additional_params
-      params.except :model, :field, :value, :controller, :action
+      params.except :model, :field, :value, :controller, :action, :format
     end
 end

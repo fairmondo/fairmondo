@@ -107,11 +107,11 @@
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), method: :post, class: "Button Button-gray")
       - if policy(resource).purchasable?
-        = semantic_form_for LineItem.new, class: 'JS-remote-validation' do |f|
+        = semantic_form_for LineItem.new do |f|
           = f.inputs do
             = f.input :article_id, as: :hidden, input_html: { value: resource.id }
             - if resource.quantity > 1
-              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}" } }
+              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}", validation_error_addition: I18n.t('line_item.errors.already_sold') } }
             = f.action :submit, label: t('common.actions.to_cart'), button_html: { class: "Button" }
 
       - elsif policy(resource).purchasable_later?
