@@ -7,4 +7,5 @@ FactoryGirl.define do
     message "MyText"
     tos_accepted false
   end
+
 end
