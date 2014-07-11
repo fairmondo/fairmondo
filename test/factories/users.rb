@@ -60,7 +60,6 @@ FactoryGirl.define do
       bic ""
     end
 
-
     factory :admin_user do
       admin       true
     end
@@ -77,6 +76,26 @@ FactoryGirl.define do
 
     factory :incomplete_user do
       standard_address nil
+    end
+
+    factory :seller_with_line_item_groups do
+      ignore do
+        line_item_groups_count 3
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:line_item_group, evaluator.line_item_groups_count, seller: user)
+      end
+    end
+
+    factory :buyer_with_line_item_groups do
+      ignore do
+        line_item_groups_count 3
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:line_item_group, evaluator.line_item_groups_count, buyer: user)
+      end
     end
 
     trait :no_bank_data do

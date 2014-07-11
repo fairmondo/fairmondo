@@ -22,21 +22,21 @@
 
 class BusinessTransactionObserver < ActiveRecord::Observer
 
-  def before_save business_transaction
+  def before_create business_transaction
     business_transaction.sold_at = Time.now
   end
 
-  def after_save business_transaction
+  def after_create business_transaction
 
-    if !business_transaction.purchase_emails_sent
+    #if !business_transaction.purchase_emails_sent
       # Send an email to the seller
-      BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
+      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
 
       # Send a confirmation email to the buyer
-      BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
+      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
 
-      business_transaction.update_attribute :purchase_emails_sent, true
-    end
+      #business_transaction.update_attribute :purchase_emails_sent, true
+    #end
 
     # check if this article is discountable and reply accordingly
     Discount.discount_chain(business_transaction) if business_transaction.article_discount_id

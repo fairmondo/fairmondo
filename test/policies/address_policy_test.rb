@@ -3,7 +3,7 @@ require_relative '../test_helper'
 describe AddressPolicy do
   include PunditMatcher
   subject { AddressPolicy.new(user, address) }
-  let(:address) { FactoryGirl.create(:address, :with_user) }
+  let(:address) { FactoryGirl.create(:address) }
   let(:user) { nil }
 
   context 'for a visitor' do

@@ -53,9 +53,6 @@ class User < ActiveRecord::Base
   # Relations
   #
   ####################################################
-  has_many :sold_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'seller_id', inverse_of: :seller
-  has_many :bought_business_transactions, class_name: 'BusinessTransaction', foreign_key: 'buyer_id', inverse_of: :buyer
-
 
     # Addresses
   has_many :addresses, dependent: :destroy, inverse_of: :user

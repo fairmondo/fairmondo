@@ -23,22 +23,16 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction, aliases: [:single_transaction] do
-    article { FactoryGirl.create :article, :without_build_business_transaction, :with_all_transports }
-    seller { article.seller }
+    article { FactoryGirl.create :article, :with_all_transports }
     selected_transport 'pickup'
     selected_payment 'cash'
     sold_at { Time.now }
     discount_value_cents 0
     quantity_bought 1
-    buyer
-    line_item_group
-	transport_address { buyer.standard_address }
-    payment_address { buyer.standard_address }
-
+    line_item_group { FactoryGirl.create :line_item_group, seller: article.seller }
 
     factory :multiple_transaction do
       article { FactoryGirl.create :article, quantity: 50 }
-      quantity_available 50
     end
 
     trait :legal_transaction do

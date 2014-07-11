@@ -91,58 +91,6 @@ describe User do
     it { subject.must have_one(:image) }
     it { subject.must have_many(:line_item_groups) }
 
-    describe "sold_transactions" do
-      it "should return an array of sold business_transactions" do
-        # sollte gefunden werden
-        sold_single = FactoryGirl.create(:single_transaction, :sold,
-          article: (FactoryGirl.create :article, :without_build_business_transaction,
-            seller: user
-          )
-        )
-        sold_partial = FactoryGirl.create(:partial_transaction, :sold,
-          seller: user,
-          parent: (
-            FactoryGirl.create(:multiple_transaction,
-              seller: user,
-              article: (
-                FactoryGirl.create(:article, :without_build_business_transaction,
-                  quantity: 50,
-                  seller: user
-                )
-              )
-            )
-          )
-        )
-        # sollte NICHT gefunden werden
-        open_single = FactoryGirl.create(:single_transaction,
-          seller: user,
-          article: (
-            FactoryGirl.create(:article, :without_build_business_transaction,
-              seller: user
-            )
-          )
-        )
-        open_multiple = FactoryGirl.create(:multiple_transaction,
-          seller: user,
-          article: (
-            FactoryGirl.create(:article, :without_build_business_transaction,
-              quantity: 50,
-              seller: user
-            )
-          )
-        )
-        sold_multiple = FactoryGirl.create(:multiple_transaction, :sold,
-          seller: user
-        )
-
-        arr = user.sold_business_transactions
-        arr.length.must_equal 2
-        arr.must_include(sold_single)
-        arr.must_include(sold_partial)
-        arr.wont_include(open_single)
-        arr.wont_include(open_multiple)
-      end
-    end
   end
 
   describe "validations" do
