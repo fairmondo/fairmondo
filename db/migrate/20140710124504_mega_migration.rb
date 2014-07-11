@@ -142,9 +142,7 @@ class MegaMigration < ActiveRecord::Migration
 
     BusinessTransaction.all.find_each do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at)
-      lig.reload
-      t.line_item_group_id = lig.id
-      t.save!
+      t.update_column :line_item_group_id, lig.id
     end
 
 
