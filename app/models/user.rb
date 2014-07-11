@@ -68,10 +68,12 @@ class User < ActiveRecord::Base
   has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :mass_uploads
 
-  # Cart related Models
+    # Cart related Models
   has_many :carts # as buyer
+  has_many :seller_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'seller_id' #as seller
+  has_many :buyer_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'buyer_id' # as buyer
 
-  # Libraries and Library Elements
+    # Libraries and Library Elements
   has_many :libraries, dependent: :destroy
   has_many :library_elements, through: :libraries
 
