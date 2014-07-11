@@ -20,7 +20,7 @@ class LineItemGroup < ActiveRecord::Base
     bt.validates_each :unified_transport, :unified_payment do |record, attr, value|
       record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
     end
-    bt.validates :transport_address, :payment_address, presence: true
+    bt.validates :transport_address, :payment_address, :buyer, :seller, presence: true
   end
 
   def transport_can_be_unified?

@@ -9,13 +9,13 @@ FactoryGirl.define do
     tos_accepted false
   end
 
-  factory :line_item_group_with_items do
+  factory :line_item_group_with_items, parent: :line_item_group do
     ignore do
       line_item_count 3
     end
 
     after(:create) do |line_item_group, evaluator|
-      create_list(:line_item, evaluator.line_item_count, line_item_group: line_item_group)
+      create_list(:line_item_with_specific_seller, evaluator.line_item_count, line_item_group: line_item_group, seller: evaluator.seller)
     end
   end
 

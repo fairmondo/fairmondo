@@ -96,8 +96,6 @@ class CartCheckoutForm
       end
       item.business_transaction = business_transaction
       business_transaction.quantity_bought = item.requested_quantity
-      business_transaction.buyer = self.cart.user
-      business_transaction.seller = group.seller
       business_transaction.article = item.article
       self.form_objects << business_transaction
     end
