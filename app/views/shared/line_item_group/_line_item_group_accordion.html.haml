@@ -1,11 +1,13 @@
 = accordion_item item_name do
-  - if carts.empty?
+  - if line_item_groups.empty?
     %p
       - if defined? item_link
         %strong= t("users.text.no_#{item_name}_html", :href => link_to(t("users.text.no_#{item_name}"), item_link ))
       - else
         %strong= t("users.text.no_#{item_name}")
   - else
-    = render '/shared/cart/carts', carts: carts
+    - line_item_groups.each do |lig|
+      .Content
+        = render '/shared/line_item_group/line_item_group', line_item_group: lig
     - paginate line_item_groups, params: { anchor: item_name } , param_name: "#{item_name}_line_item_groups_page"
 

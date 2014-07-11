@@ -70,8 +70,10 @@ class User < ActiveRecord::Base
 
     # Cart related Models
   has_many :carts # as buyer
-  has_many :line_item_groups, inverse_of: :seller # as seller
-  has_many :line_item_groups, inverse_of: :buyer  # as buyer
+  has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
+  has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
+  has_many :seller_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'seller_id', inverse_of: :seller
+  has_many :buyer_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'buyer_id', inverse_of: :buyer
 
     # Libraries and Library Elements
   has_many :libraries, dependent: :destroy

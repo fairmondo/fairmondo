@@ -78,23 +78,23 @@ FactoryGirl.define do
       standard_address nil
     end
 
-    factory :seller_with_line_item_groups do
+    factory :seller_with_line_item_groups, parent: :user do
       ignore do
         line_item_groups_count 3
       end
 
       after(:create) do |user, evaluator|
-        create_list(:line_item_group, evaluator.line_item_groups_count, seller: user)
+        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, seller: user)
       end
     end
 
-    factory :buyer_with_line_item_groups do
+    factory :buyer_with_line_item_groups, parent: :user do
       ignore do
         line_item_groups_count 3
       end
 
       after(:create) do |user, evaluator|
-        create_list(:line_item_group, evaluator.line_item_groups_count, buyer: user)
+        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, buyer: user)
       end
     end
 

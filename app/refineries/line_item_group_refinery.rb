@@ -4,6 +4,6 @@ class LineItemGroupRefinery < ApplicationRefinery
   end
 
   def update
-    [ :unified_transport,:unified_payment, :unified_payment_method ]
+    [:unified_transport, :unified_payment, :unified_payment_method]
   end
 end
