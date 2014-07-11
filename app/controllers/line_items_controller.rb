@@ -34,9 +34,7 @@ class LineItemsController < ApplicationController
     else
       @line_item.update_attribute :requested_quantity, params['line_item']['requested_quantity']
     end
-
     authorize @line_item
-
     flash[:notice] = I18n.t('line_item.notices.success_create') if @line_item.save
     redirect_to @line_item.article
   end

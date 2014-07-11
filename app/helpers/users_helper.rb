@@ -32,14 +32,6 @@ module UsersHelper
     resource.articles.where("state = ? OR state = ? OR state = ?", :preview, :locked, :inactive ).includes(:images,:seller).page(params[:inactive_articles_page])
   end
 
-  def sold_business_transactions
-    resource.sold_business_transactions.includes(:seller,:article => [:seller,:images]).page(params[:sold_articles_page]).order(sold_at: :desc)
-  end
-
-  def bought_business_transactions
-    resource.bought_business_transactions.includes(:buyer,:rating,:seller,:article => [:seller,:images]).page(params[:bought_articles_page]).order(sold_at: :desc)
-  end
-
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link
   # @param target [String] path
   # @return [String] JS code

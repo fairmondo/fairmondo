@@ -7,7 +7,7 @@ validate_remotely = (event) ->
     $target = $(target)
     params_from_name = target.name.slice(0, -1).split('[') # e.g. line_item[requested_quantity] => ['line_item', 'requested_quantity']
     value = target.value
-    unless value is $target.attr('data-validation-allow') # allow specific inputs. maybe make this regex compatible
+    unless value is $target.attr('data-validation-allow') or value is '' # allow specific inputs. maybe make this regex compatible
       model = params_from_name[0]
       field = params_from_name[1]
       additional_params = $target.attr('data-validation-params')

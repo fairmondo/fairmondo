@@ -199,21 +199,6 @@ feature "Update Articles" do
     @article.reload.title.must_equal 'foobar'
     current_path.must_equal article_path @article
   end
-
-  scenario "user updates quantity from 1 to 2 and back" do
-    @article.business_transaction.must_be_instance_of SingleFixedPriceTransaction
-
-    fill_in 'article_quantity', with: 2
-    click_button I18n.t 'article.labels.continue_to_preview'
-
-    @article.reload.business_transaction.must_be_instance_of MultipleFixedPriceTransaction
-
-    visit edit_article_path @article
-    fill_in 'article_quantity', with: 1
-    click_button I18n.t 'article.labels.continue_to_preview'
-
-    @article.reload.business_transaction.must_be_instance_of SingleFixedPriceTransaction
-  end
 end
 
 feature 'report Articles' do
