@@ -1,11 +1,11 @@
-- cache [library,library.user,"library_header"] do
-  .library-userimage
-    = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
-  .library-info
+.library-userimage
+  = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
+.library-info
+  .library-hearts
+    %i.fa.fa-heart
+    = library.hearts.count
+  - cache [library,library.user,"library_header"] do
     .library-text
-      .library-hearts
-        %i.fa.fa-heart
-        = library.hearts.count
       %span.library-title
         = library.name
       %span.library-user
