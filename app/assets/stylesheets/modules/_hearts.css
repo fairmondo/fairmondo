@@ -11,12 +11,12 @@ div[class$="-hearts"] {
   float: right;
   position: relative;
 
-  > i.fa-heart {
+  > a > i.fa-heart {
     font-size: 1.4rem;
   }
 
-  > i.fa-plus,
-  > i.fa-minus {
+  > a > i.fa-plus,
+  > a > i.fa-minus {
     position: absolute;
     color: white;
     z-index: 101;
