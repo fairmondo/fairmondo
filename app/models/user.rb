@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
 
   has_many :library_elements, through: :libraries
 
+  has_many :hearts
+
   ##
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image

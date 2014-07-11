@@ -30,6 +30,7 @@
                 = library.user_nickname
               = link_to library_path(library), :class => "Button" do
                 = t('library.show')
+              = heart_button(library)
             = render "library", :library => library
 
     = paginate @libraries
