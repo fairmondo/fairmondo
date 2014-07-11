@@ -9,7 +9,7 @@ FactoryGirl.define do
     tos_accepted false
   end
 
-  factory :line_item_group_with_items do
+  factory :line_item_group_with_items, parent: :line_item_group do
     ignore do
       line_item_count 3
     end
