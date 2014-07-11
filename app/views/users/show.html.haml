@@ -24,8 +24,8 @@
   .Accordion
     = render '/shared/listview/listview_accordion', item_name: 'active', item_link: new_article_path, items: active_articles
     = render '/shared/listview/listview_accordion', item_name: 'inactive', items: inactive_articles
-    = render '/shared/listview/listview_accordion', item_name: 'sold', items: sold_business_transactions
-    = render '/shared/cart/cart_accordion', item_name: 'bought', line_item_groups: resource.line_item_groups.where(buyer_id: resource.id)
+    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'sold', line_item_groups: resource.line_item_groups.where(seller_id: resource.id)
+    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'bought', line_item_groups: resource.line_item_groups.where(buyer_id: resource.id)
     -#TODO change partial names and contents
 
     = accordion_item 'my_article_templates' do
