@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625082650) do
+ActiveRecord::Schema.define(version: 20140708150110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,20 @@ ActiveRecord::Schema.define(version: 20140625082650) do
   add_index "feedbacks", ["article_id"], name: "index_feedbacks_on_article_id", using: :btree
   add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
+  create_table "hearts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "heartable_id"
+    t.string   "heartable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_token"
+  end
+
+  add_index "hearts", ["heartable_id", "heartable_type"], name: "index_hearts_on_heartable_id_and_heartable_type", using: :btree
+  add_index "hearts", ["user_id", "heartable_id", "heartable_type"], name: "index_hearts_on_user_id_and_heartable_id_and_heartable_type", unique: true, using: :btree
+  add_index "hearts", ["user_id"], name: "index_hearts_on_user_id", using: :btree
+  add_index "hearts", ["user_token", "heartable_id", "heartable_type"], name: "index_hearts_on_user_token_and_heartable_id_and_heartable_type", unique: true, using: :btree
+
   create_table "images", force: true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -251,6 +265,7 @@ ActiveRecord::Schema.define(version: 20140625082650) do
     t.datetime "updated_at",                                   null: false
     t.integer  "library_elements_count",           default: 0
     t.string   "exhibition_name"
+    t.integer  "hearts_count",                     default: 0
   end
 
   add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
