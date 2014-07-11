@@ -57,7 +57,7 @@ class CartsController < ApplicationController
     end
 
     def authorize_and_authenticate_user_on_cart
-      if @cart.user_id # cart belongs to user
+      if @cart.buyer_id # cart belongs to user
         authenticate_user! # and can only be accessed by a logged in user
       else # otherwise
         @cart.cookie_content = cookies.signed[:cart] # we need the cookie content to authorize the cart
