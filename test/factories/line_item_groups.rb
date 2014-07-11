@@ -15,7 +15,7 @@ FactoryGirl.define do
     end
 
     after(:create) do |line_item_group, evaluator|
-      create_list(:line_item, evaluator.line_item_count, line_item_group: line_item_group)
+      create_list(:line_item_with_specific_seller, evaluator.line_item_count, line_item_group: line_item_group, seller: evaluator.seller)
     end
   end
 
