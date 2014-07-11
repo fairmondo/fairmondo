@@ -84,7 +84,10 @@ class User < ActiveRecord::Base
     # Notices
   has_many :notices
 
-    # Cancellation form
+  has_many :library_elements, through: :libraries
+
+  has_many :hearts
+
   has_attached_file :cancellation_form
 
 
