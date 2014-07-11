@@ -27,5 +27,5 @@
       = accordion_title
     -if accordion_tooltip
       %span.sprite_helper{:title => accordion_tooltip}
-  .Accordion-content
+  %div{:class => "Accordion-content #{accordion_content_class}"}
     = yield
