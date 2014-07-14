@@ -28,6 +28,10 @@ Fairnopoly::Application.routes.draw do
     resources :hearts, only: [:create, :destroy]
   end
 
+  concern :commentable do
+    resources :comments, :except => [:show, :create, :destroy]
+  end
+
   namespace :admin do
     resources :article
   end
@@ -114,7 +118,7 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, only: [:index, :show], concerns: :heartable do
+  resources :libraries, only: [:index, :show], concerns: [:heartable, :commentable] do
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
