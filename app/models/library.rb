@@ -21,6 +21,7 @@
 #
 class Library < ActiveRecord::Base
   extend Sanitization, Enumerize
+  include Commentable
 
   auto_sanitize :name
 
