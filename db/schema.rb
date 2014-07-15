@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714163133) do
+ActiveRecord::Schema.define(version: 20140715105506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(version: 20140714163133) do
     t.integer  "library_elements_count",           default: 0
     t.string   "exhibition_name"
     t.integer  "hearts_count",                     default: 0
+    t.integer  "comments_count",                   default: 0
   end
 
   add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
