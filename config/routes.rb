@@ -99,7 +99,7 @@ Fairnopoly::Application.routes.draw do
   #the user routes
 
   resources :users, :only => [:show] do
-    resources :addresses, except: [:index]
+    resources :addresses, except: [:index, :show]
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, only: [:create, :destroy]
     resources :ratings, :only => [:create, :index] do

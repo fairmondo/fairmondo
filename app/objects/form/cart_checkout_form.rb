@@ -29,7 +29,6 @@ class CartCheckoutForm
   end
 
   def process params
-
     build_form_objects_from checkout ? session[:cart_checkout] : params
     return :invalid unless valid?
     unless checkout
@@ -77,8 +76,8 @@ class CartCheckoutForm
         group.assign_attributes(group_params.for(group).on(:update).refine) if group_params
         group.payment_address = self.payment_address
         group.transport_address = self.transport_address
+        group.buyer = cart.user
         self.form_objects << group
-
       end
 
     end

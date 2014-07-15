@@ -31,7 +31,7 @@
     .Grid
       = render 'addresses/address', address: @cart_checkout_form.payment_address
   - else
-    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
+    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf| # Buyer Address Form
       = baf.inputs do
         = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
         = baf.input :first_name, required: true
