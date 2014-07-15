@@ -37,8 +37,10 @@ feature "comments for all users" do
   scenario "User visits library with a comment" do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create(:comment, text: "Test comment",
-                                 commentable: library, library: library,
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
                                  user: user)
 
     visit library_path(library)
