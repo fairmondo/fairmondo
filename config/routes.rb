@@ -118,8 +118,8 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
-  resources :libraries, only: [:index, :show], 
-    concerns: [:heartable, :commentable] do
+  resources :libraries, only: [:index, :show],
+                        concerns: [:heartable, :commentable] do
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
