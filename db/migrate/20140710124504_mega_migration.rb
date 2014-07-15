@@ -86,6 +86,8 @@ class MegaMigration < ActiveRecord::Migration
     add_index :line_item_groups, ["cart_id"], :name => "index_line_item_groups_on_cart_id"
     add_index :line_item_groups, ["seller_id"], :name => "index_line_item_groups_on_seller_id"
     add_index :line_item_groups, ["buyer_id"], :name => "index_line_item_groups_on_buyer_id"
+    add_index :line_item_groups, ["transport_address_id"], :name => "index_line_item_groups_on_transport_address_id"
+    add_index :line_item_groups, ["payment_address_id"], :name => "index_line_item_groups_on_payment_address_id"
 
     # Change Users
     add_column :users, :standard_address_id, :bigint
