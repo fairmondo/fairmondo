@@ -29,7 +29,7 @@ describe Library do
     it { subject.must have_many(:articles) }
     it { subject.must belong_to :user }
     it { subject.must have_many(:hearts) }
-    it { subject.must_have_many(:comments) }
+    it { subject.must have_many(:comments) }
   end
 
   describe "model attributes" do
