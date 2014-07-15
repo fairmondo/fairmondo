@@ -5,3 +5,6 @@
       .Grid-item
         = render "library_element", :library_element => library_element
   = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
+  .Comments-section
+    %h2 Kommentare
+    = render(library.comments) || "Keine Kommentare"

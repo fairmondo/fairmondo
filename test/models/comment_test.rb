@@ -27,6 +27,7 @@ describe Comment do
   describe "associations" do
     it { subject.must belong_to :user }
     it { subject.must belong_to :commentable }
+    it { subject.must belong_to :library }
   end
 
   describe "model attributes" do
