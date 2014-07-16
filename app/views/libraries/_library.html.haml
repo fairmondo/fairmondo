@@ -11,3 +11,5 @@
     = render(library.comments.order(created_at: :desc)) || t('common.text.no_comments')
     - if current_user
       = render "comments/new", library: library
+    - else
+      = t('common.text.login_to_comment')

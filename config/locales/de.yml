@@ -85,6 +85,7 @@ de:
       extended_search: "Erweiterte Suche"
       comments: "Kommentare"
       no_comments: "Keine Kommentare"
+      login_to_comment: "Du kannst keine Kommentare erstellen. Bitte logge dich ein oder erstelle einen Account."
       glue:
         from: "von"
         and: " und "
