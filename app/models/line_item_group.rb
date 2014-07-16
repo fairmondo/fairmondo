@@ -1,14 +1,15 @@
 class LineItemGroup < ActiveRecord::Base
   extend Sanitization
 
-  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :line_item_groups
-  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :line_item_groups
+  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :seller_line_item_groups
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :buyer_line_item_groups
   belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   has_many :articles, through: :line_items
   has_many :business_transactions, inverse_of: :line_item_group
   belongs_to :transport_address, class_name: 'Address', foreign_key: 'transport_address_id'
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
+  has_one :rating
 
   auto_sanitize :message
 

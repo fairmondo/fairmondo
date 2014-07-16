@@ -52,6 +52,13 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data}
     end
 
+    factory :business_transaction_with_line_items do
+      article   { FactoryGirl.create :article, seller: line_item_group.seller }
+      after :create do |business_transaction, evaluator|
+        FactoryGirl.create :line_item, line_item_group: business_transaction.line_item_group, article: business_transaction.article
+      end
+    end
+
     trait :incomplete do
       shipping_address nil
     end

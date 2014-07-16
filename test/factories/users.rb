@@ -94,7 +94,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, evaluator|
-        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, buyer: user)
+        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, buyer: user, tos_accepted: true)
       end
     end
 

@@ -425,9 +425,11 @@ ActiveRecord::Schema.define(version: 20140710124504) do
     t.integer  "rated_user_id",           limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "line_item_group_id",      limit: 8
   end
 
   add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
+  add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings", using: :btree
   add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
 
   create_table "refunds", force: true do |t|

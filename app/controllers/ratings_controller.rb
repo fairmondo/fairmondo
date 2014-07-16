@@ -24,11 +24,12 @@ class RatingsController < ApplicationController
   respond_to :html
 
   before_filter :set_user
-  before_filter :set_business_transaction, only: :new
+  #before_filter :set_business_transaction, only: :new
+  before_filter :set_line_item_group, only: :new
   skip_before_filter :authenticate_user!, only: :index
 
   def new
-    @rating = Rating.new(business_transaction_id: params[:business_transaction_id])
+    @rating = Rating.new(line_item_group_id: @line_item_group.id)
     authorize @rating
     respond_with @rating
   end
@@ -54,7 +55,11 @@ class RatingsController < ApplicationController
       @user = User.find(params[:user_id])
     end
 
-    def set_business_transaction
-      @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
+    #def set_business_transaction
+    #  @business_transaction = BusinessTransaction.find(params[:business_transaction_id])
+    #end
+
+    def set_line_item_group
+      @line_item_group = LineItemGroup.find(params[:line_item_group_id])
     end
 end

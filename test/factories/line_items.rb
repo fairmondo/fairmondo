@@ -8,6 +8,7 @@ FactoryGirl.define do
     requested_quantity 1
 
     factory :line_item_with_specific_seller do
+      article { FactoryGirl.create :article_with_business_transaction, seller: line_item_group.seller }
     end
   end
 end
