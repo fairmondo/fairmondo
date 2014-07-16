@@ -22,7 +22,7 @@
 .Listview-item
   .Listview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-    - if business_transaction.line_item_group && business_transaction.line_item_group.rating
+    -# if business_transaction.line_item_group && business_transaction.line_item_group.rating
       .Listview-rating
         %span{class: "sprite_#{business_transaction.line_item_group.rating_value}_small" }
   = render "shared/listview/listview_detail", article: article
