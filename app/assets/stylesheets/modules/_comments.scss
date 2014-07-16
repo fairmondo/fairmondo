@@ -20,3 +20,9 @@
 .Comment-single > .text {
   padding-left: 4em;
 }
+
+.Comments-section form li.input {
+  list-style: none;
+  overflow: visible !important;
+  margin-bottom: 0;
+}

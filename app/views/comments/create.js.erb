@@ -1,0 +1,6 @@
+$('<%= "#library#{@commentable.id}" %> .Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
+
+$('#comment_text').val("");
+
+
+
