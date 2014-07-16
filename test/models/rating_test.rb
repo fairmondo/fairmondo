@@ -10,11 +10,11 @@ class RatingTest < ActiveSupport::TestCase
     it { subject.must_respond_to :rating }
     it { subject.must_respond_to :rated_user_id }
     it { subject.must_respond_to :text }
-    it { subject.must_respond_to :business_transaction_id }
+    it { subject.must_respond_to :line_item_group_id }
   end
 
   describe "associations" do
-    it { subject.must belong_to :business_transaction }
+    it { subject.must belong_to :line_item_group }
     it { subject.must belong_to :rated_user  }
   end
 
