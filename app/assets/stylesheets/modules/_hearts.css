@@ -10,9 +10,8 @@ div[class$="-hearts"] {
 .Hearts-button {
   float: right;
   position: relative;
-
-  > a > i.fa-heart {
-    font-size: 1.4rem;
+  i.fa-heart {
+    font-size: 1.3rem;
   }
 
   > a > i.fa-plus,
@@ -22,7 +21,9 @@ div[class$="-hearts"] {
     z-index: 101;
     font-size: 0.7rem;
     left: 0.4rem;
-    top: 0.35rem;
+    top: 0.3rem;
   }
-
+  .Hearts-count {
+    margin-left: 0.2rem;
+  }
 }

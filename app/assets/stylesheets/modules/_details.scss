@@ -1,10 +1,11 @@
 details {
   margin-bottom: 1em;
-  @include whitebox;
-  background-color: white;
+ // @include whitebox;
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  box-shadow: $sand 0px 0px 2px 1px;
   display: block;
   &:hover {
-    background-color: $sand;
   }
   summary::-webkit-details-marker {
     display:none;
@@ -14,14 +15,25 @@ details {
   }
 
   summary {
-    margin-bottom: 1em;
+    padding: em(10) em(20);
+    display: block;
+    &:hover {
+      background-color: $sand;
+    }
   }
 }
 
 details.open {
   summary {
-    background-color: $blue !important;
-    color: white;
+    border-radius: 0.5em 0.5em 0 0;
+    &:hover {
+      background-color: $sand;
+    }
   }
+
+}
+
+.details {
+  padding: em(10) em(20);
 }
 
