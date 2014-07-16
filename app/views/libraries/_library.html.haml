@@ -9,4 +9,5 @@
     %h2
       = t('common.text.comments')
     = render(library.comments.order(created_at: :desc)) || t('common.text.no_comments')
-    = render "comments/new", library: library
+    - if current_user
+      = render "comments/new", library: library
