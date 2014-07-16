@@ -59,7 +59,7 @@ class LibraryPolicy < Struct.new(:user, :library)
       if user && (user.is? current_user)
         scope
       else
-        scope.published
+        scope.published.not_empty
       end
     end
   end
