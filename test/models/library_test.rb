@@ -42,6 +42,7 @@ describe Library do
     it { subject.must_respond_to :user_id }
     it { subject.must_respond_to :library_elements_count }
     it { subject.must_respond_to :hearts_count }
+    it { subject.must_respond_to :comments_count }
   end
 
   describe "validations" do
