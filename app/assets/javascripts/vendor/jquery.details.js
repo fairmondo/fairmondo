@@ -37,11 +37,11 @@
             if (close) {
                 $details.removeClass('open').prop('open', false).triggerHandler('close.details');
                 $detailsSummary.attr('aria-expanded', false);
-                $detailsNotSummary.hide();
+                $detailsNotSummary.hide(200);
             } else {
                 $details.addClass('open').prop('open', true).triggerHandler('open.details');
                 $detailsSummary.attr('aria-expanded', true);
-                $detailsNotSummary.show();
+                $detailsNotSummary.show(200);
             }
 
         };
