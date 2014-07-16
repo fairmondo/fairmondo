@@ -52,7 +52,6 @@ class BusinessTransaction < ActiveRecord::Base
            :about, :terms, :cancellation, :paypal_account,:ngo, :iban, :bic,
            :vacationing?, :cancellation_form,
            to: :article_seller, prefix: true
-  delegate :value, to: :rating, prefix: true
   delegate :url, to: :article_seller_cancellation_form, prefix: true
   delegate :payment_address, :transport_address, to: :line_item_group
   delegate :buyer, :seller, to: :line_item_group
