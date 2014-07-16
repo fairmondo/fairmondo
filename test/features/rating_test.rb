@@ -22,24 +22,29 @@
 require_relative '../test_helper'
 
 include Warden::Test::Helpers
+include FastBillStubber
 
 feature 'User ratings' do
-  let(:business_transaction) { FactoryGirl.create :single_transaction, :sold }
-  let(:buyer) { business_transaction.buyer }
+  before do
+    stub_fastbill
+  end
 
-  scenario "guest rates a transaction" do
-    visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
+  let(:buyer) { FactoryGirl.create :user }
+  let(:line_item_group) { FactoryGirl.create :line_item_group_with_items, :sold, buyer: buyer }
+
+  scenario "guest rates a line_item_group" do
+    visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
     current_path.must_equal new_user_session_path
   end
 
-  scenario "user rates a transaction he didn't make" do
+  scenario "user rates a line_item_group he didn't make" do
     login_as  FactoryGirl.create :user
-    -> { visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction) }.must_raise Pundit::NotAuthorizedError
+    -> { visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group) }.must_raise Pundit::NotAuthorizedError
   end
 
-  scenario "user gives a rating for a transaction he made" do
+  scenario "user gives a rating for a line_item_group he made" do
     login_as buyer
-    visit business_transaction_new_user_rating_path(business_transaction.seller, business_transaction)
+    visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)
 
     page.must_have_selector "input#rating_rating_positive[@value='positive']"
     page.must_have_selector "input#rating_rating_neutral[@value='neutral']"
@@ -54,25 +59,24 @@ feature 'User ratings' do
 
   scenario "user tries to give a rating without entering a value" do
     login_as buyer
-    visit business_transaction_new_user_rating_path(business_transaction.seller,business_transaction)
+    visit line_item_group_new_user_rating_path(line_item_group.seller,line_item_group)
     click_button 'Bewertung speichern'
     page.must_have_button 'Bewertung speichern' # test if still on same page
   end
 
-  scenario "user tries to rate a transaction a second time" do
+  scenario "user tries to rate a line_item_group a second time" do
     login_as buyer
     rating = FactoryGirl.create(:positive_rating)
-    -> { visit business_transaction_new_user_rating_path(rating.rated_user, rating.business_transaction) }.must_raise Pundit::NotAuthorizedError
+    -> { visit line_item_group_new_user_rating_path(rating.rated_user, rating.line_item_group) }.must_raise Pundit::NotAuthorizedError
   end
 
   scenario "user visits profile of another user and checks his ratings" do
-    login_as  FactoryGirl.create :user
-    @rating = FactoryGirl.create :rating, rated_user: business_transaction.seller, rating_user: business_transaction.buyer
-    visit user_ratings_path(:user_id => business_transaction.seller.id)
+    @rating = FactoryGirl.create :rating, rated_user: line_item_group.seller, rating_user: line_item_group.buyer, line_item_group: line_item_group
+    login_as line_item_group.buyer
+    visit user_ratings_path(:user_id => line_item_group.seller.id)
 
-    page.must_have_content(business_transaction.seller.nickname)
+    page.must_have_content(line_item_group.seller.nickname)
     page.must_have_content(@rating.text)
-    page.must_have_content(business_transaction.buyer.nickname)
-
+    page.must_have_content(line_item_group.buyer.nickname)
   end
 end
