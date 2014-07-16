@@ -83,11 +83,14 @@ de:
       article: "Artikel"
       about_terms: "AGB / Widerrufserklärung / Impressum"
       extended_search: "Erweiterte Suche"
+      comments: "Kommentare"
+      no_comments: "Keine Kommentare"
       glue:
         from: "von"
         and: " und "
         by: "von"
         per: " pro "
+        ago: "vor %{time}"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus

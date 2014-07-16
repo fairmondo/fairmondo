@@ -2,6 +2,6 @@
   = image_tag comment.user.image_url(:profile), class: "author_image"
   .meta
     = link_to comment.user.nickname, profile_user_path(comment.user)
-    = "vor " + time_ago_in_words(comment.created_at)
+    = t('common.text.glue.ago', time: time_ago_in_words(comment.created_at))
   .text
     = comment.text
