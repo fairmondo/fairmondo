@@ -34,31 +34,48 @@
   - @libraries.each do |library|
     - unless library.new_record?
       = accordion_item "library"+library.id.to_s , :title => library.name  do
-        .library-settings-actions
-          - if policy(library).update?
-            %a.Button.js-library-show-settings
-              = t('common.actions.edit')
-          - if policy(library).destroy?
-            = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Button Button--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
-        .visibility
-          - if policy(library).update?
-            - if library.public?
-              = t 'library.visibility.public'
-            - else
-              = t 'library.visibility.private'
 
-        - if policy(library).update?
-          .library-settings.js-library-settings
-            = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s)) do |f|
-              .Accordion-step
-                = f.inputs do
-                  = f.input :name
-                  = f.input :public, :label => false
-                = f.actions do
-                  = f.action :submit, :label => :update, :button_html => {:class => "Button"}
         .library-elements
           - if library.library_elements.empty?
             = t('library.no_products')
           - else
             = render "library", library: library
+
+.libraries
+  - if !@libraries.blank?
+    .Accordion.Accordion--activated.Accordion--scrollToActive
+      - @libraries.each do |library|
+        - unless library.library_elements.empty?
+          = accordion_item "library"+library.id.to_s, :title => render("library_header", library: library), :arrow => false do
+            .library-actions
+              = link_to user_path(library.user), :class => "Button" do
+                = t('users.actions.show_account')
+                = t('common.text.glue.from')
+                = library.user_nickname
+              = link_to library_path(library), :class => "Button" do
+                = t('library.show')
+              = heart_button(library)
+            .library-settings-actions
+              - if policy(library).update?
+                %a.Button.js-library-show-settings
+                  = t('common.actions.edit')
+              - if policy(library).destroy?
+                = link_to t('common.actions.destroy') , user_library_path(current_user.id, library.id.to_s) , :class => "Button Button--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
+            .visibility
+              - if policy(library).update?
+                - if library.public?
+                  = t 'library.visibility.public'
+                - else
+                  = t 'library.visibility.private'
+            - if policy(library).update?
+              .library-settings.js-library-settings
+                = semantic_form_for(library, :url => user_library_path(@user.id,library.id.to_s)) do |f|
+                  .Accordion-step
+                    = f.inputs do
+                      = f.input :name
+                      = f.input :public, :label => false
+                    = f.actions do
+                      = f.action :submit, :label => :update, :button_html => {:class => "Button"}
+            = render "library", :library => library
+
   = paginate @libraries

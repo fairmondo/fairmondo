@@ -1,6 +1,6 @@
-= accordion_item "library"+resource.id.to_s, :title => library_header_layout(resource), :arrow => false do
-  %p
-    = render "library", :library => resource
+
+= library_header_layout(resource)
+= render "library", :library => resource
 
 
 -# Admin controls
