@@ -15,6 +15,7 @@ class MegaMigration < ActiveRecord::Migration
 
   class LineItemGroup < ActiveRecord::Base
     has_many :business_transactions
+    has_one :rating
   end
 
   # From "MoveAddressesFromUserModelToAddressModel"
@@ -28,6 +29,9 @@ class MegaMigration < ActiveRecord::Migration
     belongs_to :user, class_name: 'PseudoUser', foreign_key: 'user_id' # As buyer
   end
 
+  class Rating < ActiveRecord::Base
+    belongs_to :line_item_group
+  end
 
 
   def up
@@ -126,6 +130,11 @@ class MegaMigration < ActiveRecord::Migration
     add_column :articles, :quantity_available, :integer
     add_column :articles, :unified_transport, :boolean
 
+    # Change Ratings
+    add_column :ratings, :line_item_group_id, :integer, limit: 8
+
+    add_index :ratings, :line_item_group_id, name: 'index_line_item_group_id_on_ratings'
+
 
     ### DATA CHANGES ###
 
@@ -154,8 +163,11 @@ class MegaMigration < ActiveRecord::Migration
     BusinessTransaction.all.find_each do |t|
       lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at)
       t.update_column :line_item_group_id, lig.id
+      # Move Ratings from BusinessTransaction to LineItemGroup
+      if t.rating
+        t.rating.update_column(:line_item_group_id, t.line_item_group_id)
+      end
     end
-
 
 
     # MoveAddressesFromUserModelToAddressModel

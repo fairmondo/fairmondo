@@ -65,13 +65,14 @@ class User < ActiveRecord::Base
 
     # Articles and Mass uploads
   has_many :articles, dependent: :destroy # As seller
-  has_many :bought_articles, through: :bought_business_transactions, source: :article
+  #has_many :bought_business_transactions, through: :buyer_line_item_groups#, source: :line_item_groups
+  #has_many :bought_articles, through: :bought_business_transactions, source: :article
   has_many :mass_uploads
 
     # Cart related Models
   has_many :carts # as buyer
-  has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
-  has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
+  #has_many :line_item_groups, foreign_key: 'seller_id', inverse_of: :seller # as seller
+  #has_many :line_item_groups, foreign_key: 'buyer_id', inverse_of: :buyer  # as buyer
   has_many :seller_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'seller_id', inverse_of: :seller
   has_many :buyer_line_item_groups, class_name: 'LineItemGroup', foreign_key: 'buyer_id', inverse_of: :buyer
 
@@ -81,7 +82,7 @@ class User < ActiveRecord::Base
 
     # Ratings
   has_many :ratings, foreign_key: 'rated_user_id', dependent: :destroy, inverse_of: :rated_user
-  has_many :given_ratings, through: :bought_business_transactions, source: :rating, inverse_of: :rating_user
+  has_many :given_ratings, through: :buyer_line_item_group, source: :rating, inverse_of: :rating_user
 
     # Notices
   has_many :notices

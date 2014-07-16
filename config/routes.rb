@@ -84,6 +84,8 @@ Fairnopoly::Application.routes.draw do
 
   resources :line_items, only: [:create,:update,:destroy]
 
+  resources :line_item_groups, only: [:show]
+
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
   get 'welcome/reconfirm_terms'
@@ -103,7 +105,7 @@ Fairnopoly::Application.routes.draw do
     resources :libraries, :except => [:new,:edit]
     resources :library_elements, only: [:create, :destroy]
     resources :ratings, :only => [:create, :index] do
-      get '/:business_transaction_id', to: 'ratings#new', as: 'business_transaction', on: :new
+      get '/:line_item_group_id', to: 'ratings#new', as: 'line_item_group', on: :new
     end
     member do
       get 'profile'
@@ -150,7 +152,4 @@ Fairnopoly::Application.routes.draw do
   } do
     get '/*id' => 'contents#show'
   end
-
-
-
 end

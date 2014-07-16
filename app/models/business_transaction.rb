@@ -30,9 +30,6 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :line_item_group
   belongs_to :payment, inverse_of: :business_transactions
 
-  has_one :rating, inverse_of: :business_transaction
-
-
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
 
