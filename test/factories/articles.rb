@@ -89,6 +89,12 @@ FactoryGirl.define do
       association :fair_trust_questionnaire
     end
 
+    factory :article_with_business_transaction do
+      after :create do |article, evaluator|
+        FactoryGirl.create :business_transaction, article: article
+      end
+    end
+
     trait :category1 do
       after(:build) do |article|
         article.categories = [Category.find(1)]

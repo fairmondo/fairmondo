@@ -11,6 +11,7 @@ class CartCheckoutForm
     cart.line_item_groups.each do |group|
       group.unified_transport = group.transport_can_be_unified?
       group.unified_payment = group.payment_can_be_unified?
+      group.buyer_id = cart.user_id
     end
 
     if cart.user.standard_address && cart.user.standard_address.valid?
@@ -76,7 +77,7 @@ class CartCheckoutForm
         group.assign_attributes(group_params.for(group).on(:update).refine) if group_params
         group.payment_address = self.payment_address
         group.transport_address = self.transport_address
-        group.buyer = cart.user
+        group.buyer_id = cart.user_id
         self.form_objects << group
       end
 
