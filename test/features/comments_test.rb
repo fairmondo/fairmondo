@@ -50,5 +50,4 @@ feature "comments for all users" do
       page.wont_have_content("Keine Kommentare")
     end
   end
-
 end
