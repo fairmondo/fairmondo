@@ -19,13 +19,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingPolicy < Struct.new(:user, :rating)
+class PaymentsController < ApplicationController
+  respond_to :html
 
-  def new?
-    ( user.is? rating.business_transaction.buyer ) && (user.given_ratings.select {|r| r.business_transaction == rating.business_transaction } ).empty?
+  def show
+    @payment = Payment.find params[:id]
+    authorize @payment
+    redirect_to @payment.paypal_checkout_url
   end
 
-  def create?
-    new?
+  def create
+    authorize create_or_update_target
+    @payment.save
+    respond_with @payment
   end
+
+  private
+    def create_or_update_target
+      @payment = Payment.find_or_initialize_by(
+        business_transaction_id: BusinessTransaction.find(params[:business_transaction_id]).id
+      )
+    end
 end

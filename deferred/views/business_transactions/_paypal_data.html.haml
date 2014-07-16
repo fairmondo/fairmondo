@@ -3,19 +3,19 @@
 - quantity = resource.quantity_bought
 
 %p
-  Bitte schicke den Gesamtbetrag von
-  %strong= humanized_money_with_symbol resource.article_total_price selected_transport, selected_payment, quantity
-  über PayPal an die folgende Email-Addresse:
+  = button_to t('transaction.actions.paypal_process'), payments_path(resource), method: :POST, class: "Btn"
 
 %p
-  %strong= resource.article_seller_paypal_account
-
-%p
-  Gehe dafür folgendermaßen vor:
+  Sollte die Zahlungsabwicklung über den obigen Knopf nicht funktionieren, gehe bitte folgendermaßen vor:
   %ol
     %li
       Logge Dich bei
       %a{:href => "http://www.paypal.de", target: '_blank'}PayPal.de
-      in deinen Account ein.
+      in Deinen Account ein.
     %li Klicke auf "Geld senden".
-    %li Gib dort die zuvor genannten Daten ein und wickle den Geld-Versand-Vorgang ab.
+    %li
+      Gib dort die Empfänger-Adresse
+      %strong= resource.article_seller_paypal_account
+      sowie den Geldbetrag von
+      %strong= humanized_money_with_symbol resource.article_total_price selected_transport, selected_payment, quantity
+      ein und wickle den Geld-Versand-Vorgang ab.

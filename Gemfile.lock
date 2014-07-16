@@ -220,6 +220,7 @@ GEM
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
     json (1.8.1)
+    jsonschema (2.0.2)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -293,6 +294,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    paypal_adaptive (0.3.7)
+      json (~> 1.0)
+      jsonschema (~> 2.0.0)
     pg (0.17.1)
     polyglot (0.3.5)
     pry (0.10.0)
@@ -575,6 +579,7 @@ DEPENDENCIES
   nkss-rails!
   nokogiri
   paperclip (>= 3.0)
+  paypal_adaptive
   pg
   pry-byebug
   pry-rails

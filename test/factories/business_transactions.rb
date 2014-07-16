@@ -87,5 +87,9 @@ FactoryGirl.define do
     trait :discountable do
       article { FactoryGirl.create :article, :with_discount }
     end
+
+    trait :paypal_purchasable do
+      article { FactoryGirl.create :article, payment_paypal: true, seller: FactoryGirl.create(:seller, :paypal_data) }
+    end
   end
 end
