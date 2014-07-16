@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 
     # Ratings
   has_many :ratings, foreign_key: 'rated_user_id', dependent: :destroy, inverse_of: :rated_user
-  has_many :given_ratings, through: :buyer_line_item_group, source: :rating, inverse_of: :rating_user
+  has_many :given_ratings, through: :buyer_line_item_groups, source: :rating, inverse_of: :rating_user
 
     # Notices
   has_many :notices
