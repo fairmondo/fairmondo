@@ -29,7 +29,7 @@ Fairnopoly::Application.routes.draw do
   end
 
   concern :commentable do
-    resources :comments, except: [:show, :create, :destroy]
+    resources :comments, except: [:show]
   end
 
   namespace :admin do
