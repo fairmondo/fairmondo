@@ -28,6 +28,7 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :business_transactions
 
   belongs_to :line_item_group
+  belongs_to :payment, inverse_of: :business_transactions
 
   has_one :rating, inverse_of: :business_transaction
 
@@ -67,6 +68,7 @@ class BusinessTransaction < ActiveRecord::Base
 
   validates :line_item_group, presence: true
   validates :article, presence: true
+  validates :payment_id, numericality: true # only exists with a payment provider
 
 
   state_machine initial: :sold do

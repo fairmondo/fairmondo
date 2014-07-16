@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20140710124504) do
     t.boolean  "billed_for_discount",                             default: false
     t.integer  "transport_address_id",                  limit: 8
     t.integer  "payment_address_id",                    limit: 8
+    t.integer  "payment_id",                            limit: 8
     t.integer  "line_item_group_id",                    limit: 8
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_maximum_articles"
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(version: 20140710124504) do
   add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
   add_index "business_transactions", ["payment_address_id"], name: "index_business_transactions_on_payment_address_id", using: :btree
+  add_index "business_transactions", ["payment_id"], name: "index_business_transactions_on_payment_id", using: :btree
   add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
   add_index "business_transactions", ["transport_address_id"], name: "index_business_transactions_on_transport_address_id", using: :btree
 
@@ -335,7 +337,9 @@ ActiveRecord::Schema.define(version: 20140710124504) do
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
   add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
+  add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id", using: :btree
   add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id", using: :btree
+  add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "line_item_group_id", limit: 8
@@ -391,6 +395,15 @@ ActiveRecord::Schema.define(version: 20140710124504) do
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+
+  create_table "payments", force: true do |t|
+    t.string   "pay_key"
+    t.string   "state"
+    t.text     "error"
+    t.text     "last_ipn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"

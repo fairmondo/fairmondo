@@ -99,6 +99,8 @@ gem 'newrelic_rpm',  group: [:production,:staging]
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
 
 gem 'savon' # interacing with other SOAP apis:
+# Paypal integration
+gem 'paypal_adaptive'
 
 # ---------- Development ----------
 
