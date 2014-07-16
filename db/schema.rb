@@ -335,7 +335,9 @@ ActiveRecord::Schema.define(version: 20140710124504) do
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
   add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
+  add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id", using: :btree
   add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id", using: :btree
+  add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "line_item_group_id", limit: 8
@@ -412,9 +414,11 @@ ActiveRecord::Schema.define(version: 20140710124504) do
     t.integer  "rated_user_id",           limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "line_item_group_id",      limit: 8
   end
 
   add_index "ratings", ["business_transaction_id"], name: "index_ratings_on_business_transaction_id", using: :btree
+  add_index "ratings", ["line_item_group_id"], name: "index_line_item_group_id_on_ratings", using: :btree
   add_index "ratings", ["rated_user_id"], name: "index_ratings_on_rated_user_id", using: :btree
 
   create_table "refunds", force: true do |t|

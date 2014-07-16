@@ -22,19 +22,11 @@
 .Listview-item
   .Listview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-    -# if business_transaction && business_transaction.rating
+    - if business_transaction.line_item_group && business_transaction.line_item_group.rating
       .Listview-rating
-        %span{class: "sprite_#{business_transaction.rating_value}_small" }
+        %span{class: "sprite_#{business_transaction.line_item_group.rating_value}_small" }
   = render "shared/listview/listview_detail", article: article
   .Listview-actions
-    -# if business_transaction
-      - if business_transaction.buyer == current_user
-        = link_to t('transaction.completed.show_bought'), business_transaction_path(business_transaction), :class => "Button"
-        - unless business_transaction.rating
-          = link_to t('transaction.completed.rate'), business_transaction_new_user_rating_path(business_transaction.seller, business_transaction), :class => "Button"
-      - if business_transaction.seller == current_user
-        = link_to t('transaction.completed.show_sold'), business_transaction_path(business_transaction), :class => "Button"
-        - if business_transaction.refundable?
-          = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
-      - else
-        = link_to t('common.actions.show_article'), article_path(article), :class => "Button"
+    - if business_transaction
+      - if business_transaction.seller == current_user && business_transaction.refundable?
+        = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"

@@ -35,6 +35,8 @@ class CartsController < ApplicationController
       redirect_to edit_cart_path(@cart, checkout: true)
     when :checked_out
       clear_session
+      @cart.sold = true
+      @cart.save
       respond_with @cart
     when :checkout_failed
       # failed because something isnt available anymore
