@@ -1,0 +1,27 @@
+details {
+  margin-bottom: 1em;
+  @include whitebox;
+  background-color: white;
+  display: block;
+  &:hover {
+    background-color: $sand;
+  }
+  summary::-webkit-details-marker {
+    display:none;
+  }
+  summary:focus {
+    outline: none !important; //prevent nasty linkish outlines
+  }
+
+  summary {
+    margin-bottom: 1em;
+  }
+}
+
+details.open {
+  summary {
+    background-color: $blue !important;
+    color: white;
+  }
+}
+

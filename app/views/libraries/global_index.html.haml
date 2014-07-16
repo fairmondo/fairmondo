@@ -19,19 +19,11 @@
 -#
 .libraries
   - if !@libraries.blank?
-    .Accordion.Accordion--scrollToActive
-      - @libraries.each do |library|
-        - unless library.library_elements.empty?
-          = accordion_item "library"+library.id.to_s, :title => library_header_layout(library), :arrow => false do
-            .library-actions
-              = link_to user_path(library.user), :class => "Button" do
-                = t('users.actions.show_account')
-                = t('common.text.glue.from')
-                = library.user_nickname
-              = link_to library_path(library), :class => "Button" do
-                = t('library.show')
-              = heart_button(library)
-            = render "library", :library => library
+    - @libraries.each_with_index do |library|
+      - unless library.library_elements.empty?
+        %details{id: "library#{library.id.to_s}"}
+          %summary= library_header_layout(library)
+          = render "library", :library => library
 
     = paginate @libraries
   - else
