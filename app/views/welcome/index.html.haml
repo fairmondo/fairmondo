@@ -24,6 +24,7 @@
 - cache 'category-dropdown-welcome' do
   .category-dropdown
     = render 'categories/shared/category_tree'
+
 .teaser.teaser--double
   .teaser-inner
     %h2
@@ -37,6 +38,56 @@
 .teaser.teaser--collapsible.teaser--center
   .teaser-inner
     = tinycms_content 'cfk_box'
+
+.teaser.teaser--double
+  .teaser-inner
+    %h2
+      = link_to('GEBRAUCHT BEI FAIRNOPOLY', featured_library_path(@old[:library]))
+    - @old[:exhibits].each do |article|
+      .teaser-queue
+        = render "/articles/shared/show_article", article: article
+
+.teaser.teaser--double.teaser--collapsible
+  .teaser-inner
+    %h2
+      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
+    - @donation_articles[:exhibits].each do |article|
+      .teaser-queue
+        = render "/articles/shared/show_article", article: article
+
+.teaser.teaser--double.teaser--cardslides
+  .teaser-inner
+    #js-cardslides
+      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+        %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
+      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+        %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
+      - 8.times do |i|
+        = image_tag "slides/cards/#{i}.png"
+      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
+        %i.icon-left_arrow
+      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
+        %i.icon-right_arrow
+
+.teaser.teaser--double.teaser--collapsible
+  .teaser-inner
+    %h2
+      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
+    - @queue3[:exhibits].each do |article|
+      .teaser-queue
+        = render "/articles/shared/show_article", article: article
+
+.teaser.teaser--double
+  .teaser-inner.teaser--center
+    %h2 AKTIV MITWIRKEN
+    %p
+      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
+    %p
+      %a{ href: "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", class: "Button", target: "_blank" }
+        Held*in werden
+
+.teaser.teaser--double.teaser--news
+  .teaser-inner.teaser--hide#js-teaser-news-placeholder
 
 .teaser.teaser--full.teaser--userslides
   .teaser-inner
@@ -80,57 +131,6 @@
           Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
           %span.teaser-quote> &ldquo;
           .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
-
-.teaser.teaser--double
-  .teaser-inner
-    %h2
-      = link_to('GEBRAUCHT BEI FAIRNOPOLY', featured_library_path(@old[:library]))
-    - @old[:exhibits].each do |article|
-      .teaser-queue
-        = render "/articles/shared/show_article", article: article
-
-.teaser.teaser--double.teaser--collapsible
-  .teaser-inner
-    %h2
-      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
-    - @donation_articles[:exhibits].each do |article|
-      .teaser-queue
-        = render "/articles/shared/show_article", article: article
-
-.teaser.teaser--double.teaser--cardslides
-  .teaser-inner
-    #js-cardslides
-      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-        %span.teaser-arrow.teaser-arrow--left.sprite_left_arrow
-      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-        %span.teaser-arrow.teaser-arrow--right.sprite_right_arrow
-      - 8.times do |i|
-        = image_tag "slides/cards/#{i}.png"
-      %a{href: '#', class: 'slidesjs-next slidesjs-navigation'}
-        %i.icon-left_arrow
-      %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
-        %i.icon-right_arrow
-
-.teaser.teaser--double.teaser--collapsible
-  .teaser-inner
-    %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
-      .teaser-queue
-        = render "/articles/shared/show_article", article: article
-
-
-.teaser.teaser--double
-  .teaser-inner.teaser--center
-    %h2 AKTIV MITWIRKEN
-    %p
-      Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
-    %p
-      %a{ href: "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", class: "Button", target: "_blank" }
-        Held*in werden
-.teaser.teaser--double.teaser--news
-  .teaser-inner.teaser--hide#js-teaser-news-placeholder
-
 
 - cache "ngo_logosand_known_from" do
   = render "welcome/index/ngos"
