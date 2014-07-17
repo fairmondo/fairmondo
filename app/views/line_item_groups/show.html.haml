@@ -1,0 +1,29 @@
+.Content
+  %h1
+    - if @line_item_group.buyer == current_user
+      = 'Deine Bestellung'
+    - if @line_item_group.seller == current_user
+      = 'Dein Auftrag'
+  %p
+    Vielen Dank für Deinen Einkauf bei Fairnopoly.
+
+  %h2
+    - if @line_item_group.buyer == current_user
+      = "Dein Einkauf bei "
+      = link_to @line_item_group.seller.nickname, user_path(@line_item_group.seller)
+      = "vom #{@line_item_group.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}."
+
+    - if @line_item_group.seller == current_user
+      = "Dein Auftrag durch "
+      = link_to @line_item_group.buyer.nickname, user_path(@line_item_group.buyer)
+      = "vom #{@line_item_group.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}"
+  = "Bestellnummer: #{@line_item_group.id}"
+
+  - if @line_item_group.unified_transport && @line_item_group.unified_payment
+    = render 'line_item_groups/unified_transport_and_payment', line_item_group: @line_item_group
+  - elsif @line_item_group.unified_transport && !@line_item_group.unified_payment
+    = render 'line_item_groups/unified_transport', line_item_group: @line_item_group
+  - elsif @line_item_group.unified_payment && !@line_item_group.unified_transport
+    = render 'line_item_groups/unified_payment', line_item_group: @line_item_group
+  - else
+    = render 'line_item_groups/neither_unified_payment_nor_transport', line_item_group: @line_item_group
