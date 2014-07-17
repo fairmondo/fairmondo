@@ -29,7 +29,7 @@
     Rechnungsadresse
   - unless @cart_checkout_form.needs_new_payment_address?
     .Grid
-      = render 'addresses/address', address: @cart_checkout_form.payment_address
+      = render 'addresses/address', address: @cart_checkout_form.payment_address, controls: true
   - else
     = f.semantic_fields_for @cart_checkout_form.payment_address do |baf| # Buyer Address Form
       = baf.inputs do
@@ -49,7 +49,7 @@
     = radio_button_tag 'cart_checkout_form[transport_address_id]', "0" , @cart_checkout_form.same_transport_address?
 
   %fieldset.inputs#address_select
-    = render 'addresses/addresses', radio: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
+    = render 'addresses/addresses', radio: true, controls: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
 
   = link_to 'neue Adresse hinzufügen', new_user_address_path(current_user, radio: true), { class: 'colorbox' }
 

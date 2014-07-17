@@ -127,7 +127,7 @@
           %h3= 'Deine Versandaddressen'
           = link_to 'neue Adresse hinzufügen', new_user_address_path(@user), { class: 'colorbox' }
 
-        = render 'addresses/addresses', radio: false
+        = render 'addresses/addresses', radio: false, controls: true
 
     = f.input_step :profile, tooltip: true do
       = f.inputs do
