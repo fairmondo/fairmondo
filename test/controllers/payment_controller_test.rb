@@ -24,8 +24,7 @@ include FastBillStubber
 
 describe PaymentsController do
 
-  let(:payment) { FactoryGirl.create(:payment) }
-  let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable, payment: payment) }
+  let(:payment) { bt.payment }
   let(:buyer) { bt.buyer }
 
   before do
@@ -34,9 +33,11 @@ describe PaymentsController do
   end
 
   describe "POST 'create'" do
+    let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+
     it "should create a payment and forward to show" do
       assert_difference 'Payment.count', 1 do
-        post :create, business_transaction_id: bt.id
+        post :update, id: payment.id
       end
       assert_redirected_to "http://test.host/payments/1"
     end
@@ -44,13 +45,15 @@ describe PaymentsController do
     it "should update a payment and forward to show" do
       payment #so one with the business_transaction_id already exists
       assert_difference 'Payment.count', 0 do
-        post :create, business_transaction_id: bt.id
+        post :update, id: payment.id
       end
       assert_redirected_to "http://test.host/payments/1"
     end
   end
 
   describe "GET 'show'" do
+    let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable, payment: FactoryGirl.create(:payment, :with_pay_key)) }
+
     it "should redirect to paypal" do
       get :show, id: payment.id
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"

@@ -130,8 +130,7 @@ Fairnopoly::Application.routes.draw do
 
   post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: {format: 'json'}
 
-  resources :payments, only: [:show]
-  post '/payments/:business_transaction_id', to: 'payments#create', as: 'payments'
+  resources :payments, only: [:show, :update]
   match '/paypal/ipn_notification' => PaypalIpn, as: 'ipn_notification', via: [:get, :post]
 
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
