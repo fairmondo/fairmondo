@@ -3,4 +3,9 @@
     = render "comments/new", library: library
   - else
     = t('common.text.login_to_comment')
-  = render(library.comments.order(created_at: :desc)) || t('common.text.no_comments')
+
+  - if library.comments.any?
+    = render library.comments.order(created_at: :desc)
+  - else
+    #comments-empty
+      = t('common.text.no_comments')
