@@ -24,8 +24,8 @@
   .Accordion
     = render '/shared/listview/listview_accordion', item_name: 'active', item_link: new_article_path, items: active_articles
     = render '/shared/listview/listview_accordion', item_name: 'inactive', items: inactive_articles
-    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'sold', line_item_groups: resource.seller_line_item_groups
-    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'bought', line_item_groups: resource.buyer_line_item_groups
+    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'seller_line_item_groups', line_item_groups: sold_line_item_groups
+    = render '/shared/line_item_group/line_item_group_accordion', item_name: 'buyer_line_item_groups', line_item_groups: bought_line_item_groups
     -#TODO change partial names and contents
 
     = accordion_item 'my_article_templates' do

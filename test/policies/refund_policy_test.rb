@@ -14,10 +14,8 @@ describe RefundPolicy do
     let( :user ) { nil }
     it 'should deny refund create for visitors' do
       subject.must_deny(:create)
+      subject.must_deny(:new)
     end
-
-    # it { subject.must_deny( :create ) }
-    # it { subject.must_deny( :new) }
   end
 
   describe 'for a logged in user' do

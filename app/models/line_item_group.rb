@@ -13,6 +13,7 @@ class LineItemGroup < ActiveRecord::Base
 
   delegate :email,
            to: :seller, prefix: true
+  delegate :value, to: :rating, prefix: true
 
   auto_sanitize :message
 
