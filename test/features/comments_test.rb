@@ -24,7 +24,17 @@ require_relative "../test_helper"
 include Warden::Test::Helpers
 
 feature "comments for all users" do
-  scenario "User visits library with no comments" do
+  scenario "Guest visits library with no comments" do
+    library = FactoryGirl.create(:library, public: true)
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.must_have_content("Du kannst keine Kommentare erstellen.")
+      page.wont_have_content("Kommentar erstellen")
+    end
+  end
+
+  scenario "Guest visits library with no comments" do
     library = FactoryGirl.create(:library, public: true)
 
     visit library_path(library)
@@ -34,7 +44,7 @@ feature "comments for all users" do
     end
   end
 
-  scenario "User visits library with a comment" do
+  scenario "Guest visits library with a comment" do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
     comment = FactoryGirl.create(:comment,
@@ -48,6 +58,36 @@ feature "comments for all users" do
     within(".Comments-section") do
       page.must_have_content("Test comment")
       page.wont_have_content("Keine Kommentare")
+      page.wont_have_content("Mehr Kommentare")
+    end
+  end
+
+  scenario "Guest visits library with more than 5 comments" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create_list(:comment,
+                                 10,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
+                                 user: user)
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.must_have_content("Mehr Kommentare")
+    end
+  end
+
+  scenario "User visits library to create a comment" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:user)
+    login_as user
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.must_have_content("Kommentar erstellen")
     end
   end
 end

@@ -1,8 +1,12 @@
 class CommentsController < ApplicationController
   respond_to :js
 
-  before_filter :set_commentable, only: [:create, :update, :destroy]
+  before_filter :set_commentable, only: [:index, :create, :update, :destroy]
   before_filter :set_comment, only: [:update, :destroy]
+
+  def index
+    @comments = @commentable.comments.order(created_at: :desc).page(params[:comments_page])
+  end
 
   def create
     comment_data = {user: current_user}.merge(comment_params)

@@ -88,6 +88,7 @@ de:
       login_to_comment: "Du kannst keine Kommentare erstellen. Bitte logge dich ein oder erstelle einen Account."
       comment_placeholder: "Hinterlasse einen Kommentar"
       leave_comment: "Kommentar erstellen"
+      morecomments: "Mehr Kommentare"
       glue:
         from: "von"
         and: " und "
