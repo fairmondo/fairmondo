@@ -23,13 +23,13 @@ module NoticeHelper
 
   def main_notice_mapper(type)
     case type
-    when 'alert'
+    when :alert
       'error'
-    when 'error'
+    when :error
       'error'
-    when 'notice'
+    when :notice
       'info'
-    when 'confirm'
+    when :confirm
       'confirmation'
     else
       'info'
