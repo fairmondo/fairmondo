@@ -11,10 +11,14 @@ FactoryGirl.define do
     factory :line_item_group_with_items do
       ignore do
         business_transaction_count 3
+        line_item_article { FactoryGirl.create :article } # careful: might not set quantity_available right
+        traits []
       end
 
+      seller { line_item_article ? line_item_article.seller : FactoryGirl.create(:seller) }
+
       after(:create) do |line_item_group, evaluator|
-        create_list(:business_transaction_with_line_items, evaluator.business_transaction_count, line_item_group: line_item_group)
+        create_list(:business_transaction_with_line_items, evaluator.business_transaction_count, *evaluator.traits, line_item_group: line_item_group, article: evaluator.line_item_article)
       end
     end
   end

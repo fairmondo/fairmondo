@@ -36,20 +36,20 @@ FactoryGirl.define do
     end
 
     trait :legal_transaction do
-      article { FactoryGirl.create :article, :with_legal_entity}
+      article { FactoryGirl.create :article, :with_legal_entity }
     end
 
     trait :private_transaction do
-      article { FactoryGirl.create :article, :with_private_user}
+      article { FactoryGirl.create :article, :with_private_user }
     end
 
     factory :business_transaction_with_friendly_percent do
-      article { FactoryGirl.create :article, :with_friendly_percent}
+      article { FactoryGirl.create :article, :with_friendly_percent }
     end
 
     #TODO please use business_transaction_with_buyer
     factory :business_transaction_with_friendly_percent_missing_bank_data_and_buyer  do
-      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data}
+      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data }
     end
 
     factory :business_transaction_with_line_items do
@@ -96,7 +96,9 @@ FactoryGirl.define do
     end
 
     trait :paypal_purchasable do
-      article { FactoryGirl.create :article, payment_paypal: true, seller: FactoryGirl.create(:seller, :paypal_data) }
+      article { FactoryGirl.create :article, payment_paypal: true, seller: (seller || FactoryGirl.create(:seller, :paypal_data)) }
+      selected_payment :paypal
+      payment
     end
   end
 end

@@ -30,18 +30,18 @@ describe PaymentPolicy do
 
   context "for a visitor" do
     it { subject.must_deny(:show)   }
-    it { subject.must_deny(:create) }
+    it { subject.must_deny(:update) }
   end
 
   context "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_deny(:show)         }
-    it { subject.must_deny(:create)       }
+    it { subject.must_deny(:update)       }
   end
 
   context "for the buying user" do
     let(:user) { payment.transaction.buyer }
     it { subject.must_permit(:show)        }
-    it { subject.must_permit(:create)      }
+    it { subject.must_permit(:update)      }
   end
 end

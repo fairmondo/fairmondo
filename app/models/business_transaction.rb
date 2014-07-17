@@ -65,8 +65,6 @@ class BusinessTransaction < ActiveRecord::Base
 
   validates :line_item_group, presence: true
   validates :article, presence: true
-  validates :payment_id, numericality: true # only exists with a payment provider
-
 
   state_machine initial: :sold do
 

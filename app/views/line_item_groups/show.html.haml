@@ -1,0 +1,3 @@
+- @line_item_group.business_transactions.each do |bt|
+  - if bt.selected_payment == 'paypal'
+    = button_to t('transaction.actions.paypal_process'), payment_path(bt.payment), method: 'patch', class: "Button"

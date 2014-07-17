@@ -23,21 +23,19 @@ class PaymentsController < ApplicationController
   respond_to :html
 
   def show
-    @payment = Payment.find params[:id]
+    @payment = Payment.find(params[:id])
     authorize @payment
     redirect_to @payment.paypal_checkout_url
   end
 
-  def create
-    authorize create_or_update_target
-    @payment.save
-    respond_with @payment
-  end
-
-  private
-    def create_or_update_target
-      @payment = Payment.find_or_initialize_by(
-        business_transaction_id: BusinessTransaction.find(params[:business_transaction_id]).id
-      )
+  # create happens on buy. this is to initialize the payment with paypal
+  def update
+    @payment = Payment.find(params[:id])
+    authorize @payment
+    if @payment.init
+      redirect_to @payment.paypal_checkout_url
+    else
+      redirect_to :back, flash: { error: "Watn jetz los" }
     end
+  end
 end

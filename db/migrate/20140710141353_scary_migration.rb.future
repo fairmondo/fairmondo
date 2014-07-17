@@ -11,11 +11,11 @@ class ScaryMigration < ActiveRecord::Migration
     remove_column :users, :city
     remove_column :users, :country
 
-    remove_column(:business_transactions, :quantity_available)
-    remove_column(:business_transactions, :type_fix)
-    remove_column(:business_transactions, :expire) rescue nil
-    remove_column(:business_transactions, :message)
-    remove_column(:business_transactions, :tos_accepted)
+    remove_column :business_transactions, :quantity_available
+    remove_column :business_transactions, :type_fix
+    remove_column :business_transactions, :expire rescue
+    remove_column :business_transactions, :message
+    remove_column :business_transactions, :tos_accepted
 
     remove_column :business_transactions, :forename
     remove_column :business_transactions, :surname
@@ -26,5 +26,7 @@ class ScaryMigration < ActiveRecord::Migration
     remove_column :business_transactions, :country
     remove_column :business_transactions, :buyer_id
     remove_column :business_transactions, :seller_id
+
+    #? sold_at
   end
 end

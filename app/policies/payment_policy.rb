@@ -20,11 +20,11 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class PaymentPolicy < Struct.new(:user, :payment)
-  def create?
-    user && payment.line_item_group_buyer_id == user.id && payment.business_transaction_sold?
+  def update?
+    user && payment.line_item_group_buyer_id == user.id && !payment.succeeded?
   end
 
   def show?
-    create?
+    update?
   end
 end

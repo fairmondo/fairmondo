@@ -11,6 +11,9 @@ class LineItemGroup < ActiveRecord::Base
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
   has_one :rating
 
+  delegate :email,
+           to: :seller, prefix: true
+
   auto_sanitize :message
 
   with_options if: :has_business_transactions? do |bt|
