@@ -89,6 +89,8 @@ de:
       comment_placeholder: "Hinterlasse einen Kommentar"
       leave_comment: "Kommentar erstellen"
       morecomments: "Mehr Kommentare"
+      delete_comment: "Kommentar löschen"
+      confirm_comment_delete: "Diesen Kommentar wirklich löschen?"
       glue:
         from: "von"
         and: " und "

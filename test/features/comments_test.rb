@@ -90,4 +90,57 @@ feature "comments for all users" do
       page.must_have_content("Kommentar erstellen")
     end
   end
+
+  scenario "User is able to delete their own comment" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:user)
+    login_as user
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
+                                 user: user)
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.must_have_content("Kommentar löschen")
+    end
+  end
+
+  scenario "Guest is unable to delete a comment" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
+                                 user: user)
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.wont_have_content("Kommentar löschen")
+    end
+  end
+
+  scenario "User is unable to delete other users comments" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:user)
+    user2 = FactoryGirl.create(:user)
+    login_as user2
+
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
+                                 user: user)
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.wont_have_content("Kommentar löschen")
+    end
+
+  end
 end

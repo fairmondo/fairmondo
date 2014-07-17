@@ -52,4 +52,25 @@ describe CommentsController do
       assert_response :success
     end
   end
+
+  describe "DELETE comment on library" do
+    before :each do
+      @library = FactoryGirl.create(:library)
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+      @comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: @library,
+                                 library: @library,
+                                 user: @user)
+
+      it "it should remove the comment" do
+        delete :destroy, user: @user,
+                          id: @comment.id,
+                          library_id: @library.id
+
+        assert_response :success
+      end
+    end
+  end
 end
