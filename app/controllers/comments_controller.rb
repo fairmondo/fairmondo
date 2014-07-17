@@ -19,6 +19,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @comment
+    comment_id = @comment.id
+    render :destroy, locals: { commentable_id: @commentable.id, comment_id: comment_id}
+    @comment.destroy
+  end
+
   private
 
   def set_commentable
