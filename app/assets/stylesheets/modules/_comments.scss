@@ -3,13 +3,12 @@
   border-radius:1em;
   min-height: 48px;
   margin-bottom: 0.7em;
+  overflow: hidden;
 }
 
 .Comment-single > .author_image {
   height: 48px;
   width: 48px;
-  border-top-left-radius: 1em;
-  border-bottom-left-radius: 1em;
   float: left;
 }
 
