@@ -24,10 +24,15 @@
 require_relative "../test_helper"
 
 describe CommentsController do
-  describe "GET comment on library" do
+  describe "GET comments on library" do
     before :each do
       @library = FactoryGirl.create(:library)
       @user = FactoryGirl.create(:user)
+      @comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: @library,
+                                 library: @library,
+                                 user: @user)
       sign_in @user
     end
   end
