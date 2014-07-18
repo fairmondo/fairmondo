@@ -39,6 +39,7 @@ SimpleCov.start 'rails' do
   add_filter "lib/autoload/sidekiq_redis_connection_wrapper.rb"
   add_filter "lib/autoload/paperclip_orphan_file_cleaner.rb"
   add_filter "lib/autoload/inherited_resources.rb"
+  add_filter "lib/autoload/paypal_ipn.rb"
   minimum_coverage 100
 end
 

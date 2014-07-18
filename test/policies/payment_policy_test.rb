@@ -19,13 +19,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingPolicy < Struct.new(:user, :rating)
+require_relative '../test_helper'
 
-  def new?
-    ( user.is? rating.line_item_group.buyer ) && (user.given_ratings.select {|r| r.line_item_group == rating.line_item_group } ).empty?
+describe PaymentPolicy do
+  include PunditMatcher
+
+  subject { PaymentPolicy.new(user, payment)  }
+  let(:payment) { Payment.new(business_transaction: FactoryGirl.build(:business_transaction)) }
+  let(:user) { nil }
+
+  context "for a visitor" do
+    it { subject.must_deny(:show)   }
+    it { subject.must_deny(:update) }
   end
 
-  def create?
-    new?
+  context "for a random logged-in user" do
+    let(:user) { FactoryGirl.create :user }
+    it { subject.must_deny(:show)         }
+    it { subject.must_deny(:update)       }
+  end
+
+  context "for the buying user" do
+    let(:user) { payment.transaction.buyer }
+    it { subject.must_permit(:show)        }
+    it { subject.must_permit(:update)      }
   end
 end

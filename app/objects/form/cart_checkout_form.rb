@@ -97,6 +97,7 @@ class CartCheckoutForm
       item.business_transaction = business_transaction
       business_transaction.quantity_bought = item.requested_quantity
       business_transaction.article = item.article
+      business_transaction.payment = Payment.new if business_transaction.selected_payment == 'paypal'
       self.form_objects << business_transaction
     end
 
