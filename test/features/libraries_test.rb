@@ -196,8 +196,7 @@ feature "Admin management for featured (exhibited) Libraries" do
 
     visit library_path other_library
     select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
-    puts page.body
-    find('#library_submit_action input[type="submit"]').first.click
+    find('#select_exhibition_submit_action').click
 
     other_library.reload.exhibition_name.must_equal 'donation_articles'
     featured_library.reload.exhibition_name.must_equal nil
