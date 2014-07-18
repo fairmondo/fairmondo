@@ -35,8 +35,9 @@
     - @libraries.each do |library|
       - if !library.library_elements.empty? || (library.user == current_user)
         %details{id: "library#{library.id.to_s}"}
-          %summary= library_header_layout(library)
-          .details{style: "display: none;"}
+          %summary
+            = library_header_layout(library)
+          .details
             = render "library_buttons", library: library
             = render "library", library: library
 
