@@ -22,6 +22,8 @@
 class SingleFixedPriceTransaction < BusinessTransaction
   extend STI
 
+  has_one :payment, inverse_of: :transaction
+
   # Validations for buyer address
   validates :shipping_address_id, presence: true, on: :update
   validates :billing_address_id, presence: true, on: :update

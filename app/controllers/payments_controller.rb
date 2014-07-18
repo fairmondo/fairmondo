@@ -19,13 +19,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingPolicy < Struct.new(:user, :rating)
+class PaymentsController < ApplicationController
+  respond_to :html
 
-  def new?
-    ( user.is? rating.line_item_group.buyer ) && (user.given_ratings.select {|r| r.line_item_group == rating.line_item_group } ).empty?
+  def show
+    @payment = Payment.find(params[:id])
+    authorize @payment
+    redirect_to @payment.paypal_checkout_url
   end
 
-  def create?
-    new?
+  # create happens on buy. this is to initialize the payment with paypal
+  def update
+    @payment = Payment.find(params[:id])
+    authorize @payment
+    if @payment.init
+      redirect_to @payment.paypal_checkout_url
+    else
+      redirect_to :back, flash: { error: "Watn jetz los" }
+    end
   end
 end

@@ -23,5 +23,5 @@
 %p
   %h3
     Um den Kauf abzuschließen
-  = render 'line_item_groups/payment', payment: @line_item_group.unified_payment_method
+  = render 'line_item_groups/payment', selected_payment: @line_item_group.unified_payment_method, bt: @line_item_group.business_transactions.first
 

@@ -19,13 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class RatingPolicy < Struct.new(:user, :rating)
-
-  def new?
-    ( user.is? rating.line_item_group.buyer ) && (user.given_ratings.select {|r| r.line_item_group == rating.line_item_group } ).empty?
+class PaymentPolicy < Struct.new(:user, :payment)
+  def update?
+    user && payment.line_item_group_buyer_id == user.id && !payment.succeeded?
   end
 
-  def create?
-    new?
+  def show?
+    update?
   end
 end

@@ -1,10 +1,10 @@
-- case payment
+- case selected_payment
 - when 'bank_transfer'
   Kontonummer...blablabla
 - when 'cash'
   = "Bitte bezahle den Betrag von ... bei Abholung"
 - when 'paypal'
-  = button_tag 'Paypal', class: 'Button'
+  = button_to t('transaction.actions.paypal_process'), payment_path(bt.payment), method: 'patch', class: "Button"
 - when 'cash_on_delivery'
   Deine Artikel werden per Nachnahme verschickt.
 - when 'invoice'

@@ -93,6 +93,13 @@ class MegaMigration < ActiveRecord::Migration
     add_index :line_item_groups, ["transport_address_id"], :name => "index_line_item_groups_on_transport_address_id"
     add_index :line_item_groups, ["payment_address_id"], :name => "index_line_item_groups_on_payment_address_id"
 
+    # Create Payments
+    create_table :payments do |t|
+      t.string :pay_key, :state
+      t.text :error, :last_ipn
+      t.timestamps
+    end
+
     # Change Users
     add_column :users, :standard_address_id, :bigint
     add_column :users, :unified_transport_maximum_articles, :integer, default: 1
@@ -106,6 +113,7 @@ class MegaMigration < ActiveRecord::Migration
     # Change Business Transactions
     add_column :business_transactions, :transport_address_id, :bigint
     add_column :business_transactions, :payment_address_id, :bigint
+    add_column :business_transactions, :payment_id, :bigint
     add_column :business_transactions, :line_item_group_id, :integer, limit: 8
     add_column :business_transactions, :unified_transport_provider, :string
     add_column :business_transactions, :unified_transport_maximum_articles, :integer
@@ -114,6 +122,7 @@ class MegaMigration < ActiveRecord::Migration
 
     add_index :business_transactions, :transport_address_id, name: 'index_business_transactions_on_transport_address_id'
     add_index :business_transactions, :payment_address_id, name: 'index_business_transactions_on_payment_address_id'
+    add_index :business_transactions, :payment_id, name: 'index_business_transactions_on_payment_id'
     add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
 
 

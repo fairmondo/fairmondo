@@ -32,9 +32,9 @@ Fairnopoly::Application.routes.draw do
     resources :article
   end
 
-  resources :article_templates, :except => [:show, :index]
+  resources :article_templates, except: [:show, :index]
 
-  resources :mass_uploads, :only => [:new, :create, :show, :update] do
+  resources :mass_uploads, only: [:new, :create, :show, :update] do
     collection do
       get 'image_errors'
     end
@@ -96,7 +96,7 @@ Fairnopoly::Application.routes.draw do
 
   get 'feed', to: 'welcome#feed', constraints: {format: 'rss'}
 
-  resources :feedbacks, :only => [:create,:new]
+  resources :feedbacks, only: [:create,:new]
 
   #the user routes
 
@@ -130,6 +130,9 @@ Fairnopoly::Application.routes.draw do
 
   post '/remote_validations/:model/:field/:value', to: 'remote_validations#create', as: 'remote_validation', constraints: {format: 'json'}
 
+  resources :payments, only: [:show, :update]
+  match '/paypal/ipn_notification' => PaypalIpn, as: 'ipn_notification', via: [:get, :post]
+
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
@@ -143,7 +146,7 @@ Fairnopoly::Application.routes.draw do
 
 
   # TinyCMS Routes Catchup
-  scope :constraints => lambda {|request|
+  scope constraints: lambda {|request|
     request.params[:id] && !['assets','system','admin','public','favicon.ico', 'favicon'].any?{|url| request.params[:id].match(/^#{url}/)}
   } do
     get '/*id' => 'contents#show'

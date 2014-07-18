@@ -89,4 +89,6 @@ Fairnopoly::Application.configure do
   # to turn asset pipeline logging back on, uncomment the following line
   # config.quiet_assets = false
 
+  # Set host by default
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end
