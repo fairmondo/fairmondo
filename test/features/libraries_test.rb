@@ -118,9 +118,13 @@ feature 'Library management' do
 end
 
 feature 'Library visibility' do
+  before do
+    UserTokenGenerator.stubs( :generate ).returns("some long string that is very secret")
+  end
   scenario "user browses through libraries" do
     user = FactoryGirl.create :user
     pub_lib = FactoryGirl.create :library, user: user, public: true
+    pub_lib.articles << FactoryGirl.create(:article, title: 'exhibit-article')
     priv_lib = FactoryGirl.create :library, user: user, public: false
     visit user_libraries_path user
     page.must_have_content pub_lib.name
@@ -192,7 +196,8 @@ feature "Admin management for featured (exhibited) Libraries" do
 
     visit library_path other_library
     select(I18n.t('enumerize.library.exhibition_name.donation_articles'), from: 'library_exhibition_name')
-    click_button I18n.t 'formtastic.actions.update'
+    puts page.body
+    find('#library_submit_action input[type="submit"]').first.click
 
     other_library.reload.exhibition_name.must_equal 'donation_articles'
     featured_library.reload.exhibition_name.must_equal nil
