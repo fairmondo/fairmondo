@@ -1,27 +1,9 @@
 .Listview
-  - @line_item_group.business_transactions.each do |bt|
+  - resource.business_transactions.each do |bt|
     = render 'shared/listview/list_line_item', article: bt.article, business_transaction: bt
-
-- if @line_item_group.transport_address == @line_item_group.payment_address
-  - if @line_item_group.seller == current_user
-    Bitte versende Die gekauften Artikel an:
-  - if @line_item_group.buyer == current_user
-    Deine Rechnungs- und Lieferadresse
-  = render 'addresses/address', address: @line_item_group.transport_address, radio: nil
-- else
-  - if @line_item_group.seller == current_user
-    Bitte versende die Artikel an
-  - if @line_item_group.buyer == current_user
-    Deine Lieferadresse
-  = render 'addresses/address', address: @line_item_group.transport_address, radio: nil
-  - if @line_item_group.seller == current_user
-    Bitte schicke die Rechnung an:
-  - if @line_item_group.buyer == current_user
-    Deine Rechnungsadresse
-  = render 'addresses/address', address: @line_item_group.payment_address, radio: nil
 
 %p
   %h3
     Um den Kauf abzuschließen
-  = render 'line_item_groups/payment', selected_payment: @line_item_group.unified_payment_method, bt: @line_item_group.business_transactions.first
+  = render 'line_item_groups/payment', selected_payment: resource.unified_payment_method, bt: resource.business_transactions.first
 
