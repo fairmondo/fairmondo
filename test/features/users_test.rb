@@ -28,7 +28,6 @@ feature 'User registration' do
 
   scenario "user visits root path and signs in" do
     user = FactoryGirl.create :user
-    stub_fastbill #for user update calls
     visit root_path
 
     page.must_have_link I18n.t('common.actions.login')

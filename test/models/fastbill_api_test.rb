@@ -3,9 +3,6 @@ include FastBillStubber
 
 describe FastbillAPI do
   describe "methods" do
-    before do
-      stub_fastbill
-    end
 
     let( :business_transaction ) { BusinessTransaction.new }
     let( :db_business_transaction ) { FactoryGirl.create :business_transaction }

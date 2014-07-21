@@ -96,7 +96,7 @@ FactoryGirl.define do
     end
 
     trait :paypal_purchasable do
-      article { FactoryGirl.create :article, payment_paypal: true, seller: (seller || FactoryGirl.create(:seller, :paypal_data)) }
+      article { FactoryGirl.create :article, payment_paypal: true, seller: FactoryGirl.create(:seller, :paypal_data) }
       selected_payment :paypal
       payment
     end

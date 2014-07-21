@@ -3,9 +3,6 @@ include FastBillStubber
 include PunditMatcher
 
 describe RefundPolicy do
-  before do
-    stub_fastbill
-  end
 
   let( :refund ){ FactoryGirl.create :refund }
   subject { RefundPolicy.new( user, refund ) }
