@@ -1,0 +1,9 @@
+.Listview
+  - resource.business_transactions.each do |bt|
+    = render 'shared/listview/list_line_item', article: bt.article, business_transaction: bt
+
+%p
+  %h3
+    Um den Kauf abzuschließen
+  = render 'line_item_groups/payment', selected_payment: resource.unified_payment_method, bt: resource.business_transactions.first
+
