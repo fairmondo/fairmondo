@@ -2,10 +2,10 @@ require_relative '../test_helper'
 
 describe Payment do
   subject { payment }
-  let(:payment) { Payment.new(transaction: FactoryGirl.create(:single_transaction)) }
+  let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+  let(:payment) { bt.payment }
 
   describe "attributes" do
-    it { subject.must_respond_to 'transaction_id' }
     it { subject.must_respond_to 'pay_key' }
     it { subject.must_respond_to 'error' }
     it { subject.must_respond_to 'last_ipn' }
@@ -14,7 +14,8 @@ describe Payment do
   end
 
   describe "associations" do
-    it { subject.must belong_to :transaction }
+    it { subject.must have_many :business_transactions }
+    it { subject.must have_many :line_item_groups }
   end
 
   # describe "validations" do
@@ -24,17 +25,20 @@ describe Payment do
   # end
 
   describe "methods" do
-    describe "#paypal_request [private, before_validation]" do
-      it "should save paykey on API success" do
-        payment.expects(:pay_key=).with('foobar')
-        payment.expects(:state=).with(:initialized)
-        payment.send(:paypal_request)
+    describe "#init [state machine]" do
+      it "should call #paypal_request" do
+        payment.state.must_equal 'pending'
+        payment.expects(:paypal_request)
+        payment.init
+        payment.state.must_equal 'initialized'
       end
+    end
 
+    describe "#paypal_request [private, before init]" do
       it "should save errors on API failure" do
-        PaypalAdaptive::Response.any_instance.stub(:success?).and_return(false)
+        PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
-        payment.expects(:state=).with(:errored)
+        payment.expects(:erroring)
         payment.send(:paypal_request)
       end
 
