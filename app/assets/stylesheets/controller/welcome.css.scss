@@ -9,7 +9,6 @@
 }
 
 .teaser--double {
-
   @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
     @include span(4 of 6);
   }
@@ -30,8 +29,37 @@
       }
     }
   }
-
 }
+
+.teaser--triple {
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(4 of 6);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(6 of 8);
+  }
+  .teaser-inner {
+    @include clearfix;
+  }
+
+  .teaser-queue {
+    margin-bottom:1em;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      @include span(2 of 6);
+      &:last-child {  // Dieses last-child funktioniert nicht mehr, wenn wir den anderen über display:none rausnehmen
+        @include omega;
+      }
+    }
+
+    //&:last-child {
+    //  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    //    display: none;
+    //  }
+    //}
+  }
+}
+
 
 .teaser--collapsible {
  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
@@ -171,13 +199,73 @@
     }
   }
 
-
 }
 
 // Others
 
+// Center text within teaser
 .teaser--center {
   text-align:center;
+}
+
+// Blue box
+.teaser--bluebox {
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    @include span(2 of 6);
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    @include span(2 of 8);
+    @include omega;
+  }
+
+  .teaser-inner {
+    padding: 0;
+  }
+
+  .bluebox {
+  }
+
+  .bluebox-header {
+    margin: 0.4em 0;
+    text-align: center;
+  }
+
+  .bluebox-ornament-left {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 1em;
+    height: 1em;
+    background-color: $light-blue;
+    width: 50%;
+  }
+
+  .bluebox-ornament-right {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 0.5em;
+    float: right;
+    height: 1em;
+    background-color: $light-blue;
+    width: 50%;
+  }
+
+  .bluebox-content {
+    clear: both;
+    padding: 0.4em 0.8em;
+    background-color: $light-blue;
+  }
+
+  .bluebox-link {
+    padding-bottom: 0.4em;
+    background-color: $light-blue;
+    text-align: center;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }  
+
+}
+
+#teaser-clear-after-bluebox {
+  clear: both;
 }
 
 .teaser--ngos {
@@ -205,7 +293,7 @@
 
 .category-dropdown { 
   @include at-breakpoint($bp-tablet-horizontal) {
-    display:none; 
-  }
+    display:none;
+  } 
 }
-  
+
