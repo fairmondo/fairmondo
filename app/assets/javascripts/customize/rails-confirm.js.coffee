@@ -33,11 +33,16 @@ $.rails.showConfirmDialog = (link) ->
   window.scrollTo(0, 0);
   $.get "/toolbox/confirm.js", ((data) ->
     htmlcontents = $(data)
-    unless $('.Notice--confirmation').length then confirmation_box = $('.Notice').append htmlcontents
+    if $('.Notice--confirmation').length is 0
+      if $('.Notice').length
+        $('.Notice').last().after htmlcontents
+      else
+        $('.l-wrapper').prepend htmlcontents
+
     $('.Notice--confirmation .confirmation_message').html(html)
-    $('.Notice--confirmation .confirm').on 'click', ->
+    $('.Notice--confirmation .Button.confirm').on 'click', ->
       $.rails.confirmed(link)
-    $('.Notice--confirmation .cancel').on 'click', ->
+    $('.Notice--confirmation .Button.cancel').on 'click', ->
       $('.Notice--confirmation').remove()
   ), "html"
 
