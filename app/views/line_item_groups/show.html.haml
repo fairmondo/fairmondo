@@ -1,3 +1,50 @@
-- @line_item_group.business_transactions.each do |bt|
-  - if bt.selected_payment == 'paypal'
-    = button_to t('transaction.actions.paypal_process'), payment_path(bt.payment), method: 'patch', class: "Button"
+.Content
+  %h2
+    - if resource.buyer == current_user
+      = "Dein Einkauf bei "
+      = link_to resource.seller.nickname, user_path(resource.seller)
+
+    - if resource.seller == current_user
+      = "Dein Auftrag durch "
+      = link_to resource.buyer.nickname, user_path(resource.buyer)
+    = "vom #{resource.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}"
+  = "Bestellnummer: #{resource.id}"
+  %p
+    Vielen Dank für Deinen Einkauf bei Fairnopoly.
+
+  - if resource.unified_transport && resource.unified_payment
+    = render 'line_item_groups/unified_transport_and_payment', line_item_group: resource
+  - elsif resource.unified_transport && !resource.unified_payment
+    = render 'line_item_groups/unified_transport', line_item_group: resource
+  - elsif resource.unified_payment && !resource.unified_transport
+    = render 'line_item_groups/unified_payment', line_item_group: resource
+  - else
+    = render 'line_item_groups/neither_unified_payment_nor_transport', line_item_group: resource
+
+  .Grid
+    - if resource.transport_address == resource.payment_address
+      - if resource.seller == current_user
+        Bitte versende Die gekauften Artikel an:
+      - if resource.buyer == current_user
+        = render 'addresses/address', address: resource.transport_address, radio: nil, title: 'Liefer- und Rechungsadresse'
+    - else
+      - if resource.seller == current_user
+        Bitte versende die Artikel an
+      - if resource.buyer == current_user
+        = render 'addresses/address', address: resource.transport_address, radio: nil, title: 'Lieferadresse'
+      - if resource.seller == current_user
+        Bitte schicke die Rechnung an:
+      - if resource.buyer == current_user
+        = render 'addresses/address', address: resource.payment_address, radio: nil, title: 'Rechnungsadresse'
+
+  - if resource.message
+    %h3
+      - if resource.seller.title == 'Herr'
+        Deine Nachricht an den Verkäufer
+      - elsif resource.seller.title == 'Frau'
+        Deine Nachricht an die Verkäuferin
+      - else
+        Deine Nachricht an den/die Verkäufer*in
+    %p
+      .Content
+        = resource.message

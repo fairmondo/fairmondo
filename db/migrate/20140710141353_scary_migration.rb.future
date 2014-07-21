@@ -27,6 +27,8 @@ class ScaryMigration < ActiveRecord::Migration
     remove_column :business_transactions, :buyer_id
     remove_column :business_transactions, :seller_id
 
+    remove_column :ratings, :business_transactions_id
+
     #? sold_at
   end
 end
