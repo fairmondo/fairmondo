@@ -26,40 +26,41 @@
     = render 'categories/shared/category_tree'
 
 -# featured library 1
-.teaser.teaser--triple
+.teaser.teaser--double.teaser--triple
   .teaser-inner
     %h2
-      = tinycms_content_body_sanitized("heading_features").upcase
-    - [@queue1, @queue2, @queue4].each_with_index do |queue, index|
-      .teaser-queue
-        - queue[:exhibits].each do |article|
-          = render "/articles/shared/show_article", article: article
-        = link_to tinycms_content_body_sanitized("heading_queue#{index+1}"), featured_library_path(queue[:library]), class: "Button"
+      = link_to(tinycms_content_body_sanitized("heading_features").upcase, featured_library_path(@queue1[:library]))
+    - @queue1[:exhibits].each_with_index do |article, index|
+      %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
+        = render "/articles/shared/show_article", article: article
 
 -# bluebox
 .teaser.teaser--bluebox
   .teaser-inner
-    .bluebox
+    #bluebox1
       %h3.bluebox-header Konsequent fair
       .bluebox-ornament-right
       .bluebox-ornament-left
-      .bluebox-content Fairnopoly ist ein neuer Online-Marktplatz mit einem konsequent fairen Unternehmen dahinter.
-      .bluebox-link
-        %a{class: "Button", href: "", style: ""} Mehr erfahren
-    .bluebox
+      .bluebox-content
+        .bluebox-text Fairnopoly ist ein neuer Online-Marktplatz mit einem konse&shy;quent fairen Unter&shy;nehmen dahinter.
+        .bluebox-link
+          %a{href: "/about_us"} Mehr erfahren
+    #bluebox2
       %h3.bluebox-header Für alle
       .bluebox-ornament-right      
       .bluebox-ornament-left
-      .bluebox-content Sowohl Privatpersonen als auch gewerbliche Händler*innen können hier alles verkaufen, was sie möchten.
-      .bluebox-link
-        %a{class: "Button", href: "", style: ""} Selbst verkaufen
-    .bluebox
+      .bluebox-content
+        .bluebox-text Privat&shy;personen und gewerb&shy;liche Händler*innen kön&shy;nen hier alles verkaufen.
+        .bluebox-link
+          %a{href: "/articles/new"} Selbst verkaufen
+    #bluebox3
       %h3.bluebox-header Dein Anteil
       .bluebox-ornament-right
       .bluebox-ornament-left
-      .bluebox-content Auch Du kannst in die Genossenschaft einsteigen oder Dich aktiv einbringen:
-      .bluebox-link
-        %a{class: "Button", href: "", style: ""} Projekt 10.000
+      .bluebox-content
+        .bluebox-text Auch Du kannst in die Genos&shy;sen&shy;schaft ein&shy;steigen oder Dich aktiv ein&shy;bringen:
+        .bluebox-link
+          %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
 -# featured library 2
