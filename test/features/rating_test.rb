@@ -25,9 +25,6 @@ include Warden::Test::Helpers
 include FastBillStubber
 
 feature 'User ratings' do
-  before do
-    stub_fastbill
-  end
 
   let(:buyer) { FactoryGirl.create :user }
   let(:line_item_group) { FactoryGirl.create :line_item_group_with_items, :sold, buyer: buyer }

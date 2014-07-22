@@ -1,5 +1,5 @@
 class FastbillAPI
-  require 'fastbill-automatic'
+  #require 'fastbill-automatic'
 
   #Here be FastBill stuff
   #

@@ -25,22 +25,23 @@ describe PaymentPolicy do
   include PunditMatcher
 
   subject { PaymentPolicy.new(user, payment)  }
-  let(:payment) { Payment.new(business_transaction: FactoryGirl.build(:business_transaction)) }
-  let(:user) { nil }
+  let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+  let(:payment) { bt.payment }
 
-  context "for a visitor" do
+  describe "for a visitor" do
+    let(:user) { nil }
     it { subject.must_deny(:show)   }
     it { subject.must_deny(:update) }
   end
 
-  context "for a random logged-in user" do
+  describe "for a random logged-in user" do
     let(:user) { FactoryGirl.create :user }
     it { subject.must_deny(:show)         }
     it { subject.must_deny(:update)       }
   end
 
-  context "for the buying user" do
-    let(:user) { payment.transaction.buyer }
+  describe "for the buying user" do
+    let(:user) { payment.line_item_group_buyer }
     it { subject.must_permit(:show)        }
     it { subject.must_permit(:update)      }
   end
