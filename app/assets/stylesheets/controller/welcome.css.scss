@@ -201,7 +201,6 @@
       float:right;
     }
   }
-
 }
 
 // Others
@@ -261,18 +260,23 @@
 
   }
 
-  #bluebox1 > .bluebox-content {
-    @include at-breakpoint($bp-mobile-horizontal) {
-      height: 110px;
-    }
-  }
-
-  #bluebox2 > .bluebox-content {
+  #bluebox1 .bluebox-content {
     height: 110px;
   }
 
-  #bluebox3 > .bluebox-content {
+  #bluebox2 .bluebox-content {
+    height: 110px;
+  }
+
+  #bluebox3 .bluebox-content {
     height: 90px;
+  }
+
+  .bluebox-inner {
+    @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+      width: 70%;
+      margin: 0 auto;
+    }
   }
 
   .bluebox-link {
