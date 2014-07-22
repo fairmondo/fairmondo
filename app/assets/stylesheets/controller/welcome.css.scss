@@ -32,31 +32,34 @@
 }
 
 .teaser--triple {
-  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-    @include span(4 of 6);
-  }
-
   @include at-breakpoint($bp-tablet-horizontal) {
     @include span(6 of 8);
   }
-  .teaser-inner {
-    @include clearfix;
-  }
 
   .teaser-queue {
-    margin-bottom:1em;
-    @include at-breakpoint($bp-mobile-horizontal) {
+    @include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
+      @include span(2 of 4);
+      &.teaser-queue-before-hidden {
+        @include omega;
+      }
+    }
+
+    @include till-breakpoint($bp-tablet-horizontal) {
+      &:last-child {
+        display: none;
+      }
+    }
+
+    @include at-breakpoint($bp-tablet-horizontal) {
       @include span(2 of 6);
       &:last-child {  // Dieses last-child funktioniert nicht mehr, wenn wir den anderen über display:none rausnehmen
         @include omega;
       }
     }
+  }
 
-    //&:last-child {
-    //  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
-    //    display: none;
-    //  }
-    //}
+  .teaser-inner {
+    padding-bottom: 3.5em;
   }
 }
 
@@ -212,6 +215,7 @@
 .teaser--bluebox {
   @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
     @include span(2 of 6);
+    @include omega;
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
@@ -223,11 +227,8 @@
     padding: 0;
   }
 
-  .bluebox {
-  }
-
   .bluebox-header {
-    margin: 0.4em 0;
+    margin: 0.3em 0 0.2em;
     text-align: center;
   }
 
@@ -250,17 +251,46 @@
 
   .bluebox-content {
     clear: both;
-    padding: 0.4em 0.8em;
+    position: relative;
     background-color: $light-blue;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    .bluebox-text {
+      padding: 0.2em 0.8em 0.3em;
+    }
+
+  }
+
+  #bluebox1 > .bluebox-content {
+    @include at-breakpoint($bp-mobile-horizontal) {
+      height: 110px;
+    }
+  }
+
+  #bluebox2 > .bluebox-content {
+    height: 110px;
+  }
+
+  #bluebox3 > .bluebox-content {
+    height: 90px;
   }
 
   .bluebox-link {
-    padding-bottom: 0.4em;
-    background-color: $light-blue;
+    position: absolute;
+    width: 100%;
+    bottom: 0.5em;
     text-align: center;
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+
+
+    a {
+      display: inline-block;
+      background-color: $white;
+      min-width: 8.5em;
+      padding: 0.1em 1em;
+      border-radius: 0.4em;
+    }
   }  
+
 
 }
 
