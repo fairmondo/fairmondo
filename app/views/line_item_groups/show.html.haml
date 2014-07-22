@@ -1,5 +1,5 @@
 .Content
-  %h2
+  %h1
     - if resource.buyer == current_user
       = "Dein Einkauf bei "
       = link_to resource.seller.nickname, user_path(resource.seller)
@@ -12,14 +12,16 @@
   %p
     Vielen Dank für Deinen Einkauf bei Fairnopoly.
 
-  - if resource.unified_transport && resource.unified_payment
-    = render 'line_item_groups/unified_transport_and_payment', line_item_group: resource
-  - elsif resource.unified_transport && !resource.unified_payment
-    = render 'line_item_groups/unified_transport', line_item_group: resource
-  - elsif resource.unified_payment && !resource.unified_transport
-    = render 'line_item_groups/unified_payment', line_item_group: resource
-  - else
-    = render 'line_item_groups/neither_unified_payment_nor_transport', line_item_group: resource
+  .Listview
+    - resource.business_transactions.each do |bt|
+      = render 'shared/listview/line_item_group_show_item', article: bt.article, business_transaction: bt
+  = 'Gesamt: '
+  = humanized_money_with_symbol resource.total_price
+
+  - if resource.buyer == current_user
+    = render 'line_item_groups/show_payment', line_item_group: resource
+  - if resource.seller == current_user
+    = render 'line_item_groups/show_transport', line_item_group: resource
 
   .Grid
     - if resource.transport_address == resource.payment_address

@@ -78,26 +78,6 @@ FactoryGirl.define do
       standard_address nil
     end
 
-    factory :seller_with_line_item_groups, parent: :user do
-      ignore do
-        line_item_groups_count 3
-      end
-
-      after(:create) do |user, evaluator|
-        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, seller: user)
-      end
-    end
-
-    factory :buyer_with_line_item_groups, parent: :user do
-      ignore do
-        line_item_groups_count 3
-      end
-
-      after(:create) do |user, evaluator|
-        create_list(:line_item_group_with_items, evaluator.line_item_groups_count, buyer: user, tos_accepted: true)
-      end
-    end
-
     trait :no_bank_data do
       bank_code ""
       bank_account_number ""

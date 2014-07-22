@@ -1,0 +1,20 @@
+.Listview-item
+  .Listview-image
+    = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+  = business_transaction.selected_transport
+  .Listview-details
+    .listview-tags
+      = condition_label article
+      = commendation_labels_for article
+  .listview-actions
+    .listview-details
+      .listview-title
+        = link_to  article_path(article), :title => article.title do
+          %h3
+            = truncate(article.title, :length => 65)
+      .listview-price_detail
+        = humanized_money_with_symbol article.price
+        - unless article.vat == 0
+          = t('article.vat_included', :mwst => article.vat)
+        = render '/articles/show/basic_price', :article => article
+
