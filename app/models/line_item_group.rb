@@ -41,6 +41,14 @@ class LineItemGroup < ActiveRecord::Base
     @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
   end
 
+  def total_price
+    price = Money.new(0)
+    self.business_transactions.each do |bt|
+      price += bt.total_price
+    end
+    price
+  end
+
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport
