@@ -83,11 +83,20 @@ de:
       article: "Artikel"
       about_terms: "AGB / Widerrufserklärung / Impressum"
       extended_search: "Erweiterte Suche"
+      comments: "Kommentare"
+      no_comments: "Keine Kommentare"
+      login_to_comment: "Du kannst keine Kommentare erstellen. Bitte logge dich ein oder erstelle einen Account."
+      comment_placeholder: "Hinterlasse einen Kommentar"
+      leave_comment: "Kommentar erstellen"
+      morecomments: "Mehr Kommentare"
+      delete_comment: "Kommentar löschen"
+      confirm_comment_delete: "Diesen Kommentar wirklich löschen?"
       glue:
         from: "von"
         and: " und "
         by: "von"
         per: " pro "
+        ago: "vor %{time}"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
@@ -123,6 +132,7 @@ de:
     actions:
       create:
         notice: "%{resource_name} wurde erstellt."
+        alert: "%{resource_name} konnte nicht erstellt werden."
       update:
         notice: "%{resource_name} wurde aktualisiert."
       destroy:

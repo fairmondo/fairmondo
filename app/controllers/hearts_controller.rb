@@ -12,8 +12,7 @@ class HeartsController < ApplicationController
     if user_signed_in?
       @heart = @heartable.hearts.build(user: current_user)
     else
-      user_token = generate_user_token(request.env["HTTP_USER_AGENT"],
-                                       request.env["REMOTE_ADDR"])
+      user_token = UserTokenGenerator.generate(request.env["HTTP_USER_AGENT"], request.env["REMOTE_ADDR"])
       @heart = @heartable.hearts.build(user_token: user_token)
     end
     authorize @heart
@@ -30,10 +29,6 @@ class HeartsController < ApplicationController
   end
 
   private
-
-  def generate_user_token(agent, addr)
-    Digest::SHA2.hexdigest(agent + addr)
-  end
 
   # Infer the heartable class from the params hash
   #

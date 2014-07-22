@@ -19,48 +19,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+require_relative "../test_helper"
 
-  def create?
-    own?
+describe Comment do
+  subject { Comment.new }
+
+  describe "associations" do
+    it { subject.must belong_to :user }
+    it { subject.must belong_to :commentable }
+    it { subject.must belong_to :library }
   end
 
-  def update?
-    own? || admin?
+  describe "model attributes" do
+    it { subject.must_respond_to :id }
+    it { subject.must_respond_to :created_at }
+    it { subject.must_respond_to :updated_at }
+    it { subject.must_respond_to :commentable_id }
+    it { subject.must_respond_to :commentable_type }
+    it { subject.must_respond_to :user_id }
   end
 
-  def destroy?
-    own?
-  end
-
-  def show?
-    library.public? || own? || admin?
-  end
-
-  def admin_add?
-    admin?
-  end
-
-  def admin_remove?
-    admin?
-  end
-
-  private
-    def own?
-      user && user.id == library.user_id
-    end
-
-    def admin?
-      User.is_admin? user
-    end
-
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user && (user.is? current_user)
-        scope
-      else
-        scope.published.not_empty
-      end
-    end
+  describe "validations" do
+    it { subject.must validate_presence_of(:user) }
+    it { subject.must validate_presence_of(:commentable) }
+    it { subject.must validate_presence_of(:text) }
   end
 end

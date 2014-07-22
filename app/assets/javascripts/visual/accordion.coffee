@@ -34,3 +34,5 @@ $ ->
   $(".Accordion").removeClass("ui-accordion ui-widget ui-helper-reset")
   $(".Accordion-header").removeClass("ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-corner-top ui-accordion-icons ui-state-focus")
   $(".Accordion-header span").removeClass("ui-accordion-header-icon ui-icon ui-icon-triangle-1-s")
+
+

@@ -21,6 +21,7 @@
 #
 class Library < ActiveRecord::Base
   extend Sanitization, Enumerize
+  include Commentable
 
   auto_sanitize :name
 
@@ -38,11 +39,12 @@ class Library < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :library_elements, dependent: :destroy
+  has_many :library_elements, dependent: :destroy, counter_cache: true
   has_many :articles, through: :library_elements
 
   has_many :hearts, as: :heartable, counter_cache: true
 
+  scope :not_empty, -> { where("library_elements_count > 0") }
   scope :published, -> { where(public: true) }
   default_scope -> { order('updated_at DESC') }
 

@@ -1,0 +1,10 @@
+$('<%= "#library#{@commentable.id}" %> .Comment-single').last().after('<%= j render @comments %>');
+
+$('<%= "#library#{@commentable.id}" %> .next_link').replaceWith("<%= j(
+    link_to_next_page @comments,
+    t('common.text.morecomments'),
+    param_name: :comments_page,
+    params: { library_id: @commentable.id, controller: "comments" },
+    class: "next_link",
+    remote: true) %>"
+);
