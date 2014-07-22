@@ -7,7 +7,6 @@ describe RefundMailer do
   include FastBillStubber
 
   it '#refund_notification' do
-    stub_fastbill
     refund = FactoryGirl.create :refund, reason: "not_in_stock"
     mail =  RefundMailer.refund_notification( refund )
     mail.must deliver_to( 'storno@fairnopoly.de' )

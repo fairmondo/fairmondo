@@ -18,7 +18,6 @@ feature "Refunds" do
   end
 
   scenario 'legal entity does a refund after 44 days' do
-    stub_fastbill
     seller = FactoryGirl.create :legal_entity
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :older, seller: seller
@@ -27,7 +26,6 @@ feature "Refunds" do
   end
 
   scenario 'private user does a refund after 27 days' do
-    stub_fastbill
     seller = FactoryGirl.create :private_user
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :old, seller: seller

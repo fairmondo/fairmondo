@@ -10,7 +10,6 @@ feature 'Discounts' do
 
   before do
     login_as user
-    stub_fastbill
   end
 
   scenario 'user buys an Article with discount' do

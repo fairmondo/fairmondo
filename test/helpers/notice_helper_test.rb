@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require "test_helper"
+require_relative "../test_helper"
 
 describe NoticeHelper do
   # describe "#bootstrap_notice_mapper" do
@@ -44,14 +44,14 @@ describe NoticeHelper do
     it "returns 'error' when given 'error'" do
       helper.main_notice_mapper('error').must_equal 'error'
     end
-    it "returns 'info' when given :notice" do
+    it "returns 'info' when given 'notice'" do
       helper.main_notice_mapper('notice').must_equal 'info'
     end
-    it "returns 'info confirmation' when given :confirm" do
+    it "returns 'info confirmation' when given 'confirm'" do
       helper.main_notice_mapper('confirm').must_equal 'confirmation'
     end
     it "returns 'info' when given anything else" do
-      helper.main_notice_mapper('thissttringdoesntexist').must_equal 'info'
+      helper.main_notice_mapper('thisstringdoesntexist').must_equal 'info'
     end
   end
 

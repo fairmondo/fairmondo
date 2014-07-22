@@ -28,26 +28,20 @@ describe PaymentsController do
   let(:buyer) { bt.buyer }
 
   before do
-    stub_fastbill
     sign_in buyer
   end
 
   describe "POST 'create'" do
     let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
 
-    it "should create a payment and forward to show" do
-      assert_difference 'Payment.count', 1 do
-        post :update, id: payment.id
-      end
-      assert_redirected_to "http://test.host/payments/1"
-    end
-
     it "should update a payment and forward to show" do
       payment #so one with the business_transaction_id already exists
+      payment.pay_key.must_equal nil
       assert_difference 'Payment.count', 0 do
         post :update, id: payment.id
       end
-      assert_redirected_to "http://test.host/payments/1"
+      payment.pay_key.must_not_equal nil
+      assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
     end
   end
 

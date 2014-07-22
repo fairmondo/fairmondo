@@ -12,7 +12,6 @@ describe RefundsController do
       it 'should create refund request' do
         @refund_attrs = FactoryGirl.attributes_for :refund
         sign_in seller
-        stub_fastbill
         assert_difference 'Refund.count', 1 do
           post :create, refund: @refund_attrs, business_transaction_id: business_transaction.id
         end
@@ -23,7 +22,6 @@ describe RefundsController do
   describe '#new' do
     describe 'for signed in users' do
       it 'should render "new" view ' do
-        stub_fastbill
         sign_in seller
         get :new, user_id: seller.id, business_transaction_id: business_transaction.id
         assert_response :success
