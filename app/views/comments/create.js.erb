@@ -1,0 +1,7 @@
+$('<%= "#library#{@commentable.id}" %> .Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
+
+$('<%= "#library#{@commentable.id}" %> #comment_text').val("");
+
+$('<%= "#library#{@commentable.id}" %> #comments-empty').html("");
+
+

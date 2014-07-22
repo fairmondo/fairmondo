@@ -19,48 +19,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryPolicy < Struct.new(:user, :library)
+class Comment < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :commentable, polymorphic: true
+  belongs_to :library
 
-  def create?
-    own?
-  end
+  delegate :image_url, :nickname, to: :user, prefix: true
 
-  def update?
-    own? || admin?
-  end
+  validates :commentable, presence: true
+  validates :user, presence: true
+  validates :text, presence: true
 
-  def destroy?
-    own?
-  end
-
-  def show?
-    library.public? || own? || admin?
-  end
-
-  def admin_add?
-    admin?
-  end
-
-  def admin_remove?
-    admin?
-  end
-
-  private
-    def own?
-      user && user.id == library.user_id
-    end
-
-    def admin?
-      User.is_admin? user
-    end
-
-  class Scope < Struct.new(:current_user, :user, :scope)
-    def resolve
-      if user && (user.is? current_user)
-        scope
-      else
-        scope.published.not_empty
-      end
-    end
-  end
+  paginates_per 5
 end
