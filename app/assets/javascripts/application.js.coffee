@@ -46,6 +46,7 @@
 #= require vendor/jquery.colorbox
 #= require vendor/jquery.truncator
 #= require vendor/jquery.autocomplete
+#= require vendor/jquery.details
 
 
 #= require models/article/categories
@@ -72,6 +73,7 @@
 #= require visual/touch_hover
 #= require visual/ajax_spinner
 #= require visual/category_dropdown_max_right
+#= require visual/details
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy

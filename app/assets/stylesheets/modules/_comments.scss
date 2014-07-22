@@ -1,0 +1,27 @@
+.Comment-single {
+  border: 1px solid $lighter-gray;
+  border-radius:1em;
+  min-height: 48px;
+  margin-bottom: 0.7em;
+  overflow: hidden;
+}
+
+.Comment-single > .author_image {
+  height: 48px;
+  width: 48px;
+  float: left;
+}
+
+.Comment-single > .meta {
+  padding-left: 4em;
+}
+
+.Comment-single > .text {
+  padding-left: 4em;
+}
+
+.Comments-section form li.input {
+  list-style: none;
+  overflow: visible !important;
+  margin-bottom: 0;
+}
