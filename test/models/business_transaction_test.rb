@@ -45,8 +45,6 @@ class BusinessTransactionTest < ActiveSupport::TestCase
 
   describe "associations" do
     it { subject.must belong_to :article }
-    it { subject.must belong_to :buyer  }
-    it { subject.must belong_to :seller }
     it { subject.must belong_to :line_item_group }
   end
 
