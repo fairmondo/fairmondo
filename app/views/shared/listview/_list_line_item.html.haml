@@ -23,6 +23,7 @@
   .Listview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
   = render "shared/listview/listview_detail", article: article
+  = business_transaction.selected_transport
   .Listview-actions
     - if business_transaction && policy(Refund.new(business_transaction: business_transaction)).new?
       = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"

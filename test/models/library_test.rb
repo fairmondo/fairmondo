@@ -29,6 +29,7 @@ describe Library do
     it { subject.must have_many(:articles) }
     it { subject.must belong_to :user }
     it { subject.must have_many(:hearts) }
+    it { subject.must have_many(:comments) }
   end
 
   describe "model attributes" do
@@ -41,6 +42,7 @@ describe Library do
     it { subject.must_respond_to :user_id }
     it { subject.must_respond_to :library_elements_count }
     it { subject.must_respond_to :hearts_count }
+    it { subject.must_respond_to :comments_count }
   end
 
   describe "validations" do

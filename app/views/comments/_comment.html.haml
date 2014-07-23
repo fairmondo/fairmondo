@@ -1,0 +1,12 @@
+.Comment-single{id: "commentable_#{comment.library.id}_comment_#{comment.id}"}
+  = image_tag comment.user_image_url(:profile), class: "author_image"
+  .meta
+    = link_to comment.user_nickname, profile_user_path(comment.user)
+    = t('common.text.glue.ago', time: time_ago_in_words(comment.created_at))
+    - if policy(comment).destroy?
+      = link_to t('common.text.delete_comment'),
+        library_comment_path(comment.library, comment),
+        method: :delete,
+        remote: true
+  .text
+    = comment.text

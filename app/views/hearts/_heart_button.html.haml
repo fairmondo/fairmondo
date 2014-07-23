@@ -1,4 +1,10 @@
 .Hearts-button
-  = link_to path, method: method, remote: true do
-    %i.fa.fa-heart
-    %i.fa{class: icon}
+  - if disabled
+    %span>
+      %i.fa.fa-heart{disabled: true}>
+  - else
+    = link_to path, method: method, remote: true do
+      %i.fa.fa-heart{disabled: disabled}>
+      %i.fa{class: icon}>
+  %span.Hearts-count<
+    = heartable_resource.hearts.count

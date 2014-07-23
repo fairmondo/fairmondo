@@ -47,6 +47,7 @@
 #= require vendor/jquery.truncator
 #= require vendor/jquery.autocomplete
 #= require vendor/jquery.caret
+#= require vendor/jquery.details
 
 
 #= require models/article/categories
@@ -76,6 +77,7 @@
 #= require visual/category_dropdown_max_right
 #= require visual/remote_validation
 #= require visual/input_enforcement
+#= require visual/details
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
