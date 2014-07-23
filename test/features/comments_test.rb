@@ -146,4 +146,24 @@ feature "comments for all users" do
     end
 
   end
+
+  scenario "Guest is able to see the last two comments" +
+           " of a library on the overview" do
+    library = FactoryGirl.create(:library, public: true)
+    article = FactoryGirl.create(:article)
+    article.libraries << library
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 library: library,
+                                 user: user)
+
+    visit libraries_path
+
+    within("#library#{library.id} .library-comments") do
+      page.must_have_content("Test comment")
+    end
+
+  end
 end
