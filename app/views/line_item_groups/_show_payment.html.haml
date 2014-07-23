@@ -22,10 +22,28 @@
           - when 'paypal'
             = "Bitte bezahle den Betrag von #{} per Paypal"
           - when 'mangopay'
+            -# Platzhalter
             Bitte bezahle den Betrag von XXX über Fairnopoly
           - when 'cash'
             Bitte zahle den Betrag bei Abholung in bar
             -#= "Bitte bezahle den Betrag von #{bts.sum(:quantity_bought)} bei Abholung"
+          - when 'invoice'
+            Dir wird eine Rechung zugeschickt
+          - when 'cash_on_delivery'
+            Der Betrag plus Nachnahmegebühr wird durch die Post eingetrieben
+          - when 'bank_transfer'
+            Bitte überweise den Betrag auf folgendes Konto:
+
+        .lineItemGroup-payment-group-actions
+          - case payment
+          - when 'paypal'
+            = button_to t('transaction.actions.paypal_process'), payment_path(Payment.create), method: 'patch', class: "Button"
+          - when 'mangopay'
+            -# Platzhalter
+            = button_tag 'über Fairnopoly bezahlen', class: 'Button'
+          - when 'cash'
+            Hier kannst du Deine Bestellung abholen:
+            = render 'addresses/address', address: line_item_group.seller.standard_address
           - when 'invoice'
             Dir wird eine Rechung zugeschickt
           - when 'cash_on_delivery'
@@ -36,34 +54,19 @@
                 %td
                   Kontoinhaber*in:
                 %td
-                  = bt.seller.bank_account_owner
+                  = line_item_group.seller.bank_account_owner
               %tr
                 %td
                   IBAN:
                 %td
-                  = bt.seller.iban
+                  = line_item_group.seller.iban
               %tr
                 %td
                   BIC:
                 %td
-                  = bt.seller.bic
+                  = line_item_group.seller.bic
               %tr
                 %td
                   Bank:
                 %td
-                  = bt.seller.bank_name
-        .lineItemGroup-payment-group-actions
-          - case payment
-          - when 'paypal'
-            = button_to t('transaction.actions.paypal_process'), payment_path(Payment.create), method: 'patch', class: "Button"
-          - when 'mangopay'
-            = button_tag 'über Fairnopoly bezahlen', class: 'Button'
-          - when 'cash'
-            Hier kannst du Deine Bestellung abholen:
-            = render 'addresses/address', address: bts.first.seller.standard_address
-          - when 'invoice'
-            Dir wird eine Rechung zugeschickt
-          - when 'cash_on_delivery'
-            Der Betrag plus Nachnahmegebühr wird durch die Post eingetrieben
-          - when 'bank_transfer'
-            Bitte überweise den Betrag auf folgendes Konto:
+                  = line_item_group.seller.bank_name

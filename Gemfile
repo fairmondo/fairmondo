@@ -72,6 +72,11 @@ gem 'pundit' # authorization
 gem 'kaminari' # pagination
 gem 'responders'
 
+
+# ---------- Mail ----------
+
+gem 'roadie-rails' # creates emails with inline css from html files with external css-file
+
 # ---------- Background Processing ----------
 
 gem 'sidekiq'
