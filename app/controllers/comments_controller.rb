@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment_data = {user: current_user}.merge(comment_params)
+    comment_data = { user: current_user }.merge(comment_params)
     @comment = @commentable.comments.build(comment_data)
 
     authorize @comment
@@ -22,7 +22,10 @@ class CommentsController < ApplicationController
   def destroy
     authorize @comment
     comment_id = @comment.id
-    render :destroy, locals: { commentable_id: @commentable.id, comment_id: comment_id}
+    render :destroy, locals: {
+                       commentable_id: @commentable.id,
+                       comment_id: comment_id
+                     }
     @comment.destroy
   end
 

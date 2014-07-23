@@ -153,11 +153,11 @@ feature "comments for all users" do
     article = FactoryGirl.create(:article)
     article.libraries << library
     user = FactoryGirl.create(:user)
-    comment = FactoryGirl.create(:comment,
-                                 text: "Test comment",
-                                 commentable: library,
-                                 library: library,
-                                 user: user)
+    comment = FactoryGirl.create_pair(:comment,
+                                      text: "Test comment",
+                                      commentable: library,
+                                      library: library,
+                                      user: user)
 
     visit libraries_path
 
