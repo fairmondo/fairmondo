@@ -1,7 +1,8 @@
 class Payment < ActiveRecord::Base
 
   has_many :business_transactions, inverse_of: :payment #multiple bt can have one payment, if unified
-  has_many :line_item_groups, through: :business_transactions # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that
+  has_many :line_item_groups, through: :business_transactions, inverse_of: :payments
+  # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that
   def line_item_group; line_item_groups.first; end # simulate the has_one
 
   delegate :total_price,
