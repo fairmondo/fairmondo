@@ -1,0 +1,22 @@
+%h2
+  Einkauf vom
+  = @cart.updated_at
+- @cart.line_item_groups.each do |group|
+  Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+  - group.line_items.each do |line_item|
+    - article = line_item.article
+    .Listview
+      .Listview-item
+        .Listview-image
+          = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+        = render "shared/listview/listview_detail", article: article
+        .Listview-actions
+          - if line_item.article_quantity > 1
+            = semantic_form_for line_item do |f|
+              = f.inputs do
+                = f.input :requested_quantity, input_html: { min: 0, max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_error_addition: I18n.t('line_item.errors.already_sold'), validation_allow: '0' } }
+                = f.action :submit, label: t('line_item.labels.edit'), button_html: { class: "Button" }
+
+          = button_to t('common.actions.destroy'), line_item_path(line_item.id), class: "Button Button--red", confirm: 'Sure?', method: :delete
+
+= link_to "Zur Kasse", edit_cart_path(@cart), class: "Button"

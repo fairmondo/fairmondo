@@ -32,11 +32,11 @@ class CartCheckoutForm
   def process params
     build_form_objects_from checkout ? session[:cart_checkout] : params
     return :invalid unless valid?
-    unless checkout
-      session[:cart_checkout] = params # save everything in session
-      return :saved_in_session
+    if checkout
+      cart.buy
     else
-      return cart.buy
+      session[:cart_checkout] = params # save everything in session
+      :saved_in_session
     end
   end
 
