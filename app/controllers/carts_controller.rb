@@ -8,7 +8,13 @@ class CartsController < ApplicationController
   skip_before_filter :authenticate_user!, only: :show
 
   def show
-    respond_with @cart
+    if @cart.sold? and @cart.line_item_groups.count == 1
+      # redirect directly to a purchase view if there is only one lig to purchase
+      redirect_to @cart.line_item_groups.first
+    else
+      respond_with @cart
+      # switch between pre and post purchase view happens in the template
+    end
   end
 
   def edit
@@ -36,10 +42,12 @@ class CartsController < ApplicationController
     when :checked_out
       clear_session
       @cart.sold = true
-      @cart.save
+      flash[:notice] = 'Yay' if @cart.save
+      cookies.delete :cart
       respond_with @cart
     when :checkout_failed
       # failed because something isnt available anymore
+      flash[:error] = 'Things went wrong.'
       respond_with @cart
     end
   end

@@ -113,7 +113,9 @@ class ApplicationController < ActionController::Base
     end
 
     def unset_cart
+      # gets called on every page load. when a session has expired, the old cart cookie needs to be cleared
       if !current_user && cookies[:cart] && !view_context.current_cart
+        # if no user is logged in and there is a cart cookie but that cart can't be found / wasn't allowed
         cookies.delete :cart
       end
     end

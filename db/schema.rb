@@ -318,6 +318,7 @@ ActiveRecord::Schema.define(version: 20140715124639) do
     t.datetime "updated_at",                                   null: false
     t.integer  "library_elements_count",           default: 0
     t.string   "exhibition_name"
+    t.integer  "hearts_count",                     default: 0
     t.integer  "comments_count",                   default: 0
   end
 

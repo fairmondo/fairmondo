@@ -1,0 +1,11 @@
+- @cart.line_item_groups.each do |group|
+  Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+  - group.line_items.each do |line_item|
+    - article = line_item.article
+    .Listview
+      .Listview-item
+        .Listview-image
+          = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+        = render "shared/listview/listview_detail", article: article
+        .Listview-actions
+          = link_to 'Zahlste hier', line_item_group_path(group), class: "Button"
