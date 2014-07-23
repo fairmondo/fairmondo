@@ -261,13 +261,13 @@ feature "Article buyer actions" do
     login_as user
 
     visit article_path @article
-    click_link I18n.t 'common.actions.to_cart'
+    click_button I18n.t 'common.actions.to_cart'
     current_path.must_equal article_path @article
   end
 
   scenario "guest clicks buy button" do
     visit article_path @article
-    click_link I18n.t 'common.actions.to_cart'
+    click_button I18n.t 'common.actions.to_cart'
     current_path.must_equal article_path @article
   end
   # add more

@@ -30,18 +30,18 @@
         %a{ :href => "mailto:#{resource.email}" }
           - if resource.standard_address && resource.standard_address_title
             = "#{resource.standard_address_title} "
-          - if resource.standard_address && resource.standard_address_first_name && resource.standard_address_last_name
+          - if resource.standard_address
             = "#{resource.standard_address_first_name} #{resource.standard_address_last_name}"
 
       %p.adr
-        - if resource.standard_address && resource.standard_address_address_line_1 && resource.standard_address_address_line_2
+        - if resource.standard_address
           %span.street-adress
             = "#{resource.standard_address_address_line_1}"
             %br
             - if resource.standard_address && resource.standard_address_address_line_2
               = "#{resource.standard_address_address_line_2}"
             %br
-        - if resource.standard_address && resource.standard_address_zip && resource.standard_address_city
+        - if resource.standard_address
           %span.postal-code
             = resource.standard_address_zip
           %span.locality

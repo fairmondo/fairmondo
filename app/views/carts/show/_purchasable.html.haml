@@ -1,4 +1,4 @@
-- @cart.line_item_groups.each do |group|
+- cart.line_item_groups.each do |group|
   Anjeboten von #{link_to group.seller.nickname, user_path(group.seller)}
   - group.line_items.each do |line_item|
     - article = line_item.article
@@ -16,4 +16,4 @@
 
           = button_to t('common.actions.destroy'), line_item_path(line_item.id), class: "Button Button--red", confirm: 'Sure?', method: :delete
 
-= link_to "Zur Kasse", edit_cart_path(@cart), class: "Button"
+= link_to "Zur Kasse", edit_cart_path(cart), class: "Button"

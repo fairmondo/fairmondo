@@ -6,5 +6,5 @@
       - else
         %strong= t("users.text.no_#{item_name}")
   - else
-    = render '/shared/line_item_group/line_item_groups', line_item_groups: line_item_groups
+    = render '/line_item_groups/shared/line_item_groups', line_item_groups: line_item_groups
     = paginate line_item_groups, params: { anchor: item_name }

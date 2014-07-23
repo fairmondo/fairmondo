@@ -32,10 +32,10 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  config.excluded_models = [ 'Image','Images::FeedbackImage','Images::ArticleImage','Images::UserImage','Users::LegalEntity', 'Users::PrivateUser' ]
+  #config.excluded_models = [ 'FastBillAPI', 'CleverreachApi','Sti','Image','Images::FeedbackImage','Images::ArticleImage','Images::UserImage','Users::LegalEntity', 'Users::PrivateUser' ]
 
   # Include specific models (exclude the others):
-  # config.included_models = ['Article', 'ArticleTemplate', 'Category', 'Content', 'Exhibit', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'LegalEntity', 'Library', 'LibraryElement', 'MultipleFixedPriceTransaction', 'PartialFixedPriceTransaction', 'PreviewTransaction', 'PrivateUser', 'SingleFixedPriceTransaction', 'SocialProducerQuestionnaire', 'BusinessTransaction', 'User']
+  config.included_models = ['Article', 'Address', 'Cart' , 'Comment' ,'Discount', 'LineItemGroup', 'MassUpload', 'Payment' ,'Category', 'Content', 'FairTrustQuestionnaire', 'Feedback', 'Image', 'Library', 'Rating' , 'Refund' , 'LibraryElement', 'PrivateUser',  'SocialProducerQuestionnaire', 'BusinessTransaction', 'User']
 
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
