@@ -8,7 +8,7 @@ class PaypalAPI
   def request_for payment
     begin
       Timeout::timeout(15) do #15 second timeout
-        response = paypal_client.pay(
+        paypal_client.pay(
           "returnUrl" => line_item_group_url(payment.line_item_group, paid: true),
           "requestEnvelope" => {"errorLanguage" => "de_DE"},
           "currencyCode" => "EUR",
@@ -18,17 +18,9 @@ class PaypalAPI
           "actionType" => "PAY",
           "ipnNotificationUrl" => ipn_notification_url
         )
-
-        if response.success?
-          payment.pay_key = response['payKey']
-          true
-        else
-          payment.error = response.errors.to_json
-          payment.erroring
-        end
       end
     rescue Timeout::Error
-      false
+      Struct.new(:success?, :errors).new(false, 'Timeout') # Mock response object
     end
   end
 
