@@ -37,16 +37,12 @@ class RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
     address_params = params[:address] ? params.for(Address).refine : {}
-    resource.standard_address ||= resource.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
-    resource.standard_address.assign_attributes(address_params) if resource.standard_address
+    resource.build_standard_address_from address_params
+
     successfully_updated  = update_account(account_update_params)
     if successfully_updated
 
-      if resource.standard_address
-        resource.standard_address = resource.standard_address.duplicate_if_referenced!
-        resource.standard_address.save!(validate: false) # Already validates with validates_associates in user model
-        resource.update_column(:standard_address_id, resource.standard_address.id)
-      end
+      resource.save_already_validated_standard_address!
 
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
