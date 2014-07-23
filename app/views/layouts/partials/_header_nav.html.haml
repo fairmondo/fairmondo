@@ -25,4 +25,4 @@
 
   - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
     %li
-      = link_to t('header.cart'), current_cart
+      = link_to t('header.cart', count: current_cart.line_items.count), current_cart

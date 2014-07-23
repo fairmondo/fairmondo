@@ -14,17 +14,11 @@ class Payment < ActiveRecord::Base
 
   state_machine initial: :pending do
 
-    state :initialized do end
-    state :errored do end
-    state :succeeded do end
+    state :pending, :requesting, :initialized, :errored, :succeeded
 
     event :init do
-      transition :pending => :initialized
-    end
-    before_transition on: :init, do: :paypal_request
-
-    event :erroring do
-      transition [:pending, :initialized] => :errored
+      transition :pending => :initialized, if: :paypal_request
+      transition :pending => :errored
     end
 
     # event :success do
@@ -40,10 +34,19 @@ class Payment < ActiveRecord::Base
   def total_price
     business_transactions.map(&:total_price).sum
   end
+
   private
 
+    # called within init
     def paypal_request
-      PaypalAPI.new.request_for self
+      response = PaypalAPI.new.request_for(self)
+      if response.success?
+        self.pay_key = response['payKey']
+        true # continue
+      else
+        self.error = response.errors.to_json
+        false # errored instead of initialized
+      end
     end
 
 end
