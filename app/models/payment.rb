@@ -10,7 +10,7 @@ class Payment < ActiveRecord::Base
   delegate :buyer, :buyer_id, :seller, :seller_email,
            to: :line_item_group, prefix: true
 
-  validates :pay_key, uniqueness: true, presence:true, on: :update
+  validates :pay_key, uniqueness: true, on: :update
 
   state_machine initial: :pending do
 
