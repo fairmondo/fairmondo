@@ -36,6 +36,7 @@ class Cart < ActiveRecord::Base
       self.line_item_groups.each do |line_item_group|
         line_item_group.line_items.each do |line_item|
           locked_article_ids_with_quantities[line_item.article.id] = line_item.requested_quantity
+          line_item.business_transaction.payment.save! if line_item.business_transaction.payment
           line_item.business_transaction.save!
         end
         line_item_group.buyer_id = self.user_id
