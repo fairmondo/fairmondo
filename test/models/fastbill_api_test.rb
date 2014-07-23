@@ -47,6 +47,7 @@ describe FastbillAPI do
 
     describe '::fastbill_discount' do
       it 'should call setusagedata' do
+        db_business_transaction # to trigger observers before
         Fastbill::Automatic::Subscription.expects( :setusagedata )
         db_business_transaction.discount = FactoryGirl.create :discount
         FastbillAPI.fastbill_discount(seller, db_business_transaction)
@@ -55,6 +56,7 @@ describe FastbillAPI do
 
     describe '::fastbill_refund' do
       it 'should call setusagedata' do
+        db_business_transaction # to trigger observers before
         Fastbill::Automatic::Subscription.expects( :setusagedata ).twice
         FastbillAPI.fastbill_refund( db_business_transaction, :fair )
         FastbillAPI.fastbill_refund( db_business_transaction, :fee )

@@ -1,9 +1,10 @@
-require "test_helper"
+require_relative '../test_helper'
 
 describe LineItem do
   let(:line_item) { LineItem.new }
+  let(:db_line_item) { FactoryGirl.create :line_item }
 
-  it "must be valid" do
-    line_item.must_be :valid?
+  it "has a valid factory" do
+    db_line_item.must_be :valid?
   end
 end

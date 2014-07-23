@@ -44,8 +44,6 @@ FactoryGirl.define do
 
     payment_details "payment_details"
 
-    discount
-
     after(:build) do |article|
       article.images << FactoryGirl.build(:article_image)
       article.activate

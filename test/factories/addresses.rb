@@ -11,11 +11,24 @@ FactoryGirl.define do
     zip             { Faker::AddressDE.zip_code }
     city            { Faker::AddressDE.city }
     country         'Deutschland'
-    after(:create) { |address| FactoryGirl.create(:user, standard_address: address) }
+    user
 
     trait :referenced do
       after(:create) { |address| FactoryGirl.create(:line_item_group, payment_address: address) }
     end
+
+  trait :fixture_address do
+    title 'Herr'
+    first_name 'Hans'
+    last_name 'Gutmut'
+    company_name 'Goldene Gans gGmbH'
+    address_line_1 'Dorfstr. 23'
+    address_line_2 'Am Brunnen'
+    zip '13747'
+    city 'Kleines Dorf'
+    country 'Deutschland'
+  end
+
 
   end
 

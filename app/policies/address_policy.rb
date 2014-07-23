@@ -1,7 +1,4 @@
 class AddressPolicy < Struct.new(:user, :address)
-  def index?
-    own?
-  end
 
   def new?
     own?
