@@ -59,7 +59,12 @@
   }
 
   .teaser-inner {
-    padding-bottom: 3.5em;
+    @include between-breakpoints($bp-tablet, $bp-desktop) {
+      padding-bottom: 3.5em;
+    }
+    @include at-breakpoint($bp-desktop) {
+      padding-bottom: 2.7em;
+    }
   }
 }
 
