@@ -2,5 +2,6 @@
   - if @cart.sold?
     = render 'carts/show/sold', cart: @cart
   - else
-    = render 'carts/show/purchasable', cart: @cart
+    = render 'carts/show/open', cart: @cart
+
 

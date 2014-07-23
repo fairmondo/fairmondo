@@ -90,10 +90,10 @@ class CartCheckoutForm
 
     def create_business_transaction_for group, item, transaction_params
       business_transaction = if transaction_params
-        group.business_transactions.build(transaction_params.for(BusinessTransaction).on(:create).refine)
-      else
-        group.business_transactions.build
-      end
+          group.business_transactions.build(transaction_params.for(BusinessTransaction).on(:create).refine)
+        else
+          group.business_transactions.build
+        end
       item.business_transaction = business_transaction
       business_transaction.quantity_bought = item.requested_quantity
       business_transaction.article = item.article

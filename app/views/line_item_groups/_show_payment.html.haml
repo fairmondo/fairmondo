@@ -37,7 +37,7 @@
         .lineItemGroup-payment-group-actions
           - case payment
           - when 'paypal'
-            = button_to t('transaction.actions.paypal_process'), payment_path(Payment.create), method: 'patch', class: "Button"
+            = button_to t('transaction.actions.paypal_process'), payment_path(bts.first.payment), method: 'patch', class: "Button"
           - when 'mangopay'
             -# Platzhalter
             = button_tag 'über Fairnopoly bezahlen', class: 'Button'
