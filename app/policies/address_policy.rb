@@ -34,7 +34,4 @@ class AddressPolicy < Struct.new(:user, :address)
       user && user.id == address.user_id
     end
 
-    def own_collection?
-      current_user.addresses.map
-    end
 end
