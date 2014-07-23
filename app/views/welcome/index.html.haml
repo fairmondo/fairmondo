@@ -25,8 +25,8 @@
   .category-dropdown
     = render 'categories/shared/category_tree'
 
--# featured library 1
-.teaser.teaser--double.teaser--triple
+-# Featured library 1
+.teaser.teaser--double#teaser--first
   .teaser-inner
     %h2
       = link_to(tinycms_content_body_sanitized("heading_features").upcase, featured_library_path(@queue1[:library]))
@@ -34,9 +34,9 @@
       %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
         = render "/articles/shared/show_article", article: article
 
--# bluebox
-.teaser.teaser--bluebox
-  .teaser-inner
+-# Bluebox
+#bluebox
+  #bluebox-container
     #bluebox1
       %h3.bluebox-header Konsequent fair
       .bluebox-inner
@@ -66,8 +66,8 @@
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
--# featured library 2
-.teaser.teaser--double#teaser-clear-after-bluebox
+-# Featured library 2
+.teaser.teaser--double#teaser--clear-after-bluebox
   .teaser-inner
     %h2
       = link_to('GEBRAUCHT BEI FAIRNOPOLY', featured_library_path(@old[:library]))
@@ -75,7 +75,7 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
--# featured library 3
+-# Featured library 3
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
@@ -99,7 +99,7 @@
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
         %i.icon-right_arrow
 
--# featured library 4
+-# Featured library 4
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
@@ -108,7 +108,7 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
--# hero teaser
+-# Hero teaser
 .teaser.teaser--double
   .teaser-inner.teaser--center
     %h2 AKTIV MITWIRKEN
@@ -118,11 +118,11 @@
       %a{ href: "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", class: "Button", target: "_blank" }
         Held*in werden
 
--# blog
+-# Blog
 .teaser.teaser--double.teaser--news
   .teaser-inner.teaser--hide#js-teaser-news-placeholder
 
--# user comment slides
+-# User comment slides
 .teaser.teaser--full.teaser--userslides
   .teaser-inner
     #js-userslides
