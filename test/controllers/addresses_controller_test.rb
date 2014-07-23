@@ -2,7 +2,6 @@ require_relative '../test_helper'
 
 describe AddressesController do
 
-
   let(:user) { FactoryGirl.create :user }
   let(:address) { FactoryGirl.create :address, user: user }
   let(:referenced_address) { FactoryGirl.create :address, :referenced , user: user}
@@ -20,7 +19,7 @@ describe AddressesController do
     it 'should create new address' do
       @address_attrs = FactoryGirl.attributes_for :address
       sign_in user
-      assert_difference 'Address.count', 1 do
+      assert_difference('Address.count', 1) do
         xhr :post, :create, user_id: user.id, address: @address_attrs
       end
     end
@@ -43,13 +42,18 @@ describe AddressesController do
 
   describe 'DELETE ::destroy' do
     it 'should delete an address from the database' do
+      user = FactoryGirl.create :incomplete_user
+      address = FactoryGirl.create :address, user: user
       sign_in user
       address # can cause new addresses
       assert_difference('Address.count', -1) do
         xhr :delete, :destroy, user_id: user.id, id: address.id
       end
     end
+
     it 'should stash a referenced address from the database' do
+      user = FactoryGirl.create :incomplete_user
+      referenced_address = FactoryGirl.create :address, :referenced, user: user
       sign_in user
       referenced_address # can cause new addresses
       assert_difference('Address.count', 0) do

@@ -6,3 +6,5 @@
       .thumbnails
         - group.line_items.map(&:article).each do |article|
           = image_tag(article.title_image_url_thumb)
+
+= button_to 'Fabindlich koofen', cart_path(@cart, checkout: true), method: :patch, class: 'Button'

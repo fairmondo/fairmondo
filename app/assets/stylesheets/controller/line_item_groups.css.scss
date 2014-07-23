@@ -1,0 +1,127 @@
+@import "mixins/all";
+
+.lineItemGroup-payment-group {
+  @include whitebox;
+  display: inline-block;
+  width: calc(100% - 2em);
+
+  @include at-breakpoint($bp-desktop) {
+    .lineItemGroup-payment-group-images {
+      @include span(1 of 3 0.1);
+    }
+
+    .lineItemGroup-payment-group-details {
+      @include span(2 of 3 0.1);
+    }
+
+    .lineItemGroup-payment-group-actions {
+      @include span(3 of 3 0.1);
+      @include omega;
+    }
+  }
+}
+
+.lineItemGroup-payment-group-header {
+  @include span(1 of 3 0.1);
+  overflow: hidden;
+  display: inline-block;
+}
+
+.lineItemGroup-payment-group-status {
+  @include span(3 of 3 0.1);
+  @include omega;
+  overflow: hidden;
+  display: inline-block;
+  width: auto;
+}
+
+.lineItemGroup-payment-group > .lineItemGroup-payment-group-images {
+  float: left;
+  overflow: hidden;
+}
+
+.lineItemGroup-payment-group > .lineItemGroup-payment-group-images > .lineItemGroup-payment-group-images-image {
+
+  position: relative;
+  display: inline-block;
+  img {
+    height: 3em;
+    width: auto;
+    border: solid;
+  }
+}
+
+.lineItemGroup-payment-group > .lineItemGroup-payment-group-details {
+  overflow: hidden;
+  display: inline-block;
+  width: auto;
+}
+
+.lineItemGroup-payment-group > .lineItemGroup-payment-group-actions {
+  overflow: hidden;
+  width: auto;
+}
+
+
+.lineItemGroup-transport {
+
+  @include whitebox;
+  display: inline-block;
+  width: calc(100% - 2em);
+
+  @include at-breakpoint($bp-desktop) {
+    .lineItemGroup-transport-images {
+      @include span(1 of 3 0.1);
+    }
+
+    .lineItemGroup-transport-details {
+      @include span(2 of 3 0.1);
+    }
+
+    .lineItemGroup-transport-actions {
+      @include span(3 of 3 0.1);
+      @include omega;
+    }
+  }
+}
+
+.lineItemGroup-transport-header {
+  @include span(1 of 3 0.1);
+  overflow: hidden;
+  display: inline-block;
+}
+
+.lineItemGroup-transport-status {
+  @include span(3 of 3 0.1);
+  @include omega;
+  overflow: hidden;
+  display: inline-block;
+  width: auto;
+}
+
+.lineItemGroup-transport > .lineItemGroup-transport-details {
+  overflow: hidden;
+  display: inline-block;
+  width: auto;
+}
+
+.lineItemGroup-transport > .lineItemGroup-transport-actions {
+  overflow: hidden;
+  width: auto;
+}
+
+.lineItemGroup-transport > .lineItemGroup-transport-images {
+  float: left;
+  overflow: hidden;
+}
+
+.lineItemGroup-transport > .lineItemGroup-transport-images > .lineItemGroup-transport-image {
+
+  position: relative;
+  display: inline-block;
+  img {
+    height: 3em;
+    width: auto;
+    border: solid;
+  }
+}

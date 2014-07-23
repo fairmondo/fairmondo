@@ -1,0 +1,72 @@
+.Content
+  %h2
+    Bezahlung
+
+  -# TODO put this into model
+  - line_item_group.business_transactions.group_by(&:selected_payment).each do |payment, bts|
+    .Content
+      .lineItemGroup-payment-group-header
+        %h3
+          = payment
+      .lineItemGroup-payment-group-status
+        %h3
+          = fa_icon 'euro'
+          = fa_icon 'truck'
+      .lineItemGroup-payment-group
+        .lineItemGroup-payment-group-images
+          - bts.each do |bt|
+            .lineItemGroup-payment-group-images-image
+              = link_to image_tag(bt.article.title_image_url(:thumb)), article_path(bt.article)
+        .lineItemGroup-payment-group-details
+          - case payment
+          - when 'paypal'
+            = "Bitte bezahle den Betrag von #{} per Paypal"
+          - when 'mangopay'
+            -# Platzhalter
+            Bitte bezahle den Betrag von XXX über Fairnopoly
+          - when 'cash'
+            Bitte zahle den Betrag bei Abholung in bar
+            -#= "Bitte bezahle den Betrag von #{bts.sum(:quantity_bought)} bei Abholung"
+          - when 'invoice'
+            Dir wird eine Rechung zugeschickt
+          - when 'cash_on_delivery'
+            Der Betrag plus Nachnahmegebühr wird durch die Post eingetrieben
+          - when 'bank_transfer'
+            Bitte überweise den Betrag auf folgendes Konto:
+
+        .lineItemGroup-payment-group-actions
+          - case payment
+          - when 'paypal'
+            = button_to t('transaction.actions.paypal_process'), payment_path(Payment.create), method: 'patch', class: "Button"
+          - when 'mangopay'
+            -# Platzhalter
+            = button_tag 'über Fairnopoly bezahlen', class: 'Button'
+          - when 'cash'
+            Hier kannst du Deine Bestellung abholen:
+            = render 'addresses/address', address: line_item_group.seller.standard_address
+          - when 'invoice'
+            Dir wird eine Rechung zugeschickt
+          - when 'cash_on_delivery'
+            Der Betrag plus Nachnahmegebühr wird durch die Post eingetrieben
+          - when 'bank_transfer'
+            %table
+              %tr
+                %td
+                  Kontoinhaber*in:
+                %td
+                  = line_item_group.seller.bank_account_owner
+              %tr
+                %td
+                  IBAN:
+                %td
+                  = line_item_group.seller.iban
+              %tr
+                %td
+                  BIC:
+                %td
+                  = line_item_group.seller.bic
+              %tr
+                %td
+                  Bank:
+                %td
+                  = line_item_group.seller.bank_name

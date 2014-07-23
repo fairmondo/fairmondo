@@ -1,0 +1,17 @@
+.Comments-section
+  - if current_user
+    = render "comments/new", library: library
+  - else
+    = t('common.text.login_to_comment')
+
+  - if library.comments.any?
+    = render library.comments.order(created_at: :desc).page(params[:comment_page])
+    = link_to_next_page library.comments.order(created_at: :desc).page(params[:comment_page]),
+      t('common.text.morecomments'),
+      param_name: :comments_page,
+      params: { library_id: library.id, controller: "comments" },
+      class: "next_link",
+      remote: true
+  - else
+    #comments-empty
+      = t('common.text.no_comments')

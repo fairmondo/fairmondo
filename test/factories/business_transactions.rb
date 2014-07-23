@@ -62,6 +62,7 @@ FactoryGirl.define do
 
     factory :business_transaction_with_line_items do
       article   { FactoryGirl.create :article, seller: line_item_group.seller }
+
       after :create do |business_transaction, evaluator|
         FactoryGirl.create :line_item, line_item_group: business_transaction.line_item_group, article: business_transaction.article
       end
@@ -87,8 +88,11 @@ FactoryGirl.define do
       selected_payment :cash_on_delivery
     end
 
-    trait :fastbill_profile do
-      seller { FactoryGirl.create :seller, fastbill_id: rand(1...1000), fastbill_subscription_id: rand(1...1000) }
+    trait :clear_fastbill do
+      after :create do |business_transaction, evaluator|
+        business_transaction.seller.update_column(:fastbill_id, nil)
+        business_transaction.seller.update_column(:fastbill_subscription_id, nil)
+      end
     end
 
     trait :old do
@@ -111,6 +115,27 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, payment_paypal: true, seller: FactoryGirl.create(:seller, :paypal_data) }
       selected_payment :paypal
       payment
+    end
+
+    trait :cash do
+      selected_payment 'cash'
+    end
+
+    trait :paypal do
+      article   { FactoryGirl.create :article, seller: line_item_group.seller, payment_paypal: true }
+      selected_payment 'paypal'
+    end
+
+    trait :invoice do
+      selected_payment 'invoice'
+    end
+
+    trait :mangopay do
+      selected_payment 'mangopay'
+    end
+
+    trait :bank_transfer do
+      selected_payment 'bank_transfer'
     end
   end
 end
