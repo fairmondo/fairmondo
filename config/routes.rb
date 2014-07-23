@@ -88,6 +88,10 @@ Fairnopoly::Application.routes.draw do
 
   get '/transactions/:id', to: 'business_transactions#show', as: 'business_transaction'
 
+  resources :business_transactions, only: [:show] do
+    resources :refunds, only: [ :new, :create ]
+  end
+
   get 'welcome/reconfirm_terms'
   post 'welcome/reconfirm_terms'
 

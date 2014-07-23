@@ -36,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    address_params = params.for(Address).refine
+    address_params = params[:address] ? params.for(Address).refine : {}
     resource.standard_address ||= resource.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
     resource.standard_address.assign_attributes(address_params) if resource.standard_address
     successfully_updated  = update_account(account_update_params)
