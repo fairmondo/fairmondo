@@ -95,6 +95,8 @@ describe User do
   describe "associations" do
     it { subject.must have_many(:articles).dependent(:destroy) }
     it { subject.must have_many(:libraries).dependent(:destroy) }
+    it { subject.must have_many(:comments).dependent(:destroy) }
+    it { subject.must have_many(:hearts) }
     it { subject.must have_one(:image) }
 
     describe "sold_transactions" do
