@@ -90,7 +90,6 @@ de:
       leave_comment: "Kommentar erstellen"
       morecomments: "Mehr Kommentare"
       delete_comment: "Kommentar löschen"
-      last_comments: "Die letzten Kommentare"
       confirm_comment_delete: "Diesen Kommentar wirklich löschen?"
       glue:
         from: "von"
