@@ -26,25 +26,24 @@ describe Payment do
 
   describe "methods" do
     describe "#init [state machine]" do
-      it "should call #paypal_request" do
+      it "should initialize successfully" do
         payment.state.must_equal 'pending'
-        payment.expects(:paypal_request)
         payment.init
         payment.state.must_equal 'initialized'
       end
     end
 
-    describe "#paypal_request [private, before init]" do
+    describe "#paypal_request [private, called within init]" do
       it "should save errors on API failure" do
         PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
-        payment.expects(:erroring)
         payment.send(:paypal_request)
       end
 
-      it "should rescue a timeout" do
+      it "should rescue a timeout and error instead" do
         Timeout.expects(:timeout).with(15).raises(Timeout::Error)
-        payment.send(:paypal_request).must_equal false
+        payment.init
+        payment.state.must_equal 'errored'
       end
     end
   end
