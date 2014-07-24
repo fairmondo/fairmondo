@@ -28,15 +28,21 @@ describe CommentsController do
     before :each do
       @library = FactoryGirl.create(:library, public: true)
       @user = FactoryGirl.create(:user)
-      sign_in @user
       @comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: @library,
-                                 library: @library,
                                  user: @user)
     end
 
-    it "should return the comments of the library" do
+    it "should return the comments of the library for guests" do
+      xhr(:get, :index, library_id: @library.id,
+                        comments_page: 1)
+
+      assert_response :success
+    end
+
+    it "should return the comments of the library for logged in users" do
+      sign_in @user
       xhr(:get, :index, library_id: @library.id,
                         comments_page: 1)
 
@@ -53,8 +59,7 @@ describe CommentsController do
 
     describe "with valid params" do
       it "should allow posting using ajax" do
-        post :create, user: @user,
-                      comment: { text: "test" },
+        post :create, comment: { text: "test" },
                       library_id: @library.id,
                       format: :js
 
@@ -66,20 +71,19 @@ describe CommentsController do
     describe "with invalid params" do
       it "does not increase the comment count" do
         assert_difference "@library.comments.count", 0 do
-          post :create, user: nil,
-                        comment: { text: "test" },
+          post :create, comment: { text: "test" },
                         library_id: @library.id + 1,
                         format: :js
         end
       end
 
       it "should set the flash" do
-        post :create, user: nil,
-                      comment: { text: "test" },
+        post :create, comment: { text: nil },
                       library_id: @library.id + 1,
                       format: :js
 
-        assert_not_nil(assigns(:message))
+        @controller.instance_variable_get(:@message)
+          .must_equal(I18n.t('flash.actions.create.alert', @controller.instance_variable_get(:@comment)))
       end
     end
   end
@@ -92,15 +96,13 @@ describe CommentsController do
       @comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: @library,
-                                 library: @library,
                                  user: @user)
     end
 
     it "it should remove the comment" do
-      delete :destroy, user: @user,
-                        id: @comment.id,
-                        library_id: @library.id,
-                        format: :js
+      delete :destroy, id: @comment.id,
+                       library_id: @library.id,
+                       format: :js
 
       assert_response :success
     end
