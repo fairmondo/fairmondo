@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
 
   before_filter :set_commentable, only: [:index, :create, :update, :destroy]
   before_filter :set_comment, only: [:update, :destroy]
+  skip_before_filter :authenticate_user!, only: [:index]
 
   def index
     @comments = @commentable.comments.order(created_at: :desc).page(params[:comments_page])
