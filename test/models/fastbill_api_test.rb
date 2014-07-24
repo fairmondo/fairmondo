@@ -22,8 +22,9 @@ describe FastbillAPI do
 
       describe "when seller is not an NGO" do
         describe "and has Fastbill profile" do
-          let( :db_business_transaction ) { FactoryGirl.create :business_transaction, :fastbill_profile }
+
           it "should not create new Fastbill profile" do
+            db_business_transaction # to trigger observers before
             FastbillAPI.expects( :fastbill_create_customer ).never
             FastbillAPI.expects( :fastbill_create_subscription ).never
             FastbillAPI.fastbill_chain( db_business_transaction )
@@ -31,7 +32,9 @@ describe FastbillAPI do
         end
 
         describe "and has no Fastbill profile" do
+          let( :db_business_transaction ) { FactoryGirl.create :business_transaction, :clear_fastbill }
           it "should create new Fastbill profile" do
+            db_business_transaction # to trigger observers before
             FastbillAPI.expects( :fastbill_create_customer )
             FastbillAPI.expects( :fastbill_create_subscription )
             FastbillAPI.fastbill_chain( db_business_transaction )
@@ -39,6 +42,7 @@ describe FastbillAPI do
         end
 
         it "should set usage data for subscription" do
+          db_business_transaction # to trigger observers before
           FastbillAPI.expects( :fastbill_setusagedata ).twice
           FastbillAPI.fastbill_chain( db_business_transaction )
         end
@@ -47,6 +51,7 @@ describe FastbillAPI do
 
     describe '::fastbill_discount' do
       it 'should call setusagedata' do
+        db_business_transaction # to trigger observers before
         Fastbill::Automatic::Subscription.expects( :setusagedata )
         db_business_transaction.discount = FactoryGirl.create :discount
         FastbillAPI.fastbill_discount(seller, db_business_transaction)
@@ -55,6 +60,7 @@ describe FastbillAPI do
 
     describe '::fastbill_refund' do
       it 'should call setusagedata' do
+        db_business_transaction # to trigger observers before
         Fastbill::Automatic::Subscription.expects( :setusagedata ).twice
         FastbillAPI.fastbill_refund( db_business_transaction, :fair )
         FastbillAPI.fastbill_refund( db_business_transaction, :fee )

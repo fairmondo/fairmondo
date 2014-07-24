@@ -1,6 +1,7 @@
 .Content
   - if @cart.sold?
-    = render 'carts/show/sold'
+    = render 'carts/show/sold', cart: @cart
   - else
-    = render 'carts/show/purchasable'
+    = render 'carts/show/open', cart: @cart
+
 

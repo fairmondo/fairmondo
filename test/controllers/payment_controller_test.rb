@@ -36,11 +36,11 @@ describe PaymentsController do
 
     it "should update a payment and forward to show" do
       payment #so one with the business_transaction_id already exists
-      payment.pay_key.must_equal nil
+      payment.pay_key.must_be_nil
       assert_difference 'Payment.count', 0 do
         post :update, id: payment.id
       end
-      payment.pay_key.must_not_equal nil
+      payment.reload.pay_key.must_be_kind_of String
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
     end
   end

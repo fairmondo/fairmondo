@@ -47,7 +47,7 @@ class CartsController < ApplicationController
       respond_with @cart
     when :checkout_failed
       # failed because something isnt available anymore
-      flash[:error] = 'Things went wrong.'
+      flash[:error] = 'failed because something isnt available anymore'
       respond_with @cart
     end
   end

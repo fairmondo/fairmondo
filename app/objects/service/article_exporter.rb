@@ -6,15 +6,12 @@ class ArticleExporter
 
     # Generate proper headers and find out if we are messing with transactions
     export_attributes = MassUpload.article_attributes
-    export_attributes += MassUpload.business_transaction_attributes if params == "sold"
 
     #write the headers and set options for csv generation
     csv.puts CSV.generate_line export_attributes, @@csv_options
 
 
-    determine_articles_to_export( user, params ).find_each do |item|
-
-      article = item.is_a?( BusinessTransaction ) ? item.article : item
+    determine_articles_to_export( user, params ).find_each do |article|
 
       row = Hash.new
       row.merge!(provide_fair_attributes_for article)
@@ -22,43 +19,6 @@ class ArticleExporter
       row["categories"] = article.categories.map { |c| c.id }.join(",")
       row["external_title_image_url"] = article.images.first.external_url if article.images.first
       row["image_2_url"] = article.images[1].external_url if article.images[1]
-      if item.is_a? BusinessTransaction
-        fee = article.calculated_fee_cents * item.quantity_bought
-        donation = article.calculated_fair_cents * item.quantity_bought
-        transaction_attrs = { "transport_provider" => item.selected_transport_provider,
-                                    "sales_price_cents" => article.price_cents * item.quantity_bought,
-                                    "price_without_vat_cents" => (article.price_without_vat.to_d * 100).to_i,
-                                    "vat_cents" => (article.vat_price.to_d * 100).to_i,
-                                    "transport_and_handling_cents" => (item.article_transport_price(item.selected_transport, item.quantity_bought).to_d * 100).to_i,
-                                    "buyer_email" => item.buyer_email,
-                                    "buyer_nickname" => item.buyer_nickname,
-                                    'transport_address_title' => item.transport_address_title,
-                                    'transport_address_first_name' => item.transport_address_first_name,
-                                    'transport_address_last_name' => item.transport_address_last_name,
-                                    'transport_address_company_name' => item.transport_address_company_name,
-                                    'transport_address_address_line_1' => item.transport_address_address_line_1,
-                                    'transport_address_address_address_line_2' => item.transport_address_address_line_2,
-                                    'transport_address_zip' => item.transport_address_zip,
-                                    'transport_address_city' => item.transport_address_city,
-                                    'transport_address_country' => item.transport_address_country,
-                                    'payment_address_title' => item.payment_address_title,
-                                    'payment_address_first_name' => item.payment_address_first_name,
-                                    'payment_address_last_name' => item.payment_address_last_name,
-                                    'payment_address_company_name' => item.payment_address_company_name,
-                                    'payment_address_address_line_1' => item.payment_address_address_line_1,
-                                    'payment_address_address_address_line_2' => item.payment_address_address_line_2,
-                                    'payment_address_zip' => item.payment_address_zip,
-                                    'payment_address_city' => item.payment_address_city,
-                                    'payment_address_country' => item.payment_address_country,
-                                    "fee_cents" => fee,
-                                    "donation_cents" => donation,
-                                    "total_fee_cents" => (fee + donation),
-                                    "net_total_fee_cents" => ((fee + donation) / 1.19).round(0),
-                                    "vat_total_fee_cents" => ((fee + donation) * 0.19).round(0)}
-        row.merge!(transaction_attrs)
-        buyer_information = item.attributes.slice(*MassUpload.business_transaction_attributes)
-        row.merge!(buyer_information)
-      end
       csv.puts CSV.generate_line export_attributes.map { |element| row[element] }, @@csv_options
 
     end
@@ -80,10 +40,6 @@ class ArticleExporter
       user.articles.where(:state => "active").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
     elsif params == "inactive"
       user.articles.where("state = ? OR state = ?","preview","locked").order("created_at ASC").includes(:images,:categories,:social_producer_questionnaire,:fair_trust_questionnaire)
-    elsif params == "sold"
-      user.sold_business_transactions.joins(:article)
-    elsif params == "bought"
-      user.bought_articles
     end
   end
 

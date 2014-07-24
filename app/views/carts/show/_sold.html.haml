@@ -1,6 +1,6 @@
 %h2
-  Einkauf vom #{I18n.l @cart.updated_at}
-- @cart.line_item_groups.each do |group|
+  Einkauf vom #{I18n.l cart.updated_at}
+- cart.line_item_groups.each do |group|
   Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
   - group.line_items.each do |line_item|
     - article = line_item.article

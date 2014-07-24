@@ -35,7 +35,7 @@ class PaymentsController < ApplicationController
     if @payment.init
       redirect_to @payment.paypal_checkout_url
     else
-      redirect_to :back, flash: { error: "Watn jetz los" }
+      redirect_to :back, flash: { error: "Paypal mag grad nich" }
     end
   end
 end

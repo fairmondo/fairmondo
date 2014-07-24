@@ -8,6 +8,7 @@ class FastbillAPI
   # fastbill account
   def self.fastbill_chain business_transaction
     seller = business_transaction.seller
+
     seller.with_lock do
       unless seller.ngo?
         unless seller.has_fastbill_profile?

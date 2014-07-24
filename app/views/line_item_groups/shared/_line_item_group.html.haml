@@ -3,10 +3,10 @@
     %span{class: "sprite_#{line_item_group.rating_value}_small" }
 %h3
   - if line_item_group.seller == current_user
-    = link_to "Dein Auftrag von #{line_item_group.buyer.nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+    = link_to "Dein Auftrag von #{line_item_group.buyer_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
 
   - if line_item_group.buyer == current_user
-    = link_to "Deine Bestellung bei #{line_item_group.seller.nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+    = link_to "Deine Bestellung bei #{line_item_group.seller_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
 %p
   .Listview
     - line_item_group.business_transactions.each do |business_transaction|
