@@ -215,4 +215,8 @@ class Article < ActiveRecord::Base
     self.state.to_sym == :template
   end
 
+  def export_attrs
+    [:id]
+  end
+
 end

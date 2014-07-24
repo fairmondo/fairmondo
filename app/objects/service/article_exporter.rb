@@ -26,6 +26,25 @@ class ArticleExporter
   end
 
 
+  def self.export_line_item_groups(csv, user)
+    export_attributes = LineItemGroup.exportable_attributes
+
+    csv.puts(CSV.generate_line(export_attributes, @@csv_options))
+
+    user.seller_line_item_groups.find_each do |lig|
+      lig.business_transactions.find_each do |bt|
+        row = Hash.new
+        row.merge!(lig.export_attrs)
+        row.merge!(bt.export_attrs)
+        row.merge!(bt.article.export_attrs)
+
+        csv.puts CSV.generate_line(export_attributes.map { |element| row[element] }, @@csv_options)
+      end
+    end
+    csv.flush
+  end
+
+
   def self.export_erroneous_articles erroneous_articles
     csv = CSV.generate_line( MassUpload.article_attributes, @@csv_options )
     erroneous_articles.each do |article|

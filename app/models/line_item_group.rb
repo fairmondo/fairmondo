@@ -53,6 +53,10 @@ class LineItemGroup < ActiveRecord::Base
     price
   end
 
+  def exportable_attributes
+    [:line_item_group_id, :line_item_group_created_at, :business_transaction_id, :article_id]
+  end
+
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport

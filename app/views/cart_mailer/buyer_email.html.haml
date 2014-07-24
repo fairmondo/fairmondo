@@ -10,5 +10,5 @@
 
     .Listview
       - @cart.line_item_groups.each do |lig|
-        = render 'shared/line_item_group/line_item_group', line_item_group: lig, current_user: @cart.user
+        = render 'line_item_groups/shared/line_item_group', line_item_group: lig, current_user: @cart.user
 
