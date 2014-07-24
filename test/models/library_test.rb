@@ -25,11 +25,11 @@ describe Library do
   subject { Library.new }
 
   describe "associations" do
-    it { subject.must have_many(:library_elements) }
+    it { subject.must have_many(:library_elements).dependent(:destroy) }
     it { subject.must have_many(:articles) }
     it { subject.must belong_to :user }
     it { subject.must have_many(:hearts) }
-    it { subject.must have_many(:comments) }
+    it { subject.must have_many(:comments).dependent(:destroy) }
   end
 
   describe "model attributes" do
