@@ -1,7 +1,137 @@
 @import "mixins/all";
 
+
+/*
+ * Responsive stuff
+ */
+
+@include till-breakpoint($bp-tablet-horizontal) {
+  #teaser--first {
+    .teaser-queue {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+// mobile-horizontal
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+  #bluebox {
+    .bluebox-inner {
+      width: 70%;
+      margin: 0 auto;
+    }
+  }
+}
+
+@include between-breakpoints($bp-mobile-horizontal, $bp-tablet-horizontal) {
+  #teaser--first {
+    .teaser-queue {
+      @include span(2 of 4);
+      &.teaser-queue-before-hidden {  // Name????
+        @include omega;
+      }
+    }
+  }
+}
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  .teaser--double {
+    .teaser-queue {
+      @include span(2 of 4);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
+}
+
+// tablet
+@include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+  .teaser--double {
+    @include span(4 of 6);
+  }
+
+  .teaser--collapsible {
+    @include span(2 of 6);
+    @include omega;
+
+    .teaser-queue {
+      margin: 0;
+      width: 100%;
+      float: none;
+      margin-bottom: 1em;
+    }
+  }
+
+  #bluebox {
+    @include span(2 of 6);
+    @include omega;
+  }
+}
+
+@include between-breakpoints($bp-tablet, $bp-desktop) {
+  #teaser--first {
+    .teaser-inner {
+      padding-bottom: 3.5em;
+    }
+  }
+}
+
+// tablet-horizontal
+@include at-breakpoint($bp-tablet-horizontal) {
+  .teaser--double {
+    @include span(4 of 8);
+  }
+
+  .teaser--collapsible {
+    @include span(4 of 8);
+    @include omega;
+  }
+  
+  #teaser--first {
+    @include span(6 of 8);
+
+    .teaser-queue {
+      @include span(2 of 6);
+      &:last-child { 
+        @include omega;
+      }
+    }
+  }
+
+  #bluebox {
+    @include span(2 of 8);
+    @include omega;
+  }
+
+  .teaser--news {
+    @include omega;
+  }
+
+  .category-dropdown { 
+    display:none;
+  } 
+}
+
+// bp-desktop
+@include at-breakpoint($bp-desktop) {
+  #teaser--first {
+    .teaser-inner {
+      padding-bottom: 2.7em;
+    }
+  }
+}
+
+
+
+/*
+ * Normal stuff
+ */
+
 .teaser {
-  margin-bottom:1em;
+  margin-bottom: 1em;
 }
 
 .teaser-inner {
@@ -9,49 +139,12 @@
 }
 
 .teaser--double {
-
-  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-    @include span(4 of 6);
-  }
-
-  @include at-breakpoint($bp-tablet-horizontal) {
-    @include span(4 of 8);
-  }
   .teaser-inner {
     @include clearfix;
   }
-
   .teaser-queue {
-    margin-bottom:1em;
-    @include at-breakpoint($bp-mobile-horizontal) {
-      @include span(2 of 4);
-      &:last-child {
-        @include omega;
-      }
-    }
+    margin-bottom: 1em;
   }
-
-}
-
-.teaser--collapsible {
- @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
-    @include span(2 of 6);
-    @include omega;
-
-    .teaser-queue {
-      margin:0;
-      width:100%;
-      float:none;
-      margin-bottom:1em;
-    }
-
-  }
-  @include at-breakpoint($bp-tablet-horizontal) {
-    @include span(4 of 8);
-    @include omega;
-  }
-
-
 }
 
 .teaser-queue > .Button {
@@ -91,7 +184,6 @@
 }
 
 // User quotes slides
-
 .teaser--userslides {
   overflow: hidden;
   position: relative;
@@ -136,7 +228,6 @@
   
 }
 
-
 .teaser--cardslides >.teaser-inner > #js-cardslides {
   margin-left:auto;
   margin-right:auto;
@@ -152,13 +243,13 @@
 
 .teaser-rss {
   p {
-    margin:0 0 0.5em 0;
+    margin: 0 0 0.5em 0;
   }
   @include clearfix;
   img {
     float:left;
     border-radius: 0.9em;
-    width:4em;
+    width: 4em;
     margin-right: 1em;
     margin-bottom: 1em;
 
@@ -167,17 +258,90 @@
     img{
       margin-left: 1em;
       margin-right: 0em;
-      float:right;
+      float: right;
     }
   }
-
-
 }
 
 // Others
 
+// Center text within teaser
 .teaser--center {
-  text-align:center;
+  text-align: center;
+}
+
+// Blue box
+#bluebox {
+  margin-bottom: 1em;
+
+  #bluebox-container {
+    @include whitebox;
+    padding: 0;
+  }
+
+  .bluebox-header {
+    margin: 0.3em 0 0.2em;
+    text-align: center;
+  }
+
+  .bluebox-ornament-left {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 1em;
+    height: 1em;
+    background-color: $light-blue;
+    width: 50%;
+  }
+
+  .bluebox-ornament-right {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 0.5em;
+    float: right;
+    height: 1em;
+    background-color: $light-blue;
+    width: 50%;
+  }
+
+  .bluebox-content {
+    clear: both;
+    position: relative;
+    background-color: $light-blue;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    .bluebox-text {
+      padding: 0.2em 0.8em 0.3em;
+    }
+  }
+
+  #bluebox1 .bluebox-content {
+    height: 110px;
+  }
+
+  #bluebox2 .bluebox-content {
+    height: 110px;
+  }
+
+  #bluebox3 .bluebox-content {
+    height: 90px;
+  }
+
+  .bluebox-link {
+    position: absolute;
+    width: 100%;
+    bottom: 0.5em;
+    text-align: center;
+
+    a {
+      display: inline-block;
+      background-color: $white;
+      min-width: 8.5em;
+      padding: 0.1em 1em;
+      border-radius: 0.4em;
+    }
+  }  
+}
+
+#teaser--clear-after-bluebox {
+  clear: both;
 }
 
 .teaser--ngos {
@@ -195,17 +359,3 @@
     margin: 1em;
   }
 }
-
-.teaser--news {
-  @include at-breakpoint($bp-tablet-horizontal) {
-    @include omega;
-  }
-
-}
-
-.category-dropdown { 
-  @include at-breakpoint($bp-tablet-horizontal) {
-    display:none; 
-  }
-}
-  
