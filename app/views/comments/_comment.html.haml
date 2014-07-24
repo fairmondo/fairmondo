@@ -1,10 +1,10 @@
-.Comment-single{id: "commentable_#{comment.commentable.id}_comment_#{comment.id}"}
+.Comment-single{id: "commentable_#{comment.commentable_id}_comment_#{comment.id}"}
   = image_tag comment.user_image_url(:profile), class: "author_image"
   .meta
     = link_to comment.user_nickname, profile_user_path(comment.user)
     = timeago_tag comment.created_at, lang: :de, class: "Timeago"
     = javascript_tag "$('.Timeago').timeago();" if request.xhr? # refresh timeago evaluation
-    - if policy(comment).destroy?
+    - if comment.id && policy(comment).destroy?
       = link_to t('common.text.delete_comment'),
         library_comment_path(comment.commentable, comment),
         method: :delete,
