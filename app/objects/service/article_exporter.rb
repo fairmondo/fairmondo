@@ -34,11 +34,11 @@ class ArticleExporter
     user.seller_line_item_groups.find_each do |lig|
       lig.business_transactions.find_each do |bt|
         row = Hash.new
-        row.merge!(lig.export_attrs)
-        row.merge!(bt.export_attrs)
-        row.merge!(bt.article.export_attrs)
-
-        csv.puts CSV.generate_line(export_attributes.map { |element| row[element] }, @@csv_options)
+        [lig, bt, bt.article].each do |item|
+          part = item.attributes.select { |k, v| item.export_attrs.include?(k) }
+          row.merge!(Hash[part.map {|k, v| [item.class.export_mappings[k], v] }])
+        end
+        csv.puts(CSV.generate_line(export_attributes.map { |element| row[element] }, @@csv_options))
       end
     end
     csv.flush
