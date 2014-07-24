@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+
+  COMMENTABLES = [Library]
+
   respond_to :js
 
   before_filter :set_commentable, only: [:index, :create, :update, :destroy]
@@ -33,12 +36,15 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    # Get the class that is using comments
     commentable_key = params.keys.select { |p| p.match(/[a-z_]_id$/) }.last
-    commentable_klass = commentable_key[0..-4].capitalize.constantize
-    commentable_id = params[commentable_key]
 
-    @commentable = commentable_klass.find(commentable_id)
+    # Class can be inferred from the key.
+    # We're using the HEARTABLES array for protection though.
+    commentable_class = COMMENTABLES.select do |klass|
+      klass.to_s.downcase == commentable_key[0..-4]
+    end.first
+
+    @commentable = commentable_class.find(params[commentable_key])
   end
 
   def set_comment
