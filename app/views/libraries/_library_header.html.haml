@@ -1,6 +1,6 @@
+.library-buttons
+  = heart_button(library)
 - cache [library,library.user,"library_header"] do
-  .library-buttons
-    = heart_button(library)
   .library-userimage
     = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
   .library-info
