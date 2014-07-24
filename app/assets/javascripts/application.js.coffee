@@ -37,6 +37,8 @@
 #= require i18n/translations
 
 #= require history_jquery.min
+#= require rails-timeago
+#= require locales/jquery.timeago.de.js
 
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.complexify
