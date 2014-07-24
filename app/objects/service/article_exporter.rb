@@ -26,6 +26,7 @@ class ArticleExporter
   end
 
 
+  # TODO make it possible to export line_item_groups in a specific time period
   def self.export_line_item_groups(csv, user)
     export_attributes = LineItemGroup.exportable_attributes
 
@@ -36,12 +37,19 @@ class ArticleExporter
         row = Hash.new
         [lig, bt, bt.article].each do |item|
           part = item.attributes.select { |k, v| item.export_attrs.include?(k) }
-          row.merge!(Hash[part.map {|k, v| [item.class.export_mappings[k], v] }])
+          row.merge!(Hash[part.map {|k, v| [export_mappings(item)[k], v] }])
         end
         csv.puts(CSV.generate_line(export_attributes.map { |element| row[element] }, @@csv_options))
       end
     end
     csv.flush
+  end
+
+
+  def self.export_mappings(item)
+    hash = {}
+    item.class.column_names.each { |element| hash[column_name] = "#{item.class.name.underscore}_#{column_name}"}
+    return hash
   end
 
 
