@@ -1,6 +1,6 @@
-$('<%= "#library#{@commentable.id}" %> .Comment-single').last().after('<%= j render @comments %>');
+$('<%= "##{commentable.class.to_s.parameterize}#{@commentable.id}" %> .Comment-single').last().after('<%= render "comment", collection: @comments %>');
 
-$('<%= "#library#{@commentable.id}" %> .next_link').replaceWith("<%= j(
+$('<%= "##{commentable.class.to_s.parameterize}#{@commentable.id}" %> .next_link').replaceWith("<%= j(
     link_to_next_page @comments,
     t('common.text.morecomments'),
     param_name: :comments_page,
