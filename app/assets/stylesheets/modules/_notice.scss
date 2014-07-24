@@ -39,8 +39,9 @@ Styleguide Notice
   cursor: pointer;
   color: white;
   position: absolute;
-  top: 1em;
-  right: 1em;
+  top: 0;
+  right: 0;
+  padding: 1em;
   @include clear-links;
   @include user-select(none);
 }
