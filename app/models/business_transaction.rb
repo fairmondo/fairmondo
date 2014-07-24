@@ -107,4 +107,13 @@ class BusinessTransaction < ActiveRecord::Base
     end
   end
 
+  def export_attrs
+    ['id', 'quantity_bought']
+  end
+
+  def self.export_mappings
+    hash = {}
+    column_names.each { |element| hash[element] = "#{name.underscore}_#{element}"}
+    return hash
+  end
 end

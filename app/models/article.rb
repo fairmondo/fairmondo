@@ -216,7 +216,13 @@ class Article < ActiveRecord::Base
   end
 
   def export_attrs
-    [:id]
+    ['id', 'title', 'price', 'custom_seller_identifier']
+  end
+
+  def self.export_mappings
+    hash = {}
+    column_names.each { |element| hash[element] = "#{name.underscore}_#{element}"}
+    return hash
   end
 
 end
