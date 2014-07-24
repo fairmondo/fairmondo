@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
     authorize @comment
 
     if !@comment.save
-      @message = I18n.t('flash.create.alert')
+      @message = I18n.t('flash.actions.create.alert', @comment)
     end
   end
 
