@@ -53,6 +53,11 @@ class ArticlesController < ApplicationController
   def show
     authorize @article
 
+    #mynewstuff
+    @library = Library.new
+    #@library = current_user.libraries.build if user_signed_in? && current_user
+
+
     if !@article.active? && policy(@article).activate?
       @article.calculate_fees_and_donations
     end

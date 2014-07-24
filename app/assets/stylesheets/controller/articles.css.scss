@@ -242,9 +242,20 @@ ul.category-selected-list {
 }
 
 .buyer-controls > .collect > .libraries > ul > li {
-
+  white-space: nowrap;
   padding: 0.5em 0;
 }
+
+// new library form
+#newlibrary {
+  white-space: nowrap;
+  li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 
 // social buttons
 
