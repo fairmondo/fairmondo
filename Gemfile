@@ -53,6 +53,7 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 gem 'historyjs-rails'
+gem 'rails-timeago'
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
 

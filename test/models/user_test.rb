@@ -88,6 +88,8 @@ describe User do
     it { subject.must belong_to(:standard_address) }
     it { subject.must have_many(:articles).dependent(:destroy) }
     it { subject.must have_many(:libraries).dependent(:destroy) }
+    it { subject.must have_many(:comments).dependent(:destroy) }
+    it { subject.must have_many(:hearts) }
     it { subject.must have_one(:image) }
     it { subject.must have_many(:seller_line_item_groups) }
     it { subject.must have_many(:buyer_line_item_groups) }

@@ -90,6 +90,7 @@ class User < ActiveRecord::Base
   has_many :library_elements, through: :libraries
 
   has_many :hearts
+  has_many :comments, dependent: :destroy
 
   has_attached_file :cancellation_form
 

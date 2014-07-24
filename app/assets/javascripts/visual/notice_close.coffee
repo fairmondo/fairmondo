@@ -1,3 +1,3 @@
 $ ->
   $('.Notice').on 'click', '.Notice-close', ->
-    $(@).parent().slideUp()
+    $(@).parent().slideUp(0)

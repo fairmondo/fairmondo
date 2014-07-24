@@ -1,6 +1,6 @@
+.library-buttons
+  = heart_button(library)
 - cache [library,library.user,"library_header"] do
-  .library-buttons
-    = heart_button(library)
   .library-userimage
     = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
   .library-info
@@ -15,3 +15,6 @@
       - library.library_elements.first(10).each do |library_element|
         - if library_element.article
           = image_tag(library_element.article.title_image_url(:thumb), :class => "library-thumbnail", :title => library_element.article_title)
+    - if library.comments.size > 1
+      .library-comments
+        = render library.comments.order(created_at: :desc).limit(2)

@@ -25,3 +25,7 @@
   overflow: visible !important;
   margin-bottom: 0;
 }
+
+details.open .library-comments {
+  display: none;
+}
