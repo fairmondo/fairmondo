@@ -53,18 +53,17 @@ class LineItemGroup < ActiveRecord::Base
     price
   end
 
+  # used to determine which columns of line_item_groups and business_transactions and articles should be exported
   def self.exportable_attributes
-    ['line_item_group_id', 'line_item_group_created_at', 'business_transaction_id', 'business_transaction_quantity_bought', 'article_id', 'article_title', 'article_custom_seller_identifier']
+    [
+      'line_item_group_id', 'line_item_group_created_at', 'business_transaction_id',
+     'business_transaction_quantity_bought', 'article_id', 'article_title',
+     'article_custom_seller_identifier'
+    ]
   end
 
   def export_attrs
     ['id', 'created_at']
-  end
-
-  def self.export_mappings
-    hash = {}
-    column_names.each { |element| hash[element] = "#{name.underscore}_#{element}"}
-    return hash
   end
 
   private
