@@ -92,6 +92,7 @@
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
+      -# Collect button and libraries list
       - if policy(mock_library_element).create?
         .collect.JS-active-toggle--container
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
@@ -102,10 +103,26 @@
             %ul
               - current_user.libraries.each do |library|
                 %li
-                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
-
+                  %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+                    -# Eye to signify library status - public or private
+                    - if library.public
+                      %i.fa.fa-eye
+                    - else
+                      %i.fa.fa-eye-slash
+                    = library.name
+            #newlibrary
+              = semantic_form_for @library, :url => user_libraries_path(current_user) do |f|
+                = f.inputs do
+                  = f.input :public, :label => ''
+                  / i18n_lookups_by_default??
+                  = f.input :name, :label => false                    
+                = f.actions do
+                  = f.action :submit, :label => '+', :button_html => {:class => "Button"}
+                
+              
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
+      -# To cart/buy button
       - if policy(resource.business_transaction).edit?
         = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
       - elsif policy(resource.business_transaction).show_vacationing?
@@ -113,6 +130,7 @@
         %p
           %strong= t 'users.states.vacationing'
 
+-# current_user.libraries.inspect
 
 .social#socialshareprivacy
 
