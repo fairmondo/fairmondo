@@ -23,13 +23,21 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :business_transaction, aliases: [:single_transaction] do
-    article { FactoryGirl.create :article, :with_all_transports }
+    ignore do
+      seller { FactoryGirl.create :user }
+      buyer { FactoryGirl.create :user }
+    end
+
+    article { FactoryGirl.create :article, :with_all_transports, seller: seller }
+    line_item_group { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
+
     selected_transport 'pickup'
     selected_payment 'cash'
     sold_at { Time.now }
     discount_value_cents 0
     quantity_bought 1
-    line_item_group { FactoryGirl.create :line_item_group, seller: article.seller }
+
+
 
     factory :multiple_transaction do
       article { FactoryGirl.create :article, quantity: 50 }
@@ -80,16 +88,23 @@ FactoryGirl.define do
       selected_payment :cash_on_delivery
     end
 
-    trait :fastbill_profile do
-      seller { FactoryGirl.create :seller, fastbill_id: rand(1...1000), fastbill_subscription_id: rand(1...1000) }
+    trait :clear_fastbill do
+      after :create do |business_transaction, evaluator|
+        business_transaction.seller.update_column(:fastbill_id, nil)
+        business_transaction.seller.update_column(:fastbill_subscription_id, nil)
+      end
     end
 
     trait :old do
-      sold_at { 27.days.ago }
+      after :create do |business_transaction, evaluator|
+        business_transaction.update_attribute(:sold_at, 27.days.ago)
+      end
     end
 
     trait :older do
-      sold_at { 44.days.ago }
+      after :create do |business_transaction, evaluator|
+        business_transaction.update_attribute(:sold_at, 44.days.ago)
+      end
     end
 
     trait :discountable do

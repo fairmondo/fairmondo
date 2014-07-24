@@ -25,6 +25,5 @@
   = render "shared/listview/listview_detail", article: article
   = business_transaction.selected_transport
   .Listview-actions
-    - if business_transaction
-      - if business_transaction.seller == current_user && business_transaction.refundable?
-        = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
+    - if business_transaction && policy(Refund.new(business_transaction: business_transaction)).new?
+      = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"

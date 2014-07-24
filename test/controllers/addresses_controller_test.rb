@@ -1,13 +1,15 @@
 require_relative '../test_helper'
 
 describe AddressesController do
-  let(:user) { FactoryGirl.create :incomplete_user }
+
+  let(:user) { FactoryGirl.create :user }
   let(:address) { FactoryGirl.create :address, user: user }
+  let(:referenced_address) { FactoryGirl.create :address, :referenced , user: user}
 
   describe 'GET ::new' do
     it 'should render addresse\'s new_template' do
       sign_in user
-      get(:new, user_id: user.id)
+      xhr :get , :new, user_id: user.id
       assert_response :success
       assert_template :new
     end
@@ -26,7 +28,7 @@ describe AddressesController do
   describe 'GET ::edit' do
     it 'should render addresse\'s edit_template' do
       sign_in user
-      get :edit, user_id: user.id, id: address.id
+      xhr :get, :edit, user_id: user.id, id: address.id
       assert_response :success
       assert_template :edit
     end
@@ -43,6 +45,7 @@ describe AddressesController do
       user = FactoryGirl.create :incomplete_user
       address = FactoryGirl.create :address, user: user
       sign_in user
+      address # can cause new addresses
       assert_difference('Address.count', -1) do
         xhr :delete, :destroy, user_id: user.id, id: address.id
       end
@@ -52,6 +55,7 @@ describe AddressesController do
       user = FactoryGirl.create :incomplete_user
       referenced_address = FactoryGirl.create :address, :referenced, user: user
       sign_in user
+      referenced_address # can cause new addresses
       assert_difference('Address.count', 0) do
         xhr :delete, :destroy, user_id: referenced_address.user.id, id: referenced_address.id
       end

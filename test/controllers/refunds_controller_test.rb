@@ -3,7 +3,8 @@ include FastBillStubber
 
 describe RefundsController do
   let( :seller ){ FactoryGirl.create :user }
-  let( :business_transaction ){ FactoryGirl.create :business_transaction_with_buyer, :old, seller: seller }
+  let( :line_item_group) { FactoryGirl.create :line_item_group, seller: seller}
+  let( :business_transaction ){ FactoryGirl.create :business_transaction, :old, line_item_group: line_item_group }
 
 
   describe '#create' do

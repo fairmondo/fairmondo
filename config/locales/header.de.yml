@@ -9,4 +9,4 @@ de:
     developer: 'Aktiv als Entwickler*in'
     profile: "Profil"
     sell: "Verkaufen"
-    cart: "Zum Warenkorb"
+    cart: "Zum Warenkorb (%{count})"

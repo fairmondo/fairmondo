@@ -83,63 +83,63 @@ class Statistic
   end
 
   def sold_articles_count
-    BusinessTransaction.sold.count
+    BusinessTransaction.count
   end
 
   def sold_articles_count_with_quantity
-    BusinessTransaction.sold.sum(:quantity_bought)
+    BusinessTransaction.sum(:quantity_bought)
   end
 
   def sum_sold_article_prices
-    Money.new(BusinessTransaction.sold.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
   end
 
   def sum_sold_article_fees
-    Money.new(BusinessTransaction.sold.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
   end
 
   def sum_sold_article_donations
-    Money.new(BusinessTransaction.sold.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
   end
 
   def sold_articles_count_last_week
-    BusinessTransaction.sold.last_week.count
+    BusinessTransaction.last_week.count
   end
 
   def sold_articles_count_growth_rate
-    growth_rate BusinessTransaction.sold.last_week.count , BusinessTransaction.sold.week_before_last_week.count
+    growth_rate BusinessTransaction.last_week.count , BusinessTransaction.week_before_last_week.count
   end
 
   def sold_articles_count_with_quantity_last_week
-    BusinessTransaction.sold.last_week.sum(:quantity_bought)
+    BusinessTransaction.last_week.sum(:quantity_bought)
   end
 
   def sold_articles_count_with_quantity_growth_rate
-    growth_rate sold_articles_count_with_quantity_last_week ,  BusinessTransaction.sold.week_before_last_week.sum(:quantity_bought)
+    growth_rate sold_articles_count_with_quantity_last_week ,  BusinessTransaction.week_before_last_week.sum(:quantity_bought)
   end
 
   def sold_article_prices_last_week
-    Money.new(BusinessTransaction.last_week.sold.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought"))
   end
 
   def sold_article_prices_growth_rate
-    growth_rate BusinessTransaction.last_week.sold.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought") , BusinessTransaction.week_before_last_week.sold.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought") , BusinessTransaction.week_before_last_week.joins(:article).sum("articles.price_cents * business_transactions.quantity_bought")
   end
 
   def sold_article_fees_last_week
-    Money.new(BusinessTransaction.last_week.sold.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"))
   end
 
   def sold_article_fees_growth_rate
-    growth_rate BusinessTransaction.last_week.sold.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.sold.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.joins(:article).sum("articles.calculated_fee_cents * business_transactions.quantity_bought")
   end
 
   def sold_article_donations_last_week
-    Money.new(BusinessTransaction.last_week.sold.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
+    Money.new(BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"))
   end
 
   def sold_article_donations_growth_rate
-    growth_rate BusinessTransaction.last_week.sold.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.sold.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought")
+    growth_rate BusinessTransaction.last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought"), BusinessTransaction.week_before_last_week.joins(:article).sum("articles.calculated_fair_cents * business_transactions.quantity_bought")
   end
 
 

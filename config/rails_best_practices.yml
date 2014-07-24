@@ -3,7 +3,7 @@ AlwaysAddDbIndexCheck: { }
 #CheckSaveReturnValueCheck: { }
 DryBundlerInCapistranoCheck: { }
 #HashSyntaxCheck: { }
-IsolateSeedDataCheck: { }
+#IsolateSeedDataCheck: { }
 KeepFindersOnTheirOwnModelCheck: { }
 LawOfDemeterCheck: { }
 #LongLineCheck: { max_line_length: 80 }

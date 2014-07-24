@@ -7,12 +7,16 @@ class LineItemGroup < ActiveRecord::Base
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   has_many :articles, through: :line_items
   has_many :business_transactions, inverse_of: :line_item_group
+  has_many :payments, through: :business_transactions, inverse_of: :line_item_groups
   belongs_to :transport_address, class_name: 'Address', foreign_key: 'transport_address_id'
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
   has_one :rating
 
-  delegate :email,
+  delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname,
            to: :seller, prefix: true
+
+  delegate :email, :nickname,
+           to: :buyer, prefix: true
   delegate :value, to: :rating, prefix: true
 
   auto_sanitize :message

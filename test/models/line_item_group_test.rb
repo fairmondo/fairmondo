@@ -1,4 +1,4 @@
-require "test_helper"
+require_relative '../test_helper'
 
 describe LineItemGroup do
   let(:line_item_group) { FactoryGirl.create(:line_item_group) }
@@ -11,7 +11,8 @@ describe LineItemGroup do
 
   describe "attributes" do
     it { subject.must_respond_to :id }
-    it { subject.must_respond_to :user_id }
+    it { subject.must_respond_to :seller_id }
+    it { subject.must_respond_to :buyer_id }
     it { subject.must_respond_to :cart_id }
     it { subject.must_respond_to :created_at }
     it { subject.must_respond_to :updated_at }

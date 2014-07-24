@@ -11,7 +11,7 @@ feature 'Adding an Article to the cart' do
   scenario 'anonymous user adds articles to his cart' do
     visit article_path(@article)
     click_button I18n.t('common.actions.to_cart')
-    click_link I18n.t('header.cart')
+    click_link I18n.t('header.cart', count: 1)
     page.must_have_content 'foobar'
   end
 
@@ -19,7 +19,7 @@ feature 'Adding an Article to the cart' do
     login_as FactoryGirl.create(:user)
     visit article_path(@article)
     click_button I18n.t('common.actions.to_cart')
-    click_link I18n.t('header.cart')
+    click_link I18n.t('header.cart', count: 1)
     page.must_have_content 'foobar'
   end
 

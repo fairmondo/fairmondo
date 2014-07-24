@@ -7,7 +7,7 @@ describe AddressPolicy do
   let(:user) { nil }
 
   context 'for a visitor' do
-    it { subject.must_ultimately_deny(:index) }
+
     it { subject.must_ultimately_deny(:create) }
     it { subject.must_ultimately_deny(:new) }
     it { subject.must_ultimately_deny(:edit) }
@@ -18,8 +18,6 @@ describe AddressPolicy do
 
   context 'for a random logged in user' do
     let(:user) { FactoryGirl.create(:user) }
-
-    it { subject.must_ultimately_deny(:index) }
     it { subject.must_ultimately_deny(:create) }
     it { subject.must_ultimately_deny(:new) }
     it { subject.must_ultimately_deny(:edit) }
@@ -32,7 +30,6 @@ describe AddressPolicy do
     let(:user) { FactoryGirl.create(:incomplete_user) }
     let(:address) { FactoryGirl.create(:address, user: user) }
 
-    it { subject.must_permit(:index) }
     it { subject.must_permit(:create) }
     it { subject.must_permit(:new) }
     it { subject.must_permit(:edit) }
