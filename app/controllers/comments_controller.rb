@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:index]
 
   def index
+    @comment = Comment.new
     @comments = @commentable.comments.order(created_at: :desc).page(params[:comments_page])
   end
 
@@ -18,8 +19,10 @@ class CommentsController < ApplicationController
 
     authorize @comment
 
-    if !@comment.save
-      @message = I18n.t('flash.actions.create.alert', @comment)
+    if @comment.save
+      render :create
+    else
+      render :new, comment: @comment, commentable: @commentable
     end
   end
 
