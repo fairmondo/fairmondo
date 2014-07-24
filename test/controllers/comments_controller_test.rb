@@ -76,15 +76,6 @@ describe CommentsController do
                         format: :js
         end
       end
-
-      it "should set the flash" do
-        post :create, comment: { text: nil },
-                      library_id: @library.id + 1,
-                      format: :js
-
-        @controller.instance_variable_get(:@message)
-          .must_equal(I18n.t('flash.actions.create.alert', @controller.instance_variable_get(:@comment)))
-      end
     end
   end
 
