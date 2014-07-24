@@ -27,10 +27,13 @@ class ArticleExporter
 
 
   # TODO make it possible to export line_item_groups in a specific time period
-  def self.export_line_item_groups(csv, user)
+  def self.export_line_item_groups(csv, user, params)
     export_attributes = LineItemGroup.exportable_attributes
 
     csv.puts(CSV.generate_line(export_attributes, @@csv_options))
+
+    line_item_groups = user.seller_line_item_groups
+    line_item_groups = user.seller_line_item_groups.where('created_at < ? AND created_at > ?', params[:from], params[:till]) if params && params[:from] && params[:till]
 
     user.seller_line_item_groups.find_each do |lig|
       lig.business_transactions.find_each do |bt|
