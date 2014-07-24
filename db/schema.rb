@@ -16,6 +16,22 @@ ActiveRecord::Schema.define(version: 20140715124639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "addresses", force: true do |t|
+    t.string  "title"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "company_name"
+    t.string  "address_line_1"
+    t.string  "address_line_2"
+    t.string  "zip"
+    t.string  "city"
+    t.string  "country"
+    t.integer "user_id"
+    t.boolean "stashed",        default: false
+  end
+
+  add_index "addresses", ["user_id"], name: "addresses_user_id_index", using: :btree
+
   create_table "articles", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -140,6 +156,15 @@ ActiveRecord::Schema.define(version: 20140715124639) do
   add_index "business_transactions", ["payment_id"], name: "index_business_transactions_on_payment_id", using: :btree
   add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
   add_index "business_transactions", ["transport_address_id"], name: "index_business_transactions_on_transport_address_id", using: :btree
+
+  create_table "carts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",    limit: 8
+    t.boolean  "sold",                 default: false
+  end
+
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -310,6 +335,38 @@ ActiveRecord::Schema.define(version: 20140715124639) do
   add_index "library_elements", ["article_id"], name: "index_library_elements_on_article_id", using: :btree
   add_index "library_elements", ["library_id"], name: "index_library_elements_on_library_id", using: :btree
 
+  create_table "line_item_groups", force: true do |t|
+    t.text     "message"
+    t.integer  "cart_id",                limit: 8
+    t.integer  "seller_id",              limit: 8
+    t.integer  "buyer_id",               limit: 8
+    t.boolean  "tos_accepted"
+    t.boolean  "unified_transport",                default: false
+    t.boolean  "unified_payment",                  default: false
+    t.string   "unified_payment_method"
+    t.integer  "transport_address_id",   limit: 8
+    t.integer  "payment_address_id",     limit: 8
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
+  add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
+  add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id", using: :btree
+  add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id", using: :btree
+  add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id", using: :btree
+
+  create_table "line_items", force: true do |t|
+    t.integer  "line_item_group_id", limit: 8
+    t.integer  "article_id",         limit: 8
+    t.integer  "requested_quantity",           default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "line_items", ["article_id"], name: "index_line_items_on_article_id", using: :btree
+  add_index "line_items", ["line_item_group_id"], name: "index_line_items_on_line_item_group_id", using: :btree
+
   create_table "mass_upload_articles", force: true do |t|
     t.integer  "mass_upload_id"
     t.integer  "article_id"
@@ -353,6 +410,15 @@ ActiveRecord::Schema.define(version: 20140715124639) do
   end
 
   add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
+
+  create_table "payments", force: true do |t|
+    t.string   "pay_key"
+    t.string   "state"
+    t.text     "error"
+    t.text     "last_ipn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
