@@ -161,7 +161,7 @@ ul.category-selected-list {
 
 
 @include at-breakpoint($bp-mobile-horizontal) {
-  // artilce infos
+  // article infos
   .contents > .info > .left {
     @include span(1 of 2 0.1);
   }
@@ -222,6 +222,7 @@ ul.category-selected-list {
 }
 
 .buyer-controls > .collect > .libraries {
+  min-width: 15em;
   display:none;
   background-color:white;
   box-shadow: $sand 0px 0px 2px 2px;
@@ -246,15 +247,47 @@ ul.category-selected-list {
   padding: 0.5em 0;
 }
 
-// new library form
-#newlibrary {
-  white-space: nowrap;
-  li {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-  }
+.buyer-controls > .collect > .libraries > h5 {
+  margin-top: 1em;
+  margin-bottom: 0;
 }
+
+// new library form
+//#new_library > form > fieldset.inputs > ol > li
+//{
+//  display: inline-block;
+//  padding: 0;
+//  margin: 0;
+//}
+
+#library_public_input {
+  float: right;
+}
+
+#library_name_input {
+  float: right;
+}
+
+#new_library > .actions {
+  float:right;
+}
+
+#link_libraries {
+  clear: both;
+}
+
+// transform normal checkbox into font awesome eye
+//input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+
+//input[type=checkbox] + ins:before {
+//  font-family: FontAwesome;
+//  display: inline-block;
+//}
+
+//input[type=checkbox] + ins:before { content: "\f070"; } /* unchecked icon */
+//input[type=checkbox] + ins:before { letter-spacing: 10px; } /* space between checkbox and label */
+//input[type=checkbox]:checked + ins:before { content: "\f06e"; } /* checked icon */
+//input[type=checkbox]:checked + ins:before { letter-spacing: 5px; } /* allow space for check mark */
 
 
 // social buttons

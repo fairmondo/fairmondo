@@ -21,6 +21,7 @@
 #
 class LibrariesController < ApplicationController
   respond_to :html
+  respond_to :js, only: :create, if: lambda { request.xhr? }
 
   before_filter :set_user, if: :user_focused?, only: :index
   before_filter :set_library, only: [:show, :update, :destroy]
@@ -43,12 +44,10 @@ class LibrariesController < ApplicationController
   def create
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
-    if @library.save
-      redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
-    else
-      redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
-    end
+    # Hier stand vorher mehr, das evtl. hinzufügen aus anderem Commit
+    respond_with @library
   end
+
 
   def update
     authorize @library
