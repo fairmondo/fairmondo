@@ -21,6 +21,11 @@
   padding-left: 4em;
 }
 
+.Comment-single .delete {
+  float: right;
+  margin-right: 0.6em;
+}
+
 .Comments-section form li.input {
   list-style: none;
   overflow: visible !important;
