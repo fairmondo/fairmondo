@@ -1,10 +1,9 @@
-$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .Comment-single').last().after('<%= render @comments %>');
+$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .Comment-single').last().after('<%= j render @comments %>');
 
-$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .next_link').replaceWith('<%= j(
+$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .Comments-section .next_link').replaceWith('<%= j(
     link_to_next_page @comments,
     t("common.text.morecomments"),
     param_name: :comments_page,
     params: { :"#{@commentable.class.to_s.underscore}_id" => @commentable.id, controller: "comments" },
     class: "next_link",
-    remote: true) %>'
-);
+    remote: true) %>');
