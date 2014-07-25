@@ -100,28 +100,41 @@
           .libraries.JS-active-toggle--target
             in Sammlung:
             %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            %ul
-              - current_user.libraries.each do |library|
+            -# List all public libraries of the user
+            - public_libraries = current_user.libraries.select do |l|
+              - l.public
+            %h5
+              Öffentlich
+              %i.fa.fa-eye
+            %ul#public_libraries
+              - public_libraries.each do |library|
                 %li
                   %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                    -# Eye to signify library status - public or private
-                    - if library.public
-                      %i.fa.fa-eye
-                    - else
-                      %i.fa.fa-eye-slash
                     = library.name
-            #newlibrary
-              = semantic_form_for @library, :url => user_libraries_path(current_user) do |f|
-                = f.inputs do
-                  = f.input :public, :label => ''
-                  / i18n_lookups_by_default??
-                  = f.input :name, :label => false                    
-                = f.actions do
-                  = f.action :submit, :label => '+', :button_html => {:class => "Button"}
-                
-              
+            -# List all private libraries of the user
+            - private_libraries = current_user.libraries.select do |l|
+              - !l.public
+            %h5
+              Privat
+              %i.fa.fa-eye-slash
+            %ul#private_libraries
+              - private_libraries.each do |library|
+                %li
+                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
+
+            = semantic_form_for @library, :url => user_libraries_path(current_user), remote: true do |f|
+              = f.inputs do
+                = f.input :public, :label => 'x'
+                / i18n_lookups_by_default??
+                = f.input :name, :label => false
+              = f.actions do
+                = f.action :submit, :label => '+', :button_html => {:class => "Button"}
+            %p#link_libraries
+              = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
+
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
+
       -# To cart/buy button
       - if policy(resource.business_transaction).edit?
         = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
@@ -129,8 +142,6 @@
         .Button.Button--disabled= t 'common.actions.to_cart'
         %p
           %strong= t 'users.states.vacationing'
-
--# current_user.libraries.inspect
 
 .social#socialshareprivacy
 
@@ -187,3 +198,15 @@
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
+
+
+
+-#              - current_user.libraries.each do |library|
+-#                %li
+-#                  %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+-#                    -# Eye to signify library status - public or private
+-#                    - if library.public
+-#                      %i.fa.fa-eye
+-#                    - else
+-#                      %i.fa.fa-eye-slash
+-#                    = library.name
