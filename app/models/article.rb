@@ -214,9 +214,4 @@ class Article < ActiveRecord::Base
   def is_template?
     self.state.to_sym == :template
   end
-
-  def export_attrs
-    ['id', 'title', 'price', 'custom_seller_identifier']
-  end
-
 end

@@ -106,8 +106,4 @@ class BusinessTransaction < ActiveRecord::Base
       self.article.transport_type2_provider
     end
   end
-
-  def export_attrs
-    ['id', 'quantity_bought']
-  end
 end
