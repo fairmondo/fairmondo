@@ -3,7 +3,7 @@ class LineItemGroup < ActiveRecord::Base
 
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :seller_line_item_groups
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :buyer_line_item_groups
-  belongs_to :cart, inverse_of: :line_item_groups
+  belongs_to :cart, inverse_of: :line_item_groups, counter_cache: :line_item_count
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   has_many :articles, through: :line_items
   has_many :business_transactions, inverse_of: :line_item_group
@@ -38,11 +38,18 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def payment_can_be_unified?
-     self.articles.count > 1 && unified_payments_selectable.any?
+    self.articles.count > 1 && unified_payments_selectable.any?
   end
 
   def unified_payments_selectable
     @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
+  end
+
+  # For LIGs that are not completely unified, this creates subgroups by a common selected transport or payment
+  # @attr transpay [String] either 'transport' or 'payment'
+  # @return [ActiveRecord::Relation]
+  def subgroups transpay
+    self.business_transactions.group_by(&:"selected_#{transpay}")
   end
 
   def total_price
