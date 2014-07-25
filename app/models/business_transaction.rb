@@ -106,5 +106,4 @@ class BusinessTransaction < ActiveRecord::Base
       self.article.transport_type2_provider
     end
   end
-
 end

@@ -214,5 +214,4 @@ class Article < ActiveRecord::Base
   def is_template?
     self.state.to_sym == :template
   end
-
 end

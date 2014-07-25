@@ -49,6 +49,14 @@ class Cart < ActiveRecord::Base
         article.buy!(quantity)
       end
     end
+
+    # This comes at a later point
+    #CartMailer.buyer_email(self).deliver
+
+    #self.line_item_groups.each do |lig|
+    #  CartMailer.seller_email(lig).deliver
+    #end
+
     return :checked_out
   rescue
     return :checkout_failed
