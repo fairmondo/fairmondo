@@ -1,0 +1,14 @@
+%html
+  %head
+    = stylesheet_link_tag 'application'
+
+  %body
+    .Content
+      %h1
+        = "Dein Einkauf bei #{ @cart.line_item_groups.first.seller.nickname } vom #{ @cart.created_at.strftime('%d.%m.%Y um %H:%M') }"
+      Vielen Dank für Deinen Einkauf auf Fairnopoly.
+
+    .Listview
+      - @cart.line_item_groups.each do |lig|
+        = render 'line_item_groups/shared/line_item_group', line_item_group: lig, current_user: @cart.user
+
