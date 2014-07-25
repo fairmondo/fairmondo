@@ -128,7 +128,8 @@ module ArticlesHelper
   end
 
   def export_time_ranges
-    ['all', 'last_30_days', 'last_3_months', 'last_6_months', 'last_year']
+    # specify time range in months
+    ['all', '1', '3', '6', '12']
   end
 
 end

@@ -19,10 +19,10 @@ de:
       sold: "Alle verkauften Artikel als CSV exportiernen"
       bought: "Alle gekauften Artikel als CSV exportieren"
       error_articles: "Fehlerhafte Artikel als CSV exportieren"
-      last_30_days: 'Artikel der letzten 30 Tage exportieren'
-      last_3_months: 'Artikel der letzten drei Monate exportieren'
-      last_6_months: 'Artikel der letzten sechs Monate exportieren'
-      last_year: 'Artikel der letzten zwölf Monate exportieren'
+      :1: 'Artikel der letzten 30 Tage exportieren'
+      :3: 'Artikel der letzten drei Monate exportieren'
+      :6: 'Artikel der letzten sechs Monate exportieren'
+      :12: 'Artikel der letzten zwölf Monate exportieren'
   article:
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
