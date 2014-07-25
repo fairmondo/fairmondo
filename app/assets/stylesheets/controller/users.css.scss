@@ -93,10 +93,38 @@
     border-bottom: lightgray solid 1px;
     padding:0.5em;
   }
-  
+
   td {
     padding:0.5em;
   }
 }
 
+.export {
+  position: relative;
+  display: inline-block;
+}
 
+.export > .export-entries {
+  display:none;
+  background-color:white;
+  box-shadow: $sand 0px 0px 2px 2px;
+  padding: 0.5em;
+  &.is-active {
+    top: 2.5em;
+    left: 0em;
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.export > .export-entries > ul {
+  list-style: none;
+  padding: 0em;
+  margin: 0em;
+}
+
+.export > .export-entries > ul > li {
+
+  padding: 0.5em 0;
+}

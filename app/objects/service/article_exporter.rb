@@ -44,10 +44,17 @@ class ArticleExporter
   end
 
   def self.get_line_item_groups(user, params)
-    if params && params[:from] && params[:till]
-      user.seller_line_item_groups.where('created_at < ? AND created_at > ?', params[:from], params[:till])
-    else
+    case params[:time_range]
+    when 'all'
       user.seller_line_item_groups
+    when 'last_30_days'
+      user.seller_line_item_groups.where('created_at > ? AND created_at < ?', 30.days.ago, Time.now)
+    when 'last_3_months'
+      user.seller_line_item_groups.where('created_at > ? AND created_at < ?', 3.month.ago, Time.now)
+    when 'last_6_months'
+      user.seller_line_item_groups.where('created_at > ? AND created_at < ?', 6.month.ago, Time.now)
+    when 'last_year'
+      user.seller_line_item_groups.where('created_at > ? AND created_at < ?', 1.year.ago, Time.now)
     end
   end
 
@@ -65,7 +72,7 @@ class ArticleExporter
       'line_item_group' => 'purchase'
     }
   end
-  #
+
   # used to determine which columns of line_item_groups and business_transactions and articles should be exported
   def self.export_attrs
     [

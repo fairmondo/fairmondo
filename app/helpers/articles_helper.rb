@@ -127,4 +127,8 @@ module ArticlesHelper
     !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
+  def export_time_ranges
+    ['all', 'last_30_days', 'last_3_months', 'last_6_months', 'last_year']
+  end
+
 end
