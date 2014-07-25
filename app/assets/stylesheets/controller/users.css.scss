@@ -102,6 +102,7 @@
 .export {
   position: relative;
   display: inline-block;
+  margin-bottom: 1em;
 }
 
 .export > .export-entries {
@@ -127,4 +128,12 @@
 .export > .export-entries > ul > li {
 
   padding: 0.5em 0;
+}
+
+
+.user-LineItemGroups-container {
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  padding: em(2) em(20);
+  margin-bottom: 1em;
 }

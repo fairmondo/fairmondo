@@ -45,6 +45,8 @@ de:
       bought: "Gekaufte Artikel"
       export: "Artikel exportieren"
       import: "Artikel per CSV-Datei importieren"
+      seller_line_item_groups: 'Deine Verkäufe'
+      buyer_line_item_groups: 'Deine Einkäufe'
     no_img: "Noch+kein+Bild"
     headers:
       you: "Du"
@@ -61,6 +63,8 @@ de:
       no_libraries: "Dieser Nutzer hat keine öffentlichen Sammlungen"
       no_description: "Noch keine Beschreibung hinzugefügt."
       add_desription: "Beschreibung hinzufügen"
+      no_seller_line_item_groups: 'Du hast bisher nichts verkauft.'
+      no_buyer_line_item_groups: 'Du hast bisher nichts gekauft.'
     actions:
       edit_account: "Profil bearbeiten"
       show_account: "Profil"
