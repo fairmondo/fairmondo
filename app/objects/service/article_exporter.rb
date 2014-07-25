@@ -28,31 +28,51 @@ class ArticleExporter
 
   # TODO make it possible to export line_item_groups in a specific time period
   def self.export_line_item_groups(csv, user, params)
-    export_attributes = LineItemGroup.exportable_attributes
+    csv.puts(CSV.generate_line(export_attrs, @@csv_options))
 
-    csv.puts(CSV.generate_line(export_attributes, @@csv_options))
-
-    line_item_groups = user.seller_line_item_groups
-    line_item_groups = user.seller_line_item_groups.where('created_at < ? AND created_at > ?', params[:from], params[:till]) if params && params[:from] && params[:till]
-
-    user.seller_line_item_groups.find_each do |lig|
+    get_line_item_groups(user, params).find_each do |lig|
       lig.business_transactions.find_each do |bt|
         row = Hash.new
         [lig, bt, bt.article].each do |item|
-          part = item.attributes.select { |k, v| item.export_attrs.include?(k) }
-          row.merge!(Hash[part.map {|k, v| [export_mappings(item)[k], v] }])
+          attrs = Hash[item.attributes.map {|k, v| [export_mappings(item)[k], v] }]
+          row.merge!(attrs.select { |k, v| export_attrs.include?(k) })
         end
-        csv.puts(CSV.generate_line(export_attributes.map { |element| row[element] }, @@csv_options))
+        csv.puts(CSV.generate_line(export_attrs.map { |element| row[element] }, @@csv_options))
       end
     end
     csv.flush
   end
 
+  def self.get_line_item_groups(user, params)
+    if params && params[:from] && params[:till]
+      user.seller_line_item_groups.where('created_at < ? AND created_at > ?', params[:from], params[:till])
+    else
+      user.seller_line_item_groups
+    end
+  end
 
+  # Maps attributes of a model to attribute name prefixed with model name
   def self.export_mappings(item)
     hash = {}
-    item.class.column_names.each { |element| hash[column_name] = "#{item.class.name.underscore}_#{column_name}"}
+    item.class.column_names.each { |column_name| hash[column_name] = "#{mapping_name[item.class.name.underscore]}_#{column_name}"}
     return hash
+  end
+
+  def self.mapping_name
+    {
+      'article' => 'article',
+      'business_transaction' => 'transaction',
+      'line_item_group' => 'purchase'
+    }
+  end
+  #
+  # used to determine which columns of line_item_groups and business_transactions and articles should be exported
+  def self.export_attrs
+    [
+      'purchase_id', 'purchase_created_at', 'transaction_id',
+      'transaction_quantity_bought', 'article_id', 'article_title',
+      'article_custom_seller_identifier'
+    ]
   end
 
 
