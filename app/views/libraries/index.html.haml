@@ -39,11 +39,11 @@
             = library_header_layout(library)
           .details
             = render "library_buttons", library: library
-          .library-elements
-            - if library.library_elements.empty?
-              = t('library.no_products')
-            - else
-              = render "library", library: library
+            .library-elements
+              - if library.library_elements.empty?
+                = t('library.no_products')
+              - else
+                = render "library", library: library
 
     = paginate @libraries
   - else

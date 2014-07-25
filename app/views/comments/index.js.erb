@@ -1,10 +1,10 @@
-$('<%= "#library#{@commentable.id}" %> .Comment-single').last().after('<%= j render @comments %>');
+$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .Comment-single').last().after('<%= render @comments %>');
 
-$('<%= "#library#{@commentable.id}" %> .next_link').replaceWith("<%= j(
+$('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> .next_link').replaceWith('<%= j(
     link_to_next_page @comments,
-    t('common.text.morecomments'),
+    t("common.text.morecomments"),
     param_name: :comments_page,
-    params: { library_id: @commentable.id, controller: "comments" },
+    params: { :"#{@commentable.class.to_s.underscore}_id" => @commentable.id, controller: "comments" },
     class: "next_link",
-    remote: true) %>"
+    remote: true) %>'
 );
