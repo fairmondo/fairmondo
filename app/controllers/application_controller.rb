@@ -30,6 +30,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
 
+  after_filter :store_location # browsing history
+
   protect_from_forgery
 
   helper :all
@@ -43,7 +45,7 @@ class ApplicationController < ActionController::Base
     elsif request.xhr? # AJAX request
       toolbox_reload_path
     else
-      stored_location_for(resource_or_scope) || user_path(resource_or_scope)
+      previous_location || stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
 
@@ -106,5 +108,23 @@ class ApplicationController < ActionController::Base
 
     def render_css_from_controller controller
       @controller_specific_css = controller
+    end
+
+    # visited urls history, for after login redirection and feedbacks
+    def store_location
+      session[:previous_urls] ||= []
+      if (session[:previous_urls].first != request.fullpath) # store unique urls only
+        session[:previous_urls].prepend request.fullpath
+      end
+      session[:previous_urls].pop if session[:previous_urls].count > 5 # store max 5
+    end
+
+    def previous_location
+      disabled_redirect_urls = ["/user/sign_up","/user/sign_in","/user/sign_out","/toolbox/rss"]
+      session[:previous_urls] ||= []
+      session[:previous_urls].each do |url|
+        return url unless disabled_redirect_urls.include?(url)
+      end
+      nil
     end
 end
