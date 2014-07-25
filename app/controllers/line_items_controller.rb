@@ -52,7 +52,9 @@ class LineItemsController < ApplicationController
   def destroy
     find_and_authorize_line_item
 
+    lig = @line_item.line_item_group
     @line_item.destroy
+    lig.destroy if lig.line_items.empty?
 
     set_and_redirect_to_cart
   end

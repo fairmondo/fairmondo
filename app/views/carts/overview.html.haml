@@ -2,9 +2,12 @@
   - @cart.line_item_groups.each do |group|
     .seller
       %p
-        Deine Bestellung bei #{link_to user_path(group.seller)}
+        Deine Bestellung bei #{link_to group.seller_nickname, user_path(group.seller)}
       .thumbnails
         - group.line_items.map(&:article).each do |article|
           = image_tag(article.title_image_url_thumb)
+      %p
+        Versandmethode: #{group.unified_transport}
+        Bezahlmethode: #{group.unified_payment}
 
 = button_to 'Fabindlich koofen', cart_path(@cart, checkout: true), method: :patch, class: 'Button'
