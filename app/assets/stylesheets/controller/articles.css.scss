@@ -222,7 +222,7 @@ ul.category-selected-list {
 }
 
 .buyer-controls > .collect > .libraries {
-  min-width: 15em;
+  min-width: 25em;
   display:none;
   background-color:white;
   box-shadow: $sand 0px 0px 2px 2px;
@@ -260,20 +260,16 @@ ul.category-selected-list {
 //  margin: 0;
 //}
 
-#library_public_input {
-  float: right;
+#library_public_input, #library_name_input {
+  float: left;
 }
 
-#library_name_input {
-  float: right;
-}
-
-#new_library > .actions {
-  float:right;
+#new_library > .inputs, #new_library > .actions {
+  float: left;
 }
 
 #link_libraries {
-  clear: both;
+  clear: left;
 }
 
 // transform normal checkbox into font awesome eye
