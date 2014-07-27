@@ -1,1 +1,1 @@
-$("#private_libraries).append("<li><%= link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)) %></li>")
+$("#private_libraries").append("<li><%= escape_javascript(link_to(@library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: @library.id}), method: :post)) %></li>")

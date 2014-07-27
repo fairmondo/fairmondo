@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #
 # == License:
@@ -44,8 +45,25 @@ class LibrariesController < ApplicationController
   def create
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
-    # Hier stand vorher mehr, das evtl. hinzufügen aus anderem Commit
-    respond_with @library
+    
+    # Library speichern
+    was_saved = @library.save
+    
+    unless request.xhr?
+      # Normal response
+      if was_saved
+        redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
+      else
+        redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
+      end
+    else
+      # AJAX response
+      if was_saved
+        respond_with @library
+      #elsif
+      # Error code here
+      end
+    end
   end
 
 
