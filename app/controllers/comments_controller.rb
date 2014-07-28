@@ -28,11 +28,6 @@ class CommentsController < ApplicationController
 
   def destroy
     authorize @comment
-    comment_id = @comment.id
-    render :destroy, locals: {
-      commentable_id: @commentable.id,
-      comment_id: comment_id
-    }
     @comment.destroy
   end
 

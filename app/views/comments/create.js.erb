@@ -10,4 +10,5 @@ $(commentable_selector + '#comment_text').val("");
 
 $(commentable_selector + '#comments-empty').html("");
 
+$(commentable_selector + '.Comments-count').replaceWith('<%= j comments_counter(@commentable) %>');
 
