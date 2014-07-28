@@ -1,2 +1,42 @@
-%h1
-  Hallo Welt!
+%head
+  = stylesheet_link_tag 'application'
+%body
+.Content
+  %a{:href => "https://www.fairnopoly.de"}
+    %span.sprite_logo
+  %h1
+    Dein Verkauf auf Fairnopoly
+
+  Herzlichen Glückwunsch, Du hast erfolgreich Artikel auf Fairnopoly verkauft.
+
+  %table
+    %thead
+      %tr
+        %th
+          Transaktionsnr
+        %th
+          Artikel
+        %th
+          Anzahl
+        %th
+          Preis
+        %th
+          Gesamtpreis
+      %tbody
+        - @line_item_group.business_transactions.find_each do |bt|
+          %tr
+            %td
+              = bt.id
+            %td
+              = bt.article.title
+            %td
+              = bt.quantity_bought
+            %td
+              = bt.article.price
+            %td
+              = bt.quantity_bought * bt.article.price
+
+  Bitte verschicke die Artikel an:
+
+  = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address
+  = render 'addresses/address', address: @line_item_group.business_transactions.first.payment_address
