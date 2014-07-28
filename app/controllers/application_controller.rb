@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     elsif request.xhr? # AJAX request
       toolbox_reload_path
     else
-      previous_location || stored_location_for(resource_or_scope) || user_path(resource_or_scope)
+      redirect_back_location || stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
 
@@ -111,19 +111,24 @@ class ApplicationController < ActionController::Base
     end
 
     # visited urls history, for after login redirection and feedbacks
+    # @TODO prevent devise from clearing this after sign_out
     def store_location
       session[:previous_urls] ||= []
-      if (session[:previous_urls].first != request.fullpath) # store unique urls only
-        session[:previous_urls].prepend request.fullpath
+      current_url_hash = { request.method => request.fullpath, "xhr" => !!request.xhr? }
+      if session[:previous_urls].first != current_url_hash # store unique requests only
+        session[:previous_urls].prepend current_url_hash
       end
-      session[:previous_urls].pop if session[:previous_urls].count > 5 # store max 5
+      session[:previous_urls].pop if session[:previous_urls].count > 10 # store max 10
     end
 
-    def previous_location
-      disabled_redirect_urls = ["/user/sign_up","/user/sign_in","/user/sign_out","/toolbox/rss"]
-      session[:previous_urls] ||= []
-      session[:previous_urls].each do |url|
-        return url unless disabled_redirect_urls.include?(url)
+    DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out"]
+    def redirect_back_location
+      session[:previous_urls].each do |url_hash|
+        method = url_hash.keys.first
+        url = url_hash[method]
+        if method == "GET" and !url_hash["xhr"] and !DISABLED_REDIRECT_URLS.include?(url)
+          return url
+        end
       end
       nil
     end
