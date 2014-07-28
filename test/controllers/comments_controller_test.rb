@@ -82,10 +82,17 @@ describe CommentsController do
     describe "with invalid params" do
       it "does not increase the comment count" do
         assert_difference "@library.comments.count", 0 do
-          post :create, comment: { text: "test" },
+          post :create, comment: { text: "" },
                         library_id: @library.id + 1,
                         format: :js
         end
+      end
+
+      it "renders the new template" do
+          post :create, comment: { text: "" },
+                        library_id: @library.id + 1,
+                        format: :js
+          assert_template "new"
       end
     end
   end
