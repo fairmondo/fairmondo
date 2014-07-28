@@ -20,7 +20,7 @@ gem 'money-rails' # dealing with money in activerecord
 gem 'monetize' # parsing money
 gem 'enumerize', '>= 0.5.1' # enums as symbols in ar
 gem 'state_machine' # State Machines in Rails
-gem 'amoeba' # copy ar-models
+gem 'amoeba', github: 'rocksolidwebdesign/amoeba' # copy ar-models # https://github.com/rocksolidwebdesign/amoeba/pull/33 waiting release
 gem 'sanitize' # Parser based sanitization
 gem 'awesome_nested_set' , ">= 3.0.0.rc.4"# tree structure for categories
 gem "friendly_id", ">= 4.0.9" # Friendly_id for beautiful links

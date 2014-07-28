@@ -17,6 +17,13 @@ GIT
     fastbill-automatic (0.0.3)
       json
 
+GIT
+  remote: git://github.com/rocksolidwebdesign/amoeba.git
+  revision: 51c6fa6c37ab4864fa026e577eefb17316c49e1b
+  specs:
+    amoeba (2.0.0)
+      activerecord (>= 3.2.6, < 5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -54,8 +61,6 @@ GEM
     akami (1.2.2)
       gyoku (>= 0.4.0)
       nokogiri
-    amoeba (2.0.0)
-      activerecord (>= 3.0)
     ansi (1.4.3)
     arcane (1.1.1)
       actionpack (>= 3.0.0, < 5.0.0)
@@ -99,8 +104,8 @@ GEM
     bullet (4.13.0)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
-    byebug (3.1.2)
-      columnize (~> 0.8)
+    byebug (2.7.0)
+      columnize (~> 0.3)
       debugger-linecache (~> 1.2)
     callsite (0.0.11)
     canonical-rails (0.0.7)
@@ -155,6 +160,8 @@ GEM
       term-ansicolor
       thor
     crass (0.2.1)
+    css_parser (1.3.5)
+      addressable
     daemons (1.1.9)
     dalli (2.7.2)
     database_cleaner (1.3.0)
@@ -298,7 +305,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    paypal_adaptive (0.3.7)
+    paypal_adaptive (0.3.8)
       json (~> 1.0)
       jsonschema (~> 2.0.0)
     pg (0.17.1)
@@ -319,7 +326,7 @@ GEM
       activesupport (>= 3.0.0)
     qtip2-jquery-rails (2.1.107)
       railties (>= 3.1)
-    quiet_assets (1.0.2)
+    quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -391,8 +398,6 @@ GEM
     require_all (1.3.2)
     responders (1.1.0)
       railties (>= 3.2, < 5)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -409,7 +414,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.5.0)
       sexp_processor (~> 4.1)
-    rubyntlm (0.3.4)
+    rubyntlm (0.4.0)
     safe_yaml (1.0.3)
     sanitize (3.0.0)
       crass (~> 0.2.0)
@@ -538,7 +543,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  amoeba
+  amoeba!
   arcane
   awesome_nested_set (>= 3.0.0.rc.4)
   better_errors
