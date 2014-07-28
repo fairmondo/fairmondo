@@ -31,8 +31,6 @@ class LibrariesController < ApplicationController
   def index
     @library = @user.libraries.build if user_signed_in? && @user
     @libraries = LibraryPolicy::Scope.new( current_user, @user, focus.includes(:user => [:image] )).resolve.page(params[:page])
-
-    render :global_index unless user_focused?
   end
 
   def show

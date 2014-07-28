@@ -1,6 +1,7 @@
 de:
   # Header
   header:
+    libraries: "Sammlungen"
     community: "Community"
     forum: 'Nutzer*innen-Forum'
     hero: 'Aktiv als Held*in'

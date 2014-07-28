@@ -1,0 +1,46 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "cddbde222300f38e5b4d7613624f5685592b95c9994b8e8a2a45e623140275bb",
+      "message": "Render path contains parameter value",
+      "file": "app/views/comments/index.js.erb",
+      "line": 1,
+      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => COMMENTABLES.select do\n ((local klass).to_s.downcase == params.keys.select do\n (local p).match(/[a-z_]_id$/)\n end.last[(0..-4)])\n end.first.find(params[params.keys.select do\n (local p).match(/[a-z_]_id$/)\n end.last]).comments.order(:created_at => :desc).page(params[:comments_page]), {})",
+      "render_path": [
+        "CommentsController#index"
+      ],
+      "location": {
+        "type": "template",
+        "template": "comments/index (CommentsController#index)"
+      },
+      "user_input": "params.keys.select",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Denial of Service",
+      "warning_code": 59,
+      "fingerprint": "8803d552241a84031e8b3cb15af1d5030ee485170a61338ae1aef8da5c4cda40",
+      "message": "Symbol conversion from unsafe string (parameter value)",
+      "file": "app/views/comments/index.js.erb",
+      "line": 7,
+      "link": "http://brakemanscanner.org/docs/warning_types/denial_of_service/",
+      "code": ":\"#{#{COMMENTABLES.select do\n ((local klass).to_s.downcase == params.keys.select do\n (local p).match(/[a-z_]_id$/)\n end.last[(0..-4)])\n end.first.find(params[params.keys.select do\n (local p).match(/[a-z_]_id$/)\n end.last]).class.to_s.underscore}}_id\"",
+      "render_path": [
+        "CommentsController#index"
+      ],
+      "location": {
+        "type": "template",
+        "template": "comments/index (CommentsController#index)"
+      },
+      "user_input": "params.keys.select",
+      "confidence": "Medium",
+      "note": ""
+    }
+  ],
+  "updated": "2014-07-24 17:28:39 +0200",
+  "brakeman_version": "2.6.0"
+}

@@ -1,0 +1,16 @@
+<%# Check if the id #commentableN exists. We have no commentable id on the single page %>
+commentable_selector = ''
+if ($('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %>').length) {
+  <%# We are on the index page %>
+  commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> '
+}
+
+$(commentable_selector + '.Comments-section .Comment-single').last().after('<%= j render @comments %>');
+
+$(commentable_selector + '.Comments-section .next_link').replaceWith('<%= j(
+    link_to_next_page @comments,
+    t("comments.more"),
+    param_name: :comments_page,
+    params: { :"#{@commentable.class.to_s.underscore}_id" => @commentable.id, controller: "comments" },
+    class: "next_link",
+    remote: true) %>');

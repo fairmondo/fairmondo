@@ -21,7 +21,7 @@
 #
 #
 
-module HeartButtonHelper
+module HeartsHelper
   # Wraps the layout call and sanitizes the options
   #
   # param heartable_resource: the resource that the user can heart.
@@ -30,23 +30,36 @@ module HeartButtonHelper
     if user_signed_in?
       heart = Heart.where(heartable: heartable_resource, user: current_user)
     else
-      heart = []
+      heart = Heart.where(heartable: heartable_resource, user_token: generate_user_token)
     end
 
     if heart.any?
-      render partial: "hearts/heart_button", locals: {
-        heartable_resource: heartable_resource,
-        icon: "fa-minus",
-        path: library_heart_path(heartable_resource, heart.first),
-        method: :delete
-      }
+      if user_signed_in?
+        render partial: "hearts/heart_button", locals: {
+          heartable_resource: heartable_resource,
+          icon: "fa-minus",
+          path: library_heart_path(heartable_resource, heart.first),
+          method: :delete,
+          disabled: false
+        }
+      else
+        render partial: "hearts/heart_button", locals: {
+          heartable_resource: heartable_resource,
+          disabled: true
+        }
+      end
     else
       render partial: "hearts/heart_button", locals: {
         heartable_resource: heartable_resource,
         icon: "fa-plus",
         path: library_hearts_path(heartable_resource),
-        method: :post
+        method: :post,
+        disabled: false
       }
     end
+  end
+
+  def generate_user_token
+    UserTokenGenerator.generate(request.env["HTTP_USER_AGENT"], request.env["REMOTE_ADDR"])
   end
 end

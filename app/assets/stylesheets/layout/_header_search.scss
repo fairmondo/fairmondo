@@ -10,8 +10,7 @@
 }
 
 
-.l-header-search-libraries, .l-header-search-button {
-
+.l-header-search-button {
   @include till-breakpoint($bp-tablet) {
     @include span(1 of 4 0.1);
   }
@@ -21,19 +20,7 @@
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
-    @include span(1 of 7 0.1);
-  }
-
-}
-
-.l-header-search-libraries {
-
-  @include till-breakpoint($bp-tablet-horizontal) {
-    display:none;
-  }
-
-  .Button {
-     display:block;
+    @include span(1 of 6 0.1);
   }
 }
 
@@ -48,11 +35,14 @@
     }
   }
 }
+
+
 .l-header-search-button-text {
   @include till-breakpoint($bp-tablet) {
     display:none;
   }
 }
+
 
 .l-header-search-query {
   @include till-breakpoint($bp-tablet) {
@@ -64,9 +54,10 @@
   }
 
   @include at-breakpoint($bp-tablet-horizontal) {
-    @include span(5 of 7 0.1);
+    @include span(5 of 6 0.1);
   }
 }
+
 
 .l-header-search-query > fieldset > ol > li.input {
   margin-top: 0.1em;

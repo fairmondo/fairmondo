@@ -19,8 +19,9 @@
 .l-news-header-close {
   cursor: pointer;
   position: absolute;
-  top: 1em;
-  right: 1em;
+  top: 0;
+  right: 0;
+  padding: 1em;
   color: $dark-gray;
   @include clear-links;
   @include user-select(none);
