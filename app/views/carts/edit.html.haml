@@ -2,7 +2,8 @@
 = semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
   = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
     .group.js-unified-toggle-group
-      Angeboten von #{link_to group.seller.nickname, user_path(group.seller)}
+      = t('cart.texts.line_item_group_by')
+      = link_to group.seller_nickname, user_path(group.seller)
       = group_fields.inputs do
         = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'} if group.transport_can_be_unified?
         - if group.payment_can_be_unified?
