@@ -1,7 +1,7 @@
-
-= library_header_layout(resource)
-= render "library_buttons", library: resource
-= render "library", library: resource
+.div{id: "library#{resource.id.to_s}"}
+  = library_header_layout(resource)
+  = render "library_buttons", library: resource
+  = render "library", library: resource
 
 
 -# Admin controls

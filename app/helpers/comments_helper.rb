@@ -26,4 +26,13 @@ module CommentsHelper
   def comments_page
     @comments_page ||= Sanitize.clean params[:comments_page]
   end
+
+  def comments_counter(commentable)
+    # Counter caches do their own SQL magic, which is why on AJAX requests they do
+    # not reflect the current state.
+    # Let's do it with .reload then.
+    commentable.reload
+    render partial: "comments/commentable_counter",
+           locals: { commentable: commentable }
+  end
 end
