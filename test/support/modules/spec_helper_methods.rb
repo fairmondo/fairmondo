@@ -15,6 +15,7 @@ class DummyClass < ActionView::Base
   include StatisticHelper
   include UsersHelper
   include WelcomeHelper
+  include CommentsHelper
 end
 Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options = { host: "localhost:3000" }
 

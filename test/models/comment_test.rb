@@ -27,7 +27,6 @@ describe Comment do
   describe "associations" do
     it { subject.must belong_to :user }
     it { subject.must belong_to :commentable }
-    it { subject.must belong_to :library }
   end
 
   describe "model attributes" do
@@ -42,6 +41,9 @@ describe Comment do
   describe "validations" do
     it { subject.must validate_presence_of(:user) }
     it { subject.must validate_presence_of(:commentable) }
-    it { subject.must validate_presence_of(:text) }
+    describe "for text" do
+      it { subject.must validate_presence_of(:text) }
+      it { subject.must ensure_length_of(:text).is_at_most(255) }
+    end
   end
 end
