@@ -8,7 +8,6 @@ div[class$="-hearts"] {
 }
 
 .Hearts-button {
-  float: right;
   position: relative;
   i.fa-heart {
     font-size: 1.3rem;
