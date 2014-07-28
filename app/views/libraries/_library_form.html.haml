@@ -1,4 +1,4 @@
-= semantic_form_for @library, :url => user_libraries_path(current_user), remote: true do |f|
+= semantic_form_for library, :url => user_libraries_path(current_user), remote: true do |f|
   = f.inputs do
     = f.input :public, :label => '&nbsp;'
     / i18n_lookups_by_default??
