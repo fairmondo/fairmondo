@@ -107,15 +107,22 @@ class ArticleSearchForm
 
   def price_range
     hash = {}
-    from = Monetize.parse(self.price_from)
-    to   = Monetize.parse(self.price_to)
+    from = nil
+    to = nil
 
-    if from && from.cents != 0
-      self.price_from = from.format
-      hash[:gte] = from.cents
+    unless self.price_from.nil? && self.price_to.nil? || self.price_from == '' && self.price_to == ''
+      from = Monetize.parse(self.price_from)
+      to = Monetize.parse(self.price_to)
     end
 
-    if to && to.cents != 0
+    if from# && from.cents != 0
+      self.price_from = from.format
+      hash[:gte] = from.cents
+    else
+      hash[:gte] = nil
+    end
+
+    if to && to.cents >= 0 && to >= from
       self.price_to = to.format
       hash[:lte] = to.cents
     end
