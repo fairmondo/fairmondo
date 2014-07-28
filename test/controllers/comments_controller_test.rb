@@ -66,6 +66,17 @@ describe CommentsController do
         assert_response :success
         assert_nil(assigns(:message))
       end
+
+      it "increases the counter cache" do
+        assert_difference "@library.comments_count", 1 do
+          post :create, comment: { text: "test" },
+                      library_id: @library.id,
+                      format: :js
+
+          @library.reload
+
+        end
+      end
     end
 
     describe "with invalid params" do
