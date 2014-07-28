@@ -43,7 +43,7 @@ describe Comment do
     it { subject.must validate_presence_of(:commentable) }
     describe "for text" do
       it { subject.must validate_presence_of(:text) }
-      it { subject.must ensure_length_of(:text).is_at_most(500) }
+      it { subject.must ensure_length_of(:text).is_at_most(255) }
     end
   end
 end
