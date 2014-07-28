@@ -19,15 +19,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Comment < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :commentable, polymorphic: true
+#
 
-  delegate :image_url, :nickname, to: :user, prefix: true
-
-  validates :commentable, presence: true
-  validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 255 }
-
-  paginates_per 5
+module CommentsHelper
+  # render all the comments
+  def comments_page
+    @comments_page ||= Sanitize.clean params[:comments_page]
+  end
 end

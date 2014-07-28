@@ -1,10 +1,15 @@
 class CommentsController < ApplicationController
+
+  COMMENTABLES = [Library]
+
   respond_to :js
 
   before_filter :set_commentable, only: [:index, :create, :update, :destroy]
   before_filter :set_comment, only: [:update, :destroy]
+  skip_before_filter :authenticate_user!, only: [:index]
 
   def index
+    @comment = Comment.new
     @comments = @commentable.comments.order(created_at: :desc).page(params[:comments_page])
   end
 
@@ -14,8 +19,10 @@ class CommentsController < ApplicationController
 
     authorize @comment
 
-    if !@comment.save
-      @message = I18n.t('flash.create.alert')
+    if @comment.save
+      render :create
+    else
+      render :new, comment: @comment, commentable: @commentable
     end
   end
 
@@ -32,12 +39,15 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    # Get the class that is using comments
     commentable_key = params.keys.select { |p| p.match(/[a-z_]_id$/) }.last
-    commentable_klass = commentable_key[0..-4].capitalize.constantize
-    commentable_id = params[commentable_key]
 
-    @commentable = commentable_klass.find(commentable_id)
+    # Class can be inferred from the key.
+    # We're using the HEARTABLES array for protection though.
+    commentable_class = COMMENTABLES.select do |klass|
+      klass.to_s.downcase == commentable_key[0..-4]
+    end.first
+
+    @commentable = commentable_class.find(params[commentable_key])
   end
 
   def set_comment
