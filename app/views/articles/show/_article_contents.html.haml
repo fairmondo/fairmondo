@@ -33,7 +33,6 @@
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Button"
 
 
-
 %figure.image
   - cache [resource, resource.title_image] do
     - if resource.title_image_present?
@@ -98,33 +97,20 @@
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
             = t('common.actions.collect')
           .libraries.JS-active-toggle--target
+            in Sammlung:
             %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            -# List all public libraries of the user
-            - public_libraries = current_user.libraries.select do |l|
-              - l.public
-
-            %h4
-              %i.fa.fa-eye
-              Zu öffentlicher Sammlung hinzufügen
-            %ul#public_libraries
-              - public_libraries.each do |library|
+            %ul
+              - current_user.libraries.each do |library|
                 %li
                   %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+                    -# Eye to signify library status - public or private
+                    - if library.public
+                      %i.fa.fa-eye
+                    - else
+                      %i.fa.fa-eye-slash
                     = library.name
-            -# List all private libraries of the user
-            - private_libraries = current_user.libraries.select do |l|
-              - !l.public
 
-            %h4
-              %i.fa.fa-eye-slash
-              Zu privater Sammlung hinzufügen
-
-            %ul#private_libraries
-              - private_libraries.each do |library|
-                %li
-                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
-
-            = render "/libraries/library_form"
+            = render "/libraries/library_form", library: current_user.libraries.build
             %ul#links_libraries
               %li
                 = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)

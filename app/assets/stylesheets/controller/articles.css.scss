@@ -289,7 +289,7 @@ ul.category-selected-list {
 
 
 // transform normal checkbox into font awesome eye
-//input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input#library_public { display:none; } /* to hide the checkbox itself */
 
 //input[type=checkbox] + ins:before {
 //  font-family: FontAwesome;

@@ -58,11 +58,12 @@ class LibrariesController < ApplicationController
       end
     else
       # AJAX response
+      #debugger
       if was_saved
         respond_with @library
       else
         # Error code here
-        render "new"
+        render :new
       end
     end
   end
