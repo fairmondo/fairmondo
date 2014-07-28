@@ -1,7 +1,7 @@
 $ ->
-  $('.JS-remote-validate-blur').on 'blur', validate_remotely
+  $('.JS-remote-validate-blur').on 'blur', validateRemotely
 
-validate_remotely = (event) ->
+validateRemotely = (event) ->
   setTimeout -> # to allow JS-enforce-input-constraints to do it's thang
     target = event.target
     $target = $(target)
@@ -13,17 +13,22 @@ validate_remotely = (event) ->
       additional_params = $target.attr('data-validation-params')
       additional_params = if additional_params then "?#{additional_params}" else ''
 
-      $.post "/remote_validations/#{model}/#{field}/#{value}.json#{additional_params}", (response) ->
-        # reset in case error messages get chained
-        $target.parent().removeClass 'error'
-        $target.siblings('.inline-errors').remove()
+      $.ajax
+        type: 'POST'
+        url: "/remote_validations/#{model}/#{field}/#{value}.json#{additional_params}"
+        dataType: 'json'
+        global: false
+        success: (response) ->
+          # reset in case error messages get chained
+          $target.parent().removeClass 'error'
+          $target.siblings('.inline-errors').remove()
 
-        # add an error message if one exists
-        if response.errors.length > 0
-          $.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
-          error_message = response.errors[0]
-          error_message += $target.attr('data-validation-error-addition') if $target.attr('data-validation-error-addition') # optional
-          $target.parent().addClass 'error'
-          $target.after "<p class='inline-errors'>#{error_message}</p>"
+          # add an error message if one exists
+          if response.errors.length > 0
+            $.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
+            error_message = response.errors[0]
+            error_message += $target.attr('data-validation-error-addition') if $target.attr('data-validation-error-addition') # optional
+            $target.parent().addClass 'error'
+            $target.after "<p class='inline-errors'>#{error_message}</p>"
 
   , 1 # setTimeout: 1 millisecond wait

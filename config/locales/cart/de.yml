@@ -2,3 +2,10 @@ de:
   cart:
     texts:
       empty_cart: Dein Warenkorb ist leer.
+      line_item_group_by: "Angeboten von"
+      purchase_from: "Einkauf vom"
+      your_order_for: "Deine Bestellung bei"
+    actions:
+      confirm_purchase: Verbindlich Kaufen
+      checkout: Zur Kasse
+      pay: Zur Bezahlung
