@@ -4,7 +4,7 @@
   min-height: 48px;
   margin-bottom: 0.7em;
   overflow: hidden;
-  background-color: white;
+  background-color: $lighter-gray;
 }
 
 .Comment-single > .author_image {
@@ -14,11 +14,18 @@
 }
 
 .Comment-single > .meta {
-  padding-left: 4em;
+  padding-left: 58px;
+  background-color: #fff;
 }
 
 .Comment-single > .text {
-  padding-left: 4em;
+  margin-left: 48px;
+  padding-left: 10px;
+  background-color: #FFF;
+  min-height: 28px;
+  > p {
+    margin: 0;
+  }
 }
 
 .Comment-single .delete {
@@ -35,3 +42,11 @@
 .Comments-section .login-to-comment {
   margin-bottom: 0.7em;
 }
+
+.Comments-count {
+  margin-right: 0.5em;
+  > i.fa {
+    font-size: 1.2rem;
+  }
+}
+
