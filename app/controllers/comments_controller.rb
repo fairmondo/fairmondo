@@ -10,7 +10,13 @@ class CommentsController < ApplicationController
 
   def index
     @comment = Comment.new
-    @comments = @commentable.comments.order(created_at: :desc).page(params[:comments_page])
+    @comments = @commentable.comments.order(created_at: :desc)
+
+    if params[:comments_page]
+      @comments = @comments.page(params[:comments_page])
+      render partial: "comments/index_paginated"
+    end
+
   end
 
   def create
