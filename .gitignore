@@ -110,3 +110,7 @@ Guardfile
 sidekiq_pro_path.yml
 
 .rvmrc
+
+# Paypal
+paypal_adaptive.yml
+
