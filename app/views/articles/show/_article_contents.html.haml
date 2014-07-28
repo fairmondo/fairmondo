@@ -102,6 +102,7 @@
             -# List all public libraries of the user
             - public_libraries = current_user.libraries.select do |l|
               - l.public
+
             %h4
               %i.fa.fa-eye
               Zu öffentlicher Sammlung hinzufügen
@@ -113,9 +114,11 @@
             -# List all private libraries of the user
             - private_libraries = current_user.libraries.select do |l|
               - !l.public
+
             %h4
               %i.fa.fa-eye-slash
               Zu privater Sammlung hinzufügen
+
             %ul#private_libraries
               - private_libraries.each do |library|
                 %li
@@ -192,16 +195,3 @@
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
-
-
-
-
--#              - current_user.libraries.each do |library|
--#                %li
--#                  %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
--#                    -# Eye to signify library status - public or private
--#                    - if library.public
--#                      %i.fa.fa-eye
--#                    - else
--#                      %i.fa.fa-eye-slash
--#                    = library.name
