@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724132529) do
+ActiveRecord::Schema.define(version: 20140728150853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,42 +109,38 @@ ActiveRecord::Schema.define(version: 20140724132529) do
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                                    default: false
-    t.integer  "buyer_id",                              limit: 8
+    t.boolean  "tos_accepted",                   default: false
+    t.integer  "buyer_id",             limit: 8
     t.string   "state"
     t.text     "message"
     t.integer  "quantity_available"
     t.integer  "quantity_bought"
-    t.integer  "parent_id",                             limit: 8
-    t.integer  "article_id",                            limit: 8
+    t.integer  "parent_id",            limit: 8
+    t.integer  "article_id",           limit: 8
     t.string   "forename"
     t.string   "surname"
     t.string   "street"
     t.string   "city"
     t.string   "zip"
     t.string   "country"
-    t.integer  "seller_id",                             limit: 8
+    t.integer  "seller_id",            limit: 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",                            default: false
+    t.boolean  "purchase_emails_sent",           default: false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                                 default: false
-    t.boolean  "billed_for_fee",                                  default: false
-    t.boolean  "billed_for_discount",                             default: false
-    t.integer  "transport_address_id",                  limit: 8
-    t.integer  "payment_address_id",                    limit: 8
-    t.integer  "payment_id",                            limit: 8
-    t.integer  "line_item_group_id",                    limit: 8
-    t.string   "unified_transport_provider"
-    t.integer  "unified_transport_maximum_articles"
-    t.integer  "unified_transport_price_cents",         limit: 8, default: 0
-    t.integer  "unified_transport_free_at_price_cents", limit: 8, default: 0
+    t.boolean  "billed_for_fair",                default: false
+    t.boolean  "billed_for_fee",                 default: false
+    t.boolean  "billed_for_discount",            default: false
+    t.integer  "transport_address_id", limit: 8
+    t.integer  "payment_address_id",   limit: 8
+    t.integer  "payment_id",           limit: 8
+    t.integer  "line_item_group_id",   limit: 8
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
@@ -336,17 +332,21 @@ ActiveRecord::Schema.define(version: 20140724132529) do
 
   create_table "line_item_groups", force: true do |t|
     t.text     "message"
-    t.integer  "cart_id",                limit: 8
-    t.integer  "seller_id",              limit: 8
-    t.integer  "buyer_id",               limit: 8
+    t.integer  "cart_id",                               limit: 8
+    t.integer  "seller_id",                             limit: 8
+    t.integer  "buyer_id",                              limit: 8
     t.boolean  "tos_accepted"
-    t.boolean  "unified_transport",                default: false
-    t.boolean  "unified_payment",                  default: false
+    t.boolean  "unified_transport",                               default: false
+    t.boolean  "unified_payment",                                 default: false
     t.string   "unified_payment_method"
-    t.integer  "transport_address_id",   limit: 8
-    t.integer  "payment_address_id",     limit: 8
+    t.integer  "transport_address_id",                  limit: 8
+    t.integer  "payment_address_id",                    limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unified_transport_provider"
+    t.integer  "unified_transport_maximum_articles"
+    t.integer  "unified_transport_price_cents",         limit: 8, default: 0
+    t.integer  "unified_transport_free_at_price_cents", limit: 8, default: 0
   end
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
