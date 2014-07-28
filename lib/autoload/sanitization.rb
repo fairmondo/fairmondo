@@ -76,6 +76,11 @@ module Sanitization
             ['width', 'height', 'data', 'name', 'id', 'class', 'style', 'data-truncate'] :
             ['width', 'height', 'name']
         },
+        :css => {
+          :properties => admin_mode ?
+            ['text-align', 'margin', 'margin-top', 'margin-bottom', 'margin-left', 'margin-right', 'tab-stops',  'font-family', 'font-size', 'line-height', 'padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right', 'cursor', 'height', 'width', 'font-variant', 'font-style', 'color', 'font-weight', 'text-decoration'] :
+            []
+        },
         protocols: {
           'a' => { 'href' => ['http', 'https', 'mailto', :relative] },
           'img' => { 'src' => ['http', 'https', :relative] }
@@ -92,7 +97,8 @@ module Sanitization
     def self.sanitize_clean field, remove_spaces
       # Needed because of the inject_questionnaire method in the mass_upload model (else statement)
       field = field.first if field.class == Array
-      reverse_encoding modify Sanitize.clean(field), remove_spaces
+      field = Sanitize.clean(field) if field
+      reverse_encoding modify field, remove_spaces
     end
 
     # Modify sanitized strings even further
