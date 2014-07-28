@@ -27,7 +27,7 @@ class Comment < ActiveRecord::Base
 
   validates :commentable, presence: true
   validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 500 }
+  validates :text, presence: true, length: { maximum: 255 }
 
   paginates_per 5
 end
