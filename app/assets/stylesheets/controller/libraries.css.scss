@@ -74,4 +74,10 @@ details.open .library-comments {
   display: none;
 }
 
+.library-buttons {
+  float: right;
+  > div {
+    display: inline-block;
+  }
+}
 
