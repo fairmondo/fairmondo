@@ -4,6 +4,7 @@
   min-height: 48px;
   margin-bottom: 0.7em;
   overflow: hidden;
+  background-color: white;
 }
 
 .Comment-single > .author_image {
@@ -20,12 +21,17 @@
   padding-left: 4em;
 }
 
+.Comment-single .delete {
+  float: right;
+  margin-right: 0.6em;
+}
+
 .Comments-section form li.input {
   list-style: none;
   overflow: visible !important;
   margin-bottom: 0;
 }
 
-details.open .library-comments {
-  display: none;
+.Comments-section .login-to-comment {
+  margin-bottom: 0.7em;
 }

@@ -1,9 +1,10 @@
-= semantic_form_for [library,
-  Comment.new],
-  remote: true do |f|
-  = f.input :text, placeholder: t('common.text.comment_placeholder'), label: false, input_html: { class: "Comment" }
+= semantic_form_for([commentable,
+  comment],
+  remote: true,
+  html: {id: "new_comment_#{commentable.id}"}) do |f|
+  = f.input :text, placeholder: t('comments.input_placeholder'), label: false, input_html: { class: "Comment" }
 
   = f.actions do
     = f.action :submit, as: :button,
-                        label: t('common.text.leave_comment'),
+                        label: t('comments.create'),
                         button_html: { class: "Button Comment" }
