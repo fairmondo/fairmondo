@@ -1,5 +1,4 @@
 class CartMailer < ActionMailer::Base
-  include Roadie::Rails::Automatic
 
   default from: $email_addresses['ArticleMailer']['default_from']
 
