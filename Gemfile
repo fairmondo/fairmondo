@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.1.1'
+gem 'rails', '~> 4.1.3'
 gem 'rails-observers' # observers got extracted since rails 4
 gem 'activerecord-session_store' # sessions in activerecord
 
@@ -53,6 +53,7 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'jquery-rails'
 gem 'historyjs-rails'
+gem 'rails-timeago'
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
 
@@ -99,6 +100,7 @@ gem 'newrelic_rpm',  group: [:production,:staging]
 gem 'fastbill-automatic', git: 'git://github.com/reputami/fastbill-automatic.git', tag: 'v0.0.3'
 
 gem 'savon' # interacing with other SOAP apis:
+gem 'rubyntlm' # https://github.com/savonrb/savon/issues/593
 
 # ---------- Development ----------
 

@@ -88,6 +88,7 @@ de:
         and: " und "
         by: "von"
         per: " pro "
+        ago: "vor %{time}"
 
   form:
     select_from_list: Bitte wähle aus der Liste aus
@@ -123,6 +124,7 @@ de:
     actions:
       create:
         notice: "%{resource_name} wurde erstellt."
+        alert: "%{resource_name} konnte nicht erstellt werden."
       update:
         notice: "%{resource_name} wurde aktualisiert."
       destroy:

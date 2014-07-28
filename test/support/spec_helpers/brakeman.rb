@@ -25,7 +25,6 @@ require 'json'
 def brakeman
   puts "\n\n[Brakeman] Security Audit:\n".underline
   output = %x( bundle exec rake test:brakeman )
-  puts output
   result = JSON.parse output
 
   warnings = result['warnings'].length

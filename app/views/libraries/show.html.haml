@@ -1,6 +1,7 @@
-= accordion_item "library"+resource.id.to_s, :title => library_header_layout(resource), :arrow => false do
-  %p
-    = render "library", :library => resource
+
+= library_header_layout(resource)
+= render "library_buttons", library: resource
+= render "library", library: resource
 
 
 -# Admin controls
@@ -8,8 +9,8 @@
   .Admin-controls
     %h2 Administration:
     %h3 Sammlung featuren
-    = semantic_form_for resource, url: user_library_path(resource.user, resource) do |f| #, method: :put
+    = semantic_form_for resource, url: user_library_path(resource.user, resource), html: { id: "select_exhibition_for_library#{resource.id}" } do |f| #, method: :put
       = f.inputs do
         = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
       = f.actions do
-        = f.action :submit, button_html: {class: "Btn"}
+        = f.action :submit, button_html: {class: "Btn", id: "select_exhibition_submit_action"} # this generates the same form id twice on that page, which is annoying
