@@ -57,12 +57,21 @@
   height: 5em;
   padding: 0.5em;
   display: inline-block;
-  maring-right: 0.2em;
+  margin-right: 0.2em;
   border-radius: 0.6em;
   background-color: white;
 }
 
 .library-actions {
-  margin-bottom: 1em;
+  margin: em(10) em(20);
 }
+
+.library-comments {
+  margin-top: 0.6rem;
+}
+
+details.open .library-comments {
+  display: none;
+}
+
 
