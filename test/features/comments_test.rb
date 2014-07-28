@@ -53,7 +53,6 @@ feature "comments for all users" do
     comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: library,
-                                 library: library,
                                  user: user)
 
     visit library_path(library)
@@ -72,7 +71,6 @@ feature "comments for all users" do
                                  10,
                                  text: "Test comment",
                                  commentable: library,
-                                 library: library,
                                  user: user)
 
     visit library_path(library)
@@ -101,7 +99,6 @@ feature "comments for all users" do
     comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: library,
-                                 library: library,
                                  user: user)
 
     visit library_path(library)
@@ -117,7 +114,6 @@ feature "comments for all users" do
     comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: library,
-                                 library: library,
                                  user: user)
 
     visit library_path(library)
@@ -136,7 +132,6 @@ feature "comments for all users" do
     comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: library,
-                                 library: library,
                                  user: user)
 
     visit library_path(library)
@@ -156,7 +151,6 @@ feature "comments for all users" do
     comment = FactoryGirl.create_pair(:comment,
                                       text: "Test comment",
                                       commentable: library,
-                                      library: library,
                                       user: user)
 
     visit libraries_path

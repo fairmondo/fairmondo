@@ -27,7 +27,7 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new(params.for(Feedback).refine)
     authorize @feedback
     @feedback.set_user_id current_user
-    @feedback.source_page = session[:source_page]
+    @feedback.source_page = session[:previous_urls].inspect
     @feedback.user_agent = request.env["HTTP_USER_AGENT"]
     flash[:notice] = I18n.t('article.actions.reported') if @feedback.save
     respond_with @feedback, location: -> { redirect_path }
@@ -36,7 +36,7 @@ class FeedbacksController < ApplicationController
   def new
     @feedback = Feedback.new
     @variety = params[:variety] || "send_feedback"
-    session[:source_page] = request.env["HTTP_REFERER"]
+    # session[:source_page] = request.env["HTTP_REFERER"] # probably not needed because of session[:previous_urls]
     authorize @feedback
     respond_with @feedback
   end

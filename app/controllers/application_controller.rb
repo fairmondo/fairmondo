@@ -33,6 +33,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
 
+  after_filter :store_location # browsing history
+
   protect_from_forgery
 
   helper :all
@@ -46,7 +48,7 @@ class ApplicationController < ActionController::Base
     elsif request.xhr? # AJAX request
       toolbox_reload_path
     else
-      stored_location_for(resource_or_scope) || user_path(resource_or_scope)
+      redirect_back_location || stored_location_for(resource_or_scope) || user_path(resource_or_scope)
     end
   end
 
@@ -118,5 +120,29 @@ class ApplicationController < ActionController::Base
         # if no user is logged in and there is a cart cookie but that cart can't be found / wasn't allowed
         cookies.delete :cart
       end
+    end
+
+    # visited urls history, for after login redirection and feedbacks
+    # @TODO prevent devise from clearing this after sign_out
+    def store_location
+      session[:previous_urls] ||= []
+      current_url_hash = { request.method => request.fullpath, "xhr" => !!request.xhr? }
+      if session[:previous_urls].first != current_url_hash # store unique requests only
+        session[:previous_urls].prepend current_url_hash
+      end
+      session[:previous_urls].pop if session[:previous_urls].count > 10 # store max 10
+    end
+
+    DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out"]
+    def redirect_back_location
+      session[:previous_urls] ||= []
+      session[:previous_urls].each do |url_hash|
+        method = url_hash.keys.first
+        url = url_hash[method]
+        if method == "GET" and !url_hash["xhr"] and !DISABLED_REDIRECT_URLS.include?(url)
+          return url
+        end
+      end
+      nil
     end
 end

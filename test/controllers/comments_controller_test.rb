@@ -26,14 +26,27 @@ require_relative "../test_helper"
 describe CommentsController do
   describe "GET comments on library" do
     before :each do
-      @library = FactoryGirl.create(:library)
+      @library = FactoryGirl.create(:library, public: true)
       @user = FactoryGirl.create(:user)
       @comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: @library,
-                                 library: @library,
                                  user: @user)
+    end
+
+    it "should return the comments of the library for guests" do
+      xhr(:get, :index, library_id: @library.id,
+                        comments_page: 1)
+
+      assert_response :success
+    end
+
+    it "should return the comments of the library for logged in users" do
       sign_in @user
+      xhr(:get, :index, library_id: @library.id,
+                        comments_page: 1)
+
+      assert_response :success
     end
   end
 
@@ -44,12 +57,25 @@ describe CommentsController do
       sign_in @user
     end
 
-    it "should allow posting using ajax" do
-      post :create, user: @user,
-                    comment: {text: "test"},
-                    library_id: @library.id,
-                    format: :js
-      assert_response :success
+    describe "with valid params" do
+      it "should allow posting using ajax" do
+        post :create, comment: { text: "test" },
+                      library_id: @library.id,
+                      format: :js
+
+        assert_response :success
+        assert_nil(assigns(:message))
+      end
+    end
+
+    describe "with invalid params" do
+      it "does not increase the comment count" do
+        assert_difference "@library.comments.count", 0 do
+          post :create, comment: { text: "test" },
+                        library_id: @library.id + 1,
+                        format: :js
+        end
+      end
     end
   end
 
@@ -61,16 +87,15 @@ describe CommentsController do
       @comment = FactoryGirl.create(:comment,
                                  text: "Test comment",
                                  commentable: @library,
-                                 library: @library,
                                  user: @user)
+    end
 
-      it "it should remove the comment" do
-        delete :destroy, user: @user,
-                          id: @comment.id,
-                          library_id: @library.id
+    it "it should remove the comment" do
+      delete :destroy, id: @comment.id,
+                       library_id: @library.id,
+                       format: :js
 
-        assert_response :success
-      end
+      assert_response :success
     end
   end
 end

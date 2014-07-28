@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     user
-    library
+    commentable { FactoryGirl.create :library }
     text "This is an example comment"
   end
 end
