@@ -62,10 +62,10 @@ class LibrariesController < ApplicationController
         respond_with @library
       else
         # Error code here
+        render "new"
       end
     end
   end
-
 
   def update
     authorize @library

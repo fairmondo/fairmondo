@@ -236,6 +236,13 @@ ul.category-selected-list {
   }
 }
 
+// Fragezeichen-Button
+.buyer-controls > .collect > .libraries > span.sprite_helper {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+}
+
 .buyer-controls > .collect > .libraries > ul {
   list-style: none;
   padding: 0em;
@@ -247,15 +254,11 @@ ul.category-selected-list {
   padding: 0.5em 0;
 }
 
-.buyer-controls > .collect > .libraries > h5 {
-  margin-top: 1em;
-  margin-bottom: 0;
+.buyer-controls > .collect > .libraries > h4 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-#new_library {
-  width: 21em;
-  height: 3em;
-}
 
 // Checkbox
 #library_public_input {
@@ -267,27 +270,23 @@ ul.category-selected-list {
 #library_name_input {
   position: absolute;
   left: 3em;
+
+  input {
+    width: 10em;
+  }
+}
+
+.formtastic.library {
+  width: 21em;
+  height: 3em;
 }
 
 // Plus-Button
-#new_library > .actions {
+.formtastic.library > .actions {
   position: absolute;
   left: 18em;
 }
 
-/*
-#library_public_input, #library_name_input {
-  float: left;
-}
-
-#new_library > .inputs, #new_library > .actions {
-  float: left;
-}
-
-#links_libraries {
-  clear: left;
-}
-*/
 
 
 // transform normal checkbox into font awesome eye
