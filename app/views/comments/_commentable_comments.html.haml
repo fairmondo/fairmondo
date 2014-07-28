@@ -2,15 +2,15 @@
   - if current_user
     = render "comments/new", comment: Comment.new, commentable: commentable
   - else
-    = t('common.text.login_to_comment')
+    .login-to-comment= t('comments.login_to_comment')
   - if commentable.comments.any?
     = render commentable.comments.order(created_at: :desc).page(comments_page)
     = link_to_next_page commentable.comments.order(created_at: :desc).page(comments_page),
-      t('common.text.morecomments'),
+      t('comments.more'),
       param_name: :comments_page,
       params: { :"#{commentable.class.to_s.parameterize}_id" => commentable.id, controller: "comments" },
       class: "next_link",
       remote: true
   - else
     #comments-empty
-      = t('common.text.no_comments')
+      = t('comments.no_comments')
