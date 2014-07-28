@@ -1,8 +1,5 @@
-commentable_selector = ''
-if ($('<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %>').length) {
-  <%# We are on the index page %>
-  commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> '
-}
+commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
+
 
 $(commentable_selector + '.Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
 
