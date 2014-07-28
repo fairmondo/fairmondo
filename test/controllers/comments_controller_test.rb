@@ -70,8 +70,8 @@ describe CommentsController do
       it "increases the counter cache" do
         assert_difference "@library.comments_count", 1 do
           post :create, comment: { text: "test" },
-                      library_id: @library.id,
-                      format: :js
+                        library_id: @library.id,
+                        format: :js
 
           @library.reload
 
@@ -89,10 +89,10 @@ describe CommentsController do
       end
 
       it "renders the new template" do
-          post :create, comment: { text: "" },
-                        library_id: @library.id + 1,
-                        format: :js
-          assert_template "new"
+        post :create, comment: { text: "" },
+                      library_id: @library.id + 1,
+                      format: :js
+        assert_template "new"
       end
     end
   end

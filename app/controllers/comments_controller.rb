@@ -16,7 +16,6 @@ class CommentsController < ApplicationController
       @comments = @comments.page(params[:comments_page])
       render partial: "comments/index_paginated"
     end
-
   end
 
   def create
