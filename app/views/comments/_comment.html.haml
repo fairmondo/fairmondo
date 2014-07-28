@@ -5,9 +5,10 @@
     = timeago_tag comment.created_at, lang: :de, class: "Timeago"
     = javascript_tag "$('.Timeago').timeago();" if request.xhr? # refresh timeago evaluation
     - if comment.id && policy(comment).destroy?
-      .delete= link_to t('comments.delete'),
-        library_comment_path(comment.commentable, comment),
-        method: :delete,
-        remote: true
+      .delete
+        = link_to library_comment_path(comment.commentable, comment),
+          method: :delete,
+          remote: true do
+          %i.fa.fa-times
   .text
-    = comment.text
+    = simple_format h(comment.text)
