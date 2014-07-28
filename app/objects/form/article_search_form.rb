@@ -201,10 +201,8 @@ class ArticleSearchForm
   def format_price_range
     if price_given?(:from) && price_given?(:to)
       "#{self.price_from} - #{self.price_to}"
-    elsif price_given?(:from) && !price_given(:from)
+    elsif price_given?(:from) && !price_given?(:to)
       "> #{self.price_from}"
-    elsif price_given?(:to) && !price_given(:to)
-      "< #{self.price_to}"
     else
       nil
     end
