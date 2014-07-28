@@ -129,8 +129,9 @@
                 = f.input :name, :label => false, :placeholder => 'Neue Sammlung'
               = f.actions do
                 = f.action :submit, :label => '+', :button_html => {:class => "Button"}
-            %p#link_libraries
-              = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
+            %ul#links_libraries
+              %li
+                = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
 
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")

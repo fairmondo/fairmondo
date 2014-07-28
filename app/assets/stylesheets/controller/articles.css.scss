@@ -222,7 +222,7 @@ ul.category-selected-list {
 }
 
 .buyer-controls > .collect > .libraries {
-  min-width: 25em;
+  min-width: 21em;
   display:none;
   background-color:white;
   box-shadow: $sand 0px 0px 2px 2px;
@@ -252,14 +252,30 @@ ul.category-selected-list {
   margin-bottom: 0;
 }
 
-// new library form
-//#new_library > form > fieldset.inputs > ol > li
-//{
-//  display: inline-block;
-//  padding: 0;
-//  margin: 0;
-//}
+#new_library {
+  width: 21em;
+  height: 3em;
+}
 
+// Checkbox
+#library_public_input {
+  position: absolute;
+  left: 1em;
+}
+
+// Textfeld
+#library_name_input {
+  position: absolute;
+  left: 3em;
+}
+
+// Plus-Button
+#new_library > .actions {
+  position: absolute;
+  left: 18em;
+}
+
+/*
 #library_public_input, #library_name_input {
   float: left;
 }
@@ -268,9 +284,11 @@ ul.category-selected-list {
   float: left;
 }
 
-#link_libraries {
+#links_libraries {
   clear: left;
 }
+*/
+
 
 // transform normal checkbox into font awesome eye
 //input[type=checkbox] { display:none; } /* to hide the checkbox itself */

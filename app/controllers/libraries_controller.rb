@@ -45,10 +45,10 @@ class LibrariesController < ApplicationController
   def create
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
-    
+
     # Library speichern
     was_saved = @library.save
-    
+
     unless request.xhr?
       # Normal response
       if was_saved
@@ -60,8 +60,8 @@ class LibrariesController < ApplicationController
       # AJAX response
       if was_saved
         respond_with @library
-      #elsif
-      # Error code here
+      else
+        # Error code here
       end
     end
   end
