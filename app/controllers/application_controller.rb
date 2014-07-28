@@ -123,6 +123,7 @@ class ApplicationController < ActionController::Base
 
     DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out"]
     def redirect_back_location
+      session[:previous_urls] ||= []
       session[:previous_urls].each do |url_hash|
         method = url_hash.keys.first
         url = url_hash[method]
