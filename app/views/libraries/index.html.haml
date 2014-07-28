@@ -37,6 +37,9 @@
         %details{id: "library#{library.id.to_s}"}
           %summary
             = library_header_layout(library)
+            - if library.comments.size > 0
+              .library-comments
+                = render library.comments.order(created_at: :desc).limit(2)
           .details
             = render "library_buttons", library: library
             .library-elements
