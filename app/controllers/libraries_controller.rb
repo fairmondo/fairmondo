@@ -67,6 +67,7 @@ class LibrariesController < ApplicationController
     end
   end
 
+
   def update
     authorize @library
     if @library.update(params.for(@library).refine)
