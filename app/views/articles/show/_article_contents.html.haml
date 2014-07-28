@@ -98,14 +98,13 @@
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
             = t('common.actions.collect')
           .libraries.JS-active-toggle--target
-            in Sammlung:
             %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
             -# List all public libraries of the user
             - public_libraries = current_user.libraries.select do |l|
               - l.public
-            %h5
-              Öffentlich
+            %h4
               %i.fa.fa-eye
+              Zu öffentlicher Sammlung hinzufügen
             %ul#public_libraries
               - public_libraries.each do |library|
                 %li
@@ -114,21 +113,15 @@
             -# List all private libraries of the user
             - private_libraries = current_user.libraries.select do |l|
               - !l.public
-            %h5
-              Privat
+            %h4
               %i.fa.fa-eye-slash
+              Zu privater Sammlung hinzufügen
             %ul#private_libraries
               - private_libraries.each do |library|
                 %li
                   = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
 
-            = semantic_form_for @library, :url => user_libraries_path(current_user), remote: true do |f|
-              = f.inputs do
-                = f.input :public, :label => '&nbsp;'
-                / i18n_lookups_by_default??
-                = f.input :name, :label => false, :placeholder => 'Neue Sammlung'
-              = f.actions do
-                = f.action :submit, :label => '+', :button_html => {:class => "Button"}
+            = render "/libraries/library_form"
             %ul#links_libraries
               %li
                 = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
@@ -199,6 +192,7 @@
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
+
 
 
 
