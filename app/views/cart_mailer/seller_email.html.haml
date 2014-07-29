@@ -2,42 +2,50 @@
   = stylesheet_link_tag 'application'
 %body
 .Content
-  %a{:href => "https://www.fairnopoly.de"}
-    %span.sprite_logo
   %h1
     Dein Verkauf auf Fairnopoly
 
-  Herzlichen Glückwunsch, Du hast erfolgreich Artikel auf Fairnopoly verkauft.
+  = "Hallo #{@line_item_group.seller.nickname},"
+  %p
+    Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
+    Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
 
-  %table
-    %thead
-      %tr
-        %th
-          Transaktionsnr
-        %th
-          Artikel
-        %th
-          Anzahl
-        %th
-          Preis
-        %th
-          Gesamtpreis
-      %tbody
-        - @line_item_group.business_transactions.find_each do |bt|
-          %tr
-            %td
-              = bt.id
-            %td
-              = bt.article.title
-            %td
-              = bt.quantity_bought
-            %td
-              = bt.article.price
-            %td
-              = bt.quantity_bought * bt.article.price
+  %p
+    Hier kannst Du Dir Deinen Auftrag ansehen:
+    = link_to "Auftrag Nr: #{@line_item_group.id}", line_item_group_path(@line_item_group.id)
+
+  - fee, fair, total = Money.new(0), Money.new(0), Money.new(0)
+  - @line_item_group.business_transactions.group_by(&:selected_transport).each do |transport, bts|
+    %h4
+      = "#{transport}:"
+    - bts.each do |bt|
+      - fee += bt.quantity_bought * bt.article_calculated_fee
+      - fair += bt.quantity_bought * bt.article_calculated_fair
+      - total += bt.quantity_bought * bt.article_price
+      = render 'article', bt: bt
+
+  %br
+  = "Deine Gebühren: #{fee}"
+  %br
+  = "Dein Faires Prozent: #{fair}"
+  %br
+  = "Deine Gesamteinnahmen: #{total}"
+
+  - if @line_item_group.message
+    .Content
+      %h4
+        Nachricht des/der Käufer*in:
+      = @line_item_group.message
+
 
   Bitte verschicke die Artikel an:
 
   .Grid
-    = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address, title: 'Lieferadresse'
-    = render 'addresses/address', address: @line_item_group.business_transactions.first.payment_address, title: 'Rechnungsadresse'
+    - if @line_item_group.transport_address == @line_item_group.payment_address
+      = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address, title: 'Versand- und Lieferadresse:'
+    - else
+      = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address, title: 'Lieferadresse:'
+      = render 'addresses/address', address: @line_item_group.business_transactions.first.payment_address, title: 'Rechnungsadresse:'
+
+.footer
+  Hier kommt der footer hin

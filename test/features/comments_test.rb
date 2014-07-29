@@ -32,8 +32,8 @@ feature "comments for all users" do
     visit library_path(library)
 
     within(".Comments-section") do
-      page.must_have_content("Du kannst keine Kommentare erstellen.")
-      page.wont_have_content("Kommentar erstellen")
+      page.must_have_content(I18n.t('comments.login_to_comment'))
+      page.wont_have_content(I18n.t('comments.create'))
     end
   end
 
@@ -43,7 +43,7 @@ feature "comments for all users" do
     visit library_path(library)
 
     within(".Comments-section") do
-      page.must_have_content("Keine Kommentare")
+      page.must_have_content(I18n.t('comments.no_comments'))
     end
   end
 
@@ -104,7 +104,7 @@ feature "comments for all users" do
     visit library_path(library)
 
     within(".Comments-section") do
-      page.must_have_content("Kommentar löschen")
+      page.must_have_selector(".fa-times")
     end
   end
 

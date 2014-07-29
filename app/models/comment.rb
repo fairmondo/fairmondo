@@ -21,13 +21,13 @@
 #
 class Comment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
 
   delegate :image_url, :nickname, to: :user, prefix: true
 
   validates :commentable, presence: true
   validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 255 }
+  validates :text, presence: true, length: { maximum: 240 }
 
   paginates_per 5
 end
