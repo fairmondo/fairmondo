@@ -22,7 +22,6 @@
 #
 class LibrariesController < ApplicationController
   respond_to :html
-  respond_to :js, only: :create, if: lambda { request.xhr? }
 
   before_filter :set_user, if: :user_focused?, only: :index
   before_filter :set_library, only: [:show, :update, :destroy]
@@ -46,24 +45,14 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
 
-    # Library speichern
-    was_saved = @library.save
-
-    unless request.xhr?
-      # Normal response
-      if was_saved
-        redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
+    # Both .js responses are only for the articles view!
+    respond_with @library do |format|
+      if @library.save
+        format.html { redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}") }
+        format.js
       else
-        redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
-      end
-    else
-      # AJAX response
-      #debugger
-      if was_saved
-        respond_with @library
-      else
-        # Error code here
-        render :new
+        format.html { redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first }
+        format.js { render :new }
       end
     end
   end
