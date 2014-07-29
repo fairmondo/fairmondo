@@ -1,4 +1,4 @@
-require "test_helper"
+require_relative "../test_helper"
 
 def test_sanitize_mce field, admin = false
    Sanitization.send('sanitize_tiny_mce', field, admin)

@@ -2,7 +2,8 @@
   - @cart.line_item_groups.each do |group|
     .seller
       %p
-        Deine Bestellung bei #{link_to group.seller_nickname, user_path(group.seller)}
+        = t('cart.texts.your_order_for')
+        = link_to group.seller_nickname, user_path(group.seller)
       .thumbnails
         - group.line_items.map(&:article).each do |article|
           = image_tag(article.title_image_url_thumb)
@@ -10,4 +11,15 @@
         Versandmethode: #{group.unified_transport}
         Bezahlmethode: #{group.unified_payment}
 
-= button_to 'Fabindlich koofen', cart_path(@cart, checkout: true), method: :patch, class: 'Button'
+  .adresses
+    .Grid
+      = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: 'Deine Lieferadresse'
+      = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Deine Rechnungsadresse'
+
+  .prices
+    - @cart.line_item_groups.each do |group|
+      - group.business_transactions.each do |bt|
+        = bt
+
+
+= button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
