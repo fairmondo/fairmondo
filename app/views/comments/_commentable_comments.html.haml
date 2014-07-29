@@ -4,7 +4,7 @@
   - else
     .login-to-comment= t('comments.login_to_comment')
   - if commentable.comments.any?
-    = render commentable.comments.order(created_at: :desc).page(comments_page)
+    .comments= render commentable.comments.order(created_at: :desc).page(comments_page)
     = link_to_next_page commentable.comments.order(created_at: :desc).page(comments_page),
       t('comments.more'),
       param_name: :comments_page,
