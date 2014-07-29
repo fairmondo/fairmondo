@@ -34,7 +34,7 @@ class ArticleSearchForm
 
 
   def searched_category category_id = self.category_id
-    @searched_category ||= Category.includes(:children).find(category_id) rescue nil
+    @searched_category ||= Category.includes(:children).find(category_id.to_i) rescue nil
   end
 
 
@@ -54,11 +54,11 @@ class ArticleSearchForm
             should { term :gtin, query.q, :boost => 100 }
 
           end
-          must { term :fair,true } if query.fair
+          must { term :fair, true } if query.fair
           must { term :ecologic, true } if query.ecologic
           must { term :small_and_precious, true } if query.small_and_precious
           must { term :condition, query.condition}  if query.condition
-          must { term :zip,query.zip } if query.zip.present?
+          must { prefix :zip, query.zip } if query.zip.present?
           must { range :price, query.price_range }
         end
       end
@@ -201,10 +201,8 @@ class ArticleSearchForm
   def format_price_range
     if price_given?(:from) && price_given?(:to)
       "#{self.price_from} - #{self.price_to}"
-    elsif price_given?(:from)
+    elsif price_given?(:from) && !price_given?(:to)
       "> #{self.price_from}"
-    elsif price_given?(:to)
-      "< #{self.price_to}"
     else
       nil
     end
