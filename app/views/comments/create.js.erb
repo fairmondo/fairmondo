@@ -1,5 +1,6 @@
 commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
 
+$(commentable_selector + '.Comments-section form').replaceWith($("<%= j render(partial: "new", locals: { comment: @comment, commentable: @commentable} ) %>"));
 
 $(commentable_selector + '.Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
 
