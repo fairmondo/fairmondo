@@ -38,5 +38,6 @@
 
   Bitte verschicke die Artikel an:
 
-  = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address
-  = render 'addresses/address', address: @line_item_group.business_transactions.first.payment_address
+  .Grid
+    = render 'addresses/address', address: @line_item_group.business_transactions.first.transport_address, title: 'Lieferadresse'
+    = render 'addresses/address', address: @line_item_group.business_transactions.first.payment_address, title: 'Rechnungsadresse'
