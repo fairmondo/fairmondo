@@ -2,3 +2,5 @@ commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentabl
 
 $('.commentable_<%= @commentable.id %>_comment_<%= @comment.id %>').remove();
 $(commentable_selector + '.Comments-count').replaceWith('<%= j comments_counter(@commentable) %>');
+
+document.Fairnopoly.copyCommentsToPreview(commentable_selector)
