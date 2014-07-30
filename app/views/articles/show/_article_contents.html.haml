@@ -105,13 +105,13 @@
               - libraries_public.each do |library|
                 %li
                   %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                    %i.fa.fa-eye.fa-lg
+                    %i.fa.fa-eye.fa-lg{title: 'Öffentliche Sammlung'}
                     = library.name
             %ul#libraries_private
               - libraries_private.each do |library|
                 %li
                   %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                    %i.fa.fa-eye-slash.fa-lg
+                    %i.fa.fa-eye-slash.fa-lg{title: 'Private Sammlung'}
                     = library.name
 
             = render "/libraries/library_form", library: current_user.libraries.build

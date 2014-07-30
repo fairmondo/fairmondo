@@ -251,62 +251,67 @@ ul.category-selected-list {
 .buyer-controls > .collect > .libraries > ul > li {
   list-style: none;
   margin: 0;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0.5em 0.3em;
 }
 
-
-// Listen mit Augen
-ul.libraries_list > li {
-  padding-left: 1.2em;
+.buyer-controls > .collect > .libraries > ul > li > a > i {
+  margin-right: 0.5em;
 }
 
+// Formular
 
-// Checkbox
-#library_public_input {
-  position: absolute;
-  left: 1em;
+.formtastic.library {
+  margin-top: 0.5em;
+}
+
+// Auge
+#eye_checkbox {
+  color: $light-blue;
+  margin-right: 0.2em;
+  float: left;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+#eye_checkbox.eye-checked {
+  color: $blue;
 }
 
 // Textfeld
 #library_name_input {
-  position: absolute;
-  left: 3em;
+  float: left;
+  margin: 0 0.2em;
+  padding: 0;
 
-  input {
-    width: 10em;
+  input, p {
+    width: 14.5em;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
-.formtastic.library {
-  width: 21em;
-  height: 3em;
+.formtastic.library > .inputs {
+  float: left;
 }
 
 // Plus-Button
 .formtastic.library > .actions {
-  position: absolute;
-  left: 18em;
+  float: left;
+  margin: 0;
 }
+
 
 // Link zu Sammlungen
-#libraries_links > li {
-  text-align: right;
+#libraries_links {
+  padding-top: 0.75em;
+  clear: left;
+
+  li {
+    text-align: right;
+  }
 }
-
-
-
-// transform normal checkbox into font awesome eye
-input#library_public { display:none; } /* to hide the checkbox itself */
-
-//input[type=checkbox] + ins:before {
-//  font-family: FontAwesome;
-//  display: inline-block;
-//}
-
-//input[type=checkbox] + ins:before { content: "\f070"; } /* unchecked icon */
-//input[type=checkbox] + ins:before { letter-spacing: 10px; } /* space between checkbox and label */
-//input[type=checkbox]:checked + ins:before { content: "\f06e"; } /* checked icon */
-//input[type=checkbox]:checked + ins:before { letter-spacing: 5px; } /* allow space for check mark */
 
 
 // social buttons
