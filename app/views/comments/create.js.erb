@@ -2,7 +2,7 @@ commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentabl
 
 $(commentable_selector + '.Comments-section form').replaceWith($("<%= j render(partial: "new", locals: { comment: @new_comment, commentable: @commentable} ) %>"));
 
-$(commentable_selector + '.Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
+$(commentable_selector + '.Comments-section .comments').prepend($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
 
 $(commentable_selector + '#comment_text').val("");
 
