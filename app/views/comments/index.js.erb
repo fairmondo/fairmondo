@@ -1,4 +1,4 @@
-commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
+commentable_selector = '<%= ".#{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
 
 $(commentable_selector + '.Comments-section .Comment-single').remove();
 
