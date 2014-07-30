@@ -20,6 +20,12 @@ de:
       bought: "Alle gekauften Artikel als CSV exportieren"
       error_articles: "Fehlerhafte Artikel als CSV exportieren"
   article:
+    commendations:
+      fair: "fair"
+      ecologic: "öko"
+      small_and_precious: "klein&edel"
+      swappable: "tauschbar"
+      borrowable: "leihbar"
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
