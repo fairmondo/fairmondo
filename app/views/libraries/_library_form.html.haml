@@ -1,6 +1,8 @@
+-# This is the form for the articles/show view
 = semantic_form_for library, :url => user_libraries_path(current_user), remote: true do |f|
   = f.inputs do
-    = f.input :public, :label => '&nbsp;'
+    %i.fa.fa-eye.fa-2x#eye_checkbox
+    = f.input :public, :label => '', as: :hidden
     / i18n_lookups_by_default??
     = f.input :name, :label => false, :placeholder => 'Neue Sammlung'
   = f.actions do
