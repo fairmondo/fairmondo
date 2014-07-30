@@ -1,5 +1,5 @@
 tooltip = ->
-	$("span.sprite_helper").qtip
+	$("span.sprite_helper, .Qtip").qtip
   	content:
       text: false
   	style:
