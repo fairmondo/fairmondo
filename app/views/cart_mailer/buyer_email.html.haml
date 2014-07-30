@@ -1,14 +1,71 @@
 %html
   %head
-    = stylesheet_link_tag 'application'
-
+    = stylesheet_link_tag 'email/email'
   %body
-    .Content
-      %h1
-        = "Dein Einkauf bei #{ @cart.line_item_groups.first.seller.nickname } vom #{ @cart.created_at.strftime('%d.%m.%Y um %H:%M') }"
-      Vielen Dank für Deinen Einkauf auf Fairnopoly.
 
-    .Listview
-      - @cart.line_item_groups.each do |lig|
-        = render 'line_item_groups/shared/line_item_group', line_item_group: lig, current_user: @cart.user
+    .l-container
+      .l-header
+        .l-header-left
+          = image_tag attachments['logo-small.png'].url
+        .l-header-right
+          = link_to 'Fairnopoly unterstützen', 'https://fairnopoly.de', class: 'Button'
+
+      .l-main
+        .l-content-wrapper
+          .l-content
+            %h1
+              = "Dein Einkauf auf Fairnopoly"
+            = "Hallo #{@cart.user.first_name},"
+            %p
+              Vielen Dank für Deinen Einkauf auf Fairnopoly.
+
+            .Listview
+              - @cart.line_item_groups.find_each do |lig|
+                - lig.business_transactions.find_each do |bt|
+                  Artikel
+                -#= render 'line_item_groups/shared/line_item_group', line_item_group: lig, current_user: @cart.user
+
+        .l-sidebar
+          = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: 'Lieferadresse'
+          = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Rechnungsadresse'
+          %hr
+          = link_to 'Wir auf Facebook', 'https://facebook.com/fairnopoly', class: 'Button'
+          = link_to 'Wir auf Pinterest', 'https://pinterest.com', class: 'Button'
+          = link_to 'Wir auf twitter', 'https://twitter.com', class: 'Button'
+          %hr
+          %p
+            Kontakt:
+            %br
+            Fairnopoly eG
+            %br
+            Glogauer Str. 21
+            %br
+            10999 Berlin
+      .l-footer
+        .l-footer-left
+          = image_tag attachments['logo-small.png'].url
+        .l-footer-middle
+          %ul
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
+        .l-footer-right
+          %ul
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
+            %li
+              Links
 

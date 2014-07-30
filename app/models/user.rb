@@ -161,6 +161,13 @@ class User < ActiveRecord::Base
     nickname
   end
 
+  # Return user first name
+  # @api return
+  # @public [String]
+  def first_name
+    standard_address_first_name
+  end
+
   # Compare IDs of users
   # @api public
   # @param user [User] Usually current_user
