@@ -1,12 +1,13 @@
 commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
 
-$(commentable_selector + '.Comments-section form').replaceWith($("<%= j render(partial: "new", locals: { comment: @comment, commentable: @commentable} ) %>"));
+$(commentable_selector + '.Comments-section form').replaceWith($("<%= j render(partial: "new", locals: { comment: @new_comment, commentable: @commentable} ) %>"));
 
-$(commentable_selector + '.Comments-section form').after($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
+$(commentable_selector + '.Comments-section .comments').prepend($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
 
 $(commentable_selector + '#comment_text').val("");
 
-$(commentable_selector + '#comments-empty').html("");
+$(commentable_selector + '.comments-empty').html("");
 
 $(commentable_selector + '.Comments-count').replaceWith('<%= j comments_counter(@commentable) %>');
 
+document.Fairnopoly.copyCommentsToPreview(commentable_selector)
