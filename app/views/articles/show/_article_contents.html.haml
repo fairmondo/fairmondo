@@ -103,7 +103,6 @@
               - current_user.libraries.each do |library|
                 %li
                   = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
-
       - elsif user_signed_in? && resource.active?
         = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
       - if policy(resource.business_transaction).edit?
@@ -112,6 +111,11 @@
         .Button.Button--disabled= t 'common.actions.to_cart'
         %p
           %strong= t 'users.states.vacationing'
+      - if resource.active?
+        .control-links
+          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: js_no_action
+          = '/'
+          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: js_no_action
 
 
 .social#socialshareprivacy
