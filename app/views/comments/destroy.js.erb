@@ -1,1 +1,4 @@
-$('#commentable_<%= commentable_id %>_comment_<%= comment_id %>').remove();
+commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentable.id}" %> ';
+
+$('#commentable_<%= @commentable.id %>_comment_<%= @comment.id %>').remove();
+$(commentable_selector + '.Comments-count').replaceWith('<%= j comments_counter(@commentable) %>');

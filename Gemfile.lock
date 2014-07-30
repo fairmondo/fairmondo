@@ -213,6 +213,7 @@ GEM
     hirb (0.7.2)
     historyjs-rails (1.0.1)
       railties (>= 3.0)
+    htmlentities (4.3.2)
     httpi (2.2.4)
       rack
     i18n (0.6.11)
@@ -310,6 +311,12 @@ GEM
       jsonschema (~> 2.0.0)
     pg (0.17.1)
     polyglot (0.3.5)
+    premailer (1.8.2)
+      css_parser (>= 1.3.5)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.7.0)
+      actionmailer (>= 3, < 5)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -401,12 +408,6 @@ GEM
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    roadie (3.0.0)
-      css_parser (~> 1.3.4)
-      nokogiri (~> 1.6.0)
-    roadie-rails (1.0.2)
-      rails (>= 3.0, < 4.2)
-      roadie (~> 3.0)
     ruby-graphviz (1.0.9)
     ruby-progressbar (1.5.1)
     ruby2ruby (2.0.8)
@@ -604,6 +605,7 @@ DEPENDENCIES
   paperclip (>= 3.0)
   paypal_adaptive
   pg
+  premailer-rails
   pry-byebug
   pry-rails
   pry-stack_explorer
@@ -620,7 +622,6 @@ DEPENDENCIES
   rake
   recaptcha
   responders
-  roadie-rails
   rubyntlm
   sanitize
   savon

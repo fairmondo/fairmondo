@@ -2,7 +2,7 @@
   comment],
   remote: true,
   html: {id: "new_comment_#{commentable.id}"}) do |f|
-  = f.input :text, placeholder: t('comments.input_placeholder'), label: false, input_html: { class: "Comment" }
+  = f.input :text, placeholder: t('comments.input_placeholder'), label: false, input_html: { class: "Comment", rows: 2 }
 
   = f.actions do
     = f.action :submit, as: :button,
