@@ -56,7 +56,13 @@ module Fairnopoly
 
     # Activate observers that should always be running.
 
-    config.active_record.observers = [:article_observer,:feedback_observer,:business_transaction_observer,:user_observer,:library_element_observer,:refund_observer]
+    config.active_record.observers = [:article_observer,
+                                      :feedback_observer,
+                                      :business_transaction_observer,
+                                      :user_observer,
+                                      :library_element_observer,
+                                      :refund_observer,
+                                      :image_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
