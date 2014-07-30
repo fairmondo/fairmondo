@@ -14,6 +14,8 @@ class ArticleSearchForm
   attribute :fair, BooleanFromParams
   attribute :ecologic, BooleanFromParams
   attribute :small_and_precious, BooleanFromParams
+  attribute :swappable, BooleanFromParams
+  attribute :borrowable, BooleanFromParams
 
   attribute :condition, String
   enumerize :condition, in: [:new, :old]
@@ -57,6 +59,8 @@ class ArticleSearchForm
           must { term :fair, true } if query.fair
           must { term :ecologic, true } if query.ecologic
           must { term :small_and_precious, true } if query.small_and_precious
+          must { term :swappable, true } if query.swappable
+          must { term :borrowable, true } if query.borrowable
           must { term :condition, query.condition}  if query.condition
           must { prefix :zip, query.zip } if query.zip.present?
           must { range :price, query.price_range }

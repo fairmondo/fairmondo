@@ -95,6 +95,8 @@ class Article < ActiveRecord::Base
       indexes :fair, :type => 'boolean'
       indexes :ecologic, :type => 'boolean'
       indexes :small_and_precious, :type => 'boolean'
+      indexes :swappable, :type => 'boolean'
+      indexes :borrowable, :type => 'boolean'
       indexes :condition
       indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
 
