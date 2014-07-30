@@ -32,7 +32,7 @@ feature "comments for all users" do
     visit library_path(library)
 
     within(".Comments-section") do
-      page.must_have_content(I18n.t('comments.login_to_comment'))
+      page.must_have_content(I18n.t('comments.login_to_comment', href: I18n.t('comments.login_href')))
       page.wont_have_content(I18n.t('comments.create'))
     end
   end
