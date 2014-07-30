@@ -1,0 +1,131 @@
+/*
+These styles are used for emails only
+*/
+
+@import "mixins/all";
+@import "modules/button"; // Buttons
+@import "modules/tag"; // small eco/fair/s&p tags
+@import "modules/address"; // an address tile
+@import "modules/address"; // an address tile
+@import "modules/listview"; // listview articles and transactions
+
+html,body {
+  height: 100%;
+  min-width:300px;
+  font-family: $base-font-body;
+  font-size: $base-font-size;
+  margin:0;
+  padding:0;
+  color: $black;
+  @include color-links($blue,$blue);
+  @include clear-links-with-hover;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.3rem;
+}
+h4 {
+  font-weight: 700;
+}
+
+hr {
+  border-color: $lighter-gray;
+}
+
+.l-container {
+  max-width: 650px;
+}
+
+.l-header {
+  height: 5em;
+  padding: 1em;
+  background: $sand;
+  margin-bottom: 1em;
+}
+
+.l-header > .l-header-left {
+  @include span(1 of 4);
+  @include clearfix;
+  float: left;
+}
+
+.l-header > .l-header-right {
+  @include span(1 of 4);
+  @include omega;
+  float: right;
+}
+
+.l-main {
+}
+
+.l-main > .l-content-wrapper {
+  @include span(11 of 16);
+  float: left;
+}
+
+.l-main > .l-content-wrapper > .l-content {
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  padding: em(10) em(20);
+}
+
+.l-main > .l-sidebar {
+  @include span(5 of 16);
+  @include omega;
+  float: right;
+  margin-bottom: 1em;
+}
+
+.l-footer {
+  height: 10em;
+  clear: both;
+  background: $sand;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.l-footer > .l-footer-left {
+  @include span(1 of 3);
+}
+
+.l-footer > .l-footer-middle {
+  @include span(1 of 3);
+}
+
+
+.l-footer > .l-footer-right {
+  @include span(1 of 3);
+  @include omega;
+}
+
+.l-footer > .l-footer-middle > ul, .l-footer > .l-footer-right > ul {
+  margin-top: 0;
+  list-style: none;
+
+  li {
+    padding-bottom: 0.5em;
+  }
+}
+
+/* Address overwrite */
+.Address {
+  margin-bottom: 0.5em;
+}
+
+.sidebar-contact {
+  @include whitebox;
+}
