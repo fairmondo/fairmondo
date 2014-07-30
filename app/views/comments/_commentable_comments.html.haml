@@ -12,10 +12,11 @@
         params: { :"#{commentable.class.to_s.parameterize}_id" => commentable.id, controller: "comments" },
         class: "next_link",
         remote: true
-      = link_to t('comments.all'),
-        library_comments_path(commentable),
-        class: "all_link",
-        remote: true
+      - if commentable.comments_count > Comment.default_per_page
+        = link_to t('comments.all'),
+          library_comments_path(commentable),
+          class: "all_link",
+          remote: true
     - else
       .comments-empty
         = t('comments.no_comments')
