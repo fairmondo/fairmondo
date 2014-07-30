@@ -43,6 +43,8 @@ de:
       buy: "Kaufen"
       to_cart: "Kaufen"
       collect: "Sammeln"
+      borrow: "Ausleihen"
+      swap: "Tauschen"
       move: "Verschieben"
       send: 'Absenden'
       more: "mehr"

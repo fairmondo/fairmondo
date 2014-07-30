@@ -127,4 +127,7 @@ module ArticlesHelper
     !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
+  def js_no_action
+    'this.preventDefault; return false'
+  end
 end
