@@ -28,6 +28,8 @@ class CommentsController < ApplicationController
     authorize @comment
 
     if @comment.save
+      # if save was successful, please create a new comment object to render the input form with
+      @new_comment = Comment.new
       render :create
     else
       render :new, comment: @comment, commentable: @commentable
