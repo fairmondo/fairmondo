@@ -1,4 +1,4 @@
-.Comment-single{id: "commentable_#{comment.commentable_id}_comment_#{comment.id}"}
+.Comment-single{class: "commentable_#{comment.commentable_id}_comment_#{comment.id}"}
   = image_tag comment.user_image_url(:profile), class: "author_image"
   .meta
     = link_to comment.user_nickname, profile_user_path(comment.user)
