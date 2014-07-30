@@ -19,6 +19,15 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 ###
+
+# This function copies the first two comments to the comment preview for a given commentable (library)
+#
+document.Fairnopoly.copyCommentsToPreview = (commentable_selector) ->
+  commentable = $(commentable_selector)
+  first_two_comments = $(commentable_selector + ".Comments-section .Comment-single:lt(2)").clone()
+  preview_element = $(commentable_selector + '.library-comments')
+  preview_element.html(first_two_comments)
+
 $(document).ready ->
   $('.js-library-settings').hide()
   $('.js-library-show-settings').click (e) =>
