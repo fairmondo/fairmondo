@@ -93,7 +93,6 @@ ul.category-selected-list {
 
 @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
 
-
  .seller,.sidebar {
     @include span(1 of 2 0.1);
   }
@@ -239,24 +238,26 @@ ul.category-selected-list {
 // Fragezeichen-Button
 .buyer-controls > .collect > .libraries > span.sprite_helper {
   position: absolute;
-  top: 0.2em;
-  right: 0.2em;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 .buyer-controls > .collect > .libraries > ul {
   list-style: none;
-  padding: 0em;
-  margin: 0em;
+  padding: 0;
+  margin: 0;
 }
 
 .buyer-controls > .collect > .libraries > ul > li {
-  white-space: nowrap;
-  padding: 0.5em 0;
+  list-style: none;
+  margin: 0;
+  padding: 0.5em;
 }
 
-.buyer-controls > .collect > .libraries > h4 {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+
+// Listen mit Augen
+ul.libraries_list > li {
+  padding-left: 1.2em;
 }
 
 
@@ -286,6 +287,12 @@ ul.category-selected-list {
   position: absolute;
   left: 18em;
 }
+
+// Link zu Sammlungen
+#libraries_links > li {
+  text-align: right;
+}
+
 
 
 // transform normal checkbox into font awesome eye

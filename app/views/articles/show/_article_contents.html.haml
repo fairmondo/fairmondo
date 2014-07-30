@@ -97,21 +97,25 @@
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
             = t('common.actions.collect')
           .libraries.JS-active-toggle--target
-            in Sammlung:
+            Zu Sammlung hinzufügen:
             %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            %ul
-              - current_user.libraries.each do |library|
+            - libraries_public = current_user.libraries.select { |lib| lib.public }
+            - libraries_private = current_user.libraries.select { |lib| !lib.public }
+            %ul#libraries_public
+              - libraries_public.each do |library|
                 %li
                   %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                    -# Eye to signify library status - public or private
-                    - if library.public
-                      %i.fa.fa-eye
-                    - else
-                      %i.fa.fa-eye-slash
+                    %i.fa.fa-eye.fa-lg
+                    = library.name
+            %ul#libraries_private
+              - libraries_private.each do |library|
+                %li
+                  %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+                    %i.fa.fa-eye-slash.fa-lg
                     = library.name
 
             = render "/libraries/library_form", library: current_user.libraries.build
-            %ul#links_libraries
+            %ul#libraries_links
               %li
                 = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
 

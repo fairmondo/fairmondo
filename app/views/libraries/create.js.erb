@@ -1,3 +1,2 @@
-$("#<%= @library.public ? 'public_libraries' : 'private_libraries' %>").append("<li><%= escape_javascript(link_to(@library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: @library.id}), method: :post)) %></li>");
+$("#libraries_<%= @library.public ? 'public' : 'private' %>").append("<li><a href=\"<%= escape_javascript(user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: @library.id})) %>\" rel=\"nofollow\" data-method=\"post\"><i class=\"fa fa-eye<%= '-slash ' unless @library.public %> fa-lg\"></i>\n<%= @library.name %>\n</a></li>");
 $("form#new_library").replaceWith("<%= escape_javascript render '/libraries/library_form', library: Library.new %>");
-
