@@ -23,25 +23,28 @@
 .user
   = render '/users/profile_img', user: @user
 .ratings
-  - @ratings.each do |rating|
-    .rating
-      .image
-        %span{class: "sprite_#{rating.value}" }
-      .quote
-        - if rating.text.empty?
-          %p
-            %a{:href => user_path(rating.rating_user)}
-              = rating.rating_user.nickname
-            = " am #{l rating.created_at, format: :short}"
-        - else
-          %p
-            %a{:href => user_path(rating.rating_user)}
-              = rating.rating_user.nickname
-            = " schrieb am #{l rating.created_at, format: :short}:"
-          %p
-            %q
-              = rating.text
-      .profile
-        %a{:href => user_path(rating.rating_user)}
-          = image_tag(rating.rating_user.image_url(:profile))
-  = paginate @ratings
+  - if @ratings.any?
+    - @ratings.each do |rating|
+      .rating
+        .image
+          %span{class: "sprite_#{rating.value}" }
+        .quote
+          - if rating.text.empty?
+            %p
+              %a{:href => user_path(rating.rating_user)}
+                = rating.rating_user.nickname
+              = " am #{l rating.created_at, format: :short}"
+          - else
+            %p
+              %a{:href => user_path(rating.rating_user)}
+                = rating.rating_user.nickname
+              = " schrieb am #{l rating.created_at, format: :short}:"
+            %p
+              %q
+                = rating.text
+        .profile
+          %a{:href => user_path(rating.rating_user)}
+            = image_tag(rating.rating_user.image_url(:profile))
+    = paginate @ratings
+  - else # if no ratings
+    .rating= t('users.ratings.no_ratings')
