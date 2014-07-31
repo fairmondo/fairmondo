@@ -45,6 +45,9 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
 
+    # Ist article-Id vorhanden?
+    @article_id ||= params[:article_id]
+
     # Both .js responses are only for the articles view!
     respond_with @library do |format|
       if @library.save
