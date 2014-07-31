@@ -2,11 +2,11 @@ commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentabl
 
 $(commentable_selector + '.Comments-section form').replaceWith($("<%= j render(partial: "new", locals: { comment: @new_comment, commentable: @commentable} ) %>"));
 
-$(commentable_selector + '.Comments-section .comments').prepend($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
+$(commentable_selector + '.Comments-section .Comments').prepend($("<%= j render(partial: "comments/comment", locals: {comment: @comment}) %>"));
 
 $(commentable_selector + '#comment_text').val("");
 
-$(commentable_selector + '.comments-empty').html("");
+$(commentable_selector + '.Comments-empty').html("");
 
 $(commentable_selector + '.Comments-count').replaceWith('<%= j comments_counter(@commentable) %>');
 
