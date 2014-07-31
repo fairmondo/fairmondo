@@ -1,21 +1,31 @@
-%p
-  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
-  = "\"#{@article.title}\""
-  gesandt:
-%br
-%hr
-%br
-= simple_format @text
-%br
-%hr
-%br
+%html
+  %head
+    = stylesheet_link_tag 'email/email'
+  %body
 
-%p
-  Bitte sende Deine Antwort an
-  = @from
-%p
-  Den Artikel zu der Rückfrage findest Du unter
-  = link_to article_url(@article), article_url(@article)
-%br
-%br
-= render '/shared/email_footer'
+    .l-container
+      = render 'shared/email/header'
+      .l-main
+        .l-content-wrapper
+          .l-content
+            %p
+              Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
+              = "\"#{@article.title}\""
+              gesandt:
+            %br
+            %hr
+            %br
+            = simple_format @text
+            %br
+            %hr
+            %br
+
+            %p
+              Bitte sende Deine Antwort an
+              = @from
+            %p
+              Den Artikel zu der Rückfrage findest Du unter
+              = link_to article_url(@article), article_url(@article)
+            %br
+            %br
+      = render 'shared/email/footer'

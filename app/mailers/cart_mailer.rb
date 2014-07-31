@@ -7,10 +7,6 @@ class CartMailer < ActionMailer::Base
     @buyer = cart.user
     @subject = "[Fairnopoly] #{ t('transaction.notifications.buyer.buyer_subject') } Einkauf Nr: #{ cart.id }"
 
-    # needs a method that can grab all images that belong to cart and related objects and convert them to
-    # inline attachments
-    attachments.inline['logo-small.png'] = File.read("#{Rails.root}/public/logo-small.png")
-
     mail(to: @buyer.email, subject: @subject)
   end
 
