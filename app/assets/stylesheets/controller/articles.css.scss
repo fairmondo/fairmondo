@@ -93,7 +93,6 @@ ul.category-selected-list {
 
 @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
 
-
  .seller,.sidebar {
     @include span(1 of 2 0.1);
   }
@@ -161,7 +160,7 @@ ul.category-selected-list {
 
 
 @include at-breakpoint($bp-mobile-horizontal) {
-  // artilce infos
+  // article infos
   .contents > .info > .left {
     @include span(1 of 2 0.1);
   }
@@ -221,7 +220,10 @@ ul.category-selected-list {
   display: inline-block;
 }
 
-.buyer-controls > .collect > .libraries {
+
+// Popup window behind the collect button, listing the libraries
+#libraries_popup {
+  width: 21em;
   display:none;
   background-color:white;
   box-shadow: $sand 0px 0px 2px 2px;
@@ -235,16 +237,92 @@ ul.category-selected-list {
   }
 }
 
-.buyer-controls > .collect > .libraries > ul {
+// Fragezeichen-Button
+#libraries_popup > span.sprite_helper {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+
+#libraries_popup > #libraries_list {
+  margin-top: 0.5em;
+  max-height: 30em;
+  overflow: auto;
+}
+
+#libraries_popup > #libraries_list > ul {
   list-style: none;
-  padding: 0em;
-  margin: 0em;
+  padding: 0;
+  margin: 0;
 }
 
-.buyer-controls > .collect > .libraries > ul > li {
-
-  padding: 0.5em 0;
+#libraries_popup > #libraries_list > ul > li {
+  list-style: none;
+  word-wrap: break-word;
+  margin: 0 0.5em 1em 0.25em;
+  padding: 0;
 }
+
+#libraries_popup > #libraries_list > ul > li > a > i {
+  margin-right: 0.6em;
+}
+
+// Formular
+
+#libraries_popup > .formtastic.library {
+  margin-top: 0.25em;
+
+  .inputs {
+    float: left;
+  }
+
+  // Plus-Button
+  .actions {
+    float: left;
+    margin: 0;
+  }
+}
+
+
+// Auge
+#eye_checkbox {
+  color: $gray;
+  cursor: pointer;
+  margin: 0.1em 0.2em 0 0;
+  float: left;
+}
+
+// Textfeld
+#library_name_input {
+  float: left;
+  margin: 0 0.2em;
+  padding: 0;
+
+  input, p {
+    width: 14.5em;
+    margin: 0;
+  }
+
+  p {
+    margin-top: 0.5em;
+  }
+}
+
+
+// Link zu Sammlungen
+#libraries_popup > #libraries_links {
+  padding: 0.75em 0 0 0;
+  margin: 0;
+  list-style: none;
+  clear: left;
+
+  li {
+    margin: 0.25em 0.5em 0.25em 0.25em;
+    padding: 0;
+    text-align: right;
+  }
+}
+
 
 // social buttons
 

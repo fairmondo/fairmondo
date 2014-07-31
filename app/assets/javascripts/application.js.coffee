@@ -50,12 +50,12 @@
 #= require vendor/jquery.autocomplete
 #= require vendor/jquery.details
 
-
 #= require models/article/categories
 #= require models/article/search_input
 #= require models/article/toggle
 #= require models/article/titleimage
 #= require models/article/friendly_percent
+#= require models/article/checkbox_eye
 #= require models/library/libraries
 #= require models/user/colorbox_links
 
