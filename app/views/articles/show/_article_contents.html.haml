@@ -113,9 +113,9 @@
           %strong= t 'users.states.vacationing'
       - if resource.active?
         .control-links
-          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: js_no_action
+          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
           = '/'
-          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: js_no_action
+          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
 
 
 .social#socialshareprivacy
@@ -169,7 +169,12 @@
         = resource.seller_about.html_safe
 
 
-  -# Feedback Box
+  - # Feedback Box
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
+
+  - # Comment Area
+  - if policy(Comment.new).create?
+    = t('article.show.comments.legal_entity_publish_info') if resource.seller.is_a? LegalEntity
+    = render "comments/commentable_comments", commentable: resource
