@@ -1,15 +1,18 @@
-.Content
-  .transaction
-    = "Transaktionsnummer: #{bt.id}"
-  .title
-    = link_to bt.article_title, article_path(bt.article_id)
-  .identifier
-    = bt.article.custom_seller_identifier
-  .quantity
-    = "Anzahl: #{bt.quantity_bought}"
-  .price
-    = "Einzelpreis: #{bt.article_price}"
-  .total-price
-    = "Gesamt: #{bt.article_price * bt.quantity_bought}"
-  .payment
-    = "Zahlungsart: " + t("transaction.notifications.buyer.#{bt.selected_payment}")
+.article
+  .article-image
+    = link_to image_tag(bt.article.title_image_url_thumb), article_path(bt.article_id)
+  .article-info-container
+    .article-title
+      = link_to truncate(bt.article_title), article_path(bt.article_id)
+    .article-quantity
+      %h4
+        Anzahl
+      = bt.quantity_bought
+    .article-price
+      %h4
+        Einzelpreis
+      = "#{bt.article_price}€"
+    .article-total-price
+      %h4
+        Gesamtpreis
+      = "#{bt.article_price * bt.quantity_bought}€"
