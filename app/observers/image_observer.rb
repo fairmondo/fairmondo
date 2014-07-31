@@ -13,6 +13,7 @@ class ImageObserver < ActiveRecord::Observer
         end
       end
     end
+    true
   end
 
 end
