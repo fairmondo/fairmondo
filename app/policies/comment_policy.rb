@@ -4,7 +4,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def destroy?
-    own?
+    own? || admin?
   end
 
   private
@@ -15,5 +15,9 @@ class CommentPolicy < Struct.new(:user, :comment)
 
   def own?
     user && user.id == comment.user_id
+  end
+
+  def admin?
+    User.is_admin? user
   end
 end
