@@ -2,7 +2,7 @@ commentable_selector = '<%= "##{@commentable.class.to_s.underscore}#{@commentabl
 
 $(commentable_selector + '.Comments-section .Comment-single').remove();
 
-$(commentable_selector + '.Comments-section .comments').html($("<%= j render @comments %>"));
+$(commentable_selector + '.Comments-section .Comments').html($("<%= j render @comments %>"));
 
 $(commentable_selector + '.Comments-section .next_link').remove();
 $(commentable_selector + '.Comments-section .all_link').remove();
