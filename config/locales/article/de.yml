@@ -9,8 +9,8 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
-      report: "Dein Feedback zu dem Artikel"
-      contact_private_user: 'Rückfragen an den*die Anbieter*in'
+      report: "Dein Feedback an Fairnopoly zu dem Artikel"
+      contact_private_user: 'Email an den*die Anbieter*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -79,6 +79,8 @@ de:
         ecologic: 'ökologische'
         small_and_precious: 'klein&edle'
         article: 'Artikel'
+      comments:
+        legal_entity_publish_info: "Achtung: Kommentare für Artikel gewerblicher Nutzer werden nur zwischen 10 und 17 Uhr veröffentlicht."
     hero:
       search: "Suche nach"
       filter: "Filter nach"
