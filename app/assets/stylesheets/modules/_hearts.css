@@ -19,7 +19,7 @@ div[class$="-hearts"] {
     color: white;
     z-index: 101;
     font-size: 0.7rem;
-    left: 0.4rem;
+    left: 0.5em;
     top: 0.3rem;
   }
   .Hearts-count {
