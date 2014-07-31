@@ -1,0 +1,6 @@
+// Makes contentboxes whithout shadow out of elements
+@mixin shadowless_whitebox {
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  padding: em(10) em(10);
+}

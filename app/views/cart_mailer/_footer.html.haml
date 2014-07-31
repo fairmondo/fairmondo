@@ -1,0 +1,52 @@
+.l-footer
+  .l-footer-left
+    = link_to image_tag('old/logo-small.png'), 'https://www.fairnopoly.de'
+  .l-footer-middle
+    %ul
+      %li
+        %a{href: "/faq", target: 'blank'}
+          = t('footer.faq')
+      %li
+        %a{href: "https://info.fairnopoly.de/forum/", target: 'blank'}
+          = t('footer.forum')
+      %li
+        %a{href: "/contact", target: 'blank'}
+          = t('footer.contact')
+      %li
+        %a{href: "/about_us", target: 'blank'}
+          = t('footer.about_us')
+      %li
+        %a{href: "https://transparenz.fairnopoly.de/", target: 'blank'}
+          = t('footer.transparency')
+      %li
+        %a{href: "https://info.fairnopoly.de/pressekit/", target: 'blank'}
+          = t('footer.press')
+      %li
+        %a{href: "https://info.fairnopoly.de/team/", target: 'blank'}
+          = t('footer.team')
+  .l-footer-right
+    %ul
+      %li
+        %a{href: "https://info.fairnopoly.de/stellenausschreibungen/", target: 'blank'}
+          = t('footer.jobs')
+      %li
+        %a{href: 'http://info.fairnopoly.de/fairnopoly-werbematerial/', target: 'blank'}
+          = t('footer.pr_material')
+      %li
+        %a{:href => "https://info.fairnopoly.de", target: 'blank'}
+          = t('footer.blog')
+      %li
+        %a{:href => "http://50856.seu1.cleverreach.com/f/50856-129361/", target: '_blank'}
+          = t('footer.newsletter')
+      %li
+        %a{href: "/agb", target: 'blank'}
+          = t('footer.agb')
+      %li
+        %a{href: "/privacy", target: 'blank'}
+          = t('footer.privacy')
+      %li
+        %a{href: "/imprint", target: 'blank'}
+          = t('footer.imprint')
+  .l-footer-copyright
+    &copy;
+    = "Copyright #{Time.now.strftime('%Y')} Fairnopoly eG"
