@@ -92,7 +92,7 @@
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
       -# Collect button and libraries list
-      - if policy(mock_library_element).create?
+      - if user_signed_in? && resource.active?
         .collect.JS-active-toggle--container
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
             = t('common.actions.collect')
@@ -119,9 +119,6 @@
             %ul#libraries_links
               %li
                 = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
-
-      - elsif user_signed_in? && resource.active?
-        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
 
       -# To cart/buy button
       - if policy(resource.business_transaction).edit?
