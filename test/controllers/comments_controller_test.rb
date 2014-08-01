@@ -48,6 +48,13 @@ describe CommentsController do
 
       assert_response :success
     end
+
+    it "should render the paginated partial if the page param is there" do
+      xhr(:get, :index, library_id: @library.id,
+                        comments_page: 1)
+
+      assert_template "comments/_index_paginated"
+    end
   end
 
   describe "POST comment on library" do

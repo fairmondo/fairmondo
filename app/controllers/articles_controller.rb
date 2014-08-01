@@ -53,6 +53,7 @@ class ArticlesController < ApplicationController
   def show
     authorize @article
 
+
     if !@article.active? && policy(@article).activate?
       @article.calculate_fees_and_donations
     end
