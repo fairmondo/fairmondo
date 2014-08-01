@@ -263,7 +263,7 @@ ul.category-selected-list {
   padding: 0;
 }
 
-#libraries_popup > #libraries_list > ul > li > a > i {
+#libraries_popup > #libraries_list > ul > li > i {
   margin-right: 0.6em;
 }
 
@@ -286,11 +286,12 @@ ul.category-selected-list {
 
 // Auge
 #eye_checkbox {
-  color: $gray;
+  color: $blue;
   cursor: pointer;
   margin: 0.1em 0.2em 0 0;
   float: left;
 }
+
 
 // Textfeld
 #library_name_input {
