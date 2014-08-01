@@ -1,7 +1,7 @@
 de:
 # Libraries
   libraries:
-    no_library: "Es wurden noch keine Sammlungen von unseren Nutzer*innen angelegt."
+    no_library: "Diese*r Nutzer*in hat noch keine Sammlungen angelegt."
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"

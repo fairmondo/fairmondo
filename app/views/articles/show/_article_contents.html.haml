@@ -33,7 +33,6 @@
       = button_to t('common.actions.destroy'),  article_path(resource) , confirm: t('article.delete_confirm', name: article.title) ,method: :delete, class: "Button"
 
 
-
 %figure.image
   - cache [resource, resource.title_image] do
     - if resource.title_image_present?
@@ -92,20 +91,35 @@
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
-      - if policy(mock_library_element).create?
+      -# Collect button and libraries list
+      - if user_signed_in? && resource.active?
         .collect.JS-active-toggle--container
           .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
             = t('common.actions.collect')
-          .libraries.JS-active-toggle--target
-            in Sammlung:
+          .libraries.JS-active-toggle--target#libraries_popup
+            Zu Sammlung hinzufügen:
             %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            %ul
-              - current_user.libraries.each do |library|
-                %li
-                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
+            - libraries_public = current_user.libraries.select { |lib| lib.public }
+            - libraries_private = current_user.libraries.select { |lib| !lib.public }
+            #libraries_list
+              %ul#libraries_public
+                - libraries_public.each do |library|
+                  %li
+                    %i.fa.fa-eye.fa-lg{title: 'Öffentliche Sammlung'}
+                    %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+                      = library.name
+              %ul#libraries_private
+                - libraries_private.each do |library|
+                  %li
+                    %i.fa.fa-eye-slash.fa-lg{title: 'Private Sammlung'}
+                    %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
+                      = library.name
 
-      - elsif user_signed_in? && resource.active?
-        = link_to('Sammlung erstellen', user_libraries_path(current_user), method: :post, class: "Button Button-gray")
+            = render "/libraries/library_form", library: current_user.libraries.build, article_id: resource.id
+            %ul#libraries_links
+              %li
+                = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
+
       - if policy(resource).purchasable?
         = semantic_form_for LineItem.new do |f|
           = f.inputs do
@@ -119,7 +133,6 @@
         .Button.Button--disabled= t 'common.actions.buy_single'
         %p
           %strong= t 'users.states.vacationing'
-
 
 .social#socialshareprivacy
 
