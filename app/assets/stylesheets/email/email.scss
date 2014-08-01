@@ -204,3 +204,23 @@ h4 {
     margin-bottom: 0.2em;
   }
 }
+
+.l-signature {
+  @include shadowless_whitebox;
+  overflow: hidden;
+  clear: both;
+  margin-top: 0.5em;
+}
+
+.l-signature > .l-signature-left {
+  @include span(1 of 3);
+}
+
+.l-signature > .l-signature-middle {
+  @include span(1 of 3);
+}
+
+.l-signature > .l-signature-right {
+  @include span(1 of 3);
+  @include omega;
+}
