@@ -17,7 +17,7 @@
 
             .line-item-group
               %h3
-                = link_to @line_item_group.buyer.nickname, profile_user_path(@line_item_group.buyer.id)
+                = link_to @line_item_group.buyer_nickname, profile_user_path(@line_item_group.buyer.id)
                 hat bei Dir gekauft:
               - @line_item_group.business_transactions.each do |bt|
                 = render 'article', bt: bt
@@ -30,19 +30,8 @@
         .l-sidebar
           = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
           = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
-          .l-sidebar-social-buttons
-            = link_to 'Wir auf Facebook', 'https://facebook.com/fairnopoly', class: 'Button'
-            = link_to 'Wir auf Pinterest', 'https://pinterest.com', class: 'Button'
-            = link_to 'Wir auf twitter', 'https://twitter.com', class: 'Button'
-            = link_to 'Wir auf Instagram', 'https://instagram.com', class: 'Button'
-          .l-sidebar-contact
-            %h4
-              Kontakt
-            Fairnopoly eG
-            %br
-            Glogauer Str. 21
-            %br
-            10999 Berlin
+          = render 'shared/email/social_buttons'
+          = render 'shared/email/contact'
           .l-sidebar-help
             %h4
               Probleme mit der Bestellung?
