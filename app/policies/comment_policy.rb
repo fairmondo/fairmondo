@@ -3,10 +3,6 @@ class CommentPolicy < Struct.new(:user, :comment)
     logged_in?
   end
 
-  def update?
-    own?
-  end
-
   def destroy?
     own?
   end

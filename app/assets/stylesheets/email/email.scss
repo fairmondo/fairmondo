@@ -1,0 +1,206 @@
+/*
+These styles are used for emails only
+*/
+
+@import "mixins/all";
+@import "modules/button"; // Buttons
+
+html,body {
+  height: 100%;
+  min-width:300px;
+  font-family: $base-font-body;
+  font-size: $base-font-size;
+  margin:0;
+  padding:0;
+  color: $black;
+  @include color-links($blue,$blue);
+  @include clear-links-with-hover;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.3rem;
+}
+h4 {
+  font-weight: 700;
+}
+
+.l-container {
+  max-width: 650px;
+}
+
+.l-header {
+  height: 5em;
+  padding: 1em;
+  background: $sand;
+  margin-bottom: 1em;
+}
+
+.l-header > .l-header-left {
+  @include span(1 of 4);
+  @include clearfix;
+  float: left;
+}
+
+.l-header > .l-header-right {
+  @include span(2 of 4);
+  @include omega;
+  float: right;
+
+  .Button {
+    float: right;
+  }
+}
+
+.l-main {
+  overflow: hidden;
+}
+
+.l-main > .l-content-wrapper {
+  @include span(11 of 16);
+  float: left;
+}
+
+.l-main > .l-content-wrapper > .l-content {
+  @include shadowless_whitebox;
+}
+
+.l-main > .l-sidebar {
+  @include span(5 of 16);
+  @include omega;
+  float: right;
+  margin-bottom: 1em;
+}
+
+.l-footer {
+  background: $sand;
+  margin-top: 1em;
+  padding: 1em;
+  clear: both;
+  overflow: hidden;
+}
+
+.l-footer > .l-footer-left {
+  @include span(1 of 3);
+}
+
+.l-footer > .l-footer-middle {
+  @include span(1 of 3);
+}
+
+.l-footer > .l-footer-right {
+  @include span(1 of 3);
+  @include omega;
+}
+
+.l-footer > .l-footer-middle > ul, .l-footer > .l-footer-right > ul {
+  margin-top: 0;
+  list-style: none;
+
+  li {
+    padding-bottom: 0.5em;
+  }
+}
+
+.l-footer > .l-footer-copyright {
+  text-align: center;
+  color: $light-gray;
+  font-size: 0.8em;
+}
+
+/* Address overwrite */
+.Address {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+}
+
+.l-sidebar-social-buttons {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  .Button {
+    width: 80%;
+  }
+}
+
+.l-sidebar-contact {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+}
+
+.l-sidebar-help {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+  ul {
+    list-style: none;
+  }
+}
+
+.line-item-group {
+  overflow: hidden;
+  margin-bottom: 1.3em;
+}
+
+.article {
+  @include shadowless_whitebox;
+  background: $lighter-gray;
+  overflow: hidden;
+  margin-bottom: 0.5em;
+  clear: both;
+}
+
+.article > .article-image {
+  @include span(1 of 4);
+  img {
+    width: 100%;
+  }
+}
+
+.article > .article-info-container {
+  @include span(3 of 4);
+  @include omega;
+}
+
+.article > .article-info-container > .article-quantity {
+  @include span(1 of 3);
+  h4 {
+    margin-bottom: 0.2em;
+  }
+}
+
+.article > .article-info-container > .article-price {
+  @include span(1 of 3);
+  h4 {
+    margin-bottom: 0.2em;
+  }
+}
+
+.article > .article-info-container > .article-total-price {
+  @include span(1 of 3);
+  @include omega;
+  h4 {
+    margin-bottom: 0.2em;
+  }
+}
+
+.line-item-group > .message {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+  h4 {
+    margin-top: 0em;
+    margin-bottom: 0.2em;
+  }
+}

@@ -111,6 +111,7 @@ sidekiq_pro_path.yml
 
 .rvmrc
 
-# custom local Gemfile
-/Gemfile.local
-/Gemfile.local.lock
+# Paypal
+paypal_adaptive.yml
+
+
