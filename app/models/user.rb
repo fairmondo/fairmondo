@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
 
   monetize :unified_transport_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-  monetize :unified_transport_free_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
+  monetize :free_transport_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
 
 
   ####################################################
@@ -388,6 +388,13 @@ class User < ActiveRecord::Base
   def build_standard_address_from address_params
     self.standard_address ||= self.addresses.build if address_params.select{ |param,value| !value.empty? }.any?
     self.standard_address.assign_attributes(address_params) if self.standard_address
+  end
+
+  def unified_transport_available?
+    self.unified_transport_provider.present? &&
+    self.unified_transport_maximum_articles.present? &&
+    self.unified_transport_maximum_articles > 1 &&
+    self.unified_transport_price_cents.present?
   end
 
   private

@@ -33,6 +33,7 @@ class LineItemGroup < ActiveRecord::Base
   end
 
   def transport_can_be_unified?
+    return false unless self.seller.unified_transport_available?
     articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
     @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
@@ -45,19 +46,11 @@ class LineItemGroup < ActiveRecord::Base
     @unified_payments_selectable ||= ( self.line_items.map{|l| l.article.selectable_payments}.inject(:&) || [] ) #intersection of selectable_payments
   end
 
-  # For LIGs that are not completely unified, this creates subgroups by a common selected transport or payment
-  # @attr transpay [String] either 'transport' or 'payment'
-  # @return [ActiveRecord::Relation]
-  def subgroups transpay
-    self.business_transactions.group_by(&:"selected_#{transpay}")
-  end
-
-  def total_price
-    price = Money.new(0)
+  def unified_payment_method= value
+    super value
     self.business_transactions.each do |bt|
-      price += bt.total_price
+      bt.selected_payment = value
     end
-    price
   end
 
   private
