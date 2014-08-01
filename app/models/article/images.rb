@@ -126,7 +126,12 @@ module Article::Images
     end
 
     def cleanup_images
-      self.images.each{ |i| i.destroy } unless self.keep_images
+      unless self.keep_images
+        self.images.each do |i|
+          i.write_path_to_file_for('deletions')
+          i.destroy
+        end
+      end
     end
 
   end

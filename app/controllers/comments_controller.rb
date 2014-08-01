@@ -14,7 +14,10 @@ class CommentsController < ApplicationController
 
     if params[:comments_page]
       @comments = @comments.page(params[:comments_page])
-      render partial: "comments/index_paginated"
+      render partial: "comments/index_paginated", locals: {
+        comments: @comments,
+        commentable: @commentable
+      }
     end
   end
 
@@ -25,6 +28,8 @@ class CommentsController < ApplicationController
     authorize @comment
 
     if @comment.save
+      # if save was successful, please create a new comment object to render the input form with
+      @new_comment = Comment.new
       render :create
     else
       render :new, comment: @comment, commentable: @commentable
