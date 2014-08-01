@@ -86,6 +86,9 @@ Fairnopoly::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = YAML.load(File.read(File.expand_path(File.join( Rails.root, 'config', 'actionmailer.yml')))).symbolize_keys
 
+  # Premailer configuration
+  Premailer::Rails.config.merge!(base_url: "https://www.fairnopoly.de")
+
   # Set host by default
   Rails.application.routes.default_url_options[:host] = 'https://www.fairnopoly.de'
 

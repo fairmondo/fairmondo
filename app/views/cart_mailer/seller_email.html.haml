@@ -1,2 +1,54 @@
-%h1
-  Hallo Welt!
+%html
+  %head
+    = stylesheet_link_tag 'email/email'
+  %body
+
+    .l-container
+      = render 'header'
+      .l-main
+        .l-content-wrapper
+          .l-content
+            %h1
+              = "Dein Verkauf auf Fairnopoly"
+            = "Hallo #{@line_item_group.seller.first_name},"
+            %p
+              Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
+              Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
+
+            .line-item-group
+              %h3
+                = link_to @line_item_group.buyer.nickname, profile_user_path(@line_item_group.buyer.id)
+                hat bei Dir gekauft:
+              - @line_item_group.business_transactions.each do |bt|
+                = render 'article', bt: bt
+              - if @line_item_group.message
+                .message
+                  %h4
+                    Nachricht des/der Verkäufer*in
+                  = @line_item_group.message
+              = link_to 'Bestellung ansehen und versenden', line_item_group_path(@line_item_group.id), class: 'Button'
+        .l-sidebar
+          = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
+          = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
+          .l-sidebar-social-buttons
+            = link_to 'Wir auf Facebook', 'https://facebook.com/fairnopoly', class: 'Button'
+            = link_to 'Wir auf Pinterest', 'https://pinterest.com', class: 'Button'
+            = link_to 'Wir auf twitter', 'https://twitter.com', class: 'Button'
+            = link_to 'Wir auf Instagram', 'https://instagram.com', class: 'Button'
+          .l-sidebar-contact
+            %h4
+              Kontakt
+            Fairnopoly eG
+            %br
+            Glogauer Str. 21
+            %br
+            10999 Berlin
+          .l-sidebar-help
+            %h4
+              Probleme mit der Bestellung?
+            Kontaktiere den/die Händer*in
+            %br
+            lies unsere FAQ
+            %br
+            schreib uns eine Email
+      = render 'footer'

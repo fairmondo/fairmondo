@@ -89,13 +89,13 @@
     @include span(4 of 8);
     @include omega;
   }
-  
+
   #teaser--first {
     @include span(6 of 8);
 
     .teaser-queue {
       @include span(2 of 6);
-      &:last-child { 
+      &:last-child {
         @include omega;
       }
     }
@@ -110,9 +110,9 @@
     @include omega;
   }
 
-  .category-dropdown { 
+  .category-dropdown {
     display:none;
-  } 
+  }
 }
 
 // bp-desktop
@@ -225,7 +225,7 @@
 
 .teaser--cardslides {
   position: relative;
-  
+
 }
 
 .teaser--cardslides >.teaser-inner > #js-cardslides {
@@ -337,7 +337,7 @@
       padding: 0.1em 1em;
       border-radius: 0.4em;
     }
-  }  
+  }
 }
 
 #teaser--clear-after-bluebox {
