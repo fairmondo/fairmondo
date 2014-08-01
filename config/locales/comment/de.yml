@@ -1,9 +1,11 @@
 de:
   comments:
     no_comments: "Diese Sammlung enthält noch keine Kommentare."
-    login_to_comment: "Melde Dich an, um diese Sammlung zu kommentieren."
+    login_to_comment: "%{href}, um diese Sammlung zu kommentieren."
+    login_href: "Melde dich an"
     input_placeholder: "Hinterlasse einen Kommentar"
     create: "Kommentar erstellen"
     more: "Mehr Kommentare"
     delete: "Kommentar löschen"
     all: "Alle Kommentare"
+    report_info: "Wenn Du einen anstößigen Kommentar entdeckst, melde uns das bitte mit dem Feedback-Formular."

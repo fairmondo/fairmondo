@@ -99,7 +99,7 @@ de:
         seller_friendly_fee_text: "Du hast dich dafür entschieden %{friendly_percent}% an %{ngo} zu spenden. Dies entspricht einem Betrag von %{friendly_percent_amount}. Für alle Deine zusätzlichen Spenden, bekommst du eine weitere Zahlungsaufforderung von der Fairnopoly eG."
         order_infos: "Angaben zum verkauften Artikel: "
         transaction_id_info: "Bitte gib bei Kommunikation mit der*dem Käufer*in folgende Transaktionsnummer an: %{id}"
-        shipping_request: "Bitte versende den/die gekauften Artikel umgehend an: "
+        shipping_request: "Bitte versende den/die gekauften Artikel umgehend nach Geldeingang an: "
         pickup_info: "Der Kauf wurde durchgeführt von:"
         buyer_message: "Nachricht der Käufer*in: "
         fees: "Deine Gebühren: "
