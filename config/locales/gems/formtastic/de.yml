@@ -48,8 +48,8 @@ de:
         unified_transport_maximum_articles: "Maximale Anzahl von Artikeln die zusammen versandt werden können"
         unified_transport_provider: Versandart
         unified_transport_price: Versandkosten (€)
-        unified_transport_free: Versandkostenfrei ab
-        unified_transport_free_at_price: Gesamtwarenwert (€)
+        free_transport_available: Versandkostenfrei ab
+        free_transport_at_price_cents: Gesamtwarenwert (€)
 
       private_user:
         <<: *user

@@ -23,9 +23,9 @@ class UserRefinery < ApplicationRefinery
       :iban,:bic,
       { image_attributes: ImageRefinery.new(Image.new, user).default },
     ]
-    permitted += [ :terms, :cancellation, :about, :cancellation_form, :unified_transport_provider,
-                    :unified_transport_maximum_articles, :unified_transport_price, :unified_transport_free,
-                    :unified_transport_free_at_price ] if user.is_a? LegalEntity
+    permitted += [ :terms, :cancellation, :about, :cancellation_form,
+                    :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
+                    :free_transport_available, :free_transport_at_price_cents ] if user.is_a? LegalEntity
     permitted
   end
 
