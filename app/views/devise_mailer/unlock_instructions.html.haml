@@ -32,21 +32,12 @@
           .l-content
             %p
               = t('common.text.hello')
-              = @resource.nickname + '!'
+              = @resource.nickname + ','
             %p= t('devise.unlock.info')
             %p= t('devise.unlock.linktext')
             %p= link_to t('devise.unlock.link'), unlock_url(@resource, :unlock_token => @token)
             %p= t('devise.unlock.ignoremail')
-            %p= t('common.fn_footer_greeting')
-            %br
-            %p= t('common.fn_legal_footer.spacer')
-            %p= t('common.fn_legal_footer.intro')
-            %p= t('common.fn_legal_footer.contact')
-            %p= t('common.fn_legal_footer.registered')
-            %p= t('common.fn_legal_footer.board')
-            %p= t('common.fn_legal_footer.ceo')
-            %p= t('common.fn_legal_footer.supervisory_board')
         .l-sidebar
           = render 'shared/email/social_buttons'
-          = render 'shared/email/contact'
+      = render 'shared/email/signature'
       = render 'shared/email/footer'

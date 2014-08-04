@@ -29,23 +29,17 @@
       .l-main
         .l-content-wrapper
           .l-content
-            %p
+            %h3
               = t('common.text.hello')
-              = @resource.nickname + '!'
+              = @resource.nickname + ','
             %p= t('devise.confirmation.text')
-            %p= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @token)
+            %p
+              %center
+                = link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @token), class: 'Button'
             %p= t('devise.confirmation.email_change_info')
             %p= t('devise.confirmation.ignoremail')
             %p= t('common.fn_footer_greeting')
-            %br
-            %p= t('common.fn_legal_footer.spacer')
-            %p= t('common.fn_legal_footer.intro')
-            %p= t('common.fn_legal_footer.contact')
-            %p= t('common.fn_legal_footer.registered')
-            %p= t('common.fn_legal_footer.board')
-            %p= t('common.fn_legal_footer.ceo')
-            %p= t('common.fn_legal_footer.supervisory_board')
         .l-sidebar
           = render 'shared/email/social_buttons'
-          = render 'shared/email/contact'
+      = render 'shared/email/signature'
       = render 'shared/email/footer'

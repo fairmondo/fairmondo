@@ -196,7 +196,7 @@ h4 {
   }
 }
 
-.line-item-group > .message {
+.message {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
   h4 {
