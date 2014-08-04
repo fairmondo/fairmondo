@@ -1,0 +1,9 @@
+de:
+  email:
+    greeting: "Hallo %{name},"
+    cart:
+      buyer:
+
+
+      seller:
+

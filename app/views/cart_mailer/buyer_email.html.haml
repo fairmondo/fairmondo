@@ -8,9 +8,9 @@
       .l-main
         .l-content-wrapper
           .l-content
-            %h1
+            %h3
               = "Dein Einkauf auf Fairnopoly"
-            = "Hallo #{@cart.user.first_name},"
+            = t('email.greeting', name: @cart.user.first_name)
             %p
               Vielen Dank für Deinen Einkauf auf Fairnopoly, Du bist großartig!
               %br
@@ -44,18 +44,7 @@
           - unless @cart.line_item_groups.first.transport_address == @cart.line_item_groups.first.payment_address
             = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Rechnungsadresse'
           .l-sidebar-social-buttons
-            = link_to 'Wir auf Facebook', 'https://facebook.com/fairnopoly', class: 'Button'
-            = link_to 'Wir auf Pinterest', 'https://pinterest.com', class: 'Button'
-            = link_to 'Wir auf twitter', 'https://twitter.com', class: 'Button'
-            = link_to 'Wir auf Instagram', 'https://instagram.com', class: 'Button'
-          .l-sidebar-contact
-            %h4
-              Kontakt
-            Fairnopoly eG
-            %br
-            Glogauer Str. 21
-            %br
-            10999 Berlin
+            = render 'shared/email/social_buttons'
           .l-sidebar-help
             %h4
               Probleme mit der Bestellung?
@@ -65,4 +54,5 @@
             %br
             schreib uns eine Email
 
+      = render 'shared/email/signature'
       = render 'shared/email/footer'

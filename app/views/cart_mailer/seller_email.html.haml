@@ -8,9 +8,9 @@
       .l-main
         .l-content-wrapper
           .l-content
-            %h1
+            %h3
               = "Dein Verkauf auf Fairnopoly"
-            = "Hallo #{@line_item_group.seller.first_name},"
+            = t('email.greeting', name: @line_item_group.seller.first_name)
             %p
               Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
               Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
@@ -31,7 +31,6 @@
           = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
           = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
           = render 'shared/email/social_buttons'
-          = render 'shared/email/contact'
           .l-sidebar-help
             %h4
               Probleme mit der Bestellung?
@@ -40,4 +39,5 @@
             lies unsere FAQ
             %br
             schreib uns eine Email
+      = render 'shared/email/signature'
       = render 'shared/email/footer'
