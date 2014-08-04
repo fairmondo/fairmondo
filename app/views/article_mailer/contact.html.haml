@@ -8,27 +8,22 @@
       .l-main
         .l-content-wrapper
           .l-content
-            %p
-              Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
-              = "\"#{@article.title}\""
-              gesandt:
-            %br
-            %hr
-            %br
-            = simple_format @text
-            %br
-            %hr
-            %br
+            %h3
+              Hallo
+              = "#{@article.seller_nickname},"
+            Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
+            = link_to "\"#{@article.title}\"", article_path(@article.id)
+            gesandt:
+            .message
+              = simple_format @text
 
             %p
               Bitte sende Deine Antwort an
-              = @from
+              = mail_to @from
             %p
               Den Artikel zu der Rückfrage findest Du unter
               = link_to article_url(@article), article_url(@article)
-            %br
-            %br
         .l-sidebar
           = render 'shared/email/social_buttons'
-          = render 'shared/email/contact'
+      = render 'shared/email/signature'
       = render 'shared/email/footer'
