@@ -1,0 +1,10 @@
+%html
+  %head
+    = stylesheet_link_tag 'email/email'
+  %body
+    .l-container
+      = render 'shared/email/header'
+      .l-main
+        = yield
+      = render 'shared/email/signature'
+      = render 'shared/email/footer'
