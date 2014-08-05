@@ -1,0 +1,12 @@
+Hallo <%= @commentable_owner.forename %>,
+
+Du hast einen neuen Kommentar oder eine Rückfrage zu Deiner Sammlung <%= @commentable.name %>bekommen: <%= library_url(@commentable) %>
+
+Schau nach, was andere Nutzer*innen schreiben.
+
+
+Du kannst diese Benachrichtigungen jederzeit in Deinem <%= link_to @user, "Profil" %> abstellen.
+
+Dein Fairnopoly Team
+
+<%= render '/shared/email_footer' %>
