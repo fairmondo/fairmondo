@@ -1,5 +1,5 @@
 class CommentMailer < ActionMailer::Base
-  def report_comment_on_library(comment, commentable_owner, text)
+  def report_comment_on_library(comment, commentable_owner)
     @commentable = comment.commentable
     @commentable_owner = commentable_owner
 

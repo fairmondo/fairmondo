@@ -22,11 +22,6 @@
 require_relative "../test_helper"
 
 describe CommentMailer do
-  include Rails.application.routes.url_helpers
-
-  include EmailSpec::Helpers
-  include EmailSpec::Matchers
-
   let(:comment) { FactoryGirl.create(:comment) }
   let(:commentable_owner) { FactoryGirl.create(:user) }
 
