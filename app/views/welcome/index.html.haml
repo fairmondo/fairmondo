@@ -84,6 +84,23 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
+-# Trending libraries
+.teaser.teaser--full.libraries
+  .teaser-inner
+    - if @libraries_trending.any?
+      - @libraries_trending.each do |library|
+        - if !library.library_elements.empty?
+          %details{id: "library#{library.id.to_s}"}
+            %summary
+              = library_header_layout(library)
+            .details
+              = render "/libraries/library_buttons", library: library
+              .library-elements
+                - if library.library_elements.empty?
+                  = t('library.no_products')
+                - else
+                  = render "/libraries/library", library: library
+
 -# USPs
 .teaser.teaser--double.teaser--cardslides
   .teaser-inner
