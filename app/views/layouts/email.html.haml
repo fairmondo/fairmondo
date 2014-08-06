@@ -3,12 +3,12 @@
     = stylesheet_link_tag 'email/email'
   %body
     .l-container
-      = render 'shared/email/header'
+      = render 'layouts/email_partials/header'
       .l-main
         .l-content-wrapper
           .l-content
             = yield
         .l-sidebar
           = content_for 'sidebar'
-      = render 'shared/email/signature'
-      = render 'shared/email/footer'
+      = render 'layouts/email_partials/signature'
+      = render 'layouts/email_partials/footer'

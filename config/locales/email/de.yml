@@ -8,6 +8,21 @@ de:
 
     social_button: "Wir bei %{network}"
 
+    header:
+      support_button: 'Fairnopoly unterstützen'
+
+    footer:
+      contact: 'Kontakt'
+      registration_court: 'Registergericht'
+      board: 'Vorstand'
+
+    article:
+      contact:
+        text_beginning: 'Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel'
+        text_end: 'gesandt:'
+        reply_button: 'Anfrage beantworten'
+        article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '
+
     cart:
       buyer:
         heading: 'Dein Einkauf auf Fairnopoly'
@@ -21,4 +36,9 @@ de:
 
     line_item_group:
       seller:
+        heading: 'Dein Verkauf auf Fairnopoly'
+        text: 'Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft. Hier findest Du eine Übersicht aller Artikel Deines Auftrags.'
+        bought_from_you: 'hat bei Dir gekauft:'
+        buyer_message: 'Nachricht des*der Käufer*in'
+        view_and_pay: 'Bestellung ansehen und versenden'
 
