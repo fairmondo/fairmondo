@@ -22,11 +22,16 @@
 require_relative "../test_helper"
 
 describe CommentMailer do
+  include Rails.application.routes.url_helpers
+
+  include EmailSpec::Helpers
+  include EmailSpec::Matchers
+
   let(:comment) { FactoryGirl.create(:comment) }
   let(:commentable_owner) { FactoryGirl.create(:user) }
 
   it "#report_comment_on_library" do
-    mail = CommentMailer.report_comment_on_library(comment, commentable_owner, "text")
+    mail = CommentMailer.report_comment_on_library(comment, commentable_owner)
 
     mail.must have_subject(I18n.t('comment.new_notification'))
     mail.must have_body_text comment.commentable.name
