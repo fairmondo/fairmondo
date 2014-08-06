@@ -1,29 +1,43 @@
-.Content
-  %h1
-    - if resource.buyer == current_user
-      = "Dein Einkauf bei "
-      = link_to resource.seller.nickname, user_path(resource.seller)
+.lineItemGroupShow-container
+  .lineItemGroupShow-content-wrapper
+    .lineItemGroupShow-content
+      %h3
+        - if resource.buyer == current_user
+          = "Dein Einkauf bei "
+          = link_to resource.seller.nickname, user_path(resource.seller)
 
-    - if resource.seller == current_user
-      = "Dein Auftrag durch "
-      = link_to resource.buyer.nickname, user_path(resource.buyer)
-    = "vom #{resource.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}"
-  = "Bestellnummer: #{resource.id}"
-  %p
-    Vielen Dank für Deinen Einkauf bei Fairnopoly.
+        - if resource.seller == current_user
+          = "Dein Auftrag durch "
+          = link_to resource.buyer.nickname, user_path(resource.buyer)
+        = "vom #{resource.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}"
+      = "Bestellnummer: #{resource.id}"
+      %p
+        Vielen Dank für Deinen Einkauf bei Fairnopoly.
 
-  .Listview
-    - resource.business_transactions.each do |bt|
-      = render 'shared/listview/line_item_group_show_item', article: bt.article, business_transaction: bt
-  = 'Gesamt: '
-  = humanized_money_with_symbol resource.total_price
+      .Listview
+        - resource.business_transactions.each do |bt|
+          = render 'shared/listview/line_item_group_show_item', article: bt.article, business_transaction: bt
+      = 'Gesamt: '
+      300Euro
 
-  - if resource.buyer == current_user
-    = render 'line_item_groups/show_payment', line_item_group: resource
-  - if resource.seller == current_user
-    = render 'line_item_groups/show_transport', line_item_group: resource
+      - if resource.buyer == current_user
+        = render 'line_item_groups/show_payment', line_item_group: resource
+      - if resource.seller == current_user
+        = render 'line_item_groups/show_transport', line_item_group: resource
 
-  .Grid
+
+      - if resource.message
+        %h3
+          - if resource.seller.title == 'Herr'
+            Deine Nachricht an den Verkäufer
+          - elsif resource.seller.title == 'Frau'
+            Deine Nachricht an die Verkäuferin
+          - else
+            Deine Nachricht an den/die Verkäufer*in
+        %p
+      .message
+        = resource.message
+  .lineItemGroupShow-sidebar
     - if resource.transport_address == resource.payment_address
       - if resource.seller == current_user
         Bitte versende Die gekauften Artikel an:
@@ -38,15 +52,3 @@
         Bitte schicke die Rechnung an:
       - if resource.buyer == current_user
         = render 'addresses/address', address: resource.payment_address, radio: nil, title: 'Rechnungsadresse'
-
-  - if resource.message
-    %h3
-      - if resource.seller.title == 'Herr'
-        Deine Nachricht an den Verkäufer
-      - elsif resource.seller.title == 'Frau'
-        Deine Nachricht an die Verkäuferin
-      - else
-        Deine Nachricht an den/die Verkäufer*in
-    %p
-      .Content
-        = resource.message

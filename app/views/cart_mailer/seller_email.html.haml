@@ -1,22 +1,21 @@
 %h3
-  = "Dein Verkauf auf Fairnopoly"
+  = t('email.line_item_group.seller.heading')
 = t('email.greeting', name: @line_item_group.seller.first_name)
 %p
-  Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
-  Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
-
+  = t('email.line_item_group.seller.text')
 .line-item-group
   %h3
     = link_to @line_item_group.buyer_nickname, profile_user_path(@line_item_group.buyer.id)
-    hat bei Dir gekauft:
+    = t('email.line_item_group.seller.bought_from_you')
   - @line_item_group.business_transactions.each do |bt|
     = render 'article', bt: bt
   - if @line_item_group.message
     .message
       %h4
-        Nachricht des/der Verkäufer*in
+        = t('email.line_item_group.seller.buyer_message')
       = @line_item_group.message
-  = link_to 'Bestellung ansehen und versenden', line_item_group_path(@line_item_group.id), class: 'Button'
+  %center
+    = link_to t('email.line_item_group.seller.view_and_pay'), line_item_group_path(@line_item_group.id), class: 'Button'
 
 - content_for 'sidebar' do
   = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'

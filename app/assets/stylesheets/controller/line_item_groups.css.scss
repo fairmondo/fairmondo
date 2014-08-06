@@ -125,3 +125,35 @@
     border: solid;
   }
 }
+
+
+/*
+  Here be stuff for LineItemGroup#show view
+*/
+
+.lineItemGroupShow-container {
+
+}
+
+.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper {
+  @include span(3 of 4);
+}
+
+.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper > .lineItemGroupShow-content {
+  @include shadowless_whitebox;
+}
+
+.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper > .lineItemGroupShow-content > .message {
+  @include shadowless_whitebox;
+}
+
+.lineItemGroupShow-container > .lineItemGroupShow-sidebar {
+  @include span(1 of 4);
+  @include omega;
+}
+
+.Address {
+  @include shadowless_whitebox;
+  margin-bottom: 0.5em;
+}
+

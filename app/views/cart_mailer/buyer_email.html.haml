@@ -18,7 +18,8 @@
         %h4
           = t('email.cart.buyer.your_message')
         = lig.message
-    = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
+    %center
+      = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
 %hr
 %p
   %small
