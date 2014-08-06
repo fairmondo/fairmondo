@@ -2,7 +2,7 @@
   .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
     = t('common.actions.collect')
   .libraries.JS-active-toggle--target#libraries_popup
-    Zu Sammlung hinzufügen:
+    = t('library.control.add')
     %span.sprite_helper{title: t('library.control.main_tooltip')}
     - libraries_public = current_user.libraries.select { |lib| lib.public }
     - libraries_private = current_user.libraries.select { |lib| !lib.public }
