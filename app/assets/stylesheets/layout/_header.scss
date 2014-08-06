@@ -73,7 +73,7 @@ $header-nav-link-color-hover: $blue;
   line-height: 1.5em;
 }
 .l-header-nav-dropdown--login {
-  right: 0;
+  //right: 0;
   width: 17em;
   @include at-breakpoint($bp-tablet) {
     left: 0;
