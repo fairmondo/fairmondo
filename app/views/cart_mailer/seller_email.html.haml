@@ -1,43 +1,24 @@
-%html
-  %head
-    = stylesheet_link_tag 'email/email'
-  %body
+%h3
+  = "Dein Verkauf auf Fairnopoly"
+= t('email.greeting', name: @line_item_group.seller.first_name)
+%p
+  Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
+  Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
 
-    .l-container
-      = render 'shared/email/header'
-      .l-main
-        .l-content-wrapper
-          .l-content
-            %h3
-              = "Dein Verkauf auf Fairnopoly"
-            = t('email.greeting', name: @line_item_group.seller.first_name)
-            %p
-              Herzlichen Glückwunsch! Du hast erfolgreich Artikel auf Fairnopoly verkauft.
-              Hier findest Du die Artikel Deines Auftrags, sortiert nach gewählter Versandmethode.
+.line-item-group
+  %h3
+    = link_to @line_item_group.buyer_nickname, profile_user_path(@line_item_group.buyer.id)
+    hat bei Dir gekauft:
+  - @line_item_group.business_transactions.each do |bt|
+    = render 'article', bt: bt
+  - if @line_item_group.message
+    .message
+      %h4
+        Nachricht des/der Verkäufer*in
+      = @line_item_group.message
+  = link_to 'Bestellung ansehen und versenden', line_item_group_path(@line_item_group.id), class: 'Button'
 
-            .line-item-group
-              %h3
-                = link_to @line_item_group.buyer_nickname, profile_user_path(@line_item_group.buyer.id)
-                hat bei Dir gekauft:
-              - @line_item_group.business_transactions.each do |bt|
-                = render 'article', bt: bt
-              - if @line_item_group.message
-                .message
-                  %h4
-                    Nachricht des/der Verkäufer*in
-                  = @line_item_group.message
-              = link_to 'Bestellung ansehen und versenden', line_item_group_path(@line_item_group.id), class: 'Button'
-        .l-sidebar
-          = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
-          = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
-          = render 'shared/email/social_buttons'
-          .l-sidebar-help
-            %h4
-              Probleme mit der Bestellung?
-            Kontaktiere den/die Händer*in
-            %br
-            lies unsere FAQ
-            %br
-            schreib uns eine Email
-      = render 'shared/email/signature'
-      = render 'shared/email/footer'
+- content_for 'sidebar' do
+  = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
+  = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
+  = render 'shared/email/social_buttons'

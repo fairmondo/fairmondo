@@ -5,6 +5,10 @@
     .l-container
       = render 'shared/email/header'
       .l-main
-        = yield
+        .l-content-wrapper
+          .l-content
+            = yield
+        .l-sidebar
+          = content_for 'sidebar'
       = render 'shared/email/signature'
       = render 'shared/email/footer'

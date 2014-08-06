@@ -1,31 +1,30 @@
-.l-content-wrapper
-  .l-content
+%h3
+  = t('email.cart.buyer.heading')
+= t('email.greeting', name: @cart.user.first_name)
+%p
+  = t('email.cart.buyer.text')
+  = t('email.cart.buyer.visit_your_profile')
+  = link_to t('email.cart.buyer.user_profile'), user_path(@cart.user.id)
+  = '.'
+- @cart.line_item_groups.find_each do |lig|
+  .line-item-group
     %h3
-      = t('email.cart.buyer.heading')
-    = t('email.greeting', name: @cart.user.first_name)
-    %p
-      = t('email.cart.buyer.text')
-      = t('email.cart.buyer.visit_your_profile')
-      = link_to t('email.cart.buyer.user_profile'), user_path(@cart.user.id)
-      = '.'
-    - @cart.line_item_groups.find_each do |lig|
-      .line-item-group
-        %h3
-          = t('email.cart.buyer.your_purchase')
-          = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
-        - lig.business_transactions.find_each do |bt|
-          = render 'article', bt: bt
-        - if lig.message
-          .message
-            %h4
-              = t('email.cart.buyer.your_message')
-            = lig.message
-        = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
-    %hr
-    %p
-      %small
-        = simple_format t('email.security_warning')
-.l-sidebar
+      = t('email.cart.buyer.your_purchase')
+      = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
+    - lig.business_transactions.find_each do |bt|
+      = render 'article', bt: bt
+    - if lig.message
+      .message
+        %h4
+          = t('email.cart.buyer.your_message')
+        = lig.message
+    = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
+%hr
+%p
+  %small
+    = simple_format t('email.security_warning')
+
+- content_for 'sidebar' do
   = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: t('email.transport_address')
   - unless @cart.line_item_groups.first.transport_address == @cart.line_item_groups.first.payment_address
     = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: t('email.payment_address')

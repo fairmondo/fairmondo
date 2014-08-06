@@ -1,6 +1,7 @@
 class CartMailer < ActionMailer::Base
 
   default from: $email_addresses['ArticleMailer']['default_from']
+  layout 'email'
 
   def buyer_email(cart)
     @cart = cart

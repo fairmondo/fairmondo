@@ -21,6 +21,7 @@
 #
 class DeviseMailer < Devise::Mailer
   #helper :application # gives access to all helpers defined within `application_helper`.
+  layout 'email'
 
 
   def welcome_mail(record, token, opts={})
