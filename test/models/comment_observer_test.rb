@@ -30,7 +30,8 @@ describe CommentObserver do
     it "should send an email to the commentable owner" do
       mock = MiniTest::Mock.new
       mock.expect :deliver, true
-      CommentMailer.expects(:report_comment_on_library).with(comment, comment.commentable.user).returns mock
+      CommentMailer.expects(:report_comment_on_library).
+        with(comment, comment.commentable.user).returns mock
       CommentObserver.instance.after_save(comment, comment.commentable.user)
     end
   end
