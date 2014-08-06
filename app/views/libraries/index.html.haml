@@ -20,6 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+-# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
   .library-form
     %h3= t('library.new')
@@ -29,6 +30,7 @@
         = f.input :public, :label => false
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Button"}
+
 
 .libraries
   - if @libraries.any?
