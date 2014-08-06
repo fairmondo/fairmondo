@@ -12,6 +12,10 @@ de:
     visibility:
       public: Öffentliche Sammlung
       private: Private Sammlung
+    control:
+      main_tooltip: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."
+      check_title: 'Der Artikel befindet sich bereits in dieser Sammlung.'
+      further_link: 'Zu meinen Sammlungen'
   library_element:
     notice:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
