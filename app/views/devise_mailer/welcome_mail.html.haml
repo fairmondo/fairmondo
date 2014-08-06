@@ -20,23 +20,12 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
-%html
-  %head
-    = stylesheet_link_tag 'email/email'
-  %body
+%p
+  = t('common.text.hello')
+  = @resource.nickname + ','
+%p= t('devise.confirmation.text')
+%p= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @token)
+%p= t('devise.confirmation.ignoremail')
 
-    .l-container
-      = render 'shared/email/header'
-      .l-main
-        .l-content-wrapper
-          .l-content
-            %p
-              = t('common.text.hello')
-              = @resource.nickname + ','
-            %p= t('devise.confirmation.text')
-            %p= link_to t('devise.confirmation.link'), confirmation_url(@resource, :confirmation_token => @token)
-            %p= t('devise.confirmation.ignoremail')
-        .l-sidebar
-          = render 'shared/email/social_buttons'
-      = render 'shared/email/signature'
-      = render 'shared/email/footer'
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'
