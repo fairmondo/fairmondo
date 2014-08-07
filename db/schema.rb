@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729105246) do
+ActiveRecord::Schema.define(version: 20140806132525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,42 +109,38 @@ ActiveRecord::Schema.define(version: 20140729105246) do
 
   create_table "business_transactions", force: true do |t|
     t.string   "type_fix"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.datetime "expire"
     t.string   "selected_transport"
     t.string   "selected_payment"
-    t.boolean  "tos_accepted",                                    default: false
-    t.integer  "buyer_id",                              limit: 8
+    t.boolean  "tos_accepted",                   default: false
+    t.integer  "buyer_id",             limit: 8
     t.string   "state"
     t.text     "message"
     t.integer  "quantity_available"
     t.integer  "quantity_bought"
-    t.integer  "parent_id",                             limit: 8
-    t.integer  "article_id",                            limit: 8
+    t.integer  "parent_id",            limit: 8
+    t.integer  "article_id",           limit: 8
     t.string   "forename"
     t.string   "surname"
     t.string   "street"
     t.string   "city"
     t.string   "zip"
     t.string   "country"
-    t.integer  "seller_id",                             limit: 8
+    t.integer  "seller_id",            limit: 8
     t.datetime "sold_at"
-    t.boolean  "purchase_emails_sent",                            default: false
+    t.boolean  "purchase_emails_sent",           default: false
     t.string   "address_suffix"
     t.integer  "discount_id"
     t.integer  "discount_value_cents"
-    t.boolean  "billed_for_fair",                                 default: false
-    t.boolean  "billed_for_fee",                                  default: false
-    t.boolean  "billed_for_discount",                             default: false
-    t.integer  "transport_address_id",                  limit: 8
-    t.integer  "payment_address_id",                    limit: 8
-    t.integer  "payment_id",                            limit: 8
-    t.integer  "line_item_group_id",                    limit: 8
-    t.string   "unified_transport_provider"
-    t.integer  "unified_transport_maximum_articles"
-    t.integer  "unified_transport_price_cents",         limit: 8, default: 0
-    t.integer  "unified_transport_free_at_price_cents", limit: 8, default: 0
+    t.boolean  "billed_for_fair",                default: false
+    t.boolean  "billed_for_fee",                 default: false
+    t.boolean  "billed_for_discount",            default: false
+    t.integer  "transport_address_id", limit: 8
+    t.integer  "payment_address_id",   limit: 8
+    t.integer  "payment_id",           limit: 8
+    t.integer  "line_item_group_id",   limit: 8
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
@@ -336,21 +332,22 @@ ActiveRecord::Schema.define(version: 20140729105246) do
 
   create_table "line_item_groups", force: true do |t|
     t.text     "message"
-    t.integer  "cart_id",                            limit: 8
-    t.integer  "seller_id",                          limit: 8
-    t.integer  "buyer_id",                           limit: 8
+    t.integer  "cart_id",                                        limit: 8
+    t.integer  "seller_id",                                      limit: 8
+    t.integer  "buyer_id",                                       limit: 8
     t.boolean  "tos_accepted"
-    t.boolean  "unified_transport",                            default: false
-    t.boolean  "unified_payment",                              default: false
+    t.boolean  "unified_transport",                                        default: false
+    t.boolean  "unified_payment",                                          default: false
     t.string   "unified_payment_method"
-    t.integer  "transport_address_id",               limit: 8
-    t.integer  "payment_address_id",                 limit: 8
+    t.integer  "transport_address_id",                           limit: 8
+    t.integer  "payment_address_id",                             limit: 8
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_maximum_articles"
-    t.integer  "unified_transport_price_cents",      limit: 8, default: 0
-    t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
+    t.integer  "unified_transport_price_cents",                  limit: 8, default: 0
+    t.integer  "free_transport_at_price_cents",                  limit: 8, default: 0
+    t.integer  "unified_transport_cash_on_delivery_price_cents"
   end
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
@@ -484,20 +481,20 @@ ActiveRecord::Schema.define(version: 20140729105246) do
   add_index "social_producer_questionnaires", ["article_id"], name: "index_social_producer_questionnaires_on_article_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                                        default: "",    null: false
-    t.string   "encrypted_password",                           default: "",    null: false
+    t.string   "email",                                                    default: "",    null: false
+    t.string   "encrypted_password",                                       default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.integer  "sign_in_count",                                default: 0
+    t.integer  "sign_in_count",                                            default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.string   "forename"
     t.string   "surname"
-    t.boolean  "admin",                                        default: false
+    t.boolean  "admin",                                                    default: false
     t.integer  "invitor_id"
     t.boolean  "trustcommunity"
     t.string   "confirmation_token"
@@ -530,30 +527,31 @@ ActiveRecord::Schema.define(version: 20140729105246) do
     t.string   "buyer_state"
     t.boolean  "verified"
     t.boolean  "bankaccount_warning"
-    t.float    "percentage_of_positive_ratings",               default: 0.0
-    t.float    "percentage_of_negative_ratings",               default: 0.0
-    t.boolean  "direct_debit",                                 default: false
+    t.float    "percentage_of_positive_ratings",                           default: 0.0
+    t.float    "percentage_of_negative_ratings",                           default: 0.0
+    t.boolean  "direct_debit",                                             default: false
     t.string   "address_suffix"
-    t.float    "percentage_of_neutral_ratings",                default: 0.0
-    t.boolean  "ngo",                                          default: false
-    t.integer  "value_of_goods_cents",               limit: 8, default: 0
-    t.integer  "max_value_of_goods_cents_bonus",     limit: 8, default: 0
+    t.float    "percentage_of_neutral_ratings",                            default: 0.0
+    t.boolean  "ngo",                                                      default: false
+    t.integer  "value_of_goods_cents",                           limit: 8, default: 0
+    t.integer  "max_value_of_goods_cents_bonus",                 limit: 8, default: 0
     t.integer  "fastbill_subscription_id"
     t.integer  "fastbill_id"
     t.string   "iban"
     t.string   "bic"
-    t.boolean  "vacationing",                                  default: false
-    t.boolean  "newsletter",                                   default: false
+    t.boolean  "vacationing",                                              default: false
+    t.boolean  "newsletter",                                               default: false
     t.string   "cancellation_form_file_name"
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
-    t.integer  "standard_address_id",                limit: 8
-    t.integer  "unified_transport_maximum_articles",           default: 1
+    t.integer  "standard_address_id",                            limit: 8
+    t.integer  "unified_transport_maximum_articles",                       default: 1
     t.string   "unified_transport_provider"
-    t.integer  "unified_transport_price_cents",      limit: 8, default: 0
+    t.integer  "unified_transport_price_cents",                  limit: 8, default: 0
     t.boolean  "free_transport_available"
-    t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
+    t.integer  "free_transport_at_price_cents",                  limit: 8, default: 0
+    t.integer  "unified_transport_cash_on_delivery_price_cents"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

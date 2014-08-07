@@ -106,4 +106,21 @@ class BusinessTransaction < ActiveRecord::Base
       self.article.transport_type2_provider
     end
   end
+
+
+  def is_in_unified_transport?
+    article.unified_transport? && line_item_group.unified_transport?
+  end
+
+  def single_transport_provider
+    case self.selected_transport
+    when 'pickup'
+      I18n.t('enumerize.business_transaction.selected_transport.pickup')
+    when 'type1'
+      self.article_transport_type1_provider
+    when 'type2'
+      self.article_transport_type2_provider
+    end
+  end
+
 end

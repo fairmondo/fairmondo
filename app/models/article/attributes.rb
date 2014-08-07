@@ -69,7 +69,7 @@ module Article::Attributes
     validates_length_of :gtin, minimum: 8, maximum: 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
-    TRANSPORT_TYPES = ['pickup', 'type1', 'type2']
+    TRANSPORT_TYPES = [:pickup, :type1, :type2]
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
     auto_sanitize :transport_time, remove_all_spaces: true
@@ -87,13 +87,13 @@ module Article::Attributes
 
     validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
 
-    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
+    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
 
     validate :transport_method_checked
 
     # ================ Payment ====================
-    PAYMENT_TYPES = ['bank_transfer', 'cash', 'paypal', 'cash_on_delivery', 'invoice']
+    PAYMENT_TYPES = [:bank_transfer, :cash, :paypal, :cash_on_delivery, :invoice]
 
     #payment
 
@@ -103,7 +103,7 @@ module Article::Attributes
 
     before_validation :set_sellers_nested_validations
 
-    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :payment_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
 
     validates :payment_details, length: { :maximum => 2500 }
 
@@ -129,79 +129,15 @@ module Article::Attributes
     self.seller.is_a?(LegalEntity)
   end
 
-  # Gives the price of the article minus taxes
-  # @api public
-  # @param quantity [Integer] Amount of articles calculated
-  # @return [Money]
-  def price_without_vat quantity = 1
-    ( self.price / (( 100 + self.vat ) / 100.0) ) * quantity
-  end
 
-  # Gives the amount of money for an article that goes towards taxes
-  # @api public
-  # @param quantity [Integer] Amount of articles calculated
-  # @return [Money]
-  def vat_price quantity = 1
-    self.price * quantity - price_without_vat( quantity )
-  end
-
-  # Function to calculate total price for an article.
-  # Note: Params should have already been validated.
-  #
-  # @api public
-  # @param selected_transport [String] Transport type
-  # @param selected_payment [String] Payment type
-  # @param quantity [Integer, nil] Amount of articles bought
-  # @return [Money] Total billed price
-  def total_price selected_transport, selected_payment, quantity
-    quantity ||= 1
-    total = self.price * quantity
-    total += self.transport_price selected_transport, quantity
-    total += cash_on_delivery_price selected_transport, selected_payment, quantity
-  end
-
-  # Gives the shipping cost for a specified transport type
-  #
-  # @api public
-  # @param transport_type [String] The transport type to look up
-  # @param quantity [Integer]
-  # @return [Money] The shipping price
-  def transport_price transport_type, quantity = 1
-    if ["type1", "type2"].include? transport_type
-      send("transport_#{transport_type}_price")  * number_of_shipments(transport_type, quantity)
+  def transport_details_for type
+    case type
+    when :type1
+      [self.transport_type1_price, self.transport_type1_number]
+    when :type2
+      [self.transport_type2_price, self.transport_type2_number]
     else
-      Money.new 0
-    end
-  end
-
-  # Calculated total cash_on_delivery_price, including quantity and selected_transport
-  def cash_on_delivery_price selected_transport, selected_payment, quantity = 1
-    if selected_payment == 'cash_on_delivery'
-      self.payment_cash_on_delivery_price * number_of_shipments(selected_transport, quantity)
-    else
-      Money.new 0
-    end
-  end
-
-  # For CombiTransport: costs are increased every [number] quantity_boughts
-  # @api public
-  def number_of_shipments selected_transport, quantity
-    (quantity.to_f / send("transport_#{selected_transport}_number")).ceil
-  end
-
-  # Gives the shipping provider for a specified transport type
-  #
-  # @api public
-  # @param transport_type [String] The transport type to look up
-  # @return [Money] The shipping provider
-  def transport_provider transport_type
-    case transport_type
-    when "type1"
-      transport_type1_provider
-    when "type2"
-      transport_type2_provider
-    else
-      nil
+      [Money.new(0),0]
     end
   end
 
@@ -244,7 +180,7 @@ module Article::Attributes
       # Get all selected attributes
       output = []
       eval("#{attribute.upcase}_TYPES").each do |e|
-        output << e if self.send "#{attribute}_#{e}"
+        output << e.to_s if self.send "#{attribute}_#{e}"
       end
       output
     end

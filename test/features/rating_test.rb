@@ -27,7 +27,7 @@ include FastBillStubber
 feature 'User ratings' do
 
   let(:buyer) { FactoryGirl.create :user }
-  let(:line_item_group) { FactoryGirl.create :line_item_group_with_items, :sold, buyer: buyer }
+  let(:line_item_group) { FactoryGirl.create :line_item_group, :with_business_transactions, :sold, buyer: buyer }
 
   scenario "guest rates a line_item_group" do
     visit line_item_group_new_user_rating_path(line_item_group.seller, line_item_group)

@@ -140,6 +140,7 @@ FactoryGirl.define do
       transport_type2_provider 'Hermes'
       transport_type1_number { rand(1..10) }
       transport_type2_number { rand(1..10) }
+      unified_transport true
       transport_details { Faker::Lorem.paragraph(rand(2..5)) }
     end
 

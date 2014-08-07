@@ -25,6 +25,7 @@ class UserRefinery < ApplicationRefinery
     ]
     permitted += [ :terms, :cancellation, :about, :cancellation_form,
                     :unified_transport_provider, :unified_transport_maximum_articles, :unified_transport_price,
+                    :unified_transport_cash_on_delivery_price,
                     :free_transport_available, :free_transport_at_price_cents ] if user.is_a? LegalEntity
     permitted
   end

@@ -19,6 +19,10 @@ class LineItemGroup < ActiveRecord::Base
            to: :buyer, prefix: true
   delegate :value, to: :rating, prefix: true
 
+  monetize :unified_transport_price_cents, :allow_nil => true
+  monetize :unified_transport_cash_on_delivery_price_cents, :allow_nil => true
+  monetize :free_transport_at_price_cents, :allow_nil => true
+
   auto_sanitize :message
 
   with_options if: :has_business_transactions? do |bt|
@@ -34,6 +38,7 @@ class LineItemGroup < ActiveRecord::Base
 
   def transport_can_be_unified?
     return false unless self.seller.unified_transport_available?
+    return false if cash_on_delivery_inconsistent?
     articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
     @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
@@ -51,6 +56,10 @@ class LineItemGroup < ActiveRecord::Base
     self.business_transactions.each do |bt|
       bt.selected_payment = value
     end
+  end
+
+  def cash_on_delivery_inconsistent?
+    self.articles.map(&:selectable_payments).flatten.include?(:cash_on_delivery) && !self.seller.unified_transport_cash_on_delivery.present?
   end
 
   private

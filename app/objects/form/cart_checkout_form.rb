@@ -126,7 +126,10 @@ class CartCheckoutForm
       @cart.line_item_groups.each do |group|
         seller = group.seller
         attributes = {}
-        [:unified_transport_maximum_articles, :unified_transport_provider, :unified_transport_price_cents].each do |attribute|
+        [:unified_transport_maximum_articles,
+         :unified_transport_provider,
+         :unified_transport_price_cents,
+         :unified_transport_cash_on_delivery_price_cents].each do |attribute|
             attributes[attribute] = seller.send(attribute)
         end
         attributes[:free_transport_at_price_cents] = seller.free_transport_at_price_cents  if seller.free_transport_available
@@ -137,7 +140,8 @@ class CartCheckoutForm
     def get_seller_specifics_from session
       @cart.line_item_groups.each do |group|
         seller = group.seller
-        group.assing_attributes(session[:cart_checkout][:sellers][seller.id.to_s])
+        checkout_session_params = ActionController::Parameters.new(session[:cart_checkout][:sellers][seller.id.to_s])
+        group.assign_attributes(checkout_session_params.for(group).on(:checkout_session).refine)
       end
     end
 
