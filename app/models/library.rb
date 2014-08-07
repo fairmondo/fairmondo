@@ -46,7 +46,9 @@ class Library < ActiveRecord::Base
 
   scope :not_empty, -> { where("library_elements_count > 0") }
   scope :published, -> { where(public: true) }
-  default_scope -> { order('updated_at DESC') }
+  # Libraries that are trending, i.e. public libraries that have received the most hearts in the last 'seconds'
+  scope :trending, -> (time_period) { joins(:hearts).where("hearts.updated_at > ? AND hearts.updated_at < ?", Time.now - time_period,Time.now).select("libraries.*, count(hearts.id) as num_hearts").group("libraries.id").where("libraries.public = ?", true).order("num_hearts DESC") }
+  #default_scope -> { order('updated_at DESC') }
 
   private
     # when an exhibition name is set to a library, remove the same exhibition
