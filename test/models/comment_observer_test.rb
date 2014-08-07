@@ -32,7 +32,7 @@ describe CommentObserver do
       mock.expect :deliver, true
       CommentMailer.expects(:report_comment_on_library).
         with(comment, comment.commentable.user).returns mock
-      CommentObserver.instance.after_save(comment, comment.commentable.user)
+      CommentObserver.instance.after_save(comment)
     end
   end
 end
