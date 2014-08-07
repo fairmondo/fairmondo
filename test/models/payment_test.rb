@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 describe Payment do
   subject { payment }
-  let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+  let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
   let(:payment) { bt.payment }
 
   describe "attributes" do

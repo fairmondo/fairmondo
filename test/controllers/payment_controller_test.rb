@@ -32,7 +32,7 @@ describe PaymentsController do
   end
 
   describe "POST 'create'" do
-    let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+    let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
 
     it "should update a payment and forward to show" do
       payment #so one with the business_transaction_id already exists
@@ -46,7 +46,7 @@ describe PaymentsController do
   end
 
   describe "GET 'show'" do
-    let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable, payment: FactoryGirl.create(:payment, :with_pay_key)) }
+    let(:bt) { FactoryGirl.create(:business_transaction, :paypal, payment: FactoryGirl.create(:payment, :with_pay_key)) }
 
     it "should redirect to paypal" do
       get :show, id: payment.id

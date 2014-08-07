@@ -24,11 +24,11 @@ require 'ffaker'
 FactoryGirl.define do
   factory :business_transaction, aliases: [:single_transaction] do
     ignore do
-      seller { FactoryGirl.create :user }
+      seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
     end
 
-    article { FactoryGirl.create :article, :with_all_transports, seller: seller }
+    article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, seller: seller, quantity: (quantity_bought + 1) }
     line_item_group { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
 
     selected_transport 'pickup'
@@ -38,36 +38,6 @@ FactoryGirl.define do
     quantity_bought 1
 
 
-
-    factory :multiple_transaction do
-      article { FactoryGirl.create :article, quantity: 50 }
-    end
-
-    trait :legal_transaction do
-      article { FactoryGirl.create :article, :with_legal_entity }
-    end
-
-    trait :private_transaction do
-      article { FactoryGirl.create :article, :with_private_user }
-    end
-
-    factory :business_transaction_with_friendly_percent do
-      article { FactoryGirl.create :article, :with_friendly_percent }
-    end
-
-    #TODO please use business_transaction_with_buyer
-    factory :business_transaction_with_friendly_percent_missing_bank_data_and_buyer  do
-      article { FactoryGirl.create :article, :with_friendly_percent_and_missing_bank_data }
-    end
-
-    factory :business_transaction_with_line_items do
-      article   { FactoryGirl.create :article, seller: line_item_group.seller }
-
-      after :create do |business_transaction, evaluator|
-        FactoryGirl.create :line_item, line_item_group: business_transaction.line_item_group, article: business_transaction.article
-      end
-    end
-
     trait :incomplete do
       shipping_address nil
     end
@@ -76,16 +46,8 @@ FactoryGirl.define do
        quantity_bought 0
     end
 
-    trait :transport_type_1_selected do
-      selected_transport :type1
-    end
-
-    trait :transport_type_2_selected do
-      selected_transport :type2
-    end
-
-    trait :cash_on_delivery_selected do
-      selected_payment :cash_on_delivery
+    trait :bought_some do
+      quantity_bought 10
     end
 
     trait :clear_fastbill do
@@ -111,31 +73,46 @@ FactoryGirl.define do
       article { FactoryGirl.create :article, :with_discount }
     end
 
-    trait :paypal_purchasable do
-      article { FactoryGirl.create :article, payment_paypal: true, seller: FactoryGirl.create(:seller, :paypal_data) }
-      selected_payment :paypal
-      payment
+    ################ Transports #############
+
+    trait :pickup do
+      selected_transport :pickup
     end
+
+    trait :transport_type1 do
+      selected_transport :type1
+    end
+
+    trait :transport_type2 do
+      selected_transport :type2
+    end
+
+    ################ Payments #############
 
     trait :cash do
       selected_payment 'cash'
     end
 
     trait :paypal do
-      article   { FactoryGirl.create :article, seller: line_item_group.seller, payment_paypal: true }
       selected_payment 'paypal'
+      payment
     end
 
     trait :invoice do
       selected_payment 'invoice'
     end
 
-    trait :mangopay do
-      selected_payment 'mangopay'
+    trait :cash_on_delivery do
+      selected_payment :cash_on_delivery
     end
 
     trait :bank_transfer do
       selected_payment 'bank_transfer'
     end
+
+#    trait :mangopay do
+#      selected_payment 'mangopay'
+#      payment
+#    end
   end
 end

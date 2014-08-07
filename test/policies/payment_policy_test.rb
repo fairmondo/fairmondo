@@ -25,7 +25,7 @@ describe PaymentPolicy do
   include PunditMatcher
 
   subject { PaymentPolicy.new(user, payment)  }
-  let(:bt) { FactoryGirl.create(:business_transaction, :paypal_purchasable) }
+  let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
   let(:payment) { bt.payment }
 
   describe "for a visitor" do
