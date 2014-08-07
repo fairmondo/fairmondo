@@ -20,10 +20,10 @@
 # along with Fairnopoly. If not, see <http://www.gnu.org/licenses/>.
 #
 class CommentObserver < ActiveRecord::Observer
-  def after_save(comment, commentable_owner)
+  def after_save(comment)
     case comment.commentable_type
     when "Library"
-      CommentMailer.report_comment_on_library(comment, commentable_owner)
+      CommentMailer.report_comment_on_library(comment, comment.commentable.user)
     end
   end
 end
