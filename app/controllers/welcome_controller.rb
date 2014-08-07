@@ -33,14 +33,7 @@ class WelcomeController < ApplicationController
     @donation_articles = query_object.set(:donation_articles).find(2)
 
     # Libraries that are trending
-    # TODO: Nur Libraries, die im Moment öffentlich sind! Am besten über einen Join
-    active_hearts = Heart.select("count(id) as num_hearts, heartable_id").group(:heartable_id).where(updated_at: 180.minutes.ago..Time.now).order('count(id) DESC').first(3)
-    @libraries_trending = []
-    active_hearts.each do |heart|
-      library = Library.find(heart.heartable_id)
-      @libraries_trending.push(library)
-    end
-
+    @libraries_trending = Library.trending(3.days).limit(3)
   end
 
   # Rss Feed
