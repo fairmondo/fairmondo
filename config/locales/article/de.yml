@@ -89,6 +89,7 @@ de:
         invalid_transport_option: "Bitte gib mindestens eine Versandoption an"
         invalid_payment_option: "Bitte gib mindestens eine Bezahloption an"
         paypal_details_missing: "Bitte gib Deine PayPal-Daten im Profil ein"
+        bank_transfer_not_allowed: 'Wenn Du noch nicht länger als einen Monat auf Fairnopoly aktiv bist, kannst Du keine Artikel mit einem Verkaufspreis von mehr als 100Euro per Vorkasse bezahlen lassen.'
         bank_details_missing: "Bitte gib Deine Bankdaten an"
         social_producer_questionnaire:
           no_social_producer: "Bitte beantworte mindestens eine der Fragen mit 'Ja'"
@@ -108,6 +109,7 @@ de:
       deactivate: "Vom Marktplatz nehmen"
       edit_as_new: "Bearbeiten und wiedereinstellen"
       edit_or_delete: "Bearbeiten oder löschen"
+      new_user_warning: 'ACHTUNG! Um Betrugsfällen vorzubeugen, haben wir uns dazu entschieden, dass Nutzer*innen, die weniger als einen Monat auf Fairnopoly.de aktiv sind, für Artikel mit einem Wert von mehr als 100 Euro nicht die Bezahlmethode "Vorkasse" wählen können.'
     list:
       header: "Ergebnisse"
     notices:
