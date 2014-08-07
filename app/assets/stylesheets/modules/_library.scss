@@ -48,7 +48,7 @@ Library module
 
 
 /* Div that contains the comments counter and the heart button */
-.Library > summary > .Library-buttons {
+.Library .Library-buttons {
   float: right;
 
   > div {
@@ -57,7 +57,7 @@ Library module
 }
 
 /* div containing the user image */
-.Library > summary > .Library-userimage {
+.Library .Library-userimage {
   display: none;
   float: left;
   margin-right: 1em;
@@ -74,22 +74,22 @@ Library module
 }
 
 /* The biggest part of the library header containing title, user and preview thumbnails */
-.Library > summary > .Library-info {
+.Library .Library-info {
 }
 
-.Library > summary > .Library-info > .Library-info-text {
+.Library .Library-info > .Library-info-text {
   margin-bottom: 0.5em;
 }
 
-.Library > summary > .Library-info > .Library-info-text > .Library-info-text-title {
+.Library .Library-info > .Library-info-text > .Library-info-text-title {
   font-size: 1.5em;
 }
 
-.Library > summary > .Library-info > .Library-info-text > .Library-info-text-user {
+.Library .Library-info > .Library-info-text > .Library-info-text-user {
   font-weight: 600;
 }
 
-.Library > summary > .Library-info > .Library-info-thumbnails {
+.Library .Library-info > .Library-info-thumbnails {
   height: 6em;
   overflow: hidden;
 
@@ -103,11 +103,11 @@ Library module
   }
 }
 
-.Library > summary > .Library-comments {
+.Library .Library-comments {
   margin-top: 0.6rem;
 }
 
-.Library.Library--open > summary > .Library-comments {
+.Library.Library--open .Library-comments {
   display: none;
 }
 
