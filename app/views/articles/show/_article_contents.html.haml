@@ -93,32 +93,7 @@
     .buyer-controls
       -# Collect button and libraries list
       - if user_signed_in? && resource.active?
-        .collect.JS-active-toggle--container
-          .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
-            = t('common.actions.collect')
-          .libraries.JS-active-toggle--target#libraries_popup
-            Zu Sammlung hinzufügen:
-            %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            - libraries_public = current_user.libraries.select { |lib| lib.public }
-            - libraries_private = current_user.libraries.select { |lib| !lib.public }
-            #libraries_list
-              %ul#libraries_public
-                - libraries_public.each do |library|
-                  %li
-                    %i.fa.fa-eye.fa-lg{title: 'Öffentliche Sammlung'}
-                    %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                      = library.name
-              %ul#libraries_private
-                - libraries_private.each do |library|
-                  %li
-                    %i.fa.fa-eye-slash.fa-lg{title: 'Private Sammlung'}
-                    %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}
-                      = library.name
-
-            = render "/libraries/library_form", library: current_user.libraries.build, article_id: resource.id
-            %ul#libraries_links
-              %li
-                = link_to 'Zu meinen Sammlungen', user_libraries_path(current_user)
+        = render "/libraries/shared/control_panel", article: resource
 
       - if policy(resource).purchasable?
         = semantic_form_for LineItem.new do |f|

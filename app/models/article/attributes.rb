@@ -87,8 +87,8 @@ module Article::Attributes
 
     validates :transport_time, length: { maximum: 7 }, format: { with: /\A\d{1,2}-?\d{,2}\z/ }, allow_blank: true
 
-    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
-    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 500 }, :allow_nil => true
+    monetize :transport_type2_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
+    monetize :transport_type1_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
 
     validate :transport_method_checked
 
