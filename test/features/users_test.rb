@@ -272,7 +272,3 @@ feature "Newsletter" do
     @user.reload.newsletter.must_equal false
   end
 end
-
-
-
-

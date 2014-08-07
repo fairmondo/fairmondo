@@ -324,5 +324,3 @@ feature 'other Articles of the same user' do
     page.wont_have_link('', href: article_path(@article_locked))
   end
 end
-
-

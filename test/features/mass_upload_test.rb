@@ -207,5 +207,4 @@ feature "Uploading a CSV" do
     click_button I18n.t('mass_uploads.labels.upload_article')
     page.must_have_content(I18n.t('mass_uploads.errors.illegal_quoting'))
   end
-
 end

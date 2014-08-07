@@ -7,11 +7,10 @@ These styles are used for emails only
 
 html,body {
   height: 100%;
-  min-width:300px;
-  font-family: $base-font-body;
-  font-size: $base-font-size;
   margin:0;
   padding:0;
+  font-family: $base-font-body;
+  font-size: $base-font-size;
   color: $black;
   @include color-links($blue,$blue);
   @include clear-links-with-hover;
@@ -38,6 +37,12 @@ h4 {
   font-weight: 700;
 }
 
+hr {
+  border: 0;
+  background: $lighter-gray;
+  height: 1px;
+}
+
 .l-container {
   max-width: 650px;
 }
@@ -51,7 +56,6 @@ h4 {
 
 .l-header > .l-header-left {
   @include span(1 of 4);
-  @include clearfix;
   float: left;
 }
 
@@ -121,7 +125,6 @@ h4 {
   font-size: 0.8em;
 }
 
-/* Address overwrite */
 .Address {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
@@ -196,11 +199,31 @@ h4 {
   }
 }
 
-.line-item-group > .message {
+.message {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
   h4 {
     margin-top: 0em;
     margin-bottom: 0.2em;
   }
+}
+
+.l-signature {
+  @include shadowless_whitebox;
+  overflow: hidden;
+  clear: both;
+  margin-top: 0.5em;
+}
+
+.l-signature > .l-signature-left {
+  @include span(1 of 3);
+}
+
+.l-signature > .l-signature-middle {
+  @include span(1 of 3);
+}
+
+.l-signature > .l-signature-right {
+  @include span(1 of 3);
+  @include omega;
 }

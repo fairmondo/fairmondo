@@ -1,0 +1,5 @@
+%li
+  %i.fa.fa-lg{title: t("library.visibility.#{visibility}"), class: visibility == :public ? 'fa-eye' : 'fa-eye-slash'}
+  %a{href: "#{user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id})}", rel: "nofollow", 'data-method' => "post"}= library.name
+  - if library.articles.include?(article)
+    %i.fa.fa-check{title: t('library.control.check_title')}
