@@ -16,7 +16,7 @@
 
       .Listview
         - resource.business_transactions.each do |bt|
-          = render 'shared/listview/line_item_group_show_item', article: bt.article, business_transaction: bt
+          = render 'line_item_groups/shared/article', article: bt.article, bt: bt
       = 'Gesamt: '
       300Euro
 
