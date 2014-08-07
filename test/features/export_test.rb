@@ -51,7 +51,7 @@ feature "Exports" do
     # sell them
     @transaction1 = FactoryGirl.create :single_transaction, :sold,
                                       article: legal_entity.articles.last,
-                                      :buyer => legal_entity_buyer,
+                                      buyer: legal_entity_buyer,
                                       forename: "Hans", surname: "Dampf",
                                       street: "In allen Gassen 1",
                                       city: "Berlin", zip: "10999",
@@ -60,14 +60,14 @@ feature "Exports" do
     legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
     visit user_path(legal_entity)
     click_link I18n.t('articles.export.sold')
-    page.source.must_equal  IO.read('test/fixtures/mass_upload_correct_export_test_sold.csv', encoding: 'ascii-8bit')
+    page.source.must_equal IO.read('test/fixtures/mass_upload_correct_export_test_sold.csv', encoding: 'ascii-8bit')
 
     logout(:user)
     login_as legal_entity_buyer
     visit user_path(legal_entity_buyer)
     click_link I18n.t('articles.export.bought')
 
-    page.source.must_equal  IO.read('test/fixtures/mass_upload_export_bought.csv', encoding: 'ascii-8bit')
+    page.source.must_equal IO.read('test/fixtures/mass_upload_export_bought.csv', encoding: 'ascii-8bit')
 
   end
 
@@ -78,7 +78,7 @@ feature "Exports" do
     click_button I18n.t('mass_uploads.labels.upload_article')
     click_link I18n.t('articles.export.inactive')
 
-    page.source.must_equal  IO.read('test/fixtures/export_social_producer.csv', encoding: 'ascii-8bit')
+    page.source.must_equal IO.read('test/fixtures/export_social_producer.csv', encoding: 'ascii-8bit')
 
   end
 
