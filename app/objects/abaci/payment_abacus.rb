@@ -64,7 +64,7 @@ class PaymentAbacus
     end
 
     def calculate_attribute_total payment, attribute
-      @payments[payment][:transports].map{ |h| h[attribute]}.sum
+      @payments[payment][:transports].map{ |h| h[attribute] }.sum
     end
 
     def calculate_total payment
@@ -73,6 +73,4 @@ class PaymentAbacus
       total += @payments[payment][:cash_on_delivery_total] if payment == :cash_on_delivery
       total
     end
-
-
 end

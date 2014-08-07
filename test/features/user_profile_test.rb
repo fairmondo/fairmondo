@@ -54,6 +54,4 @@ feature 'User profile page' do
     click_link I18n.t 'common.text.about_terms'
     current_path.must_equal profile_user_path user
   end
-
-
 end
