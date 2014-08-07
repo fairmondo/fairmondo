@@ -79,8 +79,8 @@
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
-      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
-    - @donation_articles[:exhibits].each do |article|
+      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
+    - @queue3[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
@@ -120,8 +120,8 @@
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
+      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
+    - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
