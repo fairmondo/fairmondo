@@ -200,6 +200,5 @@ feature "Admin management for featured (exhibited) Libraries" do
 
     other_library.reload.exhibition_name.must_equal 'donation_articles'
     featured_library.reload.exhibition_name.must_equal nil
-
   end
 end

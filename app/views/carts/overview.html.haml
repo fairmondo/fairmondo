@@ -18,8 +18,6 @@
 
   .prices
     - @cart.line_item_groups.each do |group|
-      - group.business_transactions.each do |bt|
-        = bt
-
+      = Abacus.new(group).transport_listing
 
 = button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
