@@ -1,18 +1,18 @@
-.library-buttons
+.Library-buttons
   = comments_counter(library)
   = heart_button(library)
-.library-userimage
+.Library-userimage
   = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
-.library-info
+.Library-info
   - cache [library,library.user,"library_header"] do
-    .library-text
-      %span.library-title
+    .Library-info-text
+      %span.Library-info-text-title
         = link_to library.name, library_path(library)
-      %span.library-user
+      %span.Library-info-text-user
         = link_to user_path(library.user) do
           = t('common.text.glue.from')
           = library.user_nickname
-    .library-thumbnails
+    .Library-info-thumbnails
       - library.library_elements.first(10).each do |library_element|
         - if library_element.article
-          = image_tag(library_element.article.title_image_url(:thumb), :class => "library-thumbnail", :title => library_element.article_title)
+          = image_tag(library_element.article.title_image_url(:thumb), :title => library_element.article_title)
