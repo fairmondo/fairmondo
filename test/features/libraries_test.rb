@@ -203,5 +203,3 @@ feature "Admin management for featured (exhibited) Libraries" do
 
   end
 end
-
-

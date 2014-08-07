@@ -90,6 +90,5 @@ feature "Exports" do
     visit mass_upload_path(MassUpload.last)
     click_link "Fehlerhafte Artikel exportieren"
     page.source.must_equal IO.read('test/fixtures/mass_upload_wrong_article.csv')
-
   end
 end
