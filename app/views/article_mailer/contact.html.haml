@@ -1,21 +1,18 @@
+%h3
+  = t('email.greeting', name: @article.seller.first_name)
 %p
-  Ein*e Fairnopoly-Nutzer*in hat dir eine Rückfrage zu deinem Artikel
-  = "\"#{@article.title}\""
-  gesandt:
-%br
-%hr
-%br
-= simple_format @text
-%br
-%hr
-%br
+  = t('email.article.contact.text_beginning')
+  = link_to "\"#{@article.title}\"", article_path(@article.id)
+  = t('email.article.contact.text_end')
+.message
+  = simple_format @text
 
 %p
-  Bitte sende Deine Antwort an
-  = @from
+  %center
+    = mail_to @from, t('email.article.contact.reply_button'), class: 'Button'
 %p
-  Den Artikel zu der Rückfrage findest Du unter
+  = t('email.article.contact.article_link_text')
   = link_to article_url(@article), article_url(@article)
-%br
-%br
-= render '/shared/email_footer'
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

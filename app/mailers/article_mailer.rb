@@ -21,6 +21,7 @@
 #
 class ArticleMailer < ActionMailer::Base
   default from: $email_addresses['ArticleMailer']['default_from']
+  layout 'email', only: :contact
 
   def report_article article, user, text
     @text = text

@@ -27,7 +27,7 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new(params.for(Feedback).refine)
     authorize @feedback
     @feedback.set_user_id current_user
-    @feedback.source_page = session[:previous_urls].inspect
+    @feedback.source_page = JSON.pretty_generate session[:previous_urls]
     @feedback.user_agent = request.env["HTTP_USER_AGENT"]
     flash[:notice] = I18n.t('article.actions.reported') if @feedback.save
     respond_with @feedback, location: -> { redirect_path }

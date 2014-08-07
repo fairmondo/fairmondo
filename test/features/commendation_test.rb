@@ -111,5 +111,4 @@ feature "article creation with incorrect fair trust questionnaire" do
     click_button I18n.t("article.labels.continue_to_preview")
     find("#article_fair_trust_questionnaire_attributes_support_other_input").must_have_content I18n.t('errors.messages.blank')
   end
-
 end

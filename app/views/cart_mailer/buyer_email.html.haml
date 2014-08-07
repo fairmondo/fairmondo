@@ -1,68 +1,33 @@
-%html
-  %head
-    = stylesheet_link_tag 'email/email'
-  %body
+%h3
+  = t('email.cart.buyer.heading')
+= t('email.greeting', name: @cart.user.first_name)
+%p
+  = t('email.cart.buyer.text')
+  = t('email.cart.buyer.visit_your_profile')
+  = link_to t('email.cart.buyer.user_profile'), user_path(@cart.user.id)
+  = '.'
+- @cart.line_item_groups.find_each do |lig|
+  .line-item-group
+    %h3
+      = t('email.cart.buyer.your_purchase')
+      = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
+    - lig.business_transactions.find_each do |bt|
+      = render 'article', bt: bt
+    - if lig.message
+      .message
+        %h4
+          = t('email.cart.buyer.your_message')
+        = lig.message
+    %center
+      = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
+%hr
+%p
+  %small
+    = simple_format t('email.security_warning')
 
-    .l-container
-      = render 'header'
-      .l-main
-        .l-content-wrapper
-          .l-content
-            %h1
-              = "Dein Einkauf auf Fairnopoly"
-            = "Hallo #{@cart.user.first_name},"
-            %p
-              Vielen Dank für Deinen Einkauf auf Fairnopoly, Du bist großartig!
-              %br
-              In dieser Email haben wir nochmal alle wichtigen Informationen für Dich zusammen gefasst.
-              %br
-              Um die gekauften Artikel zu bezahlen, besuche Bitte Dein
-              = link_to 'Nutzer*innen-Profil', user_path(@cart.user.id)
-              = '.'
-
-            - @cart.line_item_groups.find_each do |lig|
-              .line-item-group
-                %h3
-                  Dein Einkauf bei
-                  = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
-                - lig.business_transactions.find_each do |bt|
-                  = render 'article', bt: bt
-                - if lig.message
-                  .message
-                    %h4
-                      Deine Nachricht an den/die Verkäufer*in
-                    = lig.message
-                = link_to 'Bestellung ansehen und bezahlen', line_item_group_path(lig.id), class: 'Button'
-
-            %hr
-            %p
-              %small
-                = simple_format t 'transaction.notifications.buyer.security_warning'
-
-        .l-sidebar
-          = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: 'Lieferadresse'
-          - unless @cart.line_item_groups.first.transport_address == @cart.line_item_groups.first.payment_address
-            = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Rechnungsadresse'
-          .l-sidebar-social-buttons
-            = link_to 'Wir auf Facebook', 'https://facebook.com/fairnopoly', class: 'Button'
-            = link_to 'Wir auf Pinterest', 'https://pinterest.com', class: 'Button'
-            = link_to 'Wir auf twitter', 'https://twitter.com', class: 'Button'
-            = link_to 'Wir auf Instagram', 'https://instagram.com', class: 'Button'
-          .l-sidebar-contact
-            %h4
-              Kontakt
-            Fairnopoly eG
-            %br
-            Glogauer Str. 21
-            %br
-            10999 Berlin
-          .l-sidebar-help
-            %h4
-              Probleme mit der Bestellung?
-            Kontaktiere den/die Händer*in
-            %br
-            lies unsere FAQ
-            %br
-            schreib uns eine Email
-
-      = render 'footer'
+- content_for 'sidebar' do
+  = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: t('email.transport_address')
+  - unless @cart.line_item_groups.first.transport_address == @cart.line_item_groups.first.payment_address
+    = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: t('email.payment_address')
+  = render 'shared/email/social_buttons'
+  = render 'shared/email/help'

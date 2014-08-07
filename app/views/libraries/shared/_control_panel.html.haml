@@ -1,0 +1,20 @@
+.collect.JS-active-toggle--container
+  .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
+    = t('common.actions.collect')
+  .libraries.JS-active-toggle--target#libraries_popup
+    Zu Sammlung hinzufügen:
+    %span.sprite_helper{title: t('library.control.main_tooltip')}
+    - libraries_public = current_user.libraries.select { |lib| lib.public }
+    - libraries_private = current_user.libraries.select { |lib| !lib.public }
+    #libraries_list
+      %ul#libraries_public
+        - libraries_public.each do |library|
+          = render '/libraries/shared/control_panel_list_element', is_public: true, visibility: :public, library: library, article: article
+      %ul#libraries_private
+        - libraries_private.each do |library|
+          = render '/libraries/shared/control_panel_list_element', visibility: :private, library: library, article: article
+
+    = render "/libraries/library_form", library: current_user.libraries.build, article_id: resource.id
+    %ul#libraries_links
+      %li
+        = link_to t('library.control.further_link'), user_libraries_path(current_user)

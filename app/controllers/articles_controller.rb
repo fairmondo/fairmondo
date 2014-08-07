@@ -186,5 +186,4 @@ class ArticlesController < ApplicationController
         redirect_to category_path(@search_cache.category_id, params)
       end
     end
-
 end

@@ -32,6 +32,4 @@ feature 'Article Template management' do
     visit new_article_template_path
     page.must_have_content( I18n.t 'formtastic.labels.fair_trust_questionnaire.support')
   end
-
 end
-

@@ -152,5 +152,4 @@ class Statistic
        ((last_week.to_f / week_before_last_week.to_f - 1) * 100).round(2)
     end
   end
-
 end
