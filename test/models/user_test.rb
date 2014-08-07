@@ -89,6 +89,7 @@ describe User do
     it { subject.must_respond_to :fastbill_subscription_id }
     it { subject.must_respond_to :fastbill_id }
     it { subject.must_respond_to :vacationing }
+    it { subject.must_respond_to :receive_comments_notification }
     it { subject.must_respond_to :admin }
 
   end

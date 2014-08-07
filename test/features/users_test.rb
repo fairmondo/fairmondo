@@ -99,6 +99,8 @@ feature "User account management" do
     # State Fields
     page.must_have_css 'h3', text: I18n.t('users.title.state')
     page.must_have_content I18n.t 'formtastic.labels.user.vacationing'
+    page.must_have_content I18n.t 'formtastic.labels.user.newsletter'
+    page.must_have_content I18n.t 'formtastic.labels.user.receive_comments_notification'
 
     # Contact Info Fields
     page.must_have_content I18n.t 'formtastic.labels.user.title'
