@@ -59,7 +59,7 @@ class BusinessTransaction < ActiveRecord::Base
 
 
 
-  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true
+  validates :selected_transport, inclusion: { in: proc { |record| record.article.selectable_transports } }, presence: true , unless: :is_in_unified_transport?
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
   validates :line_item_group, presence: true

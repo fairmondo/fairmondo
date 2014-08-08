@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
-def abacus_for traits, attributes = {}
-  @line_item_group = FactoryGirl.create :line_item_group, :with_business_transactions, traits: traits, articles_attributes: attributes
+def abacus_for bt_traits, attributes = {}, lig_traits = []
+  @line_item_group = FactoryGirl.create :line_item_group, :with_business_transactions, *lig_traits , traits: bt_traits, articles_attributes: attributes
   @abacus = Abacus.new @line_item_group
 end
 
@@ -52,6 +52,18 @@ describe 'Abacus' do
     @abacus.payment_listing.payments[:paypal][:total].must_equal (transport_prices[0..1].sum + prices[0]*5+ prices[1])
     @abacus.payment_listing.payments[:invoice][:total].must_equal ((transport_prices[2] * 2) + prices[2]*10)
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total] +  @abacus.payment_listing.payments[:invoice][:total]
+
+  end
+
+  it 'calculates a total price, transport prices and payment totals for unified transports' do
+    prices = [ Money.new(5000), Money.new(10000), Money.new(500)]
+    transport_prices = [Money.new(500), Money.new(2000), Money.new(200)]
+    transport_numbers = [1,1,1]
+    traits = [[:paypal, :bought_five], [:paypal, :bought_five], [:paypal, :bought_ten]]
+    attributes = article_attributes_for prices, transport_prices, transport_numbers
+    abacus_for(traits, attributes, :with_unified_transport)
+
+    @abacus.transport_listing.unified_transport[:shipments].must_equal 20.fdiv(@line_item_group.seller.unified_transport_maximum_articles).ceil
 
   end
 
