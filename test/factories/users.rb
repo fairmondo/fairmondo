@@ -55,6 +55,7 @@ FactoryGirl.define do
     bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
 
     direct_debit true
+    created_at { 2.month.ago }
 
     trait :missing_bank_data do
       bank_code ""
