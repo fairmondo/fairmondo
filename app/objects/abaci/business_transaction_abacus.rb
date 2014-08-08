@@ -7,9 +7,6 @@ class BusinessTransactionAbacus
   :total_retail_price,
   :line_item_group
 
-
-
-
   def self.calculate line_item_group
      abacus = BusinessTransactionAbacus.new(line_item_group)
      abacus.prepare_and_sort_business_transactions
@@ -60,7 +57,7 @@ class BusinessTransactionAbacus
 
     # net article price * quantity
     def self.net_price_of business_transaction
-      ( business_transaction.article_price / (( 100 + business_transaction.article_vat ) / 100.0) ) * business_transaction.quantity_bought
+      ( business_transaction.article_price / (( 100 + business_transaction.article_vat ) / 100.0 )) * business_transaction.quantity_bought
     end
 
     def prepare_payment_for business_transaction
@@ -76,7 +73,4 @@ class BusinessTransactionAbacus
         @single_transports.push business_transaction
       end
     end
-
-
-
 end

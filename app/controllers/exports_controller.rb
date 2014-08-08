@@ -14,6 +14,5 @@ class ExportsController < ApplicationController
        format.csv { send_file csv.path,
                    { type: 'text/csv; charset=utf-8' , filename: "Fairnopoly_export_#{Time.now.strftime("%Y-%d-%m %H:%M:%S")}.csv"} }
      end
-
   end
 end
