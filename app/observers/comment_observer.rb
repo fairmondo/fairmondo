@@ -21,17 +21,17 @@
 #
 class CommentObserver < ActiveRecord::Observer
   def after_save(comment)
-    if receives_notifications(comment)
+    if receives_notifications?(comment.commentable_user)
       case comment.commentable_type
       when "Library"
-        CommentMailer.report_comment_on_library(comment, comment.commentable.user)
+        CommentMailer.report_comment_on_library(comment, comment.commentable_user)
       end
     end
   end
 
   private
 
-    def receives_notifications(comment)
-      comment.commentable.user.receive_comments_notification
+    def receives_notifications?(user)
+      user.receive_comments_notification
     end
 end
