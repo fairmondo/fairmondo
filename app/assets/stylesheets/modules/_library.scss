@@ -2,9 +2,6 @@
 Library module
 */
 
-// @import "mixins/all"; (Brauchen wir das?)
-
-
 /* Use this class to mark the detail tags, the most outer tags of the library. */
 .Library {
   margin-bottom: 1em;
@@ -31,7 +28,7 @@ Library module
 }
 
 /* Libraries that have been clicked on and are 'spread out' */
-.Library--open {
+.Library.open {
   summary {
     border-radius: 0.5em 0.5em 0 0;
     &:hover {
@@ -46,9 +43,18 @@ Library module
 }
 
 
+/* Comments in the summary */
+.Library > summary > .Library-comments {
+  margin-top: 0.6rem;
+}
+
+.Library.open > summary > .Library-comments {
+  display: none;
+}
+
 
 /* Div that contains the comments counter and the heart button */
-.Library .Library-buttons {
+.Library-buttons {
   float: right;
 
   > div {
@@ -57,7 +63,7 @@ Library module
 }
 
 /* div containing the user image */
-.Library .Library-userimage {
+.Library-userimage {
   display: none;
   float: left;
   margin-right: 1em;
@@ -74,22 +80,22 @@ Library module
 }
 
 /* The biggest part of the library header containing title, user and preview thumbnails */
-.Library .Library-info {
+.Library-info {
 }
 
-.Library .Library-info > .Library-info-text {
+.Library-info > .Library-info-text {
   margin-bottom: 0.5em;
 }
 
-.Library .Library-info > .Library-info-text > .Library-info-text-title {
+.Library-info > .Library-info-text > .Library-info-text-title {
   font-size: 1.5em;
 }
 
-.Library .Library-info > .Library-info-text > .Library-info-text-user {
+.Library-info > .Library-info-text > .Library-info-text-user {
   font-weight: 600;
 }
 
-.Library .Library-info > .Library-info-thumbnails {
+.Library-info > .Library-info-thumbnails {
   height: 6em;
   overflow: hidden;
 
@@ -103,26 +109,16 @@ Library module
   }
 }
 
-.Library .Library-comments {
-  margin-top: 0.6rem;
-}
-
-.Library.Library--open .Library-comments {
-  display: none;
-}
-
-
-
 /* User-specific section, only exists if the library belongs to the user */
-.Library > .Library-details > .Library-details-user {
+.Library-details-user {
   margin: em(10) em(20);
 }
 
-.Library > .Library-details > .Library-details-user > .Library-details-user-actions {
+.Library-details-user > .Library-details-user-actions {
   float: right;
   margin-bottom: 1em;
 }
 
-.Library > .Library-details > .Library-details-user > .Library-details-user-visibility {
+.Library-details-user > .Library-details-user-visibility {
   font-weight: 600;
 }

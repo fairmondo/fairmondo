@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #
 # == License:
@@ -155,7 +156,7 @@ feature "comments for all users" do
 
     visit libraries_path
 
-    within("#library#{library.id} .library-comments") do
+    within("#library#{library.id} .Library-comments") do
       page.must_have_content("Test comment")
     end
 
