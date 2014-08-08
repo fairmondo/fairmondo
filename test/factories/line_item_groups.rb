@@ -32,7 +32,11 @@ FactoryGirl.define do
 
   trait :with_unified_transport do
     unified_transport true
-    seller { FactoryGirl.create(:seller, :paypal_data, :with_unified_transport_information) }
+    seller { FactoryGirl.create(:legal_entity, :paypal_data, :with_unified_transport_information) }
+    unified_transport_provider 'DHL'
+    unified_transport_price_cents 300
+    unified_transport_maximum_articles 10
+    unified_transport_cash_on_delivery_price_cents '200'
   end
 
   trait :with_unified_payment_cash do
