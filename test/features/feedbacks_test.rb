@@ -69,5 +69,4 @@ feature "Give Feedback" do
   #   page.must_have_content I18n.t 'article.actions.reported'
   #
   # end
-
 end
