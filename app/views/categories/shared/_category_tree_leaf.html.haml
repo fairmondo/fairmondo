@@ -8,4 +8,3 @@
         = displayed_name
     - else
       = link_to displayed_name, category_path(category, article_search_form: search_cache.change(category_id: category.id)), remote: (controller_name == 'articles' && action_name == 'index' || controller_name == 'categories' && action_name == 'show')
-      = "(#{count})" if current_user && current_user.admin? && count && category.parent_id
