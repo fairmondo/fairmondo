@@ -64,8 +64,9 @@ class BusinessTransactionAbacus
     end
 
     def prepare_payment_for business_transaction
-      @by_payment[business_transaction.selected_payment] ||= []
-      @by_payment[business_transaction.selected_payment].push business_transaction
+      payment = business_transaction.selected_payment.to_sym
+      @by_payment[payment] ||= []
+      @by_payment[payment].push business_transaction
     end
 
     def prepare_transport_for business_transaction

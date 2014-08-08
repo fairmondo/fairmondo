@@ -22,13 +22,15 @@
 require 'ffaker'
 
 FactoryGirl.define do
-  factory :business_transaction, aliases: [:single_transaction] do
+  factory :business_transaction do
     ignore do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
+      article_attributes {}
+      article_all_attributes { article_attributes.merge({ seller: seller, quantity: (quantity_bought + 1) }) }
     end
 
-    article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, seller: seller, quantity: (quantity_bought + 1) }
+    article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, article_all_attributes }
     line_item_group { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
 
     selected_transport 'pickup'
@@ -46,8 +48,12 @@ FactoryGirl.define do
        quantity_bought 0
     end
 
-    trait :bought_some do
+    trait :bought_ten do
       quantity_bought 10
+    end
+
+    trait :bought_five do
+      quantity_bought 5
     end
 
     trait :clear_fastbill do

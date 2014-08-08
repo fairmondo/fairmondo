@@ -16,10 +16,10 @@ class TransportAbacus
 
   def calculate_single_transports
     result = @business_transaction_abacus.single_transports.map do |bt|
-      single_transport_price, transport_number = bt.article.transport_details_for bt.selected_transport
+      single_transport_price, transport_number = bt.article.transport_details_for bt.selected_transport.to_sym
       shipments = self.class.number_of_shipments(bt.quantity_bought, transport_number)
       [bt,{
-        method: bt.selected_transport,
+        method: bt.selected_transport.to_sym,
         provider: bt.single_transport_provider,
         shipments: shipments,
         price: self.class.transport_price(single_transport_price, shipments),

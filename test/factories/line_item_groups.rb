@@ -13,7 +13,7 @@ FactoryGirl.define do
 
   trait :with_business_transactions do
     ignore do
-      articles []
+      articles_attributes [{},{},{}]
       traits [[:cash, :pickup], [:paypal, :transport_type1], [:invoice, :transport_type2]]
     end
 
@@ -21,9 +21,7 @@ FactoryGirl.define do
 
     after(:create) do |line_item_group, evaluator|
       evaluator.traits.each_with_index do |traits,index|
-        hash = { line_item_group: line_item_group, seller: line_item_group.seller }
-        hash[:article] = articles[index] if articles[index]
-        create_list(:business_transaction, 1, *traits, hash )
+        create_list(:business_transaction, 1, *traits, line_item_group: line_item_group, seller: line_item_group.seller, article_attributes: evaluator.articles_attributes[index] || {} )
       end
     end
   end
