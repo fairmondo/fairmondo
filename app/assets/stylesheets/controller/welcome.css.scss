@@ -138,6 +138,10 @@
   @include whitebox;
 }
 
+.teaser > .teaser-inner > h2 {
+  text-transform: uppercase;
+}
+
 .teaser--double {
   .teaser-inner {
     @include clearfix;

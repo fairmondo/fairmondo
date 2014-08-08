@@ -29,7 +29,7 @@
 .teaser.teaser--double#teaser--first
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features").upcase, featured_library_path(@queue1[:library]))
+      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each_with_index do |article, index|
       %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
         = render "/articles/shared/show_article", article: article
@@ -70,7 +70,7 @@
 .teaser.teaser--double#teaser--clear-after-bluebox
   .teaser-inner
     %h2
-      = link_to('GEBRAUCHT BEI FAIRNOPOLY', featured_library_path(@old[:library]))
+      = link_to('Gebraucht bei Fairnopoly', featured_library_path(@old[:library]))
     - @old[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
@@ -79,7 +79,7 @@
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
+      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
     - @queue3[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
@@ -120,7 +120,7 @@
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
-      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
+      = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
@@ -128,7 +128,7 @@
 -# Hero teaser
 .teaser.teaser--double
   .teaser-inner.teaser--center
-    %h2 AKTIV MITWIRKEN
+    %h2 Aktiv mitwirken
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
