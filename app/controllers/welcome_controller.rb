@@ -33,7 +33,7 @@ class WelcomeController < ApplicationController
     @donation_articles = query_object.set(:donation_articles).find(2)
 
     # Libraries that are trending
-    @libraries_trending = Library.trending(3.days).limit(3)
+    @libraries_trending = Library.most_popular.limit(3)
   end
 
   # Rss Feed
