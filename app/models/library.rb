@@ -44,24 +44,10 @@ class Library < ActiveRecord::Base
 
   has_many :hearts, as: :heartable, counter_cache: true
 
-  scope :not_empty, -> { where("library_elements_count > 0") }
+  scope :not_empty, -> { where("libraries.library_elements_count > 0") }
   scope :published, -> { where(public: true) }
-
-  # Special scopes
-  # Most popular: Public libraries that have received the most hearts in the last 'time_period'
-  scope :most_popular, -> { unscoped.
-                            includes(:user).
-                            where("public = ? AND library_elements_count > 0 AND users.admin = ?", true, false).
-                            order("popularity DESC").
-                            references(:users) }
-
-  #scope :trending, -> (time_period) { joins(:hearts).
-  #                                    joins(:users).
-  #                                    where("hearts.updated_at > ? AND hearts.updated_at < ?", Time.now - time_period, Time.now).
-  #                                    select("libraries.*, count(hearts.id) as num_hearts").
-  #                                    group("libraries.id").
-  #                                    where("libraries.public = ? AND libraries.user_id != ?", true, 2).  # exclude user Marktplatzteam
-  #                                    order("num_hearts DESC") }
+  scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
+  scope :most_popular, -> { unscoped.order("libraries.popularity DESC") }
 
   default_scope -> { order('updated_at DESC') }
 
