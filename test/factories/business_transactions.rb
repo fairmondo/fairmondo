@@ -26,15 +26,15 @@ FactoryGirl.define do
     ignore do
       seller { FactoryGirl.create(:seller, :paypal_data) }
       buyer { FactoryGirl.create :user }
-      article_attributes {}
+      article_attributes { Hash.new }
       article_all_attributes { article_attributes.merge({ seller: seller, quantity: (quantity_bought + 1) }) }
     end
 
     article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, article_all_attributes }
     line_item_group { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
 
-    selected_transport 'pickup'
-    selected_payment 'cash'
+    selected_transport 'type1'
+    selected_payment 'paypal'
     sold_at { Time.now }
     discount_value_cents 0
     quantity_bought 1

@@ -5,8 +5,6 @@ class Payment < ActiveRecord::Base
   # all bts will have the same line_item_group, so it's actually has_one, but rails doesn't understand that
   def line_item_group; line_item_groups.first; end # simulate the has_one
 
-  delegate :total_price,
-           to: :business_transactions, prefix: true
   delegate :buyer, :buyer_id, :seller, :seller_email,
            to: :line_item_group, prefix: true
 
@@ -26,13 +24,12 @@ class Payment < ActiveRecord::Base
     # end
   end
 
+  def total_price
+    Abacus.new(line_item_group).payment_listing.payments[:paypal][:total]
+  end
 
   def paypal_checkout_url
     PaypalAPI.checkout_url pay_key
-  end
-
-  def total_price
-    business_transactions.map(&:total_price).sum
   end
 
   private

@@ -18,7 +18,7 @@ feature "Refunds" do
   end
 
   scenario 'legal entity does a refund after 44 days' do
-    seller = FactoryGirl.create :legal_entity
+    seller = FactoryGirl.create :legal_entity, :paypal_data
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :older, seller: seller
     visit user_path( seller )
@@ -26,7 +26,7 @@ feature "Refunds" do
   end
 
   scenario 'private user does a refund after 27 days' do
-    seller = FactoryGirl.create :private_user
+    seller = FactoryGirl.create :private_user, :paypal_data
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :old, seller: seller
     visit user_path( seller )

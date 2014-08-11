@@ -33,11 +33,11 @@ module UsersHelper
   end
 
   def bought_line_item_groups
-    resource.buyer_line_item_groups.includes(:seller, :rating, :business_transactions => [:article => [:seller, :images]]).order(updated_at: :desc).page(params[:page]).per(6)
+    resource.buyer_line_item_groups.sold.includes(:seller, :rating, :business_transactions => [:article => [:seller, :images]]).order(updated_at: :desc).page(params[:page]).per(6)
   end
 
   def sold_line_item_groups
-    resource.seller_line_item_groups.includes(:buyer, :rating, :business_transactions => [:article => [:images]]).order(updated_at: :desc).page(params[:page]).per(6)
+    resource.seller_line_item_groups.sold.includes(:buyer, :rating, :business_transactions => [:article => [:images]]).order(updated_at: :desc).page(params[:page]).per(6)
   end
 
   # JS used in icheck checkboxes onclick to open a new window with the contents of a link

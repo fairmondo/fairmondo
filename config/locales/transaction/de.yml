@@ -71,7 +71,7 @@ de:
       transport_not_supported: "Die angegebene Versandart ist nicht verfügbar. Bitte wähle eine andere."
       payment_not_supported: "Die angegebene Zahlungsmethode ist nicht verfügbar. Bitte wähle eine andere."
       no_pickup_cash_combination: 'Achtung: Wir empfehlen für Selbstabholung die Bezahlmethode "Barzahlung bei Abholung".'
-      combination_invalid: 'Bei der Versandmethode "%{selected_transport}" kann die Bezahloption "%{selected_payment}" nicht ausgewählt werden.'
+      combination_invalid: 'Die Bezahloption "%{selected_payment}" kann mit der ausgewählte Versandoption nicht kombiniert werden. Wähle bitte eine anderen Versand- oder Bezahloption.'
     actions:
       purchase: "Zahlungspflichtig Bestellen"
       paypal_process: "PayPal-Bezahlung abwickeln"

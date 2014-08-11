@@ -42,7 +42,6 @@ class Cart < ActiveRecord::Base
         line_item_group.buyer_id = self.user_id
         line_item_group.save!
       end
-
       # sort this by article_id to prevent deadlocks
       locked_article_ids_with_quantities.sort.each do |article_id,quantity|
         article = Article.lock.find(article_id) # locks always need to refind records
@@ -58,7 +57,9 @@ class Cart < ActiveRecord::Base
     #end
 
     return :checked_out
-  rescue
+  rescue => e
+    puts e
+    debugger
     return :checkout_failed
   end
 end
