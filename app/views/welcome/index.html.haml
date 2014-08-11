@@ -25,7 +25,8 @@
   .category-dropdown
     = render 'categories/shared/category_tree'
 
--# Featured library 1
+
+-# Article queue 1
 .teaser.teaser--double#teaser--first
   .teaser-inner
     %h2
@@ -33,6 +34,7 @@
     - @queue1[:exhibits].each_with_index do |article, index|
       %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
         = render "/articles/shared/show_article", article: article
+
 
 -# Bluebox
 #bluebox
@@ -66,8 +68,18 @@
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
--# Featured library 2
+-# Article queue 3
 .teaser.teaser--double#teaser--clear-after-bluebox
+  .teaser-inner
+    %h2
+      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
+    - @queue3[:exhibits].each do |article|
+      .teaser-queue
+        = render "/articles/shared/show_article", article: article
+
+
+-# Article queue 'used/old'
+.teaser.teaser--double.teaser--collapsible#teaser--used
   .teaser-inner
     %h2
       = link_to('Gebraucht bei Fairnopoly', featured_library_path(@old[:library]))
@@ -75,14 +87,6 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
--# Featured library 3
-.teaser.teaser--double.teaser--collapsible
-  .teaser-inner
-    %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
-      .teaser-queue
-        = render "/articles/shared/show_article", article: article
 
 -# Trending libraries
 .teaser.teaser--full.libraries
@@ -101,6 +105,7 @@
               - else
                 = render "/libraries/library", library: library
 
+
 -# USPs
 .teaser.teaser--double.teaser--cardslides
   .teaser-inner
@@ -116,7 +121,8 @@
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
         %i.icon-right_arrow
 
--# Featured library 4
+
+-# Article queue 'donation'
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
@@ -124,6 +130,7 @@
     - @donation_articles[:exhibits].each do |article|
       .teaser-queue
         = render "/articles/shared/show_article", article: article
+
 
 -# Hero teaser
 .teaser.teaser--double
@@ -135,9 +142,11 @@
       %a{ href: "http://helden.fairnopoly.de/fnhelden/content/willkommen-im-heldinnencrm", class: "Button", target: "_blank" }
         Held*in werden
 
+
 -# Blog
 .teaser.teaser--double.teaser--news
   .teaser-inner.teaser--hide#js-teaser-news-placeholder
+
 
 -# User comment slides
 .teaser.teaser--full.teaser--userslides
@@ -182,6 +191,7 @@
           Ich bin in die Genossenschaft Fairnopoly eingestiegen, weil ich die Idee sehr überzeugend finde. Ich hab' das Team auch kennengelernt und ich sehe, dass die wirklich mit Enthusiasmus und viel Elan dabei sind. Wir handeln auf Fairnopoly, weil wir darin eine Chance sehen, faire und Bio-Produkte weiter zu verbreiten.
           %span.teaser-quote> &ldquo;
           .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
+
 
 -# NGO and press information ("known from"), social media buttons
 - cache "ngo_logosand_known_from" do
