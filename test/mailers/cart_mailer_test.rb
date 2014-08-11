@@ -7,7 +7,7 @@ describe CartMailer do
   include EmailSpec::Matchers
 
   let(:cart) { FactoryGirl.create(:cart, user: FactoryGirl.create(:user)) }
-  let(:seller_line_item_group) { FactoryGirl.create(:line_item_group_with_items, :sold, seller: FactoryGirl.create(:user)) }
+  let(:seller_line_item_group) { FactoryGirl.create(:line_item_group, :with_business_transactions, :sold) }
   let(:address) { FactoryGirl.create(:address) }
 
   it 'sends email to seller' do

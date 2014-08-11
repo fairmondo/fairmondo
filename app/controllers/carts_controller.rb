@@ -36,6 +36,7 @@ class CartsController < ApplicationController
 
     case result
     when :invalid
+      debugger
       render :edit
     when :saved_in_session
       redirect_to edit_cart_path(@cart, checkout: true)

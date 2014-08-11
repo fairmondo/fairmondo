@@ -63,11 +63,47 @@ describe 'Abacus' do
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     abacus_for(traits, attributes, :with_unified_transport)
 
-    @abacus.transport_listing.unified_transport[:shipments].must_equal 20.fdiv(@line_item_group.seller.unified_transport_maximum_articles).ceil
+    shipments = 20.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
+    transport_price = @line_item_group.unified_transport_price * shipments
+    # transport prices
+    @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
+    @abacus.payment_listing.payments[:paypal][:transport_total] = transport_price
+
+    # transports
+    @abacus.transport_listing.single_transports.size.must_equal 0
+    @abacus.transport_listing.unified_transport[:shipments].must_equal shipments
+    @abacus.transport_listing.unified_transport[:price].must_equal transport_price
+    @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
+
+    #totals
+    @abacus.payment_listing.payments[:paypal][:total].must_equal 5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price
+    @abacus.payment_listing.payments.size.must_equal 1
+    @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total]
 
   end
 
+  it 'calculates a total price, transport prices and payment totals for unified transports and single transports with cash_on_delivery' do
+    prices = [ Money.new(50000), Money.new(1000), Money.new(5000)]
+    transport_prices = [Money.new(5000), Money.new(2000), Money.new(2000)]
+    transport_numbers = [1,1,1]
+    traits = [[:cash_on_delivery, :bought_five], [:bank_transfer, :bought_five], [:bank_transfer, :bought_ten, :transport_type1]]
+    attributes = article_attributes_for prices, transport_prices, transport_numbers
+    attributes.last[:unified_transport] = false # set the last articleto single transport
+    abacus_for(traits, attributes, :with_unified_transport)
 
+    unified_shipments = 10.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
+    unified_transport_price = @line_item_group.unified_transport_price * unified_shipments
+    unified_cash_on_delivery_price = @line_item_group.unified_transport_cash_on_delivery_price * unified_shipments
+
+    # transports
+    @abacus.transport_listing.single_transports.size.must_equal 1
+    @abacus.transport_listing.single_transports.first[:price].must_equal 10 * transport_prices[2]
+    @abacus.transport_listing.unified_transport[:shipments].must_equal shipments
+    @abacus.transport_listing.unified_transport[:price].must_equal transport_price
+    @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
+    @abacus.transport_listing.unified_transport[:cash_on_delivery].must_equal unified_cash_on_delivery_price
+
+  end
 
 
 

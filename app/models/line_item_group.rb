@@ -25,6 +25,8 @@ class LineItemGroup < ActiveRecord::Base
 
   auto_sanitize :message
 
+  scope :sold , -> { where(tos_accepted: true) }
+
   with_options if: :has_business_transactions? do |bt|
     bt.validates :unified_payment_method, inclusion: { in: proc { |record| record.unified_payments_selectable } }, common_sense: true, presence: true, if: :payment_can_be_unified?
 
@@ -56,6 +58,11 @@ class LineItemGroup < ActiveRecord::Base
     self.business_transactions.each do |bt|
       bt.selected_payment = value
     end
+  end
+
+  def unified_transport= value
+    super
+    self.business_transactions.each{ |bt| bt.selected_transport = nil } if value
   end
 
   def cash_on_delivery_inconsistent?

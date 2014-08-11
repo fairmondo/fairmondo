@@ -14,7 +14,7 @@ FactoryGirl.define do
   trait :with_business_transactions do
     ignore do
       articles_attributes [{},{},{}]
-      traits [[:cash, :pickup], [:paypal, :transport_type1], [:invoice, :transport_type2]]
+      traits [[:paypal, :transport_type1], [:invoice, :transport_type2]]
     end
 
     seller { FactoryGirl.create(:seller, :paypal_data) } # that paypal can be selected
@@ -31,12 +31,18 @@ FactoryGirl.define do
   end
 
   trait :with_unified_transport do
+    with_business_transactions
     unified_transport true
     seller { FactoryGirl.create(:legal_entity, :paypal_data, :with_unified_transport_information) }
     unified_transport_provider 'DHL'
     unified_transport_price_cents 300
     unified_transport_maximum_articles 10
     unified_transport_cash_on_delivery_price_cents '200'
+    after(:create) do |line_item_group|
+      line_item_group.reload # seems like a bug in factory_girl ... works with reload
+    end
+
+
   end
 
   trait :with_unified_payment_cash do
