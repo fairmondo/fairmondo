@@ -23,7 +23,7 @@ class TransportAbacus
         provider: bt.single_transport_provider,
         shipments: shipments,
         price: self.class.transport_price(single_transport_price, shipments),
-        cash_on_delivery:  (bt.selected_payment == :cash_on_delivery) ?  bt.article_cash_on_delivery_price : nil
+        cash_on_delivery: bt.selected_payment.cash_on_delivery? ?  (bt.article_payment_cash_on_delivery_price * shipments) : nil
       }]
     end
     @single_transports = result.to_h
@@ -38,7 +38,7 @@ class TransportAbacus
       provider: @line_item_group.unified_transport_provider,
       shipments: shipments,
       price: self.class.transport_price(@line_item_group.unified_transport_price, shipments),
-      cash_on_delivery: unified_with_cash_on_delivery? ? @line_item_group.unified_transport_cash_on_delivery_price : nil
+      cash_on_delivery: unified_with_cash_on_delivery? ? (@line_item_group.unified_transport_cash_on_delivery_price * shipments) : nil
     }
   end
 
