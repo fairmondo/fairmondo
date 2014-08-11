@@ -31,14 +31,13 @@ FactoryGirl.define do
     end
 
     article { FactoryGirl.create :article, :with_all_payments, :with_all_transports, article_all_attributes }
-    line_item_group { FactoryGirl.create :line_item_group, seller: seller, buyer: buyer }
+    line_item_group { FactoryGirl.create :line_item_group, :sold, seller: seller, buyer: buyer }
 
     selected_transport 'type1'
-    selected_payment 'paypal'
+    selected_payment 'bank_transfer'
     sold_at { Time.now }
     discount_value_cents 0
     quantity_bought 1
-
 
     trait :incomplete do
       shipping_address nil
@@ -101,7 +100,7 @@ FactoryGirl.define do
 
     trait :paypal do
       selected_payment 'paypal'
-      payment
+      payment { FactoryGirl.create :payment }
     end
 
     trait :invoice do

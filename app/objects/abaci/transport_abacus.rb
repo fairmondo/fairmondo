@@ -58,6 +58,6 @@ class TransportAbacus
     end
 
     def unified_with_cash_on_delivery?
-      @business_transaction_abacus.unified_transport.select{ |bt| bt.selected_payment == :cash_on_delivery }.any?
+      @business_transaction_abacus.unified_transport.select{ |bt| bt.selected_payment.cash_on_delivery? }.any?
     end
 end

@@ -76,7 +76,7 @@ describe 'Abacus' do
     @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
 
     #totals
-    @abacus.payment_listing.payments[:paypal][:total].must_equal 5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price
+    @abacus.payment_listing.payments[:paypal][:total].must_equal (5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price)
     @abacus.payment_listing.payments.size.must_equal 1
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total]
 
@@ -97,9 +97,9 @@ describe 'Abacus' do
 
     # transports
     @abacus.transport_listing.single_transports.size.must_equal 1
-    @abacus.transport_listing.single_transports.first[:price].must_equal 10 * transport_prices[2]
-    @abacus.transport_listing.unified_transport[:shipments].must_equal shipments
-    @abacus.transport_listing.unified_transport[:price].must_equal transport_price
+    @abacus.transport_listing.single_transports.values.first[:price].must_equal (10 * transport_prices[2])
+    @abacus.transport_listing.unified_transport[:shipments].must_equal unified_shipments
+    @abacus.transport_listing.unified_transport[:price].must_equal unified_transport_price
     @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
     @abacus.transport_listing.unified_transport[:cash_on_delivery].must_equal unified_cash_on_delivery_price
 
