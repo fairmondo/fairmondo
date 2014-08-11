@@ -19,12 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-require "test_helper"
+require_relative '../test_helper'
 
 describe ArticlesHelper do
   describe "options_format_for (type, method)" do
     before do
-      helper.stubs(:resource).returns FactoryGirl.create :article, :transport_type2 => true, :transport_type2_price => 3, :transport_type2_provider => "test"
+      helper.stubs(:resource).returns FactoryGirl.create :article, transport_pickup: true
     end
 
     it "should return 'kostenfrei'" do
@@ -32,7 +32,7 @@ describe ArticlesHelper do
     end
 
     it "should return 'zzgl.'" do
-      helper.options_format_for("transport","type2").must_match(/zzgl. /)
+      helper.options_format_for("transport","type1").must_match(/zzgl. /)
     end
   end
 

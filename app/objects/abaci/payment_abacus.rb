@@ -64,7 +64,7 @@ class PaymentAbacus
     end
 
     def calculate_attribute_total payment, attribute
-      @payments[payment][:transports].map{ |h| h[attribute] }.sum
+      @payments[payment][:transports].map{ |h| h[attribute] || Money.new(0) }.sum
     end
 
     def calculate_total payment
