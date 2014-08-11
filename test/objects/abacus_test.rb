@@ -35,22 +35,22 @@ describe 'Abacus' do
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     abacus_for(traits,attributes)
 
-    # transport prices
-    @abacus.payment_listing.payments[:paypal][:transport_total].must_equal transport_prices[0..1].sum
-    @abacus.payment_listing.payments[:invoice][:transport_total].must_equal (transport_prices[2] * 2)
-    @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
-    @abacus.payment_listing.payments[:invoice][:cash_on_delivery_total].must_equal nil
-    @abacus.payment_listing.payments.size.must_equal 2
-
     #transports
 
     @abacus.transport_listing.single_transports.size.must_equal 3
     @abacus.transport_listing.single_transports.map{ |bt,transport| transport[:shipments] }.sort.must_equal [1,1,2]
     @abacus.transport_listing.unified_transport.must_equal nil
 
-    # totals
+    # payments
+    @abacus.payment_listing.payments[:paypal][:transport_total].must_equal transport_prices[0..1].sum
+    @abacus.payment_listing.payments[:invoice][:transport_total].must_equal (transport_prices[2] * 2)
+    @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
+    @abacus.payment_listing.payments[:invoice][:cash_on_delivery_total].must_equal nil
+    @abacus.payment_listing.payments.size.must_equal 2
     @abacus.payment_listing.payments[:paypal][:total].must_equal (transport_prices[0..1].sum + prices[0]*5+ prices[1])
     @abacus.payment_listing.payments[:invoice][:total].must_equal ((transport_prices[2] * 2) + prices[2]*10)
+
+    # totals
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total] +  @abacus.payment_listing.payments[:invoice][:total]
 
   end
@@ -65,9 +65,7 @@ describe 'Abacus' do
 
     shipments = 20.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
     transport_price = @line_item_group.unified_transport_price * shipments
-    # transport prices
-    @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
-    @abacus.payment_listing.payments[:paypal][:transport_total] = transport_price
+
 
     # transports
     @abacus.transport_listing.single_transports.size.must_equal 0
@@ -75,9 +73,13 @@ describe 'Abacus' do
     @abacus.transport_listing.unified_transport[:price].must_equal transport_price
     @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
 
-    #totals
+    # payments
+    @abacus.payment_listing.payments[:paypal][:cash_on_delivery_total].must_equal nil
+    @abacus.payment_listing.payments[:paypal][:transport_total] = transport_price
     @abacus.payment_listing.payments[:paypal][:total].must_equal (5 * prices[0] + 5 * prices[1] + 10 * prices[2] + transport_price)
     @abacus.payment_listing.payments.size.must_equal 1
+
+    #total
     @abacus.total.must_equal @abacus.payment_listing.payments[:paypal][:total]
 
   end
@@ -86,7 +88,7 @@ describe 'Abacus' do
     prices = [ Money.new(50000), Money.new(1000), Money.new(5000)]
     transport_prices = [Money.new(5000), Money.new(2000), Money.new(2000)]
     transport_numbers = [1,1,1]
-    traits = [[:cash_on_delivery, :bought_five], [:bank_transfer, :bought_five], [:bank_transfer, :bought_ten, :transport_type1]]
+    traits = [[:cash_on_delivery, :bought_five], [:bank_transfer, :bought_five], [:cash_on_delivery, :bought_ten, :transport_type1]]
     attributes = article_attributes_for prices, transport_prices, transport_numbers
     attributes.last[:unified_transport] = false # set the last articleto single transport
     abacus_for(traits, attributes, :with_unified_transport)
@@ -94,14 +96,23 @@ describe 'Abacus' do
     unified_shipments = 10.fdiv(@line_item_group.unified_transport_maximum_articles).ceil
     unified_transport_price = @line_item_group.unified_transport_price * unified_shipments
     unified_cash_on_delivery_price = @line_item_group.unified_transport_cash_on_delivery_price * unified_shipments
+    single_cash_on_delivery_price = @abacus.transport_listing.single_transports.keys.first.article.payment_cash_on_delivery_price
+    #abacus.payment_listinf
 
     # transports
     @abacus.transport_listing.single_transports.size.must_equal 1
     @abacus.transport_listing.single_transports.values.first[:price].must_equal (10 * transport_prices[2])
+    @abacus.transport_listing.single_transports.values.first[:cash_on_delivery].must_equal (10 * single_cash_on_delivery_price)
     @abacus.transport_listing.unified_transport[:shipments].must_equal unified_shipments
     @abacus.transport_listing.unified_transport[:price].must_equal unified_transport_price
     @abacus.transport_listing.unified_transport[:provider].must_equal @line_item_group.unified_transport_provider
     @abacus.transport_listing.unified_transport[:cash_on_delivery].must_equal unified_cash_on_delivery_price
+
+    # payments
+    @abacus.payment_listing.payments.size.must_equal 2
+    @abacus.payment_listing.payments[:cash_on_delivery][:cash_on_delivery_total].must_equal (10 * single_cash_on_delivery_price) + unified_cash_on_delivery_price
+    @abacus.payment_listing.payments[:cash_on_delivery][:transport_total].must_equal unified_transport_price +  10 * transport_prices[2]
+
 
   end
 
