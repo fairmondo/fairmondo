@@ -130,7 +130,7 @@
                 $detailsSummary.attr('role', 'button').noSelect().prop('tabIndex', 0).on('click', function(evt) {
 
                     // Do not trigger on link or button elements
-                    if (!$(evt.target).parentsUntil($detailsSummary).add($(evt.target)).is('a, button')) {
+                    if (!$(evt.target).parentsUntil($detailsSummary).add($(evt.target)).is('a, input, button, .socialshareprivacy')) {
                         // Focus on the `summary` element
                         $detailsSummary.focus();
                         // Toggle the `open` and `aria-expanded` attributes and the `open` property of the `details` element and display the additional info
