@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #
 # == License:
@@ -43,12 +44,22 @@ class LibrariesController < ApplicationController
   def create
     @library = current_user.libraries.build(params.for(Library).refine)
     authorize @library
-    if @library.save
-      redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
-    else
-      redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
+
+    # Ist article-Id vorhanden?
+    @article_id ||= params[:article_id]
+
+    # Both .js responses are only for the articles view!
+    respond_with @library do |format|
+      if @library.save
+        format.html { redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}") }
+        format.js
+      else
+        format.html { redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first }
+        format.js { render :new }
+      end
     end
   end
+
 
   def update
     authorize @library

@@ -66,9 +66,8 @@ describe CommentsController do
 
     describe "with valid params" do
       it "should allow posting using ajax" do
-        post :create, comment: { text: "test" },
-                      library_id: @library.id,
-                      format: :js
+        xhr(:post, :create, comment: { text: "test" },
+                            library_id: @library.id)
 
         assert_response :success
         assert_nil(assigns(:message))
@@ -76,9 +75,8 @@ describe CommentsController do
 
       it "increases the counter cache" do
         assert_difference "@library.comments_count", 1 do
-          post :create, comment: { text: "test" },
-                        library_id: @library.id,
-                        format: :js
+          xhr(:post, :create, comment: { text: "test" },
+                              library_id: @library.id)
 
           @library.reload
 

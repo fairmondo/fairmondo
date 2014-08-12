@@ -1,4 +1,6 @@
 de:
+  comment:
+    new_notification: "[Fairnopoly] Du hast einen neuen Kommentar bekommen"
   comments:
     no_comments: "Diese Sammlung enthält noch keine Kommentare."
     login_to_comment: "%{href}, um diese Sammlung zu kommentieren."
@@ -8,3 +10,4 @@ de:
     more: "Mehr Kommentare"
     delete: "Kommentar löschen"
     all: "Alle Kommentare"
+    report_info: "Wenn Du einen anstößigen Kommentar entdeckst, melde uns das bitte mit dem Feedback-Formular."

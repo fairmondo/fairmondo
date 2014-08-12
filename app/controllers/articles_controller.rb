@@ -53,6 +53,7 @@ class ArticlesController < ApplicationController
   def show
     authorize @article
 
+
     if !@article.active? && policy(@article).activate?
       @article.calculate_fees_and_donations
     end
@@ -185,5 +186,4 @@ class ArticlesController < ApplicationController
         redirect_to category_path(@search_cache.category_id, params)
       end
     end
-
 end
