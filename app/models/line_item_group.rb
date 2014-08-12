@@ -58,7 +58,7 @@ class LineItemGroup < ActiveRecord::Base
   def unified_payment_method= value
     super value
     self.business_transactions.each do |bt|
-      bt.selected_payment = value
+      bt.selected_payment = value if self.unified_payment?
     end
   end
 
