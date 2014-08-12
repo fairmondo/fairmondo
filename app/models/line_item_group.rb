@@ -82,7 +82,7 @@ class LineItemGroup < ActiveRecord::Base
     end
 
     def no_unified_transports_with_cash_on_delivery
-      if self.unified_transport? && self.cash_on_delivery_with_unified_transport?
+      if self.unified_transport? && cash_on_delivery_with_unified_transport?
         errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
       end
     end

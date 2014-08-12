@@ -5,10 +5,11 @@
       = t('cart.texts.line_item_group_by')
       = link_to group.seller_nickname, user_path(group.seller)
       = group_fields.inputs do
-        = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'} if group.transport_can_be_unified?
+        = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'}, label: unified_transport_label_for(group) if group.transport_can_be_unified?
         - if group.payment_can_be_unified?
-          = group_fields.input :unified_payment, input_html: {class: 'js-unified-payment--trigger'}
-          = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: group.unified_payments_selectable
+          .unified_payment
+            = group_fields.input :unified_payment, input_html: {class: 'js-unified-payment--trigger'}
+            = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: unified_payment_options_for(group), label: false
       .Listview
         = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
           - article = line_item.business_transaction.article
@@ -32,7 +33,7 @@
     .Grid
       = render 'addresses/address', address: @cart_checkout_form.payment_address, controls: true
   - else
-    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf| # Buyer Address Form
+    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
       = baf.inputs do
         = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
         = baf.input :first_name, required: true
