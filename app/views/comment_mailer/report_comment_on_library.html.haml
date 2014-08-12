@@ -1,0 +1,23 @@
+%p
+  Hallo
+  = @commentable_owner.forename + ','
+
+%p
+  Du hast einen neuen Kommentar oder eine Rückfrage zu Deiner Sammlung
+  = '"' + @commentable.name + '"'
+  bekommen:
+  = library_url(@commentable)
+
+%p
+  Schau nach, was andere Nutzer*innen schreiben.
+
+%p
+  Du kannst diese Benachrichtigungen jederzeit in Deinem
+  = link_to @user, "Profil"
+  abstellen.
+
+%p
+  Dein Fairnopoly Team
+
+%hr
+= render '/shared/email_footer'
