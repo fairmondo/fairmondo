@@ -79,6 +79,8 @@ de:
 
       line_item:
         requested_quantity: "Menge:"
+      line_item_group:
+        unified_payment: "Alle Artikel bezahlen mit:"
 
       article:
         title: "Artikelbezeichnung"
