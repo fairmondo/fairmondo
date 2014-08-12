@@ -11,7 +11,6 @@ class LineItemGroupRefinery < ApplicationRefinery
     [:unified_transport_maximum_articles,
      :unified_transport_provider,
      :unified_transport_price_cents,
-     :unified_transport_cash_on_delivery_price_cents,
      :free_transport_at_price_cents]
   end
 

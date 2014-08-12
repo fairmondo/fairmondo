@@ -7,6 +7,6 @@ class MoveUnifiedTransportColumns < ActiveRecord::Migration
     add_column :line_item_groups, :unified_transport_provider, :string
     add_column :line_item_groups, :unified_transport_maximum_articles, :integer
     add_column :line_item_groups, :unified_transport_price_cents, :integer,         limit: 8, default: 0
-    add_column :line_item_groups, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
+    add_column :line_item_groups, :unified_transport_free_at_price_cents, :integer, limit: 8
   end
 end

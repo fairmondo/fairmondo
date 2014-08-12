@@ -109,7 +109,6 @@ FactoryGirl.define do
       unified_transport_provider 'DHL'
       unified_transport_price_cents 300
       unified_transport_maximum_articles 10
-      unified_transport_cash_on_delivery_price_cents '200'
     end
 
   end

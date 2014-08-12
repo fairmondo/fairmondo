@@ -20,7 +20,6 @@ class LineItemGroup < ActiveRecord::Base
   delegate :value, to: :rating, prefix: true
 
   monetize :unified_transport_price_cents, :allow_nil => true
-  monetize :unified_transport_cash_on_delivery_price_cents, :allow_nil => true
   monetize :free_transport_at_price_cents, :allow_nil => true
 
   auto_sanitize :message
@@ -36,11 +35,11 @@ class LineItemGroup < ActiveRecord::Base
       record.errors.add(attr, 'not allowed') if value && !can_be_unified_for?(record,attr)
     end
     bt.validates :transport_address, :payment_address, :buyer, :seller, presence: true
+    bt.validate :no_unified_transports_with_cash_on_delivery
   end
 
   def transport_can_be_unified?
     return false unless self.seller.unified_transport_available?
-    return false if cash_on_delivery_inconsistent?
     articles_with_unified_transport_count = self.line_items.joins(:article).where("articles.unified_transport = ?", true ).count
     @transport_can_be_unified ||= (articles_with_unified_transport_count >= 2)
   end
@@ -65,10 +64,6 @@ class LineItemGroup < ActiveRecord::Base
     self.business_transactions.each{ |bt| bt.selected_transport = nil } if value
   end
 
-  def cash_on_delivery_inconsistent?
-    self.articles.map(&:selectable_payments).flatten.include?(:cash_on_delivery) && !self.seller.unified_transport_cash_on_delivery.present?
-  end
-
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport
@@ -80,6 +75,16 @@ class LineItemGroup < ActiveRecord::Base
 
     def has_business_transactions?
       self.business_transactions.any?
+    end
+
+    def cash_on_delivery_with_unified_transport?
+      self.business_transactions.to_a.select{ |bt| bt.article.unified_transport? && bt.selected_payment.cash_on_delivery? }.any?
+    end
+
+    def no_unified_transports_with_cash_on_delivery
+      if self.unified_transport? && self.cash_on_delivery_with_unified_transport?
+        errors.add(:unified_transport, I18n.t('transaction.errors.cash_on_delivery_with_unified_transport'))
+      end
     end
 
 end
