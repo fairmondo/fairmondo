@@ -8,8 +8,8 @@
 	display: block;
 }
 .social_share_privacy_area li {
-	margin: 10px 0 !important;
-	padding: 0 30px !important;
+	margin: 0 !important;
+	padding: 0 15px !important;
 	height: 21px;
 	float: left;
 }
@@ -29,12 +29,6 @@
 
 /* Switch begin */
 .social_share_privacy_area li .switch {
-    display: inline-block;
-    text-indent: -9999em;
-    background: transparent asset-url('socialshareprivacy/images/socialshareprivacy_on_off.png') no-repeat 0 0 scroll;
-    width: 23px;
-    height: 12px;
-    overflow: hidden;
     float: left;
     margin: 4px 0 0;
     padding: 0;

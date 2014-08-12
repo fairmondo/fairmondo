@@ -53,4 +53,8 @@ class Comment < ActiveRecord::Base
   LAST_PUBLISH_HOUR = 17
 
   paginates_per 5
+
+  def commentable_user
+    commentable.user
+  end
 end

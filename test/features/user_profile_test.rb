@@ -57,4 +57,3 @@ feature 'User profile page' do
 
 
 end
-

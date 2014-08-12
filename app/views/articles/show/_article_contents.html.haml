@@ -33,7 +33,6 @@
       = button_to t('common.actions.destroy'),  article_path(resource) , :confirm => t('article.delete_confirm', :name => article.title) ,:method => :delete, :class => "Button"
 
 
-
 %figure.image
   - cache [resource, resource.title_image] do
     - if resource.title_image_present?
@@ -92,19 +91,11 @@
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
-      - if policy(mock_library_element).create?
-        .collect.JS-active-toggle--container
-          .Button.Button--gray.JS-active-toggle--trigger{data: {clickable: true}}
-            = t('common.actions.collect')
-          .libraries.JS-active-toggle--target
-            in Sammlung:
-            %span.sprite_helper{title: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."}
-            %ul
-              - current_user.libraries.each do |library|
-                %li
-                  = link_to(library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), method: :post)
-      - elsif user_signed_in? && resource.active?
-        = link_to('Sammlung erstellen', user_libraries_path(current_user), :method => :post, :class => "Button Button-gray")
+      -# Collect button and libraries list
+      - if user_signed_in? && resource.active?
+        = render "/libraries/shared/control_panel", article: resource
+
+      -# To cart/buy button
       - if policy(resource.business_transaction).edit?
         = link_to t('common.actions.to_cart'), edit_business_transaction_path(resource.business_transaction), class: "Button"
       - elsif policy(resource.business_transaction).show_vacationing?
@@ -116,7 +107,6 @@
           = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
           = '/'
           = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
-
 
 .social#socialshareprivacy
 

@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment_data = { user: current_user }.merge(comment_params)
+    comment_data = { user: current_user }.merge(params.for(Comment).refine)
     @comment = @commentable.comments.build(comment_data)
 
     authorize @comment
@@ -57,9 +57,5 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
-  end
-
-  def comment_params
-    params.require(:comment).permit(:text)
   end
 end

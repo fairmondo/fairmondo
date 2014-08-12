@@ -68,7 +68,7 @@ module ArticlesHelper
     options_format_for type, method
   end
 
- def options_format_for type, method
+  def options_format_for type, method
     if resource.send("#{type}_#{method}")
       html = '<li>'
 
@@ -126,4 +126,5 @@ module ArticlesHelper
     # book category is written in exceptions.yml
     !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
+
 end
