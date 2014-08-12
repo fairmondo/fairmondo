@@ -63,7 +63,7 @@ class BusinessTransaction < ActiveRecord::Base
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
   validates :line_item_group, presence: true
-  validates :payment, presence: true, if: proc { |record| record.selected_payment == 'paypal' }
+  validates :payment, presence: true, if: proc { |record| record.selected_payment == 'paypal' && !record.new_record? }
   validates :article, presence: true
 
   state_machine initial: :sold do

@@ -1,23 +1,23 @@
 .Content
   - @cart.line_item_groups.each do |group|
     .seller
-      %p
-        = t('cart.texts.your_order_for')
+      %h2
         = link_to group.seller_nickname, user_path(group.seller)
-      .thumbnails
-        - group.line_items.map(&:article).each do |article|
-          = image_tag(article.title_image_url_thumb)
-      %p
-        Versandmethode: #{group.unified_transport}
-        Bezahlmethode: #{group.unified_payment}
+      .payment-boxes
+        - abacus = Abacus.new(group).payment_listing
+        - abacus.payments.each do |payment, hash|
+          .payment-box
+            %h3
+              = payment
+            .payment-details
+              - hash[:business_transactions].each do |bt|
+
+                = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
 
   .adresses
     .Grid
       = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: 'Deine Lieferadresse'
       = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Deine Rechnungsadresse'
 
-  .prices
-    - @cart.line_item_groups.each do |group|
-      = Abacus.new(group).transport_listing
 
-= button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
+  = button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
