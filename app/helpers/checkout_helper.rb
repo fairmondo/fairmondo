@@ -29,4 +29,11 @@ module CheckoutHelper
     group.unified_payments_selectable.map{ |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
   end
 
+  def line_item_group_frame(heading, options = {}, &block)
+    render layout: "line_item_group_frame",
+      locals: {
+        heading: heading,
+      }, &block
+  end
+
 end
