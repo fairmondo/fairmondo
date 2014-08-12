@@ -138,7 +138,6 @@ class User < ActiveRecord::Base
   validates_inclusion_of :type, in: ["LegalEntity"], if: :is_ngo?
 
   monetize :unified_transport_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
-  monetize :unified_transport_cash_on_delivery_price_cents, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 50000 }, :allow_nil => true
   monetize :free_transport_at_price_cents, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
 
 

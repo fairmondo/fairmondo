@@ -58,7 +58,10 @@ FactoryGirl.define do
     unified_transport_provider 'DHL'
     unified_transport_price_cents 300
     unified_transport_maximum_articles 10
-    unified_transport_cash_on_delivery_price_cents '200'
+  end
+
+  trait :with_free_transport_at_40 do
+    free_transport_at_price_cents 4000
   end
 
   trait :with_unified_payment_cash do

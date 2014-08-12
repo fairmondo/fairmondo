@@ -1,6 +1,6 @@
 class PaymentAbacus
 
-  UNIFIED_TRANSPORT_PAYMENT_ORDER = [:cash_on_delivery, :paypal, :invoice, :bank_transfer]
+  UNIFIED_TRANSPORT_PAYMENT_ORDER = [:paypal, :invoice, :bank_transfer]
   UNIFIED_TRANSPORT_PAYMENT_ORDER_MERGED = (UNIFIED_TRANSPORT_PAYMENT_ORDER + Article::PAYMENT_TYPES).uniq
   attr_reader :payments
 
@@ -12,6 +12,7 @@ class PaymentAbacus
 
   def calculate_payments
     unified_transport_payment = @line_item_group.unified_transport ? get_unified_transport_payment_method : nil
+
     @business_transaction_abacus.by_payment.map do |payment,bts|
       initialize_payment payment, bts
       add_single_transports_to_payment payment, bts
@@ -59,7 +60,7 @@ class PaymentAbacus
       if payment == :cash_on_delivery
         @payments[payment][:cash_on_delivery_total] = calculate_attribute_total :cash_on_delivery, :cash_on_delivery
       end
-      @payments[payment][:transport_total] = calculate_attribute_total payment, :price
+      @payments[payment][:transport_total] = calculate_attribute_total payment, :transport_price
       @payments[payment][:total] = calculate_total payment
     end
 

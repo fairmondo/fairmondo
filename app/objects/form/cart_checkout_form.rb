@@ -128,8 +128,7 @@ class CartCheckoutForm
         attributes = {}
         [:unified_transport_maximum_articles,
          :unified_transport_provider,
-         :unified_transport_price_cents,
-         :unified_transport_cash_on_delivery_price_cents].each do |attribute|
+         :unified_transport_price_cents].each do |attribute|
             attributes[attribute] = seller.send(attribute)
         end
         attributes[:free_transport_at_price_cents] = seller.free_transport_at_price_cents  if seller.free_transport_available
