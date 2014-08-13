@@ -25,6 +25,7 @@ class CommentMailer < ActionMailer::Base
     @commentable_owner = commentable_owner
 
     mail(to: @commentable_owner.email,
-         subject: I18n.t('comment.new_notification'))
+         subject: I18n.t('comment.new_notification'),
+         from: 'noreply@fairnopoly.de')
   end
 end
