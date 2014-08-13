@@ -314,6 +314,19 @@ describe User do
 
     end
 
+    describe "set_comment_notification_defaults" do
+      before :each do
+        @user = FactoryGirl.create(:user,
+                                    receive_comments_notification: false)
+      end
+
+      it "should set the default value to true if false" do
+        User.set_comment_notification_defaults
+
+        user.receive_comments_notification.must_equal true
+      end
+    end
+
   end
 
 
