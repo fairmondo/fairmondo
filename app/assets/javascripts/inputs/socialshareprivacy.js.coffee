@@ -21,5 +21,5 @@
 ###
 
 $(document).ready ($) ->
-  if $('#socialshareprivacy').length > 0
-    $('#socialshareprivacy').socialSharePrivacy()
+  if $('.socialshareprivacy').length > 0
+    $('.socialshareprivacy').socialSharePrivacy()

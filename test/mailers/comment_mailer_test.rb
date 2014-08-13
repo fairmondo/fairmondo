@@ -19,19 +19,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Comment < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :commentable, polymorphic: true, counter_cache: true
+require_relative "../test_helper"
 
-  delegate :image_url, :nickname, to: :user, prefix: true
+describe CommentMailer do
+  include Rails.application.routes.url_helpers
 
-  validates :commentable, presence: true
-  validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 240 }
+  include EmailSpec::Helpers
+  include EmailSpec::Matchers
 
-  paginates_per 5
+  let(:comment) { FactoryGirl.create(:comment) }
+  let(:commentable_owner) { FactoryGirl.create(:user) }
 
-  def commentable_user
-    commentable.user
+  it "#report_comment_on_library" do
+    mail = CommentMailer.report_comment_on_library(comment, commentable_owner)
+
+    mail.must have_subject(I18n.t('comment.new_notification'))
+    mail.must have_body_text comment.commentable.name
+    mail.must have_body_text library_url(comment.commentable)
+    mail.must have_body_text commentable_owner.forename
+
+    mail.must deliver_to commentable_owner.email
   end
 end
