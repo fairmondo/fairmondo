@@ -35,10 +35,6 @@
   = @feedback.user_agent
 
 %p
-  Source-Pages:
-  = @feedback.source_page
-
-%p
   Feedback-ID:
   = @feedback.id
 
@@ -46,3 +42,6 @@
   = t('feedback.details.last_uploaded_article_id')
   = @last_article_id
 
+%p
+  Source-Pages:
+  = simple_format @feedback.source_page

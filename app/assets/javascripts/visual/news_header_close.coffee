@@ -26,6 +26,6 @@ along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 
 $(document).ready ->
   $(".l-news-header-close").click ->
-    $(".l-news-header").slideUp()
+    $(".l-news-header").slideUp(0)
     date = new Date(Date.now() + (24 * 60 * 60 * 1000)) # set date to one day from now
     document.cookie = "news-header-disabled=true; path=/; expires=" + date.toGMTString()

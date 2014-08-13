@@ -8,5 +8,4 @@ class MassUploadArticle < ActiveRecord::Base
   def done?
     self.article.present? || self.validation_errors.present?
   end
-
 end
