@@ -36,7 +36,7 @@ class LibraryElementsController < ApplicationController
   def destroy
     authorize @library_element
     @library_element.destroy
-    redirect_to user_libraries_path(current_user, anchor: "library#{ @library_element.library.id }")
+    redirect_to library_path(@library_element.library)
   end
 
   private
