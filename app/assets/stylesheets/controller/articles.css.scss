@@ -43,7 +43,7 @@ ul.category-selected-list {
   .category-selected {
     display: table-cell;
     vertical-align: middle;
-    background-color: $sand;
+    background-color: $even-lighter-gray;
     border-top-left-radius: 0.9em;
     border-bottom-left-radius: 0.9em;
   }
@@ -226,7 +226,7 @@ ul.category-selected-list {
   width: 21.1em;
   display:none;
   background-color:white;
-  box-shadow: $sand 0px 0px 2px 2px;
+  box-shadow: $even-lighter-gray 0px 0px 2px 2px;
   padding: 0.5em;
   &.is-active {
     top: 2.5em;

@@ -108,7 +108,7 @@
 .export > .export-entries {
   display:none;
   background-color:white;
-  box-shadow: $sand 0px 0px 2px 2px;
+  box-shadow: $even-lighter-gray 0px 0px 2px 2px;
   padding: 0.5em;
   &.is-active {
     top: 2.5em;

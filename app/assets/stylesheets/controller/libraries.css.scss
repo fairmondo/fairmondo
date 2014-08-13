@@ -75,7 +75,7 @@ details {
  // @include whitebox;
   border-radius: 0.5em;
   border: 1px solid $lighter-gray;
-  box-shadow: $sand 0px 0px 2px 1px;
+  box-shadow: $even-lighter-gray 0px 0px 2px 1px;
   display: block;
   &:hover {
   }
@@ -90,7 +90,7 @@ details {
     padding: em(10) em(20);
     display: block;
     &:hover {
-      background-color: $sand;
+      background-color: $even-lighter-gray;
     }
   }
 }
@@ -99,7 +99,7 @@ details.open {
   summary {
     border-radius: 0.5em 0.5em 0 0;
     &:hover {
-      background-color: $sand;
+      background-color: $even-lighter-gray;
     }
   }
 }
