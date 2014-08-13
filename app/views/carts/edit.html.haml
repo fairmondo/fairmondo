@@ -1,9 +1,7 @@
 
 = semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
   = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
-    .group.js-unified-toggle-group
-      = t('cart.texts.line_item_group_by')
-      = link_to group.seller_nickname, user_path(group.seller)
+    = line_item_group_frame line_item_group_title(group), frame_class: "js-unified-toggle-group" do
       = group_fields.inputs do
         = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'}, label: unified_transport_label_for(group) if group.transport_can_be_unified?
         - if group.payment_can_be_unified?
@@ -24,9 +22,9 @@
                 = t.inputs do
                   = t.input :selected_transport, include_blank: false, wrapper_html: {class: 'js-unified-transport--target'}, collection: line_item.business_transaction.article.selectable_transports
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target'}, collection: line_item.business_transaction.article.selectable_payments
-    = group_fields.inputs do
-      = group_fields.input :message
-      = group_fields.input :tos_accepted
+      = group_fields.inputs do
+        = group_fields.input :message
+        = group_fields.input :tos_accepted
   %h3
     Rechnungsadresse
   - unless @cart_checkout_form.needs_new_payment_address?
