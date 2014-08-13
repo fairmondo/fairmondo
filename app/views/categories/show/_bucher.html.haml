@@ -1,8 +1,8 @@
 
 - content_for :category_specific_content do
-  - content_for(:is_exclusive, true)
   - # should be shown when no search parameters where sent
   - unless search_cache.search_request?
+    - content_for(:is_exclusive, true)
     .features
       - lib = FeaturedLibraryQuery.new(:book1).find(4)
       - if lib[:library]

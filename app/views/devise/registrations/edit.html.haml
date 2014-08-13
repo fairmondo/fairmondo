@@ -86,6 +86,8 @@
           = t('users.title.state')
         = f.input :vacationing,as: :boolean, tooltip: true
         = f.input :newsletter, as: :boolean, tooltip: true
+        = f.input :receive_comments_notification, tooltip: true
+
     - @user.standard_address ||= resource.addresses.build
     = f.input_step :contact, has_errors: @user.standard_address.errors.any? do
       = f.inputs do

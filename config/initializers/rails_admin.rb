@@ -129,6 +129,7 @@ RailsAdmin.config do |config|
     field :transport_type1_number
     field :transport_type2_number
     field :discount_id
+    field :categories
 
     # Cross-section configuration:
 
