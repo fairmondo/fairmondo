@@ -62,6 +62,7 @@ module Fairnopoly
                                       :user_observer,
                                       :library_element_observer,
                                       :refund_observer,
+                                      :comment_observer,
                                       :image_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

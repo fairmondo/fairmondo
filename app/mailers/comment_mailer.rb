@@ -19,29 +19,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class LibraryElementsController < ApplicationController
-  before_filter :set_library_element, except: :create
+class CommentMailer < ActionMailer::Base
+  def report_comment_on_library(comment, commentable_owner)
+    @commentable = comment.commentable
+    @commentable_owner = commentable_owner
 
-  def create
-    @library_element = current_user.library_elements.build(params.for(LibraryElement).refine)
-    authorize @library_element
-    if @library_element.save
-      flash[:notice] = I18n.t('library_element.notice.success', name: @library_element.library_name)
-    else
-      flash[:alert] = @library_element.errors.messages[:library_id].first
-    end
-    redirect_to article_path(@library_element.article)
+    mail(to: @commentable_owner.email,
+         subject: I18n.t('comment.new_notification'))
   end
-
-  def destroy
-    authorize @library_element
-    @library_element.destroy
-    redirect_to library_path(@library_element.library)
-  end
-
-  private
-
-    def set_library_element
-      @library_element = LibraryElement.find(params[:id])
-    end
 end
