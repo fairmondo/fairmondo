@@ -1,0 +1,12 @@
+.LineItemGroupFrame {
+  @include whitebox;
+  background: $lightest-gray;
+}
+
+.LineItemGroupFrame > .LineItemGroupFrame-heading {
+  padding-bottom: 1em;
+}
+
+.LineItemGroupFrame > .LineItemGroupFrame-content {
+
+}
