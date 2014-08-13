@@ -7,12 +7,32 @@
         - abacus = Abacus.new(group).payment_listing
         - abacus.payments.each do |payment, hash|
           .payment-box
-            %h3
-              = payment
+            %h3= payment
             .payment-details
               - hash[:business_transactions].each do |bt|
+                .bt-details
+                  .bt-title
+                    = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
+                    = bt.quantity_bought.to_s + 'x'
+                    = bt.article_title
+                  .bt-left-cell
+                    Verkaufspreis
+                  .bt-right-cell
+                    10 eu
+                  .bt-left-cell
+                    Versand
+                  .bt-right-cell
+                    5 eu
+            .payment-totals
+              .bt-left-cell
+                Nachnahme
+              .bt-right-cell
+                nix
+              .bt-left-cell.total
+                Gesamt für Bezahlung
+              .bt-right-cell.total
+                17,50 eu
 
-                = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
 
   .adresses
     .Grid

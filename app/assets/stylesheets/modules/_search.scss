@@ -223,7 +223,7 @@ cannot be in controller specific code because it is used by multiple controllers
   padding: 0;
   margin: 0;
   background: white;
-  box-shadow: $sand 0px 0px 2px 2px;
+  box-shadow: $even-lighter-gray 0px 0px 2px 2px;
 
   &.is-active {
     top: 2.2em;

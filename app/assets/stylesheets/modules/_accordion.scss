@@ -20,7 +20,7 @@ Styleguide Accordion
 	outline: 0;
 	background-color: white;
 	&:hover {
-		background-color: $sand;
+		background-color: $even-lighter-gray;
 	}
 
 }
@@ -61,7 +61,7 @@ Styleguide Accordion
 
 
 .Accordion .Accordion-item > .Accordion-content .Accordion-step {
-	border-bottom: solid 2px $sand;
+	border-bottom: solid 2px $even-lighter-gray;
 	margin-bottom: 1em;
 	overflow: auto;
 }
