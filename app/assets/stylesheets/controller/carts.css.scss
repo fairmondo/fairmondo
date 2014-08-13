@@ -14,6 +14,10 @@
  padding-top: 1em;
 }
 
+.formtastic .inputs li.message-text {
+  textarea { height: 5em; }
+}
+
 /* --------------------- Checkout Step 2 --------------------- */
 
 /* --------------------- Post Checkout Cart --------------------- */

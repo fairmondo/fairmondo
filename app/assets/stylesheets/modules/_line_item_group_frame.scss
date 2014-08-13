@@ -1,6 +1,7 @@
 .LineItemGroupFrame {
   @include whitebox;
   background: $lightest-gray;
+  margin-bottom:1em;
 }
 
 .LineItemGroupFrame > .LineItemGroupFrame-heading {
@@ -9,4 +10,13 @@
 
 .LineItemGroupFrame > .LineItemGroupFrame-content {
 
+}
+
+.LineItemGroupFrame > .LineItemGroupFrame-content > hr {
+  color: $lighter-gray;
+  background-color: $lighter-gray;
+  border: 0;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 1em;
 }
