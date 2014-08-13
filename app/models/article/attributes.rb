@@ -108,6 +108,7 @@ module Article::Attributes
     validates :payment_details, length: { :maximum => 2500 }
 
     validate :bank_account_exists, :if => :payment_bank_transfer
+    validate :bank_transfer_available, :if => :payment_bank_transfer
     validate :paypal_account_exists, :if => :payment_paypal
 
     validates_presence_of :quantity
@@ -194,6 +195,12 @@ module Article::Attributes
     def paypal_account_exists
       unless self.seller.paypal_account_exists?
         errors.add(:payment_paypal, I18n.t("article.form.errors.paypal_details_missing"))
+      end
+    end
+
+    def bank_transfer_available
+      if self.seller.created_at > 1.month.ago && self.price_cents >= 10000 && self.seller.type == 'PrivateUser'
+        errors.add(:payment_bank_transfer, I18n.t('article.form.errors.bank_transfer_not_allowed'))
       end
     end
 end

@@ -45,6 +45,7 @@ FactoryGirl.define do
     bic {["ABCDEF","ZJFBLO","TNAPIT","EMLOAB"].sample + rand(99).to_s.center(2, rand(9).to_s)}
 
     direct_debit true
+    created_at { 2.month.ago }
 
     seller_state "standard_seller"
     buyer_state "standard_buyer"

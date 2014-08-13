@@ -2,7 +2,7 @@
 
   %h2 Administration:
   = link_to t('article.show.reindex'), toolbox_reindex_path(resource), method: :patch, class: 'Button Button--red'
-
+  = link_to "Artikel Administrieren", rails_admin.show_path(model_name: 'article', id: resource.id), class: 'Button'
   - if resource.active?
     %h3 Warteschlange befüllen
     = semantic_form_for :library, url: admin_add_to_libraries_path, method: :post do |f|
