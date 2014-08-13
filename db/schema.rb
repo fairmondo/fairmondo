@@ -462,6 +462,7 @@ ActiveRecord::Schema.define(version: 20140811135415) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
+    t.boolean  "receive_comments_notification",            default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

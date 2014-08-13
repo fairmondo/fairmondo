@@ -4,11 +4,9 @@ class ArticleSearchForm
   include Virtus.model
   include ActiveModel::Conversion
 
-
   # def self.article_search_form_attrs
   #   [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
   # end
-
 
   attribute :q, String
   attribute :fair, BooleanFromParams
@@ -46,13 +44,10 @@ class ArticleSearchForm
       query do
         boolean minimum_should_match: 1 do
           if query.search_by_term?
-
-
             should { match "title.search", query.q, fuzziness: 0.9 , :zero_terms_query => 'all' }
             should { match :content, query.q } if query.search_in_content
             should { match :friendly_percent_organisation_nickname, query.q, :fuzziness => 0.7 }
             should { term :gtin, query.q, :boost => 100 }
-
           end
           must { term :fair, true } if query.fair
           must { term :ecologic, true } if query.ecologic
