@@ -64,8 +64,9 @@ FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_tr
 FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories => [@categories.sample]
 5.times do |number|
-  FactoryGirl.create :article, :with_all_payments, :with_private_user , :categories => [@categories.sample],
-                    title: "Cart Tester #{number}", seller: user_legal
+  FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
+                     :with_all_payments, :with_private_user , categories: [@categories.sample],
+                     title: "Cart Tester #{number}", seller: user_legal
 end
 
 # Fill Exhibitions
@@ -84,10 +85,6 @@ Content.create key:'buy-ffps', body: '<p><span style="font-family: arial, helvet
 Content.create key:'progress-ffps', body: '<div class="progress progress-landing"><div class="bar" style="height: 100%; width: 100%;">&nbsp;</div></div><p><a class="pull-right" href="http://fairnopoly.startnext.de">Anteile kaufen</a> 156.183 &euro; von 100.000 &euro; erreicht</p>'
 Content.create key:'please-register', body: '<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><span class="b" style="line-height: 16px; margin: 0px; padding: 0px 0px 1px; cursor: auto;"><strong style="margin: 0px; padding: 0px;">Bitte beachten:</strong></span><span style="line-height: 16px; margin: 0px; padding: 0px 0px 1px; cursor: auto;">&nbsp;&nbsp;</span><span style="line-height: 16px;">Dies ist eine reine Testversion, wir &uuml;bernehmen keinerlei Haftung oder Verantwortung f&uuml;r eingestellte Daten. Nach Ablauf des Tests werden alle Daten ohne Vorwarnung gel&ouml;scht.</span></span></p>'
 Content.create key:'about_us', body: '<h1>About</h1><p>Dummy Site</p>'
-# Fuer den Genossenschaftsanteilfortschrittsbalken
-Content.create key:'monatsziel', body: '<p>50000</p>'
-Content.create key:'monatsanteile', body: '<p>2150</p>'
-Content.create key:'bisherige_einlagen', body: '<p>288550</p>'
 # Startseite
 Content.create key:'heading_features', body: '<p>TOLLE DINGE</p>'
 Content.create key:'heading_features2', body: '<p>BÜCHERBOX</p>'
@@ -95,5 +92,4 @@ Content.create key:'heading_queue1', body: '<p>Mehr 1</p>'
 Content.create key:'heading_queue2', body: '<p>Mehr 2</p>'
 Content.create key:'heading_queue3', body: '<p>Mehr 3</p>'
 Content.create key:'heading_queue4', body: '<p>Mehr 4</p>'
-Content.create key:'cfk_box', body: '<p><iframe src="https://player.vimeo.com/video/83495049?badge=0&amp;byline=0&amp;title=0&amp;portrait=0" width="490" height="276" frameborder="0" allowfullscreen="1"></iframe></p><p>Mit Fairnopoly bauen wir eine konsequent faire Alternative zu den gro&szlig;en Online-Marktpl&auml;tzen auf. &Uuml;ber 1.900 Menschen haben bereits in unsere Genossenschaft investiert.<br />Mit 50 Euro kannst auch Du dabei sein:</p><p><a class="Button" href="http://info.fairnopoly.de/anteile-zeichnen/" target="_blank">Anteile zeichnen</a></p>'
 Content.create key:'newsheader', body: '<p> Fairnopoly rox! <a href="http://info.fairnopoly.de">This is a link to the blog</a>!</p>'

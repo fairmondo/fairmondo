@@ -1,37 +1,39 @@
 = visual_checkout_steps :step2, @cart
 .Content
   - @cart.line_item_groups.each do |group|
-    .seller
-      %h2
-        = link_to group.seller_nickname, user_path(group.seller)
-      .payment-boxes
-        - abacus = Abacus.new(group).payment_listing
-        - abacus.payments.each do |payment, hash|
-          .payment-box
-            %h3= payment
-            .payment-details
-              - hash[:business_transactions].each do |bt|
-                .bt-details
-                  .bt-title
-                    = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
-                    = bt.quantity_bought.to_s + 'x'
-                    = bt.article_title
-                  .bt-left-cell
-                    Verkaufspreis
-                  .bt-right-cell
-                    10 eu
-                  .bt-left-cell
-                    Versand
-                  .bt-right-cell
-                    5 eu
-            .payment-totals
-              .bt-left-cell
+    = line_item_group_frame link_to(group.seller_nickname, user_path(group.seller)) do
+      - Abacus.new(group).payment_listing.payments.each do |payment, hash|
+        .payment-box
+          %h3= payment
+          %table{cellspacing: 0}
+            - hash[:business_transactions].each do |bt|
+              %tr
+                %th{colspan: 2}
+                  = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
+                  = bt.quantity_bought.to_s + 'x'
+                  = bt.article_title
+              %tr
+                %td
+                  Verkaufspreis
+                %td
+                  = humanized_money_with_symbol bt.article_price
+              %tr
+                %td
+                  Versand
+                %td
+                  5 eu
+              %tr
+                %td.spacer{colspan: 2}
+
+            %tr
+              %td
                 Nachnahme
-              .bt-right-cell
+              %td
                 nix
-              .bt-left-cell.total
+            %tr.bt-totals
+              %td.total
                 Gesamt für Bezahlung
-              .bt-right-cell.total
+              %td.total
                 17,50 eu
 
 

@@ -3,7 +3,7 @@ class LineItemGroup < ActiveRecord::Base
 
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', inverse_of: :seller_line_item_groups
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id', inverse_of: :buyer_line_item_groups
-  belongs_to :cart, inverse_of: :line_item_groups, counter_cache: :line_item_count
+  belongs_to :cart, inverse_of: :line_item_groups
   has_many :line_items, dependent: :destroy, inverse_of: :line_item_group
   #has_many :articles through either :line_items or :business_transactions
   def articles
