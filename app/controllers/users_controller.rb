@@ -22,6 +22,7 @@
 class UsersController < ApplicationController
   include NoticeHelper
   respond_to :html
+  respond_to :pdf, only: :profile
 
   before_filter :check_for_complete_mass_uploads, only: [:show]
   before_filter :show_notice, only: [:show]
@@ -31,13 +32,6 @@ class UsersController < ApplicationController
 
   def profile
     authorize @user
-    respond_to do |format|
-      format.html do
-        if ['terms', 'cancellation'].include?(refined_params[:print])
-          render '/users/print', layout: false, locals: { field: refined_params[:print] }
-        end
-      end
-    end
   end
 
   def show
@@ -65,7 +59,4 @@ class UsersController < ApplicationController
       end
     end
 
-    def refined_params
-      @refined_params ||= params.for(@user).as(current_user).refine
-    end
 end

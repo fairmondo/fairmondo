@@ -25,8 +25,21 @@ module CheckoutHelper
     I18n.t('checkout.labels.unified_transport', provider: group.seller.unified_transport_provider, transport_price: humanized_money_with_symbol(group.seller.unified_transport_price))
   end
 
-  def unified_payment_options_for group
-    group.unified_payments_selectable.map{ |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
+  def checkout_options_for_payment selectables
+    selectables.map{ |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
+  end
+
+  def checkout_options_for_single_transport business_transaction
+    business_transaction.article.selectable_transports.map do |transport|
+      provider = business_transaction.article.transport_provider transport
+      [ provider, transport ]
+    end
+  end
+
+  def terms_and_cancellation_label_for user
+    terms_link = checkbox_link_helper I18n.t('cart.texts.terms'), profile_user_path(user, print: 'terms', format: :pdf)
+    cancellation_link = checkbox_link_helper I18n.t('cart.texts.cancellation'), profile_user_path(user, print: 'cancellation', format: :pdf)
+    I18n.t('cart.texts.terms_and_cancellation_label', terms: terms_link, cancellation: cancellation_link).html_safe
   end
 
   def line_item_group_frame(heading, options = {}, &block)
@@ -39,6 +52,19 @@ module CheckoutHelper
 
   def line_item_group_title group
     safe_join([ t('cart.texts.line_item_group_by'), ' ' , link_to(group.seller_nickname, user_path(group.seller)) ])
+  end
+
+  def visual_checkout_steps step, cart
+    render 'carts/checkout/visual_steps', step: step, cart: cart
+  end
+
+  def visual_checkout_step step, active, checked, link=nil
+    step_title = I18n.t("cart.steps.#{step.to_s}")
+    content_tag :span, class: "visual_checkout_step #{active ? 'active' : ''}" do
+      concat(content_tag(:i,'', class: (checked ? 'fa fa-check-square-o' : 'fa fa-square-o')))
+      concat(' ')
+      concat(link ? link_to(step_title, link) : step_title)
+    end
   end
 
 end

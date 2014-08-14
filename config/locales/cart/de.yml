@@ -2,9 +2,16 @@ de:
   cart:
     texts:
       empty_cart: Dein Warenkorb ist leer.
-      line_item_group_by: "Angeboten von"
+      line_item_group_by: "Einkauf bei"
       purchase_from: "Einkauf vom"
       your_order_for: "Deine Bestellung bei"
+      terms: "AGB"
+      cancellation: "Widerrufsbelehrung"
+      terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Verkäufer*in."
+    steps:
+      step1: Bezahlung und Versand
+      step2: Übersicht und Kaufen
+      step3: Fertig
     actions:
       confirm_purchase: Verbindlich Kaufen
       checkout: Zur Kasse

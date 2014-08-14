@@ -51,7 +51,7 @@ class TransportAbacus
       total = retail_price(bt) + transport_price + ( cash_on_delivery_price || Money.new(0) )
       {
         method: bt.selected_transport.to_sym,
-        provider: bt.single_transport_provider,
+        provider: bt.article.transport_provider(bt.selected_transport),
         shipments: shipments,
         transport_price: transport_price,
         cash_on_delivery: cash_on_delivery_price,

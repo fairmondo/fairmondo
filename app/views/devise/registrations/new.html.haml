@@ -39,8 +39,8 @@
 
     = f.inputs do
       -# onclick javascript because icheck causes click on link to fail
-      - legal_link = link_to t('users.legal'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
-      - privacy_link = link_to t('users.privacy'), "/privacy", target: "_blank", onclick: on_click_open_link_in_label('/privacy')
+      - legal_link = checkbox_link_helper t('users.legal'), '/agb'
+      - privacy_link = checkbox_link_helper t('users.privacy'), '/privacy'
       = f.input :agecheck, as: :boolean, required: true
       = f.input :newsletter, as: :boolean, tooltip: true
       = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe

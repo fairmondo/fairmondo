@@ -2,14 +2,21 @@
   @include whitebox;
   background: $lightest-gray;
   margin-bottom:1em;
+  padding:0;
 }
 
 .LineItemGroupFrame > .LineItemGroupFrame-heading {
-  padding-bottom: 1em;
+  padding: em(10) em(20);
+  font-size: 1.3rem;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  background-color: $even-lighter-gray;
+  border-bottom: 1px solid $lighter-gray;
+  margin-bottom: 0.5em;
 }
 
 .LineItemGroupFrame > .LineItemGroupFrame-content {
-
+ padding: em(10) em(20);
 }
 
 .LineItemGroupFrame > .LineItemGroupFrame-content > hr {
