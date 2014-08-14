@@ -1,4 +1,4 @@
-
+@import "mixins/all";
 
 /* --------------------- Pre Checkout Cart --------------------- */
 
@@ -15,5 +15,57 @@
 }
 
 /* --------------------- Checkout Step 2 --------------------- */
+
+.payment-box {
+  margin-bottom: rem(20);
+}
+.payment-box > h3, .payment-box > table, .payment-box td {
+  background:white;
+  border: 1px solid $lighter-gray;
+}
+.payment-box > h3 {
+  display: inline;
+  padding: rem(5);
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.payment-box > table {
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.payment-box th {
+  text-align: left;
+  font-weight: normal;
+  font-size: 15px;
+  padding: 0;
+}
+
+.payment-box th img {
+  float: left;
+  margin-right: rem(10);
+}
+
+.payment-box td {
+  width: 50%;
+  text-align: center;
+  vertical-align: top;
+}
+
+.payment-box td.spacer {
+  height: rem(5);
+}
+
+.payment-box td.total {
+  font-weight: 600;
+}
+
+.bt-totals {
+  margin-bottom: rem(15);
+}
+
 
 /* --------------------- Post Checkout Cart --------------------- */
