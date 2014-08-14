@@ -68,7 +68,7 @@ module ArticlesHelper
     options_format_for type, method
   end
 
- def options_format_for type, method
+  def options_format_for type, method
     if resource.send("#{type}_#{method}")
       html = '<li>'
 

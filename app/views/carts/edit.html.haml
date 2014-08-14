@@ -22,9 +22,11 @@
                 = t.inputs do
                   = t.input :selected_transport, include_blank: false, wrapper_html: {class: 'js-unified-transport--target'}, collection: line_item.business_transaction.article.selectable_transports
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target'}, collection: line_item.business_transaction.article.selectable_payments
+      %hr
       = group_fields.inputs do
-        = group_fields.input :message
         = group_fields.input :tos_accepted
+        = group_fields.input :message, wrapper_html: {class: 'message-text'}
+
   %h3
     Rechnungsadresse
   - unless @cart_checkout_form.needs_new_payment_address?
