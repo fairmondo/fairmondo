@@ -64,8 +64,9 @@ FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_tr
 FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_transports,
                    :with_all_payments, :with_legal_entity,  title: 'Tester By Legal Entity', :categories => [@categories.sample]
 5.times do |number|
-  FactoryGirl.create :article, :with_all_payments, :with_private_user , :categories => [@categories.sample],
-                    title: "Cart Tester #{number}", seller: user_legal
+  FactoryGirl.create :article, :without_image, :with_larger_quantity, :with_all_payments,
+                     :with_private_user , :categories => [@categories.sample],
+                     title: "Cart Tester #{number}", seller: user_legal
 end
 
 # Fill Exhibitions
