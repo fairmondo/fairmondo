@@ -13,25 +13,25 @@
 #
 # Fairnopoly is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
+# along with Fairnopoly. If not, see <http://www.gnu.org/licenses/>.
 #
-class Comment < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :commentable, polymorphic: true, counter_cache: true
-
-  delegate :image_url, :nickname, to: :user, prefix: true
-
-  validates :commentable, presence: true
-  validates :user, presence: true
-  validates :text, presence: true, length: { maximum: 240 }
-
-  paginates_per 5
-
-  def commentable_user
-    commentable.user
+class CommentObserver < ActiveRecord::Observer
+  def after_save(comment)
+    if receives_notifications?(comment.commentable_user)
+      case comment.commentable_type
+      when "Library"
+        CommentMailer.report_comment_on_library(comment, comment.commentable_user)
+      end
+    end
   end
+
+  private
+
+    def receives_notifications?(user)
+      user.receive_comments_notification
+    end
 end

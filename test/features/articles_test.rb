@@ -121,6 +121,17 @@ feature 'Article creation' do
     visit new_article_path template: { article_id: template.id }
     page.must_have_content I18n.t('template.notices.applied', name: template.template_name)
   end
+
+  scenario 'new private user wants to use bank_transfer for article that costs more than 100Euro' do
+    user = FactoryGirl.create :user, created_at: Time.now, type: 'PrivateUser'
+    login_as user
+    visit new_article_path
+    fill_form_with_valid_article
+    fill_in 'article_price', with: '150'
+    check 'article_payment_bank_transfer'
+    click_button I18n.t("article.labels.continue_to_preview")
+    page.must_have_content I18n.t('article.form.errors.bank_transfer_not_allowed')
+  end
 end
 
 feature "Article activation for private users" do

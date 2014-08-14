@@ -76,10 +76,8 @@
             'services' : {
                 'facebook' : {
                     'status'            : 'on',
-                    'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_fb_off'        : 'nicht mit Facebook verbunden',
                     'txt_fb_on'         : 'mit Facebook verbunden',
-                    'perma_option'      : 'on',
                     'display_name'      : 'Facebook',
                     'referrer_track'    : '',
                     'language'          : 'de_DE',
@@ -87,10 +85,8 @@
                 },
                 'twitter' : {
                     'status'            : 'on',
-                    'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_twitter_off'   : 'nicht mit Twitter verbunden',
                     'txt_twitter_on'    : 'mit Twitter verbunden',
-                    'perma_option'      : 'on',
                     'display_name'      : 'Twitter',
                     'referrer_track'    : '',
                     'tweet_text'        : getTweetText,
@@ -98,25 +94,23 @@
                 },
                 'gplus' : {
                     'status'            : 'on',
-                    'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_gplus_off'     : 'nicht mit Google+ verbunden',
                     'txt_gplus_on'      : 'mit Google+ verbunden',
-                    'perma_option'      : 'on',
                     'display_name'      : 'Google+',
                     'referrer_track'    : '',
                     'language'          : 'de'
                 },
                 'pinterest' : {
                 	'status'			: 'on',
-                	'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
                     'txt_pinterest_off'     : 'nicht mit Pinterest verbunden',
                     'txt_pinterest_on'      : 'mit Pinterest verbunden',
-                    'perma_option'      : 'on',
                     'display_name'      : 'Pinterest',
                     'referrer_track'    : '',
                     'language'          : 'de'
                 }
             },
+            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie auf das Schloss klicken, wird der jeweilige Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
+
             'css_path'          : '',
             'uri'               : getURI
         };
@@ -150,7 +144,7 @@
             var context = $('.social_share_privacy_area', this);
 
             // canonical uri that will be shared
-            var uri = options.uri;
+            var uri = $(this).data('uri') || options.uri;
             if (typeof uri === 'function') {
                 uri = uri(context);
             }
@@ -160,21 +154,21 @@
             //
             if (facebook_on) {
                 var fb_enc_uri = encodeURIComponent(uri + options.services.facebook.referrer_track);
-                var fb_code = '<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
+                var fb_code = '<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:123px; height:21px;" allowTransparency="true"></iframe>';
                 var fb_dummy_btn = '<i class="fa fa-facebook-square fa-lg" id="facebook-dummy"></i>';
 
-                context.append('<li class="facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
+                context.append('<li class="facebook help_info"><span class="switch fa fa-lock" title="' + options.services.facebook.txt_fb_off + '"></span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
 
                 var $container_fb = $('li.facebook', context);
 
                 $('li.facebook i,li.facebook span.switch', context).on('click', function () {
-                    if ($container_fb.find('span.switch').hasClass('off')) {
+                    if ($container_fb.find('span.switch').hasClass('fa-lock')) {
                         $container_fb.addClass('info_off');
-                        $container_fb.find('span.switch').addClass('on').removeClass('off').html(options.services.facebook.txt_fb_on);
+                        $container_fb.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.facebook.txt_fb_on);
                         $container_fb.find('#facebook-dummy').replaceWith(fb_code);
                     } else {
                         $container_fb.removeClass('info_off');
-                        $container_fb.find('span.switch').addClass('off').removeClass('on').html(options.services.facebook.txt_fb_off);
+                        $container_fb.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.facebook.txt_fb_off);
                         $container_fb.find('.fb_like').html(fb_dummy_btn);
                     }
                 });
@@ -184,7 +178,7 @@
             // Twitter
             //
             if (twitter_on) {
-                var text = options.services.twitter.tweet_text;
+                var text = $(this).data('title') || options.services.twitter.tweet_text;
                 if (typeof text === 'function') {
                     text = text();
                 }
@@ -193,21 +187,21 @@
 
                 var twitter_enc_uri = encodeURIComponent(uri + options.services.twitter.referrer_track);
                 var twitter_count_url = encodeURIComponent(uri);
-                var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
+                var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:95px; height:25px;"></iframe>';
                 var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-lg" id="twitter-dummy"></i>';
 
-                context.append('<li class="twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
+                context.append('<li class="twitter help_info"><span class="switch fa fa-lock" title="' + options.services.twitter.txt_twitter_off + '"></span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
                 var $container_tw = $('li.twitter', context);
 
                 $('li.twitter i,li.twitter span.switch', context).on('click', function () {
-                    if ($container_tw.find('span.switch').hasClass('off')) {
+                    if ($container_tw.find('span.switch').hasClass('fa-lock')) {
                         $container_tw.addClass('info_off');
-                        $container_tw.find('span.switch').addClass('on').removeClass('off').html(options.services.twitter.txt_twitter_on);
+                        $container_tw.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.twitter.txt_twitter_on);
                         $container_tw.find('#twitter-dummy').replaceWith(twitter_code);
                     } else {
                         $container_tw.removeClass('info_off');
-                        $container_tw.find('span.switch').addClass('off').removeClass('on').html(options.services.twitter.txt_twitter_off);
+                        $container_tw.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.twitter.txt_twitter_off);
                         $container_tw.find('.tweet').html(twitter_dummy_btn);
                     }
                 });
@@ -224,18 +218,18 @@
                 var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
                 var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-lg" id="gplusone-dummy"></i>';
 
-                context.append('<li class="gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
+                context.append('<li class="gplus help_info"><span class="switch fa fa-lock" title="' + options.services.gplus.txt_gplus_off + '"></span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
                 var $container_gplus = $('li.gplus', context);
 
                 $('li.gplus i,li.gplus span.switch', context).on('click', function () {
-                    if ($container_gplus.find('span.switch').hasClass('off')) {
+                    if ($container_gplus.find('span.switch').hasClass('fa-lock')) {
                         $container_gplus.addClass('info_off');
-                        $container_gplus.find('span.switch').addClass('on').removeClass('off').html(options.services.gplus.txt_gplus_on);
+                        $container_gplus.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.gplus.txt_gplus_on);
                         $container_gplus.find('#gplusone-dummy').replaceWith(gplus_code);
                     } else {
                         $container_gplus.removeClass('info_off');
-                        $container_gplus.find('span.switch').addClass('off').removeClass('on').html(options.services.gplus.txt_gplus_off);
+                        $container_gplus.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.gplus.txt_gplus_off);
                         $container_gplus.find('.gplusone').html(gplus_dummy_btn);
                     }
                 });
@@ -258,19 +252,19 @@
 
 
 
-                context.append('<li class="pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterest dummy_btn">' + pinterest_dummy_btn + '</div></li>');
+                context.append('<li class="pinterest help_info"><span class="switch fa fa-lock" title="' + options.services.pinterest.txt_pinterest_off + '"></span><div class="pinterest dummy_btn">' + pinterest_dummy_btn + '</div></li>');
 
                 var $container_pinterest = $('li.pinterest', context);
 
                 $('li.pinterest i,li.pinterest span.switch', context).on('click', function () {
-                    if ($container_pinterest.find('span.switch').hasClass('off')) {
+                    if ($container_pinterest.find('span.switch').hasClass('fa-lock')) {
                         $container_pinterest.addClass('info_off');
-                        $container_pinterest.find('span.switch').addClass('on').removeClass('off').html(options.services.pinterest.txt_pinterest_on);
+                        $container_pinterest.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.pinterest.txt_pinterest_on);
                         $container_pinterest.find('#pintrest-dummy').replaceWith(pinterest_code);
                        document.getElementsByTagName('head')[0].appendChild(pinterest_script);
                     } else {
                         $container_pinterest.removeClass('info_off');
-                        $container_pinterest.find('span.switch').addClass('off').removeClass('on').html(options.services.pinterest.txt_pinterest_off);
+                        $container_pinterest.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.pinterest.txt_pinterest_off);
                         $container_pinterest.find('.pinterest').html(pinterest_dummy_btn);
                     }
                 });
@@ -279,21 +273,7 @@
 			//
             // Der Info/Settings-Bereich wird eingebunden
             //
-
-            // Info-Overlays mit leichter Verzoegerung einblenden
-            $('.help_info:not(.info_off)', context).on('mouseenter', function () {
-                var $info_wrapper = $(this);
-                var timeout_id = window.setTimeout(function () { $($info_wrapper).addClass('display'); }, 500);
-                $(this).data('timeout_id', timeout_id);
-            });
-            $('.help_info', context).on('mouseleave', function () {
-                var timeout_id = $(this).data('timeout_id');
-                window.clearTimeout(timeout_id);
-                if ($(this).hasClass('display')) {
-                    $(this).removeClass('display');
-                }
-            });
-
+            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>')
 
         }); // this.each(function ()
     };      // $.fn.socialSharePrivacy = function (settings) {

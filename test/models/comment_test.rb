@@ -46,4 +46,12 @@ describe Comment do
       it { subject.must ensure_length_of(:text).is_at_most(240) }
     end
   end
+
+  describe "#commentable_user" do
+    let(:comment) { FactoryGirl.create(:comment) }
+
+    it "should return the owner of the commentable" do
+      comment.commentable_user.must_equal(comment.commentable.user)
+    end
+  end
 end
