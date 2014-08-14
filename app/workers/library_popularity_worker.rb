@@ -11,7 +11,10 @@ class LibraryPopularityWorker
   end
 
   def popularity_for library
-    # calculate stuff on library
-    rand
+    # number of hearts in the last 30 days, each heart counts for one popularity point
+    popularity = library.hearts.where("updated_at > ? AND updated_at < ?", Time.now - 3.days, Time.now).count
+    # number of comments in the last 30 days, each comment counts ten times as much as a heart
+    popularity += library.comments.where("updated_at > ? AND updated_at < ?", Time.now - 3.days, Time.now).count * 10
+    popularity
   end
 end
