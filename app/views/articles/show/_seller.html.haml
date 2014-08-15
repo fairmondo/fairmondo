@@ -30,11 +30,11 @@
           = link_to image_tag(other_article.title_image_url_thumb), article_path(other_article.slug),title: other_article.title
 
     = link_to t('article.actions.show_user'), resource.seller, :class => "Button"
-  - if resource.libraries.where(:public => true).any?
+  - if libraries.any?
     -# Libraries Box
     = accordion_item "libraries", :title => t('article.titles.libraries') do
       .related_libraries
-        - resource.libraries.where(:public => true).limit(10).each do |library|
+        - libraries.each do |library|
           .related_library
             .profile_image
               = link_to image_tag(library.user.image_url(:profile)), library

@@ -51,6 +51,12 @@ class Library < ActiveRecord::Base
 
   default_scope -> { order('updated_at DESC') }
 
+  def includes_article? article
+    self.articles.include? article
+
+
+  end
+
   private
     # when an exhibition name is set to a library, remove the same exhibition
     # name from all other libraries.

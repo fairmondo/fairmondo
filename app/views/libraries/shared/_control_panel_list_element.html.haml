@@ -1,5 +1,5 @@
 %li
   %i.fa.fa-lg{title: t("library.visibility.#{visibility}"), class: visibility == :public ? 'fa-eye' : 'fa-eye-slash'}
   = link_to library.name, user_library_elements_path(user_id: current_user.id, library_element: {article_id: resource.id, library_id: library.id}), rel: "nofollow", method: 'POST'
-  - if library.articles.include?(article)
+  - if library.includes_article? article
     %i.fa.fa-check{title: t('library.control.check_title')}
