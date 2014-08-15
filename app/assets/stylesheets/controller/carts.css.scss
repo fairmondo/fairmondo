@@ -1,21 +1,53 @@
 @import "mixins/all";
 
+.visual_checkout_steps {
+  margin-bottom: 1em;
+}
+
+.visual_checkout_step {
+  white-space:nowrap;
+  padding: 0.5em;
+  color: $gray;
+  @include color-links($gray,$gray)
+}
+
+.visual_checkout_step.active {
+  color: black;
+}
+
+
 /* --------------------- Pre Checkout Cart --------------------- */
 
 
 /* --------------------- Checkout Step 1 --------------------- */
 
-.formtastic .inputs .unified_payment  > li {
-  float:left;
 
+// Unified Payment Method besides checkbox
+.formtastic .unified_inputs .unified_payment  > li {
+  float:left;
   margin-right:1em;
 }
-.formtastic .inputs .unified_payment  > li.boolean {
+.formtastic .unified_inputs .unified_payment  > li.boolean {
  padding-top: 1em;
 }
 
-.formtastic .inputs li.message-text {
-  textarea { height: 5em; }
+// Message Box layout
+
+.formtastic .message-text textarea {
+  height: 4em;
+}
+
+// Responsiveness
+ @include at-breakpoint($bp-tablet-horizontal) {
+  .formtastic .legal_inputs { @include span(2 of 4 0.1);
+                }
+
+  .formtastic .unified_inputs { @include span(2 of 4 0.1);
+                  @include omega;
+                  }
+  .formtastic .line_items {
+    clear:both;
+  }
 }
 
 /* --------------------- Checkout Step 2 --------------------- */

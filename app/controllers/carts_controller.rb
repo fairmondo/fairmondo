@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   respond_to :html
 
   before_filter :generate_session, only: :edit
+  before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
   before_filter :set_cart
 
   before_filter :authorize_and_authenticate_user_on_cart, only: :show
@@ -36,7 +37,6 @@ class CartsController < ApplicationController
 
     case result
     when :invalid
-      debugger
       render :edit
     when :saved_in_session
       redirect_to edit_cart_path(@cart, checkout: true)

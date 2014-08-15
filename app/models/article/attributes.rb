@@ -142,6 +142,17 @@ module Article::Attributes
     end
   end
 
+  def transport_provider transport
+    case transport
+    when 'pickup'
+      I18n.t('enumerize.business_transaction.selected_transport.pickup')
+    when 'type1'
+      self.transport_type1_provider
+    when 'type2'
+      self.transport_type2_provider
+    end
+  end
+
   # Returns an array with all selected transport types.
   # Default transport will be the first element.
   #

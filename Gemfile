@@ -95,6 +95,7 @@ gem 'rails_admin' # Administrative backend
 gem 'rack-rewrite' # Redirects
 gem 'json'
 gem 'nokogiri'
+gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
 gem 'newrelic_rpm',  group: [:production,:staging]

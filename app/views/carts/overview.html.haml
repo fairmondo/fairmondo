@@ -1,3 +1,4 @@
+= visual_checkout_steps :step2, @cart
 .Content
   - @cart.line_item_groups.each do |group|
     = line_item_group_frame link_to(group.seller_nickname, user_path(group.seller)) do
