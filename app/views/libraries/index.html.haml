@@ -37,7 +37,7 @@
       - if !library.library_elements.empty? || (library.user == current_user)
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
-            = library_header_layout(library)
+            = render "library_header", library: library
             - if library.comments.size > 0
               .Library-comments
                 = render library.comments.order(created_at: :desc).limit(2)
