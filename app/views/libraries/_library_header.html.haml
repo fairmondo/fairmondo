@@ -1,14 +1,11 @@
--# Two different caching mechanisms: strong_cache is used on the welcome page only
-- strong_cache ||= false
-
 .Library-buttons
   .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
   = comments_counter(library)
   = heart_button(library)
+.Library-userimage
+  = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
 
-- cache (strong_cache ? ["libraries/", library.id] : [library,library.user,"library_header"]) do
-  .Library-userimage
-    = image_tag(library.user.image_url(:profile), :class => "User-profile-image")
+- cache [library,library.user,"library_header"] do
   .Library-info
     .Library-info-text
       %span.Library-info-text-title
