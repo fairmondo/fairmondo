@@ -22,7 +22,7 @@ Styleguide Notice
   padding: 1em $screen-padding;
 }
 
-.Notice--info,.Notice--confirmation {
+.Notice--info, .Notice--confirmation, .Notice--error {
   background-color: $green;
 
   // for JS manipulation
