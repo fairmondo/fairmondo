@@ -39,14 +39,99 @@
 
 // Responsiveness
  @include at-breakpoint($bp-tablet-horizontal) {
-  .formtastic .legal_inputs { @include span(2 of 4 0.1);
+  .formtastic .legal_inputs { @include span(3 of 6 0.1);
                 }
 
-  .formtastic .unified_inputs { @include span(2 of 4 0.1);
+  .formtastic .unified_inputs { @include span(3 of 6 0.1);
                   @include omega;
                   }
   .formtastic .line_items {
     clear:both;
+  }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .formtastic .unified_inputs .unified_payment {
+    @include span(1 of 2 0.1); }
+  .formtastic .unified_inputs .unified_transport {
+    @include span(1 of 2 0.1);
+    @include omega;}
+}
+
+// Line Items
+
+.formtastic .line_items > .line_item {
+  @include whitebox;
+  background-color: white;
+  @include clearfix;
+  margin-bottom: 0.5em;
+  padding:0.5em;
+  @include at-breakpoint($bp-tablet-horizontal) { padding: 0; }
+}
+
+.formtastic .line_items > .line_item > .image {
+  line-height: 0em;
+  img {  width: 100%;
+        border-radius: 0.5em;
+        @include at-breakpoint($bp-tablet-horizontal) {
+           border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+  }
+}
+
+.formtastic .line_items > .line_item > .form  .input {
+  margin: 0;
+}
+
+// Line Items Responsiveness
+
+.formtastic .line_items > .line_item {
+
+  @include till-breakpoint($bp-tablet) {
+    > .image { display:none; }
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+    position: relative;
+    .image { position: absolute;  right: 1em; width:20%; }
+
+  }
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    > .image { @include span(1 of 6 0.1); }
+    > .details { @include span(2 of 6 0.1); }
+    > .form { @include span(3 of 6 0.1);
+              @include omega; }
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    > .image { @include span(1 of 8 0.1); }
+    > .details { @include span(3 of 8 0.1); }
+    > .form { @include span(4 of 8 0.1);
+              @include omega; }
+  }
+
+}
+
+.formtastic .line_items > .line_item > .details {
+  > .quantity { float:left; margin-right: 0.5em;}
+  > .price { clear:both; }
+}
+
+.formtastic .line_items > .line_item > .form {
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+     @include clearfix;
+    .payment,.transport { float:left; }
+    .payment { margin-right: 0.5em; }
+  }
+
+
+  @include at-breakpoint($bp-tablet-horizontal) {
+    > .payment { @include span(1 of 2 0.1); }
+    > .transport { @include span(1 of 2 0.1);
+                   @include omega;}
   }
 }
 
