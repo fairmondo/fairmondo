@@ -115,6 +115,7 @@
 }
 
 .formtastic .line_items > .line_item > .details {
+   @include at-breakpoint($bp-tablet-horizontal) { margin-top: 0.5em; }
   > .quantity { float:left; margin-right: 0.5em;}
   > .price { clear:both; }
 }
