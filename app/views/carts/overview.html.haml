@@ -1,39 +1,60 @@
 .Content
   - @cart.line_item_groups.each do |group|
     = line_item_group_frame link_to(group.seller_nickname, user_path(group.seller)) do
-      - Abacus.new(group).payment_listing.payments.each do |payment, hash|
+      - abacus = Abacus.new(group)
+      - abacus.payment_listing.payments.each do |payment, hash|
         .payment-box
           %h3= payment
           %table{cellspacing: 0}
             - hash[:business_transactions].each do |bt|
+              - bt_listing = abacus.business_transaction_listing.prices[bt]
               %tr
                 %th{colspan: 2}
                   = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
-                  = bt.quantity_bought.to_s + 'x'
+                  = bt_listing[:quantity].to_s + 'x'
                   = bt.article_title
               %tr
                 %td
                   Verkaufspreis
                 %td
-                  = humanized_money_with_symbol bt.article_price
+                  .small-info.left
+                    = bt_listing[:quantity].to_s + 'x'
+                    = money(bt.article_price) + ' ='
+                  = money( bt_listing[:retail_price] )
+
+                  .small-info.right
+                    Netto
+                    = money bt_listing[:net_price]
+                    %br
+                    = money bt.article_basic_price
+                    pro
+                    = bt.article_basic_price_amount_text
               %tr
                 %td
                   Versand
                 %td
-                  5 eu
+                  - if abacus.transport_listing.unified_transport
+                    = money abacus.transport_listing.unified_transport[:transport_price]
+                    .small-info.right.absolute (Kombiversand)
+                  - else
+                    = money abacus.transport_listing.single_transports[bt][:transport_price]
+                    - if abacus.transport_listing.single_transports[bt][:method] == :pickup
+                      .small-info.right.absolute= '(Selbstabholung)'
               %tr
                 %td.spacer{colspan: 2}
 
-            %tr
-              %td
-                Nachnahme
-              %td
-                nix
+            - if cod_total = hash[:cash_on_delivery_total]
+              %tr
+                %td
+                  Nachnahme
+                %td
+                  = money cod_total
             %tr.bt-totals
               %td.total
-                Gesamt für Bezahlung
+                Gesamt für
+                = payment
               %td.total
-                17,50 eu
+                = money hash[:total]
 
 
   .adresses

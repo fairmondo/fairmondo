@@ -57,6 +57,11 @@
   width: 50%;
   text-align: center;
   vertical-align: top;
+  position: relative;
+}
+
+.payment-box tr > td:nth-child(2) {
+  font-size: 16px;
 }
 
 .payment-box td.spacer {
@@ -65,6 +70,23 @@
 
 .payment-box td.total {
   font-weight: 600;
+}
+.payment-box td .small-info {
+  font-size: 11px;
+  &.left {
+    text-align: left;
+    margin-left: rem(10);
+  }
+  &.right {
+    text-align: right;
+    margin-right: rem(10);
+
+    &.absolute {
+      position: absolute;
+      bottom: rem(1);
+      right: 0;
+    }
+  }
 }
 
 .bt-totals {
