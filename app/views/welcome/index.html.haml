@@ -89,21 +89,18 @@
 
 
 -# Trending libraries
-.teaser.teaser--full.libraries
-  .teaser-inner
-    %h2 Die beliebtesten Sammlungen
-    - @libraries_trending.each do |library|
-      - if !library.library_elements.empty?
+- if @libraries_trending.to_a.any?
+  .teaser.teaser--full.libraries
+    .teaser-inner
+      %h2 Die beliebtesten Sammlungen
+      - @libraries_trending.each do |library|
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
             = render "/libraries/library_header", library: library, strong_cache: true
           .Library-details
             = render "/libraries/library_buttons", library: library
             .Library-elements
-              - if library.library_elements.empty?
-                = t('library.no_products')
-              - else
-                = render "/libraries/library", library: library
+              = render "/libraries/library", library: library
 
 -# USPs
 .teaser.teaser--double.teaser--cardslides

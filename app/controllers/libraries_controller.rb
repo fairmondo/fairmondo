@@ -24,7 +24,7 @@ class LibrariesController < ApplicationController
   respond_to :html
 
   before_filter :set_user, if: :user_focused?, only: :index
-  before_filter :set_library, only: [:show, :update, :destroy]
+  before_filter :set_library, only: [:show, :update, :destroy, :admin_audit]
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:index, :show]
@@ -66,6 +66,7 @@ class LibrariesController < ApplicationController
     if @library.update(params.for(@library).refine)
       redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
     else
+      debugger
       redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
     end
   end
@@ -104,6 +105,15 @@ class LibrariesController < ApplicationController
     article = Article.find(params[:article_id])
     library.articles.delete article
     redirect_to :back, notice: "Deleted from library."
+  end
+
+  # for admins to audit libraries for display on the welcome page
+  def admin_audit
+    authorize @library
+    @library.update_column :audited, !@library.audited
+    respond_with @library do |format|
+      format.js { render 'admin_audit.js.erb' }
+    end
   end
 
   private
