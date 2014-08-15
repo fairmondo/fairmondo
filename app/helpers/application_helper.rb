@@ -71,6 +71,10 @@ module ApplicationHelper
     "controller/#{@controller_specific_css}.css"
   end
 
+  def money value
+    humanized_money_with_symbol value
+  end
+
   ### Forms
 
   # Default input field value -> param or current_user.*

@@ -45,7 +45,7 @@ end
 
 user_legal = User.find_by_email("le@le.com")
 unless user_legal
-  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :email => "le@le.com", :password => "password", :password_confirmation => "password", direct_debit: true)
+  user_legal = FactoryGirl.create(:legal_entity, :paypal_data, :with_unified_transport_information, :email => "le@le.com", :password => "password", :password_confirmation => "password", direct_debit: true)
 end
 
 require_relative 'fixtures/category_seed_data.rb'
