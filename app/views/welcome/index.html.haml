@@ -96,7 +96,7 @@
       - if !library.library_elements.empty?
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
-            = library_header_layout(library)
+            = render "/libraries/library_header", library: library, strong_cache: true
           .Library-details
             = render "/libraries/library_buttons", library: library
             .Library-elements
