@@ -6,24 +6,35 @@
         = group_fields.input :tos_accepted, label: terms_and_cancellation_label_for(group.seller)
         = group_fields.input :message, wrapper_html: {class: 'message-text'}
       = group_fields.inputs class: 'unified_inputs' do
-        = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'}, label: unified_transport_label_for(group) if group.transport_can_be_unified?
+        .unified_transport
+          = group_fields.input :unified_transport, input_html: {class: 'js-unified-transport--trigger'}, label: unified_transport_label_for(group) if group.transport_can_be_unified?
         - if group.payment_can_be_unified?
           .unified_payment
             = group_fields.input :unified_payment, input_html: {class: 'js-unified-payment--trigger'}
             = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: checkout_options_for_payment(group.unified_payments_selectable), label: false
-      .Listview.line_items
+      .line_items
         = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
           - article = line_item.business_transaction.article
-          .Listview-item
-            .Listview-image
+          .line_item
+            .image
               = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-            = render "shared/listview/listview_detail", article: article
-            .Listview-actions
-
+            .details
+              .quantity
+                = line_item.requested_quantity
+                x
+              .title
+                = link_to  article.title,  article_path(article), title: article.title, target: '_blank'
+              .price
+                = humanized_money_with_symbol article.price
+                - unless article.vat == 0
+                  = t('article.vat_included', :mwst => article.vat)
+                = render '/articles/show/basic_price', :article => article
+            .form
               = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
-                = t.inputs do
-                  = t.input :selected_transport, include_blank: false, wrapper_html: {class: 'js-unified-transport--target'}, collection: checkout_options_for_single_transport(line_item.business_transaction)
+                = t.inputs class: 'payment' do
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
+                = t.inputs class: 'transport' do
+                  = t.input :selected_transport, include_blank: false, wrapper_html: {class: 'js-unified-transport--target'}, collection: checkout_options_for_single_transport(line_item.business_transaction)
 
 
 

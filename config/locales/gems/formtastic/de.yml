@@ -190,8 +190,8 @@ de:
       business_transaction: &business_transaction
         tos_accepted: Ich akzeptiere die AGB und die Widerrufserklärung
         quantity_bought: "Artikelanzahl:"
-        selected_transport: "Bitte wähle eine Versandmethode aus:"
-        selected_payment: "Bitte wähle eine Bezahloption aus:"
+        selected_transport: "Artikel versenden mit"
+        selected_payment: "Artikel bezahlen mit"
       multiple_fixed_price_transaction:
         <<: *business_transaction
       single_fixed_price_transaction:
