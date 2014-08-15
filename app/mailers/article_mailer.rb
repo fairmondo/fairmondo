@@ -20,13 +20,13 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleMailer < ActionMailer::Base
-  default from: $email_addresses['ArticleMailer']['default_from']
+  default from: $email_addresses['default']
 
   def report_article article, user, text
     @text = text
     @article = article
     @user = user
-    mail = @user ? @user.email : "noreply@fairnopoly.de"
+    mail = @user ? @user.email : $email_addresses['default']
     mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
@@ -38,6 +38,6 @@ class ArticleMailer < ActionMailer::Base
     @text = text
     @article = article
     @from = from
-    mail to: to, from: 'noreply@fairnopoly.de', subject: I18n.t('article.show.contact.mail_subject')
+    mail to: to, subject: I18n.t('article.show.contact.mail_subject')
   end
 end

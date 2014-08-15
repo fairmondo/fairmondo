@@ -346,13 +346,6 @@ class User < ActiveRecord::Base
     Article.unscoped.where(state: :template, seller: self.id)
   end
 
-  def self.set_comment_notification_defaults
-    User.reset_column_information
-    User.all.each do |user|
-      user.update_attribute :receive_comments_notification, true
-    end
-  end
-
   private
 
     # @api private
