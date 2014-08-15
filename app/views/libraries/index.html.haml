@@ -41,6 +41,11 @@
             - if library.comments.size > 0
               .Library-comments
                 = render library.comments.order(created_at: :desc).limit(2)
+            - if User.is_admin? current_user
+              .Library-auditing
+                = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
+                  = 'Für Startseite ' + (library.audited ? 'freigeschaltet' : 'gesperrt')
+
           .Library-details
             = render "library_buttons", library: library
             .Library-elements

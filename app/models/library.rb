@@ -35,6 +35,7 @@ class Library < ActiveRecord::Base
     :book8]
   before_update :uniquify_exhibition_name
 
+
   #Relations
 
   belongs_to :user
@@ -48,6 +49,7 @@ class Library < ActiveRecord::Base
   scope :published, -> { where(public: true) }
   scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
   scope :most_popular, -> { unscoped.order("libraries.popularity DESC") }
+  scope :audited, -> { where(audited: true) }
 
   default_scope -> { order('updated_at DESC') }
 
