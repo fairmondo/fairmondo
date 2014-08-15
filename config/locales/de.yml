@@ -89,6 +89,7 @@ de:
         and: " und "
         by: "von"
         per: " pro "
+        via: " per "
         ago: "vor %{time}"
 
   form:
