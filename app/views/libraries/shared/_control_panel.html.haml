@@ -4,8 +4,10 @@
   .libraries.JS-active-toggle--target#libraries_popup
     = t('library.control.add')
     %span.sprite_helper{title: t('library.control.main_tooltip')}
-    - libraries_public = current_user.libraries.select { |lib| lib.public }
-    - libraries_private = current_user.libraries.select { |lib| !lib.public }
+
+    - libraries_public = libraries.select { |lib| lib.public }
+    - libraries_private = libraries.select { |lib| !lib.public }
+
     #libraries_list
       %ul#libraries_public
         - libraries_public.each do |library|
