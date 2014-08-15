@@ -31,6 +31,7 @@ class TransportAbacus
       business_transactions: @business_transaction_abacus.unified_transport,
       provider: @line_item_group.unified_transport_provider,
       shipments: shipments,
+      per_shipment: @line_item_group.unified_transport_price,
       transport_price: transport_price,
       total: total_retail_price + transport_price
     }
@@ -53,6 +54,7 @@ class TransportAbacus
         method: bt.selected_transport.to_sym,
         provider: bt.article.transport_provider(bt.selected_transport),
         shipments: shipments,
+        per_shipment: single_transport_price,
         transport_price: transport_price,
         cash_on_delivery: cash_on_delivery_price,
         total: total

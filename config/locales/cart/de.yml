@@ -8,6 +8,20 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Verkäufer*in."
+      # step 2 / overview
+      net: "Netto"
+      your_transport_address: 'Deine Lieferadresse'
+      your_payment_address: 'Deine Rechnungsadresse'
+      shipment: 'Sendung'
+      transports:
+        unified: '(Kombiversand)'
+        pickup: '(Selbstabholung)'
+      total_for:
+        bank_transfer: 'Gesamter Überweisungswert'
+        paypal: 'Gesamter PayPal-Zahlungsbetrag'
+        cash: 'Gesamter Barzahlungswert'
+        cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
+        invoice: 'Gesamtbetrag der Rechnung'
     steps:
       step1: Bezahlung und Versand
       step2: Übersicht und Kaufen

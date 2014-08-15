@@ -34,3 +34,6 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections(:de) do |inflect|
+  inflect.irregular 'Sendung', 'Sendungen'
+end

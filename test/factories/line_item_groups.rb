@@ -88,5 +88,4 @@ FactoryGirl.define do
     unified_payment true
     unified_payment_method 'bank_transfer'
   end
-
 end
