@@ -1,7 +1,7 @@
 Addresses:
-  default: "test00@example.com"
+  default: "test01@example.com"
+
   ArticleMailer:
-    default_from: "test01@example.com"
     report: "test02@example.com"
     category_proposal: "test03@example.com"
 
