@@ -87,20 +87,19 @@
       .teaser-queue
         = render "/articles/shared/show_article", article: article
 
-
 -# Trending libraries
-- if @libraries_trending.to_a.any?
+- if @trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2 Die beliebtesten Sammlungen
-      - @libraries_trending.each do |library|
+      - @trending_libraries.each do |library|
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
-            = render "/libraries/library_header", library: library, strong_cache: true
+            = render "libraries/library_header", library: library
           .Library-details
-            = render "/libraries/library_buttons", library: library
+            = render "libraries/library_buttons", library: library, trending_libraries: @trending_libraries
             .Library-elements
-              = render "/libraries/library", library: library
+              = render "libraries/library", library: library
 
 -# USPs
 .teaser.teaser--double.teaser--cardslides
