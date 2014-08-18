@@ -2,6 +2,7 @@ de:
 # Libraries
   libraries:
     no_library: "Diese*r Nutzer*in hat noch keine Sammlungen angelegt."
+    trending_welcome_page: "Die beliebtesten Sammlungen"
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"
@@ -10,13 +11,17 @@ de:
     create: "Sammlung anlegen"
     delete_confirm: "Soll die Sammlung '%{name}' wirklich gelöscht werden?"
     visibility:
-      public: Öffentliche Sammlung
-      private: Private Sammlung
+      public: "Öffentliche Sammlung"
+      private: "Private Sammlung"
     control:
       main_tooltip: "Füge diesen Artikel einer Deiner Sammlungen hinzu. So behältst Du ihn ganz leicht im Auge. Wenn Du eine öffentliche Sammlung wählst, können auch andere sehen, was Du empfiehlst."
-      check_title: 'Der Artikel befindet sich bereits in dieser Sammlung.'
-      further_link: 'Zu meinen Sammlungen'
-      add: 'Zu Sammlung hinzufügen:'
+      check_title: "Der Artikel befindet sich bereits in dieser Sammlung."
+      further_link: "Zu meinen Sammlungen"
+      add: "Zu Sammlung hinzufügen:"
+    auditing:
+      user_warning: "Achtung: Diese Sammlung wird im Moment auf unserer Startseite angezeigt. Wenn Du jetzt Änderungen daran vornimmst, wird sie automatisch von der Startseite entfernt, bis wir die Sammlung überprüft und wieder freigeschaltet haben."
+      welcome_page_enabled: "Für Startseite freigeschaltet"
+      welcome_page_disabled: "Für Startseite gesperrt"
   library_element:
     notice:
       success: "Der Artikel wurde erfolgreich in die Sammlung \"%{name}\" übernommen."
