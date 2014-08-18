@@ -8,6 +8,9 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Verkäufer*in."
+      unified_transport: Möglichst alle Artikel mit %{provider} zusammen versenden (Kombiversand).
+      unified_transport_notice: Kombiversand
+      unified_transport_impossible: "Dieser Artikel muss einzeln versendet werden."
       # step 2 / overview
       net: "Netto"
       your_transport_address: 'Deine Lieferadresse'
