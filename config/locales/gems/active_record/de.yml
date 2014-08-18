@@ -242,6 +242,9 @@ de:
     # Why do you think these aliases are obsolete, or rather, why is active_record a full-featured alias?
     # I don't receive a warning and the following won't work in active_record namespace (Micha)
     models:
+      address:
+        one: Adresse
+        other: Adressen
       article_template:
         one: Vorlage
         other: Vorlagen

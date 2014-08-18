@@ -1,28 +1,16 @@
-.Grid-item{ id: "address_#{address.id}" }
-  .Address
-    - title = nil unless title
-    -if title
-      %h4
-        = title
-        %br
-    - radio = nil unless radio
-    - if radio
+.Address{ id: "address_#{address.id}" }
+  - radio = nil unless radio
+  - if radio
+    = label_tag 'cart_checkout_form[transport_address_id]' do
       .Address-radio
         = radio_button_tag 'cart_checkout_form[transport_address_id]', "#{address.id}", checked
-    .Address-lines
-      %h3= "#{ address.title } #{ address.first_name } #{ address.last_name }"
-      %p
-        = address.address_line_1
-        - if address.address_line_2?
-          %br
-          = address.address_line_2
-        %br
-        = "#{ address.zip } #{ address.city }"
-        %br
-        = address.country
-    - controls = nil unless controls
-    - if controls
-      .Address-controls
-        = link_to 'bearbeiten', edit_user_address_path(current_user, address, radio: radio), class: 'colorbox Button edit-button'
-        - if policy(address).destroy?
-          = link_to 'löschen', user_address_path(current_user, address, radio: radio), method: :delete, class: 'Button Button--red', remote: true
+      = render 'addresses/address_lines', address: address
+  - else
+    = render 'addresses/address_lines', address: address
+
+  .Address-controls
+    = link_to edit_user_address_path(current_user, address, radio: radio), title: t('common.actions.edit') ,class: 'colorbox Button edit-button' do
+      .fa.fa-pencil
+    - if policy(address).destroy?
+      = link_to user_address_path(current_user, address, radio: radio), title: t('common.actions.destroy'), method: :delete, class: 'Button Button--red delete_address', remote: true do
+        .fa.fa-times

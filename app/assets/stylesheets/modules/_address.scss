@@ -7,7 +7,60 @@ Styleguide Address
 */
 
 .Address {
-  border: 1px solid $lighter-gray;
-  border-radius: 1em;
-  padding: 0.5em;
+ @include whitebox;
+ @include clearfix;
+position: relative;
+ //max-width: 15em;
+ background-color: $white;
+margin-bottom: 0.5em;
+}
+.Address .Address-lines {
+  display: inline-block;
+  vertical-align: middle;
+  h3 { margin: 0 0 0.5em ;}
+
+}
+
+.Address .Address-radio {
+  display: inline-block;
+
+}
+
+.Address  .Address-controls {
+  float:right;
+}
+
+.Address > .Address-form li.input.stringish {
+  input {
+    height: 1.8em;
+    line-height: 1.8em;
+  }
+}
+
+.Address > .Address-form li.input {
+  margin-bottom: 0.1em;
+}
+
+@include at-breakpoint($bp-tablet) {
+  .Address > .Address-form .Address-form-name > ol > li.input {
+    .selectboxit-container { width:100% }
+    @include span(1 of 3 0.1);
+  }
+
+  .Address > .Address-form .Address-form-street, .Address > .Address-form .Address-form-city  {
+    > ol > li.input {
+      @include span(1 of 2 0.1);
+    }
+  }
+
+  .Address > .Address-form .Address-form-name, .Address > .Address-form .Address-form-street, .Address > .Address-form .Address-form-city {
+    > ol > li.input:last-child    {
+      @include omega;
+    }
+  }
+}
+
+.Address-form-container {
+  h1 { margin:0 0 0.5em }
+  padding: 1em;
 }

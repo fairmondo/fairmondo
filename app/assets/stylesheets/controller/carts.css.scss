@@ -137,6 +137,34 @@
   }
 }
 
+// Addresses
+
+.addresses_forms > .payment_address .Address > .Address-controls .delete_address {
+  display: none; // so we dont need to reload the user in the policy to make the destroy button disappear
+}
+
+.addresses_forms > .transport_address .same_address_label {
+
+  padding-left: 0.3em;
+  @include till-breakpoint($bp-mobile-horizontal) {
+
+    padding-left: 0em;
+  }
+}
+
+.addresses_forms {
+  @include clearfix;
+  @include at-breakpoint($bp-tablet-horizontal) {
+    > .payment_address {
+      @include span(1 of 2 0.1);
+    }
+    > .transport_address {
+      @include span(1 of 2 0.1);
+      @include omega;
+    }
+  }
+}
+
 /* --------------------- Checkout Step 2 --------------------- */
 
 .payment-box {

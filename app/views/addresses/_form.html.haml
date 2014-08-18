@@ -1,17 +1,21 @@
-= semantic_form_for([current_user, address], html: { id: 'address-form', class: 'js-visual-submit' }, remote: true) do |f|
-  = f.semantic_errors
+.Address#address-form
+  = semantic_form_for([current_user, address], html: {  class: 'Address-form js-visual-submit' }, remote: true) do |f|
+    = f.semantic_errors
 
-  = f.inputs do
-    = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-    = f.input :first_name, required: true
-    = f.input :last_name, required: true
-    = f.input :address_line_1, required: true
-    = f.input :address_line_2
-    = f.input :zip, required: true
-    = f.input :city, required: true
-    = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-    = hidden_field_tag :radio, params[:radio]
+    = f.inputs class: 'Address-form-name' do
+      = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')], wrapper_html: { class: "small-selectboxit"}
+      = f.input :first_name, required: true
+      = f.input :last_name, required: true
+    = f.inputs class: 'Address-form-street' do
+      = f.input :address_line_1, required: true
+      = f.input :address_line_2
+    = f.inputs class: 'Address-form-city' do
+      = f.input :zip, required: true
+      = f.input :city, required: true
+    = f.inputs class: 'Address-form-country' do
+      = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')], wrapper_html: { class: "small-selectboxit"}
+      = hidden_field_tag :radio, params[:radio]
 
-  = f.actions do
-    = f.action :submit
+    = f.actions do
+      = f.action :submit, button_html: {class: "Button"}
 

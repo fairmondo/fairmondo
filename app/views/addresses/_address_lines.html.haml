@@ -1,0 +1,11 @@
+.Address-lines
+  %h3= "#{ address.title } #{ address.first_name } #{ address.last_name }"
+  %p
+    = address.address_line_1
+    - if address.address_line_2?
+      %br
+      = address.address_line_2
+    %br
+    = "#{ address.zip } #{ address.city }"
+    %br
+    = address.country

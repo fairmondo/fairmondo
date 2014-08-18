@@ -42,38 +42,43 @@
                         = t('cart.texts.unified_transport_notice')
                       - else
                         = t('cart.texts.unified_transport_impossible')
+  %h2= t('cart.texts.addresses.forms')
+  .addresses_forms
+
+    .payment_address
+      = gray_box t('cart.texts.addresses.payment') do
+
+        - unless @cart_checkout_form.needs_new_payment_address?
+          = render 'addresses/address', address: @cart_checkout_form.payment_address, controls: true
+        - else
+          = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
+            = baf.inputs do
+              = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
+              = baf.input :first_name, required: true
+              = baf.input :last_name, required: true
+              = baf.input :company_name
+              = baf.input :address_line_1, required: true
+              = baf.input :address_line_2
+              = baf.input :zip, required: true
+              = baf.input :city, required: true
+              = baf.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
+
+    .transport_address
+      = gray_box t('cart.texts.addresses.transport') do
+        .Address
+          - transport_address_id_field = 'cart_checkout_form[transport_address_id]'
+          = label_tag transport_address_id_field, class: 'same_address_label' do
+            = radio_button_tag transport_address_id_field, "0" , @cart_checkout_form.same_transport_address?
+            = t('cart.texts.same_address')
 
 
+        %fieldset.inputs#address_select
+          = render 'addresses/addresses', radio: true, controls: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
 
-
-  %h3
-    Rechnungsadresse
-  - unless @cart_checkout_form.needs_new_payment_address?
-    .Grid
-      = render 'addresses/address', address: @cart_checkout_form.payment_address, controls: true
-  - else
-    = f.semantic_fields_for @cart_checkout_form.payment_address do |baf|
-      = baf.inputs do
-        = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
-        = baf.input :first_name, required: true
-        = baf.input :last_name, required: true
-        = baf.input :company_name
-        = baf.input :address_line_1, required: true
-        = baf.input :address_line_2
-        = baf.input :zip, required: true
-        = baf.input :city, required: true
-        = baf.input :country, required: true, as: :select, collection: [t('users.countries.germany')]
-  %h3
-    Lieferadresse
-  = label_tag do
-    Lieferadresse wie Rechungsadresse
-    = radio_button_tag 'cart_checkout_form[transport_address_id]', "0" , @cart_checkout_form.same_transport_address?
-
-  %fieldset.inputs#address_select
-    = render 'addresses/addresses', radio: true, controls: true, value: (@cart_checkout_form.same_transport_address? ? 0 :  @cart_checkout_form.transport_address.id)
-
-  = link_to 'neue Adresse hinzufügen', new_user_address_path(current_user, radio: true), { class: 'colorbox' }
+        = link_to new_user_address_path(current_user, radio: true), { class: 'colorbox' } do
+          .fa.fa-plus
+          = t('address.actions.new')
 
   = f.actions do
-    = f.submit
+    = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
 
