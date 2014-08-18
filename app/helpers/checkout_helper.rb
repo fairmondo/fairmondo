@@ -42,7 +42,7 @@ module CheckoutHelper
     I18n.t('cart.texts.terms_and_cancellation_label', terms: terms_link, cancellation: cancellation_link).html_safe
   end
 
-  def line_item_group_frame(heading, options = {}, &block)
+  def gray_box(heading, options = {}, &block)
     render layout: "line_item_group_frame",
       locals: {
         heading: heading,

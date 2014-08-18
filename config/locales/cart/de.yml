@@ -16,12 +16,14 @@ de:
       transports:
         unified: '(Kombiversand)'
         pickup: '(Selbstabholung)'
+        type1: ''
+        type2: ''
       total_for:
         bank_transfer: 'Gesamter Überweisungswert'
         paypal: 'Gesamter PayPal-Zahlungsbetrag'
         cash: 'Gesamter Barzahlungswert'
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
-        invoice: 'Gesamtbetrag der Rechnung'
+        invoice: 'Gesamter Rechnungsbetrag'
     steps:
       step1: Bezahlung und Versand
       step2: Übersicht und Kaufen

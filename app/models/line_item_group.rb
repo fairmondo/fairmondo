@@ -64,7 +64,7 @@ class LineItemGroup < ActiveRecord::Base
 
   def unified_transport= value
     super
-    self.business_transactions.each{ |bt| bt.selected_transport = nil } if self.unified_transport?
+    self.business_transactions.each{ |bt| bt.selected_transport = nil if bt.is_in_unified_transport? }
   end
 
   private

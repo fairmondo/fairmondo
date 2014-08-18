@@ -1,5 +1,5 @@
 - @cart.line_item_groups.each do |group|
-  = line_item_group_frame link_to(group.seller_nickname, user_path(group.seller)) do
+  = gray_box line_item_group_title(group) do
     - abacus = Abacus.new(group)
     - abacus.payment_listing.payments.each do |payment, hash|
       .payment-box
@@ -27,24 +27,25 @@
                   = bt.article_basic_price_amount_text
 
           - hash[:transports].each do |transport|
+            - unless transport[:method] == :pickup
+              %tr
+                %td
+                  = transport[:shipments]
+                  = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
+                  = t('common.text.glue.via')
+                  = transport[:provider]
+                  = t("cart.texts.transports.#{transport[:method]}")
+                %td
+                  .small-info.left
+                    = transport[:shipments].to_s + 'x'
+                    = money(transport[:per_shipment]) + ' ='
+
+                  = money transport[:transport_price]
+
+          - if cod_total = hash[:cash_on_deliveryon_delivery_total]
             %tr
               %td
-                = transport[:shipments]
-                = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
-                = t('common.text.glue.via')
-                = transport[:provider]
-                = t("cart.texts.transports.#{transport[:method]}")
-              %td
-                .small-info.left
-                  = transport[:shipments].to_s + 'x'
-                  = money(transport[:per_shipment]) + ' ='
-
-                = money transport[:transport_price]
-
-          - if cod_total = hash[:cash_on_delivery_total]
-            %tr
-              %td
-                = t("enumerize.business_transaction.selected_transport.cash_on_delivery")
+                = t("enumerize.business_transaction.selected_payment.cash_on_delivery")
               %td
                 = money cod_total
           %tr.bt-totals
