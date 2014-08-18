@@ -1,12 +1,11 @@
 %p
   Hallo
-  = @commentable_owner.forename + ','
+  = "#{@commentable_owner.forename},"
 
 %p
   Du hast einen neuen Kommentar oder eine Rückfrage zu Deiner Sammlung
-  = '"' + @commentable.name + '"'
-  bekommen:
-  = library_url(@commentable)
+  = link_to "\"#{@commentable.name}\"", library_url(@commentable)
+  bekommen.
 
 %p
   Schau nach, was andere Nutzer*innen schreiben.

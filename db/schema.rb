@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807141711) do
+ActiveRecord::Schema.define(version: 20140813132417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,9 +188,11 @@ ActiveRecord::Schema.define(version: 20140807141711) do
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "library_id"
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["library_id"], name: "index_comments_on_library_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contents", force: true do |t|
@@ -550,7 +552,7 @@ ActiveRecord::Schema.define(version: 20140807141711) do
     t.integer  "unified_transport_price_cents",      limit: 8, default: 0
     t.boolean  "free_transport_available"
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
-    t.boolean  "receive_comments_notification",                default: false
+    t.boolean  "receive_comments_notification",                default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

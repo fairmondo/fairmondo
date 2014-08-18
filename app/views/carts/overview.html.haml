@@ -1,67 +1,64 @@
-= visual_checkout_steps :step2, @cart
-.Content
-  - @cart.line_item_groups.each do |group|
-    = line_item_group_frame link_to(group.seller_nickname, user_path(group.seller)) do
-      - abacus = Abacus.new(group)
-      - abacus.payment_listing.payments.each do |payment, hash|
-        .payment-box
-          %h3= payment
-          %table{cellspacing: 0}
-            - hash[:business_transactions].each do |bt|
-              - bt_listing = abacus.business_transaction_listing.prices[bt]
-              %tr
-                %th{colspan: 2}
-                  = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
+- @cart.line_item_groups.each do |group|
+  = gray_box line_item_group_title(group) do
+    - abacus = Abacus.new(group)
+    - abacus.payment_listing.payments.each do |payment, hash|
+      .payment-box
+        %h3= t("enumerize.business_transaction.selected_payment.#{payment}")
+        %table{cellspacing: 0}
+          - hash[:business_transactions].each do |bt|
+            - bt_listing = abacus.business_transaction_listing.prices[bt]
+            %tr
+              %td
+                = image_tag(bt.article.title_image_url_thumb, style: "max-width: 50px; max-height: 50px")
+                = bt_listing[:quantity].to_s + 'x'
+                = bt.article_title
+              %td
+                .small-info.left
                   = bt_listing[:quantity].to_s + 'x'
-                  = bt.article_title
+                  = money(bt.article_price) + ' ='
+                = money( bt_listing[:retail_price] )
+
+                .small-info.right
+                  = t('cart.texts.net')
+                  = money bt_listing[:net_price]
+                  %br
+                  = money bt.article_basic_price
+                  = t('common.text.glue.per')
+                  = bt.article_basic_price_amount_text
+
+          - hash[:transports].each do |transport|
+            - unless transport[:method] == :pickup
               %tr
                 %td
-                  Verkaufspreis
+                  = transport[:shipments]
+                  = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
+                  = t('common.text.glue.via')
+                  = transport[:provider]
+                  = t("cart.texts.transports.#{transport[:method]}")
                 %td
                   .small-info.left
-                    = bt_listing[:quantity].to_s + 'x'
-                    = money(bt.article_price) + ' ='
-                  = money( bt_listing[:retail_price] )
+                    = transport[:shipments].to_s + 'x'
+                    = money(transport[:per_shipment]) + ' ='
 
-                  .small-info.right
-                    Netto
-                    = money bt_listing[:net_price]
-                    %br
-                    = money bt.article_basic_price
-                    pro
-                    = bt.article_basic_price_amount_text
-              %tr
-                %td
-                  Versand
-                %td
-                  - if abacus.transport_listing.unified_transport
-                    = money abacus.transport_listing.unified_transport[:transport_price]
-                    .small-info.right.absolute (Kombiversand)
-                  - else
-                    = money abacus.transport_listing.single_transports[bt][:transport_price]
-                    - if abacus.transport_listing.single_transports[bt][:method] == :pickup
-                      .small-info.right.absolute= '(Selbstabholung)'
-              %tr
-                %td.spacer{colspan: 2}
+                  = money transport[:transport_price]
 
-            - if cod_total = hash[:cash_on_delivery_total]
-              %tr
-                %td
-                  Nachnahme
-                %td
-                  = money cod_total
-            %tr.bt-totals
-              %td.total
-                Gesamt für
-                = payment
-              %td.total
-                = money hash[:total]
+          - if cod_total = hash[:cash_on_deliveryon_delivery_total]
+            %tr
+              %td
+                = t("enumerize.business_transaction.selected_payment.cash_on_delivery")
+              %td
+                = money cod_total
+          %tr.bt-totals
+            %td.total
+              = t("cart.texts.total_for.#{payment}")
+            %td.total
+              = money hash[:total]
 
 
-  .adresses
-    .Grid
-      = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: 'Deine Lieferadresse'
-      = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: 'Deine Rechnungsadresse'
+.adresses
+  .Grid
+    = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: t('cart.texts.your_transport_address')
+    = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: t('cart.texts.your_payment_address')
 
 
-  = button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
+= button_to t('cart.actions.confirm_purchase'), cart_path(@cart, checkout: true), method: :patch, class: 'Button'

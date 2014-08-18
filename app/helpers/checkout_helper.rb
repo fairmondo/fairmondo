@@ -43,7 +43,6 @@ module CheckoutHelper
   end
 
 
-
   def line_item_group_title group
     safe_join([ t('cart.texts.line_item_group_by'), ' ' , link_to(group.seller_nickname, user_path(group.seller)) ])
   end
