@@ -25,6 +25,7 @@ class LibrariesController < ApplicationController
 
   before_filter :set_user, if: :user_focused?, only: :index
   before_filter :set_library, only: [:show, :update, :destroy, :admin_audit]
+  before_filter :set_trending_libraries, only: [:index, :show]
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:index, :show]
@@ -60,13 +61,11 @@ class LibrariesController < ApplicationController
     end
   end
 
-
   def update
     authorize @library
     if @library.update(params.for(@library).refine)
       redirect_to user_libraries_path(current_user, anchor: "library#{@library.id}")
     else
-      debugger
       redirect_to user_libraries_path(current_user), alert: @library.errors.values.first.first
     end
   end
@@ -112,7 +111,7 @@ class LibrariesController < ApplicationController
     authorize @library
     @library.update_column :audited, !@library.audited
     respond_with @library do |format|
-      format.js { render 'admin_audit.js.erb' }
+      format.js { render 'admin_audit' }
     end
   end
 
@@ -120,6 +119,11 @@ class LibrariesController < ApplicationController
 
     def set_library
       @library = Library.find(params[:id])
+    end
+
+    # Most popular libraries
+    def set_trending_libraries
+      @trending_libraries = Library.most_popular.not_empty.no_admins.published.audited.limit(3)
     end
 
     def set_user

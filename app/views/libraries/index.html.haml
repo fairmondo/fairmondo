@@ -47,7 +47,7 @@
                   = 'Für Startseite ' + (library.audited ? 'freigeschaltet' : 'gesperrt')
 
           .Library-details
-            = render "library_buttons", library: library
+            = render "library_buttons", library: library, trending_libraries: @trending_libraries
             .Library-elements
               - if library.library_elements.empty?
                 = t('library.no_products')

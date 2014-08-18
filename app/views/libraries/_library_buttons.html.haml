@@ -1,5 +1,9 @@
 - if policy(library).update?
   .Library-details-user
+    - if defined? trending_libraries and trending_libraries.include? library
+      %p.Library-details-user-warning<
+        Achtung: Diese Sammlung wird im Moment auf unserer Start&shy;seite gefeatured. Wenn Du jetzt Änderungen daran vor&shy;nimmst,
+        wird sie auto&shy;matisch von der Start&shy;seite entfernt, bis wir die Sammlung über&shy;prüft und wieder frei&shy;ge&shy;schaltet haben.
     .Library-details-user-actions
       %a.Button.js-library-show-settings
         = t('common.actions.edit')

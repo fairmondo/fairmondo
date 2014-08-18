@@ -35,9 +35,7 @@ class Library < ActiveRecord::Base
     :book8]
   before_update :uniquify_exhibition_name
 
-
   #Relations
-
   belongs_to :user
 
   has_many :library_elements, dependent: :destroy
@@ -53,10 +51,9 @@ class Library < ActiveRecord::Base
 
   default_scope -> { order('updated_at DESC') }
 
+  # Returns true if the library contains article
   def includes_article? article
     self.articles.include? article
-
-
   end
 
   private
