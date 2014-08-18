@@ -1,6 +1,6 @@
 %div{id: "library#{resource.id.to_s}"}
   = render "library_header", library: resource
-  = render "library_buttons", library: resource, trending_libraries: @trending_libraries
+  = render "library_buttons", library: resource
   = render "library", library: resource
 
 -# Admin controls

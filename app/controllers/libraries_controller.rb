@@ -25,7 +25,6 @@ class LibrariesController < ApplicationController
 
   before_filter :set_user, if: :user_focused?, only: :index
   before_filter :set_library, only: [:show, :update, :destroy, :admin_audit]
-  before_filter :set_trending_libraries, only: [:index, :show]
 
   # Authorization
   skip_before_filter :authenticate_user!, only: [:index, :show]
@@ -119,11 +118,6 @@ class LibrariesController < ApplicationController
 
     def set_library
       @library = Library.find(params[:id])
-    end
-
-    # Most popular libraries
-    def set_trending_libraries
-      @trending_libraries = Library.most_popular.not_empty.no_admins.published.audited.limit(3)
     end
 
     def set_user

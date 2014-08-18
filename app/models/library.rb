@@ -47,13 +47,20 @@ class Library < ActiveRecord::Base
   scope :published, -> { where(public: true) }
   scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
   scope :most_popular, -> { unscoped.order("libraries.popularity DESC") }
+  scope :trending, -> { most_popular.not_empty.no_admins.published }
   scope :audited, -> { where(audited: true) }
+  scope :trending_welcome_page, -> { trending.audited.limit(3) }
 
   default_scope -> { order('updated_at DESC') }
 
   # Returns true if the library contains article
   def includes_article? article
     self.articles.include? article
+  end
+
+  # Returns true if the library is currently shown on the welcome page
+  def on_welcome_page?
+    Library.trending_welcome_page.include? self
   end
 
   private
