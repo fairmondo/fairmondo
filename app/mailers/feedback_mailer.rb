@@ -25,7 +25,7 @@ class FeedbackMailer < ActionMailer::Base
     @feedback = feedback
     @feedback_subject = @feedback.translate_subject
     @last_article_id = @feedback.last_article_id
-    from = feedback.from? ? feedback.from : $email_addresses['ArticleMailer']['default_from']
+    from = feedback.from? ? feedback.from : $email_addresses['default']
 
     attachments[feedback.image.image_file_name] = File.read(Rails.root.join(feedback.image.image.path(:original))) if feedback.image
 

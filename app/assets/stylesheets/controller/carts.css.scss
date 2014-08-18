@@ -167,15 +167,16 @@
   padding: 0;
 }
 
-.payment-box th img {
+.payment-box td img {
   float: left;
   margin-right: rem(10);
+  margin-left: rem(-1);
 }
 
 .payment-box td {
   width: 50%;
   text-align: center;
-  vertical-align: top;
+  vertical-align: middle;
   position: relative;
 }
 

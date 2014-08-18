@@ -11,6 +11,22 @@ de:
       unified_transport: Möglichst alle Artikel mit %{provider} zusammen versenden (Kombiversand).
       unified_transport_notice: Kombiversand
       unified_transport_impossible: "Dieser Artikel muss einzeln versendet werden."
+      # step 2 / overview
+      net: "Netto"
+      your_transport_address: 'Deine Lieferadresse'
+      your_payment_address: 'Deine Rechnungsadresse'
+      shipment: 'Sendung'
+      transports:
+        unified: '(Kombiversand)'
+        pickup: '(Selbstabholung)'
+        type1: ''
+        type2: ''
+      total_for:
+        bank_transfer: 'Gesamter Überweisungswert'
+        paypal: 'Gesamter PayPal-Zahlungsbetrag'
+        cash: 'Gesamter Barzahlungswert'
+        cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
+        invoice: 'Gesamter Rechnungsbetrag'
     steps:
       step1: Bezahlung und Versand
       step2: Übersicht und Kaufen
