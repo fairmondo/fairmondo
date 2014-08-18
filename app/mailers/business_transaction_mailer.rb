@@ -27,7 +27,7 @@ class BusinessTransactionMailer < ActionMailer::Base
 	helper BusinessTransactionMailerHelper
   helper ArticlesHelper
 
-  default from: $email_addresses['ArticleMailer']['default_from']
+  default from: $email_addresses['default']
 
 
 
