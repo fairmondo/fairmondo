@@ -39,9 +39,10 @@
                   = transport[:provider]
                   = t("cart.texts.transports.#{transport[:method]}")
                 .payment-cell
-                  .small-info.left
-                    = transport[:shipments].to_s + 'x'
-                    = money(transport[:per_shipment]) + ' ='
+                  - if transport[:shipments] > 1
+                    .small-info.left
+                      = transport[:shipments].to_s + 'x'
+                      = money(transport[:per_shipment]) + ' ='
 
                   = money transport[:transport_price]
 
