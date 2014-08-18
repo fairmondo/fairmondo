@@ -62,3 +62,16 @@
 .selectboxit-list > .selectboxit-disabled > .selectboxit-option-anchor {
   color: #999;
 }
+
+// Selectboxit small version
+
+.small-selectboxit .selectboxit-container {
+  min-width: 13em;
+  > .selectboxit > .selectboxit-text, > .selectboxit > .selectboxit-arrow-container {
+  font-size: 0.9em;
+  height: 1.7em;
+  line-height: 1.7em;
+  }
+}
+
+

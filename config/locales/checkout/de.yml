@@ -1,4 +1,0 @@
-de:
-  checkout:
-    labels:
-      unified_transport: Möglichst alle Artikel mit %{provider} für %{transport_price} zusammen versenden.
