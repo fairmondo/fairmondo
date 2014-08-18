@@ -24,7 +24,8 @@ class CommentObserver < ActiveRecord::Observer
     if receives_notifications?(comment.commentable_user)
       case comment.commentable_type
       when "Library"
-        CommentMailer.delay.report_comment_on_library(comment, comment.commentable_user)
+        CommentMailer.delay.report_comment_on_library(comment,
+                                                      comment.commentable_user)
       end
     end
   end
