@@ -22,6 +22,7 @@ class CartsController < ApplicationController
     authorize @cart
     @cart_checkout_form = CartCheckoutForm.new(session, @cart, params[:checkout]) #try the old session data
     if @cart_checkout_form.session_valid? && params[:checkout]
+      prepare_overview_variables
       render :overview
     else
       render :edit
@@ -75,6 +76,11 @@ class CartsController < ApplicationController
       end
 
       authorize @cart
+    end
+
+    def prepare_overview_variables
+      @abaci = @cart.line_item_groups.map { |group| Abacus.new(group) }
+      @total = @abaci.map(&:total).sum
     end
 
 end

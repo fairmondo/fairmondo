@@ -141,7 +141,7 @@
 .payment-box {
   margin-bottom: rem(20);
 }
-.payment-box > h3, .payment-box > table, .payment-box td {
+.payment-box > h3, .payment-box > table, .payment-box .payment-cell {
   background:white;
   border: 1px solid $lighter-gray;
 }
@@ -153,44 +153,51 @@
   font-weight: bold;
 }
 
-.payment-box > table {
+.payment-box > .payment-table {
+  display: table;
   width: 100%;
   border-spacing: 0px;
   border-collapse: collapse;
 }
 
-.payment-box th {
-  text-align: left;
-  font-weight: normal;
-  font-size: 15px;
-  padding: 0;
+.payment-box > .payment-table > .payment-row {
+  display: table-row;
 }
 
-.payment-box td img {
-  float: left;
-  margin-right: rem(10);
-  margin-left: rem(-1);
-}
-
-.payment-box td {
+.payment-box .payment-cell {
+  display: table-cell;
   width: 50%;
   text-align: center;
   vertical-align: middle;
   position: relative;
 }
 
-.payment-box tr > td:nth-child(2) {
+.payment-box .payment-cell .payment-article-image {
+  float: left;
+  margin-right: rem(12);
+  line-height: 0;
+  & img {
+    max-height: 64px;
+  }
+}
+.payment-box .payment-cell .payment-article-title {
+  display: table-cell;
+  height: 64px;
+  vertical-align: middle;
+}
+
+.payment-box tr > .payment-cell:nth-child(2) {
   font-size: 16px;
 }
 
-.payment-box td.spacer {
+.payment-box .payment-cell.spacer {
   height: rem(5);
 }
 
-.payment-box td.total {
+.payment-box .payment-cell.total {
   font-weight: 600;
 }
-.payment-box td .small-info {
+.payment-box .payment-cell .small-info {
   font-size: 11px;
   &.left {
     text-align: left;
@@ -199,12 +206,6 @@
   &.right {
     text-align: right;
     margin-right: rem(10);
-
-    &.absolute {
-      position: absolute;
-      bottom: rem(1);
-      right: 0;
-    }
   }
 }
 
