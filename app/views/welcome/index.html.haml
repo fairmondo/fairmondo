@@ -88,16 +88,17 @@
         = render "/articles/shared/show_article", article: article
 
 -# Trending libraries
-- if @trending_libraries.to_a.any?
+- trending_libraries = Library.trending_welcome_page
+- if trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2 Die beliebtesten Sammlungen
-      - @trending_libraries.each do |library|
+      - trending_libraries.each do |library|
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
             = render "libraries/library_header", library: library
           .Library-details
-            = render "libraries/library_buttons", library: library, trending_libraries: @trending_libraries
+            = render "libraries/library_buttons", library: library, trending_libraries: trending_libraries
             .Library-elements
               = render "libraries/library", library: library
 

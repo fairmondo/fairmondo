@@ -121,6 +121,10 @@ Styleguide Library
   margin: em(10) em(20);
 }
 
+.Library-details-user > .Library-details-user-warning {
+  color: $red;
+}
+
 .Library-details-user > .Library-details-user-actions {
   float: right;
   margin-bottom: 1em;

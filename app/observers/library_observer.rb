@@ -24,5 +24,6 @@ class LibraryObserver < ActiveRecord::Observer
   # Set audited to false when the library is changed
   def before_save(library)
     library.audited = false
+    true
   end
 end
