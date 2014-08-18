@@ -11,3 +11,4 @@ addUnifiedToggleListeners = ->
   $('input.js-unified-payment--trigger[type=checkbox]').on 'ifCreated ifToggled', unifiedPaymentToggle
 
 $(document).ready addUnifiedToggleListeners
+$(document).ajaxStop -> setTimeout addUnifiedToggleListeners,1

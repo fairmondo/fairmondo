@@ -323,12 +323,10 @@ de:
         time: "Zeit (Stunden/Minuten)"
 
     actions:
-      create: "%{model} erstellen"
+      create: "%{model} anlegen"
       update: "Änderungen speichern"
       template:
         submit: "Vorlage übernehmen"
-      address:
-        submit: 'Adresse erstellen'
       # Login
       login: "Anmelden"
       sign_up: "Registrieren"
