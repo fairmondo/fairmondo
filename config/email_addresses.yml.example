@@ -1,4 +1,5 @@
 Addresses:
+  default: "test00@example.com"
   ArticleMailer:
     default_from: "test01@example.com"
     report: "test02@example.com"
