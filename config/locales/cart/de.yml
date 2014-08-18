@@ -37,6 +37,7 @@ de:
       step2: Übersicht und Kaufen
       step3: Fertig
     actions:
-      confirm_purchase: Verbindlich Kaufen
+      confirm_purchase: "Artikel für %{total} verbindlich kaufen"
       checkout: Zur Kasse
       pay: Zur Bezahlung
+      back: Zurück
