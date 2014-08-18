@@ -21,7 +21,7 @@
 #
 #
 
-module AccordionHelper
+module ContainerHelper
   # Wraps the layout call and sanitizes the options
   #
   # @param accordion_name [String] The box's name
@@ -42,4 +42,13 @@ module AccordionHelper
         accordion_arrow: options[:arrow]==false ? false : true
       }, &block
   end
+
+  def gray_box(heading, options = {}, &block)
+    render layout: "gray_box_layout",
+      locals: {
+        heading: heading,
+        frame_class: options[:frame_class] || ""
+      }, &block
+  end
+
 end

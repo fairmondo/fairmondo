@@ -22,7 +22,7 @@
 module CheckoutHelper
 
   def unified_transport_label_for group
-    I18n.t('checkout.labels.unified_transport', provider: group.seller.unified_transport_provider, transport_price: humanized_money_with_symbol(group.seller.unified_transport_price))
+    I18n.t('cart.texts.unified_transport', provider: group.seller.unified_transport_provider)
   end
 
   def checkout_options_for_payment selectables
@@ -42,13 +42,6 @@ module CheckoutHelper
     I18n.t('cart.texts.terms_and_cancellation_label', terms: terms_link, cancellation: cancellation_link).html_safe
   end
 
-  def gray_box(heading, options = {}, &block)
-    render layout: "line_item_group_frame",
-      locals: {
-        heading: heading,
-        frame_class: options[:frame_class] || ""
-      }, &block
-  end
 
   def line_item_group_title group
     safe_join([ t('cart.texts.line_item_group_by'), ' ' , link_to(group.seller_nickname, user_path(group.seller)) ])
