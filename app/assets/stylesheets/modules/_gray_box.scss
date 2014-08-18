@@ -1,4 +1,4 @@
-.LineItemGroupFrame {
+.GrayBox {
   @include whitebox;
   min-width:280px;
   background: $lightest-gray;
@@ -6,7 +6,7 @@
   padding:0;
 }
 
-.LineItemGroupFrame > .LineItemGroupFrame-heading {
+.GrayBox > .GrayBox-heading {
   padding: em(10) em(20);
   font-size: 1.3rem;
   border-top-left-radius: 0.5em;
@@ -16,11 +16,11 @@
   margin-bottom: 0.5em;
 }
 
-.LineItemGroupFrame > .LineItemGroupFrame-content {
+.GrayBox > .GrayBox-content {
  padding: em(10) em(20);
 }
 
-.LineItemGroupFrame > .LineItemGroupFrame-content > hr {
+.GrayBox > .GrayBox-content > hr {
   color: $lighter-gray;
   background-color: $lighter-gray;
   border: 0;
