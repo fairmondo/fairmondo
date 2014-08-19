@@ -1,8 +1,9 @@
 .Comments-section
-  - if current_user
+  - if policy(Comment.new commentable: commentable).create?
+    .comment-info-text= comments_additional_notice_for commentable
     = render "comments/new", comment: Comment.new, commentable: commentable
   - else
-    .login-to-comment= t('comments.login_to_comment', href: link_to(t('comments.login_href'), new_user_session_path)).html_safe
+    .comment-info-text= comments_replacement_notice_for commentable
   .Comments
     - if commentable.comments.any?
       = render commentable.comments.order(created_at: :desc).page(comments_page)

@@ -29,7 +29,10 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true, counter_cache: true
 
-  delegate :image_url, :nickname, to: :user, prefix: true
+  delegate :image_url, :nickname,
+           to: :user, prefix: true
+  delegate :user,
+           to: :commentable, prefix: true
 
   validates :commentable, presence: true
   validates :user, presence: true
@@ -53,8 +56,4 @@ class Comment < ActiveRecord::Base
   LAST_PUBLISH_HOUR = 17
 
   paginates_per 5
-
-  def commentable_user
-    commentable.user
-  end
 end

@@ -165,6 +165,4 @@
       = render 'feedbacks/varieties/report', feedback: Feedback.new
 
   - # Comment Area
-  - if policy(Comment.new).create?
-    = t('article.show.comments.legal_entity_publish_info') if resource.seller.is_a? LegalEntity
-    = render "comments/commentable_comments", commentable: resource
+  = render "comments/commentable_comments", commentable: resource
