@@ -60,10 +60,15 @@
               = money hash[:total]
 
 
-.adresses
-  .Grid
-    = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: t('cart.texts.your_transport_address')
-    = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: t('cart.texts.your_payment_address')
+.adresses_overview
+  .payment_address
+    = gray_box t('cart.texts.addresses.payment') do
+      .Address
+        = render 'addresses/address_lines', address: @cart.line_item_groups.first.transport_address
+  .transport_address
+    = gray_box t('cart.texts.addresses.transport') do
+      .Address
+        = render 'addresses/address_lines', address: @cart.line_item_groups.first.payment_address
 
 
 -# button_to t('cart.actions.back'), cart_path(@cart), class: 'Button Button--gray' #needed?

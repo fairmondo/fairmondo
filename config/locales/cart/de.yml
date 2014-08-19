@@ -1,5 +1,6 @@
 de:
   cart:
+    heading: "Dein Warenkorb"
     texts:
       empty_cart: Dein Warenkorb ist leer.
       line_item_group_by: "Einkauf bei"

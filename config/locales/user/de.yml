@@ -27,6 +27,11 @@ de:
     title:
       login: "Deine Login-Daten"
       state: "Dein Status"
+      unified_transport: "Kombiversand"
+      free_at_transport: Kostenfreier Versand
+    hints:
+      unified_transport: "Hier kanst Du Deine Regel für einen Kombiversand angeben. Bitte beachte, dass die Regel nur auf die Artikel angewandt wird, welche auch für den Kombiversand markiert wurden. Die Angabe kannst Du pro Artikel im Verkaufsformular oder per CSV Datei machen."
+      free_at_transport: "Hier kannst Du Deine Regel für kostenfreien Versand angeben. Bitte beachte, dass die Regel auf alle Deine Artikel angewandt wird!"
     change_password: "Passwort ändern (optional)"
     form_titles:
       contact_person: "Ansprechpartner*in"

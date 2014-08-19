@@ -34,7 +34,7 @@
                 = t.inputs class: 'payment' do
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
                 = t.inputs class: 'transport' do
-                  - unified = line_item.business_transaction.is_in_unified_transport?
+                  - unified = line_item.business_transaction.article.unified_transport?
                   = t.input :selected_transport, include_blank: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item.business_transaction)
                   - if group.transport_can_be_unified?
                     .js-unified-transport--inversetarget.transport_notice

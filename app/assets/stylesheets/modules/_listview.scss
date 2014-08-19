@@ -89,6 +89,10 @@ Styleguide Listview
   }
 }
 
+.Listview > .Listview-item .Listview-tags {
+  clear: both;
+}
+
 //actions
 
 .Listview > .Listview-item .Listview-actions, .Listview > .Listview-item  .Listview-quantity {

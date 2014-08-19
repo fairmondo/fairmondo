@@ -69,7 +69,7 @@ module Article::Attributes
     validates_length_of :gtin, minimum: 8, maximum: 14, allow_nil: true, allow_blank: true
 
     # =========== Transport =============
-    TRANSPORT_TYPES = [:pickup, :type1, :type2]
+    TRANSPORT_TYPES = [:type1, :type2,:pickup]
 
     auto_sanitize :transport_type1_provider, :transport_type2_provider, :transport_details
     auto_sanitize :transport_time, remove_all_spaces: true

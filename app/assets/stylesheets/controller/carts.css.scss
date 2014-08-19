@@ -18,6 +18,36 @@
 
 /* --------------------- Pre Checkout Cart --------------------- */
 
+form.change_quantity > .inputs  > ol > li.input {
+  margin:0;
+  padding:0;
+  .label { display: inline; margin-right: 1em; }
+  input { width: 5em; line-height: 0.9em; font-size: 0.9em;}
+}
+
+form.change_quantity > .inputs >  ol > li.action {
+  float:none;
+}
+
+form.change_quantity,
+form.delete_line_item,
+form.change_quantity > .inputs ,
+form.change_quantity > .inputs > ol > li,
+form.delete_line_item > div {
+  display: inline-block;
+  overflow: visible;
+}
+
+form.change_quantity,
+form.delete_line_item {
+ margin: 0.5em 0;
+}
+
+form.delete_line_item {
+  @include between-breakpoints($bp-tablet-horizontal, $bp-desktop) { margin-left:9.4em}
+  @include at-breakpoint($bp-desktop) { float:right; }
+}
+
 
 /* --------------------- Checkout Step 1 --------------------- */
 
@@ -152,7 +182,7 @@
   }
 }
 
-.addresses_forms {
+.addresses_forms, .adresses_overview {
   @include clearfix;
   @include at-breakpoint($bp-tablet-horizontal) {
     > .payment_address {
