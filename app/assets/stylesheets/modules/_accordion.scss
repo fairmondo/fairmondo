@@ -48,7 +48,7 @@ Styleguide Accordion
 .Accordion .Accordion-item > .Accordion-content {
 	border-bottom-left-radius: 0.9em;
 	border-bottom-right-radius: 0.9em;
-	overflow: visible;
+	overflow: auto;
 	background-color: white;
 	border: 1px solid $lighter-gray;
 	padding: 1em 2em;
@@ -63,7 +63,7 @@ Styleguide Accordion
 .Accordion .Accordion-item > .Accordion-content .Accordion-step {
 	border-bottom: solid 2px $even-lighter-gray;
 	margin-bottom: 1em;
-	overflow: visible;
+	overflow: auto;
 }
 
 // Remove the last border
