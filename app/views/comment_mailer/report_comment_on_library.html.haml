@@ -3,9 +3,9 @@
   = "#{@commentable_owner.forename},"
 
 %p
-  - if commentable.is_a? Library
+  - if @commentable.is_a? Library
     = t('comment.mailer.library_body', name: link_to(@commentable.name, library_url(@commentable))).html_safe + '.'
-  - elsif commentable.is_a? Article
+  - elsif @commentable.is_a? Article
     = t('comment.mailer.article_body', title: link_to(@commentable.title, article_url(@commentable))).html_safe + '.'
 
 %p
