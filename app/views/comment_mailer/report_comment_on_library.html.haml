@@ -3,9 +3,10 @@
   = "#{@commentable_owner.forename},"
 
 %p
-  Du hast einen neuen Kommentar oder eine Rückfrage zu Deiner Sammlung
-  = link_to "\"#{@commentable.name}\"", library_url(@commentable)
-  bekommen.
+  - if commentable.is_a? Library
+    = t('comment.mailer.library_body', name: link_to(@commentable.name, library_url(@commentable))).html_safe + '.'
+  - elsif commentable.is_a? Article
+    = t('comment.mailer.article_body', title: link_to(@commentable.title, article_url(@commentable))).html_safe + '.'
 
 %p
   Schau nach, was andere Nutzer*innen schreiben.

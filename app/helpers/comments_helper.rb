@@ -36,6 +36,7 @@ module CommentsHelper
            locals: { commentable: commentable }
   end
 
+  # notice that gets displayed instead of the #new form
   def comments_replacement_notice_for commentable
     if commentable.is_a?(Article) and commentable.seller_vacationing?
       t('comments.seller_vacationing')
@@ -43,6 +44,8 @@ module CommentsHelper
       t('comments.login_to_comment', href: link_to(t('comments.login_href'), new_user_session_path)).html_safe
     end
   end
+
+  # notice that gets displayed along with the #new form
   def comments_additional_notice_for commentable
     if commentable.is_a?(Article) and commentable.user.is_a?(LegalEntity)
       t('article.show.comments.legal_entity_publish_info')

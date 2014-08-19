@@ -143,10 +143,10 @@ class Article < ActiveRecord::Base
     attributes.each_key do |key|
       if attributes[key].has_key? :id
         unless attributes[key][:_destroy] == "1"
-           image = Image.find(attributes[key][:id])
-           image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
-           image.is_title = attributes[key][:is_title]
-           self.images << image
+          image = Image.find(attributes[key][:id])
+          image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
+          image.is_title = attributes[key][:is_title]
+          self.images << image
         end
 
       else
@@ -156,17 +156,16 @@ class Article < ActiveRecord::Base
   end
 
   def self.edit_as_new article
+    article.keep_images = true unless article.sold?
 
-      article.keep_images = true unless article.sold?
+    new_article = article.amoeba_dup
 
-      new_article = article.amoeba_dup
+    #do not remove sold articles, we want to keep them
+    #if the old article has errors we still want to remove it from the marketplace
+    article.close_without_validation unless article.sold?
 
-      #do not remove sold articles, we want to keep them
-      #if the old article has errors we still want to remove it from the marketplace
-      article.close_without_validation unless article.sold?
-
-      new_article.state = "preview"
-      new_article
+    new_article.state = "preview"
+    new_article
   end
 
   amoeba do
@@ -176,6 +175,7 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
 
+      # move images to new article
       original_article.images.each do |image|
         if original_article.keep_images
           image.imageable_id = nil
@@ -194,6 +194,7 @@ class Article < ActiveRecord::Base
         end
       end
 
+      # move slug to new article
       if original_article.is_template? || original_article.save_as_template?
         new_article.slug = nil
       else
