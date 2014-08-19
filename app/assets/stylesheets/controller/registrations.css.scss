@@ -71,3 +71,27 @@
     width:30%;
   }
 }
+
+.formtastic .inputs li.unified_transport_maximum_articles {
+  * { display: inline; color: black; }
+  label {margin-right: 0.5em; }
+  input { font-size: 0.9em; line-height:0.9em; width: 5em }
+  p.inline-hints{ color: black; }
+}
+
+.formtastic .inputs li.free_transport_available, .formtastic .inputs li.free_transport_at_price_cents  {
+  overflow:visible;
+  display: inline;
+  .icheckbox {top: 0.1em;}
+  label { color: black;  display: inline; }
+  input { font-size: 0.9em; line-height:0.9em; width: 5em; display: inline; }
+  p.inline-hints{ color: black; display: inline; }
+}
+.formtastic .inputs li.free_transport_at_price_cents {
+  label { margin-right: 0.5em; }
+}
+
+.unified_transport_title, .free_transport_title {
+  position: relative;
+}
+

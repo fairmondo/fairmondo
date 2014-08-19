@@ -1,23 +1,29 @@
+
+%h2
+  =t('cart.heading')
 - if cart.line_item_groups.any?
   - cart.line_item_groups.each do |group|
-    = t('cart.texts.line_item_group_by')
-    = link_to group.seller_nickname, user_path(group.seller)
-    - group.line_items.each do |line_item|
-      - article = line_item.article
-      .Listview
-        .Listview-item
-          .Listview-image
-            = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-          = render "shared/listview/listview_detail", article: article
-          .Listview-actions
-            - if line_item.article_quantity > 1
-              = semantic_form_for line_item do |f|
-                = f.inputs do
-                  = f.input :requested_quantity, input_html: { min: 0, max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_error_addition: I18n.t('line_item.errors.already_sold'), validation_allow: '0', validation_save_on_success: 'true' } }
-                  = f.action :submit, label: t('line_item.labels.edit'), button_html: { class: "Button" }
+    = gray_box line_item_group_title(group) do
+      - group.line_items.each do |line_item|
+        - article = line_item.article
+        .Listview
+          .Listview-item
+            .Listview-image
+              = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+            = render "shared/listview/listview_detail", article: article
+            .Listview-actions
+              - if line_item.article_quantity > 1
+                = semantic_form_for line_item, html: {class: 'change_quantity'} do |f|
+                  = f.inputs do
+                    = f.input :requested_quantity, input_html: { min: 0, max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_error_addition: I18n.t('line_item.errors.already_sold'), validation_allow: '0', validation_save_on_success: 'true' } }
+                    = f.button title: t('line_item.labels.edit'), class: "Button"  do
+                      %i.fa.fa-refresh
 
-            = button_to t('common.actions.destroy'), line_item_path(line_item.id), class: "Button Button--red", method: :delete, data: { confirm: t('common.actions.confirm') }
+
+              = button_to line_item_path(line_item.id), title: t('common.actions.destroy'), class: "Button Button--red", method: :delete, data: { confirm: t('common.actions.confirm') }, form_class: 'delete_line_item' do
+                %i.fa.fa-times
 
   = link_to t('cart.actions.checkout'), edit_cart_path(cart), class: "Button"
 - else
-  = t('cart.texts.empty_cart')
+  .Content
+    = t('cart.texts.empty_cart')
