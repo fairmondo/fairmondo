@@ -1,8 +1,8 @@
 Hallo <%= @commentable_owner.forename %>,
 
-<% if commentable.is_a?(Library) -%>
+<% if @commentable.is_a?(Library) -%>
   <%= t('comment.mailer.library_body', name: @commentable.name) + ': ' + library_url(@commentable) %>
-<% elsif commentable.is_a?(Article) -%>
+<% elsif @commentable.is_a?(Article) -%>
   <%= t('comment.mailer.article_body', title: @commentable.title) + ': ' + article_url(@commentable) %>
 <% end -%>
 
