@@ -1,10 +1,14 @@
 de:
   comment:
-    new_notification: "[Fairnopoly] Du hast einen neuen Kommentar bekommen"
+    mailer:
+      notification_title: "[Fairnopoly] Du hast einen neuen Kommentar bekommen"
+      library_body: 'Du hast einen neuen Kommentar oder eine Rückfrage zu Deiner Sammlung "%{name}"" bekommen'
+      article_body: 'Du hast einen neuen Kommentar oder eine Rückfrage zu Deinem Artikel "%{title}" bekommen'
+      user_body: "Du hast einen neuen Kommentar oder eine Rückfrage zu Deinem Profil bekommen"
   comments:
-    no_comments: "Diese Sammlung enthält noch keine Kommentare."
+    no_comments: "Es sind noch keine Kommentare vorhanden."
     login_href: "Melde dich an"
-    login_to_comment: "%{href}, um diese Sammlung zu kommentieren."
+    login_to_comment: "%{href}, um Kommentare schreiben zu können."
     seller_vacationing: "Es können keine neuen Kommentare erstellt werden, solange der Verkäufer im Urlaub ist."
     input_placeholder: "Hinterlasse einen Kommentar"
     create: "Kommentar erstellen"

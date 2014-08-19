@@ -27,7 +27,7 @@
 #
 class Comment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :commentable, polymorphic: true, counter_cache: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true, inverse_of: :comments
 
   delegate :image_url, :nickname,
            to: :user, prefix: true

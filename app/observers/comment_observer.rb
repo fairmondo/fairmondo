@@ -20,7 +20,7 @@
 # along with Fairnopoly. If not, see <http://www.gnu.org/licenses/>.
 #
 class CommentObserver < ActiveRecord::Observer
-  def after_save(comment)
+  def after_create(comment)
     if receives_notifications?(comment.commentable_user)
       case comment.commentable_type
       when "Library"
