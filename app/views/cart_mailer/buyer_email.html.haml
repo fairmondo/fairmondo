@@ -26,8 +26,13 @@
     = simple_format t('email.security_warning')
 
 - content_for 'sidebar' do
-  = render 'addresses/address', address: @cart.line_item_groups.first.transport_address, title: t('email.transport_address')
-  - unless @cart.line_item_groups.first.transport_address == @cart.line_item_groups.first.payment_address
-    = render 'addresses/address', address: @cart.line_item_groups.first.payment_address, title: t('email.payment_address')
+  .Address
+    %h3
+      = t('cart.texts.addresses.payment')
+    = render 'addresses/address_lines', address: @cart.line_item_groups.first.payment_address
+  .Address
+    %h3
+      = t('cart.texts.addresses.transport')
+    = render 'addresses/address_lines', address: @cart.line_item_groups.first.transport_address
   = render 'shared/email/social_buttons'
   = render 'shared/email/help'

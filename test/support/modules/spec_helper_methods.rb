@@ -4,7 +4,7 @@ class DummyClass < ActionView::Base
   include Rails.application.routes.url_helpers
 
   # include all of our helpers here
-  include AccordionHelper
+  include ContainerHelper
   include ApplicationHelper
   include ArticlesHelper
   include CommendationHelper

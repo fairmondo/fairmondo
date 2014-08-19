@@ -123,8 +123,8 @@ feature 'Article creation' do
   end
 
   scenario 'new private user wants to use bank_transfer for article that costs more than 100Euro' do
-    user = FactoryGirl.create :user, created_at: Time.now, type: 'PrivateUser'
-    login_as user
+    @user = FactoryGirl.create :private_user, created_at: Time.now
+    login_as @user
     visit new_article_path
     fill_form_with_valid_article
     fill_in 'article_price', with: '150'

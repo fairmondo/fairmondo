@@ -18,6 +18,12 @@
     = link_to t('email.line_item_group.seller.view_and_pay'), line_item_group_path(@line_item_group.id), class: 'Button'
 
 - content_for 'sidebar' do
-  = render 'addresses/address', address: @line_item_group.transport_address, title: 'Lieferadresse'
-  = render 'addresses/address', address: @line_item_group.payment_address, title: 'Rechnungsadresse'
+  .Address
+    %h3
+      = t('cart.texts.addresses.payment')
+    = render 'addresses/address_lines', address: @line_item_group.payment_address
+  .Address
+    %h3
+      = t('cart.texts.addresses.transport')
+    = render 'addresses/address_lines', address: @line_item_group.transport_address
   = render 'shared/email/social_buttons'

@@ -50,11 +50,11 @@ class Cart < ActiveRecord::Base
     end
 
     # This comes at a later point
-    #CartMailer.buyer_email(self).deliver
+    CartMailer.buyer_email(self).deliver
 
-    #self.line_item_groups.each do |lig|
-    #  CartMailer.seller_email(lig).deliver
-    #end
+    self.line_item_groups.each do |lig|
+      CartMailer.seller_email(lig).deliver
+    end
 
     return :checked_out
   rescue => e
