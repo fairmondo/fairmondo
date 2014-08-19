@@ -60,6 +60,9 @@ class Article < ActiveRecord::Base
   has_many :libraries, through: :library_elements
 
   belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  alias_method :user, :seller
+  alias_method :user=, :seller=
+
   belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
 
   has_many :mass_upload_articles

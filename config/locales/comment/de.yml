@@ -3,8 +3,9 @@ de:
     new_notification: "[Fairnopoly] Du hast einen neuen Kommentar bekommen"
   comments:
     no_comments: "Diese Sammlung enthält noch keine Kommentare."
-    login_to_comment: "%{href}, um diese Sammlung zu kommentieren."
     login_href: "Melde dich an"
+    login_to_comment: "%{href}, um diese Sammlung zu kommentieren."
+    seller_vacationing: "Es können keine neuen Kommentare erstellt werden, solange der Verkäufer im Urlaub ist."
     input_placeholder: "Hinterlasse einen Kommentar"
     create: "Kommentar erstellen"
     more: "Mehr Kommentare"
