@@ -1,3 +1,11 @@
+@import "mixins/all";
+
+
+.socialshareprivacy {
+    float: right;
+    @include clearfix;
+}
+
 .social_share_privacy_area {
     clear: both;
     margin: 10px 0 !important;
