@@ -11,3 +11,4 @@ tooltip = ->
 
 $(document).ready tooltip
 $(document).ajaxStop tooltip
+$(document).on 'socialshareprivacyinserted', tooltip
