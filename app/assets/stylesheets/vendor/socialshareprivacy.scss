@@ -2,8 +2,10 @@
 
 
 .socialshareprivacy {
-    float: right;
-    @include clearfix;
+    @include at-breakpoint($bp-mobile-horizontal) {
+        float: right;
+        @include clearfix;
+    }
 }
 
 .social_share_privacy_area {
