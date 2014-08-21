@@ -27,6 +27,15 @@ module CommentsHelper
     @comments_page ||= Sanitize.clean params[:comments_page]
   end
 
+  # comments path depending on commentable class
+  def comment_path commentable, comment
+    get_path "comment", commentable, comment
+  end
+  # comments path depending on commentable class
+  def comments_path commentable
+    get_path "comments", commentable
+  end
+
   def comments_counter(commentable)
     # Counter caches do their own SQL magic, which is why on AJAX requests they do
     # not reflect the current state.
@@ -51,4 +60,9 @@ module CommentsHelper
       t('article.show.comments.legal_entity_publish_info')
     end
   end
+
+  private
+    def get_path specific, *attrs
+      send("#{attrs.first.class.name.downcase}_#{specific}_path", *attrs)
+    end
 end
