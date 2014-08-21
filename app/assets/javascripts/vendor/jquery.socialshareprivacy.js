@@ -273,7 +273,13 @@
 			//
             // Der Info/Settings-Bereich wird eingebunden
             //
-            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>')
+            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>');
+
+            //
+            // Spezielles Event erstellen und triggern, für Tooltip-Funktion
+            //
+            var social_event = $.Event('socialshareprivacyinserted');
+            $(document).trigger(social_event);
 
         }); // this.each(function ()
     };      // $.fn.socialSharePrivacy = function (settings) {

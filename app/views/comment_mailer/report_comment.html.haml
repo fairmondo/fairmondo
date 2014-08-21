@@ -1,0 +1,23 @@
+%p
+  Hallo
+  = "#{@commentable_owner.nickname},"
+
+%p
+  - if @commentable.is_a? Library
+    = t('comment.mailer.library_body', name: link_to(@commentable.name, library_url(@commentable))).html_safe + '.'
+  - elsif @commentable.is_a? Article
+    = t('comment.mailer.article_body', title: link_to(@commentable.title, article_url(@commentable))).html_safe + '.'
+
+%p
+  Schau nach, was andere Nutzer*innen schreiben.
+
+%p
+  Du kannst diese Benachrichtigungen jederzeit in Deinem
+  = link_to "Profil", user_url(@commentable_owner)
+  abstellen.
+
+%p
+  Dein Fairnopoly Team
+
+%hr
+= render '/shared/email_footer'
