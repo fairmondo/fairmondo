@@ -114,6 +114,10 @@ form.delete_line_item {
   margin: 0;
 }
 
+.unified_transport_impossible {
+  color: $red;
+}
+
 // Line Items Responsiveness
 
 .formtastic .line_items > .line_item {

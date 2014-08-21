@@ -36,6 +36,18 @@ module CheckoutHelper
     end
   end
 
+  def unified_transport_first a,b
+    a_value = a.article.unified_transport
+    b_value = b.article.unified_transport
+    if a_value == b_value
+      0
+    elsif a_value
+      -1
+    else
+      1
+    end
+  end
+
   def terms_and_cancellation_label_for user
     terms_link = checkbox_link_helper I18n.t('cart.texts.terms'), profile_user_path(user, print: 'terms', format: :pdf)
     cancellation_link = checkbox_link_helper I18n.t('cart.texts.cancellation'), profile_user_path(user, print: 'cancellation', format: :pdf)
