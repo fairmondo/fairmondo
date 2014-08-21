@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813132417) do
+ActiveRecord::Schema.define(version: 20140820084648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,12 +73,14 @@ ActiveRecord::Schema.define(version: 20140813132417) do
     t.boolean  "swappable",                                        default: false
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
+    t.integer  "original_id",                            limit: 8
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
   add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
   add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
+  add_index "articles", ["original_id"], name: "index_articles_on_original_id", using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
   add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
