@@ -325,14 +325,9 @@ ul.category-selected-list {
   }
 }
 
-// social buttons
-
-.contents > .social {
-  margin: 0.5em 0 2em;
-  @include clearfix;
-  @include till-breakpoint($bp-mobile-horizontal) {
-    display:none;
-  }
+// social buttons - clear after them
+.contents > .Accordion {
+  clear: both;
 }
 
 // other articles of the seller

@@ -108,7 +108,7 @@
           = '/'
           = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
 
-.social#socialshareprivacy
+.socialshareprivacy{data: {uri: article_url(resource), title: resource.title}}
 
 .Accordion.Accordion--activated
   - cache [resource, "contents"] do
