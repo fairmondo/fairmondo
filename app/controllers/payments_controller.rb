@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
   def show
     @payment = Payment.find(params[:id])
     authorize @payment
-    redirect_to @payment.paypal_checkout_url
+    redirect_to PaypalAPI.checkout_url @payment.pay_key
   end
 
   # create happens on buy. this is to initialize the payment with paypal
@@ -33,7 +33,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     authorize @payment
     if @payment.init
-      redirect_to @payment.paypal_checkout_url
+      redirect_to PaypalAPI.checkout_url @payment.pay_key
     else
       redirect_to :back, flash: { error: "Paypal mag grad nich" }
     end

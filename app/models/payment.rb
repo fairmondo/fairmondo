@@ -28,10 +28,6 @@ class Payment < ActiveRecord::Base
     Abacus.new(line_item_group).payment_listing.payments[:paypal][:total]
   end
 
-  def paypal_checkout_url
-    PaypalAPI.checkout_url pay_key
-  end
-
   private
 
     # called within init

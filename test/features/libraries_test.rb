@@ -34,14 +34,14 @@ feature 'Library management' do
     page.must_have_content I18n.t 'library.new'
     within '#new_library' do
       fill_in 'library_name', with: 'foobar'
-      click_button 'Sammlung erstellen'
+      click_button I18n.t('library.create')
     end
     page.must_have_selector 'a', text: 'foobar'
   end
 
   scenario "user creates a library with a blank name" do
     visit user_libraries_path @user
-    click_button 'Sammlung erstellen'
+    click_button I18n.t('library.create')
     page.must_have_content I18n.t 'activerecord.errors.models.library.attributes.name.blank'
   end
 

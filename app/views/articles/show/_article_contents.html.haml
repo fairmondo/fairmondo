@@ -65,11 +65,11 @@
           = commendation_labels_for resource
           = condition_label resource
   .right
-    - cache [resource,"basic_information"] do
-      %h2.title
-        = resource.title
+    %h2.title
+      = resource.title
 
-      .details
+    .details
+      - cache [resource,"basic_information"] do
         %h3.price= humanized_money_with_symbol resource.price
         = t('formtastic.labels.article.price')
         .vat
@@ -81,15 +81,15 @@
             = transport_format_for "pickup"
             = transport_format_for "type1"
             = transport_format_for "type2"
+        .transport_time
+          - if resource.transport_time && !resource.transport_time.empty?
+            = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
         = render 'articles/show/basic_price', article: resource
         .quantity
           - if resource.sold?
             Dieser Artikel ist bereits ausverkauft
           - elsif resource.quantity > 1
             = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.quantity_available)
-        .transport_time
-          - if resource.transport_time && !resource.transport_time.empty?
-            = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
     .buyer-controls
       -# Collect button and libraries list
       - if user_signed_in? && resource.active?
