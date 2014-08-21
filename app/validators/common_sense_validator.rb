@@ -35,7 +35,7 @@ class CommonSenseValidator < ActiveModel::EachValidator
     elsif record.is_a? LineItemGroup
       # happens on transactions individually if not unified
       if record.unified_payment
-        record.line_items.map(&:business_transaction).each do |business_transaction|
+        record.business_transactions.each do |business_transaction|
           common_sense_error = common_sense_check selected_payment, business_transaction.selected_transport
           if common_sense_error
             record.errors[attribute] << common_sense_error
