@@ -1,5 +1,5 @@
 tooltip = ->
-	$("span.sprite_helper").qtip
+	$("span.sprite_helper, .Qtip").qtip
   	content:
       text: false
   	style:
@@ -11,3 +11,4 @@ tooltip = ->
 
 $(document).ready tooltip
 $(document).ajaxStop tooltip
+$(document).on 'socialshareprivacyinserted', tooltip

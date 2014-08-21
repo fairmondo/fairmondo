@@ -46,6 +46,7 @@
                 = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
                   = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')
           .Library-details
+            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
             = render "library_buttons", library: library
             .Library-elements
               - if library.library_elements.empty?

@@ -43,7 +43,7 @@
               = t('common.text.glue.from') + " "
               = link_to(library.user_nickname, library.user)
   -# Contact Box (refactor when we have a real messaging system)
-  = accordion_item 'contact_private_user' do
+  = accordion_item 'contact_user' do
     - if current_user
       %p
         = t('article.show.contact.description')

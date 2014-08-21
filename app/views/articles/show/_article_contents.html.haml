@@ -65,31 +65,31 @@
           = commendation_labels_for resource
           = condition_label resource
   .right
-    - cache [resource,"basic_information"] do
-      %h2.title
-        = resource.title
+    %h2.title
+      = resource.title
 
-      .details
+    .details
+      - cache [resource,"basic_information"] do
         %h3.price= humanized_money_with_symbol resource.price
         = t('formtastic.labels.article.price')
         .vat
           - unless article.vat == 0
             = t('article.vat_included', :mwst => article.vat)
         .transport
-          = t('formtastic.labels.article.transport_method')+" :"
+          = t('formtastic.labels.article.transport_method') + " :"
           %ul
             = transport_format_for "pickup"
             = transport_format_for "type1"
             = transport_format_for "type2"
         = render 'articles/show/basic_price', :article => resource
-        .quantity
-          - if resource.is_available?
-            Dieser Artikel ist bereits ausverkauft
-          - elsif resource.quantity > 1
-            = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.business_transaction_quantity_available)
         .transport_time
           - if resource.transport_time && !resource.transport_time.empty?
             = t('formtastic.labels.article.transport_time_with_numbers', time: resource.transport_time)
+      .quantity
+        - if resource.is_available?
+          Dieser Artikel ist bereits ausverkauft
+        - elsif resource.quantity > 1
+          = t('formtastic.labels.article.quantity_with_numbers', quantities: resource.business_transaction_quantity_available)
     .buyer-controls
       -# Collect button and libraries list
       - if user_signed_in? && resource.active?
@@ -102,6 +102,11 @@
         .Button.Button--disabled= t 'common.actions.to_cart'
         %p
           %strong= t 'users.states.vacationing'
+      - if resource.active?
+        .control-links
+          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
+          = '/'
+          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
 
 .social#socialshareprivacy
 
@@ -154,7 +159,10 @@
         = resource.seller_about.html_safe
 
 
-  -# Feedback Box
+  - # Feedback Box
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
+
+  - # Comment Area
+  = render "comments/commentable_comments", commentable: resource

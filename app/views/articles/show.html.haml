@@ -31,7 +31,7 @@
   - resource.categories.each do |leaf|
     = breadcrumbs_for(leaf).html_safe
     %br
-.contents
+.contents{id: "article#{resource.id.to_s}"}
   = render "articles/show/article_contents", article: resource
   - if User.is_admin? current_user
     = render "articles/show/admin"

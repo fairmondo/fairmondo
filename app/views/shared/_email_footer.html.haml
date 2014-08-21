@@ -3,17 +3,25 @@
     = t('common.fn_legal_footer.intro')
 %hr
 %p
-  = t('common.fn_legal_footer.footer_contact')
+  %small
+    = simple_format t('common.fn_legal_footer.footer_contact')
 
 %p
-  = t('common.fn_legal_footer.registered')
-  = t('common.fn_legal_footer.board')
-  = t('common.fn_legal_footer.supervisory_board')
+  %small
+    = t('common.fn_legal_footer.registered')
+    %br
+    = t('common.fn_legal_footer.board')
+    %br
+    = t('common.fn_legal_footer.supervisory_board')
 
 %p
-  = t('common.brand')
-  = t('common.claim')
+  %small
+    = t('common.brand')
+    %br
+    = t('common.claim')
 
 %p
-  = t('common.fn_legal_footer.facebook')
-  = t('common.fn_legal_footer.buy_shares')
+  %small
+    = t('common.fn_legal_footer.facebook_html').html_safe
+    %br
+    = t('common.fn_legal_footer.buy_shares')
