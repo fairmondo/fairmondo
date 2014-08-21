@@ -1,8 +1,8 @@
 .js-library-ajax
   .Grid
-    - library_elements = library.library_elements.includes(:article => [:images,:seller]).page(params[:library_page]).per(12)
+    - library_elements = library.library_elements.order(created_at: :desc).includes(article: [:images,:seller]).page(params[:library_page]).per(12)
     - library_elements.each do |library_element|
       .Grid-item
-        = render "/libraries/library_element", :library_element => library_element
-  = paginate library_elements, :param_name => :library_page, :remote => true, :params => { :controller => "libraries", :action => "show", :id => library.id}
+        = render "libraries/library_element", library_element: library_element
+  = paginate library_elements, param_name: :library_page, remote: true, params: { controller: "libraries", action: "show", id: library.id}
   = render "comments/commentable_comments", commentable: library
