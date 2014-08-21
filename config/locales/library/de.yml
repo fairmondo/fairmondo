@@ -2,7 +2,6 @@ de:
 # Libraries
   libraries:
     no_library: "Diese*r Nutzer*in hat noch keine Sammlungen angelegt."
-    trending_welcome_page: "Die beliebtesten Sammlungen"
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"

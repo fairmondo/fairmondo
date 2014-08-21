@@ -92,7 +92,7 @@
 - if trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
-      %h2= t('libraries.trending_welcome_page')
+      %h2= t('welcome.trending_libraries')
       - trending_libraries.each do |library|
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
