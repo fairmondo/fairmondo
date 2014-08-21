@@ -14,4 +14,6 @@ FactoryGirl.define do
       create_list(:line_item_group, evaluator.line_item_group_count, cart: cart)
     end
   end
+
+
 end
