@@ -75,7 +75,7 @@ class MassUpload < ActiveRecord::Base
     "transport_pickup", "transport_type1",
     "transport_type1_provider", "transport_type1_price_cents",
     "transport_type1_number", "transport_type2", "transport_type2_provider",
-    "transport_type2_price_cents", "transport_type2_number", "transport_details",
+    "transport_type2_price_cents", "transport_type2_number", "transport_time", "transport_details",
     "payment_bank_transfer", "payment_cash", "payment_paypal",
     "payment_cash_on_delivery",
     "payment_cash_on_delivery_price_cents", "payment_invoice",
