@@ -72,4 +72,4 @@
 
 
 -# button_to t('cart.actions.back'), cart_path(@cart), class: 'Button Button--gray' #needed?
-= button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button'
+= button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button checkout_button', form_class: 'js-visual-submit'
