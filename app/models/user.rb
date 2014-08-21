@@ -258,7 +258,7 @@ class User < ActiveRecord::Base
   end
 
   def send_bad_seller_notification
-    RatingMailer.bad_seller_notification(self).deliver
+    RatingMailer.delay.bad_seller_notification(self)
   end
 
   def buyer_constants

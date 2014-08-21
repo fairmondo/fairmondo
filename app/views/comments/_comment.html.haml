@@ -6,7 +6,7 @@
     = javascript_tag "$('.Timeago').timeago();" if request.xhr? # refresh timeago evaluation
     - if comment.id && policy(comment).destroy?
       .delete
-        = link_to library_comment_path(comment.commentable, comment),
+        = link_to comment_path(comment.commentable, comment),
           method: :delete,
           remote: true do
           %i.fa.fa-times

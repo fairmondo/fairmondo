@@ -4,6 +4,7 @@ class ArticleRefinery < ApplicationRefinery
     [
       # Common attrs
       :title, :content, :condition, :condition_extra, :quantity,
+      :borrowable, :swappable,
       # :business_transaction_attributes, dont think they are needed right now
       # Money attrs
       :price_cents, :price, :vat,

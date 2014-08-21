@@ -76,8 +76,7 @@
             'services' : {
                 'facebook' : {
                     'status'            : 'on',
-                    'txt_fb_off'        : 'nicht mit Facebook verbunden',
-                    'txt_fb_on'         : 'mit Facebook verbunden',
+                    'txt_fb'            : 'Mit Facebook verbinden',
                     'display_name'      : 'Facebook',
                     'referrer_track'    : '',
                     'language'          : 'de_DE',
@@ -85,8 +84,7 @@
                 },
                 'twitter' : {
                     'status'            : 'on',
-                    'txt_twitter_off'   : 'nicht mit Twitter verbunden',
-                    'txt_twitter_on'    : 'mit Twitter verbunden',
+                    'txt_twitter'       : 'Mit Twitter verbinden',
                     'display_name'      : 'Twitter',
                     'referrer_track'    : '',
                     'tweet_text'        : getTweetText,
@@ -94,22 +92,20 @@
                 },
                 'gplus' : {
                     'status'            : 'on',
-                    'txt_gplus_off'     : 'nicht mit Google+ verbunden',
-                    'txt_gplus_on'      : 'mit Google+ verbunden',
+                    'txt_gplus'         : 'Mit Google+ verbinden',
                     'display_name'      : 'Google+',
                     'referrer_track'    : '',
                     'language'          : 'de'
                 },
                 'pinterest' : {
                 	'status'			: 'on',
-                    'txt_pinterest_off'     : 'nicht mit Pinterest verbunden',
-                    'txt_pinterest_on'      : 'mit Pinterest verbunden',
+                    'txt_pinterest'     : 'Mit Pinterest verbinden',
                     'display_name'      : 'Pinterest',
                     'referrer_track'    : '',
                     'language'          : 'de'
                 }
             },
-            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie auf das Schloss klicken, wird der jeweilige Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
+            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Du auf das Schloss klickst, wird der jeweilige Button aktiv und Du kannst Deine Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
 
             'css_path'          : '',
             'uri'               : getURI
@@ -155,20 +151,20 @@
             if (facebook_on) {
                 var fb_enc_uri = encodeURIComponent(uri + options.services.facebook.referrer_track);
                 var fb_code = '<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:123px; height:21px;" allowTransparency="true"></iframe>';
-                var fb_dummy_btn = '<i class="fa fa-facebook-square fa-lg" id="facebook-dummy"></i>';
+                var fb_dummy_btn = '<i class="fa fa-facebook-square fa-lg" id="facebook-dummy" title="' + options.services.facebook.txt_fb + '"></i>';
 
-                context.append('<li class="facebook help_info"><span class="switch fa fa-lock" title="' + options.services.facebook.txt_fb_off + '"></span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
+                context.append('<li class="facebook help_info"><span class="switch fa lock"></span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
 
                 var $container_fb = $('li.facebook', context);
 
                 $('li.facebook i,li.facebook span.switch', context).on('click', function () {
-                    if ($container_fb.find('span.switch').hasClass('fa-lock')) {
+                    if ($container_fb.find('span.switch').hasClass('lock')) {
                         $container_fb.addClass('info_off');
-                        $container_fb.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.facebook.txt_fb_on);
+                        $container_fb.find('span.switch').addClass('unlock').removeClass('lock').attr('title', options.services.facebook.txt_fb_on);
                         $container_fb.find('#facebook-dummy').replaceWith(fb_code);
                     } else {
                         $container_fb.removeClass('info_off');
-                        $container_fb.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.facebook.txt_fb_off);
+                        $container_fb.find('span.switch').addClass('lock').removeClass('unlock').attr('title', options.services.facebook.txt_fb_off);
                         $container_fb.find('.fb_like').html(fb_dummy_btn);
                     }
                 });
@@ -188,20 +184,20 @@
                 var twitter_enc_uri = encodeURIComponent(uri + options.services.twitter.referrer_track);
                 var twitter_count_url = encodeURIComponent(uri);
                 var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:95px; height:25px;"></iframe>';
-                var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-lg" id="twitter-dummy"></i>';
+                var twitter_dummy_btn = '<i class="fa fa-twitter-square fa-lg" id="twitter-dummy" title="' + options.services.twitter.txt_twitter + '"></i>';
 
-                context.append('<li class="twitter help_info"><span class="switch fa fa-lock" title="' + options.services.twitter.txt_twitter_off + '"></span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
+                context.append('<li class="twitter help_info"><span class="switch fa lock"></span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
                 var $container_tw = $('li.twitter', context);
 
                 $('li.twitter i,li.twitter span.switch', context).on('click', function () {
-                    if ($container_tw.find('span.switch').hasClass('fa-lock')) {
+                    if ($container_tw.find('span.switch').hasClass('lock')) {
                         $container_tw.addClass('info_off');
-                        $container_tw.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.twitter.txt_twitter_on);
+                        $container_tw.find('span.switch').addClass('unlock').removeClass('lock').attr('title', options.services.twitter.txt_twitter_on);
                         $container_tw.find('#twitter-dummy').replaceWith(twitter_code);
                     } else {
                         $container_tw.removeClass('info_off');
-                        $container_tw.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.twitter.txt_twitter_off);
+                        $container_tw.find('span.switch').addClass('lock').removeClass('unlock').attr('title', options.services.twitter.txt_twitter_off);
                         $container_tw.find('.tweet').html(twitter_dummy_btn);
                     }
                 });
@@ -216,20 +212,20 @@
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
                 var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-lg" id="gplusone-dummy"></i>';
+                var gplus_dummy_btn = '<i class="fa fa-google-plus-square fa-lg" id="gplusone-dummy" title="' + options.services.gplus.txt_gplus + '"></i>';
 
-                context.append('<li class="gplus help_info"><span class="switch fa fa-lock" title="' + options.services.gplus.txt_gplus_off + '"></span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
+                context.append('<li class="gplus help_info"><span class="switch fa lock"></span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
                 var $container_gplus = $('li.gplus', context);
 
                 $('li.gplus i,li.gplus span.switch', context).on('click', function () {
-                    if ($container_gplus.find('span.switch').hasClass('fa-lock')) {
+                    if ($container_gplus.find('span.switch').hasClass('lock')) {
                         $container_gplus.addClass('info_off');
-                        $container_gplus.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.gplus.txt_gplus_on);
+                        $container_gplus.find('span.switch').addClass('unlock').removeClass('lock').attr('title', options.services.gplus.txt_gplus_on);
                         $container_gplus.find('#gplusone-dummy').replaceWith(gplus_code);
                     } else {
                         $container_gplus.removeClass('info_off');
-                        $container_gplus.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.gplus.txt_gplus_off);
+                        $container_gplus.find('span.switch').addClass('lock').removeClass('unlock').attr('title', options.services.gplus.txt_gplus_off);
                         $container_gplus.find('.gplusone').html(gplus_dummy_btn);
                     }
                 });
@@ -243,8 +239,8 @@
                 var pinterest_uri = uri + options.services.pinterest.referrer_track;
 
                 // we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
-                var pinterest_code = '<div class="pintrest"><a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>';
-                var pinterest_dummy_btn = '<i class="fa fa-pinterest-square fa-lg" id="pintrest-dummy"></i>';
+                var pinterest_code = '<div class="pinterest"><a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>';
+                var pinterest_dummy_btn = '<i class="fa fa-pinterest-square fa-lg" id="pinterest-dummy" title="' + options.services.pinterest.txt_pinterest + '"></i>';
 	            var pinterest_script = document.createElement('script');
 				pinterest_script.type = 'text/javascript';
 				pinterest_script.src='https://assets.pinterest.com/js/pinit.js';
@@ -252,19 +248,19 @@
 
 
 
-                context.append('<li class="pinterest help_info"><span class="switch fa fa-lock" title="' + options.services.pinterest.txt_pinterest_off + '"></span><div class="pinterest dummy_btn">' + pinterest_dummy_btn + '</div></li>');
+                context.append('<li class="pinterest help_info"><span class="switch fa lock"></span><div class="pinterest dummy_btn">' + pinterest_dummy_btn + '</div></li>');
 
                 var $container_pinterest = $('li.pinterest', context);
 
                 $('li.pinterest i,li.pinterest span.switch', context).on('click', function () {
-                    if ($container_pinterest.find('span.switch').hasClass('fa-lock')) {
+                    if ($container_pinterest.find('span.switch').hasClass('lock')) {
                         $container_pinterest.addClass('info_off');
-                        $container_pinterest.find('span.switch').addClass('fa-unlock-alt').removeClass('fa-lock').attr('title', options.services.pinterest.txt_pinterest_on);
-                        $container_pinterest.find('#pintrest-dummy').replaceWith(pinterest_code);
+                        $container_pinterest.find('span.switch').addClass('unlock').removeClass('lock').attr('title', options.services.pinterest.txt_pinterest_on);
+                        $container_pinterest.find('#pinterest-dummy').replaceWith(pinterest_code);
                        document.getElementsByTagName('head')[0].appendChild(pinterest_script);
                     } else {
                         $container_pinterest.removeClass('info_off');
-                        $container_pinterest.find('span.switch').addClass('fa-lock').removeClass('fa-unlock-alt').attr('title', options.services.pinterest.txt_pinterest_off);
+                        $container_pinterest.find('span.switch').addClass('lock').removeClass('unlock').attr('title', options.services.pinterest.txt_pinterest_off);
                         $container_pinterest.find('.pinterest').html(pinterest_dummy_btn);
                     }
                 });
@@ -273,7 +269,13 @@
 			//
             // Der Info/Settings-Bereich wird eingebunden
             //
-            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>')
+            context.append('<li><span class="sprite_helper" title="' + options.txt_info + '"></span></li>');
+
+            //
+            // Spezielles Event erstellen und triggern, für Tooltip-Funktion
+            //
+            var social_event = $.Event('socialshareprivacyinserted');
+            $(document).trigger(social_event);
 
         }); // this.each(function ()
     };      // $.fn.socialSharePrivacy = function (settings) {

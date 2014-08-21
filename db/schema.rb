@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815131502) do
+ActiveRecord::Schema.define(version: 20140820084648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,12 +70,17 @@ ActiveRecord::Schema.define(version: 20140815131502) do
     t.integer  "friendly_percent_organisation_id",       limit: 8
     t.string   "template_name"
     t.string   "transport_time"
+    t.boolean  "swappable",                                        default: false
+    t.boolean  "borrowable",                                       default: false
+    t.integer  "comments_count",                                   default: 0
+    t.integer  "original_id",                            limit: 8
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["custom_seller_identifier", "user_id"], name: "index_articles_on_custom_seller_identifier_and_user_id", using: :btree
   add_index "articles", ["discount_id"], name: "index_articles_on_discount_id", using: :btree
   add_index "articles", ["friendly_percent_organisation_id"], name: "index_articles_on_friendly_percent_organisation_id", using: :btree
+  add_index "articles", ["original_id"], name: "index_articles_on_original_id", using: :btree
   add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
   add_index "articles", ["slug"], name: "text_pattern_index_on_slug", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
@@ -152,9 +157,11 @@ ActiveRecord::Schema.define(version: 20140815131502) do
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "library_id"
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["library_id"], name: "index_comments_on_library_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contents", force: true do |t|
@@ -463,7 +470,7 @@ ActiveRecord::Schema.define(version: 20140815131502) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
-    t.boolean  "receive_comments_notification",            default: false
+    t.boolean  "receive_comments_notification",            default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
