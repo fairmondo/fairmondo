@@ -98,7 +98,8 @@
           %summary
             = render 'libraries/library_header', library: library
           .Library-details
-            = render 'libraries/library_buttons', library: library, trending_libraries: trending_libraries
+            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
+            = render 'libraries/library_buttons', library: library
             .Library-elements
               = render 'libraries/library', library: library
 
