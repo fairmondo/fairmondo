@@ -76,11 +76,11 @@ module CommendationHelper
       link = "#commendation"
       new_window = false
     end
-    html << commendation_label(:fair, :small, link, new_window) if article.fair?
-    html << commendation_label(:ecologic, :small, link, new_window) if article.ecologic?
-    html << commendation_label(:small_and_precious, :small, link, new_window) if article.small_and_precious?
-    html << commendation_label(:swappable, :small, new_window) if article.swappable?
-    html << commendation_label(:borrowable, :small, new_window) if article.borrowable?
+    html << commendation_label(:fair, :small, link, new_window) if article.fair
+    html << commendation_label(:ecologic, :small, link, new_window) if article.ecologic
+    html << commendation_label(:small_and_precious, :small, link, new_window) if article.small_and_precious
+    html << commendation_label(:swappable, :small, nil, new_window) if article.swappable
+    html << commendation_label(:borrowable, :small, nil, new_window) if article.borrowable
     html.html_safe
   end
 
