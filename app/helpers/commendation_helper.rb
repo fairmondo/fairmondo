@@ -76,9 +76,11 @@ module CommendationHelper
       link = "#commendation"
       new_window = false
     end
-    html << commendation_label(:fair,:small, link, new_window) if article.fair
-    html << commendation_label(:ecologic,:small, link, new_window) if article.ecologic
-    html << commendation_label(:small_and_precious,:small, link, new_window) if article.small_and_precious
+    html << commendation_label(:fair, :small, link, new_window) if article.fair
+    html << commendation_label(:ecologic, :small, link, new_window) if article.ecologic
+    html << commendation_label(:small_and_precious, :small, link, new_window) if article.small_and_precious
+    html << commendation_label(:swappable, :small, nil, new_window) if article.swappable
+    html << commendation_label(:borrowable, :small, nil, new_window) if article.borrowable
     html.html_safe
   end
 
@@ -96,7 +98,7 @@ module CommendationHelper
     html << "href=\"#{link}\" " if link
     html << "target=\"_blank\" " if new_window && link
     html << "class=\"#{commendation_label_classes label,size} accordion-anchor\">"
-    html << t("formtastic.labels.article.#{label.to_s}")
+    html << t("article.commendations.#{label.to_s}")
     html << "</a> "
     html.html_safe
   end
@@ -113,6 +115,10 @@ module CommendationHelper
        " Tag--green"
      when :small_and_precious
        " Tag--orange"
+     when :swappable
+       " Tag--gray"
+     when :borrowable
+       " Tag--gray"
      end
      css << case size
      when :small

@@ -127,5 +127,4 @@ module ArticlesHelper
     !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
-
 end

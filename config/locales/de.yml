@@ -16,13 +16,20 @@ de:
       spacer: "----------"
       intro: "Diese Nachricht wurde von Fairnopoly, www.fairnopoly.de, gesendet."
       contact: "Kontakt: email@fairnopoly.de, Fairnopoly eG, Glogauer Str. 21, 10999 Berlin"
-      footer_contact: "Fairnopoly eG\nGlogauer Str. 21\n10999 Berlin\n\nemail@fairnopoly.de"
-      registered: "Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B\nUSt-IdNr: DE 290376380"
+      footer_contact: |
+        Fairnopoly eG
+        Glogauer Str. 21
+        10999 Berlin
+        email@fairnopoly.de
+      registered: |
+        Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B;
+        USt-IdNr: DE 290376380
       board: "Vorstand: Felix Weth, Anna Kress, Bastian Neumann"
       ceo: "Vorstandsvorsitzender: Felix Weth"
       supervisory_board: "Aufsichtsratsvorsitzender: Kim Stattaus"
-      facebook: "Facebook: www.facebook.com/fairmondo"
-      buy_shares: "Anteile zeichnen: http://info.fairnopoly.de/anteile-zeichnen/"
+      facebook: "Facebook: https://www.facebook.com/fairmondo"
+      facebook_html: "<a href='https://www.facebook.com/fairmondo'>Facebook</a>"
+      buy_shares: "Anteile zeichnen: https://info.fairnopoly.de/anteile-zeichnen/"
     actions:
       continue: "Weiter"
       back: "Zurück"
@@ -43,6 +50,8 @@ de:
       buy: "Kaufen"
       to_cart: "Kaufen"
       collect: "Sammeln"
+      borrow: "Ausleihen"
+      swap: "Tauschen"
       move: "Verschieben"
       send: 'Absenden'
       more: "mehr"

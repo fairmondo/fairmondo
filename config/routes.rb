@@ -74,7 +74,7 @@ Fairnopoly::Application.routes.draw do
     get 'check_bic', constraints: {format: 'json'}
   end
 
-  resources :articles do
+  resources :articles, concerns: [:commentable] do
     member do
       get 'report'
     end
