@@ -9,8 +9,8 @@ de:
       terms: "AGB"
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
-      report: "Dein Feedback zu dem Artikel"
-      contact_private_user: 'Rückfragen an den*die Anbieter*in'
+      report: "Dein Feedback an Fairnopoly zu dem Artikel"
+      contact_user: 'Email an den*die Anbieter*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
@@ -24,6 +24,12 @@ de:
       :6: 'Artikel der letzten sechs Monate exportieren'
       :12: 'Artikel der letzten zwölf Monate exportieren'
   article:
+    commendations:
+      fair: "fair"
+      ecologic: "öko"
+      small_and_precious: "klein&edel"
+      swappable: "tauschbar"
+      borrowable: "leihbar"
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
@@ -55,6 +61,12 @@ de:
       no_alternative: 'Hier zeigen wir Dir eine faire Alternative zu dem Artikel. Leider wurde in diesem Fall keine Alternative gefunden. Du kennst einen passenden Artikel? Dann melde Dich an und sende Deinen Vorschlag unter "Dein Feedback zu dem Artikel"'
       images_pending: "Die Bilder zu diesem Artikel sind noch nicht vollständig vom System bearbeitet. Du kannst sie anklicken um sie dennoch anzusehen."
       report: "Wenn Du bei diesem Artikel einen Betrug oder Missbrauch vermutest, oder Fairnopoly einen sonstigen Kommentar zu diesem Artikel zukommen lassen möchtest, trage das hier ein:"
+      borrow: |
+        Dieser Artikel kann ausgeliehen werden. Die Ausleihkonditionen des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Nachricht über die Box "Email an den*die Anbieter*in" verschicken.
+      swap: |
+        Dieser Artikel kann gegen andere Artikel getauscht werden. Die Tauschwünsche des Anbieters findest Du in der Artikelbeschreibung, oder Du fragst direkt beim Anbieter nach. Dazu kannst Du eine Anfrage über die Box "Email an den*die Anbieter*in" verschicken.
+        <br><br>
+        Bitte beachte auch unseren Sicherheitshinweis: Beim Tauschen kommunizierst Du direkt über Email mit dem Anbieter. Bitte wähle beim Tauschen sichere Möglichkeiten des Warentauschs wie z.B. Selbsabholung.
       contact:
         description: 'Du hast noch Fragen? Trage diese in dem untenstehenden Feld ein, um dem*der Anbieter*in eine Nachricht zu senden.'
         email_transfer_accepted_label: "Ich bin damit einverstanden, dass meine E-Mail-Adresse an den*die Anbieter*in als Rücksendeadresse übermittelt wird."
@@ -71,6 +83,8 @@ de:
         ecologic: 'ökologische'
         small_and_precious: 'klein&edle'
         article: 'Artikel'
+      comments:
+        legal_entity_publish_info: "Achtung: Kommentare für Artikel gewerblicher Nutzer werden nur zwischen 10 und 17 Uhr veröffentlicht."
     hero:
       search: "Suche nach"
       filter: "Filter nach"

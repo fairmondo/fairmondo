@@ -22,6 +22,7 @@
 class Article < ActiveRecord::Base
   extend Enumerize
   extend FriendlyId
+  include Commentable
 
   # Friendly_id for beautiful links
   def slug_candidates
@@ -53,10 +54,13 @@ class Article < ActiveRecord::Base
   has_many :library_elements, :dependent => :destroy
   has_many :libraries, through: :library_elements
 
+  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
+  alias_method :user, :seller
+  alias_method :user=, :seller=
+
   has_many :mass_upload_articles
   has_many :mass_uploads, through: :mass_upload_articles
 
-  belongs_to :seller, class_name: 'User', foreign_key: 'user_id'
   belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
   belongs_to :discount
 
@@ -88,6 +92,8 @@ class Article < ActiveRecord::Base
       indexes :fair, :type => 'boolean'
       indexes :ecologic, :type => 'boolean'
       indexes :small_and_precious, :type => 'boolean'
+      indexes :swappable, :type => 'boolean'
+      indexes :borrowable, :type => 'boolean'
       indexes :condition
       indexes :categories, :as => Proc.new { self.categories.map{|c| c.self_and_ancestors.map(&:id) }.flatten  }
 
@@ -144,10 +150,10 @@ class Article < ActiveRecord::Base
     attributes.each_key do |key|
       if attributes[key].has_key? :id
         unless attributes[key][:_destroy] == "1"
-           image = Image.find(attributes[key][:id])
-           image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
-           image.is_title = attributes[key][:is_title]
-           self.images << image
+          image = Image.find(attributes[key][:id])
+          image.image = attributes[key][:image] if attributes[key].has_key? :image # updated the image itself
+          image.is_title = attributes[key][:is_title]
+          self.images << image
         end
 
       else
@@ -157,17 +163,16 @@ class Article < ActiveRecord::Base
   end
 
   def self.edit_as_new article
+    article.keep_images = true unless article.sold?
 
-      article.keep_images = true unless article.sold?
+    new_article = article.amoeba_dup
 
-      new_article = article.amoeba_dup
+    #do not remove sold articles, we want to keep them
+    #if the old article has errors we still want to remove it from the marketplace
+    article.close_without_validation unless article.sold?
 
-      #do not remove sold articles, we want to keep them
-      #if the old article has errors we still want to remove it from the marketplace
-      article.close_without_validation unless article.sold?
-
-      new_article.state = "preview"
-      new_article
+    new_article.state = "preview"
+    new_article
   end
 
   amoeba do
@@ -177,6 +182,7 @@ class Article < ActiveRecord::Base
     customize lambda { |original_article, new_article|
       new_article.categories = original_article.categories
 
+      # move images to new article
       original_article.images.each do |image|
         if original_article.keep_images
           image.imageable_id = nil
@@ -195,6 +201,7 @@ class Article < ActiveRecord::Base
         end
       end
 
+      # move slug to new article
       if original_article.is_template? || original_article.save_as_template?
         new_article.slug = nil
       else
@@ -214,4 +221,17 @@ class Article < ActiveRecord::Base
   def is_template?
     self.state.to_sym == :template
   end
+
+
+  # overwrite has_many(:comments) getter to only return publishable comments for LegalEntities
+  def comments_with_publishable_mod
+    if seller.is_a? LegalEntity
+      comments_without_publishable_mod.legal_entity_publishable
+    else
+      comments_without_publishable_mod
+    end
+  end
+  alias :comments_without_publishable_mod :comments
+  alias :comments :comments_with_publishable_mod
+
 end
