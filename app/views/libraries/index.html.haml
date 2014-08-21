@@ -41,6 +41,7 @@
               .library-comments
                 = render library.comments.order(created_at: :desc).limit(2)
           .details
+            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
             = render "library_buttons", library: library
             .library-elements
               - if library.library_elements.empty?

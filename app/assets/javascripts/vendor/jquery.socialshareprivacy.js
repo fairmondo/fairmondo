@@ -109,7 +109,7 @@
                     'language'          : 'de'
                 }
             },
-            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie auf das Schloss klicken, wird der jeweilige Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
+            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Du auf das Schloss klickst, wird der jeweilige Button aktiv und Du kannst Deine Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
 
             'css_path'          : '',
             'uri'               : getURI
@@ -273,7 +273,13 @@
 			//
             // Der Info/Settings-Bereich wird eingebunden
             //
-            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>')
+            context.append('<span class="sprite_helper" title="' + options.txt_info + '"></span>');
+
+            //
+            // Spezielles Event erstellen und triggern, für Tooltip-Funktion
+            //
+            var social_event = $.Event('socialshareprivacyinserted');
+            $(document).trigger(social_event);
 
         }); // this.each(function ()
     };      // $.fn.socialSharePrivacy = function (settings) {
