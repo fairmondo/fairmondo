@@ -293,8 +293,8 @@ de:
         basic_price: "Wenn Du z.B. Kirschen auf Fairnopoly verkaufen würdest, musst Du den Grundpreis, also den Preis pro Kilogramm (z.B. 1 Eur / kg) angeben. Mehr dazu <a href='/faq#geb4'>hier</a>"
         basic_price_amount: Gib hier die Mengeneinheit des Grundpreises an.
 
-        swappable: 'Tauschen auf Fairnopoly ist kostenlos. Bitte gib Deine Tauschwünsche oben in der Artikelbeschreibung an. Lies bitte auch vorab unseren <a href="/faq#tausch">Hilfetext</a> zum Tauschen durch.'
-        borrowable: 'Leihen und Verleihen auf Fairnopoly ist kostenlos. Falls Du weitere Angaben wie Leihdauer machen möchtest, gib diese bitte in der Artikelbeschreibung an. Deine PLZ wird als Abholort übernommen, wenn Du bei Schritt 4 "Selbstabholung" angibst. Bitte lies vorab unseren <a href="/faq#leih">Hilfetext</a> dazu durch.'
+        swappable: 'Tauschen auf Fairnopoly ist kostenlos. Bitte gib Deine Tauschwünsche oben in der Artikelbeschreibung an. Lies bitte auch vorab unseren <a href="/faq#tausch" target="_blank">Hilfetext</a> zum Tauschen durch.'
+        borrowable: 'Leihen und Verleihen auf Fairnopoly ist kostenlos. Falls Du weitere Angaben wie Leihdauer machen möchtest, gib diese bitte in der Artikelbeschreibung an. Deine PLZ wird als Abholort übernommen, wenn Du bei Schritt 4 "Selbstabholung" angibst. Bitte lies vorab unseren <a href="/faq#leih" target="_blank">Hilfetext</a> dazu durch.'
 
         transport: >
           Trage hier Deine Versandoptionen mit den zugehörigen Kosten und weitere Versandangaben ein, wie z.B. wieviel Zeit Du für den Versand benötigst. Falls Du ein*e gewerbliche(r) Anbieter*in bist und diese Info in Deinem Profil eingetragen hast, ergänzen wir dieses Feld automatisch für Dich.
