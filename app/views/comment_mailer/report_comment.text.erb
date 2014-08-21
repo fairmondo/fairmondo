@@ -1,4 +1,4 @@
-Hallo <%= @commentable_owner.forename %>,
+Hallo <%= @commentable_owner.nickname %>,
 
 <% if @commentable.is_a?(Library) -%>
   <%= t('comment.mailer.library_body', name: @commentable.name) + ': ' + library_url(@commentable) %>

@@ -41,7 +41,7 @@ module BrowsingHistory
       !url_hash[:xhr] and
       !DISABLED_REDIRECT_URLS.include?(url_hash[:path])
     end
-    DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out"]
+    DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out","user/confirmation"]
 
     def last_url_hash
       @last_url_hash ||= session[:previous_urls].first || {}
