@@ -76,7 +76,7 @@
           - unless article.vat == 0
             = t('article.vat_included', :mwst => article.vat)
         .transport
-          = t('formtastic.labels.article.transport_method')+" :"
+          = t('formtastic.labels.article.transport_method') + " :"
           %ul
             = transport_format_for "pickup"
             = transport_format_for "type1"
@@ -102,6 +102,11 @@
         .Button.Button--disabled= t 'common.actions.to_cart'
         %p
           %strong= t 'users.states.vacationing'
+      - if resource.active?
+        .control-links
+          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
+          = '/'
+          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
 
 .social#socialshareprivacy
 
@@ -154,7 +159,10 @@
         = resource.seller_about.html_safe
 
 
-  -# Feedback Box
+  - # Feedback Box
   - if policy(resource).report?
     = accordion_item "report" do
       = render 'feedbacks/varieties/report', feedback: Feedback.new
+
+  - # Comment Area
+  = render "comments/commentable_comments", commentable: resource

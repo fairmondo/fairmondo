@@ -35,7 +35,7 @@ describe CommentMailer do
 
     assert_not ActionMailer::Base.deliveries.empty?
 
-    mail.must have_subject(I18n.t('comment.new_notification'))
+    mail.must have_subject(I18n.t('comment.mailer.notification_title'))
     mail.must have_body_text comment.commentable.name
     mail.must have_body_text library_url(comment.commentable)
     mail.must have_body_text commentable_owner.forename

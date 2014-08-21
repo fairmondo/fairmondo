@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  COMMENTABLES = [Library]
+  COMMENTABLES = [Library, Article]
 
   respond_to :js
 
@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
 
   def index
     @comment = Comment.new
-    @comments = @commentable.comments.order(created_at: :desc)
+    @comments = @commentable.comments
 
     if params[:comments_page]
       @comments = @comments.page(params[:comments_page])

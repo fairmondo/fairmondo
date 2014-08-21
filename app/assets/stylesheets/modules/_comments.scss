@@ -39,12 +39,9 @@
   margin-bottom: 0;
 }
 
-.Comments-section .next_link {
+.Comments-section .next_link, .Comments-section .comment-info-text {
   padding-right: 0.7rem;
-}
-
-.Comments-section .login-to-comment {
-  margin-bottom: 0.7em;
+  margin-bottom: rem(5);
 }
 
 .Comments-count {

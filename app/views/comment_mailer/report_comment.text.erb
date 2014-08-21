@@ -1,0 +1,17 @@
+Hallo <%= @commentable_owner.nickname %>,
+
+<% if @commentable.is_a?(Library) -%>
+  <%= t('comment.mailer.library_body', name: @commentable.name) + ': ' + library_url(@commentable) %>
+<% elsif @commentable.is_a?(Article) -%>
+  <%= t('comment.mailer.article_body', title: @commentable.title) + ': ' + article_url(@commentable) %>
+<% end -%>
+
+Schau nach, was andere Nutzer*innen schreiben.
+
+
+Du kannst diese Benachrichtigungen jederzeit in Deinem Profil abstellen:
+<%= user_url @commentable_owner %>
+
+Dein Fairnopoly Team
+
+<%= render '/shared/email_footer' %>
