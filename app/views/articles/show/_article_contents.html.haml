@@ -76,7 +76,7 @@
           - unless article.vat == 0
             = t('article.vat_included', :mwst => article.vat)
         .transport
-          = t('formtastic.labels.article.transport_method')+" :"
+          = t('formtastic.labels.article.transport_method') + " :"
           %ul
             = transport_format_for "pickup"
             = transport_format_for "type1"
