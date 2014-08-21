@@ -15,7 +15,7 @@
         remote: true
       - if commentable.comments_count > Comment.default_per_page
         = link_to t('comments.all'),
-          library_comments_path(commentable),
+          comments_path(commentable),
           class: "all_link",
           remote: true
       .Comments-report= t('comments.report_info')
