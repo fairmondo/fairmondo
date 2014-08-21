@@ -22,7 +22,7 @@
 class CommentMailer < ActionMailer::Base
   default from: $email_addresses['default']
 
-  def report_comment_on_library(comment, commentable_owner)
+  def report_comment(comment, commentable_owner)
     @commentable = comment.commentable
     @commentable_owner = commentable_owner
 
