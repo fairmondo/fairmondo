@@ -40,7 +40,7 @@ class ArticleObserver < ActiveRecord::Observer
 
     # Send a Category Proposal
     if article.category_proposal.present?
-      ArticleMailer.category_proposal(article.category_proposal).deliver
+      ArticleMailer.delay.category_proposal(article.category_proposal)
     end
 
     Indexer.index_article article

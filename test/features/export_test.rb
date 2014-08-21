@@ -39,41 +39,6 @@ feature "Exports" do
     page.source.must_equal IO.read('test/fixtures/mass_upload_export.csv', encoding: 'ascii-8bit')
   end
 
-#  scenario "legal entity exporting sold articles and other legal entity exporting its bought articles" do
-#    # get some articles
-#    login_as legal_entity
-#    visit new_mass_upload_path
-#    attach_file('mass_upload_file', 'test/fixtures/mass_upload_multiple.csv')
-#    click_button I18n.t('mass_uploads.labels.upload_article')
-#    visit mass_upload_path(MassUpload.last)
-#    click_button I18n.t('mass_uploads.labels.mass_activate_articles')
-#
-#    # sell them
-#    lig = FactoryGirl.create(:line_item_group,
-#                            buyer: legal_entity_buyer,
-#                            seller: legal_entity ,
-#                            transport_address: legal_entity_buyer.standard_address,                                                               payment_address: legal_entity_buyer.standard_address)
-#    @transaction1 = FactoryGirl.create :single_transaction, :sold,
-#                                      article: legal_entity.articles.last,
-#                                      buyer: legal_entity_buyer,
-#                                      line_item_group: lig,
-#                                      sold_at: "2013-12-03 17:50:15"
-#
-#    legal_entity.articles.each { |article| article.update_attribute(:state, 'sold') }
-#    visit user_path(legal_entity)
-#    click_link I18n.t('articles.export.sold')
-#    page.source.must_equal  IO.read('test/fixtures/mass_upload_correct_export_test_sold.csv', encoding: 'ascii-8bit')
-#
-#
-#    logout(:user)
-#    login_as legal_entity_buyer
-#    visit user_path(legal_entity_buyer)
-#    click_link I18n.t('articles.export.bought')
-#
-#    page.source.must_equal  IO.read('test/fixtures/mass_upload_export_bought.csv', encoding: 'ascii-8bit')
-#
-#  end
-
   scenario 'export an article with a social producer questionnaire' do
     login_as legal_entity
     visit new_mass_upload_path

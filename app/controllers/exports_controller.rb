@@ -5,7 +5,7 @@ class ExportsController < ApplicationController
      csv = Tempfile.new "export", encoding: 'utf-8'
 
      if params && params[:kind_of_article] == 'seller_line_item_groups'
-       ArticleExporter.export_line_item_groups(csv, current_user, params)
+       LineItemGroupExporter.export(csv, current_user, params)
      else
        ArticleExporter.export(csv, current_user, params[:kind_of_article])
      end
