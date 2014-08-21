@@ -13,7 +13,7 @@
             = group_fields.input :unified_payment, input_html: {class: 'js-unified-payment--trigger'}
             = group_fields.input :unified_payment_method, as: :select, include_blank: false, collection: checkout_options_for_payment(group.unified_payments_selectable), label: false, wrapper_html: { class: "small-selectboxit"}
       .line_items
-        = semantic_relation_field_for f, :line_items, group.line_items do |line_item, line_item_fields|
+        = semantic_relation_field_for f, :line_items, group.line_items.to_a.sort!{|a,b| unified_transport_first(a,b)} do |line_item, line_item_fields|
           - article = line_item.business_transaction.article
           .line_item
             .image
@@ -41,7 +41,9 @@
                       - if unified
                         = t('cart.texts.unified_transport_notice')
                       - else
-                        = t('cart.texts.unified_transport_impossible')
+                        %span.unified_transport_impossible
+                          = t('cart.texts.unified_transport_impossible')
+
   %h2= t('cart.texts.addresses.forms')
   .addresses_forms
 
