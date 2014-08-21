@@ -10,7 +10,7 @@ de:
       cancellation: "Widerrufsbelehrung und Rücknahme"
       about: "Impressum und Kontakt"
       report: "Dein Feedback an Fairnopoly zu dem Artikel"
-      contact_private_user: 'Email an den*die Anbieter*in'
+      contact_user: 'Email an den*die Anbieter*in'
     export:
       nothing_available: "Sobald Du Artikel auf Fairnopoly eingestellt hast, kannst Du sie hier exportieren"
       all: "Alle Artikel als CSV Datei exportieren"
