@@ -2,30 +2,34 @@
 
 
 .socialshareprivacy {
-    @include at-breakpoint($bp-mobile-horizontal) {
-        float: right;
-        @include clearfix;
-    }
+    float: right;
+    margin: 10px 0 !important;
 }
 
 .social_share_privacy_area {
+    @include clearfix;
     clear: both;
-    margin: 10px 0 !important;
 	list-style-type: none;
 	padding: 0 !important;
+    margin: 0 !important;
 	width: auto;
 	height: 25px;
 	display: block;
 }
+
+.social_share_privacy_area .sprite_helper {
+
+}
+
 .social_share_privacy_area li {
 	margin: 0 !important;
-	padding: 0 15px !important;
+	padding: 0 !important;
 	height: 21px;
 	float: left;
 }
 .social_share_privacy_area li .dummy_btn {
     float: left;
-    margin: 0 0 0 10px;
+    margin: 0 10px !important;
     cursor: pointer;
     padding: 0;
     height: inherit;
