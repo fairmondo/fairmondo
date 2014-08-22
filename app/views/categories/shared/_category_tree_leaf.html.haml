@@ -1,5 +1,6 @@
 - count = search_cache.category_article_count category.id rescue nil
-- displayed_name = "#{category.name} (#{count})"
+- displayed_name = category.name
+- displayed_name += " (#{count})" if count
 - if count != 0
   %span{ title: displayed_name }
     -# class: (count == 0 ? "Search-categories-empty" : "" )
