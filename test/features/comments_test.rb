@@ -108,6 +108,22 @@ feature "comments for all users" do
     end
   end
 
+  scenario "Admin is able to delete another's comment" do
+    library = FactoryGirl.create(:library, public: true)
+    user = FactoryGirl.create(:admin_user)
+    login_as user
+    comment = FactoryGirl.create(:comment,
+                                 text: "Test comment",
+                                 commentable: library,
+                                 user: library.user)
+
+    visit library_path(library)
+
+    within(".Comments-section") do
+      page.must_have_selector(".fa-times")
+    end
+  end
+
   scenario "Guest is unable to delete a comment" do
     library = FactoryGirl.create(:library, public: true)
     user = FactoryGirl.create(:user)
@@ -119,7 +135,7 @@ feature "comments for all users" do
     visit library_path(library)
 
     within(".Comments-section") do
-      page.wont_have_content("Kommentar löschen")
+      refute page.has_selector?(".fa-times")
     end
   end
 
@@ -139,7 +155,6 @@ feature "comments for all users" do
     within(".Comments-section") do
       page.wont_have_content("Kommentar löschen")
     end
-
   end
 
   scenario "Guest is able to see the last two comments" +
@@ -158,6 +173,74 @@ feature "comments for all users" do
     within("#library#{library.id} .library-comments") do
       page.must_have_content("Test comment")
     end
+  end
+end
 
+feature "comments on articles" do
+  scenario "User visits article to create a comment" do
+    article = FactoryGirl.create :article
+    user = FactoryGirl.create(:user)
+    login_as user
+
+    visit article_path(article)
+
+    within(".Comments-section") do
+      page.must_have_content("Kommentar erstellen")
+    end
+  end
+
+  scenario "User can't create a comment on a vacationing seller's article" do
+    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:seller, vacationing: true))
+    user = FactoryGirl.create(:user)
+    login_as user
+
+    visit article_path(article)
+    refute page.has_selector?('#new_comment_1')
+  end
+
+  scenario "A comment on a legal entity's article wont be shown after 5pm" do
+    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:legal_entity))
+    user = FactoryGirl.create(:user)
+    login_as user
+    time5pm = (Time.now.utc.beginning_of_day + 17.hours)
+    comment1 = FactoryGirl.create(:comment,
+                               text: 'Earlier Comment',
+                               commentable: article,
+                               user: user,
+                               created_at: time5pm - 1.minute)
+    comment2 = FactoryGirl.create(:comment,
+                               text: 'Later Comment',
+                               commentable: article,
+                               user: user,
+                               created_at: time5pm + 1.minute)
+
+    Time.stubs(:now).returns(time5pm + 2.minutes)
+    visit article_path(article)
+    assert page.has_content? 'Earlier Comment'
+    refute page.has_content? 'Later Comment'
+
+    Time.stubs(:now).returns(time5pm + 1.day)
+    visit article_path(article)
+    assert page.has_content? 'Later Comment'
+  end
+
+  scenario "A comment on a legal entity's article wont be shown before 10am" do
+    article = FactoryGirl.create(:article, seller: FactoryGirl.create(:legal_entity))
+    user = FactoryGirl.create(:user)
+    login_as user
+    time10am = (Time.now.utc.beginning_of_day + 10.hours)
+    comment1 = FactoryGirl.create(:comment,
+                               text: 'Some Comment',
+                               commentable: article,
+                               user: user,
+                               created_at: time10am - 2.minutes)
+
+    Time.stubs(:now).returns(time10am - 1.minute)
+    visit article_path(article)
+    refute page.has_content? 'Some Comment'
+
+    Time.stubs(:now).returns(time10am + 1.minute)
+    visit article_path(article)
+    assert page.has_content? 'Some Comment'
   end
 end

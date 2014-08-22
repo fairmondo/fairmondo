@@ -221,12 +221,14 @@ describe ArticlesController do
       end
 
       it "should be possible to get a new article from an existing one" do
-        @article = FactoryGirl.create :article , :seller => user
-        get :new, :edit_as_new => @article.id
+        article = FactoryGirl.create :locked_article, seller: user
+        get :new, edit_as_new: article.id
         assert_template :new
-        @draftarticle= @controller.instance_variable_get(:@article)
-        @draftarticle.new_record?.must_equal true
-        @draftarticle.title.must_equal(@article.title)
+        draftarticle = @controller.instance_variable_get(:@article)
+        assert draftarticle.new_record?
+        draftarticle.title.must_equal(article.title)
+        assert article.reload.locked? # still locked, not yet closed
+        draftarticle.original.must_equal article
       end
 
     end
@@ -303,6 +305,25 @@ describe ArticlesController do
       it "should not raise an error for very high quantity values" do
         post :create, :article => @article_attrs.merge(quantity: "100000000000000000000000")
         assert_template :new
+      end
+
+      it "should successfully save an edit_as_new clone and transfer its slug and comments" do
+        original_article = FactoryGirl.create :locked_article, seller: user
+        comment = FactoryGirl.create :comment, commentable: original_article
+        original_slug = original_article.slug
+
+        assert_difference 'Article.count', 1 do
+          post :create, article: @article_attrs.merge({original_id: original_article.id})
+        end
+        new_article = @controller.instance_variable_get(:@article)
+
+        assert original_article.reload.closed?
+
+        assert_equal new_article.slug, original_slug
+        refute_equal original_article.slug, original_slug
+
+        assert_equal original_article.comments.count, 0
+        assert_equal new_article.comments.first, comment
       end
 
     end
