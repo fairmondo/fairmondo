@@ -60,4 +60,41 @@ describe LibrariesController do
       end
     end
   end
+
+  describe '#create' do
+    it 'should return a library with auditing disabled' do
+    end
+  end
+
+  describe "#update" do
+    it 'should disable auditing for welcome page' do
+    end
+  end
+
+  describe '#admin_audit' do
+    before :each do
+      @library = FactoryGirl.create(:library)
+    end
+
+    it 'should toggle library audit status via ajax' do
+      user = FactoryGirl.create(:admin_user)
+      sign_in user
+
+      # audited should be false when library is created...
+      assert_equal(@library.audited, false)
+
+      # ...true after first request...
+      xhr :patch, :admin_audit, id: @library.id
+      @library = Library.find(@library.id);
+      assert_equal(@library.audited, true)
+      assert_response :success
+
+      # ...false after second request.
+      xhr :patch, :admin_audit, id: @library.id
+      @library = Library.find(@library.id);
+      assert_equal(@library.audited, false)
+      assert_response :success
+    end
+  end
+
 end
