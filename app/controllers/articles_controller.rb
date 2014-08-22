@@ -53,7 +53,7 @@ class ArticlesController < ApplicationController
   def show
     authorize @article
 
-    @user_libraries = current_user.libraries.includes(:articles)
+    @user_libraries = current_user.libraries.includes(:articles) if current_user
     @containing_libraries = @article.libraries.includes(user: [:image]).published.limit(10)
 
     if !@article.active? && policy(@article).activate?
