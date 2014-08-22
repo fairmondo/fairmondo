@@ -25,6 +25,7 @@
   = semantic_form_for resource, html: {multipart: true, class: 'js-visual-submit js-category-add'}, builder: ::Fairtastic::FormBuilder do |f|
     = f.semantic_errors
     = render :partial => "articles/form/common_inputs", :locals => {:f => f}
+    = f.hidden_field :original_id # validity checked in policy
     = f.input_step :double_check, :prefix => false do
       .Accordion-step
         = f.inputs do
@@ -35,4 +36,3 @@
 - if current_user.is_a?(LegalEntity)
   = render 'articles/form/import_articles_banner'
 = render 'articles/form/pr_material'
-

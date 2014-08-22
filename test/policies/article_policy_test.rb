@@ -25,6 +25,8 @@ describe ArticlePolicy do
   include ::PunditMatcher
   subject { ArticlePolicy.new(user, article)  }
   let(:article) { FactoryGirl.create :preview_article }
+  let(:cloned) { FactoryGirl.build :preview_article, original: original_article }
+  let(:original_article) { FactoryGirl.create :locked_article, seller: user }
   let(:user) { nil }
 
   describe "for a visitor" do
@@ -41,9 +43,9 @@ describe ArticlePolicy do
     # it { subject.must_deny(:show)              }
 
     describe "on an active article" do
-      before { article.activate          }
+      before { article.activate }
       it { subject.must_permit(:show)          }
-      it { subject.must_permit(:report)            }
+      it { subject.must_permit(:report)        }
     end
   end
 
@@ -59,10 +61,14 @@ describe ArticlePolicy do
     it { subject.must_deny(:deactivate)        }
     it { subject.must_ultimately_deny(:report) }
     it { subject.must_deny(:destroy)           }
+
+    describe "on a cloned article" do
+      it { ArticlePolicy.new(user, cloned).must_deny(:create) }
+    end
   end
 
   describe "for the article owning user" do
-    let(:user) { article.seller       }
+    let(:user) { article.seller }
 
     describe "on all articles" do
       it { subject.must_permit(:index)      }
@@ -98,7 +104,17 @@ describe ArticlePolicy do
     describe "on an unlocked article" do
       it { subject.must_permit(:edit)       }
       it { subject.must_permit(:update)     }
-      it { subject.must_permit(:destroy)      }
+      it { subject.must_permit(:destroy)    }
+    end
+
+    describe "on a clone of a locked article" do
+      let(:user) { cloned.seller }
+      it { ArticlePolicy.new(user, cloned).must_permit(:create) }
+    end
+
+    describe "on a clone of an active article" do
+      let(:original_article) { FactoryGirl.create :article, seller: user }
+      it { ArticlePolicy.new(cloned.seller, cloned).must_deny(:create) }
     end
   end
 end
