@@ -104,9 +104,12 @@
           %strong= t 'users.states.vacationing'
       - if resource.active?
         .control-links
-          = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
-          = '/'
-          = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
+          - if resource.borrowable
+            = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
+          - if resource.borrowable && resource.swappable
+            = '/'
+          - if resource.swappable
+            = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
 
 .socialshareprivacy{data: {uri: article_url(resource), title: resource.title}}
 
