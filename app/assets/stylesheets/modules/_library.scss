@@ -1,0 +1,142 @@
+/*
+Libraries
+Libraries elements on libraries index pages
+
+details.Library
+  summary
+  .details
+
+Styleguide Library
+*/
+
+/* Use this class to mark the detail tags, the most outer tags of the library. */
+.Library {
+  margin-bottom: 1em;
+  // @include whitebox;
+  border-radius: 0.5em;
+  border: 1px solid $lighter-gray;
+  box-shadow: $sand 0px 0px 2px 1px;
+  display: block;
+  &:hover {
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary:focus {
+    outline: none !important; //prevent nasty linkish outlines
+  }
+  summary {
+    padding: em(10) em(20);
+    display: block;
+    &:hover {
+      background-color: $sand;
+    }
+  }
+}
+
+/* Libraries that have been clicked on and are 'spread out' */
+.Library.open {
+  summary {
+    border-radius: 0.5em 0.5em 0 0;
+    &:hover {
+      background-color: $sand;
+    }
+  }
+}
+
+/* div tag containing all the articles of the library */
+.Library > .Library-details {
+  padding: em(10) em(20);
+}
+
+
+/* Comments in the summary */
+.Library > summary > .Library-comments {
+  margin-top: 0.6rem;
+}
+
+.Library.open > summary > .Library-comments {
+  display: none;
+}
+
+
+/* Div that contains the comments counter and the heart button */
+.Library-buttons {
+  float: right;
+
+  > div {
+    display: inline-block;
+  }
+}
+
+/* div containing the user image */
+.Library-userimage {
+  display: none;
+  float: left;
+  margin-right: 1em;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 0.6em;
+  img {
+    height: 7em;
+    width: 7em;
+  }
+  @include at-breakpoint($bp-tablet) {
+    display: block;
+  }
+}
+
+/* The biggest part of the library header containing title, user and preview thumbnails */
+.Library-info {
+}
+
+.Library-info > .Library-info-text {
+  margin-bottom: 0.5em;
+}
+
+.Library-info > .Library-info-text > .Library-info-text-title {
+  font-size: 1.5em;
+}
+
+.Library-info > .Library-info-text > .Library-info-text-user {
+  font-weight: 600;
+}
+
+.Library-info > .Library-info-thumbnails {
+  height: 6em;
+  overflow: hidden;
+
+  img {
+    height: 5em;
+    padding: 0.5em;
+    display: inline-block;
+    margin-right: 0.2em;
+    border-radius: 0.6em;
+    background-color: white;
+  }
+}
+
+/* User-specific section, only exists if the library belongs to the user */
+.Library-details-user {
+  clear: both;
+  margin: em(10) em(20);
+}
+
+.Library-details-user > .Library-details-user-warning {
+  color: $red;
+}
+
+.Library-details-user > .Library-details-user-actions {
+  float: right;
+  margin-bottom: 1em;
+}
+
+.Library-details-user > .Library-details-user-visibility {
+  font-weight: 600;
+}
+
+/* Contains the article grid */
+.Library-elements {
+  clear: both;
+  margin-top: 10px;
+}

@@ -1,8 +1,8 @@
 de:
-
   welcome:
     greetings: "Willkommen bei Fairnopoly"
     search_fair: "Artikel suchen"
+    trending_libraries: "Trend-Sammlungen"
     boxes:
       active_old: "Bisher eingestellte Artikel"
 # Common Texts

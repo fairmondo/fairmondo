@@ -25,14 +25,16 @@
   .category-dropdown
     = render 'categories/shared/category_tree'
 
--# Featured library 1
+
+-# Article queue 1
 .teaser.teaser--double#teaser--first
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features").upcase, featured_library_path(@queue1[:library]))
+      = link_to(tinycms_content_body_sanitized("heading_features"), featured_library_path(@queue1[:library]))
     - @queue1[:exhibits].each_with_index do |article, index|
       %div{class: 'teaser-queue' + (index == 1 ? ' teaser-queue-before-hidden' : '')}
-        = render "/articles/shared/show_article", article: article
+        = render 'articles/shared/show_article', article: article
+
 
 -# Bluebox
 #bluebox
@@ -66,23 +68,40 @@
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
--# Featured library 2
+-# Article queue 3
 .teaser.teaser--double#teaser--clear-after-bluebox
   .teaser-inner
     %h2
-      = link_to('GEBRAUCHT BEI FAIRNOPOLY', featured_library_path(@old[:library]))
-    - @old[:exhibits].each do |article|
+      = link_to(tinycms_content_body_sanitized("heading_features2"), featured_library_path(@queue3[:library]))
+    - @queue3[:exhibits].each do |article|
       .teaser-queue
-        = render "/articles/shared/show_article", article: article
+        = render 'articles/shared/show_article', article: article
 
--# Featured library 3
-.teaser.teaser--double.teaser--collapsible
+
+-# Article queue 'used/old'
+.teaser.teaser--double.teaser--collapsible#teaser--used
   .teaser-inner
     %h2
-      = link_to('MIT SPENDENANTEIL', featured_library_path(@donation_articles[:library]))
-    - @donation_articles[:exhibits].each do |article|
+      = link_to('Gebraucht bei Fairnopoly', featured_library_path(@old[:library]))
+    - @old[:exhibits].each do |article|
       .teaser-queue
-        = render "/articles/shared/show_article", article: article
+        = render 'articles/shared/show_article', article: article
+
+-# Trending libraries
+- trending_libraries = Library.trending_welcome_page
+- if trending_libraries.to_a.any?
+  .teaser.teaser--full.libraries
+    .teaser-inner
+      %h2= t('welcome.trending_libraries')
+      - trending_libraries.each do |library|
+        %details{id: "library#{library.id.to_s}", class: 'Library'}
+          %summary
+            = render 'libraries/library_header', library: library
+          .Library-details
+            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
+            = render 'libraries/library_buttons', library: library
+            .Library-elements
+              = render 'libraries/library', library: library
 
 -# USPs
 .teaser.teaser--double.teaser--cardslides
@@ -99,28 +118,32 @@
       %a{href: '#', class: 'slidesjs-previous slidesjs-navigation'}
         %i.icon-right_arrow
 
--# Featured library 4
+
+-# Article queue 'donation'
 .teaser.teaser--double.teaser--collapsible
   .teaser-inner
     %h2
-      = link_to(tinycms_content_body_sanitized("heading_features2").upcase, featured_library_path(@queue3[:library]))
-    - @queue3[:exhibits].each do |article|
+      = link_to('Mit Spendenanteil', featured_library_path(@donation_articles[:library]))
+    - @donation_articles[:exhibits].each do |article|
       .teaser-queue
-        = render "/articles/shared/show_article", article: article
+        = render 'articles/shared/show_article', article: article
+
 
 -# Hero teaser
 .teaser.teaser--double
   .teaser-inner.teaser--center
-    %h2 AKTIV MITWIRKEN
+    %h2 Aktiv mitwirken
     %p
       Unterstütze Fairnopoly mit Deinem Einsatz und werde am Erfolg beteiligt.
     %p
       %a{ href: "http://helden.fairnopoly.de/helden/", class: "Button", target: "_blank" }
         Held*in werden
 
+
 -# Blog
 .teaser.teaser--double.teaser--news
   .teaser-inner.teaser--hide#js-teaser-news-placeholder
+
 
 -# User comment slides
 .teaser.teaser--full.teaser--userslides
@@ -166,8 +189,10 @@
           %span.teaser-quote> &ldquo;
           .teaser-quotesource THOMAS KAPPAUF, BLACK STAR
 
--# NGO and press information ("known from"), social media buttons
+-# Social media buttons
+.socialshareprivacy{data: {uri: "http://www.fairnopoly.de/", title: "Dreh' das spiel um!"}}
+
+-# NGO and press information ("known from")
 - cache "ngo_logosand_known_from" do
-  = render "welcome/index/ngos"
-  .socialshareprivacy{data: {uri: "http://www.fairnopoly.de/", title: "Dreh' das spiel um!"}}
-  = render "welcome/index/known_from"
+  = render 'welcome/index/ngos'
+  = render 'welcome/index/known_from'

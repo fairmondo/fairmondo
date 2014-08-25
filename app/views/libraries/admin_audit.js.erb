@@ -1,0 +1,1 @@
+$('<%= "#library#{resource.id.to_s} .Library-auditing a" %>').html('<%= t(resource.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled') %>').toggleClass('Button--red Button--green');
