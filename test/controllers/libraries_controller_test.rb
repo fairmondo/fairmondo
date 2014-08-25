@@ -72,27 +72,23 @@ describe LibrariesController do
   end
 
   describe '#admin_audit' do
-    before :each do
-      @library = FactoryGirl.create(:library)
-    end
+    let(:library) { FactoryGirl.create(:library) }
 
     it 'should toggle library audit status via ajax' do
       user = FactoryGirl.create(:admin_user)
       sign_in user
 
       # audited should be false when library is created...
-      assert_equal(@library.audited, false)
+      assert_equal(library.audited, false)
 
       # ...true after first request...
-      xhr :patch, :admin_audit, id: @library.id
-      @library = Library.find(@library.id);
-      assert_equal(@library.audited, true)
+      xhr :patch, :admin_audit, id: library.id
+      assert_equal(library.reload.audited, true)
       assert_response :success
 
       # ...false after second request.
-      xhr :patch, :admin_audit, id: @library.id
-      @library = Library.find(@library.id);
-      assert_equal(@library.audited, false)
+      xhr :patch, :admin_audit, id: library.id
+      assert_equal(library.reload.audited, false)
       assert_response :success
     end
   end

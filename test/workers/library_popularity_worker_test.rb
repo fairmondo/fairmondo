@@ -1,49 +1,60 @@
 require_relative '../test_helper'
 
 describe LibraryPopularityWorker do
-  it "should calculate library popularity correctly" do
-    #setup
-    worker = LibraryPopularityWorker.new
-    library = FactoryGirl.create(:library)
-    user = FactoryGirl.create(:user)
+  let(:worker) { LibraryPopularityWorker.new }
+  let(:library) { Library.new }
 
-    # first test: library with no comments or hearts should have popularity of 0.0
-    assert_equal 0, worker.popularity_for(library), 'new library'
+  def set_stubs library, base, num, num_current
+    object = Object.new
+    library.stubs(base).returns(object)
+    object.stubs(:count).returns(num)
+    object.stub_chain(:where, :count).returns(num_current)
+  end
 
-    # second test: create several hearts and comments
-    # nineteen hearts with an age of 4 days, popularity = 19 x 1 -> 19
-    # six hearts with an age of 0 days, popularity = 6 x 2 -> 12
-    # seven comments with an age of 4 days, popularity = 7 x 5 -> 35
-    # three comments with an age of 0 days, popularity = 3 x 10 -> 30
-    # in sum: 96
-    # library is younger than 3 days, so popularity = 96 * 10 -> 960
-    19.times do |n|
-      heart = library.hearts.build(user_token: "token-old-heart#{n}")
-      heart.updated_at = 4.days.ago
-      heart.save
-    end
-    6.times do |n|
-      library.hearts.build(user_token: "token-new-heart#{n}").save
-    end
-    7.times do
-      comment = library.comments.build(user_id: user.id, text: 'comment text')
-      comment.updated_at = 4.days.ago
-      comment.save
-    end
-    3.times do
-      library.comments.build(user_id: user.id, text: 'comment text').save
-    end
-    assert_equal 960, worker.popularity_for(library), 'library with hearts and comments'
+  # first test: library with no comments or hearts should have popularity of 0.0
+  it "should calculate 0 for library with no hearts or comments" do
+    set_stubs(library, :hearts, 0, 0)
+    set_stubs(library, :comments, 0, 0)
+    library.updated_at = Time.now
+    assert_equal worker.popularity_for(library), 0, 'new library'
+  end
 
-    # third test: set different updated_at values for the library
-    # younger than 3 days: factor 10
-    # between 3 and 7 days: factor 2
-    # older than 7 days: factor 1
+  # second test: create several hearts and comments
+  # twenty-five hearts total = 25 x 1 -> 25
+  # six hearts with an age < 3 days, they count extra = 6 x 1 -> 6
+  # ten comments total = 10 x 5 -> 50
+  # three comments with an < 3 days, they count extra = 3 x 5 -> 15
+  # in sum: 96
+  # library is younger than 3 days, so popularity = 96 * 10 -> 960
+  it "should calculate correct value for library with hearts and comments" do
+    set_stubs(library, :hearts, 25, 6)
+    set_stubs(library, :comments, 10, 3)
+    library.updated_at = Time.now
+    assert_equal worker.popularity_for(library), 960, 'library with hearts and comments'
+  end
+
+  # third test: set different updated_at values for the library
+  # between 3 and 7 days: factor 2
+  it "should use a factor of 2 for a library aged 4 days" do
+    set_stubs(library, :hearts, 25, 0)
+    set_stubs(library, :comments, 0, 0)
     library.updated_at = 4.days.ago
-    assert_equal 192, worker.popularity_for(library), 'library updated 4 days ago'
+    assert_equal worker.popularity_for(library), 50, 'library updated 4 days ago'
+  end
+
+  # fourth test: between 3 and 7 days: factor 2
+  it "should use a factor of 2 for a library aged 6 days" do
+    set_stubs(library, :hearts, 25, 0)
+    set_stubs(library, :comments, 0, 0)
     library.updated_at = 6.days.ago
-    assert_equal 192, worker.popularity_for(library), 'library updated 6 days ago'
+    assert_equal worker.popularity_for(library), 50, 'library updated 6 days ago'
+  end
+
+  # fifth test: older than 7 days: factor 1
+  it "should use a factor of 1 for a library aged 8 days" do
+    set_stubs(library, :hearts, 25, 0)
+    set_stubs(library, :comments, 0, 0)
     library.updated_at = 8.days.ago
-    assert_equal 96, worker.popularity_for(library), 'library updated 8 days ago'
+    assert_equal worker.popularity_for(library), 25, 'library updated 8 days ago'
   end
 end
