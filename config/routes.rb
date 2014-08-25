@@ -141,6 +141,7 @@ Fairnopoly::Application.routes.draw do
   root :to => 'welcome#index' # Workaround for double root https://github.com/gregbell/active_admin/issues/2049
 
   require 'sidekiq/web'
+  require 'sidetiq/web'
 
   constraint = lambda { |request| request.env["warden"].authenticate? and
                       request.env['warden'].user.admin?}
