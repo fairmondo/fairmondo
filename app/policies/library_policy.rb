@@ -37,6 +37,10 @@ class LibraryPolicy < Struct.new(:user, :library)
     library.public? || own? || admin?
   end
 
+  def trending?
+    true
+  end
+
   def admin_add?
     admin?
   end
