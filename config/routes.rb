@@ -131,7 +131,8 @@ Fairnopoly::Application.routes.draw do
   end
 
   # special library #index routes
-  get '/libraries/:mode', to: 'libraries#index'
+  get 'trending_libraries', to: 'libraries#index', defaults: { mode: 'trending' }
+  get 'recent_libraries', to: 'libraries#index', defaults: { mode: 'recent' }
 
 
   # categories routes

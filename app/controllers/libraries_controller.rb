@@ -30,15 +30,16 @@ class LibrariesController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:index, :show]
 
   def index
+    # Build empty Library object if user creates a new library
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
-  end
 
-  def trending
-    @libraries = Library.trending.page(params[:page])
-    authorize @libraries
-    respond_with @libraries do |format|
-      format.html { render :index }
+    # Configure the libraries collection that is displayed
+    if params[:mode] == 'trending'
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.trending.includes(user: [:image])).resolve.page(params[:page])
+    elsif params[:mode] == 'recent'
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.most_recent.includes(user: [:image])).resolve.page(params[:page])
+    else
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
     end
   end
 
