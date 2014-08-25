@@ -1,15 +1,13 @@
 %h2
-  = t 'cart.texts.purchase_from'
-  = I18n.l cart.updated_at
+  = t 'cart.texts.purchase_from', date: I18n.l(cart.updated_at)
 - cart.line_item_groups.each do |group|
-  = I18n.t 'cart.texts.line_item_group_by'
-  = link_to group.seller_nickname, user_path(group.seller)
-  - group.line_items.each do |line_item|
-    - article = line_item.article
-    .Listview
-      .Listview-item
-        .Listview-image
-          = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-        = render "shared/listview/listview_detail", article: article
-        .Listview-actions
-          = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
+  = gray_box t('cart.texts.line_item_group_by', seller: link_to(group.seller_nickname, user_path(group.seller))).html_safe do
+    - group.line_items.each do |line_item|
+      - article = line_item.article
+      .Listview
+        .Listview-item
+          .Listview-image
+            = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
+          = render "shared/listview/listview_detail", article: article
+          .Listview-actions
+            = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
