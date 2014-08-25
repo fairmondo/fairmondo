@@ -233,8 +233,8 @@ form.delete_line_item {
   vertical-align: middle;
   position: relative;
   padding: rem(5);
-  &.no-padding {
-    padding: 0;
+  &.no-padding { // almost; right can always use some space
+    padding: 0 rem(5) 0 0;
   }
 }
 
@@ -244,6 +244,11 @@ form.delete_line_item {
   line-height: 0;
   & img {
     max-height: 73px;
+  }
+
+  display: none;
+  @include at-breakpoint($bp-tablet) {
+    display: block;
   }
 }
 .payment-box .payment-cell .payment-article-title {
@@ -265,16 +270,29 @@ form.delete_line_item {
   font-weight: 600;
 }
 .payment-box .payment-cell .small-info {
-  font-size: 11px;
+  font-size: 10px;
   &.left {
-    text-align: left;
-    padding: rem(5) 0 0 rem(10);
+    font-weight: normal;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      text-align: left;
+      padding: rem(5) 0 0 rem(10);
+    }
   }
   &.right {
-    text-align: right;
-    padding: 0 rem(10) rem(5) 0;
+    font-weight: normal;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      text-align: right;
+      padding: 0 rem(5) rem(5) 0;
+    }
   }
 }
+.payment-box .payment-cell.no-padding.value {
+  font-weight: 600;
+  @include at-breakpoint($bp-mobile-horizontal) {
+    font-weight: normal;
+  }
+}
+
 
 .bt-totals {
   margin-bottom: rem(15);
