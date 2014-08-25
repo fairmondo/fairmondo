@@ -65,4 +65,25 @@ class ArticleObserver < ActiveRecord::Observer
     article.remove_from_libraries
   end
 
+  def after_create article
+    if original_article = article.original # handle saving of an edit_as_new clone
+      # move slug to new article
+      old_slug = original_article.slug
+      original_article.update_column :slug, (old_slug + original_article.id.to_s)
+      article.update_column :slug, old_slug
+
+      # move comments to new article
+      original_article.comments.find_each do |comment|
+        comment.update_column :commentable_id, article.id
+      end
+
+      #do not remove sold articles, we want to keep them
+      #if the old article has errors we still want to remove it from the marketplace
+      original_article.close_without_validation unless original_article.sold?
+
+      # the original has been handled. now unset the reference (for policy)
+      article.update_column :original_id, nil
+    end
+  end
+
 end
