@@ -62,6 +62,8 @@ class ArticleRefinery < ApplicationRefinery
       :custom_seller_identifier, :gtin,
       # Fees and Donations attrs
       :friendly_percent, :friendly_percent_organisation_id,
+      # edit_as_new attr
+      :original_id,
       # Template attrs
       :save_as_template,
       :template_name

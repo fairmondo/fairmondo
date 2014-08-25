@@ -63,6 +63,8 @@ class Article < ActiveRecord::Base
   alias_method :user, :seller
   alias_method :user=, :seller=
 
+  belongs_to :original, class_name: 'Article', foreign_key: 'original_id' # the article that this article is a copy of, if applicable
+
   belongs_to :friendly_percent_organisation, class_name: 'User', foreign_key: 'friendly_percent_organisation_id'
 
   has_many :mass_upload_articles
@@ -156,14 +158,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.edit_as_new article
-    article.keep_images = true unless article.sold?
-
     new_article = article.amoeba_dup
-
-    #do not remove sold articles, we want to keep them
-    #if the old article has errors we still want to remove it from the marketplace
-    article.close_without_validation unless article.sold?
-
     new_article.state = "preview"
     new_article
   end
@@ -194,15 +189,12 @@ class Article < ActiveRecord::Base
         end
       end
 
-      # move slug to new article
-      if original_article.is_template? || original_article.save_as_template?
+      # unset slug on templates
+      if original_article.is_template? || original_article.save_as_template? # cloned because of template handling
         new_article.slug = nil
-      else
-        old_slug = original_article.slug
-        original_article.slug = old_slug + original_article.id.to_s
-        new_article.slug = old_slug
+      else # cloned because of edit_as_new
+        new_article.original_id = original_article.id # will be used in after_create; see observer
       end
-
     }
   end
 
