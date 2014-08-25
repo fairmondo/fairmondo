@@ -30,15 +30,15 @@ describe CommentMailer do
   let(:comment) { FactoryGirl.create(:comment) }
   let(:commentable_owner) { FactoryGirl.create(:user) }
 
-  it "#report_comment_on_library" do
-    mail = CommentMailer.report_comment_on_library(comment, commentable_owner).deliver
+  it "#report_comment" do
+    mail = CommentMailer.report_comment(comment, commentable_owner).deliver
 
     assert_not ActionMailer::Base.deliveries.empty?
 
     mail.must have_subject(I18n.t('comment.mailer.notification_title'))
     mail.must have_body_text comment.commentable.name
     mail.must have_body_text library_url(comment.commentable)
-    mail.must have_body_text commentable_owner.forename
+    mail.must have_body_text commentable_owner.nickname
 
     mail.must deliver_to commentable_owner.email
   end
