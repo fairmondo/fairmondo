@@ -40,7 +40,7 @@ feature "Trending libraries on welcome page" do
 
     # When no libraries are audited, the box on the welcome page should not be displayed
     visit root_path
-    assert page.has_content?(I18n.t 'welcome.trending_libraries') == false
+    refute page.has_content?(I18n.t 'welcome.trending_libraries')
 
     # enable library for welcome page
     visit libraries_path
@@ -57,7 +57,7 @@ feature "Trending libraries on welcome page" do
     login_as @user
     visit library_path(@library)
 
-    # User should bewarned before editing it
+    # User should be warned before editing it
     page.must_have_content I18n.t 'library.auditing.user_warning'
 
     # User changes the name of an enabled library after which it gets disabled
@@ -66,7 +66,7 @@ feature "Trending libraries on welcome page" do
 
     # visit welcome page
     visit root_path
-    assert page.has_content?('notanymore') == false
+    refute page.has_content?('notanymore')
   end
 end
 
