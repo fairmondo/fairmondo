@@ -108,8 +108,8 @@ describe ArticlePolicy do
     end
 
     describe "on a clone of a locked article" do
-      let(:user) { cloned.seller }
-      it { ArticlePolicy.new(user, cloned).must_permit(:create) }
+      let(:cloned) { FactoryGirl.build :preview_article, original: original_article, seller: original_article.seller }
+      it { ArticlePolicy.new(cloned.seller, cloned).must_permit(:create) }
     end
 
     describe "on a clone of an active article" do

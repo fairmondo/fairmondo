@@ -158,10 +158,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.edit_as_new article
-    article.keep_images = true unless article.sold?
-
     new_article = article.amoeba_dup
-
     new_article.state = "preview"
     new_article
   end
@@ -196,30 +193,9 @@ class Article < ActiveRecord::Base
       if original_article.is_template? || original_article.save_as_template? # cloned because of template handling
         new_article.slug = nil
       else # cloned because of edit_as_new
-        new_article.original_id = original_article.id
+        new_article.original_id = original_article.id # will be used in after_create; see observer
       end
     }
-  end
-
-  after_create do |record|
-    if original_article = record.original # handle saving of an edit_as_new clone
-      # move slug to new article
-      old_slug = original_article.slug
-      original_article.update_column :slug, (old_slug + original_article.id.to_s)
-      record.update_column :slug, old_slug
-
-      # move comments to new article
-      original_article.comments.find_each do |comment|
-        comment.update_column :commentable_id, record.id
-      end
-
-      #do not remove sold articles, we want to keep them
-      #if the old article has errors we still want to remove it from the marketplace
-      original_article.close_without_validation unless original_article.sold?
-
-      # the original has been handled. now unset the reference (for policy)
-      record.update_column :original_id, nil
-    end
   end
 
   def should_generate_new_friendly_id?
