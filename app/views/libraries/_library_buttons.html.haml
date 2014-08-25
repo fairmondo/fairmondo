@@ -1,11 +1,13 @@
 - if policy(library).update?
-  .library-actions
-    .library-settings-actions
+  .Library-details-user
+    - if library.on_welcome_page?
+      %p.Library-details-user-warning= t('library.auditing.user_warning')
+    .Library-details-user-actions
       %a.Button.js-library-show-settings
         = t('common.actions.edit')
       - if policy(library).destroy?
         = link_to t('common.actions.destroy') , user_library_path(library.user.id, library.id.to_s) , :class => "Button Button--red" ,:confirm => t('library.delete_confirm', :name => library.name) , :method => :delete
-    .visibility
+    .Library-details-user-visibility
       - if library.public?
         = t 'library.visibility.public'
       - else
@@ -16,4 +18,4 @@
           = f.input :name
           = f.input :public, :label => false
         = f.actions do
-          = f.action :submit, :label => :update, :button_html => {:class => "Button"}
+          = f.action :submit, :label => :update, :button_html => { class: "Button"}

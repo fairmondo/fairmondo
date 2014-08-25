@@ -32,16 +32,16 @@
     = breadcrumbs_for(leaf).html_safe
     %br
 .contents{id: "article#{resource.id.to_s}"}
-  = render "articles/show/article_contents", :article => resource
+  = render "articles/show/article_contents", article: resource
   - if User.is_admin? current_user
     = render "articles/show/admin"
 .seller
   - if resource.owned_by? current_user
-    = render "articles/show/activation_links", :article => resource unless resource.active?
+    = render "articles/show/activation_links", article: resource unless resource.active?
   - else
-    = render "articles/show/seller", :article => resource
+    = render "articles/show/seller", article: resource, libraries: @containing_libraries
 - if resource.active?
   .sidebar
-    = render "articles/show/fair_alternative", :article => resource
+    = render "articles/show/fair_alternative", article: resource
 
 
