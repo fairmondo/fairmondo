@@ -22,6 +22,7 @@ de:
       your_transport_address: 'Deine Lieferadresse'
       your_payment_address: 'Deine Rechnungsadresse'
       shipment: 'Sendung'
+      free_transport_at: "Versandkostenfrei ab %{price}"
       transports:
         unified: '(Kombiversand)'
         pickup: '(Selbstabholung)'
@@ -42,3 +43,6 @@ de:
       checkout: Zur Kasse
       pay: Zur Bezahlung
       back: Zurück
+    notices:
+      checkout_success: "Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen Einkauf."
+      checkout_failed: "Es ist ein Fehler mit Deiner Bestellung aufgetreten. Wahrscheinlich wurde der Artikel gerade ausverkauft."

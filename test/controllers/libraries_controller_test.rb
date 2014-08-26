@@ -54,9 +54,11 @@ describe LibrariesController do
     end
 
     describe '::focus' do
-      it 'should return Library if no user is focused' do
+      it 'should return trending libraries if no user is focused' do
         @controller.stubs(:user_focused?).returns(false)
-        assert_equal(Library, @controller.send(:focus))
+        User.any_instance.expects(:libraries).never
+        Library.expects(:trending)
+        @controller.send(:focus)
       end
     end
   end

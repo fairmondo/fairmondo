@@ -94,9 +94,15 @@ form.delete_line_item {
   @include whitebox;
   background-color: white;
   @include clearfix;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.2em;
   padding:0.5em;
   @include at-breakpoint($bp-tablet-horizontal) { padding: 0; }
+  -webkit-transition: margin 1s; /* For Safari 3.1 to 6.0 */
+  transition: margin 1s;
+}
+
+.formtastic .line_items > .line_item[data-unified-transport="false"] {
+  margin: rem(20) 0;
 }
 
 .formtastic .line_items > .line_item > .image {
@@ -296,6 +302,19 @@ form.delete_line_item {
 
 .bt-totals {
   margin-bottom: rem(15);
+}
+
+.checkout-actions {
+  text-align: right;
+  & li.action {
+    float: none;
+  }
+}
+.checkout-back {
+  float: left;
+}
+.checkout-submit {
+  display: inline-block;
 }
 
 

@@ -2,3 +2,5 @@ de:
   human_article_list:
     separator: ', '
     and: ' und '
+  paypal_api:
+    controller_error: "Es gab einen Fehler mit der Verbindung zu PayPal. Bitte versuche es später erneut."
