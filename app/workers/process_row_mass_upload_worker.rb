@@ -116,6 +116,7 @@ class ProcessRowMassUploadWorker
 
       case attribute_hash['action']
       when 'u', 'update'
+        article.keep_images = article.business_transactions.empty?
         article = Article.edit_as_new article unless article.preview?
         attribute_hash.delete("id")
         article.attributes = attribute_hash

@@ -9,7 +9,6 @@ class DummyClass < ActionView::Base
   include ArticlesHelper
   include CommendationHelper
   include ContentHelper
-  include LibraryHelper
   include NoticeHelper
   include SearchHelper
   include StatisticHelper

@@ -23,6 +23,54 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
+
+feature "Trending libraries on welcome page" do
+  setup do
+    @user = FactoryGirl.create :user
+
+    @library = FactoryGirl.create :library_with_elements, name: 'envogue', user: @user
+    @library.popularity = 1000
+    @library.public = true
+    @library.save
+    @admin = FactoryGirl.create :admin_user
+  end
+
+  scenario "Combined scenario for trending libraries" do
+    login_as @admin
+
+    # When no libraries are audited, the box on the welcome page should not be displayed
+    visit root_path
+    refute page.has_content?(I18n.t 'welcome.trending_libraries')
+
+    # enable library for welcome page
+    visit libraries_path
+    within "#library#{@library.id}" do
+      click_on I18n.t 'library.auditing.welcome_page_disabled'
+    end
+
+    # visit welcome page, library should be shown
+    visit root_path
+    page.must_have_content I18n.t 'welcome.trending_libraries'
+    page.must_have_content 'envogue'
+
+    logout
+    login_as @user
+    visit library_path(@library)
+
+    # User should be warned before editing it
+    page.must_have_content I18n.t 'library.auditing.user_warning'
+
+    # User changes the name of an enabled library after which it gets disabled
+    fill_in 'library_name', with: 'notanymore'
+    click_button I18n.t 'formtastic.actions.update'
+
+    # visit welcome page
+    visit root_path
+    refute page.has_content?('notanymore')
+  end
+end
+
+
 feature 'Library management' do
   setup do
     @user = FactoryGirl.create :user
