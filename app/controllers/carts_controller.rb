@@ -13,6 +13,7 @@ class CartsController < ApplicationController
       # redirect directly to a purchase view if there is only one lig to purchase
       redirect_to @cart.line_item_groups.first
     else
+      @cart_abacus = CartAbacus.new @cart
       respond_with @cart
       # switch between pre and post purchase view happens in the template
     end
@@ -42,14 +43,19 @@ class CartsController < ApplicationController
     when :saved_in_session
       redirect_to edit_cart_path(@cart, checkout: true)
     when :checked_out
+      ###################################################
+      # DO NOT PUT ANY CODE HERE THAT CAN FAIL !!!! #####
+      # Best would be not to put any code here at all.
+      # If you have to do something here that can fail
+      # put it into the transaction of Cart#buy.
+      ###################################################
       clear_session
-      @cart.sold = true
-      flash[:notice] = 'Yay' if @cart.save
+      flash[:notice] = I18n.t('cart.texts.checked_out')
       cookies.delete :cart
       respond_with @cart
     when :checkout_failed
       # failed because something isnt available anymore
-      flash[:error] = 'failed because something isnt available anymore'
+      flash[:error] = I18n.t('cart.texts.checkout_failed')
       respond_with @cart
     end
   end
