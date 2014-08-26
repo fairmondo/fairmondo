@@ -31,7 +31,7 @@ class LibrariesController < ApplicationController
 
   def index
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new( current_user, @user, focus.includes(:user => [:image] )).resolve.page(params[:page])
+    @libraries = LibraryPolicy::Scope.new( current_user, @user, focus.includes(:user => [:image] ).trending).resolve.page(params[:page])
   end
 
   def show
