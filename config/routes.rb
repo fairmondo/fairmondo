@@ -103,6 +103,8 @@ Fairnopoly::Application.routes.draw do
 
   get "feed", to: 'welcome#feed', constraints: {format: 'rss'}
 
+  get "/opensearch", to: "application#opensearch"
+
   resources :feedbacks, :only => [:create,:new]
 
   #the user routes
