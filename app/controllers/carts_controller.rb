@@ -13,6 +13,7 @@ class CartsController < ApplicationController
       # redirect directly to a purchase view if there is only one lig to purchase
       redirect_to @cart.line_item_groups.first
     else
+      @cart_abacus = CartAbacus.new @cart
       respond_with @cart
       # switch between pre and post purchase view happens in the template
     end
@@ -42,8 +43,13 @@ class CartsController < ApplicationController
     when :saved_in_session
       redirect_to edit_cart_path(@cart, checkout: true)
     when :checked_out
+      ###################################################
+      # DO NOT PUT ANY CODE HERE THAT CAN FAIL !!!! #####
+      # Best would be not to put any code here at all.
+      # If you have to do something here that can fail
+      # put it into the transaction of Cart#buy.
+      ###################################################
       clear_session
-      @cart.sold = true
       flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
       cookies.delete :cart
       respond_with @cart
@@ -65,7 +71,7 @@ class CartsController < ApplicationController
     end
 
     def set_cart
-      @cart = Cart.includes( line_item_groups: [ :seller, { line_items:  [:article] }]).find params[:id]
+      @cart = Cart.includes( line_item_groups: [ :seller,:business_transactions , { line_items:  {article: [:seller,:images]} }]).find params[:id]
     end
 
     def authorize_and_authenticate_user_on_cart

@@ -47,14 +47,23 @@ class Cart < ActiveRecord::Base
         article = Article.lock.find(article_id) # locks always need to refind records
         article.buy!(quantity)
       end
+
+      self.update_attribute(:sold,true)
+
+      CartMailer.delay.buyer_email(self)
+
+      self.line_item_groups.each do |lig|
+        CartMailer.delay.seller_email(lig)
+      end
+
     end
 
-    # This comes at a later point
-    CartMailer.delay.buyer_email(self)
-
-    self.line_item_groups.each do |lig|
-      CartMailer.delay.seller_email(lig)
-    end
+    ###################################################
+    # DO NOT PUT ANY CODE HERE THAT CAN FAIL !!!! #####
+    # Best would be not to put any code here at all.
+    # If you have to do something here that can fail
+    # put it into the transaction.
+    ###################################################
 
     return :checked_out
   rescue => e
