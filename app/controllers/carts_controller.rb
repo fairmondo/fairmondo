@@ -44,12 +44,12 @@ class CartsController < ApplicationController
     when :checked_out
       clear_session
       @cart.sold = true
-      flash[:notice] = 'Yay' if @cart.save
+      flash[:notice] = I18n.t('cart.notices.checkout_success') if @cart.save
       cookies.delete :cart
       respond_with @cart
     when :checkout_failed
       # failed because something isnt available anymore
-      flash[:error] = 'failed because something isnt available anymore'
+      flash[:error] = I18n.t('cart.notices.checkout_failed')
       respond_with @cart
     end
   end
