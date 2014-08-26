@@ -71,7 +71,7 @@ class CartsController < ApplicationController
     end
 
     def set_cart
-      @cart = Cart.includes( line_item_groups: [ :seller, { line_items:  [:article] }]).find params[:id]
+      @cart = Cart.includes( line_item_groups: [ :seller,:business_transactions , { line_items:  {article: [:seller,:images]} }]).find params[:id]
     end
 
     def authorize_and_authenticate_user_on_cart

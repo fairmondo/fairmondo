@@ -56,7 +56,7 @@ Styleguide Listview
   }
 
   @include at-breakpoint($bp-tablet) {
-    .ArticleListview-image { float:left; margin-right: 1em;  max-width: 8em; }
+    .ArticleListview-image { float:left; margin-right: 1em;  max-width: 8.5em; }
     .ArticleListview-details {padding: 0.25em; }
   }
 }

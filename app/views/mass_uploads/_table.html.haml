@@ -51,7 +51,4 @@
             = mass_upload.failure_reason
         %td
           - if mass_upload.finished?
-            - if mass_upload.articles_for_mass_activation.empty?
-              =  link_to t("mass_uploads.labels.show_report"), mass_upload_path(mass_upload), :class => 'Button'
-            - else
-              = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), :class => 'Button'
+            = link_to t("mass_uploads.labels.show_report_activate"), mass_upload_path(mass_upload), :class => 'Button'
