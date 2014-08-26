@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed]
+  after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed, :opensearch]
 
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
   after_filter :store_location
@@ -36,6 +36,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all
+
+  # Serves the Firefox search plugin
+  def opensearch
+    # fixes Firefox "Firefox could not download the search plugin from:"
+    response.headers["Content-Type"] = 'application/opensearchdescription+xml'
+    render :layout => false
+  end
 
   # Customize the Devise after_sign_in_path_for() for redirect to previous page after login
   def after_sign_in_path_for resource_or_scope
