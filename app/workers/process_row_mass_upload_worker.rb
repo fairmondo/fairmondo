@@ -137,11 +137,11 @@ class ProcessRowMassUploadWorker
       if attribute_hash['id']
         'nothing'
       elsif attribute_hash['custom_seller_identifier']
-          if find_article_by_custom_seller_identifier(attribute_hash['custom_seller_identifier'], user).present?
-            'nothing'
-          else
-            'create'
-          end
+        if find_article_by_custom_seller_identifier(attribute_hash['custom_seller_identifier'], user).present?
+          'nothing'
+        else
+          'create'
+        end
       else
         'create'
       end
@@ -216,5 +216,4 @@ class ProcessRowMassUploadWorker
       csv = CSV.generate_line(MassUpload.article_attributes.map{ |column| row_hash[column] }, col_sep: ';')
       mass_upload_article.update_attributes!(validation_errors: validation_errors,article_csv: csv)
     end
-
 end
