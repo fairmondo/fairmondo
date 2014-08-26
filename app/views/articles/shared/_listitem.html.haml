@@ -19,11 +19,11 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-.Listview-item
-  .Listview-image
+- actions = false unless defined? actions
+%div{class: actions ? 'ArticleListview-item-with-actions' :'ArticleListview-item'}
+  .ArticleListview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-  = render "shared/listview/listview_detail", article: article
-  = business_transaction.selected_transport
-  .Listview-actions
-    - if business_transaction && policy(Refund.new(business_transaction: business_transaction)).new?
-      = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
+  = render "articles/shared/listview_detail", article: article
+  - if actions
+    .ArticleListview-actions
+      = yield

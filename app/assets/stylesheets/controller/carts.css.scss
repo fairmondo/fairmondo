@@ -29,25 +29,57 @@ form.change_quantity > .inputs >  ol > li.action {
   float:none;
 }
 
-form.change_quantity,
-form.delete_line_item,
-form.change_quantity > .inputs ,
-form.change_quantity > .inputs > ol > li,
-form.delete_line_item > div {
+.change_quantity,
+.delete_line_item,
+.change_quantity > .inputs ,
+.change_quantity > .inputs > ol > li,
+.delete_line_item > div {
   display: inline-block;
   overflow: visible;
+  float:left;
 }
 
-form.change_quantity,
-form.delete_line_item {
- margin: 0.5em 0;
+.line_item_actions-inner {
+  margin-top:0.5em;
+  @include clearfix;
 }
 
-form.delete_line_item {
-  @include between-breakpoints($bp-tablet-horizontal, $bp-desktop) { margin-left:9.4em}
-  @include at-breakpoint($bp-desktop) { float:right; }
+.line_item_total {
+  font-size: 1.2em;
+  font-weight: 600;
+  float:right;
+  text-align: right;
+  line-height: 2em;
 }
 
+@include at-breakpoint($bp-mobile-horizontal) {
+ .line_item_actions-inner { padding: 0.5em; margin-top: 0; }
+}
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .line_item_actions-inner { padding: 1.8em 1em; }
+  .change_quantity { @include span(3 of 6 0.1); }
+  .delete_line_item {  @include span(1 of 6 0.1); }
+  .line_item_total { @include span(2 of 6 0.1); @include omega; }
+}
+
+.checkout {
+  text-align: right;
+  margin-right: 1em;
+}
+.checkout > .total_price {
+  margin-bottom: 0.5em;
+  line-height: 1.4rem;
+}
+.checkout > .total_price  > .total  {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-left: 1em;
+}
+
+.checkout > .total_price > .without_tranport {
+  font-size: 0.8em;
+}
 
 /* --------------------- Checkout Step 1 --------------------- */
 

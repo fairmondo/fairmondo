@@ -2,6 +2,10 @@ de:
   cart:
     heading: "Dein Warenkorb"
     texts:
+      total: Gesamtpreis
+      without_transport: "(zuzüglich Versandkosten)"
+      checked_out: "Vielen Dank für Deinen Einkauf."
+      checkout_failed: "Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen wolltest bereits nicht mehr verfügbar ist."
       empty_cart: Dein Warenkorb ist leer.
       line_item_group_by: "Einkauf bei"
       purchase_from: "Einkauf vom"

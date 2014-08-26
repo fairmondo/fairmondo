@@ -1,0 +1,23 @@
+
+- if line_item_group.rating
+  %span{class: "sprite_#{line_item_group.rating_value}_small" }
+%h3
+  - if line_item_group.seller == current_user
+    = link_to "Dein Auftrag von #{line_item_group.buyer_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+  - elsif line_item_group.buyer == current_user
+    = link_to "Deine Bestellung bei #{line_item_group.seller_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+
+-#%p
+-#  .Listview
+-#    - line_item_group.business_transactions.each do |business_transaction|
+-#      = render layout: '/shared/listview/listitem', locals: { article: business_transaction.article} do
+-#        - if business_transaction && policy(Refund.new(business_transaction: business_transaction)).new?
+-#          = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), :class => "Button"
+-#
+-#  - if line_item_group.seller == current_user
+-#    = link_to 'Auftrag ansehen', line_item_group_path(line_item_group), class: 'Button'
+-#
+-#  - if line_item_group.buyer == current_user
+-#    = link_to 'Bestellung ansehen und bezahlen', line_item_group_path(line_item_group), class: 'Button'
+-#  - if line_item_group.buyer == current_user && !line_item_group.rating
+-#    = link_to t('transaction.completed.rate'), line_item_group_new_user_rating_path(line_item_group.seller, line_item_group), class: 'Button'
