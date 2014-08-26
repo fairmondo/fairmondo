@@ -84,6 +84,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'delayed_paperclip' # handle image processing with sidekiq
 gem 'bluepill' # sidekiq process monitoring
+gem 'sidetiq' # process scheduling
 
 # ---------- Tools ----------
 

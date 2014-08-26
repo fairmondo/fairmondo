@@ -1,9 +1,9 @@
-.div{id: "library#{resource.id.to_s}"}
-  = library_header_layout(resource)
+%div{id: "library#{resource.id.to_s}"}
+  = render "library_header", library: resource
   .socialshareprivacy{data: {uri: library_url(resource), title: resource.name}}
   = render "library_buttons", library: resource
-  = render "library", library: resource
-
+  .Library-elements
+    = render "library", library: resource
 
 -# Admin controls
 - if User.is_admin?(current_user) && resource.public?
