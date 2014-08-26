@@ -21,14 +21,14 @@
               = button_to line_item_path(line_item.id), title: t('common.actions.destroy'), class: "Button Button--red", method: :delete, data: { confirm: t('common.actions.confirm') }, form_class: 'delete_line_item' do
                 %i.fa.fa-times
               .line_item_total
-                = money @cart_abacus.line_item_totals[line_item]
+                = money cart_abacus.line_item_totals[line_item]
   .checkout
     .total_price
       = t('cart.texts.total')
       %span.without_tranport
         = t('cart.texts.without_transport')
       %span.total
-        = money @cart_abacus.total
+        = money cart_abacus.total
     = link_to t('cart.actions.checkout'), edit_cart_path(cart), class: "Button"
 - else
   .Content

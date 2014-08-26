@@ -23,7 +23,18 @@
 %div{class: actions ? 'ArticleListview-item-with-actions' :'ArticleListview-item'}
   .ArticleListview-image
     = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-  = render "articles/shared/listview_detail", article: article
+  .ArticleListview-details
+  .ArticleListview-title
+    = link_to  article_path(article), :title => article.title do
+      = article.title
+  .ArticleListview-price_detail
+    = humanized_money_with_symbol article.price
+    - unless article.vat == 0
+      = t('article.vat_included', :mwst => article.vat)
+    = render '/articles/show/basic_price', :article => article
+  .ArticleListview-tags
+    = condition_label article
+    = commendation_labels_for article
   - if actions
     .ArticleListview-actions
       = yield
