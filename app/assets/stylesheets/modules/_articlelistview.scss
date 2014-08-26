@@ -83,7 +83,7 @@ Styleguide Listview
 
   @include till-breakpoint($bp-tablet-horizontal) {
     .ArticleListview-actions { clear: both; border-top: 1px solid $lighter-gray; }
-    .ArticleListview-image { img { border-bottom-right-radius: 0; }}
+    .ArticleListview-image { img { border-bottom-left-radius: 0; }}
   }
 
   @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
