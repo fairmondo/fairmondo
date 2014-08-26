@@ -6,6 +6,9 @@
       - else
         %strong= t("users.text.no_#{item_name}")
   - else
+    - line_item_groups.each do |group|
+      .Content
+        = render 'line_item_groups/shared/listitem' , line_item_group: group
     - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
       .export.JS-active-toggle--container
         .Button.JS-active-toggle--trigger{data: {clickable: true}}
@@ -15,5 +18,5 @@
             - export_time_ranges.each do |time_range|
               %li
                 = link_to t("articles.export.#{time_range}"), exports_show_path(kind_of_article: item_name, time_range: time_range, format: "csv"), class: 'JS-active-toggle--trigger', data: { clickable: true }
-    = render '/line_item_groups/shared/line_item_groups', line_item_groups: line_item_groups
+
     = paginate line_item_groups, params: { anchor: item_name }

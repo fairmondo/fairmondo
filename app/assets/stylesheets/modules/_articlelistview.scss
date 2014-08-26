@@ -1,0 +1,103 @@
+/*
+Listview for articles and transactions
+responsive table-like style
+
+Styleguide Listview
+*/
+
+
+.ArticleListview > .ArticleListview-item, .ArticleListview > .ArticleListview-item-with-actions  {
+   background: $white;
+   margin-bottom:0.5em;
+   @include whitebox;
+   @include clearfix;
+   padding: 0em;
+   position: relative;
+}
+
+.ArticleListview-image {
+  line-height: 0em;
+  img {
+         width: 100%;
+         border-top-left-radius: 0.5em;
+         border-bottom-left-radius: 0.5em;
+      }
+}
+
+.ArticleListview-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
+}
+
+.ArticleListview-price_detail {
+  @include till-breakpoint($bp-tablet-horizontal) {
+    font-size: 0.8em;
+  }
+}
+
+.ArticleListview-actions > a.Button{
+  margin:0.3em 0;
+  font-size: 0.9em;
+}
+
+// layout responsive
+.ArticleListview > .ArticleListview-item  {
+
+  @include till-breakpoint($bp-mobile-horizontal) {
+    padding: 0.5em;
+    .ArticleListview-image { display:none; }
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
+    .ArticleListview-image { float:left; margin-right: 1em; max-width: 8em; }
+    .ArticleListview-details { padding: 0.25em;}
+    .ArticleListview-tags { position:absolute; bottom:0; left: 0.1em; max-width: 8em; max-height:3em; overflow:hidden; }
+  }
+
+  @include at-breakpoint($bp-tablet) {
+    .ArticleListview-image { float:left; margin-right: 1em;  max-width: 8.5em; }
+    .ArticleListview-details {padding: 0.25em; }
+  }
+}
+
+.ArticleListview > .ArticleListview-item-with-actions {
+
+  @include till-breakpoint($bp-mobile-horizontal) {
+    padding: 0.5em;
+    .ArticleListview-image { display:none; }
+    .ArticleListview-tags {margin-bottom: 0.5em;}
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {
+    .ArticleListview-image { float:left; margin-right: 1em; max-width: 8em; }
+    .ArticleListview-details { padding: 0.25em;}
+    .ArticleListview-tags { position:absolute; top:0; left: 0.1em; max-width: 8em; max-height:3em; overflow:hidden; }
+  }
+
+  @include between-breakpoints($bp-tablet,$bp-tablet-horizontal) {
+    .ArticleListview-image { float:left; margin-right: 1em; max-width: 7em; }
+    .ArticleListview-details { padding: 0.25em;}
+    .ArticleListview-tags { position:absolute; left:0.1em; top: 0em; max-width: 8em; max-height:3em; overflow:hidden; }
+  }
+
+  @include till-breakpoint($bp-tablet-horizontal) {
+    .ArticleListview-actions { clear: both; border-top: 1px solid $lighter-gray; }
+    .ArticleListview-image { img { border-bottom-left-radius: 0; }}
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    .ArticleListview-image { @include span(1 of 7 0.1); }
+    .ArticleListview-details { @include span (3 of 7 0.1); }
+    .ArticleListview-actions { @include span (3 of 7 0.1); @include omega;}
+    .ArticleListview-title{ padding-top: 0.5em; max-height:3em; }
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    .ArticleListview-image { @include span(1 of 8 0.1); }
+    .ArticleListview-details { @include span (3 of 8 0.1); }
+    .ArticleListview-actions { @include span (4 of 8 0.1); @include omega;}
+    .ArticleListview-title{ padding-top: 0.5em; max-height:3em; }
+  }
+}
+
