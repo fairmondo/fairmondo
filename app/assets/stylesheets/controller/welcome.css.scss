@@ -69,6 +69,20 @@
     @include span(2 of 6);
     @include omega;
   }
+
+  // Remove one article from the used teaser for layout reasons
+  #teaser--used {
+    .teaser-queue {
+      &:first-child {
+        @include omega;
+      }
+    }
+    .teaser-queue {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
 }
 
 @include between-breakpoints($bp-tablet, $bp-desktop) {
@@ -136,6 +150,10 @@
 
 .teaser-inner {
   @include whitebox;
+}
+
+.teaser > .teaser-inner > h2 {
+  text-transform: uppercase;
 }
 
 .teaser--double {

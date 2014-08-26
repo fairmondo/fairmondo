@@ -20,6 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+-# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
   .library-form
     %h3= t('library.new')
@@ -34,16 +35,20 @@
   - if @libraries.any?
     - @libraries.each do |library|
       - if !library.library_elements.empty? || (library.user == current_user)
-        %details{id: "library#{library.id.to_s}"}
+        %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
-            = library_header_layout(library)
+            = render "library_header", library: library
             - if library.comments.size > 0
-              .library-comments
+              .Library-comments
                 = render library.comments.order(created_at: :desc).limit(2)
-          .details
+            - if User.is_admin? current_user
+              .Library-auditing
+                = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
+                  = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')
+          .Library-details
             .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
             = render "library_buttons", library: library
-            .library-elements
+            .Library-elements
               - if library.library_elements.empty?
                 = t('library.no_products')
               - else

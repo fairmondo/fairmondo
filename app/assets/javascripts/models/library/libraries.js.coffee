@@ -25,7 +25,7 @@ along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 document.Fairnopoly.copyCommentsToPreview = (commentable_selector) ->
   commentable = $(commentable_selector)
   first_two_comments = $(commentable_selector + ".Comments-section .Comment-single:lt(2)").clone()
-  preview_element = $(commentable_selector + '.library-comments')
+  preview_element = $(commentable_selector + '.Library-comments')
   preview_element.html(first_two_comments)
 
 $(document).ready ->

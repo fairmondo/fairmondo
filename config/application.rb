@@ -59,6 +59,7 @@ module Fairnopoly
                                       :feedback_observer,
                                       :business_transaction_observer,
                                       :user_observer,
+                                      :library_observer,
                                       :library_element_observer,
                                       :refund_observer,
                                       :comment_observer,
