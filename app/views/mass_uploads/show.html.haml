@@ -1,7 +1,7 @@
 %h1
   = t('mass_uploads.titles.upload_report')
 
-- if resource.processed_articles_count == 0
+- if resource.mass_upload_articles.where.not(action: :nothing).empty?
   = t('mass_uploads.errors.no_activate_content')
 - else
   .results
