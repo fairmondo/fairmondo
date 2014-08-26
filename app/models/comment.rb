@@ -49,7 +49,7 @@ class Comment < ActiveRecord::Base
 
       where("comments.created_at <= ?", last_5pm)
     else
-      where true
+      where '1=1'
     end
   end
   FIRST_PUBLISH_HOUR = 10
