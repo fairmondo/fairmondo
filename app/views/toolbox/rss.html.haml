@@ -1,6 +1,5 @@
 -if @items
-  %h2
-    FAIRNOPOLY SCHREIBT
+  %h2 Fairnopoly schreibt
   - @items.each do |item|
     .teaser-rss
       = rss_image_extractor item.description

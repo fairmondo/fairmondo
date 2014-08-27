@@ -278,12 +278,14 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.string   "name"
     t.boolean  "public"
     t.integer  "user_id",                limit: 8
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "library_elements_count",           default: 0
     t.string   "exhibition_name"
     t.integer  "hearts_count",                     default: 0
     t.integer  "comments_count",                   default: 0
+    t.float    "popularity",                       default: 0.0
+    t.boolean  "audited",                          default: false
   end
 
   add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree

@@ -36,17 +36,32 @@ class Library < ActiveRecord::Base
   before_update :uniquify_exhibition_name
 
   #Relations
-
   belongs_to :user
 
-  has_many :library_elements, dependent: :destroy, counter_cache: true
+  has_many :library_elements, dependent: :destroy
   has_many :articles, through: :library_elements
 
-  has_many :hearts, as: :heartable, counter_cache: true
+  has_many :hearts, as: :heartable
 
-  scope :not_empty, -> { where("library_elements_count > 0") }
+  scope :not_empty, -> { where("libraries.library_elements_count > 0") }
   scope :published, -> { where(public: true) }
+  scope :no_admins, -> { joins(:user).where("users.admin = ?", false) }
+  scope :most_popular, -> { unscoped.order("libraries.popularity DESC") }
+  scope :trending, -> { most_popular.not_empty.no_admins.published }
+  scope :audited, -> { where(audited: true) }
+  scope :trending_welcome_page, -> { trending.audited.limit(3) }
+
   default_scope -> { order('updated_at DESC') }
+
+  # Returns true if the library contains article
+  def includes_article? article
+    self.articles.include? article
+  end
+
+  # Returns true if the library is currently shown on the welcome page
+  def on_welcome_page?
+    Library.trending_welcome_page.include? self
+  end
 
   private
     # when an exhibition name is set to a library, remove the same exhibition
