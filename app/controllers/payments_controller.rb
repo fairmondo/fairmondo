@@ -35,7 +35,7 @@ class PaymentsController < ApplicationController
     if @payment.init
       redirect_to PaypalAPI.checkout_url @payment.pay_key
     else
-      redirect_to :back, flash: { error: "Paypal mag grad nich" }
+      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error') }
     end
   end
 end

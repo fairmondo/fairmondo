@@ -39,12 +39,16 @@
                   = transport[:provider]
                   = t("cart.texts.transports.#{transport[:method]}")
                 .payment-cell.value
-                  - if transport[:shipments] > 1
+                  - if transport[:shipments] > 1 && !abacus.transport_listing.free_transport
                     .small-info.left
                       = transport[:shipments].to_s + 'x'
                       = money(transport[:per_shipment]) + ' ='
 
                   = money transport[:transport_price]
+
+                  - if abacus.transport_listing.free_transport
+                    .small-info.right
+                      = t('cart.texts.free_transport_at', price: money(group.free_transport_at_price_cents))
 
           - if cod_total = hash[:cash_on_deliveryon_delivery_total]
             .payment-row
@@ -70,6 +74,6 @@
       .Address
         = render 'addresses/address_lines', address: @cart.line_item_groups.first.transport_address
 
-
--# button_to t('cart.actions.back'), cart_path(@cart), class: 'Button Button--gray' #needed?
-= button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button checkout_button', form_class: 'js-visual-submit'
+.checkout-actions
+  = link_to t('cart.actions.back'), edit_cart_path(@cart), class: 'Button Button--gray checkout-back'
+  = button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button checkout_button', form_class: 'js-visual-submit checkout-submit'
