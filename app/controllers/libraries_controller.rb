@@ -35,9 +35,9 @@ class LibrariesController < ApplicationController
 
     # Configure the libraries collection that is displayed
     if params[:mode] == 'trending'
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.trending.includes(user: [:image])).resolve.page(params[:page])
-    elsif params[:mode] == 'recent'
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.most_recent.includes(user: [:image])).resolve.page(params[:page])
+      @libraries = LibraryPolicy::Scope.new(nil, nil, focus.trending.includes(user: [:image])).resolve.page(params[:page])
+    elsif params[:mode] == 'new'
+      @libraries = LibraryPolicy::Scope.new(nil, nil, focus.most_recent.includes(user: [:image])).resolve.page(params[:page])
     else
       @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
     end

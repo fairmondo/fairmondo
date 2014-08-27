@@ -31,6 +31,14 @@
       = f.actions do
         = f.action :submit , :value => t('library.create'), :button_html => {:class => "Button"}
 
+-# If user is not focused, show library titles
+- unless @user
+  %h1 Sammlungen
+  %ul
+    %li= link_to 'Zuletzt geändert', libraries_path
+    %li= link_to 'Trends', trending_libraries_path
+    %li= link_to 'Neu', new_libraries_path
+
 .libraries
   - if @libraries.any?
     - @libraries.each do |library|
