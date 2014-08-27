@@ -74,7 +74,6 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    save_and_open_page
     page.find('.payment-cell.total.value').must_have_content(article.price)
 
     # checkout
