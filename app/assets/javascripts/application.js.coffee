@@ -37,6 +37,7 @@
 #= require i18n/translations
 
 #= require history_jquery.min
+#= require history.js
 #= require rails-timeago
 #= require locales/jquery.timeago.de.js
 
