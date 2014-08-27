@@ -21,14 +21,14 @@
 class ApplicationController < ActionController::Base
 
   ## Global security
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:opensearch]
 
   # Arcane
   include Arcane
 
   # Pundit
   include Pundit
-  after_filter :verify_authorized_with_exceptions, :except=> [:index,:feed, :opensearch]
+  after_filter :verify_authorized_with_exceptions, except: [:index, :feed, :opensearch]
 
   include BrowsingHistory # (lib/autoload) browsing history for redirects and feedback
   after_filter :store_location
