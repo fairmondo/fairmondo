@@ -101,12 +101,13 @@ form.change_quantity > .inputs >  ol > li.action {
 
 // Responsiveness
  @include at-breakpoint($bp-tablet-horizontal) {
-  .formtastic .legal_inputs { @include span(3 of 6 0.1);
-                }
-
-  .formtastic .unified_inputs { @include span(3 of 6 0.1);
-                  @include omega;
-                  }
+  .formtastic .legal_inputs {
+    @include span(3 of 6 0.1);
+  }
+  .formtastic .unified_inputs {
+    @include span(3 of 6 0.1);
+    @include omega;
+  }
   .formtastic .line_items {
     clear:both;
   }
@@ -114,10 +115,12 @@ form.change_quantity > .inputs >  ol > li.action {
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .formtastic .unified_inputs .unified_payment {
-    @include span(1 of 2 0.1); }
+    @include span(1 of 2 0.1);
+  }
   .formtastic .unified_inputs .unified_transport {
     @include span(1 of 2 0.1);
-    @include omega;}
+    @include omega;
+  }
 }
 
 // Line Items
@@ -130,25 +133,29 @@ form.change_quantity > .inputs >  ol > li.action {
   padding:0.5em;
   @include at-breakpoint($bp-tablet-horizontal) { padding: 0; }
   -webkit-transition: margin 1s; /* For Safari 3.1 to 6.0 */
-  transition: margin 1s;
+  transition: margin 0.3s;
 }
 
 .formtastic .line_items > .line_item[data-unified-transport="false"] {
   margin: rem(20) 0;
+  &:last-child {
+    margin-bottom: 0.2em;
+  }
 }
 
 .formtastic .line_items > .line_item > .image {
   line-height: 0em;
-  img {  width: 100%;
-        border-radius: 0.5em;
-        @include at-breakpoint($bp-tablet-horizontal) {
-           border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        }
+  img {
+    width: 100%;
+    border-radius: 0.5em;
+    @include at-breakpoint($bp-tablet-horizontal) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 }
 
-.formtastic .line_items > .line_item > .form  .input {
+.formtastic .line_items > .line_item > .form .input {
   margin: 0;
 }
 
