@@ -4,8 +4,6 @@ de:
     texts:
       total: Gesamtpreis
       without_transport: "(zuzüglich Versandkosten)"
-      checked_out: "Vielen Dank für Deinen Einkauf."
-      checkout_failed: "Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen wolltest bereits nicht mehr verfügbar ist."
       empty_cart: Dein Warenkorb ist leer.
       line_item_group_by: "Einkauf bei %{seller}"
       purchase_from: "Einkauf vom %{date}"
@@ -26,6 +24,7 @@ de:
       your_transport_address: 'Deine Lieferadresse'
       your_payment_address: 'Deine Rechnungsadresse'
       shipment: 'Sendung'
+      free_transport_at: "Versandkostenfrei ab %{price}"
       transports:
         unified: '(Kombiversand)'
         pickup: '(Selbstabholung)'
@@ -46,3 +45,6 @@ de:
       checkout: Zur Kasse
       pay: Zur Bezahlung
       back: Zurück
+    notices:
+      checkout_success: "Deine Bestellung wurde erfolgreich abgeschickt. Vielen Dank für Deinen Einkauf."
+      checkout_failed: "Dein Einkauf konnte leider nicht abgeschlossen werden, da ein Artikel den du kaufen wolltest bereits nicht mehr verfügbar ist."

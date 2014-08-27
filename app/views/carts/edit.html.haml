@@ -15,7 +15,9 @@
       .line_items
         = semantic_relation_field_for f, :line_items, group.line_items.to_a.sort!{|a,b| unified_transport_first(a,b)} do |line_item, line_item_fields|
           - article = line_item.business_transaction.article
-          .line_item
+          - unified = line_item.business_transaction.article.unified_transport?
+          - unifiable = group.transport_can_be_unified?
+          .line_item{data: { 'unified-transport' => unified.to_s, 'unifiable-transport' => (unifiable && unified).to_s } }
             .image
               = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
             .details
@@ -34,9 +36,8 @@
                 = t.inputs class: 'payment' do
                   = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
                 = t.inputs class: 'transport' do
-                  - unified = line_item.business_transaction.article.unified_transport?
                   = t.input :selected_transport, include_blank: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item.business_transaction)
-                  - if group.transport_can_be_unified?
+                  - if unifiable
                     .js-unified-transport--inversetarget.transport_notice
                       - if unified
                         = t('cart.texts.unified_transport_notice')
@@ -82,5 +83,6 @@
           = t('address.actions.new')
 
   = f.actions do
-    = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
+    .checkout-actions
+      = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
 
