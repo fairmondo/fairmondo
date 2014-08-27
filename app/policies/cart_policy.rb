@@ -27,11 +27,11 @@ class CartPolicy < Struct.new(:user, :cart)
   end
 
   def edit?
-    true # TODO
+    update?
   end
 
   def update?
-    true # TODO
+    user == cart.user
   end
 
 end
