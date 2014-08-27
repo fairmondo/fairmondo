@@ -19,20 +19,24 @@ class HeartsController < ApplicationController
     authorize @heart
 
     if @heart.save
-      # Update counter cache variable for object manually
+      # In the view we are using the hearts_count counter cache, which is not automatically
+      # updated in the object, so we do it by hand.
+      # Please don't save this object from now on.
       @heartable.hearts_count += 1
     else
       @message = "Jemand hat diese Sammlung schon von diesem Computer geherzt. " +
                  "Wenn du das nicht warst, logge dich bitte ein!"
     end
-
   end
 
   def destroy
     @heart = Heart.find(params[:id])
     authorize @heart
     @heart.destroy
-    # Update counter cache variable for object manually
+
+    # In the view we are using the hearts_count counter cache, which is not automatically
+    # updated in the object, so we do it by hand.
+    # Please don't save this object from now on.
     @heartable.hearts_count -= 1
   end
 
