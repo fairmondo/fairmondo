@@ -36,19 +36,19 @@ describe HeartsController do
       end
 
       it "change the heart count when posting" do
-        assert_difference "@library.hearts_count", 1 do
+        assert_difference "@library.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
         end
       end
 
       it "adds maximally one heart even when posting multiple times" do
-        assert_difference "@library.hearts_count", 1 do
+        assert_difference "@library.hearts.count", 1 do
           3.times { post :create, library_id: @library.id, format: :js }
         end
       end
 
       it "should allow hearting a second library" do
-        assert_difference "@library_2.hearts_count", 1 do
+        assert_difference "@library_2.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
           post :create, library_id: @library_2.id, format: :js
         end
@@ -69,19 +69,19 @@ describe HeartsController do
       end
 
       it "increases the heart count when posting" do
-        assert_difference "@library.hearts_count", 1 do
+        assert_difference "@library.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
         end
       end
 
       it "adds maximally one heart even when posting multiple times" do
-        assert_difference "@library.hearts_count", 1 do
+        assert_difference "@library.hearts.count", 1 do
           3.times { post :create, library_id: @library.id, format: :js }
         end
       end
 
       it "should allow hearting a second library" do
-        assert_difference "@library_2.hearts_count", 1 do
+        assert_difference "@library_2.hearts.count", 1 do
           post :create, library_id: @library.id, format: :js
           post :create, library_id: @library_2.id, format: :js
         end
@@ -99,13 +99,13 @@ describe HeartsController do
       end
 
       it "will not delete an owned heart" do
-        assert_difference "@library.hearts_count", 0 do
+        assert_difference "@library.hearts.count", 0 do
           delete :destroy, library_id: @library.id, id: @owned_heart.id
         end
       end
 
       it "will not delete an anonymous heart" do
-        assert_difference "@library.hearts_count", 0 do
+        assert_difference "@library.hearts.count", 0 do
           delete :destroy, library_id: @library.id, id: @anonymous_heart.id
         end
       end
@@ -120,7 +120,7 @@ describe HeartsController do
 
       it "will delete his own heart" do
         @owned_heart = @library.hearts.create(heartable: @library, user: @user)
-        assert_difference "@library.hearts_count", -1 do
+        assert_difference "@library.hearts.count", -1 do
           delete :destroy, library_id: @library.id,
             id: @owned_heart.id, format: :js
         end
