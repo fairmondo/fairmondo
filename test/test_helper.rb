@@ -5,6 +5,7 @@ require "minitest/rails"
 require "minitest/rails/capybara"
 require "minitest/pride"
 require "mocha/mini_test"
+require 'capybara/rails'
 
 require Rails.root.join('test/support/spec_helpers/coverage.rb')
 
@@ -28,7 +29,7 @@ Sidekiq::Testing.inline!
 
 # Redis
 Redis.current = Redis.new
-
+Capybara.asset_host = "http://localhost:3000"
 
 # For fixtures:
 include ActionDispatch::TestProcess
@@ -50,27 +51,6 @@ end
 TireTest.off
 setup_categories
 
-### RSpec Configurations ###
-
-#RSpec.configure do |config|
-
-  ## Configs from presets ##
-
-  #config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  #config.use_transactional_fixtures = false # We use Database cleaner for fine grained cleaning levels
-  #config.infer_base_class_for_anonymous_controllers = false
-  #config.order = "random"
-  #config.infer_spec_type_from_file_location!
-  #config.raise_errors_for_deprecations!
-  ## Custom configs ##
-
-  # Add the "visual" tag to a test that uses save_and_open_page.
-  # This will give you the corresponding css and js
-#  if config.inclusion_filter[:visual]
-#    config.before(scope = :suite) do
-#      %x[bundle exec rake assets:precompile]
-#    end
-#  end
 
 include Savon::SpecHelper
 savon.mock!

@@ -59,9 +59,6 @@ Fairnopoly::Application.configure do
   config.i18n.default_locale = :de
   I18n.locale = config.i18n.locale = config.i18n.default_locale
 
-  # Assets for save_and_open_page
-  config.assets.prefix = "assets_test"    # place test assets in public/assets_test directory
-  config.action_controller.asset_host = "file://#{::Rails.root}/public"
 
   # commented out till next bullet release
   # bullet - n+1 detection
