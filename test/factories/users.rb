@@ -112,5 +112,10 @@ FactoryGirl.define do
       unified_transport_maximum_articles 10
     end
 
+    trait :with_free_transport_at_5 do
+      free_transport_at_price_cents 500
+      free_transport_available true
+    end
+
   end
 end

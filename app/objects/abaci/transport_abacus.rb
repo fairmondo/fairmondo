@@ -10,7 +10,7 @@ class TransportAbacus
   end
 
   def check_free_transport
-    free_at_price = @line_item_group.free_transport_at_price_cents
+    free_at_price = @line_item_group.free_transport_at_price
     @free_transport = ( free_at_price &&  @business_transaction_abacus.total_retail_price >= free_at_price )
   end
 

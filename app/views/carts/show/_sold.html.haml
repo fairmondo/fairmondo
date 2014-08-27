@@ -5,9 +5,5 @@
     - group.line_items.each do |line_item|
       - article = line_item.article
       .Listview
-        .Listview-item
-          .Listview-image
-            = link_to image_tag(article.title_image_url(:thumb)), article_path(article)
-          = render "shared/listview/listview_detail", article: article
-          .Listview-actions
-            = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
+        = render layout: 'articles/shared/listitem' , locals: { article: article, actions:true } do
+          = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
