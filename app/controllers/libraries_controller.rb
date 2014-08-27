@@ -142,7 +142,7 @@ class LibrariesController < ApplicationController
       if user_focused?
         @user.libraries
       else
-        Library
+        Library.trending
       end
     end
 end

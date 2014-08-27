@@ -93,7 +93,7 @@
     .buyer-controls
       -# Collect button and libraries list
       - if user_signed_in? && resource.active?
-        = render "libraries/shared/control_panel", article: resource, libraries: @user_libraries
+        = render "libraries/shared/control_panel", article: resource, libraries: user_libraries
 
       -# To cart/buy button
       - if policy(resource.business_transaction).edit?

@@ -32,7 +32,7 @@
     = breadcrumbs_for(leaf).html_safe
     %br
 .contents{id: "article#{resource.id.to_s}"}
-  = render "articles/show/article_contents", article: resource
+  = render "articles/show/article_contents", article: resource, user_libraries: @user_libraries
   - if User.is_admin? current_user
     = render "articles/show/admin"
 .seller
