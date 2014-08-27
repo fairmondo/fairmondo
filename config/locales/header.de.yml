@@ -1,11 +1,14 @@
 de:
   # Header
   header:
-    libraries: "Sammlungen"
-    community: "Community"
-    forum: 'Nutzer*innen-Forum'
-    hero: 'Aktiv als Held*in'
-    facebook: 'Wir auf Facebook'
-    developer: 'Aktiv als Entwickler*in'
+    libraries:
+      title: "Sammlungen"
+      tooltip: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken."
+    community:
+      title: "Community"
+      forum: 'Nutzer*innen-Forum'
+      hero: 'Aktiv als Held*in'
+      facebook: 'Wir auf Facebook'
+      developer: 'Aktiv als Entwickler*in'
     profile: "Profil"
     sell: "Verkaufen"
