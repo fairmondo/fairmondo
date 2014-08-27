@@ -4,3 +4,22 @@
   @include whitebox;
   margin-bottom: 1em;
 }
+
+ul#view_selector {
+  list-style-type: none;
+  padding: 0;
+  margin: 1em 0 2em;
+  text-align: center;
+
+  li {
+    display: inline;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    padding: 0 1em;
+    border-right: 0.15em solid black;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
