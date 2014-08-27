@@ -1,2 +1,4 @@
 $("<%= "#library#{resource.id.to_s} .js-library-ajax" %>").html('<%= escape_javascript render "library", library: resource  %>');
 $('html,body').animate({scrollTop: $("<%= "#library#{resource.id.to_s}" %>").offset().top},'slow');
+
+if ( History.pushState ) History.pushState( {}, document.title, "<%= library_path(resource.id) + pagination_page(params) %>");
