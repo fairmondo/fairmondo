@@ -105,7 +105,7 @@
                     'language'          : 'de'
                 }
             },
-            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Du auf das Schloss klickst, wird der jeweilige Button aktiv und Du kannst Deine Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
+            'txt_info'          : '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Du auf das Symbol klickst, wird der jeweilige Button aktiv und Du kannst Deine Empfehlung an das entsprechende Soziale Netzwerk senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen.',
 
             'css_path'          : '',
             'uri'               : getURI

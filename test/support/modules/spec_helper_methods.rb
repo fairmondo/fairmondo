@@ -11,7 +11,6 @@ class DummyClass < ActionView::Base
   include BusinessTransactionMailerHelper
   include CommendationHelper
   include ContentHelper
-  include LibraryHelper
   include NoticeHelper
   include SearchHelper
   include StatisticHelper

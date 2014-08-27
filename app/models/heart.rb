@@ -1,6 +1,6 @@
 class Heart < ActiveRecord::Base
   belongs_to :user
-  belongs_to :heartable, polymorphic: true
+  belongs_to :heartable, polymorphic: true, counter_cache: true
 
   validates :heartable, presence: true
 
