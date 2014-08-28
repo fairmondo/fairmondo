@@ -57,6 +57,9 @@
     %link{ rel: 'apple-touch-icon', sizes: '144x144', href: image_path('touch_icon_ipad_retina.png'), type: "image/png"  }
     / provides proper Article-Image for Facebook
     %link{ rel: 'image_src', href: yield(:title_image) }
+    / search plugin for Firefox
+    %link{ rel: 'search', href: '/opensearch.xml', title: 'Fairnopoly-Suche', type: 'application/opensearchdescription+xml' }
+
 
   %body{class: "pages-#{controller.controller_name} page-#{controller.action_name}"}
 
