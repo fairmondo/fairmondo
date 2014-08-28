@@ -25,10 +25,10 @@ validateRemotely = (event) ->
 
           # add an error message if one exists
           if response.errors.length > 0
-            $.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
-            error_message = response.errors[0]
-            error_message += $target.attr('data-validation-error-addition') if $target.attr('data-validation-error-addition') # optional
+            #$.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
             $target.parent().addClass 'error'
-            $target.after "<p class='inline-errors'>#{error_message}</p>"
+            new_error = $("<p class='inline-errors hidden'>#{response.errors[0]}</p>")
+            $target.after new_error
+            document.Fairnopoly.setQTipError new_error
 
   , 1 # setTimeout: 1 millisecond wait

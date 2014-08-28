@@ -100,7 +100,7 @@
           = f.inputs do
             = f.input :article_id, as: :hidden, input_html: { value: resource.id }
             - if resource.quantity > 1
-              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}", validation_error_addition: I18n.t('line_item.errors.already_sold') } }
+              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}", type: 'number' } }
             = f.action :submit, label: t('common.actions.to_cart'), button_html: { class: "Button" }
 
       - elsif policy(resource).purchasable_later?
