@@ -34,15 +34,9 @@ class LibrariesController < ApplicationController
     @library = @user.libraries.build if user_signed_in? && @user
 
     # Configure the libraries collection that is displayed
-    if params[:mode] == 'trending'
-      @libraries = LibraryPolicy::Scope.new(nil, nil, focus.trending.includes(user: [:image])).resolve.page(params[:page])
-    elsif params[:mode] == 'new'
-      @libraries = LibraryPolicy::Scope.new(nil, nil, focus.most_recent.includes(user: [:image])).resolve.page(params[:page])
-    else
-      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
-    end
+    set_index_mode
+    @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
   end
-
 
   def show
     authorize @library
@@ -142,7 +136,20 @@ class LibrariesController < ApplicationController
       if user_focused?
         @user.libraries
       else
-        Library.trending
+        case @mode
+        when 'new'
+          Library
+        when 'myfavorite'
+          current_user.hearted_libraries
+        else
+          Library.trending
+        end
       end
+    end
+
+    def set_index_mode
+      default = 'trending'
+      @mode = params[:mode] || default
+      @mode = default if @mode == 'myfavorite' and not current_user  # switch to default if user is logged out
     end
 end

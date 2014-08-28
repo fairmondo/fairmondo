@@ -20,6 +20,8 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+%h1 Sammlungen
+
 -# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
   .library-form
@@ -31,13 +33,13 @@
       = f.actions do
         = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
 
--# If user is not focused, show library titles
+-# If user is not focused, show library view menu
 - unless @user
-  %h1 Sammlungen
-  %ul.view_menu
-    %li.selected= 'Trends'
-    %li= link_to 'neu', libraries_path
-    %li= link_to 'meine Favoriten', myfavorite_libraries_path
+  %ul.mode_menu
+    = render 'mode_menu_item', text: 'Trends', path: libraries_path, selected: (@mode == 'trending')
+    = render 'mode_menu_item', text: 'Neue', path: new_libraries_path, selected: (@mode == 'new')
+    - if current_user  # this part of the menu is rendered only if user is logged in
+      = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite')
 
 .libraries
   - if @libraries.any?
