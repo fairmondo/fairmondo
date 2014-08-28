@@ -1,6 +1,6 @@
-.lineItemGroupShow-container
-  .lineItemGroupShow-content-wrapper
-    .lineItemGroupShow-content
+.container
+  .content-wrapper
+    .content
       %h3
         - if resource.buyer == current_user
           = "Dein Einkauf bei "
@@ -37,7 +37,7 @@
         %p
       .message
         = resource.message
-  .lineItemGroupShow-sidebar
+  .sidebar
     - if resource.transport_address == resource.payment_address
       - if resource.seller == current_user
         Bitte versende Die gekauften Artikel an:

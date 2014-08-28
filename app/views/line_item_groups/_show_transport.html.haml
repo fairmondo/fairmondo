@@ -3,20 +3,20 @@
     Versand
   - line_item_group.business_transactions.group_by(&:selected_transport).each do |transport, bts|
     .Content
-      .lineItemGroup-transport-header
+      .transport-header
         %h3= transport
-      .lineItemGroup-transport-status
+      .transport-status
         %h3
           = fa_icon 'euro'
           = fa_icon 'truck'
-      .lineItemGroup-transport
-        .lineItemGroup-transport-images
+      .transport
+        .transport-images
           - bts.each do |bt|
-            .lineItemGroup-transport-image
+            .transport-image
               = link_to image_tag(bt.article.title_image_url(:thumb)), article_path(bt.article)
-        .lineItemGroup-transport-details
+        .transport-details
           - case transport
           - when ''
           blablba
-        .lineItemGroup-transport-actions
+        .transport-actions
           sdfaksjdfhkjsdhkjfh

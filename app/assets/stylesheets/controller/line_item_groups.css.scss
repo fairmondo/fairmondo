@@ -1,33 +1,33 @@
 @import "mixins/all";
 
-.lineItemGroup-payment-group {
+.payment-group {
   @include whitebox;
   display: inline-block;
   width: calc(100% - 2em);
 
   @include at-breakpoint($bp-desktop) {
-    .lineItemGroup-payment-group-images {
+    .payment-group-images {
       @include span(1 of 3 0.1);
     }
 
-    .lineItemGroup-payment-group-details {
+    .payment-group-details {
       @include span(2 of 3 0.1);
     }
 
-    .lineItemGroup-payment-group-actions {
+    .payment-group-actions {
       @include span(3 of 3 0.1);
       @include omega;
     }
   }
 }
 
-.lineItemGroup-payment-group-header {
+.payment-group-header {
   @include span(1 of 3 0.1);
   overflow: hidden;
   display: inline-block;
 }
 
-.lineItemGroup-payment-group-status {
+.payment-group-status {
   @include span(3 of 3 0.1);
   @include omega;
   overflow: hidden;
@@ -35,12 +35,12 @@
   width: auto;
 }
 
-.lineItemGroup-payment-group > .lineItemGroup-payment-group-images {
+.payment-group > .payment-group-images {
   float: left;
   overflow: hidden;
 }
 
-.lineItemGroup-payment-group > .lineItemGroup-payment-group-images > .lineItemGroup-payment-group-images-image {
+.payment-group > .payment-group-images > .payment-group-images-image {
 
   position: relative;
   display: inline-block;
@@ -51,47 +51,47 @@
   }
 }
 
-.lineItemGroup-payment-group > .lineItemGroup-payment-group-details {
+.payment-group > .payment-group-details {
   overflow: hidden;
   display: inline-block;
   width: auto;
 }
 
-.lineItemGroup-payment-group > .lineItemGroup-payment-group-actions {
+.payment-group > .payment-group-actions {
   overflow: hidden;
   width: auto;
 }
 
 
-.lineItemGroup-transport {
+.transport {
 
   @include whitebox;
   display: inline-block;
   width: calc(100% - 2em);
 
   @include at-breakpoint($bp-desktop) {
-    .lineItemGroup-transport-images {
+    .transport-images {
       @include span(1 of 3 0.1);
     }
 
-    .lineItemGroup-transport-details {
+    .transport-details {
       @include span(2 of 3 0.1);
     }
 
-    .lineItemGroup-transport-actions {
+    .transport-actions {
       @include span(3 of 3 0.1);
       @include omega;
     }
   }
 }
 
-.lineItemGroup-transport-header {
+.transport-header {
   @include span(1 of 3 0.1);
   overflow: hidden;
   display: inline-block;
 }
 
-.lineItemGroup-transport-status {
+.transport-status {
   @include span(3 of 3 0.1);
   @include omega;
   overflow: hidden;
@@ -99,23 +99,23 @@
   width: auto;
 }
 
-.lineItemGroup-transport > .lineItemGroup-transport-details {
+.transport > .transport-details {
   overflow: hidden;
   display: inline-block;
   width: auto;
 }
 
-.lineItemGroup-transport > .lineItemGroup-transport-actions {
+.transport > .transport-actions {
   overflow: hidden;
   width: auto;
 }
 
-.lineItemGroup-transport > .lineItemGroup-transport-images {
+.transport > .transport-images {
   float: left;
   overflow: hidden;
 }
 
-.lineItemGroup-transport > .lineItemGroup-transport-images > .lineItemGroup-transport-image {
+.transport > .transport-images > .transport-image {
 
   position: relative;
   display: inline-block;
@@ -131,23 +131,23 @@
   Here be stuff for LineItemGroup#show view
 */
 
-.lineItemGroupShow-container {
+.container {
 
 }
 
-.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper {
+.container > .content-wrapper {
   @include span(3 of 4);
 }
 
-.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper > .lineItemGroupShow-content {
+.container > .content-wrapper > .content {
   @include shadowless_whitebox;
 }
 
-.lineItemGroupShow-container > .lineItemGroupShow-content-wrapper > .lineItemGroupShow-content > .message {
+.container > .content-wrapper > .content > .message {
   @include shadowless_whitebox;
 }
 
-.lineItemGroupShow-container > .lineItemGroupShow-sidebar {
+.container > .sidebar {
   @include span(1 of 4);
   @include omega;
 }
@@ -157,24 +157,24 @@
   margin-bottom: 0.5em;
 }
 
-.lineItemGroupShow-lineItem {
+.lineItem {
   @include shadowless_whitebox;
   margin-bottom: 0.5em;
   overflow: hidden;
   clear: both;
 }
 
-.lineItemGroupShow-lineItem > .lineItemGroupShow-ineItem-container {
+.lineItem > .lineItem-container {
   @include span(11 of 12);
   @include omega;
   float: right;
 }
 
-.lineItemGroupShow-lineItem > .lineItemGroupShow-ineItem-container > .lineItemGroupShow-lineItem-title {
+.lineItem > .lineItem-container > .lineItem-title {
   @include span(3 of 3);
 }
 
-.lineItemGroupShow-lineItem > .lineItemGroupShow-lineItem-image {
+.lineItem > .lineItem-image {
   @include span(1 of 12);
   float: left;
   img {
@@ -182,12 +182,12 @@
   }
 }
 
-.lineItemGroupShow-lineItem > .lineItemGroupShow-ineItem-container > .lineItemGroupShow-lineItem-details {
+.lineItem > .lineItem-container > .lineItem-details {
   @include span(2 of 3);
 
 }
 
-.lineItemGroupShow-lineItem > .lineItemGroupShow-ineItem-container > .lineItemGroupShow-lineItem-buttons {
+.lineItem > .lineItem-container > .lineItem-buttons {
   @include span(1 of 3);
   @include omega;
 }
