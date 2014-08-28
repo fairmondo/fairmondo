@@ -150,6 +150,10 @@ class LibrariesController < ApplicationController
     def set_index_mode
       default = 'trending'
       @mode = params[:mode] || default
-      @mode = default if @mode == 'myfavorite' and not current_user  # switch to default if user is logged out
+      #@mode = default if @mode == 'myfavorite' and not current_user  # switch to default if user is logged out
+      if @mode == 'myfavorite' and not current_user
+        redirect_to libraries_url
+        @mode = default
+      end
     end
 end

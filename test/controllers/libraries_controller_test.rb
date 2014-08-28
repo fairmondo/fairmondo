@@ -60,7 +60,19 @@ describe LibrariesController do
         Library.expects(:trending)
         @controller.send(:focus)
       end
+
+      # Was will ich eigentlich testen?
+      #
+      #
+
     end
+
+    describe 'with parameters should set the correct mode variable'
+
+#    describe '::set_index_mode' do
+
+ #   end
+
   end
 
   describe '#create' do
@@ -94,5 +106,4 @@ describe LibrariesController do
       assert_response :success
     end
   end
-
 end
