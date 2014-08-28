@@ -48,7 +48,7 @@
 
                   - if abacus.transport_listing.free_transport
                     .small-info.right
-                      = t('cart.texts.free_transport_at', price: money(group.free_transport_at_price))
+                      = t('cart.texts.free_transport_at', price: money(group.free_transport_at_price_cents))
 
           - if cod_total = hash[:cash_on_deliveryon_delivery_total]
             .payment-row
