@@ -66,6 +66,7 @@ de:
         address_line_2: "Adresszusatz"
         city: "Ort"
         zip: "PLZ"
+        company_name: "Firmenname"
 
       feedback:
         from: "Deine Email-Adresse"

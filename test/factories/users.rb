@@ -88,7 +88,7 @@ FactoryGirl.define do
       standard_address { FactoryGirl.create :address, :fixture_address }
     end
 
-    factory :incomplete_user do
+    factory :incomplete_user, class: 'PrivateUser' do
       ignore do
         create_standard_address false
       end
