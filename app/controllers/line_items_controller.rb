@@ -27,15 +27,16 @@ class LineItemsController < ApplicationController
   before_filter :quantity_zero_means_destroy, only: [:update]
 
   def create
-    @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
 
-    if @line_item.new_record?
-      @line_item.line_item_group = find_or_create_line_item_group
-    else
-      @line_item.update_attribute :requested_quantity, params['line_item']['requested_quantity']
-    end
+    @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
+    @line_item.prepare_line_item_group_or_assign @cart, params['line_item']['requested_quantity']
     authorize @line_item
-    flash[:notice] = I18n.t('line_item.notices.success_create') if @line_item.save
+
+    if @line_item.save
+      flash[:notice] = I18n.t('line_item.notices.success_create')
+    else
+      flash[:error] = I18n.t('line_item.notices.error_quanitity')
+    end
     redirect_to @line_item.article
   end
 
@@ -43,7 +44,7 @@ class LineItemsController < ApplicationController
     find_and_authorize_line_item
 
     unless @line_item.update(params.for(@line_item).refine)
-      flash[:error] = I18n.t('line_item.notices.error_update')
+      flash[:error] = I18n.t('line_item.notices.error_quanitity')
     end
 
     set_and_redirect_to_cart
@@ -76,10 +77,6 @@ class LineItemsController < ApplicationController
       cart = Cart.find(cookies.signed[:cart])
       refresh_cookie cart
       redirect_to cart
-    end
-
-    def find_or_create_line_item_group
-      @cart.line_item_group_for @line_item.article.seller # get the seller-unique LineItemGroup (or creates one)
     end
 
     def refresh_cookie cart
