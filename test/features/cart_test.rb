@@ -292,6 +292,35 @@ feature 'Checkout' do
     page.must_have_content I18n.t('cart.notices.checkout_failed')
   end
 
+#  scenario 'Buying a cart with an incomplete user' do
+#
+#    article = FactoryGirl.create(:article, title: 'foobar')
+#    login_as FactoryGirl.create(:incomplete_user)
+#    visit article_path(article)
+#
+#    # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
+#
+#    click_button I18n.t('common.actions.to_cart')
+#    click_link I18n.t('header.cart', count: 1)
+#
+#    # Step 1
+#
+#    click_link I18n.t('cart.actions.checkout')
+#    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+#    save_and_open_page
+#    # Step 2
+#
+#    click_button I18n.t('common.actions.continue')
+#
+#
+#    # checkout
+#    article.update_attribute(:quantity_available, 0)
+#
+#    find('input.checkout_button').click
+#    Cart.last.sold?.must_equal false
+#    page.must_have_content I18n.t('cart.notices.checkout_failed')
+#  end
+
 
 
 
