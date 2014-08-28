@@ -7,16 +7,14 @@
 
 .libraries {
   clear: both;
-  margin-top: 2em;
 }
 
-ul.view_menu {
+ul.mode_menu {
   list-style-type: none;
   padding: 0 1.5em;
-  border-bottom: 1px solid $blue;
-  margin: 0 -1.5em;
+  border-bottom: 2px solid $lighter-gray;
+  margin: 1.5em -1.5em 2em;
   overflow: hidden;
-
 
   li {
     float: left;
@@ -26,23 +24,18 @@ ul.view_menu {
 
   a, li.selected {
     display: block;
-    padding: 0 1em;
-    line-height: 2.2em;
+    padding: 0.3em 1em 0.2em;
+    margin-top: 0.2em;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    border: 1px solid $blue;
+    border: 1px solid $lighter-gray;
     border-bottom: none;
     text-decoration: none;
   }
 
   a {
     color: $black;
-    background-color: $light-blue;
-  }
-
-  a:hover, a:focus {
-    color: $white;
-    background-color: $blue;
+    background-color: $sand;
   }
 
   li.selected {
@@ -50,15 +43,8 @@ ul.view_menu {
     background-color: $white;
   }
 
-
-
-/*    a {
-      color: $black;
-      background-color: $light-blue;
-
-    }
-*/
-
-
-
+  a:hover, a:focus, li.selected {
+    margin-top: 0;
+    padding: 0.3em 1em 0.4em;
+  }
 }
