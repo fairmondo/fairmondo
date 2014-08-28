@@ -97,4 +97,5 @@ module ApplicationHelper
     @controlled_resource ||= instance_variable_get("@#{controller_name.classify.underscore}")
   end
 
+
 end
