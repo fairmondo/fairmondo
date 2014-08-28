@@ -4,9 +4,11 @@ class CartsController < ApplicationController
   before_filter :generate_session, only: :edit
   before_filter :clear_session, only: :show # userhas the possibility to reset the session by continue buying
   before_filter :set_cart
+  before_filter :dont_cache, only: [:edit, :update]
 
   before_filter :authorize_and_authenticate_user_on_cart, only: :show
   skip_before_filter :authenticate_user!, only: :show
+
 
   def show
     if @cart.sold? and @cart.line_item_groups.count == 1
@@ -14,6 +16,7 @@ class CartsController < ApplicationController
       redirect_to @cart.line_item_groups.first
     else
       @cart_abacus = CartAbacus.new @cart
+      @cart.line_item_groups.map(&:line_items).flatten.each { |item| item.valid? }
       respond_with @cart
       # switch between pre and post purchase view happens in the template
     end
@@ -71,7 +74,17 @@ class CartsController < ApplicationController
     end
 
     def set_cart
-      @cart = Cart.includes( line_item_groups: [ :seller,:business_transactions , { line_items:  {article: [:seller,:images]} }]).find params[:id]
+      @cart = Cart.includes(
+        line_item_groups:[
+          :seller,
+          :business_transactions,
+          :transport_address,
+          :payment_address,
+          {line_items:{
+            article:[
+              :seller,
+              :images
+        ]}}]).find params[:id]
     end
 
     def authorize_and_authenticate_user_on_cart
