@@ -19,7 +19,11 @@ ul.mode_menu {
   li {
     float: left;
     text-transform: uppercase;
-    font-size: 1.3em;
+    font-size: 1.0em;
+
+    @include till-breakpoint($bp-tablet-horizontal) {
+      font-size: 1.3em;
+    }
   }
 
   a, li.selected {
