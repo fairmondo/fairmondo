@@ -34,8 +34,8 @@
 -# If user is not focused, show library titles
 - unless @user
   %h1 Sammlungen
-  %ul#view_selector
-    %li= link_to 'Trends', trending_libraries_path
+  %ul.view_menu
+    %li.selected= 'Trends'
     %li= link_to 'neu', libraries_path
     %li= link_to 'meine Favoriten', myfavorite_libraries_path
 
