@@ -23,6 +23,21 @@ feature 'Adding an Article to the cart' do
     page.must_have_content 'foobar'
   end
 
+  scenario 'logged-in user adds article to his cart and is logged out by the system' do
+    article = FactoryGirl.create(:article, title: 'foobar')
+    user = FactoryGirl.create(:user)
+    login_as user
+    visit article_path(article)
+    click_button I18n.t('common.actions.to_cart')
+    page.must_have_content I18n.t('line_item.notices.success_create')
+    logout(:user) # simulate logout
+    visit root_path
+    page.wont_have_content I18n.t('header.cart', count: 1)
+    login_as FactoryGirl.create(:user)
+    page.wont_have_content I18n.t('header.cart', count: 1)
+    Cart.last.user.must_equal user
+  end
+
   scenario 'logged-in user adds article to his cart and logs out' do
     article = FactoryGirl.create(:article, title: 'foobar')
     user = FactoryGirl.create(:user)
@@ -178,7 +193,7 @@ feature 'Checkout' do
 
   end
 
-   scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
+  scenario 'Trying to buy a cart with unified transport and cash on delivery and dont check agb. Afterwards try to resume with single transports' do
 
     seller = FactoryGirl.create :legal_entity, :with_unified_transport_information, :paypal_data
     articles = [FactoryGirl.create(:article, :with_all_payments, :with_all_transports, title: 'foobar', seller: seller )]
@@ -219,6 +234,63 @@ feature 'Checkout' do
 
   end
 
+  scenario 'Buying a cart with one item that is already deactivated by the time he buys it' do
+
+    article = FactoryGirl.create(:article, title: 'foobar')
+    login_as FactoryGirl.create(:user)
+    visit article_path(article)
+
+    # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
+
+    click_button I18n.t('common.actions.to_cart')
+    click_link I18n.t('header.cart', count: 1)
+
+    # Step 1
+
+    click_link I18n.t('cart.actions.checkout')
+    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+
+    # Step 2
+
+    click_button I18n.t('common.actions.continue')
+
+
+    # checkout
+    article.deactivate
+
+    find('input.checkout_button').click
+    Cart.last.sold?.must_equal false
+    page.must_have_content I18n.t('cart.notices.checkout_failed')
+  end
+
+  scenario 'Buying a cart with one item that is already bought by the time he buys it' do
+
+    article = FactoryGirl.create(:article, title: 'foobar')
+    login_as FactoryGirl.create(:user)
+    visit article_path(article)
+
+    # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
+
+    click_button I18n.t('common.actions.to_cart')
+    click_link I18n.t('header.cart', count: 1)
+
+    # Step 1
+
+    click_link I18n.t('cart.actions.checkout')
+    page.check('cart_checkout_form_line_item_groups_1_tos_accepted')
+
+    # Step 2
+
+    click_button I18n.t('common.actions.continue')
+
+
+    # checkout
+    article.update_attribute(:quantity_available, 0)
+
+    find('input.checkout_button').click
+    Cart.last.sold?.must_equal false
+    page.must_have_content I18n.t('cart.notices.checkout_failed')
+  end
 
 
 
