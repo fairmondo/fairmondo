@@ -21,6 +21,26 @@ class LineItem < ActiveRecord::Base
     joins(:cart).where("carts.id = ?", cart_id).find_by_article_id(params['article_id']) || new(params)
   end
 
+  def prepare_line_item_group_or_assign cart, quantity
+    if self.new_record?
+      self.line_item_group = find_or_create_line_item_group cart
+    else
+      # we need to parse quantity to integer since it is a param and
+      # we want to increase it for that value.
+      # if quantity is nil it is probably a single quantity article
+      # and we want to throw a quantity error so we increase it by 1
+      # note:
+      # - we need the if quantity part because to_i will be 0 for nil values
+      # - we need the rescue nil part because its a param value and we need to coerce it
+      quantity = quantity.to_i rescue nil if quantity
+      self.requested_quantity += quantity || 1
+    end
+  end
+
+  def find_or_create_line_item_group cart
+    cart.line_item_group_for self.article.seller # get the seller-unique LineItemGroup (or creates one)
+  end
+
   # after_rollback: When update failed becuase requested_quantity was too large, set it to the max available quantity
   def set_max_requested_quantity
     available = self.article_quantity_available
