@@ -17,25 +17,24 @@
       .Listview
         - resource.business_transactions.each do |bt|
           = render 'line_item_groups/shared/article', article: bt.article, bt: bt
-      = 'Gesamt: '
-      300Euro
 
       - if resource.buyer == current_user
-        = render 'line_item_groups/show_payment', line_item_group: resource
+        = gray_box 'Bezahlung' do
+          = render 'line_item_groups/show_payment', line_item_group: resource
       - if resource.seller == current_user
-        = render 'line_item_groups/show_transport', line_item_group: resource
+        = gray_box 'Versand' do
+          = render 'line_item_groups/show_transport', line_item_group: resource
 
 
-      - if resource.message
-        %h3
-          - if resource.seller.title == 'Herr'
-            Deine Nachricht an den Verkäufer
-          - elsif resource.seller.title == 'Frau'
-            Deine Nachricht an die Verkäuferin
-          - else
-            Deine Nachricht an den/die Verkäufer*in
-        %p
-      .message
+      - title = ''
+      - if resource.seller.title == 'Herr'
+        - title = 'Deine Nachricht an den Verkäufer'
+      - elsif resource.seller.title == 'Frau'
+        - title = 'Deine Nachricht an die Verkäuferin'
+      - else
+        - title = 'Deine Nachricht an den/die Verkäufer*in'
+
+      = gray_box title do
         = resource.message
   .sidebar
     - if resource.transport_address == resource.payment_address
@@ -52,3 +51,7 @@
         Bitte schicke die Rechnung an:
       - if resource.buyer == current_user
         = render 'addresses/address', address: resource.payment_address, radio: nil, title: 'Rechnungsadresse'
+    .Content
+      %h2
+        Gesamtwert
+    = render 'addresses/address', address: resource.seller.standard_address, radio: nil, title: 'Verkäufer*in'
