@@ -50,9 +50,15 @@ FactoryGirl.define do
     seller_state "standard_seller"
     buyer_state "standard_buyer"
 
-    after(:create) do |user|
-      address = FactoryGirl.create(:address, user: user)
-      user.update_attribute(:standard_address_id, address.id)
+    ignore do
+      create_standard_address true
+    end
+
+    after(:create) do |user,evaluator|
+      if evaluator.create_standard_address
+        address = FactoryGirl.create(:address, user: user)
+        user.update_attribute(:standard_address_id, address.id)
+      end
     end
 
     trait :missing_bank_data do
@@ -65,7 +71,7 @@ FactoryGirl.define do
     end
 
     factory :admin_user do
-      admin       true
+      admin true
     end
 
     factory :non_german_user do
@@ -82,8 +88,10 @@ FactoryGirl.define do
       standard_address { FactoryGirl.create :address, :fixture_address }
     end
 
-    factory :incomplete_user do
-      standard_address nil
+    factory :incomplete_user, class: 'PrivateUser' do
+      ignore do
+        create_standard_address false
+      end
     end
 
     trait :no_bank_data do

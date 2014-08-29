@@ -15,6 +15,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/mock'
 require "minitest-matchers"
+require 'minitest/hell'
 require 'sidekiq/testing'
 require 'fakeredis'
 require "savon/mock/spec_helper"
@@ -50,7 +51,6 @@ end
 
 TireTest.off
 setup_categories
-
 
 include Savon::SpecHelper
 savon.mock!

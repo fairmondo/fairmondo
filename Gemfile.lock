@@ -307,6 +307,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    parallel (1.2.4)
+    parallel_tests (1.0.6)
+      parallel
     paypal_adaptive (0.3.8)
       json (~> 1.0)
       jsonschema (~> 2.0.0)
@@ -616,6 +619,7 @@ DEPENDENCIES
   nkss-rails!
   nokogiri
   paperclip (>= 3.0)
+  parallel_tests
   paypal_adaptive
   pg
   prawn_rails
