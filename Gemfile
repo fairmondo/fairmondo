@@ -146,7 +146,7 @@ end
 
 
 group :development, :test do
-
+  gem "parallel_tests"
   gem 'pry-rails' # pry is awsome
   gem 'hirb' # hirb makes pry output even more awesome
   gem 'pry-byebug' # kickass debugging
