@@ -15,3 +15,6 @@
         = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
       = f.actions do
         = f.action :submit, button_html: {class: "Btn", id: "select_exhibition_submit_action"} # this generates the same form id twice on that page, which is annoying
+
+- content_for :view_specific_scripts do
+  = javascript_include_tag 'ajax_history'
