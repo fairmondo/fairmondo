@@ -139,9 +139,15 @@ class Article < ActiveRecord::Base
     self.save! # validation is performed on the attribute
   end
 
+  def quantity_available_with_article_state
+    self.active? ? quantity_available_without_article_state : 0
+  end
+
   def quantity_available
     super || self.quantity
   end
+
+  alias_method_chain :quantity_available, :article_state
 
   def save_as_template?
     self.save_as_template == "1"

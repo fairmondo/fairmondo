@@ -6,6 +6,3 @@ de:
 
     labels:
       edit: 'Ändern'
-
-    errors:
-      already_sold: ' (es wurden soeben Einheiten des Artikels verkauft)'
