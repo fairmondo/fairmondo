@@ -6,14 +6,16 @@
       = f.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')], wrapper_html: { class: "small-selectboxit"}
       = f.input :first_name, required: true
       = f.input :last_name, required: true
+      - if current_user.is_a? LegalEntity
+        = f.input :company_name
     = f.inputs class: 'Address-form-street' do
       = f.input :address_line_1, required: true
       = f.input :address_line_2
     = f.inputs class: 'Address-form-city' do
       = f.input :zip, required: true
       = f.input :city, required: true
-    = f.inputs class: 'Address-form-country' do
       = f.input :country, required: true, as: :select, collection: [t('users.countries.germany')], wrapper_html: { class: "small-selectboxit"}
+    = f.inputs do
       = hidden_field_tag :radio, params[:radio]
 
     = f.actions do

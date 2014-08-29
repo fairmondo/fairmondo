@@ -59,7 +59,7 @@
               = baf.input :title, as: :select, collection: [t('common.title.woman'),t('common.title.man')]
               = baf.input :first_name, required: true
               = baf.input :last_name, required: true
-              = baf.input :company_name
+              = baf.input :company_name if current_user.is_a? LegalEntity
               = baf.input :address_line_1, required: true
               = baf.input :address_line_2
               = baf.input :zip, required: true

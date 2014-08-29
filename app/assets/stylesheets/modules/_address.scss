@@ -29,7 +29,10 @@ margin-bottom: 0.5em;
 .Address  .Address-controls {
   float:right;
 }
+.Address-form-container {
+  max-width: 50em;
 
+}
 .Address > .Address-form li.input.stringish {
   input {
     height: 1.8em;
@@ -43,13 +46,24 @@ margin-bottom: 0.5em;
 
 @include at-breakpoint($bp-tablet) {
   .Address > .Address-form .Address-form-name > ol > li.input {
+    .selectboxit-container { width:100%; min-width: 5em; }
+    .selectboxit-arrow-container { min-width:1.5em; }
+    @include span(2 of 7 0.1);
+  }
+  .Address > .Address-form .Address-form-name > ol > li.input:first-child {
     .selectboxit-container { width:100% }
-    @include span(1 of 3 0.1);
+    @include span(1 of 7 0.1);
   }
 
-  .Address > .Address-form .Address-form-street, .Address > .Address-form .Address-form-city  {
+  .Address > .Address-form .Address-form-street {
     > ol > li.input {
-      @include span(1 of 2 0.1);
+      @include span(1 of 2 0.02);
+    }
+  }
+  .Address > .Address-form .Address-form-city  {
+    .selectboxit-container { width:100%; min-width: 5em; }
+    > ol > li.input {
+      @include span(1 of 3 0.05);
     }
   }
 

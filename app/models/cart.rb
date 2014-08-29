@@ -67,8 +67,6 @@ class Cart < ActiveRecord::Base
 
     return :checked_out
   rescue => e
-    puts e
-    debugger
     return :checkout_failed
   end
 end
