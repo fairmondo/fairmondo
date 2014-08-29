@@ -91,3 +91,6 @@
               - lib[:exhibits].each do |article|
                 .Grid-item
                   = render "/articles/shared/show_article", article: article
+
+- content_for :view_specific_scripts do
+  = javascript_include_tag 'ajax_history'
