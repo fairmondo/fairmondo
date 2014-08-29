@@ -128,7 +128,7 @@ module ArticlesHelper
   end
 
   # used for getting the pagination page for ajax content
-  def pagination_page(params)
+  def article_pagination_page(params)
     if params[:page]
       "&page=#{params[:page]}"
     else
