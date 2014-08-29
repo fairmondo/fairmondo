@@ -30,7 +30,7 @@ describe LibrariesController do
       end
 
       it "should allow access" do
-        get :index, :user_id => @user.id
+        get :index, user_id: @user.id
         assert_response :success
       end
     end
@@ -43,36 +43,45 @@ describe LibrariesController do
       end
 
       it "should be successful" do
-        get :index, :user_id => @library.user
+        get :index, user_id: @library.user
         assert_response :success
       end
 
       it "should be successful" do
-        get :show, :user_id => @library.user, :id => @library.id
+        get :show, user_id: @library.user, id: @library.id
+        assert_response :success
+      end
+    end
+
+    describe "with parameter 'mode=myfavorite'" do
+      it 'should redirect to /libraries if user is not logged in' do
+        get :index, mode: 'myfavorite'
+        assert_redirected_to libraries_path
+      end
+
+      it 'should be successful if user is logged in' do
+        user = FactoryGirl.create(:user)
+        @controller.stubs(:current_user).returns(user)
+        get :index, mode: 'myfavorite'
+        assert_response :success
+      end
+    end
+
+    describe "with parameter 'mode=new'" do
+      it 'should be successful' do
+        get :index, mode: 'new'
         assert_response :success
       end
     end
 
     describe '::focus' do
-      it 'should return trending libraries if no user is focused' do
+      it 'should return trending libraries if no user is focused and no mode is set' do
         @controller.stubs(:user_focused?).returns(false)
         User.any_instance.expects(:libraries).never
         Library.expects(:trending)
         @controller.send(:focus)
       end
-
-      # Was will ich eigentlich testen?
-      #
-      #
-
     end
-
-    describe 'with parameters should set the correct mode variable'
-
-#    describe '::set_index_mode' do
-
- #   end
-
   end
 
   describe '#create' do

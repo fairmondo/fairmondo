@@ -35,7 +35,12 @@ class LibrariesController < ApplicationController
 
     # Configure the libraries collection that is displayed
     set_index_mode
-    @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
+
+    if @mode == 'myfavorite' and not current_user
+      redirect_to libraries_url  # redirect if not logged in and /myfavorite_libraries is requested
+    else
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
+    end
   end
 
   def show
@@ -148,12 +153,6 @@ class LibrariesController < ApplicationController
     end
 
     def set_index_mode
-      default = 'trending'
-      @mode = params[:mode] || default
-      #@mode = default if @mode == 'myfavorite' and not current_user  # switch to default if user is logged out
-      if @mode == 'myfavorite' and not current_user
-        redirect_to libraries_url
-        @mode = default
-      end
+      @mode = params[:mode] || 'trending'
     end
 end
