@@ -132,11 +132,12 @@
 */
 
 .container {
+  overflow: hidden;
 
 }
 
 .container > .content-wrapper {
-  @include span(3 of 4);
+  @include span(3 of 4 0.1);
 }
 
 .container > .content-wrapper > .content {
@@ -148,7 +149,7 @@
 }
 
 .container > .sidebar {
-  @include span(1 of 4);
+  @include span(1 of 4 0.1);
   @include omega;
 }
 
