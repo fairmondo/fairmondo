@@ -11,15 +11,15 @@ class CartsController < ApplicationController
 
 
   def show
-    if @cart.sold? and @cart.line_item_groups.count == 1
+    if @cart.sold?
       # redirect directly to a purchase view if there is only one lig to purchase
-      redirect_to @cart.line_item_groups.first
+      return redirect_to @cart.line_item_groups.first if @cart.line_item_groups.count == 1
     else
       @cart_abacus = CartAbacus.new @cart
       @line_items_valid = all_line_items_valid?
-      respond_with @cart
-      # switch between pre and post purchase view happens in the template
     end
+    respond_with @cart
+    # switch between pre and post purchase view happens in the template
   end
 
   def edit
