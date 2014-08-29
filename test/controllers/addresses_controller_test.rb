@@ -23,6 +23,16 @@ describe AddressesController do
         xhr :post, :create, user_id: user.id, address: @address_attrs
       end
     end
+
+    it 'should render new on error' do
+      @address_attrs = FactoryGirl.attributes_for :address
+      @address_attrs[:first_name] = nil
+      sign_in user
+      assert_no_difference('Address.count') do
+        xhr :post, :create, user_id: user.id, address: @address_attrs
+      end
+      assert_template :new
+    end
   end
 
   describe 'GET ::edit' do
@@ -36,7 +46,40 @@ describe AddressesController do
 
   describe 'PATCH ::update' do
     it 'should update address' do
+      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
+      update_address = FactoryGirl.create :address, user: user
+      user.addresses << update_address
       sign_in user
+
+      assert_no_difference('Address.count') do
+        xhr :patch, :update, user_id: user.id, id: update_address.id, address: @address_attrs
+      end
+      update_address.reload.first_name.must_equal 'test update'
+    end
+    it 'should render edit on empty names' do
+      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
+      @address_attrs[:first_name] = nil
+      update_address = FactoryGirl.create :address, user: user
+      user.addresses << update_address
+      sign_in user
+
+      assert_no_difference('Address.count') do
+        xhr :patch, :update, user_id: user.id, id: update_address.id, address: @address_attrs
+      end
+      assert_template :edit
+    end
+    it 'should clone a referenced address' do
+      @address_attrs = FactoryGirl.attributes_for :address, first_name: 'test update'
+      referenced_address = FactoryGirl.create :address, :referenced, user: user
+      fist_name_referenced = referenced_address.first_name
+      user.addresses << referenced_address
+      sign_in user
+
+      assert_difference('Address.count', 1) do
+        xhr :patch, :update, user_id: user.id, id: referenced_address.id, address: @address_attrs
+      end
+      referenced_address.reload.first_name.must_equal fist_name_referenced
+      user.addresses.last.first_name.must_equal 'test update'
     end
   end
 

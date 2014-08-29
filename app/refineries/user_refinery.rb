@@ -29,7 +29,4 @@ class UserRefinery < ApplicationRefinery
     permitted
   end
 
-  def profile
-    [:print]
-  end
 end
