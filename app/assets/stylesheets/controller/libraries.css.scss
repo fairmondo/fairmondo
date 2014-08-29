@@ -1,5 +1,8 @@
 @import "mixins/all";
 
+$border-color: $lighter-gray;
+$fill-color: $light-blue;
+
 .library-form {
   @include whitebox;
   margin-bottom: 1em;
@@ -10,45 +13,60 @@
 }
 
 ul.mode_menu {
+  position: relative;
   list-style-type: none;
-  padding: 0 1.5em;
-  border-bottom: 2px solid $lighter-gray;
-  margin: 1.5em -1.5em 2em;
+  padding: 0;
+  border-bottom: 0.1em solid $border-color;
+  margin: 1.5em 0 2em;
   overflow: hidden;
 
   li {
     float: left;
-    text-transform: uppercase;
-    font-size: 1.0em;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 0;
 
-    @include till-breakpoint($bp-tablet-horizontal) {
-      font-size: 1.3em;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      font-size: 1.0em;
     }
   }
 
   a, li.selected {
     display: block;
-    padding: 0.3em 1em 0.2em;
-    margin-top: 0.2em;
+    padding-left: 1em;
+    padding-right: 1em;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    border: 1px solid $lighter-gray;
+    border: 1px solid $border-color;
     border-bottom: none;
-    text-decoration: none;
+
+    padding-top: 4px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-top: 2px;
+    }
   }
 
   a {
     color: $black;
-    background-color: $sand;
+    background-color: $white;
+    text-decoration: none;
+
+    padding-bottom: 2px;
+    margin-top: 6px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-bottom: 1px;
+      margin-top: 4px;
+    }
   }
 
   li.selected {
     color: $black;
-    background-color: $white;
-  }
+    background-color: $fill-color;
 
-  a:hover, a:focus, li.selected {
     margin-top: 0;
-    padding: 0.3em 1em 0.4em;
+    padding-bottom: 8px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-bottom: 5px;
+    }
   }
 }
