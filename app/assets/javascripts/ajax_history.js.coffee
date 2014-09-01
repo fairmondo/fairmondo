@@ -4,6 +4,5 @@ $(document).ready ->
     History.pushState( null, document.title, window.location.href )
 
     $('.l-main').on 'click', 'a', (e) ->
-      console.log e
       History.pushState( null, document.title, e.target.href)
       true
