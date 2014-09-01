@@ -32,7 +32,14 @@ class WelcomeController < ApplicationController
     @old = query_object.set(:old).find(2)
     @donation_articles = query_object.set(:donation_articles).find(2)
 
+    # Libraries
     @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: {user: [:image]})
+
+    # Personalized section
+    if current_user
+      @last_hearted_library = current_user.hearted_libraries.first  # das ist irgendeine geherzte Sammlung
+      @current_private_library = current_user.libraries.personal.first
+    end
   end
 
   # Rss Feed

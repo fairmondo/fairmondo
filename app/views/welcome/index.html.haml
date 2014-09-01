@@ -25,6 +25,33 @@
   .category-dropdown
     = render 'categories/shared/category_tree'
 
+-# Personalized section
+- if library = @last_hearted_library
+  .teaser.teaser--full.libraries
+    .teaser-inner
+      %h2 Neulich geherzt
+      %details{id: "library#{library.id.to_s}", class: 'Library'}
+        %summary
+          = render 'libraries/library_header', library: library
+        .Library-details
+          .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
+          = render 'libraries/library_buttons', library: library
+          .Library-elements
+            = render 'libraries/library', library: library
+
+- if library = @current_private_library
+  .teaser.teaser--full.libraries
+    .teaser-inner
+      %h2 Aktuelle private Sammlung von Dir
+      %details{id: "library#{library.id.to_s}", class: 'Library'}
+        %summary
+          = render 'libraries/library_header', library: library
+        .Library-details
+          .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
+          = render 'libraries/library_buttons', library: library
+          .Library-elements
+            = render 'libraries/library', library: library
+
 
 -# Article queue 1
 .teaser.teaser--double#teaser--first
