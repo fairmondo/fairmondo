@@ -204,8 +204,6 @@ GEM
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.2)
-    historyjs-rails (1.0.1)
-      railties (>= 3.0)
     httpi (2.2.5)
       rack
     i18n (0.6.11)
@@ -558,7 +556,6 @@ DEPENDENCIES
   friendly_id (>= 4.0.9)
   haml
   hirb
-  historyjs-rails
   i18n-js
   ibanomat
   jquery-rails
