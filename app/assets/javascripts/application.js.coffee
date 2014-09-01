@@ -36,10 +36,9 @@
 #= require i18n
 #= require i18n/translations
 
-#= require history_jquery.min
-#= require history
 #= require rails-timeago
 #= require locales/jquery.timeago.de.js
+
 
 #= require vendor/jquery.slides.min.js
 #= require vendor/jquery.complexify
@@ -50,6 +49,7 @@
 #= require vendor/jquery.truncator
 #= require vendor/jquery.autocomplete
 #= require vendor/jquery.details
+#= require vendor/jquery.history
 
 #= require models/article/categories
 #= require models/article/search_input
@@ -77,6 +77,7 @@
 #= require visual/ajax_spinner
 #= require visual/category_dropdown_max_right
 #= require visual/details
+#= require visual/history
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
