@@ -321,7 +321,7 @@ describe ArticlesController do
         refute_equal original_article.slug, original_slug
 
         assert_equal original_article.comments.count, 0
-        assert_equal new_article.comments.first, comment
+        assert_equal comment, new_article.comments.first
       end
 
     end
