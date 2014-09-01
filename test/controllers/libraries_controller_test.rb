@@ -54,11 +54,6 @@ describe LibrariesController do
     end
 
     describe "with parameter 'mode=myfavorite'" do
-      it 'should redirect to /libraries if user is not logged in' do
-        get :index, mode: 'myfavorite'
-        assert_redirected_to libraries_path
-      end
-
       it 'should be successful if user is logged in' do
         user = FactoryGirl.create(:user)
         @controller.stubs(:current_user).returns(user)
