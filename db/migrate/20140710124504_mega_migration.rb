@@ -11,6 +11,7 @@ class MegaMigration < ActiveRecord::Migration
     belongs_to :article
     belongs_to :seller, class_name: 'PseudoUser', foreign_key: 'seller_id'
     belongs_to :buyer, class_name: 'PseudoUser', foreign_key: 'buyer_id'
+    has_one :rating
   end
 
   class LineItemGroup < ActiveRecord::Base
@@ -31,6 +32,7 @@ class MegaMigration < ActiveRecord::Migration
 
   class Rating < ActiveRecord::Base
     belongs_to :line_item_group
+    belongs_to :business_transaction
   end
 
 
@@ -84,7 +86,6 @@ class MegaMigration < ActiveRecord::Migration
       t.string  :unified_payment_method
       t.integer :transport_address_id, limit:8
       t.integer :payment_address_id, limit:8
-      t.integer :old_transaction_reference, limit:8
       t.string  :purchase_id
 
       t.timestamps
@@ -164,7 +165,7 @@ class MegaMigration < ActiveRecord::Migration
 
 
     BusinessTransaction.all.find_each do |t|
-      lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, old_transaction_reference: t.id)
+      lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, purchase_id: t.id)
       t.update_column :line_item_group_id, lig.id
       # Move Ratings from BusinessTransaction to LineItemGroup
       if t.rating

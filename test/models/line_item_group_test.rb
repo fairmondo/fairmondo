@@ -23,6 +23,7 @@ describe LineItemGroup do
     it { subject.must_respond_to :message }
     it { subject.must_respond_to :transport_address_id }
     it { subject.must_respond_to :payment_address_id }
+    it { subject.must_respond_to :purchase_id }
   end
 
 end
