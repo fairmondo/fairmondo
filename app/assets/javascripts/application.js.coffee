@@ -77,7 +77,6 @@
 #= require visual/ajax_spinner
 #= require visual/category_dropdown_max_right
 #= require visual/details
-#= require visual/history
 
 #= require inputs/password_complexify
 #= require inputs/socialshareprivacy
