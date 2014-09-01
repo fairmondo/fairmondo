@@ -85,6 +85,7 @@ class MegaMigration < ActiveRecord::Migration
       t.integer :transport_address_id, limit:8
       t.integer :payment_address_id, limit:8
       t.integer :old_transaction_reference, limit:8
+      t.string  :purchase_id
 
       t.timestamps
     end
@@ -93,6 +94,7 @@ class MegaMigration < ActiveRecord::Migration
     add_index :line_item_groups, ["buyer_id"], :name => "index_line_item_groups_on_buyer_id"
     add_index :line_item_groups, ["transport_address_id"], :name => "index_line_item_groups_on_transport_address_id"
     add_index :line_item_groups, ["payment_address_id"], :name => "index_line_item_groups_on_payment_address_id"
+    add_index :line_item_groups, ["purchase_id"], :name => "index_line_item_groups_on_purchase_id"
 
     # Create Payments
     create_table :payments do |t|
