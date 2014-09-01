@@ -2,14 +2,15 @@
   %li
     = link_to t('header.sell'), new_article_path
   %li
-    = link_to t('header.libraries'), libraries_path, title: "Andere Nutzer*innen haben bereits Sammlungen zu bestimmten Themen erstellt. Beim Durchstöbern dieser Sammlungen kannst auch Du weitere spannende Artikel entdecken."
+    = link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip')
+
   %li.JS-active-toggle--container
-    = link_to t('header.community'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
+    = link_to t('header.community.title'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
     %ul.l-header-nav-dropdown.JS-active-toggle--target
-      %li= link_to t('header.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
-      %li= link_to t('header.hero'), 'http://helden.fairnopoly.de/', target: '_blank'
-      %li= link_to t('header.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
-      %li= link_to t('header.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
+      %li= link_to t('header.community.forum'), 'https://info.fairnopoly.de/forum/', target: '_blank'
+      %li= link_to t('header.community.hero'), 'http://helden.fairnopoly.de/', target: '_blank'
+      %li= link_to t('header.community.facebook'), 'https://www.facebook.com/fairmondo', target: '_blank'
+      %li= link_to t('header.community.developer'), 'https://github.com/fairnopoly/fairnopoly', target: '_blank'
 
   - if user_signed_in?
     %li
