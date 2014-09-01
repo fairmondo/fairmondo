@@ -6,5 +6,4 @@ $ ->
   #   $.getScript location.href
   History.Adapter.bind window, 'statechange', ->
     State = History.getState()
-    debugger
     $.getScript location.href
