@@ -15,8 +15,15 @@ class HeartsController < ApplicationController
       user_token = UserTokenGenerator.generate(request.env["HTTP_USER_AGENT"], request.env["REMOTE_ADDR"])
       @heart = @heartable.hearts.build(user_token: user_token)
     end
+
     authorize @heart
-    if !@heart.save
+
+    if @heart.save
+      # In the view we are using the hearts_count counter cache, which is not automatically
+      # updated in the object, so we do it by hand.
+      # Please don't save this object from now on.
+      @heartable.hearts_count += 1
+    else
       @message = "Jemand hat diese Sammlung schon von diesem Computer geherzt. " +
                  "Wenn du das nicht warst, logge dich bitte ein!"
     end
@@ -26,6 +33,11 @@ class HeartsController < ApplicationController
     @heart = Heart.find(params[:id])
     authorize @heart
     @heart.destroy
+
+    # In the view we are using the hearts_count counter cache, which is not automatically
+    # updated in the object, so we do it by hand.
+    # Please don't save this object from now on.
+    @heartable.hearts_count -= 1
   end
 
   private
