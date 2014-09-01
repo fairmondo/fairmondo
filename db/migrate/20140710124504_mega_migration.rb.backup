@@ -94,6 +94,7 @@ class CreateLineItemGroups < ActiveRecord::Migration
       t.integer :user_id, limit:8
       t.boolean :unified_transport
       t.boolean :unified_payment
+      t.integer :old_transaction_reference, limit: 8
 
       t.timestamps
     end
@@ -157,7 +158,7 @@ class MakeTransactionModelReadyForBattle < ActiveRecord::Migration
       t.destroy
     end
     BusinessTransaction.all.find_each do |t|
-      lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, user_id: t.seller.id, created_at: t.created_at, updated_at: t.updated_at)
+      lig = LineItemGroup.create(message: t.message, tos_accepted: t.tos_accepted, user_id: t.seller.id, created_at: t.created_at, updated_at: t.updated_at, old_transaction_reference: t.id)
       t.line_item_group_id = lig.id
       t.save!
     end

@@ -84,6 +84,7 @@ class MegaMigration < ActiveRecord::Migration
       t.string  :unified_payment_method
       t.integer :transport_address_id, limit:8
       t.integer :payment_address_id, limit:8
+      t.integer :old_transaction_reference, limit:8
 
       t.timestamps
     end
@@ -161,7 +162,7 @@ class MegaMigration < ActiveRecord::Migration
 
 
     BusinessTransaction.all.find_each do |t|
-      lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at)
+      lig = LineItemGroup.create(message: t.message, tos_accepted: true, seller_id: t.seller_id, buyer_id: t.buyer_id,created_at: t.created_at, updated_at: t.updated_at, old_transaction_reference: t.id)
       t.update_column :line_item_group_id, lig.id
       # Move Ratings from BusinessTransaction to LineItemGroup
       if t.rating
