@@ -31,7 +31,7 @@ describe PaymentsController do
     sign_in buyer
   end
 
-  describe "POST 'create'" do
+  describe "POST 'update'" do
     let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
 
     it "should update a payment and forward to show" do
@@ -43,6 +43,18 @@ describe PaymentsController do
       payment.reload.pay_key.must_be_kind_of String
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
     end
+
+    it "should show error on paypal api error" do
+      request.env["HTTP_REFERER"] = root_path
+      Payment.any_instance.stubs(:init).returns(false)
+      payment #so one with the business_transaction_id already exists
+      payment.pay_key.must_be_nil
+      assert_difference 'Payment.count', 0 do
+        post :update, id: payment.id
+      end
+      flash[:error].must_equal I18n.t('paypal_api.controller_error')
+    end
+
   end
 
   describe "GET 'show'" do

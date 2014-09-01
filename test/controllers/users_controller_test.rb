@@ -51,4 +51,14 @@ describe UsersController do
       end
     end
   end
+  describe "GET 'profile'" do
+      before :each do
+        @user = FactoryGirl.create(:legal_entity)
+      end
+
+      it "should be successful" do
+        get :profile , id: @user, format: :pdf, print: 'terms'
+        assert_response :success
+      end
+  end
 end

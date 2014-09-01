@@ -34,14 +34,26 @@ describe SessionsController do
   end
 
   describe "POST 'create'" do
+    before do
+      @user = FactoryGirl.create :user, email: 'cookie@test.de'
+      @cart = FactoryGirl.create(:cart, user: nil)
+      cookies.signed[:cart] = @cart.id
+    end
     it "should set the user_id of an existing cart cookie" do
-      skip
+      post :create, :user => {:email => @user.email, :password => 'password'}
+      @cart.reload.user.must_equal @user
     end
   end
 
   describe "DELETE 'destroy'" do
+    before do
+      user = FactoryGirl.create :user
+      sign_in user
+      cookies.signed[:cart] = 1
+    end
     it "should delete the cart cookie" do
-      skip
+      get :destroy
+      cookies.signed[:cart].must_equal nil
     end
   end
 end

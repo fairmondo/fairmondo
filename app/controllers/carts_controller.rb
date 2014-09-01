@@ -11,21 +11,23 @@ class CartsController < ApplicationController
 
 
   def show
-    if @cart.sold? and @cart.line_item_groups.count == 1
+    if @cart.sold?
       # redirect directly to a purchase view if there is only one lig to purchase
-      redirect_to @cart.line_item_groups.first
+      return redirect_to @cart.line_item_groups.first if @cart.line_item_groups.count == 1
     else
       @cart_abacus = CartAbacus.new @cart
-      @cart.line_item_groups.map(&:line_items).flatten.each { |item| item.valid? }
-      respond_with @cart
-      # switch between pre and post purchase view happens in the template
+      @line_items_valid = all_line_items_valid?
     end
+    respond_with @cart
+    # switch between pre and post purchase view happens in the template
   end
 
   def edit
     authorize @cart
     @cart_checkout_form = CartCheckoutForm.new(session, @cart, params[:checkout]) #try the old session data
-    if @cart_checkout_form.session_valid? && params[:checkout]
+    if !all_line_items_valid?
+      redirect_to cart_path @cart
+    elsif @cart_checkout_form.session_valid? && params[:checkout]
       prepare_overview_variables
       render :overview
     else
@@ -102,4 +104,7 @@ class CartsController < ApplicationController
       @total = @abaci.map(&:total).sum
     end
 
+    def all_line_items_valid?
+      @cart.line_item_groups.map(&:line_items).flatten.all?(&:valid?)
+    end
 end
