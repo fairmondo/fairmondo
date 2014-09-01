@@ -36,9 +36,7 @@ class LibrariesController < ApplicationController
     # Configure the libraries collection that is displayed
     set_index_mode
 
-    if @mode == 'myfavorite' and not current_user
-      redirect_to libraries_url  # redirect if not logged in and /myfavorite_libraries is requested
-    else
+    unless @mode == 'myfavorite' and not current_user
       @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
     end
   end
