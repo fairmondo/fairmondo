@@ -40,7 +40,9 @@ class Cart < ActiveRecord::Base
           line_item.business_transaction.save!
         end
         line_item_group.buyer_id = self.user_id
+        line_item_group.sold_at = Time.now
         line_item_group.save!
+        line_item_group.update_column(:purchase_id, Cart.generate_purchase_id_for(line_item_group.id))
       end
       # sort this by article_id to prevent deadlocks
       locked_article_ids_with_quantities.sort.each do |article_id,quantity|
@@ -68,5 +70,9 @@ class Cart < ActiveRecord::Base
     return :checked_out
   rescue => e
     return :checkout_failed
+  end
+
+  def self.generate_purchase_id_for id
+    id.to_s.rjust(8, '0').prepend('F')
   end
 end

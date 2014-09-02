@@ -350,6 +350,8 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.string   "unified_payment_method"
     t.integer  "transport_address_id",               limit: 8
     t.integer  "payment_address_id",                 limit: 8
+    t.string   "purchase_id"
+    t.datetime "sold_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unified_transport_provider"
@@ -361,6 +363,7 @@ ActiveRecord::Schema.define(version: 20140820084648) do
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
   add_index "line_item_groups", ["cart_id"], name: "index_line_item_groups_on_cart_id", using: :btree
   add_index "line_item_groups", ["payment_address_id"], name: "index_line_item_groups_on_payment_address_id", using: :btree
+  add_index "line_item_groups", ["purchase_id"], name: "index_line_item_groups_on_purchase_id", using: :btree
   add_index "line_item_groups", ["seller_id"], name: "index_line_item_groups_on_seller_id", using: :btree
   add_index "line_item_groups", ["transport_address_id"], name: "index_line_item_groups_on_transport_address_id", using: :btree
 
