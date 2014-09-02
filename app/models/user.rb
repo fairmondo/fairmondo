@@ -67,6 +67,8 @@ class User < ActiveRecord::Base
   has_many :hearts
   has_many :comments, dependent: :destroy
 
+  has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
+
   ##
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
   accepts_nested_attributes_for :image

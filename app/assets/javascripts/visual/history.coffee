@@ -2,7 +2,8 @@
 # Ajax content
 
 $ ->
-  $(window).bind "popstate", ->
+  # $(window).bind "popstate", ->
+  #   $.getScript location.href
+  History.Adapter.bind window, 'statechange', ->
+    State = History.getState()
     $.getScript location.href
-
-

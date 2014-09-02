@@ -118,17 +118,25 @@ Fairnopoly::Application.routes.draw do
     end
   end
 
+  # library routes
   resources :libraries, only: [:index, :show],
                         concerns: [:heartable, :commentable] do
-    member do
-      patch 'admin_audit'
-    end
+    patch 'admin_audit', on: :member
+
     collection do
       post 'admin_add', as: 'admin_add_to'
       delete 'admin_remove/:article_id/:exhibition_name', action: 'admin_remove', as: 'admin_remove_from'
+
     end
   end
 
+  # special library #index routes
+  get 'trending_libraries', to: 'libraries#index', defaults: { mode: 'trending' }
+  get 'new_libraries', to: 'libraries#index', defaults: { mode: 'new' }
+  get 'myfavorite_libraries', to: 'libraries#index', defaults: { mode: 'myfavorite' }
+
+
+  # categories routes
   resources :categories , only: [:index,:show] do
     member do
       get 'select_category'

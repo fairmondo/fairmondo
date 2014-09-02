@@ -30,8 +30,15 @@ class LibrariesController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:index, :show]
 
   def index
+    # Build empty Library object if user creates a new library
     @library = @user.libraries.build if user_signed_in? && @user
-    @libraries = LibraryPolicy::Scope.new( current_user, @user, focus.includes(:user => [:image] )).resolve.page(params[:page])
+
+    # Configure the libraries collection that is displayed
+    set_index_mode
+
+    unless @mode == 'myfavorite' and not current_user
+      @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
+    end
   end
 
   def show
@@ -132,7 +139,18 @@ class LibrariesController < ApplicationController
       if user_focused?
         @user.libraries
       else
-        Library.trending
+        case @mode
+        when 'new'
+          Library
+        when 'myfavorite'
+          current_user.hearted_libraries
+        else
+          Library.trending
+        end
       end
+    end
+
+    def set_index_mode
+      @mode = params[:mode] || 'trending'
     end
 end

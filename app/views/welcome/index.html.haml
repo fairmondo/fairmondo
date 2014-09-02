@@ -88,12 +88,11 @@
         = render 'articles/shared/show_article', article: article
 
 -# Trending libraries
-- trending_libraries = Library.trending_welcome_page
-- if trending_libraries.to_a.any?
+- if @trending_libraries.to_a.any?
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.trending_libraries')
-      - trending_libraries.each do |library|
+      - @trending_libraries.each do |library|
         %details{id: "library#{library.id.to_s}", class: 'Library'}
           %summary
             = render 'libraries/library_header', library: library
