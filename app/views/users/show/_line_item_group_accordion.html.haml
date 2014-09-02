@@ -9,7 +9,7 @@
     - line_item_groups.each do |group|
       .Content
         = render 'line_item_groups/shared/listitem' , line_item_group: group
-    - if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
+    -# if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
       .export.JS-active-toggle--container
         .Button.JS-active-toggle--trigger{data: {clickable: true}}
           Verkäufe exportieren
