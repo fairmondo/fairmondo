@@ -34,7 +34,7 @@ class LineItemGroupExporter
 
   def self.get_line_item_groups(user, params)
     if params[:time_range] && params[:time_range] != 'all'
-      user.seller_line_item_groups.where('created_at > ? AND created_at < ?', params[:time_range].to_i.month.ago, Time.now).includes(:buyer, :transport_address, :payment_address, business_transactions: [:article])
+      user.seller_line_item_groups.where('sold_at > ? AND sold_at < ?', params[:time_range].to_i.month.ago, Time.now).includes(:buyer, :transport_address, :payment_address, business_transactions: [:article])
     else
       user.seller_line_item_groups.includes(:buyer, :transport_address, :payment_address, business_transactions: [:article])
     end
@@ -51,7 +51,7 @@ class LineItemGroupExporter
   def self.mapping_name(option)
     {
       'Article' => 'article',
-      'BusinessTransaction' => 'transaction',
+      'BusinessTransaction' => 'item',
       'LineItemGroup' => 'purchase',
       'User' => 'buyer',
     }.tap do |hash|
@@ -64,9 +64,16 @@ class LineItemGroupExporter
   # TODO consider which attributes should be exported and write them to the array
   def self.export_attrs
     [
-      'purchase_id', 'purchase_created_at', 'transaction_id',
-      'transaction_quantity_bought', 'article_id', 'article_title',
-      'article_custom_seller_identifier'
+      'purchase_purchase_id', 'purchase_created_at',
+      'item_id', 'item_quantity_bought', 'article_id',
+      'article_custom_seller_identifier', 'article_title', 'article_price',
+      'buyer_nickname',
+      'payment_address_title', 'payment_address_first_name', 'payment_address_last_name', 'payment_address_company_name',
+      'payment_address_address_line_1', 'payment_address_address_line_2', 'payment_address_zip', 'payment_address_city',
+      'payment_address_country',
+      'transport_address_title', 'transport_address_first_name', 'transport_address_last_name', 'transport_address_company_name',
+      'transport_address_address_line_1', 'transport_address_address_line_2', 'transport_address_zip', 'transport_address_city',
+      'transport_address_country',
     ]
   end
 
