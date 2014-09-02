@@ -349,6 +349,7 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.integer  "transport_address_id",               limit: 8
     t.integer  "payment_address_id",                 limit: 8
     t.string   "purchase_id"
+    t.datetime "sold_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unified_transport_provider"

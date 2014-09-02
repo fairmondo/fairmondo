@@ -40,6 +40,7 @@ class Cart < ActiveRecord::Base
           line_item.business_transaction.save!
         end
         line_item_group.buyer_id = self.user_id
+        line_item_group.sold_at = Time.now
         line_item_group.save!
         line_item_group.update_column(:purchase_id, Cart.generate_purchase_id_for(line_item_group.id))
       end
