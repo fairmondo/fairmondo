@@ -40,7 +40,7 @@
     = render "articles/show/activation_links", article: resource unless resource.active?
   - else
     = render "articles/show/seller", article: resource, libraries: @containing_libraries
-- if resource.active?
+-# if resource.active?
   .sidebar
     = render "articles/show/fair_alternative", article: resource
 
