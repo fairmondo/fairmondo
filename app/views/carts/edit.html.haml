@@ -34,9 +34,9 @@
             .form
               = line_item_fields.semantic_fields_for :business_transaction, line_item.business_transaction do |t|
                 = t.inputs class: 'payment' do
-                  = t.input :selected_payment, include_blank: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
+                  = t.input :selected_payment, include_blank: false, required: false, wrapper_html: {class: 'js-unified-payment--target small-selectboxit'}, collection: checkout_options_for_payment(line_item.business_transaction.article.selectable_payments)
                 = t.inputs class: 'transport' do
-                  = t.input :selected_transport, include_blank: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item.business_transaction)
+                  = t.input :selected_transport, include_blank: false, required: false, wrapper_html: {class: (unified ? "js-unified-transport--target small-selectboxit" : "small-selectboxit") }, collection: checkout_options_for_single_transport(line_item.business_transaction)
                   - if unifiable
                     .js-unified-transport--inversetarget.transport_notice
                       - if unified
@@ -44,7 +44,8 @@
                       - else
                         %span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
-
+      .warning
+        = I18n.t('cart.texts.security_warning')
   %h2= t('cart.texts.addresses.forms')
   .addresses_forms
 
@@ -81,8 +82,8 @@
         = link_to new_user_address_path(current_user, radio: true), { class: 'colorbox' } do
           .fa.fa-plus
           = t('address.actions.new')
-
-  = f.actions do
-    .checkout-actions
-      = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
+  .next_step_explanation
+    = I18n.t('cart.texts.next_step_explanation')
+  = f.actions class: 'checkout-actions' do
+    = f.action :submit , label: t("common.actions.continue"), button_html: { class: 'Button'}
 

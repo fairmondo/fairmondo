@@ -1,5 +1,7 @@
 @import "mixins/all";
 
+// Commonly used
+
 .visual_checkout_steps {
   margin-bottom: 1em;
 }
@@ -13,6 +15,27 @@
 
 .visual_checkout_step.active {
   color: black;
+}
+
+.warning {
+  text-align: justify;
+  padding: 0.5em;
+  font-size: 0.8em;
+  color: $gray;
+}
+
+.checkout-actions {
+  clear:both;
+  text-align: right;
+  & li.action {
+    float: none;
+  }
+}
+.checkout-back {
+  float: left;
+}
+.checkout-submit {
+  display: inline-block;
 }
 
 
@@ -89,14 +112,20 @@ form.change_quantity > .inputs >  ol > li.action {
   float:left;
   margin-right:1em;
 }
-.formtastic .unified_inputs .unified_payment  > li.boolean {
- padding-top: 1em;
-}
 
 // Message Box layout
 
 .formtastic .message-text textarea {
-  height: 4em;
+  height: 5.5em;
+  width:90%;
+}
+
+.next_step_explanation {
+  padding:1em;
+   @include at-breakpoint($bp-tablet-horizontal) {
+    float:right;
+  }
+
 }
 
 // Responsiveness
@@ -114,11 +143,11 @@ form.change_quantity > .inputs >  ol > li.action {
 }
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  .formtastic .unified_inputs .unified_payment {
+  .formtastic .unified_inputs .unified_payment, .formtastic .unified_inputs .unified_transport {
+    margin-top: 5.5em;
     @include span(1 of 2 0.1);
   }
   .formtastic .unified_inputs .unified_transport {
-    @include span(1 of 2 0.1);
     @include omega;
   }
 }
@@ -196,11 +225,12 @@ form.change_quantity > .inputs >  ol > li.action {
   @include at-breakpoint($bp-tablet-horizontal) { margin-top: 0.3em; }
   > .quantity { float:left; margin-right: 0.5em;}
   > .price { clear:both; }
+  > .title { overflow:hidden; text-overflow:ellipsis }
 }
 
 .formtastic .line_items > .line_item > .form {
   .input { padding: 0; }
-  .transport_notice { font-size: 0.8em; margin-top: 0.5em; color: $gray}
+  .transport_notice { margin-top: 0.5em; }
   @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
      @include clearfix;
     .payment,.transport { float:left; }
@@ -231,7 +261,7 @@ form.change_quantity > .inputs >  ol > li.action {
   }
 }
 
-.addresses_forms, .adresses_overview {
+.addresses_forms{
   @include clearfix;
   @include at-breakpoint($bp-tablet-horizontal) {
     > .payment_address {
@@ -246,115 +276,20 @@ form.change_quantity > .inputs >  ol > li.action {
 
 /* --------------------- Checkout Step 2 --------------------- */
 
-.payment-box {
-  margin-bottom: rem(20);
+@include at-breakpoint($bp-tablet-horizontal) {
+  .prices_overview { @include span(3 of 4 0.1); }
+  .sidebar { @include span(1 of 4 0.1); @include omega; }
 }
-.payment-box > h3, .payment-box > table, .payment-box .payment-cell {
-  background:white;
-  border: 1px solid $lighter-gray;
-}
-.payment-box > h3 {
-  display: inline;
-  padding: rem(5);
-  border-bottom: none;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.payment-box > .payment-table {
-  display: table;
-  width: 100%;
-  border-spacing: 0px;
-}
-
-.payment-box > .payment-table > .payment-row {
-  display: table-row;
-}
-
-.payment-box .payment-cell {
-  display: table-cell;
-  width: 50%;
-  text-align: center;
-  vertical-align: middle;
-  position: relative;
-  padding: rem(5);
-  &.no-padding { // almost; right can always use some space
-    padding: 0 rem(5) 0 0;
-  }
-}
-
-.payment-box .payment-cell .payment-article-image {
-  float: left;
-  margin-right: rem(12);
-  line-height: 0;
-  & img {
-    max-height: 73px;
-  }
-
-  display: none;
-  @include at-breakpoint($bp-tablet) {
-    display: block;
-  }
-}
-.payment-box .payment-cell .payment-article-title {
-  display: table-cell;
-  height: 64px;
-  vertical-align: middle;
-  width: 20%;  // Twilight zone! The wider this percentage, the smaller the element.
-}
-
-.payment-box tr > .payment-cell:nth-child(2) {
-  font-size: 16px;
-}
-
-.payment-box .payment-cell.spacer {
-  height: rem(5);
-}
-
-.payment-box .payment-cell.total {
-  font-weight: 600;
-}
-.payment-box .payment-cell .small-info {
-  font-size: 10px;
-  &.left {
-    font-weight: normal;
-    @include at-breakpoint($bp-mobile-horizontal) {
-      text-align: left;
-      padding: rem(5) 0 0 rem(10);
-    }
-  }
-  &.right {
-    font-weight: normal;
-    @include at-breakpoint($bp-mobile-horizontal) {
-      text-align: right;
-      padding: 0 rem(5) rem(5) 0;
-    }
-  }
-}
-.payment-box .payment-cell.no-padding.value {
-  font-weight: 600;
-  @include at-breakpoint($bp-mobile-horizontal) {
-    font-weight: normal;
-  }
-}
-
 
 .bt-totals {
   margin-bottom: rem(15);
 }
 
-.checkout-actions {
-  text-align: right;
-  & li.action {
-    float: none;
-  }
+.total_big {
+  text-align: center;
+  font-size: 1.5em;
 }
-.checkout-back {
-  float: left;
-}
-.checkout-submit {
-  display: inline-block;
-}
+
 
 
 /* --------------------- Post Checkout Cart --------------------- */

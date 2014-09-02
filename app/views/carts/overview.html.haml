@@ -1,70 +1,20 @@
 = visual_checkout_steps :step2, @cart
-- @abaci.each do |abacus|
-  - group = abacus.line_item_group
-  = gray_box line_item_group_title(group) do
-    - abacus.payment_listing.payments.each do |payment, hash|
-      .payment-box
-        %h3= t("enumerize.business_transaction.selected_payment.#{payment}")
-        .payment-table
-          - hash[:business_transactions].each do |bt|
-            - bt_listing = abacus.business_transaction_listing.prices[bt]
-            .payment-row
-              .payment-cell.no-padding
-                .payment-article-image
-                  = image_tag(bt.article.title_image_url_thumb)
-                .payment-article-title
-                  = bt_listing[:quantity].to_s + 'x'
-                  = bt.article_title
-              .payment-cell.no-padding.value
-                .small-info.left
-                  = bt_listing[:quantity].to_s + 'x'
-                  = money(bt.article_price) + ' ='
-                = money( bt_listing[:retail_price] )
+.prices_overview
+  - @abaci.each do |abacus|
+    - group = abacus.line_item_group
+    = gray_box line_item_group_title(group) do
+      - abacus.payment_listing.payments.each do |payment, hash|
+        .Payment
+          %h3= t("enumerize.business_transaction.selected_payment.#{payment}")
+          .Payment-table
+            - hash[:business_transactions].each do |bt|
+              = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt
+            - hash[:transports].each do |transport|
+              = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
+            = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
+            = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
 
-                .small-info.right
-                  = t('cart.texts.net')
-                  = money bt_listing[:net_price]
-                  %br
-                  = money bt.article_basic_price
-                  = t('common.text.glue.per')
-                  = bt.article_basic_price_amount_text
-
-          - hash[:transports].each do |transport|
-            - unless transport[:method] == :pickup
-              .payment-row
-                .payment-cell
-                  = transport[:shipments]
-                  = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
-                  = t('common.text.glue.via')
-                  = transport[:provider]
-                  = t("cart.texts.transports.#{transport[:method]}")
-                .payment-cell.value
-                  - if transport[:shipments] > 1 && !abacus.transport_listing.free_transport
-                    .small-info.left
-                      = transport[:shipments].to_s + 'x'
-                      = money(transport[:per_shipment]) + ' ='
-
-                  = money transport[:transport_price]
-
-                  - if abacus.transport_listing.free_transport
-                    .small-info.right
-                      = t('cart.texts.free_transport_at', price: money(group.free_transport_at_price_cents))
-
-          - if cod_total = hash[:cash_on_deliveryon_delivery_total]
-            .payment-row
-              .payment-cell
-                = t("enumerize.business_transaction.selected_payment.cash_on_delivery")
-              .payment-cell.value
-                = money cod_total
-
-          .payment-row.bt-totals
-            .payment-cell.total
-              = t("cart.texts.total_for.#{payment}")
-            .payment-cell.total.value
-              = money hash[:total]
-
-
-.adresses_overview
+.sidebar
   .payment_address
     = gray_box t('cart.texts.addresses.payment') do
       .Address
@@ -73,7 +23,13 @@
     = gray_box t('cart.texts.addresses.transport') do
       .Address
         = render 'addresses/address_lines', address: @cart.line_item_groups.first.transport_address
-
+  .total_overview
+    = gray_box t('cart.texts.total') do
+      .total_big
+        = money(@total)
 .checkout-actions
+
   = link_to t('cart.actions.back'), edit_cart_path(@cart), class: 'Button Button--gray checkout-back'
   = button_to t('cart.actions.confirm_purchase', total: money(@total)), cart_path(@cart, checkout: true), method: :patch, class: 'Button checkout_button', form_class: 'js-visual-submit checkout-submit'
+  .warning
+    = I18n.t('cart.texts.long_security_warning')

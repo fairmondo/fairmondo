@@ -1,0 +1,92 @@
+.Payment {
+  margin-bottom: rem(20);
+}
+.Payment > h3, .Payment > table, .Payment .Payment-cell {
+  background:white;
+  border: 1px solid $lighter-gray;
+}
+.Payment > h3 {
+  display: inline;
+  padding: rem(5);
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.Payment > .Payment-table {
+  display: table;
+  width: 100%;
+  border-spacing: 0px;
+}
+
+.Payment > .Payment-table > .Payment-row {
+  display: table-row;
+}
+
+.Payment .Payment-cell {
+  display: table-cell;
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  padding: rem(5);
+  &.no-padding { // almost; right can always use some space
+    padding: 0 rem(5) 0 0;
+  }
+}
+
+.Payment .Payment-cell .Payment-article-image {
+  float: left;
+  margin-right: rem(12);
+  line-height: 0;
+  & img {
+    max-height: 73px;
+  }
+
+  display: none;
+  @include at-breakpoint($bp-tablet) {
+    display: block;
+  }
+}
+.Payment .Payment-cell .Payment-article-title {
+  word-break: break-all;
+  display: table-cell;
+  height: 64px;
+  vertical-align: middle;
+  width: 20%;  // Twilight zone! The wider this percentage, the smaller the element.
+}
+
+.Payment tr > .Payment-cell:nth-child(2) {
+  font-size: 16px;
+}
+
+.Payment .Payment-cell.spacer {
+  height: rem(5);
+}
+
+.Payment .Payment-cell.total {
+  font-weight: 600;
+}
+.Payment .Payment-cell .small-info {
+  font-size: 10px;
+  &.left {
+    font-weight: normal;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      text-align: left;
+      padding: rem(5) 0 0 rem(10);
+    }
+  }
+  &.right {
+    font-weight: normal;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      text-align: right;
+      padding: 0 rem(5) rem(5) 0;
+    }
+  }
+}
+.Payment .Payment-cell.no-padding.value {
+  font-weight: 600;
+  @include at-breakpoint($bp-mobile-horizontal) {
+    font-weight: normal;
+  }
+}

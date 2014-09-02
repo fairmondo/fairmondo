@@ -1,5 +1,5 @@
 class TransportAbacus
-  attr_reader :single_transports, :unified_transport, :free_transport
+  attr_reader :single_transports, :unified_transport, :free_transport, :free_transport_at_price
 
   def self.calculate business_transaction_abacus
     abacus = TransportAbacus.new(business_transaction_abacus)
@@ -10,8 +10,8 @@ class TransportAbacus
   end
 
   def check_free_transport
-    free_at_price = @line_item_group.free_transport_at_price
-    @free_transport = ( free_at_price &&  @business_transaction_abacus.total_retail_price >= free_at_price )
+    @free_transport_at_price = @line_item_group.free_transport_at_price
+    @free_transport = ( @free_transport_at_price &&  @business_transaction_abacus.total_retail_price >= @free_transport_at_price )
   end
 
   def calculate_single_transports

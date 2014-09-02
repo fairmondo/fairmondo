@@ -1,0 +1,21 @@
+- if @line_item_group.buyer == current_user
+  .payment_information
+    = t("line_item_group.payment_information.#{payment}", total: money(total))
+    - case payment
+    - when :bank_transfer
+      - seller = @line_item_group.seller
+      .bank_account_table
+        = bank_account_line(seller, :bank_account_owner)
+        = bank_account_line(seller, :iban)
+        = bank_account_line(seller, :bic)
+        = bank_account_line(seller, :bank_name)
+
+  .payment_actions
+    - case payment
+    - when :cash, :invoice, :cash_on_delivery
+      -# no action button
+    - when :bank_transfer
+      -#= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
+    - when :paypal
+      = button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
+

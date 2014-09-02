@@ -21,7 +21,7 @@
 -#
 = render 'header'
 - if resource.is? current_user
-  .Accordion
+  .Accordion.Accordion--activated
     = render '/users/show/article_accordion', item_name: 'active', item_link: new_article_path, articles: active_articles
     = render '/users/show/article_accordion', item_name: 'inactive', articles: inactive_articles
     = render '/users/show/line_item_group_accordion', item_name: 'seller_line_item_groups', line_item_groups: sold_line_item_groups

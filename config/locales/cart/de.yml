@@ -5,18 +5,21 @@ de:
       total: Gesamtpreis
       without_transport: "(zuzüglich Versandkosten)"
       empty_cart: Dein Warenkorb ist leer.
-      line_item_group_by: "Einkauf bei %{seller}"
+      line_item_group_by: "Dein Einkauf bei %{seller}"
       purchase_from: "Einkauf vom %{date}"
       your_order_for: "Deine Bestellung bei"
       terms: "AGB"
       cancellation: "Widerrufsbelehrung"
-      terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Verkäufer*in."
+      terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Anbieters*in."
       unified_transport: "Möglichst alle Artikel mit %{provider} zusammen versenden (Kombiversand)."
       unified_transport_notice: Kombiversand
-      unified_transport_impossible: "Dieser Artikel muss einzeln versendet werden."
+      unified_transport_impossible: "Dieser Artikel kann nur einzeln versendet werden."
       same_address: Lieferadresse wie Rechungsadresse
+      next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
+      security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairnopoly eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
+      long_security_warning: "Sicherheitshinweis: \n Der Kaufvertrag kommt zwischen Dir und dem*der Anbieter*in zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin.\n Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly insbesondere bei Artikeln ab 100 Euro eine sichere Bezahlmethode wie PayPal (da PayPal einen Käuferschutz beinhaltet) oder Barzahlung bei Abholung. Zudem empfehlen wir Dir die Daten des/der Anbieters*in bestätigen zu lassen, z.B. durch Übersendung einer Kopie des Personalausweises. In Einzelfällen kann es auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos) nachweisen zu lassen. "
       addresses:
-        forms: "Liefer- und Rechnungsadresse"
+        forms: "Deine Liefer- und Rechnungsadresse"
         payment: "Rechnungsadresse"
         transport: "Lieferadresse"
       # step 2 / overview
@@ -37,9 +40,8 @@ de:
         cash_on_delivery: ' Gesamte Kosten der Nachnahmesendung'
         invoice: 'Gesamter Rechnungsbetrag'
     steps:
-      step1: Bezahlung und Versand
-      step2: Übersicht und Kaufen
-      step3: Fertig
+      step1: '1. Schritt: Bezahlung und Versand'
+      step2: '2. Schritt: Überprüfen und Bestellen'
     actions:
       confirm_purchase: "Artikel für %{total} verbindlich kaufen"
       checkout: Zur Kasse

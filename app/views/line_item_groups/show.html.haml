@@ -1,54 +1,34 @@
-.lineItemGroupShow-container
-  .lineItemGroupShow-content-wrapper
-    .lineItemGroupShow-content
-      %h3
-        - if resource.buyer == current_user
-          = "Dein Einkauf bei "
-          = link_to resource.seller.nickname, user_path(resource.seller)
 
-        - if resource.seller == current_user
-          = "Dein Auftrag durch "
-          = link_to resource.buyer.nickname, user_path(resource.buyer)
-        = "vom #{resource.business_transactions.first.created_at.strftime('%d.%m.%Y um %H:%M')}"
-      = "Bestellnummer: #{resource.id}"
-      %p
-        Vielen Dank für Deinen Einkauf bei Fairnopoly.
-
-      .Listview
-        - resource.business_transactions.each do |bt|
-          = render 'line_item_groups/shared/article', article: bt.article, bt: bt
-      = 'Gesamt: '
-      300Euro
-
-      - if resource.buyer == current_user
-        = render 'line_item_groups/show_payment', line_item_group: resource
-      - if resource.seller == current_user
-        = render 'line_item_groups/show_transport', line_item_group: resource
-
-
-      - if resource.message
-        %h3
-          - if resource.seller.title == 'Herr'
-            Deine Nachricht an den Verkäufer
-          - elsif resource.seller.title == 'Frau'
-            Deine Nachricht an die Verkäuferin
-          - else
-            Deine Nachricht an den/die Verkäufer*in
-        %p
-      .message
-        = resource.message
-  .lineItemGroupShow-sidebar
-    - if resource.transport_address == resource.payment_address
-      - if resource.seller == current_user
-        Bitte versende Die gekauften Artikel an:
-      - if resource.buyer == current_user
-        = render 'addresses/address', address: resource.transport_address, radio: nil, title: 'Liefer- und Rechungsadresse'
+.header
+  %h2
+    - if current_user == @line_item_group.buyer
+      = t('cart.texts.line_item_group_by', seller: link_to(@line_item_group.seller_nickname, user_path(@line_item_group.seller))).html_safe
     - else
-      - if resource.seller == current_user
-        Bitte versende die Artikel an
-      - if resource.buyer == current_user
-        = render 'addresses/address', address: resource.transport_address, radio: nil, title: 'Lieferadresse'
-      - if resource.seller == current_user
-        Bitte schicke die Rechnung an:
-      - if resource.buyer == current_user
-        = render 'addresses/address', address: resource.payment_address, radio: nil, title: 'Rechnungsadresse'
+      = t('line_item_group.texts.sold_to', buyer: link_to(@line_item_group.buyer_nickname, user_path(@line_item_group.buyer))).html_safe
+.state
+  %a.Button Bezahlung
+  %a.Button Versand
+  %a.Button Bewertung
+.group
+  .payments
+    = render 'line_item_groups/show/payments', abacus: @abacus, line_item_group: @line_item_group
+  .transports
+    = render "line_item_groups/show/transports"
+  .rating
+.sidebar
+  .payment_address
+    = gray_box t('cart.texts.addresses.payment') do
+      .Address
+        = render 'addresses/address_lines', address: @line_item_group.payment_address
+  .transport_address
+    = gray_box t('cart.texts.addresses.transport') do
+      .Address
+        = render 'addresses/address_lines', address: @line_item_group.transport_address
+  .total_price
+    = gray_box t('cart.texts.total') do
+      .total_big
+        = money(@abacus.total)
+
+
+
+
