@@ -1,0 +1,35 @@
+- case selected_payment
+- when 'bank_transfer'
+  .Content
+    %h4= "Bitte überweise #{total} auf folgendes Konto:"
+    %tr
+      %table
+      %td
+        Kontoinhaber*in:
+      %td
+        = bt.seller.bank_account_owner
+    %tr
+      %td
+        IBAN:
+      %td
+        = bt.seller.iban
+    %tr
+      %td
+        BIC:
+      %td
+        = bt.seller.bic
+    %tr
+      %td
+        Bank:
+      %td
+        = bt.seller.bank_name
+- when 'cash'
+  = "Bitte bezahle den Betrag von ... bei Abholung"
+  = render 'addresses/address', address: bt.seller.standard_address
+- when 'paypal'
+  - button_tag t('transaction.actions.paypal_process'), class: 'Button'
+  -#= button_to t('transaction.actions.paypal_process'), payment_path(bt.payment), method: 'patch', class: "Button"
+- when 'cash_on_delivery'
+  Deine Artikel werden per Nachnahme verschickt.
+- when 'invoice'
+  Du erhälst eine Rechnung über den Betrag von...

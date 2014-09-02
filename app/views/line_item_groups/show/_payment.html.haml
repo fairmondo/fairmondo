@@ -11,9 +11,10 @@
         = bank_account_line(seller, :bank_name)
         .line
           .heading
-            = I18n.t("line_item_group.texts.bank_transfer_purpose")
-          .value
+            = "#{I18n.t("line_item_group.texts.bank_transfer_purpose")}:"
 
+          .value
+            = "#{I18n.t("line_item_group.texts.purchase_id")} #{@line_item_group.purchase_id}"
   .payment_actions
     - case payment
     - when :cash, :invoice, :cash_on_delivery

@@ -1,13 +1,14 @@
-- abacus.payment_listing.payments.each do |payment, hash|
-  = gray_box t("enumerize.business_transaction.selected_payment.#{payment}") do
-    .Payment
-      .Payment-table
-        - hash[:business_transactions].each do |bt|
-          = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt
-        - hash[:transports].each do |transport|
-          = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
-        = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
-        = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
-    = render '/line_item_groups/show/payment', total: hash[:total], payment: payment, line_item_group: line_item_group
+.payments
+  - abacus.payment_listing.payments.each do |payment, hash|
+    = gray_box t("enumerize.business_transaction.selected_payment.#{payment}") do
+      .Payment
+        .Payment-table
+          - hash[:business_transactions].each do |bt|
+            = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt
+          - hash[:transports].each do |transport|
+            = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
+          = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]
+          = render '/line_item_groups/abacus/total_row', total: hash[:total], payment: payment
+      = render '/line_item_groups/show/payment', total: hash[:total], payment: payment, line_item_group: line_item_group
 
 

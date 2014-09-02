@@ -1,0 +1,31 @@
+= gray_box "Lieferung ##{number}" do
+  .transport_table
+    .line
+      .heading
+        Versand über:
+      .value
+        = transport[:provider]
+    .line
+      .heading
+        Preis:
+      .value
+        = transport[:transport_price]
+    .line
+      .heading
+        Anzahl Sendungen:
+      .value
+        = transport[:shipments]
+  .ArticleListview.ArticleListview--integrated_with_sidebar
+    - business_transactions.each do |bt|
+      = render layout: 'articles/shared/listitem', locals: { article: bt.article, actions: true } do
+        .business_transaction_table
+          .line
+            .heading
+              Menge:
+            .value
+              = bt.quantity_bought
+          .line
+            .heading
+              Bezahlung über:
+            .value
+              = t("enumerize.business_transaction.selected_payment.#{bt.selected_payment}")

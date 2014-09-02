@@ -101,3 +101,20 @@ Styleguide Listview
   }
 }
 
+.ArticleListview.ArticleListview--integrated_with_sidebar > .ArticleListview-item-with-actions {
+
+@include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
+    .ArticleListview-image { @include span(1 of 5 0.1); }
+    .ArticleListview-details { @include span (2 of 5 0.1); }
+    .ArticleListview-actions { @include span (2 of 5 0.1); @include omega;}
+    .ArticleListview-title{ padding-top: 0.5em; max-height:3em; }
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    .ArticleListview-image { @include span(1 of 6 0.1); }
+    .ArticleListview-details { @include span (2 of 6 0.1); }
+    .ArticleListview-actions { @include span (3 of 6 0.1); @include omega;}
+    .ArticleListview-title{ padding-top: 0.5em; max-height:3em; }
+  }
+}
+

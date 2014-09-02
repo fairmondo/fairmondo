@@ -2,6 +2,8 @@ de:
   line_item_group:
     texts:
       sold_to: "Dein Verkauf an %{buyer}"
+      bank_transfer_purpose: "Verwendungszweck"
+      purchase_id: "Transaktionsnummer"
     payment_information:
       paypal: "Bitte bezahle den Gesamtbetrag von %{total} über Paypal."
       bank_transfer: "Bitte überweise den Gesamtbetrag von %{total} auf folgendes Konto:"
