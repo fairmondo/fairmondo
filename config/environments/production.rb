@@ -36,6 +36,9 @@ Fairnopoly::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglifier
 
+  # Compile assets that are not required in the application.js
+  config.assets.precompile += %w(ajax_history.js)
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
