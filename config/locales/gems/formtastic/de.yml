@@ -36,7 +36,7 @@ de:
         bank_code: "Bankleitzahl"
         bank_name: "Name der Bank"
         bank_account_number: "Kontonummer"
-        bank_account_owner: "Kontoinhaber"
+        bank_account_owner: "Kontoinhaber*in"
         iban: "IBAN"
         bic: "BIC"
         paypal_notification: "(Beachte, dass sich eine Änderung auf all Deine Artikel auswirkt, bei der Du die Bezahloption \"PayPal\" gewählt hast.)"
@@ -50,7 +50,7 @@ de:
         unified_transport_provider: "Der Kombiversand erfolgt als:"
         unified_transport_price: Versandkosten (€)
         free_transport_available: Ich versende ab einem
-        free_transport_at_price_cents: Bestellwert von
+        free_transport_at_price: Bestellwert von
 
       private_user:
         <<: *user
@@ -246,7 +246,7 @@ de:
           current_password: "Du musst Dein bisheriges Passwort nur angeben, wenn Du Deine Email Adresse oder Dein Passwort ändern willst."
           password: "Gib bitte ein neues Passwort an (freilassen, falls kein neues Passwort angelegt werden soll)"
           unified_transport_maximum_articles: Artikel pro Sendung.
-          free_transport_at_price_cents:  "€ versandkostenfrei."
+          free_transport_at_price:  "€ versandkostenfrei."
         update: *edit_user
 
       private_user:

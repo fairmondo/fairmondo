@@ -1,5 +1,6 @@
 .GrayBox {
   @include whitebox;
+  @include clearfix;
   min-width:280px;
   background: $lightest-gray;
   margin-bottom:1em;

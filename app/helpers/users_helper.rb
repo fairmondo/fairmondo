@@ -40,6 +40,18 @@ module UsersHelper
     resource.seller_line_item_groups.sold.includes(:buyer, :rating, :business_transactions => [:article => [:images]]).order(updated_at: :desc).page(params[:page]).per(6)
   end
 
+  def bank_account_line seller, attribute
+
+    heading = content_tag(:div, class: 'heading' ) do
+      "#{t("formtastic.labels.user.#{attribute}")}: "
+    end
+    value = content_tag(:div, class: 'value' ) do
+      @line_item_group.seller.send(attribute)
+    end
+    content_tag(:div, class: 'line') do
+      safe_join([heading,value])
+    end
+  end
 
 
 end

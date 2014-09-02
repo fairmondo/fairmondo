@@ -1,0 +1,19 @@
+- unless transport[:method] == :pickup
+  .Payment-row
+    .Payment-cell
+      = transport[:shipments]
+      = t('cart.texts.shipment').pluralize(transport[:shipments], I18n.locale)
+      = t('common.text.glue.via')
+      = transport[:provider]
+      = t("cart.texts.transports.#{transport[:method]}")
+    .Payment-cell.value
+      - if transport[:shipments] > 1 && !abacus.transport_listing.free_transport
+        .small-info.left
+          = transport[:shipments].to_s + 'x'
+          = money(transport[:per_shipment]) + ' ='
+
+      = money transport[:transport_price]
+
+      - if abacus.transport_listing.free_transport
+        .small-info.right
+          = t('cart.texts.free_transport_at', price: money(abacus.transport_listing.free_transport_at_price))

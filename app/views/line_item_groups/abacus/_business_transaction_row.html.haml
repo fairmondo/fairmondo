@@ -1,0 +1,21 @@
+- business_transaction_listing = abacus.business_transaction_listing.prices[business_transaction]
+.Payment-row
+  .Payment-cell.no-padding
+    .Payment-article-image
+      = image_tag(business_transaction.article.title_image_url_thumb)
+    .Payment-article-title
+      = business_transaction_listing[:quantity].to_s + 'x'
+      = business_transaction.article_title
+  .Payment-cell.no-padding.value
+    .small-info.left
+      = business_transaction_listing[:quantity].to_s + 'x'
+      = money(business_transaction.article_price) + ' ='
+    = money( business_transaction_listing[:retail_price] )
+
+    .small-info.right
+      = t('cart.texts.net')
+      = money business_transaction_listing[:net_price]
+      %br
+      = money business_transaction.article_basic_price
+      = t('common.text.glue.per')
+      = business_transaction.article_basic_price_amount_text

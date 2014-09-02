@@ -4,17 +4,11 @@
     = visual_checkout_step :step1, true, true
     %i.fa.fa-caret-right
     = visual_checkout_step :step2, false, false
-    %i.fa.fa-caret-right
-    = visual_checkout_step :step3, false, false
   - when :step2
     = visual_checkout_step :step1, false, true, edit_cart_path(cart.id)
     %i.fa.fa-caret-right
     = visual_checkout_step :step2, true, true
-    %i.fa.fa-caret-right
-    = visual_checkout_step :step3, false, false
   - when :step1
     = visual_checkout_step :step1, false, true
     %i.fa.fa-caret-right
     = visual_checkout_step :step2, false, false
-    %i.fa.fa-caret-right
-    = visual_checkout_step :step3, true, false

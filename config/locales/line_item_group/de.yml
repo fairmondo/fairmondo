@@ -1,0 +1,13 @@
+de:
+  line_item_group:
+    texts:
+      sold_to: "Dein Verkauf an %{buyer}"
+    payment_information:
+      paypal: "Bitte bezahle den Gesamtbetrag von %{total} über Paypal."
+      bank_transfer: "Bitte überweise den Gesamtbetrag von %{total} auf folgendes Konto:"
+      cash: "Bringe den Gesamtbetrag von %{total} mit wenn Du den/die Artikel bei dem*der Anbieter*in abholst."
+      cash_on_delivery: "Der Gesamtbetrag der Nachnahme ist %{total}."
+      invoice: "Du erhälst eine Rechnung in Höhe von %{total}."
+    payment_button:
+      paypal: "Bezahlen über Paypal"
+      bank_transfer: "Als bezahlt markieren"

@@ -4,6 +4,6 @@
   = gray_box t('cart.texts.line_item_group_by', seller: link_to(group.seller_nickname, user_path(group.seller))).html_safe do
     - group.line_items.each do |line_item|
       - article = line_item.article
-      .Listview
+      .ArticleListview
         = render layout: 'articles/shared/listitem' , locals: { article: article, actions:true } do
           = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
