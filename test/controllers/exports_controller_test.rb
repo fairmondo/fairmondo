@@ -21,27 +21,27 @@ describe ExportsController do
       end
     end
 
-    describe "GET 'show'" do
-      it "should be successful" do
-        time = Time.now
-        Time.stubs(:now).returns(time)
-        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv"
-        response.content_type.must_equal("text/csv; charset=utf-8")
-        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairnopoly_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
-        assert_response :success
-      end
-    end
-
-    describe "GET 'show' with time range" do
-      it "should be successful" do
-        time = Time.now
-        Time.stubs(:now).returns(time)
-        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv", :time_range => 3
-        response.content_type.must_equal("text/csv; charset=utf-8")
-        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairnopoly_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
-        assert_response :success
-      end
-    end
+#    describe "GET 'show'" do
+#      it "should be successful" do
+#        time = Time.now
+#        Time.stubs(:now).returns(time)
+#        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv"
+#        response.content_type.must_equal("text/csv; charset=utf-8")
+#        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairnopoly_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+#        assert_response :success
+#      end
+#    end
+#
+#    describe "GET 'show' with time range" do
+#      it "should be successful" do
+#        time = Time.now
+#        Time.stubs(:now).returns(time)
+#        get :show, :kind_of_article => "seller_line_item_groups", :format => "csv", :time_range => 3
+#        response.content_type.must_equal("text/csv; charset=utf-8")
+#        response.headers["Content-Disposition"].must_equal("attachment; filename=\"Fairnopoly_purchase_export_#{time.strftime("%Y-%d-%m %H:%M:%S")}.csv\"")
+#        assert_response :success
+#      end
+#    end
 
   end
 end
