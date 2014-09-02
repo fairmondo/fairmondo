@@ -86,12 +86,12 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.integer  "friendly_percent_organisation_id",       limit: 8
     t.string   "template_name"
     t.string   "transport_time"
-    t.integer  "quantity_available"
-    t.boolean  "unified_transport"
     t.boolean  "swappable",                                        default: false
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
+    t.integer  "quantity_available"
+    t.boolean  "unified_transport"
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -554,13 +554,13 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
+    t.boolean  "receive_comments_notification",                default: true
     t.integer  "standard_address_id",                limit: 8
     t.integer  "unified_transport_maximum_articles",           default: 1
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_price_cents",      limit: 8, default: 0
     t.boolean  "free_transport_available"
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
-    t.boolean  "receive_comments_notification",                default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
