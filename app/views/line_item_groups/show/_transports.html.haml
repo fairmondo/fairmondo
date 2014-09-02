@@ -1,0 +1,7 @@
+.transports
+  - count = 1
+  - if abacus.transport_listing.unified_transport
+    - transport = abacus.transport_listing.unified_transport
+    = render 'line_item_groups/show/transport', transport: transport, business_transactions: transport[:business_transactions], number: ++count
+  - abacus.transport_listing.single_transports.each do |bt,transport|
+    = render 'line_item_groups/show/transport', transport: transport, business_transactions: [bt], number: ++count

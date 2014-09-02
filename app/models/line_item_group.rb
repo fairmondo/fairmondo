@@ -67,6 +67,10 @@ class LineItemGroup < ActiveRecord::Base
     self.business_transactions.each{ |bt| bt.selected_transport = nil if bt.is_in_unified_transport? }
   end
 
+  def generate_purchase_id
+    self.update_column(:purchase_id, self.id.to_s.rjust(8, '0').prepend('F'))
+  end
+
   private
     def self.can_be_unified_for? record, type
       if type == :unified_transport

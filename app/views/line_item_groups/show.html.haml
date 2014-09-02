@@ -1,19 +1,29 @@
 .header
-  %h2
-    - if current_user == @line_item_group.buyer
-      = t('cart.texts.line_item_group_by', seller: link_to(@line_item_group.seller_nickname, user_path(@line_item_group.seller))).html_safe
-    - else
-      = t('line_item_group.texts.sold_to', buyer: link_to(@line_item_group.buyer_nickname, user_path(@line_item_group.buyer))).html_safe
-.state
-  %a.Button Bezahlung
-  %a.Button Versand
-  %a.Button Bewertung
+  .title
+    %h2
+      - if current_user == @line_item_group.buyer
+        = t('cart.texts.line_item_group_by', seller: link_to(@line_item_group.seller_nickname, user_path(@line_item_group.seller))).html_safe
+      - else
+        = t('line_item_group.texts.sold_to', buyer: link_to(@line_item_group.buyer_nickname, user_path(@line_item_group.buyer))).html_safe
+    %h3
+      = "#{I18n.t('line_item_group.texts.purchase_id')}: #{@line_item_group.purchase_id}"
+  .states
+    .state{class: @tab == :payments ? 'active': ''}
+      = link_to line_item_group_path(@line_item_group, tab: "payments") do
+        %i.fa.fa-euro
+        Bezahlung
+    .state{class: @tab == :transports ? 'active': ''}
+      = link_to line_item_group_path(@line_item_group, tab: "transports") do
+        %i.fa.fa-paper-plane
+        Versand
+    .state{class: @tab == :rating ? 'active': ''}
+      = link_to line_item_group_path(@line_item_group, tab: "ratings") do
+        %i.fa.fa-thumbs-up
+        Bewertung
+
+
 .group
-  .payments
-    = render 'line_item_groups/show/payments', abacus: @abacus, line_item_group: @line_item_group
-  .transports
-    = render "line_item_groups/show/transports"
-  .rating
+  = render "line_item_groups/show/#{@tab.to_s}", abacus: @abacus, line_item_group: @line_item_group
 .sidebar
   .payment_address
     = gray_box t('cart.texts.addresses.payment') do
@@ -27,5 +37,4 @@
     = gray_box t('cart.texts.total') do
       .total_big
         = money(@abacus.total)
-
 

@@ -4,15 +4,23 @@
 // show
 
 
-.bank_account_table > .line {
-   margin-bottom: 1em;
-}
-.bank_account_table > .line > .heading {
-  font-weight:600;
+.bank_account_table, .transport_table, .business_transaction_table {
+  margin-bottom: 1em;
+  > .line {  margin-bottom: 1em; }
+  > .line > .heading,  { font-weight:600;}
+
+  @include at-breakpoint($bp-mobile-horizontal) {
+      display:table;
+    > .line { display:table-row; }
+    > .line > .heading { display:table-cell; margin-right: 1em; }
+    > .line > .value { display:table-cell; text-indent: 2em; }
+  }
 }
 
-.bank_account_table {
-  margin: 1em;
+.bank_account_table { margin: 1em; }
+
+.business_transaction_table {
+  padding: 0.5em;
 }
 
 .payment_information, .payment_actions {
@@ -32,27 +40,11 @@
   }
 }
 
-@include at-breakpoint($bp-mobile-horizontal) {
-  .bank_account_table {
-    display:table;
 
-
-  }
-  .bank_account_table > .line {
-    display:table-row;
-  }
-  .bank_account_table > .line > .heading {
-    display:table-cell;
-    margin-right: 1em;
-  }
-  .bank_account_table > .line > .value {
-    display:table-cell;
-    text-indent: 2em;
-  }
-}
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .group { @include span(3 of 4 0.1); }
+  .header { @include span(3 of 4 0.1); }
   .sidebar { @include span(1 of 4 0.1); @include omega; }
 }
 
@@ -62,6 +54,40 @@
 }
 
 .header {
-  margin-bottom: 1em;
+  @include clearfix;
+  //margin-bottom: 1em;
+}
+
+.states {
+  margin-top:2em;
+  @include clear-links;
+  @include color-links($blue,$gray);
+  i { font-size: 2em; display:block; }
+  .state { display: inline-block; padding: 1em 3em; position:relative; top:1px;}
+  .active.state {
+    background-color:  $even-lighter-gray;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-top: 1px solid $lighter-gray;
+    border-left: 1px solid $lighter-gray;
+    border-right: 1px solid $lighter-gray;
+    a { color: $gray; }
+  }
+}
+
+@include at-breakpoint($bp-tablet) {
+  .title {
+    float: left;
+    width: 40%;
+  }
+
+  .states {
+
+    float:right;
+    width: 60%;
+    text-align: center;
+    //margin: 2em 0;
+  }
+
 }
 
