@@ -143,7 +143,7 @@ class LibrariesController < ApplicationController
         when 'new'
           Library
         when 'myfavorite'
-          current_user.hearted_libraries
+          current_user.hearted_libraries.reorder('hearts.created_at DESC')
         else
           Library.trending
         end
