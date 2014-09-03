@@ -7,7 +7,10 @@ class LineItemGroupsController < ApplicationController
   def show
     authorize @line_item_group
     @abacus = Abacus.new(@line_item_group)
-    respond_with @line_item_group
+    respond_with @line_item_group do |format|
+      format.html
+      format.js { render layout: 'ajax_replace' }
+    end
   end
 
   private

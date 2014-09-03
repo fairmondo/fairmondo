@@ -81,13 +81,13 @@
   //margin-bottom: 1em;
 }
 
-.states {
+.tabs {
   margin-top:2em;
   @include clear-links;
   @include color-links($blue,$gray);
-  i.state_icon { font-size: 1.5em; display:block; text-align:center; }
-  .state { display: inline-block; padding: 0.7em 0.9em; position:relative; top:1px;}
-  .active.state {
+  i.tab_icon { font-size: 1.5em; display:block; text-align:center; }
+  .tab { display: inline-block; padding: 0.7em 0.9em; position:relative; top:1px;}
+  .active.tab {
     background-color:  $even-lighter-gray;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
@@ -97,19 +97,17 @@
     a { color: $gray; }
   }
   @include at-breakpoint($bp-mobile-horizontal) {
-    .state { padding: 1em 1.5em; }
+    .tab { padding: 1em 1.5em; }
   }
-
   @include at-breakpoint($bp-tablet) {
-    i.state_icon{ font-size: 2em; }
-    .state { padding: 1em 1.5em; }
+    i.tab_icon{ font-size: 2em; }
+    .tab { padding: 1em 1.5em; }
   }
   @include at-breakpoint($bp-tablet-horizontal) {
-    .state { padding: 1em 1.7em; }
+    .tab { padding: 1em 1.7em; }
   }
-
   @include at-breakpoint($bp-desktop) {
-    .state { padding: 1em 2.5em; }
+    .tab { padding: 1em 2.5em; }
   }
 
 }
@@ -121,7 +119,9 @@
 
 @include at-breakpoint($bp-tablet) {
   .title { float: left; width: 50%; }
-  .states { float:right; width: 50%;  }
+  .tabs { float:right; width: 50%;  }
 
 }
+
+
 

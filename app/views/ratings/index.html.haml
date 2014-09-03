@@ -25,10 +25,10 @@
 .ratings
   - if @ratings.any?
     - @ratings.each do |rating|
-      .rating
-        .image
+      .Rating
+        .Rating-image
           %span{class: "sprite_#{rating.value}" }
-        .quote
+        .Rating-quote
           - if rating.text.empty?
             %p
               %a{:href => user_path(rating.rating_user)}
@@ -42,7 +42,7 @@
             %p
               %q
                 = rating.text
-        .profile
+        .Rating-profile
           %a{:href => user_path(rating.rating_user)}
             = image_tag(rating.rating_user.image_url(:profile))
     = paginate @ratings

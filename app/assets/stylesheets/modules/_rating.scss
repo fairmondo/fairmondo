@@ -1,0 +1,30 @@
+.Rating {
+  @include whitebox;
+  background-color: white;
+  @include clearfix;
+}
+
+.Rating > .Rating-image {
+  margin-top: 1em;
+}
+
+.Rating > .Rating-profile {
+  img {width:100%; max-width: 10em; border-radius: 0.5em;}
+}
+
+@include at-breakpoint($bp-mobile-horizontal) {
+  .Rating > .Rating-image {
+    text-align: center;
+    @include span(1 of 6 0.1);
+  }
+
+  .Rating > .Rating-quote{
+    @include span(4 of 6 0.1);
+  }
+
+  .Rating > .Rating-profile {
+    @include span(1 of 6 0.1);
+    @include omega;
+
+  }
+}
