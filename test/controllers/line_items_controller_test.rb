@@ -68,7 +68,7 @@ describe LineItemsController do
       cookies.signed[:cart] = line_item.cart.id
       patch :update, id: line_item.id, line_item: { requested_quantity: (article.quantity_available + 1)  }
       line_item.reload.requested_quantity.must_equal article.quantity_available
-      flash[:error].must_equal I18n.t('line_item.notices.error_quanitity')
+      flash[:error].must_equal I18n.t('line_item.notices.error_quantity')
     end
     it "should call destroy if quantity is 0" do
       line_item.reload.requested_quantity.must_equal 1
