@@ -3,7 +3,17 @@
 
 $ ->
   # $(window).bind "popstate", ->
-  #   $.getScript location.href
   History.Adapter.bind window, 'statechange', ->
-    State = History.getState()
-    $.getScript location.href
+    currentIndex = History.getCurrentIndex()
+    internal = (History.getState().data._index == (currentIndex - 1))
+
+    unless internal
+      $.getScript location.href
+
+document.Fairnopoly.historyPush = (no_internals, url, title = null) ->
+  History.pushState
+    _index: if no_internals then History.getCurrentIndex() else null
+  ,
+    title
+  ,
+    url

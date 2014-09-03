@@ -3,7 +3,8 @@
   .socialshareprivacy{data: {uri: library_url(resource), title: resource.name}}
   = render "library_buttons", library: resource
   .Library-elements
-    = render "library", library: resource
+    .js-library-ajax
+      = render "library", library: resource
 
 -# Admin controls
 - if User.is_admin?(current_user) && resource.public?
