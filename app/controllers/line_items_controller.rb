@@ -33,9 +33,9 @@ class LineItemsController < ApplicationController
     authorize @line_item
 
     if @line_item.save
-      flash[:notice] = I18n.t('line_item.notices.success_create')
+      flash[:notice] = "#{ I18n.t('line_item.notices.success_create') }  #{ view_context.link_to(I18n.t('line_item.notices.to_cart'), cart_path(@cart)) }".html_safe
     else
-      flash[:error] = I18n.t('line_item.notices.error_quanitity')
+      flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
     redirect_to @line_item.article
   end
@@ -44,7 +44,7 @@ class LineItemsController < ApplicationController
     find_and_authorize_line_item
 
     unless @line_item.update(params.for(@line_item).refine)
-      flash[:error] = I18n.t('line_item.notices.error_quanitity')
+      flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
 
     set_and_redirect_to_cart
