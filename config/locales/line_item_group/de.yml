@@ -4,10 +4,11 @@ de:
       sold_to: "Dein Verkauf an %{buyer}"
       bank_transfer_purpose: "Verwendungszweck"
       purchase_id: "Transaktionsnummer"
+      pickups: "Hole den/die Artikel bei folgender Addresse ab:"
     payment_information:
       paypal: "Bitte bezahle den Gesamtbetrag von %{total} über Paypal."
       bank_transfer: "Bitte überweise den Gesamtbetrag von %{total} auf folgendes Konto:"
-      cash: "Bringe den Gesamtbetrag von %{total} mit wenn Du den/die Artikel bei dem*der Anbieter*in abholst."
+      cash: "Bringe den Gesamtbetrag von %{total} mit wenn Du den/die Artikel bei dem*der Anbieter*in abholst. Hole den/die Artikel bei folgender Addresse ab:"
       cash_on_delivery: "Der Gesamtbetrag der Nachnahme ist %{total}."
       invoice: "Du erhälst eine Rechnung in Höhe von %{total}."
     payment_button:

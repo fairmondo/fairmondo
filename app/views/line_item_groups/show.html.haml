@@ -5,20 +5,19 @@
         = t('cart.texts.line_item_group_by', seller: link_to(@line_item_group.seller_nickname, user_path(@line_item_group.seller))).html_safe
       - else
         = t('line_item_group.texts.sold_to', buyer: link_to(@line_item_group.buyer_nickname, user_path(@line_item_group.buyer))).html_safe
-    %h3
-      = "#{I18n.t('line_item_group.texts.purchase_id')}: #{@line_item_group.purchase_id}"
+    = "#{I18n.t('line_item_group.texts.purchase_id')}: #{@line_item_group.purchase_id}"
   .states
     .state{class: @tab == :payments ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "payments") do
-        %i.fa.fa-euro
+        %i.fa.fa-euro.state_icon
         Bezahlung
     .state{class: @tab == :transports ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "transports") do
-        %i.fa.fa-paper-plane
+        %i.fa.fa-paper-plane.state_icon
         Versand
     .state{class: @tab == :rating ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "ratings") do
-        %i.fa.fa-thumbs-up
+        %i.fa.fa-thumbs-up.state_icon
         Bewertung
 
 

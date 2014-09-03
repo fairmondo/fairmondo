@@ -303,7 +303,6 @@
   }
 
   .bluebox-ornament-left {
-    border-top-left-radius: 0.5em;
     border-top-right-radius: 1em;
     height: 1em;
     background-color: $light-blue;
@@ -312,19 +311,24 @@
 
   .bluebox-ornament-right {
     border-top-left-radius: 1em;
-    border-top-right-radius: 0.5em;
     float: right;
     height: 1em;
     background-color: $light-blue;
     width: 50%;
   }
 
+  #bluebox-container > div:last-child .bluebox-content {
+    border-bottom-left-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+  }
+
   .bluebox-content {
     clear: both;
     position: relative;
     background-color: $light-blue;
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+
+
+
     .bluebox-text {
       padding: 0.2em 0.8em 0.3em;
     }

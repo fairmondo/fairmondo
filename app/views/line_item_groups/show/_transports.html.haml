@@ -1,7 +1,11 @@
 .transports
-  - count = 1
+  - count = 0
   - if abacus.transport_listing.unified_transport
     - transport = abacus.transport_listing.unified_transport
-    = render 'line_item_groups/show/transport', transport: transport, business_transactions: transport[:business_transactions], number: ++count
+    = render 'line_item_groups/show/transport', transport: transport, business_transactions: transport[:business_transactions], number: (count+=1)
   - abacus.transport_listing.single_transports.each do |bt,transport|
-    = render 'line_item_groups/show/transport', transport: transport, business_transactions: [bt], number: ++count
+    - unless transport[:method] == :pickup
+      = render 'line_item_groups/show/transport', transport: transport, business_transactions: [bt], number: (count+=1)
+  - pickups = abacus.transport_listing.single_transports.select{ |bt,transport| transport[:method] == :pickup }
+  - unless pickups.empty?
+    = render 'line_item_groups/show/pickups', pickups: pickups, line_item_group: line_item_group

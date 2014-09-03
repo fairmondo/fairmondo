@@ -7,14 +7,30 @@
         = transport[:provider]
     .line
       .heading
-        Preis:
+        Versandpreis:
       .value
-        = transport[:transport_price]
+        = money transport[:transport_price]
     .line
       .heading
         Anzahl Sendungen:
       .value
         = transport[:shipments]
+    - if transport[:cash_on_delivery]
+      .line
+        .heading
+          Gesamt (ohne Nachnahmegebühr):
+        .value
+          = money transport[:total_without_cash_on_delivery]
+      .line
+        .heading
+          Nachnahmegebühr:
+        .value
+          = money transport[:cash_on_delivery]
+    .line
+      .heading
+        Gesamtwert der Lieferung:
+      .value
+        = money transport[:total]
   .ArticleListview.ArticleListview--integrated_with_sidebar
     - business_transactions.each do |bt|
       = render layout: 'articles/shared/listitem', locals: { article: bt.article, actions: true } do
