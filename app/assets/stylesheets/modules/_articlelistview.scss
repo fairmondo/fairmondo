@@ -87,9 +87,9 @@ Styleguide Listview
   }
 
   @include between-breakpoints($bp-tablet-horizontal,$bp-desktop) {
-    .ArticleListview-image { @include span(1 of 7 0.1); }
-    .ArticleListview-details { @include span (3 of 7 0.1); }
-    .ArticleListview-actions { @include span (3 of 7 0.1); @include omega;}
+    .ArticleListview-image { @include span(3 of 20 0.3); }
+    .ArticleListview-details { @include span (8 of 20 0.3); }
+    .ArticleListview-actions { @include span (9 of 20 0.3); @include omega;}
     .ArticleListview-title{ padding-top: 0.5em; max-height:3em; }
   }
 
