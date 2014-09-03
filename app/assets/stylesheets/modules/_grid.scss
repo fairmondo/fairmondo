@@ -21,6 +21,30 @@ Styleguide Grid
   }
 }
 
-.Grid {
+.Grid, .Grid--wider {
   @include clearfix;
+}
+
+.Grid--wider > .Grid-item {
+  margin-bottom: 1em;
+
+  @include till-breakpoint($bp-mobile-horizontal) {
+    @include grid-with-columns(2);
+  }
+
+  @include between-breakpoints($bp-mobile-horizontal, $bp-tablet) {
+    @include grid-with-columns(3);
+  }
+
+  @include between-breakpoints($bp-tablet, $bp-tablet-horizontal) {
+    @include grid-with-columns(4);
+  }
+
+  @include between-breakpoints($bp-tablet-horizontal, $bp-desktop) {
+    @include grid-with-columns(5);
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    @include grid-with-columns(6);
+  }
 }

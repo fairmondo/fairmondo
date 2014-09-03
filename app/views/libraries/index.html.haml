@@ -50,8 +50,9 @@
   .libraries
     - if @libraries.any?
       - @libraries.each do |library|
+        - focussed = (library.id.to_s == params[:focus])
         - if !library.library_elements.empty? || (library.user == current_user)
-          %details{id: "library#{library.id.to_s}", class: 'Library'}
+          %details{id: "library#{library.id}", class: 'Library', open: focussed, data: {library_page: focussed ? params[:library_page] || 1 : 1 }}
             %summary
               = render "library_header", library: library
               - if library.comments.size > 0
@@ -68,8 +69,12 @@
                 - if library.library_elements.empty?
                   = t('library.no_products')
                 - else
-                  = render "library", library: library
+                  .js-library-ajax
+                    = render "library", library: library
 
       = paginate @libraries
     - else
       = t('libraries.no_library')
+
+- content_for :after_ajax_replace do
+  $('html,body').animate({scrollTop: $("#library#{params[:focus]}").offset().top}, 200);

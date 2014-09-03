@@ -33,11 +33,13 @@ class LibrariesController < ApplicationController
     # Build empty Library object if user creates a new library
     @library = @user.libraries.build if user_signed_in? && @user
 
-    # Configure the libraries collection that is displayed
-    set_index_mode
-
-    unless @mode == 'myfavorite' and not current_user
+    if current_user or index_mode != 'myfavorite'
       @libraries = LibraryPolicy::Scope.new(current_user, @user, focus.includes(user: [:image])).resolve.page(params[:page])
+    end
+
+    respond_to do |format|
+      format.html
+      format.js { render layout: 'ajax_replace' }
     end
   end
 
@@ -139,7 +141,7 @@ class LibrariesController < ApplicationController
       if user_focused?
         @user.libraries
       else
-        case @mode
+        case index_mode
         when 'new'
           Library
         when 'myfavorite'
@@ -150,7 +152,8 @@ class LibrariesController < ApplicationController
       end
     end
 
-    def set_index_mode
-      @mode = params[:mode] || 'trending'
+    # Configure the libraries collection that is displayed
+    def index_mode
+      @mode ||= params[:mode] || 'trending'
     end
 end

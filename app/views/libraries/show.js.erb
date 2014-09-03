@@ -1,3 +1,18 @@
-$("<%= "#library#{resource.id.to_s} .js-library-ajax" %>").html('<%= escape_javascript render "library", library: resource  %>');
-$('html,body').animate({scrollTop: $("<%= "#library#{resource.id.to_s}" %>").offset().top},'slow');
+//$("#library<%= resource.id %> .js-library-ajax").html('<%= escape_javascript render "library", library: resource  %>');
+//$('html,body').animate({scrollTop: $("<%= "#library#{resource.id.to_s}" %>").offset().top},'slow');
 
+// Animate the height transition of the library box container.
+// Makes it easier for the eye to follow changes on the site.
+
+serverResponse = '<%= escape_javascript render "library", library: resource  %>'
+$container = $("#library<%= resource.id %> .js-library-ajax");
+oldHeight  = $container.height();
+$outerCont = $("#library<%= resource.id %> .Library-elements").css({overflow: 'hidden', height: oldHeight+'px'});
+$container.html(serverResponse);
+
+setTimeout(function(){ // timeout to allow images to load. otherwise height will be wrong
+  newHeight  = $container.height();
+  $outerCont.animate({ height : newHeight }, 500, function () {
+    $outerCont.attr('style', null)
+  });
+}, 100);
