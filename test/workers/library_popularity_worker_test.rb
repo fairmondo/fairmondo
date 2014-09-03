@@ -5,10 +5,8 @@ describe LibraryPopularityWorker do
   let(:library) { Library.new }
 
   def set_stubs library, base, num, num_current
-    object = Object.new
-    library.stubs(base).returns(object)
-    object.stubs(:count).returns(num)
-    object.stub_chain(:where, :count).returns(num_current)
+    library.stubs("#{base}_count").returns(num)
+    library.stub_chain(base, :where, :count).returns(num_current)
   end
 
   describe "#popularity_for" do

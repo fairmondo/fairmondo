@@ -20,3 +20,5 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 = render '/articles/shared/search_results', articles: @articles, search_cache: @search_cache
+- content_for :view_specific_scripts do
+  = javascript_include_tag 'ajax_history'

@@ -92,6 +92,8 @@ class User < ActiveRecord::Base
   has_many :hearts
   has_many :comments, dependent: :destroy
 
+  has_many :hearted_libraries, through: :hearts, source: :heartable, source_type: 'Library'
+
   has_attached_file :cancellation_form
 
 

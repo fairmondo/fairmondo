@@ -24,11 +24,18 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-logo,.l-header-nav  {
   display: inline-block;
-  float:left;
   span.sprite_logo {
     display: block;
     margin-right:2em;
   }
+}
+
+.l-header-logo {
+  float: left;
+}
+
+.l-header-nav {
+  float: right;
 }
 
 .l-header-nav > ul {
@@ -40,7 +47,7 @@ $header-nav-link-color-hover: $blue;
     position: relative;
     display: inline-block;
     line-height: 2.5em;
-    margin-right: 0.5em;
+    margin-left: 0.5em;
   }
 }
 
@@ -68,6 +75,7 @@ $header-nav-link-color-hover: $blue;
   z-index: 101;
   min-width: 11em;
   top: 2.3em;
+  right: 0;
   padding: 0.4em 1.4em;
   border-radius: 0 0.4em 0.4em;
   line-height: 1.5em;
