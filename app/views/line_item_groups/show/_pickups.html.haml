@@ -1,0 +1,14 @@
+= gray_box t("enumerize.business_transaction.selected_transport.pickup") do
+  - if current_user == line_item_group.buyer
+    = I18n.t('line_item_group.texts.pickups')
+    .Address.transports_pickup
+      = render 'addresses/address_lines', address: line_item_group.seller.standard_address
+  .ArticleListview.ArticleListview--integrated_with_sidebar
+    - pickups.each do |bt,hash|
+      = render layout: 'articles/shared/listitem', locals: { article: bt.article, actions: true } do
+        .business_transaction_table
+          .line
+            .heading
+              Menge:
+            .value
+              = bt.quantity_bought

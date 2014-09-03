@@ -6,21 +6,34 @@
 
 .bank_account_table, .transport_table, .business_transaction_table {
   margin-bottom: 1em;
-  > .line {  margin-bottom: 1em; }
-  > .line > .heading,  { font-weight:600;}
-
+  > .line {  margin-bottom: 0.5em; }
+  > .line:last-child { margin-bottom:0; }
+  > .line > .heading,  { font-weight:600; display: inline; padding: 0 0.5em;}
+  >  .line > .value { display: inline; padding: 0 0.5em;}
   @include at-breakpoint($bp-mobile-horizontal) {
       display:table;
-    > .line { display:table-row; }
-    > .line > .heading { display:table-cell; margin-right: 1em; }
-    > .line > .value { display:table-cell; text-indent: 2em; }
+    > .line { display:table-row;  margin:0; }
+    > .line > .heading { display:table-cell;  }
+    > .line > .value { display:table-cell;  }
+  }
+}
+
+.transport_table {
+  @include at-breakpoint($bp-tablet) {
+    display:block;
+    @include clearfix;
+    > .line { @include span(1 of 2 0.1); }
+    > .line:nth-child(2n) { @include omega; }
+    > .line > .heading { display:inline-block;  }
+    > .line > .value { display:inline-block; float:right; }
   }
 }
 
 .bank_account_table { margin: 1em; }
 
 .business_transaction_table {
-  padding: 0.5em;
+  margin-bottom: 0em;
+  padding: 0.3em;
 }
 
 .payment_information, .payment_actions {
@@ -30,6 +43,16 @@
 .payment_actions {
   text-align: center;
 }
+
+// Pickup Address
+.payment_actions .Address {
+  max-width:15em;
+  margin: 1em auto;
+}
+.transports_pickup {
+  max-width:15em; margin: 1em 0;
+}
+
 
 @include at-breakpoint($bp-tablet-horizontal) {
   .payment_information, .payment_actions {
@@ -62,8 +85,8 @@
   margin-top:2em;
   @include clear-links;
   @include color-links($blue,$gray);
-  i { font-size: 2em; display:block; }
-  .state { display: inline-block; padding: 1em 3em; position:relative; top:1px;}
+  i.state_icon { font-size: 1.5em; display:block; text-align:center; }
+  .state { display: inline-block; padding: 0.7em 0.9em; position:relative; top:1px;}
   .active.state {
     background-color:  $even-lighter-gray;
     border-top-left-radius: 0.5em;
@@ -73,21 +96,32 @@
     border-right: 1px solid $lighter-gray;
     a { color: $gray; }
   }
+  @include at-breakpoint($bp-mobile-horizontal) {
+    .state { padding: 1em 1.5em; }
+  }
+
+  @include at-breakpoint($bp-tablet) {
+    i.state_icon{ font-size: 2em; }
+    .state { padding: 1em 1.5em; }
+  }
+  @include at-breakpoint($bp-tablet-horizontal) {
+    .state { padding: 1em 1.7em; }
+  }
+
+  @include at-breakpoint($bp-desktop) {
+    .state { padding: 1em 2.5em; }
+  }
+
 }
 
+@include till-breakpoint($bp-tablet) {
+  .title { padding: 0.5em; }
+}
+
+
 @include at-breakpoint($bp-tablet) {
-  .title {
-    float: left;
-    width: 40%;
-  }
-
-  .states {
-
-    float:right;
-    width: 60%;
-    text-align: center;
-    //margin: 2em 0;
-  }
+  .title { float: left; width: 50%; }
+  .states { float:right; width: 50%;  }
 
 }
 

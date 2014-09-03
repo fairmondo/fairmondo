@@ -49,7 +49,8 @@ class TransportAbacus
       shipments = self.class.number_of_shipments(bt.quantity_bought, transport_number)
       transport_price = transport_price_for(single_transport_price, shipments)
       cash_on_delivery_price = self.class.cash_on_delivery_price(bt, shipments)
-      total = retail_price(bt) + transport_price + ( cash_on_delivery_price || Money.new(0) )
+      total_without_cash_on_delivery = retail_price(bt) + transport_price
+      total = total_without_cash_on_delivery + ( cash_on_delivery_price || Money.new(0) )
       {
         method: bt.selected_transport.to_sym,
         provider: bt.article.transport_provider(bt.selected_transport),
@@ -57,6 +58,7 @@ class TransportAbacus
         per_shipment: single_transport_price,
         transport_price: transport_price,
         cash_on_delivery: cash_on_delivery_price,
+        total_without_cash_on_delivery: total_without_cash_on_delivery,
         total: total
       }
     end

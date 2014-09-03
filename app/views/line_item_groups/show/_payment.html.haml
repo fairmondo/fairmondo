@@ -1,4 +1,4 @@
-- if @line_item_group.buyer == current_user
+- if line_item_group.buyer == current_user
   .payment_information
     = t("line_item_group.payment_information.#{payment}", total: money(total))
     - case payment
@@ -14,11 +14,13 @@
             = "#{I18n.t("line_item_group.texts.bank_transfer_purpose")}:"
 
           .value
-            = "#{I18n.t("line_item_group.texts.purchase_id")} #{@line_item_group.purchase_id}"
+            = "#{I18n.t("line_item_group.texts.purchase_id")} #{line_item_group.purchase_id}"
   .payment_actions
     - case payment
-    - when :cash, :invoice, :cash_on_delivery
-      -# no action button
+    - when :cash
+      .Address
+        = render 'addresses/address_lines', address: line_item_group.seller.standard_address
+    - when :invoice, :cash_on_delivery
     - when :bank_transfer
       -#= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
     - when :paypal
