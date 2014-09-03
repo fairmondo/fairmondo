@@ -25,7 +25,7 @@
   .category-dropdown
     = render 'categories/shared/category_tree'
 
--# Personalized section
+-# Personalized section 1
 - if library = @last_hearted_library
   .teaser.teaser--full.libraries
     .teaser-inner
@@ -39,6 +39,7 @@
           .Library-elements
             = render 'libraries/library', library: library
 
+-# Personalized section 2
 - if library = @current_private_library
   .teaser.teaser--full.libraries
     .teaser-inner
@@ -47,7 +48,6 @@
         %summary
           = render 'libraries/library_header', library: library
         .Library-details
-          .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
           = render 'libraries/library_buttons', library: library
           .Library-elements
             = render 'libraries/library', library: library
