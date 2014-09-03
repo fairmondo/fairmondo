@@ -82,7 +82,7 @@
 .teaser.teaser--double.teaser--collapsible#teaser--used
   .teaser-inner
     %h2
-      = link_to('Gebraucht bei Fairnopoly', featured_library_path(@old[:library]))
+      = link_to(tinycms_content_body_sanitized('heading_features3', featured_library_path(@old[:library]))
     - @old[:exhibits].each do |article|
       .teaser-queue
         = render 'articles/shared/show_article', article: article
