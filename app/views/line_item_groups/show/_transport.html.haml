@@ -1,34 +1,34 @@
-= gray_box "Lieferung ##{number}" do
+= gray_box t('line_item_group.transport_labels.transport', number: number) do
   .transport_table
     .line
       .heading
-        Versand über:
+        = t('line_item_group.transport_labels.provider')
       .value
         = transport[:provider]
     .line
       .heading
-        Versandpreis:
+        = t('line_item_group.transport_labels.transport_price')
       .value
         = money transport[:transport_price]
     .line
       .heading
-        Anzahl Sendungen:
+        = t('line_item_group.transport_labels.shipments')
       .value
         = transport[:shipments]
     - if transport[:cash_on_delivery]
       .line
         .heading
-          Gesamt (ohne Nachnahmegebühr):
+          = t('line_item_group.transport_labels.total_without_cash_on_delivery')
         .value
           = money transport[:total_without_cash_on_delivery]
       .line
         .heading
-          Nachnahmegebühr:
+          = t('line_item_group.transport_labels.cash_on_delivery')
         .value
           = money transport[:cash_on_delivery]
     .line
       .heading
-        Gesamtwert der Lieferung:
+        = t('line_item_group.transport_labels.total')
       .value
         = money transport[:total]
   .ArticleListview.ArticleListview--integrated_with_sidebar
@@ -37,11 +37,11 @@
         .business_transaction_table
           .line
             .heading
-              Menge:
+              = t('line_item_group.texts.quantity_bought')
             .value
               = bt.quantity_bought
           .line
             .heading
-              Bezahlung über:
+              = t('line_item_group.texts.selected_payment')
             .value
               = t("enumerize.business_transaction.selected_payment.#{bt.selected_payment}")

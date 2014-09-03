@@ -1,10 +1,26 @@
 de:
   line_item_group:
+    tabs:
+      payments: Bezahlung
+      transports: Versand
+      rating: Bewertung
     texts:
       sold_to: "Dein Verkauf an %{buyer}"
       bank_transfer_purpose: "Verwendungszweck"
       purchase_id: "Transaktionsnummer"
       pickups: "Hole den/die Artikel bei folgender Addresse ab:"
+      quantity_bought: "Menge:"
+      selected_payment: "Bezahlung über:"
+      not_rated: "Der Käufer hat Dich noch nicht bewertet."
+      please_rate: "Bitte bewerte den Anbieter, wenn der Verkauf abgeschlossen ist."
+    transport_labels:
+      provider: "Versand über:"
+      transport_price: "Versandpreis:"
+      shipments: "Anzahl Sendungen:"
+      total_without_cash_on_delivery: "Gesamt (ohne Nachnahmegebühr):"
+      cash_on_delivery: "Nachnahmegebühr:"
+      total: "Gesamtwert der Lieferung:"
+      transport: "Lieferung #%{number}"
     payment_information:
       paypal: "Bitte bezahle den Gesamtbetrag von %{total} über Paypal."
       bank_transfer: "Bitte überweise den Gesamtbetrag von %{total} auf folgendes Konto:"

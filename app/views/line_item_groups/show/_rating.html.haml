@@ -1,3 +1,31 @@
-- if line_item_group.rating
-
-- else
+= gray_box t('line_item_group.tabs.rating') do
+  - if line_item_group.rating
+    - rating = line_item_group.rating
+    .Rating
+      .Rating-image
+        %span{class: "sprite_#{rating.value}" }
+      .Rating-quote
+        - if rating.text.empty?
+          %p
+            %a{:href => user_path(rating.rating_user)}
+              = rating.rating_user.nickname
+            = " am #{l rating.created_at, format: :short}"
+        - else
+          %p
+            %a{:href => user_path(rating.rating_user)}
+              = rating.rating_user.nickname
+            = " schrieb am #{l rating.created_at, format: :short}:"
+          %p
+            %q
+              = rating.text
+      .Rating-profile
+        %a{:href => user_path(rating.rating_user)}
+          = image_tag(rating.rating_user.image_url(:profile))
+  - else
+    - if current_user == line_item_group.buyer
+      - if policy(line_item_group.build_rating).new?
+        %p
+          = t('line_item_group.texts.please_rate')
+        = link_to t('transaction.completed.rate'), line_item_group_new_user_rating_path(line_item_group.seller, line_item_group), class: 'Button'
+    - else
+      = t('line_item_group.texts.not_rated')
