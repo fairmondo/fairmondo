@@ -53,6 +53,27 @@
             = render 'libraries/library', library: library
 
 
+-# Personalized section 3
+.teaser.teaser--double#teaser--clear-after-bluebox
+  .teaser-inner
+    %h2= link_to(@last_hearted_library.name, library_path(@last_hearted_library))
+    - @last_hearted_library.articles.limit(2).to_a.each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+
+-# Personalized section 4
+.teaser.teaser--double.teaser--collapsible#teaser--used
+  .teaser-inner
+    %h2= link_to(@current_private_library.name, library_path(@current_private_library))
+    - @current_private_library.articles.limit(2).to_a.each do |article|
+      .teaser-queue
+        = render 'articles/shared/show_article', article: article
+
+
+
+
+
 -# Article queue 1
 .teaser.teaser--double#teaser--first
   .teaser-inner
