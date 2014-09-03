@@ -2,7 +2,8 @@ de:
   line_item:
     notices:
       success_create: 'Der Artikel wurde dem Warenkorb hinzugefügt.'
-      error_quanitity: 'Der Artikel ist nicht mehr in der gewünschten Stückzahl erhältlich.'
+      to_cart: 'Zum Warenkorb.'
+      error_quantity: 'Der Artikel ist nicht mehr in der gewünschten Stückzahl erhältlich.'
 
     labels:
       edit: 'Ändern'
