@@ -24,7 +24,7 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 
-feature "Trending libraries on welcome page" do
+feature "Libraries on welcome page" do
   setup do
     @user = FactoryGirl.create :user
 
@@ -32,7 +32,36 @@ feature "Trending libraries on welcome page" do
     @library.popularity = 1000
     @library.public = true
     @library.save
+
     @admin = FactoryGirl.create :admin_user
+  end
+
+  scenario "Personalized library section" do
+    # When the user is not logged in, there should be no personalized library section at all.
+    visit root_path
+    refute page.has_content?(I18n.t 'welcome.hearted_library')
+    refute page.has_content?(I18n.t 'welcome.private_library')
+
+    # When the user is logged in and has hearted no library and has no private library with a minimum
+    # of three library elements, no libraries should be displayed.
+    login_as @user
+    visit root_path
+    refute page.has_content?(I18n.t 'welcome.hearted_library')
+    refute page.has_content?(I18n.t 'welcome.private_library')
+
+    # When the user is logged in and has hearted a library with three or more elements, and has a
+    # private library with three or more elements, both libraries should be displayed.
+    private_library = FactoryGirl.create :library_with_elements, name: 'Private Library', user: @user
+    heart = FactoryGirl.create :heart, user: @user
+    visit root_path
+    puts page.body
+    puts heart.inspect
+    puts heart.heartable.inspect
+    puts heart.heartable.name
+    assert page.has_content?(I18n.t 'welcome.hearted_library')
+    assert page.has_content?(I18n.t 'welcome.private_library')
+    assert page.has_content?(heart.heartable.name)
+    assert page.has_content?('Private Library')
   end
 
   scenario "Combined scenario for trending libraries" do
