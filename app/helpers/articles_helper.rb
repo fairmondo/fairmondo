@@ -127,17 +127,8 @@ module ArticlesHelper
     !article.could_be_book_price_agreement? && article.friendly_percent != 100
   end
 
-  def export_time_ranges
-    # specify time range in months
-    ['all', '1', '3', '6', '12']
-  end
-
-  # used for getting the pagination page for ajax content
-  def pagination_page(params)
-    if params[:page]
-      "&page=#{params[:page]}"
-    else
-      ''
-    end
-  end
+  #def export_time_ranges
+  #  # specify time range in months
+  #  ['all', '1', '3', '6', '12']
+  #end
 end

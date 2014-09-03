@@ -47,6 +47,14 @@ describe FastbillAPI do
           FastbillAPI.fastbill_chain( db_business_transaction )
         end
       end
+
+      describe 'article price is 0Euro' do
+        let(:article) { FactoryGirl.create :article, price: Money.new(0) }
+        it 'should not call FastbillAPI' do
+          FastbillAPI.expects(:fastbill_chain).never
+          article.business_transaction.buy
+        end
+      end
     end
 
     describe '::fastbill_discount' do
