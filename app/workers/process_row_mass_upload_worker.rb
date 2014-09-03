@@ -116,8 +116,10 @@ class ProcessRowMassUploadWorker
 
       case attribute_hash['action']
       when 'u', 'update'
-        article.keep_images = article.business_transactions.empty?
-        article = Article.edit_as_new article unless article.preview?
+        unless article.preview? # error articles are also preview
+          article.keep_images = article.business_transactions.empty?
+          article = Article.edit_as_new article unless article.preview?
+        end
         attribute_hash.delete("id")
         article.attributes = attribute_hash
         article.action = :update

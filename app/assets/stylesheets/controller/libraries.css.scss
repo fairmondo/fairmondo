@@ -1,6 +1,87 @@
 @import "mixins/all";
 
+$border-color: $lighter-gray;
+$fill-color: $light-blue;
+
 .library-form {
   @include whitebox;
   margin-bottom: 1em;
+}
+
+.libraries {
+  clear: both;
+}
+
+ul.mode_menu {
+  position: relative;
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 0.1em solid $border-color;
+  margin: 1.5em 0 2em;
+  overflow: hidden;
+
+  li {
+    float: left;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 0;
+
+    @include at-breakpoint($bp-mobile-horizontal) {
+      font-size: 1.0em;
+    }
+  }
+
+  a, li.selected {
+    display: block;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border: 1px solid $border-color;
+    border-bottom: none;
+
+    padding-top: 4px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-top: 2px;
+    }
+  }
+
+  a {
+    color: $black;
+    background-color: $white;
+    text-decoration: none;
+
+    padding-bottom: 2px;
+    margin-top: 6px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-bottom: 1px;
+      margin-top: 4px;
+    }
+  }
+
+  @include at-breakpoint($bp-mobile-horizontal) {
+    // mouse interaction
+    a:hover {
+      background-color: $fill-color;
+      margin-top: 3px;
+      padding-bottom: 2px;
+    }
+    a:active {
+      margin-top: 5px;
+      padding-bottom: 0;
+    }
+  }
+
+
+
+  li.selected {
+    color: $black;
+    background-color: $fill-color;
+
+    margin-top: 0;
+    padding-bottom: 8px;
+    @include at-breakpoint($bp-mobile-horizontal) {
+      padding-bottom: 5px;
+    }
+  }
 }

@@ -20,40 +20,61 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 
+%h1 Sammlungen
+
 -# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
   .library-form
     %h3= t('library.new')
-    = semantic_form_for @library,:url => user_libraries_path(current_user) do |f|
+    = semantic_form_for @library, url: user_libraries_path(current_user) do |f|
       = f.inputs do
         = f.input :name
-        = f.input :public, :label => false
+        = f.input :public, label: false
       = f.actions do
-        = f.action :submit , :value => t('library.create'), :button_html => {:class => "Button"}
+        = f.action :submit , value: t('library.create'), button_html: {:class => "Button"}
 
-.libraries
-  - if @libraries.any?
-    - @libraries.each do |library|
-      - if !library.library_elements.empty? || (library.user == current_user)
-        %details{id: "library#{library.id.to_s}", class: 'Library'}
-          %summary
-            = render "library_header", library: library
-            - if library.comments.size > 0
-              .Library-comments
-                = render library.comments.order(created_at: :desc).limit(2)
-            - if User.is_admin? current_user
-              .Library-auditing
-                = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
-                  = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')
-          .Library-details
-            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
-            = render "library_buttons", library: library
-            .Library-elements
-              - if library.library_elements.empty?
-                = t('library.no_products')
-              - else
-                = render "library", library: library
+-# If user is not focused, show library view menu
+- unless @user
+  %ul.mode_menu
+    = render 'mode_menu_item', text: 'Trends', path: libraries_path, selected: (@mode == 'trending')
+    = render 'mode_menu_item', text: 'Neu', path: new_libraries_path, selected: (@mode == 'new')
+    = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite')
 
-    = paginate @libraries
-  - else
-    = t('libraries.no_library')
+- if !current_user and @mode == 'myfavorite'
+  -# When the user is not logged in and myfavorite is selected, render a message
+  %p
+    = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
+    = t('libraries.to_show_favorites') + ' '
+    = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
+- else
+  .libraries
+    - if @libraries.any?
+      - @libraries.each do |library|
+        - focussed = (library.id.to_s == params[:focus])
+        - if !library.library_elements.empty? || (library.user == current_user)
+          %details{id: "library#{library.id}", class: 'Library', open: focussed, data: {library_page: focussed ? params[:library_page] || 1 : 1 }}
+            %summary
+              = render "library_header", library: library
+              - if library.comments.size > 0
+                .Library-comments
+                  = render library.comments.order(created_at: :desc).limit(2)
+              - if User.is_admin? current_user
+                .Library-auditing
+                  = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
+                    = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')
+            .Library-details
+              .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
+              = render "library_buttons", library: library
+              .Library-elements
+                - if library.library_elements.empty?
+                  = t('library.no_products')
+                - else
+                  .js-library-ajax
+                    = render "library", library: library
+
+      = paginate @libraries
+    - else
+      = t('libraries.no_library')
+
+- content_for :after_ajax_replace do
+  $('html,body').animate({scrollTop: $("#library#{params[:focus]}").offset().top}, 200);
