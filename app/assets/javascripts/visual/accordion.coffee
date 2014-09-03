@@ -14,14 +14,14 @@ $ ->
     header: "a.Accordion-header"
     heightStyle: "content"
     collapsible: true
-    animate: 200
+    animate: 400
     active: false
 
   $(".Accordion--activated").accordion
     header: "a.Accordion-header"
     heightStyle: "content"
     collapsible: true
-    animate: 200
+    animate: 400
     active: target
 
   $(".Accordion--scrollToActive").on "accordionactivate", (event,ui) ->

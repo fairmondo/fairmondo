@@ -24,10 +24,14 @@ class CommentsController < ApplicationController
   def create
     comment_data = { user: current_user }.merge(params.for(Comment).refine)
     @comment = @commentable.comments.build(comment_data)
-
     authorize @comment
 
     if @comment.save
+      # In the view we are using the comments_count counter cache, which is not automatically
+      # updated in the object, so we do it by hand.
+      # Please don't save this object from now on.
+      @commentable.comments_count += 1
+
       # if save was successful, please create a new comment object to render the input form with
       @new_comment = Comment.new
       render :create
@@ -39,6 +43,11 @@ class CommentsController < ApplicationController
   def destroy
     authorize @comment
     @comment.destroy
+
+    # In the view we are using the comments_count counter cache, which is not automatically
+    # updated in the object, so we do it by hand.
+    # Please don't save this object from now on.
+    @commentable.comments_count -= 1
   end
 
   private
