@@ -26,7 +26,7 @@
     = render 'categories/shared/category_tree'
 
 -# Personalized section 1
-- if library = @last_hearted_library
+- if library = @last_hearted_libraries[0]
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.hearted_library')
@@ -40,7 +40,7 @@
             = render 'libraries/library', library: library
 
 -# Personalized section 2
-- if library = @current_private_library
+- if library = @last_hearted_libraries[1]
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.private_library')
@@ -51,26 +51,6 @@
           = render 'libraries/library_buttons', library: library
           .Library-elements
             = render 'libraries/library', library: library
-
-
--# Personalized section 3
-.teaser.teaser--double#teaser--clear-after-bluebox
-  .teaser-inner
-    %h2= link_to(@last_hearted_library.name, library_path(@last_hearted_library))
-    - @last_hearted_library.articles.limit(2).to_a.each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-
-
--# Personalized section 4
-.teaser.teaser--double.teaser--collapsible#teaser--used
-  .teaser-inner
-    %h2= link_to(@current_private_library.name, library_path(@current_private_library))
-    - @current_private_library.articles.limit(2).to_a.each do |article|
-      .teaser-queue
-        = render 'articles/shared/show_article', article: article
-
-
 
 
 
@@ -114,6 +94,36 @@
           .bluebox-text Auch Du kannst in die Genos&shy;sen&shy;schaft ein&shy;steigen oder Dich aktiv ein&shy;bringen:
           .bluebox-link
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
+
+
+
+
+- if @last_hearted_libraries.length == 2
+  -# Personalized section 3, CSS classes or ids would have to change
+  - library = @last_hearted_libraries[0]
+  .teaser.teaser--double#teaser--clear-after-bluebox
+    .teaser-inner
+      %h2= link_to(library.name, library_path(library))
+      - library.articles.limit(2).to_a.each do |article|
+        .teaser-queue
+          = render 'articles/shared/show_article', article: article
+  -# Personalized section 4, CSS classes or ids would have to change
+  - library = @last_hearted_libraries[1]
+  .teaser.teaser--double.teaser--collapsible#teaser--used
+    .teaser-inner
+      %h2= link_to(library.name, library_path(library))
+      - library.articles.limit(2).to_a.each do |article|
+        .teaser-queue
+          = render 'articles/shared/show_article', article: article
+- elsif @last_hearted_libraries.length == 1
+  - library = @last_hearted_libraries[0]
+  .teaser.teaser--quadruple#teaser--clear-after-bluebox
+    .teaser-inner
+      %h2= link_to(library.name, library_path(library))
+      - library.articles.limit(4).to_a.each do |article|
+        .teaser-queue
+          = render 'articles/shared/show_article', article: article
+
 
 
 -# Article queue 3
