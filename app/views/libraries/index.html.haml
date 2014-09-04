@@ -49,7 +49,7 @@
 - else
   - if @libraries.any?
     .libraries
-      = render @libraries, single_view: false, header_comments: true
+      = render @libraries
       = paginate @libraries
   - else
     %p= t('libraries.no_library')
