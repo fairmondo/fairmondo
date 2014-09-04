@@ -37,8 +37,7 @@ class WelcomeController < ApplicationController
 
     # Personalized section
     if current_user
-      @last_hearted_library = current_user.hearted_libraries.min_elem(3).reorder('hearts.created_at DESC').first
-      @current_private_library = current_user.libraries.personal.min_elem(3).first
+      @last_hearted_libraries = current_user.hearted_libraries.min_elem(4).reorder('hearts.created_at DESC').limit(2)
     end
   end
 

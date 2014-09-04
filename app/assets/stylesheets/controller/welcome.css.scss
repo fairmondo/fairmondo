@@ -136,6 +136,16 @@
       padding-bottom: 2.7em;
     }
   }
+
+  .teaser--quadruple {
+    @include span(8 of 8);
+    .teaser-queue {
+      @include span(2 of 8);
+      &:last-child {
+        @include omega;
+      }
+    }
+  }
 }
 
 
@@ -157,6 +167,15 @@
 }
 
 .teaser--double {
+  .teaser-inner {
+    @include clearfix;
+  }
+  .teaser-queue {
+    margin-bottom: 1em;
+  }
+}
+
+.teaser--quadruple {
   .teaser-inner {
     @include clearfix;
   }
