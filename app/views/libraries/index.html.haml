@@ -47,29 +47,9 @@
     = t('libraries.to_show_favorites') + ' '
     = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
 - else
-  .libraries
-    - if @libraries.any?
-      - @libraries.each do |library|
-        - if !library.library_elements.empty? || (library.user == current_user)
-          %details{id: "library#{library.id.to_s}", class: 'Library'}
-            %summary
-              = render "library_header", library: library
-              - if library.comments.size > 0
-                .Library-comments
-                  = render library.comments.order(created_at: :desc).limit(2)
-              - if User.is_admin? current_user
-                .Library-auditing
-                  = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
-                    = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')
-            .Library-details
-              .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
-              = render "library_buttons", library: library
-              .Library-elements
-                - if library.library_elements.empty?
-                  = t('library.no_products')
-                - else
-                  = render "library", library: library
-
+  - if @libraries.any?
+    .libraries
+      = render @libraries, single_view: false, header_comments: true
       = paginate @libraries
-    - else
-      = t('libraries.no_library')
+  - else
+    %p= t('libraries.no_library')
