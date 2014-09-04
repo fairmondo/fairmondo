@@ -1,8 +1,23 @@
-.js-library-ajax
-  .Grid
-    - library_elements = library.library_elements.includes(article: [:images,:seller]).page(params[:library_page]).per(12)
-    - library_elements.each do |library_element|
-      .Grid-item
-        = render "libraries/library_element", library_element: library_element
-  = paginate library_elements, param_name: :library_page, remote: true, params: { controller: "libraries", action: "show", id: library.id}
-  = render "comments/commentable_comments", commentable: library
+-# Partial for showing a library
+- if single_view
+  %div{ id: "library#{library.id.to_s}" }
+    = render "library_header", library: library, comments: false
+
+    -# Show social media buttons if it is a public library
+    - if resource.public?
+      .socialshareprivacy{ data: { uri: library_url(resource), title: resource.name } }
+
+    = render "library_buttons", library: resource
+    = render "library_body", library: resource
+- else
+  - if !library.empty? || (library.user == current_user)
+    %details{ id: "library#{library.id.to_s}", class: 'Library' }
+      %summary
+        = render "libraries/library_header", library: library, comments: header_comments
+      .Library-details
+        -# Show social media buttons if it is a public library
+        - if library.public?
+          .socialshareprivacy{ data: { uri: library_url(library), title: library.name } }
+
+        = render "libraries/library_buttons", library: library
+        = render "libraries/library_body", library: library

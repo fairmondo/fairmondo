@@ -31,28 +31,14 @@
     .teaser.teaser--full.libraries
       .teaser-inner
         %h2= t('welcome.hearted_library')
-        %details{id: "library#{library.id.to_s}", class: 'Library'}
-          %summary
-            = render 'libraries/library_header', library: library
-          .Library-details
-            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
-            = render 'libraries/library_buttons', library: library
-            .Library-elements
-              = render 'libraries/library', library: library
+        = render library, single_view: false, header_comments: false
 
   -# Personalized section 2
   - if library = @last_hearted_libraries[1]
     .teaser.teaser--full.libraries
       .teaser-inner
         %h2= t('welcome.private_library')
-        %details{id: "library#{library.id.to_s}", class: 'Library'}
-          %summary
-            = render 'libraries/library_header', library: library
-          .Library-details
-            = render 'libraries/library_buttons', library: library
-            .Library-elements
-              = render 'libraries/library', library: library
-
+        = render library, single_view: false, header_comments: false
 
 
 -# Article queue 1
@@ -151,15 +137,8 @@
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.trending_libraries')
-      - @trending_libraries.each do |library|
-        %details{id: "library#{library.id.to_s}", class: 'Library'}
-          %summary
-            = render 'libraries/library_header', library: library
-          .Library-details
-            .socialshareprivacy{data: {uri: library_url(library), title: library.name}}
-            = render 'libraries/library_buttons', library: library
-            .Library-elements
-              = render 'libraries/library', library: library
+      = render @trending_libraries, single_view: false, header_comments: false
+
 
 -# USPs
 .teaser.teaser--double.teaser--cardslides
