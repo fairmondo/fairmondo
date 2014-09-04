@@ -6,7 +6,7 @@
 
 .l-news-header-inner {
   @include container($screen-width);
-  padding: 1em 0;
+  padding: 1em 3em;
   color: $dark-gray;
   @include color-links($dark-gray,$black);
   text-align: center;
