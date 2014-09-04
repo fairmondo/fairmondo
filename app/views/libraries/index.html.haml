@@ -40,8 +40,8 @@
     = render 'mode_menu_item', text: 'Neu', path: new_libraries_path, selected: (@mode == 'new')
     = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite')
 
-- if !current_user and @mode == 'myfavorite'
-  -# When the user is not logged in and myfavorite is selected, render a message
+- if !user_signed_in? and @mode == 'myfavorite'
+  -# When the user is not signed in and myfavorite is selected, render a message
   %p
     = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
     = t('libraries.to_show_favorites') + ' '
