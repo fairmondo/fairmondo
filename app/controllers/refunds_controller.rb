@@ -13,6 +13,6 @@ class RefundsController < ApplicationController
     @refund.business_transaction = BusinessTransaction.find(params[:business_transaction_id])
     authorize @refund
     @refund.save
-    respond_with @refund, location: -> { user_path(current_user) }
+    respond_with @refund, location: -> { line_item_group_path(@refund.business_transaction.line_item_group, tab: :payments) }
   end
 end

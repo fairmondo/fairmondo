@@ -28,16 +28,6 @@ class BusinessTransactionObserver < ActiveRecord::Observer
 
   def after_create business_transaction
 
-    #if !business_transaction.purchase_emails_sent
-      # Send an email to the seller
-      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :seller
-
-      # Send a confirmation email to the buyer
-      #BusinessTransactionMailerWorker.perform_in 5.seconds, business_transaction.id, :buyer
-
-      #business_transaction.update_attribute :purchase_emails_sent, true
-    #end
-
     if business_transaction.article_price > 0
       # check if this article is discountable and reply accordingly
       Discount.discount_chain(business_transaction) if business_transaction.article_discount_id

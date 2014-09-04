@@ -3,7 +3,7 @@
     = t("line_item_group.payment_information.#{payment}", total: money(total))
     - case payment
     - when :bank_transfer
-      - seller = @line_item_group.seller
+      - seller = line_item_group.seller
       .bank_account_table
         = bank_account_line(seller, :bank_account_owner)
         = bank_account_line(seller, :iban)
