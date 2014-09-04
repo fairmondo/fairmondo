@@ -6,7 +6,7 @@
       = t('common.text.glue.via')
       = transport[:provider]
       = t("cart.texts.transports.#{transport[:method]}")
-    .Payment-cell.value
+    .Payment-value
       - if transport[:shipments] > 1 && !abacus.transport_listing.free_transport
         .small-info.left
           = transport[:shipments].to_s + 'x'
