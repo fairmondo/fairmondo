@@ -17,3 +17,14 @@
       - library.library_elements.first(10).each do |library_element|
         - if library_element.article
           = image_tag(library_element.article.title_image_url(:thumb), :title => library_element.article_title)
+
+-# Show comments
+- if comments && library.has_comments?
+  .Library-comments
+    = render library.comments.limit(2)
+
+-# Show audit buttons for admins
+- if policy(library).admin_audit?
+  .Library-auditing
+    = link_to admin_audit_library_path(library), class: 'Button ' + (library.audited ? 'Button--green' : 'Button--red'), method: :patch, remote: true do
+      = t(library.audited ? 'library.auditing.welcome_page_enabled' : 'library.auditing.welcome_page_disabled')

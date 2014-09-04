@@ -65,6 +65,16 @@ class Library < ActiveRecord::Base
     Library.trending_welcome_page.include? self
   end
 
+  # Returns true if the library has no library elements
+  def empty?
+    library_elements_count == 0
+  end
+
+  # Returns true if the library has comments
+  def has_comments?
+    comments.size > 0
+  end
+
   private
     # when an exhibition name is set to a library, remove the same exhibition
     # name from all other libraries.
