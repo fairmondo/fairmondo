@@ -13,27 +13,26 @@ $(document).ready tooltip
 $(document).ajaxStop tooltip
 $(document).on 'socialshareprivacyinserted', tooltip
 
-
-errorTooltip = ->
+document.Fairnopoly.setQTipError = ->
+  $(".inline-errors").hide()
   $(".inline-errors").each (index, element) ->
-    document.Fairnopoly.setQTipError element
+    error = $(element).text()
+    input = $(this.parentNode) #TODO find more form elements
+    input.qtip
+      content:
+        text: error
+        button: 'Close'
+      style:
+        classes: 'qtip-red qtip-rounded qtip-shadow'
+      position:
+        at: 'bottom left'
+      show:
+        event: false
+        ready: true
+      hide:
+        target: false
+        event: 'click'
+        fixed: false
 
-document.Fairnopoly.setQTipError = (element) ->
-  $error = $(element)
-  $input = $error.siblings('input') #TODO find more form elements
-  $input.qtip
-    content:
-      text: $error
-    style:
-      classes: 'qtip-red qtip-rounded qtip-shadow'
-    position:
-      viewport: $(window)
-    show:
-      event: false
-      ready: true
-    hide:
-      target: $input
-      event: 'focus'
-      fixed: false
-
-$(document).ready errorTooltip
+$(document).ready document.Fairnopoly.setQTipError
+$(document).ajaxComplete document.Fairnopoly.setQTipError
