@@ -2,4 +2,37 @@
   font-size: 1rem;
   font-family: $base-font-body;
   line-height: 1.25rem;
-} 
+}
+
+.qtip.qtip-red {
+  font-family: $base-font-body;
+  font-size: 1em;
+  line-height: 1.25rem;
+  color: #FFFFFF;
+}
+
+a.qtip-close {
+  position: absolute;
+  right: -6px;
+  top: -6px;
+}
+
+a.qtip-close.qtip-icon {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  border-color: gray;
+  background-color: gray;
+
+  span.ui-icon.ui-icon-close {
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #FFFFFF;
+  }
+}

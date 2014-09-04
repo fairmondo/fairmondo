@@ -1,8 +1,8 @@
 development:
   environment: "sandbox"
-  username: "sandbox_username"
-  password: "sandbox_password"
-  signature: "sandbox_signature"
+  username: "konstantin_api2.fairnopoly.de"
+  password: "ZJHAB8JZCQ2FYTMC"
+  signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31A1laHFFzuUA7GuzfgyfJOGACYNXW"
   application_id: "APP-80W284485P519543T"
 
 test:

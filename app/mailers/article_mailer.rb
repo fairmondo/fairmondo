@@ -20,6 +20,9 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class ArticleMailer < ActionMailer::Base
+  include MailerHelper
+  before_filter :inline_logos, only: :contact
+
   default from: $email_addresses['default']
   layout 'email', only: :contact
 
