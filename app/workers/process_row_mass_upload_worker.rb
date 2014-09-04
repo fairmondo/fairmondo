@@ -199,16 +199,18 @@ class ProcessRowMassUploadWorker
 
     def process  article, mass_upload_article
       mass_upload_article.with_lock do
-        case article.action
-        when :activate, :create, :update
-          article.calculate_fees_and_donations
-          article.save!
-        when :delete
-          article.close_without_validation
-        when :deactivate
-          article.deactivate_without_validation
+        unless mass_upload_article.article_id.present?
+          case article.action
+          when :activate, :create, :update
+            article.calculate_fees_and_donations
+            article.save!
+          when :delete
+            article.close_without_validation
+          when :deactivate
+            article.deactivate_without_validation
+          end
+          mass_upload_article.update_attributes(article: article, action: article.action)
         end
-        mass_upload_article.update_attributes(article: article, action: article.action)
       end
     end
 
