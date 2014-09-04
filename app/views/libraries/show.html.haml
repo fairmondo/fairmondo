@@ -1,9 +1,5 @@
-%div{id: "library#{resource.id.to_s}"}
-  = render "library_header", library: resource
-  .socialshareprivacy{data: {uri: library_url(resource), title: resource.name}}
-  = render "library_buttons", library: resource
-  .Library-elements
-    = render "library", library: resource
+-# Render library
+= render resource, single_view: true
 
 -# Admin controls
 - if User.is_admin?(current_user) && resource.public?
@@ -12,9 +8,9 @@
     %h3 Sammlung featuren
     = semantic_form_for resource, url: user_library_path(resource.user, resource), html: { id: "select_exhibition_for_library#{resource.id}" } do |f| #, method: :put
       = f.inputs do
-        = f.input :exhibition_name, :as => :select, :collection => Library.exhibition_name.options
+        = f.input :exhibition_name, as: :select, collection: Library.exhibition_name.options
       = f.actions do
-        = f.action :submit, button_html: {class: "Btn", id: "select_exhibition_submit_action"} # this generates the same form id twice on that page, which is annoying
+        = f.action :submit, button_html: { class: "Btn", id: "select_exhibition_submit_action" } # this generates the same form id twice on that page, which is annoying
 
 - content_for :view_specific_scripts do
   = javascript_include_tag 'ajax_history'

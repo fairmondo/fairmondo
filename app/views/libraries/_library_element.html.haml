@@ -1,4 +1,4 @@
 - if policy(library_element).show?
-  = render layout: '/articles/shared/show_article', locals: {  article: library_element.article, extra: policy(library_element).destroy? } do
+  = render layout: 'articles/shared/show_article', locals: {  article: library_element.article, extra: policy(library_element).destroy? } do
     - if policy(library_element).destroy?
-      = link_to t('common.actions.destroy'), user_library_element_path(current_user,library_element) ,:method => :delete, :class => "Button Button--red"
+      = link_to t('common.actions.destroy'), user_library_element_path(current_user,library_element) , method: :delete, class: "Button Button--red"
