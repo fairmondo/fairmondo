@@ -1,4 +1,4 @@
-%p
+%h3
   Hallo
   = "#{@commentable_owner.nickname},"
 
@@ -19,5 +19,6 @@
 %p
   Dein Fairnopoly Team
 
-%hr
-= render '/shared/email_footer'
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'
