@@ -31,14 +31,14 @@
     .teaser.teaser--full.libraries
       .teaser-inner
         %h2= t('welcome.hearted_library')
-        = render library, single_view: false, header_comments: false
+        = render library, header_comments: false
 
   -# Personalized section 2
   - if library = @last_hearted_libraries[1]
     .teaser.teaser--full.libraries
       .teaser-inner
         %h2= t('welcome.private_library')
-        = render library, single_view: false, header_comments: false
+        = render library, header_comments: false
 
 
 -# Article queue 1
@@ -137,7 +137,7 @@
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.trending_libraries')
-      = render @trending_libraries, single_view: false, header_comments: false
+      = render @trending_libraries, header_comments: false
 
 
 -# USPs
