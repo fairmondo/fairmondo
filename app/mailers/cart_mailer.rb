@@ -1,7 +1,10 @@
 class CartMailer < ActionMailer::Base
+  include MailerHelper
 
   default from: $email_addresses['ArticleMailer']['default_from']
   layout 'email'
+
+  before_filter :inline_logos
 
   def buyer_email(cart)
     @cart = cart
