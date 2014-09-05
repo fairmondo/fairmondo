@@ -116,7 +116,7 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    page.find('.payment-cell.total.value').must_have_content(article.price + article.transport_type1_price)
+    page.find('.Payment-value--total').must_have_content(article.price + article.transport_type1_price)
 
     # checkout
 
@@ -163,7 +163,7 @@ feature 'Checkout' do
 
     # Step 2
 
-    page.find('.payment-cell.total.value').must_have_content(articles.map(&:price).sum)
+    page.find('.Payment-value--total').must_have_content(articles.map(&:price).sum)
 
     # checkout
 
@@ -201,7 +201,7 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    page.find('.payment-cell.total.value').must_have_content(article.price)
+    page.find('.Payment-value--total').must_have_content(article.price)
 
     # checkout
 
@@ -251,7 +251,7 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    totals = page.all('.payment-cell.total.value')
+    totals = page.all('.Payment-value--total')
     #binding.pry
     totals.first.must_have_content(articles[0..2].map(&:price).sum + unified_seller.unified_transport_price + articles[2].transport_type1_price)
     totals.last.must_have_content(articles[3..4].map(&:price).sum + articles[3..4].map(&:transport_type1_price).sum)
@@ -362,6 +362,17 @@ feature 'Checkout' do
     find('input.checkout_button').click
     Cart.last.sold?.must_equal false
     page.must_have_content I18n.t('cart.notices.checkout_failed')
+  end
+
+  scenario 'Buying a cart with an invalid line item' do
+
+    article = FactoryGirl.create(:article, title: 'foobar')
+    login_as FactoryGirl.create(:user)
+    visit article_path(article)
+    click_button I18n.t('common.actions.to_cart')
+    article.update_attribute(:quantity_available, 0)
+    visit edit_cart_path(Cart.last)
+    page.must_have_content I18n.t('activerecord.errors.models.line_item.attributes.requested_quantity.less_than_or_equal_to', count: 0)
   end
 
   scenario 'Buying a cart with an incomplete user and adding address during checkout' do

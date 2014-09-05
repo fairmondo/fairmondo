@@ -21,7 +21,7 @@ feature "Refunds" do
     seller = FactoryGirl.create :legal_entity, :paypal_data
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :older, seller: seller
-    visit user_path( seller )
+    visit line_item_group_path( transaction.line_item_group , tab: :payments)
     do_refund
   end
 
@@ -29,7 +29,7 @@ feature "Refunds" do
     seller = FactoryGirl.create :private_user, :paypal_data
     login_as seller
     transaction = FactoryGirl.create :business_transaction, :old, seller: seller
-    visit user_path( seller )
+    visit line_item_group_path( transaction.line_item_group , tab: :payments)
     do_refund
   end
 end

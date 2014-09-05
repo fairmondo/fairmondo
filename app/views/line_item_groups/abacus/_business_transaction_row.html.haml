@@ -1,21 +1,24 @@
 - business_transaction_listing = abacus.business_transaction_listing.prices[business_transaction]
 .Payment-row
-  .Payment-cell.no-padding
+  .Payment-cell.Payment-cell--business_transaction
     .Payment-article-image
       = image_tag(business_transaction.article.title_image_url_thumb)
     .Payment-article-title
       = business_transaction_listing[:quantity].to_s + 'x'
       = business_transaction.article_title
-  .Payment-cell.no-padding.value
-    .small-info.left
+  .Payment-value.Payment-value--prices
+
+    .Payment-value-info.Payment-value-info--left
       = business_transaction_listing[:quantity].to_s + 'x'
       = money(business_transaction.article_price) + ' ='
     = money( business_transaction_listing[:retail_price] )
 
-    .small-info.right
+    .Payment-value-info.Payment-value-info--right
       = t('cart.texts.net')
       = money business_transaction_listing[:net_price]
       %br
       = money business_transaction.article_basic_price
       = t('common.text.glue.per')
       = business_transaction.article_basic_price_amount_text
+    - if policy(business_transaction.refund || business_transaction.build_refund).create?
+      = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), class: "Payment-refund Button Button--red Button--small"
