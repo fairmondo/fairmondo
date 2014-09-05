@@ -1,6 +1,6 @@
 -# Partial for showing a library
-- single_view = false unless defined? single_view
-- header_comments = true unless defined? header_comments
+- single_view = false unless local_assigns.has_key? :single_view
+- header_comments = true unless local_assigns.has_key? :header_comments
 
 - if single_view
   %div{ id: "library#{library.id.to_s}" }
@@ -13,9 +13,9 @@
     = render "library_buttons", library: library
     = render "library_body", library: library
 - else
-  - focused = (library.id.to_s == params[:focus])
+  - focussed = (library.id.to_s == params[:focus])
   - if !library.empty? || (library.user == current_user)
-    %details{ id: "library#{library.id}", class: 'Library', open: focused, data: { library_page: focused ? params[:library_page] || 1 : 1 } }
+    %details{ id: "library#{library.id}", class: 'Library', open: focussed, data: { library_page: focussed ? params[:library_page] || 1 : 1 } }
       %summary
         = render "libraries/library_header", library: library, comments: header_comments
       .Library-details
