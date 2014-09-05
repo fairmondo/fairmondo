@@ -27,4 +27,11 @@ describe LineItemGroup do
     it { subject.must_respond_to :sold_at }
   end
 
+  describe '#generate_purchase_id' do
+    it 'generates a valid id' do
+      line_item_group.id = 1
+      line_item_group.generate_purchase_id.must_equal('F00000001')
+    end
+  end
+
 end
