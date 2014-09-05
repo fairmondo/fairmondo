@@ -72,7 +72,7 @@ class Library < ActiveRecord::Base
 
   # Returns true if the library has comments
   def has_comments?
-    comments.size > 0
+    comments_count > 0
   end
 
   private
