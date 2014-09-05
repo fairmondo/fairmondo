@@ -1,8 +1,7 @@
 $(document).ready ->
-  if History.pushState
 
-    History.pushState( null, document.title, window.location.href )
+    document.Fairnopoly.historyPush false, window.location.href, document.title
 
     $('.l-main').on 'click', 'a', (e) ->
-      History.pushState( null, document.title, e.target.href)
+      document.Fairnopoly.historyPush false, e.target.href, document.title
       true

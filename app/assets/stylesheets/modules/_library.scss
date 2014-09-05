@@ -49,6 +49,10 @@ Styleguide Library
   padding: em(10) em(20);
 }
 
+/* smoother ajax start transition */
+.Library .Grid--wider {
+  transition: opacity 0.2s;
+}
 
 /* Comments in the summary */
 .Library > summary > .Library-comments {
