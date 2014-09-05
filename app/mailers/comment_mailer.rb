@@ -25,12 +25,11 @@ class CommentMailer < ActionMailer::Base
 
   default from: $email_addresses['default']
   layout 'email'
-
   def report_comment(comment, commentable_owner)
     @commentable = comment.commentable
     @commentable_owner = commentable_owner
 
     mail(to: @commentable_owner.email,
-         subject: "[Fairnopoly] #{ I18n.t('comment.mailer.notification_title') }")
+         subject: I18n.t('comment.mailer.notification_title'))
   end
 end

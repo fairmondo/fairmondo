@@ -13,5 +13,6 @@ production:
   - [paperclip_foreground, 4]
   - [fastbill, 5]
   - [indexing, 4]
-  - [transaction_mails, 6]
   - [statistics, 2]
+  - [after_buy, 5]
+  - [cart_mails, 5]

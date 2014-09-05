@@ -38,10 +38,5 @@ class BusinessTransactionObserver < ActiveRecord::Observer
       #business_transaction.update_attribute :purchase_emails_sent, true
     #end
 
-    if business_transaction.article_price > 0
-      # check if this article is discountable and reply accordingly
-      Discount.discount_chain(business_transaction) if business_transaction.article_discount_id
-      FastbillWorker.perform_in 5.seconds, business_transaction.id
-    end
   end
 end
