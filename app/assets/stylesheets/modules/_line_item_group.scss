@@ -1,0 +1,8 @@
+.Lineitemgroup {
+  @include whitebox;
+  margin-bottom: 0.5em;
+}
+
+.Lineitemgroup > .Lineitemgroup-images {
+  img { max-width: 8em; }
+}
