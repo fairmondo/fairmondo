@@ -1,7 +1,7 @@
 = accordion_item item_name do
   - if items.empty?
     %p
-      - if defined? item_link
+      - if local_assigns.has_key? :item_link
         %strong= t("users.text.no_#{item_name}_html", :href => link_to(t("users.text.no_#{item_name}"), item_link ))
       - else
         %strong= t("users.text.no_#{item_name}")
