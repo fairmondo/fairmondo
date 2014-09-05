@@ -1,5 +1,5 @@
 -# Render library
-= render resource, single_view: true
+= render partial: "library", object: resource, locals: { single_view: true }
 
 -# Admin controls
 - if User.is_admin?(current_user) && resource.public?
