@@ -1,3 +1,5 @@
+- comments = true unless local_assigns.has_key? :comments
+
 .Library-buttons
   = comments_counter(library)
   = heart_button(library)
