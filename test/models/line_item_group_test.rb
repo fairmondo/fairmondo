@@ -2,6 +2,7 @@ require_relative '../test_helper'
 
 describe LineItemGroup do
   let(:line_item_group) { FactoryGirl.create(:line_item_group) }
+  let(:id) {1}
 
   subject { LineItemGroup.new }
 
@@ -29,7 +30,7 @@ describe LineItemGroup do
 
   describe '#generate_purchase_id' do
     it 'generates a valid id' do
-      line_item_group.id = 1
+      line_item_group.stub(:id).and_return(id)
       line_item_group.generate_purchase_id.must_equal('F00000001')
     end
   end

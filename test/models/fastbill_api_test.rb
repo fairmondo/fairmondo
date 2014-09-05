@@ -25,6 +25,9 @@ describe FastbillAPI do
 
           it "should not create new Fastbill profile" do
             db_business_transaction # to trigger observers before
+            db_business_transaction.seller.fastbill_id = '1234'
+            db_business_transaction.seller.fastbill_subscription_id = '4321'
+            db_business_transaction.seller.save
             FastbillAPI.expects( :fastbill_create_customer ).never
             FastbillAPI.expects( :fastbill_create_subscription ).never
             FastbillAPI.fastbill_chain( db_business_transaction )
