@@ -13,8 +13,9 @@
     = render "library_buttons", library: library
     = render "library_body", library: library
 - else
+  - focused = (library.id.to_s == params[:focus])
   - if !library.empty? || (library.user == current_user)
-    %details{ id: "library#{library.id.to_s}", class: 'Library' }
+    %details{ id: "library#{library.id}", class: 'Library', open: focused, data: { library_page: focused ? params[:library_page] || 1 : 1 } }
       %summary
         = render "libraries/library_header", library: library, comments: header_comments
       .Library-details
