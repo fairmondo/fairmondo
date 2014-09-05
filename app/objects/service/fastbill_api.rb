@@ -102,7 +102,7 @@ class FastbillAPI
                                                         description: business_transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.fair' ) : I18n.t( 'invoice.fee' )})",
                                                         usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
-        business_transaction.update_attribute("billed_for_#{fee_type}".to_sym, true)
+        business_transaction.update_column("billed_for_#{fee_type}".to_sym, true)
       end
     end
 
@@ -117,23 +117,25 @@ class FastbillAPI
                                                         description: business_transaction.id.to_s + "  " + article.title + " (" + business_transaction.discount_title + ")",
                                                         usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
                                                       )
-        business_transaction.update_attribute(:billed_for_discount, true)
+        business_transaction.update_column(:billed_for_discount, true)
       end
     end
 
     # This method adds an refund to the invoice is refund is requested for an article
     def self.fastbill_refund(business_transaction, fee_type)
-      article = business_transaction.article
-      seller = business_transaction.seller
+      unless business_transaction.refunded?
+        article = business_transaction.article
+        seller = business_transaction.seller
 
-      Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
-                                                      article_number: fee_type == :fair ? '11' : '12',
-                                                      quantity: business_transaction.quantity_bought,
-                                                      unit_price: fee_type == :fair ? -( fair_wo_vat article ) : -( actual_fee_wo_vat business_transaction ),
-                                                      description: business_transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.refund_fair' ) : I18n.t( 'invoice.refund_fee' ) })",
-                                                      usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
-                                                    )
-        business_transaction.update_attribute("billed_for_#{fee_type}".to_sym, false)
+        Fastbill::Automatic::Subscription.setusagedata( subscription_id: seller.fastbill_subscription_id,
+                                                        article_number: fee_type == :fair ? '11' : '12',
+                                                        quantity: business_transaction.quantity_bought,
+                                                        unit_price: fee_type == :fair ? -( fair_wo_vat article ) : -( actual_fee_wo_vat business_transaction ),
+                                                        description: business_transaction.id.to_s + "  " + article.title + " (#{ fee_type == :fair ? I18n.t( 'invoice.refund_fair' ) : I18n.t( 'invoice.refund_fee' ) })",
+                                                        usage_date: business_transaction.sold_at.strftime("%Y-%m-%d %H:%M:%S")
+                                                      )
+        business_transaction.update_column("refunded_#{fee_type}".to_sym, true)
+      end
     end
 
     # This method calculates the fair percent fee without vat

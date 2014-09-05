@@ -2,6 +2,12 @@ require_relative '../test_helper'
 
 include Warden::Test::Helpers
 
+def expect_cart_emails arg= :once
+  Mail::Message.any_instance.stubs(:deliver)
+  CartMailer.expects(:seller_email).returns(Mail::Message.new).send arg
+  CartMailer.expects(:buyer_email).returns(Mail::Message.new)
+end
+
 feature 'Adding an Article to the cart' do
 
   scenario 'anonymous user adds article to his cart' do
@@ -120,8 +126,8 @@ feature 'Checkout' do
 
     # checkout
 
-    CartMailer.expects(:seller_email)
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails
+
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
 
@@ -167,8 +173,7 @@ feature 'Checkout' do
 
     # checkout
 
-    CartMailer.expects(:seller_email)
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails
     find('input.checkout_button').click
 
     Cart.last.sold?.must_equal true
@@ -205,8 +210,7 @@ feature 'Checkout' do
 
     # checkout
 
-    CartMailer.expects(:seller_email)
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.must_equal transport_address
@@ -258,8 +262,7 @@ feature 'Checkout' do
 
     # checkout
 
-    CartMailer.expects(:seller_email).twice
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails :twice
     find('input.checkout_button').click
     buyer.carts.last.sold?.must_equal true
 
@@ -299,8 +302,7 @@ feature 'Checkout' do
     click_button I18n.t('common.actions.continue')
     # checkout
 
-    CartMailer.expects(:seller_email)
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
 
@@ -406,8 +408,7 @@ feature 'Checkout' do
     # Step 2
 
     click_button I18n.t('common.actions.continue')
-    CartMailer.expects(:seller_email)
-    CartMailer.expects(:buyer_email)
+    expect_cart_emails
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
     Cart.last.line_item_groups.first.transport_address.first_name.must_equal 'first_name_is_here'
