@@ -31,6 +31,6 @@ class CommentMailer < ActionMailer::Base
     @commentable_owner = commentable_owner
 
     mail(to: @commentable_owner.email,
-         subject: "#{ I18n.t('comment.mailer.notification_title') }")
+         subject: I18n.t('comment.mailer.notification_title'))
   end
 end

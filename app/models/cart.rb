@@ -52,12 +52,7 @@ class Cart < ActiveRecord::Base
 
       self.update_attribute(:sold,true)
 
-      CartMailer.delay.buyer_email(self)
-
-      self.line_item_groups.each do |lig|
-        CartMailer.delay.seller_email(lig)
-      end
-
+      AfterBuyWorker.perform_async self.id
     end
 
     ###################################################

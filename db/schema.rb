@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820084648) do
+ActiveRecord::Schema.define(version: 20140905113617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,12 +86,12 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.integer  "friendly_percent_organisation_id",       limit: 8
     t.string   "template_name"
     t.string   "transport_time"
+    t.integer  "quantity_available"
+    t.boolean  "unified_transport"
     t.boolean  "swappable",                                        default: false
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
-    t.integer  "quantity_available"
-    t.boolean  "unified_transport"
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.integer  "payment_address_id",   limit: 8
     t.integer  "payment_id",           limit: 8
     t.integer  "line_item_group_id",   limit: 8
+    t.boolean  "refunded_fair",                  default: false
+    t.boolean  "refunded_fee",                   default: false
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree
@@ -161,9 +163,11 @@ ActiveRecord::Schema.define(version: 20140820084648) do
   create_table "carts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",         limit: 8
-    t.boolean  "sold",                      default: false
-    t.integer  "line_item_count",           default: 0
+    t.integer  "user_id",                 limit: 8
+    t.boolean  "sold",                              default: false
+    t.integer  "line_item_count",                   default: 0
+    t.boolean  "purchase_emails_sent",              default: false
+    t.datetime "purchase_emails_sent_at"
   end
 
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
@@ -356,6 +360,8 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.integer  "unified_transport_maximum_articles"
     t.integer  "unified_transport_price_cents",      limit: 8, default: 0
     t.integer  "free_transport_at_price_cents",      limit: 8
+    t.boolean  "purchase_emails_sent",                         default: false
+    t.datetime "purchase_emails_sent_at"
   end
 
   add_index "line_item_groups", ["buyer_id"], name: "index_line_item_groups_on_buyer_id", using: :btree
@@ -554,13 +560,13 @@ ActiveRecord::Schema.define(version: 20140820084648) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
-    t.boolean  "receive_comments_notification",                default: true
     t.integer  "standard_address_id",                limit: 8
     t.integer  "unified_transport_maximum_articles",           default: 1
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_price_cents",      limit: 8, default: 0
     t.boolean  "free_transport_available"
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
+    t.boolean  "receive_comments_notification",                default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
