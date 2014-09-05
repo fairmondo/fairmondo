@@ -47,24 +47,12 @@
     = t('libraries.to_show_favorites') + ' '
     = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
 - else
-
-
-<<<<<<< HEAD
   - if @libraries.any?
     .libraries
       = render @libraries
       = paginate @libraries
   - else
     %p= t('libraries.no_library')
-
-=======
-
-  .libraries
-    - if @libraries.any?
-      - @libraries.each do |library|
-
-
-
 
 - content_for :after_ajax_replace do
   $('html,body').animate({scrollTop: $("#library#{params[:focus]}").offset().top}, 200);
