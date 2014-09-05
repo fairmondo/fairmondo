@@ -68,45 +68,6 @@
             %a{href: "http://www.projektzehntausend.de/projektzehntausend/", target: '_blank'} Projekt 10.000
 
 
-
-- if @last_hearted_libraries
-  - if @last_hearted_libraries.length == 2
-    -# Personalized section 3, CSS classes or ids would have to change
-    - library = @last_hearted_libraries[0]
-    .teaser.teaser--double#teaser--clear-after-bluebox
-      .teaser-inner
-        %h2
-          = link_to(library.name, library_path(library))
-          = ' von '
-          = link_to(library.user_nickname, user_path(library.user))
-        - library.articles.limit(2).to_a.each do |article|
-          .teaser-queue
-            = render 'articles/shared/show_article', article: article
-    -# Personalized section 4, CSS classes or ids would have to change
-    - library = @last_hearted_libraries[1]
-    .teaser.teaser--double.teaser--collapsible#teaser--used
-      .teaser-inner
-        %h2
-          = link_to(library.name, library_path(library))
-          = ' von '
-          = link_to(library.user_nickname, user_path(library.user))
-        - library.articles.limit(2).to_a.each do |article|
-          .teaser-queue
-            = render 'articles/shared/show_article', article: article
-  - elsif @last_hearted_libraries.length == 1
-    - library = @last_hearted_libraries[0]
-    .teaser.teaser--quadruple#teaser--clear-after-bluebox
-      .teaser-inner
-        %h2
-          = link_to(library.name, library_path(library))
-          = ' von '
-          = link_to(library.user_nickname, user_path(library.user))
-        - library.articles.limit(4).to_a.each do |article|
-          .teaser-queue
-            = render 'articles/shared/show_article', article: article
-
-
-
 -# Article queue 3
 .teaser.teaser--double#teaser--clear-after-bluebox
   .teaser-inner

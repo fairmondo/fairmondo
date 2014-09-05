@@ -34,11 +34,6 @@ class WelcomeController < ApplicationController
 
     # Libraries
     @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: {user: [:image]})
-
-    # Personalized section
-    if user_signed_in?
-      @last_hearted_libraries = current_user.hearted_libraries.min_elem(4).reorder('hearts.created_at DESC').limit(2)
-    end
   end
 
   # Rss Feed
