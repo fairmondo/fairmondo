@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905065322) do
+ActiveRecord::Schema.define(version: 20140905113617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20140905065322) do
     t.integer  "payment_address_id",   limit: 8
     t.integer  "payment_id",           limit: 8
     t.integer  "line_item_group_id",   limit: 8
+    t.boolean  "refunded_fair",                  default: false
+    t.boolean  "refunded_fee",                   default: false
   end
 
   add_index "business_transactions", ["article_id"], name: "index_business_transactions_on_article_id", using: :btree

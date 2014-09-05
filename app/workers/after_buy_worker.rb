@@ -13,8 +13,6 @@ class AfterBuyWorker
     cart.line_item_groups.each do |lig|
       lig.business_transactions.each do |bt|
         if bt.article_price > 0
-          # check if this article is discountable and reply accordingly
-          Discount.discount_chain(bt) if bt.article_discount_id
           FastbillWorker.perform_in 5.seconds, bt.id
         end
       end

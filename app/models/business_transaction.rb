@@ -102,4 +102,8 @@ class BusinessTransaction < ActiveRecord::Base
     article.unified_transport? && line_item_group.unified_transport?
   end
 
+  def refunded?
+    refunded_fee && refunded_fair
+  end
+
 end

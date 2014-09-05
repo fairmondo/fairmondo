@@ -30,8 +30,10 @@ describe LineItemGroup do
 
   describe '#generate_purchase_id' do
     it 'generates a valid id' do
-      line_item_group.stub(:id).and_return(id)
-      line_item_group.generate_purchase_id.must_equal('F00000001')
+      line_item_group.stub(:id, 1) do
+        line_item_group.generate_purchase_id
+        line_item_group.purchase_id.must_equal('F00000001')
+      end
     end
   end
 
