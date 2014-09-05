@@ -1,11 +1,22 @@
+.Lineitemgroup
+  .Lineitemgroup-title
+    - if line_item_group.buyer == current_user
+      = link_to "Deine Bestellung bei #{line_item_group.seller_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+    - elsif line_item_group.seller == current_user
+      = link_to "Dein Auftrag von #{line_item_group.buyer_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+  .Lineitemgroup-actions
+    - if line_item_group.buyer == current_user
+      = link_to "Bestellung ansehen und bezahlen", line_item_group_path(line_item_group), class: 'Button'
+    - else
+      = link_to "Auftrag ansehen", line_item_group_path(line_item_group), class: 'Button'
+  .Lineitemgroup-rating
+    - if line_item_group.rating
+      %span{class: "sprite_#{line_item_group.rating_value}_small" }
 
-- if line_item_group.rating
-  %span{class: "sprite_#{line_item_group.rating_value}_small" }
-%h3
-  - if line_item_group.seller == current_user
-    = link_to "Dein Auftrag von #{line_item_group.buyer_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
-  - elsif line_item_group.buyer == current_user
-    = link_to "Deine Bestellung bei #{line_item_group.seller_nickname} vom #{line_item_group.updated_at.strftime('%d.%m.%Y %H:%M')}", line_item_group_path(line_item_group)
+  .Lineitemgroup-images
+    - line_item_group.business_transactions.map(&:article).each do |article|
+      = image_tag(article.title_image_url(:thumb), :title => article.title)
+
 
 -#%p
 -#  .Listview

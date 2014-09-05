@@ -1,14 +1,13 @@
 = accordion_item item_name do
   - if line_item_groups.empty?
     %p
-      - if defined? item_link
+      - if local_assigns.has_key? :item_link
         %strong= t("users.text.no_#{item_name}_html", :href => link_to(t("users.text.no_#{item_name}"), item_link ))
       - else
         %strong= t("users.text.no_#{item_name}")
   - else
     - line_item_groups.each do |group|
-      .Content
-        = render 'line_item_groups/shared/listitem' , line_item_group: group
+      = render 'line_item_groups/shared/listitem' , line_item_group: group
     -# if current_user.type == 'LegalEntity' && item_name == 'seller_line_item_groups'
       .export.JS-active-toggle--container
         .Button.JS-active-toggle--trigger{data: {clickable: true}}

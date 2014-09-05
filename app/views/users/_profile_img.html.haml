@@ -20,7 +20,7 @@
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
 .User
-  - if defined?(show_title) && show_title
+  - if (local_assigns.has_key? :show_title) && show_title
     %h3.User-title Anbieter*in
   .User-image
     - if user.is_pioneer?
