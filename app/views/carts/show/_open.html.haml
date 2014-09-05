@@ -9,14 +9,12 @@
           - article = line_item.article
           = render layout: 'articles/shared/listitem', locals: { article: article, actions: true } do
             .line_item_actions-inner
-              - if line_item.article_quantity > 1
-                = semantic_form_for line_item, html: {class: 'change_quantity'} do |f|
-                  = f.inputs do
-                    = f.input :requested_quantity, input_html: { min: 0, max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_allow: '0', validation_save_on_success: 'true' } }
-                    = f.button title: t('line_item.labels.edit'), class: "Button"  do
-                      %i.fa.fa-refresh
-              - else
-                .change_quantity &nbsp;
+              = semantic_form_for line_item, html: {class: 'change_quantity'} do |f|
+                = f.inputs do
+                  = f.input :requested_quantity, input_html: { min: 0, max: line_item.article_quantity_available, step: 1, value: line_item.requested_quantity || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "id=#{line_item.id}", validation_allow: '0', validation_save_on_success: 'true' } }
+                  = f.button title: t('line_item.labels.edit'), class: "Button"  do
+                    %i.fa.fa-refresh
+
 
               = button_to line_item_path(line_item.id), title: t('common.actions.destroy'), class: "Button Button--red", method: :delete, data: { confirm: t('common.actions.confirm') }, form_class: 'delete_line_item' do
                 %i.fa.fa-times

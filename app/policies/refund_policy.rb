@@ -9,7 +9,7 @@ class RefundPolicy < Struct.new(:user, :refund)
 
   private
     def own?
-      user.id == refund.business_transaction_seller.id
+      user && user.id == refund.business_transaction_seller.id
     end
 
     # this method checks if the business_transaction is in a state in which it is possible
