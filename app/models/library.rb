@@ -66,7 +66,7 @@ class Library < ActiveRecord::Base
   end
 
   # Returns true if the library has no library elements
-  def empty?
+  def has_elements?
     library_elements_count == 0
   end
 

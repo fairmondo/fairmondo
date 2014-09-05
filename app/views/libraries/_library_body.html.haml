@@ -1,5 +1,5 @@
 .Library-elements
-  - if library.empty?
+  - if library.has_elements?
     = t('library.no_products')
   - else
     .js-library-ajax
