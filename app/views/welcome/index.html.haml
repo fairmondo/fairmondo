@@ -92,7 +92,7 @@
   .teaser.teaser--full.libraries
     .teaser-inner
       %h2= t('welcome.trending_libraries')
-      = render @trending_libraries, header_comments: false
+      = render partial: "libraries/library", collection: @trending_libraries, locals: { header_comments: false }
 
 
 -# USPs
