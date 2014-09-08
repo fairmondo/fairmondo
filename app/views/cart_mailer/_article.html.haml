@@ -1,6 +1,6 @@
 .article
   .article-image
-    = link_to image_tag(bt.article.title_image_url_thumb), article_path(bt.article_id)
+    = link_to image_tag(attachments[bt.article_id.to_s].url), article_path(bt.article_id)
   .article-info-container
     .article-title
       = link_to truncate(bt.article_title), article_path(bt.article_id)
