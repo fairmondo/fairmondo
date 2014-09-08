@@ -39,6 +39,7 @@ class Comment < ActiveRecord::Base
   validates :text, presence: true, length: { maximum: 240 }
 
   default_scope { order(created_at: :desc) }
+
   scope :legal_entity_publishable, -> do # LegalEntity comments are only published at certain times.
     # if now is not between 10am and 5pm
     #   show if created_at is <= the last 5pm
