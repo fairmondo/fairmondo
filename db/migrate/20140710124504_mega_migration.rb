@@ -116,8 +116,6 @@ class MegaMigration < ActiveRecord::Migration
     add_index :users, :standard_address_id, name: 'index_users_on_standard_address_id'
 
     # Change Business Transactions
-    add_column :business_transactions, :transport_address_id, :bigint
-    add_column :business_transactions, :payment_address_id, :bigint
     add_column :business_transactions, :payment_id, :bigint
     add_column :business_transactions, :line_item_group_id, :integer, limit: 8
     add_column :business_transactions, :unified_transport_provider, :string
@@ -125,8 +123,6 @@ class MegaMigration < ActiveRecord::Migration
     add_column :business_transactions, :unified_transport_price_cents, :integer, limit: 8, default: 0
     add_column :business_transactions, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
 
-    add_index :business_transactions, :transport_address_id, name: 'index_business_transactions_on_transport_address_id'
-    add_index :business_transactions, :payment_address_id, name: 'index_business_transactions_on_payment_address_id'
     add_index :business_transactions, :payment_id, name: 'index_business_transactions_on_payment_id'
     add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
 
@@ -225,8 +221,8 @@ class MegaMigration < ActiveRecord::Migration
           address.reload
         end
 
-        bt.update_column(:transport_address_id, address.id)
-        bt.update_column(:payment_address_id, address.id)
+        bt.line_item_group.update_column(:transport_address_id, address.id)
+        bt.line_item_group.update_column(:payment_address_id, address.id)
       end
     end
   end
