@@ -170,7 +170,7 @@ de:
         bank_transfer: Überweisung (Vorkasse)
         cash: Barzahlung bei Abholung
         paypal: PayPal
-        cash_on_delivery: Nachnahme
+        cash_on_delivery: Nachnahme (zzgl. Gebühr)
         invoice: Rechnung
 
     library:
