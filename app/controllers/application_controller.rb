@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
        "RegistrationsController", "SessionsController", "ToolboxController",
        "BankDetailsController", "ExportsController", "WelcomeController",
        "CategoriesController", "Peek::ResultsController", "StyleguidesController",
-       "RemoteValidationsController"
+       "RemoteValidationsController", "BusinessTransactionsController"
       ]
     end
 

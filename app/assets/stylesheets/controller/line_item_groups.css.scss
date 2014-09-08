@@ -1,44 +1,5 @@
 @import "mixins/all";
 
-
-// show
-.cart-nav {
-  text-align:center;
-  a {
-     max-width: 7em;
-  }
-  position: relative;
-}
-.cart-nav .cart-nav-area {
-  width: 100%;
-  max-width:100%;
-  position:absolute;
-  display:none;
-  &.is-active {
-    display:block;
-  }
-}
-
-.cart-nav-area-inner {
-  z-index: 100;
-  background-color:white;
-  @include whitebox;
-}
-
-.cart-nav .seller {
-  margin-bottom: 0.5em;
-  .marker {
-    display: inline-block;
-    width: 1em;
-  }
-  &.active {
-    @include clear-links;
-    a { color: black; }
-  }
-
-}
-
-
 .bank_account_table, .transport_table, .business_transaction_table {
   margin-bottom: 1em;
   > .line {  margin-bottom: 0.5em; }
@@ -103,7 +64,6 @@
 @include at-breakpoint($bp-tablet-horizontal) {
   .group { @include span(3 of 4 0.05); }
   .group-header { @include span(3 of 4 0.05); }
-  .cart-nav { @include span(1 of 4 0.05); @include omega; }
   .sidebar { @include span(1 of 4 0.05); @include omega; }
 }
 
@@ -120,9 +80,30 @@
 .tabs {
   margin-top:2em;
   @include clear-links;
-  @include color-links($blue,$gray);
-  i.tab_icon { font-size: 1.5em; display:block; text-align:center; }
-  .tab { display: inline-block; padding: 0.7em 0.9em; position:relative; top:1px;}
+  .tab:not(.active) {
+    @include color-links($blue, lighten($blue, 10%));
+    a {
+      i {
+        position: relative;
+        top: -1px;
+      }
+      &:active i {
+        top: 0;
+      }
+    }
+  }
+  i.tab_icon {
+    font-size: 1.5em;
+    display:block;
+    text-align: center;
+  }
+  .tab {
+    display: inline-block;
+    padding: 0.7em 0.9em;
+    position: relative;
+    top: 1px;
+    font-weight: 600;
+  }
   .active.tab {
     background-color:  $even-lighter-gray;
     border-top-left-radius: 0.5em;
@@ -130,7 +111,10 @@
     border-top: 1px solid $lighter-gray;
     border-left: 1px solid $lighter-gray;
     border-right: 1px solid $lighter-gray;
-    a { color: $gray; }
+    a {
+      color: $gray;
+      text-shadow: 0px 1px 0px white; // letterpress effect
+    }
   }
   @include at-breakpoint($bp-mobile-horizontal) {
     .tab { padding: 1em 1.5em; }
@@ -156,7 +140,6 @@
 @include at-breakpoint($bp-tablet) {
   .title { float: left; width: 50%; }
   .tabs { float:right; width: 50%;  }
-
 }
 
 
