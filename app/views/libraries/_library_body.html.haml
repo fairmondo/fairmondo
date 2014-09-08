@@ -1,14 +1,14 @@
 .Library-elements
-  - if library.has_elements?
-    = t('library.no_products')
-  - else
-    .js-library-ajax
+  .js-library-ajax
+    - if library.has_elements?
       .Grid--wider
         - library_elements_page = (!params[:focus] || library.id.to_s == params[:focus]) ? params[:library_page] : 1
         - library_elements = library.library_elements.includes(article: [:images,:seller]).page(library_elements_page).per(12)
         - library_elements.each do |library_element|
           .Grid-item
             = render "libraries/library_element", library_element: library_element
-
       = paginate library_elements, param_name: :library_page, remote: true, params: { controller: "libraries", action: "show", id: library.id, _: nil }
-      = render "comments/commentable_comments", commentable: library
+    - else
+      %p= t('library.no_products')
+
+    = render "comments/commentable_comments", commentable: library

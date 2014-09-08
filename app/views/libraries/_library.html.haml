@@ -14,7 +14,7 @@
     = render "library_body", library: library
 - else
   - focussed = (library.id.to_s == params[:focus])
-  - if !library.has_elements? || (library.user == current_user)
+  - if library.has_elements? || (library.user == current_user)
     %details{ id: "library#{library.id}", class: 'Library', open: focussed, data: { library_page: focussed ? params[:library_page] || 1 : 1 } }
       %summary
         = render "libraries/library_header", library: library, comments: header_comments
