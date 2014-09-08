@@ -34,6 +34,10 @@ describe Payment do
     end
 
     describe "#initialize_payment [private, called within init]" do
+      it "should return true for a base Payment" do
+        Payment.new.send(:initialize_payment).must_equal true
+      end
+
       it "should save errors on API failure" do
         PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
