@@ -8,9 +8,20 @@ class CartMailer < ActionMailer::Base
   def buyer_email(cart)
     cart.line_item_groups.each do |lig|
       lig.business_transactions.each do |bt|
-        attachments.inline[bt.article_id.to_s] = {
-        data: File.read("#{ Rails.root }/public#{ bt.article.title_image_url(:thumb) }")
-                                                 }
+        unless bt.article.images.empty?
+          image = bt.article.images.find_by(is_title: true).image || bt.article.images.find_by(1).image
+          attachments.inline[bt.article_id.to_s] = {
+            data: File.read("#{ Rails.root }/#{ image.path(:thumb) }")
+                                                   }
+        end
+      end
+
+      if lig.seller.terms && lig.seller.cancellation
+        filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
+        attachments.inline[filename] = {
+          data: TermsAndCancellationPdf.new(lig).render,
+          mime_type: "application/pdf"
+        }
       end
     end
 
@@ -23,9 +34,12 @@ class CartMailer < ActionMailer::Base
 
   def seller_email(line_item_group)
     line_item_group.business_transactions.each do |bt|
-      attachments.inline[bt.article_id.to_s] = {
-        data: File.read("#{ Rails.root }/public#{ bt.article.title_image_url(:thumb) }")
-                                               }
+      unless bt.article.images.empty?
+        image = bt.article.images.find_by(is_title: true).image || bt.article.images.find_by(1).image
+        attachments.inline[bt.article_id.to_s] = {
+          data: File.read("#{ Rails.root }/#{ image.path(:thumb) }")
+                                                 }
+      end
     end
 
     @line_item_group = line_item_group
@@ -35,5 +49,4 @@ class CartMailer < ActionMailer::Base
 
     mail(to: @seller.email, subject: @subject)
   end
-
 end
