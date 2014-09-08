@@ -16,7 +16,8 @@ class PaypalAPI
             "receiver" => [{"email" => payment.line_item_group_seller_email, "amount" => payment.total_price.to_f.to_s}]},
           "cancelUrl" => line_item_group_url(payment.line_item_group, paid: false),
           "actionType" => "PAY",
-          "ipnNotificationUrl" => ipn_notification_url
+          "ipnNotificationUrl" => ipn_notification_url,
+          "trackingID" => payment.line_item_group_purchase_id
         )
       end
     rescue Timeout::Error

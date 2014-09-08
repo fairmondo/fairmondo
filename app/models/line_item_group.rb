@@ -10,12 +10,13 @@ class LineItemGroup < ActiveRecord::Base
     (business_transactions.any? ? business_transactions : line_items).map(&:article)
   end
   has_many :business_transactions, inverse_of: :line_item_group
-  has_many :payments, through: :business_transactions, inverse_of: :line_item_groups
+  has_many :payments, inverse_of: :line_item_group
+  has_one :paypal_payment, -> { where type: 'PaypalPayment' }, class_name: 'Payment'
   belongs_to :transport_address, class_name: 'Address', foreign_key: 'transport_address_id'
   belongs_to :payment_address, class_name: 'Address', foreign_key: 'payment_address_id'
   has_one :rating
 
-  delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname,
+  delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname, :paypal_account,
            to: :seller, prefix: true
 
   delegate :email, :nickname,

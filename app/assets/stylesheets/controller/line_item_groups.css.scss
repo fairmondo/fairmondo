@@ -66,9 +66,9 @@
 
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  .group { @include span(3 of 4 0.1); }
-  .header { @include span(3 of 4 0.1); }
-  .sidebar { @include span(1 of 4 0.1); @include omega; }
+  .group { @include span(3 of 4 0.05); }
+  .header { @include span(3 of 4 0.05); }
+  .sidebar { @include span(1 of 4 0.05); @include omega; }
 }
 
 .total_big {
@@ -84,9 +84,30 @@
 .tabs {
   margin-top:2em;
   @include clear-links;
-  @include color-links($blue,$gray);
-  i.tab_icon { font-size: 1.5em; display:block; text-align:center; }
-  .tab { display: inline-block; padding: 0.7em 0.9em; position:relative; top:1px;}
+  .tab:not(.active) {
+    @include color-links($blue, lighten($blue, 10%));
+    a {
+      i {
+        position: relative;
+        top: -1px;
+      }
+      &:active i {
+        top: 0;
+      }
+    }
+  }
+  i.tab_icon {
+    font-size: 1.5em;
+    display:block;
+    text-align: center;
+  }
+  .tab {
+    display: inline-block;
+    padding: 0.7em 0.9em;
+    position: relative;
+    top: 1px;
+    font-weight: 600;
+  }
   .active.tab {
     background-color:  $even-lighter-gray;
     border-top-left-radius: 0.5em;
@@ -94,7 +115,10 @@
     border-top: 1px solid $lighter-gray;
     border-left: 1px solid $lighter-gray;
     border-right: 1px solid $lighter-gray;
-    a { color: $gray; }
+    a {
+      color: $gray;
+      text-shadow: 0px 1px 0px white; // letterpress effect
+    }
   }
   @include at-breakpoint($bp-mobile-horizontal) {
     .tab { padding: 1em 1.5em; }
@@ -120,7 +144,6 @@
 @include at-breakpoint($bp-tablet) {
   .title { float: left; width: 50%; }
   .tabs { float:right; width: 50%;  }
-
 }
 
 

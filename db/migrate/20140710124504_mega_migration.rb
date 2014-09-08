@@ -100,10 +100,12 @@ class MegaMigration < ActiveRecord::Migration
 
     # Create Payments
     create_table :payments do |t|
-      t.string :pay_key, :state
+      t.string :pay_key, :state, :type
       t.text :error, :last_ipn
+      t.integer :line_item_group_id, limit: 8, null: false
       t.timestamps
     end
+    add_index :payments, :line_item_group_id, name: 'index_payment_on_line_item_group_id'
 
     # Change Users
     add_column :users, :standard_address_id, :bigint
@@ -116,14 +118,12 @@ class MegaMigration < ActiveRecord::Migration
     add_index :users, :standard_address_id, name: 'index_users_on_standard_address_id'
 
     # Change Business Transactions
-    add_column :business_transactions, :payment_id, :bigint
     add_column :business_transactions, :line_item_group_id, :integer, limit: 8
     add_column :business_transactions, :unified_transport_provider, :string
     add_column :business_transactions, :unified_transport_maximum_articles, :integer
     add_column :business_transactions, :unified_transport_price_cents, :integer, limit: 8, default: 0
     add_column :business_transactions, :unified_transport_free_at_price_cents, :integer, limit: 8, default: 0
 
-    add_index :business_transactions, :payment_id, name: 'index_business_transactions_on_payment_id'
     add_index :business_transactions, :line_item_group_id, name: 'index_business_transactions_on_line_item_group_id'
 
 
