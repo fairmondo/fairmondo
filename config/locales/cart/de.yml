@@ -6,9 +6,10 @@ de:
       without_transport: "(zuzüglich Versandkosten)"
       empty_cart: Dein Warenkorb ist leer.
       line_item_group_by: "Dein Einkauf bei %{seller}"
-      purchase_from: "Einkauf vom %{date}"
+      purchase_from: "Deine Bestellungen vom %{date}"
       your_order_for: "Deine Bestellung bei"
       terms: "AGB"
+      explain: "Eine Bestellbestätigung wurde per Email an Deine Adresse versand. Du hast Bestellungen bei mehreren Anbietern getätigt. Die unten angezeigten Bestellungen kannst du auch über Dein Profil abrufen."
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Anbieters*in."
       unified_transport: "Möglichst alle Artikel mit %{provider} zusammen versenden (Kombiversand)."
