@@ -19,23 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PaymentsController < ApplicationController
-  respond_to :html
+class PaypalPayment < Payment
+  extend STI
 
-  # create happens on buy. this is to initialize the payment with paypal
-  def create
-    @payment = Payment.new line_item_group_id: params[:line_item_group_id], type: Payment.parse_type(params[:type])
-    authorize @payment
-    if @payment.init && !@payment.errored?
-      redirect_to PaypalAPI.checkout_url @payment.pay_key
-    else
-      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
+  private
+    # send paypal request on init
+    def initialize_payment
+      response = PaypalAPI.new.request_for(self)
+      if response.success?
+        self.pay_key = response['payKey']
+        true # continue
+      else
+        self.error = response.errors.to_json
+        false # errored instead of initialized
+      end
     end
-  end
-
-  def show
-    @payment = Payment.find(params[:id])
-    authorize @payment
-    redirect_to PaypalAPI.checkout_url @payment.pay_key
-  end
 end

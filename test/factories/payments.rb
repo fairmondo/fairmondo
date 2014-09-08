@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :payment do
-
+    line_item_group
 
     trait :with_pay_key do
       pay_key 'foobar'

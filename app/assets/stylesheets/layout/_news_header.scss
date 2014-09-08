@@ -8,11 +8,14 @@
   @include container($screen-width);
   padding: 1em 3em;
   color: $dark-gray;
-  @include color-links($dark-gray,$black);
+  @include color-links($dark-gray,black);
   text-align: center;
   p {
     margin:0;
     padding:0;
+  }
+  a {
+    text-decoration: underline;
   }
 }
 

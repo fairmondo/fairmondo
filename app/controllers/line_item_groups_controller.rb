@@ -7,6 +7,11 @@ class LineItemGroupsController < ApplicationController
   def show
     authorize @line_item_group
     @abacus = Abacus.new(@line_item_group)
+    if params[:paid] == 'true'
+      flash[:notice] = I18n.t 'line_item_group.notices.paypal_success'
+    elsif params[:paid] == 'false'
+      flash[:error] = I18n.t 'line_item_group.notices.paypal_cancel'
+    end
     respond_with @line_item_group do |format|
       format.html
       format.js { render layout: 'ajax_replace' }
