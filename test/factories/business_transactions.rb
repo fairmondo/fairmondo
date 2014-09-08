@@ -100,7 +100,6 @@ FactoryGirl.define do
 
     trait :paypal do
       selected_payment 'paypal'
-      payment { FactoryGirl.create :payment }
     end
 
     trait :invoice do

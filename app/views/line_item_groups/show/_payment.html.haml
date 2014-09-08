@@ -24,5 +24,8 @@
     - when :bank_transfer
       -#= button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
     - when :paypal
-      = button_tag t("line_item_group.payment_button.#{payment}"), class: 'Button'
+      - if line_item_group.paypal_payment
+        = link_to t("line_item_group.payment_button.#{payment}"), line_item_group_payment_path(line_item_group, line_item_group.paypal_payment), class: 'Button'
+      - else
+        = button_to t("line_item_group.payment_button.#{payment}"), line_item_group_payments_path(line_item_group_id: line_item_group.id), params: { type: payment }, class: 'Button', method: :post
 

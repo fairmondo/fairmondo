@@ -30,3 +30,6 @@ de:
     payment_button:
       paypal: "Bezahlen über Paypal"
       bank_transfer: "Als bezahlt markieren"
+    notices:
+      paypal_success: "Die PayPal-Zahlung wurde erfolgreich in Auftrag gegeben."
+      paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es erneut."

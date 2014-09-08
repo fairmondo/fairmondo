@@ -28,7 +28,7 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :business_transactions
 
   belongs_to :line_item_group
-  belongs_to :payment, inverse_of: :business_transactions
+  has_one :payment, through: :line_item_group, inverse_of: :business_transactions
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -63,7 +63,6 @@ class BusinessTransaction < ActiveRecord::Base
   validates :selected_payment, inclusion: { in: proc { |record| record.article.selectable_payments } }, common_sense: true, presence: true
 
   validates :line_item_group, presence: true
-  validates :payment, presence: true, if: proc { |record| record.selected_payment == 'paypal' && !record.new_record? }
   validates :article, presence: true
 
   state_machine initial: :sold do
