@@ -49,6 +49,7 @@ FactoryGirl.define do
     ignore do
       sold { true }
     end
+    sold_at { Time.now }
     tos_accepted true
   end
 

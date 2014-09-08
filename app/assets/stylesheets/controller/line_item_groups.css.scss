@@ -2,6 +2,41 @@
 
 
 // show
+.cart-nav {
+  text-align:center;
+  a {
+     max-width: 7em;
+  }
+  position: relative;
+}
+.cart-nav .cart-nav-area {
+  width: 100%;
+  max-width:100%;
+  position:absolute;
+  display:none;
+  &.is-active {
+    display:block;
+  }
+}
+
+.cart-nav-area-inner {
+  z-index: 100;
+  background-color:white;
+  @include whitebox;
+}
+
+.cart-nav .seller {
+  margin-bottom: 0.5em;
+  .marker {
+    display: inline-block;
+    width: 1em;
+  }
+  &.active {
+    @include clear-links;
+    a { color: black; }
+  }
+
+}
 
 
 .bank_account_table, .transport_table, .business_transaction_table {
@@ -66,9 +101,10 @@
 
 
 @include at-breakpoint($bp-tablet-horizontal) {
-  .group { @include span(3 of 4 0.1); }
-  .header { @include span(3 of 4 0.1); }
-  .sidebar { @include span(1 of 4 0.1); @include omega; }
+  .group { @include span(3 of 4 0.05); }
+  .group-header { @include span(3 of 4 0.05); }
+  .cart-nav { @include span(1 of 4 0.05); @include omega; }
+  .sidebar { @include span(1 of 4 0.05); @include omega; }
 }
 
 .total_big {
@@ -76,7 +112,7 @@
   font-size: 1.5em;
 }
 
-.header {
+.group-header {
   @include clearfix;
   //margin-bottom: 1em;
 }

@@ -11,5 +11,10 @@ FactoryGirl.define do
     trait :small do
       max_discounted_value_cents 1
     end
+
+    trait :big do
+      percent 100
+      max_discounted_value_cents 20000
+    end
   end
 end

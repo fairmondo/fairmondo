@@ -130,6 +130,12 @@ feature 'Checkout' do
 
     find('input.checkout_button').click
     Cart.last.sold?.must_equal true
+    visit line_item_group_path(LineItemGroup.last)
+    page.find('.Payment-value--total').must_have_content(article.price + article.transport_type1_price)
+    visit line_item_group_path(LineItemGroup.last, tab: "transports")
+    page.must_have_selector('.transport_table')
+    visit line_item_group_path(LineItemGroup.last, tab: "rating")
+
 
   end
 
