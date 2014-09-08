@@ -32,6 +32,7 @@ class WelcomeController < ApplicationController
     @old = query_object.set(:old).find(2)
     @donation_articles = query_object.set(:donation_articles).find(2)
 
+    # Libraries
     @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: {user: [:image]})
   end
 
