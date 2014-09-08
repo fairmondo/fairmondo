@@ -28,7 +28,6 @@ class BusinessTransaction < ActiveRecord::Base
   belongs_to :article, inverse_of: :business_transactions
 
   belongs_to :line_item_group
-  has_one :payment, through: :line_item_group, inverse_of: :business_transactions
 
   enumerize :selected_transport, in: Article::TRANSPORT_TYPES
   enumerize :selected_payment, in: Article::PAYMENT_TYPES
@@ -81,7 +80,6 @@ class BusinessTransaction < ActiveRecord::Base
     event :receive do
       transition :sent => :completed
     end
-
   end
 
 

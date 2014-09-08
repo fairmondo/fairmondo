@@ -33,11 +33,11 @@ describe Payment do
       end
     end
 
-    describe "#paypal_request [private, called within init]" do
+    describe "#initialize_payment [private, called within init]" do
       it "should save errors on API failure" do
         PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
-        payment.send(:paypal_request)
+        payment.send(:initialize_payment)
       end
 
       it "should rescue a timeout and error instead" do

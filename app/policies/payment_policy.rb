@@ -34,6 +34,8 @@ class PaymentPolicy < Struct.new(:user, :payment)
     end
 
     def type_allowed?
-      payment.line_item_group.business_transactions.map(&:selected_payment).include? 'paypal' # later dynamic
+      payment.line_item_group.business_transactions.map(&:selected_payment).map do |p|
+        Payment.parse_type p
+      end.include? payment.type
     end
 end
