@@ -68,6 +68,7 @@ describe LibraryElementsController do
           post :create ,:user_id => @different_user, :library_element => {:library_id => @different_library_element.library }
         }.must_raise(Pundit::NotAuthorizedError)
       end
+
     end
   end
 end
