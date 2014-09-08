@@ -135,8 +135,6 @@ feature 'Checkout' do
     visit line_item_group_path(LineItemGroup.last, tab: "transports")
     page.must_have_selector('.transport_table')
     visit line_item_group_path(LineItemGroup.last, tab: "rating")
-
-
   end
 
   scenario 'User selects cash as unified_payment and does not select pickup and changes it to pickup in the end' do
