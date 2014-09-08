@@ -132,19 +132,24 @@ feature 'Library management' do
   scenario "user adds an Article to his default Library" do
     @article = FactoryGirl.create :article
     visit article_path(@article)
+    page.has_css?("div.libraries_list a", :count == 1) # There should be exactly one library link (default library) before adding
+
     click_link I18n.t 'library.default'
     page.must_have_content I18n.t('library_element.notice.success')[0..10] # shorten string because library name doesn't get evaluated
+    page.has_css?("div.libraries_list a", :count == 0) # After adding the article, the library link should be removed
+
     visit user_libraries_path @user
     page.must_have_content @article.title[0..10] # characters get cut off on page as well
   end
 
-  scenario 'user adds a library element twice' do
-    @article = FactoryGirl.create :article
-    visit article_path(@article)
-    click_link I18n.t 'library.default'
-    click_link I18n.t 'library.default'
-    page.must_have_content I18n.t('library_element.notice.failure')
-  end
+#  scenario 'user tries to add a library element twice' do
+#    @article = FactoryGirl.create :article
+#    visit article_path(@article)
+
+#    click_link I18n.t 'library.default'
+#    click_link I18n.t 'library.default'
+#    page.must_have_content I18n.t('library_element.notice.failure')
+#  end
 
   scenario "seller removes an article that buyer has in his library" do
     seller = @user
@@ -159,8 +164,9 @@ feature 'Library management' do
 
     login_as buyer
     visit user_libraries_path buyer
-    within("#library"+library.id.to_s) do
-      page.must_have_content I18n.t 'library.no_products'
+
+    within("#library#{library.id}") do
+      page.must_have_content I18n.t('library.no_products')
     end
   end
 
