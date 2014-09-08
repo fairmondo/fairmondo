@@ -49,7 +49,7 @@
 - else
   - if @libraries.any?
     .libraries
-      = render partial: "library", collection: @libraries
+      = render partial: "libraries/library", collection: @libraries
       = paginate @libraries
   - else
     %p= t('libraries.no_library')

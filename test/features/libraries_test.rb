@@ -142,15 +142,6 @@ feature 'Library management' do
     page.must_have_content @article.title[0..10] # characters get cut off on page as well
   end
 
-#  scenario 'user tries to add a library element twice' do
-#    @article = FactoryGirl.create :article
-#    visit article_path(@article)
-
-#    click_link I18n.t 'library.default'
-#    click_link I18n.t 'library.default'
-#    page.must_have_content I18n.t('library_element.notice.failure')
-#  end
-
   scenario "seller removes an article that buyer has in his library" do
     seller = @user
     article = FactoryGirl.create :article, seller: seller

@@ -27,8 +27,6 @@ class LibraryElementsController < ApplicationController
     authorize @library_element
     if @library_element.save
       flash[:notice] = I18n.t('library_element.notice.success', name: @library_element.library_name)
-    else
-      flash[:alert] = @library_element.errors.messages[:library_id].first
     end
     redirect_to article_path(@library_element.article)
   end
