@@ -21,24 +21,30 @@
 #
 require_relative '../test_helper'
 
-describe StatisticsController do
-  context "as an admin" do
-    before { sign_in FactoryGirl.create :admin_user }
+describe LineItemGroupsController do
+  let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+  let(:buyer) { lig.buyer }
 
-    describe "GET 'general'" do
-      it "should be successful" do
-        get :general
-        assert_response :success
-      end
-    end
 
-    describe "GET 'category_sales'" do
-      it "should be successful" do
-        get :category_sales
-        assert_response :success
-      end
-    end
+  before do
+    sign_in buyer
   end
 
-  #context "as a random user" do #-- gets tested by policy spec
+  describe "GET 'show'" do
+
+    it "should show a success flash when redirected after paypal success" do
+      get :show, id: lig.id, paid: 'true'
+      flash[:notice].must_equal I18n.t('line_item_group.notices.paypal_success')
+    end
+
+    it "should show an error flash when redirected after paypal cancellation" do
+      get :show, id: lig.id, paid: 'false'
+      flash[:error].must_equal I18n.t('line_item_group.notices.paypal_cancel')
+    end
+
+    it "should respond to ajax calls" do
+      xhr :get, :show, id: lig.id
+      assert_template layout: 'ajax_replace'
+    end
+  end
 end
