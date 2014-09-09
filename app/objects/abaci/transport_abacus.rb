@@ -37,6 +37,11 @@ class TransportAbacus
     }
   end
 
+  def self.number_of_shipments quantity, maximum_per_shipment
+    return 0 if maximum_per_shipment == 0
+    quantity.fdiv(maximum_per_shipment).ceil
+  end
+
 
   private
     def initialize business_transaction_abacus
@@ -65,11 +70,6 @@ class TransportAbacus
 
     def transport_price_for single_transport_price, number_of_shipments
       @free_transport ? Money.new(0) : (single_transport_price * number_of_shipments)
-    end
-
-    def self.number_of_shipments quantity, maximum_per_shipment
-      return 0 if maximum_per_shipment == 0
-      quantity.fdiv(maximum_per_shipment).ceil
     end
 
     def self.cash_on_delivery_price business_transaction, number_of_shipments

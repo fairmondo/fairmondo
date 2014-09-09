@@ -21,18 +21,18 @@
 #
 module CheckoutHelper
 
-  def unified_transport_label_for group
-    I18n.t('cart.texts.unified_transport', provider: group.seller.unified_transport_provider)
+  def unified_transport_label_for group, price
+    I18n.t('cart.texts.unified_transport', provider: group.seller.unified_transport_provider, price: money(price))
   end
 
   def checkout_options_for_payment selectables
-    selectables.map{ |payment| [I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
+    selectables.map{ |payment| [ I18n.t("enumerize.business_transaction.selected_payment.#{payment.to_s}"),payment] }
   end
 
-  def checkout_options_for_single_transport business_transaction
-    business_transaction.article.selectable_transports.map do |transport|
-      provider = business_transaction.article.transport_provider transport
-      [ provider, transport ]
+  def checkout_options_for_single_transport line_item, preview
+    line_item.article.selectable_transports.map do |transport|
+      provider = line_item.article.transport_provider transport
+      [ "#{ provider } (+#{ money(preview[line_item][transport]) })", transport ]
     end
   end
 
