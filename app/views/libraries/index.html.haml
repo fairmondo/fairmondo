@@ -36,9 +36,9 @@
 -# If user is not focused, show library view menu
 - unless @user
   %ul.Tabs
-    = render 'mode_menu_item', text: 'Trends', path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
-    = render 'mode_menu_item', text: 'Neu', path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
-    = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
+    = render 'mode_menu_item', text: t('libraries.tabs.trending'), path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
+    = render 'mode_menu_item', text: t('libraries.tabs.updated'), path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
+    = render 'mode_menu_item', text: t('libraries.tabs.favorites'), path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
 
 .libraries
   - if !user_signed_in? and @mode == 'myfavorite'

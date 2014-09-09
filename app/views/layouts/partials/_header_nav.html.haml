@@ -1,8 +1,13 @@
 %ul.JS-active-toggle--exclusive-container
   %li
     = link_to t('header.sell'), new_article_path
-  %li
-    = link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip')
+  %li.JS-active-toggle--container
+    = link_to t('header.libraries.title'), libraries_path, title: t('header.libraries.tooltip'), class: 'JS-active-toggle--trigger JS-active-toggle--target'
+    %ul.l-header-nav-dropdown.JS-active-toggle--target
+      %li= link_to t('header.libraries.tabs.trending'), libraries_path
+      %li= link_to t('header.libraries.tabs.updated'), new_libraries_path
+      - if current_user
+        %li= link_to t('header.libraries.tabs.favorites'), myfavorite_libraries_path
 
   %li.JS-active-toggle--container
     = link_to t('header.community.title'), 'https://info.fairnopoly.de/forum/', target: '_blank', class: 'JS-active-toggle--trigger JS-active-toggle--target'
@@ -25,5 +30,17 @@
         = render "devise/sessions/shared"
 
   - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
-    %li
-      = link_to t('header.cart', count: current_cart.line_item_count), current_cart
+    %li.JS-active-toggle--container
+      = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart, class: 'JS-active-toggle--trigger JS-active-toggle--target'
+      .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
+        %ul.l-header-cart-list
+          - current_cart.line_items.each do |line_item|
+            %li
+              = link_to line_item.article, class: 'l-header-cart-item' do
+                = image_tag line_item.article.title_image_url(:thumb)
+                %span.l-header-cart-item-title
+                  = line_item.article_title
+                %span.l-header-cart-item-quantity
+                  = t('formtastic.labels.line_item.requested_quantity')
+                  = line_item.requested_quantity
+          = link_to t('header.cart.button'), current_cart, class: 'Button'
