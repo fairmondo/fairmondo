@@ -89,10 +89,12 @@
         = f.input :receive_comments_notification, tooltip: true
 
     - @user.standard_address ||= resource.addresses.build
+    - @user.standard_address.valid?
     = f.input_step :contact, has_errors: @user.standard_address.errors.any? do
       = f.inputs do
 
         .Accordion-step
+          - f.semantic_errors :standard_address
           .visibility
             = current_user.is_a?(LegalEntity) ? t('users.visibility.public') : t('users.visibility.private')
 

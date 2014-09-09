@@ -37,6 +37,9 @@ Styleguide Accordion
 		color: white;
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+    &:hover{
+      background: $red;
+    }
 }
 
 .Accordion .Accordion-item--errors > .Accordion-content {
