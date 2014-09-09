@@ -13,6 +13,8 @@ de:
       selected_payment: "Bezahlung über:"
       not_rated: "Der Käufer hat Dich noch nicht bewertet."
       please_rate: "Bitte bewerte den Anbieter, wenn der Verkauf abgeschlossen ist."
+      show_order_and_pay: "Bestellung ansehen und bezahlen"
+      show_order: "Auftrag ansehen"
     transport_labels:
       provider: "Versand über:"
       transport_price: "Versandpreis:"
@@ -30,3 +32,6 @@ de:
     payment_button:
       paypal: "Bezahlen über Paypal"
       bank_transfer: "Als bezahlt markieren"
+    notices:
+      paypal_success: "Die PayPal-Zahlung wurde erfolgreich in Auftrag gegeben."
+      paypal_cancel: "Die PayPal-Zahlung wurde abgebrochen. Bitte versuche es erneut."

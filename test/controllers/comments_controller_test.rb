@@ -20,7 +20,6 @@
 # along with Fairnopoly. If not, see <http://www.gnu.org/licenses/>.
 #
 #
-
 require_relative "../test_helper"
 
 describe CommentsController do

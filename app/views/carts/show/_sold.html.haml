@@ -1,9 +1,6 @@
 %h2
   = t 'cart.texts.purchase_from', date: I18n.l(cart.updated_at)
+%p
+  = t 'cart.texts.explain'
 - cart.line_item_groups.each do |group|
-  = gray_box t('cart.texts.line_item_group_by', seller: link_to(group.seller_nickname, user_path(group.seller))).html_safe do
-    - group.line_items.each do |line_item|
-      - article = line_item.article
-      .ArticleListview
-        = render layout: 'articles/shared/listitem' , locals: { article: article, actions:true } do
-          = link_to t('cart.actions.pay'), line_item_group_path(group), class: "Button"
+  = render 'line_item_groups/shared/listitem' , line_item_group: group

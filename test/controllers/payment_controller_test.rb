@@ -23,45 +23,42 @@ require_relative '../test_helper'
 include FastBillStubber
 
 describe PaymentsController do
-
-  let(:payment) { bt.payment }
+  let(:bt) { lig.business_transactions.first }
   let(:buyer) { bt.buyer }
+
 
   before do
     sign_in buyer
   end
 
-  describe "POST 'update'" do
-    let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
+  describe "POST 'create'" do
+    let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
 
-    it "should update a payment and forward to show" do
-      payment #so one with the business_transaction_id already exists
-      payment.pay_key.must_be_nil
-      assert_difference 'Payment.count', 0 do
-        post :update, id: payment.id
+    it "should create a payment and forward to show" do
+      assert_difference 'Payment.count', 1 do
+        post :create, line_item_group_id: lig.id, type: 'paypal'
       end
-      payment.reload.pay_key.must_be_kind_of String
+      lig.paypal_payment.pay_key.must_be_kind_of String
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
     end
 
     it "should show error on paypal api error" do
       request.env["HTTP_REFERER"] = root_path
-      Payment.any_instance.stubs(:init).returns(false)
-      payment #so one with the business_transaction_id already exists
-      payment.pay_key.must_be_nil
-      assert_difference 'Payment.count', 0 do
-        post :update, id: payment.id
+      PaypalPayment.any_instance.stubs(:initialize_payment).returns(false)
+      assert_difference 'Payment.count', 1 do
+        post :create, line_item_group_id: lig.id, type: 'paypal'
       end
-      flash[:error].must_equal I18n.t('paypal_api.controller_error')
+      flash[:error].must_equal I18n.t('paypal_api.controller_error', email: lig.seller_paypal_account)
     end
 
   end
 
   describe "GET 'show'" do
-    let(:bt) { FactoryGirl.create(:business_transaction, :paypal, payment: FactoryGirl.create(:payment, :with_pay_key)) }
+    let(:lig) { payment.line_item_group }
+    let(:payment) { FactoryGirl.create :payment, :with_pay_key }
 
     it "should redirect to paypal" do
-      get :show, id: payment.id
+      get :show, line_item_group_id: lig.id, id: payment.id
       assert_redirected_to "https://www.sandbox.paypal.com/de/webscr?cmd=_ap-payment&paykey=foobar"
     end
   end

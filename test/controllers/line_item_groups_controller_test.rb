@@ -19,23 +19,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PaymentPolicy < Struct.new(:user, :payment)
-  def create?
-    user && buyer_is_user? && !payment.succeeded? && type_allowed?
+require_relative '../test_helper'
+
+describe LineItemGroupsController do
+  let(:lig) { FactoryGirl.create :line_item_group, :sold, :with_business_transactions, traits: [:paypal, :transport_type1] }
+  let(:buyer) { lig.buyer }
+
+
+  before do
+    sign_in buyer
   end
 
-  def show?
-    create?
+  describe "GET 'show'" do
+
+    it "should show a success flash when redirected after paypal success" do
+      get :show, id: lig.id, paid: 'true'
+      flash[:notice].must_equal I18n.t('line_item_group.notices.paypal_success')
+    end
+
+    it "should show an error flash when redirected after paypal cancellation" do
+      get :show, id: lig.id, paid: 'false'
+      flash[:error].must_equal I18n.t('line_item_group.notices.paypal_cancel')
+    end
+
+    it "should respond to ajax calls" do
+      xhr :get, :show, id: lig.id
+      assert_template layout: 'ajax_replace'
+    end
   end
-
-  private
-    def buyer_is_user?
-      payment.line_item_group_buyer_id == user.id
-    end
-
-    def type_allowed?
-      payment.line_item_group.business_transactions.map(&:selected_payment).map do |p|
-        Payment.parse_type p
-      end.include? payment.type
-    end
 end
