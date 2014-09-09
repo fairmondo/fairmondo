@@ -27,6 +27,8 @@
     position: relative;
     top: 1px;
     font-weight: 600;
+    min-width: 3em;
+    text-align: center;
   }
   .active.Tab {
     background-color:  $even-lighter-gray;
