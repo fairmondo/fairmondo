@@ -8,6 +8,8 @@
       = f.input :last_name, required: true
       - if current_user.is_a? LegalEntity
         = f.input :company_name
+      - else
+        %li.input
     = f.inputs class: 'Address-form-street' do
       = f.input :address_line_1, required: true
       = f.input :address_line_2
