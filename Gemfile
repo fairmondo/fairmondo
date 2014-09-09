@@ -35,7 +35,7 @@ gem 'haml'
 ## CSS
 gem 'susy' ,'~> 2.1.1' # Grid framework is susy
 gem 'bourbon' # easy ccs3
-gem "font-awesome-rails"
+gem "font-awesome-rails", '>= 4.2.0.0'
 gem 'sprite-factory'
 gem 'chunky_png' #needed for sprite-factory
 gem 'sprockets', '2.11.0' #https://github.com/sstephenson/sprockets/issues/537
