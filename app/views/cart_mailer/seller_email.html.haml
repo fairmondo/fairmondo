@@ -9,7 +9,7 @@
     = t('email.line_item_group.seller.bought_from_you')
   - @line_item_group.business_transactions.each do |bt|
     = render 'article', bt: bt
-  - if @line_item_group.message
+  - unless @line_item_group.message.empty?
     .message
       %h4
         = t('email.line_item_group.seller.buyer_message')

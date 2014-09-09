@@ -41,7 +41,7 @@ describe FairTrustQuestionnaire do
       it { subject.must validate_presence_of :support_explanation }
       it { subject.must ensure_length_of(:support_explanation).is_at_least 150 }
 
-      it { subject.must_not validate_presence_of :support_other }
+      it { subject.wont validate_presence_of :support_other }
       describe "and 'other' was checked" do
         before { subject.support_checkboxes = [:other] }
         it { subject.must validate_presence_of :support_other }

@@ -1,0 +1,23 @@
+- abacus = Abacus.new(lig)
+- result = Money.new(0)
+- abacus.transport_listing.single_transports.each_pair { |k, v| result += v[:transport_price] }
+- abacus.transport_listing.unified_transport.each_pair { |k, v| result += v[:transport_price] } if lig.unified_transport
+.total
+  %table
+    %tr
+      %td
+        Gesamtwarenwert:
+      %td
+        = humanized_money_with_symbol abacus.business_transaction_listing.total_retail_price
+    %tr
+      %td
+        Gesamtversandkosten:
+      %td
+        = humanized_money_with_symbol result
+    %tr
+      %td
+        %strong
+          Gesamt:
+      %td
+        %strong
+          = humanized_money_with_symbol abacus.total

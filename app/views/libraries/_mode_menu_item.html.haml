@@ -1,4 +1,3 @@
-- if selected
-  %li.selected= text
-- else
-  %li= link_to text, path
+%li.Tab{ class: selected ? 'active' : '' }
+  = link_to path, remote: true do
+    = fa_icon icon, class: 'Tab_icon', text: text

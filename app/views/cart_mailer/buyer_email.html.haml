@@ -13,11 +13,16 @@
       = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
     - lig.business_transactions.find_each do |bt|
       = render 'article', bt: bt
-    - if lig.message
+    - unless lig.message.empty?
       .message
         %h4
           = t('email.cart.buyer.your_message')
         = lig.message
+    .pdf
+      %center
+        = link_to "AGB und Widerrufserklärung von #{lig.seller_nickname}", attachments["#{ lig.seller_nickname }_agb_und_widerrruf.pdf"].url
+    = render 'total_price', lig: lig
+
     %center
       = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
 %hr
