@@ -4,7 +4,7 @@ rails_env = ENV['RAILS_ENV'] || 'staging'
 Bluepill.application("fairnopoly", log_file: "#{rails_root}/log/bluepill.log") do |app|
   app.working_dir = rails_root
 
-  2.times do |i|
+  1.times do |i|
     app.process("sidekiq#{i}") do |process|
       process.group = "sidekiq"
 
