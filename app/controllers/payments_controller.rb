@@ -22,20 +22,20 @@
 class PaymentsController < ApplicationController
   respond_to :html
 
+  # create happens on buy. this is to initialize the payment with paypal
+  def create
+    @payment = Payment.new line_item_group_id: params[:line_item_group_id], type: Payment.parse_type(params[:type])
+    authorize @payment
+    if @payment.init && !@payment.errored?
+      redirect_to PaypalAPI.checkout_url @payment.pay_key
+    else
+      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error', email: @payment.line_item_group_seller_paypal_account).html_safe }
+    end
+  end
+
   def show
     @payment = Payment.find(params[:id])
     authorize @payment
     redirect_to PaypalAPI.checkout_url @payment.pay_key
-  end
-
-  # create happens on buy. this is to initialize the payment with paypal
-  def update
-    @payment = Payment.find(params[:id])
-    authorize @payment
-    if @payment.init
-      redirect_to PaypalAPI.checkout_url @payment.pay_key
-    else
-      redirect_to :back, flash: { error: I18n.t('paypal_api.controller_error') }
-    end
   end
 end

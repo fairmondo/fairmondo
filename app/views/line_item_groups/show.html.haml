@@ -1,4 +1,12 @@
-.header
+- cart = @line_item_group.cart
+- if cart && cart.line_item_groups.count > 1 && current_user == cart.user
+  .cart
+    %i.fa.fa-caret-left
+    &nbsp;
+    = link_to cart_path(cart) do
+      Zurück zum Warenkorb
+
+.group-header
   .title
     %h2
       - if current_user == @line_item_group.buyer

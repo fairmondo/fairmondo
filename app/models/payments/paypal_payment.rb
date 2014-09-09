@@ -19,23 +19,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
-class PaymentPolicy < Struct.new(:user, :payment)
-  def create?
-    user && buyer_is_user? && !payment.succeeded? && type_allowed?
-  end
-
-  def show?
-    create?
-  end
+class PaypalPayment < Payment
+  extend STI
 
   private
-    def buyer_is_user?
-      payment.line_item_group_buyer_id == user.id
-    end
-
-    def type_allowed?
-      payment.line_item_group.business_transactions.map(&:selected_payment).map do |p|
-        Payment.parse_type p
-      end.include? payment.type
+    # send paypal request on init
+    def initialize_payment
+      response = PaypalAPI.new.request_for(self)
+      if response.success?
+        self.pay_key = response['payKey']
+        true # continue
+      else
+        self.error = response.errors.to_json
+        false # errored instead of initialized
+      end
     end
 end

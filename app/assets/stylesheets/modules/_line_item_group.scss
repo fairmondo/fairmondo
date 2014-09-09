@@ -1,8 +1,35 @@
 .Lineitemgroup {
   @include whitebox;
+  @include clearfix;
   margin-bottom: 0.5em;
 }
 
-.Lineitemgroup > .Lineitemgroup-images {
-  img { max-width: 8em; }
+
+.Lineitemgroup > .Lineitemgroup-text > .Lineitemgroup-title {
+  display:block;
+  font-size: 1.3em;
+}
+
+.Lineitemgroup-images {
+  img { max-width: 8em; border-radius: 0.5em; }
+}
+
+@include till-breakpoint($bp-tablet) {
+  .Lineitemgroup { padding: 0.3em 0.5em; }
+  .Lineitemgroup-actions { margin-bottom: 0.5em; }
+  .Lineitemgroup-images {img { max-width: 5em;}}
+}
+
+@include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
+  .Lineitemgroup-images{clear:both;}
+  .Lineitemgroup-actions { @include span ( 2 of 4 0.1); @include omega; text-align: right;}
+  .Lineitemgroup-text { @include span ( 2 of 4 0.1);  margin-bottom: 0.5em;  }
+}
+
+
+@include at-breakpoint($bp-tablet-horizontal) {
+  .Lineitemgroup-text { @include span ( 1 of 4 0.1); }
+  .Lineitemgroup-images { @include span ( 2 of 4 0.1); }
+  .Lineitemgroup-title {  margin-bottom: 0.5em; }
+  .Lineitemgroup-actions { @include span ( 1 of 4 0.1); @include omega; text-align: right; }
 }

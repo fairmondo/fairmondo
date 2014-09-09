@@ -21,15 +21,18 @@
 
   &:hover {
     margin-top: -2px;
+    background-color: lighten($blue, 5%);
   }
 
-  &:hover {
-    background-color: lighten($blue, 5%);
+  &:active {
+    margin-top: 0;
   }
 
   background-color: $blue;
   @include bubbleize;
   @include buttonize;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .l-feedback-button--green {
@@ -37,5 +40,4 @@
   &:hover {
     background-color: lighten($green, 5%);
   }
-
 }

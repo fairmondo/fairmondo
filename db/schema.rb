@@ -86,12 +86,12 @@ ActiveRecord::Schema.define(version: 20140905113617) do
     t.integer  "friendly_percent_organisation_id",       limit: 8
     t.string   "template_name"
     t.string   "transport_time"
+    t.integer  "quantity_available"
+    t.boolean  "unified_transport"
     t.boolean  "swappable",                                        default: false
     t.boolean  "borrowable",                                       default: false
     t.integer  "comments_count",                                   default: 0
     t.integer  "original_id",                            limit: 8
-    t.integer  "quantity_available"
-    t.boolean  "unified_transport"
   end
 
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
@@ -142,9 +142,6 @@ ActiveRecord::Schema.define(version: 20140905113617) do
     t.boolean  "billed_for_fair",                default: false
     t.boolean  "billed_for_fee",                 default: false
     t.boolean  "billed_for_discount",            default: false
-    t.integer  "transport_address_id", limit: 8
-    t.integer  "payment_address_id",   limit: 8
-    t.integer  "payment_id",           limit: 8
     t.integer  "line_item_group_id",   limit: 8
     t.boolean  "refunded_fair",                  default: false
     t.boolean  "refunded_fee",                   default: false
@@ -155,10 +152,7 @@ ActiveRecord::Schema.define(version: 20140905113617) do
   add_index "business_transactions", ["discount_id"], name: "index_business_transactions_on_discount_id", using: :btree
   add_index "business_transactions", ["line_item_group_id"], name: "index_business_transactions_on_line_item_group_id", using: :btree
   add_index "business_transactions", ["parent_id"], name: "index_business_transactions_on_parent_id", using: :btree
-  add_index "business_transactions", ["payment_address_id"], name: "index_business_transactions_on_payment_address_id", using: :btree
-  add_index "business_transactions", ["payment_id"], name: "index_business_transactions_on_payment_id", using: :btree
   add_index "business_transactions", ["seller_id"], name: "index_business_transactions_on_seller_id", using: :btree
-  add_index "business_transactions", ["transport_address_id"], name: "index_business_transactions_on_transport_address_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -429,11 +423,15 @@ ActiveRecord::Schema.define(version: 20140905113617) do
   create_table "payments", force: true do |t|
     t.string   "pay_key"
     t.string   "state"
+    t.string   "type"
     t.text     "error"
     t.text     "last_ipn"
+    t.integer  "line_item_group_id", limit: 8, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "payments", ["line_item_group_id"], name: "index_payment_on_line_item_group_id", using: :btree
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -560,13 +558,13 @@ ActiveRecord::Schema.define(version: 20140905113617) do
     t.string   "cancellation_form_content_type"
     t.integer  "cancellation_form_file_size"
     t.datetime "cancellation_form_updated_at"
-    t.boolean  "receive_comments_notification",                default: true
     t.integer  "standard_address_id",                limit: 8
     t.integer  "unified_transport_maximum_articles",           default: 1
     t.string   "unified_transport_provider"
     t.integer  "unified_transport_price_cents",      limit: 8, default: 0
     t.boolean  "free_transport_available"
     t.integer  "free_transport_at_price_cents",      limit: 8, default: 0
+    t.boolean  "receive_comments_notification",                default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

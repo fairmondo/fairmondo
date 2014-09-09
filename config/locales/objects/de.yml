@@ -3,4 +3,4 @@ de:
     separator: ', '
     and: ' und '
   paypal_api:
-    controller_error: "Es gab einen Fehler mit der Verbindung zu PayPal. Bitte versuche es später erneut."
+    controller_error: "Es gab einen Fehler mit der Verbindung zu PayPal. Bitte versuche es später erneut. Falls dieser Fehler vermehrt auftreten sollte, logge Dich bitte unter <a href='http://www.paypal.de' target='_blank'>PayPal.de</a> ein und sende den Betrag manuell an %{email}."

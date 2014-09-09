@@ -19,6 +19,7 @@ Styleguide Notice
 .Notice-inner {
   @include container($screen-width);
   @include color-links(white,$lighter-gray);
+  a { text-decoration: underline; }
   padding: 1em $screen-padding;
 }
 

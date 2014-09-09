@@ -2,11 +2,11 @@ require_relative '../test_helper'
 
 describe Payment do
   subject { payment }
-  let(:bt) { FactoryGirl.create(:business_transaction, :paypal) }
-  let(:payment) { bt.payment }
+  let(:payment) { FactoryGirl.create(:payment) }
 
   describe "attributes" do
     it { subject.must_respond_to 'pay_key' }
+    it { subject.must_respond_to 'line_item_group' }
     it { subject.must_respond_to 'error' }
     it { subject.must_respond_to 'last_ipn' }
     it { subject.must_respond_to 'created_at' }
@@ -14,8 +14,8 @@ describe Payment do
   end
 
   describe "associations" do
-    it { subject.must have_many :business_transactions }
-    it { subject.must have_many :line_item_groups }
+    # it { subject.must have_many :business_transactions }
+    it { subject.must belong_to :line_item_group }
   end
 
   # describe "validations" do
@@ -33,11 +33,15 @@ describe Payment do
       end
     end
 
-    describe "#paypal_request [private, called within init]" do
+    describe "#initialize_payment [private, called within init]" do
+      it "should return true for a base Payment" do
+        Payment.new.send(:initialize_payment).must_equal true
+      end
+
       it "should save errors on API failure" do
         PaypalAdaptive::Response.any_instance.stubs(:success?).returns(false)
         payment.expects(:error=)
-        payment.send(:paypal_request)
+        payment.send(:initialize_payment)
       end
 
       it "should rescue a timeout and error instead" do
