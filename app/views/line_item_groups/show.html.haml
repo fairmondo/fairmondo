@@ -7,25 +7,25 @@
       Zurück zum Warenkorb
 
 .group-header
-  .title
-    %h2
+  .Title-next-to-tab
+    %h1.h2
       - if current_user == @line_item_group.buyer
         = t('cart.texts.line_item_group_by', seller: link_to(@line_item_group.seller_nickname, user_path(@line_item_group.seller))).html_safe
       - else
         = t('line_item_group.texts.sold_to', buyer: link_to(@line_item_group.buyer_nickname, user_path(@line_item_group.buyer))).html_safe
     = "#{I18n.t('line_item_group.texts.purchase_id')}: #{@line_item_group.purchase_id}"
-  .tabs
-    .tab{class: @tab == :payments ? 'active': ''}
+  %ul.Tabs
+    %li.Tab{class: @tab == :payments ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "payments"), remote:true do
-        %i.fa.fa-euro.tab_icon
+        %i.fa.fa-euro.Tab_icon
         = t('line_item_group.tabs.payments')
-    .tab{class: @tab == :transports ? 'active': ''}
+    %li.Tab{class: @tab == :transports ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "transports"), remote:true do
-        %i.fa.fa-paper-plane.tab_icon
+        %i.fa.fa-paper-plane.Tab_icon
         = t('line_item_group.tabs.transports')
-    .tab{class: @tab == :rating ? 'active': ''}
+    %li.Tab{class: @tab == :rating ? 'active': ''}
       = link_to line_item_group_path(@line_item_group, tab: "ratings"), remote:true do
-        %i.fa.fa-thumbs-up.tab_icon
+        %i.fa.fa-thumbs-up.Tab_icon
         = t('line_item_group.tabs.rating')
 
 

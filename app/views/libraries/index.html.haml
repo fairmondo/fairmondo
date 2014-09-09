@@ -19,8 +19,8 @@
 -# You should have received a copy of the GNU Affero General Public License
 -# along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 -#
-
-%h1 Sammlungen
+.Title-next-to-tab
+  %h1 Sammlungen
 
 -# Form to create a new library at the top of the page
 - if @library && policy(@library).create?
@@ -35,24 +35,26 @@
 
 -# If user is not focused, show library view menu
 - unless @user
-  %ul.mode_menu
-    = render 'mode_menu_item', text: 'Trends', path: libraries_path, selected: (@mode == 'trending')
-    = render 'mode_menu_item', text: 'Neu', path: new_libraries_path, selected: (@mode == 'new')
-    = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite')
+  %ul.Tabs
+    = render 'mode_menu_item', text: 'Trends', path: libraries_path, selected: (@mode == 'trending'), icon: 'line-chart'
+    = render 'mode_menu_item', text: 'Neu', path: new_libraries_path, selected: (@mode == 'new'), icon: 'refresh'
+    = render 'mode_menu_item', text: 'Meine Favoriten', path: myfavorite_libraries_path, selected: (@mode == 'myfavorite'), icon: 'heart'
 
-- if !user_signed_in? and @mode == 'myfavorite'
-  -# When the user is not signed in and myfavorite is selected, render a message
-  %p
-    = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
-    = t('libraries.to_show_favorites') + ' '
-    = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
-- else
-  - if @libraries.any?
-    .libraries
+.libraries
+  - if !user_signed_in? and @mode == 'myfavorite'
+    -# When the user is not signed in and myfavorite is selected, render a message
+    %hr
+    %p
+      = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
+      = t('libraries.to_show_favorites') + ' '
+      = link_to(t('libraries.sign_up'), new_registration_path(:user)) + '.'
+  - else
+    - if @libraries.any?
       = render partial: "libraries/library", collection: @libraries
       = paginate @libraries
-  - else
-    %p= t('libraries.no_library')
+    - else
+      %hr
+      %p= t('libraries.no_library')
 
 - content_for :after_ajax_replace do
   $('html,body').animate({scrollTop: $("#library#{params[:focus]}").offset().top}, 200);
