@@ -90,3 +90,41 @@ $header-nav-link-color-hover: $blue;
 .l-header-nav-dropdown.is-active {
   display: block;
 }
+
+.l-header-cart {
+  padding: 0.4em 0.5em;
+  width: 170px;
+  text-align: center;
+}
+
+.l-header-cart-list {
+  list-style: none;
+  padding: 0;
+}
+.l-header-cart-item {
+  font-size: 11px;
+  line-height: 14px;
+  float: right;
+  margin-bottom: 3px;
+  img {
+    max-width: 40px;
+    height: 40px;
+    margin: 0 6px 6px 0;
+    float: left;
+  }
+
+  .l-header-cart-item-title, .l-header-cart-item-quantity {
+    display: inline-block;
+    width: 124px;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .l-header-cart-item-title {
+    height: 28px;
+  }
+
+  &:hover .l-header-cart-item-quantity, .l-header-cart-item-quantity {
+    color: $gray;
+  }
+}
