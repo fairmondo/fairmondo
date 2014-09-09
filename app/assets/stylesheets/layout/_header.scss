@@ -36,6 +36,7 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-nav {
   float: right;
+  text-align: right;
 }
 
 .l-header-nav > ul {
@@ -44,6 +45,7 @@ $header-nav-link-color-hover: $blue;
   padding:0;
   @include clear-links;
   > li {
+    text-align: left;
     position: relative;
     display: inline-block;
     line-height: 2.5em;
@@ -96,7 +98,6 @@ $header-nav-link-color-hover: $blue;
   width: 170px;
   text-align: center;
 }
-
 .l-header-cart-list {
   list-style: none;
   padding: 0;
@@ -105,7 +106,7 @@ $header-nav-link-color-hover: $blue;
   font-size: 11px;
   line-height: 14px;
   float: right;
-  margin-bottom: 3px;
+
   img {
     max-width: 40px;
     height: 40px;
@@ -126,5 +127,7 @@ $header-nav-link-color-hover: $blue;
 
   &:hover .l-header-cart-item-quantity, .l-header-cart-item-quantity {
     color: $gray;
+    position: relative;
+    top: -3px;
   }
 }
