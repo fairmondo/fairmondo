@@ -37,6 +37,7 @@ margin-bottom: 0.5em;
   input {
     height: 1.8em;
     line-height: 1.8em;
+    padding: 0.2em;
   }
 }
 
@@ -46,7 +47,7 @@ margin-bottom: 0.5em;
 
 @include at-breakpoint($bp-tablet) {
   .Address > .Address-form .Address-form-name > ol > li.input {
-    .selectboxit-container { width:100%; min-width: 5em; }
+    .selectboxit-container { min-width: 100%; width:100%; }
     .selectboxit-arrow-container { min-width:1.5em; }
     @include span(2 of 7 0.1);
   }
@@ -62,6 +63,7 @@ margin-bottom: 0.5em;
   }
   .Address > .Address-form .Address-form-city  {
     .selectboxit-container { width:100%; min-width: 5em; }
+    .selectboxit-options { min-width:100%; }
     > ol > li.input {
       @include span(1 of 3 0.05);
     }
