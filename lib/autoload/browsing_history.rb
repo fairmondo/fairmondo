@@ -39,9 +39,12 @@ module BrowsingHistory
     def redirectable_url? url_hash
       url_hash[:method] == "GET" and
       !url_hash[:xhr] and
-      !DISABLED_REDIRECT_URLS.include?(url_hash[:path])
+      !DISABLED_REDIRECT_URLS.include?(url_hash[:path].split('?').first)
     end
-    DISABLED_REDIRECT_URLS = ["/user/sign_up","/user/sign_in","/user/sign_out","user/confirmation","toolbox/session_expired.json"]
+    DISABLED_REDIRECT_URLS = [
+      "/user/sign_up","/user/sign_in","/user/sign_out","/user/confirmation",
+      "/toolbox/session_expired.json"
+    ]
 
     def last_url_hash
       @last_url_hash ||= session[:previous_urls].first || {}
