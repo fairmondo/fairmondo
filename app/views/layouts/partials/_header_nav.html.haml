@@ -35,12 +35,5 @@
       .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
         %ul.l-header-cart-list
           - current_cart.line_items.each do |line_item|
-            %li
-              = link_to line_item.article, class: 'l-header-cart-item' do
-                = image_tag line_item.article.title_image_url(:thumb)
-                %span.l-header-cart-item-title
-                  = line_item.article_title
-                %span.l-header-cart-item-quantity
-                  = t('formtastic.labels.line_item.requested_quantity')
-                  = line_item.requested_quantity
+            = render "layouts/partials/header_nav_cart_item", line_item: line_item
           = link_to t('header.cart.button'), current_cart, class: 'Button'
