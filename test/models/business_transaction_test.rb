@@ -41,6 +41,8 @@ class BusinessTransactionTest < ActiveSupport::TestCase
     it { subject.must_respond_to :billed_for_fair }
     it { subject.must_respond_to :billed_for_fee }
     it { subject.must_respond_to :billed_for_discount }
+    it { subject.must_respond_to :refunded_fee }
+    it { subject.must_respond_to :refunded_fair }
   end
 
   describe "associations" do
