@@ -14,8 +14,8 @@ feature 'Adding an Article to the cart' do
     article = FactoryGirl.create(:article, title: 'foobar')
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
     page.must_have_content 'foobar'
   end
 
@@ -24,8 +24,8 @@ feature 'Adding an Article to the cart' do
     login_as FactoryGirl.create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
     page.must_have_content 'foobar'
   end
 
@@ -35,12 +35,12 @@ feature 'Adding an Article to the cart' do
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     logout(:user) # simulate logout
     visit root_path
-    page.wont_have_content I18n.t('header.cart', count: 1)
+    page.wont_have_content I18n.t('header.cart.title', count: 1)
     login_as FactoryGirl.create(:user)
-    page.wont_have_content I18n.t('header.cart', count: 1)
+    page.wont_have_content I18n.t('header.cart.title', count: 1)
     Cart.last.user.must_equal user
   end
 
@@ -50,11 +50,11 @@ feature 'Adding an Article to the cart' do
     login_as user
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     click_link I18n.t('common.actions.logout')
-    page.wont_have_content I18n.t('header.cart', count: 1)
+    page.wont_have_content I18n.t('header.cart.title', count: 1)
     login_as FactoryGirl.create(:user)
-    page.wont_have_content I18n.t('header.cart', count: 1)
+    page.wont_have_content I18n.t('header.cart.title', count: 1)
     Cart.last.user.must_equal user
   end
 
@@ -63,7 +63,7 @@ feature 'Adding an Article to the cart' do
     login_as FactoryGirl.create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     click_button I18n.t('common.actions.to_cart')
     page.must_have_content I18n.t('line_item.notices.error_quantity')
     Cart.last.line_items.count.must_equal 1
@@ -76,9 +76,9 @@ feature 'Adding an Article to the cart' do
     login_as FactoryGirl.create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 2
   end
@@ -91,8 +91,8 @@ feature 'updating quantity of the cart' do
     login_as FactoryGirl.create(:user)
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.success_create')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     within('.change_quantity') do
       fill_in 'line_item_requested_quantity', with: 10
@@ -112,7 +112,7 @@ feature 'Checkout' do
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
 
     click_button I18n.t('common.actions.to_cart')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     # Step 1
 
@@ -150,7 +150,7 @@ feature 'Checkout' do
       click_button I18n.t('common.actions.to_cart')
     end
 
-    click_link(I18n.t('header.cart', count: 2), match: :first)
+    click_link(I18n.t('header.cart.title', count: 2), match: :first)
 
     # Step 1 errors
 
@@ -201,7 +201,7 @@ feature 'Checkout' do
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
 
     click_button I18n.t('common.actions.to_cart')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     # Step 1
 
@@ -287,7 +287,7 @@ feature 'Checkout' do
 
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
 
-    click_link(I18n.t('header.cart', count: 2), match: :first)
+    click_link(I18n.t('header.cart.title', count: 2), match: :first)
 
     # Step 1
 
@@ -322,7 +322,7 @@ feature 'Checkout' do
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
 
     click_button I18n.t('common.actions.to_cart')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     # Step 1
 
@@ -351,7 +351,7 @@ feature 'Checkout' do
     # add things to cart ( hard to generate this via factory because it is kinda hard to set a signed cookie in capybara )
 
     click_button I18n.t('common.actions.to_cart')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
 
     # Step 1
 
@@ -390,7 +390,7 @@ feature 'Checkout' do
 
     # add things to cart
     click_button I18n.t('common.actions.to_cart')
-    click_link(I18n.t('header.cart', count: 1), match: :first)
+    click_link(I18n.t('header.cart.title', count: 1), match: :first)
     click_link I18n.t('cart.actions.checkout')
 
     # Step 1
