@@ -22,23 +22,17 @@
 class DeviseMailer < Devise::Mailer
   #helper :application # gives access to all helpers defined within `application_helper`.
 
-
   def welcome_mail(record, token, opts={})
-
     attachments['AGB_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
-    attachments['Widerrufsformular_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Widerrufsformular.pdf'))
 
     @token = token
     devise_mail(record, :welcome_mail)
-
   end
 
   def confirmation_instructions(record,token, opts={})
-
     attachments['AGB_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf'))
     attachments['Datenschutz_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Datenschutz_Fairnopoly_FINAL.pdf'))
-    attachments['Widerrufsformular_Fairnopoly.pdf'] = File.read(Rails.root.join('app/assets/docs/Widerrufsformular.pdf'))
 
     super
   end
