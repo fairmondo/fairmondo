@@ -60,7 +60,7 @@ module ArticlesHelper
 
   def transport_format_for method
     type = "transport"
-    options_format_for type, method
+    options_format_for type, method, true
   end
 
   def payment_format_for method
@@ -68,7 +68,7 @@ module ArticlesHelper
     options_format_for type, method
   end
 
-  def options_format_for type, method
+  def options_format_for type, method, check_free_transport = false
     if resource.send("#{type}_#{method}")
       html = '<li>'
 
@@ -80,10 +80,10 @@ module ArticlesHelper
 
       price_method = "#{type}_#{method}_price"
 
-      if resource.respond_to?(price_method.to_sym)
-        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
-      else
+      if (check_free_transport && resource.seller_free_transport_at_price <= resource.price) || !resource.respond_to?(price_method.to_sym)
         html << ' (kostenfrei)'
+      else
+        html << " zzgl. #{humanized_money_with_symbol(resource.send(price_method))}"
       end
 
       if type == 'transport' && method == 'pickup'
