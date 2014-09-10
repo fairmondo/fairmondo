@@ -3,6 +3,7 @@
   margin-bottom: 0;
   padding-left: 0;
   @include clear-links;
+  a { outline: 0 }
 
   .Tab:not(.active) {
     @include color-links($blue, lighten($blue, 10%));
