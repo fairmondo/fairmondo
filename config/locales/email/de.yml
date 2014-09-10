@@ -2,6 +2,7 @@ de:
   email:
     greeting: "Hallo %{name}"
 
+    imprint_heading: Impressum
     imprint: |
       Fairnopoly eG
       Glogauer Str. 21
@@ -58,5 +59,6 @@ de:
           Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten
           Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag
           vorgesehenen Dienstleistungen entspricht.
-        mass_activation:
-          text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert'
+    mass_activation:
+        text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
+        to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
