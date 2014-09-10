@@ -3,18 +3,18 @@
 
 // Login and registration form
 
-.registrations-form {
+form.formtastic.user {
   @include at-breakpoint($bp-tablet) {
 		@include span(3 of 4);
 	}
 	@include at-breakpoint($bp-tablet-horizontal) {
 		@include span(2 of 4);
 	}
-  @include whitebox;
-  margin-bottom: 3em;
 
+  margin-bottom: 2em;
 }
 
+/*
 .registrations-grid > ol > li {
   @include at-breakpoint($bp-tablet-horizontal) {
     @include span(2 of 4);
@@ -22,8 +22,8 @@
     @include omega;
     }
   }
-
 }
+*/
 
 // Password jquery-complexify
 .formtastic {
