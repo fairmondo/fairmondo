@@ -21,6 +21,8 @@
 #
 class Image < ActiveRecord::Base
 
+  include ::Assets::Normalizer
+
   default_scope -> { order('created_at ASC') }
 
   # Get The Geometry of a image
@@ -39,6 +41,7 @@ class Image < ActiveRecord::Base
   def self.reprocess image_id, style = :thumb
     image = Image.find(image_id).image.reprocess! style
   end
+
 
   def write_path_to_file_for(type)
     if Rails.env == 'production'
