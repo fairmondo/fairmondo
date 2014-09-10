@@ -37,16 +37,15 @@ class ArticleObserver < ActiveRecord::Observer
       cloned_article.save #save the cloned article
     end
 
-    # Send a Category Proposal
-    if article.category_proposal.present?
-      ArticleMailer.delay.category_proposal(article.category_proposal)
-    end
-
     Indexer.index_article article
   end
 
   def before_activate(article, transition)
     article.calculate_fees_and_donations
+  end
+
+  def after_activate(article, transition)
+    ArticleMailer.delay.article_activation_message(article.id)
   end
 
   # before_deactivate and before_close will only work on state_changes
