@@ -1,0 +1,8 @@
+%li
+  = link_to line_item.article, class: 'l-header-cart-item' do
+    = image_tag line_item.article.title_image_url(:thumb)
+    %span.l-header-cart-item-title
+      = line_item.article_title
+    %span.l-header-cart-item-quantity
+      = t('formtastic.labels.line_item.requested_quantity')
+      = line_item.requested_quantity

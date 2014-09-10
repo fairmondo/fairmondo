@@ -8,7 +8,7 @@
           %h3= t("enumerize.business_transaction.selected_payment.#{payment}")
           .Payment-table
             - hash[:business_transactions].each do |bt|
-              = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt
+              = render '/line_item_groups/abacus/business_transaction_row', abacus: abacus, business_transaction: bt, refundable: false
             - hash[:transports].each do |transport|
               = render '/line_item_groups/abacus/transport_row', abacus: abacus, transport: transport
             = render '/line_item_groups/abacus/cash_on_delivery_row', cash_on_delivery_total: hash[:cash_on_delivery_total]

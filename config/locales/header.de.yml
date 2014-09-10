@@ -12,4 +12,6 @@ de:
       developer: 'Aktiv als Entwickler*in'
     profile: "Profil"
     sell: "Verkaufen"
-    cart: "Zum Warenkorb (%{count})"
+    cart:
+      title: "Warenkorb (%{count})"
+      button: "Warenkorb anzeigen"
