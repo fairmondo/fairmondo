@@ -1,9 +1,10 @@
 %h3
   = t('email.greeting', name: @mass_upload.user_nickname)
 = t('email.article.mass_activation.text')
-%a
-  Hier kommst Du zu Deinem CSV-Upload:
+%p
+  = t('email.article.mass_activation.to_csv')
   = link_to @mass_upload.file_file_name, mass_upload_url(@mass_upload)
+%hr
 %p
   = link_to 'Unsere AGB', attachments['AGB'].url
   %br
@@ -15,7 +16,8 @@
 
 = simple_format(t('email.article.activation.cancellation_text'))
 %hr
-
+%h4
+  = t('email.imprint_heading')
 = simple_format(t('email.imprint'))
 %br
 = link_to t('email.facebook'), 'https://www.facebook.de/fairnopoly'
