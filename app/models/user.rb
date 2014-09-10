@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   validates_presence_of :slug
 
   extend Sanitization
+  include Assets::Normalizer # for cancellation form
 
   # Include default devise modules. Others available are: :rememberable,
   # :token_authenticatable, :encryptable, :lockable,  and :omniauthable
@@ -61,7 +62,7 @@ class User < ActiveRecord::Base
 
     # Profile image
   has_one :image, class_name: "UserImage", foreign_key: "imageable_id"
-  accepts_nested_attributes_for :image
+  accepts_nested_attributes_for :image, reject_if: :all_blank
 
     # Articles and Mass uploads
   has_many :articles, dependent: :destroy # As seller
