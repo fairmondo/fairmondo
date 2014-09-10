@@ -95,7 +95,7 @@ $header-nav-link-color-hover: $blue;
 
 .l-header-cart {
   padding: 0.4em 0.5em;
-  width: 170px;
+  width: 180px;
   text-align: center;
 }
 .l-header-cart-list {
@@ -108,15 +108,15 @@ $header-nav-link-color-hover: $blue;
   float: right;
 
   img {
-    max-width: 40px;
-    height: 40px;
+    max-height: 40px;
+    max-width: 58px;
     margin: 0 6px 6px 0;
     float: left;
   }
 
   .l-header-cart-item-title, .l-header-cart-item-quantity {
     display: inline-block;
-    width: 124px;
+    width: 116px;
     text-align: left;
     overflow: hidden;
   }
