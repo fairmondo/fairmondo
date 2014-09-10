@@ -8,10 +8,10 @@ class CartMailer < ActionMailer::Base
   def buyer_email(cart)
     cart.line_item_groups.each do |lig|
       lig.business_transactions.each do |bt|
-        unless bt.article.images.empty?
-          image = bt.article.images.find_by(is_title: true).image || bt.article.images.find_by(1).image
+        image = bt.article.title_image
+        if image
           attachments.inline[bt.article_id.to_s] = {
-            data: File.read("#{ Rails.root }/#{ image.path(:thumb) }")
+            data: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }")
                                                    }
         end
       end
@@ -34,10 +34,10 @@ class CartMailer < ActionMailer::Base
 
   def seller_email(line_item_group)
     line_item_group.business_transactions.each do |bt|
-      unless bt.article.images.empty?
-        image = bt.article.images.find_by(is_title: true).image || bt.article.images.find_by(1).image
+      image = bt.article.title_image
+        if image
         attachments.inline[bt.article_id.to_s] = {
-          data: File.read("#{ Rails.root }/#{ image.path(:thumb) }")
+          data: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }")
                                                  }
       end
     end
