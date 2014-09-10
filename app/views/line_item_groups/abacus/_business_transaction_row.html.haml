@@ -16,9 +16,10 @@
     .Payment-value-info.Payment-value-info--right
       = t('cart.texts.net')
       = money business_transaction_listing[:net_price]
-      %br
-      = money business_transaction.article_basic_price
-      = t('common.text.glue.per')
-      = business_transaction.article_basic_price_amount_text
-    - if policy(business_transaction.refund || business_transaction.build_refund).create?
+      - if business_transaction.article_basic_price_amount
+        %br
+        = money business_transaction.article_basic_price
+        = t('common.text.glue.per')
+        = business_transaction.article_basic_price_amount_text
+    - if refundable && (policy(business_transaction.refund || business_transaction.build_refund).create?)
       = link_to t( 'refund.button' ), new_business_transaction_refund_path(business_transaction), class: "Payment-refund Button Button--red Button--small"

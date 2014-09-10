@@ -1,8 +1,7 @@
 de:
   line_item:
     notices:
-      success_create: 'Der Artikel wurde dem Warenkorb hinzugefügt.'
-      to_cart: 'Zum Warenkorb.'
+      success_create: 'Der Artikel wurde dem <a href="%{href}">Warenkorb</a> hinzugefügt.'
       error_quantity: 'Der Artikel ist nicht mehr in der gewünschten Stückzahl erhältlich.'
 
     labels:

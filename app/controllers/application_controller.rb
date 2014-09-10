@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     elsif request.xhr? # AJAX request
       toolbox_reload_path
     else
-      redirect_back_location || stored_location_for(resource_or_scope) || user_path(resource_or_scope)
+      stored_location_for(resource_or_scope) || redirect_back_location || user_path(resource_or_scope)
     end
   end
 

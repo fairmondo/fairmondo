@@ -5,6 +5,10 @@ de:
     sign_in: "Melde Dich an"
     to_show_favorites: "um Deine Sammlungs-Favoriten zu sehen. Wenn Du noch keinen Account hast, musst Du Dich vorher"
     sign_up: "registrieren"
+    tabs:
+      trending: 'Trends'
+      updated: 'Neu'
+      favorites: 'Meine Favoriten'
   library:
     new: "Neue Sammlung"
     default: "Standardsammlung"
