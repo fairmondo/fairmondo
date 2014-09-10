@@ -43,7 +43,6 @@
 .libraries
   - if !user_signed_in? and @mode == 'myfavorite'
     -# When the user is not signed in and myfavorite is selected, render a message
-    %hr
     %p
       = link_to(t('libraries.sign_in'), new_session_path(:user)) + ', '
       = t('libraries.to_show_favorites') + ' '
@@ -53,7 +52,6 @@
       = render partial: "libraries/library", collection: @libraries
       = paginate @libraries
     - else
-      %hr
       %p= t('libraries.no_library')
 
 - content_for :after_ajax_replace do

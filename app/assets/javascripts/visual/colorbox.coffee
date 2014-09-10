@@ -6,6 +6,6 @@ colorbox_init = ->
     opacity: 0.4,
     maxHeight: "80%"
     current: "{current}/{total}"
+
 $(document).ready colorbox_init
 $(document).ajaxStop colorbox_init
-
