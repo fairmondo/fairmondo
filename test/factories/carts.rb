@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :cart do
     user
+    sold { false }
   end
 
   trait :with_line_item_groups do
@@ -11,7 +12,11 @@ FactoryGirl.define do
     end
 
     after(:create) do |cart, evaluator|
-      create_list(:line_item_group, evaluator.line_item_group_count, cart: cart)
+      if cart.sold?
+        create_list(:line_item_group, evaluator.line_item_group_count, :with_business_transactions, :sold, cart: cart)
+      else
+        create_list(:line_item_group, evaluator.line_item_group_count, cart: cart)
+      end
     end
   end
 

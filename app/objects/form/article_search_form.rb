@@ -4,10 +4,6 @@ class ArticleSearchForm
   include Virtus.model
   include ActiveModel::Conversion
 
-  # def self.article_search_form_attrs
-  #   [:q, :fair, :ecologic, :small_and_precious, :condition,:category_id, :zip, :order_by, :search_in_content]
-  # end
-
   attribute :q, String
   attribute :fair, BooleanFromParams
   attribute :ecologic, BooleanFromParams
@@ -68,25 +64,9 @@ class ArticleSearchForm
         terms :categories, size: 10000 # If we ever hit 10000 categories+ this has to be upgraded
       end
 
-      case query.order_by
-      when "newest"
-        sort { by :created_at, :desc }
-      when "cheapest"
-        sort { by :price, :asc }
-      when "most_expensive"
-        sort { by :price, :desc }
-      when "old"
-        sort { by :condition, :desc }
-      when "new"
-        sort { by :condition, :asc }
-      when "fair"
-        sort { by :fair, :desc }
-      when "ecologic"
-        sort { by :ecologic, :desc }
-      when "small_and_precious"
-        sort { by :small_and_precious, :desc }
-      when "most_donated"
-        sort { by :friendly_percent, :desc }
+      if query.order_by
+        attribute, order = ArticleSearchForm.sort_order query.order_by
+        sort { by attribute, order}
       else
         # Sort by score
         sort { by :created_at, :desc  } unless query.search_by_term?
@@ -104,27 +84,12 @@ class ArticleSearchForm
     @category_facets[category_id.to_s] || 0
   end
 
+
   def price_range
     hash = {}
-    from = nil
-    to = nil
-
-    unless self.price_from.nil? && self.price_to.nil? || self.price_from == '' && self.price_to == ''
-      from = Monetize.parse(self.price_from)
-      to = Monetize.parse(self.price_to)
-    end
-
-    if from# && from.cents != 0
-      self.price_from = from.format
-      hash[:gte] = from.cents
-    else
-      hash[:gte] = nil
-    end
-
-    if to && to.cents >= 0 && to >= from
-      self.price_to = to.format
-      hash[:lte] = to.cents
-    end
+    from,to = parse_price_range
+    hash[:gte] = normalize_price_from from
+    hash[:lte] = normalize_price_to from, to
     hash
   end
 
@@ -222,7 +187,54 @@ class ArticleSearchForm
     end
   end
 
+  def self.sort_order order_by
+      case order_by
+      when "newest"
+        [:created_at, :desc]
+      when "cheapest"
+        [:price, :asc]
+      when "most_expensive"
+        [:price, :desc]
+      when "old"
+        [:condition, :desc]
+      when "new"
+        [:condition, :asc]
+      when "fair"
+        [:fair, :desc]
+      when "ecologic"
+       [:ecologic, :desc]
+      when "small_and_precious"
+        [:small_and_precious, :desc]
+      when "most_donated"
+        [:friendly_percent, :desc]
+      end
+    end
+
   private
+
+
+
+    def normalize_price_from from
+      if from # && from.cents != 0
+        self.price_from = from.format
+        return from.cents
+      end
+    end
+
+    def normalize_price_to from,to
+      if to && to.cents >= 0 && to >= from
+        self.price_to = to.format
+        return to.cents
+      end
+    end
+
+    def parse_price_range
+      unless self.price_from.nil? && self.price_to.nil? || self.price_from == '' && self.price_to == ''
+        [Monetize.parse(self.price_from), Monetize.parse(self.price_to)]
+      else
+        [nil,nil]
+      end
+    end
 
     def clean_hash(hash)
       # clean nil values and throw out false boolean attributes that result in filter not being attached

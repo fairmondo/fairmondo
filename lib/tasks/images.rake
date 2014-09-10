@@ -1,4 +1,3 @@
-require_dependency File.join(Rails.root,"app","models", "image.rb")
 # Why the fuck II ?  Doesn't work without this on staging/production'
 
 namespace :images do
