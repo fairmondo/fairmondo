@@ -11,9 +11,8 @@ $fill-color: $light-blue;
 
 .libraries {
   clear: both;
-  hr {
-    border: 0.1em solid $lighter-gray;
-  }
+  border-top: 0.1em solid $lighter-gray;
+  padding-top: 1em;
 }
 
 ul.mode_menu {

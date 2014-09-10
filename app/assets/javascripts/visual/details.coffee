@@ -1,7 +1,9 @@
 $ ->
-  $('details').details()
   $('.l-main').on 'click', 'summary', onSummaryClick
   $('.l-main').on 'ajax:beforeSend', '.js-library-ajax .pagination a[data-remote=true]', onAjaxBeforeSend
+
+setDetails = ->
+  $('details').details()
 
 onSummaryClick = (evt) ->
     [target, summary, details] = [evt.target, evt.currentTarget, evt.currentTarget.parentElement]
@@ -64,3 +66,5 @@ String.prototype.setParameter = (param_hash) ->
 
   url
 
+$(document).ready setDetails
+$(document).ajaxStop setDetails
