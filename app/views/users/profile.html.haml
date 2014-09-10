@@ -82,6 +82,9 @@
       %h3
         = "#{t('formtastic.labels.user.cancellation')}:"
       = raw resource.cancellation
+    - if resource.cancellation_form
+      = link_to resource.cancellation_form.url(:original, false) do
+        = t('formtastic.labels.user.cancellation_form')
 
     - if resource.about
       %h3

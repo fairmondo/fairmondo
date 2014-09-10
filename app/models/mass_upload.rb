@@ -21,6 +21,8 @@
 #
 class MassUpload < ActiveRecord::Base
 
+  include Assets::Normalizer
+
   state_machine :initial => :pending do
     event :start do
       transition :pending => :processing

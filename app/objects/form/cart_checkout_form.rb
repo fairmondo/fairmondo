@@ -68,8 +68,18 @@ class CartCheckoutForm
       assign_transport_address(params[:transport_address_id])
 
       self.cart.line_item_groups.each do |group|
+        update_line_item_group group, params
+      end
 
-        # builds business_transactions
+    end
+
+    def valid?
+      invalid_objects = form_objects.select{ |object| !object.valid? }
+      invalid_objects.empty?
+    end
+
+    def update_line_item_group group, params
+      # builds business_transactions
         group.line_items.each do |item|
           transaction_params = params[:line_items][item.id.to_s] rescue nil
           create_business_transaction_for group, item, transaction_params
@@ -82,13 +92,6 @@ class CartCheckoutForm
         group.transport_address = self.transport_address
         group.buyer_id = cart.user_id
         self.form_objects << group
-      end
-
-    end
-
-    def valid?
-      invalid_objects = form_objects.select{ |object| !object.valid? }
-      invalid_objects.empty?
     end
 
     def create_business_transaction_for group, item, transaction_params

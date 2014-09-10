@@ -14,7 +14,7 @@ describe CartMailer do
   end
 
   it 'sends email to buyer' do
-    cart = FactoryGirl.create(:cart, :with_line_item_groups, user: FactoryGirl.create(:user))
+    cart = FactoryGirl.create(:cart, :with_line_item_groups, user: FactoryGirl.create(:user), sold: true)
     user = cart.user
     mail = CartMailer.buyer_email(cart)
     mail.must deliver_to(user.email)
