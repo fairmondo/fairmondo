@@ -24,7 +24,7 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 
-feature "Trending libraries on welcome page" do
+feature "Libraries on welcome page" do
   setup do
     @user = FactoryGirl.create :user
 
@@ -34,6 +34,25 @@ feature "Trending libraries on welcome page" do
     @library.save
     @admin = FactoryGirl.create :admin_user
   end
+
+
+  scenario "Personalized library section" do
+    # Create two hearts (including new libraries)
+    heart1 = FactoryGirl.create :heart, user: @user
+    heart2 = FactoryGirl.create :heart, user: @user
+
+    # When the user is not logged in, there should be no personalized library section at all.
+    visit root_path
+    refute page.has_content?(heart1.heartable.name)
+    refute page.has_content?(heart2.heartable.name)
+
+    # When the user is logged in has hearted at least two libraries they should be displayed.
+    login_as @user
+    visit root_path
+    assert page.has_content?(heart1.heartable.name)
+    assert page.has_content?(heart2.heartable.name)
+  end
+
 
   scenario "Combined scenario for trending libraries" do
     login_as @admin
