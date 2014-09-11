@@ -14,13 +14,13 @@ de:
         legal_entity: Rechtlicher Status
         company_name: Unternehmensname (MeinFirmenname GmbH...)
         nickname: Nutzername
-        type: Ich möchte ein gewerbliches Konto eröffnen.
+        type: Ein gewerbliches Konto eröffnen
         email: E-Mail-Adresse
         image: Profilbild
         password: "Passwort"
         password_confirmation: "Passwort bestätigen"
         agecheck: "Ich bin mindestens 18 Jahre alt."
-        newsletter: "Ich möchte den Newsletter über Nachhaltigkeit und bewussten Konsum erhalten (optional)."
+        newsletter: "Ich abonniere den Newsletter über Nachhaltigkeit und bewussten Konsum (optional)."
         remember_me: "Eingeloggt bleiben"
         current_password: "Bisheriges Passwort"
         vacationing: "Ich bin derzeit im Urlaub"
