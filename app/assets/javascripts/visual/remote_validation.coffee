@@ -1,5 +1,5 @@
 $ ->
-  $('.JS-remote-validate-blur').on 'blur', validateRemotely
+  $('.l-main').on 'blur', '.JS-remote-validate-blur', validateRemotely
 
 validateRemotely = (event) ->
   setTimeout -> # to allow JS-enforce-input-constraints to do it's thang
@@ -23,8 +23,9 @@ validateRemotely = (event) ->
           $target.parent().removeClass 'error'
           $target.siblings('.inline-errors').remove()
 
-          # add an error message if one exists
-          if response.errors.length > 0
+          if $target.attr('data-validation-save-on-success') is 'true' and response.errors.length < 1
+            $target.parents('form').submit()
+          else if response.errors.length > 0 # add an error message if one exists
             #$.each response.errors, (index, error) -> console.log "#{target.name}: #{error}"
             $target.parent().addClass 'error'
             new_error = $("<p class='inline-errors hidden'>#{response.errors[0]}</p>")
