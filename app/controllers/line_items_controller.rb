@@ -27,7 +27,6 @@ class LineItemsController < ApplicationController
   before_filter :quantity_zero_means_destroy, only: [:update]
 
   def create
-
     @line_item = LineItem.find_or_new params.for(LineItem).refine, find_or_create_cart.id
     @line_item.prepare_line_item_group_or_assign @cart, params['line_item']['requested_quantity']
     authorize @line_item
@@ -37,6 +36,7 @@ class LineItemsController < ApplicationController
     else
       flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
+
     redirect_to @line_item.article
   end
 
@@ -47,7 +47,11 @@ class LineItemsController < ApplicationController
       flash[:error] = I18n.t('line_item.notices.error_quantity')
     end
 
-    set_and_redirect_to_cart
+    set_cart
+    respond_to do |format|
+      format.html { redirect_to @cart }
+      format.js { @cart_abacus = CartAbacus.new @cart }
+    end
   end
 
   def destroy
@@ -57,7 +61,8 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     lig.destroy if lig.line_items.empty?
 
-    set_and_redirect_to_cart
+    set_cart
+    redirect_to @cart
   end
 
   private
@@ -73,10 +78,9 @@ class LineItemsController < ApplicationController
       authorize @line_item
     end
 
-    def set_and_redirect_to_cart
-      cart = Cart.find(cookies.signed[:cart])
-      refresh_cookie cart
-      redirect_to cart
+    def set_cart
+      @cart = Cart.find(cookies.signed[:cart])
+      refresh_cookie @cart
     end
 
     def refresh_cookie cart
