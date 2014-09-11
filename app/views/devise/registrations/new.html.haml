@@ -33,12 +33,18 @@
     -#= f.input :password_confirmation, tooltip: false
     -# render partial: "/devise/registrations/password_complexity"
     -# onclick javascript because icheck causes click on link to fail
-    - legal_link = link_to t('users.legal'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
+    - legal_link = link_to t('users.legal_abbr'), "/agb", target: "_blank", onclick: on_click_open_link_in_label('/agb')
     - privacy_link = link_to t('users.privacy'), "/privacy", target: "_blank", onclick: on_click_open_link_in_label('/privacy')
     -# f.input :agecheck, as: :boolean, required: true
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
     = f.input :newsletter, as: :boolean, tooltip: false
 
   = f.actions do
-    = f.action :submit, button_html: {class: "Button", id: "sign_up"}, label: :sign_up
+    = f.action :submit, button_html: { class: "Button", id: "sign_up" }, label: :sign_up
 
+%div#registration_marketing
+  %h2 Darum solltest Du Dich jetzt registrieren:
+  %ul.checklist
+    %li Die schönsten und fairsten Produkte im Netz entdecken
+    %li Fördere sozialen und ressourcenschonenden Konsum
+    %li Mit Käufen & Verkäufen einfach Hilfsprojekte unterstützen
