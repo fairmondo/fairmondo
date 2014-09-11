@@ -103,29 +103,7 @@
       - if user_signed_in? && resource.active?
         = render "libraries/shared/control_panel", article: resource, libraries: user_libraries
 
-      - if policy(resource).purchasable?
-        = semantic_form_for LineItem.new do |f|
-          = f.inputs do
-            = f.input :article_id, as: :hidden, input_html: { value: resource.id }
-            - if resource.quantity > 1
-              = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}", type: 'number' } }
-            = f.action :submit, label: t('common.actions.to_cart'), button_html: { class: "Button" }
-        - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
-          = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart
-
-      - elsif policy(resource).purchasable_later?
-        .Button.Button--disabled= t 'common.actions.to_cart'
-        .Button.Button--disabled= t 'common.actions.buy_single'
-        %p
-          %strong= t 'users.states.vacationing'
-      - if resource.active?
-        .control-links
-          - if resource.borrowable
-            = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
-          - if resource.borrowable && resource.swappable
-            = '/'
-          - if resource.swappable
-            = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'
+      = render "articles/show/buy", resource: resource
 
 .socialshareprivacy{data: {uri: article_url(resource), title: resource.title}}
 
