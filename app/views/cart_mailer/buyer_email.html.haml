@@ -21,6 +21,8 @@
     .pdf
       %center
         = link_to "AGB und Widerrufserklärung von #{lig.seller_nickname}", attachments["#{ lig.seller_nickname }_agb_und_widerrruf.pdf"].url
+        %br
+        = link_to 'Hier kostenloses PDF-Anzeigeprogramm herunterladen.', 'http://get.adobe.com/reader/otherversions/'
     = render 'total_price', lig: lig
 
     %center
