@@ -192,6 +192,10 @@ form.change_quantity > .inputs >  ol > li.action {
   color: $red;
 }
 
+.transport_notice--details {
+  font-size: 10px;
+}
+
 // Line Items Responsiveness
 
 .formtastic .line_items > .line_item {
