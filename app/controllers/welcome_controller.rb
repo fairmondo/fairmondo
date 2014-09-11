@@ -21,7 +21,7 @@
 #
 class WelcomeController < ApplicationController
 
-  skip_before_filter :authenticate_user!, :only => [:index, :feed, :landing]
+  skip_before_filter :authenticate_user!, only: [:index, :feed, :landing]
 
   def index
     query_object = FeaturedLibraryQuery.new
@@ -32,13 +32,14 @@ class WelcomeController < ApplicationController
     @old = query_object.set(:old).find(2)
     @donation_articles = query_object.set(:donation_articles).find(2)
 
-    @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: {user: [:image]})
+    @trending_libraries = Library.trending_welcome_page.includes(user: [:image], comments: { user: [:image] })
 
     # Personalized section
     if user_signed_in?
       @last_hearted_libraries = current_user.hearted_libraries.
                                 published.no_admins.min_elem(2).
-                                includes(:user, articles: [:images, :seller]).
+                                includes(:user, library_elements: { article: [:images, :seller] }).
+                                where('users.id != ?', current_user.id).
                                 reorder('hearts.created_at DESC').limit(2)
     end
   end
@@ -48,7 +49,7 @@ class WelcomeController < ApplicationController
     @articles = Article.active.limit(20)
 
     respond_to do |format|
-      format.rss { render :layout => false } #index.rss.builder
+      format.rss { render layout: false } #index.rss.builder
     end
   end
 end
