@@ -13,8 +13,12 @@ de:
       cancellation: "Widerrufsbelehrung"
       terms_and_cancellation_label: "Ich akzeptiere die %{terms} und %{cancellation} des*der Anbieters*in."
       unified_transport: "Möglichst alle Artikel mit %{provider} für %{price} zusammen versenden (Kombiversand)."
-      unified_transport_notice: Kombiversand
+      unified_transport_notice: "Kombiversand für %{price}"
       unified_transport_impossible: "Dieser Artikel kann nur einzeln versendet werden."
+      unified_transport_shipment: "Insgesamt eine Sendung"
+      unified_transport_shipments: "Insgesamt %{shipments} Sendungen"
+      unified_transport_price: "Kombiversandkosten je Sendung: %{price}"
+      free_transport_notice: "(Verkäufer*in bietet kostenfreien Versand ab %{price})"
       same_address: Lieferadresse wie Rechungsadresse
       next_step_explanation: "Im nächsten Schritt kannst Du alle Deine Angaben noch einmal überprüfen, bevor Du Deine Bestellung abschickst."
       security_warning: "Sicherheitshinweis: Insbesondere bei Artikeln ab einem Wert von 100 Euro empfiehlt Fairnopoly eine sichere Bezahlmethode wie PayPal, die einen Käuferschutz beinhaltet, oder Barzahlung bei Abholung."
