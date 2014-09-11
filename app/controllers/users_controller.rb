@@ -20,6 +20,7 @@
 # along with Fairnopoly.  If not, see <http://www.gnu.org/licenses/>.
 #
 class UsersController < ApplicationController
+
   include NoticeHelper
   respond_to :html
   respond_to :pdf, only: :profile
