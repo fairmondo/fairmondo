@@ -2,6 +2,11 @@ de:
   cart:
     heading: "Dein Warenkorb"
     texts:
+      back_to_cart: "Zurück zur Bestellübersicht"
+      go_to_cart: "Zum Warenkorb"
+      contains_all_available_line_items: "Alle verfügbaren Artikel sind bereits im Warenkorb."
+      contains_line_item: "Artikel ist bereits im Warenkorb."
+      number_of_line_items: "Menge im Warenkorb: %{count}"
       total: Gesamtpreis
       without_transport: "(zuzüglich Versandkosten)"
       empty_cart: Dein Warenkorb ist leer.
