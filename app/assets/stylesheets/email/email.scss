@@ -44,7 +44,11 @@ hr {
 }
 
 .l-container {
-  max-width: 650px;
+  width: 650px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .l-header {

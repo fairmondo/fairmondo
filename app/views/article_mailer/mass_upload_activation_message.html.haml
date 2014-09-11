@@ -4,8 +4,7 @@
 %p
   = t('email.article.mass_activation.to_csv')
   = link_to @mass_upload.file_file_name, mass_upload_url(@mass_upload)
-%hr
-%p
+.pdf
   = link_to 'Unsere AGB', attachments['AGB'].url
   %br
   = link_to 'kostenloses PDF Anzeigeprogramm herunter laden', 'http://get.adobe.com/reader/otherversions/'
@@ -23,3 +22,6 @@
 = link_to t('email.facebook'), 'https://www.facebook.de/fairnopoly'
 %br
 = link_to t('email.buy_shares'), 'https://info.fairnopoly.de/anteile-zeichnen/'
+
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'

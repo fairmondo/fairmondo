@@ -21,11 +21,12 @@
 #
 class ArticleMailer < ActionMailer::Base
   include MailerHelper
-  before_filter :inline_logos, only: :contact
 
   default from: $email_addresses['default']
+  before_filter :inline_logos, except: :report_article
   before_filter :inline_terms_pdf, only: [:article_activation_message, :mass_upload_activation_message]
-  layout 'email', only: :contact
+  layout 'email', except: :report_article
+
 
   def report_article article, user, text
     @text = text
