@@ -1,5 +1,5 @@
 %h3
-  = t('email.greeting', name: @article.user.nickname)
+  = t('email.greeting', name: @article.seller_nickname)
 = t('email.article.activation.text')
 %p
   Hier kommst Du zu Deinem Artikel:
@@ -13,7 +13,7 @@
   = "Faires Prozent: "
   = humanized_money_with_symbol(@article.calculated_fair)
 
-%p
+.pdf
   = link_to 'Unsere AGB', attachments['AGB'].url
   %br
   = link_to 'kostenloses PDF Anzeigeprogramm herunter laden', 'http://get.adobe.com/reader/otherversions/'
@@ -23,12 +23,6 @@
   = t('email.article.activation.cancellation_heading')
 
 = simple_format(t('email.article.activation.cancellation_text'))
-%hr
 
-%h4
-  = t('email.imprint_heading')
-= simple_format(t('email.imprint'))
-%br
-= link_to t('email.facebook'), 'https://www.facebook.de/fairnopoly'
-%br
-= link_to t('email.buy_shares'), 'https://info.fairnopoly.de/anteile-zeichnen/'
+- content_for 'sidebar' do
+  = render 'shared/email/social_buttons'
