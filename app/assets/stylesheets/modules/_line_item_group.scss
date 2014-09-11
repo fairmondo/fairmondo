@@ -10,6 +10,10 @@
   font-size: 1.3em;
 }
 
+.Lineitemgroup .Lineitemgroup-actions {
+  .Button { display:inline-block; margin-bottom: 0.5em; font-size:0.9em; min-width: 11em;}
+}
+
 .Lineitemgroup-images {
   img { max-width: 8em; border-radius: 0.5em; }
 }
@@ -22,7 +26,7 @@
 
 @include between-breakpoints($bp-mobile-horizontal,$bp-tablet-horizontal) {
   .Lineitemgroup-images{clear:both;}
-  .Lineitemgroup-actions { @include span ( 2 of 4 0.1); @include omega; text-align: right;}
+  .Lineitemgroup-actions { @include span ( 2 of 4 0.1); @include omega; text-align: center;}
   .Lineitemgroup-text { @include span ( 2 of 4 0.1);  margin-bottom: 0.5em;  }
 }
 
@@ -31,5 +35,5 @@
   .Lineitemgroup-text { @include span ( 1 of 4 0.1); }
   .Lineitemgroup-images { @include span ( 2 of 4 0.1); }
   .Lineitemgroup-title {  margin-bottom: 0.5em; }
-  .Lineitemgroup-actions { @include span ( 1 of 4 0.1); @include omega; text-align: right; }
+  .Lineitemgroup-actions { @include span ( 1 of 4 0.1); @include omega; text-align: center; }
 }
