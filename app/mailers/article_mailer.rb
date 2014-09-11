@@ -21,10 +21,12 @@
 #
 class ArticleMailer < ActionMailer::Base
   include MailerHelper
-  before_filter :inline_logos, only: :contact
 
   default from: $email_addresses['default']
-  layout 'email', only: :contact
+  before_filter :inline_logos, except: :report_article
+  before_filter :inline_terms_pdf, only: [:article_activation_message, :mass_upload_activation_message]
+  layout 'email', except: :report_article
+
 
   def report_article article, user, text
     @text = text
@@ -34,14 +36,34 @@ class ArticleMailer < ActionMailer::Base
     mail(to: $email_addresses['ArticleMailer']['report'], from: mail, subject: "Article reported with ID: #{article.id}")
   end
 
-  def category_proposal category_proposal
-    mail(to: $email_addresses['ArticleMailer']['category_proposal'], subject: "Category proposal: #{category_proposal}")
-  end
-
   def contact from, to, text, article
     @text = text
     @article = article
     @from = from
     mail to: to, subject: I18n.t('article.show.contact.mail_subject')
   end
+
+  def article_activation_message article_id
+    @article = Article.find article_id
+    @user    = @article.user
+
+    mail(to: @user.email, subject: "[Fairnopoly] Du hast einen Artikel auf Fairnopoly eingestellt")
+  end
+
+  def mass_upload_activation_message mass_upload_id
+    @mass_upload = MassUpload.find mass_upload_id
+    @user = @mass_upload.user
+
+    mail(to: @user.email, subject: "[Fairnopoly] Du hast Deine per CSV-Datein eingestellten Artikel eingestellt")
+  end
+
+  private
+
+    # attaches terms pdf to emails
+    def inline_terms_pdf
+      attachments.inline['AGB'] = {
+        data: File.read(Rails.root.join('app/assets/docs/AGB_Fairnopoly_FINAL.pdf')),
+        mime_type: 'application/pdf'
+      }
+    end
 end

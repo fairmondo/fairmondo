@@ -251,7 +251,7 @@ feature 'Checkout' do
     transport_notices = page.all('.js-unified-transport--inversetarget')
     transport_notices.size.must_equal 3
     transport_notices[0..1].each do |notice|
-      notice.must_have_content(I18n.t('cart.texts.unified_transport_notice'))
+      notice.must_have_content(I18n.t('cart.texts.unified_transport_notice', price: '3,00 €'))
     end
     transport_notices[2].must_have_content(I18n.t('cart.texts.unified_transport_impossible'))
     page.check('cart_checkout_form_line_item_groups_1_tos_accepted')

@@ -2,15 +2,16 @@
   = t('email.cart.buyer.heading')
 = t('email.greeting', name: @cart.user.first_name)
 %p
-  = t('email.cart.buyer.text')
+  = simple_format t('email.cart.buyer.text')
+  %br
   = t('email.cart.buyer.visit_your_profile')
-  = link_to t('email.cart.buyer.user_profile'), user_path(@cart.user.id)
+  = link_to t('email.cart.buyer.user_profile'), user_url(@cart.user.id)
   = '.'
 - @cart.line_item_groups.find_each do |lig|
   .line-item-group
     %h3
       = t('email.cart.buyer.your_purchase')
-      = link_to lig.seller.nickname, profile_user_path(lig.seller.id)
+      = link_to lig.seller.nickname, profile_user_url(lig.seller.id)
     - lig.business_transactions.find_each do |bt|
       = render 'article', bt: bt
     - unless lig.message.empty?
@@ -21,10 +22,12 @@
     .pdf
       %center
         = link_to "AGB und Widerrufserklärung von #{lig.seller_nickname}", attachments["#{ lig.seller_nickname }_agb_und_widerrruf.pdf"].url
+        %br
+        = link_to 'Hier kostenloses PDF-Anzeigeprogramm herunterladen.', 'http://get.adobe.com/reader/otherversions/'
     = render 'total_price', lig: lig
 
     %center
-      = link_to t('email.cart.buyer.view_and_pay'), line_item_group_path(lig.id), class: 'Button'
+      = link_to t('email.cart.buyer.view_and_pay'), line_item_group_url(lig.id), class: 'Button'
 %hr
 %p
   %small

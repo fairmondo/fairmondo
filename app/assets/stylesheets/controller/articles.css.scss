@@ -227,12 +227,24 @@ ul.category-selected-list {
 }
 
 .contents > .info > .right > .details > .price {
-  margin: 0.5em 0;
+  margin: 0.5em 0 5px 0;
   font-size: 1.5rem;
 }
 
+.contents > .info > .right > .details > .price > .price-label {
+  font-size: 10px;
+  display: inline-block;
+  width: 85px;
+  float: right;
+}
+
+.contents > .info > .right > .details > .free-transport {
+  strong { font-weight: 600 }
+  margin-bottom: 5px;
+}
+
 .contents > .info > .right > .details > .transport {
-  ul { padding-left: 2em; }
+  ul { padding-left: 2em; margin: 0 0 5px 0 }
 }
 
 .buyer-controls {

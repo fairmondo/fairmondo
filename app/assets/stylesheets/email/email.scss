@@ -44,7 +44,11 @@ hr {
 }
 
 .l-container {
-  max-width: 650px;
+  width: 650px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .l-header {
@@ -253,15 +257,19 @@ hr {
   font-size: 0.8em;
 }
 
-.l-signature > .l-signature-left {
+.l-signature > .l-signature-header {
+  text-align: center;
+}
+
+.l-signature > .l-signature-body > .l-signature-left {
   @include span(1 of 3);
 }
 
-.l-signature > .l-signature-middle {
+.l-signature > .l-signature-body > .l-signature-middle {
   @include span(1 of 3);
 }
 
-.l-signature > .l-signature-right {
+.l-signature > .l-signature-body > .l-signature-right {
   @include span(1 of 3);
   @include omega;
 }

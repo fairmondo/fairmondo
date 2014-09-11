@@ -47,7 +47,8 @@ module ContainerHelper
     render layout: "gray_box_layout",
       locals: {
         heading: heading,
-        frame_class: options[:frame_class] || ""
+        frame_class: options[:frame_class] || "",
+        title_addition: options[:title_addition],
       }, &block
   end
 

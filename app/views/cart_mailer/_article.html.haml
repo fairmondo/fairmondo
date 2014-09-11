@@ -1,10 +1,10 @@
 .article
   .article-image
     - if attachments[bt.article_id.to_s]
-      = link_to image_tag(attachments[bt.article_id.to_s].url), article_path(bt.article_id)
+      = link_to image_tag(attachments[bt.article_id.to_s].url), article_url(bt.article_id)
   .article-info-container
     .article-title
-      = link_to truncate(bt.article_title), article_path(bt.article_id)
+      = link_to truncate(bt.article_title), article_url(bt.article_id)
     .article-quantity
       %h4
         Anzahl

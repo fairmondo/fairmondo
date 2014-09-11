@@ -1,16 +1,30 @@
 de:
   email:
     greeting: "Hallo %{name},"
+    close: 'Dein Fairnopoly Team'
     greeting_nickname: "Hallo %{nickname},"
     security_warning: "Sicherheitshinweis: Der Kaufvertrag kommt zwischen Dir und dem Anbieter zustande. Fairnopoly ist bekanntlich nur Plattformbetreiberin. Um Dich gegen Betrugsfälle zu schützen, empfiehlt Fairnopoly - insbesondere bei hochwertigen Artikeln und Käufen von Privatpersonen - Dir die Daten des Anbieters - z.B. durch Übersendung einer Kopie des Personalausweises - bestätigen zu lassen. In Einzelfällen kann es bspw. auch sinnvoll sein, Dir die Eigentümerstellung bzw. Nachweise der Echtheit (z.B. Software) oder Unversehrtheit (durch Fotos bei Gebrauchtartikeln) zusenden zu lassen."
     transport_address: 'Lieferadresse'
     payment_address: 'Rechungsadresse'
-
     social_button: "Wir bei %{network}"
+    imprint_heading: Impressum
+    imprint: |
+      Fairnopoly eG
+      Glogauer Str. 21
+      10999 Berlin
+      email@fairnopoly.de
 
+      Registergericht: Amtsgericht Berlin-Charlottenburg, GnR 738 B; USt-IdNr: DE 290376380
+      Vorstand: Felix Weth, Anna Kress, Bastian Neumann
+      Aufsichtsratsvorsitzender: Kim Stattaus
+
+      www.fairnopoly.de
+      dreh' das Spiel um
     header:
       support_button: 'Fairnopoly unterstützen'
 
+    facebook: Fairnopoly bei Facebook
+    buy_shares: 'Anteile zeichnen'
     footer:
       contact: 'Kontakt'
       registration_court: 'Registergericht'
@@ -22,7 +36,25 @@ de:
         text_end: 'gesandt:'
         reply_button: 'Anfrage beantworten'
         article_link_text: 'Den Artikel zu der Rückfrage findest Du unter '
+      activation:
+        text: 'Du hast erfolgreich einen Artikel auf Fairnopoly eingestellt.'
+        fees: 'Bei erfolgreichem Verkauf fallen folgende Gebühren an (inkl. 19% MwSt.):)'
+        cancellation_heading: 'Widerrufsbelehrung'
+        cancellation_text: |
+          Widerrufsrecht
 
+          Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+
+          Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Fairnopoly eG, Glogauer Str. 21, 10999 Berlin, Telefon: 030/91462560, Telefax: 030/89615845, E-Mail: kundenservice@fairnopoly.de) mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+
+          Folgen des Widerrufs
+
+          Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.
+
+          Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht.
+    mass_activation:
+        text: 'Du hast erfolgreich per CSV-Upload eingestellte Artikel aktiviert.'
+        to_csv: 'Hier kommst Du zu Deinem CSV-Upload: '
     cart:
       buyer:
         heading: 'Dein Einkauf auf Fairnopoly'

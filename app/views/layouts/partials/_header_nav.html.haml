@@ -26,9 +26,9 @@
 
   - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
     %li.JS-active-toggle--container
-      = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart, class: 'JS-active-toggle--trigger JS-active-toggle--target'
-      .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
-        %ul.l-header-cart-list
-          - current_cart.line_items.each do |line_item|
-            = render "layouts/partials/header_nav_cart_item", line_item: line_item
-          = link_to t('header.cart.button'), current_cart, class: 'Button'
+      = link_to t('header.cart.title', count: current_cart.line_item_count), current_cart#, class: 'JS-active-toggle--trigger JS-active-toggle--target'
+      -# .l-header-cart.l-header-nav-dropdown.JS-active-toggle--target
+      -#   %ul.l-header-cart-list
+      -#     - current_cart.line_items.each do |line_item|
+      -#       = render "layouts/partials/header_nav_cart_item", line_item: line_item
+      -#     = link_to t('header.cart.button'), current_cart, class: 'Button'

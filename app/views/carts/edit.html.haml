@@ -1,10 +1,11 @@
 = visual_checkout_steps :step1, @cart
 = semantic_form_for @cart_checkout_form, as: :cart_checkout_form,  url: cart_path(@cart), method: :put do |f|
   = semantic_relation_field_for f, :line_item_groups, @cart.line_item_groups do |group, group_fields|
+    - seller = group.seller
     - preview_abacus = PreviewAbacus.calculate group
     = gray_box line_item_group_title(group), frame_class: "js-unified-toggle-group" do
       = group_fields.inputs class: 'legal_inputs' do
-        = group_fields.input :tos_accepted, label: terms_and_cancellation_label_for(group.seller)
+        = group_fields.input :tos_accepted, label: terms_and_cancellation_label_for(seller)
         = group_fields.input :message, wrapper_html: {class: 'message-text'}
       = group_fields.inputs class: 'unified_inputs' do
         .unified_transport
@@ -41,7 +42,19 @@
                   - if unifiable
                     .js-unified-transport--inversetarget.transport_notice
                       - if unified
-                        = t('cart.texts.unified_transport_notice')
+                        = t('cart.texts.unified_transport_notice', price: money(preview_abacus.unified_transport))
+                        .transport_notice--details
+                          - if preview_abacus.free_transport
+                            = t('cart.texts.free_transport_notice', price: money(preview_abacus.free_transport_at_price))
+                          - else
+                            - if preview_abacus.number_of_shipments.to_i == 1
+                              = t('cart.texts.unified_transport_shipment')
+                            - else
+                              = t('cart.texts.unified_transport_shipments', shipments: preview_abacus.number_of_shipments)
+                              %br
+                              = t('cart.texts.unified_transport_price', price: money(preview_abacus.unified_transport_price))
+
+
                       - else
                         %span.unified_transport_impossible
                           = t('cart.texts.unified_transport_impossible')
