@@ -89,6 +89,30 @@ ul.category-selected-list {
   margin-bottom: 1em;
 }
 
+.to-cart {
+ margin-top: 1em;
+}
+
+#new_line_item {
+  max-width: 20em;
+  margin-bottom: 1em;
+}
+
+.cart-info { margin: 1.5em 0;  font-size: 0.7em; }
+
+#line_item_requested_quantity_input {
+  @include span(2 of 6 0.01);
+  padding:0;
+}
+
+#buy-button {
+  @include span(4 of 6 0.01);
+  @include omega;
+  float:left;
+  padding:0;
+  margin-top: 1.4em;
+}
+
 // layout
 
 @include between-breakpoints($bp-mobile-horizontal,$bp-tablet) {

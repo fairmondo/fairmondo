@@ -8,9 +8,10 @@
     %span.Lineitemgroup-date
       vom
       = line_item_group.sold_at.strftime('%d.%m.%Y %H:%M')
-  .Lineitemgroup-actions
+  .Lineitemgroup-actions>
     - if line_item_group.buyer == current_user
-      = link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button'
+      %span>= link_to t('line_item_group.texts.show_order_and_pay'), line_item_group_path(line_item_group), class: 'Button'
+      %span>= link_to t('line_item_group.texts.rate'),line_item_group_path(line_item_group, tab: 'rating'), class: 'Button'
     - else
       = link_to t('line_item_group.texts.show_order'), line_item_group_path(line_item_group), class: 'Button'
 

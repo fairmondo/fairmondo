@@ -1,0 +1,36 @@
+- if policy(resource).purchasable?
+  - if current_cart && current_cart.contains_all_available_line_items_for?(resource)
+    .cart-info
+      - if resource.quantity > 1
+        = t('cart.texts.contains_all_available_line_items')
+      - else
+        = t('cart.texts.contains_line_item')
+  - else
+    .cart-info
+      - if current_cart && (line_item = current_cart.line_item_for(resource)) && resource.quantity > 1
+        = t('cart.texts.number_of_line_items', count: line_item.requested_quantity)
+    = semantic_form_for LineItem.new do |f|
+      = f.inputs do
+        = f.input :article_id, as: :hidden, input_html: { value: resource.id }
+        - if resource.quantity > 1
+          = f.input :requested_quantity, input_html: { min: 1, max: resource.quantity_available, step: 1, value: default_value(:requested_quantity) || 1, class: 'JS-remote-validate-blur JS-enforce-input-constraints', data: { validation_params: "article_id=#{resource.id}", type: 'number' } }
+        %li#buy-button
+          = f.button class: "Button" do
+            = t('common.actions.to_cart')
+  - if current_cart && policy(current_cart).show?(cookies.signed[:cart]) && !current_cart.line_items.empty?
+    .to-cart
+      = link_to current_cart do
+        = t('cart.texts.go_to_cart')
+
+- elsif policy(resource).purchasable_later?
+  .Button.Button--disabled= t 'common.actions.to_cart'
+  %p
+    %strong= t 'users.states.vacationing'
+- if resource.active?
+  .control-links
+    - if resource.borrowable
+      = link_to t('common.actions.borrow'), '/faq#leih', class: 'Qtip', title: t('article.show.borrow'), onclick: 'return false'
+    - if resource.borrowable && resource.swappable
+      = '/'
+    - if resource.swappable
+      = link_to t('common.actions.swap'), '/faq#tausch', class: 'Qtip', title: t('article.show.swap'), onclick: 'return false'

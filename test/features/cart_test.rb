@@ -64,8 +64,7 @@ feature 'Adding an Article to the cart' do
     visit article_path(article)
     click_button I18n.t('common.actions.to_cart')
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
-    click_button I18n.t('common.actions.to_cart')
-    page.must_have_content I18n.t('line_item.notices.error_quantity')
+    page.wont_have_content I18n.t('common.actions.to_cart')
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 1
 
@@ -81,6 +80,19 @@ feature 'Adding an Article to the cart' do
     page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
     Cart.last.line_items.count.must_equal 1
     Cart.last.line_items.first.requested_quantity.must_equal 2
+  end
+
+  scenario 'logged-in user adds article that is available in quantity >= 2 twice to to his cart and requests more than available' do
+    article = FactoryGirl.create(:article, :with_larger_quantity)
+    login_as FactoryGirl.create(:user)
+    visit article_path(article)
+    click_button I18n.t('common.actions.to_cart')
+    page.html.must_include I18n.t('line_item.notices.success_create', href: '/carts/1').html_safe
+    fill_in 'line_item_requested_quantity', with: article.quantity
+    click_button I18n.t('common.actions.to_cart')
+    page.html.must_include I18n.t('line_item.notices.error_quantity')
+    Cart.last.line_items.count.must_equal 1
+    Cart.last.line_items.first.requested_quantity.must_equal 1
   end
 
 end
