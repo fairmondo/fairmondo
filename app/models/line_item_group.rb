@@ -17,7 +17,7 @@ class LineItemGroup < ActiveRecord::Base
   has_one :rating
 
   delegate :email, :bank_account_owner, :iban, :bic, :bank_name, :nickname,
-           :paypal_account, :free_transport_at_price,
+           :paypal_account, :free_transport_at_price, :free_transport_available,
            to: :seller, prefix: true
 
   delegate :email, :nickname,
