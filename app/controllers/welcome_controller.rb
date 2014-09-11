@@ -38,7 +38,7 @@ class WelcomeController < ApplicationController
     if user_signed_in?
       @last_hearted_libraries = current_user.hearted_libraries.
                                 published.no_admins.min_elem(2).
-                                includes(:user, library_elements: { article: [:images, :seller] }).
+                                includes(:user).
                                 where('users.id != ?', current_user.id).
                                 reorder('hearts.created_at DESC').limit(2)
     end

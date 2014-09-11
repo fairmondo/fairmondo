@@ -78,7 +78,7 @@
           = link_to(library.name, library_path(library))
           = " #{t('common.text.glue.from')} "
           = link_to(library.user_nickname, user_path(library.user))
-        - library.articles.reverse_order.limit(2).each do |article|
+        - library.articles.includes(:images, :seller).reverse_order.limit(2).each do |article|
           .teaser-queue
             = render 'articles/shared/show_article', article: article
 
