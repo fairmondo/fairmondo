@@ -13,7 +13,8 @@ class CartMailer < ActionMailer::Base
         filename = "#{ lig.seller_nickname }_agb_und_widerrruf.pdf"
         attachments.inline[filename] = {
           data: TermsAndCancellationPdf.new(lig).render,
-          mime_type: "application/pdf"
+          mime_type: "application/pdf",
+          encoding: "base64"
         }
       end
     end
@@ -48,7 +49,13 @@ class CartMailer < ActionMailer::Base
 
     def image_attachment_for business_transaction
       image = business_transaction.article.title_image
-      image ? { data: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }") } : nil
+      if image
+        attachment = {
+          data: File.read("#{ Rails.root }/#{ image.image.path(:thumb) }"),
+          mime_type: image.image.content_type
+        }
+        attachment
+      end
     end
 
 end
