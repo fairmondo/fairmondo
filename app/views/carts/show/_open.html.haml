@@ -17,7 +17,7 @@
                     %i.fa.fa-refresh
 
 
-              = button_to line_item_path(line_item.id), title: t('common.actions.destroy'), class: "Button Button--red", method: :delete, data: { confirm: t('common.actions.confirm') }, form_class: 'delete_line_item' do
+              = button_to line_item_path(line_item.id), title: t('common.actions.destroy'), class: "Button Button--red", method: :delete, form_class: 'delete_line_item' do
                 %i.fa.fa-times
               .line_item_total
                 = money cart_abacus.line_item_totals[line_item]
