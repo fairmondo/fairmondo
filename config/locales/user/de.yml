@@ -15,6 +15,7 @@ de:
     captcha:
       error: "Es ist ein Fehler mit dem Captcha Code aufgetreten. Den Captcha Code bitte erneut eingeben."
     legal: "Allgemeinen Geschäftsbedingungen"
+    legal_abbr: "AGB"
     legal_new: "Allgemeinen Geschäftsbedingungen."
     i_accept_both: "Ich bin über 18 Jahre alt und stimme den %{legal} und der %{privacy} zu."
     terms_new_info: "die Allgemeinen Geschäftsbedingungen und Datenschutzerklährung haben sich geändert. Diese müssen akzeptiert werden, bevor du weiter machen kannst."
