@@ -2,6 +2,7 @@ de:
   cart:
     heading: "Dein Warenkorb"
     texts:
+      before_checkout_helper: "Im nächsten Schritt kannst Du Deine Angaben zu Versand und Bezahlung ergänzen, bevor Du zahlungspflichtig bestellst."
       back_to_cart: "Zurück zur Bestellübersicht"
       go_to_cart: "Zum Warenkorb"
       contains_all_available_line_items: "Alle verfügbaren Artikel sind bereits im Warenkorb."
