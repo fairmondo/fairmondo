@@ -25,7 +25,7 @@
 
 %h1= t('common.actions.sign_up')
 = semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), builder: ::Fairtastic::FormBuilder,
-                    html: { id: 'registration_form'}) do |f|
+                    html: { id: 'registration_form' }) do |f|
   = f.semantic_errors
 
   = f.inputs do
@@ -39,7 +39,6 @@
     - privacy_link = link_to t('users.privacy'), "/privacy", target: "_blank", onclick: on_click_open_link_in_label('/privacy')
     -# f.input :agecheck, as: :boolean, required: true
     = f.input :legal, as: :boolean, required: true, label: t("users.i_accept_both", legal: legal_link, privacy: privacy_link).html_safe
-    %hr
     = f.input :newsletter, as: :boolean, tooltip: false
 
   = f.actions do

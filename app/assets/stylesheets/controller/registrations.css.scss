@@ -6,18 +6,20 @@
 #registration_form {
   margin-bottom: 1.5em;
 
-  #user_nickname {
-    width: 20em;
-  }
 
-  #user_email {
-    width: 25em;
+  #user_nickname, #user_email {
+    width: 22.5em;
   }
 
   #user_password {
     width: 15em;
   }
 
+
+  hr {
+    margin: 1em 0;
+    border: 1px solid $gray;
+  }
 
   // Responsive stuff
   @include at-breakpoint($bp-tablet) {
